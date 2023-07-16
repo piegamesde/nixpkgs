@@ -110,7 +110,8 @@ stdenv.mkDerivation rec {
       libPathNative = lib.makeLibraryPath packages;
       libPath64 = lib.makeSearchPathOutput "lib" "lib64" packages;
       libPath = "${libPathNative}:${libPath64}";
-    in ''
+    in
+    ''
       # patch executable
       patchelf \
         --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \

@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.rss2email;
-in {
+in
+{
 
   ###### interface
 
@@ -116,7 +117,8 @@ in {
             inherit (feed) url;
           } // lib.optionalAttrs (feed.to != null) { inherit (feed) to; }))
           cfg.feeds));
-      in {
+      in
+      {
         preStart = ''
           if [ ! -f /var/rss2email/db.json ]; then
             echo '{"version":2,"feeds":[]}' > /var/rss2email/db.json

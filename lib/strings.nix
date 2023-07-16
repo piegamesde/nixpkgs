@@ -10,7 +10,8 @@ let
 
   asciiTable = import ./ascii-table.nix;
 
-in rec {
+in
+rec {
 
   inherit (builtins)
     compareVersions
@@ -772,10 +773,12 @@ in rec {
     (let
       preLen = stringLength prefix;
       sLen = stringLength str;
-    in if substring 0 preLen str == prefix then
+    in
+    if substring 0 preLen str == prefix then
       substring preLen (sLen - preLen) str
     else
-      str)
+      str
+    )
     ;
 
     /* Return a string without the specified suffix, if the suffix matches.
@@ -805,10 +808,12 @@ in rec {
     (let
       sufLen = stringLength suffix;
       sLen = stringLength str;
-    in if sufLen <= sLen && suffix == substring (sLen - sufLen) sufLen str then
+    in
+    if sufLen <= sLen && suffix == substring (sLen - sufLen) sufLen str then
       substring 0 (sLen - sufLen) str
     else
-      str)
+      str
+    )
     ;
 
     /* Return true if string v1 denotes a version older than v2.
@@ -853,7 +858,8 @@ in rec {
     x:
     let
       parse = drv: (parseDrvName drv).name;
-    in if isString x then
+    in
+    if isString x then
       parse x
     else
       x.pname or (parse x.name)
@@ -873,7 +879,8 @@ in rec {
     x:
     let
       parse = drv: (parseDrvName drv).version;
-    in if isString x then
+    in
+    if isString x then
       parse x
     else
       x.version or (parse x.name)
@@ -1187,7 +1194,8 @@ in rec {
         + " between octal and zero padded integer.";
 
       # Error on presence of non digit characters.
-    in if strippedInput == null then
+    in
+    if strippedInput == null then
       throw generalError
       # Error on presence of leading zero/octal ambiguity.
     else if isLeadingZero then
@@ -1238,7 +1246,8 @@ in rec {
         "toIntBase10: Could not convert ${escapeNixString str} to int.";
 
       # Error on presence of non digit characters.
-    in if strippedInput == null then
+    in
+    if strippedInput == null then
       throw generalError
       # In the special case zero-padded zero (00000), return early.
     else if isZero then
@@ -1372,7 +1381,8 @@ in rec {
             else
               1
             ;
-        in if j == 0 then
+        in
+        if j == 0 then
           i
         else if i == 0 then
           j
@@ -1474,7 +1484,8 @@ in rec {
           # A length difference of 2 can only be gotten with 2 delete edits,
           # which have to have happened at the start and end of x
           # Example: "abcdef" -> "bcde"
-        in if diff == 2 then
+        in
+        if diff == 2 then
           xinfix == y
           # A length difference of 1 can only be gotten with a deletion on the
           # right and a replacement on the left or vice versa.
@@ -1506,7 +1517,8 @@ in rec {
             ainfix = substring prelen (alen - presuflen) a;
             binfix = substring prelen (blen - presuflen) b;
             # Make a be the bigger string
-          in if alen < blen then
+          in
+          if alen < blen then
             f b a
             # If a has over k more characters than b, even with k deletes on a, b can't be reached
           else if alen - blen > k then

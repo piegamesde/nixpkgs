@@ -11,7 +11,8 @@ let
 
   inInitrd = any (fs: fs == "vfat") config.boot.initrd.supportedFilesystems;
 
-in {
+in
+{
   config = mkIf (any (fs: fs == "vfat") config.boot.supportedFilesystems) {
 
     system.fsPackages = [

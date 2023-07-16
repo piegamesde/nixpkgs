@@ -81,7 +81,8 @@ let
       };
     }
     ;
-in {
+in
+{
   wt3 = generic {
     version = "3.7.1";
     sha256 = "19gf5lbrc5shpvcdyzjh20k8zdj4cybxqvkhwqfl9rvhw89qr11k";

@@ -37,7 +37,8 @@ let
         in
         f v c
         ;
-    in {
+    in
+    {
       # Prefix operators
       "==" = dropWildcardPrecision (mkComparison 0);
       ">" = dropWildcardPrecision (mkComparison 1);
@@ -112,11 +113,11 @@ let
     version: constraint:
     let
       inherit (parseConstraint constraint) op v;
-    in if constraint == "*" then
+    in
+    if constraint == "*" then
       true
     else
       operators."${op}" version v
     ;
-in {
-  inherit satisfiesSemver;
-}
+in
+{ inherit satisfiesSemver; }

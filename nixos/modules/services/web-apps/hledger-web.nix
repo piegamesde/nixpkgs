@@ -7,7 +7,8 @@
 with lib;
 let
   cfg = config.services.hledger-web;
-in {
+in
+{
   options.services.hledger-web = {
 
     enable = mkEnableOption (lib.mdDoc "hledger-web service");
@@ -122,7 +123,8 @@ in {
             (optionalString (cfg.serveApi) "--serve-api")
           ] ++ (map (f: "--file=${stateDir}/${f}") cfg.journalFiles)
             ++ extraOptions);
-      in {
+      in
+      {
         description = "hledger-web - web-app for the hledger accounting tool.";
         documentation = [ "https://hledger.org/hledger-web.html" ];
         wantedBy = [ "multi-user.target" ];

@@ -21,7 +21,8 @@ let
 
   opengl = config.hardware.opengl;
 
-in {
+in
+{
 
   config = mkIf enabled {
 

@@ -39,7 +39,8 @@ let
       Enabled = c.enabled;
     })
     ;
-in {
+in
+{
   options.services.archisteamfarm = {
     enable = mkOption {
       type = types.bool;
@@ -238,7 +239,8 @@ in {
               done
             '';
             replaceSecretBin = "${pkgs.replace-secret}/bin/replace-secret";
-          in ''
+          in
+          ''
             mkdir -p config
 
             cp --no-preserve=mode ${asf-config} config/ASF.json

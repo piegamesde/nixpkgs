@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.xserver.windowManager.mlvwm;
 
-in {
+in
+{
 
   options.services.xserver.windowManager.mlvwm = {
     enable = mkEnableOption (lib.mdDoc "Macintosh-like Virtual Window Manager");

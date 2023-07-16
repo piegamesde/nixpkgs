@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.sonarr;
-in {
+in
+{
   options = {
     services.sonarr = {
       enable = mkEnableOption (lib.mdDoc "Sonarr");

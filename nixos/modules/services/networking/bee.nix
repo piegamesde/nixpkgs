@@ -10,7 +10,8 @@ let
   cfg = config.services.bee;
   format = pkgs.formats.yaml { };
   configFile = format.generate "bee.yaml" cfg.settings;
-in {
+in
+{
   meta = {
     # doc = ./bee.xml;
     maintainers = with maintainers; [ attila-lendvai ];

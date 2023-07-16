@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.prometheus.exporters.systemd;
 
-in {
+in
+{
   port = 9558;
 
   serviceOpts = {

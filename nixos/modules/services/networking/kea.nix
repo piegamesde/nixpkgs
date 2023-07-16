@@ -38,7 +38,8 @@ let
     });
 
   package = pkgs.kea;
-in {
+in
+{
   options.services.kea = with types; {
     ctrl-agent = mkOption {
       description = lib.mdDoc ''

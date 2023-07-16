@@ -86,7 +86,8 @@ rustPlatform.buildRustPackage rec {
         Version : 1.0
         Status : is installed
       '';
-    in ''
+    in
+    ''
       export VCPKG_ROOT="$TMP/vcpkg";
 
       mkdir -p $VCPKG_ROOT/.vcpkg-root

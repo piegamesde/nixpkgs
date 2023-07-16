@@ -7,7 +7,8 @@
 let
   kernel = config.boot.kernelPackages;
 
-in {
+in
+{
 
   ###### interface
 

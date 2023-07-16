@@ -31,7 +31,8 @@ let
     };
   };
   inherit (builtins) elem isAttrs isString isInt isList typeOf hashString;
-in {
+in
+{
   options.services.parsedmarc = {
 
     enable = lib.mkEnableOption (lib.mdDoc ''
@@ -548,7 +549,8 @@ in {
           ;
         secretReplacements =
           lib.concatMapStrings mkSecretReplacement secretPaths;
-      in {
+      in
+      {
         wantedBy = [ "multi-user.target" ];
         after = [
           "postfix.service"

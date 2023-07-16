@@ -78,7 +78,8 @@ let
       } ];
     }
     ;
-in {
+in
+{
   port = 7980;
   extraOpts = {
     extraLabels = mkOption {

@@ -96,7 +96,8 @@ stdenv.mkDerivation rec {
       let
         free-license = joypixels-free-license;
         appendix = joypixels-license-appendix;
-      in with systemSpecific; {
+      in
+      with systemSpecific; {
         spdxId = "LicenseRef-JoyPixels-Free-6.0-with-${capitalized}-Appendix";
         fullName = "${free-license.fullName} with ${appendix.fullName}";
         url = free-license.url;

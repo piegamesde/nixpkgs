@@ -30,7 +30,8 @@ buildGoModule rec {
   ldflags =
     let
       t = "github.com/containerd/nerdctl/pkg/version";
-    in [
+    in
+    [
       "-s"
       "-w"
       "-X ${t}.Version=v${version}"

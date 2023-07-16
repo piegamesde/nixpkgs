@@ -115,7 +115,8 @@ mkDerivation rec {
         sip
         setuptools
       ]);
-    in ''
+    in
+    ''
       substituteInPlace cmake/modules/FindSIP.cmake \
         --replace 'PYTHONPATH=''${_sip_python_path}' 'PYTHONPATH=${pythonPath}'
       substituteInPlace cmake/modules/SIPMacros.cmake \

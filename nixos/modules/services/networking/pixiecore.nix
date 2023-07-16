@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.pixiecore;
-in {
+in
+{
   meta.maintainers = with maintainers; [
     bbigras
     danderson
@@ -176,7 +177,8 @@ in {
                   cfg.apiServer
                 ]
               ;
-          in ''
+          in
+          ''
             ${pkgs.pixiecore}/bin/pixiecore \
               ${lib.escapeShellArgs argString} \
               ${optionalString cfg.debug "--debug"} \

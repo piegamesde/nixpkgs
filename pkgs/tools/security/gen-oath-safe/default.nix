@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
         qrencode
         yubikey-manager
       ];
-    in ''
+    in
+    ''
       mkdir -p $out/bin
       cp gen-oath-safe $out/bin/
       wrapProgram $out/bin/gen-oath-safe \

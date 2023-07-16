@@ -23,7 +23,8 @@ buildGoModule rec {
   ldflags =
     let
       t = "github.com/GoogleContainerTools/skaffold/v2/pkg/skaffold";
-    in [
+    in
+    [
       "-s"
       "-w"
       "-X ${t}/version.version=v${version}"

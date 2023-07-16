@@ -7,7 +7,8 @@
 }:
 let
   imcfg = config.i18n.inputMethod;
-in {
+in
+{
   imports = [
       (lib.mkRemovedOptionModule [
         "i18n"

@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
         CYPRESS_INSTALL_BINARY = "0";
 
       });
-    in ''
+    in
+    ''
       runHook preBuild
 
       export PATH="${nodeDependencies}/bin:${nodejs}/bin:$PATH"

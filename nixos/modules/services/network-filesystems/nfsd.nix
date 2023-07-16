@@ -13,7 +13,8 @@ let
 
   exports = pkgs.writeText "exports" cfg.exports;
 
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "services"

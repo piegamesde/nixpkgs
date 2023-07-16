@@ -44,7 +44,8 @@ rustPlatform.buildRustPackage {
       major = lib.versions.major llvmPackages_13.llvm.version;
       minor = lib.versions.minor llvmPackages_13.llvm.version;
       llvm-sys-ver = "${major}${builtins.substring 0 1 minor}";
-    in ''
+    in
+    ''
       # On some architectures llvm-sys is not using the package listed inside nativeBuildInputs
       export LLVM_SYS_${llvm-sys-ver}_PREFIX=${llvmPackages_13.llvm.dev}
       export ANTE_STDLIB_DIR=$out/lib

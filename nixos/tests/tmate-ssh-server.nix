@@ -21,7 +21,8 @@ import ./make-test-python.nix ({
     sshOpts =
       "-oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -oIdentityFile=/root/.ssh/id_snakeoil";
 
-  in {
+  in
+  {
     name = "tmate-ssh-server";
     nodes = {
       server =
@@ -86,4 +87,5 @@ import ./make-test-python.nix ({
 
       client.wait_for_file("/tmp/client_2")
     '';
-  } )
+  }
+)

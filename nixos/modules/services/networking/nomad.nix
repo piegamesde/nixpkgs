@@ -8,7 +8,8 @@ with lib;
 let
   cfg = config.services.nomad;
   format = pkgs.formats.json { };
-in {
+in
+{
   ##### interface
   options = {
     services.nomad = {

@@ -19,7 +19,8 @@ let
     ${cfg.extraConfig}
   '';
   enableIwd = cfg.wifi.backend == "iwd";
-in {
+in
+{
 
   imports = [
       (mkRenamedOptionModule [

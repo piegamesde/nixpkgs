@@ -15,7 +15,8 @@ let
   cfg = config.services.headphones;
   opt = options.services.headphones;
 
-in {
+in
+{
 
   ###### interface
 

@@ -145,7 +145,8 @@ stdenv.mkDerivation rec {
         (placeholder "out")
         gobject-introspection
       ];
-    in ''
+    in
+    ''
       for test in $installedTests/libexec/installed-tests/libostree/*.js; do
         wrapProgram "$test" --prefix GI_TYPELIB_PATH : "${typelibPath}"
       done

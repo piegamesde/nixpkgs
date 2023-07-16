@@ -80,7 +80,8 @@ let
     inherit (pkgs) runtimeShell;
   };
 
-in {
+in
+{
 
   options.system.nixos-generate-config = {
     configuration = mkOption {

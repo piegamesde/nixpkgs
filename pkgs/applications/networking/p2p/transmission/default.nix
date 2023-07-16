@@ -73,7 +73,8 @@ stdenv.mkDerivation {
         else
           "OFF"
         ;
-    in [
+    in
+    [
       "-DENABLE_MAC=OFF" # requires xcodebuild
       "-DENABLE_GTK=${mkFlag enableGTK3}"
       "-DENABLE_QT=${mkFlag enableQt}"

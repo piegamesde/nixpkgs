@@ -35,7 +35,8 @@ buildGoModule rec {
   preCheck =
     let
       skippedTests = [ "TestDialogs" ];
-    in ''
+    in
+    ''
       export USER=$(whoami)
       export HOME=/home/$USER
 

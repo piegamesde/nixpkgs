@@ -20,7 +20,8 @@ let
   watchDir = "watchdir";
   settingsFormat = pkgs.formats.json { };
   settingsFile = settingsFormat.generate "settings.json" cfg.settings;
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "services"

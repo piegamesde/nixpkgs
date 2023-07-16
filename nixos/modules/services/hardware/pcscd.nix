@@ -22,7 +22,8 @@ let
     paths = map (p: "${p}/pcsc/drivers") config.services.pcscd.plugins;
   };
 
-in {
+in
+{
 
   ###### interface
 

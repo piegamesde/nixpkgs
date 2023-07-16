@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.grafana_reporter;
 
-in {
+in
+{
   options.services.grafana_reporter = {
     enable = mkEnableOption (lib.mdDoc "grafana_reporter");
 
@@ -69,9 +70,8 @@ in {
             "-port :${toString cfg.port}"
             "-templates ${cfg.templateDir}"
           ];
-        in {
-          ExecStart = "${pkgs.grafana_reporter}/bin/grafana-reporter ${args}";
-        }
+        in
+        { ExecStart = "${pkgs.grafana_reporter}/bin/grafana-reporter ${args}"; }
         ;
     };
   };

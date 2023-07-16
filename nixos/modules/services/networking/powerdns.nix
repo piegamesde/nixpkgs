@@ -16,7 +16,8 @@ let
     else
       "/run/pdns"
     ;
-in {
+in
+{
   options = {
     services.powerdns = {
       enable = mkEnableOption (lib.mdDoc "PowerDNS domain name server");

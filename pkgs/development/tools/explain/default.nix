@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
           hash = hash;
         }
         ;
-    in [
+    in
+    [
       (debian-patch "sanitize-bison.patch"
         "sha256-gU6JG32j2yIOwehZTUSvIr4TSDdlg+p1U3bhfZHMEDY=")
       (debian-patch "03_fsflags-4.5.patch"

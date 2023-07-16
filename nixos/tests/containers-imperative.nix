@@ -39,7 +39,8 @@ import ./make-test-python.nix ({
                 containers.foo.config = { system.stateVersion = "18.03"; };
               };
             };
-          in with pkgs; [
+          in
+          with pkgs; [
             stdenv
             stdenvNoCC
             emptyContainer.config.containers.foo.path
@@ -77,7 +78,8 @@ import ./make-test-python.nix ({
             ];
           }
         '';
-      in ''
+      in
+      ''
         with subtest("Make sure we have a NixOS tree (required by ‘nixos-container create’)"):
             machine.succeed("PAGER=cat nix-env -qa -A nixos.hello >&2")
 

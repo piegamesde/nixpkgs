@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.snapraid;
-in {
+in
+{
   options.snapraid = with types; {
     enable = mkEnableOption (lib.mdDoc "SnapRAID");
     dataDisks = mkOption {

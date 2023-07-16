@@ -38,7 +38,8 @@ let
   ];
   runtimeLibraryPath = lib.makeLibraryPath runtimeDependencies;
 
-in let
+in
+let
   result = stdenv.mkDerivation rec {
     pname =
       if sourcePerArch.packageType == "jdk" then

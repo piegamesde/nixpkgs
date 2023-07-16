@@ -19,7 +19,8 @@ import ./make-test-python.nix ({
           c.set('key', 'value')
           assert 'value' == c.get('key')
         '';
-      in ''
+      in
+      ''
         machine.start()
         machine.wait_for_unit("memcached.service")
         machine.wait_for_open_port(11211)

@@ -470,7 +470,8 @@ let
           ''}
         '';
 
-    in ''
+    in
+    ''
       ${optionalString vhost.forceSSL ''
         server {
           ${concatMapStringsSep "\n" listenString redirectListen}
@@ -553,7 +554,8 @@ let
 
         ${vhost.extraConfig}
       }
-    '' ) virtualHosts);
+    ''
+  ) virtualHosts);
   mkLocations =
     locations:
     concatStringsSep "\n" (map (config: ''
@@ -612,10 +614,12 @@ let
         else
           mkHtpasswd name zone.basicAuth
         ;
-    in ''
+    in
+    ''
       auth_basic secured;
       auth_basic_user_file ${auth_file};
-    '' )
+    ''
+    )
     ;
   mkHtpasswd =
     name: authDef:
@@ -628,7 +632,8 @@ let
   mkCertOwnershipAssertion =
     import ../../../security/acme/mk-cert-ownership-assertion.nix;
 
-in {
+in
+{
   options = {
     services.nginx = {
       enable = mkEnableOption (lib.mdDoc "Nginx Web Server");

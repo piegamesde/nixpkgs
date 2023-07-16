@@ -187,7 +187,8 @@ let
       runHook postInstall
     '';
   };
-in if stdenv.isDarwin then
+in
+if stdenv.isDarwin then
   darwin
 else
   linux

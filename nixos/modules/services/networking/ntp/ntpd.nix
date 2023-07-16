@@ -37,7 +37,8 @@ let
     "ntp:ntp"
   ] ++ cfg.extraFlags;
 
-in {
+in
+{
 
   ###### interface
 

@@ -105,7 +105,8 @@ let
           bootBintools
         ;
 
-    in {
+    in
+    {
 
       libllvm = callPackage ./llvm { inherit llvm_meta; };
 
@@ -247,14 +248,16 @@ let
         extraBuildCommands = mkExtraBuildCommands0 cc;
       };
 
-    } );
+    }
+  );
 
   libraries = lib.makeExtensible (libraries:
     let
       callPackage = newScope (libraries // buildLlvmTools // {
         inherit stdenv cmake libxml2 python3 isl release_version version fetch;
       });
-    in {
+    in
+    {
 
       compiler-rt-libc = callPackage ./compiler-rt {
         inherit llvm_meta;
@@ -319,7 +322,8 @@ let
       };
 
       openmp = callPackage ./openmp { inherit llvm_meta targetLlvm; };
-    } );
+    }
+  );
 
 in
 { inherit tools libraries release_version; } // libraries // tools

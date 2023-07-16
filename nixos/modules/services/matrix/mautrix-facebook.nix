@@ -15,7 +15,8 @@ let
 
   puppetRegex = concatStringsSep ".*" (map escapeRegex
     (splitString "{userid}" cfg.settings.bridge.username_template));
-in {
+in
+{
   options = {
     services.mautrix-facebook = {
       enable = mkEnableOption (lib.mdDoc

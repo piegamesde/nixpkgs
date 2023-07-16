@@ -29,7 +29,8 @@ buildGoModule rec {
             exit 1
         fi
       '';
-    in [
+    in
+    [
       fakeGit
       mage
     ]

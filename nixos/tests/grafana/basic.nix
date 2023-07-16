@@ -93,7 +93,8 @@ import ../make-test-python.nix ({
         val
         baseGrafanaConf
       ]) extraNodeConfs;
-  in {
+  in
+  {
     name = "grafana-basic";
 
     meta = with maintainers; { maintainers = [ willibutz ]; };
@@ -153,4 +154,5 @@ import ../make-test-python.nix ({
           )
           mysql.shutdown()
     '';
-  } )
+  }
+)

@@ -23,7 +23,8 @@ let
   staticNodesFile =
     pkgs.writeText "static-nodes.json" (builtins.toJSON cfg.staticNodes);
 
-in {
+in
+{
   options = {
 
     services.quorum = {

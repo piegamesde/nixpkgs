@@ -5,7 +5,8 @@
 
 let
   mkBitscope = callPackage (import ./common.nix) { };
-in {
+in
+{
   chart =
     let
       toolName = "bitscope-chart";

@@ -116,7 +116,8 @@ let
     } // extraAttrs)
     ;
 
-in {
+in
+{
   # tests for hooks in `stdenv.defaultNativeBuildInputs`
   hooks = lib.recurseIntoAttrs (import ./hooks.nix {
     stdenv = bootStdenv;

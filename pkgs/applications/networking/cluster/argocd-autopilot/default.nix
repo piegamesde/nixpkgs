@@ -23,7 +23,8 @@ buildGoModule rec {
   ldflags =
     let
       package_url = "github.com/argoproj-labs/argocd-autopilot/pkg/store";
-    in [
+    in
+    [
       "-s"
       "-w"
       "-X ${package_url}.binaryName=${pname}"

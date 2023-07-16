@@ -69,7 +69,8 @@ let
         ]) etc'}
     '';
 
-in {
+in
+{
 
   imports = [ ../build.nix ];
 

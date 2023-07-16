@@ -57,7 +57,8 @@ stdenv.mkDerivation rec {
         ''
         ;
 
-    in ''
+    in
+    ''
       sed -i -e '/GWEN_PathManager_DefinePath.*GWEN_PM_PLUGINDIR/,/^#endif/ {
         /^#if/,/^#endif/ {
           H; /^#endif/ {

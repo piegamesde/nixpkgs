@@ -53,7 +53,8 @@ let
       enable-reflector=${yesNo reflector}
       ${extraConfig}
     '';
-in {
+in
+{
   imports = [
       (lib.mkRenamedOptionModule [
         "services"

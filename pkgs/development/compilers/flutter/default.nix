@@ -71,7 +71,8 @@ let
 
   flutter2Patches = getPatches ./patches/flutter2;
   flutter3Patches = getPatches ./patches/flutter3;
-in {
+in
+{
   inherit wrapFlutter;
   stable = mkFlutter {
     version = "3.7.12";

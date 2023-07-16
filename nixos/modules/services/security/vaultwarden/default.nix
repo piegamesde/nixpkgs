@@ -22,7 +22,8 @@ let
         foldl' (key: x:
           let
             last = stringLength key - 1;
-          in if isList x then
+          in
+          if isList x then
             key + optionalString (key != "" && substring last 1 key != "_") "_"
             + head x
           else if
@@ -32,9 +33,11 @@ let
             + optionalString (substring (last - 1) 1 key != "_") "_"
             + substring last 1 key + toUpper x
           else
-            key + toUpper x) "" parts
+            key + toUpper x
+        ) "" parts
         ;
-    in if builtins.match "[A-Z0-9_]+" name != null then
+    in
+    if builtins.match "[A-Z0-9_]+" name != null then
       name
     else
       partsToEnvVar parts
@@ -69,7 +72,8 @@ let
 
   vaultwarden = cfg.package.override { inherit (cfg) dbBackend; };
 
-in {
+in
+{
   imports = [
       (mkRenamedOptionModule [
         "services"

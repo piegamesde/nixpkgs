@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.torque.server;
   torque = pkgs.torque;
-in {
+in
+{
   options = {
 
     services.torque.server = {

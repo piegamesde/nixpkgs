@@ -70,7 +70,8 @@ let
     ${lib.concatStringsSep "\n" missingGithubIds}
     exit 1
   '';
-in if missingGithubIds == [ ] then
+in
+if missingGithubIds == [ ] then
   success
 else
   failure

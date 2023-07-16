@@ -32,7 +32,8 @@ let
 
   isPathType = x: lib.types.path.check x;
 
-in {
+in
+{
   options.services.self-deploy = {
     enable = lib.mkEnableOption (lib.mdDoc "self-deploy");
 

@@ -16,7 +16,8 @@ let
     lib.concatMapStringsSep ":" (plugin: "${plugin}/lib/ofono/plugins")
     cfg.plugins;
 
-in {
+in
+{
   ###### interface
   options = {
     services.ofono = {

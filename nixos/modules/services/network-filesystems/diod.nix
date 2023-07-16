@@ -30,7 +30,8 @@ let
     userdb = ${diodBool cfg.userdb}
     ${cfg.extraConfig}
   '';
-in {
+in
+{
   options = {
     services.diod = {
       enable = mkOption {

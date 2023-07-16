@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
         gnugrep
         procps
       ];
-    in ''
+    in
+    ''
       wrapProgram $out/bin/tdrop --prefix PATH : ${binPath}
     ''
     ;

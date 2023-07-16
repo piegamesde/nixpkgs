@@ -20,7 +20,8 @@ buildGoModule rec {
   ldflags =
     let
       pkgSrc = "github.com/yggdrasil-network/yggdrasil-go/src/version";
-    in [
+    in
+    [
       "-s"
       "-w"
       "-X=${pkgSrc}.buildName=yggdrasil"

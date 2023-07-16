@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
           inherit name sha256;
         }
         ;
-    in [
+    in
+    [
       (fetchAlpinePatch "fix-includes.patch"
         "0zpkbb6k366qpq4dax5wknwprhwnhighcp402mlm7950d39zfa3m")
       (fetchAlpinePatch "netsnmp-swinst-crash.patch"

@@ -13,7 +13,8 @@ import ./make-test-python.nix ({
       }:
       let
         user = nodes.client.config.users.users.alice;
-      in {
+      in
+      {
         imports = [
           ./common/user-account.nix
           ./common/x11.nix
@@ -32,7 +33,8 @@ import ./make-test-python.nix ({
       }:
       let
         user = nodes.client.config.users.users.alice;
-      in ''
+      in
+      ''
         client.wait_for_x()
         client.succeed("su - alice -c ${pkgs.libuiohook.test}/share/uiohook_tests >&2 &")
       ''

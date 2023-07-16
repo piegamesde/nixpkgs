@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.dovecot;
-in {
+in
+{
   port = 9166;
   extraOpts = {
     telemetryPath = mkOption {

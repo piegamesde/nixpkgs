@@ -19,7 +19,8 @@ let
       extraGSettingsOverrides = cfg.extraGSettingsOverrides;
     };
 
-in {
+in
+{
 
   meta = {
     doc = ./pantheon.md;

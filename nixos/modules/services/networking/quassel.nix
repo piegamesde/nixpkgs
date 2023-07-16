@@ -19,7 +19,8 @@ let
       "quassel"
     ;
 
-in {
+in
+{
 
   ###### interface
 

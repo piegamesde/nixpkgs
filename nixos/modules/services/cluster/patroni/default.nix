@@ -16,7 +16,8 @@ let
 
   configFileName = "patroni-${cfg.scope}-${cfg.name}.yaml";
   configFile = format.generate configFileName cfg.settings;
-in {
+in
+{
   options.services.patroni = {
 
     enable = mkEnableOption (lib.mdDoc "Patroni");

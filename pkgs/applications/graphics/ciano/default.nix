@@ -56,7 +56,8 @@ stdenv.mkDerivation rec {
         ffmpeg
         imagemagick
       ];
-    in ''
+    in
+    ''
       wrapProgram $out/bin/com.github.robertsanseries.ciano \
          --prefix PATH : ${binPath} "''${gappsWrapperArgs[@]}"
       ln -s $out/bin/com.github.robertsanseries.ciano $out/bin/ciano

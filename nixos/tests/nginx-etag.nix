@@ -75,7 +75,8 @@ import ./make-test-python.nix {
               driver.find_element('xpath', '//div[@foo="yay"]')
               open('/tmp/passed', 'w')
             '';
-          in [
+          in
+          [
             pkgs.firefox-unwrapped
             pkgs.geckodriver
             testRunner
@@ -93,7 +94,8 @@ import ./make-test-python.nix {
     let
       inherit (nodes.server.config.system.build) toplevel;
       newSystem = "${toplevel}/specialisation/pass-checks";
-    in ''
+    in
+    ''
       start_all()
 
       server.wait_for_unit("nginx.service")

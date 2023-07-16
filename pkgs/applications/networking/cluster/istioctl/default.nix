@@ -28,7 +28,8 @@ buildGoModule rec {
         "istio.io/pkg/version.buildTag=${version}"
         "istio.io/pkg/version.buildHub=docker.io/istio"
       ];
-    in [
+    in
+    [
       "-s"
       "-w"
       "${lib.concatMapStringsSep " " (attr: "-X ${attr}") attrs}"

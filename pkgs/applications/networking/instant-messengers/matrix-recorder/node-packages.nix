@@ -1512,7 +1512,8 @@ let
     bypassCache = true;
     reconstructLock = true;
   };
-in {
+in
+{
   tarball = nodeEnv.buildNodeSourceDist args;
   package = nodeEnv.buildNodePackage args;
   shell = nodeEnv.buildNodeShell args;

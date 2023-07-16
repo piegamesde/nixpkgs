@@ -64,7 +64,8 @@ let
           nodejs
           bash
         ];
-      in ''
+      in
+      ''
         mkdir -p $out/{bin,libexec,share/doc/epgstation,share/man/man1}
 
         pushd $out/lib/node_modules/epgstation

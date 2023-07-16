@@ -58,7 +58,8 @@ let
     }
     ;
 
-in let
+in
+let
   self = {
     akamai-token-validate = {
       name = "akamai-token-validate";
@@ -401,7 +402,8 @@ in let
               "https://github.com/openresty/lua-nginx-module/commit/b6d167cf1a93c0c885c28db5a439f2404874cb26.patch";
             sha256 = "sha256-l7GHFNZXg+RG2SIBjYJO1JHdGUtthWnzLIqEORJUNr4=";
           };
-        in ''
+        in
+        ''
           export LUAJIT_LIB="${luajit}/lib"
           export LUAJIT_INC="$(realpath ${luajit}/include/luajit-*)"
 

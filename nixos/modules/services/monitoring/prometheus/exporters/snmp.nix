@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.snmp;
-in {
+in
+{
   port = 9116;
   extraOpts = {
     configurationPath = mkOption {
@@ -68,7 +69,8 @@ in {
           "${pkgs.writeText "snmp-exporter-conf.yml"
           (builtins.toJSON cfg.configuration)}"
         ;
-    in {
+    in
+    {
       serviceConfig = {
         ExecStart = ''
           ${pkgs.prometheus-snmp-exporter}/bin/snmp_exporter \

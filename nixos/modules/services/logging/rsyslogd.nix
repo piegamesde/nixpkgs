@@ -32,7 +32,8 @@ let
     *.*;mail.none;local1.none    -/var/log/messages
   '';
 
-in {
+in
+{
   ###### interface
 
   options = {

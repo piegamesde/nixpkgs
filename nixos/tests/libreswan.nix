@@ -60,7 +60,8 @@ import ./make-test-python.nix ({
       }
       ;
 
-  in {
+  in
+  {
     name = "libreswan";
     meta = with lib.maintainers; {
       maintainers = [ rnhmjoj ];
@@ -164,4 +165,5 @@ import ./make-test-python.nix ({
           eve.sleep(1)
           eve.fail("grep rhubarb /tmp/log")
     '';
-  } )
+  }
+)

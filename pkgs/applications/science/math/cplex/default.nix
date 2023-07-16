@@ -71,7 +71,8 @@ stdenv.mkDerivation rec {
         gtk2
         xorg.libXtst
       ];
-    in ''
+    in
+    ''
       interpreter=${stdenv.cc.libc}/lib/ld-linux-x86-64.so.2
 
       for pgm in $out/opl/bin/x86-64_linux/oplrun $out/opl/bin/x86-64_linux/oplrunjava $out/opl/oplide/oplide;

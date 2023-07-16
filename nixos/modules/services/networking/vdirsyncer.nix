@@ -77,7 +77,8 @@ let
     };
   };
 
-in {
+in
+{
   options = {
     services.vdirsyncer = {
       enable = mkEnableOption (mdDoc "vdirsyncer");

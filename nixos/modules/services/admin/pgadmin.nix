@@ -63,7 +63,8 @@ let
       (listOf base)
       base
     ]);
-in {
+in
+{
   options.services.pgadmin = {
     enable = mkEnableOption (lib.mdDoc "PostgreSQL Admin 4");
 

@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.flow;
-in {
+in
+{
   port = 9590;
   extraOpts = {
     brokers = mkOption {

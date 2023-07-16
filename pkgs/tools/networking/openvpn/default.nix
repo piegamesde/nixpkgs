@@ -77,7 +77,8 @@ let
     }
     ;
 
-in {
+in
+{
   openvpn = generic {
     version = "2.5.8";
     sha256 = "1cixqm4gn2d1v8qkbww75j30fzvxz13gc7whcmz54i0x4fvibwx6";

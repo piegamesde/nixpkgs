@@ -19,7 +19,8 @@ import ./make-test-python.nix (let
       ];
     }
     ;
-in {
+in
+{
   name = "systemd-timesyncd";
   nodes = {
     current = mkVM { };
@@ -65,4 +66,5 @@ in {
     pre1909.start()
     pre1909.succeed("systemctl status systemd-timesyncd.service")
   '';
-} )
+}
+)

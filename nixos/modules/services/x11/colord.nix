@@ -11,7 +11,8 @@ let
 
   cfg = config.services.colord;
 
-in {
+in
+{
 
   options = {
 

@@ -11,7 +11,8 @@ with (import ./param-lib.nix lib);
 let
   cfg = config.services.strongswan-swanctl;
   swanctlParams = import ./swanctl-params.nix lib;
-in {
+in
+{
   options.services.strongswan-swanctl = {
     enable = mkEnableOption (lib.mdDoc "strongswan-swanctl service");
 

@@ -61,7 +61,8 @@ let
         fi
       ''
     ;
-in {
+in
+{
   options = {
     services = {
       deluge = {

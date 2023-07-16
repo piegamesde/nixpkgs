@@ -84,7 +84,8 @@ let
     } // removeAttrs args [ "extraMeta" ]
     ;
 
-in {
+in
+{
   inherit buildBarebox;
 
   bareboxTools = buildBarebox {

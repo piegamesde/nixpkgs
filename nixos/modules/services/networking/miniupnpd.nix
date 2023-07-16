@@ -30,7 +30,8 @@ let
 
     ${cfg.appendConfig}
   '';
-in {
+in
+{
   options = {
     services.miniupnpd = {
       enable = mkEnableOption (lib.mdDoc "MiniUPnP daemon");

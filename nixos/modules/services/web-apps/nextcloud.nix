@@ -69,7 +69,8 @@ let
   mysqlLocal = cfg.database.createLocally && cfg.config.dbtype == "mysql";
   pgsqlLocal = cfg.database.createLocally && cfg.config.dbtype == "pgsql";
 
-in {
+in
+{
 
   imports = [
     (mkRemovedOptionModule [
@@ -900,7 +901,8 @@ in {
             renderedAppStoreSetting =
               let
                 x = cfg.appstoreEnable;
-              in if x == null then
+              in
+              if x == null then
                 "false"
               else
                 boolToString x
@@ -1074,7 +1076,8 @@ in {
                     "--admin-pass" = ''"''$${adminpass.arg}"'';
                     "--data-dir" = ''"${datadir}/data"'';
                   });
-              in ''
+              in
+              ''
                 ${mkExport dbpass}
                 ${mkExport adminpass}
                 ${occ}/bin/nextcloud-occ maintenance:install \
@@ -1086,7 +1089,8 @@ in {
                 ${toString i} --value="${toString v}"
             '') ([ cfg.hostName ] ++ cfg.config.extraTrustedDomains));
 
-          in {
+          in
+          {
             wantedBy = [ "multi-user.target" ];
             before = [ "phpfpm-nextcloud.service" ];
             after = optional mysqlLocal "mysql.service"

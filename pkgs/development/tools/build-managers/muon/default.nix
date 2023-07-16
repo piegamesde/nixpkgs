@@ -61,7 +61,8 @@ stdenv.mkDerivation (finalAttrs: {
         url = "https://mochiro.moe/wrap/samurai-1.2-32-g81cef5d.tar.gz";
         hash = "sha256-aPMAtScqweGljvOLaTuR6B0A0GQQQrVbRviXY4dpCoc=";
       };
-    in ''
+    in
+    ''
       pushd $sourceRoot/subprojects
       ${lib.optionalString buildDocs "tar xvf ${meson-docs-wrap}"}
       ${lib.optionalString embedSamurai "tar xvf ${samurai-wrap}"}
@@ -91,7 +92,8 @@ stdenv.mkDerivation (finalAttrs: {
         (muonEnable "samurai" embedSamurai)
       ];
       cmdlineForSamu = "-j$NIX_BUILD_CORES";
-    in ''
+    in
+    ''
       runHook preBuild
 
       ./bootstrap.sh stage-1

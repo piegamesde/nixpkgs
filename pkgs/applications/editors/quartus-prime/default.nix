@@ -51,7 +51,8 @@ buildFHSEnvChroot rec {
       freetype = pkgs.freetype.override { libpng = libpng12; };
       fontconfig = pkgs.fontconfig.override { inherit freetype; };
       libXft = pkgs.xorg.libXft.override { inherit freetype fontconfig; };
-    in [
+    in
+    [
       # modelsim requirements
       libxml2
       ncurses5
@@ -103,7 +104,8 @@ buildFHSEnvChroot rec {
         "vlog"
         "vlib"
       ];
-    in ''
+    in
+    ''
       mkdir -p $out/share/applications $out/share/icons/128x128
       ln -s ${desktopItem}/share/applications/* $out/share/applications
       ln -s ${unwrapped}/licenses/images/dc_quartus_panel_logo.png $out/share/icons/128x128/quartus.png

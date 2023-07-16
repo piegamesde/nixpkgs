@@ -121,7 +121,8 @@ let
     version = "12.0.0";
   };
 
-in {
+in
+{
   ZenTest = attrs: { meta.mainProgram = "zentest"; };
 
   atk =
@@ -145,7 +146,8 @@ in {
     let
       templates =
         "${attrs.ruby.gemPath}/gems/${attrs.gemName}-${attrs.version}/lib/bundler/templates/";
-    in {
+    in
+    {
       # patching shebangs would fail on the templates/Executable file, so we
       # temporarily remove the executable flag.
       preFixup = "chmod -x $out/${templates}/Executable";
@@ -1019,7 +1021,8 @@ in {
             else
               "lib/tzinfo/zoneinfo_data_source.rb"
             ;
-        in ''
+        in
+        ''
           substituteInPlace ${path} \
             --replace "/usr/share/zoneinfo" "${tzdata}/share/zoneinfo"
         ''

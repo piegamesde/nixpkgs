@@ -34,7 +34,8 @@ import ./make-test-python.nix ({
       let
         user = nodes.machine.users.users.alice;
         bob = nodes.machine.users.users.bob;
-      in ''
+      in
+      ''
         machine.wait_for_unit("display-manager.service")
 
         with subtest("Test we can see usernames in elementary-greeter"):

@@ -15,7 +15,8 @@ let
        makeSearchPathOutput "lib" "lib/varnish/vmods"
        ([ cfg.package ] ++ cfg.extraModules)
      }' -r vmod_path";
-in {
+in
+{
   options = {
     services.varnish = {
       enable = mkEnableOption (lib.mdDoc "Varnish Server");

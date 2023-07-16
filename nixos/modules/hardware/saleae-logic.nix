@@ -7,7 +7,8 @@
 
 let
   cfg = config.hardware.saleae-logic;
-in {
+in
+{
   options.hardware.saleae-logic = {
     enable =
       lib.mkEnableOption (lib.mdDoc "udev rules for Saleae Logic devices");

@@ -94,7 +94,8 @@ let
         withPackages (builtins.filter (p: p ? isAgdaDerivation) buildInputs);
       includePathArgs = concatMapStrings (path: "-i" + path + " ")
         (includePaths ++ [ (dirOf everythingFile) ]);
-    in {
+    in
+    {
       inherit libraryName libraryFile;
 
       isAgdaDerivation = true;
@@ -150,7 +151,8 @@ let
           && elem pname (map (pkg: pkg.pname) pkg.buildInputs)) self;
     }
     ;
-in {
+in
+{
   mkDerivation = args: stdenv.mkDerivation (args // defaults args);
 
   inherit withPackages withPackages';

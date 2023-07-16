@@ -50,7 +50,8 @@ import ./make-test-python.nix ({
     testScript =
       let
         hardened-malloc-tests = pkgs.graphene-hardened-malloc.ld-preload-tests;
-      in ''
+      in
+      ''
         machine.wait_for_unit("multi-user.target")
 
 

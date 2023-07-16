@@ -147,7 +147,8 @@ let
           ];
         } // extraMeta;
     } // removeAttrs args [ "extraMeta" ]));
-in {
+in
+{
   inherit buildUBoot;
 
   ubootTools = buildUBoot {

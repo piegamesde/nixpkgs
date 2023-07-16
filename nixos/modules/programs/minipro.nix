@@ -7,7 +7,8 @@
 
 let
   cfg = config.programs.minipro;
-in {
+in
+{
   options = {
     programs.minipro = {
       enable = lib.mkEnableOption (lib.mdDoc "minipro") // {

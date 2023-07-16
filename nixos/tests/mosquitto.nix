@@ -58,7 +58,8 @@ import ./make-test-python.nix ({
                   --outfile "$out/client1.crt"
     '';
 
-  in {
+  in
+  {
     name = "mosquitto";
     meta = with pkgs.lib; {
       maintainers = with maintainers; [
@@ -77,7 +78,8 @@ import ./make-test-python.nix ({
             environment.systemPackages = with pkgs; [ mosquitto ];
           }
           ;
-      in {
+      in
+      {
         server =
           {
             pkgs,
@@ -258,4 +260,5 @@ import ./make-test-python.nix ({
                   }))
               ])
     '';
-  } )
+  }
+)

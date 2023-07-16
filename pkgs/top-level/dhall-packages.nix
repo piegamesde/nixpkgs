@@ -27,7 +27,8 @@ let
         ../development/interpreters/dhall/generate-dhall-directory-package.nix
         { };
 
-    in {
+    in
+    {
       inherit
         callPackage
         buildDhallPackage

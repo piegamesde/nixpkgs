@@ -72,7 +72,8 @@ import ./make-test-python.nix ({
                     mkdir -p $out
                     cp key.pem cert.pem $out
                   '';
-                in [ {
+                in
+                [ {
                   certFile = "${certDir}/cert.pem";
                   keyFile = "${certDir}/key.pem";
                 } ]
@@ -142,7 +143,8 @@ import ./make-test-python.nix ({
           systemd.services.simplehttp =
             let
               fakeWebPageDir = pkgs.writeTextDir "index.html" "hello";
-            in {
+            in
+            {
               script =
                 "${pkgs.python3}/bin/python -m http.server --directory ${fakeWebPageDir} 8000";
               serviceConfig.Type = "simple";

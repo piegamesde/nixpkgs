@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.mikrotik;
-in {
+in
+{
   port = 9436;
   extraOpts = {
     configFile = mkOption {
@@ -61,7 +62,8 @@ in {
           "${pkgs.writeText "mikrotik-exporter.yml"
           (builtins.toJSON cfg.configuration)}"
         ;
-    in {
+    in
+    {
       serviceConfig = {
         # -port is misleading name, it actually accepts address too
         ExecStart = ''

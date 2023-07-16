@@ -32,10 +32,12 @@ let
           packagesWith cond return pkg
         else
           [ ]);
-      in if result.success then
+      in
+      if result.success then
         result.value
       else
-        [ ]) set))
+        [ ]
+    ) set))
     ;
 in
 packagesWith (name: pkg:

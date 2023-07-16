@@ -16,7 +16,8 @@ let
     ${optionalString cfg.systemScheduler "schedules: no"}
   '';
   configFile = "${toString cfg.homeDir}/flexget.yml";
-in {
+in
+{
   options = {
     services.flexget = {
       enable = mkEnableOption (lib.mdDoc "Run FlexGet Daemon");

@@ -42,7 +42,8 @@ let
     passthru =
       let
         defaults = import "${self}/share/nix/defaults.nix";
-      in {
+      in
+      {
         api =
           {
             pinConfig ? defaults.pinConfig
@@ -50,9 +51,8 @@ let
           let
             impl =
               import "${self}/share/nix/api.nix" { inherit pkgs pinConfig; };
-          in {
-            inherit (impl) augmentedPkgs pins callPackage;
-          }
+          in
+          { inherit (impl) augmentedPkgs pins callPackage; }
           ;
         updateScript = ''
           #!${runtimeShell}

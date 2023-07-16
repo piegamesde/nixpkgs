@@ -9,7 +9,8 @@ with lib;
 
 let
   inInitrd = any (fs: fs == "jfs") config.boot.initrd.supportedFilesystems;
-in {
+in
+{
   config = mkIf (any (fs: fs == "jfs") config.boot.supportedFilesystems) {
 
     system.fsPackages = [ pkgs.jfsutils ];

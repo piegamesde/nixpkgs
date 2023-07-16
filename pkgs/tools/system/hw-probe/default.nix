@@ -131,7 +131,8 @@ stdenv.mkDerivation rec {
       programs = requiredPrograms ++ conditionallyRecommendedPrograms
         ++ lib.optionals withRecommended recommendedPrograms
         ++ lib.optionals withSuggested suggestedPrograms;
-    in [
+    in
+    [
       "--set"
       "PERL5LIB"
       "${makePerlPath [

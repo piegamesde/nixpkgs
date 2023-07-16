@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
         lib.concatStringsSep " "
         (map (path: lib.getOutput output path + "/" + subDir) buildInputs)
         ;
-    in ''
+    in
+    ''
       substituteInPlace configure \
         --replace '$LIBDIRS' "${makeDirs "lib" "lib"}" \
         --replace '$INCDIRS' "${makeDirs "dev" "include"}" \

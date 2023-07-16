@@ -39,7 +39,8 @@ buildGoModule rec {
         "Test_guessEditorCommand"
         "Test_processFileActions"
       ];
-    in ''
+    in
+    ''
       buildFlagsArray+=("-run" "[^(${
         builtins.concatStringsSep "|" skippedTests
       })]")

@@ -16,7 +16,8 @@ import ./make-test-python.nix ({
       let
         user = nodes.machine.config.users.users.alice;
 
-      in {
+      in
+      {
         imports = [ ./common/user-account.nix ];
 
         services.xserver.enable = true;
@@ -47,7 +48,8 @@ import ./make-test-python.nix ({
         user = nodes.machine.config.users.users.alice;
         uid = toString user.uid;
         xauthority = "/run/user/${uid}/gdm/Xauthority";
-      in ''
+      in
+      ''
         with subtest("Login to GNOME Flashback with GDM"):
             machine.wait_for_x()
             # Wait for alice to be logged in"

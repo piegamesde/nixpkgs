@@ -708,7 +708,8 @@ self: super:
       nodeDep =
         nodePackages."markdown-preview-nvim-../../applications/editors/vim/plugins/markdown-preview-nvim".overrideAttrs
         (old: { dontNpmInstall = true; });
-    in {
+    in
+    {
       patches = [
           (substituteAll {
             src = ./markdown-preview-nvim/fix-node-paths.patch;
@@ -724,7 +725,8 @@ self: super:
       installCheckPhase = ''
         node $out/app/index.js --version
       '';
-    } );
+    }
+  );
 
   mason-lspconfig-nvim = super.mason-lspconfig-nvim.overrideAttrs (old: {
     dependencies = with self; [
@@ -923,13 +925,15 @@ self: super:
           # tests are broken
         doCheck = false;
       };
-    in {
+    in
+    {
       dependencies = with self; [ plenary-nvim ];
       postInstall = ''
         mkdir -p $out/target/debug
         ln -s ${sg-nvim-rust}/{bin,lib}/* $out/target/debug
       '';
-    } );
+    }
+  );
 
   skim = buildVimPluginFrom2Nix {
     pname = "skim";
@@ -1005,7 +1009,8 @@ self: super:
       let
         libsqlite =
           "${sqlite.out}/lib/libsqlite3${stdenv.hostPlatform.extensions.sharedLibrary}";
-      in ''
+      in
+      ''
         substituteInPlace lua/sqlite/defs.lua \
           --replace "path = vim.g.sqlite_clib_path" "path = vim.g.sqlite_clib_path or ${
             lib.escapeShellArg libsqlite
@@ -1116,7 +1121,8 @@ self: super:
               install -Dm 444 -t $out/lua lua/*
             '';
           };
-        in ''
+        in
+        ''
           rm -rf $target/${fzy-lua-native-path}/*
           ln -s ${fzy-lua-native}/static $target/${fzy-lua-native-path}/static
           ln -s ${fzy-lua-native}/lua $target/${fzy-lua-native-path}/lua
@@ -1358,11 +1364,13 @@ self: super:
         reftools
         # revive
       ];
-    in {
+    in
+    {
       postPatch = ''
         sed -i autoload/go/config.vim -Ee 's@"go_bin_path", ""@"go_bin_path", "${binPath}"@g'
       '';
-    } );
+    }
+  );
 
   vim-gist = super.vim-gist.overrideAttrs
     (old: { dependencies = with self; [ webapi-vim ]; });
@@ -1388,7 +1396,8 @@ self: super:
           src = old.src + "/hexokinase";
           vendorSha256 = null;
         };
-      in ''
+      in
+      ''
         ln -s ${hexokinase}/bin/hexokinase $target/hexokinase/hexokinase
       ''
       ;

@@ -16,7 +16,8 @@ import ./make-test-python.nix ({
     publicKey = ''
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHHxQHThDpD9/AMWNqQer3Tg9gXMb2lTZMn0pelo8xyv
     '';
-  in {
+  in
+  {
     name = "btrbk";
     meta = with pkgs.lib; { maintainers = with maintainers; [ symphorien ]; };
 
@@ -122,4 +123,5 @@ import ./make-test-python.nix ({
           main.succeed("echo baz > /mnt/to_backup/bar")
           archive.succeed("cat /mnt/*/bar | grep bar")
     '';
-  } )
+  }
+)

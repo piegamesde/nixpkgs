@@ -42,7 +42,8 @@ let
     }
     ;
 
-in {
+in
+{
   ###### interface
 
   options.console = {

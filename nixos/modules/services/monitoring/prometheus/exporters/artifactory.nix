@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.artifactory;
-in {
+in
+{
   port = 9531;
   extraOpts = {
     scrapeUri = mkOption {

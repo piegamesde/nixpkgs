@@ -59,7 +59,8 @@ import ./make-test-python.nix ({
           else
             "firewall"
           ;
-      in ''
+      in
+      ''
         start_all()
 
         walled.wait_for_unit("${unit}")

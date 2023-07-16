@@ -44,7 +44,8 @@ buildGoModule rec {
         "${passthru.frontend}:/admin"
         "i18n:/i18n"
       ];
-    in ''
+    in
+    ''
       stuffbin -a stuff -in $out/bin/listmonk -out $out/bin/listmonk \
         ${lib.concatStringsSep " " vfsMappings}
     ''

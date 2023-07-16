@@ -64,7 +64,8 @@ stdenv.mkDerivation rec {
         stdenv.cc.libc
         stdenv.cc.cc.lib
       ];
-    in ''
+    in
+    ''
       chmod -R +w lib
       patchelf --set-rpath "${rpath}:$out/lib" lib/libtensorflow.so
       patchelf --set-rpath "${rpath}" lib/libtensorflow_framework.so

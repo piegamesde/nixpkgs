@@ -47,7 +47,8 @@ let
     }
     ;
 
-in {
+in
+{
   options = {
     services.tor.torsocks = {
       enable = mkOption {

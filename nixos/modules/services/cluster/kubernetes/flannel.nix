@@ -13,7 +13,8 @@ let
 
     # we want flannel to use kubernetes itself as configuration backend, not direct etcd
   storageBackend = "kubernetes";
-in {
+in
+{
   ###### interface
   options.services.kubernetes.flannel = {
     enable = mkEnableOption (lib.mdDoc "flannel networking");

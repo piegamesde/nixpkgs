@@ -27,7 +27,8 @@ let
   };
   evalMinimalConfig = module: nixosLib.evalModules { modules = [ module ]; };
 
-in rec {
+in
+rec {
   # 1. basic example
   bash = buildImage {
     name = "bash";

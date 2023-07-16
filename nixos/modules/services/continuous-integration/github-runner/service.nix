@@ -35,7 +35,8 @@ let
     else
       cfg.workDir
     ;
-in {
+in
+{
   description = "GitHub Actions runner";
 
   wantedBy = [ "multi-user.target" ];

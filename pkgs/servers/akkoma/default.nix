@@ -172,7 +172,8 @@ beamPackages.mixRelease rec {
                 "application/xrd+xml" => ["xrd+xml"]
               }
             '';
-          in ''
+          in
+          ''
             mkdir config
             cp ${cfgFile} config/config.exs
           ''

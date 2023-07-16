@@ -91,7 +91,8 @@ let
       installPhase =
         let
           src = fetchurl { inherit url sha256; };
-        in ''
+        in
+        ''
           mkdir -p "$out/share/simutrans/${pakName}"
           cd "$out/share/simutrans/${pakName}"
           "${unzip}/bin/unzip" "${src}"
@@ -170,7 +171,8 @@ let
         '';
           #TODO: MULTI_THREAD = 1 is "highly recommended",
           # but it's roughly doubling CPU usage for me
-      in ''
+      in
+      ''
         echo "${config}" > config.default
 
         # Use ~/.simutrans instead of ~/simutrans

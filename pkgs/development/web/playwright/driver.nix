@@ -27,7 +27,8 @@ let
         aarch64-darwin = "mac-arm64";
       }.${system} or throwSystem;
       filename = "playwright-${finalAttrs.version}-${suffix}.zip";
-    in {
+    in
+    {
       pname = "playwright-driver";
       version = "1.31.1";
 
@@ -80,7 +81,8 @@ let
         }.${system} or throwSystem;
         browsers-chromium = browsers-linux { };
       };
-    } );
+    }
+  );
 
   browsers-mac = stdenv.mkDerivation {
     pname = "playwright-browsers";

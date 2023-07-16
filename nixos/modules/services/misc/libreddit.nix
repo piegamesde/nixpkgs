@@ -14,7 +14,8 @@ let
     "--port ${toString cfg.port}"
     "--address ${cfg.address}"
   ]);
-in {
+in
+{
   options = {
     services.libreddit = {
       enable = mkEnableOption (lib.mdDoc "Private front-end for Reddit");

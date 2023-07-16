@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
         rev = "00f430ccbebdbd13bdd4d7ee6303b091cf005542";
         sha256 = "sha256-FBGEgmaslu7xrJtZ2WsYwu9Cw1ZQrWRV1+Eu9qLXO4s=";
       };
-    in ''
+    in
+    ''
       # Order matters, read the patch list from the RPM spec. Our own patches
       # are applied on top of the Fedora baseline.
       fedorapatches=""

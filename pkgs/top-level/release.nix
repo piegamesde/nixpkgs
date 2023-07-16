@@ -197,15 +197,15 @@ let
             bootstrap = import ../stdenv/linux/make-bootstrap-tools.nix {
               pkgs = import ../.. { localSystem = { inherit system; }; };
             };
-          in {
-            inherit (bootstrap) dist test;
-          }
+          in
+          { inherit (bootstrap) dist test; }
         else if hasSuffix "-darwin" system then
           let
             bootstrap = import ../stdenv/darwin/make-bootstrap-tools.nix {
               localSystem = { inherit system; };
             };
-          in {
+          in
+          {
             # Lightweight distribution and test
             inherit (bootstrap)
               dist

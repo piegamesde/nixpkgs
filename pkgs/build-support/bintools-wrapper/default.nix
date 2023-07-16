@@ -447,7 +447,8 @@ stdenv.mkDerivation {
         darwinMinVersion
         darwinMinVersionVariable
         ;
-    in ''
+    in
+    ''
       export darwinPlatform=${darwinPlatform}
       export darwinMinVersion=${darwinMinVersion}
       export darwinSdkVersion=${darwinSdkVersion}
@@ -455,7 +456,8 @@ stdenv.mkDerivation {
       substituteAll ${
         ./add-darwin-ldflags-before.sh
       } $out/nix-support/add-local-ldflags-before.sh
-    '' )
+    ''
+    )
 
     ##
     ## Code signing on Apple Silicon

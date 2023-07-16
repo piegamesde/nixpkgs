@@ -196,7 +196,8 @@ let
       '') usedBy) displayOptionsGraph
     ;
 
-in rec {
+in
+rec {
   dotContent = graphToDot graph;
   dot = pkgs.writeTextFile {
     name = "option_usages.dot";

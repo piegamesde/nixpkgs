@@ -38,7 +38,8 @@ let
       "$device"
   '';
 
-in {
+in
+{
   meta.maintainers = with lib.maintainers; [ peterhoeg ];
 
   options.hardware.sata.timeout = {

@@ -19,7 +19,8 @@ let
       ;
     mkKeyValue = generators.mkKeyValueDefault { } ":";
   };
-in {
+in
+{
   ##### interface
   options = {
     services.klipper = {
@@ -194,7 +195,8 @@ in {
           else
             cfg.configFile
           ;
-      in {
+      in
+      {
         description = "Klipper 3D Printer Firmware";
         wantedBy = [ "multi-user.target" ];
         after = [ "network.target" ];

@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.tailscale;
   isNetworkd = config.networking.useNetworkd;
-in {
+in
+{
   meta.maintainers = with maintainers; [
     danderson
     mbaillie

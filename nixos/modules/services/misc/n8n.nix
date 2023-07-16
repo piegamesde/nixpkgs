@@ -11,7 +11,8 @@ let
   cfg = config.services.n8n;
   format = pkgs.formats.json { };
   configFile = format.generate "n8n.json" cfg.settings;
-in {
+in
+{
   options.services.n8n = {
     enable = mkEnableOption (lib.mdDoc "n8n server");
 

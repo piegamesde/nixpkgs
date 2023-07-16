@@ -8,7 +8,8 @@
 with lib;
 let
   cfg = config.virtualisation.digitalOceanImage;
-in {
+in
+{
 
   imports = [ ./digital-ocean-config.nix ];
 
@@ -61,7 +62,8 @@ in {
             "gzip" = "${pkgs.gzip}/bin/gzip";
             "bzip2" = "${pkgs.bzip2}/bin/bzip2";
           }.${cfg.compressionMethod};
-        in ''
+        in
+        ''
           ${compress} $diskImage
         ''
         ;

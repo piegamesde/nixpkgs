@@ -16,7 +16,8 @@ assert (builtins.isString runtimeId);
 
 let
   libraryPath = lib.makeLibraryPath runtimeDeps;
-in {
+in
+{
   dotnetConfigureHook = callPackage ({ }:
     makeSetupHook {
       name = "dotnet-configure-hook";

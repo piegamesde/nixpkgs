@@ -35,7 +35,8 @@ let
       Optional PKCS#11 module name.
     '';
   };
-in {
+in
+{
   authorities = mkAttrsOfParams ({
 
     cacert = mkOptionalStrParam ''
@@ -1145,7 +1146,8 @@ in {
         used for XAuth authentication as well.
       '';
 
-    in {
+    in
+    {
 
       eap = mkEapXauthParams;
       xauth = mkEapXauthParams;

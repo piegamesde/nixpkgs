@@ -95,7 +95,8 @@ let
     ];
   };
 
-in {
+in
+{
 
   ###### interface
 

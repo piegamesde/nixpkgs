@@ -165,7 +165,8 @@ let
   defaultSessionFromLegacyOptions = dmFallbackDefault
     + optionalString (wmDefault != null && wmDefault != "none") "+${wmDefault}";
 
-in {
+in
+{
   options = {
 
     services.xserver.displayManager = {

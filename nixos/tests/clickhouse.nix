@@ -19,7 +19,8 @@ import ./make-test-python.nix ({
         insertQuery = pkgs.writeText "insert.sql"
           "INSERT INTO `demo` (`value`) VALUES ('foo');";
         selectQuery = pkgs.writeText "select.sql" "SELECT * from `demo`";
-      in ''
+      in
+      ''
         machine.start()
         machine.wait_for_unit("clickhouse.service")
         machine.wait_for_open_port(9000)

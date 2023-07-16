@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.kea;
-in {
+in
+{
   port = 9547;
   extraOpts = {
     controlSocketPaths = mkOption {

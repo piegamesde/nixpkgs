@@ -11,7 +11,8 @@ let
   settingsFormat = pkgs.formats.ini { listsAsDuplicateKeys = true; };
   configFile = settingsFormat.generate "lokinet.ini"
     (lib.filterAttrsRecursive (n: v: v != null) cfg.settings);
-in with lib; {
+in
+with lib; {
   options.services.lokinet = {
     enable = mkEnableOption (lib.mdDoc "Lokinet daemon");
 

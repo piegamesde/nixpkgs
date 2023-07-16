@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.distccd;
-in {
+in
+{
   options = {
     services.distccd = {
       enable = mkEnableOption (lib.mdDoc "distccd");

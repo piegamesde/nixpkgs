@@ -10,7 +10,8 @@ with lib;
 
 let
   cfg = config.services.gmediarender;
-in {
+in
+{
   options.services.gmediarender = {
     enable = mkEnableOption (mdDoc "the gmediarender DLNA renderer");
 

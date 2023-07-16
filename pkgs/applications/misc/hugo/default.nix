@@ -39,7 +39,8 @@ buildGoModule rec {
   postInstall =
     let
       emulator = stdenv.hostPlatform.emulator buildPackages;
-    in ''
+    in
+    ''
       ${emulator} $out/bin/hugo gen man
       installManPage man/*
       installShellCompletion --cmd hugo \

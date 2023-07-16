@@ -89,7 +89,8 @@ let
             snakeOilPrivateKey
             snakeOilPublicKey
             ;
-        in ''
+        in
+        ''
           GIT_SSH_COMMAND = "ssh -i $HOME/.ssh/privk -o StrictHostKeyChecking=no"
           REPO = "gitea@server:test/repo"
           PRIVK = "${snakeOilPrivateKey}"

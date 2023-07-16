@@ -8,7 +8,8 @@
 let
   cfg = config.documentation.man.man-db;
 
-in {
+in
+{
   options = {
     documentation.man.man-db = {
       enable =
@@ -86,7 +87,8 @@ in {
           echo "MANDB_MAP ${cfg.manualPages}/share/man $out" > man.conf
           mandb -C man.conf -psc >/dev/null 2>&1
         '';
-      in ''
+      in
+      ''
         # Manual pages paths for NixOS
         MANPATH_MAP /run/current-system/sw/bin /run/current-system/sw/share/man
         MANPATH_MAP /run/wrappers/bin          /run/current-system/sw/share/man

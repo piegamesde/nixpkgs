@@ -40,7 +40,8 @@ stdenv.mkDerivation (finalAttrs: {
         # - warning: unbound function crypt
         "tests/018/crypt.tl"
       ];
-    in ''
+    in
+    ''
       rm ${disabledTests}
     ''
     ;

@@ -26,9 +26,8 @@ let
         "cp"
         "py"
       ];
-    in {
-      inherit major minor tags;
-    }
+    in
+    { inherit major minor tags; }
     ;
   abiTag = "cp${pythonVer.major}${pythonVer.minor}m";
 
@@ -57,7 +56,8 @@ let
           entries'
         ;
       p = removeSuffix ".whl" (builtins.elemAt entries 4);
-    in {
+    in
+    {
       pkgName = builtins.elemAt entries 0;
       pkgVer = builtins.elemAt entries 1;
       pyVer = builtins.elemAt entries 2;
@@ -76,7 +76,8 @@ let
     let
       v = lib.lists.head versions;
       vs = lib.lists.tail versions;
-    in if (builtins.length versions == 0) then
+    in
+    if (builtins.length versions == 0) then
       [ ]
     else
       (builtins.filter (x: hasInfix v x.file) candidates)
@@ -109,9 +110,8 @@ let
             else
               "0"
             ;
-        in {
-          inherit major minor tag;
-        }
+        in
+        { inherit major minor tag; }
         ;
       markers = splitString "." x;
     in
@@ -200,16 +200,17 @@ let
           ];
           chooseLinux = x: lib.take 1 (findBestMatches linuxMatches x);
           chooseOSX = x: lib.take 1 (findBestMatches osxMatches x);
-        in if isLinux then
+        in
+        if isLinux then
           chooseLinux files
         else
           chooseOSX files
         ;
-    in if (builtins.length filtered == 0) then
+    in
+    if (builtins.length filtered == 0) then
       [ ]
     else
       choose (filtered)
     ;
-in {
-  inherit selectWheel toWheelAttrs isPyVersionCompatible;
-}
+in
+{ inherit selectWheel toWheelAttrs isPyVersionCompatible; }

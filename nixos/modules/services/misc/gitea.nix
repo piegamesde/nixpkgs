@@ -27,7 +27,8 @@ let
     ${optionalString (cfg.extraConfig != null) cfg.extraConfig}
   '';
 
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "services"
@@ -717,7 +718,8 @@ in {
             "${cfg.customDir}/conf/lfs_jwt_secret"; # new file for LFS_JWT_SECRET
           internalToken = "${cfg.customDir}/conf/internal_token";
           replaceSecretBin = "${pkgs.replace-secret}/bin/replace-secret";
-        in ''
+        in
+        ''
           # copy custom configuration and generate random secrets if needed
           ${optionalString (!cfg.useWizard) ''
             function gitea_setup {

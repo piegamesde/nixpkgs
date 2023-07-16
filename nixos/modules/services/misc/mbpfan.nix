@@ -12,7 +12,8 @@ let
   settingsFormat = pkgs.formats.ini { };
   settingsFile = settingsFormat.generate "mbpfan.ini" cfg.settings;
 
-in {
+in
+{
   options.services.mbpfan = {
     enable = mkEnableOption
       (lib.mdDoc "mbpfan, fan controller daemon for Apple Macs and MacBooks");

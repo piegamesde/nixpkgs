@@ -8,7 +8,8 @@
 with lib;
 let
   cfg = config.services.phylactery;
-in {
+in
+{
   options.services.phylactery = {
     enable = mkEnableOption (lib.mdDoc "Whether to enable Phylactery server");
 

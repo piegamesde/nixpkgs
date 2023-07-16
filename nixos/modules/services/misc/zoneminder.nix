@@ -79,7 +79,8 @@ let
     ${cfg.extraConfig}
   '';
 
-in {
+in
+{
   options = {
     services.zoneminder = with lib; {
       enable = lib.mkEnableOption (lib.mdDoc ''
@@ -250,7 +251,8 @@ in {
             extraConfig =
               let
                 fcgi = config.services.fcgiwrap;
-              in ''
+              in
+              ''
                 index index.php;
 
                 location / {

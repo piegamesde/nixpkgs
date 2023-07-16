@@ -45,7 +45,8 @@ import ./make-test-python.nix ({
             services.postgresql =
               let
                 inherit (config.services.invidious.settings.db) dbname user;
-              in {
+              in
+              {
                 enable = true;
                 initialScript = pkgs.writeText "init-postgres-with-password" ''
                   CREATE USER kemal WITH PASSWORD 'correct horse battery staple';

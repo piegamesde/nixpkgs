@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.programs.rust-motd;
   format = pkgs.formats.toml { };
-in {
+in
+{
   options.programs.rust-motd = {
     enable = mkEnableOption (lib.mdDoc "rust-motd");
     enableMotdInSSHD = mkOption {

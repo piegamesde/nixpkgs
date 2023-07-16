@@ -84,7 +84,8 @@ let
     }
     ;
 
-in {
+in
+{
   syncthing = common {
     stname = "syncthing";
     target = "syncthing";

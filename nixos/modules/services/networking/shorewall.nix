@@ -7,7 +7,8 @@
 let
   types = lib.types;
   cfg = config.services.shorewall;
-in {
+in
+{
   options = {
     services.shorewall = {
       enable = lib.mkOption {

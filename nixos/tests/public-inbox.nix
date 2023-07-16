@@ -13,7 +13,8 @@ import ./make-test-python.nix ({
           -subj '/CN=machine.${domain}'
         install -D -t $out key.pem cert.pem
       '';
-  in {
+  in
+  {
     name = "public-inbox";
 
     meta.maintainers = with pkgs.lib.maintainers; [ julm ];
@@ -36,7 +37,8 @@ import ./make-test-python.nix ({
           "user/repo1"
           "user/repo2"
         ];
-      in {
+      in
+      {
         virtualisation.diskSize = 1 * 1024;
         virtualisation.memorySize = 1 * 1024;
         networking.domain = domain;
@@ -243,4 +245,5 @@ import ./make-test-python.nix ({
       machine.succeed("curl -L https://machine.example.localdomain/inbox/repo1/repo1@root-1/raw | sudo -u public-inbox public-inbox-learn rm --all")
       machine.fail("curl -L https://machine.example.localdomain/inbox/repo1/repo1@root-1/T/#u | grep 'This is a testing mail.'")
     '';
-  } )
+  }
+)

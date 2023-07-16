@@ -78,7 +78,8 @@ let
     force_install_databasepass =
       ''file_get_contents("${cfg.database.passwordFile}")'';
   };
-in {
+in
+{
   # interface
   options.services.dolibarr = {
     enable = mkEnableOption (lib.mdDoc "dolibarr");

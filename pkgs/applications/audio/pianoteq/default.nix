@@ -214,7 +214,8 @@ let
     }
     ;
 
-in {
+in
+{
   # TODO currently can't install more than one because `lame` clashes
   stage-trial = mkPianoteq rec {
     name = "stage-trial";

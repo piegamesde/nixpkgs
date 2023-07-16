@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.physlock;
 
-in {
+in
+{
 
   ###### interface
 

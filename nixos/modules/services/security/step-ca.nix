@@ -7,7 +7,8 @@
 let
   cfg = config.services.step-ca;
   settingsFormat = (pkgs.formats.json { });
-in {
+in
+{
   meta.maintainers = with lib.maintainers; [ mohe2015 ];
 
   options = {
@@ -80,7 +81,8 @@ in {
   config = lib.mkIf config.services.step-ca.enable (let
     configFile = settingsFormat.generate "ca.json"
       (cfg.settings // { address = cfg.address + ":" + toString cfg.port; });
-  in {
+  in
+  {
     assertions = [ {
       assertion = !lib.isStorePath cfg.intermediatePasswordFile;
       message = ''
@@ -137,5 +139,6 @@ in {
 
     networking.firewall =
       lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
-  } );
+  }
+  );
 }

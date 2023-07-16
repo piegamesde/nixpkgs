@@ -44,7 +44,8 @@ let
     };
   };
 
-in with versionMap.${majorVersion};
+in
+with versionMap.${majorVersion};
 
 stdenv.mkDerivation rec {
   inherit version;

@@ -9,7 +9,8 @@ let
 
   cfg = config.virtualisation.podman.networkSocket;
 
-in {
+in
+{
   imports = [ ./network-socket-ghostunnel.nix ];
 
   options.virtualisation.podman.networkSocket = {

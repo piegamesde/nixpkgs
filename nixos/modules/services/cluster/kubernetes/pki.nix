@@ -43,7 +43,8 @@ let
 
   remote = with config.services;
     "https://${kubernetes.masterAddress}:${toString cfssl.port}";
-in {
+in
+{
   ###### interface
   options.services.kubernetes.pki = with lib.types; {
 
@@ -140,7 +141,8 @@ in {
     cfsslCertPathPrefix = "${config.services.cfssl.dataDir}/cfssl";
     cfsslCert = "${cfsslCertPathPrefix}.pem";
     cfsslKey = "${cfsslCertPathPrefix}-key.pem";
-  in {
+  in
+  {
 
     services.cfssl = mkIf (top.apiserver.enable) {
       enable = true;
@@ -282,12 +284,14 @@ in {
               files =
                 mapAttrsToList (n: v: writeText "${n}.json" (builtins.toJSON v))
                 top.addonManager.bootstrapAddons;
-            in ''
+            in
+            ''
               export KUBECONFIG=${clusterAdminKubeconfig}
               ${top.package}/bin/kubectl apply -f ${
                 concatStringsSep " \\\n -f " files
               }
-            '' ;
+            ''
+            ;
         })
       ]);
 
@@ -422,7 +426,8 @@ in {
         };
       };
     };
-  } );
+  }
+  );
 
   meta.buildDocsInSandbox = false;
 }

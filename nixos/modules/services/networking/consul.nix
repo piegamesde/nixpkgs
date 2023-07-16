@@ -25,7 +25,8 @@ let
   devices = attrValues (filterAttrs (_: i: i != null) cfg.interface);
   systemdDevices = forEach devices
     (i: "sys-subsystem-net-devices-${utils.escapeSystemdPath i}.device");
-in {
+in
+{
   options = {
 
     services.consul = {

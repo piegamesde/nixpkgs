@@ -85,7 +85,8 @@ let
     command:
     let
       new = extractPaths maxArgIndex command;
-    in {
+    in
+    {
       commands = commands ++ [ new.args ];
       paths = paths ++ new.paths;
       maxArgIndex = new.maxArgIndex;
@@ -119,7 +120,8 @@ let
       # rather than a store path.
     ] ++ extracted.paths
     ;
-in rec {
+in
+rec {
   /* normalize : UpdateScript → UpdateScript
      EXPERIMENTAL! Converts a basic update script to the experimental attribute set form.
   */
@@ -141,7 +143,8 @@ in rec {
 
     let
       scriptsNormalized = builtins.map normalize scripts;
-    in let
+    in
+    let
       scripts = scriptsNormalized;
       hasCommitSupport = lib.findSingle ({
           supportedFeatures,

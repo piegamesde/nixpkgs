@@ -75,7 +75,8 @@ let
     paths = backendsToPackages cfg.backends;
   };
 
-in {
+in
+{
 
   ###### interface
 

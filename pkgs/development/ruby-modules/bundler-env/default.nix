@@ -55,7 +55,8 @@ let
     # than the expression trying to deduce a use case.
 
     # The basicEnv should be put into passthru so that e.g. nix-shell can use it.
-in if pname == null then
+in
+if pname == null then
   basicEnv // { inherit name basicEnv; }
 else
   let
@@ -79,7 +80,8 @@ else
         inherit (basicEnv) env;
       } // passthru;
     };
-  in if copyGemFiles then
+  in
+  if copyGemFiles then
     runCommand basicEnv.name bundlerEnvArgs ''
       mkdir -p $out
       for i in $paths; do

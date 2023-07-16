@@ -103,7 +103,8 @@ let
     # Allow overriding leaves of the default config despite types.attrs not doing any merging.
   jibriConfig = recursiveUpdate defaultJibriConfig cfg.config;
   configFile = pkgs.writeText "jibri.conf" (toHOCON { jibri = jibriConfig; });
-in {
+in
+{
   options.services.jibri = with types; {
     enable = mkEnableOption (lib.mdDoc
       "Jitsi BRoadcasting Infrastructure. Currently Jibri must be run on a host that is also running {option}`services.jitsi-meet.enable`, so for most use cases it will be simpler to run {option}`services.jitsi-meet.jibri.enable`")
@@ -316,7 +317,8 @@ in {
                 (config.networking.hostName
                   + optionalString (config.networking.domain != null)
                   ".${config.networking.domain}"));
-            in {
+            in
+            {
               call.login.username = nick;
               control.muc.nickname = nick;
             }

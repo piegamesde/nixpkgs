@@ -17,7 +17,8 @@ let
   param =
     let
       check = lib.versionAtLeast ocaml.version;
-    in if check "4.06" then
+    in
+    if check "4.06" then
       rec {
         version = "2.18.13";
         src = fetchFromGitHub {

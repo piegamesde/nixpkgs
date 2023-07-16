@@ -25,7 +25,8 @@ let
     paths = [ cfg.package32 ] ++ cfg.extraPackages32;
   };
 
-in {
+in
+{
 
   imports = [
     (mkRenamedOptionModule [

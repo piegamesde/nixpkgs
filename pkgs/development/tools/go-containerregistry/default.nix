@@ -33,7 +33,8 @@ buildGoModule rec {
   ldflags =
     let
       t = "github.com/google/go-containerregistry";
-    in [
+    in
+    [
       "-s"
       "-w"
       "-X ${t}/cmd/crane/cmd.Version=v${version}"

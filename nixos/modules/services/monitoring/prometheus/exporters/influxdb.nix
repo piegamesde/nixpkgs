@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.influxdb;
-in {
+in
+{
   port = 9122;
   extraOpts = {
     sampleExpiry = mkOption {

@@ -17,10 +17,12 @@ let
     linkFarm "grammars" (map (drv:
       let
         name = lib.strings.getName drv;
-      in {
+      in
+      {
         name = "lib" + (lib.strings.removeSuffix "-grammar" name) + ".so";
         path = "${drv}/parser";
-      } ) grammars)
+      }
+    ) grammars)
     ;
 
   libPath = withPlugins (_: tree-sitter.allGrammars);

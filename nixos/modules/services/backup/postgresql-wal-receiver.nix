@@ -120,7 +120,8 @@ let
     };
   };
 
-in {
+in
+{
   options = {
     services.postgresqlWalReceiver = {
       receivers = mkOption {
@@ -198,7 +199,8 @@ in {
                   else
                     "${postgresqlPackage}/bin/pg_receivexlog"
                   ;
-              in ''
+              in
+              ''
                 ${receiverCommand config.postgresqlPackage} \
                   --no-password \
                   --directory=${escapeShellArg config.directory} \

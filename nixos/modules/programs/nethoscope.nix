@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.nethoscope;
-in {
+in
+{
   meta.maintainers = with maintainers; [ _0x4A6F ];
 
   options = {

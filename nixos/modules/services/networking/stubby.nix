@@ -11,7 +11,8 @@ let
   cfg = config.services.stubby;
   settingsFormat = pkgs.formats.yaml { };
   confFile = settingsFormat.generate "stubby.yml" cfg.settings;
-in {
+in
+{
   imports = [
       (mkRemovedOptionModule [
         "stubby"

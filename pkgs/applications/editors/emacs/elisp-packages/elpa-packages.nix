@@ -124,7 +124,8 @@ let
         jinx = super.jinx.overrideAttrs (old:
           let
             libExt = pkgs.stdenv.targetPlatform.extensions.sharedLibrary;
-          in {
+          in
+          {
             dontUnpack = false;
 
             nativeBuildInputs =
@@ -145,7 +146,8 @@ let
 
             meta =
               old.meta // { maintainers = [ lib.maintainers.DamienCassou ]; };
-          } );
+          }
+        );
 
         plz = super.plz.overrideAttrs (old: {
           dontUnpack = false;

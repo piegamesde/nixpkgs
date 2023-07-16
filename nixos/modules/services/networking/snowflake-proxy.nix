@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.snowflake-proxy;
-in {
+in
+{
   options = {
     services.snowflake-proxy = {
       enable =

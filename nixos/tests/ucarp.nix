@@ -40,7 +40,8 @@ import ./make-test-python.nix ({
         };
       }
       ;
-  in {
+  in
+  {
     name = "ucarp";
     meta.maintainers = with lib.maintainers; [ oxzi ];
 
@@ -76,4 +77,5 @@ import ./make-test-python.nix ({
       backup_host.sleep(5)
       assert is_master(backup_host), "backup did not take over"
     '';
-  } )
+  }
+)

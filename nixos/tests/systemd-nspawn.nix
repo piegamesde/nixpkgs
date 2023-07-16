@@ -48,7 +48,8 @@ import ./make-test-python.nix ({
       cp -R ${gpgKeyring}/* $GNUPGHOME
       gpg --batch --sign --detach-sign --output SHA256SUMS.gpg SHA256SUMS
     '');
-  in {
+  in
+  {
     name = "systemd-nspawn";
 
     nodes = {
@@ -89,4 +90,5 @@ import ./make-test-python.nix ({
           "cmp /var/lib/machines/testimage2/${pkgs.hello}/bin/hello ${pkgs.hello}/bin/hello"
       )
     '';
-  } )
+  }
+)

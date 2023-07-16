@@ -11,7 +11,8 @@ let
   cfg = config.hardware.fancontrol;
   configFile = pkgs.writeText "fancontrol.conf" cfg.config;
 
-in {
+in
+{
   options.hardware.fancontrol = {
     enable = mkEnableOption
       (lib.mdDoc "software fan control (requires fancontrol.config)");

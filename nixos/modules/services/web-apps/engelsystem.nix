@@ -9,7 +9,8 @@
 let
   inherit (lib) mkDefault mkEnableOption mkIf mkOption types literalExpression;
   cfg = config.services.engelsystem;
-in {
+in
+{
   options = {
     services.engelsystem = {
       enable = mkOption {
@@ -156,7 +157,8 @@ in {
         let
           genConfigScript = pkgs.writeScript "engelsystem-gen-config.sh"
             (utils.genJqSecretsReplacementSnippet cfg.config "config.json");
-        in ''
+        in
+        ''
           umask 077
           mkdir -p /var/lib/engelsystem/storage/app
           mkdir -p /var/lib/engelsystem/storage/cache/views

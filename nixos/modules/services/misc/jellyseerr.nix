@@ -8,7 +8,8 @@
 with lib;
 let
   cfg = config.services.jellyseerr;
-in {
+in
+{
   meta.maintainers = [ maintainers.camillemndn ];
 
   options.services.jellyseerr = {

@@ -5,7 +5,8 @@
 }:
 let
   inherit (lib) mkOption types;
-in {
+in
+{
   options = {
     result = mkOption {
       internal = true;

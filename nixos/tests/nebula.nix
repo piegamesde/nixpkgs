@@ -37,7 +37,8 @@ import ./make-test-python.nix ({
       ]
       ;
 
-  in {
+  in
+  {
     name = "nebula";
 
     nodes = {
@@ -275,7 +276,8 @@ import ./make-test-python.nix ({
             ${nodeB}.systemctl("restart nebula@smoke.service")
           ''
           ;
-      in ''
+      in
+      ''
         # Create the certificate and sign the lighthouse's keys.
         ${setUpPrivateKey "lighthouse"}
         lighthouse.succeed(
@@ -393,4 +395,5 @@ import ./make-test-python.nix ({
         allowToLighthouse.succeed("ping -c3 10.0.100.2")
       ''
       ;
-  } )
+  }
+)

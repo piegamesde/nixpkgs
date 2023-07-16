@@ -80,7 +80,8 @@ lib.assertMsg (xor (gitRelease != null) (officialRelease != null))
 ;
 let
   monorepoSrc' = monorepoSrc;
-in let
+in
+let
   releaseInfo =
     if gitRelease != null then
       rec {
@@ -177,7 +178,8 @@ in let
           bootBintools
         ;
 
-    in {
+    in
+    {
 
       libllvm = callPackage ./llvm { inherit llvm_meta; };
 
@@ -320,7 +322,8 @@ in let
         extraBuildCommands = mkExtraBuildCommands0 cc;
       };
 
-    } );
+    }
+  );
 
   libraries = lib.makeExtensible (libraries:
     let
@@ -336,7 +339,8 @@ in let
           monorepoSrc
           ;
       });
-    in {
+    in
+    {
 
       compiler-rt-libc = callPackage ./compiler-rt {
         inherit llvm_meta;
@@ -427,7 +431,8 @@ in let
       };
 
       openmp = callPackage ./openmp { inherit llvm_meta targetLlvm; };
-    } );
+    }
+  );
 
 in
 { inherit tools libraries release_version; } // libraries // tools

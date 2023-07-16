@@ -35,7 +35,8 @@ let
       NotShowIn=GNOME;
     '';
   };
-in {
+in
+{
   imports = [
       (mkRenamedOptionModule [
         "programs"

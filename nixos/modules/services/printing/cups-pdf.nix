@@ -168,7 +168,8 @@ let
       })))
   ];
 
-in {
+in
+{
 
   options.services.printing.cups-pdf = {
     enable = lib.mkEnableOption (lib.mdDoc ''

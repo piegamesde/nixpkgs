@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.r53-ddns;
   pkg = pkgs.r53-ddns;
-in {
+in
+{
   options = {
     services.r53-ddns = {
 

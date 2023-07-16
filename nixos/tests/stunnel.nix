@@ -61,7 +61,8 @@ let
     ''
     ;
 
-in {
+in
+{
   basicServer = makeTest {
     name = "basicServer";
 

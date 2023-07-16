@@ -49,7 +49,8 @@ let
     };
   };
 
-in {
+in
+{
   imports = [
       (mkMergedOptionModule [
         [
@@ -79,13 +80,15 @@ in {
             "postgrey"
             "inetPort"
           ];
-        in if value inetAddr == null then
+        in
+        if value inetAddr == null then
           { path = "/run/postgrey.sock"; }
         else
           {
             addr = value inetAddr;
             port = value inetPort;
-          }))
+          }
+      ))
     ];
 
   options = {
@@ -219,7 +222,8 @@ in {
               optionalString (cfg.socket.addr != null) (cfg.socket.addr + ":")
             }${toString cfg.socket.port}"
           ;
-      in {
+      in
+      {
         description = "Postfix Greylisting Service";
         wantedBy = [ "multi-user.target" ];
         before = [ "postfix.service" ];

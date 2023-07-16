@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.hardware.gkraken;
-in {
+in
+{
   options.hardware.gkraken = {
     enable = mkEnableOption
       (lib.mdDoc "gkraken's udev rules for NZXT AIO liquid coolers");

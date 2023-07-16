@@ -69,7 +69,8 @@ let
     lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
     (stdenv.targetPlatform.config + "-");
 
-in rec {
+in
+rec {
   # Misc tools
   binaries = stdenv.mkDerivation {
     pname = "${targetPrefix}ndk-toolchain";

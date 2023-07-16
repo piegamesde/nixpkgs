@@ -32,7 +32,8 @@ let
       $CC -o $out $src
     ''
     ;
-in {
+in
+{
   basic = makeTest {
     name = "systemd-binfmt";
     nodes.machine = {
@@ -46,7 +47,8 @@ in {
       let
         helloArmv7l = pkgs.pkgsCross.armv7l-hf-multiplatform.hello;
         helloAarch64 = pkgs.pkgsCross.aarch64-multiplatform.hello;
-      in ''
+      in
+      ''
         machine.start()
 
         assert "world" in machine.succeed(
@@ -66,7 +68,8 @@ in {
     testScript =
       let
         testAarch64 = expectArgv0 pkgs.pkgsCross.aarch64-multiplatform;
-      in ''
+      in
+      ''
         machine.start()
         machine.succeed("exec -a meow ${testAarch64} meow")
       ''
@@ -80,7 +83,8 @@ in {
       let
         helloAarch64 = pkgs.pkgsCross.aarch64-multiplatform.hello;
         libredirectAarch64 = pkgs.pkgsCross.aarch64-multiplatform.libredirect;
-      in ''
+      in
+      ''
         machine.start()
 
         assert "error" not in machine.succeed(

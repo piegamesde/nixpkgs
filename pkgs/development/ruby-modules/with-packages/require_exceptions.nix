@@ -5,7 +5,8 @@ let
       require "#{Gem::Specification.find_by_name(%(${name})).gem_dir}/lib/cocoapods_plugin"
     ''
     ;
-in {
+in
+{
   actioncable = [ "action_cable" ];
   actionmailer = [ "action_mailer" ];
   actionpack = [ "action_pack" ];

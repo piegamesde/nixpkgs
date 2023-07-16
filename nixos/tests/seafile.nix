@@ -15,7 +15,8 @@ import ./make-test-python.nix ({
         ];
       }
       ;
-  in {
+  in
+  {
     name = "seafile";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -133,4 +134,5 @@ import ./make-test-python.nix ({
 
           client2.succeed('[ `cat test01/first_file` = "bla" ]')
     '';
-  } )
+  }
+)

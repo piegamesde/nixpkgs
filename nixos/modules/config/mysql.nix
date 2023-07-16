@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.users.mysql;
-in {
+in
+{
   options = {
     users.mysql = {
       enable = mkEnableOption

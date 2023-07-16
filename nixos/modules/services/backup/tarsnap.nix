@@ -34,7 +34,8 @@ let
       "maxbw-rate-down ${toString cfg.maxbwRateDown}"}
     ''
     ;
-in {
+in
+{
   imports = [
       (mkRemovedOptionModule [
         "services"
@@ -352,7 +353,8 @@ in {
                                       } \
                                       ${concatStringsSep " " cfg.directories}'';
             cachedir = escapeShellArg cfg.cachedir;
-          in if (cfg.cachedir != null) then
+          in
+          if (cfg.cachedir != null) then
             ''
               mkdir -p ${cachedir}
               chmod 0700 ${cachedir}
@@ -403,7 +405,8 @@ in {
                 }'';
               cachedir = escapeShellArg cfg.cachedir;
 
-            in if (cfg.cachedir != null) then
+            in
+            if (cfg.cachedir != null) then
               ''
                 mkdir -p ${cachedir}
                 chmod 0700 ${cachedir}

@@ -34,7 +34,8 @@ let
           testPlay = { inherit (pkgs) sox alsa-utils; };
           testPlay32 = { inherit (pkgs.pkgsi686Linux) sox alsa-utils; };
         };
-      in {
+      in
+      {
         name = "pulseaudio${lib.optionalString fullVersion "Full"}${
             lib.optionalString systemWide "-systemWide"
           }";
@@ -96,7 +97,8 @@ let
             machine.screenshot("Pavucontrol")
           ''
           ;
-      } )
+      }
+    )
     ;
 in
 builtins.mapAttrs (key: val: mkTest val) {

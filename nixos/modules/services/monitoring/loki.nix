@@ -17,7 +17,8 @@ let
     ''
     ;
 
-in {
+in
+{
   options.services.loki = {
     enable = mkEnableOption (lib.mdDoc "loki");
 
@@ -108,7 +109,8 @@ in {
             else
               cfg.configFile
             ;
-        in {
+        in
+        {
           ExecStart = "${cfg.package}/bin/loki --config.file=${conf} ${
               escapeShellArgs cfg.extraFlags
             }";

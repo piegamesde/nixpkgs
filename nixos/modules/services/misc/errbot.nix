@@ -36,7 +36,8 @@ let
       ${instanceCfg.extraConfig}
     ''
     ;
-in {
+in
+{
   options = {
     services.errbot.instances = mkOption {
       default = { };
@@ -104,7 +105,8 @@ in {
           else
             "/var/lib/errbot/${name}"
           ;
-      in {
+      in
+      {
         after = [ "network-online.target" ];
         wantedBy = [ "multi-user.target" ];
         preStart = ''
@@ -119,6 +121,7 @@ in {
             }/config.py";
           PermissionsStartOnly = true;
         };
-      } )) cfg.instances;
+      }
+      )) cfg.instances;
   };
 }

@@ -8,7 +8,8 @@
 with lib;
 let
   cfg = config.programs.singularity;
-in {
+in
+{
 
   options.programs.singularity = {
     enable = mkEnableOption (mdDoc "singularity") // {

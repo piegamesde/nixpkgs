@@ -30,7 +30,8 @@ import ./make-test-python.nix ({
         WantedBy=multi-user.target
       '';
     };
-  in {
+  in
+  {
     name = "systemd-misc";
 
     nodes.machine =
@@ -67,4 +68,5 @@ import ./make-test-python.nix ({
 
       machine.succeed("systemctl show --property TasksMax --value user-1000.slice | grep 100")
     '';
-  } )
+  }
+)

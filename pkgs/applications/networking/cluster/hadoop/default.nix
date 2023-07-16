@@ -116,7 +116,8 @@ let
       ] { } platformAttrs);
     }
     ;
-in {
+in
+{
   # Different version of hadoop support different java runtime versions
   # https://cwiki.apache.org/confluence/display/HADOOP/Hadoop+Java+Versions
   hadoop_3_3 = common rec {

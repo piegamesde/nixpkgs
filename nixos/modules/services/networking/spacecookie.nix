@@ -16,7 +16,8 @@ let
 
   configFile = format.generate "spacecookie.json" spacecookieConfig;
 
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "services"

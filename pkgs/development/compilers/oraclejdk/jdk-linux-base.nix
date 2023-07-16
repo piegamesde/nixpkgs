@@ -68,7 +68,8 @@ let
     "lib/${architecture}"
   ];
 
-in let
+in
+let
   result = stdenv.mkDerivation rec {
     pname =
       if installjdk then

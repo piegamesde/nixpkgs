@@ -42,7 +42,8 @@ stdenv.mkDerivation {
   meta =
     let
       inherit (lib) maintainers;
-    in {
+    in
+    {
       homepage = "https://gitlab.com/pine64-org/quartz-bsp/rkdeveloptool/";
       description =
         "A tool from Rockchip to communicate with Rockusb devices (pine64 fork)";

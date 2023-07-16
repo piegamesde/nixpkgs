@@ -8,7 +8,8 @@
 }@args:
 let
   lib = import ./extra-lib.nix { inherit (args) lib; };
-in with builtins;
+in
+with builtins;
 with lib;
 let
   isGitHubDomain = d: match "^github.*" d != null;

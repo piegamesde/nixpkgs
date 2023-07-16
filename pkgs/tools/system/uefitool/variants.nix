@@ -3,7 +3,8 @@
 }:
 let
   common = opts: libsForQt5.callPackage (import ./common.nix opts) { };
-in rec {
+in
+rec {
   new-engine = common rec {
     version = "A62";
     sha256 = "sha256-U89j0BV57luv1c9hoYJtisKLxFezuaGFokZ29/NJ0xg=";

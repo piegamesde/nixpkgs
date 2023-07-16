@@ -54,7 +54,8 @@ let
       (concatLists (concatLists (mapAttrsToList mkParams value)))
       ;
   };
-in {
+in
+{
   options = {
     services.freeciv = {
       enable = mkEnableOption (lib.mdDoc "freeciv");

@@ -15,7 +15,8 @@ import ./make-test-python.nix ({
     lxd-image-metadata = lxd-image.lxdMeta.${pkgs.stdenv.hostPlatform.system};
     lxd-image-rootfs = lxd-image.lxdImage.${pkgs.stdenv.hostPlatform.system};
 
-  in {
+  in
+  {
     name = "lxd-image-server";
 
     meta = with pkgs.lib.maintainers; {
@@ -99,4 +100,5 @@ import ./make-test-python.nix ({
           machine.succeed("lxc remote add img https://acme.test --protocol=simplestreams")
           machine.succeed("lxc image list img: >&2")
     '';
-  } )
+  }
+)

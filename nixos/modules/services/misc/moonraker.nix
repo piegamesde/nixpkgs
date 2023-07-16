@@ -24,7 +24,8 @@ let
   };
 
   unifiedConfigDir = cfg.stateDir + "/config";
-in {
+in
+{
   options = {
     services.moonraker = {
       enable =

@@ -102,7 +102,8 @@ with prev; {
     postConfigure =
       let
         inherit (prev.cqueues) pname;
-      in ''
+      in
+      ''
         # 'all' target auto-detects correct Lua version, which is fine for us as
         # we only have the right one available :)
         sed -Ei ''${rockspecFilename} \

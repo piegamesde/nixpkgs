@@ -8,7 +8,8 @@
 let
   cfg = config.services.hockeypuck;
   settingsFormat = pkgs.formats.toml { };
-in {
+in
+{
   meta.maintainers = with lib.maintainers; [ etu ];
 
   options.services.hockeypuck = {

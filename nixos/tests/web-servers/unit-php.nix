@@ -5,7 +5,8 @@ import ../make-test-python.nix ({
   let
     testdir = pkgs.writeTextDir "www/info.php" "<?php phpinfo();";
 
-  in {
+  in
+  {
     name = "unit-php-test";
     meta.maintainers = with pkgs.lib.maintainers; [ izorkin ];
 
@@ -57,4 +58,5 @@ import ../make-test-python.nix ({
 
       machine.shutdown()
     '';
-  } )
+  }
+)

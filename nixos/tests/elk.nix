@@ -288,7 +288,8 @@ let
         ;
     }) { inherit pkgs system; }
     ;
-in {
+in
+{
   # We currently only package upstream binaries.
   # Feel free to package an SSPL licensed source-based package!
   # ELK-7 = mkElkTest "elk-7-oss" {

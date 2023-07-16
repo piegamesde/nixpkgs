@@ -147,7 +147,8 @@ let
     };
   };
 
-in {
+in
+{
 
   freeformType =
     let

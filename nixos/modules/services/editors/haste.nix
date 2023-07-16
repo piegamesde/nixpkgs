@@ -12,7 +12,8 @@ let
   cfg = config.services.haste-server;
 
   format = pkgs.formats.json { };
-in {
+in
+{
   options.services.haste-server = {
     enable = mkEnableOption (lib.mdDoc "haste-server");
     openFirewall =

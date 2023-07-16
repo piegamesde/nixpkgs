@@ -70,7 +70,8 @@ stdenv.mkDerivation (finalAttrs: {
           "test.multi_arch"
           "test.nocpp2"
         ];
-    in ''
+    in
+    ''
       runHook preCheck
       export HOME=$(mktemp -d)
       ctest --output-on-failure -E '^(${lib.concatStringsSep "|" badTests})$'

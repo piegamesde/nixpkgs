@@ -204,7 +204,8 @@ let
     ignoreCollisions = true;
   };
 
-in {
+in
+{
 
   ###### interface
 

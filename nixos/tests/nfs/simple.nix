@@ -27,7 +27,8 @@ import ../make-test-python.nix ({
       }
       ;
 
-  in {
+  in
+  {
     name = "nfs";
     meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
 
@@ -101,4 +102,5 @@ import ../make-test-python.nix ({
           duration = time.monotonic() - t1
           assert duration < 30, f"shutdown took too long ({duration} seconds)"
     '';
-  } )
+  }
+)

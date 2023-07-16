@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
         # Libressl netcat brings in `nc` which used for --uncompressed mode.
         netcat
       ];
-    in ''
+    in
+    ''
       # This `sed` command has the same effect as `wrapProgram`, except
       # without .restream-wrapped store paths appearing everywhere.
       sed -i \

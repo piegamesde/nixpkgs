@@ -36,7 +36,8 @@ let
         cfg.elasticsearch.certificateAuthorities;
     } // cfg.extraConf))));
 
-in {
+in
+{
   options.services.kibana = {
     enable = mkEnableOption (lib.mdDoc "kibana service");
 

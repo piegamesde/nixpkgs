@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.i18n.inputMethod.uim;
-in {
+in
+{
   options = {
 
     i18n.inputMethod.uim = {

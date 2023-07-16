@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
   let
     port = 3142;
     defaultPort = 8083;
-  in with lib; {
+  in
+  with lib; {
     name = "calibre-web";
     meta.maintainers = with pkgs.lib.maintainers; [ pborzenkov ];
 
@@ -47,4 +48,5 @@ import ./make-test-python.nix ({
           }' | grep test-book"
       )
     '';
-  })
+  }
+)

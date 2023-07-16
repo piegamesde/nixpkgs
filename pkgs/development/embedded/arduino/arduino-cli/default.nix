@@ -41,7 +41,8 @@ let
           "TestPlatformSearch"
           "TestPlatformSearchSorting"
         ];
-      in ''
+      in
+      ''
         substituteInPlace Taskfile.yml \
           --replace "go test" "go test -p $NIX_BUILD_CORES -skip '(${
             lib.concatStringsSep "|" skipTests
@@ -84,7 +85,8 @@ let
 
   };
 
-in if
+in
+if
   stdenv.isLinux
 then
 # buildFHSEnv is needed because the arduino-cli downloads compiler

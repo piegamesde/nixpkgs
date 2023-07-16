@@ -44,7 +44,8 @@ buildGoModule rec {
   ldflags =
     let
       t = "github.com/grafana/loki/pkg/util/build";
-    in [
+    in
+    [
       "-s"
       "-w"
       "-X ${t}.Version=${version}"

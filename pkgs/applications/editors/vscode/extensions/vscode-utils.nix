@@ -164,7 +164,8 @@ let
     extensions:
     builtins.toJSON (map toExtensionJsonEntry extensions)
     ;
-in {
+in
+{
   inherit
     fetchVsixFromVscodeMarketplace
     buildVscodeExtension

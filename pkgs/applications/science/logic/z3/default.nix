@@ -99,7 +99,8 @@ let
       };
     }
     ;
-in {
+in
+{
   z3_4_11 = common {
     version = "4.11.0";
     sha256 = "sha256-ItmtZHDhCeLAVtN7K80dqyAh20o7TM4xk2sTb9QgHvk=";

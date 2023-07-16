@@ -15,7 +15,8 @@ let
       ];
     }
   '';
-in {
+in
+{
   imports = [ ./linode-config.nix ];
 
   options = {

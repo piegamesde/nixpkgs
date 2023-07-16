@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
     hashes = pkgs.writeText "hashes" ''
       b5bb9d8014a0f9b1d61e21e796d78dccdf1352f23cd32812f4850b878ae4944c  /project/bar
     '';
-  in {
+  in
+  {
     name = "gitdaemon";
 
     meta = with pkgs.lib.maintainers; { maintainers = [ tilpner ]; };
@@ -79,4 +80,5 @@ import ./make-test-python.nix ({
               "sha256sum -c ${hashes}",
           )
     '';
-  } )
+  }
+)

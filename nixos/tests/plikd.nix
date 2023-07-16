@@ -11,7 +11,8 @@ import ./make-test-python.nix ({
         ...
       }:
       let
-      in {
+      in
+      {
         services.plikd.enable = true;
         environment.systemPackages = [ pkgs.plik ];
       }

@@ -100,7 +100,8 @@ import ../make-test-python.nix ({
             admin_server = SYSLOG:NOTICE
             default      = SYSLOG:NOTICE
         '';
-      in ''
+      in
+      ''
         machine.succeed(
             "diff /etc/krb5.conf ${snapshot}"
         )

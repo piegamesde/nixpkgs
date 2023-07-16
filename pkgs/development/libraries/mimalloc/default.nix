@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
         else
           "LD_LIBRARY_PATH"
         ;
-    in ''
+    in
+    ''
       export ${ldLibraryPathEnv}="$(pwd)/build:''${${ldLibraryPathEnv}}"
     ''
     ;

@@ -26,7 +26,8 @@ let
           };
         }
         ;
-    in rec {
+    in
+    rec {
       "4.06" = mkNewParam {
         version = "8.06.4";
         rev = "labltk-8.06.4";

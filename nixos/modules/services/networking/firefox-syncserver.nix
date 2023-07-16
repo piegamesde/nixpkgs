@@ -83,7 +83,8 @@ let
     exit 1
   '';
 
-in {
+in
+{
   options = {
     services.firefox-syncserver = {
       enable = lib.mkEnableOption (lib.mdDoc ''

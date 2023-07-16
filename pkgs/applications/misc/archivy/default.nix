@@ -21,7 +21,8 @@ let
       }
       ;
   };
-in with py.pkgs;
+in
+with py.pkgs;
 
 buildPythonApplication rec {
   pname = "archivy";

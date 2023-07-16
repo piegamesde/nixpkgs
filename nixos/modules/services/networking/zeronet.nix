@@ -36,7 +36,8 @@ let
         ;
     };
   };
-in with lib; {
+in
+with lib; {
   options.services.zeronet = {
     enable = mkEnableOption (lib.mdDoc "zeronet");
 

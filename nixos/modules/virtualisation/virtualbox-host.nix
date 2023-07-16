@@ -23,7 +23,8 @@ let
   kernelModules =
     config.boot.kernelPackages.virtualbox.override { inherit virtualbox; };
 
-in {
+in
+{
   options.virtualisation.virtualbox.host = {
     enable = mkEnableOption (lib.mdDoc "VirtualBox") // {
       description = lib.mdDoc ''

@@ -9,7 +9,8 @@ with lib;
 let
   cfg = config.services.xserver.windowManager;
 
-in {
+in
+{
   imports = [
     ./2bwm.nix
     ./afterstep.nix

@@ -17,7 +17,8 @@ let
     else
       "nginx"
     ;
-in {
+in
+{
   options.services.postfixadmin = {
     enable = mkOption {
       type = types.bool;

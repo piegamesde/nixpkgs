@@ -182,7 +182,8 @@ let
             else
               null
             ;
-        in {
+        in
+        {
           options = mkMerge [
             (mkIf config.autoResize [ "x-nixos.autoresize" ])
             (mkIf (utils.fsNeededForBoot config) [ "x-initrd.mount" ])
@@ -290,7 +291,8 @@ let
         ;
     });
 
-in {
+in
+{
 
   ###### interface
 
@@ -395,7 +397,8 @@ in {
           fs:
           fs.autoResize && !(hasPrefix "ext" fs.fsType || fs.fsType == "f2fs")
           ;
-      in [
+      in
+      [
         {
           assertion = !(fileSystems' ? cycle);
           message =
@@ -446,7 +449,8 @@ in {
               "=${toString sw.discardPolicy}"
             }")
           ;
-      in ''
+      in
+      ''
         # This is a generated file.  Do not edit!
         #
         # To make changes, edit the fileSystems and swapDevices NixOS options

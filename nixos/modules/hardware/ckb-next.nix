@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.hardware.ckb-next;
 
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "hardware"

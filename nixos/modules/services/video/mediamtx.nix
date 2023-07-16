@@ -11,7 +11,8 @@ let
   cfg = config.services.mediamtx;
   package = pkgs.mediamtx;
   format = pkgs.formats.yaml { };
-in {
+in
+{
   options = {
     services.mediamtx = {
       enable = mkEnableOption (lib.mdDoc "MediaMTX");

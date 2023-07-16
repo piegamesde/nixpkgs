@@ -129,7 +129,8 @@ buildDotnetPackage rec {
   postInstall =
     let
       extractFDeskIcons = ./extractWinRscIconsToStdFreeDesktopDir.sh;
-    in ''
+    in
+    ''
       mkdir -p "$out/share/applications"
       cp ${desktopItem}/share/applications/* $out/share/applications
       wrapProgram $out/bin/keepass \

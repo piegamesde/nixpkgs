@@ -63,7 +63,8 @@ stdenvNoCC.mkDerivation rec {
         which
         v4l-utils
       ];
-    in ''
+    in
+    ''
       mkdir -p $out/bin
 
       makeWrapper ${mirakurun}/bin/mirakurun-epgdump $out/bin/mirakurun-epgdump \

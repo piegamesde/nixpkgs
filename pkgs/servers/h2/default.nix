@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
           echo "You have to provide the full java class path for the h2 tool you want to run. E.g. 'org.h2.tools.Server'"
         fi
       '';
-    in ''
+    in
+    ''
       mkdir -p $out $doc/share/doc/
       cp -R bin $out/
       cp -R docs $doc/share/doc/h2

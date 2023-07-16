@@ -62,7 +62,8 @@ let
       postgresSupport = service == "sql" && sql.driver == "native_pgsql";
     });
 
-in {
+in
+{
   options = {
     services.gammu-smsd = {
 

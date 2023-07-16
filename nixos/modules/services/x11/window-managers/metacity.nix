@@ -12,7 +12,8 @@ let
   cfg = config.services.xserver.windowManager.metacity;
   inherit (pkgs) gnome;
 
-in {
+in
+{
   options = {
     services.xserver.windowManager.metacity.enable =
       mkEnableOption (lib.mdDoc "metacity");

@@ -21,7 +21,8 @@ let
     ''
     ;
 
-in {
+in
+{
   options.services.envoy = {
     enable = mkEnableOption (lib.mdDoc "Envoy reverse proxy");
 

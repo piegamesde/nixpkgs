@@ -77,7 +77,8 @@ let
       };
     } // (args.argsOverride or { }))
     ;
-in {
+in
+{
   lts = xanmodKernelFor ltsVariant;
   main = xanmodKernelFor mainVariant;
 }

@@ -81,7 +81,8 @@ let
       };
     }
     ;
-in rec {
+in
+rec {
   wasmer = common {
     pname = "wasmer";
     buildAndTestSubdir = "packages/api";

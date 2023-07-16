@@ -197,7 +197,8 @@ let
       expected = false;
     };
   };
-in if cases == [ ] then
+in
+if cases == [ ] then
   "Unit tests successful"
 else
   throw "Path unit tests failed: ${lib.generators.toPretty { } cases}"

@@ -67,7 +67,8 @@ let
     };
   };
 
-in {
+in
+{
 
   options = {
 

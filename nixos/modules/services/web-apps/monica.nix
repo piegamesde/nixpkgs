@@ -30,7 +30,8 @@ let
 
   tlsEnabled = cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL
     || cfg.nginx.enableACME;
-in {
+in
+{
   options.services.monica = {
     enable = mkEnableOption (lib.mdDoc "monica");
 
@@ -435,7 +436,8 @@ in {
             ])) cfg.config;
           monicaEnv =
             pkgs.writeText "monica.env" (monicaEnvVars filteredConfig);
-        in ''
+        in
+        ''
           # error handling
           set -euo pipefail
 

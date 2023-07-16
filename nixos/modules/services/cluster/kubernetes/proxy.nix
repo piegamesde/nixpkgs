@@ -12,7 +12,8 @@ let
   top = config.services.kubernetes;
   otop = options.services.kubernetes;
   cfg = top.proxy;
-in {
+in
+{
   imports = [
       (mkRenamedOptionModule [
         "services"

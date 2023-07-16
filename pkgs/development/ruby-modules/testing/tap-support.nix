@@ -26,7 +26,8 @@ let
     else
       "not ok"
     ;
-in {
+in
+{
   output =
     reports:
     ''

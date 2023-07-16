@@ -80,7 +80,8 @@ stdenv.mkDerivation rec {
         "$out/${name}"
       ];
       globalLibrariesPath = builtins.concatStringsSep ":" globalLibraries;
-    in ''
+    in
+    ''
       # Remove existing idris2 wrapper that sets incorrect LD_LIBRARY_PATH
       rm $out/bin/idris2
       # The only thing we need from idris2_app is the actual binary

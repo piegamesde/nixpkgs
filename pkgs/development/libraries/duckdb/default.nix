@@ -108,7 +108,8 @@ stdenv.mkDerivation rec {
         "test/sql/aggregate/aggregates/test_skewness.test"
         "test/sql/function/list/aggregates/skewness.test"
       ];
-    in ''
+    in
+    ''
       runHook preInstallCheck
 
       $PWD/test/unittest ${lib.concatStringsSep " " excludes}

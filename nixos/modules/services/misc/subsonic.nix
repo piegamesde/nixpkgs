@@ -11,7 +11,8 @@ with lib;
 let
   cfg = config.services.subsonic;
   opt = options.services.subsonic;
-in {
+in
+{
   options = {
     services.subsonic = {
       enable = mkEnableOption (lib.mdDoc "Subsonic daemon");

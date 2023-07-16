@@ -22,7 +22,8 @@ import ../make-test-python.nix ({
           virtualHosts."phpfpm" =
             let
               testdir = pkgs.writeTextDir "web/index.php" "<?php phpinfo();";
-            in {
+            in
+            {
               root = "${testdir}/web";
               locations."~ \\.php$".extraConfig = ''
                 fastcgi_pass unix:${config.services.phpfpm.pools.foobar.socket};

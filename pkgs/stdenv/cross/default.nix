@@ -49,7 +49,8 @@ lib.init bootStages ++ [
         else
           lib.id
         ;
-    in {
+    in
+    {
       inherit config;
       overlays = overlays ++ crossOverlays;
       selfBuild = false;
@@ -106,6 +107,7 @@ lib.init bootStages ++ [
           f hostPlatform && !(f buildPlatform)
           ) buildPackages.updateAutotoolsGnuConfigScriptsHook;
       }));
-    } )
+    }
+  )
 
 ]

@@ -23,7 +23,8 @@ let
     else
       configDirectory
     ;
-in {
+in
+{
   options = {
     services.freeswitch = {
       enable = mkEnableOption (lib.mdDoc "FreeSWITCH");

@@ -21,7 +21,8 @@ let
     destination = "/bin/tsocks";
   };
 
-in {
+in
+{
 
   ###### interface
 

@@ -5,7 +5,8 @@
 let
   pname = "hockeypuck";
   version = "2.1.0";
-in {
+in
+{
   inherit version pname;
 
   src = fetchFromGitHub {

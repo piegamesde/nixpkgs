@@ -37,7 +37,8 @@ let
     (filterAttrs (k: v: v != null) (mapAttrs (section: v:
       let
         srvMatch = builtins.match "^([a-z]*)\\.sr\\.ht(::.*)?$" section;
-      in if
+      in
+      if
         srvMatch == null # Include sections shared by all services
         || head srvMatch
         == srv # Include sections for the service being configured
@@ -56,19 +57,19 @@ let
         }
         # Drop sub-sections of other services
       else
-        null) (recursiveUpdate cfg.settings {
-          # Those paths are mounted using BindPaths= or BindReadOnlyPaths=
-          # for services needing access to them.
-          "builds.sr.ht::worker".buildlogs =
-            "/var/log/sourcehut/buildsrht-worker";
-          "git.sr.ht".post-update-script = "/usr/bin/gitsrht-update-hook";
-          "git.sr.ht".repos = "/var/lib/sourcehut/gitsrht/repos";
-          "hg.sr.ht".changegroup-script = "/usr/bin/hgsrht-hook-changegroup";
-          "hg.sr.ht".repos = "/var/lib/sourcehut/hgsrht/repos";
-            # Making this a per service option despite being in a global section,
-            # so that it uses the redis-server used by the service.
-          "sr.ht".redis-host = cfg.${srv}.redis.host;
-        })))
+        null
+    ) (recursiveUpdate cfg.settings {
+      # Those paths are mounted using BindPaths= or BindReadOnlyPaths=
+      # for services needing access to them.
+      "builds.sr.ht::worker".buildlogs = "/var/log/sourcehut/buildsrht-worker";
+      "git.sr.ht".post-update-script = "/usr/bin/gitsrht-update-hook";
+      "git.sr.ht".repos = "/var/lib/sourcehut/gitsrht/repos";
+      "hg.sr.ht".changegroup-script = "/usr/bin/hgsrht-hook-changegroup";
+      "hg.sr.ht".repos = "/var/lib/sourcehut/hgsrht/repos";
+        # Making this a per service option despite being in a global section,
+        # so that it uses the redis-server used by the service.
+      "sr.ht".redis-host = cfg.${srv}.redis.host;
+    })))
     ;
   commonServiceSettings =
     srv: {
@@ -144,7 +145,8 @@ let
       default = null;
     }
     ;
-in {
+in
+{
   options.services.sourcehut = {
     enable = mkEnableOption (lib.mdDoc ''
       sourcehut - git hosting, continuous integration, mailing list, ticket tracking, wiki
@@ -1132,7 +1134,8 @@ in {
             "${cfg.settings."git.sr.ht".repos}:/var/lib/sourcehut/gitsrht/repos"
           ];
       };
-    in {
+    in
+    {
       inherit configIniOfService;
       mainService = mkMerge [
         baseService
@@ -1252,7 +1255,8 @@ in {
           ];
         };
       };
-    } ))
+    }
+    ))
 
     (import ./service.nix "hg" (let
       baseService = {
@@ -1261,7 +1265,8 @@ in {
             "${cfg.settings."hg.sr.ht".repos}:/var/lib/sourcehut/hgsrht/repos"
           ];
       };
-    in {
+    in
+    {
       inherit configIniOfService;
       mainService = mkMerge [
         baseService
@@ -1333,7 +1338,8 @@ in {
           };
         })
       ];
-    } ))
+    }
+    ))
 
     (import ./service.nix "hub" {
       inherit configIniOfService;
@@ -1350,7 +1356,8 @@ in {
 
     (import ./service.nix "lists" (let
       srvsrht = "listssrht";
-    in {
+    in
+    {
       inherit configIniOfService;
       port = 5006;
       webhooks = true;
@@ -1406,7 +1413,8 @@ in {
           '';
         };
       };
-    } ))
+    }
+    ))
 
     (import ./service.nix "man" {
       inherit configIniOfService;
@@ -1511,7 +1519,8 @@ in {
           version = pkgs.sourcehut.${srvsrht}.version;
           stateDir = "/var/lib/sourcehut/${srvsrht}";
           iniKey = "pages.sr.ht";
-        in {
+        in
+        {
           preStart = mkBefore ''
             set -x
             # Use the /run/sourcehut/${srvsrht}/config.ini

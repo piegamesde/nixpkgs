@@ -36,7 +36,8 @@ let
       };
     }
     ;
-in rec {
+in
+rec {
   deu2eng = makeDictdDBFreedict (fetchurl {
     url = "mirror://sourceforge/freedict/deu-eng.tar.gz";
     sha256 = "0dqrhv04g4f5s84nbgisgcfwk5x0rpincif0yfhfh4sc1bsvzsrb";

@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.xdg.portal.lxqt;
 
-in {
+in
+{
   meta = { maintainers = teams.lxqt.members; };
 
   options.xdg.portal.lxqt = {

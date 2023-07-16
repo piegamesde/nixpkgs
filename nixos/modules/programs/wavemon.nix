@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.wavemon;
-in {
+in
+{
   options = {
     programs.wavemon = {
       enable = mkOption {

@@ -144,7 +144,8 @@ let
 
   d2u = lib.replaceStrings [ "." ] [ "_" ];
 
-in {
+in
+{
 
   application = mkSweetHome3D rec {
     pname = lib.toLower module + "-application";

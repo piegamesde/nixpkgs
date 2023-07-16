@@ -8,7 +8,8 @@ let
   self = lib.makeExtensible (self:
     let
       inherit (self) callPackage;
-    in {
+    in
+    {
       callPackage = newScope self;
 
       python3 = callPackage ./python.nix { inherit python3; };
@@ -50,7 +51,8 @@ let
             ]);
         }
         ;
-    } );
+    }
+  );
 
 in
 self

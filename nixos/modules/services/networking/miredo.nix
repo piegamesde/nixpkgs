@@ -16,7 +16,8 @@ let
     ${optionalString (cfg.bindAddress != null) "BindAddress ${cfg.bindAddress}"}
     ${optionalString (cfg.bindPort != null) "BindPort ${cfg.bindPort}"}
   '';
-in {
+in
+{
 
   ###### interface
 

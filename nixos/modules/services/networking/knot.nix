@@ -39,7 +39,8 @@ let
       ln -s '${cfg.package}/share/man' "$out/share/"
     '';
   };
-in {
+in
+{
   options = {
     services.knot = {
       enable = mkEnableOption (lib.mdDoc "Knot authoritative-only DNS server");

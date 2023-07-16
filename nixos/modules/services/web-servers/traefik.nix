@@ -59,7 +59,8 @@ let
     else
       cfg.staticConfigFile
     ;
-in {
+in
+{
   options.services.traefik = {
     enable = mkEnableOption (lib.mdDoc "Traefik web server");
 

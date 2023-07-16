@@ -148,7 +148,8 @@ let
       inherit testScript;
     }
     ;
-in {
+in
+{
   systemd = mkCertmgrTest {
     svcManager = "systemd";
     specs = {

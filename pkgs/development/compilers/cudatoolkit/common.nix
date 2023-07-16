@@ -323,7 +323,8 @@ backendStdenv.mkDerivation rec {
   doInstallCheck = false;
   postInstallCheck =
     let
-    in ''
+    in
+    ''
       # Smoke test binaries
       pushd $out/bin
       for f in *; do

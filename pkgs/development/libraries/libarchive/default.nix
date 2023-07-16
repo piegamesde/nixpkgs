@@ -70,7 +70,8 @@ assert xarSupport -> libxml2 != null;
           rm "${testPath}"
         ''
         ;
-    in ''
+    in
+    ''
       substituteInPlace Makefile.am --replace '/bin/pwd' "$(type -P pwd)"
 
       ${lib.concatStringsSep "\n" (map removeTest skipTestPaths)}

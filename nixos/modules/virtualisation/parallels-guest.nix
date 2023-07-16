@@ -10,7 +10,8 @@ with lib;
 let
   prl-tools = config.hardware.parallels.package;
 
-in {
+in
+{
 
   options = {
     hardware.parallels = {

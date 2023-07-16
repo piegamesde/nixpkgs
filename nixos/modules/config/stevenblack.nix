@@ -28,7 +28,8 @@ let
 
   hostsPath = "${pkgs.stevenblack-blocklist}/alternates/"
     + concatStringsSep "-" activatedHosts + "/hosts";
-in {
+in
+{
   options.networking.stevenblack = {
     enable =
       mkEnableOption (mdDoc "Enable the stevenblack hosts file blocklist");

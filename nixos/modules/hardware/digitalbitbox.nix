@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.hardware.digitalbitbox;
 
-in {
+in
+{
   options.hardware.digitalbitbox = {
     enable = mkOption {
       type = types.bool;

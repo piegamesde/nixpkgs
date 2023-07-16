@@ -47,7 +47,8 @@ import ./make-test-python.nix ({
       }:
       let
         aliceDo = cmd: ''machine.succeed("su - alice -c '${cmd}' >&2 &");'';
-      in ''
+      in
+      ''
         with subtest("Ensure X starts"):
             start_all()
             machine.wait_for_x()

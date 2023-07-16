@@ -16,7 +16,8 @@ import ../../make-test-python.nix ({
       192.168.2.101 mastodon.local
     '';
 
-  in {
+  in
+  {
     name = "mastodon-standard";
     meta.maintainers = with pkgs.lib.maintainers; [
       erictapen
@@ -107,4 +108,5 @@ import ../../make-test-python.nix ({
         server.wait_for_open_port(5432)
       '';
     };
-  } )
+  }
+)

@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.arbtt;
-in {
+in
+{
   options = {
     services.arbtt = {
       enable = mkEnableOption (lib.mdDoc "Arbtt statistics capture service");

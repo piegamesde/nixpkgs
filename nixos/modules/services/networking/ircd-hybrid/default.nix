@@ -41,7 +41,8 @@ let
     builder = ./builder.sh;
   };
 
-in {
+in
+{
 
   ###### interface
 

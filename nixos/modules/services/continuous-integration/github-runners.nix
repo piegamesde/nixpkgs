@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.github-runners;
 
-in {
+in
+{
   options.services.github-runners = mkOption {
     default = { };
     type = with types;

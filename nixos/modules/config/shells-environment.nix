@@ -36,7 +36,8 @@ let
     concatStringsSep "\n" exportVariables
     ;
 
-in {
+in
+{
 
   options = {
 

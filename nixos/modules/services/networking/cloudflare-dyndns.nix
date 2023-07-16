@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.cloudflare-dyndns;
-in {
+in
+{
   options = {
     services.cloudflare-dyndns = {
       enable = mkEnableOption (lib.mdDoc "Cloudflare Dynamic DNS Client");

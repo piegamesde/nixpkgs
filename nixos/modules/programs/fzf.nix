@@ -7,7 +7,8 @@
 with lib;
 let
   cfg = config.programs.fzf;
-in {
+in
+{
   options = {
     programs.fzf = {
       fuzzyCompletion = mkEnableOption (mdDoc "fuzzy completion with fzf");

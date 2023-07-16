@@ -8,7 +8,8 @@
 with lib;
 let
   cfg = config.services.pacemaker;
-in {
+in
+{
   # interface
   options.services.pacemaker = {
     enable = mkEnableOption (lib.mdDoc "pacemaker");

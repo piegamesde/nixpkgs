@@ -13,7 +13,8 @@ let
     ;
   sources = (lib.importJSON ./sources.json).hotspot.${variant};
   common = opts: callPackage (import ./jdk-linux-base.nix opts) { };
-in {
+in
+{
   jdk-8 = common { sourcePerArch = sources.jdk.openjdk8; };
   jre-8 = common { sourcePerArch = sources.jre.openjdk8; };
   jdk-11 = common { sourcePerArch = sources.jdk.openjdk11; };

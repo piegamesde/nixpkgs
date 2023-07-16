@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.teleport;
   settingsYaml = pkgs.formats.yaml { };
-in {
+in
+{
   options = {
     services.teleport = with lib.types; {
       enable = mkEnableOption (lib.mdDoc "the Teleport service");

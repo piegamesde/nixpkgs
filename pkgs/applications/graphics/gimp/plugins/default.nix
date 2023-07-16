@@ -84,7 +84,8 @@ lib.makeScope pkgs.newScope (self:
         '';
       } // attrs)
       ;
-  in {
+  in
+  {
     # Allow overriding GIMP package in the scope.
     inherit (pkgs) gimp;
 
@@ -363,4 +364,5 @@ lib.makeScope pkgs.newScope (self:
           "c14a8f4f709695ede3f77348728a25b3f3ded420da60f3f8de3944b7eae98a49";
       };
     };
-  } )
+  }
+)

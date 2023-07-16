@@ -35,7 +35,8 @@ let
 
   lessKey = pkgs.writeText "lessconfig" configText;
 
-in {
+in
+{
   options = {
 
     programs.less = {

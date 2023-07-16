@@ -26,12 +26,14 @@ let
     name:
     let
       value = builtins.getAttr name config.boot.loader.grub.ipxe;
-    in if builtins.typeOf value == "path" then
+    in
+    if builtins.typeOf value == "path" then
       value
     else
       builtins.toFile "${name}.ipxe" value
     ;
-in {
+in
+{
   options = {
     boot.loader.grub.ipxe = mkOption {
       type = types.attrsOf (types.either types.path types.str);

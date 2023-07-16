@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.unbound;
-in {
+in
+{
   port = 9167;
   extraOpts = {
     fetchType = mkOption {

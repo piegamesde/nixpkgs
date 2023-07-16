@@ -50,7 +50,8 @@ import ./make-test-python.nix ({
       }:
       let
         ip = builtins.elemAt allConsensusClientHosts index;
-      in {
+      in
+      {
         environment.systemPackages = [ pkgs.consul ];
 
         networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
@@ -82,7 +83,8 @@ import ./make-test-python.nix ({
         thisConsensusServerHost = builtins.elemAt allConsensusServerHosts index;
         ip =
           thisConsensusServerHost; # since we already use IPs to identify servers
-      in {
+      in
+      {
         networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
           address = ip;
           prefixLength = 16;
@@ -115,7 +117,8 @@ import ./make-test-python.nix ({
           };
       }
       ;
-  in {
+  in
+  {
     name = "consul";
 
     nodes = {
@@ -263,4 +266,5 @@ import ./make-test-python.nix ({
       print("rolling_restart_test(proper_rolling_procedure=False)")
       rolling_restart_test(proper_rolling_procedure=False)
     '';
-  } )
+  }
+)

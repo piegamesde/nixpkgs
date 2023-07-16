@@ -36,7 +36,8 @@ buildGoModule rec {
   ldflags =
     let
       t = "github.com/grafana/mimir/pkg/util/version";
-    in [
+    in
+    [
       ''-extldflags "-static"''
       "-s"
       "-w"

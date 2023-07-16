@@ -11,7 +11,8 @@ let
 
   cfg = config.services.logmein-hamachi;
 
-in {
+in
+{
 
   ###### interface
 

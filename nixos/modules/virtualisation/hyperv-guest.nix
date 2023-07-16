@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.virtualisation.hypervGuest;
 
-in {
+in
+{
   options = {
     virtualisation.hypervGuest = {
       enable = mkEnableOption (lib.mdDoc "Hyper-V Guest Support");

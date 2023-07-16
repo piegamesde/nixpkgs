@@ -29,7 +29,8 @@ import ./make-test-python.nix ({
         -days 500 -sha256
       '';
 
-  in {
+  in
+  {
     name = "privoxy";
     meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
 
@@ -115,4 +116,5 @@ import ./make-test-python.nix ({
           # ...and count again
           machine.succeed("test $(ls /run/privoxy/certs | wc -l) -eq 0")
     '';
-  } )
+  }
+)

@@ -93,7 +93,8 @@ let
       };
     }
     ;
-in {
+in
+{
   # EOL TBA
   varnish60 = common {
     version = "6.0.11";

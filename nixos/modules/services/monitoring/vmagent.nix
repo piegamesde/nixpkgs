@@ -8,7 +8,8 @@ with lib;
 let
   cfg = config.services.vmagent;
   settingsFormat = pkgs.formats.json { };
-in {
+in
+{
   options.services.vmagent = {
     enable = mkEnableOption (lib.mdDoc "vmagent");
 
@@ -87,7 +88,8 @@ in {
       let
         prometheusConfig =
           settingsFormat.generate "prometheusConfig.yaml" cfg.prometheusConfig;
-      in {
+      in
+      {
         wantedBy = [ "multi-user.target" ];
         after = [ "network.target" ];
         description = "vmagent system service";

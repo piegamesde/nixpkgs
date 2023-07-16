@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.grocy;
-in {
+in
+{
   options.services.grocy = {
     enable = mkEnableOption (lib.mdDoc "grocy");
 

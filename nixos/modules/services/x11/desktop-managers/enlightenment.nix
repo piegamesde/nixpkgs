@@ -19,7 +19,8 @@ let
     pkgs.gst_all_1.gst-libav
   ];
 
-in {
+in
+{
   meta = { maintainers = teams.enlightenment.members; };
 
   imports = [

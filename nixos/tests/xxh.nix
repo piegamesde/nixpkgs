@@ -35,7 +35,8 @@ import ./make-test-python.nix ({
         "https://github.com/romkatv/zsh-bin/releases/download/v3.0.1/zsh-5.8-linux-x86_64.tar.gz";
       sha256 = "sha256-i8flMd2Isc0uLoeYQNDnOGb/kK3oTFVqQgIx7aOAIIo=";
     };
-  in {
+  in
+  {
     name = "xxh";
     meta = with lib.maintainers; { maintainers = [ lom ]; };
 
@@ -77,4 +78,5 @@ import ./make-test-python.nix ({
 
       client.succeed("xxh server -i /root/.ssh/id_ecdsa +hc \'echo $0\' +i +s zsh +I xxh-shell-zsh+path+${xxh-shell-zsh} | grep -Fq '/root/.xxh/.xxh/shells/xxh-shell-zsh/build/zsh-bin/bin/zsh'")
     '';
-  } )
+  }
+)

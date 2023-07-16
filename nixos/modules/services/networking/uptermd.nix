@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.uptermd;
-in {
+in
+{
   options = {
     services.uptermd = {
       enable = mkEnableOption (lib.mdDoc "uptermd");

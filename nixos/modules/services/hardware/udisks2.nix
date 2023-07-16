@@ -16,7 +16,8 @@ let
     (mapAttrs' (name: value: nameValuePair name value)
       config.services.udisks2.settings);
 
-in {
+in
+{
 
   ###### interface
 

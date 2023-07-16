@@ -10,7 +10,8 @@ with lib;
 
 let
   cfg = config.services.flatpak;
-in {
+in
+{
   meta = {
     doc = ./flatpak.md;
     maintainers = pkgs.flatpak.meta.maintainers;

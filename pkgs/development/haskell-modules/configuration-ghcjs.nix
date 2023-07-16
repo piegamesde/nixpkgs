@@ -13,7 +13,8 @@ let
     builtins.filter (e: !(builtins.elem (e.pname or "") pnames)) depends
     ;
 
-in with haskellLib;
+in
+with haskellLib;
 
 self: super:
 

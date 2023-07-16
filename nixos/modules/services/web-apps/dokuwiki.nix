@@ -66,7 +66,8 @@ let
     v:
     let
       isHasAttr = s: isAttrs v && hasAttr s v;
-    in if isString v then
+    in
+    if isString v then
       escapeShellArg v
       # NOTE: If any value contains a , (comma) this will not get escaped
     else if isList v && any lib.strings.isCoercibleToString v then
@@ -222,7 +223,8 @@ let
       fromOpt = getAttrFromPath from options;
       toOp = getAttrsFromPath to config;
       toPath = pathPrefix ++ to;
-    in {
+    in
+    {
       options = setAttrByPath from (mkOption {
         visible = false;
         description = lib.mdDoc "Alias of {option}${showOption toPath}";
@@ -286,7 +288,8 @@ let
               }' to pass structured settings instead.";
             ecOpt = options.extraConfig;
             ecPath = showPath [ "extraConfig" ];
-          in {
+          in
+          {
             options.extraConfig = mkOption {
               visible = false;
               apply =
@@ -332,7 +335,8 @@ let
                   }).";
               }
             ];
-          } )
+          }
+        )
       ];
 
       options = {
@@ -594,7 +598,8 @@ let
       };
     }
     ;
-in {
+in
+{
   options = {
     services.dokuwiki = {
 

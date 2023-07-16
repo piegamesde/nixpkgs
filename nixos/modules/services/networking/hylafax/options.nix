@@ -138,7 +138,8 @@ let
     c
     ;
 
-in {
+in
+{
 
   options.services.hylafax = {
 

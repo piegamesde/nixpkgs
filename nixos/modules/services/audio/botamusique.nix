@@ -12,7 +12,8 @@ let
 
   format = pkgs.formats.ini { };
   configFile = format.generate "botamusique.ini" cfg.settings;
-in {
+in
+{
   meta.maintainers = with lib.maintainers; [ hexa ];
 
   options.services.botamusique = {

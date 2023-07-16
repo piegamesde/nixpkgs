@@ -10,7 +10,8 @@ let
   inherit (lib) literalExpression mkOption types;
 
   toml = pkgs.formats.toml { };
-in {
+in
+{
   meta = { maintainers = [ ] ++ lib.teams.podman.members; };
 
   options.virtualisation.containers = {

@@ -33,7 +33,8 @@
 let
   inherit (pkgs) lib;
 
-in with haskellLib;
+in
+with haskellLib;
 
 # All of the overrides in this set should look like:
 #

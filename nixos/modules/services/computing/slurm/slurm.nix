@@ -63,7 +63,8 @@ let
     ] ++ cfg.extraConfigPaths;
   };
 
-in {
+in
+{
 
   ###### interface
 

@@ -4,7 +4,8 @@
 }:
 let
   inherit (lib) types mkOption;
-in {
+in
+{
   imports = [
     ({
         config,

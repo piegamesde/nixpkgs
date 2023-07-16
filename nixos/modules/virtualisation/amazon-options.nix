@@ -6,7 +6,8 @@
 }:
 let
   inherit (lib) literalExpression types;
-in {
+in
+{
   options = {
     ec2 = {
       zfs = {

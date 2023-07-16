@@ -1619,7 +1619,8 @@ let
       };
     };
   };
-in {
+in
+{
   "psitransfer-git+https://github.com/psi-4ward/psitransfer#v2.0.1" =
     nodeEnv.buildNodePackage {
       name = "psitransfer";

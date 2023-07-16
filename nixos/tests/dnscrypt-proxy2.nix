@@ -4,7 +4,8 @@ import ./make-test-python.nix ({
   }:
   let
     localProxyPort = 43;
-  in {
+  in
+  {
     name = "dnscrypt-proxy2";
     meta = with pkgs.lib.maintainers; { maintainers = [ joachifm ]; };
 
@@ -46,4 +47,5 @@ import ./make-test-python.nix ({
         toString localProxyPort
       }")
     '';
-  } )
+  }
+)

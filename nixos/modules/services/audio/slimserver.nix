@@ -11,7 +11,8 @@ let
 
   cfg = config.services.slimserver;
 
-in {
+in
+{
   options = {
 
     services.slimserver = {

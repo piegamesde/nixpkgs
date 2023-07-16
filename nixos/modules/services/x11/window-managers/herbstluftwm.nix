@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.xserver.windowManager.herbstluftwm;
 
-in {
+in
+{
   options = {
     services.xserver.windowManager.herbstluftwm = {
       enable = mkEnableOption (lib.mdDoc "herbstluftwm");

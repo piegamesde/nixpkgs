@@ -59,7 +59,8 @@ let
       ${cfg.extraConfig}
     '';
   };
-in {
+in
+{
   options.services.kapacitor = {
     enable = mkEnableOption (lib.mdDoc "kapacitor");
 

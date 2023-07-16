@@ -14,7 +14,8 @@ let
   cfg = config.virtualisation.virtualbox.guest;
   kernel = config.boot.kernelPackages;
 
-in {
+in
+{
 
   ###### interface
 

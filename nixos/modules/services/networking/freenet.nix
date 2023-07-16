@@ -14,7 +14,8 @@ let
   cfg = config.services.freenet;
   varDir = "/var/lib/freenet";
 
-in {
+in
+{
 
   ### configuration
 

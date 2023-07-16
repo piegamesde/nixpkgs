@@ -81,7 +81,8 @@ let
       };
     })
     ;
-in {
+in
+{
   rainloop-community = common {
     edition = "community";
     sha256 = "sha256-25ScQ2OwSKAuqg8GomqDhpebhzQZjCk57h6MxUNiymc=";

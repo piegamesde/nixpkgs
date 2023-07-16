@@ -87,7 +87,8 @@ let
       ]))
     ;
 
-in {
+in
+{
   appstream = callInstalledTest ./appstream.nix { };
   appstream-qt = callInstalledTest ./appstream-qt.nix { };
   colord = callInstalledTest ./colord.nix { };

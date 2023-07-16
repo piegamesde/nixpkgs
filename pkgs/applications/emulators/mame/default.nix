@@ -157,7 +157,8 @@ stdenv.mkDerivation rec {
   installPhase =
     let
       icon = "${papirus-icon-theme}/share/icons/Papirus/32x32/apps/mame.svg";
-    in ''
+    in
+    ''
       runHook preInstall
 
       # mame

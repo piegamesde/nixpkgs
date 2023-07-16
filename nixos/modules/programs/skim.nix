@@ -7,7 +7,8 @@
 let
   inherit (lib) mdDoc mkEnableOption mkPackageOptionMD optional optionalString;
   cfg = config.programs.skim;
-in {
+in
+{
   options = {
     programs.skim = {
       fuzzyCompletion = mkEnableOption (mdDoc "fuzzy completion with skim");

@@ -48,7 +48,8 @@ let
     inherit (args) sha256;
   });
 
-in let
+in
+let
   useNativeCompilers = !stdenv.isMips;
   inherit (lib) optional optionals optionalString strings concatStrings;
   pname = concatStrings [
@@ -59,7 +60,8 @@ in let
     (optionalString framePointerSupport "+fp")
   ];
 
-in let
+in
+let
   x11env = buildEnv {
     name = "x11env";
     paths = [

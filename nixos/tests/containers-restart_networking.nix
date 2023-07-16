@@ -96,7 +96,8 @@ import ./make-test-python.nix ({
         originalSystem = nodes.client.config.system.build.toplevel;
         eth1_bridged = nodes.client_eth1.config.system.build.toplevel;
         eth1_rstp = nodes.client_eth1_rstp.config.system.build.toplevel;
-      in ''
+      in
+      ''
         client.start()
 
         client.wait_for_unit("default.target")

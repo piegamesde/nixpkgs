@@ -12,7 +12,8 @@ let
     "http://repo.typesafe.com/typesafe/releases/"
   ];
 
-in rec {
+in
+rec {
   makePaths =
     {
       extraClasspaths ? [ ]

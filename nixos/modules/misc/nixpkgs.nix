@@ -126,7 +126,8 @@ let
       defaultPkgs
     ;
 
-in {
+in
+{
   imports = [
     ./assertions.nix
     ./meta.nix
@@ -400,12 +401,14 @@ in {
             "nixpkgs.localSystem"
           ;
         pkgsSystem = finalPkgs.stdenv.targetPlatform.system;
-      in {
+      in
+      {
         assertion =
           constructedByMe -> !hasPlatform -> nixosExpectedSystem == pkgsSystem;
         message =
           "The NixOS nixpkgs.pkgs option was set to a Nixpkgs invocation that compiles to target system ${pkgsSystem} but NixOS was configured for system ${nixosExpectedSystem} via NixOS option ${nixosOption}. The NixOS system settings must match the Nixpkgs target system.";
-      } )
+      }
+      )
       {
         assertion =
           constructedByMe -> hasPlatform -> legacyOptionsDefined == [ ];

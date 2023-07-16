@@ -42,7 +42,8 @@ let
           "([0-9.]+)"
         ;
       m = builtins.match "${matchIP}:([0-9-]+)" IPPorts;
-    in {
+    in
+    {
       IP =
         if m == null then
           throw "bad ip:ports `${IPPorts}'"
@@ -106,7 +107,8 @@ let
       fwdLoopSnatSet = toNftSet (map (fwd:
         with (splitIPPorts fwd.destination);
         "${IP} . ${fwd.proto} . ${ports}") forwardPorts);
-    in ''
+    in
+    ''
       chain pre {
         type nat hook prerouting priority dstnat;
 
@@ -177,7 +179,8 @@ let
     ''
     ;
 
-in {
+in
+{
 
   config = mkIf (config.networking.nftables.enable && cfg.enable) {
 

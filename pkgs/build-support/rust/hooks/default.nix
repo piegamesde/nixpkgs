@@ -33,7 +33,8 @@ let
   rustBuildPlatform = rust.toRustTarget stdenv.buildPlatform;
   rustTargetPlatform = rust.toRustTarget stdenv.hostPlatform;
   rustTargetPlatformSpec = rust.toRustTargetSpec stdenv.hostPlatform;
-in {
+in
+{
   cargoBuildHook = callPackage ({ }:
     makeSetupHook {
       name = "cargo-build-hook.sh";

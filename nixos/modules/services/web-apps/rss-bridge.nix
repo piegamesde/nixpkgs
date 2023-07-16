@@ -12,7 +12,8 @@ let
 
   whitelist = pkgs.writeText "rss-bridge_whitelist.txt"
     (concatStringsSep "\n" cfg.whitelist);
-in {
+in
+{
   options = {
     services.rss-bridge = {
       enable = mkEnableOption (lib.mdDoc "rss-bridge");

@@ -22,7 +22,8 @@ let
 
     ${common-updater-scripts}/bin/update-source-version "$attrPath" "$version"
   '';
-in [
+in
+[
   updateScript
   attrPath
 ]

@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.greenclip;
-in {
+in
+{
 
   options.services.greenclip = {
     enable = mkEnableOption (lib.mdDoc "Greenclip daemon");

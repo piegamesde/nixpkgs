@@ -7,7 +7,8 @@
 with lib;
 let
   cfg = config.services.gateone;
-in {
+in
+{
   options = {
     services.gateone = {
       enable = mkEnableOption (lib.mdDoc "GateOne server");

@@ -16,7 +16,8 @@ let
       "legacy-bios"
     ;
 
-in {
+in
+{
 
   imports = [ ../../../modules/virtualisation/amazon-image.nix ];
 
@@ -34,9 +35,8 @@ in {
         else
           "255"
         ;
-    in [
-      "nvme_core.io_timeout=${timeout}"
-    ]
+    in
+    [ "nvme_core.io_timeout=${timeout}" ]
     ;
 
   options.amazonImage = {
@@ -191,7 +191,8 @@ in {
              ' > $out/nix-support/image-info.json
         '';
       };
-    in if config.ec2.zfs.enable then
+    in
+    if config.ec2.zfs.enable then
       zfsBuilder
     else
       extBuilder

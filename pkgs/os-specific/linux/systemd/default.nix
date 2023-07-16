@@ -215,7 +215,8 @@ stdenv.mkDerivation (finalAttrs: {
       sha256 = "DFcLPvjQIxGEDADpP232ZRd7cOEKt6B48Ah29nIGTt4=";
     };
     musl-patches = oe-core + "/meta/recipes-core/systemd/systemd";
-  in [
+  in
+  [
     (musl-patches + "/0001-Adjust-for-musl-headers.patch")
     (musl-patches + "/0005-pass-correct-parameters-to-getdents64.patch")
     (musl-patches
@@ -248,7 +249,8 @@ stdenv.mkDerivation (finalAttrs: {
       + "/0024-missing_syscall.h-Define-MIPS-ABI-defines-for-musl.patch")
     (musl-patches
       + "/0026-src-boot-efi-efi-string.c-define-wchar_t-from-__WCHA.patch")
-  ] );
+  ]
+  );
 
   postPatch = ''
     substituteInPlace src/basic/path-util.h --replace "@defaultPathNormal@" "${
@@ -301,7 +303,8 @@ stdenv.mkDerivation (finalAttrs: {
           else
             null
           ;
-      in [
+      in
+      [
         # bpf compilation support. We use libbpf 1 now.
         {
           name = "libbpf.so.1";
@@ -408,7 +411,8 @@ stdenv.mkDerivation (finalAttrs: {
       dl:
       let
         library = "${lib.makeLibraryPath [ dl.pkg ]}/${dl.name}";
-      in if dl.pkg == null then
+      in
+      if dl.pkg == null then
         ''
           # remove the dependency on the library by replacing it with an invalid path
           for file in $(grep -lr '"${dl.name}"' src); do
@@ -752,7 +756,8 @@ stdenv.mkDerivation (finalAttrs: {
             "^test"
             "NEWS"
           ]);
-        in ''
+        in
+        ''
           set +e
           search=$(grep '${search}' -r | grep -v "${replacement}" | grep -Ev "${ignore'}")
           set -e
@@ -763,7 +768,8 @@ stdenv.mkDerivation (finalAttrs: {
           fi
         ''
         ;
-    in ''
+    in
+    ''
       mesonFlagsArray+=(-Dntp-servers="0.nixos.pool.ntp.org 1.nixos.pool.ntp.org 2.nixos.pool.ntp.org 3.nixos.pool.ntp.org")
       export LC_ALL="en_US.UTF-8";
 

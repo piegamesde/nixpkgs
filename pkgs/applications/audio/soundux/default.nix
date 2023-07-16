@@ -129,7 +129,8 @@ stdenv.mkDerivation rec {
         pipewire
         libpulseaudio
       ];
-    in ''
+    in
+    ''
       # Wnck, PipeWire, and PulseAudio are dlopen-ed by Soundux, so they do
       # not end up on the RPATH during the build process.
       patchelf --add-rpath "${rpaths}" "$out/opt/soundux-${version}"

@@ -82,7 +82,8 @@ let
       # Special case of a single "." path component. Such a case leaves a
       # componentCount of -1 due to the skipStart/skipEnd not verifying that
       # they don't refer to the same character
-    in if path == "." then
+    in
+    if path == "." then
       [ ]
 
       # Generate the result list directly. This is more efficient than a
@@ -108,7 +109,8 @@ let
     ;
 
   # No rec! Add dependencies on this file at the top.
-in {
+in
+{
 
   /* Append a subpath string to a path.
 

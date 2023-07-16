@@ -29,7 +29,8 @@ import ./make-test-python.nix ({
                 echo "<html><body>Hello World!</body></html>" > $out/index.html
                 echo "s3cret" > $out/secret.html
               '';
-            in {
+            in
+            {
               root = testroot;
               extraConfig = ''
                 modsecurity on;

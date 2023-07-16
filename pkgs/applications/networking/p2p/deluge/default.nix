@@ -110,7 +110,8 @@ let
     }
     ;
 
-in rec {
+in
+rec {
   deluge-gtk = generic {
     pname = "deluge-gtk";
     withGUI = true;

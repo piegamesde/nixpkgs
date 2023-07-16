@@ -9,7 +9,8 @@ let
   cfg = config.services.joycond;
   kernelPackages = config.boot.kernelPackages;
 
-in with lib;
+in
+with lib;
 
 {
   options.services.joycond = {

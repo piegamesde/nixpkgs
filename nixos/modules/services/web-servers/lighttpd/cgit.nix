@@ -24,7 +24,8 @@ let
     # user configuration
     ${cfg.configText}
   '';
-in {
+in
+{
 
   options.services.lighttpd.cgit = {
 

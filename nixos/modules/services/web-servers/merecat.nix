@@ -26,7 +26,8 @@ let
   };
   configFile = format.generate "merecat.conf" cfg.settings;
 
-in {
+in
+{
 
   options.services.merecat = {
 

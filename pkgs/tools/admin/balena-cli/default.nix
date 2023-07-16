@@ -56,7 +56,8 @@ stdenv.mkDerivation (finalAttrs: {
     if stdenv.isLinux then
       let
         libPath = lib.makeLibraryPath [ stdenv.cc.cc ];
-      in ''
+      in
+      ''
         orig_size=$(stat --printf=%s $out/balena)
         patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/balena
         patchelf --set-rpath ${libPath} $out/balena

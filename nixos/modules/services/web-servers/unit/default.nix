@@ -12,7 +12,8 @@ let
 
   configFile = pkgs.writeText "unit.json" cfg.config;
 
-in {
+in
+{
   options = {
     services.unit = {
       enable = mkEnableOption (lib.mdDoc "Unit App Server");

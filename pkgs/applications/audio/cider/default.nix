@@ -17,7 +17,8 @@ appimageTools.wrapType2 rec {
   extraInstallCommands =
     let
       contents = appimageTools.extract { inherit pname version src; };
-    in ''
+    in
+    ''
       mv $out/bin/${pname}-${version} $out/bin/${pname}
 
       install -m 444 -D ${contents}/${pname}.desktop -t $out/share/applications

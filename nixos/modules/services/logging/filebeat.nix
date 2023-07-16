@@ -12,7 +12,8 @@ let
   cfg = config.services.filebeat;
 
   json = pkgs.formats.json { };
-in {
+in
+{
   options = {
 
     services.filebeat = {

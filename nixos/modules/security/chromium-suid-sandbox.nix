@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.security.chromiumSuidSandbox;
   sandbox = pkgs.chromium.sandbox;
-in {
+in
+{
   imports = [
       (mkRenamedOptionModule [
         "programs"

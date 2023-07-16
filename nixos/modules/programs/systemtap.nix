@@ -8,7 +8,8 @@ with lib;
 
 let
   cfg = config.programs.systemtap;
-in {
+in
+{
 
   options = {
     programs.systemtap = {

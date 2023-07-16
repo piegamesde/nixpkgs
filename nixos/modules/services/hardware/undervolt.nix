@@ -40,7 +40,8 @@ let
     power-limit-long = mkPLimit cfg.p1.limit cfg.p1.window;
     power-limit-short = mkPLimit cfg.p2.limit cfg.p2.window;
   };
-in {
+in
+{
   options.services.undervolt = {
     enable = mkEnableOption (lib.mdDoc ''
       Undervolting service for Intel CPUs.

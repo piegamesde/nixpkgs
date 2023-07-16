@@ -13,7 +13,8 @@ let
   user = "teamspeak";
   group = "teamspeak";
 
-in {
+in
+{
 
   ###### interface
 

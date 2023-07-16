@@ -26,7 +26,8 @@ import ./make-test-python.nix ({
       version = 3;
     };
     keystore-file = pkgs.writeText "keystore-file" (builtins.toJSON keystore);
-  in {
+  in
+  {
     name = "quorum";
     meta = with pkgs.lib.maintainers; { maintainers = [ mmahut ]; };
 
@@ -106,4 +107,5 @@ import ./make-test-python.nix ({
       machine.sleep(15)
       machine.succeed('geth attach /var/lib/quorum/geth.ipc --exec "eth.accounts" | grep ${keystore.address}')
     '';
-  } )
+  }
+)

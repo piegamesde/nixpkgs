@@ -14,7 +14,8 @@ let
 
   hansUser = "hans";
 
-in {
+in
+{
 
   ### configuration
 

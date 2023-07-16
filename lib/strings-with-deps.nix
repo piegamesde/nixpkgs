@@ -44,7 +44,8 @@
 
 let
   inherit (lib) concatStringsSep head isAttrs listToAttrs tail;
-in rec {
+in
+rec {
 
   /* !!! The interface of this function is kind of messed up, since
      it's way too overloaded and almost but not quite computes a
@@ -64,11 +65,13 @@ in rec {
         else
           let
             entry = head todo;
-          in if isAttrs entry then
+          in
+          if isAttrs entry then
             let
               x = f done entry.deps;
               y = f x.done (tail todo);
-            in {
+            in
+            {
               result = x.result ++ [ entry.text ] ++ y.result;
               done = y.done;
             }

@@ -105,7 +105,8 @@ let
       };
     }
     ;
-in {
+in
+{
   meta.maintainers = with lib.maintainers; [
     janik
     ambroisie

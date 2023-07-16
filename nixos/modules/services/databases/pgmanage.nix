@@ -47,7 +47,8 @@ let
 
   pgmanage = "pgmanage";
 
-in {
+in
+{
 
   options.services.pgmanage = {
     enable = mkEnableOption (lib.mdDoc "PostgreSQL Administration for the web");

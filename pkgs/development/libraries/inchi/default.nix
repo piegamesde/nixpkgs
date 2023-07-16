@@ -50,7 +50,8 @@ stdenv.mkDerivation rec {
   installPhase =
     let
       versionOneDot = versionMajor + "." + removeDots versionMinor;
-    in ''
+    in
+    ''
       runHook preInstall
 
       cd ../../..

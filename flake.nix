@@ -13,7 +13,8 @@
       lib = import ./lib;
 
       forAllSystems = lib.genAttrs lib.systems.flakeExposed;
-    in {
+    in
+    {
       lib = lib.extend (final: prev: {
 
         nixos = import ./nixos/lib { lib = final; };

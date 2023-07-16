@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.weylus;
-in {
+in
+{
   options.programs.weylus = with types; {
     enable = mkEnableOption (lib.mdDoc "weylus");
 

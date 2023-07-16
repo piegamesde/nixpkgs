@@ -11,7 +11,8 @@ let
   cfg = config.programs.gamemode;
   settingsFormat = pkgs.formats.ini { };
   configFile = settingsFormat.generate "gamemode.ini" cfg.settings;
-in {
+in
+{
   options = {
     programs.gamemode = {
       enable = mkEnableOption

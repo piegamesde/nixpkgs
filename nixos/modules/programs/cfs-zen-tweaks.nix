@@ -13,7 +13,8 @@ let
 
   cfg = config.programs.cfs-zen-tweaks;
 
-in {
+in
+{
 
   meta = { maintainers = with maintainers; [ mkg20001 ]; };
 

@@ -12,7 +12,8 @@ import ./make-test-python.nix ({
       };
     };
 
-  in {
+  in
+  {
     name = "multipass";
 
     meta.maintainers = [ lib.maintainers.jnsgruk ];
@@ -42,4 +43,5 @@ import ./make-test-python.nix ({
 
       machine.succeed("multipass list")
     '';
-  } )
+  }
+)

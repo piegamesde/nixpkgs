@@ -138,7 +138,8 @@ let
     drv:
     let
       lics = drv.meta.license or [ ];
-    in if lib.isAttrs lics || lib.isString lics then
+    in
+    if lib.isAttrs lics || lib.isString lics then
       [ lics ]
     else
       lics

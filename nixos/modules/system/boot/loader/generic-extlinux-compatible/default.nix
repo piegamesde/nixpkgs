@@ -24,7 +24,8 @@ let
     # The builder exposed in populateCmd, which runs on the build architecture
   populateBuilder =
     import ./extlinux-conf-builder.nix { pkgs = pkgs.buildPackages; };
-in {
+in
+{
   options = {
     boot.loader.generic-extlinux-compatible = {
       enable = mkOption {

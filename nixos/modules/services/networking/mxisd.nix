@@ -42,7 +42,8 @@ let
       pkgs.writeText "mxisd-config.yaml" (builtins.toJSON fullConfig)
     ;
 
-in {
+in
+{
   options = {
     services.mxisd = {
       enable = mkEnableOption (lib.mdDoc "matrix federated identity server");
@@ -134,7 +135,8 @@ in {
             else
               "mxisd"
             ;
-        in {
+        in
+        {
           Type = "simple";
           User = "mxisd";
           Group = "mxisd";

@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.duckling;
-in {
+in
+{
   options = {
     services.duckling = {
       enable = mkEnableOption (lib.mdDoc "duckling");

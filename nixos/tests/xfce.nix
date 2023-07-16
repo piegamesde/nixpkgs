@@ -38,7 +38,8 @@ import ./make-test-python.nix ({
       }:
       let
         user = nodes.machine.users.users.alice;
-      in ''
+      in
+      ''
         machine.wait_for_x()
         machine.wait_for_file("${user.home}/.Xauthority")
         machine.succeed("xauth merge ${user.home}/.Xauthority")

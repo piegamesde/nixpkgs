@@ -4,7 +4,8 @@
 }:
 let
   inherit (lib) mkOption types mdDoc;
-in {
+in
+{
   options.name = mkOption {
     description = mdDoc ''
       The name of the test.

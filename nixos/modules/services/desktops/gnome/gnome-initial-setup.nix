@@ -45,7 +45,8 @@ let
     '';
   };
 
-in {
+in
+{
 
   meta = { maintainers = teams.gnome.members; };
 

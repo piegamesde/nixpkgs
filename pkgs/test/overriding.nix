@@ -9,7 +9,8 @@ let
     let
       p = pkgs.python3Packages.xpybutil.overridePythonAttrs
         (_: { dontWrapPythonPrograms = true; });
-    in [
+    in
+    [
       ({
         name = "overridePythonAttrs";
         expr = !lib.hasInfix "wrapPythonPrograms" p.postFixup;

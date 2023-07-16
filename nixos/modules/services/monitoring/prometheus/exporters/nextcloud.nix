@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.nextcloud;
-in {
+in
+{
   port = 9205;
   extraOpts = {
     url = mkOption {

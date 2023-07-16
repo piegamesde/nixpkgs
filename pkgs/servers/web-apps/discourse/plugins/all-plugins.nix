@@ -6,7 +6,8 @@
 }@args:
 let
   callPackage = newScope args;
-in {
+in
+{
   discourse-assign = callPackage ./discourse-assign { };
   discourse-bbcode-color = callPackage ./discourse-bbcode-color { };
   discourse-calendar = callPackage ./discourse-calendar { };

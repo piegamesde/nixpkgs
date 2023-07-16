@@ -90,7 +90,8 @@ import ../make-test-python.nix ({
       ]
       ;
 
-  in {
+  in
+  {
     name = "tinc";
     meta.maintainers = with lib.maintainers; [ minijackson ];
 
@@ -166,4 +167,5 @@ import ../make-test-python.nix ({
       dynamic1.succeed("ping -c5 10.0.0.22")
       dynamic2.succeed("ping -c5 10.0.0.21")
     '';
-  } )
+  }
+)

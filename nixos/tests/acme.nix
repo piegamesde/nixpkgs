@@ -131,7 +131,8 @@ let
           extraConfig
         ]
         ;
-    in {
+    in
+    {
       "${server}".configuration =
         {
           nodes,
@@ -187,7 +188,8 @@ let
     }
     ;
 
-in {
+in
+{
   name = "acme";
   meta = {
     maintainers = lib.teams.acme.members;
@@ -402,7 +404,8 @@ in {
               };
             }
             ;
-        in {
+        in
+        {
           caddy.configuration = baseCaddyConfig;
 
             # Test that the server reloads when only the acme configuration is changed.
@@ -419,7 +422,8 @@ in {
             ;
 
             # Test compatibility with Nginx
-        } ) // (mkServerConfigs {
+        }
+        ) // (mkServerConfigs {
           server = "nginx";
           group = "nginx";
           vhostBaseData = vhostBase;
@@ -464,7 +468,8 @@ in {
       # Note, wait_for_unit does not work for oneshot services that do not have RemainAfterExit=true,
       # this is because a oneshot goes from inactive => activating => inactive, and never
       # reaches the active state. Targets do not have this issue.
-    in ''
+    in
+    ''
       import time
 
 

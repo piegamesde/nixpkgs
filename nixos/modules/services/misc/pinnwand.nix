@@ -12,7 +12,8 @@ let
 
   format = pkgs.formats.toml { };
   configFile = format.generate "pinnwand.toml" cfg.settings;
-in {
+in
+{
   options.services.pinnwand = {
     enable = mkEnableOption (lib.mdDoc "Pinnwand");
 

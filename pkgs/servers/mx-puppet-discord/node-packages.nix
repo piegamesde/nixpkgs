@@ -4214,7 +4214,8 @@ let
     bypassCache = true;
     reconstructLock = true;
   };
-in {
+in
+{
   args = args;
   sources = sources;
   tarball = nodeEnv.buildNodeSourceDist args;

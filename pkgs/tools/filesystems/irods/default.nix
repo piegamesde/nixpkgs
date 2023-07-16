@@ -33,7 +33,8 @@
 let
   avro-cpp = avro-cpp_llvm;
   nanodbc = nanodbc_llvm;
-in let
+in
+let
   common = import ./common.nix {
     inherit
       lib
@@ -66,7 +67,8 @@ in let
       spdlog
       ;
   };
-in rec {
+in
+rec {
 
   # irods: libs and server package
   irods = stdenv.mkDerivation (common // rec {

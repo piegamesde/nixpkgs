@@ -12,7 +12,8 @@ let
   cfg = config.services.tomcat;
   tomcat = cfg.package;
 
-in {
+in
+{
 
   meta = { maintainers = with maintainers; [ danbst ]; };
 
@@ -297,13 +298,15 @@ in {
             hostElementsSedString = replaceStrings [ "\n" ] [ ''
               \
             '' ] hostElementsString;
-          in ''
+          in
+          ''
             # Create a modified server.xml which also includes all virtual hosts
             sed -e "/<Engine name=\"Catalina\" defaultHost=\"localhost\">/a\\"${
               escapeShellArg hostElementsSedString
             } \
                   ${tomcat}/conf/server.xml > ${cfg.baseDir}/conf/server.xml
-          '' }
+          ''
+        }
         ${optionalString (cfg.logDirs != [ ]) ''
           for i in ${toString cfg.logDirs}; do
             mkdir -p ${cfg.baseDir}/logs/$i

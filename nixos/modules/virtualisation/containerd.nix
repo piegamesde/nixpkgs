@@ -22,7 +22,8 @@ let
   '';
 
   settingsFormat = pkgs.formats.toml { };
-in {
+in
+{
 
   options.virtualisation.containerd = with lib.types; {
     enable = lib.mkEnableOption (lib.mdDoc "containerd container runtime");

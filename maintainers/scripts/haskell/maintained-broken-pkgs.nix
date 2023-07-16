@@ -14,7 +14,8 @@ let
       (name: drv: "${name} ${(builtins.elemAt drv.meta.maintainers 0).github}")
       pkgs)
     ;
-in {
+in
+{
   report = ''
     BROKEN:
     ${infoList brokenPkgs}

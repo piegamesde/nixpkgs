@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.leaps;
   stateDir = "/var/lib/leaps/";
-in {
+in
+{
   options = {
     services.leaps = {
       enable = mkEnableOption (lib.mdDoc "leaps");

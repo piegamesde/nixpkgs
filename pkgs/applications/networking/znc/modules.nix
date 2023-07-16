@@ -27,7 +27,8 @@ let
     })
     ;
 
-in {
+in
+{
 
   backlog = zncDerivation rec {
     pname = "znc-backlog";

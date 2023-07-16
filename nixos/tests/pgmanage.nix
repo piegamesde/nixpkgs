@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     role = "test";
     password = "secret";
     conn = "local";
-  in {
+  in
+  {
     name = "pgmanage";
     meta = with pkgs.lib.maintainers; { maintainers = [ basvandijk ]; };
     nodes = {
@@ -46,4 +47,5 @@ import ./make-test-python.nix ({
           "curl 'http://localhost:8080/pgmanage/auth' --data 'action=login&connname=${conn}&username=${role}&password=${password}' --fail"
       )
     '';
-  } )
+  }
+)

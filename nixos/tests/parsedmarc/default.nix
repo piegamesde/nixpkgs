@@ -56,7 +56,8 @@ let
           server.quit()
     ''
     ;
-in {
+in
+{
   localMail = makeTest {
     name = "parsedmarc-local-mail";
     meta = with lib.maintainers; { maintainers = [ talyz ]; };
@@ -104,7 +105,8 @@ in {
         valueObject = lib.optionalString (lib.versionAtLeast
           nodes.parsedmarc.config.services.elasticsearch.package.version "7")
           ".value";
-      in ''
+      in
+      ''
         parsedmarc.start()
         parsedmarc.wait_for_unit("postfix.service")
         parsedmarc.wait_for_unit("dovecot2.service")
@@ -219,7 +221,8 @@ in {
           valueObject = lib.optionalString (lib.versionAtLeast
             nodes.parsedmarc.config.services.elasticsearch.package.version "7")
             ".value";
-        in ''
+        in
+        ''
           mail.start()
           mail.wait_for_unit("postfix.service")
           mail.wait_for_unit("dovecot2.service")

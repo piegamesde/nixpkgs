@@ -68,7 +68,8 @@ let
     }
     ;
 
-in {
+in
+{
   proxmark3 = generic rec {
     pname = "proxmark3";
     version = "3.1.0";

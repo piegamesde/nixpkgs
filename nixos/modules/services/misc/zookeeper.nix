@@ -26,7 +26,8 @@ let
     ];
   };
 
-in {
+in
+{
 
   options.services.zookeeper = {
     enable = mkEnableOption (lib.mdDoc "Zookeeper");

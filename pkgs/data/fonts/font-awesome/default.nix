@@ -44,7 +44,8 @@ let
       };
     }
     ;
-in {
+in
+{
   # Keeping version 4 and 5 because version 6 is incompatible for some icons. That
   # means that projects which depend on it need to actively convert the
   # symbols. See:

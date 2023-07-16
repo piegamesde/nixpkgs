@@ -27,7 +27,8 @@ lib.makeScope newScope (self:
     } // lib.optionalAttrs (gnuradio.hasFeature "gr-uhd") {
       inherit (gnuradio) uhd;
     });
-  in {
+  in
+  {
 
     inherit
       callPackage
@@ -56,4 +57,5 @@ lib.makeScope newScope (self:
     limesdr =
       callPackage ../development/gnuradio-modules/limesdr/default.nix { };
 
-  } )
+  }
+)

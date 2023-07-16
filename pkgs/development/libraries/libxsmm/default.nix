@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
         else
           "0"
         ;
-    in [
+    in
+    [
       "OMP=1"
       "PREFIX=$(out)"
       "STATIC=${static}"

@@ -111,7 +111,8 @@ stdenv.mkDerivation rec {
       ipp-crypto-cve_2020_0551_cf = callPackage ./ipp-crypto.nix {
         extraCmakeFlags = [ "-DCMAKE_ASM_NASM_COMPILER=${nasm-cf}" ];
       };
-    in ''
+    in
+    ''
       echo "Setting up IPP crypto build artifacts"
 
       pushd 'external/ippcp_internal'

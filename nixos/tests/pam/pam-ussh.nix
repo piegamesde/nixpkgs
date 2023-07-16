@@ -38,7 +38,8 @@ import ../make-test-python.nix ({
         exec sudo id -u -n
       ''
       ;
-  in {
+  in
+  {
     name = "pam-ussh";
     meta.maintainers = with lib.maintainers; [ lukegb ];
 
@@ -81,4 +82,5 @@ import ../make-test-python.nix ({
             'su -c "${makeTestScript "bob"}" -l bob | grep root'
         )
     '';
-  } )
+  }
+)

@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.prowlarr;
 
-in {
+in
+{
   options = {
     services.prowlarr = {
       enable = mkEnableOption (lib.mdDoc "Prowlarr");

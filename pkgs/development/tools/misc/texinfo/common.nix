@@ -30,7 +30,8 @@
 let
   crossBuildTools = stdenv.hostPlatform != stdenv.buildPlatform;
 
-in with lib;
+in
+with lib;
 
 stdenv.mkDerivation {
   pname = "texinfo${optionalString interactive "-interactive"}";

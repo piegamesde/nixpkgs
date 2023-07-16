@@ -335,12 +335,15 @@ let
   files = mapAttrs' (n: srcCfg:
     let
       fileText = attrsToFile (mkSrcAttrs srcCfg);
-    in {
+    in
+    {
       name = srcCfg.dataset;
       value = pkgs.writeText (stripSlashes srcCfg.dataset) fileText;
-    } ) cfg.zetup;
+    }
+  ) cfg.zetup;
 
-in {
+in
+{
   options = {
     services.znapzend = {
       enable = mkEnableOption (lib.mdDoc "ZnapZend ZFS backup daemon");

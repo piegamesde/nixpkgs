@@ -12,7 +12,8 @@ let
 
   configFormat = pkgs.formats.yaml { };
   configFile = configFormat.generate "alertmanager-irc-relay.yml" cfg.settings;
-in {
+in
+{
   options.services.prometheus.alertmanagerIrcRelay = {
     enable = mkEnableOption (mdDoc "Alertmanager IRC Relay");
 

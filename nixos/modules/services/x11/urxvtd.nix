@@ -11,7 +11,8 @@ with lib;
 
 let
   cfg = config.services.urxvtd;
-in {
+in
+{
   options.services.urxvtd = {
     enable = mkOption {
       type = types.bool;

@@ -426,13 +426,15 @@
             mapAttrsToList (keyConfig rootKey) values
             ;
           rootConfigs = flatten (mapAttrsToList keyConfigs values);
-        in ''
+        in
+        ''
           import Config
 
           ${concatStringsSep "\n" rootConfigs}
         ''
         ;
-    in {
+    in
+    {
       type = with lib.types;
         let
           valueType = nullOr (oneOf [
@@ -458,7 +460,8 @@
             }
             ;
 
-        in {
+        in
+        {
           inherit
             mkRaw
             ;

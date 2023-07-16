@@ -11,7 +11,8 @@ with lib;
 let
   cfg = config.services.gocd-server;
   opt = options.services.gocd-server;
-in {
+in
+{
   options = {
     services.gocd-server = {
       enable = mkEnableOption (lib.mdDoc "gocd-server");

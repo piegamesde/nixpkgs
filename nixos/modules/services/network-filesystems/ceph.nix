@@ -29,7 +29,8 @@ let
           else
             daemonType
         }/${clusterName}-${daemonId}";
-    in {
+    in
+    {
       enable = true;
       description = "Ceph ${
           builtins.replaceStrings lowerChars upperChars daemonType
@@ -96,7 +97,8 @@ let
         RestartSec = "20s";
         PrivateDevices = "no"; # osd needs disk access
       } // optionalAttrs (daemonType == "mon") { RestartSec = "10"; };
-    } );
+    }
+  );
 
   makeTarget = (daemonType: {
     "ceph-${daemonType}" = {
@@ -108,7 +110,8 @@ let
       unitConfig.StopWhenUnneeded = true;
     };
   });
-in {
+in
+{
   options.services.ceph = {
     # Ceph has a monolithic configuration file but different sections for
     # each daemon, a separate client section and a global section

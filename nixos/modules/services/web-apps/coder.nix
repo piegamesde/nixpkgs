@@ -11,7 +11,8 @@ with lib;
 let
   cfg = config.services.coder;
   name = "coder";
-in {
+in
+{
   options = {
     services.coder = {
       enable = mkEnableOption (lib.mdDoc "Coder service");

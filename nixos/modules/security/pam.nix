@@ -21,9 +21,11 @@ let
     }:
     let
       cfg = config;
-    in let
+    in
+    let
       config = parentConfig;
-    in {
+    in
+    {
 
       options = {
 
@@ -842,7 +844,8 @@ let
     }
     ;
 
-in {
+in
+{
 
   imports = [
       (mkRenamedOptionModule [

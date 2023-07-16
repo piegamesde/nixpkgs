@@ -31,7 +31,8 @@ let
 
   tlsEnabled = cfg.enableACME || cfg.sslCertificate != null
     || cfg.sslCertificateKey != null;
-in {
+in
+{
   options = {
     services.discourse = {
       enable = lib.mkEnableOption
@@ -808,7 +809,8 @@ in {
             discourse-rake admin:create_noninteractively
           '';
 
-        in ''
+        in
+        ''
           set -o errexit -o pipefail -o nounset -o errtrace
           shopt -s inherit_errexit
 
@@ -929,7 +931,8 @@ in {
               ;
             cache_1y = cache "1y";
             cache_1d = cache "1d";
-          in {
+          in
+          {
             "/".tryFiles = "$uri @discourse";
             "@discourse" = proxy { };
             "^~ /backups/".extraConfig = ''
@@ -1032,7 +1035,8 @@ in {
         };
         mail-receiver-json =
           json.generate "mail-receiver.json" mail-receiver-environment;
-      in {
+      in
+      {
         before = [ "postfix.service" ];
         after = [ "discourse.service" ];
         wantedBy = [ "discourse.service" ];
@@ -1057,7 +1061,8 @@ in {
               else
                 cfg.mail.incoming.apiKeyFile
               ;
-          in ''
+          in
+          ''
             set -o errexit -o pipefail -o nounset -o errtrace
             shopt -s inherit_errexit
 
@@ -1079,7 +1084,8 @@ in {
           User = "discourse";
           Group = "discourse";
         };
-      } );
+      }
+      );
 
     services.discourse.siteSettings = {
       required = {

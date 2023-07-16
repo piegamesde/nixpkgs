@@ -10,7 +10,8 @@ let
   cfg = config.services.pykms;
   libDir = "/var/lib/pykms";
 
-in {
+in
+{
   meta.maintainers = with lib.maintainers; [ peterhoeg ];
 
   imports = [

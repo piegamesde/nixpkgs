@@ -106,7 +106,8 @@ let
         ''
       }")
     ;
-in {
+in
+{
 
   # Interface
 

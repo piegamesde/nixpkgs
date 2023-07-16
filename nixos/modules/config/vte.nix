@@ -17,7 +17,8 @@ let
     . ${pkgs.vte}/etc/profile.d/vte.sh
   '';
 
-in {
+in
+{
 
   meta = { maintainers = teams.gnome.members; };
 

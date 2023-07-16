@@ -106,7 +106,8 @@ let
           value))
     ;
 
-in {
+in
+{
 
   ###### interface
 

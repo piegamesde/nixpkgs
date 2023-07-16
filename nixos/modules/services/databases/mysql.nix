@@ -19,7 +19,8 @@ let
   format = pkgs.formats.ini { listsAsDuplicateKeys = true; };
   configFile = format.generate "my.cnf" cfg.settings;
 
-in {
+in
+{
   imports = [
     (mkRemovedOptionModule [
       "services"
@@ -424,7 +425,8 @@ in {
             else
               "root"
             ;
-        in ''
+        in
+        ''
           ${optionalString (!isMariaDB) ''
             # Wait until the MySQL server is available for use
             count=0

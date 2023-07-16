@@ -46,7 +46,8 @@ buildGoModule rec {
             "pass"
           ]
         ;
-    in ''
+    in
+    ''
       for cmd in ${builtins.toString cmds}; do
         go build -ldflags "${
           builtins.toString ldflags

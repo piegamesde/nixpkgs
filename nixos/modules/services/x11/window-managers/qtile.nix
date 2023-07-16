@@ -12,7 +12,8 @@ let
   pyEnv = pkgs.python3.withPackages
     (p: [ (cfg.package.unwrapped or cfg.package) ] ++ (cfg.extraPackages p));
 
-in {
+in
+{
   options.services.xserver.windowManager.qtile = {
     enable = mkEnableOption (lib.mdDoc "qtile");
 

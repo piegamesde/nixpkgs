@@ -21,7 +21,8 @@ buildPythonPackage rec {
   postPatch =
     let
       libname = "libaugeas${stdenv.hostPlatform.extensions.sharedLibrary}";
-    in ''
+    in
+    ''
       substituteInPlace augeas/ffi.py \
         --replace 'ffi.dlopen("augeas")' \
                   'ffi.dlopen("${lib.makeLibraryPath [ augeas ]}/${libname}")'

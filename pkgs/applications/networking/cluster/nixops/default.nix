@@ -56,7 +56,8 @@ let
             done
           '';
 
-        in {
+        in
+        {
           nixops = super.__toPluginAble {
             drv = super.nixops;
             finalDrv = self.nixops;
@@ -72,7 +73,8 @@ let
             '';
 
           };
-        } )
+        }
+      )
 
       (self: super: {
         cryptography = super.cryptography.overridePythonAttrs (old: {

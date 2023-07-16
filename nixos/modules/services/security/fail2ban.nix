@@ -37,7 +37,8 @@ let
     [DEFAULT]
   '';
 
-in {
+in
+{
 
   ###### interface
 

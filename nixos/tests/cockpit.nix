@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
   let
     user = "alice"; # from ./common/user-account.nix
     password = "foobar"; # from ./common/user-account.nix
-  in {
+  in
+  {
     name = "cockpit";
     meta = { maintainers = with lib.maintainers; [ lucasew ]; };
     nodes = {
@@ -118,7 +119,8 @@ import ./make-test-python.nix ({
 
                 driver.close()
               '';
-            in with pkgs; [
+            in
+            with pkgs; [
               firefox-unwrapped
               geckodriver
               seleniumScript
@@ -142,4 +144,5 @@ import ./make-test-python.nix ({
       print(client.succeed("whoami"))
       client.succeed('PYTHONUNBUFFERED=1 selenium-script')
     '';
-  } )
+  }
+)

@@ -21,7 +21,8 @@ let
 
   inherit (lib) mkOption mkEnableOption mkIf mkMerge types;
 
-in {
+in
+{
   options = {
 
     boot.initrd.systemd.dbus = {

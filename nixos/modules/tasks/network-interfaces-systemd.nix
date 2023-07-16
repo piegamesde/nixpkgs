@@ -179,7 +179,8 @@ let
     ];
   }));
 
-in {
+in
+{
   config = mkMerge [
 
     (mkIf config.boot.initrd.network.enable {
@@ -274,7 +275,8 @@ in {
                       ;
                     simp = trans id;
                     ms = trans (v: v + "ms");
-                  in {
+                  in
+                  {
                     Mode = simp "mode";
                     TransmitHashPolicy = simp "xmit_hash_policy";
                     LACPTransmitRate = simp "lacp_rate";
@@ -473,7 +475,8 @@ in {
                   v.interfaces));
               ofRules =
                 pkgs.writeText "vswitch-${n}-openFlowRules" v.openFlowRules;
-            in {
+            in
+            {
               description = "Open vSwitch Interface ${n}";
               wantedBy = [
                 "network.target"
@@ -541,7 +544,8 @@ in {
                 echo "Deleting Open vSwitch ${n}"
                 ovs-vsctl --if-exists del-br ${n} || true
               '';
-            } )
+            }
+            )
             ;
         in
         mapAttrs' createVswitchDevice cfg.vswitches // {

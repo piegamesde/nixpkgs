@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.lldpd;
 
-in {
+in
+{
   options.services.lldpd = {
     enable = mkEnableOption (lib.mdDoc "Link Layer Discovery Protocol Daemon");
 

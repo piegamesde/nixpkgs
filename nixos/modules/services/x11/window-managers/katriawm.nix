@@ -8,7 +8,8 @@
 let
   inherit (lib) mdDoc mkEnableOption mkIf mkPackageOptionMD singleton;
   cfg = config.services.xserver.windowManager.katriawm;
-in {
+in
+{
   ###### interface
   options = {
     services.xserver.windowManager.katriawm = {

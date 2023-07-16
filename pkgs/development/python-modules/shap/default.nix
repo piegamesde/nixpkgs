@@ -81,7 +81,8 @@ buildPythonPackage rec {
               tr.wasxfail = "reason: Requires network access."
           return tr
       '';
-    in ''
+    in
+    ''
       export HOME=$TMPDIR
       # when importing the local copy the extension is not found
       rm -r shap

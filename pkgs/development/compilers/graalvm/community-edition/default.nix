@@ -29,7 +29,8 @@ let
       "Unsupported product combination: product=${product} java=${javaVersion} system=${stdenv.system}")
     ;
 
-in rec {
+in
+rec {
   inherit
     buildGraalvm
     buildGraalvmProduct

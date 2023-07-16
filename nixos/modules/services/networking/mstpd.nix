@@ -6,7 +6,8 @@
 }:
 let
   cfg = config.services.mstpd;
-in with lib; {
+in
+with lib; {
   options.services.mstpd = {
 
     enable = mkOption {

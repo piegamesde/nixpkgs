@@ -48,7 +48,8 @@ let
 
   };
 
-in with versionMap.${majorVersion};
+in
+with versionMap.${majorVersion};
 
 stdenv.mkDerivation rec {
   version = "${scalaVersion}-${kafkaVersion}";

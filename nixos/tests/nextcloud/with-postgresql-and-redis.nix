@@ -11,7 +11,8 @@ args@{
   let
     adminpass = "hunter2";
     adminuser = "custom-admin-username";
-  in {
+  in
+  {
     name = "nextcloud-with-postgresql-and-redis";
     meta = with pkgs.lib.maintainers; { maintainers = [ eqyiel ]; };
 
@@ -97,7 +98,8 @@ args@{
           #!${pkgs.runtimeShell}
           diff <(echo 'hi') <(${pkgs.rclone}/bin/rclone cat nextcloud:test-shared-file)
         '';
-      in ''
+      in
+      ''
         start_all()
         nextcloud.wait_for_unit("multi-user.target")
         nextcloud.succeed("${configureRedis}")
@@ -113,4 +115,5 @@ args@{
         nextcloud.wait_until_succeeds("journalctl -u nextcloud-notify_push | grep -q \"Sending ping to ${adminuser}\"")
       ''
       ;
-  } )) args
+  }
+)) args

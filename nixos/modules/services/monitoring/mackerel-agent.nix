@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.mackerel-agent;
   settingsFmt = pkgs.formats.toml { };
-in {
+in
+{
   options.services.mackerel-agent = {
     enable = mkEnableOption (lib.mdDoc "mackerel.io agent");
 

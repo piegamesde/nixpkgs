@@ -8,7 +8,8 @@
 with lib;
 let
   cfg = config.services.shibboleth-sp;
-in {
+in
+{
   options = {
     services.shibboleth-sp = {
       enable = mkOption {

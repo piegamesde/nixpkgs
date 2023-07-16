@@ -97,7 +97,8 @@ stdenv.mkDerivation rec {
       introspectionPy = "${
           placeholder "installedTests"
         }/libexec/installed-tests/graphene-1.0/introspection.py";
-    in ''
+    in
+    ''
       if [ -x '${introspectionPy}' ] ; then
         wrapProgram '${introspectionPy}' \
           --prefix GI_TYPELIB_PATH : "$out/lib/girepository-1.0"

@@ -19,7 +19,8 @@ let
       "sha512-GpSwvyXOcOOlV70vbnzjj4fW5xW/FdUF6nQEt1ENy7m4ZCczi1+/buVUPAqmGfqznsORNFzUMjctTIp8a9tuCQ==";
   };
 
-in {
+in
+{
   prefetch-yarn-deps = stdenv.mkDerivation {
     name = "prefetch-yarn-deps";
 

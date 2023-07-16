@@ -85,7 +85,8 @@ let
       (oldArgs.extraPackages or (_: [ ]) ps) ++ (cfg.extraPackages ps)
       ;
   }));
-in {
+in
+{
   imports = [
     # Migrations in NixOS 22.05
     (mkRemovedOptionModule [
@@ -592,7 +593,8 @@ in {
             "zwave"
             "zwave_js"
           ];
-        in {
+        in
+        {
           ExecStart = "${package}/bin/hass --config '${cfg.configDir}'";
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
           User = "hass";

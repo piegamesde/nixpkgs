@@ -16,7 +16,8 @@ import ./make-test-python.nix ({
       };
     };
 
-  in {
+  in
+  {
     name = "systemd-coredump";
     meta = with pkgs.lib.maintainers; { maintainers = [ squalus ]; };
 
@@ -52,4 +53,5 @@ import ./make-test-python.nix ({
         machine2.systemctl("start crasher");
         machine2.wait_until_succeeds("stat /var/lib/crasher/core", timeout=10)
     '';
-  } )
+  }
+)

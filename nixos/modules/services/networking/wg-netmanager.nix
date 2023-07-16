@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.wg-netmanager;
-in {
+in
+{
 
   options = {
     services.wg-netmanager = {

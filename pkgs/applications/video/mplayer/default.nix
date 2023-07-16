@@ -79,7 +79,8 @@ let
     let
       dir = "http://www.mplayerhq.hu/MPlayer/releases/codecs/";
       version = "20071007";
-    in if stdenv.hostPlatform.system == "i686-linux" then
+    in
+    if stdenv.hostPlatform.system == "i686-linux" then
       fetchurl {
         url = "${dir}/essential-${version}.tar.bz2";
         sha256 = "18vls12n12rjw0mzw4pkp9vpcfmd1c21rzha19d7zil4hn7fs2ic";

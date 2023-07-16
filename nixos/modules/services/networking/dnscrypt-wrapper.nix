@@ -141,7 +141,8 @@ let
       };
     }) { };
 
-in {
+in
+{
 
   ###### interface
 

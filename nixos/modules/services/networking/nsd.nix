@@ -549,7 +549,8 @@ let
       };
     ''
     ;
-in {
+in
+{
   # options are ordered alphanumerically
   options.services.nsd = {
 

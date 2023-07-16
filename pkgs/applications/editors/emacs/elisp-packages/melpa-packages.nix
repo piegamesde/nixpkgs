@@ -357,7 +357,8 @@ let
         jinx = super.jinx.overrideAttrs (old:
           let
             libExt = pkgs.stdenv.targetPlatform.extensions.sharedLibrary;
-          in {
+          in
+          {
             nativeBuildInputs =
               (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ];
 
@@ -380,7 +381,8 @@ let
 
             meta =
               old.meta // { maintainers = [ lib.maintainers.DamienCassou ]; };
-          } );
+          }
+        );
 
         sqlite3 = super.sqlite3.overrideAttrs (old: {
           buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.sqlite ];
@@ -691,7 +693,8 @@ let
               prePatch =
                 let
                   w3m = "${lib.getBin pkgs.w3m}/bin/w3m";
-                in ''
+                in
+                ''
                   substituteInPlace w3m.el \
                   --replace 'defcustom w3m-command nil' \
                   'defcustom w3m-command "${w3m}"'

@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.bitcoin;
-in {
+in
+{
   port = 9332;
   extraOpts = {
     rpcUser = mkOption {

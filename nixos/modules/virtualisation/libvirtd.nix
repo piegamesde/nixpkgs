@@ -135,7 +135,8 @@ let
       };
     };
   };
-in {
+in
+{
 
   imports = [
     (mkRemovedOptionModule [
@@ -385,12 +386,14 @@ in {
             name = "qemu-ovmf";
             paths = cfg.qemu.ovmf.packages;
           };
-        in ''
+        in
+        ''
           ln -s --force ${ovmfpackage}/FV/AAVMF_CODE.fd /run/${dirName}/nix-ovmf/
           ln -s --force ${ovmfpackage}/FV/OVMF_CODE.fd /run/${dirName}/nix-ovmf/
           ln -s --force ${ovmfpackage}/FV/AAVMF_VARS.fd /run/${dirName}/nix-ovmf/
           ln -s --force ${ovmfpackage}/FV/OVMF_VARS.fd /run/${dirName}/nix-ovmf/
-        '' )}
+        ''
+        )}
       '';
 
       serviceConfig = {

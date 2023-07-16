@@ -12,7 +12,8 @@ import ./make-test-python.nix ({
       ];
     });
 
-  in {
+  in
+  {
     name = firefoxPackage'.unwrapped.pname;
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -136,4 +137,5 @@ import ./make-test-python.nix ({
           machine.screenshot("screen")
     '';
 
-  } )
+  }
+)

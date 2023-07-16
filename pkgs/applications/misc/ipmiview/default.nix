@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
         else
           throw "IPMIView is not supported on this platform"
         ;
-    in ''
+    in
+    ''
       runHook preBuild
 
       patchelf --set-rpath "${
@@ -58,7 +59,8 @@ stdenv.mkDerivation rec {
       patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" ./BMCSecurity/${stunnelBinary}
 
       runHook postBuild
-    '' ;
+    ''
+    ;
 
   desktopItem = makeDesktopItem rec {
     name = "IPMIView";

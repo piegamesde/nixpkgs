@@ -16,7 +16,8 @@ let
       ];
     }
   '';
-in {
+in
+{
 
   imports = [ ./google-compute-config.nix ];
 

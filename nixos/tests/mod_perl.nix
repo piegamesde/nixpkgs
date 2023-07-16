@@ -41,7 +41,8 @@ import ./make-test-python.nix ({
                   }";
                 1;
               '';
-            in {
+            in
+            {
               extraConfig = ''
                 PerlRequire ${startup}
               '';

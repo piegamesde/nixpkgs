@@ -8,7 +8,8 @@
 with lib;
 let
   cfg = config.services.spice-vdagentd;
-in {
+in
+{
   options = {
     services.spice-vdagentd = {
       enable = mkEnableOption (lib.mdDoc "Spice guest vdagent daemon");

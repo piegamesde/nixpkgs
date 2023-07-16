@@ -94,7 +94,8 @@ let
   };
   overrides = (src + "/overrides");
 
-in rec {
+in
+rec {
   collect =
     {
       lore ? loreDef,

@@ -14,7 +14,8 @@ let
     ${cfg.extraDbConfig}
   '';
 
-in {
+in
+{
   meta.maintainers = with maintainers; [
     primeos
     calbrecht
@@ -123,7 +124,8 @@ in {
       let
         hkpAddress = "'" + (builtins.concatStringsSep " " cfg.hkpAddress) + "'";
         hkpPort = builtins.toString cfg.hkpPort;
-      in {
+      in
+      {
         sks-db = {
           description = "SKS database server";
           after = [ "network.target" ];

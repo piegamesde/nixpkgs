@@ -25,7 +25,8 @@ let
     fi
   '';
 
-in {
+in
+{
 
   options = {
 

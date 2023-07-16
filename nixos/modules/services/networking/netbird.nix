@@ -11,7 +11,8 @@ let
   cfg = config.services.netbird;
   kernel = config.boot.kernelPackages;
   interfaceName = "wt0";
-in {
+in
+{
   meta.maintainers = with maintainers; [ misuzu ];
 
   options.services.netbird = {

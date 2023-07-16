@@ -14,7 +14,8 @@ let
 
   pulseaudioEnabled = config.hardware.pulseaudio.enable;
 
-in {
+in
+{
   imports = [
       (mkRenamedOptionModule [
         "sound"

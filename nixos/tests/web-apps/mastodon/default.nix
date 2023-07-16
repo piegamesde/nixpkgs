@@ -9,7 +9,8 @@ let
     "aarch64-linux"
   ];
 
-in {
+in
+{
   standard = handleTestOn supportedSystems ./standard.nix { inherit system; };
   remote-postgresql =
     handleTestOn supportedSystems ./remote-postgresql.nix { inherit system; };

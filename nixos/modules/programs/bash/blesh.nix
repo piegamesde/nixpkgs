@@ -7,7 +7,8 @@
 with lib;
 let
   cfg = config.programs.bash.blesh;
-in {
+in
+{
   options = { programs.bash.blesh.enable = mkEnableOption (mdDoc "blesh"); };
 
   config = mkIf cfg.enable {

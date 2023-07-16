@@ -13,7 +13,8 @@ import ./make-test-python.nix ({
         # prevent make-test-python.nix to change IP
       networking.interfaces = { eth1.ipv4.addresses = lib.mkOverride 0 [ ]; };
     };
-  in {
+  in
+  {
     name = "containers-reloadable";
     meta = { maintainers = with lib.maintainers; [ danbst ]; };
 
@@ -63,7 +64,8 @@ import ./make-test-python.nix ({
       let
         c1System = nodes.client_c1.config.system.build.toplevel;
         c2System = nodes.client_c2.config.system.build.toplevel;
-      in ''
+      in
+      ''
         client.start()
         client.wait_for_unit("default.target")
 
@@ -86,4 +88,5 @@ import ./make-test-python.nix ({
       ''
       ;
 
-  } )
+  }
+)

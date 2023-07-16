@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.tautulli;
-in {
+in
+{
   imports = [
       (mkRenamedOptionModule [
         "services"

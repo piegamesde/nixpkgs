@@ -27,7 +27,8 @@ let
       options = [ "bind" ];
     };
   };
-in {
+in
+{
   options = {
     services.envfs = {
       enable = lib.mkEnableOption (lib.mdDoc "Envfs filesystem") // {

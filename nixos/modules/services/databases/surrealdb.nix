@@ -9,7 +9,8 @@ with lib;
 let
 
   cfg = config.services.surrealdb;
-in {
+in
+{
 
   options = {
     services.surrealdb = {

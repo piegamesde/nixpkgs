@@ -55,7 +55,8 @@ let
             optionalString options.${option}.isDefined
             " ${option}=${config.${option}}"
             ;
-        in if (!(hasPrefix "/" config.socket)) then
+        in
+        if (!(hasPrefix "/" config.socket)) then
           "${config.socket}"
         else
           "${config.socket}${maybeOption "mode"}${maybeOption "owner"}${
@@ -246,7 +247,8 @@ let
             name
           ;
         tryOverride = boolToString (value.extraConfig == "");
-      in ''
+      in
+      ''
         worker "${value.type}" {
           type = "${value.type}";
           ${
@@ -269,7 +271,8 @@ let
           .include(try=true; priority=1,duplicate=merge) "$LOCAL_CONFDIR/local.d/worker-${includeName}.inc"
           .include(try=${tryOverride}; priority=10) "$LOCAL_CONFDIR/override.d/worker-${includeName}.inc"
         }
-      '' ) cfg.workers)}
+      ''
+    ) cfg.workers)}
 
     ${optionalString (cfg.extraConfig != "") ''
       .include(priority=10) "$LOCAL_CONFDIR/override.d/extra-config.inc"
@@ -342,7 +345,8 @@ let
     else
       { "extra-config.inc".text = cfg.extraConfig; });
 
-in {
+in
+{
   ###### interface
 
   options = {

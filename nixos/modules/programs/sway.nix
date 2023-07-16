@@ -22,7 +22,8 @@ let
             description = lib.mdDoc "Whether to make use of the ${description}";
           }
           ;
-      in {
+      in
+      {
         base = mkWrapperFeature true ''
           base wrapper to execute extra session commands and prepend a
           dbus-run-session to the sway command.
@@ -42,7 +43,8 @@ let
     withGtkWrapper = cfg.wrapperFeatures.gtk;
     isNixOS = true;
   };
-in {
+in
+{
   options.programs.sway = {
     enable = mkEnableOption (lib.mdDoc ''
       Sway, the i3-compatible tiling Wayland compositor. You can manually launch

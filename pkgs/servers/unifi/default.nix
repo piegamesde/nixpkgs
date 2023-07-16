@@ -59,7 +59,8 @@ let
     })
     ;
 
-in rec {
+in
+rec {
   # see https://community.ui.com/releases / https://www.ui.com/download/unifi
 
   unifiLTS = generic {

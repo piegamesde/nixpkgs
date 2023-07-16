@@ -77,7 +77,8 @@ let
           overrides = packageOverrides;
           lua = self;
         };
-    in rec {
+    in
+    rec {
       buildEnv = callPackage ./wrapper.nix {
         lua = self;
         makeWrapper = makeBinaryWrapper;
@@ -99,7 +100,8 @@ let
     }
     ;
 
-in rec {
+in
+rec {
   lua5_4 = callPackage ./interpreter.nix {
     self = lua5_4;
     version = "5.4.4";

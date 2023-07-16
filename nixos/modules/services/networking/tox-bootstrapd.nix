@@ -19,7 +19,8 @@ let
     pid_file_path = "${PIDFile}"
     ${cfg.extraConfig}
   '';
-in {
+in
+{
   options = {
     services.toxBootstrapd = {
       enable = mkOption {

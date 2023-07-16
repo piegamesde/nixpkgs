@@ -35,7 +35,8 @@ let
     ln -s ${configFile} $out/hbase-site.xml
   '';
 
-in {
+in
+{
 
   imports = [
       (mkRenamedOptionModule [

@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.programs.thunar;
 
-in {
+in
+{
   meta = { maintainers = teams.xfce.members; };
 
   options = {
@@ -31,7 +32,8 @@ in {
   config = mkIf cfg.enable (let
     package = pkgs.xfce.thunar.override { thunarPlugins = cfg.plugins; };
 
-  in {
+  in
+  {
     environment.systemPackages = [ package ];
 
     services.dbus.packages = [ package ];
@@ -39,5 +41,6 @@ in {
     systemd.packages = [ package ];
 
     programs.xfconf.enable = true;
-  } );
+  }
+  );
 }

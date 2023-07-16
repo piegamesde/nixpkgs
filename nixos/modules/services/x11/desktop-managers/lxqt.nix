@@ -12,7 +12,8 @@ let
   xcfg = config.services.xserver;
   cfg = xcfg.desktopManager.lxqt;
 
-in {
+in
+{
   meta = { maintainers = teams.lxqt.members; };
 
   options = {

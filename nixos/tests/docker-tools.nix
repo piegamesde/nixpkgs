@@ -51,7 +51,8 @@ import ./make-test-python.nix ({
         '';
       }
       ;
-  in {
+  in
+  {
     name = "docker-tools";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -568,4 +569,5 @@ import ./make-test-python.nix ({
               "docker run --rm -it nix-shell-build-derivation"
           )
     '';
-  } )
+  }
+)

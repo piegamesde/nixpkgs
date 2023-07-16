@@ -12,7 +12,8 @@ let
   format = pkgs.formats.toml { };
 
   location = "/var/www/simplestreams";
-in {
+in
+{
   options = {
     services.lxd-image-server = {
       enable = mkEnableOption (lib.mdDoc "lxd-image-server");

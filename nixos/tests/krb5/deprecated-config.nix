@@ -47,7 +47,8 @@ import ../make-test-python.nix ({
           [plugins]
 
         '';
-      in ''
+      in
+      ''
         machine.succeed(
             "diff /etc/krb5.conf ${snapshot}"
         )

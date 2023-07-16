@@ -21,7 +21,8 @@ let
     maintainers = with maintainers; [ happysalada ];
     platforms = platforms.unix;
   };
-in {
+in
+{
   indradb-server = rustPlatform.buildRustPackage {
     pname = "indradb-server";
     version = "unstable-2021-01-05";

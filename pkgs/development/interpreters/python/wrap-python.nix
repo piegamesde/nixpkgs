@@ -38,7 +38,8 @@ makePythonHook {
             else
               quote
             ;
-        in ''
+        in
+        ''
           /^[a-z]?${quote}/ {
             /${quote}${quote}|${quote}.*${endQuote}/{n;br}
             :${label}; n; /^${quote}/{n;br}; /${endQuote}/{n;br}; b${label}
@@ -58,7 +59,8 @@ makePythonHook {
         functools.reduce(lambda k, p: site.addsitedir(p, k), ['"$([ -n "$program_PYTHONPATH" ] && (echo "'$program_PYTHONPATH'" | sed "s|:|','|g") || true)"'], site._init_pathinfo())
       '';
 
-    in ''
+    in
+    ''
       1 {
         :r
         /\\$|,$/{N;br}

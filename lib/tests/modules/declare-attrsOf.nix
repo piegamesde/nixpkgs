@@ -7,7 +7,8 @@ let
     throw
     "The module system is too strict, accessing an unused option's ${k} mkOption-attribute.")
     (lib.functionArgs lib.mkOption);
-in {
+in
+{
   options.value = lib.mkOption {
     type = lib.types.attrsOf lib.types.str;
     default = { };

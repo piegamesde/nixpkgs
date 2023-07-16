@@ -10,7 +10,8 @@ let
   cfg = config.systemd;
   lndir = "${pkgs.buildPackages.xorg.lndir}/bin/lndir";
   systemd = cfg.package;
-in rec {
+in
+rec {
 
   shellEscape = s: (replaceStrings [ "\\" ] [ "\\\\" ] s);
 
@@ -166,7 +167,8 @@ in rec {
         else
           v)) attrs;
       errors = concatMap (c: c group defs) checks;
-    in if errors == [ ] then
+    in
+    if errors == [ ] then
       true
     else
       builtins.trace (concatStringsSep "\n" errors) false
@@ -497,11 +499,13 @@ in rec {
             '';
               # systemd max line length is now 1MiB
               # https://github.com/systemd/systemd/commit/e6dde451a51dc5aaa7f4d98d39b8fe735f73d2af
-          in if stringLength s >= 1048576 then
+          in
+          if stringLength s >= 1048576 then
             throw
             "The value of the environment variable ‘${n}’ in systemd service ‘${name}.service’ is too long."
           else
-            s) (attrNames env)
+            s
+        ) (attrNames env)
         }
         ${if def ? reloadIfChanged && def.reloadIfChanged then
           ''

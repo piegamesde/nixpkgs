@@ -12,7 +12,8 @@ let
     self:
     let
       inherit (self) callPackage;
-    in rec {
+    in
+    rec {
       steamArch =
         if stdenv.hostPlatform.system == "x86_64-linux" then
           "amd64"

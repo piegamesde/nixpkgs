@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
       db_root = "${docbook-xsl-ns}/share/xml/docbook-xsl-ns";
       ac_str = "AC_SUBST(DOCBOOK_ROOT)";
       ac_str_sub = "DOCBOOK_ROOT=${db_root}; ${ac_str}";
-    in ''
+    in
+    ''
       substituteInPlace configure.ac --replace '${ac_str}' '${ac_str_sub}'
     ''
     ;

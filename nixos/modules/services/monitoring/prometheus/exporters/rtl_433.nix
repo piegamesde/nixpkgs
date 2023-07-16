@@ -7,7 +7,8 @@
 
 let
   cfg = config.services.prometheus.exporters.rtl_433;
-in {
+in
+{
   port = 9550;
 
   extraOpts =
@@ -32,7 +33,8 @@ in {
           };
         })
         ;
-    in {
+    in
+    {
       rtl433Flags = lib.mkOption {
         type = lib.types.str;
         default = "-C si";
@@ -85,7 +87,8 @@ in {
             cfg.channels) ++ (map
               (m: "--id_matcher '${m.name},${toString m.id},${m.location}'")
               cfg.ids);
-        in ''
+        in
+        ''
           ${pkgs.prometheus-rtl_433-exporter}/bin/rtl_433_prometheus \
             -listen ${cfg.listenAddress}:${toString cfg.port} \
             -subprocess "${pkgs.rtl_433}/bin/rtl_433 -F json ${cfg.rtl433Flags}" \

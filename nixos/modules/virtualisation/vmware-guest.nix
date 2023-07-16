@@ -16,7 +16,8 @@ let
       pkgs.open-vm-tools
     ;
   xf86inputvmmouse = pkgs.xorg.xf86inputvmmouse;
-in {
+in
+{
   imports = [
       (mkRenamedOptionModule [
         "services"

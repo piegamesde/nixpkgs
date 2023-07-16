@@ -11,7 +11,8 @@ let
   json = pkgs.formats.json { };
   configFile = json.generate "config.json" cfg.settings;
 
-in with lib;
+in
+with lib;
 
 {
   options = {

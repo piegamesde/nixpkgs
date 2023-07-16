@@ -125,7 +125,8 @@ let
         "--dest-cpu=${
           let
             platform = stdenv.hostPlatform;
-          in if platform.isAarch32 then
+          in
+          if platform.isAarch32 then
             "arm"
           else if platform.isAarch64 then
             "arm64"

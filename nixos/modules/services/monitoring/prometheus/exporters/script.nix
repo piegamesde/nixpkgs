@@ -11,7 +11,8 @@ let
   cfg = config.services.prometheus.exporters.script;
   configFile =
     pkgs.writeText "script-exporter.yaml" (builtins.toJSON cfg.settings);
-in {
+in
+{
   port = 9172;
   extraOpts = {
     settings.scripts = mkOption {

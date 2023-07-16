@@ -46,7 +46,8 @@ let
     gnutar
     bc
   ];
-in rec {
+in
+rec {
   module1 = resholve.mkDerivation {
     pname = "testmod1";
     version = "unreleased";

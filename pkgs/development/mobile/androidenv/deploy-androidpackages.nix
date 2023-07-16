@@ -35,10 +35,12 @@ let
     lib.concatStrings (lib.mapAttrsToList (name: value:
       let
         tag = builtins.head (builtins.match "([^:]+).*" name);
-      in if builtins.typeOf value == "string" then
+      in
+      if builtins.typeOf value == "string" then
         "<${tag}>${value}</${tag}>"
       else
-        mkXmlDoc name value) attrs)
+        mkXmlDoc name value
+    ) attrs)
     ;
   mkXmlDoc =
     name: doc:
@@ -47,7 +49,8 @@ let
       hasXmlAttrs = builtins.hasAttr "element-attributes" doc;
       xmlValues = removeAttrs doc [ "element-attributes" ];
       hasXmlValues = builtins.length (builtins.attrNames xmlValues) > 0;
-    in if hasXmlAttrs && hasXmlValues then
+    in
+    if hasXmlAttrs && hasXmlValues then
       "<${tag}${mkXmlAttrs doc.element-attributes}>${
         mkXmlValues xmlValues
       }</${tag}>"

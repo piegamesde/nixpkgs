@@ -58,7 +58,8 @@ let
       sudo -u peering-manager ${pkg}/bin/peering-manager "$@"
     '');
 
-in {
+in
+{
   options.services.peering-manager = {
     enable = mkOption {
       type = lib.types.bool;
@@ -181,7 +182,8 @@ in {
           StateDirectoryMode = "0750";
           Restart = "on-failure";
         };
-      in {
+      in
+      {
         peering-manager-migration = {
           description = "Peering Manager migrations";
           wantedBy = [ "peering-manager.target" ];

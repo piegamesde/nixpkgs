@@ -139,7 +139,8 @@ let
       };
     }
     ;
-in {
+in
+{
   options = {
     services.consul-template.instances =
       commonOptions { pkgName = "consul-template"; };

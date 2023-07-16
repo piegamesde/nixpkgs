@@ -78,7 +78,8 @@ let
     command = ${pkg}/libexec/backup_agent
     ${backupAgents cfg.backupProcesses}
   '';
-in {
+in
+{
   options.services.foundationdb = {
 
     enable = mkEnableOption (lib.mdDoc "FoundationDB Server");
@@ -414,7 +415,8 @@ in {
             cfg.pidfile
             "/etc/foundationdb"
           ] ++ cfg.extraReadWritePaths;
-        in {
+        in
+        {
           Type = "simple";
           Restart = "always";
           RestartSec = 5;

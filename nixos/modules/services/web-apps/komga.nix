@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.komga;
 
-in {
+in
+{
   options = {
     services.komga = {
       enable = mkEnableOption

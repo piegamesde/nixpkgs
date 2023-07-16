@@ -174,7 +174,8 @@ stdenv.mkDerivation rec {
         Parent proxy connection status                         :no parent proxy or unknown
         Origin server connection status                        :connection open failed
       '';
-    in ''
+    in
+    ''
       runHook preInstallCheck
       diff -Naur <($out/bin/traffic_via '[uScMsEf p eC:t cCMp sF]') - <<EOF
       ${lib.removeSuffix "\n" expected}

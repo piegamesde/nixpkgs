@@ -15,7 +15,8 @@ let
       ];
     }
   '';
-in {
+in
+{
   options.virtualisation.digitalOcean.rebuildFromUserData = mkOption {
     type = types.bool;
     default = true;

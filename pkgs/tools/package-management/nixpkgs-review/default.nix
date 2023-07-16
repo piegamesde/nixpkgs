@@ -33,7 +33,8 @@ python3.pkgs.buildPythonApplication rec {
         git
       ] ++ lib.optional withSandboxSupport bubblewrap
         ++ lib.optional withNom nix-output-monitor;
-    in [
+    in
+    [
       "--prefix PATH : ${lib.makeBinPath binPath}"
       "--set-default NIX_SSL_CERT_FILE ${cacert}/etc/ssl/certs/ca-bundle.crt"
       # we don't have any runtime deps but nix-review shells might inject unwanted dependencies

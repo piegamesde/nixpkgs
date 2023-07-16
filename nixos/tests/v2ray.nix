@@ -65,7 +65,8 @@ import ./make-test-python.nix ({
       ];
     };
 
-  in {
+  in
+  {
     name = "v2ray";
     meta = with lib.maintainers; { maintainers = [ servalcatty ]; };
     nodes.machine =
@@ -96,4 +97,5 @@ import ./make-test-python.nix ({
           "curl --fail --max-time 10 --proxy http://localhost:1080 http://localhost"
       )
     '';
-  } )
+  }
+)

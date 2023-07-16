@@ -37,7 +37,8 @@ let
   dataDir = "${seafRoot}/data";
   seahubDir = "${seafRoot}/seahub";
 
-in {
+in
+{
 
   ###### Interface
 
@@ -181,7 +182,8 @@ in {
             "AF_INET"
           ];
         };
-      in {
+      in
+      {
         seaf-server = {
           description = "Seafile server";
           partOf = [ "seafile.target" ];

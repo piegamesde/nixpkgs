@@ -15,7 +15,8 @@ let
 
   package = pkgs.evcc;
 
-in {
+in
+{
   meta.maintainers = with lib.maintainers; [ hexa ];
 
   options.services.evcc = with types; {

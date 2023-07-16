@@ -45,7 +45,8 @@ let
   guiSrcHash = "sha256-iVvADwIp01HeZoDayvH1dilYRHRkRBTBR3Fh395JBq0=";
   serverSrcHash = "sha256-41dbiSjvmsDNYr9/rRkeQVOnPSVND34xx1SNknCgHfc=";
 
-in {
+in
+{
   guiStable = mkGui {
     stable = true;
     sha256Hash = guiSrcHash;

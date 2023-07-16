@@ -29,7 +29,8 @@ import ./make-test-python.nix ({
       ''
       ;
 
-  in {
+  in
+  {
     name = "mongodb";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -61,4 +62,5 @@ import ./make-test-python.nix ({
       + runMongoDBTest pkgs.mongodb-5_0 + ''
         node.shutdown()
       '';
-  } )
+  }
+)

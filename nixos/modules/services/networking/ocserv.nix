@@ -11,7 +11,8 @@ let
 
   cfg = config.services.ocserv;
 
-in {
+in
+{
   options.services.ocserv = {
     enable = mkEnableOption (lib.mdDoc "ocserv");
 

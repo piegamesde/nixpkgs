@@ -52,7 +52,8 @@ crystal.buildCrystalPackage rec {
         # the assets were not changed
       assetCommitTemplate = ''
         {{ "#{`git rev-list HEAD --max-count=1 --abbrev-commit -- assets`.strip}" }}'';
-    in ''
+    in
+    ''
       for d in ${videojs}/*; do ln -s "$d" assets/videojs; done
 
       # Use the version metadata from the derivation instead of using git at

@@ -21,7 +21,8 @@ let
   configIni = iniFmt.generate "etebase-server.ini" cfg.settings;
 
   defaultUser = "etebase-server";
-in {
+in
+{
   imports = [
     (mkRemovedOptionModule [
       "services"
@@ -236,7 +237,8 @@ in {
             else
               "-b 0.0.0.0 -p ${toString cfg.port}"
             ;
-        in ''
+        in
+        ''
           cd "${pythonEnv}/lib/etebase-server";
           daphne ${networking} \
             etebase_server.asgi:application

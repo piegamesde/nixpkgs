@@ -49,7 +49,8 @@ let
     stdenv = stdenv';
     stubbed = true;
   };
-in {
+in
+{
   ruby = ruby';
   buildRubyGem = callPackage ../gem {
     inherit fetchurl;

@@ -12,7 +12,8 @@ let
 
   cfgFile = pkgs.writeText "hologram-agent.json"
     (builtins.toJSON { host = cfg.dialAddress; });
-in {
+in
+{
   options = {
     services.hologram-agent = {
       enable = mkOption {

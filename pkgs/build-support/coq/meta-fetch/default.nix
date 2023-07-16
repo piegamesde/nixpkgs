@@ -5,9 +5,11 @@
 }@args:
 let
   lib' = lib;
-in let
+in
+let
   lib = import ../extra-lib.nix { lib = lib'; };
-in with builtins;
+in
+with builtins;
 with lib;
 let
   default-fetcher =
@@ -113,7 +115,8 @@ switch arg [
           else
             shortVersion arg
           ;
-      in let
+      in
+      let
         given-sha256 = release.${v}.sha256 or "";
         sha256 =
           if given-sha256 == "" then
@@ -122,7 +125,8 @@ switch arg [
             given-sha256
           ;
         rv = release.${v} // { inherit sha256; };
-      in {
+      in
+      {
         version = rv.version or v;
         src = rv.src or fetcher (location // { rev = releaseRev v; } // rv);
       }
@@ -136,7 +140,8 @@ switch arg [
         rev = last splitted;
         has-owner = length splitted > 1;
         version = "dev";
-      in {
+      in
+      {
         inherit version;
         src = fetcher (location // {
           inherit rev;

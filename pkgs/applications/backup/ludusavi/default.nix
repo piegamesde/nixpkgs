@@ -69,7 +69,8 @@ rustPlatform.buildRustPackage rec {
         libXrandr
         libXi
       ];
-    in ''
+    in
+    ''
       patchelf --set-rpath "${libPath}" "$out/bin/$pname"
       wrapProgram $out/bin/$pname --prefix PATH : ${
         lib.makeBinPath [

@@ -37,7 +37,8 @@ import ./make-test-python.nix ({
       let
         sqlSU = "${nodes.master.config.services.postgresql.superUser}";
         pgProve = "${pkgs.perlPackages.TAPParserSourceHandlerpgTAP}";
-      in ''
+      in
+      ''
         start_all()
         master.wait_for_unit("postgresql")
         master.succeed(

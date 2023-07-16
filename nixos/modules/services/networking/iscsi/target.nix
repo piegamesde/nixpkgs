@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.target;
-in {
+in
+{
   ###### interface
   options = {
     services.target = with types; {

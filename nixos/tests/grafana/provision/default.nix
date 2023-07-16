@@ -175,7 +175,8 @@ import ../../make-test-python.nix ({
       provisionYamlDirs =
         let
           mkdir = p: pkgs.writeTextDir (baseNameOf p) (builtins.readFile p);
-        in {
+        in
+        {
           services.grafana.provision = {
             datasources.path = mkdir ./datasources.yaml;
             dashboards.path = mkdir ./dashboards.yaml;
@@ -196,7 +197,8 @@ import ../../make-test-python.nix ({
         val
         baseGrafanaConf
       ]) extraNodeConfs;
-  in {
+  in
+  {
     name = "grafana-provision";
 
     meta = with maintainers; {
@@ -265,4 +267,5 @@ import ../../make-test-python.nix ({
               "curl -sSfN -u testadmin:snakeoilpwd http://127.0.0.1:3000/api/alert-notifications/uid/test_notifiers | grep Test\ Notifiers"
           )
     '';
-  } )
+  }
+)

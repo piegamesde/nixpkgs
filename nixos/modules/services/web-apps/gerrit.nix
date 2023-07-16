@@ -56,7 +56,8 @@ let
         ln -sf "$file" $out/$name
       done
     '';
-in {
+in
+{
   options = {
     services.gerrit = {
       enable = mkEnableOption (lib.mdDoc "Gerrit service");

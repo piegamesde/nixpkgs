@@ -38,7 +38,8 @@ let
     })
     ;
 
-in {
+in
+{
   release =
     name:
     (buildUpstreamOpenRAEngine rec {

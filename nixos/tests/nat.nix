@@ -32,7 +32,8 @@ import ./make-test-python.nix ({
       networking.nat.internalIPs = [ "192.168.1.0/24" ];
       networking.nat.externalInterface = "eth1";
     } ];
-  in {
+  in
+  {
     name = "nat" + (lib.optionalString nftables "Nftables")
       + (if withFirewall then
         "WithFirewall"
@@ -103,7 +104,8 @@ import ./make-test-python.nix ({
         routerDummyNoNatClosure =
           nodes.routerDummyNoNat.config.system.build.toplevel;
         routerClosure = nodes.router.config.system.build.toplevel;
-      in ''
+      in
+      ''
         client.start()
         router.start()
         server.start()
@@ -153,4 +155,5 @@ import ./make-test-python.nix ({
         client.succeed("ping -c 1 server >&2")
       ''
       ;
-  } )
+  }
+)

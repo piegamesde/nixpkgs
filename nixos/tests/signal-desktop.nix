@@ -13,7 +13,8 @@ import ./make-test-python.nix ({
       readonly SQL="SELECT * FROM sqlite_master where type='table'"
       ${pkgs.sqlcipher}/bin/sqlcipher "$DB" "PRAGMA key = \"x'$KEY'\"; $SQL"
     '';
-  in {
+  in
+  {
     name = "signal-desktop";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -53,7 +54,8 @@ import ./make-test-python.nix ({
       }:
       let
         user = nodes.machine.config.users.users.alice;
-      in ''
+      in
+      ''
         start_all()
         machine.wait_for_x()
 
@@ -85,4 +87,5 @@ import ./make-test-python.nix ({
         ))
       ''
       ;
-  } )
+  }
+)

@@ -15,7 +15,8 @@ import ./make-test-python.nix ({
     internalClient1Address = "192.168.3.2";
     externalRouterAddress = "80.100.100.1";
     externalClient2Address = "80.100.100.2";
-  in {
+  in
+  {
     name = "upnp";
     meta = with pkgs.lib.maintainers; { maintainers = [ bobvanderlinden ]; };
 
@@ -122,4 +123,5 @@ import ./make-test-python.nix ({
       ''
       ;
 
-  } )
+  }
+)

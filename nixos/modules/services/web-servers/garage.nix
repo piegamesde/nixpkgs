@@ -11,7 +11,8 @@ let
   cfg = config.services.garage;
   toml = pkgs.formats.toml { };
   configFile = toml.generate "garage.toml" cfg.settings;
-in {
+in
+{
   meta = {
     doc = ./garage.md;
     maintainers = with pkgs.lib.maintainers; [ raitobezarius ];

@@ -210,7 +210,8 @@ let
                 "flask"
                 "Flask-Limiter"
               ];
-            in ''
+            in
+            ''
               sed -r -i \
                 ${
                   lib.concatStringsSep "\n"
@@ -260,4 +261,5 @@ let
       packageOverrides
     ]);
   };
-in with py.pkgs; toPythonApplication octoprint
+in
+with py.pkgs; toPythonApplication octoprint

@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.xserver.windowManager.e16;
-in {
+in
+{
   ###### interface
   options = {
     services.xserver.windowManager.e16.enable =

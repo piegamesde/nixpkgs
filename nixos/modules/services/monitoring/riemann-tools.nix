@@ -21,7 +21,8 @@ let
     } --host ${riemannHost}
   '';
 
-in {
+in
+{
 
   options = {
 

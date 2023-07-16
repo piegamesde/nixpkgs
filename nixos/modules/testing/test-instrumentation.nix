@@ -14,7 +14,8 @@ with lib;
 let
   qemu-common = import ../../lib/qemu-common.nix { inherit lib pkgs; };
 
-in {
+in
+{
 
   config = {
 

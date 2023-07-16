@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
         ncurses
         util-linux
       ];
-    in ''
+    in
+    ''
       wrapProgram $out/bin/git-quick-stats --suffix PATH : ${path}
     ''
     ;

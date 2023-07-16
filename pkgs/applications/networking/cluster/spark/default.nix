@@ -89,7 +89,8 @@ let
       } // extraMeta;
     }
     ;
-in {
+in
+{
   spark_3_2 = spark rec {
     pname = "spark";
     version = "3.2.2";

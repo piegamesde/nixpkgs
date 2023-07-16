@@ -278,7 +278,8 @@ stdenv.mkDerivation rec {
         ;
       driver = name: feat "driver_${name}";
       storage = name: feat "storage_${name}";
-    in [
+    in
+    [
       "--sysconfdir=/var/lib"
       (cfg "install_prefix" (placeholder "out"))
       (cfg "localstatedir" "/var")

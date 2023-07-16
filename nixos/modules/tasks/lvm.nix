@@ -8,7 +8,8 @@
 with lib;
 let
   cfg = config.services.lvm;
-in {
+in
+{
   options.services.lvm = {
     enable = mkEnableOption (lib.mdDoc "lvm2") // { default = true; };
 

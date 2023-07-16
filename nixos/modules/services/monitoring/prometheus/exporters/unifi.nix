@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.unifi;
-in {
+in
+{
   port = 9130;
   extraOpts = {
     unifiAddress = mkOption {

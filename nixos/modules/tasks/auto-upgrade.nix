@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.system.autoUpgrade;
 
-in {
+in
+{
 
   options = {
 
@@ -216,7 +217,8 @@ in {
           readlink = "${pkgs.coreutils}/bin/readlink";
           shutdown = "${config.systemd.package}/bin/shutdown";
           upgradeFlag = optional (cfg.channel == null) "--upgrade";
-        in if cfg.allowReboot then
+        in
+        if cfg.allowReboot then
           ''
             ${nixos-rebuild} boot ${toString (cfg.flags ++ upgradeFlag)}
             booted="$(${readlink} /run/booted-system/{initrd,kernel,kernel-modules})"

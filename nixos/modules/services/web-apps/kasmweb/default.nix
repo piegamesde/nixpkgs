@@ -7,7 +7,8 @@
 
 let
   cfg = config.services.kasmweb;
-in {
+in
+{
   options.services.kasmweb = {
     enable = lib.mkEnableOption (lib.mdDoc "kasmweb");
 

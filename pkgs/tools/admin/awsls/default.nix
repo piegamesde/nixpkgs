@@ -20,7 +20,8 @@ buildGoModule rec {
   ldflags =
     let
       t = "github.com/jckuester/awsls/internal";
-    in [
+    in
+    [
       "-s"
       "-w"
       "-X ${t}.version=${version}"

@@ -49,7 +49,8 @@
             ${a.tagCmd}
             TAG_FILES="$TAG_FILES''${TAG_FILES:+:}$TAG_FILE"
           '') createTagFiles);
-        in ''
+        in
+        ''
           SRC_DEST=$out/src/$name
           mkdir -p $SRC_DEST
           pwd; ls

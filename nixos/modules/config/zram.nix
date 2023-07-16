@@ -10,7 +10,8 @@ let
   cfg = config.zramSwap;
   devices = map (nr: "zram${toString nr}") (lib.range 0 (cfg.swapDevices - 1));
 
-in {
+in
+{
 
   imports = [
       (lib.mkRemovedOptionModule [

@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.cfdyndns;
-in {
+in
+{
   imports = [
       (mkRemovedOptionModule [
         "services"

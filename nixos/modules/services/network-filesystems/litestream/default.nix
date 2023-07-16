@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.litestream;
   settingsFormat = pkgs.formats.yaml { };
-in {
+in
+{
   options.services.litestream = {
     enable = mkEnableOption (lib.mdDoc "litestream");
 

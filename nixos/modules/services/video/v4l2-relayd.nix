@@ -121,7 +121,8 @@ let
     }
     ;
 
-in {
+in
+{
 
   options.services.v4l2-relayd = {
 
@@ -187,7 +188,8 @@ in {
                 "video/x-raw,format=${instance.output.format}"
                 "queue"
               ] ++ [ "v4l2sink name=v4l2sink device=$(cat $V4L2_DEVICE_FILE)" ];
-            in ''
+            in
+            ''
               exec ${pkgs.v4l2-relayd}/bin/v4l2-relayd -i "${instance.input.pipeline}" -o "${
                 concatStringsSep " ! " outputPipeline
               }"
@@ -216,7 +218,8 @@ in {
       enabledInstances =
         attrValues (filterAttrs (n: v: v.enable) cfg.instances);
 
-    in {
+    in
+    {
 
       boot = mkIf ((length enabledInstances) > 0) {
         extraModulePackages = [ kernelPackages.v4l2loopback ];

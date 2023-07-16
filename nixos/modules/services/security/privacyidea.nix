@@ -82,7 +82,8 @@ let
         ${penv}/bin/privacyidea-token-janitor $@
     '';
 
-in {
+in
+{
   options = {
     services.privacyidea = {
       enable = mkEnableOption (lib.mdDoc "PrivacyIDEA");
@@ -385,7 +386,8 @@ in {
               vacuum = true;
             };
           });
-        in {
+        in
+        {
           wantedBy = [ "multi-user.target" ];
           after = [ "postgresql.service" ];
           path = with pkgs; [ openssl ];
@@ -397,7 +399,8 @@ in {
                 "${config.security.sudo.package}/bin/sudo -u privacyidea -HE ${penv}/bin/pi-manage";
               pgsu = config.services.postgresql.superUser;
               psql = config.services.postgresql.package;
-            in ''
+            in
+            ''
               mkdir -p ${cfg.stateDir} /run/privacyidea
               chown ${cfg.user}:${cfg.group} -R ${cfg.stateDir} /run/privacyidea
               umask 077
@@ -463,7 +466,8 @@ in {
         let
           ldap-proxy-env =
             pkgs.python3.withPackages (ps: [ ps.privacyidea-ldap-proxy ]);
-        in {
+        in
+        {
           description = "privacyIDEA LDAP proxy";
           wantedBy = [ "multi-user.target" ];
           serviceConfig = {
@@ -488,7 +492,8 @@ in {
                   else
                     cfg.ldap-proxy.configFile
                   ;
-              in ''
+              in
+              ''
                 ${ldap-proxy-env}/bin/twistd \
                   --nodaemon \
                   --pidfile= \

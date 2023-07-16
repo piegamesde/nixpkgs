@@ -59,7 +59,8 @@ let
               "postgresqlBackup-postgres"
             ;
           backupFileBase = "/var/backup/postgresql/${backupName}";
-        in ''
+        in
+        ''
           def check_count(statement, lines):
               return 'test $(sudo -u postgres psql postgres -tAc "{}"|wc -l) -eq {}'.format(
                   statement, lines
@@ -200,7 +201,8 @@ let
               ") row;"
             ]
             ;
-        in ''
+        in
+        ''
           import json
           machine.start()
           machine.wait_for_unit("postgresql")

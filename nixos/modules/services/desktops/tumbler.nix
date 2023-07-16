@@ -13,7 +13,8 @@ let
 
   cfg = config.services.tumbler;
 
-in {
+in
+{
 
   imports = [
       (mkRemovedOptionModule [

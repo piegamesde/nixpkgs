@@ -66,7 +66,8 @@ import ./make-test-python.nix ({
         services.cassandra = cassandraCfg ipAddress // extra;
       }
       ;
-  in {
+  in
+  {
     name = "cassandra-${testPackage.version}";
     meta = { maintainers = with lib.maintainers; [ johnazoidberg ]; };
 
@@ -153,4 +154,5 @@ import ./make-test-python.nix ({
     '';
 
     passthru = { inherit testPackage; };
-  } )
+  }
+)

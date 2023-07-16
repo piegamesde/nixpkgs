@@ -9,7 +9,8 @@ import ./make-test-python.nix ({
     # location using safe means.
     configKeyPath = pkgs.writeText "fake-config-key"
       "hOjWzSEn2Z7cHzKOcf6i183O2NdjurSuoMDIIv01";
-  in {
+  in
+  {
     name = "rabbitmq";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -64,4 +65,5 @@ import ./make-test-python.nix ({
           '${pkgs.rabbitmq-java-client}/bin/PerfTest --time 10 --uri amqp://alice:dJT8isYu6t0Xb6u56rPglSj1vK51SlNVlXfwsRxw@localhost'
       )
     '';
-  } )
+  }
+)

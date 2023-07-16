@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
         lockfile = ./Gemfile.lock;
         gemset = ./gemset.nix;
       };
-    in ''
+    in
+    ''
       mkdir -p $out/bin
       makeWrapper ${env}/bin/lvmsync $out/bin/lvmsync
     ''

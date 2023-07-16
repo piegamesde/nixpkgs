@@ -48,7 +48,8 @@ let
     };
 
   cfgfile = settingsFormat.generate "config.yaml" cfg.settings;
-in {
+in
+{
   options.services.borgmatic = {
     enable = mkEnableOption (mdDoc "borgmatic");
 

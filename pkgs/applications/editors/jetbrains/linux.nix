@@ -35,7 +35,8 @@ let
   vmoptsName =
     loName + lib.optionalString stdenv.hostPlatform.is64bit "64" + ".vmoptions";
 
-in with stdenv;
+in
+with stdenv;
 lib.makeOverridable mkDerivation (rec {
   inherit pname version src;
   meta = args.meta // { mainProgram = pname; };

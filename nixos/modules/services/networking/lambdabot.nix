@@ -13,7 +13,8 @@ let
 
   rc = builtins.toFile "script.rc" cfg.script;
 
-in {
+in
+{
 
   ### configuration
 

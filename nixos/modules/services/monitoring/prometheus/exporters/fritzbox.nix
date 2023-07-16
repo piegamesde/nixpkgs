@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.fritzbox;
-in {
+in
+{
   port = 9133;
   extraOpts = {
     gatewayAddress = mkOption {

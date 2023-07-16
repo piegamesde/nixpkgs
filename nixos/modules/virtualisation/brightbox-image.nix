@@ -8,7 +8,8 @@
 with lib;
 let
   diskSize = "20G";
-in {
+in
+{
   imports = [
     ../profiles/headless.nix
     ../profiles/qemu-guest.nix

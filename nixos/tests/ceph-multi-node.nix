@@ -256,7 +256,8 @@ import ./make-test-python.nix ({
         monA.wait_until_succeeds("ceph -s | grep 'HEALTH_OK'")
       ''
       ;
-  in {
+  in
+  {
     name = "basic-multi-node-ceph-cluster";
     meta = with pkgs.lib.maintainers; { maintainers = [ lejonet ]; };
 
@@ -284,4 +285,5 @@ import ./make-test-python.nix ({
     };
 
     testScript = testscript;
-  } )
+  }
+)

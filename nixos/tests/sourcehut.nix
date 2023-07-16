@@ -134,7 +134,8 @@ import ./make-test-python.nix ({
         ;
     };
 
-  in {
+  in
+  {
     name = "sourcehut";
 
     meta.maintainers = [ pkgs.lib.maintainers.tomberek ];
@@ -284,4 +285,5 @@ import ./make-test-python.nix ({
       machine.wait_for_unit("gitsrht-webhooks.service")
       machine.succeed("curl -sL http://git.${domain} | grep git.${domain}")
     '';
-  } )
+  }
+)

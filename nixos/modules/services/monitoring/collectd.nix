@@ -40,7 +40,8 @@ let
     enabledPlugins = [ "syslog" ] ++ builtins.attrNames cfg.plugins;
   };
 
-in {
+in
+{
   options.services.collectd = with types; {
     enable = mkEnableOption (lib.mdDoc "collectd agent");
 

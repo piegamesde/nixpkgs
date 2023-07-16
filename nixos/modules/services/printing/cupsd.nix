@@ -136,7 +136,8 @@ let
   containsGutenprint = pkgs: length (filterGutenprint pkgs) > 0;
   getGutenprint = pkgs: head (filterGutenprint pkgs);
 
-in {
+in
+{
 
   imports = [
     (mkChangedOptionModule [
@@ -154,10 +155,12 @@ in {
           "printing"
           "gutenprint"
         ] config;
-      in if enabled then
+      in
+      if enabled then
         [ pkgs.gutenprint ]
       else
-        [ ]))
+        [ ]
+    ))
     (mkRemovedOptionModule [
       "services"
       "printing"

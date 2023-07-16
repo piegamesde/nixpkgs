@@ -8,7 +8,8 @@ with lib;
 let
   cfg = config.services.lemmy;
   settingsFormat = pkgs.formats.json { };
-in {
+in
+{
   meta.maintainers = with maintainers; [ happysalada ];
   meta.doc = ./lemmy.md;
 

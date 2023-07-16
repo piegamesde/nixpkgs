@@ -32,7 +32,8 @@ let
     "--pidfile=${pidFile}"
   ];
 
-in {
+in
+{
   imports = [
     (mkRemovedOptionModule [
       "services"

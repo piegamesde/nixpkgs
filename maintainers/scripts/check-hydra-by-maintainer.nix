@@ -22,10 +22,12 @@ let
           packagesWith cond return "${name}." pkg
         else
           [ ]);
-      in if result.success then
+      in
+      if result.success then
         result.value
       else
-        [ ]) set))
+        [ ]
+    ) set))
     ;
 
   packages = packagesWith (name: pkg:

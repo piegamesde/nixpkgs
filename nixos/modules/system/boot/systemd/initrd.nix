@@ -140,7 +140,8 @@ let
       }) (filterAttrs (_: v: v.enable) cfg.contents);
   };
 
-in {
+in
+{
   options.boot.initrd.systemd = {
     enable = mkEnableOption (lib.mdDoc "systemd in initrd") // {
       description = lib.mdDoc ''

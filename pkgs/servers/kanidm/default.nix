@@ -54,7 +54,8 @@ rustPlatform.buildRustPackage rec {
             "none"
           ;
       };
-    in ''
+    in
+    ''
       cp ${format profile} profiles/${KANIDM_BUILD_PROFILE}.toml
       substituteInPlace profiles/${KANIDM_BUILD_PROFILE}.toml \
         --replace '@web_ui_pkg_path@' "$out/ui"

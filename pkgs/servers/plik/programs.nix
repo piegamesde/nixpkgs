@@ -31,7 +31,8 @@ let
       --replace '"0.0.0"' '"${version}"'
   '';
 
-in {
+in
+{
 
   plik = buildGoModule {
     pname = "plik";

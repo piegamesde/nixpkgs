@@ -35,7 +35,8 @@ let
         (reverseList (splitString "/" url));
       path = [ (removeSuffix "/" (head path_)) ] ++ (tail path_);
       # ../repo/trunk -> repo
-    in if fst path == "trunk" then
+    in
+    if fst path == "trunk" then
       snd path
       # ../repo/branches/branch -> repo-branch
     else if snd path == "branches" then
@@ -45,7 +46,8 @@ let
       "${trd path}-${fst path}"
       # ../repo (no trunk) -> repo
     else
-      fst path;
+      fst path
+    ;
 
   name_ =
     if name == null then
@@ -54,7 +56,8 @@ let
       name
     ;
 
-in if md5 != "" then
+in
+if md5 != "" then
   throw "fetchsvn does not support md5 anymore, please use sha256"
 else
   stdenvNoCC.mkDerivation {

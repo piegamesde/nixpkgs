@@ -14,7 +14,8 @@
 let
   kernel = callPackage ./kernel.nix { python3Packages = python3.pkgs; };
 
-in rec {
+in
+rec {
   launcher = runCommand "octave-kernel-launcher" {
     inherit octave;
     python = python3.withPackages (ps: [

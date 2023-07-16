@@ -12,7 +12,8 @@ let
 
   configFile = pkgs.writeText "solanum.conf" cfg.config;
 
-in {
+in
+{
 
   ###### interface
 

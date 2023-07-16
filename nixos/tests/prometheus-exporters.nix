@@ -195,7 +195,8 @@ let
               "time":DATE
             }]
           '';
-        in ''
+        in
+        ''
           wait_for_unit("prometheus-collectd-exporter.service")
           wait_for_open_port(9103)
           succeed(
@@ -374,7 +375,8 @@ let
       let
         controlSocketPathV4 = "/run/kea/dhcp4.sock";
         controlSocketPathV6 = "/run/kea/dhcp6.sock";
-      in {
+      in
+      {
         exporterConfig = {
           enable = true;
           controlSocketPaths = [
@@ -681,7 +683,8 @@ let
         systemd.services.nc-pwfile =
           let
             passfile = (pkgs.writeText "pwfile" "snakeoilpw");
-          in {
+          in
+          {
             requiredBy = [ "prometheus-nextcloud-exporter.service" ];
             before = [ "prometheus-nextcloud-exporter.service" ];
             serviceConfig.ExecStart = ''
@@ -961,7 +964,8 @@ let
             PVE_VERIFY_SSL="false"
           '';
         };
-      in {
+      in
+      {
         exporterConfig = {
           enable = true;
           environmentFile = pveExporterEnvFile;
@@ -1377,7 +1381,8 @@ let
     wireguard =
       let
         snakeoil = import ./wireguard/snakeoil-keys.nix;
-      in {
+      in
+      {
         exporterConfig.enable = true;
         metricProvider = {
           networking.wireguard.interfaces.wg0 = {
@@ -1431,7 +1436,8 @@ mapAttrs (exporter: testConfig:
   (makeTest (let
     nodeName = testConfig.nodeName or exporter;
 
-  in {
+  in
+  {
     name = "prometheus-${exporter}-exporter";
 
     nodes.${nodeName} = mkMerge [
@@ -1454,4 +1460,5 @@ mapAttrs (exporter: testConfig:
     '';
 
     meta = with maintainers; { maintainers = [ willibutz ]; };
-  } ))) exporterTests
+  }
+  ))) exporterTests

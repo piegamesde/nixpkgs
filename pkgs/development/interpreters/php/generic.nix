@@ -125,7 +125,8 @@ let
                 deps = lib.concatMap
                   (ext: (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ]))
                   extensions;
-              in if !(deps == [ ]) then
+              in
+              if !(deps == [ ]) then
                 deps ++ (getDepsRecursively deps)
               else
                 deps
@@ -368,7 +369,8 @@ let
                   }"."${lib.versions.majorMinor version}".version')
                   update-source-version "$UPDATE_NIX_ATTR_PATH.unwrapped" "$new_version" "--file=$1"
                 '';
-            in [
+            in
+            [
               script
               # Passed as an argument so that update.nix can ensure it does not become a store path.
               (./. + "/${lib.versions.majorMinor version}.nix")

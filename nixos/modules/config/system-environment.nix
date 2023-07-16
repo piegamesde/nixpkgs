@@ -14,7 +14,8 @@ let
 
   cfg = config.environment;
 
-in {
+in
+{
 
   options = {
 
@@ -109,7 +110,8 @@ in {
             (mapAttrs (n: toList) cfg.sessionVariables)
             suffixedVariables
           ]));
-      in ''
+      in
+      ''
         ${pamVariables}
       ''
       ;

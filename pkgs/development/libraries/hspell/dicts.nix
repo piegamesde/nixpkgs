@@ -19,7 +19,8 @@ let
         { });
     } // (removeAttrs a [ "meta" ]))
     ;
-in {
+in
+{
   recurseForDerivations = true;
 
   aspell = dict "aspell" {

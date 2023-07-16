@@ -53,7 +53,8 @@ buildGoModule rec {
         mdadm
         zfs
       ];
-    in ''
+    in
+    ''
       wrapProgram $out/bin/generator --prefix PATH : ${
         lib.makeBinPath runtimeInputs
       }

@@ -33,7 +33,8 @@ let
   '';
   pkg = pkgs.xorg.xf86inputsynaptics;
   etcFile = "X11/xorg.conf.d/70-synaptics.conf";
-in {
+in
+{
 
   options = {
 

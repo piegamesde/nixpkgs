@@ -143,10 +143,12 @@ buildPythonPackage {
       quote = x: ''"${x}"'';
       oldStr = lib.concatMapStringsSep ", " quote old;
       newStr = lib.concatMapStringsSep ", " quote new;
-    in ''
+    in
+    ''
       substituteInPlace python/triton/compiler.py \
         --replace '${oldStr}' '${newStr}'
-    '' )
+    ''
+    )
     # Triton seems to be looking up cuda.h
     + ''
       sed -i 's|cu_include_dir = os.path.join.*$|cu_include_dir = "${cuda_cudart}/include"|' python/triton/compiler.py
@@ -209,7 +211,8 @@ buildPythonPackage {
       ptxasDestination =
         "$out/${python.sitePackages}/triton/third_party/cuda/bin/ptxas";
       # Setuptools (?) strips runpath and +x flags. Let's just restore the symlink
-    in ''
+    in
+    ''
       rm -f ${ptxasDestination}
       ln -s ${ptxas} ${ptxasDestination}
     ''

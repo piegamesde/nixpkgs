@@ -397,7 +397,8 @@ python.pkgs.buildPythonApplication rec {
         "voluptuous-serialize"
         "yarl"
       ];
-    in ''
+    in
+    ''
       sed -r -i \
         ${
           lib.concatStringsSep "\n"

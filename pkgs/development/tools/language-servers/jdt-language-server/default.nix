@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
         else
           "config_linux"
         ;
-    in ''
+    in
+    ''
       # Copy jars
       install -D -t $out/share/java/plugins/ plugins/*.jar
 

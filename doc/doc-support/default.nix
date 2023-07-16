@@ -101,7 +101,8 @@ let
               subpath =
                 removePrefix "/" (removePrefix (toString ../..) (toString decl))
                 ;
-            in {
+            in
+            {
               url = "https://github.com/NixOS/nixpkgs/blob/master/${subpath}";
               name = subpath;
             }

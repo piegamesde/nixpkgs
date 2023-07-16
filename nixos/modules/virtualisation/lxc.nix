@@ -13,7 +13,8 @@ let
 
   cfg = config.virtualisation.lxc;
 
-in {
+in
+{
   ###### interface
 
   options.virtualisation.lxc = {

@@ -66,7 +66,8 @@ stdenv.mkDerivation (finalAttrs: {
         src = ./config-template.mk;
         inherit arch platform hareflags;
       };
-    in ''
+    in
+    ''
       runHook preConfigure
 
       export HARECACHE="$NIX_BUILD_TOP/.harecache"
@@ -88,7 +89,8 @@ stdenv.mkDerivation (finalAttrs: {
         harec
         qbe
       ];
-    in ''
+    in
+    ''
       wrapProgram $out/bin/hare --prefix PATH : ${binPath}
     ''
     ;

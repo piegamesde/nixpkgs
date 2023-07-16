@@ -26,7 +26,8 @@ let
       uefi
     ];
   };
-in {
+in
+{
   basic = makeTest {
     name = "systemd-boot-with-bootspec";
     meta.maintainers = with pkgs.lib.maintainers; [ raitobezarius ];

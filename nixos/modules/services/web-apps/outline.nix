@@ -8,7 +8,8 @@
 let
   defaultUser = "outline";
   cfg = config.services.outline;
-in {
+in
+{
   # See here for a reference of all the options:
   #   https://github.com/outline/outline/blob/v0.67.0/.env.sample
   #   https://github.com/outline/outline/blob/v0.67.0/app.json
@@ -612,7 +613,8 @@ in {
             ${cfg.sequelizeArguments} \
             "$@"
         '';
-      in {
+      in
+      {
         description = "Outline wiki and knowledge base";
         wantedBy = [ "multi-user.target" ];
         after = [ "networking.target" ]

@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.psd;
-in {
+in
+{
   options.services.psd = with types; {
     enable = mkOption {
       type = bool;

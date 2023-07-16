@@ -27,7 +27,8 @@ buildGoModule rec {
   ldflags =
     let
       rev = builtins.substring 0 7 src.rev;
-    in [
+    in
+    [
       "-X github.com/yoheimuta/protolint/internal/cmd.version=${version}"
       "-X github.com/yoheimuta/protolint/internal/cmd.revision=${rev}"
       "-X github.com/yoheimuta/protolint/internal/cmd/protocgenprotolint.version=${version}"

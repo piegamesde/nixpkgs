@@ -25,7 +25,8 @@ let
         --prefix PYTHONPATH : $out/${mopidyPackages.python.sitePackages}
     '';
   };
-in {
+in
+{
 
   options = {
 

@@ -2,7 +2,8 @@
 let
   prefix =
     "https://salsa.debian.org/grub-team/grub-legacy/raw/1dad5507d74ef97fdd3c6cf2a028084f6f2850c3/debian/patches";
-in [
+in
+[
   {
     url = "${prefix}/snapshot.patch";
     sha256 = "0ixymrn5w1dq0kkxnzdjwwvhjchgyrlivfvnrfncxcv30v84xzna";

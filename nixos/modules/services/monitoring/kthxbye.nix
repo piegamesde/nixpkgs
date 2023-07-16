@@ -9,7 +9,8 @@ with lib;
 let
   cfg = config.services.kthxbye;
 
-in {
+in
+{
   options.services.kthxbye = {
     enable =
       mkEnableOption (mdDoc "kthxbye alert acknowledgement management daemon");

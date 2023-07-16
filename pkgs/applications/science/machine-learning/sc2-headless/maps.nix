@@ -6,7 +6,8 @@ let
     args:
     (fetchzip args).overrideAttrs (old: { UNZIP = "-j -P iagreetotheeula"; })
     ;
-in {
+in
+{
   minigames = fetchzip {
     url =
       "https://github.com/deepmind/pysc2/releases/download/v1.2/mini_games.zip";

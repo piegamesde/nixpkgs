@@ -17,7 +17,8 @@ let
     $logevent 225
   '';
 
-in {
+in
+{
   options = {
 
     services.torque.mom = {

@@ -94,7 +94,8 @@ let
       add_header Access-Control-Allow-Headers   'Range,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
     '';
 
-in {
+in
+{
   options.services.peertube = {
     enable = lib.mkEnableOption (lib.mdDoc "Peertube");
 

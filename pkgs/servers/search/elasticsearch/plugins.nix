@@ -36,7 +36,8 @@ let
       };
     })
     ;
-in {
+in
+{
 
   analysis-icu = esPlugin rec {
     name = "elasticsearch-analysis-icu-${version}";

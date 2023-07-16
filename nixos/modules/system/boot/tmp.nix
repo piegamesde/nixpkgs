@@ -8,7 +8,8 @@ with lib;
 
 let
   cfg = config.boot.tmp;
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "boot"

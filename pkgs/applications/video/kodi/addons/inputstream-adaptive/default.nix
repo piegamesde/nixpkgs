@@ -50,7 +50,8 @@ buildKodiBinaryAddon rec {
   extraInstallPhase =
     let
       n = namespace;
-    in ''
+    in
+    ''
       ln -s $out/lib/addons/${n}/libssd_wv.so $out/${addonDir}/${n}/libssd_wv.so
     ''
     ;

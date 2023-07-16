@@ -78,7 +78,8 @@ let
         curl -X POST ${cfg.guiAddress}/rest/system/restart
     fi
   '';
-in {
+in
+{
   ###### interface
   options = {
     services.syncthing = {

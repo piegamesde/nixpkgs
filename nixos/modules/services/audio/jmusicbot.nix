@@ -8,7 +8,8 @@
 with lib;
 let
   cfg = config.services.jmusicbot;
-in {
+in
+{
   options = {
     services.jmusicbot = {
       enable = mkEnableOption (lib.mdDoc

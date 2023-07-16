@@ -11,7 +11,8 @@ with lib;
 
 let
   cfg = config.services.gnome.tracker;
-in {
+in
+{
 
   meta = { maintainers = teams.gnome.members; };
 

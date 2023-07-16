@@ -16,7 +16,8 @@ let
     else
       "legacy-bios"
     ;
-in {
+in
+{
   imports = [ ../../../modules/virtualisation/openstack-config.nix ]
     ++ (lib.optional copyChannel ../../../modules/installer/cd-dvd/channel.nix);
 

@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
     let
       ldLibraryPath = lib.makeLibraryPath
         ([ tpm2-tss ] ++ (lib.optional abrmdSupport tpm2-abrmd));
-    in ''
+    in
+    ''
       wrapProgram $out/bin/tpm2 --suffix LD_LIBRARY_PATH : "${ldLibraryPath}"
       wrapProgram $out/bin/tss2 --suffix LD_LIBRARY_PATH : "${ldLibraryPath}"
     ''

@@ -63,7 +63,8 @@ stdenv.mkDerivation rec {
         else
           "XMind_amd64"
         ;
-    in ''
+    in
+    ''
       mkdir -p $out/{bin,libexec/configuration/,share/{applications/,fonts/,icons/hicolor/scalable/apps/}}
       cp -r ${targetDir}/{configuration,p2,XMind{,.ini}} $out/libexec
       cp -r {plugins,features} $out/libexec/

@@ -54,7 +54,8 @@ runCommand "google-cloud-sdk-${google-cloud-sdk.version}" {
   installCheckPhase =
     let
       compNames = builtins.map (drv: drv.name) comps_;
-    in ''
+    in
+    ''
       $out/bin/gcloud components list > component_list.txt
       for comp in ${builtins.toString compNames}; do
         if [ ! grep ... component_list.txt | grep "Not Installed" ]; then

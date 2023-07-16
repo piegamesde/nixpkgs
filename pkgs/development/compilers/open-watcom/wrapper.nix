@@ -88,7 +88,8 @@ let
         tests =
           let
             wrapped = wrapper { };
-          in {
+          in
+          {
             simple = runCommand "${name}-test-simple" {
               nativeBuildInputs = [ wrapped ];
             } ''

@@ -39,7 +39,8 @@ let
     ''
     ;
 
-in {
+in
+{
   options = {
 
     services.mysqlBackup = {

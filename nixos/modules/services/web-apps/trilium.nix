@@ -25,7 +25,8 @@ let
     # true for TLS/SSL/HTTPS (secure), false for HTTP (unsecure).
     https=false
   '';
-in {
+in
+{
 
   options.services.trilium-server = with lib; {
     enable = mkEnableOption (lib.mdDoc "trilium-server");

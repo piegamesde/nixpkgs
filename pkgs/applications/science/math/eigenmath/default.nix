@@ -20,7 +20,8 @@ stdenv.mkDerivation rec {
   checkPhase =
     let
       emulator = stdenv.hostPlatform.emulator buildPackages;
-    in ''
+    in
+    ''
       runHook preCheck
 
       for testcase in selftest1 selftest2; do

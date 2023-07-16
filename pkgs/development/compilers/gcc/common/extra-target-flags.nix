@@ -10,7 +10,8 @@
 let
   inherit (stdenv) hostPlatform targetPlatform;
 
-in {
+in
+{
   # For non-cross builds these flags are currently assigned in builder.sh.
   # It would be good to consolidate the generation of makeFlags
   # ({C,CXX,LD}FLAGS_FOR_{BUILD,TARGET}, etc...) at some point.

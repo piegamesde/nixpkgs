@@ -31,7 +31,8 @@ buildGoModule rec {
   postInstall =
     let
       emulator = stdenv.hostPlatform.emulator buildPackages;
-    in ''
+    in
+    ''
       ${emulator} $out/bin/nfpm man > nfpm.1
       installManPage ./nfpm.1
       installShellCompletion --cmd nfpm \

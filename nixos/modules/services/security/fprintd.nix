@@ -17,7 +17,8 @@ let
       pkgs.fprintd
     ;
 
-in {
+in
+{
 
   ###### interface
 

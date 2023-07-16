@@ -16,12 +16,14 @@
 }@args:
 let
   lib = import ../build-support/coq/extra-lib.nix { inherit (args) lib; };
-in let
+in
+let
   mkCoqPackages' =
     self: coq:
     let
       callPackage = self.callPackage;
-    in {
+    in
+    {
       inherit coq lib;
       coqPackages = self;
 
@@ -189,7 +191,8 @@ in let
         ;
     }
     ;
-in rec {
+in
+rec {
 
   # The function `mkCoqPackages` takes as input a derivation for Coq and produces
   # a set of libraries built with that specific Coq. More libraries are known to

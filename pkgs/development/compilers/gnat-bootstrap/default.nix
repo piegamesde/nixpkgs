@@ -53,7 +53,8 @@ let
     }.${stdenv.hostPlatform.system} or throwUnsupportedSystem;
   };
 
-in with versionMap.${majorVersion};
+in
+with versionMap.${majorVersion};
 
 stdenv.mkDerivation rec {
   pname = "gnat-bootstrap";

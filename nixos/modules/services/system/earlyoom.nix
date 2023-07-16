@@ -22,7 +22,8 @@ let
     optionalString
     ;
 
-in {
+in
+{
   options.services.earlyoom = {
     enable = mkEnableOption (lib.mdDoc "Early out of memory killing");
 

@@ -9,7 +9,8 @@ let
   pwCfg = config.services.pipewire;
   cfg = pwCfg.wireplumber;
   pwUsedForAudio = pwCfg.audio.enable;
-in {
+in
+{
   meta.maintainers = [ lib.maintainers.k900 ];
 
   options = {

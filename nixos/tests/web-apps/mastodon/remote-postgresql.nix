@@ -16,7 +16,8 @@ import ../../make-test-python.nix ({
       192.168.2.103 mastodon.local
     '';
 
-  in {
+  in
+  {
     name = "mastodon-remote-postgresql";
     meta.maintainers = with pkgs.lib.maintainers; [
       erictapen
@@ -180,4 +181,5 @@ import ../../make-test-python.nix ({
         database.shutdown()
       '';
     };
-  } )
+  }
+)

@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.nginx;
-in {
+in
+{
   port = 9113;
   extraOpts = {
     scrapeUri = mkOption {

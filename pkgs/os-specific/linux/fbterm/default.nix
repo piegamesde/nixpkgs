@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
         url = "https://aur.archlinux.org/cgit/aur.git/plain/fbtermrc?h=fbterm";
         hash = "sha256-zNIfi2ZjEGc5PLdOIirKGTXESb5Wm5XBAI1sfHa31LY=";
       };
-    in ''
+    in
+    ''
       mkdir -p "$out/share/terminfo"
       tic -a -v2 -o"$out/share/terminfo" terminfo/fbterm
 

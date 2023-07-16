@@ -27,7 +27,8 @@ let
     Google’s goal is to see “no more tofu”.  Noto has multiple styles and
     weights, and freely available to all.
   '';
-in rec {
+in
+rec {
   mkNoto =
     {
       pname,

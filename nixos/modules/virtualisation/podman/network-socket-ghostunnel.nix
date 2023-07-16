@@ -9,7 +9,8 @@ let
 
   cfg = config.virtualisation.podman.networkSocket;
 
-in {
+in
+{
   options.virtualisation.podman.networkSocket = {
     server = mkOption { type = types.enum [ "ghostunnel" ]; };
   };

@@ -64,10 +64,12 @@ stdenv.mkDerivation rec {
             throw "unknown moodle plugin type"
           ;
           # we have to copy it, because the plugins have refrences to .. inside
-      in ''
+      in
+      ''
         mkdir -p $out/share/moodle/${dir}/${p.name}
         cp -r ${p}/* $out/share/moodle/${dir}/${p.name}/
-      '' ) plugins)}
+      ''
+    ) plugins)}
 
     runHook postInstall
   '';

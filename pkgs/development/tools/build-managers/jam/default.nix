@@ -72,7 +72,8 @@ let
         } // meta;
     }
     ;
-in {
+in
+{
   jam =
     let
       pname = "jam";

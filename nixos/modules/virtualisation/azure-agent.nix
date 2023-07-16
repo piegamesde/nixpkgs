@@ -15,7 +15,8 @@ let
     /run/current-system/systemd/bin/systemctl start provisioned.target
   '';
 
-in {
+in
+{
 
   ###### interface
 

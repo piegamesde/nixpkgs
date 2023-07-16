@@ -47,7 +47,8 @@ buildGoModule rec {
   ldflags =
     let
       t = "github.com/minio/minio/cmd";
-    in [
+    in
+    [
       "-s"
       "-w"
       "-X ${t}.Version=${versionToTimestamp version}"

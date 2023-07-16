@@ -81,7 +81,8 @@ runTests {
     let
       res = builtins.tryEval
         ((getConfig freeformConfig).NIXOS_FAKE_MMC_BLOCK_MINORS.freeform);
-    in {
+    in
+    {
       expr = res.success;
       expected = false;
     }

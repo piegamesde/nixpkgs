@@ -9,7 +9,8 @@ let
   cfg = config.hardware.keyboard.qmk;
   inherit (lib) mdDoc mkEnableOption mkIf;
 
-in {
+in
+{
   options.hardware.keyboard.qmk = {
     enable =
       mkEnableOption (mdDoc "non-root access to the firmware of QMK keyboards");

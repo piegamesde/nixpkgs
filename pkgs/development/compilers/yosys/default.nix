@@ -117,7 +117,8 @@ stdenv.mkDerivation rec {
   preBuild =
     let
       shortAbcRev = builtins.substring 0 7 abc-verifier.rev;
-    in ''
+    in
+    ''
       chmod -R u+w .
       make config-${
         if stdenv.cc.isClang or false then

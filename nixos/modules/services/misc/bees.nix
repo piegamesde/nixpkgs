@@ -86,7 +86,8 @@ let
     };
   };
 
-in {
+in
+{
 
   options.services.beesd = {
     filesystems = mkOption {
@@ -121,7 +122,8 @@ in {
               "workDir=${fs.workDir}"
             ];
             configOptsStr = escapeShellArgs configOpts;
-          in {
+          in
+          {
             # Values from https://github.com/Zygo/bees/blob/v0.6.5/scripts/beesd@.service.in
             ExecStart =
               "${pkgs.bees}/bin/bees-service-wrapper run ${configOptsStr} -- --no-timestamps ${

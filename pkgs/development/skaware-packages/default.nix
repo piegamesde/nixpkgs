@@ -6,7 +6,8 @@
 lib.makeScope pkgs.newScope (self:
   let
     inherit (self) callPackage;
-  in {
+  in
+  {
     buildManPages = callPackage ./build-skaware-man-pages.nix { };
     buildPackage = callPackage ./build-skaware-package.nix { };
     cleanPackaging = callPackage ./clean-packaging.nix { };
@@ -33,4 +34,5 @@ lib.makeScope pkgs.newScope (self:
     s6-man-pages = callPackage ./s6-man-pages { };
     s6-networking-man-pages = callPackage ./s6-networking-man-pages { };
     s6-portable-utils-man-pages = callPackage ./s6-portable-utils-man-pages { };
-  } )
+  }
+)

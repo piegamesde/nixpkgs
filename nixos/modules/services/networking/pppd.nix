@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.pppd;
-in {
+in
+{
   meta = { maintainers = with maintainers; [ danderson ]; };
 
   options = {
@@ -102,7 +103,8 @@ in {
                   "CAP_NET_ADMIN"
                   "CAP_NET_RAW"
                 ];
-              in {
+              in
+              {
                 ExecStart = "${
                     getBin cfg.package
                   }/sbin/pppd call ${peerCfg.name} nodetach nolog";

@@ -61,7 +61,8 @@ mkDerivation rec {
   installPhase =
     let
       qst = "qsyncthingtray";
-    in ''
+    in
+    ''
       runHook preInstall
 
       mkdir -p $out/bin

@@ -9,7 +9,8 @@ import ./make-test-python.nix ({
     testUser = "testerman";
     testPass = "password";
     testEmail = "test.testerman@test.com";
-  in with lib; {
+  in
+  with lib; {
     name = "atuin";
     meta.maintainers = with pkgs.lib.maintainers; [ devusb ];
 
@@ -73,4 +74,5 @@ import ./make-test-python.nix ({
       # check for test record
       client.succeed("ATUIN_SESSION=$(${atuin}/bin/atuin uuid) ${atuin}/bin/atuin history list | grep shazbot")
     '';
-  })
+  }
+)

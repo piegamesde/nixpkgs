@@ -70,7 +70,8 @@ let
     pango
   ];
   redirects = [ "/usr/bin/pkexec=${pkexecPath}" ];
-in let
+in
+let
   binaryPackage = stdenv.mkDerivation {
     pname = "${pname}-bin";
     version = buildVersion;

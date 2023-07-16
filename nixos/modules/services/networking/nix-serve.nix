@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.nix-serve;
-in {
+in
+{
   options = {
     services.nix-serve = {
       enable = mkEnableOption

@@ -14,7 +14,8 @@ import ./make-test-python.nix ({
         let
           ip =
             (lib.head config.networking.interfaces.eth1.ipv4.addresses).address;
-        in {
+        in
+        {
           networking.nameservers = [ ip ];
           services.tinydns = {
             enable = true;

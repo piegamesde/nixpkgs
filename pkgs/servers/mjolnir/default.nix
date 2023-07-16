@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
         src = src;
         dontNpmInstall = true;
       }));
-    in ''
+    in
+    ''
       runHook preBuild
 
       ln -s ${nodeDependencies}/lib/node_modules .

@@ -81,7 +81,8 @@ let
   '';
 
   src = dirOf infoFile;
-in {
+in
+{
   inherit repo settings info;
 
   build = stdenv.mkDerivation {

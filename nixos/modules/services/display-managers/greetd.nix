@@ -10,7 +10,8 @@ let
   cfg = config.services.greetd;
   tty = "tty${toString cfg.vt}";
   settingsFormat = pkgs.formats.toml { };
-in {
+in
+{
   options.services.greetd = {
     enable = mkEnableOption (lib.mdDoc "greetd");
 

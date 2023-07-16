@@ -36,7 +36,8 @@ let
     deepin-system-monitor
   ] ++ extraGSettingsOverridePackages;
 
-in with lib;
+in
+with lib;
 
 # TODO: Having https://github.com/NixOS/nixpkgs/issues/54150 would supersede this
 runCommand "nixos-gsettings-desktop-schemas" { } ''

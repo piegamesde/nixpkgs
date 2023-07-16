@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.wshowkeys;
-in {
+in
+{
   meta.maintainers = with maintainers; [ primeos ];
 
   options = {

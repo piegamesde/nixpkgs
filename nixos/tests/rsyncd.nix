@@ -32,7 +32,8 @@ import ./make-test-python.nix ({
             };
           }
           ;
-      in {
+      in
+      {
         a = mkNode false;
         b = mkNode true;
       }

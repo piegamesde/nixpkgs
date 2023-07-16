@@ -138,7 +138,8 @@ let
     }
   );
 
-in rec {
+in
+rec {
   vala_0_48 = generic {
     version = "0.48.25";
     sha256 = "UMs8Xszdx/1DaL+pZBSlVgReedKxWmiRjHJ7jIOxiiQ=";

@@ -374,7 +374,8 @@ let
       '';
     }
     ;
-in {
+in
+{
 
   ###### interface
 

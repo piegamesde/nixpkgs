@@ -13,7 +13,8 @@ let
   };
 
   decl = { options = { raw = mkOption { type = types.lines; }; }; };
-in {
+in
+{
   options = {
     once = mkOption {
       type = types.submodule {

@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.json;
-in {
+in
+{
   port = 7979;
   extraOpts = {
     configFile = mkOption {

@@ -33,7 +33,8 @@
           } --set EXPR_PATH ${trivialJob}
         '';
       };
-    in {
+    in
+    {
       virtualisation.memorySize = 2048;
       time.timeZone = "UTC";
       environment.systemPackages = [

@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
   preAutoreconf =
     let
       reports = "https://github.com/tlwg/libdatrie/issues";
-    in ''
+    in
+    ''
       sed -i -e "/AC_INIT/,+3d" configure.ac
       sed -i "5iAC_INIT(${pname},${version},[${reports}])" configure.ac
     ''

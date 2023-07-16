@@ -66,7 +66,8 @@ stdenv.mkDerivation rec {
         gnused
         coreutils
       ];
-    in ''
+    in
+    ''
       gappsWrapperArgs+=(
         --suffix PATH : ${depsPath}
       )

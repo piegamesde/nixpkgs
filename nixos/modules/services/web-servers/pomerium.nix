@@ -9,7 +9,8 @@ with lib;
 
 let
   format = pkgs.formats.yaml { };
-in {
+in
+{
   options.services.pomerium = {
     enable =
       mkEnableOption (lib.mdDoc "the Pomerium authenticating reverse proxy");

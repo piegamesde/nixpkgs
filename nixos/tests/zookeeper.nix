@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
 
     perlEnv = pkgs.perl.withPackages (p: [ p.NetZooKeeper ]);
 
-  in {
+  in
+  {
     name = "zookeeper";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -51,4 +52,5 @@ import ./make-test-python.nix ({
           "${perlEnv}/bin/perl -E 'use Net::ZooKeeper qw(:acls); $z=Net::ZooKeeper->new(q(localhost:2181)); $z->get(qw(/perl)) eq qw(foo) || die $z->get_error()'"
       )
     '';
-  } )
+  }
+)

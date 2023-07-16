@@ -42,7 +42,8 @@ stdenv.mkDerivation {
           inherit name hash;
         }
         ;
-    in [
+    in
+    [
       ./gcc10.patch
       (fetchDebianPatch "0002-gfxboot-menu-label.patch" "fa1349f1"
         "sha256-0f6QhM4lJmGflLige4n7AZTodL7vnyAvi5dIedd/Lho=")

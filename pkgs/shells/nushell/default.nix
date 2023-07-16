@@ -26,7 +26,8 @@
 rustPlatform.buildRustPackage (let
   version = "0.79.0";
   pname = "nushell";
-in {
+in
+{
   inherit version pname;
 
   src = fetchFromGitHub {
@@ -89,4 +90,5 @@ in {
     tests.version = testers.testVersion { package = nushell; };
     updateScript = nix-update-script { };
   };
-} )
+}
+)

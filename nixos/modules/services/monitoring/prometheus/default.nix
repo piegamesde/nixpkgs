@@ -106,10 +106,12 @@ let
       listToAttrs (concatMap (name:
         let
           v = x.${name};
-        in if pred name v then
+        in
+        if pred name v then
           [ (nameValuePair name (filterAttrsListRecursive pred v)) ]
         else
-          [ ]) (attrNames x))
+          [ ]
+      ) (attrNames x))
     else if isList x then
       map (filterAttrsListRecursive pred) x
     else
@@ -1143,7 +1145,8 @@ let
           allow you to create an application credential to authenticate rather than a
           password.
         '';
-      in {
+      in
+      {
         role = mkOption {
           type = types.str;
           description = lib.mdDoc ''
@@ -1620,7 +1623,8 @@ let
     };
   };
 
-in {
+in
+{
 
   imports = [
     (mkRenamedOptionModule [
@@ -1844,7 +1848,8 @@ in {
           # a square bracket (an IPv6 addresses) followed by a port number.
           legacy =
             builtins.match "(.*\\..*|.*]):([[:digit:]]+)" cfg.listenAddress;
-        in {
+        in
+        {
           assertion = legacy == null;
           message = ''
             Do not specify the port for Prometheus to listen on in the
@@ -1852,7 +1857,8 @@ in {
               services.prometheus.listenAddress = ${builtins.elemAt legacy 0};
               services.prometheus.port = ${builtins.elemAt legacy 1};
           '';
-        } )
+        }
+        )
       ];
 
     users.groups.prometheus.gid = config.ids.gids.prometheus;

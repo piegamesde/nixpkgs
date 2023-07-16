@@ -38,7 +38,8 @@ let
       ''
     ;
 
-in {
+in
+{
 
   options.services.cntlm = {
 

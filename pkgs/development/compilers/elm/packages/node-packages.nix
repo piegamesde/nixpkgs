@@ -15595,7 +15595,8 @@ let
       };
     };
   };
-in {
+in
+{
   elm-analyse = nodeEnv.buildNodePackage {
     name = "elm-analyse";
     packageName = "elm-analyse";

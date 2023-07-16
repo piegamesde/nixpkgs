@@ -10,7 +10,8 @@ let
     ""
   else
     "?targetPlatform=${arch}");
-in {
+in
+{
   url =
     "https://${publisher}.gallery.vsassets.io/_apis/public/gallery/publisher/${publisher}/extension/${name}/${version}/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage${archurl}";
   sha256 = sha256;

@@ -77,10 +77,12 @@ let
             lst:
             nubOn somewhatUniqueRepresentant (lib.concatLists lst)
             ;
-        in if result.success then
+        in
+        if result.success then
           let
             evaluatedPathContent = result.value;
-          in if lib.isDerivation evaluatedPathContent then
+          in
+          if lib.isDerivation evaluatedPathContent then
             lib.optional (cond path evaluatedPathContent) {
               attrPath = lib.concatStringsSep "." path;
               package = evaluatedPathContent;
@@ -146,7 +148,8 @@ let
     let
       prefix = lib.splitString "." path;
       pathContent = lib.attrByPath prefix null pkgs;
-    in if pathContent == null then
+    in
+    if pathContent == null then
       builtins.throw "Attribute path `${path}` does not exist."
     else
       packagesWithPath prefix (path: pkg: builtins.hasAttr "updateScript" pkg)
@@ -158,7 +161,8 @@ let
     path: pkgs:
     let
       package = lib.attrByPath (lib.splitString "." path) null pkgs;
-    in if package == null then
+    in
+    if package == null then
       builtins.throw "Package with an attribute name `${path}` does not exist."
     else if !builtins.hasAttr "updateScript" package then
       builtins.throw

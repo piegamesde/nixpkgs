@@ -4484,7 +4484,8 @@ rec {
                   dep:
                   let
                     package = crateConfigs."${dep.packageId}";
-                  in {
+                  in
+                  {
                     inherit (dep) rename;
                     version = package.version;
                   }
@@ -4588,9 +4589,8 @@ rec {
           diffedDefaultPackageFeatures =
             diffDefaultPackageFeatures { inherit packageId target; };
         };
-      in {
-        internal = debug;
-      }
+      in
+      { internal = debug; }
       ;
 
       /* Returns differences between cargo default features and crate2nix default
@@ -4668,9 +4668,8 @@ rec {
           let
             packageId = dependency.packageId;
             features = dependencyFeatures enabledFeatures dependency;
-          in {
-            inherit packageId features;
-          }
+          in
+          { inherit packageId features; }
           ;
         resolveDependencies =
           cache: path: dependencies:
@@ -4693,7 +4692,8 @@ rec {
             let
               cacheFeatures = cache.${packageId} or [ ];
               combinedFeatures = sortedUnique (cacheFeatures ++ features);
-            in if
+            in
+            if
               cache ? ${packageId} && cache.${packageId} == combinedFeatures
             then
               cache
@@ -4702,7 +4702,8 @@ rec {
                 features = combinedFeatures;
                 featuresByPackageId = cache;
                 inherit crateConfigs packageId target runTests rootPackageId;
-              })
+              }
+          )
           ;
         cacheWithSelf =
           let
@@ -4790,10 +4791,12 @@ rec {
           let
             enabled =
               builtins.any (doesFeatureEnableDependency dependency) features;
-          in if (dependency.optional or false) && enabled then
+          in
+          if (dependency.optional or false) && enabled then
             [ (dependency.rename or dependency.name) ]
           else
-            [ ]) dependencies;
+            [ ]
+        ) dependencies;
       in
       sortedUnique (features ++ additionalFeatures)
       ;

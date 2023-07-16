@@ -7,7 +7,8 @@
 
 let
   cfg = config.services.asusd;
-in {
+in
+{
   options = {
     services.asusd = {
       enable =
@@ -89,7 +90,8 @@ in {
             mode = "0644";
           }
           ;
-      in {
+      in
+      {
         "asusd/anime.ron" = maybeConfig "anime.ron" cfg.animeConfig;
         "asusd/asusd.ron" = maybeConfig "asusd.ron" cfg.asusdConfig;
         "asusd/aura.ron" = maybeConfig "aura.ron" cfg.auraConfig;

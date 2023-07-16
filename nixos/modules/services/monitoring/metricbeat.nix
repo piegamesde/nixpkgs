@@ -11,7 +11,8 @@ let
 
   settingsFormat = pkgs.formats.yaml { };
 
-in {
+in
+{
   options = {
 
     services.metricbeat = {

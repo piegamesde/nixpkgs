@@ -23,7 +23,8 @@ let
     ]
     ;
 
-in {
+in
+{
 
   ###### interface
 

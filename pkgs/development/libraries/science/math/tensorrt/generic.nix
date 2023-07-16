@@ -71,7 +71,8 @@ backendStdenv.mkDerivation rec {
     let
       mostOfVersion = builtins.concatStringsSep "."
         (lib.take 3 (lib.versions.splitVersion version));
-    in ''
+    in
+    ''
       echo 'Patching RPATH of libnvinfer libs'
       patchelf --debug --add-needed libnvinfer.so \
         "$out/lib/libnvinfer.so.${mostOfVersion}" \

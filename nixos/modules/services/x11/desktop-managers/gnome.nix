@@ -76,7 +76,8 @@ let
     mkDefault (!(lib.elem pkg config.environment.gnome.excludePackages))
     ;
 
-in {
+in
+{
 
   meta = {
     doc = ./gnome.md;

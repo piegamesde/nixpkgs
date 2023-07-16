@@ -8,7 +8,8 @@ import ./make-test-python.nix ({
       192.168.2.101 acme.test
     '';
 
-  in {
+  in
+  {
     name = "nginx-http3";
     meta.maintainers = with pkgs.lib.maintainers; [ izorkin ];
 
@@ -109,4 +110,5 @@ import ./make-test-python.nix ({
       server.shutdown()
       client.shutdown()
     '';
-  } )
+  }
+)

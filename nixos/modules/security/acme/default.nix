@@ -125,7 +125,8 @@ let
             fi
           done
         '') certConfigs));
-    in {
+    in
+    {
       description = "Fix owner and group of all ACME certificates";
 
       serviceConfig = commonServiceConfig // {
@@ -241,7 +242,8 @@ let
       webroots = lib.remove null (lib.unique
         (builtins.map (certAttrs: certAttrs.webroot)
           (lib.attrValues config.security.acme.certs)));
-    in {
+    in
+    {
       inherit accountHash cert selfsignedDeps;
 
       group = data.group;
@@ -530,7 +532,8 @@ let
             ;
         }
         ;
-    in {
+    in
+    {
       options = {
         validMinDays = mkOption {
           type = types.int;
@@ -789,7 +792,8 @@ let
     }
     ;
 
-in {
+in
+{
 
   options = {
     security.acme = {

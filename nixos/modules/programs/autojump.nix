@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.programs.autojump;
   prg = config.programs;
-in {
+in
+{
   options = {
     programs.autojump = {
 

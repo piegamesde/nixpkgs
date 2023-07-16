@@ -10,7 +10,8 @@ let
       elem = builtins.elemAt (builtins.split ":" entrypoint);
       module = elem 0;
       fn = elem 2;
-    in ''
+    in
+    ''
       cat << EOF >> $out/bin/${bin}
       #!${python.interpreter}
       import sys

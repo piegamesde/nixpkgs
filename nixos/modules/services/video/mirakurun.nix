@@ -25,7 +25,8 @@ let
       }
     });
   '';
-in {
+in
+{
   options = {
     services.mirakurun = {
       enable = mkEnableOption (lib.mdDoc "the Mirakurun DVR Tuner Server");

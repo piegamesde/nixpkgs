@@ -19,7 +19,8 @@ let
       ;
     inherit (types.str) merge;
   };
-in {
+in
+{
   port = 9374;
   extraOpts = {
     telemetryPath = mkOption {

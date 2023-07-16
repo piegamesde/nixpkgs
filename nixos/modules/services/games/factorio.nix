@@ -47,7 +47,8 @@ let
   serverAdminsFile =
     pkgs.writeText "server-adminlist.json" (builtins.toJSON cfg.admins);
   modDir = pkgs.factorio-utils.mkModDirDrv cfg.mods cfg.mods-dat;
-in {
+in
+{
   options = {
     services.factorio = {
       enable = mkEnableOption (lib.mdDoc name);

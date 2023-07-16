@@ -39,7 +39,8 @@ let
     else
       a
     ;
-in rec {
+in
+rec {
   # Official Unix Drivers - https://www.nvidia.com/en-us/drivers/unix/
   # Branch/Maturity data - http://people.freedesktop.org/~aplattner/nvidia-versions.txt
 

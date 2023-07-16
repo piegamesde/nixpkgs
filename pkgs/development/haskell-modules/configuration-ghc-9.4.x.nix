@@ -14,14 +14,16 @@ let
       "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this"
     ;
 
-in with haskellLib;
+in
+with haskellLib;
 self: super:
 let
   jailbreakForCurrentVersion =
     p: v:
     checkAgainAfter p v "bad bounds" (doJailbreak p)
     ;
-in {
+in
+{
   llvmPackages = lib.dontRecurseIntoAttrs self.ghc.llvmPackages;
 
     # Disable GHC core libraries.

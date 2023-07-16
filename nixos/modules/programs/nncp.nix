@@ -12,7 +12,8 @@ let
   settingsFormat = pkgs.formats.json { };
   jsonCfgFile = settingsFormat.generate "nncp.json" programCfg.settings;
   pkg = programCfg.package;
-in {
+in
+{
   options.programs.nncp = {
 
     enable = mkEnableOption

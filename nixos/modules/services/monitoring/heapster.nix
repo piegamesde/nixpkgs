@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.heapster;
-in {
+in
+{
   options.services.heapster = {
     enable = mkEnableOption (lib.mdDoc "Heapster monitoring");
 

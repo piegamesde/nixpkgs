@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.plotinus;
-in {
+in
+{
   meta = {
     maintainers = pkgs.plotinus.meta.maintainers;
     doc = ./plotinus.md;

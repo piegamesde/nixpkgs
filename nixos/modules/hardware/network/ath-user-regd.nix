@@ -14,7 +14,8 @@ let
       ATH_USER_REGD y
     '';
   };
-in {
+in
+{
   options.networking.wireless.athUserRegulatoryDomain = mkOption {
     default = false;
     type = types.bool;

@@ -25,7 +25,8 @@ let
     foldl
     ;
 
-in rec {
+in
+rec {
   inherit (builtins)
     attrNames
     listToAttrs
@@ -58,7 +59,8 @@ in rec {
     set:
     let
       attr = head attrPath;
-    in if attrPath == [ ] then
+    in
+    if attrPath == [ ] then
       set
     else if set ? ${attr} then
       attrByPath (tail attrPath) default set.${attr}
@@ -85,7 +87,8 @@ in rec {
     e:
     let
       attr = head attrPath;
-    in if attrPath == [ ] then
+    in
+    if attrPath == [ ] then
       true
     else if e ? ${attr} then
       hasAttrByPath (tail attrPath) e.${attr}
@@ -373,10 +376,12 @@ in rec {
     listToAttrs (concatMap (name:
       let
         v = set.${name};
-      in if pred name v then
+      in
+      if pred name v then
         [ (nameValuePair name v) ]
       else
-        [ ]) (attrNames set))
+        [ ]
+    ) (attrNames set))
     ;
 
     /* Filter an attribute set recursively by removing all attributes for
@@ -397,7 +402,8 @@ in rec {
     listToAttrs (concatMap (name:
       let
         v = set.${name};
-      in if pred name v then
+      in
+      if pred name v then
         [
           (nameValuePair name (if isAttrs v then
             filterAttrsRecursive pred v
@@ -405,7 +411,8 @@ in rec {
             v))
         ]
       else
-        [ ]) (attrNames set))
+        [ ]
+    ) (attrNames set))
     ;
 
     /* Like builtins.foldl' but for attribute sets.
@@ -862,12 +869,14 @@ in rec {
         zipAttrsWith (n: values:
           let
             here = attrPath ++ [ n ];
-          in if
+          in
+          if
             length values == 1 || pred here (elemAt values 1) (head values)
           then
             head values
           else
-            f here values)
+            f here values
+        )
         ;
     in
     f [ ] [
@@ -924,15 +933,17 @@ in rec {
       let
         pat = head values;
         val = elemAt values 1;
-      in if length values == 1 then
+      in
+      if length values == 1 then
         false
       else if isAttrs pat then
         isAttrs val && matchAttrs pat val
       else
-        pat == val) [
-          pattern
-          attrs
-        ]))
+        pat == val
+    ) [
+      pattern
+      attrs
+    ]))
     ;
 
     /* Override only the attributes that are already present in the old set

@@ -11,7 +11,8 @@ let
 
   cfg = config.services.autossh;
 
-in {
+in
+{
 
   ###### interface
 
@@ -91,7 +92,8 @@ in {
                 else
                   0
                 ;
-            in {
+            in
+            {
               description = "AutoSSH session (" + s.name + ")";
 
               after = [ "network.target" ];

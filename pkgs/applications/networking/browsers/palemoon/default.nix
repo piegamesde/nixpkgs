@@ -175,7 +175,8 @@ stdenv.mkDerivation rec {
         ffmpeg
         libpulseaudio
       ];
-    in ''
+    in
+    ''
           gappsWrapperArgs+=(
             --prefix LD_LIBRARY_PATH : "${libPath}"
           )

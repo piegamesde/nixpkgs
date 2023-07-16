@@ -26,7 +26,8 @@ let
     else
       "--address ${cfg.address} --port ${toString cfg.port}"
     ;
-in {
+in
+{
   meta.maintainers = with maintainers; [ oddlama ];
 
   options.services.esphome = {

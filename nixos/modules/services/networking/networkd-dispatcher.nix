@@ -11,7 +11,8 @@ let
 
   cfg = config.services.networkd-dispatcher;
 
-in {
+in
+{
 
   options = {
     services.networkd-dispatcher = {
@@ -96,7 +97,8 @@ in {
                     executable = true;
                   }) cfg.onState)) cfg.rules;
             };
-          in [
+          in
+          [
             ""
             "${pkgs.networkd-dispatcher}/bin/networkd-dispatcher -v --script-dir ${scriptDir} $networkd_dispatcher_args"
           ]

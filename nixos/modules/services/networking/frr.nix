@@ -46,7 +46,8 @@ let
     service:
     let
       scfg = cfg.${service};
-    in if scfg.configFile != null then
+    in
+    if scfg.configFile != null then
       scfg.configFile
     else
       pkgs.writeText "${daemonName service}.conf" ''
@@ -133,7 +134,8 @@ let
     }
     ;
 
-in {
+in
+{
 
   ###### interface
   imports = [

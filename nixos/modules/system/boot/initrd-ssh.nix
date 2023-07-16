@@ -25,7 +25,8 @@ let
     (initrd.network.enable || initrd.systemd.network.enable) && cfg.enable
     ;
 
-in {
+in
+{
 
   options.boot.initrd.network.ssh = {
     enable = mkOption {

@@ -124,7 +124,8 @@ stdenv.mkDerivation rec {
           "cpuinfo/deps/clog/include"
           "eigen"
         ];
-    in ''
+    in
+    ''
       # enter the vendoring lair of doom
 
       prefix="$PWD/tensorflow/lite/tools/make/downloads"

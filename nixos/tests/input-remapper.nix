@@ -14,7 +14,8 @@ import ./make-test-python.nix ({
       }:
       let
         user = config.users.users.sybil;
-      in {
+      in
+      {
         imports = [
           ./common/user-account.nix
           ./common/x11.nix

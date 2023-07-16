@@ -273,7 +273,8 @@ let
         };
       };
     };
-in {
+in
+{
   options.services.authelia.instances = with lib;
     mkOption {
       default = { };
@@ -330,7 +331,8 @@ in {
                 instance.settingsFiles
               ])
             }";
-        in {
+        in
+        {
           description = "Authelia authentication and authorization server";
           wantedBy = [ "multi-user.target" ];
           after = [ "network.target" ];
@@ -416,7 +418,8 @@ in {
         }
         ;
       instances = lib.attrValues cfg.instances;
-    in {
+    in
+    {
       assertions = lib.flatten (lib.flip lib.mapAttrsToList cfg.instances
         (name: instance: [ {
           assertion = instance.secrets.manual || (instance.secrets.jwtSecretFile

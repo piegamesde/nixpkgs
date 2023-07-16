@@ -89,7 +89,8 @@ let
                 ;
               # The derivation along with its outputs, which we recur
               # on to splice them together.
-            in if lib.isDerivation defaultValue then
+            in
+            if lib.isDerivation defaultValue then
               augmentedValue // spliceReal {
                 pkgsBuildBuild = tryGetOutputs valueBuildBuild;
                 pkgsBuildHost = tryGetOutputs valueBuildHost;
@@ -167,7 +168,8 @@ let
       "packages"
     ];
 
-in {
+in
+{
   inherit
     splicePackages
     ;
@@ -193,7 +195,8 @@ in {
     attr:
     let
       split = X: lib.splitString "." "${X}.${attr}";
-    in {
+    in
+    {
       # nulls should never be reached
       selfBuildBuild = lib.attrByPath (split "pkgsBuildBuild") null pkgs;
       selfBuildHost = lib.attrByPath (split "pkgsBuildHost") null pkgs;

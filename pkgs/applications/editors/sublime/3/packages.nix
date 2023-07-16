@@ -4,7 +4,8 @@
 
 let
   common = opts: callPackage (import ./common.nix opts);
-in {
+in
+{
   sublime3-dev = common {
     buildVersion = "3210";
     dev = true;

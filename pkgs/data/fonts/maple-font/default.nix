@@ -44,7 +44,8 @@ let
     }
     ;
 
-in {
+in
+{
   Mono = maple-font {
     pname = "MapleMono";
     sha256 = "sha256-Ap4OwP/QGFz9+xn12rekia1/pwRxZvv+H+ZmZiXcxcY=";

@@ -13,7 +13,8 @@ let
 
   cfg = config.services.atftpd;
 
-in {
+in
+{
 
   options = {
 

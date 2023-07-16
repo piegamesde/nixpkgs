@@ -67,7 +67,8 @@ let
     /
   '';
 
-in {
+in
+{
 
   ###### interface
 
@@ -316,7 +317,8 @@ in {
           x
         ]
         ;
-    in [
+    in
+    [
       (mkRenamedOptionModule (top "enableEditActions")
         (setting "enable-edit-actions"))
       (mkRenamedOptionModule (top "listenAddress") (setting "listen-address"))

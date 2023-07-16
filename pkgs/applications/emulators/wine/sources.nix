@@ -58,7 +58,8 @@ let
   '';
 
   inherit (pkgs) writeShellScript;
-in rec {
+in
+rec {
 
   stable = fetchurl rec {
     version = "8.0";

@@ -112,7 +112,8 @@ let
     CASSANDRA_LOGBACK_CONF = "${cassandraEtc}/logback.xml";
   };
 
-in {
+in
+{
   options.services.cassandra = {
 
     enable = mkEnableOption (lib.mdDoc ''

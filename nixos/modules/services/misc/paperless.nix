@@ -101,7 +101,8 @@ let
       # Does not work well with the temporary root
       #UMask = "0066";
   };
-in {
+in
+{
   meta.maintainers = with maintainers; [
     erikarvstedt
     Flakebi
@@ -348,7 +349,8 @@ in {
         ExecStart =
           let
             pythonWithNltk = pkg.python.withPackages (ps: [ ps.nltk ]);
-          in ''
+          in
+          ''
             ${pythonWithNltk}/bin/python -m nltk.downloader -d '${nltkDir}' punkt snowball_data stopwords
           ''
           ;

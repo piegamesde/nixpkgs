@@ -13,7 +13,8 @@ let
 
   autoMaster = pkgs.writeText "auto.master" cfg.autoMaster;
 
-in {
+in
+{
 
   ###### interface
 

@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.neovim;
-in {
+in
+{
   options.programs.neovim = {
     enable = mkOption {
       type = types.bool;

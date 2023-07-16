@@ -104,7 +104,8 @@ let
   cfg = config.services.btrbk;
   sshEnabled = cfg.sshAccess != [ ];
   serviceEnabled = cfg.instances != { };
-in {
+in
+{
   meta.maintainers = with lib.maintainers; [ oxalica ];
 
   options = {
@@ -264,7 +265,8 @@ in {
               noPass = true;
             }
             ;
-        in [
+        in
+        [
           (doasCmdNoPass "${pkgs.btrfs-progs}/bin/btrfs")
           (doasCmdNoPass "${pkgs.coreutils}/bin/mkdir")
           (doasCmdNoPass "${pkgs.coreutils}/bin/readlink")

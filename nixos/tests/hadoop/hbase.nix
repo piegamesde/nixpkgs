@@ -19,7 +19,8 @@ import ../make-test-python.nix ({
           openFirewall = true;
         };
         zookeeperQuorum = "zookeeper";
-      in {
+      in
+      {
         zookeeper =
           {
             ...

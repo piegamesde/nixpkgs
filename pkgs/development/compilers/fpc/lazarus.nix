@@ -128,7 +128,8 @@ stdenv.mkDerivation rec {
   postInstall =
     let
       ldFlags = ''$(echo "$NIX_LDFLAGS" | sed -re 's/-rpath [^ ]+//g')'';
-    in ''
+    in
+    ''
       wrapProgram $out/bin/startlazarus \
         --prefix NIX_LDFLAGS ' ' "${ldFlags}" \
         --prefix NIX_LDFLAGS_${binutils.suffixSalt} ' ' "${ldFlags}" \

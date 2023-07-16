@@ -12,7 +12,8 @@ let
 
   settingsFormat = pkgs.formats.toml { };
   configFile = settingsFormat.generate "config.toml" cfg.settings;
-in {
+in
+{
 
   options = {
     services.erigon = {

@@ -10,7 +10,8 @@ let
 
   cfg = config.powerManagement;
 
-in {
+in
+{
 
   ###### interface
 

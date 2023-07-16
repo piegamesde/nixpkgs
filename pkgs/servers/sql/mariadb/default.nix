@@ -211,7 +211,8 @@ let
                 builtins.replaceStrings [ "." ] [ "" ]
                 (lib.versions.majorMinor version)
               }";
-          in {
+          in
+          {
             mariadb-galera-rsync = nixosTests.mariadb-galera.${testVersion};
             mysql = nixosTests.mysql.${testVersion};
             mysql-autobackup = nixosTests.mysql-autobackup.${testVersion};

@@ -78,7 +78,8 @@ stdenv.mkDerivation rec {
         else
           "LD_LIBRARY_PATH"
         ;
-    in ''
+    in
+    ''
       wrapProgram $out/bin/86Box \
         "''${qtWrapperArgs[@]}" \
         --prefix ${libPathVar} : "${libPath}"

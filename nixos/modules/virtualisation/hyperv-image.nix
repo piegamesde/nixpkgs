@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.hyperv;
 
-in {
+in
+{
   options = {
     hyperv = {
       baseImageSize = mkOption {

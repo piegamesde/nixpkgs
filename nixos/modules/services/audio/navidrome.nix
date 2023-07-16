@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.navidrome;
   settingsFormat = pkgs.formats.json { };
-in {
+in
+{
   options = {
     services.navidrome = {
 

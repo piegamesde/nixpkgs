@@ -30,7 +30,8 @@ let
       base_media_url = "/msync/";
     };
   });
-in {
+in
+{
   options.services.ankisyncd = {
     enable = mkEnableOption (lib.mdDoc "ankisyncd");
 

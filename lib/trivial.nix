@@ -253,7 +253,8 @@ rec {
   versionSuffix =
     let
       suffixFile = ../.version-suffix;
-    in if pathExists suffixFile then
+    in
+    if pathExists suffixFile then
       lib.strings.fileContents suffixFile
     else
       "pre-git"
@@ -270,7 +271,8 @@ rec {
     let
       revisionFile = "${toString ./..}/.git-revision";
       gitRepo = "${toString ./..}/.git";
-    in if lib.pathIsGitRepo gitRepo then
+    in
+    if lib.pathIsGitRepo gitRepo then
       lib.commitIdFromGitRepo gitRepo
     else if lib.pathExists revisionFile then
       lib.fileContents revisionFile

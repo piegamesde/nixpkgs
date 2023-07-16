@@ -9,7 +9,8 @@ with lib;
 let
   cfg = config.services.dnscrypt-proxy2;
 
-in {
+in
+{
   options.services.dnscrypt-proxy2 = {
     enable = mkEnableOption (lib.mdDoc "dnscrypt-proxy2");
 

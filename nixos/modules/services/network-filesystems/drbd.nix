@@ -12,7 +12,8 @@ with lib;
 let
   cfg = config.services.drbd;
 
-in {
+in
+{
 
   ###### interface
 

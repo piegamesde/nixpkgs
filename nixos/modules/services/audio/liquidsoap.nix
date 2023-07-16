@@ -14,7 +14,8 @@ let
     name:
     let
       stream = builtins.getAttr name config.services.liquidsoap.streams;
-    in {
+    in
+    {
       inherit name;
       value = {
         after = [
@@ -32,7 +33,8 @@ let
       };
     }
     ;
-in {
+in
+{
 
   ##### interface
 

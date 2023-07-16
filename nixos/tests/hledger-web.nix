@@ -12,7 +12,8 @@ import ./make-test-python.nix ({
           expenses:donation           250$
           assets:cash                -250$
     '';
-  in rec {
+  in
+  rec {
     name = "hledger-web";
     meta.maintainers = with lib.maintainers; [ marijanp ];
 
@@ -62,4 +63,5 @@ import ./make-test-python.nix ({
           transactions = apiserver.succeed("curl -L http://127.0.0.1:5000/transactions")
           assert "NixOS Foundation donation" in transactions
     '';
-  } )
+  }
+)

@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
   }:
   let
     msg = "Shutting down NixOS";
-  in {
+  in
+  {
     name = "systemd-shutdown";
     meta = with pkgs.lib.maintainers; { maintainers = [ das_j ]; };
 
@@ -28,4 +29,5 @@ import ./make-test-python.nix ({
       # Don't try to sync filesystems
       machine.booted = False
     '';
-  } )
+  }
+)

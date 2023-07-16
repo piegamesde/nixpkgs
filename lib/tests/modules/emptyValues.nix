@@ -4,7 +4,8 @@
 }:
 let
   inherit (lib) types;
-in {
+in
+{
 
   options = {
     int = lib.mkOption { type = types.lazyAttrsOf types.int; };

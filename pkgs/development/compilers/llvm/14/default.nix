@@ -112,7 +112,8 @@ let
           bootBintools
         ;
 
-    in {
+    in
+    {
 
       libllvm = callPackage ./llvm { inherit llvm_meta; };
 
@@ -256,7 +257,8 @@ let
         extraBuildCommands = mkExtraBuildCommands0 cc;
       };
 
-    } );
+    }
+  );
 
   libraries = lib.makeExtensible (libraries:
     let
@@ -271,7 +273,8 @@ let
           monorepoSrc
           ;
       });
-    in {
+    in
+    {
 
       compiler-rt-libc = callPackage ./compiler-rt {
         inherit llvm_meta;
@@ -341,7 +344,8 @@ let
       };
 
       openmp = callPackage ./openmp { inherit llvm_meta targetLlvm; };
-    } );
+    }
+  );
 
 in
 { inherit tools libraries release_version; } // libraries // tools

@@ -13,7 +13,8 @@ let
     ${cfg.extraConfig}
   '';
 
-in {
+in
+{
   options = {
     services.zerobin = {
       enable = mkEnableOption (lib.mdDoc "0bin");

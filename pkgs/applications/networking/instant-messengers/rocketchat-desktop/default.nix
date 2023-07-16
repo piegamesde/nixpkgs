@@ -89,7 +89,8 @@ stdenv.mkDerivation rec {
   postFixup =
     let
       libpath = libPathNative { packages = buildInputs; };
-    in ''
+    in
+    ''
       app=$out/opt/Rocket.Chat
       patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
         --set-rpath "${libpath}:$app" \

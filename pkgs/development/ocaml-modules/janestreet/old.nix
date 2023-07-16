@@ -23,7 +23,8 @@ let
     num
     ;
 
-in with self;
+in
+with self;
 
 {
 

@@ -12,7 +12,8 @@ let
   dnsmasqResolve = config.services.dnsmasq.enable
     && config.services.dnsmasq.resolveLocalQueries;
 
-in {
+in
+{
 
   options = {
 

@@ -61,7 +61,8 @@ let
     "/usr/bin/pkexec=${pkexecPath}"
     "/bin/true=${coreutils}/bin/true"
   ];
-in let
+in
+let
   binaryPackage = stdenv.mkDerivation rec {
     pname = "${pnameBase}-bin";
     version = buildVersion;
@@ -190,7 +191,8 @@ stdenv.mkDerivation (rec {
               update-source-version "${packageAttribute}.${primaryBinary}" "$latestVersion" --file="$versionFile" --version-key=buildVersion --source-key="sources.$platform"
           done
         '';
-      in [
+      in
+      [
         script
         versionFile
       ]

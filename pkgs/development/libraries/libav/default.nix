@@ -48,7 +48,8 @@ let
       - maybe do some more splitting into outputs
   */
 
-in let
+in
+let
   result = {
     # e.g. https://libav.org/releases/libav-11.11.tar.xz.sha1
     libav_0_8 = libavFun "0.8.21" "d858f65128dad0bac1a8c3a51e5cbb27a7c79b3f";

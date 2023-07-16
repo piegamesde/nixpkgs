@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.nzbhydra2;
 
-in {
+in
+{
   options = {
     services.nzbhydra2 = {
       enable = mkEnableOption (lib.mdDoc "NZBHydra2");

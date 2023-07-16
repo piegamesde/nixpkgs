@@ -18,7 +18,8 @@ let
         withPackages
         mkDerivation
         ;
-    in {
+    in
+    {
       inherit mkDerivation;
 
       lib = lib.extend

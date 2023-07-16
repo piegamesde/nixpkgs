@@ -23,7 +23,8 @@ let
 
   primus = pkgs.primus.override { inherit useNvidia; };
 
-in {
+in
+{
 
   options = {
     hardware.bumblebee = {

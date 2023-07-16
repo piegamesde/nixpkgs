@@ -33,7 +33,8 @@ let
               else
                 self.${attr.buildSystem}
               ;
-          in if fromIsValid && untilIsValid then
+          in
+          if fromIsValid && untilIsValid then
             intendedBuildSystem
           else
             null
@@ -112,7 +113,8 @@ lib.composeManyExtensions [
         pkgs."qt${selector}" or pkgs.qt5
         ;
 
-    in {
+    in
+    {
       automat = super.automat.overridePythonAttrs (old:
         lib.optionalAttrs (lib.versionOlder old.version "22.10.0") {
           propagatedBuildInputs =
@@ -260,7 +262,8 @@ lib.composeManyExtensions [
       cattrs =
         let
           drv = super.cattrs;
-        in if drv.version == "1.10.0" then
+        in
+        if drv.version == "1.10.0" then
           drv.overridePythonAttrs (old: {
             # 1.10.0 contains a pyproject.toml that requires a pre-release Poetry
             # We can avoid using Poetry and use the generated setup.py
@@ -779,7 +782,8 @@ lib.composeManyExtensions [
           (let
             mpi = pkgs.hdf5.mpi;
             mpiSupport = pkgs.hdf5.mpiSupport;
-          in {
+          in
+          {
             nativeBuildInputs =
               (old.nativeBuildInputs or [ ]) ++ [ pkg-config ];
             buildInputs = (old.buildInputs or [ ]) ++ [
@@ -810,7 +814,8 @@ lib.composeManyExtensions [
                 --replace "numpy ==" "numpy >="
             '';
             pythonImportsCheck = [ "h5py" ];
-          } )
+          }
+          )
         else
           old);
 
@@ -1107,7 +1112,8 @@ lib.composeManyExtensions [
             else
               pkgs.llvm
             ; # Likely to fail.
-        in {
+        in
+        {
           nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.llvm ];
 
             # Disable static linking
@@ -1127,7 +1133,8 @@ lib.composeManyExtensions [
             lib.optionals pkgs.stdenv.isDarwin [ "/usr/lib/libm.dylib" ];
 
           passthru = old.passthru // { llvm = llvm; };
-        } );
+        }
+      );
 
       lsassy =
         if super.lsassy.version == "3.1.1" then
@@ -1188,7 +1195,8 @@ lib.composeManyExtensions [
           inherit (pkgs) tk tcl wayland qhull;
           inherit (pkgs.xorg) libX11;
           inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
-        in {
+        in
+        {
           XDG_RUNTIME_DIR = "/tmp";
 
           buildInputs = old.buildInputs or [ ] ++ [ pkgs.which ]
@@ -1265,7 +1273,8 @@ lib.composeManyExtensions [
             ''
             ;
 
-        } );
+        }
+      );
 
       mccabe = super.mccabe.overridePythonAttrs (old: {
         buildInputs = (old.buildInputs or [ ]) ++ [ self.pytest-runner ];
@@ -1321,14 +1330,16 @@ lib.composeManyExtensions [
               mpi = { mpicc = "${pkgs.mpi.outPath}/bin/mpicc"; };
             });
           };
-        in {
+        in
+        {
           propagatedBuildInputs =
             (old.propagatedBuildInputs or [ ]) ++ [ pkgs.mpi ];
           enableParallelBuilding = true;
           preBuild = ''
             ln -sf ${cfg} mpi.cfg
           '';
-        } );
+        }
+      );
 
       multiaddr = super.multiaddr.overridePythonAttrs (old: {
         buildInputs = (old.buildInputs or [ ]) ++ [ self.pytest-runner ];
@@ -1416,7 +1427,8 @@ lib.composeManyExtensions [
               };
             });
           };
-        in {
+        in
+        {
           # fails to build with format=pyproject and setuptools >= 65
           format =
             if (old.format == "poetry2nix") then
@@ -1438,7 +1450,8 @@ lib.composeManyExtensions [
             blas = blas;
             inherit blasImplementation cfg;
           };
-        } );
+        }
+      );
 
       omegaconf = super.omegaconf.overridePythonAttrs (old: {
         nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.jdk ];
@@ -1615,12 +1628,14 @@ lib.composeManyExtensions [
         let
           withPostgres = old.passthru.withPostgres or false;
           withMysql = old.passthru.withMysql or false;
-        in {
+        in
+        {
           buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.sqlite ];
           propagatedBuildInputs = (old.propagatedBuildInputs or [ ])
             ++ lib.optional withPostgres self.psycopg2
             ++ lib.optional withMysql self.mysql-connector;
-        } );
+        }
+      );
 
       pikepdf = super.pikepdf.overridePythonAttrs (old: {
         buildInputs = old.buildInputs or [ ] ++ [
@@ -1634,7 +1649,8 @@ lib.composeManyExtensions [
         let
           preConfigure =
             (old.preConfigure or "") + pkgs.python3.pkgs.pillow.preConfigure;
-        in {
+        in
+        {
           nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
             pkg-config
             self.pytest-runner
@@ -1656,7 +1672,8 @@ lib.composeManyExtensions [
               xorg.libX11
             ];
           preConfigure = lib.optional (old.format != "wheel") preConfigure;
-        } );
+        }
+      );
 
       pip-requirements-parser =
         super.pip-requirements-parser.overridePythonAttrs
@@ -1680,7 +1697,8 @@ lib.composeManyExtensions [
             else
               "./src/poetry/core/__init__.py"
             ;
-        in {
+        in
+        {
           # "Vendor" dependencies (for build-system support)
           postPatch = ''
             echo "import sys" >> ${initFile}
@@ -1694,7 +1712,8 @@ lib.composeManyExtensions [
           postFixup = ''
             rm $out/nix-support/propagated-build-inputs
           '';
-        } );
+        }
+      );
 
         # Requires poetry which isn't available during bootstrap
       poetry-plugin-export = super.poetry-plugin-export.overridePythonAttrs
@@ -1779,7 +1798,8 @@ lib.composeManyExtensions [
               pyArrowVersion = parseMinor super.pyarrow;
               errorMessage =
                 "arrow-cpp version (${arrowCppVersion}) mismatches pyarrow version (${pyArrowVersion})";
-            in if arrowCppVersion != pyArrowVersion then
+            in
+            if arrowCppVersion != pyArrowVersion then
               throw errorMessage
             else
               {
@@ -1814,7 +1834,8 @@ lib.composeManyExtensions [
                 ];
 
                 dontUseCmakeConfigure = true;
-              })
+              }
+          )
         else
           super.pyarrow
         ;
@@ -1974,7 +1995,8 @@ lib.composeManyExtensions [
         let
           inherit (pkgs) PCSC pcsclite;
           withApplePCSC = stdenv.isDarwin;
-        in {
+        in
+        {
           postPatch =
             if withApplePCSC then
               ''
@@ -1999,7 +2021,8 @@ lib.composeManyExtensions [
           NIX_CFLAGS_COMPILE = lib.optionalString (!withApplePCSC)
             "-I ${lib.getDev pcsclite}/include/PCSC";
           nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.swig ];
-        } );
+        }
+      );
 
       pytaglib = super.pytaglib.overridePythonAttrs
         (old: { buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.taglib ]; });
@@ -2369,7 +2392,8 @@ lib.composeManyExtensions [
           let
             fakeCommand =
               "type('FakeCommand', (Command,), {'initialize_options': lambda self: None, 'finalize_options': lambda self: None, 'run': lambda self: None})";
-          in ''
+          in
+          ''
             substituteInPlace setup.py \
               --replace "'fetch_binaries': fetch_binaries," "'fetch_binaries': ${fakeCommand}," \
               --replace "'install_shellcheck': install_shellcheck," "'install_shellcheck': ${fakeCommand},"
@@ -2650,7 +2674,8 @@ lib.composeManyExtensions [
           old = super.packaging;
           # From 20.5 until 20.7, packaging used flit for packaging (heh)
           # See https://github.com/pypa/packaging/pull/352 and https://github.com/pypa/packaging/pull/367
-        in if
+        in
+        if
           (lib.versionAtLeast old.version "20.5"
             && lib.versionOlder old.version "20.8")
         then
@@ -2743,7 +2768,8 @@ lib.composeManyExtensions [
               numpy
               six
             ]);
-        in {
+        in
+        {
           DOXYGEN = "${pkgs.doxygen}/bin/doxygen";
 
           nativeBuildInputs = with pkgs;
@@ -2783,7 +2809,8 @@ lib.composeManyExtensions [
           installPhase = ''
             ${localPython.interpreter} setup.py install --skip-build --prefix=$out
           '';
-        } );
+        }
+      );
 
       marisa-trie = super.marisa-trie.overridePythonAttrs (old: {
         buildInputs = (old.buildInputs or [ ]) ++ [ self.pytest-runner ];
@@ -2910,5 +2937,6 @@ lib.composeManyExtensions [
         ;
 
       y-py = super.y-py.override { preferWheel = true; };
-    } )
+    }
+  )
 ]

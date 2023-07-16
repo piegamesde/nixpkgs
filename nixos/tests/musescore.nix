@@ -12,7 +12,8 @@ import ./make-test-python.nix ({
       [project]
       preferredScoreCreationMode=1
     '';
-  in {
+  in
+  {
     name = "musescore";
     meta = with pkgs.lib.maintainers; { maintainers = [ turion ]; };
 
@@ -109,4 +110,5 @@ import ./make-test-python.nix ({
         machine.screenshot("MuseScore5")
       ''
       ;
-  } )
+  }
+)

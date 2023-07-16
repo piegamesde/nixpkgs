@@ -22,7 +22,8 @@ let
         } \
         -jar ${stateDir}/lib/ace.jar
   '';
-in {
+in
+{
 
   options = {
 

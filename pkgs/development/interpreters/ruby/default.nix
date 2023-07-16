@@ -406,7 +406,8 @@ let
     self
     ;
 
-in {
+in
+{
   mkRubyVersion = rubyVersion;
   mkRuby = generic;
 

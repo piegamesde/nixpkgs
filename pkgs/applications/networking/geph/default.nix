@@ -23,7 +23,8 @@ let
     platforms = platforms.linux;
     maintainers = with maintainers; [ penalty1083 ];
   };
-in {
+in
+{
   cli = rustPlatform.buildRustPackage rec {
     pname = "geph4-client";
     inherit version;

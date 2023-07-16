@@ -26,7 +26,8 @@ let
     // (lib.optionalAttrs (cfg.cacheMode != null) {
       cache_mode = cfg.cacheMode;
     });
-in {
+in
+{
 
   ###### interface
 

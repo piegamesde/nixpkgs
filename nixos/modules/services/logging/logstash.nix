@@ -40,7 +40,8 @@ let
     ln -s $logstashJvmOptionsFile $out/jvm.options
   '';
 
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "services"

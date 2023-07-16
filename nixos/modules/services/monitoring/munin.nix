@@ -135,7 +135,8 @@ let
     echo "${cronCfg.extraCSS}" >> style-new.css
   '';
 
-in {
+in
+{
 
   options = {
 

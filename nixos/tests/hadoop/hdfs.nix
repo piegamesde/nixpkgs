@@ -14,7 +14,8 @@ import ../make-test-python.nix ({
           "hadoop.proxyuser.httpfs.groups" = "*";
           "hadoop.proxyuser.httpfs.hosts" = "*";
         };
-      in {
+      in
+      {
         namenode =
           {
             pkgs,

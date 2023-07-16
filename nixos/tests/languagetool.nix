@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
   }:
   let
     port = 8082;
-  in {
+  in
+  {
     name = "languagetool";
     meta = with lib.maintainers; { maintainers = [ fbeffa ]; };
 
@@ -26,4 +27,5 @@ import ./make-test-python.nix ({
         toString port
       }/v2/check')
     '';
-  } )
+  }
+)

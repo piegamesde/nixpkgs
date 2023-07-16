@@ -255,7 +255,8 @@ let
     ;
   enabledAgents = lib.filterAttrs (n: v: v.enable) cfg;
   mapAgents = function: lib.mkMerge (lib.mapAttrsToList function enabledAgents);
-in {
+in
+{
   options.services.buildkite-agents = mkOption {
     type = types.attrsOf (types.submodule buildkiteOptions);
     default = { };

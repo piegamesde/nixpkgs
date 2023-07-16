@@ -38,7 +38,8 @@ stdenv.mkDerivation {
         rofi
         util-linux
       ];
-    in ''
+    in
+    ''
       runHook preInstall
 
       DESTDIR=$out PREFIX=/ make install

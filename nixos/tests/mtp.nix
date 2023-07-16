@@ -117,7 +117,8 @@ import ./make-test-python.nix ({
         # Using >&2 allows the results of the scripts to be printed to the terminal
         # when building this test with Nix. Scripts would otherwise complete
         # silently.
-      in ''
+      in
+      ''
         start_all()
         client.wait_for_unit("multi-user.target")
         client.wait_for_unit("dbus.service")

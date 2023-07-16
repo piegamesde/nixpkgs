@@ -34,7 +34,8 @@ stdenv.mkDerivation {
         go-mtpfs
         adbfs-rootless
       ];
-    in ''
+    in
+    ''
       runHook preInstall
 
       mkdir -p $out/bin

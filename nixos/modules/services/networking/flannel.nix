@@ -17,7 +17,8 @@ let
     SubnetMax = cfg.subnetMax;
     Backend = cfg.backend;
   };
-in {
+in
+{
   options.services.flannel = {
     enable = mkEnableOption (lib.mdDoc "flannel");
 

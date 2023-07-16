@@ -12,7 +12,8 @@ let
 
   cfg = config.services.htpdate;
 
-in {
+in
+{
 
   ###### interface
 

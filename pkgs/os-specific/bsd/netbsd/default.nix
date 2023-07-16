@@ -52,7 +52,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
 (self:
   let
     inherit (self) mkDerivation;
-  in {
+  in
+  {
 
     # Why do we have splicing and yet do `nativeBuildInputs = with self; ...`?
     #
@@ -205,7 +206,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
     compat = mkDerivation (let
       version = "9.2";
       commonDeps = [ zlib ];
-    in {
+    in
+    {
       path = "tools/compat";
       sha256 = "1vsxg7136nlhc72vpa664vs22874xh7ila95nkmsd8crn3z3cyn0";
       inherit version;
@@ -319,7 +321,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
           (fetchNetBSD "common/include/rpc/types.h" "9.2"
             "0n2df12mlc3cbc48jxq35yzl1y7ghgpykvy7jnfh898rdhac7m9a")
         ] ++ libutil.extraPaths ++ _mainLibcExtraPaths;
-    } );
+    }
+    );
 
       # HACK: to ensure parent directories exist. This emulates GNU
       # install’s -D option. No alternative seems to exist in BSD install.
@@ -1197,4 +1200,5 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
       # END MISCELLANEOUS
       #
 
-  } )
+  }
+)

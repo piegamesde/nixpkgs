@@ -155,7 +155,8 @@ buildPythonApplication rec {
         --disable-link-time-optimization \
         ${commonOptions}
       '';
-    in ''
+    in
+    ''
       runHook preBuild
       ${lib.optionalString (stdenv.isDarwin && stdenv.isx86_64)
       "export MACOSX_DEPLOYMENT_TARGET=11"}

@@ -27,7 +27,8 @@ buildGoModule rec {
         extension = "zip";
         hash = "sha256-MkxBf/mGvtiOu0e79bMpd9Z/D0eOxhzPE+bKic//viM=";
       };
-    in ''
+    in
+    ''
       # cannot build olaris-react https://github.com/NixOS/nixpkgs/issues/203708
       cp -r ${olaris-react} react/build
       make generate

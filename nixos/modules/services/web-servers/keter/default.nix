@@ -6,7 +6,8 @@
 }:
 let
   cfg = config.services.keter;
-in {
+in
+{
   meta = { maintainers = with lib.maintainers; [ jappie ]; };
 
   options.services.keter = {
@@ -120,7 +121,8 @@ in {
       exec ${cfg.bundle.executable}
     '';
 
-  in {
+  in
+  {
     systemd.services.keter = {
       description = "keter app loader";
       script = ''
@@ -164,5 +166,6 @@ in {
         cfg.bundle.executable
       ]; # this is a hack to get the executable copied over to the machine.
     };
-  } );
+  }
+  );
 }

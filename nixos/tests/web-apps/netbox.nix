@@ -155,7 +155,8 @@ import ../make-test-python.nix ({
           u.set_password('netbox')
           u.save()
         '';
-      in ''
+      in
+      ''
         from typing import Any, Dict
         import json
 

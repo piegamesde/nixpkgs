@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.nbd;
-in {
+in
+{
   options = {
     programs.nbd = {
       enable = mkEnableOption (lib.mdDoc "Network Block Device (nbd) support");

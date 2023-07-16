@@ -476,7 +476,8 @@ let
           name = id;
           value = true;
         } ]);
-      in if dup then
+      in
+      if dup then
         args
       else if exists then
         builtins.trace "Duplicate ${idAttr} ${id}" {
@@ -487,10 +488,11 @@ let
         {
           dup = false;
           acc = newAcc;
-        }) {
-          dup = false;
-          acc = { };
-        } (builtins.attrNames set)).dup
+        }
+    ) {
+      dup = false;
+      acc = { };
+    } (builtins.attrNames set)).dup
     ;
 
   uidsAreUnique =
@@ -535,7 +537,8 @@ let
     filter types.shellPackage.check shells
     ;
 
-in {
+in
+{
   imports = [
     (mkAliasOptionModuleMD [
       "users"
@@ -702,7 +705,8 @@ in {
     let
       cryptSchemeIdPatternGroup =
         "(${lib.concatStringsSep "|" pkgs.libxcrypt.enabledCryptSchemeIds})";
-    in {
+    in
+    {
 
       users.users = {
         root = {
@@ -964,7 +968,8 @@ in {
             scheme = "${id}(${sep}${options})?";
             content = "${base64}${sep}${base64}(${sep}${base64})?";
             mcf = "^${sep}${scheme}${sep}${content}$";
-          in if
+          in
+          if
             (allowsLogin user.hashedPassword && user.hashedPassword
               != "" # login without password
               && builtins.match mcf user.hashedPassword == null)
@@ -974,7 +979,8 @@ in {
               valid hash or the user will be locked out of their account. Please
               check the value of option `users.users."${user.name}".hashedPassword`.''
           else
-            null));
+            null
+        ));
 
     }
     ;

@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.programs.msmtp;
 
-in {
+in
+{
   meta.maintainers = with maintainers; [ pacien ];
 
   options = {
@@ -109,7 +110,8 @@ in {
             ${mkInnerSectionString attrs}
           ''
           ;
-      in ''
+      in
+      ''
         defaults
         ${mkInnerSectionString cfg.defaults}
 

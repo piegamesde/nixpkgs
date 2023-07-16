@@ -49,7 +49,8 @@ let
     cfg:
     concatStringsSep "\n" (map (p: "${p.path} ${p.arg}") cfg)
     ;
-in {
+in
+{
   options.services.trafficserver = {
     enable = mkEnableOption (lib.mdDoc "Apache Traffic Server");
 

@@ -72,7 +72,8 @@ let
   initrdRelease =
     pkgs.writeText "initrd-release" (attrsToText initrdReleaseContents);
 
-in {
+in
+{
   imports = [
     ./label.nix
     (mkRenamedOptionModule [

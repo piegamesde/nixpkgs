@@ -135,7 +135,8 @@ let
     ${cfg.runHook}
   '';
 
-in {
+in
+{
 
   ###### interface
 
@@ -264,7 +265,8 @@ in {
           (cfgN.defaultGateway != null && cfgN.defaultGateway.address != "")
           && (!cfgN.enableIPv6 || (cfgN.defaultGateway6 != null
             && cfgN.defaultGateway6.address != ""));
-      in {
+      in
+      {
         description = "DHCP Client";
 
         wantedBy = [ "multi-user.target" ]

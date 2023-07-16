@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.usbtop;
-in {
+in
+{
   options = {
     programs.usbtop.enable =
       mkEnableOption (lib.mdDoc "usbtop and required kernel module");

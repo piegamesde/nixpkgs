@@ -12,7 +12,8 @@ let
 
   package = cfg.package.override { inherit (cfg) dataDir; };
 
-in {
+in
+{
 
   ###### interface
 

@@ -34,7 +34,8 @@ let
 
     ${cfg.extraConfig}
   '';
-in {
+in
+{
   meta.maintainers = with maintainers; [ costrouc ];
 
   options.services.jupyterhub = {

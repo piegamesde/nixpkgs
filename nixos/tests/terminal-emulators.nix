@@ -193,7 +193,8 @@ mapAttrs (name:
         ...
       }:
       let
-      in ''
+      in
+      ''
         with subtest("wait for x"):
             start_all()
             machine.wait_for_x()

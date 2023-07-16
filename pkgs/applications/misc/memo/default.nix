@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
         else
           "#pandoc_cmd=pandoc"
         ;
-    in ''
+    in
+    ''
       mkdir -p $out/{bin,share/man/man1,share/bash-completion/completions,share/zsh/site-functions}
       substituteInPlace memo \
         --replace "ack_cmd=ack"       "ack_cmd=${silver-searcher}/bin/ag" \

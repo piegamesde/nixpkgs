@@ -106,7 +106,8 @@ rec {
         g:
         makeOverridable (copyArgs (args: g (f args))) origArgs
         ;
-    in if builtins.isAttrs result then
+    in
+    if builtins.isAttrs result then
       result // {
         override = overrideArgs;
         overrideDerivation =
@@ -231,7 +232,8 @@ rec {
         # Only show the error for the first missing argument
       error = errorForArg (lib.head missingArgs);
 
-    in if missingArgs == [ ] then
+    in
+    if missingArgs == [ ] then
       makeOverridable f allArgs
     else
       abort error
@@ -257,7 +259,8 @@ rec {
         name: _:
         makeOverridable (newArgs: (f newArgs).${name}) origArgs
         ;
-    in if lib.isDerivation pkgs then
+    in
+    if lib.isDerivation pkgs then
       throw ("function `callPackages` was called on a *single* derivation "
         + ''"${pkgs.name or "<unknown-name>"}";''
         + " did you mean to use `callPackage` instead?")
@@ -325,7 +328,8 @@ rec {
         outputName:
         let
           output = drv.${outputName};
-        in {
+        in
+        {
           name = outputName;
           value = commonAttrs // {
             outPath = output.outPath;
@@ -339,7 +343,8 @@ rec {
       outputsList = map makeOutput outputs;
 
       drv' = (lib.head outputsList).value;
-    in if drv == null then
+    in
+    if drv == null then
       null
     else
       lib.deepSeq drv' drv'

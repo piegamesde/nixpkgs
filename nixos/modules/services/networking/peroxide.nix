@@ -11,7 +11,8 @@ let
   cfg = config.services.peroxide;
   settingsFormat = pkgs.formats.yaml { };
   stateDir = "peroxide";
-in {
+in
+{
   options.services.peroxide = {
     enable = mkEnableOption (lib.mdDoc "peroxide");
 

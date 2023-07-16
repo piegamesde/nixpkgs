@@ -9,7 +9,8 @@ with lib;
 let
   cfg = config.services.xserver.windowManager.wmii;
   wmii = pkgs.wmii_hg;
-in {
+in
+{
   options = {
     services.xserver.windowManager.wmii.enable =
       mkEnableOption (lib.mdDoc "wmii");

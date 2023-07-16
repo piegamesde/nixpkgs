@@ -23,7 +23,8 @@ let
 
     ${cfg.extraConfig}
   '';
-in {
+in
+{
   options = {
     services.rsnapshot = {
       enable = mkEnableOption (lib.mdDoc "rsnapshot backups");

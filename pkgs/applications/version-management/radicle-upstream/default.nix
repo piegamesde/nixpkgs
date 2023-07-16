@@ -88,7 +88,8 @@ let
       "x86_64-darwin"
     ];
   };
-in if stdenv.isDarwin then
+in
+if stdenv.isDarwin then
   darwin
 else
   linux

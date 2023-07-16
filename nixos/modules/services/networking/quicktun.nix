@@ -9,7 +9,8 @@ let
 
   cfg = config.services.quicktun;
 
-in with lib;
+in
+with lib;
 
 {
   options = {

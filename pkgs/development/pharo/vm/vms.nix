@@ -28,7 +28,8 @@ let
   pharo-vm-build = import ./build-vm.nix args;
   pharo-vm-build-legacy = import ./build-vm-legacy.nix args;
 
-in let
+in
+let
   suffix =
     if stdenv.is64bit then
       "64"
@@ -36,7 +37,8 @@ in let
       "32"
     ;
 
-in {
+in
+{
   # Build the latest VM
   spur = pharo-vm-build rec {
     name = "pharo-spur${suffix}";

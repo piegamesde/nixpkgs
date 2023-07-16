@@ -13,7 +13,8 @@ let
   pname = "hol4";
   vnum = "14";
 
-in let
+in
+let
   version = "k.${vnum}";
   longVersion = "kananaskis-${vnum}";
   holsubdir = "hol-${longVersion}";
@@ -24,7 +25,8 @@ in let
       "--stdknl"
     ;
 
-in let
+in
+let
   polymlEnableShared = with pkgs;
     lib.overrideDerivation polyml
     (attrs: { configureFlags = [ "--enable-shared" ]; });

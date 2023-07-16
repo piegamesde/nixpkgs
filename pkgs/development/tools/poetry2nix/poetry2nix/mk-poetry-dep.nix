@@ -83,7 +83,8 @@ pythonPackages.callPackage ({
       let
         pyProjectPath = localDepPath + "/pyproject.toml";
         pyProject = poetryLib.readTOML pyProjectPath;
-      in if builtins.pathExists pyProjectPath then
+      in
+      if builtins.pathExists pyProjectPath then
         poetryLib.getBuildSystemPkgs { inherit pythonPackages pyProject; }
       else
         [ ]
@@ -110,7 +111,8 @@ pythonPackages.callPackage ({
         else
           throw "Missing suitable source/wheel file entry for ${name}");
         _isEgg = isEgg lockFileEntry;
-      in rec {
+      in
+      rec {
         inherit (lockFileEntry) file hash;
         name = file;
         format =

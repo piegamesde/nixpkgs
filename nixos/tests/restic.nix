@@ -36,7 +36,8 @@ import ./make-test-python.nix ({
       "--keep-monthly 1"
       "--keep-yearly 99"
     ];
-  in {
+  in
+  {
     name = "restic";
 
     meta = with pkgs.lib.maintainers; {
@@ -182,4 +183,5 @@ import ./make-test-python.nix ({
 
       )
     '';
-  } )
+  }
+)

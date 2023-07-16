@@ -11,7 +11,8 @@ let
 
   cfg = config.services.xserver.displayManager.startx;
 
-in {
+in
+{
 
   ###### interface
 

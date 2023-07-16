@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.networking.websockify;
-in {
+in
+{
   options = {
     services.networking.websockify = {
       enable = mkOption {

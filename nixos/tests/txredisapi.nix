@@ -33,7 +33,8 @@ import ./make-test-python.nix ({
       }:
       let
         inherit (nodes.machine.config.services) redis;
-      in ''
+      in
+      ''
         start_all()
         machine.wait_for_unit("redis")
         machine.wait_for_file("${redis.servers."".unixSocket}")

@@ -57,7 +57,8 @@ let
 
         rm -f /mnt-root/boot-done /mnt-root/shutdown
       '';
-    in {
+    in
+    {
       boot.kernelParams = [
         "console=tty0"
         "console=ttyS0"
@@ -117,7 +118,8 @@ let
       rotated = map (i: "${logfile}.${toString i}") (range 1 9);
       all = concatMapStringsSep " " (f: ''"${f}"'') ([ logfile ] ++ rotated);
       logcmd = ''tail -F ${all} 2> /dev/null | logger -t "${tag}"'';
-    in if debug then
+    in
+    if debug then
       "machine.execute(ru('${logcmd} & disown'))"
     else
       "pass"
@@ -228,7 +230,8 @@ let
         "--hostpath /nix/store"
         "--readonly"
       ];
-    in {
+    in
+    {
       machine = {
         systemd.sockets."vboxtestlog-${name}" = {
           description = "VirtualBox Test Machine Log Socket For ${name}";

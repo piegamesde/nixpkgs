@@ -15,7 +15,8 @@ let
     "--smartctl.interval=${cfg.maxInterval}"
   ] ++ map (device: "--smartctl.device=${device}") cfg.devices
     ++ cfg.extraFlags);
-in {
+in
+{
   port = 9633;
 
   extraOpts = {

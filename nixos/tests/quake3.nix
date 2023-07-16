@@ -45,7 +45,8 @@ import ./make-test-python.nix ({
       }
       ;
 
-  in rec {
+  in
+  rec {
     name = "quake3";
     meta = with lib.maintainers; {
       maintainers = [
@@ -114,4 +115,5 @@ import ./make-test-python.nix ({
       server.stop_job("quake3-server")
     '';
 
-  } )
+  }
+)

@@ -34,7 +34,8 @@ let
   partitionedModuleFiles =
     let
       p = partition isNixOSFile moduleFiles;
-    in {
+    in
+    {
       nixos = p.right;
       others = p.wrong;
     }
@@ -48,7 +49,8 @@ let
         path:
         "<nixpkgs/nixos" + removePrefix nixosPath (toString path) + ">"
         ;
-    in {
+    in
+    {
       nixos = map relocateNixOS partitionedModuleFiles.nixos;
       others = [ ]; # TODO: copy the modules to the install-device repository.
     }
@@ -70,7 +72,8 @@ let
     }
   '';
 
-in {
+in
+{
 
   options = {
 

@@ -123,7 +123,8 @@ let
       ;
     extraConfig = "max_input_vars = 5000";
   };
-in {
+in
+{
   # interface
   options.services.moodle = {
     enable = mkEnableOption (lib.mdDoc "Moodle web application");

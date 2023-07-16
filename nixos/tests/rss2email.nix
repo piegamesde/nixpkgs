@@ -51,7 +51,8 @@ import ./make-test-python.nix {
                 status, msg = imap.fetch(refs[0], 'BODY[TEXT]')
                 assert status == 'OK'
             '';
-          in [
+          in
+          [
             pkgs.opensmtpd
             checkMailLanded
           ]

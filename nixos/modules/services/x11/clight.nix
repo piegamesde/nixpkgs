@@ -49,7 +49,8 @@ let
 
   clightConf = pkgs.writeText "clight.conf"
     (convertAttrs (filterAttrs (_: value: value != null) cfg.settings));
-in {
+in
+{
   options.services.clight = {
     enable = mkEnableOption (lib.mdDoc "clight");
 
@@ -113,7 +114,8 @@ in {
     assertions =
       let
         inRange = v: l: r: v >= l && v <= r;
-      in [ {
+      in
+      [ {
         assertion = config.location.provider == "manual"
           -> inRange config.location.latitude (-90) 90
           && inRange config.location.longitude (-180) 180;

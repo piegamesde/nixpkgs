@@ -29,7 +29,8 @@ let
     draw-user-backgrounds=${boolToString cfg.draw-user-backgrounds}
     ${cfg.extraConfig}
   '';
-in {
+in
+{
   options = {
     services.xserver.displayManager.lightdm.greeters.slick = {
       enable = mkEnableOption

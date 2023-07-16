@@ -35,7 +35,8 @@ let
   dataDir = "${cfg.baseDir}/data";
   systemDir = "${cfg.baseDir}/system";
 
-in {
+in
+{
 
   ###### interface
 

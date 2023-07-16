@@ -6625,7 +6625,8 @@ let
       };
     };
   };
-in {
+in
+{
   "onlykey-git+https://github.com/trustcrypto/OnlyKey-App.git#v5.3.4" =
     nodeEnv.buildNodePackage {
       name = "OnlyKey";

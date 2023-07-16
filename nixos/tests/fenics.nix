@@ -28,7 +28,8 @@ import ./make-test-python.nix ({
       solve(a == L, u, bc)
       print(u)
     '';
-  in {
+  in
+  {
     name = "fenics";
     meta = { maintainers = with pkgs.lib.maintainers; [ knedlsepp ]; };
 
@@ -54,4 +55,5 @@ import ./make-test-python.nix ({
         fenicsnode.succeed("${fenicsScript}")
       ''
       ;
-  } )
+  }
+)

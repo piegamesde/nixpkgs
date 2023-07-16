@@ -7,7 +7,8 @@ let
 
   cfg = config.systemd.oomd;
 
-in {
+in
+{
   options.systemd.oomd = {
     enable = lib.mkEnableOption (lib.mdDoc "the `systemd-oomd` OOM killer") // {
       default = true;

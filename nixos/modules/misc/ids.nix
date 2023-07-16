@@ -16,7 +16,8 @@
 
 let
   inherit (lib) types;
-in {
+in
+{
   options = {
 
     ids.uids = lib.mkOption {

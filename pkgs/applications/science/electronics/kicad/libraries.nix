@@ -30,7 +30,8 @@ let
       };
     }
     ;
-in {
+in
+{
   symbols = mkLib "symbols";
   templates = mkLib "templates";
   footprints = mkLib "footprints";

@@ -34,7 +34,8 @@ let
         ;
       # freebind is set for compatibility with earlier kresd services;
       # it could be configurable, for example.
-    in ''
+    in
+    ''
       net.listen(${addrSpec}, ${port}, { kind = '${kind}', freebind = true })
     ''
     ;
@@ -43,7 +44,8 @@ let
     + concatMapStrings (mkListen "dns") cfg.listenPlain
     + concatMapStrings (mkListen "tls") cfg.listenTLS
     + concatMapStrings (mkListen "doh2") cfg.listenDoH + cfg.extraConfig);
-in {
+in
+{
   meta.maintainers = [
       maintainers.vcunat # upstream developer
     ];

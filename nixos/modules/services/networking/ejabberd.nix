@@ -23,7 +23,8 @@ let
 
   dumps = lib.escapeShellArgs cfg.loadDumps;
 
-in {
+in
+{
 
   ###### interface
 

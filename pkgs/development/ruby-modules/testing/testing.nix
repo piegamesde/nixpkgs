@@ -57,7 +57,8 @@ let
     else if isFunction tests then
       let
         res = tests under;
-      in if isBool res then
+      in
+      if isBool res then
         [
           (prefixName name (if tests under then
             passed "passed"
@@ -72,6 +73,5 @@ let
         (name ": not a function, list or set")
       ]
     ;
-in {
-  inherit run passed failed;
-}
+in
+{ inherit run passed failed; }

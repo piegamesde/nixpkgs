@@ -30,7 +30,8 @@ import ./make-test-python.nix ({
         } mattermostConfig;
       }
       ;
-  in {
+  in
+  {
     name = "mattermost";
 
     nodes = {
@@ -48,9 +49,8 @@ import ./make-test-python.nix ({
                 "https://github.com/mattermost/mattermost-plugin-demo/releases/download/v0.9.0/com.mattermost.demo-plugin-0.9.0.tar.gz";
               sha256 = "1h4qi34gcxcx63z8wiqcf2aaywmvv8lys5g8gvsk13kkqhlmag25";
             };
-          in [
-            mattermostDemoPlugin
-          ]
+          in
+          [ mattermostDemoPlugin ]
           ;
       };
       immutable = makeMattermost {
@@ -104,7 +104,8 @@ import ./make-test-python.nix ({
           ''
           ;
 
-      in ''
+      in
+      ''
         start_all()
 
         ## Mutable node tests ##
@@ -198,4 +199,5 @@ import ./make-test-python.nix ({
         }")
       ''
       ;
-  } )
+  }
+)

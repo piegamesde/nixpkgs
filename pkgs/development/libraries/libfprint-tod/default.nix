@@ -13,7 +13,8 @@ libfprint.overrideAttrs ({
   }:
   let
     version = "1.90.7+git20210222+tod1";
-  in {
+  in
+  {
     pname = "libfprint-tod";
     inherit version;
 
@@ -44,4 +45,5 @@ libfprint.overrideAttrs ({
       platforms = platforms.linux;
       maintainers = with maintainers; [ grahamc ];
     };
-  } )
+  }
+)

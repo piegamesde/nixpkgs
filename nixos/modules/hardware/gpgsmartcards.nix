@@ -32,7 +32,8 @@ let
   '';
 
   cfg = config.hardware.gpgSmartcards;
-in {
+in
+{
   options.hardware.gpgSmartcards = {
     enable = mkEnableOption (lib.mdDoc "udev rules for gnupg smart cards");
   };

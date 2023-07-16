@@ -60,7 +60,8 @@ let
     self:
     let
       callPackage = self.newScope { inherit mkDerivation; };
-    in {
+    in
+    {
       # libraries
       mauikit = callPackage ./mauikit.nix { };
       mauikit-accounts = callPackage ./mauikit-accounts.nix { };

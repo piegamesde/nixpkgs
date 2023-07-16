@@ -52,7 +52,8 @@ let
 
   mkDefaultAttrs = mapAttrs (n: v: mkDefault v);
 
-in {
+in
+{
 
   ###### interface
 

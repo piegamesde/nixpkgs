@@ -21,7 +21,8 @@ let
     ${cfg.rsessionExtraConfig}
   '';
 
-in {
+in
+{
   meta.maintainers = with maintainers; [
     jbedo
     cfhammill

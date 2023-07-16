@@ -45,7 +45,8 @@ let
 
   setSessionScript = pkgs.callPackage ./account-service-util.nix { };
 
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "services"

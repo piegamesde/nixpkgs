@@ -4,7 +4,8 @@
 
 let
   sources = lib.importJSON ./sources.json;
-in {
+in
+{
   jdk-hotspot = import ./jdk-darwin-base.nix {
     sourcePerArch = sources.openjdk14.mac.jdk.hotspot;
     knownVulnerabilities = [ "Support ended" ];

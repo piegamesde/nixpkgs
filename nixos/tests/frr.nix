@@ -31,7 +31,8 @@ import ./make-test-python.nix ({
         network 192.168.0.0/16 area 0
     '';
 
-  in {
+  in
+  {
     name = "frr";
 
     meta = with pkgs.lib.maintainers; { maintainers = [ hexa ]; };
@@ -126,4 +127,5 @@ import ./make-test-python.nix ({
             client.wait_until_succeeds("ping -c 3 server >&2")
       ''
       ;
-  } )
+  }
+)

@@ -19,7 +19,8 @@ let
       ln -s ${cfg.package}/sbin/smtpctl $out/bin/sendmail
     '';
 
-in {
+in
+{
 
   ###### interface
 
@@ -143,7 +144,8 @@ in {
           paths = [ cfg.package ] ++ cfg.procPackages;
           pathsToLink = [ "/libexec/opensmtpd" ];
         };
-      in {
+      in
+      {
         wantedBy = [ "multi-user.target" ];
         after = [ "network.target" ];
         serviceConfig.ExecStart =

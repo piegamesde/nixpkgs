@@ -103,7 +103,8 @@ let
       runHook postInstall
     '';
   };
-in {
+in
+{
 
   nim-unwrapped = stdenv.mkDerivation rec {
     pname = "nim-unwrapped";

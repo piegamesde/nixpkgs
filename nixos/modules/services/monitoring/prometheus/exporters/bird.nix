@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.bird;
-in {
+in
+{
   port = 9324;
   extraOpts = {
     birdVersion = mkOption {

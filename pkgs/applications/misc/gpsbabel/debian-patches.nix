@@ -2,7 +2,8 @@
 let
   prefix =
     "https://sources.debian.org/data/main/g/gpsbabel/1.8.0+ds-4/debian/patches";
-in [
+in
+[
   {
     url = "${prefix}/gpsbabelfe_disable_version_check";
     sha256 = "1kk1iq4mbmldl1jjvd4bphr0165rgn2gpqdyyd1vq8v8wjx942sb";

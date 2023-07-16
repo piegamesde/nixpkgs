@@ -8,7 +8,8 @@
 let
   inherit (pkgs) lib darwin;
 
-in with haskellLib;
+in
+with haskellLib;
 
 self: super:
 ({

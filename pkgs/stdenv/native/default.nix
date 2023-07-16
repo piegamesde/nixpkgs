@@ -135,7 +135,8 @@ let
     }
     ;
 
-in [
+in
+[
 
   ({ }: rec {
     __raw = true;

@@ -96,7 +96,8 @@ let
       ]))
     ;
 
-in {
+in
+{
   options.services.hadoop.hdfs = {
 
     namenode = hadoopServiceOption { serviceName = "HDFS NameNode"; } // {

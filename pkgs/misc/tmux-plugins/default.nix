@@ -65,7 +65,8 @@ let
       }))
     ;
 
-in rec {
+in
+rec {
   inherit mkTmuxPlugin;
 
   mkDerivation = throw

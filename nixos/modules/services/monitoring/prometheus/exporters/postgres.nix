@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.postgres;
-in {
+in
+{
   port = 9187;
   extraOpts = {
     telemetryPath = mkOption {

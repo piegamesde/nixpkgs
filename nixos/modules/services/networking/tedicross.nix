@@ -17,7 +17,8 @@ let
       ${pkgs.remarshal}/bin/json2yaml -i ${configJSON} -o $out
     '';
 
-in {
+in
+{
   options = {
     services.tedicross = {
       enable = mkEnableOption

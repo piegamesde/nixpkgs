@@ -58,7 +58,8 @@ let
     else
       majorVersion;
   maxVersion = toString (1 + builtins.fromJSON minVersion);
-in with lib;
+in
+with lib;
 findFirst
 (l: (l.lang == lang && l.version >= minVersion && l.version < maxVersion))
 (throw "Version ${minVersion} in language ${lang} not supported") allVersions

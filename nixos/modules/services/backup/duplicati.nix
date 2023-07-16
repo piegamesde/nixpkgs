@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.duplicati;
-in {
+in
+{
   options = {
     services.duplicati = {
       enable = mkEnableOption (lib.mdDoc "Duplicati");

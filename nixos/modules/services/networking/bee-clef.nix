@@ -10,7 +10,8 @@
 with lib;
 let
   cfg = config.services.bee-clef;
-in {
+in
+{
   meta = { maintainers = with maintainers; [ attila-lendvai ]; };
 
     ### interface

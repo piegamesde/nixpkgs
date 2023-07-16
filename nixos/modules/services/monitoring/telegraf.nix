@@ -12,7 +12,8 @@ let
 
   settingsFormat = pkgs.formats.toml { };
   configFile = settingsFormat.generate "config.toml" cfg.extraConfig;
-in {
+in
+{
   ###### interface
   options = {
     services.telegraf = {
@@ -65,7 +66,8 @@ in {
           else
             "/var/run/telegraf/config.toml"
           ;
-      in {
+      in
+      {
         description = "Telegraf Agent";
         wantedBy = [ "multi-user.target" ];
         after = [ "network-online.target" ];

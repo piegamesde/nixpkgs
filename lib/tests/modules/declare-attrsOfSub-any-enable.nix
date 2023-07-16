@@ -21,7 +21,8 @@ let
     }
     ;
 
-in {
+in
+{
   options = {
     attrsOfSub = lib.mkOption {
       default = { };

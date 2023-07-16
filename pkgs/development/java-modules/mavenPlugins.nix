@@ -7,7 +7,8 @@ with pkgs.javaPackages;
 
 let
   fetchMaven = pkgs.callPackage ./m2install.nix { };
-in {
+in
+{
   inherit fetchMaven;
 
   animalSniffer_1_11 = map (obj:

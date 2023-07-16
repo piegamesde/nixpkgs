@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
         else
           "ccc"
         ;
-    in ''
+    in
+    ''
       runHook preBuild
 
       (cd lpsolve55 && bash -x -e ${ccc})

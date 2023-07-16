@@ -69,7 +69,8 @@ let
       '';
     }
     ;
-in {
+in
+{
   options = {
     systemd.user.extraConfig = mkOption {
       default = "";

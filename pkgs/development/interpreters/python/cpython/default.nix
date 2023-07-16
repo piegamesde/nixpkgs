@@ -272,7 +272,8 @@ let
         # https://github.com/python/cpython/blob/e488e300f5c01289c10906c2e53a8e43d6de32d8/configure.ac#L78
       pythonSysconfigdataName =
         "_sysconfigdata_${abiFlags}_${parsed.kernel.name}_${multiarch}";
-    in ''
+    in
+    ''
       sysconfigdataHook() {
         if [ "$1" = '${placeholder "out"}' ]; then
           export _PYTHON_HOST_PLATFORM='${pythonHostPlatform}'
@@ -281,9 +282,11 @@ let
       }
 
       addEnvHooks "$hostOffset" sysconfigdataHook
-    '' ;
+    ''
+    ;
 
-in with passthru;
+in
+with passthru;
 stdenv.mkDerivation {
   pname = "python3";
   inherit version;
@@ -607,7 +610,8 @@ stdenv.mkDerivation {
           "-"
           "-alpha-"
         ] version;
-      in if sourceVersion.suffix == "" then
+      in
+      if sourceVersion.suffix == "" then
         "https://docs.python.org/release/${version}/whatsnew/changelog.html"
       else
         "https://docs.python.org/${majorMinor}/whatsnew/changelog.html#python-${dashedVersion}"

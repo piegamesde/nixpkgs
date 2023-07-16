@@ -49,7 +49,8 @@ let
       };
     }
     ;
-in {
+in
+{
   bin2iso = mkCmdPackDerivation {
     pname = "bin2iso";
     description = "Convert CD .BIN to .ISO";

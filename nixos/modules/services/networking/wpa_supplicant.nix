@@ -116,7 +116,8 @@ let
         (filter (x: x != "") (splitString "\n" opts.auth))
         ++ optional (opts.priority != null) "priority=${toString opts.priority}"
         ++ optional (opts.extraConfig != "") opts.extraConfig;
-    in ''
+    in
+    ''
       network={
       ${concatMapStringsSep "\n" indent options}
       }
@@ -135,7 +136,8 @@ let
         else
           "-c ${finalConfig}"
         ;
-    in {
+    in
+    {
       description = "WPA Supplicant instance"
         + optionalString (iface != null) " for interface ${iface}";
 
@@ -211,7 +213,8 @@ let
 
   systemctl = "/run/current-system/systemd/bin/systemctl";
 
-in {
+in
+{
   options = {
     networking.wireless = {
       enable = mkEnableOption (lib.mdDoc "wpa_supplicant");

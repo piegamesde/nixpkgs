@@ -45,7 +45,8 @@ let
       let
         list = mapAttrsToList (name: value: { inherit name; } // value)
           (filterAttrs (name: value: value.enable) cfg.templates);
-      in {
+      in
+      {
         files = map (tpl: {
           source = tpl.template;
           target = "/templates/${tpl.name}.tpl";
@@ -64,7 +65,8 @@ let
       }
     ;
 
-in {
+in
+{
   imports = [
     ../installer/cd-dvd/channel.nix
     ../profiles/clone-config.nix

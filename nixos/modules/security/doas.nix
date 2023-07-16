@@ -58,7 +58,8 @@ let
           rule.groups))
     ]
     ;
-in {
+in
+{
 
   ###### interface
 

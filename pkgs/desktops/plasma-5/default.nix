@@ -199,7 +199,8 @@ let
       thirdParty =
         let
           inherit (libsForQt5) callPackage;
-        in {
+        in
+        {
           plasma-applet-caffeine-plus =
             callPackage ./3rdparty/addons/caffeine-plus.nix { };
           plasma-applet-virtual-desktop-bar =

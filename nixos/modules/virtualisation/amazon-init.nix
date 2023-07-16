@@ -71,7 +71,8 @@ let
 
     nixos-rebuild switch
   '';
-in {
+in
+{
 
   options.virtualisation.amazon-init = {
     enable = mkOption {

@@ -39,7 +39,8 @@ let
       };
     } // extraArgs)
     ;
-in rec {
+in
+rec {
   filebeat7 = beat "filebeat" {
     meta.description = "Lightweight shipper for logfiles";
     buildInputs = [ systemd ];

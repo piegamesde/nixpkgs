@@ -27,7 +27,8 @@ let
     self = python;
   };
 
-in with python.pkgs;
+in
+with python.pkgs;
 buildPythonApplication rec {
   pname = "pdm";
   version = "2.5.2";

@@ -10,7 +10,8 @@ let
   fetchMaven = pkgs.callPackage ./m2install.nix { };
   plugins = import ./mavenPlugins.nix { inherit pkgs; };
   poms = import ./poms.nix { inherit fetchMaven; };
-in {
+in
+{
   # Maven needs all of these to function
   mavenMinimal = lib.flatten collections.mavenLibs_2_0_6
     ++ collections.mavenLibs_2_0_9 ++ collections.mavenLibs_2_2_1 ++ [

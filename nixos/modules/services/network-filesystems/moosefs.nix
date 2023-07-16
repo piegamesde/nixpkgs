@@ -39,7 +39,8 @@ let
           toString val
         ;
 
-    in {
+    in
+    {
       type = with types;
         let
           valueType = oneOf ([ (listOf valueType) ] ++ allowedTypes) // {
@@ -99,7 +100,8 @@ let
     }
     ;
 
-in {
+in
+{
   ###### interface
 
   options = {

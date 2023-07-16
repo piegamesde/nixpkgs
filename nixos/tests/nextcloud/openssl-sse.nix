@@ -21,7 +21,8 @@ args@{
         package = pkgs.${"nextcloud" + (toString nextcloudVersion)};
       };
     };
-  in {
+  in
+  {
     name = "nextcloud-openssl";
     meta = with pkgs.lib.maintainers; { maintainers = [ ma27 ]; };
     nodes.nextcloudwithopenssl1 = {
@@ -67,7 +68,8 @@ args@{
           nodes.nextcloudwithopenssl1.config.system.build.toplevel;
         openssl3-node =
           nodes.nextcloudwithopenssl3.config.system.build.toplevel;
-      in ''
+      in
+      ''
         nextcloudwithopenssl1.start()
         nextcloudwithopenssl1.wait_for_unit("multi-user.target")
         nextcloudwithopenssl1.succeed("nextcloud-occ status")
@@ -123,4 +125,5 @@ args@{
         nextcloudwithopenssl1.shutdown()
       ''
       ;
-  } )) args
+  }
+)) args

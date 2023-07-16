@@ -13,7 +13,8 @@ let
   format = pkgs.formats.json { };
 
   configFile = format.generate "wiki-js.yml" cfg.settings;
-in {
+in
+{
   options.services.wiki-js = {
     enable = mkEnableOption (lib.mdDoc "wiki-js");
 

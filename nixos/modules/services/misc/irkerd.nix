@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.irkerd;
   ports = [ 6659 ];
-in {
+in
+{
   options.services.irkerd = {
     enable = mkOption {
       description =

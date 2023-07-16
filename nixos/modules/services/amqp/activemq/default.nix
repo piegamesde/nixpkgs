@@ -21,7 +21,8 @@ let
       javac -d $out/lib ActiveMQBroker.java
     '';
 
-in {
+in
+{
 
   options = {
     services.activemq = {

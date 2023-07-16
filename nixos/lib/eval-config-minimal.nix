@@ -43,6 +43,5 @@ let
     }
     ;
 
-in {
-  inherit evalModules;
-}
+in
+{ inherit evalModules; }

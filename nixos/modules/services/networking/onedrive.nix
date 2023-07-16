@@ -21,7 +21,8 @@ let
     fi
   '';
 
-in {
+in
+{
   ### Documentation
   # meta.doc = ./onedrive.xml;
 

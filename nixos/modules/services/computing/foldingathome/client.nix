@@ -15,7 +15,8 @@ let
     "--user"
     cfg.user
   ] ++ cfg.extraArgs;
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "services"

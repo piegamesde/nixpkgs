@@ -5,7 +5,8 @@ import ../make-test-python.nix ({
   let
     certs = import ../common/acme/server/snakeoil-certs.nix;
     domain = certs.domain;
-  in {
+  in
+  {
     name = "maddy-tls";
     meta = with pkgs.lib.maintainers; { maintainers = [ onny ]; };
 
@@ -106,4 +107,5 @@ import ../make-test-python.nix ({
       client.succeed("send-testmail")
       client.succeed("test-imap")
     '';
-  } )
+  }
+)

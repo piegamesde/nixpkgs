@@ -89,7 +89,8 @@ let
     tesseractBase
   else
     tesseractWithData) // passthru // test;
-in if enableLanguagesHash == null then
+in
+if enableLanguagesHash == null then
   tesseract
 else
   lib.warn "Argument `enableLanguagesHash` is obsolete and can be removed."

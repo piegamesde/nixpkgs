@@ -28,7 +28,8 @@ let
   serverConfig = pkgs.writeText "server.properties" serverProperties;
   logConfig = pkgs.writeText "log4j.properties" cfg.log4jProperties;
 
-in {
+in
+{
 
   options.services.apache-kafka = {
     enable = mkOption {

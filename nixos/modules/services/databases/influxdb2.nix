@@ -11,7 +11,8 @@ let
   format = pkgs.formats.json { };
   cfg = config.services.influxdb2;
   configFile = format.generate "config.json" cfg.settings;
-in {
+in
+{
   options = {
     services.influxdb2 = {
       enable = mkEnableOption (lib.mdDoc "the influxdb2 server");

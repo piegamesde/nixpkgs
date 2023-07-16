@@ -20,7 +20,8 @@ let
     merge = loc: defs: mergeOneOption loc (filterOverrides defs);
   };
 
-in {
+in
+{
 
   options = {
 

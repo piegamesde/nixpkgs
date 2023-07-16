@@ -11,7 +11,8 @@ let
   cpupower = config.boot.kernelPackages.cpupower;
   cfg = config.powerManagement;
 
-in {
+in
+{
   ###### interface
 
   options.powerManagement = {

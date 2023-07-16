@@ -105,7 +105,8 @@ with lib;
               --set NIX_REDIRECTS "${pkgs.ppp}/sbin/pppd=$out/bin/pppd"
           '';
         };
-      in {
+      in
+      {
         description = "xl2tpd server";
 
         requires = [ "network-online.target" ];

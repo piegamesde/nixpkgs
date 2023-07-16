@@ -97,7 +97,8 @@ let
 
   autoLoginSessionName = "${dmcfg.sessionData.autologinSession}.desktop";
 
-in {
+in
+{
   imports = [
     (mkRemovedOptionModule [
       "services"

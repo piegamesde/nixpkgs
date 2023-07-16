@@ -9004,7 +9004,8 @@ let
       };
     };
   };
-in {
+in
+{
   commitizen = nodeEnv.buildNodePackage {
     name = "commitizen";
     packageName = "commitizen";

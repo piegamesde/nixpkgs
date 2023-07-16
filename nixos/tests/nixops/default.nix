@@ -75,7 +75,8 @@ let
           '';
           serverNetworkJSON = pkgs.writeText "server-network.json"
             (builtins.toJSON nodes.server.config.system.build.networkConfig);
-        in ''
+        in
+        ''
           import shlex
 
           def deployer_do(cmd):

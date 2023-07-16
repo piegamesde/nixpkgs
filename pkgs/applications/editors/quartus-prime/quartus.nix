@@ -111,7 +111,8 @@ stdenv.mkDerivation rec {
         # not modelsim_ase
         "modelsim_ae"
       ] ++ (lib.attrValues unsupportedDeviceIds);
-    in ''
+    in
+    ''
       ${lib.concatMapStringsSep "\n" copyInstaller installers}
       ${lib.concatMapStringsSep "\n" copyComponent components}
 

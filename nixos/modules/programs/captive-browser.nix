@@ -44,7 +44,8 @@ let
     categories = [ "Network" ];
   };
 
-in {
+in
+{
   ###### interface
 
   options = {

@@ -7,7 +7,8 @@
 with lib;
 let
   cfg = config.services.sysstat;
-in {
+in
+{
   options = {
     services.sysstat = {
       enable = mkEnableOption (lib.mdDoc "sar system activity collection");

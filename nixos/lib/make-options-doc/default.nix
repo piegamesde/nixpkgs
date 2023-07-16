@@ -94,7 +94,8 @@ let
         let
           title = args.title or null;
           name = args.name or (lib.concatStringsSep "." args.path);
-        in ''
+        in
+        ''
           - [${
             lib.optionalString (title != null) "${title} aka "
           }`pkgs.${name}`](
@@ -115,7 +116,8 @@ let
     ];
   }) optionsList);
 
-in rec {
+in
+rec {
   inherit optionsNix;
 
   optionsAsciiDoc = pkgs.runCommand "options.adoc" {

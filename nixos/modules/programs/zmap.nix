@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.zmap;
-in {
+in
+{
   options.programs.zmap = { enable = mkEnableOption (lib.mdDoc "ZMap"); };
 
   config = mkIf cfg.enable {

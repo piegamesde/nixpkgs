@@ -121,7 +121,8 @@ let
     idx:
     let
       letter = elemAt lowerChars (idx - 1);
-    in if cfg.qemu.diskInterface == "scsi" then
+    in
+    if cfg.qemu.diskInterface == "scsi" then
       "/dev/sd${letter}"
     else
       "/dev/vd${letter}"
@@ -330,7 +331,8 @@ let
     "custom" = null;
   }.${bootConfiguration};
 
-in {
+in
+{
   imports = [
     ../profiles/qemu-guest.nix
     (mkRenamedOptionModule [
@@ -702,7 +704,8 @@ in {
               "${qemu-common.qemuSerialDevice},115200n8"
               "tty0"
             ];
-          in if cfg.graphics then
+          in
+          if cfg.graphics then
             consoles
           else
             reverseList consoles
@@ -1036,7 +1039,8 @@ in {
             }',");
         restrictNetworkOption =
           lib.optionalString cfg.restrictNetwork "restrict=on,";
-      in [
+      in
+      [
         "-net nic,netdev=user.0,model=virtio"
         ''
           -netdev user,id=user.0,${forwardingOptions}${restrictNetworkOption}"$QEMU_NET_OPTS"''

@@ -400,7 +400,8 @@ let
       done <${closureInfo { inherit rootPaths; }}/store-paths
     ''
     ;
-in {
+in
+{
   inherit
     libapparmor
     apparmor-utils

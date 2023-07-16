@@ -14,7 +14,8 @@ let
         + "${config.system.boot.loader.kernelFile}";
       initrdPath = "${config.system.build.initialRamdisk}/"
         + "${config.system.boot.loader.initrdFile}";
-    in ''
+    in
+    ''
       mkdir $out
 
       # Containers don't have their own kernel or initrd.  They boot
@@ -170,7 +171,8 @@ let
     '';
   });
 
-in {
+in
+{
   imports = [
     ../build.nix
     (mkRemovedOptionModule [

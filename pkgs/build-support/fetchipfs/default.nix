@@ -24,7 +24,8 @@ let
   hasHash = (outputHash != "" && outputHashAlgo != "") || md5 != "" || sha1
     != "" || sha256 != "" || sha512 != "";
 
-in if (!hasHash) then
+in
+if (!hasHash) then
   throw "Specify sha for fetchipfs fixed-output derivation"
 else
   stdenv.mkDerivation {

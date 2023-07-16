@@ -27,7 +27,8 @@ let
           ]
         }:$PATH' \
     '';
-in {
+in
+{
   options.services.node-red = {
     enable = mkEnableOption (lib.mdDoc "the Node-RED service");
 

@@ -4,7 +4,8 @@
 }:
 let
   inherit (lib) types mkOption mdDoc;
-in {
+in
+{
   options = {
     meta = lib.mkOption {
       description = mdDoc ''

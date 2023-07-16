@@ -11,7 +11,8 @@ let
   cfg = config.services.xserver.windowManager.fvwm3;
   inherit (pkgs) fvwm3;
 
-in {
+in
+{
 
   ###### interface
 

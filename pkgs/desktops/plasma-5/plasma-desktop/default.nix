@@ -134,7 +134,8 @@ mkDerivation {
       } ''
         makeWrapper ${glib}/bin/gsettings $out --prefix XDG_DATA_DIRS : ${gsettings-desktop-schemas.out}/share/gsettings-schemas/${gsettings-desktop-schemas.name}
       '';
-    in [
+    in
+    [
       ''-DNIXPKGS_HWCLOCK=\"${lib.getBin util-linux}/bin/hwclock\"''
       ''-DNIXPKGS_GSETTINGS=\"${gsettings-wrapper}\"''
     ]

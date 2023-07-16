@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.programs.xfconf;
 
-in {
+in
+{
   meta = { maintainers = teams.xfce.members; };
 
   options = {

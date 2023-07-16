@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.automatic-timezoned;
-in {
+in
+{
   options = {
     services.automatic-timezoned = {
       enable = mkOption {

@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
   }:
   let
     foo = pkgs.writeText "foo" "Hello World";
-  in {
+  in
+  {
     name = "misc";
     meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
 
@@ -186,4 +187,5 @@ import ./make-test-python.nix ({
       with subtest("Test boot parameters"):
           assert "vsyscall=emulate" in machine.succeed("cat /proc/cmdline")
     '';
-  } )
+  }
+)

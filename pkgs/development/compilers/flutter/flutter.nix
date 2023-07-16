@@ -68,12 +68,14 @@ let
           artifactDirectory = "${os}-${architecture}${
               lib.optionalString (variant != null) "-${variant}"
             }";
-        in ''
+        in
+        ''
           mkdir -p $out/${artifactDirectory}
             ${lndir}/bin/lndir -silent ${artifact} $out/${artifactDirectory}
         ''
         ;
-    in ''
+    in
+    ''
       ${builtins.concatStringsSep "\n" ((map (name:
         mkCommonArtifactLinkCommand {
           artifact = engineArtifacts.common.${name};
@@ -98,7 +100,8 @@ let
               includedEngineArtifacts.platform
             else
               { }))))}
-    '' )
+    ''
+    )
     ;
 
   unwrapped = stdenv.mkDerivation {

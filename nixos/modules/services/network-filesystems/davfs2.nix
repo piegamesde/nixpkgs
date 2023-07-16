@@ -14,7 +14,8 @@ let
     dav_group ${cfg.davGroup}
     ${cfg.extraConfig}
   '';
-in {
+in
+{
   options.services.davfs2 = {
     enable = mkOption {
       type = types.bool;

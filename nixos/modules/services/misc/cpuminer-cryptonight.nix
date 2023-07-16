@@ -21,7 +21,8 @@ let
   });
 
   confFile = builtins.toFile "cpuminer.json" json;
-in {
+in
+{
 
   options = {
 

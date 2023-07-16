@@ -7,7 +7,8 @@
 with lib;
 let
   cfg = config.services.fractalart;
-in {
+in
+{
   options.services.fractalart = {
     enable = mkOption {
       type = types.bool;

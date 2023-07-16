@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
       printVersion = writeShellScript "print-version" ''
         echo ${lib.escapeShellArg version}
       '';
-    in ''
+    in
+    ''
       # avoid git dependency
       cp ${printVersion} build-aux/git-version-gen
     ''

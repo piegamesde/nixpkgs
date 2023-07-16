@@ -78,7 +78,8 @@ let
       // cliOptionsPerConfig.${cfg.configType} // s3CommonOptions
       // optionalAttrs cfg.s3Backup { s3backup = "true"; }
       // optionalAttrs cfg.fileSystemBackup { filesystembackup = "true"; })));
-in {
+in
+{
   options = {
     services.exhibitor = {
       enable = mkEnableOption (lib.mdDoc "exhibitor server");

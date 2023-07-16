@@ -7,7 +7,8 @@
 with lib;
 let
   cfg = config.hardware.xpadneo;
-in {
+in
+{
   options.hardware.xpadneo = {
     enable = mkEnableOption
       (lib.mdDoc "the xpadneo driver for Xbox One wireless controllers");

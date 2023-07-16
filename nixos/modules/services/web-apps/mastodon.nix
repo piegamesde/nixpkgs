@@ -153,7 +153,8 @@ let
         cfg.sidekiqThreads
       else
         processCfg.threads);
-    in {
+    in
+    {
       after = [
         "network.target"
         "mastodon-init-dirs.service"
@@ -189,9 +190,11 @@ let
         imagemagick
         ffmpeg
       ];
-    } )) cfg.sidekiqProcesses;
+    }
+    )) cfg.sidekiqProcesses;
 
-in {
+in
+{
 
   options = {
     services.mastodon = {
@@ -885,7 +888,8 @@ in {
           script =
             let
               olderThanDays = toString cfg.mediaAutoRemove.olderThanDays;
-            in ''
+            in
+            ''
               ${cfg.package}/bin/tootctl media remove --days=${olderThanDays}
               ${cfg.package}/bin/tootctl preview_cards remove --days=${olderThanDays}
             ''

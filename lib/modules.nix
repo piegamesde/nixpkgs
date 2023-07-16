@@ -64,7 +64,8 @@ let
         decls))
     ;
 
-in rec {
+in
+rec {
 
   /* Evaluate a set of modules.  The result is a set with the attributes:
 
@@ -286,13 +287,15 @@ in rec {
                 file = def.file;
                 value = setAttrByPath def.prefix def.value;
               }) merged.unmatchedDefns;
-            in if defs == [ ] then
+            in
+            if defs == [ ] then
               { }
             else
               declaredConfig._module.freeformType.merge prefix defs
             ;
 
-        in if declaredConfig._module.freeformType == null then
+        in
+        if declaredConfig._module.freeformType == null then
           declaredConfig
           # Because all definitions that had an associated option ended in
           # declaredConfig, freeformConfig can only contain the non-option
@@ -319,10 +322,12 @@ in rec {
               in
               "The option `${optText}' does not exist. Definition values:${defText}"
               ;
-          in if attrNames options == [ "_module" ] then
+          in
+          if attrNames options == [ "_module" ] then
             let
               optionName = showOption prefix;
-            in if optionName == "" then
+            in
+            if optionName == "" then
               throw ''
                 ${baseMsg}
 
@@ -441,7 +446,8 @@ in rec {
             collectedImports =
               collectStructuredModules module._file module.key module.imports
               args;
-          in {
+          in
+          {
             key = module.key;
             module = module;
             modules = collectedImports.modules;
@@ -452,7 +458,8 @@ in rec {
               } ]
             else
               [ ]) ++ collectedImports.disabled;
-          } ) initialModules)
+          }
+        ) initialModules)
         ;
 
         # filterModules :: String -> { disabled, modules } -> [ Module ]
@@ -549,7 +556,8 @@ in rec {
         else
           config
         ;
-    in if m ? config || m ? options then
+    in
+    if m ? config || m ? options then
       let
         badAttrs = removeAttrs m [
           "_file"
@@ -561,7 +569,8 @@ in rec {
           "meta"
           "freeformType"
         ];
-      in if badAttrs != { } then
+      in
+      if badAttrs != { } then
         throw "Module `${key}' has an unsupported attribute `${
           head (attrNames badAttrs)
         }'. This is caused by introducing a top-level `config' or `options' attribute. Add configuration attributes immediately on the top level instead, or move all of them (namely: ${
@@ -695,7 +704,8 @@ in rec {
         zipAttrsWith (n: concatLists) (map (module:
           let
             subtree = module.${attr};
-          in if !(builtins.isAttrs subtree) then
+          in
+          if !(builtins.isAttrs subtree) then
             throw (if attr == "config" then
               ''
                 You're trying to define a value of type `${
@@ -719,7 +729,8 @@ in rec {
                 Did you mean to define this outside of `options'?
               '')
           else
-            mapAttrs (n: f module) subtree) modules)
+            mapAttrs (n: f module) subtree
+        ) modules)
         ;
         # an attrset 'name' => list of submodules that declare ‘name’.
       declsByName = byName "options" (module: option: [ {
@@ -764,10 +775,12 @@ in rec {
           defns = defnsByName.${name} or [ ];
           defns' = defnsByName'.${name} or [ ];
           optionDecls = filter (m: isOption m.options) decls;
-        in if length optionDecls == length decls then
+        in
+        if length optionDecls == length decls then
           let
             opt = fixupOptionType loc (mergeOptionDecls loc decls);
-          in {
+          in
+          {
             matchedOptions = evalOptionValue loc opt defns';
             unmatchedDefns = [ ];
           }
@@ -787,7 +800,8 @@ in rec {
             let
               opt = fixupOptionType loc
                 (mergeOptionDecls loc (map optionTreeToOption decls));
-            in {
+            in
+            {
               matchedOptions = evalOptionValue loc opt defns';
               unmatchedDefns = [ ];
             }
@@ -804,7 +818,8 @@ in rec {
               }' does not support nested options.
               ${showRawDecls loc nonOptions}''
         else
-          mergeModules' loc decls defns) declsByName;
+          mergeModules' loc decls defns
+      ) declsByName;
 
       matchedOptions = mapAttrs (n: v: v.matchedOptions) resultsByName;
 
@@ -814,7 +829,8 @@ in rec {
         mapAttrs (n: v: v.unmatchedDefns) resultsByName
         # Plus the definitions for the current prefix that don't have a matching option
         // removeAttrs defnsByName' (attrNames matchedOptions);
-    in {
+    in
+    {
       inherit
         matchedOptions
         ;
@@ -865,7 +881,8 @@ in rec {
             { }
           ;
         bothHave = k: opt.options ? ${k} && res ? ${k};
-      in if
+      in
+      if
         bothHave "default" || bothHave "example" || bothHave "description"
         || bothHave "apply" || (bothHave "type" && (!typesMergeable))
       then
@@ -985,7 +1002,8 @@ in rec {
             else
               defs''.values
             ;
-        in {
+        in
+        {
           values = defs''';
           inherit (defs'') highestPrio;
         }
@@ -1117,7 +1135,8 @@ in rec {
         else
           def
         ;
-    in {
+    in
+    {
       values = concatMap (def:
         if getPrio def == highestPrio then
           [ (strip def) ]
@@ -1311,7 +1330,8 @@ in rec {
       config.assertions =
         let
           opt = getAttrFromPath optionName options;
-        in [ {
+        in
+        [ {
           assertion = !opt.isDefined;
           message = ''
             The option definition `${showOption optionName}' in ${
@@ -1533,7 +1553,8 @@ in rec {
         in
         opt.type or (types.submodule { })
         ;
-    in {
+    in
+    {
       options = setAttrByPath from (mkOption {
         inherit visible;
         description =

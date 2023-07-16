@@ -37,7 +37,8 @@ import ./make-test-python.nix ({
       }:
       let
         user = nodes.machine.config.users.users.alice;
-      in ''
+      in
+      ''
         with subtest("Wait for cage to boot up"):
             start_all()
             machine.wait_for_file("/run/user/${

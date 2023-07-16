@@ -41,7 +41,8 @@ let
       { name: "anyprot"; host: "localhost"; port: "443"; probe: "builtin"; }
     );
   '';
-in {
+in
+{
   imports = [
       (mkRenamedOptionModule [
         "services"
@@ -180,7 +181,8 @@ in {
                 "OUTPUT ! -o lo -p tcp -m connmark --mark 0x02/0x0f -j CONNMARK --restore-mark --mask 0x0f";
             }
           ];
-        in {
+        in
+        {
           path = [
             pkgs.iptables
             pkgs.iproute2

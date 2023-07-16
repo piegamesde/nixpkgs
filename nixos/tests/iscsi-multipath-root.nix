@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
   let
     initiatorName = "iqn.2020-08.org.linux-iscsi.initiatorhost:example";
     targetName = "iqn.2003-01.org.linux-iscsi.target.x8664:sn.acf8fd9c23af";
-  in {
+  in
+  {
     name = "iscsi";
     meta = { maintainers = pkgs.lib.teams.deshaw.members; };
 
@@ -277,5 +278,6 @@ import ./make-test-python.nix ({
         initiatorRootDisk.succeed("test -e /scratch/both-up")
       ''
       ;
-  } )
+  }
+)
 

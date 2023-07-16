@@ -18,7 +18,8 @@ let
   phpExecutionUnit = "phpfpm-${pool}";
   databaseService = "mysql.service";
 
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "services"
@@ -297,7 +298,8 @@ in {
           else
             ""
           ;
-      in {
+      in
+      {
         ${pool} = {
           inherit user;
           phpOptions = ''

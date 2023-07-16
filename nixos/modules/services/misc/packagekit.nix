@@ -39,7 +39,8 @@ let
     } cfg.vendorSettings))
   ];
 
-in {
+in
+{
   imports = [
       (mkRemovedOptionModule [
         "services"

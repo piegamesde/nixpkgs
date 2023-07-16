@@ -13,7 +13,8 @@ let
   runDir = "/run/longview";
   configsDir = "${runDir}/longview.d";
 
-in {
+in
+{
   options = {
 
     services.longview = {

@@ -967,7 +967,8 @@ let
       };
     };
   };
-in {
+in
+{
   "whitebophir-git+https://github.com/lovasoa/whitebophir.git#v1.19.1" =
     nodeEnv.buildNodePackage {
       name = "whitebophir";

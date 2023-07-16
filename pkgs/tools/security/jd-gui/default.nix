@@ -120,7 +120,8 @@ stdenv.mkDerivation rec {
   installPhase =
     let
       jar = "$out/share/jd-gui/${name}.jar";
-    in ''
+    in
+    ''
       runHook preInstall
 
       mkdir -p $out/bin $out/share/{jd-gui,icons/hicolor/128x128/apps}

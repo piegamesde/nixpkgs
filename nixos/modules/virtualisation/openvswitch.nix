@@ -12,7 +12,8 @@ with lib;
 let
   cfg = config.virtualisation.vswitch;
 
-in {
+in
+{
 
   options.virtualisation.vswitch = {
     enable = mkOption {
@@ -57,7 +58,8 @@ in {
       installPhase = "mkdir -p $out";
     };
 
-  in {
+  in
+  {
     environment.systemPackages = [ cfg.package ];
     boot.kernelModules = [
       "tun"
@@ -138,7 +140,8 @@ in {
       };
     };
 
-  } );
+  }
+  );
 
   imports = [
       (mkRemovedOptionModule [

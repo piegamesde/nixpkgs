@@ -241,7 +241,8 @@ let
 
     }
     ;
-in {
+in
+{
   # interface
   options = {
     services.invoiceplane = mkOption {

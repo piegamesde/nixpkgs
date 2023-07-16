@@ -37,7 +37,8 @@ import ./make-test-python.nix ({
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFpxm7PUQsZB2Ejs8Xp0YVp8IOW+HylIRzhweORbRCMv root@client
     '';
 
-  in {
+  in
+  {
     name = "borgbackup";
     meta = with pkgs.lib; { maintainers = with maintainers; [ dotlambda ]; };
 
@@ -241,4 +242,5 @@ import ./make-test-python.nix ({
           client.wait_until_succeeds("systemd-inhibit --list | grep -q borgbackup")
           client.systemctl("stop borgbackup-job-sleepInhibited")
     '';
-  } )
+  }
+)

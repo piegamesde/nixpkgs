@@ -157,7 +157,8 @@ let
       enableParallelBuilding = true;
     }
     ;
-in rec {
+in
+rec {
   redshift = mkRedshift rec {
     pname = "redshift";
     version = "1.12";

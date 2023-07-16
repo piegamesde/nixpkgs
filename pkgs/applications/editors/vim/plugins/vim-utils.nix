@@ -324,7 +324,8 @@ let
 
   vimrcFile = settings: writeText "vimrc" (vimrcContent settings);
 
-in rec {
+in
+rec {
   inherit vimrcFile;
   inherit vimrcContent;
   inherit packDir;
@@ -408,7 +409,8 @@ in rec {
                 fi
               done
             '';
-        in if standalone then
+        in
+        if standalone then
           bin
         else
           buildEnv {
@@ -417,7 +419,8 @@ in rec {
               (lib.lowPrio vim)
               bin
             ];
-          })
+          }
+        )
         ;
 
       override = f: makeCustomizable (vim.override f);

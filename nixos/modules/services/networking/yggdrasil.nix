@@ -13,7 +13,8 @@ let
   configFileProvided = cfg.configFile != null;
 
   format = pkgs.formats.json { };
-in {
+in
+{
   imports = [
       (mkRenamedOptionModule [
         "services"
@@ -137,7 +138,8 @@ in {
   config = mkIf cfg.enable (let
     binYggdrasil = "${cfg.package}/bin/yggdrasil";
     binHjson = "${pkgs.hjson-go}/bin/hjson-cli";
-  in {
+  in
+  {
     assertions = [ {
       assertion = config.networking.enableIPv6;
       message = "networking.enableIPv6 must be true for yggdrasil to work";
@@ -230,7 +232,8 @@ in {
 
       # Make yggdrasilctl available on the command line.
     environment.systemPackages = [ cfg.package ];
-  } );
+  }
+  );
   meta = {
     doc = ./yggdrasil.md;
     maintainers = with lib.maintainers; [

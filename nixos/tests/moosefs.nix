@@ -73,7 +73,8 @@ import ./make-test-python.nix ({
       }
       ;
 
-  in {
+  in
+  {
     name = "moosefs";
 
     nodes = {
@@ -109,4 +110,5 @@ import ./make-test-python.nix ({
       client1.succeed("echo test > /moosefs/file")
       client2.succeed("grep test /moosefs/file")
     '';
-  } )
+  }
+)

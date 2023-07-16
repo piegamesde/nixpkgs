@@ -52,7 +52,8 @@ let
         with open(f"{state_dir}/nitter.conf", "w") as f_out:
             f_out.write(f_in.read().replace("@hmac@", hmac))
   '';
-in {
+in
+{
   options = {
     services.nitter = {
       enable = mkEnableOption (lib.mdDoc "Nitter");

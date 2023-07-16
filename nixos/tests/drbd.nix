@@ -51,7 +51,8 @@ import ./make-test-python.nix ({
         };
       }
       ;
-  in {
+  in
+  {
     name = "drbd";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -99,4 +100,5 @@ import ./make-test-python.nix ({
         )
       ''
       ;
-  } )
+  }
+)

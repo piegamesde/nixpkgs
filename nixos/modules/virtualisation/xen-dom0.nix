@@ -12,7 +12,8 @@ with lib;
 let
   cfg = config.virtualisation.xen;
 
-in {
+in
+{
   imports = [
     (mkRemovedOptionModule [
       "virtualisation"

@@ -41,7 +41,8 @@ let
       blackbox_exporter --config.check --config.file $out
     ''
     ;
-in {
+in
+{
   port = 9115;
   extraOpts = {
     configFile = mkOption {
@@ -69,7 +70,8 @@ in {
         else
           checkConfigLocation cfg.configFile
         ;
-    in {
+    in
+    {
       serviceConfig = {
         AmbientCapabilities = [ "CAP_NET_RAW" ]; # for ping probes
         ExecStart = ''

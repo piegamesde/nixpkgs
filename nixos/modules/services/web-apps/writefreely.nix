@@ -156,7 +156,8 @@ let
       ${text}
     ''
     ;
-in {
+in
+{
   options.services.writefreely = {
     enable = lib.mkEnableOption
       (lib.mdDoc "Writefreely, build a digital writing community");

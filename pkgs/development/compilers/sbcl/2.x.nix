@@ -42,7 +42,8 @@ let
     };
   };
 
-in with versionMap.${version};
+in
+with versionMap.${version};
 
 stdenv.mkDerivation rec {
   pname = "sbcl";

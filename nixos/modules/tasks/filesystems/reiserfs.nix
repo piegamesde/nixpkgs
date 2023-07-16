@@ -11,7 +11,8 @@ let
 
   inInitrd = any (fs: fs == "reiserfs") config.boot.initrd.supportedFilesystems;
 
-in {
+in
+{
   config = mkIf (any (fs: fs == "reiserfs") config.boot.supportedFilesystems) {
 
     system.fsPackages = [ pkgs.reiserfsprogs ];

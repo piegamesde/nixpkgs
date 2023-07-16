@@ -56,7 +56,8 @@ import ./make-test-python.nix ({
         ${pkgs.openmpi}/bin/mpicc ${mpitestC} -o $out/bin/mpitest
       ''
       ;
-  in {
+  in
+  {
     name = "slurm";
 
     meta.maintainers = [ lib.maintainers.markuskowa ];
@@ -73,7 +74,8 @@ import ./make-test-python.nix ({
             services.slurm = { client.enable = true; };
           }
           ;
-      in {
+      in
+      {
 
         control =
           {
@@ -100,7 +102,8 @@ import ./make-test-python.nix ({
           }:
           let
             passFile = pkgs.writeText "dbdpassword" "password123";
-          in {
+          in
+          {
             networking.firewall.enable = false;
             systemd.tmpfiles.rules = [
                 "f /etc/munge/munge.key 0400 munge munge - mungeverryweakkeybuteasytointegratoinatest"
@@ -177,4 +180,5 @@ import ./make-test-python.nix ({
       with subtest("run_PMIx_mpitest"):
           submit.succeed("srun -N 3 --mpi=pmix mpitest | grep size=3")
     '';
-  } )
+  }
+)

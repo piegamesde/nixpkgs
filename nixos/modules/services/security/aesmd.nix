@@ -21,7 +21,8 @@ let
         "default quoting type = ${defaultQuotingType}" ++
         # Newline at end of file
         [ "" ]));
-in {
+in
+{
   options.services.aesmd = {
     enable = mkEnableOption (lib.mdDoc
       "Intel's Architectural Enclave Service Manager (AESM) for Intel SGX");
@@ -122,7 +123,8 @@ in {
         storeAesmFolder = "${sgx-psw}/aesm";
           # Hardcoded path AESM_DATA_FOLDER in psw/ae/aesm_service/source/oal/linux/aesm_util.cpp
         aesmDataFolder = "/var/opt/aesmd/data";
-      in {
+      in
+      {
         description = "Intel Architectural Enclave Service Manager";
         wantedBy = [ "multi-user.target" ];
 

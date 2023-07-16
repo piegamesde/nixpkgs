@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.portunus;
 
-in {
+in
+{
   options.services.portunus = {
     enable = mkEnableOption (lib.mdDoc
       "Portunus, a self-contained user/group management and authentication service for LDAP")
@@ -262,13 +263,15 @@ in {
           PORTUNUS_SEED_PATH = cfg.seedPath;
         })) // (optionalAttrs cfg.ldap.tls (let
           acmeDirectory = config.security.acme.certs."${cfg.domain}".directory;
-        in {
+        in
+        {
           PORTUNUS_SLAPD_TLS_CA_CERTIFICATE =
             "/etc/ssl/certs/ca-certificates.crt";
           PORTUNUS_SLAPD_TLS_CERTIFICATE = "${acmeDirectory}/cert.pem";
           PORTUNUS_SLAPD_TLS_DOMAIN_NAME = cfg.domain;
           PORTUNUS_SLAPD_TLS_PRIVATE_KEY = "${acmeDirectory}/key.pem";
-        } ));
+        }
+        ));
       };
     };
 

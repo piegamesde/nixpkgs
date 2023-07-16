@@ -16,7 +16,8 @@ let
     ${cfg.config}
   '';
 
-in with lib; {
+in
+with lib; {
   options = {
     services.haproxy = {
 

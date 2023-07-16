@@ -45,7 +45,8 @@ python3Packages.buildPythonPackage rec {
         desc = meta.description; # "description" is reserved
         inherit pname version;
       };
-    in ''
+    in
+    ''
       ln -s ${setup} setup.py
     ''
     ;

@@ -28,7 +28,8 @@ let
     ${(lib.concatStringsSep "\n"
       (map (pkg: "cp ${pkg} $out/${pkg.name}") listOfDefinitions))}
   '';
-in {
+in
+{
   options = {
     boot.initrd.systemd.repart.enable =
       lib.mkEnableOption (lib.mdDoc "systemd-repart") // {

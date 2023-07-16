@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.jitsi;
-in {
+in
+{
   port = 9700;
   extraOpts = {
     url = mkOption {

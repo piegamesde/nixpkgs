@@ -26,7 +26,8 @@ buildGoModule rec {
   ldflags =
     let
       package_url = "github.com/argoproj/argo-cd/v2/common";
-    in [
+    in
+    [
       "-s"
       "-w"
       "-X ${package_url}.version=${version}"

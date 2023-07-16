@@ -11,7 +11,8 @@ let
 
   cfg = config.boot.initrd.network.openvpn;
 
-in {
+in
+{
 
   options = {
 

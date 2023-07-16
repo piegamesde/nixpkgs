@@ -43,7 +43,8 @@ toKodiAddon (stdenv.mkDerivation ({
   installPhase =
     let
       n = namespace;
-    in ''
+    in
+    ''
       runHook preInstall
 
       make install

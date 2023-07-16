@@ -102,7 +102,8 @@ stdenv.mkDerivation rec {
         ;
       wrapQtApp = wrapWith "wrapQtApp";
       wrapProgram = wrapWith "wrapProgram";
-    in ''
+    in
+    ''
       unpackPhase
       cd "$sourceRoot"
       patchPhase

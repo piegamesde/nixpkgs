@@ -42,7 +42,8 @@ import ./make-test-python.nix ({
           algorithm: hmac-sha256
           secret: zOYgOgnzx3TGe5J5I/0kxd7gTcxXhLYMEq3Ek3fY37s=
     '';
-  in {
+  in
+  {
     name = "knot";
     meta = with pkgs.lib.maintainers; { maintainers = [ hexa ]; };
 
@@ -204,7 +205,8 @@ import ./make-test-python.nix ({
           nodes.secondary.config.networking.interfaces.eth1.ipv4.addresses).address;
         secondary6 = (lib.head
           nodes.secondary.config.networking.interfaces.eth1.ipv6.addresses).address;
-      in ''
+      in
+      ''
         import re
 
         start_all()
@@ -239,4 +241,5 @@ import ./make-test-python.nix ({
         primary.log(primary.succeed("systemd-analyze security knot.service | grep -v '✓'"))
       ''
       ;
-  } )
+  }
+)

@@ -26,7 +26,8 @@ let
         builder = "x";
         system = "x";
       };
-    in {
+    in
+    {
       # Evaluate the derivation so an invalid name would be caught
       expr = builtins.seq drv.drvPath drv.name;
       inherit expected;
@@ -141,7 +142,8 @@ runTests {
       g = self: super: { bar = super.baz or false; };
       h = self: super: { qux = super.bar or false; };
       obj = makeExtensible (self: { foo = self.qux; });
-    in {
+    in
+    {
       expr =
         let
           composition = composeManyExtensions [
@@ -357,7 +359,8 @@ runTests {
       let
         goodPath =
           "${builtins.storeDir}/d945ibfx9x185xf04b890y4f9g3cbb63-python-2.7.11";
-      in {
+      in
+      {
         storePath = isStorePath goodPath;
         storePathDerivation =
           isStorePath (import ../.. { system = "x86_64-linux"; }).hello;
@@ -652,7 +655,8 @@ runTests {
       assoc = f builtins.add;
         # fold with non-associative operator
       nonAssoc = f builtins.sub;
-    in {
+    in
+    {
       expr = {
         assocRight = assoc foldr;
           # right fold with assoc operator is same as left fold
@@ -1015,7 +1019,8 @@ runTests {
         };
         "foo" = { "he\\h=he" = "this is okay"; };
       };
-    in {
+    in
+    {
       expr = generators.toINIWithGlobalSection { } {
         globalSection = { };
         sections = sections;
@@ -1062,7 +1067,8 @@ runTests {
           3
         ];
       };
-    in {
+    in
+    {
       expr = generators.toJSON { } val;
         # trivial implementation
       expected = builtins.toJSON val;
@@ -1079,7 +1085,8 @@ runTests {
         ];
         all = 42;
       };
-    in {
+    in
+    {
       expr = generators.toYAML { } val;
         # trivial implementation
       expected = builtins.toJSON val;
@@ -1093,7 +1100,8 @@ runTests {
         builder = "/bin/sh";
         system = "aarch64-linux";
       };
-    in {
+    in
+    {
       expr = mapAttrs (const (generators.toPretty { multiline = false; })) rec {
         int = 42;
         float = 0.1337;
@@ -1149,7 +1157,8 @@ runTests {
     let
       a.b = 1;
       a.c = a;
-    in {
+    in
+    {
       expr = generators.toPretty { } (generators.withRecursion {
         throwOnDepthLimit = false;
         depthLimit = 2;
@@ -1172,7 +1181,8 @@ runTests {
     let
       a.b = 1;
       a.c = a;
-    in {
+    in
+    {
       expr = (builtins.tryEval (generators.toPretty { }
         (generators.withRecursion { depthLimit = 2; } a))).success;
       expected = false;
@@ -1196,7 +1206,8 @@ runTests {
         b = functor;
         c.d = functor;
       };
-    in {
+    in
+    {
       expr = generators.toPretty { } (generators.withRecursion {
         depthLimit = 1;
         throwOnDepthLimit = false;
@@ -2154,7 +2165,8 @@ runTests {
         system = "test system";
         meta = "test meta";
       };
-    in {
+    in
+    {
       expr = lazyDerivation { inherit derivation; };
       expected = derivation;
     }

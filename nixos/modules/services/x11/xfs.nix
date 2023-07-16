@@ -11,7 +11,8 @@ let
 
   configFile = ./xfs.conf;
 
-in {
+in
+{
 
   ###### interface
 

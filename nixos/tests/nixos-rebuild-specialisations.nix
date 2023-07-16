@@ -91,7 +91,8 @@ import ./make-test-python.nix ({
           }
         '';
 
-      in ''
+      in
+      ''
         machine.start()
         machine.succeed("udevadm settle")
         machine.wait_for_unit("multi-user.target")

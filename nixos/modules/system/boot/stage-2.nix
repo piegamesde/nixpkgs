@@ -35,7 +35,8 @@ let
     '';
   };
 
-in {
+in
+{
   options = {
 
     boot = {

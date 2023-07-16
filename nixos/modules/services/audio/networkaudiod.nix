@@ -10,7 +10,8 @@ with lib;
 let
   name = "networkaudiod";
   cfg = config.services.networkaudiod;
-in {
+in
+{
   options = {
     services.networkaudiod = {
       enable = mkEnableOption (lib.mdDoc "Networkaudiod (NAA)");

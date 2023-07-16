@@ -41,7 +41,8 @@ let
     };
   };
 
-in {
+in
+{
   cublas = backendStdenv.mkDerivation (commonAttrs // {
     pname = "cuda-library-samples-cublas";
 

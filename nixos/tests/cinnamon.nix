@@ -52,7 +52,8 @@ import ./make-test-python.nix ({
 
           # Hopefully gnome-terminal's wm class.
         wmClass = su "${gdbus} ${eval} global.display.focus_window.wm_class";
-      in ''
+      in
+      ''
         machine.wait_for_unit("display-manager.service")
 
         with subtest("Test if we can see username in slick-greeter"):

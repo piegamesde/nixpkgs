@@ -28,7 +28,8 @@ let
   isHexString = s: all (c: elem c hexChars) (stringToCharacters (toLower s));
   hexStr = addCheckDesc "hexadecimal string" types.str isHexString;
 
-in {
+in
+{
 
   options.services.multipath = with types; {
 
@@ -604,7 +605,8 @@ in {
             attrs =
               lib.mapAttrsToList (name: value: "  ${name} ${toString value}")
               nonNullCfg;
-          in ''
+          in
+          ''
             device {
             ${lib.concatStringsSep "\n" attrs}
             }
@@ -623,7 +625,8 @@ in {
         multipaths =
           lib.concatMapStringsSep "\n" mkMultipathBlock cfg.pathGroups;
 
-      in ''
+      in
+      ''
         devices {
         ${indentLines 2 devices}
         }

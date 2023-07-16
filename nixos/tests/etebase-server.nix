@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
   let
     dataDir = "/var/lib/foobar";
 
-  in {
+  in
+  {
     name = "etebase-server";
     meta = with pkgs.lib.maintainers; { maintainers = [ felschr ]; };
 
@@ -51,4 +52,5 @@ import ./make-test-python.nix ({
               "etebase-server createsuperuser --no-input --username admin --email root@localhost"
           )
     '';
-  } )
+  }
+)

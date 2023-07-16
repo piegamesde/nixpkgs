@@ -15,7 +15,8 @@ let
   settingsFile =
     settingsFormat.generate "mautrix-telegram-config.json" cfg.settings;
 
-in {
+in
+{
   options = {
     services.mautrix-telegram = {
       enable = mkEnableOption (lib.mdDoc

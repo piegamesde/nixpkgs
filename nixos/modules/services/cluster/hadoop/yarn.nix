@@ -32,7 +32,8 @@ let
     default = { };
     description = lib.mdDoc "Extra environment variables";
   };
-in {
+in
+{
   options.services.hadoop.yarn = {
     resourcemanager = {
       enable = mkEnableOption (lib.mdDoc "Hadoop YARN ResourceManager");

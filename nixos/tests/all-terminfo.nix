@@ -28,7 +28,8 @@ import ./make-test-python.nix ({
         includedOuts = lib.filterAttrs
           (_: drv: builtins.elem drv.out config.environment.systemPackages)
           terminfos;
-      in {
+      in
+      {
         environment = {
           enableAllTerminfo = true;
           etc."terminfo-missing".text = builtins.concatStringsSep "\n"

@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.plex;
-in {
+in
+{
   imports = [
       (mkRemovedOptionModule [
         "services"

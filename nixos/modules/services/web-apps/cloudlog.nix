@@ -77,7 +77,8 @@ let
       done
     '';
   };
-in {
+in
+{
   options.services.cloudlog = with types; {
     enable = mkEnableOption (mdDoc "Whether to enable Cloudlog");
     dataDir = mkOption {
@@ -369,7 +370,8 @@ in {
           script =
             let
               mysql = "${config.services.mysql.package}/bin/mysql";
-            in ''
+            in
+            ''
               if [ ! -f ${cfg.dataDir}/.dbexists ]; then
                 ${mysql} ${cfg.database.name} < ${pkgs.cloudlog}/install/assets/install.sql
                 touch ${cfg.dataDir}/.dbexists
@@ -499,7 +501,8 @@ in {
       tmpfiles.rules =
         let
           group = config.services.nginx.group;
-        in [
+        in
+        [
           "d ${cfg.dataDir}                0750 ${cfg.user} ${group} - -"
           "d ${cfg.dataDir}/updates        0750 ${cfg.user} ${group} - -"
           "d ${cfg.dataDir}/uploads        0750 ${cfg.user} ${group} - -"

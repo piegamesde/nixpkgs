@@ -273,7 +273,8 @@ let
       ${cfg.${deviceType}.additionalOptions}
     ''
     ;
-in {
+in
+{
 
   imports = (map (option:
     mkRenamedOptionModule ([
@@ -326,7 +327,8 @@ in {
     environment.etc =
       let
         cfgPath = "X11/xorg.conf.d/40-libinput.conf";
-      in {
+      in
+      {
         ${cfgPath} = {
           source = pkgs.xorg.xf86inputlibinput.out + "/share/" + cfgPath;
         };

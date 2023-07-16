@@ -49,7 +49,8 @@ let
       maintainers = with maintainers; [ ];
     };
   };
-in {
+in
+{
   ###### interface
 
   options = {

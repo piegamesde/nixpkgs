@@ -141,7 +141,8 @@ let
     };
   };
 
-in {
+in
+{
   options = {
     services.logcheck = {
       enable = mkEnableOption (lib.mdDoc "logcheck cron job");

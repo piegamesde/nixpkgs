@@ -83,7 +83,8 @@ pkgs.recurseIntoAttrs rec {
         pkgs.callPackage ./engine.nix
         (common // { engine = engine // { inherit name; }; })
         ;
-    in if name == null then
+    in
+    if name == null then
       builder
     else
       builder name
@@ -114,10 +115,12 @@ pkgs.recurseIntoAttrs rec {
             engine = engine // { inherit mods; };
           })
           ;
-      in if name == null then
+      in
+      if name == null then
         builder
       else
-        builder name) engine
+        builder name
+    ) engine
     ;
 
     # See `buildOpenRASet`.

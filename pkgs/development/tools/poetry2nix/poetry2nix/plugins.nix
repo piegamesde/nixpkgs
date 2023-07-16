@@ -57,7 +57,8 @@ let
     }
     ;
 
-in {
+in
+{
 
   # Provide the `withPlugins` function
   toPluginAble =

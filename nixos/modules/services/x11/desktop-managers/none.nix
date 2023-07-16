@@ -8,7 +8,8 @@ with lib;
 let
   runXdgAutostart =
     config.services.xserver.desktopManager.runXdgAutostartIfNone;
-in {
+in
+{
   options = {
     services.xserver.desktopManager.runXdgAutostartIfNone = mkOption {
       type = types.bool;

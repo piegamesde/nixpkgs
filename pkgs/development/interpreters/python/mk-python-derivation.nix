@@ -157,7 +157,8 @@ let
             "pname"
           else
             "name") attrs;
-        in if pos == null then
+        in
+        if pos == null then
           ""
         else
           " at ${pos.file}:${toString pos.line}:${toString pos.column}"

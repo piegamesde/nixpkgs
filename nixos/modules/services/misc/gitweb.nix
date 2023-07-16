@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.gitweb;
 
-in {
+in
+{
 
   options.services.gitweb = {
 

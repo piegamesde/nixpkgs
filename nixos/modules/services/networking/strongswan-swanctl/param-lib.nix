@@ -63,7 +63,8 @@ rec {
       if isAttrs value then
         let
           value' = filterEmptySets value;
-        in if value' == { } then
+        in
+        if value' == { } then
           null
         else
           value'

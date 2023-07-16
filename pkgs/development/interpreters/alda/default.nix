@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
   installPhase =
     let
       binPath = lib.makeBinPath [ jre ];
-    in ''
+    in
+    ''
       install -D $src_alda $out/bin/alda
       install -D $src_player $out/bin/alda-player
 

@@ -20,7 +20,8 @@ let
     ${pgbin}/psql "${dbName}" -c "CREATE EXTENSION IF NOT EXISTS hstore"
   '';
 
-in {
+in
+{
   options = {
     services.miniflux = {
       enable = mkEnableOption

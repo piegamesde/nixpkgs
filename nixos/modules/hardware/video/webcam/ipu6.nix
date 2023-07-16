@@ -10,7 +10,8 @@ let
 
   cfg = config.hardware.ipu6;
 
-in {
+in
+{
 
   options.hardware.ipu6 = {
 

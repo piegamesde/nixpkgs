@@ -303,7 +303,8 @@ let
     ${concatLines (mapAttrsToList (k: v: v.stanza) cfg.servers)}
   '';
 
-in {
+in
+{
 
   inherit options;
 

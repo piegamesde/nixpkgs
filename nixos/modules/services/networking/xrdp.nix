@@ -38,7 +38,8 @@ let
     LOCALE_ARCHIVE=${config.i18n.glibcLocales}/lib/locale/locale-archive
     ' $out/sesman.ini
   '';
-in {
+in
+{
 
   ###### interface
 

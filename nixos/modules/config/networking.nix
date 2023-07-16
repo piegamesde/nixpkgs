@@ -21,7 +21,8 @@ let
       "::1"
     ]));
 
-in {
+in
+{
   imports = [
       (mkRemovedOptionModule [
         "networking"

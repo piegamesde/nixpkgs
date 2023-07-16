@@ -18,7 +18,8 @@ let
     else
       "testEqualDerivation"
     ;
-in if drvA == drvB then
+in
+if drvA == drvB then
   emptyFile
 else
   runCommand name {

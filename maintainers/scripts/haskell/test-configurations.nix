@@ -84,9 +84,9 @@ let
       (builtins.add 1)
       toString
     ];
-  in {
-    "ghc${headVersion}" = headSet;
-  } );
+  in
+  { "ghc${headVersion}" = headSet; }
+  );
 
   setsForFile =
     fileName:

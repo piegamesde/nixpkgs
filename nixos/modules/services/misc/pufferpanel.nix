@@ -6,7 +6,8 @@
 }:
 let
   cfg = config.services.pufferpanel;
-in {
+in
+{
   options.services.pufferpanel = {
     enable = lib.mkOption {
       type = lib.types.bool;

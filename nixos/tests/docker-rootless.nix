@@ -39,7 +39,8 @@ import ./make-test-python.nix ({
           "-u"
           "alice"
         ];
-      in ''
+      in
+      ''
         machine.wait_for_unit("multi-user.target")
 
         machine.succeed("loginctl enable-linger alice")

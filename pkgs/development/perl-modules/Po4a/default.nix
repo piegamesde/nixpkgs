@@ -52,7 +52,8 @@ buildPerlPackage rec {
     let
       kpsewhich-stub = writeShellScriptBin "kpsewhich"
         ''[[ $1 = "article.cls" ]] && echo /dev/null'';
-    in [
+    in
+    [
       gettext
       libxslt
       docbook_xsl

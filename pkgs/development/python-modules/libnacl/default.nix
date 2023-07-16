@@ -34,7 +34,8 @@ buildPythonPackage rec {
   postPatch =
     let
       soext = stdenv.hostPlatform.extensions.sharedLibrary;
-    in ''
+    in
+    ''
       substituteInPlace "./libnacl/__init__.py" --replace \
         "ctypes.cdll.LoadLibrary('libsodium${soext}')" \
         "ctypes.cdll.LoadLibrary('${libsodium}/lib/libsodium${soext}')"

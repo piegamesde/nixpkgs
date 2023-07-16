@@ -52,7 +52,8 @@ import ../make-test-python.nix ({
               command: ["socat", "TCP4-LISTEN:8000,fork", "EXEC:echo server"]
     '';
     tokenFile = pkgs.writeText "token" "p@s$w0rd";
-  in {
+  in
+  {
     name = "${k3s.name}-multi-node";
 
     nodes = {
@@ -240,4 +241,5 @@ import ../make-test-python.nix ({
       for m in machines:
           m.shutdown()
     '';
-  } )
+  }
+)

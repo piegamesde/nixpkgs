@@ -136,7 +136,8 @@ let
         ${indent}}'')))
     ;
 
-in {
+in
+{
   options = {
     services.system76-scheduler = {
       enable = lib.mkEnableOption (lib.mdDoc "system76-scheduler");

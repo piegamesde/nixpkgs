@@ -28,7 +28,8 @@ let
     };
   }."${version}";
 
-in let
+in
+let
   v = version;
 in
 buildDunePackage rec {

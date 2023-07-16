@@ -11,7 +11,8 @@ let
 
   cfg = config.hardware.rasdaemon;
 
-in {
+in
+{
   options.hardware.rasdaemon = {
 
     enable = mkEnableOption (lib.mdDoc "RAS logging daemon");

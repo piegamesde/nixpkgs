@@ -11,7 +11,8 @@ let
   cfg = config.services.rsyncd;
   settingsFormat = pkgs.formats.ini { };
   configFile = settingsFormat.generate "rsyncd.conf" cfg.settings;
-in {
+in
+{
   options = {
     services.rsyncd = {
 
@@ -88,7 +89,8 @@ in {
           PrivateDevices = "on";
           NoNewPrivileges = "on";
         };
-      in {
+      in
+      {
         services.rsync = {
           enable = !cfg.socketActivated;
           aliases = [ "rsyncd.service" ];

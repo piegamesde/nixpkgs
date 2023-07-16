@@ -45,7 +45,8 @@ let
         else
           newArgs)
         ;
-    in if builtins.isAttrs result then
+    in
+    if builtins.isAttrs result then
       result
     else if builtins.isFunction result then
       {
@@ -143,7 +144,8 @@ let
       drv
     ;
 
-in {
+in
+{
 
   inherit lib pkgs stdenv;
   inherit (python.passthru)

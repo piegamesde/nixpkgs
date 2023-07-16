@@ -45,7 +45,8 @@ let
     else
       { inherit deps; }
     ;
-in {
+in
+{
   removePathDependenciesHook = makeRemoveSpecialDependenciesHook {
     fields = [ "path" ];
     kind = "path";

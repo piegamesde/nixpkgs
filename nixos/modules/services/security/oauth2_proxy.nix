@@ -104,7 +104,8 @@ let
     ;
 
   configString = concatStringsSep " " (mapAttrsToList mapConfig allConfig);
-in {
+in
+{
   options.services.oauth2_proxy = {
     enable = mkEnableOption (lib.mdDoc "oauth2_proxy");
 

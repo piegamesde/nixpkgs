@@ -10,7 +10,8 @@ let
   inherit (pkgs) coreutils;
   cfg = config.services.exim;
 
-in {
+in
+{
 
   ###### interface
 

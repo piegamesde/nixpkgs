@@ -6,7 +6,8 @@
 }:
 let
   inherit (lib) types mkOption mdDoc;
-in {
+in
+{
   options = {
     passthru = mkOption {
       type = types.lazyAttrsOf types.raw;

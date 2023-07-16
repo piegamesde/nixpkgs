@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
         # Ignored if ~/.aeolusrc with local options exists
         -u -S ${aeolus-stops}/${aeolus-stops.subdir}
       '';
-    in ''
+    in
+    ''
       mkdir -p $out/etc
       echo -n "${cfg}" > $out/etc/aeolus.conf
     ''

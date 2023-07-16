@@ -4,7 +4,8 @@
 let
   inherit (pkgs) callPackage;
   icu = pkgs.icu60;
-in {
+in
+{
   ticcutils = callPackage ./ticcutils.nix { };
   libfolia = callPackage ./libfolia.nix { inherit icu; };
   ucto = callPackage ./ucto.nix { inherit icu; };

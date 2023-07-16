@@ -81,7 +81,8 @@ let
     }
     ;
 
-in {
+in
+{
 
   ###### interface
 
@@ -240,7 +241,8 @@ in {
               export PYTHONHOME=${env}
               exec ${ctlScript} "$@"
             '';
-          in {
+          in
+          {
             #description = "${name} instance";
             after = [
                 "network.target"

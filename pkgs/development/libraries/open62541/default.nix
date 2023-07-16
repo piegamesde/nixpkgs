@@ -158,7 +158,8 @@ stdenv.mkDerivation (finalAttrs: {
           withPubSub = true;
         }
         ;
-    in {
+    in
+    {
       open62541Full = open62541Full false;
       open62541Full-openssl = open62541Full "openssl";
       open62541Full-mbedtls = open62541Full "mbedtls";

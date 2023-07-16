@@ -47,7 +47,8 @@ let # Rename the function arguments
   config0 = config;
   crossSystem0 = crossSystem;
 
-in let
+in
+let
   lib = import ../../lib;
 
   inherit (lib) throwIfNot;

@@ -214,7 +214,8 @@ let
     }
     ;
 
-in {
+in
+{
 
   options = {
     services.ghostunnel.enable = mkEnableOption (lib.mdDoc "ghostunnel");

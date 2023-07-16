@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.zerotierone;
-in {
+in
+{
   options.services.zerotierone.enable =
     mkEnableOption (lib.mdDoc "ZeroTierOne");
 

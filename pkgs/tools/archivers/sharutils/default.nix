@@ -66,7 +66,8 @@ stdenv.mkDerivation rec {
       #     substituteInPlace tests/shar-2 --replace '${SHAR}' '${SHAR} -s submitter'
       #     substituteInPlace tests/shar-2 --replace '${SHAR}' '${SHAR} -s submitter'
       shar_sub = "\${SHAR}";
-    in ''
+    in
+    ''
       substituteInPlace tests/shar-1 --replace '${shar_sub}' '${shar_sub} -s submitter'
       substituteInPlace tests/shar-2 --replace '${shar_sub}' '${shar_sub} -s submitter'
 

@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.jellyfin;
-in {
+in
+{
   options = {
     services.jellyfin = {
       enable = mkEnableOption (lib.mdDoc "Jellyfin Media Server");

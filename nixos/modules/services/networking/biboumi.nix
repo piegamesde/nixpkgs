@@ -22,7 +22,8 @@ let
   } cfg.settings);
   need_CAP_NET_BIND_SERVICE =
     cfg.settings.identd_port != 0 && cfg.settings.identd_port < 1024;
-in {
+in
+{
   options = {
     services.biboumi = {
       enable = mkEnableOption (lib.mdDoc "the Biboumi XMPP gateway to IRC");

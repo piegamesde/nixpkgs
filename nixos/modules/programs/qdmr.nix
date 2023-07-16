@@ -7,7 +7,8 @@
 
 let
   cfg = config.programs.qdmr;
-in {
+in
+{
   meta.maintainers = [ lib.maintainers.janik ];
 
   options = {

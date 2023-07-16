@@ -24,7 +24,8 @@ let
     (!(lib.elem pkg config.environment.cinnamon.excludePackages))
     ;
 
-in {
+in
+{
   options = {
     services.cinnamon = {
       apps.enable = mkEnableOption (lib.mdDoc "Cinnamon default applications");

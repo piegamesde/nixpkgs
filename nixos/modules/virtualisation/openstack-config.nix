@@ -15,7 +15,8 @@ let
     targetRoot = "/";
     wgetExtraOptions = "--retry-connrefused";
   };
-in {
+in
+{
   imports = [
     ../profiles/qemu-guest.nix
 

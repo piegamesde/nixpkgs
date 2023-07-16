@@ -11,7 +11,8 @@ let
 
   cfg = config.services.xserver.wacom;
 
-in {
+in
+{
 
   options = {
 

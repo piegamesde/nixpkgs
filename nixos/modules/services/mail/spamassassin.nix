@@ -11,7 +11,8 @@ let
   cfg = config.services.spamassassin;
   spamassassin-local-cf = pkgs.writeText "local.cf" cfg.config;
 
-in {
+in
+{
   options = {
 
     services.spamassassin = {

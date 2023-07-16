@@ -18,7 +18,8 @@ import ./make-test-python.nix ({
           } attrs
           ;
 
-      in {
+      in
+      {
         cli =
           {
             ...
@@ -70,7 +71,8 @@ import ./make-test-python.nix ({
       }:
       let
         user = nodes.cli.config.users.users.alice;
-      in ''
+      in
+      ''
         start_all()
 
         with subtest("CLI"):

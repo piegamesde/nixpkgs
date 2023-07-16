@@ -19,7 +19,8 @@ let
     "med_power_with_dipm"
   ];
 
-in {
+in
+{
   ###### interface
 
   options = {

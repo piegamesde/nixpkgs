@@ -8,7 +8,8 @@ import ./make-test-python.nix ({
       (pkgs.lib.head
         node.config.networking.interfaces.${iface}.ipv4.addresses).address
       ;
-  in {
+  in
+  {
     name = "gobgpd";
 
     meta = with pkgs.lib.maintainers; { maintainers = [ higebu ]; };
@@ -76,7 +77,8 @@ import ./make-test-python.nix ({
       let
         addr1 = ifAddr nodes.node1 "eth1";
         addr2 = ifAddr nodes.node2 "eth1";
-      in ''
+      in
+      ''
         start_all()
 
         for node in node1, node2:
@@ -90,4 +92,5 @@ import ./make-test-python.nix ({
             node2.wait_until_succeeds("gobgp neighbor ${addr1} | grep -q ESTABLISHED")
       ''
       ;
-  } )
+  }
+)

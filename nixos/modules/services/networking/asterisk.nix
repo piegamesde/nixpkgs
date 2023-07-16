@@ -57,7 +57,8 @@ let
     (map (x: nameValuePair x { source = cfg.package + "/etc/asterisk/" + x; })
       defaultConfFiles);
 
-in {
+in
+{
   options = {
     services.asterisk = {
       enable = mkOption {

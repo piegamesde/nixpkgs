@@ -41,7 +41,8 @@ let
     bundler-audit check --update
     bundix
   '';
-in [
+in
+[
   updateScript
   attrPath
 ]

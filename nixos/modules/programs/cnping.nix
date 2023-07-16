@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.cnping;
-in {
+in
+{
   options = {
     programs.cnping = {
       enable = mkEnableOption

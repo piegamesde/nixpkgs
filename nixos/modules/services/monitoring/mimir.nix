@@ -11,7 +11,8 @@ let
   cfg = config.services.mimir;
 
   settingsFormat = pkgs.formats.yaml { };
-in {
+in
+{
   options.services.mimir = {
     enable = mkEnableOption (lib.mdDoc "mimir");
 
@@ -65,7 +66,8 @@ in {
             else
               cfg.configFile
             ;
-        in {
+        in
+        {
           ExecStart = "${cfg.package}/bin/mimir --config.file=${conf}";
           DynamicUser = true;
           Restart = "always";

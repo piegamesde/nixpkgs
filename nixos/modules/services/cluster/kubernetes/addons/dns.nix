@@ -16,7 +16,8 @@ let
     health = 10054;
     metrics = 10055;
   };
-in {
+in
+{
   options.services.kubernetes.addons.dns = {
     enable = mkEnableOption (lib.mdDoc "kubernetes dns addon");
 

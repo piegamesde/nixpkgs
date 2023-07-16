@@ -19,7 +19,8 @@ let
   packages = epkgs: cfg.extraPackages epkgs ++ [ epkgs.exwm ];
   exwm-emacs = pkgs.emacsWithPackages packages;
 
-in {
+in
+{
   options = {
     services.xserver.windowManager.exwm = {
       enable = mkEnableOption (lib.mdDoc "exwm");

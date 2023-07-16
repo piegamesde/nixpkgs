@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
         else
           "aarch64"
         ;
-    in ''
+    in
+    ''
       runHook preBuild
 
       ant createJPackage -Dmachine.arch=${arch}

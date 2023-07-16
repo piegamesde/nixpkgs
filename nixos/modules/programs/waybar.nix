@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.waybar;
-in {
+in
+{
   options.programs.waybar = {
     enable = mkEnableOption (lib.mdDoc "waybar");
     package = mkPackageOptionMD pkgs "waybar" { };

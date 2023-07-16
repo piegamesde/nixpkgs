@@ -11,7 +11,8 @@ let
   poolName = "icingaweb2";
 
   defaultConfig = { global = { module_path = "${pkgs.icingaweb2}/modules"; }; };
-in {
+in
+{
   meta.maintainers = with maintainers; [ das_j ];
 
   options.services.icingaweb2 = with types; {

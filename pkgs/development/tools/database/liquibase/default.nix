@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
           done
         ''
         ;
-    in ''
+    in
+    ''
       mkdir -p $out
       mv ./{lib,licenses,liquibase.jar} $out/
 

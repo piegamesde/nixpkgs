@@ -20,7 +20,8 @@ let
     };
   };
 
-in {
+in
+{
   options = {
     virtualisation.kvmgt = {
       enable = mkEnableOption (lib.mdDoc ''
@@ -71,7 +72,8 @@ in {
               inherit mdev;
               uuid = id;
             }) opt.uuid) cfg.vgpus));
-      in {
+      in
+      {
         paths = mapAttrs (_: opt: {
           description = "KVMGT VGPU ${opt.uuid} path";
           wantedBy = [ "multi-user.target" ];

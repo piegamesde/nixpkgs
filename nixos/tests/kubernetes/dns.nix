@@ -175,7 +175,8 @@ let
       machine1.succeed("kubectl exec probe -- /bin/host redis.default.svc.cluster.local")
     '';
   };
-in {
+in
+{
   singlenode = mkKubernetesSingleNodeTest (base // singleNodeTest);
   multinode = mkKubernetesMultiNodeTest (base // multiNodeTest);
 }

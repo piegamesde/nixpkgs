@@ -66,7 +66,8 @@ let
       '')}
   '';
 
-in with lib;
+in
+with lib;
 
 {
 
@@ -86,10 +87,12 @@ in with lib;
           "ddclient"
           "domain"
         ] config;
-      in if value != "" then
+      in
+      if value != "" then
         [ value ]
       else
-        [ ]))
+        [ ]
+    ))
     (mkRemovedOptionModule [
       "services"
       "ddclient"

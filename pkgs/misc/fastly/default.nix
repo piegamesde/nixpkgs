@@ -56,7 +56,8 @@ buildGoModule rec {
           "https://web.archive.org/web/20230412222811/https://developer.fastly.com/api/internal/cli-config";
         hash = "sha256-NACjeBGOvBL6kUBZtSx4ChZgn7V69f4K2yyDCwTZsbU=";
       };
-    in ''
+    in
+    ''
       cp ${cliConfigToml} ./pkg/config/config.toml
       ldflags+=" -X github.com/fastly/cli/pkg/revision.GitCommit=$(cat COMMIT)"
     ''

@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.hdapsd;
   hdapsd = [ pkgs.hdapsd ];
-in {
+in
+{
   options = {
     services.hdapsd.enable = mkEnableOption (lib.mdDoc ''
       Hard Drive Active Protection System Daemon,

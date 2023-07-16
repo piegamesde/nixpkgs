@@ -14,7 +14,8 @@ let
 
   cfg = config.environment;
 
-in {
+in
+{
 
   config = {
 

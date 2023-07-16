@@ -139,7 +139,8 @@ let
         lib.concatMapStrings (dependencyName:
           let
             dependency = dependencies.${dependencyName};
-          in ''
+          in
+          ''
             ${if dependency.targetDir == "" then
               ''
                 vendorDir="$(dirname ${dependencyName})"
@@ -162,7 +163,8 @@ let
                   ''
                     cp -av "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''}
               ''}
-          '' ) (builtins.attrNames dependencies)
+          ''
+        ) (builtins.attrNames dependencies)
         ;
 
       extraArgs = removeAttrs args [
@@ -277,7 +279,8 @@ let
       '';
     } // extraArgs)
     ;
-in {
+in
+{
   inherit filterSrc;
   composer = lib.makeOverridable composer;
   buildZipPackage = lib.makeOverridable buildZipPackage;

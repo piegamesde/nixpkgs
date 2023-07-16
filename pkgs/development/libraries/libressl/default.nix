@@ -117,7 +117,8 @@ let
     }
     ;
 
-in {
+in
+{
   libressl_3_4 = generic {
     version = "3.4.3";
     hash = "sha256-/4i//jVIGLPM9UXjyv5FTFAxx6dyFwdPUzJx1jw38I0=";

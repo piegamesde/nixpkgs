@@ -10,7 +10,8 @@ with lib;
 let
   xcfg = config.services.xserver;
   cfg = xcfg.desktopManager.cde;
-in {
+in
+{
   options.services.xserver.desktopManager.cde = {
     enable = mkEnableOption (lib.mdDoc "Common Desktop Environment");
 

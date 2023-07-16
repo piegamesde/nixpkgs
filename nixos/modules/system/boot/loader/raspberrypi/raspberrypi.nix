@@ -57,7 +57,8 @@ let
       initramfs initrd followkernel
     '') + optional (cfg.firmwareConfig != null) cfg.firmwareConfig);
 
-in {
+in
+{
   options = {
 
     boot.loader.raspberryPi = {

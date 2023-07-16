@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.oxidized;
-in {
+in
+{
   options.services.oxidized = {
     enable =
       mkEnableOption (lib.mdDoc "the oxidized configuration backup service");

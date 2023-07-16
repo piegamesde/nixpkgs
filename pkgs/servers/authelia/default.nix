@@ -32,7 +32,8 @@ buildGoModule rec {
       p = "github.com/authelia/authelia/v${
           lib.versions.major version
         }/internal/utils";
-    in [
+    in
+    [
       "-s"
       "-w"
       "-X ${p}.BuildTag=v${version}"

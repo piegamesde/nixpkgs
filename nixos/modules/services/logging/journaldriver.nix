@@ -19,7 +19,8 @@
 with lib;
 let
   cfg = config.services.journaldriver;
-in {
+in
+{
   options.services.journaldriver = {
     enable = mkOption {
       type = types.bool;

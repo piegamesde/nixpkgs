@@ -185,7 +185,8 @@ buildPythonApplication {
   preFixup =
     let
       libPath = lib.makeLibraryPath [ pipewire ];
-    in ''
+    in
+    ''
       makeWrapperArgs+=(
         "''${gappsWrapperArgs[@]}"
         "''${qtWrapperArgs[@]}"

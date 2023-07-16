@@ -114,7 +114,8 @@ stdenv.mkDerivation rec {
               # fix WebKit libs not being there
               s/\$(WEBKIT_LIB) \$(WEBKIT_OBJECTS)$/\0 `pkg-config --libs glib-2.0`/g
             '');
-    in ''
+    in
+    ''
       declare -a makefiles=(./*.mak)
       sed -i -f ${makefile-sed} "''${makefiles[@]}"
       # assign Makefile variables eagerly & change backticks to `$(shell …)`

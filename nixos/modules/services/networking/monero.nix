@@ -50,7 +50,8 @@ let
       ${extraConfig}
     '';
 
-in {
+in
+{
 
   ###### interface
 

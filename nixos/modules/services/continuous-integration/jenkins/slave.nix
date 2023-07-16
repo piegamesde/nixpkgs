@@ -8,7 +8,8 @@ with lib;
 let
   cfg = config.services.jenkinsSlave;
   masterCfg = config.services.jenkins;
-in {
+in
+{
   options = {
     services.jenkinsSlave = {
       # todo:

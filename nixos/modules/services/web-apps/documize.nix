@@ -21,7 +21,8 @@ let
     )
     ;
 
-in {
+in
+{
   options.services.documize = {
     enable = mkEnableOption (lib.mdDoc "Documize Wiki");
 

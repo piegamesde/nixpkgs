@@ -9,7 +9,8 @@
 }:
 let
   inherit (lib) literalExpression mkOption types;
-in {
+in
+{
   options = {
 
     hostName = mkOption {

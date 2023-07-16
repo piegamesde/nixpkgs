@@ -29,7 +29,8 @@ let
       installFlags = [ "DESTDIR=$(out)" ];
     }
     ;
-in {
+in
+{
 
   softhddevice = callPackage ./softhddevice { };
 

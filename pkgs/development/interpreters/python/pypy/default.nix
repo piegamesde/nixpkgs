@@ -71,7 +71,8 @@ let
   version = with sourceVersion; "${major}.${minor}.${patch}";
   pythonForPypy = python.withPackages (ppkgs: [ ppkgs.pycparser ]);
 
-in with passthru;
+in
+with passthru;
 stdenv.mkDerivation rec {
   inherit pname version;
 
@@ -223,7 +224,8 @@ stdenv.mkDerivation rec {
         # warning-to-error test policy
         "test___all__"
       ];
-    in ''
+    in
+    ''
       export TERMINFO="${ncurses.out}/share/terminfo/";
       export TERM="xterm";
       export HOME="$TMPDIR";
@@ -246,7 +248,8 @@ stdenv.mkDerivation rec {
         "lzma"
       ];
       imports = lib.concatMapStringsSep "; " (x: "import ${x}") modules;
-    in ''
+    in
+    ''
       echo "Testing whether we can import modules"
       $out/bin/${executable} -c '${imports}'
     ''

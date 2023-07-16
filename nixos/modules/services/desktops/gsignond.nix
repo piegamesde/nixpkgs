@@ -12,7 +12,8 @@ with lib;
 let
   package =
     pkgs.gsignond.override { plugins = config.services.gsignond.plugins; };
-in {
+in
+{
 
   meta.maintainers = teams.pantheon.members;
 

@@ -167,7 +167,8 @@ let
     }
     ;
   optionalDep = cond: dep: assert cond -> dep != null; lib.optional cond dep;
-in {
+in
+{
   batdiff = script "batdiff" ([
     less
     coreutils

@@ -75,7 +75,8 @@ import ./make-test-python.nix {
               pop.quit()
           '';
 
-        in [
+        in
+        [
           sendTestMail
           sendTestMailViaDeliveryAgent
           testImap

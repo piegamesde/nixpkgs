@@ -10,7 +10,8 @@ let
   cfg = config.services.signald;
   dataDir = "/var/lib/signald";
   defaultUser = "signald";
-in {
+in
+{
   options.services.signald = {
     enable = mkEnableOption (lib.mdDoc "the signald service");
 

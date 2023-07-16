@@ -224,7 +224,8 @@ import ./make-test-python.nix ({
         monA.wait_until_succeeds("ceph -s | grep 'HEALTH_OK'")
       ''
       ;
-  in {
+  in
+  {
     name = "basic-single-node-ceph-cluster";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -242,4 +243,5 @@ import ./make-test-python.nix ({
     };
 
     testScript = testscript;
-  } )
+  }
+)

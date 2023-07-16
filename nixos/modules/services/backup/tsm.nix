@@ -73,7 +73,8 @@ let
     }
   ];
 
-in {
+in
+{
 
   inherit options;
 

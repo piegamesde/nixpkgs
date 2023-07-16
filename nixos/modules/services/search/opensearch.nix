@@ -25,7 +25,8 @@ let
     name = loggingConfigFilename;
     text = cfg.logging;
   };
-in {
+in
+{
 
   options.services.opensearch = {
     enable = mkEnableOption (lib.mdDoc "OpenSearch");
@@ -221,7 +222,8 @@ in {
               chmod 0700 ${cfg.dataDir}/logs
               sed -e '#logs/gc.log#${cfg.dataDir}/logs/gc.log#' -i ${configDir}/jvm.options
             '';
-          in [
+          in
+          [
             "+${
               pkgs.writeShellScript "opensearch-start-pre-full-privileges"
               startPreFullPrivileges

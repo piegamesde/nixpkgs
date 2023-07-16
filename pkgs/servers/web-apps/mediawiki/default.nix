@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
           return require(getenv('MEDIAWIKI_CONFIG'));
         ?>
       '';
-    in ''
+    in
+    ''
       runHook preInstall
 
       mkdir -p $out/share/mediawiki

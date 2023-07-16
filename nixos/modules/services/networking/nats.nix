@@ -15,7 +15,8 @@ let
 
   configFile = format.generate "nats.conf" cfg.settings;
 
-in {
+in
+{
 
   ### Interface
 

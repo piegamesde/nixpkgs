@@ -93,7 +93,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
 (self:
   let
     inherit (self) mkDerivation;
-  in {
+  in
+  {
     inherit freebsdSrc;
 
     ports = fetchzip {
@@ -947,7 +948,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
 
     sys = mkDerivation (let
       cfg = "MINIMAL";
-    in rec {
+    in
+    rec {
       path = "sys";
 
       nativeBuildInputs = with buildPackages.freebsd; [
@@ -1014,6 +1016,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
       preBuild = ''
         cd ../compile/${cfg}
       '';
-    } );
+    }
+    );
 
-  } )
+  }
+)

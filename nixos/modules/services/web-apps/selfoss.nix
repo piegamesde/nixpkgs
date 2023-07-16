@@ -40,7 +40,8 @@ let
       ${cfg.extraConfig}
     ''
     ;
-in {
+in
+{
   options = {
     services.selfoss = {
       enable = mkEnableOption (lib.mdDoc "selfoss");

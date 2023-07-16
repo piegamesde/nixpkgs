@@ -47,7 +47,8 @@ let
       };
     }
     ;
-in rec {
+in
+rec {
   nix-prefetch-bzr =
     mkPrefetchScript "bzr" ../../../build-support/fetchbzr/nix-prefetch-bzr [
       breezy

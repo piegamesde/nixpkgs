@@ -48,7 +48,8 @@ let
           generated = pkgs.runCommand "dhparams-${name}.pem" {
             nativeBuildInputs = [ pkgs.openssl ];
           } ''openssl dhparam -out "$out" ${toString config.bits}'';
-        in if cfg.stateful then
+        in
+        if cfg.stateful then
           "${cfg.path}/${name}.pem"
         else
           generated
@@ -56,7 +57,8 @@ let
     }
     ;
 
-in {
+in
+{
   options = {
     security.dhparams = {
       enable = mkOption {

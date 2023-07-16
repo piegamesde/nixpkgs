@@ -50,7 +50,8 @@ import ./make-test-python.nix ({
       repo alice-project
           RW+     =   alice
     '';
-  in {
+  in
+  {
     name = "gitolite";
 
     meta = with pkgs.lib.maintainers; { maintainers = [ bjornfor ]; };
@@ -140,4 +141,5 @@ import ./make-test-python.nix ({
       with subtest("bob cannot clone alice-project.git"):
           client.fail("sudo -i -u bob git clone gitolite@server:alice-project.git")
     '';
-  } )
+  }
+)

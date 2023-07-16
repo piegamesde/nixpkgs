@@ -14,7 +14,8 @@ let
     py.magic-wormhole-mailbox-server
     py.twisted
   ]);
-in {
+in
+{
   options.services.magic-wormhole-mailbox-server = {
     enable = mkEnableOption (lib.mdDoc "Magic Wormhole Mailbox Server");
   };

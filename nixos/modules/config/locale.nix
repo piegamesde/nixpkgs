@@ -17,7 +17,8 @@ let
 
   lcfg = config.location;
 
-in {
+in
+{
   options = {
 
     time = {

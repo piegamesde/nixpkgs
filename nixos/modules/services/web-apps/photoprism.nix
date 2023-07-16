@@ -25,7 +25,8 @@ let
       exec ${cfg.package}/bin/photoprism "$@"
     ''
     ;
-in {
+in
+{
   meta.maintainers = with lib.maintainers; [ stunkymonkey ];
 
   options.services.photoprism = {

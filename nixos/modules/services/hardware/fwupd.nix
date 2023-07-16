@@ -69,7 +69,8 @@ let
       else
         { });
 
-in {
+in
+{
 
   ###### interface
   options = {

@@ -92,7 +92,8 @@ let
     let
       addr = splitMulitaddr addrRaw;
       s = builtins.elemAt addr;
-    in if s 0 == "ip4" && s 2 == "tcp" then
+    in
+    if s 0 == "ip4" && s 2 == "tcp" then
       "${s 1}:${s 3}"
     else if s 0 == "ip6" && s 2 == "tcp" then
       "[${s 1}]:${s 3}"
@@ -107,7 +108,8 @@ let
     let
       addr = splitMulitaddr addrRaw;
       s = builtins.elemAt addr;
-    in if s 0 == "ip4" && s 2 == "udp" then
+    in
+    if s 0 == "ip4" && s 2 == "udp" then
       "${s 1}:${s 3}"
     else if s 0 == "ip6" && s 2 == "udp" then
       "[${s 1}]:${s 3}"
@@ -115,7 +117,8 @@ let
       null
     ; # not valid for listen datagram, skip
 
-in {
+in
+{
 
   ###### interface
 

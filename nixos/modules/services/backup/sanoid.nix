@@ -135,7 +135,8 @@ let
     generators.toINI { inherit mkKeyValue; } cfg.settings
     ;
 
-in {
+in
+{
 
   # Interface
 

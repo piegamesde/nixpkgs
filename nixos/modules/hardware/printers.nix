@@ -35,7 +35,8 @@ let
       description = "printable string without spaces, # and /";
     };
 
-in {
+in
+{
   options = {
     hardware.printers = {
       ensureDefaultPrinter = mkOption {

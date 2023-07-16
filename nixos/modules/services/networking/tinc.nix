@@ -173,7 +173,8 @@ let
     }
     ;
 
-in {
+in
+{
 
   ###### interface
 
@@ -401,13 +402,15 @@ in {
               '';
             };
           }));
-  in {
+  in
+  {
     environment.etc = etcConfig;
 
     systemd.services = flip mapAttrs' cfg.networks (network: data:
       nameValuePair ("tinc.${network}") (let
         version = getVersion data.package;
-      in {
+      in
+      {
         description = "Tinc Daemon - ${network}";
         wantedBy = [ "multi-user.target" ];
         path = [ data.package ];
@@ -458,7 +461,8 @@ in {
             [ -f "/etc/tinc/${network}/rsa_key.priv" ] || tincd -n ${network} -K 4096
           fi
         '';
-      } ));
+      }
+      ));
 
     environment.systemPackages =
       let
@@ -475,9 +479,8 @@ in {
               '') cfg.networks)}
           '';
         };
-      in [
-        cli-wrappers
-      ]
+      in
+      [ cli-wrappers ]
       ;
 
     users.users = flip mapAttrs' cfg.networks (network: _:
@@ -488,7 +491,8 @@ in {
       }));
     users.groups = flip mapAttrs' cfg.networks
       (network: _: nameValuePair "tinc.${network}" { });
-  } );
+  }
+  );
 
   meta.maintainers = with maintainers; [
     minijackson

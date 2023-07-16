@@ -29,7 +29,8 @@ let
     fi
     $sudo ${pkgs.php}/bin/php artisan $*
   '';
-in {
+in
+{
   options.services.snipe-it = {
 
     enable = mkEnableOption
@@ -480,7 +481,8 @@ in {
             ])) cfg.config;
           snipeITEnv =
             pkgs.writeText "snipeIT.env" (snipeITEnvVars filteredConfig);
-        in ''
+        in
+        ''
           # error handling
           set -euo pipefail
 

@@ -273,7 +273,8 @@ let
     # Build the basic Python interpreter without modules that have
     # external dependencies.
 
-in with passthru;
+in
+with passthru;
 stdenv.mkDerivation ({
   pname = "python";
   inherit version;

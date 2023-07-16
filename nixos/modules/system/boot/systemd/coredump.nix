@@ -11,7 +11,8 @@ with lib;
 let
   cfg = config.systemd.coredump;
   systemd = config.systemd.package;
-in {
+in
+{
   options = {
     systemd.coredump.enable = mkOption {
       default = true;

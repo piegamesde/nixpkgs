@@ -39,7 +39,8 @@ let
     extraInstallCommands =
       let
         appimageContents = appimageTools.extractType2 { inherit name src; };
-      in ''
+      in
+      ''
         mv $out/bin/{${name},${pname}}
         install -Dm444 ${appimageContents}/octant.desktop -t $out/share/applications
         substituteInPlace $out/share/applications/octant.desktop \
@@ -85,7 +86,8 @@ let
     ];
   };
 
-in if stdenv.isDarwin then
+in
+if stdenv.isDarwin then
   darwin
 else
   linux

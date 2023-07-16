@@ -22,7 +22,8 @@ let
     given control of your browser, unless of course they also control your
     NixOS configuration.
   '';
-in {
+in
+{
   options.programs.firefox = {
     enable = mkEnableOption (mdDoc "the Firefox web browser");
 

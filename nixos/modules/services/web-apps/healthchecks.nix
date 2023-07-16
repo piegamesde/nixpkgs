@@ -36,7 +36,8 @@ let
     export $(cat ${environmentFile} | xargs)
     $sudo ${pkg}/opt/healthchecks/manage.py "$@"
   '';
-in {
+in
+{
   options.services.healthchecks = {
     enable = mkEnableOption (lib.mdDoc "healthchecks") // {
       description = lib.mdDoc ''
@@ -185,7 +186,8 @@ in {
           StateDirectoryMode =
             mkIf (cfg.dataDir == "/var/lib/healthchecks") "0750";
         };
-      in {
+      in
+      {
         healthchecks-migration = {
           description = "Healthchecks migrations";
           wantedBy = [ "healthchecks.target" ];

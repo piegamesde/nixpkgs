@@ -9,7 +9,8 @@ let
   cfg = config.services.mailcatcher;
 
   inherit (lib) mkEnableOption mkIf mkOption types optionalString;
-in {
+in
+{
   # interface
 
   options = {

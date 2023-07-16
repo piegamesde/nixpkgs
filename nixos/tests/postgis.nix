@@ -16,7 +16,8 @@ import ./make-test-python.nix ({
           services.postgresql =
             let
               mypg = pkgs.postgresql_11;
-            in {
+            in
+            {
               enable = true;
               package = mypg;
               extraPlugins = with mypg.pkgs; [ postgis ];

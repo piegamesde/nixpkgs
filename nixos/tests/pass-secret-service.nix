@@ -51,7 +51,8 @@ import ./make-test-python.nix ({
         gpg-uid = "alice@example.net";
         gpg-pw = "foobar9000";
         ready-file = "/tmp/secrets-dbus-init.done";
-      in ''
+      in
+      ''
         # Initialise the pass(1) storage.
         machine.succeed("""
           sudo -u alice gpg --pinentry-mode loopback --batch --passphrase ${gpg-pw} \

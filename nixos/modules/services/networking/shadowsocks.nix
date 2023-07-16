@@ -25,7 +25,8 @@ let
 
   configFile = pkgs.writeText "shadowsocks.json" (builtins.toJSON opts);
 
-in {
+in
+{
 
   ###### interface
 

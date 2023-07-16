@@ -427,15 +427,18 @@ let
       imports =
         let
           defined = x: x != "_mkMergedOptionModule";
-        in [
+        in
+        [
           (mkChangedOptionModule [ "preferTempAddress" ] [ "tempAddress" ]
             (config:
               let
                 bool = getAttrFromPath [ "preferTempAddress" ] config;
-              in if bool then
+              in
+              if bool then
                 "default"
               else
-                "enabled"))
+                "enabled"
+            ))
           (mkRenamedOptionModule [ "ip4" ] [
             "ipv4"
             "addresses"
@@ -552,7 +555,8 @@ let
       ''}
   '';
 
-in {
+in
+{
 
   ###### interface
 
@@ -1706,7 +1710,8 @@ in {
         text =
           let
             sysctl-value = tempaddrValues.${cfg.tempAddresses}.sysctl;
-          in ''
+          in
+          ''
             # enable and prefer IPv6 privacy addresses by default
             ACTION=="add", SUBSYSTEM=="net", RUN+="${pkgs.bash}/bin/sh -c 'echo ${sysctl-value} > /proc/sys/net/ipv6/conf/$name/use_tempaddr'"
           ''
@@ -1720,12 +1725,14 @@ in {
             opt = i.tempAddress;
             val = tempaddrValues.${opt}.sysctl;
             msg = tempaddrValues.${opt}.description;
-          in ''
+          in
+          ''
             # override to ${msg} for ${i.name}
             ACTION=="add", SUBSYSTEM=="net", RUN+="${pkgs.procps}/bin/sysctl net.ipv6.conf.${
               replaceStrings [ "." ] [ "/" ] i.name
             }.use_tempaddr=${val}"
-          '' ) (filter (i: i.tempAddress != cfg.tempAddresses) interfaces);
+          ''
+        ) (filter (i: i.tempAddress != cfg.tempAddresses) interfaces);
       })
     ] ++ lib.optional (cfg.wlanInterfaces != { }) (pkgs.writeTextFile {
       name = "99-zzz-40-wlanInterfaces.rules";
@@ -1833,7 +1840,8 @@ in {
               wlanListDeviceFirst device wlanDeviceInterfaces.${device};
             curInterface = elemAt interfaces 0;
             newInterfaces = drop 1 interfaces;
-          in ''
+          in
+          ''
             # It is important to have that rule first as overwriting the NAME attribute also prevents the
             # next rules from matching.
             ${flip (concatMapStringsSep "\n")
@@ -1853,7 +1861,8 @@ in {
             ACTION=="move", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", NAME=="${device}", ${
               systemdAttrs curInterface._iName
             }
-          '' )
+          ''
+        )
         ;
     });
   };

@@ -25,7 +25,8 @@ import ./make-test-python.nix ({
         systemd.services.zammad-locale-cheat =
           let
             cfg = config.services.zammad;
-          in {
+          in
+          {
             serviceConfig = {
               Type = "simple";
               Restart = "always";

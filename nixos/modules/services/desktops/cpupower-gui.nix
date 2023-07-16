@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.cpupower-gui;
-in {
+in
+{
   options = {
     services.cpupower-gui = {
       enable = mkOption {

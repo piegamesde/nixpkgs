@@ -102,7 +102,8 @@ stdenv.mkDerivation rec {
     let
       excludedTestsRegex = lib.optionalString (excludedTests != [ ])
         "(${lib.concatStringsSep "|" excludedTests})";
-    in ''
+    in
+    ''
       runHook preCheck
       ctest -E "${excludedTestsRegex}" --output-on-failure
       runHook postCheck

@@ -46,7 +46,8 @@ makeScope newScope (self:
       (packages ++ concatLists (catAttrs "requiredOctavePackages" packages))
       ;
 
-  in {
+  in
+  {
 
     inherit callPackage buildOctavePackage computeRequiredOctavePackages;
 
@@ -220,4 +221,5 @@ makeScope newScope (self:
       inherit (pkgs) zeromq autoreconfHook;
     };
 
-  } )
+  }
+)

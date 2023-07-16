@@ -8,7 +8,8 @@ let
   cfg = config.services.meshcentral;
   configFormat = pkgs.formats.json { };
   configFile = configFormat.generate "meshcentral-config.json" cfg.settings;
-in with lib; {
+in
+with lib; {
   options.services.meshcentral = with types; {
     enable =
       mkEnableOption (lib.mdDoc "MeshCentral computer management server");

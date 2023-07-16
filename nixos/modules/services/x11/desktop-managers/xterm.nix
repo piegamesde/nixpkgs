@@ -12,7 +12,8 @@ let
   cfg = config.services.xserver.desktopManager.xterm;
   xSessionEnabled = config.services.xserver.enable;
 
-in {
+in
+{
   options = {
 
     services.xserver.desktopManager.xterm.enable = mkOption {

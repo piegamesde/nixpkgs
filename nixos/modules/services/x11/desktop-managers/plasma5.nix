@@ -97,7 +97,8 @@ let
     XDG_CONFIG_HOME=''${XDG_CONFIG_HOME:-$HOME/.config}
   '';
 
-in {
+in
+{
   options = {
     services.xserver.desktopManager.plasma5 = {
       enable = mkOption {

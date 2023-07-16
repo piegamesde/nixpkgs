@@ -7,7 +7,8 @@
 with lib;
 let
   cfg = config.services.pict-rs;
-in {
+in
+{
   meta.maintainers = with maintainers; [ happysalada ];
   meta.doc = ./pict-rs.md;
 

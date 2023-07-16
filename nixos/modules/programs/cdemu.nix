@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.cdemu;
-in {
+in
+{
 
   options = {
     programs.cdemu = {

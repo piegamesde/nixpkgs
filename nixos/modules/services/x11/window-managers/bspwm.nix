@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.xserver.windowManager.bspwm;
 
-in {
+in
+{
   options = {
     services.xserver.windowManager.bspwm = {
       enable = mkEnableOption (lib.mdDoc "bspwm");

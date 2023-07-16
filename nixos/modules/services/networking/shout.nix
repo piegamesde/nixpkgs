@@ -31,7 +31,8 @@ let
       ''
     ;
 
-in {
+in
+{
   options.services.shout = {
     enable = mkEnableOption (lib.mdDoc "Shout web IRC client");
 

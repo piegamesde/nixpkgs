@@ -174,7 +174,8 @@ let
     }
     ;
 
-in rec {
+in
+rec {
 
   channel =
     import lib/make-channel.nix { inherit pkgs nixpkgs version versionSuffix; };

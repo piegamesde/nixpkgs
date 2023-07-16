@@ -8,7 +8,8 @@
 }:
 let
   common = opts: callPackage (import ./common.nix opts) { };
-in {
+in
+{
 
   openssh = common rec {
     pname = "openssh";

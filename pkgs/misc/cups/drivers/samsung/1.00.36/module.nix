@@ -24,7 +24,8 @@ with lib;
 let
   cfg = config.services.samsung-unified-linux-driver_1_00_36;
   pkg = pkgs.samsung-unified-linux-driver_1_00_36;
-in {
+in
+{
   options = {
     services.samsung-unified-linux-driver_1_00_36 = {
       enable = mkEnableOption "enable samsung-unified-linux-driver_1_00_36";

@@ -27,12 +27,14 @@ let
     else
       { }
     ;
-in with import pkgspath ({ inherit localSystem; } // cross // custom-bootstrap);
+in
+with import pkgspath ({ inherit localSystem; } // cross // custom-bootstrap);
 
 let
   llvmPackages = llvmPackages_11;
   storePrefixLen = builtins.stringLength builtins.storeDir;
-in rec {
+in
+rec {
   coreutils_ = coreutils.override (args: {
     # We want coreutils without ACL support.
     aclSupport = false;

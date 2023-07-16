@@ -49,7 +49,8 @@ let
     else
       xmonad-vanilla
     ;
-in {
+in
+{
   meta.maintainers = with maintainers; [
     lassulus
     xaverdh

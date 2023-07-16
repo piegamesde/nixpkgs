@@ -176,7 +176,8 @@ let
       # support both lua and lua.withPackages derivations
       luaversion =
         cfg.package.lua5.lua.luaversion or cfg.package.lua5.luaversion;
-    in ''
+    in
+    ''
       <IfModule mod_lua.c>
         LuaPackageCPath ${cfg.package.lua5}/lib/lua/${luaversion}/?.so
         LuaPackagePath  ${cfg.package.lua5}/share/lua/${luaversion}/?.lua
@@ -332,7 +333,8 @@ let
         '') (sortProperties
           (mapAttrsToList (k: v: v // { location = k; }) locations)))
         ;
-    in ''
+    in
+    ''
       ${optionalString cfg.logPerVirtualHost ''
         ErrorLog ${cfg.logDir}/error-${hostOpts.hostName}.log
         CustomLog ${cfg.logDir}/access-${hostOpts.hostName}.log ${hostOpts.logFormat}
@@ -500,7 +502,8 @@ let
   mkCertOwnershipAssertion =
     import ../../../security/acme/mk-cert-ownership-assertion.nix;
 
-in {
+in
+{
 
   imports = [
     (mkRemovedOptionModule [
@@ -1001,7 +1004,8 @@ in {
     systemd.tmpfiles.rules =
       let
         svc = config.systemd.services.httpd.serviceConfig;
-      in [
+      in
+      [
         "d '${cfg.logDir}' 0700 ${svc.User} ${svc.Group}"
         "Z '${cfg.logDir}' - ${svc.User} ${svc.Group}"
       ]

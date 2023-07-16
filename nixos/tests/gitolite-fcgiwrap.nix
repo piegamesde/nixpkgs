@@ -11,7 +11,8 @@ import ./make-test-python.nix ({
     adminPublicKey = ''
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO7urFhAA90BTpGuEHeWWTY3W/g9PBxXNxfWhfbrm4Le root@client
     '';
-  in {
+  in
+  {
     name = "gitolite-fcgiwrap";
 
     meta = with pkgs.lib.maintainers; { maintainers = [ bbigras ]; };
@@ -95,4 +96,5 @@ import ./make-test-python.nix ({
           "git clone http://${user}:${password}@server/git/gitolite-admin.git"
       )
     '';
-  } )
+  }
+)

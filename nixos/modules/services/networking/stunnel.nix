@@ -54,7 +54,8 @@ let
     } (removeNulls c)
     ;
 
-in {
+in
+{
 
   ###### interface
 

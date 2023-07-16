@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.illum;
-in {
+in
+{
 
   options = {
 

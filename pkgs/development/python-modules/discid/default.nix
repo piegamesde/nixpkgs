@@ -18,7 +18,8 @@ buildPythonPackage rec {
   patchPhase =
     let
       extension = stdenv.hostPlatform.extensions.sharedLibrary;
-    in ''
+    in
+    ''
       substituteInPlace discid/libdiscid.py \
         --replace "_open_library(_LIB_NAME)" \
                   "_open_library('${libdiscid}/lib/libdiscid${extension}')"

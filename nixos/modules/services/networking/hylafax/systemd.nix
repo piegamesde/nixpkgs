@@ -280,7 +280,8 @@ let
 
   modemServices = lib.listToAttrs (mapModems mkFaxgettyService);
 
-in {
+in
+{
   config.systemd = mkIf cfg.enable {
     inherit sockets timers paths;
     services =

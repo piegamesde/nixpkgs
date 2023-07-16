@@ -118,7 +118,8 @@ import ./make-test-python.nix {
                 print("===> lastline:", lastline)
                 assert lastline.strip() == b'Hello World'
             '';
-          in [
+          in
+          [
             sendTestMail
             checkMailLanded
           ]

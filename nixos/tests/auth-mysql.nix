@@ -43,7 +43,8 @@ import ./make-test-python.nix ({
       ('${mysqlUsername}', 5000, 5000, SHA2('${mysqlPassword}', 256));
       INSERT INTO `groups` (name, gid) VALUES ('${mysqlGroup}', 5000);
     '';
-  in {
+  in
+  {
     name = "auth-mysql";
     meta.maintainers = with lib.maintainers; [ netali ];
 
@@ -179,4 +180,5 @@ import ./make-test-python.nix ({
           machine.wait_until_tty_matches("5", "Login incorrect")
           machine.wait_until_tty_matches("5", "login:")
     '';
-  } )
+  }
+)

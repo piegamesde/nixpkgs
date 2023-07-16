@@ -19,7 +19,8 @@ let
     let
       hash = substring 0 12
         (hashString "md5" (unsafeDiscardStringContext (toJSON service)));
-    in if service ? description && service.description != null then
+    in
+    if service ? description && service.description != null then
       "${hash} ${service.description}"
     else
       "${name}_${config.networking.hostName}_${hash}"
@@ -170,7 +171,8 @@ let
     export CONFIG_FILE=${configPath}
     exec gitlab-runner run --working-directory $HOME
   '';
-in {
+in
+{
   options.services.gitlab-runner = {
     enable = mkEnableOption (lib.mdDoc "Gitlab Runner");
     configFile = mkOption {

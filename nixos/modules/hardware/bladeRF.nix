@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.hardware.bladeRF;
 
-in {
+in
+{
   options.hardware.bladeRF = {
     enable = mkOption {
       type = types.bool;

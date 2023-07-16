@@ -19,7 +19,8 @@ let
         paths = cfg.customPkgs;
         pathsToLink = "/share/zsh/${dir}";
       };
-    in {
+    in
+    {
       inherit name;
       path = "${env}/share/zsh/${dir}";
     }
@@ -40,7 +41,8 @@ let
       ]
     ;
 
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "programs"

@@ -28,7 +28,8 @@ let
   installer =
     "https://clientupdates.dropboxstatic.com/dbx-releng/client/dropbox-lnx.${arch}-${version}.tar.gz";
 
-in let
+in
+let
   desktopItem = makeDesktopItem {
     name = "dropbox";
     exec = "dropbox";

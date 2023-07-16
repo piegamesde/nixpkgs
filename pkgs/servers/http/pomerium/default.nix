@@ -74,9 +74,8 @@ buildGoModule rec {
       varFlags = concatStringsSpace (mapAttrsToFlatList (package: packageVars:
         mapAttrsToList (variable: value: "-X ${package}.${variable}=${value}")
         packageVars) setVars);
-    in [
-      "${varFlags}"
-    ]
+    in
+    [ "${varFlags}" ]
     ;
 
   preBuild = ''

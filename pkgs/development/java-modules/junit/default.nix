@@ -14,7 +14,8 @@ let
   collections = import (../collections.nix) { inherit pkgs; };
   mavenbuild-jdk8 =
     mavenbuild.override { maven = maven.override { jdk = jdk8; }; };
-in rec {
+in
+rec {
   junitGen =
     {
       mavenDeps,

@@ -11,7 +11,8 @@ with lib;
 let
   cfg = config.services.languagetool;
   settingsFormat = pkgs.formats.javaProperties { };
-in {
+in
+{
   options.services.languagetool = {
     enable = mkEnableOption (mdDoc "the LanguageTool server");
 

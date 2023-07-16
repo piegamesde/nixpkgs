@@ -27,7 +27,8 @@ import ./make-test-python.nix ({
 
           assert f.styleName() == "Regular", f.styleName()
         '';
-      in ''
+      in
+      ''
         machine.wait_for_x()
         machine.succeed("${script}")
       ''

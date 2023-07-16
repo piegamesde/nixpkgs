@@ -33,6 +33,5 @@ let
 
     update-source-version ${pname} "$version" --ignore-same-hash
   '';
-in [
-  updateScript
-]
+in
+[ updateScript ]

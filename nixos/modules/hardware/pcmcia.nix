@@ -13,7 +13,8 @@ let
     inherit (config.hardware.pcmcia) firmware config;
   };
 
-in {
+in
+{
   ###### interface
 
   options = {

@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.prometheus.sachet;
   configFile = pkgs.writeText "sachet.yml" (builtins.toJSON cfg.configuration);
-in {
+in
+{
   options = {
     services.prometheus.sachet = {
       enable = mkEnableOption (lib.mdDoc

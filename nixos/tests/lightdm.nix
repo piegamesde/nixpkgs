@@ -26,7 +26,8 @@ import ./make-test-python.nix ({
       }:
       let
         user = nodes.machine.config.users.users.alice;
-      in ''
+      in
+      ''
         start_all()
         machine.wait_for_text("${user.description}")
         machine.screenshot("lightdm")

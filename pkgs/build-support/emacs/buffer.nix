@@ -87,7 +87,8 @@ rec {
           filtered = builtins.filter (name:
             lib.hasPrefix (toString (project-root + "/${name}"))
             (toString root)) (builtins.attrNames haskell-paths);
-        in if filtered == [ ] then
+        in
+        if filtered == [ ] then
           null
         else
           builtins.head filtered
@@ -97,7 +98,8 @@ rec {
       haskell-package = haskellPackages.${haskell-path-parent};
         # GHC environment with all needed deps for the haskell package
       haskell-package-env = builtins.head haskell-package.env.nativeBuildInputs;
-    in if is-haskell-package then
+    in
+    if is-haskell-package then
       withPackages [ haskell-package-env ]
     else
       { }

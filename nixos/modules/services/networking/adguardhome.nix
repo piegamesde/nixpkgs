@@ -23,7 +23,8 @@ let
     checkPhase = "${pkgs.adguardhome}/bin/adguardhome -c $out --check-config";
   };
 
-in {
+in
+{
 
   imports =
     let
@@ -31,7 +32,8 @@ in {
         "services"
         "adguardhome"
       ];
-    in [
+    in
+    [
       (mkRenamedOptionModuleWith {
         sinceRelease = 2211;
         from = cfgPath ++ [ "host" ];

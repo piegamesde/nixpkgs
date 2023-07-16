@@ -97,7 +97,8 @@ let
 
     ${cfg.extraConfig}
   '';
-in {
+in
+{
   imports = [ ./nghttpx-options.nix ];
 
   config = lib.mkIf cfg.enable {

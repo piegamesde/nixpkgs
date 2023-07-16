@@ -27,10 +27,12 @@ let
         };
       };
 
-    in [
+    in
+    [
       promise
       semaphore
-    ] );
+    ]
+  );
 
 in
 pkgs.mkShell {

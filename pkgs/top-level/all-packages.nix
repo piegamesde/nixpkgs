@@ -10745,7 +10745,8 @@ with pkgs;
 
   multitran = recurseIntoAttrs (let
     callPackage = newScope pkgs.multitran;
-  in {
+  in
+  {
     multitrandata = callPackage ../tools/text/multitran/data { };
 
     libbtree = callPackage ../tools/text/multitran/libbtree { };
@@ -10757,7 +10758,8 @@ with pkgs;
     libmtquery = callPackage ../tools/text/multitran/libmtquery { };
 
     mtutils = callPackage ../tools/text/multitran/mtutils { };
-  } );
+  }
+  );
 
   munge = callPackage ../tools/security/munge { };
 
@@ -15540,10 +15542,12 @@ with pkgs;
         12
       ;
     numS = toString num;
-  in {
+  in
+  {
     gcc = pkgs.${"gcc${numS}"};
     gccFun = callPackage (../development/compilers/gcc + "/${numS}");
-  } )
+  }
+  )
     gcc
     gccFun
     ;
@@ -19043,7 +19047,8 @@ with pkgs;
   bintools-unwrapped =
     let
       inherit (stdenv.targetPlatform) linker;
-    in if linker == "lld" then
+    in
+    if linker == "lld" then
       llvmPackages.bintools-unwrapped
     else if linker == "cctools" then
       darwin.binutils-unwrapped
@@ -21969,7 +21974,8 @@ with pkgs;
   preLibcCrossHeaders =
     let
       inherit (stdenv.targetPlatform) libc;
-    in if libc == "msvcrt" then
+    in
+    if libc == "msvcrt" then
       targetPackages.windows.mingw_w64_headers or windows.mingw_w64_headers
     else if libc == "nblibc" then
       targetPackages.netbsdCross.headers or netbsdCross.headers
@@ -22274,13 +22280,15 @@ with pkgs;
 
   glib = callPackage ../development/libraries/glib (let
     glib-untested = glib.overrideAttrs (_: { doCheck = false; });
-  in {
+  in
+  {
     # break dependency cycles
     # these things are only used for tests, they don't get into the closure
     shared-mime-info = shared-mime-info.override { glib = glib-untested; };
     desktop-file-utils = desktop-file-utils.override { glib = glib-untested; };
     dbus = dbus.override { enableSystemd = false; };
-  } );
+  }
+  );
 
   glibmm = callPackage ../development/libraries/glibmm { };
 
@@ -26927,7 +26935,8 @@ with pkgs;
     apacheHttpd: self:
     let
       callPackage = newScope self;
-    in {
+    in
+    {
       inherit apacheHttpd;
 
       mod_auth_mellon =
@@ -42241,13 +42250,15 @@ with pkgs;
 
   mysql-workbench = callPackage ../applications/misc/mysql-workbench (let
     mysql = mysql80;
-  in {
+  in
+  {
     gdal = gdal.override { libmysqlclient = mysql; };
     mysql = mysql;
     pcre = pcre-cpp;
     jre =
       openjdk19; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
-  } );
+  }
+  );
 
   r128gain = callPackage ../applications/audio/r128gain { };
 

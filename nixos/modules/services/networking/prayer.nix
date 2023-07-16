@@ -36,7 +36,8 @@ let
     cat ${prayerExtraCfg} >> $out
   '';
 
-in {
+in
+{
 
   ###### interface
 

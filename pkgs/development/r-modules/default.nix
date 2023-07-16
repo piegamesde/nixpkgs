@@ -344,7 +344,8 @@ let
     old: new:
     let
       old0 = old;
-    in let
+    in
+    let
       old1 = old0 // (overrideRequireX packagesRequiringX old0);
       old2 = old1 // (overrideRequireHome packagesRequiringHome old1);
       old3 = old2 // (overrideSkipCheck packagesToSkipCheck old2);
@@ -1271,7 +1272,8 @@ let
               sha256 = "0hvazpizziq5ibc9017i1bb45yryfl26wzfsv05vk9mc1575r6xj";
               stripRoot = false;
             };
-          in ''
+          in
+          ''
             ${attrs.postInstall or ""}
             cp ${icuSrc}/${icuName}.dat $out/library/stringi/libs
           ''

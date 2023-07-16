@@ -34,7 +34,8 @@ let
 
   hasDisabledPlugins = builtins.length cfg.disabledPlugins > 0;
 
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "hardware"
@@ -153,7 +154,8 @@ in {
             "/etc/bluetooth/main.conf"
           ] ++ optional hasDisabledPlugins
             "--noplugin=${concatStringsSep "," cfg.disabledPlugins}";
-        in {
+        in
+        {
           wantedBy = [ "bluetooth.target" ];
           aliases = [ "dbus-org.bluez.service" ];
           serviceConfig.ExecStart = [

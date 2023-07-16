@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
         xrectsel
         xwininfo
       ];
-    in ''
+    in
+    ''
       wrapProgram $out/bin/ffcast --prefix PATH : ${binPath}
     ''
     ;

@@ -22,7 +22,8 @@ let
     Exclude=${concatStringsSep "," cfg.portList.exclude}
   '';
 
-in {
+in
+{
 
   ###### interface
 

@@ -142,7 +142,8 @@ let
           (assertValueOneOf "PacketInfo" boolValues)
           (assertValueOneOf "VNetHeader" boolValues)
         ];
-      in {
+      in
+      {
 
         sectionNetdev = checkUnitConfig "Netdev" [
           (assertOnlyFields [
@@ -3600,7 +3601,8 @@ let
     ]
     ;
 
-in {
+in
+{
   options = {
     systemd.network = commonOptions true;
     boot.initrd.systemd.network = commonOptions "shallow";

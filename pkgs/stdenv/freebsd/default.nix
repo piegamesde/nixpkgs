@@ -180,7 +180,8 @@ let
     ];
   };
   bashExe = "${bash}/bin/bash";
-in [
+in
+[
 
   ({ }: {
     __raw = true;

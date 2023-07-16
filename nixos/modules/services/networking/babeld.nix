@@ -30,7 +30,8 @@ let
     name:
     let
       interface = getAttr name cfg.interfaces;
-    in ''
+    in
+    ''
       interface ${name} ${paramsString interface}
     ''
     ;
@@ -43,7 +44,8 @@ let
     '') + (concatMapStrings interfaceConfig (attrNames cfg.interfaces))
       + extraConfig);
 
-in {
+in
+{
 
   meta.maintainers = with maintainers; [
       hexa

@@ -21,7 +21,8 @@ let
     ${config.services.polipo.extraConfig}
   '';
 
-in {
+in
+{
 
   options = {
 

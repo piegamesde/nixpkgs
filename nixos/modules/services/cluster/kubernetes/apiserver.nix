@@ -18,7 +18,8 @@ let
   apiserverServiceIP =
     (concatStringsSep "." (take 3 (splitString "." cfg.serviceClusterIpRange))
       + ".1");
-in {
+in
+{
 
   imports = [
     (mkRenamedOptionModule [

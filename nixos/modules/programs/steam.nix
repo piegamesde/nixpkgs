@@ -32,7 +32,8 @@ let
       Exec=${steam-gamescope}/bin/steam-gamescope
       Type=Application
     '').overrideAttrs (_: { passthru.providedSessions = [ "steam" ]; });
-in {
+in
+{
   options.programs.steam = {
     enable = mkEnableOption (lib.mdDoc "steam");
 

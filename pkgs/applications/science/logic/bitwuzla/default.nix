@@ -69,7 +69,8 @@ stdenv.mkDerivation rec {
         else
           "LD_LIBRARY_PATH"
         ;
-    in ''
+    in
+    ''
       export ${var}=$(readlink -f lib)
       patchShebangs ..
     ''

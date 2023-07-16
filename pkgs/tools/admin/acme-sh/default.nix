@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
         else
           unixtools.netstat)
       ];
-    in ''
+    in
+    ''
       runHook preInstall
 
       mkdir -p $out $out/bin $out/libexec

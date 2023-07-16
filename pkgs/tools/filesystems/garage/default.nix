@@ -92,7 +92,8 @@ let
       };
     }
     ;
-in rec {
+in
+rec {
   # Until Garage hits 1.0, 0.7.3 is equivalent to 7.3.0 for now, therefore
   # we have to keep all the numbers in the version to handle major/minor/patch level.
   # for <1.0.

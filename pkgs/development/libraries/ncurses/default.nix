@@ -105,7 +105,8 @@ stdenv.mkDerivation (finalAttrs: {
         else
           "$dylibtype.${abiVersion}"
         ;
-    in ''
+    in
+    ''
       # Determine what suffixes our libraries have
       suffix="$(awk -F': ' 'f{print $3; f=0} /default library suffix/{f=1}' config.log)"
       libs="$(ls $dev/lib/pkgconfig | tr ' ' '\n' | sed "s,\(.*\)$suffix\.pc,\1,g")"

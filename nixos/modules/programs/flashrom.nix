@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.flashrom;
-in {
+in
+{
   options.programs.flashrom = {
     enable = mkOption {
       type = types.bool;

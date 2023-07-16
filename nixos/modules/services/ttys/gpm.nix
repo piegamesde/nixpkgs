@@ -11,7 +11,8 @@ let
 
   cfg = config.services.gpm;
 
-in {
+in
+{
 
   ###### interface
 

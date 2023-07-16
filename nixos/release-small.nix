@@ -37,7 +37,8 @@ let
     nixpkgs = nixpkgsSrc;
   }) [ "unstable" ];
 
-in rec {
+in
+rec {
 
   nixos = {
     inherit (nixos') channel manual options iso_minimal amazonImage dummy;

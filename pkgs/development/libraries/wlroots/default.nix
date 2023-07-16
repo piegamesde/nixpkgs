@@ -123,7 +123,8 @@ let
     }
     ;
 
-in rec {
+in
+rec {
   wlroots_0_14 = generic {
     version = "0.14.1";
     hash = "sha256-wauk7TCL/V7fxjOZY77KiPbfydIc9gmOiYFOuum4UOs=";

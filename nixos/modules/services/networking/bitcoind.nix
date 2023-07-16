@@ -181,7 +181,8 @@ let
       };
     }
     ;
-in {
+in
+{
 
   options = {
     services.bitcoind = mkOption {
@@ -232,7 +233,8 @@ in {
           # Extra config options (from bitcoind nixos service)
           ${cfg.extraConfig}
         '';
-      in {
+      in
+      {
         description = "Bitcoin daemon";
         after = [ "network-online.target" ];
         wantedBy = [ "multi-user.target" ];
@@ -273,7 +275,8 @@ in {
           PrivateDevices = "true";
           MemoryDenyWriteExecute = "true";
         };
-      } ))) eachBitcoind;
+      }
+      ))) eachBitcoind;
 
     systemd.tmpfiles.rules = flatten (mapAttrsToList (bitcoindName: cfg: [
         "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -"

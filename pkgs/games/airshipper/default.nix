@@ -108,7 +108,8 @@ rustPlatform.buildRustPackage {
         libXi
         libXcursor
       ];
-    in ''
+    in
+    ''
       patchelf --set-rpath "${libPath}" "$out/bin/airshipper"
       wrapProgram "$out/bin/airshipper" --set VELOREN_PATCHER "${patch}"
     ''

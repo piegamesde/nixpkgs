@@ -198,7 +198,8 @@ let
           let
             sorted = builtins.sort (a: b: a < b) expectedFiles;
             concatenated = builtins.concatStringsSep "\n" sorted;
-          in ''
+          in
+          ''
             ${concatenated}
           ''
           ;
@@ -231,7 +232,8 @@ let
       '')
     ;
 
-in rec {
+in
+rec {
 
   tests =
     let
@@ -326,7 +328,8 @@ in rec {
               ;
             depCrate01 = crateWithVersion "0.1.2";
             depCrate02 = crateWithVersion "0.2.1";
-          in {
+          in
+          {
             crateName = "my_bin";
             src = symlinkJoin {
               name = "my_bin_src";
@@ -448,7 +451,8 @@ in rec {
                 '';
               }
               ;
-          in {
+          in
+          {
             crateName = "foo";
             src = symlinkJoin {
               name = "build-script-and-main";
@@ -522,7 +526,8 @@ in rec {
                 ];
               };
             };
-          in {
+          in
+          {
             crateName = "foo";
             src = symlinkJoin {
               name = "build-script-and-include-dir-foo";
@@ -624,7 +629,8 @@ in rec {
                   printf("hello");
                 }
               '';
-            in [
+            in
+            [
               a
               b
             ]

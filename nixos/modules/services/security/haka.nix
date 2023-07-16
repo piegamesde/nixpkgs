@@ -53,7 +53,8 @@ let
     #file = "/dev/null"
   '';
 
-in {
+in
+{
 
   ###### interface
 

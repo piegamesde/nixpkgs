@@ -56,7 +56,8 @@ let
     };
   };
 
-in {
+in
+{
 
   options = {
     fileSystems = mkOption {

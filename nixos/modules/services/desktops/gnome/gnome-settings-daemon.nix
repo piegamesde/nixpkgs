@@ -13,7 +13,8 @@ let
 
   cfg = config.services.gnome.gnome-settings-daemon;
 
-in {
+in
+{
 
   meta = { maintainers = teams.gnome.members; };
 

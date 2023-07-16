@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.icecream.scheduler;
-in {
+in
+{
 
   ###### interface
 

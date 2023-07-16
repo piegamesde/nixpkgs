@@ -11,7 +11,8 @@ let
       "linux"
     ;
   sources = lib.importJSON ./sources.json;
-in {
+in
+{
   jdk-hotspot = import ./jdk-linux-base.nix {
     sourcePerArch = sources.openjdk15.${variant}.jdk.hotspot;
   };

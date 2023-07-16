@@ -7,7 +7,8 @@ with lib;
 let
   cfg = config.hardware.cpu.intel.sgx;
   defaultPrvGroup = "sgx_prv";
-in {
+in
+{
   options.hardware.cpu.intel.sgx.enableDcapCompat = mkOption {
     description = lib.mdDoc ''
       Whether to enable backward compatibility for SGX software build for the

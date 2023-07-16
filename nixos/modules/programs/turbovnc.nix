@@ -11,7 +11,8 @@ with lib;
 
 let
   cfg = config.programs.turbovnc;
-in {
+in
+{
   options = {
 
     programs.turbovnc = {

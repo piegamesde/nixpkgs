@@ -15,7 +15,8 @@ let
       initialAdminPassword = ''h4Iho"JFn't2>iQIR9'';
       adminPasswordFile =
         pkgs.writeText "admin-password" "${initialAdminPassword}";
-    in {
+    in
+    {
       name = "keycloak";
       meta = with pkgs.lib.maintainers; { maintainers = [ talyz ]; };
 
@@ -106,7 +107,8 @@ let
               empty
             end
           '';
-        in ''
+        in
+        ''
           keycloak.start()
           keycloak.wait_for_unit("keycloak.service")
           keycloak.wait_for_open_port(443)
@@ -178,8 +180,10 @@ let
           )
         ''
         ;
-    } );
-in {
+    }
+  );
+in
+{
   postgres = keycloakTest { databaseType = "postgresql"; };
   mariadb = keycloakTest { databaseType = "mariadb"; };
   mysql = keycloakTest { databaseType = "mysql"; };

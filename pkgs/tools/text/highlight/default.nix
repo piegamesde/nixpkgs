@@ -77,7 +77,8 @@ let
     };
   };
 
-in if stdenv.isDarwin then
+in
+if stdenv.isDarwin then
   self
 else
   perl.pkgs.toPerlModule self

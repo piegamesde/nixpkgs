@@ -22,7 +22,8 @@ let
       ${cfg.package}/sbin/ngircd --config $out --configtest
     '';
   };
-in {
+in
+{
   options = {
     services.ngircd = {
       enable = mkEnableOption (lib.mdDoc "the ngircd IRC server");

@@ -33,7 +33,8 @@ let
     GTK_PATH=${cfg.package}/lib/gtk-3.0/ gtk-query-immodules-3.0 > $out/etc/gtk-3.0/immodules.cache
   '';
 
-in {
+in
+{
   options.i18n = {
     inputMethod = {
       enabled = mkOption {

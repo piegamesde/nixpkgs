@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.meilisearch;
 
-in {
+in
+{
 
   meta.maintainers = with maintainers; [
     Br1ght0ne

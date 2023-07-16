@@ -15,7 +15,8 @@ let
 
   displaylink = pkgs.displaylink.override { inherit evdi; };
 
-in {
+in
+{
 
   config = mkIf enabled {
 

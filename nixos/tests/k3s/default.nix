@@ -5,7 +5,8 @@
 }:
 let
   allK3s = lib.filterAttrs (n: _: lib.strings.hasPrefix "k3s_" n) pkgs;
-in {
+in
+{
   # Run a single node k3s cluster and verify a pod can run
   single-node =
     lib.mapAttrs (_: k3s: import ./single-node.nix { inherit system pkgs k3s; })

@@ -16,7 +16,8 @@ let
     " --search " + (getLuaPath path "share") + " --search "
     + (getLuaPath path "lib"));
 
-in {
+in
+{
 
   ###### interface
 

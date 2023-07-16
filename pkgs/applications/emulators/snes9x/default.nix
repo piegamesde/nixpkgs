@@ -112,7 +112,8 @@ stdenv.mkDerivation rec {
         else
           "X11"
         ;
-    in {
+    in
+    {
       homepage = "https://www.snes9x.com";
       description =
         "Super Nintendo Entertainment System (SNES) emulator, ${interface} version";
@@ -136,5 +137,6 @@ stdenv.mkDerivation rec {
       ];
       platforms = platforms.unix;
       broken = (withGtk && stdenv.isDarwin);
-    } ;
+    }
+    ;
 }

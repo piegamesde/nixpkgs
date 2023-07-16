@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.programs.git;
 
-in {
+in
+{
   options = {
     programs.git = {
       enable = mkEnableOption (lib.mdDoc "git");

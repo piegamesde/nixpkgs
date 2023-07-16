@@ -199,7 +199,8 @@ let
           fs.writeFileSync("package.json", JSON.stringify(packageObj, null, 2));
         '';
       };
-    in ''
+    in
+    ''
       node ${pinpointDependenciesFromPackageJSON} ${
         if production then
           "production"
@@ -391,7 +392,8 @@ let
         else
           "--registry http://www.example.com"
         ;
-    in ''
+    in
+    ''
       # Pinpoint the versions of all dependencies to the ones that are actually being used
       echo "pinpointing versions of dependencies..."
       source $pinpointDependenciesScriptPath
@@ -682,7 +684,8 @@ let
       '';
     }
     ;
-in {
+in
+{
   buildNodeSourceDist = lib.makeOverridable buildNodeSourceDist;
   buildNodePackage = lib.makeOverridable buildNodePackage;
   buildNodeDependencies = lib.makeOverridable buildNodeDependencies;

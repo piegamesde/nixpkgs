@@ -28,7 +28,8 @@ with lib;
           else
             iptablesServices
           ;
-      in {
+      in
+      {
         unitConfig = {
           Description = "v2rayA service";
           Documentation = "https://github.com/v2rayA/v2rayA/wiki";
