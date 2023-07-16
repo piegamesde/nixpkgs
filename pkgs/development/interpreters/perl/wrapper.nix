@@ -15,47 +15,47 @@ let
   env = let
     paths = requiredPerlModules (extraLibs ++ [ perl ]);
   in
-    buildEnv {
-      name = "${perl.name}-env";
+  buildEnv {
+    name = "${perl.name}-env";
 
-      inherit paths;
-      inherit ignoreCollisions;
-      extraOutputsToInstall = [ "out" ] ++ extraOutputsToInstall;
+    inherit paths;
+    inherit ignoreCollisions;
+    extraOutputsToInstall = [ "out" ] ++ extraOutputsToInstall;
 
-      nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [ makeWrapper ];
 
-      # we create wrapper for the binaries in the different packages
-      postBuild = ''
-        if [ -L "$out/bin" ]; then
-            unlink "$out/bin"
-        fi
-        mkdir -p "$out/bin"
+    # we create wrapper for the binaries in the different packages
+    postBuild = ''
+      if [ -L "$out/bin" ]; then
+          unlink "$out/bin"
+      fi
+      mkdir -p "$out/bin"
 
-        # take every binary from perl packages and put them into the env
-        for path in ${lib.concatStringsSep " " paths}; do
-          if [ -d "$path/bin" ]; then
-            cd "$path/bin"
-            for prg in *; do
-              if [ -f "$prg" ]; then
-                rm -f "$out/bin/$prg"
-                if [ -x "$prg" ]; then
-                  makeWrapper "$path/bin/$prg" "$out/bin/$prg" --suffix PERL5LIB ':' "$out/${perl.libPrefix}"
-                fi
+      # take every binary from perl packages and put them into the env
+      for path in ${lib.concatStringsSep " " paths}; do
+        if [ -d "$path/bin" ]; then
+          cd "$path/bin"
+          for prg in *; do
+            if [ -f "$prg" ]; then
+              rm -f "$out/bin/$prg"
+              if [ -x "$prg" ]; then
+                makeWrapper "$path/bin/$prg" "$out/bin/$prg" --suffix PERL5LIB ':' "$out/${perl.libPrefix}"
               fi
-            done
-          fi
-        done
-      '' + postBuild;
+            fi
+          done
+        fi
+      done
+    '' + postBuild;
 
-      meta = perl.meta // {
-        outputsToInstall = [ "out" ];
-      }; # remove "man" from meta.outputsToInstall. pkgs.buildEnv produces no "man", it puts everything to "out"
+    meta = perl.meta // {
+      outputsToInstall = [ "out" ];
+    }; # remove "man" from meta.outputsToInstall. pkgs.buildEnv produces no "man", it puts everything to "out"
 
-      passthru = perl.passthru // {
-        interpreter = "${env}/bin/perl";
-        inherit perl;
-      };
-    }
+    passthru = perl.passthru // {
+      interpreter = "${env}/bin/perl";
+      inherit perl;
+    };
+  }
   ;
 in
-  env
+env

@@ -63,14 +63,13 @@ let
   };
 
 in
-  (runCommand "bees-service" {
-    inherit bash bees coreutils;
-    utillinux = util-linux; # needs to be a valid shell variable name
-    btrfsProgs = btrfs-progs; # needs to be a valid shell variable name
-  } ''
-    mkdir -p -- "$out/bin"
-    substituteAll ${./bees-service-wrapper} "$out"/bin/bees-service-wrapper
-    chmod +x "$out"/bin/bees-service-wrapper
-    ln -s ${bees}/bin/beesd "$out"/bin/beesd
-  '').overrideAttrs
-  (old: { passthru.tests = { smoke-test = nixosTests.bees; }; })
+(runCommand "bees-service" {
+  inherit bash bees coreutils;
+  utillinux = util-linux; # needs to be a valid shell variable name
+  btrfsProgs = btrfs-progs; # needs to be a valid shell variable name
+} ''
+  mkdir -p -- "$out/bin"
+  substituteAll ${./bees-service-wrapper} "$out"/bin/bees-service-wrapper
+  chmod +x "$out"/bin/bees-service-wrapper
+  ln -s ${bees}/bin/beesd "$out"/bin/beesd
+'').overrideAttrs (old: { passthru.tests = { smoke-test = nixosTests.bees; }; })

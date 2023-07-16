@@ -155,7 +155,7 @@ in {
       });
       fullConfig = recursiveUpdate cfg.settings forcedConfig;
     in
-      format.generate "moonraker.cfg" fullConfig
+    format.generate "moonraker.cfg" fullConfig
     ;
 
     systemd.tmpfiles.rules =

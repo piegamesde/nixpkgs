@@ -26,90 +26,90 @@ let
   };
 
 in
-  stdenv.mkDerivation {
-    inherit pname version src;
+stdenv.mkDerivation {
+  inherit pname version src;
 
-    cargoDeps = rustPlatform.importCargoLock {
-      lockFile = ./Cargo.lock;
-      outputHashes = {
-        "jwt-0.16.0" = "sha256-P5aJnNlcLe9sBtXZzfqHdRvxNfm6DPBcfcKOVeLZxcM=";
-      };
+  cargoDeps = rustPlatform.importCargoLock {
+    lockFile = ./Cargo.lock;
+    outputHashes = {
+      "jwt-0.16.0" = "sha256-P5aJnNlcLe9sBtXZzfqHdRvxNfm6DPBcfcKOVeLZxcM=";
     };
-    postPatch = "cp ${./Cargo.lock} Cargo.lock";
+  };
+  postPatch = "cp ${./Cargo.lock} Cargo.lock";
 
-    preConfigure = ''
-      cmp ./Cargo.lock ./zeroidc/Cargo.lock || {
-        echo 1>&2 "Please make sure that the derivation's Cargo.lock is identical to ./zeroidc/Cargo.lock!"
-        exit 1
-      }
+  preConfigure = ''
+    cmp ./Cargo.lock ./zeroidc/Cargo.lock || {
+      echo 1>&2 "Please make sure that the derivation's Cargo.lock is identical to ./zeroidc/Cargo.lock!"
+      exit 1
+    }
 
-      patchShebangs ./doc/build.sh
-      substituteInPlace ./doc/build.sh \
-        --replace '/usr/bin/ronn' '${buildPackages.ronn}/bin/ronn' \
+    patchShebangs ./doc/build.sh
+    substituteInPlace ./doc/build.sh \
+      --replace '/usr/bin/ronn' '${buildPackages.ronn}/bin/ronn' \
 
-      substituteInPlace ./make-linux.mk \
-        --replace '-march=armv6zk' "" \
-        --replace '-mcpu=arm1176jzf-s' ""
-    '';
+    substituteInPlace ./make-linux.mk \
+      --replace '-march=armv6zk' "" \
+      --replace '-mcpu=arm1176jzf-s' ""
+  '';
 
-    nativeBuildInputs = [
-      pkg-config
-      ronn
-      rustPlatform.cargoSetupHook
-      rustPlatform.rust.cargo
-      rustPlatform.rust.rustc
+  nativeBuildInputs = [
+    pkg-config
+    ronn
+    rustPlatform.cargoSetupHook
+    rustPlatform.rust.cargo
+    rustPlatform.rust.rustc
+  ];
+  buildInputs = [
+    iproute2
+    lzo
+    openssl
+    zlib
+  ];
+
+  enableParallelBuilding = true;
+
+  buildFlags = [
+    "all"
+    "selftest"
+  ];
+
+  doCheck = stdenv.hostPlatform == stdenv.buildPlatform;
+  checkPhase = ''
+    runHook preCheck
+    ./zerotier-selftest
+    runHook postCheck
+  '';
+
+  installFlags = [ "DESTDIR=$$out/upstream" ];
+
+  postInstall = ''
+    mv $out/upstream/usr/sbin $out/bin
+
+    mkdir -p $man/share
+    mv $out/upstream/usr/share/man $man/share/man
+
+    rm -rf $out/upstream
+  '';
+
+  outputs = [
+    "out"
+    "man"
+  ];
+
+  passthru.updateScript = ./update.sh;
+
+  meta = with lib; {
+    description =
+      "Create flat virtual Ethernet networks of almost unlimited size";
+    homepage = "https://www.zerotier.com";
+    license = licenses.bsl11;
+    maintainers = with maintainers; [
+      sjmackenzie
+      zimbatm
+      ehmry
+      obadz
+      danielfullmer
     ];
-    buildInputs = [
-      iproute2
-      lzo
-      openssl
-      zlib
-    ];
-
-    enableParallelBuilding = true;
-
-    buildFlags = [
-      "all"
-      "selftest"
-    ];
-
-    doCheck = stdenv.hostPlatform == stdenv.buildPlatform;
-    checkPhase = ''
-      runHook preCheck
-      ./zerotier-selftest
-      runHook postCheck
-    '';
-
-    installFlags = [ "DESTDIR=$$out/upstream" ];
-
-    postInstall = ''
-      mv $out/upstream/usr/sbin $out/bin
-
-      mkdir -p $man/share
-      mv $out/upstream/usr/share/man $man/share/man
-
-      rm -rf $out/upstream
-    '';
-
-    outputs = [
-      "out"
-      "man"
-    ];
-
-    passthru.updateScript = ./update.sh;
-
-    meta = with lib; {
-      description =
-        "Create flat virtual Ethernet networks of almost unlimited size";
-      homepage = "https://www.zerotier.com";
-      license = licenses.bsl11;
-      maintainers = with maintainers; [
-        sjmackenzie
-        zimbatm
-        ehmry
-        obadz
-        danielfullmer
-      ];
-      platforms = platforms.all;
-    };
-  }
+    platforms = platforms.all;
+  };
+}

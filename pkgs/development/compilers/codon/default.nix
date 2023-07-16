@@ -93,47 +93,47 @@ let
     outputHashAlgo = "sha256";
   };
 in
-  stdenv.mkDerivation {
-    pname = "codon";
+stdenv.mkDerivation {
+  pname = "codon";
 
-    inherit src version;
+  inherit src version;
 
-    patches = [
-      # Without the hash, CMake will try to replace the `.zip` file
-      ./Add-a-hash-to-the-googletest-binary.patch
-    ];
+  patches = [
+    # Without the hash, CMake will try to replace the `.zip` file
+    ./Add-a-hash-to-the-googletest-binary.patch
+  ];
 
-    nativeBuildInputs = [
-      cmake
-      git
-      lld
-      ninja
-      perl
-      python3
-    ];
+  nativeBuildInputs = [
+    cmake
+    git
+    lld
+    ninja
+    perl
+    python3
+  ];
 
-    postUnpack = ''
-      mkdir -p $sourceRoot/build
-      tar -xf ${codon-deps} -C $sourceRoot/build
-    '';
+  postUnpack = ''
+    mkdir -p $sourceRoot/build
+    tar -xf ${codon-deps} -C $sourceRoot/build
+  '';
 
-    cmakeFlags = [
-      "-DCMAKE_BUILD_TYPE=Release"
-      "-DCMAKE_CXX_COMPILER=clang++"
-      "-DCMAKE_C_COMPILER=clang"
-      "-DCPM_SOURCE_CACHE=${depsDir}"
-      "-DLLVM_DIR=${codon-llvm}/lib/cmake/llvm"
-      "-DLLVM_USE_LINKER=lld"
-    ];
+  cmakeFlags = [
+    "-DCMAKE_BUILD_TYPE=Release"
+    "-DCMAKE_CXX_COMPILER=clang++"
+    "-DCMAKE_C_COMPILER=clang"
+    "-DCPM_SOURCE_CACHE=${depsDir}"
+    "-DLLVM_DIR=${codon-llvm}/lib/cmake/llvm"
+    "-DLLVM_USE_LINKER=lld"
+  ];
 
-    passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script { };
 
-    meta = {
-      description =
-        "A high-performance, zero-overhead, extensible Python compiler using LLVM";
-      homepage = "https://docs.exaloop.io/codon";
-      maintainers = [ lib.maintainers.paveloom ];
-      license = lib.licenses.bsl11;
-      platforms = lib.platforms.all;
-    };
-  }
+  meta = {
+    description =
+      "A high-performance, zero-overhead, extensible Python compiler using LLVM";
+    homepage = "https://docs.exaloop.io/codon";
+    maintainers = [ lib.maintainers.paveloom ];
+    license = lib.licenses.bsl11;
+    platforms = lib.platforms.all;
+  };
+}

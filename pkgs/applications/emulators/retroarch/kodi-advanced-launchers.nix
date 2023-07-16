@@ -21,25 +21,25 @@ let
   }) cores;
 
 in
-  stdenv.mkDerivation {
-    pname = "kodi-retroarch-advanced-launchers";
-    version = "0.2";
+stdenv.mkDerivation {
+  pname = "kodi-retroarch-advanced-launchers";
+  version = "0.2";
 
-    dontBuild = true;
+  dontBuild = true;
 
-    buildCommand = ''
-      mkdir -p $out/bin
-      ${lib.concatMapStrings
-      (exec: "ln -s ${scriptSh exec} $out/bin/kodi-${exec.name};") execs}
+  buildCommand = ''
+    mkdir -p $out/bin
+    ${lib.concatMapStrings
+    (exec: "ln -s ${scriptSh exec} $out/bin/kodi-${exec.name};") execs}
+  '';
+
+  meta = {
+    description = "Kodi retroarch advanced launchers";
+    longDescription = ''
+      These retroarch launchers are intended to be used with
+      advanced (emulation) launcher for Kodi since device input is
+      otherwise caught by both Kodi and the retroarch process.
     '';
-
-    meta = {
-      description = "Kodi retroarch advanced launchers";
-      longDescription = ''
-        These retroarch launchers are intended to be used with
-        advanced (emulation) launcher for Kodi since device input is
-        otherwise caught by both Kodi and the retroarch process.
-      '';
-      license = lib.licenses.gpl3;
-    };
-  }
+    license = lib.licenses.gpl3;
+  };
+}

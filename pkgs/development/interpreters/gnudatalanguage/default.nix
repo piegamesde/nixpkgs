@@ -109,113 +109,112 @@ let
   else
     plplot.override { inherit enableWX enableXWin; };
 in
-  stdenv.mkDerivation rec {
-    pname = "gnudatalanguage";
-    version = "1.0.1";
+stdenv.mkDerivation rec {
+  pname = "gnudatalanguage";
+  version = "1.0.1";
 
-    src = fetchFromGitHub {
-      owner = pname;
-      repo = "gdl";
-      rev = "v${version}";
-      sha256 = "sha256-IrCLL8MQp0SkWj7sbfZlma5FrnMbgdl4E/1nPGy0Y60=";
-    };
+  src = fetchFromGitHub {
+    owner = pname;
+    repo = "gdl";
+    rev = "v${version}";
+    sha256 = "sha256-IrCLL8MQp0SkWj7sbfZlma5FrnMbgdl4E/1nPGy0Y60=";
+  };
 
-    buildInputs = [
-      readline
-      ncurses
-      zlib
-      gsl
-      openmp
-      graphicsmagick
-      fftw
-      fftwFloat
-      fftwLongDouble
-      proj
-      shapelib
-      expat
-      mpi
-      udunits
-      eigen
-      pslib
-      libpng
-      libtiff
-      libgeotiff
-      libjpeg
-      hdf4-custom
-      hdf5-custom
-      netcdf-custom
-      plplot-with-drivers
-    ] ++ lib.optional enableXWin plplot-with-drivers.libX11
-      ++ lib.optional enableGRIB eccodes ++ lib.optional enableGLPK glpk
-      ++ lib.optional enableWX wxGTK32
-      ++ lib.optional (enableWX && stdenv.isDarwin) Cocoa
-      ++ lib.optional enableMPI mpi
-      ++ lib.optional enableLibtirpc hdf4-custom.libtirpc
-      ++ lib.optional enableSzip szip;
+  buildInputs = [
+    readline
+    ncurses
+    zlib
+    gsl
+    openmp
+    graphicsmagick
+    fftw
+    fftwFloat
+    fftwLongDouble
+    proj
+    shapelib
+    expat
+    mpi
+    udunits
+    eigen
+    pslib
+    libpng
+    libtiff
+    libgeotiff
+    libjpeg
+    hdf4-custom
+    hdf5-custom
+    netcdf-custom
+    plplot-with-drivers
+  ] ++ lib.optional enableXWin plplot-with-drivers.libX11
+    ++ lib.optional enableGRIB eccodes ++ lib.optional enableGLPK glpk
+    ++ lib.optional enableWX wxGTK32
+    ++ lib.optional (enableWX && stdenv.isDarwin) Cocoa
+    ++ lib.optional enableMPI mpi
+    ++ lib.optional enableLibtirpc hdf4-custom.libtirpc
+    ++ lib.optional enableSzip szip;
 
-    propagatedBuildInputs = [ (python3.withPackages (ps: with ps; [ numpy ])) ];
+  propagatedBuildInputs = [ (python3.withPackages (ps: with ps; [ numpy ])) ];
 
-    nativeBuildInputs = [ cmake ] ++ lib.optional enableWX wrapGAppsHook;
+  nativeBuildInputs = [ cmake ] ++ lib.optional enableWX wrapGAppsHook;
 
-    cmakeFlags = lib.optional (!enableHDF4) "-DHDF=OFF" ++ [ (if
-      enableHDF5
-    then
-      "-DHDF5DIR=${hdf5-custom}"
-    else
-      "-DHDF5=OFF") ] ++ lib.optional (!enableNetCDF) "-DNETCDF=OFF"
-      ++ lib.optional (!enablePlplotDrivers) "-DINTERACTIVE_GRAPHICS=OFF"
-      ++ lib.optional (!enableGRIB) "-DGRIB=OFF"
-      ++ lib.optional (!enableGLPK) "-DGLPK=OFF"
-      ++ lib.optional (!enableWX) "-DWXWIDGETS=OFF"
-      ++ lib.optional enableSzip "-DSZIPDIR=${szip}"
-      ++ lib.optionals enableXWin [
-        "-DX11=ON"
-        "-DX11DIR=${plplot-with-drivers.libX11}"
-      ] ++ lib.optionals enableMPI [
-        "-DMPI=ON"
-        "-DMPIDIR=${mpi}"
-      ];
+  cmakeFlags = lib.optional (!enableHDF4) "-DHDF=OFF" ++ [ (if
+    enableHDF5
+  then
+    "-DHDF5DIR=${hdf5-custom}"
+  else
+    "-DHDF5=OFF") ] ++ lib.optional (!enableNetCDF) "-DNETCDF=OFF"
+    ++ lib.optional (!enablePlplotDrivers) "-DINTERACTIVE_GRAPHICS=OFF"
+    ++ lib.optional (!enableGRIB) "-DGRIB=OFF"
+    ++ lib.optional (!enableGLPK) "-DGLPK=OFF"
+    ++ lib.optional (!enableWX) "-DWXWIDGETS=OFF"
+    ++ lib.optional enableSzip "-DSZIPDIR=${szip}" ++ lib.optionals enableXWin [
+      "-DX11=ON"
+      "-DX11DIR=${plplot-with-drivers.libX11}"
+    ] ++ lib.optionals enableMPI [
+      "-DMPI=ON"
+      "-DMPIDIR=${mpi}"
+    ];
 
-    # Tests are failing on Hydra:
-    # ./src/common/dpycmn.cpp(137): assert ""IsOk()"" failed in GetClientArea(): invalid wxDisplay object
-    doCheck = stdenv.isLinux;
+  # Tests are failing on Hydra:
+  # ./src/common/dpycmn.cpp(137): assert ""IsOk()"" failed in GetClientArea(): invalid wxDisplay object
+  doCheck = stdenv.isLinux;
 
-    # Opt-out unstable tests
-    # https://github.com/gnudatalanguage/gdl/issues/482
-    # https://github.com/gnudatalanguage/gdl/issues/1079
-    # https://github.com/gnudatalanguage/gdl/issues/460
-    preCheck = ''
-      checkFlagsArray+=("ARGS=-E '${
-        lib.concatMapStringsSep "|" (test: test + ".pro") [
-          "test_byte_conversion"
-          "test_bytscl"
-          "test_call_external"
-          "test_tic_toc"
-          "test_timestamp"
-        ]
-      }'")
+  # Opt-out unstable tests
+  # https://github.com/gnudatalanguage/gdl/issues/482
+  # https://github.com/gnudatalanguage/gdl/issues/1079
+  # https://github.com/gnudatalanguage/gdl/issues/460
+  preCheck = ''
+    checkFlagsArray+=("ARGS=-E '${
+      lib.concatMapStringsSep "|" (test: test + ".pro") [
+        "test_byte_conversion"
+        "test_bytscl"
+        "test_call_external"
+        "test_tic_toc"
+        "test_timestamp"
+      ]
+    }'")
+  '';
+
+  passthru = {
+    hdf4 = hdf4-custom;
+    hdf5 = hdf5-custom;
+    netcdf = netcdf-custom;
+    plplot = plplot-with-drivers;
+    python = python3;
+    inherit enableMPI mpi useHdf5v110Api enableSzip enableWX enableXWin;
+  };
+
+  meta = with lib; {
+    description = "Free incremental compiler of IDL";
+    longDescription = ''
+      GDL (GNU Data Language) is a free/libre/open source incremental compiler
+      compatible with IDL (Interactive Data Language) and to some extent with PV-WAVE.
+      GDL is aimed as a drop-in replacement for IDL.
     '';
-
-    passthru = {
-      hdf4 = hdf4-custom;
-      hdf5 = hdf5-custom;
-      netcdf = netcdf-custom;
-      plplot = plplot-with-drivers;
-      python = python3;
-      inherit enableMPI mpi useHdf5v110Api enableSzip enableWX enableXWin;
-    };
-
-    meta = with lib; {
-      description = "Free incremental compiler of IDL";
-      longDescription = ''
-        GDL (GNU Data Language) is a free/libre/open source incremental compiler
-        compatible with IDL (Interactive Data Language) and to some extent with PV-WAVE.
-        GDL is aimed as a drop-in replacement for IDL.
-      '';
-      homepage = "https://github.com/gnudatalanguage/gdl";
-      license = licenses.gpl2Only;
-      maintainers = with maintainers; [ ShamrockLee ];
-      platforms = platforms.all;
-      mainProgram = "gdl";
-    };
-  }
+    homepage = "https://github.com/gnudatalanguage/gdl";
+    license = licenses.gpl2Only;
+    maintainers = with maintainers; [ ShamrockLee ];
+    platforms = platforms.all;
+    mainProgram = "gdl";
+  };
+}

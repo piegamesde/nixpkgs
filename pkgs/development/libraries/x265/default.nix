@@ -67,122 +67,122 @@ let
     ];
 
 in
-  stdenv.mkDerivation rec {
-    pname = "x265";
-    version = "3.5";
+stdenv.mkDerivation rec {
+  pname = "x265";
+  version = "3.5";
 
-    outputs = [
-      "out"
-      "dev"
-    ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-    # Check that x265Version.txt contains the expected version number
-    # whether we fetch a source tarball or a tag from the git repo
-    src = fetchurl {
+  # Check that x265Version.txt contains the expected version number
+  # whether we fetch a source tarball or a tag from the git repo
+  src = fetchurl {
+    url =
+      "https://bitbucket.org/multicoreware/x265_git/downloads/x265_${version}.tar.gz";
+    hash = "sha256-5wozNcrKy7oLOiDsb+zWeDkyKI68gWOtdLzJYGR3yug=";
+  };
+
+  sourceRoot = "x265_${version}/source";
+
+  patches = [
+    # More aliases for ARM platforms + do not force CLFAGS for ARM :
+    (fetchpatch {
       url =
-        "https://bitbucket.org/multicoreware/x265_git/downloads/x265_${version}.tar.gz";
-      hash = "sha256-5wozNcrKy7oLOiDsb+zWeDkyKI68gWOtdLzJYGR3yug=";
-    };
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-libs/x265/files/arm-r1.patch?id=1d1de341e1404a46b15ae3e84bc400d474cf1a2c";
+      sha256 = "1hgzq5vxkwh0nyikxjfz8gz3jvx2nq3yy12mz3fn13qvzdlb5ilp";
+    })
+    # use proper check to avoid undefined symbols when enabling assembly on ARM :
+    (fetchpatch {
+      url =
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-libs/x265/files/neon.patch?id=1d1de341e1404a46b15ae3e84bc400d474cf1a2c";
+      sha256 = "1mmshpbyldrfqxfmdajqal4l647zvlrwdai8pxw99qg4v8gajfii";
+    })
+    # More complete PPC64 matches :
+    (fetchpatch {
+      url =
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-libs/x265/files/x265-3.3-ppc64.patch?id=1d1de341e1404a46b15ae3e84bc400d474cf1a2c";
+      sha256 = "1mvw678xfm0vr59n5jilq56qzcgk1gmcip2afyafkqiv21nbms8c";
+    })
+    # Namespace functions for multi-bitdepth builds so that libraries are self-contained (and tests succeeds) :
+    (fetchpatch {
+      url =
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-libs/x265/files/test-ns.patch?id=1d1de341e1404a46b15ae3e84bc400d474cf1a2c";
+      sha256 = "0zg3g53l07yh7ar5c241x50y5zp7g8nh8rh63ad4bdpchpc2f52d";
+    })
+    # Fix detection of NEON (and armv6 build) :
+    ./fix-neon-detection.patch
+  ];
 
-    sourceRoot = "x265_${version}/source";
+  postPatch = ''
+    substituteInPlace cmake/Version.cmake \
+      --replace "unknown" "${version}" \
+      --replace "0.0" "${version}"
+  '';
 
-    patches = [
-      # More aliases for ARM platforms + do not force CLFAGS for ARM :
-      (fetchpatch {
-        url =
-          "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-libs/x265/files/arm-r1.patch?id=1d1de341e1404a46b15ae3e84bc400d474cf1a2c";
-        sha256 = "1hgzq5vxkwh0nyikxjfz8gz3jvx2nq3yy12mz3fn13qvzdlb5ilp";
-      })
-      # use proper check to avoid undefined symbols when enabling assembly on ARM :
-      (fetchpatch {
-        url =
-          "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-libs/x265/files/neon.patch?id=1d1de341e1404a46b15ae3e84bc400d474cf1a2c";
-        sha256 = "1mmshpbyldrfqxfmdajqal4l647zvlrwdai8pxw99qg4v8gajfii";
-      })
-      # More complete PPC64 matches :
-      (fetchpatch {
-        url =
-          "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-libs/x265/files/x265-3.3-ppc64.patch?id=1d1de341e1404a46b15ae3e84bc400d474cf1a2c";
-        sha256 = "1mvw678xfm0vr59n5jilq56qzcgk1gmcip2afyafkqiv21nbms8c";
-      })
-      # Namespace functions for multi-bitdepth builds so that libraries are self-contained (and tests succeeds) :
-      (fetchpatch {
-        url =
-          "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-libs/x265/files/test-ns.patch?id=1d1de341e1404a46b15ae3e84bc400d474cf1a2c";
-        sha256 = "0zg3g53l07yh7ar5c241x50y5zp7g8nh8rh63ad4bdpchpc2f52d";
-      })
-      # Fix detection of NEON (and armv6 build) :
-      ./fix-neon-detection.patch
-    ];
+  nativeBuildInputs = [
+    cmake
+    nasm
+  ] ++ lib.optionals (numaSupport) [ numactl ];
 
-    postPatch = ''
-      substituteInPlace cmake/Version.cmake \
-        --replace "unknown" "${version}" \
-        --replace "0.0" "${version}"
-    '';
+  # Builds 10bits and 12bits static libs on the side if multi bit-depth is wanted
+  # (we are in x265_<version>/source/build)
+  preBuild = lib.optionalString (multibitdepthSupport) ''
+    cmake -S ../ -B ../build-10bits ${toString cmakeCommonFlags} ${
+      toString cmakeStaticLibFlags
+    }
+    make -C ../build-10bits -j $NIX_BUILD_CORES
+    cmake -S ../ -B ../build-12bits ${toString cmakeCommonFlags} ${
+      toString cmakeStaticLibFlags
+    } -DMAIN12=ON
+    make -C ../build-12bits -j $NIX_BUILD_CORES
+    ln -s ../build-10bits/libx265.a ./libx265-10.a
+    ln -s ../build-12bits/libx265.a ./libx265-12.a
+  '';
 
-    nativeBuildInputs = [
-      cmake
-      nasm
-    ] ++ lib.optionals (numaSupport) [ numactl ];
+  cmakeFlags = cmakeCommonFlags ++ [
+    "-DGIT_ARCHETYPE=1" # https://bugs.gentoo.org/814116
+    "-DENABLE_SHARED=${
+      if
+        stdenv.hostPlatform.isStatic
+      then
+        "OFF"
+      else
+        "ON"
+    }"
+    "-DHIGH_BIT_DEPTH=OFF"
+    "-DENABLE_HDR10_PLUS=ON"
+    (mkFlag (isCross && stdenv.hostPlatform.isAarch) "CROSS_COMPILE_ARM")
+    (mkFlag cliSupport "ENABLE_CLI")
+    (mkFlag unittestsSupport "ENABLE_TESTS")
+  ] ++ lib.optionals (multibitdepthSupport) [
+    "-DEXTRA_LIB=x265-10.a;x265-12.a"
+    "-DEXTRA_LINK_FLAGS=-L."
+    "-DLINKED_10BIT=ON"
+    "-DLINKED_12BIT=ON"
+  ];
 
-    # Builds 10bits and 12bits static libs on the side if multi bit-depth is wanted
-    # (we are in x265_<version>/source/build)
-    preBuild = lib.optionalString (multibitdepthSupport) ''
-      cmake -S ../ -B ../build-10bits ${toString cmakeCommonFlags} ${
-        toString cmakeStaticLibFlags
-      }
-      make -C ../build-10bits -j $NIX_BUILD_CORES
-      cmake -S ../ -B ../build-12bits ${toString cmakeCommonFlags} ${
-        toString cmakeStaticLibFlags
-      } -DMAIN12=ON
-      make -C ../build-12bits -j $NIX_BUILD_CORES
-      ln -s ../build-10bits/libx265.a ./libx265-10.a
-      ln -s ../build-12bits/libx265.a ./libx265-12.a
-    '';
+  doCheck = unittestsSupport;
+  checkPhase = ''
+    runHook preCheck
+    ./test/TestBench
+    runHook postCheck
+  '';
 
-    cmakeFlags = cmakeCommonFlags ++ [
-      "-DGIT_ARCHETYPE=1" # https://bugs.gentoo.org/814116
-      "-DENABLE_SHARED=${
-        if
-          stdenv.hostPlatform.isStatic
-        then
-          "OFF"
-        else
-          "ON"
-      }"
-      "-DHIGH_BIT_DEPTH=OFF"
-      "-DENABLE_HDR10_PLUS=ON"
-      (mkFlag (isCross && stdenv.hostPlatform.isAarch) "CROSS_COMPILE_ARM")
-      (mkFlag cliSupport "ENABLE_CLI")
-      (mkFlag unittestsSupport "ENABLE_TESTS")
-    ] ++ lib.optionals (multibitdepthSupport) [
-      "-DEXTRA_LIB=x265-10.a;x265-12.a"
-      "-DEXTRA_LINK_FLAGS=-L."
-      "-DLINKED_10BIT=ON"
-      "-DLINKED_12BIT=ON"
-    ];
+  postInstall = ''
+    rm -f ${placeholder "out"}/lib/*.a
+  '';
 
-    doCheck = unittestsSupport;
-    checkPhase = ''
-      runHook preCheck
-      ./test/TestBench
-      runHook postCheck
-    '';
-
-    postInstall = ''
-      rm -f ${placeholder "out"}/lib/*.a
-    '';
-
-    meta = with lib; {
-      description = "Library for encoding H.265/HEVC video streams";
-      homepage = "https://www.x265.org/";
-      changelog =
-        "https://x265.readthedocs.io/en/master/releasenotes.html#version-${
-          lib.strings.replaceStrings [ "." ] [ "-" ] version
-        }";
-      license = licenses.gpl2Plus;
-      maintainers = with maintainers; [ codyopel ];
-      platforms = platforms.all;
-    };
-  }
+  meta = with lib; {
+    description = "Library for encoding H.265/HEVC video streams";
+    homepage = "https://www.x265.org/";
+    changelog =
+      "https://x265.readthedocs.io/en/master/releasenotes.html#version-${
+        lib.strings.replaceStrings [ "." ] [ "-" ] version
+      }";
+    license = licenses.gpl2Plus;
+    maintainers = with maintainers; [ codyopel ];
+    platforms = platforms.all;
+  };
+}

@@ -153,58 +153,58 @@ let
     })
   ];
 in
-  stdenv.mkDerivation {
-    inherit version;
-    pname = "natron";
+stdenv.mkDerivation {
+  inherit version;
+  pname = "natron";
 
-    src = fetchFromGitHub {
-      owner = "NatronGitHub";
-      repo = "Natron";
-      rev = "v${version}";
-      fetchSubmodules = true;
-      sha256 = "sha256-KuXJmmIsvwl4uqmAxXqWU+273jsdWrCuUSwWn5vuu8M=";
-    };
+  src = fetchFromGitHub {
+    owner = "NatronGitHub";
+    repo = "Natron";
+    rev = "v${version}";
+    fetchSubmodules = true;
+    sha256 = "sha256-KuXJmmIsvwl4uqmAxXqWU+273jsdWrCuUSwWn5vuu8M=";
+  };
 
-    nativeBuildInputs = [
-      qmake4Hook
-      pkg-config
-      python2Packages.wrapPython
-    ];
+  nativeBuildInputs = [
+    qmake4Hook
+    pkg-config
+    python2Packages.wrapPython
+  ];
 
-    buildInputs = [
-      qt4
-      boost
-      expat
-      cairo
-      python2Packages.pyside
-      python2Packages.pysideShiboken
-    ];
+  buildInputs = [
+    qt4
+    boost
+    expat
+    cairo
+    python2Packages.pyside
+    python2Packages.pysideShiboken
+  ];
 
-    preConfigure = ''
-      export MAKEFLAGS=-j$NIX_BUILD_CORES
-      cp ${./config.pri} config.pri
-      mkdir OpenColorIO-Configs
-      tar -xf ${OpenColorIO-Configs} --strip-components=1 -C OpenColorIO-Configs
+  preConfigure = ''
+    export MAKEFLAGS=-j$NIX_BUILD_CORES
+    cp ${./config.pri} config.pri
+    mkdir OpenColorIO-Configs
+    tar -xf ${OpenColorIO-Configs} --strip-components=1 -C OpenColorIO-Configs
+  '';
+
+  postFixup = ''
+    for i in ${lib.escapeShellArgs plugins}; do
+      ${lndir}/bin/lndir $i $out
+    done
+    wrapProgram $out/bin/Natron \
+      --set PYTHONPATH "$PYTHONPATH"
+  '';
+
+  meta = with lib; {
+    description = "Node-graph based, open-source compositing software";
+    longDescription = ''
+      Node-graph based, open-source compositing software. Similar in
+      functionalities to Adobe After Effects and Nuke by The Foundry.
     '';
-
-    postFixup = ''
-      for i in ${lib.escapeShellArgs plugins}; do
-        ${lndir}/bin/lndir $i $out
-      done
-      wrapProgram $out/bin/Natron \
-        --set PYTHONPATH "$PYTHONPATH"
-    '';
-
-    meta = with lib; {
-      description = "Node-graph based, open-source compositing software";
-      longDescription = ''
-        Node-graph based, open-source compositing software. Similar in
-        functionalities to Adobe After Effects and Nuke by The Foundry.
-      '';
-      homepage = "https://natron.fr/";
-      license = lib.licenses.gpl2;
-      maintainers = [ maintainers.puffnfresh ];
-      platforms = platforms.linux;
-      broken = true; # Last evaluated on Hydra on 2021-05-18
-    };
-  }
+    homepage = "https://natron.fr/";
+    license = lib.licenses.gpl2;
+    maintainers = [ maintainers.puffnfresh ];
+    platforms = platforms.linux;
+    broken = true; # Last evaluated on Hydra on 2021-05-18
+  };
+}

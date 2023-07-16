@@ -41,45 +41,45 @@ let
       };
 
     in
-      stdenv.mkDerivation {
-        pname = "charles";
-        inherit version;
+    stdenv.mkDerivation {
+      pname = "charles";
+      inherit version;
 
-        src = fetchurl {
-          url =
-            "https://www.charlesproxy.com/assets/release/${version}/charles-proxy-${version}${platform}.tar.gz";
-          curlOptsList = [
-            "--user-agent"
-            "Mozilla/5.0"
-          ]; # HTTP 104 otherwise
-          inherit sha256;
-        };
-        nativeBuildInputs = [ makeWrapper ];
+      src = fetchurl {
+        url =
+          "https://www.charlesproxy.com/assets/release/${version}/charles-proxy-${version}${platform}.tar.gz";
+        curlOptsList = [
+          "--user-agent"
+          "Mozilla/5.0"
+        ]; # HTTP 104 otherwise
+        inherit sha256;
+      };
+      nativeBuildInputs = [ makeWrapper ];
 
-        installPhase = ''
-          makeWrapper ${jdk}/bin/java $out/bin/charles \
-            --add-flags "-Xmx1024M -Dcharles.config='~/.charles.config' -jar $out/share/java/charles.jar"
+      installPhase = ''
+        makeWrapper ${jdk}/bin/java $out/bin/charles \
+          --add-flags "-Xmx1024M -Dcharles.config='~/.charles.config' -jar $out/share/java/charles.jar"
 
-          for fn in lib/*.jar; do
-            install -D -m644 $fn $out/share/java/$(basename $fn)
-          done
+        for fn in lib/*.jar; do
+          install -D -m644 $fn $out/share/java/$(basename $fn)
+        done
 
-          mkdir -p $out/share/applications
-          ln -s ${desktopItem}/share/applications/* $out/share/applications/
+        mkdir -p $out/share/applications
+        ln -s ${desktopItem}/share/applications/* $out/share/applications/
 
-          mkdir -p $out/share/icons
-          cp -r icon $out/share/icons/hicolor
-        '';
+        mkdir -p $out/share/icons
+        cp -r icon $out/share/icons/hicolor
+      '';
 
-        meta = with lib; {
-          description = "Web Debugging Proxy";
-          homepage = "https://www.charlesproxy.com/";
-          maintainers = with maintainers; [ kalbasit ];
-          sourceProvenance = with sourceTypes; [ binaryBytecode ];
-          license = licenses.unfree;
-          platforms = platforms.unix;
-        };
-      }
+      meta = with lib; {
+        description = "Web Debugging Proxy";
+        homepage = "https://www.charlesproxy.com/";
+        maintainers = with maintainers; [ kalbasit ];
+        sourceProvenance = with sourceTypes; [ binaryBytecode ];
+        license = licenses.unfree;
+        platforms = platforms.unix;
+      };
+    }
   ;
 
 in {

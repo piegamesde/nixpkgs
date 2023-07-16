@@ -48,7 +48,7 @@ in {
           bool
         ];
       in
-        attrsOf (coercedTo atom toList (listOf atom))
+      attrsOf (coercedTo atom toList (listOf atom))
       ;
       example = literalExpression ''
         {

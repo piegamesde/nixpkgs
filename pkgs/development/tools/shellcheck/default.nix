@@ -25,7 +25,7 @@ let
         position = pos.file + ":" + toString pos.line;
       };
     in
-      drv' // { meta = meta' // overrideFn meta'; }
+    drv' // { meta = meta' // overrideFn meta'; }
   ;
 
   bin = haskell.lib.compose.justStaticExecutables ShellCheck;
@@ -63,14 +63,14 @@ let
   };
 
 in
-  overrideMeta shellcheck (old: {
-    maintainers = with lib.maintainers; [
-      Profpatsch
-      zowoq
-    ];
-    outputsToInstall = [
-      "bin"
-      "man"
-      "doc"
-    ];
-  })
+overrideMeta shellcheck (old: {
+  maintainers = with lib.maintainers; [
+    Profpatsch
+    zowoq
+  ];
+  outputsToInstall = [
+    "bin"
+    "man"
+    "doc"
+  ];
+})

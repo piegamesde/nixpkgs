@@ -32,14 +32,14 @@ let
     exit
   '';
 in
-  runCommand "nano-test-expect" {
-    nativeBuildInputs = [
-      nano
-      expect
-    ];
-    passthru = { inherit expect-script; };
-  } ''
-    expect -f ${expect-script}/bin/expect-script
-    grep "Hello world!" file.txt
-    touch $out
-  ''
+runCommand "nano-test-expect" {
+  nativeBuildInputs = [
+    nano
+    expect
+  ];
+  passthru = { inherit expect-script; };
+} ''
+  expect -f ${expect-script}/bin/expect-script
+  grep "Hello world!" file.txt
+  touch $out
+''

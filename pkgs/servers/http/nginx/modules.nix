@@ -137,11 +137,11 @@ in let
           sha256 = "sha256-G0IDYlvaQzzJ6cNTSGbfuOuSXFp3RsEwIJLGapTbDgo=";
         };
       in
-        runCommand "brotli" { } ''
-          cp -a ${src'} $out
-          substituteInPlace $out/filter/config \
-            --replace '$ngx_addon_dir/deps/brotli/c' ${lib.getDev brotli}
-        ''
+      runCommand "brotli" { } ''
+        cp -a ${src'} $out
+        substituteInPlace $out/filter/config \
+          --replace '$ngx_addon_dir/deps/brotli/c' ${lib.getDev brotli}
+      ''
       ;
 
       inputs = [ brotli ];
@@ -565,7 +565,7 @@ in let
           sha256 = "1q234s3p55xv820207dnh4fcxkqikjcq5rs02ai31ylpmfsf0kkb";
         };
       in
-        "${src'}/opentracing"
+      "${src'}/opentracing"
       ;
 
       inputs = [ opentracing-cpp ];
@@ -590,17 +590,17 @@ in let
           sha256 = "0ry7vmkb2bx0sspl1kgjlrzzz6lbz07313ks2lr80rrdm2zb16wp";
         };
       in
-        runCommand "ngx_pagespeed" {
-          meta = {
-            description = "PageSpeed module for Nginx";
-            homepage = "https://developers.google.com/speed/pagespeed/module/";
-            license = lib.licenses.asl20;
-          };
-        } ''
-          cp -r "${moduleSrc}" "$out"
-          chmod -R +w "$out"
-          ln -s "${psol}" "$out/psol"
-        ''
+      runCommand "ngx_pagespeed" {
+        meta = {
+          description = "PageSpeed module for Nginx";
+          homepage = "https://developers.google.com/speed/pagespeed/module/";
+          license = lib.licenses.asl20;
+        };
+      } ''
+        cp -r "${moduleSrc}" "$out"
+        chmod -R +w "$out"
+        ln -s "${psol}" "$out/psol"
+      ''
       ;
 
       inputs = [
@@ -1080,10 +1080,9 @@ in let
     };
   };
 in
-  self // lib.optionalAttrs config.allowAliases {
-    # deprecated or renamed packages
-    modsecurity-nginx = self.modsecurity;
-    fastcgi-cache-purge =
-      throw "fastcgi-cache-purge was renamed to cache-purge";
-    ngx_aws_auth = throw "ngx_aws_auth was renamed to aws-auth";
-  }
+self // lib.optionalAttrs config.allowAliases {
+  # deprecated or renamed packages
+  modsecurity-nginx = self.modsecurity;
+  fastcgi-cache-purge = throw "fastcgi-cache-purge was renamed to cache-purge";
+  ngx_aws_auth = throw "ngx_aws_auth was renamed to aws-auth";
+}

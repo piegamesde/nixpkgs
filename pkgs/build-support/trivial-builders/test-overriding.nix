@@ -104,20 +104,20 @@ let
     let
       name = script.name or (builtins.baseNameOf script);
     in
-      writeShellScript "run-${name}" ''
-        if [ "$(${script})" != "success" ]; then
-          echo "Failed in ${name}"
-          exit 1
-        fi
-      ''
+    writeShellScript "run-${name}" ''
+      if [ "$(${script})" != "success" ]; then
+        echo "Failed in ${name}"
+        exit 1
+      fi
+    ''
   ;
 
 in
-  runCommand "test-writeShellScript-overriding" {
-    passthru = { inherit writeTextOverrides; };
-  } ''
-    ${lib.concatMapStrings (test: ''
-      ${runTest test}
-    '') (lib.attrValues writeTextOverrides)}
-    touch "$out"
-  ''
+runCommand "test-writeShellScript-overriding" {
+  passthru = { inherit writeTextOverrides; };
+} ''
+  ${lib.concatMapStrings (test: ''
+    ${runTest test}
+  '') (lib.attrValues writeTextOverrides)}
+  touch "$out"
+''

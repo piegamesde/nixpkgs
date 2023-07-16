@@ -91,21 +91,21 @@ let
           '';
       } );
 in
-  builtins.mapAttrs (key: val: mkTest val) {
-    user = {
-      systemWide = false;
-      fullVersion = false;
-    };
-    system = {
-      systemWide = true;
-      fullVersion = false;
-    };
-    userFull = {
-      systemWide = false;
-      fullVersion = true;
-    };
-    systemFull = {
-      systemWide = true;
-      fullVersion = true;
-    };
-  }
+builtins.mapAttrs (key: val: mkTest val) {
+  user = {
+    systemWide = false;
+    fullVersion = false;
+  };
+  system = {
+    systemWide = true;
+    fullVersion = false;
+  };
+  userFull = {
+    systemWide = false;
+    fullVersion = true;
+  };
+  systemFull = {
+    systemWide = true;
+    fullVersion = true;
+  };
+}

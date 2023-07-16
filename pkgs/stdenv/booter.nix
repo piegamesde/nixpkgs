@@ -75,12 +75,12 @@ let
             cur = op pred (builtins.elemAt list n) succ;
             succ = go cur (n + 1);
           in
-            cur
+          cur
       ;
       lapp = lnul cur;
       cur = go lapp 0;
     in
-      cur
+    cur
   ;
 
   # Take the list and disallow custom overrides in all but the final stage,
@@ -137,7 +137,7 @@ let
           };
         });
     in
-      thisStage
+    thisStage
   ;
 
   # This is a hack for resolving cross-compiled compilers' run-time
@@ -168,4 +168,4 @@ let
   };
 
 in
-  dfold folder postStage (_: { }) withAllowCustomOverrides
+dfold folder postStage (_: { }) withAllowCustomOverrides

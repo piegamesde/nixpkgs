@@ -45,18 +45,18 @@ let
             else
               x;
         in
-          makeDerivationExtensible (self:
-            let
-              super = rattrs self;
-            in
-              super // f self super
-          )
+        makeDerivationExtensible (self:
+          let
+            super = rattrs self;
+          in
+          super // f self super
+        )
       ;
 
       finalPackage = mkDerivationSimple overrideAttrs args;
 
     in
-      finalPackage
+    finalPackage
   ;
 
   # makeDerivationExtensibleConst == makeDerivationExtensible (_: attrs),
@@ -74,7 +74,7 @@ let
           else
             x;
       in
-        makeDerivationExtensible (self: attrs // f self attrs)
+      makeDerivationExtensible (self: attrs // f self attrs)
     ) attrs;
 
   mkDerivationSimple = overrideAttrs:
@@ -423,16 +423,15 @@ let
                 staticMarker =
                   lib.optionalString stdenv.hostPlatform.isStatic "-static";
               in
-                lib.strings.sanitizeDerivationName (if
-                  attrs ? name
-                then
-                  attrs.name + hostSuffix
-                else
-                # we cannot coerce null to a string below
-                  assert lib.assertMsg
-                    (attrs ? version && attrs.version != null)
-                    "The ‘version’ attribute cannot be null.";
-                  "${attrs.pname}${staticMarker}${hostSuffix}-${attrs.version}")
+              lib.strings.sanitizeDerivationName (if
+                attrs ? name
+              then
+                attrs.name + hostSuffix
+              else
+              # we cannot coerce null to a string below
+                assert lib.assertMsg (attrs ? version && attrs.version != null)
+                  "The ‘version’ attribute cannot be null.";
+                "${attrs.pname}${staticMarker}${hostSuffix}-${attrs.version}")
               ;
             }) // lib.optionalAttrs __structuredAttrs { env = checkedEnv; } // {
               builder = attrs.realBuilder or stdenv.shell;
@@ -478,25 +477,25 @@ let
               configureFlags = let
                 inherit (lib) optional elem;
               in
-                (if
-                  lib.isString configureFlags
-                then
-                  lib.warn
-                  "String 'configureFlags' is deprecated and will be removed in release 23.05. Please use a list of strings. Derivation name: ${derivationArg.name}, file: ${
-                    pos.file or "unknown file"
-                  }" [ configureFlags ]
-                else if configureFlags == null then
-                  lib.warn
-                  "Null 'configureFlags' is deprecated and will be removed in release 23.05. Please use a empty list instead '[]'. Derivation name: ${derivationArg.name}, file: ${
-                    pos.file or "unknown file"
-                  }" [ ]
-                else
-                  configureFlags) ++ optional (elem "build" configurePlatforms)
-                "--build=${stdenv.buildPlatform.config}"
-                ++ optional (elem "host" configurePlatforms)
-                "--host=${stdenv.hostPlatform.config}"
-                ++ optional (elem "target" configurePlatforms)
-                "--target=${stdenv.targetPlatform.config}"
+              (if
+                lib.isString configureFlags
+              then
+                lib.warn
+                "String 'configureFlags' is deprecated and will be removed in release 23.05. Please use a list of strings. Derivation name: ${derivationArg.name}, file: ${
+                  pos.file or "unknown file"
+                }" [ configureFlags ]
+              else if configureFlags == null then
+                lib.warn
+                "Null 'configureFlags' is deprecated and will be removed in release 23.05. Please use a empty list instead '[]'. Derivation name: ${derivationArg.name}, file: ${
+                  pos.file or "unknown file"
+                }" [ ]
+              else
+                configureFlags) ++ optional (elem "build" configurePlatforms)
+              "--build=${stdenv.buildPlatform.config}"
+              ++ optional (elem "host" configurePlatforms)
+              "--host=${stdenv.hostPlatform.config}"
+              ++ optional (elem "target" configurePlatforms)
+              "--target=${stdenv.targetPlatform.config}"
               ;
 
               cmakeFlags = let
@@ -532,9 +531,9 @@ let
                   ++ lib.optionals (stdenv.buildPlatform.uname.release
                     != null) [ "-DCMAKE_HOST_SYSTEM_VERSION=${stdenv.buildPlatform.uname.release}" ];
               in
-                explicitFlags
-                ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-                crossFlags
+              explicitFlags
+              ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
+              crossFlags
               ;
 
               mesonFlags = let
@@ -591,7 +590,7 @@ let
                 crossFlags = lib.optionals (stdenv.hostPlatform
                   != stdenv.buildPlatform) [ "--cross-file=${crossFile}" ];
               in
-                crossFlags ++ explicitFlags
+              crossFlags ++ explicitFlags
               ;
 
               inherit patches;
@@ -629,7 +628,7 @@ let
               final = lib.concatStringsSep "\n"
                 (lib.filter (x: x != "") (lib.unique profiles));
             in
-              final
+            final
             ;
             __propagatedSandboxProfile = lib.unique
               (computedPropagatedSandboxProfile
@@ -686,72 +685,72 @@ let
           overlappingNames =
             lib.attrNames (builtins.intersectAttrs env derivationArg);
         in
-          assert lib.assertMsg envIsExportable
-            "When using structured attributes, `env` must be an attribute set of environment variables.";
-          assert lib.assertMsg (overlappingNames == [ ])
-            "The ‘env’ attribute set cannot contain any attributes passed to derivation. The following attributes are overlapping: ${
-              lib.concatStringsSep ", " overlappingNames
-            }";
-          lib.mapAttrs (n: v:
-            assert lib.assertMsg (lib.isString v || lib.isBool v || lib.isInt v
-              || lib.isDerivation v)
-              "The ‘env’ attribute set can only contain derivation, string, boolean or integer attributes. The ‘${n}’ attribute is of type ${
-                builtins.typeOf v
-              }.";
-            v) env
+        assert lib.assertMsg envIsExportable
+          "When using structured attributes, `env` must be an attribute set of environment variables.";
+        assert lib.assertMsg (overlappingNames == [ ])
+          "The ‘env’ attribute set cannot contain any attributes passed to derivation. The following attributes are overlapping: ${
+            lib.concatStringsSep ", " overlappingNames
+          }";
+        lib.mapAttrs (n: v:
+          assert lib.assertMsg (lib.isString v || lib.isBool v || lib.isInt v
+            || lib.isDerivation v)
+            "The ‘env’ attribute set can only contain derivation, string, boolean or integer attributes. The ‘${n}’ attribute is of type ${
+              builtins.typeOf v
+            }.";
+          v) env
         ;
 
       in
-        lib.extendDerivation validity.handled ({
-          # A derivation that always builds successfully and whose runtime
-          # dependencies are the original derivations build time dependencies
-          # This allows easy building and distributing of all derivations
-          # needed to enter a nix-shell with
-          #   nix-build shell.nix -A inputDerivation
-          inputDerivation = derivation (derivationArg // {
-            # Add a name in case the original drv didn't have one
-            name = derivationArg.name or "inputDerivation";
-            # This always only has one output
-            outputs = [ "out" ];
+      lib.extendDerivation validity.handled ({
+        # A derivation that always builds successfully and whose runtime
+        # dependencies are the original derivations build time dependencies
+        # This allows easy building and distributing of all derivations
+        # needed to enter a nix-shell with
+        #   nix-build shell.nix -A inputDerivation
+        inputDerivation = derivation (derivationArg // {
+          # Add a name in case the original drv didn't have one
+          name = derivationArg.name or "inputDerivation";
+          # This always only has one output
+          outputs = [ "out" ];
 
-            # Propagate the original builder and arguments, since we override
-            # them and they might contain references to build inputs
-            _derivation_original_builder = derivationArg.builder;
-            _derivation_original_args = derivationArg.args;
+          # Propagate the original builder and arguments, since we override
+          # them and they might contain references to build inputs
+          _derivation_original_builder = derivationArg.builder;
+          _derivation_original_args = derivationArg.args;
 
-            builder = stdenv.shell;
-            # The bash builtin `export` dumps all current environment variables,
-            # which is where all build input references end up (e.g. $PATH for
-            # binaries). By writing this to $out, Nix can find and register
-            # them as runtime dependencies (since Nix greps for store paths
-            # through $out to find them)
-            args = [
-              "-c"
-              "export > $out"
-            ];
+          builder = stdenv.shell;
+          # The bash builtin `export` dumps all current environment variables,
+          # which is where all build input references end up (e.g. $PATH for
+          # binaries). By writing this to $out, Nix can find and register
+          # them as runtime dependencies (since Nix greps for store paths
+          # through $out to find them)
+          args = [
+            "-c"
+            "export > $out"
+          ];
 
-            # inputDerivation produces the inputs; not the outputs, so any
-            # restrictions on what used to be the outputs don't serve a purpose
-            # anymore.
-            disallowedReferences = [ ];
-            disallowedRequisites = [ ];
-          });
+          # inputDerivation produces the inputs; not the outputs, so any
+          # restrictions on what used to be the outputs don't serve a purpose
+          # anymore.
+          disallowedReferences = [ ];
+          disallowedRequisites = [ ];
+        });
 
-          inherit passthru overrideAttrs;
-          inherit meta;
-        } //
-          # Pass through extra attributes that are not inputs, but
-          # should be made available to Nix expressions using the
-          # derivation (e.g., in assertions).
-          passthru) (derivation
-            (derivationArg // lib.optionalAttrs envIsExportable checkedEnv))
+        inherit passthru overrideAttrs;
+        inherit meta;
+      } //
+        # Pass through extra attributes that are not inputs, but
+        # should be made available to Nix expressions using the
+        # derivation (e.g., in assertions).
+        passthru) (derivation
+          (derivationArg // lib.optionalAttrs envIsExportable checkedEnv))
   ;
 
 in
-  fnOrAttrs:
-  if
-    builtins.isFunction fnOrAttrs
-  then
-    makeDerivationExtensible fnOrAttrs
-  else
-    makeDerivationExtensibleConst fnOrAttrs
+fnOrAttrs:
+if
+  builtins.isFunction fnOrAttrs
+then
+  makeDerivationExtensible fnOrAttrs
+else
+  makeDerivationExtensibleConst fnOrAttrs

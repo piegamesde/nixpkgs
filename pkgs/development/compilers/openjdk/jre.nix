@@ -40,4 +40,4 @@ let
     };
   };
 in
-  jre
+jre

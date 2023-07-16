@@ -12,8 +12,8 @@ let
     inherit php phpPackages;
   };
 in
-  import ./php-packages.nix {
-    inherit composerEnv noDev;
-    inherit (pkgs) fetchurl fetchgit fetchhg fetchsvn;
-  }
+import ./php-packages.nix {
+  inherit composerEnv noDev;
+  inherit (pkgs) fetchurl fetchgit fetchhg fetchsvn;
+}
 

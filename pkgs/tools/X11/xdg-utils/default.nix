@@ -39,81 +39,81 @@ let
     ];
 
 in
-  stdenv.mkDerivation rec {
-    pname = "xdg-utils";
-    version = "unstable-2020-10-21";
+stdenv.mkDerivation rec {
+  pname = "xdg-utils";
+  version = "unstable-2020-10-21";
 
-    src = fetchFromGitLab {
-      domain = "gitlab.freedesktop.org";
-      owner = "xdg";
-      repo = "xdg-utils";
-      rev = "d11b33ec7f24cfb1546f6b459611d440013bdc72";
-      sha256 = "sha256-8PtXfI8hRneEpnUvIV3M+6ACjlkx0w/NEiJFdGbbHnQ=";
-    };
+  src = fetchFromGitLab {
+    domain = "gitlab.freedesktop.org";
+    owner = "xdg";
+    repo = "xdg-utils";
+    rev = "d11b33ec7f24cfb1546f6b459611d440013bdc72";
+    sha256 = "sha256-8PtXfI8hRneEpnUvIV3M+6ACjlkx0w/NEiJFdGbbHnQ=";
+  };
 
-    patches = lib.optionals withXdgOpenUsePortalPatch [
-      # Allow forcing the use of XDG portals using NIXOS_XDG_OPEN_USE_PORTAL environment variable.
-      # Upstream PR: https://github.com/freedesktop/xdg-utils/pull/12
-      ./allow-forcing-portal-use.patch
-      # Allow opening files when using portal with xdg-open.
-      # Upstream PR: https://gitlab.freedesktop.org/xdg/xdg-utils/-/merge_requests/65
-      (fetchpatch {
-        name = "support-openfile-with-portal.patch";
-        url =
-          "https://gitlab.freedesktop.org/xdg/xdg-utils/-/commit/5cd8c38f58d9db03240f4bc67267fe3853b66ec7.diff";
-        hash = "sha256-snkhxwGF9hpqEh5NGG8xixTi/ydAk5apXRtgYrVgNY8=";
-      })
-    ];
+  patches = lib.optionals withXdgOpenUsePortalPatch [
+    # Allow forcing the use of XDG portals using NIXOS_XDG_OPEN_USE_PORTAL environment variable.
+    # Upstream PR: https://github.com/freedesktop/xdg-utils/pull/12
+    ./allow-forcing-portal-use.patch
+    # Allow opening files when using portal with xdg-open.
+    # Upstream PR: https://gitlab.freedesktop.org/xdg/xdg-utils/-/merge_requests/65
+    (fetchpatch {
+      name = "support-openfile-with-portal.patch";
+      url =
+        "https://gitlab.freedesktop.org/xdg/xdg-utils/-/commit/5cd8c38f58d9db03240f4bc67267fe3853b66ec7.diff";
+      hash = "sha256-snkhxwGF9hpqEh5NGG8xixTi/ydAk5apXRtgYrVgNY8=";
+    })
+  ];
 
-    # just needed when built from git
-    nativeBuildInputs = [
-      libxslt
-      docbook_xml_dtd_412
-      docbook_xsl
-      xmlto
-      w3m
-    ];
+  # just needed when built from git
+  nativeBuildInputs = [
+    libxslt
+    docbook_xml_dtd_412
+    docbook_xsl
+    xmlto
+    w3m
+  ];
 
-    postInstall = lib.optionalString mimiSupport ''
-      cp ${mimisrc}/xdg-open $out/bin/xdg-open
-    '' + ''
-      sed  '2s#.#\
-      sed()   { ${gnused}/bin/sed     "$@"; }\
-      grep()  { ${gnugrep}/bin/grep   "$@"; }\
-      egrep() { ${gnugrep}/bin/egrep  "$@"; }\
-      file()  { ${file}/bin/file      "$@"; }\
-      awk()   { ${gawk}/bin/awk       "$@"; }\
-      xset()  { ${xset}/bin/xset      "$@"; }\
-      perl()  { PERL5LIB=${perlPath} ${perlPackages.perl}/bin/perl "$@"; }\
-      mimetype() { ${perlPackages.FileMimeInfo}/bin/mimetype "$@"; }\
-      PATH=$PATH:'$out'/bin:${coreutils}/bin\
-      &#' -i "$out"/bin/*
+  postInstall = lib.optionalString mimiSupport ''
+    cp ${mimisrc}/xdg-open $out/bin/xdg-open
+  '' + ''
+    sed  '2s#.#\
+    sed()   { ${gnused}/bin/sed     "$@"; }\
+    grep()  { ${gnugrep}/bin/grep   "$@"; }\
+    egrep() { ${gnugrep}/bin/egrep  "$@"; }\
+    file()  { ${file}/bin/file      "$@"; }\
+    awk()   { ${gawk}/bin/awk       "$@"; }\
+    xset()  { ${xset}/bin/xset      "$@"; }\
+    perl()  { PERL5LIB=${perlPath} ${perlPackages.perl}/bin/perl "$@"; }\
+    mimetype() { ${perlPackages.FileMimeInfo}/bin/mimetype "$@"; }\
+    PATH=$PATH:'$out'/bin:${coreutils}/bin\
+    &#' -i "$out"/bin/*
 
-      substituteInPlace $out/bin/xdg-open \
-        --replace "/usr/bin/printf" "${coreutils}/bin/printf" \
-        --replace "gdbus" "${glib}/bin/gdbus"
+    substituteInPlace $out/bin/xdg-open \
+      --replace "/usr/bin/printf" "${coreutils}/bin/printf" \
+      --replace "gdbus" "${glib}/bin/gdbus"
 
-      substituteInPlace $out/bin/xdg-mime \
-        --replace "/usr/bin/file" "${file}/bin/file"
+    substituteInPlace $out/bin/xdg-mime \
+      --replace "/usr/bin/file" "${file}/bin/file"
 
-      substituteInPlace $out/bin/xdg-email \
-        --replace "/bin/echo" "${coreutils}/bin/echo" \
-        --replace "gdbus" "${glib}/bin/gdbus"
+    substituteInPlace $out/bin/xdg-email \
+      --replace "/bin/echo" "${coreutils}/bin/echo" \
+      --replace "gdbus" "${glib}/bin/gdbus"
 
-      sed 's|\bwhich\b|type -P|g' -i "$out"/bin/*
-    '';
+    sed 's|\bwhich\b|type -P|g' -i "$out"/bin/*
+  '';
 
-    meta = with lib; {
-      homepage = "https://www.freedesktop.org/wiki/Software/xdg-utils/";
-      description =
-        "A set of command line tools that assist applications with a variety of desktop integration tasks";
-      license = if
-        mimiSupport
-      then
-        licenses.gpl2
-      else
-        licenses.free;
-      maintainers = [ maintainers.eelco ];
-      platforms = platforms.all;
-    };
-  }
+  meta = with lib; {
+    homepage = "https://www.freedesktop.org/wiki/Software/xdg-utils/";
+    description =
+      "A set of command line tools that assist applications with a variety of desktop integration tasks";
+    license = if
+      mimiSupport
+    then
+      licenses.gpl2
+    else
+      licenses.free;
+    maintainers = [ maintainers.eelco ];
+    platforms = platforms.all;
+  };
+}

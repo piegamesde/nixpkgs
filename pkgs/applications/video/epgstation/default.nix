@@ -116,14 +116,14 @@ let
     meta = drv.meta // { inherit (nodejs.meta) platforms; };
   });
 in
-  server // {
-    name = "${pname}-${version}";
+server // {
+  name = "${pname}-${version}";
 
-    meta = with lib;
-      server.meta // {
-        maintainers = with maintainers; [ midchildan ];
+  meta = with lib;
+    server.meta // {
+      maintainers = with maintainers; [ midchildan ];
 
-        # NOTE: updateScript relies on this being correct
-        position = toString ./default.nix + ":1";
-      };
-  }
+      # NOTE: updateScript relies on this being correct
+      position = toString ./default.nix + ":1";
+    };
+}

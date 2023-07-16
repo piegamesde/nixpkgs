@@ -67,19 +67,19 @@ buildPythonApplication rec {
   postInstall = let
     completionPython = python.withPackages (ps: [ ps.configobj ]);
   in
-    lib.optionalString withManpage ''
-      mkdir -p $out/man
-      cp -r docs/build/man $out/man
-    '' + ''
-      mkdir -p $out/share/{applications,alot}
-      cp -r extra/themes $out/share/alot
+  lib.optionalString withManpage ''
+    mkdir -p $out/man
+    cp -r docs/build/man $out/man
+  '' + ''
+    mkdir -p $out/share/{applications,alot}
+    cp -r extra/themes $out/share/alot
 
-      substituteInPlace extra/completion/alot-completion.zsh \
-        --replace "python3" "${completionPython.interpreter}"
-      install -D extra/completion/alot-completion.zsh $out/share/zsh/site-functions/_alot
+    substituteInPlace extra/completion/alot-completion.zsh \
+      --replace "python3" "${completionPython.interpreter}"
+    install -D extra/completion/alot-completion.zsh $out/share/zsh/site-functions/_alot
 
-      sed "s,/usr/bin,$out/bin,g" extra/alot.desktop > $out/share/applications/alot.desktop
-    ''
+    sed "s,/usr/bin,$out/bin,g" extra/alot.desktop > $out/share/applications/alot.desktop
+  ''
   ;
 
   meta = with lib; {

@@ -427,12 +427,12 @@ in {
         wmNames = map (wm: wm.wmName) flashbackWms;
         namesAreUnique = lib.unique wmNames == wmNames;
       in
-        assert (assertMsg namesAreUnique "Flashback WM names must be unique.");
-        map (wm:
-          pkgs.gnome.gnome-flashback.mkSessionForWm {
-            inherit (wm) wmName wmLabel wmCommand enableGnomePanel;
-            inherit (cfg.flashback) panelModulePackages;
-          }) flashbackWms
+      assert (assertMsg namesAreUnique "Flashback WM names must be unique.");
+      map (wm:
+        pkgs.gnome.gnome-flashback.mkSessionForWm {
+          inherit (wm) wmName wmLabel wmCommand enableGnomePanel;
+          inherit (cfg.flashback) panelModulePackages;
+        }) flashbackWms
       ;
 
       security.pam.services.gnome-flashback = { enableGnomeKeyring = true; };
@@ -512,8 +512,8 @@ in {
         mandatoryPackages = [ pkgs.gnome.gnome-shell ];
         optionalPackages = [ pkgs.gnome.gnome-shell-extensions ];
       in
-        mandatoryPackages ++ utils.removePackagesByName optionalPackages
-        config.environment.gnome.excludePackages
+      mandatoryPackages ++ utils.removePackagesByName optionalPackages
+      config.environment.gnome.excludePackages
       ;
 
       services.colord.enable = mkDefault true;
@@ -589,8 +589,8 @@ in {
           pkgs.xdg-user-dirs # Update user dirs as described in http://freedesktop.org/wiki/Software/xdg-user-dirs/
         ];
       in
-        mandatoryPackages ++ utils.removePackagesByName optionalPackages
-        config.environment.gnome.excludePackages
+      mandatoryPackages ++ utils.removePackagesByName optionalPackages
+      config.environment.gnome.excludePackages
       ;
     })
 

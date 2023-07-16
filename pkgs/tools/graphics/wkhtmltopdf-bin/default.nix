@@ -79,38 +79,38 @@ let
     '';
   };
 in
-  stdenv.mkDerivation ({
-    pname = "wkhtmltopdf-bin";
+stdenv.mkDerivation ({
+  pname = "wkhtmltopdf-bin";
 
-    dontStrip = true;
+  dontStrip = true;
 
-    doInstallCheck = true;
+  doInstallCheck = true;
 
-    installCheckPhase = ''
-      $out/bin/wkhtmltopdf --version
+  installCheckPhase = ''
+    $out/bin/wkhtmltopdf --version
+  '';
+
+  meta = with lib; {
+    homepage = "https://wkhtmltopdf.org/";
+    description =
+      "Tools for rendering web pages to PDF or images (binary package)";
+    longDescription = ''
+      wkhtmltopdf and wkhtmltoimage are open source (LGPL) command line tools
+      to render HTML into PDF and various image formats using the QT Webkit
+      rendering engine. These run entirely "headless" and do not require a
+      display or display service.
+
+      There is also a C library, if you're into that kind of thing.
     '';
-
-    meta = with lib; {
-      homepage = "https://wkhtmltopdf.org/";
-      description =
-        "Tools for rendering web pages to PDF or images (binary package)";
-      longDescription = ''
-        wkhtmltopdf and wkhtmltoimage are open source (LGPL) command line tools
-        to render HTML into PDF and various image formats using the QT Webkit
-        rendering engine. These run entirely "headless" and do not require a
-        display or display service.
-
-        There is also a C library, if you're into that kind of thing.
-      '';
-      license = licenses.gpl3Plus;
-      maintainers = with maintainers; [
-        nbr
-        kalbasit
-      ];
-      platforms = [
-        "x86_64-darwin"
-        "x86_64-linux"
-      ];
-    };
-  } // lib.optionalAttrs (stdenv.hostPlatform.isDarwin) darwinAttrs
-    // lib.optionalAttrs (stdenv.hostPlatform.isLinux) linuxAttrs)
+    license = licenses.gpl3Plus;
+    maintainers = with maintainers; [
+      nbr
+      kalbasit
+    ];
+    platforms = [
+      "x86_64-darwin"
+      "x86_64-linux"
+    ];
+  };
+} // lib.optionalAttrs (stdenv.hostPlatform.isDarwin) darwinAttrs
+  // lib.optionalAttrs (stdenv.hostPlatform.isLinux) linuxAttrs)

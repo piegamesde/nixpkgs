@@ -48,4 +48,4 @@ let
   extensible-self = makeExtensible (extends extensions haskellPackages);
 
 in
-  extensible-self
+extensible-self

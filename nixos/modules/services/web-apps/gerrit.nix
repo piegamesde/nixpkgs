@@ -17,7 +17,7 @@ let
       sectionType = lazyAttrsOf multipleType;
       supersectionType = lazyAttrsOf (either multipleType sectionType);
     in
-      lazyAttrsOf supersectionType
+    lazyAttrsOf supersectionType
   ;
 
   gerritConfig =

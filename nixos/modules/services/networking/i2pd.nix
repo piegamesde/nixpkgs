@@ -227,10 +227,10 @@ let
                             else
                               [ ]);
           in
-            (concatStringsSep "\n" protoOpts)
+          (concatStringsSep "\n" protoOpts)
         ));
   in
-    pkgs.writeText "i2pd.conf" (concatStringsSep "\n" opts)
+  pkgs.writeText "i2pd.conf" (concatStringsSep "\n" opts)
   ;
 
   tunnelConf = let
@@ -288,7 +288,7 @@ let
                           else
                             [ ]);
           in
-            concatStringsSep "\n" outTunOpts
+          concatStringsSep "\n" outTunOpts
         ))
       (flip map (collect (tun: tun ? port && tun ? address) cfg.inTunnels) (tun:
         let
@@ -319,11 +319,11 @@ let
                 else
                   [ ]);
         in
-          concatStringsSep "\n" inTunOpts
+        concatStringsSep "\n" inTunOpts
       ))
     ];
   in
-    pkgs.writeText "i2pd-tunnels.conf" opts
+  pkgs.writeText "i2pd-tunnels.conf" opts
   ;
 
   i2pdFlags = concatStringsSep " "

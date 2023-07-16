@@ -1901,12 +1901,12 @@ let
   };
   devPackages = { };
 in
-  composerEnv.buildPackage {
-    inherit packages devPackages noDev;
-    name = "snipe-it";
-    src = composerEnv.filterSrc ./.;
-    executable = false;
-    symlinkDependencies = false;
-    meta = { license = "AGPL-3.0-or-later"; };
-  }
+composerEnv.buildPackage {
+  inherit packages devPackages noDev;
+  name = "snipe-it";
+  src = composerEnv.filterSrc ./.;
+  executable = false;
+  symlinkDependencies = false;
+  meta = { license = "AGPL-3.0-or-later"; };
+}
 

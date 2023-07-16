@@ -40,7 +40,7 @@ let
       filenameLen = builtins.stringLength filename;
       substr = builtins.substring prefixLen filenameLen filename;
     in
-      substr
+    substr
   ;
 
   removeNixpkgs = removeFilenamePrefix (builtins.toString pkgs.path);
@@ -77,12 +77,12 @@ let
     '') relativeLocs);
 
 in
-  pkgs.writeText "locations.xml" ''
-    <section xmlns="http://docbook.org/ns/docbook"
-         xmlns:xlink="http://www.w3.org/1999/xlink"
-         version="5">
-         <title>All the locations for every lib function</title>
-         <para>This file is only for inclusion by other files.</para>
-         ${xmlstrings}
-    </section>
-  ''
+pkgs.writeText "locations.xml" ''
+  <section xmlns="http://docbook.org/ns/docbook"
+       xmlns:xlink="http://www.w3.org/1999/xlink"
+       version="5">
+       <title>All the locations for every lib function</title>
+       <para>This file is only for inclusion by other files.</para>
+       ${xmlstrings}
+  </section>
+''

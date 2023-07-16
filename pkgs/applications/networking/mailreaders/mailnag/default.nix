@@ -74,10 +74,10 @@ python3Packages.buildPythonApplication rec {
         pluginsDeps = lib.flatten (lib.catAttrs "buildInputs" plugs);
         self = mailnag;
       in
-        self.override {
-          userPlugins = plugs;
-          inherit pluginsDeps;
-        }
+      self.override {
+        userPlugins = plugs;
+        inherit pluginsDeps;
+      }
     ;
   };
 

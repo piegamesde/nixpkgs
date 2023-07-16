@@ -36,56 +36,56 @@ let
   ] ++ lib.optional unfreeEnableUnrar unrar;
 
 in
-  mkDerivation {
-    pname = "ark";
+mkDerivation {
+  pname = "ark";
 
-    outputs = [
-      "out"
-      "dev"
-    ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-    nativeBuildInputs = [
-      extra-cmake-modules
-      kdoctools
-    ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
 
-    buildInputs = [
-      libarchive
-      libzip
-    ] ++ extraTools;
+  buildInputs = [
+    libarchive
+    libzip
+  ] ++ extraTools;
 
-    propagatedBuildInputs = [
-      breeze-icons
-      karchive
-      kconfig
-      kcrash
-      kdbusaddons
-      khtml
-      ki18n
-      kiconthemes
-      kio
-      kitemmodels
-      kparts
-      kpty
-      kservice
-      kwidgetsaddons
-    ];
+  propagatedBuildInputs = [
+    breeze-icons
+    karchive
+    kconfig
+    kcrash
+    kdbusaddons
+    khtml
+    ki18n
+    kiconthemes
+    kio
+    kitemmodels
+    kparts
+    kpty
+    kservice
+    kwidgetsaddons
+  ];
 
-    qtWrapperArgs = [
-      "--prefix"
-      "PATH"
-      ":"
-      (lib.makeBinPath extraTools)
-    ];
+  qtWrapperArgs = [
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath extraTools)
+  ];
 
-    meta = with lib; {
-      homepage = "https://apps.kde.org/ark/";
-      description = "Graphical file compression/decompression utility";
-      license = with licenses;
-        [
-          gpl2
-          lgpl3
-        ] ++ optional unfreeEnableUnrar unfree;
-      maintainers = [ maintainers.ttuegel ];
-    };
-  }
+  meta = with lib; {
+    homepage = "https://apps.kde.org/ark/";
+    description = "Graphical file compression/decompression utility";
+    license = with licenses;
+      [
+        gpl2
+        lgpl3
+      ] ++ optional unfreeEnableUnrar unfree;
+    maintainers = [ maintainers.ttuegel ];
+  };
+}

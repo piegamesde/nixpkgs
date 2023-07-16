@@ -116,7 +116,7 @@ let
 
       mkConf = cfg: concatStrings (mapAttrsToList mkConfigLine cfg);
     in
-      mkConf exprs
+    mkConf exprs
   ;
 
 in {

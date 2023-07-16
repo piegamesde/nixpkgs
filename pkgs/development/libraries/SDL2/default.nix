@@ -189,14 +189,13 @@ stdenv.mkDerivation rec {
     rpath =
       lib.makeLibraryPath (dlopenPropagatedBuildInputs ++ dlopenBuildInputs);
   in
-    lib.optionalString
-    (stdenv.hostPlatform.extensions.sharedLibrary == ".so") ''
-      for lib in $out/lib/*.so* ; do
-        if ! [[ -L "$lib" ]]; then
-          patchelf --set-rpath "$(patchelf --print-rpath $lib):${rpath}" "$lib"
-        fi
-      done
-    ''
+  lib.optionalString (stdenv.hostPlatform.extensions.sharedLibrary == ".so") ''
+    for lib in $out/lib/*.so* ; do
+      if ! [[ -L "$lib" ]]; then
+        patchelf --set-rpath "$(patchelf --print-rpath $lib):${rpath}" "$lib"
+      fi
+    done
+  ''
   ;
 
   setupHook = ./setup-hook.sh;

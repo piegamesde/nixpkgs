@@ -61,35 +61,35 @@ let
   };
 
 in
-  symlinkJoin {
-    name = "tsc-${version}";
-    paths = [
-      tsc
-      tsc-dyn
-    ];
+symlinkJoin {
+  name = "tsc-${version}";
+  paths = [
+    tsc
+    tsc-dyn
+  ];
 
-    passthru = {
-      updateScript = let
-        pythonEnv = python3.withPackages (ps: [ ps.requests ]);
-      in
-        writeScript "tsc-update" ''
-          #!${runtimeShell}
-          set -euo pipefail
-          export PATH=${
-            lib.makeBinPath [
-              nix-prefetch-github
-              nix
-              pythonEnv
-            ]
-          }:$PATH
-          exec python3 ${builtins.toString ./update.py} ${builtins.toString ./.}
-        ''
-      ;
-    };
+  passthru = {
+    updateScript = let
+      pythonEnv = python3.withPackages (ps: [ ps.requests ]);
+    in
+    writeScript "tsc-update" ''
+      #!${runtimeShell}
+      set -euo pipefail
+      export PATH=${
+        lib.makeBinPath [
+          nix-prefetch-github
+          nix
+          pythonEnv
+        ]
+      }:$PATH
+      exec python3 ${builtins.toString ./update.py} ${builtins.toString ./.}
+    ''
+    ;
+  };
 
-    meta = {
-      description = "The core APIs of the Emacs binding for tree-sitter.";
-      license = lib.licenses.mit;
-      maintainers = with lib.maintainers; [ pimeys ];
-    };
-  }
+  meta = {
+    description = "The core APIs of the Emacs binding for tree-sitter.";
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ pimeys ];
+  };
+}

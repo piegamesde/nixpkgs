@@ -208,4 +208,4 @@ let
     };
   }) ./setup-hook.sh;
 in
-  hook
+hook

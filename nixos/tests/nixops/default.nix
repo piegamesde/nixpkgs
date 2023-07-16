@@ -113,17 +113,17 @@ let
     let
       name = "allDrvOutputs-${pkg.pname or pkg.name or "unknown"}";
     in
-      pkgs.runCommand name { refs = pkgs.writeReferencesToFile pkg.drvPath; } ''
-        touch $out
-        while read ref; do
-          case $ref in
-            *.drv)
-              cat $ref >>$out
-              ;;
-          esac
-        done <$refs
-      ''
+    pkgs.runCommand name { refs = pkgs.writeReferencesToFile pkg.drvPath; } ''
+      touch $out
+      while read ref; do
+        case $ref in
+          *.drv)
+            cat $ref >>$out
+            ;;
+        esac
+      done <$refs
+    ''
   ;
 
 in
-  tests
+tests

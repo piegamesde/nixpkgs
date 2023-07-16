@@ -41,4 +41,4 @@ let
     }) hashes;
 
 in
-  sources // { inherit version; }
+sources // { inherit version; }

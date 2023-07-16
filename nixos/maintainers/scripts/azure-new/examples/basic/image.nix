@@ -10,4 +10,4 @@ let
       }) ];
   };
 in
-  machine.config.system.build.azureImage
+machine.config.system.build.azureImage

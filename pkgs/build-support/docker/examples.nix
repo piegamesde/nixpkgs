@@ -89,31 +89,31 @@ in rec {
       <html><body><h1>Hello from NGINX</h1></body></html>
     '';
   in
-    buildLayeredImage {
-      name = "nginx-container";
-      tag = "latest";
-      contents = [
-        fakeNss
-        pkgs.nginx
+  buildLayeredImage {
+    name = "nginx-container";
+    tag = "latest";
+    contents = [
+      fakeNss
+      pkgs.nginx
+    ];
+
+    extraCommands = ''
+      mkdir -p tmp/nginx_client_body
+
+      # nginx still tries to read this directory even if error_log
+      # directive is specifying another file :/
+      mkdir -p var/log/nginx
+    '';
+
+    config = {
+      Cmd = [
+        "nginx"
+        "-c"
+        nginxConf
       ];
-
-      extraCommands = ''
-        mkdir -p tmp/nginx_client_body
-
-        # nginx still tries to read this directory even if error_log
-        # directive is specifying another file :/
-        mkdir -p var/log/nginx
-      '';
-
-      config = {
-        Cmd = [
-          "nginx"
-          "-c"
-          nginxConf
-        ];
-        ExposedPorts = { "${nginxPort}/tcp" = { }; };
-      };
-    }
+      ExposedPorts = { "${nginxPort}/tcp" = { }; };
+    };
+  }
   ;
 
   # 4. example of pulling an image. could be used as a base for other images
@@ -311,20 +311,20 @@ in rec {
       '';
     };
   in
-    pkgs.dockerTools.buildImage {
-      name = "l3";
-      fromImage = l2;
-      tag = "latest";
-      copyToRoot = pkgs.buildEnv {
-        name = "image-root";
-        pathsToLink = [ "/bin" ];
-        paths = [ pkgs.coreutils ];
-      };
-      extraCommands = ''
-        mkdir -p tmp
-        echo layer3 > tmp/layer3
-      '';
-    }
+  pkgs.dockerTools.buildImage {
+    name = "l3";
+    fromImage = l2;
+    tag = "latest";
+    copyToRoot = pkgs.buildEnv {
+      name = "image-root";
+      pathsToLink = [ "/bin" ];
+      paths = [ pkgs.coreutils ];
+    };
+    extraCommands = ''
+      mkdir -p tmp
+      echo layer3 > tmp/layer3
+    '';
+  }
   ;
 
   # 15. Environment variable inheritance.
@@ -504,7 +504,7 @@ in rec {
     layerB = layerOnTopOf layerA "b";
     layerC = layerOnTopOf layerB "c";
   in
-    layerC
+  layerC
   ;
 
   # buildImage without explicit tag
@@ -552,17 +552,17 @@ in rec {
         '')
       ];
   in
-    pkgs.dockerTools.buildLayeredImage {
-      name = "bash-layered-with-user";
-      tag = "latest";
-      contents = [
-        pkgs.bash
-        pkgs.coreutils
-      ] ++ nonRootShadowSetup {
-        uid = 999;
-        user = "somebody";
-      };
-    }
+  pkgs.dockerTools.buildLayeredImage {
+    name = "bash-layered-with-user";
+    tag = "latest";
+    contents = [
+      pkgs.bash
+      pkgs.coreutils
+    ] ++ nonRootShadowSetup {
+      uid = 999;
+      user = "somebody";
+    };
+  }
   ;
 
   # basic example, with cross compilation
@@ -575,15 +575,15 @@ in rec {
     else
       pkgsCross.aarch64-multiplatform;
   in
-    crossPkgs.dockerTools.buildImage {
-      name = "hello-cross";
-      tag = "latest";
-      copyToRoot = pkgs.buildEnv {
-        name = "image-root";
-        pathsToLink = [ "/bin" ];
-        paths = [ crossPkgs.hello ];
-      };
-    }
+  crossPkgs.dockerTools.buildImage {
+    name = "hello-cross";
+    tag = "latest";
+    copyToRoot = pkgs.buildEnv {
+      name = "image-root";
+      pathsToLink = [ "/bin" ];
+      paths = [ crossPkgs.hello ];
+    };
+  }
   ;
 
   # layered image where a store path is itself a symlink
@@ -591,16 +591,16 @@ in rec {
     target = pkgs.writeTextDir "dir/target" "Content doesn't matter.";
     symlink = pkgs.runCommand "symlink" { } "ln -s ${target} $out";
   in
-    pkgs.dockerTools.buildLayeredImage {
-      name = "layeredstoresymlink";
-      tag = "latest";
-      contents = [
-        pkgs.bash
-        symlink
-      ];
-    } // {
-      passthru = { inherit symlink; };
-    }
+  pkgs.dockerTools.buildLayeredImage {
+    name = "layeredstoresymlink";
+    tag = "latest";
+    contents = [
+      pkgs.bash
+      symlink
+    ];
+  } // {
+    passthru = { inherit symlink; };
+  }
   ;
 
   # image with registry/ prefix
@@ -696,19 +696,19 @@ in rec {
         };
       }));
   in
-    pkgs.dockerTools.streamLayeredImage {
-      name = "etc";
-      tag = "latest";
-      enableFakechroot = true;
-      fakeRootCommands = ''
-        mkdir -p /etc
-        ${nixosCore.config.system.build.etcActivationCommands}
-      '';
-      config.Cmd = pkgs.writeScript "etc-cmd" ''
-        #!${pkgs.busybox}/bin/sh
-        ${pkgs.busybox}/bin/cat /etc/some-config-file
-      '';
-    }
+  pkgs.dockerTools.streamLayeredImage {
+    name = "etc";
+    tag = "latest";
+    enableFakechroot = true;
+    fakeRootCommands = ''
+      mkdir -p /etc
+      ${nixosCore.config.system.build.etcActivationCommands}
+    '';
+    config.Cmd = pkgs.writeScript "etc-cmd" ''
+      #!${pkgs.busybox}/bin/sh
+      ${pkgs.busybox}/bin/cat /etc/some-config-file
+    '';
+  }
   ;
 
   # Example export of the bash image

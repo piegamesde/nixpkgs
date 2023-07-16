@@ -199,175 +199,173 @@ let
       "OFF";
 
 in
-  stdenv.mkDerivation {
-    pname = "opencv";
-    inherit version src;
+stdenv.mkDerivation {
+  pname = "opencv";
+  inherit version src;
 
-    postUnpack = lib.optionalString buildContrib ''
-      cp --no-preserve=mode -r "${contribSrc}/modules" "$NIX_BUILD_TOP/opencv_contrib"
-    '';
+  postUnpack = lib.optionalString buildContrib ''
+    cp --no-preserve=mode -r "${contribSrc}/modules" "$NIX_BUILD_TOP/opencv_contrib"
+  '';
 
-    # Ensures that we use the system OpenEXR rather than the vendored copy of the source included with OpenCV.
-    patches = [ ./cmake-don-t-use-OpenCVFindOpenEXR.patch ];
+  # Ensures that we use the system OpenEXR rather than the vendored copy of the source included with OpenCV.
+  patches = [ ./cmake-don-t-use-OpenCVFindOpenEXR.patch ];
 
-    # This prevents cmake from using libraries in impure paths (which
-    # causes build failure on non NixOS)
-    # Also, work around https://github.com/NixOS/nixpkgs/issues/26304 with
-    # what appears to be some stray headers in dnn/misc/tensorflow
-    # in contrib when generating the Python bindings:
-    postPatch = ''
-      sed -i '/Add these standard paths to the search paths for FIND_LIBRARY/,/^\s*$/{d}' CMakeLists.txt
-      sed -i -e 's|if len(decls) == 0:|if len(decls) == 0 or "opencv2/" not in hdr:|' ./modules/python/src2/gen2.py
-    '';
+  # This prevents cmake from using libraries in impure paths (which
+  # causes build failure on non NixOS)
+  # Also, work around https://github.com/NixOS/nixpkgs/issues/26304 with
+  # what appears to be some stray headers in dnn/misc/tensorflow
+  # in contrib when generating the Python bindings:
+  postPatch = ''
+    sed -i '/Add these standard paths to the search paths for FIND_LIBRARY/,/^\s*$/{d}' CMakeLists.txt
+    sed -i -e 's|if len(decls) == 0:|if len(decls) == 0 or "opencv2/" not in hdr:|' ./modules/python/src2/gen2.py
+  '';
 
-    preConfigure = lib.optionalString enableIpp (installExtraFiles ippicv)
-      + (lib.optionalString buildContrib ''
-        cmakeFlagsArray+=("-DOPENCV_EXTRA_MODULES_PATH=$NIX_BUILD_TOP/opencv_contrib")
+  preConfigure = lib.optionalString enableIpp (installExtraFiles ippicv)
+    + (lib.optionalString buildContrib ''
+      cmakeFlagsArray+=("-DOPENCV_EXTRA_MODULES_PATH=$NIX_BUILD_TOP/opencv_contrib")
 
-        ${installExtraFiles vgg}
-        ${installExtraFiles boostdesc}
-        ${installExtraFiles face}
-      '');
+      ${installExtraFiles vgg}
+      ${installExtraFiles boostdesc}
+      ${installExtraFiles face}
+    '');
 
-    postConfigure = ''
-      [ -e modules/core/version_string.inc ]
-      echo '"(build info elided)"' > modules/core/version_string.inc
-    '';
+  postConfigure = ''
+    [ -e modules/core/version_string.inc ]
+    echo '"(build info elided)"' > modules/core/version_string.inc
+  '';
 
-    buildInputs = [
-      zlib
-      pcre
-      hdf5
-      glog
-      boost
-      gflags
-    ] ++ lib.optional useSystemProtobuf protobuf
-      ++ lib.optional enablePython pythonPackages.python
-      ++ lib.optional enableGtk2 gtk2 ++ lib.optional enableGtk3 gtk3
-      ++ lib.optional enableVtk vtk_8 ++ lib.optional enableJPEG libjpeg
-      ++ lib.optional enablePNG libpng ++ lib.optional enableTIFF libtiff
-      ++ lib.optional enableWebP libwebp ++ lib.optionals enableEXR [
-        openexr
-        ilmbase
-      ] ++ lib.optional enableFfmpeg ffmpeg
-      ++ lib.optionals (enableFfmpeg && stdenv.isDarwin) [
-        VideoDecodeAcceleration
-        bzip2
-      ] ++ lib.optionals enableGStreamer (with gst_all_1; [
-        gstreamer
-        gst-plugins-base
-      ]) ++ lib.optional enableOvis ogre
-      ++ lib.optional enableGPhoto2 libgphoto2
-      ++ lib.optional enableDC1394 libdc1394 ++ lib.optional enableEigen eigen
-      ++ lib.optional enableOpenblas openblas
-      # There is seemingly no compile-time flag for Tesseract.  It's
-      # simply enabled automatically if contrib is built, and it detects
-      # tesseract & leptonica.
-      ++ lib.optionals enableTesseract [
-        tesseract
-        leptonica
-      ] ++ lib.optional enableTbb tbb ++ lib.optionals stdenv.isDarwin [
-        bzip2
-        AVFoundation
-        Cocoa
-        VideoDecodeAcceleration
-        CoreMedia
-        MediaToolbox
-        Accelerate
-      ] ++ lib.optionals enableDocs [
-        doxygen
-        graphviz-nox
-      ];
-
-    propagatedBuildInputs = lib.optional enablePython pythonPackages.numpy
-      ++ lib.optional enableCuda cudatoolkit;
-
-    nativeBuildInputs = [
-      cmake
-      pkg-config
-      unzip
+  buildInputs = [
+    zlib
+    pcre
+    hdf5
+    glog
+    boost
+    gflags
+  ] ++ lib.optional useSystemProtobuf protobuf
+    ++ lib.optional enablePython pythonPackages.python
+    ++ lib.optional enableGtk2 gtk2 ++ lib.optional enableGtk3 gtk3
+    ++ lib.optional enableVtk vtk_8 ++ lib.optional enableJPEG libjpeg
+    ++ lib.optional enablePNG libpng ++ lib.optional enableTIFF libtiff
+    ++ lib.optional enableWebP libwebp ++ lib.optionals enableEXR [
+      openexr
+      ilmbase
+    ] ++ lib.optional enableFfmpeg ffmpeg
+    ++ lib.optionals (enableFfmpeg && stdenv.isDarwin) [
+      VideoDecodeAcceleration
+      bzip2
+    ] ++ lib.optionals enableGStreamer (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+    ]) ++ lib.optional enableOvis ogre ++ lib.optional enableGPhoto2 libgphoto2
+    ++ lib.optional enableDC1394 libdc1394 ++ lib.optional enableEigen eigen
+    ++ lib.optional enableOpenblas openblas
+    # There is seemingly no compile-time flag for Tesseract.  It's
+    # simply enabled automatically if contrib is built, and it detects
+    # tesseract & leptonica.
+    ++ lib.optionals enableTesseract [
+      tesseract
+      leptonica
+    ] ++ lib.optional enableTbb tbb ++ lib.optionals stdenv.isDarwin [
+      bzip2
+      AVFoundation
+      Cocoa
+      VideoDecodeAcceleration
+      CoreMedia
+      MediaToolbox
+      Accelerate
+    ] ++ lib.optionals enableDocs [
+      doxygen
+      graphviz-nox
     ];
 
-    env.NIX_CFLAGS_COMPILE =
-      lib.optionalString enableEXR "-I${ilmbase.dev}/include/OpenEXR";
+  propagatedBuildInputs = lib.optional enablePython pythonPackages.numpy
+    ++ lib.optional enableCuda cudatoolkit;
 
-    # Configure can't find the library without this.
-    OpenBLAS_HOME = lib.optionalString enableOpenblas openblas;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    unzip
+  ];
 
-    cmakeFlags = [
-      "-DWITH_OPENMP=ON"
-      "-DBUILD_PROTOBUF=${printEnabled (!useSystemProtobuf)}"
-      "-DPROTOBUF_UPDATE_FILES=${printEnabled useSystemProtobuf}"
-      "-DOPENCV_ENABLE_NONFREE=${printEnabled enableUnfree}"
-      "-DBUILD_TESTS=OFF"
-      "-DBUILD_PERF_TESTS=OFF"
-      "-DBUILD_DOCS=${printEnabled enableDocs}"
-      (opencvFlag "IPP" enableIpp)
-      (opencvFlag "TIFF" enableTIFF)
-      (opencvFlag "WEBP" enableWebP)
-      (opencvFlag "JPEG" enableJPEG)
-      (opencvFlag "PNG" enablePNG)
-      (opencvFlag "OPENEXR" enableEXR)
-      (opencvFlag "CUDA" enableCuda)
-      (opencvFlag "CUBLAS" enableCuda)
-      (opencvFlag "TBB" enableTbb)
-    ] ++ lib.optionals enableCuda [
-      "-DCUDA_FAST_MATH=ON"
-      "-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/cc"
-      "-DCUDA_NVCC_FLAGS=--expt-relaxed-constexpr"
-      "-DCUDA_ARCH_BIN=${lib.concatStringsSep ";" cudaCapabilities}"
-      "-DCUDA_ARCH_PTX=${lib.last cudaCapabilities}"
-    ] ++ lib.optionals stdenv.isDarwin [
-      "-DWITH_OPENCL=OFF"
-      "-DWITH_LAPACK=OFF"
-    ] ++ lib.optionals enablePython [ "-DOPENCV_SKIP_PYTHON_LOADER=ON" ]
-      ++ lib.optionals enableEigen [
-        # Autodetection broken by https://github.com/opencv/opencv/pull/13337
-        "-DEIGEN_INCLUDE_PATH=${eigen}/include/eigen3"
-      ];
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString enableEXR "-I${ilmbase.dev}/include/OpenEXR";
 
-    postBuild = lib.optionalString enableDocs ''
-      make doxygen
-    '';
+  # Configure can't find the library without this.
+  OpenBLAS_HOME = lib.optionalString enableOpenblas openblas;
 
-    # By default $out/lib/pkgconfig/opencv.pc looks something like this:
-    #
-    #   prefix=/nix/store/10pzq1a8fkh8q4sysj8n6mv0w0nl0miq-opencv-3.4.1
-    #   exec_prefix=${prefix}
-    #   libdir=${exec_prefix}//nix/store/10pzq1a8fkh8q4sysj8n6mv0w0nl0miq-opencv-3.4.1/lib
-    #   ...
-    #   Libs: -L${exec_prefix}//nix/store/10pzq1a8fkh8q4sysj8n6mv0w0nl0miq-opencv-3.4.1/lib ...
-    #
-    # Note that ${exec_prefix} is set to $out but that $out is also appended to
-    # ${exec_prefix}. This causes linker errors in downstream packages so we strip
-    # of $out after the ${exec_prefix} prefix:
-    postInstall = ''
-      sed -i "s|{exec_prefix}/$out|{exec_prefix}|" \
-        "$out/lib/pkgconfig/opencv.pc"
-    '';
-
-    hardeningDisable = [
-      "bindnow"
-      "relro"
+  cmakeFlags = [
+    "-DWITH_OPENMP=ON"
+    "-DBUILD_PROTOBUF=${printEnabled (!useSystemProtobuf)}"
+    "-DPROTOBUF_UPDATE_FILES=${printEnabled useSystemProtobuf}"
+    "-DOPENCV_ENABLE_NONFREE=${printEnabled enableUnfree}"
+    "-DBUILD_TESTS=OFF"
+    "-DBUILD_PERF_TESTS=OFF"
+    "-DBUILD_DOCS=${printEnabled enableDocs}"
+    (opencvFlag "IPP" enableIpp)
+    (opencvFlag "TIFF" enableTIFF)
+    (opencvFlag "WEBP" enableWebP)
+    (opencvFlag "JPEG" enableJPEG)
+    (opencvFlag "PNG" enablePNG)
+    (opencvFlag "OPENEXR" enableEXR)
+    (opencvFlag "CUDA" enableCuda)
+    (opencvFlag "CUBLAS" enableCuda)
+    (opencvFlag "TBB" enableTbb)
+  ] ++ lib.optionals enableCuda [
+    "-DCUDA_FAST_MATH=ON"
+    "-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/cc"
+    "-DCUDA_NVCC_FLAGS=--expt-relaxed-constexpr"
+    "-DCUDA_ARCH_BIN=${lib.concatStringsSep ";" cudaCapabilities}"
+    "-DCUDA_ARCH_PTX=${lib.last cudaCapabilities}"
+  ] ++ lib.optionals stdenv.isDarwin [
+    "-DWITH_OPENCL=OFF"
+    "-DWITH_LAPACK=OFF"
+  ] ++ lib.optionals enablePython [ "-DOPENCV_SKIP_PYTHON_LOADER=ON" ]
+    ++ lib.optionals enableEigen [
+      # Autodetection broken by https://github.com/opencv/opencv/pull/13337
+      "-DEIGEN_INCLUDE_PATH=${eigen}/include/eigen3"
     ];
 
-    passthru = lib.optionalAttrs enablePython { pythonPath = [ ]; };
+  postBuild = lib.optionalString enableDocs ''
+    make doxygen
+  '';
 
-    meta = with lib; {
-      description =
-        "Open Computer Vision Library with more than 500 algorithms";
-      homepage = "https://opencv.org/";
-      license = with licenses;
-        if
-          enableUnfree
-        then
-          unfree
-        else
-          bsd3;
-      maintainers = with maintainers; [
-        mdaiter
-        basvandijk
-      ];
-      platforms = with platforms; linux ++ darwin;
-    };
-  }
+  # By default $out/lib/pkgconfig/opencv.pc looks something like this:
+  #
+  #   prefix=/nix/store/10pzq1a8fkh8q4sysj8n6mv0w0nl0miq-opencv-3.4.1
+  #   exec_prefix=${prefix}
+  #   libdir=${exec_prefix}//nix/store/10pzq1a8fkh8q4sysj8n6mv0w0nl0miq-opencv-3.4.1/lib
+  #   ...
+  #   Libs: -L${exec_prefix}//nix/store/10pzq1a8fkh8q4sysj8n6mv0w0nl0miq-opencv-3.4.1/lib ...
+  #
+  # Note that ${exec_prefix} is set to $out but that $out is also appended to
+  # ${exec_prefix}. This causes linker errors in downstream packages so we strip
+  # of $out after the ${exec_prefix} prefix:
+  postInstall = ''
+    sed -i "s|{exec_prefix}/$out|{exec_prefix}|" \
+      "$out/lib/pkgconfig/opencv.pc"
+  '';
+
+  hardeningDisable = [
+    "bindnow"
+    "relro"
+  ];
+
+  passthru = lib.optionalAttrs enablePython { pythonPath = [ ]; };
+
+  meta = with lib; {
+    description = "Open Computer Vision Library with more than 500 algorithms";
+    homepage = "https://opencv.org/";
+    license = with licenses;
+      if
+        enableUnfree
+      then
+        unfree
+      else
+        bsd3;
+    maintainers = with maintainers; [
+      mdaiter
+      basvandijk
+    ];
+    platforms = with platforms; linux ++ darwin;
+  };
+}

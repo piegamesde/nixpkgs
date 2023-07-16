@@ -37,70 +37,70 @@ let
         || !unfreeIncludeHDCPBlob;
 
     in
-      stdenv.mkDerivation (rec {
+    stdenv.mkDerivation (rec {
 
-        pname = "arm-trusted-firmware${
-            lib.optionalString (platform != null) "-${platform}"
-          }";
-        version = "2.7";
+      pname = "arm-trusted-firmware${
+          lib.optionalString (platform != null) "-${platform}"
+        }";
+      version = "2.7";
 
-        src = fetchFromGitHub {
-          owner = "ARM-software";
-          repo = "arm-trusted-firmware";
-          rev = "v${version}";
-          sha256 = "sha256-WDJMMIWZHNqxxAKeHiZDxtPjfsfQAWsbYv+0o0PiJQs=";
-        };
+      src = fetchFromGitHub {
+        owner = "ARM-software";
+        repo = "arm-trusted-firmware";
+        rev = "v${version}";
+        sha256 = "sha256-WDJMMIWZHNqxxAKeHiZDxtPjfsfQAWsbYv+0o0PiJQs=";
+      };
 
-        patches = lib.optionals deleteHDCPBlobBeforeBuild [
-          # this is a rebased version of https://gitlab.com/vicencb/kevinboot/-/blob/master/atf.patch
-          ./remove-hdcp-blob.patch
-        ];
+      patches = lib.optionals deleteHDCPBlobBeforeBuild [
+        # this is a rebased version of https://gitlab.com/vicencb/kevinboot/-/blob/master/atf.patch
+        ./remove-hdcp-blob.patch
+      ];
 
-        postPatch = lib.optionalString deleteHDCPBlobBeforeBuild ''
-          rm plat/rockchip/rk3399/drivers/dp/hdcp.bin
-        '';
+      postPatch = lib.optionalString deleteHDCPBlobBeforeBuild ''
+        rm plat/rockchip/rk3399/drivers/dp/hdcp.bin
+      '';
 
-        depsBuildBuild = [ buildPackages.stdenv.cc ];
+      depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-        # For Cortex-M0 firmware in RK3399
-        nativeBuildInputs = [ pkgsCross.arm-embedded.stdenv.cc ];
+      # For Cortex-M0 firmware in RK3399
+      nativeBuildInputs = [ pkgsCross.arm-embedded.stdenv.cc ];
 
-        buildInputs = [ openssl ];
+      buildInputs = [ openssl ];
 
-        makeFlags = [
-          "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-          # binutils 2.39 regression
-          # `warning: /build/source/build/rk3399/release/bl31/bl31.elf has a LOAD segment with RWX permissions`
-          # See also: https://developer.trustedfirmware.org/T996
-          "LDFLAGS=-no-warn-rwx-segments"
-        ] ++ (lib.optional (platform != null) "PLAT=${platform}")
-          ++ extraMakeFlags;
+      makeFlags = [
+        "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
+        # binutils 2.39 regression
+        # `warning: /build/source/build/rk3399/release/bl31/bl31.elf has a LOAD segment with RWX permissions`
+        # See also: https://developer.trustedfirmware.org/T996
+        "LDFLAGS=-no-warn-rwx-segments"
+      ] ++ (lib.optional (platform != null) "PLAT=${platform}")
+        ++ extraMakeFlags;
 
-        installPhase = ''
-          runHook preInstall
+      installPhase = ''
+        runHook preInstall
 
-          mkdir -p ${installDir}
-          cp ${lib.concatStringsSep " " filesToInstall} ${installDir}
+        mkdir -p ${installDir}
+        cp ${lib.concatStringsSep " " filesToInstall} ${installDir}
 
-          runHook postInstall
-        '';
+        runHook postInstall
+      '';
 
-        hardeningDisable = [ "all" ];
-        dontStrip = true;
+      hardeningDisable = [ "all" ];
+      dontStrip = true;
 
-        # Fatal error: can't create build/sun50iw1p1/release/bl31/sunxi_clocks.o: No such file or directory
-        enableParallelBuilding = false;
+      # Fatal error: can't create build/sun50iw1p1/release/bl31/sunxi_clocks.o: No such file or directory
+      enableParallelBuilding = false;
 
-        meta = with lib;
-          {
-            homepage = "https://github.com/ARM-software/arm-trusted-firmware";
-            description =
-              "A reference implementation of secure world software for ARMv8-A";
-            license = [ licenses.bsd3 ] ++ lib.optionals
-              (!deleteHDCPBlobBeforeBuild) [ licenses.unfreeRedistributable ];
-            maintainers = with maintainers; [ lopsided98 ];
-          } // extraMeta;
-      } // builtins.removeAttrs args [ "extraMeta" ])
+      meta = with lib;
+        {
+          homepage = "https://github.com/ARM-software/arm-trusted-firmware";
+          description =
+            "A reference implementation of secure world software for ARMv8-A";
+          license = [ licenses.bsd3 ] ++ lib.optionals
+            (!deleteHDCPBlobBeforeBuild) [ licenses.unfreeRedistributable ];
+          maintainers = with maintainers; [ lopsided98 ];
+        } // extraMeta;
+    } // builtins.removeAttrs args [ "extraMeta" ])
   ;
 
 in {

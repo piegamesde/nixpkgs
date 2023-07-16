@@ -32,24 +32,23 @@ let
   };
 
 in
-  stdenvNoCC.mkDerivation {
-    pname = "left4gore";
-    inherit version;
+stdenvNoCC.mkDerivation {
+  pname = "left4gore";
+  inherit version;
 
-    dontUnpack = true;
-    dontConfigure = true;
-    dontBuild = true;
+  dontUnpack = true;
+  dontConfigure = true;
+  dontBuild = true;
 
-    installPhase = ''
-      mkdir -p $out/bin
-      ln -s ${env}/bin/* $out/bin/left4gore
-    '';
+  installPhase = ''
+    mkdir -p $out/bin
+    ln -s ${env}/bin/* $out/bin/left4gore
+  '';
 
-    meta = with lib; {
-      homepage = "http://www.left4gore.com";
-      description =
-        "Memory patcher which adds the gore back into Left 4 Dead 2";
-      license = licenses.unfree; # Probably the best choice
-      maintainers = with maintainers; [ das_j ];
-    };
-  }
+  meta = with lib; {
+    homepage = "http://www.left4gore.com";
+    description = "Memory patcher which adds the gore back into Left 4 Dead 2";
+    license = licenses.unfree; # Probably the best choice
+    maintainers = with maintainers; [ das_j ];
+  };
+}

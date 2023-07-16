@@ -10,21 +10,21 @@
 let
   versions = builtins.fromJSON (builtins.readFile ./versions.json);
 in
-  stdenvNoCC.mkDerivation {
-    name = "videojs";
+stdenvNoCC.mkDerivation {
+  name = "videojs";
 
-    inherit (invidious) src;
+  inherit (invidious) src;
 
-    builder = ./videojs.sh;
+  builder = ./videojs.sh;
 
-    nativeBuildInputs = [
-      cacert
-      crystal
-      openssl
-      pkg-config
-    ];
+  nativeBuildInputs = [
+    cacert
+    crystal
+    openssl
+    pkg-config
+  ];
 
-    outputHashAlgo = "sha256";
-    outputHashMode = "recursive";
-    outputHash = versions.videojs.sha256;
-  }
+  outputHashAlgo = "sha256";
+  outputHashMode = "recursive";
+  outputHash = versions.videojs.sha256;
+}

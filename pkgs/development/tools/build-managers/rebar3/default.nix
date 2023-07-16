@@ -138,36 +138,36 @@ let
         doCheck = false;
       }));
     in
-      stdenv.mkDerivation {
-        pname = "rebar3-with-plugins";
-        inherit (rebar3) version;
-        nativeBuildInputs = [
-          erlang
-          makeWrapper
-        ];
-        unpackPhase = "true";
+    stdenv.mkDerivation {
+      pname = "rebar3-with-plugins";
+      inherit (rebar3) version;
+      nativeBuildInputs = [
+        erlang
+        makeWrapper
+      ];
+      unpackPhase = "true";
 
-        # Here we extract the rebar3 escript (like `rebar3_prv_local_install.erl`) and
-        # add plugins to the code path.
+      # Here we extract the rebar3 escript (like `rebar3_prv_local_install.erl`) and
+      # add plugins to the code path.
 
-        installPhase = ''
-          erl -noshell -eval '
-            {ok, Escript} = escript:extract("${rebar3Patched}/bin/rebar3", []),
-            {archive, Archive} = lists:keyfind(archive, 1, Escript),
-            {ok, _} = zip:extract(Archive, [{cwd, "'$out/lib'"}]),
-            init:stop(0)
-          '
-          cp ${./rebar_ignore_deps.erl} rebar_ignore_deps.erl
-          erlc -o $out/lib/rebar/ebin rebar_ignore_deps.erl
-          mkdir -p $out/bin
-          makeWrapper ${erlang}/bin/erl $out/bin/rebar3 \
-            --set REBAR_GLOBAL_PLUGINS "${
-              toString globalPluginNames
-            } rebar_ignore_deps" \
-            --suffix-each ERL_LIBS ":" "$out/lib ${toString pluginLibDirs}" \
-            --add-flags "+sbtu +A1 -noshell -boot start_clean -s rebar3 main -extra"
-        '';
-      }
+      installPhase = ''
+        erl -noshell -eval '
+          {ok, Escript} = escript:extract("${rebar3Patched}/bin/rebar3", []),
+          {archive, Archive} = lists:keyfind(archive, 1, Escript),
+          {ok, _} = zip:extract(Archive, [{cwd, "'$out/lib'"}]),
+          init:stop(0)
+        '
+        cp ${./rebar_ignore_deps.erl} rebar_ignore_deps.erl
+        erlc -o $out/lib/rebar/ebin rebar_ignore_deps.erl
+        mkdir -p $out/bin
+        makeWrapper ${erlang}/bin/erl $out/bin/rebar3 \
+          --set REBAR_GLOBAL_PLUGINS "${
+            toString globalPluginNames
+          } rebar_ignore_deps" \
+          --suffix-each ERL_LIBS ":" "$out/lib ${toString pluginLibDirs}" \
+          --add-flags "+sbtu +A1 -noshell -boot start_clean -s rebar3 main -extra"
+      '';
+    }
   ;
 in {
   inherit rebar3 rebar3WithPlugins;

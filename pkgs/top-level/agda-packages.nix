@@ -45,4 +45,4 @@ let
       agdarsec = callPackage ../development/libraries/agda/agdarsec { };
     } ;
 in
-  mkAgdaPackages Agda
+mkAgdaPackages Agda

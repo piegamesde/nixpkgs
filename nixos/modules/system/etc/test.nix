@@ -34,39 +34,39 @@ let
     # testing...
   '';
 in
-  lib.recurseIntoAttrs {
-    test-etc-vm = vmTools.runInLinuxVM (runCommand "test-etc-vm" { } ''
+lib.recurseIntoAttrs {
+  test-etc-vm = vmTools.runInLinuxVM (runCommand "test-etc-vm" { } ''
+    mkdir -p /etc
+    ${node.config.system.build.etcActivationCommands}
+    set -x
+    [[ -L /etc/passwd ]]
+    diff /etc/passwd ${writeText "expected-passwd" passwdText}
+    [[ 751 = $(stat --format %a /etc/hosts) ]]
+    diff /etc/hosts ${writeText "expected-hosts" hostsText}
+    set +x
+    touch $out
+  '');
+
+  # fakeroot is behaving weird
+  test-etc-fakeroot = runCommand "test-etc" {
+    nativeBuildInputs = [
+      fakeroot
+      fakechroot
+      # for chroot
+      coreutils
+      # fakechroot needs getopt, which is provided by util-linux
+      util-linux
+    ];
+    fakeRootCommands = ''
       mkdir -p /etc
       ${node.config.system.build.etcActivationCommands}
-      set -x
-      [[ -L /etc/passwd ]]
-      diff /etc/passwd ${writeText "expected-passwd" passwdText}
-      [[ 751 = $(stat --format %a /etc/hosts) ]]
       diff /etc/hosts ${writeText "expected-hosts" hostsText}
-      set +x
       touch $out
-    '');
-
-    # fakeroot is behaving weird
-    test-etc-fakeroot = runCommand "test-etc" {
-      nativeBuildInputs = [
-        fakeroot
-        fakechroot
-        # for chroot
-        coreutils
-        # fakechroot needs getopt, which is provided by util-linux
-        util-linux
-      ];
-      fakeRootCommands = ''
-        mkdir -p /etc
-        ${node.config.system.build.etcActivationCommands}
-        diff /etc/hosts ${writeText "expected-hosts" hostsText}
-        touch $out
-      '';
-    } ''
-      mkdir fake-root
-      export FAKECHROOT_EXCLUDE_PATH=/dev:/proc:/sys:${builtins.storeDir}:$out
-      fakechroot fakeroot chroot $PWD/fake-root bash -c 'source $stdenv/setup; eval "$fakeRootCommands"'
     '';
+  } ''
+    mkdir fake-root
+    export FAKECHROOT_EXCLUDE_PATH=/dev:/proc:/sys:${builtins.storeDir}:$out
+    fakechroot fakeroot chroot $PWD/fake-root bash -c 'source $stdenv/setup; eval "$fakeRootCommands"'
+  '';
 
-  }
+}

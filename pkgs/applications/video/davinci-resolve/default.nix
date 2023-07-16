@@ -140,52 +140,52 @@ let
     '';
   });
 in
-  buildFHSEnv {
-    name = "davinci-resolve";
-    targetPkgs = pkgs:
-      with pkgs; [
-        librsvg
-        libGLU
-        libGL
-        xorg.libICE
-        xorg.libSM
-        xorg.libXxf86vm
-        xorg.libxcb
-        udev
-        opencl-headers
-        alsa-lib
-        xorg.libX11
-        xorg.libXext
-        expat
-        zlib
-        libuuid
-        bzip2
-        libtool
-        ocl-icd
-        glib
-        libarchive
-        libxcrypt # provides libcrypt.so.1
-        xdg-utils # xdg-open needed to open URLs
-        python2
-        # currently they want python 3.6 which is EOL
-        #python3
-        aprutil
-      ];
+buildFHSEnv {
+  name = "davinci-resolve";
+  targetPkgs = pkgs:
+    with pkgs; [
+      librsvg
+      libGLU
+      libGL
+      xorg.libICE
+      xorg.libSM
+      xorg.libXxf86vm
+      xorg.libxcb
+      udev
+      opencl-headers
+      alsa-lib
+      xorg.libX11
+      xorg.libXext
+      expat
+      zlib
+      libuuid
+      bzip2
+      libtool
+      ocl-icd
+      glib
+      libarchive
+      libxcrypt # provides libcrypt.so.1
+      xdg-utils # xdg-open needed to open URLs
+      python2
+      # currently they want python 3.6 which is EOL
+      #python3
+      aprutil
+    ];
 
-    runScript = "${bash}/bin/bash ${
-        writeText "davinci-wrapper" ''
-          export QT_XKB_CONFIG_ROOT="${xkeyboard_config}/share/X11/xkb"
-          export QT_PLUGIN_PATH="${davinci}/libs/plugins:$QT_PLUGIN_PATH"
-          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${davinci}/libs
-          ${davinci}/bin/resolve
-        ''
-      }";
+  runScript = "${bash}/bin/bash ${
+      writeText "davinci-wrapper" ''
+        export QT_XKB_CONFIG_ROOT="${xkeyboard_config}/share/X11/xkb"
+        export QT_PLUGIN_PATH="${davinci}/libs/plugins:$QT_PLUGIN_PATH"
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${davinci}/libs
+        ${davinci}/bin/resolve
+      ''
+    }";
 
-    meta = with lib; {
-      description = "Professional Video Editing, Color, Effects and Audio Post";
-      homepage = "https://www.blackmagicdesign.com/products/davinciresolve/";
-      license = licenses.unfree;
-      maintainers = with maintainers; [ jshcmpbll ];
-      platforms = platforms.linux;
-    };
-  }
+  meta = with lib; {
+    description = "Professional Video Editing, Color, Effects and Audio Post";
+    homepage = "https://www.blackmagicdesign.com/products/davinciresolve/";
+    license = licenses.unfree;
+    maintainers = with maintainers; [ jshcmpbll ];
+    platforms = platforms.linux;
+  };
+}

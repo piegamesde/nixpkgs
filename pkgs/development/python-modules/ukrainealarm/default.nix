@@ -21,38 +21,38 @@ let
   version = "0.0.1";
 
 in
-  buildPythonPackage {
-    inherit pname version;
-    format = "setuptools";
+buildPythonPackage {
+  inherit pname version;
+  format = "setuptools";
 
-    src = fetchFromGitHub {
-      owner = "PaulAnnekov";
-      repo = pname;
-      rev = "v${version}";
-      hash = "sha256-0gsxXQiSkJIM/I0VYsjdCCB3NjPr6QJbD/rBkGrwtW8=";
-    };
+  src = fetchFromGitHub {
+    owner = "PaulAnnekov";
+    repo = pname;
+    rev = "v${version}";
+    hash = "sha256-0gsxXQiSkJIM/I0VYsjdCCB3NjPr6QJbD/rBkGrwtW8=";
+  };
 
-    SETUPTOOLS_SCM_PRETEND_VERSION = version;
+  SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-    nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-    propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [ aiohttp ];
 
-    nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-    pythonImportsCheck = [
-      "ukrainealarm"
-      "ukrainealarm.client"
-    ];
+  pythonImportsCheck = [
+    "ukrainealarm"
+    "ukrainealarm.client"
+  ];
 
-    meta = with lib; {
-      changelog =
-        "https://github.com/PaulAnnekov/ukrainealarm/releases/tag/v${version}";
-      description =
-        "Implements api.ukrainealarm.com API that returns info about Ukraine air raid alarms";
-      homepage = "https://github.com/PaulAnnekov/ukrainealarm";
-      license = licenses.mit;
-      maintainers = with maintainers; [ hexa ];
-    };
-  }
+  meta = with lib; {
+    changelog =
+      "https://github.com/PaulAnnekov/ukrainealarm/releases/tag/v${version}";
+    description =
+      "Implements api.ukrainealarm.com API that returns info about Ukraine air raid alarms";
+    homepage = "https://github.com/PaulAnnekov/ukrainealarm";
+    license = licenses.mit;
+    maintainers = with maintainers; [ hexa ];
+  };
+}
 

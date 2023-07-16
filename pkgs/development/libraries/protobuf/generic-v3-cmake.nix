@@ -64,11 +64,11 @@ let
       protobufVersion =
         "${lib.versions.major version}_${lib.versions.minor version}";
     in
-      [ cmake ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-        # protoc of the same version must be available for build. For non-cross builds, it's able to
-        # re-use the executable generated as part of the build
-        buildPackages."protobuf${protobufVersion}"
-      ]
+    [ cmake ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      # protoc of the same version must be available for build. For non-cross builds, it's able to
+      # re-use the executable generated as part of the build
+      buildPackages."protobuf${protobufVersion}"
+    ]
     ;
 
     buildInputs = [
@@ -112,4 +112,4 @@ let
     };
   };
 in
-  self
+self

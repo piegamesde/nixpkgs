@@ -48,4 +48,4 @@ let
     };
   };
 in
-  automat
+automat

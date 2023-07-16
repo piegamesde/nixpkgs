@@ -31,7 +31,7 @@ let
       else
         [ ]);
     in
-      lib.optionals res.success res.value
+    lib.optionals res.success res.value
   );
 
   jobs = {
@@ -54,4 +54,4 @@ let
 
   } // (mapTestOn (packagePython pkgs));
 in
-  jobs
+jobs

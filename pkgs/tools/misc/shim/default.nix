@@ -17,43 +17,43 @@ let
     aarch64-linux = "shimaa64.efi";
   }.${system} or throwSystem;
 in
-  stdenv.mkDerivation rec {
-    pname = "shim";
-    version = "15.7";
+stdenv.mkDerivation rec {
+  pname = "shim";
+  version = "15.7";
 
-    src = fetchFromGitHub {
-      owner = "rhboot";
-      repo = pname;
-      rev = version;
-      hash = "sha256-CfUuq0anbXlCVo9r9NIb76oJzDqaPMIhL9cmXK1iqXo=";
-      fetchSubmodules = true;
-    };
+  src = fetchFromGitHub {
+    owner = "rhboot";
+    repo = pname;
+    rev = version;
+    hash = "sha256-CfUuq0anbXlCVo9r9NIb76oJzDqaPMIhL9cmXK1iqXo=";
+    fetchSubmodules = true;
+  };
 
-    buildInputs = [ elfutils ];
+  buildInputs = [ elfutils ];
 
-    env.NIX_CFLAGS_COMPILE = toString [ "-I${toString elfutils.dev}/include" ];
+  env.NIX_CFLAGS_COMPILE = toString [ "-I${toString elfutils.dev}/include" ];
 
-    makeFlags =
-      lib.optional (vendorCertFile != null) "VENDOR_CERT_FILE=${vendorCertFile}"
-      ++ lib.optional (defaultLoader != null) "DEFAULT_LOADER=${defaultLoader}"
-      ++ [ target ];
+  makeFlags =
+    lib.optional (vendorCertFile != null) "VENDOR_CERT_FILE=${vendorCertFile}"
+    ++ lib.optional (defaultLoader != null) "DEFAULT_LOADER=${defaultLoader}"
+    ++ [ target ];
 
-    installPhase = ''
-      mkdir -p $out/share/shim
-      install -m 644 ${target} $out/share/shim/
-    '';
+  installPhase = ''
+    mkdir -p $out/share/shim
+    install -m 644 ${target} $out/share/shim/
+  '';
 
-    meta = with lib; {
-      description = "UEFI shim loader";
-      homepage = "https://github.com/rhboot/shim";
-      license = licenses.bsd1;
-      platforms = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-      maintainers = with maintainers; [
-        baloo
-        raitobezarius
-      ];
-    };
-  }
+  meta = with lib; {
+    description = "UEFI shim loader";
+    homepage = "https://github.com/rhboot/shim";
+    license = licenses.bsd1;
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
+    maintainers = with maintainers; [
+      baloo
+      raitobezarius
+    ];
+  };
+}

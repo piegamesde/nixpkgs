@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       sha256 = "9O6XqM4oys/hXgztQQ8tTobJV8U52db/VY6FlTMUvGY=";
     };
   in
-    "${share}/ashpd-demo"
+  "${share}/ashpd-demo"
   ;
 
   cargoDeps = rustPlatform.fetchCargoTarball {

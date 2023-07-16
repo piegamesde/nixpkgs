@@ -132,18 +132,18 @@ in {
           value = let
             size = "${toString cfg.memoryPercent} / 100 * ram";
           in
-            {
-              zram-size = if
-                cfg.memoryMax != null
-              then
-                "min(${size}, ${toString cfg.memoryMax} / 1024 / 1024)"
-              else
-                size;
-              compression-algorithm = cfg.algorithm;
-              swap-priority = cfg.priority;
-            } // lib.optionalAttrs (cfg.writebackDevice != null) {
-              writeback-device = cfg.writebackDevice;
-            }
+          {
+            zram-size = if
+              cfg.memoryMax != null
+            then
+              "min(${size}, ${toString cfg.memoryMax} / 1024 / 1024)"
+            else
+              size;
+            compression-algorithm = cfg.algorithm;
+            swap-priority = cfg.priority;
+          } // lib.optionalAttrs (cfg.writebackDevice != null) {
+            writeback-device = cfg.writebackDevice;
+          }
           ;
         }) devices));
 

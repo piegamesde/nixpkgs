@@ -67,61 +67,61 @@ let
       SOAPLite
     ]);
 in
-  stdenv.mkDerivation rec {
-    pname = "sympa";
-    version = "6.2.70";
+stdenv.mkDerivation rec {
+  pname = "sympa";
+  version = "6.2.70";
 
-    src = fetchFromGitHub {
-      owner = "sympa-community";
-      repo = pname;
-      rev = version;
-      sha256 = "sha256-/gaJ17IwB6ZC7OT9gxA5uUhTAHXeqsEh/x4AzAARups=";
-    };
+  src = fetchFromGitHub {
+    owner = "sympa-community";
+    repo = pname;
+    rev = version;
+    sha256 = "sha256-/gaJ17IwB6ZC7OT9gxA5uUhTAHXeqsEh/x4AzAARups=";
+  };
 
-    configureFlags = [
-      "--enable-fhs"
-      "--without-initdir"
-      "--without-unitsdir"
-      "--without-smrshdir"
+  configureFlags = [
+    "--enable-fhs"
+    "--without-initdir"
+    "--without-unitsdir"
+    "--without-smrshdir"
 
-      "--with-lockdir=${runtimeDir}"
-      "--with-piddir=${runtimeDir}"
-      "--with-confdir=${dataDir}/etc"
-      "--sysconfdir=${dataDir}/etc"
-      "--with-spooldir=${dataDir}/spool"
-      "--with-expldir=${dataDir}/list_data"
+    "--with-lockdir=${runtimeDir}"
+    "--with-piddir=${runtimeDir}"
+    "--with-confdir=${dataDir}/etc"
+    "--sysconfdir=${dataDir}/etc"
+    "--with-spooldir=${dataDir}/spool"
+    "--with-expldir=${dataDir}/list_data"
+  ];
+  nativeBuildInputs = [ autoreconfHook ];
+  buildInputs = [ perlEnv ];
+  patches = [ ./make-docs.patch ];
+
+  prePatch = ''
+    patchShebangs po/sympa/add-lang.pl
+  '';
+
+  preInstall = ''
+    mkdir "$TMP/bin"
+    for i in chown chgrp chmod; do
+      echo '#!${stdenv.shell}' >> "$TMP/bin/$i"
+      chmod +x "$TMP/bin/$i"
+    done
+    PATH="$TMP/bin:$PATH"
+  '';
+
+  postInstall = ''
+    rm -rf "$TMP/bin"
+  '';
+
+  passthru.tests = { inherit (nixosTests) sympa; };
+
+  meta = with lib; {
+    description = "Open source mailing list manager";
+    homepage = "https://www.sympa.org";
+    license = licenses.gpl2;
+    maintainers = with maintainers; [
+      sorki
+      mmilata
     ];
-    nativeBuildInputs = [ autoreconfHook ];
-    buildInputs = [ perlEnv ];
-    patches = [ ./make-docs.patch ];
-
-    prePatch = ''
-      patchShebangs po/sympa/add-lang.pl
-    '';
-
-    preInstall = ''
-      mkdir "$TMP/bin"
-      for i in chown chgrp chmod; do
-        echo '#!${stdenv.shell}' >> "$TMP/bin/$i"
-        chmod +x "$TMP/bin/$i"
-      done
-      PATH="$TMP/bin:$PATH"
-    '';
-
-    postInstall = ''
-      rm -rf "$TMP/bin"
-    '';
-
-    passthru.tests = { inherit (nixosTests) sympa; };
-
-    meta = with lib; {
-      description = "Open source mailing list manager";
-      homepage = "https://www.sympa.org";
-      license = licenses.gpl2;
-      maintainers = with maintainers; [
-        sorki
-        mmilata
-      ];
-      platforms = platforms.all;
-    };
-  }
+    platforms = platforms.all;
+  };
+}

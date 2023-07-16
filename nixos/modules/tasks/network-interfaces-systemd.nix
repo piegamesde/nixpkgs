@@ -54,9 +54,9 @@ let
         };
       };
     in
-      optionalAttrs (gateway != [ ]) {
-        routes = override (map makeGateway gateway);
-      } // optionalAttrs (domains != [ ]) { domains = override domains; }
+    optionalAttrs (gateway != [ ]) {
+      routes = override (map makeGateway gateway);
+    } // optionalAttrs (domains != [ ]) { domains = override domains; }
   ;
 
   genericDhcpNetworks = initrd:
@@ -311,11 +311,11 @@ in {
                   else
                     builtins.trace msg false;
               in
-                assert all (driverOpt:
-                  assertTrace (elem driverOpt (knownOptions ++ unknownOptions))
-                  "The bond.driverOption `${driverOpt}` cannot be mapped to the list of known networkd bond options. Please add it to the mapping above the assert or to `unknownOptions` should it not exist in networkd.")
-                  (mapAttrsToList (k: _: k) do);
-                ""
+              assert all (driverOpt:
+                assertTrace (elem driverOpt (knownOptions ++ unknownOptions))
+                "The bond.driverOption `${driverOpt}` cannot be mapped to the list of known networkd bond options. Please add it to the mapping above the assert or to `unknownOptions` should it not exist in networkd.")
+                (mapAttrsToList (k: _: k) do);
+              ""
               ;
               # get those driverOptions that have been set
               filterSystemdOptions = filterAttrs
@@ -329,8 +329,8 @@ in {
                 # only map those that exist
                   (filter (o: do ? ${o}) optNames)));
             in
-              seq assertNoUnknownOption
-              (buildOptionSet (filterSystemdOptions driverOptionMapping))
+            seq assertNoUnknownOption
+            (buildOptionSet (filterSystemdOptions driverOptionMapping))
             ;
 
           };
@@ -529,12 +529,12 @@ in {
             '';
           } );
       in
-        mapAttrs' createVswitchDevice cfg.vswitches // {
-          "network-local-commands" = {
-            after = [ "systemd-networkd.service" ];
-            bindsTo = [ "systemd-networkd.service" ];
-          };
-        }
+      mapAttrs' createVswitchDevice cfg.vswitches // {
+        "network-local-commands" = {
+          after = [ "systemd-networkd.service" ];
+          bindsTo = [ "systemd-networkd.service" ];
+        };
+      }
       ;
     })
 

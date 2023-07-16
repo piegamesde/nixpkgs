@@ -82,4 +82,4 @@ let
   }));
 
 in
-  lib.extendDerivation true passthru self
+lib.extendDerivation true passthru self

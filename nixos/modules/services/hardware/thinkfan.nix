@@ -32,11 +32,11 @@ let
         "level disengaged"
       ];
     in
-      tuple [
-        (either level special)
-        level
-        level
-      ]
+    tuple [
+      (either level special)
+      level
+      level
+    ]
   ;
 
   # sensor or fan config

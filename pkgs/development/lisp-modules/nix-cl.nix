@@ -236,10 +236,10 @@ let
     let
       build-asdf-system' = body: build-asdf-system (body // spec);
     in
-      pkgs.callPackage ./packages.nix {
-        inherit spec quicklispPackagesFor;
-        build-asdf-system = build-asdf-system';
-      }
+    pkgs.callPackage ./packages.nix {
+      inherit spec quicklispPackagesFor;
+      build-asdf-system = build-asdf-system';
+    }
   ;
 
   # Build the set of packages imported from quicklisp using `lisp`
@@ -247,7 +247,7 @@ let
     let
       build-asdf-system' = body: build-asdf-system (body // spec);
     in
-      pkgs.callPackage ./ql.nix { build-asdf-system = build-asdf-system'; }
+    pkgs.callPackage ./ql.nix { build-asdf-system = build-asdf-system'; }
   ;
 
   # Creates a lisp wrapper with `packages` installed
@@ -260,32 +260,32 @@ let
     let
       first = head (lib.attrValues clpkgs);
     in
-      (build-asdf-system {
-        inherit (first) pkg program flags faslExt asdf;
-        # See dontUnpack in build-asdf-system
-        src = null;
-        pname = first.pkg.pname;
-        version = "with-packages";
-        lispLibs = packages clpkgs;
-        systems = [ ];
-      }).overrideAttrs (o: {
-        nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
-        installPhase = ''
-          mkdir -pv $out/bin
-          makeWrapper \
-            ${o.pkg}/bin/${o.program} \
-            $out/bin/${o.program} \
-            --add-flags "${toString o.flags}" \
-            --set ASDF "${o.asdfFasl}/asdf.${o.faslExt}" \
-            --prefix CL_SOURCE_REGISTRY : "$CL_SOURCE_REGISTRY" \
-            --prefix ASDF_OUTPUT_TRANSLATIONS : "$(echo $CL_SOURCE_REGISTRY | sed s,//:,::,g):" \
-            --prefix LD_LIBRARY_PATH : "$LD_LIBRARY_PATH" \
-            --prefix DYLD_LIBRARY_PATH : "$DYLD_LIBRARY_PATH" \
-            --prefix CLASSPATH : "$CLASSPATH" \
-            --prefix GI_TYPELIB_PATH : "$GI_TYPELIB_PATH" \
-            --prefix PATH : "${makeBinPath (o.propagatedBuildInputs or [ ])}"
-        '';
-      })
+    (build-asdf-system {
+      inherit (first) pkg program flags faslExt asdf;
+      # See dontUnpack in build-asdf-system
+      src = null;
+      pname = first.pkg.pname;
+      version = "with-packages";
+      lispLibs = packages clpkgs;
+      systems = [ ];
+    }).overrideAttrs (o: {
+      nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
+      installPhase = ''
+        mkdir -pv $out/bin
+        makeWrapper \
+          ${o.pkg}/bin/${o.program} \
+          $out/bin/${o.program} \
+          --add-flags "${toString o.flags}" \
+          --set ASDF "${o.asdfFasl}/asdf.${o.faslExt}" \
+          --prefix CL_SOURCE_REGISTRY : "$CL_SOURCE_REGISTRY" \
+          --prefix ASDF_OUTPUT_TRANSLATIONS : "$(echo $CL_SOURCE_REGISTRY | sed s,//:,::,g):" \
+          --prefix LD_LIBRARY_PATH : "$LD_LIBRARY_PATH" \
+          --prefix DYLD_LIBRARY_PATH : "$DYLD_LIBRARY_PATH" \
+          --prefix CLASSPATH : "$CLASSPATH" \
+          --prefix GI_TYPELIB_PATH : "$GI_TYPELIB_PATH" \
+          --prefix PATH : "${makeBinPath (o.propagatedBuildInputs or [ ])}"
+      '';
+    })
   ;
 
   wrapLisp = {
@@ -307,8 +307,8 @@ let
         };
       buildASDFSystem = args: build-asdf-system (args // spec);
     in
-      pkg // { inherit pkgs withPackages withOverrides buildASDFSystem; }
+    pkg // { inherit pkgs withPackages withOverrides buildASDFSystem; }
   ;
 
 in
-  wrapLisp
+wrapLisp

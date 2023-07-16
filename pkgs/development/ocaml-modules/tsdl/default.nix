@@ -29,51 +29,51 @@ else
     webpage = "https://erratique.ch/software/${pname}";
 
   in
-    stdenv.mkDerivation {
-      pname = "ocaml${ocaml.version}-${pname}";
-      inherit version;
+  stdenv.mkDerivation {
+    pname = "ocaml${ocaml.version}-${pname}";
+    inherit version;
 
-      src = fetchurl {
-        url = "${webpage}/releases/${pname}-${version}.tbz";
-        hash = "sha256-XdgzCj9Uqplt/8Jk8rSFaQf8zu+9SZa8b9ZIlW/gjyE=";
-      };
+    src = fetchurl {
+      url = "${webpage}/releases/${pname}-${version}.tbz";
+      hash = "sha256-XdgzCj9Uqplt/8Jk8rSFaQf8zu+9SZa8b9ZIlW/gjyE=";
+    };
 
-      strictDeps = true;
+    strictDeps = true;
 
-      nativeBuildInputs = [
-        pkg-config
-        ocaml
-        findlib
-        ocamlbuild
-        topkg
-      ];
-      buildInputs = [ topkg ];
-      propagatedBuildInputs = [
-        SDL2
-        ctypes
-      ] ++ lib.optionals stdenv.isDarwin [
-        AudioToolbox
-        Cocoa
-        CoreAudio
-        CoreVideo
-        ForceFeedback
-      ];
+    nativeBuildInputs = [
+      pkg-config
+      ocaml
+      findlib
+      ocamlbuild
+      topkg
+    ];
+    buildInputs = [ topkg ];
+    propagatedBuildInputs = [
+      SDL2
+      ctypes
+    ] ++ lib.optionals stdenv.isDarwin [
+      AudioToolbox
+      Cocoa
+      CoreAudio
+      CoreVideo
+      ForceFeedback
+    ];
 
-      preConfigure = ''
-        # The following is done to avoid an additional dependency (ncurses)
-        # due to linking in the custom bytecode runtime. Instead, just
-        # compile directly into a native binary, even if it's just a
-        # temporary build product.
-        substituteInPlace myocamlbuild.ml \
-          --replace ".byte" ".native"
-      '';
+    preConfigure = ''
+      # The following is done to avoid an additional dependency (ncurses)
+      # due to linking in the custom bytecode runtime. Instead, just
+      # compile directly into a native binary, even if it's just a
+      # temporary build product.
+      substituteInPlace myocamlbuild.ml \
+        --replace ".byte" ".native"
+    '';
 
-      inherit (topkg) buildPhase installPhase;
+    inherit (topkg) buildPhase installPhase;
 
-      meta = with lib; {
-        homepage = webpage;
-        description = "Thin bindings to the cross-platform SDL library";
-        license = licenses.isc;
-        inherit (ocaml.meta) platforms;
-      };
-    }
+    meta = with lib; {
+      homepage = webpage;
+      description = "Thin bindings to the cross-platform SDL library";
+      license = licenses.isc;
+      inherit (ocaml.meta) platforms;
+    };
+  }

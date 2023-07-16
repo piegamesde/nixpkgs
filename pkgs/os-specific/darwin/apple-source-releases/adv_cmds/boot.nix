@@ -28,83 +28,83 @@ let
   };
 
 in
-  appleDerivation {
-    depsBuildBuild = [ buildPackages.stdenv.cc ];
-    nativeBuildInputs = [
-      bsdmake
-      perl
-      bison
-      flex
-    ];
-    buildInputs = [ flex ];
+appleDerivation {
+  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  nativeBuildInputs = [
+    bsdmake
+    perl
+    bison
+    flex
+  ];
+  buildInputs = [ flex ];
 
-    patchPhase = ''
-      substituteInPlace BSDmakefile \
-        --replace chgrp true \
-        --replace /Developer/Makefiles/bin/compress-man-pages.pl true \
-        --replace "ps.tproj" "" --replace "gencat.tproj" "" --replace "md.tproj" "" \
-        --replace "tabs.tproj" "" --replace "cap_mkdb.tproj" "" \
-        --replace "!= tconf --test TARGET_OS_EMBEDDED" "= NO"
+  patchPhase = ''
+    substituteInPlace BSDmakefile \
+      --replace chgrp true \
+      --replace /Developer/Makefiles/bin/compress-man-pages.pl true \
+      --replace "ps.tproj" "" --replace "gencat.tproj" "" --replace "md.tproj" "" \
+      --replace "tabs.tproj" "" --replace "cap_mkdb.tproj" "" \
+      --replace "!= tconf --test TARGET_OS_EMBEDDED" "= NO"
 
-      substituteInPlace Makefile --replace perl true
+    substituteInPlace Makefile --replace perl true
 
-      for subproject in colldef mklocale monetdef msgdef numericdef timedef; do
-        substituteInPlace usr-share-locale.tproj/$subproject/BSDmakefile \
-          --replace /usr/share/locale "" \
-          --replace '-o ''${BINOWN} -g ''${BINGRP}' "" \
-          --replace "rsync -a" "cp -r"
-      done
-    '';
+    for subproject in colldef mklocale monetdef msgdef numericdef timedef; do
+      substituteInPlace usr-share-locale.tproj/$subproject/BSDmakefile \
+        --replace /usr/share/locale "" \
+        --replace '-o ''${BINOWN} -g ''${BINGRP}' "" \
+        --replace "rsync -a" "cp -r"
+    done
+  '';
 
-    preBuild = ''
-      cp -r --no-preserve=all ${recentAdvCmds}/colldef .
-      pushd colldef
-      mv locale/collate.h .
-      flex -t -8 -i scan.l > scan.c
-      yacc -d parse.y
-      clang *.c -o colldef -lfl
-      popd
-      mv colldef/colldef colldef.tproj/colldef
+  preBuild = ''
+    cp -r --no-preserve=all ${recentAdvCmds}/colldef .
+    pushd colldef
+    mv locale/collate.h .
+    flex -t -8 -i scan.l > scan.c
+    yacc -d parse.y
+    clang *.c -o colldef -lfl
+    popd
+    mv colldef/colldef colldef.tproj/colldef
 
-      cp -r --no-preserve=all ${recentAdvCmds}/mklocale .
-      pushd mklocale
-      flex -t -8 -i lex.l > lex.c
-      yacc -d yacc.y
-      clang *.c -o mklocale -lfl
-      popd
-      mv mklocale/mklocale mklocale.tproj/mklocale
-    '';
+    cp -r --no-preserve=all ${recentAdvCmds}/mklocale .
+    pushd mklocale
+    flex -t -8 -i lex.l > lex.c
+    yacc -d yacc.y
+    clang *.c -o mklocale -lfl
+    popd
+    mv mklocale/mklocale mklocale.tproj/mklocale
+  '';
 
-    buildPhase = ''
-      runHook preBuild
+  buildPhase = ''
+    runHook preBuild
 
-      bsdmake -C usr-share-locale.tproj
+    bsdmake -C usr-share-locale.tproj
 
-      ${stdenv.cc.targetPrefix}clang ${recentAdvCmds}/ps/*.c -o ps
-    '';
+    ${stdenv.cc.targetPrefix}clang ${recentAdvCmds}/ps/*.c -o ps
+  '';
 
-    installPhase = ''
-      bsdmake -C usr-share-locale.tproj install DESTDIR="$locale/share/locale"
+  installPhase = ''
+    bsdmake -C usr-share-locale.tproj install DESTDIR="$locale/share/locale"
 
-      # need to get rid of runtime dependency on flex
-      # install -d 0755 $locale/bin
-      # install -m 0755 colldef.tproj/colldef $locale/bin
-      # install -m 0755 mklocale.tproj/mklocale $locale/bin
+    # need to get rid of runtime dependency on flex
+    # install -d 0755 $locale/bin
+    # install -m 0755 colldef.tproj/colldef $locale/bin
+    # install -m 0755 mklocale.tproj/mklocale $locale/bin
 
-      install -d 0755 $ps/bin
-      install ps $ps/bin/ps
-      touch "$out"
-    '';
+    install -d 0755 $ps/bin
+    install ps $ps/bin/ps
+    touch "$out"
+  '';
 
-    outputs = [
-      "out"
-      "ps"
-      "locale"
-    ];
-    setOutputFlags = false;
+  outputs = [
+    "out"
+    "ps"
+    "locale"
+  ];
+  setOutputFlags = false;
 
-    meta = {
-      platforms = lib.platforms.darwin;
-      maintainers = with lib.maintainers; [ gridaphobe ];
-    };
-  }
+  meta = {
+    platforms = lib.platforms.darwin;
+    maintainers = with lib.maintainers; [ gridaphobe ];
+  };
+}

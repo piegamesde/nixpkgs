@@ -38,20 +38,20 @@ let
         }:
         mkDerivation) { };
     in
-      mkDerivation (args // {
-        inherit pname version src;
+    mkDerivation (args // {
+      inherit pname version src;
 
-        outputs = args.outputs or [ "out" ];
+      outputs = args.outputs or [ "out" ];
 
-        meta = let
-          meta = args.meta or { };
-        in
-          meta // {
-            homepage = meta.homepage or "https://www.plasma-mobile.org/";
-            platforms = meta.platforms or lib.platforms.linux;
-          }
-        ;
-      })
+      meta = let
+        meta = args.meta or { };
+      in
+      meta // {
+        homepage = meta.homepage or "https://www.plasma-mobile.org/";
+        platforms = meta.platforms or lib.platforms.linux;
+      }
+      ;
+    })
   ;
 
   packages = self:
@@ -65,4 +65,4 @@ let
     } ;
 
 in
-  lib.makeScope libsForQt5.newScope packages
+lib.makeScope libsForQt5.newScope packages

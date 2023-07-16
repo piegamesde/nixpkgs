@@ -45,51 +45,51 @@ let
     "meta"
   ];
 in
-  stdenv.mkDerivation ({
-    pname = "libretro-${core}";
+stdenv.mkDerivation ({
+  pname = "libretro-${core}";
 
-    buildInputs = [ zlib ] ++ extraBuildInputs;
-    nativeBuildInputs = [ makeWrapper ] ++ extraNativeBuildInputs;
+  buildInputs = [ zlib ] ++ extraBuildInputs;
+  nativeBuildInputs = [ makeWrapper ] ++ extraNativeBuildInputs;
 
-    inherit makefile;
+  inherit makefile;
 
-    makeFlags = [
-      "platform=${
-        {
-          linux = "unix";
-          darwin = "osx";
-          windows = "win";
-        }.${stdenv.hostPlatform.parsed.kernel.name} or stdenv.hostPlatform.parsed.kernel.name
-      }"
-      "ARCH=${
-        {
-          armv7l = "arm";
-          armv6l = "arm";
-          aarch64 = "arm64";
-          i686 = "x86";
-        }.${stdenv.hostPlatform.parsed.cpu.name} or stdenv.hostPlatform.parsed.cpu.name
-      }"
-    ] ++ (args.makeFlags or [ ]);
-
-    installPhase = ''
-      runHook preInstall
-
-      install -Dt ${coreDir} ${coreFilename}
-      makeWrapper ${retroarch}/bin/retroarch $out/bin/${mainProgram} \
-        --add-flags "-L ${coreDir}/${coreFilename} $@"
-
-      runHook postInstall
-    '';
-
-    enableParallelBuilding = true;
-
-    passthru = { inherit core libretroCore; };
-
-    meta = with lib;
+  makeFlags = [
+    "platform=${
       {
-        inherit mainProgram;
-        inherit (retroarch.meta) platforms;
-        homepage = "https://www.libretro.com/";
-        maintainers = with maintainers; teams.libretro.members ++ [ hrdinka ];
-      } // (args.meta or { });
-  } // extraArgs)
+        linux = "unix";
+        darwin = "osx";
+        windows = "win";
+      }.${stdenv.hostPlatform.parsed.kernel.name} or stdenv.hostPlatform.parsed.kernel.name
+    }"
+    "ARCH=${
+      {
+        armv7l = "arm";
+        armv6l = "arm";
+        aarch64 = "arm64";
+        i686 = "x86";
+      }.${stdenv.hostPlatform.parsed.cpu.name} or stdenv.hostPlatform.parsed.cpu.name
+    }"
+  ] ++ (args.makeFlags or [ ]);
+
+  installPhase = ''
+    runHook preInstall
+
+    install -Dt ${coreDir} ${coreFilename}
+    makeWrapper ${retroarch}/bin/retroarch $out/bin/${mainProgram} \
+      --add-flags "-L ${coreDir}/${coreFilename} $@"
+
+    runHook postInstall
+  '';
+
+  enableParallelBuilding = true;
+
+  passthru = { inherit core libretroCore; };
+
+  meta = with lib;
+    {
+      inherit mainProgram;
+      inherit (retroarch.meta) platforms;
+      homepage = "https://www.libretro.com/";
+      maintainers = with maintainers; teams.libretro.members ++ [ hrdinka ];
+    } // (args.meta or { });
+} // extraArgs)

@@ -25,4 +25,4 @@ let
     lib.nameValuePair (toAttrName attr) (callPackage ./generic.nix versionInfo))
     supportedVersions;
 in
-  supported // unsupported
+supported // unsupported

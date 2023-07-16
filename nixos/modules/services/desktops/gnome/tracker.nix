@@ -75,7 +75,7 @@ in {
           paths = [ pkgs.tracker ] ++ cfg.subcommandPackages;
         };
       in
-        "${subcommandPackagesTree}/libexec/tracker3"
+      "${subcommandPackagesTree}/libexec/tracker3"
       ;
     };
 

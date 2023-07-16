@@ -147,11 +147,11 @@ lib.makeOverridable ({
 
     content = [ mainSectionRendered ] ++ actionsRendered;
   in
-    writeTextFile {
-      name = "${name}.desktop";
-      destination = "/share/applications/${name}.desktop";
-      text = builtins.concatStringsSep "\n" content;
-      checkPhase = ''
-        ${buildPackages.desktop-file-utils}/bin/desktop-file-validate "$target"'';
-    }
+  writeTextFile {
+    name = "${name}.desktop";
+    destination = "/share/applications/${name}.desktop";
+    text = builtins.concatStringsSep "\n" content;
+    checkPhase = ''
+      ${buildPackages.desktop-file-utils}/bin/desktop-file-validate "$target"'';
+  }
 )

@@ -22,43 +22,43 @@ let
   };
 
 in
-  mkDerivation rec {
-    pname = "leocad";
-    version = "21.06";
+mkDerivation rec {
+  pname = "leocad";
+  version = "21.06";
 
-    src = fetchFromGitHub {
-      owner = "leozide";
-      repo = "leocad";
-      rev = "v${version}";
-      sha256 = "1ifbxngkbmg6d8vv08amxbnfvlyjdwzykrjp98lbwvgb0b843ygq";
-    };
+  src = fetchFromGitHub {
+    owner = "leozide";
+    repo = "leocad";
+    rev = "v${version}";
+    sha256 = "1ifbxngkbmg6d8vv08amxbnfvlyjdwzykrjp98lbwvgb0b843ygq";
+  };
 
-    nativeBuildInputs = [
-      qmake
-      qttools
-    ];
+  nativeBuildInputs = [
+    qmake
+    qttools
+  ];
 
-    buildInputs = [ zlib ];
+  buildInputs = [ zlib ];
 
-    propagatedBuildInputs = [ povray ];
+  propagatedBuildInputs = [ povray ];
 
-    patches = [ (substituteAll {
-      src = ./povray.patch;
-      inherit povray;
-    }) ];
+  patches = [ (substituteAll {
+    src = ./povray.patch;
+    inherit povray;
+  }) ];
 
-    qmakeFlags = [
-      "INSTALL_PREFIX=${placeholder "out"}"
-      "DISABLE_UPDATE_CHECK=1"
-    ];
+  qmakeFlags = [
+    "INSTALL_PREFIX=${placeholder "out"}"
+    "DISABLE_UPDATE_CHECK=1"
+  ];
 
-    qtWrapperArgs = [ "--set-default LEOCAD_LIB ${parts}" ];
+  qtWrapperArgs = [ "--set-default LEOCAD_LIB ${parts}" ];
 
-    meta = with lib; {
-      description = "CAD program for creating virtual LEGO models";
-      homepage = "https://www.leocad.org/";
-      license = licenses.gpl2Only;
-      maintainers = with maintainers; [ peterhoeg ];
-      platforms = platforms.linux;
-    };
-  }
+  meta = with lib; {
+    description = "CAD program for creating virtual LEGO models";
+    homepage = "https://www.leocad.org/";
+    license = licenses.gpl2Only;
+    maintainers = with maintainers; [ peterhoeg ];
+    platforms = platforms.linux;
+  };
+}

@@ -24,61 +24,61 @@ let
     sha256 = "sha256-3EkmrAXU0/mRxrxp5Hy7C3yWTVK16L+tPqqeEryY/r8=";
   };
 in
-  stdenv.mkDerivation rec {
-    pname = "iverilog";
-    version = "11.0";
+stdenv.mkDerivation rec {
+  pname = "iverilog";
+  version = "11.0";
 
-    src = fetchFromGitHub {
-      owner = "steveicarus";
-      repo = pname;
-      rev = "v${lib.replaceStrings [ "." ] [ "_" ] version}";
-      sha256 = "0nzcyi6l2zv9wxzsv9i963p3igyjds0n55x0ph561mc3pfbc7aqp";
-    };
+  src = fetchFromGitHub {
+    owner = "steveicarus";
+    repo = pname;
+    rev = "v${lib.replaceStrings [ "." ] [ "_" ] version}";
+    sha256 = "0nzcyi6l2zv9wxzsv9i963p3igyjds0n55x0ph561mc3pfbc7aqp";
+  };
 
-    nativeBuildInputs = [
-      autoconf
-      bison
-      flex
-      gperf
+  nativeBuildInputs = [
+    autoconf
+    bison
+    flex
+    gperf
+  ];
+
+  buildInputs = [
+    bzip2
+    ncurses
+    readline
+    zlib
+  ];
+
+  preConfigure = "sh autoconf.sh";
+
+  enableParallelBuilding = true;
+
+  nativeInstallCheckInputs = [ perl ];
+
+  installCheckPhase = ''
+    # copy tests to allow writing results
+    export TESTDIR=$(mktemp -d)
+    cp -r ${iverilog-test}/* $TESTDIR
+
+    pushd $TESTDIR
+
+    # Run & check tests
+    PATH=$out/bin:$PATH perl vvp_reg.pl
+    # Check the tests, will error if unexpected tests fail. Some failures MIGHT be normal.
+    diff regression_report-devel.txt regression_report.txt
+    PATH=$out/bin:$PATH perl vpi_reg.pl
+
+    popd
+  '';
+
+  meta = with lib; {
+    description = "Icarus Verilog compiler";
+    homepage = "http://iverilog.icarus.com/"; # https does not work
+    license = with licenses; [
+      gpl2Plus
+      lgpl21Plus
     ];
-
-    buildInputs = [
-      bzip2
-      ncurses
-      readline
-      zlib
-    ];
-
-    preConfigure = "sh autoconf.sh";
-
-    enableParallelBuilding = true;
-
-    nativeInstallCheckInputs = [ perl ];
-
-    installCheckPhase = ''
-      # copy tests to allow writing results
-      export TESTDIR=$(mktemp -d)
-      cp -r ${iverilog-test}/* $TESTDIR
-
-      pushd $TESTDIR
-
-      # Run & check tests
-      PATH=$out/bin:$PATH perl vvp_reg.pl
-      # Check the tests, will error if unexpected tests fail. Some failures MIGHT be normal.
-      diff regression_report-devel.txt regression_report.txt
-      PATH=$out/bin:$PATH perl vpi_reg.pl
-
-      popd
-    '';
-
-    meta = with lib; {
-      description = "Icarus Verilog compiler";
-      homepage = "http://iverilog.icarus.com/"; # https does not work
-      license = with licenses; [
-        gpl2Plus
-        lgpl21Plus
-      ];
-      maintainers = with maintainers; [ thoughtpolice ];
-      platforms = platforms.all;
-    };
-  }
+    maintainers = with maintainers; [ thoughtpolice ];
+    platforms = platforms.all;
+  };
+}

@@ -52,15 +52,15 @@ let
       ungoogled-version =
         (lib.importJSON ./upstream-info.json).ungoogled-chromium.version;
     in
-      lib.warnIf (lib.versionAtLeast ungoogled-version min-version)
-      "chromium: ungoogled version ${ungoogled-version} is newer than a conditional bounded at ${min-version}. You can safely delete it."
-      result
+    lib.warnIf (lib.versionAtLeast ungoogled-version min-version)
+    "chromium: ungoogled version ${ungoogled-version} is newer than a conditional bounded at ${min-version}. You can safely delete it."
+    result
   ;
   chromiumVersionAtLeast = min-version:
     let
       result = lib.versionAtLeast upstream-info.version min-version;
     in
-      warnObsoleteVersionConditional min-version result
+    warnObsoleteVersionConditional min-version result
   ;
   versionRange = min-version: upto-version:
     let
@@ -68,7 +68,7 @@ let
       result = lib.versionAtLeast version min-version
         && lib.versionOlder version upto-version;
     in
-      warnObsoleteVersionConditional upto-version result
+    warnObsoleteVersionConditional upto-version result
   ;
 
   callPackage = newScope chromium;
@@ -122,16 +122,15 @@ let
     else
       (lib.importJSON ./upstream-info.json).stable.sha256bin64;
   in
-    fetchurl {
-      urls =
-        map (repo: "${repo}/${pkgName}/${pkgName}_${version}-1_amd64.deb") [
-          "https://dl.google.com/linux/chrome/deb/pool/main/g"
-          "http://95.31.35.30/chrome/pool/main/g"
-          "http://mirror.pcbeta.com/google/chrome/deb/pool/main/g"
-          "http://repo.fdzh.org/chrome/deb/pool/main/g"
-        ];
-      inherit sha256;
-    }
+  fetchurl {
+    urls = map (repo: "${repo}/${pkgName}/${pkgName}_${version}-1_amd64.deb") [
+      "https://dl.google.com/linux/chrome/deb/pool/main/g"
+      "http://95.31.35.30/chrome/pool/main/g"
+      "http://mirror.pcbeta.com/google/chrome/deb/pool/main/g"
+      "http://repo.fdzh.org/chrome/deb/pool/main/g"
+    ];
+    inherit sha256;
+  }
   ;
 
   mkrpath = p:
@@ -220,99 +219,99 @@ let
     browser;
 
 in
-  stdenv.mkDerivation {
-    pname = lib.optionalString ungoogled "ungoogled-" + "chromium${suffix}";
-    inherit version;
+stdenv.mkDerivation {
+  pname = lib.optionalString ungoogled "ungoogled-" + "chromium${suffix}";
+  inherit version;
 
-    nativeBuildInputs = [
-      makeWrapper
-      ed
-    ];
+  nativeBuildInputs = [
+    makeWrapper
+    ed
+  ];
 
-    buildInputs = [
-      # needed for GSETTINGS_SCHEMAS_PATH
-      gsettings-desktop-schemas
-      glib
+  buildInputs = [
+    # needed for GSETTINGS_SCHEMAS_PATH
+    gsettings-desktop-schemas
+    glib
+    gtk3
+    gtk4
+
+    # needed for XDG_ICON_DIRS
+    gnome.adwaita-icon-theme
+
+    # Needed for kerberos at runtime
+    libkrb5
+  ];
+
+  outputs = [
+    "out"
+    "sandbox"
+  ];
+
+  buildCommand = let
+    browserBinary = "${chromiumWV}/libexec/chromium/chromium";
+    libPath = lib.makeLibraryPath [
+      libva
+      pipewire
+      wayland
       gtk3
       gtk4
-
-      # needed for XDG_ICON_DIRS
-      gnome.adwaita-icon-theme
-
-      # Needed for kerberos at runtime
       libkrb5
     ];
 
-    outputs = [
-      "out"
-      "sandbox"
-    ];
+  in with lib;
+  ''
+    mkdir -p "$out/bin"
 
-    buildCommand = let
-      browserBinary = "${chromiumWV}/libexec/chromium/chromium";
-      libPath = lib.makeLibraryPath [
-        libva
-        pipewire
-        wayland
-        gtk3
-        gtk4
-        libkrb5
-      ];
+    makeWrapper "${browserBinary}" "$out/bin/chromium" \
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
+      --add-flags ${escapeShellArg commandLineArgs}
 
-    in with lib;
-    ''
-      mkdir -p "$out/bin"
+    ed -v -s "$out/bin/chromium" << EOF
+    2i
 
-      makeWrapper "${browserBinary}" "$out/bin/chromium" \
-        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
-        --add-flags ${escapeShellArg commandLineArgs}
+    if [ -x "/run/wrappers/bin/${sandboxExecutableName}" ]
+    then
+      export CHROME_DEVEL_SANDBOX="/run/wrappers/bin/${sandboxExecutableName}"
+    else
+      export CHROME_DEVEL_SANDBOX="$sandbox/bin/${sandboxExecutableName}"
+    fi
 
-      ed -v -s "$out/bin/chromium" << EOF
-      2i
+    # Make generated desktop shortcuts have a valid executable name.
+    export CHROME_WRAPPER='chromium'
 
-      if [ -x "/run/wrappers/bin/${sandboxExecutableName}" ]
-      then
-        export CHROME_DEVEL_SANDBOX="/run/wrappers/bin/${sandboxExecutableName}"
-      else
-        export CHROME_DEVEL_SANDBOX="$sandbox/bin/${sandboxExecutableName}"
-      fi
+  '' + lib.optionalString (libPath != "") ''
+    # To avoid loading .so files from cwd, LD_LIBRARY_PATH here must not
+    # contain an empty section before or after a colon.
+    export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH\''${LD_LIBRARY_PATH:+:}${libPath}"
+  '' + ''
 
-      # Make generated desktop shortcuts have a valid executable name.
-      export CHROME_WRAPPER='chromium'
+    # libredirect causes chromium to deadlock on startup
+    export LD_PRELOAD="\$(echo -n "\$LD_PRELOAD" | ${coreutils}/bin/tr ':' '\n' | ${gnugrep}/bin/grep -v /lib/libredirect\\\\.so$ | ${coreutils}/bin/tr '\n' ':')"
 
-    '' + lib.optionalString (libPath != "") ''
-      # To avoid loading .so files from cwd, LD_LIBRARY_PATH here must not
-      # contain an empty section before or after a colon.
-      export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH\''${LD_LIBRARY_PATH:+:}${libPath}"
-    '' + ''
+    export XDG_DATA_DIRS=$XDG_ICON_DIRS:$GSETTINGS_SCHEMAS_PATH\''${XDG_DATA_DIRS:+:}\$XDG_DATA_DIRS
 
-      # libredirect causes chromium to deadlock on startup
-      export LD_PRELOAD="\$(echo -n "\$LD_PRELOAD" | ${coreutils}/bin/tr ':' '\n' | ${gnugrep}/bin/grep -v /lib/libredirect\\\\.so$ | ${coreutils}/bin/tr '\n' ':')"
+    # Mainly for xdg-open but also other xdg-* tools (this is only a fallback; \$PATH is suffixed so that other implementations can be used):
+    export PATH="\$PATH\''${PATH:+:}${xdg-utils}/bin"
 
-      export XDG_DATA_DIRS=$XDG_ICON_DIRS:$GSETTINGS_SCHEMAS_PATH\''${XDG_DATA_DIRS:+:}\$XDG_DATA_DIRS
+    .
+    w
+    EOF
 
-      # Mainly for xdg-open but also other xdg-* tools (this is only a fallback; \$PATH is suffixed so that other implementations can be used):
-      export PATH="\$PATH\''${PATH:+:}${xdg-utils}/bin"
+    ln -sv "${chromium.browser.sandbox}" "$sandbox"
 
-      .
-      w
-      EOF
+    ln -s "$out/bin/chromium" "$out/bin/chromium-browser"
 
-      ln -sv "${chromium.browser.sandbox}" "$sandbox"
+    mkdir -p "$out/share"
+    for f in '${chromium.browser}'/share/*; do # hello emacs */
+      ln -s -t "$out/share/" "$f"
+    done
+  '';
 
-      ln -s "$out/bin/chromium" "$out/bin/chromium-browser"
-
-      mkdir -p "$out/share"
-      for f in '${chromium.browser}'/share/*; do # hello emacs */
-        ln -s -t "$out/share/" "$f"
-      done
-    '';
-
-    inherit (chromium.browser) packageName;
-    meta = chromium.browser.meta;
-    passthru = {
-      inherit (chromium) upstream-info browser;
-      mkDerivation = chromium.mkChromiumDerivation;
-      inherit chromeSrc sandboxExecutableName;
-    };
-  }
+  inherit (chromium.browser) packageName;
+  meta = chromium.browser.meta;
+  passthru = {
+    inherit (chromium) upstream-info browser;
+    mkDerivation = chromium.mkChromiumDerivation;
+    inherit chromeSrc sandboxExecutableName;
+  };
+}

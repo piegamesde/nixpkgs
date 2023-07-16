@@ -128,77 +128,77 @@ let
   };
 
 in
-  lib.makeExtensible (self: {
-    nix_2_3 = (common rec {
-      version = "2.3.16";
-      src = fetchurl {
-        url =
-          "https://nixos.org/releases/nix/nix-${version}/nix-${version}.tar.xz";
-        sha256 = "sha256-fuaBtp8FtSVJLSAsO+3Nne4ZYLuBj2JpD2xEk7fCqrw=";
-      };
-      patches = [ patch-monitorfdhup ];
-    }).override { boehmgc = boehmgc-nix_2_3; };
-
-    nix_2_4 = throw "nixVersions.nix_2_4 has been removed";
-
-    nix_2_5 = throw "nixVersions.nix_2_5 has been removed";
-
-    nix_2_6 = throw "nixVersions.nix_2_6 has been removed";
-
-    nix_2_7 = throw "nixVersions.nix_2_7 has been removed";
-
-    nix_2_8 = throw "nixVersions.nix_2_8 has been removed";
-
-    nix_2_9 = throw "nixVersions.nix_2_9 has been removed";
-
-    nix_2_10 = common {
-      version = "2.10.3";
-      sha256 = "sha256-B9EyDUz/9tlcWwf24lwxCFmkxuPTVW7HFYvp0C4xGbc=";
-      patches = [
-        ./patches/flaky-tests.patch
-        patch-non-existing-output
-        patch-monitorfdhup
-        patch-sqlite-exception
-      ];
+lib.makeExtensible (self: {
+  nix_2_3 = (common rec {
+    version = "2.3.16";
+    src = fetchurl {
+      url =
+        "https://nixos.org/releases/nix/nix-${version}/nix-${version}.tar.xz";
+      sha256 = "sha256-fuaBtp8FtSVJLSAsO+3Nne4ZYLuBj2JpD2xEk7fCqrw=";
     };
+    patches = [ patch-monitorfdhup ];
+  }).override { boehmgc = boehmgc-nix_2_3; };
 
-    nix_2_11 = common {
-      version = "2.11.1";
-      sha256 = "sha256-qCV65kw09AG+EkdchDPq7RoeBznX0Q6Qa4yzPqobdOk=";
-      patches = [
-        ./patches/flaky-tests.patch
-        patch-non-existing-output
-        patch-monitorfdhup
-        patch-sqlite-exception
-      ];
-    };
+  nix_2_4 = throw "nixVersions.nix_2_4 has been removed";
 
-    nix_2_12 = common {
-      version = "2.12.1";
-      sha256 = "sha256-GmHKhq0uFtdOiJnuBwj2YwlZjvh6YTkfQZgeu4e0dLU=";
-      patches = [
-        ./patches/flaky-tests.patch
-        patch-monitorfdhup
-        patch-sqlite-exception
-      ];
-    };
+  nix_2_5 = throw "nixVersions.nix_2_5 has been removed";
 
-    nix_2_13 = common {
-      version = "2.13.3";
-      sha256 = "sha256-jUc2ccTR8f6MGY2pUKgujm+lxSPNGm/ZAP+toX+nMNc=";
-    };
+  nix_2_6 = throw "nixVersions.nix_2_6 has been removed";
 
-    nix_2_14 = common {
-      version = "2.14.1";
-      sha256 = "sha256-5aCmGZbsFcLIckCDfvnPD4clGPQI7qYAqHYlttN/Wkg=";
-    };
+  nix_2_7 = throw "nixVersions.nix_2_7 has been removed";
 
-    nix_2_15 = common {
-      version = "2.15.0";
-      sha256 = "sha256-hNHfvmb1bIWwqFT5nesQgwh4V0OlyZHxj5ZVSQbZ+p4=";
-    };
+  nix_2_8 = throw "nixVersions.nix_2_8 has been removed";
 
-    stable = self.nix_2_13;
+  nix_2_9 = throw "nixVersions.nix_2_9 has been removed";
 
-    unstable = self.nix_2_15;
-  })
+  nix_2_10 = common {
+    version = "2.10.3";
+    sha256 = "sha256-B9EyDUz/9tlcWwf24lwxCFmkxuPTVW7HFYvp0C4xGbc=";
+    patches = [
+      ./patches/flaky-tests.patch
+      patch-non-existing-output
+      patch-monitorfdhup
+      patch-sqlite-exception
+    ];
+  };
+
+  nix_2_11 = common {
+    version = "2.11.1";
+    sha256 = "sha256-qCV65kw09AG+EkdchDPq7RoeBznX0Q6Qa4yzPqobdOk=";
+    patches = [
+      ./patches/flaky-tests.patch
+      patch-non-existing-output
+      patch-monitorfdhup
+      patch-sqlite-exception
+    ];
+  };
+
+  nix_2_12 = common {
+    version = "2.12.1";
+    sha256 = "sha256-GmHKhq0uFtdOiJnuBwj2YwlZjvh6YTkfQZgeu4e0dLU=";
+    patches = [
+      ./patches/flaky-tests.patch
+      patch-monitorfdhup
+      patch-sqlite-exception
+    ];
+  };
+
+  nix_2_13 = common {
+    version = "2.13.3";
+    sha256 = "sha256-jUc2ccTR8f6MGY2pUKgujm+lxSPNGm/ZAP+toX+nMNc=";
+  };
+
+  nix_2_14 = common {
+    version = "2.14.1";
+    sha256 = "sha256-5aCmGZbsFcLIckCDfvnPD4clGPQI7qYAqHYlttN/Wkg=";
+  };
+
+  nix_2_15 = common {
+    version = "2.15.0";
+    sha256 = "sha256-hNHfvmb1bIWwqFT5nesQgwh4V0OlyZHxj5ZVSQbZ+p4=";
+  };
+
+  stable = self.nix_2_13;
+
+  unstable = self.nix_2_15;
+})

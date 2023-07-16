@@ -312,10 +312,10 @@ let
           headersOnly = true;
         };
       in
-        callPackage ./libcxxabi {
-          stdenv = stdenv_;
-          inherit llvm_meta cxx-headers;
-        }
+      callPackage ./libcxxabi {
+        stdenv = stdenv_;
+        inherit llvm_meta cxx-headers;
+      }
       ;
 
       libunwind = callPackage ./libunwind {
@@ -327,4 +327,4 @@ let
     } );
 
 in
-  { inherit tools libraries release_version; } // libraries // tools
+{ inherit tools libraries release_version; } // libraries // tools

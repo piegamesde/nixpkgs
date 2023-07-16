@@ -126,7 +126,7 @@ let
         }:
         extraConfig) kernelPatches;
     in
-      lib.concatStringsSep "\n" ([ baseConfigStr ] ++ configFromPatches)
+    lib.concatStringsSep "\n" ([ baseConfigStr ] ++ configFromPatches)
   ;
 
   configfile = stdenv.mkDerivation {
@@ -269,11 +269,11 @@ let
               args { }))) overridableKernel;
       };
     in
-      [ (nixosTests.kernel-generic.testsForKernel overridableKernel) ]
-      ++ kernelTests
+    [ (nixosTests.kernel-generic.testsForKernel overridableKernel) ]
+    ++ kernelTests
     ;
   };
 
   finalKernel = lib.extendDerivation true passthru kernel;
 in
-  finalKernel
+finalKernel

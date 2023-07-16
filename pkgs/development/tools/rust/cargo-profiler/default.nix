@@ -17,20 +17,20 @@ let
 
   inherit (rustPlatform) buildRustPackage;
 in
-  buildRustPackage rec {
-    inherit pname version;
+buildRustPackage rec {
+  inherit pname version;
 
-    src = fetchFromGitHub {
-      inherit owner rev sha256;
-      repo = pname;
-    };
+  src = fetchFromGitHub {
+    inherit owner rev sha256;
+    repo = pname;
+  };
 
-    inherit cargoSha256;
+  inherit cargoSha256;
 
-    meta = with lib; {
-      description = "Cargo subcommand for profiling Rust binaries";
-      homepage = "https://github.com/svenstaro/cargo-profiler";
-      license = licenses.mit;
-      maintainers = with maintainers; [ lucperkins ];
-    };
-  }
+  meta = with lib; {
+    description = "Cargo subcommand for profiling Rust binaries";
+    homepage = "https://github.com/svenstaro/cargo-profiler";
+    license = licenses.mit;
+    maintainers = with maintainers; [ lucperkins ];
+  };
+}

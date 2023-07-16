@@ -20,9 +20,9 @@
       sha256 = "sha256-H73YWX/DKxvhEwKpWOo7orAQ7c/rQywpljeyxYxv0Gg=";
     };
   in
-    testers.invalidateFetcherByDrvHash fetchFirefoxAddon {
-      name = "image-search-options";
-      src = image-search-options;
-    }
+  testers.invalidateFetcherByDrvHash fetchFirefoxAddon {
+    name = "image-search-options";
+    src = image-search-options;
+  }
   ;
 }

@@ -23,39 +23,39 @@ let
     };
   };
 in
-  python.pkgs.buildPythonApplication rec {
-    pname = "csvkit";
-    version = "1.1.1";
-    format = "setuptools";
+python.pkgs.buildPythonApplication rec {
+  pname = "csvkit";
+  version = "1.1.1";
+  format = "setuptools";
 
-    src = python.pkgs.fetchPypi {
-      inherit pname version;
-      hash = "sha256-vt23t49rIq2+1urVrV3kv7Md0sVfMhGyorO2VSkEkiM=";
-    };
+  src = python.pkgs.fetchPypi {
+    inherit pname version;
+    hash = "sha256-vt23t49rIq2+1urVrV3kv7Md0sVfMhGyorO2VSkEkiM=";
+  };
 
-    propagatedBuildInputs = with python.pkgs; [
-      agate
-      agate-excel
-      agate-dbf
-      agate-sql
-    ];
+  propagatedBuildInputs = with python.pkgs; [
+    agate
+    agate-excel
+    agate-dbf
+    agate-sql
+  ];
 
-    nativeCheckInputs = with python.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with python.pkgs; [ pytestCheckHook ];
 
-    pythonImportsCheck = [ "csvkit" ];
+  pythonImportsCheck = [ "csvkit" ];
 
-    disabledTests = [
-      # Test is comparing CLI output
-      "test_decimal_format"
-    ];
+  disabledTests = [
+    # Test is comparing CLI output
+    "test_decimal_format"
+  ];
 
-    meta = with lib; {
-      changelog =
-        "https://github.com/wireservice/csvkit/blob/${version}/CHANGELOG.rst";
-      description =
-        "A suite of command-line tools for converting to and working with CSV";
-      homepage = "https://github.com/wireservice/csvkit";
-      license = licenses.mit;
-      maintainers = with maintainers; [ vrthra ];
-    };
-  }
+  meta = with lib; {
+    changelog =
+      "https://github.com/wireservice/csvkit/blob/${version}/CHANGELOG.rst";
+    description =
+      "A suite of command-line tools for converting to and working with CSV";
+    homepage = "https://github.com/wireservice/csvkit";
+    license = licenses.mit;
+    maintainers = with maintainers; [ vrthra ];
+  };
+}

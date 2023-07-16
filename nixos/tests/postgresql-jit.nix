@@ -53,4 +53,4 @@ let
       '';
     };
 in
-  lib.genAttrs packages mkJitTest
+lib.genAttrs packages mkJitTest

@@ -106,103 +106,103 @@ let
     fi
   '';
 in
-  stdenv.mkDerivation {
-    pname = "dfhack";
-    inherit version;
+stdenv.mkDerivation {
+  pname = "dfhack";
+  inherit version;
 
-    # Beware of submodules
-    src = fetchFromGitHub {
-      owner = "DFHack";
-      repo = "dfhack";
-      rev = release.dfHackRelease;
-      sha256 = release.sha256;
-      fetchSubmodules = true;
-    };
+  # Beware of submodules
+  src = fetchFromGitHub {
+    owner = "DFHack";
+    repo = "dfhack";
+    rev = release.dfHackRelease;
+    sha256 = release.sha256;
+    fetchSubmodules = true;
+  };
 
-    patches = lib.optional (lib.versionOlder version "0.44.12-r3") (fetchpatch {
-      name = "fix-stonesense.patch";
-      url =
-        "https://github.com/DFHack/stonesense/commit/f5be6fe5fb192f01ae4551ed9217e97fd7f6a0ae.patch";
-      extraPrefix = "plugins/stonesense/";
-      stripLen = 1;
-      hash = "sha256-wje6Mkct29eyMOcJnbdefwBOLJko/s4JcJe52ojuW+8=";
-    }) ++ lib.optional (lib.versionOlder version "0.47.04-r1") (fetchpatch {
-      name = "fix-protobuf.patch";
-      url =
-        "https://github.com/DFHack/dfhack/commit/7bdf958518d2892ee89a7173224a069c4a2190d8.patch";
-      hash = "sha256-p+mKhmYbnhWKNiGPMjbYO505Gcg634n0nudqH0NX3KY=";
-    });
+  patches = lib.optional (lib.versionOlder version "0.44.12-r3") (fetchpatch {
+    name = "fix-stonesense.patch";
+    url =
+      "https://github.com/DFHack/stonesense/commit/f5be6fe5fb192f01ae4551ed9217e97fd7f6a0ae.patch";
+    extraPrefix = "plugins/stonesense/";
+    stripLen = 1;
+    hash = "sha256-wje6Mkct29eyMOcJnbdefwBOLJko/s4JcJe52ojuW+8=";
+  }) ++ lib.optional (lib.versionOlder version "0.47.04-r1") (fetchpatch {
+    name = "fix-protobuf.patch";
+    url =
+      "https://github.com/DFHack/dfhack/commit/7bdf958518d2892ee89a7173224a069c4a2190d8.patch";
+    hash = "sha256-p+mKhmYbnhWKNiGPMjbYO505Gcg634n0nudqH0NX3KY=";
+  });
 
-    # gcc 11 fix
-    CXXFLAGS =
-      lib.optionalString (lib.versionOlder version "0.47.05-r3") "-fpermissive";
+  # gcc 11 fix
+  CXXFLAGS =
+    lib.optionalString (lib.versionOlder version "0.47.05-r3") "-fpermissive";
 
-    # As of
-    # https://github.com/DFHack/dfhack/commit/56e43a0dde023c5a4595a22b29d800153b31e3c4,
-    # dfhack gets its goodies from the directory above the Dwarf_Fortress
-    # executable, which leads to stock Dwarf Fortress and not the built
-    # environment where all the dfhack resources are symlinked to (typically
-    # ~/.local/share/df_linux). This causes errors like `tweak is not a
-    # recognized command` to be reported and dfhack to lose some of its
-    # functionality.
-    postPatch = ''
-      sed -i 's@cached_path = path_string.*@cached_path = getenv("DF_DIR");@' library/Process-linux.cpp
-    '';
+  # As of
+  # https://github.com/DFHack/dfhack/commit/56e43a0dde023c5a4595a22b29d800153b31e3c4,
+  # dfhack gets its goodies from the directory above the Dwarf_Fortress
+  # executable, which leads to stock Dwarf Fortress and not the built
+  # environment where all the dfhack resources are symlinked to (typically
+  # ~/.local/share/df_linux). This causes errors like `tweak is not a
+  # recognized command` to be reported and dfhack to lose some of its
+  # functionality.
+  postPatch = ''
+    sed -i 's@cached_path = path_string.*@cached_path = getenv("DF_DIR");@' library/Process-linux.cpp
+  '';
 
-    nativeBuildInputs = [
-      cmake
-      perl
-      XMLLibXML
-      XMLLibXSLT
-      fakegit
+  nativeBuildInputs = [
+    cmake
+    perl
+    XMLLibXML
+    XMLLibXSLT
+    fakegit
+  ];
+  # We don't use system libraries because dfhack needs old C++ ABI.
+  buildInputs = [
+    zlib
+    SDL
+  ] ++ lib.optionals enableStoneSense [
+    allegro5
+    libGLU
+    libGL
+  ];
+
+  preConfigure = ''
+    # Trick build system into believing we have .git
+    mkdir -p .git/modules/library/xml
+    touch .git/index .git/modules/library/xml/index
+  '';
+
+  cmakeFlags = [
+    "-DDFHACK_BUILD_ARCH=${arch}"
+    "-DDOWNLOAD_RUBY=OFF"
+  ] ++ lib.optionals enableStoneSense [
+    "-DBUILD_STONESENSE=ON"
+    "-DSTONESENSE_INTERNAL_SO=OFF"
+  ];
+
+  # dfhack expects an unversioned libruby.so to be present in the hack
+  # subdirectory for ruby plugins to function.
+  postInstall = ''
+    ln -s ${ruby}/lib/libruby-*.so $out/hack/libruby.so
+  '';
+
+  passthru = { inherit dfVersion; };
+
+  meta = with lib; {
+    description =
+      "Memory hacking library for Dwarf Fortress and a set of tools that use it";
+    homepage = "https://github.com/DFHack/dfhack/";
+    license = licenses.zlib;
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
     ];
-    # We don't use system libraries because dfhack needs old C++ ABI.
-    buildInputs = [
-      zlib
-      SDL
-    ] ++ lib.optionals enableStoneSense [
-      allegro5
-      libGLU
-      libGL
+    maintainers = with maintainers; [
+      robbinch
+      a1russell
+      abbradar
+      numinit
+      ncfavier
     ];
-
-    preConfigure = ''
-      # Trick build system into believing we have .git
-      mkdir -p .git/modules/library/xml
-      touch .git/index .git/modules/library/xml/index
-    '';
-
-    cmakeFlags = [
-      "-DDFHACK_BUILD_ARCH=${arch}"
-      "-DDOWNLOAD_RUBY=OFF"
-    ] ++ lib.optionals enableStoneSense [
-      "-DBUILD_STONESENSE=ON"
-      "-DSTONESENSE_INTERNAL_SO=OFF"
-    ];
-
-    # dfhack expects an unversioned libruby.so to be present in the hack
-    # subdirectory for ruby plugins to function.
-    postInstall = ''
-      ln -s ${ruby}/lib/libruby-*.so $out/hack/libruby.so
-    '';
-
-    passthru = { inherit dfVersion; };
-
-    meta = with lib; {
-      description =
-        "Memory hacking library for Dwarf Fortress and a set of tools that use it";
-      homepage = "https://github.com/DFHack/dfhack/";
-      license = licenses.zlib;
-      platforms = [
-        "x86_64-linux"
-        "i686-linux"
-      ];
-      maintainers = with maintainers; [
-        robbinch
-        a1russell
-        abbradar
-        numinit
-        ncfavier
-      ];
-    };
-  }
+  };
+}

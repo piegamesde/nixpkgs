@@ -136,43 +136,43 @@ let
         ];
       }).config;
     in
-      pkgs.vmTools.runInLinuxVM (pkgs.runCommand "virtualbox-image" {
-        preVM = ''
-          mkdir -p "$out"
-          diskImage="$(pwd)/qimage"
-          ${pkgs.vmTools.qemu}/bin/qemu-img create -f raw "$diskImage" 100M
-        '';
+    pkgs.vmTools.runInLinuxVM (pkgs.runCommand "virtualbox-image" {
+      preVM = ''
+        mkdir -p "$out"
+        diskImage="$(pwd)/qimage"
+        ${pkgs.vmTools.qemu}/bin/qemu-img create -f raw "$diskImage" 100M
+      '';
 
-        postVM = ''
-          echo "creating VirtualBox disk image..."
-          ${pkgs.vmTools.qemu}/bin/qemu-img convert -f raw -O vdi \
-            "$diskImage" "$out/disk.vdi"
-        '';
+      postVM = ''
+        echo "creating VirtualBox disk image..."
+        ${pkgs.vmTools.qemu}/bin/qemu-img convert -f raw -O vdi \
+          "$diskImage" "$out/disk.vdi"
+      '';
 
-        buildInputs = [
-          pkgs.util-linux
-          pkgs.perl
-        ];
-      } ''
-        ${pkgs.parted}/sbin/parted --script /dev/vda mklabel msdos
-        ${pkgs.parted}/sbin/parted --script /dev/vda -- mkpart primary ext2 1M -1s
-        ${pkgs.e2fsprogs}/sbin/mkfs.ext4 /dev/vda1
-        ${pkgs.e2fsprogs}/sbin/tune2fs -c 0 -i 0 /dev/vda1
-        mkdir /mnt
-        mount /dev/vda1 /mnt
-        cp "${cfg.system.build.kernel}/bzImage" /mnt/linux
-        cp "${cfg.system.build.initialRamdisk}/initrd" /mnt/initrd
+      buildInputs = [
+        pkgs.util-linux
+        pkgs.perl
+      ];
+    } ''
+      ${pkgs.parted}/sbin/parted --script /dev/vda mklabel msdos
+      ${pkgs.parted}/sbin/parted --script /dev/vda -- mkpart primary ext2 1M -1s
+      ${pkgs.e2fsprogs}/sbin/mkfs.ext4 /dev/vda1
+      ${pkgs.e2fsprogs}/sbin/tune2fs -c 0 -i 0 /dev/vda1
+      mkdir /mnt
+      mount /dev/vda1 /mnt
+      cp "${cfg.system.build.kernel}/bzImage" /mnt/linux
+      cp "${cfg.system.build.initialRamdisk}/initrd" /mnt/initrd
 
-        ${pkgs.grub2}/bin/grub-install --boot-directory=/mnt /dev/vda
+      ${pkgs.grub2}/bin/grub-install --boot-directory=/mnt /dev/vda
 
-        cat > /mnt/grub/grub.cfg <<GRUB
-        set root=hd0,1
-        linux /linux ${concatStringsSep " " cfg.boot.kernelParams}
-        initrd /initrd
-        boot
-        GRUB
-        umount /mnt
-      '')
+      cat > /mnt/grub/grub.cfg <<GRUB
+      set root=hd0,1
+      linux /linux ${concatStringsSep " " cfg.boot.kernelParams}
+      initrd /initrd
+      boot
+      GRUB
+      umount /mnt
+    '')
   ;
 
   createVM = name: attrs:
@@ -398,10 +398,10 @@ let
             mkVMConf = name: val: val.machine // { key = "${name}-config"; };
             vmConfigs = mapAttrsToList mkVMConf vms;
           in
-            [
-              ./common/user-account.nix
-              ./common/x11.nix
-            ] ++ vmConfigs
+          [
+            ./common/user-account.nix
+            ./common/x11.nix
+          ] ++ vmConfigs
           ;
           virtualisation.memorySize = 2048;
           virtualisation.qemu.options = [
@@ -413,7 +413,7 @@ let
           users.users.alice.extraGroups = let
             inherit (config.virtualisation.virtualbox.host) enableHardening;
           in
-            lib.mkIf enableHardening (lib.singleton "vboxusers")
+          lib.mkIf enableHardening (lib.singleton "vboxusers")
           ;
           virtualisation.virtualbox.host.enableExtensionPack = useExtensionPack;
           nixpkgs.config.allowUnfree = useExtensionPack;
@@ -473,119 +473,119 @@ let
   };
 
 in
-  mapAttrs (mkVBoxTest false vboxVMs) {
-    simple-gui = ''
-      # Home to select Tools, down to move to the VM, enter to start it.
-      def send_vm_startup():
-          machine.send_key("home")
-          machine.send_key("down")
-          machine.send_key("ret")
+mapAttrs (mkVBoxTest false vboxVMs) {
+  simple-gui = ''
+    # Home to select Tools, down to move to the VM, enter to start it.
+    def send_vm_startup():
+        machine.send_key("home")
+        machine.send_key("down")
+        machine.send_key("ret")
 
 
-      create_vm_simple()
-      machine.succeed(ru("VirtualBox >&2 &"))
-      machine.wait_until_succeeds(ru("xprop -name 'Oracle VM VirtualBox Manager'"))
-      machine.sleep(5)
-      machine.screenshot("gui_manager_started")
-      send_vm_startup()
-      machine.screenshot("gui_manager_sent_startup")
-      wait_for_startup_simple(send_vm_startup)
-      machine.screenshot("gui_started")
-      wait_for_vm_boot_simple()
-      machine.screenshot("gui_booted")
-      shutdown_vm_simple()
-      machine.sleep(5)
-      machine.screenshot("gui_stopped")
-      machine.send_key("ctrl-q")
-      machine.sleep(5)
-      machine.screenshot("gui_manager_stopped")
-      destroy_vm_simple()
-    '';
+    create_vm_simple()
+    machine.succeed(ru("VirtualBox >&2 &"))
+    machine.wait_until_succeeds(ru("xprop -name 'Oracle VM VirtualBox Manager'"))
+    machine.sleep(5)
+    machine.screenshot("gui_manager_started")
+    send_vm_startup()
+    machine.screenshot("gui_manager_sent_startup")
+    wait_for_startup_simple(send_vm_startup)
+    machine.screenshot("gui_started")
+    wait_for_vm_boot_simple()
+    machine.screenshot("gui_booted")
+    shutdown_vm_simple()
+    machine.sleep(5)
+    machine.screenshot("gui_stopped")
+    machine.send_key("ctrl-q")
+    machine.sleep(5)
+    machine.screenshot("gui_manager_stopped")
+    destroy_vm_simple()
+  '';
 
-    simple-cli = ''
-      create_vm_simple()
-      vbm("startvm simple")
-      wait_for_startup_simple()
-      machine.screenshot("cli_started")
-      wait_for_vm_boot_simple()
-      machine.screenshot("cli_booted")
+  simple-cli = ''
+    create_vm_simple()
+    vbm("startvm simple")
+    wait_for_startup_simple()
+    machine.screenshot("cli_started")
+    wait_for_vm_boot_simple()
+    machine.screenshot("cli_booted")
 
-      with machine.nested("Checking for privilege escalation"):
-          machine.fail("test -e '/root/VirtualBox VMs'")
-          machine.fail("test -e '/root/.config/VirtualBox'")
-          machine.succeed("test -e '/home/alice/VirtualBox VMs'")
+    with machine.nested("Checking for privilege escalation"):
+        machine.fail("test -e '/root/VirtualBox VMs'")
+        machine.fail("test -e '/root/.config/VirtualBox'")
+        machine.succeed("test -e '/home/alice/VirtualBox VMs'")
 
-      shutdown_vm_simple()
-      destroy_vm_simple()
-    '';
+    shutdown_vm_simple()
+    destroy_vm_simple()
+  '';
 
-    headless = ''
-      create_vm_headless()
-      machine.succeed(ru("VBoxHeadless --startvm headless >&2 & disown %1"))
-      wait_for_startup_headless()
-      wait_for_vm_boot_headless()
-      shutdown_vm_headless()
-      destroy_vm_headless()
-    '';
+  headless = ''
+    create_vm_headless()
+    machine.succeed(ru("VBoxHeadless --startvm headless >&2 & disown %1"))
+    wait_for_startup_headless()
+    wait_for_vm_boot_headless()
+    shutdown_vm_headless()
+    destroy_vm_headless()
+  '';
 
-    host-usb-permissions = ''
-      import sys
+  host-usb-permissions = ''
+    import sys
 
-      user_usb = remove_uuids(vbm("list usbhost"))
-      print(user_usb, file=sys.stderr)
-      root_usb = remove_uuids(machine.succeed("VBoxManage list usbhost"))
-      print(root_usb, file=sys.stderr)
+    user_usb = remove_uuids(vbm("list usbhost"))
+    print(user_usb, file=sys.stderr)
+    root_usb = remove_uuids(machine.succeed("VBoxManage list usbhost"))
+    print(root_usb, file=sys.stderr)
 
-      if user_usb != root_usb:
-          raise Exception("USB host devices differ for root and normal user")
-      if "<none>" in user_usb:
-          raise Exception("No USB host devices found")
-    '';
+    if user_usb != root_usb:
+        raise Exception("USB host devices differ for root and normal user")
+    if "<none>" in user_usb:
+        raise Exception("No USB host devices found")
+  '';
 
-    systemd-detect-virt = ''
-      create_vm_detectvirt()
-      vbm("startvm detectvirt")
-      wait_for_startup_detectvirt()
-      wait_for_vm_boot_detectvirt()
-      shutdown_vm_detectvirt()
-      result = machine.succeed(f"cat '{detectvirt_sharepath}/result'").strip()
-      destroy_vm_detectvirt()
-      if result != "oracle":
-          raise Exception(f'systemd-detect-virt returned "{result}" instead of "oracle"')
-    '';
+  systemd-detect-virt = ''
+    create_vm_detectvirt()
+    vbm("startvm detectvirt")
+    wait_for_startup_detectvirt()
+    wait_for_vm_boot_detectvirt()
+    shutdown_vm_detectvirt()
+    result = machine.succeed(f"cat '{detectvirt_sharepath}/result'").strip()
+    destroy_vm_detectvirt()
+    if result != "oracle":
+        raise Exception(f'systemd-detect-virt returned "{result}" instead of "oracle"')
+  '';
 
-    net-hostonlyif = ''
-      create_vm_test1()
-      create_vm_test2()
+  net-hostonlyif = ''
+    create_vm_test1()
+    create_vm_test2()
 
-      vbm("startvm test1")
-      wait_for_startup_test1()
-      wait_for_vm_boot_test1()
+    vbm("startvm test1")
+    wait_for_startup_test1()
+    wait_for_vm_boot_test1()
 
-      vbm("startvm test2")
-      wait_for_startup_test2()
-      wait_for_vm_boot_test2()
+    vbm("startvm test2")
+    wait_for_startup_test2()
+    wait_for_vm_boot_test2()
 
-      machine.screenshot("net_booted")
+    machine.screenshot("net_booted")
 
-      test1_ip = wait_for_ip_test1(1)
-      test2_ip = wait_for_ip_test2(1)
+    test1_ip = wait_for_ip_test1(1)
+    test2_ip = wait_for_ip_test2(1)
 
-      machine.succeed(f"echo '{test2_ip}' | nc -N '{test1_ip}' 1234")
-      machine.succeed(f"echo '{test1_ip}' | nc -N '{test2_ip}' 1234")
+    machine.succeed(f"echo '{test2_ip}' | nc -N '{test1_ip}' 1234")
+    machine.succeed(f"echo '{test1_ip}' | nc -N '{test2_ip}' 1234")
 
-      machine.wait_until_succeeds(f"nc -N '{test1_ip}' 5678 < /dev/null >&2")
-      machine.wait_until_succeeds(f"nc -N '{test2_ip}' 5678 < /dev/null >&2")
+    machine.wait_until_succeeds(f"nc -N '{test1_ip}' 5678 < /dev/null >&2")
+    machine.wait_until_succeeds(f"nc -N '{test2_ip}' 5678 < /dev/null >&2")
 
-      shutdown_vm_test1()
-      shutdown_vm_test2()
+    shutdown_vm_test1()
+    shutdown_vm_test2()
 
-      destroy_vm_test1()
-      destroy_vm_test2()
-    '';
-  } // (if
-    enableUnfree
-  then
-    unfreeTests
-  else
-    { })
+    destroy_vm_test1()
+    destroy_vm_test2()
+  '';
+} // (if
+  enableUnfree
+then
+  unfreeTests
+else
+  { })

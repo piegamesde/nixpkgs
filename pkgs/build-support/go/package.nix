@@ -190,7 +190,7 @@ let
         lib.concatMapStringsSep "\n" (rename p.goPackagePath)
         p.goPackageAliases;
     in
-      lib.concatMapStringsSep "\n" renames inputsWithAliases
+    lib.concatMapStringsSep "\n" renames inputsWithAliases
     );
 
     buildPhase = args.buildPhase or (''
@@ -332,6 +332,6 @@ let
     } // meta;
   });
 in
-  lib.warnIf (buildFlags != "" || buildFlagsArray != "")
-  "Use the `ldflags` and/or `tags` attributes instead of `buildFlags`/`buildFlagsArray`"
-  package
+lib.warnIf (buildFlags != "" || buildFlagsArray != "")
+"Use the `ldflags` and/or `tags` attributes instead of `buildFlags`/`buildFlagsArray`"
+package

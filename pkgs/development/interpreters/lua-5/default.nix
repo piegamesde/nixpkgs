@@ -68,8 +68,8 @@ let
               overrides
             ];
           in
-            makeScopeWithSplicing otherSplices keep extra
-            (lib.extends extensions luaPackagesFun)
+          makeScopeWithSplicing otherSplices keep extra
+          (lib.extends extensions luaPackagesFun)
         ) {
           overrides = packageOverrides;
           lua = self;

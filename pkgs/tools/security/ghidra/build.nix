@@ -114,76 +114,76 @@ let
   };
 
 in
-  stdenv.mkDerivation rec {
-    inherit pname version src;
+stdenv.mkDerivation rec {
+  inherit pname version src;
 
-    nativeBuildInputs = [
-      gradle
-      unzip
-      makeWrapper
-      icoutils
-    ] ++ lib.optional stdenv.isDarwin xcbuild;
+  nativeBuildInputs = [
+    gradle
+    unzip
+    makeWrapper
+    icoutils
+  ] ++ lib.optional stdenv.isDarwin xcbuild;
 
-    dontStrip = true;
+  dontStrip = true;
 
-    patches = [ ./0001-Use-protobuf-gradle-plugin.patch ];
-    postPatch = fixProtoc;
+  patches = [ ./0001-Use-protobuf-gradle-plugin.patch ];
+  postPatch = fixProtoc;
 
-    buildPhase = ''
-      export HOME="$NIX_BUILD_TOP/home"
-      mkdir -p "$HOME"
-      export JAVA_TOOL_OPTIONS="-Duser.home='$HOME'"
+  buildPhase = ''
+    export HOME="$NIX_BUILD_TOP/home"
+    mkdir -p "$HOME"
+    export JAVA_TOOL_OPTIONS="-Duser.home='$HOME'"
 
-      ln -s ${deps}/dependencies dependencies
+    ln -s ${deps}/dependencies dependencies
 
-      sed -i "s#mavenLocal()#mavenLocal(); maven { url '${deps}/maven' }#g" build.gradle
+    sed -i "s#mavenLocal()#mavenLocal(); maven { url '${deps}/maven' }#g" build.gradle
 
-      gradle --offline --no-daemon --info -Dorg.gradle.java.home=${openjdk17} buildGhidra
-    '';
+    gradle --offline --no-daemon --info -Dorg.gradle.java.home=${openjdk17} buildGhidra
+  '';
 
-    installPhase = ''
-      mkdir -p "${pkg_path}" "$out/share/applications"
+  installPhase = ''
+    mkdir -p "${pkg_path}" "$out/share/applications"
 
-      ZIP=build/dist/$(ls build/dist)
-      echo $ZIP
-      unzip $ZIP -d ${pkg_path}
-      f=("${pkg_path}"/*)
-      mv "${pkg_path}"/*/* "${pkg_path}"
-      rmdir "''${f[@]}"
+    ZIP=build/dist/$(ls build/dist)
+    echo $ZIP
+    unzip $ZIP -d ${pkg_path}
+    f=("${pkg_path}"/*)
+    mv "${pkg_path}"/*/* "${pkg_path}"
+    rmdir "''${f[@]}"
 
-      ln -s ${desktopItem}/share/applications/* $out/share/applications
+    ln -s ${desktopItem}/share/applications/* $out/share/applications
 
-      icotool -x "Ghidra/RuntimeScripts/Windows/support/ghidra.ico"
-      rm ghidra_4_40x40x32.png
-      for f in ghidra_*.png; do
-        res=$(basename "$f" ".png" | cut -d"_" -f3 | cut -d"x" -f1-2)
-        mkdir -pv "$out/share/icons/hicolor/$res/apps"
-        mv "$f" "$out/share/icons/hicolor/$res/apps/ghidra.png"
-      done;
-    '';
+    icotool -x "Ghidra/RuntimeScripts/Windows/support/ghidra.ico"
+    rm ghidra_4_40x40x32.png
+    for f in ghidra_*.png; do
+      res=$(basename "$f" ".png" | cut -d"_" -f3 | cut -d"x" -f1-2)
+      mkdir -pv "$out/share/icons/hicolor/$res/apps"
+      mv "$f" "$out/share/icons/hicolor/$res/apps/ghidra.png"
+    done;
+  '';
 
-    postFixup = ''
-      mkdir -p "$out/bin"
-      ln -s "${pkg_path}/ghidraRun" "$out/bin/ghidra"
-      wrapProgram "${pkg_path}/support/launch.sh" \
-        --prefix PATH : ${lib.makeBinPath [ openjdk17 ]}
-    '';
+  postFixup = ''
+    mkdir -p "$out/bin"
+    ln -s "${pkg_path}/ghidraRun" "$out/bin/ghidra"
+    wrapProgram "${pkg_path}/support/launch.sh" \
+      --prefix PATH : ${lib.makeBinPath [ openjdk17 ]}
+  '';
 
-    meta = with lib; {
-      description =
-        "A software reverse engineering (SRE) suite of tools developed by NSA's Research Directorate in support of the Cybersecurity mission";
-      homepage = "https://ghidra-sre.org/";
-      platforms = [
-        "x86_64-linux"
-        "x86_64-darwin"
-        "aarch64-darwin"
-      ];
-      sourceProvenance = with sourceTypes; [
-        fromSource
-        binaryBytecode # deps
-      ];
-      license = licenses.asl20;
-      maintainers = with maintainers; [ roblabla ];
-    };
+  meta = with lib; {
+    description =
+      "A software reverse engineering (SRE) suite of tools developed by NSA's Research Directorate in support of the Cybersecurity mission";
+    homepage = "https://ghidra-sre.org/";
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
+    sourceProvenance = with sourceTypes; [
+      fromSource
+      binaryBytecode # deps
+    ];
+    license = licenses.asl20;
+    maintainers = with maintainers; [ roblabla ];
+  };
 
-  }
+}

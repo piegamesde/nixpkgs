@@ -29,10 +29,10 @@ stdenv.mkDerivation rec {
         "linux-x86_64" = "1kv81ilp2dzhxx0kbqkl0i43b44vr5dvni607k78vn6n3mj59j0g";
       }.${arch};
   in
-    fetchurl {
-      url = getUrl version getArch;
-      sha256 = getHash getArch;
-    }
+  fetchurl {
+    url = getUrl version getArch;
+    sha256 = getHash getArch;
+  }
   ;
 
   nativeBuildInputs = [

@@ -327,44 +327,44 @@ let
       else
         "${configDir}/${name}.conf";
     in
-      nameValuePair "wg-quick-${name}" {
-        description = "wg-quick WireGuard Tunnel - ${name}";
-        requires = [ "network-online.target" ];
-        after = [
-          "network.target"
-          "network-online.target"
-        ];
-        wantedBy = optional values.autostart "multi-user.target";
-        environment.DEVICE = name;
-        path = [
-          pkgs.wireguard-tools
-          config.networking.firewall.package # iptables or nftables
-          config.networking.resolvconf.package # openresolv or systemd
-        ];
+    nameValuePair "wg-quick-${name}" {
+      description = "wg-quick WireGuard Tunnel - ${name}";
+      requires = [ "network-online.target" ];
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
+      wantedBy = optional values.autostart "multi-user.target";
+      environment.DEVICE = name;
+      path = [
+        pkgs.wireguard-tools
+        config.networking.firewall.package # iptables or nftables
+        config.networking.resolvconf.package # openresolv or systemd
+      ];
 
-        serviceConfig = {
-          Type = "oneshot";
-          RemainAfterExit = true;
-        };
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+      };
 
-        script = ''
-          ${optionalString (!config.boot.isContainer)
-          "${pkgs.kmod}/bin/modprobe wireguard"}
-          ${optionalString (values.configFile != null) ''
-            cp ${values.configFile} ${configPath}
-          ''}
-          wg-quick up ${configPath}
-        '';
+      script = ''
+        ${optionalString (!config.boot.isContainer)
+        "${pkgs.kmod}/bin/modprobe wireguard"}
+        ${optionalString (values.configFile != null) ''
+          cp ${values.configFile} ${configPath}
+        ''}
+        wg-quick up ${configPath}
+      '';
 
-        serviceConfig = {
-          # Used to privately store renamed copies of external config files during activation
-          PrivateTmp = true;
-        };
+      serviceConfig = {
+        # Used to privately store renamed copies of external config files during activation
+        PrivateTmp = true;
+      };
 
-        preStop = ''
-          wg-quick down ${configPath}
-        '';
-      }
+      preStop = ''
+        wg-quick down ${configPath}
+      '';
+    }
   ;
 in {
 

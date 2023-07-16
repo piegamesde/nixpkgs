@@ -24,36 +24,36 @@ let
     };
   };
 in
-  stdenv.mkDerivation {
-    inherit pname version;
+stdenv.mkDerivation {
+  inherit pname version;
 
-    dontUnpack = true;
+  dontUnpack = true;
 
-    nativeBuildInputs = [ makeWrapper ];
-    buildInputs = [ jdk ];
+  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [ jdk ];
 
-    installPhase = ''
-      mkdir -p $out/share/lib/selendroid
-      cp ${srcs.jar} $out/share/lib/selendroid/selendroid-standalone-${version}.jar
-      cp ${srcs.gridPlugin} $out/share/lib/selendroid/${pluginName}.jar
+  installPhase = ''
+    mkdir -p $out/share/lib/selendroid
+    cp ${srcs.jar} $out/share/lib/selendroid/selendroid-standalone-${version}.jar
+    cp ${srcs.gridPlugin} $out/share/lib/selendroid/${pluginName}.jar
 
-      makeWrapper ${jdk}/bin/java $out/bin/selendroid \
-        --add-flags "-jar $out/share/lib/selendroid/selendroid-standalone-${version}.jar"
-      makeWrapper ${jdk}/bin/java $out/bin/selendroid-selenium \
-        --add-flags "-Dfile.encoding=UTF-8" \
-        --add-flags "-cp ${selenium-server-standalone}/share/lib/${selenium-server-standalone.name}/${selenium-server-standalone.name}.jar:$out/share/lib/selendroid/${pluginName}.jar" \
-        --add-flags "org.openqa.grid.selenium.GridLauncherV3" \
-        --add-flags "-role hub" \
-        --add-flags "-capabilityMatcher io.selendroid.grid.SelendroidCapabilityMatcher"
-    '';
+    makeWrapper ${jdk}/bin/java $out/bin/selendroid \
+      --add-flags "-jar $out/share/lib/selendroid/selendroid-standalone-${version}.jar"
+    makeWrapper ${jdk}/bin/java $out/bin/selendroid-selenium \
+      --add-flags "-Dfile.encoding=UTF-8" \
+      --add-flags "-cp ${selenium-server-standalone}/share/lib/${selenium-server-standalone.name}/${selenium-server-standalone.name}.jar:$out/share/lib/selendroid/${pluginName}.jar" \
+      --add-flags "org.openqa.grid.selenium.GridLauncherV3" \
+      --add-flags "-role hub" \
+      --add-flags "-capabilityMatcher io.selendroid.grid.SelendroidCapabilityMatcher"
+  '';
 
-    meta = with lib; {
-      homepage = "http://selendroid.io/";
-      description =
-        "Test automation for native or hybrid Android apps and the mobile web";
-      maintainers = with maintainers; [ offline ];
-      platforms = platforms.all;
-      sourceProvenance = with sourceTypes; [ binaryBytecode ];
-      license = licenses.asl20;
-    };
-  }
+  meta = with lib; {
+    homepage = "http://selendroid.io/";
+    description =
+      "Test automation for native or hybrid Android apps and the mobile web";
+    maintainers = with maintainers; [ offline ];
+    platforms = platforms.all;
+    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    license = licenses.asl20;
+  };
+}

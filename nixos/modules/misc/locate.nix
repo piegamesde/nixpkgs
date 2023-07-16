@@ -246,17 +246,17 @@ in {
         source = "${cfg.locate}/bin/plocate";
       });
     in
-      mkIf isMorPLocate {
-        locate = mkMerge [
-          common
-          mlocate
-          plocate
-        ];
-        plocate = (mkIf isPLocate (mkMerge [
-          common
-          plocate
-        ]));
-      }
+    mkIf isMorPLocate {
+      locate = mkMerge [
+        common
+        mlocate
+        plocate
+      ];
+      plocate = (mkIf isPLocate (mkMerge [
+        common
+        plocate
+      ]));
+    }
     ;
 
     nixpkgs.config = { locate.dbfile = cfg.output; };

@@ -18,21 +18,21 @@ let
   };
 
 in
-  stdenv.mkDerivation {
-    name = "docbook-sgml-3.1";
+stdenv.mkDerivation {
+  name = "docbook-sgml-3.1";
 
-    dontUnpack = true;
+  dontUnpack = true;
 
-    nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [ unzip ];
 
-    installPhase = ''
-      o=$out/sgml/dtd/docbook-3.1
-      mkdir -p $o
-      cd $o
-      unzip ${src}
-      unzip ${isoents}
-      sed -e "s/iso-/ISO/" -e "s/.gml//" -i docbook.cat
-    '';
+  installPhase = ''
+    o=$out/sgml/dtd/docbook-3.1
+    mkdir -p $o
+    cd $o
+    unzip ${src}
+    unzip ${isoents}
+    sed -e "s/iso-/ISO/" -e "s/.gml//" -i docbook.cat
+  '';
 
-    meta = { platforms = lib.platforms.unix; };
-  }
+  meta = { platforms = lib.platforms.unix; };
+}

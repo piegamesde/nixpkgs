@@ -98,69 +98,69 @@ let
   };
 
 in
-  stdenv.mkDerivation {
-    inherit pname src version;
+stdenv.mkDerivation {
+  inherit pname src version;
 
-    patches = [ (substituteAll {
-      src = ./0002-buildconfig-local-deps-fixes.patch;
-      inherit deps;
-    }) ];
+  patches = [ (substituteAll {
+    src = ./0002-buildconfig-local-deps-fixes.patch;
+    inherit deps;
+  }) ];
 
-    passthru = {
-      # Mostly for debugging purposes.
-      inherit deps;
-    };
+  passthru = {
+    # Mostly for debugging purposes.
+    inherit deps;
+  };
 
-    buildPhase = ''
-      runHook preBuild
+  buildPhase = ''
+    runHook preBuild
 
-      export GRADLE_USER_HOME=$(mktemp -d)
+    export GRADLE_USER_HOME=$(mktemp -d)
 
-      gradle --offline --no-daemon distTar
+    gradle --offline --no-daemon distTar
 
-      runHook postBuild
+    runHook postBuild
+  '';
+
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out
+    tar xvf ./build/distributions/signald.tar --strip-components=1 --directory $out/
+    wrapProgram $out/bin/signald \
+      --prefix PATH : ${lib.makeBinPath [ coreutils ]} \
+      --set JAVA_HOME "${jre'}"
+
+    runHook postInstall
+  '';
+
+  nativeBuildInputs = [
+    git
+    gradle
+    makeWrapper
+  ];
+
+  doCheck = true;
+
+  meta = with lib; {
+    description = "Unofficial daemon for interacting with Signal";
+    longDescription = ''
+      Signald is a daemon that facilitates communication over Signal.  It is
+      unofficial, unapproved, and not nearly as secure as the real Signal
+      clients.
     '';
-
-    installPhase = ''
-      runHook preInstall
-
-      mkdir -p $out
-      tar xvf ./build/distributions/signald.tar --strip-components=1 --directory $out/
-      wrapProgram $out/bin/signald \
-        --prefix PATH : ${lib.makeBinPath [ coreutils ]} \
-        --set JAVA_HOME "${jre'}"
-
-      runHook postInstall
-    '';
-
-    nativeBuildInputs = [
-      git
-      gradle
-      makeWrapper
+    homepage = "https://signald.org";
+    sourceProvenance = with sourceTypes; [
+      fromSource
+      binaryBytecode # deps
     ];
-
-    doCheck = true;
-
-    meta = with lib; {
-      description = "Unofficial daemon for interacting with Signal";
-      longDescription = ''
-        Signald is a daemon that facilitates communication over Signal.  It is
-        unofficial, unapproved, and not nearly as secure as the real Signal
-        clients.
-      '';
-      homepage = "https://signald.org";
-      sourceProvenance = with sourceTypes; [
-        fromSource
-        binaryBytecode # deps
-      ];
-      license = licenses.gpl3Plus;
-      maintainers = with maintainers; [
-        expipiplus1
-        ma27
-      ];
-      platforms = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-    };
-  }
+    license = licenses.gpl3Plus;
+    maintainers = with maintainers; [
+      expipiplus1
+      ma27
+    ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
+  };
+}

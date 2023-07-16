@@ -14,53 +14,53 @@
 let
   inherit (darwin.apple_sdk_11_0.frameworks) Carbon CoreServices OpenCL;
 in
-  stdenv.mkDerivation rec {
-    pname = "xmrig";
-    version = "6.19.1";
+stdenv.mkDerivation rec {
+  pname = "xmrig";
+  version = "6.19.1";
 
-    src = fetchFromGitHub {
-      owner = "xmrig";
-      repo = "xmrig";
-      rev = "v${version}";
-      hash = "sha256-m8ot/IbpxdzHOyJymzZ7MWt4p78GTUuTjYZ9P1oGpWI=";
-    };
+  src = fetchFromGitHub {
+    owner = "xmrig";
+    repo = "xmrig";
+    rev = "v${version}";
+    hash = "sha256-m8ot/IbpxdzHOyJymzZ7MWt4p78GTUuTjYZ9P1oGpWI=";
+  };
 
-    patches = [ ./donate-level.patch ];
+  patches = [ ./donate-level.patch ];
 
-    postPatch = ''
-      substituteAllInPlace src/donate.h
-      substituteInPlace cmake/OpenSSL.cmake \
-        --replace "set(OPENSSL_USE_STATIC_LIBS TRUE)" "set(OPENSSL_USE_STATIC_LIBS FALSE)"
-    '';
+  postPatch = ''
+    substituteAllInPlace src/donate.h
+    substituteInPlace cmake/OpenSSL.cmake \
+      --replace "set(OPENSSL_USE_STATIC_LIBS TRUE)" "set(OPENSSL_USE_STATIC_LIBS FALSE)"
+  '';
 
-    nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [ cmake ];
 
-    buildInputs = [
-      libuv
-      libmicrohttpd
-      openssl
-      hwloc
-    ] ++ lib.optionals stdenv.isDarwin [
-      Carbon
-      CoreServices
-      OpenCL
-    ];
+  buildInputs = [
+    libuv
+    libmicrohttpd
+    openssl
+    hwloc
+  ] ++ lib.optionals stdenv.isDarwin [
+    Carbon
+    CoreServices
+    OpenCL
+  ];
 
-    inherit donateLevel;
+  inherit donateLevel;
 
-    installPhase = ''
-      runHook preInstall
+  installPhase = ''
+    runHook preInstall
 
-      install -vD xmrig $out/bin/xmrig
+    install -vD xmrig $out/bin/xmrig
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
-    meta = with lib; {
-      description = "Monero (XMR) CPU miner";
-      homepage = "https://github.com/xmrig/xmrig";
-      license = licenses.gpl3Plus;
-      platforms = platforms.unix;
-      maintainers = with maintainers; [ kim0 ];
-    };
-  }
+  meta = with lib; {
+    description = "Monero (XMR) CPU miner";
+    homepage = "https://github.com/xmrig/xmrig";
+    license = licenses.gpl3Plus;
+    platforms = platforms.unix;
+    maintainers = with maintainers; [ kim0 ];
+  };
+}

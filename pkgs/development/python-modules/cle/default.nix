@@ -28,61 +28,61 @@ let
   };
 
 in
-  buildPythonPackage rec {
-    pname = "cle";
-    inherit version;
-    format = "pyproject";
+buildPythonPackage rec {
+  pname = "cle";
+  inherit version;
+  format = "pyproject";
 
-    disabled = pythonOlder "3.8";
+  disabled = pythonOlder "3.8";
 
-    src = fetchFromGitHub {
-      owner = "angr";
-      repo = pname;
-      rev = "refs/tags/v${version}";
-      hash = "sha256-D5qIuu8pqnkroU3ChmhseVitLrUJjwXr01MG7ing2Zk=";
-    };
+  src = fetchFromGitHub {
+    owner = "angr";
+    repo = pname;
+    rev = "refs/tags/v${version}";
+    hash = "sha256-D5qIuu8pqnkroU3ChmhseVitLrUJjwXr01MG7ing2Zk=";
+  };
 
-    nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [ setuptools ];
 
-    propagatedBuildInputs = [
-      cffi
-      minidump
-      pefile
-      pyelftools
-      pyvex
-      pyxbe
-      sortedcontainers
-    ];
+  propagatedBuildInputs = [
+    cffi
+    minidump
+    pefile
+    pyelftools
+    pyvex
+    pyxbe
+    sortedcontainers
+  ];
 
-    nativeCheckInputs = [
-      nose
-      pytestCheckHook
-    ];
+  nativeCheckInputs = [
+    nose
+    pytestCheckHook
+  ];
 
-    # Place test binaries in the right location (location is hard-coded in the tests)
-    preCheck = ''
-      export HOME=$TMPDIR
-      cp -r ${binaries} $HOME/binaries
-    '';
+  # Place test binaries in the right location (location is hard-coded in the tests)
+  preCheck = ''
+    export HOME=$TMPDIR
+    cp -r ${binaries} $HOME/binaries
+  '';
 
-    disabledTests = [
-      # PPC tests seems to fails
-      "test_ppc_rel24_relocation"
-      "test_ppc_addr16_ha_relocation"
-      "test_ppc_addr16_lo_relocation"
-      "test_plt_full_relro"
-      # Test fails
-      "test_tls_pe_incorrect_tls_data_start"
-      # The required parts is not present on Nix
-      "test_remote_file_map"
-    ];
+  disabledTests = [
+    # PPC tests seems to fails
+    "test_ppc_rel24_relocation"
+    "test_ppc_addr16_ha_relocation"
+    "test_ppc_addr16_lo_relocation"
+    "test_plt_full_relro"
+    # Test fails
+    "test_tls_pe_incorrect_tls_data_start"
+    # The required parts is not present on Nix
+    "test_remote_file_map"
+  ];
 
-    pythonImportsCheck = [ "cle" ];
+  pythonImportsCheck = [ "cle" ];
 
-    meta = with lib; {
-      description = "Python loader for many binary formats";
-      homepage = "https://github.com/angr/cle";
-      license = with licenses; [ bsd2 ];
-      maintainers = with maintainers; [ fab ];
-    };
-  }
+  meta = with lib; {
+    description = "Python loader for many binary formats";
+    homepage = "https://github.com/angr/cle";
+    license = with licenses; [ bsd2 ];
+    maintainers = with maintainers; [ fab ];
+  };
+}

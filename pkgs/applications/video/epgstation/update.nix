@@ -55,10 +55,10 @@ let
     popd
   '';
 in
-  _experimental-update-script-combinators.sequence [
-    updateSource
-    [
-      updateLocks
-      ./.
-    ]
+_experimental-update-script-combinators.sequence [
+  updateSource
+  [
+    updateLocks
+    ./.
   ]
+]

@@ -13,7 +13,7 @@ let
         minor = builtins.toString (lib.toInt (elemAt ver idx) + 1);
         upper = builtins.concatStringsSep "." (ireplace idx minor ver);
       in
-        operators.">=" version v && operators."<" version upper
+      operators.">=" version v && operators."<" version upper
     ;
     dropWildcardPrecision = f: version: constraint:
       let
@@ -32,7 +32,7 @@ let
         else
           version;
       in
-        f v c
+      f v c
     ;
   in {
     # Prefix operators
@@ -56,7 +56,7 @@ let
         upperConstraint = builtins.concatStringsSep "."
           (ireplace (builtins.length pruned - 1) upper pruned);
       in
-        operators.">=" v c && operators."<" v upperConstraint
+      operators.">=" v c && operators."<" v upperConstraint
     ;
     # Infix operators
     "-" = version: v:
@@ -77,21 +77,21 @@ let
       # There is also an infix operator to match ranges
       mIn = match "${re.version} *(-) *${re.version}" constraintStr;
     in
-      (if
-        mPre != null
-      then {
-        op = elemAt mPre 0;
-        v = elemAt mPre 1;
-      }
-      # Infix operators are range matches
-      else if mIn != null then {
-        op = elemAt mIn 1;
-        v = {
-          vl = (elemAt mIn 0);
-          vu = (elemAt mIn 2);
-        };
-      } else
-        throw ''Constraint "${constraintStr}" could not be parsed'')
+    (if
+      mPre != null
+    then {
+      op = elemAt mPre 0;
+      v = elemAt mPre 1;
+    }
+    # Infix operators are range matches
+    else if mIn != null then {
+      op = elemAt mIn 1;
+      v = {
+        vl = (elemAt mIn 0);
+        vu = (elemAt mIn 2);
+      };
+    } else
+      throw ''Constraint "${constraintStr}" could not be parsed'')
   ;
   satisfiesSemver = version: constraint:
     let

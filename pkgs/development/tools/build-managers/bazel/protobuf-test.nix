@@ -189,4 +189,4 @@ let
   };
 
 in
-  testBazel
+testBazel

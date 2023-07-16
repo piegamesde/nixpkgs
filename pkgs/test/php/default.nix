@@ -63,20 +63,20 @@ in {
         '';
       });
   in
-    runTest "php-test-overrideAttrs-preserves-enabled-extensions" ''
-      php="${customPhp}"
-      phpUnwrapped="${customPhp.unwrapped}"
+  runTest "php-test-overrideAttrs-preserves-enabled-extensions" ''
+    php="${customPhp}"
+    phpUnwrapped="${customPhp.unwrapped}"
 
-      checking "if overrides took hold"
-      test -f "$phpUnwrapped/oApee-was-here" && ok || nok
+    checking "if overrides took hold"
+    test -f "$phpUnwrapped/oApee-was-here" && ok || nok
 
-      checking "if imagick extension is still present"
-      $php/bin/php -r 'exit(extension_loaded("imagick") ? 0 : 1);' && ok || nok
+    checking "if imagick extension is still present"
+    $php/bin/php -r 'exit(extension_loaded("imagick") ? 0 : 1);' && ok || nok
 
-      checking "if imagick extension is linked against the overridden PHP"
-      echo $php
-      $php/bin/php -r 'exit(extension_loaded("imagick") ? 0 : 1);' && ok || nok
-    ''
+    checking "if imagick extension is linked against the overridden PHP"
+    echo $php
+    $php/bin/php -r 'exit(extension_loaded("imagick") ? 0 : 1);' && ok || nok
+  ''
   ;
 
   unwrapped-overrideAttrs-stacks = let
@@ -96,13 +96,13 @@ in {
         }))
     ];
   in
-    runTest "php-test-unwrapped-overrideAttrs-stacks" ''
-      checking "if first override remained"
-      ${check (builtins.match ".*oAs-first.*" customPhp.postInstall != null)}
+  runTest "php-test-unwrapped-overrideAttrs-stacks" ''
+    checking "if first override remained"
+    ${check (builtins.match ".*oAs-first.*" customPhp.postInstall != null)}
 
-      checking "if second override is there"
-      ${check (builtins.match ".*oAs-second.*" customPhp.postInstall != null)}
-    ''
+    checking "if second override is there"
+    ${check (builtins.match ".*oAs-second.*" customPhp.postInstall != null)}
+  ''
   ;
 
   wrapped-overrideAttrs-stacks = let
@@ -122,14 +122,14 @@ in {
         }))
     ];
   in
-    runTest "php-test-wrapped-overrideAttrs-stacks" ''
-      checking "if first override remained"
-      ${check
-      (builtins.match ".*oAs-first.*" customPhp.unwrapped.postInstall != null)}
+  runTest "php-test-wrapped-overrideAttrs-stacks" ''
+    checking "if first override remained"
+    ${check
+    (builtins.match ".*oAs-first.*" customPhp.unwrapped.postInstall != null)}
 
-      checking "if second override is there"
-      ${check
-      (builtins.match ".*oAs-second.*" customPhp.unwrapped.postInstall != null)}
-    ''
+    checking "if second override is there"
+    ${check
+    (builtins.match ".*oAs-second.*" customPhp.unwrapped.postInstall != null)}
+  ''
   ;
 }

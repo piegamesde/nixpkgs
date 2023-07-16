@@ -59,21 +59,21 @@ let
       };
 
     in
-      menuBuilderGrub2 finalCfg [
-        { class = "installer"; }
-        {
-          class = "nomodeset";
-          params = "nomodeset";
-        }
-        {
-          class = "copytoram";
-          params = "copytoram";
-        }
-        {
-          class = "debug";
-          params = "debug";
-        }
-      ]
+    menuBuilderGrub2 finalCfg [
+      { class = "installer"; }
+      {
+        class = "nomodeset";
+        params = "nomodeset";
+      }
+      {
+        class = "copytoram";
+        params = "copytoram";
+      }
+      {
+        class = "debug";
+        params = "debug";
+      }
+    ]
   ;
 
   # Timeout in syslinux is in units of 1/10 of a second.
@@ -731,7 +731,7 @@ in {
         howmany = toString length;
         toomany = toString (length - 32);
       in
-        "isoImage.volumeID ${config.isoImage.volumeID} is ${howmany} characters. That is ${toomany} characters longer than the limit of 32."
+      "isoImage.volumeID ${config.isoImage.volumeID} is ${howmany} characters. That is ${toomany} characters longer than the limit of 32."
       ;
     } ];
 

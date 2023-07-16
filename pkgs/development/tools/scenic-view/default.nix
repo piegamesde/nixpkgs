@@ -94,51 +94,51 @@ let
   };
 
 in
-  stdenv.mkDerivation rec {
-    inherit pname version src;
-    nativeBuildInputs = [
-      jdk
-      gradle
-      makeWrapper
+stdenv.mkDerivation rec {
+  inherit pname version src;
+  nativeBuildInputs = [
+    jdk
+    gradle
+    makeWrapper
+  ];
+
+  buildPhase = ''
+    runHook preBuild
+
+    export GRADLE_USER_HOME=$(mktemp -d)
+    gradle --offline --no-daemon --info --init-script ${gradleInit} build
+
+    runHook postBuild
+  '';
+
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/bin $out/share/${pname}
+    cp build/libs/scenicview.jar $out/share/${pname}/${pname}.jar
+    makeWrapper ${jdk}/bin/java $out/bin/${pname} --add-flags "-jar $out/share/${pname}/${pname}.jar"
+
+    runHook postInstall
+  '';
+
+  desktopItems = [ desktopItem ];
+
+  meta = with lib; {
+    broken = stdenv.isDarwin;
+    description =
+      "JavaFx application to visualize and modify the scenegraph of running JavaFx applications.";
+    longDescription = ''
+      A JavaFX application designed to make it simple to understand the current state of your application scenegraph
+      and to also easily manipulate properties of the scenegraph without having to keep editing your code.
+      This lets you find bugs and get things pixel perfect without having to do the compile-check-compile dance.
+    '';
+    homepage = "https://github.com/JonathanGiles/scenic-view/";
+    sourceProvenance = with sourceTypes; [
+      fromSource
+      binaryBytecode # deps
     ];
-
-    buildPhase = ''
-      runHook preBuild
-
-      export GRADLE_USER_HOME=$(mktemp -d)
-      gradle --offline --no-daemon --info --init-script ${gradleInit} build
-
-      runHook postBuild
-    '';
-
-    installPhase = ''
-      runHook preInstall
-
-      mkdir -p $out/bin $out/share/${pname}
-      cp build/libs/scenicview.jar $out/share/${pname}/${pname}.jar
-      makeWrapper ${jdk}/bin/java $out/bin/${pname} --add-flags "-jar $out/share/${pname}/${pname}.jar"
-
-      runHook postInstall
-    '';
-
-    desktopItems = [ desktopItem ];
-
-    meta = with lib; {
-      broken = stdenv.isDarwin;
-      description =
-        "JavaFx application to visualize and modify the scenegraph of running JavaFx applications.";
-      longDescription = ''
-        A JavaFX application designed to make it simple to understand the current state of your application scenegraph
-        and to also easily manipulate properties of the scenegraph without having to keep editing your code.
-        This lets you find bugs and get things pixel perfect without having to do the compile-check-compile dance.
-      '';
-      homepage = "https://github.com/JonathanGiles/scenic-view/";
-      sourceProvenance = with sourceTypes; [
-        fromSource
-        binaryBytecode # deps
-      ];
-      license = licenses.gpl3Plus;
-      maintainers = with maintainers; [ wirew0rm ];
-      platforms = platforms.all;
-    };
-  }
+    license = licenses.gpl3Plus;
+    maintainers = with maintainers; [ wirew0rm ];
+    platforms = platforms.all;
+  };
+}

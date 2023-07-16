@@ -39,27 +39,27 @@ let
     installPhase = "cp -ar usr $out";
   };
 in
-  buildFHSEnv {
-    name = fahclient.name;
+buildFHSEnv {
+  name = fahclient.name;
 
-    targetPkgs = pkgs':
-      [
-        fahclient
-        ocl-icd
-      ] ++ extraPkgs;
+  targetPkgs = pkgs':
+    [
+      fahclient
+      ocl-icd
+    ] ++ extraPkgs;
 
-    runScript = "/bin/FAHClient";
+  runScript = "/bin/FAHClient";
 
-    extraInstallCommands = ''
-      mv $out/bin/$name $out/bin/FAHClient
-    '';
+  extraInstallCommands = ''
+    mv $out/bin/$name $out/bin/FAHClient
+  '';
 
-    meta = {
-      description = "Folding@home client";
-      homepage = "https://foldingathome.org/";
-      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-      license = lib.licenses.unfree;
-      maintainers = [ lib.maintainers.zimbatm ];
-      platforms = [ "x86_64-linux" ];
-    };
-  }
+  meta = {
+    description = "Folding@home client";
+    homepage = "https://foldingathome.org/";
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.unfree;
+    maintainers = [ lib.maintainers.zimbatm ];
+    platforms = [ "x86_64-linux" ];
+  };
+}

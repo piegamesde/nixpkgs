@@ -21,44 +21,44 @@ let
   else
     indicators ++ (lib.optionals useDefaultIndicators wingpanelIndicators);
 in
-  stdenv.mkDerivation rec {
-    pname = "${wingpanel.pname}-with-indicators";
-    inherit (wingpanel) version;
+stdenv.mkDerivation rec {
+  pname = "${wingpanel.pname}-with-indicators";
+  inherit (wingpanel) version;
 
-    src = null;
+  src = null;
 
-    paths = [ wingpanel ] ++ selectedIndicators;
+  paths = [ wingpanel ] ++ selectedIndicators;
 
-    passAsFile = [ "paths" ];
+  passAsFile = [ "paths" ];
 
-    nativeBuildInputs = [
-      glib
-      wrapGAppsHook
-    ];
+  nativeBuildInputs = [
+    glib
+    wrapGAppsHook
+  ];
 
-    buildInputs = lib.forEach selectedIndicators (x: x.buildInputs)
-      ++ selectedIndicators;
+  buildInputs = lib.forEach selectedIndicators (x: x.buildInputs)
+    ++ selectedIndicators;
 
-    dontUnpack = true;
-    dontConfigure = true;
-    dontBuild = true;
+  dontUnpack = true;
+  dontConfigure = true;
+  dontBuild = true;
 
-    preferLocalBuild = true;
-    allowSubstitutes = false;
+  preferLocalBuild = true;
+  allowSubstitutes = false;
 
-    installPhase = ''
-      mkdir -p $out
-      for i in $(cat $pathsPath); do
-        ${xorg.lndir}/bin/lndir -silent $i $out
-      done
-    '';
+  installPhase = ''
+    mkdir -p $out
+    for i in $(cat $pathsPath); do
+      ${xorg.lndir}/bin/lndir -silent $i $out
+    done
+  '';
 
-    preFixup = ''
-      gappsWrapperArgs+=(
-        --set WINGPANEL_INDICATORS_PATH "$out/lib/wingpanel"
-        --set SWITCHBOARD_PLUGS_PATH "${switchboard-with-plugs}/lib/switchboard"
-      )
-    '';
+  preFixup = ''
+    gappsWrapperArgs+=(
+      --set WINGPANEL_INDICATORS_PATH "$out/lib/wingpanel"
+      --set SWITCHBOARD_PLUGS_PATH "${switchboard-with-plugs}/lib/switchboard"
+    )
+  '';
 
-    inherit (wingpanel) meta;
-  }
+  inherit (wingpanel) meta;
+}

@@ -66,5 +66,5 @@ let
   };
 
 in
-  testBazel
+testBazel
 

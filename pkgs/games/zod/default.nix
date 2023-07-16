@@ -97,19 +97,19 @@ let
     done
   '';
 in
-  symlinkJoin {
-    inherit name;
-    paths = [
-      zod_engine
-      zod_launcher
-      zod_map_editor
-      zod_assets
-    ];
-    meta = with lib; {
-      description = "Multiplayer remake of ZED";
-      homepage = "http://zod.sourceforge.net/";
-      maintainers = with maintainers; [ zeri ];
-      license = licenses.gpl3Plus; # Says the website
-      platforms = platforms.linux;
-    };
-  }
+symlinkJoin {
+  inherit name;
+  paths = [
+    zod_engine
+    zod_launcher
+    zod_map_editor
+    zod_assets
+  ];
+  meta = with lib; {
+    description = "Multiplayer remake of ZED";
+    homepage = "http://zod.sourceforge.net/";
+    maintainers = with maintainers; [ zeri ];
+    license = licenses.gpl3Plus; # Says the website
+    platforms = platforms.linux;
+  };
+}

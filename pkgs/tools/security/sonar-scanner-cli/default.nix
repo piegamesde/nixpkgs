@@ -24,33 +24,33 @@ let
   };
 
 in
-  stdenv.mkDerivation rec {
-    inherit version;
-    pname = "sonar-scanner-cli";
+stdenv.mkDerivation rec {
+  inherit version;
+  pname = "sonar-scanner-cli";
 
-    src = fetchurl sonarScannerArchPackage.${stdenv.hostPlatform.system};
+  src = fetchurl sonarScannerArchPackage.${stdenv.hostPlatform.system};
 
-    nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [ unzip ];
 
-    installPhase = ''
-      mkdir -p $out/lib
-      cp -r lib/* $out/lib/
-      mkdir -p $out/bin
-      cp bin/* $out/bin/
-      mkdir -p $out/conf
-      cp conf/* $out/conf/
-    '';
+  installPhase = ''
+    mkdir -p $out/lib
+    cp -r lib/* $out/lib/
+    mkdir -p $out/bin
+    cp bin/* $out/bin/
+    mkdir -p $out/conf
+    cp conf/* $out/conf/
+  '';
 
-    fixupPhase = ''
-      substituteInPlace $out/bin/sonar-scanner \
-        --replace "\$sonar_scanner_home/jre" "${lib.getBin jre}"
-    '';
+  fixupPhase = ''
+    substituteInPlace $out/bin/sonar-scanner \
+      --replace "\$sonar_scanner_home/jre" "${lib.getBin jre}"
+  '';
 
-    meta = with lib; {
-      homepage = "https://github.com/SonarSource/sonar-scanner-cli";
-      description = "SonarQube Scanner used to start code analysis";
-      license = licenses.gpl3Plus;
-      maintainers = with maintainers; [ peterromfeldhk ];
-      platforms = builtins.attrNames sonarScannerArchPackage;
-    };
-  }
+  meta = with lib; {
+    homepage = "https://github.com/SonarSource/sonar-scanner-cli";
+    description = "SonarQube Scanner used to start code analysis";
+    license = licenses.gpl3Plus;
+    maintainers = with maintainers; [ peterromfeldhk ];
+    platforms = builtins.attrNames sonarScannerArchPackage;
+  };
+}

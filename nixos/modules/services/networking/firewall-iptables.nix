@@ -57,7 +57,7 @@ let
         ${text}
       '';
     in
-      "${dir}/bin/${name}"
+    "${dir}/bin/${name}"
   ;
 
   startScript = writeShScript "firewall-start" ''

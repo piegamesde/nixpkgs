@@ -83,7 +83,7 @@ in let
     else
       map (lib.setDefaultModuleLocation modulesLocation) modules;
   in
-    locatedModules ++ legacyModules
+  locatedModules ++ legacyModules
   ;
 
   noUserModules = evalModulesMinimal ({
@@ -107,7 +107,7 @@ in let
     noUserModules.extendModules { modules = allUserModules; };
 
 in
-  withWarnings nixosWithUserModules // {
-    inherit extraArgs;
-    inherit (nixosWithUserModules._module.args) pkgs;
-  }
+withWarnings nixosWithUserModules // {
+  inherit extraArgs;
+  inherit (nixosWithUserModules._module.args) pkgs;
+}

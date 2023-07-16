@@ -52,4 +52,4 @@ let
     };
   };
 in
-  package
+package

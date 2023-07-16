@@ -32,7 +32,7 @@ let
         int
       ];
     in
-      attrsOf (either valueType (listOf valueType))
+    attrsOf (either valueType (listOf valueType))
   ;
 
   addressSubmodule = {

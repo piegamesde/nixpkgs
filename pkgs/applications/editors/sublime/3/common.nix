@@ -167,45 +167,45 @@ in let
     '';
   };
 in
-  stdenv.mkDerivation (rec {
-    inherit pname;
-    version = buildVersion;
+stdenv.mkDerivation (rec {
+  inherit pname;
+  version = buildVersion;
 
-    dontUnpack = true;
+  dontUnpack = true;
 
-    ${primaryBinary} = binaryPackage;
+  ${primaryBinary} = binaryPackage;
 
-    nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [ makeWrapper ];
 
-    installPhase = ''
-      mkdir -p "$out/bin"
-      makeWrapper "''$${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
-    '' + builtins.concatStringsSep "" (map (binaryAlias: ''
-      ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}
-    '') primaryBinaryAliases) + ''
-      mkdir -p "$out/share/applications"
-      substitute "''$${primaryBinary}/${primaryBinary}.desktop" "$out/share/applications/${primaryBinary}.desktop" --replace "/opt/${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
-      for directory in ''$${primaryBinary}/Icon/*; do
-        size=$(basename $directory)
-        mkdir -p "$out/share/icons/hicolor/$size/apps"
-        ln -s ''$${primaryBinary}/Icon/$size/* $out/share/icons/hicolor/$size/apps
-      done
-    '';
+  installPhase = ''
+    mkdir -p "$out/bin"
+    makeWrapper "''$${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
+  '' + builtins.concatStringsSep "" (map (binaryAlias: ''
+    ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}
+  '') primaryBinaryAliases) + ''
+    mkdir -p "$out/share/applications"
+    substitute "''$${primaryBinary}/${primaryBinary}.desktop" "$out/share/applications/${primaryBinary}.desktop" --replace "/opt/${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
+    for directory in ''$${primaryBinary}/Icon/*; do
+      size=$(basename $directory)
+      mkdir -p "$out/share/icons/hicolor/$size/apps"
+      ln -s ''$${primaryBinary}/Icon/$size/* $out/share/icons/hicolor/$size/apps
+    done
+  '';
 
-    meta = with lib; {
-      description = "Sophisticated text editor for code, markup and prose";
-      homepage = "https://www.sublimetext.com/";
-      maintainers = with maintainers; [
-        jtojnar
-        wmertens
-        demin-dmitriy
-        zimbatm
-      ];
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-      license = licenses.unfree;
-      platforms = [
-        "x86_64-linux"
-        "i686-linux"
-      ];
-    };
-  })
+  meta = with lib; {
+    description = "Sophisticated text editor for code, markup and prose";
+    homepage = "https://www.sublimetext.com/";
+    maintainers = with maintainers; [
+      jtojnar
+      wmertens
+      demin-dmitriy
+      zimbatm
+    ];
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    license = licenses.unfree;
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
+  };
+})

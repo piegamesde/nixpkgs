@@ -11,10 +11,10 @@ let
       typeddep = self.callPackage ./typeddep { };
     };
   in
-    interpreter.override {
-      inherit packageOverrides;
-      self = python;
-    }
+  interpreter.override {
+    inherit packageOverrides;
+    self = python;
+  }
   ;
 
   pythonEnv = python.withPackages (ps: [
@@ -29,7 +29,7 @@ let
   '';
 
 in
-  runCommand "${interpreter.name}-site-prefix-mypy-test" { } ''
-    ${pythonEnv}/bin/mypy ${pythonScript}
-    touch $out
-  ''
+runCommand "${interpreter.name}-site-prefix-mypy-test" { } ''
+  ${pythonEnv}/bin/mypy ${pythonScript}
+  touch $out
+''

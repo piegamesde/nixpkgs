@@ -21,55 +21,55 @@ let
   };
 
 in
-  stdenv.mkDerivation rec {
-    pname = "bossa";
-    version = "1.9.1";
+stdenv.mkDerivation rec {
+  pname = "bossa";
+  version = "1.9.1";
 
-    src = fetchFromGitHub {
-      owner = "shumatech";
-      repo = "BOSSA";
-      rev = version;
-      sha256 = "sha256-8M3MU/+Y1L6SaQ1yoC9Z27A/gGruZdopLnL1z7h7YJw=";
-    };
+  src = fetchFromGitHub {
+    owner = "shumatech";
+    repo = "BOSSA";
+    rev = version;
+    sha256 = "sha256-8M3MU/+Y1L6SaQ1yoC9Z27A/gGruZdopLnL1z7h7YJw=";
+  };
 
-    postPatch = ''
-      substituteInPlace Makefile \
-        --replace "-arch x86_64" ""
+  postPatch = ''
+    substituteInPlace Makefile \
+      --replace "-arch x86_64" ""
+  '';
+
+  nativeBuildInputs = [ bin2c ];
+  buildInputs = [
+    wxGTK32
+    libX11
+    readline
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Cocoa ];
+
+  makeFlags = [
+    "WXVERSION=3.2"
+    # Explicitly specify targets so they don't get stripped.
+    "bin/bossac"
+    "bin/bossash"
+    "bin/bossa"
+  ];
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=deprecated-declarations";
+
+  installPhase = ''
+    mkdir -p $out/bin
+    cp bin/bossa{c,sh,} $out/bin/
+  '';
+
+  meta = with lib; {
+    description =
+      "A flash programming utility for Atmel's SAM family of flash-based ARM microcontrollers";
+    longDescription = ''
+      BOSSA is a flash programming utility for Atmel's SAM family of
+      flash-based ARM microcontrollers. The motivation behind BOSSA is
+      to create a simple, easy-to-use, open source utility to replace
+      Atmel's SAM-BA software. BOSSA is an acronym for Basic Open
+      Source SAM-BA Application to reflect that goal.
     '';
-
-    nativeBuildInputs = [ bin2c ];
-    buildInputs = [
-      wxGTK32
-      libX11
-      readline
-    ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Cocoa ];
-
-    makeFlags = [
-      "WXVERSION=3.2"
-      # Explicitly specify targets so they don't get stripped.
-      "bin/bossac"
-      "bin/bossash"
-      "bin/bossa"
-    ];
-    env.NIX_CFLAGS_COMPILE = "-Wno-error=deprecated-declarations";
-
-    installPhase = ''
-      mkdir -p $out/bin
-      cp bin/bossa{c,sh,} $out/bin/
-    '';
-
-    meta = with lib; {
-      description =
-        "A flash programming utility for Atmel's SAM family of flash-based ARM microcontrollers";
-      longDescription = ''
-        BOSSA is a flash programming utility for Atmel's SAM family of
-        flash-based ARM microcontrollers. The motivation behind BOSSA is
-        to create a simple, easy-to-use, open source utility to replace
-        Atmel's SAM-BA software. BOSSA is an acronym for Basic Open
-        Source SAM-BA Application to reflect that goal.
-      '';
-      homepage = "http://www.shumatech.com/web/products/bossa";
-      license = licenses.bsd3;
-      platforms = platforms.unix;
-    };
-  }
+    homepage = "http://www.shumatech.com/web/products/bossa";
+    license = licenses.bsd3;
+    platforms = platforms.unix;
+  };
+}

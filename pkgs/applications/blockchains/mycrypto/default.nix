@@ -31,31 +31,31 @@ let
   };
 
 in
-  appimageTools.wrapType2 rec {
-    inherit name src;
+appimageTools.wrapType2 rec {
+  inherit name src;
 
-    multiPkgs = null; # no p32bit needed
-    extraPkgs = appimageTools.defaultFhsEnvArgs.multiPkgs;
+  multiPkgs = null; # no p32bit needed
+  extraPkgs = appimageTools.defaultFhsEnvArgs.multiPkgs;
 
-    extraInstallCommands = ''
-      mv $out/bin/{${name},${pname}}
+  extraInstallCommands = ''
+    mv $out/bin/{${name},${pname}}
 
-      mkdir -p $out/share
-      cp -rt $out/share ${desktopItem}/share/applications ${appimageContents}/usr/share/icons
-      chmod -R +w $out/share
-      mv $out/share/icons/hicolor/{0x0,256x256}
+    mkdir -p $out/share
+    cp -rt $out/share ${desktopItem}/share/applications ${appimageContents}/usr/share/icons
+    chmod -R +w $out/share
+    mv $out/share/icons/hicolor/{0x0,256x256}
+  '';
+
+  meta = with lib; {
+    description =
+      "A free, open-source interface for interacting with the blockchain";
+    longDescription = ''
+      MyCrypto is an open-source, client-side tool for generating ether wallets,
+      handling ERC-20 tokens, and interacting with the blockchain more easily.
     '';
-
-    meta = with lib; {
-      description =
-        "A free, open-source interface for interacting with the blockchain";
-      longDescription = ''
-        MyCrypto is an open-source, client-side tool for generating ether wallets,
-        handling ERC-20 tokens, and interacting with the blockchain more easily.
-      '';
-      homepage = "https://mycrypto.com";
-      license = licenses.mit;
-      platforms = [ "x86_64-linux" ];
-      maintainers = with maintainers; [ oxalica ];
-    };
-  }
+    homepage = "https://mycrypto.com";
+    license = licenses.mit;
+    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [ oxalica ];
+  };
+}

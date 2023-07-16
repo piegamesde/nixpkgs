@@ -104,10 +104,10 @@ stdenv.mkDerivation rec {
         _experimental-update-script-combinators.copyAttrOutputToFile
         "libnma.hardcodeGsettingsPatch" ./hardcode-gsettings.patch;
     in
-      _experimental-update-script-combinators.sequence [
-        updateSource
-        updateGsettingsPatch
-      ]
+    _experimental-update-script-combinators.sequence [
+      updateSource
+      updateGsettingsPatch
+    ]
     ;
   };
 

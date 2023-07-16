@@ -251,7 +251,7 @@ in {
           };
         };
       in
-        mapAttrs mkSpec cfg.certs
+      mapAttrs mkSpec cfg.certs
       ;
     };
 

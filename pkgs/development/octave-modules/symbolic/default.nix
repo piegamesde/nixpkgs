@@ -14,23 +14,23 @@ let
   ]);
 
 in
-  buildOctavePackage rec {
-    pname = "symbolic";
-    version = "3.1.1";
+buildOctavePackage rec {
+  pname = "symbolic";
+  version = "3.1.1";
 
-    src = fetchFromGitHub {
-      owner = "cbm755";
-      repo = "octsympy";
-      rev = "refs/tags/v${version}";
-      hash = "sha256-6LmLzTwcBhvMDBE7u/lIkSUP97qFMPRHkxfbAyvas6M=";
-    };
+  src = fetchFromGitHub {
+    owner = "cbm755";
+    repo = "octsympy";
+    rev = "refs/tags/v${version}";
+    hash = "sha256-6LmLzTwcBhvMDBE7u/lIkSUP97qFMPRHkxfbAyvas6M=";
+  };
 
-    propagatedBuildInputs = [ pythonEnv ];
+  propagatedBuildInputs = [ pythonEnv ];
 
-    meta = with lib; {
-      homepage = "https://octave.sourceforge.io/symbolic/index.html";
-      license = licenses.gpl3Plus;
-      maintainers = with maintainers; [ KarlJoad ];
-      description = "Adds symbolic calculation features to GNU Octave";
-    };
-  }
+  meta = with lib; {
+    homepage = "https://octave.sourceforge.io/symbolic/index.html";
+    license = licenses.gpl3Plus;
+    maintainers = with maintainers; [ KarlJoad ];
+    description = "Adds symbolic calculation features to GNU Octave";
+  };
+}

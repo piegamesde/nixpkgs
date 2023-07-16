@@ -76,10 +76,10 @@ let
     keywordsSectionRendered
   ];
 in
-  writeTextFile {
-    name = "${name}.pc";
-    destination = "/lib/pkgconfig/${name}.pc";
-    text = builtins.concatStringsSep "\n" content;
-    checkPhase = ''
-      ${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config --validate "$target"'';
-  }
+writeTextFile {
+  name = "${name}.pc";
+  destination = "/lib/pkgconfig/${name}.pc";
+  text = builtins.concatStringsSep "\n" content;
+  checkPhase = ''
+    ${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config --validate "$target"'';
+}

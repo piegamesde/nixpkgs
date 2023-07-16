@@ -34,13 +34,13 @@ let
   originalEtc = let
     mkEtcFile = n: nameValuePair n { source = "${cfg.package}/etc/${n}"; };
   in
-    listToAttrs (map mkEtcFile cfg.package.filesInstalledToEtc)
+  listToAttrs (map mkEtcFile cfg.package.filesInstalledToEtc)
   ;
   extraTrustedKeys = let
     mkName = p: "pki/fwupd/${baseNameOf (toString p)}";
     mkEtcFile = p: nameValuePair (mkName p) { source = p; };
   in
-    listToAttrs (map mkEtcFile cfg.extraTrustedKeys)
+  listToAttrs (map mkEtcFile cfg.extraTrustedKeys)
   ;
 
   enableRemote = base: remote: {

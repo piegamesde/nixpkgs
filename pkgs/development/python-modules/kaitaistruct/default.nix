@@ -15,37 +15,37 @@ let
     hash = "sha256-l3rGbblUgxO6Y7grlsMEiT3nRIgUZV1VqTyjIgIDtyA=";
   };
 in
-  buildPythonPackage rec {
-    pname = "kaitaistruct";
-    version = "0.10";
+buildPythonPackage rec {
+  pname = "kaitaistruct";
+  version = "0.10";
 
-    src = fetchPypi {
-      inherit pname version;
-      hash = "sha256-oETe4pFz1q+6zye8rDna+JtlTdQYz6AJq4LZF4qa5So=";
-    };
+  src = fetchPypi {
+    inherit pname version;
+    hash = "sha256-oETe4pFz1q+6zye8rDna+JtlTdQYz6AJq4LZF4qa5So=";
+  };
 
-    preBuild = ''
-      ln -s ${kaitai_compress}/python/kaitai kaitai
-      sed '32ipackages = kaitai/compress' -i setup.cfg
-    '';
+  preBuild = ''
+    ln -s ${kaitai_compress}/python/kaitai kaitai
+    sed '32ipackages = kaitai/compress' -i setup.cfg
+  '';
 
-    propagatedBuildInputs = [
-      brotli
-      lz4
-    ];
+  propagatedBuildInputs = [
+    brotli
+    lz4
+  ];
 
-    # no tests
-    dontCheck = true;
+  # no tests
+  dontCheck = true;
 
-    pythonImportsCheck = [
-      "kaitaistruct"
-      "kaitai.compress"
-    ];
+  pythonImportsCheck = [
+    "kaitaistruct"
+    "kaitai.compress"
+  ];
 
-    meta = with lib; {
-      description = "Kaitai Struct: runtime library for Python";
-      homepage = "https://github.com/kaitai-io/kaitai_struct_python_runtime";
-      license = licenses.mit;
-      maintainers = [ ];
-    };
-  }
+  meta = with lib; {
+    description = "Kaitai Struct: runtime library for Python";
+    homepage = "https://github.com/kaitai-io/kaitai_struct_python_runtime";
+    license = licenses.mit;
+    maintainers = [ ];
+  };
+}

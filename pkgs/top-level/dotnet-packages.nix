@@ -246,62 +246,62 @@ let
         pkgs.dotnetPackages.override ({ pkgs = pkgs // { inherit z3; }; });
       Boogie = assert self'.Boogie_2_4_1.version == "2.4.1"; self'.Boogie_2_4_1;
     in
-      buildDotnetPackage rec {
-        pname = "Dafny";
-        version = "2.3.0";
+    buildDotnetPackage rec {
+      pname = "Dafny";
+      version = "2.3.0";
 
-        src = fetchurl {
-          url = "https://github.com/Microsoft/dafny/archive/v${version}.tar.gz";
-          sha256 = "0s6ihx32kda7400lvdrq60l46c11nki8b6kalir2g4ic508f6ypa";
-        };
+      src = fetchurl {
+        url = "https://github.com/Microsoft/dafny/archive/v${version}.tar.gz";
+        sha256 = "0s6ihx32kda7400lvdrq60l46c11nki8b6kalir2g4ic508f6ypa";
+      };
 
-        postPatch = ''
-          sed -i \
-            -e 's/ Visible="False"//' \
-            -e "s/Exists(\$(CodeContractsInstallDir))/Exists('\$(CodeContractsInstallDir)')/" \
-            Source/*/*.csproj
-        '';
+      postPatch = ''
+        sed -i \
+          -e 's/ Visible="False"//' \
+          -e "s/Exists(\$(CodeContractsInstallDir))/Exists('\$(CodeContractsInstallDir)')/" \
+          Source/*/*.csproj
+      '';
 
-        preBuild = ''
-          ln -s ${z3} Binaries/z3
-        '';
+      preBuild = ''
+        ln -s ${z3} Binaries/z3
+      '';
 
-        buildInputs = [ Boogie ];
+      buildInputs = [ Boogie ];
 
-        xBuildFiles = [ "Source/Dafny.sln" ];
-        xBuildFlags = [
-          "/p:Configuration=Checked"
-          "/p:Platform=Any CPU"
-          "/t:Rebuild"
-        ];
+      xBuildFiles = [ "Source/Dafny.sln" ];
+      xBuildFlags = [
+        "/p:Configuration=Checked"
+        "/p:Platform=Any CPU"
+        "/t:Rebuild"
+      ];
 
-        outputFiles = [ "Binaries/*" ];
+      outputFiles = [ "Binaries/*" ];
 
-        # Do not wrap the z3 executable, only dafny-related ones.
-        exeFiles = [ "Dafny*.exe" ];
+      # Do not wrap the z3 executable, only dafny-related ones.
+      exeFiles = [ "Dafny*.exe" ];
 
-        # Dafny needs mono in its path.
-        makeWrapperArgs = "--set PATH ${mono}/bin";
+      # Dafny needs mono in its path.
+      makeWrapperArgs = "--set PATH ${mono}/bin";
 
-        # Boogie as an input is not enough. Boogie libraries need to be at the same
-        # place as Dafny ones. Same for "*.dll.mdb". No idea why or how to fix.
-        postFixup = ''
-          for lib in ${Boogie}/lib/dotnet/${Boogie.pname}/*.dll{,.mdb}; do
-            ln -s $lib $out/lib/dotnet/${pname}/
-          done
-          # We generate our own executable scripts
-          rm -f $out/lib/dotnet/${pname}/dafny{,-server}
-        '';
+      # Boogie as an input is not enough. Boogie libraries need to be at the same
+      # place as Dafny ones. Same for "*.dll.mdb". No idea why or how to fix.
+      postFixup = ''
+        for lib in ${Boogie}/lib/dotnet/${Boogie.pname}/*.dll{,.mdb}; do
+          ln -s $lib $out/lib/dotnet/${pname}/
+        done
+        # We generate our own executable scripts
+        rm -f $out/lib/dotnet/${pname}/dafny{,-server}
+      '';
 
-        meta = with lib; {
-          description =
-            "A programming language with built-in specification constructs";
-          homepage = "https://research.microsoft.com/dafny";
-          maintainers = with maintainers; [ layus ];
-          license = licenses.mit;
-          platforms = with platforms; (linux ++ darwin);
-        };
-      }
+      meta = with lib; {
+        description =
+          "A programming language with built-in specification constructs";
+        homepage = "https://research.microsoft.com/dafny";
+        maintainers = with maintainers; [ layus ];
+        license = licenses.mit;
+        platforms = with platforms; (linux ++ darwin);
+      };
+    }
     ;
 
     MonoAddins = buildDotnetPackage rec {
@@ -374,4 +374,4 @@ let
 
   };
 in
-  self
+self

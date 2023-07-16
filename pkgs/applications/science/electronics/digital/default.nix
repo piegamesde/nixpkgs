@@ -43,73 +43,73 @@ let
   mvnOptions =
     "-Pno-git-rev -Dgit.commit.id.describe=${version} -Dproject.build.outputTimestamp=${buildDate} -DbuildTimestamp=${buildDate}";
 in
-  stdenv.mkDerivation rec {
-    pname = "digital";
-    inherit version jre;
+stdenv.mkDerivation rec {
+  pname = "digital";
+  inherit version jre;
 
-    src = fetchFromGitHub {
-      owner = "hneemann";
-      repo = "Digital";
-      rev = "932791eb6486d04f2ea938d83bcdb71b56d3a3f6";
-      sha256 = "cDykYlcFvDLFBy9UnX07iCR2LCq28SNU+h9vRT/AoJM=";
-    };
+  src = fetchFromGitHub {
+    owner = "hneemann";
+    repo = "Digital";
+    rev = "932791eb6486d04f2ea938d83bcdb71b56d3a3f6";
+    sha256 = "cDykYlcFvDLFBy9UnX07iCR2LCq28SNU+h9vRT/AoJM=";
+  };
 
-    # Fetching maven dependencies from "central" needs the network at build phase,
-    # we do that in this extra derivation that explicitely specifies its
-    # outputHash to ensure determinism.
-    mavenDeps = stdenv.mkDerivation {
-      name = "${pname}-${version}-maven-deps";
-      inherit src nativeBuildInputs version;
-      dontFixup = true;
-      buildPhase = ''
-        mvn package ${mvnOptions} -Dmaven.repo.local=$out
-      '';
-      # keep only *.{pom,jar,sha1,nbm} and delete all ephemeral files with
-      # lastModified timestamps inside
-      installPhase = ''
-        find $out -type f \
-          -name \*.lastUpdated -or \
-          -name resolver-status.properties -or \
-          -name _remote.repositories \
-          -delete
-      '';
-      outputHashAlgo = "sha256";
-      outputHashMode = "recursive";
-      outputHash = "1Cgw+5V2E/RENMRMm368+2yvY7y6v9gTlo+LRgrCXcE=";
-    };
-
-    nativeBuildInputs = [
-      copyDesktopItems
-      maven
-      makeWrapper
-    ];
-
+  # Fetching maven dependencies from "central" needs the network at build phase,
+  # we do that in this extra derivation that explicitely specifies its
+  # outputHash to ensure determinism.
+  mavenDeps = stdenv.mkDerivation {
+    name = "${pname}-${version}-maven-deps";
+    inherit src nativeBuildInputs version;
+    dontFixup = true;
     buildPhase = ''
-      mvn package --offline ${mvnOptions} -Dmaven.repo.local=${mavenDeps}
+      mvn package ${mvnOptions} -Dmaven.repo.local=$out
     '';
-
+    # keep only *.{pom,jar,sha1,nbm} and delete all ephemeral files with
+    # lastModified timestamps inside
     installPhase = ''
-      mkdir -p $out/bin
-      mkdir -p $out/share/java
-
-      classpath=$(find ${mavenDeps} -name "*.jar" -printf ':%h/%f');
-      install -Dm644 target/Digital.jar $out/share/java
-
-      makeWrapper ${jre}/bin/java $out/bin/${pname} \
-        --add-flags "-classpath $out/share/java/${pname}-${version}.jar:''${classpath#:}" \
-        --add-flags "-jar $out/share/java/Digital.jar"
+      find $out -type f \
+        -name \*.lastUpdated -or \
+        -name resolver-status.properties -or \
+        -name _remote.repositories \
+        -delete
     '';
+    outputHashAlgo = "sha256";
+    outputHashMode = "recursive";
+    outputHash = "1Cgw+5V2E/RENMRMm368+2yvY7y6v9gTlo+LRgrCXcE=";
+  };
 
-    desktopItems = [ desktopItem ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    maven
+    makeWrapper
+  ];
 
-    meta = with lib; {
-      homepage = "https://github.com/hneemann/Digital";
-      description = pkgDescription;
-      license = licenses.gpl3Only;
-      platforms = [
-        "x86_64-linux"
-        "x86_64-darwin"
-      ];
-      maintainers = with maintainers; [ Dettorer ];
-    };
-  }
+  buildPhase = ''
+    mvn package --offline ${mvnOptions} -Dmaven.repo.local=${mavenDeps}
+  '';
+
+  installPhase = ''
+    mkdir -p $out/bin
+    mkdir -p $out/share/java
+
+    classpath=$(find ${mavenDeps} -name "*.jar" -printf ':%h/%f');
+    install -Dm644 target/Digital.jar $out/share/java
+
+    makeWrapper ${jre}/bin/java $out/bin/${pname} \
+      --add-flags "-classpath $out/share/java/${pname}-${version}.jar:''${classpath#:}" \
+      --add-flags "-jar $out/share/java/Digital.jar"
+  '';
+
+  desktopItems = [ desktopItem ];
+
+  meta = with lib; {
+    homepage = "https://github.com/hneemann/Digital";
+    description = pkgDescription;
+    license = licenses.gpl3Only;
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
+    maintainers = with maintainers; [ Dettorer ];
+  };
+}

@@ -38,64 +38,64 @@ let
   ];
 
 in
-  buildPythonPackage rec {
-    pname = "pythonnet";
-    version = "2.5.2";
+buildPythonPackage rec {
+  pname = "pythonnet";
+  version = "2.5.2";
 
-    src = fetchPypi {
-      inherit pname version;
-      sha256 = "1qzdc6jd7i9j7p6bcihnr98y005gv1358xqdr1plpbpnl6078a5p";
-    };
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "1qzdc6jd7i9j7p6bcihnr98y005gv1358xqdr1plpbpnl6078a5p";
+  };
 
-    postPatch = ''
-      substituteInPlace setup.py --replace 'self._install_packages()' '#self._install_packages()'
-    '';
+  postPatch = ''
+    substituteInPlace setup.py --replace 'self._install_packages()' '#self._install_packages()'
+  '';
 
-    preConfigure = ''
-      [ -z "''${dontPlacateNuget-}" ] && placate-nuget.sh
-      [ -z "''${dontPlacatePaket-}" ] && placate-paket.sh
-    '';
+  preConfigure = ''
+    [ -z "''${dontPlacateNuget-}" ] && placate-nuget.sh
+    [ -z "''${dontPlacatePaket-}" ] && placate-paket.sh
+  '';
 
-    nativeBuildInputs = [
-      pycparser
+  nativeBuildInputs = [
+    pycparser
 
-      pkg-config
-      dotnetbuildhelpers
-      clang
+    pkg-config
+    dotnetbuildhelpers
+    clang
 
-      mono
+    mono
 
-    ] ++ dotnetPkgs;
+  ] ++ dotnetPkgs;
 
-    buildInputs = [
-      glib
-      mono
-    ];
+  buildInputs = [
+    glib
+    mono
+  ];
 
-    nativeCheckInputs = [
-      pytestCheckHook
-      psutil # needed for memory leak tests
-    ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    psutil # needed for memory leak tests
+  ];
 
-    preBuild = ''
-      rm -rf packages
-      mkdir packages
+  preBuild = ''
+    rm -rf packages
+    mkdir packages
 
-      ${builtins.concatStringsSep "\n" (builtins.map (x:
-        "ln -s ${x}/lib/dotnet/${x.pname} ./packages/${x.pname}.${x.version}")
-        dotnetPkgs)}
+    ${builtins.concatStringsSep "\n" (builtins.map
+      (x: "ln -s ${x}/lib/dotnet/${x.pname} ./packages/${x.pname}.${x.version}")
+      dotnetPkgs)}
 
-      # Setting TERM=xterm fixes an issue with terminfo in mono: System.Exception: Magic number is wrong: 542
-      export TERM=xterm
-    '';
+    # Setting TERM=xterm fixes an issue with terminfo in mono: System.Exception: Magic number is wrong: 542
+    export TERM=xterm
+  '';
 
-    meta = with lib; {
-      broken = stdenv.isDarwin;
-      description = ".Net and Mono integration for Python";
-      homepage = "https://pythonnet.github.io";
-      license = licenses.mit;
-      # <https://github.com/pythonnet/pythonnet/issues/898>
-      badPlatforms = [ "aarch64-linux" ];
-      maintainers = with maintainers; [ jraygauthier ];
-    };
-  }
+  meta = with lib; {
+    broken = stdenv.isDarwin;
+    description = ".Net and Mono integration for Python";
+    homepage = "https://pythonnet.github.io";
+    license = licenses.mit;
+    # <https://github.com/pythonnet/pythonnet/issues/898>
+    badPlatforms = [ "aarch64-linux" ];
+    maintainers = with maintainers; [ jraygauthier ];
+  };
+}

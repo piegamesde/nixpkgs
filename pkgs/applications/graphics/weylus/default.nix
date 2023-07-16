@@ -90,9 +90,9 @@ rustPlatform.buildRustPackage rec {
       pipewire
     ];
   in
-    lib.optionalString stdenv.isLinux ''
-      wrapProgram $out/bin/weylus --prefix GST_PLUGIN_PATH : ${GST_PLUGIN_PATH}
-    ''
+  lib.optionalString stdenv.isLinux ''
+    wrapProgram $out/bin/weylus --prefix GST_PLUGIN_PATH : ${GST_PLUGIN_PATH}
+  ''
   ;
 
   postInstall = ''

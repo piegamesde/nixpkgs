@@ -37,44 +37,44 @@ let
   ];
 
 in
-  stdenv.mkDerivation (drvAttrs // {
-    inherit name;
-    inherit unpackPhase configurePhase buildPhase;
+stdenv.mkDerivation (drvAttrs // {
+  inherit name;
+  inherit unpackPhase configurePhase buildPhase;
 
-    inherit preInstall postInstall;
-    installPhase = ''
-      runHook preInstall
+  inherit preInstall postInstall;
+  installPhase = ''
+    runHook preInstall
 
-      (
-        install_vendor_files() {
-          source="$1"
-          target="$out/share/fish/vendor_$2.d"
+    (
+      install_vendor_files() {
+        source="$1"
+        target="$out/share/fish/vendor_$2.d"
 
-          # Check if any .fish file exists in $source
-          [ -n "$(shopt -s nullglob; echo $source/*.fish)" ] || return 0
+        # Check if any .fish file exists in $source
+        [ -n "$(shopt -s nullglob; echo $source/*.fish)" ] || return 0
 
-          mkdir -p $target
-          cp $source/*.fish "$target/"
-        }
+        mkdir -p $target
+        cp $source/*.fish "$target/"
+      }
 
-        install_vendor_files completions completions
-        install_vendor_files functions functions
-        install_vendor_files conf conf
-        install_vendor_files conf.d conf
-      )
+      install_vendor_files completions completions
+      install_vendor_files functions functions
+      install_vendor_files conf conf
+      install_vendor_files conf.d conf
+    )
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
-    inherit doCheck;
+  inherit doCheck;
 
-    nativeCheckInputs = [ (wrapFish {
-      pluginPkgs = checkPlugins;
-      functionDirs = checkFunctionDirs;
-    }) ] ++ nativeCheckInputs;
+  nativeCheckInputs = [ (wrapFish {
+    pluginPkgs = checkPlugins;
+    functionDirs = checkFunctionDirs;
+  }) ] ++ nativeCheckInputs;
 
-    checkPhase = ''
-      export HOME=$(mktemp -d)  # fish wants a writable home
-      fish "${writeScript "${name}-test" checkPhase}"
-    '';
-  })
+  checkPhase = ''
+    export HOME=$(mktemp -d)  # fish wants a writable home
+    fish "${writeScript "${name}-test" checkPhase}"
+  '';
+})

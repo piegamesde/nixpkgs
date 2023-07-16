@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     else
       throw "unsupported system";
   in
-    "make ${target} name=${platform}"
+  "make ${target} name=${platform}"
   ;
 
   installPhase = ''

@@ -63,7 +63,7 @@ in rec {
         else
           op (elemAt list n) (fold' (n + 1));
     in
-      fold' 0
+    fold' 0
   ;
 
   # `fold` is an alias of `foldr` for historic reasons
@@ -94,7 +94,7 @@ in rec {
         else
           op (foldl' (n - 1)) (elemAt list n);
     in
-      foldl' (length list - 1)
+    foldl' (length list - 1)
   ;
 
   /* Strict version of `foldl`.
@@ -429,7 +429,7 @@ in rec {
       let
         key = pred e;
       in
-        r // { ${key} = (r.${key} or [ ]) ++ [ e ]; }
+      r // { ${key} = (r.${key} or [ ]) ++ [ e ]; }
     ) { });
 
   /* Merges two lists of the same size together. If the sizes aren't the same
@@ -476,7 +476,7 @@ in rec {
     let
       l = length xs;
     in
-      genList (n: elemAt xs (l - n - 1)) l
+    genList (n: elemAt xs (l - n - 1)) l
   ;
 
   /* Depth-First Search (DFS) for lists `list != []`.
@@ -516,7 +516,7 @@ in rec {
         } else # grab the first one before us and continue
           dfs' (head b.right) ([ us ] ++ visited) (tail b.right ++ b.wrong);
     in
-      dfs' (head list) [ ] (tail list)
+    dfs' (head list) [ ] (tail list)
   ;
 
   /* Sort a list based on a partial ordering using DFS. This
@@ -671,7 +671,7 @@ in rec {
       ]) lst; # remember vectorised version for O(n) regex splits
       less = a: b: (compareLists compare (head a) (head b)) < 0;
     in
-      map (x: elemAt x 1) (sort less prepared)
+    map (x: elemAt x 1) (sort less prepared)
   ;
 
   /* Return the first (at most) N elements of a list.
@@ -727,14 +727,14 @@ in rec {
     let
       len = length list;
     in
-      genList (n: elemAt list (n + start)) (if
-        start >= len
-      then
-        0
-      else if start + count > len then
-        len - start
-      else
-        count)
+    genList (n: elemAt list (n + start)) (if
+      start >= len
+    then
+      0
+    else if start + count > len then
+      len - start
+    else
+      count)
   ;
 
   /* Return the last element of a list.

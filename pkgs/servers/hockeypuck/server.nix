@@ -8,19 +8,19 @@
 let
   sources = (import ./sources.nix) { inherit fetchFromGitHub; };
 in
-  buildGoModule {
-    inherit (sources) pname version src;
+buildGoModule {
+  inherit (sources) pname version src;
 
-    modRoot = "src/hockeypuck/";
-    vendorSha256 = null;
-    doCheck = false; # Uses networking for tests
+  modRoot = "src/hockeypuck/";
+  vendorSha256 = null;
+  doCheck = false; # Uses networking for tests
 
-    passthru.tests = nixosTests.hockeypuck;
+  passthru.tests = nixosTests.hockeypuck;
 
-    meta = with lib; {
-      description = "OpenPGP Key Server";
-      homepage = "https://github.com/hockeypuck/hockeypuck";
-      license = licenses.agpl3Plus;
-      maintainers = [ maintainers.etu ];
-    };
-  }
+  meta = with lib; {
+    description = "OpenPGP Key Server";
+    homepage = "https://github.com/hockeypuck/hockeypuck";
+    license = licenses.agpl3Plus;
+    maintainers = [ maintainers.etu ];
+  };
+}

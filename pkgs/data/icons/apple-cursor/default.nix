@@ -33,23 +33,23 @@ let
       "sha256-ajxEgq7besaRajLn0gTPpp4euOWVqbzc78u720PWlyE=")
   ];
 in
-  stdenv.mkDerivation rec {
-    pname = "apple_cursor";
-    inherit version;
-    inherit srcs;
+stdenv.mkDerivation rec {
+  pname = "apple_cursor";
+  inherit version;
+  inherit srcs;
 
-    sourceRoot = ".";
+  sourceRoot = ".";
 
-    installPhase = ''
-      install -dm 0755 $out/share/icons
-      cp -r macOS* $out/share/icons/
-    '';
+  installPhase = ''
+    install -dm 0755 $out/share/icons
+    cp -r macOS* $out/share/icons/
+  '';
 
-    meta = with lib; {
-      description = "Opensource macOS Cursors.";
-      homepage = "https://github.com/ful1e5/apple_cursor";
-      license = licenses.gpl3;
-      platforms = platforms.linux;
-      maintainers = with maintainers; [ colemickens ];
-    };
-  }
+  meta = with lib; {
+    description = "Opensource macOS Cursors.";
+    homepage = "https://github.com/ful1e5/apple_cursor";
+    license = licenses.gpl3;
+    platforms = platforms.linux;
+    maintainers = with maintainers; [ colemickens ];
+  };
+}

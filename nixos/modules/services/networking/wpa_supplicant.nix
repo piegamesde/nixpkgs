@@ -29,7 +29,7 @@ let
       hasWPA3 = !mutuallyExclusive opts.authProtocols wpa3Protocols;
       others = subtractLists wpa3Protocols opts.authProtocols;
     in
-      hasWPA3 && others != [ ]
+    hasWPA3 && others != [ ]
   ;
 
   # Gives a WPA3 network higher priority
@@ -554,14 +554,14 @@ in {
           null;
         n = toString (length cfg.interfaces);
       in
-        ''
-          It's not possible to run multiple wpa_supplicant instances with DBus support.
-          Note: you're seeing this error because `networking.wireless.interfaces` has
-          ${n} entries, implying an equal number of wpa_supplicant instances.
-        '' + optionalString (daemon != null) ''
-          You don't need to change `networking.wireless.interfaces` when using ${daemon}:
-          in this case the interfaces will be configured automatically for you.
-        ''
+      ''
+        It's not possible to run multiple wpa_supplicant instances with DBus support.
+        Note: you're seeing this error because `networking.wireless.interfaces` has
+        ${n} entries, implying an equal number of wpa_supplicant instances.
+      '' + optionalString (daemon != null) ''
+        You don't need to change `networking.wireless.interfaces` when using ${daemon}:
+        in this case the interfaces will be configured automatically for you.
+      ''
       ;
     } ];
 

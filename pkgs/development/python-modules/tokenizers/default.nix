@@ -65,85 +65,85 @@ let
     sha256 = "09a754pm4djjglv3x5pkgwd6f79i2rq8ydg0f7c3q1wmwqdbba8f";
   };
 in
-  buildPythonPackage rec {
-    pname = "tokenizers";
-    version = "0.13.3";
+buildPythonPackage rec {
+  pname = "tokenizers";
+  version = "0.13.3";
 
-    disabled = pythonOlder "3.7";
+  disabled = pythonOlder "3.7";
 
-    src = fetchFromGitHub {
-      owner = "huggingface";
-      repo = pname;
-      rev = "python-v${version}";
-      hash = "sha256-QZG5jmr3vbyQs4mVBjwVDR31O66dUM+p39R0htJ1umk=";
-    };
+  src = fetchFromGitHub {
+    owner = "huggingface";
+    repo = pname;
+    rev = "python-v${version}";
+    hash = "sha256-QZG5jmr3vbyQs4mVBjwVDR31O66dUM+p39R0htJ1umk=";
+  };
 
-    postPatch = ''
-      ln -s ${./Cargo.lock} Cargo.lock
-    '';
+  postPatch = ''
+    ln -s ${./Cargo.lock} Cargo.lock
+  '';
 
-    cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
+  cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
 
-    sourceRoot = "source/bindings/python";
+  sourceRoot = "source/bindings/python";
 
-    nativeBuildInputs = [
-      pkg-config
-      setuptools-rust
-    ] ++ (with rustPlatform; [
-      cargoSetupHook
-      rust.cargo
-      rust.rustc
-    ]);
+  nativeBuildInputs = [
+    pkg-config
+    setuptools-rust
+  ] ++ (with rustPlatform; [
+    cargoSetupHook
+    rust.cargo
+    rust.rustc
+  ]);
 
-    buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
-      libiconv
-      Security
-    ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
+    libiconv
+    Security
+  ];
 
-    propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [ numpy ];
 
-    nativeCheckInputs = [
-      datasets
-      pytestCheckHook
-      requests
-    ];
+  nativeCheckInputs = [
+    datasets
+    pytestCheckHook
+    requests
+  ];
 
-    postUnpack = ''
-      # Add data files for tests, otherwise tests attempt network access
-      mkdir $sourceRoot/tests/data
-      ( cd $sourceRoot/tests/data
-        ln -s ${robertaVocab} roberta-base-vocab.json
-        ln -s ${robertaMerges} roberta-base-merges.txt
-        ln -s ${albertVocab} albert-base-v1-tokenizer.json
-        ln -s ${bertVocab} bert-base-uncased-vocab.txt
-        ln -s ${docPipelineTokenizer} bert-wiki.json
-        ln -s ${docQuicktourTokenizer} tokenizer-wiki.json
-        ln -s ${norvigBig} big.txt
-        ln -s ${openaiVocab} openai-gpt-vocab.json
-        ln -s ${openaiMerges} openai-gpt-merges.txt )
-    '';
+  postUnpack = ''
+    # Add data files for tests, otherwise tests attempt network access
+    mkdir $sourceRoot/tests/data
+    ( cd $sourceRoot/tests/data
+      ln -s ${robertaVocab} roberta-base-vocab.json
+      ln -s ${robertaMerges} roberta-base-merges.txt
+      ln -s ${albertVocab} albert-base-v1-tokenizer.json
+      ln -s ${bertVocab} bert-base-uncased-vocab.txt
+      ln -s ${docPipelineTokenizer} bert-wiki.json
+      ln -s ${docQuicktourTokenizer} tokenizer-wiki.json
+      ln -s ${norvigBig} big.txt
+      ln -s ${openaiVocab} openai-gpt-vocab.json
+      ln -s ${openaiMerges} openai-gpt-merges.txt )
+  '';
 
-    preCheck = ''
-      export HOME=$(mktemp -d);
-    '';
+  preCheck = ''
+    export HOME=$(mktemp -d);
+  '';
 
-    pythonImportsCheck = [ "tokenizers" ];
+  pythonImportsCheck = [ "tokenizers" ];
 
-    disabledTests = [
-      # Downloads data using the datasets module
-      "TestTrainFromIterators"
-      # Those tests require more data
-      "test_from_pretrained"
-      "test_from_pretrained_revision"
-      "test_continuing_prefix_trainer_mistmatch"
-    ];
+  disabledTests = [
+    # Downloads data using the datasets module
+    "TestTrainFromIterators"
+    # Those tests require more data
+    "test_from_pretrained"
+    "test_from_pretrained_revision"
+    "test_continuing_prefix_trainer_mistmatch"
+  ];
 
-    meta = with lib; {
-      description =
-        "Fast State-of-the-Art Tokenizers optimized for Research and Production";
-      homepage = "https://github.com/huggingface/tokenizers";
-      license = licenses.asl20;
-      maintainers = with maintainers; [ ];
-      platforms = platforms.unix;
-    };
-  }
+  meta = with lib; {
+    description =
+      "Fast State-of-the-Art Tokenizers optimized for Research and Production";
+    homepage = "https://github.com/huggingface/tokenizers";
+    license = licenses.asl20;
+    maintainers = with maintainers; [ ];
+    platforms = platforms.unix;
+  };
+}

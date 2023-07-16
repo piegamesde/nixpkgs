@@ -39,7 +39,7 @@ in let
       let
         modules = filter hasKodiAddon drvs;
       in
-        unique (modules ++ concatLists (catAttrs "requiredKodiAddons" modules))
+      unique (modules ++ concatLists (catAttrs "requiredKodiAddons" modules))
     ;
 
     # package update scripts
@@ -200,10 +200,10 @@ in let
     trakt = callPackage ../applications/video/kodi/addons/trakt { };
   };
 in
-  self // lib.optionalAttrs config.allowAliases {
-    # deprecated or renamed packages
+self // lib.optionalAttrs config.allowAliases {
+  # deprecated or renamed packages
 
-    controllers = throw
-      "kodi.packages.controllers has been replaced with kodi.packages.controller-topology-project - a package which contains a large number of controller profiles."
-      { };
-  }
+  controllers = throw
+    "kodi.packages.controllers has been replaced with kodi.packages.controller-topology-project - a package which contains a large number of controller profiles."
+    { };
+}

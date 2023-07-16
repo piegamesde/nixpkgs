@@ -68,7 +68,7 @@ let
       else [ addrIn ];
       unfilteredResult = map multiaddrToListenStream addrs;
     in
-      builtins.filter (addr: addr != null) unfilteredResult
+    builtins.filter (addr: addr != null) unfilteredResult
   ;
 
   multiaddrsToListenDatagrams = addrIn:
@@ -80,7 +80,7 @@ let
       else [ addrIn ];
       unfilteredResult = map multiaddrToListenDatagram addrs;
     in
-      builtins.filter (addr: addr != null) unfilteredResult
+    builtins.filter (addr: addr != null) unfilteredResult
   ;
 
   multiaddrToListenStream = addrRaw:

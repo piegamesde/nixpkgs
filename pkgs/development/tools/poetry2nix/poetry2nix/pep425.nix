@@ -98,7 +98,7 @@ let
         } ;
       markers = splitString "." x;
     in
-      lib.lists.any isCompat (map parseMarker markers)
+    lib.lists.any isCompat (map parseMarker markers)
   ;
 
   #
@@ -149,7 +149,7 @@ let
         let
           f = toWheelAttrs x.file;
         in
-          (withPython pythonVer abiTag f) && (withPlatforms f)
+        (withPython pythonVer abiTag f) && (withPlatforms f)
       ;
       filtered = builtins.filter filterWheel filesWithoutSources;
       choose = files:

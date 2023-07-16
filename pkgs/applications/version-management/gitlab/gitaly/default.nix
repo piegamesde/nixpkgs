@@ -70,42 +70,42 @@ let
     ];
   } // commonOpts);
 in
-  buildGoModule ({
-    pname = "gitaly";
+buildGoModule ({
+  pname = "gitaly";
 
-    passthru = { inherit rubyEnv; };
+  passthru = { inherit rubyEnv; };
 
-    subPackages = [
-      "cmd/gitaly"
-      "cmd/gitaly-backup"
+  subPackages = [
+    "cmd/gitaly"
+    "cmd/gitaly-backup"
+  ];
+
+  preConfigure = ''
+    mkdir -p _build/bin
+    cp -r ${auxBins}/bin/* _build/bin
+  '';
+
+  postInstall = ''
+    mkdir -p $ruby
+    cp -rv $src/ruby/{bin,lib} $ruby
+  '';
+
+  outputs = [
+    "out"
+    "ruby"
+  ];
+
+  meta = with lib; {
+    homepage = "https://gitlab.com/gitlab-org/gitaly";
+    description =
+      "A Git RPC service for handling all the git calls made by GitLab";
+    platforms = platforms.linux ++ [ "x86_64-darwin" ];
+    maintainers = with maintainers; [
+      roblabla
+      globin
+      talyz
+      yayayayaka
     ];
-
-    preConfigure = ''
-      mkdir -p _build/bin
-      cp -r ${auxBins}/bin/* _build/bin
-    '';
-
-    postInstall = ''
-      mkdir -p $ruby
-      cp -rv $src/ruby/{bin,lib} $ruby
-    '';
-
-    outputs = [
-      "out"
-      "ruby"
-    ];
-
-    meta = with lib; {
-      homepage = "https://gitlab.com/gitlab-org/gitaly";
-      description =
-        "A Git RPC service for handling all the git calls made by GitLab";
-      platforms = platforms.linux ++ [ "x86_64-darwin" ];
-      maintainers = with maintainers; [
-        roblabla
-        globin
-        talyz
-        yayayayaka
-      ];
-      license = licenses.mit;
-    };
-  } // commonOpts)
+    license = licenses.mit;
+  };
+} // commonOpts)

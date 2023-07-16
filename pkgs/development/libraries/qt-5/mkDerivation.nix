@@ -8,16 +8,16 @@ let
   inherit (lib) optional;
 
 in
-  mkDerivation:
+mkDerivation:
 
-  args:
+args:
 
-  let
-    args_ = {
+let
+  args_ = {
 
-      nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [ wrapQtAppsHook ];
+    nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [ wrapQtAppsHook ];
 
-    };
+  };
 
-  in
-    mkDerivation (args // args_)
+in
+mkDerivation (args // args_)

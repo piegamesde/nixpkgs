@@ -51,5 +51,5 @@ let
   builds = allBuilds // defaultBuild;
 
 in
-  builds
+builds
 

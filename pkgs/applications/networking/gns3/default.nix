@@ -21,7 +21,7 @@ let
       else
         "preview";
     in
-      args // { inherit version branch; }
+    args // { inherit version branch; }
   ;
   extraArgs = rec {
     mkOverride = attrname: version: sha256: self: super: {

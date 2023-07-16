@@ -168,10 +168,10 @@ let
               lib.mapAttrs (_: platforms: lib.intersectLists jobs.ghc platforms)
               configFilteredJobset;
           in
-            jobsetWithGHCPlatforms
+          jobsetWithGHCPlatforms
         ;
       in
-        lib.mapAttrs onlyConfigJobs compilerPlatforms
+      lib.mapAttrs onlyConfigJobs compilerPlatforms
       ;
     };
 
@@ -431,34 +431,34 @@ let
           filterInLinux = lib.filter (drv:
             drv.system == "x86_64-linux" || drv.system == "aarch64-linux");
         in
-          filterInLinux (accumulateDerivations [
-            # haskell specific tests
-            jobs.tests.haskell
-            # important top-level packages
-            jobs.cabal-install
-            jobs.cabal2nix
-            jobs.cachix
-            jobs.darcs
-            jobs.haskell-language-server
-            jobs.hledger
-            jobs.hledger-ui
-            jobs.hpack
-            jobs.niv
-            jobs.pandoc
-            jobs.stack
-            jobs.stylish-haskell
-            # important haskell (library) packages
-            jobs.haskellPackages.cabal-plan
-            jobs.haskellPackages.distribution-nixpkgs
-            jobs.haskellPackages.hackage-db
-            jobs.haskellPackages.xmonad
-            jobs.haskellPackages.xmonad-contrib
-            # haskell packages maintained by @peti
-            # imported from the old hydra jobset
-            jobs.haskellPackages.hopenssl
-            jobs.haskellPackages.hsemail
-            jobs.haskellPackages.hsyslog
-          ])
+        filterInLinux (accumulateDerivations [
+          # haskell specific tests
+          jobs.tests.haskell
+          # important top-level packages
+          jobs.cabal-install
+          jobs.cabal2nix
+          jobs.cachix
+          jobs.darcs
+          jobs.haskell-language-server
+          jobs.hledger
+          jobs.hledger-ui
+          jobs.hpack
+          jobs.niv
+          jobs.pandoc
+          jobs.stack
+          jobs.stylish-haskell
+          # important haskell (library) packages
+          jobs.haskellPackages.cabal-plan
+          jobs.haskellPackages.distribution-nixpkgs
+          jobs.haskellPackages.hackage-db
+          jobs.haskellPackages.xmonad
+          jobs.haskellPackages.xmonad-contrib
+          # haskell packages maintained by @peti
+          # imported from the old hydra jobset
+          jobs.haskellPackages.hopenssl
+          jobs.haskellPackages.hsemail
+          jobs.haskellPackages.hsyslog
+        ])
         ;
       };
       maintained = pkgs.releaseTools.aggregate {
@@ -519,4 +519,4 @@ let
   ];
 
 in
-  jobs
+jobs

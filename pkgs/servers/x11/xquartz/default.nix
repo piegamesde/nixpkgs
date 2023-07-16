@@ -153,89 +153,89 @@ let
     xwud
   ];
 in
-  stdenv.mkDerivation {
-    pname = "xquartz";
-    version = lib.getVersion xorg.xorgserver;
+stdenv.mkDerivation {
+  pname = "xquartz";
+  version = lib.getVersion xorg.xorgserver;
 
-    nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [ makeWrapper ];
 
-    unpackPhase = "sourceRoot=.";
+  unpackPhase = "sourceRoot=.";
 
-    dontBuild = true;
+  dontBuild = true;
 
-    installPhase = ''
-      cp -rT ${xorg.xinit} $out
-      chmod -R u+w $out
-      cp -rT ${xorg.xorgserver} $out
-      chmod -R u+w $out
+  installPhase = ''
+    cp -rT ${xorg.xinit} $out
+    chmod -R u+w $out
+    cp -rT ${xorg.xorgserver} $out
+    chmod -R u+w $out
 
-      cp ${installer} $out/bin/xquartz-install
+    cp ${installer} $out/bin/xquartz-install
 
-      rm -rf $out/LaunchAgents $out/LaunchDaemons
+    rm -rf $out/LaunchAgents $out/LaunchDaemons
 
-      fontsConfPath=$out/etc/X11/fonts.conf
-      cp ${fontsConf} $fontsConfPath
+    fontsConfPath=$out/etc/X11/fonts.conf
+    cp ${fontsConf} $fontsConfPath
 
-      substituteInPlace $out/bin/startx \
-        --replace "bindir=${xorg.xinit}/bin" "bindir=$out/bin" \
-        --replace 'defaultserver=${xorg.xorgserver}/bin/X' "defaultserver=$out/bin/Xquartz" \
-        --replace "${xorg.xinit}" "$out" \
-        --replace "${xorg.xorgserver}" "$out" \
-        --replace "eval xinit" "eval $out/bin/xinit" \
-        --replace "sysclientrc=/etc/X11/xinit/xinitrc" "sysclientrc=$out/etc/X11/xinit/xinitrc"
+    substituteInPlace $out/bin/startx \
+      --replace "bindir=${xorg.xinit}/bin" "bindir=$out/bin" \
+      --replace 'defaultserver=${xorg.xorgserver}/bin/X' "defaultserver=$out/bin/Xquartz" \
+      --replace "${xorg.xinit}" "$out" \
+      --replace "${xorg.xorgserver}" "$out" \
+      --replace "eval xinit" "eval $out/bin/xinit" \
+      --replace "sysclientrc=/etc/X11/xinit/xinitrc" "sysclientrc=$out/etc/X11/xinit/xinitrc"
 
-      wrapProgram $out/bin/Xquartz \
-        --set XQUARTZ_APP $out/Applications/XQuartz.app
+    wrapProgram $out/bin/Xquartz \
+      --set XQUARTZ_APP $out/Applications/XQuartz.app
 
-      defaultStartX="$out/bin/startx -- $out/bin/Xquartz"
+    defaultStartX="$out/bin/startx -- $out/bin/Xquartz"
 
-      ${xcbuild}/bin/PlistBuddy $out/Applications/XQuartz.app/Contents/Info.plist <<EOF
-      Add :LSEnvironment dictionary
-      Add :LSEnvironment:XQUARTZ_DEFAULT_CLIENT string "${xterm}/bin/xterm"
-      Add :LSEnvironment:XQUARTZ_DEFAULT_SHELL string "${shell}"
-      Add :LSEnvironment:XQUARTZ_DEFAULT_STARTX string "$defaultStartX"
-      Add :LSEnvironment:FONTCONFIG_FILE string "$fontsConfPath"
-      Save
-      EOF
+    ${xcbuild}/bin/PlistBuddy $out/Applications/XQuartz.app/Contents/Info.plist <<EOF
+    Add :LSEnvironment dictionary
+    Add :LSEnvironment:XQUARTZ_DEFAULT_CLIENT string "${xterm}/bin/xterm"
+    Add :LSEnvironment:XQUARTZ_DEFAULT_SHELL string "${shell}"
+    Add :LSEnvironment:XQUARTZ_DEFAULT_STARTX string "$defaultStartX"
+    Add :LSEnvironment:FONTCONFIG_FILE string "$fontsConfPath"
+    Save
+    EOF
 
-      substituteInPlace $out/etc/X11/xinit/xinitrc \
-        --replace ${xorg.xinit} $out \
-        --replace xmodmap ${xorg.xmodmap}/bin/xmodmap \
-        --replace xrdb ${xorg.xrdb}/bin/xrdb
+    substituteInPlace $out/etc/X11/xinit/xinitrc \
+      --replace ${xorg.xinit} $out \
+      --replace xmodmap ${xorg.xmodmap}/bin/xmodmap \
+      --replace xrdb ${xorg.xrdb}/bin/xrdb
 
-      mkdir -p $out/etc/X11/xinit/xinitrc.d
+    mkdir -p $out/etc/X11/xinit/xinitrc.d
 
-      cp ${./10-fontdir.sh} $out/etc/X11/xinit/xinitrc.d/10-fontdir.sh
-      substituteInPlace $out/etc/X11/xinit/xinitrc.d/10-fontdir.sh \
-        --subst-var-by "SYSTEM_FONTS" "${fonts}/share/X11-fonts/" \
-        --subst-var-by "XSET"         "${xorg.xset}/bin/xset"
+    cp ${./10-fontdir.sh} $out/etc/X11/xinit/xinitrc.d/10-fontdir.sh
+    substituteInPlace $out/etc/X11/xinit/xinitrc.d/10-fontdir.sh \
+      --subst-var-by "SYSTEM_FONTS" "${fonts}/share/X11-fonts/" \
+      --subst-var-by "XSET"         "${xorg.xset}/bin/xset"
 
-      cp ${./98-user.sh} $out/etc/X11/xinit/xinitrc.d/98-user.sh
+    cp ${./98-user.sh} $out/etc/X11/xinit/xinitrc.d/98-user.sh
 
-      cat > $out/etc/X11/xinit/xinitrc.d/99-quartz-wm.sh <<EOF
-      exec ${quartz-wm}/bin/quartz-wm
-      EOF
-      chmod +x $out/etc/X11/xinit/xinitrc.d/99-quartz-wm.sh
+    cat > $out/etc/X11/xinit/xinitrc.d/99-quartz-wm.sh <<EOF
+    exec ${quartz-wm}/bin/quartz-wm
+    EOF
+    chmod +x $out/etc/X11/xinit/xinitrc.d/99-quartz-wm.sh
 
-      substituteInPlace $out/etc/X11/xinit/privileged_startx.d/20-font_cache \
-        --replace ${xorg.xinit} $out
+    substituteInPlace $out/etc/X11/xinit/privileged_startx.d/20-font_cache \
+      --replace ${xorg.xinit} $out
 
-      cp ${./font_cache} $out/bin/font_cache
-      substituteInPlace $out/bin/font_cache \
-        --subst-var-by "shell"           "${stdenv.shell}" \
-        --subst-var-by "PATH"            "$out/bin" \
-        --subst-var-by "ENCODINGSDIR"    "${xorg.encodings}/share/fonts/X11/encodings" \
-        --subst-var-by "MKFONTDIR"       "${xorg.mkfontdir}/bin/mkfontdir" \
-        --subst-var-by "MKFONTSCALE"     "${xorg.mkfontscale}/bin/mkfontscale" \
-        --subst-var-by "FC_CACHE"        "${fontconfig.bin}/bin/fc-cache" \
-        --subst-var-by "FONTCONFIG_FILE" "$fontsConfPath"
-    '';
+    cp ${./font_cache} $out/bin/font_cache
+    substituteInPlace $out/bin/font_cache \
+      --subst-var-by "shell"           "${stdenv.shell}" \
+      --subst-var-by "PATH"            "$out/bin" \
+      --subst-var-by "ENCODINGSDIR"    "${xorg.encodings}/share/fonts/X11/encodings" \
+      --subst-var-by "MKFONTDIR"       "${xorg.mkfontdir}/bin/mkfontdir" \
+      --subst-var-by "MKFONTSCALE"     "${xorg.mkfontscale}/bin/mkfontscale" \
+      --subst-var-by "FC_CACHE"        "${fontconfig.bin}/bin/fc-cache" \
+      --subst-var-by "FONTCONFIG_FILE" "$fontsConfPath"
+  '';
 
-    passthru = { inherit pkgs; };
+  passthru = { inherit pkgs; };
 
-    meta = with lib; {
-      platforms = platforms.darwin;
-      maintainers = with maintainers; [ cstrahan ];
-      license = licenses.mit;
-    };
-  }
+  meta = with lib; {
+    platforms = platforms.darwin;
+    maintainers = with maintainers; [ cstrahan ];
+    license = licenses.mit;
+  };
+}

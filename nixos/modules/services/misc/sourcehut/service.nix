@@ -36,110 +36,109 @@ let
       runDir = "/run/sourcehut/${serviceName}";
       rootDir = "/run/sourcehut/chroots/${serviceName}";
     in
-      mkMerge [
-        extraService
-        {
-          after = [ "network.target" ]
-            ++ optional cfg.postgresql.enable "postgresql.service"
-            ++ optional cfg.redis.enable "redis-sourcehut-${srvsrht}.service";
-          requires = optional cfg.postgresql.enable "postgresql.service"
-            ++ optional cfg.redis.enable "redis-sourcehut-${srvsrht}.service";
-          path = [ pkgs.gawk ];
-          environment.HOME = runDir;
-          serviceConfig = {
-            User = mkDefault srvCfg.user;
-            Group = mkDefault srvCfg.group;
-            RuntimeDirectory = [
-              "sourcehut/${serviceName}"
-              # Used by *srht-keys which reads ../config.ini
-              "sourcehut/${serviceName}/subdir"
-              "sourcehut/chroots/${serviceName}"
-            ];
-            RuntimeDirectoryMode = "2750";
-            # No need for the chroot path once inside the chroot
-            InaccessiblePaths = [ "-+${rootDir}" ];
-            # g+rx is for group members (eg. fcgiwrap or nginx)
-            # to read Git/Mercurial repositories, buildlogs, etc.
-            # o+x is for intermediate directories created by BindPaths= and like,
-            # as they're owned by root:root.
-            UMask = "0026";
-            RootDirectory = rootDir;
-            RootDirectoryStartOnly = true;
-            PrivateTmp = true;
-            MountAPIVFS = true;
-            # config.ini is looked up in there, before /etc/srht/config.ini
-            # Note that it fails to be set in ExecStartPre=
-            WorkingDirectory = mkDefault ("-" + runDir);
-            BindReadOnlyPaths = [
-              builtins.storeDir
-              "/etc"
-              "/run/booted-system"
-              "/run/current-system"
-              "/run/systemd"
-            ] ++ optional cfg.postgresql.enable "/run/postgresql"
-              ++ optional cfg.redis.enable "/run/redis-sourcehut-${srvsrht}";
-            # LoadCredential= are unfortunately not available in ExecStartPre=
-            # Hence this one is run as root (the +) with RootDirectoryStartOnly=
-            # to reach credentials wherever they are.
-            # Note that each systemd service gets its own ${runDir}/config.ini file.
-            ExecStartPre = mkBefore [ ("+"
-              + pkgs.writeShellScript "${serviceName}-credentials" ''
-                set -x
-                # Replace values beginning with a '<' by the content of the file whose name is after.
-                gawk '{ if (match($0,/^([^=]+=)<(.+)/,m)) { getline f < m[2]; print m[1] f } else print $0 }' ${configIni} |
-                ${optionalString (!allowStripe)
-                "gawk '!/^stripe-secret-key=/' |"}
-                install -o ${srvCfg.user} -g root -m 400 /dev/stdin ${runDir}/config.ini
-              '') ];
-            # The following options are only for optimizing:
-            # systemd-analyze security
-            AmbientCapabilities = "";
-            CapabilityBoundingSet = "";
-            # ProtectClock= adds DeviceAllow=char-rtc r
-            DeviceAllow = "";
-            LockPersonality = true;
-            MemoryDenyWriteExecute = true;
-            NoNewPrivileges = true;
-            PrivateDevices = true;
-            PrivateMounts = true;
-            PrivateNetwork = mkDefault false;
-            PrivateUsers = true;
-            ProcSubset = "pid";
-            ProtectClock = true;
-            ProtectControlGroups = true;
-            ProtectHome = true;
-            ProtectHostname = true;
-            ProtectKernelLogs = true;
-            ProtectKernelModules = true;
-            ProtectKernelTunables = true;
-            ProtectProc = "invisible";
-            ProtectSystem = "strict";
-            RemoveIPC = true;
-            RestrictAddressFamilies = [
-              "AF_UNIX"
-              "AF_INET"
-              "AF_INET6"
-            ];
-            RestrictNamespaces = true;
-            RestrictRealtime = true;
-            RestrictSUIDSGID = true;
-            #SocketBindAllow = [ "tcp:${toString srvCfg.port}" "tcp:${toString srvCfg.prometheusPort}" ];
-            #SocketBindDeny = "any";
-            SystemCallFilter = [
-              "@system-service"
-              "~@aio"
-              "~@keyring"
-              "~@memlock"
-              "~@privileged"
-              "~@resources"
-              "~@timer"
-              "@chown"
-              "@setuid"
-            ];
-            SystemCallArchitectures = "native";
-          };
-        }
-      ]
+    mkMerge [
+      extraService
+      {
+        after = [ "network.target" ]
+          ++ optional cfg.postgresql.enable "postgresql.service"
+          ++ optional cfg.redis.enable "redis-sourcehut-${srvsrht}.service";
+        requires = optional cfg.postgresql.enable "postgresql.service"
+          ++ optional cfg.redis.enable "redis-sourcehut-${srvsrht}.service";
+        path = [ pkgs.gawk ];
+        environment.HOME = runDir;
+        serviceConfig = {
+          User = mkDefault srvCfg.user;
+          Group = mkDefault srvCfg.group;
+          RuntimeDirectory = [
+            "sourcehut/${serviceName}"
+            # Used by *srht-keys which reads ../config.ini
+            "sourcehut/${serviceName}/subdir"
+            "sourcehut/chroots/${serviceName}"
+          ];
+          RuntimeDirectoryMode = "2750";
+          # No need for the chroot path once inside the chroot
+          InaccessiblePaths = [ "-+${rootDir}" ];
+          # g+rx is for group members (eg. fcgiwrap or nginx)
+          # to read Git/Mercurial repositories, buildlogs, etc.
+          # o+x is for intermediate directories created by BindPaths= and like,
+          # as they're owned by root:root.
+          UMask = "0026";
+          RootDirectory = rootDir;
+          RootDirectoryStartOnly = true;
+          PrivateTmp = true;
+          MountAPIVFS = true;
+          # config.ini is looked up in there, before /etc/srht/config.ini
+          # Note that it fails to be set in ExecStartPre=
+          WorkingDirectory = mkDefault ("-" + runDir);
+          BindReadOnlyPaths = [
+            builtins.storeDir
+            "/etc"
+            "/run/booted-system"
+            "/run/current-system"
+            "/run/systemd"
+          ] ++ optional cfg.postgresql.enable "/run/postgresql"
+            ++ optional cfg.redis.enable "/run/redis-sourcehut-${srvsrht}";
+          # LoadCredential= are unfortunately not available in ExecStartPre=
+          # Hence this one is run as root (the +) with RootDirectoryStartOnly=
+          # to reach credentials wherever they are.
+          # Note that each systemd service gets its own ${runDir}/config.ini file.
+          ExecStartPre = mkBefore [ ("+"
+            + pkgs.writeShellScript "${serviceName}-credentials" ''
+              set -x
+              # Replace values beginning with a '<' by the content of the file whose name is after.
+              gawk '{ if (match($0,/^([^=]+=)<(.+)/,m)) { getline f < m[2]; print m[1] f } else print $0 }' ${configIni} |
+              ${optionalString (!allowStripe) "gawk '!/^stripe-secret-key=/' |"}
+              install -o ${srvCfg.user} -g root -m 400 /dev/stdin ${runDir}/config.ini
+            '') ];
+          # The following options are only for optimizing:
+          # systemd-analyze security
+          AmbientCapabilities = "";
+          CapabilityBoundingSet = "";
+          # ProtectClock= adds DeviceAllow=char-rtc r
+          DeviceAllow = "";
+          LockPersonality = true;
+          MemoryDenyWriteExecute = true;
+          NoNewPrivileges = true;
+          PrivateDevices = true;
+          PrivateMounts = true;
+          PrivateNetwork = mkDefault false;
+          PrivateUsers = true;
+          ProcSubset = "pid";
+          ProtectClock = true;
+          ProtectControlGroups = true;
+          ProtectHome = true;
+          ProtectHostname = true;
+          ProtectKernelLogs = true;
+          ProtectKernelModules = true;
+          ProtectKernelTunables = true;
+          ProtectProc = "invisible";
+          ProtectSystem = "strict";
+          RemoveIPC = true;
+          RestrictAddressFamilies = [
+            "AF_UNIX"
+            "AF_INET"
+            "AF_INET6"
+          ];
+          RestrictNamespaces = true;
+          RestrictRealtime = true;
+          RestrictSUIDSGID = true;
+          #SocketBindAllow = [ "tcp:${toString srvCfg.port}" "tcp:${toString srvCfg.prometheusPort}" ];
+          #SocketBindDeny = "any";
+          SystemCallFilter = [
+            "@system-service"
+            "~@aio"
+            "~@keyring"
+            "~@memlock"
+            "~@privileged"
+            "~@resources"
+            "~@timer"
+            "@chown"
+            "@setuid"
+          ];
+          SystemCallArchitectures = "native";
+        };
+      }
+    ]
   ;
 in {
   options.services.sourcehut.${srv} = {
@@ -357,36 +356,35 @@ in {
                   version = pkgs.sourcehut.${srvsrht}.version;
                   stateDir = "/var/lib/sourcehut/${srvsrht}";
                 in
-                  mkBefore ''
-                    set -x
-                    # Use the /run/sourcehut/${srvsrht}/config.ini
-                    # installed by a previous ExecStartPre= in baseService
-                    cd /run/sourcehut/${srvsrht}
+                mkBefore ''
+                  set -x
+                  # Use the /run/sourcehut/${srvsrht}/config.ini
+                  # installed by a previous ExecStartPre= in baseService
+                  cd /run/sourcehut/${srvsrht}
 
-                    if test ! -e ${stateDir}/db; then
-                      # Setup the initial database.
-                      # Note that it stamps the alembic head afterward
-                      ${cfg.python}/bin/${srvsrht}-initdb
+                  if test ! -e ${stateDir}/db; then
+                    # Setup the initial database.
+                    # Note that it stamps the alembic head afterward
+                    ${cfg.python}/bin/${srvsrht}-initdb
+                    echo ${version} >${stateDir}/db
+                  fi
+
+                  ${optionalString cfg.settings.${iniKey}.migrate-on-upgrade ''
+                    if [ "$(cat ${stateDir}/db)" != "${version}" ]; then
+                      # Manage schema migrations using alembic
+                      ${cfg.python}/bin/${srvsrht}-migrate -a upgrade head
                       echo ${version} >${stateDir}/db
                     fi
+                  ''}
 
-                    ${optionalString
-                    cfg.settings.${iniKey}.migrate-on-upgrade ''
-                      if [ "$(cat ${stateDir}/db)" != "${version}" ]; then
-                        # Manage schema migrations using alembic
-                        ${cfg.python}/bin/${srvsrht}-migrate -a upgrade head
-                        echo ${version} >${stateDir}/db
-                      fi
-                    ''}
-
-                    # Update copy of each users' profile to the latest
-                    # See https://lists.sr.ht/~sircmpwn/sr.ht-admins/<20190302181207.GA13778%40cirno.my.domain>
-                    if test ! -e ${stateDir}/webhook; then
-                      # Update ${iniKey}'s users' profile copy to the latest
-                      ${cfg.python}/bin/srht-update-profiles ${iniKey}
-                      touch ${stateDir}/webhook
-                    fi
-                  ''
+                  # Update copy of each users' profile to the latest
+                  # See https://lists.sr.ht/~sircmpwn/sr.ht-admins/<20190302181207.GA13778%40cirno.my.domain>
+                  if test ! -e ${stateDir}/webhook; then
+                    # Update ${iniKey}'s users' profile copy to the latest
+                    ${cfg.python}/bin/srht-update-profiles ${iniKey}
+                    touch ${stateDir}/webhook
+                  fi
+                ''
                 ;
               }
               mainService

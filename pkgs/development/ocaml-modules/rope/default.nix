@@ -33,25 +33,25 @@ let
   };
 
 in
-  stdenv.mkDerivation ({
-    pname = "ocaml${ocaml.version}-rope";
-    inherit (param) version;
+stdenv.mkDerivation ({
+  pname = "ocaml${ocaml.version}-rope";
+  inherit (param) version;
 
-    src = fetchurl { inherit (param) url sha256; };
+  src = fetchurl { inherit (param) url sha256; };
 
-    nativeBuildInputs = [
-      ocaml
-      findlib
-    ] ++ param.nativeBuildInputs;
-    buildInputs = [ benchmark ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+  ] ++ param.nativeBuildInputs;
+  buildInputs = [ benchmark ];
 
-    strictDeps = true;
+  strictDeps = true;
 
-    meta = {
-      homepage = "http://rope.forge.ocamlcore.org/";
-      inherit (ocaml.meta) platforms;
-      description = ''Ropes ("heavyweight strings") in OCaml'';
-      license = lib.licenses.lgpl21;
-      maintainers = with lib.maintainers; [ ];
-    };
-  } // param.extra)
+  meta = {
+    homepage = "http://rope.forge.ocamlcore.org/";
+    inherit (ocaml.meta) platforms;
+    description = ''Ropes ("heavyweight strings") in OCaml'';
+    license = lib.licenses.lgpl21;
+    maintainers = with lib.maintainers; [ ];
+  };
+} // param.extra)

@@ -46,27 +46,27 @@ let
   };
 
 in
-  runCommand buildah-unwrapped.name {
-    name = "${buildah-unwrapped.pname}-wrapper-${buildah-unwrapped.version}";
-    inherit (buildah-unwrapped) pname version passthru;
+runCommand buildah-unwrapped.name {
+  name = "${buildah-unwrapped.pname}-wrapper-${buildah-unwrapped.version}";
+  inherit (buildah-unwrapped) pname version passthru;
 
-    preferLocalBuild = true;
+  preferLocalBuild = true;
 
-    meta = builtins.removeAttrs buildah-unwrapped.meta [ "outputsToInstall" ];
+  meta = builtins.removeAttrs buildah-unwrapped.meta [ "outputsToInstall" ];
 
-    outputs = [
-      "out"
-      "man"
-    ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
-    nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [ makeWrapper ];
 
-  } ''
-    ln -s ${buildah-unwrapped.man} $man
+} ''
+  ln -s ${buildah-unwrapped.man} $man
 
-    mkdir -p $out/bin
-    ln -s ${buildah-unwrapped}/share $out/share
-    makeWrapper ${buildah-unwrapped}/bin/buildah $out/bin/buildah \
-      --set CONTAINERS_HELPER_BINARY_DIR ${helpersBin}/bin \
-      --prefix PATH : ${binPath}
-  ''
+  mkdir -p $out/bin
+  ln -s ${buildah-unwrapped}/share $out/share
+  makeWrapper ${buildah-unwrapped}/bin/buildah $out/bin/buildah \
+    --set CONTAINERS_HELPER_BINARY_DIR ${helpersBin}/bin \
+    --prefix PATH : ${binPath}
+''

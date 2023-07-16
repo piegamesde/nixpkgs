@@ -38,11 +38,11 @@ let
     '' ;
 
 in
-  pkgs.runCommand "test haskell.lib.compose.setBuildTarget" {
-    meta = { inherit (drv.meta) platforms; };
-  } ''
-    ${test "foo" "bar"}
-    ${test "bar" "foo"}
-    touch "$out"
-  ''
+pkgs.runCommand "test haskell.lib.compose.setBuildTarget" {
+  meta = { inherit (drv.meta) platforms; };
+} ''
+  ${test "foo" "bar"}
+  ${test "bar" "foo"}
+  touch "$out"
+''
 

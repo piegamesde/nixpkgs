@@ -37,7 +37,7 @@ let
       };
 
     in
-      import drv
+    import drv
   ;
 in
-  dhallToNix
+dhallToNix

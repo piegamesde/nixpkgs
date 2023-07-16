@@ -109,7 +109,7 @@ let
         else
           throw "expected attrset at ${toString path} - got ${toString value}";
     in
-      builtins.mapAttrs (f [ ]) versions
+    builtins.mapAttrs (f [ ]) versions
   ;
   makeBinDist = {
       name,
@@ -304,4 +304,4 @@ let
   };
 
 in
-  stdenv.mkDerivation (releases.${releaseType})
+stdenv.mkDerivation (releases.${releaseType})

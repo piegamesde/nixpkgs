@@ -28,92 +28,92 @@ let
     chez-racket;
   # Uses scheme to bootstrap the build of idris2
 in
-  stdenv.mkDerivation rec {
-    pname = "idris2";
-    version = "0.6.0";
+stdenv.mkDerivation rec {
+  pname = "idris2";
+  version = "0.6.0";
 
-    src = fetchFromGitHub {
-      owner = "idris-lang";
-      repo = "Idris2";
-      rev = "v${version}";
-      sha256 = "sha256-80MAGM1IEtI09h5aCYfDL4PRrjGq2gT8OUEibOVk8H4=";
-    };
+  src = fetchFromGitHub {
+    owner = "idris-lang";
+    repo = "Idris2";
+    rev = "v${version}";
+    sha256 = "sha256-80MAGM1IEtI09h5aCYfDL4PRrjGq2gT8OUEibOVk8H4=";
+  };
 
-    strictDeps = true;
-    nativeBuildInputs = [
-      makeWrapper
-      clang
-      platformChez
-    ] ++ lib.optionals stdenv.isDarwin [ zsh ];
-    buildInputs = [
-      platformChez
-      gmp
+  strictDeps = true;
+  nativeBuildInputs = [
+    makeWrapper
+    clang
+    platformChez
+  ] ++ lib.optionals stdenv.isDarwin [ zsh ];
+  buildInputs = [
+    platformChez
+    gmp
+  ];
+
+  prePatch = ''
+    patchShebangs --build tests
+  '';
+
+  makeFlags = [ "PREFIX=$(out)" ] ++ lib.optional stdenv.isDarwin "OS=";
+
+  # The name of the main executable of pkgs.chez is `scheme`
+  buildFlags = [
+    "bootstrap"
+    "SCHEME=scheme"
+  ];
+
+  checkTarget = "test";
+  nativeCheckInputs = [
+    gambit
+    nodejs
+  ]; # racket ];
+  checkFlags = [ "INTERACTIVE=" ];
+
+  # TODO: Move this into its own derivation, such that this can be changed
+  #       without having to recompile idris2 every time.
+  postInstall = let
+    name = "${pname}-${version}";
+    globalLibraries = [
+      "\\$HOME/.nix-profile/lib/${name}"
+      "/run/current-system/sw/lib/${name}"
+      "$out/${name}"
     ];
+    globalLibrariesPath = builtins.concatStringsSep ":" globalLibraries;
+  in ''
+    # Remove existing idris2 wrapper that sets incorrect LD_LIBRARY_PATH
+    rm $out/bin/idris2
+    # The only thing we need from idris2_app is the actual binary
+    mv $out/bin/idris2_app/idris2.so $out/bin/idris2
+    rm $out/bin/idris2_app/*
+    rmdir $out/bin/idris2_app
+    # idris2 needs to find scheme at runtime to compile
+    # idris2 installs packages with --install into the path given by
+    #   IDRIS2_PREFIX. We set that to a default of ~/.idris2, to mirror the
+    #   behaviour of the standard Makefile install.
+    # TODO: Make support libraries their own derivation such that
+    #       overriding LD_LIBRARY_PATH is unnecessary
+    wrapProgram "$out/bin/idris2" \
+      --set-default CHEZ "${platformChez}/bin/scheme" \
+      --run 'export IDRIS2_PREFIX=''${IDRIS2_PREFIX-"$HOME/.idris2"}' \
+      --suffix IDRIS2_LIBS ':' "$out/${name}/lib" \
+      --suffix IDRIS2_DATA ':' "$out/${name}/support" \
+      --suffix IDRIS2_PACKAGE_PATH ':' "${globalLibrariesPath}" \
+      --suffix DYLD_LIBRARY_PATH ':' "$out/${name}/lib" \
+      --suffix LD_LIBRARY_PATH ':' "$out/${name}/lib"
+  '' ;
 
-    prePatch = ''
-      patchShebangs --build tests
-    '';
+  # Run package tests
+  passthru.tests = callPackage ./tests.nix { inherit pname; };
 
-    makeFlags = [ "PREFIX=$(out)" ] ++ lib.optional stdenv.isDarwin "OS=";
-
-    # The name of the main executable of pkgs.chez is `scheme`
-    buildFlags = [
-      "bootstrap"
-      "SCHEME=scheme"
+  meta = {
+    description =
+      "A purely functional programming language with first class types";
+    homepage = "https://github.com/idris-lang/Idris2";
+    license = lib.licenses.bsd3;
+    maintainers = with lib.maintainers; [
+      fabianhjr
+      wchresta
     ];
-
-    checkTarget = "test";
-    nativeCheckInputs = [
-      gambit
-      nodejs
-    ]; # racket ];
-    checkFlags = [ "INTERACTIVE=" ];
-
-    # TODO: Move this into its own derivation, such that this can be changed
-    #       without having to recompile idris2 every time.
-    postInstall = let
-      name = "${pname}-${version}";
-      globalLibraries = [
-        "\\$HOME/.nix-profile/lib/${name}"
-        "/run/current-system/sw/lib/${name}"
-        "$out/${name}"
-      ];
-      globalLibrariesPath = builtins.concatStringsSep ":" globalLibraries;
-    in ''
-      # Remove existing idris2 wrapper that sets incorrect LD_LIBRARY_PATH
-      rm $out/bin/idris2
-      # The only thing we need from idris2_app is the actual binary
-      mv $out/bin/idris2_app/idris2.so $out/bin/idris2
-      rm $out/bin/idris2_app/*
-      rmdir $out/bin/idris2_app
-      # idris2 needs to find scheme at runtime to compile
-      # idris2 installs packages with --install into the path given by
-      #   IDRIS2_PREFIX. We set that to a default of ~/.idris2, to mirror the
-      #   behaviour of the standard Makefile install.
-      # TODO: Make support libraries their own derivation such that
-      #       overriding LD_LIBRARY_PATH is unnecessary
-      wrapProgram "$out/bin/idris2" \
-        --set-default CHEZ "${platformChez}/bin/scheme" \
-        --run 'export IDRIS2_PREFIX=''${IDRIS2_PREFIX-"$HOME/.idris2"}' \
-        --suffix IDRIS2_LIBS ':' "$out/${name}/lib" \
-        --suffix IDRIS2_DATA ':' "$out/${name}/support" \
-        --suffix IDRIS2_PACKAGE_PATH ':' "${globalLibrariesPath}" \
-        --suffix DYLD_LIBRARY_PATH ':' "$out/${name}/lib" \
-        --suffix LD_LIBRARY_PATH ':' "$out/${name}/lib"
-    '' ;
-
-    # Run package tests
-    passthru.tests = callPackage ./tests.nix { inherit pname; };
-
-    meta = {
-      description =
-        "A purely functional programming language with first class types";
-      homepage = "https://github.com/idris-lang/Idris2";
-      license = lib.licenses.bsd3;
-      maintainers = with lib.maintainers; [
-        fabianhjr
-        wchresta
-      ];
-      inherit (chez.meta) platforms;
-    };
-  }
+    inherit (chez.meta) platforms;
+  };
+}

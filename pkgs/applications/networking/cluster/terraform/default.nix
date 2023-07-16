@@ -26,62 +26,62 @@ let
         "vendorHash"
       ];
     in
-      buildGoModule ({
-        pname = "terraform";
-        inherit version vendorHash;
+    buildGoModule ({
+      pname = "terraform";
+      inherit version vendorHash;
 
-        src = fetchFromGitHub {
-          owner = "hashicorp";
-          repo = "terraform";
-          rev = "v${version}";
-          inherit hash;
-        };
+      src = fetchFromGitHub {
+        owner = "hashicorp";
+        repo = "terraform";
+        rev = "v${version}";
+        inherit hash;
+      };
 
-        ldflags = [
-          "-s"
-          "-w"
+      ldflags = [
+        "-s"
+        "-w"
+      ];
+
+      postConfigure = ''
+        # speakeasy hardcodes /bin/stty https://github.com/bgentry/speakeasy/issues/22
+        substituteInPlace vendor/github.com/bgentry/speakeasy/speakeasy_unix.go \
+          --replace "/bin/stty" "${coreutils}/bin/stty"
+      '';
+
+      nativeBuildInputs = [ installShellFiles ];
+
+      postInstall = ''
+        # https://github.com/posener/complete/blob/9a4745ac49b29530e07dc2581745a218b646b7a3/cmd/install/bash.go#L8
+        installShellCompletion --bash --name terraform <(echo complete -C terraform terraform)
+      '';
+
+      preCheck = ''
+        export HOME=$TMPDIR
+        export TF_SKIP_REMOTE_TESTS=1
+      '';
+
+      subPackages = [ "." ];
+
+      meta = with lib; {
+        description =
+          "Tool for building, changing, and versioning infrastructure";
+        homepage = "https://www.terraform.io/";
+        changelog =
+          "https://github.com/hashicorp/terraform/blob/v${version}/CHANGELOG.md";
+        license = licenses.mpl20;
+        maintainers = with maintainers; [
+          Chili-Man
+          babariviere
+          kalbasit
+          marsam
+          maxeaubrey
+          timstott
+          zimbatm
+          zowoq
+          techknowlogick
         ];
-
-        postConfigure = ''
-          # speakeasy hardcodes /bin/stty https://github.com/bgentry/speakeasy/issues/22
-          substituteInPlace vendor/github.com/bgentry/speakeasy/speakeasy_unix.go \
-            --replace "/bin/stty" "${coreutils}/bin/stty"
-        '';
-
-        nativeBuildInputs = [ installShellFiles ];
-
-        postInstall = ''
-          # https://github.com/posener/complete/blob/9a4745ac49b29530e07dc2581745a218b646b7a3/cmd/install/bash.go#L8
-          installShellCompletion --bash --name terraform <(echo complete -C terraform terraform)
-        '';
-
-        preCheck = ''
-          export HOME=$TMPDIR
-          export TF_SKIP_REMOTE_TESTS=1
-        '';
-
-        subPackages = [ "." ];
-
-        meta = with lib; {
-          description =
-            "Tool for building, changing, and versioning infrastructure";
-          homepage = "https://www.terraform.io/";
-          changelog =
-            "https://github.com/hashicorp/terraform/blob/v${version}/CHANGELOG.md";
-          license = licenses.mpl20;
-          maintainers = with maintainers; [
-            Chili-Man
-            babariviere
-            kalbasit
-            marsam
-            maxeaubrey
-            timstott
-            zimbatm
-            zowoq
-            techknowlogick
-          ];
-        };
-      } // attrs')
+      };
+    } // attrs')
   ;
 
   pluggable = terraform:
@@ -171,7 +171,7 @@ let
             '';
           });
     in
-      withPlugins (_: [ ])
+    withPlugins (_: [ ])
   ;
 
   plugins = removeAttrs terraform-providers [
@@ -213,7 +213,7 @@ in rec {
         touch $out
       '';
   in
-    test
+  test
   ;
 
 }

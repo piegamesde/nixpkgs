@@ -100,55 +100,55 @@ in rec {
         "-"
       ] name;
   in
-    {
-      imageName
-      # To find the digest of an image, you can use skopeo:
-      # see doc/functions.xml
-      ,
-      imageDigest,
-      sha256,
-      os ?
-        "linux", # Image architecture, defaults to the architecture of the `hostPlatform` when unset
-      arch ? defaultArchitecture
-        # This is used to set name to the pulled image
-      ,
-      finalImageName ? imageName
-        # This used to set a tag to the pulled image
-      ,
-      finalImageTag ? "latest"
-        # This is used to disable TLS certificate verification, allowing access to http registries on (hopefully) trusted networks
-      ,
-      tlsVerify ? true
+  {
+    imageName
+    # To find the digest of an image, you can use skopeo:
+    # see doc/functions.xml
+    ,
+    imageDigest,
+    sha256,
+    os ?
+      "linux", # Image architecture, defaults to the architecture of the `hostPlatform` when unset
+    arch ? defaultArchitecture
+      # This is used to set name to the pulled image
+    ,
+    finalImageName ? imageName
+      # This used to set a tag to the pulled image
+    ,
+    finalImageTag ? "latest"
+      # This is used to disable TLS certificate verification, allowing access to http registries on (hopefully) trusted networks
+    ,
+    tlsVerify ? true
 
-      ,
-      name ? fixName "docker-image-${finalImageName}-${finalImageTag}.tar"
-    }:
+    ,
+    name ? fixName "docker-image-${finalImageName}-${finalImageTag}.tar"
+  }:
 
-    runCommand name {
-      inherit imageDigest;
-      imageName = finalImageName;
-      imageTag = finalImageTag;
-      impureEnvVars = lib.fetchers.proxyImpureEnvVars;
-      outputHashMode = "flat";
-      outputHashAlgo = "sha256";
-      outputHash = sha256;
+  runCommand name {
+    inherit imageDigest;
+    imageName = finalImageName;
+    imageTag = finalImageTag;
+    impureEnvVars = lib.fetchers.proxyImpureEnvVars;
+    outputHashMode = "flat";
+    outputHashAlgo = "sha256";
+    outputHash = sha256;
 
-      nativeBuildInputs = [ skopeo ];
-      SSL_CERT_FILE = "${cacert.out}/etc/ssl/certs/ca-bundle.crt";
+    nativeBuildInputs = [ skopeo ];
+    SSL_CERT_FILE = "${cacert.out}/etc/ssl/certs/ca-bundle.crt";
 
-      sourceURL = "docker://${imageName}@${imageDigest}";
-      destNameTag = "${finalImageName}:${finalImageTag}";
-    } ''
-      skopeo \
-        --insecure-policy \
-        --tmpdir=$TMPDIR \
-        --override-os ${os} \
-        --override-arch ${arch} \
-        copy \
-        --src-tls-verify=${lib.boolToString tlsVerify} \
-        "$sourceURL" "docker-archive://$out:$destNameTag" \
-        | cat  # pipe through cat to force-disable progress bar
-    ''
+    sourceURL = "docker://${imageName}@${imageDigest}";
+    destNameTag = "${finalImageName}:${finalImageTag}";
+  } ''
+    skopeo \
+      --insecure-policy \
+      --tmpdir=$TMPDIR \
+      --override-os ${os} \
+      --override-arch ${arch} \
+      copy \
+      --src-tls-verify=${lib.boolToString tlsVerify} \
+      "$sourceURL" "docker-archive://$out:$destNameTag" \
+      | cat  # pipe through cat to force-disable progress bar
+  ''
   ;
 
   # We need to sum layer.tar, not a directory, hence tarsum instead of nix-hash.
@@ -451,72 +451,69 @@ in rec {
       runAsRootScript = shellScript "run-as-root.sh" runAsRoot;
       extraCommandsScript = shellScript "extra-commands.sh" extraCommands;
     in
-      runWithOverlay {
-        name = "docker-layer-${name}";
+    runWithOverlay {
+      name = "docker-layer-${name}";
 
-        inherit fromImage fromImageName fromImageTag diskSize buildVMMemorySize;
+      inherit fromImage fromImageName fromImageTag diskSize buildVMMemorySize;
 
-        preMount =
-          lib.optionalString (copyToRoot != null && copyToRoot != [ ]) ''
-            echo "Adding contents..."
-            for item in ${
-              escapeShellArgs (map (c: "${c}") (toList copyToRoot))
-            }; do
-              echo "Adding $item..."
-              rsync -a${
-                if
-                  keepContentsDirlinks
-                then
-                  "K"
-                else
-                  "k"
-              } --chown=0:0 $item/ layer/
-            done
+      preMount = lib.optionalString (copyToRoot != null && copyToRoot != [ ]) ''
+        echo "Adding contents..."
+        for item in ${escapeShellArgs (map (c: "${c}") (toList copyToRoot))}; do
+          echo "Adding $item..."
+          rsync -a${
+            if
+              keepContentsDirlinks
+            then
+              "K"
+            else
+              "k"
+          } --chown=0:0 $item/ layer/
+        done
 
-            chmod ug+w layer
-          '';
+        chmod ug+w layer
+      '';
 
-        postMount = ''
-          mkdir -p mnt/{dev,proc,sys} mnt${storeDir}
+      postMount = ''
+        mkdir -p mnt/{dev,proc,sys} mnt${storeDir}
 
-          # Mount /dev, /sys and the nix store as shared folders.
-          mount --rbind /dev mnt/dev
-          mount --rbind /sys mnt/sys
-          mount --rbind ${storeDir} mnt${storeDir}
+        # Mount /dev, /sys and the nix store as shared folders.
+        mount --rbind /dev mnt/dev
+        mount --rbind /sys mnt/sys
+        mount --rbind ${storeDir} mnt${storeDir}
 
-          # Execute the run as root script. See 'man unshare' for
-          # details on what's going on here; basically this command
-          # means that the runAsRootScript will be executed in a nearly
-          # completely isolated environment.
-          #
-          # Ideally we would use --mount-proc=mnt/proc or similar, but this
-          # doesn't work. The workaround is to setup proc after unshare.
-          # See: https://github.com/karelzak/util-linux/issues/648
-          unshare -imnpuf --mount-proc sh -c 'mount --rbind /proc mnt/proc && chroot mnt ${runAsRootScript}'
+        # Execute the run as root script. See 'man unshare' for
+        # details on what's going on here; basically this command
+        # means that the runAsRootScript will be executed in a nearly
+        # completely isolated environment.
+        #
+        # Ideally we would use --mount-proc=mnt/proc or similar, but this
+        # doesn't work. The workaround is to setup proc after unshare.
+        # See: https://github.com/karelzak/util-linux/issues/648
+        unshare -imnpuf --mount-proc sh -c 'mount --rbind /proc mnt/proc && chroot mnt ${runAsRootScript}'
 
-          # Unmount directories and remove them.
-          umount -R mnt/dev mnt/sys mnt${storeDir}
-          rmdir --ignore-fail-on-non-empty \
-            mnt/dev mnt/proc mnt/sys mnt${storeDir} \
-            mnt$(dirname ${storeDir})
-        '';
+        # Unmount directories and remove them.
+        umount -R mnt/dev mnt/sys mnt${storeDir}
+        rmdir --ignore-fail-on-non-empty \
+          mnt/dev mnt/proc mnt/sys mnt${storeDir} \
+          mnt$(dirname ${storeDir})
+      '';
 
-        postUmount = ''
-          (cd layer; ${extraCommandsScript})
+      postUmount = ''
+        (cd layer; ${extraCommandsScript})
 
-          echo "Packing layer..."
-          mkdir -p $out
-          tarhash=$(tar -C layer --hard-dereference --sort=name --mtime="@$SOURCE_DATE_EPOCH" -cf - . |
-                      tee -p $out/layer.tar |
-                      ${tarsum}/bin/tarsum)
+        echo "Packing layer..."
+        mkdir -p $out
+        tarhash=$(tar -C layer --hard-dereference --sort=name --mtime="@$SOURCE_DATE_EPOCH" -cf - . |
+                    tee -p $out/layer.tar |
+                    ${tarsum}/bin/tarsum)
 
-          cat ${baseJson} | jshon -s "$tarhash" -i checksum > $out/json
-          # Indicate to docker that we're using schema version 1.0.
-          echo -n "1.0" > $out/VERSION
+        cat ${baseJson} | jshon -s "$tarhash" -i checksum > $out/json
+        # Indicate to docker that we're using schema version 1.0.
+        echo -n "1.0" > $out/VERSION
 
-          echo "Finished building layer '${name}'"
-        '';
-      }
+        echo "Finished building layer '${name}'"
+      '';
+    }
   ;
 
   buildLayeredImage = {
@@ -526,11 +523,11 @@ in rec {
     let
       stream = streamLayeredImage args;
     in
-      runCommand "${baseNameOf name}.tar.gz" {
-        inherit (stream) imageName;
-        passthru = { inherit (stream) imageTag; };
-        nativeBuildInputs = [ pigz ];
-      } "${stream} | pigz -nTR > $out"
+    runCommand "${baseNameOf name}.tar.gz" {
+      inherit (stream) imageName;
+      passthru = { inherit (stream) imageTag; };
+      nativeBuildInputs = [ pigz ];
+    } "${stream} | pigz -nTR > $out"
   ;
 
   # 1. extract the base image
@@ -795,7 +792,7 @@ in rec {
       '';
 
     in
-      checked result
+    checked result
   ;
 
   # Merge the tarballs of images built with buildImage into a single
@@ -1117,7 +1114,7 @@ in rec {
         makeWrapper ${streamScript} $out --add-flags ${conf}
       '';
     in
-      result
+    result
   ;
 
   # This function streams a docker image that behaves like a nix-shell for a derivation
@@ -1256,55 +1253,54 @@ in rec {
       };
 
     in
-      streamLayeredImage {
-        inherit name tag;
-        contents = [
-          binSh
-          usrBinEnv
-          (fakeNss.override {
-            # Allows programs to look up the build user's home directory
-            # https://github.com/NixOS/nix/blob/ffe155abd36366a870482625543f9bf924a58281/src/libstore/build/local-derivation-goal.cc#L906-L910
-            # Slightly differs however: We use the passed-in homeDirectory instead of sandboxBuildDir.
-            # We're doing this because it's arguably a bug in Nix that sandboxBuildDir is used here: https://github.com/NixOS/nix/issues/6379
-            extraPasswdLines = [ "nixbld:x:${toString uid}:${
-                toString gid
-              }:Build user:${homeDirectory}:/noshell" ];
-            extraGroupLines = [ "nixbld:!:${toString gid}:" ];
-          })
+    streamLayeredImage {
+      inherit name tag;
+      contents = [
+        binSh
+        usrBinEnv
+        (fakeNss.override {
+          # Allows programs to look up the build user's home directory
+          # https://github.com/NixOS/nix/blob/ffe155abd36366a870482625543f9bf924a58281/src/libstore/build/local-derivation-goal.cc#L906-L910
+          # Slightly differs however: We use the passed-in homeDirectory instead of sandboxBuildDir.
+          # We're doing this because it's arguably a bug in Nix that sandboxBuildDir is used here: https://github.com/NixOS/nix/issues/6379
+          extraPasswdLines = [ "nixbld:x:${toString uid}:${
+              toString gid
+            }:Build user:${homeDirectory}:/noshell" ];
+          extraGroupLines = [ "nixbld:!:${toString gid}:" ];
+        })
+      ];
+
+      fakeRootCommands = ''
+        # Effectively a single-user installation of Nix, giving the user full
+        # control over the Nix store. Needed for building the derivation this
+        # shell is for, but also in case one wants to use Nix inside the
+        # image
+        mkdir -p ./nix/{store,var/nix} ./etc/nix
+        chown -R ${toString uid}:${toString gid} ./nix ./etc/nix
+
+        # Gives the user control over the build directory
+        mkdir -p .${sandboxBuildDir}
+        chown -R ${toString uid}:${toString gid} .${sandboxBuildDir}
+      '';
+
+      # Run this image as the given uid/gid
+      config.User = "${toString uid}:${toString gid}";
+      config.Cmd =
+        # https://github.com/NixOS/nix/blob/2.8.0/src/nix-build/nix-build.cc#L185-L186
+        # https://github.com/NixOS/nix/blob/2.8.0/src/nix-build/nix-build.cc#L534-L536
+        if
+          run == null
+        then [
+          shell
+          "--rcfile"
+          rcfile
+        ] else [
+          shell
+          rcfile
         ];
-
-        fakeRootCommands = ''
-          # Effectively a single-user installation of Nix, giving the user full
-          # control over the Nix store. Needed for building the derivation this
-          # shell is for, but also in case one wants to use Nix inside the
-          # image
-          mkdir -p ./nix/{store,var/nix} ./etc/nix
-          chown -R ${toString uid}:${toString gid} ./nix ./etc/nix
-
-          # Gives the user control over the build directory
-          mkdir -p .${sandboxBuildDir}
-          chown -R ${toString uid}:${toString gid} .${sandboxBuildDir}
-        '';
-
-        # Run this image as the given uid/gid
-        config.User = "${toString uid}:${toString gid}";
-        config.Cmd =
-          # https://github.com/NixOS/nix/blob/2.8.0/src/nix-build/nix-build.cc#L185-L186
-          # https://github.com/NixOS/nix/blob/2.8.0/src/nix-build/nix-build.cc#L534-L536
-          if
-            run == null
-          then [
-            shell
-            "--rcfile"
-            rcfile
-          ] else [
-            shell
-            rcfile
-          ];
-        config.WorkingDir = sandboxBuildDir;
-        config.Env =
-          lib.mapAttrsToList (name: value: "${name}=${value}") envVars;
-      }
+      config.WorkingDir = sandboxBuildDir;
+      config.Env = lib.mapAttrsToList (name: value: "${name}=${value}") envVars;
+    }
   ;
 
   # Wrapper around streamNixShellImage to build an image from the result
@@ -1315,10 +1311,10 @@ in rec {
     let
       stream = streamNixShellImage args;
     in
-      runCommand "${drv.name}-env.tar.gz" {
-        inherit (stream) imageName;
-        passthru = { inherit (stream) imageTag; };
-        nativeBuildInputs = [ pigz ];
-      } "${stream} | pigz -nTR > $out"
+    runCommand "${drv.name}-env.tar.gz" {
+      inherit (stream) imageName;
+      passthru = { inherit (stream) imageTag; };
+      nativeBuildInputs = [ pigz ];
+    } "${stream} | pigz -nTR > $out"
   ;
 }

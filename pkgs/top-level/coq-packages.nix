@@ -166,12 +166,12 @@ in let
       let
         v = set.${name} or null;
       in
-        lib.optional (!v.meta.coqFilter or false) (lib.nameValuePair name (if
-          lib.isAttrs v && v.recurseForDerivations or false
-        then
-          filterCoqPackages v
-        else
-          v))
+      lib.optional (!v.meta.coqFilter or false) (lib.nameValuePair name (if
+        lib.isAttrs v && v.recurseForDerivations or false
+      then
+        filterCoqPackages v
+      else
+        v))
     ) (lib.attrNames set));
   mkCoq = version:
     callPackage ../applications/science/logic/coq {
@@ -191,7 +191,7 @@ in rec {
     let
       self = lib.makeScope newScope (lib.flip mkCoqPackages' coq);
     in
-      self.filterPackages (!coq.dontFilter or false)
+    self.filterPackages (!coq.dontFilter or false)
   ;
 
   coq_8_5 = mkCoq "8.5";

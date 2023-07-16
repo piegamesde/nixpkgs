@@ -36,9 +36,9 @@ stdenv.mkDerivation rec {
   postInstall = let
     suffix = lib.versions.majorMinor version;
   in
-    lib.optionalString stdenv.isDarwin ''
-      install_name_tool -id $out/lib/libadns.so.${suffix} $out/lib/libadns.so.${suffix}
-    ''
+  lib.optionalString stdenv.isDarwin ''
+    install_name_tool -id $out/lib/libadns.so.${suffix} $out/lib/libadns.so.${suffix}
+  ''
   ;
 
   # darwin executables fail, but I don't want to fail the 100-500 packages depending on this lib

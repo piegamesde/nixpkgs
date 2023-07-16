@@ -34,7 +34,7 @@ let
     attrs = builtins.removeAttrs finalVersion [ "gcc" ];
     attrs' = attrs // { inherit backendStdenv; };
   in
-    buildCudaToolkitPackage attrs'
+  buildCudaToolkitPackage attrs'
   ;
 
   cudaFlags = final.callPackage ./flags.nix { };

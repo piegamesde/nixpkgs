@@ -28,78 +28,78 @@ let
         "DEVEL_PREFIX" = "/";
       });
 in
-  stdenv.mkDerivation rec {
-    pname = "klee-uclibc";
-    version = "1.3";
-    src = fetchFromGitHub {
-      owner = "klee";
-      repo = "klee-uclibc";
-      rev = "klee_uclibc_v${version}";
-      sha256 = "sha256-xQ8GWa0Gmd3lbwKodJhrsZeuR4j7NT4zIUh+kNhVY/w=";
-    };
+stdenv.mkDerivation rec {
+  pname = "klee-uclibc";
+  version = "1.3";
+  src = fetchFromGitHub {
+    owner = "klee";
+    repo = "klee-uclibc";
+    rev = "klee_uclibc_v${version}";
+    sha256 = "sha256-xQ8GWa0Gmd3lbwKodJhrsZeuR4j7NT4zIUh+kNhVY/w=";
+  };
 
-    nativeBuildInputs = [
-      clang
-      curl
-      llvm
-      python3
-      which
-    ];
+  nativeBuildInputs = [
+    clang
+    curl
+    llvm
+    python3
+    which
+  ];
 
-    # Some uClibc sources depend on Linux headers.
-    UCLIBC_KERNEL_HEADERS = "${linuxHeaders}/include";
+  # Some uClibc sources depend on Linux headers.
+  UCLIBC_KERNEL_HEADERS = "${linuxHeaders}/include";
 
-    # HACK: needed for cross-compile.
-    # See https://www.mail-archive.com/klee-dev@imperial.ac.uk/msg03141.html
-    KLEE_CFLAGS = "-idirafter ${clang}/resource-root/include";
+  # HACK: needed for cross-compile.
+  # See https://www.mail-archive.com/klee-dev@imperial.ac.uk/msg03141.html
+  KLEE_CFLAGS = "-idirafter ${clang}/resource-root/include";
 
-    prePatch = ''
-      patchShebangs ./configure
-      patchShebangs ./extra
-    '';
+  prePatch = ''
+    patchShebangs ./configure
+    patchShebangs ./extra
+  '';
 
-    # klee-uclibc configure does not support --prefix, so we override configurePhase entirely
-    configurePhase = ''
-      ./configure ${
-        lib.escapeShellArgs ([ "--make-llvm-lib" ]
-          ++ lib.optional (!debugRuntime) "--enable-release"
-          ++ lib.optional runtimeAsserts "--enable-assertions")
-      }
+  # klee-uclibc configure does not support --prefix, so we override configurePhase entirely
+  configurePhase = ''
+    ./configure ${
+      lib.escapeShellArgs ([ "--make-llvm-lib" ]
+        ++ lib.optional (!debugRuntime) "--enable-release"
+        ++ lib.optional runtimeAsserts "--enable-assertions")
+    }
 
-      # Set all the configs we care about.
-      configs=(
-        PREFIX=$out
-      )
-      for value in ${lib.escapeShellArgs resolvedExtraKleeuClibcConfig}; do
-        configs+=("$value")
+    # Set all the configs we care about.
+    configs=(
+      PREFIX=$out
+    )
+    for value in ${lib.escapeShellArgs resolvedExtraKleeuClibcConfig}; do
+      configs+=("$value")
+    done
+
+    for configFile in .config .config.cmd; do
+      for config in "''${configs[@]}"; do
+        prefix="''${config%%=*}="
+        if grep -q "$prefix" "$configFile"; then
+          sed -i "s"'\001'"''${prefix}"'\001'"#''${prefix}"'\001'"g" "$configFile"
+        fi
+        echo "$config" >> "$configFile"
       done
+    done
+  '';
 
-      for configFile in .config .config.cmd; do
-        for config in "''${configs[@]}"; do
-          prefix="''${config%%=*}="
-          if grep -q "$prefix" "$configFile"; then
-            sed -i "s"'\001'"''${prefix}"'\001'"#''${prefix}"'\001'"g" "$configFile"
-          fi
-          echo "$config" >> "$configFile"
-        done
-      done
+  # Link the locale source into the correct place
+  preBuild = ''
+    ln -sf ${localeSrc} extra/locale/${localeSrcBase}
+  '';
+
+  makeFlags = [ "HAVE_DOT_CONFIG=y" ];
+
+  meta = with lib; {
+    description = "A modified version of uClibc for KLEE.";
+    longDescription = ''
+      klee-uclibc is a bitcode build of uClibc meant for compatibility with the
+      KLEE symbolic virtual machine.
     '';
-
-    # Link the locale source into the correct place
-    preBuild = ''
-      ln -sf ${localeSrc} extra/locale/${localeSrcBase}
-    '';
-
-    makeFlags = [ "HAVE_DOT_CONFIG=y" ];
-
-    meta = with lib; {
-      description = "A modified version of uClibc for KLEE.";
-      longDescription = ''
-        klee-uclibc is a bitcode build of uClibc meant for compatibility with the
-        KLEE symbolic virtual machine.
-      '';
-      homepage = "https://klee.github.io/";
-      license = licenses.lgpl3;
-      maintainers = with maintainers; [ numinit ];
-    };
-  }
+    homepage = "https://klee.github.io/";
+    license = licenses.lgpl3;
+    maintainers = with maintainers; [ numinit ];
+  };
+}

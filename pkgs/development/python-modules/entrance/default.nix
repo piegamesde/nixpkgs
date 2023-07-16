@@ -31,33 +31,33 @@ let
   };
 
 in
-  buildPythonPackage rec {
-    pname = "entrance";
-    version = "1.1.20";
+buildPythonPackage rec {
+  pname = "entrance";
+  version = "1.1.20";
 
-    src = fetchPypi {
-      inherit pname version;
-      hash = "sha256-PvsP6HXCllW102h3o7abz9uC2AZTwvg5qIqP+rdkk6Y=";
-    };
+  src = fetchPypi {
+    inherit pname version;
+    hash = "sha256-PvsP6HXCllW102h3o7abz9uC2AZTwvg5qIqP+rdkk6Y=";
+  };
 
-    # The versions of `sanic` and `websockets` in nixpkgs only support 3.6 or later
-    disabled = pythonOlder "3.6";
+  # The versions of `sanic` and `websockets` in nixpkgs only support 3.6 or later
+  disabled = pythonOlder "3.6";
 
-    # No useful tests
-    doCheck = false;
+  # No useful tests
+  doCheck = false;
 
-    propagatedBuildInputs = [
-      pyyaml
-      sanic
-    ] ++ opts.extraBuildInputs;
+  propagatedBuildInputs = [
+    pyyaml
+    sanic
+  ] ++ opts.extraBuildInputs;
 
-    prePatch = opts.prePatch;
+  prePatch = opts.prePatch;
 
-    meta = with lib; {
-      description = "A server framework for web apps with an Elm frontend";
-      homepage = "https://github.com/ensoft/entrance";
-      license = licenses.mit;
-      maintainers = with maintainers; [ simonchatts ];
-    };
-  }
+  meta = with lib; {
+    description = "A server framework for web apps with an Elm frontend";
+    homepage = "https://github.com/ensoft/entrance";
+    license = licenses.mit;
+    maintainers = with maintainers; [ simonchatts ];
+  };
+}
 

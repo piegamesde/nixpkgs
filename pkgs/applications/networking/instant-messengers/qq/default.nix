@@ -40,68 +40,68 @@ let
   src = srcs.${stdenv.hostPlatform.system} or (throw
     "Unsupported system: ${stdenv.hostPlatform.system}");
 in
-  stdenv.mkDerivation {
-    pname = "qq";
-    inherit version src;
+stdenv.mkDerivation {
+  pname = "qq";
+  inherit version src;
 
-    unpackCmd = "dpkg-deb -x $curSrc source";
+  unpackCmd = "dpkg-deb -x $curSrc source";
 
-    nativeBuildInputs = [
-      autoPatchelfHook
-      wrapGAppsHook
-      dpkg
+  nativeBuildInputs = [
+    autoPatchelfHook
+    wrapGAppsHook
+    dpkg
+  ];
+
+  buildInputs = [
+    alsa-lib
+    at-spi2-core
+    cups
+    glib
+    gtk3
+    libdrm
+    libgcrypt
+    libkrb5
+    mesa
+    nss
+    vips
+    xorg.libXdamage
+  ];
+
+  runtimeDependencies = map lib.getLib [
+    libappindicator
+    systemd
+  ];
+
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/bin
+    cp -r opt $out/opt
+    cp -r usr/share $out/share
+    substituteInPlace $out/share/applications/qq.desktop \
+      --replace "/opt/QQ/qq" "$out/bin/qq" \
+      --replace "/usr/share" "$out/share"
+    ln -s $out/opt/QQ/qq $out/bin/qq
+
+    # Remove bundled libraries
+    rm -r $out/opt/QQ/resources/app/sharp-lib
+
+    runHook postInstall
+  '';
+
+  preFixup = ''
+    gappsWrapperArgs+=(--prefix PATH : "${lib.makeBinPath [ gjs ]}")
+  '';
+
+  meta = with lib; {
+    homepage = "https://im.qq.com/linuxqq/";
+    description = "Messaging app";
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
     ];
-
-    buildInputs = [
-      alsa-lib
-      at-spi2-core
-      cups
-      glib
-      gtk3
-      libdrm
-      libgcrypt
-      libkrb5
-      mesa
-      nss
-      vips
-      xorg.libXdamage
-    ];
-
-    runtimeDependencies = map lib.getLib [
-      libappindicator
-      systemd
-    ];
-
-    installPhase = ''
-      runHook preInstall
-
-      mkdir -p $out/bin
-      cp -r opt $out/opt
-      cp -r usr/share $out/share
-      substituteInPlace $out/share/applications/qq.desktop \
-        --replace "/opt/QQ/qq" "$out/bin/qq" \
-        --replace "/usr/share" "$out/share"
-      ln -s $out/opt/QQ/qq $out/bin/qq
-
-      # Remove bundled libraries
-      rm -r $out/opt/QQ/resources/app/sharp-lib
-
-      runHook postInstall
-    '';
-
-    preFixup = ''
-      gappsWrapperArgs+=(--prefix PATH : "${lib.makeBinPath [ gjs ]}")
-    '';
-
-    meta = with lib; {
-      homepage = "https://im.qq.com/linuxqq/";
-      description = "Messaging app";
-      platforms = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-      license = licenses.unfree;
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-      maintainers = with lib.maintainers; [ fee1-dead ];
-    };
-  }
+    license = licenses.unfree;
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    maintainers = with lib.maintainers; [ fee1-dead ];
+  };
+}

@@ -63,14 +63,14 @@ let
           optional = false;
         };
       in
-        map (x:
-          defaultPlugin // (if
-            (x ? plugin)
-          then
-            x
-          else {
-            plugin = x;
-          })) plugins
+      map (x:
+        defaultPlugin // (if
+          (x ? plugin)
+        then
+          x
+        else {
+          plugin = x;
+        })) plugins
       ;
 
       pluginRC = lib.foldl (acc: p:
@@ -107,25 +107,25 @@ let
         binPath = lib.makeBinPath (lib.optionals withRuby [ rubyEnv ]
           ++ lib.optionals withNodeJs [ nodejs ]);
       in
-        [ "--inherit-argv0" ] ++ lib.optionals withRuby [
-          "--set"
-          "GEM_HOME"
-          "${rubyEnv}/${rubyEnv.ruby.gemPath}"
-        ] ++ lib.optionals (binPath != "") [
-          "--suffix"
-          "PATH"
-          ":"
-          binPath
-        ] ++ lib.optionals (luaEnv != null) [
-          "--prefix"
-          "LUA_PATH"
-          ";"
-          (neovim-unwrapped.lua.pkgs.luaLib.genLuaPathAbsStr luaEnv)
-          "--prefix"
-          "LUA_CPATH"
-          ";"
-          (neovim-unwrapped.lua.pkgs.luaLib.genLuaCPathAbsStr luaEnv)
-        ]
+      [ "--inherit-argv0" ] ++ lib.optionals withRuby [
+        "--set"
+        "GEM_HOME"
+        "${rubyEnv}/${rubyEnv.ruby.gemPath}"
+      ] ++ lib.optionals (binPath != "") [
+        "--suffix"
+        "PATH"
+        ":"
+        binPath
+      ] ++ lib.optionals (luaEnv != null) [
+        "--prefix"
+        "LUA_PATH"
+        ";"
+        (neovim-unwrapped.lua.pkgs.luaLib.genLuaPathAbsStr luaEnv)
+        "--prefix"
+        "LUA_CPATH"
+        ";"
+        (neovim-unwrapped.lua.pkgs.luaLib.genLuaCPathAbsStr luaEnv)
+      ]
       ;
 
       manifestRc = vimUtils.vimrcContent ({ customRC = ""; });
@@ -137,15 +137,15 @@ let
       });
 
     in
-      builtins.removeAttrs args [ "plugins" ] // {
-        wrapperArgs = makeWrapperArgs;
-        inherit packpathDirs;
-        inherit neovimRcContent;
-        inherit manifestRc;
-        inherit python3Env;
-        inherit luaEnv;
-        inherit withNodeJs;
-      } // lib.optionalAttrs withRuby { inherit rubyEnv; }
+    builtins.removeAttrs args [ "plugins" ] // {
+      wrapperArgs = makeWrapperArgs;
+      inherit packpathDirs;
+      inherit neovimRcContent;
+      inherit manifestRc;
+      inherit python3Env;
+      inherit luaEnv;
+      inherit withNodeJs;
+    } // lib.optionalAttrs withRuby { inherit rubyEnv; }
   ;
 
   # to keep backwards compatibility for people using neovim.override
@@ -199,11 +199,11 @@ let
         inherit extraName;
       };
     in
-      wrapNeovimUnstable neovim (res // {
-        wrapperArgs = lib.escapeShellArgs res.wrapperArgs + " "
-          + extraMakeWrapperArgs;
-        wrapRc = (configure != { });
-      })
+    wrapNeovimUnstable neovim (res // {
+      wrapperArgs = lib.escapeShellArgs res.wrapperArgs + " "
+        + extraMakeWrapperArgs;
+      wrapRc = (configure != { });
+    })
   ;
 
   /* Generate vim.g.<LANG>_host_prog lua rc to setup host providers
@@ -242,7 +242,7 @@ let
       hostProviderLua =
         lib.mapAttrsToList genProviderCommand hostprog_check_table;
     in
-      lib.concatStringsSep ";" hostProviderLua
+    lib.concatStringsSep ";" hostProviderLua
   ;
 
 in {

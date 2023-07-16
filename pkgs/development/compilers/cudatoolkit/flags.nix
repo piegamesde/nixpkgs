@@ -39,7 +39,7 @@ let
       upperBoundSatisfied = (maxCudaVersion == null)
         || !(strings.versionOlder maxCudaVersion cudaVersion);
     in
-      lowerBoundSatisfied && upperBoundSatisfied
+    lowerBoundSatisfied && upperBoundSatisfied
   ;
 
   # isDefault :: Gpu -> Bool
@@ -49,7 +49,7 @@ let
       newGpu = dontDefaultAfter == null;
       recentGpu = newGpu || strings.versionAtLeast dontDefaultAfter cudaVersion;
     in
-      recentGpu
+    recentGpu
   ;
 
   # supportedGpus :: List Gpu
@@ -138,61 +138,61 @@ let
         base = gencodeMapper "sm" cudaCapabilities;
         forward = gencodeMapper "compute" [ (lists.last cudaCapabilities) ];
       in
-        base ++ lib.optionals enableForwardCompat forward
+      base ++ lib.optionals enableForwardCompat forward
       ;
     };
 
   # When changing names or formats: pause, validate, and update the assert
 in
-  assert (formatCapabilities {
-    cudaCapabilities = [
-      "7.5"
-      "8.6"
-    ];
-  }) == {
-    cudaCapabilities = [
-      "7.5"
-      "8.6"
-    ];
-    enableForwardCompat = true;
+assert (formatCapabilities {
+  cudaCapabilities = [
+    "7.5"
+    "8.6"
+  ];
+}) == {
+  cudaCapabilities = [
+    "7.5"
+    "8.6"
+  ];
+  enableForwardCompat = true;
 
-    archNames = [
-      "Turing"
-      "Ampere"
-    ];
-    realArches = [
-      "sm_75"
-      "sm_86"
-    ];
-    virtualArches = [
-      "compute_75"
-      "compute_86"
-    ];
-    arches = [
-      "sm_75"
-      "sm_86"
-      "compute_86"
-    ];
+  archNames = [
+    "Turing"
+    "Ampere"
+  ];
+  realArches = [
+    "sm_75"
+    "sm_86"
+  ];
+  virtualArches = [
+    "compute_75"
+    "compute_86"
+  ];
+  arches = [
+    "sm_75"
+    "sm_86"
+    "compute_86"
+  ];
 
-    gencode = [
-      "-gencode=arch=compute_75,code=sm_75"
-      "-gencode=arch=compute_86,code=sm_86"
-      "-gencode=arch=compute_86,code=compute_86"
-    ];
-  };
-  {
-    # formatCapabilities :: { cudaCapabilities: List Capability, cudaForwardCompat: Boolean } ->  { ... }
-    inherit formatCapabilities;
+  gencode = [
+    "-gencode=arch=compute_75,code=sm_75"
+    "-gencode=arch=compute_86,code=sm_86"
+    "-gencode=arch=compute_86,code=compute_86"
+  ];
+};
+{
+  # formatCapabilities :: { cudaCapabilities: List Capability, cudaForwardCompat: Boolean } ->  { ... }
+  inherit formatCapabilities;
 
-    # cudaArchNameToVersions :: String => String
-    inherit cudaArchNameToVersions;
+  # cudaArchNameToVersions :: String => String
+  inherit cudaArchNameToVersions;
 
-    # cudaComputeCapabilityToName :: String => String
-    inherit cudaComputeCapabilityToName;
+  # cudaComputeCapabilityToName :: String => String
+  inherit cudaComputeCapabilityToName;
 
-    # dropDot :: String -> String
-    inherit dropDot;
-  } // formatCapabilities {
-    cudaCapabilities = config.cudaCapabilities or defaultCapabilities;
-    enableForwardCompat = config.cudaForwardCompat or true;
-  }
+  # dropDot :: String -> String
+  inherit dropDot;
+} // formatCapabilities {
+  cudaCapabilities = config.cudaCapabilities or defaultCapabilities;
+  enableForwardCompat = config.cudaForwardCompat or true;
+}

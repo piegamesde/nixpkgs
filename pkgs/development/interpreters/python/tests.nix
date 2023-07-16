@@ -33,64 +33,64 @@ let
           ignoreCollisions = true;
         };
     in
-      {
-        # Plain Python interpreter
-        plain = rec {
-          env = python;
-          interpreter = env.interpreter;
-          is_venv = "False";
-          is_nixenv = "False";
-          is_virtualenv = "False";
-        };
-      } // lib.optionalAttrs (!python.isPyPy) {
-        # Use virtualenv from a Nix env.
-        nixenv-virtualenv = rec {
-          env = runCommand "${python.name}-virtualenv" { } ''
-            ${pythonVirtualEnv.interpreter} -m virtualenv venv
-            mv venv $out
-          '';
-          interpreter = "${env}/bin/${python.executable}";
-          is_venv = "False";
-          is_nixenv = "True";
-          is_virtualenv = "True";
-        };
-      } // lib.optionalAttrs (python.implementation != "graal") {
-        # Python Nix environment (python.buildEnv)
-        nixenv = rec {
-          env = pythonEnv;
-          interpreter = env.interpreter;
-          is_venv = "False";
-          is_nixenv = "True";
-          is_virtualenv = "False";
-        };
-      } // lib.optionalAttrs (python.isPy3k && (!python.isPyPy)) rec {
-        # Venv built using plain Python
-        # Python 2 does not support venv
-        # TODO: PyPy executable name is incorrect, it should be pypy-c or pypy-3c instead of pypy and pypy3.
-        plain-venv = rec {
-          env = runCommand "${python.name}-venv" { } ''
-            ${python.interpreter} -m venv $out
-          '';
-          interpreter = "${env}/bin/${python.executable}";
-          is_venv = "True";
-          is_nixenv = "False";
-          is_virtualenv = "False";
-        };
+    {
+      # Plain Python interpreter
+      plain = rec {
+        env = python;
+        interpreter = env.interpreter;
+        is_venv = "False";
+        is_nixenv = "False";
+        is_virtualenv = "False";
+      };
+    } // lib.optionalAttrs (!python.isPyPy) {
+      # Use virtualenv from a Nix env.
+      nixenv-virtualenv = rec {
+        env = runCommand "${python.name}-virtualenv" { } ''
+          ${pythonVirtualEnv.interpreter} -m virtualenv venv
+          mv venv $out
+        '';
+        interpreter = "${env}/bin/${python.executable}";
+        is_venv = "False";
+        is_nixenv = "True";
+        is_virtualenv = "True";
+      };
+    } // lib.optionalAttrs (python.implementation != "graal") {
+      # Python Nix environment (python.buildEnv)
+      nixenv = rec {
+        env = pythonEnv;
+        interpreter = env.interpreter;
+        is_venv = "False";
+        is_nixenv = "True";
+        is_virtualenv = "False";
+      };
+    } // lib.optionalAttrs (python.isPy3k && (!python.isPyPy)) rec {
+      # Venv built using plain Python
+      # Python 2 does not support venv
+      # TODO: PyPy executable name is incorrect, it should be pypy-c or pypy-3c instead of pypy and pypy3.
+      plain-venv = rec {
+        env = runCommand "${python.name}-venv" { } ''
+          ${python.interpreter} -m venv $out
+        '';
+        interpreter = "${env}/bin/${python.executable}";
+        is_venv = "True";
+        is_nixenv = "False";
+        is_virtualenv = "False";
+      };
 
-      } // lib.optionalAttrs (python.pythonAtLeast "3.8") {
-        # Venv built using Python Nix environment (python.buildEnv)
-        # TODO: Cannot create venv from a  nix env
-        # Error: Command '['/nix/store/ddc8nqx73pda86ibvhzdmvdsqmwnbjf7-python3-3.7.6-venv/bin/python3.7', '-Im', 'ensurepip', '--upgrade', '--default-pip']' returned non-zero exit status 1.
-        nixenv-venv = rec {
-          env = runCommand "${python.name}-venv" { } ''
-            ${pythonEnv.interpreter} -m venv $out
-          '';
-          interpreter = "${env}/bin/${pythonEnv.executable}";
-          is_venv = "True";
-          is_nixenv = "True";
-          is_virtualenv = "False";
-        };
-      }
+    } // lib.optionalAttrs (python.pythonAtLeast "3.8") {
+      # Venv built using Python Nix environment (python.buildEnv)
+      # TODO: Cannot create venv from a  nix env
+      # Error: Command '['/nix/store/ddc8nqx73pda86ibvhzdmvdsqmwnbjf7-python3-3.7.6-venv/bin/python3.7', '-Im', 'ensurepip', '--upgrade', '--default-pip']' returned non-zero exit status 1.
+      nixenv-venv = rec {
+        env = runCommand "${python.name}-venv" { } ''
+          ${pythonEnv.interpreter} -m venv $out
+        '';
+        interpreter = "${env}/bin/${pythonEnv.executable}";
+        is_venv = "True";
+        is_nixenv = "True";
+        is_virtualenv = "False";
+      };
+    }
     ;
 
     testfun = name: attrs:
@@ -105,7 +105,7 @@ let
       '';
 
   in
-    lib.mapAttrs testfun envs
+  lib.mapAttrs testfun envs
   ;
 
   # Integration tests involving the package set.
@@ -124,37 +124,35 @@ let
   overrideTests = let
     extension = self: super: { foobar = super.numpy; };
   in
-    {
-      test-packageOverrides = let
-        myPython = let
-          self = python.override {
-            packageOverrides = extension;
-            inherit self;
-          };
-        in
-          self
-        ;
+  {
+    test-packageOverrides = let
+      myPython = let
+        self = python.override {
+          packageOverrides = extension;
+          inherit self;
+        };
       in
-        assert myPython.pkgs.foobar == myPython.pkgs.numpy;
-        myPython.withPackages (ps: with ps; [ foobar ])
+      self
       ;
-      # overrideScope is broken currently
-      # test-overrideScope = let
-      #  myPackages = python.pkgs.overrideScope extension;
-      # in assert myPackages.foobar == myPackages.numpy; myPackages.python.withPackages(ps: with ps; [ foobar ]);
-    } // lib.optionalAttrs (python ? pythonAttr) {
-      # Test applying overrides using pythonPackagesOverlays.
-      test-pythonPackagesExtensions = let
-        pkgs_ = pkgs.extend (final: prev: {
-          pythonPackagesExtensions = prev.pythonPackagesExtensions
-            ++ [ (python-final: python-prev: {
-              foo = python-prev.setuptools;
-            }) ];
-        });
-      in
-        pkgs_.${python.pythonAttr}.pkgs.foo
-      ;
-    }
+    in
+    assert myPython.pkgs.foobar == myPython.pkgs.numpy;
+    myPython.withPackages (ps: with ps; [ foobar ])
+    ;
+    # overrideScope is broken currently
+    # test-overrideScope = let
+    #  myPackages = python.pkgs.overrideScope extension;
+    # in assert myPackages.foobar == myPackages.numpy; myPackages.python.withPackages(ps: with ps; [ foobar ]);
+  } // lib.optionalAttrs (python ? pythonAttr) {
+    # Test applying overrides using pythonPackagesOverlays.
+    test-pythonPackagesExtensions = let
+      pkgs_ = pkgs.extend (final: prev: {
+        pythonPackagesExtensions = prev.pythonPackagesExtensions
+          ++ [ (python-final: python-prev: { foo = python-prev.setuptools; }) ];
+      });
+    in
+    pkgs_.${python.pythonAttr}.pkgs.foo
+    ;
+  }
   ;
 
   condaTests = let
@@ -186,13 +184,13 @@ let
       }) { };
     pythonWithRequests = requests.pythonModule.withPackages (ps: [ requests ]);
   in
-    lib.optionalAttrs stdenv.isLinux {
-      condaExamplePackage = runCommand "import-requests" { } ''
-        ${pythonWithRequests.interpreter} -c "import requests" > $out
-      '';
-    }
+  lib.optionalAttrs stdenv.isLinux {
+    condaExamplePackage = runCommand "import-requests" { } ''
+      ${pythonWithRequests.interpreter} -c "import requests" > $out
+    '';
+  }
   ;
 
 in
-  lib.optionalAttrs (stdenv.hostPlatform == stdenv.buildPlatform)
-  (environmentTests // integrationTests // overrideTests // condaTests)
+lib.optionalAttrs (stdenv.hostPlatform == stdenv.buildPlatform)
+(environmentTests // integrationTests // overrideTests // condaTests)

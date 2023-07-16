@@ -60,62 +60,62 @@ let
     '';
   };
 in
-  stdenv.mkDerivation {
-    inherit pname version;
+stdenv.mkDerivation {
+  inherit pname version;
 
-    src = fetchFromGitHub {
-      owner = "NVIDIA";
-      repo = "thrust";
-      rev = version;
-      fetchSubmodules = true;
-      hash = "sha256-/EyznxWKuHuvHNjq+SQg27IaRbtkjXR2zlo2YgCWmUQ=";
-    };
+  src = fetchFromGitHub {
+    owner = "NVIDIA";
+    repo = "thrust";
+    rev = version;
+    fetchSubmodules = true;
+    hash = "sha256-/EyznxWKuHuvHNjq+SQg27IaRbtkjXR2zlo2YgCWmUQ=";
+  };
 
-    # NVIDIA's "compiler hacks" seem like work-arounds for legacy toolchains and
-    # cause us errors such as:
-    # > Thrust's test harness uses CMAKE_CXX_COMPILER for the CUDA host compiler.
-    # > Refusing to overwrite specified CMAKE_CUDA_HOST_COMPILER
-    # So we un-fix cmake after them:
-    postPatch = ''
-      echo > cmake/ThrustCompilerHacks.cmake
-    '';
+  # NVIDIA's "compiler hacks" seem like work-arounds for legacy toolchains and
+  # cause us errors such as:
+  # > Thrust's test harness uses CMAKE_CXX_COMPILER for the CUDA host compiler.
+  # > Refusing to overwrite specified CMAKE_CUDA_HOST_COMPILER
+  # So we un-fix cmake after them:
+  postPatch = ''
+    echo > cmake/ThrustCompilerHacks.cmake
+  '';
 
-    buildInputs = lib.optionals tbbSupport [ tbb ];
+  buildInputs = lib.optionals tbbSupport [ tbb ];
 
-    nativeBuildInputs = [
-      cmake
-      pkg-config
-    ] ++ lib.optionals cudaSupport [
-      # Goes in native build inputs because thrust looks for headers
-      # in a path relative to nvcc...
-      cudaJoined
-    ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ] ++ lib.optionals cudaSupport [
+    # Goes in native build inputs because thrust looks for headers
+    # in a path relative to nvcc...
+    cudaJoined
+  ];
 
-    cmakeFlags = [
-      "-DTHRUST_INCLUDE_CUB_CMAKE=${
-        if
-          cudaSupport
-        then
-          "ON"
-        else
-          "OFF"
-      }"
-      "-DTHRUST_DEVICE_SYSTEM=${deviceSystem}"
-      "-DTHRUST_HOST_SYSTEM=${hostSystem}"
-      "-DTHRUST_AUTO_DETECT_COMPUTE_ARCHS=OFF"
-      "-DTHRUST_DISABLE_ARCH_BY_DEFAULT=ON"
-    ] ++ lib.optionals
-      cudaFlags.enableForwardCompat [ "-DTHRUST_ENABLE_COMPUTE_FUTURE=ON" ]
-      ++ map (sm: "THRUST_ENABLE_COMPUTE_${sm}") cudaCapabilities;
+  cmakeFlags = [
+    "-DTHRUST_INCLUDE_CUB_CMAKE=${
+      if
+        cudaSupport
+      then
+        "ON"
+      else
+        "OFF"
+    }"
+    "-DTHRUST_DEVICE_SYSTEM=${deviceSystem}"
+    "-DTHRUST_HOST_SYSTEM=${hostSystem}"
+    "-DTHRUST_AUTO_DETECT_COMPUTE_ARCHS=OFF"
+    "-DTHRUST_DISABLE_ARCH_BY_DEFAULT=ON"
+  ] ++ lib.optionals
+    cudaFlags.enableForwardCompat [ "-DTHRUST_ENABLE_COMPUTE_FUTURE=ON" ]
+    ++ map (sm: "THRUST_ENABLE_COMPUTE_${sm}") cudaCapabilities;
 
-    passthru = { inherit cudaSupport cudaPackages cudaJoined; };
+  passthru = { inherit cudaSupport cudaPackages cudaJoined; };
 
-    meta = with lib; {
-      description =
-        "A high-level C++ parallel algorithms library that builds on top of CUDA, TBB, OpenMP, etc";
-      homepage = "https://github.com/NVIDIA/thrust";
-      license = licenses.asl20;
-      platforms = platforms.unix;
-      maintainers = with maintainers; [ SomeoneSerge ];
-    };
-  }
+  meta = with lib; {
+    description =
+      "A high-level C++ parallel algorithms library that builds on top of CUDA, TBB, OpenMP, etc";
+    homepage = "https://github.com/NVIDIA/thrust";
+    license = licenses.asl20;
+    platforms = platforms.unix;
+    maintainers = with maintainers; [ SomeoneSerge ];
+  };
+}

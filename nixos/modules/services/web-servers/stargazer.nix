@@ -31,7 +31,7 @@ let
         name = section.route;
         params = builtins.removeAttrs section [ "route" ];
       in
-        genINI { "${name}" = params; } + "\n"
+      genINI { "${name}" = params; } + "\n"
     ))));
 in {
   options.services.stargazer = {

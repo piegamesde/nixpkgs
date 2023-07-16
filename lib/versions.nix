@@ -61,9 +61,9 @@ rec {
       numericVersion = lib.head (lib.splitString "-" version);
       versionSuffix = lib.removePrefix numericVersion version;
     in
-      lib.concatStringsSep "."
-      (lib.take n (lib.splitVersion numericVersion ++ lib.genList (_: "0") n))
-      + versionSuffix
+    lib.concatStringsSep "."
+    (lib.take n (lib.splitVersion numericVersion ++ lib.genList (_: "0") n))
+    + versionSuffix
   ;
 
 }

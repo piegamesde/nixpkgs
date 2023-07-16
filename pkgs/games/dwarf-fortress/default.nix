@@ -91,13 +91,13 @@ let
         dwarf-therapist = dwarf-therapist-original;
       };
     in
-      callPackage ./wrapper {
-        inherit (self) themes;
-        inherit dwarf-fortress twbt dfhack dwarf-therapist;
+    callPackage ./wrapper {
+      inherit (self) themes;
+      inherit dwarf-fortress twbt dfhack dwarf-therapist;
 
-        jdk =
-          jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
-      }
+      jdk =
+        jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    }
     ;
   }) (lib.attrNames self.df-hashes));
 
@@ -129,4 +129,4 @@ let
   };
 
 in
-  self // df-games
+self // df-games

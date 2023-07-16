@@ -41,10 +41,10 @@ let
         ];
       };
     in
-      runCommand "$pandoc-drawio-filter-example-doc.pdf" env ''
-        cp -r ${src}/example/* .
-        pandoc -F pandoc-drawio example.md -T pdf -o $out
-      ''
+    runCommand "$pandoc-drawio-filter-example-doc.pdf" env ''
+      cp -r ${src}/example/* .
+      pandoc -F pandoc-drawio example.md -T pdf -o $out
+    ''
     ;
 
     meta = with lib; {
@@ -56,4 +56,4 @@ let
   };
 
 in
-  pandoc-drawio-filter
+pandoc-drawio-filter

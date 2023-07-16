@@ -15,34 +15,34 @@ let
     sha256 = "sha256-anOmO7NscHDsQxT03+YbJEyBkXjhcSVGgKpDwt//GHw=";
   };
 in
-  {
-    mainline = libsForQt5.callPackage ./generic.nix rec {
-      pname = "yuzu-mainline";
-      version = "1245";
+{
+  mainline = libsForQt5.callPackage ./generic.nix rec {
+    pname = "yuzu-mainline";
+    version = "1245";
 
-      src = fetchFromGitHub {
-        owner = "yuzu-emu";
-        repo = "yuzu-mainline";
-        rev = "mainline-0-${version}";
-        sha256 = "sha256-lWXlY1KQC067MvCRUFhmr0c7KDrHDuwJOhIWMKw1f+A=";
-        fetchSubmodules = true;
-      };
-
-      inherit branch compat-list;
+    src = fetchFromGitHub {
+      owner = "yuzu-emu";
+      repo = "yuzu-mainline";
+      rev = "mainline-0-${version}";
+      sha256 = "sha256-lWXlY1KQC067MvCRUFhmr0c7KDrHDuwJOhIWMKw1f+A=";
+      fetchSubmodules = true;
     };
 
-    early-access = libsForQt5.callPackage ./generic.nix rec {
-      pname = "yuzu-ea";
-      version = "2945";
+    inherit branch compat-list;
+  };
 
-      src = fetchFromGitHub {
-        owner = "pineappleEA";
-        repo = "pineapple-src";
-        rev = "EA-${version}";
-        sha256 = "sha256-/051EtQxhB5oKH/JxZZ2AjnxOBcRxCBIwd4Qr8lq7Ok=";
-        fetchSubmodules = true;
-      };
+  early-access = libsForQt5.callPackage ./generic.nix rec {
+    pname = "yuzu-ea";
+    version = "2945";
 
-      inherit branch compat-list;
+    src = fetchFromGitHub {
+      owner = "pineappleEA";
+      repo = "pineapple-src";
+      rev = "EA-${version}";
+      sha256 = "sha256-/051EtQxhB5oKH/JxZZ2AjnxOBcRxCBIwd4Qr8lq7Ok=";
+      fetchSubmodules = true;
     };
-  }.${branch}
+
+    inherit branch compat-list;
+  };
+}.${branch}

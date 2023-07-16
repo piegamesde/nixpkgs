@@ -169,185 +169,185 @@ let
     ++ extraB2Args);
 
 in
-  stdenv.mkDerivation {
-    pname = "boost";
+stdenv.mkDerivation {
+  pname = "boost";
 
-    inherit src version;
+  inherit src version;
 
-    patchFlags = [ ];
+  patchFlags = [ ];
 
-    patches = patches ++ lib.optional stdenv.isDarwin
-      ./darwin-no-system-python.patch
-      # Fix boost-context segmentation faults on ppc64 due to ABI violation
-      ++ lib.optional
-      (lib.versionAtLeast version "1.61" && lib.versionOlder version "1.71")
-      (fetchpatch {
-        url =
-          "https://github.com/boostorg/context/commit/2354eca9b776a6739112833f64754108cc0d1dc5.patch";
-        sha256 = "067m4bjpmcanqvg28djax9a10avmdwhlpfx6gn73kbqqq70dnz29";
-        stripLen = 1;
-        extraPrefix = "libs/context/";
-      })
-      # Fix compiler warning with GCC >= 8; TODO: patch may apply to older versions
-      ++ lib.optional
-      (lib.versionAtLeast version "1.65" && lib.versionOlder version "1.67")
-      (fetchpatch {
-        url =
-          "https://github.com/boostorg/mpl/commit/f48fd09d021db9a28bd7b8452c175897e1af4485.patch";
-        sha256 = "15d2a636hhsb1xdyp44x25dyqfcaws997vnp9kl1mhzvxjzz7hb0";
-        stripLen = 1;
-      }) ++ lib.optional
-      (lib.versionAtLeast version "1.65" && lib.versionOlder version "1.70")
-      (fetchpatch {
-        # support for Mips64n64 appeared in boost-context 1.70; this patch won't apply to pre-1.65 cleanly
-        url =
-          "https://github.com/boostorg/context/commit/e3f744a1862164062d579d1972272d67bdaa9c39.patch";
-        sha256 = "sha256-qjQy1b4jDsIRrI+UYtcguhvChrMbGWO0UlEzEJHYzRI=";
-        stripLen = 1;
-        extraPrefix = "libs/context/";
-      }) ++ lib.optional
-      (lib.versionAtLeast version "1.70" && lib.versionOlder version "1.73")
-      ./cmake-paths.patch ++ lib.optional (lib.versionAtLeast version "1.73")
-      ./cmake-paths-173.patch ++ lib.optional (version == "1.77.0")
-      (fetchpatch {
-        url =
-          "https://github.com/boostorg/math/commit/7d482f6ebc356e6ec455ccb5f51a23971bf6ce5b.patch";
-        relative = "include";
-        sha256 = "sha256-KlmIbixcds6GyKYt1fx5BxDIrU7msrgDdYo9Va/KJR4=";
-      });
+  patches = patches ++ lib.optional stdenv.isDarwin
+    ./darwin-no-system-python.patch
+    # Fix boost-context segmentation faults on ppc64 due to ABI violation
+    ++ lib.optional
+    (lib.versionAtLeast version "1.61" && lib.versionOlder version "1.71")
+    (fetchpatch {
+      url =
+        "https://github.com/boostorg/context/commit/2354eca9b776a6739112833f64754108cc0d1dc5.patch";
+      sha256 = "067m4bjpmcanqvg28djax9a10avmdwhlpfx6gn73kbqqq70dnz29";
+      stripLen = 1;
+      extraPrefix = "libs/context/";
+    })
+    # Fix compiler warning with GCC >= 8; TODO: patch may apply to older versions
+    ++ lib.optional
+    (lib.versionAtLeast version "1.65" && lib.versionOlder version "1.67")
+    (fetchpatch {
+      url =
+        "https://github.com/boostorg/mpl/commit/f48fd09d021db9a28bd7b8452c175897e1af4485.patch";
+      sha256 = "15d2a636hhsb1xdyp44x25dyqfcaws997vnp9kl1mhzvxjzz7hb0";
+      stripLen = 1;
+    }) ++ lib.optional
+    (lib.versionAtLeast version "1.65" && lib.versionOlder version "1.70")
+    (fetchpatch {
+      # support for Mips64n64 appeared in boost-context 1.70; this patch won't apply to pre-1.65 cleanly
+      url =
+        "https://github.com/boostorg/context/commit/e3f744a1862164062d579d1972272d67bdaa9c39.patch";
+      sha256 = "sha256-qjQy1b4jDsIRrI+UYtcguhvChrMbGWO0UlEzEJHYzRI=";
+      stripLen = 1;
+      extraPrefix = "libs/context/";
+    }) ++ lib.optional
+    (lib.versionAtLeast version "1.70" && lib.versionOlder version "1.73")
+    ./cmake-paths.patch
+    ++ lib.optional (lib.versionAtLeast version "1.73") ./cmake-paths-173.patch
+    ++ lib.optional (version == "1.77.0") (fetchpatch {
+      url =
+        "https://github.com/boostorg/math/commit/7d482f6ebc356e6ec455ccb5f51a23971bf6ce5b.patch";
+      relative = "include";
+      sha256 = "sha256-KlmIbixcds6GyKYt1fx5BxDIrU7msrgDdYo9Va/KJR4=";
+    });
 
-    meta = with lib; {
-      homepage = "http://boost.org/";
-      description = "Collection of C++ libraries";
-      license = licenses.boost;
-      platforms = platforms.unix ++ platforms.windows;
-      badPlatforms = optional (versionOlder version "1.59") "aarch64-linux"
-        ++ optional ((versionOlder version "1.57") || version == "1.58")
-        "x86_64-darwin"
-        ++ optionals (versionOlder version "1.73") platforms.riscv;
-      maintainers = with maintainers; [ hjones2199 ];
+  meta = with lib; {
+    homepage = "http://boost.org/";
+    description = "Collection of C++ libraries";
+    license = licenses.boost;
+    platforms = platforms.unix ++ platforms.windows;
+    badPlatforms = optional (versionOlder version "1.59") "aarch64-linux"
+      ++ optional ((versionOlder version "1.57") || version == "1.58")
+      "x86_64-darwin"
+      ++ optionals (versionOlder version "1.73") platforms.riscv;
+    maintainers = with maintainers; [ hjones2199 ];
 
-      broken =
-        # boost-context lacks support for the N32 ABI on mips64.  The build
-        # will succeed, but packages depending on boost-context will fail with
-        # a very cryptic error message.
-        stdenv.hostPlatform.isMips64n32 ||
-        # the patch above does not apply cleanly to pre-1.65 boost
-        (stdenv.hostPlatform.isMips64n64 && (versionOlder version "1.65"));
-    };
+    broken =
+      # boost-context lacks support for the N32 ABI on mips64.  The build
+      # will succeed, but packages depending on boost-context will fail with
+      # a very cryptic error message.
+      stdenv.hostPlatform.isMips64n32 ||
+      # the patch above does not apply cleanly to pre-1.65 boost
+      (stdenv.hostPlatform.isMips64n64 && (versionOlder version "1.65"));
+  };
 
-    passthru = { inherit boostBuildPatches; };
+  passthru = { inherit boostBuildPatches; };
 
-    preConfigure = lib.optionalString useMpi ''
+  preConfigure = lib.optionalString useMpi ''
+    cat << EOF >> user-config.jam
+    using mpi : ${mpi}/bin/mpiCC ;
+    EOF
+  ''
+    # On darwin we need to add the `$out/lib` to the libraries' rpath explicitly,
+    # otherwise the dynamic linker is unable to resolve the reference to @rpath
+    # when the boost libraries want to load each other at runtime.
+    + lib.optionalString (stdenv.isDarwin && enableShared) ''
       cat << EOF >> user-config.jam
-      using mpi : ${mpi}/bin/mpiCC ;
+      using clang-darwin : : ${stdenv.cc.targetPrefix}c++
+        : <linkflags>"-rpath $out/lib/"
+        ;
       EOF
     ''
-      # On darwin we need to add the `$out/lib` to the libraries' rpath explicitly,
-      # otherwise the dynamic linker is unable to resolve the reference to @rpath
-      # when the boost libraries want to load each other at runtime.
-      + lib.optionalString (stdenv.isDarwin && enableShared) ''
-        cat << EOF >> user-config.jam
-        using clang-darwin : : ${stdenv.cc.targetPrefix}c++
-          : <linkflags>"-rpath $out/lib/"
-          ;
-        EOF
-      ''
-      # b2 has trouble finding the correct compiler and tools for cross compilation
-      # since it apparently ignores $CC, $AR etc. Thus we need to set everything
-      # in user-config.jam. To keep things simple we just set everything in an
-      # uniform way for clang and gcc (which works thanks to our cc-wrapper).
-      # We pass toolset later which will make b2 invoke everything in the right
-      # way -- the other toolset in user-config.jam will be ignored.
-      + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
-        cat << EOF >> user-config.jam
-        using gcc : cross : ${stdenv.cc.targetPrefix}c++
-          : <archiver>$AR
-            <ranlib>$RANLIB
-          ;
+    # b2 has trouble finding the correct compiler and tools for cross compilation
+    # since it apparently ignores $CC, $AR etc. Thus we need to set everything
+    # in user-config.jam. To keep things simple we just set everything in an
+    # uniform way for clang and gcc (which works thanks to our cc-wrapper).
+    # We pass toolset later which will make b2 invoke everything in the right
+    # way -- the other toolset in user-config.jam will be ignored.
+    + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+      cat << EOF >> user-config.jam
+      using gcc : cross : ${stdenv.cc.targetPrefix}c++
+        : <archiver>$AR
+          <ranlib>$RANLIB
+        ;
 
-        using clang : cross : ${stdenv.cc.targetPrefix}c++
-          : <archiver>$AR
-            <ranlib>$RANLIB
-          ;
-        EOF
-      ''
-      # b2 needs to be explicitly told how to find Python when cross-compiling
-      + lib.optionalString enablePython ''
-        cat << EOF >> user-config.jam
-        using python : : ${python.interpreter}
-          : ${python}/include/python${python.pythonVersion}
-          : ${python}/lib
-          ;
-        EOF
-      '';
-
-    NIX_CFLAGS_LINK =
-      lib.optionalString stdenv.isDarwin "-headerpad_max_install_names";
-
-    enableParallelBuilding = true;
-
-    nativeBuildInputs = [
-      which
-      boost-build
-    ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
-    buildInputs = [
-      expat
-      zlib
-      bzip2
-      libiconv
-    ] ++ lib.optional (lib.versionAtLeast version "1.69") zstd
-      ++ lib.optional (lib.versionAtLeast version "1.65") xz
-      ++ lib.optional enableIcu icu ++ lib.optionals enablePython [
-        libxcrypt
-        python
-      ] ++ lib.optional enableNumpy python.pkgs.numpy;
-
-    configureScript = "./bootstrap.sh";
-    configurePlatforms = [ ];
-    dontDisableStatic = true;
-    dontAddStaticConfigureFlags = true;
-    configureFlags = [
-      "--includedir=$(dev)/include"
-      "--libdir=$(out)/lib"
-      "--with-bjam=b2" # prevent bootstrapping b2 in configurePhase
-    ] ++ lib.optional (toolset != null) "--with-toolset=${toolset}" ++ [ (if
-      enableIcu
-    then
-      "--with-icu=${icu.dev}"
-    else
-      "--without-icu") ];
-
-    buildPhase = ''
-      runHook preBuild
-      b2 ${b2Args}
-      runHook postBuild
+      using clang : cross : ${stdenv.cc.targetPrefix}c++
+        : <archiver>$AR
+          <ranlib>$RANLIB
+        ;
+      EOF
+    ''
+    # b2 needs to be explicitly told how to find Python when cross-compiling
+    + lib.optionalString enablePython ''
+      cat << EOF >> user-config.jam
+      using python : : ${python.interpreter}
+        : ${python}/include/python${python.pythonVersion}
+        : ${python}/lib
+        ;
+      EOF
     '';
 
-    installPhase = ''
-      runHook preInstall
+  NIX_CFLAGS_LINK =
+    lib.optionalString stdenv.isDarwin "-headerpad_max_install_names";
 
-      # boostbook is needed by some applications
-      mkdir -p $dev/share/boostbook
-      cp -a tools/boostbook/{xsl,dtd} $dev/share/boostbook/
+  enableParallelBuilding = true;
 
-      # Let boost install everything else
-      b2 ${b2Args} install
+  nativeBuildInputs = [
+    which
+    boost-build
+  ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  buildInputs = [
+    expat
+    zlib
+    bzip2
+    libiconv
+  ] ++ lib.optional (lib.versionAtLeast version "1.69") zstd
+    ++ lib.optional (lib.versionAtLeast version "1.65") xz
+    ++ lib.optional enableIcu icu ++ lib.optionals enablePython [
+      libxcrypt
+      python
+    ] ++ lib.optional enableNumpy python.pkgs.numpy;
 
-      runHook postInstall
-    '';
+  configureScript = "./bootstrap.sh";
+  configurePlatforms = [ ];
+  dontDisableStatic = true;
+  dontAddStaticConfigureFlags = true;
+  configureFlags = [
+    "--includedir=$(dev)/include"
+    "--libdir=$(out)/lib"
+    "--with-bjam=b2" # prevent bootstrapping b2 in configurePhase
+  ] ++ lib.optional (toolset != null) "--with-toolset=${toolset}" ++ [ (if
+    enableIcu
+  then
+    "--with-icu=${icu.dev}"
+  else
+    "--without-icu") ];
 
-    postFixup = ''
-      # Make boost header paths relative so that they are not runtime dependencies
-      cd "$dev" && find include \( -name '*.hpp' -or -name '*.h' -or -name '*.ipp' \) \
-        -exec sed '1s/^\xef\xbb\xbf//;1i#line 1 "{}"' -i '{}' \;
-    '' + lib.optionalString (stdenv.hostPlatform.libc == "msvcrt") ''
-      $RANLIB "$out/lib/"*.a
-    '';
+  buildPhase = ''
+    runHook preBuild
+    b2 ${b2Args}
+    runHook postBuild
+  '';
 
-    outputs = [
-      "out"
-      "dev"
-    ];
-    setOutputFlags = false;
-  }
+  installPhase = ''
+    runHook preInstall
+
+    # boostbook is needed by some applications
+    mkdir -p $dev/share/boostbook
+    cp -a tools/boostbook/{xsl,dtd} $dev/share/boostbook/
+
+    # Let boost install everything else
+    b2 ${b2Args} install
+
+    runHook postInstall
+  '';
+
+  postFixup = ''
+    # Make boost header paths relative so that they are not runtime dependencies
+    cd "$dev" && find include \( -name '*.hpp' -or -name '*.h' -or -name '*.ipp' \) \
+      -exec sed '1s/^\xef\xbb\xbf//;1i#line 1 "{}"' -i '{}' \;
+  '' + lib.optionalString (stdenv.hostPlatform.libc == "msvcrt") ''
+    $RANLIB "$out/lib/"*.a
+  '';
+
+  outputs = [
+    "out"
+    "dev"
+  ];
+  setOutputFlags = false;
+}

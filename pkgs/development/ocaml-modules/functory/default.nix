@@ -20,33 +20,33 @@ let
   };
 
 in
-  stdenv.mkDerivation {
-    pname = "ocaml${ocaml.version}-functory";
-    inherit (param) version;
+stdenv.mkDerivation {
+  pname = "ocaml${ocaml.version}-functory";
+  inherit (param) version;
 
-    src = fetchurl {
-      url =
-        "https://www.lri.fr/~filliatr/functory/download/functory-${param.version}.tar.gz";
-      inherit (param) sha256;
-    };
+  src = fetchurl {
+    url =
+      "https://www.lri.fr/~filliatr/functory/download/functory-${param.version}.tar.gz";
+    inherit (param) sha256;
+  };
 
-    nativeBuildInputs = [
-      ocaml
-      findlib
-    ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+  ];
 
-    strictDeps = true;
+  strictDeps = true;
 
-    installTargets = [ "ocamlfind-install" ];
+  installTargets = [ "ocamlfind-install" ];
 
-    createFindlibDestdir = true;
+  createFindlibDestdir = true;
 
-    meta = with lib; {
-      homepage = "https://www.lri.fr/~filliatr/functory/";
-      description =
-        "A distributed computing library for Objective Caml which facilitates distributed execution of parallelizable computations in a seamless fashion";
-      license = licenses.lgpl21;
-      maintainers = [ maintainers.vbgl ];
-      inherit (ocaml.meta) platforms;
-    };
-  }
+  meta = with lib; {
+    homepage = "https://www.lri.fr/~filliatr/functory/";
+    description =
+      "A distributed computing library for Objective Caml which facilitates distributed execution of parallelizable computations in a seamless fashion";
+    license = licenses.lgpl21;
+    maintainers = [ maintainers.vbgl ];
+    inherit (ocaml.meta) platforms;
+  };
+}

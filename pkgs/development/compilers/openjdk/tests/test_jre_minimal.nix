@@ -11,7 +11,7 @@ let
     jre = jre_minimal;
   };
 in
-  runCommand "test" { } ''
-    ${hello}/bin/hello | grep "Hello, world!"
-    touch $out
-  ''
+runCommand "test" { } ''
+  ${hello}/bin/hello | grep "Hello, world!"
+  touch $out
+''

@@ -36,38 +36,38 @@ let
     xz
   ];
 in
-  buildPythonPackage rec {
-    pname = "patool";
-    version = "1.12";
+buildPythonPackage rec {
+  pname = "patool";
+  version = "1.12";
 
-    #pypi doesn't have test data
-    src = fetchFromGitHub {
-      owner = "wummel";
-      repo = pname;
-      rev = "upstream/${version}";
-      sha256 = "0v4r77sm3yzh7y1whfwxmp01cchd82jbhvbg9zsyd2yb944imzjy";
-    };
+  #pypi doesn't have test data
+  src = fetchFromGitHub {
+    owner = "wummel";
+    repo = pname;
+    rev = "upstream/${version}";
+    sha256 = "0v4r77sm3yzh7y1whfwxmp01cchd82jbhvbg9zsyd2yb944imzjy";
+  };
 
-    postPatch = ''
-      substituteInPlace patoolib/util.py \
-        --replace "path = None" 'path = os.environ["PATH"] + ":${
-          lib.makeBinPath compression-utilities
-        }"'
-    '';
+  postPatch = ''
+    substituteInPlace patoolib/util.py \
+      --replace "path = None" 'path = os.environ["PATH"] + ":${
+        lib.makeBinPath compression-utilities
+      }"'
+  '';
 
-    nativeCheckInputs = [ pytestCheckHook ] ++ compression-utilities;
+  nativeCheckInputs = [ pytestCheckHook ] ++ compression-utilities;
 
-    disabledTests = [
-      "test_unzip"
-      "test_unzip_file"
-      "test_zip"
-      "test_zip_file"
-    ];
+  disabledTests = [
+    "test_unzip"
+    "test_unzip_file"
+    "test_zip"
+    "test_zip_file"
+  ];
 
-    meta = with lib; {
-      description = "portable archive file manager";
-      homepage = "https://wummel.github.io/patool/";
-      license = licenses.gpl3;
-      maintainers = with maintainers; [ marius851000 ];
-    };
-  }
+  meta = with lib; {
+    description = "portable archive file manager";
+    homepage = "https://wummel.github.io/patool/";
+    license = licenses.gpl3;
+    maintainers = with maintainers; [ marius851000 ];
+  };
+}

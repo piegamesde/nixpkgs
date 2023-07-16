@@ -32,44 +32,44 @@ let
     p7zip
   ];
 in
-  stdenv.mkDerivation rec {
-    version = "3.7.2";
-    pname = "sabnzbd";
+stdenv.mkDerivation rec {
+  version = "3.7.2";
+  pname = "sabnzbd";
 
-    src = fetchFromGitHub {
-      owner = pname;
-      repo = pname;
-      rev = version;
-      sha256 = "sha256-1gGvdc6TJrkFIrN+TUL/7EejApgpgAQxnQbp8RMknHQ=";
-    };
+  src = fetchFromGitHub {
+    owner = pname;
+    repo = pname;
+    rev = version;
+    sha256 = "sha256-1gGvdc6TJrkFIrN+TUL/7EejApgpgAQxnQbp8RMknHQ=";
+  };
 
-    nativeBuildInputs = [ makeWrapper ];
-    buildInputs = [ pythonEnv ];
+  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [ pythonEnv ];
 
-    installPhase = ''
-      runHook preInstall
+  installPhase = ''
+    runHook preInstall
 
-      mkdir -p $out
-      cp -R * $out/
-      mkdir $out/bin
-      echo "${pythonEnv}/bin/python $out/SABnzbd.py \$*" > $out/bin/sabnzbd
-      chmod +x $out/bin/sabnzbd
-      wrapProgram $out/bin/sabnzbd --set PATH ${path}
+    mkdir -p $out
+    cp -R * $out/
+    mkdir $out/bin
+    echo "${pythonEnv}/bin/python $out/SABnzbd.py \$*" > $out/bin/sabnzbd
+    chmod +x $out/bin/sabnzbd
+    wrapProgram $out/bin/sabnzbd --set PATH ${path}
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
-    passthru.tests = { smoke-test = nixosTests.sabnzbd; };
+  passthru.tests = { smoke-test = nixosTests.sabnzbd; };
 
-    meta = with lib; {
-      description =
-        "Usenet NZB downloader, par2 repairer and auto extracting server";
-      homepage = "https://sabnzbd.org";
-      license = licenses.gpl2Plus;
-      platforms = platforms.linux;
-      maintainers = with lib.maintainers; [
-        fridh
-        jojosch
-      ];
-    };
-  }
+  meta = with lib; {
+    description =
+      "Usenet NZB downloader, par2 repairer and auto extracting server";
+    homepage = "https://sabnzbd.org";
+    license = licenses.gpl2Plus;
+    platforms = platforms.linux;
+    maintainers = with lib.maintainers; [
+      fridh
+      jojosch
+    ];
+  };
+}

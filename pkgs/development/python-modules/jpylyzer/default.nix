@@ -25,45 +25,45 @@ let
   };
 
 in
-  buildPythonPackage rec {
-    pname = "jpylyzer";
-    version = "2.1.0";
+buildPythonPackage rec {
+  pname = "jpylyzer";
+  version = "2.1.0";
 
-    src = fetchFromGitHub {
-      owner = "openpreserve";
-      repo = pname;
-      rev = version;
-      hash = "sha256-LBVOwjWC/HEvGgoi8WxEdl33M4JrfdHEj1Dk7f1NAiA=";
-    };
+  src = fetchFromGitHub {
+    owner = "openpreserve";
+    repo = pname;
+    rev = version;
+    hash = "sha256-LBVOwjWC/HEvGgoi8WxEdl33M4JrfdHEj1Dk7f1NAiA=";
+  };
 
-    propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [ six ];
 
-    nativeCheckInputs = [
-      pytestCheckHook
-      lxml
-    ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    lxml
+  ];
 
-    # don't depend on testFiles unless doFullCheck as it may not be extractable
-    # on some filesystems due to weird filenames
-    preCheck = lib.optionalString doFullCheck ''
-      sed -i '/^testFilesDir = /ctestFilesDir = "${testFiles}"' tests/unit/test_testfiles.py
-    '';
-    disabledTestPaths =
-      lib.optionals (!doFullCheck) [ "tests/unit/test_testfiles.py" ];
+  # don't depend on testFiles unless doFullCheck as it may not be extractable
+  # on some filesystems due to weird filenames
+  preCheck = lib.optionalString doFullCheck ''
+    sed -i '/^testFilesDir = /ctestFilesDir = "${testFiles}"' tests/unit/test_testfiles.py
+  '';
+  disabledTestPaths =
+    lib.optionals (!doFullCheck) [ "tests/unit/test_testfiles.py" ];
 
-    pythonImportsCheck = [ "jpylyzer" ];
+  pythonImportsCheck = [ "jpylyzer" ];
 
-    disallowedReferences = [ testFiles ];
+  disallowedReferences = [ testFiles ];
 
-    passthru.tests = {
-      withFullCheck = jpylyzer.override { doFullCheck = true; };
-    };
+  passthru.tests = {
+    withFullCheck = jpylyzer.override { doFullCheck = true; };
+  };
 
-    meta = with lib; {
-      description =
-        "JP2 (JPEG 2000 Part 1) image validator and properties extractor";
-      homepage = "https://jpylyzer.openpreservation.org/";
-      license = licenses.lgpl3;
-      maintainers = with maintainers; [ ris ];
-    };
-  }
+  meta = with lib; {
+    description =
+      "JP2 (JPEG 2000 Part 1) image validator and properties extractor";
+    homepage = "https://jpylyzer.openpreservation.org/";
+    license = licenses.lgpl3;
+    maintainers = with maintainers; [ ris ];
+  };
+}

@@ -233,7 +233,7 @@ in {
                 '';
           };
         in
-          types.listOf networkManagerPluginPackage
+        types.listOf networkManagerPluginPackage
         ;
         default = [ ];
         description = lib.mdDoc ''

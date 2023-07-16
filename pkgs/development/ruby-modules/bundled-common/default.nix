@@ -77,7 +77,7 @@ let
       gem = gems.${pname};
       version = gem.version;
     in
-      "${pname}-${version}"
+    "${pname}-${version}"
   ;
 
   pname' = if
@@ -105,7 +105,7 @@ let
         mainGem =
           gems.${pkgname} or (throw "bundlerEnv: gem ${pkgname} not found");
       in
-        copyIfBundledByPath mainGem
+      copyIfBundledByPath mainGem
   ;
 
   # We have to normalize the Gemfile.lock, otherwise bundler tries to be
@@ -189,23 +189,23 @@ let
           require 'bundler/setup'
         '';
       in
-        stdenv.mkDerivation {
-          name = "${pname'}-interactive-environment";
-          nativeBuildInputs = [
-            wrappedRuby
-            basicEnv
-          ];
-          shellHook = ''
-            export OLD_IRBRC=$IRBRC
-            export IRBRC=${irbrc}
-          '';
-          buildCommand = ''
-            echo >&2 ""
-            echo >&2 "*** Ruby 'env' attributes are intended for interactive nix-shell sessions, not for building! ***"
-            echo >&2 ""
-            exit 1
-          '';
-        }
+      stdenv.mkDerivation {
+        name = "${pname'}-interactive-environment";
+        nativeBuildInputs = [
+          wrappedRuby
+          basicEnv
+        ];
+        shellHook = ''
+          export OLD_IRBRC=$IRBRC
+          export IRBRC=${irbrc}
+        '';
+        buildCommand = ''
+          echo >&2 ""
+          echo >&2 "*** Ruby 'env' attributes are intended for interactive nix-shell sessions, not for building! ***"
+          echo >&2 ""
+          exit 1
+        '';
+      }
       ;
     };
   };
@@ -223,4 +223,4 @@ let
   else
     buildEnv basicEnvArgs;
 in
-  basicEnv
+basicEnv

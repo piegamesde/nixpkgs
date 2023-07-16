@@ -39,7 +39,7 @@ let
         x = lib.head list;
         xs = lib.filter (p: f x != f p) (lib.drop 1 list);
       in
-        [ x ] ++ nubOn f xs
+      [ x ] ++ nubOn f xs
   ;
 
   /* Recursively find all packages (derivations) in `pkgs` matching `cond` predicate.
@@ -100,7 +100,7 @@ let
         else
           [ ];
     in
-      packagesWithPathInner rootPath pkgs
+    packagesWithPathInner rootPath pkgs
   ;
 
   # Recursively find all packages (derivations) in `pkgs` matching `cond` predicate.
@@ -122,18 +122,18 @@ let
       else
         builtins.getAttr maintainer' lib.maintainers;
     in
-      packagesWithUpdateScriptMatchingPredicate (path: pkg:
+    packagesWithUpdateScriptMatchingPredicate (path: pkg:
+      (if
+        builtins.hasAttr "maintainers" pkg.meta
+      then
         (if
-          builtins.hasAttr "maintainers" pkg.meta
+          builtins.isList pkg.meta.maintainers
         then
-          (if
-            builtins.isList pkg.meta.maintainers
-          then
-            builtins.elem maintainer pkg.meta.maintainers
-          else
-            maintainer == pkg.meta.maintainers)
+          builtins.elem maintainer pkg.meta.maintainers
         else
-          false))
+          maintainer == pkg.meta.maintainers)
+      else
+        false))
   ;
 
   # Recursively find all packages under `path` in `pkgs` with updateScript.
@@ -242,22 +242,22 @@ let
   args = [ packagesJson ] ++ optionalArgs;
 
 in
-  pkgs.stdenv.mkDerivation {
-    name = "nixpkgs-update-script";
-    buildCommand = ''
-      echo ""
-      echo "----------------------------------------------------------------"
-      echo ""
-      echo "Not possible to update packages using \`nix-build\`"
-      echo ""
-      echo "${helpText}"
-      echo "----------------------------------------------------------------"
-      exit 1
-    '';
-    shellHook = ''
-      unset shellHook # do not contaminate nested shells
-      exec ${pkgs.python3.interpreter} ${./update.py} ${
-        builtins.concatStringsSep " " args
-      }
-    '';
-  }
+pkgs.stdenv.mkDerivation {
+  name = "nixpkgs-update-script";
+  buildCommand = ''
+    echo ""
+    echo "----------------------------------------------------------------"
+    echo ""
+    echo "Not possible to update packages using \`nix-build\`"
+    echo ""
+    echo "${helpText}"
+    echo "----------------------------------------------------------------"
+    exit 1
+  '';
+  shellHook = ''
+    unset shellHook # do not contaminate nested shells
+    exec ${pkgs.python3.interpreter} ${./update.py} ${
+      builtins.concatStringsSep " " args
+    }
+  '';
+}

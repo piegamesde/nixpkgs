@@ -25,4 +25,4 @@ let
     '';
   });
 in
-  playwright-test
+playwright-test

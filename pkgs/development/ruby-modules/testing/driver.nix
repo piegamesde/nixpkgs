@@ -23,4 +23,4 @@ let
   results =
     builtins.concatLists (map (file: callPackage file testTools) testFiles);
 in
-  writeText "test-results.tap" (tap.output results)
+writeText "test-results.tap" (tap.output results)

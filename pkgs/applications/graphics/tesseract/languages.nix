@@ -27,20 +27,20 @@ rec {
           inherit hash;
         };
     in
-      {
-        # Use a simple fixed-output derivation for all languages to increase nix eval performance
-        all = stdenv.mkDerivation {
-          name = "all";
-          buildCommand = ''
-            mkdir $out
-            cd ${tessdataSrc}
-            cp *.traineddata $out
-          '';
-          outputHashMode = "recursive";
-          outputHashAlgo = "sha256";
-          outputHash = all;
-        };
-      } // (lib.mapAttrs languageFile languages)
+    {
+      # Use a simple fixed-output derivation for all languages to increase nix eval performance
+      all = stdenv.mkDerivation {
+        name = "all";
+        buildCommand = ''
+          mkdir $out
+          cd ${tessdataSrc}
+          cp *.traineddata $out
+        '';
+        outputHashMode = "recursive";
+        outputHashAlgo = "sha256";
+        outputHash = all;
+      };
+    } // (lib.mapAttrs languageFile languages)
   ;
 
   v3 = makeLanguages {

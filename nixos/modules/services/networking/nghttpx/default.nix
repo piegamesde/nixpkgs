@@ -52,7 +52,7 @@ let
       ] ++ params);
       formattedSections = lib.concatStringsSep ";" sections;
     in
-      "backend=${formattedSections}"
+    "backend=${formattedSections}"
   ;
 
   # renderFrontend :: FrontendSubmodule -> String
@@ -74,7 +74,7 @@ let
       sections = [ host ] ++ params1;
       formattedSections = lib.concatStringsSep ";" sections;
     in
-      "frontend=${formattedSections}"
+    "frontend=${formattedSections}"
   ;
 
   configurationFile = pkgs.writeText "nghttpx.conf" ''

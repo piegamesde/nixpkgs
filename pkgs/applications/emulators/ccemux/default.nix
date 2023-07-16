@@ -42,36 +42,36 @@ let
   };
 
 in
-  stdenv.mkDerivation rec {
-    pname = "ccemux";
-    inherit version;
+stdenv.mkDerivation rec {
+  pname = "ccemux";
+  inherit version;
 
-    src = jar;
-    dontUnpack = true;
+  src = jar;
+  dontUnpack = true;
 
-    nativeBuildInputs = [ makeWrapper ];
-    buildInputs = [ jre ];
+  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [ jre ];
 
-    installPhase = ''
-      runHook preInstall
+  installPhase = ''
+    runHook preInstall
 
-      mkdir -p $out/{bin,share/ccemux}
-      cp -r ${desktopItem}/share/applications $out/share/applications
+    mkdir -p $out/{bin,share/ccemux}
+    cp -r ${desktopItem}/share/applications $out/share/applications
 
-      install -D ${src} $out/share/ccemux/ccemux.jar
-      install -D ${desktopIcon} $out/share/pixmaps/ccemux.png
+    install -D ${src} $out/share/ccemux/ccemux.jar
+    install -D ${desktopIcon} $out/share/pixmaps/ccemux.png
 
-      makeWrapper ${jre}/bin/java $out/bin/ccemux \
-        --add-flags "-jar $out/share/ccemux/ccemux.jar"
+    makeWrapper ${jre}/bin/java $out/bin/ccemux \
+      --add-flags "-jar $out/share/ccemux/ccemux.jar"
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
-    meta = with lib; {
-      description = "A modular ComputerCraft emulator";
-      homepage = "https://github.com/CCEmuX/CCEmuX";
-      sourceProvenance = with sourceTypes; [ binaryBytecode ];
-      license = licenses.mit;
-      maintainers = with maintainers; [ CrazedProgrammer ];
-    };
-  }
+  meta = with lib; {
+    description = "A modular ComputerCraft emulator";
+    homepage = "https://github.com/CCEmuX/CCEmuX";
+    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    license = licenses.mit;
+    maintainers = with maintainers; [ CrazedProgrammer ];
+  };
+}

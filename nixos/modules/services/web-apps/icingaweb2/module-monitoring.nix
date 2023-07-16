@@ -24,12 +24,12 @@ let
       else
         "0";
   in
-    concatStringsSep "\n" (mapAttrsToList (name: config: ''
-      [${name}]
-      type = "ido"
-      resource = "${config.resource}"
-      disabled = "${formatBool config.disabled}"
-    '') cfg.backends)
+  concatStringsSep "\n" (mapAttrsToList (name: config: ''
+    [${name}]
+    type = "ido"
+    resource = "${config.resource}"
+    disabled = "${formatBool config.disabled}"
+  '') cfg.backends)
   ;
 
   transportsIni = concatStringsSep "\n" (mapAttrsToList (name: config: ''

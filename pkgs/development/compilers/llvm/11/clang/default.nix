@@ -154,4 +154,4 @@ let
     meta = llvm_meta // { description = "man page for Clang ${version}"; };
   });
 in
-  self
+self

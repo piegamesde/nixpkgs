@@ -100,7 +100,7 @@ let
     }; # overrides
 
   in
-    lib.mapAttrs mkTLPkg overridden
+  lib.mapAttrs mkTLPkg overridden
   ;
   # TODO: texlive.infra for web2c config?
 
@@ -115,7 +115,7 @@ let
             inherit pname tlType version;
           };
         in
-          mkPkg pkg
+        mkPkg pkg
       ;
     in {
       # TL pkg contains lists of packages: runtime files, docs, sources, binaries
@@ -206,28 +206,28 @@ let
         (args.urlPrefixes or urlPrefixes));
 
     in
-      runCommand "texlive-${tlName}" ({
-        src = fetchurl { inherit urls sha512; };
-        inherit stripPrefix;
-        # metadata for texlive.combine
-        passthru = {
-          inherit pname tlType version;
-        } // lib.optionalAttrs (tlType == "run" && args ? deps) {
-          tlDeps = map (n: tl.${n}) args.deps;
-        } // lib.optionalAttrs (tlType == "run") {
-          hasFormats = args.hasFormats or false;
-          hasHyphens = args.hasHyphens or false;
-        };
-      } // lib.optionalAttrs (fixedHash != null) {
-        outputHash = fixedHash;
-        outputHashAlgo = "sha256";
-        outputHashMode = "recursive";
-      }) (''
-        mkdir "$out"
-        tar -xf "$src" \
-        --strip-components="$stripPrefix" \
-        -C "$out" --anchored --exclude=tlpkg --keep-old-files
-      '' + postUnpack)
+    runCommand "texlive-${tlName}" ({
+      src = fetchurl { inherit urls sha512; };
+      inherit stripPrefix;
+      # metadata for texlive.combine
+      passthru = {
+        inherit pname tlType version;
+      } // lib.optionalAttrs (tlType == "run" && args ? deps) {
+        tlDeps = map (n: tl.${n}) args.deps;
+      } // lib.optionalAttrs (tlType == "run") {
+        hasFormats = args.hasFormats or false;
+        hasHyphens = args.hasHyphens or false;
+      };
+    } // lib.optionalAttrs (fixedHash != null) {
+      outputHash = fixedHash;
+      outputHashAlgo = "sha256";
+      outputHashMode = "recursive";
+    }) (''
+      mkdir "$out"
+      tar -xf "$src" \
+      --strip-components="$stripPrefix" \
+      -C "$out" --anchored --exclude=tlpkg --keep-old-files
+    '' + postUnpack)
   ;
 
   # combine a set of TL packages into a single TL meta-package
@@ -251,14 +251,14 @@ let
           }) pkgs;
       pkgListToSets = lib.concatMap tlPkgToSets;
     in
-      builtins.genericClosure {
-        startSet = pkgListToSets pkgList;
-        operator = {
-            pkg,
-            ...
-          }:
-          pkgListToSets (pkg.tlDeps or [ ]);
-      }
+    builtins.genericClosure {
+      startSet = pkgListToSets pkgList;
+      operator = {
+          pkg,
+          ...
+        }:
+        pkgListToSets (pkg.tlDeps or [ ]);
+    }
     );
 
   assertions = lib.assertMsg (tlpdbVersion.year == version.texliveYear)
@@ -267,38 +267,38 @@ let
     "TeX Live final status in texlive does not match tlpdb.nix, refusing to evaluate";
 
 in
-  tl // {
+tl // {
 
-    tlpdb = {
-      # nested in an attribute set to prevent them from appearing in search
-      nix = tlpdbNix;
-      xz = tlpdbxz;
-    };
+  tlpdb = {
+    # nested in an attribute set to prevent them from appearing in search
+    nix = tlpdbNix;
+    xz = tlpdbxz;
+  };
 
-    bin = assert assertions; bin;
-    combine = assert assertions; combine;
+  bin = assert assertions; bin;
+  combine = assert assertions; combine;
 
-    # Pre-defined combined packages for TeX Live schemes,
-    # to make nix-env usage more comfortable and build selected on Hydra.
-    combined = with lib;
-      recurseIntoAttrs (mapAttrs (pname: attrs:
-        addMetaAttrs rec {
-          description = "TeX Live environment for ${pname}";
-          platforms = lib.platforms.all;
-          maintainers = with lib.maintainers; [ veprbl ];
-        } (combine {
-          ${pname} = attrs;
-          extraName = "combined" + lib.removePrefix "scheme" pname;
-          extraVersion = with version;
-            if
-              final
-            then
-              "-final"
-            else
-              ".${year}${month}${day}";
-        })) {
-          inherit (tl)
-            scheme-basic scheme-context scheme-full scheme-gust scheme-infraonly
-            scheme-medium scheme-minimal scheme-small scheme-tetex;
-        });
-  }
+  # Pre-defined combined packages for TeX Live schemes,
+  # to make nix-env usage more comfortable and build selected on Hydra.
+  combined = with lib;
+    recurseIntoAttrs (mapAttrs (pname: attrs:
+      addMetaAttrs rec {
+        description = "TeX Live environment for ${pname}";
+        platforms = lib.platforms.all;
+        maintainers = with lib.maintainers; [ veprbl ];
+      } (combine {
+        ${pname} = attrs;
+        extraName = "combined" + lib.removePrefix "scheme" pname;
+        extraVersion = with version;
+          if
+            final
+          then
+            "-final"
+          else
+            ".${year}${month}${day}";
+      })) {
+        inherit (tl)
+          scheme-basic scheme-context scheme-full scheme-gust scheme-infraonly
+          scheme-medium scheme-minimal scheme-small scheme-tetex;
+      });
+}

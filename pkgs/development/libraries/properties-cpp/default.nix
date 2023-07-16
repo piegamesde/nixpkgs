@@ -17,11 +17,11 @@ stdenv.mkDerivation rec {
   src = let
     srcver = "${version}+14.10.20140730";
   in
-    fetchurl {
-      url =
-        "https://launchpad.net/ubuntu/+archive/primary/+files/${pname}_${srcver}.orig.tar.gz";
-      sha256 = "08vjyv7ibn6jh2ikj5v48kjpr3n6hlkp9qlvdn8r0vpiwzah0m2w";
-    }
+  fetchurl {
+    url =
+      "https://launchpad.net/ubuntu/+archive/primary/+files/${pname}_${srcver}.orig.tar.gz";
+    sha256 = "08vjyv7ibn6jh2ikj5v48kjpr3n6hlkp9qlvdn8r0vpiwzah0m2w";
+  }
   ;
 
   postPatch = ''

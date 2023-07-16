@@ -710,14 +710,14 @@ let
       };
 
     in
-      lib.mapAttrs (n: v:
-        if
-          lib.hasAttr n overrides
-        then
-          overrides.${n}
-        else
-          v) super
+    lib.mapAttrs (n: v:
+      if
+        lib.hasAttr n overrides
+      then
+        overrides.${n}
+      else
+        v) super
   );
 
 in
-  generateMelpa { }
+generateMelpa { }

@@ -15,23 +15,23 @@ let
 
   appimageContents = appimageTools.extract { inherit pname version src; };
 in
-  appimageTools.wrapType2 {
-    inherit src pname version;
+appimageTools.wrapType2 {
+  inherit src pname version;
 
-    extraInstallCommands = ''
-      mv $out/bin/${pname}-${version} $out/bin/${pname}
+  extraInstallCommands = ''
+    mv $out/bin/${pname}-${version} $out/bin/${pname}
 
-      install -m 444 -D ${appimageContents}/${pname}.desktop -t $out/share/applications
-      substituteInPlace $out/share/applications/${pname}.desktop \
-        --replace 'Exec=AppRun' 'Exec=${pname}'
-      cp -r ${appimageContents}/usr/share/icons $out/share
-    '';
+    install -m 444 -D ${appimageContents}/${pname}.desktop -t $out/share/applications
+    substituteInPlace $out/share/applications/${pname}.desktop \
+      --replace 'Exec=AppRun' 'Exec=${pname}'
+    cp -r ${appimageContents}/usr/share/icons $out/share
+  '';
 
-    meta = with lib; {
-      description = "Peer-to-Peer Chat";
-      homepage = "https://keet.io";
-      license = licenses.unfree;
-      maintainers = with maintainers; [ extends ];
-      platforms = [ "x86_64-linux" ];
-    };
-  }
+  meta = with lib; {
+    description = "Peer-to-Peer Chat";
+    homepage = "https://keet.io";
+    license = licenses.unfree;
+    maintainers = with maintainers; [ extends ];
+    platforms = [ "x86_64-linux" ];
+  };
+}

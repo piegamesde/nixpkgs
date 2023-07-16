@@ -17,33 +17,33 @@ let
     else
       "trim(file_get_contents('${cfg.database.passwordFile}'))";
   in
-    pkgs.writeText "database.php" ''
-      <?php
-      defined('BASEPATH') OR exit('No direct script access allowed');
-      $active_group = 'default';
-      $query_builder = TRUE;
-      $db['default'] = array(
-        'dsn' => "",
-        'hostname' => '${cfg.database.host}',
-        'username' => '${cfg.database.user}',
-        'password' => ${password},
-        'database' => '${cfg.database.name}',
-        'dbdriver' => 'mysqli',
-        'dbprefix' => "",
-        'pconnect' => TRUE,
-        'db_debug' => (ENVIRONMENT !== 'production'),
-        'cache_on' => FALSE,
-        'cachedir' => "",
-        'char_set' => 'utf8mb4',
-        'dbcollat' => 'utf8mb4_general_ci',
-        'swap_pre' => "",
-        'encrypt' => FALSE,
-        'compress' => FALSE,
-        'stricton' => FALSE,
-        'failover' => array(),
-        'save_queries' => TRUE
-      );
-    ''
+  pkgs.writeText "database.php" ''
+    <?php
+    defined('BASEPATH') OR exit('No direct script access allowed');
+    $active_group = 'default';
+    $query_builder = TRUE;
+    $db['default'] = array(
+      'dsn' => "",
+      'hostname' => '${cfg.database.host}',
+      'username' => '${cfg.database.user}',
+      'password' => ${password},
+      'database' => '${cfg.database.name}',
+      'dbdriver' => 'mysqli',
+      'dbprefix' => "",
+      'pconnect' => TRUE,
+      'db_debug' => (ENVIRONMENT !== 'production'),
+      'cache_on' => FALSE,
+      'cachedir' => "",
+      'char_set' => 'utf8mb4',
+      'dbcollat' => 'utf8mb4_general_ci',
+      'swap_pre' => "",
+      'encrypt' => FALSE,
+      'compress' => FALSE,
+      'stricton' => FALSE,
+      'failover' => array(),
+      'save_queries' => TRUE
+    );
+  ''
   ;
   configFile = pkgs.writeText "config.php" ''
     <?php

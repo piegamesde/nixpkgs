@@ -456,8 +456,8 @@ in {
           ln -s /etc/home-assistant/ui-lovelace.yaml "${cfg.configDir}/ui-lovelace.yaml"
         '';
       in
-        (optionalString (cfg.config != null) copyConfig)
-        + (optionalString (cfg.lovelaceConfig != null) copyLovelaceConfig)
+      (optionalString (cfg.config != null) copyConfig)
+      + (optionalString (cfg.lovelaceConfig != null) copyLovelaceConfig)
       ;
       environment.PYTHONPATH = package.pythonPath;
       serviceConfig = let
@@ -624,7 +624,7 @@ in {
           else
             singleton value;
         in
-          [ "${cfg.configDir}" ] ++ allowPaths
+        [ "${cfg.configDir}" ] ++ allowPaths
         ;
         RestrictAddressFamilies = [
           "AF_INET"

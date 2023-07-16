@@ -49,7 +49,7 @@ in {
             disabledTests;
           filters = lib.lists.map (n: "FullyQualifiedName!=${n}") escapedNames;
         in
-          "${lib.concatStringsSep "&" filters}"
+        "${lib.concatStringsSep "&" filters}"
         );
       };
     } ./dotnet-check-hook.sh) { };

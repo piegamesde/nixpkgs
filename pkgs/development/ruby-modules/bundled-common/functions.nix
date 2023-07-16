@@ -55,10 +55,10 @@ in rec {
           depNames = concatMap (gem: gem.dependencies or [ ]) (attrValues gems);
           deps = getAttrs depNames platformGems;
         in
-          gems // deps
+        gems // deps
       ;
     in
-      converge expandDependencies directlyMatchingGems
+    converge expandDependencies directlyMatchingGems
   ;
 
   platformMatches = {
@@ -121,7 +121,7 @@ in rec {
         outputName = "out";
       };
     in
-      res
+    res
   ;
 
   composeGemAttrs = ruby: gems: name: attrs:

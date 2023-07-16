@@ -27,42 +27,42 @@ let
   };
 
 in
-  stdenv.mkDerivation rec {
-    pname = "splix-svn";
-    version = "315";
+stdenv.mkDerivation rec {
+  pname = "splix-svn";
+  version = "315";
 
-    src = fetchsvn {
-      # We build this from svn, because splix hasn't been in released in several years
-      # although the community has been adding some new printer models.
-      url = "svn://svn.code.sf.net/p/splix/code/splix";
-      rev = version;
-      sha256 = "16wbm4xnz35ca3mw2iggf5f4jaxpyna718ia190ka6y4ah932jxl";
-    };
+  src = fetchsvn {
+    # We build this from svn, because splix hasn't been in released in several years
+    # although the community has been adding some new printer models.
+    url = "svn://svn.code.sf.net/p/splix/code/splix";
+    rev = version;
+    sha256 = "16wbm4xnz35ca3mw2iggf5f4jaxpyna718ia190ka6y4ah932jxl";
+  };
 
-    postPatch = ''
-      mv -v *.ppd ppd/
-      substituteInPlace src/pstoqpdl.cpp \
-        --replace "RASTERDIR \"/\" RASTERTOQPDL" "\"$out/lib/cups/filter/rastertoqpdl\"" \
-        --replace "RASTERDIR" "\"${cups-filters}/lib/cups/filter\"" \
-    '';
+  postPatch = ''
+    mv -v *.ppd ppd/
+    substituteInPlace src/pstoqpdl.cpp \
+      --replace "RASTERDIR \"/\" RASTERTOQPDL" "\"$out/lib/cups/filter/rastertoqpdl\"" \
+      --replace "RASTERDIR" "\"${cups-filters}/lib/cups/filter\"" \
+  '';
 
-    makeFlags = [
-      "CUPSFILTER=$(out)/lib/cups/filter"
-      "CUPSPPD=$(out)/share/cups/model"
-      "CUPSPROFILE=${color-profiles}/share/cups/profiles"
-    ];
+  makeFlags = [
+    "CUPSFILTER=$(out)/lib/cups/filter"
+    "CUPSPPD=$(out)/share/cups/model"
+    "CUPSPROFILE=${color-profiles}/share/cups/profiles"
+  ];
 
-    buildInputs = [
-      cups
-      zlib
-      jbigkit
-    ];
+  buildInputs = [
+    cups
+    zlib
+    jbigkit
+  ];
 
-    meta = with lib; {
-      description = "CUPS drivers for SPL (Samsung Printer Language) printers";
-      homepage = "http://splix.ap2c.org";
-      license = licenses.gpl2;
-      platforms = platforms.linux;
-      maintainers = with maintainers; [ jfrankenau ];
-    };
-  }
+  meta = with lib; {
+    description = "CUPS drivers for SPL (Samsung Printer Language) printers";
+    homepage = "http://splix.ap2c.org";
+    license = licenses.gpl2;
+    platforms = platforms.linux;
+    maintainers = with maintainers; [ jfrankenau ];
+  };
+}

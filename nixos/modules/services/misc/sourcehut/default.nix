@@ -1000,39 +1000,39 @@ in {
         serviceName = "buildsrht-worker";
         statePath = "/var/lib/sourcehut/${serviceName}";
       in
-        mkIf cfg.builds.enableWorker {
-          path = [
-            pkgs.openssh
-            pkgs.docker
-          ];
-          preStart = ''
-            set -x
-            if test -z "$(docker images -q qemu:latest 2>/dev/null)" \
-            || test "$(cat ${statePath}/docker-image-qemu)" != "${qemuPackage.version}"
-            then
-              # Create and import qemu:latest image for docker
-              ${
-                pkgs.dockerTools.streamLayeredImage {
-                  name = "qemu";
-                  tag = "latest";
-                  contents = [ qemuPackage ];
-                }
-              } | docker load
-              # Mark down current package version
-              echo '${qemuPackage.version}' >${statePath}/docker-image-qemu
-            fi
-          '';
-          serviceConfig = {
-            ExecStart = "${pkgs.sourcehut.buildsrht}/bin/buildsrht-worker";
-            BindPaths = [ cfg.settings."builds.sr.ht::worker".buildlogs ];
-            LogsDirectory = [ "sourcehut/${serviceName}" ];
-            RuntimeDirectory = [ "sourcehut/${serviceName}/subdir" ];
-            StateDirectory = [ "sourcehut/${serviceName}" ];
-            TimeoutStartSec = "1800s";
-            # buildsrht-worker looks up ../config.ini
-            WorkingDirectory = "-" + "/run/sourcehut/${serviceName}/subdir";
-          };
-        }
+      mkIf cfg.builds.enableWorker {
+        path = [
+          pkgs.openssh
+          pkgs.docker
+        ];
+        preStart = ''
+          set -x
+          if test -z "$(docker images -q qemu:latest 2>/dev/null)" \
+          || test "$(cat ${statePath}/docker-image-qemu)" != "${qemuPackage.version}"
+          then
+            # Create and import qemu:latest image for docker
+            ${
+              pkgs.dockerTools.streamLayeredImage {
+                name = "qemu";
+                tag = "latest";
+                contents = [ qemuPackage ];
+              }
+            } | docker load
+            # Mark down current package version
+            echo '${qemuPackage.version}' >${statePath}/docker-image-qemu
+          fi
+        '';
+        serviceConfig = {
+          ExecStart = "${pkgs.sourcehut.buildsrht}/bin/buildsrht-worker";
+          BindPaths = [ cfg.settings."builds.sr.ht::worker".buildlogs ];
+          LogsDirectory = [ "sourcehut/${serviceName}" ];
+          RuntimeDirectory = [ "sourcehut/${serviceName}/subdir" ];
+          StateDirectory = [ "sourcehut/${serviceName}" ];
+          TimeoutStartSec = "1800s";
+          # buildsrht-worker looks up ../config.ini
+          WorkingDirectory = "-" + "/run/sourcehut/${serviceName}/subdir";
+        };
+      }
       ;
       extraConfig = let
         image_dirs = flatten (mapAttrsToList (distro: revs:
@@ -1053,51 +1053,51 @@ in {
           cp -Lr ${image_dir_pre}/* $out/images
         '';
       in
-        mkMerge [
-          {
-            users.users.${cfg.builds.user}.shell = pkgs.bash;
+      mkMerge [
+        {
+          users.users.${cfg.builds.user}.shell = pkgs.bash;
 
-            virtualisation.docker.enable = true;
+          virtualisation.docker.enable = true;
 
-            services.sourcehut.settings = mkMerge [
-              { # Note that git.sr.ht::dispatch is not a typo,
-                # gitsrht-dispatch always use this section
-                "git.sr.ht::dispatch"."/usr/bin/buildsrht-keys" =
-                  mkDefault "${cfg.builds.user}:${cfg.builds.group}";
-              }
-              (mkIf cfg.builds.enableWorker {
-                "builds.sr.ht::worker".shell = "/usr/bin/runner-shell";
-                "builds.sr.ht::worker".images = mkDefault "${image_dir}/images";
-                "builds.sr.ht::worker".controlcmd =
-                  mkDefault "${image_dir}/images/control";
-              })
-            ];
-          }
-          (mkIf cfg.builds.enableWorker {
-            users.groups = { docker.members = [ cfg.builds.user ]; };
-          })
-          (mkIf (cfg.builds.enableWorker && cfg.nginx.enable) {
-            # Allow nginx access to buildlogs
-            users.users.${nginx.user}.extraGroups = [ cfg.builds.group ];
-            systemd.services.nginx = {
-              serviceConfig.BindReadOnlyPaths =
-                [ cfg.settings."builds.sr.ht::worker".buildlogs ];
-            };
-            services.nginx.virtualHosts."logs.${domain}" = mkMerge [
-              {
-                /* FIXME: is a listen needed?
-                   listen = with builtins;
-                     # FIXME: not compatible with IPv6
-                     let address = split ":" cfg.settings."builds.sr.ht::worker".name; in
-                     [{ addr = elemAt address 0; port = lib.toInt (elemAt address 2); }];
-                */
-                locations."/logs/".alias =
-                  cfg.settings."builds.sr.ht::worker".buildlogs + "/";
-              }
-              cfg.nginx.virtualHost
-            ];
-          })
-        ]
+          services.sourcehut.settings = mkMerge [
+            { # Note that git.sr.ht::dispatch is not a typo,
+              # gitsrht-dispatch always use this section
+              "git.sr.ht::dispatch"."/usr/bin/buildsrht-keys" =
+                mkDefault "${cfg.builds.user}:${cfg.builds.group}";
+            }
+            (mkIf cfg.builds.enableWorker {
+              "builds.sr.ht::worker".shell = "/usr/bin/runner-shell";
+              "builds.sr.ht::worker".images = mkDefault "${image_dir}/images";
+              "builds.sr.ht::worker".controlcmd =
+                mkDefault "${image_dir}/images/control";
+            })
+          ];
+        }
+        (mkIf cfg.builds.enableWorker {
+          users.groups = { docker.members = [ cfg.builds.user ]; };
+        })
+        (mkIf (cfg.builds.enableWorker && cfg.nginx.enable) {
+          # Allow nginx access to buildlogs
+          users.users.${nginx.user}.extraGroups = [ cfg.builds.group ];
+          systemd.services.nginx = {
+            serviceConfig.BindReadOnlyPaths =
+              [ cfg.settings."builds.sr.ht::worker".buildlogs ];
+          };
+          services.nginx.virtualHosts."logs.${domain}" = mkMerge [
+            {
+              /* FIXME: is a listen needed?
+                 listen = with builtins;
+                   # FIXME: not compatible with IPv6
+                   let address = split ":" cfg.settings."builds.sr.ht::worker".name; in
+                   [{ addr = elemAt address 0; port = lib.toInt (elemAt address 2); }];
+              */
+              locations."/logs/".alias =
+                cfg.settings."builds.sr.ht::worker".buildlogs + "/";
+            }
+            cfg.nginx.virtualHost
+          ];
+        })
+      ]
       ;
     })
 
@@ -1407,14 +1407,14 @@ in {
             srv = head srvMatch;
             # Configure client(s) as "preauthorized"
           in
-            optionalString (srvMatch != null && cfg.${srv}.enable
-              && ((s.oauth-client-id or null) != null)) ''
-                # Configure ${srv}'s OAuth client as "preauthorized"
-                ${postgresql.package}/bin/psql '${
-                  cfg.settings."meta.sr.ht".connection-string
-                }' \
-                  -c "UPDATE oauthclient SET preauthorized = true WHERE client_id = '${s.oauth-client-id}'"
-              ''
+          optionalString (srvMatch != null && cfg.${srv}.enable
+            && ((s.oauth-client-id or null) != null)) ''
+              # Configure ${srv}'s OAuth client as "preauthorized"
+              ${postgresql.package}/bin/psql '${
+                cfg.settings."meta.sr.ht".connection-string
+              }' \
+                -c "UPDATE oauthclient SET preauthorized = true WHERE client_id = '${s.oauth-client-id}'"
+            ''
         ) cfg.settings));
         serviceConfig.ExecStart =
           "${pkgs.sourcehut.metasrht}/bin/metasrht-api -b ${cfg.listenAddress}:${
@@ -1427,8 +1427,8 @@ in {
             assertion = let
               s = cfg.settings."meta.sr.ht::billing";
             in
-              s.enabled == "yes"
-              -> (s.stripe-public-key != null && s.stripe-secret-key != null)
+            s.enabled == "yes"
+            -> (s.stripe-public-key != null && s.stripe-secret-key != null)
             ;
             message =
               "If meta.sr.ht::billing is enabled, the keys must be defined.";

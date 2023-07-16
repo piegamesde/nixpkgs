@@ -18,7 +18,7 @@ let
       null;
   };
 in
-  import ./node-deps.nix {
-    inherit (pkgs) fetchurl nix-gitignore stdenv lib fetchgit;
-    inherit nodeEnv;
-  }
+import ./node-deps.nix {
+  inherit (pkgs) fetchurl nix-gitignore stdenv lib fetchgit;
+  inherit nodeEnv;
+}

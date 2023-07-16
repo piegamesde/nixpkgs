@@ -114,7 +114,7 @@ let
       length u.openssh.authorizedKeys.keys != 0
       || length u.openssh.authorizedKeys.keyFiles != 0));
   in
-    listToAttrs (map mkAuthKeyFile usersWithKeys)
+  listToAttrs (map mkAuthKeyFile usersWithKeys)
   ;
 
 in {

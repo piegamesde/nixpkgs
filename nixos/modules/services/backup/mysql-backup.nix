@@ -104,7 +104,7 @@ in {
           privs = "SELECT, SHOW VIEW, TRIGGER, LOCK TABLES";
           grant = db: nameValuePair "${db}.*" privs;
         in
-          listToAttrs (map grant cfg.databases)
+        listToAttrs (map grant cfg.databases)
       ;
     } ];
 

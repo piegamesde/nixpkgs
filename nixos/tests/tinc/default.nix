@@ -12,7 +12,7 @@ import ../make-test-python.nix ({
         subnets =
           config.services.tinc.networks.myNetwork.hostSettings.${name}.subnets;
       in
-        (builtins.head subnets).address
+      (builtins.head subnets).address
     ;
 
     makeTincHost = name:

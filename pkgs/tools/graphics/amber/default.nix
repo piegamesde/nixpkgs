@@ -46,53 +46,53 @@ let
   };
 
 in
-  stdenv.mkDerivation rec {
-    pname = "amber";
-    version = "unstable-2022-04-21";
+stdenv.mkDerivation rec {
+  pname = "amber";
+  version = "unstable-2022-04-21";
 
-    src = fetchFromGitHub {
-      owner = "google";
-      repo = pname;
-      rev = "8b145a6c89dcdb4ec28173339dd176fb7b6f43ed";
-      hash = "sha256-+xFYlUs13khT6r475eJJ+XS875h2sb+YbJ8ZN4MOSAA=";
-    };
+  src = fetchFromGitHub {
+    owner = "google";
+    repo = pname;
+    rev = "8b145a6c89dcdb4ec28173339dd176fb7b6f43ed";
+    hash = "sha256-+xFYlUs13khT6r475eJJ+XS875h2sb+YbJ8ZN4MOSAA=";
+  };
 
-    buildInputs = [
-      vulkan-headers
-      vulkan-loader
-    ];
+  buildInputs = [
+    vulkan-headers
+    vulkan-loader
+  ];
 
-    nativeBuildInputs = [
-      cmake
-      pkg-config
-      python3
-    ] ++ lib.optionals stdenv.isDarwin [ cctools ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    python3
+  ] ++ lib.optionals stdenv.isDarwin [ cctools ];
 
-    # Tests are disabled so we do not have to pull in googletest and more dependencies
-    cmakeFlags = [ "-DAMBER_SKIP_TESTS=ON" ];
+  # Tests are disabled so we do not have to pull in googletest and more dependencies
+  cmakeFlags = [ "-DAMBER_SKIP_TESTS=ON" ];
 
-    prePatch = ''
-      cp -r ${glslang}/ third_party/glslang
-      cp -r ${lodepng}/ third_party/lodepng
-      cp -r ${shaderc}/ third_party/shaderc
-      cp -r ${spirv-tools}/ third_party/spirv-tools
-      cp -r ${spirv-headers}/ third_party/spirv-headers
-      chmod u+w -R third_party
+  prePatch = ''
+    cp -r ${glslang}/ third_party/glslang
+    cp -r ${lodepng}/ third_party/lodepng
+    cp -r ${shaderc}/ third_party/shaderc
+    cp -r ${spirv-tools}/ third_party/spirv-tools
+    cp -r ${spirv-headers}/ third_party/spirv-headers
+    chmod u+w -R third_party
 
-      substituteInPlace CMakeLists.txt \
-        --replace "-Werror" ""
-      substituteInPlace tools/update_build_version.py \
-        --replace "not os.path.exists(directory)" "True"
-    '';
+    substituteInPlace CMakeLists.txt \
+      --replace "-Werror" ""
+    substituteInPlace tools/update_build_version.py \
+      --replace "not os.path.exists(directory)" "True"
+  '';
 
-    installPhase = ''
-      install -Dm755 -t $out/bin amber image_diff
-    '';
+  installPhase = ''
+    install -Dm755 -t $out/bin amber image_diff
+  '';
 
-    meta = with lib; {
-      description = "Multi-API shader test framework";
-      homepage = "https://github.com/google/amber";
-      license = licenses.asl20;
-      maintainers = with maintainers; [ Flakebi ];
-    };
-  }
+  meta = with lib; {
+    description = "Multi-API shader test framework";
+    homepage = "https://github.com/google/amber";
+    license = licenses.asl20;
+    maintainers = with maintainers; [ Flakebi ];
+  };
+}

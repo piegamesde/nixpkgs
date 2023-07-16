@@ -539,4 +539,4 @@ let
     latest = self."22.11";
   };
 in
-  self
+self

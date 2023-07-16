@@ -51,17 +51,17 @@ let
   };
 
 in
-  symlinkJoin rec {
-    name = "unicode-emoji-${version}";
+symlinkJoin rec {
+  name = "unicode-emoji-${version}";
 
-    paths = lib.attrValues srcs;
+  paths = lib.attrValues srcs;
 
-    passthru = srcs;
+  passthru = srcs;
 
-    meta = with lib; {
-      description = "Unicode Emoji Data Files";
-      homepage = "https://home.unicode.org/emoji/";
-      license = licenses.unicode-dfs-2016;
-      platforms = platforms.all;
-    };
-  }
+  meta = with lib; {
+    description = "Unicode Emoji Data Files";
+    homepage = "https://home.unicode.org/emoji/";
+    license = licenses.unicode-dfs-2016;
+    platforms = platforms.all;
+  };
+}

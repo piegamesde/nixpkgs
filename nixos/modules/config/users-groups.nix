@@ -505,7 +505,7 @@ let
   systemShells = let
     shells = mapAttrsToList (_: u: u.shell) cfg.users;
   in
-    filter types.shellPackage.check shells
+  filter types.shellPackage.check shells
   ;
 
 in {
@@ -794,7 +794,7 @@ in {
             let
               g = config.boot.initrd.systemd.groups.${group};
             in
-              "${n}:x:${toString uid}:${toString g.gid}::/var/empty:"
+            "${n}:x:${toString uid}:${toString g.gid}::/var/empty:"
           ) config.boot.initrd.systemd.users)}
         '';
         "/etc/group".text = ''
@@ -883,7 +883,7 @@ in {
             isEffectivelySystemUser = user.isSystemUser
               || (user.uid != null && user.uid < 1000);
           in
-            xor isEffectivelySystemUser user.isNormalUser
+          xor isEffectivelySystemUser user.isNormalUser
           ;
           message = ''
             Exactly one of users.users.${user.name}.isSystemUser and users.users.${user.name}.isNormalUser must be set.

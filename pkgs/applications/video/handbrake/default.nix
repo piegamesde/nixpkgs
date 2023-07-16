@@ -279,16 +279,16 @@ in let
           sha256 = "1hfxbbgxwfkzv85pvpvx55a72qsd0hxjbm9hkl5r3590zw4s75h9";
         };
       in
-        runCommand "${pname}-${version}-basic-conversion" {
-          nativeBuildInputs = [ self ];
-        } ''
-          mkdir -p $out
-          cd $out
-          HandBrakeCLI -i ${testMkv} -o test.mp4 -e x264 -q 20 -B 160
-          test -e test.mp4
-          HandBrakeCLI -i ${testMkv} -o test.mkv -e x264 -q 20 -B 160
-          test -e test.mkv
-        ''
+      runCommand "${pname}-${version}-basic-conversion" {
+        nativeBuildInputs = [ self ];
+      } ''
+        mkdir -p $out
+        cd $out
+        HandBrakeCLI -i ${testMkv} -o test.mp4 -e x264 -q 20 -B 160
+        test -e test.mp4
+        HandBrakeCLI -i ${testMkv} -o test.mkv -e x264 -q 20 -B 160
+        test -e test.mkv
+      ''
       ;
       version = testers.testVersion {
         package = self;
@@ -318,4 +318,4 @@ in let
     };
   };
 in
-  self
+self

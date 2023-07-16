@@ -63,4 +63,4 @@ let
       };
     };
 in
-  lib.makeOverridable buildGnomeExtension
+lib.makeOverridable buildGnomeExtension

@@ -75,7 +75,7 @@ let
             let
               inherit (builtins.tryEval value0) success value;
             in
-              getOutputs (lib.optionalAttrs success value)
+            getOutputs (lib.optionalAttrs success value)
           ;
           getOutputs = value:
             lib.genAttrs (value.outputs or (lib.optional (value ? out) "out"))
@@ -109,7 +109,7 @@ let
           defaultValue;
       };
     in
-      lib.listToAttrs (map merge (lib.attrNames mash))
+    lib.listToAttrs (map merge (lib.attrNames mash))
   ;
 
   splicePackages = {

@@ -24,42 +24,42 @@ let
   pname = "astropy";
   version = "5.2.1";
 in
-  buildPythonPackage {
+buildPythonPackage {
+  inherit pname version;
+  format = "pyproject";
+
+  disabled = pythonOlder "3.8"; # according to setup.cfg
+
+  src = fetchPypi {
     inherit pname version;
-    format = "pyproject";
+    hash = "sha256-9q4noHf46oSQPvp2x5C5hWFzQaAISw0hw5H3o/MyrCM=";
+  };
 
-    disabled = pythonOlder "3.8"; # according to setup.cfg
+  SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-    src = fetchPypi {
-      inherit pname version;
-      hash = "sha256-9q4noHf46oSQPvp2x5C5hWFzQaAISw0hw5H3o/MyrCM=";
-    };
+  nativeBuildInputs = [
+    astropy-extension-helpers
+    astropy-helpers
+    cython
+    jinja2
+    setuptools-scm
+  ];
 
-    SETUPTOOLS_SCM_PRETEND_VERSION = version;
+  propagatedBuildInputs = [
+    numpy
+    packaging
+    pyerfa
+    pyyaml
+  ];
 
-    nativeBuildInputs = [
-      astropy-extension-helpers
-      astropy-helpers
-      cython
-      jinja2
-      setuptools-scm
-    ];
+  # infinite recursion with pytest-astropy (pytest-astropy-header depends on astropy itself)
+  doCheck = false;
 
-    propagatedBuildInputs = [
-      numpy
-      packaging
-      pyerfa
-      pyyaml
-    ];
-
-    # infinite recursion with pytest-astropy (pytest-astropy-header depends on astropy itself)
-    doCheck = false;
-
-    meta = with lib; {
-      description = "Astronomy/Astrophysics library for Python";
-      homepage = "https://www.astropy.org";
-      license = licenses.bsd3;
-      platforms = platforms.all;
-      maintainers = [ maintainers.kentjames ];
-    };
-  }
+  meta = with lib; {
+    description = "Astronomy/Astrophysics library for Python";
+    homepage = "https://www.astropy.org";
+    license = licenses.bsd3;
+    platforms = platforms.all;
+    maintainers = [ maintainers.kentjames ];
+  };
+}

@@ -31,7 +31,7 @@ stdenv.mkDerivation {
     else
       writeText "blocks.def.h" conf;
   in
-    lib.optionalString (conf != null) "cp ${configFile} blocks.def.h"
+  lib.optionalString (conf != null) "cp ${configFile} blocks.def.h"
   ;
 
   makeFlags = [ "PREFIX=$(out)" ];

@@ -118,9 +118,9 @@ stdenv.mkDerivation rec {
     ];
     tdRegexp = lib.concatStringsSep "\\|" toDisable;
   in
-    lib.optionalString doCheck ''
-      sed '/${tdRegexp}/d' -i test/test-list.h
-    ''
+  lib.optionalString doCheck ''
+    sed '/${tdRegexp}/d' -i test/test-list.h
+  ''
   ;
 
   nativeBuildInputs = [

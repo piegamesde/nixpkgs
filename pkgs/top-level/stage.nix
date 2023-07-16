@@ -95,7 +95,7 @@ let
         pkgs = self;
       };
     in
-      res // { stdenvAdapters = res; }
+    res // { stdenvAdapters = res; }
   ;
 
   trivialBuilders = self: super:
@@ -153,7 +153,7 @@ let
         import ./all-packages.nix { inherit lib noSysDirs config overlays; } res
         self super;
     in
-      res
+    res
   ;
 
   aliases = self: super:
@@ -315,4 +315,4 @@ let
 
   # Return the complete set of packages.
 in
-  lib.fix toFix
+lib.fix toFix

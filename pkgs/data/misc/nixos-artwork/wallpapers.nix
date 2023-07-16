@@ -66,7 +66,7 @@ let
         };
       };
     in
-      pkg
+    pkg
   ;
 
 in rec {

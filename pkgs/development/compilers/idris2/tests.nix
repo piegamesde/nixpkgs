@@ -17,37 +17,37 @@ let
       packageString =
         builtins.concatStringsSep " " (map (p: "--package " + p) packages);
     in
-      stdenv.mkDerivation {
-        name = "${pname}-${testName}";
-        meta.timeout = 60;
+    stdenv.mkDerivation {
+      name = "${pname}-${testName}";
+      meta.timeout = 60;
 
-        # with idris2 compiled binaries assume zsh is available on darwin, but that
-        # is not the case with pure nix environments. Thus, we need to include zsh
-        # when we build for darwin in tests. While this is impure, this is also what
-        # we find in real darwin hosts.
-        nativeBuildInputs = lib.optionals stdenv.isDarwin [ zsh ];
+      # with idris2 compiled binaries assume zsh is available on darwin, but that
+      # is not the case with pure nix environments. Thus, we need to include zsh
+      # when we build for darwin in tests. While this is impure, this is also what
+      # we find in real darwin hosts.
+      nativeBuildInputs = lib.optionals stdenv.isDarwin [ zsh ];
 
-        buildCommand = ''
-          set -eo pipefail
+      buildCommand = ''
+        set -eo pipefail
 
-          cat > packageTest.idr <<HERE
-          ${code}
-          HERE
+        cat > packageTest.idr <<HERE
+        ${code}
+        HERE
 
-          ${idris2}/bin/idris2 ${packageString} -o packageTest packageTest.idr
+        ${idris2}/bin/idris2 ${packageString} -o packageTest packageTest.idr
 
-          GOT=$(./build/exec/packageTest)
+        GOT=$(./build/exec/packageTest)
 
-          if [ "$GOT" = "${want}" ]; then
-            echo "${testName} SUCCESS: '$GOT' = '${want}'"
-          else
-            >&2 echo "Got '$GOT', want: '${want}'"
-            exit 1
-          fi
+        if [ "$GOT" = "${want}" ]; then
+          echo "${testName} SUCCESS: '$GOT' = '${want}'"
+        else
+          >&2 echo "Got '$GOT', want: '${want}'"
+          exit 1
+        fi
 
-          touch $out
-        '';
-      }
+        touch $out
+      '';
+    }
   ;
 in {
   # Simple hello world compiles, runs and outputs as expected

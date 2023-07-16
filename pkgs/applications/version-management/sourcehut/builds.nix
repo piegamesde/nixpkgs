@@ -39,45 +39,45 @@ let
     vendorHash = "sha256-y5RFPbtaGmgPpiV2Q3njeWORGZF1TJRjAbY6VgC1hek=";
   };
 in
-  buildPythonPackage rec {
-    inherit src version;
-    pname = "buildsrht";
+buildPythonPackage rec {
+  inherit src version;
+  pname = "buildsrht";
 
-    postPatch = ''
-      substituteInPlace Makefile \
-        --replace "all: api worker" ""
-    '';
+  postPatch = ''
+    substituteInPlace Makefile \
+      --replace "all: api worker" ""
+  '';
 
-    propagatedBuildInputs = [
-      srht
-      redis
-      celery
-      pyyaml
-      markdown
-      ansi2html
-    ];
+  propagatedBuildInputs = [
+    srht
+    redis
+    celery
+    pyyaml
+    markdown
+    ansi2html
+  ];
 
-    preBuild = ''
-      export PKGVER=${version}
-      export SRHT_PATH=${srht}/${python.sitePackages}/srht
-    '';
+  preBuild = ''
+    export PKGVER=${version}
+    export SRHT_PATH=${srht}/${python.sitePackages}/srht
+  '';
 
-    postInstall = ''
-      mkdir -p $out/lib
-      mkdir -p $out/bin/builds.sr.ht
+  postInstall = ''
+    mkdir -p $out/lib
+    mkdir -p $out/bin/builds.sr.ht
 
-      cp -r images $out/lib
-      cp contrib/submit_image_build $out/bin/builds.sr.ht
-      ln -s ${buildsrht-api}/bin/api $out/bin/buildsrht-api
-      ln -s ${buildsrht-worker}/bin/worker $out/bin/buildsrht-worker
-    '';
+    cp -r images $out/lib
+    cp contrib/submit_image_build $out/bin/builds.sr.ht
+    ln -s ${buildsrht-api}/bin/api $out/bin/buildsrht-api
+    ln -s ${buildsrht-worker}/bin/worker $out/bin/buildsrht-worker
+  '';
 
-    pythonImportsCheck = [ "buildsrht" ];
+  pythonImportsCheck = [ "buildsrht" ];
 
-    meta = with lib; {
-      homepage = "https://git.sr.ht/~sircmpwn/builds.sr.ht";
-      description = "Continuous integration service for the sr.ht network";
-      license = licenses.agpl3Only;
-      maintainers = with maintainers; [ eadwu ];
-    };
-  }
+  meta = with lib; {
+    homepage = "https://git.sr.ht/~sircmpwn/builds.sr.ht";
+    description = "Continuous integration service for the sr.ht network";
+    license = licenses.agpl3Only;
+    maintainers = with maintainers; [ eadwu ];
+  };
+}

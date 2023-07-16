@@ -52,12 +52,12 @@ let
           toString value;
       }) cfg.config;
   in
-    {
-      DATA_FOLDER = "/var/lib/bitwarden_rs";
-    } // optionalAttrs (!(configEnv ? WEB_VAULT_ENABLED)
-      || configEnv.WEB_VAULT_ENABLED == "true") {
-        WEB_VAULT_FOLDER = "${cfg.webVaultPackage}/share/vaultwarden/vault";
-      } // configEnv
+  {
+    DATA_FOLDER = "/var/lib/bitwarden_rs";
+  } // optionalAttrs
+  (!(configEnv ? WEB_VAULT_ENABLED) || configEnv.WEB_VAULT_ENABLED == "true") {
+    WEB_VAULT_FOLDER = "${cfg.webVaultPackage}/share/vaultwarden/vault";
+  } // configEnv
   ;
 
   configFile = pkgs.writeText "vaultwarden.env" (concatStrings (mapAttrsToList

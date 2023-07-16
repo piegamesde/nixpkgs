@@ -84,25 +84,25 @@ in {
           (listOf validConfigTypes)
         ];
     in
-      mkOption {
-        type = with types;
-          attrsOf (nullOr (either collectionTypes (attrsOf collectionTypes)));
-        default = { };
-        example = {
-          captures = 20;
-          gamma_long_transition = true;
-          ac_capture_timeouts = [
-            120
-            300
-            60
-          ];
-        };
-        description = lib.mdDoc ''
-          Additional configuration to extend clight.conf. See
-          <https://github.com/FedeDP/Clight/blob/master/Extra/clight.conf> for a
-          sample configuration file.
-        '';
-      }
+    mkOption {
+      type = with types;
+        attrsOf (nullOr (either collectionTypes (attrsOf collectionTypes)));
+      default = { };
+      example = {
+        captures = 20;
+        gamma_long_transition = true;
+        ac_capture_timeouts = [
+          120
+          300
+          60
+        ];
+      };
+      description = lib.mdDoc ''
+        Additional configuration to extend clight.conf. See
+        <https://github.com/FedeDP/Clight/blob/master/Extra/clight.conf> for a
+        sample configuration file.
+      '';
+    }
     ;
   };
 

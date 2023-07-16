@@ -101,14 +101,14 @@ stdenv.mkDerivation rec {
     useOldGCC = !(stdenv.hostPlatform.useLLVM or false)
       && lib.versionOlder stdenv.cc.cc.version "10";
   in
-    (if
-      useLLVMAndOldCC
-    then
-      "11"
-    else if useOldGCC then
-      "14"
-    else
-      "17")
+  (if
+    useLLVMAndOldCC
+  then
+    "11"
+  else if useOldGCC then
+    "14"
+  else
+    "17")
   ;
 
   passthru.tests = {

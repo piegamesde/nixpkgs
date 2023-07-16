@@ -47,4 +47,4 @@ let
     prefix = modulesPath;
   };
 in
-  docs.optionsNix
+docs.optionsNix

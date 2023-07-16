@@ -75,7 +75,7 @@ let
     toLines = set: concatMap (name: encode name set.${name}) (sortedAttrs set);
 
   in
-    concatStringsSep "\n" (toLines cfg.config)
+  concatStringsSep "\n" (toLines cfg.config)
   ;
 
   semanticTypes = with types; rec {

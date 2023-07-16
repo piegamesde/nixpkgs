@@ -38,7 +38,7 @@ let
         else
           toInt p1;
       in
-        p1 != null && 0 < p2 && p2 < 1024
+      p1 != null && 0 < p2 && p2 < 1024
   ) (flatten [
     cfg.settings.ORPort
     cfg.settings.DirPort

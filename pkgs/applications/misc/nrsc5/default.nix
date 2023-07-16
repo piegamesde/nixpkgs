@@ -21,54 +21,54 @@ let
   version = "1.0";
 
 in
-  stdenv.mkDerivation {
-    pname = "nrsc5";
-    inherit version;
+stdenv.mkDerivation {
+  pname = "nrsc5";
+  inherit version;
 
-    src = fetchFromGitHub {
-      owner = "theori-io";
-      repo = "nrsc5";
-      rev = "v${version}";
-      sha256 = "09zzh3h1zzf2lwrbz3i7rif2hw36d9ska8irvxaa9lz6xc1y68pg";
-    };
+  src = fetchFromGitHub {
+    owner = "theori-io";
+    repo = "nrsc5";
+    rev = "v${version}";
+    sha256 = "09zzh3h1zzf2lwrbz3i7rif2hw36d9ska8irvxaa9lz6xc1y68pg";
+  };
 
-    postUnpack = ''
-      export srcRoot=`pwd`
-      export faadSrc="$srcRoot/faad2-prefix/src/faad2_external"
-      mkdir -p $faadSrc
-      cp -r ${src_faad2}/* $faadSrc
-      chmod -R u+w $faadSrc
-    '';
+  postUnpack = ''
+    export srcRoot=`pwd`
+    export faadSrc="$srcRoot/faad2-prefix/src/faad2_external"
+    mkdir -p $faadSrc
+    cp -r ${src_faad2}/* $faadSrc
+    chmod -R u+w $faadSrc
+  '';
 
-    postPatch = ''
-      sed -i '/GIT_REPOSITORY/d' CMakeLists.txt
-      sed -i '/GIT_TAG/d' CMakeLists.txt
-      sed -i "s:set (FAAD2_PREFIX .*):set (FAAD2_PREFIX \"$srcRoot/faad2-prefix\"):" CMakeLists.txt
-    '';
+  postPatch = ''
+    sed -i '/GIT_REPOSITORY/d' CMakeLists.txt
+    sed -i '/GIT_TAG/d' CMakeLists.txt
+    sed -i "s:set (FAAD2_PREFIX .*):set (FAAD2_PREFIX \"$srcRoot/faad2-prefix\"):" CMakeLists.txt
+  '';
 
-    nativeBuildInputs = [
-      cmake
-      autoconf
-      automake
-      libtool
-    ];
-    buildInputs = [
-      rtl-sdr
-      libao
-      fftwFloat
-    ];
+  nativeBuildInputs = [
+    cmake
+    autoconf
+    automake
+    libtool
+  ];
+  buildInputs = [
+    rtl-sdr
+    libao
+    fftwFloat
+  ];
 
-    cmakeFlags = [
-      "-DUSE_COLOR=ON"
-      "-DUSE_FAAD2=ON"
-    ];
+  cmakeFlags = [
+    "-DUSE_COLOR=ON"
+    "-DUSE_FAAD2=ON"
+  ];
 
-    meta = with lib; {
-      homepage = "https://github.com/theori-io/nrsc5";
-      description = "HD-Radio decoder for RTL-SDR";
-      platforms = lib.platforms.linux;
-      license = licenses.gpl3Plus;
-      maintainers = with maintainers; [ markuskowa ];
-    };
-  }
+  meta = with lib; {
+    homepage = "https://github.com/theori-io/nrsc5";
+    description = "HD-Radio decoder for RTL-SDR";
+    platforms = lib.platforms.linux;
+    license = licenses.gpl3Plus;
+    maintainers = with maintainers; [ markuskowa ];
+  };
+}
 

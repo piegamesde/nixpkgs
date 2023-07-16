@@ -114,28 +114,28 @@ in {
         optionalString cfg.bindInterface
         (escapeShellArgs (prefixes ++ [ cfg.interface ]));
     in
-      mkOptionDefault (if
-        config.networking.networkmanager.enable
-      then
-        "${pkgs.networkmanager}/bin/nmcli dev show ${
-          iface [ ]
-        } | ${pkgs.gnugrep}/bin/fgrep IP4.DNS"
-      else if config.networking.dhcpcd.enable then
-        "${pkgs.dhcpcd}/bin/dhcpcd ${
-          iface [ "-U" ]
-        } | ${pkgs.gnugrep}/bin/fgrep domain_name_servers"
-      else if config.networking.useNetworkd then
-        "${cfg.package}/bin/systemd-networkd-dns ${iface [ ]}"
-      else
-        "${config.security.wrapperDir}/udhcpc --quit --now -f ${
-          iface [ "-i" ]
-        } -O dns --script ${
-          pkgs.writeShellScript "udhcp-script" ''
-            if [ "$1" = bound ]; then
-              echo "$dns"
-            fi
-          ''
-        }")
+    mkOptionDefault (if
+      config.networking.networkmanager.enable
+    then
+      "${pkgs.networkmanager}/bin/nmcli dev show ${
+        iface [ ]
+      } | ${pkgs.gnugrep}/bin/fgrep IP4.DNS"
+    else if config.networking.dhcpcd.enable then
+      "${pkgs.dhcpcd}/bin/dhcpcd ${
+        iface [ "-U" ]
+      } | ${pkgs.gnugrep}/bin/fgrep domain_name_servers"
+    else if config.networking.useNetworkd then
+      "${cfg.package}/bin/systemd-networkd-dns ${iface [ ]}"
+    else
+      "${config.security.wrapperDir}/udhcpc --quit --now -f ${
+        iface [ "-i" ]
+      } -O dns --script ${
+        pkgs.writeShellScript "udhcp-script" ''
+          if [ "$1" = bound ]; then
+            echo "$dns"
+          fi
+        ''
+      }")
     ;
 
     security.wrappers.udhcpc = {

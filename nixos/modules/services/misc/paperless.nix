@@ -33,10 +33,10 @@ let
     setupEnv = lib.concatStringsSep "\n"
       (mapAttrsToList (name: val: ''export ${name}="${val}"'') env);
   in
-    pkgs.writeShellScript "manage" ''
-      ${setupEnv}
-      exec ${pkg}/bin/paperless-ngx "$@"
-    ''
+  pkgs.writeShellScript "manage" ''
+    ${setupEnv}
+    exec ${pkg}/bin/paperless-ngx "$@"
+  ''
   ;
 
   # Secure the services

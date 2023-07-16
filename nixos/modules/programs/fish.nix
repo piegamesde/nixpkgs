@@ -278,11 +278,11 @@ in {
               fi
             '';
         in
-          pkgs.buildEnv {
-            name = "system_fish-completions";
-            ignoreCollisions = true;
-            paths = map generateCompletions config.environment.systemPackages;
-          }
+        pkgs.buildEnv {
+          name = "system_fish-completions";
+          ignoreCollisions = true;
+          paths = map generateCompletions config.environment.systemPackages;
+        }
         ;
       }
 

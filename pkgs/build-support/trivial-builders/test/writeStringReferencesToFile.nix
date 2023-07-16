@@ -17,7 +17,7 @@ let
       STORE=${builtins.storeDir};\nsystemctl start bar-foo.service
     '');
 in
-  runCommand "test-writeStringReferencesToFile" { } ''
-    diff -U3 <(sort ${stringReferencesText}) <(sort ${sampleText})
-    touch $out
-  ''
+runCommand "test-writeStringReferencesToFile" { } ''
+  diff -U3 <(sort ${stringReferencesText}) <(sort ${sampleText})
+  touch $out
+''

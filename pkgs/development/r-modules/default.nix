@@ -28,38 +28,38 @@ let
     let
       hydraPlatforms' = hydraPlatforms;
     in
-      lib.makeOverridable ({
-          name,
-          version,
-          sha256,
-          depends ? [ ],
-          doCheck ? true,
-          requireX ? false,
-          broken ? false,
-          platforms ? R.meta.platforms,
-          hydraPlatforms ? if
-            hydraPlatforms' != null
-          then
-            hydraPlatforms'
-          else
-            platforms,
-          maintainers ? [ ]
-        }:
-        buildRPackage {
-          name = "${name}-${version}";
-          src = fetchurl {
-            inherit sha256;
-            urls = mkUrls (args // { inherit name version; });
-          };
-          inherit doCheck requireX;
-          propagatedBuildInputs = depends;
-          nativeBuildInputs = depends;
-          meta.homepage = mkHomepage (args // { inherit name; });
-          meta.platforms = platforms;
-          meta.hydraPlatforms = hydraPlatforms;
-          meta.broken = broken;
-          meta.maintainers = maintainers;
-        })
+    lib.makeOverridable ({
+        name,
+        version,
+        sha256,
+        depends ? [ ],
+        doCheck ? true,
+        requireX ? false,
+        broken ? false,
+        platforms ? R.meta.platforms,
+        hydraPlatforms ? if
+          hydraPlatforms' != null
+        then
+          hydraPlatforms'
+        else
+          platforms,
+        maintainers ? [ ]
+      }:
+      buildRPackage {
+        name = "${name}-${version}";
+        src = fetchurl {
+          inherit sha256;
+          urls = mkUrls (args // { inherit name version; });
+        };
+        inherit doCheck requireX;
+        propagatedBuildInputs = depends;
+        nativeBuildInputs = depends;
+        meta.homepage = mkHomepage (args // { inherit name; });
+        meta.platforms = platforms;
+        meta.hydraPlatforms = hydraPlatforms;
+        meta.broken = broken;
+        meta.maintainers = maintainers;
+      })
   ;
 
   # Templates for generating Bioconductor and CRAN packages
@@ -225,7 +225,7 @@ let
         value = (builtins.getAttr name old).override { requireX = true; };
       }) packageNames;
     in
-      builtins.listToAttrs nameValuePairs
+    builtins.listToAttrs nameValuePairs
   ;
 
   # Overrides package definition requiring a home directory to install or to
@@ -258,7 +258,7 @@ let
         });
       }) packageNames;
     in
-      builtins.listToAttrs nameValuePairs
+    builtins.listToAttrs nameValuePairs
   ;
 
   # Overrides package definition to skip check.
@@ -282,7 +282,7 @@ let
         value = (builtins.getAttr name old).override { doCheck = false; };
       }) packageNames;
     in
-      builtins.listToAttrs nameValuePairs
+    builtins.listToAttrs nameValuePairs
   ;
 
   # Overrides package definition to mark it broken.
@@ -306,7 +306,7 @@ let
         value = (builtins.getAttr name old).override { broken = true; };
       }) packageNames;
     in
-      builtins.listToAttrs nameValuePairs
+    builtins.listToAttrs nameValuePairs
   ;
 
   defaultOverrides = old: new:
@@ -324,7 +324,7 @@ let
       old8 = old7 // (overrideMaintainers packagesWithMaintainers old7);
       old = old8;
     in
-      old // (otherOverrides old new)
+    old // (otherOverrides old new)
   ;
 
   # Recursive override pattern.
@@ -1634,14 +1634,14 @@ let
         configureFlags = attrs.configureFlags ++ [ "--enable-cxx" ];
       });
     in
-      old.Rhdf5lib.overrideAttrs (attrs: {
-        propagatedBuildInputs = attrs.propagatedBuildInputs ++ [
-          hdf5.dev
-          pkgs.libaec
-        ];
-        patches = [ ./patches/Rhdf5lib.patch ];
-        passthru.hdf5 = hdf5;
-      })
+    old.Rhdf5lib.overrideAttrs (attrs: {
+      propagatedBuildInputs = attrs.propagatedBuildInputs ++ [
+        hdf5.dev
+        pkgs.libaec
+      ];
+      patches = [ ./patches/Rhdf5lib.patch ];
+      passthru.hdf5 = hdf5;
+    })
     ;
 
     rhdf5filters = old.rhdf5filters.overrideAttrs (attrs: {
@@ -1658,4 +1658,4 @@ let
       (attrs: { env.NIX_LDFLAGS = "-lfribidi -lharfbuzz"; });
   };
 in
-  self
+self

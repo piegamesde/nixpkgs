@@ -37,11 +37,11 @@ rustPlatform.buildRustPackage rec {
         "0ff1b64b99cbca1cc2ceabcd2e4f7bc3411e3a2a9fbb9db2204d9240fe38ddeb";
     };
   in
-    runCommand "pax-rs-src" { } ''
-      cp -R ${source} $out
-      chmod +w $out
-      cp ${cargo-lock} $out/Cargo.lock
-    ''
+  runCommand "pax-rs-src" { } ''
+    cp -R ${source} $out
+    chmod +w $out
+    cp ${cargo-lock} $out/Cargo.lock
+  ''
   ;
 
   cargoSha256 = "0d6g52hjflnw2zvlx10pz78527vh7mw5n43yi8q6dwr3pkbds1fs";

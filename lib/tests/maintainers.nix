@@ -48,7 +48,7 @@ let
               }': If an email address is given, it should allow people to reach you. If you do not want that, you can just provide `github` or `matrix` instead.'
             '';
     in
-      lib.deepSeq checkedAttrs checks
+    lib.deepSeq checkedAttrs checks
   ;
 
   missingGithubIds =

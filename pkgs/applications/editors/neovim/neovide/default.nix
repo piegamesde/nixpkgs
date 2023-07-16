@@ -59,11 +59,11 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
       path = fetchgit value;
     }) (lib.importJSON ./skia-externals.json));
   in
-    runCommand "source" { } ''
-      cp -R ${repo} $out
-      chmod -R +w $out
-      ln -s ${externals} $out/third_party/externals
-    ''
+  runCommand "source" { } ''
+    cp -R ${repo} $out
+    chmod -R +w $out
+    ln -s ${externals} $out/third_party/externals
+  ''
   ;
 
   SKIA_GN_COMMAND = "${gn}/bin/gn";

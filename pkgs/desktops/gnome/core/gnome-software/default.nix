@@ -44,80 +44,80 @@ let
   withFwupd = stdenv.hostPlatform.isx86;
 
 in
-  stdenv.mkDerivation rec {
-    pname = "gnome-software";
-    version = "44.1";
+stdenv.mkDerivation rec {
+  pname = "gnome-software";
+  version = "44.1";
 
-    src = fetchurl {
-      url = "mirror://gnome/sources/gnome-software/${
-          lib.versions.major version
-        }/${pname}-${version}.tar.xz";
-      sha256 = "ncZVFRLPCibQPg159JSHCmkW1DwU2CGZxDoR2cwK1ao=";
+  src = fetchurl {
+    url = "mirror://gnome/sources/gnome-software/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
+    sha256 = "ncZVFRLPCibQPg159JSHCmkW1DwU2CGZxDoR2cwK1ao=";
+  };
+
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    inherit isocodes;
+  }) ];
+
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gettext
+    wrapGAppsHook4
+    libxslt
+    docbook_xml_dtd_42
+    docbook_xml_dtd_43
+    valgrind-light
+    docbook-xsl-nons
+    gtk-doc
+    desktop-file-utils
+    gobject-introspection
+  ];
+
+  buildInputs = [
+    gtk4
+    glib
+    packagekit
+    appstream
+    libsoup_3
+    libadwaita
+    gsettings-desktop-schemas
+    gnome-desktop
+    gspell
+    json-glib
+    libsecret
+    ostree
+    polkit
+    flatpak
+    libgudev
+    libxmlb
+    malcontent
+    libsysprof-capture
+    # For video screenshots
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-good
+  ] ++ lib.optionals withFwupd [ fwupd ];
+
+  mesonFlags = [
+    # Requires /etc/machine-id, D-Bus system bus, etc.
+    "-Dtests=false"
+  ] ++ lib.optionals (!withFwupd) [ "-Dfwupd=false" ];
+
+  passthru = {
+    updateScript = gnome.updateScript {
+      packageName = pname;
+      attrPath = "gnome.gnome-software";
     };
+  };
 
-    patches = [ (substituteAll {
-      src = ./fix-paths.patch;
-      inherit isocodes;
-    }) ];
-
-    nativeBuildInputs = [
-      meson
-      ninja
-      pkg-config
-      gettext
-      wrapGAppsHook4
-      libxslt
-      docbook_xml_dtd_42
-      docbook_xml_dtd_43
-      valgrind-light
-      docbook-xsl-nons
-      gtk-doc
-      desktop-file-utils
-      gobject-introspection
-    ];
-
-    buildInputs = [
-      gtk4
-      glib
-      packagekit
-      appstream
-      libsoup_3
-      libadwaita
-      gsettings-desktop-schemas
-      gnome-desktop
-      gspell
-      json-glib
-      libsecret
-      ostree
-      polkit
-      flatpak
-      libgudev
-      libxmlb
-      malcontent
-      libsysprof-capture
-      # For video screenshots
-      gst_all_1.gst-plugins-base
-      gst_all_1.gst-plugins-good
-    ] ++ lib.optionals withFwupd [ fwupd ];
-
-    mesonFlags = [
-      # Requires /etc/machine-id, D-Bus system bus, etc.
-      "-Dtests=false"
-    ] ++ lib.optionals (!withFwupd) [ "-Dfwupd=false" ];
-
-    passthru = {
-      updateScript = gnome.updateScript {
-        packageName = pname;
-        attrPath = "gnome.gnome-software";
-      };
-    };
-
-    meta = with lib; {
-      description =
-        "Software store that lets you install and update applications and system extensions";
-      homepage = "https://wiki.gnome.org/Apps/Software";
-      license = licenses.gpl2Plus;
-      maintainers = teams.gnome.members;
-      platforms = platforms.linux;
-    };
-  }
+  meta = with lib; {
+    description =
+      "Software store that lets you install and update applications and system extensions";
+    homepage = "https://wiki.gnome.org/Apps/Software";
+    license = licenses.gpl2Plus;
+    maintainers = teams.gnome.members;
+    platforms = platforms.linux;
+  };
+}

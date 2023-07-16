@@ -26,50 +26,50 @@ let
   else
     "32";
 in
-  stdenv.mkDerivation rec {
-    pname = "blis";
-    version = "0.9.0";
+stdenv.mkDerivation rec {
+  pname = "blis";
+  version = "0.9.0";
 
-    src = fetchFromGitHub {
-      owner = "flame";
-      repo = "blis";
-      rev = version;
-      sha256 = "sha256-1aHIdt5wCDrT1hBPnaUVThwjwDkJQ0G0+tao2iFXYpM=";
-    };
+  src = fetchFromGitHub {
+    owner = "flame";
+    repo = "blis";
+    rev = version;
+    sha256 = "sha256-1aHIdt5wCDrT1hBPnaUVThwjwDkJQ0G0+tao2iFXYpM=";
+  };
 
-    inherit blas64;
+  inherit blas64;
 
-    nativeBuildInputs = [
-      perl
-      python3
-    ];
+  nativeBuildInputs = [
+    perl
+    python3
+  ];
 
-    doCheck = true;
+  doCheck = true;
 
-    enableParallelBuilding = true;
+  enableParallelBuilding = true;
 
-    configureFlags = [
-      "--enable-cblas"
-      "--blas-int-size=${blasIntSize}"
-    ] ++ lib.optionals withOpenMP [ "--enable-threading=openmp" ]
-      ++ [ withArchitecture ];
+  configureFlags = [
+    "--enable-cblas"
+    "--blas-int-size=${blasIntSize}"
+  ] ++ lib.optionals withOpenMP [ "--enable-threading=openmp" ]
+    ++ [ withArchitecture ];
 
-    postPatch = ''
-      patchShebangs configure build/flatten-headers.py
-    '';
+  postPatch = ''
+    patchShebangs configure build/flatten-headers.py
+  '';
 
-    postInstall = ''
-      ln -s $out/lib/libblis.so.3 $out/lib/libblas.so.3
-      ln -s $out/lib/libblis.so.3 $out/lib/libcblas.so.3
-      ln -s $out/lib/libblas.so.3 $out/lib/libblas.so
-      ln -s $out/lib/libcblas.so.3 $out/lib/libcblas.so
-    '';
+  postInstall = ''
+    ln -s $out/lib/libblis.so.3 $out/lib/libblas.so.3
+    ln -s $out/lib/libblis.so.3 $out/lib/libcblas.so.3
+    ln -s $out/lib/libblas.so.3 $out/lib/libblas.so
+    ln -s $out/lib/libcblas.so.3 $out/lib/libcblas.so
+  '';
 
-    meta = with lib; {
-      description = "BLAS-compatible linear algebra library";
-      homepage = "https://github.com/flame/blis";
-      license = licenses.bsd3;
-      maintainers = [ ];
-      platforms = [ "x86_64-linux" ];
-    };
-  }
+  meta = with lib; {
+    description = "BLAS-compatible linear algebra library";
+    homepage = "https://github.com/flame/blis";
+    license = licenses.bsd3;
+    maintainers = [ ];
+    platforms = [ "x86_64-linux" ];
+  };
+}

@@ -36,39 +36,39 @@ let
   addAllNetDev = xs: lib.concatStringsSep "\n" (map addNetDev xs);
 
 in
-  stdenv.mkDerivation {
+stdenv.mkDerivation {
 
-    pname = "brscan4-etc-files";
-    version = "0.4.3-3";
-    src = "${brscan4}/opt/brother/scanner/brscan4";
+  pname = "brscan4-etc-files";
+  version = "0.4.3-3";
+  src = "${brscan4}/opt/brother/scanner/brscan4";
 
-    nativeBuildInputs = [ brscan4 ];
+  nativeBuildInputs = [ brscan4 ];
 
-    dontConfigure = true;
+  dontConfigure = true;
 
-    buildPhase = ''
-      TARGET_DIR="$out/etc/opt/brother/scanner/brscan4"
-      mkdir -p "$TARGET_DIR"
-      cp -rp "./models4" "$TARGET_DIR"
-      cp -rp "./Brsane4.ini" "$TARGET_DIR"
-      cp -rp "./brsanenetdevice4.cfg" "$TARGET_DIR"
+  buildPhase = ''
+    TARGET_DIR="$out/etc/opt/brother/scanner/brscan4"
+    mkdir -p "$TARGET_DIR"
+    cp -rp "./models4" "$TARGET_DIR"
+    cp -rp "./Brsane4.ini" "$TARGET_DIR"
+    cp -rp "./brsanenetdevice4.cfg" "$TARGET_DIR"
 
-      export BRSANENETDEVICE4_CFG_FILENAME="$TARGET_DIR/brsanenetdevice4.cfg"
+    export BRSANENETDEVICE4_CFG_FILENAME="$TARGET_DIR/brsanenetdevice4.cfg"
 
-      printf '${addAllNetDev netDevices}\n'
+    printf '${addAllNetDev netDevices}\n'
 
-      ${addAllNetDev netDevices}
-    '';
+    ${addAllNetDev netDevices}
+  '';
 
-    dontInstall = true;
-    dontStrip = true;
-    dontPatchELF = true;
+  dontInstall = true;
+  dontStrip = true;
+  dontPatchELF = true;
 
-    meta = with lib; {
-      description = "Brother brscan4 sane backend driver etc files";
-      homepage = "http://www.brother.com";
-      platforms = platforms.linux;
-      license = licenses.unfree;
-      maintainers = with maintainers; [ jraygauthier ];
-    };
-  }
+  meta = with lib; {
+    description = "Brother brscan4 sane backend driver etc files";
+    homepage = "http://www.brother.com";
+    platforms = platforms.linux;
+    license = licenses.unfree;
+    maintainers = with maintainers; [ jraygauthier ];
+  };
+}

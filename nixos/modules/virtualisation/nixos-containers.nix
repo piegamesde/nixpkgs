@@ -44,44 +44,44 @@ let
         ''}
       '');
     in
-      pkgs.writeScript "container-init" ''
-        #! ${pkgs.runtimeShell} -e
+    pkgs.writeScript "container-init" ''
+      #! ${pkgs.runtimeShell} -e
 
-        # Exit early if we're asked to shut down.
-        trap "exit 0" SIGRTMIN+3
+      # Exit early if we're asked to shut down.
+      trap "exit 0" SIGRTMIN+3
 
-        # Initialise the container side of the veth pair.
-        if [ -n "$HOST_ADDRESS" ]   || [ -n "$HOST_ADDRESS6" ]  ||
-           [ -n "$LOCAL_ADDRESS" ]  || [ -n "$LOCAL_ADDRESS6" ] ||
-           [ -n "$HOST_BRIDGE" ]; then
-          ip link set host0 name eth0
-          ip link set dev eth0 up
+      # Initialise the container side of the veth pair.
+      if [ -n "$HOST_ADDRESS" ]   || [ -n "$HOST_ADDRESS6" ]  ||
+         [ -n "$LOCAL_ADDRESS" ]  || [ -n "$LOCAL_ADDRESS6" ] ||
+         [ -n "$HOST_BRIDGE" ]; then
+        ip link set host0 name eth0
+        ip link set dev eth0 up
 
-          if [ -n "$LOCAL_ADDRESS" ]; then
-            ip addr add $LOCAL_ADDRESS dev eth0
-          fi
-          if [ -n "$LOCAL_ADDRESS6" ]; then
-            ip -6 addr add $LOCAL_ADDRESS6 dev eth0
-          fi
-          if [ -n "$HOST_ADDRESS" ]; then
-            ip route add $HOST_ADDRESS dev eth0
-            ip route add default via $HOST_ADDRESS
-          fi
-          if [ -n "$HOST_ADDRESS6" ]; then
-            ip -6 route add $HOST_ADDRESS6 dev eth0
-            ip -6 route add default via $HOST_ADDRESS6
-          fi
+        if [ -n "$LOCAL_ADDRESS" ]; then
+          ip addr add $LOCAL_ADDRESS dev eth0
         fi
+        if [ -n "$LOCAL_ADDRESS6" ]; then
+          ip -6 addr add $LOCAL_ADDRESS6 dev eth0
+        fi
+        if [ -n "$HOST_ADDRESS" ]; then
+          ip route add $HOST_ADDRESS dev eth0
+          ip route add default via $HOST_ADDRESS
+        fi
+        if [ -n "$HOST_ADDRESS6" ]; then
+          ip -6 route add $HOST_ADDRESS6 dev eth0
+          ip -6 route add default via $HOST_ADDRESS6
+        fi
+      fi
 
-        ${concatStringsSep "\n" (mapAttrsToList renderExtraVeth cfg.extraVeths)}
+      ${concatStringsSep "\n" (mapAttrsToList renderExtraVeth cfg.extraVeths)}
 
-        # Start the regular stage 2 script.
-        # We source instead of exec to not lose an early stop signal, which is
-        # also the only _reliable_ shutdown signal we have since early stop
-        # does not execute ExecStop* commands.
-        set +e
-        . "$1"
-      ''
+      # Start the regular stage 2 script.
+      # We source instead of exec to not lose an early stop signal, which is
+      # also the only _reliable_ shutdown signal we have since early stop
+      # does not execute ExecStop* commands.
+      set +e
+      . "$1"
+    ''
   );
 
   nspawnExtraVethArgs = (name: cfg: "--network-veth-extra=${name}");
@@ -359,7 +359,7 @@ let
       else
         "${d.mountPoint}";
     in
-      flagPrefix + mountstr
+    flagPrefix + mountstr
   ;
 
   mkBindFlags = bs: concatMapStrings mkBindFlag (lib.attrValues bs);
@@ -544,7 +544,7 @@ in {
                             };
                           };
                       in
-                        [ extraConfig ] ++ (map (x: x.value) defs)
+                      [ extraConfig ] ++ (map (x: x.value) defs)
                       ;
                       prefix = [
                         "containers"
@@ -861,32 +861,32 @@ in {
           } else
             { });
         in
-          recursiveUpdate unit {
-            preStart = preStartScript containerConfig;
-            script = startScript containerConfig;
-            postStart = postStartScript containerConfig;
-            serviceConfig = serviceDirectives containerConfig;
-            unitConfig.RequiresMountsFor =
-              lib.optional (!containerConfig.ephemeral) "${stateDirectory}/%i";
-            environment.root = if
-              containerConfig.ephemeral
-            then
-              "/run/nixos-containers/%i"
-            else
-              "${stateDirectory}/%i";
-          } // (if
-            containerConfig.autoStart
-          then {
-            wantedBy = [ "machines.target" ];
-            wants = [ "network.target" ];
-            after = [ "network.target" ];
-            restartTriggers = [
-              containerConfig.path
-              config.environment.etc."${configurationDirectoryName}/${name}.conf".source
-            ];
-            restartIfChanged = true;
-          } else
-            { })
+        recursiveUpdate unit {
+          preStart = preStartScript containerConfig;
+          script = startScript containerConfig;
+          postStart = postStartScript containerConfig;
+          serviceConfig = serviceDirectives containerConfig;
+          unitConfig.RequiresMountsFor =
+            lib.optional (!containerConfig.ephemeral) "${stateDirectory}/%i";
+          environment.root = if
+            containerConfig.ephemeral
+          then
+            "/run/nixos-containers/%i"
+          else
+            "${stateDirectory}/%i";
+        } // (if
+          containerConfig.autoStart
+        then {
+          wantedBy = [ "machines.target" ];
+          wants = [ "network.target" ];
+          after = [ "network.target" ];
+          restartTriggers = [
+            containerConfig.path
+            config.environment.etc."${configurationDirectoryName}/${name}.conf".source
+          ];
+          restartIfChanged = true;
+        } else
+          { })
         )) config.containers)));
 
     # Generate a configuration file in /etc/nixos-containers for each
@@ -901,45 +901,42 @@ in {
         else
           toString p.containerPort);
     in
-      mapAttrs' (name: cfg:
-        nameValuePair "${configurationDirectoryName}/${name}.conf" {
-          text = ''
-            SYSTEM_PATH=${cfg.path}
-            ${optionalString cfg.privateNetwork ''
-              PRIVATE_NETWORK=1
-              ${optionalString (cfg.hostBridge != null) ''
-                HOST_BRIDGE=${cfg.hostBridge}
-              ''}
-              ${optionalString (length cfg.forwardPorts > 0) ''
-                HOST_PORT=${
-                  concatStringsSep "," (map mkPortStr cfg.forwardPorts)
-                }
-              ''}
-              ${optionalString (cfg.hostAddress != null) ''
-                HOST_ADDRESS=${cfg.hostAddress}
-              ''}
-              ${optionalString (cfg.hostAddress6 != null) ''
-                HOST_ADDRESS6=${cfg.hostAddress6}
-              ''}
-              ${optionalString (cfg.localAddress != null) ''
-                LOCAL_ADDRESS=${cfg.localAddress}
-              ''}
-              ${optionalString (cfg.localAddress6 != null) ''
-                LOCAL_ADDRESS6=${cfg.localAddress6}
-              ''}
+    mapAttrs' (name: cfg:
+      nameValuePair "${configurationDirectoryName}/${name}.conf" {
+        text = ''
+          SYSTEM_PATH=${cfg.path}
+          ${optionalString cfg.privateNetwork ''
+            PRIVATE_NETWORK=1
+            ${optionalString (cfg.hostBridge != null) ''
+              HOST_BRIDGE=${cfg.hostBridge}
             ''}
-            INTERFACES="${toString cfg.interfaces}"
-            MACVLANS="${toString cfg.macvlans}"
-            ${optionalString cfg.autoStart ''
-              AUTO_START=1
+            ${optionalString (length cfg.forwardPorts > 0) ''
+              HOST_PORT=${concatStringsSep "," (map mkPortStr cfg.forwardPorts)}
             ''}
-            EXTRA_NSPAWN_FLAGS="${
-              mkBindFlags cfg.bindMounts
-              + optionalString (cfg.extraFlags != [ ])
-              (" " + concatStringsSep " " cfg.extraFlags)
-            }"
-          '';
-        }) config.containers
+            ${optionalString (cfg.hostAddress != null) ''
+              HOST_ADDRESS=${cfg.hostAddress}
+            ''}
+            ${optionalString (cfg.hostAddress6 != null) ''
+              HOST_ADDRESS6=${cfg.hostAddress6}
+            ''}
+            ${optionalString (cfg.localAddress != null) ''
+              LOCAL_ADDRESS=${cfg.localAddress}
+            ''}
+            ${optionalString (cfg.localAddress6 != null) ''
+              LOCAL_ADDRESS6=${cfg.localAddress6}
+            ''}
+          ''}
+          INTERFACES="${toString cfg.interfaces}"
+          MACVLANS="${toString cfg.macvlans}"
+          ${optionalString cfg.autoStart ''
+            AUTO_START=1
+          ''}
+          EXTRA_NSPAWN_FLAGS="${
+            mkBindFlags cfg.bindMounts + optionalString (cfg.extraFlags != [ ])
+            (" " + concatStringsSep " " cfg.extraFlags)
+          }"
+        '';
+      }) config.containers
     ;
 
     # Generate /etc/hosts entries for the containers.

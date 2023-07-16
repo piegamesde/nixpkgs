@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
         inherit sha256;
       };
   in
-    import ./readline-8.2-patches.nix patch
+  import ./readline-8.2-patches.nix patch
   );
 
   patches = [

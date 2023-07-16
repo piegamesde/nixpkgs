@@ -29,28 +29,28 @@ let
   } ];
 
 in
-  stdenv.mkDerivation {
-    pname = "libtorch-test";
-    version = libtorch-bin.version;
+stdenv.mkDerivation {
+  pname = "libtorch-test";
+  version = libtorch-bin.version;
 
-    src = ./.;
+  src = ./.;
 
-    nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [ cmake ];
 
-    buildInputs = [ libtorch-bin ] ++ lib.optionals cudaSupport [ cudnn ];
+  buildInputs = [ libtorch-bin ] ++ lib.optionals cudaSupport [ cudnn ];
 
-    cmakeFlags = lib.optionals
-      cudaSupport [ "-DCUDA_TOOLKIT_ROOT_DIR=${cudatoolkit_joined}" ];
+  cmakeFlags = lib.optionals
+    cudaSupport [ "-DCUDA_TOOLKIT_ROOT_DIR=${cudatoolkit_joined}" ];
 
-    doCheck = true;
+  doCheck = true;
 
-    installPhase = ''
-      touch $out
-    '';
+  installPhase = ''
+    touch $out
+  '';
 
-    checkPhase = lib.optionalString cudaSupport ''
-      LD_LIBRARY_PATH=${cudaStub}''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH \
-    '' + ''
-      ./test
-    '';
-  }
+  checkPhase = lib.optionalString cudaSupport ''
+    LD_LIBRARY_PATH=${cudaStub}''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH \
+  '' + ''
+    ./test
+  '';
+}

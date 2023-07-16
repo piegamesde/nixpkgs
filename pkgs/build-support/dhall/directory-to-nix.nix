@@ -25,4 +25,4 @@ let
   builtPkg = dhallPackages.callPackage generatedPkg { };
 
 in
-  dhallPackageToNix builtPkg
+dhallPackageToNix builtPkg

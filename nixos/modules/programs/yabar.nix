@@ -45,10 +45,10 @@ let
       };
     '') cfg.bars;
   in
-    pkgs.writeText "yabar.conf" ''
-      bar-list = [${listKeys cfg.bars}];
-      ${concatStringsSep "\n" bars}
-    ''
+  pkgs.writeText "yabar.conf" ''
+    bar-list = [${listKeys cfg.bars}];
+    ${concatStringsSep "\n" bars}
+  ''
   ;
 in {
   options.programs.yabar = {

@@ -421,7 +421,7 @@ in {
         "batch_size"
       ];
     in
-      builtins.map deprecationWarning (builtins.filter hasImapOpt movedOptions)
+    builtins.map deprecationWarning (builtins.filter hasImapOpt movedOptions)
     ;
 
     services.elasticsearch.enable = lib.mkDefault cfg.provision.elasticsearch;
@@ -465,28 +465,28 @@ in {
         datasources.settings.datasources = let
           esVersion = lib.getVersion config.services.elasticsearch.package;
         in
-          lib.mkIf cfg.provision.grafana.datasource [
-            {
-              name = "dmarc-ag";
-              type = "elasticsearch";
-              access = "proxy";
-              url = "http://localhost:9200";
-              jsonData = {
-                timeField = "date_range";
-                inherit esVersion;
-              };
-            }
-            {
-              name = "dmarc-fo";
-              type = "elasticsearch";
-              access = "proxy";
-              url = "http://localhost:9200";
-              jsonData = {
-                timeField = "date_range";
-                inherit esVersion;
-              };
-            }
-          ]
+        lib.mkIf cfg.provision.grafana.datasource [
+          {
+            name = "dmarc-ag";
+            type = "elasticsearch";
+            access = "proxy";
+            url = "http://localhost:9200";
+            jsonData = {
+              timeField = "date_range";
+              inherit esVersion;
+            };
+          }
+          {
+            name = "dmarc-fo";
+            type = "elasticsearch";
+            access = "proxy";
+            url = "http://localhost:9200";
+            jsonData = {
+              timeField = "date_range";
+              inherit esVersion;
+            };
+          }
+        ]
         ;
         dashboards.settings.providers =
           lib.mkIf cfg.provision.grafana.dashboard [ {
@@ -572,10 +572,10 @@ in {
             cat <(echo -n "${cfg.provision.localMail.recipientName}:") /run/parsedmarc/dmarc_user_passwd | chpasswd
           '';
         in
-          "+${
-            pkgs.writeShellScript "parsedmarc-start-pre-full-privileges"
-            startPreFullPrivileges
-          }"
+        "+${
+          pkgs.writeShellScript "parsedmarc-start-pre-full-privileges"
+          startPreFullPrivileges
+        }"
         ;
         Type = "simple";
         User = "parsedmarc";

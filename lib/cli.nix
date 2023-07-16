@@ -94,6 +94,6 @@ rec {
           mkOption k v;
 
     in
-      builtins.concatLists (lib.mapAttrsToList render options)
+    builtins.concatLists (lib.mapAttrsToList render options)
   ;
 }

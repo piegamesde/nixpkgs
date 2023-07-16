@@ -16,23 +16,23 @@ let
 
   appimageContents = appimageTools.extract { inherit name src; };
 in
-  appimageTools.wrapType2 {
-    inherit name src;
+appimageTools.wrapType2 {
+  inherit name src;
 
-    extraInstallCommands = ''
-      mv $out/bin/${name} $out/bin/${pname}
+  extraInstallCommands = ''
+    mv $out/bin/${name} $out/bin/${pname}
 
-      install -m 444 -D ${appimageContents}/betterdiscord.desktop -t $out/share/applications
-      substituteInPlace $out/share/applications/betterdiscord.desktop \
-        --replace 'Exec=AppRun' 'Exec=${pname}'
-      cp -r ${appimageContents}/usr/share/icons $out/share
-    '';
+    install -m 444 -D ${appimageContents}/betterdiscord.desktop -t $out/share/applications
+    substituteInPlace $out/share/applications/betterdiscord.desktop \
+      --replace 'Exec=AppRun' 'Exec=${pname}'
+    cp -r ${appimageContents}/usr/share/icons $out/share
+  '';
 
-    meta = with lib; {
-      description = "Installer for BetterDiscord";
-      homepage = "https://betterdiscord.app";
-      license = licenses.mit;
-      maintainers = [ maintainers.ivar ];
-      platforms = [ "x86_64-linux" ];
-    };
-  }
+  meta = with lib; {
+    description = "Installer for BetterDiscord";
+    homepage = "https://betterdiscord.app";
+    license = licenses.mit;
+    maintainers = [ maintainers.ivar ];
+    platforms = [ "x86_64-linux" ];
+  };
+}

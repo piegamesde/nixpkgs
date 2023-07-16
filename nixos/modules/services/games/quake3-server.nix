@@ -91,40 +91,40 @@ in {
   config = let
     baseq3InStore = builtins.typeOf cfg.baseq3 == "set";
   in
-    mkIf cfg.enable {
-      networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [ cfg.port ];
+  mkIf cfg.enable {
+    networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [ cfg.port ];
 
-      systemd.services.q3ds = {
-        description = "Quake 3 dedicated server";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "networking.target" ];
+    systemd.services.q3ds = {
+      description = "Quake 3 dedicated server";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "networking.target" ];
 
-        environment.HOME = if
+      environment.HOME = if
+        baseq3InStore
+      then
+        home
+      else
+        cfg.baseq3;
+
+      serviceConfig = with lib; {
+        Restart = "always";
+        DynamicUser = true;
+        WorkingDirectory = home;
+
+        # It is possible to alter configuration files via RCON. To ensure reproducibility we have to prevent this
+        ReadOnlyPaths = if
           baseq3InStore
         then
           home
         else
           cfg.baseq3;
+        ExecStartPre = optionalString (!baseq3InStore)
+          "+${pkgs.coreutils}/bin/cp ${configFile} ${cfg.baseq3}/.q3a/baseq3/nix.cfg";
 
-        serviceConfig = with lib; {
-          Restart = "always";
-          DynamicUser = true;
-          WorkingDirectory = home;
-
-          # It is possible to alter configuration files via RCON. To ensure reproducibility we have to prevent this
-          ReadOnlyPaths = if
-            baseq3InStore
-          then
-            home
-          else
-            cfg.baseq3;
-          ExecStartPre = optionalString (!baseq3InStore)
-            "+${pkgs.coreutils}/bin/cp ${configFile} ${cfg.baseq3}/.q3a/baseq3/nix.cfg";
-
-          ExecStart = "${pkgs.ioquake3}/ioq3ded.x86_64 +exec nix.cfg";
-        };
+        ExecStart = "${pkgs.ioquake3}/ioq3ded.x86_64 +exec nix.cfg";
       };
-    }
+    };
+  }
   ;
 
   meta.maintainers = with maintainers; [ f4814n ];

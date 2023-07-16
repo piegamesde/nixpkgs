@@ -25,11 +25,11 @@ let
     else
       "1");
   in
-    {
-      "1" = dune_1;
-      "2" = dune_2;
-      "3" = dune_3;
-    }."${dune-version}"
+  {
+    "1" = dune_1;
+    "2" = dune_2;
+    "3" = dune_3;
+  }."${dune-version}"
   ;
 
 in if

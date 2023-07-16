@@ -52,14 +52,14 @@ let
     (_: super: { pname = "${super.pname}-with-blackjack"; });
 
 in
-  stdenvNoCC.mkDerivation {
-    name = "test-overriding";
-    passthru = { inherit tests; };
-    buildCommand = ''
-      touch $out
-    '' + lib.concatMapStringsSep "\n" (t:
-      "([[ ${lib.boolToString t.expr} == ${
-        lib.boolToString t.expected
-      } ]] && echo '${t.name} success') || (echo '${t.name} fail' && exit 1)")
-      tests;
-  }
+stdenvNoCC.mkDerivation {
+  name = "test-overriding";
+  passthru = { inherit tests; };
+  buildCommand = ''
+    touch $out
+  '' + lib.concatMapStringsSep "\n" (t:
+    "([[ ${lib.boolToString t.expr} == ${
+      lib.boolToString t.expected
+    } ]] && echo '${t.name} success') || (echo '${t.name} fail' && exit 1)")
+    tests;
+}

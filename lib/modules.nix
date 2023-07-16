@@ -222,7 +222,7 @@ in rec {
           (regularModules ++ [ internalModule ])
           ({ inherit lib options config specialArgs; } // specialArgs);
       in
-        mergeModules prefix (reverseList collected)
+      mergeModules prefix (reverseList collected)
       ;
 
       options = merged.matchedOptions;
@@ -270,7 +270,7 @@ in rec {
                 "while evaluating a definition from `${firstDef.file}'"
                 (showDefs [ firstDef ]));
           in
-            "The option `${optText}' does not exist. Definition values:${defText}"
+          "The option `${optText}' does not exist. Definition values:${defText}"
           ;
         in if
           attrNames options == [ "_module" ]
@@ -322,7 +322,7 @@ in rec {
         inherit extendModules type;
       };
     in
-      result
+    result
   ;
 
   # collectModules :: (modulesPath: String) -> (modules: [ Module ]) -> (args: Attrs) -> [ Module ]
@@ -345,10 +345,10 @@ in rec {
             value = m;
           } ];
         in
-          throw
-          "Module imports can't be nested lists. Perhaps you meant to remove one level of lists? Definitions: ${
-            showDefs defs
-          }"
+        throw
+        "Module imports can't be nested lists. Perhaps you meant to remove one level of lists? Definitions: ${
+          showDefs defs
+        }"
       else
         unifyModuleSyntax (toString m) (toString m)
         (applyModuleArgsIfFunction (toString m) (import m) args);
@@ -383,26 +383,24 @@ in rec {
         inherit modules;
       };
     in
-      parentFile: parentKey: initialModules: args:
-      collectResults (imap1 (n: x:
-        let
-          module =
-            loadModule args parentFile "${parentKey}:anon-${toString n}" x;
-          collectedImports =
-            collectStructuredModules module._file module.key module.imports
-            args;
-        in {
-          key = module.key;
-          module = module;
-          modules = collectedImports.modules;
-          disabled = (if
-            module.disabledModules != [ ]
-          then [ {
-            file = module._file;
-            disabled = module.disabledModules;
-          } ] else
-            [ ]) ++ collectedImports.disabled;
-        } ) initialModules)
+    parentFile: parentKey: initialModules: args:
+    collectResults (imap1 (n: x:
+      let
+        module = loadModule args parentFile "${parentKey}:anon-${toString n}" x;
+        collectedImports =
+          collectStructuredModules module._file module.key module.imports args;
+      in {
+        key = module.key;
+        module = module;
+        modules = collectedImports.modules;
+        disabled = (if
+          module.disabledModules != [ ]
+        then [ {
+          file = module._file;
+          disabled = module.disabledModules;
+        } ] else
+          [ ]) ++ collectedImports.disabled;
+      } ) initialModules)
     ;
 
     # filterModules :: String -> { disabled, modules } -> [ Module ]
@@ -456,16 +454,16 @@ in rec {
           map (moduleKey file) disabled) disabled;
         keyFilter = filter (attrs: !elem attrs.key disabledKeys);
       in
-        map (attrs: attrs.module) (builtins.genericClosure {
-          startSet = keyFilter modules;
-          operator = attrs: keyFilter attrs.modules;
-        })
+      map (attrs: attrs.module) (builtins.genericClosure {
+        startSet = keyFilter modules;
+        operator = attrs: keyFilter attrs.modules;
+      })
     ;
 
   in
-    modulesPath: initialModules: args:
-    filterModules modulesPath
-    (collectStructuredModules unknownModule "" initialModules args)
+  modulesPath: initialModules: args:
+  filterModules modulesPath
+  (collectStructuredModules unknownModule "" initialModules args)
   ;
 
   # Wrap a module with a default location for reporting errors.
@@ -582,7 +580,7 @@ in rec {
         # operator is used to make the "args@{ ... }: with args.lib;" notation
         # works.
       in
-        f (args // extraArgs)
+      f (args // extraArgs)
     else
       f;
 
@@ -743,14 +741,14 @@ in rec {
             let
               nonOptions = filter (m: !isOption m.options) decls;
             in
-              throw ''
-                The option `${showOption loc}' in module `${
-                  (lib.head optionDecls)._file
-                }' would be a parent of the following options, but its type `${
-                  (lib.head
-                    optionDecls).options.type.description or "<no description>"
-                }' does not support nested options.
-                ${showRawDecls loc nonOptions}''
+            throw ''
+              The option `${showOption loc}' in module `${
+                (lib.head optionDecls)._file
+              }' would be a parent of the following options, but its type `${
+                (lib.head
+                  optionDecls).options.type.description or "<no description>"
+              }' does not support nested options.
+              ${showRawDecls loc nonOptions}''
         else
           mergeModules' loc decls defns) declsByName;
 
@@ -827,10 +825,10 @@ in rec {
           else
             res.options;
         in
-          opt.options // res // {
-            declarations = res.declarations ++ [ opt._file ];
-            options = submodules;
-          } // typeSet
+        opt.options // res // {
+          declarations = res.declarations ++ [ opt._file ];
+          options = submodules;
+        } // typeSet
     ) {
       inherit loc;
       declarations = [ ];
@@ -860,11 +858,11 @@ in rec {
               value = (mergeDefinitions loc opt.type [ def ]).mergedValue;
             }) defs';
         in
-          throw "The option `${
-            showOption loc
-          }' is read-only, but it's set multiple times. Definition values:${
-            showDefs separateDefs
-          }"
+        throw "The option `${
+          showOption loc
+        }' is read-only, but it's set multiple times. Definition values:${
+          showDefs separateDefs
+        }"
       else
         mergeDefinitions loc opt.type defs';
 
@@ -885,17 +883,17 @@ in rec {
         } is deprecated. ${opt.type.deprecationMessage}";
 
     in
-      warnDeprecation opt // {
-        value = builtins.addErrorContext
-          "while evaluating the option `${showOption loc}':" value;
-        inherit (res.defsFinal') highestPrio;
-        definitions = map (def: def.value) res.defsFinal;
-        files = map (def: def.file) res.defsFinal;
-        definitionsWithLocations = res.defsFinal;
-        inherit (res) isDefined;
-        # This allows options to be correctly displayed using `${options.path.to.it}`
-        __toString = _: showOption loc;
-      }
+    warnDeprecation opt // {
+      value = builtins.addErrorContext
+        "while evaluating the option `${showOption loc}':" value;
+      inherit (res.defsFinal') highestPrio;
+      definitions = map (def: def.value) res.defsFinal;
+      files = map (def: def.file) res.defsFinal;
+      definitionsWithLocations = res.defsFinal;
+      inherit (res) isDefined;
+      # This allows options to be correctly displayed using `${options.path.to.it}`
+      __toString = _: showOption loc;
+    }
   ;
 
   # Merge definitions of a value of a given type.
@@ -940,11 +938,11 @@ in rec {
         let
           allInvalid = filter (def: !type.check def.value) defsFinal;
         in
-          throw "A definition for option `${
-            showOption loc
-          }' is not of type `${type.description}'. Definition values:${
-            showDefs allInvalid
-          }"
+        throw "A definition for option `${
+          showOption loc
+        }' is not of type `${type.description}'. Definition values:${
+          showDefs allInvalid
+        }"
     else
     # (nixos-option detects this specific error message and gives it special
     # handling.  If changed here, please change it there too.)
@@ -1078,7 +1076,7 @@ in rec {
         (a.priority or defaultOrderPriority)
         < (b.priority or defaultOrderPriority);
     in
-      sort compare defs'
+    sort compare defs'
   ;
 
   # This calls substSubModules, whose entire purpose is only to ensure that
@@ -1180,7 +1178,7 @@ in rec {
       prio = option.highestPrio or defaultOverridePriority;
       defsWithPrio = map (mkOverride prio) option.definitions;
     in
-      mkAliasIfDef option (wrap (mkMerge defsWithPrio))
+    mkAliasIfDef option (wrap (mkMerge defsWithPrio))
   ;
 
   mkAliasIfDef = option: mkIf (isOption option && option.isDefined);
@@ -1322,14 +1320,14 @@ in rec {
             val = getAttrFromPath f config;
             opt = getAttrFromPath f options;
           in
-            optionalString (val != "_mkMergedOptionModule")
-            "The option `${showOption f}' defined in ${
-              showFiles opt.files
-            } has been changed to `${
-              showOption to
-            }' that has a different type. Please read `${
-              showOption to
-            }' documentation and update your configuration accordingly."
+          optionalString (val != "_mkMergedOptionModule")
+          "The option `${showOption f}' defined in ${
+            showFiles opt.files
+          } has been changed to `${
+            showOption to
+          }' that has a different type. Please read `${
+            showOption to
+          }' documentation and update your configuration accordingly."
         ) from);
       } // setAttrByPath to (mkMerge (optional
         (any (f: (getAttrFromPath f config) != "_mkMergedOptionModule") from)
@@ -1420,7 +1418,7 @@ in rec {
       toType = let
         opt = attrByPath to { } options;
       in
-        opt.type or (types.submodule { })
+      opt.type or (types.submodule { })
       ;
     in {
       options = setAttrByPath from (mkOption {

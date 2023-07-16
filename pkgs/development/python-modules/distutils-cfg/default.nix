@@ -25,17 +25,17 @@ let
     ${extraCfg}
   '');
 in
-  stdenv.mkDerivation {
-    name = "${python.libPrefix}-distutils.cfg";
+stdenv.mkDerivation {
+  name = "${python.libPrefix}-distutils.cfg";
 
-    buildInputs = [ python ];
+  buildInputs = [ python ];
 
-    dontUnpack = true;
+  dontUnpack = true;
 
-    installPhase = ''
-      dest="$out/lib/${python.libPrefix}/site-packages/distutils"
-      mkdir -p $dest
-      ln -s ${python}/lib/${python.libPrefix}/distutils/* $dest
-      ln -s ${distutilsCfg} $dest/distutils.cfg
-    '';
-  }
+  installPhase = ''
+    dest="$out/lib/${python.libPrefix}/site-packages/distutils"
+    mkdir -p $dest
+    ln -s ${python}/lib/${python.libPrefix}/distutils/* $dest
+    ln -s ${distutilsCfg} $dest/distutils.cfg
+  '';
+}

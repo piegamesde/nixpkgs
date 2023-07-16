@@ -74,26 +74,26 @@ makeSetupHook {
       basic-contains-dconf = let
         tested = basic;
       in
-        testLib.runTest "basic-contains-dconf" (testLib.skip stdenv.isDarwin ''
-          ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
-          "GIO_EXTRA_MODULES" "${dconf.lib}/lib/gio/modules"}
-          ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
-          "GIO_EXTRA_MODULES" "${dconf.lib}/lib/gio/modules"}
-        '')
+      testLib.runTest "basic-contains-dconf" (testLib.skip stdenv.isDarwin ''
+        ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
+        "GIO_EXTRA_MODULES" "${dconf.lib}/lib/gio/modules"}
+        ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
+        "GIO_EXTRA_MODULES" "${dconf.lib}/lib/gio/modules"}
+      '')
       ;
 
       basic-contains-gdk-pixbuf = let
         tested = basic;
       in
-        testLib.runTest "basic-contains-gdk-pixbuf"
-        (testLib.skip stdenv.isDarwin ''
-          ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
-          "GDK_PIXBUF_MODULE_FILE"
-          "${lib.getLib librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"}
-          ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
-          "GDK_PIXBUF_MODULE_FILE"
-          "${lib.getLib librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"}
-        '')
+      testLib.runTest "basic-contains-gdk-pixbuf"
+      (testLib.skip stdenv.isDarwin ''
+        ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
+        "GDK_PIXBUF_MODULE_FILE"
+        "${lib.getLib librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"}
+        ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
+        "GDK_PIXBUF_MODULE_FILE"
+        "${lib.getLib librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"}
+      '')
       ;
 
       # Simple derivation containing a gobject-introspection typelib.
@@ -134,12 +134,12 @@ makeSetupHook {
       typelib-user-has-gi-typelib-path = let
         tested = typelib-user;
       in
-        testLib.runTest "typelib-user-has-gi-typelib-path" ''
-          ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
-          "GI_TYPELIB_PATH" "${typelib-Mahjong}/lib/girepository-1.0"}
-          ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
-          "GI_TYPELIB_PATH" "${typelib-Mahjong}/lib/girepository-1.0"}
-        ''
+      testLib.runTest "typelib-user-has-gi-typelib-path" ''
+        ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
+        "GI_TYPELIB_PATH" "${typelib-Mahjong}/lib/girepository-1.0"}
+        ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
+        "GI_TYPELIB_PATH" "${typelib-Mahjong}/lib/girepository-1.0"}
+      ''
       ;
 
       # Simple derivation containing a gobject-introspection typelib in lib output.
@@ -188,12 +188,12 @@ makeSetupHook {
       typelib-multiout-user-has-gi-typelib-path = let
         tested = typelib-multiout-user;
       in
-        testLib.runTest "typelib-multiout-user-has-gi-typelib-path" ''
-          ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
-          "GI_TYPELIB_PATH" "${typelib-Bechamel.lib}/lib/girepository-1.0"}
-          ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
-          "GI_TYPELIB_PATH" "${typelib-Bechamel.lib}/lib/girepository-1.0"}
-        ''
+      testLib.runTest "typelib-multiout-user-has-gi-typelib-path" ''
+        ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
+        "GI_TYPELIB_PATH" "${typelib-Bechamel.lib}/lib/girepository-1.0"}
+        ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
+        "GI_TYPELIB_PATH" "${typelib-Bechamel.lib}/lib/girepository-1.0"}
+      ''
       ;
 
       # Simple derivation that contains a typelib as well as a program using it.
@@ -223,12 +223,12 @@ makeSetupHook {
       typelib-self-user-has-gi-typelib-path = let
         tested = typelib-self-user;
       in
-        testLib.runTest "typelib-self-user-has-gi-typelib-path" ''
-          ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
-          "GI_TYPELIB_PATH" "${typelib-self-user}/lib/girepository-1.0"}
-          ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
-          "GI_TYPELIB_PATH" "${typelib-self-user}/lib/girepository-1.0"}
-        ''
+      testLib.runTest "typelib-self-user-has-gi-typelib-path" ''
+        ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
+        "GI_TYPELIB_PATH" "${typelib-self-user}/lib/girepository-1.0"}
+        ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
+        "GI_TYPELIB_PATH" "${typelib-self-user}/lib/girepository-1.0"}
+      ''
       ;
     } ;
   };

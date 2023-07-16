@@ -26,56 +26,56 @@ let
   };
 
 in
-  runCommand "Toolchains" { } (''
-    toolchain=$out/XcodeDefault.xctoolchain
-    mkdir -p $toolchain
+runCommand "Toolchains" { } (''
+  toolchain=$out/XcodeDefault.xctoolchain
+  mkdir -p $toolchain
 
-    install -D ${
-      writeText "ToolchainInfo.plist" (toPlist { } ToolchainInfo)
-    } $toolchain/ToolchainInfo.plist
+  install -D ${
+    writeText "ToolchainInfo.plist" (toPlist { } ToolchainInfo)
+  } $toolchain/ToolchainInfo.plist
 
-    ln -s $toolchain $toolchain/usr
+  ln -s $toolchain $toolchain/usr
 
-    mkdir -p $toolchain/include
-    mkdir -p $toolchain/lib
-    mkdir -p $toolchain/libexec
-    mkdir -p $toolchain/share
-    mkdir -p $toolchain/bin
+  mkdir -p $toolchain/include
+  mkdir -p $toolchain/lib
+  mkdir -p $toolchain/libexec
+  mkdir -p $toolchain/share
+  mkdir -p $toolchain/bin
 
-    for bin in ${getBin stdenv.cc}/bin/*; do
+  for bin in ${getBin stdenv.cc}/bin/*; do
+    ln -s $bin $toolchain/bin
+  done
+
+  for bin in ${getBin stdenv.cc.bintools.bintools}/bin/*; do
+    if ! [ -e "$toolchain/bin/$(basename $bin)" ]; then
       ln -s $bin $toolchain/bin
-    done
+    fi
+  done
 
-    for bin in ${getBin stdenv.cc.bintools.bintools}/bin/*; do
-      if ! [ -e "$toolchain/bin/$(basename $bin)" ]; then
-        ln -s $bin $toolchain/bin
-      fi
-    done
+  ln -s ${buildPackages.bison}/bin/yacc $toolchain/bin/yacc
+  ln -s ${buildPackages.bison}/bin/bison $toolchain/bin/bison
+  ln -s ${buildPackages.flex}/bin/flex $toolchain/bin/flex
+  ln -s ${buildPackages.flex}/bin/flex++ $toolchain/bin/flex++
+  ln -s $toolchain/bin/flex $toolchain/bin/lex
 
-    ln -s ${buildPackages.bison}/bin/yacc $toolchain/bin/yacc
-    ln -s ${buildPackages.bison}/bin/bison $toolchain/bin/bison
-    ln -s ${buildPackages.flex}/bin/flex $toolchain/bin/flex
-    ln -s ${buildPackages.flex}/bin/flex++ $toolchain/bin/flex++
-    ln -s $toolchain/bin/flex $toolchain/bin/lex
+  ln -s ${buildPackages.m4}/bin/m4 $toolchain/bin/m4
+  ln -s $toolchain/bin/m4 $toolchain/bin/gm4
 
-    ln -s ${buildPackages.m4}/bin/m4 $toolchain/bin/m4
-    ln -s $toolchain/bin/m4 $toolchain/bin/gm4
+  ln -s ${buildPackages.unifdef}/bin/unifdef $toolchain/bin/unifdef
+  ln -s ${buildPackages.unifdef}/bin/unifdefall $toolchain/bin/unifdefall
 
-    ln -s ${buildPackages.unifdef}/bin/unifdef $toolchain/bin/unifdef
-    ln -s ${buildPackages.unifdef}/bin/unifdefall $toolchain/bin/unifdefall
+  ln -s ${buildPackages.gperf}/bin/gperf $toolchain/bin/gperf
+  ln -s ${buildPackages.indent}/bin/indent $toolchain/bin/indent
+  ln -s ${buildPackages.ctags}/bin/ctags $toolchain/bin/ctags
+'' + optionalString stdenv.isDarwin ''
+  for bin in ${getBin buildPackages.darwin.cctools}/bin/*; do
+    if ! [ -e "$toolchain/bin/$(basename $bin)" ]; then
+      ln -s $bin $toolchain/bin
+    fi
+  done
 
-    ln -s ${buildPackages.gperf}/bin/gperf $toolchain/bin/gperf
-    ln -s ${buildPackages.indent}/bin/indent $toolchain/bin/indent
-    ln -s ${buildPackages.ctags}/bin/ctags $toolchain/bin/ctags
-  '' + optionalString stdenv.isDarwin ''
-    for bin in ${getBin buildPackages.darwin.cctools}/bin/*; do
-      if ! [ -e "$toolchain/bin/$(basename $bin)" ]; then
-        ln -s $bin $toolchain/bin
-      fi
-    done
-
-    ln -s ${buildPackages.darwin.bootstrap_cmds}/bin/mig $toolchain/bin
-    mkdir -p $toolchain/libexec
-    ln -s ${buildPackages.darwin.bootstrap_cmds}/libexec/migcom $toolchain/libexec
-    ln -s ${mkdep-darwin-src} $toolchain/bin/mkdep
-  '')
+  ln -s ${buildPackages.darwin.bootstrap_cmds}/bin/mig $toolchain/bin
+  mkdir -p $toolchain/libexec
+  ln -s ${buildPackages.darwin.bootstrap_cmds}/libexec/migcom $toolchain/libexec
+  ln -s ${mkdep-darwin-src} $toolchain/bin/mkdep
+'')

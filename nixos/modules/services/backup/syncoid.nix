@@ -15,7 +15,7 @@ let
     optionals (d != null) (let
       m = builtins.match "([^/@]+[^@]*)" d;
     in
-      optionals (m != null) m
+    optionals (m != null) m
     );
 
   # Escape as required by: https://www.freedesktop.org/software/systemd/man/systemd.unit.html

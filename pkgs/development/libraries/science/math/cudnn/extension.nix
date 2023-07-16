@@ -67,11 +67,11 @@ let
       # latestReleaseName :: String
       latestReleaseName = computeName (builtins.head supportedReleases).version;
     in
-      allBuilds.${latestReleaseName}
+    allBuilds.${latestReleaseName}
     ;
   };
 
   # builds :: AttrSet String Derivation
   builds = allBuilds // defaultBuild;
 in
-  builds
+builds

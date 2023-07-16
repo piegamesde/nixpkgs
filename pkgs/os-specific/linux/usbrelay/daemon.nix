@@ -14,35 +14,35 @@ let
   # usbrelay, because otherwise, we have a cyclic dependency between
   # usbrelay (default.nix) and the python module (python.nix).
 in
-  stdenv.mkDerivation rec {
-    pname = "usbrelayd";
+stdenv.mkDerivation rec {
+  pname = "usbrelayd";
 
-    inherit (usbrelay) src version;
+  inherit (usbrelay) src version;
 
-    postPatch = ''
-      substituteInPlace 'usbrelayd.service' \
-        --replace '/usr/bin/python3' "${python}/bin/python3" \
-        --replace '/usr/sbin/usbrelayd' "$out/bin/usbrelayd"
-    '';
+  postPatch = ''
+    substituteInPlace 'usbrelayd.service' \
+      --replace '/usr/bin/python3' "${python}/bin/python3" \
+      --replace '/usr/sbin/usbrelayd' "$out/bin/usbrelayd"
+  '';
 
-    nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [ installShellFiles ];
 
-    buildInputs = [ python ];
+  buildInputs = [ python ];
 
-    dontBuild = true;
+  dontBuild = true;
 
-    installPhase = ''
-      runHook preInstall;
-      install -m 644 -D usbrelayd $out/bin/usbrelayd
-      install -m 644 -D usbrelayd.service $out/lib/systemd/system/usbrelayd.service
-      install -m 644 -D 50-usbrelay.rules $out/lib/udev/rules.d/50-usbrelay.rules
-      install -m 644 -D usbrelayd.conf $out/etc/usbrelayd.conf # include this as an example
-      installManPage usbrelayd.8
-      runHook postInstall
-    '';
+  installPhase = ''
+    runHook preInstall;
+    install -m 644 -D usbrelayd $out/bin/usbrelayd
+    install -m 644 -D usbrelayd.service $out/lib/systemd/system/usbrelayd.service
+    install -m 644 -D 50-usbrelay.rules $out/lib/udev/rules.d/50-usbrelay.rules
+    install -m 644 -D usbrelayd.conf $out/etc/usbrelayd.conf # include this as an example
+    installManPage usbrelayd.8
+    runHook postInstall
+  '';
 
-    meta = {
-      description = "USB Relay MQTT service";
-      inherit (usbrelay.meta) homepage license maintainers platforms;
-    };
-  }
+  meta = {
+    description = "USB Relay MQTT service";
+    inherit (usbrelay.meta) homepage license maintainers platforms;
+  };
+}

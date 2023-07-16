@@ -17,54 +17,54 @@
 let
   inherit (python3Packages) python pygobject3;
 in
-  stdenv.mkDerivation rec {
-    pname = "gnumeric";
-    version = "1.12.55";
+stdenv.mkDerivation rec {
+  pname = "gnumeric";
+  version = "1.12.55";
 
-    src = fetchurl {
-      url = "mirror://gnome/sources/${pname}/${
-          lib.versions.majorMinor version
-        }/${pname}-${version}.tar.xz";
-      sha256 = "xpoJzRkLYirMpHa7w9TAPWjXzPWbumG/A2zmCIX5+2U=";
+  src = fetchurl {
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
+    sha256 = "xpoJzRkLYirMpHa7w9TAPWjXzPWbumG/A2zmCIX5+2U=";
+  };
+
+  configureFlags = [ "--disable-component" ];
+
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+    bison
+    itstool
+    wrapGAppsHook
+  ];
+
+  # ToDo: optional libgda, introspection?
+  buildInputs = [
+    goffice
+    gtk3
+    gnome.adwaita-icon-theme
+    python
+    pygobject3
+  ] ++ (with perlPackages; [
+    perl
+    XMLParser
+  ]);
+
+  enableParallelBuilding = true;
+
+  passthru = {
+    updateScript = gnome.updateScript {
+      packageName = pname;
+      versionPolicy = "odd-unstable";
     };
+  };
 
-    configureFlags = [ "--disable-component" ];
-
-    nativeBuildInputs = [
-      pkg-config
-      intltool
-      bison
-      itstool
-      wrapGAppsHook
-    ];
-
-    # ToDo: optional libgda, introspection?
-    buildInputs = [
-      goffice
-      gtk3
-      gnome.adwaita-icon-theme
-      python
-      pygobject3
-    ] ++ (with perlPackages; [
-      perl
-      XMLParser
-    ]);
-
-    enableParallelBuilding = true;
-
-    passthru = {
-      updateScript = gnome.updateScript {
-        packageName = pname;
-        versionPolicy = "odd-unstable";
-      };
-    };
-
-    meta = with lib; {
-      description = "The GNOME Office Spreadsheet";
-      license = lib.licenses.gpl2Plus;
-      homepage = "http://projects.gnome.org/gnumeric/";
-      platforms = platforms.unix;
-      broken = with stdenv; isDarwin && isAarch64;
-      maintainers = [ maintainers.vcunat ];
-    };
-  }
+  meta = with lib; {
+    description = "The GNOME Office Spreadsheet";
+    license = lib.licenses.gpl2Plus;
+    homepage = "http://projects.gnome.org/gnumeric/";
+    platforms = platforms.unix;
+    broken = with stdenv; isDarwin && isAarch64;
+    maintainers = [ maintainers.vcunat ];
+  };
+}

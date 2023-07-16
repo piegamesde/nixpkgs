@@ -79,7 +79,7 @@ with prev; {
         date = head rel;
         rev = last (splitString "-" (last rel));
       in
-        "${date}-${rev}"
+      "${date}-${rev}"
     ;
 
     meta.broken = luaOlder "5.1" || luaAtLeast "5.4";

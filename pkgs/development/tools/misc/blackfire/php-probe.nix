@@ -67,21 +67,21 @@ let
     let
       isLinux = builtins.match ".+-linux" system != null;
     in
-      assert !isLinux -> (phpMajor != null);
-      fetchurl {
-        url =
-          "https://packages.blackfire.io/binaries/blackfire-php/${version}/blackfire-php-${
-            if
-              isLinux
-            then
-              "linux"
-            else
-              "darwin"
-          }_${hashes.${system}.system}-php-${
-            builtins.replaceStrings [ "." ] [ "" ] phpMajor
-          }.so";
-        sha256 = hashes.${system}.sha256.${phpMajor};
-      }
+    assert !isLinux -> (phpMajor != null);
+    fetchurl {
+      url =
+        "https://packages.blackfire.io/binaries/blackfire-php/${version}/blackfire-php-${
+          if
+            isLinux
+          then
+            "linux"
+          else
+            "darwin"
+        }_${hashes.${system}.system}-php-${
+          builtins.replaceStrings [ "." ] [ "" ] phpMajor
+        }.so";
+      sha256 = hashes.${system}.sha256.${phpMajor};
+    }
   ;
   self = stdenv.mkDerivation rec {
     pname = "php-blackfire";
@@ -166,10 +166,10 @@ let
           # Filter out all attributes other than hashes.
           lib.filterAttrsRecursive (name: _value: name != "system") hashes;
       in
-        builtins.listToAttrs
-        # Collect all leaf attributes (containing hashes).
-        (lib.collect (attrs: attrs ? name)
-          (lib.mapAttrsRecursive createUpdateable hashesOnly))
+      builtins.listToAttrs
+      # Collect all leaf attributes (containing hashes).
+      (lib.collect (attrs: attrs ? name)
+        (lib.mapAttrsRecursive createUpdateable hashesOnly))
       ;
     };
 
@@ -189,4 +189,4 @@ let
     };
   };
 in
-  self
+self

@@ -31,26 +31,26 @@ let
 
   # making sure that the source and the node package are in sync
 in
-  assert lib.versions.majorMinor nodePkg.version
-    == lib.removePrefix "v" sourcePkg.rev;
+assert lib.versions.majorMinor nodePkg.version
+  == lib.removePrefix "v" sourcePkg.rev;
 
-  stdenv.mkDerivation {
-    pname = nodePkg.packageName;
-    version = nodePkg.version;
-    src = nodePkg;
+stdenv.mkDerivation {
+  pname = nodePkg.packageName;
+  version = nodePkg.version;
+  src = nodePkg;
 
-    buildInputs = [ pandoc ];
+  buildInputs = [ pandoc ];
 
-    installPhase = ''
-      mkdir -p "$out/share/ldgallery"
-      cp -rp "lib/node_modules/ldgallery-viewer/dist" \
-        "$out/share/ldgallery/viewer/"
-      cp -rp "${sourcePkg}/example" \
-        "$out/share/ldgallery/viewer/"
+  installPhase = ''
+    mkdir -p "$out/share/ldgallery"
+    cp -rp "lib/node_modules/ldgallery-viewer/dist" \
+      "$out/share/ldgallery/viewer/"
+    cp -rp "${sourcePkg}/example" \
+      "$out/share/ldgallery/viewer/"
 
-      mkdir -p "$out/share/man/man7"
-      pandoc --standalone --to man \
-        "lib/node_modules/ldgallery-viewer/ldgallery-viewer.7.md" \
-        --output "$out/share/man/man7/ldgallery-viewer.7"
-    '';
-  }
+    mkdir -p "$out/share/man/man7"
+    pandoc --standalone --to man \
+      "lib/node_modules/ldgallery-viewer/ldgallery-viewer.7.md" \
+      --output "$out/share/man/man7/ldgallery-viewer.7"
+  '';
+}

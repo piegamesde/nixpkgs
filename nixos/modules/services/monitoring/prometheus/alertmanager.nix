@@ -26,7 +26,7 @@ let
     else
       mkConfigFile;
   in
-    checkedConfig yml
+  checkedConfig yml
   ;
 
   cmdlineArgs = cfg.extraFlags ++ [

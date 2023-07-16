@@ -245,4 +245,4 @@ let
     };
   };
 in
-  openjdk
+openjdk

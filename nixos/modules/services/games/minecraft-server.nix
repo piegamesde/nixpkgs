@@ -126,7 +126,7 @@ in {
               description = "Minecraft UUID";
             };
         in
-          types.attrsOf minecraftUUID
+        types.attrsOf minecraftUUID
         ;
         default = { };
         description = lib.mdDoc ''

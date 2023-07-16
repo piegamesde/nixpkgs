@@ -37,15 +37,15 @@ let
       else
         [ ]) set));
 in
-  packagesWith (name: pkg:
+packagesWith (name: pkg:
+  (if
+    builtins.hasAttr "meta" pkg && builtins.hasAttr "maintainers" pkg.meta
+  then
     (if
-      builtins.hasAttr "meta" pkg && builtins.hasAttr "maintainers" pkg.meta
+      builtins.isList pkg.meta.maintainers
     then
-      (if
-        builtins.isList pkg.meta.maintainers
-      then
-        builtins.elem maintainer_ pkg.meta.maintainers
-      else
-        maintainer_ == pkg.meta.maintainers)
+      builtins.elem maintainer_ pkg.meta.maintainers
     else
-      false)) (name: pkg: pkg) pkgs
+      maintainer_ == pkg.meta.maintainers)
+  else
+    false)) (name: pkg: pkg) pkgs

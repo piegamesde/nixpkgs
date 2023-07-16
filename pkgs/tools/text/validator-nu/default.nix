@@ -46,37 +46,37 @@ let
   };
 
 in
-  stdenvNoCC.mkDerivation rec {
-    inherit pname version src;
+stdenvNoCC.mkDerivation rec {
+  inherit pname version src;
 
-    nativeBuildInputs = [
-      git
-      jdk_headless
-      makeWrapper
-      python3
+  nativeBuildInputs = [
+    git
+    jdk_headless
+    makeWrapper
+    python3
+  ];
+
+  buildPhase = ''
+    ln -s '${deps}/dependencies' '${deps}/extras' .
+    JAVA_HOME='${jdk_headless}' python checker.py build
+  '';
+
+  installPhase = ''
+    mkdir -p "$out/bin" "$out/share/java"
+    mv build/dist/vnu.jar "$out/share/java/"
+    makeWrapper "${jre_headless}/bin/java" "$out/bin/vnu" \
+      --add-flags "-jar '$out/share/java/vnu.jar'"
+  '';
+
+  meta = with lib; {
+    description = "Helps you catch problems in your HTML/CSS/SVG";
+    homepage = "https://validator.github.io/validator/";
+    license = licenses.mit;
+    maintainers = with maintainers; [ andersk ];
+    mainProgram = "vnu";
+    sourceProvenance = with sourceTypes; [
+      binaryBytecode
+      fromSource
     ];
-
-    buildPhase = ''
-      ln -s '${deps}/dependencies' '${deps}/extras' .
-      JAVA_HOME='${jdk_headless}' python checker.py build
-    '';
-
-    installPhase = ''
-      mkdir -p "$out/bin" "$out/share/java"
-      mv build/dist/vnu.jar "$out/share/java/"
-      makeWrapper "${jre_headless}/bin/java" "$out/bin/vnu" \
-        --add-flags "-jar '$out/share/java/vnu.jar'"
-    '';
-
-    meta = with lib; {
-      description = "Helps you catch problems in your HTML/CSS/SVG";
-      homepage = "https://validator.github.io/validator/";
-      license = licenses.mit;
-      maintainers = with maintainers; [ andersk ];
-      mainProgram = "vnu";
-      sourceProvenance = with sourceTypes; [
-        binaryBytecode
-        fromSource
-      ];
-    };
-  }
+  };
+}

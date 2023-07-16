@@ -16,38 +16,38 @@ let
   ];
 
 in
-  stdenv.mkDerivation rec {
-    pname = "arduino-ci";
-    version = "0.2.0";
+stdenv.mkDerivation rec {
+  pname = "arduino-ci";
+  version = "0.2.0";
 
-    src = fetchFromGitHub {
-      owner = "pololu";
-      repo = "arduino-ci";
-      rev = "v${version}";
-      sha256 = "sha256-9RbBxgwsSQ7oGGKr1Vsn9Ug9AsacoRgvQgd9jbRQ034=";
-    };
+  src = fetchFromGitHub {
+    owner = "pololu";
+    repo = "arduino-ci";
+    rev = "v${version}";
+    sha256 = "sha256-9RbBxgwsSQ7oGGKr1Vsn9Ug9AsacoRgvQgd9jbRQ034=";
+  };
 
-    nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [ makeWrapper ];
 
-    installPhase = ''
-      runHook preInstall
+  installPhase = ''
+    runHook preInstall
 
-      mkdir -p $out/bin
-      install $src/ci.rb $out/bin/arduino-ci
+    mkdir -p $out/bin
+    install $src/ci.rb $out/bin/arduino-ci
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
-    fixupPhase = ''
-      substituteInPlace $out/bin/arduino-ci --replace "/usr/bin/env nix-shell" "${ruby}/bin/ruby"
-      wrapProgram $out/bin/arduino-ci --prefix PATH ":" "${runtimePath}"
-    '';
+  fixupPhase = ''
+    substituteInPlace $out/bin/arduino-ci --replace "/usr/bin/env nix-shell" "${ruby}/bin/ruby"
+    wrapProgram $out/bin/arduino-ci --prefix PATH ":" "${runtimePath}"
+  '';
 
-    meta = with lib; {
-      description = "CI for Arduino Libraries";
-      homepage = src.meta.homepage;
-      license = licenses.mit;
-      maintainers = with maintainers; [ ryantm ];
-      platforms = platforms.unix;
-    };
-  }
+  meta = with lib; {
+    description = "CI for Arduino Libraries";
+    homepage = src.meta.homepage;
+    license = licenses.mit;
+    maintainers = with maintainers; [ ryantm ];
+    platforms = platforms.unix;
+  };
+}

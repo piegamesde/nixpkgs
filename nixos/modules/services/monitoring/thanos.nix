@@ -81,8 +81,8 @@ let
     "${cfg.package}/bin/thanos ${cmd}" + (let
       args = cfg.${cmd}.arguments;
     in
-      optionalString (length args != 0)
-      (" \\\n  " + concatStringsSep " \\\n  " args)
+    optionalString (length args != 0)
+    (" \\\n  " + concatStringsSep " \\\n  " args)
     );
 
   argumentsOf = cmd:
@@ -92,7 +92,7 @@ let
           opt = concatStringsSep "." path;
           v = getAttrFromPath path cfg.${cmd};
         in
-          param.toArgs opt v
+        param.toArgs opt v
       )));
 
   mkArgumentsOption = cmd:
@@ -116,7 +116,7 @@ let
   mapParamsRecursive = let
     noParam = attr: !(attr ? toArgs && attr ? option);
   in
-    mapAttrsRecursiveCond noParam
+  mapAttrsRecursiveCond noParam
   ;
 
   paramsToOptions = mapParamsRecursive (_path: param: param.option);
@@ -826,27 +826,27 @@ in {
         systemd.services.thanos-compact = let
           wait = cfg.compact.startAt == null;
         in
-          {
-            wantedBy = [ "multi-user.target" ];
-            after = [ "network.target" ];
-            serviceConfig = {
-              Type = if
-                wait
-              then
-                "simple"
-              else
-                "oneshot";
-              Restart = if
-                wait
-              then
-                "always"
-              else
-                "no";
-              DynamicUser = true;
-              StateDirectory = cfg.compact.stateDir;
-              ExecStart = thanos "compact";
-            };
-          } // optionalAttrs (!wait) { inherit (cfg.compact) startAt; }
+        {
+          wantedBy = [ "multi-user.target" ];
+          after = [ "network.target" ];
+          serviceConfig = {
+            Type = if
+              wait
+            then
+              "simple"
+            else
+              "oneshot";
+            Restart = if
+              wait
+            then
+              "always"
+            else
+              "no";
+            DynamicUser = true;
+            StateDirectory = cfg.compact.stateDir;
+            ExecStart = thanos "compact";
+          };
+        } // optionalAttrs (!wait) { inherit (cfg.compact) startAt; }
         ;
       }
     ]))

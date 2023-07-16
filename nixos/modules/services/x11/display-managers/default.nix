@@ -527,44 +527,43 @@ in {
         '';
       # We will generate every possible pair of WM and DM.
     in
-      concatLists (builtins.map ({
-          dm,
-          wm,
-        }:
-        let
-          sessionName =
-            "${dm.name}${optionalString (wm.name != "none") ("+" + wm.name)}";
-          script = xsession dm wm;
-          desktopNames = if
-            dm ? desktopNames
-          then
-            concatStringsSep ";" dm.desktopNames
-          else
-            sessionName;
-        in
-          optional (dm.name != "none" || wm.name != "none")
-          (pkgs.writeTextFile {
-            name = "${sessionName}-xsession";
-            destination = "/share/xsessions/${sessionName}.desktop";
-            # Desktop Entry Specification:
-            # - https://standards.freedesktop.org/desktop-entry-spec/latest/
-            # - https://standards.freedesktop.org/desktop-entry-spec/latest/ar01s06.html
-            text = ''
-              [Desktop Entry]
-              Version=1.0
-              Type=XSession
-              TryExec=${script}
-              Exec=${script}
-              Name=${sessionName}
-              DesktopNames=${desktopNames}
-            '';
-          } // {
-            providedSessions = [ sessionName ];
-          })
-      ) (cartesianProductOfSets {
-        dm = dms;
-        wm = wms;
-      }))
+    concatLists (builtins.map ({
+        dm,
+        wm,
+      }:
+      let
+        sessionName =
+          "${dm.name}${optionalString (wm.name != "none") ("+" + wm.name)}";
+        script = xsession dm wm;
+        desktopNames = if
+          dm ? desktopNames
+        then
+          concatStringsSep ";" dm.desktopNames
+        else
+          sessionName;
+      in
+      optional (dm.name != "none" || wm.name != "none") (pkgs.writeTextFile {
+        name = "${sessionName}-xsession";
+        destination = "/share/xsessions/${sessionName}.desktop";
+        # Desktop Entry Specification:
+        # - https://standards.freedesktop.org/desktop-entry-spec/latest/
+        # - https://standards.freedesktop.org/desktop-entry-spec/latest/ar01s06.html
+        text = ''
+          [Desktop Entry]
+          Version=1.0
+          Type=XSession
+          TryExec=${script}
+          Exec=${script}
+          Name=${sessionName}
+          DesktopNames=${desktopNames}
+        '';
+      } // {
+        providedSessions = [ sessionName ];
+      })
+    ) (cartesianProductOfSets {
+      dm = dms;
+      wm = wms;
+    }))
     ;
 
     # Make xsessions and wayland sessions available in XDG_DATA_DIRS

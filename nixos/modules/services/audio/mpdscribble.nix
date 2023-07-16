@@ -187,7 +187,7 @@ in {
             };
           };
       in
-        types.attrsOf (types.submodule endpoint)
+      types.attrsOf (types.submodule endpoint)
       );
       default = { };
       example = {

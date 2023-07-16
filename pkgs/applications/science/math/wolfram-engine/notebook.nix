@@ -11,7 +11,7 @@ let
     definitions = { wolfram = wolfram-for-jupyter-kernel.definition; };
   };
 in
-  writeScriptBin "wolfram-notebook" ''
-    #! ${stdenv.shell}
-    ${wolfram-jupyter}/bin/jupyter-notebook
-  ''
+writeScriptBin "wolfram-notebook" ''
+  #! ${stdenv.shell}
+  ${wolfram-jupyter}/bin/jupyter-notebook
+''

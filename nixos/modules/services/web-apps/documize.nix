@@ -16,7 +16,7 @@ let
         predicate = optional -> cfg.${name} != null;
         template = " -${name} '${toString cfg.${name}}'";
       in
-        optionalString predicate template
+      optionalString predicate template
     );
 
 in {

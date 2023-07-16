@@ -46,7 +46,7 @@ let
         };
       };
   in
-    writeText "snap.yaml" (builtins.toJSON (validate meta))
+  writeText "snap.yaml" (builtins.toJSON (validate meta))
   ;
 
   # These are specifically required by snapd, so don't change them
@@ -68,33 +68,33 @@ let
   ];
 
 in
-  runCommand "squashfs.img" {
-    nativeBuildInputs = [
-      squashfsTools
-      jq
-    ];
+runCommand "squashfs.img" {
+  nativeBuildInputs = [
+    squashfsTools
+    jq
+  ];
 
-    closureInfo = closureInfo { rootPaths = [ snap_yaml ]; };
-  } ''
-    root=$PWD/root
-    mkdir $root
+  closureInfo = closureInfo { rootPaths = [ snap_yaml ]; };
+} ''
+  root=$PWD/root
+  mkdir $root
 
-    (
-      # Put the snap.yaml in to `/meta/snap.yaml`, setting the version
-      # to the hash part of the store path
-      mkdir $root/meta
-      version=$(echo $out | cut -d/ -f4 | cut -d- -f1)
-      cat ${snap_yaml} | jq  ". + { version: \"$version\" }" \
-        > $root/meta/snap.yaml
-    )
+  (
+    # Put the snap.yaml in to `/meta/snap.yaml`, setting the version
+    # to the hash part of the store path
+    mkdir $root/meta
+    version=$(echo $out | cut -d/ -f4 | cut -d- -f1)
+    cat ${snap_yaml} | jq  ". + { version: \"$version\" }" \
+      > $root/meta/snap.yaml
+  )
 
-    (
-      # Copy the store closure in to the root
-      mkdir -p $root/nix/store
-      cat $closureInfo/store-paths | xargs -I{} cp -r {} $root/nix/store/
-    )
+  (
+    # Copy the store closure in to the root
+    mkdir -p $root/nix/store
+    cat $closureInfo/store-paths | xargs -I{} cp -r {} $root/nix/store/
+  )
 
-    # Generate the squashfs image.
-    mksquashfs $root $out \
-      ${lib.concatStringsSep " " mksquashfs_args}
-  ''
+  # Generate the squashfs image.
+  mksquashfs $root $out \
+    ${lib.concatStringsSep " " mksquashfs_args}
+''

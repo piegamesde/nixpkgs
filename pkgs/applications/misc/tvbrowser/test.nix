@@ -35,7 +35,7 @@ let
     '';
   };
 in
-  runCommand "tvbrowser-test" { buildInputs = [ xvfb-run ]; } ''
-    HOME=$PWD xvfb-run ${lib.getExe testScript}
-    touch ${placeholder "out"}
-  ''
+runCommand "tvbrowser-test" { buildInputs = [ xvfb-run ]; } ''
+  HOME=$PWD xvfb-run ${lib.getExe testScript}
+  touch ${placeholder "out"}
+''

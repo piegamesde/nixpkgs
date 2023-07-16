@@ -32,76 +32,76 @@ let
     });
   };
 in
-  python.pkgs.buildPythonApplication rec {
-    pname = "pytrainer";
-    version = "2.1.0";
+python.pkgs.buildPythonApplication rec {
+  pname = "pytrainer";
+  version = "2.1.0";
 
-    src = fetchFromGitHub {
-      owner = "pytrainer";
-      repo = "pytrainer";
-      rev = "v${version}";
-      sha256 = "sha256-U2SVQKkr5HF7LB0WuCZ1xc7TljISjCNO26QUDGR+W/4=";
-    };
+  src = fetchFromGitHub {
+    owner = "pytrainer";
+    repo = "pytrainer";
+    rev = "v${version}";
+    sha256 = "sha256-U2SVQKkr5HF7LB0WuCZ1xc7TljISjCNO26QUDGR+W/4=";
+  };
 
-    propagatedBuildInputs = with python.pkgs; [
-      sqlalchemy-migrate
-      python-dateutil
-      matplotlib
-      lxml
-      setuptools
-      requests
-      gdal
-    ];
+  propagatedBuildInputs = with python.pkgs; [
+    sqlalchemy-migrate
+    python-dateutil
+    matplotlib
+    lxml
+    setuptools
+    requests
+    gdal
+  ];
 
-    nativeBuildInputs = [
-      gobject-introspection
-      wrapGAppsHook
-    ];
+  nativeBuildInputs = [
+    gobject-introspection
+    wrapGAppsHook
+  ];
 
-    buildInputs = [
-      sqlite
-      gtk3
-      webkitgtk
-      glib-networking
-      gnome.adwaita-icon-theme
-      gdk-pixbuf
-    ];
+  buildInputs = [
+    sqlite
+    gtk3
+    webkitgtk
+    glib-networking
+    gnome.adwaita-icon-theme
+    gdk-pixbuf
+  ];
 
-    makeWrapperArgs = [
-      "--prefix"
-      "PATH"
-      ":"
-      (lib.makeBinPath [
-        perl
-        gpsbabel
-      ])
-    ];
-
-    nativeCheckInputs = [
-      glibcLocales
+  makeWrapperArgs = [
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [
       perl
-      xvfb-run
-    ] ++ (with python.pkgs; [
-      mysqlclient
-      psycopg2
-    ]);
+      gpsbabel
+    ])
+  ];
 
-    checkPhase = ''
-      env HOME=$TEMPDIR TZDIR=${tzdata}/share/zoneinfo \
-        TZ=Europe/Kaliningrad \
-        LC_ALL=en_US.UTF-8 \
-        xvfb-run -s '-screen 0 800x600x24' \
-        ${python.interpreter} setup.py test
-    '';
+  nativeCheckInputs = [
+    glibcLocales
+    perl
+    xvfb-run
+  ] ++ (with python.pkgs; [
+    mysqlclient
+    psycopg2
+  ]);
 
-    meta = with lib; {
-      homepage = "https://github.com/pytrainer/pytrainer";
-      description = "Application for logging and graphing sporting excursions";
-      maintainers = with maintainers; [
-        rycee
-        dotlambda
-      ];
-      license = licenses.gpl2Plus;
-      platforms = platforms.linux;
-    };
-  }
+  checkPhase = ''
+    env HOME=$TEMPDIR TZDIR=${tzdata}/share/zoneinfo \
+      TZ=Europe/Kaliningrad \
+      LC_ALL=en_US.UTF-8 \
+      xvfb-run -s '-screen 0 800x600x24' \
+      ${python.interpreter} setup.py test
+  '';
+
+  meta = with lib; {
+    homepage = "https://github.com/pytrainer/pytrainer";
+    description = "Application for logging and graphing sporting excursions";
+    maintainers = with maintainers; [
+      rycee
+      dotlambda
+    ];
+    license = licenses.gpl2Plus;
+    platforms = platforms.linux;
+  };
+}

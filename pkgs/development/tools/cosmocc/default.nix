@@ -34,4 +34,4 @@ let
     sed 's|/opt/cosmo\([ /]\)|${cosmopolitan.dist}\1|g' -i $out/bin/*
   '';
 in
-  cosmocc
+cosmocc

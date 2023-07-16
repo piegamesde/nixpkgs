@@ -619,14 +619,14 @@ let
           "keyfile-timeout=${builtins.toString v.keyFileTimeout}s"
           ++ optional (v.tryEmptyPassphrase) "try-empty-password=true";
       in
-        "${n} ${v.device} ${
-          if
-            v.keyFile == null
-          then
-            "-"
-          else
-            v.keyFile
-        } ${lib.concatStringsSep "," opts}"
+      "${n} ${v.device} ${
+        if
+          v.keyFile == null
+        then
+          "-"
+        else
+          v.keyFile
+      } ${lib.concatStringsSep "," opts}"
     ) luks.devices));
 
 in {
@@ -1172,47 +1172,47 @@ in {
           strip -s "$out/bin/pbkdf2-sha512"
         '';
     in
-      mkIf (!config.boot.initrd.systemd.enable) ''
-        copy_bin_and_libs ${pkgs.cryptsetup}/bin/cryptsetup
-        copy_bin_and_libs ${askPass}/bin/cryptsetup-askpass
-        sed -i s,/bin/sh,$out/bin/sh, $out/bin/cryptsetup-askpass
+    mkIf (!config.boot.initrd.systemd.enable) ''
+      copy_bin_and_libs ${pkgs.cryptsetup}/bin/cryptsetup
+      copy_bin_and_libs ${askPass}/bin/cryptsetup-askpass
+      sed -i s,/bin/sh,$out/bin/sh, $out/bin/cryptsetup-askpass
 
-        ${optionalString luks.yubikeySupport ''
-          copy_bin_and_libs ${pkgs.yubikey-personalization}/bin/ykchalresp
-          copy_bin_and_libs ${pkgs.yubikey-personalization}/bin/ykinfo
-          copy_bin_and_libs ${pkgs.openssl.bin}/bin/openssl
+      ${optionalString luks.yubikeySupport ''
+        copy_bin_and_libs ${pkgs.yubikey-personalization}/bin/ykchalresp
+        copy_bin_and_libs ${pkgs.yubikey-personalization}/bin/ykinfo
+        copy_bin_and_libs ${pkgs.openssl.bin}/bin/openssl
 
-          copy_bin_and_libs ${pbkdf2-sha512}/bin/pbkdf2-sha512
+        copy_bin_and_libs ${pbkdf2-sha512}/bin/pbkdf2-sha512
 
-          mkdir -p $out/etc/ssl
-          cp -pdv ${pkgs.openssl.out}/etc/ssl/openssl.cnf $out/etc/ssl
+        mkdir -p $out/etc/ssl
+        cp -pdv ${pkgs.openssl.out}/etc/ssl/openssl.cnf $out/etc/ssl
 
-          cat > $out/bin/openssl-wrap <<EOF
-          #!$out/bin/sh
-          export OPENSSL_CONF=$out/etc/ssl/openssl.cnf
-          $out/bin/openssl "\$@"
-          EOF
-          chmod +x $out/bin/openssl-wrap
-        ''}
+        cat > $out/bin/openssl-wrap <<EOF
+        #!$out/bin/sh
+        export OPENSSL_CONF=$out/etc/ssl/openssl.cnf
+        $out/bin/openssl "\$@"
+        EOF
+        chmod +x $out/bin/openssl-wrap
+      ''}
 
-        ${optionalString luks.fido2Support ''
-          copy_bin_and_libs ${pkgs.fido2luks}/bin/fido2luks
-        ''}
+      ${optionalString luks.fido2Support ''
+        copy_bin_and_libs ${pkgs.fido2luks}/bin/fido2luks
+      ''}
 
 
-        ${optionalString luks.gpgSupport ''
-          copy_bin_and_libs ${pkgs.gnupg}/bin/gpg
-          copy_bin_and_libs ${pkgs.gnupg}/bin/gpg-agent
-          copy_bin_and_libs ${pkgs.gnupg}/libexec/scdaemon
+      ${optionalString luks.gpgSupport ''
+        copy_bin_and_libs ${pkgs.gnupg}/bin/gpg
+        copy_bin_and_libs ${pkgs.gnupg}/bin/gpg-agent
+        copy_bin_and_libs ${pkgs.gnupg}/libexec/scdaemon
 
-          ${concatMapStringsSep "\n" (x:
-            optionalString (x.gpgCard != null) ''
-              mkdir -p $out/secrets/gpg-keys/${x.device}
-              cp -a ${x.gpgCard.encryptedPass} $out/secrets/gpg-keys/${x.device}/cryptkey.gpg
-              cp -a ${x.gpgCard.publicKey} $out/secrets/gpg-keys/${x.device}/pubkey.asc
-            '') (attrValues luks.devices)}
-        ''}
-      ''
+        ${concatMapStringsSep "\n" (x:
+          optionalString (x.gpgCard != null) ''
+            mkdir -p $out/secrets/gpg-keys/${x.device}
+            cp -a ${x.gpgCard.encryptedPass} $out/secrets/gpg-keys/${x.device}/cryptkey.gpg
+            cp -a ${x.gpgCard.publicKey} $out/secrets/gpg-keys/${x.device}/pubkey.asc
+          '') (attrValues luks.devices)}
+      ''}
+    ''
     ;
 
     boot.initrd.extraUtilsCommandsTest =

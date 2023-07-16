@@ -33,7 +33,7 @@ let
             begin = i * handleStep + 3;
             end = begin + handleStep - 1;
           in
-            "Range ${alias} ${toString begin}-${toString end}"
+          "Range ${alias} ${toString begin}-${toString end}"
         ) aliases)
       }
       </MetaHandleRanges>
@@ -45,7 +45,7 @@ let
             begin = i * handleStep + 3 + (length aliases) * handleStep;
             end = begin + handleStep - 1;
           in
-            "Range ${alias} ${toString begin}-${toString end}"
+          "Range ${alias} ${toString begin}-${toString end}"
         ) aliases)
       }
       </DataHandleRanges>

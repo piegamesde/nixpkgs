@@ -23,10 +23,10 @@ let
     setupEnv = lib.concatStringsSep "\n"
       (mapAttrsToList (name: val: ''export ${name}="${val}"'') env);
   in
-    pkgs.writeShellScript "manage" ''
-      ${setupEnv}
-      exec ${pkg}/bin/tandoor-recipes "$@"
-    ''
+  pkgs.writeShellScript "manage" ''
+    ${setupEnv}
+    exec ${pkg}/bin/tandoor-recipes "$@"
+  ''
   ;
 in {
   meta.maintainers = with maintainers; [ ambroisie ];

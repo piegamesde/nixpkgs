@@ -53,9 +53,9 @@ rec {
     let
       inherit (platform.parsed) vendor;
     in
-      platform.rustc.platform.vendor or {
-        "w64" = "pc";
-      }.${vendor.name} or vendor.name
+    platform.rustc.platform.vendor or {
+      "w64" = "pc";
+    }.${vendor.name} or vendor.name
   ;
 
   # Returns the name of the rust target, even if it is custom. Adjustments are
@@ -72,9 +72,9 @@ rec {
       }.${cpu.name} or cpu.name;
       vendor_ = toTargetVendor platform;
     in
-      platform.rustc.config or "${cpu_}-${vendor_}-${kernel.name}${
-        lib.optionalString (abi.name != "unknown") "-${abi.name}"
-      }"
+    platform.rustc.config or "${cpu_}-${vendor_}-${kernel.name}${
+      lib.optionalString (abi.name != "unknown") "-${abi.name}"
+    }"
   ;
 
   # Returns the name of the rust target if it is standard, or the json file
@@ -94,11 +94,11 @@ rec {
     let
       rustTarget = toRustTarget platform;
     in
-      builtins.any (t: lib.hasInfix t rustTarget) [
-        "-none"
-        "nvptx"
-        "switch"
-        "-uefi"
-      ]
+    builtins.any (t: lib.hasInfix t rustTarget) [
+      "-none"
+      "nvptx"
+      "switch"
+      "-uefi"
+    ]
   ;
 }

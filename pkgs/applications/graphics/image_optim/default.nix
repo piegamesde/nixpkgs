@@ -54,36 +54,36 @@ let
     ++ optional (!withSvgo) "--no-svgo";
 
 in
-  bundlerApp {
-    pname = "image_optim";
-    gemdir = ./.;
+bundlerApp {
+  pname = "image_optim";
+  gemdir = ./.;
 
-    exes = [ "image_optim" ];
+  exes = [ "image_optim" ];
 
-    nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [ makeWrapper ];
 
-    postBuild = ''
-      wrapProgram $out/bin/image_optim \
-        --prefix PATH : ${lib.escapeShellArg (makeBinPath optionalDepsPath)} \
-        --add-flags "${lib.concatStringsSep " " disabledWorkersFlags}"
+  postBuild = ''
+    wrapProgram $out/bin/image_optim \
+      --prefix PATH : ${lib.escapeShellArg (makeBinPath optionalDepsPath)} \
+      --add-flags "${lib.concatStringsSep " " disabledWorkersFlags}"
+  '';
+
+  passthru.updateScript = bundlerUpdateScript "image_optim";
+
+  meta = with lib; {
+    description = "Optimize images using multiple utilities";
+    longDescription = ''
+      Command line tool and ruby interface to optimize (lossless compress,
+      optionally lossy) jpeg, png, gif and svg images using external utilities
+      (advpng, gifsicle, jhead, jpeg-recompress, jpegoptim, jpegrescan,
+      jpegtran, optipng, oxipng, pngcrush, pngout, pngquant, svgo)
     '';
-
-    passthru.updateScript = bundlerUpdateScript "image_optim";
-
-    meta = with lib; {
-      description = "Optimize images using multiple utilities";
-      longDescription = ''
-        Command line tool and ruby interface to optimize (lossless compress,
-        optionally lossy) jpeg, png, gif and svg images using external utilities
-        (advpng, gifsicle, jhead, jpeg-recompress, jpegoptim, jpegrescan,
-        jpegtran, optipng, oxipng, pngcrush, pngout, pngquant, svgo)
-      '';
-      homepage = "https://github.com/toy/image_optim";
-      license = licenses.mit;
-      maintainers = with maintainers; [
-        srghma
-        nicknovitski
-      ];
-      platforms = platforms.all;
-    };
-  }
+    homepage = "https://github.com/toy/image_optim";
+    license = licenses.mit;
+    maintainers = with maintainers; [
+      srghma
+      nicknovitski
+    ];
+    platforms = platforms.all;
+  };
+}

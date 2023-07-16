@@ -22,20 +22,20 @@ let
     lockfile = ./test/Gemfile.lock;
   };
 in
-  builtins.concatLists [
-    (test.run "bundlerEnv { name }" justName {
-      name = should.equal "test-0.1.2";
-    })
-    (test.run "bundlerEnv { pname }" pnamed [
-      (should.haveKeys [
-        "name"
-        "env"
-        "postBuild"
-      ])
-      {
-        name = should.equal "test-0.1.2";
-        env = should.beASet;
-        postBuild = should.havePrefix "/nix/store";
-      }
+builtins.concatLists [
+  (test.run "bundlerEnv { name }" justName {
+    name = should.equal "test-0.1.2";
+  })
+  (test.run "bundlerEnv { pname }" pnamed [
+    (should.haveKeys [
+      "name"
+      "env"
+      "postBuild"
     ])
-  ]
+    {
+      name = should.equal "test-0.1.2";
+      env = should.beASet;
+      postBuild = should.havePrefix "/nix/store";
+    }
+  ])
+]

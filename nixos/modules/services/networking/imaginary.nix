@@ -82,7 +82,7 @@ in {
               p = cfg.port;
             });
         in
-          "${pkgs.imaginary}/bin/imaginary ${utils.escapeSystemdExecArgs args}"
+        "${pkgs.imaginary}/bin/imaginary ${utils.escapeSystemdExecArgs args}"
         ;
         ProtectProc = "invisible";
         BindReadOnlyPaths =

@@ -43,7 +43,7 @@ rec {
         }));
       withStdOverrides = base // { override = base.passthru.function; };
     in
-      withStdOverrides
+    withStdOverrides
   ;
 
   # shortcut for attrByPath ["name"] default attrs
@@ -109,12 +109,12 @@ rec {
         name = (head x);
 
       in
-        ((checkFlag attrSet name) -> (foldr lib.and true (map (y:
-          let
-            val = (getValue attrSet argList y);
-          in
-            (val != null) && (val != false)
-        ) (tail x))))
+      ((checkFlag attrSet name) -> (foldr lib.and true (map (y:
+        let
+          val = (getValue attrSet argList y);
+        in
+        (val != null) && (val != false)
+      ) (tail x))))
     ) condList));
 
   # This function has O(n^2) performance.
@@ -137,10 +137,10 @@ rec {
               [ ]
             else [ x ];
           in
-            y ++ go (tail xs) (y ++ acc)
+          y ++ go (tail xs) (y ++ acc)
       ;
     in
-      go inputList acc
+    go inputList acc
   ;
 
   uniqListExt = {
@@ -163,11 +163,11 @@ rec {
           [ ]
         else [ x ]);
       in
-        uniqListExt {
-          outputList = newOutputList;
-          inputList = (tail inputList);
-          inherit getter compare;
-        }
+      uniqListExt {
+        outputList = newOutputList;
+        inputList = (tail inputList);
+        inherit getter compare;
+      }
   ;
 
   condConcat = name: list: checker:
@@ -202,7 +202,7 @@ rec {
             work (tail list ++ operator x) ([ key ] ++ doneKeys)
             ([ x ] ++ result);
     in
-      work startSet [ ] [ ]
+    work startSet [ ] [ ]
   ;
 
   innerModifySumArgs = f: x: a: b:
@@ -231,11 +231,11 @@ rec {
         let
           acc' = [ y ] ++ acc;
         in
-          innerClosePropagation acc' (uniqList {
-            inputList = (maybeAttrNullable "propagatedBuildInputs" [ ] y)
-              ++ (maybeAttrNullable "propagatedNativeBuildInputs" [ ] y) ++ ys;
-            acc = acc';
-          })
+        innerClosePropagation acc' (uniqList {
+          inputList = (maybeAttrNullable "propagatedBuildInputs" [ ] y)
+            ++ (maybeAttrNullable "propagatedNativeBuildInputs" [ ] y) ++ ys;
+          acc = acc';
+        })
   ;
 
   closePropagationSlow = list:
@@ -358,25 +358,25 @@ rec {
         mergeAttrBy = lib.mergeAttrs;
       } // (maybeAttr "mergeAttrBy" { } x) // (maybeAttr "mergeAttrBy" { } y);
     in
-      foldr lib.mergeAttrs { } [
-        x
-        y
-        (mapAttrs (a: v: # merge special names using given functions
+    foldr lib.mergeAttrs { } [
+      x
+      y
+      (mapAttrs (a: v: # merge special names using given functions
+        if
+          x ? ${a}
+        then
           if
-            x ? ${a}
+            y ? ${a}
           then
-            if
-              y ? ${a}
-            then
-              v x.${a} y.${a} # both have attr, use merge func
-            else
-              x.${a} # only x has attr
+            v x.${a} y.${a} # both have attr, use merge func
           else
-            y.${a} # only y has attr)
-        ) (removeAttrs mergeAttrBy2
-          # don't merge attrs which are neither in x nor y
-          (filter (a: !x ? ${a} && !y ? ${a}) (attrNames mergeAttrBy2))))
-      ]
+            x.${a} # only x has attr
+        else
+          y.${a} # only y has attr)
+      ) (removeAttrs mergeAttrBy2
+        # don't merge attrs which are neither in x nor y
+        (filter (a: !x ? ${a} && !y ? ${a}) (attrNames mergeAttrBy2))))
+    ]
   ;
   mergeAttrsByFuncDefaults = foldl mergeAttrByFunc { inherit mergeAttrBy; };
   mergeAttrsByFuncDefaultsClean = list:

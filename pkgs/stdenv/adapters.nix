@@ -25,7 +25,7 @@ let
         stdenvSuperArgs.mkDerivationFromStdenv or defaultMkDerivationFromStdenv;
       mkDerivationSuper = mkDerivationFromStdenv-super stdenvSelf;
     in
-      k stdenvSelf mkDerivationSuper
+    k stdenvSelf mkDerivationSuper
   ;
 
   # Wrap the original `mkDerivation` providing extra args to it.
@@ -187,14 +187,14 @@ in rec {
               drvPath = builtins.unsafeDiscardStringContext pkg.drvPath;
               license = pkg.meta.license or null;
             in
-              builtins.trace
-              "@:drv:${toString drvPath}:${builtins.toString license}:@" val
+            builtins.trace
+            "@:drv:${toString drvPath}:${builtins.toString license}:@" val
           ;
         in
-          pkg // {
-            outPath = printDrvPath pkg.outPath;
-            drvPath = printDrvPath pkg.drvPath;
-          }
+        pkg // {
+          outPath = printDrvPath pkg.outPath;
+          drvPath = printDrvPath pkg.drvPath;
+        }
       );
     });
 
@@ -235,26 +235,26 @@ in rec {
         '';
       };
     in
-      stdenv.override (old:
-        {
-          cc = stdenv.cc.override { inherit bintools; };
-          allowedRequisites = lib.mapNullable (rs:
-            rs ++ [
-              bintools
-              pkgs.mold
-              (lib.getLib pkgs.mimalloc)
-              (lib.getLib pkgs.openssl)
-            ]) (stdenv.allowedRequisites or null);
-          # gcc >12.1.0 supports '-fuse-ld=mold'
-          # the wrap ld above in bintools supports gcc <12.1.0 and shouldn't harm >12.1.0
-          # https://github.com/rui314/mold#how-to-use
-        } // lib.optionalAttrs (stdenv.cc.isClang
-          || (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12")) {
-            mkDerivationFromStdenv = extendMkDerivationArgs old (args: {
-              NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "")
-                + " -fuse-ld=mold";
-            });
-          })
+    stdenv.override (old:
+      {
+        cc = stdenv.cc.override { inherit bintools; };
+        allowedRequisites = lib.mapNullable (rs:
+          rs ++ [
+            bintools
+            pkgs.mold
+            (lib.getLib pkgs.mimalloc)
+            (lib.getLib pkgs.openssl)
+          ]) (stdenv.allowedRequisites or null);
+        # gcc >12.1.0 supports '-fuse-ld=mold'
+        # the wrap ld above in bintools supports gcc <12.1.0 and shouldn't harm >12.1.0
+        # https://github.com/rui314/mold#how-to-use
+      } // lib.optionalAttrs (stdenv.cc.isClang
+        || (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12")) {
+          mkDerivationFromStdenv = extendMkDerivationArgs old (args: {
+            NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "")
+              + " -fuse-ld=mold";
+          });
+        })
   ;
 
   /* Modify a stdenv so that it builds binaries optimized specifically

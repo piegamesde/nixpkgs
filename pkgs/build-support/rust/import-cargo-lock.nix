@@ -118,14 +118,14 @@ let
       checksum =
         pkg.checksum or parsedLockFile.metadata."checksum ${pkg.name} ${pkg.version} (${pkg.source})";
     in
-      assert lib.assertMsg (checksum != null) ''
-        Package ${pkg.name} does not have a checksum.
-      '';
-      fetchurl {
-        name = "crate-${pkg.name}-${pkg.version}.tar.gz";
-        url = "${downloadUrl}/${pkg.name}/${pkg.version}/download";
-        sha256 = checksum;
-      }
+    assert lib.assertMsg (checksum != null) ''
+      Package ${pkg.name} does not have a checksum.
+    '';
+    fetchurl {
+      name = "crate-${pkg.name}-${pkg.version}.tar.gz";
+      url = "${downloadUrl}/${pkg.name}/${pkg.version}/download";
+      sha256 = checksum;
+    }
   ;
 
   registries = {
@@ -154,13 +154,13 @@ let
       let
         crateTarball = fetchCrate pkg registries.${registryIndexUrl};
       in
-        runCommand "${pkg.name}-${pkg.version}" { } ''
-          mkdir $out
-          tar xf "${crateTarball}" -C $out --strip-components=1
+      runCommand "${pkg.name}-${pkg.version}" { } ''
+        mkdir $out
+        tar xf "${crateTarball}" -C $out --strip-components=1
 
-          # Cargo is happy with largely empty metadata.
-          printf '{"files":{},"package":"${crateTarball.outputHash}"}' > "$out/.cargo-checksum.json"
-        ''
+        # Cargo is happy with largely empty metadata.
+        printf '{"files":{},"package":"${crateTarball.outputHash}"}' > "$out/.cargo-checksum.json"
+      ''
     else if gitParts != null then
       let
         missingHash = throw ''
@@ -192,58 +192,58 @@ let
         else
           missingHash;
       in
-        runCommand "${pkg.name}-${pkg.version}" { } ''
-          tree=${tree}
+      runCommand "${pkg.name}-${pkg.version}" { } ''
+        tree=${tree}
 
-          # If the target package is in a workspace, or if it's the top-level
-          # crate, we should find the crate path using `cargo metadata`.
-          # Some packages do not have a Cargo.toml at the top-level,
-          # but only in nested directories.
-          # Only check the top-level Cargo.toml, if it actually exists
-          if [[ -f $tree/Cargo.toml ]]; then
-            crateCargoTOML=$(${cargo}/bin/cargo metadata --format-version 1 --no-deps --manifest-path $tree/Cargo.toml | \
-            ${jq}/bin/jq -r '.packages[] | select(.name == "${pkg.name}") | .manifest_path')
-          fi
+        # If the target package is in a workspace, or if it's the top-level
+        # crate, we should find the crate path using `cargo metadata`.
+        # Some packages do not have a Cargo.toml at the top-level,
+        # but only in nested directories.
+        # Only check the top-level Cargo.toml, if it actually exists
+        if [[ -f $tree/Cargo.toml ]]; then
+          crateCargoTOML=$(${cargo}/bin/cargo metadata --format-version 1 --no-deps --manifest-path $tree/Cargo.toml | \
+          ${jq}/bin/jq -r '.packages[] | select(.name == "${pkg.name}") | .manifest_path')
+        fi
 
-          # If the repository is not a workspace the package might be in a subdirectory.
-          if [[ -z $crateCargoTOML ]]; then
-            for manifest in $(find $tree -name "Cargo.toml"); do
-              echo Looking at $manifest
-              crateCargoTOML=$(${cargo}/bin/cargo metadata --format-version 1 --no-deps --manifest-path "$manifest" | ${jq}/bin/jq -r '.packages[] | select(.name == "${pkg.name}") | .manifest_path' || :)
-              if [[ ! -z $crateCargoTOML ]]; then
-                break
-              fi
-            done
-
-            if [[ -z $crateCargoTOML ]]; then
-              >&2 echo "Cannot find path for crate '${pkg.name}-${pkg.version}' in the tree in: $tree"
-              exit 1
+        # If the repository is not a workspace the package might be in a subdirectory.
+        if [[ -z $crateCargoTOML ]]; then
+          for manifest in $(find $tree -name "Cargo.toml"); do
+            echo Looking at $manifest
+            crateCargoTOML=$(${cargo}/bin/cargo metadata --format-version 1 --no-deps --manifest-path "$manifest" | ${jq}/bin/jq -r '.packages[] | select(.name == "${pkg.name}") | .manifest_path' || :)
+            if [[ ! -z $crateCargoTOML ]]; then
+              break
             fi
+          done
+
+          if [[ -z $crateCargoTOML ]]; then
+            >&2 echo "Cannot find path for crate '${pkg.name}-${pkg.version}' in the tree in: $tree"
+            exit 1
           fi
+        fi
 
-          echo Found crate ${pkg.name} at $crateCargoTOML
-          tree=$(dirname $crateCargoTOML)
+        echo Found crate ${pkg.name} at $crateCargoTOML
+        tree=$(dirname $crateCargoTOML)
 
-          cp -prvL "$tree/" $out
-          chmod u+w $out
+        cp -prvL "$tree/" $out
+        chmod u+w $out
 
-          if grep -q workspace "$out/Cargo.toml"; then
-            chmod u+w "$out/Cargo.toml"
-            ${replaceWorkspaceValues} "$out/Cargo.toml" "${tree}/Cargo.toml"
-          fi
+        if grep -q workspace "$out/Cargo.toml"; then
+          chmod u+w "$out/Cargo.toml"
+          ${replaceWorkspaceValues} "$out/Cargo.toml" "${tree}/Cargo.toml"
+        fi
 
-          # Cargo is happy with empty metadata.
-          printf '{"files":{},"package":null}' > "$out/.cargo-checksum.json"
+        # Cargo is happy with empty metadata.
+        printf '{"files":{},"package":null}' > "$out/.cargo-checksum.json"
 
-          # Set up configuration for the vendor directory.
-          cat > $out/.cargo-config <<EOF
-          [source."${gitParts.url}"]
-          git = "${gitParts.url}"
-          ${lib.optionalString (gitParts ? type)
-          ''${gitParts.type} = "${gitParts.value}"''}
-          replace-with = "vendored-sources"
-          EOF
-        ''
+        # Set up configuration for the vendor directory.
+        cat > $out/.cargo-config <<EOF
+        [source."${gitParts.url}"]
+        git = "${gitParts.url}"
+        ${lib.optionalString (gitParts ? type)
+        ''${gitParts.type} = "${gitParts.value}"''}
+        replace-with = "vendored-sources"
+        EOF
+      ''
     else
       throw "Cannot handle crate source: ${pkg.source}";
 
@@ -299,4 +299,4 @@ let
         done
   '';
 in
-  vendorDir
+vendorDir

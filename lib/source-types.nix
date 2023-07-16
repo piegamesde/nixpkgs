@@ -8,13 +8,13 @@ let
     isSource = false;
   };
 in
-  lib.mapAttrs (tname: tset: defaultSourceType tname // tset) {
+lib.mapAttrs (tname: tset: defaultSourceType tname // tset) {
 
-    fromSource = { isSource = true; };
+  fromSource = { isSource = true; };
 
-    binaryNativeCode = { };
+  binaryNativeCode = { };
 
-    binaryBytecode = { };
+  binaryBytecode = { };
 
-    binaryFirmware = { };
-  }
+  binaryFirmware = { };
+}

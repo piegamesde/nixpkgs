@@ -74,23 +74,23 @@ let
     };
 
 in
-  pkgs.lib.mapAttrs mkKeyboardTest {
-    swap-ab_and_ctrl-as-shift = {
-      test.press = [
-        "a"
-        "ctrl-b"
-        "c"
-      ];
-      test.expect = [
-        "b"
-        "A"
-        "c"
-      ];
+pkgs.lib.mapAttrs mkKeyboardTest {
+  swap-ab_and_ctrl-as-shift = {
+    test.press = [
+      "a"
+      "ctrl-b"
+      "c"
+    ];
+    test.expect = [
+      "b"
+      "A"
+      "c"
+    ];
 
-      settings.main = {
-        "a" = "b";
-        "b" = "a";
-        "control" = "oneshot(shift)";
-      };
+    settings.main = {
+      "a" = "b";
+      "b" = "a";
+      "control" = "oneshot(shift)";
     };
-  }
+  };
+}

@@ -100,4 +100,4 @@ let
       };
     };
 in
-  lib.mapAttrs mkpkg fonts
+lib.mapAttrs mkpkg fonts

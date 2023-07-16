@@ -58,51 +58,51 @@ let
     '';
   };
 in
-  buildGoModule rec {
-    pname = "influxdb";
-    version = "1.10.0";
+buildGoModule rec {
+  pname = "influxdb";
+  version = "1.10.0";
 
-    src = fetchFromGitHub {
-      owner = "influxdata";
-      repo = pname;
-      rev = "v${version}";
-      sha256 = "sha256-BMHR9EdYC+8oA0he7emzBRmNnHn15nO/5NqsLcr+R0k=";
-    };
+  src = fetchFromGitHub {
+    owner = "influxdata";
+    repo = pname;
+    rev = "v${version}";
+    sha256 = "sha256-BMHR9EdYC+8oA0he7emzBRmNnHn15nO/5NqsLcr+R0k=";
+  };
 
-    vendorSha256 = "sha256-AY04cmfg7vbrWR4+LBuCFYqBgQJBXlPpO+2oj0qqjM4=";
+  vendorSha256 = "sha256-AY04cmfg7vbrWR4+LBuCFYqBgQJBXlPpO+2oj0qqjM4=";
 
-    nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [ pkg-config ];
 
-    PKG_CONFIG_PATH = "${flux}/pkgconfig";
+  PKG_CONFIG_PATH = "${flux}/pkgconfig";
 
-    # Check that libflux is at the right version
-    preBuild = ''
-      flux_ver=$(grep github.com/influxdata/flux go.mod | awk '{print $2}')
-      if [ "$flux_ver" != "v${libflux_version}" ]; then
-        echo "go.mod wants libflux $flux_ver, but nix derivation provides ${libflux_version}"
-        exit 1
-      fi
-    '';
+  # Check that libflux is at the right version
+  preBuild = ''
+    flux_ver=$(grep github.com/influxdata/flux go.mod | awk '{print $2}')
+    if [ "$flux_ver" != "v${libflux_version}" ]; then
+      echo "go.mod wants libflux $flux_ver, but nix derivation provides ${libflux_version}"
+      exit 1
+    fi
+  '';
 
-    doCheck = false;
+  doCheck = false;
 
-    ldflags = [
-      "-s"
-      "-w"
-      "-X main.version=${version}"
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
+
+  excludedPackages = "test";
+
+  passthru.tests = { inherit (nixosTests) influxdb; };
+
+  meta = with lib; {
+    description = "An open-source distributed time series database";
+    license = licenses.mit;
+    homepage = "https://influxdata.com/";
+    maintainers = with maintainers; [
+      offline
+      zimbatm
     ];
-
-    excludedPackages = "test";
-
-    passthru.tests = { inherit (nixosTests) influxdb; };
-
-    meta = with lib; {
-      description = "An open-source distributed time series database";
-      license = licenses.mit;
-      homepage = "https://influxdata.com/";
-      maintainers = with maintainers; [
-        offline
-        zimbatm
-      ];
-    };
-  }
+  };
+}

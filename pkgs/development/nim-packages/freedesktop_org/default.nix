@@ -19,20 +19,20 @@ let
     doCheck = true;
   };
 in
-  buildNimPackage rec {
-    pname = "freedesktop_org";
-    version = "20230201";
-    src = fetchFromSourcehut {
-      owner = "~ehmry";
-      repo = pname;
-      rev = version;
-      hash = "sha256-gEN8kiWYCfC9H7o4UE8Xza5s7OwU3TFno6XnIlEm9Dg=";
-    };
-    propagatedBuildInputs = [ configparser ];
-    doCheck = true;
-    meta = src.meta // {
-      description = "Some Nim procedures for looking up freedesktop.org data";
-      license = lib.licenses.unlicense;
-      maintainers = with lib.maintainers; [ ehmry ];
-    };
-  }
+buildNimPackage rec {
+  pname = "freedesktop_org";
+  version = "20230201";
+  src = fetchFromSourcehut {
+    owner = "~ehmry";
+    repo = pname;
+    rev = version;
+    hash = "sha256-gEN8kiWYCfC9H7o4UE8Xza5s7OwU3TFno6XnIlEm9Dg=";
+  };
+  propagatedBuildInputs = [ configparser ];
+  doCheck = true;
+  meta = src.meta // {
+    description = "Some Nim procedures for looking up freedesktop.org data";
+    license = lib.licenses.unlicense;
+    maintainers = with lib.maintainers; [ ehmry ];
+  };
+}

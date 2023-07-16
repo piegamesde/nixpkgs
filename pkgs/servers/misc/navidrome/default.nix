@@ -27,58 +27,58 @@ let
   ui = callPackage ./ui { inherit src version; };
 
 in
-  buildGoModule {
+buildGoModule {
 
-    pname = "navidrome";
+  pname = "navidrome";
 
-    inherit src version;
+  inherit src version;
 
-    vendorSha256 = "sha256-C8w/qCts8VqNDTQVXtykjmSbo5uDrvS9NOu3SHpAlDE=";
+  vendorSha256 = "sha256-C8w/qCts8VqNDTQVXtykjmSbo5uDrvS9NOu3SHpAlDE=";
 
-    nativeBuildInputs = [
-      makeWrapper
-      pkg-config
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+  ];
+
+  buildInputs = [
+    taglib
+    zlib
+  ];
+
+  ldflags = [
+    "-X github.com/navidrome/navidrome/consts.gitSha=${src.rev}"
+    "-X github.com/navidrome/navidrome/consts.gitTag=v${version}"
+  ];
+
+  CGO_CFLAGS = lib.optionals stdenv.cc.isGNU [ "-Wno-return-local-addr" ];
+
+  prePatch = ''
+    cp -r ${ui}/* ui/build
+  '';
+
+  postFixup = lib.optionalString ffmpegSupport ''
+    wrapProgram $out/bin/navidrome \
+      --prefix PATH : ${lib.makeBinPath [ ffmpeg-headless ]}
+  '';
+
+  passthru = {
+    inherit ui;
+    tests.navidrome = nixosTests.navidrome;
+    updateScript = callPackage ./update.nix { };
+  };
+
+  meta = {
+    description =
+      "Navidrome Music Server and Streamer compatible with Subsonic/Airsonic";
+    homepage = "https://www.navidrome.org/";
+    license = lib.licenses.gpl3Only;
+    sourceProvenance = with lib.sourceTypes; [ fromSource ];
+    platforms = lib.platforms.unix;
+    maintainers = with lib.maintainers; [
+      aciceri
+      squalus
     ];
-
-    buildInputs = [
-      taglib
-      zlib
-    ];
-
-    ldflags = [
-      "-X github.com/navidrome/navidrome/consts.gitSha=${src.rev}"
-      "-X github.com/navidrome/navidrome/consts.gitTag=v${version}"
-    ];
-
-    CGO_CFLAGS = lib.optionals stdenv.cc.isGNU [ "-Wno-return-local-addr" ];
-
-    prePatch = ''
-      cp -r ${ui}/* ui/build
-    '';
-
-    postFixup = lib.optionalString ffmpegSupport ''
-      wrapProgram $out/bin/navidrome \
-        --prefix PATH : ${lib.makeBinPath [ ffmpeg-headless ]}
-    '';
-
-    passthru = {
-      inherit ui;
-      tests.navidrome = nixosTests.navidrome;
-      updateScript = callPackage ./update.nix { };
-    };
-
-    meta = {
-      description =
-        "Navidrome Music Server and Streamer compatible with Subsonic/Airsonic";
-      homepage = "https://www.navidrome.org/";
-      license = lib.licenses.gpl3Only;
-      sourceProvenance = with lib.sourceTypes; [ fromSource ];
-      platforms = lib.platforms.unix;
-      maintainers = with lib.maintainers; [
-        aciceri
-        squalus
-      ];
-      # Broken on Darwin: sandbox-exec: pattern serialization length exceeds maximum (NixOS/nix#4119)
-      broken = stdenv.isDarwin;
-    };
-  }
+    # Broken on Darwin: sandbox-exec: pattern serialization length exceeds maximum (NixOS/nix#4119)
+    broken = stdenv.isDarwin;
+  };
+}

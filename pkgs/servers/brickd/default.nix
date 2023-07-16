@@ -18,58 +18,58 @@ let
   };
 
 in
-  stdenv.mkDerivation {
-    pname = "brickd";
-    inherit version;
+stdenv.mkDerivation {
+  pname = "brickd";
+  inherit version;
 
-    src = fetchFromGitHub {
-      owner = "Tinkerforge";
-      repo = "brickd";
-      rev = "v${version}";
-      sha256 = "sha256-6w2Ew+dLMmdRf9CF3TdKHa0d5ZgmX5lKIR+5t3QAWFQ=";
-    };
+  src = fetchFromGitHub {
+    owner = "Tinkerforge";
+    repo = "brickd";
+    rev = "v${version}";
+    sha256 = "sha256-6w2Ew+dLMmdRf9CF3TdKHa0d5ZgmX5lKIR+5t3QAWFQ=";
+  };
 
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [
-      libusb1
-      pmutils
-      udev
-    ];
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [
+    libusb1
+    pmutils
+    udev
+  ];
 
-    # shell thing didn't work so i replaced it using nix
-    prePatch = ''
-      substituteInPlace src/brickd/Makefile --replace 'PKG_CONFIG := $(shell which pkg-config 2> /dev/null)' "PKG_CONFIG := $pkgconfig/bin/pkg_config";
-    '';
+  # shell thing didn't work so i replaced it using nix
+  prePatch = ''
+    substituteInPlace src/brickd/Makefile --replace 'PKG_CONFIG := $(shell which pkg-config 2> /dev/null)' "PKG_CONFIG := $pkgconfig/bin/pkg_config";
+  '';
 
-    buildPhase = ''
-      export
-      # build the brickd binary
-      mkdir src/daemonlib
-      cp -r ${daemonlib}/* src/daemonlib
-      cd src/brickd
-      make
+  buildPhase = ''
+    export
+    # build the brickd binary
+    mkdir src/daemonlib
+    cp -r ${daemonlib}/* src/daemonlib
+    cd src/brickd
+    make
 
-      # build and execute the unit tests
-      cd ../tests
-      make
-      for i in array_test base58_test node_test putenv_test queue_test sha1_test; do
-        echo "running unit test $i:"
-        ./$i
-      done
-    '';
+    # build and execute the unit tests
+    cd ../tests
+    make
+    for i in array_test base58_test node_test putenv_test queue_test sha1_test; do
+      echo "running unit test $i:"
+      ./$i
+    done
+  '';
 
-    installPhase = ''
-      cd ../brickd
-      mkdir -p $out/bin
-      cp brickd $out/bin/brickd
-    '';
+  installPhase = ''
+    cd ../brickd
+    mkdir -p $out/bin
+    cp brickd $out/bin/brickd
+  '';
 
-    meta = {
-      homepage = "https://www.tinkerforge.com/";
-      description =
-        "A daemon (or service on Windows) that acts as a bridge between the Bricks/Bricklets and the API bindings for the different programming languages";
-      maintainers = [ lib.maintainers.qknight ];
-      license = lib.licenses.gpl2;
-      platforms = lib.platforms.all;
-    };
-  }
+  meta = {
+    homepage = "https://www.tinkerforge.com/";
+    description =
+      "A daemon (or service on Windows) that acts as a bridge between the Bricks/Bricklets and the API bindings for the different programming languages";
+    maintainers = [ lib.maintainers.qknight ];
+    license = lib.licenses.gpl2;
+    platforms = lib.platforms.all;
+  };
+}

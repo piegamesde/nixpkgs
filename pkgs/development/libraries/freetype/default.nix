@@ -44,10 +44,10 @@ stdenv.mkDerivation (finalAttrs: {
   src = let
     inherit (finalAttrs) pname version;
   in
-    fetchurl {
-      url = "mirror://savannah/${pname}/${pname}-${version}.tar.xz";
-      sha256 = "sha256-XuI6vQR2NsJLLUPGYl3K/GZmHRrKZN7J4NBd8pWSYkw=";
-    }
+  fetchurl {
+    url = "mirror://savannah/${pname}/${pname}-${version}.tar.xz";
+    sha256 = "sha256-XuI6vQR2NsJLLUPGYl3K/GZmHRrKZN7J4NBd8pWSYkw=";
+  }
   ;
 
   propagatedBuildInputs = [

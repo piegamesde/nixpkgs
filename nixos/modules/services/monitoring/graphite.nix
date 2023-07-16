@@ -61,7 +61,7 @@ let
         extraLibs = [ pkgs.python3Packages.carbon ];
       };
     in
-      "${cenv}/${pkgs.python3.sitePackages}"
+    "${cenv}/${pkgs.python3.sitePackages}"
     ;
     GRAPHITE_ROOT = dataDir;
     GRAPHITE_CONF_DIR = configDir;
@@ -382,12 +382,12 @@ in {
             };
             penvPack = "${penv}/${pkgs.python3.sitePackages}";
           in
-            concatStringsSep ":" [
-              "${graphiteLocalSettingsDir}"
-              "${penvPack}"
-              # explicitly adding pycairo in path because it cannot be imported via buildEnv
-              "${pkgs.python3Packages.pycairo}/${pkgs.python3.sitePackages}"
-            ]
+          concatStringsSep ":" [
+            "${graphiteLocalSettingsDir}"
+            "${penvPack}"
+            # explicitly adding pycairo in path because it cannot be imported via buildEnv
+            "${pkgs.python3Packages.pycairo}/${pkgs.python3.sitePackages}"
+          ]
           ;
           DJANGO_SETTINGS_MODULE = "graphite.settings";
           GRAPHITE_SETTINGS_MODULE = "graphite_local_settings";

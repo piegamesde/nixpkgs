@@ -82,7 +82,7 @@ let
             cfg.configuration.jobs));
       };
     in
-      builtins.toFile "config.yaml" (builtins.toJSON configuration)
+    builtins.toFile "config.yaml" (builtins.toJSON configuration)
   ;
 in {
   extraOpts = {

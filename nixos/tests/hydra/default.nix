@@ -63,4 +63,4 @@ let
     };
 
 in
-  mapAttrs makeHydraTest hydraPkgs
+mapAttrs makeHydraTest hydraPkgs

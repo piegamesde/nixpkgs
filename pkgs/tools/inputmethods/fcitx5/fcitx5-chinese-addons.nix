@@ -30,50 +30,50 @@ let
   };
 
 in
-  mkDerivation rec {
-    pname = "fcitx5-chinese-addons";
-    version = "5.0.17";
+mkDerivation rec {
+  pname = "fcitx5-chinese-addons";
+  version = "5.0.17";
 
-    src = fetchFromGitHub {
-      owner = "fcitx";
-      repo = pname;
-      rev = version;
-      sha256 = "sha256-Licj/sZ2rZablsk/ytCZlkdjSHszr31JURrQkXs1BXE=";
-    };
+  src = fetchFromGitHub {
+    owner = "fcitx";
+    repo = pname;
+    rev = version;
+    sha256 = "sha256-Licj/sZ2rZablsk/ytCZlkdjSHszr31JURrQkXs1BXE=";
+  };
 
-    cmakeFlags = [ "-DUSE_WEBKIT=off" ];
+  cmakeFlags = [ "-DUSE_WEBKIT=off" ];
 
-    nativeBuildInputs = [
-      cmake
-      extra-cmake-modules
-      boost
-      fcitx5-lua
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    boost
+    fcitx5-lua
+  ];
+
+  prePatch = ''
+    ln -s ${pyStroke} modules/pinyinhelper/$(stripHash ${pyStroke})
+    ln -s ${pyTable} modules/pinyinhelper/$(stripHash ${pyTable})
+  '';
+
+  buildInputs = [
+    fcitx5
+    fcitx5-qt
+    libime
+    curl
+    opencc
+    qtwebengine
+    fmt
+  ] ++ lib.optional luaSupport fcitx5-lua;
+
+  meta = with lib; {
+    description =
+      "Addons related to Chinese, including IME previous bundled inside fcitx4";
+    homepage = "https://github.com/fcitx/fcitx5-chinese-addons";
+    license = with licenses; [
+      gpl2Plus
+      lgpl21Plus
     ];
-
-    prePatch = ''
-      ln -s ${pyStroke} modules/pinyinhelper/$(stripHash ${pyStroke})
-      ln -s ${pyTable} modules/pinyinhelper/$(stripHash ${pyTable})
-    '';
-
-    buildInputs = [
-      fcitx5
-      fcitx5-qt
-      libime
-      curl
-      opencc
-      qtwebengine
-      fmt
-    ] ++ lib.optional luaSupport fcitx5-lua;
-
-    meta = with lib; {
-      description =
-        "Addons related to Chinese, including IME previous bundled inside fcitx4";
-      homepage = "https://github.com/fcitx/fcitx5-chinese-addons";
-      license = with licenses; [
-        gpl2Plus
-        lgpl21Plus
-      ];
-      maintainers = with maintainers; [ poscat ];
-      platforms = platforms.linux;
-    };
-  }
+    maintainers = with maintainers; [ poscat ];
+    platforms = platforms.linux;
+  };
+}

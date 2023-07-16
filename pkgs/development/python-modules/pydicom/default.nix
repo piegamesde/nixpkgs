@@ -31,46 +31,46 @@ let
   };
 
 in
-  buildPythonPackage {
-    inherit pname version src;
-    disabled = pythonOlder "3.6";
+buildPythonPackage {
+  inherit pname version src;
+  disabled = pythonOlder "3.6";
 
-    format = "setuptools";
+  format = "setuptools";
 
-    propagatedBuildInputs = [
-      numpy
-      pillow
-      setuptools
-    ];
+  propagatedBuildInputs = [
+    numpy
+    pillow
+    setuptools
+  ];
 
-    nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-    # Setting $HOME to prevent pytest to try to create a folder inside
-    # /homeless-shelter which is read-only.
-    # Linking pydicom-data dicom files to $HOME/.pydicom/data
-    preCheck = ''
-      export HOME=$TMP/test-home
-      mkdir -p $HOME/.pydicom/
-      ln -s ${test_data}/data_store/data $HOME/.pydicom/data
-    '';
+  # Setting $HOME to prevent pytest to try to create a folder inside
+  # /homeless-shelter which is read-only.
+  # Linking pydicom-data dicom files to $HOME/.pydicom/data
+  preCheck = ''
+    export HOME=$TMP/test-home
+    mkdir -p $HOME/.pydicom/
+    ln -s ${test_data}/data_store/data $HOME/.pydicom/data
+  '';
 
-    disabledTests = [
-      # tries to remove a dicom inside $HOME/.pydicom/data/ and download it again
-      "test_fetch_data_files"
-    ] ++ lib.optionals stdenv.isAarch64 [
-      # https://github.com/pydicom/pydicom/issues/1386
-      "test_array"
-    ] ++ lib.optionals stdenv.isDarwin [
-      # flaky, hard to reproduce failure outside hydra
-      "test_time_check"
-    ];
+  disabledTests = [
+    # tries to remove a dicom inside $HOME/.pydicom/data/ and download it again
+    "test_fetch_data_files"
+  ] ++ lib.optionals stdenv.isAarch64 [
+    # https://github.com/pydicom/pydicom/issues/1386
+    "test_array"
+  ] ++ lib.optionals stdenv.isDarwin [
+    # flaky, hard to reproduce failure outside hydra
+    "test_time_check"
+  ];
 
-    pythonImportsCheck = [ "pydicom" ];
+  pythonImportsCheck = [ "pydicom" ];
 
-    meta = with lib; {
-      description = "Python package for working with DICOM files";
-      homepage = "https://pydicom.github.io";
-      license = licenses.mit;
-      maintainers = with maintainers; [ bcdarwin ];
-    };
-  }
+  meta = with lib; {
+    description = "Python package for working with DICOM files";
+    homepage = "https://pydicom.github.io";
+    license = licenses.mit;
+    maintainers = with maintainers; [ bcdarwin ];
+  };
+}

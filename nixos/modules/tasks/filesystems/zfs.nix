@@ -113,7 +113,7 @@ let
       mountPoint = fs:
         escapeSystemdPath (prefix + (lib.removeSuffix "/" fs.mountPoint));
     in
-      map (x: "${mountPoint x}.mount") (getPoolFilesystems pool)
+    map (x: "${mountPoint x}.mount") (getPoolFilesystems pool)
   ;
 
   getKeyLocations = pool:
@@ -163,54 +163,54 @@ let
       script = let
         keyLocations = getKeyLocations pool;
       in
-        (importLib {
-          # See comments at importLib definition.
-          zpoolCmd = "${cfgZfs.package}/sbin/zpool";
-          awkCmd = "${pkgs.gawk}/bin/awk";
-          inherit cfgZfs;
-        }) + ''
-          poolImported "${pool}" && exit
-          echo -n "importing ZFS pool \"${pool}\"..."
-          # Loop across the import until it succeeds, because the devices needed may not be discovered yet.
-          for trial in `seq 1 60`; do
-            poolReady "${pool}" && poolImport "${pool}" && break
-            sleep 1
-          done
-          poolImported "${pool}" || poolImport "${pool}"  # Try one last time, e.g. to import a degraded pool.
-          if poolImported "${pool}"; then
-            ${
-              optionalString keyLocations.hasKeys ''
-                ${keyLocations.command} | while IFS=$'\t' read ds kl ks; do
-                  {
-                  if [[ "$ks" != unavailable ]]; then
-                    continue
-                  fi
-                  case "$kl" in
-                    none )
-                      ;;
-                    prompt )
-                      tries=3
-                      success=false
-                      while [[ $success != true ]] && [[ $tries -gt 0 ]]; do
-                        ${systemd}/bin/systemd-ask-password "Enter key for $ds:" | ${cfgZfs.package}/sbin/zfs load-key "$ds" \
-                          && success=true \
-                          || tries=$((tries - 1))
-                      done
-                      [[ $success = true ]]
-                      ;;
-                    * )
-                      ${cfgZfs.package}/sbin/zfs load-key "$ds"
-                      ;;
-                  esac
-                  } < /dev/null # To protect while read ds kl in case anything reads stdin
-                done
-              ''
-            }
-            echo "Successfully imported ${pool}"
-          else
-            exit 1
-          fi
-        ''
+      (importLib {
+        # See comments at importLib definition.
+        zpoolCmd = "${cfgZfs.package}/sbin/zpool";
+        awkCmd = "${pkgs.gawk}/bin/awk";
+        inherit cfgZfs;
+      }) + ''
+        poolImported "${pool}" && exit
+        echo -n "importing ZFS pool \"${pool}\"..."
+        # Loop across the import until it succeeds, because the devices needed may not be discovered yet.
+        for trial in `seq 1 60`; do
+          poolReady "${pool}" && poolImport "${pool}" && break
+          sleep 1
+        done
+        poolImported "${pool}" || poolImport "${pool}"  # Try one last time, e.g. to import a degraded pool.
+        if poolImported "${pool}"; then
+          ${
+            optionalString keyLocations.hasKeys ''
+              ${keyLocations.command} | while IFS=$'\t' read ds kl ks; do
+                {
+                if [[ "$ks" != unavailable ]]; then
+                  continue
+                fi
+                case "$kl" in
+                  none )
+                    ;;
+                  prompt )
+                    tries=3
+                    success=false
+                    while [[ $success != true ]] && [[ $tries -gt 0 ]]; do
+                      ${systemd}/bin/systemd-ask-password "Enter key for $ds:" | ${cfgZfs.package}/sbin/zfs load-key "$ds" \
+                        && success=true \
+                        || tries=$((tries - 1))
+                    done
+                    [[ $success = true ]]
+                    ;;
+                  * )
+                    ${cfgZfs.package}/sbin/zfs load-key "$ds"
+                    ;;
+                esac
+                } < /dev/null # To protect while read ds kl in case anything reads stdin
+              done
+            ''
+          }
+          echo "Successfully imported ${pool}"
+        else
+          exit 1
+        fi
+      ''
       ;
     };
 
@@ -747,12 +747,12 @@ in {
           };
 
       in
-        listToAttrs (map createImportService' dataPools
-          ++ map createSyncService allPools ++ map createZfsService [
-            "zfs-mount"
-            "zfs-share"
-            "zfs-zed"
-          ])
+      listToAttrs (map createImportService' dataPools
+        ++ map createSyncService allPools ++ map createZfsService [
+          "zfs-mount"
+          "zfs-share"
+          "zfs-zed"
+        ])
       ;
 
       systemd.targets.zfs-import = let
@@ -839,20 +839,20 @@ in {
             throw "unknown snapshot name";
         numSnapshots = name: builtins.getAttr name cfgSnapshots;
       in
-        builtins.listToAttrs (map (snapName: {
-          name = "zfs-snapshot-${snapName}";
-          value = {
-            description = "ZFS auto-snapshotting every ${descr snapName}";
-            after = [ "zfs-import.target" ];
-            serviceConfig = {
-              Type = "oneshot";
-              ExecStart = "${zfsAutoSnap} ${cfgSnapFlags} ${snapName} ${
-                  toString (numSnapshots snapName)
-                }";
-            };
-            restartIfChanged = false;
+      builtins.listToAttrs (map (snapName: {
+        name = "zfs-snapshot-${snapName}";
+        value = {
+          description = "ZFS auto-snapshotting every ${descr snapName}";
+          after = [ "zfs-import.target" ];
+          serviceConfig = {
+            Type = "oneshot";
+            ExecStart = "${zfsAutoSnap} ${cfgSnapFlags} ${snapName} ${
+                toString (numSnapshots snapName)
+              }";
           };
-        }) snapshotNames)
+          restartIfChanged = false;
+        };
+      }) snapshotNames)
       ;
 
       systemd.timers = let
@@ -864,16 +864,16 @@ in {
           else
             name;
       in
-        builtins.listToAttrs (map (snapName: {
-          name = "zfs-snapshot-${snapName}";
-          value = {
-            wantedBy = [ "timers.target" ];
-            timerConfig = {
-              OnCalendar = timer snapName;
-              Persistent = "yes";
-            };
+      builtins.listToAttrs (map (snapName: {
+        name = "zfs-snapshot-${snapName}";
+        value = {
+          wantedBy = [ "timers.target" ];
+          timerConfig = {
+            OnCalendar = timer snapName;
+            Persistent = "yes";
           };
-        }) snapshotNames)
+        };
+      }) snapshotNames)
       ;
     })
 

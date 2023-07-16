@@ -45,63 +45,63 @@ let
   };
 
 in
-  buildPythonPackage {
-    inherit pname version;
-    format = "pyproject";
+buildPythonPackage {
+  inherit pname version;
+  format = "pyproject";
 
-    disabled = pythonOlder "3.7";
+  disabled = pythonOlder "3.7";
 
-    src = fetchFromGitHub {
-      owner = "TimDettmers";
-      repo = pname;
-      rev = "refs/tags/${version}";
-      hash = "sha256-gGlbzTDvZNo4MhcYzLvWuB2ec7q+Qt5/LtTbJ0Rc+Kk=";
-    };
+  src = fetchFromGitHub {
+    owner = "TimDettmers";
+    repo = pname;
+    rev = "refs/tags/${version}";
+    hash = "sha256-gGlbzTDvZNo4MhcYzLvWuB2ec7q+Qt5/LtTbJ0Rc+Kk=";
+  };
 
-    postPatch = ''
-      substituteInPlace Makefile --replace "/usr/bin/g++" "g++" --replace "lib64" "lib"
-      substituteInPlace bitsandbytes/cuda_setup/main.py  \
-        --replace "binary_path = package_dir / binary_name"  \
-                  "binary_path = Path('$out/${python.sitePackages}/${pname}')/binary_name"
-    '' + lib.optionalString torch.cudaSupport ''
-      substituteInPlace bitsandbytes/cuda_setup/main.py  \
-        --replace "/usr/local/cuda/lib64" "${cuda-native-redist}/lib"
-    '';
+  postPatch = ''
+    substituteInPlace Makefile --replace "/usr/bin/g++" "g++" --replace "lib64" "lib"
+    substituteInPlace bitsandbytes/cuda_setup/main.py  \
+      --replace "binary_path = package_dir / binary_name"  \
+                "binary_path = Path('$out/${python.sitePackages}/${pname}')/binary_name"
+  '' + lib.optionalString torch.cudaSupport ''
+    substituteInPlace bitsandbytes/cuda_setup/main.py  \
+      --replace "/usr/local/cuda/lib64" "${cuda-native-redist}/lib"
+  '';
 
-    CUDA_HOME = "${cuda-native-redist}";
+  CUDA_HOME = "${cuda-native-redist}";
 
-    preBuild = if
-      torch.cudaSupport
-    then
-      with torch.cudaPackages;
-      let
-        cudaVersion = lib.concatStrings
-          (lib.splitVersion torch.cudaPackages.cudaMajorMinorVersion);
-      in
-        "make CUDA_VERSION=${cudaVersion} cuda${cudaMajorVersion}x"
-    else
-      "make CUDA_VERSION=CPU cpuonly";
+  preBuild = if
+    torch.cudaSupport
+  then
+    with torch.cudaPackages;
+    let
+      cudaVersion = lib.concatStrings
+        (lib.splitVersion torch.cudaPackages.cudaMajorMinorVersion);
+    in
+    "make CUDA_VERSION=${cudaVersion} cuda${cudaMajorVersion}x"
+  else
+    "make CUDA_VERSION=CPU cpuonly";
 
-    nativeBuildInputs = [ setuptools ]
-      ++ lib.optionals torch.cudaSupport [ cuda-native-redist ];
-    buildInputs = lib.optionals torch.cudaSupport [ cuda-redist ];
+  nativeBuildInputs = [ setuptools ]
+    ++ lib.optionals torch.cudaSupport [ cuda-native-redist ];
+  buildInputs = lib.optionals torch.cudaSupport [ cuda-redist ];
 
-    propagatedBuildInputs = [ torch ];
+  propagatedBuildInputs = [ torch ];
 
-    doCheck = false; # tests require CUDA and also GPU access
-    nativeCheckInputs = [
-      pytestCheckHook
-      einops
-      lion-pytorch
-      scipy
-    ];
+  doCheck = false; # tests require CUDA and also GPU access
+  nativeCheckInputs = [
+    pytestCheckHook
+    einops
+    lion-pytorch
+    scipy
+  ];
 
-    pythonImportsCheck = [ "bitsandbytes" ];
+  pythonImportsCheck = [ "bitsandbytes" ];
 
-    meta = with lib; {
-      homepage = "https://github.com/TimDettmers/bitsandbytes";
-      description = "8-bit CUDA functions for PyTorch";
-      license = licenses.mit;
-      maintainers = with maintainers; [ bcdarwin ];
-    };
-  }
+  meta = with lib; {
+    homepage = "https://github.com/TimDettmers/bitsandbytes";
+    description = "8-bit CUDA functions for PyTorch";
+    license = licenses.mit;
+    maintainers = with maintainers; [ bcdarwin ];
+  };
+}

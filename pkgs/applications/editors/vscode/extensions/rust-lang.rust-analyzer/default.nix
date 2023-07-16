@@ -72,33 +72,33 @@ let
   };
 
 in
-  vscode-utils.buildVscodeExtension {
-    inherit version vsix;
-    name = "${pname}-${version}";
-    src = "${vsix}/${pname}.zip";
-    vscodeExtUniqueId = "${publisher}.${pname}";
-    vscodeExtPublisher = publisher;
-    vscodeExtName = pname;
+vscode-utils.buildVscodeExtension {
+  inherit version vsix;
+  name = "${pname}-${version}";
+  src = "${vsix}/${pname}.zip";
+  vscodeExtUniqueId = "${publisher}.${pname}";
+  vscodeExtPublisher = publisher;
+  vscodeExtName = pname;
 
-    nativeBuildInputs = lib.optionals setDefaultServerPath [
-      jq
-      moreutils
+  nativeBuildInputs = lib.optionals setDefaultServerPath [
+    jq
+    moreutils
+  ];
+
+  preInstall = lib.optionalString setDefaultServerPath ''
+    jq '.contributes.configuration.properties."rust-analyzer.server.path".default = $s' \
+      --arg s "${rust-analyzer}/bin/rust-analyzer" \
+      package.json | sponge package.json
+  '';
+
+  meta = {
+    description = "An alternative rust language server to the RLS";
+    homepage = "https://github.com/rust-lang/rust-analyzer";
+    license = [
+      lib.licenses.mit
+      lib.licenses.asl20
     ];
-
-    preInstall = lib.optionalString setDefaultServerPath ''
-      jq '.contributes.configuration.properties."rust-analyzer.server.path".default = $s' \
-        --arg s "${rust-analyzer}/bin/rust-analyzer" \
-        package.json | sponge package.json
-    '';
-
-    meta = {
-      description = "An alternative rust language server to the RLS";
-      homepage = "https://github.com/rust-lang/rust-analyzer";
-      license = [
-        lib.licenses.mit
-        lib.licenses.asl20
-      ];
-      maintainers = [ ];
-      platforms = lib.platforms.all;
-    };
-  }
+    maintainers = [ ];
+    platforms = lib.platforms.all;
+  };
+}

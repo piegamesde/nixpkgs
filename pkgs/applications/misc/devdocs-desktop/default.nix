@@ -18,26 +18,26 @@ let
   appimageContents = appimageTools.extractType2 { inherit name src; };
 
 in
-  appimageTools.wrapType2 rec {
-    inherit name src;
+appimageTools.wrapType2 rec {
+  inherit name src;
 
-    extraInstallCommands = ''
-      mv $out/bin/${name} $out/bin/${pname}
-      install -m 444 -D ${appimageContents}/devdocs.desktop $out/share/applications/devdocs.desktop
-      install -m 444 -D ${appimageContents}/devdocs.png $out/share/icons/hicolor/0x0/apps/devdocs.png
-      substituteInPlace $out/share/applications/devdocs.desktop \
-        --replace 'Exec=AppRun' 'Exec=${pname}'
+  extraInstallCommands = ''
+    mv $out/bin/${name} $out/bin/${pname}
+    install -m 444 -D ${appimageContents}/devdocs.desktop $out/share/applications/devdocs.desktop
+    install -m 444 -D ${appimageContents}/devdocs.png $out/share/icons/hicolor/0x0/apps/devdocs.png
+    substituteInPlace $out/share/applications/devdocs.desktop \
+      --replace 'Exec=AppRun' 'Exec=${pname}'
+  '';
+
+  meta = with lib; {
+    description = "A full-featured desktop app for DevDocs.io";
+    longDescription = ''
+      DevDocs.io combines multiple API documentations in a fast, organized, and searchable interface. This is an unofficial desktop app for it.
     '';
-
-    meta = with lib; {
-      description = "A full-featured desktop app for DevDocs.io";
-      longDescription = ''
-        DevDocs.io combines multiple API documentations in a fast, organized, and searchable interface. This is an unofficial desktop app for it.
-      '';
-      homepage = "https://github.com/egoist/devdocs-desktop";
-      downloadPage = "https://github.com/egoist/devdocs-desktop/releases";
-      license = licenses.mit;
-      maintainers = with maintainers; [ ymarkus ];
-      platforms = [ "x86_64-linux" ];
-    };
-  }
+    homepage = "https://github.com/egoist/devdocs-desktop";
+    downloadPage = "https://github.com/egoist/devdocs-desktop/releases";
+    license = licenses.mit;
+    maintainers = with maintainers; [ ymarkus ];
+    platforms = [ "x86_64-linux" ];
+  };
+}

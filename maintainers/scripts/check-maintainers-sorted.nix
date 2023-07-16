@@ -17,11 +17,11 @@ let
     let
       pos = builtins.unsafeGetAttrPos n maintainers;
     in
-      assert pos == null -> throw "maintainers entry ${n} is malformed"; {
-        name = n;
-        line = pos.line;
-        key = toLower (simplify n);
-      }
+    assert pos == null -> throw "maintainers entry ${n} is malformed"; {
+      name = n;
+      line = pos.line;
+      key = toLower (simplify n);
+    }
   ) (attrNames maintainers));
   before = {
       name,
@@ -55,27 +55,27 @@ let
     else
       0) (genList (i: i) (length namesSorted - 1)));
 in
-  assert errors == 0;
-  "all good!"
+assert errors == 0;
+"all good!"
 
-  # generate edit commands to sort the list.
-  # may everything following the last current entry (closing } ff) in the wrong place
-  # with lib;
-  # concatStringsSep
-  #   "\n"
-  #   (let first = foldl' (acc: n: if n.line < acc then n.line else acc) 999999999 namesSorted;
-  #        commands = map
-  #          (i: let e = elemAt namesSorted i;
-  #                  begin = foldl'
-  #                    (acc: n: if n.line < e.line && n.line > acc then n.line else acc)
-  #                    1
-  #                    namesSorted;
-  #                  end =
-  #                    foldl' (acc: n: if n.line > e.line && n.line < acc then n.line else acc)
-  #                      999999999
-  #                      namesSorted;
-  #              in "${toString e.line},${toString (end - 1)} p")
-  #          (genList (i: i) (length namesSorted));
-  #    in map
-  #      (c: "sed -ne '${c}' maintainers/maintainer-list.nix")
-  #      ([ "1,${toString (first - 1)} p" ] ++ commands))
+# generate edit commands to sort the list.
+# may everything following the last current entry (closing } ff) in the wrong place
+# with lib;
+# concatStringsSep
+#   "\n"
+#   (let first = foldl' (acc: n: if n.line < acc then n.line else acc) 999999999 namesSorted;
+#        commands = map
+#          (i: let e = elemAt namesSorted i;
+#                  begin = foldl'
+#                    (acc: n: if n.line < e.line && n.line > acc then n.line else acc)
+#                    1
+#                    namesSorted;
+#                  end =
+#                    foldl' (acc: n: if n.line > e.line && n.line < acc then n.line else acc)
+#                      999999999
+#                      namesSorted;
+#              in "${toString e.line},${toString (end - 1)} p")
+#          (genList (i: i) (length namesSorted));
+#    in map
+#      (c: "sed -ne '${c}' maintainers/maintainer-list.nix")
+#      ([ "1,${toString (first - 1)} p" ] ++ commands))

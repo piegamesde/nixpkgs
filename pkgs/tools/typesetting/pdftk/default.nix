@@ -75,41 +75,41 @@ let
   '';
 
 in
-  stdenv.mkDerivation rec {
-    inherit pname version src;
+stdenv.mkDerivation rec {
+  inherit pname version src;
 
-    nativeBuildInputs = [ gradle ];
+  nativeBuildInputs = [ gradle ];
 
-    buildPhase = ''
-      export GRADLE_USER_HOME=$(mktemp -d)
-      gradle --offline --no-daemon --info --init-script ${gradleInit} shadowJar
-    '';
+  buildPhase = ''
+    export GRADLE_USER_HOME=$(mktemp -d)
+    gradle --offline --no-daemon --info --init-script ${gradleInit} shadowJar
+  '';
 
-    installPhase = ''
-      mkdir -p $out/{bin,share/pdftk,share/man/man1}
-      cp build/libs/pdftk-all.jar $out/share/pdftk
+  installPhase = ''
+    mkdir -p $out/{bin,share/pdftk,share/man/man1}
+    cp build/libs/pdftk-all.jar $out/share/pdftk
 
-      cat  << EOF > $out/bin/pdftk
-      #!${runtimeShell}
-      exec ${jre}/bin/java -jar "$out/share/pdftk/pdftk-all.jar" "\$@"
-      EOF
-      chmod a+x "$out/bin/pdftk"
+    cat  << EOF > $out/bin/pdftk
+    #!${runtimeShell}
+    exec ${jre}/bin/java -jar "$out/share/pdftk/pdftk-all.jar" "\$@"
+    EOF
+    chmod a+x "$out/bin/pdftk"
 
-      cp ${src}/pdftk.1 $out/share/man/man1
-    '';
+    cp ${src}/pdftk.1 $out/share/man/man1
+  '';
 
-    meta = with lib; {
-      description = "Command-line tool for working with PDFs";
-      homepage = "https://gitlab.com/pdftk-java/pdftk";
-      sourceProvenance = with sourceTypes; [
-        fromSource
-        binaryBytecode # deps
-      ];
-      license = licenses.gpl2Plus;
-      maintainers = with maintainers; [
-        raskin
-        averelld
-      ];
-      platforms = platforms.unix;
-    };
-  }
+  meta = with lib; {
+    description = "Command-line tool for working with PDFs";
+    homepage = "https://gitlab.com/pdftk-java/pdftk";
+    sourceProvenance = with sourceTypes; [
+      fromSource
+      binaryBytecode # deps
+    ];
+    license = licenses.gpl2Plus;
+    maintainers = with maintainers; [
+      raskin
+      averelld
+    ];
+    platforms = platforms.unix;
+  };
+}

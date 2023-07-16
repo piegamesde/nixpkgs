@@ -396,7 +396,7 @@ in {
       ];
       loggerSectionNames = map (n: "logging.${n}") loggerNames;
     in
-      lib.genAttrs loggerSectionNames (name: { handler = "stderr"; })
+    lib.genAttrs loggerSectionNames (name: { handler = "stderr"; })
     );
 
     assertions = let
@@ -416,35 +416,35 @@ in {
           '';
         } ;
     in
-      [ {
-        assertion = cfg.webHosts != [ ];
+    [ {
+      assertion = cfg.webHosts != [ ];
+      message = ''
+        services.mailman.serve.enable requires there to be at least one entry
+        in services.mailman.webHosts.
+      '';
+    } ] ++ (lib.optionals cfg.enablePostfix [
+      {
+        assertion = postfix.enable;
         message = ''
-          services.mailman.serve.enable requires there to be at least one entry
-          in services.mailman.webHosts.
+          Mailman's default NixOS configuration requires Postfix to be enabled.
+
+          If you want to use another MTA, set services.mailman.enablePostfix
+          to false and configure settings in services.mailman.settings.mta.
+
+          Refer to <https://mailman.readthedocs.io/en/latest/src/mailman/docs/mta.html>
+          for more info.
         '';
-      } ] ++ (lib.optionals cfg.enablePostfix [
-        {
-          assertion = postfix.enable;
-          message = ''
-            Mailman's default NixOS configuration requires Postfix to be enabled.
-
-            If you want to use another MTA, set services.mailman.enablePostfix
-            to false and configure settings in services.mailman.settings.mta.
-
-            Refer to <https://mailman.readthedocs.io/en/latest/src/mailman/docs/mta.html>
-            for more info.
-          '';
-        }
-        (requirePostfixHash [ "relayDomains" ] "postfix_domains")
-        (requirePostfixHash [
-          "config"
-          "transport_maps"
-        ] "postfix_lmtp")
-        (requirePostfixHash [
-          "config"
-          "local_recipient_maps"
-        ] "postfix_lmtp")
-      ])
+      }
+      (requirePostfixHash [ "relayDomains" ] "postfix_domains")
+      (requirePostfixHash [
+        "config"
+        "transport_maps"
+      ] "postfix_lmtp")
+      (requirePostfixHash [
+        "config"
+        "local_recipient_maps"
+      ] "postfix_lmtp")
+    ])
     ;
 
     users.users.mailman = {

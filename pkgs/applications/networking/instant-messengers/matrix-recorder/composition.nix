@@ -23,4 +23,4 @@ let
     globalBuildInputs = [ locpkgs.node-pre-gyp ];
   };
 in
-  locpkgs
+locpkgs

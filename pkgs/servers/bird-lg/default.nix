@@ -49,12 +49,12 @@ let
     vendorSha256 = "sha256-QHLq4RuQaCMjefs7Vl7zSVgjLMDXvIZcM8d6/B5ECZc=";
   };
 in
-  symlinkJoin {
-    name = "bird-lg-${bird-lg-frontend.version}";
-    paths = [
-      bird-lg-frontend
-      bird-lg-proxy
-    ];
-  } // {
-    inherit (bird-lg-frontend) version meta;
-  }
+symlinkJoin {
+  name = "bird-lg-${bird-lg-frontend.version}";
+  paths = [
+    bird-lg-frontend
+    bird-lg-proxy
+  ];
+} // {
+  inherit (bird-lg-frontend) version meta;
+}

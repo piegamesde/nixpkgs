@@ -22,4 +22,4 @@ let
   };
 
 in
-  lib.recurseIntoAttrs self
+lib.recurseIntoAttrs self

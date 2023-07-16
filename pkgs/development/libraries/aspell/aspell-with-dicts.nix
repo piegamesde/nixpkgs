@@ -19,20 +19,20 @@ let
   dicts = f aspellDicts;
 
 in
-  buildEnv {
-    name = "aspell-env";
-    nativeBuildInputs = [ makeWrapper ];
-    paths = [ aspell ] ++ dicts;
-    postBuild = ''
-      # Construct wrappers in /bin
-      unlink "$out/bin"
-      mkdir -p "$out/bin"
-      pushd "${aspell}/bin"
-      for prg in *; do
-        if [ -f "$prg" ]; then
-          makeWrapper "${aspell}/bin/$prg" "$out/bin/$prg" --set ASPELL_CONF "dict-dir $out/lib/aspell"
-        fi
-      done
-      popd
-    '';
-  }
+buildEnv {
+  name = "aspell-env";
+  nativeBuildInputs = [ makeWrapper ];
+  paths = [ aspell ] ++ dicts;
+  postBuild = ''
+    # Construct wrappers in /bin
+    unlink "$out/bin"
+    mkdir -p "$out/bin"
+    pushd "${aspell}/bin"
+    for prg in *; do
+      if [ -f "$prg" ]; then
+        makeWrapper "${aspell}/bin/$prg" "$out/bin/$prg" --set ASPELL_CONF "dict-dir $out/lib/aspell"
+      fi
+    done
+    popd
+  '';
+}

@@ -23,7 +23,7 @@ let
             concatStringsSep "," c.permissions
           }"'') creds);
     in
-      concatStringsSep "\n" placeholders
+    concatStringsSep "\n" placeholders
   );
 
   mpdConf = pkgs.writeText "mpd.conf" ''
@@ -191,14 +191,14 @@ in {
                 "admin"
               ];
             in
-              mkOption {
-                type = types.listOf (types.enum perms);
-                default = [ "read" ];
-                description = lib.mdDoc ''
-                  List of permissions that are granted with this password.
-                  Permissions can be "${concatStringsSep ''", "'' perms}".
-                '';
-              }
+            mkOption {
+              type = types.listOf (types.enum perms);
+              default = [ "read" ];
+              description = lib.mdDoc ''
+                List of permissions that are granted with this password.
+                Permissions can be "${concatStringsSep ''", "'' perms}".
+              '';
+            }
             ;
           };
         });

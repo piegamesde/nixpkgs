@@ -1040,17 +1040,17 @@ in {
         };
       };
     in
-      lib.mkOption {
-        type = lib.types.submodule {
-          freeformType = settingsFormat.type;
-          inherit options;
-        };
-        description = lib.mdDoc ''
-          HedgeDoc configuration, see
-          <https://docs.hedgedoc.org/configuration/>
-          for documentation.
-        '';
-      }
+    lib.mkOption {
+      type = lib.types.submodule {
+        freeformType = settingsFormat.type;
+        inherit options;
+      };
+      description = lib.mdDoc ''
+        HedgeDoc configuration, see
+        <https://docs.hedgedoc.org/configuration/>
+        for documentation.
+      '';
+    }
     ;
 
     environmentFile = mkOption {

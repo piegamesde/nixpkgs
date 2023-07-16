@@ -78,4 +78,4 @@ let
   };
 
 in
-  self
+self

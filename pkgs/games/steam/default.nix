@@ -46,5 +46,5 @@ let
   keep = self: { };
   extra = spliced0: { };
 in
-  makeScopeWithSplicing (generateSplicesForMkScope "steamPackages") keep extra
-  steamPackagesFun
+makeScopeWithSplicing (generateSplicesForMkScope "steamPackages") keep extra
+steamPackagesFun

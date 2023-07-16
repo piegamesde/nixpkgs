@@ -97,55 +97,55 @@ let
   };
 
 in
-  stdenv.mkDerivation rec {
-    inherit pname src version;
+stdenv.mkDerivation rec {
+  inherit pname src version;
 
-    nativeBuildInputs = [
-      jdk11
-      gradle
-      makeWrapper
-      glib
-      wrapGAppsHook
+  nativeBuildInputs = [
+    jdk11
+    gradle
+    makeWrapper
+    glib
+    wrapGAppsHook
+  ];
+
+  dontWrapGApps = true; # prevent double wrapping
+
+  buildPhase = ''
+    runHook preBuild
+
+    export GRADLE_USER_HOME=$(mktemp -d)
+    gradle -PVERSION=${version} --offline --no-daemon --info --init-script ${gradleInit} build -x test
+
+    runHook postBuild
+  '';
+
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/bin $out/share/{${pname},icons/hicolor/128x128/apps}
+    cp app/build/libs/SceneBuilder-${version}-all.jar $out/share/${pname}/${pname}.jar
+    cp app/build/resources/main/com/oracle/javafx/scenebuilder/app/SB_Logo.png $out/share/icons/hicolor/128x128/apps/scenebuilder.png
+
+    runHook postInstall
+  '';
+
+  postFixup = ''
+    makeWrapper ${jdk11}/bin/java $out/bin/${pname} --add-flags "-jar $out/share/${pname}/${pname}.jar" "''${gappsWrapperArgs[@]}"
+  '';
+
+  desktopItems = [ desktopItem ];
+
+  meta = with lib; {
+    broken = stdenv.isDarwin;
+    description =
+      "A visual, drag'n'drop, layout tool for designing JavaFX application user interfaces.";
+    homepage = "https://gluonhq.com/products/scene-builder/";
+    sourceProvenance = with sourceTypes; [
+      fromSource
+      binaryBytecode # deps
     ];
-
-    dontWrapGApps = true; # prevent double wrapping
-
-    buildPhase = ''
-      runHook preBuild
-
-      export GRADLE_USER_HOME=$(mktemp -d)
-      gradle -PVERSION=${version} --offline --no-daemon --info --init-script ${gradleInit} build -x test
-
-      runHook postBuild
-    '';
-
-    installPhase = ''
-      runHook preInstall
-
-      mkdir -p $out/bin $out/share/{${pname},icons/hicolor/128x128/apps}
-      cp app/build/libs/SceneBuilder-${version}-all.jar $out/share/${pname}/${pname}.jar
-      cp app/build/resources/main/com/oracle/javafx/scenebuilder/app/SB_Logo.png $out/share/icons/hicolor/128x128/apps/scenebuilder.png
-
-      runHook postInstall
-    '';
-
-    postFixup = ''
-      makeWrapper ${jdk11}/bin/java $out/bin/${pname} --add-flags "-jar $out/share/${pname}/${pname}.jar" "''${gappsWrapperArgs[@]}"
-    '';
-
-    desktopItems = [ desktopItem ];
-
-    meta = with lib; {
-      broken = stdenv.isDarwin;
-      description =
-        "A visual, drag'n'drop, layout tool for designing JavaFX application user interfaces.";
-      homepage = "https://gluonhq.com/products/scene-builder/";
-      sourceProvenance = with sourceTypes; [
-        fromSource
-        binaryBytecode # deps
-      ];
-      license = licenses.bsd3;
-      maintainers = with maintainers; [ wirew0rm ];
-      platforms = platforms.all;
-    };
-  }
+    license = licenses.bsd3;
+    maintainers = with maintainers; [ wirew0rm ];
+    platforms = platforms.all;
+  };
+}

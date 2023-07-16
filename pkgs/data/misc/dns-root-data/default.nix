@@ -21,23 +21,23 @@ let
   rootDs = ./root.ds;
 
 in
-  stdenv.mkDerivation {
-    pname = "dns-root-data";
-    version = "2019-01-11";
+stdenv.mkDerivation {
+  pname = "dns-root-data";
+  version = "2019-01-11";
 
-    buildCommand = ''
-      mkdir $out
-      cp ${rootHints} $out/root.hints
-      cp ${rootKey} $out/root.key
-      cp ${rootDs} $out/root.ds
-    '';
+  buildCommand = ''
+    mkdir $out
+    cp ${rootHints} $out/root.hints
+    cp ${rootKey} $out/root.key
+    cp ${rootDs} $out/root.ds
+  '';
 
-    meta = with lib; {
-      description = "DNS root data including root zone and DNSSEC key";
-      maintainers = with maintainers; [
-        fpletz
-        vcunat
-      ];
-      license = licenses.gpl3Plus;
-    };
-  }
+  meta = with lib; {
+    description = "DNS root data including root zone and DNSSEC key";
+    maintainers = with maintainers; [
+      fpletz
+      vcunat
+    ];
+    license = licenses.gpl3Plus;
+  };
+}

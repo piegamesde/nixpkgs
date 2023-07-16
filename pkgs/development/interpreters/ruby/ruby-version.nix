@@ -81,4 +81,4 @@ let
         lib.optionalString (self.tail != "") "-${self.tail}");
   };
 in
-  rubyVersion
+rubyVersion

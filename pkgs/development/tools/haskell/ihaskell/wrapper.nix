@@ -30,19 +30,19 @@ let
     ${ihaskellEnv}/bin/ihaskell install -l $(${ihaskellEnv}/bin/ghc --print-libdir) && ${jupyter}/bin/jupyter notebook
   '';
 in
-  buildEnv {
-    name = "ihaskell-with-packages";
-    nativeBuildInputs = [ makeWrapper ];
-    paths = [
-      ihaskellEnv
-      jupyter
-    ];
-    postBuild = ''
-      ln -s ${ihaskellSh}/bin/ihaskell-notebook $out/bin/
-      for prg in $out/bin"/"*;do
-        if [[ -f $prg && -x $prg ]]; then
-          wrapProgram $prg --set PYTHONPATH "$(echo ${jupyter}/lib/*/site-packages)"
-        fi
-      done
-    '';
-  }
+buildEnv {
+  name = "ihaskell-with-packages";
+  nativeBuildInputs = [ makeWrapper ];
+  paths = [
+    ihaskellEnv
+    jupyter
+  ];
+  postBuild = ''
+    ln -s ${ihaskellSh}/bin/ihaskell-notebook $out/bin/
+    for prg in $out/bin"/"*;do
+      if [[ -f $prg && -x $prg ]]; then
+        wrapProgram $prg --set PYTHONPATH "$(echo ${jupyter}/lib/*/site-packages)"
+      fi
+    done
+  '';
+}

@@ -9,14 +9,14 @@ let
     fetchSubmodules = true;
   };
 in
-  pkgs.mkShell {
+pkgs.mkShell {
 
-    packages = [ pkgs.bash ];
+  packages = [ pkgs.bash ];
 
-    EMACS2NIX = src;
+  EMACS2NIX = src;
 
-    shellHook = ''
-      export PATH=$PATH:${src}
-    '';
+  shellHook = ''
+    export PATH=$PATH:${src}
+  '';
 
-  }
+}

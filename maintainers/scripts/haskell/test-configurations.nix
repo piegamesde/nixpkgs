@@ -101,14 +101,14 @@ let
 
       defaultSets = [ pkgs.haskellPackages ];
     in
-      {
-        # use plain haskellPackages for the version-agnostic files
-        # TODO(@sternenseemann): also consider currently selected versioned sets
-        "common" = defaultSets;
-        "nix" = defaultSets;
-        "arm" = defaultSets;
-        "darwin" = defaultSets;
-      }.${configName} or setsForVersion
+    {
+      # use plain haskellPackages for the version-agnostic files
+      # TODO(@sternenseemann): also consider currently selected versioned sets
+      "common" = defaultSets;
+      "nix" = defaultSets;
+      "arm" = defaultSets;
+      "darwin" = defaultSets;
+    }.${configName} or setsForVersion
   ;
 
   # attribute set that has all the attributes of haskellPackages set to null
@@ -137,8 +137,8 @@ let
         sets = setsForFile fileName;
         attrs = overriddenAttrs fileName;
       in
-        lib.concatMap (set: builtins.map (attr: set.${attr}) attrs) sets
+      lib.concatMap (set: builtins.map (attr: set.${attr}) attrs) sets
     ) files');
 
 in
-  packages
+packages

@@ -18,5 +18,5 @@ let
   }).config;
 
 in
-  config.system.build.isoImage
+config.system.build.isoImage
 

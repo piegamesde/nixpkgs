@@ -49,12 +49,11 @@ let
     let
       matching = s: map (str: builtins.match ".*${str}.*" s) list;
     in
-      str // {
-        check = x: str.check x && all isList (matching x);
-        description = "string containing all of the characters ${
-            concatStringsSep ", " list
-          }";
-      }
+    str // {
+      check = x: str.check x && all isList (matching x);
+      description =
+        "string containing all of the characters ${concatStringsSep ", " list}";
+    }
   ;
 
   timestampType = stringContainingStrings [
@@ -512,7 +511,7 @@ in {
                 "--features=${concatStringsSep "," enabledFeatures}")
             ];
           in
-            "${pkgs.znapzend}/bin/znapzend ${args}"
+          "${pkgs.znapzend}/bin/znapzend ${args}"
           ;
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
           Restart = "on-failure";

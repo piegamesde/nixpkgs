@@ -38,111 +38,110 @@ let
   ];
 
 in
-  stdenv.mkDerivation rec {
-    pname = "freenet";
-    inherit version patches;
+stdenv.mkDerivation rec {
+  pname = "freenet";
+  inherit version patches;
 
-    src = fetchFromGitHub {
-      owner = "freenet";
-      repo = "fred";
-      rev = "refs/tags/build${version}";
-      hash = "sha256-pywNPekofF/QotNVF28McojqK7c1Zzucds5rWV0R7BQ=";
-    };
+  src = fetchFromGitHub {
+    owner = "freenet";
+    repo = "fred";
+    rev = "refs/tags/build${version}";
+    hash = "sha256-pywNPekofF/QotNVF28McojqK7c1Zzucds5rWV0R7BQ=";
+  };
 
-    postPatch = ''
-      rm gradle/verification-{keyring.keys,metadata.xml}
-    '';
+  postPatch = ''
+    rm gradle/verification-{keyring.keys,metadata.xml}
+  '';
+
+  nativeBuildInputs = [
+    gradle
+    jdk
+  ];
+
+  wrapper = substituteAll {
+    src = ./freenetWrapper;
+    inherit bash coreutils jre seednodes;
+  };
+
+  # https://github.com/freenet/fred/blob/next/build-offline.sh
+  # fake build to pre-download deps into fixed-output derivation
+  deps = stdenv.mkDerivation {
+    pname = "${pname}-deps";
+    inherit src version patches;
 
     nativeBuildInputs = [
       gradle
-      jdk
+      perl
     ];
+    buildPhase = ''
+      export GRADLE_USER_HOME=$(mktemp -d)
+      gradle --no-daemon build
+    '';
+    # perl code mavenizes pathes (com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar -> com/squareup/okio/okio/1.13.0/okio-1.13.0.jar)
+    installPhase = ''
+      find $GRADLE_USER_HOME/caches/modules-2 -type f -regex '.*\.\(jar\|pom\)' \
+        | perl -pe 's#(.*/([^/]+)/([^/]+)/([^/]+)/[0-9a-f]{30,40}/([^/\s]+))$# ($x = $2) =~ tr|\.|/|; "install -Dm444 $1 \$out/$x/$3/$4/''${\($5 =~ s/okio-jvm/okio/r)}" #e' \
+        | sh
+    '';
+    # Don't move info to share/
+    forceShare = [ "dummy" ];
+    outputHashMode = "recursive";
+    # Downloaded jars differ by platform
+    outputHash = "sha256-CZf5M3lI7Lz9Pl8U/lNoQ6V6Jxbmkxau8L273XFFS2E=";
+    outputHashAlgo = "sha256";
+  };
 
-    wrapper = substituteAll {
-      src = ./freenetWrapper;
-      inherit bash coreutils jre seednodes;
-    };
-
-    # https://github.com/freenet/fred/blob/next/build-offline.sh
-    # fake build to pre-download deps into fixed-output derivation
-    deps = stdenv.mkDerivation {
-      pname = "${pname}-deps";
-      inherit src version patches;
-
-      nativeBuildInputs = [
-        gradle
-        perl
-      ];
-      buildPhase = ''
-        export GRADLE_USER_HOME=$(mktemp -d)
-        gradle --no-daemon build
-      '';
-      # perl code mavenizes pathes (com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar -> com/squareup/okio/okio/1.13.0/okio-1.13.0.jar)
-      installPhase = ''
-        find $GRADLE_USER_HOME/caches/modules-2 -type f -regex '.*\.\(jar\|pom\)' \
-          | perl -pe 's#(.*/([^/]+)/([^/]+)/([^/]+)/[0-9a-f]{30,40}/([^/\s]+))$# ($x = $2) =~ tr|\.|/|; "install -Dm444 $1 \$out/$x/$3/$4/''${\($5 =~ s/okio-jvm/okio/r)}" #e' \
-          | sh
-      '';
-      # Don't move info to share/
-      forceShare = [ "dummy" ];
-      outputHashMode = "recursive";
-      # Downloaded jars differ by platform
-      outputHash = "sha256-CZf5M3lI7Lz9Pl8U/lNoQ6V6Jxbmkxau8L273XFFS2E=";
-      outputHashAlgo = "sha256";
-    };
-
-    # Point to our local deps repo
-    gradleInit = writeText "init.gradle" ''
-      gradle.projectsLoaded {
-        rootProject.allprojects {
-          buildscript {
-            repositories {
-              clear()
-              maven { url '${deps}/'; metadataSources {mavenPom(); artifact()} }
-            }
-          }
+  # Point to our local deps repo
+  gradleInit = writeText "init.gradle" ''
+    gradle.projectsLoaded {
+      rootProject.allprojects {
+        buildscript {
           repositories {
             clear()
             maven { url '${deps}/'; metadataSources {mavenPom(); artifact()} }
           }
         }
-      }
-
-      settingsEvaluated { settings ->
-        settings.pluginManagement {
-          repositories {
-            maven { url '${deps}/'; metadataSources {mavenPom(); artifact()} }
-          }
+        repositories {
+          clear()
+          maven { url '${deps}/'; metadataSources {mavenPom(); artifact()} }
         }
       }
-    '';
+    }
 
-    buildPhase = ''
-      gradle jar -Dorg.gradle.java.home=${jdk} --offline --no-daemon --info --init-script $gradleInit
-    '';
+    settingsEvaluated { settings ->
+      settings.pluginManagement {
+        repositories {
+          maven { url '${deps}/'; metadataSources {mavenPom(); artifact()} }
+        }
+      }
+    }
+  '';
 
-    installPhase = ''
-      runHook preInstall
-      install -Dm444 build/libs/freenet.jar $out/share/freenet/freenet.jar
-      ln -s ${freenet_ext} $out/share/freenet/freenet-ext.jar
-      mkdir -p $out/bin
-      install -Dm555 ${wrapper} $out/bin/freenet
-      substituteInPlace $out/bin/freenet \
-        --subst-var-by outFreenet $out
-      ln -s ${deps} $out/deps
-      runHook postInstall
-    '';
+  buildPhase = ''
+    gradle jar -Dorg.gradle.java.home=${jdk} --offline --no-daemon --info --init-script $gradleInit
+  '';
 
-    passthru.tests = { inherit (nixosTests) freenet; };
+  installPhase = ''
+    runHook preInstall
+    install -Dm444 build/libs/freenet.jar $out/share/freenet/freenet.jar
+    ln -s ${freenet_ext} $out/share/freenet/freenet-ext.jar
+    mkdir -p $out/bin
+    install -Dm555 ${wrapper} $out/bin/freenet
+    substituteInPlace $out/bin/freenet \
+      --subst-var-by outFreenet $out
+    ln -s ${deps} $out/deps
+    runHook postInstall
+  '';
 
-    meta = {
-      description = "Decentralised and censorship-resistant network";
-      homepage = "https://freenetproject.org/";
-      sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
-      license = lib.licenses.gpl2Plus;
-      maintainers = with lib.maintainers; [ nagy ];
-      platforms = with lib.platforms; linux;
-      changelog =
-        "https://github.com/freenet/fred/blob/build${version}/NEWS.md";
-    };
-  }
+  passthru.tests = { inherit (nixosTests) freenet; };
+
+  meta = {
+    description = "Decentralised and censorship-resistant network";
+    homepage = "https://freenetproject.org/";
+    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    license = lib.licenses.gpl2Plus;
+    maintainers = with lib.maintainers; [ nagy ];
+    platforms = with lib.platforms; linux;
+    changelog = "https://github.com/freenet/fred/blob/build${version}/NEWS.md";
+  };
+}

@@ -43,4 +43,4 @@ let
     ] + ":${libmysqlclient}/lib/mysql";
   };
 in
-  stdenv.mkDerivation self
+stdenv.mkDerivation self

@@ -166,77 +166,77 @@ in let
     };
   };
 in
-  stdenv.mkDerivation (rec {
-    pname = pnameBase;
-    version = buildVersion;
+stdenv.mkDerivation (rec {
+  pname = pnameBase;
+  version = buildVersion;
 
-    dontUnpack = true;
+  dontUnpack = true;
 
-    ${primaryBinary} = binaryPackage;
+  ${primaryBinary} = binaryPackage;
 
-    nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [ makeWrapper ];
 
-    installPhase = ''
-      mkdir -p "$out/bin"
-      makeWrapper "''$${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
-    '' + builtins.concatStringsSep "" (map (binaryAlias: ''
-      ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}
-    '') primaryBinaryAliases) + ''
-      mkdir -p "$out/share/applications"
-      substitute "''$${primaryBinary}/${primaryBinary}.desktop" "$out/share/applications/${primaryBinary}.desktop" --replace "/opt/${primaryBinary}/${primaryBinary}" "${primaryBinary}"
-      for directory in ''$${primaryBinary}/Icon/*; do
-        size=$(basename $directory)
-        mkdir -p "$out/share/icons/hicolor/$size/apps"
-        ln -s ''$${primaryBinary}/Icon/$size/* $out/share/icons/hicolor/$size/apps
-      done
-    '';
+  installPhase = ''
+    mkdir -p "$out/bin"
+    makeWrapper "''$${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
+  '' + builtins.concatStringsSep "" (map (binaryAlias: ''
+    ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}
+  '') primaryBinaryAliases) + ''
+    mkdir -p "$out/share/applications"
+    substitute "''$${primaryBinary}/${primaryBinary}.desktop" "$out/share/applications/${primaryBinary}.desktop" --replace "/opt/${primaryBinary}/${primaryBinary}" "${primaryBinary}"
+    for directory in ''$${primaryBinary}/Icon/*; do
+      size=$(basename $directory)
+      mkdir -p "$out/share/icons/hicolor/$size/apps"
+      ln -s ''$${primaryBinary}/Icon/$size/* $out/share/icons/hicolor/$size/apps
+    done
+  '';
 
-    passthru = {
-      updateScript = let
-        script = writeShellScript "${packageAttribute}-update-script" ''
-          set -o errexit
-          PATH=${
-            lib.makeBinPath [
-              common-updater-scripts
-              curl
-            ]
-          }
+  passthru = {
+    updateScript = let
+      script = writeShellScript "${packageAttribute}-update-script" ''
+        set -o errexit
+        PATH=${
+          lib.makeBinPath [
+            common-updater-scripts
+            curl
+          ]
+        }
 
-          versionFile=$1
-          latestVersion=$(curl -s "${versionUrl}")
+        versionFile=$1
+        latestVersion=$(curl -s "${versionUrl}")
 
-          if [[ "${buildVersion}" = "$latestVersion" ]]; then
-              echo "The new version same as the old version."
-              exit 0
-          fi
+        if [[ "${buildVersion}" = "$latestVersion" ]]; then
+            echo "The new version same as the old version."
+            exit 0
+        fi
 
-          for platform in ${lib.escapeShellArgs meta.platforms}; do
-              # The script will not perform an update when the version attribute is up to date from previous platform run
-              # We need to clear it before each run
-              update-source-version "${packageAttribute}.${primaryBinary}" 0 "${lib.fakeSha256}" --file="$versionFile" --version-key=buildVersion --source-key="sources.$platform"
-              update-source-version "${packageAttribute}.${primaryBinary}" "$latestVersion" --file="$versionFile" --version-key=buildVersion --source-key="sources.$platform"
-          done
-        '';
-      in [
-        script
-        versionFile
-      ] ;
-    };
+        for platform in ${lib.escapeShellArgs meta.platforms}; do
+            # The script will not perform an update when the version attribute is up to date from previous platform run
+            # We need to clear it before each run
+            update-source-version "${packageAttribute}.${primaryBinary}" 0 "${lib.fakeSha256}" --file="$versionFile" --version-key=buildVersion --source-key="sources.$platform"
+            update-source-version "${packageAttribute}.${primaryBinary}" "$latestVersion" --file="$versionFile" --version-key=buildVersion --source-key="sources.$platform"
+        done
+      '';
+    in [
+      script
+      versionFile
+    ] ;
+  };
 
-    meta = with lib; {
-      description = "Sophisticated text editor for code, markup and prose";
-      homepage = "https://www.sublimetext.com/";
-      maintainers = with maintainers; [
-        jtojnar
-        wmertens
-        demin-dmitriy
-        zimbatm
-      ];
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-      license = licenses.unfree;
-      platforms = [
-        "aarch64-linux"
-        "x86_64-linux"
-      ];
-    };
-  })
+  meta = with lib; {
+    description = "Sophisticated text editor for code, markup and prose";
+    homepage = "https://www.sublimetext.com/";
+    maintainers = with maintainers; [
+      jtojnar
+      wmertens
+      demin-dmitriy
+      zimbatm
+    ];
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    license = licenses.unfree;
+    platforms = [
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
+  };
+})

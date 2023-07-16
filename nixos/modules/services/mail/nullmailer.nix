@@ -190,71 +190,69 @@ with lib;
   config = let
     cfg = config.services.nullmailer;
   in
-    mkIf cfg.enable {
+  mkIf cfg.enable {
 
-      assertions = [ {
-        assertion = cfg.config.remotes == null || cfg.remotesFile == null;
-        message =
-          "Only one of `remotesFile` or `config.remotes` may be used at a time.";
-      } ];
+    assertions = [ {
+      assertion = cfg.config.remotes == null || cfg.remotesFile == null;
+      message =
+        "Only one of `remotesFile` or `config.remotes` may be used at a time.";
+    } ];
 
-      environment = {
-        systemPackages = [ pkgs.nullmailer ];
-        etc = let
-          validAttrs = filterAttrs (name: value: value != null) cfg.config;
-        in
-          (foldl' (as: name:
-            as // {
-              "nullmailer/${name}".text = validAttrs.${name};
-            }) { } (attrNames validAttrs))
-          // optionalAttrs (cfg.remotesFile != null) {
-            "nullmailer/remotes".source = cfg.remotesFile;
-          }
-        ;
-      };
+    environment = {
+      systemPackages = [ pkgs.nullmailer ];
+      etc = let
+        validAttrs = filterAttrs (name: value: value != null) cfg.config;
+      in
+      (foldl'
+        (as: name: as // { "nullmailer/${name}".text = validAttrs.${name}; })
+        { } (attrNames validAttrs)) // optionalAttrs (cfg.remotesFile != null) {
+          "nullmailer/remotes".source = cfg.remotesFile;
+        }
+      ;
+    };
 
-      users = {
-        users.${cfg.user} = {
-          description = "Nullmailer relay-only mta user";
-          group = cfg.group;
-          isSystemUser = true;
-        };
-
-        groups.${cfg.group} = { };
-      };
-
-      systemd.tmpfiles.rules = [
-        "d /var/spool/nullmailer - ${cfg.user} - - -"
-        "d /var/spool/nullmailer/failed 750 ${cfg.user} - - -"
-        "d /var/spool/nullmailer/queue 750 ${cfg.user} - - -"
-        "d /var/spool/nullmailer/tmp 750 ${cfg.user} - - -"
-      ];
-
-      systemd.services.nullmailer = {
-        description = "nullmailer";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
-
-        preStart = ''
-          rm -f /var/spool/nullmailer/trigger && mkfifo -m 660 /var/spool/nullmailer/trigger
-        '';
-
-        serviceConfig = {
-          User = cfg.user;
-          Group = cfg.group;
-          ExecStart = "${pkgs.nullmailer}/bin/nullmailer-send";
-          Restart = "always";
-        };
-      };
-
-      services.mail.sendmailSetuidWrapper = mkIf cfg.setSendmail {
-        program = "sendmail";
-        source = "${pkgs.nullmailer}/bin/sendmail";
-        owner = cfg.user;
+    users = {
+      users.${cfg.user} = {
+        description = "Nullmailer relay-only mta user";
         group = cfg.group;
-        setuid = true;
-        setgid = true;
+        isSystemUser = true;
       };
-    }
+
+      groups.${cfg.group} = { };
+    };
+
+    systemd.tmpfiles.rules = [
+      "d /var/spool/nullmailer - ${cfg.user} - - -"
+      "d /var/spool/nullmailer/failed 750 ${cfg.user} - - -"
+      "d /var/spool/nullmailer/queue 750 ${cfg.user} - - -"
+      "d /var/spool/nullmailer/tmp 750 ${cfg.user} - - -"
+    ];
+
+    systemd.services.nullmailer = {
+      description = "nullmailer";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ];
+
+      preStart = ''
+        rm -f /var/spool/nullmailer/trigger && mkfifo -m 660 /var/spool/nullmailer/trigger
+      '';
+
+      serviceConfig = {
+        User = cfg.user;
+        Group = cfg.group;
+        ExecStart = "${pkgs.nullmailer}/bin/nullmailer-send";
+        Restart = "always";
+      };
+    };
+
+    services.mail.sendmailSetuidWrapper = mkIf cfg.setSendmail {
+      program = "sendmail";
+      source = "${pkgs.nullmailer}/bin/sendmail";
+      owner = cfg.user;
+      group = cfg.group;
+      setuid = true;
+      setgid = true;
+    };
+  }
   ;
 }

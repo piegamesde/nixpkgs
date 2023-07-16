@@ -64,6 +64,6 @@ in {
       };
     };
   in
-    mkBlogOsTest (rust.toRustTargetSpec plat)
+  mkBlogOsTest (rust.toRustTargetSpec plat)
   ;
 }

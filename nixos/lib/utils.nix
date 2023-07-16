@@ -57,8 +57,8 @@ rec {
       b' = normalise b;
 
     in
-      hasPrefix a'.mountPoint b'.device || hasPrefix a'.mountPoint b'.mountPoint
-      || any (hasPrefix a'.mountPoint) b'.depends
+    hasPrefix a'.mountPoint b'.device || hasPrefix a'.mountPoint b'.mountPoint
+    || any (hasPrefix a'.mountPoint) b'.depends
   ;
 
   # Escape a path according to the systemd rules. FIXME: slow
@@ -77,15 +77,15 @@ rec {
       trim = s: removeSuffix "/" (removePrefix "/" s);
       normalizedPath = strings.normalizePath s;
     in
-      replaceStrings [ "/" ] [ "-" ]
-      (replacePrefix "." (strings.escapeC [ "." ] ".")
-        (strings.escapeC (stringToCharacters " !\"#$%&'()*+,;<=>=@[\\]^`{|}~-")
-          (if
-            normalizedPath == "/"
-          then
-            normalizedPath
-          else
-            trim normalizedPath)))
+    replaceStrings [ "/" ] [ "-" ]
+    (replacePrefix "." (strings.escapeC [ "." ] ".")
+      (strings.escapeC (stringToCharacters " !\"#$%&'()*+,;<=>=@[\\]^`{|}~-")
+        (if
+          normalizedPath == "/"
+        then
+          normalizedPath
+        else
+          trim normalizedPath)))
   ;
 
   # Quotes an argument for use in Exec* service lines.
@@ -108,13 +108,13 @@ rec {
       else
         throw "escapeSystemdExecArg only allows strings, paths and numbers";
     in
-      replaceStrings [
-        "%"
-        "$"
-      ] [
-        "%%"
-        "$$"
-      ] (builtins.toJSON s)
+    replaceStrings [
+      "%"
+      "$"
+    ] [
+      "%%"
+      "$$"
+    ] (builtins.toJSON s)
   ;
 
   # Quotes a list of arguments into a single string for use in a Exec*
@@ -175,7 +175,7 @@ rec {
                   ] name
                 }"'';
             in
-              recurse (prefix + "." + escapedName) item.${name}
+            recurse (prefix + "." + escapedName) item.${name}
           ) (attrNames item)
         else if isList item then
           imap0 (index: item: recurse (prefix + "[${toString index}]") item)
@@ -183,7 +183,7 @@ rec {
         else
           [ ];
     in
-      listToAttrs (flatten (recurse "" item))
+    listToAttrs (flatten (recurse "" item))
   ;
 
   /* Takes an attrset and a file path and generates a bash snippet that
@@ -243,26 +243,26 @@ rec {
     let
       secrets = recursiveGetAttrWithJqPrefix set attr;
     in
-      ''
-        if [[ -h '${output}' ]]; then
-          rm '${output}'
-        fi
+    ''
+      if [[ -h '${output}' ]]; then
+        rm '${output}'
+      fi
 
-        inherit_errexit_enabled=0
-        shopt -pq inherit_errexit && inherit_errexit_enabled=1
-        shopt -s inherit_errexit
-      '' + concatStringsSep "\n" (imap1 (index: name: ''
-        secret${toString index}=$(<'${secrets.${name}}')
-        export secret${toString index}
-      '') (attrNames secrets)) + "\n" + "${pkgs.jq}/bin/jq >'${output}' "
-      + lib.escapeShellArg (concatStringsSep " | "
-        (imap1 (index: name: "${name} = $ENV.secret${toString index}")
-          (attrNames secrets))) + ''
-             <<'EOF'
-            ${builtins.toJSON set}
-            EOF
-            (( ! $inherit_errexit_enabled )) && shopt -u inherit_errexit
-          ''
+      inherit_errexit_enabled=0
+      shopt -pq inherit_errexit && inherit_errexit_enabled=1
+      shopt -s inherit_errexit
+    '' + concatStringsSep "\n" (imap1 (index: name: ''
+      secret${toString index}=$(<'${secrets.${name}}')
+      export secret${toString index}
+    '') (attrNames secrets)) + "\n" + "${pkgs.jq}/bin/jq >'${output}' "
+    + lib.escapeShellArg (concatStringsSep " | "
+      (imap1 (index: name: "${name} = $ENV.secret${toString index}")
+        (attrNames secrets))) + ''
+           <<'EOF'
+          ${builtins.toJSON set}
+          EOF
+          (( ! $inherit_errexit_enabled )) && shopt -u inherit_errexit
+        ''
   ;
 
   /* Remove packages of packagesToRemove from packages, based on their names.
@@ -279,7 +279,7 @@ rec {
     let
       namesToRemove = map lib.getName packagesToRemove;
     in
-      lib.filter (x: !(builtins.elem (lib.getName x) namesToRemove)) packages
+    lib.filter (x: !(builtins.elem (lib.getName x) namesToRemove)) packages
   ;
 
   systemdUtils = {

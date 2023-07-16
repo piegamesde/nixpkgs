@@ -37,35 +37,34 @@ let
     hash = "sha256-rDi7pvDeKQM96GZTjDr6ZDQTGbaVu+OI77xf2egw6Sg=";
   };
 in
-  stdenv.mkDerivation rec {
-    pname = "pngout";
-    version = "20200115";
+stdenv.mkDerivation rec {
+  pname = "pngout";
+  version = "20200115";
 
-    src = fetchurl {
-      inherit (download) hash;
-      url =
-        "http://static.jonof.id.au/dl/kenutils/pngout-${version}-${download.extension}";
-    };
+  src = fetchurl {
+    inherit (download) hash;
+    url =
+      "http://static.jonof.id.au/dl/kenutils/pngout-${version}-${download.extension}";
+  };
 
-    nativeBuildInputs = lib.optionals stdenv.isDarwin [ unzip ];
+  nativeBuildInputs = lib.optionals stdenv.isDarwin [ unzip ];
 
-    # pngout is code-signed on Darwin, so don’t alter the binary to avoid breaking the signature.
-    dontFixup = stdenv.isDarwin;
+  # pngout is code-signed on Darwin, so don’t alter the binary to avoid breaking the signature.
+  dontFixup = stdenv.isDarwin;
 
-    installPhase = ''
-      mkdir -p $out/bin
-      cp ${platform.folder}/pngout $out/bin
-    '' + lib.optionalString stdenv.isLinux ''
-      patchelf --set-interpreter ${stdenv.cc.libc}/lib/${platform.ld-linux} $out/bin/pngout
-    '';
+  installPhase = ''
+    mkdir -p $out/bin
+    cp ${platform.folder}/pngout $out/bin
+  '' + lib.optionalString stdenv.isLinux ''
+    patchelf --set-interpreter ${stdenv.cc.libc}/lib/${platform.ld-linux} $out/bin/pngout
+  '';
 
-    meta = {
-      description =
-        "A tool that aggressively optimizes the sizes of PNG images";
-      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-      license = lib.licenses.unfreeRedistributable;
-      homepage = "http://advsys.net/ken/utils.htm";
-      platforms = lib.attrNames platforms;
-      maintainers = [ lib.maintainers.sander ];
-    };
-  }
+  meta = {
+    description = "A tool that aggressively optimizes the sizes of PNG images";
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.unfreeRedistributable;
+    homepage = "http://advsys.net/ken/utils.htm";
+    platforms = lib.attrNames platforms;
+    maintainers = [ lib.maintainers.sander ];
+  };
+}

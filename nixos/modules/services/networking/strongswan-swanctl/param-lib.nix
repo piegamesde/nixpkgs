@@ -24,14 +24,14 @@ rec {
         value = ps.${name};
         indentation = replicate indent " ";
       in
-        indentation + (if
-          isAttrs value
-        then
-          ''
-            ${name} {
-          '' + mkConf (indent + 2) value + "\n" + indentation + "}"
-        else
-          "${name} = ${value}")
+      indentation + (if
+        isAttrs value
+      then
+        ''
+          ${name} {
+        '' + mkConf (indent + 2) value + "\n" + indentation + "}"
+      else
+        "${name} = ${value}")
     ) (attrNames ps);
 
   replicate = n: c: concatStrings (builtins.genList (_x: c) n);
@@ -46,7 +46,7 @@ rec {
       let
         value = attrByPath path null cfg;
       in
-        optionalAttrs (value != null) (param.render name value)
+      optionalAttrs (value != null) (param.render name value)
     ) ps));
 
   filterEmptySets = set:
@@ -81,10 +81,10 @@ rec {
             } else
               f (path ++ [ name ]) name value;
         in
-          mapAttrs'' g set
+        mapAttrs'' g set
       ;
     in
-      recurse [ ] set
+    recurse [ ] set
   ;
 
   mapAttrs'' = f: set:

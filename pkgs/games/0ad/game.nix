@@ -53,117 +53,117 @@ let
     patches = (old.patches or [ ]) ++ [ ./spidermonkey-cargo-toml.patch ];
   });
 in
-  stdenv.mkDerivation rec {
-    pname = "0ad";
-    version = "0.0.26";
+stdenv.mkDerivation rec {
+  pname = "0ad";
+  version = "0.0.26";
 
-    src = fetchurl {
-      url =
-        "http://releases.wildfiregames.com/0ad-${version}-alpha-unix-build.tar.xz";
-      sha256 = "Lhxt9+MxLnfF+CeIZkz/w6eNO/YGBsAAOSdeHRPA7ks=";
-    };
+  src = fetchurl {
+    url =
+      "http://releases.wildfiregames.com/0ad-${version}-alpha-unix-build.tar.xz";
+    sha256 = "Lhxt9+MxLnfF+CeIZkz/w6eNO/YGBsAAOSdeHRPA7ks=";
+  };
 
-    nativeBuildInputs = [
-      python3
-      perl
-      pkg-config
+  nativeBuildInputs = [
+    python3
+    perl
+    pkg-config
+  ];
+
+  buildInputs = [
+    spidermonkey_78_6
+    boost
+    icu
+    libxml2
+    libpng
+    libjpeg
+    zlib
+    curl
+    libogg
+    libvorbis
+    enet
+    miniupnpc
+    openal
+    libidn
+    libGLU
+    libGL
+    xorgproto
+    libX11
+    libXcursor
+    nspr
+    SDL2
+    gloox
+    nvidia-texture-tools
+    libsodium
+    fmt
+    freetype
+  ] ++ lib.optional withEditor wxGTK;
+
+  env.NIX_CFLAGS_COMPILE = toString [
+    "-I${xorgproto}/include"
+    "-I${libX11.dev}/include"
+    "-I${libXcursor.dev}/include"
+    "-I${SDL2}/include/SDL2"
+    "-I${fmt.dev}/include"
+    "-I${nvidia-texture-tools.dev}/include"
+  ];
+
+  NIX_CFLAGS_LINK = toString [ "-L${nvidia-texture-tools.lib}/lib/static" ];
+
+  patches = [ ./rootdir_env.patch ];
+
+  configurePhase = ''
+    # Delete shipped libraries which we don't need.
+    rm -rf libraries/source/{enet,miniupnpc,nvtt,spidermonkey}
+
+    # Update Makefiles
+    pushd build/workspaces
+    ./update-workspaces.sh \
+      --with-system-nvtt \
+      --with-system-mozjs \
+      ${lib.optionalString withEditor "--enable-atlas"} \
+      --bindir="$out"/bin \
+      --libdir="$out"/lib/0ad \
+      --without-tests \
+      -j $NIX_BUILD_CORES
+    popd
+
+    # Move to the build directory.
+    pushd build/workspaces/gcc
+  '';
+
+  enableParallelBuilding = true;
+
+  installPhase = ''
+    popd
+
+    # Copy executables.
+    install -Dm755 binaries/system/pyrogenesis "$out"/bin/0ad
+    ${lib.optionalString withEditor ''
+      install -Dm755 binaries/system/ActorEditor "$out"/bin/ActorEditor
+    ''}
+
+    # Copy l10n data.
+    install -Dm755 -t $out/share/0ad/data/l10n binaries/data/l10n/*
+
+    # Copy libraries.
+    install -Dm644 -t $out/lib/0ad        binaries/system/*.so
+
+    # Copy icon.
+    install -D build/resources/0ad.png     $out/share/icons/hicolor/128x128/apps/0ad.png
+    install -D build/resources/0ad.desktop $out/share/applications/0ad.desktop
+  '';
+
+  meta = with lib; {
+    description = "A free, open-source game of ancient warfare";
+    homepage = "https://play0ad.com/";
+    license = with licenses; [
+      gpl2
+      lgpl21
+      mit
+      cc-by-sa-30
+      licenses.zlib # otherwise masked by pkgs.zlib
     ];
-
-    buildInputs = [
-      spidermonkey_78_6
-      boost
-      icu
-      libxml2
-      libpng
-      libjpeg
-      zlib
-      curl
-      libogg
-      libvorbis
-      enet
-      miniupnpc
-      openal
-      libidn
-      libGLU
-      libGL
-      xorgproto
-      libX11
-      libXcursor
-      nspr
-      SDL2
-      gloox
-      nvidia-texture-tools
-      libsodium
-      fmt
-      freetype
-    ] ++ lib.optional withEditor wxGTK;
-
-    env.NIX_CFLAGS_COMPILE = toString [
-      "-I${xorgproto}/include"
-      "-I${libX11.dev}/include"
-      "-I${libXcursor.dev}/include"
-      "-I${SDL2}/include/SDL2"
-      "-I${fmt.dev}/include"
-      "-I${nvidia-texture-tools.dev}/include"
-    ];
-
-    NIX_CFLAGS_LINK = toString [ "-L${nvidia-texture-tools.lib}/lib/static" ];
-
-    patches = [ ./rootdir_env.patch ];
-
-    configurePhase = ''
-      # Delete shipped libraries which we don't need.
-      rm -rf libraries/source/{enet,miniupnpc,nvtt,spidermonkey}
-
-      # Update Makefiles
-      pushd build/workspaces
-      ./update-workspaces.sh \
-        --with-system-nvtt \
-        --with-system-mozjs \
-        ${lib.optionalString withEditor "--enable-atlas"} \
-        --bindir="$out"/bin \
-        --libdir="$out"/lib/0ad \
-        --without-tests \
-        -j $NIX_BUILD_CORES
-      popd
-
-      # Move to the build directory.
-      pushd build/workspaces/gcc
-    '';
-
-    enableParallelBuilding = true;
-
-    installPhase = ''
-      popd
-
-      # Copy executables.
-      install -Dm755 binaries/system/pyrogenesis "$out"/bin/0ad
-      ${lib.optionalString withEditor ''
-        install -Dm755 binaries/system/ActorEditor "$out"/bin/ActorEditor
-      ''}
-
-      # Copy l10n data.
-      install -Dm755 -t $out/share/0ad/data/l10n binaries/data/l10n/*
-
-      # Copy libraries.
-      install -Dm644 -t $out/lib/0ad        binaries/system/*.so
-
-      # Copy icon.
-      install -D build/resources/0ad.png     $out/share/icons/hicolor/128x128/apps/0ad.png
-      install -D build/resources/0ad.desktop $out/share/applications/0ad.desktop
-    '';
-
-    meta = with lib; {
-      description = "A free, open-source game of ancient warfare";
-      homepage = "https://play0ad.com/";
-      license = with licenses; [
-        gpl2
-        lgpl21
-        mit
-        cc-by-sa-30
-        licenses.zlib # otherwise masked by pkgs.zlib
-      ];
-      maintainers = with maintainers; [ chvp ];
-      platforms = subtractLists platforms.i686 platforms.linux;
-    };
-  }
+    maintainers = with maintainers; [ chvp ];
+    platforms = subtractLists platforms.i686 platforms.linux;
+  };
+}

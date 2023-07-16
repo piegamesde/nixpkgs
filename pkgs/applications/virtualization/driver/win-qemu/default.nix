@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     copy = arch: version:
       (copy_pvpanic arch version) + (copy_pciserial arch) + (copy_agent arch);
   in
-    (copy "amd64" "w8.1") + (copy "x86" "w8.1")
+  (copy "amd64" "w8.1") + (copy "x86" "w8.1")
   ;
 
   meta = with lib; {

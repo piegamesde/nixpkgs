@@ -67,50 +67,50 @@ let
   };
 
 in
-  buildDunePackage {
-    pname = "cooltt";
-    version = "unstable-2022-04-28";
+buildDunePackage {
+  pname = "cooltt";
+  version = "unstable-2022-04-28";
 
-    minimalOCamlVersion = "4.13";
-    duneVersion = "3";
+  minimalOCamlVersion = "4.13";
+  duneVersion = "3";
 
-    src = fetchFromGitHub {
-      owner = "RedPRL";
-      repo = "cooltt";
-      rev = "88511e10cb9e17286f585882dee334f3d8ace47c";
-      sha256 = "sha256:1n9bh86r2n9s3mm7ayfzwjbnjqcphpsf8yqnf4whd3yi930sqisw";
-    };
+  src = fetchFromGitHub {
+    owner = "RedPRL";
+    repo = "cooltt";
+    rev = "88511e10cb9e17286f585882dee334f3d8ace47c";
+    sha256 = "sha256:1n9bh86r2n9s3mm7ayfzwjbnjqcphpsf8yqnf4whd3yi930sqisw";
+  };
 
-    nativeBuildInputs = [ menhir ];
+  nativeBuildInputs = [ menhir ];
 
-    buildInputs = [
-      cmdliner
-      ppxlib
-    ];
+  buildInputs = [
+    cmdliner
+    ppxlib
+  ];
 
-    propagatedBuildInputs = [
-      bantorra
-      bwd
-      ezjsonm
-      kado
-      menhirLib
-      ppx_deriving
-      uuseg
-      uutf
-      yuujinchou
-      containers
-    ];
+  propagatedBuildInputs = [
+    bantorra
+    bwd
+    ezjsonm
+    kado
+    menhirLib
+    ppx_deriving
+    uuseg
+    uutf
+    yuujinchou
+    containers
+  ];
 
-    checkInputs = [
-      ounit2
-      qcheck
-    ];
+  checkInputs = [
+    ounit2
+    qcheck
+  ];
 
-    meta = with lib; {
-      homepage = "https://github.com/RedPRL/cooltt";
-      description =
-        "A cool implementation of normalization by evaluation (nbe) & elaboration for Cartesian cubical type theory";
-      license = licenses.asl20;
-      maintainers = with maintainers; [ fortuneteller2k ];
-    };
-  }
+  meta = with lib; {
+    homepage = "https://github.com/RedPRL/cooltt";
+    description =
+      "A cool implementation of normalization by evaluation (nbe) & elaboration for Cartesian cubical type theory";
+    license = licenses.asl20;
+    maintainers = with maintainers; [ fortuneteller2k ];
+  };
+}

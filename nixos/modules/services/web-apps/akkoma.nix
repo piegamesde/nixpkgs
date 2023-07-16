@@ -62,7 +62,7 @@ let
         description = "Elixir value";
       };
   in
-    elixirValue'
+  elixirValue'
   ;
 
   frontend = {
@@ -111,7 +111,7 @@ let
       else
         v;
   in
-    replaceSec' { }
+  replaceSec' { }
   ;
 
   # Erlang/Elixir uses a somewhat special format for IP addresses
@@ -395,12 +395,12 @@ let
       '';
     };
   in
-    pkgs.runCommandLocal "akkoma-env" { } ''
-      mkdir -p "$out/bin"
+  pkgs.runCommandLocal "akkoma-env" { } ''
+    mkdir -p "$out/bin"
 
-      ln -r -s ${escapeShellArg script} "$out/bin/pleroma"
-      ln -r -s ${escapeShellArg script} "$out/bin/pleroma_ctl"
-    ''
+    ln -r -s ${escapeShellArg script} "$out/bin/pleroma"
+    ln -r -s ${escapeShellArg script} "$out/bin/pleroma_ctl"
+  ''
   ;
 
   userWrapper = pkgs.writeShellApplication {

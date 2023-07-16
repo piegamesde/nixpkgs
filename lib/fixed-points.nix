@@ -22,7 +22,7 @@
     let
       x = f x;
     in
-      x
+    x
   ;
 
   # A variant of `fix` that records the original recursive attribute set in the
@@ -33,7 +33,7 @@
     let
       x = f x // { __unfix__ = f; };
     in
-      x
+    x
   ;
 
   # Return the fixpoint that `f` converges to when called recursively, starting
@@ -84,7 +84,7 @@
     let
       super = rattrs self;
     in
-      super // f self super
+    super // f self super
   ;
 
   # Compose two extending functions of the type expected by 'extends'
@@ -95,7 +95,7 @@
       fApplied = f final prev;
       prev' = prev // fApplied;
     in
-      fApplied // g final prev'
+    fApplied // g final prev'
   ;
 
   # Compose several extending functions of the type expected by 'extends' into

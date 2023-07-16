@@ -43,115 +43,115 @@ let
     else
       null;
   in
-    pkgs.writeText "config.php" ''
-      <?php
-        putenv('TTRSS_PHP_EXECUTABLE=${pkgs.php}/bin/php');
+  pkgs.writeText "config.php" ''
+    <?php
+      putenv('TTRSS_PHP_EXECUTABLE=${pkgs.php}/bin/php');
 
-        putenv('TTRSS_LOCK_DIRECTORY=${cfg.root}/lock');
-        putenv('TTRSS_CACHE_DIR=${cfg.root}/cache');
-        putenv('TTRSS_ICONS_DIR=${cfg.root}/feed-icons');
-        putenv('TTRSS_ICONS_URL=feed-icons');
-        putenv('TTRSS_SELF_URL_PATH=${cfg.selfUrlPath}');
+      putenv('TTRSS_LOCK_DIRECTORY=${cfg.root}/lock');
+      putenv('TTRSS_CACHE_DIR=${cfg.root}/cache');
+      putenv('TTRSS_ICONS_DIR=${cfg.root}/feed-icons');
+      putenv('TTRSS_ICONS_URL=feed-icons');
+      putenv('TTRSS_SELF_URL_PATH=${cfg.selfUrlPath}');
 
-        putenv('TTRSS_MYSQL_CHARSET=UTF8');
+      putenv('TTRSS_MYSQL_CHARSET=UTF8');
 
-        putenv('TTRSS_DB_TYPE=${cfg.database.type}');
-        putenv('TTRSS_DB_HOST=${
-          optionalString (cfg.database.host != null) cfg.database.host
-        }');
-        putenv('TTRSS_DB_USER=${cfg.database.user}');
-        putenv('TTRSS_DB_NAME=${cfg.database.name}');
-        putenv('TTRSS_DB_PASS=' ${
-          optionalString (password != null) ". ${password}"
-        });
-        putenv('TTRSS_DB_PORT=${toString dbPort}');
+      putenv('TTRSS_DB_TYPE=${cfg.database.type}');
+      putenv('TTRSS_DB_HOST=${
+        optionalString (cfg.database.host != null) cfg.database.host
+      }');
+      putenv('TTRSS_DB_USER=${cfg.database.user}');
+      putenv('TTRSS_DB_NAME=${cfg.database.name}');
+      putenv('TTRSS_DB_PASS=' ${
+        optionalString (password != null) ". ${password}"
+      });
+      putenv('TTRSS_DB_PORT=${toString dbPort}');
 
-        putenv('TTRSS_AUTH_AUTO_CREATE=${boolToString cfg.auth.autoCreate}');
-        putenv('TTRSS_AUTH_AUTO_LOGIN=${boolToString cfg.auth.autoLogin}');
+      putenv('TTRSS_AUTH_AUTO_CREATE=${boolToString cfg.auth.autoCreate}');
+      putenv('TTRSS_AUTH_AUTO_LOGIN=${boolToString cfg.auth.autoLogin}');
 
-        putenv('TTRSS_FEED_CRYPT_KEY=${
-          escape [
-            "'"
-            "\\"
-          ] cfg.feedCryptKey
-        }');
-
-
-        putenv('TTRSS_SINGLE_USER_MODE=${boolToString cfg.singleUserMode}');
-
-        putenv('TTRSS_SIMPLE_UPDATE_MODE=${boolToString cfg.simpleUpdateMode}');
-
-        # Never check for updates - the running version of the code should
-        # be controlled entirely by the version of TT-RSS active in the
-        # current Nix profile. If TT-RSS updates itself to a version
-        # requiring a database schema upgrade, and then the SystemD
-        # tt-rss.service is restarted, the old code copied from the Nix
-        # store will overwrite the updated version, causing the code to
-        # detect the need for a schema "upgrade" (since the schema version
-        # in the database is different than in the code), but the update
-        # schema operation in TT-RSS will do nothing because the schema
-        # version in the database is newer than that in the code.
-        putenv('TTRSS_CHECK_FOR_UPDATES=false');
-
-        putenv('TTRSS_FORCE_ARTICLE_PURGE=${toString cfg.forceArticlePurge}');
-        putenv('TTRSS_SESSION_COOKIE_LIFETIME=${
-          toString cfg.sessionCookieLifetime
-        }');
-        putenv('TTRSS_ENABLE_GZIP_OUTPUT=${boolToString cfg.enableGZipOutput}');
-
-        putenv('TTRSS_PLUGINS=${builtins.concatStringsSep "," cfg.plugins}');
-
-        putenv('TTRSS_LOG_DESTINATION=${cfg.logDestination}');
-        putenv('TTRSS_CONFIG_VERSION=${toString configVersion}');
+      putenv('TTRSS_FEED_CRYPT_KEY=${
+        escape [
+          "'"
+          "\\"
+        ] cfg.feedCryptKey
+      }');
 
 
-        putenv('TTRSS_PUBSUBHUBBUB_ENABLED=${
-          boolToString cfg.pubSubHubbub.enable
-        }');
-        putenv('TTRSS_PUBSUBHUBBUB_HUB=${cfg.pubSubHubbub.hub}');
+      putenv('TTRSS_SINGLE_USER_MODE=${boolToString cfg.singleUserMode}');
 
-        putenv('TTRSS_SPHINX_SERVER=${cfg.sphinx.server}');
-        putenv('TTRSS_SPHINX_INDEX=${
-          builtins.concatStringsSep "," cfg.sphinx.index
-        }');
+      putenv('TTRSS_SIMPLE_UPDATE_MODE=${boolToString cfg.simpleUpdateMode}');
 
-        putenv('TTRSS_ENABLE_REGISTRATION=${
-          boolToString cfg.registration.enable
-        }');
-        putenv('TTRSS_REG_NOTIFY_ADDRESS=${cfg.registration.notifyAddress}');
-        putenv('TTRSS_REG_MAX_USERS=${toString cfg.registration.maxUsers}');
+      # Never check for updates - the running version of the code should
+      # be controlled entirely by the version of TT-RSS active in the
+      # current Nix profile. If TT-RSS updates itself to a version
+      # requiring a database schema upgrade, and then the SystemD
+      # tt-rss.service is restarted, the old code copied from the Nix
+      # store will overwrite the updated version, causing the code to
+      # detect the need for a schema "upgrade" (since the schema version
+      # in the database is different than in the code), but the update
+      # schema operation in TT-RSS will do nothing because the schema
+      # version in the database is newer than that in the code.
+      putenv('TTRSS_CHECK_FOR_UPDATES=false');
 
-        putenv('TTRSS_SMTP_SERVER=${cfg.email.server}');
-        putenv('TTRSS_SMTP_LOGIN=${cfg.email.login}');
-        putenv('TTRSS_SMTP_PASSWORD=${
-          escape [
-            "'"
-            "\\"
-          ] cfg.email.password
-        }');
-        putenv('TTRSS_SMTP_SECURE=${cfg.email.security}');
+      putenv('TTRSS_FORCE_ARTICLE_PURGE=${toString cfg.forceArticlePurge}');
+      putenv('TTRSS_SESSION_COOKIE_LIFETIME=${
+        toString cfg.sessionCookieLifetime
+      }');
+      putenv('TTRSS_ENABLE_GZIP_OUTPUT=${boolToString cfg.enableGZipOutput}');
 
-        putenv('TTRSS_SMTP_FROM_NAME=${
-          escape [
-            "'"
-            "\\"
-          ] cfg.email.fromName
-        }');
-        putenv('TTRSS_SMTP_FROM_ADDRESS=${
-          escape [
-            "'"
-            "\\"
-          ] cfg.email.fromAddress
-        }');
-        putenv('TTRSS_DIGEST_SUBJECT=${
-          escape [
-            "'"
-            "\\"
-          ] cfg.email.digestSubject
-        }');
+      putenv('TTRSS_PLUGINS=${builtins.concatStringsSep "," cfg.plugins}');
 
-        ${cfg.extraConfig}
-    ''
+      putenv('TTRSS_LOG_DESTINATION=${cfg.logDestination}');
+      putenv('TTRSS_CONFIG_VERSION=${toString configVersion}');
+
+
+      putenv('TTRSS_PUBSUBHUBBUB_ENABLED=${
+        boolToString cfg.pubSubHubbub.enable
+      }');
+      putenv('TTRSS_PUBSUBHUBBUB_HUB=${cfg.pubSubHubbub.hub}');
+
+      putenv('TTRSS_SPHINX_SERVER=${cfg.sphinx.server}');
+      putenv('TTRSS_SPHINX_INDEX=${
+        builtins.concatStringsSep "," cfg.sphinx.index
+      }');
+
+      putenv('TTRSS_ENABLE_REGISTRATION=${
+        boolToString cfg.registration.enable
+      }');
+      putenv('TTRSS_REG_NOTIFY_ADDRESS=${cfg.registration.notifyAddress}');
+      putenv('TTRSS_REG_MAX_USERS=${toString cfg.registration.maxUsers}');
+
+      putenv('TTRSS_SMTP_SERVER=${cfg.email.server}');
+      putenv('TTRSS_SMTP_LOGIN=${cfg.email.login}');
+      putenv('TTRSS_SMTP_PASSWORD=${
+        escape [
+          "'"
+          "\\"
+        ] cfg.email.password
+      }');
+      putenv('TTRSS_SMTP_SECURE=${cfg.email.security}');
+
+      putenv('TTRSS_SMTP_FROM_NAME=${
+        escape [
+          "'"
+          "\\"
+        ] cfg.email.fromName
+      }');
+      putenv('TTRSS_SMTP_FROM_ADDRESS=${
+        escape [
+          "'"
+          "\\"
+        ] cfg.email.fromAddress
+      }');
+      putenv('TTRSS_DIGEST_SUBJECT=${
+        escape [
+          "'"
+          "\\"
+        ] cfg.email.digestSubject
+      }');
+
+      ${cfg.extraConfig}
+  ''
   ;
 
   # tt-rss and plugins and themes and config.php
@@ -707,39 +707,38 @@ in {
               "";
 
         in
-          (optionalString (cfg.database.type == "pgsql") ''
-            exists=$(${
+        (optionalString (cfg.database.type == "pgsql") ''
+          exists=$(${
+            callSql "select count(*) > 0 from pg_tables where tableowner = user"
+          } \
+          | tail -n+3 | head -n-2 | sed -e 's/[ \n\t]*//')
+
+          if [ "$exists" == 'f' ]; then
+            ${
               callSql
-              "select count(*) > 0 from pg_tables where tableowner = user"
-            } \
-            | tail -n+3 | head -n-2 | sed -e 's/[ \n\t]*//')
+              "\\i ${pkgs.tt-rss}/schema/ttrss_schema_${cfg.database.type}.sql"
+            }
+          else
+            echo 'The database contains some data. Leaving it as it is.'
+          fi;
+        '')
 
-            if [ "$exists" == 'f' ]; then
-              ${
-                callSql
-                "\\i ${pkgs.tt-rss}/schema/ttrss_schema_${cfg.database.type}.sql"
-              }
-            else
-              echo 'The database contains some data. Leaving it as it is.'
-            fi;
-          '')
+        + (optionalString (cfg.database.type == "mysql") ''
+          exists=$(${
+            callSql
+            "select count(*) > 0 from information_schema.tables where table_schema = schema()"
+          } \
+          | tail -n+2 | sed -e 's/[ \n\t]*//')
 
-          + (optionalString (cfg.database.type == "mysql") ''
-            exists=$(${
+          if [ "$exists" == '0' ]; then
+            ${
               callSql
-              "select count(*) > 0 from information_schema.tables where table_schema = schema()"
-            } \
-            | tail -n+2 | sed -e 's/[ \n\t]*//')
-
-            if [ "$exists" == '0' ]; then
-              ${
-                callSql
-                "\\. ${pkgs.tt-rss}/schema/ttrss_schema_${cfg.database.type}.sql"
-              }
-            else
-              echo 'The database contains some data. Leaving it as it is.'
-            fi;
-          '')
+              "\\. ${pkgs.tt-rss}/schema/ttrss_schema_${cfg.database.type}.sql"
+            }
+          else
+            echo 'The database contains some data. Leaving it as it is.'
+          fi;
+        '')
         ;
 
         serviceConfig = {

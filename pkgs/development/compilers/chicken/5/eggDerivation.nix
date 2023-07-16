@@ -24,42 +24,42 @@ let
   else
     lib.id;
 in
-  (stdenv.mkDerivation ({
-    name = "chicken-${name}";
-    propagatedBuildInputs = buildInputs;
-    nativeBuildInputs = [ makeWrapper ];
-    buildInputs = [ chicken ];
+(stdenv.mkDerivation ({
+  name = "chicken-${name}";
+  propagatedBuildInputs = buildInputs;
+  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [ chicken ];
 
-    CSC_OPTIONS = lib.concatStringsSep " " cscOptions;
+  CSC_OPTIONS = lib.concatStringsSep " " cscOptions;
 
-    installPhase = ''
-      runHook preInstall
+  installPhase = ''
+    runHook preInstall
 
-      export CHICKEN_INSTALL_PREFIX=$out
-      export CHICKEN_INSTALL_REPOSITORY=$out/lib/chicken/${
-        toString chicken.binaryVersion
-      }
-      chicken-install -cached ${lib.concatStringsSep " " chickenInstallFlags}
+    export CHICKEN_INSTALL_PREFIX=$out
+    export CHICKEN_INSTALL_REPOSITORY=$out/lib/chicken/${
+      toString chicken.binaryVersion
+    }
+    chicken-install -cached ${lib.concatStringsSep " " chickenInstallFlags}
 
-      for f in $out/bin/*
-      do
-        wrapProgram $f \
-          --prefix CHICKEN_REPOSITORY_PATH : "$out/lib/chicken/${
-            toString chicken.binaryVersion
-          }" \
-          --suffix CHICKEN_INCLUDE_PATH : "$out/share" \
-          --prefix PATH : "$out/bin:${chicken}/bin:$CHICKEN_REPOSITORY_PATH"
-      done
+    for f in $out/bin/*
+    do
+      wrapProgram $f \
+        --prefix CHICKEN_REPOSITORY_PATH : "$out/lib/chicken/${
+          toString chicken.binaryVersion
+        }" \
+        --suffix CHICKEN_INCLUDE_PATH : "$out/share" \
+        --prefix PATH : "$out/bin:${chicken}/bin:$CHICKEN_REPOSITORY_PATH"
+    done
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
-    dontBuild = true;
-    dontConfigure = true;
+  dontBuild = true;
+  dontConfigure = true;
 
-    meta = { inherit (chicken.meta) platforms; } // args.meta or { };
-  } // builtins.removeAttrs args [
-    "name"
-    "buildInputs"
-    "meta"
-  ])).overrideAttrs override
+  meta = { inherit (chicken.meta) platforms; } // args.meta or { };
+} // builtins.removeAttrs args [
+  "name"
+  "buildInputs"
+  "meta"
+])).overrideAttrs override

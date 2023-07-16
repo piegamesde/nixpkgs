@@ -42,4 +42,4 @@ let
   '';
 
 in
-  nixPath
+nixPath

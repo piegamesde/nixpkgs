@@ -28,10 +28,10 @@ let
         emptyValue.value = { };
       };
     in
-      (lazyAttrsOf set) // {
-        description = "KDE Configuration file";
-        emptyValue.value = { };
-      }
+    (lazyAttrsOf set) // {
+      description = "KDE Configuration file";
+      emptyValue.value = { };
+    }
   ;
 
   libsForQt5 = pkgs.plasma5Packages;
@@ -332,34 +332,33 @@ in {
             (lib.getBin qttools) # Expose qdbus in PATH
           ];
         in
-          requiredPackages ++ utils.removePackagesByName optionalPackages
-          config.environment.plasma5.excludePackages
+        requiredPackages ++ utils.removePackagesByName optionalPackages
+        config.environment.plasma5.excludePackages
 
-          # Phonon audio backend
-          ++ lib.optional (cfg.phononBackend == "gstreamer")
-          libsForQt5.phonon-backend-gstreamer
-          ++ lib.optional (cfg.phononBackend == "vlc")
-          libsForQt5.phonon-backend-vlc
+        # Phonon audio backend
+        ++ lib.optional (cfg.phononBackend == "gstreamer")
+        libsForQt5.phonon-backend-gstreamer
+        ++ lib.optional (cfg.phononBackend == "vlc")
+        libsForQt5.phonon-backend-vlc
 
-          # Optional hardware support features
-          ++ lib.optionals config.hardware.bluetooth.enable [
-            bluedevil
-            bluez-qt
-            pkgs.openobex
-            pkgs.obexftp
-          ] ++ lib.optional config.networking.networkmanager.enable plasma-nm
-          ++ lib.optional config.hardware.pulseaudio.enable plasma-pa
-          ++ lib.optional config.services.pipewire.pulse.enable plasma-pa
-          ++ lib.optional config.powerManagement.enable powerdevil
-          ++ lib.optional config.services.colord.enable pkgs.colord-kde
-          ++ lib.optional config.services.hardware.bolt.enable
-          pkgs.plasma5Packages.plasma-thunderbolt
-          ++ lib.optionals config.services.samba.enable [
-            kdenetwork-filesharing
-            pkgs.samba
-          ]
-          ++ lib.optional config.services.xserver.wacom.enable pkgs.wacomtablet
-          ++ lib.optional config.services.flatpak.enable flatpak-kcm
+        # Optional hardware support features
+        ++ lib.optionals config.hardware.bluetooth.enable [
+          bluedevil
+          bluez-qt
+          pkgs.openobex
+          pkgs.obexftp
+        ] ++ lib.optional config.networking.networkmanager.enable plasma-nm
+        ++ lib.optional config.hardware.pulseaudio.enable plasma-pa
+        ++ lib.optional config.services.pipewire.pulse.enable plasma-pa
+        ++ lib.optional config.powerManagement.enable powerdevil
+        ++ lib.optional config.services.colord.enable pkgs.colord-kde
+        ++ lib.optional config.services.hardware.bolt.enable
+        pkgs.plasma5Packages.plasma-thunderbolt
+        ++ lib.optionals config.services.samba.enable [
+          kdenetwork-filesharing
+          pkgs.samba
+        ] ++ lib.optional config.services.xserver.wacom.enable pkgs.wacomtablet
+        ++ lib.optional config.services.flatpak.enable flatpak-kcm
       ;
 
       # Extra services for D-Bus activation
@@ -506,8 +505,8 @@ in {
             print-manager
           ];
         in
-          requiredPackages ++ utils.removePackagesByName optionalPackages
-          config.environment.plasma5.excludePackages
+        requiredPackages ++ utils.removePackagesByName optionalPackages
+        config.environment.plasma5.excludePackages
       ;
 
       systemd.user.services = {

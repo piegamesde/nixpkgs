@@ -164,7 +164,7 @@ let
         let
           len = lib.max (lib.stringLength name) (lib.stringLength against);
         in
-          lib.strings.fixedWidthString len " " name
+        lib.strings.fixedWidthString len " " name
       ;
 
       throwMismatch = drv:
@@ -172,36 +172,34 @@ let
           myName = "'${namePrefix}${name}'";
           theirName = "'${drv.name}'";
         in
-          throw ''
-            Python version mismatch in ${myName}:
+        throw ''
+          Python version mismatch in ${myName}:
 
-            The Python derivation ${myName} depends on a Python derivation
-            named ${theirName}, but the two derivations use different versions
-            of Python:
+          The Python derivation ${myName} depends on a Python derivation
+          named ${theirName}, but the two derivations use different versions
+          of Python:
 
-                ${leftPadName myName theirName} uses ${python}
-                ${leftPadName theirName myName} uses ${
-                  toString drv.pythonModule
-                }
+              ${leftPadName myName theirName} uses ${python}
+              ${leftPadName theirName myName} uses ${toString drv.pythonModule}
 
-            Possible solutions:
+          Possible solutions:
 
-              * If ${theirName} is a Python library, change the reference to ${theirName}
-                in the ${attrName} of ${myName} to use a ${theirName} built from the same
-                version of Python
+            * If ${theirName} is a Python library, change the reference to ${theirName}
+              in the ${attrName} of ${myName} to use a ${theirName} built from the same
+              version of Python
 
-              * If ${theirName} is used as a tool during the build, move the reference to
-                ${theirName} in ${myName} from ${attrName} to nativeBuildInputs
+            * If ${theirName} is used as a tool during the build, move the reference to
+              ${theirName} in ${myName} from ${attrName} to nativeBuildInputs
 
-              * If ${theirName} provides executables that are called at run time, pass its
-                bin path to makeWrapperArgs:
+            * If ${theirName} provides executables that are called at run time, pass its
+              bin path to makeWrapperArgs:
 
-                    makeWrapperArgs = [ "--prefix PATH : ''${lib.makeBinPath [ ${
-                      lib.getName drv
-                    } ] }" ];
+                  makeWrapperArgs = [ "--prefix PATH : ''${lib.makeBinPath [ ${
+                    lib.getName drv
+                  } ] }" ];
 
-            ${optionalLocation}
-          ''
+          ${optionalLocation}
+        ''
       ;
 
       checkDrv = drv:
@@ -213,7 +211,7 @@ let
           drv;
 
     in
-      inputs: builtins.map (checkDrv) inputs
+    inputs: builtins.map (checkDrv) inputs
   ;
 
   # Keep extra attributes from `attrs`, e.g., `patchPhase', etc.
@@ -319,12 +317,12 @@ let
   passthru.updateScript = let
     filename = builtins.head (lib.splitString ":" self.meta.position);
   in
-    attrs.passthru.updateScript or [
-      update-python-libraries
-      filename
-    ]
+  attrs.passthru.updateScript or [
+    update-python-libraries
+    filename
+  ]
   ;
 in
-  lib.extendDerivation (disabled
-    -> throw "${name} not supported for interpreter ${python.executable}")
-  passthru self
+lib.extendDerivation
+(disabled -> throw "${name} not supported for interpreter ${python.executable}")
+passthru self

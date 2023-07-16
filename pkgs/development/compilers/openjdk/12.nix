@@ -243,4 +243,4 @@ let
     };
   };
 in
-  openjdk
+openjdk

@@ -47,7 +47,7 @@ let
           description = "Flat key-value file";
         };
       in
-        attrsOf valueType
+      attrsOf valueType
     ;
 
     generate = name: value:

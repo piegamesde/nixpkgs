@@ -160,8 +160,8 @@ let
       elpaPackages = super // overrides;
 
     in
-      elpaPackages // { inherit elpaBuild; }
+    elpaPackages // { inherit elpaBuild; }
   );
 
 in
-  generateElpa { }
+generateElpa { }

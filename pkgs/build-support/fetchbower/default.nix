@@ -16,7 +16,7 @@ let
       else
         hash;
     in
-      ver
+    ver
   ;
 
   cleanName = name:
@@ -49,4 +49,4 @@ let
     };
 
 in
-  fetchbower
+fetchbower

@@ -15,34 +15,34 @@ let
     sha256 = "sha256-blIlaYaUQjw7Azgg+Dd7ZPEQf+ddZMO++Yxinwe+VG0=";
   };
 in
-  {
-    nightly = libsForQt5.callPackage ./generic.nix rec {
-      pname = "citra-nightly";
-      version = "1873";
+{
+  nightly = libsForQt5.callPackage ./generic.nix rec {
+    pname = "citra-nightly";
+    version = "1873";
 
-      src = fetchFromGitHub {
-        owner = "citra-emu";
-        repo = "citra-nightly";
-        rev = "nightly-${version}";
-        sha256 = "1csn9n1s2mvxwk2mahwm8mc4zgn40im374hcsqgz8gaxjkmnx288";
-        fetchSubmodules = true;
-      };
-
-      inherit branch compat-list;
+    src = fetchFromGitHub {
+      owner = "citra-emu";
+      repo = "citra-nightly";
+      rev = "nightly-${version}";
+      sha256 = "1csn9n1s2mvxwk2mahwm8mc4zgn40im374hcsqgz8gaxjkmnx288";
+      fetchSubmodules = true;
     };
 
-    canary = libsForQt5.callPackage ./generic.nix rec {
-      pname = "citra-canary";
-      version = "2440";
+    inherit branch compat-list;
+  };
 
-      src = fetchFromGitHub {
-        owner = "citra-emu";
-        repo = "citra-canary";
-        rev = "canary-${version}";
-        sha256 = "06f2qnvywyaf8jc43jrzjhfshj3k21ggk8wdrvd9wjsmrryvqgbz";
-        fetchSubmodules = true;
-      };
+  canary = libsForQt5.callPackage ./generic.nix rec {
+    pname = "citra-canary";
+    version = "2440";
 
-      inherit branch compat-list;
+    src = fetchFromGitHub {
+      owner = "citra-emu";
+      repo = "citra-canary";
+      rev = "canary-${version}";
+      sha256 = "06f2qnvywyaf8jc43jrzjhfshj3k21ggk8wdrvd9wjsmrryvqgbz";
+      fetchSubmodules = true;
     };
-  }.${branch}
+
+    inherit branch compat-list;
+  };
+}.${branch}

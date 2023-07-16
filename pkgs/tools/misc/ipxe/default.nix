@@ -38,98 +38,98 @@ let
   };
 
 in
-  stdenv.mkDerivation rec {
-    pname = "ipxe";
-    version = "unstable-2023-03-30";
+stdenv.mkDerivation rec {
+  pname = "ipxe";
+  version = "unstable-2023-03-30";
 
-    nativeBuildInputs = [
-      gnu-efi
-      mtools
-      openssl
-      perl
-      xorriso
-      xz
-    ] ++ lib.optional stdenv.hostPlatform.isx86 syslinux;
-    depsBuildBuild = [ buildPackages.stdenv.cc ];
+  nativeBuildInputs = [
+    gnu-efi
+    mtools
+    openssl
+    perl
+    xorriso
+    xz
+  ] ++ lib.optional stdenv.hostPlatform.isx86 syslinux;
+  depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-    strictDeps = true;
+  strictDeps = true;
 
-    src = fetchFromGitHub {
-      owner = "ipxe";
-      repo = "ipxe";
-      rev = "1d1cf74a5e58811822bee4b3da3cff7282fcdfca";
-      sha256 = "8pwoPrmkpL6jIM+Y/C0xSvyrBM/Uv0D1GuBwNm+0DHU=";
-    };
+  src = fetchFromGitHub {
+    owner = "ipxe";
+    repo = "ipxe";
+    rev = "1d1cf74a5e58811822bee4b3da3cff7282fcdfca";
+    sha256 = "8pwoPrmkpL6jIM+Y/C0xSvyrBM/Uv0D1GuBwNm+0DHU=";
+  };
 
-    postPatch = lib.optionalString stdenv.hostPlatform.isAarch64 ''
-      substituteInPlace src/util/genfsimg --replace "	syslinux " "	true "
-    ''; # calling syslinux on a FAT image isn't going to work
+  postPatch = lib.optionalString stdenv.hostPlatform.isAarch64 ''
+    substituteInPlace src/util/genfsimg --replace "	syslinux " "	true "
+  ''; # calling syslinux on a FAT image isn't going to work
 
-    # not possible due to assembler code
-    hardeningDisable = [
-      "pic"
-      "stackprotector"
-    ];
+  # not possible due to assembler code
+  hardeningDisable = [
+    "pic"
+    "stackprotector"
+  ];
 
-    env.NIX_CFLAGS_COMPILE = "-Wno-error";
+  env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
-    makeFlags = [
-      "ECHO_E_BIN_ECHO=echo"
-      "ECHO_E_BIN_ECHO_E=echo" # No /bin/echo here.
-      "CROSS=${stdenv.cc.targetPrefix}"
-    ] ++ lib.optional (embedScript != null) "EMBED=${embedScript}";
+  makeFlags = [
+    "ECHO_E_BIN_ECHO=echo"
+    "ECHO_E_BIN_ECHO_E=echo" # No /bin/echo here.
+    "CROSS=${stdenv.cc.targetPrefix}"
+  ] ++ lib.optional (embedScript != null) "EMBED=${embedScript}";
 
-    enabledOptions = [
-      "PING_CMD"
-      "IMAGE_TRUST_CMD"
-      "DOWNLOAD_PROTO_HTTP"
-      "DOWNLOAD_PROTO_HTTPS"
-    ] ++ additionalOptions;
+  enabledOptions = [
+    "PING_CMD"
+    "IMAGE_TRUST_CMD"
+    "DOWNLOAD_PROTO_HTTP"
+    "DOWNLOAD_PROTO_HTTPS"
+  ] ++ additionalOptions;
 
-    configurePhase = ''
-      runHook preConfigure
-      for opt in ${
-        lib.escapeShellArgs enabledOptions
-      }; do echo "#define $opt" >> src/config/general.h; done
-      substituteInPlace src/Makefile.housekeeping --replace '/bin/echo' echo
-    '' + lib.optionalString stdenv.hostPlatform.isx86 ''
-      substituteInPlace src/util/genfsimg --replace /usr/lib/syslinux ${syslinux}/share/syslinux
-    '' + ''
-      runHook postConfigure
-    '';
+  configurePhase = ''
+    runHook preConfigure
+    for opt in ${
+      lib.escapeShellArgs enabledOptions
+    }; do echo "#define $opt" >> src/config/general.h; done
+    substituteInPlace src/Makefile.housekeeping --replace '/bin/echo' echo
+  '' + lib.optionalString stdenv.hostPlatform.isx86 ''
+    substituteInPlace src/util/genfsimg --replace /usr/lib/syslinux ${syslinux}/share/syslinux
+  '' + ''
+    runHook postConfigure
+  '';
 
-    preBuild = "cd src";
+  preBuild = "cd src";
 
-    buildFlags = lib.attrNames targets;
+  buildFlags = lib.attrNames targets;
 
-    installPhase = ''
-      runHook preInstall
+  installPhase = ''
+    runHook preInstall
 
-      mkdir -p $out
-      ${lib.concatStringsSep "\n" (lib.mapAttrsToList (from: to:
-        if
-          to == null
-        then
-          "cp -v ${from} $out"
-        else
-          "cp -v ${from} $out/${to}") targets)}
+    mkdir -p $out
+    ${lib.concatStringsSep "\n" (lib.mapAttrsToList (from: to:
+      if
+        to == null
+      then
+        "cp -v ${from} $out"
+      else
+        "cp -v ${from} $out/${to}") targets)}
 
-      # Some PXE constellations especially with dnsmasq are looking for the file with .0 ending
-      # let's provide it as a symlink to be compatible in this case.
-      ln -s undionly.kpxe $out/undionly.kpxe.0
+    # Some PXE constellations especially with dnsmasq are looking for the file with .0 ending
+    # let's provide it as a symlink to be compatible in this case.
+    ln -s undionly.kpxe $out/undionly.kpxe.0
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
-    enableParallelBuilding = true;
+  enableParallelBuilding = true;
 
-    passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater { };
 
-    meta = with lib; {
-      description = "Network boot firmware";
-      homepage = "https://ipxe.org/";
-      license = licenses.gpl2Only;
-      maintainers = with maintainers; [ ehmry ];
-      platforms = platforms.linux;
-    };
-  }
+  meta = with lib; {
+    description = "Network boot firmware";
+    homepage = "https://ipxe.org/";
+    license = licenses.gpl2Only;
+    maintainers = with maintainers; [ ehmry ];
+    platforms = platforms.linux;
+  };
+}

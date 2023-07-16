@@ -12,15 +12,15 @@ let
     let
       dnsAddress = dnsServerIP nodes;
     in
-      pkgs.writeShellScript "dns-hook.sh" ''
-        set -euo pipefail
-        echo '[INFO]' "[$2]" 'dns-hook.sh' $*
-        if [ "$1" = "present" ]; then
-          ${pkgs.curl}/bin/curl --data '{"host": "'"$2"'", "value": "'"$3"'"}' http://${dnsAddress}:8055/set-txt
-        else
-          ${pkgs.curl}/bin/curl --data '{"host": "'"$2"'"}' http://${dnsAddress}:8055/clear-txt
-        fi
-      ''
+    pkgs.writeShellScript "dns-hook.sh" ''
+      set -euo pipefail
+      echo '[INFO]' "[$2]" 'dns-hook.sh' $*
+      if [ "$1" = "present" ]; then
+        ${pkgs.curl}/bin/curl --data '{"host": "'"$2"'", "value": "'"$3"'"}' http://${dnsAddress}:8055/set-txt
+      else
+        ${pkgs.curl}/bin/curl --data '{"host": "'"$2"'"}' http://${dnsAddress}:8055/clear-txt
+      fi
+    ''
   ;
 
   dnsConfig = nodes: {
@@ -269,24 +269,24 @@ in {
                 test -e accounts/${caDomain}/${email}/account.json || exit 99
               '';
             in
-              lib.mkMerge [
-                webserverBasicConfig
-                {
-                  # Used to test that account creation is collated into one service.
-                  # These should not run until after acme-finished-a.example.test.target
-                  systemd.services."b.example.test".preStart =
-                    accountCreateTester;
-                  systemd.services."c.example.test".preStart =
-                    accountCreateTester;
+            lib.mkMerge [
+              webserverBasicConfig
+              {
+                # Used to test that account creation is collated into one service.
+                # These should not run until after acme-finished-a.example.test.target
+                systemd.services."b.example.test".preStart =
+                  accountCreateTester;
+                systemd.services."c.example.test".preStart =
+                  accountCreateTester;
 
-                  services.nginx.virtualHosts."b.example.test" = vhostBase // {
-                    enableACME = true;
-                  };
-                  services.nginx.virtualHosts."c.example.test" = vhostBase // {
-                    enableACME = true;
-                  };
-                }
-              ]
+                services.nginx.virtualHosts."b.example.test" = vhostBase // {
+                  enableACME = true;
+                };
+                services.nginx.virtualHosts."c.example.test" = vhostBase // {
+                  enableACME = true;
+                };
+              }
+            ]
           ;
 
           # Test OCSP Stapling

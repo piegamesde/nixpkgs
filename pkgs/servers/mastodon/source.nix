@@ -10,7 +10,7 @@ let
     sha256 = "18yzpc2rz9sa04y2sdxzsfkndbqqsfqvji47imwc3yj40l8hciws";
   };
 in
-  applyPatches {
-    inherit src;
-    patches = [ ];
-  }
+applyPatches {
+  inherit src;
+  patches = [ ];
+}

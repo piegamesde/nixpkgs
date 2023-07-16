@@ -80,7 +80,7 @@ rec {
     paths = let
       members = builtins.attrValues workspaceMembers;
     in
-      builtins.map (m: m.build) members
+    builtins.map (m: m.build) members
     ;
   };
 
@@ -4164,33 +4164,31 @@ rec {
       let
         baseName = builtins.baseNameOf (builtins.toString name);
       in
-        !(
-          # Filter out git
-          baseName == ".gitignore"
-          || (type == "directory" && baseName == ".git")
+      !(
+        # Filter out git
+        baseName == ".gitignore" || (type == "directory" && baseName == ".git")
 
-          # Filter out build results
-          || (type == "directory" && (baseName == "target" || baseName
-            == "_site" || baseName == ".sass-cache" || baseName
-            == ".jekyll-metadata" || baseName == "build-artifacts"))
+        # Filter out build results
+        || (type == "directory" && (baseName == "target" || baseName == "_site"
+          || baseName == ".sass-cache" || baseName == ".jekyll-metadata"
+          || baseName == "build-artifacts"))
 
-          # Filter out nix-build result symlinks
-          || (type == "symlink" && lib.hasPrefix "result" baseName)
+        # Filter out nix-build result symlinks
+        || (type == "symlink" && lib.hasPrefix "result" baseName)
 
-          # Filter out IDE config
-          || (type == "directory"
-            && (baseName == ".idea" || baseName == ".vscode"))
-          || lib.hasSuffix ".iml" baseName
+        # Filter out IDE config
+        || (type == "directory"
+          && (baseName == ".idea" || baseName == ".vscode"))
+        || lib.hasSuffix ".iml" baseName
 
-          # Filter out nix build files
-          || baseName == "Cargo.nix"
+        # Filter out nix build files
+        || baseName == "Cargo.nix"
 
-          # Filter out editor backup / swap files.
-          || lib.hasSuffix "~" baseName
-          || builtins.match "^\\.sw[a-z]$$" baseName != null
-          || builtins.match "^\\..*\\.sw[a-z]$$" baseName != null
-          || lib.hasSuffix ".tmp" baseName || lib.hasSuffix ".bak" baseName
-          || baseName == "tests.nix")
+        # Filter out editor backup / swap files.
+        || lib.hasSuffix "~" baseName || builtins.match "^\\.sw[a-z]$$" baseName
+        != null || builtins.match "^\\..*\\.sw[a-z]$$" baseName != null
+        || lib.hasSuffix ".tmp" baseName || lib.hasSuffix ".bak" baseName
+        || baseName == "tests.nix")
     ;
 
     /* Returns a crate which depends on successful test execution
@@ -4228,50 +4226,50 @@ rec {
               testPostRun
             ]);
         in
-          pkgs.runCommand "run-tests-${testCrate.name}" {
-            inherit testCrateFlags;
-            buildInputs = testInputs;
-          } ''
-            set -ex
+        pkgs.runCommand "run-tests-${testCrate.name}" {
+          inherit testCrateFlags;
+          buildInputs = testInputs;
+        } ''
+          set -ex
 
-            export RUST_BACKTRACE=1
+          export RUST_BACKTRACE=1
 
-            # recreate a file hierarchy as when running tests with cargo
+          # recreate a file hierarchy as when running tests with cargo
 
-            # the source for test data
-            ${pkgs.xorg.lndir}/bin/lndir ${crate.src}
+          # the source for test data
+          ${pkgs.xorg.lndir}/bin/lndir ${crate.src}
 
-            # build outputs
-            testRoot=target/debug
-            mkdir -p $testRoot
+          # build outputs
+          testRoot=target/debug
+          mkdir -p $testRoot
 
-            # executables of the crate
-            # we copy to prevent std::env::current_exe() to resolve to a store location
-            for i in ${crate}/bin/*; do
-              cp "$i" "$testRoot"
-            done
-            chmod +w -R .
+          # executables of the crate
+          # we copy to prevent std::env::current_exe() to resolve to a store location
+          for i in ${crate}/bin/*; do
+            cp "$i" "$testRoot"
+          done
+          chmod +w -R .
 
-            # test harness executables are suffixed with a hash, like cargo does
-            # this allows to prevent name collision with the main
-            # executables of the crate
-            hash=$(basename $out)
-            for file in ${drv}/tests/*; do
-              f=$testRoot/$(basename $file)-$hash
-              cp $file $f
-              ${testCommand}
-            done
-          ''
+          # test harness executables are suffixed with a hash, like cargo does
+          # this allows to prevent name collision with the main
+          # executables of the crate
+          hash=$(basename $out)
+          for file in ${drv}/tests/*; do
+            f=$testRoot/$(basename $file)-$hash
+            cp $file $f
+            ${testCommand}
+          done
+        ''
         ;
       in
-        pkgs.runCommand "${crate.name}-linked" {
-          inherit (crate) outputs crateName;
-          passthru = (crate.passthru or { }) // { inherit test; };
-        } ''
-          echo tested by ${test}
-          ${lib.concatMapStringsSep "\n"
-          (output: "ln -s ${crate.${output}} ${"$"}${output}") crate.outputs}
-        ''
+      pkgs.runCommand "${crate.name}-linked" {
+        inherit (crate) outputs crateName;
+        passthru = (crate.passthru or { }) // { inherit test; };
+      } ''
+        echo tested by ${test}
+        ${lib.concatMapStringsSep "\n"
+        (output: "ln -s ${crate.${output}} ${"$"}${output}") crate.outputs}
+      ''
     ;
 
     # A restricted overridable version of builtRustCratesWithFeatures.
@@ -4337,7 +4335,7 @@ rec {
           else
             drv;
         in
-          derivation
+        derivation
       ) {
         inherit features crateOverrides runTests testCrateFlags testInputs
           testPreRun testPostRun;
@@ -4375,7 +4373,7 @@ rec {
               build = mkBuiltByPackageIdByPkgs pkgs.buildPackages;
             };
           in
-            self
+          self
         ;
         buildByPackageIdForPkgsImpl = self: pkgs: packageId:
           let
@@ -4434,31 +4432,31 @@ rec {
                   version = package.version;
                 } ;
             in
-              lib.mapAttrs
-              (name: choices: builtins.map versionAndRename choices) grouped
+            lib.mapAttrs (name: choices: builtins.map versionAndRename choices)
+            grouped
             ;
           in
-            buildRustCrateForPkgsFunc pkgs (crateConfig // {
-              src = crateConfig.src or (pkgs.fetchurl rec {
-                name = "${crateConfig.crateName}-${crateConfig.version}.tar.gz";
-                # https://www.pietroalbini.org/blog/downloading-crates-io/
-                # Not rate-limited, CDN URL.
-                url =
-                  "https://static.crates.io/crates/${crateConfig.crateName}/${crateConfig.crateName}-${crateConfig.version}.crate";
-                sha256 = assert (lib.assertMsg (crateConfig ? sha256)
-                  "Missing sha256 for ${name}");
-                  crateConfig.sha256;
-              });
-              extraRustcOpts = lib.lists.optional (targetFeatures != [ ])
-                "-C target-feature=${
-                  lib.concatMapStringsSep "," (x: "+${x}") targetFeatures
-                }";
-              inherit features dependencies buildDependencies crateRenames
-                release;
-            })
+          buildRustCrateForPkgsFunc pkgs (crateConfig // {
+            src = crateConfig.src or (pkgs.fetchurl rec {
+              name = "${crateConfig.crateName}-${crateConfig.version}.tar.gz";
+              # https://www.pietroalbini.org/blog/downloading-crates-io/
+              # Not rate-limited, CDN URL.
+              url =
+                "https://static.crates.io/crates/${crateConfig.crateName}/${crateConfig.crateName}-${crateConfig.version}.crate";
+              sha256 = assert (lib.assertMsg (crateConfig ? sha256)
+                "Missing sha256 for ${name}");
+                crateConfig.sha256;
+            });
+            extraRustcOpts = lib.lists.optional (targetFeatures != [ ])
+              "-C target-feature=${
+                lib.concatMapStringsSep "," (x: "+${x}") targetFeatures
+              }";
+            inherit features dependencies buildDependencies crateRenames
+              release;
+          })
         ;
       in
-        builtByPackageIdByPkgs
+      builtByPackageIdByPkgs
     ;
 
     # Returns the actual derivations for the given dependencies.
@@ -4476,7 +4474,7 @@ rec {
           filterEnabledDependencies { inherit dependencies features target; };
         depDerivation = dependency: buildByPackageId dependency.packageId;
       in
-        map depDerivation enabledDependencies
+      map depDerivation enabledDependencies
     ;
 
     /* Returns a sanitized version of val with all values substituted that cannot
@@ -4559,9 +4557,7 @@ rec {
           (v ? "crate2nix") && (v ? "cargo") && (v.crate2nix.features or [ ])
           != (v."cargo".resolved_default_features or [ ])) combined;
       in
-        builtins.toJSON {
-          inherit onlyInCargo onlyInCrate2Nix differentFeatures;
-        }
+      builtins.toJSON { inherit onlyInCargo onlyInCrate2Nix differentFeatures; }
     ;
 
     /* Returns an attrset mapping packageId to the list of enabled features.
@@ -4616,30 +4612,30 @@ rec {
               map depWithResolvedFeatures enabledDependencies;
             foldOverCache = op: lib.foldl op cache directDependencies;
           in
-            foldOverCache (cache:
-              {
-                packageId,
-                features,
-              }:
-              let
-                cacheFeatures = cache.${packageId} or [ ];
-                combinedFeatures = sortedUnique (cacheFeatures ++ features);
-              in if
-                cache ? ${packageId} && cache.${packageId} == combinedFeatures
-              then
-                cache
-              else
-                mergePackageFeatures {
-                  features = combinedFeatures;
-                  featuresByPackageId = cache;
-                  inherit crateConfigs packageId target runTests rootPackageId;
-                })
+          foldOverCache (cache:
+            {
+              packageId,
+              features,
+            }:
+            let
+              cacheFeatures = cache.${packageId} or [ ];
+              combinedFeatures = sortedUnique (cacheFeatures ++ features);
+            in if
+              cache ? ${packageId} && cache.${packageId} == combinedFeatures
+            then
+              cache
+            else
+              mergePackageFeatures {
+                features = combinedFeatures;
+                featuresByPackageId = cache;
+                inherit crateConfigs packageId target runTests rootPackageId;
+              })
         ;
         cacheWithSelf = let
           cacheFeatures = featuresByPackageId.${packageId} or [ ];
           combinedFeatures = sortedUnique (cacheFeatures ++ enabledFeatures);
         in
-          featuresByPackageId // { "${packageId}" = combinedFeatures; }
+        featuresByPackageId // { "${packageId}" = combinedFeatures; }
         ;
         cacheWithDependencies = resolveDependencies cacheWithSelf "dep"
           (crateConfig.dependencies or [ ]
@@ -4648,7 +4644,7 @@ rec {
         cacheWithAll = resolveDependencies cacheWithDependencies "build"
           (crateConfig.buildDependencies or [ ]);
       in
-        cacheWithAll
+      cacheWithAll
     ;
 
     # Returns the enabled dependencies given the enabled features.
@@ -4665,8 +4661,8 @@ rec {
         let
           targetFunc = dep.target or (features: true);
         in
-          targetFunc { inherit features target; } && (!(dep.optional or false)
-            || builtins.any (doesFeatureEnableDependency dep) features)
+        targetFunc { inherit features target; } && (!(dep.optional or false)
+          || builtins.any (doesFeatureEnableDependency dep) features)
       ) dependencies;
 
     # Returns whether the given feature should enable the given dependency.
@@ -4677,7 +4673,7 @@ rec {
         len = builtins.stringLength prefix;
         startsWithPrefix = builtins.substring 0 len feature == prefix;
       in
-        feature == name || startsWithPrefix
+      feature == name || startsWithPrefix
     ;
 
     /* Returns the expanded features for the given inputFeatures by applying the
@@ -4696,7 +4692,7 @@ rec {
           ++ (expandFeatures featureMap (featureMap."${feature}" or [ ]));
         outFeatures = lib.concatMap expandFeature inputFeatures;
       in
-        sortedUnique outFeatures
+      sortedUnique outFeatures
     ;
 
     /* This function adds optional dependencies as features if they are enabled
@@ -4718,7 +4714,7 @@ rec {
           then [ (dependency.rename or dependency.name) ] else
             [ ]) dependencies;
       in
-        sortedUnique (features ++ additionalFeatures)
+      sortedUnique (features ++ additionalFeatures)
     ;
 
     /* Returns the actual features for the given dependency.
@@ -4737,10 +4733,10 @@ rec {
           dependencyFeatures =
             builtins.filter (f: lib.hasPrefix dependencyPrefix f) features;
         in
-          builtins.map (lib.removePrefix dependencyPrefix) dependencyFeatures
+        builtins.map (lib.removePrefix dependencyPrefix) dependencyFeatures
         ;
       in
-        defaultOrNil ++ explicitFeatures ++ additionalDependencyFeatures
+      defaultOrNil ++ explicitFeatures ++ additionalDependencyFeatures
     ;
 
     # Sorts and removes duplicates from a list of strings.
@@ -4752,7 +4748,7 @@ rec {
           lib.foldl (set: feature: set // { "${feature}" = 1; }) { } features;
         outFeaturesUnique = builtins.attrNames outFeaturesSet;
       in
-        builtins.sort (a: b: a < b) outFeaturesUnique
+      builtins.sort (a: b: a < b) outFeaturesUnique
     ;
 
     deprecationWarning = message: value:

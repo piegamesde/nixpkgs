@@ -100,28 +100,28 @@ let
     else
       "mosflm-linux-64-noX11";
   in
-    stdenv.mkDerivation rec {
-      pname = "mosflm";
+  stdenv.mkDerivation rec {
+    pname = "mosflm";
 
-      inherit version src;
+    inherit version src;
 
-      dontBuild = true;
+    dontBuild = true;
 
-      nativeBuildInputs = [
-        unzip
-        makeWrapper
-      ];
+    nativeBuildInputs = [
+      unzip
+      makeWrapper
+    ];
 
-      sourceRoot = ".";
+    sourceRoot = ".";
 
-      # mosflm statically links against its own libccp4, which as the syminfo.lib environment variable problem.
-      # Here, we circumvent it by creating a little wrapper script that calls mosflm after setting the SYMINFO variable.
-      installPhase = ''
-        mkdir -p $out/bin
-        cp ${mosflmBinary} $out/bin/mosflm-raw
-        makeWrapper $out/bin/mosflm-raw $out/bin/mosflm --set SYMINFO ${libccp4}/share/syminfo.lib --add-flags -n
-      '';
-    }
+    # mosflm statically links against its own libccp4, which as the syminfo.lib environment variable problem.
+    # Here, we circumvent it by creating a little wrapper script that calls mosflm after setting the SYMINFO variable.
+    installPhase = ''
+      mkdir -p $out/bin
+      cp ${mosflmBinary} $out/bin/mosflm-raw
+      makeWrapper $out/bin/mosflm-raw $out/bin/mosflm --set SYMINFO ${libccp4}/share/syminfo.lib --add-flags -n
+    '';
+  }
   ;
 
   xgandalf = stdenv.mkDerivation rec {
@@ -205,81 +205,81 @@ let
     ];
   };
 in
-  stdenv.mkDerivation rec {
-    pname = "crystfel";
-    version = "0.10.2";
-    src = fetchurl {
-      url = "https://www.desy.de/~twhite/${pname}/${pname}-${version}.tar.gz";
-      sha256 = "sha256-nCO9ndDKS54bVN9IhFBiCVNzqk7BsCljXFrOmlx+sP4=";
-    };
-    nativeBuildInputs = [
-      meson
-      pkg-config
-      ninja
-      flex
-      bison
-      doxygen
-      opencl-headers
-      makeWrapper
-    ] ++ lib.optionals withGui [ wrapGAppsHook ];
-    buildInputs = [
-      hdf5
-      gsl
-      ncurses
-      msgpack
-      fftw
-      fdip
-      zeromq
-      ocl-icd
-      libccp4
-      mosflm
-      pinkIndexer
-      xgandalf
-    ] ++ lib.optionals withGui [
-      gtk3
-      gdk-pixbuf
-    ] ++ lib.optionals stdenv.isDarwin [ argp-standalone ] ++ lib.optionals
-      (stdenv.isDarwin && !stdenv.isAarch64) [ memorymappingHook ]
-      ++ lib.optionals withBitshuffle [ hdf5-external-filter-plugins ];
+stdenv.mkDerivation rec {
+  pname = "crystfel";
+  version = "0.10.2";
+  src = fetchurl {
+    url = "https://www.desy.de/~twhite/${pname}/${pname}-${version}.tar.gz";
+    sha256 = "sha256-nCO9ndDKS54bVN9IhFBiCVNzqk7BsCljXFrOmlx+sP4=";
+  };
+  nativeBuildInputs = [
+    meson
+    pkg-config
+    ninja
+    flex
+    bison
+    doxygen
+    opencl-headers
+    makeWrapper
+  ] ++ lib.optionals withGui [ wrapGAppsHook ];
+  buildInputs = [
+    hdf5
+    gsl
+    ncurses
+    msgpack
+    fftw
+    fdip
+    zeromq
+    ocl-icd
+    libccp4
+    mosflm
+    pinkIndexer
+    xgandalf
+  ] ++ lib.optionals withGui [
+    gtk3
+    gdk-pixbuf
+  ] ++ lib.optionals stdenv.isDarwin [ argp-standalone ] ++ lib.optionals
+    (stdenv.isDarwin && !stdenv.isAarch64) [ memorymappingHook ]
+    ++ lib.optionals withBitshuffle [ hdf5-external-filter-plugins ];
 
-    patches = [
-      ./link-to-argp-standalone-if-needed.patch
-      ./disable-fmemopen-on-aarch64-darwin.patch
-      (fetchpatch {
-        url =
-          "https://gitlab.desy.de/thomas.white/crystfel/-/commit/3c54d59e1c13aaae716845fed2585770c3ca9d14.diff";
-        hash = "sha256-oaJNBQQn0c+z4p1pnW4osRJA2KdKiz4hWu7uzoKY7wc=";
-      })
-    ];
+  patches = [
+    ./link-to-argp-standalone-if-needed.patch
+    ./disable-fmemopen-on-aarch64-darwin.patch
+    (fetchpatch {
+      url =
+        "https://gitlab.desy.de/thomas.white/crystfel/-/commit/3c54d59e1c13aaae716845fed2585770c3ca9d14.diff";
+      hash = "sha256-oaJNBQQn0c+z4p1pnW4osRJA2KdKiz4hWu7uzoKY7wc=";
+    })
+  ];
 
-    # CrystFEL calls mosflm by searching PATH for it. We could've create a wrapper script that sets the PATH, but
-    # we'd have to do that for every CrystFEL executable (indexamajig, crystfel, partialator). Better to just
-    # hard-code mosflm's path once.
-    postPatch = ''
-      sed -i -e 's#execlp("mosflm"#execl("${mosflm}/bin/mosflm"#' libcrystfel/src/indexers/mosflm.c;
-    '';
+  # CrystFEL calls mosflm by searching PATH for it. We could've create a wrapper script that sets the PATH, but
+  # we'd have to do that for every CrystFEL executable (indexamajig, crystfel, partialator). Better to just
+  # hard-code mosflm's path once.
+  postPatch = ''
+    sed -i -e 's#execlp("mosflm"#execl("${mosflm}/bin/mosflm"#' libcrystfel/src/indexers/mosflm.c;
+  '';
 
-    postInstall = lib.optionalString withBitshuffle ''
-      for file in $out/bin/*; do
-        wrapProgram $file --set HDF5_PLUGIN_PATH ${hdf5-external-filter-plugins}/lib/plugins
-      done
-    '';
+  postInstall = lib.optionalString withBitshuffle ''
+    for file in $out/bin/*; do
+      wrapProgram $file --set HDF5_PLUGIN_PATH ${hdf5-external-filter-plugins}/lib/plugins
+    done
+  '';
 
-    meta = with lib; {
-      description = "Data processing for serial crystallography";
-      longDescription = ''
-        CrystFEL is a suite of programs for processing (and simulating) Bragg diffraction data from "serial crystallography" experiments, often (but not always) performed using an X-ray Free-Electron Laser. Compared to rotation data, some of the particular characteristics of such data which call for a specialised software suite are:
+  meta = with lib; {
+    description = "Data processing for serial crystallography";
+    longDescription = ''
+      CrystFEL is a suite of programs for processing (and simulating) Bragg diffraction data from "serial crystallography" experiments, often (but not always) performed using an X-ray Free-Electron Laser. Compared to rotation data, some of the particular characteristics of such data which call for a specialised software suite are:
 
-        - The sliced, rather than integrated, measurement of intensity data. Many, if not all reflections are partially integrated.
-        - Many patterns (thousands) are required - high throughput is needed.
-        - The crystal orientations in each pattern are random and uncorrelated.
-        - Merging into lower symmetry point groups may require the resolution of indexing ambiguities.'';
-      homepage = "https://www.desy.de/~twhite/crystfel/";
-      changelog = "https://www.desy.de/~twhite/crystfel/changes.html";
-      downloadPage = "https://www.desy.de/~twhite/crystfel/download.html";
-      license = licenses.gpl3Plus;
-      maintainers = with maintainers; [ pmiddend ];
-      platforms = platforms.unix;
-    };
+      - The sliced, rather than integrated, measurement of intensity data. Many, if not all reflections are partially integrated.
+      - Many patterns (thousands) are required - high throughput is needed.
+      - The crystal orientations in each pattern are random and uncorrelated.
+      - Merging into lower symmetry point groups may require the resolution of indexing ambiguities.'';
+    homepage = "https://www.desy.de/~twhite/crystfel/";
+    changelog = "https://www.desy.de/~twhite/crystfel/changes.html";
+    downloadPage = "https://www.desy.de/~twhite/crystfel/download.html";
+    license = licenses.gpl3Plus;
+    maintainers = with maintainers; [ pmiddend ];
+    platforms = platforms.unix;
+  };
 
-  }
+}

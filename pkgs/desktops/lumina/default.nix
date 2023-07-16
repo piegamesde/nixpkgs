@@ -28,4 +28,4 @@ let
     };
 
 in
-  pkgs.lib.makeScope libsForQt5.newScope packages
+pkgs.lib.makeScope libsForQt5.newScope packages

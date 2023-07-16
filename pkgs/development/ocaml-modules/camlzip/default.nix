@@ -42,53 +42,53 @@ let
   };
 
 in
-  stdenv.mkDerivation {
-    pname = "ocaml${ocaml.version}-camlzip";
-    version = param.version;
+stdenv.mkDerivation {
+  pname = "ocaml${ocaml.version}-camlzip";
+  version = param.version;
 
-    src = fetchurl {
-      inherit (param) url;
-      inherit (param) sha256;
-    };
+  src = fetchurl {
+    inherit (param) url;
+    inherit (param) sha256;
+  };
 
-    nativeBuildInputs = [
-      ocaml
-      findlib
-    ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+  ];
 
-    propagatedBuildInputs = [ zlib ];
+  propagatedBuildInputs = [ zlib ];
 
-    strictDeps = true;
+  strictDeps = true;
 
-    inherit (param) patches;
+  inherit (param) patches;
 
-    createFindlibDestdir = true;
+  createFindlibDestdir = true;
 
-    postPatch = param.postPatchInit + ''
-      substituteInPlace Makefile \
-        --subst-var-by ZLIB_LIBDIR "${zlib.out}/lib" \
-        --subst-var-by ZLIB_INCLUDE "${zlib.dev}/include"
+  postPatch = param.postPatchInit + ''
+    substituteInPlace Makefile \
+      --subst-var-by ZLIB_LIBDIR "${zlib.out}/lib" \
+      --subst-var-by ZLIB_INCLUDE "${zlib.dev}/include"
+  '';
+
+  buildFlags = [
+    "all"
+    "allopt"
+  ];
+
+  postInstall = ''
+    ln -s $out/lib/ocaml/${ocaml.version}/site-lib/{,caml}zip
+  '';
+
+  meta = with lib; {
+    homepage = "http://cristal.inria.fr/~xleroy/software.html#camlzip";
+    description = "A library for handling ZIP and GZIP files in OCaml";
+    longDescription = ''
+      This Objective Caml library provides easy access to compressed files in
+      ZIP and GZIP format, as well as to Java JAR files.  It provides functions
+      for reading from and writing to compressed files in these formats.
     '';
-
-    buildFlags = [
-      "all"
-      "allopt"
-    ];
-
-    postInstall = ''
-      ln -s $out/lib/ocaml/${ocaml.version}/site-lib/{,caml}zip
-    '';
-
-    meta = with lib; {
-      homepage = "http://cristal.inria.fr/~xleroy/software.html#camlzip";
-      description = "A library for handling ZIP and GZIP files in OCaml";
-      longDescription = ''
-        This Objective Caml library provides easy access to compressed files in
-        ZIP and GZIP format, as well as to Java JAR files.  It provides functions
-        for reading from and writing to compressed files in these formats.
-      '';
-      license = "LGPL+linking exceptions";
-      inherit (ocaml.meta) platforms;
-      maintainers = with maintainers; [ maggesi ];
-    };
-  }
+    license = "LGPL+linking exceptions";
+    inherit (ocaml.meta) platforms;
+    maintainers = with maintainers; [ maggesi ];
+  };
+}

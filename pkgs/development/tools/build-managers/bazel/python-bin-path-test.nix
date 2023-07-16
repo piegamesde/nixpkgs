@@ -80,4 +80,4 @@ let
   };
 
 in
-  testBazel
+testBazel

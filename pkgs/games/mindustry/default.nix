@@ -139,119 +139,119 @@ let
   };
 
 in
-  assert lib.assertMsg (enableClient || enableServer)
-    "mindustry: at least one of 'enableClient' and 'enableServer' must be true";
-  stdenv.mkDerivation rec {
-    inherit pname version unpackPhase patches;
+assert lib.assertMsg (enableClient || enableServer)
+  "mindustry: at least one of 'enableClient' and 'enableServer' must be true";
+stdenv.mkDerivation rec {
+  inherit pname version unpackPhase patches;
 
-    postPatch = cleanupMindustrySrc;
+  postPatch = cleanupMindustrySrc;
 
-    buildInputs = lib.optionals enableClient [
-      SDL2
-      glew
-      alsa-lib
+  buildInputs = lib.optionals enableClient [
+    SDL2
+    glew
+    alsa-lib
+  ];
+  nativeBuildInputs = [
+    pkg-config
+    gradle
+    makeWrapper
+    jdk
+  ] ++ lib.optionals enableClient [
+    ant
+    copyDesktopItems
+  ];
+
+  desktopItems = lib.optional enableClient desktopItem;
+
+  buildPhase = with lib;
+    ''
+      export GRADLE_USER_HOME=$(mktemp -d)
+
+      # point to offline repo
+      sed -ie "1ipluginManagement { repositories { maven { url '${deps}' } } }; " Mindustry/settings.gradle
+      sed -ie "s#mavenLocal()#mavenLocal(); maven { url '${deps}' }#g" Mindustry/build.gradle
+      sed -ie "s#mavenCentral()#mavenCentral(); maven { url '${deps}' }#g" Arc/build.gradle
+      sed -ie "s#wget.*freetype.* -O #cp ${freetypeSource} #" Arc/extensions/freetype/build.gradle
+      sed -ie "/curl.*glew/{;s#curl -o #cp ${glewSource} #;s# -L http.*\.zip##;}" Arc/backends/backend-sdl/build.gradle
+      sed -ie "/curl.*sdlmingw/{;s#curl -o #cp ${SDLmingwSource} #;s# -L http.*\.tar.gz##;}" Arc/backends/backend-sdl/build.gradle
+
+      pushd Mindustry
+    '' + optionalString enableClient ''
+
+      pushd ../Arc
+      gradle --offline --no-daemon jnigenBuild -Pbuildversion=${buildVersion}
+      gradle --offline --no-daemon jnigenJarNativesDesktop -Pbuildversion=${buildVersion}
+      glewlib=${lib.getLib glew}/lib/libGLEW.so
+      sdllib=${lib.getLib SDL2}/lib/libSDL2.so
+      patchelf backends/backend-sdl/libs/linux64/libsdl-arc*.so \
+        --add-needed $glewlib \
+        --add-needed $sdllib
+      # Put the freshly-built libraries where the pre-built libraries used to be:
+      cp arc-core/libs/*/* natives/natives-desktop/libs/
+      cp extensions/freetype/libs/*/* natives/natives-freetype-desktop/libs/
+      popd
+
+      gradle --offline --no-daemon desktop:dist -Pbuildversion=${buildVersion}
+    '' + optionalString enableServer ''
+      gradle --offline --no-daemon server:dist -Pbuildversion=${buildVersion}
+    '';
+
+  installPhase = with lib;
+    ''
+      runHook preInstall
+    '' + optionalString enableClient ''
+      install -Dm644 desktop/build/libs/Mindustry.jar $out/share/mindustry.jar
+      mkdir -p $out/bin
+      makeWrapper ${jdk}/bin/java $out/bin/mindustry \
+        --add-flags "-jar $out/share/mindustry.jar" \
+        --suffix LD_LIBRARY_PATH : ${
+          lib.makeLibraryPath [
+            libpulseaudio
+            alsa-lib
+            libjack2
+          ]
+        } \
+        --set ALSA_PLUGIN_DIR ${alsa-plugins}/lib/alsa-lib/
+
+      # Retain runtime depends to prevent them from being cleaned up.
+      # Since a jar is a compressed archive, nix can't figure out that the dependency is actually in there,
+      # and will assume that it's not actually needed.
+      # This can cause issues.
+      # See https://github.com/NixOS/nixpkgs/issues/109798.
+      echo "# Retained runtime dependencies: " >> $out/bin/mindustry
+      for dep in ${SDL2.out} ${alsa-lib.out} ${glew.out}; do
+        echo "# $dep" >> $out/bin/mindustry
+      done
+
+      install -Dm644 core/assets/icons/icon_64.png $out/share/icons/hicolor/64x64/apps/mindustry.png
+    '' + optionalString enableServer ''
+      install -Dm644 server/build/libs/server-release.jar $out/share/mindustry-server.jar
+      mkdir -p $out/bin
+      makeWrapper ${jdk}/bin/java $out/bin/mindustry-server \
+        --add-flags "-jar $out/share/mindustry-server.jar"
+    '' + ''
+      runHook postInstall
+    '';
+
+  passthru.tests = { nixosTest = nixosTests.mindustry; };
+
+  meta = with lib; {
+    homepage = "https://mindustrygame.github.io/";
+    downloadPage = "https://github.com/Anuken/Mindustry/releases";
+    description = "A sandbox tower defense game";
+    sourceProvenance = with sourceTypes; [
+      fromSource
+      binaryBytecode # deps
     ];
-    nativeBuildInputs = [
-      pkg-config
-      gradle
-      makeWrapper
-      jdk
-    ] ++ lib.optionals enableClient [
-      ant
-      copyDesktopItems
+    license = licenses.gpl3Plus;
+    maintainers = with maintainers; [
+      chkno
+      fgaz
+      thekostins
     ];
-
-    desktopItems = lib.optional enableClient desktopItem;
-
-    buildPhase = with lib;
-      ''
-        export GRADLE_USER_HOME=$(mktemp -d)
-
-        # point to offline repo
-        sed -ie "1ipluginManagement { repositories { maven { url '${deps}' } } }; " Mindustry/settings.gradle
-        sed -ie "s#mavenLocal()#mavenLocal(); maven { url '${deps}' }#g" Mindustry/build.gradle
-        sed -ie "s#mavenCentral()#mavenCentral(); maven { url '${deps}' }#g" Arc/build.gradle
-        sed -ie "s#wget.*freetype.* -O #cp ${freetypeSource} #" Arc/extensions/freetype/build.gradle
-        sed -ie "/curl.*glew/{;s#curl -o #cp ${glewSource} #;s# -L http.*\.zip##;}" Arc/backends/backend-sdl/build.gradle
-        sed -ie "/curl.*sdlmingw/{;s#curl -o #cp ${SDLmingwSource} #;s# -L http.*\.tar.gz##;}" Arc/backends/backend-sdl/build.gradle
-
-        pushd Mindustry
-      '' + optionalString enableClient ''
-
-        pushd ../Arc
-        gradle --offline --no-daemon jnigenBuild -Pbuildversion=${buildVersion}
-        gradle --offline --no-daemon jnigenJarNativesDesktop -Pbuildversion=${buildVersion}
-        glewlib=${lib.getLib glew}/lib/libGLEW.so
-        sdllib=${lib.getLib SDL2}/lib/libSDL2.so
-        patchelf backends/backend-sdl/libs/linux64/libsdl-arc*.so \
-          --add-needed $glewlib \
-          --add-needed $sdllib
-        # Put the freshly-built libraries where the pre-built libraries used to be:
-        cp arc-core/libs/*/* natives/natives-desktop/libs/
-        cp extensions/freetype/libs/*/* natives/natives-freetype-desktop/libs/
-        popd
-
-        gradle --offline --no-daemon desktop:dist -Pbuildversion=${buildVersion}
-      '' + optionalString enableServer ''
-        gradle --offline --no-daemon server:dist -Pbuildversion=${buildVersion}
-      '';
-
-    installPhase = with lib;
-      ''
-        runHook preInstall
-      '' + optionalString enableClient ''
-        install -Dm644 desktop/build/libs/Mindustry.jar $out/share/mindustry.jar
-        mkdir -p $out/bin
-        makeWrapper ${jdk}/bin/java $out/bin/mindustry \
-          --add-flags "-jar $out/share/mindustry.jar" \
-          --suffix LD_LIBRARY_PATH : ${
-            lib.makeLibraryPath [
-              libpulseaudio
-              alsa-lib
-              libjack2
-            ]
-          } \
-          --set ALSA_PLUGIN_DIR ${alsa-plugins}/lib/alsa-lib/
-
-        # Retain runtime depends to prevent them from being cleaned up.
-        # Since a jar is a compressed archive, nix can't figure out that the dependency is actually in there,
-        # and will assume that it's not actually needed.
-        # This can cause issues.
-        # See https://github.com/NixOS/nixpkgs/issues/109798.
-        echo "# Retained runtime dependencies: " >> $out/bin/mindustry
-        for dep in ${SDL2.out} ${alsa-lib.out} ${glew.out}; do
-          echo "# $dep" >> $out/bin/mindustry
-        done
-
-        install -Dm644 core/assets/icons/icon_64.png $out/share/icons/hicolor/64x64/apps/mindustry.png
-      '' + optionalString enableServer ''
-        install -Dm644 server/build/libs/server-release.jar $out/share/mindustry-server.jar
-        mkdir -p $out/bin
-        makeWrapper ${jdk}/bin/java $out/bin/mindustry-server \
-          --add-flags "-jar $out/share/mindustry-server.jar"
-      '' + ''
-        runHook postInstall
-      '';
-
-    passthru.tests = { nixosTest = nixosTests.mindustry; };
-
-    meta = with lib; {
-      homepage = "https://mindustrygame.github.io/";
-      downloadPage = "https://github.com/Anuken/Mindustry/releases";
-      description = "A sandbox tower defense game";
-      sourceProvenance = with sourceTypes; [
-        fromSource
-        binaryBytecode # deps
-      ];
-      license = licenses.gpl3Plus;
-      maintainers = with maintainers; [
-        chkno
-        fgaz
-        thekostins
-      ];
-      platforms = platforms.x86_64;
-      # Hash mismatch on darwin:
-      # https://github.com/NixOS/nixpkgs/pull/105590#issuecomment-737120293
-      broken = stdenv.isDarwin;
-    };
-  }
+    platforms = platforms.x86_64;
+    # Hash mismatch on darwin:
+    # https://github.com/NixOS/nixpkgs/pull/105590#issuecomment-737120293
+    broken = stdenv.isDarwin;
+  };
+}

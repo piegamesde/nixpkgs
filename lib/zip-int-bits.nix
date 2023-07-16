@@ -25,7 +25,7 @@ let
         else
           x / 2; # x >> 1
       in
-        [ headbit ] ++ (intToBits tailbits)
+      [ headbit ] ++ (intToBits tailbits)
   ;
 
   # (bitsToInt [ 0 1 1 ] 0) -> 6
@@ -70,5 +70,5 @@ let
       [ (f (builtins.head fst) (builtins.head snd)) ]
       ++ (zipListsWith' (builtins.tail fst) (builtins.tail snd));
 in
-  assert (builtins.isInt x) && (builtins.isInt y);
-  bitsToInt (zipListsWith' (intToBits x) (intToBits y)) (f xsignum ysignum)
+assert (builtins.isInt x) && (builtins.isInt y);
+bitsToInt (zipListsWith' (intToBits x) (intToBits y)) (f xsignum ysignum)

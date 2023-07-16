@@ -14,48 +14,47 @@ let
   tarBall = "${version}final.${suffix}";
 
 in
-  stdenv.mkDerivation rec {
-    pname = "pcsc-cyberjack";
-    inherit version;
+stdenv.mkDerivation rec {
+  pname = "pcsc-cyberjack";
+  inherit version;
 
-    src = fetchurl {
-      url =
-        "http://support.reiner-sct.de/downloads/LINUX/V${version}_${suffix}/${pname}_${tarBall}.tar.gz";
-      sha256 = "1lx4bfz4riz7j77sl65akyxzww0ygm63w0c1b75knr1pijlv8d3b";
-    };
+  src = fetchurl {
+    url =
+      "http://support.reiner-sct.de/downloads/LINUX/V${version}_${suffix}/${pname}_${tarBall}.tar.gz";
+    sha256 = "1lx4bfz4riz7j77sl65akyxzww0ygm63w0c1b75knr1pijlv8d3b";
+  };
 
-    outputs = [
-      "out"
-      "tools"
-    ];
+  outputs = [
+    "out"
+    "tools"
+  ];
 
-    nativeBuildInputs = [
-      autoreconfHook
-      pkg-config
-    ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-    buildInputs = [
-      libusb1
-      pcsclite
-    ];
+  buildInputs = [
+    libusb1
+    pcsclite
+  ];
 
-    enableParallelBuilding = true;
+  enableParallelBuilding = true;
 
-    env.NIX_CFLAGS_COMPILE = "-Wno-error=narrowing";
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=narrowing";
 
-    configureFlags = [
-      "--with-usbdropdir=${placeholder "out"}/pcsc/drivers"
-      "--bindir=${placeholder "tools"}/bin"
-    ];
+  configureFlags = [
+    "--with-usbdropdir=${placeholder "out"}/pcsc/drivers"
+    "--bindir=${placeholder "tools"}/bin"
+  ];
 
-    postInstall = "make -C tools/cjflash install";
+  postInstall = "make -C tools/cjflash install";
 
-    meta = with lib; {
-      description =
-        "REINER SCT cyberJack USB chipcard reader user space driver";
-      homepage = "https://www.reiner-sct.com/";
-      license = licenses.gpl2Plus;
-      maintainers = with maintainers; [ aszlig ];
-      platforms = platforms.linux;
-    };
-  }
+  meta = with lib; {
+    description = "REINER SCT cyberJack USB chipcard reader user space driver";
+    homepage = "https://www.reiner-sct.com/";
+    license = licenses.gpl2Plus;
+    maintainers = with maintainers; [ aszlig ];
+    platforms = platforms.linux;
+  };
+}

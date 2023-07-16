@@ -172,11 +172,11 @@ beamPackages.mixRelease rec {
       crypt = let
         version = prev.crypt.version;
       in
-        prev.crypt.override {
-          buildInputs = [ libxcrypt-legacy ];
-          postInstall =
-            "mv $out/lib/erlang/lib/crypt-${version}/priv/{hex-source-crypt-${version},crypt}.so";
-        }
+      prev.crypt.override {
+        buildInputs = [ libxcrypt-legacy ];
+        postInstall =
+          "mv $out/lib/erlang/lib/crypt-${version}/priv/{hex-source-crypt-${version},crypt}.so";
+      }
       ;
     });
   };

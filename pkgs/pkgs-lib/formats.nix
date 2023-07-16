@@ -49,7 +49,7 @@
           description = "JSON value";
         };
       in
-        valueType
+      valueType
     ;
 
     generate = name: value:
@@ -96,7 +96,7 @@
           description = "YAML value";
         };
       in
-        valueType
+      valueType
     ;
 
   };
@@ -140,7 +140,7 @@
             singleIniAtom;
 
         in
-          attrsOf (attrsOf iniAtom)
+        attrsOf (attrsOf iniAtom)
       ;
 
       generate = name: value:
@@ -159,9 +159,9 @@
           else
             value;
         in
-          pkgs.writeText name
-          (lib.generators.toINI (removeAttrs args [ "listToValue" ])
-            transformedValue)
+        pkgs.writeText name
+        (lib.generators.toINI (removeAttrs args [ "listToValue" ])
+          transformedValue)
       ;
 
     };
@@ -204,7 +204,7 @@
             singleAtom;
 
         in
-          attrsOf atom
+        attrsOf atom
       ;
 
       generate = name: value:
@@ -222,9 +222,9 @@
           else
             value;
         in
-          pkgs.writeText name
-          (lib.generators.toKeyValue (removeAttrs args [ "listToValue" ])
-            transformedValue)
+        pkgs.writeText name
+        (lib.generators.toKeyValue (removeAttrs args [ "listToValue" ])
+          transformedValue)
       ;
 
     };
@@ -242,7 +242,7 @@
             .functor.wrapped;
 
         in
-          attrsOf (attrsOf (either iniAtom (attrsOf iniAtom)))
+        attrsOf (attrsOf (either iniAtom (attrsOf iniAtom)))
       ;
 
       generate = name: value:
@@ -265,7 +265,7 @@
             description = "TOML value";
           };
         in
-          valueType
+        valueType
       ;
 
       generate = name: value:
@@ -358,7 +358,7 @@
             toKeyword = name: value: "${name}: ${toElixir value}";
             keywordList = concatStringsSep ", " (mapAttrsToList toKeyword set);
           in
-            "[" + keywordList + "]"
+          "[" + keywordList + "]"
       ;
 
       listContent = values: concatStringsSep ", " (map toElixir values);
@@ -388,7 +388,7 @@
           toEntry = name: value: "${toElixir name} => ${toElixir value}";
           entries = concatStringsSep ", " (mapAttrsToList toEntry set);
         in
-          "%{${entries}}"
+        "%{${entries}}"
       ;
 
       tuple = values: "{${listContent values}}";
@@ -419,7 +419,7 @@
             description = "Elixir value";
           };
         in
-          attrsOf (attrsOf (valueType))
+        attrsOf (attrsOf (valueType))
       ;
 
       lib = let
@@ -477,29 +477,29 @@
 
             elixirOr = other: either other rawElixir;
           in
-            {
-              inherit rawElixir elixirOr;
+          {
+            inherit rawElixir elixirOr;
 
-              atom = elixirOr (mkOptionType {
-                name = "elixirAtom";
-                description = "elixir atom";
-                check = isElixirType "atom";
-              });
+            atom = elixirOr (mkOptionType {
+              name = "elixirAtom";
+              description = "elixir atom";
+              check = isElixirType "atom";
+            });
 
-              tuple = elixirOr (mkOptionType {
-                name = "elixirTuple";
-                description = "elixir tuple";
-                check = isElixirType "tuple";
-              });
+            tuple = elixirOr (mkOptionType {
+              name = "elixirTuple";
+              description = "elixir tuple";
+              check = isElixirType "tuple";
+            });
 
-              map = elixirOr (mkOptionType {
-                name = "elixirMap";
-                description = "elixir map";
-                check = isElixirType "map";
-              });
-              # Wrap standard types, since anything in the Elixir configuration
-              # can be raw Elixir
-            } // lib.mapAttrs (_name: type: elixirOr type) lib.types
+            map = elixirOr (mkOptionType {
+              name = "elixirMap";
+              description = "elixir map";
+              check = isElixirType "map";
+            });
+            # Wrap standard types, since anything in the Elixir configuration
+            # can be raw Elixir
+          } // lib.mapAttrs (_name: type: elixirOr type) lib.types
         ;
       } ;
 
@@ -531,7 +531,7 @@
           description = "Python value";
         };
       in
-        attrsOf valueType
+      attrsOf valueType
     ;
     generate = name: value:
       pkgs.callPackage ({

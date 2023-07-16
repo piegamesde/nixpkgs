@@ -40,4 +40,4 @@ let
   };
 
 in
-  self
+self

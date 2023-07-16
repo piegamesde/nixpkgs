@@ -74,52 +74,52 @@ let
 
   platformInfo = builtins.getAttr stdenv.targetPlatform.system platforms;
 in
-  stdenv.mkDerivation rec {
-    pname = "cef-binary";
-    version = "112.3.0";
-    gitRevision = "b09c4ca";
-    chromiumVersion = "112.0.5615.165";
+stdenv.mkDerivation rec {
+  pname = "cef-binary";
+  version = "112.3.0";
+  gitRevision = "b09c4ca";
+  chromiumVersion = "112.0.5615.165";
 
-    src = fetchurl {
-      url =
-        "https://cef-builds.spotifycdn.com/cef_binary_${version}+g${gitRevision}+chromium-${chromiumVersion}_${platformInfo.platformStr}_minimal.tar.bz2";
-      inherit (platformInfo) sha256;
-    };
+  src = fetchurl {
+    url =
+      "https://cef-builds.spotifycdn.com/cef_binary_${version}+g${gitRevision}+chromium-${chromiumVersion}_${platformInfo.platformStr}_minimal.tar.bz2";
+    inherit (platformInfo) sha256;
+  };
 
-    nativeBuildInputs = [ cmake ];
-    cmakeFlags = [ "-DPROJECT_ARCH=${platformInfo.projectArch}" ];
-    makeFlags = [ "libcef_dll_wrapper" ];
-    dontStrip = true;
-    dontPatchELF = true;
+  nativeBuildInputs = [ cmake ];
+  cmakeFlags = [ "-DPROJECT_ARCH=${platformInfo.projectArch}" ];
+  makeFlags = [ "libcef_dll_wrapper" ];
+  dontStrip = true;
+  dontPatchELF = true;
 
-    installPhase = ''
-      mkdir -p $out/lib/ $out/share/cef/
-      cp libcef_dll_wrapper/libcef_dll_wrapper.a $out/lib/
-      cp ../Release/libcef.so $out/lib/
-      patchelf --set-rpath "${rpath}" $out/lib/libcef.so
-      cp ../Release/*.bin $out/share/cef/
-      cp -r ../Resources/* $out/share/cef/
-      cp -r ../include $out/
-    '';
+  installPhase = ''
+    mkdir -p $out/lib/ $out/share/cef/
+    cp libcef_dll_wrapper/libcef_dll_wrapper.a $out/lib/
+    cp ../Release/libcef.so $out/lib/
+    patchelf --set-rpath "${rpath}" $out/lib/libcef.so
+    cp ../Release/*.bin $out/share/cef/
+    cp -r ../Resources/* $out/share/cef/
+    cp -r ../include $out/
+  '';
 
-    passthru.tests = {
-      inherit obs-studio; # frequently breaks on CEF updates
-    };
-    passthru.updateScript = ./update.sh;
+  passthru.tests = {
+    inherit obs-studio; # frequently breaks on CEF updates
+  };
+  passthru.updateScript = ./update.sh;
 
-    meta = with lib; {
-      description =
-        "Simple framework for embedding Chromium-based browsers in other applications";
-      homepage = "https://cef-builds.spotifycdn.com/index.html";
-      maintainers = with maintainers; [ puffnfresh ];
-      sourceProvenance = with sourceTypes; [
-        fromSource
-        binaryNativeCode
-      ];
-      license = licenses.bsd3;
-      platforms = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-    };
-  }
+  meta = with lib; {
+    description =
+      "Simple framework for embedding Chromium-based browsers in other applications";
+    homepage = "https://cef-builds.spotifycdn.com/index.html";
+    maintainers = with maintainers; [ puffnfresh ];
+    sourceProvenance = with sourceTypes; [
+      fromSource
+      binaryNativeCode
+    ];
+    license = licenses.bsd3;
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
+  };
+}

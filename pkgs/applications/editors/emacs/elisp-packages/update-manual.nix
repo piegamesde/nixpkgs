@@ -8,4 +8,4 @@ let
     emacs.pkgs.manualPackages;
 
 in
-  attrValues (mapAttrs (_: v: v.updateScript) hasScript)
+attrValues (mapAttrs (_: v: v.updateScript) hasScript)

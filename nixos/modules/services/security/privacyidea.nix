@@ -442,8 +442,7 @@ in {
         assertion = let
           xor = a: b: a && !b || !a && b;
         in
-          xor (cfg.ldap-proxy.settings == { })
-          (cfg.ldap-proxy.configFile == null)
+        xor (cfg.ldap-proxy.settings == { }) (cfg.ldap-proxy.configFile == null)
         ;
         message =
           "configFile & settings are mutually exclusive for services.privacyidea.ldap-proxy!";
