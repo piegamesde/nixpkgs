@@ -39,8 +39,7 @@ let
     "MKSOFTFLOAT=${
       if
         stdenv.hostPlatform.gcc.float
-          or (stdenv.hostPlatform.parsed.abi.float or "hard")
-        == "soft"
+          or (stdenv.hostPlatform.parsed.abi.float or "hard") == "soft"
       then
         "yes"
       else

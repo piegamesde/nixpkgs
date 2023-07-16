@@ -83,8 +83,7 @@ lib.recurseIntoAttrs {
       nixpkgs.localSystem = pkgs.stdenv.hostPlatform;
       nixpkgs.hostPlatform = pkgs.stdenv.hostPlatform;
       nixpkgs.pkgs = pkgs;
-    }
-      == [ ];
+    } == [ ];
 
     pkgs.emptyFile
     ;

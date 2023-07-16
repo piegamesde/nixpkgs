@@ -127,8 +127,7 @@ let
         ''
           [^:
           ]+''
-        n
-        != null
+        n != null
         ;
       message = "Invalid user name ${n} in ${prefix}";
     })
@@ -141,8 +140,7 @@ let
             u.passwordFile
             u.hashedPassword
             u.hashedPasswordFile
-          ]
-          <= 1
+          ] <= 1
           ;
         message =
           "Cannot set more than one password option for user ${n} in ${prefix}";

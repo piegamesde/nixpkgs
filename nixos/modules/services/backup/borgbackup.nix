@@ -308,8 +308,7 @@ let
         count isNull [
           cfg.dumpCommand
           cfg.paths
-        ]
-        == 1
+        ] == 1
         ;
       message = ''
         Exactly one of borgbackup.jobs.${name}.paths or borgbackup.jobs.${name}.dumpCommand

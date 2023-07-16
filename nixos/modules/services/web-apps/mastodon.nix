@@ -697,8 +697,7 @@ in
           }
           {
             assertion =
-              1
-              == builtins.length (
+              1 == builtins.length (
                 lib.mapAttrsToList
                 (
                   _: v:

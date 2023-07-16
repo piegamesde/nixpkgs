@@ -406,8 +406,7 @@ in
             mkKey =
               path:
               if
-                path
-                == [
+                path == [
                   "server"
                   "listen"
                 ]

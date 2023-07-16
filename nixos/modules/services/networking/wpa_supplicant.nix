@@ -560,8 +560,7 @@ in
               psk
               pskRaw
               auth
-            ]
-            <= 1;
+            ] <= 1;
           message =
             ''
               options networking.wireless."${name}".{psk,pskRaw,auth} are mutually exclusive'';
