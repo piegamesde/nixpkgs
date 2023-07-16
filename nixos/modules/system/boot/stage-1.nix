@@ -482,12 +482,10 @@ let
         symlink = "/etc/multipath.conf";
       } ]
       ++ (lib.mapAttrsToList
-        (
-          symlink: options: {
-            inherit symlink;
-            object = options.source;
-          }
-        )
+        (symlink: options: {
+          inherit symlink;
+          object = options.source;
+        })
         config.boot.initrd.extraFiles)
       ;
   };

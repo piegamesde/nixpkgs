@@ -56,13 +56,11 @@ let
     )
     cfg.realms;
   kdcConfigs = mapAttrsToList
-    (
-      name: value: ''
-        ${name} = {
-          acl_file = ${value}
-        }
-      ''
-    )
+    (name: value: ''
+      ${name} = {
+        acl_file = ${value}
+      }
+    '')
     aclFiles;
   kdcConfFile = pkgs.writeText "kdc.conf" ''
     [realms]

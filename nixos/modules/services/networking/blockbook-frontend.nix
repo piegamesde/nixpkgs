@@ -317,12 +317,10 @@ in
 
     systemd.tmpfiles.rules = flatten (
       mapAttrsToList
-      (
-        blockbookName: cfg: [
-          "d ${cfg.dataDir} 0750 ${cfg.user} ${cfg.group} - -"
-          "d ${cfg.dataDir}/static 0750 ${cfg.user} ${cfg.group} - -"
-        ]
-      )
+      (blockbookName: cfg: [
+        "d ${cfg.dataDir} 0750 ${cfg.user} ${cfg.group} - -"
+        "d ${cfg.dataDir}/static 0750 ${cfg.user} ${cfg.group} - -"
+      ])
       eachBlockbook
     );
 

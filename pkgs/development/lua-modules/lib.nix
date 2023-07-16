@@ -105,13 +105,11 @@ rec {
     }:
     let
       rocksTrees = lib.imap0
-        (
-          i: dep: {
-            name = "dep-${toString i}";
-            root = "${dep}";
-            rocks_dir = "${dep}/${dep.rocksSubdir}";
-          }
-        )
+        (i: dep: {
+          name = "dep-${toString i}";
+          root = "${dep}";
+          rocks_dir = "${dep}/${dep.rocksSubdir}";
+        })
         requiredLuaRocks;
 
       # Explicitly point luarocks to the relevant locations for multiple-output

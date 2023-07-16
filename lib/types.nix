@@ -698,12 +698,10 @@ let
                   (
                     def:
                     mapAttrs
-                    (
-                      n: v: {
-                        inherit (def) file;
-                        value = v;
-                      }
-                    )
+                    (n: v: {
+                      inherit (def) file;
+                      value = v;
+                    })
                     def.value
                   )
                   defs
@@ -756,12 +754,10 @@ let
               (
                 def:
                 mapAttrs
-                (
-                  n: v: {
-                    inherit (def) file;
-                    value = v;
-                  }
-                )
+                (n: v: {
+                  inherit (def) file;
+                  value = v;
+                })
                 def.value
               )
               defs

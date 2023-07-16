@@ -145,12 +145,10 @@ stdenvNoCC.mkDerivation rec {
   # Note: we don't use closureInfo yet, as that won't build with nix-1.x.
   # See #36268.
   exportReferencesGraph = lib.zipListsWith
-    (
-      x: i: [
-        ("closure-${toValidStoreName (baseNameOf x.symlink)}-${toString i}")
-        x.object
-      ]
-    )
+    (x: i: [
+      ("closure-${toValidStoreName (baseNameOf x.symlink)}-${toString i}")
+      x.object
+    ])
     contents
     (lib.range 0 (lib.length contents - 1));
   pathsFromGraph = ./paths-from-graph.pl;

@@ -44,14 +44,12 @@ let
     cfg.realms;
 
   kdcConfigs = mapAttrsToList
-    (
-      name: value: ''
-        database = {
-          dbname = ${stateDir}/heimdal
-          acl_file = ${value}
-        }
-      ''
-    )
+    (name: value: ''
+      database = {
+        dbname = ${stateDir}/heimdal
+        acl_file = ${value}
+      }
+    '')
     aclFiles;
   kdcConfFile = pkgs.writeText "kdc.conf" ''
     [kdc]

@@ -53,11 +53,9 @@ let
       }
       ${concatStrings (
         mapAttrsToList
-        (
-          n: v: ''
-            $ENV{'${n}'} = '${v}';
-          ''
-        )
+        (n: v: ''
+          $ENV{'${n}'} = '${v}';
+        '')
         service.environment
       )}
 

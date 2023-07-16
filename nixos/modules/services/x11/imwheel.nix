@@ -56,11 +56,9 @@ in
       pkgs.writeText "imwheelrc" (
         concatStringsSep "\n\n" (
           mapAttrsToList
-          (
-            rule: conf: ''
-              "${rule}"
-              ${conf}''
-          )
+          (rule: conf: ''
+            "${rule}"
+            ${conf}'')
           cfg.rules
         )
       );

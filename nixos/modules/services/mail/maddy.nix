@@ -381,15 +381,13 @@ in
             ${optionalString (cfg.ensureCredentials != { }) ''
               ${concatStringsSep "\n" (
                 mapAttrsToList
-                (
-                  name: cfg: ''
-                    if ! ${pkgs.maddy}/bin/maddyctl creds list | grep "${name}"; then
-                      ${pkgs.maddy}/bin/maddyctl creds create --password $(cat ${
-                        escapeShellArg cfg.passwordFile
-                      }) ${name}
-                    fi
-                  ''
-                )
+                (name: cfg: ''
+                  if ! ${pkgs.maddy}/bin/maddyctl creds list | grep "${name}"; then
+                    ${pkgs.maddy}/bin/maddyctl creds create --password $(cat ${
+                      escapeShellArg cfg.passwordFile
+                    }) ${name}
+                  fi
+                '')
                 cfg.ensureCredentials
               )}
             ''}

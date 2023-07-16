@@ -16,14 +16,12 @@ let
     configAttr:
     (builtins.concatStringsSep "\n" (
       lib.mapAttrsToList
-      (
-        name: value: ''
-          <property>
-            <name>${name}</name>
-            <value>${builtins.toString value}</value>
-          </property>
-        ''
-      )
+      (name: value: ''
+        <property>
+          <name>${name}</name>
+          <value>${builtins.toString value}</value>
+        </property>
+      '')
       configAttr
     ))
     ;

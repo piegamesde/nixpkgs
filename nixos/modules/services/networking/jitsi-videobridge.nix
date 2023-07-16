@@ -278,11 +278,9 @@ in
         script =
           (concatStrings (
             mapAttrsToList
-            (
-              name: xmppConfig: ''
-                export ${toVarName name}=$(cat ${xmppConfig.passwordFile})
-              ''
-            )
+            (name: xmppConfig: ''
+              export ${toVarName name}=$(cat ${xmppConfig.passwordFile})
+            '')
             cfg.xmppConfigs
           ))
           + ''

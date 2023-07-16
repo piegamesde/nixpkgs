@@ -171,12 +171,10 @@ in
 
   config = {
     systemd.services = mapAttrs'
-      (
-        name: value: {
-          name = "openconnect-${name}";
-          value = generateUnit name value;
-        }
-      )
+      (name: value: {
+        name = "openconnect-${name}";
+        value = generateUnit name value;
+      })
       cfg.interfaces;
   };
 

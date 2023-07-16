@@ -28,13 +28,11 @@ let
 
     (concatStringsSep "\n" (
       mapAttrsToList
-      (
-        protocol: plugins: ''
-          protocol ${protocol} {
-            mail_plugins = $mail_plugins ${concatStringsSep " " plugins.enable}
-          }
-        ''
-      )
+      (protocol: plugins: ''
+        protocol ${protocol} {
+          mail_plugins = $mail_plugins ${concatStringsSep " " plugins.enable}
+        }
+      '')
       cfg.mailPlugins.perProtocol
     ))
 
@@ -541,17 +539,15 @@ in
           mkdir -p ${stateDir}/sieve
           ${concatStringsSep "\n" (
             mapAttrsToList
-            (
-              to: from: ''
-                if [ -d '${from}' ]; then
-                  mkdir '${stateDir}/sieve/${to}'
-                  cp -p "${from}/"*.sieve '${stateDir}/sieve/${to}'
-                else
-                  cp -p '${from}' '${stateDir}/sieve/${to}'
-                fi
-                ${pkgs.dovecot_pigeonhole}/bin/sievec '${stateDir}/sieve/${to}'
-              ''
-            )
+            (to: from: ''
+              if [ -d '${from}' ]; then
+                mkdir '${stateDir}/sieve/${to}'
+                cp -p "${from}/"*.sieve '${stateDir}/sieve/${to}'
+              else
+                cp -p '${from}' '${stateDir}/sieve/${to}'
+              fi
+              ${pkgs.dovecot_pigeonhole}/bin/sievec '${stateDir}/sieve/${to}'
+            '')
             cfg.sieveScripts
           )}
           chown -R '${cfg.mailUser}:${cfg.mailGroup}' '${stateDir}/sieve'

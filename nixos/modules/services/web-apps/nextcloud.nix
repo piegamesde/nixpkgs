@@ -1135,12 +1135,10 @@ in
                 ;
               occSetTrustedDomainsCmd = concatStringsSep "\n" (
                 imap0
-                (
-                  i: v: ''
-                    ${occ}/bin/nextcloud-occ config:system:set trusted_domains \
-                      ${toString i} --value="${toString v}"
-                  ''
-                )
+                (i: v: ''
+                  ${occ}/bin/nextcloud-occ config:system:set trusted_domains \
+                    ${toString i} --value="${toString v}"
+                '')
                 ([ cfg.hostName ] ++ cfg.config.extraTrustedDomains)
               );
             in

@@ -472,26 +472,22 @@ let
   staticFiles = pkgs.runCommandLocal "akkoma-static" { } ''
     ${concatStringsSep "\n" (
       mapAttrsToList
-      (
-        key: val: ''
-          mkdir -p $out/frontends/${escapeShellArg val.name}/
-          ln -s ${escapeShellArg val.package} $out/frontends/${
-            escapeShellArg val.name
-          }/${escapeShellArg val.ref}
-        ''
-      )
+      (key: val: ''
+        mkdir -p $out/frontends/${escapeShellArg val.name}/
+        ln -s ${escapeShellArg val.package} $out/frontends/${
+          escapeShellArg val.name
+        }/${escapeShellArg val.ref}
+      '')
       cfg.frontends
     )}
 
     ${optionalString (cfg.extraStatic != null) (
       concatStringsSep "\n" (
         mapAttrsToList
-        (
-          key: val: ''
-            mkdir -p "$out/$(dirname ${escapeShellArg key})"
-            ln -s ${escapeShellArg val} $out/${escapeShellArg key}
-          ''
-        )
+        (key: val: ''
+          mkdir -p "$out/$(dirname ${escapeShellArg key})"
+          ln -s ${escapeShellArg val} $out/${escapeShellArg key}
+        '')
         cfg.extraStatic
       )
     )}

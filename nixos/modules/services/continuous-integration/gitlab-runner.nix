@@ -103,86 +103,84 @@ let
           # register new services
           ${concatStringsSep "\n" (
             mapAttrsToList
-            (
-              name: service: ''
-                # TODO so here we should mention NEW_SERVICES
-                if [ -v 'NEW_SERVICES["${name}"]' ] ; then
-                  bash -c ${
-                    escapeShellArg (
-                      concatStringsSep " \\\n " (
-                        [
-                          "set -a && source ${service.registrationConfigFile} &&"
-                          "gitlab-runner register"
-                          "--non-interactive"
-                          "--name '${name}'"
-                          "--executor ${service.executor}"
-                          "--limit ${toString service.limit}"
-                          "--request-concurrency ${
-                            toString service.requestConcurrency
-                          }"
-                          "--maximum-timeout ${toString service.maximumTimeout}"
-                        ]
-                        ++ service.registrationFlags
+            (name: service: ''
+              # TODO so here we should mention NEW_SERVICES
+              if [ -v 'NEW_SERVICES["${name}"]' ] ; then
+                bash -c ${
+                  escapeShellArg (
+                    concatStringsSep " \\\n " (
+                      [
+                        "set -a && source ${service.registrationConfigFile} &&"
+                        "gitlab-runner register"
+                        "--non-interactive"
+                        "--name '${name}'"
+                        "--executor ${service.executor}"
+                        "--limit ${toString service.limit}"
+                        "--request-concurrency ${
+                          toString service.requestConcurrency
+                        }"
+                        "--maximum-timeout ${toString service.maximumTimeout}"
+                      ]
+                      ++ service.registrationFlags
+                      ++ optional
+                        (service.buildsDir != null)
+                        "--builds-dir ${service.buildsDir}"
+                      ++ optional
+                        (service.cloneUrl != null)
+                        "--clone-url ${service.cloneUrl}"
+                      ++ optional
+                        (service.preCloneScript != null)
+                        "--pre-clone-script ${service.preCloneScript}"
+                      ++ optional
+                        (service.preBuildScript != null)
+                        "--pre-build-script ${service.preBuildScript}"
+                      ++ optional
+                        (service.postBuildScript != null)
+                        "--post-build-script ${service.postBuildScript}"
+                      ++ optional (service.tagList != [ ]) "--tag-list ${
+                          concatStringsSep "," service.tagList
+                        }"
+                      ++ optional service.runUntagged "--run-untagged"
+                      ++ optional
+                        service.protected
+                        "--access-level ref_protected"
+                      ++ optional
+                        service.debugTraceDisabled
+                        "--debug-trace-disabled"
+                      ++ map (e: "--env ${escapeShellArg e}") (
+                        mapAttrsToList
+                        (name: value: "${name}=${value}")
+                        service.environmentVariables
+                      )
+                      ++ optionals (hasPrefix "docker" service.executor) (
+                        assert (assertMsg
+                          (service.dockerImage != null)
+                          "dockerImage option is required for ${service.executor} executor (${name})");
+                        [ "--docker-image ${service.dockerImage}" ]
                         ++ optional
-                          (service.buildsDir != null)
-                          "--builds-dir ${service.buildsDir}"
+                          service.dockerDisableCache
+                          "--docker-disable-cache"
                         ++ optional
-                          (service.cloneUrl != null)
-                          "--clone-url ${service.cloneUrl}"
-                        ++ optional
-                          (service.preCloneScript != null)
-                          "--pre-clone-script ${service.preCloneScript}"
-                        ++ optional
-                          (service.preBuildScript != null)
-                          "--pre-build-script ${service.preBuildScript}"
-                        ++ optional
-                          (service.postBuildScript != null)
-                          "--post-build-script ${service.postBuildScript}"
-                        ++ optional (service.tagList != [ ]) "--tag-list ${
-                            concatStringsSep "," service.tagList
-                          }"
-                        ++ optional service.runUntagged "--run-untagged"
-                        ++ optional
-                          service.protected
-                          "--access-level ref_protected"
-                        ++ optional
-                          service.debugTraceDisabled
-                          "--debug-trace-disabled"
-                        ++ map (e: "--env ${escapeShellArg e}") (
-                          mapAttrsToList
-                          (name: value: "${name}=${value}")
-                          service.environmentVariables
-                        )
-                        ++ optionals (hasPrefix "docker" service.executor) (
-                          assert (assertMsg
-                            (service.dockerImage != null)
-                            "dockerImage option is required for ${service.executor} executor (${name})");
-                          [ "--docker-image ${service.dockerImage}" ]
-                          ++ optional
-                            service.dockerDisableCache
-                            "--docker-disable-cache"
-                          ++ optional
-                            service.dockerPrivileged
-                            "--docker-privileged"
-                          ++ map
-                            (v: "--docker-volumes ${escapeShellArg v}")
-                            service.dockerVolumes
-                          ++ map
-                            (v: "--docker-extra-hosts ${escapeShellArg v}")
-                            service.dockerExtraHosts
-                          ++ map
-                            (v: "--docker-allowed-images ${escapeShellArg v}")
-                            service.dockerAllowedImages
-                          ++ map
-                            (v: "--docker-allowed-services ${escapeShellArg v}")
-                            service.dockerAllowedServices
-                        )
+                          service.dockerPrivileged
+                          "--docker-privileged"
+                        ++ map
+                          (v: "--docker-volumes ${escapeShellArg v}")
+                          service.dockerVolumes
+                        ++ map
+                          (v: "--docker-extra-hosts ${escapeShellArg v}")
+                          service.dockerExtraHosts
+                        ++ map
+                          (v: "--docker-allowed-images ${escapeShellArg v}")
+                          service.dockerAllowedImages
+                        ++ map
+                          (v: "--docker-allowed-services ${escapeShellArg v}")
+                          service.dockerAllowedServices
                       )
                     )
-                  } && sleep 1 || exit 1
-                fi
-              ''
-            )
+                  )
+                } && sleep 1 || exit 1
+              fi
+            '')
             hashedServices
           )}
 

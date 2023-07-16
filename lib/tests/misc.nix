@@ -870,12 +870,10 @@ runTests {
 
   testConcatMapAttrs = {
     expr = concatMapAttrs
-      (
-        name: value: {
-          ${name} = value;
-          ${name + value} = value;
-        }
-      )
+      (name: value: {
+        ${name} = value;
+        ${name + value} = value;
+      })
       {
         foo = "bar";
         foobar = "baz";
@@ -891,12 +889,10 @@ runTests {
   testFoldlAttrs = {
     expr = {
       example = foldlAttrs
-        (
-          acc: name: value: {
-            sum = acc.sum + value;
-            names = acc.names ++ [ name ];
-          }
-        )
+        (acc: name: value: {
+          sum = acc.sum + value;
+          names = acc.names ++ [ name ];
+        })
         {
           sum = 0;
           names = [ ];

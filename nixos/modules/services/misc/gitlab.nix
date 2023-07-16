@@ -78,13 +78,11 @@ let
     ${concatStringsSep "\n" (
       attrValues (
         mapAttrs
-        (
-          k: v: ''
-            [[storage]]
-            name = "${lib.escape [ ''"'' ] k}"
-            path = "${lib.escape [ ''"'' ] v.path}"
-          ''
-        )
+        (k: v: ''
+          [[storage]]
+          name = "${lib.escape [ ''"'' ] k}"
+          path = "${lib.escape [ ''"'' ] v.path}"
+        '')
         gitlabConfig.production.repositories.storages
       )
     )}

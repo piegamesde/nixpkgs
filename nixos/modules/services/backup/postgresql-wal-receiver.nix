@@ -162,26 +162,22 @@ in
 
       assertions = concatLists (
         attrsets.mapAttrsToList
-        (
-          name: config: [ {
-            assertion =
-              config.compress > 0
-              -> versionAtLeast config.postgresqlPackage.version "10"
-              ;
-            message =
-              ''
-                Invalid configuration for WAL receiver "${name}": compress requires PostgreSQL version >= 10.'';
-          } ]
-        )
+        (name: config: [ {
+          assertion =
+            config.compress > 0
+            -> versionAtLeast config.postgresqlPackage.version "10"
+            ;
+          message =
+            ''
+              Invalid configuration for WAL receiver "${name}": compress requires PostgreSQL version >= 10.'';
+        } ])
         receivers
       );
 
       systemd.tmpfiles.rules = mapAttrsToList
-        (
-          name: config: ''
-            d ${escapeShellArg config.directory} 0750 postgres postgres - -
-          ''
-        )
+        (name: config: ''
+          d ${escapeShellArg config.directory} 0750 postgres postgres - -
+        '')
         receivers;
 
       systemd.services = with attrsets;

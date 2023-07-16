@@ -31,14 +31,12 @@ let
     let
       args = lib.fix (
         lib.extends
-        (
-          _: previousAttrs: {
-            passthru = (previousAttrs.passthru or { }) // {
-              overridePythonAttrs =
-                newArgs: makeOverridablePythonPackage f (overrideWith newArgs);
-            };
-          }
-        )
+        (_: previousAttrs: {
+          passthru = (previousAttrs.passthru or { }) // {
+            overridePythonAttrs =
+              newArgs: makeOverridablePythonPackage f (overrideWith newArgs);
+          };
+        })
         (_: origArgs)
       );
       result = f args;

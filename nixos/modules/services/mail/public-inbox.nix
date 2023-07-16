@@ -708,47 +708,43 @@ in
                 ''
                 + concatStrings (
                   mapAttrsToList
-                  (
-                    name: inbox: ''
-                      if [ ! -e ${stateDir}/inboxes/${
-                        escapeShellArg name
-                      } ]; then
-                        # public-inbox-init creates an inbox and adds it to a config file.
-                        # It tries to atomically write the config file by creating
-                        # another file in the same directory, and renaming it.
-                        # This has the sad consequence that we can't use
-                        # /dev/null, or it would try to create a file in /dev.
-                        conf_dir="$(mktemp -d)"
+                  (name: inbox: ''
+                    if [ ! -e ${stateDir}/inboxes/${escapeShellArg name} ]; then
+                      # public-inbox-init creates an inbox and adds it to a config file.
+                      # It tries to atomically write the config file by creating
+                      # another file in the same directory, and renaming it.
+                      # This has the sad consequence that we can't use
+                      # /dev/null, or it would try to create a file in /dev.
+                      conf_dir="$(mktemp -d)"
 
-                        PI_CONFIG=$conf_dir/conf \
-                        ${cfg.package}/bin/public-inbox-init -V2 \
-                          ${
-                            escapeShellArgs (
-                              [
-                                name
-                                "${stateDir}/inboxes/${name}"
-                                inbox.url
-                              ]
-                              ++ inbox.address
-                            )
-                          }
+                      PI_CONFIG=$conf_dir/conf \
+                      ${cfg.package}/bin/public-inbox-init -V2 \
+                        ${
+                          escapeShellArgs (
+                            [
+                              name
+                              "${stateDir}/inboxes/${name}"
+                              inbox.url
+                            ]
+                            ++ inbox.address
+                          )
+                        }
 
-                        rm -rf $conf_dir
-                      fi
+                      rm -rf $conf_dir
+                    fi
 
-                      ln -sf ${inbox.description} \
-                        ${stateDir}/inboxes/${escapeShellArg name}/description
+                    ln -sf ${inbox.description} \
+                      ${stateDir}/inboxes/${escapeShellArg name}/description
 
-                      export GIT_DIR=${stateDir}/inboxes/${
-                        escapeShellArg name
-                      }/all.git
-                      if test -d "$GIT_DIR"; then
-                        # Config is inherited by each epoch repository,
-                        # so just needs to be set for all.git.
-                        ${pkgs.git}/bin/git config core.sharedRepository 0640
-                      fi
-                    ''
-                  )
+                    export GIT_DIR=${stateDir}/inboxes/${
+                      escapeShellArg name
+                    }/all.git
+                    if test -d "$GIT_DIR"; then
+                      # Config is inherited by each epoch repository,
+                      # so just needs to be set for all.git.
+                      ${pkgs.git}/bin/git config core.sharedRepository 0640
+                    fi
+                  '')
                   cfg.inboxes
                 )
                 + ''

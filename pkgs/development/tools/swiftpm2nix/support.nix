@@ -60,11 +60,9 @@ rec {
         ''
         + concatStrings (
           mapAttrsToList
-          (
-            name: src: ''
-              ln -s '${src}' '.build/checkouts/${name}'
-            ''
-          )
+          (name: src: ''
+            ln -s '${src}' '.build/checkouts/${name}'
+          '')
           sources
         )
         + ''

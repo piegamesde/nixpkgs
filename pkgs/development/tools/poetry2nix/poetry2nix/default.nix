@@ -255,12 +255,10 @@ lib.makeScope pkgs.newScope (
           in
           lib.listToAttrs (
             lib.mapAttrsToList
-            (
-              n: v: {
-                name = normalizePackageName n;
-                value = v;
-              }
-            )
+            (n: v: {
+              name = normalizePackageName n;
+              value = v;
+            })
             lockfiles
           )
           ;
@@ -343,13 +341,11 @@ lib.makeScope pkgs.newScope (
         overlays = builtins.map getFunctorFn (
           [
             # Remove Python packages aliases with non-normalized names to avoid issues with infinite recursion (issue #750).
-            (
-              self: super: {
-                # Upstream nixpkgs uses non canonical names
-                async-generator =
-                  super.async-generator or super.async_generator or null;
-              }
-            )
+            (self: super: {
+              # Upstream nixpkgs uses non canonical names
+              async-generator =
+                super.async-generator or super.async_generator or null;
+            })
 
             (
               self: super:

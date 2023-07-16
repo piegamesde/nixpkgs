@@ -33,13 +33,11 @@ let
   makeCheckConfigs =
     entries:
     mapAttrs'
-    (
-      name: conf: {
-        name = "datadog-agent/conf.d/${name}.d/conf.yaml";
-        value.source =
-          pkgs.writeText "${name}-check-conf.yaml" (builtins.toJSON conf);
-      }
-    )
+    (name: conf: {
+      name = "datadog-agent/conf.d/${name}.d/conf.yaml";
+      value.source =
+        pkgs.writeText "${name}-check-conf.yaml" (builtins.toJSON conf);
+    })
     entries
     ;
 

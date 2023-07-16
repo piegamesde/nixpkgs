@@ -57,15 +57,13 @@ let
         ''
         (
           mapAttrsToList
-          (
-            username: userConfig: ''
-              {
-                  username = "${username}";
-                  password = "${userConfig.passwordHash}";
-                  max_connections = ${toString userConfig.maxConnections};
-              }
-            ''
-          )
+          (username: userConfig: ''
+            {
+                username = "${username}";
+                password = "${userConfig.passwordHash}";
+                max_connections = ${toString userConfig.maxConnections};
+            }
+          '')
           cfg.users
         )
       });

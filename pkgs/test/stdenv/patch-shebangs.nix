@@ -90,13 +90,11 @@ stdenv.mkDerivation {
     fail=
     ${lib.concatStringsSep "\n" (
       lib.mapAttrsToList
-      (
-        _: test: ''
-          validate "${test.name}" "${test}" ${
-            lib.escapeShellArg test.assertion
-          } || fail=1
-        ''
-      )
+      (_: test: ''
+        validate "${test.name}" "${test}" ${
+          lib.escapeShellArg test.assertion
+        } || fail=1
+      '')
       tests
     )}
 

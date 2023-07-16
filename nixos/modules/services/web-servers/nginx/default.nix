@@ -128,25 +128,23 @@ let
 
   proxyCachePathConfig = concatStringsSep "\n" (
     mapAttrsToList
-    (
-      name: proxyCachePath: ''
-        proxy_cache_path ${
-          concatStringsSep " " [
-            "/var/cache/nginx/${name}"
-            "keys_zone=${proxyCachePath.keysZoneName}:${proxyCachePath.keysZoneSize}"
-            "levels=${proxyCachePath.levels}"
-            "use_temp_path=${
-              if proxyCachePath.useTempPath then
-                "on"
-              else
-                "off"
-            }"
-            "inactive=${proxyCachePath.inactive}"
-            "max_size=${proxyCachePath.maxSize}"
-          ]
-        };
-      ''
-    )
+    (name: proxyCachePath: ''
+      proxy_cache_path ${
+        concatStringsSep " " [
+          "/var/cache/nginx/${name}"
+          "keys_zone=${proxyCachePath.keysZoneName}:${proxyCachePath.keysZoneSize}"
+          "levels=${proxyCachePath.levels}"
+          "use_temp_path=${
+            if proxyCachePath.useTempPath then
+              "on"
+            else
+              "off"
+          }"
+          "inactive=${proxyCachePath.inactive}"
+          "max_size=${proxyCachePath.maxSize}"
+        ]
+      };
+    '')
     (filterAttrs (name: conf: conf.enable) cfg.proxyCachePath)
   );
 
@@ -679,11 +677,9 @@ let
     pkgs.writeText "${name}.htpasswd" (
       concatStringsSep "\n" (
         mapAttrsToList
-        (
-          user: password: ''
-            ${user}:{PLAIN}${password}
-          ''
-        )
+        (user: password: ''
+          ${user}:{PLAIN}${password}
+        '')
         authDef
       )
     )

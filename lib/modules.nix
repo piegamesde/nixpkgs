@@ -785,12 +785,10 @@ rec {
         ;
       # an attrset 'name' => list of submodules that declare ‘name’.
       declsByName = byName "options"
-        (
-          module: option: [ {
-            inherit (module) _file;
-            options = option;
-          } ]
-        )
+        (module: option: [ {
+          inherit (module) _file;
+          options = option;
+        } ])
         options;
       # an attrset 'name' => list of submodules that define ‘name’.
       defnsByName = byName "config"
@@ -806,12 +804,10 @@ rec {
         configs;
       # extract the definitions for each loc
       defnsByName' = byName "config"
-        (
-          module: value: [ {
-            inherit (module) file;
-            inherit value;
-          } ]
-        )
+        (module: value: [ {
+          inherit (module) file;
+          inherit value;
+        } ])
         configs;
 
       # Convert an option tree decl to a submodule option decl

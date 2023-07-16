@@ -1680,14 +1680,12 @@ in
                         } ${escapeShellArg onion.path}/authorized_clients
                       ''
                       ++ imap0
-                        (
-                          i: pubKey: ''
-                            echo ${pubKey} |
-                            install -o tor -g tor -m 0400 /dev/stdin ${
-                              escapeShellArg onion.path
-                            }/authorized_clients/${toString i}.auth
-                          ''
-                        )
+                        (i: pubKey: ''
+                          echo ${pubKey} |
+                          install -o tor -g tor -m 0400 /dev/stdin ${
+                            escapeShellArg onion.path
+                          }/authorized_clients/${toString i}.auth
+                        '')
                         onion.authorizedClients
                       ++ optional (onion.secretKey != null) ''
                         install -d -o tor -g tor -m 0700 ${

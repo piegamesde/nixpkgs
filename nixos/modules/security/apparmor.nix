@@ -149,12 +149,10 @@ in
       # It's important to put only enabledPolicies here and not all cfg.policies
       # because aa-remove-unknown reads profiles from all /etc/apparmor.d/*
       mapAttrsToList
-      (
-        name: p: {
-          inherit name;
-          path = p.profile;
-        }
-      )
+      (name: p: {
+        inherit name;
+        path = p.profile;
+      })
       enabledPolicies
       ++ mapAttrsToList (name: path: { inherit name path; }) cfg.includes
     );

@@ -120,11 +120,9 @@ in
       environment.etc = mkIf (cfg.settings != { }) {
         atoprc.text = concatStrings (
           mapAttrsToList
-          (
-            n: v: ''
-              ${n} ${toString v}
-            ''
-          )
+          (n: v: ''
+            ${n} ${toString v}
+          '')
           cfg.settings
         );
       };

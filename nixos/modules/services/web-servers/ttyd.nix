@@ -31,12 +31,10 @@ let
     ]
     ++ (concatLists (
       mapAttrsToList
-      (
-        _k: _v: [
-          "--client-option"
-          "${_k}=${_v}"
-        ]
-      )
+      (_k: _v: [
+        "--client-option"
+        "${_k}=${_v}"
+      ])
       cfg.clientOptions
     ))
     ++ [

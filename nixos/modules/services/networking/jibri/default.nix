@@ -434,16 +434,14 @@ in
       script =
         (concatStrings (
           mapAttrsToList
-          (
-            name: env: ''
-              export ${
-                toVarName "${name}_control"
-              }=$(cat ${env.control.login.passwordFile})
-              export ${
-                toVarName "${name}_call"
-              }=$(cat ${env.call.login.passwordFile})
-            ''
-          )
+          (name: env: ''
+            export ${
+              toVarName "${name}_control"
+            }=$(cat ${env.control.login.passwordFile})
+            export ${
+              toVarName "${name}_call"
+            }=$(cat ${env.call.login.passwordFile})
+          '')
           cfg.xmppEnvironments
         ))
         + ''

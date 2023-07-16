@@ -320,13 +320,11 @@ in
         config.services.restic.backups
       );
     assertions = mapAttrsToList
-      (
-        n: v: {
-          assertion = (v.repository == null) != (v.repositoryFile == null);
-          message =
-            "services.restic.backups.${n}: exactly one of repository or repositoryFile should be set";
-        }
-      )
+      (n: v: {
+        assertion = (v.repository == null) != (v.repositoryFile == null);
+        message =
+          "services.restic.backups.${n}: exactly one of repository or repositoryFile should be set";
+      })
       config.services.restic.backups;
     systemd.services = mapAttrs'
       (

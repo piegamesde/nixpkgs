@@ -37,17 +37,15 @@ let
     keys:
     concatStrings (
       mapAttrsToList
-      (
-        keyName: keyOptions: ''
-          fakeKey="$(${pkgs.bind}/bin/tsig-keygen -a ${
-            escapeShellArgs [
-              keyOptions.algorithm
-              keyName
-            ]
-          } | grep -oP "\s*secret \"\K.*(?=\";)")"
-          sed "s@^\s*include:\s*\"${stateDir}/private/${keyName}\"\$@secret: $fakeKey@" -i $out/nsd.conf
-        ''
-      )
+      (keyName: keyOptions: ''
+        fakeKey="$(${pkgs.bind}/bin/tsig-keygen -a ${
+          escapeShellArgs [
+            keyOptions.algorithm
+            keyName
+          ]
+        } | grep -oP "\s*secret \"\K.*(?=\";)")"
+        sed "s@^\s*include:\s*\"${stateDir}/private/${keyName}\"\$@secret: $fakeKey@" -i $out/nsd.conf
+      '')
       keys
     )
     ;
@@ -188,28 +186,24 @@ let
 
   keyConfigFile = concatStrings (
     mapAttrsToList
-    (
-      keyName: keyOptions: ''
-        key:
-          name:      "${keyName}"
-          algorithm: "${keyOptions.algorithm}"
-          include:   "${stateDir}/private/${keyName}"
-      ''
-    )
+    (keyName: keyOptions: ''
+      key:
+        name:      "${keyName}"
+        algorithm: "${keyOptions.algorithm}"
+        include:   "${stateDir}/private/${keyName}"
+    '')
     cfg.keys
   );
 
   copyKeys = concatStrings (
     mapAttrsToList
-    (
-      keyName: keyOptions: ''
-        secret=$(cat "${keyOptions.keyFile}")
-        dest="${stateDir}/private/${keyName}"
-        echo "  secret: \"$secret\"" > "$dest"
-        chown ${username}:${username} "$dest"
-        chmod 0400 "$dest"
-      ''
-    )
+    (keyName: keyOptions: ''
+      secret=$(cat "${keyOptions.keyFile}")
+      dest="${stateDir}/private/${keyName}"
+      echo "  secret: \"$secret\"" > "$dest"
+      chown ${username}:${username} "$dest"
+      chmod 0400 "$dest"
+    '')
     cfg.keys
   );
 

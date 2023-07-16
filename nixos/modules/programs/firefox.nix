@@ -268,12 +268,10 @@ in
     programs.firefox.policies = {
       Preferences =
         (mapAttrs
-          (
-            _: value: {
-              Value = value;
-              Status = cfg.preferencesStatus;
-            }
-          )
+          (_: value: {
+            Value = value;
+            Status = cfg.preferencesStatus;
+          })
           cfg.preferences);
       ExtensionSettings = listToAttrs (
         map

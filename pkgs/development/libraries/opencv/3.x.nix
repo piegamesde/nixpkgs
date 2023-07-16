@@ -189,11 +189,9 @@ let
     ''
     + concatStrings (
       mapAttrsToList
-      (
-        name: md5: ''
-          ln -s "${extra.src}/${name}" "${extra.dst}/${md5}-${name}"
-        ''
-      )
+      (name: md5: ''
+        ln -s "${extra.src}/${name}" "${extra.dst}/${md5}-${name}"
+      '')
       extra.files
     )
     ;

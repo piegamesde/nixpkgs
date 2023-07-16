@@ -45,26 +45,22 @@ let
 
       ${concatStringsSep "\n" (
         mapAttrsToList
-        (
-          k: v: ''
-            ln -s ${v} $out/share/mediawiki/skins/${k}
-          ''
-        )
+        (k: v: ''
+          ln -s ${v} $out/share/mediawiki/skins/${k}
+        '')
         cfg.skins
       )}
 
       ${concatStringsSep "\n" (
         mapAttrsToList
-        (
-          k: v: ''
-            ln -s ${
-              if v != null then
-                v
-              else
-                "$src/share/mediawiki/extensions/${k}"
-            } $out/share/mediawiki/extensions/${k}
-          ''
-        )
+        (k: v: ''
+          ln -s ${
+            if v != null then
+              v
+            else
+              "$src/share/mediawiki/extensions/${k}"
+          } $out/share/mediawiki/extensions/${k}
+        '')
         cfg.extensions
       )}
     '';

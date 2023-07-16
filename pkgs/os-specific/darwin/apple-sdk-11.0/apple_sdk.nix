@@ -40,20 +40,16 @@ let
         }:
         lib.concatLists (
           (lib.mapAttrsToList
-            (
-              from: to: [
-                "-p"
-                "${from}:${to}"
-              ]
-            )
+            (from: to: [
+              "-p"
+              "${from}:${to}"
+            ])
             prefix)
           ++ (lib.mapAttrsToList
-            (
-              from: to: [
-                "-c"
-                "${from}:${to}"
-              ]
-            )
+            (from: to: [
+              "-c"
+              "${from}:${to}"
+            ])
             const)
         )
         ;

@@ -359,12 +359,10 @@ in
 
                 config = {
                   hosts = mapAttrs
-                    (
-                      hostname: host: ''
-                        ${toTincConf host.settings}
-                        ${host.rsaPublicKey}
-                      ''
-                    )
+                    (hostname: host: ''
+                      ${toTincConf host.settings}
+                      ${host.rsaPublicKey}
+                    '')
                     config.hostSettings;
 
                   settings = {

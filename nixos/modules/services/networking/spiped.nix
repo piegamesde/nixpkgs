@@ -173,12 +173,10 @@ in
 
   config = mkIf cfg.enable {
     assertions = mapAttrsToList
-      (
-        name: c: {
-          assertion = (c.encrypt -> !c.decrypt) || (c.decrypt -> c.encrypt);
-          message = "A pipe must either encrypt or decrypt";
-        }
-      )
+      (name: c: {
+        assertion = (c.encrypt -> !c.decrypt) || (c.decrypt -> c.encrypt);
+        message = "A pipe must either encrypt or decrypt";
+      })
       cfg.config;
 
     users.groups.spiped.gid = config.ids.gids.spiped;

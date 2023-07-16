@@ -65,10 +65,8 @@ let
     postgresql-versions;
 in
 mapAttrs'
-(
-  name: package: {
-    inherit name;
-    value = make-postgresql-test name package;
-  }
-)
+(name: package: {
+  inherit name;
+  value = make-postgresql-test name package;
+})
 applicablePostgresqlVersions

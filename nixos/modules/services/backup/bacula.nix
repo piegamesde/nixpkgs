@@ -25,15 +25,13 @@ let
 
     ${concatStringsSep "\n" (
       mapAttrsToList
-      (
-        name: value: ''
-          Director {
-            Name = "${name}";
-            Password = "${value.password}";
-            Monitor = "${value.monitor}";
-          }
-        ''
-      )
+      (name: value: ''
+        Director {
+          Name = "${name}";
+          Password = "${value.password}";
+          Monitor = "${value.monitor}";
+        }
+      '')
       fd_cfg.director
     )}
 
@@ -56,48 +54,40 @@ let
 
     ${concatStringsSep "\n" (
       mapAttrsToList
-      (
-        name: value: ''
-          Autochanger {
-            Name = "${name}";
-            Device = ${
-              concatStringsSep ", " (map (a: ''"${a}"'') value.devices)
-            };
-            Changer Device =  "${value.changerDevice}";
-            Changer Command = "${value.changerCommand}";
-            ${value.extraAutochangerConfig}
-          }
-        ''
-      )
+      (name: value: ''
+        Autochanger {
+          Name = "${name}";
+          Device = ${concatStringsSep ", " (map (a: ''"${a}"'') value.devices)};
+          Changer Device =  "${value.changerDevice}";
+          Changer Command = "${value.changerCommand}";
+          ${value.extraAutochangerConfig}
+        }
+      '')
       sd_cfg.autochanger
     )}
 
     ${concatStringsSep "\n" (
       mapAttrsToList
-      (
-        name: value: ''
-          Device {
-            Name = "${name}";
-            Archive Device = "${value.archiveDevice}";
-            Media Type = "${value.mediaType}";
-            ${value.extraDeviceConfig}
-          }
-        ''
-      )
+      (name: value: ''
+        Device {
+          Name = "${name}";
+          Archive Device = "${value.archiveDevice}";
+          Media Type = "${value.mediaType}";
+          ${value.extraDeviceConfig}
+        }
+      '')
       sd_cfg.device
     )}
 
     ${concatStringsSep "\n" (
       mapAttrsToList
-      (
-        name: value: ''
-          Director {
-            Name = "${name}";
-            Password = "${value.password}";
-            Monitor = "${value.monitor}";
-          }
-        ''
-      )
+      (name: value: ''
+        Director {
+          Name = "${name}";
+          Password = "${value.password}";
+          Monitor = "${value.monitor}";
+        }
+      '')
       sd_cfg.director
     )}
 

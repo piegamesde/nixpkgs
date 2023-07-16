@@ -448,12 +448,10 @@ stdenv.mkDerivation rec {
     ''
     + lib.concatStrings (
       lib.mapAttrsToList
-      (
-        name: value: ''
-          plugin=${value};
-          ${value.passthru.registrationCommand}
-        ''
-      )
+      (name: value: ''
+        plugin=${value};
+        ${value.passthru.registrationCommand}
+      '')
       plugins
     )
     ;

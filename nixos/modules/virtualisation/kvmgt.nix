@@ -88,32 +88,28 @@ in
       in
       {
         paths = mapAttrs
-          (
-            _: opt: {
-              description = "KVMGT VGPU ${opt.uuid} path";
-              wantedBy = [ "multi-user.target" ];
-              pathConfig = {
-                PathExists =
-                  "/sys/bus/pci/devices/${cfg.device}/mdev_supported_types/${opt.mdev}/create";
-              };
-            }
-          )
+          (_: opt: {
+            description = "KVMGT VGPU ${opt.uuid} path";
+            wantedBy = [ "multi-user.target" ];
+            pathConfig = {
+              PathExists =
+                "/sys/bus/pci/devices/${cfg.device}/mdev_supported_types/${opt.mdev}/create";
+            };
+          })
           vgpus;
 
         services = mapAttrs
-          (
-            _: opt: {
-              description = "KVMGT VGPU ${opt.uuid}";
-              serviceConfig = {
-                Type = "oneshot";
-                RemainAfterExit = true;
-                ExecStart =
-                  "${pkgs.runtimeShell} -c 'echo ${opt.uuid} > /sys/bus/pci/devices/${cfg.device}/mdev_supported_types/${opt.mdev}/create'";
-                ExecStop =
-                  "${pkgs.runtimeShell} -c 'echo 1 > /sys/bus/pci/devices/${cfg.device}/${opt.uuid}/remove'";
-              };
-            }
-          )
+          (_: opt: {
+            description = "KVMGT VGPU ${opt.uuid}";
+            serviceConfig = {
+              Type = "oneshot";
+              RemainAfterExit = true;
+              ExecStart =
+                "${pkgs.runtimeShell} -c 'echo ${opt.uuid} > /sys/bus/pci/devices/${cfg.device}/mdev_supported_types/${opt.mdev}/create'";
+              ExecStop =
+                "${pkgs.runtimeShell} -c 'echo 1 > /sys/bus/pci/devices/${cfg.device}/${opt.uuid}/remove'";
+            };
+          })
           vgpus;
       }
       ;

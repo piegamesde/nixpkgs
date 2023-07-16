@@ -14,12 +14,10 @@ let
     chmod -R +w $out
     ${concatStringsSep "\n" (
       mapAttrsToList
-      (
-        fileName: filePath: ''
-          mkdir -p $out/$(dirname ${fileName})
-          cp ${filePath} $out/${fileName}
-        ''
-      )
+      (fileName: filePath: ''
+        mkdir -p $out/$(dirname ${fileName})
+        cp ${filePath} $out/${fileName}
+      '')
       cfg.configDir
     )}
   '';

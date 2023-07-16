@@ -588,49 +588,40 @@ in
 
     assertions =
       (mapAttrsToList
-        (
-          name: serverCfg: {
-            assertion =
-              !(serverCfg.useACMEHost != null
-                && (serverCfg.tlsCertificate != null || serverCfg.tlsKey != null
-                )
-              )
-              ;
-            message = ''
-              Options services.wstunnel.servers."${name}".useACMEHost and services.wstunnel.servers."${name}".{tlsCertificate, tlsKey} are mutually exclusive.
-            '';
-          }
-        )
+        (name: serverCfg: {
+          assertion =
+            !(serverCfg.useACMEHost != null
+              && (serverCfg.tlsCertificate != null || serverCfg.tlsKey != null)
+            )
+            ;
+          message = ''
+            Options services.wstunnel.servers."${name}".useACMEHost and services.wstunnel.servers."${name}".{tlsCertificate, tlsKey} are mutually exclusive.
+          '';
+        })
         cfg.servers)
       ++ (mapAttrsToList
-        (
-          name: serverCfg: {
-            assertion =
-              !((serverCfg.tlsCertificate != null || serverCfg.tlsKey != null)
-                && !(serverCfg.tlsCertificate != null
-                  && serverCfg.tlsKey != null
-                )
-              )
-              ;
-            message = ''
-              services.wstunnel.servers."${name}".tlsCertificate and services.wstunnel.servers."${name}".tlsKey need to be set together.
-            '';
-          }
-        )
+        (name: serverCfg: {
+          assertion =
+            !((serverCfg.tlsCertificate != null || serverCfg.tlsKey != null)
+              && !(serverCfg.tlsCertificate != null && serverCfg.tlsKey != null)
+            )
+            ;
+          message = ''
+            services.wstunnel.servers."${name}".tlsCertificate and services.wstunnel.servers."${name}".tlsKey need to be set together.
+          '';
+        })
         cfg.servers)
       ++ (mapAttrsToList
-        (
-          name: clientCfg: {
-            assertion =
-              !(clientCfg.localToRemote == [ ]
-                && clientCfg.dynamicToRemote == null
-              )
-              ;
-            message = ''
-              Either one of services.wstunnel.clients."${name}".localToRemote or services.wstunnel.clients."${name}".dynamicToRemote must be set.
-            '';
-          }
-        )
+        (name: clientCfg: {
+          assertion =
+            !(clientCfg.localToRemote == [ ]
+              && clientCfg.dynamicToRemote == null
+            )
+            ;
+          message = ''
+            Either one of services.wstunnel.clients."${name}".localToRemote or services.wstunnel.clients."${name}".dynamicToRemote must be set.
+          '';
+        })
         cfg.clients)
       ;
   };

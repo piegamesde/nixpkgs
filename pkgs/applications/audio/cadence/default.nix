@@ -96,18 +96,16 @@ mkDerivation rec {
         };
     in
     lib.mapAttrsToList
-    (
-      script: source: ''
-        rm -f ${script}
-        makeQtWrapper ${source} ${script} \
-          --prefix PATH : "${
-            lib.makeBinPath [
-              jack_capture # cadence-render
-              pulseaudioFull # cadence, cadence-session-start
-            ]
-          }"
-      ''
-    )
+    (script: source: ''
+      rm -f ${script}
+      makeQtWrapper ${source} ${script} \
+        --prefix PATH : "${
+          lib.makeBinPath [
+            jack_capture # cadence-render
+            pulseaudioFull # cadence, cadence-session-start
+          ]
+        }"
+    '')
     scriptAndSource
     ;
 

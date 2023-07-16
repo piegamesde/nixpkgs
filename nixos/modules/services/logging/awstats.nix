@@ -232,11 +232,9 @@ in
                 # extra config
                 concatStringsSep "\n" (
                   mapAttrsToList
-                  (
-                    n: v: ''
-                      -e 's|^\(${n}\)=.*$|\1="${v}"|' \
-                    ''
-                  )
+                  (n: v: ''
+                    -e 's|^\(${n}\)=.*$|\1="${v}"|' \
+                  '')
                   opts.extraConfig
                 )
               + ''
@@ -258,27 +256,25 @@ in
 
     # nginx options
     services.nginx.virtualHosts = mapAttrs'
-      (
-        name: opts: {
-          name = opts.webService.hostname;
-          value = {
-            locations = {
-              "${opts.webService.urlPrefix}/css/" = {
-                alias = "${package.out}/wwwroot/css/";
-              };
-              "${opts.webService.urlPrefix}/icons/" = {
-                alias = "${package.out}/wwwroot/icon/";
-              };
-              "${opts.webService.urlPrefix}/" = {
-                alias = "${cfg.dataDir}/${name}/";
-                extraConfig = ''
-                  autoindex on;
-                '';
-              };
+      (name: opts: {
+        name = opts.webService.hostname;
+        value = {
+          locations = {
+            "${opts.webService.urlPrefix}/css/" = {
+              alias = "${package.out}/wwwroot/css/";
+            };
+            "${opts.webService.urlPrefix}/icons/" = {
+              alias = "${package.out}/wwwroot/icon/";
+            };
+            "${opts.webService.urlPrefix}/" = {
+              alias = "${cfg.dataDir}/${name}/";
+              extraConfig = ''
+                autoindex on;
+              '';
             };
           };
-        }
-      )
+        };
+      })
       webServices;
 
     # update awstats

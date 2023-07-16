@@ -504,28 +504,22 @@ in
 
         assertions =
           (mapAttrsToList
-            (
-              hostName: cfg: {
-                assertion =
-                  cfg.database.createLocally -> cfg.database.user == user;
-                message =
-                  ''
-                    services.wordpress.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned'';
-              }
-            )
+            (hostName: cfg: {
+              assertion =
+                cfg.database.createLocally -> cfg.database.user == user;
+              message =
+                ''
+                  services.wordpress.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned'';
+            })
             eachSite)
           ++ (mapAttrsToList
-            (
-              hostName: cfg: {
-                assertion =
-                  cfg.database.createLocally
-                  -> cfg.database.passwordFile == null
-                  ;
-                message =
-                  ''
-                    services.wordpress.sites."${hostName}".database.passwordFile cannot be specified if services.wordpress.sites."${hostName}".database.createLocally is set to true.'';
-              }
-            )
+            (hostName: cfg: {
+              assertion =
+                cfg.database.createLocally -> cfg.database.passwordFile == null;
+              message =
+                ''
+                  services.wordpress.sites."${hostName}".database.passwordFile cannot be specified if services.wordpress.sites."${hostName}".database.createLocally is set to true.'';
+            })
             eachSite)
           ;
 
@@ -536,14 +530,12 @@ in
             ensureDatabases =
               mapAttrsToList (hostName: cfg: cfg.database.name) eachSite;
             ensureUsers = mapAttrsToList
-              (
-                hostName: cfg: {
-                  name = cfg.database.user;
-                  ensurePermissions = {
-                    "${cfg.database.name}.*" = "ALL PRIVILEGES";
-                  };
-                }
-              )
+              (hostName: cfg: {
+                name = cfg.database.user;
+                ensurePermissions = {
+                  "${cfg.database.name}.*" = "ALL PRIVILEGES";
+                };
+              })
               eachSite;
           };
 
@@ -613,15 +605,13 @@ in
       {
         systemd.tmpfiles.rules = flatten (
           mapAttrsToList
-          (
-            hostName: cfg: [
-              "d '${stateDir hostName}' 0750 ${user} ${webserver.group} - -"
-              "d '${cfg.uploadsDir}' 0750 ${user} ${webserver.group} - -"
-              "Z '${cfg.uploadsDir}' 0750 ${user} ${webserver.group} - -"
-              "d '${cfg.fontsDir}' 0750 ${user} ${webserver.group} - -"
-              "Z '${cfg.fontsDir}' 0750 ${user} ${webserver.group} - -"
-            ]
-          )
+          (hostName: cfg: [
+            "d '${stateDir hostName}' 0750 ${user} ${webserver.group} - -"
+            "d '${cfg.uploadsDir}' 0750 ${user} ${webserver.group} - -"
+            "Z '${cfg.uploadsDir}' 0750 ${user} ${webserver.group} - -"
+            "d '${cfg.fontsDir}' 0750 ${user} ${webserver.group} - -"
+            "Z '${cfg.fontsDir}' 0750 ${user} ${webserver.group} - -"
+          ])
           eachSite
         );
 
@@ -661,59 +651,57 @@ in
         services.nginx = {
           enable = true;
           virtualHosts = mapAttrs
-            (
-              hostName: cfg: {
-                serverName = mkDefault hostName;
-                root = "${pkg hostName cfg}/share/wordpress";
-                extraConfig = ''
-                  index index.php;
-                '';
-                locations = {
-                  "/" = {
-                    priority = 200;
-                    extraConfig = ''
-                      try_files $uri $uri/ /index.php$is_args$args;
-                    '';
-                  };
-                  "~ \\.php$" = {
-                    priority = 500;
-                    extraConfig = ''
-                      fastcgi_split_path_info ^(.+\.php)(/.+)$;
-                      fastcgi_pass unix:${
-                        config.services.phpfpm.pools."wordpress-${hostName}".socket
-                      };
-                      fastcgi_index index.php;
-                      include "${config.services.nginx.package}/conf/fastcgi.conf";
-                      fastcgi_param PATH_INFO $fastcgi_path_info;
-                      fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
-                      # Mitigate https://httpoxy.org/ vulnerabilities
-                      fastcgi_param HTTP_PROXY "";
-                      fastcgi_intercept_errors off;
-                      fastcgi_buffer_size 16k;
-                      fastcgi_buffers 4 16k;
-                      fastcgi_connect_timeout 300;
-                      fastcgi_send_timeout 300;
-                      fastcgi_read_timeout 300;
-                    '';
-                  };
-                  "~ /\\." = {
-                    priority = 800;
-                    extraConfig = "deny all;";
-                  };
-                  "~* /(?:uploads|files)/.*\\.php$" = {
-                    priority = 900;
-                    extraConfig = "deny all;";
-                  };
-                  "~* \\.(js|css|png|jpg|jpeg|gif|ico)$" = {
-                    priority = 1000;
-                    extraConfig = ''
-                      expires max;
-                      log_not_found off;
-                    '';
-                  };
+            (hostName: cfg: {
+              serverName = mkDefault hostName;
+              root = "${pkg hostName cfg}/share/wordpress";
+              extraConfig = ''
+                index index.php;
+              '';
+              locations = {
+                "/" = {
+                  priority = 200;
+                  extraConfig = ''
+                    try_files $uri $uri/ /index.php$is_args$args;
+                  '';
                 };
-              }
-            )
+                "~ \\.php$" = {
+                  priority = 500;
+                  extraConfig = ''
+                    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                    fastcgi_pass unix:${
+                      config.services.phpfpm.pools."wordpress-${hostName}".socket
+                    };
+                    fastcgi_index index.php;
+                    include "${config.services.nginx.package}/conf/fastcgi.conf";
+                    fastcgi_param PATH_INFO $fastcgi_path_info;
+                    fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+                    # Mitigate https://httpoxy.org/ vulnerabilities
+                    fastcgi_param HTTP_PROXY "";
+                    fastcgi_intercept_errors off;
+                    fastcgi_buffer_size 16k;
+                    fastcgi_buffers 4 16k;
+                    fastcgi_connect_timeout 300;
+                    fastcgi_send_timeout 300;
+                    fastcgi_read_timeout 300;
+                  '';
+                };
+                "~ /\\." = {
+                  priority = 800;
+                  extraConfig = "deny all;";
+                };
+                "~* /(?:uploads|files)/.*\\.php$" = {
+                  priority = 900;
+                  extraConfig = "deny all;";
+                };
+                "~* \\.(js|css|png|jpg|jpeg|gif|ico)$" = {
+                  priority = 1000;
+                  extraConfig = ''
+                    expires max;
+                    log_not_found off;
+                  '';
+                };
+              };
+            })
             eachSite;
         };
       })

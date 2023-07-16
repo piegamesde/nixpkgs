@@ -86,11 +86,9 @@ in
                 ${
                   concatStrings (
                     imap0
-                    (
-                      i: addr: ''
-                        ring${toString i}_addr: ${addr}
-                      ''
-                    )
+                    (i: addr: ''
+                      ring${toString i}_addr: ${addr}
+                    '')
                     ring_addrs
                   )
                 }
