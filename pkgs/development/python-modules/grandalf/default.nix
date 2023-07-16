@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-j2SvpQvDMfwoj2PAQSxzEIyIzzJ61Eb9wgetKyni6A4=";
   };
 
-  propagatedBuildInputs = [ pyparsing future ];
+  propagatedBuildInputs = [
+    pyparsing
+    future
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

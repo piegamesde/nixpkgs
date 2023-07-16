@@ -29,7 +29,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ gfortran ];
 
-  buildInputs = [ blas lapack ] ++ lib.optionals useMpi [ mpi scalapack ];
+  buildInputs = [
+    blas
+    lapack
+  ] ++ lib.optionals useMpi [
+    mpi
+    scalapack
+  ];
 
   enableParallelBuilding = false; # Started making trouble with gcc-11
 

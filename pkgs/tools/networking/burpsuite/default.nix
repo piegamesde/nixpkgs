@@ -27,7 +27,11 @@ let
     icon = name;
     desktopName = "Burp Suite Community Edition";
     comment = description;
-    categories = [ "Development" "Security" "System" ];
+    categories = [
+      "Development"
+      "Security"
+      "System"
+    ];
   };
 
 in buildFHSEnv {
@@ -84,6 +88,9 @@ in buildFHSEnv {
     license = licenses.unfree;
     platforms = jdk.meta.platforms;
     hydraPlatforms = [ ];
-    maintainers = with maintainers; [ bennofs stepech ];
+    maintainers = with maintainers; [
+      bennofs
+      stepech
+    ];
   };
 }

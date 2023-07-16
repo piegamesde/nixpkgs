@@ -40,7 +40,10 @@ in appimageTools.wrapType2 {
     description = "The Kubernetes IDE";
     homepage = "https://k8slens.dev/";
     license = licenses.mit;
-    maintainers = with maintainers; [ dbirks RossComputerGuy ];
+    maintainers = with maintainers; [
+      dbirks
+      RossComputerGuy
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

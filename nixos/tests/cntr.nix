@@ -13,7 +13,12 @@ let
     makeTest {
       name = "cntr-${backend}";
 
-      meta = { maintainers = with lib.maintainers; [ sorki mic92 ]; };
+      meta = {
+        maintainers = with lib.maintainers; [
+          sorki
+          mic92
+        ];
+      };
 
       nodes = {
         ${backend} = {
@@ -51,7 +56,12 @@ let
   mkContainersTest = makeTest {
     name = "cntr-containers";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ sorki mic92 ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        sorki
+        mic92
+      ];
+    };
 
     nodes.machine = {
         lib,
@@ -82,4 +92,7 @@ let
 in {
   nixos-container = mkContainersTest;
 } // (lib.foldl' (attrs: backend: attrs // { ${backend} = mkOCITest backend; })
-  { } [ "docker" "podman" ])
+  { } [
+    "docker"
+    "podman"
+  ])

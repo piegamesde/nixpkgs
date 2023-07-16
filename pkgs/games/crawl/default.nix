@@ -44,24 +44,39 @@ stdenv.mkDerivation rec {
   # Patch hard-coded paths and remove force library builds
   patches = [ ./crawl_purify.patch ];
 
-  nativeBuildInputs = [ pkg-config which perl pngcrush advancecomp ];
+  nativeBuildInputs = [
+    pkg-config
+    which
+    perl
+    pngcrush
+    advancecomp
+  ];
 
   # Still unstable with luajit
-  buildInputs = [ lua5_1 zlib sqlite ncurses ]
-    ++ (with python3.pkgs; [ pyyaml ])
-    ++ lib.optionals tileMode [ libpng SDL2 SDL2_image freetype libGLU libGL ]
-    ++ lib.optional enableSound SDL2_mixer ++ (lib.optionals stdenv.isDarwin
-      (assert (lib.assertMsg (darwin != null)
-        "Must have darwin frameworks available for darwin builds");
-        with darwin.apple_sdk.frameworks; [
-          AppKit
-          AudioUnit
-          CoreAudio
-          ForceFeedback
-          Carbon
-          IOKit
-          OpenGL
-        ]));
+  buildInputs = [
+    lua5_1
+    zlib
+    sqlite
+    ncurses
+  ] ++ (with python3.pkgs; [ pyyaml ]) ++ lib.optionals tileMode [
+    libpng
+    SDL2
+    SDL2_image
+    freetype
+    libGLU
+    libGL
+  ] ++ lib.optional enableSound SDL2_mixer ++ (lib.optionals stdenv.isDarwin
+    (assert (lib.assertMsg (darwin != null)
+      "Must have darwin frameworks available for darwin builds");
+      with darwin.apple_sdk.frameworks; [
+        AppKit
+        AudioUnit
+        CoreAudio
+        ForceFeedback
+        Carbon
+        IOKit
+        OpenGL
+      ]));
 
   preBuild = ''
     cd crawl-ref/source
@@ -110,7 +125,14 @@ stdenv.mkDerivation rec {
       mystifyingly fabulous Orb of Zot.
     '';
     platforms = platforms.linux ++ platforms.darwin;
-    license = with licenses; [ gpl2Plus bsd2 bsd3 mit licenses.zlib cc0 ];
+    license = with licenses; [
+      gpl2Plus
+      bsd2
+      bsd3
+      mit
+      licenses.zlib
+      cc0
+    ];
     maintainers = [ maintainers.abbradar ];
   };
 }

@@ -23,10 +23,16 @@ buildPythonPackage rec {
     hash = "sha256-8qhg7PX4u4vN2+hWXzFjC1ZzgCEhkSr9Fn58Lc4E76c=";
   };
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook pyyaml ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+    pyyaml
+  ];
 
-  pythonImportsCheck =
-    [ "siobrultech_protocols.gem.api" "siobrultech_protocols.gem.protocol" ];
+  pythonImportsCheck = [
+    "siobrultech_protocols.gem.api"
+    "siobrultech_protocols.gem.protocol"
+  ];
 
   meta = {
     description = "A Sans-I/O Python client library for Brultech Devices";

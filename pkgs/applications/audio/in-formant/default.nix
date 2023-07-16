@@ -27,7 +27,12 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake pkg-config qt5.wrapQtAppsHook autoPatchelfHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qt5.wrapQtAppsHook
+    autoPatchelfHook
+  ];
 
   buildInputs = [
     qt5.qtbase

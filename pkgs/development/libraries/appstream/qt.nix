@@ -12,9 +12,16 @@ mkDerivation {
   pname = "appstream-qt";
   inherit (appstream) version src;
 
-  outputs = [ "out" "dev" "installedTests" ];
+  outputs = [
+    "out"
+    "dev"
+    "installedTests"
+  ];
 
-  buildInputs = appstream.buildInputs ++ [ appstream qtbase ];
+  buildInputs = appstream.buildInputs ++ [
+    appstream
+    qtbase
+  ];
 
   nativeBuildInputs = appstream.nativeBuildInputs ++ [ qttools ];
 

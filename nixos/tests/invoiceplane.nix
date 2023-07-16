@@ -26,7 +26,10 @@ import ./make-test-python.nix ({
           };
 
           networking.firewall.allowedTCPPorts = [ 80 ];
-          networking.hosts."127.0.0.1" = [ "site1.local" "site2.local" ];
+          networking.hosts."127.0.0.1" = [
+            "site1.local"
+            "site2.local"
+          ];
         };
     };
 

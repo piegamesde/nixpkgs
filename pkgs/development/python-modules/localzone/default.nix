@@ -18,7 +18,10 @@ buildPythonPackage rec {
     sha256 = "1cbiv21yryjqy46av9hbjccks95sxznrx8nypd3yzihf1vkjiq5a";
   };
 
-  propagatedBuildInputs = [ dnspython sphinx ];
+  propagatedBuildInputs = [
+    dnspython
+    sphinx
+  ];
 
   nativeCheckInputs = [ pytest ];
 

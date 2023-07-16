@@ -32,9 +32,18 @@ buildPythonPackage rec {
     hash = "sha256-NPP6I2bOILGPHfVzp3wdJzBs4fKkHZ+e/2IbUZLqh4g=";
   };
 
-  nativeBuildInputs = [ blosc2 cython sphinx ];
+  nativeBuildInputs = [
+    blosc2
+    cython
+    sphinx
+  ];
 
-  buildInputs = [ bzip2 c-blosc hdf5 lzo ];
+  buildInputs = [
+    bzip2
+    c-blosc
+    hdf5
+    lzo
+  ];
 
   propagatedBuildInputs = [
     blosc2

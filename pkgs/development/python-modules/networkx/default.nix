@@ -20,8 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-mpmSNFNTYYrpgznCtj2CAcOBwpRPOKKrSctFpMZn5BI=";
   };
 
-  propagatedBuildInputs = [ decorator setuptools ];
-  nativeCheckInputs = [ nose pytestCheckHook ];
+  propagatedBuildInputs = [
+    decorator
+    setuptools
+  ];
+  nativeCheckInputs = [
+    nose
+    pytestCheckHook
+  ];
 
   meta = {
     homepage = "https://networkx.github.io/";

@@ -25,8 +25,17 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ libtool ];
 
-  buildInputs =
-    [ cfitsio curl ghostscript gsl libgit2 libjpeg libtiff lzlib wcslib ];
+  buildInputs = [
+    cfitsio
+    curl
+    ghostscript
+    gsl
+    libgit2
+    libjpeg
+    libtiff
+    lzlib
+    wcslib
+  ];
 
   enableParallelBuilding = true;
 

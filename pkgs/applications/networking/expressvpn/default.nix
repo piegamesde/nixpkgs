@@ -14,7 +14,10 @@ let
   pname = "expressvpn";
   clientVersion = "3.25.0";
   clientBuild = "13";
-  version = lib.strings.concatStringsSep "." [ clientVersion clientBuild ];
+  version = lib.strings.concatStringsSep "." [
+    clientVersion
+    clientBuild
+  ];
 
   expressvpnBase = stdenvNoCC.mkDerivation {
     inherit pname version;
@@ -25,7 +28,10 @@ let
       hash = "sha256-lyDjG346FrgT7SZbsWET+Hexl9Un6mzMukfO2PwlInA=";
     };
 
-    nativeBuildInputs = [ dpkg autoPatchelfHook ];
+    nativeBuildInputs = [
+      dpkg
+      autoPatchelfHook
+    ];
 
     dontConfigure = true;
     dontBuild = true;
@@ -67,7 +73,12 @@ let
     # The expressvpnd binary also uses hard-coded paths to the other binaries and files
     # it ships with, hence the FHS environment.
 
-    targetPkgs = pkgs: with pkgs; [ expressvpnBase inotify-tools iproute2 ];
+    targetPkgs = pkgs:
+      with pkgs; [
+        expressvpnBase
+        inotify-tools
+        iproute2
+      ];
   };
 in stdenvNoCC.mkDerivation {
   inherit pname version;

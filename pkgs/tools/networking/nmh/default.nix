@@ -37,9 +37,21 @@ stdenv.mkDerivation (finalAttrs: {
     ln -s -f ${stdenv}/bin/true test/cleanup
   '';
 
-  nativeBuildInputs = [ autoreconfHook flex bison ];
+  nativeBuildInputs = [
+    autoreconfHook
+    flex
+    bison
+  ];
 
-  buildInputs = [ cyrus_sasl db gdbm liblockfile ncurses openssl readline ];
+  buildInputs = [
+    cyrus_sasl
+    db
+    gdbm
+    liblockfile
+    ncurses
+    openssl
+    readline
+  ];
 
   NIX_CFLAGS_COMPILE = "-Wno-stringop-truncation";
   doCheck = true;

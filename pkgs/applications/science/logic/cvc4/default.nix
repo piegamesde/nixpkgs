@@ -27,7 +27,10 @@ stdenv.mkDerivation rec {
     sha256 = "1rhs4pvzaa1wk00czrczp58b2cxfghpsnq534m0l3snnya2958jp";
   };
 
-  nativeBuildInputs = [ pkg-config cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
   buildInputs = [
     gmp
     git
@@ -64,6 +67,10 @@ stdenv.mkDerivation rec {
     homepage = "http://cvc4.cs.stanford.edu/web/";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ vbgl thoughtpolice gebner ];
+    maintainers = with maintainers; [
+      vbgl
+      thoughtpolice
+      gebner
+    ];
   };
 }

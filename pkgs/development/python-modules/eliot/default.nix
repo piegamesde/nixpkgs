@@ -26,10 +26,20 @@ buildPythonPackage rec {
     hash = "sha256-wvCZo+jV7PwidFdm58xmSkjbZLa4nZht/ycEkdhoMUk=";
   };
 
-  propagatedBuildInputs =
-    [ aiocontextvars boltons pyrsistent setuptools six zope_interface ];
+  propagatedBuildInputs = [
+    aiocontextvars
+    boltons
+    pyrsistent
+    setuptools
+    six
+    zope_interface
+  ];
 
-  nativeCheckInputs = [ hypothesis pytestCheckHook testtools ];
+  nativeCheckInputs = [
+    hypothesis
+    pytestCheckHook
+    testtools
+  ];
 
   pythonImportsCheck = [ "eliot" ];
 

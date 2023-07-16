@@ -25,9 +25,18 @@ buildPythonPackage rec {
 
   sourceRoot = "source/packages/python/chart-studio";
 
-  propagatedBuildInputs = [ plotly requests retrying six ];
+  propagatedBuildInputs = [
+    plotly
+    requests
+    retrying
+    six
+  ];
 
-  nativeCheckInputs = [ mock nose pytest ];
+  nativeCheckInputs = [
+    mock
+    nose
+    pytest
+  ];
   # most tests talk to a service
   checkPhase = ''
     HOME=$TMPDIR pytest chart_studio/tests/test_core chart_studio/tests/test_plot_ly/test_api

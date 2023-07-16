@@ -84,6 +84,10 @@ in buildPythonPackage rec {
     homepage = "https://pwntools.com";
     description = "CTF framework and exploit development library";
     license = licenses.mit;
-    maintainers = with maintainers; [ bennofs kristoff3r pamplemousse ];
+    maintainers = with maintainers; [
+      bennofs
+      kristoff3r
+      pamplemousse
+    ];
   };
 }

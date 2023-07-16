@@ -23,9 +23,15 @@ buildPythonPackage rec {
     hash = "sha256-xOoKrGBkMEdpeiU1r27xlZp5s5sGJzvD7Ats+w6KR/o=";
   };
 
-  propagatedBuildInputs = [ aiohttp meteocalc ];
+  propagatedBuildInputs = [
+    aiohttp
+    meteocalc
+  ];
 
-  nativeCheckInputs = [ pytest-aiohttp pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-aiohttp
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "aioecowitt" ];
 

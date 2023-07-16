@@ -96,7 +96,11 @@ in stdenv.mkDerivation {
     (if stdenv.targetPlatform.isMusl then
       substitute {
         src = ./mips64-default-n64.patch;
-        replacements = [ "--replace" "gnuabi64" "muslabi64" ];
+        replacements = [
+          "--replace"
+          "gnuabi64"
+          "muslabi64"
+        ];
       }
     else
       ./mips64-default-n64.patch)
@@ -113,12 +117,19 @@ in stdenv.mkDerivation {
     ++ lib.optional stdenv.targetPlatform.isPower
     ./ppc-make-machine-less-strict.patch;
 
-  outputs = [ "out" "info" "man" ];
+  outputs = [
+    "out"
+    "info"
+    "man"
+  ];
 
   strictDeps = true;
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ bison perl texinfo ]
-    ++ lib.optionals targetPlatform.isiOS [ autoreconfHook ]
+  nativeBuildInputs = [
+    bison
+    perl
+    texinfo
+  ] ++ lib.optionals targetPlatform.isiOS [ autoreconfHook ]
     ++ lib.optionals buildPlatform.isDarwin [
       autoconf269
       automake
@@ -126,7 +137,10 @@ in stdenv.mkDerivation {
       libtool
     ] ++ lib.optionals targetPlatform.isVc4 [ flex ];
 
-  buildInputs = [ zlib gettext ];
+  buildInputs = [
+    zlib
+    gettext
+  ];
 
   inherit noSysDirs;
 
@@ -159,9 +173,16 @@ in stdenv.mkDerivation {
   else
     "-static-libgcc";
 
-  hardeningDisable = [ "format" "pie" ];
+  hardeningDisable = [
+    "format"
+    "pie"
+  ];
 
-  configurePlatforms = [ "build" "host" "target" ];
+  configurePlatforms = [
+    "build"
+    "host"
+    "target"
+  ];
 
   configureFlags = [
     "--enable-64-bit-bfd"
@@ -185,8 +206,10 @@ in stdenv.mkDerivation {
     # what we want it to be.
     "--program-prefix=${targetPrefix}"
   ] ++ lib.optionals withAllTargets [ "--enable-targets=all" ]
-    ++ lib.optionals enableGold [ "--enable-gold" "--enable-plugins" ]
-    ++ (if enableShared then [
+    ++ lib.optionals enableGold [
+      "--enable-gold"
+      "--enable-plugins"
+    ] ++ (if enableShared then [
       "--enable-shared"
       "--disable-static"
     ] else [
@@ -230,7 +253,10 @@ in stdenv.mkDerivation {
     '';
     homepage = "https://www.gnu.org/software/binutils/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ericson2314 lovesegfault ];
+    maintainers = with maintainers; [
+      ericson2314
+      lovesegfault
+    ];
     platforms = platforms.unix;
 
     # INFO: Give binutils a lower priority than gcc-wrapper to prevent a

@@ -21,7 +21,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libX11 libXft libXrandr ];
+  buildInputs = [
+    libX11
+    libXft
+    libXrandr
+  ];
 
   preBuild = ''
     cd src

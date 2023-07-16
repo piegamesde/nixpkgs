@@ -35,7 +35,13 @@ stdenv.mkDerivation rec {
     sha256 = "1fvmqbif9fbipd0vphp57pk6blb4yp8xvqlc2ppipk5pjv6a3d2h";
   };
 
-  nativeBuildInputs = [ cmake imagemagick unzip zip file ];
+  nativeBuildInputs = [
+    cmake
+    imagemagick
+    unzip
+    zip
+    file
+  ];
 
   buildInputs = [
     freetype
@@ -90,7 +96,10 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/yvt/openspades/";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ abbradar azahi ];
+    maintainers = with maintainers; [
+      abbradar
+      azahi
+    ];
     # never built on aarch64-linux since first introduction in nixpkgs
     broken = stdenv.isDarwin || (stdenv.isLinux && stdenv.isAarch64);
   };

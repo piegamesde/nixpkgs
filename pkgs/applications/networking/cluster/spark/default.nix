@@ -29,8 +29,10 @@ let
         sha256 = sha256;
       };
       nativeBuildInputs = [ makeWrapper ];
-      buildInputs = [ jdk python3Packages.python ] ++ extraPythonPackages
-        ++ lib.optional RSupport R;
+      buildInputs = [
+        jdk
+        python3Packages.python
+      ] ++ extraPythonPackages ++ lib.optional RSupport R;
 
       untarDir = "${pname}-${version}";
       installPhase = ''

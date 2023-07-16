@@ -19,9 +19,14 @@ stdenv.mkDerivation rec {
     sha256 = "1i411glxh7g4pfg4gw826lpwngi89yrbmxac8jmnsfvrfb48hgbr";
   };
 
-  buildInputs =
-    [ aalib ncurses libmikmod xorg.libXau xorg.libXdmcp xorg.libX11 ]
-    ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.CoreAudio;
+  buildInputs = [
+    aalib
+    ncurses
+    libmikmod
+    xorg.libXau
+    xorg.libXdmcp
+    xorg.libX11
+  ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.CoreAudio;
 
   postPatch = lib.optionalString stdenv.isDarwin ''
     sed -i -e '/^#include <malloc.h>$/d' *.c

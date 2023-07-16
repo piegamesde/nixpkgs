@@ -40,7 +40,10 @@ buildPythonPackage rec {
     btrees
   ];
 
-  nativeCheckInputs = [ manuel zope_testrunner ];
+  nativeCheckInputs = [
+    manuel
+    zope_testrunner
+  ];
 
   checkPhase = ''
     ${python.interpreter} -m zope.testrunner --test-path=src []

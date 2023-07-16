@@ -39,7 +39,10 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   nativeBuildInputs = with python3.pkgs;
-    [ hatch-vcs hatchling ] ++ (with qt6; [ wrapQtAppsHook ]);
+    [
+      hatch-vcs
+      hatchling
+    ] ++ (with qt6; [ wrapQtAppsHook ]);
 
   buildInputs = lib.optionals stdenv.isLinux [ qt6.qtwayland ]
     ++ lib.optionals stdenv.isDarwin [ qt6.qtbase ];

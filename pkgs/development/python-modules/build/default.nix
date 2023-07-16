@@ -33,8 +33,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [ packaging pyproject-hooks ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs = [
+    packaging
+    pyproject-hooks
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   nativeCheckInputs = [
     filelock
@@ -46,7 +48,10 @@ buildPythonPackage rec {
     toml
   ];
 
-  pytestFlagsArray = [ "-W" "ignore::DeprecationWarning" ];
+  pytestFlagsArray = [
+    "-W"
+    "ignore::DeprecationWarning"
+  ];
 
   __darwinAllowLocalNetworking = true;
 

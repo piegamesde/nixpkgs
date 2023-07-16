@@ -21,14 +21,12 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  patches = [
-    (fetchpatch {
-      name = "support-python3-for-building";
-      url =
-        "https://raw.githubusercontent.com/sysown/proxysql/bed58f92917eb651b80fd8ffa627a485eb320805/deps/libinjection/update-build-py3.diff";
-      hash = "sha256-SPdf57FIDDNpatWe5pjhAiZl5yPMDEv50k0Wj+eWTEM=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "support-python3-for-building";
+    url =
+      "https://raw.githubusercontent.com/sysown/proxysql/bed58f92917eb651b80fd8ffa627a485eb320805/deps/libinjection/update-build-py3.diff";
+    hash = "sha256-SPdf57FIDDNpatWe5pjhAiZl5yPMDEv50k0Wj+eWTEM=";
+  }) ];
 
   postPatch = ''
     patchShebangs src
@@ -40,7 +38,10 @@ stdenv.mkDerivation rec {
   buildPhase = "make all";
 
   # no binaries, so out = library, dev = headers
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   meta = with lib; {
     description = "SQL / SQLI tokenizer parser analyzer";

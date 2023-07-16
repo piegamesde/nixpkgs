@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
     sha256 = "1pr6zrdhia0aafsvywl1hrhlgl00vahp63bw1z2mzvdxri7q88f0";
   };
 
-  outputs = [ "out" "server" ];
+  outputs = [
+    "out"
+    "server"
+  ];
 
   preBuild = ''
     tar Jxvf ${srcManpages} debian/manpages
@@ -39,7 +42,10 @@ stdenv.mkDerivation rec {
     description = "Stun server and test client";
     homepage = "https://sourceforge.net/projects/stun/";
     license = licenses.vsl10;
-    maintainers = with maintainers; [ marcweber obadz ];
+    maintainers = with maintainers; [
+      marcweber
+      obadz
+    ];
     platforms = platforms.linux;
   };
 }

@@ -20,7 +20,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ python-dateutil ];
 
-  nativeCheckInputs = [ pytestCheckHook pytz tzlocal ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytz
+    tzlocal
+  ];
 
   pythonImportsCheck = [ "croniter" ];
 

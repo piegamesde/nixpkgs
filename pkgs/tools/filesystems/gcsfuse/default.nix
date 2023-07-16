@@ -17,11 +17,22 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "." "tools/mount_gcsfuse" ];
+  subPackages = [
+    "."
+    "tools/mount_gcsfuse"
+  ];
 
-  ldflags = [ "-s" "-w" "-X main.gcsfuseVersion=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.gcsfuseVersion=${version}"
+  ];
 
-  preCheck = let skippedTests = [ "Test_Main" "TestFlags" ];
+  preCheck = let
+    skippedTests = [
+      "Test_Main"
+      "TestFlags"
+    ];
   in ''
     # Disable flaky tests
     buildFlagsArray+=("-run" "[^(${

@@ -18,7 +18,10 @@ mkDerivation rec {
     sha256 = "sha256-fP+tZY+ayaeuxPvywO/639sNE+IwrxaEJ245q9HTOCU=";
   };
 
-  buildInputs = [ qtcharts qtsvg ];
+  buildInputs = [
+    qtcharts
+    qtsvg
+  ];
 
   nativeBuildInputs = [ qmake ];
 

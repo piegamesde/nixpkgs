@@ -23,7 +23,10 @@ bundlerApp {
     description = "Black box WordPress vulnerability scanner";
     homepage = "https://wpscan.org/";
     license = licenses.unfreeRedistributable;
-    maintainers = with maintainers; [ nyanloutre manveru ];
+    maintainers = with maintainers; [
+      nyanloutre
+      manveru
+    ];
     platforms = platforms.unix;
   };
 }

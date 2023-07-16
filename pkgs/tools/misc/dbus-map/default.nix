@@ -18,7 +18,11 @@ stdenv.mkDerivation {
     sha256 = "1pjqn6w29ci8hfxkn1aynzfc8nvy3pqv3hixbxwr7qx20g4rwvdc";
   };
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ glib procps libxml2 ];
+  buildInputs = [
+    glib
+    procps
+    libxml2
+  ];
   installPhase = ''
     mkdir -p $out/bin
     mv dbus-map $out/bin

@@ -33,7 +33,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1mCTw+nJ1w7RdCXfPCO31t1aYOq9Bki3EaXsHiiveD0=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config gettext wrapGAppsHook4 itstool ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gettext
+    wrapGAppsHook4
+    itstool
+  ];
 
   buildInputs = [
     glib

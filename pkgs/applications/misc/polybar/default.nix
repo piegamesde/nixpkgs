@@ -55,9 +55,12 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs =
-    [ cmake pkg-config python3Packages.sphinx removeReferencesTo ]
-    ++ lib.optional i3Support makeWrapper;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    python3Packages.sphinx
+    removeReferencesTo
+  ] ++ lib.optional i3Support makeWrapper;
 
   buildInputs = [
     cairo
@@ -78,7 +81,10 @@ stdenv.mkDerivation rec {
     ++ lib.optional mpdSupport libmpdclient
     ++ lib.optional pulseSupport libpulseaudio
     ++ lib.optional iwSupport wirelesstools ++ lib.optional nlSupport libnl
-    ++ lib.optionals i3Support [ jsoncpp i3 ];
+    ++ lib.optionals i3Support [
+      jsoncpp
+      i3
+    ];
 
   patches = [ ./remove-hardcoded-etc.diff ];
 
@@ -107,7 +113,12 @@ stdenv.mkDerivation rec {
       having a black belt in shell scripting.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ afldcr Br1ght0ne fortuneteller2k ckie ];
+    maintainers = with maintainers; [
+      afldcr
+      Br1ght0ne
+      fortuneteller2k
+      ckie
+    ];
     platforms = platforms.linux;
   };
 }

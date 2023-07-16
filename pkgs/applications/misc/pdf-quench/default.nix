@@ -18,9 +18,19 @@ python3.pkgs.buildPythonApplication {
     sha256 = "1rp9rlwr6rarcsxygv5x2c5psgwl6r69k0lsgribgyyla9cf2m7n";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
-  buildInputs = with pkgs; [ gtk3 goocanvas2 poppler_gi ];
-  propagatedBuildInputs = with python3.pkgs; [ pygobject3 pypdf2 ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    gobject-introspection
+  ];
+  buildInputs = with pkgs; [
+    gtk3
+    goocanvas2
+    poppler_gi
+  ];
+  propagatedBuildInputs = with python3.pkgs; [
+    pygobject3
+    pypdf2
+  ];
 
   format = "other";
   doCheck = false;

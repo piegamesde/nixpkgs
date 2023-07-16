@@ -22,7 +22,11 @@ buildPythonPackage rec {
 
   buildInputs = [ zetup ];
 
-  propagatedBuildInputs = [ six moretools path ];
+  propagatedBuildInputs = [
+    six
+    moretools
+    path
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

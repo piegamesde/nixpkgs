@@ -8,7 +8,10 @@
   ui ? "terminal"
 }:
 
-assert lib.elem ui [ "terminal" "curses" ];
+assert lib.elem ui [
+  "terminal"
+  "curses"
+];
 stdenv.mkDerivation (finalAttrs: {
   pname = "2048-cli";
   version = "unstable-2019-12-10";
@@ -33,7 +36,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.NIX_CFLAGS_COMPILE = "-I${lib.getDev gettext}/share/gettext/";
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ui ];
+  makeFlags = [
+    "CC=${stdenv.cc.targetPrefix}cc"
+    ui
+  ];
 
   installPhase = ''
     runHook preInstall

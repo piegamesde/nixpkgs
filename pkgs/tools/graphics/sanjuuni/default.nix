@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ ffmpeg poco ];
+  buildInputs = [
+    ffmpeg
+    poco
+  ];
 
   installPhase = ''
     runHook preInstall

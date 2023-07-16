@@ -26,12 +26,10 @@ callPackage ./common.nix { inherit stdenv; } {
 
   extraNativeBuildInputs = [ glibc ];
 
-  LOCALEDEF_FLAGS = [
-    (if stdenv.hostPlatform.isLittleEndian then
-      "--little-endian"
-    else
-      "--big-endian")
-  ];
+  LOCALEDEF_FLAGS = [ (if stdenv.hostPlatform.isLittleEndian then
+    "--little-endian"
+  else
+    "--big-endian") ];
 
   buildPhase = ''
     # Awful hack: `localedef' doesn't allow the path to `locale-archive'

@@ -45,7 +45,11 @@ buildDunePackage rec {
     lru
   ];
 
-  checkInputs = [ alcotest crowbar re ];
+  checkInputs = [
+    alcotest
+    crowbar
+    re
+  ];
   doCheck = true;
 
   meta = with lib; {

@@ -24,9 +24,17 @@ stdenv.mkDerivation rec {
     sha256 = "14l8xphw4jd9ckqba13cyxq0i362x8lfsd0zlfawwi2z1q1vqm92";
   };
 
-  nativeBuildInputs = [ pkg-config qmake gobject-introspection wrapQtAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    qmake
+    gobject-introspection
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ glib qtdeclarative ];
+  buildInputs = [
+    glib
+    qtdeclarative
+  ];
 
   patchPhase = ''
     # force ordered build of subdirs

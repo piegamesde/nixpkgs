@@ -28,8 +28,15 @@ buildPythonPackage rec {
       --replace " 'slugify'," " "
   '';
 
-  propagatedBuildInputs =
-    [ certifi python-dateutil python-slugify requests six tqdm urllib3 ];
+  propagatedBuildInputs = [
+    certifi
+    python-dateutil
+    python-slugify
+    requests
+    six
+    tqdm
+    urllib3
+  ];
 
   # Tests try to access the network.
   checkPhase = ''

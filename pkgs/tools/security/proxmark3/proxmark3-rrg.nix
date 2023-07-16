@@ -25,8 +25,14 @@ mkDerivation rec {
     sha256 = "sha256-l0aDp0s9ekUUHqkzGfVoSIf/4/GN2uiVGL/+QtKRCOs=";
   };
 
-  nativeBuildInputs = [ pkg-config gcc-arm-embedded ];
-  buildInputs = [ bluez5 readline ];
+  nativeBuildInputs = [
+    pkg-config
+    gcc-arm-embedded
+  ];
+  buildInputs = [
+    bluez5
+    readline
+  ];
 
   makeFlags = [
     "PLATFORM=${hardwarePlatform}"

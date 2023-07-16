@@ -48,19 +48,31 @@ let
     };
     wiringPiD = mkSubProject {
       subprj = "wiringPiD";
-      buildInputs = [ libxcrypt passthru.wiringPi passthru.devLib ];
+      buildInputs = [
+        libxcrypt
+        passthru.wiringPi
+        passthru.devLib
+      ];
     };
     gpio = mkSubProject {
       subprj = "gpio";
-      buildInputs = [ libxcrypt passthru.wiringPi passthru.devLib ];
+      buildInputs = [
+        libxcrypt
+        passthru.wiringPi
+        passthru.devLib
+      ];
     };
   };
 
 in symlinkJoin {
   name = "wiringpi-${version}";
   inherit passthru;
-  paths =
-    [ passthru.wiringPi passthru.devLib passthru.wiringPiD passthru.gpio ];
+  paths = [
+    passthru.wiringPi
+    passthru.devLib
+    passthru.wiringPiD
+    passthru.gpio
+  ];
   meta = with lib; {
     description =
       "Gordon's Arduino wiring-like WiringPi Library for the Raspberry Pi (Unofficial Mirror for WiringPi bindings)";

@@ -21,7 +21,12 @@ stdenv.mkDerivation rec {
   pname = "geocode-glib";
   version = "3.26.4";
 
-  outputs = [ "out" "dev" "devdoc" "installedTests" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+    "installedTests"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/geocode-glib/${
@@ -40,10 +45,14 @@ stdenv.mkDerivation rec {
     gtk-doc
     docbook-xsl-nons
     gobject-introspection
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-    [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
+    stdenv.hostPlatform) [ mesonEmulatorHook ];
 
-  buildInputs = [ glib libsoup json-glib ];
+  buildInputs = [
+    glib
+    libsoup
+    json-glib
+  ];
 
   mesonFlags = [
     "-Dsoup2=${lib.boolToString (lib.versionOlder libsoup.version "2.99")}"

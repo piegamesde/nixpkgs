@@ -31,17 +31,31 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ hatch-vcs hatchling ];
+  nativeBuildInputs = [
+    hatch-vcs
+    hatchling
+  ];
 
-  propagatedBuildInputs = [ httpx python-dateutil ];
+  propagatedBuildInputs = [
+    httpx
+    python-dateutil
+  ];
 
-  nativeCheckInputs = [ cheroot colorama pytest-xdist pytestCheckHook wsgidav ]
-    ++ passthru.optional-dependencies.fsspec;
+  nativeCheckInputs = [
+    cheroot
+    colorama
+    pytest-xdist
+    pytestCheckHook
+    wsgidav
+  ] ++ passthru.optional-dependencies.fsspec;
 
   passthru.optional-dependencies = {
     fsspec = [ fsspec ];
     http2 = [ httpx.optional-dependencies.http2 ];
-    all = [ fsspec httpx.optional-dependencies.http2 ];
+    all = [
+      fsspec
+      httpx.optional-dependencies.http2
+    ];
   };
 
   postPatch = ''

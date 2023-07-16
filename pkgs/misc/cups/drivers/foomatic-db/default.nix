@@ -25,9 +25,20 @@ stdenv.mkDerivation rec {
     hash = "sha256-eFgHTbj4pNfLG2ftU29FQ8rgRMbX+44UytfoZ4vdgZ4=";
   };
 
-  buildInputs = [ cups cups-filters ghostscript gnused perl ];
+  buildInputs = [
+    cups
+    cups-filters
+    ghostscript
+    gnused
+    perl
+  ];
 
-  nativeBuildInputs = [ autoconf automake patchPpdFilesHook perl ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    patchPpdFilesHook
+    perl
+  ];
 
   # sed-substitute indirection is more robust
   # against characters in paths that might need escaping

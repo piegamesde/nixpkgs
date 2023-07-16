@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  propagatedBuildInputs = [ dbus-glib telepathy-glib farstream ];
+  propagatedBuildInputs = [
+    dbus-glib
+    telepathy-glib
+    farstream
+  ];
 
   meta = with lib; {
     description =

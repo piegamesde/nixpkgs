@@ -26,9 +26,18 @@ buildPythonPackage rec {
     hash = "sha256-ARpXqZpWkbvIEDVkxA1SwlWoxq+3WO6tvv/e7WZ/25c=";
   };
 
-  propagatedBuildInputs = [ numpy scipy numba ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    numba
+  ];
 
-  nativeCheckInputs = [ pandas dask distributed pytestCheckHook ];
+  nativeCheckInputs = [
+    pandas
+    dask
+    distributed
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "stumpy" ];
 

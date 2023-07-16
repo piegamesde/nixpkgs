@@ -23,7 +23,10 @@ buildPythonPackage rec {
     hash = "sha256-p6hvOkPWRVJYLHvwyn9nS05wblikRFmlSYZuLiCcuqc=";
   };
 
-  propagatedBuildInputs = [ django pytz ];
+  propagatedBuildInputs = [
+    django
+    pytz
+  ];
 
   passthru.optional-dependencies.taggit = [ django-taggit ];
 

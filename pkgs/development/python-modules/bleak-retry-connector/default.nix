@@ -33,9 +33,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ async-timeout bleak bluetooth-adapters dbus-fast ];
+  propagatedBuildInputs = [
+    async-timeout
+    bleak
+    bluetooth-adapters
+    dbus-fast
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # broken mocking

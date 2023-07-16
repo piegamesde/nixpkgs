@@ -25,9 +25,21 @@ stdenv.mkDerivation rec {
     hash = "sha256-0zdv2oYl24BXh61IGCWby/2CCkzNjLpDrAFc0J89Pw4=";
   };
 
-  nativeBuildInputs = [ autoconf automake gettext intltool libtool pkg-config ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    gettext
+    intltool
+    libtool
+    pkg-config
+  ];
 
-  buildInputs = [ gtk ncurses openssl readline ];
+  buildInputs = [
+    gtk
+    ncurses
+    openssl
+    readline
+  ];
 
   preConfigure = ''
     ./autogen.sh

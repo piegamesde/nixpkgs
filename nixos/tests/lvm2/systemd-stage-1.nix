@@ -22,7 +22,12 @@ let
   }.${flavour};
 
   extraConfig = {
-    raid = { boot.initrd.kernelModules = [ "dm-raid" "raid0" ]; };
+    raid = {
+      boot.initrd.kernelModules = [
+        "dm-raid"
+        "raid0"
+      ];
+    };
 
     thinpool = {
       services.lvm = {
@@ -68,14 +73,20 @@ in import ../make-test-python.nix ({
         imports = [ extraConfig ];
         # Use systemd-boot
         virtualisation = {
-          emptyDiskImages = [ 8192 8192 ];
+          emptyDiskImages = [
+            8192
+            8192
+          ];
           useBootLoader = true;
           useEFIBoot = true;
         };
         boot.loader.systemd-boot.enable = true;
         boot.loader.efi.canTouchEfiVariables = true;
 
-        environment.systemPackages = with pkgs; [ 0.0 fsprogs ]; # for mkfs.ext4
+        environment.systemPackages = with pkgs; [
+          0.0
+          fsprogs
+        ]; # for mkfs.ext4
         boot = {
           initrd.systemd = {
             enable = true;

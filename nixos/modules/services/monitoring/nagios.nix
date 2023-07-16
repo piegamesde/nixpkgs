@@ -83,10 +83,12 @@ let
   '';
 
 in {
-  imports = [
-    (mkRemovedOptionModule [ "services" "nagios" "urlPath" ]
-      "The urlPath option has been removed as it is hard coded to /nagios in the nagios package.")
-  ];
+  imports = [ (mkRemovedOptionModule [
+    "services"
+    "nagios"
+    "urlPath"
+  ]
+    "The urlPath option has been removed as it is hard coded to /nagios in the nagios package.") ];
 
   meta.maintainers = with lib.maintainers; [ symphorien ];
 
@@ -107,7 +109,11 @@ in {
 
       plugins = mkOption {
         type = types.listOf types.package;
-        default = with pkgs; [ monitoring-plugins msmtp mailutils ];
+        default = with pkgs; [
+          monitoring-plugins
+          msmtp
+          mailutils
+        ];
         defaultText = literalExpression
           "[pkgs.monitoring-plugins pkgs.msmtp pkgs.mailutils]";
         description = lib.mdDoc ''
@@ -215,8 +221,10 @@ in {
     };
 
     services.httpd.virtualHosts = optionalAttrs cfg.enableWebInterface {
-      ${cfg.virtualHost.hostName} =
-        mkMerge [ cfg.virtualHost { extraConfig = extraHttpdConfig; } ];
+      ${cfg.virtualHost.hostName} = mkMerge [
+        cfg.virtualHost
+        { extraConfig = extraHttpdConfig; }
+      ];
     };
   };
 }

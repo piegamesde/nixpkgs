@@ -39,25 +39,25 @@ let
     pkgs.writeText "${name}-kubeconfig" (builtins.toJSON {
       apiVersion = "v1";
       kind = "Config";
-      clusters = [{
+      clusters = [ {
         name = "local";
         cluster.certificate-authority = conf.caFile or cfg.caFile;
         cluster.server = conf.server;
-      }];
-      users = [{
+      } ];
+      users = [ {
         inherit name;
         user = {
           client-certificate = conf.certFile;
           client-key = conf.keyFile;
         };
-      }];
-      contexts = [{
+      } ];
+      contexts = [ {
         context = {
           cluster = "local";
           user = name;
         };
         name = "local";
-      }];
+      } ];
       current-context = "local";
     });
 
@@ -117,9 +117,17 @@ let
 in {
 
   imports = [
-    (mkRemovedOptionModule [ "services" "kubernetes" "addons" "dashboard" ]
-      "Removed due to it being an outdated version")
-    (mkRemovedOptionModule [ "services" "kubernetes" "verbose" ] "")
+    (mkRemovedOptionModule [
+      "services"
+      "kubernetes"
+      "addons"
+      "dashboard"
+    ] "Removed due to it being an outdated version")
+    (mkRemovedOptionModule [
+      "services"
+      "kubernetes"
+      "verbose"
+    ] "")
   ];
 
   ###### interface
@@ -134,7 +142,10 @@ in {
         Node role will enable flannel, docker, kubelet and proxy services.
       '';
       default = [ ];
-      type = types.listOf (types.enum [ "master" "node" ]);
+      type = types.listOf (types.enum [
+        "master"
+        "node"
+      ]);
     };
 
     package = mkOption {

@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ file ];
-  nativeBuildInputs = [ autoPatchelfHook unzip ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    unzip
+  ];
 
   installPhase = ''
     runHook preInstall

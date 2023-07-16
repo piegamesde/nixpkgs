@@ -18,7 +18,11 @@ buildPythonPackage rec {
     sha256 = "0mjj3c9335sph8rhwww7j4zvhyk896fbmx887vibm89w3jpvjjr9";
   };
 
-  propagatedBuildInputs = [ pyparsing six urwid ];
+  propagatedBuildInputs = [
+    pyparsing
+    six
+    urwid
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

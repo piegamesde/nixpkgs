@@ -17,8 +17,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-jOtIA7+rM/2qObhR61utvmXD+Rxi/+dEvzgYkGR76I8=";
 
-  ldflags =
-    [ "-s" "-w" "-X github.com/slurdge/goeland/version.GitCommit=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/slurdge/goeland/version.GitCommit=${version}"
+  ];
 
   meta = with lib; {
     description =

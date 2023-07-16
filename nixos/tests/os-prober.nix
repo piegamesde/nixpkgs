@@ -82,9 +82,8 @@ import ./make-test-python.nix ({
         ];
         virtualisation.memorySize = 1300;
         # To add the secondary disk:
-        virtualisation.qemu.options = [
-          "-drive index=2,file=${debianImage}/disk-image.qcow2,read-only,if=virtio"
-        ];
+        virtualisation.qemu.options =
+          [ "-drive index=2,file=${debianImage}/disk-image.qcow2,read-only,if=virtio" ];
 
         # The test cannot access the network, so any packages
         # nixos-rebuild needs must be included in the VM.

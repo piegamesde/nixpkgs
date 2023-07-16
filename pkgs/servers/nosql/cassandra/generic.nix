@@ -23,7 +23,14 @@
 
 let
   libPath = lib.makeLibraryPath [ stdenv.cc.cc ];
-  binPath = lib.makeBinPath [ bash getopt gawk which jre procps ];
+  binPath = lib.makeBinPath [
+    bash
+    getopt
+    gawk
+    which
+    jre
+    procps
+  ];
 
 in stdenv.mkDerivation rec {
   pname = "cassandra";

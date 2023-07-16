@@ -28,7 +28,11 @@ buildPythonPackage rec {
       --replace "REQUIREMENTS," "[],"
   '';
 
-  propagatedBuildInputs = [ aiohttp pydantic websockets ];
+  propagatedBuildInputs = [
+    aiohttp
+    pydantic
+    websockets
+  ];
 
   # Module has no tests
   doCheck = false;

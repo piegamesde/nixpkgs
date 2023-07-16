@@ -15,7 +15,10 @@
 stdenv.mkDerivation rec {
   pname = "autoconf";
   version = "2.71";
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnu/autoconf/autoconf-${version}.tar.xz";
@@ -28,7 +31,11 @@ stdenv.mkDerivation rec {
   ];
 
   strictDeps = true;
-  nativeBuildInputs = [ m4 perl texinfo ];
+  nativeBuildInputs = [
+    m4
+    perl
+    texinfo
+  ];
   buildInputs = [ m4 ];
   postBuild = "\n    make html\n  ";
 

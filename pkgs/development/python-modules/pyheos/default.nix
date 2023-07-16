@@ -17,7 +17,10 @@ buildPythonPackage rec {
     sha256 = "0rgzg7lnqzzqrjp73c1hj1hq8p0j0msyih3yr4wa2rj81s8ihmby";
   };
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # accesses network

@@ -24,10 +24,16 @@ stdenv.mkDerivation rec {
     "-Wno-error=nonnull"
   ];
 
-  nativeBuildInputs = [ cmake doxygen ];
+  nativeBuildInputs = [
+    cmake
+    doxygen
+  ];
 
-  cmakeFlags =
-    [ "-DUri_BUILD_TESTS=OFF" "-DUri_BUILD_DOCS=ON" "-DBUILD_SHARED_LIBS=ON" ];
+  cmakeFlags = [
+    "-DUri_BUILD_TESTS=OFF"
+    "-DUri_BUILD_DOCS=ON"
+    "-DBUILD_SHARED_LIBS=ON"
+  ];
 
   postBuild = "make doc";
 

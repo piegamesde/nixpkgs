@@ -21,7 +21,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ nose ];
 
-  nativeCheckInputs = [ mock nose parameterized termcolor ];
+  nativeCheckInputs = [
+    mock
+    nose
+    parameterized
+    termcolor
+  ];
 
   checkPhase = ''
     runHook preCheck

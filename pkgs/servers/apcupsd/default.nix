@@ -26,7 +26,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ util-linux man ] ++ lib.optional enableCgiScripts gd;
+  buildInputs = [
+    util-linux
+    man
+  ] ++ lib.optional enableCgiScripts gd;
 
   prePatch = ''
     sed -e "s,\$(INSTALL_PROGRAM) \$(STRIP),\$(INSTALL_PROGRAM)," \

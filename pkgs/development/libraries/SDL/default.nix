@@ -35,11 +35,17 @@
 # SDL2 expression too
 
 let
-  extraPropagatedBuildInputs = [ ]
-    ++ lib.optionals x11Support [ libXext libICE libXrandr ]
-    ++ lib.optionals (openglSupport && stdenv.isLinux) [ libGL libGLU ]
-    ++ lib.optionals (openglSupport && stdenv.isDarwin) [ OpenGL GLUT ]
-    ++ lib.optional alsaSupport alsa-lib
+  extraPropagatedBuildInputs = [ ] ++ lib.optionals x11Support [
+    libXext
+    libICE
+    libXrandr
+  ] ++ lib.optionals (openglSupport && stdenv.isLinux) [
+    libGL
+    libGLU
+  ] ++ lib.optionals (openglSupport && stdenv.isDarwin) [
+    OpenGL
+    GLUT
+  ] ++ lib.optional alsaSupport alsa-lib
     ++ lib.optional pulseaudioSupport libpulseaudio
     ++ lib.optional stdenv.isDarwin Cocoa;
   rpath = lib.makeLibraryPath extraPropagatedBuildInputs;
@@ -56,7 +62,10 @@ in stdenv.mkDerivation rec {
   # make: *** No rule to make target 'build/*.lo', needed by 'build/libSDL.la'.  Stop.
   postPatch = "patchShebangs ./configure";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
   outputBin = "dev"; # sdl-config
 
   nativeBuildInputs = [ pkg-config ] ++ lib.optional stdenv.isLinux libcap;

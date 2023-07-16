@@ -23,8 +23,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3/C1Gz6luUzS7oaudLlDHMT6JB2v5OdbLVzJhtayHGM=";
   };
 
-  nativeBuildInputs = [ ocaml findlib ocamlbuild ];
-  buildInputs = [ mariadb libmysqlclient ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+    ocamlbuild
+  ];
+  buildInputs = [
+    mariadb
+    libmysqlclient
+  ];
   propagatedBuildInputs = [ ctypes ];
 
   strictDeps = true;

@@ -29,7 +29,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-AYjO7B0Z6G1JqpLdvm9LS+ujz7iUp8UwZ9X1WQ/dGk0=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   buildInputs = [
     libX11
@@ -53,7 +56,10 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    maintainers = with maintainers; [ goibhniu fortuneteller2k ];
+    maintainers = with maintainers; [
+      goibhniu
+      fortuneteller2k
+    ];
     description = "Wacom digitizer driver for X11";
     homepage = "https://linuxwacom.sourceforge.net";
     license = licenses.gpl2Only;

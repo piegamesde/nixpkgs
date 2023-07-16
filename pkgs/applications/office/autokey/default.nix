@@ -23,9 +23,16 @@ python3Packages.buildPythonApplication rec {
   # Tests appear to be broken with import errors within the project structure
   doCheck = false;
 
-  nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    gobject-introspection
+  ];
 
-  buildInputs = [ gtksourceview3 libappindicator-gtk3 libnotify ];
+  buildInputs = [
+    gtksourceview3
+    libappindicator-gtk3
+    libnotify
+  ];
 
   propagatedBuildInputs = with python3Packages; [
     dbus-python

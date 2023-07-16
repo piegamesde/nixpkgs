@@ -20,15 +20,33 @@ mkDerivation {
   meta = with lib; {
     homepage = "https://apps.kde.org/minuet/";
     description = "Music Education Software";
-    license = with licenses; [ lgpl21 gpl3 ];
-    maintainers = with maintainers; [ peterhoeg HaoZeke ];
+    license = with licenses; [
+      lgpl21
+      gpl3
+    ];
+    maintainers = with maintainers; [
+      peterhoeg
+      HaoZeke
+    ];
   };
 
-  nativeBuildInputs =
-    [ extra-cmake-modules gettext kdoctools python3 qtdeclarative ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    gettext
+    kdoctools
+    python3
+    qtdeclarative
+  ];
 
-  propagatedBuildInputs =
-    [ drumstick fluidsynth kcoreaddons kcrash qtquickcontrols2 qtsvg qttools ];
+  propagatedBuildInputs = [
+    drumstick
+    fluidsynth
+    kcoreaddons
+    kcrash
+    qtquickcontrols2
+    qtsvg
+    qttools
+  ];
 
   enableParallelBuilding = true;
 }

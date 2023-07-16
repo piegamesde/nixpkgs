@@ -151,6 +151,9 @@ buildPythonPackage rec {
     homepage = "https://python-poetry.org/";
     description = "Python dependency management and packaging made easy";
     license = licenses.mit;
-    maintainers = with maintainers; [ jakewaksbaum dotlambda ];
+    maintainers = with maintainers; [
+      jakewaksbaum
+      dotlambda
+    ];
   };
 }

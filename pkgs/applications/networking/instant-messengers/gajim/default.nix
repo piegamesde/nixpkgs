@@ -71,7 +71,10 @@ python3.pkgs.buildPythonApplication rec {
     ++ lib.optional enableSpelling gspell ++ lib.optional enableUPnP gupnp-igd
     ++ lib.optional enableAppIndicator libappindicator-gtk3;
 
-  nativeBuildInputs = [ gettext wrapGAppsHook ];
+  nativeBuildInputs = [
+    gettext
+    wrapGAppsHook
+  ];
 
   dontWrapGApps = true;
 
@@ -91,12 +94,19 @@ python3.pkgs.buildPythonApplication rec {
       setuptools
       packaging
       gssapi
-    ] ++ lib.optionals enableE2E [ pycrypto python-gnupg ]
-    ++ lib.optional enableRST docutils
-    ++ lib.optionals enableOmemoPluginDependencies [ python-axolotl qrcode ]
-    ++ extraPythonPackages python3.pkgs;
+    ] ++ lib.optionals enableE2E [
+      pycrypto
+      python-gnupg
+    ] ++ lib.optional enableRST docutils
+    ++ lib.optionals enableOmemoPluginDependencies [
+      python-axolotl
+      qrcode
+    ] ++ extraPythonPackages python3.pkgs;
 
-  nativeCheckInputs = [ xvfb-run dbus ];
+  nativeCheckInputs = [
+    xvfb-run
+    dbus
+  ];
 
   checkPhase = ''
     xvfb-run dbus-run-session \
@@ -112,7 +122,10 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "http://gajim.org/";
     description = "Jabber client written in PyGTK";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ raskin abbradar ];
+    maintainers = with lib.maintainers; [
+      raskin
+      abbradar
+    ];
     downloadPage = "http://gajim.org/download/";
     platforms = lib.platforms.linux;
   };

@@ -30,20 +30,21 @@ in buildDotnetPackage rec {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ makeWrapper unzip ];
+  nativeBuildInputs = [
+    makeWrapper
+    unzip
+  ];
   buildInputs = [ icoutils ];
 
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      xsel = "${xsel}/bin/xsel";
-      xprop = "${xorg.xprop}/bin/xprop";
-      xdotool = "${xdotool}/bin/xdotool";
-      uname = "${coreutils}/bin/uname";
-      whereis = "${unixtools.whereis}/bin/whereis";
-      gsettings = "${glib}/bin/gsettings";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    xsel = "${xsel}/bin/xsel";
+    xprop = "${xorg.xprop}/bin/xprop";
+    xdotool = "${xdotool}/bin/xdotool";
+    uname = "${coreutils}/bin/uname";
+    whereis = "${unixtools.whereis}/bin/whereis";
+    gsettings = "${glib}/bin/gsettings";
+  }) ];
 
   # KeePass looks for plugins in under directory in which KeePass.exe is
   # located. It follows symlinks where looking for that directory, so
@@ -58,8 +59,13 @@ in buildDotnetPackage rec {
     loads = lib.concatStrings (map (p:
       replaceStrings [ "$PATH$" ] [ (unsafeDiscardStringContext (toString p)) ]
       loadTemplate) plugins);
-  in replaceStrings [ "$OUTPUT_LC$" "$DO_LOADS$" ] [ outputLc loads ]
-  patchTemplate;
+  in replaceStrings [
+    "$OUTPUT_LC$"
+    "$DO_LOADS$"
+  ] [
+    outputLc
+    loads
+  ] patchTemplate;
 
   passAsFile = [ "pluginLoadPathsPatch" ];
   postPatch = ''
@@ -128,7 +134,10 @@ in buildDotnetPackage rec {
   meta = {
     description = "GUI password manager with strong cryptography";
     homepage = "http://www.keepass.info/";
-    maintainers = with lib.maintainers; [ amorsillo obadz ];
+    maintainers = with lib.maintainers; [
+      amorsillo
+      obadz
+    ];
     platforms = with lib.platforms; all;
     license = lib.licenses.gpl2;
   };

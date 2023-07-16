@@ -162,17 +162,22 @@ let
   cudatoolkit_joined = symlinkJoin {
     name = "${cudatoolkit.name}-unsplit";
     # nccl is here purely for semantic grouping it could be moved to nativeBuildInputs
-    paths = [ cudatoolkit.out cudatoolkit.lib nccl.dev nccl.out ];
+    paths = [
+      cudatoolkit.out
+      cudatoolkit.lib
+      nccl.dev
+      nccl.out
+    ];
   };
 
   # Normally libcuda.so.1 is provided at runtime by nvidia-x11 via
   # LD_LIBRARY_PATH=/run/opengl-driver/lib.  We only use the stub
   # libcuda.so from cudatoolkit for running tests, so that we don’t have
   # to recompile pytorch on every update to nvidia-x11 or the kernel.
-  cudaStub = linkFarm "cuda-stub" [{
+  cudaStub = linkFarm "cuda-stub" [ {
     name = "libcuda.so.1";
     path = "${cudatoolkit}/lib/stubs/libcuda.so";
-  }];
+  } ];
   cudaStubEnv = lib.optionalString cudaSupport
     "LD_LIBRARY_PATH=${cudaStub}\${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH ";
 
@@ -343,12 +348,10 @@ in buildPythonPackage rec {
   # Also of interest: pytorch ignores CXXFLAGS uses CFLAGS for both C and C++:
   # https://github.com/pytorch/pytorch/blob/v1.11.0/setup.py#L17
   env.NIX_CFLAGS_COMPILE = toString
-    ((lib.optionals (blas.implementation == "mkl") [
-      "-Wno-error=array-bounds"
-    ]
-    # Suppress gcc regression: avx512 math function raises uninitialized variable warning
-    # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105593
-    # See also: Fails to compile with GCC 12.1.0 https://github.com/pytorch/pytorch/issues/77939
+    ((lib.optionals (blas.implementation == "mkl") [ "-Wno-error=array-bounds" ]
+      # Suppress gcc regression: avx512 math function raises uninitialized variable warning
+      # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105593
+      # See also: Fails to compile with GCC 12.1.0 https://github.com/pytorch/pytorch/issues/77939
       ++ lib.optionals
       (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12.0.0") [
         "-Wno-error=maybe-uninitialized"
@@ -357,9 +360,8 @@ in buildPythonPackage rec {
       # Since pytorch 2.0:
       # gcc-12.2.0/include/c++/12.2.0/bits/new_allocator.h:158:33: error: ‘void operator delete(void*, std::size_t)’
       # ... called on pointer ‘<unknown>’ with nonzero offset [1, 9223372036854775800] [-Werror=free-nonheap-object]
-      ++ lib.optionals
-      (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version == "12")
-      [ "-Wno-error=free-nonheap-object" ]));
+      ++ lib.optionals (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version
+        == "12") [ "-Wno-error=free-nonheap-object" ]));
 
   nativeBuildInputs = [
     cmake
@@ -372,13 +374,23 @@ in buildPythonPackage rec {
   ] ++ lib.optionals cudaSupport [ cudatoolkit_joined ]
     ++ lib.optionals rocmSupport [ rocmtoolkit_joined ];
 
-  buildInputs = [ blas blas.provider pybind11 ] ++ lib.optionals stdenv.isLinux
-    [ linuxHeaders_5_19 ] # TMP: avoid "flexible array member" errors for now
-    ++ lib.optionals cudaSupport [ cudnn nccl ]
-    ++ lib.optionals rocmSupport [ openmp ]
+  buildInputs = [
+    blas
+    blas.provider
+    pybind11
+  ] ++ lib.optionals
+    stdenv.isLinux [ linuxHeaders_5_19 ] # TMP: avoid "flexible array member" errors for now
+    ++ lib.optionals cudaSupport [
+      cudnn
+      nccl
+    ] ++ lib.optionals rocmSupport [ openmp ]
     ++ lib.optionals (cudaSupport || rocmSupport) [ magma ]
     ++ lib.optionals stdenv.isLinux [ numactl ]
-    ++ lib.optionals stdenv.isDarwin [ Accelerate CoreServices libobjc ];
+    ++ lib.optionals stdenv.isDarwin [
+      Accelerate
+      CoreServices
+      libobjc
+    ];
 
   propagatedBuildInputs = [
     cffi
@@ -399,14 +411,13 @@ in buildPythonPackage rec {
     future
     tensorboard
     protobuf
-  ] ++ lib.optionals MPISupport [ mpi ] ++ lib.optionals rocmSupport [
-    rocmtoolkit_joined
-  ]
-  # rocm build requires openai-triton;
-  # openai-triton currently requires cuda_nvcc,
-  # so not including it in the cpu-only build;
-  # torch.compile relies on openai-triton,
-  # so we include it for the cuda build as well
+  ] ++ lib.optionals MPISupport [ mpi ]
+    ++ lib.optionals rocmSupport [ rocmtoolkit_joined ]
+    # rocm build requires openai-triton;
+    # openai-triton currently requires cuda_nvcc,
+    # so not including it in the cpu-only build;
+    # torch.compile relies on openai-triton,
+    # so we include it for the cuda build as well
     ++ lib.optionals (rocmSupport || cudaSupport) [ openai-triton ];
 
   # Tests take a long time and may be flaky, so just sanity-check imports
@@ -414,7 +425,11 @@ in buildPythonPackage rec {
 
   pythonImportsCheck = [ "torch" ];
 
-  nativeCheckInputs = [ hypothesis ninja psutil ];
+  nativeCheckInputs = [
+    hypothesis
+    ninja
+    psutil
+  ];
 
   checkPhase = with lib.versions;
     with lib.strings;

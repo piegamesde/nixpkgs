@@ -18,7 +18,10 @@ stdenv.mkDerivation {
     sha256 = "sha256-fz2yhxy6Q5uEPAbzMxMiaXqSYkQ9uB3A4sV2qYOekJ8=";
   };
 
-  nativeBuildInputs = [ meson ninja ];
+  nativeBuildInputs = [
+    meson
+    ninja
+  ];
 
   meta = with lib; {
     description = "Lightweight JSON library written in C";

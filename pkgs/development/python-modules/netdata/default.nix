@@ -27,9 +27,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ httpx yarl ];
+  propagatedBuildInputs = [
+    httpx
+    yarl
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytest-httpx pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-httpx
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "netdata" ];
 

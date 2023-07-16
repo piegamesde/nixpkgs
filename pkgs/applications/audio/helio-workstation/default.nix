@@ -40,7 +40,10 @@ stdenv.mkDerivation rec {
     gnome.zenity
   ];
 
-  nativeBuildInputs = [ pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
 
   preBuild = ''
     cd Projects/LinuxMakefile

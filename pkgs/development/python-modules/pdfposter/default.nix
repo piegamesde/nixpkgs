@@ -17,7 +17,10 @@ buildPythonPackage rec {
     hash = "sha256-yWFtHgVKAWs4dRlSk8t8cB2KBJeBOa0Frh3BLR9txS0=";
   };
 
-  pythonImportsCheck = [ "pdftools.pdfposter" "pdftools.pdfposter.cmd" ];
+  pythonImportsCheck = [
+    "pdftools.pdfposter"
+    "pdftools.pdfposter.cmd"
+  ];
 
   meta = with lib; {
     description =

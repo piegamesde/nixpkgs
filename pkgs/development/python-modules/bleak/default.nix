@@ -28,9 +28,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ async-timeout dbus-fast typing-extensions ];
+  propagatedBuildInputs = [
+    async-timeout
+    dbus-fast
+    typing-extensions
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   postPatch = ''
     # bleak checks BlueZ's version with a call to `bluetoothctl --version`

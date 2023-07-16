@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ gtk3 ];
 
-  makeFlags = [ "CONFIG=release" "DESTDIR=$(out)" ];
+  makeFlags = [
+    "CONFIG=release"
+    "DESTDIR=$(out)"
+  ];
 
   postInstall = ''
     mv $out/usr/bin $out/bin
@@ -33,7 +36,11 @@ stdenv.mkDerivation rec {
     homepage = "https://psydk.org/pngoptimizer";
     description = "PNG optimizer and converter";
     # https://github.com/hadrien-psydk/pngoptimizer#license-information
-    license = with licenses; [ gpl2Only lgpl21Only zlib ];
+    license = with licenses; [
+      gpl2Only
+      lgpl21Only
+      zlib
+    ];
     maintainers = with maintainers; [ smitop ];
     platforms = with platforms; linux;
   };

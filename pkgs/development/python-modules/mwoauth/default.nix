@@ -22,7 +22,13 @@ buildPythonPackage rec {
     hash = "sha256-CNr07auqD5WoRfmOVwfecxaoODqWJfIK52iwNZkcNqw=";
   };
 
-  propagatedBuildInputs = [ oauthlib pyjwt requests requests-oauthlib six ];
+  propagatedBuildInputs = [
+    oauthlib
+    pyjwt
+    requests
+    requests-oauthlib
+    six
+  ];
 
   # PyPI source has no tests included
   # https://github.com/mediawiki-utilities/python-mwoauth/issues/44

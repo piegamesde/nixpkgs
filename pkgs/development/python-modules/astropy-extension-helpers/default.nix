@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   patches = [ ./permissions.patch ];
 
-  nativeCheckInputs = [ findutils pytestCheckHook ];
+  nativeCheckInputs = [
+    findutils
+    pytestCheckHook
+  ];
 
   # avoid import mismatch errors, as conftest.py is copied to build dir
   pytestFlagsArray = [ "extension_helpers" ];

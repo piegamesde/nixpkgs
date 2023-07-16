@@ -20,7 +20,11 @@ in stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ glib gtk2 popt ];
+  buildInputs = [
+    glib
+    gtk2
+    popt
+  ];
 
   doCheck = true;
 

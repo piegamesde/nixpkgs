@@ -24,16 +24,26 @@ buildPythonPackage rec {
     hash = "sha256-CspzN6DaD62IBATlB/+vefIf2oMT9Cwr9kHq63V6k2Q=";
   };
 
-  propagatedBuildInputs =
-    [ grpc-google-iam-v1 google-api-core proto-plus protobuf ]
-    ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs = [
+    grpc-google-iam-v1
+    google-api-core
+    proto-plus
+    protobuf
+  ] ++ google-api-core.optional-dependencies.grpc;
 
-  nativeCheckInputs = [ mock pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   # Disable tests that need credentials
   disabledTests = [ "test_list_global_key_rings" ];
 
-  pythonImportsCheck = [ "google.cloud.kms" "google.cloud.kms_v1" ];
+  pythonImportsCheck = [
+    "google.cloud.kms"
+    "google.cloud.kms_v1"
+  ];
 
   meta = with lib; {
     description = "Cloud Key Management Service (KMS) API API client library";

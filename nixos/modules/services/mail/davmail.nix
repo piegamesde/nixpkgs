@@ -12,7 +12,12 @@ let
   cfg = config.services.davmail;
 
   configType = with types;
-    oneOf [ (attrsOf configType) str int bool ] // {
+    oneOf [
+      (attrsOf configType)
+      str
+      int
+      bool
+    ] // {
       description =
         "davmail config type (str, int, bool or attribute set thereof)";
     };
@@ -24,8 +29,7 @@ let
       let value = attrs.${name};
       in if isAttrs value then
         map (line: name + "." + line) (linesForAttrs value)
-      else
-        [ "${name}=${toStr value}" ]) (attrNames attrs);
+      else [ "${name}=${toStr value}" ]) (attrNames attrs);
 
   configFile = pkgs.writeText "davmail.properties"
     (concatStringsSep "\n" (linesForAttrs cfg.config));

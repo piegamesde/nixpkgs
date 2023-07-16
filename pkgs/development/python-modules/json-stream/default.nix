@@ -27,7 +27,10 @@ buildPythonPackage rec {
 
   buildInputs = lib.optionals stdenv.isDarwin [ iconv ];
 
-  propagatedBuildInputs = [ requests json-stream-rs-tokenizer ];
+  propagatedBuildInputs = [
+    requests
+    json-stream-rs-tokenizer
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

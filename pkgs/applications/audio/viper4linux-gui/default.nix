@@ -33,20 +33,26 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-5YlLCF598i/sldczPEgCB+1KJDA7jqM964QDSNjgTKM=";
   };
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      exec = "viper-gui";
-      icon = "viper";
-      desktopName = "viper4linux";
-      genericName = "Equalizer";
-      comment = meta.description;
-      categories = [ "AudioVideo" "Audio" ];
-      startupNotify = false;
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = pname;
+    exec = "viper-gui";
+    icon = "viper";
+    desktopName = "viper4linux";
+    genericName = "Equalizer";
+    comment = meta.description;
+    categories = [
+      "AudioVideo"
+      "Audio"
+    ];
+    startupNotify = false;
+  }) ];
 
-  nativeBuildInputs = [ qmake pkg-config wrapQtAppsHook copyDesktopItems ];
+  nativeBuildInputs = [
+    qmake
+    pkg-config
+    wrapQtAppsHook
+    copyDesktopItems
+  ];
 
   buildInputs = [
     qtbase
@@ -62,7 +68,12 @@ in stdenv.mkDerivation rec {
   qmakeFlags = [ "V4L_Frontend.pro" ];
 
   qtWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath [ viper4linux gst_all_1.gstreamer ]}"
+    "--prefix PATH : ${
+      lib.makeBinPath [
+        viper4linux
+        gst_all_1.gstreamer
+      ]
+    }"
     "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${gstPluginPath}"
   ];
 

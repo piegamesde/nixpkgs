@@ -17,8 +17,14 @@ stdenv.mkDerivation rec {
     sha256 = "1z6l7pbwgs5pjx3861cyd3r6vq5av984bdp4r3hgrw2jxam6120m";
   };
 
-  nativeBuildInputs = [ pkg-config cmake ];
-  buildInputs = [ bluez libusb-compat-0_1 ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
+  buildInputs = [
+    bluez
+    libusb-compat-0_1
+  ];
 
   configureFlags = [ "--enable-apps" ];
 

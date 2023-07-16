@@ -69,7 +69,10 @@ in stdenv.mkDerivation rec {
   pname = "gnome-shell";
   version = "44.1";
 
-  outputs = [ "out" "devdoc" ];
+  outputs = [
+    "out"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/gnome-shell/${
@@ -179,7 +182,10 @@ in stdenv.mkDerivation rec {
     pythonEnv
   ];
 
-  mesonFlags = [ "-Dgtk_doc=true" "-Dtests=false" ];
+  mesonFlags = [
+    "-Dgtk_doc=true"
+    "-Dtests=false"
+  ];
 
   postPatch = ''
     patchShebangs src/data-to-c.pl
@@ -194,7 +200,10 @@ in stdenv.mkDerivation rec {
     # In postInstall to run before gappsWrapperArgsHook.
     export GDK_PIXBUF_MODULE_FILE="${
       gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
-        extraLoaders = [ librsvg webp-pixbuf-loader ];
+        extraLoaders = [
+          librsvg
+          webp-pixbuf-loader
+        ];
       }
     }"
   '';

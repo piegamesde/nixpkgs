@@ -33,20 +33,28 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-F9svLaQnQyVyC5KzDnaGwB8J/nBZ3zzOVwYNxWBPifU=";
   };
 
-  nativeBuildInputs = [ meson ninja cmake pkg-config ]
-    ++ lib.optional withGui wrapGAppsHook;
+  nativeBuildInputs = [
+    meson
+    ninja
+    cmake
+    pkg-config
+  ] ++ lib.optional withGui wrapGAppsHook;
 
-  buildInputs = [ liblxi readline lua bash-completion ]
-    ++ lib.optionals withGui [
-      glib
-      gtk4
-      gtksourceview5
-      libadwaita
-      json-glib
-      desktop-file-utils
-      appstream-glib
-      gsettings-desktop-schemas
-    ];
+  buildInputs = [
+    liblxi
+    readline
+    lua
+    bash-completion
+  ] ++ lib.optionals withGui [
+    glib
+    gtk4
+    gtksourceview5
+    libadwaita
+    json-glib
+    desktop-file-utils
+    appstream-glib
+    gsettings-desktop-schemas
+  ];
 
   postUnpack = "sed -i '/meson.add_install.*$/d' source/meson.build";
 

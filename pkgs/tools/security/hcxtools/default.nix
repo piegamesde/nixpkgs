@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ curl openssl zlib ];
+  buildInputs = [
+    curl
+    openssl
+    zlib
+  ];
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 

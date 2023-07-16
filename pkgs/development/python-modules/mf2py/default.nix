@@ -21,9 +21,17 @@ buildPythonPackage rec {
     hash = "sha256-9pAD/eCmc/l7LGmKixDhZy3hhj1jCmcyo9wbqgtz/wI=";
   };
 
-  propagatedBuildInputs = [ beautifulsoup4 html5lib requests ];
+  propagatedBuildInputs = [
+    beautifulsoup4
+    html5lib
+    requests
+  ];
 
-  nativeCheckInputs = [ lxml mock nose ];
+  nativeCheckInputs = [
+    lxml
+    mock
+    nose
+  ];
 
   pythonImportsCheck = [ "mf2py" ];
 

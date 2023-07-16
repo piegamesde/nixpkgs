@@ -26,7 +26,10 @@ python3.pkgs.buildPythonPackage rec {
 
   buildAndTestSubdir = "examples/word-count";
 
-  nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];
+  nativeBuildInputs = with rustPlatform; [
+    cargoSetupHook
+    maturinBuildHook
+  ];
 
   pythonImportsCheck = [ "word_count" ];
 

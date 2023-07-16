@@ -24,7 +24,10 @@ buildPythonPackage rec {
       --replace "\"pytest>=2\"," ""
   '';
 
-  buildInputs = [ isl pybind11 ];
+  buildInputs = [
+    isl
+    pybind11
+  ];
   propagatedBuildInputs = [ six ];
 
   preCheck = "mv islpy islpy.hidden";

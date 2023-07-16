@@ -27,7 +27,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-6NFqxUjEAp7aiIScyTOFh2tT7PfuTCKH1vTgPpTm+j0=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   buildInputs = [
     SDL2
@@ -44,7 +47,10 @@ stdenv.mkDerivation rec {
     libGL
   ];
 
-  configureFlags = [ "--with-sdl2" "--without-dyecmd" ];
+  configureFlags = [
+    "--with-sdl2"
+    "--without-dyecmd"
+  ];
 
   enableParallelBuilding = true;
 

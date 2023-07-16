@@ -17,7 +17,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-sB3j19HrTtaRqNcooqNy8vBvuzxxyGDa7MOtiGoVgN8=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description =

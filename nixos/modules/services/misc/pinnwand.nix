@@ -108,11 +108,18 @@ in {
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
-        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+        ];
         UMask = "0077";
       };
     };

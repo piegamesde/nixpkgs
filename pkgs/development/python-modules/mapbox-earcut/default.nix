@@ -24,7 +24,10 @@ buildPythonPackage rec {
     hash = "sha256-+Vxvo++bkoCsJFmt/u1eaqhgpz8Uddz06iIi66ju+MQ=";
   };
 
-  nativeBuildInputs = [ setuptools pybind11 ];
+  nativeBuildInputs = [
+    setuptools
+    pybind11
+  ];
 
   propagatedBuildInputs = [ numpy ];
 

@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pysqueezebox" ];
 

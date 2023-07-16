@@ -21,7 +21,10 @@ stdenv.mkDerivation {
   };
 
   buildInputs = [ qt48 ];
-  nativeBuildInputs = [ flex qmake4Hook ];
+  nativeBuildInputs = [
+    flex
+    qmake4Hook
+  ];
 
   QTDIR = qt48;
 

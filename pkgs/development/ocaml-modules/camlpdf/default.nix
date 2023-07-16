@@ -22,7 +22,11 @@ else
       sha256 = "sha256:1qmsa0xgi960y7r20mvf8hxiiml7l1908s4dm7nq262f19w51gsl";
     };
 
-    nativeBuildInputs = [ which ocaml findlib ];
+    nativeBuildInputs = [
+      which
+      ocaml
+      findlib
+    ];
 
     strictDeps = true;
 

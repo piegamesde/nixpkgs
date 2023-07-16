@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-GhGiSI5r0Ki6+MYNa5jCDyYZEW5R9LDNZ/S8K+6L0jo=";
   };
 
-  buildInputs = [ systemd libnotify ];
+  buildInputs = [
+    systemd
+    libnotify
+  ];
   nativeBuildInputs = [ pkg-config ];
 
   installPhase = ''

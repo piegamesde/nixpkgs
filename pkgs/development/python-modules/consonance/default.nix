@@ -24,8 +24,12 @@ buildPythonPackage rec {
     hash = "sha256-BhgxLxjKZ4dSL7DqkaoS+wBPCd1SYZomRKrtDLdGmYQ=";
   };
 
-  propagatedBuildInputs =
-    [ dissononce python-axolotl-curve25519 transitions protobuf ];
+  propagatedBuildInputs = [
+    dissononce
+    python-axolotl-curve25519
+    transitions
+    protobuf
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

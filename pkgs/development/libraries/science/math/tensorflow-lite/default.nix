@@ -92,7 +92,10 @@ in stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ zlib flatbuffers ];
+  buildInputs = [
+    zlib
+    flatbuffers
+  ];
 
   dontConfigure = true;
 
@@ -173,6 +176,9 @@ in stdenv.mkDerivation rec {
     homepage = "https://www.tensorflow.org/lite";
     license = licenses.asl20;
     maintainers = with maintainers; [ cpcloud ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
   };
 }

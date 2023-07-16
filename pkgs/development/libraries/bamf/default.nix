@@ -25,7 +25,11 @@ stdenv.mkDerivation rec {
   pname = "bamf";
   version = "0.5.6";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchgit {
     url = "https://git.launchpad.net/~unity-team/bamf";
@@ -48,7 +52,12 @@ stdenv.mkDerivation rec {
     xorgserver
   ];
 
-  buildInputs = [ glib libgtop libstartup_notification libwnck ];
+  buildInputs = [
+    glib
+    libgtop
+    libstartup_notification
+    libwnck
+  ];
 
   # Fix hard-coded path
   # https://bugs.launchpad.net/bamf/+bug/1780557
@@ -57,7 +66,10 @@ stdenv.mkDerivation rec {
       --replace '/usr/lib/systemd/user' '@prefix@/lib/systemd/user'
   '';
 
-  configureFlags = [ "--enable-gtk-doc" "--enable-headless-tests" ];
+  configureFlags = [
+    "--enable-gtk-doc"
+    "--enable-headless-tests"
+  ];
 
   # Fix paths
   makeFlags = [

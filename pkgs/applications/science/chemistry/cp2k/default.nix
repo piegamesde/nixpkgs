@@ -41,7 +41,13 @@ in stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ python3 which openssh makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    python3
+    which
+    openssh
+    makeWrapper
+    pkg-config
+  ];
   buildInputs = [
     gfortran
     fftw
@@ -61,7 +67,10 @@ in stdenv.mkDerivation rec {
   propagatedBuildInputs = [ mpi ];
   propagatedUserEnvPkgs = [ mpi ];
 
-  makeFlags = [ "ARCH=${arch}" "VERSION=${cp2kVersion}" ];
+  makeFlags = [
+    "ARCH=${arch}"
+    "VERSION=${cp2kVersion}"
+  ];
 
   doCheck = true;
 

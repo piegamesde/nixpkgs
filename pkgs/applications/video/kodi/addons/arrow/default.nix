@@ -17,7 +17,10 @@ buildKodiAddon rec {
     sha256 = "sha256-dFCAHlWgslxsAVQAPP3aDM6Fw+I9PP0ITUVTKJY2QXU=";
   };
 
-  propagatedBuildInputs = [ dateutil typing_extensions ];
+  propagatedBuildInputs = [
+    dateutil
+    typing_extensions
+  ];
 
   passthru = {
     pythonPath = "lib";

@@ -18,8 +18,15 @@ stdenv.mkDerivation rec {
     sha256 = "034r7vfk5y7705k068cdlq52ikp6ip10w6047a5zjdakbn55c3as";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ dbus-glib gtk2 wordnet ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    dbus-glib
+    gtk2
+    wordnet
+  ];
 
   meta = with lib; {
     description = "An offline thesaurus based on WordNet";

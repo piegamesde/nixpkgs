@@ -26,9 +26,20 @@ stdenv.mkDerivation rec {
     sha256 = "08mgxbviik2dwwnbclp0518wlag2fhcr6c2yadgcbhwiq4aff9vp";
   };
 
-  nativeBuildInputs = [ gettext itstool pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    gettext
+    itstool
+    pkg-config
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ dconf libxml2 mate-desktop pcre2 vte ];
+  buildInputs = [
+    dconf
+    libxml2
+    mate-desktop
+    pcre2
+    vte
+  ];
 
   enableParallelBuilding = true;
 

@@ -67,17 +67,26 @@ flutter.buildFlutterApplication rec {
     remove-references-to -t ${flutter.unwrapped} $out/app/data/flutter_assets/shaders/ink_sparkle.frag
   '';
 
-  nativeBuildInputs = [ makeWrapper removeReferencesTo ];
+  nativeBuildInputs = [
+    makeWrapper
+    removeReferencesTo
+  ];
 
   buildInputs = [ pcre2 ];
 
-  disallowedReferences = [ flutter flutter.unwrapped ];
+  disallowedReferences = [
+    flutter
+    flutter.unwrapped
+  ];
 
   meta = with lib; {
     description = "Yubico Authenticator for Desktop";
     homepage = "https://github.com/Yubico/yubioath-flutter";
     license = licenses.asl20;
     maintainers = with maintainers; [ lukegb ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
   };
 }

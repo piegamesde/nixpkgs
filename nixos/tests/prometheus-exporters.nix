@@ -311,7 +311,10 @@ let
           [ "jitsi-videobridge2.service" ];
         services.jitsi-videobridge = {
           enable = true;
-          apis = [ "colibri" "rest" ];
+          apis = [
+            "colibri"
+            "rest"
+          ];
         };
       };
       exporterTest = ''
@@ -331,10 +334,10 @@ let
         enable = true;
         url = "http://localhost";
         configFile = pkgs.writeText "json-exporter-conf.json" (builtins.toJSON {
-          metrics = [{
+          metrics = [ {
             name = "json_test_metric";
             path = "{ .test }";
-          }];
+          } ];
         });
       };
       metricProvider = {
@@ -363,7 +366,10 @@ let
     in {
       exporterConfig = {
         enable = true;
-        controlSocketPaths = [ controlSocketPathV4 controlSocketPathV6 ];
+        controlSocketPaths = [
+          controlSocketPathV4
+          controlSocketPathV6
+        ];
       };
       metricProvider = {
         services.kea = {
@@ -423,14 +429,12 @@ let
                 storage: ${
                   pkgs.buildEnv {
                     name = "foo";
-                    paths = [
-                      (pkgs.writeTextDir "test.zone" ''
-                        @ SOA ns.example.com. noc.example.com. 2019031301 86400 7200 3600000 172800
-                        @       NS      ns1
-                        @       NS      ns2
-                        ns1     A       192.168.0.1
-                      '')
-                    ];
+                    paths = [ (pkgs.writeTextDir "test.zone" ''
+                      @ SOA ns.example.com. noc.example.com. 2019031301 86400 7200 3600000 172800
+                      @       NS      ns1
+                      @       NS      ns2
+                      ns1     A       192.168.0.1
+                    '') ];
                   }
                 }
 
@@ -544,14 +548,14 @@ let
         configuration = {
           monitoringInterval = "2s";
           mailCheckTimeout = "10s";
-          servers = [{
+          servers = [ {
             name = "testserver";
             server = "localhost";
             port = 25;
             from = "mail-exporter@localhost";
             to = "mail-exporter@localhost";
             detectionDir = "/var/spool/mail/mail-exporter/new";
-          }];
+          } ];
         };
       };
       metricProvider = {
@@ -560,11 +564,9 @@ let
           after = [ "postfix.service" ];
           requires = [ "postfix.service" ];
           serviceConfig = {
-            ExecStartPre = [
-              "${pkgs.writeShellScript "create-maildir" ''
-                mkdir -p -m 0700 mail-exporter/new
-              ''}"
-            ];
+            ExecStartPre = [ "${pkgs.writeShellScript "create-maildir" ''
+              mkdir -p -m 0700 mail-exporter/new
+            ''}" ];
             ProtectHome = true;
             ReadOnlyPaths = "/";
             ReadWritePaths = "/var/spool/mail";
@@ -592,12 +594,12 @@ let
         enable = true;
         extraFlags = [ "-timeout=1s" ];
         configuration = {
-          devices = [{
+          devices = [ {
             name = "router";
             address = "192.168.42.48";
             user = "prometheus";
             password = "shh";
-          }];
+          } ];
           features = {
             bgp = true;
             dhcp = true;
@@ -796,7 +798,10 @@ let
             ];
             "olcDatabase={1}mdb" = {
               attrs = {
-                objectClass = [ "olcDatabaseConfig" "olcMdbConfig" ];
+                objectClass = [
+                  "olcDatabaseConfig"
+                  "olcMdbConfig"
+                ];
                 olcDatabase = "{1}mdb";
                 olcDbDirectory = "/var/db/openldap";
                 olcSuffix = "dc=example";
@@ -994,21 +999,19 @@ let
       exporterConfig = { enable = true; };
       metricProvider = {
         # Mock rtl_433 binary to return a dummy metric stream.
-        nixpkgs.overlays = [
-          (self: super: {
-            rtl_433 = self.runCommand "rtl_433" { } ''
-              mkdir -p "$out/bin"
-              cat <<EOF > "$out/bin/rtl_433"
-              #!/bin/sh
-              while true; do
-                printf '{"time" : "2020-04-26 13:37:42", "model" : "zopieux", "id" : 55, "channel" : 3, "temperature_C" : 18.000}\n'
-                sleep 4
-              done
-              EOF
-              chmod +x "$out/bin/rtl_433"
-            '';
-          })
-        ];
+        nixpkgs.overlays = [ (self: super: {
+          rtl_433 = self.runCommand "rtl_433" { } ''
+            mkdir -p "$out/bin"
+            cat <<EOF > "$out/bin/rtl_433"
+            #!/bin/sh
+            while true; do
+              printf '{"time" : "2020-04-26 13:37:42", "model" : "zopieux", "id" : 55, "channel" : 3, "temperature_C" : 18.000}\n'
+              sleep 4
+            done
+            EOF
+            chmod +x "$out/bin/rtl_433"
+          '';
+        }) ];
       };
       exporterTest = ''
         wait_for_unit("prometheus-rtl_433-exporter.service")
@@ -1038,10 +1041,10 @@ let
     script = {
       exporterConfig = {
         enable = true;
-        settings.scripts = [{
+        settings.scripts = [ {
           name = "success";
           script = "sleep 1";
-        }];
+        } ];
       };
       exporterTest = ''
         wait_for_unit("prometheus-script-exporter.service")
@@ -1106,9 +1109,8 @@ let
       exporterConfig = {
         configuration.jobs.points = {
           interval = "1m";
-          connections = [
-            "postgres://prometheus-sql-exporter@/data?host=/run/postgresql&sslmode=disable"
-          ];
+          connections =
+            [ "postgres://prometheus-sql-exporter@/data?host=/run/postgresql&sslmode=disable" ];
           queries = {
             points = {
               labels = [ "name" ];
@@ -1301,11 +1303,11 @@ let
             routing = {
               strategy = "rules";
               settings = {
-                rules = [{
+                rules = [ {
                   inboundTag = [ "api" ];
                   outboundTag = "api";
                   type = "field";
-                }];
+                } ];
               };
             };
           };
@@ -1351,13 +1353,19 @@ let
       exporterConfig.enable = true;
       metricProvider = {
         networking.wireguard.interfaces.wg0 = {
-          ips = [ "10.23.42.1/32" "fc00::1/128" ];
+          ips = [
+            "10.23.42.1/32"
+            "fc00::1/128"
+          ];
           listenPort = 23542;
 
           inherit (snakeoil.peer0) privateKey;
 
           peers = singleton {
-            allowedIPs = [ "10.23.42.2/32" "fc00::2/128" ];
+            allowedIPs = [
+              "10.23.42.2/32"
+              "fc00::2/128"
+            ];
 
             inherit (snakeoil.peer1) publicKey;
           };

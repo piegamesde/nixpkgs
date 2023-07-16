@@ -66,7 +66,13 @@ let
         };
 
         runtimePackages = mkOption {
-          default = [ pkgs.bash pkgs.gnutar pkgs.gzip pkgs.git pkgs.nix ];
+          default = [
+            pkgs.bash
+            pkgs.gnutar
+            pkgs.gzip
+            pkgs.git
+            pkgs.nix
+          ];
           defaultText = literalExpression
             "[ pkgs.bash pkgs.gnutar pkgs.gzip pkgs.git pkgs.nix ]";
           description =
@@ -262,7 +268,10 @@ in {
       description = "Buildkite Agent";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      path = cfg.runtimePackages ++ [ cfg.package pkgs.coreutils ];
+      path = cfg.runtimePackages ++ [
+        cfg.package
+        pkgs.coreutils
+      ];
       environment = config.networking.proxy.envVars // {
         HOME = cfg.dataDir;
         NIX_REMOTE = "daemon";
@@ -307,17 +316,18 @@ in {
     };
   });
 
-  config.assertions = mapAgents (name: cfg: [{
+  config.assertions = mapAgents (name: cfg: [ {
     assertion = cfg.hooksPath == (hooksDir cfg)
       || all (v: v == null) (attrValues cfg.hooks);
     message = ''
       Options `services.buildkite-agents.${name}.hooksPath' and
       `services.buildkite-agents.${name}.hooks.<name>' are mutually exclusive.
     '';
-  }]);
+  } ]);
 
-  imports = [
-    (mkRemovedOptionModule [ "services" "buildkite-agent" ]
-      "services.buildkite-agent has been upgraded from version 2 to version 3 and moved to an attribute set at services.buildkite-agents. Please consult the 20.03 release notes for more information.")
-  ];
+  imports = [ (mkRemovedOptionModule [
+    "services"
+    "buildkite-agent"
+  ]
+    "services.buildkite-agent has been upgraded from version 2 to version 3 and moved to an attribute set at services.buildkite-agents. Please consult the 20.03 release notes for more information.") ];
 }

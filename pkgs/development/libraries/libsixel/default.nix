@@ -20,9 +20,16 @@ stdenv.mkDerivation rec {
     sha256 = "1nny4295ipy4ajcxmmh04c796hcds0y7z7rv3qd17mj70y8j0r2d";
   };
 
-  buildInputs = [ gdk-pixbuf gd ];
+  buildInputs = [
+    gdk-pixbuf
+    gd
+  ];
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
 
   doCheck = true;
 

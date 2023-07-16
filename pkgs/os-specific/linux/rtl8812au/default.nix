@@ -18,8 +18,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-25NaMQq9H6mqVynNQJXpqISAslxfEVSt3ELzG7s4mV4=";
   };
 
-  nativeBuildInputs = [ bc nukeReferences ] ++ kernel.moduleBuildDependencies;
-  hardeningDisable = [ "pic" "format" ];
+  nativeBuildInputs = [
+    bc
+    nukeReferences
+  ] ++ kernel.moduleBuildDependencies;
+  hardeningDisable = [
+    "pic"
+    "format"
+  ];
 
   prePatch = ''
     substituteInPlace ./Makefile \
@@ -34,8 +40,8 @@ stdenv.mkDerivation rec {
       + (if stdenv.hostPlatform.isx86 then "y" else "n"))
     ("CONFIG_PLATFORM_ARM_RPI="
       + (if stdenv.hostPlatform.isAarch then "y" else "n"))
-  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-    [ "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ];
+  ] ++ lib.optionals (stdenv.hostPlatform
+    != stdenv.buildPlatform) [ "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ];
 
   preInstall = ''
     mkdir -p "$out/lib/modules/${kernel.modDirVersion}/kernel/net/wireless/"

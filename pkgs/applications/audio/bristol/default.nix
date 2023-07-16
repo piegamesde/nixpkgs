@@ -19,8 +19,14 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [ alsa-lib libjack2 libpulseaudio xorg.libX11 xorg.libXext xorg.xorgproto ];
+  buildInputs = [
+    alsa-lib
+    libjack2
+    libpulseaudio
+    xorg.libX11
+    xorg.libXext
+    xorg.xorgproto
+  ];
 
   patchPhase =
     "sed -i '41,43d' libbristolaudio/audioEngineJack.c"; # disable alsa/iatomic
@@ -43,7 +49,10 @@ stdenv.mkDerivation rec {
     description = "A range of synthesiser, electric piano and organ emulations";
     homepage = "https://bristol.sourceforge.net";
     license = licenses.gpl3;
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
     maintainers = [ maintainers.goibhniu ];
   };
 }

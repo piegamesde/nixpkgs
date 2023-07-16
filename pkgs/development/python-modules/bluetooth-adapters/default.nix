@@ -35,12 +35,26 @@ buildPythonPackage rec {
     sed -i '/addopts/d' pyproject.toml
   '';
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
-  nativeBuildInputs = [ myst-parser poetry-core sphinx-rtd-theme sphinxHook ];
+  nativeBuildInputs = [
+    myst-parser
+    poetry-core
+    sphinx-rtd-theme
+    sphinxHook
+  ];
 
-  propagatedBuildInputs =
-    [ aiohttp async-timeout bleak dbus-fast mac-vendor-lookup usb-devices ];
+  propagatedBuildInputs = [
+    aiohttp
+    async-timeout
+    bleak
+    dbus-fast
+    mac-vendor-lookup
+    usb-devices
+  ];
 
   pythonImportsCheck = [ "bluetooth_adapters" ];
 

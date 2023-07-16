@@ -46,7 +46,10 @@ let
             type = types.nullOr (types.listOf types.str);
             default = null;
             description = lib.mdDoc "APIs to enable over WebSocket";
-            example = [ "net" "eth" ];
+            example = [
+              "net"
+              "eth"
+            ];
           };
         };
 
@@ -69,7 +72,10 @@ let
             type = types.nullOr (types.listOf types.str);
             default = null;
             description = lib.mdDoc "APIs to enable over WebSocket";
-            example = [ "net" "eth" ];
+            example = [
+              "net"
+              "eth"
+            ];
           };
         };
 
@@ -93,7 +99,10 @@ let
             default = [ "localhost" ];
             description = lib.mdDoc
               "List of virtual hostnames from which to accept requests.";
-            example = [ "localhost" "geth.example.org" ];
+            example = [
+              "localhost"
+              "geth.example.org"
+            ];
           };
 
           jwtsecret = mkOption {
@@ -124,21 +133,33 @@ let
         };
 
         network = mkOption {
-          type =
-            types.nullOr (types.enum [ "goerli" "rinkeby" "yolov2" "ropsten" ]);
+          type = types.nullOr (types.enum [
+            "goerli"
+            "rinkeby"
+            "yolov2"
+            "ropsten"
+          ]);
           default = null;
           description = lib.mdDoc
             "The network to connect to. Mainnet (null) is the default ethereum network.";
         };
 
         syncmode = mkOption {
-          type = types.enum [ "snap" "fast" "full" "light" ];
+          type = types.enum [
+            "snap"
+            "fast"
+            "full"
+            "light"
+          ];
           default = "snap";
           description = lib.mdDoc "Blockchain sync mode.";
         };
 
         gcmode = mkOption {
-          type = types.enum [ "full" "archive" ];
+          type = types.enum [
+            "full"
+            "archive"
+          ];
           default = "full";
           description = lib.mdDoc "Blockchain garbage collection mode.";
         };

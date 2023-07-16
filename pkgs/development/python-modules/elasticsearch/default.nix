@@ -20,8 +20,14 @@ buildPythonPackage (rec {
   # Check is disabled because running them destroy the content of the local cluster!
   # https://github.com/elasticsearch/elasticsearch-py/tree/master/test_elasticsearch
   doCheck = false;
-  propagatedBuildInputs = [ urllib3 requests ];
-  buildInputs = [ nosexcover mock ];
+  propagatedBuildInputs = [
+    urllib3
+    requests
+  ];
+  buildInputs = [
+    nosexcover
+    mock
+  ];
 
   meta = with lib; {
     description = "Official low-level client for Elasticsearch";

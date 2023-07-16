@@ -15,7 +15,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-2szxu+WjDRSbVWx9L//+r9dte1FOJJJxq91QFTPB2K4=";
   };
 
-  outputs = [ "out" "lib" "dev" "man" "doc" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "man"
+    "doc"
+  ];
 
   nativeBuildInputs = [ removeReferencesTo ];
 
@@ -55,7 +61,10 @@ stdenv.mkDerivation rec {
       discover and use libraries configured by pkgconf.
     '';
     license = licenses.isc;
-    maintainers = with maintainers; [ zaninime AndersonTorres ];
+    maintainers = with maintainers; [
+      zaninime
+      AndersonTorres
+    ];
     platforms = platforms.all;
   };
 }

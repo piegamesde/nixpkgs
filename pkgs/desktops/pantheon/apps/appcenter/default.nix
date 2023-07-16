@@ -66,7 +66,10 @@ stdenv.mkDerivation rec {
     polkit
   ];
 
-  mesonFlags = [ "-Dpayments=false" "-Dcurated=false" ];
+  mesonFlags = [
+    "-Dpayments=false"
+    "-Dcurated=false"
+  ];
 
   postPatch = ''
     chmod +x meson/post_install.py

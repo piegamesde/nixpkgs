@@ -22,7 +22,10 @@ stdenv.mkDerivation rec {
   configureFlags = [ "--enable-dependency-tracking" ]
     ++ lib.optional stdenv.isDarwin "--disable-sdltest";
 
-  nativeBuildInputs = [ autoreconfHook python3 ];
+  nativeBuildInputs = [
+    autoreconfHook
+    python3
+  ];
 
   buildInputs = [ SDL ] ++ lib.optional stdenv.isLinux alsa-lib;
 

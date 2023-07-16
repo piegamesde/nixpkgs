@@ -17,8 +17,14 @@ stdenv.mkDerivation rec {
     sha256 = "0sckmcbxyj6sbrnfc5p5lnw27ccghsid6v6wxq09mgxqcd4lk10p";
   };
 
-  buildInputs = [ polkit gtk3 ];
-  nativeBuildInputs = [ pkg-config intltool ];
+  buildInputs = [
+    polkit
+    gtk3
+  ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+  ];
 
   configureFlags = [ "--disable-introspection" ];
 

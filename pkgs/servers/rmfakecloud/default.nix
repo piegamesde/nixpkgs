@@ -28,12 +28,19 @@ buildGoModule rec {
     sed -i '/go:/d' ui/assets.go
   '';
 
-  ldflags = [ "-s" "-w" "-X main.version=v${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=v${version}"
+  ];
 
   meta = with lib; {
     description = "Host your own cloud for the Remarkable";
     homepage = "https://ddvk.github.io/rmfakecloud/";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ pacien martinetd ];
+    maintainers = with maintainers; [
+      pacien
+      martinetd
+    ];
   };
 }

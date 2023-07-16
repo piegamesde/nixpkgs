@@ -25,9 +25,17 @@ buildPythonPackage rec {
     sha256 = "0kslmm3wrxhm307nqmjmq8i8vy1x6mjaqlgba0hgvisj6b4hx65k";
   };
 
-  propagatedBuildInputs = [ python-dateutil pytz aiohttp ];
+  propagatedBuildInputs = [
+    python-dateutil
+    pytz
+    aiohttp
+  ];
 
-  nativeCheckInputs = [ aioresponses pytestCheckHook pytest-asyncio ];
+  nativeCheckInputs = [
+    aioresponses
+    pytestCheckHook
+    pytest-asyncio
+  ];
 
   pythonImportsCheck = [ "py_nightscout" ];
 

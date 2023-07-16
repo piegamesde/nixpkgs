@@ -19,8 +19,11 @@ let
 
   path = (lib.optionals (system == "i686-solaris") [ "/usr/gnu" ])
     ++ (lib.optionals (system == "i686-netbsd") [ "/usr/pkg" ])
-    ++ (lib.optionals (system == "x86_64-solaris") [ "/opt/local/gnu" ])
-    ++ [ "/" "/usr" "/usr/local" ];
+    ++ (lib.optionals (system == "x86_64-solaris") [ "/opt/local/gnu" ]) ++ [
+      "/"
+      "/usr"
+      "/usr/local"
+    ];
 
   prehookBase = ''
     # Disable purity tests; it's allowed (even needed) to link to
@@ -74,11 +77,9 @@ let
   extraNativeBuildInputsCygwin = [
     ../cygwin/all-buildinputs-as-runtimedep.sh
     ../cygwin/wrap-exes-to-find-dlls.sh
-  ] ++ (if system == "i686-cygwin" then
-    [ ../cygwin/rebase-i686.sh ]
-  else if system == "x86_64-cygwin" then
-    [ ../cygwin/rebase-x86_64.sh ]
-  else
+  ] ++ (if system
+  == "i686-cygwin" then [ ../cygwin/rebase-i686.sh ] else if system
+  == "x86_64-cygwin" then [ ../cygwin/rebase-x86_64.sh ] else
     [ ]);
 
   # A function that builds a "native" stdenv (one that uses tools in

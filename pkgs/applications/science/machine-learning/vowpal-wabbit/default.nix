@@ -34,7 +34,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ boost eigen rapidjson spdlog zlib ];
+  buildInputs = [
+    boost
+    eigen
+    rapidjson
+    spdlog
+    zlib
+  ];
 
   cmakeFlags = [
     "-DVW_INSTALL=ON"

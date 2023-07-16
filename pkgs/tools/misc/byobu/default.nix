@@ -27,8 +27,14 @@ in stdenv.mkDerivation rec {
   doCheck = true;
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perl gettext ];
-  propagatedBuildInputs = [ textual-window-manager screen ];
+  buildInputs = [
+    perl
+    gettext
+  ];
+  propagatedBuildInputs = [
+    textual-window-manager
+    screen
+  ];
 
   postPatch = ''
     substituteInPlace usr/bin/byobu-export.in \
@@ -58,7 +64,12 @@ in stdenv.mkDerivation rec {
       file=".$(basename $i)"
       mv $i $out/bin/$file
       makeWrapper "$out/bin/$file" "$out/bin/$(basename $i)" --argv0 $(basename $i) \
-        --set BYOBU_PATH ${lib.escapeShellArg (lib.makeBinPath [ vim bc ])} \
+        --set BYOBU_PATH ${
+          lib.escapeShellArg (lib.makeBinPath [
+            vim
+            bc
+          ])
+        } \
         --set BYOBU_PYTHON "${pythonEnv}/bin/python"
     done
   '';
@@ -80,6 +91,9 @@ in stdenv.mkDerivation rec {
     license = licenses.gpl3;
 
     platforms = platforms.unix;
-    maintainers = with maintainers; [ qknight berbiche ];
+    maintainers = with maintainers; [
+      qknight
+      berbiche
+    ];
   };
 }

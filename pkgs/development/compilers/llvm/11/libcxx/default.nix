@@ -30,7 +30,10 @@ stdenv.mkDerivation {
     mv llvm-* llvm
   '';
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   patches = [
     (fetchpatch {
@@ -41,8 +44,8 @@ stdenv.mkDerivation {
       stripLen = 1;
     })
     ./gnu-install-dirs.patch
-  ] ++ lib.optionals stdenv.hostPlatform.isMusl
-    [ ../../libcxx-0001-musl-hacks.patch ];
+  ] ++ lib.optionals
+    stdenv.hostPlatform.isMusl [ ../../libcxx-0001-musl-hacks.patch ];
 
   # Prevent errors like "error: 'foo' is unavailable: introduced in macOS yy.zz"
   postPatch = ''
@@ -54,8 +57,10 @@ stdenv.mkDerivation {
     patchShebangs utils/cat_files.py
   '';
 
-  nativeBuildInputs = [ cmake python3 ]
-    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [
+    cmake
+    python3
+  ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
   buildInputs = [ cxxabi ];
 
@@ -109,6 +114,9 @@ stdenv.mkDerivation {
     '';
     # "All of the code in libc++ is dual licensed under the MIT license and the
     # UIUC License (a BSD-like license)":
-    license = with lib.licenses; [ mit ncsa ];
+    license = with lib.licenses; [
+      mit
+      ncsa
+    ];
   };
 }

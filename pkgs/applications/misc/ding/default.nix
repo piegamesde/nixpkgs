@@ -15,7 +15,11 @@
 let
   aspellEnv = buildEnv {
     name = "env-ding-aspell";
-    paths = [ aspell aspellDicts_de aspellDicts_en ];
+    paths = [
+      aspell
+      aspellDicts_de
+      aspellDicts_en
+    ];
   };
 in stdenv.mkDerivation rec {
   pname = "ding";
@@ -27,7 +31,13 @@ in stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ aspellEnv fortune gnugrep tk tre ];
+  buildInputs = [
+    aspellEnv
+    fortune
+    gnugrep
+    tk
+    tre
+  ];
 
   patches = [ ./dict.patch ];
 
@@ -53,7 +63,12 @@ in stdenv.mkDerivation rec {
     cp -v ding.desktop $out/share/applications/
 
     wrapProgram $out/bin/ding --prefix PATH : ${
-      lib.makeBinPath [ gnugrep aspellEnv tk fortune ]
+      lib.makeBinPath [
+        gnugrep
+        aspellEnv
+        tk
+        fortune
+      ]
     } --prefix ASPELL_CONF : "\"prefix ${aspellEnv};\""
   '';
 

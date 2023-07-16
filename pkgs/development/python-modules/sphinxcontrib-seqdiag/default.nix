@@ -20,7 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-QH5IeXZz9x2Ujp/6BHFsrB2ZqeyPYW3jdk1C0DNBZXQ=";
   };
 
-  propagatedBuildInputs = [ blockdiag seqdiag sphinx ];
+  propagatedBuildInputs = [
+    blockdiag
+    seqdiag
+    sphinx
+  ];
 
   pythonImportsCheck = [ "sphinxcontrib.seqdiag" ];
 

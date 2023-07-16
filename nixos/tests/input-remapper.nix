@@ -13,7 +13,10 @@ import ./make-test-python.nix ({
       }:
       let user = config.users.users.sybil;
       in {
-        imports = [ ./common/user-account.nix ./common/x11.nix ];
+        imports = [
+          ./common/user-account.nix
+          ./common/x11.nix
+        ];
 
         services.xserver.enable = true;
         services.input-remapper.enable = true;

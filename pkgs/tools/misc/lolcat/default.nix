@@ -15,6 +15,10 @@ bundlerApp {
     description = "A rainbow version of cat";
     homepage = "https://github.com/busyloop/lolcat";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ StillerHarpo manveru nicknovitski ];
+    maintainers = with maintainers; [
+      StillerHarpo
+      manveru
+      nicknovitski
+    ];
   };
 }

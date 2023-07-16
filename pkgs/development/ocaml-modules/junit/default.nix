@@ -16,7 +16,10 @@ buildDunePackage (rec {
     sha256 = "00bbx5j8vsy9fqbc04xa3lsalaxicirmbczr65bllfk1afv43agx";
   };
 
-  propagatedBuildInputs = [ ptime tyxml ];
+  propagatedBuildInputs = [
+    ptime
+    tyxml
+  ];
 
   duneVersion = "3";
   doCheck = true;

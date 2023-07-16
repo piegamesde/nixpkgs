@@ -25,7 +25,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ eth-utils ];
 
-  nativeCheckInputs = [ hypothesis pytestCheckHook ];
+  nativeCheckInputs = [
+    hypothesis
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "rlp" ];
 

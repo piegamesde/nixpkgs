@@ -50,7 +50,13 @@ buildGoModule rec {
   in ''
     wrapProgram $out/bin/owncast \
       --run '${setupScript}' \
-      --prefix PATH : ${lib.makeBinPath [ bash which ffmpeg ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          bash
+          which
+          ffmpeg
+        ]
+      }
   '';
 
   installCheckPhase = ''

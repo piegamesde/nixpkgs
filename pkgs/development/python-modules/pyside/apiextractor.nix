@@ -22,14 +22,24 @@ in stdenv.mkDerivation rec {
     hash = "sha256-YH8aYyzv59xiIglZbdNgOPnmEQwNE2GmotAFFfFdMlg=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   preConfigure = ''
     cmakeFlagsArray=("-DCMAKE_INSTALL_PREFIX=$dev")
   '';
 
-  nativeBuildInputs = [ cmake pythonEnv ];
-  buildInputs = [ qt4 libxml2 libxslt ];
+  nativeBuildInputs = [
+    cmake
+    pythonEnv
+  ];
+  buildInputs = [
+    qt4
+    libxml2
+    libxslt
+  ];
 
   meta = with lib; {
     description =

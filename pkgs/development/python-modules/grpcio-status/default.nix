@@ -25,7 +25,11 @@ buildPythonPackage rec {
       --replace 'protobuf>=4.21.6' 'protobuf'
   '';
 
-  propagatedBuildInputs = [ googleapis-common-protos grpcio protobuf ];
+  propagatedBuildInputs = [
+    googleapis-common-protos
+    grpcio
+    protobuf
+  ];
 
   # Projec thas no tests
   doCheck = false;

@@ -43,7 +43,10 @@ let
 
 in buildPackages.stdenv.mkDerivation {
   name = "hoogle-with-packages";
-  buildInputs = [ ghc hoogle ];
+  buildInputs = [
+    ghc
+    hoogle
+  ];
 
   # compiling databases takes less time than copying the results
   # between machines.

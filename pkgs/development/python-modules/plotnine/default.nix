@@ -35,9 +35,21 @@ buildPythonPackage rec {
       --replace " --cov=plotnine --cov-report=xml" ""
   '';
 
-  propagatedBuildInputs = [ matplotlib mizani pandas patsy scipy statsmodels ];
+  propagatedBuildInputs = [
+    matplotlib
+    mizani
+    pandas
+    patsy
+    scipy
+    statsmodels
+  ];
 
-  nativeCheckInputs = [ adjusttext geopandas pytestCheckHook scikit-misc ];
+  nativeCheckInputs = [
+    adjusttext
+    geopandas
+    pytestCheckHook
+    scikit-misc
+  ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

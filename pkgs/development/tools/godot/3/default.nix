@@ -42,7 +42,10 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-uHwTthyhfeQN0R1XjqZ+kGRa5WcpeQzA/DO9hZk4lvU=";
   };
 
-  nativeBuildInputs = [ pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
   buildInputs = [
     scons
     udev
@@ -63,11 +66,17 @@ in stdenv.mkDerivation rec {
     yasm
   ];
 
-  patches = [ ./pkg_config_additions.patch ./dont_clobber_environment.patch ];
+  patches = [
+    ./pkg_config_additions.patch
+    ./dont_clobber_environment.patch
+  ];
 
   enableParallelBuilding = true;
 
-  sconsFlags = [ "target=release_debug" "platform=x11" ];
+  sconsFlags = [
+    "target=release_debug"
+    "platform=x11"
+  ];
   preConfigure = ''
     sconsFlags+=" ${
       lib.concatStringsSep " "
@@ -75,7 +84,11 @@ in stdenv.mkDerivation rec {
     }"
   '';
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
   installPhase = ''
     mkdir -p "$out/bin"
@@ -102,7 +115,11 @@ in stdenv.mkDerivation rec {
     homepage = "https://godotengine.org";
     description = "Free and Open Source 2D and 3D game engine";
     license = licenses.mit;
-    platforms = [ "i686-linux" "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     maintainers = with maintainers; [ twey ];
   };
 }

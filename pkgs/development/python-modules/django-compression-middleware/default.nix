@@ -17,7 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-DfUPEtd0ZZq8i7yI5MeU8nhajxHzC1uyZ8MUuF2UG3M=";
   };
 
-  propagatedBuildInputs = [ django zstandard brotli ];
+  propagatedBuildInputs = [
+    django
+    zstandard
+    brotli
+  ];
 
   meta = with lib; {
     description =
@@ -26,6 +30,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/friedelwolff/django-compression-middleware/releases/tag/v${version}";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ 0.0 mo ];
+    maintainers = with maintainers; [
+      0.0
+      mo
+    ];
   };
 }

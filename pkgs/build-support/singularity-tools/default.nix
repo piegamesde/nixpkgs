@@ -50,14 +50,23 @@
     projectName = singularity.projectName or "singularity";
     layer = mkLayer {
       inherit name;
-      contents = contents ++ [ bash runScriptFile ];
+      contents = contents ++ [
+        bash
+        runScriptFile
+      ];
       inherit projectName;
     };
     runAsRootFile = shellScript "run-as-root.sh" runAsRoot;
     runScriptFile = shellScript "run-script.sh" runScript;
     result = vmTools.runInLinuxVM
       (runCommand "${projectName}-image-${name}.img" {
-        buildInputs = [ singularity 0.0 fsprogs util-linux gawk ];
+        buildInputs = [
+          singularity
+          0.0
+          fsprogs
+          util-linux
+          gawk
+        ];
         layerClosure = writeReferencesToFile layer;
         preVM = vmTools.createEmptyImage {
           size = diskSize;

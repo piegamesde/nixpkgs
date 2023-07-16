@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  buildInputs = [ jdk rlwrap ];
+  buildInputs = [
+    jdk
+    rlwrap
+  ];
 
   installPhase = ''
     runHook preInstall

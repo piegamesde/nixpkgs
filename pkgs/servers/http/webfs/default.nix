@@ -24,7 +24,10 @@ in stdenv.mkDerivation rec {
 
   buildInputs = [ openssl ];
 
-  makeFlags = [ "mimefile=${mime_file}" "prefix=$(out)" ];
+  makeFlags = [
+    "mimefile=${mime_file}"
+    "prefix=$(out)"
+  ];
 
   meta = with lib; {
     description = "HTTP server for purely static content";

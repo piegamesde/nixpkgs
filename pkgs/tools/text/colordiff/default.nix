@@ -21,7 +21,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-TNOw6dqsT0dOIddRoGwEF85CaQF8ICMFUi+GiG5WWpk=";
   };
 
-  nativeBuildInputs = [ docbook_xml_dtd_412 docbook_xsl perl w3m-batch xmlto ];
+  nativeBuildInputs = [
+    docbook_xml_dtd_412
+    docbook_xsl
+    perl
+    w3m-batch
+    xmlto
+  ];
 
   buildInputs = [ perl ];
 

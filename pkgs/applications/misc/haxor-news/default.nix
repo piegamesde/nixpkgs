@@ -42,15 +42,28 @@ buildPythonApplication rec {
     hash = "sha256-5v61b49ttwqPOvtoykJBBzwVSi7S8ARlakccMr12bbw=";
   };
 
-  propagatedBuildInputs =
-    [ click colorama requests pygments prompt-toolkit six ];
+  propagatedBuildInputs = [
+    click
+    colorama
+    requests
+    pygments
+    prompt-toolkit
+    six
+  ];
 
   # will fail without pre-seeded config files
   doCheck = false;
 
-  nativeCheckInputs = [ unittestCheckHook mock ];
+  nativeCheckInputs = [
+    unittestCheckHook
+    mock
+  ];
 
-  unittestFlagsArray = [ "-s" "tests" "-v" ];
+  unittestFlagsArray = [
+    "-s"
+    "tests"
+    "-v"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/donnemartin/haxor-news";

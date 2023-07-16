@@ -30,7 +30,10 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   postInstall = ''
     installShellCompletion --cmd sift --bash sift-completion.bash
@@ -39,7 +42,10 @@ buildGoModule rec {
   meta = with lib; {
     description = "A fast and powerful alternative to grep";
     homepage = "https://sift-tool.org";
-    maintainers = with maintainers; [ carlsverre viraptor ];
+    maintainers = with maintainers; [
+      carlsverre
+      viraptor
+    ];
     license = licenses.gpl3;
   };
 }

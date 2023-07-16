@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ lv2 cairo ];
+  buildInputs = [
+    lv2
+    cairo
+  ];
 
   makeFlags = [ "INSTALL_DIR=$out/lib/lv2" ];
 

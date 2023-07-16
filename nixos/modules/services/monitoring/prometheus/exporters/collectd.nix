@@ -37,7 +37,11 @@ in {
       };
 
       securityLevel = mkOption {
-        type = types.enum [ "None" "Sign" "Encrypt" ];
+        type = types.enum [
+          "None"
+          "Sign"
+          "Encrypt"
+        ];
         default = "None";
         description = lib.mdDoc ''
           Minimum required security level for accepted packets.
@@ -46,7 +50,10 @@ in {
     };
 
     logFormat = mkOption {
-      type = types.enum [ "logfmt" "json" ];
+      type = types.enum [
+        "logfmt"
+        "json"
+      ];
       default = "logfmt";
       example = "json";
       description = lib.mdDoc ''
@@ -55,7 +62,13 @@ in {
     };
 
     logLevel = mkOption {
-      type = types.enum [ "debug" "info" "warn" "error" "fatal" ];
+      type = types.enum [
+        "debug"
+        "info"
+        "warn"
+        "error"
+        "fatal"
+      ];
       default = "info";
       description = lib.mdDoc ''
         Only log messages with the given severity or above.

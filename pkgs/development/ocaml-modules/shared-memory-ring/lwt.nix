@@ -19,8 +19,13 @@ buildDunePackage {
 
   buildInputs = [ ppx_cstruct ];
 
-  propagatedBuildInputs =
-    [ shared-memory-ring cstruct lwt lwt-dllist mirage-profile ];
+  propagatedBuildInputs = [
+    shared-memory-ring
+    cstruct
+    lwt
+    lwt-dllist
+    mirage-profile
+  ];
 
   doCheck = true;
   checkInputs = [ ounit ];

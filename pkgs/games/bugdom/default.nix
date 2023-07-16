@@ -30,10 +30,15 @@ stdenv.mkDerivation rec {
     sed -i '/plutil/d' CMakeLists.txt
   '';
 
-  buildInputs = [ SDL2 ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ IOKit Foundation ];
+  buildInputs = [ SDL2 ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    IOKit
+    Foundation
+  ];
 
-  nativeBuildInputs = [ cmake makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+  ];
 
   cmakeFlags = lib.optionals stdenv.hostPlatform.isDarwin [
     "-DCMAKE_OSX_ARCHITECTURES=${stdenv.hostPlatform.darwinArch}"

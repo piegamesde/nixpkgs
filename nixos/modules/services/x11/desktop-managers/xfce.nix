@@ -22,7 +22,12 @@ in {
       "desktopManager"
       "xfce4-14"
       "extraSessionCommands"
-    ] [ "services" "xserver" "displayManager" "sessionCommands" ])
+    ] [
+      "services"
+      "xserver"
+      "displayManager"
+      "sessionCommands"
+    ])
 
     # added 2019-11-04
     # xfce4-14 module removed and promoted to xfce.
@@ -33,28 +38,51 @@ in {
       "desktopManager"
       "xfce4-14"
       "enable"
-    ] [ "services" "xserver" "desktopManager" "xfce" "enable" ])
+    ] [
+      "services"
+      "xserver"
+      "desktopManager"
+      "xfce"
+      "enable"
+    ])
     (mkRenamedOptionModule [
       "services"
       "xserver"
       "desktopManager"
       "xfce4-14"
       "noDesktop"
-    ] [ "services" "xserver" "desktopManager" "xfce" "noDesktop" ])
+    ] [
+      "services"
+      "xserver"
+      "desktopManager"
+      "xfce"
+      "noDesktop"
+    ])
     (mkRenamedOptionModule [
       "services"
       "xserver"
       "desktopManager"
       "xfce4-14"
       "enableXfwm"
-    ] [ "services" "xserver" "desktopManager" "xfce" "enableXfwm" ])
+    ] [
+      "services"
+      "xserver"
+      "desktopManager"
+      "xfce"
+      "enableXfwm"
+    ])
     (mkRenamedOptionModule [
       "services"
       "xserver"
       "desktopManager"
       "xfce"
       "extraSessionCommands"
-    ] [ "services" "xserver" "displayManager" "sessionCommands" ])
+    ] [
+      "services"
+      "xserver"
+      "displayManager"
+      "sessionCommands"
+    ])
     (mkRemovedOptionModule [
       "services"
       "xserver"
@@ -71,7 +99,11 @@ in {
       "desktopManager"
       "xfce"
       "thunarPlugins"
-    ] [ "programs" "thunar" "plugins" ])
+    ] [
+      "programs"
+      "thunar"
+      "plugins"
+    ])
   ];
 
   options = {
@@ -148,9 +180,13 @@ in {
         # but can only be used with xfce4-panel, so for no-desktop usage we still include
         # xfce4-volumed-pulse
         (if cfg.noDesktop then xfce4-volumed-pulse else xfce4-pulseaudio-plugin)
-      ] ++ optionals cfg.enableXfwm [ xfwm4 xfwm4-themes ]
-      ++ optionals (!cfg.noDesktop) [ xfce4-panel xfdesktop ]
-      ++ optional cfg.enableScreensaver xfce4-screensaver;
+      ] ++ optionals cfg.enableXfwm [
+        xfwm4
+        xfwm4-themes
+      ] ++ optionals (!cfg.noDesktop) [
+        xfce4-panel
+        xfdesktop
+      ] ++ optional cfg.enableScreensaver xfce4-screensaver;
 
     programs.xfconf.enable = true;
     programs.thunar.enable = true;
@@ -162,7 +198,7 @@ in {
       "/share/gtksourceview-4.0"
     ];
 
-    services.xserver.desktopManager.session = [{
+    services.xserver.desktopManager.session = [ {
       name = "xfce";
       desktopNames = [ "XFCE" ];
       bgSupport = true;
@@ -170,7 +206,7 @@ in {
         ${pkgs.runtimeShell} ${pkgs.xfce.xfce4-session.xinitrc} &
         waitPID=$!
       '';
-    }];
+    } ];
 
     services.xserver.updateDbusEnvironment = true;
     services.xserver.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];

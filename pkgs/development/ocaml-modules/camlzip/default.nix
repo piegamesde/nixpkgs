@@ -48,7 +48,10 @@ in stdenv.mkDerivation {
     inherit (param) sha256;
   };
 
-  nativeBuildInputs = [ ocaml findlib ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+  ];
 
   propagatedBuildInputs = [ zlib ];
 
@@ -64,7 +67,10 @@ in stdenv.mkDerivation {
       --subst-var-by ZLIB_INCLUDE "${zlib.dev}/include"
   '';
 
-  buildFlags = [ "all" "allopt" ];
+  buildFlags = [
+    "all"
+    "allopt"
+  ];
 
   postInstall = ''
     ln -s $out/lib/ocaml/${ocaml.version}/site-lib/{,caml}zip

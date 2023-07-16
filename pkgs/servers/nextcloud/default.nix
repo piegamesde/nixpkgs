@@ -43,7 +43,12 @@ let
         description =
           "Sharing solution for files, calendars, contacts and more";
         homepage = "https://nextcloud.com";
-        maintainers = with maintainers; [ schneefux bachp globin ma27 ];
+        maintainers = with maintainers; [
+          schneefux
+          bachp
+          globin
+          ma27
+        ];
         license = licenses.agpl3Plus;
         platforms = with platforms; unix;
         knownVulnerabilities = extraVulnerabilities

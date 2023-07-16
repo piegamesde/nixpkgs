@@ -29,7 +29,11 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ attrs funcsigs requests-mock ];
+  propagatedBuildInputs = [
+    attrs
+    funcsigs
+    requests-mock
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

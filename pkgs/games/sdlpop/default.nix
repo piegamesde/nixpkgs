@@ -21,11 +21,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-UI7NfOC/+druRYL5g2AhIjTPEq4ta1qEThcxgyrFjHY=";
   };
 
-  nativeBuildInputs = [ pkg-config makeWrapper copyDesktopItems ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+    copyDesktopItems
+  ];
 
-  buildInputs = [ SDL2 SDL2_image ];
+  buildInputs = [
+    SDL2
+    SDL2_image
+  ];
 
-  makeFlags = [ "-C" "src" ];
+  makeFlags = [
+    "-C"
+    "src"
+  ];
 
   preBuild = ''
     substituteInPlace src/Makefile \
@@ -55,16 +65,17 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "sdlpop";
-      icon = "sdlpop";
-      exec = "prince";
-      desktopName = "SDLPoP";
-      comment = "An open-source port of Prince of Persia";
-      categories = [ "Game" "AdventureGame" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "sdlpop";
+    icon = "sdlpop";
+    exec = "prince";
+    desktopName = "SDLPoP";
+    comment = "An open-source port of Prince of Persia";
+    categories = [
+      "Game"
+      "AdventureGame"
+    ];
+  }) ];
 
   meta = with lib; {
     description = "Open-source port of Prince of Persia";

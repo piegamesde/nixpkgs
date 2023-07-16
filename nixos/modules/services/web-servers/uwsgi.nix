@@ -53,8 +53,10 @@ let
         uwsgi = if c.type == "normal" then
           {
             inherit plugins;
-          } // removeAttrs c [ "type" "pythonPackages" ]
-          // optionalAttrs (python != null) {
+          } // removeAttrs c [
+            "type"
+            "pythonPackages"
+          ] // optionalAttrs (python != null) {
             pyhome = "${pythonEnv}";
             env =
               # Argh, uwsgi expects list of key-values there instead of a dictionary.
@@ -75,7 +77,10 @@ let
                 name = "vassals";
                 paths = mapAttrsToList buildCfg c.vassals;
               };
-          } // removeAttrs c [ "type" "vassals" ]
+          } // removeAttrs c [
+            "type"
+            "vassals"
+          ]
         else
           throw
           "`type` attribute in uWSGI configuration should be either 'normal' or 'emperor'";

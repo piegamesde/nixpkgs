@@ -14,8 +14,14 @@ buildPythonPackage rec {
     sha256 = "sha256-MZ6avuMNT5HIIXW7ezukAJeO70o+SrgJnBnGjNy4tYE=";
   };
 
-  propagatedBuildInputs =
-    [ argcomplete python-dateutil requests pyxdg responses twine ];
+  propagatedBuildInputs = [
+    argcomplete
+    python-dateutil
+    requests
+    pyxdg
+    responses
+    twine
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -21,8 +21,15 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ unzip ];
-  buildInputs = [ rpmextract ncurses5 ];
-  libPath = lib.makeLibraryPath [ stdenv.cc.cc stdenv.cc.libc ncurses5 ];
+  buildInputs = [
+    rpmextract
+    ncurses5
+  ];
+  libPath = lib.makeLibraryPath [
+    stdenv.cc.cc
+    stdenv.cc.libc
+    ncurses5
+  ];
 
   buildCommand = ''
     unzip ${src}

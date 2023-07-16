@@ -26,7 +26,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [ diskcache eventlet more-itertools pytestCheckHook ];
+  nativeCheckInputs = [
+    diskcache
+    eventlet
+    more-itertools
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "fasteners" ];
 

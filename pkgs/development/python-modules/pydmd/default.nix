@@ -26,7 +26,13 @@ buildPythonPackage rec {
     hash = "sha256-EYVmaxwOxje3KVrNbvsjwRqQBD7Rje/JK+qB1F7EqA0=";
   };
 
-  propagatedBuildInputs = [ future matplotlib numpy scipy ezyrb ];
+  propagatedBuildInputs = [
+    future
+    matplotlib
+    numpy
+    scipy
+    ezyrb
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

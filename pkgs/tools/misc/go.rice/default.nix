@@ -17,7 +17,10 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-VlpdZcqg7yWUADN8oD/IAgAXVdzJeIeymx2Pu/7E21o=";
 
-  subPackages = [ "." "rice" ];
+  subPackages = [
+    "."
+    "rice"
+  ];
 
   meta = with lib; {
     description =

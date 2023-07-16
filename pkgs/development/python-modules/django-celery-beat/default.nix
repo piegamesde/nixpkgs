@@ -26,11 +26,20 @@ buildPythonPackage rec {
     hash = "sha256-WO/pRg5Dc6JBwrPYOVGPKaKK4ZvICo26INogTH6lBhM=";
   };
 
-  propagatedBuildInputs =
-    [ python-crontab celery django-timezone-field tzdata ];
+  propagatedBuildInputs = [
+    python-crontab
+    celery
+    django-timezone-field
+    tzdata
+  ];
 
-  nativeCheckInputs =
-    [ ephem pytest-timeout pytest-django case pytestCheckHook ];
+  nativeCheckInputs = [
+    ephem
+    pytest-timeout
+    pytest-django
+    case
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [
     # Connection error

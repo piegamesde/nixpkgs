@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-l/PGXXX288mnoSFZ32t2Xd13dC6JCU5wDHoDxb+fcp0=";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
   buildInputs = [ openssl ];
 
   meta = with lib; {

@@ -20,9 +20,16 @@ buildPythonPackage rec {
     hash = "sha256-Z8e6oAvRMIisMjG4HcS5jSH1znGVc7pGpMITo5fXYVs=";
   };
 
-  propagatedBuildInputs = [ dbus-signature-pyparsing dbus-python ];
+  propagatedBuildInputs = [
+    dbus-signature-pyparsing
+    dbus-python
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook hypothesis hs-dbus-signature ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    hypothesis
+    hs-dbus-signature
+  ];
 
   pythonImportsCheck = [ "into_dbus_python" ];
 

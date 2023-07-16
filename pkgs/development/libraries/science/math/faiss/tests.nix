@@ -27,6 +27,9 @@ buildPythonPackage {
     "test_update_codebooks_with_double"
   ];
 
-  nativeCheckInputs = [ faiss pytestCheckHook scipy ]
-    ++ faiss.extra-requires.all;
+  nativeCheckInputs = [
+    faiss
+    pytestCheckHook
+    scipy
+  ] ++ faiss.extra-requires.all;
 }

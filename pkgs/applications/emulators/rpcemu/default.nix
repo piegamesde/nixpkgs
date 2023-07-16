@@ -18,7 +18,10 @@ in stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ wrapQtAppsHook ];
 
-  buildInputs = [ qtbase qtmultimedia ];
+  buildInputs = [
+    qtbase
+    qtmultimedia
+  ];
 
   configurePhase = ''
     runHook preConfigure

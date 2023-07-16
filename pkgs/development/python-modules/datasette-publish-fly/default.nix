@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ datasette ];
 
-  nativeCheckInputs = [ cogapp pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    cogapp
+    pytest-mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "datasette_publish_fly" ];
 

@@ -23,9 +23,16 @@ buildPythonPackage rec {
     hash = "sha256-05mg2raHiKg0gHxF/7zFd81C/8OrhStThMwEnpaFGSc=";
   };
 
-  propagatedBuildInputs = [ psutil six future ];
+  propagatedBuildInputs = [
+    psutil
+    six
+    future
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pylink" ];
 

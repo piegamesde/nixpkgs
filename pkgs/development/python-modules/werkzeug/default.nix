@@ -34,8 +34,12 @@ buildPythonPackage rec {
     watchdog
   ];
 
-  nativeCheckInputs =
-    [ ephemeral-port-reserve pytest-timeout pytest-xprocess pytestCheckHook ];
+  nativeCheckInputs = [
+    ephemeral-port-reserve
+    pytest-timeout
+    pytest-xprocess
+    pytestCheckHook
+  ];
 
   disabledTests = lib.optionals stdenv.isDarwin [ "test_get_machine_id" ];
 

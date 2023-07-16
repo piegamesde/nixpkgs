@@ -20,9 +20,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-bYbw4Z5hDlFTSGk5XE2gnnXRPYMl4IzV+kzlwfR98yg=";
   };
 
-  nativeBuildInputs = [ intltool pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    intltool
+    pkg-config
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ gssdp gtk3 gupnp ];
+  buildInputs = [
+    gssdp
+    gtk3
+    gupnp
+  ];
 
   meta = with lib; {
     # also https://gitlab.gnome.org/DnaX/upnp-router-control

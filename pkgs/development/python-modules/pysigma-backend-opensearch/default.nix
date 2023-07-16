@@ -31,9 +31,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ pysigma pysigma-backend-elasticsearch ];
+  propagatedBuildInputs = [
+    pysigma
+    pysigma-backend-elasticsearch
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook requests ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    requests
+  ];
 
   pythonImportsCheck = [ "sigma.backends.opensearch" ];
 

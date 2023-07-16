@@ -34,11 +34,21 @@ buildPythonPackage rec {
       --replace "timeout = 20" "timeout = 300"
   '';
 
-  propagatedBuildInputs =
-    [ async-timeout coloredlogs jsonschema voluptuous zigpy ];
+  propagatedBuildInputs = [
+    async-timeout
+    coloredlogs
+    jsonschema
+    voluptuous
+    zigpy
+  ];
 
-  nativeCheckInputs =
-    [ pytest-asyncio pytest-mock pytest-timeout pytest-xdist pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-mock
+    pytest-timeout
+    pytest-xdist
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # https://github.com/zigpy/zigpy-znp/issues/209

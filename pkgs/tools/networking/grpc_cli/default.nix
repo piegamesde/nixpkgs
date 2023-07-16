@@ -19,8 +19,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-svQxWHCoDHYZSvSrzUuwO0+6WMtgKsu+uVDV1mP/nL4=";
     fetchSubmodules = true;
   };
-  nativeBuildInputs = [ automake cmake autoconf ];
-  buildInputs = [ curl numactl ];
+  nativeBuildInputs = [
+    automake
+    cmake
+    autoconf
+  ];
+  buildInputs = [
+    curl
+    numactl
+  ];
   cmakeFlags = [ "-DgRPC_BUILD_TESTS=ON" ];
   makeFlags = [ "grpc_cli" ];
   env.NIX_CFLAGS_COMPILE =

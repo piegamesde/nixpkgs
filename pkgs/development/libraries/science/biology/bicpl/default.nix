@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ libminc netpbm ];
+  buildInputs = [
+    libminc
+    netpbm
+  ];
 
   cmakeFlags = [ "-DLIBMINC_DIR=${libminc}/lib/cmake" ];
 

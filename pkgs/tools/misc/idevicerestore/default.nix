@@ -26,7 +26,10 @@ stdenv.mkDerivation rec {
     echo '${version}' > .tarball-version
   '';
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   buildInputs = [
     curl

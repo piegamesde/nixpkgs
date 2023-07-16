@@ -47,7 +47,14 @@
 stdenv.mkDerivation rec {
   inherit pname version src;
 
-  nativeBuildInputs = [ cmake doxygen perl pkg-config python3 wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    doxygen
+    perl
+    pkg-config
+    python3
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     alsa-lib
@@ -151,6 +158,11 @@ stdenv.mkDerivation rec {
       mit
       cc0
     ];
-    maintainers = with maintainers; [ ashley ivar joshuafern sbruder ];
+    maintainers = with maintainers; [
+      ashley
+      ivar
+      joshuafern
+      sbruder
+    ];
   };
 }

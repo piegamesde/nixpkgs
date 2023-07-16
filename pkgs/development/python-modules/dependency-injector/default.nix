@@ -40,9 +40,15 @@ buildPythonPackage rec {
     yaml = [ pyyaml ];
   };
 
-  nativeCheckInputs =
-    [ fastapi httpx mypy-boto3-s3 numpy pytest-asyncio pytestCheckHook scipy ]
-    ++ passthru.optional-dependencies.aiohttp
+  nativeCheckInputs = [
+    fastapi
+    httpx
+    mypy-boto3-s3
+    numpy
+    pytest-asyncio
+    pytestCheckHook
+    scipy
+  ] ++ passthru.optional-dependencies.aiohttp
     ++ passthru.optional-dependencies.pydantic
     ++ passthru.optional-dependencies.yaml
     ++ passthru.optional-dependencies.flask;

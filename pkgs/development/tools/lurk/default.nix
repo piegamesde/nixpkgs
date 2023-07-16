@@ -22,6 +22,9 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/jakwai01/lurk";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ figsoda ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 }

@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ bleak ];
 
-  nativeCheckInputs = [ pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "fjaraskupan" ];
 

@@ -60,7 +60,10 @@ python3.pkgs.buildPythonApplication rec {
     "test_modification_date"
   ];
 
-  disabledTestPaths = [ "tests/test_udocker.py" "tests/test_provenance.py" ];
+  disabledTestPaths = [
+    "tests/test_udocker.py"
+    "tests/test_provenance.py"
+  ];
 
   pythonImportsCheck = [ "cwltool" ];
 

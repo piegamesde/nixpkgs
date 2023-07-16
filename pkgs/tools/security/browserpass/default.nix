@@ -60,6 +60,9 @@ buildGoModule rec {
     description = "Browserpass native client app";
     homepage = "https://github.com/browserpass/browserpass-native";
     license = licenses.isc;
-    maintainers = with maintainers; [ rvolosatovs infinisil ];
+    maintainers = with maintainers; [
+      rvolosatovs
+      infinisil
+    ];
   };
 }

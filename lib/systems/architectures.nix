@@ -7,35 +7,184 @@ rec {
   features = {
     default = [ ];
     # x86_64 Intel
-    westmere = [ "sse3" "ssse3" "sse4_1" "sse4_2" "aes" ];
-    sandybridge = [ "sse3" "ssse3" "sse4_1" "sse4_2" "aes" "avx" ];
-    ivybridge = [ "sse3" "ssse3" "sse4_1" "sse4_2" "aes" "avx" ];
-    haswell = [ "sse3" "ssse3" "sse4_1" "sse4_2" "aes" "avx" "avx2" "fma" ];
-    broadwell = [ "sse3" "ssse3" "sse4_1" "sse4_2" "aes" "avx" "avx2" "fma" ];
-    skylake = [ "sse3" "ssse3" "sse4_1" "sse4_2" "aes" "avx" "avx2" "fma" ];
-    skylake-avx512 =
-      [ "sse3" "ssse3" "sse4_1" "sse4_2" "aes" "avx" "avx2" "avx512" "fma" ];
-    cannonlake =
-      [ "sse3" "ssse3" "sse4_1" "sse4_2" "aes" "avx" "avx2" "avx512" "fma" ];
-    icelake-client =
-      [ "sse3" "ssse3" "sse4_1" "sse4_2" "aes" "avx" "avx2" "avx512" "fma" ];
-    icelake-server =
-      [ "sse3" "ssse3" "sse4_1" "sse4_2" "aes" "avx" "avx2" "avx512" "fma" ];
-    cascadelake =
-      [ "sse3" "ssse3" "sse4_1" "sse4_2" "aes" "avx" "avx2" "avx512" "fma" ];
-    cooperlake =
-      [ "sse3" "ssse3" "sse4_1" "sse4_2" "aes" "avx" "avx2" "avx512" "fma" ];
-    tigerlake =
-      [ "sse3" "ssse3" "sse4_1" "sse4_2" "aes" "avx" "avx2" "avx512" "fma" ];
+    westmere = [
+      "sse3"
+      "ssse3"
+      "sse4_1"
+      "sse4_2"
+      "aes"
+    ];
+    sandybridge = [
+      "sse3"
+      "ssse3"
+      "sse4_1"
+      "sse4_2"
+      "aes"
+      "avx"
+    ];
+    ivybridge = [
+      "sse3"
+      "ssse3"
+      "sse4_1"
+      "sse4_2"
+      "aes"
+      "avx"
+    ];
+    haswell = [
+      "sse3"
+      "ssse3"
+      "sse4_1"
+      "sse4_2"
+      "aes"
+      "avx"
+      "avx2"
+      "fma"
+    ];
+    broadwell = [
+      "sse3"
+      "ssse3"
+      "sse4_1"
+      "sse4_2"
+      "aes"
+      "avx"
+      "avx2"
+      "fma"
+    ];
+    skylake = [
+      "sse3"
+      "ssse3"
+      "sse4_1"
+      "sse4_2"
+      "aes"
+      "avx"
+      "avx2"
+      "fma"
+    ];
+    skylake-avx512 = [
+      "sse3"
+      "ssse3"
+      "sse4_1"
+      "sse4_2"
+      "aes"
+      "avx"
+      "avx2"
+      "avx512"
+      "fma"
+    ];
+    cannonlake = [
+      "sse3"
+      "ssse3"
+      "sse4_1"
+      "sse4_2"
+      "aes"
+      "avx"
+      "avx2"
+      "avx512"
+      "fma"
+    ];
+    icelake-client = [
+      "sse3"
+      "ssse3"
+      "sse4_1"
+      "sse4_2"
+      "aes"
+      "avx"
+      "avx2"
+      "avx512"
+      "fma"
+    ];
+    icelake-server = [
+      "sse3"
+      "ssse3"
+      "sse4_1"
+      "sse4_2"
+      "aes"
+      "avx"
+      "avx2"
+      "avx512"
+      "fma"
+    ];
+    cascadelake = [
+      "sse3"
+      "ssse3"
+      "sse4_1"
+      "sse4_2"
+      "aes"
+      "avx"
+      "avx2"
+      "avx512"
+      "fma"
+    ];
+    cooperlake = [
+      "sse3"
+      "ssse3"
+      "sse4_1"
+      "sse4_2"
+      "aes"
+      "avx"
+      "avx2"
+      "avx512"
+      "fma"
+    ];
+    tigerlake = [
+      "sse3"
+      "ssse3"
+      "sse4_1"
+      "sse4_2"
+      "aes"
+      "avx"
+      "avx2"
+      "avx512"
+      "fma"
+    ];
     # x86_64 AMD
-    btver1 = [ "sse3" "ssse3" "sse4_1" "sse4_2" ];
-    btver2 = [ "sse3" "ssse3" "sse4_1" "sse4_2" "aes" "avx" ];
-    bdver1 =
-      [ "sse3" "ssse3" "sse4_1" "sse4_2" "sse4a" "aes" "avx" "fma" "fma4" ];
-    bdver2 =
-      [ "sse3" "ssse3" "sse4_1" "sse4_2" "sse4a" "aes" "avx" "fma" "fma4" ];
-    bdver3 =
-      [ "sse3" "ssse3" "sse4_1" "sse4_2" "sse4a" "aes" "avx" "fma" "fma4" ];
+    btver1 = [
+      "sse3"
+      "ssse3"
+      "sse4_1"
+      "sse4_2"
+    ];
+    btver2 = [
+      "sse3"
+      "ssse3"
+      "sse4_1"
+      "sse4_2"
+      "aes"
+      "avx"
+    ];
+    bdver1 = [
+      "sse3"
+      "ssse3"
+      "sse4_1"
+      "sse4_2"
+      "sse4a"
+      "aes"
+      "avx"
+      "fma"
+      "fma4"
+    ];
+    bdver2 = [
+      "sse3"
+      "ssse3"
+      "sse4_1"
+      "sse4_2"
+      "sse4a"
+      "aes"
+      "avx"
+      "fma"
+      "fma4"
+    ];
+    bdver3 = [
+      "sse3"
+      "ssse3"
+      "sse4_1"
+      "sse4_2"
+      "sse4a"
+      "aes"
+      "avx"
+      "fma"
+      "fma4"
+    ];
     bdver4 = [
       "sse3"
       "ssse3"
@@ -48,12 +197,39 @@ rec {
       "fma"
       "fma4"
     ];
-    znver1 =
-      [ "sse3" "ssse3" "sse4_1" "sse4_2" "sse4a" "aes" "avx" "avx2" "fma" ];
-    znver2 =
-      [ "sse3" "ssse3" "sse4_1" "sse4_2" "sse4a" "aes" "avx" "avx2" "fma" ];
-    znver3 =
-      [ "sse3" "ssse3" "sse4_1" "sse4_2" "sse4a" "aes" "avx" "avx2" "fma" ];
+    znver1 = [
+      "sse3"
+      "ssse3"
+      "sse4_1"
+      "sse4_2"
+      "sse4a"
+      "aes"
+      "avx"
+      "avx2"
+      "fma"
+    ];
+    znver2 = [
+      "sse3"
+      "ssse3"
+      "sse4_1"
+      "sse4_2"
+      "sse4a"
+      "aes"
+      "avx"
+      "avx2"
+      "fma"
+    ];
+    znver3 = [
+      "sse3"
+      "ssse3"
+      "sse4_1"
+      "sse4_2"
+      "sse4a"
+      "aes"
+      "avx"
+      "avx2"
+      "fma"
+    ];
     # other
     armv5te = [ ];
     armv6 = [ ];

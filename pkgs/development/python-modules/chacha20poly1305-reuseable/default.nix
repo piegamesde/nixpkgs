@@ -36,7 +36,11 @@ in buildPythonPackage {
     hash = "sha256-vMc5fgFYS06m01WDLRyna3T1uuR+JinqM6huXAQ34rI=";
   };
 
-  nativeBuildInputs = [ cython poetry-core setuptools ];
+  nativeBuildInputs = [
+    cython
+    poetry-core
+    setuptools
+  ];
 
   propagatedBuildInputs = [ cryptography ];
 

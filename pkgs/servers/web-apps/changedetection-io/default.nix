@@ -65,7 +65,10 @@ python3.pkgs.buildPythonApplication rec {
   # tests can currently not be run in one pytest invocation and without docker
   doCheck = false;
 
-  nativeCheckInputs = with python3.pkgs; [ pytest-flask pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [
+    pytest-flask
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/dgtlmoon/changedetection.io";

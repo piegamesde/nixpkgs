@@ -39,11 +39,17 @@ stdenv.mkDerivation rec {
   #     `Method'; super.o:/build/super-3.30.0/super.h:293: first defined here
   env.NIX_CFLAGS_COMPILE = "-D_GNU_SOURCE -fcommon";
 
-  configureFlags = [ "--sysconfdir=/etc" "--localstatedir=/var" ];
+  configureFlags = [
+    "--sysconfdir=/etc"
+    "--localstatedir=/var"
+  ];
 
   buildInputs = [ libxcrypt ];
 
-  installFlags = [ "sysconfdir=$(out)/etc" "localstatedir=$(TMPDIR)" ];
+  installFlags = [
+    "sysconfdir=$(out)/etc"
+    "localstatedir=$(TMPDIR)"
+  ];
 
   meta = {
     homepage = "https://www.ucolick.org/~will/#super";

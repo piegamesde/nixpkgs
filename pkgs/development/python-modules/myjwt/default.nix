@@ -51,7 +51,11 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytest-mock pytestCheckHook requests-mock ];
+  nativeCheckInputs = [
+    pytest-mock
+    pytestCheckHook
+    requests-mock
+  ];
 
   pythonImportsCheck = [ "myjwt" ];
 

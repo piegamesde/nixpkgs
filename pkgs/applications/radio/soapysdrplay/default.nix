@@ -19,9 +19,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WMcAw0uR2o2SrQR4mBtdVEZlJ/ZXRqwo6zMJNsB/5U4=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ soapysdr sdrplay ];
+  buildInputs = [
+    soapysdr
+    sdrplay
+  ];
 
   cmakeFlags = [ "-DSoapySDR_DIR=${soapysdr}/share/cmake/SoapySDR/" ];
 

@@ -22,9 +22,17 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ check cppunit perl python3Packages.wrapPython ];
+  buildInputs = [
+    check
+    cppunit
+    perl
+    python3Packages.wrapPython
+  ];
 
-  propagatedBuildInputs = with python3Packages; [ testtools testscenarios ];
+  propagatedBuildInputs = with python3Packages; [
+    testtools
+    testscenarios
+  ];
 
   postFixup = "wrapPythonPrograms";
 

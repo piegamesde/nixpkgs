@@ -9,11 +9,9 @@ import ./make-test-python.nix ({
         ...
       }: {
         services.telegraf.enable = true;
-        services.telegraf.environmentFiles = [
-          (pkgs.writeText "secrets" ''
-            SECRET=example
-          '')
-        ];
+        services.telegraf.environmentFiles = [ (pkgs.writeText "secrets" ''
+          SECRET=example
+        '') ];
         services.telegraf.extraConfig = {
           agent.interval = "1s";
           agent.flush_interval = "1s";

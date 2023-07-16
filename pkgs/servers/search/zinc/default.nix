@@ -41,8 +41,11 @@ in buildGoModule rec {
 
   CGO_ENABLED = 0;
 
-  ldflags =
-    [ "-s" "-w" "-X github.com/zinclabs/zinc/pkg/meta.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/zinclabs/zinc/pkg/meta.Version=${version}"
+  ];
 
   meta = with lib; {
     description =

@@ -64,6 +64,9 @@ buildGoModule rec {
     downloadPage = "https://github.com/argoproj/argo-cd";
     homepage = "https://argo-cd.readthedocs.io/en/stable/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ shahrukh330 bryanasdev000 ];
+    maintainers = with maintainers; [
+      shahrukh330
+      bryanasdev000
+    ];
   };
 }

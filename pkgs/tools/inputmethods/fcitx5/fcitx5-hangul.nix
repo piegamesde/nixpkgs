@@ -20,9 +20,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VA9LDGMJRJDDCxIsx7wpDgdc2V9cuWlydAq5yiIvpxA=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules gettext ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    gettext
+  ];
 
-  buildInputs = [ fcitx5 libhangul ];
+  buildInputs = [
+    fcitx5
+    libhangul
+  ];
 
   meta = with lib; {
     description = "Hangul wrapper for Fcitx5";

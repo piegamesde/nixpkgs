@@ -21,10 +21,15 @@ buildPythonPackage rec {
     hash = "sha256-sPZELCxe2e7/gUmRxvP2aOwqsbaR/x+0grHwuDdx0Dg=";
   };
 
-  buildInputs = [ cython slurm ];
+  buildInputs = [
+    cython
+    slurm
+  ];
 
-  setupPyBuildFlags =
-    [ "--slurm-lib=${slurm}/lib" "--slurm-inc=${slurm.dev}/include" ];
+  setupPyBuildFlags = [
+    "--slurm-lib=${slurm}/lib"
+    "--slurm-inc=${slurm.dev}/include"
+  ];
 
   # Test cases need /etc/slurm/slurm.conf and require a working slurm installation
   doCheck = false;

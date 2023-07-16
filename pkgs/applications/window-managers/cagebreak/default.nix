@@ -35,7 +35,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-pU1QHYOqnkb3L4iSKbZY9Vo60Z6EaX9mp2Nw48NSPic=";
   };
 
-  nativeBuildInputs = [ makeWrapper meson ninja pkg-config scdoc wayland ];
+  nativeBuildInputs = [
+    makeWrapper
+    meson
+    ninja
+    pkg-config
+    scdoc
+    wayland
+  ];
 
   buildInputs = [
     cairo

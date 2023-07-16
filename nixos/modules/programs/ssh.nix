@@ -82,7 +82,10 @@ in {
       pubkeyAcceptedKeyTypes = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "ssh-ed25519" "ssh-rsa" ];
+        example = [
+          "ssh-ed25519"
+          "ssh-rsa"
+        ];
         description = lib.mdDoc ''
           Specifies the key types that will be used for public key authentication.
         '';
@@ -91,7 +94,10 @@ in {
       hostKeyAlgorithms = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "ssh-ed25519" "ssh-rsa" ];
+        example = [
+          "ssh-ed25519"
+          "ssh-rsa"
+        ];
         description = lib.mdDoc ''
           Specifies the host key algorithms that the client wants to use in order of preference.
         '';
@@ -274,7 +280,10 @@ in {
       ciphers = mkOption {
         type = types.nullOr (types.listOf types.str);
         default = null;
-        example = [ "chacha20-poly1305@openssh.com" "aes256-gcm@openssh.com" ];
+        example = [
+          "chacha20-poly1305@openssh.com"
+          "aes256-gcm@openssh.com"
+        ];
         description = lib.mdDoc ''
           Specifies the ciphers allowed and their order of preference.
         '';
@@ -283,7 +292,10 @@ in {
       macs = mkOption {
         type = types.nullOr (types.listOf types.str);
         default = null;
-        example = [ "hmac-sha2-512-etm@openssh.com" "hmac-sha1" ];
+        example = [
+          "hmac-sha2-512-etm@openssh.com"
+          "hmac-sha1"
+        ];
         description = lib.mdDoc ''
           Specifies the MAC (message authentication code) algorithms in order of preference. The MAC algorithm is used
           for data integrity protection.
@@ -299,10 +311,10 @@ in {
       || config.programs.ssh.forwardX11
       || config.services.openssh.settings.X11Forwarding);
 
-    assertions = [{
+    assertions = [ {
       assertion = cfg.forwardX11 -> cfg.setXAuthLocation;
       message = "cannot enable X11 forwarding without setting XAuth location";
-    }] ++ flip mapAttrsToList cfg.knownHosts (name: data: {
+    } ] ++ flip mapAttrsToList cfg.knownHosts (name: data: {
       assertion = (data.publicKey == null && data.publicKeyFile != null)
         || (data.publicKey != null && data.publicKeyFile == null);
       message =

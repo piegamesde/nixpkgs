@@ -94,7 +94,10 @@ in runCommand "${pname}-${version}" rec {
     description = "Streaming torrent app for Mac, Windows, and Linux";
     homepage = "https://webtorrent.io/desktop";
     license = licenses.mit;
-    maintainers = [ maintainers.flokli maintainers.bendlas ];
+    maintainers = [
+      maintainers.flokli
+      maintainers.bendlas
+    ];
     platforms = [ "x86_64-linux" ];
   };
 

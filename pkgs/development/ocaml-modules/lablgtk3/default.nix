@@ -23,8 +23,14 @@ buildDunePackage rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dune-configurator camlp-streams ];
-  propagatedBuildInputs = [ gtk3 cairo2 ];
+  buildInputs = [
+    dune-configurator
+    camlp-streams
+  ];
+  propagatedBuildInputs = [
+    gtk3
+    cairo2
+  ];
 
   meta = {
     description = "OCaml interface to GTK 3";

@@ -18,8 +18,11 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  ldflags =
-    [ "-w" "-s" "-X github.com/jessfraz/dockfmt/version.VERSION=${version}" ];
+  ldflags = [
+    "-w"
+    "-s"
+    "-X github.com/jessfraz/dockfmt/version.VERSION=${version}"
+  ];
 
   meta = with lib; {
     description = "Dockerfile format";

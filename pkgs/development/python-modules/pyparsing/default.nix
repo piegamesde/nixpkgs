@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   # circular dependencies with pytest if enabled by default
   doCheck = false;
-  nativeCheckInputs = [ jinja2 pytestCheckHook railroad-diagrams ];
+  nativeCheckInputs = [
+    jinja2
+    pytestCheckHook
+    railroad-diagrams
+  ];
 
   pythonImportsCheck = [ "pyparsing" ];
 

@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
   pname = "libopenmpt";
   version = "0.6.10";
 
-  outputs = [ "out" "dev" "bin" ];
+  outputs = [
+    "out"
+    "dev"
+    "bin"
+  ];
 
   src = fetchurl {
     url =
@@ -31,8 +35,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ zlib mpg123 libogg libvorbis portaudio libsndfile flac ]
-    ++ lib.optional usePulseAudio libpulseaudio;
+  buildInputs = [
+    zlib
+    mpg123
+    libogg
+    libvorbis
+    portaudio
+    libsndfile
+    flac
+  ] ++ lib.optional usePulseAudio libpulseaudio;
 
   configureFlags = lib.optional (!usePulseAudio) "--without-pulseaudio";
 

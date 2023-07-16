@@ -62,9 +62,18 @@ buildPythonPackage rec {
     packaging
   ];
 
-  nativeCheckInputs = [ unittestCheckHook babel mock ];
+  nativeCheckInputs = [
+    unittestCheckHook
+    babel
+    mock
+  ];
 
-  unittestFlagsArray = [ "-v" "-p" "'*tests.py'" "mkdocs" ];
+  unittestFlagsArray = [
+    "-v"
+    "-p"
+    "'*tests.py'"
+    "mkdocs"
+  ];
 
   pythonImportsCheck = [ "mkdocs" ];
 

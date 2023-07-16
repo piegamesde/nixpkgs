@@ -34,7 +34,10 @@ in {
     };
 
     virtualisation.digitalOceanImage.compressionMethod = mkOption {
-      type = types.enum [ "gzip" "bzip2" ];
+      type = types.enum [
+        "gzip"
+        "bzip2"
+      ];
       default = "gzip";
       example = "bzip2";
       description = lib.mdDoc ''
@@ -69,6 +72,9 @@ in {
 
   };
 
-  meta.maintainers = with maintainers; [ arianvp eamsden ];
+  meta.maintainers = with maintainers; [
+    arianvp
+    eamsden
+  ];
 
 }

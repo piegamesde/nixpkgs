@@ -28,7 +28,10 @@
     version = "1.0.3";
   };
   compass-core = {
-    dependencies = [ "multi_json" "sass" ];
+    dependencies = [
+      "multi_json"
+      "sass"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

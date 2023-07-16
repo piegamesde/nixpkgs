@@ -66,7 +66,12 @@ buildPythonPackage rec {
     wcwidth
   ];
 
-  nativeCheckInputs = [ decorator pycairo pytestCheckHook python-fontconfig ];
+  nativeCheckInputs = [
+    decorator
+    pycairo
+    pytestCheckHook
+    python-fontconfig
+  ];
 
   # Requires Noto Serif and Roboto Mono font
   doCheck = false;
@@ -85,6 +90,9 @@ buildPythonPackage rec {
     # Well, parts might be considered unfree, if being strict; see:
     # http://metadata.ftp-master.debian.org/changelogs/non-free/x/xml2rfc/xml2rfc_2.9.6-1_copyright
     license = licenses.bsd3;
-    maintainers = with maintainers; [ vcunat yrashk ];
+    maintainers = with maintainers; [
+      vcunat
+      yrashk
+    ];
   };
 }

@@ -22,9 +22,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Se9EIQTjZQM5qqzlEB4hGVRHDFdu6GecNGpw9gYMbW4=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+  ];
 
-  buildInputs = [ mono openal libGL ];
+  buildInputs = [
+    mono
+    openal
+    libGL
+  ];
 
   dontConfigure = true;
   dontBuild = true;

@@ -26,7 +26,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  checkInputs = [ factory_boy faker ];
+  checkInputs = [
+    factory_boy
+    faker
+  ];
 
   # These tests require network access, but disabledTestPaths doesn't work.
   # the file needs to be `import`ed by another Python test file, so it
@@ -44,7 +47,11 @@ buildPythonPackage rec {
       "https://github.com/barseghyanartur/tld/blob/${version}/CHANGELOG.rst";
     # https://github.com/barseghyanartur/tld/blob/master/README.rst#license
     # MPL-1.1 OR GPL-2.0-only OR LGPL-2.1-or-later
-    license = with licenses; [ lgpl21Plus mpl11 gpl2Only ];
+    license = with licenses; [
+      lgpl21Plus
+      mpl11
+      gpl2Only
+    ];
     maintainers = with maintainers; [ fab ];
   };
 }

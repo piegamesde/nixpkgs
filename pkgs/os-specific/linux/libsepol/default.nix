@@ -11,7 +11,12 @@ stdenv.mkDerivation rec {
   version = "3.5";
   se_url = "https://github.com/SELinuxProject/selinux/releases/download";
 
-  outputs = [ "bin" "out" "dev" "man" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+    "man"
+  ];
 
   src = fetchurl {
     url = "${se_url}/${version}/libsepol-${version}.tar.gz";

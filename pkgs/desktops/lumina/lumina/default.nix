@@ -28,7 +28,11 @@ mkDerivation rec {
     sha256 = "1llr65gilcf0k88f9mbwzlalqwdnjy4nv2jq7w154z0xmd6iarfq";
   };
 
-  nativeBuildInputs = [ qmake qttools wrapGAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    qttools
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     fluxbox # window manager for Lumina DE

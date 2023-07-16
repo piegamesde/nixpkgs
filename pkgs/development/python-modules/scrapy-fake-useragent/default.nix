@@ -22,9 +22,17 @@ buildPythonPackage rec {
     sha256 = "0yb7d51jws665rdfqkmi077w0pjxmb2ni7ysphj7lx7b18whq54j";
   };
 
-  propagatedBuildInputs = [ fake-useragent faker ];
+  propagatedBuildInputs = [
+    fake-useragent
+    faker
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook scrapy pytest-cov pytest-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    scrapy
+    pytest-cov
+    pytest-mock
+  ];
 
   meta = with lib; {
     description = "Random User-Agent middleware based on fake-useragent";

@@ -55,7 +55,11 @@ let
       find . -name package-lock.json -delete
     '';
 
-    postInstall = let runtimeDeps = [ nodejs bash ];
+    postInstall = let
+      runtimeDeps = [
+        nodejs
+        bash
+      ];
     in ''
       mkdir -p $out/{bin,libexec,share/doc/epgstation,share/man/man1}
 

@@ -31,11 +31,11 @@ in import ./make-test-python.nix ({
           privateNetwork = true;
           hostAddress = hostIp;
           localAddress = containerIp;
-          forwardPorts = [{
+          forwardPorts = [ {
             protocol = "tcp";
             hostPort = hostPort;
             containerPort = containerPort;
-          }];
+          } ];
           config = {
             services.httpd.enable = true;
             services.httpd.adminAddr = "foo@example.org";

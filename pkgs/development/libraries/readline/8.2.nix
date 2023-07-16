@@ -14,7 +14,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-P+txcfFqhO6CyhijbXub4QmlLAT0kqBTMx19EJUAfDU=";
   };
 
-  outputs = [ "out" "dev" "man" "doc" "info" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+    "doc"
+    "info"
+  ];
 
   strictDeps = true;
   propagatedBuildInputs = [ ncurses ];
@@ -30,8 +36,10 @@ stdenv.mkDerivation rec {
       };
   in import ./readline-8.2-patches.nix patch);
 
-  patches = [ ./link-against-ncurses.patch ./no-arch_only-8.2.patch ]
-    ++ upstreamPatches;
+  patches = [
+    ./link-against-ncurses.patch
+    ./no-arch_only-8.2.patch
+  ] ++ upstreamPatches;
 
   meta = with lib; {
     description = "Library for interactive line editing";

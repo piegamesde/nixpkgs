@@ -43,7 +43,10 @@ let
 in mkDerivation {
   pname = "kinfocenter";
 
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
 
   buildInputs = [
     kcmutils

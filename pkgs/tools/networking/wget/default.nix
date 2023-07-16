@@ -41,9 +41,20 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  nativeBuildInputs =
-    [ gettext pkg-config perlPackages.perl lzip libiconv libintl ];
-  buildInputs = [ libidn2 zlib pcre libuuid ] ++ lib.optionals doCheck [
+  nativeBuildInputs = [
+    gettext
+    pkg-config
+    perlPackages.perl
+    lzip
+    libiconv
+    libintl
+  ];
+  buildInputs = [
+    libidn2
+    zlib
+    pcre
+    libuuid
+  ] ++ lib.optionals doCheck [
     perlPackages.IOSocketSSL
     perlPackages.LWP
     python3

@@ -21,31 +21,29 @@ import ./make-test-python.nix ({
           cfg = config.services.molly-brown;
         in {
 
-          environment.systemPackages = [
-            (pkgs.writeScriptBin "test-gemini" ''
-              #!${pkgs.python3}/bin/python
+          environment.systemPackages = [ (pkgs.writeScriptBin "test-gemini" ''
+            #!${pkgs.python3}/bin/python
 
-              import socket
-              import ssl
-              import tempfile
-              import textwrap
-              import urllib.parse
+            import socket
+            import ssl
+            import tempfile
+            import textwrap
+            import urllib.parse
 
-              url = "gemini://geminiServer/init.gmi"
-              parsed_url = urllib.parse.urlparse(url)
+            url = "gemini://geminiServer/init.gmi"
+            parsed_url = urllib.parse.urlparse(url)
 
-              s = socket.create_connection((parsed_url.netloc, 1965))
-              context = ssl.SSLContext()
-              context.check_hostname = False
-              context.verify_mode = ssl.CERT_NONE
-              s = context.wrap_socket(s, server_hostname=parsed_url.netloc)
-              s.sendall((url + "\r\n").encode("UTF-8"))
-              fp = s.makefile("rb")
-              print(fp.readline().strip())
-              print(fp.readline().strip())
-              print(fp.readline().strip())
-            '')
-          ];
+            s = socket.create_connection((parsed_url.netloc, 1965))
+            context = ssl.SSLContext()
+            context.check_hostname = False
+            context.verify_mode = ssl.CERT_NONE
+            s = context.wrap_socket(s, server_hostname=parsed_url.netloc)
+            s.sendall((url + "\r\n").encode("UTF-8"))
+            fp = s.makefile("rb")
+            print(fp.readline().strip())
+            print(fp.readline().strip())
+            print(fp.readline().strip())
+          '') ];
 
           networking.firewall.allowedTCPPorts = [ cfg.settings.Port ];
 

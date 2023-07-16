@@ -71,16 +71,21 @@ in rustPlatform.buildRustPackage rec {
   # I'm not in the mood ((ΦωΦ))
   doCheck = false;
 
-  nativeBuildInputs = [ protobuf pkg-config ];
-  buildInputs = [ openssl rustPlatform.bindgenHook ]
-    ++ lib.optionals stdenv.isLinux [ udev ] ++ lib.optionals stdenv.isDarwin [
-      libcxx
-      IOKit
-      Security
-      AppKit
-      System
-      Libsystem
-    ];
+  nativeBuildInputs = [
+    protobuf
+    pkg-config
+  ];
+  buildInputs = [
+    openssl
+    rustPlatform.bindgenHook
+  ] ++ lib.optionals stdenv.isLinux [ udev ] ++ lib.optionals stdenv.isDarwin [
+    libcxx
+    IOKit
+    Security
+    AppKit
+    System
+    Libsystem
+  ];
 
   postInstall = ''
     mkdir -p $out/bin/sdk/bpf
@@ -105,7 +110,10 @@ in rustPlatform.buildRustPackage rec {
       "Web-Scale Blockchain for fast, secure, scalable, decentralized apps and marketplaces. ";
     homepage = "https://solana.com";
     license = licenses.asl20;
-    maintainers = with maintainers; [ netfox happysalada ];
+    maintainers = with maintainers; [
+      netfox
+      happysalada
+    ];
     platforms = platforms.unix;
   };
 

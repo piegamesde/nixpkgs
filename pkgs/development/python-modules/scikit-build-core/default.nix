@@ -34,19 +34,32 @@ buildPythonPackage rec {
       --replace '"error",' '"error", "ignore::DeprecationWarning", "ignore::UserWarning",'
   '';
 
-  nativeBuildInputs = [ hatch-vcs hatchling ];
+  nativeBuildInputs = [
+    hatch-vcs
+    hatchling
+  ];
 
-  propagatedBuildInputs = [ packaging ]
-    ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup tomli ];
+  propagatedBuildInputs = [ packaging ] ++ lib.optionals (pythonOlder "3.11") [
+    exceptiongroup
+    tomli
+  ];
 
   passthru.optional-dependencies = {
-    pyproject = [ distlib pathspec pyproject-metadata ];
+    pyproject = [
+      distlib
+      pathspec
+      pyproject-metadata
+    ];
   };
 
   dontUseCmakeConfigure = true;
 
-  nativeCheckInputs = [ cattrs cmake pytest-subprocess pytestCheckHook ]
-    ++ passthru.optional-dependencies.pyproject;
+  nativeCheckInputs = [
+    cattrs
+    cmake
+    pytest-subprocess
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.pyproject;
 
   disabledTestPaths = [
     # runs pip, requires network access

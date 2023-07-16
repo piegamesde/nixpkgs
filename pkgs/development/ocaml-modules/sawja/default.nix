@@ -28,11 +28,18 @@ stdenv.mkDerivation {
     hash = "sha256-G1W8/G0TEcldnFnH/NAb9a6ZSGGP2fWTM47lI8bBHnw=";
   };
 
-  nativeBuildInputs = [ which ocaml findlib ];
+  nativeBuildInputs = [
+    which
+    ocaml
+    findlib
+  ];
 
   strictDeps = true;
 
-  patches = [ ./configure.sh.patch ./Makefile.config.example.patch ];
+  patches = [
+    ./configure.sh.patch
+    ./Makefile.config.example.patch
+  ];
 
   createFindlibDestdir = true;
 

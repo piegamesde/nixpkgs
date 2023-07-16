@@ -32,7 +32,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pysigma ];
 
-  nativeCheckInputs = [ pytestCheckHook requests ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    requests
+  ];
 
   pythonImportsCheck = [ "sigma.backends.elasticsearch" ];
 

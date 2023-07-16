@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dqRy1OfOG9TX2cgCD8cowU44zVanns/nPYZrilPfuiU=";
   };
 
-  nativeBuildInputs = [ meson ninja ];
+  nativeBuildInputs = [
+    meson
+    ninja
+  ];
 
   buildInputs = [ abseil-cpp_202111 ] ++ lib.optionals stdenv.isDarwin
     (with darwin.apple_sdk.frameworks; [ ApplicationServices ]);

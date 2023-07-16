@@ -49,12 +49,26 @@ stdenv.mkDerivation rec {
       --replace ${"'"}''${PROJECT_VERSION}' '${version}'
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ]
-    ++ lib.optionals stdenv.isLinux [ icoutils ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ] ++ lib.optionals stdenv.isLinux [ icoutils ];
 
-  buildInputs = [ python3 libGLU SDL2 lua5_3 zlib freetype wavpack ]
-    ++ lib.optionals stdenv.isLinux [ alsa-lib libX11 ]
-    ++ lib.optionals stdenv.isDarwin [ Carbon Cocoa ];
+  buildInputs = [
+    python3
+    libGLU
+    SDL2
+    lua5_3
+    zlib
+    freetype
+    wavpack
+  ] ++ lib.optionals stdenv.isLinux [
+    alsa-lib
+    libX11
+  ] ++ lib.optionals stdenv.isDarwin [
+    Carbon
+    Cocoa
+  ];
 
   postInstall = lib.optionalString stdenv.isLinux ''
     # Convert and install desktop icon
@@ -88,7 +102,10 @@ stdenv.mkDerivation rec {
 
     homepage = "https://teeworlds.com/";
     license = "BSD-style, see `license.txt'";
-    maintainers = with lib.maintainers; [ astsmtl Luflosi ];
+    maintainers = with lib.maintainers; [
+      astsmtl
+      Luflosi
+    ];
     platforms = lib.platforms.unix;
   };
 }

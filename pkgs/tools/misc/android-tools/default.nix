@@ -30,8 +30,22 @@ in stdenv.mkDerivation rec {
     hash = "sha256-+I7FaGk39/svaJw7BQYSPyOZJ2oUZzFksPlUVKTHuXo=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config perl go ];
-  buildInputs = [ protobuf zlib gtest brotli lz4 zstd libusb1 pcre2 ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    perl
+    go
+  ];
+  buildInputs = [
+    protobuf
+    zlib
+    gtest
+    brotli
+    lz4
+    zstd
+    libusb1
+    pcre2
+  ];
   propagatedBuildInputs = [ pythonEnv ];
 
   # Don't try to fetch any Go modules via the network:
@@ -61,7 +75,10 @@ in stdenv.mkDerivation rec {
     # https://developer.android.com/studio/command-line#tools-platform
     # https://developer.android.com/studio/releases/platform-tools
     homepage = "https://github.com/nmeum/android-tools";
-    license = with licenses; [ asl20 unicode-dfs-2015 ];
+    license = with licenses; [
+      asl20
+      unicode-dfs-2015
+    ];
     platforms = platforms.unix;
     maintainers = with maintainers; [ primeos ];
   };

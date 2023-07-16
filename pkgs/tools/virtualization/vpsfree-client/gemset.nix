@@ -1,6 +1,12 @@
 {
   activesupport = {
-    dependencies = [ "concurrent-ruby" "i18n" "minitest" "tzinfo" "zeitwerk" ];
+    dependencies = [
+      "concurrent-ruby"
+      "i18n"
+      "minitest"
+      "tzinfo"
+      "zeitwerk"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -232,7 +238,11 @@
     version = "2.0.0";
   };
   rest-client = {
-    dependencies = [ "http-cookie" "mime-types" "netrc" ];
+    dependencies = [
+      "http-cookie"
+      "mime-types"
+      "netrc"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -295,8 +305,13 @@
     version = "0.0.7.7";
   };
   vpsadmin-client = {
-    dependencies =
-      [ "curses" "em-http-request" "eventmachine" "haveapi-client" "json" ];
+    dependencies = [
+      "curses"
+      "em-http-request"
+      "eventmachine"
+      "haveapi-client"
+      "json"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

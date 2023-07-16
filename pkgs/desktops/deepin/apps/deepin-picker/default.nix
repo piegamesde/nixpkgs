@@ -23,9 +23,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-b463PqrCpt/DQqint5Xb0cRT66iHNPavj0lsTMv801k=";
   };
 
-  nativeBuildInputs = [ qmake qttools pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    qttools
+    pkg-config
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ dtkwidget qtsvg xorg.libXtst ];
+  buildInputs = [
+    dtkwidget
+    qtsvg
+    xorg.libXtst
+  ];
 
   postPatch = ''
     substituteInPlace com.deepin.Picker.service \

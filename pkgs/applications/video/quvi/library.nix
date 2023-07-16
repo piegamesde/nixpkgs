@@ -21,7 +21,14 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ lua5 curl quvi_scripts libproxy libgcrypt glib ];
+  buildInputs = [
+    lua5
+    curl
+    quvi_scripts
+    libproxy
+    libgcrypt
+    glib
+  ];
 
   meta = {
     description = "Web video downloader";

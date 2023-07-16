@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ httpx ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [
     # Requires network access

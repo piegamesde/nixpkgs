@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
     sed -e "/ldconfig/d" -i ./Makefile
   '';
 
-  makeFlags = [ "PREFIX=$(out)" "SUFFIX=''" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "SUFFIX=''"
+  ];
 
   preInstall = ''
     # The Makefile does not create the include and lib directories

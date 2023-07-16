@@ -53,7 +53,10 @@ in stdenv.mkDerivation rec {
     sha256 = "1g1w0s9d8mfld8abrn405ll5grv3xgs0b0hsganrz6qafdq9j7q1";
   };
 
-  nativeBuildInputs = [ makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+  ];
 
   buildInputs = [
     # pam_usb dependencies

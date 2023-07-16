@@ -20,7 +20,11 @@ let
     makeTest {
       name = "${name}-galera-mariabackup";
       meta = with pkgs.lib.maintainers; {
-        maintainers = [ izorkin ajs124 das_j ];
+        maintainers = [
+          izorkin
+          ajs124
+          das_j
+        ];
       };
 
       # The test creates a Galera cluster with 3 nodes and is checking if mariabackup-based SST works. The cluster is tested by creating a DB and an empty table on one node,
@@ -44,15 +48,20 @@ let
 
             networking = {
               interfaces.eth1 = {
-                ipv4.addresses = [{
+                ipv4.addresses = [ {
                   inherit address;
                   prefixLength = 24;
-                }];
+                } ];
               };
               extraHosts = lib.concatMapStringsSep "\n"
                 (i: "192.168.1.${toString i} galera_0${toString i}")
                 (lib.range 1 6);
-              firewall.allowedTCPPorts = [ 3306 4444 4567 4568 ];
+              firewall.allowedTCPPorts = [
+                3306
+                4444
+                4567
+                4568
+              ];
               firewall.allowedUDPPorts = [ 4567 ];
             };
             systemd.services.mysql = with pkgs; {
@@ -76,10 +85,10 @@ let
               enable = true;
               package = mariadbPackage;
               ensureDatabases = lib.mkIf isFirstClusterNode [ "testdb" ];
-              ensureUsers = lib.mkIf isFirstClusterNode [{
+              ensureUsers = lib.mkIf isFirstClusterNode [ {
                 name = "testuser";
                 ensurePermissions = { "testdb.*" = "ALL PRIVILEGES"; };
-              }];
+              } ];
               initialScript = lib.mkIf isFirstClusterNode
                 (pkgs.writeText "mariadb-init.sql" ''
                   GRANT ALL PRIVILEGES ON *.* TO 'check_repl'@'localhost' IDENTIFIED BY 'check_pass' WITH GRANT OPTION;

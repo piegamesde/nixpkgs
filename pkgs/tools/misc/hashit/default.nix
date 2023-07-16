@@ -26,10 +26,21 @@ stdenv.mkDerivation rec {
     sha256 = "1s8fbzg1z2ypn55xg1pfm5xh15waq55fkp49j8rsqiq8flvg6ybf";
   };
 
-  nativeBuildInputs =
-    [ desktop-file-utils meson ninja vala pkg-config python3 wrapGAppsHook ];
+  nativeBuildInputs = [
+    desktop-file-utils
+    meson
+    ninja
+    vala
+    pkg-config
+    python3
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ gtk3 libgee pantheon.granite ];
+  buildInputs = [
+    gtk3
+    libgee
+    pantheon.granite
+  ];
 
   postPatch = ''
     chmod +x meson/post_install.py

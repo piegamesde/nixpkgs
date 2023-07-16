@@ -31,9 +31,16 @@ buildPythonPackage rec {
 
   dontUseSetuptoolsCheck = true;
 
-  nativeCheckInputs = [ pytestCheckHook mock mako ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    mock
+    mako
+  ];
 
-  propagatedBuildInputs = [ decorator stevedore ];
+  propagatedBuildInputs = [
+    decorator
+    stevedore
+  ];
 
   meta = with lib; {
     description = "A caching front-end based on the Dogpile lock";

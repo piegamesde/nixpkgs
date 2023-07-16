@@ -32,7 +32,10 @@ stdenv.mkDerivation rec {
         -i Makefile
   '';
 
-  patches = [ ./bcache-udev-modern.patch ./fix-static.patch ];
+  patches = [
+    ./bcache-udev-modern.patch
+    ./fix-static.patch
+  ];
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"

@@ -29,7 +29,12 @@ buildPythonApplication rec {
     "TestUpgrade"
   ];
 
-  propagatedBuildInputs = [ argcomplete jinja2 meraki rich ];
+  propagatedBuildInputs = [
+    argcomplete
+    jinja2
+    meraki
+    rich
+  ];
 
   nativeBuildInputs = [ pytestCheckHook ];
 

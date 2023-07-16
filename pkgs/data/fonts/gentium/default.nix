@@ -44,7 +44,10 @@ stdenvNoCC.mkDerivation rec {
       font family, along with documentation.
     '';
     downloadPage = "https://software.sil.org/gentium/download/";
-    maintainers = with maintainers; [ raskin rycee ];
+    maintainers = with maintainers; [
+      raskin
+      rycee
+    ];
     license = licenses.ofl;
     platforms = platforms.all;
   };

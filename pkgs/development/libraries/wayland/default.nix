@@ -52,8 +52,14 @@ in stdenv.mkDerivation rec {
     sed -i '/os-wrappers-test/d' tests/meson.build
   '';
 
-  outputs = [ "out" "bin" "dev" ]
-    ++ lib.optionals withDocumentation [ "doc" "man" ];
+  outputs = [
+    "out"
+    "bin"
+    "dev"
+  ] ++ lib.optionals withDocumentation [
+    "doc"
+    "man"
+  ];
   separateDebugInfo = true;
 
   mesonFlags = [
@@ -64,8 +70,11 @@ in stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ meson pkg-config ninja ]
-    ++ lib.optionals isCross [ wayland-scanner ]
+  nativeBuildInputs = [
+    meson
+    pkg-config
+    ninja
+  ] ++ lib.optionals isCross [ wayland-scanner ]
     ++ lib.optionals withDocumentation [
       (graphviz-nox.override { pango = null; }) # To avoid an infinite recursion
       doxygen
@@ -76,9 +85,12 @@ in stdenv.mkDerivation rec {
       docbook_xsl
     ];
 
-  buildInputs = [ expat libxml2 ] ++ lib.optionals withLibraries [ libffi ]
-    ++ lib.optionals (withLibraries && !stdenv.hostPlatform.isLinux)
-    [ epoll-shim ] ++ lib.optionals withDocumentation [
+  buildInputs = [
+    expat
+    libxml2
+  ] ++ lib.optionals withLibraries [ libffi ] ++ lib.optionals
+    (withLibraries && !stdenv.hostPlatform.isLinux) [ epoll-shim ]
+    ++ lib.optionals withDocumentation [
       docbook_xsl
       docbook_xml_dtd_45
       docbook_xml_dtd_42
@@ -111,7 +123,11 @@ in stdenv.mkDerivation rec {
     homepage = "https://wayland.freedesktop.org/";
     license = licenses.mit; # Expat version
     platforms = platforms.unix;
-    maintainers = with maintainers; [ primeos codyopel qyliss ];
+    maintainers = with maintainers; [
+      primeos
+      codyopel
+      qyliss
+    ];
   };
 
   passthru.version = version;

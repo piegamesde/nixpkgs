@@ -67,9 +67,17 @@ stdenv.mkDerivation {
       --replace '"libdrm.so.2"' '"${libdrm}/lib/libdrm.so.2"'
   '';
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ pkg-config cmake ninja yasm ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    ninja
+    yasm
+  ];
 
   propagatedBuildInputs = [
     libjpeg

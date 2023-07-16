@@ -22,8 +22,16 @@ stdenv.mkDerivation rec {
     sha256 = "0i2d9rhav0x6js2qhjf5iy6j2a7f0d11ail0lfv40hb1kygrgda9";
   };
 
-  buildInputs =
-    [ libxml2 libxslt curl libvorbis libtheora speex libkate libopus ];
+  buildInputs = [
+    libxml2
+    libxslt
+    curl
+    libvorbis
+    libtheora
+    speex
+    libkate
+    libopus
+  ];
 
   hardeningEnable = [ "pie" ];
 

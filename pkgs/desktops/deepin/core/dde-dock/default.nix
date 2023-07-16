@@ -43,7 +43,13 @@ stdenv.mkDerivation rec {
       --replace "/usr" "$out"
   '';
 
-  nativeBuildInputs = [ cmake qttools pkg-config wrapQtAppsHook wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    qttools
+    pkg-config
+    wrapQtAppsHook
+    wrapGAppsHook
+  ];
   dontWrapGApps = true;
 
   buildInputs = [
@@ -61,7 +67,10 @@ stdenv.mkDerivation rec {
     gtest
   ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   cmakeFlags = [ "-DVERSION=${version}" ];
 

@@ -25,7 +25,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ mono glib pango gtk3 libxml2 ];
+  buildInputs = [
+    mono
+    glib
+    pango
+    gtk3
+    libxml2
+  ];
 
   patches = [
     # Fixes MONO_PROFILE_ENTER_LEAVE undeclared when compiling against newer versions of mono.

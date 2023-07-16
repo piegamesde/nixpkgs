@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libpng zlib ];
+  buildInputs = [
+    libpng
+    zlib
+  ];
 
   patchPhase = ''
     sed -i '/png.h/a \#include <zlib.h>' src/rwpng.c

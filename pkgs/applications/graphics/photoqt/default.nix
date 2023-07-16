@@ -29,7 +29,12 @@ mkDerivation rec {
     hash = "sha256-hihfqE7XIlSAxPg3Kzld3LrYS97wDH//GGqpBpBwFm0=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules qttools wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    qttools
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     qtbase
@@ -46,7 +51,11 @@ mkDerivation rec {
     pugixml
   ];
 
-  cmakeFlags = [ "-DFREEIMAGE=OFF" "-DDEVIL=OFF" "-DCHROMECAST=OFF" ];
+  cmakeFlags = [
+    "-DFREEIMAGE=OFF"
+    "-DDEVIL=OFF"
+    "-DCHROMECAST=OFF"
+  ];
 
   preConfigure = ''
     export MAGICK_LOCATION="${graphicsmagick}/include/GraphicsMagick"

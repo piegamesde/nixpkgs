@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-6rRHdgdTb94kqIpWJOJOwoIsaXb/c4XY3q331GwQyf0=";
   };
 
-  buildInputs = [ apacheHttpd python3 ncurses ];
+  buildInputs = [
+    apacheHttpd
+    python3
+    ncurses
+  ];
 
   postPatch = ''
     substituteInPlace configure --replace '/usr/bin/lipo' 'lipo'

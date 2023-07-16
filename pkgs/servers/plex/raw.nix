@@ -31,7 +31,10 @@ stdenv.mkDerivation rec {
       sha256 = "sha256-fwMD/vYdwMrUvDB7JmMmVCt47ZtD17zk3bfIuO91dH8=";
     };
 
-  outputs = [ "out" "basedb" ];
+  outputs = [
+    "out"
+    "basedb"
+  ];
 
   nativeBuildInputs = [ dpkg ];
 
@@ -66,7 +69,13 @@ stdenv.mkDerivation rec {
   passthru.updateScript = writeScript "${pname}-updater" ''
     #!${stdenv.shell}
     set -eu -o pipefail
-    PATH=${lib.makeBinPath [ curl jq common-updater-scripts ]}:$PATH
+    PATH=${
+      lib.makeBinPath [
+        curl
+        jq
+        common-updater-scripts
+      ]
+    }:$PATH
 
     plexApiJson=$(curl -sS https://plex.tv/api/downloads/5.json)
     latestVersion="$(echo $plexApiJson | jq .computer.Linux.version | tr -d '"\n')"
@@ -88,7 +97,10 @@ stdenv.mkDerivation rec {
     homepage = "https://plex.tv/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     maintainers = with maintainers; [
       badmutex
       forkk

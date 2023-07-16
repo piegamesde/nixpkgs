@@ -20,10 +20,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-SQH85FLfVEEtYhR1+A1XxCDMiTjDgLQX6zifbLxCa5c=";
   };
 
-  outputs = [ "bin" "dev" "out" "doc" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "doc"
+  ];
 
   buildInputs = [ perl ];
-  nativeBuildInputs = [ autoreconfHook makeWrapper ];
+  nativeBuildInputs = [
+    autoreconfHook
+    makeWrapper
+  ];
 
   postPatch = ''
     substituteInPlace configure.ac --replace '	docs/Makefile' ""
@@ -35,8 +43,12 @@ stdenv.mkDerivation rec {
   postFixup = ''
     for b in $bin/bin/opendmarc-{expire,import,params,reports}; do
       wrapProgram $b --set PERL5LIB ${
-        perlPackages.makeFullPerlPath
-        (with perlPackages; [ Switch DBI DBDmysql HTTPMessage ])
+        perlPackages.makeFullPerlPath (with perlPackages; [
+          Switch
+          DBI
+          DBDmysql
+          HTTPMessage
+        ])
       }
     done
   '';
@@ -45,7 +57,13 @@ stdenv.mkDerivation rec {
     description =
       "A free open source software implementation of the DMARC specification";
     homepage = "http://www.trusteddomain.org/opendmarc/";
-    license = with licenses; [ bsd3 sendmail ];
-    maintainers = with maintainers; [ ajs124 das_j ];
+    license = with licenses; [
+      bsd3
+      sendmail
+    ];
+    maintainers = with maintainers; [
+      ajs124
+      das_j
+    ];
   };
 }

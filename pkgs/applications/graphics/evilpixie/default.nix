@@ -24,9 +24,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+DdAN+xDOYxLgLHUlr75piTEPrWpuOyXvxckhBEl7yU=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ qtbase libpng giflib libjpeg impy ];
+  buildInputs = [
+    qtbase
+    libpng
+    giflib
+    libjpeg
+    impy
+  ];
 
   meta = with lib; {
     description = "Pixel-oriented paint program, modelled on Deluxe Paint";

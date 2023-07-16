@@ -40,22 +40,34 @@ in stdenv.mkDerivation rec {
     ./test_t-verify_double-plaintext.patch
   ];
 
-  outputs = [ "out" "dev" "info" ];
+  outputs = [
+    "out"
+    "dev"
+    "info"
+  ];
 
   outputBin = "dev"; # gpgme-config; not so sure about gpgme-tool
 
-  nativeBuildInputs = [ autoreconfHook gnupg pkg-config texinfo ]
-    ++ lib.optionals pythonSupport [
-      python3.pythonForBuild
-      ncurses
-      swig2
-      which
-    ];
+  nativeBuildInputs = [
+    autoreconfHook
+    gnupg
+    pkg-config
+    texinfo
+  ] ++ lib.optionals pythonSupport [
+    python3.pythonForBuild
+    ncurses
+    swig2
+    which
+  ];
 
   buildInputs = lib.optionals pythonSupport [ python3 ];
 
-  propagatedBuildInputs = [ glib libassuan libgpg-error pth ]
-    ++ lib.optionals (qtbase != null) [ qtbase ];
+  propagatedBuildInputs = [
+    glib
+    libassuan
+    libgpg-error
+    pth
+  ] ++ lib.optionals (qtbase != null) [ qtbase ];
 
   nativeCheckInputs = [ which ];
 
@@ -88,7 +100,10 @@ in stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  checkFlags = [ "-C" "tests" ];
+  checkFlags = [
+    "-C"
+    "tests"
+  ];
 
   passthru.tests = {
     python = python3.pkgs.gpgme;
@@ -106,7 +121,10 @@ in stdenv.mkDerivation rec {
       encryption, decryption, signing, signature verification and key
       management.
     '';
-    license = with licenses; [ lgpl21Plus gpl3Plus ];
+    license = with licenses; [
+      lgpl21Plus
+      gpl3Plus
+    ];
     platforms = platforms.unix;
     maintainers = with maintainers; [ dotlambda ];
   };

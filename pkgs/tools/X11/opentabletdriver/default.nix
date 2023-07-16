@@ -50,10 +50,21 @@ buildDotnetModule rec {
     "OpenTabletDriver.UX.Gtk"
   ];
 
-  nativeBuildInputs = [ copyDesktopItems wrapGAppsHook dpkg ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    wrapGAppsHook
+    dpkg
+  ];
 
-  runtimeDeps =
-    [ gtk3 libX11 libXrandr libappindicator libevdev libnotify udev ];
+  runtimeDeps = [
+    gtk3
+    libX11
+    libXrandr
+    libappindicator
+    libevdev
+    libnotify
+    udev
+  ];
 
   buildInputs = runtimeDeps;
 
@@ -91,16 +102,14 @@ buildDotnetModule rec {
     install -Dm644 ./usr/lib/udev/rules.d/99-opentabletdriver.rules -t $out/lib/udev/rules.d
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      desktopName = "OpenTabletDriver";
-      name = "OpenTabletDriver";
-      exec = "otd-gui";
-      icon = "otd";
-      comment = meta.description;
-      categories = [ "Utility" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    desktopName = "OpenTabletDriver";
+    name = "OpenTabletDriver";
+    exec = "otd-gui";
+    icon = "otd";
+    comment = meta.description;
+    categories = [ "Utility" ];
+  }) ];
 
   passthru = {
     updateScript = ./update.sh;
@@ -112,7 +121,10 @@ buildDotnetModule rec {
     homepage = "https://github.com/OpenTabletDriver/OpenTabletDriver";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ thiagokokada ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     mainProgram = "otd";
   };
 }

@@ -9,8 +9,11 @@ args@{
   description =
     "An XML / XHTML / HTML parser that aims to be as lenient as possible.";
 
-  deps =
-    [ args."array-utils" args."documentation-utils" args."trivial-indent" ];
+  deps = [
+    args."array-utils"
+    args."documentation-utils"
+    args."trivial-indent"
+  ];
 
   src = fetchurl {
     url =

@@ -27,22 +27,29 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-drbhgYS8IaQdKUn/Y9ch1JBUpxbO/zpL13tcNRC3lK8=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      ext2 = "${0.0 fsprogs}/bin/mkfs.ext2";
-      ext3 = "${0.0 fsprogs}/bin/mkfs.ext3";
-      ext4 = "${0.0 fsprogs}/bin/mkfs.ext4";
-      exfat = "${exfat}/bin/mkfs.exfat";
-      ntfs = "${ntfs3g}/bin/mkfs.ntfs";
-      btrfs = "${btrfs-progs}/bin/mkfs.btrfs";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    ext2 = "${0.0 fsprogs}/bin/mkfs.ext2";
+    ext3 = "${0.0 fsprogs}/bin/mkfs.ext3";
+    ext4 = "${0.0 fsprogs}/bin/mkfs.ext4";
+    exfat = "${exfat}/bin/mkfs.exfat";
+    ntfs = "${ntfs3g}/bin/mkfs.ntfs";
+    btrfs = "${btrfs-progs}/bin/mkfs.btrfs";
+  }) ];
 
   sourceRoot = "src";
 
-  nativeBuildInputs = [ makeself pkg-config yasm wrapGAppsHook ];
-  buildInputs = [ fuse lvm2 wxGTK ];
+  nativeBuildInputs = [
+    makeself
+    pkg-config
+    yasm
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    fuse
+    lvm2
+    wxGTK
+  ];
 
   enableParallelBuilding = true;
 

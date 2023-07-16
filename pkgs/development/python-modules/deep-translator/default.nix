@@ -21,7 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-6ZQ42rcOO+vNqTLj9ehv09MrQ/h9Zu2fi2gW2xRvHZ8=";
   };
 
-  propagatedBuildInputs = [ beautifulsoup4 requests click ];
+  propagatedBuildInputs = [
+    beautifulsoup4
+    requests
+    click
+  ];
 
   # Initializing it during build won't work as it needs connection with
   # APIs and the build environment is isolated (#148572 for details).

@@ -35,7 +35,10 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-rpTc0gq8HquDow4NEkRSjyESEMrv8dAhX98yKKu/Fsk=";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
 
   buildInputs = with lib;
     concatLists (mapAttrsToList

@@ -39,9 +39,19 @@ python3.pkgs.buildPythonApplication rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [ glib gtk4 librsvg libadwaita glib-networking webkitgtk_6_0 ];
+  buildInputs = [
+    glib
+    gtk4
+    librsvg
+    libadwaita
+    glib-networking
+    webkitgtk_6_0
+  ];
 
-  propagatedBuildInputs = with python3.pkgs; [ requests pygobject3 ];
+  propagatedBuildInputs = with python3.pkgs; [
+    requests
+    pygobject3
+  ];
 
   postPatch = ''
     patchShebangs build-aux/meson/postinstall.py

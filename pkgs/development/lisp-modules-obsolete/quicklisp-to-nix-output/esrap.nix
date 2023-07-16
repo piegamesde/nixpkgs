@@ -10,8 +10,11 @@ args@{
 
   description = "A Packrat / Parsing Grammar / TDPL parser for Common Lisp.";
 
-  deps =
-    [ args."alexandria" args."fiveam" args."trivial-with-current-source-form" ];
+  deps = [
+    args."alexandria"
+    args."fiveam"
+    args."trivial-with-current-source-form"
+  ];
 
   src = fetchurl {
     url =

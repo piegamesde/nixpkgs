@@ -24,16 +24,27 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-z/oe5Ol0vnhkbEZQjm3S8358WJqqspOMwQZPBY/vn40=";
   };
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
   outputMan = "out"; # users will want `man man` to work
 
   strictDeps = true;
-  nativeBuildInputs = [ autoreconfHook groff makeWrapper pkg-config zstd ];
-  buildInputs =
-    [ libpipeline db groff ]; # (Yes, 'groff' is both native and build input)
-  nativeCheckInputs = [
-    libiconv # for 'iconv' binary
+  nativeBuildInputs = [
+    autoreconfHook
+    groff
+    makeWrapper
+    pkg-config
+    zstd
   ];
+  buildInputs = [
+    libpipeline
+    db
+    groff
+  ]; # (Yes, 'groff' is both native and build input)
+  nativeCheckInputs = [ libiconv # for 'iconv' binary
+    ];
 
   patches = [ ./systemwide-man-db-conf.patch ];
 
@@ -73,13 +84,18 @@ stdenv.mkDerivation rec {
     # make sure that we don't wrap symlinks (since that changes argv[0] to the -wrapped name)
     find "$out/bin" -type f | while read file; do
       wrapProgram "$file" \
-        --prefix PATH : "${lib.makeBinPath [ groff gzip zstd ]}"
+        --prefix PATH : "${
+          lib.makeBinPath [
+            groff
+            gzip
+            zstd
+          ]
+        }"
     done
   '';
 
-  disallowedReferences =
-    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-    [ buildPackages.groff ];
+  disallowedReferences = lib.optionals
+    (stdenv.hostPlatform != stdenv.buildPlatform) [ buildPackages.groff ];
 
   enableParallelBuilding = true;
 

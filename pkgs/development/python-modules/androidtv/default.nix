@@ -24,15 +24,20 @@ buildPythonPackage rec {
     hash = "sha256-LKV5aO3sptHz48UYpP+zPk6pPhyHAZWAxiTTIWKHiSg=";
   };
 
-  propagatedBuildInputs = [ adb-shell pure-python-adb ];
+  propagatedBuildInputs = [
+    adb-shell
+    pure-python-adb
+  ];
 
   passthru.optional-dependencies = {
     async = [ aiofiles ];
     inherit (adb-shell.optional-dependencies) usb;
   };
 
-  nativeCheckInputs = [ mock pytestCheckHook ]
-    ++ passthru.optional-dependencies.async
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.async
     ++ passthru.optional-dependencies.usb;
 
   disabledTests = [

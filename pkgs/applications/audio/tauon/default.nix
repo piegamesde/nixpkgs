@@ -71,7 +71,10 @@ stdenv.mkDerivation rec {
     ./compile-phazor.sh
   '';
 
-  nativeBuildInputs = [ pkg-config python3Packages.wrapPython ];
+  nativeBuildInputs = [
+    pkg-config
+    python3Packages.wrapPython
+  ];
 
   buildInputs = [
     flac

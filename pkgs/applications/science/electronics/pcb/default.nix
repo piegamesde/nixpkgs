@@ -31,7 +31,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-roUvRq+Eq6f1HYE/uRb8f82+6kP3E08VBQcCThdD+14=";
   };
 
-  nativeBuildInputs = [ pkg-config bison intltool flex netpbm imagemagick ];
+  nativeBuildInputs = [
+    pkg-config
+    bison
+    intltool
+    flex
+    netpbm
+    imagemagick
+  ];
 
   buildInputs = [
     gtk2

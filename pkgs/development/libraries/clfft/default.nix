@@ -31,9 +31,14 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ fftw fftwFloat boost ]
-    ++ lib.optionals stdenv.isLinux [ opencl-clhpp ocl-icd ]
-    ++ lib.optionals stdenv.isDarwin [ OpenCL ];
+  buildInputs = [
+    fftw
+    fftwFloat
+    boost
+  ] ++ lib.optionals stdenv.isLinux [
+    opencl-clhpp
+    ocl-icd
+  ] ++ lib.optionals stdenv.isDarwin [ OpenCL ];
 
   # https://github.com/clMathLibraries/clFFT/issues/237
   CXXFLAGS = "-std=c++98";

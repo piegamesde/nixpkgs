@@ -8,7 +8,12 @@
 }:
 
 let
-  validFlavours = [ "mocha" "macchiato" "frappe" "latte" ];
+  validFlavours = [
+    "mocha"
+    "macchiato"
+    "frappe"
+    "latte"
+  ];
   validAccents = [
     "rosewater"
     "flamingo"
@@ -25,7 +30,10 @@ let
     "blue"
     "lavender"
   ];
-  validWinDecStyles = [ "modern" "classic" ];
+  validWinDecStyles = [
+    "modern"
+    "classic"
+  ];
 
   installScript = ./install.sh;
 

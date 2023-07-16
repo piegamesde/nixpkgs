@@ -23,8 +23,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Z2J17YMzQNZqABIa5eyJDT7BWfXveymzs+DWsrklPIs=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ libGLU libGL freeglut libX11 xorgproto libXi ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    libGLU
+    libGL
+    freeglut
+    libX11
+    xorgproto
+    libXi
+  ];
 
   cmakeFlags = [
     "-DBOX2D_INSTALL=ON"

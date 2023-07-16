@@ -39,15 +39,21 @@ in stdenv.mkDerivation rec {
     inherit qttranslations;
   });
 
-  buildInputs = [ qtpbfimageplugin qtserialport ] ++ (if isQt6 then [
+  buildInputs = [
+    qtpbfimageplugin
+    qtserialport
+  ] ++ (if isQt6 then [
     qtbase
     qtpositioning
     qtsvg
     qt5compat
-  ] else
-    [ qtlocation ]);
+  ] else [ qtlocation ]);
 
-  nativeBuildInputs = [ qmake qttools wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    qttools
+    wrapQtAppsHook
+  ];
 
   preConfigure = ''
     lrelease gpxsee.pro
@@ -72,7 +78,10 @@ in stdenv.mkDerivation rec {
     changelog =
       "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ womfoo sikmir ];
+    maintainers = with maintainers; [
+      womfoo
+      sikmir
+    ];
     platforms = platforms.unix;
     broken = isQt6 && stdenv.isDarwin;
   };

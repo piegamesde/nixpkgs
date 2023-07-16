@@ -16,8 +16,15 @@ buildPythonPackage rec {
     sha256 = "sha256-KwzEU9IfcQ6YPZu3jPuFrd6ux/3e2pzoLfTrak/aGmg=";
   };
 
-  propagatedBuildInputs = [ django-mailman3 readme_renderer ];
-  nativeCheckInputs = [ beautifulsoup4 vcrpy mock ];
+  propagatedBuildInputs = [
+    django-mailman3
+    readme_renderer
+  ];
+  nativeCheckInputs = [
+    beautifulsoup4
+    vcrpy
+    mock
+  ];
 
   # Tries to connect to database.
   doCheck = false;
@@ -26,6 +33,9 @@ buildPythonPackage rec {
     homepage = "https://docs.mailman3.org/projects/postorius";
     description = "Web-based user interface for managing GNU Mailman";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ globin qyliss ];
+    maintainers = with maintainers; [
+      globin
+      qyliss
+    ];
   };
 }

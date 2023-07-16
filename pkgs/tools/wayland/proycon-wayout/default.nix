@@ -35,8 +35,20 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs = [ scdoc ninja meson cmake pkg-config wayland-scanner ];
-  buildInputs = [ wayland-protocols wayland cairo pango ];
+  nativeBuildInputs = [
+    scdoc
+    ninja
+    meson
+    cmake
+    pkg-config
+    wayland-scanner
+  ];
+  buildInputs = [
+    wayland-protocols
+    wayland
+    cairo
+    pango
+  ];
 
   meta = with lib; {
     description =

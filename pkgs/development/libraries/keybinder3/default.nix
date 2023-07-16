@@ -36,7 +36,12 @@ stdenv.mkDerivation rec {
     gtk-doc
     gobject-introspection
   ];
-  buildInputs = [ gtk3 libX11 libXext libXrender ];
+  buildInputs = [
+    gtk3
+    libX11
+    libXext
+    libXrender
+  ];
 
   preConfigure = ''
     # NOCONFIGURE fixes 'If you meant to cross compile, use `--host'.'

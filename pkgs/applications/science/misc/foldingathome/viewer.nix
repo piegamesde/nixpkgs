@@ -24,9 +24,19 @@ in stdenv.mkDerivation rec {
     sha256 = "00fd00pf6fcpplcaahvy9ir60mk69d9rcmwsyq3jrv9mxqm9aq7p";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook dpkg makeWrapper ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    dpkg
+    makeWrapper
+  ];
 
-  buildInputs = [ freeglut gcc-unwrapped.lib libGL libGLU zlib ];
+  buildInputs = [
+    freeglut
+    gcc-unwrapped.lib
+    libGL
+    libGLU
+    zlib
+  ];
 
   unpackPhase = ''
     dpkg-deb -x ${src} ./

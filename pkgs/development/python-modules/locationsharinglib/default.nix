@@ -24,9 +24,18 @@ buildPythonPackage rec {
     hash = "sha256-KT/q1UIJ/DzGqz8T08MXG9UCstAcpDydM4Tkn33pruI=";
   };
 
-  propagatedBuildInputs = [ coloredlogs requests cachetools pytz ];
+  propagatedBuildInputs = [
+    coloredlogs
+    requests
+    cachetools
+    pytz
+  ];
 
-  nativeCheckInputs = [ betamax emoji nose ];
+  nativeCheckInputs = [
+    betamax
+    emoji
+    nose
+  ];
 
   postPatch = ''
     # Tests requirements want to pull in multiple modules which we don't need

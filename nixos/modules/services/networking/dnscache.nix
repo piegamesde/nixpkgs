@@ -62,7 +62,10 @@ in {
         type = types.listOf types.str;
         description = lib.mdDoc
           "Client IP addresses (or prefixes) from which to accept connections.";
-        example = [ "192.168" "172.23.75.82" ];
+        example = [
+          "192.168"
+          "172.23.75.82"
+        ];
       };
 
       domainServers = mkOption {
@@ -102,7 +105,11 @@ in {
     systemd.services.dnscache = {
       description = "djbdns dnscache server";
       wantedBy = [ "multi-user.target" ];
-      path = with pkgs; [ bash daemontools djbdns ];
+      path = with pkgs; [
+        bash
+        daemontools
+        djbdns
+      ];
       preStart = ''
         rm -rf /var/lib/dnscache
         dnscache-conf dnscache dnscache /var/lib/dnscache ${config.services.dnscache.ip}

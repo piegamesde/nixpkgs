@@ -20,7 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-bRjvNNmvsBy0sR4C0DoC/n7A9ez6AfXUJrXZiHKkz0g=";
   };
 
-  propagatedBuildInputs = [ click google-auth packaging ];
+  propagatedBuildInputs = [
+    click
+    google-auth
+    packaging
+  ];
 
   # does not contain tests
   doCheck = false;

@@ -24,8 +24,15 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [ wayland-scanner wayland pango glib harfbuzz cairo libxkbcommon ];
+  buildInputs = [
+    wayland-scanner
+    wayland
+    pango
+    glib
+    harfbuzz
+    cairo
+    libxkbcommon
+  ];
   installFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {

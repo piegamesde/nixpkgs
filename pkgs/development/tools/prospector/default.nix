@@ -18,9 +18,16 @@ in python3.pkgs.buildPythonApplication rec {
     hash = "sha256-94JGKX91d2kul+KMYohga9KCOj6RN/YKpD8e4nWSOOM=";
   };
 
-  pythonRelaxDeps = [ "pyflakes" "pep8-naming" "flake8" ];
+  pythonRelaxDeps = [
+    "pyflakes"
+    "pep8-naming"
+    "flake8"
+  ];
 
-  nativeBuildInputs = with python3.pkgs; [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = with python3.pkgs; [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     bandit

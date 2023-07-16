@@ -37,12 +37,24 @@ else
       sha256 = "181sz6l5xrj5jvwg4m2yqsjzwp2s5h8v0mwhjcwbam90kdfx2nak";
     };
 
-    nativeBuildInputs = [ ocaml findlib ocamlbuild ];
+    nativeBuildInputs = [
+      ocaml
+      findlib
+      ocamlbuild
+    ];
     buildInputs = [ topkg ];
 
-    propagatedBuildInputs = [ uchar result gg ]
-      ++ optionals pdfBackend [ uutf otfm ]
-      ++ optionals htmlcBackend [ js_of_ocaml js_of_ocaml-ppx ];
+    propagatedBuildInputs = [
+      uchar
+      result
+      gg
+    ] ++ optionals pdfBackend [
+      uutf
+      otfm
+    ] ++ optionals htmlcBackend [
+      js_of_ocaml
+      js_of_ocaml-ppx
+    ];
 
     strictDeps = true;
 

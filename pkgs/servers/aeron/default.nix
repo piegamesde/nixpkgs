@@ -24,7 +24,11 @@ let
     name = "${pname}-deps";
     inherit src;
 
-    nativeBuildInputs = [ gradle jdk11 perl ];
+    nativeBuildInputs = [
+      gradle
+      jdk11
+      perl
+    ];
 
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d);
@@ -89,7 +93,10 @@ in stdenv.mkDerivation rec {
 
   buildInputs = [ jdk11 ];
 
-  nativeBuildInputs = [ gradle makeWrapper ];
+  nativeBuildInputs = [
+    gradle
+    makeWrapper
+  ];
 
   buildPhase = ''
     runHook preBuild

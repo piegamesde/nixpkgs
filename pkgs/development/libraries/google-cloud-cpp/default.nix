@@ -46,15 +46,18 @@ in stdenv.mkDerivation rec {
     sed -i '/https:\/\/storage.googleapis.com\/cloud-cpp-community-archive\/com_google_googleapis/d' external/googleapis/CMakeLists.txt
   '';
 
-  nativeBuildInputs = [ cmake ninja pkg-config ]
-    ++ lib.optionals (!doInstallCheck) [
-      # enable these dependencies when doInstallCheck is false because we're
-      # unconditionally building tests and benchmarks
-      #
-      # when doInstallCheck is true, these deps are added to nativeInstallCheckInputs
-      gbenchmark
-      gtest
-    ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    pkg-config
+  ] ++ lib.optionals (!doInstallCheck) [
+    # enable these dependencies when doInstallCheck is false because we're
+    # unconditionally building tests and benchmarks
+    #
+    # when doInstallCheck is true, these deps are added to nativeInstallCheckInputs
+    gbenchmark
+    gtest
+  ];
 
   buildInputs = [
     c-ares
@@ -103,7 +106,10 @@ in stdenv.mkDerivation rec {
     runHook postInstallCheck
   '';
 
-  nativeInstallCheckInputs = lib.optionals doInstallCheck [ gbenchmark gtest ];
+  nativeInstallCheckInputs = lib.optionals doInstallCheck [
+    gbenchmark
+    gtest
+  ];
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS:BOOL=${if staticOnly then "OFF" else "ON"}"
@@ -112,8 +118,9 @@ in stdenv.mkDerivation rec {
     "-DBUILD_TESTING:BOOL=ON"
     "-DGOOGLE_CLOUD_CPP_ENABLE_EXAMPLES:BOOL=OFF"
     "-DCMAKE_CXX_STANDARD=${grpc.cxxStandard}"
-  ] ++ lib.optionals (apis != [ "*" ])
-    [ "-DGOOGLE_CLOUD_CPP_ENABLE=${lib.concatStringsSep ";" apis}" ];
+  ] ++ lib.optionals (apis != [ "*" ]) [ "-DGOOGLE_CLOUD_CPP_ENABLE=${
+      lib.concatStringsSep ";" apis
+    }" ];
 
   meta = with lib; {
     license = with licenses; [ asl20 ];

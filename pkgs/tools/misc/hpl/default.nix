@@ -27,7 +27,11 @@ stdenv.mkDerivation rec {
     install -D testing/ptest/HPL.dat $out/share/hpl/HPL.dat
   '';
 
-  buildInputs = [ blas lapack mpi ];
+  buildInputs = [
+    blas
+    lapack
+    mpi
+  ];
 
   meta = with lib; {
     description =

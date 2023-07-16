@@ -24,7 +24,12 @@
 with lib;
 
 let
-  perlscripts = [ "battery" "cpu_usage" "openvpn" "temperature" ];
+  perlscripts = [
+    "battery"
+    "cpu_usage"
+    "openvpn"
+    "temperature"
+  ];
   contains_any = l1: l2: 0 < length (intersectLists l1 l2);
 
 in stdenv.mkDerivation rec {
@@ -39,7 +44,10 @@ in stdenv.mkDerivation rec {
   };
 
   makeFlags = [ "all" ];
-  installFlags = [ "PREFIX=\${out}" "VERSION=${version}" ];
+  installFlags = [
+    "PREFIX=\${out}"
+    "VERSION=${version}"
+  ];
 
   buildInputs = optional (contains_any scripts perlscripts) perl;
   nativeBuildInputs = [ makeWrapper ];

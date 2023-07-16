@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-kmzFsOgmMb8bOkulg7G6vXEPdb0xizh7u5LjnHfEWWQ=";
   };
 
-  propagatedBuildInputs = [ aiohttp click ];
+  propagatedBuildInputs = [
+    aiohttp
+    click
+  ];
 
   # Module has no tests
   doCheck = false;

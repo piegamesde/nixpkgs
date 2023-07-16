@@ -41,7 +41,13 @@ rustPlatform.buildRustPackage rec {
     description =
       "Cargo subcommand showing the assembly, LLVM-IR and MIR generated for Rust code";
     homepage = "https://github.com/pacak/cargo-show-asm";
-    license = with licenses; [ asl20 mit ];
-    maintainers = with maintainers; [ figsoda oxalica ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
+    maintainers = with maintainers; [
+      figsoda
+      oxalica
+    ];
   };
 }

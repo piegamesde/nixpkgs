@@ -14,7 +14,12 @@ stdenv.mkDerivation rec {
   version = "0.9.5";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libX11 libXft libXinerama libXpm ];
+  buildInputs = [
+    libX11
+    libXft
+    libXinerama
+    libXpm
+  ];
 
   src = fetchurl {
     url =

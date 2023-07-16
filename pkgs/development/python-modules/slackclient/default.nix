@@ -36,7 +36,11 @@ buildPythonPackage rec {
     hash = "sha256-etPNhGjLrXOwkM7m2Q1xGoGraBq/2tq58bWXqncHy+w=";
   };
 
-  propagatedBuildInputs = [ aiohttp websocket-client requests ];
+  propagatedBuildInputs = [
+    aiohttp
+    websocket-client
+    requests
+  ];
 
   nativeCheckInputs = [
     boto3
@@ -82,6 +86,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/slackapi/python-slack-sdk/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ flokli psyanticy ];
+    maintainers = with maintainers; [
+      flokli
+      psyanticy
+    ];
   };
 }

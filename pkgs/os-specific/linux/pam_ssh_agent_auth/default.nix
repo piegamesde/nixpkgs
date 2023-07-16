@@ -26,7 +26,11 @@ stdenv.mkDerivation rec {
     sha256 = "ETFpIaWQnlYG8ZuDG2dNjUJddlvibB4ukHquTFn3NZM=";
   };
 
-  buildInputs = [ pam openssl perl ];
+  buildInputs = [
+    pam
+    openssl
+    perl
+  ];
 
   patches = [
     # Allow multiple colon-separated authorized keys files to be

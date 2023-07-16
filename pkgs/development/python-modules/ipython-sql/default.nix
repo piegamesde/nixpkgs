@@ -28,10 +28,19 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace 'prettytable<1' prettytable
   '';
 
-  propagatedBuildInputs =
-    [ ipython ipython_genutils prettytable sqlalchemy sqlparse ];
+  propagatedBuildInputs = [
+    ipython
+    ipython_genutils
+    prettytable
+    sqlalchemy
+    sqlparse
+  ];
 
-  nativeCheckInputs = [ ipython pandas pytest ];
+  nativeCheckInputs = [
+    ipython
+    pandas
+    pytest
+  ];
 
   checkPhase = ''
     runHook preCheck

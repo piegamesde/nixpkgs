@@ -23,7 +23,12 @@ stdenv.mkDerivation rec {
   buildInputs = [ zlib ];
 
   # Some targets are not enabled by default
-  makeFlags = [ "all" "opt_oki" "optdac" "optvgm32" ];
+  makeFlags = [
+    "all"
+    "opt_oki"
+    "optdac"
+    "optvgm32"
+  ];
 
   passthru.updateScript =
     unstableGitUpdater { url = "https://github.com/vgmrips/vgmtools.git"; };

@@ -22,7 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-yDeGY5BFj0DKqqK+CzrIxqLa7G5C6Le+GIcFHwtJK9E=";
   };
 
-  propagatedBuildInputs = [ requests websocket-client xmltodict ];
+  propagatedBuildInputs = [
+    requests
+    websocket-client
+    xmltodict
+  ];
 
   # Project has no tests, only a test script which looks like anusage example
   doCheck = false;

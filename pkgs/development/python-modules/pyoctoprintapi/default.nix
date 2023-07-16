@@ -31,7 +31,10 @@ in buildPythonPackage {
 
   pythonImportsCheck = [ "pyoctoprintapi" ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     description = "Simple async wrapper around the Octoprint API";

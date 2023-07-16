@@ -67,8 +67,12 @@ let
 
       libExt = stdenv.hostPlatform.extensions.sharedLibrary;
 
-      mytopEnv = buildPackages.perl.withPackages
-        (p: with p; [ DBDmysql DBI TermReadKey ]);
+      mytopEnv = buildPackages.perl.withPackages (p:
+        with p; [
+          DBDmysql
+          DBI
+          TermReadKey
+        ]);
 
       common = rec { # attributes common to both builds
         inherit version;
@@ -79,23 +83,32 @@ let
           inherit hash;
         };
 
-        outputs = [ "out" "man" ];
+        outputs = [
+          "out"
+          "man"
+        ];
 
-        nativeBuildInputs = [ cmake pkg-config ]
-          ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
+        nativeBuildInputs = [
+          cmake
+          pkg-config
+        ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
           ++ lib.optional (!stdenv.hostPlatform.isDarwin) makeWrapper;
 
-        buildInputs = [ libiconv ncurses zlib ]
-          ++ lib.optionals stdenv.hostPlatform.isLinux ([ libkrb5 systemd ]
-            ++ (if (lib.versionOlder version "10.6") then
-              [ libaio ]
-            else
-              [ liburing ])) ++ lib.optionals stdenv.hostPlatform.isDarwin [
-                CoreServices
-                cctools
-                perl
-                libedit
-              ] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ jemalloc ]
+        buildInputs = [
+          libiconv
+          ncurses
+          zlib
+        ] ++ lib.optionals stdenv.hostPlatform.isLinux ([
+          libkrb5
+          systemd
+        ] ++ (if (lib.versionOlder version
+          "10.6") then [ libaio ] else [ liburing ]))
+          ++ lib.optionals stdenv.hostPlatform.isDarwin [
+            CoreServices
+            cctools
+            perl
+            libedit
+          ] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ jemalloc ]
           ++ (if (lib.versionOlder version "10.5") then [ pcre ] else [ pcre2 ])
           ++ (if (lib.versionOlder version "10.5") then [
             openssl_1_1
@@ -109,11 +122,9 @@ let
           sed -i 's,[^"]*/var/log,/var/log,g' storage/mroonga/vendor/groonga/CMakeLists.txt
         '';
 
-        patches = [
-          ./patch/cmake-includedir.patch
-        ]
-        # Fixes a build issue as documented on
-        # https://jira.mariadb.org/browse/MDEV-26769?focusedCommentId=206073&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-206073
+        patches = [ ./patch/cmake-includedir.patch ]
+          # Fixes a build issue as documented on
+          # https://jira.mariadb.org/browse/MDEV-26769?focusedCommentId=206073&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-206073
           ++ lib.optional
           (!stdenv.hostPlatform.isLinux && lib.versionAtLeast version "10.6")
           ./patch/macos-MDEV-26769-regression-fix.patch;
@@ -178,7 +189,10 @@ let
         # perlPackages.DBDmysql is broken on darwin
         postFixup = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
           wrapProgram $out/bin/mytop --set PATH ${
-            lib.makeBinPath [ less ncurses ]
+            lib.makeBinPath [
+              less
+              ncurses
+            ]
           }
         '';
 
@@ -199,7 +213,11 @@ let
           description = "An enhanced, drop-in replacement for MySQL";
           homepage = "https://mariadb.org/";
           license = licenses.gpl2;
-          maintainers = with maintainers; [ thoughtpolice ajs124 das_j ];
+          maintainers = with maintainers; [
+            thoughtpolice
+            ajs124
+            das_j
+          ];
           platforms = platforms.all;
         };
       };
@@ -228,15 +246,32 @@ let
       server = stdenv.mkDerivation (common // {
         pname = "mariadb-server";
 
-        nativeBuildInputs = common.nativeBuildInputs
-          ++ [ bison boost.dev flex ];
+        nativeBuildInputs = common.nativeBuildInputs ++ [
+          bison
+          boost.dev
+          flex
+        ];
 
-        buildInputs = common.buildInputs
-          ++ [ bzip2 lz4 lzo snappy xz zstd cracklib judy libevent libxml2 ]
-          ++ lib.optional withNuma numactl
+        buildInputs = common.buildInputs ++ [
+          bzip2
+          lz4
+          lzo
+          snappy
+          xz
+          zstd
+          cracklib
+          judy
+          libevent
+          libxml2
+        ] ++ lib.optional withNuma numactl
           ++ lib.optionals stdenv.hostPlatform.isLinux [ linux-pam ]
           ++ lib.optional (!stdenv.hostPlatform.isDarwin) mytopEnv
-          ++ lib.optionals withStorageMroonga [ kytea libsodium msgpack zeromq ]
+          ++ lib.optionals withStorageMroonga [
+            kytea
+            libsodium
+            msgpack
+            zeromq
+          ]
           ++ lib.optionals (lib.versionAtLeast common.version "10.7") [ fmt_8 ];
 
         propagatedBuildInputs = lib.optional withNuma numactl;
@@ -261,10 +296,10 @@ let
         ] ++ lib.optionals withNuma [ "-DWITH_NUMA=ON" ]
           ++ lib.optionals (!withStorageMroonga) [ "-DWITHOUT_MROONGA=1" ]
           ++ lib.optionals (!withStorageRocks) [ "-DWITHOUT_ROCKSDB=1" ]
-          ++ lib.optionals (!stdenv.hostPlatform.isDarwin && withStorageRocks)
-          [ "-DWITH_ROCKSDB_JEMALLOC=ON" ]
-          ++ lib.optionals (!stdenv.hostPlatform.isDarwin)
-          [ "-DWITH_JEMALLOC=yes" ]
+          ++ lib.optionals (!stdenv.hostPlatform.isDarwin
+            && withStorageRocks) [ "-DWITH_ROCKSDB_JEMALLOC=ON" ]
+          ++ lib.optionals
+          (!stdenv.hostPlatform.isDarwin) [ "-DWITH_JEMALLOC=yes" ]
           ++ lib.optionals stdenv.hostPlatform.isDarwin [
             "-DPLUGIN_AUTH_PAM=NO"
             "-DPLUGIN_AUTH_PAM_V1=NO"

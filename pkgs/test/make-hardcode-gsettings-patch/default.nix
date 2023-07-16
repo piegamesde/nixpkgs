@@ -18,7 +18,12 @@ let
         makeHardcodeGsettingsPatch { inherit src schemaIdToVariableMapping; };
     in runCommandLocal "makeHardcodeGsettingsPatch-tests-${name}"
 
-    { nativeBuildInputs = [ git clang-tools ]; }
+    {
+      nativeBuildInputs = [
+        git
+        clang-tools
+      ];
+    }
 
     ''
       cp -r --no-preserve=all "${src}" src

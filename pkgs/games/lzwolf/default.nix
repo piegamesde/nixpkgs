@@ -33,11 +33,26 @@ stdenv.mkDerivation rec {
       --replace 'SDL2::SDL2_net' 'SDL2_net::SDL2_net'
   '';
 
-  nativeBuildInputs = [ p7zip pkg-config cmake ];
-  buildInputs =
-    [ SDL2 bzip2 zlib libjpeg SDL2_mixer SDL2_net libsndfile mpg123 ];
+  nativeBuildInputs = [
+    p7zip
+    pkg-config
+    cmake
+  ];
+  buildInputs = [
+    SDL2
+    bzip2
+    zlib
+    libjpeg
+    SDL2_mixer
+    SDL2_net
+    libsndfile
+    mpg123
+  ];
 
-  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" "-DGPL=ON" ];
+  cmakeFlags = [
+    "-DCMAKE_BUILD_TYPE=Release"
+    "-DGPL=ON"
+  ];
 
   doCheck = true;
 

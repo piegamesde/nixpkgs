@@ -23,7 +23,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [ pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "shellingham" ];
 

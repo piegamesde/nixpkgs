@@ -30,9 +30,19 @@ buildPythonPackage rec {
     rm -rf gen gen3
   '';
 
-  nativeBuildInputs = [ SDL2.dev cython ];
+  nativeBuildInputs = [
+    SDL2.dev
+    cython
+  ];
 
-  buildInputs = [ SDL2 SDL2_image SDL2_ttf SDL2_mixer libjpeg libpng ];
+  buildInputs = [
+    SDL2
+    SDL2_image
+    SDL2_ttf
+    SDL2_mixer
+    libjpeg
+    libpng
+  ];
 
   doCheck = isPy27; # python3 tests are non-functional
 

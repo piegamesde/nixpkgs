@@ -114,10 +114,10 @@ in {
                 persist = true;
                 name = "/var/lib/kea/dhcp4.leases";
               };
-              subnet4 = [{
+              subnet4 = [ {
                 subnet = "192.0.2.0/24";
-                pools = [{ pool = "192.0.2.100 - 192.0.2.240"; }];
-              }];
+                pools = [ { pool = "192.0.2.100 - 192.0.2.240"; } ];
+              } ];
             };
             description = lib.mdDoc ''
               Kea DHCP4 configuration as an attribute set, see <https://kea.readthedocs.io/en/kea-${package.version}/arm/dhcp4-srv.html>.
@@ -169,10 +169,10 @@ in {
                 persist = true;
                 name = "/var/lib/kea/dhcp6.leases";
               };
-              subnet6 = [{
+              subnet6 = [ {
                 subnet = "2001:db8:1::/64";
-                pools = [{ pool = "2001:db8:1::1-2001:db8:1::ffff"; }];
-              }];
+                pools = [ { pool = "2001:db8:1::1-2001:db8:1::ffff"; } ];
+              } ];
             };
             description = lib.mdDoc ''
               Kea DHCP6 configuration as an attribute set, see <https://kea.readthedocs.io/en/kea-${package.version}/arm/dhcp6-srv.html>.
@@ -247,12 +247,12 @@ in {
       { environment.systemPackages = [ package ]; }
 
       (mkIf cfg.ctrl-agent.enable {
-        assertions = [{
+        assertions = [ {
           assertion = xor (cfg.ctrl-agent.settings == null)
             (cfg.ctrl-agent.configFile == null);
           message =
             "Either services.kea.ctrl-agent.settings or services.kea.ctrl-agent.configFile must be set to a non-null value.";
-        }];
+        } ];
 
         environment.etc."kea/ctrl-agent.conf".source = ctrlAgentConfig;
 
@@ -263,7 +263,10 @@ in {
             "https://kea.readthedocs.io/en/kea-${package.version}/arm/agent.html"
           ];
 
-          after = [ "network-online.target" "time-sync.target" ];
+          after = [
+            "network-online.target"
+            "time-sync.target"
+          ];
           wantedBy = [
             "kea-dhcp4-server.service"
             "kea-dhcp6-server.service"
@@ -289,12 +292,12 @@ in {
       })
 
       (mkIf cfg.dhcp4.enable {
-        assertions = [{
+        assertions = [ {
           assertion =
             xor (cfg.dhcp4.settings == null) (cfg.dhcp4.configFile == null);
           message =
             "Either services.kea.dhcp4.settings or services.kea.dhcp4.configFile must be set to a non-null value.";
-        }];
+        } ];
 
         environment.etc."kea/dhcp4-server.conf".source = dhcp4Config;
 
@@ -305,7 +308,10 @@ in {
             "https://kea.readthedocs.io/en/kea-${package.version}/arm/dhcp4-srv.html"
           ];
 
-          after = [ "network-online.target" "time-sync.target" ];
+          after = [
+            "network-online.target"
+            "time-sync.target"
+          ];
           wantedBy = [ "multi-user.target" ];
 
           environment = {
@@ -321,19 +327,25 @@ in {
                 lib.escapeShellArgs cfg.dhcp4.extraArgs
               }";
             # Kea does not request capabilities by itself
-            AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" "CAP_NET_RAW" ];
-            CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" "CAP_NET_RAW" ];
+            AmbientCapabilities = [
+              "CAP_NET_BIND_SERVICE"
+              "CAP_NET_RAW"
+            ];
+            CapabilityBoundingSet = [
+              "CAP_NET_BIND_SERVICE"
+              "CAP_NET_RAW"
+            ];
           } // commonServiceConfig;
         };
       })
 
       (mkIf cfg.dhcp6.enable {
-        assertions = [{
+        assertions = [ {
           assertion =
             xor (cfg.dhcp6.settings == null) (cfg.dhcp6.configFile == null);
           message =
             "Either services.kea.dhcp6.settings or services.kea.dhcp6.configFile must be set to a non-null value.";
-        }];
+        } ];
 
         environment.etc."kea/dhcp6-server.conf".source = dhcp6Config;
 
@@ -344,7 +356,10 @@ in {
             "https://kea.readthedocs.io/en/kea-${package.version}/arm/dhcp6-srv.html"
           ];
 
-          after = [ "network-online.target" "time-sync.target" ];
+          after = [
+            "network-online.target"
+            "time-sync.target"
+          ];
           wantedBy = [ "multi-user.target" ];
 
           environment = {
@@ -367,12 +382,12 @@ in {
       })
 
       (mkIf cfg.dhcp-ddns.enable {
-        assertions = [{
+        assertions = [ {
           assertion = xor (cfg.dhcp-ddns.settings == null)
             (cfg.dhcp-ddns.configFile == null);
           message =
             "Either services.kea.dhcp-ddns.settings or services.kea.dhcp-ddns.configFile must be set to a non-null value.";
-        }];
+        } ];
 
         environment.etc."kea/dhcp-ddns.conf".source = dhcpDdnsConfig;
 
@@ -383,7 +398,10 @@ in {
             "https://kea.readthedocs.io/en/kea-${package.version}/arm/ddns.html"
           ];
 
-          after = [ "network-online.target" "time-sync.target" ];
+          after = [
+            "network-online.target"
+            "time-sync.target"
+          ];
           wantedBy = [ "multi-user.target" ];
 
           environment = {

@@ -32,7 +32,10 @@ stdenv.mkDerivation rec {
       files, Ogg Vorbis comments and ID3 tags and Vorbis comments in FLAC, MPC,
       Speex, WavPack, TrueAudio, WAV, AIFF, MP4 and ASF files.
     '';
-    license = with licenses; [ lgpl3 mpl11 ];
+    license = with licenses; [
+      lgpl3
+      mpl11
+    ];
     maintainers = with maintainers; [ ttuegel ];
   };
 }

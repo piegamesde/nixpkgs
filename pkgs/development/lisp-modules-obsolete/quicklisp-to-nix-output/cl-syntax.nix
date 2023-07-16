@@ -8,7 +8,10 @@ args@{
 
   description = "Reader Syntax Coventions for Common Lisp and SLIME";
 
-  deps = [ args."named-readtables" args."trivial-types" ];
+  deps = [
+    args."named-readtables"
+    args."trivial-types"
+  ];
 
   src = fetchurl {
     url =

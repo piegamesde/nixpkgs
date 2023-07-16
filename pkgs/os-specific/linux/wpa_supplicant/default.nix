@@ -112,8 +112,11 @@ stdenv.mkDerivation rec {
       ${optionalString withPcsclite "-I${lib.getDev pcsclite}/include/PCSC/"}"
   '';
 
-  buildInputs = [ openssl libnl ] ++ optional dbusSupport dbus
-    ++ optional withReadline readline ++ optional withPcsclite pcsclite;
+  buildInputs = [
+    openssl
+    libnl
+  ] ++ optional dbusSupport dbus ++ optional withReadline readline
+    ++ optional withPcsclite pcsclite;
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -142,7 +145,10 @@ stdenv.mkDerivation rec {
     description =
       "A tool for connecting to WPA and WPA2-protected wireless networks";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ marcweber ma27 ];
+    maintainers = with maintainers; [
+      marcweber
+      ma27
+    ];
     platforms = platforms.linux;
   };
 }

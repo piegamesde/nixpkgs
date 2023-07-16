@@ -30,14 +30,26 @@ in builder rec {
     sha256 = "013mydzhfswqci6xmyc1ajzd59pfbdak15i0b090nhr9bzm7dxyd";
   };
 
-  outputs = [ "out" "dev" "info" ];
+  outputs = [
+    "out"
+    "dev"
+    "info"
+  ];
   setOutputFlags = false; # $dev gets into the library otherwise
 
   depsBuildBuild = [ buildPackages.stdenv.cc ]
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
     pkgsBuildBuild.guile_2_2;
-  nativeBuildInputs = [ makeWrapper pkg-config ];
-  buildInputs = [ libffi libtool libunistring readline ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+  ];
+  buildInputs = [
+    libffi
+    libtool
+    libunistring
+    readline
+  ];
   propagatedBuildInputs = [
     boehmgc
     gmp
@@ -125,7 +137,11 @@ in builder rec {
       foreign function call interface, and powerful string processing.
     '';
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ ludo lovek323 vrthra ];
+    maintainers = with maintainers; [
+      ludo
+      lovek323
+      vrthra
+    ];
     platforms = platforms.all;
   };
 }

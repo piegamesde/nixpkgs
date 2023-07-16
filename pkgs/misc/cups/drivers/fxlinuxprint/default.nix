@@ -24,7 +24,10 @@ in stdenv.mkDerivation rec {
     curlOpts = "--user-agent Mozilla/5.0"; # HTTP 410 otherwise
   };
 
-  nativeBuildInputs = [ dpkg autoPatchelfHook ];
+  nativeBuildInputs = [
+    dpkg
+    autoPatchelfHook
+  ];
   buildInputs = [ cups ];
 
   sourceRoot = ".";

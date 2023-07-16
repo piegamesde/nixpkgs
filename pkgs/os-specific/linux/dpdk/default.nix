@@ -51,9 +51,16 @@ in stdenv.mkDerivation rec {
     python3.pkgs.sphinx
     python3.pkgs.pyelftools
   ];
-  buildInputs =
-    [ jansson libbpf libelf libpcap numactl openssl.dev zlib python3 ]
-    ++ lib.optionals mod kernel.moduleBuildDependencies;
+  buildInputs = [
+    jansson
+    libbpf
+    libelf
+    libpcap
+    numactl
+    openssl.dev
+    zlib
+    python3
+  ] ++ lib.optionals mod kernel.moduleBuildDependencies;
 
   propagatedBuildInputs = [
     # Propagated to support current DPDK users in nixpkgs which statically link
@@ -95,15 +102,26 @@ in stdenv.mkDerivation rec {
     find examples -type f -executable -exec install {} $examples/bin \;
   '';
 
-  outputs = [ "out" "doc" ] ++ lib.optional mod "kmod"
-    ++ lib.optional (withExamples != [ ]) "examples";
+  outputs = [
+    "out"
+    "doc"
+  ] ++ lib.optional mod "kmod" ++ lib.optional (withExamples != [ ]) "examples";
 
   meta = with lib; {
     description = "Set of libraries and drivers for fast packet processing";
     homepage = "http://dpdk.org/";
-    license = with licenses; [ lgpl21 gpl2 bsd2 ];
+    license = with licenses; [
+      lgpl21
+      gpl2
+      bsd2
+    ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ magenbluten orivej mic92 zhaofengli ];
+    maintainers = with maintainers; [
+      magenbluten
+      orivej
+      mic92
+      zhaofengli
+    ];
     broken = mod && kernel.isHardened;
   };
 }

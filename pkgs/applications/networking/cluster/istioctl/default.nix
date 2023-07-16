@@ -27,7 +27,11 @@ buildGoModule rec {
       "istio.io/pkg/version.buildTag=${version}"
       "istio.io/pkg/version.buildHub=docker.io/istio"
     ];
-  in [ "-s" "-w" "${lib.concatMapStringsSep " " (attr: "-X ${attr}") attrs}" ];
+  in [
+    "-s"
+    "-w"
+    "${lib.concatMapStringsSep " " (attr: "-X ${attr}") attrs}"
+  ];
 
   subPackages = [ "istioctl/cmd/istioctl" ];
 
@@ -48,7 +52,10 @@ buildGoModule rec {
       "Istio configuration command line utility for service operators to debug and diagnose their Istio mesh";
     homepage = "https://istio.io/latest/docs/reference/commands/istioctl";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bryanasdev000 veehaitch ];
+    maintainers = with maintainers; [
+      bryanasdev000
+      veehaitch
+    ];
     platforms = platforms.unix;
   };
 }

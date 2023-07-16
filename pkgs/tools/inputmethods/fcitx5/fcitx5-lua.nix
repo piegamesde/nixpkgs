@@ -19,9 +19,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0ESgQv8kyc+zv/tDZtBZ+QhFFswD80ApwswFlJs8tOU=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
-  buildInputs = [ fcitx5 lua gettext ];
+  buildInputs = [
+    fcitx5
+    lua
+    gettext
+  ];
 
   passthru = { extraLdLibraries = [ lua ]; };
 

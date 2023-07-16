@@ -29,8 +29,20 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ glib gnupg meson ninja pkg-config python3 ];
-  buildInputs = [ gnome-desktop gtk3 systemdMinimal udisks ];
+  nativeBuildInputs = [
+    glib
+    gnupg
+    meson
+    ninja
+    pkg-config
+    python3
+  ];
+  buildInputs = [
+    gnome-desktop
+    gtk3
+    systemdMinimal
+    udisks
+  ];
 
   preConfigure = ''
     patchShebangs tests

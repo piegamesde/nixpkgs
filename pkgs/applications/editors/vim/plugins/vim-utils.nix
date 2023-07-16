@@ -161,9 +161,7 @@ let
     lib.concatMap transitiveClosure plugins;
 
   vamDictToNames = x:
-    if builtins.isString x then
-      [ x ]
-    else
+    if builtins.isString x then [ x ] else
       (lib.optional (x ? name) x.name) ++ (x.names or [ ]);
 
   rtpPath = ".";
@@ -214,8 +212,10 @@ let
             mkdir -p $out/pack/${packageName}/start/__python3_dependencies
             ln -s ${python3Env}/${python3Env.sitePackages} $out/pack/${packageName}/start/__python3_dependencies/python3
           '';
-        in [ packdirStart packdirOpt ]
-        ++ lib.optional (allPython3Dependencies python3.pkgs != [ ])
+        in [
+          packdirStart
+          packdirOpt
+        ] ++ lib.optional (allPython3Dependencies python3.pkgs != [ ])
         python3link;
     in buildEnv {
       name = "vim-pack-dir";
@@ -369,7 +369,10 @@ in rec {
         else
           buildEnv {
             inherit name;
-            paths = [ (lib.lowPrio vim) bin ];
+            paths = [
+              (lib.lowPrio vim)
+              bin
+            ];
           });
 
       override = f: makeCustomizable (vim.override f);
@@ -442,7 +445,10 @@ in rec {
   toVimPlugin = drv:
     drv.overrideAttrs (oldAttrs: {
       # dont move the "doc" folder since vim expects it
-      forceShare = [ "man" "info" ];
+      forceShare = [
+        "man"
+        "info"
+      ];
 
       nativeBuildInputs = oldAttrs.nativeBuildInputs or [ ]
         ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [

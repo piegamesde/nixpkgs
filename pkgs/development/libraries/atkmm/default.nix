@@ -22,11 +22,22 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fCCItIapCb6NorGDBOVsX5CITRNDyNpzZ+pc0yWLmWk=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  propagatedBuildInputs = [ atk glibmm ];
+  propagatedBuildInputs = [
+    atk
+    glibmm
+  ];
 
-  nativeBuildInputs = [ pkg-config meson python3 ninja ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    python3
+    ninja
+  ];
 
   doCheck = true;
 

@@ -62,8 +62,12 @@ in {
     (mkIf ((elem "bcachefs" config.boot.initrd.supportedFilesystems)
       || (bootFs != { })) {
         # chacha20 and poly1305 are required only for decryption attempts
-        boot.initrd.availableKernelModules =
-          [ "bcachefs" "sha256" "chacha20" "poly1305" ];
+        boot.initrd.availableKernelModules = [
+          "bcachefs"
+          "sha256"
+          "chacha20"
+          "poly1305"
+        ];
 
         boot.initrd.systemd.extraBin = {
           "bcachefs" = "${pkgs.bcachefs-tools}/bin/bcachefs";

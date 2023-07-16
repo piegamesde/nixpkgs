@@ -25,7 +25,11 @@ stdenv.mkDerivation rec {
   pname = "ghex";
   version = "44.1";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/ghex/${
@@ -47,15 +51,25 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [ gtk4 libadwaita atk glib ];
+  buildInputs = [
+    gtk4
+    libadwaita
+    atk
+    glib
+  ];
 
-  nativeCheckInputs = [ appstream-glib desktop-file-utils ];
+  nativeCheckInputs = [
+    appstream-glib
+    desktop-file-utils
+  ];
 
-  mesonFlags = [ "-Dgtk_doc=true" "-Dvapi=true" ]
-    ++ lib.optionals stdenv.isDarwin [
-      # mremap does not exist on darwin
-      "-Dmmap-buffer-backend=false"
-    ];
+  mesonFlags = [
+    "-Dgtk_doc=true"
+    "-Dvapi=true"
+  ] ++ lib.optionals stdenv.isDarwin [
+    # mremap does not exist on darwin
+    "-Dmmap-buffer-backend=false"
+  ];
 
   postFixup = ''
     # Cannot be in postInstall, otherwise _multioutDocs hook in preFixup will move right back.

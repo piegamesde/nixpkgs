@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-eGGkTVdPPTWK6iEyowW11F4ywRhd+0IXJTZCqY3OZws=";
   };
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   sourceRoot = "source/src";
 
@@ -45,8 +48,18 @@ stdenv.mkDerivation rec {
       # Which firewall and resolvconf implementations to use should be determined by the
       # environment, we provide the "default" ones as fallback.
       wrapProgram $f \
-        --prefix PATH : ${lib.makeBinPath [ procps iproute2 ]} \
-        --suffix PATH : ${lib.makeBinPath [ iptables openresolv ]}
+        --prefix PATH : ${
+          lib.makeBinPath [
+            procps
+            iproute2
+          ]
+        } \
+        --suffix PATH : ${
+          lib.makeBinPath [
+            iptables
+            openresolv
+          ]
+        }
     done
   '';
 
@@ -67,7 +80,13 @@ stdenv.mkDerivation rec {
     downloadPage = "https://git.zx2c4.com/wireguard-tools/refs/";
     homepage = "https://www.wireguard.com/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ericsagnes zx2c4 globin ma27 d-xo ];
+    maintainers = with maintainers; [
+      ericsagnes
+      zx2c4
+      globin
+      ma27
+      d-xo
+    ];
     platforms = platforms.unix;
   };
 }

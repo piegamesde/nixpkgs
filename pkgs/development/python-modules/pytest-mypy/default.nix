@@ -21,7 +21,10 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ mypy filelock ];
+  propagatedBuildInputs = [
+    mypy
+    filelock
+  ];
 
   # does not contain tests
   doCheck = false;

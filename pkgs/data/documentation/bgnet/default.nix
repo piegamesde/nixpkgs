@@ -29,7 +29,10 @@ stdenv.mkDerivation {
     install -Dm644 src/bgnet.html $out/share/doc/bgnet/html/index.html
   '';
 
-  nativeBuildInputs = [ python3 pandoc ];
+  nativeBuildInputs = [
+    python3
+    pandoc
+  ];
 
   meta = {
     description = "Beej’s Guide to Network Programming";

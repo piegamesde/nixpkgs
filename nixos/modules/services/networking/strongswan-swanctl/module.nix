@@ -37,11 +37,11 @@ in {
 
   config = mkIf cfg.enable {
 
-    assertions = [{
+    assertions = [ {
       assertion = !config.services.strongswan.enable;
       message =
         "cannot enable both services.strongswan and services.strongswan-swanctl. Choose either one.";
-    }];
+    } ];
 
     environment.etc."swanctl/swanctl.conf".text =
       paramsToConf cfg.swanctl swanctlParams;
@@ -68,7 +68,12 @@ in {
       description = "strongSwan IPsec IKEv1/IKEv2 daemon using swanctl";
       wantedBy = [ "multi-user.target" ];
       after = [ "network-online.target" ];
-      path = with pkgs; [ kmod iproute2 iptables util-linux ];
+      path = with pkgs; [
+        kmod
+        iproute2
+        iptables
+        util-linux
+      ];
       environment = {
         STRONGSWAN_CONF = pkgs.writeTextFile {
           name = "strongswan.conf";

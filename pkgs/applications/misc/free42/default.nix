@@ -20,9 +20,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-3G2vRPupZtZKF1VazNQGa1AplqFzhI5M+olyeJ26kXo=";
   };
 
-  nativeBuildInputs = [ copyDesktopItems pkg-config ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    pkg-config
+  ];
 
-  buildInputs = [ alsa-lib gtk3 ];
+  buildInputs = [
+    alsa-lib
+    gtk3
+  ];
 
   postPatch = ''
     sed -i -e "s|/bin/ls|ls|" gtk/Makefile
@@ -69,7 +75,10 @@ stdenv.mkDerivation rec {
       exec = "free42bin";
       type = "Application";
       comment = meta.description;
-      categories = [ "Utility" "Calculator" ];
+      categories = [
+        "Utility"
+        "Calculator"
+      ];
     })
     (makeDesktopItem {
       name = "com.thomasokken.free42dec";
@@ -78,7 +87,10 @@ stdenv.mkDerivation rec {
       exec = "free42dec";
       type = "Application";
       comment = meta.description;
-      categories = [ "Utility" "Calculator" ];
+      categories = [
+        "Utility"
+        "Calculator"
+      ];
     })
   ];
 
@@ -86,7 +98,10 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/thomasokken/free42";
     description = "A software clone of HP-42S Calculator";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ AndersonTorres plabadens ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      plabadens
+    ];
     platforms = with platforms; unix;
   };
 }

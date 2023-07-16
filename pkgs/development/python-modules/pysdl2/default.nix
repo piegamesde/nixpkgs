@@ -29,21 +29,24 @@ buildPythonPackage rec {
 
   # Deliberately not in propagated build inputs; users can decide
   # which library they want to include.
-  buildInputs = [ SDL2_ttf SDL2_image SDL2_gfx SDL2_mixer ];
-  propagatedBuildInputs = [ SDL2 ];
-  patches = [
-    (substituteAll ({
-      src = ./PySDL2-dll.patch;
-    } // builtins.mapAttrs (_: pkg:
-      "${pkg}/lib/lib${pkg.pname}${stdenv.hostPlatform.extensions.sharedLibrary}") {
-        # substituteAll keys must start lowercase
-        sdl2 = SDL2;
-        sdl2_ttf = SDL2_ttf;
-        sdl2_image = SDL2_image;
-        sdl2_gfx = SDL2_gfx;
-        sdl2_mixer = SDL2_mixer;
-      }))
+  buildInputs = [
+    SDL2_ttf
+    SDL2_image
+    SDL2_gfx
+    SDL2_mixer
   ];
+  propagatedBuildInputs = [ SDL2 ];
+  patches = [ (substituteAll ({
+    src = ./PySDL2-dll.patch;
+  } // builtins.mapAttrs (_: pkg:
+    "${pkg}/lib/lib${pkg.pname}${stdenv.hostPlatform.extensions.sharedLibrary}") {
+      # substituteAll keys must start lowercase
+      sdl2 = SDL2;
+      sdl2_ttf = SDL2_ttf;
+      sdl2_image = SDL2_image;
+      sdl2_gfx = SDL2_gfx;
+      sdl2_mixer = SDL2_mixer;
+    })) ];
 
   meta = {
     description =

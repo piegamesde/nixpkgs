@@ -24,22 +24,26 @@ buildPythonPackage rec {
   nativeBuildInputs = [ setuptools ];
 
   format = "pyproject";
-  nativeCheckInputs = [ pytestCheckHook exdown ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    exdown
+  ];
   pythonImportsCheck = [ "termplotlib" ];
 
   propagatedBuildInputs = [ numpy ];
 
-  patches = [
-    (substituteAll {
-      src = ./gnuplot-subprocess.patch;
-      gnuplot = "${gnuplot.out}/bin/gnuplot";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./gnuplot-subprocess.patch;
+    gnuplot = "${gnuplot.out}/bin/gnuplot";
+  }) ];
 
   # The current gnuplot version renders slightly different test
   # graphs, with emphasis on slightly. The plots are still correct.
   # Tests pass on gnuplot 5.4.1, but fail on 5.4.2.
-  disabledTests = [ "test_plot" "test_nolabel" ];
+  disabledTests = [
+    "test_plot"
+    "test_nolabel"
+  ];
 
   meta = with lib; {
     description = "matplotlib for your terminal";

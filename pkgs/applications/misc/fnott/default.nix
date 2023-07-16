@@ -31,7 +31,13 @@ stdenv.mkDerivation rec {
   };
 
   depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs = [ pkg-config meson ninja scdoc wayland-scanner ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    scdoc
+    wayland-scanner
+  ];
   buildInputs = [
     fontconfig
     freetype
@@ -48,7 +54,10 @@ stdenv.mkDerivation rec {
     homepage = "https://codeberg.org/dnkl/fnott";
     description =
       "Keyboard driven and lightweight Wayland notification daemon for wlroots-based compositors";
-    license = with licenses; [ mit zlib ];
+    license = with licenses; [
+      mit
+      zlib
+    ];
     maintainers = with maintainers; [ polykernel ];
     platforms = platforms.linux;
   };

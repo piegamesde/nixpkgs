@@ -37,7 +37,10 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeCheckInputs = [ nose parameterized ];
+  nativeCheckInputs = [
+    nose
+    parameterized
+  ];
 
   checkPhase = ''
     ${python.interpreter} test.py

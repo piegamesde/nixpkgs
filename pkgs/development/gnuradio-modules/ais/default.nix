@@ -28,7 +28,11 @@ mkDerivation rec {
   };
   disabledForGRafter = "3.9";
 
-  nativeBuildInputs = [ cmake pkg-config python ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    python
+  ];
 
   cmakeFlags = [ "-DCMAKE_EXE_LINKER_FLAGS=-pthread" ];
 

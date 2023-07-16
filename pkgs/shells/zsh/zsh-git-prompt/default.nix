@@ -67,7 +67,12 @@ haskellPackages.callPackage ({
     '';
     isLibrary = false;
     isExecutable = true;
-    libraryHaskellDepends = [ base parsec process QuickCheck ];
+    libraryHaskellDepends = [
+      base
+      parsec
+      process
+      QuickCheck
+    ];
     executableHaskellDepends = libraryHaskellDepends;
     testHaskellDepends = [ HUnit ] ++ libraryHaskellDepends;
     homepage = "https://github.com/olivierverdier/zsh-git-prompt#readme";

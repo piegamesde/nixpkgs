@@ -21,7 +21,10 @@ buildDunePackage rec {
     sha256 = "sha256-tsXz39qFSyL6vPYKG7P73zSEiraaFuOySL1n0uFij6k=";
   };
 
-  propagatedBuildInputs = [ uchar uutf ];
+  propagatedBuildInputs = [
+    uchar
+    uutf
+  ];
 
   checkInputs = [ ounit2 ];
   doCheck = lib.versionAtLeast ocaml.version "4.04";

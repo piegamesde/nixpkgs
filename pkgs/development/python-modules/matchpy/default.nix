@@ -31,9 +31,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ hopcroftkarp multiset ];
+  propagatedBuildInputs = [
+    hopcroftkarp
+    multiset
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook hypothesis ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    hypothesis
+  ];
 
   pythonImportsCheck = [ "matchpy" ];
 

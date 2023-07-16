@@ -63,9 +63,13 @@ buildPythonPackage rec {
     substituteInPlace scapy/data.py --replace "/opt/wireshark" "${wireshark}"
   '';
 
-  propagatedBuildInputs = [ pycrypto ecdsa ]
-    ++ lib.optionals withOptionalDeps [ tcpdump ipython ]
-    ++ lib.optional withCryptography cryptography
+  propagatedBuildInputs = [
+    pycrypto
+    ecdsa
+  ] ++ lib.optionals withOptionalDeps [
+    tcpdump
+    ipython
+  ] ++ lib.optional withCryptography cryptography
     ++ lib.optional withVoipSupport sox
     ++ lib.optional withPlottingSupport matplotlib
     ++ lib.optionals withGraphicsSupport [
@@ -77,7 +81,11 @@ buildPythonPackage rec {
 
   # Running the tests seems too complicated:
   doCheck = false;
-  nativeCheckInputs = [ mock can brotli ];
+  nativeCheckInputs = [
+    mock
+    can
+    brotli
+  ];
   checkPhase = ''
     # TODO: be more specific about files
     patchShebangs .
@@ -113,6 +121,9 @@ buildPythonPackage rec {
     changelog = "https://github.com/secdev/scapy/releases/tag/v${version}";
     license = licenses.gpl2Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ primeos bjornfor ];
+    maintainers = with maintainers; [
+      primeos
+      bjornfor
+    ];
   };
 }

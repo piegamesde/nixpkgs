@@ -25,7 +25,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [ pytz typing-extensions ];
+  propagatedBuildInputs = [
+    pytz
+    typing-extensions
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

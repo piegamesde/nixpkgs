@@ -17,9 +17,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-sJY2w1+hv5KrRunf6Dfwc+eY6X9HYghVyAlWLlHvv+E=";
   };
 
-  nativeBuildInputs = [ autoreconfHook mlton ];
+  nativeBuildInputs = [
+    autoreconfHook
+    mlton
+  ];
 
-  buildFlags = [ "mlkit" "mlkit_libs" ];
+  buildFlags = [
+    "mlkit"
+    "mlkit_libs"
+  ];
 
   meta = with lib; {
     description = "Standard ML Compiler and Toolkit";

@@ -31,12 +31,28 @@ buildPythonPackage rec {
     hash = "sha256-rjXEiaPYctrONIZz1Dd5OSDw5z8D2FPXi5TneKizFUQ=";
   };
 
-  nativeBuildInputs = [ cython poetry-core setuptools ];
+  nativeBuildInputs = [
+    cython
+    poetry-core
+    setuptools
+  ];
 
-  propagatedBuildInputs =
-    [ cairocffi igraph leidenalg pandas scipy spacy toolz tqdm wasabi ];
+  propagatedBuildInputs = [
+    cairocffi
+    igraph
+    leidenalg
+    pandas
+    scipy
+    spacy
+    toolz
+    tqdm
+    wasabi
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook en_core_web_sm ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    en_core_web_sm
+  ];
 
   pythonImportsCheck = [ "textnets" ];
 

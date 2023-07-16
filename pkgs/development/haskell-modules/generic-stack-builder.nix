@@ -36,7 +36,12 @@ in stdenv.mkDerivation (args // {
   buildInputs = buildInputs
     ++ lib.optional (stdenv.hostPlatform.libc == "glibc") glibcLocales;
 
-  nativeBuildInputs = nativeBuildInputs ++ [ ghc pkg-config stack stackHook ];
+  nativeBuildInputs = nativeBuildInputs ++ [
+    ghc
+    pkg-config
+    stack
+    stackHook
+  ];
 
   STACK_PLATFORM_VARIANT = "nix";
   STACK_IN_NIX_SHELL = 1;

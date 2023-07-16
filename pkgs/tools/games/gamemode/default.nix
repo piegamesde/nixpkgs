@@ -28,7 +28,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DIFcmWFkoZOklo1keYcCl6n2GJgzWKC8usHFcJmfarU=";
   };
 
-  outputs = [ "out" "dev" "lib" "man" "static" ];
+  outputs = [
+    "out"
+    "dev"
+    "lib"
+    "man"
+    "static"
+  ];
 
   patches = [
     # Add @libraryPath@ template variable to fix loading the PRELOAD library
@@ -55,9 +61,18 @@ stdenv.mkDerivation rec {
       }
   '';
 
-  nativeBuildInputs = [ makeWrapper meson ninja pkg-config ];
+  nativeBuildInputs = [
+    makeWrapper
+    meson
+    ninja
+    pkg-config
+  ];
 
-  buildInputs = [ dbus inih systemd ];
+  buildInputs = [
+    dbus
+    inih
+    systemd
+  ];
 
   mesonFlags = [
     # libexec is just a way to package binaries without including them
@@ -85,7 +100,13 @@ stdenv.mkDerivation rec {
     done
 
     wrapProgram "$out/bin/gamemodelist" \
-      --prefix PATH : ${lib.makeBinPath [ findutils gawk procps ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          findutils
+          gawk
+          procps
+        ]
+      }
   '';
 
   meta = with lib; {

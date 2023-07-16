@@ -19,7 +19,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-TdtgOYHO2QH4W2jWBuAzYQwxwAPya2lC3VrIi7kvi+M=";
   };
 
-  nativeBuildInputs = [ imagemagick jhead meson ninja ];
+  nativeBuildInputs = [
+    imagemagick
+    jhead
+    meson
+    ninja
+  ];
 
   preConfigure = ''
     chmod +x ./scripts/optimizeImage.sh

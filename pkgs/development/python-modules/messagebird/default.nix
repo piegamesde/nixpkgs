@@ -24,9 +24,16 @@ buildPythonPackage rec {
     hash = "sha256-2KVAxdHT5+Ie3ZRxXZhU0hLOtHWjIiJi+ferkYTlSn0=";
   };
 
-  propagatedBuildInputs = [ pyjwt python-dateutil requests ];
+  propagatedBuildInputs = [
+    pyjwt
+    python-dateutil
+    requests
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "messagebird" ];
 

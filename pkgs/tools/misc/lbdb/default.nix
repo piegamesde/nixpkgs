@@ -18,8 +18,13 @@
 }:
 
 let
-  perl' = perl.withPackages
-    (p: with p; [ AuthenSASL ConvertASN1 IOSocketSSL perlldap ]);
+  perl' = perl.withPackages (p:
+    with p; [
+      AuthenSASL
+      ConvertASN1
+      IOSocketSSL
+      perlldap
+    ]);
 in stdenv.mkDerivation rec {
   pname = "lbdb";
   version = "0.48.1";
@@ -54,7 +59,10 @@ in stdenv.mkDerivation rec {
     homepage = "https://www.spinnaker.de/lbdb/";
     description = "The Little Brother's Database";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ kaiha bfortz ];
+    maintainers = with maintainers; [
+      kaiha
+      bfortz
+    ];
     platforms = platforms.all;
   };
 }

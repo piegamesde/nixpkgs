@@ -24,10 +24,17 @@ buildPythonPackage rec {
 
   buildInputs = lib.optional stdenv.isLinux glib-networking;
 
-  nativeBuildInputs = [ wrapGAppsHook gobject-introspection glib-networking ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    gobject-introspection
+    glib-networking
+  ];
 
-  propagatedBuildInputs = [ requests pygobject3 openconnect ]
-    ++ lib.optional stdenv.isLinux webkitgtk;
+  propagatedBuildInputs = [
+    requests
+    pygobject3
+    openconnect
+  ] ++ lib.optional stdenv.isLinux webkitgtk;
 
   preFixup = ''
     gappsWrapperArgs+=(

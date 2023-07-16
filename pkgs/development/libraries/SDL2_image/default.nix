@@ -29,8 +29,16 @@ in stdenv.mkDerivation {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ SDL2 libpng libjpeg libtiff giflib libwebp libXpm zlib ]
-    ++ lib.optional stdenv.isDarwin Foundation;
+  buildInputs = [
+    SDL2
+    libpng
+    libjpeg
+    libtiff
+    giflib
+    libwebp
+    libXpm
+    zlib
+  ] ++ lib.optional stdenv.isDarwin Foundation;
 
   configureFlags = [
     # Disable dynamically loaded dependencies

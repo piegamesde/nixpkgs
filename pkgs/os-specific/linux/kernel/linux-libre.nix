@@ -44,6 +44,9 @@ in linux.override {
 
     passthru.updateScript = ./update-libre.sh;
 
-    maintainers = with lib.maintainers; [ qyliss ivar ];
+    maintainers = with lib.maintainers; [
+      qyliss
+      ivar
+    ];
   };
 }

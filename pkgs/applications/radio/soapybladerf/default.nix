@@ -24,9 +24,18 @@ in stdenv.mkDerivation {
     sha256 = "02wh09850vinqg248fw4lxmx7y857cqmnnb8jm9zhyrsggal0hki";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ libbladeRF soapysdr ]
-    ++ lib.optionals stdenv.isDarwin [ libobjc IOKit Security ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    libbladeRF
+    soapysdr
+  ] ++ lib.optionals stdenv.isDarwin [
+    libobjc
+    IOKit
+    Security
+  ];
 
   cmakeFlags = [ "-DSoapySDR_DIR=${soapysdr}/share/cmake/SoapySDR/" ];
 

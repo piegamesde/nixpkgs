@@ -27,7 +27,10 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "gtksourceview";
   version = "4.8.4";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = let inherit (finalAttrs) pname version;
   in fetchurl {
@@ -44,10 +47,24 @@ stdenv.mkDerivation (finalAttrs: {
     ./4.x-nix_share_path.patch
   ];
 
-  nativeBuildInputs =
-    [ meson ninja pkg-config gettext perl gobject-introspection vala ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gettext
+    perl
+    gobject-introspection
+    vala
+  ];
 
-  buildInputs = [ atk cairo glib pango fribidi libxml2 ];
+  buildInputs = [
+    atk
+    cairo
+    glib
+    pango
+    fribidi
+    libxml2
+  ];
 
   propagatedBuildInputs = [
     # Required by gtksourceview-4.0.pc
@@ -56,7 +73,10 @@ stdenv.mkDerivation (finalAttrs: {
     shared-mime-info
   ];
 
-  nativeCheckInputs = [ xvfb-run dbus ];
+  nativeCheckInputs = [
+    xvfb-run
+    dbus
+  ];
 
   postPatch = ''
     # https://gitlab.gnome.org/GNOME/gtksourceview/-/merge_requests/295

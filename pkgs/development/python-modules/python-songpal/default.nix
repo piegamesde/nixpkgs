@@ -28,8 +28,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [ aiohttp async-upnp-client attrs click importlib-metadata ];
+  propagatedBuildInputs = [
+    aiohttp
+    async-upnp-client
+    attrs
+    click
+    importlib-metadata
+  ];
 
   # no tests implemented
   doCheck = false;

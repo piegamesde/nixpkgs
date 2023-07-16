@@ -42,8 +42,14 @@ python3.pkgs.buildPythonApplication rec {
     gobject-introspection
   ];
 
-  buildInputs =
-    [ glib gtk4 libadwaita libnotify webkitgtk_6_0 gobject-introspection ];
+  buildInputs = [
+    glib
+    gtk4
+    libadwaita
+    libnotify
+    webkitgtk_6_0
+    gobject-introspection
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     pygobject3
@@ -81,6 +87,9 @@ python3.pkgs.buildPythonApplication rec {
     description = "Manga reader for GNOME";
     homepage = "https://valos.gitlab.io/Komikku/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ chuangzhu infinitivewitch ];
+    maintainers = with maintainers; [
+      chuangzhu
+      infinitivewitch
+    ];
   };
 }

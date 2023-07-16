@@ -36,16 +36,33 @@ in stdenv.mkDerivation {
   inherit version srcs;
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs =
-    [ autoconf automake flex libxslt libtool_2 perl which bison ]
-    ++ optionals withDevdoc [ doxygen dblatex ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    flex
+    libxslt
+    libtool_2
+    perl
+    which
+    bison
+  ] ++ optionals withDevdoc [
+    doxygen
+    dblatex
+  ];
 
   buildInputs = [ libkrb5 ] ++ optional withNcurses ncurses;
 
-  patches = [ ./bosserver.patch ./cross-build.patch ]
-    ++ optional withTsm ./tsmbac.patch;
+  patches = [
+    ./bosserver.patch
+    ./cross-build.patch
+  ] ++ optional withTsm ./tsmbac.patch;
 
-  outputs = [ "out" "dev" "man" "doc" ] ++ optional withDevdoc "devdoc";
+  outputs = [
+    "out"
+    "dev"
+    "man"
+    "doc"
+  ] ++ optional withDevdoc "devdoc";
 
   enableParallelBuilding = false;
 
@@ -119,11 +136,18 @@ in stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    outputsToInstall = [ "out" "doc" "man" ];
+    outputsToInstall = [
+      "out"
+      "doc"
+      "man"
+    ];
     description = "Open AFS client";
     homepage = "https://www.openafs.org";
     license = licenses.ipl10;
     platforms = platforms.linux;
-    maintainers = [ maintainers.maggesi maintainers.spacefrogg ];
+    maintainers = [
+      maintainers.maggesi
+      maintainers.spacefrogg
+    ];
   };
 }

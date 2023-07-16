@@ -22,7 +22,10 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libXrandr libX11 ];
+  buildInputs = [
+    libXrandr
+    libX11
+  ];
 
   # build script tries to run git to get the current tag
   postPatch = ''
@@ -33,7 +36,10 @@ rustPlatform.buildRustPackage rec {
     description = "Minimal X screenshot utility";
     homepage = "https://github.com/neXromancers/shotgun";
     license = with licenses; [ mpl20 ];
-    maintainers = with maintainers; [ figsoda lumi ];
+    maintainers = with maintainers; [
+      figsoda
+      lumi
+    ];
     platforms = platforms.linux;
   };
 }

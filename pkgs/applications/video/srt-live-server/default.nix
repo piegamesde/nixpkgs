@@ -22,7 +22,10 @@ stdenv.mkDerivation rec {
     ./fix-insecure-printfs.patch
   ];
 
-  buildInputs = [ srt zlib ];
+  buildInputs = [
+    srt
+    zlib
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

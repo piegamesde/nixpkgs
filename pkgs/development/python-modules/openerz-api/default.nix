@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [ pytestCheckHook testfixtures ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    testfixtures
+  ];
 
   pythonImportsCheck = [ "openerz_api" ];
 

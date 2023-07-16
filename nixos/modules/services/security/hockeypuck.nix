@@ -95,7 +95,10 @@ in {
 
     systemd.services.hockeypuck = {
       description = "Hockeypuck OpenPGP Key Server";
-      after = [ "network.target" "postgresql.target" ];
+      after = [
+        "network.target"
+        "postgresql.target"
+      ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         WorkingDirectory = "/var/lib/hockeypuck";

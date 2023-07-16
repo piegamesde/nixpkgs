@@ -23,20 +23,23 @@ nimPackages.buildNimPackage {
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ pcre ];
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://patch-diff.githubusercontent.com/raw/wheineman/nrpl/pull/12.patch";
-      name = "update_for_new_nim.patch";
-      sha256 = "1zff7inhn3l1jnxcnidy705lzi3wqib1chf4rayh1g9i23an7wg1";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://patch-diff.githubusercontent.com/raw/wheineman/nrpl/pull/12.patch";
+    name = "update_for_new_nim.patch";
+    sha256 = "1zff7inhn3l1jnxcnidy705lzi3wqib1chf4rayh1g9i23an7wg1";
+  }) ];
 
   NIX_LDFLAGS = "-lpcre";
 
   postFixup = ''
     wrapProgram $out/bin/nrpl \
-      --prefix PATH : ${lib.makeBinPath [ nimPackages.nim tinycc ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          nimPackages.nim
+          tinycc
+        ]
+      }
   '';
 
   meta = with lib; {

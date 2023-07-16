@@ -22,8 +22,11 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags =
-    [ "-s" "-w" "-X github.com/datreeio/datree/cmd.CliVersion=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/datreeio/datree/cmd.CliVersion=${version}"
+  ];
 
   tags = [ "main" ];
 
@@ -52,6 +55,9 @@ buildGoModule rec {
     homepage = "https://datree.io/";
     changelog = "https://github.com/datreeio/datree/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ azahi jceb ];
+    maintainers = with maintainers; [
+      azahi
+      jceb
+    ];
   };
 }

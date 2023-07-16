@@ -33,13 +33,26 @@ in buildPythonPackage rec {
     hash = "sha256-10MH23XpAv/uDW/2tRFGS2lKU8hnaNBwbIBIgVc7Jpk=";
   };
 
-  nativeBuildInputs = [ cmake pythonRelaxDepsHook pybind11 ];
+  nativeBuildInputs = [
+    cmake
+    pythonRelaxDepsHook
+    pybind11
+  ];
 
   pythonRelaxDeps = [ "protobuf" ];
 
-  propagatedBuildInputs = [ protobuf numpy six typing-extensions ];
+  propagatedBuildInputs = [
+    protobuf
+    numpy
+    six
+    typing-extensions
+  ];
 
-  nativeCheckInputs = [ nbval pytestCheckHook tabulate ];
+  nativeCheckInputs = [
+    nbval
+    pytestCheckHook
+    tabulate
+  ];
 
   postPatch = ''
     chmod +x tools/protoc-gen-mypy.sh.in
@@ -85,7 +98,10 @@ in buildPythonPackage rec {
     # detecting source dir as a python package confuses pytest
     mv onnx/__init__.py onnx/__init__.py.hidden
   '';
-  pytestFlagsArray = [ "onnx/test" "onnx/examples" ];
+  pytestFlagsArray = [
+    "onnx/test"
+    "onnx/examples"
+  ];
   disabledTests = [
     # attempts to fetch data from web
     "test_bvlc_alexnet_cpu"

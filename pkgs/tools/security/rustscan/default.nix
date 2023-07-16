@@ -28,7 +28,10 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optional stdenv.isDarwin Security;
 
-  nativeCheckInputs = [ perl python3 ];
+  nativeCheckInputs = [
+    perl
+    python3
+  ];
 
   # these tests require network access
   checkFlags = [

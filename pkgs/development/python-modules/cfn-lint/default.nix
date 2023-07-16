@@ -46,7 +46,11 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ mock pydot pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pydot
+    pytestCheckHook
+  ];
 
   preCheck = ''
     export PATH=$out/bin:$PATH

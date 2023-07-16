@@ -18,9 +18,8 @@ buildKodiBinaryAddon rec {
     sha256 = "sha256-F3bt129lBZKlDtp7X0S0q10T9k9C2zNeHG+yIP3818Q=";
   };
 
-  extraCMakeFlags = [
-    "-DGENPLUS_LIB=${genesis-plus-gx}/lib/retroarch/cores/genesis_plus_gx_libretro.so"
-  ];
+  extraCMakeFlags =
+    [ "-DGENPLUS_LIB=${genesis-plus-gx}/lib/retroarch/cores/genesis_plus_gx_libretro.so" ];
 
   extraBuildInputs = [ genesis-plus-gx ];
   propagatedBuildInputs = [ libretro ];

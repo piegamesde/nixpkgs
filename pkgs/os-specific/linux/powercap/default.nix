@@ -18,14 +18,12 @@ stdenv.mkDerivation rec {
   };
 
   # in master post 0.6.0, see https://github.com/powercap/powercap/issues/8
-  patches = [
-    (fetchpatch {
-      name = "fix-pkg-config.patch";
-      url =
-        "https://github.com/powercap/powercap/commit/278dceb51635686e343edfc357b6020533fff299.patch";
-      sha256 = "0h62j63xdn0iqyx4xbia6hlmdjn45camb82z4vv6sb37x9sph7rg";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "fix-pkg-config.patch";
+    url =
+      "https://github.com/powercap/powercap/commit/278dceb51635686e343edfc357b6020533fff299.patch";
+    sha256 = "0h62j63xdn0iqyx4xbia6hlmdjn45camb82z4vv6sb37x9sph7rg";
+  }) ];
 
   nativeBuildInputs = [ cmake ];
 

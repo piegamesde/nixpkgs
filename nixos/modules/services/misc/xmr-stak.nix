@@ -25,7 +25,10 @@ in {
       extraArgs = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "--noCPU" "--currency monero" ];
+        example = [
+          "--noCPU"
+          "--currency monero"
+        ];
         description = lib.mdDoc "List of parameters to pass to xmr-stak.";
       };
 
@@ -88,11 +91,13 @@ in {
     };
   };
 
-  imports = [
-    (mkRemovedOptionModule [ "services" "xmr-stak" "configText" ] ''
-      This option was removed in favour of `services.xmr-stak.configFiles`
-      because the new config file `pools.txt` was introduced. You are
-      now able to define all other config files like cpu.txt or amd.txt.
-    '')
-  ];
+  imports = [ (mkRemovedOptionModule [
+    "services"
+    "xmr-stak"
+    "configText"
+  ] ''
+    This option was removed in favour of `services.xmr-stak.configFiles`
+    because the new config file `pools.txt` was introduced. You are
+    now able to define all other config files like cpu.txt or amd.txt.
+  '') ];
 }

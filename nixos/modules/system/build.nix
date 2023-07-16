@@ -13,7 +13,7 @@ in {
       '';
       type = types.submoduleWith {
         modules =
-          [{ freeformType = with types; lazyAttrsOf (uniq unspecified); }];
+          [ { freeformType = with types; lazyAttrsOf (uniq unspecified); } ];
       };
     };
 

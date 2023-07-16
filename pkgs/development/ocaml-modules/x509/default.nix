@@ -31,7 +31,10 @@ buildDunePackage rec {
     hash = "sha256-XegxhdASQK/I7Xd0gJSLumTGbCYFpWsjR7PlZSWqaVo=";
   };
 
-  checkInputs = [ alcotest cstruct-unix ];
+  checkInputs = [
+    alcotest
+    cstruct-unix
+  ];
   propagatedBuildInputs = [
     asn1-combinators
     domain-name

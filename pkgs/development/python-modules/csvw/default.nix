@@ -27,9 +27,18 @@ buildPythonPackage rec {
     sha256 = "1393xwqawaxsflbq62vks92vv4zch8p6dd1mdvdi7j4vvf0zljkg";
   };
 
-  propagatedBuildInputs = [ attrs isodate python-dateutil rfc3986 uritemplate ];
+  propagatedBuildInputs = [
+    attrs
+    isodate
+    python-dateutil
+    rfc3986
+    uritemplate
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-mock
+  ];
 
   patchPhase = ''
     substituteInPlace setup.cfg \

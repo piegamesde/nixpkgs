@@ -49,7 +49,10 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  installFlags = [ "PREFIX=$(out)" "INSTALL=install" ];
+  installFlags = [
+    "PREFIX=$(out)"
+    "INSTALL=install"
+  ];
   makeFlags = [ "UNAME_S=$(unameS)" ]
     ++ lib.optional (!enableReadline) "WITHOUT_READLINE=1";
   unameS = lib.optionalString stdenv.isDarwin "Darwin";

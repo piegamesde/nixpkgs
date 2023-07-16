@@ -26,7 +26,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ boost cairo lv2 ];
+  buildInputs = [
+    boost
+    cairo
+    lv2
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

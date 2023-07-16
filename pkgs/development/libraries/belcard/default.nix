@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Q5FJ1Nh61woyXN7BVTZGNGXOVhcZXakLWcxaavPpgeY=";
   };
 
-  buildInputs = [ bctoolbox belr ];
+  buildInputs = [
+    bctoolbox
+    belr
+  ];
   nativeBuildInputs = [ cmake ];
 
   cmakeFlags = [

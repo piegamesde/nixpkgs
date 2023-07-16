@@ -47,9 +47,22 @@ in stdenv.mkDerivation rec {
       --replace "../patches/afl-qemu-cpu-inl.h" "afl-qemu-cpu-inl.h"
   '';
 
-  nativeBuildInputs = [ python2 perl pkg-config flex bison autoconf texinfo ];
+  nativeBuildInputs = [
+    python2
+    perl
+    pkg-config
+    flex
+    bison
+    autoconf
+    texinfo
+  ];
 
-  buildInputs = [ zlib glib pixman libuuid ];
+  buildInputs = [
+    zlib
+    glib
+    pixman
+    libuuid
+  ];
 
   enableParallelBuilding = true;
 

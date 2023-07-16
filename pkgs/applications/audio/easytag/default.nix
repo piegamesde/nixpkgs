@@ -35,7 +35,13 @@ in stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = "-lid3tag -lz";
 
-  nativeBuildInputs = [ pkg-config intltool itstool libxml2 wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+    itstool
+    libxml2
+    wrapGAppsHook
+  ];
   buildInputs = [
     gtk3
     glib

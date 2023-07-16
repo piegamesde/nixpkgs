@@ -33,7 +33,11 @@ rustPlatform.buildRustPackage rec {
     installShellCompletion procs.{bash,fish} --zsh _procs
   '';
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security libiconv Libsystem ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    Security
+    libiconv
+    Libsystem
+  ];
 
   meta = with lib; {
     description = "A modern replacement for ps written in Rust";

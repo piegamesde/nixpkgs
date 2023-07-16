@@ -66,9 +66,18 @@ buildPythonApplication rec {
     pyxdg
   ];
 
-  buildInputs = [ glib gtk3 libhandy ];
+  buildInputs = [
+    glib
+    gtk3
+    libhandy
+  ];
 
-  propagatedBuildInputs = [ dbus-python libappindicator pygobject3 pyxdg ];
+  propagatedBuildInputs = [
+    dbus-python
+    libappindicator
+    pygobject3
+    pyxdg
+  ];
 
   mesonFlags = [ "-Dsystemddir=${placeholder "out"}/lib/systemd" ];
 

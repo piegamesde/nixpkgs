@@ -49,10 +49,21 @@ stdenv.mkDerivation rec {
     substituteInPlace libimagevisualresult/CMakeLists.txt --replace '/usr' '$out'
   '';
 
-  nativeBuildInputs = [ cmake pkg-config qttools wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qttools
+    wrapQtAppsHook
+  ];
 
-  buildInputs =
-    [ dtkwidget opencv freeimage libmediainfo ffmpegthumbnailer pcre ];
+  buildInputs = [
+    dtkwidget
+    opencv
+    freeimage
+    libmediainfo
+    ffmpegthumbnailer
+    pcre
+  ];
 
   cmakeFlags = [ "-DVERSION=${version}" ];
 

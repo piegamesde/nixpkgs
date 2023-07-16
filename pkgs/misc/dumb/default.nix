@@ -12,7 +12,10 @@ stdenv.mkDerivation rec {
   version = "2.0.3";
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ allegro SDL2 ];
+  buildInputs = [
+    allegro
+    SDL2
+  ];
 
   src = fetchFromGitHub {
     owner = "kode54";
@@ -21,7 +24,10 @@ stdenv.mkDerivation rec {
     sha256 = "1cnq6rb14d4yllr0yi32p9jmcig8avs3f43bvdjrx4r1mpawspi6";
   };
 
-  cmakeFlags = [ "-DCMAKE_BUILD_TYPE='Release'" "-DBUILD_EXAMPLES='OFF'" ];
+  cmakeFlags = [
+    "-DCMAKE_BUILD_TYPE='Release'"
+    "-DBUILD_EXAMPLES='OFF'"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/kode54/dumb";

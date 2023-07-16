@@ -42,6 +42,10 @@ mkDerivation {
     kirigami2
     syndication
   ];
-  propagatedBuildInputs = [ attica kservice kxmlgui ];
+  propagatedBuildInputs = [
+    attica
+    kservice
+    kxmlgui
+  ];
   patches = [ ./0001-Delay-resolving-knsrcdir.patch ];
 }

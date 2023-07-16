@@ -21,12 +21,25 @@ mkXfceDerivation {
 
   sha256 = "sha256-NSy0MTphzGth0w+Kn93hWvsjLw6qR8SqjYYc1Z2SWIs=";
 
-  nativeBuildInputs = [ gobject-introspection vala ];
+  nativeBuildInputs = [
+    gobject-introspection
+    vala
+  ];
 
-  buildInputs =
-    [ exo garcon libdbusmenu-gtk3 libxfce4ui libwnck xfconf tzdata ];
+  buildInputs = [
+    exo
+    garcon
+    libdbusmenu-gtk3
+    libxfce4ui
+    libwnck
+    xfconf
+    tzdata
+  ];
 
-  propagatedBuildInputs = [ gtk3 libxfce4util ];
+  propagatedBuildInputs = [
+    gtk3
+    libxfce4util
+  ];
 
   patches = [ ./xfce4-panel-datadir.patch ];
 

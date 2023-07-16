@@ -36,7 +36,13 @@ in spago.overrideAttrs (oldAttrs: {
     #
     tests = runCommand "spago-tests" {
       __noChroot = true;
-      nativeBuildInputs = [ cacert git nodejs purescript spago ];
+      nativeBuildInputs = [
+        cacert
+        git
+        nodejs
+        purescript
+        spago
+      ];
     } ''
       # spago expects HOME to be set because it creates a cache file under
       # home.

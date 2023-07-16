@@ -19,7 +19,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libtool libX11 libXt libXpm ];
+  buildInputs = [
+    libtool
+    libX11
+    libXt
+    libXpm
+  ];
 
   configurePhase = ''
     LIBTOOL=${libtool}/bin/libtool ./configure --prefix=$out --enable-everything --enable-smart-resize --enable-256-color
@@ -43,8 +48,7 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ AndersonTorres ];
     license = licenses.gpl2;
     platforms = platforms.linux;
-    knownVulnerabilities = [
-      "Usage of ANSI escape sequences causes unexpected newline-termination, leading to unexpected command execution (https://www.openwall.com/lists/oss-security/2021/05/17/1)"
-    ];
+    knownVulnerabilities =
+      [ "Usage of ANSI escape sequences causes unexpected newline-termination, leading to unexpected command execution (https://www.openwall.com/lists/oss-security/2021/05/17/1)" ];
   };
 }

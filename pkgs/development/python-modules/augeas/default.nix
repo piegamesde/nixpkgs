@@ -26,7 +26,10 @@ buildPythonPackage rec {
                   'ffi.dlopen("${lib.makeLibraryPath [ augeas ]}/${libname}")'
     '';
 
-  propagatedBuildInputs = [ cffi augeas ];
+  propagatedBuildInputs = [
+    cffi
+    augeas
+  ];
 
   doCheck = false;
 

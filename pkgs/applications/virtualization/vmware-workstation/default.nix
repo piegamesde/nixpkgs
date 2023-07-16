@@ -99,9 +99,18 @@ in stdenv.mkDerivation rec {
     kmod
   ];
 
-  nativeBuildInputs = [ python3 vmware-unpack-env autoPatchelfHook makeWrapper ]
-    ++ lib.optionals enableInstaller [ sqlite bzip2 ]
-    ++ lib.optionals enableMacOSGuests [ gnutar unzip ];
+  nativeBuildInputs = [
+    python3
+    vmware-unpack-env
+    autoPatchelfHook
+    makeWrapper
+  ] ++ lib.optionals enableInstaller [
+    sqlite
+    bzip2
+  ] ++ lib.optionals enableMacOSGuests [
+    gnutar
+    unzip
+  ];
 
   src = fetchurl {
     url =
@@ -401,6 +410,9 @@ in stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ cawilliamson deinferno ];
+    maintainers = with maintainers; [
+      cawilliamson
+      deinferno
+    ];
   };
 }

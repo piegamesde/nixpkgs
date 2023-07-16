@@ -28,7 +28,10 @@ assert null
   == lib.findFirst (c: "/" == c) null (lib.stringToCharacters imageName);
 
 # Only allow hocker-config and hocker-layer as fetchers for now
-assert (builtins.elem fetcher [ "hocker-config" "hocker-layer" ]);
+assert (builtins.elem fetcher [
+  "hocker-config"
+  "hocker-layer"
+]);
 
 # If layerDigest is non-empty then it must not have a 'sha256:' prefix!
 assert (if layerDigest != "" then
@@ -94,7 +97,11 @@ in stdenv.mkDerivation {
 
   preferLocalBuild = true;
 
-  impureEnvVars = [ "DOCKER_USER" "DOCKER_PASS" "DOCKER_TOKEN" ];
+  impureEnvVars = [
+    "DOCKER_USER"
+    "DOCKER_PASS"
+    "DOCKER_TOKEN"
+  ];
 
   inherit registry dockerCredentialsFile;
 }

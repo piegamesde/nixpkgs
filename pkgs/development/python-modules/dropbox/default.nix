@@ -19,7 +19,10 @@ buildPythonPackage rec {
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   src = fetchFromGitHub {
     owner = "dropbox";
@@ -28,9 +31,18 @@ buildPythonPackage rec {
     hash = "sha256-J2AaGkD4TMDcVzTtdcNH0bgy6de+BRjYdtTaRL3lYrs=";
   };
 
-  propagatedBuildInputs = [ requests setuptools six stone ];
+  propagatedBuildInputs = [
+    requests
+    setuptools
+    six
+    stone
+  ];
 
-  nativeCheckInputs = [ mock pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytest-mock
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

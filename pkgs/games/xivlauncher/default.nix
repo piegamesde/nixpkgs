@@ -29,7 +29,10 @@ in buildDotnetModule rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ copyDesktopItems makeWrapper ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    makeWrapper
+  ];
 
   buildInputs = with gst_all_1; [
     gstreamer
@@ -44,7 +47,10 @@ in buildDotnetModule rec {
   nugetDeps =
     ./deps.nix; # File generated with `nix-build -A xivlauncher.passthru.fetch-deps`
 
-  dotnetFlags = [ "-p:BuildHash=${rev}" "-p:PublishSingleFile=false" ];
+  dotnetFlags = [
+    "-p:BuildHash=${rev}"
+    "-p:PublishSingleFile=false"
+  ];
 
   postPatch = ''
     substituteInPlace lib/FFXIVQuickLauncher/src/XIVLauncher.Common/Game/Patch/Acquisition/Aria/AriaHttpPatchAcquisition.cs \
@@ -68,25 +74,31 @@ in buildDotnetModule rec {
 
   executables = [ "XIVLauncher.Core" ];
 
-  runtimeDeps = [ SDL2 libsecret glib gnutls ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = "xivlauncher";
-      exec = "XIVLauncher.Core";
-      icon = "xivlauncher";
-      desktopName = "XIVLauncher";
-      comment = meta.description;
-      categories = [ "Game" ];
-      startupWMClass = "XIVLauncher.Core";
-    })
+  runtimeDeps = [
+    SDL2
+    libsecret
+    glib
+    gnutls
   ];
+
+  desktopItems = [ (makeDesktopItem {
+    name = "xivlauncher";
+    exec = "XIVLauncher.Core";
+    icon = "xivlauncher";
+    desktopName = "XIVLauncher";
+    comment = meta.description;
+    categories = [ "Game" ];
+    startupWMClass = "XIVLauncher.Core";
+  }) ];
 
   meta = with lib; {
     description = "Custom launcher for FFXIV";
     homepage = "https://github.com/goatcorp/FFXIVQuickLauncher";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ sersorrel witchof0x20 ];
+    maintainers = with maintainers; [
+      sersorrel
+      witchof0x20
+    ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "XIVLauncher.Core";
   };

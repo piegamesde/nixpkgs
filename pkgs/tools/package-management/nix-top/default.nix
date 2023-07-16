@@ -16,8 +16,13 @@
 
 # No gems used, so mkDerivation is fine.
 let
-  additionalPath =
-    lib.makeBinPath [ getent ncurses binutils-unwrapped coreutils findutils ];
+  additionalPath = lib.makeBinPath [
+    getent
+    ncurses
+    binutils-unwrapped
+    coreutils
+    findutils
+  ];
 in stdenv.mkDerivation rec {
   pname = "nix-top";
   version = "0.3.0";

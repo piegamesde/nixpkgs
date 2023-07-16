@@ -42,9 +42,18 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  nativeBuildInputs = [ pkg-config help2man ];
-  buildInputs = [ libcddb libiconv ncurses ]
-    ++ lib.optionals stdenv.isDarwin [ Carbon IOKit ];
+  nativeBuildInputs = [
+    pkg-config
+    help2man
+  ];
+  buildInputs = [
+    libcddb
+    libiconv
+    ncurses
+  ] ++ lib.optionals stdenv.isDarwin [
+    Carbon
+    IOKit
+  ];
 
   enableParallelBuilding = true;
 

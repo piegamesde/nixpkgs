@@ -65,7 +65,12 @@ buildPythonPackage rec {
   passthru.optional-dependencies = {
     brotli = if isPyPy then [ brotlicffi ] else [ brotli ];
     # Use carefully since pyopenssl is not supported aarch64-darwin
-    secure = [ certifi cryptography idna pyopenssl ];
+    secure = [
+      certifi
+      cryptography
+      idna
+      pyopenssl
+    ];
     socks = [ pysocks ];
   };
 

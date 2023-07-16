@@ -28,9 +28,17 @@ stdenv.mkDerivation rec {
     "--with-rgb=${placeholder "out"}/share/yad/rgb.txt"
   ];
 
-  buildInputs = [ gtk3 hicolor-icon-theme ];
+  buildInputs = [
+    gtk3
+    hicolor-icon-theme
+  ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config intltool wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    intltool
+    wrapGAppsHook
+  ];
 
   postPatch = ''
     sed -i src/file.c -e '21i#include <glib/gprintf.h>'

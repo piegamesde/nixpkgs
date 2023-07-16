@@ -34,7 +34,10 @@ mkDerivation {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config qmake ];
+  nativeBuildInputs = [
+    pkg-config
+    qmake
+  ];
   buildInputs = [ gtk2 ];
 
   meta = with lib; {

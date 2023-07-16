@@ -23,10 +23,17 @@ buildPythonPackage rec {
     sha256 = "0h8zqqy8v8r1fl9bp3m8icr2sy44p0mbfl1hbb0zni17r9r50dhn";
   };
 
-  propagatedBuildInputs = [ aiohttp xmltodict ];
+  propagatedBuildInputs = [
+    aiohttp
+    xmltodict
+  ];
 
-  nativeCheckInputs =
-    [ aioresponses pytest-asyncio pytest-raises pytestCheckHook ];
+  nativeCheckInputs = [
+    aioresponses
+    pytest-asyncio
+    pytest-raises
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace setup.py --replace '"pytest-runner>=5.2",' ""

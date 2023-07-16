@@ -13,7 +13,11 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ posix-base posix-types unix-errno ];
+  propagatedBuildInputs = [
+    posix-base
+    posix-types
+    unix-errno
+  ];
 
   doCheck = true;
 

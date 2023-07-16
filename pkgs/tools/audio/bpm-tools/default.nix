@@ -10,7 +10,14 @@
   makeWrapper,
 }:
 
-let path = lib.makeBinPath [ gnuplot sox flac id3v2 vorbis-tools ];
+let
+  path = lib.makeBinPath [
+    gnuplot
+    sox
+    flac
+    id3v2
+    vorbis-tools
+  ];
 in stdenv.mkDerivation rec {
   pname = "bpm-tools";
   version = "0.3";

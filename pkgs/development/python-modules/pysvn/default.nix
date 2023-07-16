@@ -31,9 +31,18 @@ buildPythonPackage rec {
 
   patches = [ ./replace-python-first.patch ];
 
-  buildInputs = [ bash subversion apr aprutil expat neon openssl ]
-    ++ lib.optionals stdenv.isLinux [ 0.0 fsprogs ]
-    ++ lib.optionals stdenv.isDarwin [ gcc ];
+  buildInputs = [
+    bash
+    subversion
+    apr
+    aprutil
+    expat
+    neon
+    openssl
+  ] ++ lib.optionals stdenv.isLinux [
+    0.0
+    fsprogs
+  ] ++ lib.optionals stdenv.isDarwin [ gcc ];
 
   preConfigure = ''
     cd Source

@@ -24,7 +24,10 @@ stdenv.mkDerivation rec {
     ./malloc_to_stdlib.patch
   ];
 
-  buildInputs = [ libmcrypt libmhash ];
+  buildInputs = [
+    libmcrypt
+    libmhash
+  ];
 
   meta = {
     description = "Replacement for old UNIX crypt(1)";

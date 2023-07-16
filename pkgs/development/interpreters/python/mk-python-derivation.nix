@@ -61,9 +61,7 @@
   strictDeps ? true
 
   ,
-  outputs ? [
-    "out"
-  ]
+  outputs ? [ "out" ]
 
   # used to disable derivation, useful for specific python versions
   ,
@@ -130,7 +128,12 @@
 let
   inherit (python) stdenv;
 
-  withDistOutput = lib.elem format [ "pyproject" "setuptools" "flit" "wheel" ];
+  withDistOutput = lib.elem format [
+    "pyproject"
+    "setuptools"
+    "flit"
+    "wheel"
+  ];
 
   name_ = name;
 
@@ -229,8 +232,8 @@ let
         eggUnpackHook
         eggBuildHook
         eggInstallHook
-      ] ++ lib.optionals (!(format == "other") || dontUsePipInstall)
-      [ pipInstallHook ]
+      ] ++ lib.optionals
+      (!(format == "other") || dontUsePipInstall) [ pipInstallHook ]
       ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [
         # This is a test, however, it should be ran independent of the checkPhase and checkInputs
         pythonImportsCheckHook
@@ -271,9 +274,8 @@ let
     '' + attrs.postFixup or "";
 
     # Python packages built through cross-compilation are always for the host platform.
-    disallowedReferences =
-      lib.optionals (python.stdenv.hostPlatform != python.stdenv.buildPlatform)
-      [ python.pythonForBuild ];
+    disallowedReferences = lib.optionals (python.stdenv.hostPlatform
+      != python.stdenv.buildPlatform) [ python.pythonForBuild ];
 
     outputs = outputs ++ lib.optional withDistOutput "dist";
 
@@ -292,7 +294,10 @@ let
 
   passthru.updateScript =
     let filename = builtins.head (lib.splitString ":" self.meta.position);
-    in attrs.passthru.updateScript or [ update-python-libraries filename ];
+    in attrs.passthru.updateScript or [
+      update-python-libraries
+      filename
+    ];
 in lib.extendDerivation
 (disabled -> throw "${name} not supported for interpreter ${python.executable}")
 passthru self

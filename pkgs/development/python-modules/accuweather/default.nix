@@ -25,10 +25,17 @@ buildPythonPackage rec {
     hash = "sha256-kWhb9tDp7/p5iCXTpf4/fjSo1ceuA9I2eqSprt50rWU=";
   };
 
-  propagatedBuildInputs = [ aiohttp orjson ];
+  propagatedBuildInputs = [
+    aiohttp
+    orjson
+  ];
 
-  nativeCheckInputs =
-    [ aioresponses pytest-asyncio pytest-error-for-skips pytestCheckHook ];
+  nativeCheckInputs = [
+    aioresponses
+    pytest-asyncio
+    pytest-error-for-skips
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "accuweather" ];
 

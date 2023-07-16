@@ -22,7 +22,12 @@ stdenv.mkDerivation rec {
     	mkdir ''${out}/bin;
     	cp xmacrorec2 xmacroplay ''${out}/bin;' >>Makefile; '';
 
-  buildInputs = [ libX11 libXtst xorgproto libXi ];
+  buildInputs = [
+    libX11
+    libXtst
+    xorgproto
+    libXi
+  ];
 
   meta = {
     platforms = lib.platforms.linux;

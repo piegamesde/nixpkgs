@@ -38,7 +38,14 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ glib granite gtk3 libcanberra-gtk3 libgee libhandy ];
+  buildInputs = [
+    glib
+    granite
+    gtk3
+    libcanberra-gtk3
+    libgee
+    libhandy
+  ];
 
   postPatch = ''
     chmod +x meson/post_install.py

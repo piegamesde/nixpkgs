@@ -28,10 +28,18 @@
 mkDerivation {
   pname = "kmail-account-wizard";
   meta = {
-    license = with lib.licenses; [ gpl2Plus lgpl21Plus fdl12Plus ];
+    license = with lib.licenses; [
+      gpl2Plus
+      lgpl21Plus
+      fdl12Plus
+    ];
     maintainers = kdepimTeam;
   };
-  nativeBuildInputs = [ extra-cmake-modules kdoctools shared-mime-info ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+    shared-mime-info
+  ];
   buildInputs = [
     akonadi
     kcmutils

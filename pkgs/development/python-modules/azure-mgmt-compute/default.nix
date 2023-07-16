@@ -20,7 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-LVobrn9dMHyh6FDX6D/tnIOdT2NbEKS40/i8YJisKIg=";
   };
 
-  propagatedBuildInputs = [ azure-mgmt-common azure-mgmt-core ];
+  propagatedBuildInputs = [
+    azure-mgmt-common
+    azure-mgmt-core
+  ];
 
   pythonNamespaces = [ "azure.mgmt" ];
 
@@ -34,6 +37,9 @@ buildPythonPackage rec {
       "This is the Microsoft Azure Compute Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ olcai maxwilson ];
+    maintainers = with maintainers; [
+      olcai
+      maxwilson
+    ];
   };
 }

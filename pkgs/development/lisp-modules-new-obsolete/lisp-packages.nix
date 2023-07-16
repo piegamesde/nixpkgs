@@ -207,8 +207,13 @@ let
       # Same with '/': `local-time.asd` for system `cl-postgres+local-time.asd`
       installPhase = let
         mkSystemsRegex = systems:
-          concatMapStringsSep "\\|" (replaceStrings [ "." "+" ] [ "[.]" "[+]" ])
-          systems;
+          concatMapStringsSep "\\|" (replaceStrings [
+            "."
+            "+"
+          ] [
+            "[.]"
+            "[+]"
+          ]) systems;
       in ''
         mkdir -pv $out
         cp -r * $out
@@ -233,8 +238,12 @@ let
 
       # make sure that propagated build-inputs from lispLibs are propagated
       propagatedBuildInputs = lib.unique (builtins.concatLists
-        (lib.catAttrs "propagatedBuildInputs"
-          (builtins.concatLists [ [ args ] lispLibs nativeLibs javaLibs ])));
+        (lib.catAttrs "propagatedBuildInputs" (builtins.concatLists [
+          [ args ]
+          lispLibs
+          nativeLibs
+          javaLibs
+        ])));
     }))));
 
   # Build the set of lisp packages using `lisp`
@@ -296,8 +305,15 @@ let
     in pkg // { lispLibs = map substituteLib pkg.lispLibs; };
 
   makeAttrName = str:
-    removeSuffix "_"
-    (replaceStrings [ "+" "." "/" ] [ "_plus_" "_dot_" "_slash_" ] str);
+    removeSuffix "_" (replaceStrings [
+      "+"
+      "."
+      "/"
+    ] [
+      "_plus_"
+      "_dot_"
+      "_slash_"
+    ] str);
 
   oldMakeWrapper = pkgs.runCommand "make-wrapper.sh" { } ''
     substitute ${./old-make-wrapper.sh} $out \

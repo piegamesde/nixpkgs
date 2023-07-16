@@ -47,7 +47,12 @@ buildPythonPackage rec {
     transitions
   ];
 
-  nativeCheckInputs = [ freezegun pytest-asyncio pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    freezegun
+    pytest-asyncio
+    pytest-mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pysnooz" ];
 

@@ -20,9 +20,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ python3.pkgs.pytest ];
 
-  buildInputs = [ minizip zlib ];
+  buildInputs = [
+    minizip
+    zlib
+  ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" "USE_SYSTEM_MINIZIP=1" ];
+  makeFlags = [
+    "PREFIX=${placeholder "out"}"
+    "USE_SYSTEM_MINIZIP=1"
+  ];
 
   doCheck = true;
 

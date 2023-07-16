@@ -34,12 +34,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dIH6VPgzJxvXEUtPAYQzpQ8I9R9MwsfeylV25ASfW/k=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      inherit coreutils;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    inherit coreutils;
+  }) ];
 
   nativeBuildInputs = [
     meson
@@ -52,8 +50,15 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs =
-    [ libsoup_3 glib gtk4 libsecret libadwaita libgpg-error json-glib ];
+  buildInputs = [
+    libsoup_3
+    glib
+    gtk4
+    libsecret
+    libadwaita
+    libgpg-error
+    json-glib
+  ];
 
   mesonFlags = [ "-Dduplicity_command=${duplicity}/bin/duplicity" ];
 

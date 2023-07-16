@@ -43,7 +43,10 @@ stdenv.mkDerivation rec {
   '';
 
   strictDeps = true;
-  nativeBuildInputs = with ocamlPackages; [ ocaml camlp4 ];
+  nativeBuildInputs = with ocamlPackages; [
+    ocaml
+    camlp4
+  ];
   buildInputs = (with ocamlPackages; [ num ]) ++ [ zlib ];
 
   meta = {

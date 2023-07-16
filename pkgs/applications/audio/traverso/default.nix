@@ -27,7 +27,10 @@ mkDerivation {
     sha256 = "12f7x8kw4fw1j0xkwjrp54cy4cv1ql0zwz2ba5arclk4pf6bhl7q";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buildInputs = [
     alsa-lib
     fftw
@@ -57,7 +60,10 @@ mkDerivation {
     description =
       "Cross-platform multitrack audio recording and audio editing suite";
     homepage = "https://traverso-daw.org/";
-    license = with licenses; [ gpl2Plus lgpl21Plus ];
+    license = with licenses; [
+      gpl2Plus
+      lgpl21Plus
+    ];
     platforms = platforms.all;
     maintainers = with maintainers; [ coconnor ];
   };

@@ -30,10 +30,19 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [ docutils importlib-metadata pydantic types-docutils typing-extensions ];
+  propagatedBuildInputs = [
+    docutils
+    importlib-metadata
+    pydantic
+    types-docutils
+    typing-extensions
+  ];
 
-  nativeCheckInputs = [ mock pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytest-mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "rstcheck_core" ];
 

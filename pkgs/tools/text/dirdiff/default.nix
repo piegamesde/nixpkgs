@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ copyDesktopItems ];
-  buildInputs = [ tcl tk ];
+  buildInputs = [
+    tcl
+    tk
+  ];
 
   # Some light path patching.
   patches = [ ./dirdiff-2.1-vars.patch ];
@@ -37,19 +40,19 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin $out/lib
   '';
 
-  installFlags =
-    [ "BINDIR=${placeholder "out"}/bin" "LIBDIR=${placeholder "out"}/lib" ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = "dirdiff";
-      exec = "dirdiff";
-      desktopName = "Dirdiff";
-      genericName = "Directory Diff Viewer";
-      comment = "Diff and merge directory trees";
-      categories = [ "Development" ];
-    })
+  installFlags = [
+    "BINDIR=${placeholder "out"}/bin"
+    "LIBDIR=${placeholder "out"}/lib"
   ];
+
+  desktopItems = [ (makeDesktopItem {
+    name = "dirdiff";
+    exec = "dirdiff";
+    desktopName = "Dirdiff";
+    genericName = "Directory Diff Viewer";
+    comment = "Diff and merge directory trees";
+    categories = [ "Development" ];
+  }) ];
 
   meta = with lib; {
     description = "Graphical directory tree diff and merge tool";

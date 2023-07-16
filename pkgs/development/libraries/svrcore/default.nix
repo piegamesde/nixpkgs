@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ nss nspr ];
+  buildInputs = [
+    nss
+    nspr
+  ];
 
   meta = with lib; {
     description = "Secure PIN handling using NSS crypto";

@@ -20,7 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-xkx8QlabOCodqj4tRYxpln0z+HHVwYdqlXkaitzmKx8=";
   };
 
-  propagatedBuildInputs = [ six snowflake-connector-python sqlalchemy ];
+  propagatedBuildInputs = [
+    six
+    snowflake-connector-python
+    sqlalchemy
+  ];
 
   # Pypi does not include tests
   doCheck = false;

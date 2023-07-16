@@ -23,8 +23,15 @@ stdenv.mkDerivation rec {
     cmakeFlags+="-Dabs_top_srcdir=$(readlink -f ./)"
   '';
 
-  nativeBuildInputs = [ cmake ninja ];
-  buildInputs = [ netcdf hdf5 curl ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
+  buildInputs = [
+    netcdf
+    hdf5
+    curl
+  ];
 
   doCheck = true;
   enableParallelChecking = false;

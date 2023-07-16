@@ -26,7 +26,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ copyDesktopItems ];
 
-  buildInputs = [ libX11 libXpm libpng zlib ];
+  buildInputs = [
+    libX11
+    libXpm
+    libpng
+    zlib
+  ];
 
   desktopItems = let
     generateItem = gameName: {

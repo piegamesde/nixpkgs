@@ -17,14 +17,12 @@ stdenv.mkDerivation rec {
     sha256 = "1w31pjiyshqgk6zd6m3ab3xfgb0ribi77r6fwrry2aw8w1adjknf";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "pystring-cmake-configuration.patch";
-      url =
-        "https://github.com/imageworks/pystring/commit/4f653fc35421129eae8a2c424901ca7170059370.patch";
-      sha256 = "1hynzz76ff4vvmi6kwixsmjswkpyj6s4vv05d7nw0zscj4cdp8k3";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "pystring-cmake-configuration.patch";
+    url =
+      "https://github.com/imageworks/pystring/commit/4f653fc35421129eae8a2c424901ca7170059370.patch";
+    sha256 = "1hynzz76ff4vvmi6kwixsmjswkpyj6s4vv05d7nw0zscj4cdp8k3";
+  }) ];
 
   nativeBuildInputs = [ cmake ];
 

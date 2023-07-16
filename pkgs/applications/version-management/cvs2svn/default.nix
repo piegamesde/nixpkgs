@@ -20,9 +20,16 @@ pypy2Packages.buildPythonApplication rec {
     sha256 = "1ska0z15sjhyfi860rjazz9ya1gxbf5c0h8dfqwz88h7fccd22b4";
   };
 
-  nativeBuildInputs = [ makeWrapper installShellFiles ];
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+  ];
 
-  nativeCheckInputs = [ subversion git breezy ];
+  nativeCheckInputs = [
+    subversion
+    git
+    breezy
+  ];
 
   checkPhase = "${pypy2Packages.python.interpreter} run-tests.py";
 
@@ -41,7 +48,10 @@ pypy2Packages.buildPythonApplication rec {
     description =
       "A tool to convert CVS repositories to Subversion repositories";
     homepage = "https://github.com/mhagger/cvs2svn";
-    maintainers = with maintainers; [ makefu viraptor ];
+    maintainers = with maintainers; [
+      makefu
+      viraptor
+    ];
     platforms = platforms.unix;
     license = licenses.asl20;
   };

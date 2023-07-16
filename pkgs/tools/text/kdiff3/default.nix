@@ -24,9 +24,19 @@ mkDerivation rec {
 
   buildInputs = [ boost ];
 
-  nativeBuildInputs = [ extra-cmake-modules kdoctools wrapGAppsHook ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+    wrapGAppsHook
+  ];
 
-  propagatedBuildInputs = [ kconfig kcrash kinit kparts kiconthemes ];
+  propagatedBuildInputs = [
+    kconfig
+    kcrash
+    kinit
+    kparts
+    kiconthemes
+  ];
 
   cmakeFlags = [ "-Wno-dev" ];
 

@@ -17,7 +17,10 @@
 
 mkDerivation {
   pname = "sddm-kcm";
-  nativeBuildInputs = [ extra-cmake-modules shared-mime-info ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    shared-mime-info
+  ];
   buildInputs = [
     libpthreadstubs
     libXcursor

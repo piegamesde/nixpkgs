@@ -22,9 +22,23 @@ mkDerivation {
   };
 
   nativeBuildInputs = [ extra-cmake-modules ];
-  buildInputs = [ karchive kcrash ki18n kio libgcrypt qca-qt5 solid ];
-  propagatedBuildInputs = [ boost gmp ];
-  outputs = [ "out" "dev" ];
+  buildInputs = [
+    karchive
+    kcrash
+    ki18n
+    kio
+    libgcrypt
+    qca-qt5
+    solid
+  ];
+  propagatedBuildInputs = [
+    boost
+    gmp
+  ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   dontWrapQtApps = true;
 }

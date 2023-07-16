@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ boost cppunit zlib ];
+  buildInputs = [
+    boost
+    cppunit
+    zlib
+  ];
 
   # Clang and gcc-7 generate warnings, and
   # -Werror causes these warnings to be interpreted as errors

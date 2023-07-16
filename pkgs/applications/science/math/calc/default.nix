@@ -29,8 +29,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [ util-linux ]
-    ++ lib.optionals enableReadline [ ncurses readline ];
+  buildInputs = [ util-linux ] ++ lib.optionals enableReadline [
+    ncurses
+    readline
+  ];
 
   makeFlags = [
     "T=$(out)"

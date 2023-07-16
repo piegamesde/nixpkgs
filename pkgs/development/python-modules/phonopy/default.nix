@@ -24,7 +24,14 @@ buildPythonPackage rec {
     hash = "sha256-t+1i1S8UVd0s9/Fda0H2kaouDDBVS+x6G40Meb2rLYc=";
   };
 
-  propagatedBuildInputs = [ h5py matplotlib numpy pyyaml scipy spglib ];
+  propagatedBuildInputs = [
+    h5py
+    matplotlib
+    numpy
+    pyyaml
+    scipy
+    spglib
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

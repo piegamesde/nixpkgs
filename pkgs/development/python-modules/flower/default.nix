@@ -26,7 +26,13 @@ buildPythonPackage rec {
     rm tests/load.py
   '';
 
-  propagatedBuildInputs = [ celery humanize prometheus-client pytz tornado ];
+  propagatedBuildInputs = [
+    celery
+    humanize
+    prometheus-client
+    pytz
+    tornado
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

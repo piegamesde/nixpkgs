@@ -23,11 +23,24 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-r/ZhA9yiPnJNTrBkVOvaTqfRvGO/NTod5tiQCquG5Gw=";
   };
 
-  nativeBuildInputs = [ qmake qttools pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    qttools
+    pkg-config
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ qtbase dtkwidget qt5integration qt5platform-plugins ];
+  buildInputs = [
+    qtbase
+    dtkwidget
+    qt5integration
+    qt5platform-plugins
+  ];
 
-  qmakeFlags = [ "VERSION=${version}" "PREFIX=${placeholder "out"}" ];
+  qmakeFlags = [
+    "VERSION=${version}"
+    "PREFIX=${placeholder "out"}"
+  ];
 
   meta = with lib; {
     description = "Deepin Shortcut Viewer";

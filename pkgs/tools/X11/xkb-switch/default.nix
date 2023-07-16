@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ libX11 libxkbfile ];
+  buildInputs = [
+    libX11
+    libxkbfile
+  ];
 
   meta = with lib; {
     description = "Switch your X keyboard layouts from the command line";

@@ -14,7 +14,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-iE1wY2S4Gr3Re+6Whtj/KudDHFoUZRBHxorfizH9iUU=";
   };
 
-  outputs = [ "bin" "dev" "out" "info" "devdoc" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "info"
+    "devdoc"
+  ];
 
   hardeningDisable = [ "format" ];
 

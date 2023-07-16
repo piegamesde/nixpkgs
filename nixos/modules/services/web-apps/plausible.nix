@@ -173,13 +173,13 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = cfg.adminUser.activate -> cfg.database.postgres.setup;
       message = ''
         Unable to automatically activate the admin-user if no locally managed DB for
         postgres (`services.plausible.database.postgres.setup') is enabled!
       '';
-    }];
+    } ];
 
     services.postgresql = mkIf cfg.database.postgres.setup { enable = true; };
 
@@ -268,8 +268,8 @@ in {
               "ADMIN_USER_PWD:${cfg.adminUser.passwordFile}"
               "SECRET_KEY_BASE:${cfg.server.secretKeybaseFile}"
               "RELEASE_COOKIE:${cfg.releaseCookiePath}"
-            ] ++ lib.optionals (cfg.mail.smtp.passwordFile != null)
-              [ "SMTP_USER_PWD:${cfg.mail.smtp.passwordFile}" ];
+            ] ++ lib.optionals (cfg.mail.smtp.passwordFile
+              != null) [ "SMTP_USER_PWD:${cfg.mail.smtp.passwordFile}" ];
           };
         };
       }

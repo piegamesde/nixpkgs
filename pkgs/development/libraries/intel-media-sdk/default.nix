@@ -25,9 +25,19 @@ stdenv.mkDerivation rec {
     hash = "sha256-XxwB5C1NBjq6cjlfzYmvudH6dlItFYSU9dd5DwH7tH0=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs =
-    [ libdrm libva libpciaccess libX11 libXau libXdmcp libpthreadstubs ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    libdrm
+    libva
+    libpciaccess
+    libX11
+    libXau
+    libXdmcp
+    libpthreadstubs
+  ];
   nativeCheckInputs = [ gtest ];
 
   cmakeFlags = [

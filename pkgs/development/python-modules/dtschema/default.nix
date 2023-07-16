@@ -33,7 +33,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ jsonschema rfc3987 ruamel-yaml libfdt ];
+  propagatedBuildInputs = [
+    jsonschema
+    rfc3987
+    ruamel-yaml
+    libfdt
+  ];
 
   # Module has no tests
   doCheck = false;

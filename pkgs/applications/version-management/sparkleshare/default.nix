@@ -33,9 +33,20 @@ stdenv.mkDerivation rec {
     sha256 = "1a9csflmj96iyr1l0mdm3ziv1bljfcjnzm9xb2y4qqk7ha2p6fbq";
   };
 
-  nativeBuildInputs = [ makeWrapper meson mono ninja pkg-config ];
+  nativeBuildInputs = [
+    makeWrapper
+    meson
+    mono
+    ninja
+    pkg-config
+  ];
 
-  buildInputs = [ appindicator-sharp gtk-sharp-3_0 notify-sharp webkit2-sharp ];
+  buildInputs = [
+    appindicator-sharp
+    gtk-sharp-3_0
+    notify-sharp
+    webkit2-sharp
+  ];
 
   patchPhase = ''
     # Nix will manage the icon cache.

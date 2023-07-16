@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-HQ8SUr4LSelXjRYZRMJixfk/H38zEYg/Qaj23mdAhV8=";
   };
 
-  propagatedBuildInputs = [ httpx zeep ];
+  propagatedBuildInputs = [
+    httpx
+    zeep
+  ];
 
   pythonImportsCheck = [ "onvif" ];
 

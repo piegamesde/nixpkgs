@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-MJimcnYKujOL3FedGreNpuw1Jpg48ataDmFd1qwTS5A=";
   };
 
-  nativeCheckInputs = [ lxml pytestCheckHook ];
+  nativeCheckInputs = [
+    lxml
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "et_xmlfile" ];
 

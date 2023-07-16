@@ -294,7 +294,10 @@ in {
         RestrictNamespaces = true;
         LockPersonality = true;
         RemoveIPC = true;
-        SystemCallFilter = [ "@system-service" "~@privileged" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+        ];
       };
     };
 
@@ -343,8 +346,14 @@ in {
         RestrictNamespaces = true;
         LockPersonality = true;
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
-        SystemCallFilter = [ "@system-service" "~@privileged" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+        ];
       };
     };
   };

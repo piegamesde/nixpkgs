@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-4Z8XfgRhQXawCvaXM+kyMO3fejvXIF2LgVdmfXDDqIA=";
   };
 
-  propagatedBuildInputs = [ requests requests-oauthlib ];
+  propagatedBuildInputs = [
+    requests
+    requests-oauthlib
+  ];
 
   # Tests are interacting with the Twitter API
   doCheck = false;

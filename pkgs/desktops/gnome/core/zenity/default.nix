@@ -25,10 +25,20 @@ stdenv.mkDerivation rec {
     sha256 = "N2GeCYAwgXj9vPaDItmaB7MzbBwLuY7ysyycsQkCI5k=";
   };
 
-  nativeBuildInputs =
-    [ meson ninja pkg-config gettext itstool libxml2 wrapGAppsHook4 ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gettext
+    itstool
+    libxml2
+    wrapGAppsHook4
+  ];
 
-  buildInputs = [ gtk4 libadwaita ];
+  buildInputs = [
+    gtk4
+    libadwaita
+  ];
 
   passthru = {
     updateScript = gnome.updateScript {

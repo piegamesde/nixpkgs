@@ -32,9 +32,18 @@ in stdenv.mkDerivation rec {
     sha256 = "05axh51lrzxpz2qfswnjwxpfk3mlsv2wc88dd12gfr1karn5jwz9";
   };
 
-  nativeBuildInputs = [ cmake pkg-config git doxygen help2man ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    git
+    doxygen
+    help2man
+  ];
   # ncurses used due to https://github.com/Nuand/bladeRF/blob/ab4fc672c8bab4f8be34e8917d3f241b1d52d0b8/host/utilities/bladeRF-cli/CMakeLists.txt#L208
-  buildInputs = [ tecla libusb1 ] ++ lib.optionals stdenv.isLinux [ udev ]
+  buildInputs = [
+    tecla
+    libusb1
+  ] ++ lib.optionals stdenv.isLinux [ udev ]
     ++ lib.optionals stdenv.isDarwin [ ncurses ];
 
   postUnpack = ''

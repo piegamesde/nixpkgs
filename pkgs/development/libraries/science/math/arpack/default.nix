@@ -39,9 +39,16 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake gfortran ];
+  nativeBuildInputs = [
+    cmake
+    gfortran
+  ];
   buildInputs = assert (blas.isILP64 == lapack.isILP64);
-    [ blas lapack eigen ] ++ lib.optional useMpi mpi;
+    [
+      blas
+      lapack
+      eigen
+    ] ++ lib.optional useMpi mpi;
 
   nativeCheckInputs = lib.optional useMpi openssh;
 
@@ -71,7 +78,10 @@ stdenv.mkDerivation rec {
       problems.
     '';
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ttuegel dotlambda ];
+    maintainers = with lib.maintainers; [
+      ttuegel
+      dotlambda
+    ];
     platforms = lib.platforms.unix;
   };
 }

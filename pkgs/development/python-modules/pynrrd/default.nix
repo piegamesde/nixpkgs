@@ -22,7 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-R/bUItF2BaKTFdMNBHFJKq0jSX6z49e8CGXENUn07SU=";
   };
 
-  propagatedBuildInputs = [ numpy nptyping typing-extensions ];
+  propagatedBuildInputs = [
+    numpy
+    nptyping
+    typing-extensions
+  ];
 
   pythonImportsCheck = [ "nrrd" ];
 

@@ -26,7 +26,11 @@ stdenv.mkDerivation rec {
     lib.optionals (!stdenv.hostPlatform.isx86) [ "--disable-sse" ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libpng zlib lcms2 ];
+  buildInputs = [
+    libpng
+    zlib
+    lcms2
+  ];
 
   doCheck = true;
 
@@ -37,7 +41,11 @@ stdenv.mkDerivation rec {
     changelog =
       "https://github.com/kornelski/pngquant/raw/${version}/CHANGELOG";
     platforms = platforms.unix;
-    license = with licenses; [ gpl3Plus hpnd bsd2 ];
+    license = with licenses; [
+      gpl3Plus
+      hpnd
+      bsd2
+    ];
     maintainers = [ maintainers.srapenne ];
   };
 }

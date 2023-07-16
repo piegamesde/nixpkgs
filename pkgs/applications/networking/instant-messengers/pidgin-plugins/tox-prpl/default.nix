@@ -23,7 +23,11 @@ stdenv.mkDerivation rec {
 
   postInstall = "mv $out/lib/purple-2 $out/lib/pidgin";
 
-  buildInputs = [ libtoxcore pidgin libsodium ];
+  buildInputs = [
+    libtoxcore
+    pidgin
+    libsodium
+  ];
   nativeBuildInputs = [ autoreconfHook ];
 
   meta = with lib; {

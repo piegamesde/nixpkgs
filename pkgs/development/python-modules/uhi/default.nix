@@ -18,7 +18,10 @@ buildPythonPackage rec {
     sha256 = "800caf3a5f1273b08bcc3bb4b49228fe003942e23423812b0110546aad9a24be";
   };
 
-  buildInputs = [ hatchling hatch-vcs ];
+  buildInputs = [
+    hatchling
+    hatch-vcs
+  ];
 
   propagatedBuildInputs = [ numpy ];
 

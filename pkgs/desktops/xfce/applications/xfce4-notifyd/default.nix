@@ -33,7 +33,10 @@ mkXfceDerivation {
 
   env.NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
 
-  configureFlags = [ "--enable-dbus-start-daemon" "--enable-sound" ];
+  configureFlags = [
+    "--enable-dbus-start-daemon"
+    "--enable-sound"
+  ];
 
   meta = with lib; {
     description = "Simple notification daemon for Xfce";

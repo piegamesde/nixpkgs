@@ -32,11 +32,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jCgdo7jE5QlRK5f2S6XEVM4+TPWI//4DKG/fDMFzgzg=";
   };
 
-  nativeBuildInputs = [ cmake bison flex ];
-
-  cmakeFlags = lib.optionals stdenv.isDarwin [
-    "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
+  nativeBuildInputs = [
+    cmake
+    bison
+    flex
   ];
+
+  cmakeFlags = lib.optionals
+    stdenv.isDarwin [ "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
+    ];
 
   buildInputs = [
     boost
@@ -60,6 +64,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/facebook/fbthrift";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ pierreis kylesferrazza ];
+    maintainers = with maintainers; [
+      pierreis
+      kylesferrazza
+    ];
   };
 }

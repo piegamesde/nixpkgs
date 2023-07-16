@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
 
   prePatch = "substituteInPlace ./Makefile --replace /usr $out";
 
-  buildInputs = [ libX11 xorgproto ];
+  buildInputs = [
+    libX11
+    xorgproto
+  ];
 
   meta = with lib; {
     description = "Tiny screen magnifier for X11";

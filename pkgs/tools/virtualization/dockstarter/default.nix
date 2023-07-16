@@ -27,7 +27,12 @@ stdenv.mkDerivation rec {
   installPhase = ''
     install -Dm755 main.sh $out/bin/ds
     wrapProgram $out/bin/ds --prefix PATH : ${
-      lib.makeBinPath [ bash coreutils git ncurses ]
+      lib.makeBinPath [
+        bash
+        coreutils
+        git
+        ncurses
+      ]
     }
   '';
 

@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
     sha256 = "1kiwx0kag7kq7rhg0bvckfm8r7pqmbk76ppa39cq2980jb5v8rfp";
   };
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libjack2 fftwFloat gtk2 ];
+  buildInputs = [
+    libjack2
+    fftwFloat
+    gtk2
+  ];
   configurePhase = ''
     sed -i 's/.*home.*/#&/' ./Makefile
     substituteInPlace ./Makefile \

@@ -35,7 +35,11 @@ buildGoModule rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  ldflags = [ "-s" "-w" "-X main.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.Version=${version}"
+  ];
 
   __darwinAllowLocalNetworking = true;
 
@@ -45,6 +49,9 @@ buildGoModule rec {
     description =
       "Fast, simple, scalable, Docker-ready HTTP microservice for high-level image processing";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda urandom ];
+    maintainers = with maintainers; [
+      dotlambda
+      urandom
+    ];
   };
 }

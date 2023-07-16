@@ -20,8 +20,18 @@ stdenv.mkDerivation rec {
       "http://ftp.gnome.org/pub/GNOME/sources/pinpoint/0.1/${pname}-${version}.tar.xz";
     sha256 = "1jp8chr9vjlpb5lybwp5cg6g90ak5jdzz9baiqkbg0anlg8ps82s";
   };
-  nativeBuildInputs = [ pkg-config autoconf automake ];
-  buildInputs = [ clutter clutter-gst gdk-pixbuf cairo clutter-gtk ];
+  nativeBuildInputs = [
+    pkg-config
+    autoconf
+    automake
+  ];
+  buildInputs = [
+    clutter
+    clutter-gst
+    gdk-pixbuf
+    cairo
+    clutter-gtk
+  ];
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/action/show/Apps/Pinpoint";

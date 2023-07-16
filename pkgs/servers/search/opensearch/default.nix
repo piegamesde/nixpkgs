@@ -24,7 +24,10 @@ stdenvNoCC.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre_headless util-linux ];
+  buildInputs = [
+    jre_headless
+    util-linux
+  ];
   patches = [ ./opensearch-home-fix.patch ];
 
   installPhase = ''
@@ -37,7 +40,13 @@ stdenvNoCC.mkDerivation rec {
       --replace 'bin/opensearch-keystore' "$out/bin/opensearch-keystore"
 
     wrapProgram $out/bin/opensearch \
-      --prefix PATH : "${lib.makeBinPath [ util-linux gnugrep coreutils ]}" \
+      --prefix PATH : "${
+        lib.makeBinPath [
+          util-linux
+          gnugrep
+          coreutils
+        ]
+      }" \
       --prefix LD_LIBRARY_PATH : "${
         lib.makeLibraryPath [ stdenv.cc.cc.lib ]
       }:$out/plugins/opensearch-knn/lib/" \

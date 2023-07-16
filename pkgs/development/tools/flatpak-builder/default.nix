@@ -54,7 +54,12 @@ in stdenv.mkDerivation rec {
   pname = "flatpak-builder";
   version = "1.2.3";
 
-  outputs = [ "out" "doc" "man" "installedTests" ];
+  outputs = [
+    "out"
+    "doc"
+    "man"
+    "installedTests"
+  ];
 
   src = fetchurl {
     url =
@@ -120,7 +125,10 @@ in stdenv.mkDerivation rec {
     ostree
   ];
 
-  configureFlags = [ "--enable-installed-tests" "--with-system-debugedit" ];
+  configureFlags = [
+    "--enable-installed-tests"
+    "--with-system-debugedit"
+  ];
 
   makeFlags = [
     "installed_testdir=${installed_testdir}"

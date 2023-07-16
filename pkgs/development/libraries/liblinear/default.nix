@@ -21,9 +21,17 @@ in stdenv.mkDerivation rec {
     "RANLIB=${stdenv.cc.targetPrefix}ranlib"
   ];
 
-  outputs = [ "bin" "dev" "out" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+  ];
 
-  buildFlags = [ "lib" "predict" "train" ];
+  buildFlags = [
+    "lib"
+    "predict"
+    "train"
+  ];
 
   installPhase = ''
     ${if stdenv.isDarwin then ''

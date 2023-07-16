@@ -21,7 +21,11 @@ stdenvNoCC.mkDerivation (finalAttrs:
     pname = "dxvk";
     inherit (dxvk64) version;
 
-    outputs = [ "out" "bin" "lib" ];
+    outputs = [
+      "out"
+      "bin"
+      "lib"
+    ];
 
     dontUnpack = true;
     dontConfigure = true;
@@ -49,6 +53,10 @@ stdenvNoCC.mkDerivation (finalAttrs:
       changelog = "https://github.com/doitsujin/dxvk/releases";
       maintainers = [ lib.maintainers.reckenrode ];
       license = lib.licenses.zlib;
-      platforms = [ "x86_64-darwin" "i686-linux" "x86_64-linux" ];
+      platforms = [
+        "x86_64-darwin"
+        "i686-linux"
+        "x86_64-linux"
+      ];
     };
   })

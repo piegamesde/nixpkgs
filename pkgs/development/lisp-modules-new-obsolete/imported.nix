@@ -71,7 +71,10 @@ in {
       asd = "2d-array-test";
     });
     systems = [ "2d-array-test" ];
-    lispLibs = [ (getAttr "_2d-array" pkgs) (getAttr "scrutiny" pkgs) ];
+    lispLibs = [
+      (getAttr "_2d-array" pkgs)
+      (getAttr "scrutiny" pkgs)
+    ];
   };
   _3b-bmfont = {
     pname = "3b-bmfont";
@@ -85,7 +88,10 @@ in {
       asd = "3b-bmfont";
     });
     systems = [ "3b-bmfont" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "split-sequence" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "split-sequence" pkgs)
+    ];
   };
   _3b-bmfont_slash_common = {
     pname = "3b-bmfont_common";
@@ -99,7 +105,10 @@ in {
       asd = "3b-bmfont";
     });
     systems = [ "3b-bmfont/common" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "split-sequence" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "split-sequence" pkgs)
+    ];
     meta = { broken = true; };
   };
   _3b-bmfont_slash_json = {
@@ -133,7 +142,10 @@ in {
       asd = "3b-bmfont";
     });
     systems = [ "3b-bmfont/text" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "split-sequence" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "split-sequence" pkgs)
+    ];
     meta = { broken = true; };
   };
   _3b-bmfont_slash_xml = {
@@ -230,8 +242,11 @@ in {
       asd = "3b-swf-swc";
     });
     systems = [ "3b-swf-swc" ];
-    lispLibs =
-      [ (getAttr "_3b-swf" pkgs) (getAttr "cxml" pkgs) (getAttr "zip" pkgs) ];
+    lispLibs = [
+      (getAttr "_3b-swf" pkgs)
+      (getAttr "cxml" pkgs)
+      (getAttr "zip" pkgs)
+    ];
   };
   _3bgl-shader = {
     pname = "3bgl-shader";
@@ -337,7 +352,10 @@ in {
       asd = "3bmd-ext-math";
     });
     systems = [ "3bmd-ext-math" ];
-    lispLibs = [ (getAttr "_3bmd" pkgs) (getAttr "esrap" pkgs) ];
+    lispLibs = [
+      (getAttr "_3bmd" pkgs)
+      (getAttr "esrap" pkgs)
+    ];
   };
   _3bmd-ext-tables = {
     pname = "3bmd-ext-tables";
@@ -379,7 +397,10 @@ in {
       asd = "3bmd-youtube";
     });
     systems = [ "3bmd-youtube" ];
-    lispLibs = [ (getAttr "_3bmd" pkgs) (getAttr "esrap" pkgs) ];
+    lispLibs = [
+      (getAttr "_3bmd" pkgs)
+      (getAttr "esrap" pkgs)
+    ];
   };
   _3bmd-youtube-tests = {
     pname = "3bmd-youtube-tests";
@@ -393,7 +414,10 @@ in {
       asd = "3bmd-youtube-tests";
     });
     systems = [ "3bmd-youtube-tests" ];
-    lispLibs = [ (getAttr "_3bmd-youtube" pkgs) (getAttr "fiasco" pkgs) ];
+    lispLibs = [
+      (getAttr "_3bmd-youtube" pkgs)
+      (getAttr "fiasco" pkgs)
+    ];
   };
   _3bz = {
     pname = "3bz";
@@ -428,8 +452,10 @@ in {
       asd = "3d-matrices";
     });
     systems = [ "3d-matrices" ];
-    lispLibs =
-      [ (getAttr "_3d-vectors" pkgs) (getAttr "documentation-utils" pkgs) ];
+    lispLibs = [
+      (getAttr "_3d-vectors" pkgs)
+      (getAttr "documentation-utils" pkgs)
+    ];
   };
   _3d-matrices-test = {
     pname = "3d-matrices-test";
@@ -443,7 +469,10 @@ in {
       asd = "3d-matrices-test";
     });
     systems = [ "3d-matrices-test" ];
-    lispLibs = [ (getAttr "_3d-matrices" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "_3d-matrices" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
   };
   _3d-quaternions = {
     pname = "3d-quaternions";
@@ -475,7 +504,10 @@ in {
       asd = "3d-quaternions-test";
     });
     systems = [ "3d-quaternions-test" ];
-    lispLibs = [ (getAttr "_3d-quaternions" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "_3d-quaternions" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
   };
   _3d-transforms = {
     pname = "3d-transforms";
@@ -508,7 +540,10 @@ in {
       asd = "3d-transforms-test";
     });
     systems = [ "3d-transforms-test" ];
-    lispLibs = [ (getAttr "_3d-transforms" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "_3d-transforms" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
   };
   _3d-vectors = {
     pname = "3d-vectors";
@@ -536,7 +571,10 @@ in {
       asd = "3d-vectors-test";
     });
     systems = [ "3d-vectors-test" ];
-    lispLibs = [ (getAttr "_3d-vectors" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "_3d-vectors" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
   };
   _40ants-asdf-system = {
     pname = "40ants-asdf-system";
@@ -550,7 +588,10 @@ in {
       asd = "40ants-asdf-system";
     });
     systems = [ "40ants-asdf-system" ];
-    lispLibs = [ (getAttr "_40ants-doc" pkgs) (getAttr "uiop" pkgs) ];
+    lispLibs = [
+      (getAttr "_40ants-doc" pkgs)
+      (getAttr "uiop" pkgs)
+    ];
   };
   _40ants-ci = {
     pname = "40ants-ci";
@@ -584,7 +625,10 @@ in {
       asd = "40ants-ci-test";
     });
     systems = [ "40ants-ci-test" ];
-    lispLibs = [ (getAttr "hamcrest" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "hamcrest" pkgs)
+      (getAttr "rove" pkgs)
+    ];
   };
   _40ants-doc = {
     pname = "40ants-doc";
@@ -704,7 +748,10 @@ in {
       asd = "a-cl-logger";
     });
     systems = [ "a-cl-logger-tests" ];
-    lispLibs = [ (getAttr "a-cl-logger" pkgs) (getAttr "lisp-unit2" pkgs) ];
+    lispLibs = [
+      (getAttr "a-cl-logger" pkgs)
+      (getAttr "lisp-unit2" pkgs)
+    ];
   };
   aabbcc = {
     pname = "aabbcc";
@@ -718,7 +765,10 @@ in {
       asd = "aabbcc";
     });
     systems = [ "aabbcc" ];
-    lispLibs = [ (getAttr "quads" pkgs) (getAttr "utility" pkgs) ];
+    lispLibs = [
+      (getAttr "quads" pkgs)
+      (getAttr "utility" pkgs)
+    ];
   };
   able = {
     pname = "able";
@@ -750,7 +800,10 @@ in {
       asd = "abnf";
     });
     systems = [ "abnf" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "esrap" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "esrap" pkgs)
+    ];
   };
   abstract-arrays = {
     pname = "abstract-arrays";
@@ -817,7 +870,10 @@ in {
       asd = "access";
     });
     systems = [ "access/test" ];
-    lispLibs = [ (getAttr "access" pkgs) (getAttr "lisp-unit2" pkgs) ];
+    lispLibs = [
+      (getAttr "access" pkgs)
+      (getAttr "lisp-unit2" pkgs)
+    ];
     meta = { broken = true; };
   };
   acclimation = {
@@ -879,8 +935,10 @@ in {
       asd = "acm-random";
     });
     systems = [ "acm-random" ];
-    lispLibs =
-      [ (getAttr "com_dot_google_dot_base" pkgs) (getAttr "random" pkgs) ];
+    lispLibs = [
+      (getAttr "com_dot_google_dot_base" pkgs)
+      (getAttr "random" pkgs)
+    ];
   };
   acm-random-test = {
     pname = "acm-random-test";
@@ -894,8 +952,10 @@ in {
       asd = "acm-random-test";
     });
     systems = [ "acm-random-test" ];
-    lispLibs =
-      [ (getAttr "hu_dot_dwim_dot_stefil" pkgs) (getAttr "acm-random" pkgs) ];
+    lispLibs = [
+      (getAttr "hu_dot_dwim_dot_stefil" pkgs)
+      (getAttr "acm-random" pkgs)
+    ];
   };
   action-list = {
     pname = "action-list";
@@ -940,7 +1000,10 @@ in {
       asd = "adhoc-tests";
     });
     systems = [ "adhoc-tests" ];
-    lispLibs = [ (getAttr "adhoc" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "adhoc" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   adjuvant = {
     pname = "adjuvant";
@@ -968,7 +1031,10 @@ in {
       asd = "adjuvant-test";
     });
     systems = [ "adjuvant-test" ];
-    lispLibs = [ (getAttr "adjuvant" pkgs) (getAttr "scrutiny" pkgs) ];
+    lispLibs = [
+      (getAttr "adjuvant" pkgs)
+      (getAttr "scrutiny" pkgs)
+    ];
   };
   adopt = {
     pname = "adopt";
@@ -982,7 +1048,10 @@ in {
       asd = "adopt";
     });
     systems = [ "adopt" ];
-    lispLibs = [ (getAttr "bobbin" pkgs) (getAttr "split-sequence" pkgs) ];
+    lispLibs = [
+      (getAttr "bobbin" pkgs)
+      (getAttr "split-sequence" pkgs)
+    ];
   };
   adopt-subcommands = {
     pname = "adopt-subcommands";
@@ -1015,7 +1084,10 @@ in {
       asd = "adopt-subcommands-test";
     });
     systems = [ "adopt-subcommands-test" ];
-    lispLibs = [ (getAttr "adopt-subcommands" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "adopt-subcommands" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   adopt_slash_test = {
     pname = "adopt_test";
@@ -1029,7 +1101,10 @@ in {
       asd = "adopt";
     });
     systems = [ "adopt/test" ];
-    lispLibs = [ (getAttr "_1am" pkgs) (getAttr "adopt" pkgs) ];
+    lispLibs = [
+      (getAttr "_1am" pkgs)
+      (getAttr "adopt" pkgs)
+    ];
     meta = { broken = true; };
   };
   adp = {
@@ -1044,7 +1119,10 @@ in {
       asd = "adp";
     });
     systems = [ "adp" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "hyperspec" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "hyperspec" pkgs)
+    ];
   };
   adp_slash_doc = {
     pname = "adp_doc";
@@ -1058,7 +1136,10 @@ in {
       asd = "adp";
     });
     systems = [ "adp/doc" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "hyperspec" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "hyperspec" pkgs)
+    ];
     meta = { broken = true; };
   };
   adp_slash_github-md = {
@@ -1135,8 +1216,11 @@ in {
       asd = "aether-tests";
     });
     systems = [ "aether-tests" ];
-    lispLibs =
-      [ (getAttr "aether" pkgs) (getAttr "fiasco" pkgs) (getAttr "uiop" pkgs) ];
+    lispLibs = [
+      (getAttr "aether" pkgs)
+      (getAttr "fiasco" pkgs)
+      (getAttr "uiop" pkgs)
+    ];
   };
   agnostic-lizard = {
     pname = "agnostic-lizard";
@@ -1164,8 +1248,10 @@ in {
       asd = "agnostic-lizard-debugger-prototype";
     });
     systems = [ "agnostic-lizard-debugger-prototype" ];
-    lispLibs =
-      [ (getAttr "agnostic-lizard" pkgs) (getAttr "bordeaux-threads" pkgs) ];
+    lispLibs = [
+      (getAttr "agnostic-lizard" pkgs)
+      (getAttr "bordeaux-threads" pkgs)
+    ];
   };
   agutil = {
     pname = "agutil";
@@ -1179,7 +1265,10 @@ in {
       asd = "agutil";
     });
     systems = [ "agutil" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "optima" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "optima" pkgs)
+    ];
   };
   ahungry-fleece = {
     pname = "ahungry-fleece";
@@ -1214,7 +1303,10 @@ in {
       asd = "alexa";
     });
     systems = [ "alexa" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cl-ppcre" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cl-ppcre" pkgs)
+    ];
   };
   alexa-tests = {
     pname = "alexa-tests";
@@ -1228,8 +1320,11 @@ in {
       asd = "alexa-tests";
     });
     systems = [ "alexa-tests" ];
-    lispLibs =
-      [ (getAttr "alexa" pkgs) (getAttr "fiasco" pkgs) (getAttr "uiop" pkgs) ];
+    lispLibs = [
+      (getAttr "alexa" pkgs)
+      (getAttr "fiasco" pkgs)
+      (getAttr "uiop" pkgs)
+    ];
   };
   alexandria = {
     pname = "alexandria";
@@ -1271,7 +1366,10 @@ in {
       asd = "alexandria+";
     });
     systems = [ "alexandria+/tests" ];
-    lispLibs = [ (getAttr "alexandria_plus" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria_plus" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
     meta = { broken = true; };
   };
   alexandria_slash_tests = {
@@ -1368,7 +1466,10 @@ in {
       asd = "amb";
     });
     systems = [ "amb/test" ];
-    lispLibs = [ (getAttr "amb" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "amb" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
     meta = { broken = true; };
   };
   anaphora = {
@@ -1397,7 +1498,10 @@ in {
       asd = "anaphora";
     });
     systems = [ "anaphora/test" ];
-    lispLibs = [ (getAttr "anaphora" pkgs) (getAttr "rt" pkgs) ];
+    lispLibs = [
+      (getAttr "anaphora" pkgs)
+      (getAttr "rt" pkgs)
+    ];
     meta = { broken = true; };
   };
   anaphoric-variants = {
@@ -1426,7 +1530,10 @@ in {
       asd = "anatevka";
     });
     systems = [ "anatevka" ];
-    lispLibs = [ (getAttr "aether" pkgs) (getAttr "alexandria" pkgs) ];
+    lispLibs = [
+      (getAttr "aether" pkgs)
+      (getAttr "alexandria" pkgs)
+    ];
   };
   anatevka-tests = {
     pname = "anatevka-tests";
@@ -1487,7 +1594,10 @@ in {
       asd = "antik";
     });
     systems = [ "antik" ];
-    lispLibs = [ (getAttr "physical-dimension" pkgs) (getAttr "gsll" pkgs) ];
+    lispLibs = [
+      (getAttr "physical-dimension" pkgs)
+      (getAttr "gsll" pkgs)
+    ];
   };
   antik-base = {
     pname = "antik-base";
@@ -1523,8 +1633,10 @@ in {
       asd = "anypool";
     });
     systems = [ "anypool" ];
-    lispLibs =
-      [ (getAttr "bordeaux-threads" pkgs) (getAttr "cl-speedy-queue" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "cl-speedy-queue" pkgs)
+    ];
   };
   anypool_slash_middleware = {
     pname = "anypool_middleware";
@@ -1553,7 +1665,10 @@ in {
       asd = "anypool";
     });
     systems = [ "anypool/tests" ];
-    lispLibs = [ (getAttr "anypool" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "anypool" pkgs)
+      (getAttr "rove" pkgs)
+    ];
     meta = { broken = true; };
   };
   aplesque = {
@@ -1625,7 +1740,10 @@ in {
       asd = "apply-argv";
     });
     systems = [ "apply-argv-tests" ];
-    lispLibs = [ (getAttr "apply-argv" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "apply-argv" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   april = {
     pname = "april";
@@ -1667,7 +1785,10 @@ in {
       asd = "april-demo.cnn";
     });
     systems = [ "april-demo.cnn" ];
-    lispLibs = [ (getAttr "april" pkgs) (getAttr "lisp-binary" pkgs) ];
+    lispLibs = [
+      (getAttr "april" pkgs)
+      (getAttr "lisp-binary" pkgs)
+    ];
   };
   april-demo_dot_ncurses = {
     pname = "april-demo.ncurses";
@@ -1713,8 +1834,10 @@ in {
       asd = "april-lib.dfns.graph";
     });
     systems = [ "april-lib.dfns.graph" ];
-    lispLibs =
-      [ (getAttr "april" pkgs) (getAttr "april-lib_dot_dfns_dot_array" pkgs) ];
+    lispLibs = [
+      (getAttr "april" pkgs)
+      (getAttr "april-lib_dot_dfns_dot_array" pkgs)
+    ];
   };
   april-lib_dot_dfns_dot_numeric = {
     pname = "april-lib.dfns.numeric";
@@ -1742,8 +1865,10 @@ in {
       asd = "april-lib.dfns.power";
     });
     systems = [ "april-lib.dfns.power" ];
-    lispLibs =
-      [ (getAttr "april" pkgs) (getAttr "april-lib_dot_dfns_dot_array" pkgs) ];
+    lispLibs = [
+      (getAttr "april" pkgs)
+      (getAttr "april-lib_dot_dfns_dot_array" pkgs)
+    ];
   };
   april-lib_dot_dfns_dot_string = {
     pname = "april-lib.dfns.string";
@@ -1757,8 +1882,10 @@ in {
       asd = "april-lib.dfns.string";
     });
     systems = [ "april-lib.dfns.string" ];
-    lispLibs =
-      [ (getAttr "april" pkgs) (getAttr "april-lib_dot_dfns_dot_array" pkgs) ];
+    lispLibs = [
+      (getAttr "april" pkgs)
+      (getAttr "april-lib_dot_dfns_dot_array" pkgs)
+    ];
   };
   april-lib_dot_dfns_dot_tree = {
     pname = "april-lib.dfns.tree";
@@ -2090,8 +2217,10 @@ in {
       asd = "archive";
     });
     systems = [ "archive" ];
-    lispLibs =
-      [ (getAttr "cl-fad" pkgs) (getAttr "trivial-gray-streams" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-fad" pkgs)
+      (getAttr "trivial-gray-streams" pkgs)
+    ];
   };
   arith = {
     pname = "arith";
@@ -2151,7 +2280,10 @@ in {
       asd = "arnesi";
     });
     systems = [ "arnesi/cl-ppcre-extras" ];
-    lispLibs = [ (getAttr "arnesi" pkgs) (getAttr "cl-ppcre" pkgs) ];
+    lispLibs = [
+      (getAttr "arnesi" pkgs)
+      (getAttr "cl-ppcre" pkgs)
+    ];
     meta = { broken = true; };
   };
   arnesi_slash_slime-extras = {
@@ -2166,7 +2298,10 @@ in {
       asd = "arnesi";
     });
     systems = [ "arnesi/slime-extras" ];
-    lispLibs = [ (getAttr "arnesi" pkgs) (getAttr "swank" pkgs) ];
+    lispLibs = [
+      (getAttr "arnesi" pkgs)
+      (getAttr "swank" pkgs)
+    ];
     meta = { broken = true; };
   };
   array-operations = {
@@ -2181,7 +2316,10 @@ in {
       asd = "array-operations";
     });
     systems = [ "array-operations" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "let-plus" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "let-plus" pkgs)
+    ];
   };
   array-operations_slash_tests = {
     pname = "array-operations_tests";
@@ -2228,7 +2366,10 @@ in {
       asd = "array-utils-test";
     });
     systems = [ "array-utils-test" ];
-    lispLibs = [ (getAttr "array-utils" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "array-utils" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
   };
   arrival = {
     pname = "arrival";
@@ -2276,7 +2417,10 @@ in {
       asd = "arrow-macros-test";
     });
     systems = [ "arrow-macros-test" ];
-    lispLibs = [ (getAttr "arrow-macros" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "arrow-macros" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   arrows = {
     pname = "arrows";
@@ -2304,8 +2448,10 @@ in {
       asd = "arrows";
     });
     systems = [ "arrows/test" ];
-    lispLibs =
-      [ (getAttr "arrows" pkgs) (getAttr "hu_dot_dwim_dot_stefil" pkgs) ];
+    lispLibs = [
+      (getAttr "arrows" pkgs)
+      (getAttr "hu_dot_dwim_dot_stefil" pkgs)
+    ];
     meta = { broken = true; };
   };
   ascii-strings = {
@@ -2320,7 +2466,10 @@ in {
       asd = "ascii-strings";
     });
     systems = [ "ascii-strings" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "babel" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "babel" pkgs)
+    ];
   };
   asd-generator = {
     pname = "asd-generator";
@@ -2458,7 +2607,10 @@ in {
       asd = "asdf-linguist";
     });
     systems = [ "asdf-linguist" ];
-    lispLibs = [ (getAttr "inferior-shell" pkgs) (getAttr "parenscript" pkgs) ];
+    lispLibs = [
+      (getAttr "inferior-shell" pkgs)
+      (getAttr "parenscript" pkgs)
+    ];
   };
   asdf-manager = {
     pname = "asdf-manager";
@@ -2490,7 +2642,10 @@ in {
       asd = "asdf-manager-test";
     });
     systems = [ "asdf-manager-test" ];
-    lispLibs = [ (getAttr "asdf-manager" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "asdf-manager" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   asdf-nst = {
     pname = "asdf-nst";
@@ -2566,7 +2721,10 @@ in {
       asd = "aserve";
     });
     systems = [ "aserve" ];
-    lispLibs = [ (getAttr "acl-compat" pkgs) (getAttr "htmlgen" pkgs) ];
+    lispLibs = [
+      (getAttr "acl-compat" pkgs)
+      (getAttr "htmlgen" pkgs)
+    ];
   };
   asn1 = {
     pname = "asn1";
@@ -2613,8 +2771,10 @@ in {
       asd = "assert-p";
     });
     systems = [ "assert-p" ];
-    lispLibs =
-      [ (getAttr "assertion-error" pkgs) (getAttr "simplet-asdf" pkgs) ];
+    lispLibs = [
+      (getAttr "assertion-error" pkgs)
+      (getAttr "simplet-asdf" pkgs)
+    ];
   };
   assert-p_slash_test = {
     pname = "assert-p_test";
@@ -2726,7 +2886,10 @@ in {
       asd = "astonish";
     });
     systems = [ "astonish" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "uiop" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "uiop" pkgs)
+    ];
   };
   astonish_slash_tests = {
     pname = "astonish_tests";
@@ -2740,7 +2903,10 @@ in {
       asd = "astonish";
     });
     systems = [ "astonish/tests" ];
-    lispLibs = [ (getAttr "astonish" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "astonish" pkgs)
+      (getAttr "rove" pkgs)
+    ];
     meta = { broken = true; };
   };
   async-process = {
@@ -2804,7 +2970,10 @@ in {
       asd = "atomics-test";
     });
     systems = [ "atomics-test" ];
-    lispLibs = [ (getAttr "atomics" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "atomics" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
   };
   audio-tag = {
     pname = "audio-tag";
@@ -2818,7 +2987,10 @@ in {
       asd = "audio-tag";
     });
     systems = [ "audio-tag" ];
-    lispLibs = [ (getAttr "flexi-streams" pkgs) (getAttr "osicat" pkgs) ];
+    lispLibs = [
+      (getAttr "flexi-streams" pkgs)
+      (getAttr "osicat" pkgs)
+    ];
   };
   audio-tag_slash_tests = {
     pname = "audio-tag_tests";
@@ -2832,7 +3004,10 @@ in {
       asd = "audio-tag";
     });
     systems = [ "audio-tag/tests" ];
-    lispLibs = [ (getAttr "audio-tag" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "audio-tag" pkgs)
+      (getAttr "rove" pkgs)
+    ];
     meta = { broken = true; };
   };
   authenticated-encryption = {
@@ -2861,8 +3036,10 @@ in {
       asd = "authenticated-encryption-test";
     });
     systems = [ "authenticated-encryption-test" ];
-    lispLibs =
-      [ (getAttr "_1am" pkgs) (getAttr "authenticated-encryption" pkgs) ];
+    lispLibs = [
+      (getAttr "_1am" pkgs)
+      (getAttr "authenticated-encryption" pkgs)
+    ];
   };
   auto-restart = {
     pname = "auto-restart";
@@ -2890,7 +3067,10 @@ in {
       asd = "auto-restart";
     });
     systems = [ "auto-restart/tests" ];
-    lispLibs = [ (getAttr "auto-restart" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "auto-restart" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   autoexport = {
@@ -2905,7 +3085,10 @@ in {
       asd = "autoexport";
     });
     systems = [ "autoexport" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "closer-mop" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "closer-mop" pkgs)
+    ];
   };
   automaton = {
     pname = "automaton";
@@ -2951,7 +3134,10 @@ in {
       asd = "avatar-api-test";
     });
     systems = [ "avatar-api-test" ];
-    lispLibs = [ (getAttr "avatar-api" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "avatar-api" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   avl-tree = {
     pname = "avl-tree";
@@ -3021,7 +3207,10 @@ in {
       asd = "aws-sign4";
     });
     systems = [ "aws-sign4-example" ];
-    lispLibs = [ (getAttr "aws-sign4" pkgs) (getAttr "drakma" pkgs) ];
+    lispLibs = [
+      (getAttr "aws-sign4" pkgs)
+      (getAttr "drakma" pkgs)
+    ];
   };
   aws-sign4-tests = {
     pname = "aws-sign4-tests";
@@ -3049,7 +3238,10 @@ in {
       asd = "ayah-captcha";
     });
     systems = [ "ayah-captcha" ];
-    lispLibs = [ (getAttr "cl-json" pkgs) (getAttr "drakma" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-json" pkgs)
+      (getAttr "drakma" pkgs)
+    ];
   };
   ayah-captcha-demo = {
     pname = "ayah-captcha-demo";
@@ -3081,8 +3273,10 @@ in {
       asd = "babel";
     });
     systems = [ "babel" ];
-    lispLibs =
-      [ (getAttr "alexandria" pkgs) (getAttr "trivial-features" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "trivial-features" pkgs)
+    ];
   };
   babel-streams = {
     pname = "babel-streams";
@@ -3114,8 +3308,10 @@ in {
       asd = "babel-tests";
     });
     systems = [ "babel-tests" ];
-    lispLibs =
-      [ (getAttr "babel" pkgs) (getAttr "hu_dot_dwim_dot_stefil" pkgs) ];
+    lispLibs = [
+      (getAttr "babel" pkgs)
+      (getAttr "hu_dot_dwim_dot_stefil" pkgs)
+    ];
   };
   base = {
     pname = "base";
@@ -3226,7 +3422,10 @@ in {
       asd = "bdef";
     });
     systems = [ "bdef/cl-collider" ];
-    lispLibs = [ (getAttr "bdef" pkgs) (getAttr "cl-collider" pkgs) ];
+    lispLibs = [
+      (getAttr "bdef" pkgs)
+      (getAttr "cl-collider" pkgs)
+    ];
     meta = { broken = true; };
   };
   bdef_slash_cl-patterns = {
@@ -3241,7 +3440,10 @@ in {
       asd = "bdef";
     });
     systems = [ "bdef/cl-patterns" ];
-    lispLibs = [ (getAttr "bdef" pkgs) (getAttr "cl-patterns" pkgs) ];
+    lispLibs = [
+      (getAttr "bdef" pkgs)
+      (getAttr "cl-patterns" pkgs)
+    ];
     meta = { broken = true; };
   };
   bdef_slash_tests = {
@@ -3290,7 +3492,10 @@ in {
       asd = "beast";
     });
     systems = [ "beast/test" ];
-    lispLibs = [ (getAttr "_1am" pkgs) (getAttr "beast" pkgs) ];
+    lispLibs = [
+      (getAttr "_1am" pkgs)
+      (getAttr "beast" pkgs)
+    ];
     meta = { broken = true; };
   };
   beirc = {
@@ -3371,7 +3576,10 @@ in {
       asd = "bert";
     });
     systems = [ "bert" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "erlang-term" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "erlang-term" pkgs)
+    ];
   };
   bibtex = {
     pname = "bibtex";
@@ -3477,7 +3685,10 @@ in {
       asd = "bike-tests";
     });
     systems = [ "bike-tests" ];
-    lispLibs = [ (getAttr "bike" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "bike" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   binary-io = {
     pname = "binary-io";
@@ -3491,7 +3702,10 @@ in {
       asd = "binary-io";
     });
     systems = [ "binary-io" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "ieee-floats" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "ieee-floats" pkgs)
+    ];
   };
   binary-io_slash_test = {
     pname = "binary-io_test";
@@ -3505,7 +3719,10 @@ in {
       asd = "binary-io";
     });
     systems = [ "binary-io/test" ];
-    lispLibs = [ (getAttr "_1am" pkgs) (getAttr "binary-io" pkgs) ];
+    lispLibs = [
+      (getAttr "_1am" pkgs)
+      (getAttr "binary-io" pkgs)
+    ];
     meta = { broken = true; };
   };
   binary-lass = {
@@ -3655,7 +3872,10 @@ in {
       asd = "binfix";
     });
     systems = [ "binfix/5am" ];
-    lispLibs = [ (getAttr "binfix" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "binfix" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   binomial-heap = {
@@ -3698,7 +3918,10 @@ in {
       asd = "binpack-test";
     });
     systems = [ "binpack-test" ];
-    lispLibs = [ (getAttr "binpack" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "binpack" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
   };
   binpack-test_slash_2 = {
     pname = "binpack-test_2";
@@ -3712,7 +3935,10 @@ in {
       asd = "binpack-test";
     });
     systems = [ "binpack-test/2" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
     meta = { broken = true; };
   };
   binpack-test_slash_common = {
@@ -3727,7 +3953,10 @@ in {
       asd = "binpack-test";
     });
     systems = [ "binpack-test/common" ];
-    lispLibs = [ (getAttr "binpack" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "binpack" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
     meta = { broken = true; };
   };
   binpack_slash_2 = {
@@ -3815,7 +4044,10 @@ in {
       asd = "bit-ops.test";
     });
     systems = [ "bit-ops.test" ];
-    lispLibs = [ (getAttr "bit-ops" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "bit-ops" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   bit-smasher = {
     pname = "bit-smasher";
@@ -3829,7 +4061,10 @@ in {
       asd = "bit-smasher";
     });
     systems = [ "bit-smasher" ];
-    lispLibs = [ (getAttr "cl-base58" pkgs) (getAttr "cl-base64" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-base58" pkgs)
+      (getAttr "cl-base64" pkgs)
+    ];
   };
   bit-smasher-test = {
     pname = "bit-smasher-test";
@@ -4048,8 +4283,10 @@ in {
       asd = "bknr.skip-list";
     });
     systems = [ "bknr.skip-list.test" ];
-    lispLibs =
-      [ (getAttr "bknr_dot_skip-list" pkgs) (getAttr "unit-test" pkgs) ];
+    lispLibs = [
+      (getAttr "bknr_dot_skip-list" pkgs)
+      (getAttr "unit-test" pkgs)
+    ];
   };
   bknr_dot_utils = {
     pname = "bknr.utils";
@@ -4117,7 +4354,10 @@ in {
       asd = "bknr.xml";
     });
     systems = [ "bknr.xml" ];
-    lispLibs = [ (getAttr "cl-interpol" pkgs) (getAttr "cxml" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-interpol" pkgs)
+      (getAttr "cxml" pkgs)
+    ];
   };
   black-tie = {
     pname = "black-tie";
@@ -4195,7 +4435,10 @@ in {
       asd = "blas-complex";
     });
     systems = [ "blas-complex" ];
-    lispLibs = [ (getAttr "blas-real" pkgs) (getAttr "f2cl" pkgs) ];
+    lispLibs = [
+      (getAttr "blas-real" pkgs)
+      (getAttr "f2cl" pkgs)
+    ];
   };
   blas-hompack = {
     pname = "blas-hompack";
@@ -4209,7 +4452,10 @@ in {
       asd = "blas-hompack";
     });
     systems = [ "blas-hompack" ];
-    lispLibs = [ (getAttr "blas-package" pkgs) (getAttr "f2cl" pkgs) ];
+    lispLibs = [
+      (getAttr "blas-package" pkgs)
+      (getAttr "f2cl" pkgs)
+    ];
   };
   blas-package = {
     pname = "blas-package";
@@ -4237,7 +4483,10 @@ in {
       asd = "blas-real";
     });
     systems = [ "blas-real" ];
-    lispLibs = [ (getAttr "blas-hompack" pkgs) (getAttr "f2cl" pkgs) ];
+    lispLibs = [
+      (getAttr "blas-hompack" pkgs)
+      (getAttr "f2cl" pkgs)
+    ];
   };
   blocks-world = {
     pname = "blocks-world";
@@ -4297,7 +4546,10 @@ in {
       asd = "bnf";
     });
     systems = [ "bnf" ];
-    lispLibs = [ (getAttr "trestrul" pkgs) (getAttr "uiop" pkgs) ];
+    lispLibs = [
+      (getAttr "trestrul" pkgs)
+      (getAttr "uiop" pkgs)
+    ];
   };
   bnf_dot_test = {
     pname = "bnf.test";
@@ -4311,7 +4563,10 @@ in {
       asd = "bnf.test";
     });
     systems = [ "bnf.test" ];
-    lispLibs = [ (getAttr "bnf" pkgs) (getAttr "jingoh" pkgs) ];
+    lispLibs = [
+      (getAttr "bnf" pkgs)
+      (getAttr "jingoh" pkgs)
+    ];
   };
   bobbin = {
     pname = "bobbin";
@@ -4339,7 +4594,10 @@ in {
       asd = "bobbin";
     });
     systems = [ "bobbin/test" ];
-    lispLibs = [ (getAttr "_1am" pkgs) (getAttr "bobbin" pkgs) ];
+    lispLibs = [
+      (getAttr "_1am" pkgs)
+      (getAttr "bobbin" pkgs)
+    ];
     meta = { broken = true; };
   };
   bodge-blobs-support = {
@@ -4435,7 +4693,10 @@ in {
       asd = "bodge-glad";
     });
     systems = [ "bodge-glad" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cffi" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cffi" pkgs)
+    ];
   };
   bodge-glfw = {
     pname = "bodge-glfw";
@@ -4559,7 +4820,10 @@ in {
       asd = "bodge-math";
     });
     systems = [ "bodge-math" ];
-    lispLibs = [ (getAttr "bodge-utilities" pkgs) (getAttr "rtg-math" pkgs) ];
+    lispLibs = [
+      (getAttr "bodge-utilities" pkgs)
+      (getAttr "rtg-math" pkgs)
+    ];
   };
   bodge-memory = {
     pname = "bodge-memory";
@@ -4573,8 +4837,10 @@ in {
       asd = "bodge-memory";
     });
     systems = [ "bodge-memory" ];
-    lispLibs =
-      [ (getAttr "bodge-utilities" pkgs) (getAttr "trivial-garbage" pkgs) ];
+    lispLibs = [
+      (getAttr "bodge-utilities" pkgs)
+      (getAttr "trivial-garbage" pkgs)
+    ];
   };
   bodge-nanovg = {
     pname = "bodge-nanovg";
@@ -4754,7 +5020,10 @@ in {
       asd = "bodge-queue";
     });
     systems = [ "bodge-queue/tests" ];
-    lispLibs = [ (getAttr "bodge-queue" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "bodge-queue" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   bodge-sndfile = {
@@ -4902,7 +5171,10 @@ in {
       asd = "bordeaux-threads";
     });
     systems = [ "bordeaux-threads/test" ];
-    lispLibs = [ (getAttr "bordeaux-threads" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   bourbaki = {
@@ -5013,7 +5285,10 @@ in {
       asd = "bt-semaphore-test";
     });
     systems = [ "bt-semaphore-test" ];
-    lispLibs = [ (getAttr "bt-semaphore" pkgs) (getAttr "clunit" pkgs) ];
+    lispLibs = [
+      (getAttr "bt-semaphore" pkgs)
+      (getAttr "clunit" pkgs)
+    ];
   };
   btrie = {
     pname = "btrie";
@@ -5262,8 +5537,10 @@ in {
       asd = "burgled-batteries.syntax-test";
     });
     systems = [ "burgled-batteries.syntax-test" ];
-    lispLibs =
-      [ (getAttr "burgled-batteries_dot_syntax" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "burgled-batteries_dot_syntax" pkgs)
+      (getAttr "lift" pkgs)
+    ];
   };
   bus = {
     pname = "bus";
@@ -5322,7 +5599,10 @@ in {
       asd = "bytecurry.mocks";
     });
     systems = [ "bytecurry.mocks/test" ];
-    lispLibs = [ (getAttr "bytecurry_dot_mocks" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "bytecurry_dot_mocks" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   c2ffi-blob = {
@@ -5337,8 +5617,10 @@ in {
       asd = "c2ffi-blob";
     });
     systems = [ "c2ffi-blob" ];
-    lispLibs =
-      [ (getAttr "claw-support" pkgs) (getAttr "trivial-features" pkgs) ];
+    lispLibs = [
+      (getAttr "claw-support" pkgs)
+      (getAttr "trivial-features" pkgs)
+    ];
   };
   cacau = {
     pname = "cacau";
@@ -5352,7 +5634,10 @@ in {
       asd = "cacau";
     });
     systems = [ "cacau" ];
-    lispLibs = [ (getAttr "assertion-error" pkgs) (getAttr "eventbus" pkgs) ];
+    lispLibs = [
+      (getAttr "assertion-error" pkgs)
+      (getAttr "eventbus" pkgs)
+    ];
   };
   cacau-asdf = {
     pname = "cacau-asdf";
@@ -5477,7 +5762,10 @@ in {
       asd = "calispel";
     });
     systems = [ "calispel-test" ];
-    lispLibs = [ (getAttr "calispel" pkgs) (getAttr "eager-future2" pkgs) ];
+    lispLibs = [
+      (getAttr "calispel" pkgs)
+      (getAttr "eager-future2" pkgs)
+    ];
   };
   cambl = {
     pname = "cambl";
@@ -5511,8 +5799,11 @@ in {
       asd = "cambl-test";
     });
     systems = [ "cambl-test" ];
-    lispLibs =
-      [ (getAttr "cambl" pkgs) (getAttr "uiop" pkgs) (getAttr "xlunit" pkgs) ];
+    lispLibs = [
+      (getAttr "cambl" pkgs)
+      (getAttr "uiop" pkgs)
+      (getAttr "xlunit" pkgs)
+    ];
   };
   camera-matrix = {
     pname = "camera-matrix";
@@ -5526,7 +5817,10 @@ in {
       asd = "camera-matrix";
     });
     systems = [ "camera-matrix" ];
-    lispLibs = [ (getAttr "nsb-cga" pkgs) (getAttr "uncommon-lisp" pkgs) ];
+    lispLibs = [
+      (getAttr "nsb-cga" pkgs)
+      (getAttr "uncommon-lisp" pkgs)
+    ];
   };
   can = {
     pname = "can";
@@ -5733,7 +6027,10 @@ in {
       asd = "cardiogram";
     });
     systems = [ "cardiogram" ];
-    lispLibs = [ (getAttr "cl-annot" pkgs) (getAttr "closer-mop" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-annot" pkgs)
+      (getAttr "closer-mop" pkgs)
+    ];
   };
   cari3s = {
     pname = "cari3s";
@@ -5903,7 +6200,10 @@ in {
       asd = "caveman2-widgets-bootstrap";
     });
     systems = [ "caveman2-widgets-bootstrap" ];
-    lispLibs = [ (getAttr "caveman2" pkgs) (getAttr "caveman2-widgets" pkgs) ];
+    lispLibs = [
+      (getAttr "caveman2" pkgs)
+      (getAttr "caveman2-widgets" pkgs)
+    ];
   };
   caveman2-widgets-bootstrap-test = {
     pname = "caveman2-widgets-bootstrap-test";
@@ -6114,7 +6414,10 @@ in {
       asd = "cepl.devil";
     });
     systems = [ "cepl.devil" ];
-    lispLibs = [ (getAttr "cepl" pkgs) (getAttr "cl-devil" pkgs) ];
+    lispLibs = [
+      (getAttr "cepl" pkgs)
+      (getAttr "cl-devil" pkgs)
+    ];
   };
   cepl_dot_drm-gbm = {
     pname = "cepl.drm-gbm";
@@ -6148,7 +6451,10 @@ in {
       asd = "cepl.glop";
     });
     systems = [ "cepl.glop" ];
-    lispLibs = [ (getAttr "cepl" pkgs) (getAttr "glop" pkgs) ];
+    lispLibs = [
+      (getAttr "cepl" pkgs)
+      (getAttr "glop" pkgs)
+    ];
   };
   cepl_dot_sdl2 = {
     pname = "cepl.sdl2";
@@ -6162,7 +6468,10 @@ in {
       asd = "cepl.sdl2";
     });
     systems = [ "cepl.sdl2" ];
-    lispLibs = [ (getAttr "cepl" pkgs) (getAttr "sdl2" pkgs) ];
+    lispLibs = [
+      (getAttr "cepl" pkgs)
+      (getAttr "sdl2" pkgs)
+    ];
   };
   cepl_dot_sdl2-image = {
     pname = "cepl.sdl2-image";
@@ -6212,8 +6521,10 @@ in {
       asd = "cepl.skitter.glop";
     });
     systems = [ "cepl.skitter.glop" ];
-    lispLibs =
-      [ (getAttr "cepl_dot_glop" pkgs) (getAttr "skitter_dot_glop" pkgs) ];
+    lispLibs = [
+      (getAttr "cepl_dot_glop" pkgs)
+      (getAttr "skitter_dot_glop" pkgs)
+    ];
   };
   cepl_dot_skitter_dot_sdl2 = {
     pname = "cepl.skitter.sdl2";
@@ -6227,8 +6538,10 @@ in {
       asd = "cepl.skitter.sdl2";
     });
     systems = [ "cepl.skitter.sdl2" ];
-    lispLibs =
-      [ (getAttr "cepl_dot_sdl2" pkgs) (getAttr "skitter_dot_sdl2" pkgs) ];
+    lispLibs = [
+      (getAttr "cepl_dot_sdl2" pkgs)
+      (getAttr "skitter_dot_sdl2" pkgs)
+    ];
   };
   cepl_dot_spaces = {
     pname = "cepl.spaces";
@@ -6291,7 +6604,10 @@ in {
       asd = "ceramic-test-app";
     });
     systems = [ "ceramic-test-app" ];
-    lispLibs = [ (getAttr "ceramic" pkgs) (getAttr "drakma" pkgs) ];
+    lispLibs = [
+      (getAttr "ceramic" pkgs)
+      (getAttr "drakma" pkgs)
+    ];
   };
   cerberus = {
     pname = "cerberus";
@@ -6359,7 +6675,10 @@ in {
       asd = "cesdi_tests";
     });
     systems = [ "cesdi_tests" ];
-    lispLibs = [ (getAttr "cesdi" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "cesdi" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
   };
   cffi = {
     pname = "cffi";
@@ -6392,7 +6711,10 @@ in {
       asd = "cffi-c-ref";
     });
     systems = [ "cffi-c-ref" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cffi" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cffi" pkgs)
+    ];
   };
   cffi-c-ref_slash_tests = {
     pname = "cffi-c-ref_tests";
@@ -6539,7 +6861,10 @@ in {
       asd = "cffi";
     });
     systems = [ "cffi/c2ffi" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cffi" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cffi" pkgs)
+    ];
     meta = { broken = true; };
   };
   cffi_slash_c2ffi-generator = {
@@ -6602,7 +6927,10 @@ in {
       asd = "chameleon";
     });
     systems = [ "chameleon/tests" ];
-    lispLibs = [ (getAttr "chameleon" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "chameleon" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   chancery = {
@@ -6631,7 +6959,10 @@ in {
       asd = "chancery.test";
     });
     systems = [ "chancery.test" ];
-    lispLibs = [ (getAttr "_1am" pkgs) (getAttr "chancery" pkgs) ];
+    lispLibs = [
+      (getAttr "_1am" pkgs)
+      (getAttr "chancery" pkgs)
+    ];
   };
   changed-stream = {
     pname = "changed-stream";
@@ -6702,7 +7033,10 @@ in {
       asd = "chanl";
     });
     systems = [ "chanl/tests" ];
-    lispLibs = [ (getAttr "chanl" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "chanl" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   character-modifier-bits = {
@@ -6731,7 +7065,10 @@ in {
       asd = "cheat-js";
     });
     systems = [ "cheat-js" ];
-    lispLibs = [ (getAttr "cl-uglify-js" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-uglify-js" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   check-bnf = {
     pname = "check-bnf";
@@ -6765,7 +7102,10 @@ in {
       asd = "check-bnf.test";
     });
     systems = [ "check-bnf.test" ];
-    lispLibs = [ (getAttr "check-bnf" pkgs) (getAttr "jingoh" pkgs) ];
+    lispLibs = [
+      (getAttr "check-bnf" pkgs)
+      (getAttr "jingoh" pkgs)
+    ];
   };
   check-it = {
     pname = "check-it";
@@ -6797,7 +7137,10 @@ in {
       asd = "check-it";
     });
     systems = [ "check-it-test" ];
-    lispLibs = [ (getAttr "check-it" pkgs) (getAttr "stefil" pkgs) ];
+    lispLibs = [
+      (getAttr "check-it" pkgs)
+      (getAttr "stefil" pkgs)
+    ];
   };
   checkl = {
     pname = "checkl";
@@ -6825,7 +7168,10 @@ in {
       asd = "checkl-docs";
     });
     systems = [ "checkl-docs" ];
-    lispLibs = [ (getAttr "checkl" pkgs) (getAttr "cl-gendoc" pkgs) ];
+    lispLibs = [
+      (getAttr "checkl" pkgs)
+      (getAttr "cl-gendoc" pkgs)
+    ];
   };
   checkl-test = {
     pname = "checkl-test";
@@ -6839,7 +7185,10 @@ in {
       asd = "checkl-test";
     });
     systems = [ "checkl-test" ];
-    lispLibs = [ (getAttr "checkl" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "checkl" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   chemical-compounds = {
     pname = "chemical-compounds";
@@ -6867,8 +7216,10 @@ in {
       asd = "chillax";
     });
     systems = [ "chillax" ];
-    lispLibs =
-      [ (getAttr "chillax_dot_core" pkgs) (getAttr "chillax_dot_yason" pkgs) ];
+    lispLibs = [
+      (getAttr "chillax_dot_core" pkgs)
+      (getAttr "chillax_dot_yason" pkgs)
+    ];
   };
   chillax_dot_core = {
     pname = "chillax.core";
@@ -6900,7 +7251,10 @@ in {
       asd = "chillax.jsown";
     });
     systems = [ "chillax.jsown" ];
-    lispLibs = [ (getAttr "chillax_dot_core" pkgs) (getAttr "jsown" pkgs) ];
+    lispLibs = [
+      (getAttr "chillax_dot_core" pkgs)
+      (getAttr "jsown" pkgs)
+    ];
   };
   chillax_dot_view-server = {
     pname = "chillax.view-server";
@@ -6914,7 +7268,10 @@ in {
       asd = "chillax.view-server";
     });
     systems = [ "chillax.view-server" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "yason" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "yason" pkgs)
+    ];
   };
   chillax_dot_yason = {
     pname = "chillax.yason";
@@ -6928,7 +7285,10 @@ in {
       asd = "chillax.yason";
     });
     systems = [ "chillax.yason" ];
-    lispLibs = [ (getAttr "chillax_dot_core" pkgs) (getAttr "yason" pkgs) ];
+    lispLibs = [
+      (getAttr "chillax_dot_core" pkgs)
+      (getAttr "yason" pkgs)
+    ];
   };
   chipmunk-blob = {
     pname = "chipmunk-blob";
@@ -7012,7 +7372,10 @@ in {
       asd = "chirp-dexador";
     });
     systems = [ "chirp-dexador" ];
-    lispLibs = [ (getAttr "chirp-core" pkgs) (getAttr "dexador" pkgs) ];
+    lispLibs = [
+      (getAttr "chirp-core" pkgs)
+      (getAttr "dexador" pkgs)
+    ];
   };
   chirp-drakma = {
     pname = "chirp-drakma";
@@ -7026,7 +7389,10 @@ in {
       asd = "chirp-drakma";
     });
     systems = [ "chirp-drakma" ];
-    lispLibs = [ (getAttr "chirp-core" pkgs) (getAttr "drakma" pkgs) ];
+    lispLibs = [
+      (getAttr "chirp-core" pkgs)
+      (getAttr "drakma" pkgs)
+    ];
   };
   chrome-native-messaging = {
     pname = "chrome-native-messaging";
@@ -7072,7 +7438,10 @@ in {
       asd = "chronicity-test";
     });
     systems = [ "chronicity-test" ];
-    lispLibs = [ (getAttr "chronicity" pkgs) (getAttr "lisp-unit" pkgs) ];
+    lispLibs = [
+      (getAttr "chronicity" pkgs)
+      (getAttr "lisp-unit" pkgs)
+    ];
   };
   chtml-matcher = {
     pname = "chtml-matcher";
@@ -7186,8 +7555,10 @@ in {
       asd = "circular-streams";
     });
     systems = [ "circular-streams" ];
-    lispLibs =
-      [ (getAttr "fast-io" pkgs) (getAttr "trivial-gray-streams" pkgs) ];
+    lispLibs = [
+      (getAttr "fast-io" pkgs)
+      (getAttr "trivial-gray-streams" pkgs)
+    ];
   };
   circular-streams-test = {
     pname = "circular-streams-test";
@@ -7237,8 +7608,10 @@ in {
       asd = "city-hash-test";
     });
     systems = [ "city-hash-test" ];
-    lispLibs =
-      [ (getAttr "city-hash" pkgs) (getAttr "hu_dot_dwim_dot_stefil" pkgs) ];
+    lispLibs = [
+      (getAttr "city-hash" pkgs)
+      (getAttr "hu_dot_dwim_dot_stefil" pkgs)
+    ];
   };
   ckr-tables = {
     pname = "ckr-tables";
@@ -7326,7 +7699,10 @@ in {
       asd = "cl-6502";
     });
     systems = [ "cl-6502" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cl-ppcre" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cl-ppcre" pkgs)
+    ];
   };
   cl-aa = {
     pname = "cl-aa";
@@ -7368,7 +7744,10 @@ in {
       asd = "cl-acronyms";
     });
     systems = [ "cl-acronyms" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "split-sequence" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "split-sequence" pkgs)
+    ];
   };
   cl-actors = {
     pname = "cl-actors";
@@ -7410,7 +7789,10 @@ in {
       asd = "cl-advice-tests";
     });
     systems = [ "cl-advice-tests" ];
-    lispLibs = [ (getAttr "cl-advice" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-advice" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-alc = {
     pname = "cl-alc";
@@ -7424,7 +7806,10 @@ in {
       asd = "cl-alc";
     });
     systems = [ "cl-alc" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cl-openal" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cl-openal" pkgs)
+    ];
   };
   cl-algebraic-data-type = {
     pname = "cl-algebraic-data-type";
@@ -7438,7 +7823,10 @@ in {
       asd = "cl-algebraic-data-type";
     });
     systems = [ "cl-algebraic-data-type" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "global-vars" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "global-vars" pkgs)
+    ];
   };
   cl-all = {
     pname = "cl-all";
@@ -7466,7 +7854,10 @@ in {
       asd = "cl-alut";
     });
     systems = [ "cl-alut" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cl-openal" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cl-openal" pkgs)
+    ];
   };
   cl-amqp = {
     pname = "cl-amqp";
@@ -7704,8 +8095,10 @@ in {
       asd = "cl-ana.file-utils";
     });
     systems = [ "cl-ana.file-utils" ];
-    lispLibs =
-      [ (getAttr "external-program" pkgs) (getAttr "split-sequence" pkgs) ];
+    lispLibs = [
+      (getAttr "external-program" pkgs)
+      (getAttr "split-sequence" pkgs)
+    ];
   };
   cl-ana_dot_fitting = {
     pname = "cl-ana.fitting";
@@ -7813,7 +8206,10 @@ in {
       asd = "cl-ana.hdf-cffi";
     });
     systems = [ "cl-ana.hdf-cffi" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cffi-grovel" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cffi-grovel" pkgs)
+    ];
   };
   cl-ana_dot_hdf-table = {
     pname = "cl-ana.hdf-table";
@@ -8094,8 +8490,10 @@ in {
       asd = "cl-ana.makeres-graphviz";
     });
     systems = [ "cl-ana.makeres-graphviz" ];
-    lispLibs =
-      [ (getAttr "cl-ana_dot_makeres" pkgs) (getAttr "external-program" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ana_dot_makeres" pkgs)
+      (getAttr "external-program" pkgs)
+    ];
   };
   cl-ana_dot_makeres-macro = {
     pname = "cl-ana.makeres-macro";
@@ -8217,8 +8615,10 @@ in {
       asd = "cl-ana.math-functions";
     });
     systems = [ "cl-ana.math-functions" ];
-    lispLibs =
-      [ (getAttr "cl-ana_dot_generic-math" pkgs) (getAttr "gsll" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ana_dot_generic-math" pkgs)
+      (getAttr "gsll" pkgs)
+    ];
   };
   cl-ana_dot_memoization = {
     pname = "cl-ana.memoization";
@@ -8350,8 +8750,10 @@ in {
       asd = "cl-ana.reusable-table";
     });
     systems = [ "cl-ana.reusable-table" ];
-    lispLibs =
-      [ (getAttr "alexandria" pkgs) (getAttr "cl-ana_dot_table" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cl-ana_dot_table" pkgs)
+    ];
   };
   cl-ana_dot_serialization = {
     pname = "cl-ana.serialization";
@@ -8611,7 +9013,10 @@ in {
       asd = "cl-android";
     });
     systems = [ "cl-android" ];
-    lispLibs = [ (getAttr "cl-json" pkgs) (getAttr "usocket" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-json" pkgs)
+      (getAttr "usocket" pkgs)
+    ];
   };
   cl-annot = {
     pname = "cl-annot";
@@ -8678,8 +9083,10 @@ in {
       asd = "cl-annot-revisit";
     });
     systems = [ "cl-annot-revisit" ];
-    lispLibs =
-      [ (getAttr "alexandria" pkgs) (getAttr "named-readtables" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "named-readtables" pkgs)
+    ];
   };
   cl-annot-revisit-compat = {
     pname = "cl-annot-revisit-compat";
@@ -8758,7 +9165,10 @@ in {
       asd = "cl-ansi-text";
     });
     systems = [ "cl-ansi-text" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cl-colors2" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cl-colors2" pkgs)
+    ];
   };
   cl-ansi-text_dot_test = {
     pname = "cl-ansi-text.test";
@@ -8791,7 +9201,10 @@ in {
       asd = "cl-apertium-stream";
     });
     systems = [ "cl-apertium-stream" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "esrap" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "esrap" pkgs)
+    ];
   };
   cl-apple-plist = {
     pname = "cl-apple-plist";
@@ -8847,7 +9260,10 @@ in {
       asd = "cl-aristid";
     });
     systems = [ "cl-aristid" ];
-    lispLibs = [ (getAttr "cl-colors" pkgs) (getAttr "cl-svg" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-colors" pkgs)
+      (getAttr "cl-svg" pkgs)
+    ];
   };
   cl-arxiv-api = {
     pname = "cl-arxiv-api";
@@ -8930,7 +9346,10 @@ in {
       asd = "cl-association-rules";
     });
     systems = [ "cl-association-rules-tests" ];
-    lispLibs = [ (getAttr "cl-association-rules" pkgs) (getAttr "prove" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-association-rules" pkgs)
+      (getAttr "prove" pkgs)
+    ];
   };
   cl-async = {
     pname = "cl-async";
@@ -9019,7 +9438,10 @@ in {
       asd = "cl-async-repl";
     });
     systems = [ "cl-async-repl" ];
-    lispLibs = [ (getAttr "bordeaux-threads" pkgs) (getAttr "cl-async" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "cl-async" pkgs)
+    ];
   };
   cl-async-ssl = {
     pname = "cl-async-ssl";
@@ -9033,8 +9455,11 @@ in {
       asd = "cl-async-ssl";
     });
     systems = [ "cl-async-ssl" ];
-    lispLibs =
-      [ (getAttr "cffi" pkgs) (getAttr "cl-async" pkgs) (getAttr "vom" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cl-async" pkgs)
+      (getAttr "vom" pkgs)
+    ];
   };
   cl-async-test = {
     pname = "cl-async-test";
@@ -9110,7 +9535,10 @@ in {
       asd = "cl-aubio";
     });
     systems = [ "cl-aubio/examples" ];
-    lispLibs = [ (getAttr "cl-aubio" pkgs) (getAttr "vgplot" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-aubio" pkgs)
+      (getAttr "vgplot" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-aubio_slash_tests = {
@@ -9125,7 +9553,10 @@ in {
       asd = "cl-aubio";
     });
     systems = [ "cl-aubio/tests" ];
-    lispLibs = [ (getAttr "cl-aubio" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-aubio" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-authorize-net = {
@@ -9228,7 +9659,10 @@ in {
       asd = "cl-autowrap";
     });
     systems = [ "cl-autowrap/libffi" ];
-    lispLibs = [ (getAttr "cl-autowrap" pkgs) (getAttr "cl-plus-c" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-autowrap" pkgs)
+      (getAttr "cl-plus-c" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-azure = {
@@ -9301,7 +9735,10 @@ in {
       asd = "cl-base32";
     });
     systems = [ "cl-base32-tests" ];
-    lispLibs = [ (getAttr "cl-base32" pkgs) (getAttr "lisp-unit" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-base32" pkgs)
+      (getAttr "lisp-unit" pkgs)
+    ];
   };
   cl-base58 = {
     pname = "cl-base58";
@@ -9329,7 +9766,10 @@ in {
       asd = "cl-base58-test";
     });
     systems = [ "cl-base58-test" ];
-    lispLibs = [ (getAttr "cl-base58" pkgs) (getAttr "cl-test-more" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-base58" pkgs)
+      (getAttr "cl-test-more" pkgs)
+    ];
   };
   cl-base64 = {
     pname = "cl-base64";
@@ -9412,7 +9852,10 @@ in {
       asd = "cl-bcrypt.test";
     });
     systems = [ "cl-bcrypt.test" ];
-    lispLibs = [ (getAttr "cl-bcrypt" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-bcrypt" pkgs)
+      (getAttr "rove" pkgs)
+    ];
   };
   cl-beanstalk = {
     pname = "cl-beanstalk";
@@ -9488,8 +9931,10 @@ in {
       asd = "cl-bloom";
     });
     systems = [ "cl-bloom" ];
-    lispLibs =
-      [ (getAttr "cl-murmurhash" pkgs) (getAttr "static-vectors" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-murmurhash" pkgs)
+      (getAttr "static-vectors" pkgs)
+    ];
   };
   cl-bloom-filter = {
     pname = "cl-bloom-filter";
@@ -9517,7 +9962,10 @@ in {
       asd = "cl-bloom-filter";
     });
     systems = [ "cl-bloom-filter/tests" ];
-    lispLibs = [ (getAttr "cl-bloom-filter" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-bloom-filter" pkgs)
+      (getAttr "rove" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-bnf = {
@@ -9560,7 +10008,10 @@ in {
       asd = "cl-bnf-tests";
     });
     systems = [ "cl-bnf-tests" ];
-    lispLibs = [ (getAttr "cl-bnf" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-bnf" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-bootstrap = {
     pname = "cl-bootstrap";
@@ -9574,7 +10025,10 @@ in {
       asd = "cl-bootstrap";
     });
     systems = [ "cl-bootstrap" ];
-    lispLibs = [ (getAttr "cl-who" pkgs) (getAttr "parenscript" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-who" pkgs)
+      (getAttr "parenscript" pkgs)
+    ];
   };
   cl-bootstrap-demo = {
     pname = "cl-bootstrap-demo";
@@ -9607,7 +10061,10 @@ in {
       asd = "cl-bootstrap-test";
     });
     systems = [ "cl-bootstrap-test" ];
-    lispLibs = [ (getAttr "cl-bootstrap" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-bootstrap" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-bplustree = {
     pname = "cl-bplustree";
@@ -9748,7 +10205,10 @@ in {
       asd = "cl-cache-tables";
     });
     systems = [ "cl-cache-tables-tests" ];
-    lispLibs = [ (getAttr "cl-cache-tables" pkgs) (getAttr "prove" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-cache-tables" pkgs)
+      (getAttr "prove" pkgs)
+    ];
   };
   cl-cairo2 = {
     pname = "cl-cairo2";
@@ -9797,7 +10257,10 @@ in {
       asd = "cl-cairo2-xlib";
     });
     systems = [ "cl-cairo2-xlib" ];
-    lispLibs = [ (getAttr "cl-cairo2" pkgs) (getAttr "cl-freetype2" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-cairo2" pkgs)
+      (getAttr "cl-freetype2" pkgs)
+    ];
   };
   cl-case-control = {
     pname = "cl-case-control";
@@ -9880,7 +10343,10 @@ in {
       asd = "cl-cerf";
     });
     systems = [ "cl-cerf" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cffi-libffi" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cffi-libffi" pkgs)
+    ];
   };
   cl-cffi-gtk = {
     pname = "cl-cffi-gtk";
@@ -10079,7 +10545,10 @@ in {
       asd = "cl-cffi-gtk-opengl-demo";
     });
     systems = [ "cl-cffi-gtk-opengl-demo" ];
-    lispLibs = [ (getAttr "cl-cffi-gtk" pkgs) (getAttr "cl-opengl" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-cffi-gtk" pkgs)
+      (getAttr "cl-opengl" pkgs)
+    ];
   };
   cl-cffi-gtk-pango = {
     pname = "cl-cffi-gtk-pango";
@@ -10111,7 +10580,10 @@ in {
       asd = "cl-change-case";
     });
     systems = [ "cl-change-case" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "cl-ppcre-unicode" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "cl-ppcre-unicode" pkgs)
+    ];
   };
   cl-change-case_slash_test = {
     pname = "cl-change-case_test";
@@ -10125,7 +10597,10 @@ in {
       asd = "cl-change-case";
     });
     systems = [ "cl-change-case/test" ];
-    lispLibs = [ (getAttr "cl-change-case" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-change-case" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-charms = {
@@ -10256,7 +10731,10 @@ in {
       asd = "cl-clsparse";
     });
     systems = [ "cl-clsparse" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cffi-libffi" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cffi-libffi" pkgs)
+    ];
   };
   cl-cognito = {
     pname = "cl-cognito";
@@ -10336,7 +10814,10 @@ in {
       asd = "cl-colors";
     });
     systems = [ "cl-colors" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "let-plus" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "let-plus" pkgs)
+    ];
   };
   cl-colors-tests = {
     pname = "cl-colors-tests";
@@ -10350,7 +10831,10 @@ in {
       asd = "cl-colors";
     });
     systems = [ "cl-colors-tests" ];
-    lispLibs = [ (getAttr "cl-colors" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-colors" pkgs)
+      (getAttr "lift" pkgs)
+    ];
   };
   cl-colors2 = {
     pname = "cl-colors2";
@@ -10364,7 +10848,10 @@ in {
       asd = "cl-colors2";
     });
     systems = [ "cl-colors2" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cl-ppcre" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cl-ppcre" pkgs)
+    ];
   };
   cl-colors2_slash_tests = {
     pname = "cl-colors2_tests";
@@ -10378,7 +10865,10 @@ in {
       asd = "cl-colors2";
     });
     systems = [ "cl-colors2/tests" ];
-    lispLibs = [ (getAttr "cl-colors2" pkgs) (getAttr "clunit2" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-colors2" pkgs)
+      (getAttr "clunit2" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-conllu = {
@@ -10458,7 +10948,10 @@ in {
       asd = "cl-cont";
     });
     systems = [ "cl-cont" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "closer-mop" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "closer-mop" pkgs)
+    ];
   };
   cl-cont-test = {
     pname = "cl-cont-test";
@@ -10472,7 +10965,10 @@ in {
       asd = "cl-cont-test";
     });
     systems = [ "cl-cont-test" ];
-    lispLibs = [ (getAttr "cl-cont" pkgs) (getAttr "rt" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-cont" pkgs)
+      (getAttr "rt" pkgs)
+    ];
   };
   cl-containers = {
     pname = "cl-containers";
@@ -10503,7 +10999,10 @@ in {
       asd = "cl-containers-test";
     });
     systems = [ "cl-containers-test" ];
-    lispLibs = [ (getAttr "cl-containers" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-containers" pkgs)
+      (getAttr "lift" pkgs)
+    ];
   };
   cl-containers_slash_with-moptilities = {
     pname = "cl-containers_with-moptilities";
@@ -10517,7 +11016,10 @@ in {
       asd = "cl-containers";
     });
     systems = [ "cl-containers/with-moptilities" ];
-    lispLibs = [ (getAttr "cl-containers" pkgs) (getAttr "moptilities" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-containers" pkgs)
+      (getAttr "moptilities" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-containers_slash_with-utilities = {
@@ -10532,8 +11034,10 @@ in {
       asd = "cl-containers";
     });
     systems = [ "cl-containers/with-utilities" ];
-    lispLibs =
-      [ (getAttr "cl-containers" pkgs) (getAttr "metatilities-base" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-containers" pkgs)
+      (getAttr "metatilities-base" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-cookie = {
@@ -10586,7 +11090,10 @@ in {
       asd = "cl-coroutine";
     });
     systems = [ "cl-coroutine" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cl-cont" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cl-cont" pkgs)
+    ];
   };
   cl-coroutine-test = {
     pname = "cl-coroutine-test";
@@ -10600,7 +11107,10 @@ in {
       asd = "cl-coroutine-test";
     });
     systems = [ "cl-coroutine-test" ];
-    lispLibs = [ (getAttr "cl-coroutine" pkgs) (getAttr "cl-test-more" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-coroutine" pkgs)
+      (getAttr "cl-test-more" pkgs)
+    ];
   };
   cl-coveralls = {
     pname = "cl-coveralls";
@@ -10816,7 +11326,10 @@ in {
       asd = "cl-csv-data-table";
     });
     systems = [ "cl-csv-data-table" ];
-    lispLibs = [ (getAttr "cl-csv" pkgs) (getAttr "data-table" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-csv" pkgs)
+      (getAttr "data-table" pkgs)
+    ];
   };
   cl-csv_slash_speed-test = {
     pname = "cl-csv_speed-test";
@@ -10830,7 +11343,10 @@ in {
       asd = "cl-csv";
     });
     systems = [ "cl-csv/speed-test" ];
-    lispLibs = [ (getAttr "cl-csv" pkgs) (getAttr "lisp-unit2" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-csv" pkgs)
+      (getAttr "lisp-unit2" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-csv_slash_test = {
@@ -10845,7 +11361,10 @@ in {
       asd = "cl-csv";
     });
     systems = [ "cl-csv/test" ];
-    lispLibs = [ (getAttr "cl-csv" pkgs) (getAttr "lisp-unit2" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-csv" pkgs)
+      (getAttr "lisp-unit2" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-cuda = {
@@ -10884,7 +11403,10 @@ in {
       asd = "cl-cuda-examples";
     });
     systems = [ "cl-cuda-examples" ];
-    lispLibs = [ (getAttr "cl-cuda" pkgs) (getAttr "imago" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-cuda" pkgs)
+      (getAttr "imago" pkgs)
+    ];
   };
   cl-cuda-interop = {
     pname = "cl-cuda-interop";
@@ -10931,7 +11453,10 @@ in {
       asd = "cl-cuda-misc";
     });
     systems = [ "cl-cuda-misc" ];
-    lispLibs = [ (getAttr "cl-emb" pkgs) (getAttr "local-time" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-emb" pkgs)
+      (getAttr "local-time" pkgs)
+    ];
   };
   cl-custom-hash-table = {
     pname = "cl-custom-hash-table";
@@ -11033,7 +11558,10 @@ in {
       asd = "cl-data-frame";
     });
     systems = [ "cl-data-frame-tests" ];
-    lispLibs = [ (getAttr "cl-data-frame" pkgs) (getAttr "clunit" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-data-frame" pkgs)
+      (getAttr "clunit" pkgs)
+    ];
   };
   cl-data-structures = {
     pname = "cl-data-structures";
@@ -11174,7 +11702,10 @@ in {
       asd = "cl-devil";
     });
     systems = [ "cl-devil" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cffi" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cffi" pkgs)
+    ];
   };
   cl-diceware = {
     pname = "cl-diceware";
@@ -11244,7 +11775,10 @@ in {
       asd = "cl-digraph.dot";
     });
     systems = [ "cl-digraph.dot" ];
-    lispLibs = [ (getAttr "cl-digraph" pkgs) (getAttr "cl-dot" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-digraph" pkgs)
+      (getAttr "cl-dot" pkgs)
+    ];
   };
   cl-digraph_dot_test = {
     pname = "cl-digraph.test";
@@ -11333,7 +11867,10 @@ in {
       asd = "cl-djula-svg";
     });
     systems = [ "cl-djula-svg" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "xmls" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "xmls" pkgs)
+    ];
   };
   cl-djula-svg_slash_tests = {
     pname = "cl-djula-svg_tests";
@@ -11347,7 +11884,10 @@ in {
       asd = "cl-djula-svg";
     });
     systems = [ "cl-djula-svg/tests" ];
-    lispLibs = [ (getAttr "cl-djula-svg" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-djula-svg" pkgs)
+      (getAttr "rove" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-djula-tailwind = {
@@ -11381,7 +11921,10 @@ in {
       asd = "cl-djula-tailwind";
     });
     systems = [ "cl-djula-tailwind/tests" ];
-    lispLibs = [ (getAttr "cl-djula-tailwind" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-djula-tailwind" pkgs)
+      (getAttr "rove" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-dot = {
@@ -11410,7 +11953,10 @@ in {
       asd = "cl-dotenv";
     });
     systems = [ "cl-dotenv" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "serapeum" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "serapeum" pkgs)
+    ];
   };
   cl-dotenv-test = {
     pname = "cl-dotenv-test";
@@ -11475,7 +12021,10 @@ in {
       asd = "cl-drawille";
     });
     systems = [ "cl-drawille/examples-animations" ];
-    lispLibs = [ (getAttr "cl-charms" pkgs) (getAttr "cl-drawille" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-charms" pkgs)
+      (getAttr "cl-drawille" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-drm = {
@@ -11537,7 +12086,10 @@ in {
       asd = "cl-dsl";
     });
     systems = [ "cl-dsl-tests" ];
-    lispLibs = [ (getAttr "cl-dsl" pkgs) (getAttr "eos" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-dsl" pkgs)
+      (getAttr "eos" pkgs)
+    ];
   };
   cl-durian = {
     pname = "cl-durian";
@@ -11717,7 +12269,10 @@ in {
       asd = "cl-env";
     });
     systems = [ "cl-env/test" ];
-    lispLibs = [ (getAttr "cl-env" pkgs) (getAttr "lisp-unit" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-env" pkgs)
+      (getAttr "lisp-unit" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-environments = {
@@ -11752,7 +12307,10 @@ in {
       asd = "cl-environments";
     });
     systems = [ "cl-environments/test" ];
-    lispLibs = [ (getAttr "cl-environments" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-environments" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-epoch = {
@@ -11846,7 +12404,10 @@ in {
       asd = "cl-ewkb";
     });
     systems = [ "cl-ewkb" ];
-    lispLibs = [ (getAttr "flexi-streams" pkgs) (getAttr "ieee-floats" pkgs) ];
+    lispLibs = [
+      (getAttr "flexi-streams" pkgs)
+      (getAttr "ieee-floats" pkgs)
+    ];
   };
   cl-ewkb-tests = {
     pname = "cl-ewkb-tests";
@@ -11860,7 +12421,10 @@ in {
       asd = "cl-ewkb";
     });
     systems = [ "cl-ewkb-tests" ];
-    lispLibs = [ (getAttr "cl-ewkb" pkgs) (getAttr "postmodern" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ewkb" pkgs)
+      (getAttr "postmodern" pkgs)
+    ];
   };
   cl-factoring = {
     pname = "cl-factoring";
@@ -11874,7 +12438,10 @@ in {
       asd = "cl-factoring";
     });
     systems = [ "cl-factoring" ];
-    lispLibs = [ (getAttr "cl-primality" pkgs) (getAttr "iterate" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-primality" pkgs)
+      (getAttr "iterate" pkgs)
+    ];
   };
   cl-fad = {
     pname = "cl-fad";
@@ -11888,8 +12455,10 @@ in {
       asd = "cl-fad";
     });
     systems = [ "cl-fad" ];
-    lispLibs =
-      [ (getAttr "alexandria" pkgs) (getAttr "bordeaux-threads" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "bordeaux-threads" pkgs)
+    ];
   };
   cl-fad_slash_test = {
     pname = "cl-fad_test";
@@ -11940,7 +12509,10 @@ in {
       asd = "cl-fastcgi";
     });
     systems = [ "cl-fastcgi" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "usocket" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "usocket" pkgs)
+    ];
   };
   cl-fbclient = {
     pname = "cl-fbclient";
@@ -12144,7 +12716,10 @@ in {
       asd = "cl-flow";
     });
     systems = [ "cl-flow" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cl-muth" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cl-muth" pkgs)
+    ];
   };
   cl-flow_slash_tests = {
     pname = "cl-flow_tests";
@@ -12235,7 +12810,10 @@ in {
       asd = "cl-fluiddb-test";
     });
     systems = [ "cl-fluiddb-test" ];
-    lispLibs = [ (getAttr "cl-fluiddb" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-fluiddb" pkgs)
+      (getAttr "lift" pkgs)
+    ];
   };
   cl-fluidinfo = {
     pname = "cl-fluidinfo";
@@ -12306,7 +12884,10 @@ in {
       asd = "cl-form-types";
     });
     systems = [ "cl-form-types/test" ];
-    lispLibs = [ (getAttr "cl-form-types" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-form-types" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-forms = {
@@ -12385,7 +12966,10 @@ in {
       asd = "cl-forms.peppol";
     });
     systems = [ "cl-forms.peppol" ];
-    lispLibs = [ (getAttr "cl-forms" pkgs) (getAttr "peppol" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-forms" pkgs)
+      (getAttr "peppol" pkgs)
+    ];
   };
   cl-forms_dot_test = {
     pname = "cl-forms.test";
@@ -12399,7 +12983,10 @@ in {
       asd = "cl-forms.test";
     });
     systems = [ "cl-forms.test" ];
-    lispLibs = [ (getAttr "cl-forms" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-forms" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-forms_dot_who = {
     pname = "cl-forms.who";
@@ -12413,7 +13000,10 @@ in {
       asd = "cl-forms.who";
     });
     systems = [ "cl-forms.who" ];
-    lispLibs = [ (getAttr "cl-forms" pkgs) (getAttr "cl-who" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-forms" pkgs)
+      (getAttr "cl-who" pkgs)
+    ];
   };
   cl-forms_dot_who_dot_bootstrap = {
     pname = "cl-forms.who.bootstrap";
@@ -12474,7 +13064,10 @@ in {
       asd = "cl-freetype2-tests";
     });
     systems = [ "cl-freetype2-tests" ];
-    lispLibs = [ (getAttr "cl-freetype2" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-freetype2" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-fsnotify = {
     pname = "cl-fsnotify";
@@ -12488,7 +13081,10 @@ in {
       asd = "cl-fsnotify";
     });
     systems = [ "cl-fsnotify" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cffi-grovel" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cffi-grovel" pkgs)
+    ];
   };
   cl-ftp = {
     pname = "cl-ftp";
@@ -12502,7 +13098,10 @@ in {
       asd = "cl-ftp";
     });
     systems = [ "cl-ftp" ];
-    lispLibs = [ (getAttr "split-sequence" pkgs) (getAttr "usocket" pkgs) ];
+    lispLibs = [
+      (getAttr "split-sequence" pkgs)
+      (getAttr "usocket" pkgs)
+    ];
   };
   cl-fuse = {
     pname = "cl-fuse";
@@ -12747,7 +13346,10 @@ in {
       asd = "cl-gearman-test";
     });
     systems = [ "cl-gearman-test" ];
-    lispLibs = [ (getAttr "cl-gearman" pkgs) (getAttr "cl-test-more" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-gearman" pkgs)
+      (getAttr "cl-test-more" pkgs)
+    ];
   };
   cl-gendoc = {
     pname = "cl-gendoc";
@@ -12821,7 +13423,10 @@ in {
       asd = "cl-generator-test";
     });
     systems = [ "cl-generator-test" ];
-    lispLibs = [ (getAttr "cl-generator" pkgs) (getAttr "lisp-unit" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-generator" pkgs)
+      (getAttr "lisp-unit" pkgs)
+    ];
   };
   cl-geocode = {
     pname = "cl-geocode";
@@ -12867,7 +13472,10 @@ in {
       asd = "cl-geometry";
     });
     systems = [ "cl-geometry" ];
-    lispLibs = [ (getAttr "iterate" pkgs) (getAttr "trees" pkgs) ];
+    lispLibs = [
+      (getAttr "iterate" pkgs)
+      (getAttr "trees" pkgs)
+    ];
   };
   cl-geometry-tests = {
     pname = "cl-geometry-tests";
@@ -12918,7 +13526,10 @@ in {
       asd = "cl-geos";
     });
     systems = [ "cl-geos/test" ];
-    lispLibs = [ (getAttr "cl-geos" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-geos" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-getopt = {
@@ -12933,7 +13544,10 @@ in {
       asd = "cl-getopt";
     });
     systems = [ "cl-getopt" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cffi-grovel" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cffi-grovel" pkgs)
+    ];
   };
   cl-getx = {
     pname = "cl-getx";
@@ -12961,7 +13575,10 @@ in {
       asd = "cl-gimei";
     });
     systems = [ "cl-gimei" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cl-yaml" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cl-yaml" pkgs)
+    ];
   };
   cl-gimei_slash_test = {
     pname = "cl-gimei_test";
@@ -12975,7 +13592,10 @@ in {
       asd = "cl-gimei";
     });
     systems = [ "cl-gimei/test" ];
-    lispLibs = [ (getAttr "cl-gimei" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-gimei" pkgs)
+      (getAttr "rove" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-gists = {
@@ -13102,7 +13722,10 @@ in {
       asd = "cl-glfw";
     });
     systems = [ "cl-glfw" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cl-glfw-types" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cl-glfw-types" pkgs)
+    ];
   };
   cl-glfw-ftgl = {
     pname = "cl-glfw-ftgl";
@@ -13130,7 +13753,10 @@ in {
       asd = "cl-glfw-glu";
     });
     systems = [ "cl-glfw-glu" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cl-glfw-types" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cl-glfw-types" pkgs)
+    ];
   };
   cl-glfw-opengl-3dfx_multisample = {
     pname = "cl-glfw-opengl-3dfx_multisample";
@@ -14880,7 +15506,10 @@ in {
       asd = "cl-glfw-opengl-core";
     });
     systems = [ "cl-glfw-opengl-core" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cl-glfw-types" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cl-glfw-types" pkgs)
+    ];
   };
   cl-glfw-opengl-ext_422_pixels = {
     pname = "cl-glfw-opengl-ext_422_pixels";
@@ -17988,7 +18617,10 @@ in {
       asd = "cl-glfw3";
     });
     systems = [ "cl-glfw3" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cffi" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cffi" pkgs)
+    ];
   };
   cl-glfw3-examples = {
     pname = "cl-glfw3-examples";
@@ -18088,7 +18720,10 @@ in {
       asd = "cl-glu";
     });
     systems = [ "cl-glu" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cl-opengl" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cl-opengl" pkgs)
+    ];
   };
   cl-glut = {
     pname = "cl-glut";
@@ -18214,7 +18849,10 @@ in {
       asd = "cl-gpio";
     });
     systems = [ "cl-gpio" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "documentation-utils" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "documentation-utils" pkgs)
+    ];
   };
   cl-graph = {
     pname = "cl-graph";
@@ -18247,8 +18885,10 @@ in {
       asd = "cl-graph+hu.dwim.graphviz";
     });
     systems = [ "cl-graph+hu.dwim.graphviz" ];
-    lispLibs =
-      [ (getAttr "cl-graph" pkgs) (getAttr "hu_dot_dwim_dot_graphviz" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-graph" pkgs)
+      (getAttr "hu_dot_dwim_dot_graphviz" pkgs)
+    ];
   };
   cl-graph_slash_with-cl-mathstats = {
     pname = "cl-graph_with-cl-mathstats";
@@ -18262,7 +18902,10 @@ in {
       asd = "cl-graph";
     });
     systems = [ "cl-graph/with-cl-mathstats" ];
-    lispLibs = [ (getAttr "cl-graph" pkgs) (getAttr "cl-mathstats" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-graph" pkgs)
+      (getAttr "cl-mathstats" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-graph_slash_with-dynamic-classes = {
@@ -18277,7 +18920,10 @@ in {
       asd = "cl-graph";
     });
     systems = [ "cl-graph/with-dynamic-classes" ];
-    lispLibs = [ (getAttr "cl-graph" pkgs) (getAttr "dynamic-classes" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-graph" pkgs)
+      (getAttr "dynamic-classes" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-graph_slash_with-metacopy = {
@@ -18292,7 +18938,10 @@ in {
       asd = "cl-graph";
     });
     systems = [ "cl-graph/with-metacopy" ];
-    lispLibs = [ (getAttr "cl-graph" pkgs) (getAttr "metacopy" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-graph" pkgs)
+      (getAttr "metacopy" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-graph_slash_with-moptilities = {
@@ -18307,7 +18956,10 @@ in {
       asd = "cl-graph";
     });
     systems = [ "cl-graph/with-moptilities" ];
-    lispLibs = [ (getAttr "cl-graph" pkgs) (getAttr "moptilities" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-graph" pkgs)
+      (getAttr "moptilities" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-grip = {
@@ -18430,7 +19082,10 @@ in {
       asd = "cl-gtk2-pango";
     });
     systems = [ "cl-gtk2-pango" ];
-    lispLibs = [ (getAttr "cl-gtk2-glib" pkgs) (getAttr "iterate" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-gtk2-glib" pkgs)
+      (getAttr "iterate" pkgs)
+    ];
   };
   cl-haml = {
     pname = "cl-haml";
@@ -18458,7 +19113,10 @@ in {
       asd = "cl-haml";
     });
     systems = [ "cl-haml-test" ];
-    lispLibs = [ (getAttr "cl-haml" pkgs) (getAttr "cl-test-more" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-haml" pkgs)
+      (getAttr "cl-test-more" pkgs)
+    ];
   };
   cl-hamt = {
     pname = "cl-hamt";
@@ -18504,7 +19162,10 @@ in {
       asd = "cl-hamt-test";
     });
     systems = [ "cl-hamt-test" ];
-    lispLibs = [ (getAttr "cl-hamt" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-hamt" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-hash-table-destructuring = {
     pname = "cl-hash-table-destructuring";
@@ -18564,7 +19225,10 @@ in {
       asd = "cl-hash-util-test";
     });
     systems = [ "cl-hash-util-test" ];
-    lispLibs = [ (getAttr "cl-hash-util" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-hash-util" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-heap = {
     pname = "cl-heap";
@@ -18592,7 +19256,10 @@ in {
       asd = "cl-heap-tests";
     });
     systems = [ "cl-heap-tests" ];
-    lispLibs = [ (getAttr "cl-heap" pkgs) (getAttr "xlunit" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-heap" pkgs)
+      (getAttr "xlunit" pkgs)
+    ];
   };
   cl-heredoc = {
     pname = "cl-heredoc";
@@ -18620,7 +19287,10 @@ in {
       asd = "cl-heredoc-test";
     });
     systems = [ "cl-heredoc-test" ];
-    lispLibs = [ (getAttr "cl-heredoc" pkgs) (getAttr "stefil" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-heredoc" pkgs)
+      (getAttr "stefil" pkgs)
+    ];
   };
   cl-hooks = {
     pname = "cl-hooks";
@@ -18653,7 +19323,10 @@ in {
       asd = "cl-hooks";
     });
     systems = [ "cl-hooks/test" ];
-    lispLibs = [ (getAttr "cl-hooks" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-hooks" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-html-diff = {
@@ -18758,7 +19431,10 @@ in {
       asd = "cl-html5-parser-cxml";
     });
     systems = [ "cl-html5-parser-cxml" ];
-    lispLibs = [ (getAttr "cl-html5-parser" pkgs) (getAttr "cxml" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-html5-parser" pkgs)
+      (getAttr "cxml" pkgs)
+    ];
   };
   cl-html5-parser-tests = {
     pname = "cl-html5-parser-tests";
@@ -18895,7 +19571,10 @@ in {
       asd = "cl-incognia";
     });
     systems = [ "cl-incognia" ];
-    lispLibs = [ (getAttr "dexador" pkgs) (getAttr "jonathan" pkgs) ];
+    lispLibs = [
+      (getAttr "dexador" pkgs)
+      (getAttr "jonathan" pkgs)
+    ];
   };
   cl-incognia_slash_tests = {
     pname = "cl-incognia_tests";
@@ -18909,7 +19588,10 @@ in {
       asd = "cl-incognia";
     });
     systems = [ "cl-incognia/tests" ];
-    lispLibs = [ (getAttr "cl-incognia" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-incognia" pkgs)
+      (getAttr "rove" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-indentify = {
@@ -18942,8 +19624,10 @@ in {
       asd = "cl-indentify";
     });
     systems = [ "cl-indentify/cli" ];
-    lispLibs =
-      [ (getAttr "cl-indentify" pkgs) (getAttr "command-line-arguments" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-indentify" pkgs)
+      (getAttr "command-line-arguments" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-indentify_slash_tests = {
@@ -18977,7 +19661,10 @@ in {
       asd = "cl-inflector";
     });
     systems = [ "cl-inflector" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cl-ppcre" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cl-ppcre" pkgs)
+    ];
   };
   cl-inflector-test = {
     pname = "cl-inflector-test";
@@ -18991,7 +19678,10 @@ in {
       asd = "cl-inflector";
     });
     systems = [ "cl-inflector-test" ];
-    lispLibs = [ (getAttr "cl-inflector" pkgs) (getAttr "lisp-unit2" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-inflector" pkgs)
+      (getAttr "lisp-unit2" pkgs)
+    ];
   };
   cl-influxdb = {
     pname = "cl-influxdb";
@@ -19026,7 +19716,10 @@ in {
       asd = "cl-info";
     });
     systems = [ "cl-info" ];
-    lispLibs = [ (getAttr "_40ants-doc" pkgs) (getAttr "docs-config" pkgs) ];
+    lispLibs = [
+      (getAttr "_40ants-doc" pkgs)
+      (getAttr "docs-config" pkgs)
+    ];
   };
   cl-info-test = {
     pname = "cl-info-test";
@@ -19072,7 +19765,10 @@ in {
       asd = "cl-ini-test";
     });
     systems = [ "cl-ini-test" ];
-    lispLibs = [ (getAttr "cl-ini" pkgs) (getAttr "prove" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ini" pkgs)
+      (getAttr "prove" pkgs)
+    ];
   };
   cl-inotify = {
     pname = "cl-inotify";
@@ -19110,7 +19806,10 @@ in {
       asd = "cl-inotify-tests";
     });
     systems = [ "cl-inotify-tests" ];
-    lispLibs = [ (getAttr "cl-inotify" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-inotify" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-intbytes = {
     pname = "cl-intbytes";
@@ -19156,8 +19855,10 @@ in {
       asd = "cl-interpol";
     });
     systems = [ "cl-interpol" ];
-    lispLibs =
-      [ (getAttr "cl-unicode" pkgs) (getAttr "named-readtables" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-unicode" pkgs)
+      (getAttr "named-readtables" pkgs)
+    ];
   };
   cl-interpol_slash_test = {
     pname = "cl-interpol_test";
@@ -19171,7 +19872,10 @@ in {
       asd = "cl-interpol";
     });
     systems = [ "cl-interpol/test" ];
-    lispLibs = [ (getAttr "cl-interpol" pkgs) (getAttr "flexi-streams" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-interpol" pkgs)
+      (getAttr "flexi-streams" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-interval = {
@@ -19200,7 +19904,10 @@ in {
       asd = "cl-interval-docs";
     });
     systems = [ "cl-interval-docs" ];
-    lispLibs = [ (getAttr "cl-gendoc" pkgs) (getAttr "cl-interval" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-gendoc" pkgs)
+      (getAttr "cl-interval" pkgs)
+    ];
   };
   cl-ipfs-api2 = {
     pname = "cl-ipfs-api2";
@@ -19297,7 +20004,10 @@ in {
       asd = "cl-iterative";
     });
     systems = [ "cl-iterative" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "optima" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "optima" pkgs)
+    ];
   };
   cl-iterative-tests = {
     pname = "cl-iterative-tests";
@@ -19311,7 +20021,10 @@ in {
       asd = "cl-iterative-tests";
     });
     systems = [ "cl-iterative-tests" ];
-    lispLibs = [ (getAttr "cl-iterative" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-iterative" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-itertools = {
     pname = "cl-itertools";
@@ -19439,7 +20152,10 @@ in {
       asd = "cl-json-pointer";
     });
     systems = [ "cl-json-pointer/core" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "closer-mop" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "closer-mop" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-json-pointer_slash_st-json-support = {
@@ -19525,7 +20241,10 @@ in {
       asd = "cl-json";
     });
     systems = [ "cl-json/test" ];
-    lispLibs = [ (getAttr "cl-json" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-json" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-jsx = {
@@ -19634,7 +20353,10 @@ in {
       asd = "cl-junit-xml";
     });
     systems = [ "cl-junit-xml.test" ];
-    lispLibs = [ (getAttr "cl-junit-xml" pkgs) (getAttr "lisp-unit2" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-junit-xml" pkgs)
+      (getAttr "lisp-unit2" pkgs)
+    ];
   };
   cl-k8055 = {
     pname = "cl-k8055";
@@ -19875,7 +20597,10 @@ in {
       asd = "cl-lambdacalc-test";
     });
     systems = [ "cl-lambdacalc-test" ];
-    lispLibs = [ (getAttr "cl-lambdacalc" pkgs) (getAttr "lisp-unit" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-lambdacalc" pkgs)
+      (getAttr "lisp-unit" pkgs)
+    ];
   };
   cl-las = {
     pname = "cl-las";
@@ -19922,7 +20647,10 @@ in {
       asd = "cl-lastfm-test";
     });
     systems = [ "cl-lastfm-test" ];
-    lispLibs = [ (getAttr "cl-lastfm" pkgs) (getAttr "lisp-unit" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-lastfm" pkgs)
+      (getAttr "lisp-unit" pkgs)
+    ];
   };
   cl-launch = {
     pname = "cl-launch";
@@ -20049,7 +20777,10 @@ in {
       asd = "cl-libevent2-ssl";
     });
     systems = [ "cl-libevent2-ssl" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cl-libevent2" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cl-libevent2" pkgs)
+    ];
   };
   cl-libfarmhash = {
     pname = "cl-libfarmhash";
@@ -20063,7 +20794,10 @@ in {
       asd = "cl-libfarmhash";
     });
     systems = [ "cl-libfarmhash" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cffi-libffi" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cffi-libffi" pkgs)
+    ];
   };
   cl-libhoedown = {
     pname = "cl-libhoedown";
@@ -20105,7 +20839,10 @@ in {
       asd = "cl-libinput";
     });
     systems = [ "cl-libinput" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "osicat" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "osicat" pkgs)
+    ];
   };
   cl-liblinear = {
     pname = "cl-liblinear";
@@ -20119,7 +20856,10 @@ in {
       asd = "cl-liblinear";
     });
     systems = [ "cl-liblinear" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "trivial-garbage" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "trivial-garbage" pkgs)
+    ];
   };
   cl-libpuzzle = {
     pname = "cl-libpuzzle";
@@ -20147,7 +20887,10 @@ in {
       asd = "cl-libpuzzle-test";
     });
     systems = [ "cl-libpuzzle-test" ];
-    lispLibs = [ (getAttr "cl-libpuzzle" pkgs) (getAttr "cl-test-more" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-libpuzzle" pkgs)
+      (getAttr "cl-test-more" pkgs)
+    ];
   };
   cl-libsvm = {
     pname = "cl-libsvm";
@@ -20161,7 +20904,10 @@ in {
       asd = "cl-libsvm";
     });
     systems = [ "cl-libsvm" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "trivial-garbage" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "trivial-garbage" pkgs)
+    ];
   };
   cl-libsvm-format = {
     pname = "cl-libsvm-format";
@@ -20207,7 +20953,10 @@ in {
       asd = "cl-libusb";
     });
     systems = [ "cl-libusb" ];
-    lispLibs = [ (getAttr "libusb-ffi" pkgs) (getAttr "trivial-garbage" pkgs) ];
+    lispLibs = [
+      (getAttr "libusb-ffi" pkgs)
+      (getAttr "trivial-garbage" pkgs)
+    ];
   };
   cl-libuv = {
     pname = "cl-libuv";
@@ -20275,7 +21024,10 @@ in {
       asd = "cl-libxml2";
     });
     systems = [ "cl-libxml2-test" ];
-    lispLibs = [ (getAttr "cl-libxml2" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-libxml2" pkgs)
+      (getAttr "lift" pkgs)
+    ];
   };
   cl-libyaml = {
     pname = "cl-libyaml";
@@ -20303,7 +21055,10 @@ in {
       asd = "cl-libyaml-test";
     });
     systems = [ "cl-libyaml-test" ];
-    lispLibs = [ (getAttr "cl-libyaml" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-libyaml" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-lite = {
     pname = "cl-lite";
@@ -20351,7 +21106,10 @@ in {
       asd = "cl-locale-syntax";
     });
     systems = [ "cl-locale-syntax" ];
-    lispLibs = [ (getAttr "cl-locale" pkgs) (getAttr "cl-syntax" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-locale" pkgs)
+      (getAttr "cl-syntax" pkgs)
+    ];
   };
   cl-locale-test = {
     pname = "cl-locale-test";
@@ -20413,7 +21171,10 @@ in {
       asd = "cl-log-test";
     });
     systems = [ "cl-log-test" ];
-    lispLibs = [ (getAttr "cl-log" pkgs) (getAttr "eos" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-log" pkgs)
+      (getAttr "eos" pkgs)
+    ];
   };
   cl-logic = {
     pname = "cl-logic";
@@ -20427,7 +21188,10 @@ in {
       asd = "cl-logic";
     });
     systems = [ "cl-logic" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "quine-mccluskey" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "quine-mccluskey" pkgs)
+    ];
   };
   cl-ltsv = {
     pname = "cl-ltsv";
@@ -20455,7 +21219,10 @@ in {
       asd = "cl-ltsv-test";
     });
     systems = [ "cl-ltsv-test" ];
-    lispLibs = [ (getAttr "cl-ltsv" pkgs) (getAttr "cl-test-more" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ltsv" pkgs)
+      (getAttr "cl-test-more" pkgs)
+    ];
   };
   cl-lzma = {
     pname = "cl-lzma";
@@ -20606,8 +21373,10 @@ in {
       asd = "cl-markless";
     });
     systems = [ "cl-markless" ];
-    lispLibs =
-      [ (getAttr "documentation-utils" pkgs) (getAttr "trivial-indent" pkgs) ];
+    lispLibs = [
+      (getAttr "documentation-utils" pkgs)
+      (getAttr "trivial-indent" pkgs)
+    ];
   };
   cl-markless-epub = {
     pname = "cl-markless-epub";
@@ -20661,7 +21430,10 @@ in {
       asd = "cl-markless-plump";
     });
     systems = [ "cl-markless-plump" ];
-    lispLibs = [ (getAttr "cl-markless" pkgs) (getAttr "plump-dom" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-markless" pkgs)
+      (getAttr "plump-dom" pkgs)
+    ];
   };
   cl-markless-standalone = {
     pname = "cl-markless-standalone";
@@ -20695,7 +21467,10 @@ in {
       asd = "cl-markless-test";
     });
     systems = [ "cl-markless-test" ];
-    lispLibs = [ (getAttr "cl-markless" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-markless" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
   };
   cl-marklogic = {
     pname = "cl-marklogic";
@@ -20742,7 +21517,10 @@ in {
       asd = "cl-markup-test";
     });
     systems = [ "cl-markup-test" ];
-    lispLibs = [ (getAttr "cl-markup" pkgs) (getAttr "cl-test-more" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-markup" pkgs)
+      (getAttr "cl-test-more" pkgs)
+    ];
   };
   cl-match = {
     pname = "cl-match";
@@ -20770,7 +21548,10 @@ in {
       asd = "cl-match-test";
     });
     systems = [ "cl-match-test" ];
-    lispLibs = [ (getAttr "cl-match" pkgs) (getAttr "pcl-unit-test" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-match" pkgs)
+      (getAttr "pcl-unit-test" pkgs)
+    ];
   };
   cl-mathstats = {
     pname = "cl-mathstats";
@@ -20784,8 +21565,10 @@ in {
       asd = "cl-mathstats";
     });
     systems = [ "cl-mathstats" ];
-    lispLibs =
-      [ (getAttr "cl-containers" pkgs) (getAttr "metatilities-base" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-containers" pkgs)
+      (getAttr "metatilities-base" pkgs)
+    ];
   };
   cl-mathstats-test = {
     pname = "cl-mathstats-test";
@@ -20799,7 +21582,10 @@ in {
       asd = "cl-mathstats-test";
     });
     systems = [ "cl-mathstats-test" ];
-    lispLibs = [ (getAttr "cl-mathstats" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-mathstats" pkgs)
+      (getAttr "lift" pkgs)
+    ];
   };
   cl-maxminddb = {
     pname = "cl-maxminddb";
@@ -20854,7 +21640,10 @@ in {
       asd = "cl-maxsat.test";
     });
     systems = [ "cl-maxsat.test" ];
-    lispLibs = [ (getAttr "cl-maxsat" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-maxsat" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-mdb = {
     pname = "cl-mdb";
@@ -20882,7 +21671,10 @@ in {
       asd = "cl-mecab";
     });
     systems = [ "cl-mecab" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "split-sequence" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "split-sequence" pkgs)
+    ];
   };
   cl-mecab-test = {
     pname = "cl-mecab-test";
@@ -20952,7 +21744,10 @@ in {
       asd = "cl-mediawiki-test";
     });
     systems = [ "cl-mediawiki-test" ];
-    lispLibs = [ (getAttr "cl-mediawiki" pkgs) (getAttr "lisp-unit2" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-mediawiki" pkgs)
+      (getAttr "lisp-unit2" pkgs)
+    ];
   };
   cl-megolm = {
     pname = "cl-megolm";
@@ -21067,7 +21862,10 @@ in {
       asd = "cl-messagepack-rpc-tests";
     });
     systems = [ "cl-messagepack-rpc-tests" ];
-    lispLibs = [ (getAttr "cl-messagepack-rpc" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-messagepack-rpc" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-messagepack-tests = {
     pname = "cl-messagepack-tests";
@@ -21279,7 +22077,10 @@ in {
       asd = "cl-mime-test";
     });
     systems = [ "cl-mime-test" ];
-    lispLibs = [ (getAttr "cl-mime" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-mime" pkgs)
+      (getAttr "rove" pkgs)
+    ];
   };
   cl-mimeparse = {
     pname = "cl-mimeparse";
@@ -21293,7 +22094,10 @@ in {
       asd = "cl-mimeparse";
     });
     systems = [ "cl-mimeparse" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "parse-number" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "parse-number" pkgs)
+    ];
   };
   cl-mimeparse-tests = {
     pname = "cl-mimeparse-tests";
@@ -21307,7 +22111,10 @@ in {
       asd = "cl-mimeparse-tests";
     });
     systems = [ "cl-mimeparse-tests" ];
-    lispLibs = [ (getAttr "cl-mimeparse" pkgs) (getAttr "rt" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-mimeparse" pkgs)
+      (getAttr "rt" pkgs)
+    ];
   };
   cl-minify-css = {
     pname = "cl-minify-css";
@@ -21374,7 +22181,10 @@ in {
       asd = "cl-mixed-alsa";
     });
     systems = [ "cl-mixed-alsa" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cl-mixed" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cl-mixed" pkgs)
+    ];
   };
   cl-mixed-coreaudio = {
     pname = "cl-mixed-coreaudio";
@@ -21425,7 +22235,10 @@ in {
       asd = "cl-mixed-flac";
     });
     systems = [ "cl-mixed-flac" ];
-    lispLibs = [ (getAttr "cl-flac" pkgs) (getAttr "cl-mixed" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-flac" pkgs)
+      (getAttr "cl-mixed" pkgs)
+    ];
   };
   cl-mixed-jack = {
     pname = "cl-mixed-jack";
@@ -21439,7 +22252,10 @@ in {
       asd = "cl-mixed-jack";
     });
     systems = [ "cl-mixed-jack" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cl-mixed" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cl-mixed" pkgs)
+    ];
   };
   cl-mixed-mpg123 = {
     pname = "cl-mixed-mpg123";
@@ -21453,7 +22269,10 @@ in {
       asd = "cl-mixed-mpg123";
     });
     systems = [ "cl-mixed-mpg123" ];
-    lispLibs = [ (getAttr "cl-mixed" pkgs) (getAttr "cl-mpg123" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-mixed" pkgs)
+      (getAttr "cl-mpg123" pkgs)
+    ];
   };
   cl-mixed-mpt = {
     pname = "cl-mixed-mpt";
@@ -21467,7 +22286,10 @@ in {
       asd = "cl-mixed-mpt";
     });
     systems = [ "cl-mixed-mpt" ];
-    lispLibs = [ (getAttr "cl-mixed" pkgs) (getAttr "static-vectors" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-mixed" pkgs)
+      (getAttr "static-vectors" pkgs)
+    ];
   };
   cl-mixed-oss = {
     pname = "cl-mixed-oss";
@@ -21481,7 +22303,10 @@ in {
       asd = "cl-mixed-oss";
     });
     systems = [ "cl-mixed-oss" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cl-mixed" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cl-mixed" pkgs)
+    ];
   };
   cl-mixed-out123 = {
     pname = "cl-mixed-out123";
@@ -21495,7 +22320,10 @@ in {
       asd = "cl-mixed-out123";
     });
     systems = [ "cl-mixed-out123" ];
-    lispLibs = [ (getAttr "cl-mixed" pkgs) (getAttr "cl-out123" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-mixed" pkgs)
+      (getAttr "cl-out123" pkgs)
+    ];
   };
   cl-mixed-pulse = {
     pname = "cl-mixed-pulse";
@@ -21509,7 +22337,10 @@ in {
       asd = "cl-mixed-pulse";
     });
     systems = [ "cl-mixed-pulse" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cl-mixed" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cl-mixed" pkgs)
+    ];
   };
   cl-mixed-sdl2 = {
     pname = "cl-mixed-sdl2";
@@ -21523,7 +22354,10 @@ in {
       asd = "cl-mixed-sdl2";
     });
     systems = [ "cl-mixed-sdl2" ];
-    lispLibs = [ (getAttr "cl-mixed" pkgs) (getAttr "sdl2" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-mixed" pkgs)
+      (getAttr "sdl2" pkgs)
+    ];
   };
   cl-mixed-vorbis = {
     pname = "cl-mixed-vorbis";
@@ -21537,7 +22371,10 @@ in {
       asd = "cl-mixed-vorbis";
     });
     systems = [ "cl-mixed-vorbis" ];
-    lispLibs = [ (getAttr "cl-mixed" pkgs) (getAttr "cl-vorbis" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-mixed" pkgs)
+      (getAttr "cl-vorbis" pkgs)
+    ];
   };
   cl-mixed-wasapi = {
     pname = "cl-mixed-wasapi";
@@ -21583,7 +22420,10 @@ in {
       asd = "cl-mixed-winmm";
     });
     systems = [ "cl-mixed-winmm" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cl-mixed" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cl-mixed" pkgs)
+    ];
   };
   cl-mixed-xaudio2 = {
     pname = "cl-mixed-xaudio2";
@@ -21615,7 +22455,10 @@ in {
       asd = "cl-mock";
     });
     systems = [ "cl-mock" ];
-    lispLibs = [ (getAttr "cl-mock-basic" pkgs) (getAttr "trivia" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-mock-basic" pkgs)
+      (getAttr "trivia" pkgs)
+    ];
   };
   cl-mock-basic = {
     pname = "cl-mock-basic";
@@ -21647,8 +22490,10 @@ in {
       asd = "cl-mock-tests";
     });
     systems = [ "cl-mock-tests" ];
-    lispLibs =
-      [ (getAttr "cl-mock" pkgs) (getAttr "cl-mock-tests-basic" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-mock" pkgs)
+      (getAttr "cl-mock-tests-basic" pkgs)
+    ];
   };
   cl-mock-tests-basic = {
     pname = "cl-mock-tests-basic";
@@ -21662,7 +22507,10 @@ in {
       asd = "cl-mock-tests-basic";
     });
     systems = [ "cl-mock-tests-basic" ];
-    lispLibs = [ (getAttr "cl-mock-basic" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-mock-basic" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-monad-macros = {
     pname = "cl-monad-macros";
@@ -21690,7 +22538,10 @@ in {
       asd = "cl-moneris";
     });
     systems = [ "cl-moneris" ];
-    lispLibs = [ (getAttr "drakma" pkgs) (getAttr "s-xml" pkgs) ];
+    lispLibs = [
+      (getAttr "drakma" pkgs)
+      (getAttr "s-xml" pkgs)
+    ];
   };
   cl-moneris-test = {
     pname = "cl-moneris-test";
@@ -21704,7 +22555,10 @@ in {
       asd = "cl-moneris-test";
     });
     systems = [ "cl-moneris-test" ];
-    lispLibs = [ (getAttr "cl-moneris" pkgs) (getAttr "eos" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-moneris" pkgs)
+      (getAttr "eos" pkgs)
+    ];
   };
   cl-mongo = {
     pname = "cl-mongo";
@@ -21807,7 +22661,10 @@ in {
       asd = "cl-morse";
     });
     systems = [ "cl-morse/tests" ];
-    lispLibs = [ (getAttr "cl-morse" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-morse" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-moss = {
@@ -21911,7 +22768,10 @@ in {
       asd = "cl-mpi-asdf-integration";
     });
     systems = [ "cl-mpi-asdf-integration" ];
-    lispLibs = [ (getAttr "cffi-grovel" pkgs) (getAttr "cffi-toolchain" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi-grovel" pkgs)
+      (getAttr "cffi-toolchain" pkgs)
+    ];
   };
   cl-mpi-examples = {
     pname = "cl-mpi-examples";
@@ -21961,8 +22821,11 @@ in {
       asd = "cl-mpi-test-suite";
     });
     systems = [ "cl-mpi-test-suite" ];
-    lispLibs =
-      [ (getAttr "cffi" pkgs) (getAttr "cl-mpi" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cl-mpi" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-mtgnet = {
     pname = "cl-mtgnet";
@@ -21995,7 +22858,10 @@ in {
       asd = "cl-mtgnet-async";
     });
     systems = [ "cl-mtgnet-async" ];
-    lispLibs = [ (getAttr "cl-async" pkgs) (getAttr "cl-mtgnet" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-async" pkgs)
+      (getAttr "cl-mtgnet" pkgs)
+    ];
   };
   cl-mtgnet-sync = {
     pname = "cl-mtgnet-sync";
@@ -22009,7 +22875,10 @@ in {
       asd = "cl-mtgnet-sync";
     });
     systems = [ "cl-mtgnet-sync" ];
-    lispLibs = [ (getAttr "cl-mtgnet" pkgs) (getAttr "usocket" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-mtgnet" pkgs)
+      (getAttr "usocket" pkgs)
+    ];
   };
   cl-murmurhash = {
     pname = "cl-murmurhash";
@@ -22037,7 +22906,10 @@ in {
       asd = "cl-murmurhash";
     });
     systems = [ "cl-murmurhash/test" ];
-    lispLibs = [ (getAttr "cl-murmurhash" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-murmurhash" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-mustache = {
@@ -22268,7 +23140,10 @@ in {
       asd = "cl-mysql-test";
     });
     systems = [ "cl-mysql-test" ];
-    lispLibs = [ (getAttr "cl-mysql" pkgs) (getAttr "stefil" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-mysql" pkgs)
+      (getAttr "stefil" pkgs)
+    ];
   };
   cl-naive-store = {
     pname = "cl-naive-store";
@@ -22406,7 +23281,10 @@ in {
       asd = "cl-naive-store.test";
     });
     systems = [ "cl-naive-store.test" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cl-naive-store" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cl-naive-store" pkgs)
+    ];
   };
   cl-ncurses = {
     pname = "cl-ncurses";
@@ -22456,7 +23334,10 @@ in {
       asd = "cl-neo4j";
     });
     systems = [ "cl-neo4j.tests" ];
-    lispLibs = [ (getAttr "cl-neo4j" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-neo4j" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-neovim = {
     pname = "cl-neovim";
@@ -22523,8 +23404,10 @@ in {
       asd = "cl-netstring+";
     });
     systems = [ "cl-netstring+" ];
-    lispLibs =
-      [ (getAttr "flexi-streams" pkgs) (getAttr "trivial-utf-8" pkgs) ];
+    lispLibs = [
+      (getAttr "flexi-streams" pkgs)
+      (getAttr "trivial-utf-8" pkgs)
+    ];
   };
   cl-netstrings = {
     pname = "cl-netstrings";
@@ -22538,7 +23421,10 @@ in {
       asd = "cl-netstrings";
     });
     systems = [ "cl-netstrings" ];
-    lispLibs = [ (getAttr "arnesi" pkgs) (getAttr "iterate" pkgs) ];
+    lispLibs = [
+      (getAttr "arnesi" pkgs)
+      (getAttr "iterate" pkgs)
+    ];
   };
   cl-notebook = {
     pname = "cl-notebook";
@@ -22598,7 +23484,10 @@ in {
       asd = "cl-ntp-client";
     });
     systems = [ "cl-ntp-client" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "usocket" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "usocket" pkgs)
+    ];
   };
   cl-ntriples = {
     pname = "cl-ntriples";
@@ -22646,7 +23535,10 @@ in {
       asd = "cl-num-utils";
     });
     systems = [ "cl-num-utils-tests" ];
-    lispLibs = [ (getAttr "cl-num-utils" pkgs) (getAttr "clunit" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-num-utils" pkgs)
+      (getAttr "clunit" pkgs)
+    ];
   };
   cl-oauth = {
     pname = "cl-oauth";
@@ -22687,7 +23579,10 @@ in {
       asd = "cl-oauth";
     });
     systems = [ "cl-oauth.tests" ];
-    lispLibs = [ (getAttr "cl-oauth" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-oauth" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-oclapi = {
     pname = "cl-oclapi";
@@ -22753,7 +23648,10 @@ in {
       asd = "cl-octet-streams";
     });
     systems = [ "cl-octet-streams/tests" ];
-    lispLibs = [ (getAttr "cl-octet-streams" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-octet-streams" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-ode = {
@@ -22800,7 +23698,10 @@ in {
       asd = "cl-ohm";
     });
     systems = [ "cl-ohm/test" ];
-    lispLibs = [ (getAttr "cl-ohm" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ohm" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-oju = {
@@ -22829,7 +23730,10 @@ in {
       asd = "cl-oju";
     });
     systems = [ "cl-oju/test" ];
-    lispLibs = [ (getAttr "_1am" pkgs) (getAttr "cl-oju" pkgs) ];
+    lispLibs = [
+      (getAttr "_1am" pkgs)
+      (getAttr "cl-oju" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-olefs = {
@@ -22872,8 +23776,10 @@ in {
       asd = "cl-one-time-passwords-test";
     });
     systems = [ "cl-one-time-passwords-test" ];
-    lispLibs =
-      [ (getAttr "cl-one-time-passwords" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-one-time-passwords" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-oneliner = {
     pname = "cl-oneliner";
@@ -22905,7 +23811,10 @@ in {
       asd = "cl-online-learning";
     });
     systems = [ "cl-online-learning" ];
-    lispLibs = [ (getAttr "cl-libsvm-format" pkgs) (getAttr "cl-store" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-libsvm-format" pkgs)
+      (getAttr "cl-store" pkgs)
+    ];
   };
   cl-online-learning-test = {
     pname = "cl-online-learning-test";
@@ -22937,7 +23846,10 @@ in {
       asd = "cl-openal";
     });
     systems = [ "cl-openal" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cffi" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cffi" pkgs)
+    ];
   };
   cl-openal-examples = {
     pname = "cl-openal-examples";
@@ -22970,7 +23882,10 @@ in {
       asd = "cl-opencl";
     });
     systems = [ "cl-opencl" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cffi-grovel" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cffi-grovel" pkgs)
+    ];
   };
   cl-opencl-utils = {
     pname = "cl-opencl-utils";
@@ -23092,7 +24007,10 @@ in {
       asd = "cl-org-mode";
     });
     systems = [ "cl-org-mode" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "closer-mop" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "closer-mop" pkgs)
+    ];
   };
   cl-out123 = {
     pname = "cl-out123";
@@ -23218,7 +24136,10 @@ in {
       asd = "cl-pass-test";
     });
     systems = [ "cl-pass-test" ];
-    lispLibs = [ (getAttr "cl-pass" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-pass" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-paths = {
     pname = "cl-paths";
@@ -23246,7 +24167,10 @@ in {
       asd = "cl-paths-ttf";
     });
     systems = [ "cl-paths-ttf" ];
-    lispLibs = [ (getAttr "cl-paths" pkgs) (getAttr "zpb-ttf" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-paths" pkgs)
+      (getAttr "zpb-ttf" pkgs)
+    ];
   };
   cl-pattern = {
     pname = "cl-pattern";
@@ -23330,7 +24254,10 @@ in {
       asd = "cl-patterns";
     });
     systems = [ "cl-patterns/generic-cl" ];
-    lispLibs = [ (getAttr "cl-patterns" pkgs) (getAttr "generic-cl" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-patterns" pkgs)
+      (getAttr "generic-cl" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-patterns_slash_midifile = {
@@ -23345,7 +24272,10 @@ in {
       asd = "cl-patterns";
     });
     systems = [ "cl-patterns/midifile" ];
-    lispLibs = [ (getAttr "cl-patterns" pkgs) (getAttr "midi" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-patterns" pkgs)
+      (getAttr "midi" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-patterns_slash_sugar = {
@@ -23375,7 +24305,10 @@ in {
       asd = "cl-patterns";
     });
     systems = [ "cl-patterns/supercollider" ];
-    lispLibs = [ (getAttr "cl-collider" pkgs) (getAttr "cl-patterns" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-collider" pkgs)
+      (getAttr "cl-patterns" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-patterns_slash_tests = {
@@ -23461,7 +24394,10 @@ in {
       asd = "cl-pcg.test";
     });
     systems = [ "cl-pcg.test" ];
-    lispLibs = [ (getAttr "_1am" pkgs) (getAttr "cl-pcg" pkgs) ];
+    lispLibs = [
+      (getAttr "_1am" pkgs)
+      (getAttr "cl-pcg" pkgs)
+    ];
   };
   cl-pdf = {
     pname = "cl-pdf";
@@ -23493,7 +24429,10 @@ in {
       asd = "cl-pdf-doc";
     });
     systems = [ "cl-pdf-doc" ];
-    lispLibs = [ (getAttr "cl-pdf" pkgs) (getAttr "cl-typesetting" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-pdf" pkgs)
+      (getAttr "cl-typesetting" pkgs)
+    ];
   };
   cl-pdf-parser = {
     pname = "cl-pdf-parser";
@@ -23535,8 +24474,10 @@ in {
       asd = "cl-performance-tuning-helper-test";
     });
     systems = [ "cl-performance-tuning-helper-test" ];
-    lispLibs =
-      [ (getAttr "cl-performance-tuning-helper" pkgs) (getAttr "rt" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-performance-tuning-helper" pkgs)
+      (getAttr "rt" pkgs)
+    ];
   };
   cl-permutation = {
     pname = "cl-permutation";
@@ -23571,7 +24512,10 @@ in {
       asd = "cl-permutation-examples";
     });
     systems = [ "cl-permutation-examples" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cl-permutation" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cl-permutation" pkgs)
+    ];
   };
   cl-permutation-tests = {
     pname = "cl-permutation-tests";
@@ -23617,7 +24561,10 @@ in {
       asd = "cl-photo-tests";
     });
     systems = [ "cl-photo-tests" ];
-    lispLibs = [ (getAttr "cl-photo" pkgs) (getAttr "rt" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-photo" pkgs)
+      (getAttr "rt" pkgs)
+    ];
   };
   cl-plplot = {
     pname = "cl-plplot";
@@ -23695,7 +24642,10 @@ in {
       asd = "cl-ply";
     });
     systems = [ "cl-ply" ];
-    lispLibs = [ (getAttr "cl-pattern" pkgs) (getAttr "cl-ppcre" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-pattern" pkgs)
+      (getAttr "cl-ppcre" pkgs)
+    ];
   };
   cl-ply-test = {
     pname = "cl-ply-test";
@@ -23741,7 +24691,10 @@ in {
       asd = "cl-pop";
     });
     systems = [ "cl-pop" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "usocket" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "usocket" pkgs)
+    ];
   };
   cl-portaudio = {
     pname = "cl-portaudio";
@@ -23755,7 +24708,10 @@ in {
       asd = "cl-portaudio";
     });
     systems = [ "cl-portaudio" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "ffa" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "ffa" pkgs)
+    ];
   };
   cl-portaudio_slash_doc = {
     pname = "cl-portaudio_doc";
@@ -23769,7 +24725,10 @@ in {
       asd = "cl-portaudio";
     });
     systems = [ "cl-portaudio/doc" ];
-    lispLibs = [ (getAttr "atdoc" pkgs) (getAttr "cl-portaudio" pkgs) ];
+    lispLibs = [
+      (getAttr "atdoc" pkgs)
+      (getAttr "cl-portaudio" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-portaudio_slash_tests = {
@@ -23819,7 +24778,10 @@ in {
       asd = "cl-postgres+local-time";
     });
     systems = [ "cl-postgres+local-time" ];
-    lispLibs = [ (getAttr "local-time" pkgs) (getAttr "cl-postgres" pkgs) ];
+    lispLibs = [
+      (getAttr "local-time" pkgs)
+      (getAttr "cl-postgres" pkgs)
+    ];
   };
   cl-postgres_plus_local-time-duration = {
     pname = "cl-postgres+local-time-duration";
@@ -23833,8 +24795,10 @@ in {
       asd = "cl-postgres+local-time-duration";
     });
     systems = [ "cl-postgres+local-time-duration" ];
-    lispLibs =
-      [ (getAttr "local-time-duration" pkgs) (getAttr "cl-postgres" pkgs) ];
+    lispLibs = [
+      (getAttr "local-time-duration" pkgs)
+      (getAttr "cl-postgres" pkgs)
+    ];
   };
   cl-postgres-datetime = {
     pname = "cl-postgres-datetime";
@@ -23866,7 +24830,10 @@ in {
       asd = "cl-postgres-plus-uuid";
     });
     systems = [ "cl-postgres-plus-uuid" ];
-    lispLibs = [ (getAttr "cl-postgres" pkgs) (getAttr "uuid" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-postgres" pkgs)
+      (getAttr "uuid" pkgs)
+    ];
   };
   cl-postgres_slash_simple-date-tests = {
     pname = "cl-postgres_simple-date-tests";
@@ -23933,7 +24900,10 @@ in {
       asd = "cl-ppcre-template";
     });
     systems = [ "cl-ppcre-template" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "cl-unification" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "cl-unification" pkgs)
+    ];
   };
   cl-ppcre-unicode = {
     pname = "cl-ppcre-unicode";
@@ -23947,7 +24917,10 @@ in {
       asd = "cl-ppcre-unicode";
     });
     systems = [ "cl-ppcre-unicode" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "cl-unicode" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "cl-unicode" pkgs)
+    ];
   };
   cl-ppcre-unicode_slash_test = {
     pname = "cl-ppcre-unicode_test";
@@ -23980,7 +24953,10 @@ in {
       asd = "cl-ppcre";
     });
     systems = [ "cl-ppcre/test" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "flexi-streams" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "flexi-streams" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-prevalence = {
@@ -23995,7 +24971,10 @@ in {
       asd = "cl-prevalence";
     });
     systems = [ "cl-prevalence" ];
-    lispLibs = [ (getAttr "s-sysdeps" pkgs) (getAttr "s-xml" pkgs) ];
+    lispLibs = [
+      (getAttr "s-sysdeps" pkgs)
+      (getAttr "s-xml" pkgs)
+    ];
   };
   cl-prevalence-test = {
     pname = "cl-prevalence-test";
@@ -24478,7 +25457,10 @@ in {
       asd = "cl-qrencode-test";
     });
     systems = [ "cl-qrencode-test" ];
-    lispLibs = [ (getAttr "cl-qrencode" pkgs) (getAttr "lisp-unit" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-qrencode" pkgs)
+      (getAttr "lisp-unit" pkgs)
+    ];
   };
   cl-quickcheck = {
     pname = "cl-quickcheck";
@@ -24643,7 +25625,10 @@ in {
       asd = "cl-quil";
     });
     systems = [ "cl-quil/quilt-tests" ];
-    lispLibs = [ (getAttr "cl-quil" pkgs) (getAttr "cl-quil-tests" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-quil" pkgs)
+      (getAttr "cl-quil-tests" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-quil_slash_tools = {
@@ -24718,7 +25703,10 @@ in {
       asd = "cl-rabbit-tests";
     });
     systems = [ "cl-rabbit-tests" ];
-    lispLibs = [ (getAttr "cl-rabbit" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-rabbit" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-randist = {
     pname = "cl-randist";
@@ -24810,7 +25798,10 @@ in {
       asd = "cl-random";
     });
     systems = [ "cl-random-tests" ];
-    lispLibs = [ (getAttr "cl-random" pkgs) (getAttr "clunit" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-random" pkgs)
+      (getAttr "clunit" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-rdfxml = {
@@ -24825,7 +25816,10 @@ in {
       asd = "cl-rdfxml";
     });
     systems = [ "cl-rdfxml" ];
-    lispLibs = [ (getAttr "cxml" pkgs) (getAttr "puri" pkgs) ];
+    lispLibs = [
+      (getAttr "cxml" pkgs)
+      (getAttr "puri" pkgs)
+    ];
   };
   cl-rdkafka = {
     pname = "cl-rdkafka";
@@ -24878,7 +25872,10 @@ in {
       asd = "cl-readline";
     });
     systems = [ "cl-readline" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cffi" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cffi" pkgs)
+    ];
   };
   cl-recaptcha = {
     pname = "cl-recaptcha";
@@ -24964,7 +25961,10 @@ in {
       asd = "cl-reexport-test";
     });
     systems = [ "cl-reexport-test" ];
-    lispLibs = [ (getAttr "cl-reexport" pkgs) (getAttr "prove" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-reexport" pkgs)
+      (getAttr "prove" pkgs)
+    ];
   };
   cl-renderdoc = {
     pname = "cl-renderdoc";
@@ -25066,7 +26066,10 @@ in {
       asd = "cl-rfc2047";
     });
     systems = [ "cl-rfc2047" ];
-    lispLibs = [ (getAttr "babel" pkgs) (getAttr "cl-base64" pkgs) ];
+    lispLibs = [
+      (getAttr "babel" pkgs)
+      (getAttr "cl-base64" pkgs)
+    ];
   };
   cl-rfc2047-test = {
     pname = "cl-rfc2047-test";
@@ -25098,7 +26101,10 @@ in {
       asd = "cl-rfc4251";
     });
     systems = [ "cl-rfc4251" ];
-    lispLibs = [ (getAttr "trivial-gray-streams" pkgs) (getAttr "uiop" pkgs) ];
+    lispLibs = [
+      (getAttr "trivial-gray-streams" pkgs)
+      (getAttr "uiop" pkgs)
+    ];
   };
   cl-rfc4251_dot_test = {
     pname = "cl-rfc4251.test";
@@ -25112,7 +26118,10 @@ in {
       asd = "cl-rfc4251.test";
     });
     systems = [ "cl-rfc4251.test" ];
-    lispLibs = [ (getAttr "cl-rfc4251" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-rfc4251" pkgs)
+      (getAttr "rove" pkgs)
+    ];
   };
   cl-riff = {
     pname = "cl-riff";
@@ -25140,7 +26149,10 @@ in {
       asd = "cl-rlimit";
     });
     systems = [ "cl-rlimit" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cffi-grovel" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cffi-grovel" pkgs)
+    ];
   };
   cl-rmath = {
     pname = "cl-rmath";
@@ -25351,7 +26363,10 @@ in {
       asd = "cl-rsvg2-pixbuf";
     });
     systems = [ "cl-rsvg2-pixbuf" ];
-    lispLibs = [ (getAttr "cl-gtk2-gdk" pkgs) (getAttr "cl-rsvg2" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-gtk2-gdk" pkgs)
+      (getAttr "cl-rsvg2" pkgs)
+    ];
   };
   cl-rsvg2-test = {
     pname = "cl-rsvg2-test";
@@ -25383,7 +26398,10 @@ in {
       asd = "cl-rules";
     });
     systems = [ "cl-rules" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cl-yaml" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cl-yaml" pkgs)
+    ];
   };
   cl-rules-test = {
     pname = "cl-rules-test";
@@ -25485,7 +26503,10 @@ in {
       asd = "cl-sandbox";
     });
     systems = [ "cl-sandbox/tests" ];
-    lispLibs = [ (getAttr "cl-sandbox" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-sandbox" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-sasl = {
@@ -25553,7 +26574,10 @@ in {
       asd = "cl-sat.glucose.test";
     });
     systems = [ "cl-sat.glucose.test" ];
-    lispLibs = [ (getAttr "cl-sat_dot_glucose" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-sat_dot_glucose" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-sat_dot_minisat = {
     pname = "cl-sat.minisat";
@@ -25587,7 +26611,10 @@ in {
       asd = "cl-sat.minisat.test";
     });
     systems = [ "cl-sat.minisat.test" ];
-    lispLibs = [ (getAttr "cl-sat_dot_minisat" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-sat_dot_minisat" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-sat_dot_test = {
     pname = "cl-sat.test";
@@ -25601,7 +26628,10 @@ in {
       asd = "cl-sat.test";
     });
     systems = [ "cl-sat.test" ];
-    lispLibs = [ (getAttr "cl-sat" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-sat" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-scram = {
     pname = "cl-scram";
@@ -25653,7 +26683,10 @@ in {
       asd = "cl-scripting";
     });
     systems = [ "cl-scripting" ];
-    lispLibs = [ (getAttr "cl-launch" pkgs) (getAttr "fare-utils" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-launch" pkgs)
+      (getAttr "fare-utils" pkgs)
+    ];
   };
   cl-scripting_slash_test = {
     pname = "cl-scripting_test";
@@ -25703,7 +26736,10 @@ in {
       asd = "cl-scrobbler";
     });
     systems = [ "cl-scrobbler-tests" ];
-    lispLibs = [ (getAttr "cl-scrobbler" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-scrobbler" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-scsu = {
     pname = "cl-scsu";
@@ -25805,7 +26841,10 @@ in {
       asd = "cl-semver-test";
     });
     systems = [ "cl-semver-test" ];
-    lispLibs = [ (getAttr "cl-semver" pkgs) (getAttr "stefil" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-semver" pkgs)
+      (getAttr "stefil" pkgs)
+    ];
   };
   cl-sentiment = {
     pname = "cl-sentiment";
@@ -25819,7 +26858,10 @@ in {
       asd = "cl-sentiment";
     });
     systems = [ "cl-sentiment" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "rt" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "rt" pkgs)
+    ];
   };
   cl-ses4 = {
     pname = "cl-ses4";
@@ -25875,7 +26917,10 @@ in {
       asd = "cl-setlocale";
     });
     systems = [ "cl-setlocale" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cffi-grovel" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cffi-grovel" pkgs)
+    ];
   };
   cl-setlocale_slash_tests = {
     pname = "cl-setlocale_tests";
@@ -25889,7 +26934,10 @@ in {
       asd = "cl-setlocale";
     });
     systems = [ "cl-setlocale/tests" ];
-    lispLibs = [ (getAttr "cl-setlocale" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-setlocale" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-sha1 = {
@@ -25932,7 +26980,10 @@ in {
       asd = "cl-shellwords-test";
     });
     systems = [ "cl-shellwords-test" ];
-    lispLibs = [ (getAttr "cl-shellwords" pkgs) (getAttr "prove" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-shellwords" pkgs)
+      (getAttr "prove" pkgs)
+    ];
   };
   cl-simple-concurrent-jobs = {
     pname = "cl-simple-concurrent-jobs";
@@ -25946,7 +26997,10 @@ in {
       asd = "cl-simple-concurrent-jobs";
     });
     systems = [ "cl-simple-concurrent-jobs" ];
-    lispLibs = [ (getAttr "bordeaux-threads" pkgs) (getAttr "chanl" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "chanl" pkgs)
+    ];
   };
   cl-simple-table = {
     pname = "cl-simple-table";
@@ -25974,7 +27028,10 @@ in {
       asd = "cl-singleton-mixin";
     });
     systems = [ "cl-singleton-mixin" ];
-    lispLibs = [ (getAttr "closer-mop" pkgs) (getAttr "metap" pkgs) ];
+    lispLibs = [
+      (getAttr "closer-mop" pkgs)
+      (getAttr "metap" pkgs)
+    ];
   };
   cl-singleton-mixin-test = {
     pname = "cl-singleton-mixin-test";
@@ -25988,7 +27045,10 @@ in {
       asd = "cl-singleton-mixin-test";
     });
     systems = [ "cl-singleton-mixin-test" ];
-    lispLibs = [ (getAttr "cl-singleton-mixin" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-singleton-mixin" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-skip-list = {
     pname = "cl-skip-list";
@@ -26189,7 +27249,10 @@ in {
       asd = "cl-slice";
     });
     systems = [ "cl-slice-tests" ];
-    lispLibs = [ (getAttr "cl-slice" pkgs) (getAttr "clunit" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-slice" pkgs)
+      (getAttr "clunit" pkgs)
+    ];
   };
   cl-slp = {
     pname = "cl-slp";
@@ -26378,7 +27441,10 @@ in {
       asd = "cl-spark-test";
     });
     systems = [ "cl-spark-test" ];
-    lispLibs = [ (getAttr "cl-spark" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-spark" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-sparql = {
     pname = "cl-sparql";
@@ -26411,7 +27477,10 @@ in {
       asd = "cl-sparql-tests";
     });
     systems = [ "cl-sparql-tests" ];
-    lispLibs = [ (getAttr "cl-sparql" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-sparql" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-speedy-queue = {
     pname = "cl-speedy-queue";
@@ -26666,7 +27735,10 @@ in {
       asd = "cl-store";
     });
     systems = [ "cl-store-tests" ];
-    lispLibs = [ (getAttr "cl-store" pkgs) (getAttr "rt" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-store" pkgs)
+      (getAttr "rt" pkgs)
+    ];
   };
   cl-stream = {
     pname = "cl-stream";
@@ -26747,7 +27819,10 @@ in {
       asd = "cl-string-generator";
     });
     systems = [ "cl-string-generator" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cl-ppcre" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cl-ppcre" pkgs)
+    ];
   };
   cl-string-generator_slash_tests = {
     pname = "cl-string-generator_tests";
@@ -26761,7 +27836,10 @@ in {
       asd = "cl-string-generator";
     });
     systems = [ "cl-string-generator/tests" ];
-    lispLibs = [ (getAttr "cl-string-generator" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-string-generator" pkgs)
+      (getAttr "rove" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-string-match = {
@@ -26830,7 +27908,10 @@ in {
       asd = "cl-strings";
     });
     systems = [ "cl-strings-tests" ];
-    lispLibs = [ (getAttr "cl-strings" pkgs) (getAttr "prove" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-strings" pkgs)
+      (getAttr "prove" pkgs)
+    ];
   };
   cl-svg = {
     pname = "cl-svg";
@@ -26924,8 +28005,10 @@ in {
       asd = "cl-syntax";
     });
     systems = [ "cl-syntax" ];
-    lispLibs =
-      [ (getAttr "named-readtables" pkgs) (getAttr "trivial-types" pkgs) ];
+    lispLibs = [
+      (getAttr "named-readtables" pkgs)
+      (getAttr "trivial-types" pkgs)
+    ];
   };
   cl-syntax-annot = {
     pname = "cl-syntax-annot";
@@ -26939,7 +28022,10 @@ in {
       asd = "cl-syntax-annot";
     });
     systems = [ "cl-syntax-annot" ];
-    lispLibs = [ (getAttr "cl-annot" pkgs) (getAttr "cl-syntax" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-annot" pkgs)
+      (getAttr "cl-syntax" pkgs)
+    ];
   };
   cl-syntax-anonfun = {
     pname = "cl-syntax-anonfun";
@@ -26953,7 +28039,10 @@ in {
       asd = "cl-syntax-anonfun";
     });
     systems = [ "cl-syntax-anonfun" ];
-    lispLibs = [ (getAttr "cl-anonfun" pkgs) (getAttr "cl-syntax" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-anonfun" pkgs)
+      (getAttr "cl-syntax" pkgs)
+    ];
   };
   cl-syntax-clsql = {
     pname = "cl-syntax-clsql";
@@ -26967,7 +28056,10 @@ in {
       asd = "cl-syntax-clsql";
     });
     systems = [ "cl-syntax-clsql" ];
-    lispLibs = [ (getAttr "cl-syntax" pkgs) (getAttr "clsql" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-syntax" pkgs)
+      (getAttr "clsql" pkgs)
+    ];
   };
   cl-syntax-debug-print = {
     pname = "cl-syntax-debug-print";
@@ -26981,7 +28073,10 @@ in {
       asd = "cl-syntax-debug-print";
     });
     systems = [ "cl-syntax-debug-print" ];
-    lispLibs = [ (getAttr "cl-debug-print" pkgs) (getAttr "cl-syntax" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-debug-print" pkgs)
+      (getAttr "cl-syntax" pkgs)
+    ];
   };
   cl-syntax-fare-quasiquote = {
     pname = "cl-syntax-fare-quasiquote";
@@ -26995,7 +28090,10 @@ in {
       asd = "cl-syntax-fare-quasiquote";
     });
     systems = [ "cl-syntax-fare-quasiquote" ];
-    lispLibs = [ (getAttr "cl-syntax" pkgs) (getAttr "fare-quasiquote" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-syntax" pkgs)
+      (getAttr "fare-quasiquote" pkgs)
+    ];
   };
   cl-syntax-interpol = {
     pname = "cl-syntax-interpol";
@@ -27009,7 +28107,10 @@ in {
       asd = "cl-syntax-interpol";
     });
     systems = [ "cl-syntax-interpol" ];
-    lispLibs = [ (getAttr "cl-interpol" pkgs) (getAttr "cl-syntax" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-interpol" pkgs)
+      (getAttr "cl-syntax" pkgs)
+    ];
   };
   cl-syntax-lsx = {
     pname = "cl-syntax-lsx";
@@ -27023,7 +28124,10 @@ in {
       asd = "cl-syntax-lsx";
     });
     systems = [ "cl-syntax-lsx" ];
-    lispLibs = [ (getAttr "cl-syntax" pkgs) (getAttr "lsx" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-syntax" pkgs)
+      (getAttr "lsx" pkgs)
+    ];
   };
   cl-syntax-markup = {
     pname = "cl-syntax-markup";
@@ -27037,7 +28141,10 @@ in {
       asd = "cl-syntax-markup";
     });
     systems = [ "cl-syntax-markup" ];
-    lispLibs = [ (getAttr "cl-markup" pkgs) (getAttr "cl-syntax" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-markup" pkgs)
+      (getAttr "cl-syntax" pkgs)
+    ];
   };
   cl-syslog = {
     pname = "cl-syslog";
@@ -27185,7 +28292,10 @@ in {
       asd = "cl-template";
     });
     systems = [ "cl-template-tests" ];
-    lispLibs = [ (getAttr "cl-template" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-template" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-termbox = {
     pname = "cl-termbox";
@@ -27260,7 +28370,10 @@ in {
       asd = "cl-textmagic";
     });
     systems = [ "cl-textmagic" ];
-    lispLibs = [ (getAttr "cl-json" pkgs) (getAttr "dexador" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-json" pkgs)
+      (getAttr "dexador" pkgs)
+    ];
   };
   cl-textmagic-test = {
     pname = "cl-textmagic-test";
@@ -27447,7 +28560,10 @@ in {
       asd = "cl-tokyo-cabinet";
     });
     systems = [ "cl-tokyo-cabinet" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "deoxybyte-systems" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "deoxybyte-systems" pkgs)
+    ];
   };
   cl-tokyo-cabinet-test = {
     pname = "cl-tokyo-cabinet-test";
@@ -27499,7 +28615,10 @@ in {
       asd = "cl-toml-test";
     });
     systems = [ "cl-toml-test" ];
-    lispLibs = [ (getAttr "cl-toml" pkgs) (getAttr "prove" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-toml" pkgs)
+      (getAttr "prove" pkgs)
+    ];
   };
   cl-transmission = {
     pname = "cl-transmission";
@@ -27566,7 +28685,10 @@ in {
       asd = "cl-trie-examples";
     });
     systems = [ "cl-trie-examples" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "cl-trie" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "cl-trie" pkgs)
+    ];
   };
   cl-trie_slash_tests = {
     pname = "cl-trie_tests";
@@ -27580,7 +28702,10 @@ in {
       asd = "cl-trie";
     });
     systems = [ "cl-trie/tests" ];
-    lispLibs = [ (getAttr "cl-trie" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-trie" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-tui = {
@@ -27631,7 +28756,10 @@ in {
       asd = "cl-tuples";
     });
     systems = [ "cl-tuples" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "iterate" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "iterate" pkgs)
+    ];
   };
   cl-twit-repl = {
     pname = "cl-twit-repl";
@@ -27745,7 +28873,10 @@ in {
       asd = "cl-unicode";
     });
     systems = [ "cl-unicode/build" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "flexi-streams" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "flexi-streams" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-unicode_slash_test = {
@@ -27789,7 +28920,10 @@ in {
       asd = "cl-unification-lib";
     });
     systems = [ "cl-unification-lib" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "cl-unification" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "cl-unification" pkgs)
+    ];
   };
   cl-unification-test = {
     pname = "cl-unification-test";
@@ -27803,7 +28937,10 @@ in {
       asd = "cl-unification-test";
     });
     systems = [ "cl-unification-test" ];
-    lispLibs = [ (getAttr "cl-unification" pkgs) (getAttr "ptester" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-unification" pkgs)
+      (getAttr "ptester" pkgs)
+    ];
   };
   cl-union-find = {
     pname = "cl-union-find";
@@ -27859,7 +28996,10 @@ in {
       asd = "cl-vectors";
     });
     systems = [ "cl-vectors" ];
-    lispLibs = [ (getAttr "cl-aa" pkgs) (getAttr "cl-paths" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-aa" pkgs)
+      (getAttr "cl-paths" pkgs)
+    ];
   };
   cl-vhdl = {
     pname = "cl-vhdl";
@@ -28059,7 +29199,10 @@ in {
       asd = "cl-voxelize-examples";
     });
     systems = [ "cl-voxelize-examples" ];
-    lispLibs = [ (getAttr "cl-ply" pkgs) (getAttr "cl-voxelize" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ply" pkgs)
+      (getAttr "cl-voxelize" pkgs)
+    ];
   };
   cl-voxelize-test = {
     pname = "cl-voxelize-test";
@@ -28105,7 +29248,10 @@ in {
       asd = "cl-wadler-pprint";
     });
     systems = [ "cl-wadler-pprint/test" ];
-    lispLibs = [ (getAttr "cl-wadler-pprint" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-wadler-pprint" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-wav = {
@@ -28120,7 +29266,10 @@ in {
       asd = "cl-wav";
     });
     systems = [ "cl-wav" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cl-riff" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cl-riff" pkgs)
+    ];
   };
   cl-wave-file-writer = {
     pname = "cl-wave-file-writer";
@@ -28167,7 +29316,10 @@ in {
       asd = "cl-wavelets";
     });
     systems = [ "cl-wavelets" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "serapeum" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "serapeum" pkgs)
+    ];
   };
   cl-wavelets_slash_examples = {
     pname = "cl-wavelets_examples";
@@ -28200,7 +29352,10 @@ in {
       asd = "cl-wavelets";
     });
     systems = [ "cl-wavelets/tests" ];
-    lispLibs = [ (getAttr "cl-wavelets" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-wavelets" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-wayland = {
@@ -28215,7 +29370,10 @@ in {
       asd = "cl-wayland";
     });
     systems = [ "cl-wayland" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "closer-mop" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "closer-mop" pkgs)
+    ];
   };
   cl-weather-jp = {
     pname = "cl-weather-jp";
@@ -28324,7 +29482,10 @@ in {
       asd = "cl-webkit2";
     });
     systems = [ "cl-webkit2" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cl-cffi-gtk" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cl-cffi-gtk" pkgs)
+    ];
   };
   cl-who = {
     pname = "cl-who";
@@ -28352,7 +29513,10 @@ in {
       asd = "cl-who";
     });
     systems = [ "cl-who-test" ];
-    lispLibs = [ (getAttr "cl-who" pkgs) (getAttr "flexi-streams" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-who" pkgs)
+      (getAttr "flexi-streams" pkgs)
+    ];
   };
   cl-why = {
     pname = "cl-why";
@@ -28380,7 +29544,10 @@ in {
       asd = "cl-why";
     });
     systems = [ "cl-why-test" ];
-    lispLibs = [ (getAttr "cl-why" pkgs) (getAttr "flexi-streams" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-why" pkgs)
+      (getAttr "flexi-streams" pkgs)
+    ];
   };
   cl-with = {
     pname = "cl-with";
@@ -28394,7 +29561,10 @@ in {
       asd = "cl-with";
     });
     systems = [ "cl-with" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "closer-mop" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "closer-mop" pkgs)
+    ];
   };
   cl-wol_dot_cli = {
     pname = "cl-wol.cli";
@@ -28429,7 +29599,10 @@ in {
       asd = "cl-wol.core";
     });
     systems = [ "cl-wol.core" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "usocket" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "usocket" pkgs)
+    ];
   };
   cl-wol_dot_test = {
     pname = "cl-wol.test";
@@ -28443,7 +29616,10 @@ in {
       asd = "cl-wol.test";
     });
     systems = [ "cl-wol.test" ];
-    lispLibs = [ (getAttr "cl-wol_dot_core" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-wol_dot_core" pkgs)
+      (getAttr "rove" pkgs)
+    ];
   };
   cl-wordcut = {
     pname = "cl-wordcut";
@@ -28471,7 +29647,10 @@ in {
       asd = "cl-wordcut";
     });
     systems = [ "cl-wordcut/test" ];
-    lispLibs = [ (getAttr "cl-wordcut" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-wordcut" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   cl-xdg = {
@@ -28507,8 +29686,11 @@ in {
       asd = "cl-xdg";
     });
     systems = [ "cl-xdg-test" ];
-    lispLibs =
-      [ (getAttr "cl-xdg" pkgs) (getAttr "fiveam" pkgs) (getAttr "uiop" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-xdg" pkgs)
+      (getAttr "fiveam" pkgs)
+      (getAttr "uiop" pkgs)
+    ];
   };
   cl-xkb = {
     pname = "cl-xkb";
@@ -28550,7 +29732,10 @@ in {
       asd = "cl-xmlspam";
     });
     systems = [ "cl-xmlspam" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "cxml" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "cxml" pkgs)
+    ];
   };
   cl-xmpp = {
     pname = "cl-xmpp";
@@ -28600,7 +29785,10 @@ in {
       asd = "cl-xmpp-tls";
     });
     systems = [ "cl-xmpp-tls" ];
-    lispLibs = [ (getAttr "cl_plus_ssl" pkgs) (getAttr "cl-xmpp-sasl" pkgs) ];
+    lispLibs = [
+      (getAttr "cl_plus_ssl" pkgs)
+      (getAttr "cl-xmpp-sasl" pkgs)
+    ];
   };
   cl-xul = {
     pname = "cl-xul";
@@ -28638,7 +29826,10 @@ in {
       asd = "cl-xul-test";
     });
     systems = [ "cl-xul-test" ];
-    lispLibs = [ (getAttr "cl-xul" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-xul" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cl-yaclyaml = {
     pname = "cl-yaclyaml";
@@ -28850,7 +30041,10 @@ in {
       asd = "clache-test";
     });
     systems = [ "clache-test" ];
-    lispLibs = [ (getAttr "clache" pkgs) (getAttr "cl-test-more" pkgs) ];
+    lispLibs = [
+      (getAttr "clache" pkgs)
+      (getAttr "cl-test-more" pkgs)
+    ];
   };
   clack = {
     pname = "clack";
@@ -28908,7 +30102,10 @@ in {
       asd = "clack-errors-demo";
     });
     systems = [ "clack-errors-demo" ];
-    lispLibs = [ (getAttr "cl-markup" pkgs) (getAttr "clack-errors" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-markup" pkgs)
+      (getAttr "clack-errors" pkgs)
+    ];
   };
   clack-errors-test = {
     pname = "clack-errors-test";
@@ -29077,8 +30274,10 @@ in {
       asd = "clack-static-asset-djula-helpers";
     });
     systems = [ "clack-static-asset-djula-helpers" ];
-    lispLibs =
-      [ (getAttr "clack-static-asset-middleware" pkgs) (getAttr "djula" pkgs) ];
+    lispLibs = [
+      (getAttr "clack-static-asset-middleware" pkgs)
+      (getAttr "djula" pkgs)
+    ];
   };
   clack-static-asset-middleware = {
     pname = "clack-static-asset-middleware";
@@ -29218,7 +30417,10 @@ in {
       asd = "classimp";
     });
     systems = [ "classimp" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "split-sequence" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "split-sequence" pkgs)
+    ];
   };
   classimp-samples = {
     pname = "classimp-samples";
@@ -29266,7 +30468,10 @@ in {
       asd = "classowary-test";
     });
     systems = [ "classowary-test" ];
-    lispLibs = [ (getAttr "classowary" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "classowary" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
   };
   clast = {
     pname = "clast";
@@ -29294,7 +30499,10 @@ in {
       asd = "clast";
     });
     systems = [ "clast/tests" ];
-    lispLibs = [ (getAttr "clast" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "clast" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   clath = {
@@ -29375,7 +30583,10 @@ in {
       asd = "clavier.test";
     });
     systems = [ "clavier.test" ];
-    lispLibs = [ (getAttr "clavier" pkgs) (getAttr "stefil" pkgs) ];
+    lispLibs = [
+      (getAttr "clavier" pkgs)
+      (getAttr "stefil" pkgs)
+    ];
   };
   claw = {
     pname = "claw";
@@ -29578,7 +30789,10 @@ in {
       asd = "claxy";
     });
     systems = [ "claxy" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "dexador" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "dexador" pkgs)
+    ];
   };
   clazy = {
     pname = "clazy";
@@ -29706,7 +30920,10 @@ in {
       asd = "clerk";
     });
     systems = [ "clerk-test" ];
-    lispLibs = [ (getAttr "prove" pkgs) (getAttr "prove-asdf" pkgs) ];
+    lispLibs = [
+      (getAttr "prove" pkgs)
+      (getAttr "prove-asdf" pkgs)
+    ];
   };
   clesh = {
     pname = "clesh";
@@ -29720,8 +30937,10 @@ in {
       asd = "clesh";
     });
     systems = [ "clesh" ];
-    lispLibs =
-      [ (getAttr "named-readtables" pkgs) (getAttr "trivial-shell" pkgs) ];
+    lispLibs = [
+      (getAttr "named-readtables" pkgs)
+      (getAttr "trivial-shell" pkgs)
+    ];
   };
   clesh-tests = {
     pname = "clesh-tests";
@@ -29735,7 +30954,10 @@ in {
       asd = "clesh-tests";
     });
     systems = [ "clesh-tests" ];
-    lispLibs = [ (getAttr "clesh" pkgs) (getAttr "lisp-unit" pkgs) ];
+    lispLibs = [
+      (getAttr "clesh" pkgs)
+      (getAttr "lisp-unit" pkgs)
+    ];
   };
   cletris = {
     pname = "cletris";
@@ -29749,7 +30971,10 @@ in {
       asd = "cletris";
     });
     systems = [ "cletris" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "pal" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "pal" pkgs)
+    ];
   };
   cletris-network = {
     pname = "cletris-network";
@@ -29814,7 +31039,10 @@ in {
       asd = "clgplot";
     });
     systems = [ "clgplot" ];
-    lispLibs = [ (getAttr "iterate" pkgs) (getAttr "uiop" pkgs) ];
+    lispLibs = [
+      (getAttr "iterate" pkgs)
+      (getAttr "uiop" pkgs)
+    ];
   };
   clgplot-test = {
     pname = "clgplot-test";
@@ -29893,7 +31121,10 @@ in {
       asd = "clim";
     });
     systems = [ "clim" ];
-    lispLibs = [ (getAttr "clim-core" pkgs) (getAttr "drei-mcclim" pkgs) ];
+    lispLibs = [
+      (getAttr "clim-core" pkgs)
+      (getAttr "drei-mcclim" pkgs)
+    ];
   };
   clim-core = {
     pname = "clim-core";
@@ -30033,7 +31264,10 @@ in {
       asd = "clim-examples";
     });
     systems = [ "clim-examples/superapp" ];
-    lispLibs = [ (getAttr "bordeaux-threads" pkgs) (getAttr "mcclim" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "mcclim" pkgs)
+    ];
     meta = { broken = true; };
   };
   clim-lisp = {
@@ -30125,7 +31359,10 @@ in {
       asd = "clim-postscript";
     });
     systems = [ "clim-postscript" ];
-    lispLibs = [ (getAttr "clim" pkgs) (getAttr "clim-postscript-font" pkgs) ];
+    lispLibs = [
+      (getAttr "clim" pkgs)
+      (getAttr "clim-postscript-font" pkgs)
+    ];
   };
   clim-postscript-font = {
     pname = "clim-postscript-font";
@@ -30139,7 +31376,10 @@ in {
       asd = "clim-postscript-font";
     });
     systems = [ "clim-postscript-font" ];
-    lispLibs = [ (getAttr "clim" pkgs) (getAttr "mcclim-backend-common" pkgs) ];
+    lispLibs = [
+      (getAttr "clim" pkgs)
+      (getAttr "mcclim-backend-common" pkgs)
+    ];
   };
   clim-postscript_slash_test = {
     pname = "clim-postscript_test";
@@ -30195,7 +31435,10 @@ in {
       asd = "climacs";
     });
     systems = [ "climacs" ];
-    lispLibs = [ (getAttr "flexichain" pkgs) (getAttr "mcclim" pkgs) ];
+    lispLibs = [
+      (getAttr "flexichain" pkgs)
+      (getAttr "mcclim" pkgs)
+    ];
   };
   climc = {
     pname = "climc";
@@ -30227,7 +31470,10 @@ in {
       asd = "climc-test";
     });
     systems = [ "climc-test" ];
-    lispLibs = [ (getAttr "climc" pkgs) (getAttr "lisp-unit" pkgs) ];
+    lispLibs = [
+      (getAttr "climc" pkgs)
+      (getAttr "lisp-unit" pkgs)
+    ];
   };
   climon = {
     pname = "climon";
@@ -30437,7 +31683,10 @@ in {
       asd = "clingon.test";
     });
     systems = [ "clingon.test" ];
-    lispLibs = [ (getAttr "clingon" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "clingon" pkgs)
+      (getAttr "rove" pkgs)
+    ];
   };
   clip = {
     pname = "clip";
@@ -30451,7 +31700,10 @@ in {
       asd = "clip";
     });
     systems = [ "clip" ];
-    lispLibs = [ (getAttr "array-utils" pkgs) (getAttr "lquery" pkgs) ];
+    lispLibs = [
+      (getAttr "array-utils" pkgs)
+      (getAttr "lquery" pkgs)
+    ];
   };
   clipper = {
     pname = "clipper";
@@ -30560,7 +31812,10 @@ in {
       asd = "clj-con-test";
     });
     systems = [ "clj-con-test" ];
-    lispLibs = [ (getAttr "clj-con" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "clj-con" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   clj-re = {
     pname = "clj-re";
@@ -30574,7 +31829,10 @@ in {
       asd = "clj-re";
     });
     systems = [ "clj-re" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "named-readtables" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "named-readtables" pkgs)
+    ];
   };
   clj-re-test = {
     pname = "clj-re-test";
@@ -30588,7 +31846,10 @@ in {
       asd = "clj-re-test";
     });
     systems = [ "clj-re-test" ];
-    lispLibs = [ (getAttr "clj-re" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "clj-re" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   clj_slash_test = {
     pname = "clj_test";
@@ -30800,7 +32061,10 @@ in {
       asd = "clml.decision-tree";
     });
     systems = [ "clml.decision-tree" ];
-    lispLibs = [ (getAttr "clml_dot_hjs" pkgs) (getAttr "lparallel" pkgs) ];
+    lispLibs = [
+      (getAttr "clml_dot_hjs" pkgs)
+      (getAttr "lparallel" pkgs)
+    ];
   };
   clml_dot_docs = {
     pname = "clml.docs";
@@ -30894,7 +32158,10 @@ in {
       asd = "clml.lapack";
     });
     systems = [ "clml.lapack-real" ];
-    lispLibs = [ (getAttr "clml_dot_blas" pkgs) (getAttr "f2cl-lib" pkgs) ];
+    lispLibs = [
+      (getAttr "clml_dot_blas" pkgs)
+      (getAttr "f2cl-lib" pkgs)
+    ];
   };
   clml_dot_nearest-search = {
     pname = "clml.nearest-search";
@@ -30954,8 +32221,10 @@ in {
       asd = "clml.pca";
     });
     systems = [ "clml.pca" ];
-    lispLibs =
-      [ (getAttr "clml_dot_decision-tree" pkgs) (getAttr "clml_dot_hjs" pkgs) ];
+    lispLibs = [
+      (getAttr "clml_dot_decision-tree" pkgs)
+      (getAttr "clml_dot_hjs" pkgs)
+    ];
   };
   clml_dot_pca_dot_examples = {
     pname = "clml.pca.examples";
@@ -30969,7 +32238,10 @@ in {
       asd = "clml.pca";
     });
     systems = [ "clml.pca.examples" ];
-    lispLibs = [ (getAttr "clml_dot_hjs" pkgs) (getAttr "clml_dot_pca" pkgs) ];
+    lispLibs = [
+      (getAttr "clml_dot_hjs" pkgs)
+      (getAttr "clml_dot_pca" pkgs)
+    ];
   };
   clml_dot_som = {
     pname = "clml.som";
@@ -31066,7 +32338,10 @@ in {
       asd = "clml.svm";
     });
     systems = [ "clml.svm.examples" ];
-    lispLibs = [ (getAttr "clml_dot_hjs" pkgs) (getAttr "clml_dot_svm" pkgs) ];
+    lispLibs = [
+      (getAttr "clml_dot_hjs" pkgs)
+      (getAttr "clml_dot_svm" pkgs)
+    ];
   };
   clml_dot_test = {
     pname = "clml.test";
@@ -31080,7 +32355,10 @@ in {
       asd = "clml.test";
     });
     systems = [ "clml.test" ];
-    lispLibs = [ (getAttr "clml" pkgs) (getAttr "lisp-unit" pkgs) ];
+    lispLibs = [
+      (getAttr "clml" pkgs)
+      (getAttr "lisp-unit" pkgs)
+    ];
   };
   clml_dot_text = {
     pname = "clml.text";
@@ -31275,7 +32553,10 @@ in {
       asd = "clog-ace";
     });
     systems = [ "clog-ace/tools" ];
-    lispLibs = [ (getAttr "clog" pkgs) (getAttr "clog-ace" pkgs) ];
+    lispLibs = [
+      (getAttr "clog" pkgs)
+      (getAttr "clog-ace" pkgs)
+    ];
     meta = { broken = true; };
   };
   clog-plotly = {
@@ -31304,7 +32585,10 @@ in {
       asd = "clog-plotly";
     });
     systems = [ "clog-plotly/tools" ];
-    lispLibs = [ (getAttr "clog" pkgs) (getAttr "clog-plotly" pkgs) ];
+    lispLibs = [
+      (getAttr "clog" pkgs)
+      (getAttr "clog-plotly" pkgs)
+    ];
     meta = { broken = true; };
   };
   clog-terminal = {
@@ -31333,7 +32617,10 @@ in {
       asd = "clog-terminal";
     });
     systems = [ "clog-terminal/tools" ];
-    lispLibs = [ (getAttr "clog" pkgs) (getAttr "clog-terminal" pkgs) ];
+    lispLibs = [
+      (getAttr "clog" pkgs)
+      (getAttr "clog-terminal" pkgs)
+    ];
     meta = { broken = true; };
   };
   clog_slash_docs = {
@@ -31429,7 +32716,10 @@ in {
       asd = "clop";
     });
     systems = [ "clop-tests" ];
-    lispLibs = [ (getAttr "clop" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "clop" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   clos-diff = {
     pname = "clos-diff";
@@ -31471,7 +32761,10 @@ in {
       asd = "clos-fixtures-test";
     });
     systems = [ "clos-fixtures-test" ];
-    lispLibs = [ (getAttr "clos-fixtures" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "clos-fixtures" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   closer-mop = {
     pname = "closer-mop";
@@ -31499,7 +32792,10 @@ in {
       asd = "closure-common";
     });
     systems = [ "closure-common" ];
-    lispLibs = [ (getAttr "babel" pkgs) (getAttr "trivial-gray-streams" pkgs) ];
+    lispLibs = [
+      (getAttr "babel" pkgs)
+      (getAttr "trivial-gray-streams" pkgs)
+    ];
   };
   closure-html = {
     pname = "closure-html";
@@ -31513,8 +32809,10 @@ in {
       asd = "closure-html";
     });
     systems = [ "closure-html" ];
-    lispLibs =
-      [ (getAttr "closure-common" pkgs) (getAttr "flexi-streams" pkgs) ];
+    lispLibs = [
+      (getAttr "closure-common" pkgs)
+      (getAttr "flexi-streams" pkgs)
+    ];
   };
   closure-template = {
     pname = "closure-template";
@@ -31550,7 +32848,10 @@ in {
       asd = "closure-template";
     });
     systems = [ "closure-template-test" ];
-    lispLibs = [ (getAttr "closure-template" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "closure-template" pkgs)
+      (getAttr "lift" pkgs)
+    ];
   };
   clouchdb = {
     pname = "clouchdb";
@@ -31584,7 +32885,10 @@ in {
       asd = "clouchdb-examples";
     });
     systems = [ "clouchdb-examples" ];
-    lispLibs = [ (getAttr "clouchdb" pkgs) (getAttr "parenscript" pkgs) ];
+    lispLibs = [
+      (getAttr "clouchdb" pkgs)
+      (getAttr "parenscript" pkgs)
+    ];
   };
   clouseau = {
     pname = "clouseau";
@@ -31598,7 +32902,10 @@ in {
       asd = "clouseau";
     });
     systems = [ "clouseau" ];
-    lispLibs = [ (getAttr "closer-mop" pkgs) (getAttr "mcclim" pkgs) ];
+    lispLibs = [
+      (getAttr "closer-mop" pkgs)
+      (getAttr "mcclim" pkgs)
+    ];
   };
   clouseau_slash_test = {
     pname = "clouseau_test";
@@ -31612,7 +32919,10 @@ in {
       asd = "clouseau";
     });
     systems = [ "clouseau/test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "clouseau" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "clouseau" pkgs)
+    ];
     meta = { broken = true; };
   };
   clpython = {
@@ -31717,7 +33027,10 @@ in {
       asd = "clpython";
     });
     systems = [ "clpython/parser" ];
-    lispLibs = [ (getAttr "yacc" pkgs) (getAttr "closer-mop" pkgs) ];
+    lispLibs = [
+      (getAttr "yacc" pkgs)
+      (getAttr "closer-mop" pkgs)
+    ];
     meta = { broken = true; };
   };
   clpython_slash_runtime = {
@@ -31732,7 +33045,10 @@ in {
       asd = "clpython";
     });
     systems = [ "clpython/runtime" ];
-    lispLibs = [ (getAttr "cl-fad" pkgs) (getAttr "closer-mop" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-fad" pkgs)
+      (getAttr "closer-mop" pkgs)
+    ];
     meta = { broken = true; };
   };
   clpython_slash_test = {
@@ -31747,7 +33063,10 @@ in {
       asd = "clpython";
     });
     systems = [ "clpython/test" ];
-    lispLibs = [ (getAttr "clpython" pkgs) (getAttr "ptester" pkgs) ];
+    lispLibs = [
+      (getAttr "clpython" pkgs)
+      (getAttr "ptester" pkgs)
+    ];
     meta = { broken = true; };
   };
   clsql = {
@@ -31847,7 +33166,10 @@ in {
       asd = "clsql-helper-slot-coercer";
     });
     systems = [ "clsql-helper-slot-coercer" ];
-    lispLibs = [ (getAttr "closer-mop" pkgs) (getAttr "clsql-helper" pkgs) ];
+    lispLibs = [
+      (getAttr "closer-mop" pkgs)
+      (getAttr "clsql-helper" pkgs)
+    ];
   };
   clsql-helper-slot-coercer-test = {
     pname = "clsql-helper-slot-coercer-test";
@@ -31896,7 +33218,10 @@ in {
       asd = "clsql-local-time";
     });
     systems = [ "clsql-local-time" ];
-    lispLibs = [ (getAttr "clsql" pkgs) (getAttr "local-time" pkgs) ];
+    lispLibs = [
+      (getAttr "clsql" pkgs)
+      (getAttr "local-time" pkgs)
+    ];
   };
   clsql-mysql = {
     pname = "clsql-mysql";
@@ -31928,7 +33253,10 @@ in {
       asd = "clsql-odbc";
     });
     systems = [ "clsql-odbc" ];
-    lispLibs = [ (getAttr "clsql" pkgs) (getAttr "clsql-uffi" pkgs) ];
+    lispLibs = [
+      (getAttr "clsql" pkgs)
+      (getAttr "clsql-uffi" pkgs)
+    ];
   };
   clsql-orm = {
     pname = "clsql-orm";
@@ -31963,7 +33291,10 @@ in {
       asd = "clsql-postgresql";
     });
     systems = [ "clsql-postgresql" ];
-    lispLibs = [ (getAttr "clsql" pkgs) (getAttr "clsql-uffi" pkgs) ];
+    lispLibs = [
+      (getAttr "clsql" pkgs)
+      (getAttr "clsql-uffi" pkgs)
+    ];
   };
   clsql-postgresql-socket = {
     pname = "clsql-postgresql-socket";
@@ -31977,8 +33308,11 @@ in {
       asd = "clsql-postgresql-socket";
     });
     systems = [ "clsql-postgresql-socket" ];
-    lispLibs =
-      [ (getAttr "clsql" pkgs) (getAttr "md5" pkgs) (getAttr "uffi" pkgs) ];
+    lispLibs = [
+      (getAttr "clsql" pkgs)
+      (getAttr "md5" pkgs)
+      (getAttr "uffi" pkgs)
+    ];
   };
   clsql-postgresql-socket3 = {
     pname = "clsql-postgresql-socket3";
@@ -32010,7 +33344,10 @@ in {
       asd = "clsql-sqlite";
     });
     systems = [ "clsql-sqlite" ];
-    lispLibs = [ (getAttr "clsql" pkgs) (getAttr "clsql-uffi" pkgs) ];
+    lispLibs = [
+      (getAttr "clsql" pkgs)
+      (getAttr "clsql-uffi" pkgs)
+    ];
   };
   clsql-sqlite3 = {
     pname = "clsql-sqlite3";
@@ -32024,7 +33361,10 @@ in {
       asd = "clsql-sqlite3";
     });
     systems = [ "clsql-sqlite3" ];
-    lispLibs = [ (getAttr "clsql" pkgs) (getAttr "clsql-uffi" pkgs) ];
+    lispLibs = [
+      (getAttr "clsql" pkgs)
+      (getAttr "clsql-uffi" pkgs)
+    ];
   };
   clsql-tests = {
     pname = "clsql-tests";
@@ -32038,8 +33378,11 @@ in {
       asd = "clsql-tests";
     });
     systems = [ "clsql-tests" ];
-    lispLibs =
-      [ (getAttr "clsql" pkgs) (getAttr "rt" pkgs) (getAttr "uffi" pkgs) ];
+    lispLibs = [
+      (getAttr "clsql" pkgs)
+      (getAttr "rt" pkgs)
+      (getAttr "uffi" pkgs)
+    ];
   };
   clsql-uffi = {
     pname = "clsql-uffi";
@@ -32053,7 +33396,10 @@ in {
       asd = "clsql-uffi";
     });
     systems = [ "clsql-uffi" ];
-    lispLibs = [ (getAttr "clsql" pkgs) (getAttr "uffi" pkgs) ];
+    lispLibs = [
+      (getAttr "clsql" pkgs)
+      (getAttr "uffi" pkgs)
+    ];
   };
   clss = {
     pname = "clss";
@@ -32067,7 +33413,10 @@ in {
       asd = "clss";
     });
     systems = [ "clss" ];
-    lispLibs = [ (getAttr "array-utils" pkgs) (getAttr "plump" pkgs) ];
+    lispLibs = [
+      (getAttr "array-utils" pkgs)
+      (getAttr "plump" pkgs)
+    ];
   };
   cltcl = {
     pname = "cltcl";
@@ -32157,7 +33506,10 @@ in {
       asd = "cluffer-standard-buffer";
     });
     systems = [ "cluffer-standard-buffer" ];
-    lispLibs = [ (getAttr "cluffer-base" pkgs) (getAttr "clump" pkgs) ];
+    lispLibs = [
+      (getAttr "cluffer-base" pkgs)
+      (getAttr "clump" pkgs)
+    ];
   };
   cluffer-standard-line = {
     pname = "cluffer-standard-line";
@@ -32199,8 +33551,10 @@ in {
       asd = "clump";
     });
     systems = [ "clump" ];
-    lispLibs =
-      [ (getAttr "clump-2-3-tree" pkgs) (getAttr "clump-binary-tree" pkgs) ];
+    lispLibs = [
+      (getAttr "clump-2-3-tree" pkgs)
+      (getAttr "clump-binary-tree" pkgs)
+    ];
   };
   clump-2-3-tree = {
     pname = "clump-2-3-tree";
@@ -32357,7 +33711,10 @@ in {
       asd = "clutter";
     });
     systems = [ "clutter" ];
-    lispLibs = [ (getAttr "closer-mop" pkgs) (getAttr "doplus" pkgs) ];
+    lispLibs = [
+      (getAttr "closer-mop" pkgs)
+      (getAttr "doplus" pkgs)
+    ];
   };
   clutter_slash_tests = {
     pname = "clutter_tests";
@@ -32454,7 +33811,10 @@ in {
       asd = "clx";
     });
     systems = [ "clx/test" ];
-    lispLibs = [ (getAttr "clx" pkgs) (getAttr "fiasco" pkgs) ];
+    lispLibs = [
+      (getAttr "clx" pkgs)
+      (getAttr "fiasco" pkgs)
+    ];
     meta = { broken = true; };
   };
   cmake-parser = {
@@ -32469,7 +33829,10 @@ in {
       asd = "cmake-parser";
     });
     systems = [ "cmake-parser" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "esrap" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "esrap" pkgs)
+    ];
   };
   cmd = {
     pname = "cmd";
@@ -32535,8 +33898,10 @@ in {
       asd = "cocoahelper";
     });
     systems = [ "cocoahelper" ];
-    lispLibs =
-      [ (getAttr "cffi" pkgs) (getAttr "lispbuilder-sdl-binaries" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "lispbuilder-sdl-binaries" pkgs)
+    ];
   };
   codata-recommended-values = {
     pname = "codata-recommended-values";
@@ -32687,7 +34052,10 @@ in {
       asd = "collectors";
     });
     systems = [ "collectors/test" ];
-    lispLibs = [ (getAttr "collectors" pkgs) (getAttr "lisp-unit2" pkgs) ];
+    lispLibs = [
+      (getAttr "collectors" pkgs)
+      (getAttr "lisp-unit2" pkgs)
+    ];
     meta = { broken = true; };
   };
   colleen = {
@@ -32744,7 +34112,10 @@ in {
       asd = "colliflower-fset";
     });
     systems = [ "colliflower-fset" ];
-    lispLibs = [ (getAttr "colliflower" pkgs) (getAttr "fset" pkgs) ];
+    lispLibs = [
+      (getAttr "colliflower" pkgs)
+      (getAttr "fset" pkgs)
+    ];
   };
   colliflower-test = {
     pname = "colliflower-test";
@@ -32849,7 +34220,10 @@ in {
       asd = "colored-test";
     });
     systems = [ "colored-test" ];
-    lispLibs = [ (getAttr "colored" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "colored" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
   };
   colorize = {
     pname = "colorize";
@@ -32881,7 +34255,10 @@ in {
       asd = "com-on";
     });
     systems = [ "com-on" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "documentation-utils" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "documentation-utils" pkgs)
+    ];
   };
   com-on-test = {
     pname = "com-on-test";
@@ -32895,7 +34272,10 @@ in {
       asd = "com-on-test";
     });
     systems = [ "com-on-test" ];
-    lispLibs = [ (getAttr "com-on" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "com-on" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
   };
   com_dot_clearly-useful_dot_generic-collection-interface = {
     pname = "com.clearly-useful.generic-collection-interface";
@@ -32927,9 +34307,9 @@ in {
       asd = "com.clearly-useful.generic-collection-interface.test";
     });
     systems = [ "com.clearly-useful.generic-collection-interface.test" ];
-    lispLibs = [
-      (getAttr "com_dot_clearly-useful_dot_generic-collection-interface" pkgs)
-    ];
+    lispLibs =
+      [ (getAttr "com_dot_clearly-useful_dot_generic-collection-interface"
+        pkgs) ];
   };
   com_dot_clearly-useful_dot_iterate_plus = {
     pname = "com.clearly-useful.iterate+";
@@ -33007,8 +34387,10 @@ in {
       asd = "com.elbeno.curve";
     });
     systems = [ "com.elbeno.curve" ];
-    lispLibs =
-      [ (getAttr "vecto" pkgs) (getAttr "com_dot_elbeno_dot_vector" pkgs) ];
+    lispLibs = [
+      (getAttr "vecto" pkgs)
+      (getAttr "com_dot_elbeno_dot_vector" pkgs)
+    ];
   };
   com_dot_elbeno_dot_vector = {
     pname = "com.elbeno.vector";
@@ -33165,7 +34547,10 @@ in {
       asd = "com.gigamonkeys.utilities";
     });
     systems = [ "com.gigamonkeys.utilities" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "split-sequence" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "split-sequence" pkgs)
+    ];
   };
   com_dot_google_dot_base = {
     pname = "com.google.base";
@@ -33317,7 +34702,10 @@ in {
       asd = "common-doc-gnuplot";
     });
     systems = [ "common-doc-gnuplot" ];
-    lispLibs = [ (getAttr "common-doc" pkgs) (getAttr "split-sequence" pkgs) ];
+    lispLibs = [
+      (getAttr "common-doc" pkgs)
+      (getAttr "split-sequence" pkgs)
+    ];
   };
   common-doc-graphviz = {
     pname = "common-doc-graphviz";
@@ -33331,7 +34719,10 @@ in {
       asd = "common-doc-graphviz";
     });
     systems = [ "common-doc-graphviz" ];
-    lispLibs = [ (getAttr "common-doc" pkgs) (getAttr "trivial-shell" pkgs) ];
+    lispLibs = [
+      (getAttr "common-doc" pkgs)
+      (getAttr "trivial-shell" pkgs)
+    ];
   };
   common-doc-include = {
     pname = "common-doc-include";
@@ -33345,7 +34736,10 @@ in {
       asd = "common-doc-include";
     });
     systems = [ "common-doc-include" ];
-    lispLibs = [ (getAttr "common-doc" pkgs) (getAttr "split-sequence" pkgs) ];
+    lispLibs = [
+      (getAttr "common-doc" pkgs)
+      (getAttr "split-sequence" pkgs)
+    ];
   };
   common-doc-plump = {
     pname = "common-doc-plump";
@@ -33379,7 +34773,10 @@ in {
       asd = "common-doc-plump-test";
     });
     systems = [ "common-doc-plump-test" ];
-    lispLibs = [ (getAttr "common-doc-plump" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "common-doc-plump" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   common-doc-split-paragraphs = {
     pname = "common-doc-split-paragraphs";
@@ -33393,7 +34790,10 @@ in {
       asd = "common-doc-split-paragraphs";
     });
     systems = [ "common-doc-split-paragraphs" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "common-doc" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "common-doc" pkgs)
+    ];
   };
   common-doc-test = {
     pname = "common-doc-test";
@@ -33458,7 +34858,10 @@ in {
       asd = "common-html-test";
     });
     systems = [ "common-html-test" ];
-    lispLibs = [ (getAttr "common-html" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "common-html" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   common-lisp-jupyter = {
     pname = "common-lisp-jupyter";
@@ -33620,8 +35023,10 @@ in {
       asd = "compatible-metaclasses_tests";
     });
     systems = [ "compatible-metaclasses_tests" ];
-    lispLibs =
-      [ (getAttr "compatible-metaclasses" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "compatible-metaclasses" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
   };
   compiler-macro-notes = {
     pname = "compiler-macro-notes";
@@ -33635,7 +35040,10 @@ in {
       asd = "compiler-macro-notes";
     });
     systems = [ "compiler-macro-notes" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cl-environments" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cl-environments" pkgs)
+    ];
   };
   computable-reals = {
     pname = "computable-reals";
@@ -34194,7 +35602,10 @@ in {
       asd = "constantfold.test";
     });
     systems = [ "constantfold.test" ];
-    lispLibs = [ (getAttr "constantfold" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "constantfold" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   context-lite = {
     pname = "context-lite";
@@ -34222,7 +35633,10 @@ in {
       asd = "context-lite";
     });
     systems = [ "context-lite/test" ];
-    lispLibs = [ (getAttr "context-lite" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "context-lite" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   contextl = {
@@ -34237,7 +35651,10 @@ in {
       asd = "contextl";
     });
     systems = [ "contextl" ];
-    lispLibs = [ (getAttr "closer-mop" pkgs) (getAttr "lw-compat" pkgs) ];
+    lispLibs = [
+      (getAttr "closer-mop" pkgs)
+      (getAttr "lw-compat" pkgs)
+    ];
   };
   control = {
     pname = "control";
@@ -34269,7 +35686,10 @@ in {
       asd = "convolution-kernel";
     });
     systems = [ "convolution-kernel" ];
-    lispLibs = [ (getAttr "mfiano-utils" pkgs) (getAttr "tile-grid" pkgs) ];
+    lispLibs = [
+      (getAttr "mfiano-utils" pkgs)
+      (getAttr "tile-grid" pkgs)
+    ];
   };
   copy-directory = {
     pname = "copy-directory";
@@ -34283,8 +35703,11 @@ in {
       asd = "copy-directory";
     });
     systems = [ "copy-directory" ];
-    lispLibs =
-      [ (getAttr "cl-fad" pkgs) (getAttr "uiop" pkgs) (getAttr "which" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-fad" pkgs)
+      (getAttr "uiop" pkgs)
+      (getAttr "which" pkgs)
+    ];
   };
   copy-directory-test = {
     pname = "copy-directory-test";
@@ -34298,7 +35721,10 @@ in {
       asd = "copy-directory-test";
     });
     systems = [ "copy-directory-test" ];
-    lispLibs = [ (getAttr "copy-directory" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "copy-directory" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   core-reader = {
     pname = "core-reader";
@@ -34326,7 +35752,10 @@ in {
       asd = "core-reader.test";
     });
     systems = [ "core-reader.test" ];
-    lispLibs = [ (getAttr "core-reader" pkgs) (getAttr "jingoh" pkgs) ];
+    lispLibs = [
+      (getAttr "core-reader" pkgs)
+      (getAttr "jingoh" pkgs)
+    ];
   };
   cover = {
     pname = "cover";
@@ -34354,7 +35783,10 @@ in {
       asd = "cover";
     });
     systems = [ "cover/tests" ];
-    lispLibs = [ (getAttr "cover" pkgs) (getAttr "uiop" pkgs) ];
+    lispLibs = [
+      (getAttr "cover" pkgs)
+      (getAttr "uiop" pkgs)
+    ];
     meta = { broken = true; };
   };
   cqlcl = {
@@ -34437,7 +35869,10 @@ in {
       asd = "crane-test";
     });
     systems = [ "crane-test" ];
-    lispLibs = [ (getAttr "crane" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "crane" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   cricket = {
     pname = "cricket";
@@ -34626,7 +36061,10 @@ in {
       asd = "css-lite";
     });
     systems = [ "css-lite/test" ];
-    lispLibs = [ (getAttr "css-lite" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "css-lite" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   css-selectors = {
@@ -34664,8 +36102,10 @@ in {
       asd = "css-selectors-simple-tree";
     });
     systems = [ "css-selectors-simple-tree" ];
-    lispLibs =
-      [ (getAttr "cl-html5-parser" pkgs) (getAttr "css-selectors" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-html5-parser" pkgs)
+      (getAttr "css-selectors" pkgs)
+    ];
   };
   css-selectors-stp = {
     pname = "css-selectors-stp";
@@ -34679,7 +36119,10 @@ in {
       asd = "css-selectors-stp";
     });
     systems = [ "css-selectors-stp" ];
-    lispLibs = [ (getAttr "css-selectors" pkgs) (getAttr "cxml-stp" pkgs) ];
+    lispLibs = [
+      (getAttr "css-selectors" pkgs)
+      (getAttr "cxml-stp" pkgs)
+    ];
   };
   css-selectors-test = {
     pname = "css-selectors-test";
@@ -34753,7 +36196,10 @@ in {
       asd = "ctype-tfun";
     });
     systems = [ "ctype-tfun" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "ctype" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "ctype" pkgs)
+    ];
   };
   cubic-bezier = {
     pname = "cubic-bezier";
@@ -34767,7 +36213,10 @@ in {
       asd = "cubic-bezier";
     });
     systems = [ "cubic-bezier" ];
-    lispLibs = [ (getAttr "mfiano-utils" pkgs) (getAttr "origin" pkgs) ];
+    lispLibs = [
+      (getAttr "mfiano-utils" pkgs)
+      (getAttr "origin" pkgs)
+    ];
   };
   cue-parser = {
     pname = "cue-parser";
@@ -34781,7 +36230,10 @@ in {
       asd = "cue-parser";
     });
     systems = [ "cue-parser" ];
-    lispLibs = [ (getAttr "esrap" pkgs) (getAttr "flexi-streams" pkgs) ];
+    lispLibs = [
+      (getAttr "esrap" pkgs)
+      (getAttr "flexi-streams" pkgs)
+    ];
   };
   curly = {
     pname = "curly";
@@ -34809,7 +36261,10 @@ in {
       asd = "curly";
     });
     systems = [ "curly.test" ];
-    lispLibs = [ (getAttr "curly" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "curly" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   curry-compose-reader-macros = {
     pname = "curry-compose-reader-macros";
@@ -34823,8 +36278,10 @@ in {
       asd = "curry-compose-reader-macros";
     });
     systems = [ "curry-compose-reader-macros" ];
-    lispLibs =
-      [ (getAttr "alexandria" pkgs) (getAttr "named-readtables" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "named-readtables" pkgs)
+    ];
   };
   curry-compose-reader-macros_slash_test = {
     pname = "curry-compose-reader-macros_test";
@@ -35079,7 +36536,10 @@ in {
       asd = "cxx";
     });
     systems = [ "cxx" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "trivial-garbage" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "trivial-garbage" pkgs)
+    ];
   };
   cxx-jit = {
     pname = "cxx-jit";
@@ -35171,8 +36631,10 @@ in {
       asd = "damn-fast-priority-queue";
     });
     systems = [ "damn-fast-priority-queue/test" ];
-    lispLibs =
-      [ (getAttr "alexandria" pkgs) (getAttr "damn-fast-priority-queue" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "damn-fast-priority-queue" pkgs)
+    ];
     meta = { broken = true; };
   };
   damn-fast-stable-priority-queue = {
@@ -35282,7 +36744,10 @@ in {
       asd = "darts.lib.message-pack";
     });
     systems = [ "darts.lib.message-pack" ];
-    lispLibs = [ (getAttr "babel" pkgs) (getAttr "ieee-floats" pkgs) ];
+    lispLibs = [
+      (getAttr "babel" pkgs)
+      (getAttr "ieee-floats" pkgs)
+    ];
   };
   darts_dot_lib_dot_message-pack-test = {
     pname = "darts.lib.message-pack-test";
@@ -35378,8 +36843,10 @@ in {
       asd = "darts.lib.uuid-test";
     });
     systems = [ "darts.lib.uuid-test" ];
-    lispLibs =
-      [ (getAttr "darts_dot_lib_dot_uuid" pkgs) (getAttr "stefil" pkgs) ];
+    lispLibs = [
+      (getAttr "darts_dot_lib_dot_uuid" pkgs)
+      (getAttr "stefil" pkgs)
+    ];
   };
   darts_dot_lib_dot_wbtree = {
     pname = "darts.lib.wbtree";
@@ -35445,7 +36912,10 @@ in {
       asd = "data-frame";
     });
     systems = [ "data-frame/tests" ];
-    lispLibs = [ (getAttr "clunit2" pkgs) (getAttr "data-frame" pkgs) ];
+    lispLibs = [
+      (getAttr "clunit2" pkgs)
+      (getAttr "data-frame" pkgs)
+    ];
     meta = { broken = true; };
   };
   data-lens = {
@@ -35460,7 +36930,10 @@ in {
       asd = "data-lens";
     });
     systems = [ "data-lens" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cl-ppcre" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cl-ppcre" pkgs)
+    ];
   };
   data-lens_slash_beta_slash_transducers = {
     pname = "data-lens_beta_transducers";
@@ -35552,7 +37025,10 @@ in {
       asd = "data-sift";
     });
     systems = [ "data-sift-test" ];
-    lispLibs = [ (getAttr "data-sift" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "data-sift" pkgs)
+      (getAttr "lift" pkgs)
+    ];
   };
   data-table = {
     pname = "data-table";
@@ -35605,7 +37081,10 @@ in {
       asd = "data-table";
     });
     systems = [ "data-table-test" ];
-    lispLibs = [ (getAttr "data-table" pkgs) (getAttr "lisp-unit2" pkgs) ];
+    lispLibs = [
+      (getAttr "data-table" pkgs)
+      (getAttr "lisp-unit2" pkgs)
+    ];
   };
   database-migrations = {
     pname = "database-migrations";
@@ -35707,7 +37186,10 @@ in {
       asd = "dataloader.test";
     });
     systems = [ "dataloader.test" ];
-    lispLibs = [ (getAttr "dataloader" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "dataloader" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   datamuse = {
     pname = "datamuse";
@@ -35815,7 +37297,10 @@ in {
       asd = "dbd-mysql";
     });
     systems = [ "dbd-mysql" ];
-    lispLibs = [ (getAttr "dbi" pkgs) (getAttr "cl-mysql" pkgs) ];
+    lispLibs = [
+      (getAttr "dbi" pkgs)
+      (getAttr "cl-mysql" pkgs)
+    ];
   };
   dbd-postgres = {
     pname = "dbd-postgres";
@@ -36073,7 +37558,10 @@ in {
       asd = "defclass-std";
     });
     systems = [ "defclass-std" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "anaphora" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "anaphora" pkgs)
+    ];
   };
   defclass-std-test = {
     pname = "defclass-std-test";
@@ -36105,7 +37593,10 @@ in {
       asd = "defconfig";
     });
     systems = [ "defconfig" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "trivial-cltl2" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "trivial-cltl2" pkgs)
+    ];
   };
   defconfig_slash_tests = {
     pname = "defconfig_tests";
@@ -36119,7 +37610,10 @@ in {
       asd = "defconfig";
     });
     systems = [ "defconfig/tests" ];
-    lispLibs = [ (getAttr "defconfig" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "defconfig" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   defenum = {
@@ -36223,8 +37717,10 @@ in {
       asd = "definitions-systems_tests";
     });
     systems = [ "definitions-systems_tests" ];
-    lispLibs =
-      [ (getAttr "definitions-systems" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "definitions-systems" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
   };
   deflate = {
     pname = "deflate";
@@ -36312,7 +37808,10 @@ in {
       asd = "defmemo";
     });
     systems = [ "defmemo" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "trivial-garbage" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "trivial-garbage" pkgs)
+    ];
   };
   defmemo-test = {
     pname = "defmemo-test";
@@ -36433,8 +37932,10 @@ in {
       asd = "defsystem-compatibility-test";
     });
     systems = [ "defsystem-compatibility-test" ];
-    lispLibs =
-      [ (getAttr "defsystem-compatibility" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "defsystem-compatibility" pkgs)
+      (getAttr "lift" pkgs)
+    ];
   };
   defvariant = {
     pname = "defvariant";
@@ -36476,7 +37977,10 @@ in {
       asd = "delorean";
     });
     systems = [ "delorean-test" ];
-    lispLibs = [ (getAttr "delorean" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "delorean" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   delta-debug = {
     pname = "delta-debug";
@@ -36582,7 +38086,10 @@ in {
       asd = "dendrite.primitives";
     });
     systems = [ "dendrite.primitives" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "rtg-math" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "rtg-math" pkgs)
+    ];
   };
   dense-arrays = {
     pname = "dense-arrays";
@@ -36622,7 +38129,10 @@ in {
       asd = "dense-arrays+cuda";
     });
     systems = [ "dense-arrays+cuda" ];
-    lispLibs = [ (getAttr "cl-cuda" pkgs) (getAttr "dense-arrays" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-cuda" pkgs)
+      (getAttr "dense-arrays" pkgs)
+    ];
   };
   dense-arrays_plus_magicl = {
     pname = "dense-arrays+magicl";
@@ -36636,7 +38146,10 @@ in {
       asd = "dense-arrays+magicl";
     });
     systems = [ "dense-arrays+magicl" ];
-    lispLibs = [ (getAttr "dense-arrays" pkgs) (getAttr "magicl" pkgs) ];
+    lispLibs = [
+      (getAttr "dense-arrays" pkgs)
+      (getAttr "magicl" pkgs)
+    ];
   };
   dense-arrays_plus_static-vectors = {
     pname = "dense-arrays+static-vectors";
@@ -36650,8 +38163,10 @@ in {
       asd = "dense-arrays+static-vectors";
     });
     systems = [ "dense-arrays+static-vectors" ];
-    lispLibs =
-      [ (getAttr "dense-arrays" pkgs) (getAttr "static-vectors" pkgs) ];
+    lispLibs = [
+      (getAttr "dense-arrays" pkgs)
+      (getAttr "static-vectors" pkgs)
+    ];
   };
   dense-arrays-plus = {
     pname = "dense-arrays-plus";
@@ -36754,7 +38269,10 @@ in {
       asd = "deoxybyte-gzip-test";
     });
     systems = [ "deoxybyte-gzip-test" ];
-    lispLibs = [ (getAttr "deoxybyte-gzip" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "deoxybyte-gzip" pkgs)
+      (getAttr "lift" pkgs)
+    ];
   };
   deoxybyte-io = {
     pname = "deoxybyte-io";
@@ -36787,7 +38305,10 @@ in {
       asd = "deoxybyte-io-test";
     });
     systems = [ "deoxybyte-io-test" ];
-    lispLibs = [ (getAttr "deoxybyte-io" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "deoxybyte-io" pkgs)
+      (getAttr "lift" pkgs)
+    ];
   };
   deoxybyte-systems = {
     pname = "deoxybyte-systems";
@@ -36833,7 +38354,10 @@ in {
       asd = "deoxybyte-unix-test";
     });
     systems = [ "deoxybyte-unix-test" ];
-    lispLibs = [ (getAttr "deoxybyte-unix" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "deoxybyte-unix" pkgs)
+      (getAttr "lift" pkgs)
+    ];
   };
   deoxybyte-utilities = {
     pname = "deoxybyte-utilities";
@@ -36861,7 +38385,10 @@ in {
       asd = "deoxybyte-utilities-test";
     });
     systems = [ "deoxybyte-utilities-test" ];
-    lispLibs = [ (getAttr "deoxybyte-utilities" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "deoxybyte-utilities" pkgs)
+      (getAttr "lift" pkgs)
+    ];
   };
   deploy = {
     pname = "deploy";
@@ -36929,7 +38456,10 @@ in {
       asd = "depot-in-memory";
     });
     systems = [ "depot-in-memory" ];
-    lispLibs = [ (getAttr "atomics" pkgs) (getAttr "depot" pkgs) ];
+    lispLibs = [
+      (getAttr "atomics" pkgs)
+      (getAttr "depot" pkgs)
+    ];
   };
   depot-test = {
     pname = "depot-test";
@@ -36976,8 +38506,11 @@ in {
       asd = "depot-zip";
     });
     systems = [ "depot-zip" ];
-    lispLibs =
-      [ (getAttr "babel" pkgs) (getAttr "depot" pkgs) (getAttr "zippy" pkgs) ];
+    lispLibs = [
+      (getAttr "babel" pkgs)
+      (getAttr "depot" pkgs)
+      (getAttr "zippy" pkgs)
+    ];
   };
   descriptions = {
     pname = "descriptions";
@@ -37029,7 +38562,10 @@ in {
       asd = "descriptions.serialization";
     });
     systems = [ "descriptions.serialization" ];
-    lispLibs = [ (getAttr "cl-json" pkgs) (getAttr "descriptions" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-json" pkgs)
+      (getAttr "descriptions" pkgs)
+    ];
   };
   descriptions_dot_validation = {
     pname = "descriptions.validation";
@@ -37043,7 +38579,10 @@ in {
       asd = "descriptions.validation";
     });
     systems = [ "descriptions.validation" ];
-    lispLibs = [ (getAttr "clavier" pkgs) (getAttr "descriptions" pkgs) ];
+    lispLibs = [
+      (getAttr "clavier" pkgs)
+      (getAttr "descriptions" pkgs)
+    ];
   };
   destructuring-bind-star = {
     pname = "destructuring-bind-star";
@@ -37161,7 +38700,10 @@ in {
       asd = "dfio";
     });
     systems = [ "dfio/tests" ];
-    lispLibs = [ (getAttr "clunit2" pkgs) (getAttr "dfio" pkgs) ];
+    lispLibs = [
+      (getAttr "clunit2" pkgs)
+      (getAttr "dfio" pkgs)
+    ];
     meta = { broken = true; };
   };
   diff = {
@@ -37176,8 +38718,10 @@ in {
       asd = "diff";
     });
     systems = [ "diff" ];
-    lispLibs =
-      [ (getAttr "cl-ppcre" pkgs) (getAttr "trivial-gray-streams" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "trivial-gray-streams" pkgs)
+    ];
   };
   diff-match-patch = {
     pname = "diff-match-patch";
@@ -37191,7 +38735,10 @@ in {
       asd = "diff-match-patch";
     });
     systems = [ "diff-match-patch" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "iterate" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "iterate" pkgs)
+    ];
   };
   diff-match-patch_slash_test = {
     pname = "diff-match-patch_test";
@@ -37224,7 +38771,10 @@ in {
       asd = "dirt";
     });
     systems = [ "dirt" ];
-    lispLibs = [ (getAttr "cepl" pkgs) (getAttr "cl-soil" pkgs) ];
+    lispLibs = [
+      (getAttr "cepl" pkgs)
+      (getAttr "cl-soil" pkgs)
+    ];
   };
   dispatch = {
     pname = "dispatch";
@@ -37238,7 +38788,10 @@ in {
       asd = "dispatch";
     });
     systems = [ "dispatch" ];
-    lispLibs = [ (getAttr "closer-mop" pkgs) (getAttr "adjuvant" pkgs) ];
+    lispLibs = [
+      (getAttr "closer-mop" pkgs)
+      (getAttr "adjuvant" pkgs)
+    ];
   };
   dispatch-test = {
     pname = "dispatch-test";
@@ -37252,7 +38805,10 @@ in {
       asd = "dispatch-test";
     });
     systems = [ "dispatch-test" ];
-    lispLibs = [ (getAttr "dispatch" pkgs) (getAttr "scrutiny" pkgs) ];
+    lispLibs = [
+      (getAttr "dispatch" pkgs)
+      (getAttr "scrutiny" pkgs)
+    ];
   };
   disposable = {
     pname = "disposable";
@@ -37345,7 +38901,10 @@ in {
       asd = "djula-demo";
     });
     systems = [ "djula-demo" ];
-    lispLibs = [ (getAttr "djula" pkgs) (getAttr "hunchentoot" pkgs) ];
+    lispLibs = [
+      (getAttr "djula" pkgs)
+      (getAttr "hunchentoot" pkgs)
+    ];
   };
   djula-test = {
     pname = "djula-test";
@@ -37359,7 +38918,10 @@ in {
       asd = "djula-test";
     });
     systems = [ "djula-test" ];
-    lispLibs = [ (getAttr "djula" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "djula" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   dlist = {
     pname = "dlist";
@@ -37387,7 +38949,10 @@ in {
       asd = "dlist";
     });
     systems = [ "dlist-test" ];
-    lispLibs = [ (getAttr "dlist" pkgs) (getAttr "lisp-unit" pkgs) ];
+    lispLibs = [
+      (getAttr "dlist" pkgs)
+      (getAttr "lisp-unit" pkgs)
+    ];
   };
   dml = {
     pname = "dml";
@@ -37420,8 +38985,10 @@ in {
       asd = "dns-client";
     });
     systems = [ "dns-client" ];
-    lispLibs =
-      [ (getAttr "documentation-utils" pkgs) (getAttr "usocket" pkgs) ];
+    lispLibs = [
+      (getAttr "documentation-utils" pkgs)
+      (getAttr "usocket" pkgs)
+    ];
   };
   do-urlencode = {
     pname = "do-urlencode";
@@ -37435,7 +39002,10 @@ in {
       asd = "do-urlencode";
     });
     systems = [ "do-urlencode" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "babel" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "babel" pkgs)
+    ];
   };
   docbrowser = {
     pname = "docbrowser";
@@ -37622,7 +39192,10 @@ in {
       asd = "dom";
     });
     systems = [ "dom" ];
-    lispLibs = [ (getAttr "cl-who" pkgs) (getAttr "yadd" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-who" pkgs)
+      (getAttr "yadd" pkgs)
+    ];
   };
   donuts = {
     pname = "donuts";
@@ -37636,7 +39209,10 @@ in {
       asd = "donuts";
     });
     systems = [ "donuts" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "trivial-shell" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "trivial-shell" pkgs)
+    ];
   };
   doplus = {
     pname = "doplus";
@@ -37664,7 +39240,10 @@ in {
       asd = "doplus-fset";
     });
     systems = [ "doplus-fset" ];
-    lispLibs = [ (getAttr "doplus" pkgs) (getAttr "fset" pkgs) ];
+    lispLibs = [
+      (getAttr "doplus" pkgs)
+      (getAttr "fset" pkgs)
+    ];
   };
   dotenv = {
     pname = "dotenv";
@@ -37678,7 +39257,10 @@ in {
       asd = "dotenv";
     });
     systems = [ "dotenv" ];
-    lispLibs = [ (getAttr "str" pkgs) (getAttr "prove-asdf" pkgs) ];
+    lispLibs = [
+      (getAttr "str" pkgs)
+      (getAttr "prove-asdf" pkgs)
+    ];
   };
   dotenv-test = {
     pname = "dotenv-test";
@@ -37769,7 +39351,10 @@ in {
       asd = "drakma-test";
     });
     systems = [ "drakma-test" ];
-    lispLibs = [ (getAttr "drakma" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "drakma" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   draw-cons-tree = {
     pname = "draw-cons-tree";
@@ -37837,7 +39422,10 @@ in {
       asd = "dso-lex";
     });
     systems = [ "dso-lex" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "dso-util" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "dso-util" pkgs)
+    ];
   };
   dso-util = {
     pname = "dso-util";
@@ -37865,7 +39453,10 @@ in {
       asd = "dufy";
     });
     systems = [ "dufy" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cl-ppcre" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cl-ppcre" pkgs)
+    ];
   };
   dufy_slash_core = {
     pname = "dufy_core";
@@ -37960,7 +39551,10 @@ in {
       asd = "dufy";
     });
     systems = [ "dufy/munsell" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cl-ppcre" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cl-ppcre" pkgs)
+    ];
     meta = { broken = true; };
   };
   dufy_slash_test = {
@@ -38104,7 +39698,10 @@ in {
       asd = "dynamic-classes-test";
     });
     systems = [ "dynamic-classes-test" ];
-    lispLibs = [ (getAttr "dynamic-classes" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "dynamic-classes" pkgs)
+      (getAttr "lift" pkgs)
+    ];
   };
   dynamic-collect = {
     pname = "dynamic-collect";
@@ -38132,7 +39729,10 @@ in {
       asd = "dynamic-mixins";
     });
     systems = [ "dynamic-mixins" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "closer-mop" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "closer-mop" pkgs)
+    ];
   };
   dynamic-wind = {
     pname = "dynamic-wind";
@@ -38174,7 +39774,10 @@ in {
       asd = "eager-future";
     });
     systems = [ "eager-future.test" ];
-    lispLibs = [ (getAttr "eager-future" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "eager-future" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   eager-future2 = {
     pname = "eager-future2";
@@ -38188,8 +39791,10 @@ in {
       asd = "eager-future2";
     });
     systems = [ "eager-future2" ];
-    lispLibs =
-      [ (getAttr "bordeaux-threads" pkgs) (getAttr "trivial-garbage" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "trivial-garbage" pkgs)
+    ];
   };
   easing = {
     pname = "easing";
@@ -38217,7 +39822,10 @@ in {
       asd = "easing-demo";
     });
     systems = [ "easing-demo" ];
-    lispLibs = [ (getAttr "easing" pkgs) (getAttr "sketch" pkgs) ];
+    lispLibs = [
+      (getAttr "easing" pkgs)
+      (getAttr "sketch" pkgs)
+    ];
   };
   easing-test = {
     pname = "easing-test";
@@ -38231,7 +39839,10 @@ in {
       asd = "easing-test";
     });
     systems = [ "easing-test" ];
-    lispLibs = [ (getAttr "easing" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "easing" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   easter-gauss = {
     pname = "easter-gauss";
@@ -38259,7 +39870,10 @@ in {
       asd = "easter-gauss";
     });
     systems = [ "easter-gauss/tests" ];
-    lispLibs = [ (getAttr "clunit2" pkgs) (getAttr "easter-gauss" pkgs) ];
+    lispLibs = [
+      (getAttr "clunit2" pkgs)
+      (getAttr "easter-gauss" pkgs)
+    ];
     meta = { broken = true; };
   };
   easy-audio = {
@@ -38312,7 +39926,10 @@ in {
       asd = "easy-audio";
     });
     systems = [ "easy-audio/bitreader" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "serapeum" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "serapeum" pkgs)
+    ];
     meta = { broken = true; };
   };
   easy-audio_slash_core = {
@@ -38372,7 +39989,10 @@ in {
       asd = "easy-audio";
     });
     systems = [ "easy-audio/ogg" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "serapeum" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "serapeum" pkgs)
+    ];
     meta = { broken = true; };
   };
   easy-audio_slash_tests = {
@@ -38426,7 +40046,10 @@ in {
       asd = "easy-audio";
     });
     systems = [ "easy-audio/wv" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "serapeum" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "serapeum" pkgs)
+    ];
     meta = { broken = true; };
   };
   easy-bind = {
@@ -38489,7 +40112,10 @@ in {
       asd = "easy-routes";
     });
     systems = [ "easy-routes" ];
-    lispLibs = [ (getAttr "routes" pkgs) (getAttr "hunchentoot" pkgs) ];
+    lispLibs = [
+      (getAttr "routes" pkgs)
+      (getAttr "hunchentoot" pkgs)
+    ];
   };
   easy-routes_plus_djula = {
     pname = "easy-routes+djula";
@@ -38503,7 +40129,10 @@ in {
       asd = "easy-routes+djula";
     });
     systems = [ "easy-routes+djula" ];
-    lispLibs = [ (getAttr "djula" pkgs) (getAttr "easy-routes" pkgs) ];
+    lispLibs = [
+      (getAttr "djula" pkgs)
+      (getAttr "easy-routes" pkgs)
+    ];
   };
   easy-routes_plus_errors = {
     pname = "easy-routes+errors";
@@ -38517,8 +40146,10 @@ in {
       asd = "easy-routes+errors";
     });
     systems = [ "easy-routes+errors" ];
-    lispLibs =
-      [ (getAttr "easy-routes" pkgs) (getAttr "hunchentoot-errors" pkgs) ];
+    lispLibs = [
+      (getAttr "easy-routes" pkgs)
+      (getAttr "hunchentoot-errors" pkgs)
+    ];
   };
   eazy-documentation = {
     pname = "eazy-documentation";
@@ -38575,7 +40206,10 @@ in {
       asd = "eazy-gnuplot.test";
     });
     systems = [ "eazy-gnuplot.test" ];
-    lispLibs = [ (getAttr "eazy-gnuplot" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "eazy-gnuplot" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   eazy-process = {
     pname = "eazy-process";
@@ -38613,7 +40247,10 @@ in {
       asd = "eazy-process.test";
     });
     systems = [ "eazy-process.test" ];
-    lispLibs = [ (getAttr "eazy-process" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "eazy-process" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   eazy-project = {
     pname = "eazy-project";
@@ -38666,7 +40303,10 @@ in {
       asd = "eazy-project.test";
     });
     systems = [ "eazy-project.test" ];
-    lispLibs = [ (getAttr "eazy-project" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "eazy-project" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   ec2 = {
     pname = "ec2";
@@ -38872,7 +40512,10 @@ in {
       asd = "eco-test";
     });
     systems = [ "eco-test" ];
-    lispLibs = [ (getAttr "eco" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "eco" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   edit-distance = {
     pname = "edit-distance";
@@ -39083,7 +40726,10 @@ in {
       asd = "enhanced-boolean_tests";
     });
     systems = [ "enhanced-boolean_tests" ];
-    lispLibs = [ (getAttr "enhanced-boolean" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "enhanced-boolean" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
   };
   enhanced-defclass = {
     pname = "enhanced-defclass";
@@ -39119,8 +40765,10 @@ in {
       asd = "enhanced-defclass_tests";
     });
     systems = [ "enhanced-defclass_tests" ];
-    lispLibs =
-      [ (getAttr "enhanced-defclass" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "enhanced-defclass" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
   };
   enhanced-eval-when = {
     pname = "enhanced-eval-when";
@@ -39162,8 +40810,10 @@ in {
       asd = "enhanced-find-class_tests";
     });
     systems = [ "enhanced-find-class_tests" ];
-    lispLibs =
-      [ (getAttr "enhanced-find-class" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "enhanced-find-class" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
   };
   enhanced-multiple-value-bind = {
     pname = "enhanced-multiple-value-bind";
@@ -39251,8 +40901,11 @@ in {
       asd = "envy-test";
     });
     systems = [ "envy-test" ];
-    lispLibs =
-      [ (getAttr "envy" pkgs) (getAttr "osicat" pkgs) (getAttr "prove" pkgs) ];
+    lispLibs = [
+      (getAttr "envy" pkgs)
+      (getAttr "osicat" pkgs)
+      (getAttr "prove" pkgs)
+    ];
   };
   eos = {
     pname = "eos";
@@ -39308,7 +40961,10 @@ in {
       asd = "epigraph";
     });
     systems = [ "epigraph-test" ];
-    lispLibs = [ (getAttr "epigraph" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "epigraph" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   epmd = {
     pname = "epmd";
@@ -39449,7 +41105,10 @@ in {
       asd = "ernestine-tests";
     });
     systems = [ "ernestine-tests" ];
-    lispLibs = [ (getAttr "ernestine" pkgs) (getAttr "lisp-unit" pkgs) ];
+    lispLibs = [
+      (getAttr "ernestine" pkgs)
+      (getAttr "lisp-unit" pkgs)
+    ];
   };
   erudite = {
     pname = "erudite";
@@ -39485,7 +41144,10 @@ in {
       asd = "erudite-test";
     });
     systems = [ "erudite-test" ];
-    lispLibs = [ (getAttr "erudite" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "erudite" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   esa-mcclim = {
     pname = "esa-mcclim";
@@ -39499,7 +41161,10 @@ in {
       asd = "esa-mcclim";
     });
     systems = [ "esa-mcclim" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "clim-core" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "clim-core" pkgs)
+    ];
   };
   escalator = {
     pname = "escalator";
@@ -39527,7 +41192,10 @@ in {
       asd = "escalator-bench";
     });
     systems = [ "escalator-bench" ];
-    lispLibs = [ (getAttr "escalator" pkgs) (getAttr "iterate" pkgs) ];
+    lispLibs = [
+      (getAttr "escalator" pkgs)
+      (getAttr "iterate" pkgs)
+    ];
   };
   esrap = {
     pname = "esrap";
@@ -39614,7 +41282,10 @@ in {
       asd = "esrap";
     });
     systems = [ "esrap/tests" ];
-    lispLibs = [ (getAttr "esrap" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "esrap" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   etcd-test = {
@@ -39629,7 +41300,10 @@ in {
       asd = "etcd-test";
     });
     systems = [ "etcd-test" ];
-    lispLibs = [ (getAttr "cl-etcd" pkgs) (getAttr "cl-toml" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-etcd" pkgs)
+      (getAttr "cl-toml" pkgs)
+    ];
   };
   ev = {
     pname = "ev";
@@ -39643,7 +41317,10 @@ in {
       asd = "ev";
     });
     systems = [ "ev" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "trivial-garbage" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "trivial-garbage" pkgs)
+    ];
   };
   evaled-when = {
     pname = "evaled-when";
@@ -39703,7 +41380,10 @@ in {
       asd = "event-emitter-test";
     });
     systems = [ "event-emitter-test" ];
-    lispLibs = [ (getAttr "event-emitter" pkgs) (getAttr "prove" pkgs) ];
+    lispLibs = [
+      (getAttr "event-emitter" pkgs)
+      (getAttr "prove" pkgs)
+    ];
   };
   event-glue = {
     pname = "event-glue";
@@ -39731,7 +41411,10 @@ in {
       asd = "event-glue-test";
     });
     systems = [ "event-glue-test" ];
-    lispLibs = [ (getAttr "event-glue" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "event-glue" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   eventbus = {
     pname = "eventbus";
@@ -39832,7 +41515,10 @@ in {
       asd = "evol-test";
     });
     systems = [ "evol-test" ];
-    lispLibs = [ (getAttr "evol" pkgs) (getAttr "stefil" pkgs) ];
+    lispLibs = [
+      (getAttr "evol" pkgs)
+      (getAttr "stefil" pkgs)
+    ];
   };
   example-bot = {
     pname = "example-bot";
@@ -39910,7 +41596,10 @@ in {
       asd = "exscribe";
     });
     systems = [ "exscribe/typeset" ];
-    lispLibs = [ (getAttr "cl-typesetting" pkgs) (getAttr "exscribe" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-typesetting" pkgs)
+      (getAttr "exscribe" pkgs)
+    ];
     meta = { broken = true; };
   };
   ext-blog = {
@@ -40053,7 +41742,10 @@ in {
       asd = "external-program";
     });
     systems = [ "external-program-test" ];
-    lispLibs = [ (getAttr "external-program" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "external-program" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   external-symbol-not-found = {
     pname = "external-symbol-not-found";
@@ -40156,7 +41848,10 @@ in {
       asd = "factory-alien";
     });
     systems = [ "factory-alien" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "closer-mop" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "closer-mop" pkgs)
+    ];
   };
   factory-alien_slash_postmodern = {
     pname = "factory-alien_postmodern";
@@ -40170,7 +41865,10 @@ in {
       asd = "factory-alien";
     });
     systems = [ "factory-alien/postmodern" ];
-    lispLibs = [ (getAttr "factory-alien" pkgs) (getAttr "postmodern" pkgs) ];
+    lispLibs = [
+      (getAttr "factory-alien" pkgs)
+      (getAttr "postmodern" pkgs)
+    ];
     meta = { broken = true; };
   };
   factory-alien_slash_test = {
@@ -40185,7 +41883,10 @@ in {
       asd = "factory-alien";
     });
     systems = [ "factory-alien/test" ];
-    lispLibs = [ (getAttr "factory-alien" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "factory-alien" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
     meta = { broken = true; };
   };
   facts = {
@@ -40232,7 +41933,10 @@ in {
       asd = "fakenil_tests";
     });
     systems = [ "fakenil_tests" ];
-    lispLibs = [ (getAttr "fakenil" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "fakenil" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
   };
   fare-csv = {
     pname = "fare-csv";
@@ -40292,7 +41996,10 @@ in {
       asd = "fare-mop";
     });
     systems = [ "fare-mop" ];
-    lispLibs = [ (getAttr "closer-mop" pkgs) (getAttr "fare-utils" pkgs) ];
+    lispLibs = [
+      (getAttr "closer-mop" pkgs)
+      (getAttr "fare-utils" pkgs)
+    ];
   };
   fare-quasiquote = {
     pname = "fare-quasiquote";
@@ -40351,8 +42058,10 @@ in {
       asd = "fare-quasiquote-readtable";
     });
     systems = [ "fare-quasiquote-readtable" ];
-    lispLibs =
-      [ (getAttr "fare-quasiquote" pkgs) (getAttr "named-readtables" pkgs) ];
+    lispLibs = [
+      (getAttr "fare-quasiquote" pkgs)
+      (getAttr "named-readtables" pkgs)
+    ];
   };
   fare-scripts = {
     pname = "fare-scripts";
@@ -40408,8 +42117,10 @@ in {
       asd = "fare-utils-test";
     });
     systems = [ "fare-utils-test" ];
-    lispLibs =
-      [ (getAttr "fare-utils" pkgs) (getAttr "hu_dot_dwim_dot_stefil" pkgs) ];
+    lispLibs = [
+      (getAttr "fare-utils" pkgs)
+      (getAttr "hu_dot_dwim_dot_stefil" pkgs)
+    ];
   };
   fast-generic-functions = {
     pname = "fast-generic-functions";
@@ -40597,7 +42308,10 @@ in {
       asd = "femlisp-basic";
     });
     systems = [ "femlisp-basic" ];
-    lispLibs = [ (getAttr "closer-mop" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "closer-mop" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   femlisp-dictionary = {
     pname = "femlisp-dictionary";
@@ -40667,7 +42381,10 @@ in {
       asd = "femlisp-picture";
     });
     systems = [ "femlisp-picture" ];
-    lispLibs = [ (getAttr "cl-gd" pkgs) (getAttr "femlisp" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-gd" pkgs)
+      (getAttr "femlisp" pkgs)
+    ];
   };
   ffa = {
     pname = "ffa";
@@ -40742,8 +42459,10 @@ in {
       asd = "fiasco";
     });
     systems = [ "fiasco" ];
-    lispLibs =
-      [ (getAttr "alexandria" pkgs) (getAttr "trivial-gray-streams" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "trivial-gray-streams" pkgs)
+    ];
   };
   fiasco-self-tests = {
     pname = "fiasco-self-tests";
@@ -40807,7 +42526,10 @@ in {
       asd = "file-local-variable.test";
     });
     systems = [ "file-local-variable.test" ];
-    lispLibs = [ (getAttr "file-local-variable" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "file-local-variable" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   file-notify = {
     pname = "file-notify";
@@ -40890,7 +42612,10 @@ in {
       asd = "filesystem-utils-test";
     });
     systems = [ "filesystem-utils-test" ];
-    lispLibs = [ (getAttr "filesystem-utils" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "filesystem-utils" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
   };
   filter-maker = {
     pname = "filter-maker";
@@ -40946,7 +42671,10 @@ in {
       asd = "find-port-test";
     });
     systems = [ "find-port-test" ];
-    lispLibs = [ (getAttr "find-port" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "find-port" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   finite-state-machine = {
     pname = "finite-state-machine";
@@ -40974,7 +42702,10 @@ in {
       asd = "firephp";
     });
     systems = [ "firephp" ];
-    lispLibs = [ (getAttr "cl-json" pkgs) (getAttr "hunchentoot" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-json" pkgs)
+      (getAttr "hunchentoot" pkgs)
+    ];
   };
   firephp-tests = {
     pname = "firephp-tests";
@@ -41021,7 +42752,10 @@ in {
       asd = "first-time-value_tests";
     });
     systems = [ "first-time-value_tests" ];
-    lispLibs = [ (getAttr "first-time-value" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "first-time-value" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
   };
   fishpack = {
     pname = "fishpack";
@@ -41246,7 +42980,10 @@ in {
       asd = "fiveam-matchers";
     });
     systems = [ "fiveam-matchers" ];
-    lispLibs = [ (getAttr "str" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "str" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   fiveam-matchers_slash_tests = {
     pname = "fiveam-matchers_tests";
@@ -41319,7 +43056,10 @@ in {
       asd = "fixed";
     });
     systems = [ "fixed/test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "fixed" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "fixed" pkgs)
+    ];
     meta = { broken = true; };
   };
   flac = {
@@ -41334,7 +43074,10 @@ in {
       asd = "flac";
     });
     systems = [ "flac" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cffi-grovel" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cffi-grovel" pkgs)
+    ];
   };
   flac-metadata = {
     pname = "flac-metadata";
@@ -41348,7 +43091,10 @@ in {
       asd = "flac-metadata";
     });
     systems = [ "flac-metadata" ];
-    lispLibs = [ (getAttr "binary-parser" pkgs) (getAttr "mfiano-utils" pkgs) ];
+    lispLibs = [
+      (getAttr "binary-parser" pkgs)
+      (getAttr "mfiano-utils" pkgs)
+    ];
   };
   flare = {
     pname = "flare";
@@ -41489,7 +43235,10 @@ in {
       asd = "float-features-tests";
     });
     systems = [ "float-features-tests" ];
-    lispLibs = [ (getAttr "float-features" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "float-features" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
   };
   floating-point = {
     pname = "floating-point";
@@ -41531,7 +43280,10 @@ in {
       asd = "floating-point-test";
     });
     systems = [ "floating-point-test" ];
-    lispLibs = [ (getAttr "floating-point" pkgs) (getAttr "lisp-unit" pkgs) ];
+    lispLibs = [
+      (getAttr "floating-point" pkgs)
+      (getAttr "lisp-unit" pkgs)
+    ];
   };
   flow = {
     pname = "flow";
@@ -41545,8 +43297,10 @@ in {
       asd = "flow";
     });
     systems = [ "flow" ];
-    lispLibs =
-      [ (getAttr "closer-mop" pkgs) (getAttr "documentation-utils" pkgs) ];
+    lispLibs = [
+      (getAttr "closer-mop" pkgs)
+      (getAttr "documentation-utils" pkgs)
+    ];
   };
   flow-visualizer = {
     pname = "flow-visualizer";
@@ -41579,8 +43333,10 @@ in {
       asd = "flute";
     });
     systems = [ "flute" ];
-    lispLibs =
-      [ (getAttr "assoc-utils" pkgs) (getAttr "let-over-lambda" pkgs) ];
+    lispLibs = [
+      (getAttr "assoc-utils" pkgs)
+      (getAttr "let-over-lambda" pkgs)
+    ];
   };
   flute-test = {
     pname = "flute-test";
@@ -41594,7 +43350,10 @@ in {
       asd = "flute-test";
     });
     systems = [ "flute-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "flute" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "flute" pkgs)
+    ];
   };
   fmarshal = {
     pname = "fmarshal";
@@ -41622,7 +43381,10 @@ in {
       asd = "fmarshal-test";
     });
     systems = [ "fmarshal-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "fmarshal" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "fmarshal" pkgs)
+    ];
   };
   fmt = {
     pname = "fmt";
@@ -41650,7 +43412,10 @@ in {
       asd = "fmt-test";
     });
     systems = [ "fmt-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "fmt" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "fmt" pkgs)
+    ];
   };
   fmt-time = {
     pname = "fmt-time";
@@ -41664,7 +43429,10 @@ in {
       asd = "fmt-time";
     });
     systems = [ "fmt-time" ];
-    lispLibs = [ (getAttr "fmt" pkgs) (getAttr "local-time" pkgs) ];
+    lispLibs = [
+      (getAttr "fmt" pkgs)
+      (getAttr "local-time" pkgs)
+    ];
   };
   fn = {
     pname = "fn";
@@ -41888,7 +43656,10 @@ in {
       asd = "folio2-boxes";
     });
     systems = [ "folio2-boxes" ];
-    lispLibs = [ (getAttr "folio2-as" pkgs) (getAttr "folio2-make" pkgs) ];
+    lispLibs = [
+      (getAttr "folio2-as" pkgs)
+      (getAttr "folio2-make" pkgs)
+    ];
   };
   folio2-boxes-tests = {
     pname = "folio2-boxes-tests";
@@ -41902,7 +43673,10 @@ in {
       asd = "folio2-boxes-tests";
     });
     systems = [ "folio2-boxes-tests" ];
-    lispLibs = [ (getAttr "folio2-boxes" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "folio2-boxes" pkgs)
+      (getAttr "lift" pkgs)
+    ];
   };
   folio2-functions = {
     pname = "folio2-functions";
@@ -41934,8 +43708,10 @@ in {
       asd = "folio2-functions-syntax";
     });
     systems = [ "folio2-functions-syntax" ];
-    lispLibs =
-      [ (getAttr "alexandria" pkgs) (getAttr "folio2-functions" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "folio2-functions" pkgs)
+    ];
   };
   folio2-functions-tests = {
     pname = "folio2-functions-tests";
@@ -41981,7 +43757,10 @@ in {
       asd = "folio2-make-tests";
     });
     systems = [ "folio2-make-tests" ];
-    lispLibs = [ (getAttr "folio2-make" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "folio2-make" pkgs)
+      (getAttr "lift" pkgs)
+    ];
   };
   folio2-maps = {
     pname = "folio2-maps";
@@ -42045,7 +43824,10 @@ in {
       asd = "folio2-pairs";
     });
     systems = [ "folio2-pairs" ];
-    lispLibs = [ (getAttr "folio2-as" pkgs) (getAttr "folio2-make" pkgs) ];
+    lispLibs = [
+      (getAttr "folio2-as" pkgs)
+      (getAttr "folio2-make" pkgs)
+    ];
   };
   folio2-pairs-tests = {
     pname = "folio2-pairs-tests";
@@ -42059,7 +43841,10 @@ in {
       asd = "folio2-pairs-tests";
     });
     systems = [ "folio2-pairs-tests" ];
-    lispLibs = [ (getAttr "folio2-pairs" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "folio2-pairs" pkgs)
+      (getAttr "lift" pkgs)
+    ];
   };
   folio2-sequences = {
     pname = "folio2-sequences";
@@ -42146,7 +43931,10 @@ in {
       asd = "folio2-series-tests";
     });
     systems = [ "folio2-series-tests" ];
-    lispLibs = [ (getAttr "folio2-series" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "folio2-series" pkgs)
+      (getAttr "lift" pkgs)
+    ];
   };
   folio2-taps = {
     pname = "folio2-taps";
@@ -42183,7 +43971,10 @@ in {
       asd = "folio2-taps-tests";
     });
     systems = [ "folio2-taps-tests" ];
-    lispLibs = [ (getAttr "folio2-taps" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "folio2-taps" pkgs)
+      (getAttr "lift" pkgs)
+    ];
   };
   folio2-tests = {
     pname = "folio2-tests";
@@ -42282,7 +44073,10 @@ in {
       asd = "fork-future";
     });
     systems = [ "fork-future" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cl-store" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cl-store" pkgs)
+    ];
   };
   form-fiddle = {
     pname = "form-fiddle";
@@ -42310,7 +44104,10 @@ in {
       asd = "format-string-builder";
     });
     systems = [ "format-string-builder" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "serapeum" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "serapeum" pkgs)
+    ];
   };
   formlets = {
     pname = "formlets";
@@ -42377,7 +44174,10 @@ in {
       asd = "fps-independent-timestep";
     });
     systems = [ "fps-independent-timestep" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "local-time" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "local-time" pkgs)
+    ];
   };
   fred = {
     pname = "fred";
@@ -42391,7 +44191,10 @@ in {
       asd = "fred";
     });
     systems = [ "fred" ];
-    lispLibs = [ (getAttr "drakma" pkgs) (getAttr "s-xml" pkgs) ];
+    lispLibs = [
+      (getAttr "drakma" pkgs)
+      (getAttr "s-xml" pkgs)
+    ];
   };
   freebsd-ffi = {
     pname = "freebsd-ffi";
@@ -42405,7 +44208,10 @@ in {
       asd = "freebsd-ffi";
     });
     systems = [ "freebsd-ffi" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "mfiano-utils" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "mfiano-utils" pkgs)
+    ];
   };
   freebsd-sysctl = {
     pname = "freebsd-sysctl";
@@ -42419,7 +44225,10 @@ in {
       asd = "freebsd-sysctl";
     });
     systems = [ "freebsd-sysctl" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cffi-grovel" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cffi-grovel" pkgs)
+    ];
   };
   freebsd-sysctl_slash_tests = {
     pname = "freebsd-sysctl_tests";
@@ -42433,7 +44242,10 @@ in {
       asd = "freebsd-sysctl";
     });
     systems = [ "freebsd-sysctl/tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "freebsd-sysctl" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "freebsd-sysctl" pkgs)
+    ];
     meta = { broken = true; };
   };
   freesound = {
@@ -42505,7 +44317,10 @@ in {
       asd = "froute";
     });
     systems = [ "froute" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "closer-mop" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "closer-mop" pkgs)
+    ];
   };
   froute_slash_hunchentoot = {
     pname = "froute_hunchentoot";
@@ -42519,7 +44334,10 @@ in {
       asd = "froute";
     });
     systems = [ "froute/hunchentoot" ];
-    lispLibs = [ (getAttr "froute" pkgs) (getAttr "hunchentoot" pkgs) ];
+    lispLibs = [
+      (getAttr "froute" pkgs)
+      (getAttr "hunchentoot" pkgs)
+    ];
     meta = { broken = true; };
   };
   froute_slash_test = {
@@ -42534,7 +44352,10 @@ in {
       asd = "froute";
     });
     systems = [ "froute/test" ];
-    lispLibs = [ (getAttr "froute" pkgs) (getAttr "lisp-unit" pkgs) ];
+    lispLibs = [
+      (getAttr "froute" pkgs)
+      (getAttr "lisp-unit" pkgs)
+    ];
     meta = { broken = true; };
   };
   frpc = {
@@ -42572,7 +44393,10 @@ in {
       asd = "frpc";
     });
     systems = [ "frpc-des" ];
-    lispLibs = [ (getAttr "frpc" pkgs) (getAttr "ironclad" pkgs) ];
+    lispLibs = [
+      (getAttr "frpc" pkgs)
+      (getAttr "ironclad" pkgs)
+    ];
   };
   frpc-gss = {
     pname = "frpc-gss";
@@ -42586,7 +44410,10 @@ in {
       asd = "frpc";
     });
     systems = [ "frpc-gss" ];
-    lispLibs = [ (getAttr "cerberus" pkgs) (getAttr "frpc" pkgs) ];
+    lispLibs = [
+      (getAttr "cerberus" pkgs)
+      (getAttr "frpc" pkgs)
+    ];
   };
   frpcgen = {
     pname = "frpcgen";
@@ -42600,8 +44427,11 @@ in {
       asd = "frpcgen";
     });
     systems = [ "frpcgen" ];
-    lispLibs =
-      [ (getAttr "cl-lex" pkgs) (getAttr "yacc" pkgs) (getAttr "frpc" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-lex" pkgs)
+      (getAttr "yacc" pkgs)
+      (getAttr "frpc" pkgs)
+    ];
   };
   fs-watcher = {
     pname = "fs-watcher";
@@ -42665,7 +44495,10 @@ in {
       asd = "fsocket";
     });
     systems = [ "fsocket" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "trivial-gray-streams" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "trivial-gray-streams" pkgs)
+    ];
   };
   fsvd = {
     pname = "fsvd";
@@ -42771,7 +44604,10 @@ in {
       asd = "function-cache";
     });
     systems = [ "function-cache/test" ];
-    lispLibs = [ (getAttr "function-cache" pkgs) (getAttr "lisp-unit2" pkgs) ];
+    lispLibs = [
+      (getAttr "function-cache" pkgs)
+      (getAttr "lisp-unit2" pkgs)
+    ];
     meta = { broken = true; };
   };
   functional-geometry = {
@@ -42850,7 +44686,10 @@ in {
       asd = "fuzzy-match";
     });
     systems = [ "fuzzy-match" ];
-    lispLibs = [ (getAttr "str" pkgs) (getAttr "mk-string-metrics" pkgs) ];
+    lispLibs = [
+      (getAttr "str" pkgs)
+      (getAttr "mk-string-metrics" pkgs)
+    ];
   };
   fxml = {
     pname = "fxml";
@@ -42907,7 +44746,10 @@ in {
       asd = "fxml";
     });
     systems = [ "fxml/cxml" ];
-    lispLibs = [ (getAttr "cxml" pkgs) (getAttr "fxml" pkgs) ];
+    lispLibs = [
+      (getAttr "cxml" pkgs)
+      (getAttr "fxml" pkgs)
+    ];
     meta = { broken = true; };
   };
   fxml_slash_dom = {
@@ -43183,7 +45025,10 @@ in {
       asd = "garbage-pools-test";
     });
     systems = [ "garbage-pools-test" ];
-    lispLibs = [ (getAttr "garbage-pools" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "garbage-pools" pkgs)
+      (getAttr "lift" pkgs)
+    ];
   };
   garten = {
     pname = "garten";
@@ -43665,7 +45510,10 @@ in {
       asd = "generic-cl";
     });
     systems = [ "generic-cl/test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "generic-cl" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "generic-cl" pkgs)
+    ];
     meta = { broken = true; };
   };
   generic-comparability = {
@@ -43726,7 +45574,10 @@ in {
       asd = "generic-sequences-cont";
     });
     systems = [ "generic-sequences-cont" ];
-    lispLibs = [ (getAttr "cl-cont" pkgs) (getAttr "generic-sequences" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-cont" pkgs)
+      (getAttr "generic-sequences" pkgs)
+    ];
   };
   generic-sequences-iterate = {
     pname = "generic-sequences-iterate";
@@ -43740,7 +45591,10 @@ in {
       asd = "generic-sequences-iterate";
     });
     systems = [ "generic-sequences-iterate" ];
-    lispLibs = [ (getAttr "generic-sequences" pkgs) (getAttr "iterate" pkgs) ];
+    lispLibs = [
+      (getAttr "generic-sequences" pkgs)
+      (getAttr "iterate" pkgs)
+    ];
   };
   generic-sequences-stream = {
     pname = "generic-sequences-stream";
@@ -43754,8 +45608,10 @@ in {
       asd = "generic-sequences-stream";
     });
     systems = [ "generic-sequences-stream" ];
-    lispLibs =
-      [ (getAttr "bordeaux-threads" pkgs) (getAttr "generic-sequences" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "generic-sequences" pkgs)
+    ];
   };
   generic-sequences-test = {
     pname = "generic-sequences-test";
@@ -43788,8 +45644,10 @@ in {
       asd = "geneva";
     });
     systems = [ "geneva" ];
-    lispLibs =
-      [ (getAttr "named-readtables" pkgs) (getAttr "split-sequence" pkgs) ];
+    lispLibs = [
+      (getAttr "named-readtables" pkgs)
+      (getAttr "split-sequence" pkgs)
+    ];
   };
   geneva-cl = {
     pname = "geneva-cl";
@@ -43878,7 +45736,10 @@ in {
       asd = "geneva-plain-text";
     });
     systems = [ "geneva-plain-text" ];
-    lispLibs = [ (getAttr "geneva" pkgs) (getAttr "geneva-mk2" pkgs) ];
+    lispLibs = [
+      (getAttr "geneva" pkgs)
+      (getAttr "geneva-mk2" pkgs)
+    ];
   };
   geneva-tex = {
     pname = "geneva-tex";
@@ -44024,7 +45885,10 @@ in {
       asd = "getopt";
     });
     systems = [ "getopt-tests" ];
-    lispLibs = [ (getAttr "getopt" pkgs) (getAttr "ptester" pkgs) ];
+    lispLibs = [
+      (getAttr "getopt" pkgs)
+      (getAttr "ptester" pkgs)
+    ];
   };
   gettext = {
     pname = "gettext";
@@ -44070,7 +45934,10 @@ in {
       asd = "gettext-tests";
     });
     systems = [ "gettext-tests" ];
-    lispLibs = [ (getAttr "gettext" pkgs) (getAttr "stefil" pkgs) ];
+    lispLibs = [
+      (getAttr "gettext" pkgs)
+      (getAttr "stefil" pkgs)
+    ];
   };
   geysr = {
     pname = "geysr";
@@ -44084,7 +45951,10 @@ in {
       asd = "geysr";
     });
     systems = [ "geysr" ];
-    lispLibs = [ (getAttr "gendl-asdf" pkgs) (getAttr "gwl-graphics" pkgs) ];
+    lispLibs = [
+      (getAttr "gendl-asdf" pkgs)
+      (getAttr "gwl-graphics" pkgs)
+    ];
   };
   gfxmath = {
     pname = "gfxmath";
@@ -44098,7 +45968,10 @@ in {
       asd = "gfxmath";
     });
     systems = [ "gfxmath" ];
-    lispLibs = [ (getAttr "str" pkgs) (getAttr "mfiano-utils" pkgs) ];
+    lispLibs = [
+      (getAttr "str" pkgs)
+      (getAttr "mfiano-utils" pkgs)
+    ];
   };
   gfxmath_dot_test = {
     pname = "gfxmath.test";
@@ -44150,7 +46023,10 @@ in {
       asd = "git-file-history-test";
     });
     systems = [ "git-file-history-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "git-file-history" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "git-file-history" pkgs)
+    ];
   };
   github-api-cl = {
     pname = "github-api-cl";
@@ -44188,7 +46064,10 @@ in {
       asd = "github-api-cl";
     });
     systems = [ "github-api-cl/tests" ];
-    lispLibs = [ (getAttr "github-api-cl" pkgs) (getAttr "lisp-unit" pkgs) ];
+    lispLibs = [
+      (getAttr "github-api-cl" pkgs)
+      (getAttr "lisp-unit" pkgs)
+    ];
     meta = { broken = true; };
   };
   github-gist-api-cl = {
@@ -44319,7 +46198,10 @@ in {
       asd = "glaw-imago";
     });
     systems = [ "glaw-imago" ];
-    lispLibs = [ (getAttr "glaw" pkgs) (getAttr "imago" pkgs) ];
+    lispLibs = [
+      (getAttr "glaw" pkgs)
+      (getAttr "imago" pkgs)
+    ];
   };
   glaw-sdl = {
     pname = "glaw-sdl";
@@ -44468,7 +46350,10 @@ in {
       asd = "glkit-examples";
     });
     systems = [ "glkit-examples" ];
-    lispLibs = [ (getAttr "glkit" pkgs) (getAttr "sdl2kit-examples" pkgs) ];
+    lispLibs = [
+      (getAttr "glkit" pkgs)
+      (getAttr "sdl2kit-examples" pkgs)
+    ];
   };
   global-vars = {
     pname = "global-vars";
@@ -44667,7 +46552,10 @@ in {
       asd = "glyphs-test";
     });
     systems = [ "glyphs-test" ];
-    lispLibs = [ (getAttr "glyphs" pkgs) (getAttr "stefil" pkgs) ];
+    lispLibs = [
+      (getAttr "glyphs" pkgs)
+      (getAttr "stefil" pkgs)
+    ];
   };
   gooptest = {
     pname = "gooptest";
@@ -44790,7 +46678,10 @@ in {
       asd = "graylex-m4-example";
     });
     systems = [ "graylex-m4-example" ];
-    lispLibs = [ (getAttr "cl-heredoc" pkgs) (getAttr "graylex" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-heredoc" pkgs)
+      (getAttr "graylex" pkgs)
+    ];
   };
   graylog = {
     pname = "graylog";
@@ -44825,7 +46716,10 @@ in {
       asd = "graylog-log5";
     });
     systems = [ "graylog-log5" ];
-    lispLibs = [ (getAttr "graylog" pkgs) (getAttr "log5" pkgs) ];
+    lispLibs = [
+      (getAttr "graylog" pkgs)
+      (getAttr "log5" pkgs)
+    ];
   };
   green-threads = {
     pname = "green-threads";
@@ -44839,7 +46733,10 @@ in {
       asd = "green-threads";
     });
     systems = [ "green-threads" ];
-    lispLibs = [ (getAttr "cl-async-future" pkgs) (getAttr "cl-cont" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-async-future" pkgs)
+      (getAttr "cl-cont" pkgs)
+    ];
   };
   grid-formation = {
     pname = "grid-formation";
@@ -44853,7 +46750,10 @@ in {
       asd = "grid-formation";
     });
     systems = [ "grid-formation" ];
-    lispLibs = [ (getAttr "mfiano-utils" pkgs) (getAttr "origin" pkgs) ];
+    lispLibs = [
+      (getAttr "mfiano-utils" pkgs)
+      (getAttr "origin" pkgs)
+    ];
   };
   group-by = {
     pname = "group-by";
@@ -44867,7 +46767,10 @@ in {
       asd = "group-by";
     });
     systems = [ "group-by" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "iterate" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "iterate" pkgs)
+    ];
   };
   group-by-test = {
     pname = "group-by-test";
@@ -44881,7 +46784,10 @@ in {
       asd = "group-by";
     });
     systems = [ "group-by-test" ];
-    lispLibs = [ (getAttr "group-by" pkgs) (getAttr "lisp-unit2" pkgs) ];
+    lispLibs = [
+      (getAttr "group-by" pkgs)
+      (getAttr "lisp-unit2" pkgs)
+    ];
   };
   groupby = {
     pname = "groupby";
@@ -45148,7 +47054,10 @@ in {
       asd = "gtype.test";
     });
     systems = [ "gtype.test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "gtype" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "gtype" pkgs)
+    ];
   };
   gute = {
     pname = "gute";
@@ -45183,7 +47092,10 @@ in {
       asd = "gute";
     });
     systems = [ "gute/tests" ];
-    lispLibs = [ (getAttr "gute" pkgs) (getAttr "lisp-unit" pkgs) ];
+    lispLibs = [
+      (getAttr "gute" pkgs)
+      (getAttr "lisp-unit" pkgs)
+    ];
     meta = { broken = true; };
   };
   gwl = {
@@ -45219,7 +47131,10 @@ in {
       asd = "gwl-graphics";
     });
     systems = [ "gwl-graphics" ];
-    lispLibs = [ (getAttr "geom-base" pkgs) (getAttr "gwl" pkgs) ];
+    lispLibs = [
+      (getAttr "geom-base" pkgs)
+      (getAttr "gwl" pkgs)
+    ];
   };
   gzip-stream = {
     pname = "gzip-stream";
@@ -45329,7 +47244,10 @@ in {
       asd = "hash-set-tests";
     });
     systems = [ "hash-set-tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "hash-set" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "hash-set" pkgs)
+    ];
   };
   hash-table-ext = {
     pname = "hash-table-ext";
@@ -45343,8 +47261,10 @@ in {
       asd = "hash-table-ext";
     });
     systems = [ "hash-table-ext" ];
-    lispLibs =
-      [ (getAttr "alexandria" pkgs) (getAttr "jingoh_dot_documentizer" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "jingoh_dot_documentizer" pkgs)
+    ];
   };
   hash-table-ext_dot_test = {
     pname = "hash-table-ext.test";
@@ -45358,7 +47278,10 @@ in {
       asd = "hash-table-ext.test";
     });
     systems = [ "hash-table-ext.test" ];
-    lispLibs = [ (getAttr "hash-table-ext" pkgs) (getAttr "jingoh" pkgs) ];
+    lispLibs = [
+      (getAttr "hash-table-ext" pkgs)
+      (getAttr "jingoh" pkgs)
+    ];
   };
   hashtrie = {
     pname = "hashtrie";
@@ -45386,7 +47309,10 @@ in {
       asd = "hashtrie-tests";
     });
     systems = [ "hashtrie-tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "hashtrie" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "hashtrie" pkgs)
+    ];
   };
   hdf5-cffi = {
     pname = "hdf5-cffi";
@@ -45400,7 +47326,10 @@ in {
       asd = "hdf5-cffi";
     });
     systems = [ "hdf5-cffi" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cffi-grovel" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cffi-grovel" pkgs)
+    ];
   };
   hdf5-cffi_dot_examples = {
     pname = "hdf5-cffi.examples";
@@ -45509,7 +47438,10 @@ in {
       asd = "hermetic";
     });
     systems = [ "hermetic" ];
-    lispLibs = [ (getAttr "cl-pass" pkgs) (getAttr "clack" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-pass" pkgs)
+      (getAttr "clack" pkgs)
+    ];
   };
   herodotus = {
     pname = "herodotus";
@@ -45541,7 +47473,10 @@ in {
       asd = "herodotus";
     });
     systems = [ "herodotus/tests" ];
-    lispLibs = [ (getAttr "herodotus" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "herodotus" pkgs)
+      (getAttr "rove" pkgs)
+    ];
     meta = { broken = true; };
   };
   hh-aws = {
@@ -45608,7 +47543,10 @@ in {
       asd = "hh-redblack";
     });
     systems = [ "hh-redblack-tests" ];
-    lispLibs = [ (getAttr "hh-redblack" pkgs) (getAttr "lisp-unit" pkgs) ];
+    lispLibs = [
+      (getAttr "hh-redblack" pkgs)
+      (getAttr "lisp-unit" pkgs)
+    ];
   };
   hh-web = {
     pname = "hh-web";
@@ -45678,7 +47616,10 @@ in {
       asd = "hompack";
     });
     systems = [ "hompack" ];
-    lispLibs = [ (getAttr "blas-hompack" pkgs) (getAttr "f2cl" pkgs) ];
+    lispLibs = [
+      (getAttr "blas-hompack" pkgs)
+      (getAttr "f2cl" pkgs)
+    ];
   };
   hompack_slash_test-mainf = {
     pname = "hompack_test-mainf";
@@ -45769,7 +47710,10 @@ in {
       asd = "horse-html";
     });
     systems = [ "horse-html/tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "horse-html" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "horse-html" pkgs)
+    ];
     meta = { broken = true; };
   };
   house = {
@@ -45875,7 +47819,10 @@ in {
       asd = "html-entities";
     });
     systems = [ "html-entities-tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "html-entities" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "html-entities" pkgs)
+    ];
   };
   html-match = {
     pname = "html-match";
@@ -45889,7 +47836,10 @@ in {
       asd = "html-match";
     });
     systems = [ "html-match" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "unit-test" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "unit-test" pkgs)
+    ];
   };
   html-match_dot_test = {
     pname = "html-match.test";
@@ -45903,7 +47853,10 @@ in {
       asd = "html-match";
     });
     systems = [ "html-match.test" ];
-    lispLibs = [ (getAttr "html-match" pkgs) (getAttr "unit-test" pkgs) ];
+    lispLibs = [
+      (getAttr "html-match" pkgs)
+      (getAttr "unit-test" pkgs)
+    ];
   };
   html-template = {
     pname = "html-template";
@@ -46004,7 +47957,10 @@ in {
       asd = "http-parse";
     });
     systems = [ "http-parse" ];
-    lispLibs = [ (getAttr "babel" pkgs) (getAttr "cl-ppcre" pkgs) ];
+    lispLibs = [
+      (getAttr "babel" pkgs)
+      (getAttr "cl-ppcre" pkgs)
+    ];
   };
   http-parse-test = {
     pname = "http-parse-test";
@@ -46036,8 +47992,10 @@ in {
       asd = "http2";
     });
     systems = [ "http2" ];
-    lispLibs =
-      [ (getAttr "flexi-streams" pkgs) (getAttr "trivial-gray-streams" pkgs) ];
+    lispLibs = [
+      (getAttr "flexi-streams" pkgs)
+      (getAttr "trivial-gray-streams" pkgs)
+    ];
   };
   http2_slash_all = {
     pname = "http2_all";
@@ -48964,7 +50922,10 @@ in {
       asd = "hunchensocket";
     });
     systems = [ "hunchensocket-tests" ];
-    lispLibs = [ (getAttr "fiasco" pkgs) (getAttr "hunchensocket" pkgs) ];
+    lispLibs = [
+      (getAttr "fiasco" pkgs)
+      (getAttr "hunchensocket" pkgs)
+    ];
   };
   hunchentools = {
     pname = "hunchentools";
@@ -49043,7 +51004,10 @@ in {
       asd = "hunchentoot-cgi";
     });
     systems = [ "hunchentoot-cgi" ];
-    lispLibs = [ (getAttr "hunchentoot" pkgs) (getAttr "puri" pkgs) ];
+    lispLibs = [
+      (getAttr "hunchentoot" pkgs)
+      (getAttr "puri" pkgs)
+    ];
   };
   hunchentoot-dev = {
     pname = "hunchentoot-dev";
@@ -49191,7 +51155,10 @@ in {
       asd = "hyperobject";
     });
     systems = [ "hyperobject" ];
-    lispLibs = [ (getAttr "clsql" pkgs) (getAttr "kmrcl" pkgs) ];
+    lispLibs = [
+      (getAttr "clsql" pkgs)
+      (getAttr "kmrcl" pkgs)
+    ];
   };
   hyperobject_slash_test = {
     pname = "hyperobject_test";
@@ -49205,7 +51172,10 @@ in {
       asd = "hyperobject";
     });
     systems = [ "hyperobject/test" ];
-    lispLibs = [ (getAttr "hyperobject" pkgs) (getAttr "rt" pkgs) ];
+    lispLibs = [
+      (getAttr "hyperobject" pkgs)
+      (getAttr "rt" pkgs)
+    ];
     meta = { broken = true; };
   };
   hyperspec = {
@@ -49234,7 +51204,10 @@ in {
       asd = "ia-hash-table";
     });
     systems = [ "ia-hash-table" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "split-sequence" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "split-sequence" pkgs)
+    ];
   };
   ia-hash-table_dot_test = {
     pname = "ia-hash-table.test";
@@ -49288,7 +51261,10 @@ in {
       asd = "iconv";
     });
     systems = [ "iconv" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cffi-grovel" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cffi-grovel" pkgs)
+    ];
   };
   id3v2 = {
     pname = "id3v2";
@@ -49302,7 +51278,10 @@ in {
       asd = "id3v2";
     });
     systems = [ "id3v2" ];
-    lispLibs = [ (getAttr "babel" pkgs) (getAttr "trivial-gray-streams" pkgs) ];
+    lispLibs = [
+      (getAttr "babel" pkgs)
+      (getAttr "trivial-gray-streams" pkgs)
+    ];
   };
   id3v2-test = {
     pname = "id3v2-test";
@@ -49335,7 +51314,10 @@ in {
       asd = "identifier-pool";
     });
     systems = [ "identifier-pool" ];
-    lispLibs = [ (getAttr "dynamic-array" pkgs) (getAttr "mfiano-utils" pkgs) ];
+    lispLibs = [
+      (getAttr "dynamic-array" pkgs)
+      (getAttr "mfiano-utils" pkgs)
+    ];
   };
   idna = {
     pname = "idna";
@@ -49377,7 +51359,10 @@ in {
       asd = "ieee-floats";
     });
     systems = [ "ieee-floats/tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "ieee-floats" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "ieee-floats" pkgs)
+    ];
     meta = { broken = true; };
   };
   illogical-pathnames = {
@@ -49530,7 +51515,10 @@ in {
       asd = "imago";
     });
     systems = [ "imago/jpeg-turbo" ];
-    lispLibs = [ (getAttr "imago" pkgs) (getAttr "jpeg-turbo" pkgs) ];
+    lispLibs = [
+      (getAttr "imago" pkgs)
+      (getAttr "jpeg-turbo" pkgs)
+    ];
     meta = { broken = true; };
   };
   imago_slash_jupyter = {
@@ -49565,7 +51553,10 @@ in {
       asd = "imago";
     });
     systems = [ "imago/pngload" ];
-    lispLibs = [ (getAttr "imago" pkgs) (getAttr "pngload" pkgs) ];
+    lispLibs = [
+      (getAttr "imago" pkgs)
+      (getAttr "pngload" pkgs)
+    ];
     meta = { broken = true; };
   };
   imago_slash_tests = {
@@ -49580,7 +51571,10 @@ in {
       asd = "imago";
     });
     systems = [ "imago/tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "imago" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "imago" pkgs)
+    ];
     meta = { broken = true; };
   };
   immutable-struct = {
@@ -49683,8 +51677,10 @@ in {
       asd = "incognito-keywords";
     });
     systems = [ "incognito-keywords" ];
-    lispLibs =
-      [ (getAttr "enhanced-eval-when" pkgs) (getAttr "map-bind" pkgs) ];
+    lispLibs = [
+      (getAttr "enhanced-eval-when" pkgs)
+      (getAttr "map-bind" pkgs)
+    ];
   };
   incongruent-methods = {
     pname = "incongruent-methods";
@@ -49779,7 +51775,10 @@ in {
       asd = "infix-dollar-reader-test";
     });
     systems = [ "infix-dollar-reader-test" ];
-    lispLibs = [ (getAttr "infix-dollar-reader" pkgs) (getAttr "rt" pkgs) ];
+    lispLibs = [
+      (getAttr "infix-dollar-reader" pkgs)
+      (getAttr "rt" pkgs)
+    ];
   };
   infix-math = {
     pname = "infix-math";
@@ -49877,7 +51876,10 @@ in {
       asd = "injection-test";
     });
     systems = [ "injection-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "injection" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "injection" pkgs)
+    ];
   };
   inkwell = {
     pname = "inkwell";
@@ -49931,8 +51933,10 @@ in {
       asd = "inlined-generic-function.test";
     });
     systems = [ "inlined-generic-function.test" ];
-    lispLibs =
-      [ (getAttr "fiveam" pkgs) (getAttr "inlined-generic-function" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "inlined-generic-function" pkgs)
+    ];
   };
   inner-conditional = {
     pname = "inner-conditional";
@@ -49965,8 +51969,10 @@ in {
       asd = "inner-conditional-test";
     });
     systems = [ "inner-conditional-test" ];
-    lispLibs =
-      [ (getAttr "inner-conditional" pkgs) (getAttr "cl-test-more" pkgs) ];
+    lispLibs = [
+      (getAttr "inner-conditional" pkgs)
+      (getAttr "cl-test-more" pkgs)
+    ];
   };
   inotify = {
     pname = "inotify";
@@ -50012,8 +52018,10 @@ in {
       asd = "input-event-codes";
     });
     systems = [ "input-event-codes/test" ];
-    lispLibs =
-      [ (getAttr "input-event-codes" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "input-event-codes" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
     meta = { broken = true; };
   };
   inquisitor = {
@@ -50028,7 +52036,10 @@ in {
       asd = "inquisitor";
     });
     systems = [ "inquisitor" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "anaphora" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "anaphora" pkgs)
+    ];
   };
   inquisitor-flexi = {
     pname = "inquisitor-flexi";
@@ -50042,7 +52053,10 @@ in {
       asd = "inquisitor-flexi";
     });
     systems = [ "inquisitor-flexi" ];
-    lispLibs = [ (getAttr "flexi-streams" pkgs) (getAttr "inquisitor" pkgs) ];
+    lispLibs = [
+      (getAttr "flexi-streams" pkgs)
+      (getAttr "inquisitor" pkgs)
+    ];
   };
   inquisitor-flexi-test = {
     pname = "inquisitor-flexi-test";
@@ -50248,7 +52262,10 @@ in {
       asd = "intercom-examples";
     });
     systems = [ "intercom-examples" ];
-    lispLibs = [ (getAttr "intercom" pkgs) (getAttr "jsown" pkgs) ];
+    lispLibs = [
+      (getAttr "intercom" pkgs)
+      (getAttr "jsown" pkgs)
+    ];
   };
   interface = {
     pname = "interface";
@@ -50262,7 +52279,10 @@ in {
       asd = "interface";
     });
     systems = [ "interface" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "global-vars" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "global-vars" pkgs)
+    ];
   };
   interfaces-test-implementation = {
     pname = "interfaces-test-implementation";
@@ -50276,8 +52296,10 @@ in {
       asd = "interfaces-test-implementation";
     });
     systems = [ "interfaces-test-implementation" ];
-    lispLibs =
-      [ (getAttr "modularize" pkgs) (getAttr "modularize-interfaces" pkgs) ];
+    lispLibs = [
+      (getAttr "modularize" pkgs)
+      (getAttr "modularize-interfaces" pkgs)
+    ];
   };
   introspect-environment = {
     pname = "introspect-environment";
@@ -50305,8 +52327,10 @@ in {
       asd = "introspect-environment-test";
     });
     systems = [ "introspect-environment-test" ];
-    lispLibs =
-      [ (getAttr "fiveam" pkgs) (getAttr "introspect-environment" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "introspect-environment" pkgs)
+    ];
   };
   iolib = {
     pname = "iolib";
@@ -50672,7 +52696,10 @@ in {
       asd = "irc-logger";
     });
     systems = [ "irc-logger" ];
-    lispLibs = [ (getAttr "cl-irc" pkgs) (getAttr "cl-ppcre" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-irc" pkgs)
+      (getAttr "cl-ppcre" pkgs)
+    ];
   };
   ironclad = {
     pname = "ironclad";
@@ -50700,7 +52727,10 @@ in {
       asd = "ironclad-text";
     });
     systems = [ "ironclad-text" ];
-    lispLibs = [ (getAttr "flexi-streams" pkgs) (getAttr "ironclad" pkgs) ];
+    lispLibs = [
+      (getAttr "flexi-streams" pkgs)
+      (getAttr "ironclad" pkgs)
+    ];
   };
   ironclad_slash_aead_slash_eax = {
     pname = "ironclad_aead_eax";
@@ -52049,7 +54079,10 @@ in {
       asd = "ironclad";
     });
     systems = [ "ironclad/tests" ];
-    lispLibs = [ (getAttr "ironclad" pkgs) (getAttr "rt" pkgs) ];
+    lispLibs = [
+      (getAttr "ironclad" pkgs)
+      (getAttr "rt" pkgs)
+    ];
     meta = { broken = true; };
   };
   isolated = {
@@ -52138,7 +54171,10 @@ in {
       asd = "iterate-clsql";
     });
     systems = [ "iterate-clsql" ];
-    lispLibs = [ (getAttr "clsql" pkgs) (getAttr "iterate" pkgs) ];
+    lispLibs = [
+      (getAttr "clsql" pkgs)
+      (getAttr "iterate" pkgs)
+    ];
   };
   iterate_slash_tests = {
     pname = "iterate_tests";
@@ -52256,8 +54292,10 @@ in {
       asd = "jingoh.documentizer.test";
     });
     systems = [ "jingoh.documentizer.test" ];
-    lispLibs =
-      [ (getAttr "jingoh" pkgs) (getAttr "jingoh_dot_documentizer" pkgs) ];
+    lispLibs = [
+      (getAttr "jingoh" pkgs)
+      (getAttr "jingoh_dot_documentizer" pkgs)
+    ];
   };
   jingoh_dot_examiner = {
     pname = "jingoh.examiner";
@@ -52333,8 +54371,10 @@ in {
       asd = "jingoh.generator.test";
     });
     systems = [ "jingoh.generator.test" ];
-    lispLibs =
-      [ (getAttr "jingoh" pkgs) (getAttr "jingoh_dot_generator" pkgs) ];
+    lispLibs = [
+      (getAttr "jingoh" pkgs)
+      (getAttr "jingoh_dot_generator" pkgs)
+    ];
   };
   jingoh_dot_org = {
     pname = "jingoh.org";
@@ -52366,7 +54406,10 @@ in {
       asd = "jingoh.org.test";
     });
     systems = [ "jingoh.org.test" ];
-    lispLibs = [ (getAttr "jingoh" pkgs) (getAttr "jingoh_dot_org" pkgs) ];
+    lispLibs = [
+      (getAttr "jingoh" pkgs)
+      (getAttr "jingoh_dot_org" pkgs)
+    ];
   };
   jingoh_dot_parallel = {
     pname = "jingoh.parallel";
@@ -52399,7 +54442,10 @@ in {
       asd = "jingoh.parallel.test";
     });
     systems = [ "jingoh.parallel.test" ];
-    lispLibs = [ (getAttr "jingoh" pkgs) (getAttr "jingoh_dot_parallel" pkgs) ];
+    lispLibs = [
+      (getAttr "jingoh" pkgs)
+      (getAttr "jingoh_dot_parallel" pkgs)
+    ];
   };
   jingoh_dot_reader = {
     pname = "jingoh.reader";
@@ -52433,7 +54479,10 @@ in {
       asd = "jingoh.reader.test";
     });
     systems = [ "jingoh.reader.test" ];
-    lispLibs = [ (getAttr "jingoh" pkgs) (getAttr "jingoh_dot_reader" pkgs) ];
+    lispLibs = [
+      (getAttr "jingoh" pkgs)
+      (getAttr "jingoh_dot_reader" pkgs)
+    ];
   };
   jingoh_dot_tester = {
     pname = "jingoh.tester";
@@ -52475,7 +54524,10 @@ in {
       asd = "jingoh.tester.test";
     });
     systems = [ "jingoh.tester.test" ];
-    lispLibs = [ (getAttr "jingoh" pkgs) (getAttr "jingoh_dot_tester" pkgs) ];
+    lispLibs = [
+      (getAttr "jingoh" pkgs)
+      (getAttr "jingoh_dot_tester" pkgs)
+    ];
   };
   jingoh_slash_test = {
     pname = "jingoh_test";
@@ -52489,7 +54541,10 @@ in {
       asd = "jingoh";
     });
     systems = [ "jingoh/test" ];
-    lispLibs = [ (getAttr "jingoh" pkgs) (getAttr "named-readtables" pkgs) ];
+    lispLibs = [
+      (getAttr "jingoh" pkgs)
+      (getAttr "named-readtables" pkgs)
+    ];
     meta = { broken = true; };
   };
   jonathan = {
@@ -52608,7 +54663,10 @@ in {
       asd = "jp-numeral";
     });
     systems = [ "jp-numeral" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "babel" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "babel" pkgs)
+    ];
   };
   jp-numeral-test = {
     pname = "jp-numeral-test";
@@ -52640,7 +54698,10 @@ in {
       asd = "jpeg-turbo";
     });
     systems = [ "jpeg-turbo" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cffi-grovel" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cffi-grovel" pkgs)
+    ];
   };
   jpeg-turbo_slash_tests = {
     pname = "jpeg-turbo_tests";
@@ -52654,7 +54715,10 @@ in {
       asd = "jpeg-turbo";
     });
     systems = [ "jpeg-turbo/tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "jpeg-turbo" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "jpeg-turbo" pkgs)
+    ];
     meta = { broken = true; };
   };
   jpl-queues = {
@@ -52669,7 +54733,10 @@ in {
       asd = "jpl-queues";
     });
     systems = [ "jpl-queues" ];
-    lispLibs = [ (getAttr "bordeaux-threads" pkgs) (getAttr "jpl-util" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "jpl-util" pkgs)
+    ];
   };
   jpl-util = {
     pname = "jpl-util";
@@ -52763,7 +54830,10 @@ in {
       asd = "json-mop-tests";
     });
     systems = [ "json-mop-tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "json-mop" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "json-mop" pkgs)
+    ];
   };
   json-responses = {
     pname = "json-responses";
@@ -52777,7 +54847,10 @@ in {
       asd = "json-responses";
     });
     systems = [ "json-responses" ];
-    lispLibs = [ (getAttr "cl-json" pkgs) (getAttr "hunchentoot" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-json" pkgs)
+      (getAttr "hunchentoot" pkgs)
+    ];
   };
   json-responses-test = {
     pname = "json-responses-test";
@@ -52791,7 +54864,10 @@ in {
       asd = "json-responses";
     });
     systems = [ "json-responses-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "json-responses" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "json-responses" pkgs)
+    ];
   };
   json-schema = {
     pname = "json-schema";
@@ -52832,7 +54908,10 @@ in {
       asd = "json-schema";
     });
     systems = [ "json-schema/json-schema-test-suite" ];
-    lispLibs = [ (getAttr "json-schema" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "json-schema" pkgs)
+      (getAttr "rove" pkgs)
+    ];
     meta = { broken = true; };
   };
   json-schema_slash_test = {
@@ -52862,7 +54941,10 @@ in {
       asd = "json-schema";
     });
     systems = [ "json-schema/unit-tests" ];
-    lispLibs = [ (getAttr "json-schema" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "json-schema" pkgs)
+      (getAttr "rove" pkgs)
+    ];
     meta = { broken = true; };
   };
   json-streams = {
@@ -52946,7 +55028,10 @@ in {
       asd = "jsown-tests";
     });
     systems = [ "jsown-tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "jsown" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "jsown" pkgs)
+    ];
   };
   jsown-utils = {
     pname = "jsown-utils";
@@ -52960,7 +55045,10 @@ in {
       asd = "jsown-utils";
     });
     systems = [ "jsown-utils" ];
-    lispLibs = [ (getAttr "closer-mop" pkgs) (getAttr "jsown" pkgs) ];
+    lispLibs = [
+      (getAttr "closer-mop" pkgs)
+      (getAttr "jsown" pkgs)
+    ];
   };
   just-getopt-parser = {
     pname = "just-getopt-parser";
@@ -53153,7 +55241,10 @@ in {
       asd = "kenzo-test";
     });
     systems = [ "kenzo-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "kenzo" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "kenzo" pkgs)
+    ];
   };
   keystone = {
     pname = "keystone";
@@ -53291,7 +55382,10 @@ in {
       asd = "kmrcl";
     });
     systems = [ "kmrcl/test" ];
-    lispLibs = [ (getAttr "kmrcl" pkgs) (getAttr "rt" pkgs) ];
+    lispLibs = [
+      (getAttr "kmrcl" pkgs)
+      (getAttr "rt" pkgs)
+    ];
     meta = { broken = true; };
   };
   l-math = {
@@ -53368,7 +55462,10 @@ in {
       asd = "lack";
     });
     systems = [ "lack" ];
-    lispLibs = [ (getAttr "lack-component" pkgs) (getAttr "lack-util" pkgs) ];
+    lispLibs = [
+      (getAttr "lack-component" pkgs)
+      (getAttr "lack-util" pkgs)
+    ];
   };
   lack-app-directory = {
     pname = "lack-app-directory";
@@ -53435,7 +55532,10 @@ in {
       asd = "lack-middleware-accesslog";
     });
     systems = [ "lack-middleware-accesslog" ];
-    lispLibs = [ (getAttr "lack-util" pkgs) (getAttr "local-time" pkgs) ];
+    lispLibs = [
+      (getAttr "lack-util" pkgs)
+      (getAttr "local-time" pkgs)
+    ];
   };
   lack-middleware-anypool = {
     pname = "lack-middleware-anypool";
@@ -53463,7 +55563,10 @@ in {
       asd = "lack-middleware-auth-basic";
     });
     systems = [ "lack-middleware-auth-basic" ];
-    lispLibs = [ (getAttr "cl-base64" pkgs) (getAttr "split-sequence" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-base64" pkgs)
+      (getAttr "split-sequence" pkgs)
+    ];
   };
   lack-middleware-backtrace = {
     pname = "lack-middleware-backtrace";
@@ -53505,7 +55608,10 @@ in {
       asd = "lack-middleware-csrf";
     });
     systems = [ "lack-middleware-csrf" ];
-    lispLibs = [ (getAttr "lack-request" pkgs) (getAttr "lack-util" pkgs) ];
+    lispLibs = [
+      (getAttr "lack-request" pkgs)
+      (getAttr "lack-util" pkgs)
+    ];
   };
   lack-middleware-mito = {
     pname = "lack-middleware-mito";
@@ -53519,7 +55625,10 @@ in {
       asd = "lack-middleware-mito";
     });
     systems = [ "lack-middleware-mito" ];
-    lispLibs = [ (getAttr "dbi" pkgs) (getAttr "mito-core" pkgs) ];
+    lispLibs = [
+      (getAttr "dbi" pkgs)
+      (getAttr "mito-core" pkgs)
+    ];
   };
   lack-middleware-mount = {
     pname = "lack-middleware-mount";
@@ -53604,7 +55713,10 @@ in {
       asd = "lack-response";
     });
     systems = [ "lack-response" ];
-    lispLibs = [ (getAttr "local-time" pkgs) (getAttr "quri" pkgs) ];
+    lispLibs = [
+      (getAttr "local-time" pkgs)
+      (getAttr "quri" pkgs)
+    ];
   };
   lack-session-store-dbi = {
     pname = "lack-session-store-dbi";
@@ -53691,7 +55803,10 @@ in {
       asd = "lack-util-writer-stream";
     });
     systems = [ "lack-util-writer-stream" ];
-    lispLibs = [ (getAttr "babel" pkgs) (getAttr "trivial-gray-streams" pkgs) ];
+    lispLibs = [
+      (getAttr "babel" pkgs)
+      (getAttr "trivial-gray-streams" pkgs)
+    ];
   };
   lake = {
     pname = "lake";
@@ -53725,7 +55840,10 @@ in {
       asd = "lake-cli";
     });
     systems = [ "lake-cli" ];
-    lispLibs = [ (getAttr "deploy" pkgs) (getAttr "lake" pkgs) ];
+    lispLibs = [
+      (getAttr "deploy" pkgs)
+      (getAttr "lake" pkgs)
+    ];
   };
   lake-test = {
     pname = "lake-test";
@@ -53785,8 +55903,10 @@ in {
       asd = "lambda-reader-8bit";
     });
     systems = [ "lambda-reader-8bit" ];
-    lispLibs =
-      [ (getAttr "asdf-encodings" pkgs) (getAttr "named-readtables" pkgs) ];
+    lispLibs = [
+      (getAttr "asdf-encodings" pkgs)
+      (getAttr "named-readtables" pkgs)
+    ];
   };
   lambdalite = {
     pname = "lambdalite";
@@ -53800,7 +55920,10 @@ in {
       asd = "lambdalite";
     });
     systems = [ "lambdalite" ];
-    lispLibs = [ (getAttr "bordeaux-threads" pkgs) (getAttr "wu-sugar" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "wu-sugar" pkgs)
+    ];
   };
   language-codes = {
     pname = "language-codes";
@@ -53828,7 +55951,10 @@ in {
       asd = "langutils";
     });
     systems = [ "langutils" ];
-    lispLibs = [ (getAttr "stdutils" pkgs) (getAttr "s-xml-rpc" pkgs) ];
+    lispLibs = [
+      (getAttr "stdutils" pkgs)
+      (getAttr "s-xml-rpc" pkgs)
+    ];
   };
   lapack = {
     pname = "lapack";
@@ -53895,7 +56021,10 @@ in {
       asd = "lapack";
     });
     systems = [ "lapack/real" ];
-    lispLibs = [ (getAttr "blas-package" pkgs) (getAttr "blas-real" pkgs) ];
+    lispLibs = [
+      (getAttr "blas-package" pkgs)
+      (getAttr "blas-real" pkgs)
+    ];
     meta = { broken = true; };
   };
   lapack_slash_tests = {
@@ -53910,7 +56039,10 @@ in {
       asd = "lapack";
     });
     systems = [ "lapack/tests" ];
-    lispLibs = [ (getAttr "lapack" pkgs) (getAttr "rt" pkgs) ];
+    lispLibs = [
+      (getAttr "lapack" pkgs)
+      (getAttr "rt" pkgs)
+    ];
     meta = { broken = true; };
   };
   lass = {
@@ -53957,7 +56089,10 @@ in {
       asd = "lass-flexbox-test";
     });
     systems = [ "lass-flexbox-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "lass-flexbox" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "lass-flexbox" pkgs)
+    ];
   };
   lassie = {
     pname = "lassie";
@@ -54082,7 +56217,10 @@ in {
       asd = "leech";
     });
     systems = [ "leech" ];
-    lispLibs = [ (getAttr "aserve" pkgs) (getAttr "unit-test" pkgs) ];
+    lispLibs = [
+      (getAttr "aserve" pkgs)
+      (getAttr "unit-test" pkgs)
+    ];
   };
   legion = {
     pname = "legion";
@@ -54246,7 +56384,10 @@ in {
       asd = "let-plus";
     });
     systems = [ "let-plus" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "anaphora" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "anaphora" pkgs)
+    ];
   };
   let-plus_slash_tests = {
     pname = "let-plus_tests";
@@ -54260,7 +56401,10 @@ in {
       asd = "let-plus";
     });
     systems = [ "let-plus/tests" ];
-    lispLibs = [ (getAttr "let-plus" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "let-plus" pkgs)
+      (getAttr "lift" pkgs)
+    ];
     meta = { broken = true; };
   };
   letrec = {
@@ -54336,7 +56480,10 @@ in {
       asd = "lfarm-admin";
     });
     systems = [ "lfarm-admin" ];
-    lispLibs = [ (getAttr "lfarm-common" pkgs) (getAttr "usocket" pkgs) ];
+    lispLibs = [
+      (getAttr "lfarm-common" pkgs)
+      (getAttr "usocket" pkgs)
+    ];
   };
   lfarm-client = {
     pname = "lfarm-client";
@@ -54424,7 +56571,10 @@ in {
       asd = "lfarm-server";
     });
     systems = [ "lfarm-server" ];
-    lispLibs = [ (getAttr "lfarm-common" pkgs) (getAttr "usocket" pkgs) ];
+    lispLibs = [
+      (getAttr "lfarm-common" pkgs)
+      (getAttr "usocket" pkgs)
+    ];
   };
   lfarm-ssl = {
     pname = "lfarm-ssl";
@@ -54438,7 +56588,10 @@ in {
       asd = "lfarm-ssl";
     });
     systems = [ "lfarm-ssl" ];
-    lispLibs = [ (getAttr "cl_plus_ssl" pkgs) (getAttr "lfarm-common" pkgs) ];
+    lispLibs = [
+      (getAttr "cl_plus_ssl" pkgs)
+      (getAttr "lfarm-common" pkgs)
+    ];
   };
   lfarm-test = {
     pname = "lfarm-test";
@@ -54519,7 +56672,10 @@ in {
       asd = "lib-helper";
     });
     systems = [ "lib-helper/test" ];
-    lispLibs = [ (getAttr "lib-helper" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "lib-helper" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   liblmdb = {
@@ -54571,8 +56727,10 @@ in {
       asd = "libssh2.test";
     });
     systems = [ "libssh2.test" ];
-    lispLibs =
-      [ (getAttr "libssh2" pkgs) (getAttr "hu_dot_dwim_dot_stefil" pkgs) ];
+    lispLibs = [
+      (getAttr "libssh2" pkgs)
+      (getAttr "hu_dot_dwim_dot_stefil" pkgs)
+    ];
   };
   libusb-ffi = {
     pname = "libusb-ffi";
@@ -54829,7 +56987,10 @@ in {
       asd = "lime-example";
     });
     systems = [ "lime-example" ];
-    lispLibs = [ (getAttr "bordeaux-threads" pkgs) (getAttr "lime" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "lime" pkgs)
+    ];
   };
   lime-test = {
     pname = "lime-test";
@@ -54862,7 +57023,10 @@ in {
       asd = "linear-programming";
     });
     systems = [ "linear-programming" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "iterate" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "iterate" pkgs)
+    ];
   };
   linear-programming-glpk = {
     pname = "linear-programming-glpk";
@@ -54876,7 +57040,10 @@ in {
       asd = "linear-programming-glpk";
     });
     systems = [ "linear-programming-glpk" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "linear-programming" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "linear-programming" pkgs)
+    ];
   };
   linear-programming-glpk_slash_test = {
     pname = "linear-programming-glpk_test";
@@ -54890,8 +57057,10 @@ in {
       asd = "linear-programming-glpk";
     });
     systems = [ "linear-programming-glpk/test" ];
-    lispLibs =
-      [ (getAttr "fiveam" pkgs) (getAttr "linear-programming-glpk" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "linear-programming-glpk" pkgs)
+    ];
     meta = { broken = true; };
   };
   linear-programming-test = {
@@ -54957,7 +57126,10 @@ in {
       asd = "lineva";
     });
     systems = [ "lineva/test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "lineva" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "lineva" pkgs)
+    ];
     meta = { broken = true; };
   };
   linewise-template = {
@@ -54972,7 +57144,10 @@ in {
       asd = "linewise-template";
     });
     systems = [ "linewise-template" ];
-    lispLibs = [ (getAttr "cl-fad" pkgs) (getAttr "cl-ppcre" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-fad" pkgs)
+      (getAttr "cl-ppcre" pkgs)
+    ];
   };
   linux-packaging = {
     pname = "linux-packaging";
@@ -55196,7 +57371,10 @@ in {
       asd = "lisp-chat";
     });
     systems = [ "lisp-chat/server" ];
-    lispLibs = [ (getAttr "bordeaux-threads" pkgs) (getAttr "usocket" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "usocket" pkgs)
+    ];
     meta = { broken = true; };
   };
   lisp-critic = {
@@ -55253,7 +57431,10 @@ in {
       asd = "lisp-executable-tests";
     });
     systems = [ "lisp-executable-tests" ];
-    lispLibs = [ (getAttr "lisp-executable" pkgs) (getAttr "lisp-unit" pkgs) ];
+    lispLibs = [
+      (getAttr "lisp-executable" pkgs)
+      (getAttr "lisp-unit" pkgs)
+    ];
   };
   lisp-interface-library = {
     pname = "lisp-interface-library";
@@ -55362,7 +57543,10 @@ in {
       asd = "lisp-preprocessor";
     });
     systems = [ "lisp-preprocessor-tests" ];
-    lispLibs = [ (getAttr "lisp-preprocessor" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "lisp-preprocessor" pkgs)
+      (getAttr "rove" pkgs)
+    ];
   };
   lisp-stat = {
     pname = "lisp-stat";
@@ -55524,7 +57708,10 @@ in {
       asd = "lispbuilder-net";
     });
     systems = [ "lispbuilder-net" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "lispbuilder-net-cffi" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "lispbuilder-net-cffi" pkgs)
+    ];
   };
   lispbuilder-net-cffi = {
     pname = "lispbuilder-net-cffi";
@@ -55631,7 +57818,10 @@ in {
       asd = "lispbuilder-sdl-base";
     });
     systems = [ "lispbuilder-sdl-base" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "lispbuilder-sdl-cffi" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "lispbuilder-sdl-cffi" pkgs)
+    ];
   };
   lispbuilder-sdl-binaries = {
     pname = "lispbuilder-sdl-binaries";
@@ -55659,8 +57849,10 @@ in {
       asd = "lispbuilder-sdl-cffi";
     });
     systems = [ "lispbuilder-sdl-cffi" ];
-    lispLibs =
-      [ (getAttr "cffi" pkgs) (getAttr "lispbuilder-sdl-binaries" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "lispbuilder-sdl-binaries" pkgs)
+    ];
   };
   lispbuilder-sdl-cl-vectors = {
     pname = "lispbuilder-sdl-cl-vectors";
@@ -55754,7 +57946,10 @@ in {
       asd = "lispbuilder-sdl-gfx-cffi";
     });
     systems = [ "lispbuilder-sdl-gfx-cffi" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "lispbuilder-sdl" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "lispbuilder-sdl" pkgs)
+    ];
   };
   lispbuilder-sdl-gfx-examples = {
     pname = "lispbuilder-sdl-gfx-examples";
@@ -56083,7 +58278,10 @@ in {
       asd = "list-named-class";
     });
     systems = [ "list-named-class" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "closer-mop" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "closer-mop" pkgs)
+    ];
   };
   list-named-class_slash_protest = {
     pname = "list-named-class_protest";
@@ -56097,7 +58295,10 @@ in {
       asd = "list-named-class";
     });
     systems = [ "list-named-class/protest" ];
-    lispLibs = [ (getAttr "list-named-class" pkgs) (getAttr "protest" pkgs) ];
+    lispLibs = [
+      (getAttr "list-named-class" pkgs)
+      (getAttr "protest" pkgs)
+    ];
     meta = { broken = true; };
   };
   list-named-class_slash_test = {
@@ -56112,7 +58313,10 @@ in {
       asd = "list-named-class";
     });
     systems = [ "list-named-class/test" ];
-    lispLibs = [ (getAttr "_1am" pkgs) (getAttr "list-named-class" pkgs) ];
+    lispLibs = [
+      (getAttr "_1am" pkgs)
+      (getAttr "list-named-class" pkgs)
+    ];
     meta = { broken = true; };
   };
   list-of = {
@@ -56141,7 +58345,10 @@ in {
       asd = "listoflist";
     });
     systems = [ "listoflist" ];
-    lispLibs = [ (getAttr "clunit" pkgs) (getAttr "xarray" pkgs) ];
+    lispLibs = [
+      (getAttr "clunit" pkgs)
+      (getAttr "xarray" pkgs)
+    ];
   };
   listopia = {
     pname = "listopia";
@@ -56188,7 +58395,10 @@ in {
       asd = "listopia";
     });
     systems = [ "listopia/tests" ];
-    lispLibs = [ (getAttr "listopia" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "listopia" pkgs)
+      (getAttr "rove" pkgs)
+    ];
     meta = { broken = true; };
   };
   liter = {
@@ -56221,7 +58431,10 @@ in {
       asd = "literate-demo";
     });
     systems = [ "literate-demo" ];
-    lispLibs = [ (getAttr "iterate" pkgs) (getAttr "literate-lisp" pkgs) ];
+    lispLibs = [
+      (getAttr "iterate" pkgs)
+      (getAttr "literate-lisp" pkgs)
+    ];
   };
   literate-lisp = {
     pname = "literate-lisp";
@@ -56342,7 +58555,10 @@ in {
       asd = "lla";
     });
     systems = [ "lla-tests" ];
-    lispLibs = [ (getAttr "clunit" pkgs) (getAttr "lla" pkgs) ];
+    lispLibs = [
+      (getAttr "clunit" pkgs)
+      (getAttr "lla" pkgs)
+    ];
   };
   lmdb = {
     pname = "lmdb";
@@ -56379,7 +58595,10 @@ in {
       asd = "lmdb";
     });
     systems = [ "lmdb/test" ];
-    lispLibs = [ (getAttr "lmdb" pkgs) (getAttr "try" pkgs) ];
+    lispLibs = [
+      (getAttr "lmdb" pkgs)
+      (getAttr "try" pkgs)
+    ];
     meta = { broken = true; };
   };
   lml = {
@@ -56408,7 +58627,10 @@ in {
       asd = "lml-tests";
     });
     systems = [ "lml-tests" ];
-    lispLibs = [ (getAttr "lml" pkgs) (getAttr "rt" pkgs) ];
+    lispLibs = [
+      (getAttr "lml" pkgs)
+      (getAttr "rt" pkgs)
+    ];
   };
   lml2 = {
     pname = "lml2";
@@ -56436,7 +58658,10 @@ in {
       asd = "lml2-tests";
     });
     systems = [ "lml2-tests" ];
-    lispLibs = [ (getAttr "lml2" pkgs) (getAttr "rt" pkgs) ];
+    lispLibs = [
+      (getAttr "lml2" pkgs)
+      (getAttr "rt" pkgs)
+    ];
   };
   local-package-aliases = {
     pname = "local-package-aliases";
@@ -56496,8 +58721,10 @@ in {
       asd = "local-time";
     });
     systems = [ "local-time/test" ];
-    lispLibs =
-      [ (getAttr "hu_dot_dwim_dot_stefil" pkgs) (getAttr "local-time" pkgs) ];
+    lispLibs = [
+      (getAttr "hu_dot_dwim_dot_stefil" pkgs)
+      (getAttr "local-time" pkgs)
+    ];
     meta = { broken = true; };
   };
   log4cl = {
@@ -56526,7 +58753,10 @@ in {
       asd = "log4cl-examples";
     });
     systems = [ "log4cl-examples" ];
-    lispLibs = [ (getAttr "log4cl" pkgs) (getAttr "swank" pkgs) ];
+    lispLibs = [
+      (getAttr "log4cl" pkgs)
+      (getAttr "swank" pkgs)
+    ];
   };
   log4cl-extras = {
     pname = "log4cl-extras";
@@ -56585,7 +58815,10 @@ in {
       asd = "log4cl.log4slime";
     });
     systems = [ "log4cl.log4slime" ];
-    lispLibs = [ (getAttr "log4cl" pkgs) (getAttr "swank" pkgs) ];
+    lispLibs = [
+      (getAttr "log4cl" pkgs)
+      (getAttr "swank" pkgs)
+    ];
   };
   log4cl_dot_log4sly = {
     pname = "log4cl.log4sly";
@@ -56599,7 +58832,10 @@ in {
       asd = "log4cl.log4sly";
     });
     systems = [ "log4cl.log4sly" ];
-    lispLibs = [ (getAttr "log4cl" pkgs) (getAttr "slynk" pkgs) ];
+    lispLibs = [
+      (getAttr "log4cl" pkgs)
+      (getAttr "slynk" pkgs)
+    ];
   };
   log4cl_slash_syslog = {
     pname = "log4cl_syslog";
@@ -56628,7 +58864,10 @@ in {
       asd = "log4cl";
     });
     systems = [ "log4cl/test" ];
-    lispLibs = [ (getAttr "log4cl" pkgs) (getAttr "stefil" pkgs) ];
+    lispLibs = [
+      (getAttr "log4cl" pkgs)
+      (getAttr "stefil" pkgs)
+    ];
     meta = { broken = true; };
   };
   log5 = {
@@ -56729,7 +58968,10 @@ in {
       asd = "lowlight.tests";
     });
     systems = [ "lowlight.tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "lowlight" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "lowlight" pkgs)
+    ];
   };
   lparallel = {
     pname = "lparallel";
@@ -56743,8 +58985,10 @@ in {
       asd = "lparallel";
     });
     systems = [ "lparallel" ];
-    lispLibs =
-      [ (getAttr "alexandria" pkgs) (getAttr "bordeaux-threads" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "bordeaux-threads" pkgs)
+    ];
   };
   lparallel-bench = {
     pname = "lparallel-bench";
@@ -56758,7 +59002,10 @@ in {
       asd = "lparallel-bench";
     });
     systems = [ "lparallel-bench" ];
-    lispLibs = [ (getAttr "lparallel" pkgs) (getAttr "trivial-garbage" pkgs) ];
+    lispLibs = [
+      (getAttr "lparallel" pkgs)
+      (getAttr "trivial-garbage" pkgs)
+    ];
   };
   lparallel-test = {
     pname = "lparallel-test";
@@ -56805,7 +59052,10 @@ in {
       asd = "lquery-test";
     });
     systems = [ "lquery-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "lquery" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "lquery" pkgs)
+    ];
   };
   lracer = {
     pname = "lracer";
@@ -56851,8 +59101,10 @@ in {
       asd = "lsx";
     });
     systems = [ "lsx" ];
-    lispLibs =
-      [ (getAttr "closer-mop" pkgs) (getAttr "named-readtables" pkgs) ];
+    lispLibs = [
+      (getAttr "closer-mop" pkgs)
+      (getAttr "named-readtables" pkgs)
+    ];
   };
   lsx_slash_tests = {
     pname = "lsx_tests";
@@ -56923,7 +59175,10 @@ in {
       asd = "lucene-in-action-tests";
     });
     systems = [ "lucene-in-action-tests" ];
-    lispLibs = [ (getAttr "lift" pkgs) (getAttr "montezuma" pkgs) ];
+    lispLibs = [
+      (getAttr "lift" pkgs)
+      (getAttr "montezuma" pkgs)
+    ];
   };
   luckless = {
     pname = "luckless";
@@ -56937,8 +59192,10 @@ in {
       asd = "luckless";
     });
     systems = [ "luckless" ];
-    lispLibs =
-      [ (getAttr "atomics" pkgs) (getAttr "documentation-utils" pkgs) ];
+    lispLibs = [
+      (getAttr "atomics" pkgs)
+      (getAttr "documentation-utils" pkgs)
+    ];
   };
   luckless-test = {
     pname = "luckless-test";
@@ -57161,7 +59418,10 @@ in {
       asd = "madeira-port";
     });
     systems = [ "madeira-port-tests" ];
-    lispLibs = [ (getAttr "eos" pkgs) (getAttr "madeira-port" pkgs) ];
+    lispLibs = [
+      (getAttr "eos" pkgs)
+      (getAttr "madeira-port" pkgs)
+    ];
   };
   magic-ed = {
     pname = "magic-ed";
@@ -57207,7 +59467,10 @@ in {
       asd = "magicffi";
     });
     systems = [ "magicffi/test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "magicffi" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "magicffi" pkgs)
+    ];
     meta = { broken = true; };
   };
   magicl = {
@@ -57339,7 +59602,10 @@ in {
       asd = "magicl";
     });
     systems = [ "magicl/ext" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cffi-libffi" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cffi-libffi" pkgs)
+    ];
     meta = { broken = true; };
   };
   magicl_slash_ext-blas = {
@@ -57558,7 +59824,10 @@ in {
       asd = "maiden-client-entities";
     });
     systems = [ "maiden-client-entities" ];
-    lispLibs = [ (getAttr "documentation-utils" pkgs) (getAttr "maiden" pkgs) ];
+    lispLibs = [
+      (getAttr "documentation-utils" pkgs)
+      (getAttr "maiden" pkgs)
+    ];
   };
   maiden-commands = {
     pname = "maiden-commands";
@@ -57907,8 +60176,10 @@ in {
       asd = "maiden-relay";
     });
     systems = [ "maiden-relay" ];
-    lispLibs =
-      [ (getAttr "maiden-networking" pkgs) (getAttr "maiden-serialize" pkgs) ];
+    lispLibs = [
+      (getAttr "maiden-networking" pkgs)
+      (getAttr "maiden-serialize" pkgs)
+    ];
   };
   maiden-serialize = {
     pname = "maiden-serialize";
@@ -58057,8 +60328,10 @@ in {
       asd = "maiden-twitter";
     });
     systems = [ "maiden-twitter" ];
-    lispLibs =
-      [ (getAttr "chirp" pkgs) (getAttr "maiden-client-entities" pkgs) ];
+    lispLibs = [
+      (getAttr "chirp" pkgs)
+      (getAttr "maiden-client-entities" pkgs)
+    ];
   };
   maiden-urlinfo = {
     pname = "maiden-urlinfo";
@@ -58146,7 +60419,10 @@ in {
       asd = "maidenhead";
     });
     systems = [ "maidenhead/tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "maidenhead" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "maidenhead" pkgs)
+    ];
     meta = { broken = true; };
   };
   mailbox = {
@@ -58208,7 +60484,10 @@ in {
       asd = "make-hash-tests";
     });
     systems = [ "make-hash-tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "make-hash" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "make-hash" pkgs)
+    ];
   };
   manifest = {
     pname = "manifest";
@@ -58299,8 +60578,10 @@ in {
       asd = "marching-cubes-test";
     });
     systems = [ "marching-cubes-test" ];
-    lispLibs =
-      [ (getAttr "marching-cubes" pkgs) (getAttr "cl-test-more" pkgs) ];
+    lispLibs = [
+      (getAttr "marching-cubes" pkgs)
+      (getAttr "cl-test-more" pkgs)
+    ];
   };
   markdown_dot_cl = {
     pname = "markdown.cl";
@@ -58369,7 +60650,10 @@ in {
       asd = "markup.test";
     });
     systems = [ "markup.test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "markup" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "markup" pkgs)
+    ];
   };
   marshal = {
     pname = "marshal";
@@ -58397,7 +60681,10 @@ in {
       asd = "marshal-tests";
     });
     systems = [ "marshal-tests" ];
-    lispLibs = [ (getAttr "marshal" pkgs) (getAttr "xlunit" pkgs) ];
+    lispLibs = [
+      (getAttr "marshal" pkgs)
+      (getAttr "xlunit" pkgs)
+    ];
   };
   math = {
     pname = "math";
@@ -58525,7 +60812,10 @@ in {
       asd = "math";
     });
     systems = [ "math/gnuplot" ];
-    lispLibs = [ (getAttr "font-discovery" pkgs) (getAttr "vgplot" pkgs) ];
+    lispLibs = [
+      (getAttr "font-discovery" pkgs)
+      (getAttr "vgplot" pkgs)
+    ];
     meta = { broken = true; };
   };
   math_slash_half-div = {
@@ -58570,7 +60860,10 @@ in {
       asd = "math";
     });
     systems = [ "math/ls-gsll" ];
-    lispLibs = [ (getAttr "cl-utilities" pkgs) (getAttr "gsll" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-utilities" pkgs)
+      (getAttr "gsll" pkgs)
+    ];
     meta = { broken = true; };
   };
   math_slash_matr = {
@@ -58660,7 +60953,10 @@ in {
       asd = "math";
     });
     systems = [ "math/tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "math" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "math" pkgs)
+    ];
     meta = { broken = true; };
   };
   mathkit = {
@@ -58703,7 +60999,10 @@ in {
       asd = "matrix-case.test";
     });
     systems = [ "matrix-case.test" ];
-    lispLibs = [ (getAttr "jingoh" pkgs) (getAttr "matrix-case" pkgs) ];
+    lispLibs = [
+      (getAttr "jingoh" pkgs)
+      (getAttr "matrix-case" pkgs)
+    ];
   };
   maxpc = {
     pname = "maxpc";
@@ -58773,8 +61072,10 @@ in {
       asd = "mcase";
     });
     systems = [ "mcase" ];
-    lispLibs =
-      [ (getAttr "jingoh_dot_documentizer" pkgs) (getAttr "millet" pkgs) ];
+    lispLibs = [
+      (getAttr "jingoh_dot_documentizer" pkgs)
+      (getAttr "millet" pkgs)
+    ];
   };
   mcase_dot_test = {
     pname = "mcase.test";
@@ -58788,7 +61089,10 @@ in {
       asd = "mcase.test";
     });
     systems = [ "mcase.test" ];
-    lispLibs = [ (getAttr "jingoh" pkgs) (getAttr "mcase" pkgs) ];
+    lispLibs = [
+      (getAttr "jingoh" pkgs)
+      (getAttr "mcase" pkgs)
+    ];
   };
   mcclim = {
     pname = "mcclim";
@@ -58909,7 +61213,10 @@ in {
       asd = "mcclim-bitmaps";
     });
     systems = [ "mcclim-bitmaps" ];
-    lispLibs = [ (getAttr "clim" pkgs) (getAttr "opticl" pkgs) ];
+    lispLibs = [
+      (getAttr "clim" pkgs)
+      (getAttr "opticl" pkgs)
+    ];
   };
   mcclim-clx = {
     pname = "mcclim-clx";
@@ -59259,7 +61566,10 @@ in {
       asd = "mcclim";
     });
     systems = [ "mcclim/test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "mcclim" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "mcclim" pkgs)
+    ];
     meta = { broken = true; };
   };
   mcclim_slash_test-util = {
@@ -59274,7 +61584,10 @@ in {
       asd = "mcclim";
     });
     systems = [ "mcclim/test-util" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "mcclim" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "mcclim" pkgs)
+    ];
     meta = { broken = true; };
   };
   md5 = {
@@ -59321,7 +61634,10 @@ in {
       asd = "media-types";
     });
     systems = [ "media-types/tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "media-types" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "media-types" pkgs)
+    ];
     meta = { broken = true; };
   };
   mel-base = {
@@ -59442,7 +61758,10 @@ in {
       asd = "metabang-bind-test";
     });
     systems = [ "metabang-bind-test" ];
-    lispLibs = [ (getAttr "lift" pkgs) (getAttr "metabang-bind" pkgs) ];
+    lispLibs = [
+      (getAttr "lift" pkgs)
+      (getAttr "metabang-bind" pkgs)
+    ];
   };
   metacopy = {
     pname = "metacopy";
@@ -59470,7 +61789,10 @@ in {
       asd = "metacopy-with-contextl";
     });
     systems = [ "metacopy-with-contextl" ];
-    lispLibs = [ (getAttr "contextl" pkgs) (getAttr "metacopy" pkgs) ];
+    lispLibs = [
+      (getAttr "contextl" pkgs)
+      (getAttr "metacopy" pkgs)
+    ];
   };
   metacopy-with-contextl_slash_test = {
     pname = "metacopy-with-contextl_test";
@@ -59503,7 +61825,10 @@ in {
       asd = "metacopy";
     });
     systems = [ "metacopy/test" ];
-    lispLibs = [ (getAttr "lift" pkgs) (getAttr "metacopy" pkgs) ];
+    lispLibs = [
+      (getAttr "lift" pkgs)
+      (getAttr "metacopy" pkgs)
+    ];
     meta = { broken = true; };
   };
   metalock = {
@@ -59518,8 +61843,10 @@ in {
       asd = "metalock";
     });
     systems = [ "metalock" ];
-    lispLibs =
-      [ (getAttr "bordeaux-threads" pkgs) (getAttr "closer-mop" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "closer-mop" pkgs)
+    ];
   };
   metap = {
     pname = "metap";
@@ -59547,7 +61874,10 @@ in {
       asd = "metap-test";
     });
     systems = [ "metap-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "metap" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "metap" pkgs)
+    ];
   };
   metatilities = {
     pname = "metatilities";
@@ -59595,7 +61925,10 @@ in {
       asd = "metatilities-base-test";
     });
     systems = [ "metatilities-base-test" ];
-    lispLibs = [ (getAttr "lift" pkgs) (getAttr "metatilities-base" pkgs) ];
+    lispLibs = [
+      (getAttr "lift" pkgs)
+      (getAttr "metatilities-base" pkgs)
+    ];
   };
   metatilities-test = {
     pname = "metatilities-test";
@@ -59609,7 +61942,10 @@ in {
       asd = "metatilities-test";
     });
     systems = [ "metatilities-test" ];
-    lispLibs = [ (getAttr "lift" pkgs) (getAttr "metatilities" pkgs) ];
+    lispLibs = [
+      (getAttr "lift" pkgs)
+      (getAttr "metatilities" pkgs)
+    ];
   };
   metatilities_slash_with-lift = {
     pname = "metatilities_with-lift";
@@ -59623,7 +61959,10 @@ in {
       asd = "metatilities";
     });
     systems = [ "metatilities/with-lift" ];
-    lispLibs = [ (getAttr "lift" pkgs) (getAttr "metatilities-base" pkgs) ];
+    lispLibs = [
+      (getAttr "lift" pkgs)
+      (getAttr "metatilities-base" pkgs)
+    ];
     meta = { broken = true; };
   };
   metering = {
@@ -59652,7 +61991,10 @@ in {
       asd = "metering";
     });
     systems = [ "metering/test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "metering" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "metering" pkgs)
+    ];
     meta = { broken = true; };
   };
   method-combination-utilities = {
@@ -59681,8 +62023,10 @@ in {
       asd = "method-combination-utilities";
     });
     systems = [ "method-combination-utilities.tests" ];
-    lispLibs =
-      [ (getAttr "fiveam" pkgs) (getAttr "method-combination-utilities" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "method-combination-utilities" pkgs)
+    ];
   };
   method-hooks = {
     pname = "method-hooks";
@@ -59742,7 +62086,10 @@ in {
       asd = "mexpr";
     });
     systems = [ "mexpr" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cl-syntax" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cl-syntax" pkgs)
+    ];
   };
   mexpr-tests = {
     pname = "mexpr-tests";
@@ -59832,8 +62179,10 @@ in {
       asd = "mgl-gnuplot";
     });
     systems = [ "mgl-gnuplot" ];
-    lispLibs =
-      [ (getAttr "alexandria" pkgs) (getAttr "external-program" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "external-program" pkgs)
+    ];
   };
   mgl-mat = {
     pname = "mgl-mat";
@@ -59873,7 +62222,10 @@ in {
       asd = "mgl-mat";
     });
     systems = [ "mgl-mat/test" ];
-    lispLibs = [ (getAttr "cl-fad" pkgs) (getAttr "mgl-mat" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-fad" pkgs)
+      (getAttr "mgl-mat" pkgs)
+    ];
     meta = { broken = true; };
   };
   mgl-pax = {
@@ -60052,7 +62404,10 @@ in {
       asd = "mgl";
     });
     systems = [ "mgl/test" ];
-    lispLibs = [ (getAttr "mgl" pkgs) (getAttr "mgl-mat" pkgs) ];
+    lispLibs = [
+      (getAttr "mgl" pkgs)
+      (getAttr "mgl-mat" pkgs)
+    ];
     meta = { broken = true; };
   };
   mgrs = {
@@ -60081,7 +62436,10 @@ in {
       asd = "mgrs";
     });
     systems = [ "mgrs/tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "mgrs" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "mgrs" pkgs)
+    ];
     meta = { broken = true; };
   };
   micmac = {
@@ -60096,7 +62454,10 @@ in {
       asd = "micmac";
     });
     systems = [ "micmac" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "mgl-pax" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "mgl-pax" pkgs)
+    ];
   };
   micmac_slash_test = {
     pname = "micmac_test";
@@ -60185,7 +62546,10 @@ in {
       asd = "minheap-tests";
     });
     systems = [ "minheap-tests" ];
-    lispLibs = [ (getAttr "lisp-unit" pkgs) (getAttr "minheap" pkgs) ];
+    lispLibs = [
+      (getAttr "lisp-unit" pkgs)
+      (getAttr "minheap" pkgs)
+    ];
   };
   mini-cas = {
     pname = "mini-cas";
@@ -60424,8 +62788,11 @@ in {
       asd = "mixalot-flac";
     });
     systems = [ "mixalot-flac" ];
-    lispLibs =
-      [ (getAttr "cffi" pkgs) (getAttr "flac" pkgs) (getAttr "mixalot" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "flac" pkgs)
+      (getAttr "mixalot" pkgs)
+    ];
   };
   mixalot-mp3 = {
     pname = "mixalot-mp3";
@@ -60638,8 +63005,10 @@ in {
       asd = "mnas-graph";
     });
     systems = [ "mnas-graph" ];
-    lispLibs =
-      [ (getAttr "mnas-hash-table" pkgs) (getAttr "mnas-string" pkgs) ];
+    lispLibs = [
+      (getAttr "mnas-hash-table" pkgs)
+      (getAttr "mnas-string" pkgs)
+    ];
   };
   mnas-graph_slash_alg = {
     pname = "mnas-graph_alg";
@@ -60653,8 +63022,10 @@ in {
       asd = "mnas-graph";
     });
     systems = [ "mnas-graph/alg" ];
-    lispLibs =
-      [ (getAttr "mnas-hash-table" pkgs) (getAttr "mnas-string" pkgs) ];
+    lispLibs = [
+      (getAttr "mnas-hash-table" pkgs)
+      (getAttr "mnas-string" pkgs)
+    ];
     meta = { broken = true; };
   };
   mnas-graph_slash_core = {
@@ -60669,8 +63040,10 @@ in {
       asd = "mnas-graph";
     });
     systems = [ "mnas-graph/core" ];
-    lispLibs =
-      [ (getAttr "mnas-hash-table" pkgs) (getAttr "mnas-string" pkgs) ];
+    lispLibs = [
+      (getAttr "mnas-hash-table" pkgs)
+      (getAttr "mnas-string" pkgs)
+    ];
     meta = { broken = true; };
   };
   mnas-graph_slash_demos = {
@@ -60685,8 +63058,10 @@ in {
       asd = "mnas-graph";
     });
     systems = [ "mnas-graph/demos" ];
-    lispLibs =
-      [ (getAttr "mnas-hash-table" pkgs) (getAttr "mnas-string" pkgs) ];
+    lispLibs = [
+      (getAttr "mnas-hash-table" pkgs)
+      (getAttr "mnas-string" pkgs)
+    ];
     meta = { broken = true; };
   };
   mnas-graph_slash_docs = {
@@ -60750,8 +63125,10 @@ in {
       asd = "mnas-graph";
     });
     systems = [ "mnas-graph/sample" ];
-    lispLibs =
-      [ (getAttr "mnas-hash-table" pkgs) (getAttr "mnas-string" pkgs) ];
+    lispLibs = [
+      (getAttr "mnas-hash-table" pkgs)
+      (getAttr "mnas-string" pkgs)
+    ];
     meta = { broken = true; };
   };
   mnas-graph_slash_tests = {
@@ -60766,7 +63143,10 @@ in {
       asd = "mnas-graph";
     });
     systems = [ "mnas-graph/tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "mnas-graph" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "mnas-graph" pkgs)
+    ];
     meta = { broken = true; };
   };
   mnas-graph_slash_view = {
@@ -60781,8 +63161,10 @@ in {
       asd = "mnas-graph";
     });
     systems = [ "mnas-graph/view" ];
-    lispLibs =
-      [ (getAttr "mnas-hash-table" pkgs) (getAttr "mnas-string" pkgs) ];
+    lispLibs = [
+      (getAttr "mnas-hash-table" pkgs)
+      (getAttr "mnas-string" pkgs)
+    ];
     meta = { broken = true; };
   };
   mnas-hash-table = {
@@ -60811,7 +63193,10 @@ in {
       asd = "mnas-hash-table";
     });
     systems = [ "mnas-hash-table/docs" ];
-    lispLibs = [ (getAttr "codex" pkgs) (getAttr "mnas-hash-table" pkgs) ];
+    lispLibs = [
+      (getAttr "codex" pkgs)
+      (getAttr "mnas-hash-table" pkgs)
+    ];
     meta = { broken = true; };
   };
   mnas-hash-table_slash_tests = {
@@ -60826,7 +63211,10 @@ in {
       asd = "mnas-hash-table";
     });
     systems = [ "mnas-hash-table/tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "mnas-hash-table" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "mnas-hash-table" pkgs)
+    ];
     meta = { broken = true; };
   };
   mnas-package = {
@@ -60881,7 +63269,10 @@ in {
       asd = "mnas-package";
     });
     systems = [ "mnas-package/docs" ];
-    lispLibs = [ (getAttr "codex" pkgs) (getAttr "mnas-package" pkgs) ];
+    lispLibs = [
+      (getAttr "codex" pkgs)
+      (getAttr "mnas-package" pkgs)
+    ];
     meta = { broken = true; };
   };
   mnas-package_slash_example = {
@@ -61001,7 +63392,10 @@ in {
       asd = "mnas-package";
     });
     systems = [ "mnas-package/tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "mnas-package" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "mnas-package" pkgs)
+    ];
     meta = { broken = true; };
   };
   mnas-package_slash_view = {
@@ -61162,7 +63556,10 @@ in {
       asd = "mnas-string";
     });
     systems = [ "mnas-string/tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "mnas-string" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "mnas-string" pkgs)
+    ];
     meta = { broken = true; };
   };
   mnas-string_slash_translit = {
@@ -61297,7 +63694,10 @@ in {
       asd = "modf-fset";
     });
     systems = [ "modf-fset" ];
-    lispLibs = [ (getAttr "fset" pkgs) (getAttr "modf" pkgs) ];
+    lispLibs = [
+      (getAttr "fset" pkgs)
+      (getAttr "modf" pkgs)
+    ];
   };
   modf-fset-test = {
     pname = "modf-fset-test";
@@ -61563,7 +63963,10 @@ in {
       asd = "monomyth";
     });
     systems = [ "monomyth/basic-example-master" ];
-    lispLibs = [ (getAttr "monomyth" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "monomyth" pkgs)
+      (getAttr "rove" pkgs)
+    ];
     meta = { broken = true; };
   };
   monomyth_slash_basic-example-worker = {
@@ -61578,7 +63981,10 @@ in {
       asd = "monomyth";
     });
     systems = [ "monomyth/basic-example-worker" ];
-    lispLibs = [ (getAttr "monomyth" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "monomyth" pkgs)
+      (getAttr "rove" pkgs)
+    ];
     meta = { broken = true; };
   };
   monomyth_slash_tests = {
@@ -61633,7 +64039,10 @@ in {
       asd = "montezuma-indexfiles";
     });
     systems = [ "montezuma-indexfiles" ];
-    lispLibs = [ (getAttr "cl-fad" pkgs) (getAttr "montezuma" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-fad" pkgs)
+      (getAttr "montezuma" pkgs)
+    ];
   };
   montezuma-tests = {
     pname = "montezuma-tests";
@@ -61647,7 +64056,10 @@ in {
       asd = "montezuma";
     });
     systems = [ "montezuma-tests" ];
-    lispLibs = [ (getAttr "montezuma" pkgs) (getAttr "trivial-timeout" pkgs) ];
+    lispLibs = [
+      (getAttr "montezuma" pkgs)
+      (getAttr "trivial-timeout" pkgs)
+    ];
   };
   moptilities = {
     pname = "moptilities";
@@ -61675,7 +64087,10 @@ in {
       asd = "moptilities-test";
     });
     systems = [ "moptilities-test" ];
-    lispLibs = [ (getAttr "lift" pkgs) (getAttr "moptilities" pkgs) ];
+    lispLibs = [
+      (getAttr "lift" pkgs)
+      (getAttr "moptilities" pkgs)
+    ];
   };
   more-cffi = {
     pname = "more-cffi";
@@ -61707,7 +64122,10 @@ in {
       asd = "more-conditions";
     });
     systems = [ "more-conditions" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "closer-mop" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "closer-mop" pkgs)
+    ];
   };
   more-conditions_slash_test = {
     pname = "more-conditions_test";
@@ -61961,8 +64379,10 @@ in {
       asd = "multiposter";
     });
     systems = [ "multiposter" ];
-    lispLibs =
-      [ (getAttr "cl-ppcre" pkgs) (getAttr "documentation-utils" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "documentation-utils" pkgs)
+    ];
   };
   multiposter-git = {
     pname = "multiposter-git";
@@ -61976,7 +64396,10 @@ in {
       asd = "multiposter-git";
     });
     systems = [ "multiposter-git" ];
-    lispLibs = [ (getAttr "legit" pkgs) (getAttr "multiposter" pkgs) ];
+    lispLibs = [
+      (getAttr "legit" pkgs)
+      (getAttr "multiposter" pkgs)
+    ];
   };
   multiposter-lichat = {
     pname = "multiposter-lichat";
@@ -62009,7 +64432,10 @@ in {
       asd = "multiposter-mastodon";
     });
     systems = [ "multiposter-mastodon" ];
-    lispLibs = [ (getAttr "multiposter" pkgs) (getAttr "tooter" pkgs) ];
+    lispLibs = [
+      (getAttr "multiposter" pkgs)
+      (getAttr "tooter" pkgs)
+    ];
   };
   multiposter-studio = {
     pname = "multiposter-studio";
@@ -62059,7 +64485,10 @@ in {
       asd = "multiposter-twitter";
     });
     systems = [ "multiposter-twitter" ];
-    lispLibs = [ (getAttr "chirp" pkgs) (getAttr "multiposter" pkgs) ];
+    lispLibs = [
+      (getAttr "chirp" pkgs)
+      (getAttr "multiposter" pkgs)
+    ];
   };
   multival-plist = {
     pname = "multival-plist";
@@ -62092,8 +64521,10 @@ in {
       asd = "multival-plist-test";
     });
     systems = [ "multival-plist-test" ];
-    lispLibs =
-      [ (getAttr "multival-plist" pkgs) (getAttr "cl-test-more" pkgs) ];
+    lispLibs = [
+      (getAttr "multival-plist" pkgs)
+      (getAttr "cl-test-more" pkgs)
+    ];
   };
   music-spelling = {
     pname = "music-spelling";
@@ -62154,7 +64585,10 @@ in {
       asd = "mutility";
     });
     systems = [ "mutility/loopy" ];
-    lispLibs = [ (getAttr "mutility" pkgs) (getAttr "trivial-do" pkgs) ];
+    lispLibs = [
+      (getAttr "mutility" pkgs)
+      (getAttr "trivial-do" pkgs)
+    ];
     meta = { broken = true; };
   };
   mutility_slash_most = {
@@ -62169,7 +64603,10 @@ in {
       asd = "mutility";
     });
     systems = [ "mutility/most" ];
-    lispLibs = [ (getAttr "mutility" pkgs) (getAttr "trivial-do" pkgs) ];
+    lispLibs = [
+      (getAttr "mutility" pkgs)
+      (getAttr "trivial-do" pkgs)
+    ];
     meta = { broken = true; };
   };
   mutility_slash_test-helpers = {
@@ -62267,7 +64704,10 @@ in {
       asd = "mystic-fiveam-mixin";
     });
     systems = [ "mystic-fiveam-mixin" ];
-    lispLibs = [ (getAttr "mystic" pkgs) (getAttr "mystic-file-mixin" pkgs) ];
+    lispLibs = [
+      (getAttr "mystic" pkgs)
+      (getAttr "mystic-file-mixin" pkgs)
+    ];
   };
   mystic-gitignore-mixin = {
     pname = "mystic-gitignore-mixin";
@@ -62281,7 +64721,10 @@ in {
       asd = "mystic-gitignore-mixin";
     });
     systems = [ "mystic-gitignore-mixin" ];
-    lispLibs = [ (getAttr "mystic" pkgs) (getAttr "mystic-file-mixin" pkgs) ];
+    lispLibs = [
+      (getAttr "mystic" pkgs)
+      (getAttr "mystic-file-mixin" pkgs)
+    ];
   };
   mystic-library-template = {
     pname = "mystic-library-template";
@@ -62315,7 +64758,10 @@ in {
       asd = "mystic-readme-mixin";
     });
     systems = [ "mystic-readme-mixin" ];
-    lispLibs = [ (getAttr "mystic" pkgs) (getAttr "mystic-file-mixin" pkgs) ];
+    lispLibs = [
+      (getAttr "mystic" pkgs)
+      (getAttr "mystic-file-mixin" pkgs)
+    ];
   };
   mystic-test = {
     pname = "mystic-test";
@@ -62347,7 +64793,10 @@ in {
       asd = "mystic-travis-mixin";
     });
     systems = [ "mystic-travis-mixin" ];
-    lispLibs = [ (getAttr "mystic" pkgs) (getAttr "mystic-file-mixin" pkgs) ];
+    lispLibs = [
+      (getAttr "mystic" pkgs)
+      (getAttr "mystic-file-mixin" pkgs)
+    ];
   };
   myway = {
     pname = "myway";
@@ -62502,7 +64951,10 @@ in {
       asd = "named-readtables";
     });
     systems = [ "named-readtables/doc" ];
-    lispLibs = [ (getAttr "mgl-pax" pkgs) (getAttr "named-readtables" pkgs) ];
+    lispLibs = [
+      (getAttr "mgl-pax" pkgs)
+      (getAttr "named-readtables" pkgs)
+    ];
     meta = { broken = true; };
   };
   named-readtables_slash_test = {
@@ -62517,7 +64969,10 @@ in {
       asd = "named-readtables";
     });
     systems = [ "named-readtables/test" ];
-    lispLibs = [ (getAttr "named-readtables" pkgs) (getAttr "try" pkgs) ];
+    lispLibs = [
+      (getAttr "named-readtables" pkgs)
+      (getAttr "try" pkgs)
+    ];
     meta = { broken = true; };
   };
   nanovg-blob = {
@@ -62578,7 +65033,10 @@ in {
       asd = "narrowed-types-test";
     });
     systems = [ "narrowed-types-test" ];
-    lispLibs = [ (getAttr "narrowed-types" pkgs) (getAttr "rt" pkgs) ];
+    lispLibs = [
+      (getAttr "narrowed-types" pkgs)
+      (getAttr "rt" pkgs)
+    ];
   };
   nbd = {
     pname = "nbd";
@@ -62611,8 +65069,10 @@ in {
       asd = "nbd";
     });
     systems = [ "nbd/simple-in-memory" ];
-    lispLibs =
-      [ (getAttr "nbd" pkgs) (getAttr "wild-package-inferred-system" pkgs) ];
+    lispLibs = [
+      (getAttr "nbd" pkgs)
+      (getAttr "wild-package-inferred-system" pkgs)
+    ];
     meta = { broken = true; };
   };
   ncurses-clone-for-lem = {
@@ -62668,7 +65128,10 @@ in {
       asd = "ndebug";
     });
     systems = [ "ndebug/tests" ];
-    lispLibs = [ (getAttr "lisp-unit2" pkgs) (getAttr "ndebug" pkgs) ];
+    lispLibs = [
+      (getAttr "lisp-unit2" pkgs)
+      (getAttr "ndebug" pkgs)
+    ];
     meta = { broken = true; };
   };
   ndfa = {
@@ -63064,7 +65527,10 @@ in {
       asd = "network-addresses-test";
     });
     systems = [ "network-addresses-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "network-addresses" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "network-addresses" pkgs)
+    ];
   };
   neural-classifier = {
     pname = "neural-classifier";
@@ -63096,7 +65562,10 @@ in {
       asd = "neural-classifier";
     });
     systems = [ "neural-classifier/mnist" ];
-    lispLibs = [ (getAttr "neural-classifier" pkgs) (getAttr "nibbles" pkgs) ];
+    lispLibs = [
+      (getAttr "neural-classifier" pkgs)
+      (getAttr "nibbles" pkgs)
+    ];
     meta = { broken = true; };
   };
   neural-classifier_slash_tests = {
@@ -63166,7 +65635,10 @@ in {
       asd = "nfiles";
     });
     systems = [ "nfiles/tests" ];
-    lispLibs = [ (getAttr "lisp-unit2" pkgs) (getAttr "nfiles" pkgs) ];
+    lispLibs = [
+      (getAttr "lisp-unit2" pkgs)
+      (getAttr "nfiles" pkgs)
+    ];
     meta = { broken = true; };
   };
   nhooks = {
@@ -63181,7 +65653,10 @@ in {
       asd = "nhooks";
     });
     systems = [ "nhooks" ];
-    lispLibs = [ (getAttr "closer-mop" pkgs) (getAttr "serapeum" pkgs) ];
+    lispLibs = [
+      (getAttr "closer-mop" pkgs)
+      (getAttr "serapeum" pkgs)
+    ];
   };
   nibbles = {
     pname = "nibbles";
@@ -63246,7 +65721,10 @@ in {
       asd = "nibbles";
     });
     systems = [ "nibbles/tests" ];
-    lispLibs = [ (getAttr "nibbles" pkgs) (getAttr "rt" pkgs) ];
+    lispLibs = [
+      (getAttr "nibbles" pkgs)
+      (getAttr "rt" pkgs)
+    ];
     meta = { broken = true; };
   };
   nineveh = {
@@ -63365,7 +65843,10 @@ in {
       asd = "nlopt";
     });
     systems = [ "nlopt" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "trivial-garbage" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "trivial-garbage" pkgs)
+    ];
   };
   nodgui = {
     pname = "nodgui";
@@ -63438,7 +65919,10 @@ in {
       asd = "north-dexador";
     });
     systems = [ "north-dexador" ];
-    lispLibs = [ (getAttr "dexador" pkgs) (getAttr "north-core" pkgs) ];
+    lispLibs = [
+      (getAttr "dexador" pkgs)
+      (getAttr "north-core" pkgs)
+    ];
   };
   north-drakma = {
     pname = "north-drakma";
@@ -63452,7 +65936,10 @@ in {
       asd = "north-drakma";
     });
     systems = [ "north-drakma" ];
-    lispLibs = [ (getAttr "drakma" pkgs) (getAttr "north-core" pkgs) ];
+    lispLibs = [
+      (getAttr "drakma" pkgs)
+      (getAttr "north-core" pkgs)
+    ];
   };
   north-example = {
     pname = "north-example";
@@ -63513,7 +66000,10 @@ in {
       asd = "nst";
     });
     systems = [ "nst" ];
-    lispLibs = [ (getAttr "closer-mop" pkgs) (getAttr "org-sampler" pkgs) ];
+    lispLibs = [
+      (getAttr "closer-mop" pkgs)
+      (getAttr "org-sampler" pkgs)
+    ];
   };
   nst-manual-tests = {
     pname = "nst-manual-tests";
@@ -63563,7 +66053,10 @@ in {
       asd = "nst-mop-utils";
     });
     systems = [ "nst-mop-utils" ];
-    lispLibs = [ (getAttr "nst" pkgs) (getAttr "closer-mop" pkgs) ];
+    lispLibs = [
+      (getAttr "nst" pkgs)
+      (getAttr "closer-mop" pkgs)
+    ];
   };
   nst-selftest-utils = {
     pname = "nst-selftest-utils";
@@ -63807,7 +66300,10 @@ in {
       asd = "numcl.test";
     });
     systems = [ "numcl.test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "numcl" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "numcl" pkgs)
+    ];
   };
   numericals = {
     pname = "numericals";
@@ -63855,7 +66351,10 @@ in {
       asd = "numericals.common";
     });
     systems = [ "numericals.common" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   numericals_slash_benchmarks = {
     pname = "numericals_benchmarks";
@@ -63891,8 +66390,10 @@ in {
       asd = "numpy-file-format";
     });
     systems = [ "numpy-file-format" ];
-    lispLibs =
-      [ (getAttr "ieee-floats" pkgs) (getAttr "trivial-features" pkgs) ];
+    lispLibs = [
+      (getAttr "ieee-floats" pkgs)
+      (getAttr "trivial-features" pkgs)
+    ];
   };
   numpy-file-format_slash_tests = {
     pname = "numpy-file-format_tests";
@@ -63906,7 +66407,10 @@ in {
       asd = "numpy-file-format";
     });
     systems = [ "numpy-file-format/tests" ];
-    lispLibs = [ (getAttr "numpy-file-format" pkgs) (getAttr "uiop" pkgs) ];
+    lispLibs = [
+      (getAttr "numpy-file-format" pkgs)
+      (getAttr "uiop" pkgs)
+    ];
     meta = { broken = true; };
   };
   nxt = {
@@ -63939,7 +66443,10 @@ in {
       asd = "nxt-proxy";
     });
     systems = [ "nxt-proxy" ];
-    lispLibs = [ (getAttr "nxt" pkgs) (getAttr "usocket" pkgs) ];
+    lispLibs = [
+      (getAttr "nxt" pkgs)
+      (getAttr "usocket" pkgs)
+    ];
   };
   nyaml = {
     pname = "nyaml";
@@ -64144,7 +66651,10 @@ in {
       asd = "nyxt";
     });
     systems = [ "nyxt/application/tests" ];
-    lispLibs = [ (getAttr "nyxt" pkgs) (getAttr "nyxt-asdf" pkgs) ];
+    lispLibs = [
+      (getAttr "nyxt" pkgs)
+      (getAttr "nyxt-asdf" pkgs)
+    ];
     meta = { broken = true; };
   };
   nyxt_slash_benchmark = {
@@ -64500,7 +67010,10 @@ in {
       asd = "nyxt";
     });
     systems = [ "nyxt/tests" ];
-    lispLibs = [ (getAttr "nyxt" pkgs) (getAttr "nyxt-asdf" pkgs) ];
+    lispLibs = [
+      (getAttr "nyxt" pkgs)
+      (getAttr "nyxt-asdf" pkgs)
+    ];
     meta = { broken = true; };
   };
   nyxt_slash_text-buffer = {
@@ -64515,7 +67028,10 @@ in {
       asd = "nyxt";
     });
     systems = [ "nyxt/text-buffer" ];
-    lispLibs = [ (getAttr "cluffer" pkgs) (getAttr "nyxt-asdf" pkgs) ];
+    lispLibs = [
+      (getAttr "cluffer" pkgs)
+      (getAttr "nyxt-asdf" pkgs)
+    ];
     meta = { broken = true; };
   };
   nyxt_slash_theme = {
@@ -64574,7 +67090,10 @@ in {
       asd = "nyxt";
     });
     systems = [ "nyxt/user-interface" ];
-    lispLibs = [ (getAttr "nyxt-asdf" pkgs) (getAttr "spinneret" pkgs) ];
+    lispLibs = [
+      (getAttr "nyxt-asdf" pkgs)
+      (getAttr "spinneret" pkgs)
+    ];
     meta = { broken = true; };
   };
   nyxt_slash_version = {
@@ -64948,7 +67467,10 @@ in {
       asd = "oe-encode";
     });
     systems = [ "oe-encode-test" ];
-    lispLibs = [ (getAttr "clunit" pkgs) (getAttr "oe-encode" pkgs) ];
+    lispLibs = [
+      (getAttr "clunit" pkgs)
+      (getAttr "oe-encode" pkgs)
+    ];
   };
   olc = {
     pname = "olc";
@@ -64976,7 +67498,10 @@ in {
       asd = "olc";
     });
     systems = [ "olc/tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "olc" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "olc" pkgs)
+    ];
     meta = { broken = true; };
   };
   omg = {
@@ -65136,7 +67661,10 @@ in {
       asd = "open-location-code";
     });
     systems = [ "open-location-code" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "iterate" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "iterate" pkgs)
+    ];
   };
   open-vrp = {
     pname = "open-vrp";
@@ -65230,7 +67758,10 @@ in {
       asd = "openapi-parser";
     });
     systems = [ "openapi-parser-tests" ];
-    lispLibs = [ (getAttr "openapi-parser" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "openapi-parser" pkgs)
+      (getAttr "rove" pkgs)
+    ];
   };
   openid-key = {
     pname = "openid-key";
@@ -65266,7 +67797,10 @@ in {
       asd = "openid-key-test";
     });
     systems = [ "openid-key-test" ];
-    lispLibs = [ (getAttr "_1am" pkgs) (getAttr "openid-key" pkgs) ];
+    lispLibs = [
+      (getAttr "_1am" pkgs)
+      (getAttr "openid-key" pkgs)
+    ];
   };
   ops-test = {
     pname = "ops-test";
@@ -65364,7 +67898,10 @@ in {
       asd = "opticl";
     });
     systems = [ "opticl/test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "opticl" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "opticl" pkgs)
+    ];
     meta = { broken = true; };
   };
   optima = {
@@ -65379,7 +67916,10 @@ in {
       asd = "optima";
     });
     systems = [ "optima" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "closer-mop" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "closer-mop" pkgs)
+    ];
   };
   optima_dot_ppcre = {
     pname = "optima.ppcre";
@@ -65447,7 +67987,10 @@ in {
       asd = "or-fann";
     });
     systems = [ "or-fann" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cl-opsresearch" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cl-opsresearch" pkgs)
+    ];
   };
   or-glpk = {
     pname = "or-glpk";
@@ -65461,7 +68004,10 @@ in {
       asd = "or-glpk";
     });
     systems = [ "or-glpk" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cl-opsresearch" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cl-opsresearch" pkgs)
+    ];
   };
   or-gsl = {
     pname = "or-gsl";
@@ -65475,7 +68021,10 @@ in {
       asd = "or-gsl";
     });
     systems = [ "or-gsl" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cl-opsresearch" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cl-opsresearch" pkgs)
+    ];
   };
   or-test = {
     pname = "or-test";
@@ -65673,8 +68222,10 @@ in {
       asd = "org.tfeb.dsm";
     });
     systems = [ "org.tfeb.dsm/test" ];
-    lispLibs =
-      [ (getAttr "org_dot_tfeb_dot_dsm" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "org_dot_tfeb_dot_dsm" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
     meta = { broken = true; };
   };
   org_dot_tfeb_dot_hax = {
@@ -66001,8 +68552,10 @@ in {
       asd = "org.tfeb.hax";
     });
     systems = [ "org.tfeb.hax/test" ];
-    lispLibs =
-      [ (getAttr "parachute" pkgs) (getAttr "org_dot_tfeb_dot_hax" pkgs) ];
+    lispLibs = [
+      (getAttr "parachute" pkgs)
+      (getAttr "org_dot_tfeb_dot_hax" pkgs)
+    ];
     meta = { broken = true; };
   };
   org_dot_tfeb_dot_tools = {
@@ -66129,7 +68682,10 @@ in {
       asd = "origin.test";
     });
     systems = [ "origin.test" ];
-    lispLibs = [ (getAttr "origin" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "origin" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
   };
   orizuru-orm = {
     pname = "orizuru-orm";
@@ -66203,7 +68759,10 @@ in {
       asd = "osicat";
     });
     systems = [ "osicat/tests" ];
-    lispLibs = [ (getAttr "osicat" pkgs) (getAttr "rt" pkgs) ];
+    lispLibs = [
+      (getAttr "osicat" pkgs)
+      (getAttr "rt" pkgs)
+    ];
     meta = { broken = true; };
   };
   osmpbf = {
@@ -66261,7 +68820,10 @@ in {
       asd = "ospm";
     });
     systems = [ "ospm/tests" ];
-    lispLibs = [ (getAttr "lisp-unit2" pkgs) (getAttr "ospm" pkgs) ];
+    lispLibs = [
+      (getAttr "lisp-unit2" pkgs)
+      (getAttr "ospm" pkgs)
+    ];
     meta = { broken = true; };
   };
   overlord = {
@@ -66342,7 +68904,10 @@ in {
       asd = "oxenfurt-dexador";
     });
     systems = [ "oxenfurt-dexador" ];
-    lispLibs = [ (getAttr "dexador" pkgs) (getAttr "oxenfurt-core" pkgs) ];
+    lispLibs = [
+      (getAttr "dexador" pkgs)
+      (getAttr "oxenfurt-core" pkgs)
+    ];
   };
   oxenfurt-drakma = {
     pname = "oxenfurt-drakma";
@@ -66356,7 +68921,10 @@ in {
       asd = "oxenfurt-drakma";
     });
     systems = [ "oxenfurt-drakma" ];
-    lispLibs = [ (getAttr "drakma" pkgs) (getAttr "oxenfurt-core" pkgs) ];
+    lispLibs = [
+      (getAttr "drakma" pkgs)
+      (getAttr "oxenfurt-core" pkgs)
+    ];
   };
   pack = {
     pname = "pack";
@@ -66370,7 +68938,10 @@ in {
       asd = "pack";
     });
     systems = [ "pack" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "ieee-floats" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "ieee-floats" pkgs)
+    ];
   };
   package-renaming = {
     pname = "package-renaming";
@@ -66443,7 +69014,10 @@ in {
       asd = "packet-crafting";
     });
     systems = [ "packet-crafting/tests" ];
-    lispLibs = [ (getAttr "packet-crafting" pkgs) (getAttr "rove" pkgs) ];
+    lispLibs = [
+      (getAttr "packet-crafting" pkgs)
+      (getAttr "rove" pkgs)
+    ];
     meta = { broken = true; };
   };
   paiprolog = {
@@ -66582,7 +69156,10 @@ in {
       asd = "parachute-prove";
     });
     systems = [ "parachute-prove" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
   };
   parameterized-function = {
     pname = "parameterized-function";
@@ -66642,7 +69219,10 @@ in {
       asd = "paren-util";
     });
     systems = [ "paren-util" ];
-    lispLibs = [ (getAttr "paren-files" pkgs) (getAttr "parenscript" pkgs) ];
+    lispLibs = [
+      (getAttr "paren-files" pkgs)
+      (getAttr "parenscript" pkgs)
+    ];
   };
   paren6 = {
     pname = "paren6";
@@ -66656,7 +69236,10 @@ in {
       asd = "paren6";
     });
     systems = [ "paren6" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "parenscript" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "parenscript" pkgs)
+    ];
   };
   parenml = {
     pname = "parenml";
@@ -66688,7 +69271,10 @@ in {
       asd = "parenml-test";
     });
     systems = [ "parenml-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "parenml" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "parenml" pkgs)
+    ];
   };
   parenscript = {
     pname = "parenscript";
@@ -66794,7 +69380,10 @@ in {
       asd = "parse-float";
     });
     systems = [ "parse-float-tests" ];
-    lispLibs = [ (getAttr "lisp-unit" pkgs) (getAttr "parse-float" pkgs) ];
+    lispLibs = [
+      (getAttr "lisp-unit" pkgs)
+      (getAttr "parse-float" pkgs)
+    ];
   };
   parse-front-matter = {
     pname = "parse-front-matter";
@@ -66822,7 +69411,10 @@ in {
       asd = "parse-front-matter-test";
     });
     systems = [ "parse-front-matter-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "parse-front-matter" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "parse-front-matter" pkgs)
+    ];
   };
   parse-js = {
     pname = "parse-js";
@@ -66897,7 +69489,10 @@ in {
       asd = "parse-rgb";
     });
     systems = [ "parse-rgb" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "tcod" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "tcod" pkgs)
+    ];
   };
   parseltongue = {
     pname = "parseltongue";
@@ -66954,7 +69549,10 @@ in {
       asd = "parser-combinators";
     });
     systems = [ "parser-combinators" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "iterate" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "iterate" pkgs)
+    ];
   };
   parser-combinators-cl-ppcre = {
     pname = "parser-combinators-cl-ppcre";
@@ -66987,8 +69585,10 @@ in {
       asd = "parser-combinators-debug";
     });
     systems = [ "parser-combinators-debug" ];
-    lispLibs =
-      [ (getAttr "cl-containers" pkgs) (getAttr "parser-combinators" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-containers" pkgs)
+      (getAttr "parser-combinators" pkgs)
+    ];
   };
   parser-combinators-tests = {
     pname = "parser-combinators-tests";
@@ -67157,7 +69757,10 @@ in {
       asd = "parsnip";
     });
     systems = [ "parsnip/examples" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "parsnip" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "parsnip" pkgs)
+    ];
     meta = { broken = true; };
   };
   parsnip_slash_test = {
@@ -67210,7 +69813,10 @@ in {
       asd = "path-parse";
     });
     systems = [ "path-parse" ];
-    lispLibs = [ (getAttr "split-sequence" pkgs) (getAttr "uiop" pkgs) ];
+    lispLibs = [
+      (getAttr "split-sequence" pkgs)
+      (getAttr "uiop" pkgs)
+    ];
   };
   path-parse-test = {
     pname = "path-parse-test";
@@ -67224,7 +69830,10 @@ in {
       asd = "path-parse-test";
     });
     systems = [ "path-parse-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "path-parse" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "path-parse" pkgs)
+    ];
   };
   path-string = {
     pname = "path-string";
@@ -67288,7 +69897,10 @@ in {
       asd = "pathname-utils-test";
     });
     systems = [ "pathname-utils-test" ];
-    lispLibs = [ (getAttr "parachute" pkgs) (getAttr "pathname-utils" pkgs) ];
+    lispLibs = [
+      (getAttr "parachute" pkgs)
+      (getAttr "pathname-utils" pkgs)
+    ];
   };
   patron = {
     pname = "patron";
@@ -67315,8 +69927,10 @@ in {
       asd = "pcall";
     });
     systems = [ "pcall" ];
-    lispLibs =
-      [ (getAttr "bordeaux-threads" pkgs) (getAttr "pcall-queue" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "pcall-queue" pkgs)
+    ];
   };
   pcall-queue = {
     pname = "pcall-queue";
@@ -67342,7 +69956,10 @@ in {
       asd = "pcall";
     });
     systems = [ "pcall-tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "pcall" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "pcall" pkgs)
+    ];
   };
   pcl-binary-data = {
     pname = "pcl-binary-data";
@@ -67384,8 +70001,10 @@ in {
       asd = "pcl-id3v2";
     });
     systems = [ "pcl-id3v2" ];
-    lispLibs =
-      [ (getAttr "pcl-binary-data" pkgs) (getAttr "pcl-pathnames" pkgs) ];
+    lispLibs = [
+      (getAttr "pcl-binary-data" pkgs)
+      (getAttr "pcl-pathnames" pkgs)
+    ];
   };
   pcl-macro-utilities = {
     pname = "pcl-macro-utilities";
@@ -67565,7 +70184,10 @@ in {
       asd = "peppol";
     });
     systems = [ "peppol" ];
-    lispLibs = [ (getAttr "cxml" pkgs) (getAttr "xpath" pkgs) ];
+    lispLibs = [
+      (getAttr "cxml" pkgs)
+      (getAttr "xpath" pkgs)
+    ];
   };
   percent-encoding = {
     pname = "percent-encoding";
@@ -67579,7 +70201,10 @@ in {
       asd = "percent-encoding";
     });
     systems = [ "percent-encoding" ];
-    lispLibs = [ (getAttr "anaphora" pkgs) (getAttr "babel" pkgs) ];
+    lispLibs = [
+      (getAttr "anaphora" pkgs)
+      (getAttr "babel" pkgs)
+    ];
   };
   percent-encoding-test = {
     pname = "percent-encoding-test";
@@ -67593,7 +70218,10 @@ in {
       asd = "percent-encoding";
     });
     systems = [ "percent-encoding-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "percent-encoding" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "percent-encoding" pkgs)
+    ];
   };
   perceptual-hashes = {
     pname = "perceptual-hashes";
@@ -67626,7 +70254,10 @@ in {
       asd = "perceptual-hashes";
     });
     systems = [ "perceptual-hashes/tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "perceptual-hashes" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "perceptual-hashes" pkgs)
+    ];
     meta = { broken = true; };
   };
   periodic-table = {
@@ -67669,7 +70300,10 @@ in {
       asd = "periods-series";
     });
     systems = [ "periods-series" ];
-    lispLibs = [ (getAttr "periods" pkgs) (getAttr "series" pkgs) ];
+    lispLibs = [
+      (getAttr "periods" pkgs)
+      (getAttr "series" pkgs)
+    ];
   };
   perlre = {
     pname = "perlre";
@@ -67704,7 +70338,10 @@ in {
       asd = "pero";
     });
     systems = [ "pero" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "local-time" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "local-time" pkgs)
+    ];
   };
   persistent = {
     pname = "persistent";
@@ -67732,8 +70369,10 @@ in {
       asd = "persistent-tables";
     });
     systems = [ "persistent-tables" ];
-    lispLibs =
-      [ (getAttr "lisp-unit" pkgs) (getAttr "random-access-lists" pkgs) ];
+    lispLibs = [
+      (getAttr "lisp-unit" pkgs)
+      (getAttr "random-access-lists" pkgs)
+    ];
   };
   persistent-variables = {
     pname = "persistent-variables";
@@ -67832,7 +70471,10 @@ in {
       asd = "petalisp.examples";
     });
     systems = [ "petalisp.examples" ];
-    lispLibs = [ (getAttr "numpy-file-format" pkgs) (getAttr "petalisp" pkgs) ];
+    lispLibs = [
+      (getAttr "numpy-file-format" pkgs)
+      (getAttr "petalisp" pkgs)
+    ];
   };
   petalisp_dot_graphviz = {
     pname = "petalisp.graphviz";
@@ -68003,7 +70645,10 @@ in {
       asd = "petit.string-utils-test";
     });
     systems = [ "petit.string-utils-test" ];
-    lispLibs = [ (getAttr "petit_dot_string-utils" pkgs) (getAttr "rt" pkgs) ];
+    lispLibs = [
+      (getAttr "petit_dot_string-utils" pkgs)
+      (getAttr "rt" pkgs)
+    ];
   };
   petri = {
     pname = "petri";
@@ -68037,7 +70682,10 @@ in {
       asd = "petri";
     });
     systems = [ "petri/graph" ];
-    lispLibs = [ (getAttr "cl-dot" pkgs) (getAttr "petri" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-dot" pkgs)
+      (getAttr "petri" pkgs)
+    ];
     meta = { broken = true; };
   };
   petri_slash_test = {
@@ -68108,7 +70756,10 @@ in {
       asd = "pettomato-deque-tests";
     });
     systems = [ "pettomato-deque-tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "pettomato-deque" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "pettomato-deque" pkgs)
+    ];
   };
   pettomato-indexed-priority-queue = {
     pname = "pettomato-indexed-priority-queue";
@@ -68153,7 +70804,10 @@ in {
       asd = "pfft";
     });
     systems = [ "pfft" ];
-    lispLibs = [ (getAttr "fft" pkgs) (getAttr "pcall" pkgs) ];
+    lispLibs = [
+      (getAttr "fft" pkgs)
+      (getAttr "pcall" pkgs)
+    ];
   };
   pg = {
     pname = "pg";
@@ -68303,7 +70957,10 @@ in {
       asd = "phos";
     });
     systems = [ "phos/nodgui" ];
-    lispLibs = [ (getAttr "nodgui" pkgs) (getAttr "phos" pkgs) ];
+    lispLibs = [
+      (getAttr "nodgui" pkgs)
+      (getAttr "phos" pkgs)
+    ];
     meta = { broken = true; };
   };
   phos_slash_test = {
@@ -68318,7 +70975,10 @@ in {
       asd = "phos";
     });
     systems = [ "phos/test" ];
-    lispLibs = [ (getAttr "clunit2" pkgs) (getAttr "phos" pkgs) ];
+    lispLibs = [
+      (getAttr "clunit2" pkgs)
+      (getAttr "phos" pkgs)
+    ];
     meta = { broken = true; };
   };
   physical-dimension = {
@@ -68380,7 +71040,10 @@ in {
       asd = "picl";
     });
     systems = [ "picl" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "defclass-std" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "defclass-std" pkgs)
+    ];
   };
   picl_slash_iterate = {
     pname = "picl_iterate";
@@ -68452,8 +71115,10 @@ in {
       asd = "piggyback-parameters";
     });
     systems = [ "piggyback-parameters/test" ];
-    lispLibs =
-      [ (getAttr "fiveam" pkgs) (getAttr "piggyback-parameters" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "piggyback-parameters" pkgs)
+    ];
     meta = { broken = true; };
   };
   pileup = {
@@ -68482,8 +71147,10 @@ in {
       asd = "pileup";
     });
     systems = [ "pileup-tests" ];
-    lispLibs =
-      [ (getAttr "hu_dot_dwim_dot_stefil" pkgs) (getAttr "pileup" pkgs) ];
+    lispLibs = [
+      (getAttr "hu_dot_dwim_dot_stefil" pkgs)
+      (getAttr "pileup" pkgs)
+    ];
   };
   pipes = {
     pname = "pipes";
@@ -68614,8 +71281,10 @@ in {
       asd = "place-modifiers";
     });
     systems = [ "place-modifiers" ];
-    lispLibs =
-      [ (getAttr "cartesian-product-switch" pkgs) (getAttr "map-bind" pkgs) ];
+    lispLibs = [
+      (getAttr "cartesian-product-switch" pkgs)
+      (getAttr "map-bind" pkgs)
+    ];
   };
   place-utils = {
     pname = "place-utils";
@@ -68643,7 +71312,10 @@ in {
       asd = "plain-odbc";
     });
     systems = [ "plain-odbc" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cffi" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cffi" pkgs)
+    ];
   };
   planks = {
     pname = "planks";
@@ -68678,7 +71350,10 @@ in {
       asd = "plokami";
     });
     systems = [ "plokami" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "uiop" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "uiop" pkgs)
+    ];
   };
   plot = {
     pname = "plot";
@@ -68758,7 +71433,10 @@ in {
       asd = "cl-plplot";
     });
     systems = [ "plplot-examples" ];
-    lispLibs = [ (getAttr "cl-plplot" pkgs) (getAttr "png" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-plplot" pkgs)
+      (getAttr "png" pkgs)
+    ];
   };
   pludeck = {
     pname = "pludeck";
@@ -68786,8 +71464,10 @@ in {
       asd = "plump";
     });
     systems = [ "plump" ];
-    lispLibs =
-      [ (getAttr "array-utils" pkgs) (getAttr "documentation-utils" pkgs) ];
+    lispLibs = [
+      (getAttr "array-utils" pkgs)
+      (getAttr "documentation-utils" pkgs)
+    ];
   };
   plump-bundle = {
     pname = "plump-bundle";
@@ -68876,7 +71556,10 @@ in {
       asd = "plump-tex";
     });
     systems = [ "plump-tex" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "plump" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "plump" pkgs)
+    ];
   };
   plump-tex-test = {
     pname = "plump-tex-test";
@@ -68890,7 +71573,10 @@ in {
       asd = "plump-tex-test";
     });
     systems = [ "plump-tex-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "plump-tex" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "plump-tex" pkgs)
+    ];
   };
   png = {
     pname = "png";
@@ -68904,7 +71590,10 @@ in {
       asd = "png";
     });
     systems = [ "png" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cffi-grovel" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cffi-grovel" pkgs)
+    ];
   };
   png-read = {
     pname = "png-read";
@@ -69055,7 +71744,10 @@ in {
       asd = "polisher.test";
     });
     systems = [ "polisher.test" ];
-    lispLibs = [ (getAttr "_1am" pkgs) (getAttr "polisher" pkgs) ];
+    lispLibs = [
+      (getAttr "_1am" pkgs)
+      (getAttr "polisher" pkgs)
+    ];
   };
   polymorphic-functions = {
     pname = "polymorphic-functions";
@@ -69094,8 +71786,10 @@ in {
       asd = "polymorphic-functions";
     });
     systems = [ "polymorphic-functions/swank" ];
-    lispLibs =
-      [ (getAttr "polymorphic-functions" pkgs) (getAttr "swank" pkgs) ];
+    lispLibs = [
+      (getAttr "polymorphic-functions" pkgs)
+      (getAttr "swank" pkgs)
+    ];
     meta = { broken = true; };
   };
   pooler = {
@@ -69124,7 +71818,10 @@ in {
       asd = "portable-condition-system";
     });
     systems = [ "portable-condition-system" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "split-sequence" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "split-sequence" pkgs)
+    ];
   };
   portable-condition-system_dot_integration = {
     pname = "portable-condition-system.integration";
@@ -69252,7 +71949,10 @@ in {
       asd = "portmanteau-tests";
     });
     systems = [ "portmanteau-tests" ];
-    lispLibs = [ (getAttr "portmanteau" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "portmanteau" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   positional-lambda = {
     pname = "positional-lambda";
@@ -69298,7 +71998,10 @@ in {
       asd = "posix-shm";
     });
     systems = [ "posix-shm/ffi" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cffi-grovel" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cffi-grovel" pkgs)
+    ];
     meta = { broken = true; };
   };
   posix-shm_slash_test = {
@@ -69397,7 +72100,10 @@ in {
       asd = "postmodernity";
     });
     systems = [ "postmodernity" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "postmodern" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "postmodern" pkgs)
+    ];
   };
   postoffice = {
     pname = "postoffice";
@@ -69574,7 +72280,10 @@ in {
       asd = "prbs-docs";
     });
     systems = [ "prbs-docs" ];
-    lispLibs = [ (getAttr "cl-gendoc" pkgs) (getAttr "prbs" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-gendoc" pkgs)
+      (getAttr "prbs" pkgs)
+    ];
   };
   pretty-function = {
     pname = "pretty-function";
@@ -69630,7 +72339,10 @@ in {
       asd = "print-licenses";
     });
     systems = [ "print-licenses" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "iterate" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "iterate" pkgs)
+    ];
   };
   printv = {
     pname = "printv";
@@ -69699,7 +72411,10 @@ in {
       asd = "proc-parse";
     });
     systems = [ "proc-parse" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "babel" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "babel" pkgs)
+    ];
   };
   proc-parse-test = {
     pname = "proc-parse-test";
@@ -70053,7 +72768,10 @@ in {
       asd = "prometheus.formats.text";
     });
     systems = [ "prometheus.formats.text" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "prometheus" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "prometheus" pkgs)
+    ];
   };
   prometheus_dot_formats_dot_text_dot_test = {
     pname = "prometheus.formats.text.test";
@@ -70208,7 +72926,10 @@ in {
       asd = "promise-test";
     });
     systems = [ "promise-test" ];
-    lispLibs = [ (getAttr "parachute" pkgs) (getAttr "promise" pkgs) ];
+    lispLibs = [
+      (getAttr "parachute" pkgs)
+      (getAttr "promise" pkgs)
+    ];
   };
   prompt-for = {
     pname = "prompt-for";
@@ -70236,7 +72957,10 @@ in {
       asd = "prompt-for.test";
     });
     systems = [ "prompt-for.test" ];
-    lispLibs = [ (getAttr "jingoh" pkgs) (getAttr "prompt-for" pkgs) ];
+    lispLibs = [
+      (getAttr "jingoh" pkgs)
+      (getAttr "prompt-for" pkgs)
+    ];
   };
   protest = {
     pname = "protest";
@@ -70554,8 +73278,10 @@ in {
       asd = "protobuf";
     });
     systems = [ "protobuf" ];
-    lispLibs =
-      [ (getAttr "com_dot_google_dot_base" pkgs) (getAttr "varint" pkgs) ];
+    lispLibs = [
+      (getAttr "com_dot_google_dot_base" pkgs)
+      (getAttr "varint" pkgs)
+    ];
   };
   protobuf-conformance = {
     pname = "protobuf-conformance";
@@ -70640,8 +73366,10 @@ in {
       asd = "pseudonyms";
     });
     systems = [ "pseudonyms" ];
-    lispLibs =
-      [ (getAttr "named-readtables" pkgs) (getAttr "trivial-garbage" pkgs) ];
+    lispLibs = [
+      (getAttr "named-readtables" pkgs)
+      (getAttr "trivial-garbage" pkgs)
+    ];
   };
   psgraph = {
     pname = "psgraph";
@@ -70782,7 +73510,10 @@ in {
       asd = "puri";
     });
     systems = [ "puri/test" ];
-    lispLibs = [ (getAttr "ptester" pkgs) (getAttr "puri" pkgs) ];
+    lispLibs = [
+      (getAttr "ptester" pkgs)
+      (getAttr "puri" pkgs)
+    ];
     meta = { broken = true; };
   };
   purl = {
@@ -70815,7 +73546,10 @@ in {
       asd = "pvars";
     });
     systems = [ "pvars" ];
-    lispLibs = [ (getAttr "cl-store" pkgs) (getAttr "global-vars" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-store" pkgs)
+      (getAttr "global-vars" pkgs)
+    ];
   };
   py-configparser = {
     pname = "py-configparser";
@@ -70899,7 +73633,10 @@ in {
       asd = "pzmq";
     });
     systems = [ "pzmq" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cffi-grovel" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cffi-grovel" pkgs)
+    ];
   };
   pzmq-compat = {
     pname = "pzmq-compat";
@@ -70981,8 +73718,10 @@ in {
       asd = "qbase64";
     });
     systems = [ "qbase64" ];
-    lispLibs =
-      [ (getAttr "metabang-bind" pkgs) (getAttr "trivial-gray-streams" pkgs) ];
+    lispLibs = [
+      (getAttr "metabang-bind" pkgs)
+      (getAttr "trivial-gray-streams" pkgs)
+    ];
   };
   qbase64_slash_test = {
     pname = "qbase64_test";
@@ -71254,7 +73993,10 @@ in {
       asd = "qt-repl";
     });
     systems = [ "qt-repl" ];
-    lispLibs = [ (getAttr "bordeaux-threads" pkgs) (getAttr "qt" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "qt" pkgs)
+    ];
   };
   qt-test = {
     pname = "qt-test";
@@ -71735,8 +74477,10 @@ in {
       asd = "qtools-ui-color-sliders";
     });
     systems = [ "qtools-ui-color-sliders" ];
-    lispLibs =
-      [ (getAttr "qtools-ui-base" pkgs) (getAttr "qtools-ui-helpers" pkgs) ];
+    lispLibs = [
+      (getAttr "qtools-ui-base" pkgs)
+      (getAttr "qtools-ui-helpers" pkgs)
+    ];
   };
   qtools-ui-color-triangle = {
     pname = "qtools-ui-color-triangle";
@@ -71769,8 +74513,10 @@ in {
       asd = "qtools-ui-compass";
     });
     systems = [ "qtools-ui-compass" ];
-    lispLibs =
-      [ (getAttr "qtools-ui-base" pkgs) (getAttr "qtools-ui-layout" pkgs) ];
+    lispLibs = [
+      (getAttr "qtools-ui-base" pkgs)
+      (getAttr "qtools-ui-layout" pkgs)
+    ];
   };
   qtools-ui-container = {
     pname = "qtools-ui-container";
@@ -71784,8 +74530,10 @@ in {
       asd = "qtools-ui-container";
     });
     systems = [ "qtools-ui-container" ];
-    lispLibs =
-      [ (getAttr "qtools-ui-base" pkgs) (getAttr "qtools-ui-layout" pkgs) ];
+    lispLibs = [
+      (getAttr "qtools-ui-base" pkgs)
+      (getAttr "qtools-ui-layout" pkgs)
+    ];
   };
   qtools-ui-debugger = {
     pname = "qtools-ui-debugger";
@@ -71799,7 +74547,10 @@ in {
       asd = "qtools-ui-debugger";
     });
     systems = [ "qtools-ui-debugger" ];
-    lispLibs = [ (getAttr "dissect" pkgs) (getAttr "qtools-ui-base" pkgs) ];
+    lispLibs = [
+      (getAttr "dissect" pkgs)
+      (getAttr "qtools-ui-base" pkgs)
+    ];
   };
   qtools-ui-dialog = {
     pname = "qtools-ui-dialog";
@@ -71813,8 +74564,10 @@ in {
       asd = "qtools-ui-dialog";
     });
     systems = [ "qtools-ui-dialog" ];
-    lispLibs =
-      [ (getAttr "qtools-ui-base" pkgs) (getAttr "qtools-ui-helpers" pkgs) ];
+    lispLibs = [
+      (getAttr "qtools-ui-base" pkgs)
+      (getAttr "qtools-ui-helpers" pkgs)
+    ];
   };
   qtools-ui-dictionary = {
     pname = "qtools-ui-dictionary";
@@ -71847,8 +74600,10 @@ in {
       asd = "qtools-ui-drag-and-drop";
     });
     systems = [ "qtools-ui-drag-and-drop" ];
-    lispLibs =
-      [ (getAttr "qtools-ui-base" pkgs) (getAttr "qtools-ui-helpers" pkgs) ];
+    lispLibs = [
+      (getAttr "qtools-ui-base" pkgs)
+      (getAttr "qtools-ui-helpers" pkgs)
+    ];
   };
   qtools-ui-executable = {
     pname = "qtools-ui-executable";
@@ -71862,8 +74617,10 @@ in {
       asd = "qtools-ui-executable";
     });
     systems = [ "qtools-ui-executable" ];
-    lispLibs =
-      [ (getAttr "bordeaux-threads" pkgs) (getAttr "qtools-ui-base" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "qtools-ui-base" pkgs)
+    ];
   };
   qtools-ui-fixed-qtextedit = {
     pname = "qtools-ui-fixed-qtextedit";
@@ -71891,8 +74648,10 @@ in {
       asd = "qtools-ui-flow-layout";
     });
     systems = [ "qtools-ui-flow-layout" ];
-    lispLibs =
-      [ (getAttr "qtools-ui-base" pkgs) (getAttr "qtools-ui-container" pkgs) ];
+    lispLibs = [
+      (getAttr "qtools-ui-base" pkgs)
+      (getAttr "qtools-ui-container" pkgs)
+    ];
   };
   qtools-ui-helpers = {
     pname = "qtools-ui-helpers";
@@ -71906,8 +74665,10 @@ in {
       asd = "qtools-ui-helpers";
     });
     systems = [ "qtools-ui-helpers" ];
-    lispLibs =
-      [ (getAttr "qtools-ui-base" pkgs) (getAttr "qtools-ui-layout" pkgs) ];
+    lispLibs = [
+      (getAttr "qtools-ui-base" pkgs)
+      (getAttr "qtools-ui-layout" pkgs)
+    ];
   };
   qtools-ui-imagetools = {
     pname = "qtools-ui-imagetools";
@@ -71921,7 +74682,10 @@ in {
       asd = "qtools-ui-imagetools";
     });
     systems = [ "qtools-ui-imagetools" ];
-    lispLibs = [ (getAttr "qimageblitz" pkgs) (getAttr "qtools-ui-base" pkgs) ];
+    lispLibs = [
+      (getAttr "qimageblitz" pkgs)
+      (getAttr "qtools-ui-base" pkgs)
+    ];
   };
   qtools-ui-keychord-editor = {
     pname = "qtools-ui-keychord-editor";
@@ -72053,8 +74817,10 @@ in {
       asd = "qtools-ui-plot";
     });
     systems = [ "qtools-ui-plot" ];
-    lispLibs =
-      [ (getAttr "qtools-ui-base" pkgs) (getAttr "qtools-ui-helpers" pkgs) ];
+    lispLibs = [
+      (getAttr "qtools-ui-base" pkgs)
+      (getAttr "qtools-ui-helpers" pkgs)
+    ];
   };
   qtools-ui-progress-bar = {
     pname = "qtools-ui-progress-bar";
@@ -72100,8 +74866,10 @@ in {
       asd = "qtools-ui-slider";
     });
     systems = [ "qtools-ui-slider" ];
-    lispLibs =
-      [ (getAttr "qtools-ui-base" pkgs) (getAttr "qtools-ui-helpers" pkgs) ];
+    lispLibs = [
+      (getAttr "qtools-ui-base" pkgs)
+      (getAttr "qtools-ui-helpers" pkgs)
+    ];
   };
   qtools-ui-spellchecked-text-edit = {
     pname = "qtools-ui-spellchecked-text-edit";
@@ -72152,7 +74920,10 @@ in {
       asd = "qtools-ui-svgtools";
     });
     systems = [ "qtools-ui-svgtools" ];
-    lispLibs = [ (getAttr "qtsvg" pkgs) (getAttr "qtools-ui-base" pkgs) ];
+    lispLibs = [
+      (getAttr "qtsvg" pkgs)
+      (getAttr "qtools-ui-base" pkgs)
+    ];
   };
   qtopengl = {
     pname = "qtopengl";
@@ -72336,7 +75107,10 @@ in {
       asd = "quad-tree";
     });
     systems = [ "quad-tree" ];
-    lispLibs = [ (getAttr "mfiano-utils" pkgs) (getAttr "origin" pkgs) ];
+    lispLibs = [
+      (getAttr "mfiano-utils" pkgs)
+      (getAttr "origin" pkgs)
+    ];
   };
   quadpack = {
     pname = "quadpack";
@@ -72379,7 +75153,10 @@ in {
       asd = "quadpack";
     });
     systems = [ "quadpack/tests" ];
-    lispLibs = [ (getAttr "quadpack" pkgs) (getAttr "rt" pkgs) ];
+    lispLibs = [
+      (getAttr "quadpack" pkgs)
+      (getAttr "rt" pkgs)
+    ];
     meta = { broken = true; };
   };
   quads = {
@@ -72488,7 +75265,10 @@ in {
       asd = "quasiquote-2.0";
     });
     systems = [ "quasiquote-2.0-tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "quasiquote-2_dot_0" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "quasiquote-2_dot_0" pkgs)
+    ];
   };
   queen = {
     pname = "queen";
@@ -72561,7 +75341,10 @@ in {
       asd = "query-repl.test";
     });
     systems = [ "query-repl.test" ];
-    lispLibs = [ (getAttr "jingoh" pkgs) (getAttr "query-repl" pkgs) ];
+    lispLibs = [
+      (getAttr "jingoh" pkgs)
+      (getAttr "query-repl" pkgs)
+    ];
   };
   queues = {
     pname = "queues";
@@ -72702,7 +75485,10 @@ in {
       asd = "quicklisp-slime-helper";
     });
     systems = [ "quicklisp-slime-helper" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "swank" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "swank" pkgs)
+    ];
   };
   quicklisp-stats = {
     pname = "quicklisp-stats";
@@ -72734,7 +75520,10 @@ in {
       asd = "quickproject";
     });
     systems = [ "quickproject" ];
-    lispLibs = [ (getAttr "cl-fad" pkgs) (getAttr "html-template" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-fad" pkgs)
+      (getAttr "html-template" pkgs)
+    ];
   };
   quicksearch = {
     pname = "quicksearch";
@@ -72866,8 +75655,10 @@ in {
       asd = "quickutil-utilities-test";
     });
     systems = [ "quickutil-utilities-test" ];
-    lispLibs =
-      [ (getAttr "quickutil-client" pkgs) (getAttr "quickutil-server" pkgs) ];
+    lispLibs = [
+      (getAttr "quickutil-client" pkgs)
+      (getAttr "quickutil-server" pkgs)
+    ];
   };
   quilc = {
     pname = "quilc";
@@ -73250,7 +76041,10 @@ in {
       asd = "rail";
     });
     systems = [ "rail-test" ];
-    lispLibs = [ (getAttr "rail" pkgs) (getAttr "fiasco" pkgs) ];
+    lispLibs = [
+      (getAttr "rail" pkgs)
+      (getAttr "fiasco" pkgs)
+    ];
   };
   random = {
     pname = "random";
@@ -73344,8 +76138,10 @@ in {
       asd = "random-test";
     });
     systems = [ "random-test" ];
-    lispLibs =
-      [ (getAttr "hu_dot_dwim_dot_stefil" pkgs) (getAttr "random" pkgs) ];
+    lispLibs = [
+      (getAttr "hu_dot_dwim_dot_stefil" pkgs)
+      (getAttr "random" pkgs)
+    ];
   };
   random-uuid = {
     pname = "random-uuid";
@@ -73359,7 +76155,10 @@ in {
       asd = "random-uuid";
     });
     systems = [ "random-uuid" ];
-    lispLibs = [ (getAttr "mfiano-utils" pkgs) (getAttr "seedable-rng" pkgs) ];
+    lispLibs = [
+      (getAttr "mfiano-utils" pkgs)
+      (getAttr "seedable-rng" pkgs)
+    ];
   };
   rate-monotonic = {
     pname = "rate-monotonic";
@@ -73373,8 +76172,10 @@ in {
       asd = "rate-monotonic";
     });
     systems = [ "rate-monotonic" ];
-    lispLibs =
-      [ (getAttr "bordeaux-threads" pkgs) (getAttr "timer-wheel" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "timer-wheel" pkgs)
+    ];
   };
   rate-monotonic_dot_examples = {
     pname = "rate-monotonic.examples";
@@ -73388,8 +76189,10 @@ in {
       asd = "rate-monotonic.examples";
     });
     systems = [ "rate-monotonic.examples" ];
-    lispLibs =
-      [ (getAttr "bordeaux-threads" pkgs) (getAttr "rate-monotonic" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "rate-monotonic" pkgs)
+    ];
   };
   ratify = {
     pname = "ratify";
@@ -73475,7 +76278,10 @@ in {
       asd = "rcl";
     });
     systems = [ "rcl/test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "rcl" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "rcl" pkgs)
+    ];
     meta = { broken = true; };
   };
   re = {
@@ -73504,8 +76310,10 @@ in {
       asd = "read-as-string";
     });
     systems = [ "read-as-string" ];
-    lispLibs =
-      [ (getAttr "core-reader" pkgs) (getAttr "named-readtables" pkgs) ];
+    lispLibs = [
+      (getAttr "core-reader" pkgs)
+      (getAttr "named-readtables" pkgs)
+    ];
   };
   read-as-string_dot_test = {
     pname = "read-as-string.test";
@@ -73519,7 +76327,10 @@ in {
       asd = "read-as-string.test";
     });
     systems = [ "read-as-string.test" ];
-    lispLibs = [ (getAttr "jingoh" pkgs) (getAttr "read-as-string" pkgs) ];
+    lispLibs = [
+      (getAttr "jingoh" pkgs)
+      (getAttr "read-as-string" pkgs)
+    ];
   };
   read-csv = {
     pname = "read-csv";
@@ -73561,7 +76372,10 @@ in {
       asd = "read-number";
     });
     systems = [ "read-number" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "lisp-unit" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "lisp-unit" pkgs)
+    ];
   };
   reader = {
     pname = "reader";
@@ -73597,7 +76411,10 @@ in {
       asd = "reader+swank";
     });
     systems = [ "reader+swank" ];
-    lispLibs = [ (getAttr "reader" pkgs) (getAttr "swank" pkgs) ];
+    lispLibs = [
+      (getAttr "reader" pkgs)
+      (getAttr "swank" pkgs)
+    ];
   };
   reader-interception = {
     pname = "reader-interception";
@@ -73692,7 +76509,10 @@ in {
       asd = "recursive-regex";
     });
     systems = [ "recursive-regex-test" ];
-    lispLibs = [ (getAttr "lisp-unit" pkgs) (getAttr "recursive-regex" pkgs) ];
+    lispLibs = [
+      (getAttr "lisp-unit" pkgs)
+      (getAttr "recursive-regex" pkgs)
+    ];
   };
   recursive-restart = {
     pname = "recursive-restart";
@@ -73762,8 +76582,11 @@ in {
       asd = "regression";
     });
     systems = [ "regression" ];
-    lispLibs =
-      [ (getAttr "surf" pkgs) (getAttr "tasty" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "surf" pkgs)
+      (getAttr "tasty" pkgs)
+      (getAttr "lift" pkgs)
+    ];
   };
   remote-js = {
     pname = "remote-js";
@@ -73891,8 +76714,10 @@ in {
       asd = "resignal-bind";
     });
     systems = [ "resignal-bind" ];
-    lispLibs =
-      [ (getAttr "closer-mop" pkgs) (getAttr "jingoh_dot_documentizer" pkgs) ];
+    lispLibs = [
+      (getAttr "closer-mop" pkgs)
+      (getAttr "jingoh_dot_documentizer" pkgs)
+    ];
   };
   resignal-bind_dot_test = {
     pname = "resignal-bind.test";
@@ -73906,7 +76731,10 @@ in {
       asd = "resignal-bind.test";
     });
     systems = [ "resignal-bind.test" ];
-    lispLibs = [ (getAttr "jingoh" pkgs) (getAttr "resignal-bind" pkgs) ];
+    lispLibs = [
+      (getAttr "jingoh" pkgs)
+      (getAttr "resignal-bind" pkgs)
+    ];
   };
   restas = {
     pname = "restas";
@@ -73977,7 +76805,10 @@ in {
       asd = "restas.file-publisher";
     });
     systems = [ "restas.file-publisher" ];
-    lispLibs = [ (getAttr "cl-fad" pkgs) (getAttr "restas" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-fad" pkgs)
+      (getAttr "restas" pkgs)
+    ];
   };
   restful = {
     pname = "restful";
@@ -74072,7 +76903,10 @@ in {
       asd = "retrospectiff";
     });
     systems = [ "retrospectiff/test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "retrospectiff" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "retrospectiff" pkgs)
+    ];
     meta = { broken = true; };
   };
   reversi = {
@@ -74115,7 +76949,10 @@ in {
       asd = "rfc2109";
     });
     systems = [ "rfc2109/test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "split-sequence" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "split-sequence" pkgs)
+    ];
     meta = { broken = true; };
   };
   rfc2388 = {
@@ -74279,7 +77116,10 @@ in {
       asd = "rock-test";
     });
     systems = [ "rock-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "rock" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "rock" pkgs)
+    ];
   };
   rock-web = {
     pname = "rock-web";
@@ -74360,7 +77200,10 @@ in {
       asd = "routes";
     });
     systems = [ "routes-test" ];
-    lispLibs = [ (getAttr "routes" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "routes" pkgs)
+      (getAttr "lift" pkgs)
+    ];
   };
   rove = {
     pname = "rove";
@@ -74609,8 +77452,11 @@ in {
       asd = "rss";
     });
     systems = [ "rss" ];
-    lispLibs =
-      [ (getAttr "kmrcl" pkgs) (getAttr "aserve" pkgs) (getAttr "xmls" pkgs) ];
+    lispLibs = [
+      (getAttr "kmrcl" pkgs)
+      (getAttr "aserve" pkgs)
+      (getAttr "xmls" pkgs)
+    ];
   };
   rt = {
     pname = "rt";
@@ -74652,7 +77498,10 @@ in {
       asd = "rt-events.examples";
     });
     systems = [ "rt-events.examples" ];
-    lispLibs = [ (getAttr "bordeaux-threads" pkgs) (getAttr "rt-events" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "rt-events" pkgs)
+    ];
   };
   rte = {
     pname = "rte";
@@ -74684,8 +77533,11 @@ in {
       asd = "rte-regexp";
     });
     systems = [ "rte-regexp" ];
-    lispLibs =
-      [ (getAttr "yacc" pkgs) (getAttr "adjuvant" pkgs) (getAttr "rte" pkgs) ];
+    lispLibs = [
+      (getAttr "yacc" pkgs)
+      (getAttr "adjuvant" pkgs)
+      (getAttr "rte" pkgs)
+    ];
   };
   rte-regexp-test = {
     pname = "rte-regexp-test";
@@ -74805,8 +77657,10 @@ in {
       asd = "rutils";
     });
     systems = [ "rutils" ];
-    lispLibs =
-      [ (getAttr "closer-mop" pkgs) (getAttr "named-readtables" pkgs) ];
+    lispLibs = [
+      (getAttr "closer-mop" pkgs)
+      (getAttr "named-readtables" pkgs)
+    ];
   };
   rutils-test = {
     pname = "rutils-test";
@@ -74820,7 +77674,10 @@ in {
       asd = "rutils-test";
     });
     systems = [ "rutils-test" ];
-    lispLibs = [ (getAttr "rutils" pkgs) (getAttr "should-test" pkgs) ];
+    lispLibs = [
+      (getAttr "rutils" pkgs)
+      (getAttr "should-test" pkgs)
+    ];
   };
   rutilsx = {
     pname = "rutilsx";
@@ -74919,7 +77776,10 @@ in {
       asd = "s-graphviz";
     });
     systems = [ "s-graphviz" ];
-    lispLibs = [ (getAttr "iterate" pkgs) (getAttr "literate-lisp" pkgs) ];
+    lispLibs = [
+      (getAttr "iterate" pkgs)
+      (getAttr "literate-lisp" pkgs)
+    ];
   };
   s-http-client = {
     pname = "s-http-client";
@@ -74973,7 +77833,10 @@ in {
       asd = "s-sql";
     });
     systems = [ "s-sql" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cl-postgres" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cl-postgres" pkgs)
+    ];
   };
   s-sql_slash_tests = {
     pname = "s-sql_tests";
@@ -75110,7 +77973,10 @@ in {
       asd = "safe-read";
     });
     systems = [ "safe-read" ];
-    lispLibs = [ (getAttr "local-time" pkgs) (getAttr "trivial-garbage" pkgs) ];
+    lispLibs = [
+      (getAttr "local-time" pkgs)
+      (getAttr "trivial-garbage" pkgs)
+    ];
   };
   safe-read_slash_test = {
     pname = "safe-read_test";
@@ -75139,7 +78005,10 @@ in {
       asd = "safety-params";
     });
     systems = [ "safety-params" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "parse-number" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "parse-number" pkgs)
+    ];
   };
   safety-params_slash_tests = {
     pname = "safety-params_tests";
@@ -75153,7 +78022,10 @@ in {
       asd = "safety-params";
     });
     systems = [ "safety-params/tests" ];
-    lispLibs = [ (getAttr "rove" pkgs) (getAttr "safety-params" pkgs) ];
+    lispLibs = [
+      (getAttr "rove" pkgs)
+      (getAttr "safety-params" pkgs)
+    ];
     meta = { broken = true; };
   };
   salza2 = {
@@ -75248,7 +78120,10 @@ in {
       asd = "sanitize";
     });
     systems = [ "sanitize-test" ];
-    lispLibs = [ (getAttr "sanitize" pkgs) (getAttr "eos" pkgs) ];
+    lispLibs = [
+      (getAttr "sanitize" pkgs)
+      (getAttr "eos" pkgs)
+    ];
   };
   sanity-clause = {
     pname = "sanity-clause";
@@ -75286,7 +78161,10 @@ in {
       asd = "sanity-clause";
     });
     systems = [ "sanity-clause/test" ];
-    lispLibs = [ (getAttr "rove" pkgs) (getAttr "sanity-clause" pkgs) ];
+    lispLibs = [
+      (getAttr "rove" pkgs)
+      (getAttr "sanity-clause" pkgs)
+    ];
     meta = { broken = true; };
   };
   sapaclisp = {
@@ -75395,7 +78273,10 @@ in {
       asd = "schannel";
     });
     systems = [ "schannel" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "trivial-gray-streams" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "trivial-gray-streams" pkgs)
+    ];
   };
   scheduler = {
     pname = "scheduler";
@@ -75448,7 +78329,10 @@ in {
       asd = "science-data";
     });
     systems = [ "science-data" ];
-    lispLibs = [ (getAttr "physical-dimension" pkgs) (getAttr "drakma" pkgs) ];
+    lispLibs = [
+      (getAttr "physical-dimension" pkgs)
+      (getAttr "drakma" pkgs)
+    ];
   };
   scigraph = {
     pname = "scigraph";
@@ -75491,7 +78375,10 @@ in {
       asd = "scratch-buffer";
     });
     systems = [ "scratch-buffer" ];
-    lispLibs = [ (getAttr "bordeaux-threads" pkgs) (getAttr "utility" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "utility" pkgs)
+    ];
   };
   screamer = {
     pname = "screamer";
@@ -75555,7 +78442,10 @@ in {
       asd = "scriba-test";
     });
     systems = [ "scriba-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "scriba" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "scriba" pkgs)
+    ];
   };
   scribble = {
     pname = "scribble";
@@ -75631,7 +78521,10 @@ in {
       asd = "scriptl-examples";
     });
     systems = [ "scriptl-examples" ];
-    lispLibs = [ (getAttr "scriptl" pkgs) (getAttr "unix-options" pkgs) ];
+    lispLibs = [
+      (getAttr "scriptl" pkgs)
+      (getAttr "unix-options" pkgs)
+    ];
   };
   scriptl-util = {
     pname = "scriptl-util";
@@ -75645,7 +78538,10 @@ in {
       asd = "scriptl-util";
     });
     systems = [ "scriptl-util" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "scriptl" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "scriptl" pkgs)
+    ];
   };
   scrutiny = {
     pname = "scrutiny";
@@ -75801,7 +78697,10 @@ in {
       asd = "sdl2";
     });
     systems = [ "sdl2/examples" ];
-    lispLibs = [ (getAttr "cl-opengl" pkgs) (getAttr "sdl2" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-opengl" pkgs)
+      (getAttr "sdl2" pkgs)
+    ];
     meta = { broken = true; };
   };
   sdl2kit = {
@@ -75967,7 +78866,10 @@ in {
       asd = "select-file";
     });
     systems = [ "select-file" ];
-    lispLibs = [ (getAttr "cl-fad" pkgs) (getAttr "mcclim" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-fad" pkgs)
+      (getAttr "mcclim" pkgs)
+    ];
   };
   select_slash_tests = {
     pname = "select_tests";
@@ -75981,7 +78883,10 @@ in {
       asd = "select";
     });
     systems = [ "select/tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "select" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "select" pkgs)
+    ];
     meta = { broken = true; };
   };
   selenium = {
@@ -76016,7 +78921,10 @@ in {
       asd = "semantic-spinneret";
     });
     systems = [ "semantic-spinneret" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "spinneret" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "spinneret" pkgs)
+    ];
   };
   sendgrid = {
     pname = "sendgrid";
@@ -76030,7 +78938,10 @@ in {
       asd = "sendgrid";
     });
     systems = [ "sendgrid" ];
-    lispLibs = [ (getAttr "dexador" pkgs) (getAttr "jonathan" pkgs) ];
+    lispLibs = [
+      (getAttr "dexador" pkgs)
+      (getAttr "jonathan" pkgs)
+    ];
   };
   sento = {
     pname = "sento";
@@ -76069,7 +78980,10 @@ in {
       asd = "sento";
     });
     systems = [ "sento/docs" ];
-    lispLibs = [ (getAttr "sento" pkgs) (getAttr "mgl-pax" pkgs) ];
+    lispLibs = [
+      (getAttr "sento" pkgs)
+      (getAttr "mgl-pax" pkgs)
+    ];
     meta = { broken = true; };
   };
   sento_slash_tests = {
@@ -76124,7 +79038,10 @@ in {
       asd = "sentry-client.async";
     });
     systems = [ "sentry-client.async" ];
-    lispLibs = [ (getAttr "sentry-client" pkgs) (getAttr "simple-tasks" pkgs) ];
+    lispLibs = [
+      (getAttr "sentry-client" pkgs)
+      (getAttr "simple-tasks" pkgs)
+    ];
   };
   sentry-client_dot_hunchentoot = {
     pname = "sentry-client.hunchentoot";
@@ -76138,7 +79055,10 @@ in {
       asd = "sentry-client.hunchentoot";
     });
     systems = [ "sentry-client.hunchentoot" ];
-    lispLibs = [ (getAttr "sentry-client" pkgs) (getAttr "hunchentoot" pkgs) ];
+    lispLibs = [
+      (getAttr "sentry-client" pkgs)
+      (getAttr "hunchentoot" pkgs)
+    ];
   };
   sequence-iterators = {
     pname = "sequence-iterators";
@@ -76241,7 +79161,10 @@ in {
       asd = "serializable-object.test";
     });
     systems = [ "serializable-object.test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "serializable-object" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "serializable-object" pkgs)
+    ];
   };
   series = {
     pname = "series";
@@ -76408,8 +79331,10 @@ in {
       asd = "shared-preferences";
     });
     systems = [ "shared-preferences" ];
-    lispLibs =
-      [ (getAttr "inheriting-readers" pkgs) (getAttr "trivial-garbage" pkgs) ];
+    lispLibs = [
+      (getAttr "inheriting-readers" pkgs)
+      (getAttr "trivial-garbage" pkgs)
+    ];
   };
   shared-preferences_tests = {
     pname = "shared-preferences_tests";
@@ -76423,8 +79348,10 @@ in {
       asd = "shared-preferences_tests";
     });
     systems = [ "shared-preferences_tests" ];
-    lispLibs =
-      [ (getAttr "parachute" pkgs) (getAttr "shared-preferences" pkgs) ];
+    lispLibs = [
+      (getAttr "parachute" pkgs)
+      (getAttr "shared-preferences" pkgs)
+    ];
   };
   shasht = {
     pname = "shasht";
@@ -76438,7 +79365,10 @@ in {
       asd = "shasht";
     });
     systems = [ "shasht" ];
-    lispLibs = [ (getAttr "closer-mop" pkgs) (getAttr "trivial-do" pkgs) ];
+    lispLibs = [
+      (getAttr "closer-mop" pkgs)
+      (getAttr "trivial-do" pkgs)
+    ];
   };
   shasht_slash_test = {
     pname = "shasht_test";
@@ -76485,7 +79415,10 @@ in {
       asd = "sheeple";
     });
     systems = [ "sheeple-tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "sheeple" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "sheeple" pkgs)
+    ];
   };
   shellpool = {
     pname = "shellpool";
@@ -76540,7 +79473,10 @@ in {
       asd = "shelly-test";
     });
     systems = [ "shelly-test" ];
-    lispLibs = [ (getAttr "cl-test-more" pkgs) (getAttr "shelly" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-test-more" pkgs)
+      (getAttr "shelly" pkgs)
+    ];
   };
   shlex = {
     pname = "shlex";
@@ -76573,7 +79509,10 @@ in {
       asd = "shlex";
     });
     systems = [ "shlex/test" ];
-    lispLibs = [ (getAttr "shlex" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "shlex" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
     meta = { broken = true; };
   };
   shop3 = {
@@ -76621,7 +79560,10 @@ in {
       asd = "shop3";
     });
     systems = [ "shop3/common" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "iterate" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "iterate" pkgs)
+    ];
     meta = { broken = true; };
   };
   shop3_slash_openstacks = {
@@ -76651,7 +79593,10 @@ in {
       asd = "shop3";
     });
     systems = [ "shop3/plan-grapher" ];
-    lispLibs = [ (getAttr "cl-dot" pkgs) (getAttr "shop3" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-dot" pkgs)
+      (getAttr "shop3" pkgs)
+    ];
     meta = { broken = true; };
   };
   shop3_slash_rovers = {
@@ -76681,7 +79626,10 @@ in {
       asd = "shop3";
     });
     systems = [ "shop3/test-unifier" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "fiveam-asdf" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "fiveam-asdf" pkgs)
+    ];
     meta = { broken = true; };
   };
   shop3_slash_theorem-prover = {
@@ -76696,7 +79644,10 @@ in {
       asd = "shop3";
     });
     systems = [ "shop3/theorem-prover" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "iterate" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "iterate" pkgs)
+    ];
     meta = { broken = true; };
   };
   shop3_slash_unifier = {
@@ -76807,7 +79758,10 @@ in {
       asd = "simple-config";
     });
     systems = [ "simple-config" ];
-    lispLibs = [ (getAttr "str" pkgs) (getAttr "uiop" pkgs) ];
+    lispLibs = [
+      (getAttr "str" pkgs)
+      (getAttr "uiop" pkgs)
+    ];
   };
   simple-config-test = {
     pname = "simple-config-test";
@@ -76821,7 +79775,10 @@ in {
       asd = "simple-config-test";
     });
     systems = [ "simple-config-test" ];
-    lispLibs = [ (getAttr "prove" pkgs) (getAttr "simple-config" pkgs) ];
+    lispLibs = [
+      (getAttr "prove" pkgs)
+      (getAttr "simple-config" pkgs)
+    ];
   };
   simple-currency = {
     pname = "simple-currency";
@@ -76903,7 +79860,10 @@ in {
       asd = "simple-date";
     });
     systems = [ "simple-date/tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "simple-date" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "simple-date" pkgs)
+    ];
     meta = { broken = true; };
   };
   simple-finalizer = {
@@ -76918,7 +79878,10 @@ in {
       asd = "simple-finalizer";
     });
     systems = [ "simple-finalizer" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "trivial-garbage" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "trivial-garbage" pkgs)
+    ];
   };
   simple-flow-dispatcher = {
     pname = "simple-flow-dispatcher";
@@ -77000,7 +79963,10 @@ in {
       asd = "simple-neural-network";
     });
     systems = [ "simple-neural-network" ];
-    lispLibs = [ (getAttr "cl-store" pkgs) (getAttr "lparallel" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-store" pkgs)
+      (getAttr "lparallel" pkgs)
+    ];
   };
   simple-neural-network_slash_test = {
     pname = "simple-neural-network_test";
@@ -77048,8 +80014,10 @@ in {
       asd = "simple-parallel-tasks-tests";
     });
     systems = [ "simple-parallel-tasks-tests" ];
-    lispLibs =
-      [ (getAttr "fiveam" pkgs) (getAttr "simple-parallel-tasks" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "simple-parallel-tasks" pkgs)
+    ];
   };
   simple-rgb = {
     pname = "simple-rgb";
@@ -77077,7 +80045,10 @@ in {
       asd = "simple-routes";
     });
     systems = [ "simple-routes" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "hunchentoot" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "hunchentoot" pkgs)
+    ];
   };
   simple-scanf = {
     pname = "simple-scanf";
@@ -77223,8 +80194,10 @@ in {
       asd = "simplified-types-test-suite";
     });
     systems = [ "simplified-types-test-suite" ];
-    lispLibs =
-      [ (getAttr "alexandria" pkgs) (getAttr "simplified-types" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "simplified-types" pkgs)
+    ];
   };
   simpsamp = {
     pname = "simpsamp";
@@ -77280,8 +80253,10 @@ in {
       asd = "sip-hash";
     });
     systems = [ "sip-hash" ];
-    lispLibs =
-      [ (getAttr "com_dot_google_dot_base" pkgs) (getAttr "nibbles" pkgs) ];
+    lispLibs = [
+      (getAttr "com_dot_google_dot_base" pkgs)
+      (getAttr "nibbles" pkgs)
+    ];
   };
   sip-hash_slash_test = {
     pname = "sip-hash_test";
@@ -77295,8 +80270,10 @@ in {
       asd = "sip-hash";
     });
     systems = [ "sip-hash/test" ];
-    lispLibs =
-      [ (getAttr "hu_dot_dwim_dot_stefil" pkgs) (getAttr "sip-hash" pkgs) ];
+    lispLibs = [
+      (getAttr "hu_dot_dwim_dot_stefil" pkgs)
+      (getAttr "sip-hash" pkgs)
+    ];
     meta = { broken = true; };
   };
   skeleton = {
@@ -77388,7 +80365,10 @@ in {
       asd = "sketch-examples";
     });
     systems = [ "sketch-examples" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "sketch" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "sketch" pkgs)
+    ];
   };
   skippy = {
     pname = "skippy";
@@ -77448,7 +80428,10 @@ in {
       asd = "skitter.glop";
     });
     systems = [ "skitter.glop" ];
-    lispLibs = [ (getAttr "glop" pkgs) (getAttr "skitter" pkgs) ];
+    lispLibs = [
+      (getAttr "glop" pkgs)
+      (getAttr "skitter" pkgs)
+    ];
   };
   skitter_dot_sdl2 = {
     pname = "skitter.sdl2";
@@ -77462,7 +80445,10 @@ in {
       asd = "skitter.sdl2";
     });
     systems = [ "skitter.sdl2" ];
-    lispLibs = [ (getAttr "sdl2" pkgs) (getAttr "skitter" pkgs) ];
+    lispLibs = [
+      (getAttr "sdl2" pkgs)
+      (getAttr "skitter" pkgs)
+    ];
   };
   slack-client = {
     pname = "slack-client";
@@ -77531,7 +80517,10 @@ in {
       asd = "slite";
     });
     systems = [ "slite" ];
-    lispLibs = [ (getAttr "str" pkgs) (getAttr "fiveam" pkgs) ];
+    lispLibs = [
+      (getAttr "str" pkgs)
+      (getAttr "fiveam" pkgs)
+    ];
   };
   slite_slash_lisp-unit2 = {
     pname = "slite_lisp-unit2";
@@ -77545,7 +80534,10 @@ in {
       asd = "slite";
     });
     systems = [ "slite/lisp-unit2" ];
-    lispLibs = [ (getAttr "lisp-unit2" pkgs) (getAttr "slite" pkgs) ];
+    lispLibs = [
+      (getAttr "lisp-unit2" pkgs)
+      (getAttr "slite" pkgs)
+    ];
     meta = { broken = true; };
   };
   slite_slash_parachute = {
@@ -77560,7 +80552,10 @@ in {
       asd = "slite";
     });
     systems = [ "slite/parachute" ];
-    lispLibs = [ (getAttr "parachute" pkgs) (getAttr "slite" pkgs) ];
+    lispLibs = [
+      (getAttr "parachute" pkgs)
+      (getAttr "slite" pkgs)
+    ];
     meta = { broken = true; };
   };
   slite_slash_tests = {
@@ -77634,7 +80629,10 @@ in {
       asd = "slot-map";
     });
     systems = [ "slot-map" ];
-    lispLibs = [ (getAttr "dynamic-array" pkgs) (getAttr "mfiano-utils" pkgs) ];
+    lispLibs = [
+      (getAttr "dynamic-array" pkgs)
+      (getAttr "mfiano-utils" pkgs)
+    ];
   };
   slynk = {
     pname = "slynk";
@@ -77873,7 +80871,10 @@ in {
       asd = "smokebase";
     });
     systems = [ "smokebase" ];
-    lispLibs = [ (getAttr "qt_plus_libs" pkgs) (getAttr "qt-libs" pkgs) ];
+    lispLibs = [
+      (getAttr "qt_plus_libs" pkgs)
+      (getAttr "qt-libs" pkgs)
+    ];
   };
   smug = {
     pname = "smug";
@@ -78007,8 +81008,10 @@ in {
       asd = "snark-deque";
     });
     systems = [ "snark-deque" ];
-    lispLibs =
-      [ (getAttr "snark-auxiliary-packages" pkgs) (getAttr "snark-lisp" pkgs) ];
+    lispLibs = [
+      (getAttr "snark-auxiliary-packages" pkgs)
+      (getAttr "snark-lisp" pkgs)
+    ];
   };
   snark-dpll = {
     pname = "snark-dpll";
@@ -78022,8 +81025,10 @@ in {
       asd = "snark-dpll";
     });
     systems = [ "snark-dpll" ];
-    lispLibs =
-      [ (getAttr "snark-auxiliary-packages" pkgs) (getAttr "snark-lisp" pkgs) ];
+    lispLibs = [
+      (getAttr "snark-auxiliary-packages" pkgs)
+      (getAttr "snark-lisp" pkgs)
+    ];
   };
   snark-examples = {
     pname = "snark-examples";
@@ -78051,8 +81056,10 @@ in {
       asd = "snark-feature";
     });
     systems = [ "snark-feature" ];
-    lispLibs =
-      [ (getAttr "snark-auxiliary-packages" pkgs) (getAttr "snark-lisp" pkgs) ];
+    lispLibs = [
+      (getAttr "snark-auxiliary-packages" pkgs)
+      (getAttr "snark-lisp" pkgs)
+    ];
   };
   snark-implementation = {
     pname = "snark-implementation";
@@ -78091,8 +81098,10 @@ in {
       asd = "snark-infix-reader";
     });
     systems = [ "snark-infix-reader" ];
-    lispLibs =
-      [ (getAttr "snark-auxiliary-packages" pkgs) (getAttr "snark-lisp" pkgs) ];
+    lispLibs = [
+      (getAttr "snark-auxiliary-packages" pkgs)
+      (getAttr "snark-lisp" pkgs)
+    ];
   };
   snark-lisp = {
     pname = "snark-lisp";
@@ -78166,8 +81175,10 @@ in {
       asd = "snark-sparse-array";
     });
     systems = [ "snark-sparse-array" ];
-    lispLibs =
-      [ (getAttr "snark-auxiliary-packages" pkgs) (getAttr "snark-lisp" pkgs) ];
+    lispLibs = [
+      (getAttr "snark-auxiliary-packages" pkgs)
+      (getAttr "snark-lisp" pkgs)
+    ];
   };
   sndfile-blob = {
     pname = "sndfile-blob";
@@ -78216,7 +81227,10 @@ in {
       asd = "snmp-server";
     });
     systems = [ "snmp-server" ];
-    lispLibs = [ (getAttr "snmp" pkgs) (getAttr "usocket-server" pkgs) ];
+    lispLibs = [
+      (getAttr "snmp" pkgs)
+      (getAttr "usocket-server" pkgs)
+    ];
   };
   snmp-test = {
     pname = "snmp-test";
@@ -78229,7 +81243,10 @@ in {
       asd = "snmp-test";
     });
     systems = [ "snmp-test" ];
-    lispLibs = [ (getAttr "snmp" pkgs) (getAttr "snmp-server" pkgs) ];
+    lispLibs = [
+      (getAttr "snmp" pkgs)
+      (getAttr "snmp-server" pkgs)
+    ];
   };
   snmp-ui = {
     pname = "snmp-ui";
@@ -78302,7 +81319,10 @@ in {
       asd = "snooze";
     });
     systems = [ "snooze-tests" ];
-    lispLibs = [ (getAttr "fiasco" pkgs) (getAttr "snooze" pkgs) ];
+    lispLibs = [
+      (getAttr "fiasco" pkgs)
+      (getAttr "snooze" pkgs)
+    ];
   };
   softdrink = {
     pname = "softdrink";
@@ -78316,7 +81336,10 @@ in {
       asd = "softdrink";
     });
     systems = [ "softdrink" ];
-    lispLibs = [ (getAttr "lass" pkgs) (getAttr "lquery" pkgs) ];
+    lispLibs = [
+      (getAttr "lass" pkgs)
+      (getAttr "lquery" pkgs)
+    ];
   };
   software-evolution-library = {
     pname = "software-evolution-library";
@@ -78590,7 +81613,10 @@ in {
       asd = "spatial-trees.test";
     });
     systems = [ "spatial-trees.test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "spatial-trees" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "spatial-trees" pkgs)
+    ];
   };
   special-functions = {
     pname = "special-functions";
@@ -78661,8 +81687,10 @@ in {
       asd = "specialization-store-features";
     });
     systems = [ "specialization-store-features" ];
-    lispLibs =
-      [ (getAttr "alexandria" pkgs) (getAttr "introspect-environment" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "introspect-environment" pkgs)
+    ];
   };
   specialization-store-tests = {
     pname = "specialization-store-tests";
@@ -78676,8 +81704,10 @@ in {
       asd = "specialization-store-tests";
     });
     systems = [ "specialization-store-tests" ];
-    lispLibs =
-      [ (getAttr "fiveam" pkgs) (getAttr "specialization-store" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "specialization-store" pkgs)
+    ];
   };
   specialized-function = {
     pname = "specialized-function";
@@ -78712,8 +81742,10 @@ in {
       asd = "specialized-function.test";
     });
     systems = [ "specialized-function.test" ];
-    lispLibs =
-      [ (getAttr "fiveam" pkgs) (getAttr "specialized-function" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "specialized-function" pkgs)
+    ];
   };
   speechless = {
     pname = "speechless";
@@ -78727,8 +81759,10 @@ in {
       asd = "speechless";
     });
     systems = [ "speechless" ];
-    lispLibs =
-      [ (getAttr "cl-markless" pkgs) (getAttr "documentation-utils" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-markless" pkgs)
+      (getAttr "documentation-utils" pkgs)
+    ];
   };
   spell = {
     pname = "spell";
@@ -78771,7 +81805,10 @@ in {
       asd = "spellcheck";
     });
     systems = [ "spellcheck" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cl-ppcre" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cl-ppcre" pkgs)
+    ];
   };
   sphinx = {
     pname = "sphinx";
@@ -78826,7 +81863,10 @@ in {
       asd = "spinneret";
     });
     systems = [ "spinneret/cl-markdown" ];
-    lispLibs = [ (getAttr "cl-markdown" pkgs) (getAttr "spinneret" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-markdown" pkgs)
+      (getAttr "spinneret" pkgs)
+    ];
     meta = { broken = true; };
   };
   spinneret_slash_ps = {
@@ -78841,7 +81881,10 @@ in {
       asd = "spinneret";
     });
     systems = [ "spinneret/ps" ];
-    lispLibs = [ (getAttr "parenscript" pkgs) (getAttr "spinneret" pkgs) ];
+    lispLibs = [
+      (getAttr "parenscript" pkgs)
+      (getAttr "spinneret" pkgs)
+    ];
     meta = { broken = true; };
   };
   spinneret_slash_tests = {
@@ -78891,7 +81934,10 @@ in {
       asd = "split-sequence";
     });
     systems = [ "split-sequence/tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "split-sequence" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "split-sequence" pkgs)
+    ];
     meta = { broken = true; };
   };
   sqlite = {
@@ -78906,7 +81952,10 @@ in {
       asd = "sqlite";
     });
     systems = [ "sqlite" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "iterate" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "iterate" pkgs)
+    ];
   };
   srfi-1 = {
     pname = "srfi-1";
@@ -78934,7 +81983,10 @@ in {
       asd = "srfi-1";
     });
     systems = [ "srfi-1.test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "srfi-1" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "srfi-1" pkgs)
+    ];
   };
   srfi-23 = {
     pname = "srfi-23";
@@ -78990,7 +82042,10 @@ in {
       asd = "srfi-98";
     });
     systems = [ "srfi-98.test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "srfi-98" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "srfi-98" pkgs)
+    ];
   };
   sse-client = {
     pname = "sse-client";
@@ -79055,7 +82110,10 @@ in {
       asd = "sse-server";
     });
     systems = [ "sse-server" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "trivial-escapes" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "trivial-escapes" pkgs)
+    ];
   };
   sse-server-test = {
     pname = "sse-server-test";
@@ -79180,7 +82238,10 @@ in {
       asd = "staple-markless";
     });
     systems = [ "staple-markless" ];
-    lispLibs = [ (getAttr "cl-markless-plump" pkgs) (getAttr "staple" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-markless-plump" pkgs)
+      (getAttr "staple" pkgs)
+    ];
   };
   staple-package-recording = {
     pname = "staple-package-recording";
@@ -79208,7 +82269,10 @@ in {
       asd = "staple-restructured-text";
     });
     systems = [ "staple-restructured-text" ];
-    lispLibs = [ (getAttr "docutils" pkgs) (getAttr "staple" pkgs) ];
+    lispLibs = [
+      (getAttr "docutils" pkgs)
+      (getAttr "staple" pkgs)
+    ];
   };
   staple-server = {
     pname = "staple-server";
@@ -79284,7 +82348,10 @@ in {
       asd = "static-dispatch";
     });
     systems = [ "static-dispatch/test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "static-dispatch" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "static-dispatch" pkgs)
+    ];
     meta = { broken = true; };
   };
   static-vectors = {
@@ -79317,7 +82384,10 @@ in {
       asd = "static-vectors";
     });
     systems = [ "static-vectors/test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "static-vectors" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "static-vectors" pkgs)
+    ];
     meta = { broken = true; };
   };
   statistics = {
@@ -79387,7 +82457,10 @@ in {
       asd = "stdutils";
     });
     systems = [ "stdutils" ];
-    lispLibs = [ (getAttr "cl-fad" pkgs) (getAttr "cl-ppcre" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-fad" pkgs)
+      (getAttr "cl-ppcre" pkgs)
+    ];
   };
   stealth-mixin = {
     pname = "stealth-mixin";
@@ -79592,7 +82665,10 @@ in {
       asd = "strict-function";
     });
     systems = [ "strict-function" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "trivia" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "trivia" pkgs)
+    ];
   };
   strict-function_slash_test = {
     pname = "strict-function_test";
@@ -79733,8 +82809,10 @@ in {
       asd = "structure-ext.as-class.test";
     });
     systems = [ "structure-ext.as-class.test" ];
-    lispLibs =
-      [ (getAttr "jingoh" pkgs) (getAttr "structure-ext_dot_as-class" pkgs) ];
+    lispLibs = [
+      (getAttr "jingoh" pkgs)
+      (getAttr "structure-ext_dot_as-class" pkgs)
+    ];
   };
   structure-ext_dot_left-arrow-accessors = {
     pname = "structure-ext.left-arrow-accessors";
@@ -79779,8 +82857,10 @@ in {
       asd = "structure-ext.make-instance";
     });
     systems = [ "structure-ext.make-instance" ];
-    lispLibs =
-      [ (getAttr "closer-mop" pkgs) (getAttr "jingoh_dot_documentizer" pkgs) ];
+    lispLibs = [
+      (getAttr "closer-mop" pkgs)
+      (getAttr "jingoh_dot_documentizer" pkgs)
+    ];
   };
   structure-ext_dot_make-instance_dot_test = {
     pname = "structure-ext.make-instance.test";
@@ -79891,7 +82971,10 @@ in {
       asd = "stumpwm-tests";
     });
     systems = [ "stumpwm-tests" ];
-    lispLibs = [ (getAttr "fiasco" pkgs) (getAttr "stumpwm" pkgs) ];
+    lispLibs = [
+      (getAttr "fiasco" pkgs)
+      (getAttr "stumpwm" pkgs)
+    ];
   };
   stumpwm_slash_build = {
     pname = "stumpwm_build";
@@ -80090,8 +83173,10 @@ in {
       asd = "swank-client";
     });
     systems = [ "swank-client/test" ];
-    lispLibs =
-      [ (getAttr "hu_dot_dwim_dot_stefil" pkgs) (getAttr "swank-client" pkgs) ];
+    lispLibs = [
+      (getAttr "hu_dot_dwim_dot_stefil" pkgs)
+      (getAttr "swank-client" pkgs)
+    ];
     meta = { broken = true; };
   };
   swank-crew = {
@@ -80124,8 +83209,10 @@ in {
       asd = "swank-crew";
     });
     systems = [ "swank-crew/test" ];
-    lispLibs =
-      [ (getAttr "hu_dot_dwim_dot_stefil" pkgs) (getAttr "swank-crew" pkgs) ];
+    lispLibs = [
+      (getAttr "hu_dot_dwim_dot_stefil" pkgs)
+      (getAttr "swank-crew" pkgs)
+    ];
     meta = { broken = true; };
   };
   swank-protocol = {
@@ -80140,7 +83227,10 @@ in {
       asd = "swank-protocol";
     });
     systems = [ "swank-protocol" ];
-    lispLibs = [ (getAttr "swank" pkgs) (getAttr "usocket" pkgs) ];
+    lispLibs = [
+      (getAttr "swank" pkgs)
+      (getAttr "usocket" pkgs)
+    ];
   };
   swank_dot_live = {
     pname = "swank.live";
@@ -80182,7 +83272,10 @@ in {
       asd = "swap-bytes";
     });
     systems = [ "swap-bytes/test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "swap-bytes" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "swap-bytes" pkgs)
+    ];
     meta = { broken = true; };
   };
   sxql = {
@@ -80270,7 +83363,10 @@ in {
       asd = "symbol-munger";
     });
     systems = [ "symbol-munger" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "iterate" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "iterate" pkgs)
+    ];
   };
   symbol-munger_slash_test = {
     pname = "symbol-munger_test";
@@ -80284,7 +83380,10 @@ in {
       asd = "symbol-munger";
     });
     systems = [ "symbol-munger/test" ];
-    lispLibs = [ (getAttr "lisp-unit2" pkgs) (getAttr "symbol-munger" pkgs) ];
+    lispLibs = [
+      (getAttr "lisp-unit2" pkgs)
+      (getAttr "symbol-munger" pkgs)
+    ];
     meta = { broken = true; };
   };
   symbol-namespaces = {
@@ -80386,8 +83485,10 @@ in {
       asd = "t-clack-handler-toot";
     });
     systems = [ "t-clack-handler-toot" ];
-    lispLibs =
-      [ (getAttr "clack-handler-toot" pkgs) (getAttr "clack-test" pkgs) ];
+    lispLibs = [
+      (getAttr "clack-handler-toot" pkgs)
+      (getAttr "clack-test" pkgs)
+    ];
   };
   t-clack-handler-wookie = {
     pname = "t-clack-handler-wookie";
@@ -80787,7 +83888,10 @@ in {
       asd = "talcl";
     });
     systems = [ "talcl-examples" ];
-    lispLibs = [ (getAttr "buildnode-xhtml" pkgs) (getAttr "talcl" pkgs) ];
+    lispLibs = [
+      (getAttr "buildnode-xhtml" pkgs)
+      (getAttr "talcl" pkgs)
+    ];
   };
   talcl-speed-tests = {
     pname = "talcl-speed-tests";
@@ -80897,7 +84001,10 @@ in {
       asd = "tar-file";
     });
     systems = [ "tar-file/test" ];
-    lispLibs = [ (getAttr "tar-file" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "tar-file" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
     meta = { broken = true; };
   };
   tar_slash_common-extract = {
@@ -81082,7 +84189,10 @@ in {
       asd = "tar";
     });
     systems = [ "tar/test" ];
-    lispLibs = [ (getAttr "tar" pkgs) (getAttr "parachute" pkgs) ];
+    lispLibs = [
+      (getAttr "tar" pkgs)
+      (getAttr "parachute" pkgs)
+    ];
     meta = { broken = true; };
   };
   targa = {
@@ -81111,7 +84221,10 @@ in {
       asd = "tasty";
     });
     systems = [ "tasty" ];
-    lispLibs = [ (getAttr "gwl-graphics" pkgs) (getAttr "tree" pkgs) ];
+    lispLibs = [
+      (getAttr "gwl-graphics" pkgs)
+      (getAttr "tree" pkgs)
+    ];
   };
   tclcs-code = {
     pname = "tclcs-code";
@@ -81205,7 +84318,10 @@ in {
       asd = "teepeedee2-test";
     });
     systems = [ "teepeedee2-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "teepeedee2" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "teepeedee2" pkgs)
+    ];
   };
   telnetlib = {
     pname = "telnetlib";
@@ -81233,8 +84349,10 @@ in {
       asd = "template";
     });
     systems = [ "template" ];
-    lispLibs =
-      [ (getAttr "alexandria" pkgs) (getAttr "parameterized-function" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "parameterized-function" pkgs)
+    ];
   };
   template-function = {
     pname = "template-function";
@@ -81266,7 +84384,10 @@ in {
       asd = "template-function-tests";
     });
     systems = [ "template-function-tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "template-function" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "template-function" pkgs)
+    ];
   };
   temporal-functions = {
     pname = "temporal-functions";
@@ -81347,7 +84468,10 @@ in {
       asd = "ten.i18n.cl-locale";
     });
     systems = [ "ten.i18n.cl-locale" ];
-    lispLibs = [ (getAttr "cl-locale" pkgs) (getAttr "ten" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-locale" pkgs)
+      (getAttr "ten" pkgs)
+    ];
   };
   ten_dot_i18n_dot_gettext = {
     pname = "ten.i18n.gettext";
@@ -81361,7 +84485,10 @@ in {
       asd = "ten.i18n.gettext";
     });
     systems = [ "ten.i18n.gettext" ];
-    lispLibs = [ (getAttr "gettext" pkgs) (getAttr "ten" pkgs) ];
+    lispLibs = [
+      (getAttr "gettext" pkgs)
+      (getAttr "ten" pkgs)
+    ];
   };
   ten_dot_tests = {
     pname = "ten.tests";
@@ -81427,7 +84554,10 @@ in {
       asd = "tesseract-capi";
     });
     systems = [ "tesseract-capi" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cl-ppcre" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cl-ppcre" pkgs)
+    ];
   };
   test-gadgets = {
     pname = "test-gadgets";
@@ -81441,7 +84571,10 @@ in {
       asd = "test-gadgets";
     });
     systems = [ "test-gadgets" ];
-    lispLibs = [ (getAttr "gadgets" pkgs) (getAttr "prove" pkgs) ];
+    lispLibs = [
+      (getAttr "gadgets" pkgs)
+      (getAttr "prove" pkgs)
+    ];
   };
   test-paren6 = {
     pname = "test-paren6";
@@ -81506,7 +84639,10 @@ in {
       asd = "test.eager-future2";
     });
     systems = [ "test.eager-future2" ];
-    lispLibs = [ (getAttr "eager-future2" pkgs) (getAttr "eos" pkgs) ];
+    lispLibs = [
+      (getAttr "eager-future2" pkgs)
+      (getAttr "eos" pkgs)
+    ];
   };
   test_dot_vas-string-metrics = {
     pname = "test.vas-string-metrics";
@@ -81534,7 +84670,10 @@ in {
       asd = "testbild";
     });
     systems = [ "testbild" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "graylex" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "graylex" pkgs)
+    ];
   };
   testbild-test = {
     pname = "testbild-test";
@@ -81747,7 +84886,10 @@ in {
       asd = "thread-pool";
     });
     systems = [ "thread-pool" ];
-    lispLibs = [ (getAttr "arnesi" pkgs) (getAttr "bordeaux-threads" pkgs) ];
+    lispLibs = [
+      (getAttr "arnesi" pkgs)
+      (getAttr "bordeaux-threads" pkgs)
+    ];
   };
   thread_dot_comm_dot_rendezvous = {
     pname = "thread.comm.rendezvous";
@@ -81761,7 +84903,10 @@ in {
       asd = "thread.comm.rendezvous";
     });
     systems = [ "thread.comm.rendezvous" ];
-    lispLibs = [ (getAttr "bordeaux-threads" pkgs) (getAttr "cl-annot" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "cl-annot" pkgs)
+    ];
   };
   thread_dot_comm_dot_rendezvous_dot_test = {
     pname = "thread.comm.rendezvous.test";
@@ -81806,7 +84951,10 @@ in {
       asd = "time-interval";
     });
     systems = [ "time-interval" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "local-time" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "local-time" pkgs)
+    ];
   };
   timer-wheel = {
     pname = "timer-wheel";
@@ -81834,8 +84982,10 @@ in {
       asd = "timer-wheel.examples";
     });
     systems = [ "timer-wheel.examples" ];
-    lispLibs =
-      [ (getAttr "bordeaux-threads" pkgs) (getAttr "timer-wheel" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "timer-wheel" pkgs)
+    ];
   };
   tinaa = {
     pname = "tinaa";
@@ -81873,7 +85023,10 @@ in {
       asd = "tinaa-test";
     });
     systems = [ "tinaa-test" ];
-    lispLibs = [ (getAttr "lift" pkgs) (getAttr "tinaa" pkgs) ];
+    lispLibs = [
+      (getAttr "lift" pkgs)
+      (getAttr "tinaa" pkgs)
+    ];
   };
   tinaa_slash_with-cl-markdown = {
     pname = "tinaa_with-cl-markdown";
@@ -81887,7 +85040,10 @@ in {
       asd = "tinaa";
     });
     systems = [ "tinaa/with-cl-markdown" ];
-    lispLibs = [ (getAttr "cl-markdown" pkgs) (getAttr "tinaa" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-markdown" pkgs)
+      (getAttr "tinaa" pkgs)
+    ];
     meta = { broken = true; };
   };
   tiny-routes = {
@@ -81902,7 +85058,10 @@ in {
       asd = "tiny-routes";
     });
     systems = [ "tiny-routes" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "uiop" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "uiop" pkgs)
+    ];
   };
   tiny-routes_slash_test = {
     pname = "tiny-routes_test";
@@ -81916,7 +85075,10 @@ in {
       asd = "tiny-routes";
     });
     systems = [ "tiny-routes/test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "tiny-routes" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "tiny-routes" pkgs)
+    ];
     meta = { broken = true; };
   };
   tm = {
@@ -81930,8 +85092,10 @@ in {
       asd = "tm";
     });
     systems = [ "tm" ];
-    lispLibs =
-      [ (getAttr "bordeaux-threads" pkgs) (getAttr "local-time" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "local-time" pkgs)
+    ];
   };
   tmpdir = {
     pname = "tmpdir";
@@ -81992,7 +85156,10 @@ in {
       asd = "toadstool-tests";
     });
     systems = [ "toadstool-tests" ];
-    lispLibs = [ (getAttr "stefil" pkgs) (getAttr "toadstool" pkgs) ];
+    lispLibs = [
+      (getAttr "stefil" pkgs)
+      (getAttr "toadstool" pkgs)
+    ];
   };
   toms419 = {
     pname = "toms419";
@@ -82191,7 +85358,10 @@ in {
       asd = "torrents";
     });
     systems = [ "torrents/tk" ];
-    lispLibs = [ (getAttr "torrents" pkgs) (getAttr "nodgui" pkgs) ];
+    lispLibs = [
+      (getAttr "torrents" pkgs)
+      (getAttr "nodgui" pkgs)
+    ];
     meta = { broken = true; };
   };
   towers = {
@@ -82253,7 +85423,10 @@ in {
       asd = "track-best";
     });
     systems = [ "track-best/tests" ];
-    lispLibs = [ (getAttr "nst" pkgs) (getAttr "track-best" pkgs) ];
+    lispLibs = [
+      (getAttr "nst" pkgs)
+      (getAttr "track-best" pkgs)
+    ];
     meta = { broken = true; };
   };
   trainable-object = {
@@ -82268,8 +85441,10 @@ in {
       asd = "trainable-object";
     });
     systems = [ "trainable-object" ];
-    lispLibs =
-      [ (getAttr "closer-mop" pkgs) (getAttr "serializable-object" pkgs) ];
+    lispLibs = [
+      (getAttr "closer-mop" pkgs)
+      (getAttr "serializable-object" pkgs)
+    ];
   };
   trainable-object_dot_test = {
     pname = "trainable-object.test";
@@ -82283,7 +85458,10 @@ in {
       asd = "trainable-object.test";
     });
     systems = [ "trainable-object.test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "trainable-object" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "trainable-object" pkgs)
+    ];
   };
   translate = {
     pname = "translate";
@@ -82331,7 +85509,10 @@ in {
       asd = "translate";
     });
     systems = [ "translate/test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "translate" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "translate" pkgs)
+    ];
     meta = { broken = true; };
   };
   translators = {
@@ -82407,7 +85588,10 @@ in {
       asd = "tree-search";
     });
     systems = [ "tree-search/test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "tree-search" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "tree-search" pkgs)
+    ];
     meta = { broken = true; };
   };
   treedb = {
@@ -82454,7 +85638,10 @@ in {
       asd = "treedb.tests";
     });
     systems = [ "treedb.tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "treedb" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "treedb" pkgs)
+    ];
   };
   trees = {
     pname = "trees";
@@ -82510,7 +85697,10 @@ in {
       asd = "trestrul.test";
     });
     systems = [ "trestrul.test" ];
-    lispLibs = [ (getAttr "jingoh" pkgs) (getAttr "trestrul" pkgs) ];
+    lispLibs = [
+      (getAttr "jingoh" pkgs)
+      (getAttr "trestrul" pkgs)
+    ];
   };
   trivia = {
     pname = "trivia";
@@ -82591,7 +85781,10 @@ in {
       asd = "trivia.cffi";
     });
     systems = [ "trivia.cffi" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "trivia_dot_trivial" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "trivia_dot_trivial" pkgs)
+    ];
   };
   trivia_dot_fset = {
     pname = "trivia.fset";
@@ -82605,7 +85798,10 @@ in {
       asd = "trivia.fset";
     });
     systems = [ "trivia.fset" ];
-    lispLibs = [ (getAttr "fset" pkgs) (getAttr "trivia_dot_trivial" pkgs) ];
+    lispLibs = [
+      (getAttr "fset" pkgs)
+      (getAttr "trivia_dot_trivial" pkgs)
+    ];
   };
   trivia_dot_level0 = {
     pname = "trivia.level0";
@@ -82666,8 +85862,10 @@ in {
       asd = "trivia.ppcre";
     });
     systems = [ "trivia.ppcre" ];
-    lispLibs =
-      [ (getAttr "cl-ppcre" pkgs) (getAttr "trivia_dot_trivial" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "trivia_dot_trivial" pkgs)
+    ];
   };
   trivia_dot_quasiquote = {
     pname = "trivia.quasiquote";
@@ -82762,7 +85960,10 @@ in {
       asd = "trivial-backtrace-test";
     });
     systems = [ "trivial-backtrace-test" ];
-    lispLibs = [ (getAttr "lift" pkgs) (getAttr "trivial-backtrace" pkgs) ];
+    lispLibs = [
+      (getAttr "lift" pkgs)
+      (getAttr "trivial-backtrace" pkgs)
+    ];
   };
   trivial-battery = {
     pname = "trivial-battery";
@@ -82836,8 +86037,10 @@ in {
       asd = "trivial-build";
     });
     systems = [ "trivial-build" ];
-    lispLibs =
-      [ (getAttr "lisp-invocation" pkgs) (getAttr "trivial-exe" pkgs) ];
+    lispLibs = [
+      (getAttr "lisp-invocation" pkgs)
+      (getAttr "trivial-exe" pkgs)
+    ];
   };
   trivial-build-test = {
     pname = "trivial-build-test";
@@ -82851,7 +86054,10 @@ in {
       asd = "trivial-build-test";
     });
     systems = [ "trivial-build-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "trivial-build" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "trivial-build" pkgs)
+    ];
   };
   trivial-channels = {
     pname = "trivial-channels";
@@ -82865,8 +86071,10 @@ in {
       asd = "trivial-channels";
     });
     systems = [ "trivial-channels" ];
-    lispLibs =
-      [ (getAttr "bordeaux-threads" pkgs) (getAttr "trivial-timeout" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "trivial-timeout" pkgs)
+    ];
   };
   trivial-clipboard = {
     pname = "trivial-clipboard";
@@ -82894,7 +86102,10 @@ in {
       asd = "trivial-clipboard-test";
     });
     systems = [ "trivial-clipboard-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "trivial-clipboard" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "trivial-clipboard" pkgs)
+    ];
   };
   trivial-cltl2 = {
     pname = "trivial-cltl2";
@@ -82940,7 +86151,10 @@ in {
       asd = "trivial-coerce";
     });
     systems = [ "trivial-coerce/tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "trivial-coerce" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "trivial-coerce" pkgs)
+    ];
     meta = { broken = true; };
   };
   trivial-compress = {
@@ -82975,7 +86189,10 @@ in {
       asd = "trivial-compress-test";
     });
     systems = [ "trivial-compress-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "trivial-compress" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "trivial-compress" pkgs)
+    ];
   };
   trivial-continuation = {
     pname = "trivial-continuation";
@@ -82989,7 +86206,10 @@ in {
       asd = "trivial-continuation";
     });
     systems = [ "trivial-continuation" ];
-    lispLibs = [ (getAttr "log4cl" pkgs) (getAttr "trivial-utilities" pkgs) ];
+    lispLibs = [
+      (getAttr "log4cl" pkgs)
+      (getAttr "trivial-utilities" pkgs)
+    ];
   };
   trivial-continuation_slash_test = {
     pname = "trivial-continuation_test";
@@ -83003,8 +86223,10 @@ in {
       asd = "trivial-continuation";
     });
     systems = [ "trivial-continuation/test" ];
-    lispLibs =
-      [ (getAttr "fiveam" pkgs) (getAttr "trivial-continuation" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "trivial-continuation" pkgs)
+    ];
     meta = { broken = true; };
   };
   trivial-coverage = {
@@ -83047,8 +86269,10 @@ in {
       asd = "trivial-custom-debugger";
     });
     systems = [ "trivial-custom-debugger/test" ];
-    lispLibs =
-      [ (getAttr "parachute" pkgs) (getAttr "trivial-custom-debugger" pkgs) ];
+    lispLibs = [
+      (getAttr "parachute" pkgs)
+      (getAttr "trivial-custom-debugger" pkgs)
+    ];
     meta = { broken = true; };
   };
   trivial-debug-console = {
@@ -83161,8 +86385,10 @@ in {
       asd = "trivial-ed-functions";
     });
     systems = [ "trivial-ed-functions/test" ];
-    lispLibs =
-      [ (getAttr "parachute" pkgs) (getAttr "trivial-ed-functions" pkgs) ];
+    lispLibs = [
+      (getAttr "parachute" pkgs)
+      (getAttr "trivial-ed-functions" pkgs)
+    ];
     meta = { broken = true; };
   };
   trivial-escapes = {
@@ -83209,7 +86435,10 @@ in {
       asd = "trivial-exe";
     });
     systems = [ "trivial-exe" ];
-    lispLibs = [ (getAttr "osicat" pkgs) (getAttr "uiop" pkgs) ];
+    lispLibs = [
+      (getAttr "osicat" pkgs)
+      (getAttr "uiop" pkgs)
+    ];
   };
   trivial-exe-test = {
     pname = "trivial-exe-test";
@@ -83223,7 +86452,10 @@ in {
       asd = "trivial-exe-test";
     });
     systems = [ "trivial-exe-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "trivial-exe" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "trivial-exe" pkgs)
+    ];
   };
   trivial-extensible-sequences = {
     pname = "trivial-extensible-sequences";
@@ -83273,7 +86505,10 @@ in {
       asd = "trivial-extract-test";
     });
     systems = [ "trivial-extract-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "trivial-extract" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "trivial-extract" pkgs)
+    ];
   };
   trivial-features = {
     pname = "trivial-features";
@@ -83335,7 +86570,10 @@ in {
       asd = "trivial-file-size";
     });
     systems = [ "trivial-file-size/tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "trivial-file-size" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "trivial-file-size" pkgs)
+    ];
     meta = { broken = true; };
   };
   trivial-garbage = {
@@ -83364,7 +86602,10 @@ in {
       asd = "trivial-garbage";
     });
     systems = [ "trivial-garbage/tests" ];
-    lispLibs = [ (getAttr "rt" pkgs) (getAttr "trivial-garbage" pkgs) ];
+    lispLibs = [
+      (getAttr "rt" pkgs)
+      (getAttr "trivial-garbage" pkgs)
+    ];
     meta = { broken = true; };
   };
   trivial-gray-streams = {
@@ -83435,7 +86676,10 @@ in {
       asd = "trivial-http-test";
     });
     systems = [ "trivial-http-test" ];
-    lispLibs = [ (getAttr "lift" pkgs) (getAttr "trivial-http" pkgs) ];
+    lispLibs = [
+      (getAttr "lift" pkgs)
+      (getAttr "trivial-http" pkgs)
+    ];
   };
   trivial-indent = {
     pname = "trivial-indent";
@@ -83593,7 +86837,10 @@ in {
       asd = "trivial-left-pad";
     });
     systems = [ "trivial-left-pad" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "prove-asdf" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "prove-asdf" pkgs)
+    ];
   };
   trivial-left-pad-test = {
     pname = "trivial-left-pad-test";
@@ -83685,7 +86932,10 @@ in {
       asd = "trivial-mmap";
     });
     systems = [ "trivial-mmap" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "osicat" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "osicat" pkgs)
+    ];
   };
   trivial-monitored-thread = {
     pname = "trivial-monitored-thread";
@@ -83717,8 +86967,10 @@ in {
       asd = "trivial-monitored-thread";
     });
     systems = [ "trivial-monitored-thread/test" ];
-    lispLibs =
-      [ (getAttr "fiveam" pkgs) (getAttr "trivial-monitored-thread" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "trivial-monitored-thread" pkgs)
+    ];
     meta = { broken = true; };
   };
   trivial-msi = {
@@ -83747,7 +86999,10 @@ in {
       asd = "trivial-msi-test";
     });
     systems = [ "trivial-msi-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "trivial-msi" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "trivial-msi" pkgs)
+    ];
   };
   trivial-nntp = {
     pname = "trivial-nntp";
@@ -83761,7 +87016,10 @@ in {
       asd = "trivial-nntp";
     });
     systems = [ "trivial-nntp" ];
-    lispLibs = [ (getAttr "cl_plus_ssl" pkgs) (getAttr "usocket" pkgs) ];
+    lispLibs = [
+      (getAttr "cl_plus_ssl" pkgs)
+      (getAttr "usocket" pkgs)
+    ];
   };
   trivial-object-lock = {
     pname = "trivial-object-lock";
@@ -83794,7 +87052,10 @@ in {
       asd = "trivial-object-lock";
     });
     systems = [ "trivial-object-lock/test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "trivial-object-lock" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "trivial-object-lock" pkgs)
+    ];
     meta = { broken = true; };
   };
   trivial-octet-streams = {
@@ -83905,8 +87166,10 @@ in {
       asd = "trivial-package-locks";
     });
     systems = [ "trivial-package-locks/test" ];
-    lispLibs =
-      [ (getAttr "parachute" pkgs) (getAttr "trivial-package-locks" pkgs) ];
+    lispLibs = [
+      (getAttr "parachute" pkgs)
+      (getAttr "trivial-package-locks" pkgs)
+    ];
     meta = { broken = true; };
   };
   trivial-package-manager = {
@@ -83939,8 +87202,10 @@ in {
       asd = "trivial-package-manager.test";
     });
     systems = [ "trivial-package-manager.test" ];
-    lispLibs =
-      [ (getAttr "fiveam" pkgs) (getAttr "trivial-package-manager" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "trivial-package-manager" pkgs)
+    ];
   };
   trivial-pooled-database = {
     pname = "trivial-pooled-database";
@@ -83976,7 +87241,10 @@ in {
       asd = "trivial-project";
     });
     systems = [ "trivial-project" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "cl-ppcre" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "cl-ppcre" pkgs)
+    ];
   };
   trivial-raw-io = {
     pname = "trivial-raw-io";
@@ -84084,7 +87352,10 @@ in {
       asd = "trivial-shell-test";
     });
     systems = [ "trivial-shell-test" ];
-    lispLibs = [ (getAttr "lift" pkgs) (getAttr "trivial-shell" pkgs) ];
+    lispLibs = [
+      (getAttr "lift" pkgs)
+      (getAttr "trivial-shell" pkgs)
+    ];
   };
   trivial-signal = {
     pname = "trivial-signal";
@@ -84166,7 +87437,10 @@ in {
       asd = "trivial-ssh-test";
     });
     systems = [ "trivial-ssh-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "trivial-ssh" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "trivial-ssh" pkgs)
+    ];
   };
   trivial-string-template = {
     pname = "trivial-string-template";
@@ -84232,7 +87506,10 @@ in {
       asd = "trivial-tco-test";
     });
     systems = [ "trivial-tco-test" ];
-    lispLibs = [ (getAttr "clunit" pkgs) (getAttr "trivial-tco" pkgs) ];
+    lispLibs = [
+      (getAttr "clunit" pkgs)
+      (getAttr "trivial-tco" pkgs)
+    ];
   };
   trivial-thumbnail = {
     pname = "trivial-thumbnail";
@@ -84294,7 +87571,10 @@ in {
       asd = "trivial-timer";
     });
     systems = [ "trivial-timer/test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "trivial-timer" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "trivial-timer" pkgs)
+    ];
     meta = { broken = true; };
   };
   trivial-types = {
@@ -84351,7 +87631,10 @@ in {
       asd = "trivial-utf-8";
     });
     systems = [ "trivial-utf-8/doc" ];
-    lispLibs = [ (getAttr "mgl-pax" pkgs) (getAttr "trivial-utf-8" pkgs) ];
+    lispLibs = [
+      (getAttr "mgl-pax" pkgs)
+      (getAttr "trivial-utf-8" pkgs)
+    ];
     meta = { broken = true; };
   };
   trivial-utf-8_slash_tests = {
@@ -84399,7 +87682,10 @@ in {
       asd = "trivial-variable-bindings";
     });
     systems = [ "trivial-variable-bindings" ];
-    lispLibs = [ (getAttr "iterate" pkgs) (getAttr "trivial-utilities" pkgs) ];
+    lispLibs = [
+      (getAttr "iterate" pkgs)
+      (getAttr "trivial-utilities" pkgs)
+    ];
   };
   trivial-variable-bindings_slash_test = {
     pname = "trivial-variable-bindings_test";
@@ -84413,8 +87699,10 @@ in {
       asd = "trivial-variable-bindings";
     });
     systems = [ "trivial-variable-bindings/test" ];
-    lispLibs =
-      [ (getAttr "fiveam" pkgs) (getAttr "trivial-variable-bindings" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "trivial-variable-bindings" pkgs)
+    ];
     meta = { broken = true; };
   };
   trivial-wish = {
@@ -84485,7 +87773,10 @@ in {
       asd = "trivial-ws-client";
     });
     systems = [ "trivial-ws-client" ];
-    lispLibs = [ (getAttr "cl-async" pkgs) (getAttr "websocket-driver" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-async" pkgs)
+      (getAttr "websocket-driver" pkgs)
+    ];
   };
   trivial-ws-test = {
     pname = "trivial-ws-test";
@@ -84552,7 +87843,10 @@ in {
       asd = "trivialib.bdd.test";
     });
     systems = [ "trivialib.bdd.test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "trivialib_dot_bdd" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "trivialib_dot_bdd" pkgs)
+    ];
   };
   trivialib_dot_type-unify = {
     pname = "trivialib.type-unify";
@@ -84585,8 +87879,10 @@ in {
       asd = "trivialib.type-unify.test";
     });
     systems = [ "trivialib.type-unify.test" ];
-    lispLibs =
-      [ (getAttr "fiveam" pkgs) (getAttr "trivialib_dot_type-unify" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "trivialib_dot_type-unify" pkgs)
+    ];
   };
   trucler = {
     pname = "trucler";
@@ -84600,8 +87896,10 @@ in {
       asd = "trucler";
     });
     systems = [ "trucler" ];
-    lispLibs =
-      [ (getAttr "trucler-base" pkgs) (getAttr "trucler-native" pkgs) ];
+    lispLibs = [
+      (getAttr "trucler-base" pkgs)
+      (getAttr "trucler-native" pkgs)
+    ];
   };
   trucler-base = {
     pname = "trucler-base";
@@ -84643,8 +87941,10 @@ in {
       asd = "trucler-native-test";
     });
     systems = [ "trucler-native-test" ];
-    lispLibs =
-      [ (getAttr "trucler-base" pkgs) (getAttr "trucler-native" pkgs) ];
+    lispLibs = [
+      (getAttr "trucler-base" pkgs)
+      (getAttr "trucler-native" pkgs)
+    ];
   };
   trucler-reference = {
     pname = "trucler-reference";
@@ -84727,7 +88027,10 @@ in {
       asd = "try";
     });
     systems = [ "try/doc" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "try" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "try" pkgs)
+    ];
     meta = { broken = true; };
   };
   try_slash_test = {
@@ -84785,7 +88088,10 @@ in {
       asd = "ttt";
     });
     systems = [ "ttt/tests" ];
-    lispLibs = [ (getAttr "lisp-unit" pkgs) (getAttr "ttt" pkgs) ];
+    lispLibs = [
+      (getAttr "lisp-unit" pkgs)
+      (getAttr "ttt" pkgs)
+    ];
     meta = { broken = true; };
   };
   twfy = {
@@ -84800,7 +88106,10 @@ in {
       asd = "twfy";
     });
     systems = [ "twfy" ];
-    lispLibs = [ (getAttr "cl-json" pkgs) (getAttr "drakma" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-json" pkgs)
+      (getAttr "drakma" pkgs)
+    ];
   };
   twitter-mongodb-driver = {
     pname = "twitter-mongodb-driver";
@@ -84814,7 +88123,10 @@ in {
       asd = "twitter-mongodb-driver";
     });
     systems = [ "twitter-mongodb-driver" ];
-    lispLibs = [ (getAttr "cl-mongo" pkgs) (getAttr "cl-twitter" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-mongo" pkgs)
+      (getAttr "cl-twitter" pkgs)
+    ];
   };
   type-i = {
     pname = "type-i";
@@ -84847,7 +88159,10 @@ in {
       asd = "type-i.test";
     });
     systems = [ "type-i.test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "type-i" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "type-i" pkgs)
+    ];
   };
   type-r = {
     pname = "type-r";
@@ -84861,7 +88176,10 @@ in {
       asd = "type-r";
     });
     systems = [ "type-r" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "trivia" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "trivia" pkgs)
+    ];
   };
   type-r_dot_test = {
     pname = "type-r.test";
@@ -84875,7 +88193,10 @@ in {
       asd = "type-r.test";
     });
     systems = [ "type-r.test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "type-r" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "type-r" pkgs)
+    ];
   };
   typo = {
     pname = "typo";
@@ -84910,7 +88231,10 @@ in {
       asd = "typo.test-suite";
     });
     systems = [ "typo.test-suite" ];
-    lispLibs = [ (getAttr "closer-mop" pkgs) (getAttr "typo" pkgs) ];
+    lispLibs = [
+      (getAttr "closer-mop" pkgs)
+      (getAttr "typo" pkgs)
+    ];
   };
   uax-14 = {
     pname = "uax-14";
@@ -84956,7 +88280,10 @@ in {
       asd = "uax-15";
     });
     systems = [ "uax-15" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "split-sequence" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "split-sequence" pkgs)
+    ];
   };
   uax-15_slash_tests = {
     pname = "uax-15_tests";
@@ -85037,8 +88364,10 @@ in {
       asd = "ubiquitous-concurrent";
     });
     systems = [ "ubiquitous-concurrent" ];
-    lispLibs =
-      [ (getAttr "bordeaux-threads" pkgs) (getAttr "ubiquitous" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "ubiquitous" pkgs)
+    ];
   };
   ucons = {
     pname = "ucons";
@@ -85329,7 +88658,10 @@ in {
       asd = "umlisp-tests";
     });
     systems = [ "umlisp-tests" ];
-    lispLibs = [ (getAttr "rt" pkgs) (getAttr "umlisp" pkgs) ];
+    lispLibs = [
+      (getAttr "rt" pkgs)
+      (getAttr "umlisp" pkgs)
+    ];
   };
   uncommon-lisp = {
     pname = "uncommon-lisp";
@@ -85377,7 +88709,10 @@ in {
       asd = "uncursed-examples";
     });
     systems = [ "uncursed-examples" ];
-    lispLibs = [ (getAttr "cffi-grovel" pkgs) (getAttr "uncursed" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi-grovel" pkgs)
+      (getAttr "uncursed" pkgs)
+    ];
   };
   unicly = {
     pname = "unicly";
@@ -85391,7 +88726,10 @@ in {
       asd = "unicly";
     });
     systems = [ "unicly" ];
-    lispLibs = [ (getAttr "ironclad" pkgs) (getAttr "split-sequence" pkgs) ];
+    lispLibs = [
+      (getAttr "ironclad" pkgs)
+      (getAttr "split-sequence" pkgs)
+    ];
   };
   unifgram = {
     pname = "unifgram";
@@ -85419,7 +88757,10 @@ in {
       asd = "unit-formulas";
     });
     systems = [ "unit-formulas" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "iterate" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "iterate" pkgs)
+    ];
   };
   unit-test = {
     pname = "unit-test";
@@ -85447,7 +88788,10 @@ in {
       asd = "universal-config";
     });
     systems = [ "universal-config" ];
-    lispLibs = [ (getAttr "cl-ppcre" pkgs) (getAttr "parse-float" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-ppcre" pkgs)
+      (getAttr "parse-float" pkgs)
+    ];
   };
   unix-options = {
     pname = "unix-options";
@@ -85563,7 +88907,10 @@ in {
       asd = "uri-template.test";
     });
     systems = [ "uri-template.test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "uri-template" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "uri-template" pkgs)
+    ];
   };
   url-rewrite = {
     pname = "url-rewrite";
@@ -85609,7 +88956,10 @@ in {
       asd = "userial-tests";
     });
     systems = [ "userial-tests" ];
-    lispLibs = [ (getAttr "nst" pkgs) (getAttr "userial" pkgs) ];
+    lispLibs = [
+      (getAttr "nst" pkgs)
+      (getAttr "userial" pkgs)
+    ];
   };
   usocket = {
     pname = "usocket";
@@ -85637,7 +88987,10 @@ in {
       asd = "usocket-server";
     });
     systems = [ "usocket-server" ];
-    lispLibs = [ (getAttr "bordeaux-threads" pkgs) (getAttr "usocket" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "usocket" pkgs)
+    ];
   };
   usocket-test = {
     pname = "usocket-test";
@@ -85651,7 +89004,10 @@ in {
       asd = "usocket-test";
     });
     systems = [ "usocket-test" ];
-    lispLibs = [ (getAttr "rt" pkgs) (getAttr "usocket-server" pkgs) ];
+    lispLibs = [
+      (getAttr "rt" pkgs)
+      (getAttr "usocket-server" pkgs)
+    ];
   };
   utilities_dot_binary-dump = {
     pname = "utilities.binary-dump";
@@ -85719,8 +89075,10 @@ in {
       asd = "utilities.print-items";
     });
     systems = [ "utilities.print-items/test" ];
-    lispLibs =
-      [ (getAttr "fiveam" pkgs) (getAttr "utilities_dot_print-items" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "utilities_dot_print-items" pkgs)
+    ];
     meta = { broken = true; };
   };
   utilities_dot_print-tree = {
@@ -85735,7 +89093,10 @@ in {
       asd = "utilities.print-tree";
     });
     systems = [ "utilities.print-tree" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "uiop" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "uiop" pkgs)
+    ];
   };
   utilities_dot_print-tree_slash_test = {
     pname = "utilities.print-tree_test";
@@ -85839,7 +89200,10 @@ in {
       asd = "utm-ups";
     });
     systems = [ "utm-ups/tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "utm-ups" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "utm-ups" pkgs)
+    ];
     meta = { broken = true; };
   };
   utm_dot_test = {
@@ -85854,7 +89218,10 @@ in {
       asd = "utm.test";
     });
     systems = [ "utm.test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "utm" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "utm" pkgs)
+    ];
   };
   uuid = {
     pname = "uuid";
@@ -85868,7 +89235,10 @@ in {
       asd = "uuid";
     });
     systems = [ "uuid" ];
-    lispLibs = [ (getAttr "ironclad" pkgs) (getAttr "trivial-utf-8" pkgs) ];
+    lispLibs = [
+      (getAttr "ironclad" pkgs)
+      (getAttr "trivial-utf-8" pkgs)
+    ];
   };
   validate-list = {
     pname = "validate-list";
@@ -85900,7 +89270,10 @@ in {
       asd = "validate-list";
     });
     systems = [ "validate-list/tests" ];
-    lispLibs = [ (getAttr "lisp-unit" pkgs) (getAttr "validate-list" pkgs) ];
+    lispLibs = [
+      (getAttr "lisp-unit" pkgs)
+      (getAttr "validate-list" pkgs)
+    ];
     meta = { broken = true; };
   };
   varint = {
@@ -85915,8 +89288,10 @@ in {
       asd = "varint";
     });
     systems = [ "varint" ];
-    lispLibs =
-      [ (getAttr "com_dot_google_dot_base" pkgs) (getAttr "nibbles" pkgs) ];
+    lispLibs = [
+      (getAttr "com_dot_google_dot_base" pkgs)
+      (getAttr "nibbles" pkgs)
+    ];
   };
   varint_slash_test = {
     pname = "varint_test";
@@ -85930,8 +89305,10 @@ in {
       asd = "varint";
     });
     systems = [ "varint/test" ];
-    lispLibs =
-      [ (getAttr "hu_dot_dwim_dot_stefil" pkgs) (getAttr "varint" pkgs) ];
+    lispLibs = [
+      (getAttr "hu_dot_dwim_dot_stefil" pkgs)
+      (getAttr "varint" pkgs)
+    ];
     meta = { broken = true; };
   };
   varjo = {
@@ -86230,7 +89607,10 @@ in {
       asd = "veq";
     });
     systems = [ "veq/tests" ];
-    lispLibs = [ (getAttr "veq" pkgs) (getAttr "prove" pkgs) ];
+    lispLibs = [
+      (getAttr "veq" pkgs)
+      (getAttr "prove" pkgs)
+    ];
     meta = { broken = true; };
   };
   verbose = {
@@ -86364,7 +89744,10 @@ in {
       asd = "vertex-test";
     });
     systems = [ "vertex-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "vertex" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "vertex" pkgs)
+    ];
   };
   vex = {
     pname = "vex";
@@ -86417,7 +89800,10 @@ in {
       asd = "vgplot";
     });
     systems = [ "vgplot/test" ];
-    lispLibs = [ (getAttr "lisp-unit" pkgs) (getAttr "vgplot" pkgs) ];
+    lispLibs = [
+      (getAttr "lisp-unit" pkgs)
+      (getAttr "vgplot" pkgs)
+    ];
     meta = { broken = true; };
   };
   vivid-colors = {
@@ -86476,8 +89862,10 @@ in {
       asd = "vivid-colors.content.test";
     });
     systems = [ "vivid-colors.content.test" ];
-    lispLibs =
-      [ (getAttr "jingoh" pkgs) (getAttr "vivid-colors_dot_content" pkgs) ];
+    lispLibs = [
+      (getAttr "jingoh" pkgs)
+      (getAttr "vivid-colors_dot_content" pkgs)
+    ];
   };
   vivid-colors_dot_dispatch = {
     pname = "vivid-colors.dispatch";
@@ -86509,8 +89897,10 @@ in {
       asd = "vivid-colors.dispatch.test";
     });
     systems = [ "vivid-colors.dispatch.test" ];
-    lispLibs =
-      [ (getAttr "jingoh" pkgs) (getAttr "vivid-colors_dot_dispatch" pkgs) ];
+    lispLibs = [
+      (getAttr "jingoh" pkgs)
+      (getAttr "vivid-colors_dot_dispatch" pkgs)
+    ];
   };
   vivid-colors_dot_queue = {
     pname = "vivid-colors.queue";
@@ -86542,8 +89932,10 @@ in {
       asd = "vivid-colors.queue.test";
     });
     systems = [ "vivid-colors.queue.test" ];
-    lispLibs =
-      [ (getAttr "jingoh" pkgs) (getAttr "vivid-colors_dot_queue" pkgs) ];
+    lispLibs = [
+      (getAttr "jingoh" pkgs)
+      (getAttr "vivid-colors_dot_queue" pkgs)
+    ];
   };
   vivid-colors_dot_shared = {
     pname = "vivid-colors.shared";
@@ -86571,8 +89963,10 @@ in {
       asd = "vivid-colors.shared.test";
     });
     systems = [ "vivid-colors.shared.test" ];
-    lispLibs =
-      [ (getAttr "jingoh" pkgs) (getAttr "vivid-colors_dot_shared" pkgs) ];
+    lispLibs = [
+      (getAttr "jingoh" pkgs)
+      (getAttr "vivid-colors_dot_shared" pkgs)
+    ];
   };
   vivid-colors_dot_stream = {
     pname = "vivid-colors.stream";
@@ -86608,8 +90002,10 @@ in {
       asd = "vivid-colors.stream.test";
     });
     systems = [ "vivid-colors.stream.test" ];
-    lispLibs =
-      [ (getAttr "jingoh" pkgs) (getAttr "vivid-colors_dot_stream" pkgs) ];
+    lispLibs = [
+      (getAttr "jingoh" pkgs)
+      (getAttr "vivid-colors_dot_stream" pkgs)
+    ];
   };
   vivid-colors_dot_test = {
     pname = "vivid-colors.test";
@@ -86623,7 +90019,10 @@ in {
       asd = "vivid-colors.test";
     });
     systems = [ "vivid-colors.test" ];
-    lispLibs = [ (getAttr "jingoh" pkgs) (getAttr "vivid-colors" pkgs) ];
+    lispLibs = [
+      (getAttr "jingoh" pkgs)
+      (getAttr "vivid-colors" pkgs)
+    ];
   };
   vivid-diff = {
     pname = "vivid-diff";
@@ -86693,7 +90092,10 @@ in {
       asd = "vk";
     });
     systems = [ "vk/tests" ];
-    lispLibs = [ (getAttr "rove" pkgs) (getAttr "vk" pkgs) ];
+    lispLibs = [
+      (getAttr "rove" pkgs)
+      (getAttr "vk" pkgs)
+    ];
     meta = { broken = true; };
   };
   voipms = {
@@ -86708,8 +90110,10 @@ in {
       asd = "voipms";
     });
     systems = [ "voipms" ];
-    lispLibs =
-      [ (getAttr "erjoalgo-webutil" pkgs) (getAttr "local-time" pkgs) ];
+    lispLibs = [
+      (getAttr "erjoalgo-webutil" pkgs)
+      (getAttr "local-time" pkgs)
+    ];
   };
   vom = {
     pname = "vom";
@@ -86755,7 +90159,10 @@ in {
       asd = "vom-json";
     });
     systems = [ "vom-json/test" ];
-    lispLibs = [ (getAttr "rove" pkgs) (getAttr "vom-json" pkgs) ];
+    lispLibs = [
+      (getAttr "rove" pkgs)
+      (getAttr "vom-json" pkgs)
+    ];
     meta = { broken = true; };
   };
   vorbisfile-ffi = {
@@ -86770,7 +90177,10 @@ in {
       asd = "vorbisfile-ffi";
     });
     systems = [ "vorbisfile-ffi" ];
-    lispLibs = [ (getAttr "cffi" pkgs) (getAttr "cffi-grovel" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi" pkgs)
+      (getAttr "cffi-grovel" pkgs)
+    ];
   };
   vp-trees = {
     pname = "vp-trees";
@@ -86798,7 +90208,10 @@ in {
       asd = "vp-trees";
     });
     systems = [ "vp-trees/tests" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "vp-trees" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "vp-trees" pkgs)
+    ];
     meta = { broken = true; };
   };
   wallstreetflets = {
@@ -86853,7 +90266,10 @@ in {
       asd = "wasm-encoder";
     });
     systems = [ "wasm-encoder/test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "wasm-encoder" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "wasm-encoder" pkgs)
+    ];
     meta = { broken = true; };
   };
   water = {
@@ -86882,7 +90298,10 @@ in {
       asd = "wayflan";
     });
     systems = [ "wayflan" ];
-    lispLibs = [ (getAttr "cffi-grovel" pkgs) (getAttr "wayflan-client" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi-grovel" pkgs)
+      (getAttr "wayflan-client" pkgs)
+    ];
   };
   wayflan-client = {
     pname = "wayflan-client";
@@ -86961,7 +90380,10 @@ in {
       asd = "wayflan";
     });
     systems = [ "wayflan/test" ];
-    lispLibs = [ (getAttr "parachute" pkgs) (getAttr "wayflan" pkgs) ];
+    lispLibs = [
+      (getAttr "parachute" pkgs)
+      (getAttr "wayflan" pkgs)
+    ];
     meta = { broken = true; };
   };
   webactions = {
@@ -87054,7 +90476,10 @@ in {
       asd = "weblocks-montezuma";
     });
     systems = [ "weblocks-montezuma" ];
-    lispLibs = [ (getAttr "montezuma" pkgs) (getAttr "weblocks-stores" pkgs) ];
+    lispLibs = [
+      (getAttr "montezuma" pkgs)
+      (getAttr "weblocks-stores" pkgs)
+    ];
   };
   weblocks-perec = {
     pname = "weblocks-perec";
@@ -87106,7 +90531,10 @@ in {
       asd = "weblocks-scripts";
     });
     systems = [ "weblocks-scripts" ];
-    lispLibs = [ (getAttr "cl-fad" pkgs) (getAttr "cl-ppcre" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-fad" pkgs)
+      (getAttr "cl-ppcre" pkgs)
+    ];
   };
   weblocks-stores = {
     pname = "weblocks-stores";
@@ -87290,7 +90718,10 @@ in {
       asd = "westbrook-tests";
     });
     systems = [ "westbrook-tests" ];
-    lispLibs = [ (getAttr "fiasco" pkgs) (getAttr "westbrook" pkgs) ];
+    lispLibs = [
+      (getAttr "fiasco" pkgs)
+      (getAttr "westbrook" pkgs)
+    ];
   };
   what3words = {
     pname = "what3words";
@@ -87340,7 +90771,10 @@ in {
       asd = "which-test";
     });
     systems = [ "which-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "which" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "which" pkgs)
+    ];
   };
   whirlog = {
     pname = "whirlog";
@@ -87368,7 +90802,10 @@ in {
       asd = "whofields";
     });
     systems = [ "whofields" ];
-    lispLibs = [ (getAttr "asdf-package-system" pkgs) (getAttr "cl-who" pkgs) ];
+    lispLibs = [
+      (getAttr "asdf-package-system" pkgs)
+      (getAttr "cl-who" pkgs)
+    ];
   };
   whofields_slash_test = {
     pname = "whofields_test";
@@ -87425,8 +90862,10 @@ in {
       asd = "wild-package-inferred-system";
     });
     systems = [ "wild-package-inferred-system/test" ];
-    lispLibs =
-      [ (getAttr "fiveam" pkgs) (getAttr "wild-package-inferred-system" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "wild-package-inferred-system" pkgs)
+    ];
     meta = { broken = true; };
   };
   window = {
@@ -87493,7 +90932,10 @@ in {
       asd = "winlock";
     });
     systems = [ "winlock/test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "winlock" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "winlock" pkgs)
+    ];
     meta = { broken = true; };
   };
   wire-world = {
@@ -87522,7 +90964,10 @@ in {
       asd = "with-branching";
     });
     systems = [ "with-branching" ];
-    lispLibs = [ (getAttr "alexandria" pkgs) (getAttr "trivial-indent" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "trivial-indent" pkgs)
+    ];
   };
   with-branching_slash_dangerous = {
     pname = "with-branching_dangerous";
@@ -87551,8 +90996,10 @@ in {
       asd = "with-branching";
     });
     systems = [ "with-branching/test" ];
-    lispLibs =
-      [ (getAttr "agnostic-lizard" pkgs) (getAttr "with-branching" pkgs) ];
+    lispLibs = [
+      (getAttr "agnostic-lizard" pkgs)
+      (getAttr "with-branching" pkgs)
+    ];
     meta = { broken = true; };
   };
   with-c-syntax = {
@@ -87651,8 +91098,10 @@ in {
       asd = "with-output-to-stream_tests";
     });
     systems = [ "with-output-to-stream_tests" ];
-    lispLibs =
-      [ (getAttr "parachute" pkgs) (getAttr "with-output-to-stream" pkgs) ];
+    lispLibs = [
+      (getAttr "parachute" pkgs)
+      (getAttr "with-output-to-stream" pkgs)
+    ];
   };
   with-setf = {
     pname = "with-setf";
@@ -87694,8 +91143,10 @@ in {
       asd = "with-shadowed-bindings_tests";
     });
     systems = [ "with-shadowed-bindings_tests" ];
-    lispLibs =
-      [ (getAttr "parachute" pkgs) (getAttr "with-shadowed-bindings" pkgs) ];
+    lispLibs = [
+      (getAttr "parachute" pkgs)
+      (getAttr "with-shadowed-bindings" pkgs)
+    ];
   };
   with-user-abort = {
     pname = "with-user-abort";
@@ -87834,8 +91285,10 @@ in {
       asd = "workout-timer";
     });
     systems = [ "workout-timer/static" ];
-    lispLibs =
-      [ (getAttr "cffi-toolchain" pkgs) (getAttr "workout-timer" pkgs) ];
+    lispLibs = [
+      (getAttr "cffi-toolchain" pkgs)
+      (getAttr "workout-timer" pkgs)
+    ];
     meta = { broken = true; };
   };
   wu-decimal = {
@@ -87898,7 +91351,10 @@ in {
       asd = "wuwei";
     });
     systems = [ "wuwei-examples" ];
-    lispLibs = [ (getAttr "drakma" pkgs) (getAttr "wuwei" pkgs) ];
+    lispLibs = [
+      (getAttr "drakma" pkgs)
+      (getAttr "wuwei" pkgs)
+    ];
   };
   x_dot_let-star = {
     pname = "x.let-star";
@@ -87945,7 +91401,10 @@ in {
       asd = "xarray-test";
     });
     systems = [ "xarray-test" ];
-    lispLibs = [ (getAttr "lift" pkgs) (getAttr "xarray" pkgs) ];
+    lispLibs = [
+      (getAttr "lift" pkgs)
+      (getAttr "xarray" pkgs)
+    ];
   };
   xcat = {
     pname = "xcat";
@@ -88023,7 +91482,10 @@ in {
       asd = "xfactory";
     });
     systems = [ "xfactory-test" ];
-    lispLibs = [ (getAttr "xfactory" pkgs) (getAttr "lift" pkgs) ];
+    lispLibs = [
+      (getAttr "xfactory" pkgs)
+      (getAttr "lift" pkgs)
+    ];
   };
   xhtmlambda = {
     pname = "xhtmlambda";
@@ -88065,7 +91527,10 @@ in {
       asd = "xhtmlgen";
     });
     systems = [ "xhtmlgen-test" ];
-    lispLibs = [ (getAttr "rt" pkgs) (getAttr "xhtmlgen" pkgs) ];
+    lispLibs = [
+      (getAttr "rt" pkgs)
+      (getAttr "xhtmlgen" pkgs)
+    ];
   };
   xkeyboard = {
     pname = "xkeyboard";
@@ -88167,7 +91632,10 @@ in {
       asd = "xml-emitter";
     });
     systems = [ "xml-emitter/tests" ];
-    lispLibs = [ (getAttr "_1am" pkgs) (getAttr "xml-emitter" pkgs) ];
+    lispLibs = [
+      (getAttr "_1am" pkgs)
+      (getAttr "xml-emitter" pkgs)
+    ];
     meta = { broken = true; };
   };
   xml-mop = {
@@ -88182,7 +91650,10 @@ in {
       asd = "xml-mop";
     });
     systems = [ "xml-mop" ];
-    lispLibs = [ (getAttr "closer-mop" pkgs) (getAttr "s-xml" pkgs) ];
+    lispLibs = [
+      (getAttr "closer-mop" pkgs)
+      (getAttr "s-xml" pkgs)
+    ];
   };
   xml-render = {
     pname = "xml-render";
@@ -88196,7 +91667,10 @@ in {
       asd = "xml-render";
     });
     systems = [ "xml-render" ];
-    lispLibs = [ (getAttr "cl-typesetting" pkgs) (getAttr "xmls" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-typesetting" pkgs)
+      (getAttr "xmls" pkgs)
+    ];
   };
   xml_dot_location = {
     pname = "xml.location";
@@ -88233,8 +91707,10 @@ in {
       asd = "xml.location-and-local-time";
     });
     systems = [ "xml.location-and-local-time" ];
-    lispLibs =
-      [ (getAttr "local-time" pkgs) (getAttr "xml_dot_location" pkgs) ];
+    lispLibs = [
+      (getAttr "local-time" pkgs)
+      (getAttr "xml_dot_location" pkgs)
+    ];
   };
   xml_dot_location_slash_test = {
     pname = "xml.location_test";
@@ -88248,7 +91724,10 @@ in {
       asd = "xml.location";
     });
     systems = [ "xml.location/test" ];
-    lispLibs = [ (getAttr "lift" pkgs) (getAttr "xml_dot_location" pkgs) ];
+    lispLibs = [
+      (getAttr "lift" pkgs)
+      (getAttr "xml_dot_location" pkgs)
+    ];
     meta = { broken = true; };
   };
   xmls = {
@@ -88311,7 +91790,10 @@ in {
       asd = "xmls";
     });
     systems = [ "xmls/unit-test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "xmls" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "xmls" pkgs)
+    ];
     meta = { broken = true; };
   };
   xoverlay = {
@@ -88454,7 +91936,10 @@ in {
       asd = "yaclml";
     });
     systems = [ "yaclml" ];
-    lispLibs = [ (getAttr "arnesi" pkgs) (getAttr "iterate" pkgs) ];
+    lispLibs = [
+      (getAttr "arnesi" pkgs)
+      (getAttr "iterate" pkgs)
+    ];
   };
   yaclml_slash_test = {
     pname = "yaclml_test";
@@ -88468,7 +91953,10 @@ in {
       asd = "yaclml";
     });
     systems = [ "yaclml/test" ];
-    lispLibs = [ (getAttr "fiveam" pkgs) (getAttr "yaclml" pkgs) ];
+    lispLibs = [
+      (getAttr "fiveam" pkgs)
+      (getAttr "yaclml" pkgs)
+    ];
     meta = { broken = true; };
   };
   yadd = {
@@ -88483,7 +91971,10 @@ in {
       asd = "yadd";
     });
     systems = [ "yadd" ];
-    lispLibs = [ (getAttr "cl-html-parse" pkgs) (getAttr "gwl-graphics" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-html-parse" pkgs)
+      (getAttr "gwl-graphics" pkgs)
+    ];
   };
   yah = {
     pname = "yah";
@@ -88511,8 +92002,10 @@ in {
       asd = "yason";
     });
     systems = [ "yason" ];
-    lispLibs =
-      [ (getAttr "alexandria" pkgs) (getAttr "trivial-gray-streams" pkgs) ];
+    lispLibs = [
+      (getAttr "alexandria" pkgs)
+      (getAttr "trivial-gray-streams" pkgs)
+    ];
   };
   youtube = {
     pname = "youtube";
@@ -88810,7 +92303,10 @@ in {
       asd = "zippy-dwim";
     });
     systems = [ "zippy-dwim" ];
-    lispLibs = [ (getAttr "deploy" pkgs) (getAttr "zippy" pkgs) ];
+    lispLibs = [
+      (getAttr "deploy" pkgs)
+      (getAttr "zippy" pkgs)
+    ];
   };
   ziz = {
     pname = "ziz";
@@ -88876,7 +92372,10 @@ in {
       asd = "zmq-examples";
     });
     systems = [ "zmq-examples" ];
-    lispLibs = [ (getAttr "bordeaux-threads" pkgs) (getAttr "zmq" pkgs) ];
+    lispLibs = [
+      (getAttr "bordeaux-threads" pkgs)
+      (getAttr "zmq" pkgs)
+    ];
   };
   zmq-test = {
     pname = "zmq-test";
@@ -89097,7 +92596,10 @@ in {
       asd = "zyre";
     });
     systems = [ "zyre/zyredir" ];
-    lispLibs = [ (getAttr "cl-json" pkgs) (getAttr "zyre" pkgs) ];
+    lispLibs = [
+      (getAttr "cl-json" pkgs)
+      (getAttr "zyre" pkgs)
+    ];
     meta = { broken = true; };
   };
 }

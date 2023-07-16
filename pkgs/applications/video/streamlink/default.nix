@@ -51,6 +51,10 @@ python3Packages.buildPythonApplication rec {
     changelog =
       "https://github.com/streamlink/streamlink/raw/${version}/CHANGELOG.md";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ dezgeg zraexy DeeUnderscore ];
+    maintainers = with maintainers; [
+      dezgeg
+      zraexy
+      DeeUnderscore
+    ];
   };
 }

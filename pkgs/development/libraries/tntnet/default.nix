@@ -17,7 +17,12 @@ stdenv.mkDerivation rec {
     sha256 = "08bmak9mpbamwwl3h9p8x5qzwqlm9g3jh70y0ml5hk7hiv870cf8";
   };
 
-  buildInputs = [ cxxtools zlib openssl zip ];
+  buildInputs = [
+    cxxtools
+    zlib
+    openssl
+    zip
+  ];
 
   enableParallelBuilding = true;
 

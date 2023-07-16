@@ -20,7 +20,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-zFXQUQVPqTur7m+aL0JhSiZI+EEFo9nCTVu1yAOgp/I=";
 
-  nativeBuildInputs = [ installShellFiles pkg-config ];
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+  ];
 
   buildInputs = [ openssl ];
 

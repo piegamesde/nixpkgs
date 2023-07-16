@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8M+016RnwZt0BrRaCTytpl7o+8MJAkS5CG/GvNAJRgk=";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook file ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+    file
+  ];
 
   meta = with lib; {
     description = "exFAT filesystem userspace utilities";

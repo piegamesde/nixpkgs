@@ -30,7 +30,12 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ python-dateutil ]
     ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-mock pytz simplejson ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-mock
+    pytz
+    simplejson
+  ];
 
   # ParserError: Could not parse timezone expression "America/Nuuk"
   disabledTests = [ "test_parse_tz_name_zzz" ];

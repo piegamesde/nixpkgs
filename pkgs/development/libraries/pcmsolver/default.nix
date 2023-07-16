@@ -29,9 +29,18 @@ stdenv.mkDerivation rec {
       --replace SIGSTKSZ _SC_SIGSTKSZ
   '';
 
-  nativeBuildInputs = [ cmake gfortran perl python3 ];
+  nativeBuildInputs = [
+    cmake
+    gfortran
+    perl
+    python3
+  ];
 
-  buildInputs = [ boost eigen zlib ];
+  buildInputs = [
+    boost
+    eigen
+    zlib
+  ];
 
   cmakeFlags = [ "-DENABLE_OPENMP=ON" ];
 

@@ -44,7 +44,13 @@ in gcc12Stdenv.mkDerivation rec {
     hash = "sha256-meOx8SkufXbXuBIVefr/mO9fsUi3zeQmqmf86+aDMaI=";
   };
 
-  nativeBuildInputs = [ cmake llvm python3 perl pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    llvm
+    python3
+    perl
+    pkg-config
+  ];
 
   buildInputs = [
     capstone

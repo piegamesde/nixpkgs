@@ -35,9 +35,21 @@ in buildGoPackage rec {
     sha256 = "0yhln3kyc0098hbnjyxhbd915g6j7s692c0z8yrhh9gdpc5cr2aa";
   };
 
-  nativeBuildInputs = [ pkg-config go-bindata makeWrapper ];
-  buildInputs =
-    [ glib gtk3 libappindicator-gtk3 gpgme ostree libselinux btrfs-progs lvm2 ];
+  nativeBuildInputs = [
+    pkg-config
+    go-bindata
+    makeWrapper
+  ];
+  buildInputs = [
+    glib
+    gtk3
+    libappindicator-gtk3
+    gpgme
+    ostree
+    libselinux
+    btrfs-progs
+    lvm2
+  ];
 
   goPackagePath = "github.com/minishift/minishift";
   subPackages = [ "cmd/minishift" ];
@@ -63,7 +75,12 @@ in buildGoPackage rec {
 
   postInstall = ''
     wrapProgram "$out/bin/minishift" \
-      --prefix PATH ':' '${lib.makeBinPath [ docker-machine-kvm openshift ]}'
+      --prefix PATH ':' '${
+        lib.makeBinPath [
+          docker-machine-kvm
+          openshift
+        ]
+      }'
   '';
 
   meta = with lib; {

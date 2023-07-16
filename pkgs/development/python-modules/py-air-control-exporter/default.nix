@@ -21,7 +21,12 @@ buildPythonPackage rec {
     sha256 = "0cwhcyyjzc6wlj7jp5h7fcj1hl03wzrz1if3sg205kh2hfrzzlqq";
   };
 
-  propagatedBuildInputs = [ click flask prometheus-client py-air-control ];
+  propagatedBuildInputs = [
+    click
+    flask
+    prometheus-client
+    py-air-control
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

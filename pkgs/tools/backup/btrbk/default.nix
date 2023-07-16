@@ -27,9 +27,15 @@ stdenv.mkDerivation rec {
     sha256 = "AuKsZHyRhGMgLL5ge7lVV6T3/SNwaRJDM8VNpbK7t2s=";
   };
 
-  nativeBuildInputs = [ asciidoctor makeWrapper ];
+  nativeBuildInputs = [
+    asciidoctor
+    makeWrapper
+  ];
 
-  buildInputs = with perlPackages; [ perl DateCalc ];
+  buildInputs = with perlPackages; [
+    perl
+    DateCalc
+  ];
 
   preInstall = ''
     for f in $(find . -name Makefile); do
@@ -53,7 +59,12 @@ stdenv.mkDerivation rec {
       --set PERL5LIB $PERL5LIB \
       --run 'export program_name=$0' \
       --prefix PATH ':' "${
-        lib.makeBinPath [ btrfs-progs bash mbuffer openssh ]
+        lib.makeBinPath [
+          btrfs-progs
+          bash
+          mbuffer
+          openssh
+        ]
       }"
   '';
 

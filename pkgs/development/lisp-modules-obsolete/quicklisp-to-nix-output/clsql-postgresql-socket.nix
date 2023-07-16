@@ -8,7 +8,11 @@ args@{
 
   description = "Common Lisp SQL PostgreSQL Socket Driver";
 
-  deps = [ args."clsql" args."md5" args."uffi" ];
+  deps = [
+    args."clsql"
+    args."md5"
+    args."uffi"
+  ];
 
   src = fetchurl {
     url =

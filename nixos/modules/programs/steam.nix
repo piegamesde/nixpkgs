@@ -151,16 +151,18 @@ in {
 
     hardware.steam-hardware.enable = true;
 
-    environment.systemPackages = [ cfg.package cfg.package.run ]
-      ++ lib.optional cfg.gamescopeSession.enable steam-gamescope;
+    environment.systemPackages = [
+      cfg.package
+      cfg.package.run
+    ] ++ lib.optional cfg.gamescopeSession.enable steam-gamescope;
 
     networking.firewall = lib.mkMerge [
       (mkIf cfg.remotePlay.openFirewall {
         allowedTCPPorts = [ 27036 ];
-        allowedUDPPortRanges = [{
+        allowedUDPPortRanges = [ {
           from = 27031;
           to = 27036;
-        }];
+        } ];
       })
 
       (mkIf cfg.dedicatedServer.openFirewall {

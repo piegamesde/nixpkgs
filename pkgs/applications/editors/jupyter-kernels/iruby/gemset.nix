@@ -21,7 +21,10 @@
     version = "2.0.1";
   };
   amqp = {
-    dependencies = [ "amq-protocol" "eventmachine" ];
+    dependencies = [
+      "amq-protocol"
+      "eventmachine"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -197,7 +200,12 @@
     version = "0.6.0";
   };
   iruby = {
-    dependencies = [ "bond" "data_uri" "mimemagic" "multi_json" ];
+    dependencies = [
+      "bond"
+      "data_uri"
+      "mimemagic"
+      "multi_json"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -402,7 +410,10 @@
     version = "2.1.1";
   };
   sensu-logger = {
-    dependencies = [ "eventmachine" "sensu-json" ];
+    dependencies = [
+      "eventmachine"
+      "sensu-json"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -424,7 +435,10 @@
     version = "2.4.0";
   };
   sensu-settings = {
-    dependencies = [ "parse-cron" "sensu-json" ];
+    dependencies = [
+      "parse-cron"
+      "sensu-json"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -435,7 +449,12 @@
     version = "10.14.0";
   };
   sensu-spawn = {
-    dependencies = [ "childprocess" "em-worker" "eventmachine" "ffi" ];
+    dependencies = [
+      "childprocess"
+      "em-worker"
+      "eventmachine"
+      "ffi"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -446,7 +465,12 @@
     version = "2.5.0";
   };
   sensu-transport = {
-    dependencies = [ "amq-protocol" "amqp" "eventmachine" "sensu-redis" ];
+    dependencies = [
+      "amq-protocol"
+      "amqp"
+      "eventmachine"
+      "sensu-redis"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

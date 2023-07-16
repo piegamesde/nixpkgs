@@ -26,7 +26,12 @@ buildPythonPackage rec {
     hash = "sha256-5+l3JkK/8S1KFXqa0++l3mIQ2KCpHe9+DiVqasBAZA0=";
   };
 
-  propagatedBuildInputs = [ plantuml markdown requests six ];
+  propagatedBuildInputs = [
+    plantuml
+    markdown
+    requests
+    six
+  ];
 
   # The package uses a custom script that downloads a certain version of plantuml for testing.
   doCheck = false;

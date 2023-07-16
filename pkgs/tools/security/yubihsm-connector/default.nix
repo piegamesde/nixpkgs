@@ -23,7 +23,10 @@ buildGoModule rec {
 
   buildInputs = [ libusb1 ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   preBuild = ''
     go generate

@@ -21,7 +21,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/YIZMSCKJlnPL+pmUWfVf8tINKjXKkGAK7rWQ98RRjQ=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules gettext libime boost fcitx5 ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    gettext
+    libime
+    boost
+    fcitx5
+  ];
 
   meta = with lib; {
     description =

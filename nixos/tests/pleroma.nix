@@ -189,7 +189,10 @@ import ./make-test-python.nix ({
         }: {
           security.pki.certificateFiles = [ "${tls-cert}/cert.pem" ];
           networking.extraHosts = hosts nodes;
-          environment.systemPackages = with pkgs; [ toot send-toot ];
+          environment.systemPackages = with pkgs; [
+            toot
+            send-toot
+          ];
         };
       pleroma = {
           nodes,

@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-uMbwofboePCFWlxEOdRbZK7uZuj0MZC/qusWuu0Bm7g=";
   };
 
-  buildInputs = [ fuse ncurses python3 ];
+  buildInputs = [
+    fuse
+    ncurses
+    python3
+  ];
 
   configureFlags = [ "--enable-python" ];
 

@@ -30,10 +30,24 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ doxygen pkg-config python ];
-  buildInputs =
-    [ libzip glib libusb1 libftdi1 check libserialport glibmm hidapi ]
-    ++ lib.optionals stdenv.isLinux [ libieee1284 bluez ];
+  nativeBuildInputs = [
+    doxygen
+    pkg-config
+    python
+  ];
+  buildInputs = [
+    libzip
+    glib
+    libusb1
+    libftdi1
+    check
+    libserialport
+    glibmm
+    hidapi
+  ] ++ lib.optionals stdenv.isLinux [
+    libieee1284
+    bluez
+  ];
 
   strictDeps = true;
 

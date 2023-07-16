@@ -80,9 +80,8 @@ in {
         type = types.listOf types.str;
         description = lib.mdDoc "List of Change Sources.";
         default = [ ];
-        example = [
-          "changes.GitPoller('https://github.com/buildbot/pyflakes.git', workdir='gitpoller-workdir', branch='master', pollinterval=300)"
-        ];
+        example =
+          [ "changes.GitPoller('https://github.com/buildbot/pyflakes.git', workdir='gitpoller-workdir', branch='master', pollinterval=300)" ];
       };
 
       enable = mkOption {
@@ -119,9 +118,8 @@ in {
       builders = mkOption {
         type = types.listOf types.str;
         description = lib.mdDoc "List of Builders.";
-        default = [
-          "util.BuilderConfig(name='runtests',workernames=['example-worker'],factory=factory)"
-        ];
+        default =
+          [ "util.BuilderConfig(name='runtests',workernames=['example-worker'],factory=factory)" ];
       };
 
       workers = mkOption {
@@ -296,16 +294,27 @@ in {
   };
 
   imports = [
-    (mkRenamedOptionModule [ "services" "buildbot-master" "bpPort" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "buildbot-master"
+      "bpPort"
+    ] [
       "services"
       "buildbot-master"
       "pbPort"
     ])
-    (mkRemovedOptionModule [ "services" "buildbot-master" "status" ] ''
+    (mkRemovedOptionModule [
+      "services"
+      "buildbot-master"
+      "status"
+    ] ''
       Since Buildbot 0.9.0, status targets are deprecated and ignored.
       Review your configuration and migrate to reporters (available at services.buildbot-master.reporters).
     '')
   ];
 
-  meta.maintainers = with lib.maintainers; [ mic92 lopsided98 ];
+  meta.maintainers = with lib.maintainers; [
+    mic92
+    lopsided98
+  ];
 }

@@ -17,8 +17,14 @@ stdenv.mkDerivation rec {
   pname = "mblaze";
   version = "1.2";
 
-  nativeBuildInputs = [ installShellFiles makeWrapper ];
-  buildInputs = [ libiconv ruby ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+  ];
+  buildInputs = [
+    libiconv
+    ruby
+  ];
 
   src = fetchFromGitHub {
     owner = "leahneukirchen";
@@ -50,7 +56,13 @@ stdenv.mkDerivation rec {
         --argv0 $out/bin/$x \
         --prefix PATH : $out/bin \
         --prefix PATH : ${
-          lib.makeBinPath [ coreutils file gawk gnugrep gnused ]
+          lib.makeBinPath [
+            coreutils
+            file
+            gawk
+            gnugrep
+            gnused
+          ]
         }
     done
   '';

@@ -34,22 +34,44 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dwDNMLgZrILb559yGs4sNA7D+nD60972+JOy0PKfL0w=";
   };
 
-  buildInputs = [ bash-completion libGL ]
-    ++ lib.optionals (with stdenv.hostPlatform; isUnix && !isDarwin)
-    [ libglvnd ] ++ lib.optionals x11Support [ libX11 libxcb ]
-    ++ lib.optionals waylandSupport [ wayland wayland-protocols ]
-    ++ lib.optionals useGbm [ udev mesa ];
+  buildInputs = [
+    bash-completion
+    libGL
+  ] ++ lib.optionals
+    (with stdenv.hostPlatform; isUnix && !isDarwin) [ libglvnd ]
+    ++ lib.optionals x11Support [
+      libX11
+      libxcb
+    ] ++ lib.optionals waylandSupport [
+      wayland
+      wayland-protocols
+    ] ++ lib.optionals useGbm [
+      udev
+      mesa
+    ];
 
   dontUseCmakeConfigure = true;
 
-  nativeBuildInputs = [ cmake makeWrapper meson ninja pkg-config python3 ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    meson
+    ninja
+    pkg-config
+    python3
+  ];
 
   PKG_CONFIG_BASH_COMPLETION_COMPLETIONSDIR =
     "${placeholder "out"}/share/bash-completion/completions";
 
   postInstall = ''
     wrapProgram $out/bin/wflinfo \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libGL libglvnd ]}
+      --prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          libGL
+          libglvnd
+        ]
+      }
   '';
 
   meta = with lib; {

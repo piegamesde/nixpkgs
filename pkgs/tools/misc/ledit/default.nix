@@ -23,7 +23,10 @@ stdenv.mkDerivation {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ ocaml camlp5 ];
+  nativeBuildInputs = [
+    ocaml
+    camlp5
+  ];
 
   meta = with lib; {
     homepage = "http://pauillac.inria.fr/~ddr/ledit/";

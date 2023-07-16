@@ -31,9 +31,17 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ mako parse parse-type typing-extensions ];
+  propagatedBuildInputs = [
+    mako
+    parse
+    parse-type
+    typing-extensions
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook setuptools ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    setuptools
+  ];
 
   preCheck = ''
     export PATH=$PATH:$out/bin

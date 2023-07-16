@@ -25,8 +25,10 @@ buildPythonPackage rec {
     hash = "sha256-pTP4WleVUmFDPCUHAUdjBMw3QDfAq2aw5TcrSEZ0nVw=";
   };
 
-  propagatedBuildInputs = [ uritemplate pyjwt ]
-    ++ pyjwt.optional-dependencies.crypto;
+  propagatedBuildInputs = [
+    uritemplate
+    pyjwt
+  ] ++ pyjwt.optional-dependencies.crypto;
 
   nativeCheckInputs = [
     pytestCheckHook

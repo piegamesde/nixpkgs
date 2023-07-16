@@ -19,7 +19,11 @@ buildPythonPackage rec {
 
   buildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ pycryptodome requests six ];
+  propagatedBuildInputs = [
+    pycryptodome
+    requests
+    six
+  ];
 
   pythonImportsCheck = [ "httpsig" ];
 

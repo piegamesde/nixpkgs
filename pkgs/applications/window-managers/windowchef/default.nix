@@ -21,7 +21,14 @@ stdenv.mkDerivation rec {
     sha256 = "1m4vly7w2f28lrj26rhh3x9xsp3d97m5cxj91fafgh5rds4ygyhp";
   };
 
-  buildInputs = [ libxcb libXrandr xcbutil xcbutilkeysyms xcbutilwm xcbproto ];
+  buildInputs = [
+    libxcb
+    libXrandr
+    xcbutil
+    xcbutilkeysyms
+    xcbutilwm
+    xcbproto
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

@@ -21,9 +21,18 @@ stdenv.mkDerivation {
     sha256 = "sha256-pPvYVLUPYdjtJKdxqZI+JN7OZ4xw9gZ3baYTnJUSTGE=";
   };
 
-  nativeBuildInputs = [ pkg-config qmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    qmake
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ opencv spdlog qtx11extras onnxruntime ];
+  buildInputs = [
+    opencv
+    spdlog
+    qtx11extras
+    onnxruntime
+  ];
 
   postPatch = ''
     substituteInPlace Client/src/Main.cpp \

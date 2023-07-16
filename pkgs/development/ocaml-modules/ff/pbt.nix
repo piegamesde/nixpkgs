@@ -17,7 +17,10 @@ buildDunePackage {
 
   doCheck = true;
 
-  propagatedBuildInputs = [ zarith ff-sig ];
+  propagatedBuildInputs = [
+    zarith
+    ff-sig
+  ];
 
   meta = ff-sig.meta // {
     description =

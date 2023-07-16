@@ -21,10 +21,18 @@ stdenv.mkDerivation rec {
     sha256 = "181zcs1pi3762chm4xraqs8048jm7jzwnvgwla1v3z2nqzpp3xr1";
   };
 
-  nativeBuildInputs = [ pkg-config gettext python3Packages.wrapPython ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+    python3Packages.wrapPython
+  ];
 
-  buildInputs =
-    [ gtk3 mate.caja python3Packages.python python3Packages.pygobject3 ];
+  buildInputs = [
+    gtk3
+    mate.caja
+    python3Packages.python
+    python3Packages.pygobject3
+  ];
 
   configureFlags = [ "--with-cajadir=$$out/lib/caja/extensions-2.0" ];
 

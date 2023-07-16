@@ -36,13 +36,16 @@ in {
     constLabels = mkOption {
       type = types.listOf types.str;
       default = [ ];
-      example = [ "label1=value1" "label2=value2" ];
+      example = [
+        "label1=value1"
+        "label2=value2"
+      ];
       description = lib.mdDoc ''
         A list of constant labels that will be used in every metric.
       '';
     };
   };
-  serviceOpts = mkMerge ([{
+  serviceOpts = mkMerge ([ {
     serviceConfig = {
       ExecStart = ''
         ${pkgs.prometheus-nginx-exporter}/bin/nginx-prometheus-exporter \
@@ -54,12 +57,10 @@ in {
           ${concatStringsSep " \\\n  " cfg.extraFlags}
       '';
     };
-  }] ++ [
-    (mkIf config.services.nginx.enable {
-      after = [ "nginx.service" ];
-      requires = [ "nginx.service" ];
-    })
-  ]);
+  } ] ++ [ (mkIf config.services.nginx.enable {
+    after = [ "nginx.service" ];
+    requires = [ "nginx.service" ];
+  }) ]);
   imports = [
     (mkRenamedOptionModule [ "telemetryEndpoint" ] [ "telemetryPath" ])
     (mkRemovedOptionModule [ "insecure" ] ''

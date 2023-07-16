@@ -32,10 +32,16 @@ in stdenv.mkDerivation rec {
       --replace "^Clang" "^AppleClang"
   '';
 
-  buildInputs = [ gtest ]
-    ++ lib.optionals withTranscoder [ eigen ghc_filesystem tinygltf ];
+  buildInputs = [ gtest ] ++ lib.optionals withTranscoder [
+    eigen
+    ghc_filesystem
+    tinygltf
+  ];
 
-  nativeBuildInputs = [ cmake python3 ];
+  nativeBuildInputs = [
+    cmake
+    python3
+  ];
 
   cmakeFlags = [
     "-DDRACO_ANIMATION_ENCODING=${cmakeBool withAnimation}"

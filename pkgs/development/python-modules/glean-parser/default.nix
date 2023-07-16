@@ -35,8 +35,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs =
-    [ appdirs click diskcache jinja2 jsonschema pyyaml yamllint ];
+  propagatedBuildInputs = [
+    appdirs
+    click
+    diskcache
+    jinja2
+    jsonschema
+    pyyaml
+    yamllint
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

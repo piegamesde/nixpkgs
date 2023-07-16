@@ -37,13 +37,24 @@ in mkDerivation {
   pname = "makemkv";
   inherit version;
 
-  srcs = [ src_bin src_oss ];
+  srcs = [
+    src_bin
+    src_oss
+  ];
 
   sourceRoot = "makemkv-oss-${version}";
 
-  nativeBuildInputs = [ autoPatchelfHook pkg-config ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    pkg-config
+  ];
 
-  buildInputs = [ ffmpeg openssl qtbase zlib ];
+  buildInputs = [
+    ffmpeg
+    openssl
+    qtbase
+    zlib
+  ];
 
   runtimeDependencies = [ (lib.getLib curl) ];
 

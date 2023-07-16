@@ -40,14 +40,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-6MrM3psLqMcpf4haaEHg3FwrhUDz5h/DeY1w96T0UlE=";
   };
 
-  outputs = [ "out" "dev" "devdoc" ];
-
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      sgdisk = "${gptfdisk}/bin/sgdisk";
-    })
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
   ];
+
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    sgdisk = "${gptfdisk}/bin/sgdisk";
+  }) ];
 
   postPatch = ''
     patchShebangs scripts

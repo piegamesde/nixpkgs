@@ -37,7 +37,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-AVWgFsxeuHADEat83XQLLeQkzw3kaUdPL0rp8b6Rxyk=";
   };
 
-  nativeBuildInputs = [ libtool automake autoconf m4 pkg-config ];
+  nativeBuildInputs = [
+    libtool
+    automake
+    autoconf
+    m4
+    pkg-config
+  ];
 
   buildInputs = [
     curl

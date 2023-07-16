@@ -10,7 +10,10 @@ args@{
 
   description = "Stat a file's size.";
 
-  deps = [ args."fiveam" args."uiop" ];
+  deps = [
+    args."fiveam"
+    args."uiop"
+  ];
 
   src = fetchurl {
     url =

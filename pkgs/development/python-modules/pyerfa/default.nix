@@ -20,9 +20,15 @@ buildPythonPackage rec {
     sha256 = "2fd4637ffe2c1e6ede7482c13f583ba7c73119d78bef90175448ce506a0ede30";
   };
 
-  nativeBuildInputs = [ packaging setuptools-scm ];
+  nativeBuildInputs = [
+    packaging
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs = [ liberfa numpy ];
+  propagatedBuildInputs = [
+    liberfa
+    numpy
+  ];
 
   preBuild = ''
     export PYERFA_USE_SYSTEM_LIBERFA=1

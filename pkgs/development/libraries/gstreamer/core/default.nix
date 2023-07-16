@@ -30,7 +30,11 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "gstreamer";
   version = "1.22.2";
 
-  outputs = [ "bin" "out" "dev" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+  ];
 
   src = let inherit (finalAttrs) pname version;
   in fetchurl {
@@ -54,13 +58,20 @@ stdenv.mkDerivation (finalAttrs: {
     glib
     bash-completion
     gobject-introspection
-  ] ++ lib.optionals stdenv.isLinux [
-    libcap # for setcap binary
-  ] ++ lib.optionals enableDocumentation [ hotdoc ];
+  ] ++ lib.optionals stdenv.isLinux [ libcap # for setcap binary
+    ] ++ lib.optionals enableDocumentation [ hotdoc ];
 
-  buildInputs = [ bash-completion gobject-introspection ]
-    ++ lib.optionals stdenv.isLinux [ libcap libunwind elfutils ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa CoreServices ];
+  buildInputs = [
+    bash-completion
+    gobject-introspection
+  ] ++ lib.optionals stdenv.isLinux [
+    libcap
+    libunwind
+    elfutils
+  ] ++ lib.optionals stdenv.isDarwin [
+    Cocoa
+    CoreServices
+  ];
 
   propagatedBuildInputs = [ glib ];
 
@@ -104,6 +115,9 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.lgpl2Plus;
     pkgConfigModules = [ "gstreamer-controller-1.0" ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ttuegel matthewbauer ];
+    maintainers = with maintainers; [
+      ttuegel
+      matthewbauer
+    ];
   };
 })

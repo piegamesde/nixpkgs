@@ -26,8 +26,19 @@ stdenv.mkDerivation {
     sha256 = "LungQqHQorHIKpye2SDBLuMHPt45C1cPYcs9o5Hc3cw=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config wayland-scanner ];
-  buildInputs = [ libxkbcommon mesa pixman wayland xorg.libxcb ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    wayland-scanner
+  ];
+  buildInputs = [
+    libxkbcommon
+    mesa
+    pixman
+    wayland
+    xorg.libxcb
+  ];
 
   doCheck = true;
   nativeCheckInputs = [ gtest ];

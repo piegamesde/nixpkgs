@@ -59,8 +59,13 @@ buildPythonPackage rec {
     watchdog
   ];
 
-  nativeCheckInputs =
-    [ hypothesis mock pytestCheckHook requests websocket-client ];
+  nativeCheckInputs = [
+    hypothesis
+    mock
+    pytestCheckHook
+    requests
+    websocket-client
+  ];
 
   disabledTestPaths = [
     # Don't check the templates and the sample app

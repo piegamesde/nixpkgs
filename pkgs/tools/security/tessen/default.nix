@@ -22,7 +22,11 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-7hiH1il9vFkrld5wFU+jT7IuudKwigO7ggFuwVbkvYw=";
   };
 
-  nativeBuildInputs = [ makeWrapper installShellFiles scdoc ];
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+    scdoc
+  ];
 
   dontBuild = true;
 
@@ -30,7 +34,12 @@ stdenvNoCC.mkDerivation rec {
     runHook preInstall
     install -D tessen $out/bin/tessen
     wrapProgram $out/bin/tessen --prefix PATH : ${
-      lib.makeBinPath [ bemenu pass wtype wl-clipboard ]
+      lib.makeBinPath [
+        bemenu
+        pass
+        wtype
+        wl-clipboard
+      ]
     }
     runHook postInstall
   '';

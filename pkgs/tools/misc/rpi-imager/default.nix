@@ -26,7 +26,10 @@ mkDerivation rec {
     sha256 = "sha256-ahETmUhlPZ3jpxmzDK5pS6yLc6UxCJFOtWolAtSrDVQ=";
   };
 
-  nativeBuildInputs = [ cmake util-linux ];
+  nativeBuildInputs = [
+    cmake
+    util-linux
+  ];
 
   buildInputs = [
     curl

@@ -253,7 +253,10 @@ in {
       sha256 = "sha256-Bbpm7y4flzEbUb6Sgkp6hIIHs455A0IsbmzvZwlkbh0=";
     };
 
-    propagatedBuildInputs = with super; [ psutil sarge ];
+    propagatedBuildInputs = with super; [
+      psutil
+      sarge
+    ];
 
     preConfigure = ''
       # PrintTimeGenius ships with marlin-calc binaries for multiple architectures
@@ -473,7 +476,10 @@ in {
       description = "Stabilized timelapses for Octoprint";
       homepage = "https://github.com/FormerLurker/OctoLapse";
       license = licenses.agpl3Plus;
-      maintainers = with maintainers; [ illustris j0hax ];
+      maintainers = with maintainers; [
+        illustris
+        j0hax
+      ];
       # requires pillow >=6.2.0,<7.0.0
       broken = true;
     };

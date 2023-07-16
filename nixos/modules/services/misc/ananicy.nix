@@ -33,7 +33,12 @@ in {
       };
 
       settings = mkOption {
-        type = with types; attrsOf (oneOf [ int bool str ]);
+        type = with types;
+          attrsOf (oneOf [
+            int
+            bool
+            str
+          ]);
         default = { };
         example = { apply_nice = false; };
         description = lib.mdDoc ''

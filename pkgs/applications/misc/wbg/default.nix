@@ -30,15 +30,26 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PKEOWRcSAB4Uv5TfameQIEZh6s6xCGdyoZ13etL1TKA=";
   };
 
-  nativeBuildInputs = [ pkg-config meson ninja wayland-scanner ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    wayland-scanner
+  ];
 
-  buildInputs = [ pixman tllist wayland wayland-protocols ]
-    ++ lib.optional enablePNG libpng ++ lib.optional enableJPEG libjpeg;
+  buildInputs = [
+    pixman
+    tllist
+    wayland
+    wayland-protocols
+  ] ++ lib.optional enablePNG libpng ++ lib.optional enableJPEG libjpeg;
 
   mesonBuildType = "release";
 
-  mesonFlags =
-    [ (lib.mesonEnable "png" enablePNG) (lib.mesonEnable "jpeg" enableJPEG) ];
+  mesonFlags = [
+    (lib.mesonEnable "png" enablePNG)
+    (lib.mesonEnable "jpeg" enableJPEG)
+  ];
 
   meta = with lib; {
     description = "Wallpaper application for Wayland compositors";

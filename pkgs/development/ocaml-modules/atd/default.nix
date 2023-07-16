@@ -16,7 +16,11 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.08";
 
   nativeBuildInputs = [ menhir ];
-  propagatedBuildInputs = [ easy-format re yojson ];
+  propagatedBuildInputs = [
+    easy-format
+    re
+    yojson
+  ];
 
   strictDeps = true;
 

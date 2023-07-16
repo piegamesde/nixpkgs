@@ -20,9 +20,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-c5DYS0PQemZ8Sql2KjnuMspCLDJzU95rsbuIdoxWDM0=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook wrapQtAppsHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ nss qtbase qtsvg sane-backends stdenv.cc.cc ];
+  buildInputs = [
+    nss
+    qtbase
+    qtsvg
+    sane-backends
+    stdenv.cc.cc
+  ];
 
   dontStrip = true;
 

@@ -19,7 +19,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytest ];
 
-  nativeBuildInputs = [ setuptools-scm toml ];
+  nativeBuildInputs = [
+    setuptools-scm
+    toml
+  ];
 
   propagatedBuildInputs = [ importlib-metadata ];
 

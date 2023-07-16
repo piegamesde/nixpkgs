@@ -19,7 +19,10 @@ buildPythonApplication rec {
 
   propagatedBuildInputs = [ pillow ];
 
-  installFlags = [ "DESTDIR=$(out)" "PREFIX=" ];
+  installFlags = [
+    "DESTDIR=$(out)"
+    "PREFIX="
+  ];
 
   postInstall = ''
     install -Dm555 auto-completion/bash/imgp-completion.bash $out/share/bash-completion/completions/imgp.bash

@@ -20,7 +20,11 @@ buildDunePackage rec {
     sha256 = "sha256-jZqtHwUKTffjuOP2jdKKQRtEOBKyclhfeiPO96hEj4c=";
   };
 
-  propagatedBuildInputs = [ ctypes integers result ];
+  propagatedBuildInputs = [
+    ctypes
+    integers
+    result
+  ];
 
   meta = with lib; {
     homepage =

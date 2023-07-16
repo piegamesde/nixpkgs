@@ -21,8 +21,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4kMpIrywEZzt0JH95LHeDLrDneii0R/Uw9GsWkvED+E=";
   };
 
-  nativeBuildInputs = [ cmake unzip ];
-  buildInputs = [ libtiff expat zlib libpng libjpeg ];
+  nativeBuildInputs = [
+    cmake
+    unzip
+  ];
+  buildInputs = [
+    libtiff
+    expat
+    zlib
+    libpng
+    libjpeg
+  ];
 
   meta = {
     description =

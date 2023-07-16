@@ -42,7 +42,11 @@ stdenvNoCC.mkDerivation rec {
       imaginary asteroid of the aviator Saint‑Exupéry, benefited from a complete
       hinting on all the characters.
     '';
-    license = with licenses; [ ofl epl10 bsd3 ];
+    license = with licenses; [
+      ofl
+      epl10
+      bsd3
+    ];
     maintainers = with maintainers; [ leenaars ];
     platforms = platforms.all;
   };

@@ -15,7 +15,10 @@ python3Packages.buildPythonApplication rec {
     sha256 = "rqupeJxslL3AfQ+CzBWRb4ZS32VoYd8hlA+eACMKGPY=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ beautifulsoup4 urllib3 ];
+  propagatedBuildInputs = with python3Packages; [
+    beautifulsoup4
+    urllib3
+  ];
 
   # Project has no tests
   doCheck = false;
@@ -24,6 +27,9 @@ python3Packages.buildPythonApplication rec {
     description = "Robots.txt audit tool";
     homepage = "https://github.com/behindthefirewalls/Parsero";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ emilytrau fab ];
+    maintainers = with maintainers; [
+      emilytrau
+      fab
+    ];
   };
 }

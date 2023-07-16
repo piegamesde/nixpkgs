@@ -47,13 +47,22 @@ in stdenv.mkDerivation rec {
   };
 
   propagatedBuildInputs = [ boost ];
-  nativeBuildInputs = [ cmake perl python3 ]
-    ++ optionals fortranSupport [ gfortran ]
+  nativeBuildInputs = [
+    cmake
+    perl
+    python3
+  ] ++ optionals fortranSupport [ gfortran ]
     ++ optionals buildJavaBindings [ openjdk ]
     ++ optionals buildPythonBindings [ python3Packages.pybind11 ]
-    ++ optionals buildDocumentation [ fig2dev ghostscript doxygen ]
-    ++ optionals bmfSupport [ eigen ]
-    ++ optionals modelCheckingSupport [ libunwind libevent elfutils ];
+    ++ optionals buildDocumentation [
+      fig2dev
+      ghostscript
+      doxygen
+    ] ++ optionals bmfSupport [ eigen ] ++ optionals modelCheckingSupport [
+      libunwind
+      libevent
+      elfutils
+    ];
 
   outputs = [ "out" ] ++ optionals buildPythonBindings [ "python" ];
 
@@ -137,7 +146,10 @@ in stdenv.mkDerivation rec {
     '';
     homepage = "https://simgrid.org/";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ mickours mpoquet ];
+    maintainers = with maintainers; [
+      mickours
+      mpoquet
+    ];
     platforms = platforms.all;
     broken = stdenv.isDarwin;
   };

@@ -10,7 +10,10 @@ args@{
 
   description = "Base64 encoding and decoding with URI support.";
 
-  deps = [ args."kmrcl" args."ptester" ];
+  deps = [
+    args."kmrcl"
+    args."ptester"
+  ];
 
   src = fetchurl {
     url =

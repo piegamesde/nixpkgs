@@ -23,11 +23,19 @@ buildPythonPackage rec {
     hash = "sha256-PVs+WB1wpYqXucEWp16Xp2zEtMfnX6Blj8g5I3Hi8sI=";
   };
 
-  nativeBuildInputs = [ meson ninja pyproject-metadata tomli ]
-    ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pyproject-metadata
+    tomli
+  ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
-  propagatedBuildInputs = [ meson ninja pyproject-metadata tomli ]
-    ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  propagatedBuildInputs = [
+    meson
+    ninja
+    pyproject-metadata
+    tomli
+  ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
   # Ugly work-around. Drop ninja dependency.
   # We already have ninja, but it comes without METADATA.

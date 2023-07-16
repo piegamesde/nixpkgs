@@ -18,7 +18,10 @@ buildPythonPackage rec {
     sha256 = "13vry6xhxm7adnbyj28w1kpwrh0kf7nw83cz1yq74wl21faz2rzw";
   };
 
-  buildInputs = [ liblo cython ];
+  buildInputs = [
+    liblo
+    cython
+  ];
 
   meta = with lib; {
     homepage = "https://das.nasophon.de/pyliblo/";

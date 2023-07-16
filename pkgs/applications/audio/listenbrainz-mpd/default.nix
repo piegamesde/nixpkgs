@@ -26,8 +26,10 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ sqlite ]
-    ++ (if stdenv.isDarwin then [ libiconv Security ] else [ openssl ]);
+  buildInputs = [ sqlite ] ++ (if stdenv.isDarwin then [
+    libiconv
+    Security
+  ] else [ openssl ]);
 
   meta = with lib; {
     homepage = "https://codeberg.org/elomatreb/listenbrainz-mpd";

@@ -19,14 +19,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+aPBRxjL5lgdm96SbRZnp+9o9nl2N8Rb3dehMAv883c=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./fix_gmenu.patch;
-      gmenu_path = "${gnome-menus}/lib/girepository-1.0";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./fix_gmenu.patch;
+    gmenu_path = "${gnome-menus}/lib/girepository-1.0";
+  }) ];
 
-  buildInputs = [ glib gettext ];
+  buildInputs = [
+    glib
+    gettext
+  ];
 
   makeFlags =
     [ "INSTALLBASE=${placeholder "out"}/share/gnome-shell/extensions" ];

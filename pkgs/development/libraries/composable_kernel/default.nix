@@ -32,16 +32,23 @@ let
       hash = "sha256-+c0E2UtlG/abweLwCWWjNHDO5ZvSIVKwwwettT9mqR4=";
     };
 
-    nativeBuildInputs = [ cmake rocm-cmake hip clang-tools-extra ];
+    nativeBuildInputs = [
+      cmake
+      rocm-cmake
+      hip
+      clang-tools-extra
+    ];
 
     buildInputs = [ openmp ];
 
-    cmakeFlags = [ "-DCMAKE_C_COMPILER=hipcc" "-DCMAKE_CXX_COMPILER=hipcc" ]
-      ++ lib.optionals (gpuTargets != [ ]) [
-        "-DGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
-        "-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
-      ] ++ lib.optionals buildTests [
-        "-DGOOGLETEST_DIR=${gtest.src}" # Custom linker names
+    cmakeFlags = [
+      "-DCMAKE_C_COMPILER=hipcc"
+      "-DCMAKE_CXX_COMPILER=hipcc"
+    ] ++ lib.optionals (gpuTargets != [ ]) [
+      "-DGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
+      "-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
+    ] ++ lib.optionals
+      buildTests [ "-DGOOGLETEST_DIR=${gtest.src}" # Custom linker names
       ];
 
     # No flags to build selectively it seems...

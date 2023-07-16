@@ -35,7 +35,10 @@ buildPythonPackage rec {
     hash = "sha256-xXtUEunPYiuVh+1o4xoFutGstZ918ju5xK5zLvgbLHc=";
   };
 
-  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
   propagatedBuildInputs = [
     importlib-metadata
@@ -49,7 +52,13 @@ buildPythonPackage rec {
     types-toml
   ];
 
-  nativeCheckInputs = [ ddt jsonschema lxml pytestCheckHook xmldiff ];
+  nativeCheckInputs = [
+    ddt
+    jsonschema
+    lxml
+    pytestCheckHook
+    xmldiff
+  ];
 
   pythonImportsCheck = [ "cyclonedx" ];
 

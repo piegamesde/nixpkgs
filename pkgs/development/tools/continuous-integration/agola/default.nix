@@ -19,7 +19,10 @@ in buildGoModule {
 
   vendorSha256 = "sha256-Y3ck7Qdo9uq3YuLzZUe+RZkKQqWpSko3q+f4bfkSz6g=";
 
-  ldflags = [ "-w" "-X agola.io/agola/cmd.Version=${version}" ];
+  ldflags = [
+    "-w"
+    "-X agola.io/agola/cmd.Version=${version}"
+  ];
 
   tags = [ "sqlite_unlock_notify" ];
 

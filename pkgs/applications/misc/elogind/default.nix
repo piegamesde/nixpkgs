@@ -54,10 +54,7 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_42
     docbook_xml_dtd_45 # needed for docbook without Internet
     (python3.withPackages (p:
-      with p;
-      [
-        lxml
-      ])) # fixes: man/meson.build:111:0: ERROR: Could not execute command "/build/source/tools/xml_helper.py".
+      with p; [ lxml ])) # fixes: man/meson.build:111:0: ERROR: Could not execute command "/build/source/tools/xml_helper.py".
   ];
 
   buildInputs = if enableSystemd then [ udev ] else [ eudev ];

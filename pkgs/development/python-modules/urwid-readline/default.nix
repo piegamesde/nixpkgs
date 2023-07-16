@@ -18,7 +18,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ urwid ];
 
-  nativeCheckInputs = [ glibcLocales pytestCheckHook ];
+  nativeCheckInputs = [
+    glibcLocales
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     description =

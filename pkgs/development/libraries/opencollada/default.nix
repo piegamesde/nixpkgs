@@ -21,11 +21,17 @@ stdenv.mkDerivation rec {
     sha256 = "1ym16fxx9qhf952vva71sdzgbm7ifis0h1n5fj1bfdj8zvvkbw5w";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buildInputs =
     lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ AGL ]);
 
-  propagatedBuildInputs = [ libxml2 pcre ];
+  propagatedBuildInputs = [
+    libxml2
+    pcre
+  ];
 
   patchPhase = ''
     patch -p1 < ${./pcre.patch}

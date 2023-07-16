@@ -16,7 +16,11 @@ buildPythonPackage rec {
     hash = "sha256-6tSsD76EpCZxkdulv1BcUZtIXGWLG6PuII25J8STygE=";
   };
 
-  propagatedBuildInputs = [ localimport pathlib2 six ];
+  propagatedBuildInputs = [
+    localimport
+    pathlib2
+    six
+  ];
 
   pythonImportsCheck = [ "nodepy" ];
 

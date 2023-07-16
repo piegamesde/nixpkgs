@@ -14,7 +14,13 @@ mkDerivation {
 
   nativeBuildInputs = [ extra-cmake-modules ];
 
-  buildInputs = [ kauth kcoreaddons kdbusaddons ki18n knotifications ];
+  buildInputs = [
+    kauth
+    kcoreaddons
+    kdbusaddons
+    ki18n
+    knotifications
+  ];
 
   meta = {
     description =

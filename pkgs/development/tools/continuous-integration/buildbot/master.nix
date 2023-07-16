@@ -148,7 +148,10 @@ let
       homepage = "https://buildbot.net/";
       changelog =
         "https://github.com/buildbot/buildbot/releases/tag/v${version}";
-      maintainers = with maintainers; [ ryansydnor lopsided98 ];
+      maintainers = with maintainers; [
+        ryansydnor
+        lopsided98
+      ];
       license = licenses.gpl2Only;
       broken = stdenv.isDarwin;
     };

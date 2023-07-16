@@ -30,7 +30,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ glib libGLU libGL wxGTK32 libX11 xorgproto ];
+  buildInputs = [
+    glib
+    libGLU
+    libGL
+    wxGTK32
+    libX11
+    xorgproto
+  ];
 
   preBuild = ''
     sed -e '

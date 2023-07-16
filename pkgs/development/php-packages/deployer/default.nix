@@ -18,7 +18,10 @@ mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper installShellFiles ];
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+  ];
 
   installPhase = ''
     runHook preInstall

@@ -47,7 +47,13 @@ in stdenv.mkDerivation rec {
     makeWrapper "${dotnet-runtime}/bin/dotnet" $out/bin/Lidarr \
       --add-flags "$out/share/${pname}-${version}/Lidarr.dll" \
       --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [ curl sqlite libmediainfo icu openssl ]
+        lib.makeLibraryPath [
+          curl
+          sqlite
+          libmediainfo
+          icu
+          openssl
+        ]
       }
 
     runHook postInstall
@@ -63,6 +69,10 @@ in stdenv.mkDerivation rec {
     homepage = "https://lidarr.audio/";
     license = licenses.gpl3;
     maintainers = [ maintainers.etu ];
-    platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+    ];
   };
 }

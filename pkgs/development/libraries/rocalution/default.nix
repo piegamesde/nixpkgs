@@ -36,10 +36,21 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-jovhodhNa7tr1bSqpZCKI/9xF7Ie96JB+giqAEfis2k=";
   };
 
-  nativeBuildInputs = [ cmake rocm-cmake hip git ];
+  nativeBuildInputs = [
+    cmake
+    rocm-cmake
+    hip
+    git
+  ];
 
-  buildInputs = [ rocblas rocsparse rocprim rocrand openmp openmpi ]
-    ++ lib.optionals buildTests [ gtest ];
+  buildInputs = [
+    rocblas
+    rocsparse
+    rocprim
+    rocrand
+    openmp
+    openmpi
+  ] ++ lib.optionals buildTests [ gtest ];
 
   cmakeFlags = [
     "-DCMAKE_CXX_COMPILER=hipcc"
@@ -54,9 +65,9 @@ stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_INSTALL_BINDIR=bin"
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
-  ] ++ lib.optionals (gpuTargets != [ ])
-    [ "-DAMDGPU_TARGETS=${lib.strings.concatStringsSep ";" gpuTargets}" ]
-    ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
+  ] ++ lib.optionals (gpuTargets != [ ]) [ "-DAMDGPU_TARGETS=${
+      lib.strings.concatStringsSep ";" gpuTargets
+    }" ] ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
     ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ];
 
   postInstall = lib.optionalString buildTests ''

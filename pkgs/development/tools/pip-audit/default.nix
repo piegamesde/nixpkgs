@@ -46,7 +46,10 @@ buildPythonApplication rec {
     toml
   ] ++ cachecontrol.optional-dependencies.filecache;
 
-  nativeCheckInputs = [ pretend pytestCheckHook ];
+  nativeCheckInputs = [
+    pretend
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pip_audit" ];
 

@@ -23,11 +23,17 @@ buildPythonPackage rec {
     hash = "sha256-FJ0Rzpvn6oHUrDVE0/zUxxap7bLLd12cB1IxVwsHn7s=";
   };
 
-  propagatedBuildInputs =
-    [ google-api-core grpc-google-iam-v1 proto-plus protobuf ]
-    ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs = [
+    google-api-core
+    grpc-google-iam-v1
+    proto-plus
+    protobuf
+  ] ++ google-api-core.optional-dependencies.grpc;
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [
     "google.cloud.secretmanager"
@@ -41,6 +47,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/googleapis/python-secret-manager/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ siriobalmelli SuperSandro2000 ];
+    maintainers = with maintainers; [
+      siriobalmelli
+      SuperSandro2000
+    ];
   };
 }

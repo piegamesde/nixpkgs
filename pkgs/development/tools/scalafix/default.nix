@@ -26,7 +26,11 @@ in stdenv.mkDerivation {
   pname = baseName;
   inherit version;
 
-  nativeBuildInputs = [ makeWrapper installShellFiles setJavaClassPath ];
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+    setJavaClassPath
+  ];
   buildInputs = [ deps ];
 
   dontUnpack = true;

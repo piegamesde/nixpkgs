@@ -15,7 +15,10 @@ bundlerApp {
     description = "Tool to build packages for multiple platforms with ease";
     homepage = "https://github.com/jordansissel/fpm";
     license = licenses.mit;
-    maintainers = with maintainers; [ manveru nicknovitski ];
+    maintainers = with maintainers; [
+      manveru
+      nicknovitski
+    ];
     platforms = platforms.unix;
   };
 }

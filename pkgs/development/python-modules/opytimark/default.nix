@@ -22,21 +22,23 @@ buildPythonPackage rec {
     hash = "sha256-T3OFm10gvGrUXAAHOnO0Zv1nWrXPBXSmEWnbJxrWYU0=";
   };
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://patch-diff.githubusercontent.com/raw/gugarosa/opytimark/pull/2.patch";
-      hash = "sha256-r/oCKI9Q1nuCZDGHx7UW8j523sFe4EFmguMOJTs/LOU=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://patch-diff.githubusercontent.com/raw/gugarosa/opytimark/pull/2.patch";
+    hash = "sha256-r/oCKI9Q1nuCZDGHx7UW8j523sFe4EFmguMOJTs/LOU=";
+  }) ];
 
   propagatedBuildInputs = [ numpy ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
   # several tests are failing
-  disabledTests =
-    [ "test_year" "test_decorator" "test_loader" "cec_benchmark" ];
+  disabledTests = [
+    "test_year"
+    "test_decorator"
+    "test_loader"
+    "cec_benchmark"
+  ];
 
   pythonImportsCheck = [ "opytimark" ];
 

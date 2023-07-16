@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ python3 frame ] ++ lib.optionals enableX11 [
+  buildInputs = [
+    python3
+    frame
+  ] ++ lib.optionals enableX11 [
     xorg.libX11
     xorg.libXtst
     xorg.libXext

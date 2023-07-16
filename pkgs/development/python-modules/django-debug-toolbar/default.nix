@@ -27,7 +27,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [ django jinja2 sqlparse ];
+  propagatedBuildInputs = [
+    django
+    jinja2
+    sqlparse
+  ];
 
   DB_BACKEND = "sqlite3";
   DB_NAME = ":memory:";

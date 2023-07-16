@@ -3,7 +3,12 @@ import ./make-test-python.nix ({
     ...
   }: {
     name = "sogo";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ajs124 das_j ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        ajs124
+        das_j
+      ];
+    };
 
     nodes = {
       sogo = {
@@ -17,10 +22,10 @@ import ./make-test-python.nix ({
             enable = true;
             package = pkgs.mariadb;
             ensureDatabases = [ "sogo" ];
-            ensureUsers = [{
+            ensureUsers = [ {
               name = "sogo";
               ensurePermissions = { "sogo.*" = "ALL PRIVILEGES"; };
-            }];
+            } ];
           };
 
           services.sogo = {

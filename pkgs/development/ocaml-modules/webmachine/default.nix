@@ -22,7 +22,11 @@ buildDunePackage rec {
     sha256 = "03ynb1l2jjqba88m9r8m5hwlm8izpfp617r4vcab5kmdim1l2ffx";
   };
 
-  propagatedBuildInputs = [ cohttp dispatch ptime ];
+  propagatedBuildInputs = [
+    cohttp
+    dispatch
+    ptime
+  ];
 
   checkInputs = [ ounit ];
 

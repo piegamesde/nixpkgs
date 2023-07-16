@@ -26,25 +26,43 @@ stdenv.mkDerivation (rec {
 
   src = fetch pname "051p5b04y6z3g730rmc2n2v71lipbw7k69riww3a6sl74myfiaq7";
 
-  patches = [ ./procfs.patch ./gnu-install-dirs.patch ];
+  patches = [
+    ./procfs.patch
+    ./gnu-install-dirs.patch
+  ];
 
-  outputs = [ "out" "lib" "dev" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ cmake python3 which swig lit makeWrapper ]
-    ++ lib.optionals enableManpages [
-      python3.pkgs.sphinx
-      python3.pkgs.recommonmark
-    ];
+  nativeBuildInputs = [
+    cmake
+    python3
+    which
+    swig
+    lit
+    makeWrapper
+  ] ++ lib.optionals enableManpages [
+    python3.pkgs.sphinx
+    python3.pkgs.recommonmark
+  ];
 
-  buildInputs = [ ncurses zlib libedit libxml2 libllvm ]
-    ++ lib.optionals stdenv.isDarwin [
-      darwin.libobjc
-      darwin.apple_sdk.libs.xpc
-      darwin.apple_sdk.frameworks.Foundation
-      darwin.bootstrap_cmds
-      darwin.apple_sdk.frameworks.Carbon
-      darwin.apple_sdk.frameworks.Cocoa
-    ];
+  buildInputs = [
+    ncurses
+    zlib
+    libedit
+    libxml2
+    libllvm
+  ] ++ lib.optionals stdenv.isDarwin [
+    darwin.libobjc
+    darwin.apple_sdk.libs.xpc
+    darwin.apple_sdk.frameworks.Foundation
+    darwin.bootstrap_cmds
+    darwin.apple_sdk.frameworks.Carbon
+    darwin.apple_sdk.frameworks.Cocoa
+  ];
 
   hardeningDisable = [ "format" ];
 
@@ -54,8 +72,8 @@ stdenv.mkDerivation (rec {
     "-DClang_DIR=${libclang.dev}/lib/cmake"
     "-DLLVM_EXTERNAL_LIT=${lit}/bin/lit"
   ] ++ lib.optionals stdenv.isDarwin [ "-DLLDB_USE_SYSTEM_DEBUGSERVER=ON" ]
-    ++ lib.optionals (!stdenv.isDarwin) [
-      "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
+    ++ lib.optionals
+    (!stdenv.isDarwin) [ "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
     ] ++ lib.optionals enableManpages [
       "-DLLVM_ENABLE_SPHINX=ON"
       "-DSPHINX_OUTPUT_MAN=ON"

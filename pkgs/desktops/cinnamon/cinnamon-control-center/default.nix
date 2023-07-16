@@ -87,7 +87,14 @@ stdenv.mkDerivation rec {
     "--localedir=${cinnamon-translations}/share/locale"
   ];
 
-  nativeBuildInputs = [ pkg-config meson ninja wrapGAppsHook gettext python3 ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    wrapGAppsHook
+    gettext
+    python3
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/linuxmint/cinnamon-control-center";

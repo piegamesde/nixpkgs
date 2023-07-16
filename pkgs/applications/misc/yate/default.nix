@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
 
   # TODO zaptel ? postgres ?
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ qt4 openssl ];
+  buildInputs = [
+    qt4
+    openssl
+  ];
 
   # /dev/null is used when linking which is a impure path for the wrapper
   postPatch = ''
@@ -45,7 +48,10 @@ stdenv.mkDerivation rec {
     # OpenH323 and PWlib (licensed under MPL).
     license = lib.licenses.gpl2Only;
     maintainers = [ lib.maintainers.marcweber ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 
 }

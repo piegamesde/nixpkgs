@@ -12,5 +12,8 @@ buildDunePackage {
   minimalOCamlVersion = "4.10";
   duneVersion = "3";
 
-  propagatedBuildInputs = [ resto uri ];
+  propagatedBuildInputs = [
+    resto
+    uri
+  ];
 }

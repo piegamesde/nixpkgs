@@ -30,7 +30,14 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ pidgin glib json-glib nss nspr libsecret ];
+  buildInputs = [
+    pidgin
+    glib
+    json-glib
+    nss
+    nspr
+    libsecret
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/EionRobb/pidgin-opensteamworks";

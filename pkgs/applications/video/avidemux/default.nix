@@ -61,10 +61,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-d9m9yoaDzlfBkradIHz6t8+Sp3Wc4PY/o3tcjkKtPaI=";
   };
 
-  patches = [ ./dynamic_install_dir.patch ./bootstrap_logging.patch ];
+  patches = [
+    ./dynamic_install_dir.patch
+    ./bootstrap_logging.patch
+  ];
 
-  nativeBuildInputs = [ yasm cmake pkg-config makeWrapper ]
-    ++ lib.optional withQT wrapQtAppsHook;
+  nativeBuildInputs = [
+    yasm
+    cmake
+    pkg-config
+    makeWrapper
+  ] ++ lib.optional withQT wrapQtAppsHook;
   buildInputs = [
     zlib
     gettext
@@ -82,8 +89,10 @@ stdenv.mkDerivation rec {
     ++ lib.optional withXvid xvidcore ++ lib.optional withLAME lame
     ++ lib.optional withFAAC faac ++ lib.optional withVorbis libvorbis
     ++ lib.optional withPulse libpulseaudio ++ lib.optional withFAAD faad2
-    ++ lib.optional withOpus libopus ++ lib.optionals withQT [ qttools qtbase ]
-    ++ lib.optional withVPX libvpx;
+    ++ lib.optional withOpus libopus ++ lib.optionals withQT [
+      qttools
+      qtbase
+    ] ++ lib.optional withVPX libvpx;
 
   buildCommand = let
     wrapWith = makeWrapper: filename:
@@ -121,7 +130,10 @@ stdenv.mkDerivation rec {
     description = "Free video editor designed for simple video editing tasks";
     maintainers = with maintainers; [ abbradar ];
     # "CPU not supported" errors on AArch64
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
     license = licenses.gpl2;
   };
 }

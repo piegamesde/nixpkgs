@@ -33,13 +33,20 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ argon2-cffi keyring pycryptodome ];
+  propagatedBuildInputs = [
+    argon2-cffi
+    keyring
+    pycryptodome
+  ];
 
   pythonImportsCheck = [ "keyrings.cryptfile" ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [ "test_set_properties" "UncryptedFileKeyringTestCase" ];
+  disabledTests = [
+    "test_set_properties"
+    "UncryptedFileKeyringTestCase"
+  ];
 
   meta = with lib; {
     description = "Encrypted file keyring backend";

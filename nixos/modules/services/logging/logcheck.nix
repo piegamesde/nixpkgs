@@ -80,7 +80,11 @@ let
 
   levelOption = mkOption {
     default = "server";
-    type = types.enum [ "workstation" "server" "paranoid" ];
+    type = types.enum [
+      "workstation"
+      "server"
+      "paranoid"
+    ];
     description = lib.mdDoc ''
       Set the logcheck level.
     '';
@@ -182,7 +186,10 @@ in {
       files = mkOption {
         default = [ "/var/log/messages" ];
         type = types.listOf types.path;
-        example = [ "/var/log/messages" "/var/log/mail" ];
+        example = [
+          "/var/log/messages"
+          "/var/log/mail"
+        ];
         description = lib.mdDoc ''
           Which log files to check.
         '';
@@ -216,7 +223,10 @@ in {
       extraGroups = mkOption {
         default = [ ];
         type = types.listOf types.str;
-        example = [ "postdrop" "mongodb" ];
+        example = [
+          "postdrop"
+          "mongodb"
+        ];
         description = lib.mdDoc ''
           Extra groups for the logcheck user, for example to be able to use sendmail,
           or to access certain log files.

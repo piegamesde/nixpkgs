@@ -13,9 +13,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-weA1Bv4lzfy0KMBR/Fay0q/7Wwb7o/LOdWYxRmvvtEE=";
   };
 
-  configureFlags = [
-    "--enable-executable=no" # no igraph dependency
-  ];
+  configureFlags = [ "--enable-executable=no" # no igraph dependency
+    ];
 
   # check phase is empty for now (as of version 0.9)
   doCheck = true;

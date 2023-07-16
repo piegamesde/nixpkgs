@@ -30,17 +30,29 @@ buildPythonPackage rec {
     sed -i 's/\(.*\)==.*/\1/' requirements.txt
   '';
 
-  propagatedBuildInputs = [ opuslib protobuf ];
+  propagatedBuildInputs = [
+    opuslib
+    protobuf
+  ];
 
-  nativeCheckInputs = [ pycrypto pytestCheckHook ];
+  nativeCheckInputs = [
+    pycrypto
+    pytestCheckHook
+  ];
 
-  pythonImportsCheck = [ "pymumble_py3" "pymumble_py3.constants" ];
+  pythonImportsCheck = [
+    "pymumble_py3"
+    "pymumble_py3.constants"
+  ];
 
   meta = with lib; {
     description = "Library to create mumble bots";
     homepage = "https://github.com/azlux/pymumble";
     changelog = "https://github.com/azlux/pymumble/releases/tag/${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ thelegy infinisil ];
+    maintainers = with maintainers; [
+      thelegy
+      infinisil
+    ];
   };
 }

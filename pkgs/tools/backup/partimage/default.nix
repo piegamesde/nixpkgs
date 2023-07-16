@@ -25,8 +25,19 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--with-ssl-headers=${openssl.dev}/include/openssl" ];
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
-  buildInputs = [ bzip2 zlib newt newt openssl slang libxcrypt ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
+  buildInputs = [
+    bzip2
+    zlib
+    newt
+    newt
+    openssl
+    slang
+    libxcrypt
+  ];
 
   patches = [
     ./gentoos-zlib.patch

@@ -351,7 +351,10 @@ let
           version = "0.3.5";
           sha256 = "sha256-lQ7EMs6nsTEgP9BESMpyoZG7QVOe7DXzfg/iZr1+DCQ=";
         };
-        nativeBuildInputs = [ jq moreutils ];
+        nativeBuildInputs = [
+          jq
+          moreutils
+        ];
         postInstall = ''
           cd "$out/$installPrefix"
           jq '.contributes.configuration.properties."millet.server.path".default = "${millet}/bin/lang-srv"' package.json | sponge package.json
@@ -372,7 +375,10 @@ let
           version = "0.0.1";
           sha256 = "sha256-vz2kU36B1xkLci2QwLpl/SBEhfSWltIDJ1r7SorHcr8=";
         };
-        nativeBuildInputs = [ jq moreutils ];
+        nativeBuildInputs = [
+          jq
+          moreutils
+        ];
         postInstall = ''
           cd "$out/$installPrefix"
           jq '.contributes.configuration.properties."nixpkgs-fmt.path".default = "${nixpkgs-fmt}/bin/nixpkgs-fmt"' package.json | sponge package.json
@@ -434,7 +440,10 @@ let
           version = "2.0.205";
           sha256 = "sha256-umnG1uLB42fUNKjANaKcABjVmqbdOQakd/6TPsEpF9c";
         };
-        nativeBuildInputs = [ jq moreutils ];
+        nativeBuildInputs = [
+          jq
+          moreutils
+        ];
         postInstall = ''
           cd "$out/$installPrefix"
           jq '.contributes.configuration[0].properties."calva.clojureLspPath".default = "${clojure-lsp}/bin/clojure-lsp"' package.json | sponge package.json
@@ -841,7 +850,10 @@ let
 
         nativeBuildInputs = [ autoPatchelfHook ];
 
-        buildInputs = [ zlib stdenv.cc.cc.lib ];
+        buildInputs = [
+          zlib
+          stdenv.cc.cc.lib
+        ];
 
         postInstall = ''
           chmod +x $out/share/vscode/extensions/devsense.phptools-vscode/out/server/devsense.php.ls
@@ -857,8 +869,12 @@ let
           homepage = "https://github.com/DEVSENSE/phptools-docs";
           license = lib.licenses.asl20;
           maintainers = [ lib.maintainers.drupol ];
-          platforms =
-            [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" "aarch64-linux" ];
+          platforms = [
+            "x86_64-linux"
+            "x86_64-darwin"
+            "aarch64-darwin"
+            "aarch64-linux"
+          ];
         };
       };
 
@@ -1157,7 +1173,10 @@ let
           version = "0.6.4";
           sha256 = "sha256-Hxa4VPm3QvJICzpDyfk94fGHu1hr+YN9szVBwDB8X4U=";
         };
-        nativeBuildInputs = [ jq moreutils ];
+        nativeBuildInputs = [
+          jq
+          moreutils
+        ];
         postInstall = ''
           cd "$out/$installPrefix"
           jq '.contributes.configuration.properties."magicRacket.general.racketPath".default = "${racket}/bin/racket"' package.json | sponge package.json
@@ -1272,7 +1291,10 @@ let
           sha256 = "09z72mdr5bfdcb67xyzlv7lb9vyjlc3k9ackj4jgixfk40c68cnj";
         };
 
-        nativeBuildInputs = [ jq moreutils ];
+        nativeBuildInputs = [
+          jq
+          moreutils
+        ];
 
         postInstall = ''
           cd "$out/$installPrefix"
@@ -1754,7 +1776,10 @@ let
           version = "1.0.0";
           sha256 = "sha256-COlEjKhm8tK5XfOjrpVUDQ7x3JaOLiYoZ4MdwTL8ktk=";
         };
-        nativeBuildInputs = [ jq moreutils ];
+        nativeBuildInputs = [
+          jq
+          moreutils
+        ];
         postInstall = ''
           cd "$out/$installPrefix"
 
@@ -1794,7 +1819,10 @@ let
           sha256 = "sha256-IueXiN+077tiecAsVCzgYksWYTs00mZv6XJVMtRJ/PQ=";
         };
 
-        nativeBuildInputs = [ jq moreutils ];
+        nativeBuildInputs = [
+          jq
+          moreutils
+        ];
 
         buildInputs = [ cfn-lint ];
 
@@ -2296,7 +2324,10 @@ let
           sha256 = "sha256-NZejUb99JDcnqjihLTPkNzVCgpqDkbiwAySbBVZ0esY=";
         };
 
-        nativeBuildInputs = [ jq moreutils ];
+        nativeBuildInputs = [
+          jq
+          moreutils
+        ];
 
         postInstall = ''
           cd "$out/$installPrefix"
@@ -2921,7 +2952,10 @@ let
           version = "0.26.3";
           sha256 = "GlyOLc2VrRnA50MkaG83qa0yLUyJYwueqEO+ZeAStYs=";
         };
-        nativeBuildInputs = [ jq moreutils ];
+        nativeBuildInputs = [
+          jq
+          moreutils
+        ];
         postInstall = ''
           cd "$out/$installPrefix"
           jq '.contributes.configuration.properties."shellcheck.executablePath".default = "${shellcheck}/bin/shellcheck"' package.json | sponge package.json
@@ -3027,7 +3061,10 @@ let
           sha256 = "1nlrijjwc35n1xgb5lgnr4yvlgfcxd0vdj93ip8lv2xi8x1ni5f6";
         };
 
-        nativeBuildInputs = [ jq moreutils ];
+        nativeBuildInputs = [
+          jq
+          moreutils
+        ];
 
         buildInputs = [ jdk ];
 
@@ -3313,7 +3350,10 @@ let
           version = "0.5.4";
           sha256 = "08dfl5h1k6s542qw5qx2czm1wb37ck9w2vpjz44kp2az352nmksb";
         };
-        nativeBuildInputs = [ jq moreutils ];
+        nativeBuildInputs = [
+          jq
+          moreutils
+        ];
         postInstall = ''
           cd "$out/$installPrefix"
           jq '.contributes.configuration.properties.protoc.properties.path.default = "${protobuf}/bin/protoc"' package.json | sponge package.json
@@ -3341,8 +3381,8 @@ let
   # then apply extension specific modifcations to packages.
 
   # overlays will be applied left to right, overrides should come after aliases.
-  overlays = lib.optionals config.allowAliases
-    [ (self: super: lib.recursiveUpdate super (aliases super)) ];
+  overlays = lib.optionals config.allowAliases [ (self: super:
+    lib.recursiveUpdate super (aliases super)) ];
 
   toFix = lib.foldl' (lib.flip lib.extends) baseExtensions overlays;
 in lib.fix toFix

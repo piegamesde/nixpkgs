@@ -32,7 +32,10 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     apfel
@@ -46,7 +49,10 @@ stdenv.mkDerivation rec {
     swig
   ];
 
-  cmakeFlags = [ "-DCOMPILE_filter=ON" "-DCOMPILE_evolvefit=ON" ];
+  cmakeFlags = [
+    "-DCOMPILE_filter=ON"
+    "-DCOMPILE_evolvefit=ON"
+  ];
 
   meta = with lib; {
     description =

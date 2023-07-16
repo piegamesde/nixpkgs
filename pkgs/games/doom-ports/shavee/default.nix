@@ -25,7 +25,11 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl zlib pam ];
+  buildInputs = [
+    openssl
+    zlib
+    pam
+  ];
 
   # these tests require network access
   checkFlags = [

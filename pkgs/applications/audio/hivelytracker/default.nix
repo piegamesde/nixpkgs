@@ -22,9 +22,18 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ SDL SDL_image SDL_ttf gtk3 ];
+  buildInputs = [
+    SDL
+    SDL_image
+    SDL_ttf
+    gtk3
+  ];
 
-  makeFlags = [ "-C sdl" "-f Makefile.linux" "PREFIX=$(out)" ];
+  makeFlags = [
+    "-C sdl"
+    "-f Makefile.linux"
+    "PREFIX=$(out)"
+  ];
 
   # Also build the hvl2wav tool
   postBuild = ''

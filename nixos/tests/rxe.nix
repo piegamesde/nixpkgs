@@ -18,7 +18,10 @@ import ./make-test-python.nix ({
           };
         };
 
-        environment.systemPackages = with pkgs; [ rdma-core screen ];
+        environment.systemPackages = with pkgs; [
+          rdma-core
+          screen
+        ];
       };
 
   in {

@@ -26,7 +26,10 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
 
   # requires internet access
-  checkFlags = [ "--skip=test_download_url" "--skip=test_external_download" ];
+  checkFlags = [
+    "--skip=test_download_url"
+    "--skip=test_external_download"
+  ];
 
   meta = with lib; {
     description =

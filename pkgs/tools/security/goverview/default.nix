@@ -17,7 +17,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-i/m2s9e8PDfGmguNihynVI3Y7nAXC4weoWFXOwUVDSE=";
 
-  ldflags = [ "-w" "-s" ];
+  ldflags = [
+    "-w"
+    "-s"
+  ];
 
   # Tests require network access
   doCheck = false;

@@ -28,12 +28,20 @@ buildPythonPackage rec {
     hash = "sha256-+jaZ582GdO7dUDr9dPPyy4uUm1mHigDieWN0mgBR+iI=";
   };
 
-  nativeBuildInputs = [ cython poetry-core setuptools ];
+  nativeBuildInputs = [
+    cython
+    poetry-core
+    setuptools
+  ];
 
   propagatedBuildInputs = [ ifaddr ]
     ++ lib.optionals (pythonOlder "3.11") [ async-timeout ];
 
-  nativeCheckInputs = [ pytest-asyncio pytest-timeout pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-timeout
+    pytestCheckHook
+  ];
 
   preCheck = ''
     sed -i '/addopts/d' pyproject.toml
@@ -50,7 +58,10 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "zeroconf" "zeroconf.asyncio" ];
+  pythonImportsCheck = [
+    "zeroconf"
+    "zeroconf.asyncio"
+  ];
 
   meta = with lib; {
     changelog =

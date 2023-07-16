@@ -31,7 +31,11 @@ mkDerivation rec {
     sha256 = "BEmSEv/LJPs6aCkUmnyuTGrV15WYXwgIANbfcviMXfA=";
   };
 
-  nativeBuildInputs = [ extra-cmake-modules wrapGAppsHook kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    wrapGAppsHook
+    kdoctools
+  ];
 
   buildInputs = [
     kconfig

@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  buildInputs = [ libxcb xcbutilwm xcbutil ];
+  buildInputs = [
+    libxcb
+    xcbutilwm
+    xcbutil
+  ];
 
   meta = with lib; {
     description = "Small X utility to perform elementary actions on windows";

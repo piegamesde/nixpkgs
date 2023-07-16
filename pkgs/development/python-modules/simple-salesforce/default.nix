@@ -26,9 +26,18 @@ buildPythonPackage rec {
     hash = "sha256-lCZdX+gf9ROU1MIRw/ppTNO8jIGUxE1+gbHh6sK5L2s=";
   };
 
-  propagatedBuildInputs = [ authlib pyjwt requests zeep ];
+  propagatedBuildInputs = [
+    authlib
+    pyjwt
+    requests
+    zeep
+  ];
 
-  nativeCheckInputs = [ nose pytz responses ];
+  nativeCheckInputs = [
+    nose
+    pytz
+    responses
+  ];
 
   checkPhase = ''
     runHook preCheck

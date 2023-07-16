@@ -26,13 +26,25 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-iIQRwnJX+7GJcOqXJutInqpSX2fKlPmwFFAq6TqNWWY=";
   };
 
-  nativeBuildInputs = [ makeWrapper copyDesktopItems ];
+  nativeBuildInputs = [
+    makeWrapper
+    copyDesktopItems
+  ];
 
   buildInputs = [ mono ];
 
-  runtimeLibs = lib.makeLibraryPath
-    ([ gtk2 sqlite openal cairo libGLU SDL2 freealut ]
-      ++ (with xorg; [ libX11 libXi ]));
+  runtimeLibs = lib.makeLibraryPath ([
+    gtk2
+    sqlite
+    openal
+    cairo
+    libGLU
+    SDL2
+    freealut
+  ] ++ (with xorg; [
+    libX11
+    libXi
+  ]));
 
   desktopItems = makeDesktopItem {
     name = "vintagestory";

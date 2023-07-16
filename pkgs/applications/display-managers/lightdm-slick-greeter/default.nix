@@ -40,11 +40,17 @@ stdenv.mkDerivation rec {
     python3.pkgs.wrapPython
   ];
 
-  buildInputs = [ lightdm gtk3 pixman libcanberra libX11 libXext ];
-
-  pythonPath = [
-    python3.pkgs.pygobject3 # for slick-greeter-check-hidpi
+  buildInputs = [
+    lightdm
+    gtk3
+    pixman
+    libcanberra
+    libX11
+    libXext
   ];
+
+  pythonPath = [ python3.pkgs.pygobject3 # for slick-greeter-check-hidpi
+    ];
 
   postPatch = ''
     substituteInPlace src/slick-greeter.vala \
@@ -73,8 +79,10 @@ stdenv.mkDerivation rec {
     "--sbindir=${placeholder "out"}/bin"
   ];
 
-  installFlags =
-    [ "localstatedir=\${TMPDIR}" "sysconfdir=${placeholder "out"}/etc" ];
+  installFlags = [
+    "localstatedir=\${TMPDIR}"
+    "sysconfdir=${placeholder "out"}/etc"
+  ];
 
   postInstall = ''
     substituteInPlace "$out/share/xgreeters/slick-greeter.desktop" \
@@ -90,16 +98,19 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  passthru.xgreeters = linkFarm "lightdm-slick-greeter-xgreeters" [{
+  passthru.xgreeters = linkFarm "lightdm-slick-greeter-xgreeters" [ {
     path = "${lightdm-slick-greeter}/share/xgreeters/slick-greeter.desktop";
     name = "lightdm-slick-greeter.desktop";
-  }];
+  } ];
 
   meta = with lib; {
     description = "A slick-looking LightDM greeter";
     homepage = "https://github.com/linuxmint/slick-greeter";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ water-sucks bobby285271 ];
+    maintainers = with maintainers; [
+      water-sucks
+      bobby285271
+    ];
     platforms = platforms.linux;
   };
 }

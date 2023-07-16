@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-mUYNMcEV7kEXsBddiF9HwsWQ14QgbwmBXcBY++Xt4fY=";
   };
 
-  propagatedBuildInputs = [ qtbase qtsvg qttools ];
+  propagatedBuildInputs = [
+    qtbase
+    qtsvg
+    qttools
+  ];
   nativeBuildInputs = [ qmake ];
 
   postPatch = ''

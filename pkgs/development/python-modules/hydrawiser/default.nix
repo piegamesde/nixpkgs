@@ -24,8 +24,13 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs =
-    [ pytest-asyncio pytest-cov pytestCheckHook requests requests-mock ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-cov
+    pytestCheckHook
+    requests
+    requests-mock
+  ];
 
   pythonImportsCheck = [ "hydrawiser" ];
 

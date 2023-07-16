@@ -28,8 +28,15 @@ buildPythonPackage rec {
     hash = "sha256-47jAeHMJPBk7GpUvXtQuJchgiSy6M50anftsuXWk2ag=";
   };
 
-  propagatedBuildInputs =
-    [ future numpy pillow scipy scikit-learn scikitimage threadpoolctl ];
+  propagatedBuildInputs = [
+    future
+    numpy
+    pillow
+    scipy
+    scikit-learn
+    scikitimage
+    threadpoolctl
+  ];
 
   # see https://github.com/MIC-DKFZ/batchgenerators/pull/78
   postPatch = ''

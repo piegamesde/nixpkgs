@@ -26,7 +26,11 @@ buildPythonPackage rec {
     hash = "sha256-owkGwF5WQ17/CXwTsIYJ2AgktekRB4qhtsDxR0LCI/k=";
   };
 
-  nativeBuildInputs = [ setuptools setuptools-scm wheel ];
+  nativeBuildInputs = [
+    setuptools
+    setuptools-scm
+    wheel
+  ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -34,7 +38,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ py ];
 
-  nativeCheckInputs = [ py pytestCheckHook ];
+  nativeCheckInputs = [
+    py
+    pytestCheckHook
+  ];
 
   setupHook = ./setup-hook.sh;
 

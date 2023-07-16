@@ -26,10 +26,19 @@ stdenv.mkDerivation rec {
     hash = "sha256-xB2COtYgbg00rrOWTbcBocRnqF5682jUG2eS7I71Ln4=";
   };
 
-  nativeBuildInputs = [ autoreconfHook check flex pkg-config which ];
+  nativeBuildInputs = [
+    autoreconfHook
+    check
+    flex
+    pkg-config
+    which
+  ];
 
-  buildInputs = [ libffi llvm zlib ]
-    ++ lib.optionals stdenv.isLinux [ elfutils ]
+  buildInputs = [
+    libffi
+    llvm
+    zlib
+  ] ++ lib.optionals stdenv.isLinux [ elfutils ]
     ++ lib.optionals (!stdenv.isLinux) [ libelf ];
 
   preConfigure = ''
@@ -39,7 +48,10 @@ stdenv.mkDerivation rec {
 
   configureScript = "../configure";
 
-  configureFlags = [ "--enable-vhpi" "--disable-lto" ];
+  configureFlags = [
+    "--enable-vhpi"
+    "--disable-lto"
+  ];
 
   doCheck = true;
 

@@ -27,11 +27,25 @@ stdenv.mkDerivation rec {
     hash = "sha256-8RE93pIg5fVAYOOq8zHlWy0uTxep7hrJlowPu48beTs=";
   };
 
-  nativeBuildInputs = [ cmake meson ninja pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    meson
+    ninja
+    pkg-config
+  ];
 
   dontUseCmakeConfigure = true;
 
-  buildInputs = [ cli11 eigen fmt hidrd inih microsoft_gsl spdlog systemd ];
+  buildInputs = [
+    cli11
+    eigen
+    fmt
+    hidrd
+    inih
+    microsoft_gsl
+    spdlog
+    systemd
+  ];
 
   # Original installs udev rules and service config into global paths
   postPatch = ''
@@ -55,7 +69,10 @@ stdenv.mkDerivation rec {
     description = "Userspace daemon for Intel Precise Touch & Stylus";
     homepage = "https://github.com/linux-surface/iptsd";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ tomberek dotlambda ];
+    maintainers = with maintainers; [
+      tomberek
+      dotlambda
+    ];
     platforms = platforms.linux;
   };
 }

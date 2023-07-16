@@ -23,12 +23,22 @@ buildPythonPackage rec {
     hash = "sha256-0dBaSz7G+DC73Md5p0DpY6gNMkpP1u9Bp8JIoHz5ZIk=";
   };
 
-  propagatedBuildInputs = [ google-api-core proto-plus protobuf ]
-    ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs = [
+    google-api-core
+    proto-plus
+    protobuf
+  ] ++ google-api-core.optional-dependencies.grpc;
 
-  nativeCheckInputs = [ mock pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
-  pythonImportsCheck = [ "google.cloud.compute" "google.cloud.compute_v1" ];
+  pythonImportsCheck = [
+    "google.cloud.compute"
+    "google.cloud.compute_v1"
+  ];
 
   # disable tests that require credentials
   disabledTestPaths = [

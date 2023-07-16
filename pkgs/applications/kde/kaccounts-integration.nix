@@ -21,6 +21,13 @@ mkDerivation {
     platforms = platforms.linux;
   };
   nativeBuildInputs = [ extra-cmake-modules ];
-  buildInputs =
-    [ kcmutils kcoreaddons kdoctools kwallet accounts-qt signond qcoro ];
+  buildInputs = [
+    kcmutils
+    kcoreaddons
+    kdoctools
+    kwallet
+    accounts-qt
+    signond
+    qcoro
+  ];
 }

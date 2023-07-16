@@ -15,9 +15,16 @@ in stdenv.mkDerivation {
   inherit (sources) version;
   src = sources.swift-corelibs-libdispatch;
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
-  nativeBuildInputs = [ cmake ] ++ lib.optionals useSwift [ ninja swift ];
+  nativeBuildInputs = [ cmake ] ++ lib.optionals useSwift [
+    ninja
+    swift
+  ];
 
   patches = [ ./disable-swift-overlay.patch ];
 

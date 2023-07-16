@@ -46,8 +46,11 @@ buildPythonPackage rec {
     "ipwhois/tests/online/"
   ];
 
-  disabledTests =
-    [ "test_lookup" "test_unique_addresses" "test_get_http_json" ];
+  disabledTests = [
+    "test_lookup"
+    "test_unique_addresses"
+    "test_get_http_json"
+  ];
 
   meta = with lib; {
     description = "Library to retrieve and parse whois data";

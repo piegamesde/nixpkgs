@@ -32,7 +32,10 @@ stdenv.mkDerivation rec {
       --replace "AppleClang" "Clang"
   '';
 
-  nativeBuildInputs = [ cmake directx-shader-compiler ];
+  nativeBuildInputs = [
+    cmake
+    directx-shader-compiler
+  ];
 
   buildInputs = [
     libGLU

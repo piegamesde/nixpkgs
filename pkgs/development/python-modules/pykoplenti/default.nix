@@ -32,7 +32,12 @@ buildPythonPackage rec {
       --replace 'version = unreleased' 'version = ${version}'
   '';
 
-  propagatedBuildInputs = [ aiohttp click prompt-toolkit pycryptodome ];
+  propagatedBuildInputs = [
+    aiohttp
+    click
+    prompt-toolkit
+    pycryptodome
+  ];
 
   # Project has no tests
   doCheck = false;

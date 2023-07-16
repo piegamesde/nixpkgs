@@ -34,7 +34,10 @@ mkDerivation rec {
     sha256 = "0gz4713lk3alk3ykwq1bdqjywadrfrnb7n2878136g01n87j00az";
   };
 
-  nativeBuildInputs = [ pkg-config cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
   buildInputs = [
     openssl
     db53
@@ -48,7 +51,11 @@ mkDerivation rec {
     protobuf
     libevent
     sqlite
-  ] ++ lib.optionals withGui [ qtbase qttools qrencode ];
+  ] ++ lib.optionals withGui [
+    qtbase
+    qttools
+    qrencode
+  ];
 
   cmakeFlags = lib.optionals (!withGui) [ "-DBUILD_BITCOIN_QT=OFF" ];
 

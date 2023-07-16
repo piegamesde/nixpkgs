@@ -28,9 +28,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ awesomeversion aiohttp ];
+  propagatedBuildInputs = [
+    awesomeversion
+    aiohttp
+  ];
 
-  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    aresponses
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "homewizard_energy" ];
 

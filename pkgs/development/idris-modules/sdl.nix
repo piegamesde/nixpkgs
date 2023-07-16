@@ -12,7 +12,10 @@ build-idris-package {
 
   idrisDeps = [ effects ];
 
-  extraBuildInputs = [ SDL SDL_gfx ];
+  extraBuildInputs = [
+    SDL
+    SDL_gfx
+  ];
 
   src = fetchFromGitHub {
     owner = "edwinb";

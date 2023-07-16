@@ -48,7 +48,11 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.lighttpd.enableModules = [ "mod_cgi" "mod_alias" "mod_setenv" ];
+    services.lighttpd.enableModules = [
+      "mod_cgi"
+      "mod_alias"
+      "mod_setenv"
+    ];
 
     services.lighttpd.extraConfig = ''
       $HTTP["url"] =~ "^/collectd" {
@@ -61,7 +65,12 @@ in {
         setenv.add-environment = (
           "PERL5LIB" => "${
             with pkgs.perlPackages;
-            makePerlPath [ CGI HTMLParser URI pkgs.rrdtool ]
+            makePerlPath [
+              CGI
+              HTMLParser
+              URI
+              pkgs.rrdtool
+            ]
           }",
           "COLLECTION_CONF" => "${collectionConf}"
         )

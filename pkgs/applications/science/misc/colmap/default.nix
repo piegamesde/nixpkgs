@@ -38,9 +38,16 @@ in mkDerivation rec {
     "-DCUDA_NVCC_FLAGS=--std=c++14"
   ];
 
-  buildInputs =
-    [ boost_static ceres-solver eigen freeimage glog libGLU glew qtbase ]
-    ++ lib.optionals cudaSupport [ cudatoolkit ];
+  buildInputs = [
+    boost_static
+    ceres-solver
+    eigen
+    freeimage
+    glog
+    libGLU
+    glew
+    qtbase
+  ] ++ lib.optionals cudaSupport [ cudatoolkit ];
 
   nativeBuildInputs = [ cmake ]
     ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ];

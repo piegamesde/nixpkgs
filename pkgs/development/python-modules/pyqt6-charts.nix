@@ -44,7 +44,12 @@ buildPythonPackage rec {
 
   dontWrapQtApps = true;
 
-  nativeBuildInputs = with qt6Packages; [ qtcharts sip qmake pyqt-builder ];
+  nativeBuildInputs = with qt6Packages; [
+    qtcharts
+    sip
+    qmake
+    pyqt-builder
+  ];
 
   buildInputs = with qt6Packages; [ qtcharts ];
 

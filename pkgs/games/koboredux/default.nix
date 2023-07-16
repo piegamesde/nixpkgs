@@ -17,14 +17,12 @@ stdenv.mkDerivation rec {
   pname = "koboredux";
   version = "0.7.5.1";
 
-  src = [
-    (fetchFromGitHub {
-      owner = "olofson";
-      repo = "koboredux";
-      rev = "v${version}";
-      sha256 = "09h9r65z8bar2z89s09j6px0gdq355kjf38rmd85xb2aqwnm6xig";
-    })
-  ] ++ (optional useProprietaryAssets (requireFile {
+  src = [ (fetchFromGitHub {
+    owner = "olofson";
+    repo = "koboredux";
+    rev = "v${version}";
+    sha256 = "09h9r65z8bar2z89s09j6px0gdq355kjf38rmd85xb2aqwnm6xig";
+  }) ] ++ (optional useProprietaryAssets (requireFile {
     name = "koboredux-${version}-Linux.tar.bz2";
     sha256 = "11bmicx9i11m4c3dp19jsql0zy4rjf5a28x4hd2wl8h3bf8cdgav";
     message = ''
@@ -44,13 +42,11 @@ stdenv.mkDerivation rec {
   sourceRoot = "source"; # needed when we have the assets source
 
   # Fix clang build
-  patches = [
-    (fetchpatch {
-      url =
-        "https://github.com/olofson/koboredux/commit/cf92b8a61d002ccaa9fbcda7a96dab08a681dee4.patch";
-      sha256 = "0dwhvis7ghf3mgzjd2rwn8hk3ndlgfwwcqaq581yc5rwd73v6vw4";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://github.com/olofson/koboredux/commit/cf92b8a61d002ccaa9fbcda7a96dab08a681dee4.patch";
+    sha256 = "0dwhvis7ghf3mgzjd2rwn8hk3ndlgfwwcqaq581yc5rwd73v6vw4";
+  }) ];
 
   postPatch = optionalString useProprietaryAssets ''
     cp -r ../koboredux-${version}-Linux/sfx/redux data/sfx/
@@ -58,9 +54,16 @@ stdenv.mkDerivation rec {
     cp -r ../koboredux-${version}-Linux/gfx/redux_fullscreen data/gfx/
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ SDL2 SDL2_image audiality2 ];
+  buildInputs = [
+    SDL2
+    SDL2_image
+    audiality2
+  ];
 
   meta = {
     description =

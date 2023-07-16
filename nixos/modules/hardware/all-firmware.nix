@@ -11,23 +11,38 @@ let cfg = config.hardware;
 in {
 
   imports = [
-    (mkRenamedOptionModule [ "networking" "enableRT73Firmware" ] [
+    (mkRenamedOptionModule [
+      "networking"
+      "enableRT73Firmware"
+    ] [
       "hardware"
       "enableRedistributableFirmware"
     ])
-    (mkRenamedOptionModule [ "networking" "enableIntel3945ABGFirmware" ] [
+    (mkRenamedOptionModule [
+      "networking"
+      "enableIntel3945ABGFirmware"
+    ] [
       "hardware"
       "enableRedistributableFirmware"
     ])
-    (mkRenamedOptionModule [ "networking" "enableIntel2100BGFirmware" ] [
+    (mkRenamedOptionModule [
+      "networking"
+      "enableIntel2100BGFirmware"
+    ] [
       "hardware"
       "enableRedistributableFirmware"
     ])
-    (mkRenamedOptionModule [ "networking" "enableRalinkFirmware" ] [
+    (mkRenamedOptionModule [
+      "networking"
+      "enableRalinkFirmware"
+    ] [
       "hardware"
       "enableRedistributableFirmware"
     ])
-    (mkRenamedOptionModule [ "networking" "enableRTL8192cFirmware" ] [
+    (mkRenamedOptionModule [
+      "networking"
+      "enableRTL8192cFirmware"
+    ] [
       "hardware"
       "enableRedistributableFirmware"
     ])
@@ -83,20 +98,19 @@ in {
           libreelec-dvb-firmware
         ]
         ++ optional pkgs.stdenv.hostPlatform.isAarch raspberrypiWirelessFirmware
-        ++ optionals
-        (versionOlder config.boot.kernelPackages.kernel.version "4.13")
-        [ rtl8723bs-firmware ];
+        ++ optionals (versionOlder config.boot.kernelPackages.kernel.version
+          "4.13") [ rtl8723bs-firmware ];
       hardware.wirelessRegulatoryDatabase = true;
     })
     (mkIf cfg.enableAllFirmware {
-      assertions = [{
+      assertions = [ {
         assertion = !cfg.enableAllFirmware || config.nixpkgs.config.allowUnfree;
         message = ''
           the list of hardware.enableAllFirmware contains non-redistributable licensed firmware files.
             This requires nixpkgs.config.allowUnfree to be true.
             An alternative is to use the hardware.enableRedistributableFirmware option.
         '';
-      }];
+      } ];
       hardware.firmware = with pkgs;
         [
           broadcom-bt-firmware

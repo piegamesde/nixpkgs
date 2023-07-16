@@ -48,7 +48,11 @@ stdenv.mkDerivation {
     "CXX=${stdenv.cc.targetPrefix}c++"
   ];
 
-  nativeBuildInputs = [ flex bison pkg-config ];
+  nativeBuildInputs = [
+    flex
+    bison
+    pkg-config
+  ];
   buildInputs = [ freetype ];
 
   meta = {

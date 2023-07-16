@@ -17,7 +17,10 @@
 mkDerivation {
   pname = "mauikit-imagetools";
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
   buildInputs = [
     kconfig

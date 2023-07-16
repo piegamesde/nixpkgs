@@ -27,7 +27,11 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ lame libvorbis gettext ];
+  buildInputs = [
+    lame
+    libvorbis
+    gettext
+  ];
 
   makeFlags = [ "DESTDIR=$(out)" ];
 

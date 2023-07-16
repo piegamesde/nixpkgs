@@ -27,7 +27,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ dbus-python flask flask-cors requests ];
+  propagatedBuildInputs = [
+    dbus-python
+    flask
+    flask-cors
+    requests
+  ];
 
   # Tests want to use Dbus
   doCheck = false;

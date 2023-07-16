@@ -21,7 +21,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ qt4 libjpeg libtiff boost ];
+  buildInputs = [
+    qt4
+    libjpeg
+    libtiff
+    boost
+  ];
 
   meta = {
     homepage = "https://scantailor.org/";

@@ -19,12 +19,10 @@ python3Packages.buildPythonApplication rec {
     sha256 = "0w2i2szajv1vcmc96w0fczdr8xc28ijcf1gdg180f21gi6yh96sc";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./ffmpeg-location.patch;
-      inherit ffmpeg;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./ffmpeg-location.patch;
+    inherit ffmpeg;
+  }) ];
 
   propagatedBuildInputs = with python3Packages; [
     crcmod
@@ -32,7 +30,10 @@ python3Packages.buildPythonApplication rec {
     mutagen
     tqdm
   ];
-  nativeCheckInputs = with python3Packages; [ requests sox ];
+  nativeCheckInputs = with python3Packages; [
+    requests
+    sox
+  ];
 
   # Testing downloads media files for testing, which requires the
   # sandbox to be disabled.

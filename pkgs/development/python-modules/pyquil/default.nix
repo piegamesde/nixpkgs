@@ -39,9 +39,15 @@ buildPythonPackage rec {
     hash = "sha256-iHyYX9e3O611OzBMafqn4V+yR1y8y4twiJehYDYlvdg=";
   };
 
-  pythonRelaxDeps = [ "lark" "networkx" ];
+  pythonRelaxDeps = [
+    "lark"
+    "networkx"
+  ];
 
-  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
   propagatedBuildInputs = [
     lark
@@ -57,8 +63,14 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  checkInputs =
-    [ pytest-asyncio pytest-freezegun pytest-httpx pytest-mock respx ipython ];
+  checkInputs = [
+    pytest-asyncio
+    pytest-freezegun
+    pytest-httpx
+    pytest-mock
+    respx
+    ipython
+  ];
 
   disabledTestPaths = [
     # Tests require network access

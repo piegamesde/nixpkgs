@@ -18,9 +18,16 @@ stdenv.mkDerivation rec {
     sha256 = "07b3xdd81n8ybsb4fzc5lx0813y9crzp1hj69khncf4faj48sdcs";
   };
 
-  nativeBuildInputs = [ pkg-config intltool itstool ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+    itstool
+  ];
 
-  buildInputs = [ gtk3 libxml2 ];
+  buildInputs = [
+    gtk3
+    libxml2
+  ];
 
   meta = with lib; {
     description = "Addicting game based on The Settlers of Catan";

@@ -50,7 +50,11 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = true;
 
-  nativeBuildInputs = [ antlr4 pythonRelaxDepsHook setuptools ];
+  nativeBuildInputs = [
+    antlr4
+    pythonRelaxDepsHook
+    setuptools
+  ];
 
   propagatedBuildInputs = [
     antlr4-python3-runtime
@@ -74,7 +78,10 @@ buildPythonPackage rec {
     yamale
   ];
 
-  nativeCheckInputs = [ pytestCheckHook parameterized ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    parameterized
+  ];
 
   # antlr4 issue prevents us from running the tests
   # https://github.com/antlr/antlr4/issues/4041

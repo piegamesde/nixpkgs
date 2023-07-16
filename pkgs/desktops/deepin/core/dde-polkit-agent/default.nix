@@ -29,9 +29,19 @@ stdenv.mkDerivation rec {
       --replace "/usr/share/dde-session-shell/dde-session-shell.conf" "/etc/dde-session-shell/dde-session-shell.conf"
   '';
 
-  nativeBuildInputs = [ cmake pkg-config qttools wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qttools
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ dtkwidget qt5platform-plugins dde-qt-dbus-factory polkit-qt ];
+  buildInputs = [
+    dtkwidget
+    qt5platform-plugins
+    dde-qt-dbus-factory
+    polkit-qt
+  ];
 
   # qt5integration must be placed before qtsvg in QT_PLUGIN_PATH
   qtWrapperArgs =

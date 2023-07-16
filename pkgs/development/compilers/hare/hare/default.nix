@@ -22,9 +22,19 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-1cSXWD8jpW1VJZDTDOkIabczqbaDCOWsyaUSGtsKsUM=";
   };
 
-  nativeBuildInputs = [ binutils-unwrapped harec makeWrapper qbe scdoc ];
+  nativeBuildInputs = [
+    binutils-unwrapped
+    harec
+    makeWrapper
+    qbe
+    scdoc
+  ];
 
-  buildInputs = [ binutils-unwrapped harec qbe ];
+  buildInputs = [
+    binutils-unwrapped
+    harec
+    qbe
+  ];
 
   strictDeps = true;
 
@@ -63,7 +73,12 @@ in stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  postInstall = let binPath = lib.makeBinPath [ binutils-unwrapped harec qbe ];
+  postInstall = let
+    binPath = lib.makeBinPath [
+      binutils-unwrapped
+      harec
+      qbe
+    ];
   in ''
     wrapProgram $out/bin/hare --prefix PATH : ${binPath}
   '';

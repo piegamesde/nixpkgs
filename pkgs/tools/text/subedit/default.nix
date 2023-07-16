@@ -21,7 +21,11 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [ libuchardet dos2unix file ];
+  buildInputs = [
+    libuchardet
+    dos2unix
+    file
+  ];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -30,7 +34,11 @@ stdenv.mkDerivation {
 
   postFixup = ''
     wrapProgram $out/bin/subedit --prefix PATH : "${
-      lib.makeBinPath [ libuchardet dos2unix file ]
+      lib.makeBinPath [
+        libuchardet
+        dos2unix
+        file
+      ]
     }"
   '';
 

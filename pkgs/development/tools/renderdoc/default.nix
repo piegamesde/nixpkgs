@@ -49,8 +49,11 @@ in mkDerivation rec {
     qtx11extras
     vulkan-loader
     python3
-  ] ++ (with python3Packages; [ pyside2 pyside2-tools shiboken2 ])
-    ++ lib.optional waylandSupport wayland;
+  ] ++ (with python3Packages; [
+    pyside2
+    pyside2-tools
+    shiboken2
+  ]) ++ lib.optional waylandSupport wayland;
 
   nativeBuildInputs = [
     cmake
@@ -108,6 +111,9 @@ in mkDerivation rec {
       Windows 7 - 10, Linux or Android.
     '';
     maintainers = [ ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 }

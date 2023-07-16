@@ -45,8 +45,13 @@ in import ./versions.nix ({
     };
 
     nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ libevent libiconv openssl pcre zlib ]
-      ++ optional odbcSupport unixODBC ++ optional snmpSupport net-snmp
+    buildInputs = [
+      libevent
+      libiconv
+      openssl
+      pcre
+      zlib
+    ] ++ optional odbcSupport unixODBC ++ optional snmpSupport net-snmp
       ++ optional sqliteSupport sqlite ++ optional sshSupport libssh2
       ++ optional mysqlSupport libmysqlclient
       ++ optional postgresqlSupport postgresql;
@@ -70,7 +75,10 @@ in import ./versions.nix ({
       find database -name data.sql -exec sed -i 's|/usr/bin/||g' {} +
     '';
 
-    makeFlags = [ "AR:=$(AR)" "RANLIB:=$(RANLIB)" ];
+    makeFlags = [
+      "AR:=$(AR)"
+      "RANLIB:=$(RANLIB)"
+    ];
 
     postInstall = ''
       mkdir -p $out/share/zabbix/database/

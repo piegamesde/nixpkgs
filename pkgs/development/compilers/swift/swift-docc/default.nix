@@ -22,9 +22,17 @@ in stdenv.mkDerivation {
   # repository is not tagged.
   renderArtifact = sources.swift-docc-render-artifact;
 
-  nativeBuildInputs = [ swift swiftpm ];
-  buildInputs = [ Foundation XCTest ]
-    ++ lib.optionals stdenv.isDarwin [ CryptoKit LocalAuthentication ];
+  nativeBuildInputs = [
+    swift
+    swiftpm
+  ];
+  buildInputs = [
+    Foundation
+    XCTest
+  ] ++ lib.optionals stdenv.isDarwin [
+    CryptoKit
+    LocalAuthentication
+  ];
 
   configurePhase = generated.configure;
 

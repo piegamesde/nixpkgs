@@ -17,7 +17,10 @@ buildPythonPackage rec {
     hash = "sha256-WtwDS3yQ5qhYa9BGvL9gBONeFrDX4x3jlVE6UNcpu/Y=";
   };
 
-  nativeBuildInputs = [ cython setuptools ];
+  nativeBuildInputs = [
+    cython
+    setuptools
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
   preCheck = ''

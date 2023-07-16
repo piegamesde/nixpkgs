@@ -25,7 +25,10 @@ python3Packages.buildPythonApplication rec {
     })
   ];
 
-  propagatedBuildInputs = [ mopidy python3Packages.uritools ];
+  propagatedBuildInputs = [
+    mopidy
+    python3Packages.uritools
+  ];
 
   nativeCheckInputs = [ python3Packages.pytestCheckHook ];
 

@@ -17,7 +17,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-FDwcsf69l8GcMet9zUG2fuyoZgpEujB3A59eWg2GbdI=";
 
-  subPackages = [ "cmd/docker-credential-up" "cmd/up" ];
+  subPackages = [
+    "cmd/docker-credential-up"
+    "cmd/up"
+  ];
 
   ldflags = [
     "-s"

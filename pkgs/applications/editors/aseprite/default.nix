@@ -49,7 +49,10 @@ in stdenv.mkDerivation rec {
       "0gd49lns2bpzbkwax5jf9x1xmg1j8ij997kcxr2596cwiswnw4di";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ] ++ lib.optionals unfree [ ninja ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ] ++ lib.optionals unfree [ ninja ];
 
   buildInputs = [
     curl
@@ -75,9 +78,7 @@ in stdenv.mkDerivation rec {
     libGL
   ];
 
-  patches = if !unfree then
-    [ ./allegro-glibc-2.30.patch ]
-  else [
+  patches = if !unfree then [ ./allegro-glibc-2.30.patch ] else [
     (fetchpatch {
       url =
         "https://github.com/lfont/aseprite/commit/f1ebc47012d3fed52306ed5922787b4b98cc0a7b.patch";

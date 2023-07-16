@@ -26,7 +26,11 @@ stdenv.mkDerivation rec {
     sha256 = "0l1ms3nxnjzh4mpiadikvngcr9k3jnjqy3yna207za0va0c28dj5";
   };
 
-  nativeBuildInputs = [ pkg-config autoconf automake ];
+  nativeBuildInputs = [
+    pkg-config
+    autoconf
+    automake
+  ];
   buildInputs = [
     libtool
     curl
@@ -65,7 +69,10 @@ stdenv.mkDerivation rec {
     description = "CPU/GPU miner in c for bitcoin";
     homepage = "https://github.com/ckolivas/cgminer";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ offline mmahut ];
+    maintainers = with maintainers; [
+      offline
+      mmahut
+    ];
     platforms = platforms.linux;
   };
 }

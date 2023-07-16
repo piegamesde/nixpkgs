@@ -38,9 +38,16 @@
 stdenv.mkDerivation rec {
   inherit pname version src postInstall;
 
-  nativeBuildInputs = [ python3 pkg-config hexdump ] ++ extraNativeBuildInputs;
+  nativeBuildInputs = [
+    python3
+    pkg-config
+    hexdump
+  ] ++ extraNativeBuildInputs;
 
-  buildInputs = [ audiofile SDL2 ] ++ extraBuildInputs;
+  buildInputs = [
+    audiofile
+    SDL2
+  ] ++ extraBuildInputs;
 
   enableParallelBuilding = true;
 

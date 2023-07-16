@@ -82,12 +82,28 @@ in buildPythonPackage {
 
   src = bazel-wheel;
 
-  propagatedBuildInputs =
-    [ tensorflow six numpy decorator cloudpickle gast dm-tree keras ];
+  propagatedBuildInputs = [
+    tensorflow
+    six
+    numpy
+    decorator
+    cloudpickle
+    gast
+    dm-tree
+    keras
+  ];
 
   # Listed here:
   # https://github.com/tensorflow/probability/blob/f3777158691787d3658b5e80883fe1a933d48989/testing/dependency_install_lib.sh#L83
-  nativeCheckInputs = [ hypothesis pytest scipy pandas mpmath matplotlib mock ];
+  nativeCheckInputs = [
+    hypothesis
+    pytest
+    scipy
+    pandas
+    mpmath
+    matplotlib
+    mock
+  ];
 
   # Ideally, we run unit tests with pytest, but in checkPhase, only the Bazel-build wheel is available.
   # But it seems not guaranteed that running the tests with pytest will even work, see

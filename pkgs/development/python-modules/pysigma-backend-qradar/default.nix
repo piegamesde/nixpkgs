@@ -28,7 +28,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pysigma ];
 
-  nativeCheckInputs = [ pysigma-pipeline-sysmon pytestCheckHook ];
+  nativeCheckInputs = [
+    pysigma-pipeline-sysmon
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

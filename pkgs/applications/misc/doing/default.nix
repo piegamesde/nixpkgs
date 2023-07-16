@@ -24,7 +24,10 @@ bundlerEnv {
     '';
     homepage = "https://brettterpstra.com/projects/doing/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ktf nicknovitski ];
+    maintainers = with maintainers; [
+      ktf
+      nicknovitski
+    ];
     platforms = platforms.unix;
   };
 }

@@ -26,12 +26,22 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "RyxILg7y+xYp5h4X2qoaSH9kOSsCmEncmkCCr7OLye4=";
   };
 
-  nativeBuildInputs =
-    [ pkg-config gettext gobject-introspection wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+    gobject-introspection
+    wrapGAppsHook
+  ];
 
-  propagatedBuildInputs = [ mate.mate-menus python3.pkgs.pygobject3 ];
+  propagatedBuildInputs = [
+    mate.mate-menus
+    python3.pkgs.pygobject3
+  ];
 
-  buildInputs = [ gtk3 glib ];
+  buildInputs = [
+    gtk3
+    glib
+  ];
 
   enableParallelBuilding = true;
 

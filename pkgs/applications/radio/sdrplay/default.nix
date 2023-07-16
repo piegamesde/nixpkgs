@@ -24,7 +24,10 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoPatchelfHook ];
 
-  buildInputs = [ udev stdenv.cc.cc.lib ];
+  buildInputs = [
+    udev
+    stdenv.cc.cc.lib
+  ];
 
   unpackPhase = ''
     sh "$src" --noexec --target source

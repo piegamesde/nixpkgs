@@ -26,7 +26,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [ faker pytest-aiohttp pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    faker
+    pytest-aiohttp
+    pytest-mock
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Not all tests are ready yet

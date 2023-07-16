@@ -18,7 +18,10 @@ buildKodiAddon rec {
     sha256 = "sha256-eWzMqsE8H0wUvPyd3wvjiaXEg4+sgkQ3CQYjE0VS+9g=";
   };
 
-  propagatedBuildInputs = [ defusedxml kodi-six ];
+  propagatedBuildInputs = [
+    defusedxml
+    kodi-six
+  ];
 
   passthru = {
     updateScript = addonUpdateScript { attrPath = "kodi.packages.keymap"; };

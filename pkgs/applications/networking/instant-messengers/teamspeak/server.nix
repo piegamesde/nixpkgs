@@ -21,7 +21,10 @@ in stdenv.mkDerivation rec {
       "sha256-aMEDOnvBeKfzG8lDFhU8I5DYgG53IsCDBMV2MUyJi2g=";
   };
 
-  buildInputs = [ stdenv.cc.cc postgresql.lib ];
+  buildInputs = [
+    stdenv.cc.cc
+    postgresql.lib
+  ];
 
   nativeBuildInputs = [ autoPatchelfHook ];
 
@@ -69,7 +72,10 @@ in stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfreeRedistributable;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ arobyn gerschtli ];
+    maintainers = with maintainers; [
+      arobyn
+      gerschtli
+    ];
   };
 }
 

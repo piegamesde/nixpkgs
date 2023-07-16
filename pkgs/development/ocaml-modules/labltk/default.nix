@@ -74,15 +74,29 @@ in stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ ocaml findlib makeWrapper ];
-  buildInputs = [ tcl tk ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+    makeWrapper
+  ];
+  buildInputs = [
+    tcl
+    tk
+  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
-  configureFlags = [ "--use-findlib" "--installbindir" "$(out)/bin" ];
+  configureFlags = [
+    "--use-findlib"
+    "--installbindir"
+    "$(out)/bin"
+  ];
   dontAddPrefix = true;
   dontAddStaticConfigureFlags = true;
   configurePlatforms = [ ];
 
-  buildFlags = [ "all" "opt" ];
+  buildFlags = [
+    "all"
+    "opt"
+  ];
 
   createFindlibDestdir = true;
 

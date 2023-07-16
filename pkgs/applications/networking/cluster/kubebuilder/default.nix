@@ -36,12 +36,21 @@ buildGoModule rec {
     "-X main.buildDate=unknown"
   ];
 
-  nativeBuildInputs = [ makeWrapper git installShellFiles ];
+  nativeBuildInputs = [
+    makeWrapper
+    git
+    installShellFiles
+  ];
 
   postInstall = ''
     mv $out/bin/cmd $out/bin/kubebuilder
     wrapProgram $out/bin/kubebuilder \
-      --prefix PATH : ${lib.makeBinPath [ go gnumake ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          go
+          gnumake
+        ]
+      }
 
     installShellCompletion --cmd kubebuilder \
       --bash <($out/bin/kubebuilder completion bash) \

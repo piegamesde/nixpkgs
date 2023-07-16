@@ -29,10 +29,23 @@ stdenv.mkDerivation rec {
     sha256 = "1pjx4rbsxa7gcs628yjkwb0zqrm5xq8pkmp0cfk4flfk1ryflmgr";
   };
 
-  nativeBuildInputs =
-    [ pkg-config python3 perlPackages.Po4a itstool meson ninja ];
+  nativeBuildInputs = [
+    pkg-config
+    python3
+    perlPackages.Po4a
+    itstool
+    meson
+    ninja
+  ];
 
-  buildInputs = [ gtk3 glib gdbm gtkspell3 ofono libayatana-appindicator ];
+  buildInputs = [
+    gtk3
+    glib
+    gdbm
+    gtkspell3
+    ofono
+    libayatana-appindicator
+  ];
 
   patches = [
     # Fix missing tray icon
@@ -72,7 +85,10 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://linuxonly.ru/page/modem-manager-gui";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ahuzik galagora ];
+    maintainers = with maintainers; [
+      ahuzik
+      galagora
+    ];
     platforms = platforms.linux;
   };
 }

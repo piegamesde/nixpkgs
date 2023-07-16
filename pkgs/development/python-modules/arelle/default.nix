@@ -29,12 +29,22 @@ buildPythonPackage rec {
     rev = "edgr${version}";
     sha256 = "12a94ipdp6xalqyds7rcp6cjwps6fbj3byigzfy403hlqc9n1g33";
   };
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
   patches = [ ./tests.patch ];
   postPatch = "rm testParser2.py";
-  nativeBuildInputs = [ sphinx py3to2 ];
-  propagatedBuildInputs = [ lxml isodate numpy openpyxl ]
-    ++ lib.optionals gui [ tkinter ];
+  nativeBuildInputs = [
+    sphinx
+    py3to2
+  ];
+  propagatedBuildInputs = [
+    lxml
+    isodate
+    numpy
+    openpyxl
+  ] ++ lib.optionals gui [ tkinter ];
 
   # arelle-gui is useless without gui dependencies, so delete it when !gui.
   postInstall = lib.optionalString (!gui) ''

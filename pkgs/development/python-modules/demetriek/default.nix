@@ -37,9 +37,19 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ aiohttp awesomeversion backoff pydantic yarl ];
+  propagatedBuildInputs = [
+    aiohttp
+    awesomeversion
+    backoff
+    pydantic
+    yarl
+  ];
 
-  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    aresponses
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "demetriek" ];
 

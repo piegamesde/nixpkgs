@@ -127,7 +127,11 @@ in rec {
        => { x = "a"; xa = "a"; y = "b"; yb = "b"; }
   */
   concatMapAttrs = f:
-    flip pipe [ (mapAttrs f) attrValues (foldl' mergeAttrs { }) ];
+    flip pipe [
+      (mapAttrs f)
+      attrValues
+      (foldl' mergeAttrs { })
+    ];
 
   /* Update or set specific paths of an attribute set.
 
@@ -329,12 +333,8 @@ in rec {
     set:
     listToAttrs (concatMap (name:
       let v = set.${name};
-      in if pred name v then
-        [
-          (nameValuePair name
-            (if isAttrs v then filterAttrsRecursive pred v else v))
-        ]
-      else
+      in if pred name v then [ (nameValuePair name
+        (if isAttrs v then filterAttrsRecursive pred v else v)) ] else
         [ ]) (attrNames set));
 
   /* Like builtins.foldl' but for attribute sets.
@@ -433,9 +433,7 @@ in rec {
     pred:
     # The attribute set to recursively collect.
     attrs:
-    if pred attrs then
-      [ attrs ]
-    else if isAttrs attrs then
+    if pred attrs then [ attrs ] else if isAttrs attrs then
       concatMap (collect pred) (attrValues attrs)
     else
       [ ];
@@ -767,7 +765,10 @@ in rec {
             head values
           else
             f here values);
-    in f [ ] [ rhs lhs ];
+    in f [ ] [
+      rhs
+      lhs
+    ];
 
   /* A recursive variant of the update operator ‘//’.  The recursion
      stops when one of the attribute values is not an attribute set,
@@ -822,7 +823,10 @@ in rec {
       else if isAttrs pat then
         isAttrs val && matchAttrs pat val
       else
-        pat == val) [ pattern attrs ]));
+        pat == val) [
+          pattern
+          attrs
+        ]));
 
   /* Override only the attributes that are already present in the old set
      useful for deep-overriding.

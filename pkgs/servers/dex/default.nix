@@ -20,7 +20,11 @@ buildGoModule rec {
 
   subPackages = [ "cmd/dex" ];
 
-  ldflags = [ "-w" "-s" "-X github.com/dexidp/dex/version.Version=${src.rev}" ];
+  ldflags = [
+    "-w"
+    "-s"
+    "-X github.com/dexidp/dex/version.Version=${src.rev}"
+  ];
 
   postInstall = ''
     mkdir -p $out/share
@@ -34,7 +38,10 @@ buildGoModule rec {
       "OpenID Connect and OAuth2 identity provider with pluggable connectors";
     homepage = "https://github.com/dexidp/dex";
     license = licenses.asl20;
-    maintainers = with maintainers; [ benley techknowlogick ];
+    maintainers = with maintainers; [
+      benley
+      techknowlogick
+    ];
     platforms = platforms.unix;
   };
 }

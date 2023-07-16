@@ -38,8 +38,12 @@ buildPythonPackage rec {
     hash = "sha256-WyLNtZhtuGzqCJdOBvtBjZZiGFQihpeSjJQtP7lI248=";
   };
 
-  propagatedBuildInputs = [ numpy qiskit-terra scikit-learn scipy ]
-    ++ lib.optionals (withCvx) [ cvxpy ]
+  propagatedBuildInputs = [
+    numpy
+    qiskit-terra
+    scikit-learn
+    scipy
+  ] ++ lib.optionals (withCvx) [ cvxpy ]
     ++ lib.optionals (withVisualization) [ matplotlib ]
     ++ lib.optionals (withJit) [ numba ];
 
@@ -49,12 +53,17 @@ buildPythonPackage rec {
   preCheck = ''
     export HOME=$TMPDIR
   '';
-  nativeCheckInputs = [ pytestCheckHook ddt pyfakefs qiskit-aer ];
-  disabledTests = [
-    "test_tensored_meas_cal_on_circuit" # Flaky test, occasionally returns result outside bounds
-  ] ++ lib.optionals stdenv.isAarch64 [
-    "test_fitters" # Fails check that arrays are close. Might be due to aarch64 math issues.
+  nativeCheckInputs = [
+    pytestCheckHook
+    ddt
+    pyfakefs
+    qiskit-aer
   ];
+  disabledTests =
+    [ "test_tensored_meas_cal_on_circuit" # Flaky test, occasionally returns result outside bounds
+    ] ++ lib.optionals
+    stdenv.isAarch64 [ "test_fitters" # Fails check that arrays are close. Might be due to aarch64 math issues.
+    ];
 
   meta = with lib; {
     description =

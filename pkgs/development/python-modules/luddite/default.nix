@@ -26,7 +26,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-socket pytest-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-socket
+    pytest-mock
+  ];
   pythonImportsCheck = [ "luddite" ];
 
   meta = with lib; {

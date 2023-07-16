@@ -18,7 +18,10 @@ in stdenv.mkDerivation {
   };
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
-  buildInputs = [ kmod zlib ];
+  buildInputs = [
+    kmod
+    zlib
+  ];
 
   hardeningDisable = [ "pic" ];
   env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=implicit-fallthrough" ];

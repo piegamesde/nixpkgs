@@ -30,8 +30,7 @@ with lib;
           "vfat"
           "nls-cp437"
           "nls-iso8859-1"
-        ] else
-          [ x.fsType ]
+        ] else [ x.fsType ]
       else
         [ ]) config.system.build.fileSystems;
 

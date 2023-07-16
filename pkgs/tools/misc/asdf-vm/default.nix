@@ -57,9 +57,16 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-4y0XamKIZ7kftrsSb87qLizTBO6b2fdAyPauslwzo8c=";
   };
 
-  nativeBuildInputs = [ makeWrapper installShellFiles ];
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+  ];
 
-  buildInputs = [ bash curl git ];
+  buildInputs = [
+    bash
+    curl
+    git
+  ];
 
   installPhase = ''
     mkdir -p $out/share/asdf-vm

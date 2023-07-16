@@ -24,7 +24,14 @@ buildPythonPackage rec {
     hash = "sha256-41qd+KPSrOrczkovwXht3irbcYlYehBZ1HZ44yZe4cM=";
   };
 
-  propagatedBuildInputs = [ apscheduler hiredis aioredis ephem pytz pyyaml ];
+  propagatedBuildInputs = [
+    apscheduler
+    hiredis
+    aioredis
+    ephem
+    pytz
+    pyyaml
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

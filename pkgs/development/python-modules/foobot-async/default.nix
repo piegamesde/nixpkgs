@@ -21,9 +21,15 @@ buildPythonPackage rec {
     sha256 = "fa557a22de925139cb4a21034ffdbcd01d28bf166c0e680eaf84a99206327f40";
   };
 
-  propagatedBuildInputs = [ aiohttp async-timeout ];
+  propagatedBuildInputs = [
+    aiohttp
+    async-timeout
+  ];
 
-  nativeCheckInputs = [ aioresponses pytestCheckHook ];
+  nativeCheckInputs = [
+    aioresponses
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "foobot_async" ];
 

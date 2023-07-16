@@ -47,7 +47,10 @@ buildDotnetModule rec {
 
   nativeBuildInputs = [ wrapGAppsHook ];
 
-  buildInputs = [ gtk3 gdk-pixbuf ];
+  buildInputs = [
+    gtk3
+    gdk-pixbuf
+  ];
 
   runtimeDeps = [
     gtk3
@@ -83,7 +86,11 @@ buildDotnetModule rec {
   dotnetFlags =
     [ "/p:ExtraDefineConstants=DISABLE_UPDATER%2CFORCE_EXTERNAL_BASE_DIR" ];
 
-  executables = [ "Ryujinx.Headless.SDL2" "Ryujinx.Ava" "Ryujinx" ];
+  executables = [
+    "Ryujinx.Headless.SDL2"
+    "Ryujinx.Ava"
+    "Ryujinx"
+  ];
 
   makeWrapperArgs = [
     # Without this Ryujinx fails to start on wayland. See https://github.com/Ryujinx/Ryujinx/issues/2714
@@ -127,7 +134,10 @@ buildDotnetModule rec {
       2017.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ ivar jk ];
+    maintainers = with maintainers; [
+      ivar
+      jk
+    ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "Ryujinx";
   };

@@ -22,7 +22,10 @@ mkDerivation rec {
   dontUseQmakeConfigure = true;
 
   nativeBuildInputs = [ qmake ];
-  buildInputs = [ qtscript qtwebkit ];
+  buildInputs = [
+    qtscript
+    qtwebkit
+  ];
 
   meta = with lib; {
     description = "Play and download Youtube videos";

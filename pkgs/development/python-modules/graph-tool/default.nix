@@ -44,7 +44,10 @@ buildPythonPackage rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   # https://git.skewed.de/count0/graph-tool/-/wikis/installation-instructions#manual-compilation
   propagatedBuildInputs = [

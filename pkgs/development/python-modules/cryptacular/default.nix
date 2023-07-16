@@ -18,7 +18,10 @@ buildPythonPackage rec {
     sha256 = "7b529cb2b8a3c7e5be77921bf1ebc653d4d3a8f791375cc6f971b20db2404176";
   };
 
-  buildInputs = [ coverage nose ];
+  buildInputs = [
+    coverage
+    nose
+  ];
   propagatedBuildInputs = [ pbkdf2 ];
 
   # TODO: tests fail: TypeError: object of type 'NoneType' has no len()

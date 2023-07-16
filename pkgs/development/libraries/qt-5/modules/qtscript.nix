@@ -6,5 +6,8 @@
 
 qtModule {
   pname = "qtscript";
-  qtInputs = [ qtbase qttools ];
+  qtInputs = [
+    qtbase
+    qttools
+  ];
 }

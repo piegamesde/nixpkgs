@@ -22,8 +22,15 @@ buildPythonPackage rec {
     hash = "sha256-opObkjkad+yrLE2b7DULHjGuNeVhu4fEmSavgA39YPw=";
   };
 
-  propagatedBuildInputs =
-    [ ndg-httpsclient netifaces pyasn1 pyopenssl requests six urllib3 ];
+  propagatedBuildInputs = [
+    ndg-httpsclient
+    netifaces
+    pyasn1
+    pyopenssl
+    requests
+    six
+    urllib3
+  ];
 
   # The tests do network requests, so disabled
   doCheck = false;

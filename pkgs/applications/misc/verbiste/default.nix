@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libgnomeui libxml2 ];
+  buildInputs = [
+    libgnomeui
+    libxml2
+  ];
 
   enableParallelBuilding = true;
 

@@ -16,7 +16,13 @@ stdenv.mkDerivation {
     sha256 = "cc50158fabaeee58c331f006cc1c08fd2940a126e99d37b76c8e878ef20c2021";
   };
 
-  libPath = lib.makeLibraryPath [ gcc.cc libXxf86vm libXext libX11 libXrandr ];
+  libPath = lib.makeLibraryPath [
+    gcc.cc
+    libXxf86vm
+    libXext
+    libX11
+    libXrandr
+  ];
 
   unpackPhase = ''
     unpackFile $src;

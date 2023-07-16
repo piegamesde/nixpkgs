@@ -3,7 +3,12 @@
   ...
 }: {
   name = "kubo";
-  meta = with lib.maintainers; { maintainers = [ mguentner Luflosi ]; };
+  meta = with lib.maintainers; {
+    maintainers = [
+      mguentner
+      Luflosi
+    ];
+  };
 
   nodes.machine = {
       config,

@@ -20,7 +20,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-7wgGJYiIsVTRSuSb4a9LgYCkkayGhNMKqcIKoDxMuAM=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/lux \

@@ -43,8 +43,10 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  configureFlags =
-    [ "GMP_CFLAGS=-I${lib.getDev gmp}/include" "GMP_LDFLAGS=-L${gmp.out}/lib" ];
+  configureFlags = [
+    "GMP_CFLAGS=-I${lib.getDev gmp}/include"
+    "GMP_LDFLAGS=-L${gmp.out}/lib"
+  ];
 
   # tinycc configure flags copied from the tinycc derivation.
   postConfigure = ''

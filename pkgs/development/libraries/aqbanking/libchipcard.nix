@@ -21,7 +21,11 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ gwenhywfar pcsclite zlib ];
+  buildInputs = [
+    gwenhywfar
+    pcsclite
+    zlib
+  ];
 
   makeFlags = [ "crypttokenplugindir=$(out)/lib/gwenhywfar/plugins/ct" ];
 

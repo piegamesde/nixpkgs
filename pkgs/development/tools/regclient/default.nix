@@ -5,7 +5,12 @@
   fetchFromGitHub,
 }:
 
-let bins = [ "regbot" "regctl" "regsync" ];
+let
+  bins = [
+    "regbot"
+    "regctl"
+    "regsync"
+  ];
 
 in buildGoModule rec {
   pname = "regclient";
@@ -22,7 +27,11 @@ in buildGoModule rec {
 
   outputs = [ "out" ] ++ bins;
 
-  ldflags = [ "-s" "-w" "-X main.VCSTag=${tag}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.VCSTag=${tag}"
+  ];
 
   postInstall = lib.concatStringsSep "\n" (map (bin: ''
     mkdir -p ''$${bin}/bin &&

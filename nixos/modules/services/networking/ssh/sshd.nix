@@ -114,12 +114,20 @@ let
 
 in {
   imports = [
-    (mkAliasOptionModuleMD [ "services" "sshd" "enable" ] [
+    (mkAliasOptionModuleMD [
+      "services"
+      "sshd"
+      "enable"
+    ] [
       "services"
       "openssh"
       "enable"
     ])
-    (mkAliasOptionModuleMD [ "services" "openssh" "knownHosts" ] [
+    (mkAliasOptionModuleMD [
+      "services"
+      "openssh"
+      "knownHosts"
+    ] [
       "programs"
       "ssh"
       "knownHosts"
@@ -128,62 +136,107 @@ in {
       "services"
       "openssh"
       "challengeResponseAuthentication"
-    ] [ "services" "openssh" "kbdInteractiveAuthentication" ])
+    ] [
+      "services"
+      "openssh"
+      "kbdInteractiveAuthentication"
+    ])
 
     (mkRenamedOptionModule [
       "services"
       "openssh"
       "kbdInteractiveAuthentication"
-    ] [ "services" "openssh" "settings" "KbdInteractiveAuthentication" ])
-    (mkRenamedOptionModule [ "services" "openssh" "passwordAuthentication" ] [
+    ] [
+      "services"
+      "openssh"
+      "settings"
+      "KbdInteractiveAuthentication"
+    ])
+    (mkRenamedOptionModule [
+      "services"
+      "openssh"
+      "passwordAuthentication"
+    ] [
       "services"
       "openssh"
       "settings"
       "PasswordAuthentication"
     ])
-    (mkRenamedOptionModule [ "services" "openssh" "useDns" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "openssh"
+      "useDns"
+    ] [
       "services"
       "openssh"
       "settings"
       "UseDns"
     ])
-    (mkRenamedOptionModule [ "services" "openssh" "permitRootLogin" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "openssh"
+      "permitRootLogin"
+    ] [
       "services"
       "openssh"
       "settings"
       "PermitRootLogin"
     ])
-    (mkRenamedOptionModule [ "services" "openssh" "logLevel" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "openssh"
+      "logLevel"
+    ] [
       "services"
       "openssh"
       "settings"
       "LogLevel"
     ])
-    (mkRenamedOptionModule [ "services" "openssh" "macs" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "openssh"
+      "macs"
+    ] [
       "services"
       "openssh"
       "settings"
       "Macs"
     ])
-    (mkRenamedOptionModule [ "services" "openssh" "ciphers" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "openssh"
+      "ciphers"
+    ] [
       "services"
       "openssh"
       "settings"
       "Ciphers"
     ])
-    (mkRenamedOptionModule [ "services" "openssh" "kexAlgorithms" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "openssh"
+      "kexAlgorithms"
+    ] [
       "services"
       "openssh"
       "settings"
       "KexAlgorithms"
     ])
-    (mkRenamedOptionModule [ "services" "openssh" "gatewayPorts" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "openssh"
+      "gatewayPorts"
+    ] [
       "services"
       "openssh"
       "settings"
       "GatewayPorts"
     ])
-    (mkRenamedOptionModule [ "services" "openssh" "forwardX11" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "openssh"
+      "forwardX11"
+    ] [
       "services"
       "openssh"
       "settings"
@@ -238,7 +291,10 @@ in {
       sftpFlags = mkOption {
         type = with types; listOf str;
         default = [ ];
-        example = [ "-f AUTHPRIV" "-l INFO" ];
+        example = [
+          "-f AUTHPRIV"
+          "-l INFO"
+        ];
         description = lib.mdDoc ''
           Commandline flags to add to sftp-server.
         '';
@@ -575,11 +631,14 @@ in {
         wantedBy = optional (!cfg.startWhenNeeded) "multi-user.target";
         after = [ "network.target" ];
         stopIfChanged = false;
-        path = [ cfgc.package pkgs.gawk ];
+        path = [
+          cfgc.package
+          pkgs.gawk
+        ];
         environment.LD_LIBRARY_PATH = nssModulesPath;
 
-        restartTriggers = optionals (!cfg.startWhenNeeded)
-          [ config.environment.etc."ssh/sshd_config".source ];
+        restartTriggers = optionals
+          (!cfg.startWhenNeeded) [ config.environment.etc."ssh/sshd_config".source ];
 
         preStart = ''
           # Make sure we don't write to stdout, since in case of
@@ -659,8 +718,10 @@ in {
     # These values are merged with the ones defined externally, see:
     # https://github.com/NixOS/nixpkgs/pull/10155
     # https://github.com/NixOS/nixpkgs/pull/41745
-    services.openssh.authorizedKeysFiles =
-      [ "%h/.ssh/authorized_keys" "/etc/ssh/authorized_keys.d/%u" ];
+    services.openssh.authorizedKeysFiles = [
+      "%h/.ssh/authorized_keys"
+      "/etc/ssh/authorized_keys.d/%u"
+    ];
 
     services.openssh.extraConfig = mkOrder 0 ''
       UsePAM yes
@@ -707,11 +768,11 @@ in {
       '')}
     '';
 
-    assertions = [{
+    assertions = [ {
       assertion =
         if cfg.settings.X11Forwarding then cfgc.setXAuthLocation else true;
       message = "cannot enable X11 forwarding without setting xauth location";
-    }] ++ forEach cfg.listenAddresses ({
+    } ] ++ forEach cfg.listenAddresses ({
         addr,
         ...
       }: {

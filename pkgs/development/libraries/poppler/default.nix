@@ -55,22 +55,43 @@ in stdenv.mkDerivation (finalAttrs: rec {
   version =
     "23.02.0"; # beware: updates often break cups-filters build, check texlive and scribus too!
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "https://poppler.freedesktop.org/poppler-${version}.tar.xz";
     hash = "sha256-MxXdonD+KzXPH0HSdZSMOWUvqGO5DeB2b2spPZpVj8k=";
   };
 
-  nativeBuildInputs = [ cmake ninja pkg-config python3 ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    pkg-config
+    python3
+  ];
 
-  buildInputs = [ boost pcre libiconv libintl ]
-    ++ lib.optionals withData [ poppler_data ];
+  buildInputs = [
+    boost
+    pcre
+    libiconv
+    libintl
+  ] ++ lib.optionals withData [ poppler_data ];
 
   # TODO: reduce propagation to necessary libs
-  propagatedBuildInputs = [ zlib freetype fontconfig libjpeg openjpeg ]
-    ++ lib.optionals (!minimal) [ cairo lcms curl nss ]
-    ++ lib.optionals (qt5Support || qt6Support) [ qtbase ]
+  propagatedBuildInputs = [
+    zlib
+    freetype
+    fontconfig
+    libjpeg
+    openjpeg
+  ] ++ lib.optionals (!minimal) [
+    cairo
+    lcms
+    curl
+    nss
+  ] ++ lib.optionals (qt5Support || qt6Support) [ qtbase ]
     ++ lib.optionals introspectionSupport [ gobject-introspection ];
 
   cmakeFlags = [

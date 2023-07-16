@@ -30,8 +30,16 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libdv libjpeg libpng ]
-    ++ lib.optionals (!withMinimal) [ gtk2 libX11 SDL SDL_gfx ];
+  buildInputs = [
+    libdv
+    libjpeg
+    libpng
+  ] ++ lib.optionals (!withMinimal) [
+    gtk2
+    libX11
+    SDL
+    SDL_gfx
+  ];
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString (!withMinimal) "-I${lib.getDev SDL}/include/SDL";
@@ -42,7 +50,10 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  outputs = [ "out" "lib" ];
+  outputs = [
+    "out"
+    "lib"
+  ];
 
   meta = with lib; {
     description = "A suite of programs for processing MPEG or MJPEG video";

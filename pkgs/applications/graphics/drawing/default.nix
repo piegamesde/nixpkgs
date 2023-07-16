@@ -43,9 +43,17 @@ python3.pkgs.buildPythonApplication rec {
     itstool
   ];
 
-  buildInputs = [ glib gtk3 gdk-pixbuf pango ];
+  buildInputs = [
+    glib
+    gtk3
+    gdk-pixbuf
+    pango
+  ];
 
-  propagatedBuildInputs = with python3.pkgs; [ pycairo pygobject3 ];
+  propagatedBuildInputs = with python3.pkgs; [
+    pycairo
+    pygobject3
+  ];
 
   postPatch = ''
     chmod +x build-aux/meson/postinstall.py # patchShebangs requires executable file

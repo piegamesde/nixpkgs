@@ -19,9 +19,15 @@ stdenv.mkDerivation rec {
     sha256 = "0xk39lz3hm8lcnb5fdbfz4ldbbq8gswg95vilzdwxzrglcr6xnqq";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
 
-  buildInputs = [ readline glib ];
+  buildInputs = [
+    readline
+    glib
+  ];
 
   meta = with lib; {
     description = "Command line bluetooth manager for Bluez5";

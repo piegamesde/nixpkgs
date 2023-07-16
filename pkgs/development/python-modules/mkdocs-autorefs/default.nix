@@ -25,7 +25,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pdm-pep517 ];
 
-  propagatedBuildInputs = [ markdown mkdocs ];
+  propagatedBuildInputs = [
+    markdown
+    mkdocs
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

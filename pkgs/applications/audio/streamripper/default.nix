@@ -19,7 +19,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ glib libogg libvorbis libmad ];
+  buildInputs = [
+    glib
+    libogg
+    libvorbis
+    libmad
+  ];
 
   makeFlags = [ "AR:=$(AR)" ];
 

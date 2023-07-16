@@ -74,17 +74,20 @@ in {
 
     services.postgresql = {
       enable = true;
-      ensureUsers = [{
+      ensureUsers = [ {
         name = dbUser;
         ensurePermissions = { "DATABASE ${dbName}" = "ALL PRIVILEGES"; };
-      }];
+      } ];
       ensureDatabases = [ dbName ];
     };
 
     systemd.services.miniflux-dbsetup = {
       description = "Miniflux database setup";
       requires = [ "postgresql.service" ];
-      after = [ "network.target" "postgresql.service" ];
+      after = [
+        "network.target"
+        "postgresql.service"
+      ];
       serviceConfig = {
         Type = "oneshot";
         User = config.services.postgresql.superUser;
@@ -96,8 +99,11 @@ in {
       description = "Miniflux service";
       wantedBy = [ "multi-user.target" ];
       requires = [ "miniflux-dbsetup.service" ];
-      after =
-        [ "network.target" "postgresql.service" "miniflux-dbsetup.service" ];
+      after = [
+        "network.target"
+        "postgresql.service"
+        "miniflux-dbsetup.service"
+      ];
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/miniflux";
@@ -122,12 +128,19 @@ in {
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+        ];
         UMask = "0077";
       };
 

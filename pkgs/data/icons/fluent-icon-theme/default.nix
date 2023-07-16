@@ -34,7 +34,10 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-Plm05+5r6p9MabLmmh8kWitALGFalruBbhAgBhPCjRo=";
   };
 
-  nativeBuildInputs = [ gtk3 jdupes ];
+  nativeBuildInputs = [
+    gtk3
+    jdupes
+  ];
 
   buildInputs = [ hicolor-icon-theme ];
 

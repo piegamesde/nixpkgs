@@ -37,10 +37,16 @@ in lib.makeScope pkgs.newScope (self:
         '';
       } // attrs // {
         name = "${gimp.pname}-plugin-${name}";
-        buildInputs = [ gimp gimp.gtk glib ] ++ (attrs.buildInputs or [ ]);
+        buildInputs = [
+          gimp
+          gimp.gtk
+          glib
+        ] ++ (attrs.buildInputs or [ ]);
 
-        nativeBuildInputs = [ pkg-config intltool ]
-          ++ (attrs.nativeBuildInputs or [ ]);
+        nativeBuildInputs = [
+          pkg-config
+          intltool
+        ] ++ (attrs.nativeBuildInputs or [ ]);
 
         # Override installation paths.
         env = {
@@ -94,9 +100,9 @@ in lib.makeScope pkgs.newScope (self:
 
       nativeBuildInputs = with pkgs; [ which ];
 
-      installFlags = [
-        "SYSTEM_INSTALL_DIR=${placeholder "out"}/${gimp.targetPluginDir}/bimp"
-      ];
+      installFlags = [ "SYSTEM_INSTALL_DIR=${
+          placeholder "out"
+        }/${gimp.targetPluginDir}/bimp" ];
 
       installTargets = [ "install-admin" ];
 
@@ -130,7 +136,10 @@ in lib.makeScope pkgs.newScope (self:
         homepage = "https://www.gimp.org";
         # The main code is given in GPLv3, but it has ffmpeg in it, and I think ffmpeg license
         # falls inside "free".
-        license = with licenses; [ gpl3 free ];
+        license = with licenses; [
+          gpl3
+          free
+        ];
       };
     };
 
@@ -230,7 +239,11 @@ in lib.makeScope pkgs.newScope (self:
         rev = "9ceff0d411cda018108e5477320669b8d00d811e";
         sha256 = "haYS0K3oAPlHtHB8phOCX5/gtWq9uiVQhG5ZhAFX0t0=";
       };
-      nativeBuildInputs = with pkgs; [ meson ninja gettext ];
+      nativeBuildInputs = with pkgs; [
+        meson
+        ninja
+        gettext
+      ];
     };
 
     waveletSharpen = pluginDerivation {
@@ -296,7 +309,10 @@ in lib.makeScope pkgs.newScope (self:
         sha256 = "1jj3n7spkjc63aipwdqsvq9gi07w13bb1v8iqzvxwzld2kxa3c8w";
       };
 
-      buildInputs = with pkgs; [ lensfun gexiv2 ];
+      buildInputs = with pkgs; [
+        lensfun
+        gexiv2
+      ];
 
       installPhase = "\n      installPlugin gimp-lensfun\n    ";
 

@@ -18,7 +18,11 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  propagatedBuildInputs = with python3Packages; [ requests psutil dnspython ];
+  propagatedBuildInputs = with python3Packages; [
+    requests
+    psutil
+    dnspython
+  ];
 
   checkPhase = ''
     $out/bin/pyradio --help

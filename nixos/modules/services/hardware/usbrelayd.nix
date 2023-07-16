@@ -14,7 +14,10 @@ in {
       type = str;
       description = lib.mdDoc "Hostname or IP address of your MQTT Broker.";
       default = "127.0.0.1";
-      example = [ "mqtt" "192.168.1.1" ];
+      example = [
+        "mqtt"
+        "192.168.1.1"
+      ];
     };
 
     clientName = mkOption {

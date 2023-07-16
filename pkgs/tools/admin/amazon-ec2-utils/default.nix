@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-u1rHBV8uVcCywvQNYagtDleYB12tmhyqDbXTBzt45dk=";
   };
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   strictDeps = true;
   buildInputs = [ python3 ];
@@ -65,6 +68,9 @@ stdenv.mkDerivation rec {
     description =
       "Contains a set of utilities and settings for Linux deployments in EC2";
     license = licenses.mit;
-    maintainers = with maintainers; [ ketzacoatl thefloweringash ];
+    maintainers = with maintainers; [
+      ketzacoatl
+      thefloweringash
+    ];
   };
 }

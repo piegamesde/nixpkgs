@@ -35,20 +35,38 @@ buildPythonPackage rec {
     hash = "sha256-k9LIiLtlHY6H1xfVylI/Xbm7R6pCpC5UHe8GWnCwEGA=";
   };
 
-  nativeBuildInputs = [ pkg-config cython docutils ];
+  nativeBuildInputs = [
+    pkg-config
+    cython
+    docutils
+  ];
 
-  buildInputs = [ SDL2 SDL2_image SDL2_ttf SDL2_mixer ]
-    ++ lib.optionals stdenv.isLinux [ mesa mtdev ]
-    ++ lib.optionals stdenv.isDarwin [ ApplicationServices AVFoundation libcxx ]
-    ++ lib.optionals withGstreamer (with gst_all_1; [
-      # NOTE: The degree to which gstreamer actually works is unclear
-      gstreamer
-      gst-plugins-base
-      gst-plugins-good
-      gst-plugins-bad
-    ]);
+  buildInputs = [
+    SDL2
+    SDL2_image
+    SDL2_ttf
+    SDL2_mixer
+  ] ++ lib.optionals stdenv.isLinux [
+    mesa
+    mtdev
+  ] ++ lib.optionals stdenv.isDarwin [
+    ApplicationServices
+    AVFoundation
+    libcxx
+  ] ++ lib.optionals withGstreamer (with gst_all_1; [
+    # NOTE: The degree to which gstreamer actually works is unclear
+    gstreamer
+    gst-plugins-base
+    gst-plugins-good
+    gst-plugins-bad
+  ]);
 
-  propagatedBuildInputs = [ kivy-garden pillow pygments requests ];
+  propagatedBuildInputs = [
+    kivy-garden
+    pillow
+    pygments
+    requests
+  ];
 
   KIVY_NO_CONFIG = 1;
   KIVY_NO_ARGS = 1;

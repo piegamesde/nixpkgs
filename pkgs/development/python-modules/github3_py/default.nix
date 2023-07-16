@@ -24,10 +24,18 @@ buildPythonPackage rec {
     hash = "sha256-Cbcr4Ul9NGsJaM3oNgoNavedwgbQFJpjzT7IbGXDd8w=";
   };
 
-  propagatedBuildInputs = [ requests uritemplate python-dateutil pyjwt ]
-    ++ pyjwt.optional-dependencies.crypto;
+  propagatedBuildInputs = [
+    requests
+    uritemplate
+    python-dateutil
+    pyjwt
+  ] ++ pyjwt.optional-dependencies.crypto;
 
-  nativeCheckInputs = [ pytestCheckHook betamax betamax-matchers ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    betamax
+    betamax-matchers
+  ];
 
   # Solves "__main__.py: error: unrecognized arguments: -nauto"
   preCheck = ''

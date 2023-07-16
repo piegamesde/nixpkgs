@@ -20,11 +20,22 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DM6HaB+ufKcPHmPP4K5l/fF7wzRycFQxfiXjiXYZ7YU=";
   };
 
-  nativeBuildInputs = [ makeWrapper pkg-config python3Packages.wrapPython ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+    python3Packages.wrapPython
+  ];
 
-  buildInputs = [ dbus efl python3Packages.python ];
+  buildInputs = [
+    dbus
+    efl
+    python3Packages.python
+  ];
 
-  pythonPath = [ python3Packages.dbus-python python3Packages.pythonefl ];
+  pythonPath = [
+    python3Packages.dbus-python
+    python3Packages.pythonefl
+  ];
 
   postInstall = ''
     wrapPythonPrograms
@@ -38,6 +49,9 @@ stdenv.mkDerivation rec {
     license = licenses.lgpl3;
     platforms = platforms.linux;
     maintainers = with lib.maintainers;
-      [ matejc ftrvxmtrx ] ++ teams.enlightenment.members;
+      [
+        matejc
+        ftrvxmtrx
+      ] ++ teams.enlightenment.members;
   };
 }

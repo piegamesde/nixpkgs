@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-UdumMytqT909JRpNqzhYPuKPw644m/vRUsEbIVF2a7U=";
   };
 
-  nativeBuildInputs = [ jdk makeWrapper ];
+  nativeBuildInputs = [
+    jdk
+    makeWrapper
+  ];
 
   dontConfigure = true;
 

@@ -21,11 +21,21 @@ buildPythonPackage rec {
     sha256 = "dede097733d50b273af9f67386e6dcccaab77e900ae702e1a9408a856e217ce9";
   };
 
-  buildInputs = [ hatchling hatch-vcs ];
+  buildInputs = [
+    hatchling
+    hatch-vcs
+  ];
 
-  propagatedBuildInputs = [ boost-histogram histoprint numpy ];
+  propagatedBuildInputs = [
+    boost-histogram
+    histoprint
+    numpy
+  ];
 
-  checkInputs = [ pytestCheckHook pytest-mpl ];
+  checkInputs = [
+    pytestCheckHook
+    pytest-mpl
+  ];
 
   meta = with lib; {
     description = "Histogramming for analysis powered by boost-histogram";

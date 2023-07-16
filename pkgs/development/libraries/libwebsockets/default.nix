@@ -22,9 +22,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-why8LAcc4XN0JdTJ1JoNWijKENL5mOHBsi9K4wpYr2c=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  buildInputs = [ openssl zlib libuv ];
+  buildInputs = [
+    openssl
+    zlib
+    libuv
+  ];
 
   nativeBuildInputs = [ cmake ];
 
@@ -37,9 +44,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
     "-DLWS_WITHOUT_TESTAPPS=ON"
     ++ lib.optional withExternalPoll "-DLWS_WITH_EXTERNAL_POLL=ON"
-    ++ (if stdenv.hostPlatform.isStatic then
-      [ "-DLWS_WITH_SHARED=OFF" ]
-    else [
+    ++ (if stdenv.hostPlatform.isStatic then [ "-DLWS_WITH_SHARED=OFF" ] else [
       "-DLWS_WITH_STATIC=OFF"
       "-DLWS_LINK_TESTAPPS_DYNAMIC=ON"
     ]);
@@ -68,7 +73,12 @@ stdenv.mkDerivation rec {
     homepage = "https://libwebsockets.org/";
     # Relicensed from LGPLv2.1+ to MIT with 4.0. Licensing situation
     # is tricky, see https://github.com/warmcat/libwebsockets/blob/main/LICENSE
-    license = with licenses; [ mit publicDomain bsd3 asl20 ];
+    license = with licenses; [
+      mit
+      publicDomain
+      bsd3
+      asl20
+    ];
     maintainers = with maintainers; [ mindavi ];
     platforms = platforms.all;
   };

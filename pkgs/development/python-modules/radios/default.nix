@@ -50,7 +50,10 @@ buildPythonPackage rec {
     yarl
   ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "radios" ];
 

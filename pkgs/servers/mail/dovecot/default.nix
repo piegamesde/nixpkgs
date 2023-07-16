@@ -37,7 +37,10 @@ stdenv.mkDerivation rec {
   pname = "dovecot";
   version = "2.3.20";
 
-  nativeBuildInputs = [ perl pkg-config ];
+  nativeBuildInputs = [
+    perl
+    pkg-config
+  ];
   buildInputs = [
     openssl
     bzip2
@@ -49,8 +52,12 @@ stdenv.mkDerivation rec {
     libsodium
     libstemmer
     cyrus_sasl.dev
-  ] ++ lib.optionals (stdenv.isLinux) [ systemd pam libcap inotify-tools ]
-    ++ lib.optional withMySQL libmysqlclient
+  ] ++ lib.optionals (stdenv.isLinux) [
+    systemd
+    pam
+    libcap
+    inotify-tools
+  ] ++ lib.optional withMySQL libmysqlclient
     ++ lib.optional withPgSQL postgresql ++ lib.optional withSQLite sqlite
     ++ lib.optional withLua lua5_3;
 
@@ -144,8 +151,18 @@ stdenv.mkDerivation rec {
     homepage = "https://dovecot.org/";
     description =
       "Open source IMAP and POP3 email server written with security primarily in mind";
-    license = with licenses; [ mit publicDomain lgpl21Only bsd3 bsdOriginal ];
-    maintainers = with maintainers; [ fpletz globin ajs124 ];
+    license = with licenses; [
+      mit
+      publicDomain
+      lgpl21Only
+      bsd3
+      bsdOriginal
+    ];
+    maintainers = with maintainers; [
+      fpletz
+      globin
+      ajs124
+    ];
     platforms = platforms.unix;
   };
   passthru.tests = {

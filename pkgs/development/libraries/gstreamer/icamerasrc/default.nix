@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-j8ZYe4nyy5yfo10CGeXDwbAaAPvdr0ptMWB8hQDyESQ=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   preConfigure = ''
     # https://github.com/intel/ipu6-camera-hal/issues/1
@@ -29,8 +32,12 @@ stdenv.mkDerivation rec {
     export STRIP_VIRTUAL_CHANNEL_CAMHAL=ON
   '';
 
-  buildInputs =
-    [ gst_all_1.gstreamer gst_all_1.gst-plugins-base ipu6-camera-hal libdrm ];
+  buildInputs = [
+    gst_all_1.gstreamer
+    gst_all_1.gst-plugins-base
+    ipu6-camera-hal
+    libdrm
+  ];
 
   NIX_CFLAGS_COMPILE = [
     # gstcameradeinterlace.cpp:55:10: fatal error: gst/video/video.h: No such file or directory

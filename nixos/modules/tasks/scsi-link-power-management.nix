@@ -12,8 +12,12 @@ let
 
   kernel = config.boot.kernelPackages.kernel;
 
-  allowedValues =
-    [ "min_power" "max_performance" "medium_power" "med_power_with_dipm" ];
+  allowedValues = [
+    "min_power"
+    "max_performance"
+    "medium_power"
+    "med_power_with_dipm"
+  ];
 
 in {
   ###### interface

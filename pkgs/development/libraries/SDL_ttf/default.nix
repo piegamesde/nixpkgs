@@ -27,7 +27,10 @@ stdenv.mkDerivation rec {
 
   patchFlags = [ "-p0" ];
 
-  buildInputs = [ SDL freetype ];
+  buildInputs = [
+    SDL
+    freetype
+  ];
 
   configureFlags = lib.optional stdenv.isDarwin "--disable-sdltest";
 

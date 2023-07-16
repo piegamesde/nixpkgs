@@ -29,7 +29,11 @@ in stdenv.mkDerivation {
     inherit sha256;
   };
 
-  outputs = [ "bin" "doc" "out" ];
+  outputs = [
+    "bin"
+    "doc"
+    "out"
+  ];
 
   postPatch = ''
     # A little patch, borrowed from Archlinux AUR, borrowed from Gentoo Portage

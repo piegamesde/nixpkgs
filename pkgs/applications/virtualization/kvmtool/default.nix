@@ -32,6 +32,9 @@ stdenv.mkDerivation {
       "https://git.kernel.org/pub/scm/linux/kernel/git/will/kvmtool.git/tree/README";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ astro ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
   };
 }

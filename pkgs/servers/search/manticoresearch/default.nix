@@ -44,9 +44,21 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-samZYwDYgI9jQ7jcoMlpxulSFwmqyt5bkxG+WZ9eXuk=";
   };
 
-  nativeBuildInputs = [ bison cmake flex pkg-config ];
+  nativeBuildInputs = [
+    bison
+    cmake
+    flex
+    pkg-config
+  ];
 
-  buildInputs = [ boost columnar icu.dev libstemmer mariadb-connector-c re2 ];
+  buildInputs = [
+    boost
+    columnar
+    icu.dev
+    libstemmer
+    mariadb-connector-c
+    re2
+  ];
 
   postPatch = ''
     sed -i 's/set ( Boost_USE_STATIC_LIBS ON )/set ( Boost_USE_STATIC_LIBS OFF )/' src/CMakeLists.txt

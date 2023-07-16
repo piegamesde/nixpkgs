@@ -30,7 +30,11 @@ buildPythonPackage rec {
   propagatedBuildInputs =
     lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook toml ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+    toml
+  ];
 
   patches = [
     # Switch to poetry-core, https://github.com/mjpieters/aiolimiter/pull/77

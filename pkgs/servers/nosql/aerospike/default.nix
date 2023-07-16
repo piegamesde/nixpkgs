@@ -21,8 +21,15 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ autoconf automake libtool ];
-  buildInputs = [ openssl zlib ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+  ];
+  buildInputs = [
+    openssl
+    zlib
+  ];
 
   preBuild = ''
     patchShebangs build/gen_version

@@ -23,9 +23,15 @@ buildPythonPackage rec {
     hash = "sha256-Ftpw3oDVu7Vdcwj7+a1G9cPeVUAEPggtozlvWioENIA=";
   };
 
-  propagatedBuildInputs = [ six sqlalchemy ];
+  propagatedBuildInputs = [
+    six
+    sqlalchemy
+  ];
 
-  nativeCheckInputs = [ nose pytestCheckHook ];
+  nativeCheckInputs = [
+    nose
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "sqlalchemy_mixins" ];
 

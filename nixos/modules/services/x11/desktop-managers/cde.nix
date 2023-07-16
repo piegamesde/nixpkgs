@@ -45,7 +45,7 @@ in {
     services.rpcbind.enable = true;
 
     services.xinetd.enable = true;
-    services.xinetd.services = [{
+    services.xinetd.services = [ {
       name = "cmsd";
       protocol = "udp";
       user = "root";
@@ -56,7 +56,7 @@ in {
         rpc_version = 2-5
         only_from   = 127.0.0.1/0
       '';
-    }];
+    } ];
 
     users.groups.mail = { };
     security.wrappers = {
@@ -73,12 +73,12 @@ in {
       chmod a+w+t /var/dt/{tmp,appconfig/appmanager}
     '';
 
-    services.xserver.desktopManager.session = [{
+    services.xserver.desktopManager.session = [ {
       name = "CDE";
       start = ''
         exec ${pkgs.cdesktopenv}/opt/dt/bin/Xsession
       '';
-    }];
+    } ];
   };
 
   meta.maintainers = [ ];

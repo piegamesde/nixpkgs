@@ -17,11 +17,11 @@ import ./make-test-python.nix ({
         services.polaris = {
           enable = true;
           port = 5050;
-          settings.users = [{
+          settings.users = [ {
             name = "test_user";
             password = "very_secret_password";
             admin = true;
-          }];
+          } ];
         };
       };
 

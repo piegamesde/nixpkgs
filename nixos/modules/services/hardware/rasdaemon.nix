@@ -104,7 +104,11 @@ in {
       };
     };
     environment.systemPackages = [ pkgs.rasdaemon ] ++ optionals (cfg.testing)
-      (with pkgs.error-inject; [ edac-inject mce-inject aer-inject ]);
+      (with pkgs.error-inject; [
+        edac-inject
+        mce-inject
+        aer-inject
+      ]);
 
     boot.initrd.kernelModules = cfg.extraModules ++ optionals (cfg.testing) [
       # edac_core and amd64_edac should get loaded automatically
@@ -116,7 +120,7 @@ in {
       "aer-inject"
     ];
 
-    boot.kernelPatches = optionals (cfg.testing) [{
+    boot.kernelPatches = optionals (cfg.testing) [ {
       name = "rasdaemon-tests";
       patch = null;
       extraConfig = ''
@@ -127,7 +131,7 @@ in {
         PCIEAER y
         PCIEAER_INJECT y
       '';
-    }];
+    } ];
 
     # i tried to set up a group for this
     # but rasdaemon needs higher permissions?

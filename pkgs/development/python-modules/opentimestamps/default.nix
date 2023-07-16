@@ -24,7 +24,11 @@ buildPythonPackage rec {
     hash = "sha256-clG/5NAPmmmoj4b3LdVwl58DHg1EFMIMu+erx+GT+NE=";
   };
 
-  propagatedBuildInputs = [ bitcoinlib gitpython pycryptodomex ];
+  propagatedBuildInputs = [
+    bitcoinlib
+    gitpython
+    pycryptodomex
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -22,14 +22,12 @@ buildPythonPackage rec {
     hash = "sha256-XiwvsJ3AmEJRLYBjC7eSNZodM9LARzrUfuI9oL6eMrE=";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "switch-to-poetry-core.patch";
-      url =
-        "https://github.com/timothycrosley/hypothesis-auto/commit/8277b4232617c0433f80e9c2844452b9fae67a65.patch";
-      hash = "sha256-/0z0nphtQnUBiLYhhzLZT59kQgktSugaBg+ePNxy0qI=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "switch-to-poetry-core.patch";
+    url =
+      "https://github.com/timothycrosley/hypothesis-auto/commit/8277b4232617c0433f80e9c2844452b9fae67a65.patch";
+    hash = "sha256-/0z0nphtQnUBiLYhhzLZT59kQgktSugaBg+ePNxy0qI=";
+  }) ];
 
   postPatch = ''
     # https://github.com/timothycrosley/hypothesis-auto/pull/20
@@ -40,7 +38,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ pydantic hypothesis pytest ];
+  propagatedBuildInputs = [
+    pydantic
+    hypothesis
+    pytest
+  ];
 
   pythonImportsCheck = [ "hypothesis_auto" ];
 

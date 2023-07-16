@@ -38,7 +38,10 @@ buildPythonPackage rec {
     hash = "sha256-xUEytEgr/djfnoOowLxAZmbPkMS+vU0fuPY7JxZXEe0=";
   };
 
-  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
   propagatedBuildInputs = [
     backoff
@@ -56,10 +59,19 @@ buildPythonPackage rec {
     requests-aws4auth
   ];
 
-  pythonRelaxDeps =
-    [ "gremlinpython" "numpy" "openpyxl" "pandas" "pg8000" "pyarrow" ];
+  pythonRelaxDeps = [
+    "gremlinpython"
+    "numpy"
+    "openpyxl"
+    "pandas"
+    "pg8000"
+    "pyarrow"
+  ];
 
-  nativeCheckInputs = [ moto pytestCheckHook ];
+  nativeCheckInputs = [
+    moto
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [
     # Subset of tests that run in upstream CI (many others require credentials)

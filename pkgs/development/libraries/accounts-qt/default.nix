@@ -20,8 +20,15 @@ mkDerivation rec {
     owner = "accounts-sso";
   };
 
-  propagatedBuildInputs = [ glib libaccounts-glib ];
-  nativeBuildInputs = [ doxygen pkg-config qmake ];
+  propagatedBuildInputs = [
+    glib
+    libaccounts-glib
+  ];
+  nativeBuildInputs = [
+    doxygen
+    pkg-config
+    qmake
+  ];
 
   # Hack to avoid TMPDIR in RPATHs.
   preFixup = ''rm -rf "$(pwd)" '';

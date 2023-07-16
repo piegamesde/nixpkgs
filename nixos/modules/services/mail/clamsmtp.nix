@@ -24,7 +24,11 @@ in {
         type = types.listOf (types.submodule {
           options = {
             action = mkOption {
-              type = types.enum [ "bounce" "drop" "pass" ];
+              type = types.enum [
+                "bounce"
+                "drop"
+                "pass"
+              ];
               default = "drop";
               description = lib.mdDoc ''
                 Action to take when a virus is detected.
@@ -156,10 +160,10 @@ in {
         XClient: ${if conf.xClient then "on" else "off"}
       '';
   in mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = config.services.clamav.daemon.enable;
       message = "clamsmtp requires clamav to be enabled";
-    }];
+    } ];
 
     systemd.services = listToAttrs (imap1 (i: conf:
       nameValuePair "clamsmtp-${toString i}" {

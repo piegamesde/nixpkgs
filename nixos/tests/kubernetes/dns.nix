@@ -11,16 +11,19 @@ let
     apiVersion = "v1";
     metadata.name = "redis";
     metadata.labels.name = "redis";
-    spec.containers = [{
+    spec.containers = [ {
       name = "redis";
       image = "redis";
-      args = [ "--bind" "0.0.0.0" ];
+      args = [
+        "--bind"
+        "0.0.0.0"
+      ];
       imagePullPolicy = "Never";
-      ports = [{
+      ports = [ {
         name = "redis-server";
         containerPort = 6379;
-      }];
-    }];
+      } ];
+    } ];
   });
 
   redisService = pkgs.writeText "redis-service.json" (builtins.toJSON {
@@ -28,10 +31,10 @@ let
     apiVersion = "v1";
     metadata.name = "redis";
     spec = {
-      ports = [{
+      ports = [ {
         port = 6379;
         targetPort = 6379;
-      }];
+      } ];
       selector = { name = "redis"; };
     };
   });
@@ -42,7 +45,10 @@ let
     copyToRoot = pkgs.buildEnv {
       name = "image-root";
       pathsToLink = [ "/bin" ];
-      paths = [ pkgs.redis pkgs.bind.host ];
+      paths = [
+        pkgs.redis
+        pkgs.bind.host
+      ];
     };
     config.Entrypoint = [ "/bin/redis-server" ];
   };
@@ -52,13 +58,13 @@ let
     apiVersion = "v1";
     metadata.name = "probe";
     metadata.labels.name = "probe";
-    spec.containers = [{
+    spec.containers = [ {
       name = "probe";
       image = "probe";
       args = [ "-f" ];
       tty = true;
       imagePullPolicy = "Never";
-    }];
+    } ];
   });
 
   probeImage = pkgs.dockerTools.buildImage {
@@ -67,7 +73,10 @@ let
     copyToRoot = pkgs.buildEnv {
       name = "image-root";
       pathsToLink = [ "/bin" ];
-      paths = [ pkgs.bind.host pkgs.busybox ];
+      paths = [
+        pkgs.bind.host
+        pkgs.busybox
+      ];
     };
     config.Entrypoint = [ "/bin/tail" ];
   };
@@ -80,9 +89,8 @@ let
     }: {
       environment.systemPackages = [ pkgs.bind.host ];
       services.dnsmasq.enable = true;
-      services.dnsmasq.settings.server = [
-        "/cluster.local/${config.services.kubernetes.addons.dns.clusterIp}#53"
-      ];
+      services.dnsmasq.settings.server =
+        [ "/cluster.local/${config.services.kubernetes.addons.dns.clusterIp}#53" ];
     };
 
   base = {

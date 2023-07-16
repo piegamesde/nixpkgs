@@ -1563,8 +1563,10 @@ let
       sources."base64-js-1.5.1"
       sources."binary-extensions-2.2.0"
       (sources."bl-4.1.0" // {
-        dependencies =
-          [ sources."readable-stream-3.6.1" sources."string_decoder-1.3.0" ];
+        dependencies = [
+          sources."readable-stream-3.6.1"
+          sources."string_decoder-1.3.0"
+        ];
       })
       sources."brace-expansion-1.1.11"
       sources."braces-3.0.2"

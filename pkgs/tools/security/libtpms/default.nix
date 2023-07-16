@@ -26,11 +26,18 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [ openssl ];
 
-  outputs = [ "out" "man" "dev" ];
+  outputs = [
+    "out"
+    "man"
+    "dev"
+  ];
 
   enableParallelBuilding = true;
 
-  configureFlags = [ "--with-openssl" "--with-tpm2" ];
+  configureFlags = [
+    "--with-openssl"
+    "--with-tpm2"
+  ];
 
   meta = with lib; {
     description =

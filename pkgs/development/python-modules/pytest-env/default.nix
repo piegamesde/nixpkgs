@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-17L1Jz7G0eIhdXmYvC9Q0kdO19C5MxuSVWAR+txOmr8=";
   };
 
-  nativeBuildInputs = [ hatch-vcs hatchling ];
+  nativeBuildInputs = [
+    hatch-vcs
+    hatchling
+  ];
 
   buildInputs = [ pytest ];
 

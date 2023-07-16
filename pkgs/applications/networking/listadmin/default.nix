@@ -18,7 +18,10 @@ stdenvNoCC.mkDerivation rec {
   };
 
   buildInputs = [ perl ];
-  nativeBuildInputs = [ makeWrapper installShellFiles ];
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+  ];
 
   # There is a Makefile, but we don’t need it, and it prints errors
   dontBuild = true;
@@ -31,7 +34,11 @@ stdenvNoCC.mkDerivation rec {
     wrapProgram $out/bin/listadmin \
       --prefix PERL5LIB : "${
         with perl.pkgs;
-        makeFullPerlPath [ TextReform NetINET6Glue LWPProtocolHttps ]
+        makeFullPerlPath [
+          TextReform
+          NetINET6Glue
+          LWPProtocolHttps
+        ]
       }"
   '';
 

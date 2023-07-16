@@ -19,9 +19,15 @@ buildPythonPackage rec {
     hash = "sha256-Rso5N0jb9k7bdorjPIUMNiZZPnzwbkxFNiTpsJ9pco0=";
   };
 
-  propagatedBuildInputs = [ pyopenssl tldextract ];
+  propagatedBuildInputs = [
+    pyopenssl
+    tldextract
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-cov ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-cov
+  ];
 
   pythonImportsCheck = [ "certauth" ];
 

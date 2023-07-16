@@ -51,8 +51,16 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  checkInputs =
-    [ lwt logs fmt mirage-crypto-rng mirage-time-unix ptime uri alcotest-lwt ];
+  checkInputs = [
+    lwt
+    logs
+    fmt
+    mirage-crypto-rng
+    mirage-time-unix
+    ptime
+    uri
+    alcotest-lwt
+  ];
 
   __darwinAllowLocalNetworking = true;
 

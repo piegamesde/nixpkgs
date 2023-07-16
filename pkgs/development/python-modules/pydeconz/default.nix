@@ -25,9 +25,17 @@ buildPythonPackage rec {
     hash = "sha256-QBun9VT42W9EMvNuLZoe6VnXKXAKEXstDKCU7LXEvNQ=";
   };
 
-  propagatedBuildInputs = [ aiohttp async-timeout orjson ];
+  propagatedBuildInputs = [
+    aiohttp
+    async-timeout
+    orjson
+  ];
 
-  nativeCheckInputs = [ aioresponses pytest-aiohttp pytestCheckHook ];
+  nativeCheckInputs = [
+    aioresponses
+    pytest-aiohttp
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pydeconz" ];
 

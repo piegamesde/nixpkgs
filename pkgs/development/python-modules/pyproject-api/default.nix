@@ -44,7 +44,10 @@ buildPythonPackage rec {
     hash = "sha256-VO+huA9i7uMpCVaWHC29XlfestSu+N9vWWHteY21uqs=";
   };
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -62,7 +65,12 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ packaging ]
     ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
-  nativeCheckInputs = [ pytest-mock pytestCheckHook virtualenv wheel ];
+  nativeCheckInputs = [
+    pytest-mock
+    pytestCheckHook
+    virtualenv
+    wheel
+  ];
 
   disabledTests = [
     # requires eol python2 interpreter

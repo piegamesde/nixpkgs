@@ -20,11 +20,20 @@ python3Packages.buildPythonPackage rec {
     sha256 = "sha256-GKDAdjO67aedCEFHKDukQ+oPMomTPwFE/CvJu112fus=";
   };
 
-  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
+  nativeBuildInputs = [
+    gobject-introspection
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ gtk3 gtk-layer-shell ];
+  buildInputs = [
+    gtk3
+    gtk-layer-shell
+  ];
 
-  propagatedBuildInputs = with python3Packages; [ i3ipc pygobject3 ];
+  propagatedBuildInputs = with python3Packages; [
+    i3ipc
+    pygobject3
+  ];
 
   # No tests
   doCheck = false;

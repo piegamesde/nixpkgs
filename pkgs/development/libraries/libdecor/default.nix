@@ -25,15 +25,29 @@ stdenv.mkDerivation rec {
     hash = "sha256-8b6qCqOSDDbhYwAeAaUyI71tSopTkGtCJaxZaJw1vQQ=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   strictDeps = true;
 
   mesonFlags = [ (lib.mesonBool "demo" false) ];
 
-  nativeBuildInputs = [ meson ninja pkg-config wayland-scanner ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    wayland-scanner
+  ];
 
-  buildInputs = [ wayland wayland-protocols cairo dbus pango ];
+  buildInputs = [
+    wayland
+    wayland-protocols
+    cairo
+    dbus
+    pango
+  ];
 
   meta = with lib; {
     homepage = "https://gitlab.freedesktop.org/libdecor/libdecor";

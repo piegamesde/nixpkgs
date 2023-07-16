@@ -26,5 +26,8 @@ mkDerivation {
     kxmlgui
     qtdeclarative
   ];
-  propagatedBuildInputs = [ kconfigwidgets kservice ];
+  propagatedBuildInputs = [
+    kconfigwidgets
+    kservice
+  ];
 }

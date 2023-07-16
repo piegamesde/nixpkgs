@@ -21,11 +21,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-m8xoL90GI822FTgCXuVr3EejLAMUStkPKVoV7w8ayIE=";
   };
 
-  outputs = [ "bin" "out" "dev" "man" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+    "man"
+  ];
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ meson ninja pkg-config scdoc ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    scdoc
+  ];
 
   buildInputs = lib.optionals systemdSupport [ systemd ];
 

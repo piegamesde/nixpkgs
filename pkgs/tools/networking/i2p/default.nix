@@ -26,7 +26,12 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-5LoGpuKTWheZDwV6crjXnkUqJVamzv5QEtXdY0Zv7r8=";
   };
 
-  buildInputs = [ jdk ant gettext which ];
+  buildInputs = [
+    jdk
+    ant
+    gettext
+    which
+  ];
   patches = [ ./i2p.patch ];
 
   buildPhase = ''
@@ -68,7 +73,10 @@ stdenv.mkDerivation (finalAttrs: {
       binaryBytecode # source bundles dependencies as jars
     ];
     license = licenses.gpl2;
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
     maintainers = with maintainers; [ joelmo ];
   };
 })

@@ -177,8 +177,13 @@ let
       # Same with '/': `local-time.asd` for system `cl-postgres+local-time.asd`
       installPhase = let
         mkSystemsRegex = systems:
-          concatMapStringsSep "\\|" (replaceStrings [ "." "+" ] [ "[.]" "[+]" ])
-          systems;
+          concatMapStringsSep "\\|" (replaceStrings [
+            "."
+            "+"
+          ] [
+            "[.]"
+            "[+]"
+          ]) systems;
       in ''
         mkdir -pv $out
         cp -r * $out

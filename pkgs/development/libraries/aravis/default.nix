@@ -42,13 +42,25 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-24FSq9qe8tAFGB4BOjD52BQiy8Rw6ZDE5Sq+VS5S638=";
   };
 
-  outputs = [ "bin" "dev" "out" "lib" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "lib"
+  ];
 
-  nativeBuildInputs = [ meson ninja pkg-config gi-docgen ]
-    ++ lib.optional enableViewer wrapGAppsHook;
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gi-docgen
+  ] ++ lib.optional enableViewer wrapGAppsHook;
 
-  buildInputs = [ glib libxml2 gobject-introspection ]
-    ++ lib.optional enableUsb libusb1
+  buildInputs = [
+    glib
+    libxml2
+    gobject-introspection
+  ] ++ lib.optional enableUsb libusb1
     ++ lib.optionals (enableViewer || enableGstPlugin) (with gst_all_1; [
       gstreamer
       gst-plugins-base

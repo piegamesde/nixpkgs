@@ -29,9 +29,17 @@ buildPythonPackage rec {
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
   nativeBuildInputs = [ setuptools-scm ];
-  propagatedBuildInputs =
-    [ typing-extensions qtpy pyside2 psygnal docstring-parser ];
-  nativeCheckInputs = [ pytestCheckHook pytest-mypy-plugins ];
+  propagatedBuildInputs = [
+    typing-extensions
+    qtpy
+    pyside2
+    psygnal
+    docstring-parser
+  ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-mypy-plugins
+  ];
 
   doCheck = false; # Reports "Fatal Python error"
 

@@ -22,9 +22,8 @@ let
         });
         pyjwt = super.pyjwt.overridePythonAttrs (old: {
           meta = old.meta // {
-            knownVulnerabilities =
-              lib.optionals (lib.versionOlder old.version "2.4.0")
-              [ "CVE-2022-29217" ];
+            knownVulnerabilities = lib.optionals
+              (lib.versionOlder old.version "2.4.0") [ "CVE-2022-29217" ];
           };
         });
       })
@@ -92,7 +91,11 @@ in pythonPackages.buildPythonApplication rec {
   meta = {
     homepage = "https://github.com/NixOS/nixops";
     description = "NixOS cloud provisioning and deployment tool";
-    maintainers = with lib.maintainers; [ aminechikhaoui eelco rob ];
+    maintainers = with lib.maintainers; [
+      aminechikhaoui
+      eelco
+      rob
+    ];
     platforms = lib.platforms.unix;
     license = lib.licenses.lgpl3;
   };

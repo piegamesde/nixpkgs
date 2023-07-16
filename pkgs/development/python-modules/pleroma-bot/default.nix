@@ -25,9 +25,17 @@ buildPythonPackage rec {
     hash = "sha256-vJxblpf3NMSyYMHeWG7vHP5AeluTtMtVxOsHgvGDHeA=";
   };
 
-  propagatedBuildInputs = [ pyaml requests requests-oauthlib oauthlib ];
+  propagatedBuildInputs = [
+    pyaml
+    requests
+    requests-oauthlib
+    oauthlib
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook requests-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    requests-mock
+  ];
 
   pythonImportsCheck = [ "pleroma_bot" ];
 

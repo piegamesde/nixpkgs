@@ -39,7 +39,11 @@
 # needed for beautiful.gtk to work
 assert gtk3Support -> gtk3 != null;
 
-let luaEnv = lua.withPackages (ps: [ ps.lgi ps.ldoc ]);
+let
+  luaEnv = lua.withPackages (ps: [
+    ps.lgi
+    ps.ldoc
+  ]);
 
 in stdenv.mkDerivation rec {
   pname = "awesome";
@@ -82,7 +86,10 @@ in stdenv.mkDerivation rec {
     asciidoctor
   ];
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   FONTCONFIG_FILE = toString fontsConf;
 
@@ -147,7 +154,10 @@ in stdenv.mkDerivation rec {
     description = "Highly configurable, dynamic window manager for X";
     homepage = "https://awesomewm.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ lovek323 rasendubi ];
+    maintainers = with maintainers; [
+      lovek323
+      rasendubi
+    ];
     platforms = platforms.linux;
   };
 }

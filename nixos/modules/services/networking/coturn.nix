@@ -99,7 +99,10 @@ in {
       listening-ips = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "203.0.113.42" "2001:DB8::42" ];
+        example = [
+          "203.0.113.42"
+          "2001:DB8::42"
+        ];
         description = lib.mdDoc ''
           Listener IP addresses of relay server.
           If no IP(s) specified in the config file or in the command line options,
@@ -109,7 +112,10 @@ in {
       relay-ips = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "203.0.113.42" "2001:DB8::42" ];
+        example = [
+          "203.0.113.42"
+          "2001:DB8::42"
+        ];
         description = lib.mdDoc ''
           Relay address (the local IP address that will be used to relay the
           packets to the peer).
@@ -312,12 +318,12 @@ in {
 
   config = mkIf cfg.enable (mkMerge ([
     {
-      assertions = [{
+      assertions = [ {
         assertion = cfg.static-auth-secret != null
           -> cfg.static-auth-secret-file == null;
         message =
           "static-auth-secret and static-auth-secret-file cannot be set at the same time";
-      }];
+      } ];
     }
 
     {

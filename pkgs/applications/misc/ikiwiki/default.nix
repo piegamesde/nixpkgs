@@ -38,7 +38,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ which highlight ] ++ (with perlPackages; [
+  buildInputs = [
+    which
+    highlight
+  ] ++ (with perlPackages; [
     perl
     TextMarkdown
     URI
@@ -66,9 +69,11 @@ stdenv.mkDerivation rec {
     docutils
   ] ++ lib.optionals gitSupport [ git ]
     ++ lib.optionals monotoneSupport [ monotone ]
-    ++ lib.optionals bazaarSupport [ breezy ]
-    ++ lib.optionals cvsSupport [ cvs cvsps perlPackages.Filechdir ]
-    ++ lib.optionals subversionSupport [ subversion ]
+    ++ lib.optionals bazaarSupport [ breezy ] ++ lib.optionals cvsSupport [
+      cvs
+      cvsps
+      perlPackages.Filechdir
+    ] ++ lib.optionals subversionSupport [ subversion ]
     ++ lib.optionals mercurialSupport [ mercurial ];
 
   patches = [

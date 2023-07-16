@@ -23,7 +23,11 @@ stdenv.mkDerivation rec {
     sha256 = "1hzqi4z55x76rss3xk7hfqhy9hcaq2jaav5jqxa1aqmbvarr2gla";
   };
 
-  propagatedBuildInputs = [ clipper nlopt boost ];
+  propagatedBuildInputs = [
+    clipper
+    nlopt
+    boost
+  ];
   nativeBuildInputs = [ cmake ];
 
   CLIPPER_PATH = "${clipper.out}";

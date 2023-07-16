@@ -24,7 +24,14 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ dbus glib libX11 libXScrnSaver libXext systemd ];
+  buildInputs = [
+    dbus
+    glib
+    libX11
+    libXScrnSaver
+    libXext
+    systemd
+  ];
 
   patchPhase = ''
     substituteInPlace Makefile \

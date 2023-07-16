@@ -30,12 +30,28 @@ stdenv.mkDerivation rec {
 
   passthru = { inherit libtorrent; };
 
-  nativeBuildInputs = [ autoconf-archive autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoconf-archive
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs =
-    [ cppunit curl libsigcxx libtool libtorrent ncurses openssl xmlrpc_c zlib ];
+  buildInputs = [
+    cppunit
+    curl
+    libsigcxx
+    libtool
+    libtorrent
+    ncurses
+    openssl
+    xmlrpc_c
+    zlib
+  ];
 
-  configureFlags = [ "--with-xmlrpc-c" "--with-posix-fallocate" ];
+  configureFlags = [
+    "--with-xmlrpc-c"
+    "--with-posix-fallocate"
+  ];
 
   enableParallelBuilding = true;
 
@@ -50,7 +66,10 @@ stdenv.mkDerivation rec {
     description =
       "An ncurses client for libtorrent, ideal for use with screen, tmux, or dtach";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ebzzry codyopel ];
+    maintainers = with maintainers; [
+      ebzzry
+      codyopel
+    ];
     platforms = platforms.unix;
     mainProgram = "rtorrent";
   };

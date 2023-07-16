@@ -6,7 +6,12 @@ import ./make-test-python.nix ({
   let inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
   in {
     name = "openssh";
-    meta = with pkgs.lib.maintainers; { maintainers = [ aszlig eelco ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        aszlig
+        eelco
+      ];
+    };
 
     nodes = {
 
@@ -16,12 +21,12 @@ import ./make-test-python.nix ({
 
         {
           services.openssh.enable = true;
-          security.pam.services.sshd.limits = [{
+          security.pam.services.sshd.limits = [ {
             domain = "*";
             item = "memlock";
             type = "-";
             value = 1024;
-          }];
+          } ];
           users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
         };
 
@@ -34,12 +39,12 @@ import ./make-test-python.nix ({
             enable = true;
             startWhenNeeded = true;
           };
-          security.pam.services.sshd.limits = [{
+          security.pam.services.sshd.limits = [ {
             domain = "*";
             item = "memlock";
             type = "-";
             value = 1024;
-          }];
+          } ];
           users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
         };
 
@@ -50,10 +55,10 @@ import ./make-test-python.nix ({
         {
           services.openssh = {
             enable = true;
-            listenAddresses = [{
+            listenAddresses = [ {
               addr = "127.0.0.1";
               port = 22;
-            }];
+            } ];
           };
         };
 
@@ -65,10 +70,10 @@ import ./make-test-python.nix ({
           services.openssh = {
             enable = true;
             startWhenNeeded = true;
-            listenAddresses = [{
+            listenAddresses = [ {
               addr = "127.0.0.1";
               port = 22;
-            }];
+            } ];
           };
         };
 

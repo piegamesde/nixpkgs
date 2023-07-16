@@ -24,16 +24,21 @@ mkDerivation rec {
     sha256 = "0xncdp0z8ry4lkzmvbj5d7hlzikivghpwicgywlv47spgh8ny0ix";
   };
 
-  nativeBuildInputs = [ cmake bison flex ];
-  buildInputs = [ qtbase capstone ];
-  patches = [
-    (fetchpatch {
-      name = "include-missing-cstdint.patch";
-      url =
-        "https://github.com/BoomerangDecompiler/boomerang/commit/3342b0eac6b7617d9913226c06c1470820593e74.patch";
-      sha256 = "sha256-941IydcV3mqj7AWvXTM6GePW5VgawEcL0wrBCXqeWvc=";
-    })
+  nativeBuildInputs = [
+    cmake
+    bison
+    flex
   ];
+  buildInputs = [
+    qtbase
+    capstone
+  ];
+  patches = [ (fetchpatch {
+    name = "include-missing-cstdint.patch";
+    url =
+      "https://github.com/BoomerangDecompiler/boomerang/commit/3342b0eac6b7617d9913226c06c1470820593e74.patch";
+    sha256 = "sha256-941IydcV3mqj7AWvXTM6GePW5VgawEcL0wrBCXqeWvc=";
+  }) ];
 
   meta = with lib; {
     homepage = "https://github.com/BoomerangDecompiler/boomerang";

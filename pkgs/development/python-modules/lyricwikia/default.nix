@@ -17,7 +17,11 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ pytest-runner ];
-  propagatedBuildInputs = [ six beautifulsoup4 requests ];
+  propagatedBuildInputs = [
+    six
+    beautifulsoup4
+    requests
+  ];
   # upstream has no code tests
   doCheck = false;
 

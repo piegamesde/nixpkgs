@@ -25,10 +25,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-y3mubdInYa4gpxhdw2JcRhnhd12O7jNq/oF3qoP82LU=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs =
-    [ glib i2c-tools kmod libdrm libgudev libusb1 udev xorg.libXrandr ];
+  buildInputs = [
+    glib
+    i2c-tools
+    kmod
+    libdrm
+    libgudev
+    libusb1
+    udev
+    xorg.libXrandr
+  ];
 
   enableParallelBuilding = true;
 

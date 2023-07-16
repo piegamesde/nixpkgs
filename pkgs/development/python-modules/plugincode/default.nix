@@ -27,9 +27,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ click commoncode pluggy ];
+  propagatedBuildInputs = [
+    click
+    commoncode
+    pluggy
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-xdist ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-xdist
+  ];
 
   pythonImportsCheck = [ "plugincode" ];
 

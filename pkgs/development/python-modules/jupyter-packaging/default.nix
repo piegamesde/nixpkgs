@@ -26,9 +26,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [ deprecation packaging setuptools tomlkit ];
+  propagatedBuildInputs = [
+    deprecation
+    packaging
+    setuptools
+    tomlkit
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-timeout ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-timeout
+  ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

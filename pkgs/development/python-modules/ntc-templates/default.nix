@@ -28,7 +28,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ textfsm ];
 
-  nativeCheckInputs = [ pytestCheckHook ruamel-yaml yamllint ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    ruamel-yaml
+    yamllint
+  ];
 
   # https://github.com/networktocode/ntc-templates/issues/743
   disabledTests = [

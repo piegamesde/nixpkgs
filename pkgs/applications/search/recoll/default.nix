@@ -45,12 +45,15 @@ mkDerivation rec {
     sha256 = "sha256-ffD49sGYWYEWAFPRtpyDU/CYFvkrEDL21Ddq3QsXCvc=";
   };
 
-  configureFlags = [ "--enable-recollq" "--disable-webkit" "--without-systemd" ]
-    ++ lib.optionals (!withGui) [ "--disable-qtgui" "--disable-x11mon" ]
-    ++ (if stdenv.isLinux then
-      [ "--with-inotify" ]
-    else
-      [ "--without-inotify" ]);
+  configureFlags = [
+    "--enable-recollq"
+    "--disable-webkit"
+    "--without-systemd"
+  ] ++ lib.optionals (!withGui) [
+    "--disable-qtgui"
+    "--disable-x11mon"
+  ]
+    ++ (if stdenv.isLinux then [ "--with-inotify" ] else [ "--without-inotify" ]);
 
   env.NIX_CFLAGS_COMPILE = toString [ "-DNIXPKGS" ];
 
@@ -59,12 +62,22 @@ mkDerivation rec {
     ./fix-datadir.patch
   ];
 
-  nativeBuildInputs =
-    [ file pkg-config python3Packages.setuptools makeWrapper which ];
+  nativeBuildInputs = [
+    file
+    pkg-config
+    python3Packages.setuptools
+    makeWrapper
+    which
+  ];
 
-  buildInputs =
-    [ bison chmlib python3Packages.python python3Packages.mutagen xapian zlib ]
-    ++ lib.optionals withGui [ qtbase ]
+  buildInputs = [
+    bison
+    chmlib
+    python3Packages.python
+    python3Packages.mutagen
+    xapian
+    zlib
+  ] ++ lib.optionals withGui [ qtbase ]
     ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
   # the filters search through ${PATH} using a sh proc 'checkcmds' for the
@@ -164,6 +177,9 @@ mkDerivation rec {
       "https://www.lesbonscomptes.com/recoll/pages/release-${version}.html";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ jcumming ehmry ];
+    maintainers = with maintainers; [
+      jcumming
+      ehmry
+    ];
   };
 }

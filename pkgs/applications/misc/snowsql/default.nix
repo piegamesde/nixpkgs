@@ -20,9 +20,15 @@ stdenv.mkDerivation rec {
     sha256 = "16zx30l3g5i5ndgxsqlkmkrfzswbczpb3jcya3psq5170i8cfm8f";
   };
 
-  nativeBuildInputs = [ rpmextract makeWrapper ];
+  nativeBuildInputs = [
+    rpmextract
+    makeWrapper
+  ];
 
-  libPath = lib.makeLibraryPath [ openssl libxcrypt ];
+  libPath = lib.makeLibraryPath [
+    openssl
+    libxcrypt
+  ];
 
   buildCommand = ''
     mkdir -p $out/bin/

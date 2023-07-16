@@ -25,7 +25,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-kM3gBc5rbLJU7UXvWz4a9c+Ahi/d0z8R9S5t0B9Fts0=";
   };
 
-  buildInputs = [ zlib bzip2 json_c botan2 ];
+  buildInputs = [
+    zlib
+    bzip2
+    json_c
+    botan2
+  ];
 
   cmakeFlags = [
     "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}"
@@ -35,13 +40,24 @@ stdenv.mkDerivation rec {
     "-DDOWNLOAD_RUBYRNP=off"
   ];
 
-  nativeBuildInputs = [ asciidoctor cmake gnupg gtest pkg-config python3 ];
+  nativeBuildInputs = [
+    asciidoctor
+    cmake
+    gnupg
+    gtest
+    pkg-config
+    python3
+  ];
 
   # NOTE: check-only inputs should ideally be moved to nativeCheckInputs, but it
   # would fail during buildPhase.
   # nativeCheckInputs = [ gtest python3 ];
 
-  outputs = [ "out" "lib" "dev" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+  ];
 
   preConfigure = ''
     echo "v${version}" > version.txt

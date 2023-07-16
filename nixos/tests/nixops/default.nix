@@ -38,7 +38,10 @@ let
             nix.settings.substituters = lib.mkForce [ ];
             users.users.person.isNormalUser = true;
             virtualisation.writableStore = true;
-            virtualisation.additionalPaths = [ pkgs.hello pkgs.figlet ];
+            virtualisation.additionalPaths = [
+              pkgs.hello
+              pkgs.figlet
+            ];
 
             # TODO: make this efficient, https://github.com/NixOS/nixpkgs/issues/180529
             system.includeBuildDependencies = true;

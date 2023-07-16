@@ -16,7 +16,10 @@ let
     icon = "groove";
     desktopName = "GROOVE Simulator";
     comment = "GRaphs for Object-Oriented VErification";
-    categories = [ "Science" "ComputerScience" ];
+    categories = [
+      "Science"
+      "ComputerScience"
+    ];
   };
 
 in stdenv.mkDerivation rec {
@@ -30,7 +33,11 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-JwoUlO6F2+8NtCnLC+xm5q0Jm8RIyU1rnuKGmjgJhFU=";
   };
 
-  nativeBuildInputs = [ unzip makeWrapper icoutils ];
+  nativeBuildInputs = [
+    unzip
+    makeWrapper
+    icoutils
+  ];
 
   dontBuild = true;
 

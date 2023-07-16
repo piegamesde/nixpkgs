@@ -53,7 +53,10 @@ in stdenv.mkDerivation rec {
   ]);
 
   nativeBuildInputs = [ unzip ];
-  buildInputs = [ ant jdk ];
+  buildInputs = [
+    ant
+    jdk
+  ];
 
   buildPhase = "ant make";
 
@@ -80,7 +83,10 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://desktop.jitsi.org/";
     description = "Open Source Video Calls and Chat";
-    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [
+      binaryBytecode
+      binaryNativeCode
+    ];
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
     maintainers = teams.jitsi.members;

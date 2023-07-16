@@ -17,7 +17,12 @@ stdenv.mkDerivation rec {
     sha256 = "17c2msdcb7pn3p8f83805h1c216bmdqnbn9hgzr1j8wnwjcpxx6i";
   };
 
-  buildInputs = [ libGLU libGL libX11 libXext ];
+  buildInputs = [
+    libGLU
+    libGL
+    libX11
+    libXext
+  ];
 
   buildPhase = ''
     make x11

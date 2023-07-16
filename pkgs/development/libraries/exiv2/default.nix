@@ -20,7 +20,14 @@ stdenv.mkDerivation rec {
   pname = "exiv2";
   version = "0.27.6";
 
-  outputs = [ "out" "lib" "dev" "doc" "man" "static" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "doc"
+    "man"
+    "static"
+  ];
 
   src = fetchFromGitHub {
     owner = "exiv2";
@@ -29,19 +36,38 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Ddy605EQhsATzmdhN3Zq+2ksYMrHEfucA+IqezYmjo4=";
   };
 
-  nativeBuildInputs =
-    [ cmake doxygen gettext graphviz libxslt removeReferencesTo ];
+  nativeBuildInputs = [
+    cmake
+    doxygen
+    gettext
+    graphviz
+    libxslt
+    removeReferencesTo
+  ];
 
   buildInputs = lib.optional stdenv.isDarwin libiconv;
 
-  propagatedBuildInputs = [ expat zlib ];
+  propagatedBuildInputs = [
+    expat
+    zlib
+  ];
 
-  nativeCheckInputs = [ libxml2.bin python3 which ];
+  nativeCheckInputs = [
+    libxml2.bin
+    python3
+    which
+  ];
 
-  cmakeFlags =
-    [ "-DEXIV2_ENABLE_NLS=ON" "-DEXIV2_BUILD_DOC=ON" "-DEXIV2_ENABLE_BMFF=ON" ];
+  cmakeFlags = [
+    "-DEXIV2_ENABLE_NLS=ON"
+    "-DEXIV2_BUILD_DOC=ON"
+    "-DEXIV2_ENABLE_BMFF=ON"
+  ];
 
-  buildFlags = [ "all" "doc" ];
+  buildFlags = [
+    "all"
+    "doc"
+  ];
 
   doCheck = true;
 

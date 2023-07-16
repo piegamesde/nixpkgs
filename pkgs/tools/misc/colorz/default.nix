@@ -12,7 +12,10 @@ python3Packages.buildPythonApplication rec {
     sha256 = "0ghd90lgplf051fs5n5bb42zffd3fqpgzkbv6bhjw7r8jqwgcky0";
   };
 
-  propagatedBuildInputs = with python3Packages; [ pillow scipy ];
+  propagatedBuildInputs = with python3Packages; [
+    pillow
+    scipy
+  ];
 
   checkPhase = ''
     $out/bin/colorz --help > /dev/null

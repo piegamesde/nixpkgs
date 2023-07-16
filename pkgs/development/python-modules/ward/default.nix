@@ -31,7 +31,10 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [ "rich" ];
 
-  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
   propagatedBuildInputs = [
     click

@@ -129,7 +129,10 @@ in {
       }
     ];
 
-    environment.systemPackages = with pkgs; [ krb5Full freeipa ];
+    environment.systemPackages = with pkgs; [
+      krb5Full
+      freeipa
+    ];
 
     environment.etc = {
       "ipa/default.conf".text = ''

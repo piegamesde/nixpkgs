@@ -25,7 +25,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-GD9nwXdXSJX5OvAMxEAnngkvRW+E1jrNfWXK122bsTM=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buildInputs = [
     cairomm
     libjack2

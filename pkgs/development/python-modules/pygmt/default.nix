@@ -38,9 +38,20 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ numpy netcdf4 pandas packaging xarray ];
+  propagatedBuildInputs = [
+    numpy
+    netcdf4
+    pandas
+    packaging
+    xarray
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-mpl ghostscript ipython ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-mpl
+    ghostscript
+    ipython
+  ];
 
   # The *entire* test suite requires network access
   doCheck = false;

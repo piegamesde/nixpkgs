@@ -9,7 +9,11 @@
 
 let
   bits = lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") "64";
-  libPath = lib.makeLibraryPath [ stdenv.cc.cc alsa-lib libpulseaudio ];
+  libPath = lib.makeLibraryPath [
+    stdenv.cc.cc
+    alsa-lib
+    libpulseaudio
+  ];
 
 in stdenv.mkDerivation rec {
   pname = "fmod";
@@ -47,7 +51,11 @@ in stdenv.mkDerivation rec {
       "Programming library and toolkit for the creation and playback of interactive audio";
     homepage = "http://www.fmod.org/";
     license = licenses.unfreeRedistributable;
-    platforms = [ "x86_64-linux" "i686-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+      "x86_64-darwin"
+    ];
     maintainers = [ maintainers.lassulus ];
   };
 }

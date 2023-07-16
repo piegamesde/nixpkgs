@@ -18,7 +18,10 @@ buildDunePackage rec {
     hash = "sha256-swIK0nrs83fhw/J0Cgizbcu6mR+EMGZRE1dBBUiImnc=";
   };
 
-  propagatedBuildInputs = [ ssl lwt ];
+  propagatedBuildInputs = [
+    ssl
+    lwt
+  ];
 
   meta = {
     homepage = "https://github.com/aantron/lwt_ssl";

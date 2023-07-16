@@ -34,10 +34,16 @@ in python3Packages.buildPythonApplication rec {
     })
   ];
 
-  buildInputs = with python3Packages; [ python wrapPython ];
+  buildInputs = with python3Packages; [
+    python
+    wrapPython
+  ];
 
   pythonPath = with python3Packages;
-    [ ipy pyperclip ] ++ lib.optional useGeoIP geoip;
+    [
+      ipy
+      pyperclip
+    ] ++ lib.optional useGeoIP geoip;
 
   dontBuild = true;
   doCheck = false;

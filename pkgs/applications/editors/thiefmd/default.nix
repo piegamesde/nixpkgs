@@ -35,8 +35,16 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs =
-    [ cmake desktop-file-utils glib meson wrapGAppsHook ninja pkg-config vala ];
+  nativeBuildInputs = [
+    cmake
+    desktop-file-utils
+    glib
+    meson
+    wrapGAppsHook
+    ninja
+    pkg-config
+    vala
+  ];
 
   buildInputs = [
     clutter

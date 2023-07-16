@@ -32,6 +32,9 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3Plus;
     description = "GNU Make with comprehensible tracing and a debugger";
     platforms = with lib.platforms; linux ++ darwin;
-    maintainers = with lib.maintainers; [ bjornfor shamilton ];
+    maintainers = with lib.maintainers; [
+      bjornfor
+      shamilton
+    ];
   };
 }

@@ -19,8 +19,12 @@ in stdenv.mkDerivation rec {
   };
 
   # from Gentoo
-  patches =
-    [ ./byteswap.patch ./dontwake.patch ./execinfo.patch ./satacmds.patch ];
+  patches = [
+    ./byteswap.patch
+    ./dontwake.patch
+    ./execinfo.patch
+    ./satacmds.patch
+  ];
 
   configureFlags =
     [ "--with-db-path=${placeholder "out"}/share/${pname}/hddtemp.db" ];

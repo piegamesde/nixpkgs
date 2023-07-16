@@ -28,7 +28,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  nativeCheckInputs = [ ghostscript pillow pytestCheckHook ];
+  nativeCheckInputs = [
+    ghostscript
+    pillow
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pydyf" ];
 

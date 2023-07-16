@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-odJDE1A0WZ9vBXPxaUdthjTgmbmbdHjbyY1PkaM4+vI=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
   buildInputs = [ libusb1 ];
 
   postPatch = ''

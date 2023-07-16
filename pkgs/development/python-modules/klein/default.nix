@@ -31,11 +31,20 @@ buildPythonPackage rec {
     hash = "sha256-RDZqavkteUbARV78OctZtLIrE4RoYDVAanjwE5i/ZeM=";
   };
 
-  propagatedBuildInputs =
-    [ attrs hyperlink incremental twisted tubes werkzeug zope_interface ]
-    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [
+    attrs
+    hyperlink
+    incremental
+    twisted
+    tubes
+    werkzeug
+    zope_interface
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
-  nativeCheckInputs = [ hypothesis treq ];
+  nativeCheckInputs = [
+    hypothesis
+    treq
+  ];
 
   checkPhase = ''
     ${python.interpreter} -m twisted.trial klein

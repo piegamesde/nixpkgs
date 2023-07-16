@@ -46,14 +46,23 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook texinfo ];
+  nativeBuildInputs = [
+    autoreconfHook
+    texinfo
+  ];
 
-  outputs = [ "out" "info" ];
+  outputs = [
+    "out"
+    "info"
+  ];
 
   meta = with lib; {
     description =
       "A utility for viewing/manipulating the MAC address of network interfaces";
-    maintainers = with maintainers; [ joachifm dotlambda ];
+    maintainers = with maintainers; [
+      joachifm
+      dotlambda
+    ];
     license = licenses.gpl2Plus;
     homepage = "https://github.com/alobbs/macchanger";
     platforms = platforms.linux;

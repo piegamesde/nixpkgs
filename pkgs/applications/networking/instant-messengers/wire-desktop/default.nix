@@ -50,8 +50,15 @@ let
     downloadPage = "https://wire.com/download/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ arianvp kiwi toonn ];
-    platforms = [ "x86_64-darwin" "x86_64-linux" ];
+    maintainers = with maintainers; [
+      arianvp
+      kiwi
+      toonn
+    ];
+    platforms = [
+      "x86_64-darwin"
+      "x86_64-linux"
+    ];
   };
 
   linux = stdenv.mkDerivation rec {
@@ -64,7 +71,12 @@ let
     };
 
     desktopItem = makeDesktopItem {
-      categories = [ "Network" "InstantMessaging" "Chat" "VideoConference" ];
+      categories = [
+        "Network"
+        "InstantMessaging"
+        "Chat"
+        "VideoConference"
+      ];
       comment = "Secure messenger for everyone";
       desktopName = "Wire";
       exec = "wire-desktop %U";
@@ -79,7 +91,12 @@ let
     dontPatchELF = true;
     dontWrapGApps = true;
 
-    nativeBuildInputs = [ autoPatchelfHook dpkg makeWrapper wrapGAppsHook ];
+    nativeBuildInputs = [
+      autoPatchelfHook
+      dpkg
+      makeWrapper
+      wrapGAppsHook
+    ];
 
     buildInputs = [ libxshmfence ] ++ atomEnv.packages;
 
@@ -106,7 +123,10 @@ let
       runHook postInstall
     '';
 
-    runtimeDependencies = [ (lib.getLib udev) libdbusmenu ];
+    runtimeDependencies = [
+      (lib.getLib udev)
+      libdbusmenu
+    ];
 
     postFixup = ''
       makeWrapper $out/opt/Wire/wire-desktop $out/bin/wire-desktop \
@@ -123,7 +143,10 @@ let
       inherit hash;
     };
 
-    buildInputs = [ cpio xar ];
+    buildInputs = [
+      cpio
+      xar
+    ];
 
     unpackPhase = ''
       runHook preUnpack

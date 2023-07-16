@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ click ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "--asyncio-mode=auto" ];
 

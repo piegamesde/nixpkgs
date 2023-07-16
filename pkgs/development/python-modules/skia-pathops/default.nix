@@ -38,10 +38,16 @@ buildPythonPackage rec {
       --replace "defined(SK_CPU_ARM64)" "0"
   '';
 
-  nativeBuildInputs = [ cython ninja setuptools-scm ]
-    ++ lib.optionals stdenv.isDarwin [ xcodebuild ];
+  nativeBuildInputs = [
+    cython
+    ninja
+    setuptools-scm
+  ] ++ lib.optionals stdenv.isDarwin [ xcodebuild ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ ApplicationServices OpenGL ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    ApplicationServices
+    OpenGL
+  ];
 
   propagatedBuildInputs = [ setuptools ];
 

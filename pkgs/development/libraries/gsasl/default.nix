@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
   # https://git.musl-libc.org/cgit/musl/commit/?id=b50eb8c36c20f967bd0ed70c0b0db38a450886ba
   patches = lib.optional stdenv.hostPlatform.isMusl ./gsasl.patch;
 
-  buildInputs = [ libidn libkrb5 ];
+  buildInputs = [
+    libidn
+    libkrb5
+  ];
 
   configureFlags = [ "--with-gssapi-impl=mit" ];
 

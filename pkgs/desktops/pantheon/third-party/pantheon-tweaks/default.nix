@@ -26,9 +26,18 @@ stdenv.mkDerivation rec {
 
   patches = [ ./fix-paths.patch ];
 
-  nativeBuildInputs = [ meson ninja pkg-config python3 vala ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    python3
+    vala
+  ];
 
-  buildInputs = [ gtk3 libgee ] ++ (with pantheon; [
+  buildInputs = [
+    gtk3
+    libgee
+  ] ++ (with pantheon; [
     elementary-files # settings schemas
     elementary-terminal # settings schemas
     granite

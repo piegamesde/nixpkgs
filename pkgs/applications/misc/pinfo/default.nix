@@ -51,10 +51,17 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [ gettext texinfo ncurses readline ];
+  buildInputs = [
+    gettext
+    texinfo
+    ncurses
+    readline
+  ];
 
-  configureFlags =
-    [ "--with-curses=${ncurses.dev}" "--with-readline=${readline.dev}" ];
+  configureFlags = [
+    "--with-curses=${ncurses.dev}"
+    "--with-readline=${readline.dev}"
+  ];
 
   meta = with lib; {
     description = "A viewer for info files";

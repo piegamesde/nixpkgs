@@ -22,7 +22,11 @@ stdenv.mkDerivation rec {
   pname = "goffice";
   version = "0.10.55";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -39,9 +43,20 @@ stdenv.mkDerivation rec {
     glib # for glib-genmarshal
   ];
 
-  propagatedBuildInputs = [ glib gtk3 libxml2 cairo pango libgsf lasem ];
+  propagatedBuildInputs = [
+    glib
+    gtk3
+    libxml2
+    cairo
+    pango
+    libgsf
+    lasem
+  ];
 
-  buildInputs = [ libxslt librsvg ];
+  buildInputs = [
+    libxslt
+    librsvg
+  ];
 
   enableParallelBuilding = true;
 

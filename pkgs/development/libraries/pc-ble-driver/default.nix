@@ -41,8 +41,15 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DNRF_BLE_DRIVER_VERSION=${version}" ]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ "-DARCH=arm64" ];
 
-  nativeBuildInputs = [ cmake git ];
-  buildInputs = [ asio catch2 spdlog ];
+  nativeBuildInputs = [
+    cmake
+    git
+  ];
+  buildInputs = [
+    asio
+    catch2
+    spdlog
+  ];
 
   propagatedBuildInputs = [
 

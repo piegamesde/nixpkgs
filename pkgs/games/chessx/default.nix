@@ -20,9 +20,18 @@ mkDerivation rec {
     sha256 = "sha256-ev+tK1CHLFt/RvmzyPVZ2c0nxfRwwb9ke7uTmm7REaM=";
   };
 
-  nativeBuildInputs = [ pkg-config qmake ];
+  nativeBuildInputs = [
+    pkg-config
+    qmake
+  ];
 
-  buildInputs = [ qtbase qtmultimedia qtsvg qttools zlib ];
+  buildInputs = [
+    qtbase
+    qtmultimedia
+    qtsvg
+    qttools
+    zlib
+  ];
 
   # RCC: Error in 'resources.qrc': Cannot find file 'i18n/chessx_da.qm'
   enableParallelBuilding = false;

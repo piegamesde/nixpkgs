@@ -38,7 +38,10 @@
 
 mkDerivation {
   pname = "kdenlive";
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
   buildInputs = [
     breeze-icons
     breeze-qt5
@@ -75,7 +78,10 @@ mkDerivation {
   # Both MLT and FFMpeg paths must be set or Kdenlive will complain that it
   # doesn't find them. See:
   # https://github.com/NixOS/nixpkgs/issues/83885
-  patches = [ ./mlt-path.patch ./ffmpeg-path.patch ];
+  patches = [
+    ./mlt-path.patch
+    ./ffmpeg-path.patch
+  ];
   inherit mlt;
   ffmpeg = ffmpeg-full;
   postPatch =

@@ -24,9 +24,15 @@ in lib.checkListOfEnum "${pname}: theme variants" [
   "manjaro"
   "ubuntu"
   "all"
-] themeVariants lib.checkListOfEnum
-"${pname}: color variants" [ "standard" "light" "dark" ] colorVariants
-lib.checkListOfEnum "${pname}: tweaks" [ "image" "square" "round" ] tweaks
+] themeVariants lib.checkListOfEnum "${pname}: color variants" [
+  "standard"
+  "light"
+  "dark"
+] colorVariants lib.checkListOfEnum "${pname}: tweaks" [
+  "image"
+  "square"
+  "round"
+] tweaks
 
 stdenv.mkDerivation rec {
   inherit pname;
@@ -39,7 +45,11 @@ stdenv.mkDerivation rec {
     sha256 = "oBUBSPlOCBEaRRFK5ZyoGlk+gwcE8LtdwxvL+iTfuMA=";
   };
 
-  nativeBuildInputs = [ jdupes sassc which ];
+  nativeBuildInputs = [
+    jdupes
+    sassc
+    which
+  ];
 
   buildInputs = [
     gdk-pixbuf # pixbuf engine for Gtk2
@@ -47,9 +57,8 @@ stdenv.mkDerivation rec {
     librsvg # pixbuf loader for svg
   ];
 
-  propagatedUserEnvPkgs = [
-    gtk-engine-murrine # murrine engine for Gtk2
-  ];
+  propagatedUserEnvPkgs = [ gtk-engine-murrine # murrine engine for Gtk2
+    ];
 
   postPatch = ''
     patchShebangs install.sh clean-old-theme.sh

@@ -9,13 +9,15 @@ with lib;
 
 let cfg = config.services.trickster;
 in {
-  imports = [
-    (mkRenamedOptionModule [ "services" "trickster" "origin" ] [
-      "services"
-      "trickster"
-      "origin-url"
-    ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "services"
+    "trickster"
+    "origin"
+  ] [
+    "services"
+    "trickster"
+    "origin-url"
+  ]) ];
 
   options = {
     services.trickster = {
@@ -69,7 +71,10 @@ in {
       };
 
       origin-type = mkOption {
-        type = types.enum [ "prometheus" "influxdb" ];
+        type = types.enum [
+          "prometheus"
+          "influxdb"
+        ];
         default = "prometheus";
         description = lib.mdDoc ''
           Type of origin (prometheus, influxdb)

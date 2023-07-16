@@ -25,7 +25,11 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "prefix=$(out)" ];
 
-  buildInputs = [ gtk3 curl libxml2 ];
+  buildInputs = [
+    gtk3
+    curl
+    libxml2
+  ];
 
   meta = with lib; {
     description = "The smooth Class Library";

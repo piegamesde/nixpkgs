@@ -23,9 +23,18 @@ mkDerivation rec {
     hash = "sha256-fgtRKUG6J/CM6cXUTHWAPemqL8loWZT3wZmGdRHldq8=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ imagemagick qtbase qttools qpdf podofo ];
+  buildInputs = [
+    imagemagick
+    qtbase
+    qttools
+    qpdf
+    podofo
+  ];
 
   patches = [
     # fix incompatibility with qpdf11.3.0 usage of c++17 - delete this patch when we reach pdfmixtool version > v1.1.1

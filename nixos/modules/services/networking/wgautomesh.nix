@@ -23,7 +23,13 @@ in {
   options.services.wgautomesh = {
     enable = mkEnableOption (mdDoc "the wgautomesh daemon");
     logLevel = mkOption {
-      type = types.enum [ "trace" "debug" "info" "warn" "error" ];
+      type = types.enum [
+        "trace"
+        "debug"
+        "info"
+        "warn"
+        "error"
+      ];
       default = "info";
       description = mdDoc "wgautomesh log level.";
     };
@@ -141,13 +147,13 @@ in {
         ExecStart = "${getExe pkgs.wgautomesh} ${runtimeConfigFile}";
         Restart = "always";
         RestartSec = "30";
-        LoadCredential = mkIf cfg.enableGossipEncryption
-          [ "gossip_secret:${cfg.gossipSecretFile}" ];
+        LoadCredential = mkIf
+          cfg.enableGossipEncryption [ "gossip_secret:${cfg.gossipSecretFile}" ];
 
-        ExecStartPre = mkIf cfg.enableGossipEncryption [''
+        ExecStartPre = mkIf cfg.enableGossipEncryption [ ''
           ${pkgs.envsubst}/bin/envsubst \
                         -i ${configFile} \
-                        -o ${runtimeConfigFile}''];
+                        -o ${runtimeConfigFile}'' ];
 
         DynamicUser = true;
         StateDirectory = "wgautomesh";

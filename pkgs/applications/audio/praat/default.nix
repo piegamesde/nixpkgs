@@ -30,8 +30,15 @@ stdenv.mkDerivation rec {
     install -Dt $out/bin praat
   '';
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook ];
-  buildInputs = [ alsa-lib gtk3 libpulseaudio ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    alsa-lib
+    gtk3
+    libpulseaudio
+  ];
 
   enableParallelBuilding = true;
 

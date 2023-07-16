@@ -37,7 +37,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ requests urllib3 ];
+  propagatedBuildInputs = [
+    requests
+    urllib3
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

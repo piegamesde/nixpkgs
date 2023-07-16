@@ -41,7 +41,11 @@ let
       "https://github.com/koekeishiya/yabai/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     platforms = platforms.darwin;
-    maintainers = with maintainers; [ cmacrae shardy ivar ];
+    maintainers = with maintainers; [
+      cmacrae
+      shardy
+      ivar
+    ];
   };
 in {
   # Unfortunately compiling yabai from source on aarch64-darwin is a bit complicated. We use the precompiled binary instead for now.
@@ -87,9 +91,18 @@ in {
       sha256 = "sha256-/HS8TDzDA4Zvmm56ZZeMXyCKHRRTcucd7qDHT0qbrQg=";
     };
 
-    nativeBuildInputs = [ installShellFiles xcodebuild xxd ];
+    nativeBuildInputs = [
+      installShellFiles
+      xcodebuild
+      xxd
+    ];
 
-    buildInputs = [ Carbon Cocoa ScriptingBridge SkyLight ];
+    buildInputs = [
+      Carbon
+      Cocoa
+      ScriptingBridge
+      SkyLight
+    ];
 
     dontConfigure = true;
     enableParallelBuilding = true;

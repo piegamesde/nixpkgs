@@ -24,7 +24,11 @@ buildPythonPackage rec {
     fetchSubmodules = true;
   };
 
-  propagatedBuildInputs = [ backoff pyserial pyserial-asyncio ];
+  propagatedBuildInputs = [
+    backoff
+    pyserial
+    pyserial-asyncio
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "0y080v12bm81wgjm6fnw7q0yg7scphm8hhrls9njcszj7fkscv9i";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   buildInputs = [ glib ];
 
@@ -26,7 +29,10 @@ stdenv.mkDerivation rec {
     description = "This library is part of the TiLP framework";
     homepage = "http://lpg.ticalc.org/prj_tilp/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ siraben luc65r ];
+    maintainers = with maintainers; [
+      siraben
+      luc65r
+    ];
     platforms = with platforms; linux ++ darwin;
   };
 }

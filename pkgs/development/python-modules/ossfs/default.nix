@@ -26,11 +26,22 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  pythonRelaxDeps = [ "aiooss2" "fsspec" "oss2" ];
+  pythonRelaxDeps = [
+    "aiooss2"
+    "fsspec"
+    "oss2"
+  ];
 
-  nativeBuildInputs = [ pythonRelaxDepsHook setuptools-scm ];
+  nativeBuildInputs = [
+    pythonRelaxDepsHook
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs = [ aiooss2 fsspec oss2 ];
+  propagatedBuildInputs = [
+    aiooss2
+    fsspec
+    oss2
+  ];
 
   # Most tests require network access
   doCheck = false;

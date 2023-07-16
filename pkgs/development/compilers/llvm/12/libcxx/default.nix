@@ -29,18 +29,22 @@ stdenv.mkDerivation {
     mv llvm-* llvm
   '';
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  patches = [ ./gnu-install-dirs.patch ]
-    ++ lib.optionals stdenv.hostPlatform.isMusl
-    [ ../../libcxx-0001-musl-hacks.patch ];
+  patches = [ ./gnu-install-dirs.patch ] ++ lib.optionals
+    stdenv.hostPlatform.isMusl [ ../../libcxx-0001-musl-hacks.patch ];
 
   preConfigure = lib.optionalString stdenv.hostPlatform.isMusl ''
     patchShebangs utils/cat_files.py
   '';
 
-  nativeBuildInputs = [ cmake python3 ]
-    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [
+    cmake
+    python3
+  ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
   buildInputs = [ cxxabi ];
 
@@ -82,6 +86,9 @@ stdenv.mkDerivation {
     '';
     # "All of the code in libc++ is dual licensed under the MIT license and the
     # UIUC License (a BSD-like license)":
-    license = with lib.licenses; [ mit ncsa ];
+    license = with lib.licenses; [
+      mit
+      ncsa
+    ];
   };
 }

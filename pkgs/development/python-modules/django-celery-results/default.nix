@@ -24,7 +24,10 @@ buildPythonPackage rec {
     sed -i '/tests_require=/d' setup.py
   '';
 
-  propagatedBuildInputs = [ celery django ];
+  propagatedBuildInputs = [
+    celery
+    django
+  ];
 
   # Tests need access to a database.
   doCheck = false;

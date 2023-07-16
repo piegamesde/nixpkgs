@@ -60,7 +60,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-xG41FNlMfqH5MaGVFFENP0UFEkZYiWhtpNSPh2s4Irk=";
   };
 
-  nativeBuildInputs = [ cmake ninja pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    pkg-config
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     airspy
@@ -122,7 +127,10 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/f4exb/sdrangel";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ alkeryn Tungsten842 ];
+    maintainers = with maintainers; [
+      alkeryn
+      Tungsten842
+    ];
     platforms = platforms.unix;
   };
 }

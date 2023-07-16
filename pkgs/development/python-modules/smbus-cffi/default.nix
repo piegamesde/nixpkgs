@@ -40,7 +40,11 @@ buildPythonPackage rec {
   # requires hardware access
   pytestFlagsArray = [ "--ignore=test/test_smbus_integration.py" ];
 
-  nativeCheckInputs = [ py pytestCheckHook pyserial ];
+  nativeCheckInputs = [
+    py
+    pytestCheckHook
+    pyserial
+  ];
 
   meta = with lib; {
     description =

@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-rAMv7EnExPDyMY0/RhiXDFFBkbFC4GxRpmH+I0KlNaU=";
   };
 
-  buildInputs = [ perl libX11 ];
+  buildInputs = [
+    perl
+    libX11
+  ];
 
   postPatch = ''
     sed "s:^X11PREFIX=.*:X11PREFIX=$out:" -i Makefile

@@ -21,7 +21,16 @@ stdenv.mkDerivation rec {
       "mirror://sourceforge/project/golly/golly/golly-${version}/golly-${version}-src.tar.gz";
   };
 
-  buildInputs = [ wxGTK perl python3 zlib libGLU libGL libX11 SDL2 ];
+  buildInputs = [
+    wxGTK
+    perl
+    python3
+    zlib
+    libGLU
+    libGL
+    libX11
+    SDL2
+  ];
 
   setSourceRoot = ''
     sourceRoot=$(echo */gui-wx/)
@@ -39,7 +48,12 @@ stdenv.mkDerivation rec {
     grep /libperl wxprefs.cpp
   '';
 
-  makeFlags = [ "-f" "makefile-gtk" "ENABLE_SOUND=1" "ENABLE_PERL=1" ];
+  makeFlags = [
+    "-f"
+    "makefile-gtk"
+    "ENABLE_SOUND=1"
+    "ENABLE_PERL=1"
+  ];
 
   installPhase = ''
     mkdir -p "$out/bin"

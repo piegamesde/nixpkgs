@@ -27,7 +27,11 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true; # For inline hipRAND
   };
 
-  nativeBuildInputs = [ cmake rocm-cmake hip ];
+  nativeBuildInputs = [
+    cmake
+    rocm-cmake
+    hip
+  ];
 
   buildInputs = lib.optionals buildTests [ gtest ]
     ++ lib.optionals buildBenchmarks [ gbenchmark ];

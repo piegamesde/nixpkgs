@@ -29,6 +29,9 @@ python3Packages.buildPythonApplication rec {
     license = licenses.gpl2Only;
     description =
       "A helper utility to work with patches made available via a public-inbox archive";
-    maintainers = with maintainers; [ jb55 qyliss ];
+    maintainers = with maintainers; [
+      jb55
+      qyliss
+    ];
   };
 }

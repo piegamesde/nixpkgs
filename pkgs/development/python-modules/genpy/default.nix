@@ -15,7 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-FGZbQlUgbJjnuiDaKS/vVlraMVmFF1cAQk7S3aPWXx4=";
   };
 
-  propagatedBuildInputs = [ pytools numpy ];
+  propagatedBuildInputs = [
+    pytools
+    numpy
+  ];
 
   meta = with lib; {
     description = "C/C++ source generation from an AST";

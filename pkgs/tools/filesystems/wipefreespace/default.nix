@@ -26,8 +26,16 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ texinfo ];
 
   # missed: Reiser3 FAT12/16/32 MinixFS HFS+ OCFS
-  buildInputs =
-    [ 0.0 fsprogs ntfs3g xfsprogs reiser4progs libaal jfsutils libuuid ];
+  buildInputs = [
+    0.0
+    fsprogs
+    ntfs3g
+    xfsprogs
+    reiser4progs
+    libaal
+    jfsutils
+    libuuid
+  ];
 
   strictDeps = true;
 

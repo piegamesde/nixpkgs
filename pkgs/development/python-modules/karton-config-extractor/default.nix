@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-ep69Rrm8Ek0lkgctz6vDAZ1MZ8kWKZSyIvMMAmzTngA=";
   };
 
-  propagatedBuildInputs = [ karton-core malduck ];
+  propagatedBuildInputs = [
+    karton-core
+    malduck
+  ];
 
   postPatch = ''
     substituteInPlace requirements.txt \

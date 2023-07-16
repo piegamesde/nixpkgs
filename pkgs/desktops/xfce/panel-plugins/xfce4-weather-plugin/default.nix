@@ -30,7 +30,10 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-pFFG+aDc3JXRkcCcZK0nmuKJz4+BHEQz4I4xplaEUjk=";
   };
 
-  nativeBuildInputs = [ pkg-config intltool ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+  ];
 
   buildInputs = [
     glib

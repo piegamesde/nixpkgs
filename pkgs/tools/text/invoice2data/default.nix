@@ -41,7 +41,12 @@ python3.pkgs.buildPythonApplication rec {
     "--prefix"
     "PATH"
     ":"
-    (lib.makeBinPath [ ghostscript imagemagick tesseract5 poppler_utils ])
+    (lib.makeBinPath [
+      ghostscript
+      imagemagick
+      tesseract5
+      poppler_utils
+    ])
   ];
 
   # Tests fails even when ran manually on my ubuntu machine !!

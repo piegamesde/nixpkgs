@@ -31,8 +31,12 @@
     version = "1.607.0";
   };
   aws-sdk-core = {
-    dependencies =
-      [ "aws-eventstream" "aws-partitions" "aws-sigv4" "jmespath" ];
+    dependencies = [
+      "aws-eventstream"
+      "aws-partitions"
+      "aws-sigv4"
+      "jmespath"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -43,7 +47,10 @@
     version = "3.131.2";
   };
   aws-sdk-ec2 = {
-    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
+    dependencies = [
+      "aws-sdk-core"
+      "aws-sigv4"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -189,7 +196,10 @@
     version = "1.10.0";
   };
   facter = {
-    dependencies = [ "hocon" "thor" ];
+    dependencies = [
+      "hocon"
+      "thor"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -355,7 +365,10 @@
     version = "1.15.5";
   };
   gettext = {
-    dependencies = [ "locale" "text" ];
+    dependencies = [
+      "locale"
+      "text"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -366,7 +379,11 @@
     version = "3.2.9";
   };
   gettext-setup = {
-    dependencies = [ "fast_gettext" "gettext" "locale" ];
+    dependencies = [
+      "fast_gettext"
+      "gettext"
+      "locale"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -388,7 +405,10 @@
     version = "1.3.1";
   };
   gyoku = {
-    dependencies = [ "builder" "rexml" ];
+    dependencies = [
+      "builder"
+      "rexml"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -409,7 +429,10 @@
     version = "3.9.0";
   };
   hiera-eyaml = {
-    dependencies = [ "highline" "optimist" ];
+    dependencies = [
+      "highline"
+      "optimist"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -500,7 +523,10 @@
     version = "1.1.10";
   };
   logging = {
-    dependencies = [ "little-plugger" "multi_json" ];
+    dependencies = [
+      "little-plugger"
+      "multi_json"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -583,7 +609,10 @@
     version = "6.1.0";
   };
   net-ssh-krb = {
-    dependencies = [ "gssapi" "net-ssh" ];
+    dependencies = [
+      "gssapi"
+      "net-ssh"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -614,7 +643,10 @@
     version = "3.0.1";
   };
   orchestrator_client = {
-    dependencies = [ "faraday" "net-http-persistent" ];
+    dependencies = [
+      "faraday"
+      "net-http-persistent"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -668,7 +700,10 @@
     version = "1.8.14";
   };
   puppet-strings = {
-    dependencies = [ "rgen" "yard" ];
+    dependencies = [
+      "rgen"
+      "yard"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -679,8 +714,12 @@
     version = "2.9.0";
   };
   puppet_forge = {
-    dependencies =
-      [ "faraday" "faraday_middleware" "minitar" "semantic_puppet" ];
+    dependencies = [
+      "faraday"
+      "faraday_middleware"
+      "minitar"
+      "semantic_puppet"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -691,7 +730,10 @@
     version = "3.2.0";
   };
   puppetfile-resolver = {
-    dependencies = [ "molinillo" "semantic_puppet" ];
+    dependencies = [
+      "molinillo"
+      "semantic_puppet"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -754,7 +796,11 @@
     version = "0.0.5";
   };
   ruby_smb = {
-    dependencies = [ "bindata" "rubyntlm" "windows_error" ];
+    dependencies = [
+      "bindata"
+      "rubyntlm"
+      "windows_error"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -886,7 +932,12 @@
     version = "2.3.6";
   };
   winrm-fs = {
-    dependencies = [ "erubi" "logging" "rubyzip" "winrm" ];
+    dependencies = [
+      "erubi"
+      "logging"
+      "rubyzip"
+      "winrm"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

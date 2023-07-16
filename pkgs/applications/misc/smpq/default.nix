@@ -26,6 +26,9 @@ stdenv.mkDerivation rec {
     homepage = "https://launchpad.net/smpq";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ aanderse karolchmist ];
+    maintainers = with maintainers; [
+      aanderse
+      karolchmist
+    ];
   };
 }

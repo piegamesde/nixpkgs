@@ -80,7 +80,10 @@ in stdenv.mkDerivation rec {
     homepage = "https://etcher.io/";
     license = licenses.asl20;
     maintainers = [ maintainers.shou ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
   };
 }

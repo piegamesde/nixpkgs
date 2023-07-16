@@ -25,7 +25,11 @@ buildPythonPackage rec {
     git config --global user.email nobody@example.com
   '';
 
-  nativeCheckInputs = [ pytestCheckHook git setuptools ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    git
+    setuptools
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/pdm-project/pdm-pep517";

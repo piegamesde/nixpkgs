@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-cuuix302bVA7dWa7EJoxJ+otf1rSzjWQK8DHJsVkQio=";
   };
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
   cmakeFlags = lib.mapAttrsToList (name: value:
     "-DGSL_LITE_OPT_${name}:BOOL=${if value then "ON" else "OFF"}") {

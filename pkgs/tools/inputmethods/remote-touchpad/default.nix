@@ -19,7 +19,12 @@ buildGoModule rec {
     sha256 = "sha256-dSBkRBT3crdoO3JB3kVSUDC0faRrxa/R5MF/3a9POxo=";
   };
 
-  buildInputs = [ libXi libXrandr libXt libXtst ];
+  buildInputs = [
+    libXi
+    libXrandr
+    libXt
+    libXtst
+  ];
   tags = [ "portal,x11" ];
 
   vendorHash = "sha256-B/nxV9iHebe3v7VM+TTFGnAnPcBICtW+rDyrNNY6Ixw=";

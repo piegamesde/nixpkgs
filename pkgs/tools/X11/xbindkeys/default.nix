@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libX11 guile ];
+  buildInputs = [
+    libX11
+    guile
+  ];
 
   meta = {
     homepage = "https://www.nongnu.org/xbindkeys/xbindkeys.html";

@@ -29,9 +29,17 @@ buildPythonApplication rec {
       --replace 'humanize>=0.5.1,<1' 'humanize'
   '';
 
-  propagatedBuildInputs = [ aiohttp python-dateutil humanize click ];
+  propagatedBuildInputs = [
+    aiohttp
+    python-dateutil
+    humanize
+    click
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook tox ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    tox
+  ];
 
   disabledTests = [
     # Disable test using relative date and time

@@ -31,8 +31,14 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ libuv libmicrohttpd openssl ]
-    ++ lib.optionals stdenv.isDarwin [ CoreServices IOKit ];
+  buildInputs = [
+    libuv
+    libmicrohttpd
+    openssl
+  ] ++ lib.optionals stdenv.isDarwin [
+    CoreServices
+    IOKit
+  ];
 
   installPhase = ''
     runHook preInstall

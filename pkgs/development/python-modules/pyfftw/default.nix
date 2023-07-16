@@ -25,9 +25,18 @@ buildPythonPackage rec {
     export CFLAGS="-I${fftw.dev}/include -I${fftwFloat.dev}/include -I${fftwLongDouble.dev}/include"
   '';
 
-  buildInputs = [ fftw fftwFloat fftwLongDouble ];
+  buildInputs = [
+    fftw
+    fftwFloat
+    fftwLongDouble
+  ];
 
-  propagatedBuildInputs = [ numpy scipy cython dask ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    cython
+    dask
+  ];
 
   # Tests cannot import pyfftw. pyfftw works fine though.
   doCheck = false;
@@ -37,7 +46,10 @@ buildPythonPackage rec {
     description =
       "A pythonic wrapper around FFTW, the FFT library, presenting a unified interface for all the supported transforms";
     homepage = "http://hgomersall.github.com/pyFFTW/";
-    license = with licenses; [ bsd2 bsd3 ];
+    license = with licenses; [
+      bsd2
+      bsd3
+    ];
     maintainers = with maintainers; [ fridh ];
   };
 }

@@ -31,8 +31,11 @@ buildPythonPackage rec {
       --replace "pytest-cov" ""
   '';
 
-  propagatedBuildInputs = [ paho-mqtt python-dateutil weconnect ]
-    ++ weconnect.optional-dependencies.Images;
+  propagatedBuildInputs = [
+    paho-mqtt
+    python-dateutil
+    weconnect
+  ] ++ weconnect.optional-dependencies.Images;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

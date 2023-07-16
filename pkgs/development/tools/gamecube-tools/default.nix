@@ -12,7 +12,10 @@ stdenv.mkDerivation rec {
   pname = "gamecube-tools";
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ freeimage libGL ];
+  buildInputs = [
+    freeimage
+    libGL
+  ];
 
   src = fetchFromGitHub {
     owner = "devkitPro";

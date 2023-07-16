@@ -18,7 +18,11 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-7yyORM77oByH1gxx/TNkjJQBsig6ZxsfeI3ijg71oBs=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ pyqrcode urwid urwid-readline ];
+  propagatedBuildInputs = with python3.pkgs; [
+    pyqrcode
+    urwid
+    urwid-readline
+  ];
   format = "other";
 
   dontBuild = true;
@@ -37,8 +41,16 @@ python3.pkgs.buildPythonApplication rec {
     install -m755 -D scli $out/bin/scli
   '';
 
-  makeWrapperArgs =
-    [ "--prefix" "PATH" ":" (lib.makeBinPath [ dbus signal-cli xclip ]) ];
+  makeWrapperArgs = [
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [
+      dbus
+      signal-cli
+      xclip
+    ])
+  ];
 
   meta = with lib; {
     description = "Simple terminal user interface for Signal";

@@ -20,7 +20,11 @@ buildDunePackage rec {
   duneVersion = "3";
   minimalOCamlVersion = "4.08";
 
-  propagatedBuildInputs = [ camlp-streams cstruct decompress ];
+  propagatedBuildInputs = [
+    camlp-streams
+    cstruct
+    decompress
+  ];
 
   buildInputs = [ ppx_cstruct ];
 

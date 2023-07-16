@@ -80,7 +80,10 @@ in python3.pkgs.buildPythonApplication {
       ckcc-protocol
       keepkey
       trezor
-    ] ++ lib.optionals enableQt [ pyqt5 qdarkstyle ];
+    ] ++ lib.optionals enableQt [
+      pyqt5
+      qdarkstyle
+    ];
 
   postPatch = ''
     # make compatible with protobuf4 by easing dependencies ...
@@ -138,6 +141,10 @@ in python3.pkgs.buildPythonApplication {
       "https://github.com/spesmilo/electrum/blob/master/RELEASE-NOTES";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ joachifm np prusnak ];
+    maintainers = with maintainers; [
+      joachifm
+      np
+      prusnak
+    ];
   };
 }

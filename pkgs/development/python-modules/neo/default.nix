@@ -21,7 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-O2yk/AXf206VPiU+cJlL+7yP4ukJWPvaf6WGDK8/pjo=";
   };
 
-  propagatedBuildInputs = [ numpy packaging quantities ];
+  propagatedBuildInputs = [
+    numpy
+    packaging
+    quantities
+  ];
 
   nativeCheckInputs = [ nose ];
 

@@ -138,15 +138,26 @@ let
 in {
 
   imports = [
-    (mkRemovedOptionModule [ "virtualisation" "libvirtd" "enableKVM" ]
-      "Set the option `virtualisation.libvirtd.qemu.package' instead.")
-    (mkRenamedOptionModule [ "virtualisation" "libvirtd" "qemuPackage" ] [
+    (mkRemovedOptionModule [
+      "virtualisation"
+      "libvirtd"
+      "enableKVM"
+    ] "Set the option `virtualisation.libvirtd.qemu.package' instead.")
+    (mkRenamedOptionModule [
+      "virtualisation"
+      "libvirtd"
+      "qemuPackage"
+    ] [
       "virtualisation"
       "libvirtd"
       "qemu"
       "package"
     ])
-    (mkRenamedOptionModule [ "virtualisation" "libvirtd" "qemuRunAsRoot" ] [
+    (mkRenamedOptionModule [
+      "virtualisation"
+      "libvirtd"
+      "qemuRunAsRoot"
+    ] [
       "virtualisation"
       "libvirtd"
       "qemu"
@@ -156,17 +167,34 @@ in {
       "virtualisation"
       "libvirtd"
       "qemuVerbatimConfig"
-    ] [ "virtualisation" "libvirtd" "qemu" "verbatimConfig" ])
-    (mkRenamedOptionModule [ "virtualisation" "libvirtd" "qemuOvmf" ] [
+    ] [
+      "virtualisation"
+      "libvirtd"
+      "qemu"
+      "verbatimConfig"
+    ])
+    (mkRenamedOptionModule [
+      "virtualisation"
+      "libvirtd"
+      "qemuOvmf"
+    ] [
       "virtualisation"
       "libvirtd"
       "qemu"
       "ovmf"
       "enable"
     ])
-    (mkRemovedOptionModule [ "virtualisation" "libvirtd" "qemuOvmfPackage" ]
+    (mkRemovedOptionModule [
+      "virtualisation"
+      "libvirtd"
+      "qemuOvmfPackage"
+    ]
       "If this option was set to `foo`, set the option `virtualisation.libvirtd.qemu.ovmf.packages' to `[foo.fd]` instead.")
-    (mkRenamedOptionModule [ "virtualisation" "libvirtd" "qemuSwtpm" ] [
+    (mkRenamedOptionModule [
+      "virtualisation"
+      "libvirtd"
+      "qemuSwtpm"
+    ] [
       "virtualisation"
       "libvirtd"
       "qemu"
@@ -218,7 +246,10 @@ in {
     };
 
     onBoot = mkOption {
-      type = types.enum [ "start" "ignore" ];
+      type = types.enum [
+        "start"
+        "ignore"
+      ];
       default = "start";
       description = lib.mdDoc ''
         Specifies the action to be done to / on the guests when the host boots.
@@ -230,7 +261,10 @@ in {
     };
 
     onShutdown = mkOption {
-      type = types.enum [ "shutdown" "suspend" ];
+      type = types.enum [
+        "shutdown"
+        "suspend"
+      ];
       default = "suspend";
       description = lib.mdDoc ''
         When shutting down / restarting the host what method should
@@ -363,7 +397,11 @@ in {
         Type = "oneshot";
         RuntimeDirectoryPreserve = "yes";
         LogsDirectory = subDirs [ "qemu" ];
-        RuntimeDirectory = subDirs [ "nix-emulators" "nix-helpers" "nix-ovmf" ];
+        RuntimeDirectory = subDirs [
+          "nix-emulators"
+          "nix-helpers"
+          "nix-ovmf"
+        ];
         StateDirectory = subDirs [ "dnsmasq" ];
       };
     };
@@ -398,7 +436,11 @@ in {
 
     systemd.services.libvirt-guests = {
       wantedBy = [ "multi-user.target" ];
-      path = with pkgs; [ coreutils gawk cfg.package ];
+      path = with pkgs; [
+        coreutils
+        gawk
+        cfg.package
+      ];
       restartIfChanged = false;
 
       environment.ON_BOOT = "${cfg.onBoot}";

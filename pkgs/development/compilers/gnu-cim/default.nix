@@ -8,7 +8,12 @@ stdenv.mkDerivation rec {
   pname = "gnu-cim";
   version = "5.1";
 
-  outputs = [ "out" "lib" "man" "info" ];
+  outputs = [
+    "out"
+    "lib"
+    "man"
+    "info"
+  ];
 
   src = fetchurl {
     url = "mirror://gnu/cim/cim-${version}.tar.gz";

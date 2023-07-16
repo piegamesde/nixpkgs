@@ -21,9 +21,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+csIerzwYOmXfmykYI0DHzbJf4iUCkEy1f7SFmAiuv4=";
   };
 
-  buildInputs = [ python3 zlib ] ++ lib.optional (!stdenv.isDarwin) libaio;
+  buildInputs = [
+    python3
+    zlib
+  ] ++ lib.optional (!stdenv.isDarwin) libaio;
 
-  nativeBuildInputs = [ makeWrapper python3.pkgs.wrapPython ];
+  nativeBuildInputs = [
+    makeWrapper
+    python3.pkgs.wrapPython
+  ];
 
   strictDeps = true;
 
@@ -38,8 +44,9 @@ stdenv.mkDerivation rec {
 
   pythonPath = [ python3.pkgs.six ];
 
-  makeWrapperArgs = lib.optionals withGnuplot
-    [ "--prefix PATH : ${lib.makeBinPath [ gnuplot ]}" ];
+  makeWrapperArgs = lib.optionals withGnuplot [ "--prefix PATH : ${
+      lib.makeBinPath [ gnuplot ]
+    }" ];
 
   postInstall = ''
     wrapPythonProgramsIn "$out/bin" "$out $pythonPath"

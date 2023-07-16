@@ -29,10 +29,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ aiohttp pydantic ];
+  propagatedBuildInputs = [
+    aiohttp
+    pydantic
+  ];
 
-  nativeCheckInputs =
-    [ aresponses pytest-aiohttp pytest-asyncio pytest-cov pytestCheckHook ];
+  nativeCheckInputs = [
+    aresponses
+    pytest-aiohttp
+    pytest-asyncio
+    pytest-cov
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [ "examples" ];
 

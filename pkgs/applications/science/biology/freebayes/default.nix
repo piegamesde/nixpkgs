@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [ zlib bzip2 xz ];
+  buildInputs = [
+    zlib
+    bzip2
+    xz
+  ];
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:

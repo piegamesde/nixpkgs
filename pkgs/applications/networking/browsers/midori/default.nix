@@ -30,7 +30,14 @@ stdenv.mkDerivation rec {
     sha256 = "05i04qa83dnarmgkx4xsk6fga5lw1lmslh4rb3vhyyy4ala562jy";
   };
 
-  nativeBuildInputs = [ cmake intltool ninja pkg-config vala wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    intltool
+    ninja
+    pkg-config
+    vala
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     (libsoup.override { gnomeSupport = true; })
@@ -52,6 +59,9 @@ stdenv.mkDerivation rec {
     homepage = "https://www.midori-browser.org/";
     license = with licenses; [ lgpl21Plus ];
     platforms = with platforms; linux;
-    maintainers = with maintainers; [ raskin ramkromberg ];
+    maintainers = with maintainers; [
+      raskin
+      ramkromberg
+    ];
   };
 }

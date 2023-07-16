@@ -17,7 +17,10 @@ buildKodiAddon rec {
     sha256 = "sha256-OyU6S5r/y3vqW6Wg6OP0+Zn4YchBy8x1i++hzCQHyx0=";
   };
 
-  propagatedBuildInputs = [ dateutil trakt-module ];
+  propagatedBuildInputs = [
+    dateutil
+    trakt-module
+  ];
 
   passthru = {
     pythonPath = "lib";

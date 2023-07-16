@@ -19,7 +19,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ pcre zlib python3 openssl ];
+  buildInputs = [
+    pcre
+    zlib
+    python3
+    openssl
+  ];
 
   strictDeps = true;
 

@@ -29,7 +29,10 @@ buildGoModule rec {
 
   # This corresponds to paths with package main - normally unneeded but consul
   # has a split module structure in one repo
-  subPackages = [ "." "connect/certgen" ];
+  subPackages = [
+    "."
+    "connect/certgen"
+  ];
 
   vendorHash = "sha256-Vcl23cWErAycmza1CS9rl+xJ7CBuocMAdSG9AA88SrQ=";
 

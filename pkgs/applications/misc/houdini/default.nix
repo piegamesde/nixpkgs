@@ -47,21 +47,25 @@ buildFHSEnv rec {
 
   passthru = { inherit unwrapped; };
 
-  extraInstallCommands =
-    let executables = [ "bin/houdini" "bin/hkey" "houdini/sbin/sesinetd" ];
-    in ''
-      WRAPPER=$out/bin/${name}
-      EXECUTABLES="${lib.concatStringsSep " " executables}"
-      for executable in $EXECUTABLES; do
-        mkdir -p $out/$(dirname $executable)
+  extraInstallCommands = let
+    executables = [
+      "bin/houdini"
+      "bin/hkey"
+      "houdini/sbin/sesinetd"
+    ];
+  in ''
+    WRAPPER=$out/bin/${name}
+    EXECUTABLES="${lib.concatStringsSep " " executables}"
+    for executable in $EXECUTABLES; do
+      mkdir -p $out/$(dirname $executable)
 
-        echo "#!${stdenv.shell}" >> $out/$executable
-        echo "$WRAPPER ${unwrapped}/$executable \$@" >> $out/$executable
-      done
+      echo "#!${stdenv.shell}" >> $out/$executable
+      echo "$WRAPPER ${unwrapped}/$executable \$@" >> $out/$executable
+    done
 
-      cd $out
-      chmod +x $EXECUTABLES
-    '';
+    cd $out
+    chmod +x $EXECUTABLES
+  '';
 
   runScript = writeScript "${name}-wrapper" ''
     exec $@

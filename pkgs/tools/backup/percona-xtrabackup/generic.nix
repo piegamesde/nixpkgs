@@ -43,7 +43,13 @@ stdenv.mkDerivation rec {
     inherit sha256 fetchSubmodules;
   };
 
-  nativeBuildInputs = [ bison boost cmake makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    bison
+    boost
+    cmake
+    makeWrapper
+    pkg-config
+  ];
 
   buildInputs = [
     (curl.override { inherit openssl; })
@@ -62,7 +68,11 @@ stdenv.mkDerivation rec {
     valgrind
     xxd
     zlib
-  ] ++ (with perlPackages; [ perl DBI DBDmysql ]);
+  ] ++ (with perlPackages; [
+    perl
+    DBI
+    DBDmysql
+  ]);
 
   patches = extraPatches;
 

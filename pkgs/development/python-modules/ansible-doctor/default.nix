@@ -38,7 +38,10 @@ buildPythonPackage rec {
       --replace 'version = "0.0.0"' 'version = "${version}"'
   '';
 
-  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
   propagatedBuildInputs = [
     anyconfig

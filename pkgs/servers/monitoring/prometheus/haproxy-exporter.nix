@@ -17,7 +17,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-s9UVtV8N2SJ1ik864P6p2hPXJ2jstFY/XnWt9fuCDo0=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "HAProxy Exporter for the Prometheus monitoring system";

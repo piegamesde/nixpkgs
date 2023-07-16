@@ -24,7 +24,12 @@ buildPythonPackage rec {
     hash = "sha256-rJtZqq7tZ/VFk4fMpDZYyTQRa1Pokmn2aw6LA+FBGXw=";
   };
 
-  propagatedBuildInputs = [ aiodns aiohttp pyasn1 pyasn1-modules ];
+  propagatedBuildInputs = [
+    aiodns
+    aiohttp
+    pyasn1
+    pyasn1-modules
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

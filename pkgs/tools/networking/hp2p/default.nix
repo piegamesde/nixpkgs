@@ -21,11 +21,24 @@ stdenv.mkDerivation rec {
 
   patches = [ ./python3.patch ];
   enableParallelBuilding = true;
-  nativeBuildInputs = [ autoconf automake python3Packages.wrapPython ];
-  buildInputs = [ mpi ]
-    ++ (with python3Packages; [ python numpy matplotlib plotly mpldatacursor ]);
-  pythonPath =
-    (with python3Packages; [ numpy matplotlib plotly mpldatacursor ]);
+  nativeBuildInputs = [
+    autoconf
+    automake
+    python3Packages.wrapPython
+  ];
+  buildInputs = [ mpi ] ++ (with python3Packages; [
+    python
+    numpy
+    matplotlib
+    plotly
+    mpldatacursor
+  ]);
+  pythonPath = (with python3Packages; [
+    numpy
+    matplotlib
+    plotly
+    mpldatacursor
+  ]);
 
   preConfigure = ''
     patchShebangs autogen.sh

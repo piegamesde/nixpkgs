@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   setSourceRoot = "sourceRoot=`pwd`";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ gtk2 fftw ];
+  buildInputs = [
+    gtk2
+    fftw
+  ];
 
   installPhase = ''
     install -D -m 0755 noisycw $out/bin/noisycw

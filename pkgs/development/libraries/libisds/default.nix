@@ -23,7 +23,15 @@ stdenv.mkDerivation rec {
   configureFlags =
     [ "--with-docbook-xsl-stylesheets=${docbook_xsl}/xml/xsl/docbook" ];
 
-  buildInputs = [ expat gpgme libgcrypt libxml2 libxslt curl docbook_xsl ];
+  buildInputs = [
+    expat
+    gpgme
+    libgcrypt
+    libxml2
+    libxslt
+    curl
+    docbook_xsl
+  ];
 
   NIX_CFLAGS_COMPILE = [ "-Wno-error=deprecated-declarations" ];
 

@@ -26,7 +26,10 @@ let
       sha256 = "sha256-gaZrd7UI/t6NvKpnEnIDdIN2Vos2c6F/ZhG21R6YlPg=";
     };
 
-    nativeBuildInputs = [ xar cpio ];
+    nativeBuildInputs = [
+      xar
+      cpio
+    ];
 
     unpackPhase = ''
       xar -xf $src
@@ -99,8 +102,14 @@ in stdenv.mkDerivation ({
       There is also a C library, if you're into that kind of thing.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ nbr kalbasit ];
-    platforms = [ "x86_64-darwin" "x86_64-linux" ];
+    maintainers = with maintainers; [
+      nbr
+      kalbasit
+    ];
+    platforms = [
+      "x86_64-darwin"
+      "x86_64-linux"
+    ];
   };
 } // lib.optionalAttrs (stdenv.hostPlatform.isDarwin) darwinAttrs
   // lib.optionalAttrs (stdenv.hostPlatform.isLinux) linuxAttrs)

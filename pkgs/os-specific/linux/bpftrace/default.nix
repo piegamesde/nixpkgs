@@ -41,8 +41,14 @@ stdenv.mkDerivation rec {
     asciidoctor
   ];
 
-  nativeBuildInputs =
-    [ cmake pkg-config flex bison llvmPackages.llvm.dev util-linux ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    flex
+    bison
+    llvmPackages.llvm.dev
+    util-linux
+  ];
 
   # tests aren't built, due to gtest shenanigans. see:
   #
@@ -61,7 +67,10 @@ stdenv.mkDerivation rec {
     ln -s $out/share/bpftrace/tools/*.bt $out/bin/
   '';
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   passthru.tests = { bpf = nixosTests.bpf; };
 
@@ -69,6 +78,10 @@ stdenv.mkDerivation rec {
     description = "High-level tracing language for Linux eBPF";
     homepage = "https://github.com/iovisor/bpftrace";
     license = licenses.asl20;
-    maintainers = with maintainers; [ rvl thoughtpolice martinetd ];
+    maintainers = with maintainers; [
+      rvl
+      thoughtpolice
+      martinetd
+    ];
   };
 }

@@ -46,7 +46,10 @@ let # un-indented, over the whole file
         "0c82ae937b685dc477fb3176098e3dc106c898b7cd83553e5bc54dccb83c80d7";
     };
 
-    outputs = [ "out" "dev" ];
+    outputs = [
+      "out"
+      "dev"
+    ];
 
     # Path fixups for the NixOS service.
     postPatch = ''
@@ -80,18 +83,27 @@ let # un-indented, over the whole file
       patchShebangs scripts/
     '';
 
-    nativeBuildInputs = [ pkg-config meson ninja ];
+    nativeBuildInputs = [
+      pkg-config
+      meson
+      ninja
+    ];
 
     # http://knot-resolver.readthedocs.io/en/latest/build.html#requirements
-    buildInputs = [ knot-dns lua.lua libuv gnutls lmdb ]
-      ++ optionals stdenv.isLinux [ # lib
-        systemd
-        libcap_ng
-      ] ++ [
-        jemalloc
-        nghttp2
-      ]
-      ## optional dependencies; TODO: dnstap
+    buildInputs = [
+      knot-dns
+      lua.lua
+      libuv
+      gnutls
+      lmdb
+    ] ++ optionals stdenv.isLinux [ # lib
+      systemd
+      libcap_ng
+    ] ++ [
+      jemalloc
+      nghttp2
+    ]
+    ## optional dependencies; TODO: dnstap
     ;
 
     mesonFlags = [
@@ -115,8 +127,14 @@ let # un-indented, over the whole file
     '';
 
     doInstallCheck = with stdenv; hostPlatform == buildPlatform;
-    nativeInstallCheckInputs =
-      [ cmocka which cacert lua.cqueues lua.basexx lua.http ];
+    nativeInstallCheckInputs = [
+      cmocka
+      which
+      cacert
+      lua.cqueues
+      lua.basexx
+      lua.http
+    ];
     installCheckPhase = ''
       meson test --print-errorlogs --no-suite snowflake
     '';
@@ -126,9 +144,8 @@ let # un-indented, over the whole file
       homepage = "https://knot-resolver.cz";
       license = licenses.gpl3Plus;
       platforms = platforms.unix;
-      maintainers = [
-        maintainers.vcunat # upstream developer
-      ];
+      maintainers = [ maintainers.vcunat # upstream developer
+        ];
       mainProgram = "kresd";
     };
   };

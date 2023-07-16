@@ -21,7 +21,10 @@
 
 mkDerivation {
   pname = "plasma-pa";
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
   buildInputs = [
     gconf
     glib

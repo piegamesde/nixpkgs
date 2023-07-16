@@ -36,7 +36,10 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ pkg-config git ];
+  nativeBuildInputs = [
+    pkg-config
+    git
+  ];
 
   buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
 

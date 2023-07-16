@@ -101,7 +101,10 @@ mkDerivation rec {
     vtk
     xercesc
     zlib
-  ] ++ lib.optionals spaceNavSupport [ libspnav qtx11extras ];
+  ] ++ lib.optionals spaceNavSupport [
+    libspnav
+    qtx11extras
+  ];
 
   cmakeFlags = [
     "-Wno-dev" # turns off warnings which otherwise makes it hard to see what is going on
@@ -160,7 +163,11 @@ mkDerivation rec {
       right at home with FreeCAD.
     '';
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ viric gebner AndersonTorres ];
+    maintainers = with maintainers; [
+      viric
+      gebner
+      AndersonTorres
+    ];
     platforms = platforms.linux;
   };
 }

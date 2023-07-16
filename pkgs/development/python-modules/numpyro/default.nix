@@ -23,7 +23,13 @@ buildPythonPackage rec {
     hash = "sha256-01fdGgFZ+G1FwjNwitM6PT1TQx0FtLvs4dBorkFoqo4=";
   };
 
-  propagatedBuildInputs = [ jax jaxlib numpy multipledispatch tqdm ];
+  propagatedBuildInputs = [
+    jax
+    jaxlib
+    numpy
+    multipledispatch
+    tqdm
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

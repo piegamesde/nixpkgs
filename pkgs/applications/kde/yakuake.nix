@@ -51,9 +51,15 @@ mkDerivation {
 
   propagatedUserEnvPkgs = [ konsole ];
 
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   meta = {
     homepage = "https://yakuake.kde.org";

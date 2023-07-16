@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-HYacLaowSDdrwkxL1h3h+lw/8ahzaecpXEnwrCqMCWk=";
   };
 
-  propagatedBuildInputs = [ numpy scipy ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+  ];
 
   # Tests requires algopy and other modules which are optional and/or not available
   doCheck = false;

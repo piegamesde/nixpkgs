@@ -20,7 +20,14 @@ in stdenv.mkDerivation rec {
     sha256 = "0qcxcnqz2nlwfzlrn115kkp3n8dd7593h762vxs6vfqm13i39lq1";
   };
 
-  nativeBuildInputs = [ perlenv bdftopcf fontforge SDL SDL_image mkfontscale ];
+  nativeBuildInputs = [
+    perlenv
+    bdftopcf
+    fontforge
+    SDL
+    SDL_image
+    mkfontscale
+  ];
 
   # Fixes shebang -> wrapper problem on Darwin
   postPatch = ''
@@ -56,7 +63,10 @@ in stdenv.mkDerivation rec {
     mkfontscale "$extra"/share/fonts/*
   '';
 
-  outputs = [ "out" "extra" ];
+  outputs = [
+    "out"
+    "extra"
+  ];
 
   meta = {
     description = "Bitmapped character-art-friendly Unicode fonts";

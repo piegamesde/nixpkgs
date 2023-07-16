@@ -41,7 +41,14 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ glib gtk3 json-glib libappindicator libsoup webkitgtk ];
+  buildInputs = [
+    glib
+    gtk3
+    json-glib
+    libappindicator
+    libsoup
+    webkitgtk
+  ];
 
   postPatch = ''
     chmod +x meson/post_install.py

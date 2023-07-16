@@ -14,7 +14,10 @@ stdenv.mkDerivation rec {
   version = lib.getVersion vimPackage;
   vimPackage = if useMacvim then macvim else vim-full;
 
-  buildInputs = [ vimPackage vimPlugins.vimacs ];
+  buildInputs = [
+    vimPackage
+    vimPlugins.vimacs
+  ];
 
   buildCommand = ''
     mkdir -p "$out"/bin

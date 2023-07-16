@@ -17,7 +17,10 @@ buildPythonPackage rec {
     hash = "sha256-GMLqQ9ojQ649hbbJB+KiQoOhiTWweOgv6zaCDzhIB5A=";
   };
 
-  propagatedBuildInputs = [ dbus-python pygobject3 ];
+  propagatedBuildInputs = [
+    dbus-python
+    pygobject3
+  ];
 
   pythonImportsCheck = [ "gatt" ];
 

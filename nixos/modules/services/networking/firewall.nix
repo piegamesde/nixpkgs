@@ -19,7 +19,10 @@ let
       type = types.listOf types.port;
       default = [ ];
       apply = canonicalizePortList;
-      example = [ 22 80 ];
+      example = [
+        22
+        80
+      ];
       description = lib.mdDoc ''
         List of TCP ports on which incoming connections are
         accepted.
@@ -29,10 +32,10 @@ let
     allowedTCPPortRanges = mkOption {
       type = types.listOf (types.attrsOf types.port);
       default = [ ];
-      example = [{
+      example = [ {
         from = 8999;
         to = 9003;
-      }];
+      } ];
       description = lib.mdDoc ''
         A range of TCP ports on which incoming connections are
         accepted.
@@ -52,10 +55,10 @@ let
     allowedUDPPortRanges = mkOption {
       type = types.listOf (types.attrsOf types.port);
       default = [ ];
-      example = [{
+      example = [ {
         from = 60000;
         to = 61000;
-      }];
+      } ];
       description = lib.mdDoc ''
         Range of open UDP ports.
       '';
@@ -174,7 +177,10 @@ in {
       };
 
       checkReversePath = mkOption {
-        type = types.either types.bool (types.enum [ "strict" "loose" ]);
+        type = types.either types.bool (types.enum [
+          "strict"
+          "loose"
+        ]);
         default = true;
         defaultText = literalMD
           "`true` except if the iptables based firewall is in use and the kernel lacks rpfilter support";
@@ -267,7 +273,7 @@ in {
 
       interfaces = mkOption {
         default = { };
-        type = with types; attrsOf (submodule [{ options = commonOptions; }]);
+        type = with types; attrsOf (submodule [ { options = commonOptions; } ]);
         description = lib.mdDoc ''
           Interface-specific open ports.
         '';
@@ -279,7 +285,7 @@ in {
         default = {
           default = mapAttrs (name: value: cfg.${name}) commonOptions;
         } // cfg.interfaces;
-        type = with types; attrsOf (submodule [{ options = commonOptions; }]);
+        type = with types; attrsOf (submodule [ { options = commonOptions; } ]);
         description = lib.mdDoc ''
           All open ports.
         '';

@@ -29,7 +29,12 @@ in stdenv.mkDerivation {
     sha256 = "03wmbh90rl5lsc35d7jwcp9j5qyyzq1nccxf4fal8bmnx8n4si0x";
   };
 
-  buildInputs = [ ant jdk commonsBsf commonsLogging ];
+  buildInputs = [
+    ant
+    jdk
+    commonsBsf
+    commonsLogging
+  ];
 
   # This patch removes from the build process:
   #  - the automatic download of dependencies (see configurePhase);

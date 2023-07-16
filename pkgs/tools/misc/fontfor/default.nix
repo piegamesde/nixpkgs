@@ -20,8 +20,15 @@ rustPlatform.buildRustPackage rec {
     sha256 = "1b07hd41blwsnb91vh2ax9zigm4lh8n0i5man0cjmxhavvbfy12b";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ expat fontconfig freetype ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    expat
+    fontconfig
+    freetype
+  ];
 
   cargoSha256 = "1drfrq32lvmi1xlshynzh66gb1cah43pqcyxv3qxp487br9w1iyj";
 

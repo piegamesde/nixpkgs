@@ -10,7 +10,11 @@ build-idris-package {
   pname = "console";
   version = "2017-04-20";
 
-  idrisDeps = [ idrisscript hrtime webgl ];
+  idrisDeps = [
+    idrisscript
+    hrtime
+    webgl
+  ];
 
   src = fetchFromGitHub {
     owner = "pierrebeaucamp";

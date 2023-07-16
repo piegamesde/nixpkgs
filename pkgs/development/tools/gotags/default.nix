@@ -27,7 +27,10 @@ buildGoModule rec {
     })
   ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "ctags-compatible tag generator for Go";

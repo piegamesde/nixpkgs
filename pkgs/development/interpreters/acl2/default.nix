@@ -50,18 +50,16 @@ in stdenv.mkDerivation rec {
   # $IPASIR_SHARED_LIBRARY environment variable.
   libipasir = callPackage ./libipasirglucose4 { };
 
-  patches = [
-    (substituteAll {
-      src = ./0001-Fix-some-paths-for-Nix-build.patch;
-      libipasir = "${libipasir}/lib/${libipasir.libname}";
-      libssl = "${
-          lib.getLib openssl
-        }/lib/libssl${stdenv.hostPlatform.extensions.sharedLibrary}";
-      libcrypto = "${
-          lib.getLib openssl
-        }/lib/libcrypto${stdenv.hostPlatform.extensions.sharedLibrary}";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./0001-Fix-some-paths-for-Nix-build.patch;
+    libipasir = "${libipasir}/lib/${libipasir.libname}";
+    libssl = "${
+        lib.getLib openssl
+      }/lib/libssl${stdenv.hostPlatform.extensions.sharedLibrary}";
+    libcrypto = "${
+        lib.getLib openssl
+      }/lib/libcrypto${stdenv.hostPlatform.extensions.sharedLibrary}";
+  }) ];
 
   nativeBuildInputs = lib.optional certifyBooks makeWrapper;
 
@@ -106,7 +104,10 @@ in stdenv.mkDerivation rec {
   '';
 
   preBuild = "mkdir -p $HOME";
-  makeFlags = [ "LISP=${sbcl}/bin/sbcl" "ACL2_MAKE_LOG=NONE" ];
+  makeFlags = [
+    "LISP=${sbcl}/bin/sbcl"
+    "ACL2_MAKE_LOG=NONE"
+  ];
 
   doCheck = true;
   checkTarget = "mini-proveall";
@@ -178,7 +179,10 @@ in stdenv.mkDerivation rec {
         publicDomain
         unfreeRedistributable
       ];
-    maintainers = with maintainers; [ kini raskin ];
+    maintainers = with maintainers; [
+      kini
+      raskin
+    ];
     platforms = platforms.all;
   };
 }

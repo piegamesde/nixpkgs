@@ -16,7 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-VoKgLJWF9x8dW8A6CNwLtK+AmehtgZP41nUGQO819es=";
   };
 
-  propagatedBuildInputs = [ lxml requests ];
+  propagatedBuildInputs = [
+    lxml
+    requests
+  ];
 
   pythonImportsCheck = [ "fritzprofiles" ];
 

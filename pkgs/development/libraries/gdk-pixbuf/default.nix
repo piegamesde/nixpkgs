@@ -28,7 +28,11 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "gdk-pixbuf";
   version = "2.42.10";
 
-  outputs = [ "out" "dev" "man" ] ++ lib.optional withIntrospection "devdoc"
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ] ++ lib.optional withIntrospection "devdoc"
     ++ lib.optional (stdenv.buildPlatform == stdenv.hostPlatform)
     "installedTests";
 
@@ -62,9 +66,17 @@ stdenv.mkDerivation (finalAttrs: {
     # for man pages
     docutils
   ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
-    ++ lib.optionals withIntrospection [ gi-docgen gobject-introspection ];
+    ++ lib.optionals withIntrospection [
+      gi-docgen
+      gobject-introspection
+    ];
 
-  propagatedBuildInputs = [ glib libtiff libjpeg libpng ];
+  propagatedBuildInputs = [
+    glib
+    libtiff
+    libjpeg
+    libpng
+  ];
 
   mesonFlags = [
     "-Dgio_sniffing=false"

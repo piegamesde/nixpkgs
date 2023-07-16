@@ -23,7 +23,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [ coverage nose ];
+  nativeCheckInputs = [
+    coverage
+    nose
+  ];
 
   postPatch = ''
     substituteInPlace attrdict/merge.py \

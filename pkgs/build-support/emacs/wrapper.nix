@@ -55,7 +55,11 @@ let
     if lib.isFunction packagesFun then packagesFun self else packagesFun;
 
 in runCommand (appendToName "with-packages" emacs).name {
-  nativeBuildInputs = [ emacs lndir makeWrapper ];
+  nativeBuildInputs = [
+    emacs
+    lndir
+    makeWrapper
+  ];
   inherit emacs explicitRequires;
 
   preferLocalBuild = true;

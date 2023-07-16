@@ -33,8 +33,13 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ giflib imlib2 libXft libexif libwebp ]
-    ++ lib.optional stdenv.isDarwin libinotify-kqueue;
+  buildInputs = [
+    giflib
+    imlib2
+    libXft
+    libexif
+    libwebp
+  ] ++ lib.optional stdenv.isDarwin libinotify-kqueue;
 
   preBuild = lib.optionalString (conf != null) ''
     cp ${(builtins.toFile "config.def.h" conf)} config.def.h
@@ -66,7 +71,10 @@ stdenv.mkDerivation rec {
       - Display image name/path in X title
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ AndersonTorres sikmir ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      sikmir
+    ];
     platforms = platforms.unix;
   };
 }

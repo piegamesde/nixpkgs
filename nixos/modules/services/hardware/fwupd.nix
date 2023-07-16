@@ -161,25 +161,41 @@ in {
   };
 
   imports = [
-    (mkRenamedOptionModule [ "services" "fwupd" "blacklistDevices" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "fwupd"
+      "blacklistDevices"
+    ] [
       "services"
       "fwupd"
       "daemonSettings"
       "DisabledDevices"
     ])
-    (mkRenamedOptionModule [ "services" "fwupd" "blacklistPlugins" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "fwupd"
+      "blacklistPlugins"
+    ] [
       "services"
       "fwupd"
       "daemonSettings"
       "DisabledPlugins"
     ])
-    (mkRenamedOptionModule [ "services" "fwupd" "disabledDevices" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "fwupd"
+      "disabledDevices"
+    ] [
       "services"
       "fwupd"
       "daemonSettings"
       "DisabledDevices"
     ])
-    (mkRenamedOptionModule [ "services" "fwupd" "disabledPlugins" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "fwupd"
+      "disabledPlugins"
+    ] [
       "services"
       "fwupd"
       "daemonSettings"

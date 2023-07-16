@@ -22,7 +22,11 @@ buildDunePackage rec {
     sha256 = "1sz400ny9h7fs20k7600q475q164x49ba30ls3q9y35rhm3g2y2b";
   };
 
-  propagatedBuildInputs = [ xmlplaylist ocaml_pcre ocamlnet ];
+  propagatedBuildInputs = [
+    xmlplaylist
+    ocaml_pcre
+    ocamlnet
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/savonet/ocaml-lastfm";

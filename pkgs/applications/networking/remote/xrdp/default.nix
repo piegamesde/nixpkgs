@@ -30,7 +30,14 @@ let
       hash = "sha256-WI1KyJDQkmNHwweZMbNd2KUfawaieoGMDMQfeD12cZs=";
     };
 
-    nativeBuildInputs = [ pkg-config autoconf automake which libtool nasm ];
+    nativeBuildInputs = [
+      pkg-config
+      autoconf
+      automake
+      which
+      libtool
+      nasm
+    ];
 
     buildInputs = [ xorg.xorgserver ];
 
@@ -63,8 +70,15 @@ let
       hash = "sha256-/o052ij+Tpcw5/k1UyP6OGOzrtBwh3jRkftStIEhUF0=";
     };
 
-    nativeBuildInputs =
-      [ pkg-config autoconf automake which libtool nasm perl ];
+    nativeBuildInputs = [
+      pkg-config
+      autoconf
+      automake
+      which
+      libtool
+      nasm
+      perl
+    ];
 
     buildInputs = [
       openssl
@@ -99,7 +113,10 @@ let
       "--enable-pam-config=unix"
     ];
 
-    installFlags = [ "DESTDIR=$(out)" "prefix=" ];
+    installFlags = [
+      "DESTDIR=$(out)"
+      "prefix="
+    ];
 
     postInstall = ''
       # remove generated keys (as non-deterministic)

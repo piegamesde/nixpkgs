@@ -31,7 +31,10 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-jP9I7hds7f1QMmSaNJpGlSvqUOwGcg+CnBzMopIS9Q4=";
   };
 
-  nativeBuildInputs = [ makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+  ];
 
   buildInputs = [
     fig2dev

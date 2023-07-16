@@ -21,7 +21,13 @@ buildPythonPackage rec {
 
   buildInputs = [ glibcLocales ];
 
-  nativeCheckInputs = [ pytest pytest-cov mock pytest-xdist covCore ];
+  nativeCheckInputs = [
+    pytest
+    pytest-cov
+    mock
+    pytest-xdist
+    covCore
+  ];
   # Disable checks because they are not stateless and require internet access.
   doCheck = false;
 

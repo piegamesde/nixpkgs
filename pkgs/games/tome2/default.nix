@@ -21,7 +21,10 @@ let
     icon = pname;
     comment = description;
     type = "Application";
-    categories = [ "Game" "RolePlaying" ];
+    categories = [
+      "Game"
+      "RolePlaying"
+    ];
     genericName = pname;
   };
 
@@ -36,7 +39,11 @@ in stdenv.mkDerivation {
     sha256 = "06bddj55y673d7bnzblk8n01z32l6k2rad3bpzr8dmw464hx4wwf";
   };
 
-  buildInputs = [ ncurses libX11 boost ];
+  buildInputs = [
+    ncurses
+    libX11
+    boost
+  ];
 
   nativeBuildInputs = [ cmake ];
 

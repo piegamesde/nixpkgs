@@ -36,8 +36,12 @@ buildPythonPackage rec {
     requests-oauthlib
   ];
 
-  nativeCheckInputs =
-    [ coreutils pytest-aiohttp pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    coreutils
+    pytest-aiohttp
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "google_nest_sdm" ];
 

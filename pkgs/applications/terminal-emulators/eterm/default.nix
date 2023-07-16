@@ -23,8 +23,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-pfXYrd6BamBTcnarvXj+C6D1WyGtj87GrW+Dl6AeiDE=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ imlib2 libX11 libXaw libXext libast ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    imlib2
+    libX11
+    libXaw
+    libXext
+    libast
+  ];
 
   passthru.tests.test = nixosTests.terminal-emulators.eterm;
 
@@ -34,10 +43,10 @@ stdenv.mkDerivation rec {
     license = licenses.bsd2;
     maintainers = [ maintainers.AndersonTorres ];
     platforms = platforms.linux;
-    knownVulnerabilities = [''
+    knownVulnerabilities = [ ''
       Usage of ANSI escape sequences causes unexpected newline-termination,
               leading to unexpected command execution. More info at:
               - https://www.cve.org/CVERecord?id=CVE-2021-33477
-              - https://www.openwall.com/lists/oss-security/2021/05/17/1''];
+              - https://www.openwall.com/lists/oss-security/2021/05/17/1'' ];
   };
 }

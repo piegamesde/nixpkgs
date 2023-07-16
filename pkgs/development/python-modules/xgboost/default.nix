@@ -17,7 +17,10 @@ buildPythonPackage {
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ xgboost ];
-  propagatedBuildInputs = [ numpy scipy ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+  ];
 
   # Override existing logic for locating libxgboost.so which is not appropriate for Nix
   prePatch = let

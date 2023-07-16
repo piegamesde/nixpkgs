@@ -11,7 +11,10 @@ stdenv.mkDerivation rec {
   pname = "libopenmpt-modplug";
   version = "0.8.9.0-openmpt1";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url =
@@ -21,7 +24,10 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   buildInputs = [ libopenmpt ];
 

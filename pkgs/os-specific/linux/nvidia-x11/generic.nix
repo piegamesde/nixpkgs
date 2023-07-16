@@ -81,9 +81,7 @@ let
 
     src = if stdenv.hostPlatform.system == "x86_64-linux" then
       fetchurl {
-        urls = if args ? url then
-          [ args.url ]
-        else [
+        urls = if args ? url then [ args.url ] else [
           "https://us.download.nvidia.com/XFree86/Linux-x86_64/${version}/NVIDIA-Linux-x86_64-${version}${pkgSuffix}.run"
           "https://download.nvidia.com/XFree86/Linux-x86_64/${version}/NVIDIA-Linux-x86_64-${version}${pkgSuffix}.run"
         ];
@@ -91,9 +89,7 @@ let
       }
     else if stdenv.hostPlatform.system == "i686-linux" then
       fetchurl {
-        urls = if args ? url then
-          [ args.url ]
-        else [
+        urls = if args ? url then [ args.url ] else [
           "https://us.download.nvidia.com/XFree86/Linux-x86/${version}/NVIDIA-Linux-x86-${version}${pkgSuffix}.run"
           "https://download.nvidia.com/XFree86/Linux-x86/${version}/NVIDIA-Linux-x86-${version}${pkgSuffix}.run"
         ];
@@ -102,9 +98,7 @@ let
     else if stdenv.hostPlatform.system == "aarch64-linux" && sha256_aarch64
     != null then
       fetchurl {
-        urls = if args ? url then
-          [ args.url ]
-        else [
+        urls = if args ? url then [ args.url ] else [
           "https://us.download.nvidia.com/XFree86/aarch64/${version}/NVIDIA-Linux-aarch64-${version}${pkgSuffix}.run"
           "https://download.nvidia.com/XFree86/Linux-aarch64/${version}/NVIDIA-Linux-aarch64-${version}${pkgSuffix}.run"
         ];
@@ -135,7 +129,10 @@ let
       "SYSOUT=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     ]);
 
-    hardeningDisable = [ "pic" "format" ];
+    hardeningDisable = [
+      "pic"
+      "format"
+    ];
 
     dontStrip = true;
     dontPatchELF = true;
@@ -143,8 +140,12 @@ let
     libPath = libPathFor pkgs;
     libPath32 = optionalString i686bundled (libPathFor pkgsi686Linux);
 
-    nativeBuildInputs = [ perl nukeReferences which libarchive ]
-      ++ optionals (!libsOnly) kernel.moduleBuildDependencies;
+    nativeBuildInputs = [
+      perl
+      nukeReferences
+      which
+      libarchive
+    ] ++ optionals (!libsOnly) kernel.moduleBuildDependencies;
 
     disallowedReferences = optionals (!libsOnly) [ kernel.dev ];
 
@@ -176,7 +177,10 @@ let
       platforms = [ "x86_64-linux" ]
         ++ optionals (sha256_32bit != null) [ "i686-linux" ]
         ++ optionals (sha256_aarch64 != null) [ "aarch64-linux" ];
-      maintainers = with maintainers; [ jonringer kiskae ];
+      maintainers = with maintainers; [
+        jonringer
+        kiskae
+      ];
       priority =
         4; # resolves collision with xorg-server's "lib/xorg/modules/extensions/libglx.so"
       inherit broken;

@@ -30,9 +30,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [ docutils requests flit-core tomli-w ];
+  propagatedBuildInputs = [
+    docutils
+    requests
+    flit-core
+    tomli-w
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook testpath responses ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    testpath
+    responses
+  ];
 
   disabledTests = [
     # needs some ini file.
@@ -43,6 +52,9 @@ buildPythonPackage rec {
     description = "A simple packaging tool for simple packages";
     homepage = "https://github.com/pypa/flit";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fridh SuperSandro2000 ];
+    maintainers = with maintainers; [
+      fridh
+      SuperSandro2000
+    ];
   };
 }

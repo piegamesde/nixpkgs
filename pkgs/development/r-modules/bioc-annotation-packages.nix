@@ -19,7 +19,10 @@ in with self; {
     name = "AHEnsDbs";
     version = "1.1.8";
     sha256 = "1bn39n8lwb6w533fl4vlszivb4b3x9adkjh04z98sbn333bicgki";
-    depends = [ AnnotationHubData ensembldb ];
+    depends = [
+      AnnotationHubData
+      ensembldb
+    ];
   };
   AHLRBaseDbs = derive2 {
     name = "AHLRBaseDbs";
@@ -79,7 +82,10 @@ in with self; {
     name = "BSgenome.Amellifera.UCSC.apiMel2.masked";
     version = "1.3.99";
     sha256 = "128jmpnpbz1afqvhvdc9vrc8gmlyg26ca7qz362qsx89jrm4khpr";
-    depends = [ BSgenome BSgenome_Amellifera_UCSC_apiMel2 ];
+    depends = [
+      BSgenome
+      BSgenome_Amellifera_UCSC_apiMel2
+    ];
   };
   BSgenome_Aofficinalis_NCBI_V1 = derive2 {
     name = "BSgenome.Aofficinalis.NCBI.V1";
@@ -109,7 +115,10 @@ in with self; {
     name = "BSgenome.Btaurus.UCSC.bosTau3.masked";
     version = "1.3.99";
     sha256 = "03l9xgbsfmrw3yk0hpza5gfhgd3cfflp5pqzi36ifnmpr40ca722";
-    depends = [ BSgenome BSgenome_Btaurus_UCSC_bosTau3 ];
+    depends = [
+      BSgenome
+      BSgenome_Btaurus_UCSC_bosTau3
+    ];
   };
   BSgenome_Btaurus_UCSC_bosTau4 = derive2 {
     name = "BSgenome.Btaurus.UCSC.bosTau4";
@@ -121,7 +130,10 @@ in with self; {
     name = "BSgenome.Btaurus.UCSC.bosTau4.masked";
     version = "1.3.99";
     sha256 = "0dkz9ixxa5x9l1v733a3sfrbnjd2kfmd5a2vxskkx9jm3hfbg6gr";
-    depends = [ BSgenome BSgenome_Btaurus_UCSC_bosTau4 ];
+    depends = [
+      BSgenome
+      BSgenome_Btaurus_UCSC_bosTau4
+    ];
   };
   BSgenome_Btaurus_UCSC_bosTau6 = derive2 {
     name = "BSgenome.Btaurus.UCSC.bosTau6";
@@ -133,7 +145,10 @@ in with self; {
     name = "BSgenome.Btaurus.UCSC.bosTau6.masked";
     version = "1.3.99";
     sha256 = "07isv0lcvlsl0aha1p474l0pps0j7bsh455m33vfxwahivqsfy27";
-    depends = [ BSgenome BSgenome_Btaurus_UCSC_bosTau6 ];
+    depends = [
+      BSgenome
+      BSgenome_Btaurus_UCSC_bosTau6
+    ];
   };
   BSgenome_Btaurus_UCSC_bosTau8 = derive2 {
     name = "BSgenome.Btaurus.UCSC.bosTau8";
@@ -151,7 +166,10 @@ in with self; {
     name = "BSgenome.Btaurus.UCSC.bosTau9.masked";
     version = "1.4.4";
     sha256 = "04wzhrp0kb8mv7dg732daqr58djs5dwjm54hgmzbaafv1715i74k";
-    depends = [ BSgenome BSgenome_Btaurus_UCSC_bosTau9 ];
+    depends = [
+      BSgenome
+      BSgenome_Btaurus_UCSC_bosTau9
+    ];
   };
   BSgenome_Carietinum_NCBI_v1 = derive2 {
     name = "BSgenome.Carietinum.NCBI.v1";
@@ -193,7 +211,10 @@ in with self; {
     name = "BSgenome.Cfamiliaris.UCSC.canFam2.masked";
     version = "1.3.99";
     sha256 = "14108j73z7959d070xiqar5s14pac18cs8a22lcggbmp5x93hmqz";
-    depends = [ BSgenome BSgenome_Cfamiliaris_UCSC_canFam2 ];
+    depends = [
+      BSgenome
+      BSgenome_Cfamiliaris_UCSC_canFam2
+    ];
   };
   BSgenome_Cfamiliaris_UCSC_canFam3 = derive2 {
     name = "BSgenome.Cfamiliaris.UCSC.canFam3";
@@ -205,7 +226,10 @@ in with self; {
     name = "BSgenome.Cfamiliaris.UCSC.canFam3.masked";
     version = "1.3.99";
     sha256 = "07y28g6b4sbp38yg5rwldda7s1cwcpil6rzsb4csskvs0xi5286l";
-    depends = [ BSgenome BSgenome_Cfamiliaris_UCSC_canFam3 ];
+    depends = [
+      BSgenome
+      BSgenome_Cfamiliaris_UCSC_canFam3
+    ];
   };
   BSgenome_Cjacchus_UCSC_calJac3 = derive2 {
     name = "BSgenome.Cjacchus.UCSC.calJac3";
@@ -241,7 +265,10 @@ in with self; {
     name = "BSgenome.Dmelanogaster.UCSC.dm2.masked";
     version = "1.3.99";
     sha256 = "1qclf62c3qrdhnrb6p4rhj7wrarlsbm716d37k0gbdzkfm2vhyr7";
-    depends = [ BSgenome BSgenome_Dmelanogaster_UCSC_dm2 ];
+    depends = [
+      BSgenome
+      BSgenome_Dmelanogaster_UCSC_dm2
+    ];
   };
   BSgenome_Dmelanogaster_UCSC_dm3 = derive2 {
     name = "BSgenome.Dmelanogaster.UCSC.dm3";
@@ -253,7 +280,10 @@ in with self; {
     name = "BSgenome.Dmelanogaster.UCSC.dm3.masked";
     version = "1.3.99";
     sha256 = "1756csb09f1br9rj1l3f08qyh4hlymdbd0cfn8x3fq39dn45m5ap";
-    depends = [ BSgenome BSgenome_Dmelanogaster_UCSC_dm3 ];
+    depends = [
+      BSgenome
+      BSgenome_Dmelanogaster_UCSC_dm3
+    ];
   };
   BSgenome_Dmelanogaster_UCSC_dm6 = derive2 {
     name = "BSgenome.Dmelanogaster.UCSC.dm6";
@@ -283,7 +313,10 @@ in with self; {
     name = "BSgenome.Drerio.UCSC.danRer5.masked";
     version = "1.3.99";
     sha256 = "03y08jlknb52x37wg95xaf62n5fbsfpmx57bjyxz2gj0n8zhcdgv";
-    depends = [ BSgenome BSgenome_Drerio_UCSC_danRer5 ];
+    depends = [
+      BSgenome
+      BSgenome_Drerio_UCSC_danRer5
+    ];
   };
   BSgenome_Drerio_UCSC_danRer6 = derive2 {
     name = "BSgenome.Drerio.UCSC.danRer6";
@@ -295,7 +328,10 @@ in with self; {
     name = "BSgenome.Drerio.UCSC.danRer6.masked";
     version = "1.3.99";
     sha256 = "175gy5xfp5kzbgmagvls3233i925wppyk9alw75f7jnxfddxvq4k";
-    depends = [ BSgenome BSgenome_Drerio_UCSC_danRer6 ];
+    depends = [
+      BSgenome
+      BSgenome_Drerio_UCSC_danRer6
+    ];
   };
   BSgenome_Drerio_UCSC_danRer7 = derive2 {
     name = "BSgenome.Drerio.UCSC.danRer7";
@@ -307,7 +343,10 @@ in with self; {
     name = "BSgenome.Drerio.UCSC.danRer7.masked";
     version = "1.3.99";
     sha256 = "153cf2ni7xffi7j7dafg04v6i65gh8d21v7l9szm4c18bywvcn5z";
-    depends = [ BSgenome BSgenome_Drerio_UCSC_danRer7 ];
+    depends = [
+      BSgenome
+      BSgenome_Drerio_UCSC_danRer7
+    ];
   };
   BSgenome_Dvirilis_Ensembl_dvircaf1 = derive2 {
     name = "BSgenome.Dvirilis.Ensembl.dvircaf1";
@@ -331,7 +370,10 @@ in with self; {
     name = "BSgenome.Gaculeatus.UCSC.gasAcu1.masked";
     version = "1.3.99";
     sha256 = "13g2xc6v8qlrc0a0zly4ibhzgwg5dsrx1bmw4rrwnkk652alaivx";
-    depends = [ BSgenome BSgenome_Gaculeatus_UCSC_gasAcu1 ];
+    depends = [
+      BSgenome
+      BSgenome_Gaculeatus_UCSC_gasAcu1
+    ];
   };
   BSgenome_Ggallus_UCSC_galGal3 = derive2 {
     name = "BSgenome.Ggallus.UCSC.galGal3";
@@ -343,7 +385,10 @@ in with self; {
     name = "BSgenome.Ggallus.UCSC.galGal3.masked";
     version = "1.3.99";
     sha256 = "0igi02g46h1j87hv9bk45nbqahyjd0k75jkg0s6m9a62jsssg63l";
-    depends = [ BSgenome BSgenome_Ggallus_UCSC_galGal3 ];
+    depends = [
+      BSgenome
+      BSgenome_Ggallus_UCSC_galGal3
+    ];
   };
   BSgenome_Ggallus_UCSC_galGal4 = derive2 {
     name = "BSgenome.Ggallus.UCSC.galGal4";
@@ -355,7 +400,10 @@ in with self; {
     name = "BSgenome.Ggallus.UCSC.galGal4.masked";
     version = "1.3.99";
     sha256 = "0fvqimjf1xvgka4nw66nd0rbyb7r93v8cyw33776lhfv68ny058v";
-    depends = [ BSgenome BSgenome_Ggallus_UCSC_galGal4 ];
+    depends = [
+      BSgenome
+      BSgenome_Ggallus_UCSC_galGal4
+    ];
   };
   BSgenome_Ggallus_UCSC_galGal5 = derive2 {
     name = "BSgenome.Ggallus.UCSC.galGal5";
@@ -403,7 +451,10 @@ in with self; {
     name = "BSgenome.Hsapiens.UCSC.hg17.masked";
     version = "1.3.99";
     sha256 = "1pg39kmbmnync0xxdbgsn6gpz78hfbzd7iffidpv8mfk734srwzn";
-    depends = [ BSgenome BSgenome_Hsapiens_UCSC_hg17 ];
+    depends = [
+      BSgenome
+      BSgenome_Hsapiens_UCSC_hg17
+    ];
   };
   BSgenome_Hsapiens_UCSC_hg18 = derive2 {
     name = "BSgenome.Hsapiens.UCSC.hg18";
@@ -415,7 +466,10 @@ in with self; {
     name = "BSgenome.Hsapiens.UCSC.hg18.masked";
     version = "1.3.99";
     sha256 = "031sr3y95c32igk3lrrsafdm9i1zprjran8gak06arqc0hvzbfk0";
-    depends = [ BSgenome BSgenome_Hsapiens_UCSC_hg18 ];
+    depends = [
+      BSgenome
+      BSgenome_Hsapiens_UCSC_hg18
+    ];
   };
   BSgenome_Hsapiens_UCSC_hg19 = derive2 {
     name = "BSgenome.Hsapiens.UCSC.hg19";
@@ -427,13 +481,19 @@ in with self; {
     name = "BSgenome.Hsapiens.UCSC.hg19.masked";
     version = "1.3.993";
     sha256 = "19533ihgad67bzhavycv6z708012ylz9cw1qdfmk2b7ikf3kiaz9";
-    depends = [ BSgenome BSgenome_Hsapiens_UCSC_hg19 ];
+    depends = [
+      BSgenome
+      BSgenome_Hsapiens_UCSC_hg19
+    ];
   };
   BSgenome_Hsapiens_UCSC_hg38 = derive2 {
     name = "BSgenome.Hsapiens.UCSC.hg38";
     version = "1.4.5";
     sha256 = "0lp94r9dsx8sl1ifysavgjf4aamhjc4n71zif5jyfnwmzpj7g4ml";
-    depends = [ BSgenome GenomeInfoDb ];
+    depends = [
+      BSgenome
+      GenomeInfoDb
+    ];
   };
   BSgenome_Hsapiens_UCSC_hg38_dbSNP151_major = derive2 {
     name = "BSgenome.Hsapiens.UCSC.hg38.dbSNP151.major";
@@ -451,7 +511,11 @@ in with self; {
     name = "BSgenome.Hsapiens.UCSC.hg38.masked";
     version = "1.4.5";
     sha256 = "0j71hdxqvvc0s8mc6jp6zk502mrf095qazj95yzzb4rm6sjvd20m";
-    depends = [ BSgenome BSgenome_Hsapiens_UCSC_hg38 GenomeInfoDb ];
+    depends = [
+      BSgenome
+      BSgenome_Hsapiens_UCSC_hg38
+      GenomeInfoDb
+    ];
   };
   BSgenome_Hsapiens_UCSC_hs1 = derive2 {
     name = "BSgenome.Hsapiens.UCSC.hs1";
@@ -499,7 +563,10 @@ in with self; {
     name = "BSgenome.Mmulatta.UCSC.rheMac2.masked";
     version = "1.3.99";
     sha256 = "1j4z4iy13n4qbi9a50qw1hn8z14xz0z8hbiwhy2bb9znykkf4chd";
-    depends = [ BSgenome BSgenome_Mmulatta_UCSC_rheMac2 ];
+    depends = [
+      BSgenome
+      BSgenome_Mmulatta_UCSC_rheMac2
+    ];
   };
   BSgenome_Mmulatta_UCSC_rheMac3 = derive2 {
     name = "BSgenome.Mmulatta.UCSC.rheMac3";
@@ -511,7 +578,10 @@ in with self; {
     name = "BSgenome.Mmulatta.UCSC.rheMac3.masked";
     version = "1.3.99";
     sha256 = "0k3j40hrys60qdij5rsxdzyx9bfmryaki5p7i4d5m0xmldlk9anr";
-    depends = [ BSgenome BSgenome_Mmulatta_UCSC_rheMac3 ];
+    depends = [
+      BSgenome
+      BSgenome_Mmulatta_UCSC_rheMac3
+    ];
   };
   BSgenome_Mmulatta_UCSC_rheMac8 = derive2 {
     name = "BSgenome.Mmulatta.UCSC.rheMac8";
@@ -529,7 +599,10 @@ in with self; {
     name = "BSgenome.Mmusculus.UCSC.mm10.masked";
     version = "1.4.3";
     sha256 = "04352r264jmpm5abbcyylz0axw24sm58ki3xvp434kp3cfdx32gc";
-    depends = [ BSgenome BSgenome_Mmusculus_UCSC_mm10 ];
+    depends = [
+      BSgenome
+      BSgenome_Mmusculus_UCSC_mm10
+    ];
   };
   BSgenome_Mmusculus_UCSC_mm39 = derive2 {
     name = "BSgenome.Mmusculus.UCSC.mm39";
@@ -547,7 +620,10 @@ in with self; {
     name = "BSgenome.Mmusculus.UCSC.mm8.masked";
     version = "1.3.99";
     sha256 = "1a2ywmy96cbwmvbdid73c0kln56qrbd7ipfzkzl97f56k3g985j5";
-    depends = [ BSgenome BSgenome_Mmusculus_UCSC_mm8 ];
+    depends = [
+      BSgenome
+      BSgenome_Mmusculus_UCSC_mm8
+    ];
   };
   BSgenome_Mmusculus_UCSC_mm9 = derive2 {
     name = "BSgenome.Mmusculus.UCSC.mm9";
@@ -559,7 +635,10 @@ in with self; {
     name = "BSgenome.Mmusculus.UCSC.mm9.masked";
     version = "1.3.99";
     sha256 = "00bpbm3havqcxr4g63zhllsbpd9q6svgihks7qp7x73nm4gvq7fn";
-    depends = [ BSgenome BSgenome_Mmusculus_UCSC_mm9 ];
+    depends = [
+      BSgenome
+      BSgenome_Mmusculus_UCSC_mm9
+    ];
   };
   BSgenome_Osativa_MSU_MSU7 = derive2 {
     name = "BSgenome.Osativa.MSU.MSU7";
@@ -589,7 +668,10 @@ in with self; {
     name = "BSgenome.Ptroglodytes.UCSC.panTro2.masked";
     version = "1.3.99";
     sha256 = "1dy1bf6rsmzv6qj9d2a1sz56w33pk63g3qxm8znfdw11hmdbq9m1";
-    depends = [ BSgenome BSgenome_Ptroglodytes_UCSC_panTro2 ];
+    depends = [
+      BSgenome
+      BSgenome_Ptroglodytes_UCSC_panTro2
+    ];
   };
   BSgenome_Ptroglodytes_UCSC_panTro3 = derive2 {
     name = "BSgenome.Ptroglodytes.UCSC.panTro3";
@@ -601,7 +683,10 @@ in with self; {
     name = "BSgenome.Ptroglodytes.UCSC.panTro3.masked";
     version = "1.3.99";
     sha256 = "18ga0whdcp5zpigrmh68wjmn99lzvfyvgxjm58y0jx66rmg94mir";
-    depends = [ BSgenome BSgenome_Ptroglodytes_UCSC_panTro3 ];
+    depends = [
+      BSgenome
+      BSgenome_Ptroglodytes_UCSC_panTro3
+    ];
   };
   BSgenome_Ptroglodytes_UCSC_panTro5 = derive2 {
     name = "BSgenome.Ptroglodytes.UCSC.panTro5";
@@ -625,7 +710,10 @@ in with self; {
     name = "BSgenome.Rnorvegicus.UCSC.rn4.masked";
     version = "1.3.99";
     sha256 = "0jfv1873ab1nwwdr18vrjqcdl4rhv3xgqbf4jfnjk7sjx154pfi6";
-    depends = [ BSgenome BSgenome_Rnorvegicus_UCSC_rn4 ];
+    depends = [
+      BSgenome
+      BSgenome_Rnorvegicus_UCSC_rn4
+    ];
   };
   BSgenome_Rnorvegicus_UCSC_rn5 = derive2 {
     name = "BSgenome.Rnorvegicus.UCSC.rn5";
@@ -637,7 +725,10 @@ in with self; {
     name = "BSgenome.Rnorvegicus.UCSC.rn5.masked";
     version = "1.3.99";
     sha256 = "0ss14nlr6gqs414ckcz4zmyhfrwdp2snw9wh48yk4s8r4ij3z9rj";
-    depends = [ BSgenome BSgenome_Rnorvegicus_UCSC_rn5 ];
+    depends = [
+      BSgenome
+      BSgenome_Rnorvegicus_UCSC_rn5
+    ];
   };
   BSgenome_Rnorvegicus_UCSC_rn6 = derive2 {
     name = "BSgenome.Rnorvegicus.UCSC.rn6";
@@ -685,7 +776,10 @@ in with self; {
     name = "BSgenome.Sscrofa.UCSC.susScr3.masked";
     version = "1.3.99";
     sha256 = "0ym82vysn131anp8zmmkgyx6zmyh44am5i1m3j9kj5lvq874ycha";
-    depends = [ BSgenome BSgenome_Sscrofa_UCSC_susScr3 ];
+    depends = [
+      BSgenome
+      BSgenome_Sscrofa_UCSC_susScr3
+    ];
   };
   BSgenome_Tgondii_ToxoDB_7_0 = derive2 {
     name = "BSgenome.Tgondii.ToxoDB.7.0";
@@ -703,7 +797,10 @@ in with self; {
     name = "BSgenome.Tguttata.UCSC.taeGut1.masked";
     version = "1.3.99";
     sha256 = "05g9qp2vkp8ia6kqgy07ihnr1w1ca8c96rg7vfahh2nsr5j6ymba";
-    depends = [ BSgenome BSgenome_Tguttata_UCSC_taeGut1 ];
+    depends = [
+      BSgenome
+      BSgenome_Tguttata_UCSC_taeGut1
+    ];
   };
   BSgenome_Tguttata_UCSC_taeGut2 = derive2 {
     name = "BSgenome.Tguttata.UCSC.taeGut2";
@@ -739,7 +836,11 @@ in with self; {
     name = "ChemmineDrugs";
     version = "1.0.2";
     sha256 = "0l47ac6lkycmghra2cbcdcxcv47ari8xg6lxpzilvkf4n6ld6064";
-    depends = [ BiocGenerics ChemmineR RSQLite ];
+    depends = [
+      BiocGenerics
+      ChemmineR
+      RSQLite
+    ];
   };
   DO_db = derive2 {
     name = "DO.db";
@@ -751,7 +852,11 @@ in with self; {
     name = "ENCODExplorerData";
     version = "0.99.5";
     sha256 = "00gfm5l8pxrfs4cw4jlw6n0cz5s31isg69k833n89800v26w3kvh";
-    depends = [ data_table jsonlite RCurl ];
+    depends = [
+      data_table
+      jsonlite
+      RCurl
+    ];
   };
   EnsDb_Hsapiens_v75 = derive2 {
     name = "EnsDb.Hsapiens.v75";
@@ -799,19 +904,28 @@ in with self; {
     name = "EpiTxDb.Hs.hg38";
     version = "0.99.7";
     sha256 = "1vsi24q902wqlnbxp8hks03x53n4yh5cmpyyxdvmxfbn1rxfvnyf";
-    depends = [ AnnotationHub EpiTxDb ];
+    depends = [
+      AnnotationHub
+      EpiTxDb
+    ];
   };
   EpiTxDb_Mm_mm10 = derive2 {
     name = "EpiTxDb.Mm.mm10";
     version = "0.99.6";
     sha256 = "16zsqnrb3ypwv0sqfmhqmkxqhp90k21in7bjhjf0zagywsyyhpww";
-    depends = [ AnnotationHub EpiTxDb ];
+    depends = [
+      AnnotationHub
+      EpiTxDb
+    ];
   };
   EpiTxDb_Sc_sacCer3 = derive2 {
     name = "EpiTxDb.Sc.sacCer3";
     version = "0.99.5";
     sha256 = "0qlifdpppxxn2xmb0f1ghjbx47a7rrkrzr2lvky5p8lb0dnh3zxv";
-    depends = [ AnnotationHub EpiTxDb ];
+    depends = [
+      AnnotationHub
+      EpiTxDb
+    ];
   };
   EuPathDB = derive2 {
     name = "EuPathDB";
@@ -831,7 +945,11 @@ in with self; {
     name = "FDb.FANTOM4.promoters.hg19";
     version = "1.0.0";
     sha256 = "04sn5x1r5fcbghzw6n1bvy0z8zyhrbk86wsqz1p5gk665vicz8rw";
-    depends = [ AnnotationDbi Biostrings GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      Biostrings
+      GenomicFeatures
+    ];
   };
   FDb_InfiniumMethylation_hg18 = derive2 {
     name = "FDb.InfiniumMethylation.hg18";
@@ -861,25 +979,38 @@ in with self; {
     name = "FDb.UCSC.snp135common.hg19";
     version = "1.0.0";
     sha256 = "1ykyixrbw86ajx65w1jwr068ma5cvzl4kypaw77kpggmf1qqgkxp";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   FDb_UCSC_snp137common_hg19 = derive2 {
     name = "FDb.UCSC.snp137common.hg19";
     version = "1.0.0";
     sha256 = "1q1r7rk29q0zlzxz6fvfy1kjfli6wxzvhvhhfnf3z4ksy5332q63";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   FDb_UCSC_tRNAs = derive2 {
     name = "FDb.UCSC.tRNAs";
     version = "1.0.1";
     sha256 = "1dymdalx9fzrplxyc0fd9faa4r5jimi7zyry9k65lyz1pabpkwqz";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   GGHumanMethCancerPanelv1_db = derive2 {
     name = "GGHumanMethCancerPanelv1.db";
     version = "1.4.1";
     sha256 = "0ag1pkbh4mx4aplfrrz1q4f4cl05mczq9pcsfkd1071qk51dcwvx";
-    depends = [ AnnotationDbi AnnotationForge org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      AnnotationForge
+      org_Hs_eg_db
+    ];
   };
   GO_db = derive2 {
     name = "GO.db";
@@ -938,13 +1069,19 @@ in with self; {
     name = "Hs6UG171.db";
     version = "3.2.3";
     sha256 = "034aady3hy8j9bm7pbl8l8h0gcfnzmpyxg9l9s1ky0pj7ryzr93a";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   HsAgilentDesign026652_db = derive2 {
     name = "HsAgilentDesign026652.db";
     version = "3.2.3";
     sha256 = "0x6nxvzmc8k4qp382ca32y58awkxpg0b3kc7m1mz9iag6sq7c5vx";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   Hspec = derive2 {
     name = "Hspec";
@@ -974,13 +1111,19 @@ in with self; {
     name = "HuO22.db";
     version = "3.2.3";
     sha256 = "159ml83s9r8kcb0phh2zalcmzacn6d5z7vq6bg5ygy9l85vkcqsf";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   IlluminaHumanMethylation27k_db = derive2 {
     name = "IlluminaHumanMethylation27k.db";
     version = "1.4.8";
     sha256 = "0zw0n4a9v42ifmvw2hfzzvl8jz1d7f00ia59ljhcvvw9aj12q4zs";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   IlluminaHumanMethylation27kanno_ilmn12_hg19 = derive2 {
     name = "IlluminaHumanMethylation27kanno.ilmn12.hg19";
@@ -1058,13 +1201,19 @@ in with self; {
     name = "JazaeriMetaData.db";
     version = "3.2.3";
     sha256 = "04lvcmm4ybxkfwgbiwcnpyj6kpbd0gd7jz6ijlbbvv6zdgdmvykb";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   LAPOINTE_db = derive2 {
     name = "LAPOINTE.db";
     version = "3.2.3";
     sha256 = "0960gy5p4ybs5zs6251cgc3nk5a9gsh1nh23gkbkr3gc8jddinfm";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   LowMACAAnnotation = derive2 {
     name = "LowMACAAnnotation";
@@ -1082,99 +1231,183 @@ in with self; {
     name = "MafDb.1Kgenomes.phase1.GRCh38";
     version = "3.10.0";
     sha256 = "057531mvxip32lyqak4hh964ms0cil29p5cch5fpjw5vbbzidrlc";
-    depends =
-      [ BSgenome GenomeInfoDb GenomicRanges GenomicScores IRanges S4Vectors ];
+    depends = [
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      GenomicScores
+      IRanges
+      S4Vectors
+    ];
   };
   MafDb_1Kgenomes_phase1_hs37d5 = derive2 {
     name = "MafDb.1Kgenomes.phase1.hs37d5";
     version = "3.10.0";
     sha256 = "0vsjik59qa36w402bcrd5z27wc9vyp4gl0ffcwskd9iwjqim0phi";
-    depends =
-      [ BSgenome GenomeInfoDb GenomicRanges GenomicScores IRanges S4Vectors ];
+    depends = [
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      GenomicScores
+      IRanges
+      S4Vectors
+    ];
   };
   MafDb_1Kgenomes_phase3_GRCh38 = derive2 {
     name = "MafDb.1Kgenomes.phase3.GRCh38";
     version = "3.10.0";
     sha256 = "0ibww7ml5cfyx8h198fgrnf13vvsxxb5spf7hcmm6z3hha6j2ij0";
-    depends =
-      [ BSgenome GenomeInfoDb GenomicRanges GenomicScores IRanges S4Vectors ];
+    depends = [
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      GenomicScores
+      IRanges
+      S4Vectors
+    ];
   };
   MafDb_1Kgenomes_phase3_hs37d5 = derive2 {
     name = "MafDb.1Kgenomes.phase3.hs37d5";
     version = "3.10.0";
     sha256 = "1c2bxgy3bpbszfsqlk262lv45x1fgqyywk9i9nax7bpahlcpp68d";
-    depends =
-      [ BSgenome GenomeInfoDb GenomicRanges GenomicScores IRanges S4Vectors ];
+    depends = [
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      GenomicScores
+      IRanges
+      S4Vectors
+    ];
   };
   MafDb_ExAC_r1_0_GRCh38 = derive2 {
     name = "MafDb.ExAC.r1.0.GRCh38";
     version = "3.10.0";
     sha256 = "02mlwkx9kal4h1q1h3c2pdragir9bh63vg1wyagmh8capf19zx5c";
-    depends =
-      [ BSgenome GenomeInfoDb GenomicRanges GenomicScores IRanges S4Vectors ];
+    depends = [
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      GenomicScores
+      IRanges
+      S4Vectors
+    ];
   };
   MafDb_ExAC_r1_0_hs37d5 = derive2 {
     name = "MafDb.ExAC.r1.0.hs37d5";
     version = "3.10.0";
     sha256 = "18czbllphsccb2hs02g6jz517ylxsvx12czwh4xz7vym6q4br0cz";
-    depends =
-      [ BSgenome GenomeInfoDb GenomicRanges GenomicScores IRanges S4Vectors ];
+    depends = [
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      GenomicScores
+      IRanges
+      S4Vectors
+    ];
   };
   MafDb_ExAC_r1_0_nonTCGA_GRCh38 = derive2 {
     name = "MafDb.ExAC.r1.0.nonTCGA.GRCh38";
     version = "3.10.0";
     sha256 = "16rsm24nlz7jdnqk1p0avn9dlxkbbjd50nja5pcg0z18m30srlya";
-    depends =
-      [ BSgenome GenomeInfoDb GenomicRanges GenomicScores IRanges S4Vectors ];
+    depends = [
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      GenomicScores
+      IRanges
+      S4Vectors
+    ];
   };
   MafDb_ExAC_r1_0_nonTCGA_hs37d5 = derive2 {
     name = "MafDb.ExAC.r1.0.nonTCGA.hs37d5";
     version = "3.10.0";
     sha256 = "1srwc9n9x0ilipqwvm95khy4w2dnn1fkxyrrlcqfwv96gl7141x5";
-    depends =
-      [ BSgenome GenomeInfoDb GenomicRanges GenomicScores IRanges S4Vectors ];
+    depends = [
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      GenomicScores
+      IRanges
+      S4Vectors
+    ];
   };
   MafDb_TOPMed_freeze5_hg19 = derive2 {
     name = "MafDb.TOPMed.freeze5.hg19";
     version = "3.10.0";
     sha256 = "1fxq5jq4g6rys909v0a4lbrcgfdk844wgihn0ary509w8ifdkxdv";
-    depends =
-      [ BSgenome GenomeInfoDb GenomicRanges GenomicScores IRanges S4Vectors ];
+    depends = [
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      GenomicScores
+      IRanges
+      S4Vectors
+    ];
   };
   MafDb_TOPMed_freeze5_hg38 = derive2 {
     name = "MafDb.TOPMed.freeze5.hg38";
     version = "3.10.0";
     sha256 = "0yd9r26l2s3ykw5d2lndnx4m1h401g7hsnkk0wywczdc1xa39y4n";
-    depends =
-      [ BSgenome GenomeInfoDb GenomicRanges GenomicScores IRanges S4Vectors ];
+    depends = [
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      GenomicScores
+      IRanges
+      S4Vectors
+    ];
   };
   MafDb_gnomAD_r2_1_GRCh38 = derive2 {
     name = "MafDb.gnomAD.r2.1.GRCh38";
     version = "3.10.0";
     sha256 = "1bshq6ncns7xdrpkkc84m4x6a1pnm3ssp02f0d23yhlkhh0h40zd";
-    depends =
-      [ BSgenome GenomeInfoDb GenomicRanges GenomicScores IRanges S4Vectors ];
+    depends = [
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      GenomicScores
+      IRanges
+      S4Vectors
+    ];
   };
   MafDb_gnomAD_r2_1_hs37d5 = derive2 {
     name = "MafDb.gnomAD.r2.1.hs37d5";
     version = "3.10.0";
     sha256 = "153dy3lx0islfdkmyik7lxp1w2yzb0bqmia673hlwi4rmvns112h";
-    depends =
-      [ BSgenome GenomeInfoDb GenomicRanges GenomicScores IRanges S4Vectors ];
+    depends = [
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      GenomicScores
+      IRanges
+      S4Vectors
+    ];
   };
   MafDb_gnomADex_r2_1_GRCh38 = derive2 {
     name = "MafDb.gnomADex.r2.1.GRCh38";
     version = "3.10.0";
     sha256 = "1v0sdjmn9z8gqn4yj4v04zycj3ngr32r04zqmkp6y41hcgdr8lxw";
-    depends =
-      [ BSgenome GenomeInfoDb GenomicRanges GenomicScores IRanges S4Vectors ];
+    depends = [
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      GenomicScores
+      IRanges
+      S4Vectors
+    ];
   };
   MafDb_gnomADex_r2_1_hs37d5 = derive2 {
     name = "MafDb.gnomADex.r2.1.hs37d5";
     version = "3.10.0";
     sha256 = "0y42ncmilijdxsgqsmskz7gff3il3fdf2kpflknmz1z9kybzaday";
-    depends =
-      [ BSgenome GenomeInfoDb GenomicRanges GenomicScores IRanges S4Vectors ];
+    depends = [
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      GenomicScores
+      IRanges
+      S4Vectors
+    ];
   };
   MafH5_gnomAD_v3_1_1_GRCh38 = derive2 {
     name = "MafH5.gnomAD.v3.1.1.GRCh38";
@@ -1210,7 +1443,10 @@ in with self; {
     name = "MmAgilentDesign026655.db";
     version = "3.2.3";
     sha256 = "00d0yjcb5id7zacx4bzdwy4q6f4qvnnx8ph4d4xz1fmcbspz2qiz";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   MoExExonProbesetLocation = derive2 {
     name = "MoExExonProbesetLocation";
@@ -1222,13 +1458,19 @@ in with self; {
     name = "Mu15v1.db";
     version = "3.2.3";
     sha256 = "0qchqkbx6ybijab8qhflxj33kwksfll1d3d3917vydjac9fzw1lz";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   Mu22v3_db = derive2 {
     name = "Mu22v3.db";
     version = "3.2.3";
     sha256 = "016dfa1pz5valjnqh9z73b931wk184vykv9xmz60xp2kj9ccrjzc";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   Mus_musculus = derive2 {
     name = "Mus.musculus";
@@ -1247,13 +1489,19 @@ in with self; {
     name = "Norway981.db";
     version = "3.2.3";
     sha256 = "04ngc2hilqi9m7933mnm7jcvkxlz68vqqh5b628db575vcxql9b9";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   OperonHumanV3_db = derive2 {
     name = "OperonHumanV3.db";
     version = "3.2.3";
     sha256 = "082gff88cwk2p50q8g9bixggacaclgqcvk6w5dc11h9fkgvd160i";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   Orthology_eg_db = derive2 {
     name = "Orthology.eg.db";
@@ -1265,7 +1513,12 @@ in with self; {
     name = "PANTHER.db";
     version = "1.0.11";
     sha256 = "0ckhrbhcxf7lq1hz1lrkrb7djjsfy7m0abf3665aagk6vvzigxy8";
-    depends = [ AnnotationDbi AnnotationHub BiocFileCache RSQLite ];
+    depends = [
+      AnnotationDbi
+      AnnotationHub
+      BiocFileCache
+      RSQLite
+    ];
   };
   PFAM_db = derive2 {
     name = "PFAM.db";
@@ -1277,19 +1530,29 @@ in with self; {
     name = "POCRCannotation.db";
     version = "3.2.3";
     sha256 = "0ybvs4hrxpivdkhm0fxpib11vlxqqdk8prlyj78vj5qzyb3iy89d";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   PartheenMetaData_db = derive2 {
     name = "PartheenMetaData.db";
     version = "3.2.3";
     sha256 = "0d37c5b7s3fgkkvg7sj7gl9ksrjk5pyyv54vkys8w3qwgsm8yrdz";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   PolyPhen_Hsapiens_dbSNP131 = derive2 {
     name = "PolyPhen.Hsapiens.dbSNP131";
     version = "1.0.2";
     sha256 = "1kikygkli41sn3rqihz0924prmqg2264ifj29vmg1a7qccm0kf7c";
-    depends = [ AnnotationDbi RSQLite VariantAnnotation ];
+    depends = [
+      AnnotationDbi
+      RSQLite
+      VariantAnnotation
+    ];
   };
   RaExExonProbesetLocation = derive2 {
     name = "RaExExonProbesetLocation";
@@ -1326,349 +1589,542 @@ in with self; {
     name = "RnAgilentDesign028282.db";
     version = "3.2.3";
     sha256 = "00qri74spbpym7krk1clx0kl429b1592afk5bfr3j8j3iw99g4af";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   Roberts2005Annotation_db = derive2 {
     name = "Roberts2005Annotation.db";
     version = "3.2.3";
     sha256 = "1fc95c6x36n7zbr5ca680hyffxngma26gz0bdzylbw0w4mqmj6ga";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   SHDZ_db = derive2 {
     name = "SHDZ.db";
     version = "3.2.3";
     sha256 = "077xy2zx3f4c01di18ki32xmrwgsc1qjci3wj33nmgsy5925zdxs";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   SIFT_Hsapiens_dbSNP132 = derive2 {
     name = "SIFT.Hsapiens.dbSNP132";
     version = "1.0.2";
     sha256 = "1akqhmv9hp41q2jrvz4xvpdi30c4c6v4xbz6ykn6pdf0217p7xry";
-    depends = [ AnnotationDbi RSQLite VariantAnnotation ];
+    depends = [
+      AnnotationDbi
+      RSQLite
+      VariantAnnotation
+    ];
   };
   SIFT_Hsapiens_dbSNP137 = derive2 {
     name = "SIFT.Hsapiens.dbSNP137";
     version = "1.0.0";
     sha256 = "1472abqanbwziyynr851xzhg7ck8w1n98ymmggg7s46hzix5mlj8";
-    depends = [ AnnotationDbi RSQLite VariantAnnotation ];
+    depends = [
+      AnnotationDbi
+      RSQLite
+      VariantAnnotation
+    ];
   };
   SNPlocs_Hsapiens_dbSNP144_GRCh37 = derive2 {
     name = "SNPlocs.Hsapiens.dbSNP144.GRCh37";
     version = "0.99.20";
     sha256 = "1z8kx43ki1jvj7ms7pcybakcdimfwr6zpjvspkjmma97bdz093iz";
-    depends =
-      [ BiocGenerics BSgenome GenomeInfoDb GenomicRanges IRanges S4Vectors ];
+    depends = [
+      BiocGenerics
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      IRanges
+      S4Vectors
+    ];
   };
   SNPlocs_Hsapiens_dbSNP144_GRCh38 = derive2 {
     name = "SNPlocs.Hsapiens.dbSNP144.GRCh38";
     version = "0.99.20";
     sha256 = "0yxmsnxncr7w30r0d7bg5i96pclm2vf40p9jdqa02rc67a6sximn";
-    depends =
-      [ BiocGenerics BSgenome GenomeInfoDb GenomicRanges IRanges S4Vectors ];
+    depends = [
+      BiocGenerics
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      IRanges
+      S4Vectors
+    ];
   };
   SNPlocs_Hsapiens_dbSNP149_GRCh38 = derive2 {
     name = "SNPlocs.Hsapiens.dbSNP149.GRCh38";
     version = "0.99.20";
     sha256 = "17bv25p1261hn9d7mxfp6pvivj15pxyvr92gms8a8msfqg9y0xkb";
-    depends =
-      [ BiocGenerics BSgenome GenomeInfoDb GenomicRanges IRanges S4Vectors ];
+    depends = [
+      BiocGenerics
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      IRanges
+      S4Vectors
+    ];
   };
   SNPlocs_Hsapiens_dbSNP150_GRCh38 = derive2 {
     name = "SNPlocs.Hsapiens.dbSNP150.GRCh38";
     version = "0.99.20";
     sha256 = "0jkwwgxxpm9ry8kizq8hs70sky41pks1ag40y5aqq91yjbpqlckj";
-    depends =
-      [ BiocGenerics BSgenome GenomeInfoDb GenomicRanges IRanges S4Vectors ];
+    depends = [
+      BiocGenerics
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      IRanges
+      S4Vectors
+    ];
   };
   SNPlocs_Hsapiens_dbSNP155_GRCh37 = derive2 {
     name = "SNPlocs.Hsapiens.dbSNP155.GRCh37";
     version = "0.99.23";
     sha256 = "1hl63ph2j8s2igwgp0xs35a366wa7f1x6bmid09k6wqx8fcdilgy";
-    depends =
-      [ BiocGenerics BSgenome GenomeInfoDb GenomicRanges IRanges S4Vectors ];
+    depends = [
+      BiocGenerics
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      IRanges
+      S4Vectors
+    ];
   };
   SNPlocs_Hsapiens_dbSNP155_GRCh38 = derive2 {
     name = "SNPlocs.Hsapiens.dbSNP155.GRCh38";
     version = "0.99.23";
     sha256 = "0j4skfz6g7ir1igqbql0hk04871vpfqg7dpmvv9z6k2mx9lnrh7w";
-    depends =
-      [ BiocGenerics BSgenome GenomeInfoDb GenomicRanges IRanges S4Vectors ];
+    depends = [
+      BiocGenerics
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      IRanges
+      S4Vectors
+    ];
   };
   TxDb_Athaliana_BioMart_plantsmart22 = derive2 {
     name = "TxDb.Athaliana.BioMart.plantsmart22";
     version = "3.0.1";
     sha256 = "0j2zr4cddad7z1lxx9m9kfgyy7jajjnblpk9j8igd39ia3ixrpzc";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Athaliana_BioMart_plantsmart25 = derive2 {
     name = "TxDb.Athaliana.BioMart.plantsmart25";
     version = "3.1.3";
     sha256 = "0a6v0l6p13zmiysi3k8dxzdlxng552qqj9rnlbdavdiidla0pvm3";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Athaliana_BioMart_plantsmart28 = derive2 {
     name = "TxDb.Athaliana.BioMart.plantsmart28";
     version = "3.2.2";
     sha256 = "1yjyvrbx55y024lqg3b2rlf8pngqw5xi3p83j5ipan05wf0aq6ir";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Athaliana_BioMart_plantsmart51 = derive2 {
     name = "TxDb.Athaliana.BioMart.plantsmart51";
     version = "0.99.0";
     sha256 = "17vbgpxzr7xkd4dnggj89hbnziczgdgk01gvmysl0cw68zsalsi6";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Btaurus_UCSC_bosTau8_refGene = derive2 {
     name = "TxDb.Btaurus.UCSC.bosTau8.refGene";
     version = "3.12.0";
     sha256 = "1k06p4jk3lw8xkn31yjwmwk96rkrl6wqq3rmc8bxlbrdi99lh09c";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Btaurus_UCSC_bosTau9_refGene = derive2 {
     name = "TxDb.Btaurus.UCSC.bosTau9.refGene";
     version = "3.10.0";
     sha256 = "1v7q9jaaj1n2vabjj6ij6pz0g89nqlyy4y4g65irz6cm5mvik4q9";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Celegans_UCSC_ce11_ensGene = derive2 {
     name = "TxDb.Celegans.UCSC.ce11.ensGene";
     version = "3.15.0";
     sha256 = "0pr1f94bc0g88hnwnxf0gx4k83ic9mvdlhwmrjm3k1j5xjp8w0bi";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Celegans_UCSC_ce11_refGene = derive2 {
     name = "TxDb.Celegans.UCSC.ce11.refGene";
     version = "3.4.6";
     sha256 = "1aq4jhn2c67wibq02l8drrjscmicbj6z35d0jksq8mwhz8k30zn6";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Celegans_UCSC_ce6_ensGene = derive2 {
     name = "TxDb.Celegans.UCSC.ce6.ensGene";
     version = "3.2.2";
     sha256 = "1sgppva33cdy4isj2is8mfalj5gmmkpbkq9w1d83a4agcq31mi90";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Cfamiliaris_UCSC_canFam3_refGene = derive2 {
     name = "TxDb.Cfamiliaris.UCSC.canFam3.refGene";
     version = "3.11.0";
     sha256 = "0rigyddnqxb3dfrj93198j0l8s1flp051xbkmz0b55qp1cyrl5kr";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Cfamiliaris_UCSC_canFam4_refGene = derive2 {
     name = "TxDb.Cfamiliaris.UCSC.canFam4.refGene";
     version = "3.14.0";
     sha256 = "1xw3kkn2kbrv0yni95sm4sbrxzsg5y21si1plpfcdij78ndhia7d";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Cfamiliaris_UCSC_canFam5_refGene = derive2 {
     name = "TxDb.Cfamiliaris.UCSC.canFam5.refGene";
     version = "3.14.0";
     sha256 = "1ikadiq14rn8f5ayas0ndkwpafzhpbmawgczyq2hcrl4jpky8vdj";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Dmelanogaster_UCSC_dm3_ensGene = derive2 {
     name = "TxDb.Dmelanogaster.UCSC.dm3.ensGene";
     version = "3.2.2";
     sha256 = "1337x23rdmiiza83ms225kri37h16q5hw1lw0m577abcgip3d7c7";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Dmelanogaster_UCSC_dm6_ensGene = derive2 {
     name = "TxDb.Dmelanogaster.UCSC.dm6.ensGene";
     version = "3.12.0";
     sha256 = "0yij7zyqkmmr13389rs2gfa5anvvw648nnl1kjbsgvyxkggif8q4";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Drerio_UCSC_danRer10_refGene = derive2 {
     name = "TxDb.Drerio.UCSC.danRer10.refGene";
     version = "3.4.6";
     sha256 = "1isd4idvh9flvirrq760cw5lc1nwqjx0q76p9dp01wbbbsb3rfnk";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Drerio_UCSC_danRer11_refGene = derive2 {
     name = "TxDb.Drerio.UCSC.danRer11.refGene";
     version = "3.4.6";
     sha256 = "0p5pr0fq1l9bp019w2214szf78y3nbw0p4819jcnba1v50y3336l";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Ggallus_UCSC_galGal4_refGene = derive2 {
     name = "TxDb.Ggallus.UCSC.galGal4.refGene";
     version = "3.12.0";
     sha256 = "0c9msvqhx7zcxyhfj9h7rmlwmax1n48cwz1c0v58djcms6bqq2m5";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Ggallus_UCSC_galGal5_refGene = derive2 {
     name = "TxDb.Ggallus.UCSC.galGal5.refGene";
     version = "3.12.0";
     sha256 = "1fl0jnim4lx1a4b82b9nrgmb91najwhggqb611axcqp9bdkkhw1q";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Ggallus_UCSC_galGal6_refGene = derive2 {
     name = "TxDb.Ggallus.UCSC.galGal6.refGene";
     version = "3.10.0";
     sha256 = "0ddibdn6shlhqfmlajnq754z4vad7gi55vb5y8j89nc2k1sc5a3i";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Hsapiens_BioMart_igis = derive2 {
     name = "TxDb.Hsapiens.BioMart.igis";
     version = "2.3.2";
     sha256 = "0590a2hkrpm33hmjg5g0gm6sig3xvc09m0q6lwmafgaajf90h6ky";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Hsapiens_UCSC_hg18_knownGene = derive2 {
     name = "TxDb.Hsapiens.UCSC.hg18.knownGene";
     version = "3.2.2";
     sha256 = "1yk9ggclkqqfzrdp8gcqyplvif824pa7df54ck5gb1xb9q5s975w";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Hsapiens_UCSC_hg19_knownGene = derive2 {
     name = "TxDb.Hsapiens.UCSC.hg19.knownGene";
     version = "3.2.2";
     sha256 = "1sajhcqqwazgz2lqbik7rd935i7kpnh08zxbp2ra10j72yqy4g86";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Hsapiens_UCSC_hg19_lincRNAsTranscripts = derive2 {
     name = "TxDb.Hsapiens.UCSC.hg19.lincRNAsTranscripts";
     version = "3.2.2";
     sha256 = "0bmbp7kydvviczw8axgxq2wdlwq6fdas90jk9bg56avjq5syws2g";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Hsapiens_UCSC_hg38_knownGene = derive2 {
     name = "TxDb.Hsapiens.UCSC.hg38.knownGene";
     version = "3.16.0";
     sha256 = "1kphpnfibyfh5qqki8ivngynsr81jfqw04ysya6xq2llldh8i137";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Hsapiens_UCSC_hg38_refGene = derive2 {
     name = "TxDb.Hsapiens.UCSC.hg38.refGene";
     version = "3.15.0";
     sha256 = "03ca3spvhci16fndy82fx0cik0a6yqj77l6nfvv5k9qg3xnrp179";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Mmulatta_UCSC_rheMac10_refGene = derive2 {
     name = "TxDb.Mmulatta.UCSC.rheMac10.refGene";
     version = "3.14.0";
     sha256 = "12gxs6s57l22013g40b7hb09vxhmdri73cp9rgs2icb88p7sjlib";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Mmulatta_UCSC_rheMac3_refGene = derive2 {
     name = "TxDb.Mmulatta.UCSC.rheMac3.refGene";
     version = "3.12.0";
     sha256 = "1a0wbh4dajpgynmw2iwbvp836nklzlk0cfhqnwmqq9l4gzzh2w07";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Mmulatta_UCSC_rheMac8_refGene = derive2 {
     name = "TxDb.Mmulatta.UCSC.rheMac8.refGene";
     version = "3.12.0";
     sha256 = "1k7mq3p96wfd0694zw00hs4529zvv8nnfdwlsb94bn11qjhr1zrz";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Mmusculus_UCSC_mm10_ensGene = derive2 {
     name = "TxDb.Mmusculus.UCSC.mm10.ensGene";
     version = "3.4.0";
     sha256 = "0saxi1fdiwd38sfvy1rynd3v44rbp158jv6sjqcivvaqnd84zg9s";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Mmusculus_UCSC_mm10_knownGene = derive2 {
     name = "TxDb.Mmusculus.UCSC.mm10.knownGene";
     version = "3.10.0";
     sha256 = "0xs9npnhbwll7p62hibs02y4ac23jchdcr25i6a7qwq1kms82qk9";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Mmusculus_UCSC_mm39_refGene = derive2 {
     name = "TxDb.Mmusculus.UCSC.mm39.refGene";
     version = "3.12.0";
     sha256 = "0465dma4q6jkyx23vkq4yz252mm1ksr3186cbjdqvnang57m5lc6";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Mmusculus_UCSC_mm9_knownGene = derive2 {
     name = "TxDb.Mmusculus.UCSC.mm9.knownGene";
     version = "3.2.2";
     sha256 = "16bjxy00363hf91ik2mqlqls86i07gia72qh92xc3l1ncch61mx2";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Ptroglodytes_UCSC_panTro4_refGene = derive2 {
     name = "TxDb.Ptroglodytes.UCSC.panTro4.refGene";
     version = "3.12.0";
     sha256 = "036g5zn9rzy8qivb1snhpancsz1z60i3r7z3g91bgla4jpgwwjv6";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Ptroglodytes_UCSC_panTro5_refGene = derive2 {
     name = "TxDb.Ptroglodytes.UCSC.panTro5.refGene";
     version = "3.12.0";
     sha256 = "0yypv9iqn4i36hnvcr2lsfgaabl8g2pm72ya4psvia261jr2i12i";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Ptroglodytes_UCSC_panTro6_refGene = derive2 {
     name = "TxDb.Ptroglodytes.UCSC.panTro6.refGene";
     version = "3.10.0";
     sha256 = "0z4lq7wy48kkxnx29zmrbmrq4qjrj3digwxkw3x54qq80nvzxiza";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Rnorvegicus_BioMart_igis = derive2 {
     name = "TxDb.Rnorvegicus.BioMart.igis";
     version = "2.3.2";
     sha256 = "1099vkk8g3lxbgjxsm1p1m3mjj08nsw282mqxgzpnrxf7m6jll76";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Rnorvegicus_UCSC_rn4_ensGene = derive2 {
     name = "TxDb.Rnorvegicus.UCSC.rn4.ensGene";
     version = "3.2.2";
     sha256 = "0gv8bynfxxa471ap069mjvfrb1d7a0c4w5k8hxkr4hnsm44mschm";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Rnorvegicus_UCSC_rn5_refGene = derive2 {
     name = "TxDb.Rnorvegicus.UCSC.rn5.refGene";
     version = "3.12.0";
     sha256 = "08kf9kmdvifcbz0lc8paqp10x272b0f1jh6bj241ii455xsby2zi";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Rnorvegicus_UCSC_rn6_ncbiRefSeq = derive2 {
     name = "TxDb.Rnorvegicus.UCSC.rn6.ncbiRefSeq";
     version = "3.12.0";
     sha256 = "1gb8l88z1xiyc1r8hvv4kdahd0py2dr5k0zizsrfh013p6q7z5yw";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Rnorvegicus_UCSC_rn6_refGene = derive2 {
     name = "TxDb.Rnorvegicus.UCSC.rn6.refGene";
     version = "3.4.6";
     sha256 = "1piqli0wdq3r289is8lmijnshm8rmx7rphp2qfymlvc0jmvgs9wr";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Rnorvegicus_UCSC_rn7_refGene = derive2 {
     name = "TxDb.Rnorvegicus.UCSC.rn7.refGene";
     version = "3.15.0";
     sha256 = "0vvz341sclwxrgn14srdingyah6skd4a2qp8978qnd871n2z394f";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Scerevisiae_UCSC_sacCer2_sgdGene = derive2 {
     name = "TxDb.Scerevisiae.UCSC.sacCer2.sgdGene";
     version = "3.2.2";
     sha256 = "0l5gcwhbvzx60p9hjhd31angamb0hkgdg2avga7341j77rd5pwza";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Scerevisiae_UCSC_sacCer3_sgdGene = derive2 {
     name = "TxDb.Scerevisiae.UCSC.sacCer3.sgdGene";
     version = "3.2.2";
     sha256 = "1sjwl7fb3l3zxxbk8gkvzxwdsind0xjj7kmh7dachm6fi17hpb3d";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Sscrofa_UCSC_susScr11_refGene = derive2 {
     name = "TxDb.Sscrofa.UCSC.susScr11.refGene";
     version = "3.12.0";
     sha256 = "1i3w8avi5ihkynapya1wy70i6f0nq4jyy5nvlwikppqpdjwn7gb4";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   TxDb_Sscrofa_UCSC_susScr3_refGene = derive2 {
     name = "TxDb.Sscrofa.UCSC.susScr3.refGene";
     version = "3.12.0";
     sha256 = "01bl7zdxyhhg4706jhi7271fs09riixkyr3x0bancl1fpzwszc6p";
-    depends = [ AnnotationDbi GenomicFeatures ];
+    depends = [
+      AnnotationDbi
+      GenomicFeatures
+    ];
   };
   UCSCRepeatMasker = derive2 {
     name = "UCSCRepeatMasker";
     version = "3.15.2";
     sha256 = "0hi1h8vvbf27wk13gbfgm0amjqgl7b2qxlgakcbr87qxwbi02zv7";
-    depends = [ AnnotationHub GenomeInfoDb RCurl XML ];
+    depends = [
+      AnnotationHub
+      GenomeInfoDb
+      RCurl
+      XML
+    ];
   };
   UniProtKeywords = derive2 {
     name = "UniProtKeywords";
@@ -1680,27 +2136,45 @@ in with self; {
     name = "XtraSNPlocs.Hsapiens.dbSNP144.GRCh37";
     version = "0.99.12";
     sha256 = "0k823fvqjmdkmd47m7wyra6jxmv8lnk2i1xl4pp0mh3zgb87hgfb";
-    depends =
-      [ BiocGenerics BSgenome GenomeInfoDb GenomicRanges IRanges S4Vectors ];
+    depends = [
+      BiocGenerics
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      IRanges
+      S4Vectors
+    ];
   };
   XtraSNPlocs_Hsapiens_dbSNP144_GRCh38 = derive2 {
     name = "XtraSNPlocs.Hsapiens.dbSNP144.GRCh38";
     version = "0.99.12";
     sha256 = "0d4q32ij2x4726wvw06sgmivid0n94vfdmszdyh607xlcahqxa5z";
-    depends =
-      [ BiocGenerics BSgenome GenomeInfoDb GenomicRanges IRanges S4Vectors ];
+    depends = [
+      BiocGenerics
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      IRanges
+      S4Vectors
+    ];
   };
   adme16cod_db = derive2 {
     name = "adme16cod.db";
     version = "3.4.0";
     sha256 = "1vn9s1lrl6zzs00madb111fdzqjfb45mprpjqap8bvib65942rvq";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   ag_db = derive2 {
     name = "ag.db";
     version = "3.13.0";
     sha256 = "005y4whqjc8ndr1yjikzcz9196hvq3d04lz8pqfmhk6kyjljpgzh";
-    depends = [ AnnotationDbi org_At_tair_db ];
+    depends = [
+      AnnotationDbi
+      org_At_tair_db
+    ];
   };
   agcdf = derive2 {
     name = "agcdf";
@@ -1742,7 +2216,10 @@ in with self; {
     name = "ath1121501.db";
     version = "3.13.0";
     sha256 = "0v4vapbns71dpv09857lyrnliq202i8yi4ar9z81wbpbc22lhf0d";
-    depends = [ AnnotationDbi org_At_tair_db ];
+    depends = [
+      AnnotationDbi
+      org_At_tair_db
+    ];
   };
   ath1121501cdf = derive2 {
     name = "ath1121501cdf";
@@ -1772,7 +2249,10 @@ in with self; {
     name = "bovine.db";
     version = "3.13.0";
     sha256 = "06692b1n0lzhg0biixipsnwx33w9y8wkc7pc5q1lkjfzbmd2inml";
-    depends = [ AnnotationDbi org_Bt_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Bt_eg_db
+    ];
   };
   bovine_db0 = derive2 {
     name = "bovine.db0";
@@ -1814,7 +2294,10 @@ in with self; {
     name = "canine.db";
     version = "3.13.0";
     sha256 = "1x1mlh0p6r2l5kclarqwgiw9y64xc8jhp6252hhpl9bpnn638n3s";
-    depends = [ AnnotationDbi org_Cf_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Cf_eg_db
+    ];
   };
   canine_db0 = derive2 {
     name = "canine.db0";
@@ -1826,7 +2309,10 @@ in with self; {
     name = "canine2.db";
     version = "3.13.0";
     sha256 = "1xzz0vivdypwl6kaq2ba02jkpxw0r9r98297ilksdh8m71f244si";
-    depends = [ AnnotationDbi org_Cf_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Cf_eg_db
+    ];
   };
   canine2cdf = derive2 {
     name = "canine2cdf";
@@ -1856,7 +2342,10 @@ in with self; {
     name = "celegans.db";
     version = "3.13.0";
     sha256 = "15gr1l3j9s1rgq0j1mi12d4lk9izv7nck5h53icbph92j02fihng";
-    depends = [ AnnotationDbi org_Ce_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Ce_eg_db
+    ];
   };
   celeganscdf = derive2 {
     name = "celeganscdf";
@@ -1874,7 +2363,10 @@ in with self; {
     name = "chicken.db";
     version = "3.13.0";
     sha256 = "0szb7sgassw10kzm8iz8h3fdbxm6v0kz95yb3a9icj2chi5d1m2i";
-    depends = [ AnnotationDbi org_Gg_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Gg_eg_db
+    ];
   };
   chicken_db0 = derive2 {
     name = "chicken.db0";
@@ -1922,49 +2414,73 @@ in with self; {
     name = "clariomdhumanprobeset.db";
     version = "8.8.0";
     sha256 = "197s389bdzzqyvfrkrn6zqkm2d5s6rnays9hmsdrilxrm9gw32ag";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   clariomdhumantranscriptcluster_db = derive2 {
     name = "clariomdhumantranscriptcluster.db";
     version = "8.8.0";
     sha256 = "1qybsx6xj892pqlkv16cmc890shmm68hak4vcl1rd68i040pp75p";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   clariomshumanhttranscriptcluster_db = derive2 {
     name = "clariomshumanhttranscriptcluster.db";
     version = "8.8.0";
     sha256 = "0ya6x2pqlzs7ssis2xa78yfrxs8zkyim3s8h8hbbnyhin6d1p4ia";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   clariomshumantranscriptcluster_db = derive2 {
     name = "clariomshumantranscriptcluster.db";
     version = "8.8.0";
     sha256 = "0xnb0lw19bvwz75wdznmx0sj9gmjksry9kz7qx25w7msjzw1a56c";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   clariomsmousehttranscriptcluster_db = derive2 {
     name = "clariomsmousehttranscriptcluster.db";
     version = "8.8.0";
     sha256 = "0h4bnixh55rxy7ng0psl4i3szw3drkqvk4rypv2pjb30k8b8x9ad";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   clariomsmousetranscriptcluster_db = derive2 {
     name = "clariomsmousetranscriptcluster.db";
     version = "8.8.0";
     sha256 = "116bjs6rmb56vphgs77hhn905yxa83gsydvyji1k9azm1kbz9rbc";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   clariomsrathttranscriptcluster_db = derive2 {
     name = "clariomsrathttranscriptcluster.db";
     version = "8.8.0";
     sha256 = "1vc4za4drka441wrn85b4hc2m6dvk9r33w0fd0gf0zi5945samc7";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   clariomsrattranscriptcluster_db = derive2 {
     name = "clariomsrattranscriptcluster.db";
     version = "8.8.0";
     sha256 = "0i3d9m4li08mf4g8ic5zgja80vj0vw1865pfpj1kra6sb6r2irhy";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   cottoncdf = derive2 {
     name = "cottoncdf";
@@ -1988,7 +2504,10 @@ in with self; {
     name = "drosgenome1.db";
     version = "3.13.0";
     sha256 = "0qhhmgjx5yhbdwid6xjp6vbiql8qrh952rq5gwsrhra6812dzwnr";
-    depends = [ AnnotationDbi org_Dm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Dm_eg_db
+    ];
   };
   drosgenome1cdf = derive2 {
     name = "drosgenome1cdf";
@@ -2006,7 +2525,10 @@ in with self; {
     name = "drosophila2.db";
     version = "3.13.0";
     sha256 = "03lnr2k1dk784mid0ax7v96hnawp5275a3nnzryz8bnl5052fwds";
-    depends = [ AnnotationDbi org_Dm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Dm_eg_db
+    ];
   };
   drosophila2cdf = derive2 {
     name = "drosophila2cdf";
@@ -2024,7 +2546,10 @@ in with self; {
     name = "ecoli2.db";
     version = "3.13.0";
     sha256 = "1i2arr26hch7lmx2bixzy4l0zaa0gynah4dfwa98cvb24ahqqj9f";
-    depends = [ AnnotationDbi org_EcK12_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_EcK12_eg_db
+    ];
   };
   ecoli2cdf = derive2 {
     name = "ecoli2cdf";
@@ -2084,8 +2609,14 @@ in with self; {
     name = "fitCons.UCSC.hg19";
     version = "3.7.1";
     sha256 = "19isa4x8js0pdb4k8a11bw3bzmzv6jc4jphzrvav7piqkvrgykzx";
-    depends =
-      [ BSgenome GenomeInfoDb GenomicRanges GenomicScores IRanges S4Vectors ];
+    depends = [
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      GenomicScores
+      IRanges
+      S4Vectors
+    ];
   };
   fly_db0 = derive2 {
     name = "fly.db0";
@@ -2127,7 +2658,14 @@ in with self; {
     name = "grasp2db";
     version = "1.1.0";
     sha256 = "1aq19myhcl9kdmzy8f4c3ilf0s0ng99rl58jja2xlmqsm2hik7ya";
-    depends = [ AnnotationHub dbplyr digest dplyr GenomeInfoDb RSQLite ];
+    depends = [
+      AnnotationHub
+      dbplyr
+      digest
+      dplyr
+      GenomeInfoDb
+      RSQLite
+    ];
   };
   gwascatData = derive2 {
     name = "gwascatData";
@@ -2139,13 +2677,19 @@ in with self; {
     name = "h10kcod.db";
     version = "3.4.0";
     sha256 = "0f30n339ib8q478a7axjdh8hzrqws762m680ha0sxm3a0nxwapgg";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   h20kcod_db = derive2 {
     name = "h20kcod.db";
     version = "3.4.0";
     sha256 = "0csh59bgpn5xyaw6bfg7nvi9vcvjd4f66f0dr3xh7c6316835mnx";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hapmap370k = derive2 {
     name = "hapmap370k";
@@ -2157,7 +2701,10 @@ in with self; {
     name = "hcg110.db";
     version = "3.13.0";
     sha256 = "0g4j80rn76cm4dcdan091awlmxldq5dp6lhr7g7gqbiiq5czbbmd";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hcg110cdf = derive2 {
     name = "hcg110cdf";
@@ -2175,7 +2722,10 @@ in with self; {
     name = "hgfocus.db";
     version = "3.13.0";
     sha256 = "0wi1xlmyad1ni071vmrfl374brifmpzk7ylnz8xvinxs66w1yakv";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hgfocuscdf = derive2 {
     name = "hgfocuscdf";
@@ -2193,13 +2743,19 @@ in with self; {
     name = "hgu133a.db";
     version = "3.13.0";
     sha256 = "00jcginfs161ls9hxsvynbrghg3awjrphnc54b8g0gj8g6x22pll";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hgu133a2_db = derive2 {
     name = "hgu133a2.db";
     version = "3.13.0";
     sha256 = "0wmjf6hwfm4znnm6xcpf0z57f2r3i39rjgspyvjamq32knmq8vqs";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hgu133a2cdf = derive2 {
     name = "hgu133a2cdf";
@@ -2253,7 +2809,10 @@ in with self; {
     name = "hgu133b.db";
     version = "3.13.0";
     sha256 = "0w0p53w1kqahwxramb62lngpdkkymvdy0xfzcscswc8iddsdvb0x";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hgu133bcdf = derive2 {
     name = "hgu133bcdf";
@@ -2271,7 +2830,10 @@ in with self; {
     name = "hgu133plus2.db";
     version = "3.13.0";
     sha256 = "0i6cfk7ahql4fcgrq0dai9gkjbsahyzd9iv4lqv1ad58fzkmipnx";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hgu133plus2cdf = derive2 {
     name = "hgu133plus2cdf";
@@ -2295,7 +2857,10 @@ in with self; {
     name = "hgu219.db";
     version = "3.2.3";
     sha256 = "1yv7wlz49pfjqwg5s9mzr31457imwn8cq97bg4m1ybib7787m134";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hgu219cdf = derive2 {
     name = "hgu219cdf";
@@ -2313,7 +2878,10 @@ in with self; {
     name = "hgu95a.db";
     version = "3.13.0";
     sha256 = "1krmnl5kqfvb4jvrqy72x0s8z7rha96d5nwcbnarpflf12k4hrha";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hgu95acdf = derive2 {
     name = "hgu95acdf";
@@ -2337,7 +2905,10 @@ in with self; {
     name = "hgu95av2.db";
     version = "3.13.0";
     sha256 = "1zk3mb9p8z2xabqr6y9jdiwidjzkgn22jlqyqg1bq0iahmj2ywpz";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hgu95av2cdf = derive2 {
     name = "hgu95av2cdf";
@@ -2355,7 +2926,10 @@ in with self; {
     name = "hgu95b.db";
     version = "3.13.0";
     sha256 = "0gsbs45wfrxisld9vjgw99ksz9nz2v4pjj6dhns4fwx6w0kyqhgv";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hgu95bcdf = derive2 {
     name = "hgu95bcdf";
@@ -2373,7 +2947,10 @@ in with self; {
     name = "hgu95c.db";
     version = "3.13.0";
     sha256 = "1f2mln8dkhvy58h26wlc6nzbkg0npz3x7v5x7p2w16km2mxkl76b";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hgu95ccdf = derive2 {
     name = "hgu95ccdf";
@@ -2391,7 +2968,10 @@ in with self; {
     name = "hgu95d.db";
     version = "3.13.0";
     sha256 = "0p7l3kpkp5jfszkmijb79qjrvxp7qy14dng4rf796nbhiljj4kh6";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hgu95dcdf = derive2 {
     name = "hgu95dcdf";
@@ -2409,7 +2989,10 @@ in with self; {
     name = "hgu95e.db";
     version = "3.13.0";
     sha256 = "1p616vniy6rp7zswmq31yffcg8y2b8q39cfwr70243k4nsib86yz";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hgu95ecdf = derive2 {
     name = "hgu95ecdf";
@@ -2427,67 +3010,100 @@ in with self; {
     name = "hguDKFZ31.db";
     version = "3.2.3";
     sha256 = "1pm0w9jdppd4xx9civh88b15nzyqv6rs7d8yljv6yf5sspxl8var";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hguatlas13k_db = derive2 {
     name = "hguatlas13k.db";
     version = "3.2.3";
     sha256 = "15psxwig9d836wdf410i093k0hbdxnzd9lix4d544yz160v93di0";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hgubeta7_db = derive2 {
     name = "hgubeta7.db";
     version = "3.2.3";
     sha256 = "0dh1068ph7cq343df1csyc4j9jix9gcc4bfkvvc2whyq0a1kzr8h";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hgug4100a_db = derive2 {
     name = "hgug4100a.db";
     version = "3.2.3";
     sha256 = "0crvsnrx58smj45115qb05hss1qkpwmydpdm6qbzh0j16ab7p59n";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hgug4101a_db = derive2 {
     name = "hgug4101a.db";
     version = "3.2.3";
     sha256 = "1hnz2m9q52mw4mxykvaiilsq0d0jmkq666py8zjh94sy0gsnhsqx";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hgug4110b_db = derive2 {
     name = "hgug4110b.db";
     version = "3.2.3";
     sha256 = "0qpiiy6dklf9alrmjmmv51q09p7hq4w8frn8zy12glcm65h2vfcy";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hgug4111a_db = derive2 {
     name = "hgug4111a.db";
     version = "3.2.3";
     sha256 = "0bd897592q92cf8bvl0hqkcxid451lwm36s7mpsvgb5yzw3rb63n";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hgug4112a_db = derive2 {
     name = "hgug4112a.db";
     version = "3.2.3";
     sha256 = "0l80pblm047pvl5sqvasb6d45lazqhsff3w5lljiwzjhn0r7x5m3";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hgug4845a_db = derive2 {
     name = "hgug4845a.db";
     version = "0.0.3";
     sha256 = "1933n2n6yky40nxf1qlbpa6acjwfr07hbrpvvcick7m09al1wks6";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hguqiagenv3_db = derive2 {
     name = "hguqiagenv3.db";
     version = "3.2.3";
     sha256 = "1ylji60m2zb8ialbl5wdrxy425sriq17z3bg8ikvc5b5gjsw6l7w";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hi16cod_db = derive2 {
     name = "hi16cod.db";
     version = "3.4.0";
     sha256 = "0ydi0jljx8igzrqaspr9yywv43h2zimm9fk7xc55nm6mnp5jl7kl";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hivprtplus2cdf = derive2 {
     name = "hivprtplus2cdf";
@@ -2505,7 +3121,10 @@ in with self; {
     name = "hs25kresogen.db";
     version = "2.5.0";
     sha256 = "1yp25ifm3bwzkzm8vimlxw5slini7drhvmh5ggh0z80sfrjyndyf";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hspeccdf = derive2 {
     name = "hspeccdf";
@@ -2517,19 +3136,28 @@ in with self; {
     name = "hta20probeset.db";
     version = "8.8.0";
     sha256 = "00pqpqkjmkma9blbzhbmj98h18g46h75q2r2d2li7jhgns7b0pc3";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hta20transcriptcluster_db = derive2 {
     name = "hta20transcriptcluster.db";
     version = "8.8.0";
     sha256 = "0bx90ypbmvxs0gli4466alyr6vxlnq59wi0jqcqh8afl62whls3h";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hthgu133a_db = derive2 {
     name = "hthgu133a.db";
     version = "3.13.0";
     sha256 = "1har3d5d92lpryaqfbwbpiwrlw31kbh4h6z0f7qpgcjijipl13i1";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hthgu133acdf = derive2 {
     name = "hthgu133acdf";
@@ -2553,7 +3181,10 @@ in with self; {
     name = "hthgu133b.db";
     version = "3.13.0";
     sha256 = "0c2ad1zkcl07sxg8i0bfvnmmsff01g2p818jdd6ia5j4zznsdprd";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hthgu133bcdf = derive2 {
     name = "hthgu133bcdf";
@@ -2571,19 +3202,28 @@ in with self; {
     name = "hthgu133plusa.db";
     version = "3.13.0";
     sha256 = "0jym9djj7mm0smgk1sibkvf0xch06hlhpyqmwji24hl7b9flb7vd";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hthgu133plusb_db = derive2 {
     name = "hthgu133plusb.db";
     version = "3.13.0";
     sha256 = "0hkfsdjpzbki8jc16bhvqspyg9dzi89shs14lz67d0id504iirrm";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hthgu133pluspm_db = derive2 {
     name = "hthgu133pluspm.db";
     version = "3.13.0";
     sha256 = "1g11zfvh7l8qmgdpsdbvbn83zqz37g4fiz5yllqa26jpr23a708z";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hthgu133pluspmcdf = derive2 {
     name = "hthgu133pluspmcdf";
@@ -2601,7 +3241,10 @@ in with self; {
     name = "htmg430a.db";
     version = "3.13.0";
     sha256 = "0lsaplzk1myhsdsagsbql4q95yhli3myhhczlzn415pqvx7ykmnj";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   htmg430acdf = derive2 {
     name = "htmg430acdf";
@@ -2619,7 +3262,10 @@ in with self; {
     name = "htmg430b.db";
     version = "3.13.0";
     sha256 = "1iyvqnw3aqjnik3jmw7cn83czyny832xh3jfvgffmi305rydk5i5";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   htmg430bcdf = derive2 {
     name = "htmg430bcdf";
@@ -2637,7 +3283,10 @@ in with self; {
     name = "htmg430pm.db";
     version = "3.13.0";
     sha256 = "0q1dczr4kcq15v63r4mbap5cxc79l5k76rggh28g623dp215l0cx";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   htmg430pmcdf = derive2 {
     name = "htmg430pmcdf";
@@ -2655,7 +3304,10 @@ in with self; {
     name = "htrat230pm.db";
     version = "3.13.0";
     sha256 = "17v7irq01lxb1gl16mx2syyqvan10fjzsl4712l47khiscyi8jxk";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   htrat230pmcdf = derive2 {
     name = "htrat230pmcdf";
@@ -2673,7 +3325,10 @@ in with self; {
     name = "htratfocus.db";
     version = "3.13.0";
     sha256 = "0b7qfdp9mdqgphs7j3vh1xbyw2zkw8and9q4mmj2yd2kdkm23r79";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   htratfocuscdf = derive2 {
     name = "htratfocuscdf";
@@ -2691,7 +3346,10 @@ in with self; {
     name = "hu35ksuba.db";
     version = "3.13.0";
     sha256 = "0j2g9c7pvp5dl81rhfpafc1rfx5x4q8yh8r4zcwskmwcxr5ij6c3";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hu35ksubacdf = derive2 {
     name = "hu35ksubacdf";
@@ -2709,7 +3367,10 @@ in with self; {
     name = "hu35ksubb.db";
     version = "3.13.0";
     sha256 = "0qzgfjwfch58hslm7agz5jv2abga8xj74yk6pm5xn0z6xv7ivagw";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hu35ksubbcdf = derive2 {
     name = "hu35ksubbcdf";
@@ -2727,7 +3388,10 @@ in with self; {
     name = "hu35ksubc.db";
     version = "3.13.0";
     sha256 = "0srgzxhlcb902qj2pc8bc9yj5gw2brip35dhrq66cqmw3k1npp6n";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hu35ksubccdf = derive2 {
     name = "hu35ksubccdf";
@@ -2745,7 +3409,10 @@ in with self; {
     name = "hu35ksubd.db";
     version = "3.13.0";
     sha256 = "0bqhhh8wirh0crkqfd0vgrlphbwyxswa55r9jxc3s294f8r1achb";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hu35ksubdcdf = derive2 {
     name = "hu35ksubdcdf";
@@ -2763,7 +3430,10 @@ in with self; {
     name = "hu6800.db";
     version = "3.13.0";
     sha256 = "0pha36khlag2bawj917wayc2h9n7gkw1hlk54rxsi2w02riq1rwh";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hu6800cdf = derive2 {
     name = "hu6800cdf";
@@ -2811,13 +3481,19 @@ in with self; {
     name = "huex10stprobeset.db";
     version = "8.8.0";
     sha256 = "084g7h58n4nhj3hhzxw05sgzwm06gmg20r4qk7qdh5na5cw0klif";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   huex10sttranscriptcluster_db = derive2 {
     name = "huex10sttranscriptcluster.db";
     version = "8.8.0";
     sha256 = "0pgns280jb77f0hajwqdbwhb78jd9cgi4d2sbk3dlva1iqnyr120";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hugene_1_0_st_v1frmavecs = derive2 {
     name = "hugene.1.0.st.v1frmavecs";
@@ -2829,13 +3505,19 @@ in with self; {
     name = "hugene10stprobeset.db";
     version = "8.8.0";
     sha256 = "05nbdvskilay0b7vp6pdqapkm5mzpw49zvzbbgab1kg93rbyrj2d";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hugene10sttranscriptcluster_db = derive2 {
     name = "hugene10sttranscriptcluster.db";
     version = "8.8.0";
     sha256 = "13cv5038w8akkv5i3bh7fazym9h5x73fcm8l2jc2z4mgkk84skx0";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hugene10stv1cdf = derive2 {
     name = "hugene10stv1cdf";
@@ -2853,37 +3535,55 @@ in with self; {
     name = "hugene11stprobeset.db";
     version = "8.8.0";
     sha256 = "0ijf4i6ag1dmndzkw5mny1x1fmxr6imqw5nz1rrvqwk46q60nsg7";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hugene11sttranscriptcluster_db = derive2 {
     name = "hugene11sttranscriptcluster.db";
     version = "8.8.0";
     sha256 = "0z26491y3fyqvgmhsd6lv1c360ym44fiar1wgffrq3s17zs67xwl";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hugene20stprobeset_db = derive2 {
     name = "hugene20stprobeset.db";
     version = "8.8.0";
     sha256 = "1g9frzx2m2q6b12f9af0hpb5hsjgiw1gy81w6vbsnbc41dw94kgr";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hugene20sttranscriptcluster_db = derive2 {
     name = "hugene20sttranscriptcluster.db";
     version = "8.8.0";
     sha256 = "00fjhz7gac0rssn3kplag68vfx7gimjrm4mc7z516bs013rppgsz";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hugene21stprobeset_db = derive2 {
     name = "hugene21stprobeset.db";
     version = "8.8.0";
     sha256 = "0s4zl9lv5w3fkb9axhz9siliz73brwarw8a7cam1p9b2kmdrdqs0";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   hugene21sttranscriptcluster_db = derive2 {
     name = "hugene21sttranscriptcluster.db";
     version = "8.8.0";
     sha256 = "1g7yfva96vhkdvcvsjwsj7sy8q6kczd5rmcwrwjc73v9qi4ywgal";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   human_db0 = derive2 {
     name = "human.db0";
@@ -2979,127 +3679,191 @@ in with self; {
     name = "hwgcod.db";
     version = "3.4.0";
     sha256 = "031y994csc2zfjp2qpki6mzqf4ybb849wn12gbdqphivvpccwm2b";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   illuminaHumanWGDASLv3_db = derive2 {
     name = "illuminaHumanWGDASLv3.db";
     version = "1.26.0";
     sha256 = "0qcr9yx0xxqxmxl0lcl38lnj41nzxd581vp6fyz2y9z8041jar3a";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   illuminaHumanWGDASLv4_db = derive2 {
     name = "illuminaHumanWGDASLv4.db";
     version = "1.26.0";
     sha256 = "0hirbzmfw08b1p3lga00yvfvpnvhij1fayhikc3l9n2sjxkba2xl";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   illuminaHumanv1_db = derive2 {
     name = "illuminaHumanv1.db";
     version = "1.26.0";
     sha256 = "1bd98sskkjqlrshmhkwdhfspyznsjissyk77x373rmq18nb0pjp9";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   illuminaHumanv2_db = derive2 {
     name = "illuminaHumanv2.db";
     version = "1.26.0";
     sha256 = "12pvq269glvk199996s5rcsyzkxyi2ixqrbpdanlw09x5igvfpk6";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   illuminaHumanv2BeadID_db = derive2 {
     name = "illuminaHumanv2BeadID.db";
     version = "1.8.0";
     sha256 = "048znqv200bn5zgikmqzb7dazrys6h5sa1fhybi2x50k203yrslp";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   illuminaHumanv3_db = derive2 {
     name = "illuminaHumanv3.db";
     version = "1.26.0";
     sha256 = "06rsa36lb3nnk2bc65774v7m3r08h7qv6320ax6ib5si2p6wk86f";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   illuminaHumanv4_db = derive2 {
     name = "illuminaHumanv4.db";
     version = "1.26.0";
     sha256 = "11gf6gcbkhvvhca02mbx4rjs07lcnsj6hk0sdqhaczwcwzb4ha1n";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   illuminaMousev1_db = derive2 {
     name = "illuminaMousev1.db";
     version = "1.26.0";
     sha256 = "0w2iziiw8axd1wll3h3vpwn4zr117y5v7c5ji121dh8yzkn1r2ng";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   illuminaMousev1p1_db = derive2 {
     name = "illuminaMousev1p1.db";
     version = "1.26.0";
     sha256 = "1sxqwrc3697361jp69xy9g8w5a699ifjvldqi9ks538h5yc157z1";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   illuminaMousev2_db = derive2 {
     name = "illuminaMousev2.db";
     version = "1.26.0";
     sha256 = "0vwi309ymhrbpa9dyk0fwqy7bfwvvp67q39xjav1s9npi3slv1h3";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   illuminaRatv1_db = derive2 {
     name = "illuminaRatv1.db";
     version = "1.26.0";
     sha256 = "1krpp3pb3h2nrk5jrx54a3v6473qsjnz5wksysy8p4zpisvnxyfb";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   indac_db = derive2 {
     name = "indac.db";
     version = "3.2.3";
     sha256 = "0jjkiyhjcjgk9888a96g5w80k8a652cww5dhidbdiq5d8gakbnji";
-    depends = [ AnnotationDbi org_Dm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Dm_eg_db
+    ];
   };
   lumiHumanAll_db = derive2 {
     name = "lumiHumanAll.db";
     version = "1.22.0";
     sha256 = "0kn2m31b4q8r1lm4iwda9i62la4akj0c35pi3khbfvkmdrvbvhd2";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   lumiHumanIDMapping = derive2 {
     name = "lumiHumanIDMapping";
     version = "1.10.1";
     sha256 = "0j29cd01z840jg4zq0yczjsqnya1vpx6hajqdq96msiy4i5fj534";
-    depends = [ AnnotationDbi DBI lumi ];
+    depends = [
+      AnnotationDbi
+      DBI
+      lumi
+    ];
   };
   lumiMouseAll_db = derive2 {
     name = "lumiMouseAll.db";
     version = "1.22.0";
     sha256 = "00iawk8wb1hnvmy898nl9hc85rfzzwi34lpnv2d37rw4wdn57z33";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   lumiMouseIDMapping = derive2 {
     name = "lumiMouseIDMapping";
     version = "1.10.0";
     sha256 = "18mc7vwp2p53ns2paa4glj570shmbq9lk318g3p9nl09mxyadim9";
-    depends = [ AnnotationDbi lumi ];
+    depends = [
+      AnnotationDbi
+      lumi
+    ];
   };
   lumiRatAll_db = derive2 {
     name = "lumiRatAll.db";
     version = "1.22.0";
     sha256 = "1yh0q8aw33xsn4phj04v0mhjn8xh3z06jrg7yfi9qz1c985z1gw6";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   lumiRatIDMapping = derive2 {
     name = "lumiRatIDMapping";
     version = "1.10.0";
     sha256 = "1d30c3xkxcl8qk68ab7nf8k13m4yb2aqiavhi917yfic1mcbi9gh";
-    depends = [ AnnotationDbi lumi ];
+    depends = [
+      AnnotationDbi
+      lumi
+    ];
   };
   m10kcod_db = derive2 {
     name = "m10kcod.db";
     version = "3.4.0";
     sha256 = "0fqfzjii536xlgpj1z3bgld1269qdh89ynzmrq6l366pj5im0nah";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   m20kcod_db = derive2 {
     name = "m20kcod.db";
     version = "3.4.0";
     sha256 = "1p2sm5j4b50iqzwcb984qrh74c3hf6yml7b8mvxlhhhvxz4iy1np";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   maizecdf = derive2 {
     name = "maizecdf";
@@ -3141,7 +3905,10 @@ in with self; {
     name = "mgu74a.db";
     version = "3.13.0";
     sha256 = "1xksybvhfyclxfbabm6haxy0z4izb29qlxd36s3llr3x839wa3kv";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mgu74acdf = derive2 {
     name = "mgu74acdf";
@@ -3159,7 +3926,10 @@ in with self; {
     name = "mgu74av2.db";
     version = "3.13.0";
     sha256 = "0mnnzqhqswwbh140mcwsy5bz0l7affzznhkby5jvvmj9mq7pd15d";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mgu74av2cdf = derive2 {
     name = "mgu74av2cdf";
@@ -3177,7 +3947,10 @@ in with self; {
     name = "mgu74b.db";
     version = "3.13.0";
     sha256 = "0h8riyk7816ydqhlah3lnlqqzpv6xca3flyzp889kh7j5r9d4792";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mgu74bcdf = derive2 {
     name = "mgu74bcdf";
@@ -3195,7 +3968,10 @@ in with self; {
     name = "mgu74bv2.db";
     version = "3.13.0";
     sha256 = "1r35rhh11q8s1d9mva4qky8sjh04hpk1ziavx77b5mw6aza1ckh4";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mgu74bv2cdf = derive2 {
     name = "mgu74bv2cdf";
@@ -3213,7 +3989,10 @@ in with self; {
     name = "mgu74c.db";
     version = "3.13.0";
     sha256 = "1s09n64m46qmsl0drlr383rb20gvq62xzqg3l8jk1mja2mpl41ji";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mgu74ccdf = derive2 {
     name = "mgu74ccdf";
@@ -3231,7 +4010,10 @@ in with self; {
     name = "mgu74cv2.db";
     version = "3.13.0";
     sha256 = "072brqii2ya2ppqbp71r61j6xh2syfhnfgnh3452dyjf2xc48klr";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mgu74cv2cdf = derive2 {
     name = "mgu74cv2cdf";
@@ -3249,49 +4031,77 @@ in with self; {
     name = "mguatlas5k.db";
     version = "3.2.3";
     sha256 = "08lw02r9wpc06pq82934dlfsrjjsaqchrsyghc8pgk6iqq1c3f9r";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mgug4104a_db = derive2 {
     name = "mgug4104a.db";
     version = "3.2.3";
     sha256 = "1aqs943lff3q1g2dfl9cyxfpm8swkjcb4spi5drgw39g9m8p3dp8";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mgug4120a_db = derive2 {
     name = "mgug4120a.db";
     version = "3.2.3";
     sha256 = "1qnzpww4wy926j4i10rfddng8ygav86ig9c301qwvw0ly235f0vx";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mgug4121a_db = derive2 {
     name = "mgug4121a.db";
     version = "3.2.3";
     sha256 = "0947crjk8nj4bzgwz7anran7y2qhd1v8bp9f59ja3628rgjx6cz5";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mgug4122a_db = derive2 {
     name = "mgug4122a.db";
     version = "3.2.3";
     sha256 = "0x4mrjqd9wnppkp757f3azllbjiilxfds3cpbcrfsi07l8lf4mxx";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mi16cod_db = derive2 {
     name = "mi16cod.db";
     version = "3.4.0";
     sha256 = "1v64plvn173hdvjyy491qh2wd4mgbpwr27iq7lab9b3w1g3b1a82";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   miRBaseVersions_db = derive2 {
     name = "miRBaseVersions.db";
     version = "1.1.0";
     sha256 = "09n0309glsj53g6wainl5m0vwnlx71ija5zmlqd0cpbhdis5zihw";
-    depends = [ AnnotationDbi DBI gtools RSQLite ];
+    depends = [
+      AnnotationDbi
+      DBI
+      gtools
+      RSQLite
+    ];
   };
   miRNAtap_db = derive2 {
     name = "miRNAtap.db";
     version = "0.99.10";
     sha256 = "1j4igmyb9f4fa0a72hkmq3f7xgvyv38wai3mds5sd6mfgfc3brs3";
-    depends = [ AnnotationDbi DBI miRNAtap RSQLite ];
+    depends = [
+      AnnotationDbi
+      DBI
+      miRNAtap
+      RSQLite
+    ];
   };
   mirbase_db = derive2 {
     name = "mirbase.db";
@@ -3327,13 +4137,19 @@ in with self; {
     name = "mm24kresogen.db";
     version = "2.5.0";
     sha256 = "0kf9cilhfpfl9cws1b08ic11fnqscdvbja4m16sm4xjyfd2kskfp";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   moe430a_db = derive2 {
     name = "moe430a.db";
     version = "3.13.0";
     sha256 = "1qc9gcirhmmwj9c4wfcj4f6j5dldf5s1z3nz3w0c95ywmy60sb43";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   moe430acdf = derive2 {
     name = "moe430acdf";
@@ -3351,7 +4167,10 @@ in with self; {
     name = "moe430b.db";
     version = "3.13.0";
     sha256 = "06hycpzsavrgy196d5vx1y3xqqr1w4x40byqvfzxnd5cah26yqa2";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   moe430bcdf = derive2 {
     name = "moe430bcdf";
@@ -3369,13 +4188,19 @@ in with self; {
     name = "moex10stprobeset.db";
     version = "8.8.0";
     sha256 = "1a4jparn4l9v89y1g1xq7w4z1qqz7s2y6c4fjr7vbs8kfk43d3rd";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   moex10sttranscriptcluster_db = derive2 {
     name = "moex10sttranscriptcluster.db";
     version = "8.8.0";
     sha256 = "05x687d8gv8yh8rwqfz962ij9rk6k4vzf0bn868zn2j7cykh129d";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mogene_1_0_st_v1frmavecs = derive2 {
     name = "mogene.1.0.st.v1frmavecs";
@@ -3387,13 +4212,19 @@ in with self; {
     name = "mogene10stprobeset.db";
     version = "8.8.0";
     sha256 = "0hqgazgiq28y9hn86zdviv1zv9x3mkkgvh05x0d9nxlhhzxyxj9m";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mogene10sttranscriptcluster_db = derive2 {
     name = "mogene10sttranscriptcluster.db";
     version = "8.8.0";
     sha256 = "1l9k0vj6p9q5rj2hgw9bdcpmbcslvqaks1jm3bxb2m7h4fazsncd";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mogene10stv1cdf = derive2 {
     name = "mogene10stv1cdf";
@@ -3411,37 +4242,55 @@ in with self; {
     name = "mogene11stprobeset.db";
     version = "8.8.0";
     sha256 = "0wxli72widbakvcvhqc0md7ys0c36gmc047p9n9d8z3vs3g1fhvs";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mogene11sttranscriptcluster_db = derive2 {
     name = "mogene11sttranscriptcluster.db";
     version = "8.8.0";
     sha256 = "0yj71cs8qzv8pbricaljwpqz3fi98mianyxk4bd1fi6faiwnj0xv";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mogene20stprobeset_db = derive2 {
     name = "mogene20stprobeset.db";
     version = "8.8.0";
     sha256 = "0v16la20n39m6gsy51w61df2rhndzivszasswrc1mm465ksmhgng";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mogene20sttranscriptcluster_db = derive2 {
     name = "mogene20sttranscriptcluster.db";
     version = "8.8.0";
     sha256 = "1bpzpba9aifc7w6qbrh6rnc636k6z1r9gz03sxvc3aa3977p9xag";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mogene21stprobeset_db = derive2 {
     name = "mogene21stprobeset.db";
     version = "8.8.0";
     sha256 = "172bhzqqw5hz76bw8vqwx2qpw4f6rwbcm6savmkxmmhzb2nq60z5";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mogene21sttranscriptcluster_db = derive2 {
     name = "mogene21sttranscriptcluster.db";
     version = "8.8.0";
     sha256 = "02g2n5nkxi9lqw9h7sbkblk99zd57lkrldqb1fmi9zww59qwagrv";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mouse_db0 = derive2 {
     name = "mouse.db0";
@@ -3453,7 +4302,10 @@ in with self; {
     name = "mouse4302.db";
     version = "3.13.0";
     sha256 = "0rf22kfj6y96ap0gcwq3mnpv6fj0yax37gf51sfi0wkmp95k7rcs";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mouse4302cdf = derive2 {
     name = "mouse4302cdf";
@@ -3477,7 +4329,10 @@ in with self; {
     name = "mouse430a2.db";
     version = "3.13.0";
     sha256 = "1wxy9p9xmph3bimrz6fi9qyhf737alpqmb9ayyr5xk1fvj71c511";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mouse430a2cdf = derive2 {
     name = "mouse430a2cdf";
@@ -3507,25 +4362,37 @@ in with self; {
     name = "mpedbarray.db";
     version = "3.2.3";
     sha256 = "04pwchivzb19awnnqr9an0nl49rgdva58ip1fkgbavp3vlirxv4i";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mta10probeset_db = derive2 {
     name = "mta10probeset.db";
     version = "8.8.0";
     sha256 = "1kscmw99qsl34dwhl3izvqhyga65lymgv9fx81h9abq9x2dhr7im";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mta10transcriptcluster_db = derive2 {
     name = "mta10transcriptcluster.db";
     version = "8.8.0";
     sha256 = "1hk862b1r023l3h04n5qqqd5fmpvz4l4xypb9lvc40nxr8h6sw2a";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mu11ksuba_db = derive2 {
     name = "mu11ksuba.db";
     version = "3.13.0";
     sha256 = "06sfscqw82sjf5q2cd60bi2jclf2j3xn37555zwm6l602piqyqs2";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mu11ksubacdf = derive2 {
     name = "mu11ksubacdf";
@@ -3543,7 +4410,10 @@ in with self; {
     name = "mu11ksubb.db";
     version = "3.13.0";
     sha256 = "0z6lbi437rvamwb6185f1brhayd70fw6dh6ga3ln2sinvbpkdh4w";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mu11ksubbcdf = derive2 {
     name = "mu11ksubbcdf";
@@ -3561,7 +4431,10 @@ in with self; {
     name = "mu19ksuba.db";
     version = "3.13.0";
     sha256 = "1js9zrbbzdrsl73qa1dvfqcrcaxsmlrj7ymyjiadzcg3g014z3lv";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mu19ksubacdf = derive2 {
     name = "mu19ksubacdf";
@@ -3573,7 +4446,10 @@ in with self; {
     name = "mu19ksubb.db";
     version = "3.13.0";
     sha256 = "1i7xl84mv8s93hqh9baa4sp5jhwmvhsm37379yjps1q5yyydci4i";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mu19ksubbcdf = derive2 {
     name = "mu19ksubbcdf";
@@ -3585,7 +4461,10 @@ in with self; {
     name = "mu19ksubc.db";
     version = "3.13.0";
     sha256 = "19ixhs75lsrykdqzb2cn1dz2f45nzcmpbp340ipp78maa89z3axr";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   mu19ksubccdf = derive2 {
     name = "mu19ksubccdf";
@@ -3621,13 +4500,19 @@ in with self; {
     name = "mwgcod.db";
     version = "3.4.0";
     sha256 = "0h3ha3d7fml8754ixbd1pgq33jsxl9zivyfmakxy5971b888qiin";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   nugohs1a520180_db = derive2 {
     name = "nugohs1a520180.db";
     version = "3.4.0";
     sha256 = "0r0x8j3safvdncm4s91qircqdcxzyhmq2ad2sf73dcg74pjv0s2w";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   nugohs1a520180cdf = derive2 {
     name = "nugohs1a520180cdf";
@@ -3645,7 +4530,10 @@ in with self; {
     name = "nugomm1a520177.db";
     version = "3.4.0";
     sha256 = "1s3q5hgyz3ikf8bd8c20s6dsl48nymmjz9fwqpq58xrx91sqb7q5";
-    depends = [ AnnotationDbi org_Mm_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Mm_eg_db
+    ];
   };
   nugomm1a520177cdf = derive2 {
     name = "nugomm1a520177cdf";
@@ -3753,7 +4641,12 @@ in with self; {
     name = "org.Mxanthus.db";
     version = "1.0.27";
     sha256 = "1jqwsdjz1d8fwqhq26lavb2kq739ddlb8khsh4b096vhnwv3dxg5";
-    depends = [ AnnotationDbi AnnotationHub BiocFileCache BiocStyle ];
+    depends = [
+      AnnotationDbi
+      AnnotationHub
+      BiocFileCache
+      BiocStyle
+    ];
   };
   org_Pt_eg_db = derive2 {
     name = "org.Pt.eg.db";
@@ -3801,1066 +4694,2443 @@ in with self; {
     name = "pd.081229.hg18.promoter.medip.hx1";
     version = "0.99.4";
     sha256 = "1h4925dmw0vfsnhllg55gswq3sxfmx9rcjzifdvgs9y27399psrr";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+    ];
   };
   pd_2006_07_18_hg18_refseq_promoter = derive2 {
     name = "pd.2006.07.18.hg18.refseq.promoter";
     version = "1.8.1";
     sha256 = "09593qkh3jqlgxlqrpl3gla3y1kcshnzlq6nf10xhlps0qdlskhx";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+    ];
   };
   pd_2006_07_18_mm8_refseq_promoter = derive2 {
     name = "pd.2006.07.18.mm8.refseq.promoter";
     version = "0.99.3";
     sha256 = "14cm7z1y7rsk5m2zazg27wvjabckb9ifwa1g091ckwn1jfaf7aqn";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+    ];
   };
   pd_2006_10_31_rn34_refseq_promoter = derive2 {
     name = "pd.2006.10.31.rn34.refseq.promoter";
     version = "0.99.3";
     sha256 = "0v0fa1hn5bwa15vg31dar2x0xfki0xby6qf5p1a0ivrx3pnvbsrl";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+    ];
   };
   pd_ag = derive2 {
     name = "pd.ag";
     version = "3.12.0";
     sha256 = "0kh7ridgihqpibazpxpf9y8qiznxm4nng39701abamadxb5r6qmq";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_aragene_1_0_st = derive2 {
     name = "pd.aragene.1.0.st";
     version = "3.12.0";
     sha256 = "0255bgsqz8fflnlnxw77wvv6rky46n3pcryk9yhw7nfx0cq19v4r";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_aragene_1_1_st = derive2 {
     name = "pd.aragene.1.1.st";
     version = "3.12.0";
     sha256 = "105qfxg8p9z0bzffm6zg16c5f6nnv5hddlpcxs0kp3daddap8h5s";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_ath1_121501 = derive2 {
     name = "pd.ath1.121501";
     version = "3.12.0";
     sha256 = "0j83s6402xrggnlnqjyphy577by9w1ncvf1az4immzaixdamaaxc";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_barley1 = derive2 {
     name = "pd.barley1";
     version = "3.12.0";
     sha256 = "0mha6w2zh7gi4y7ngkh84jaff50h8l9a0q9dwc8a00m5npkpkv4g";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_bovgene_1_0_st = derive2 {
     name = "pd.bovgene.1.0.st";
     version = "3.12.0";
     sha256 = "00ys19pdc7zgprfrhmk0pzfb5q96qy0vqxi2a6g28pxwf3367b30";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_bovgene_1_1_st = derive2 {
     name = "pd.bovgene.1.1.st";
     version = "3.12.0";
     sha256 = "0npjm9rpcwj5j8sh1mdr5j1fz7dbwrqvjh2jx69fpslry69i6daq";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_bovine = derive2 {
     name = "pd.bovine";
     version = "3.12.0";
     sha256 = "1g03za5jc8lz21wpx1h2rcxdwsx7ddmmnyflz46z35ginzy41g7h";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_bsubtilis = derive2 {
     name = "pd.bsubtilis";
     version = "3.12.0";
     sha256 = "07x4dss0zp3p315q38bi7xarycav2hr44x7jb1jx4dypr0jh98mh";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_cangene_1_0_st = derive2 {
     name = "pd.cangene.1.0.st";
     version = "3.12.0";
     sha256 = "0dcwy6gnlj51hkc2gsv6fdq02vczci4z37f3iy1n8zkvz5b4yw6c";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_cangene_1_1_st = derive2 {
     name = "pd.cangene.1.1.st";
     version = "3.12.0";
     sha256 = "0pgw1424rvg3k9m3z6ffiyfj91i930dx2slqd15bnvc9hrr75094";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_canine = derive2 {
     name = "pd.canine";
     version = "3.12.0";
     sha256 = "0xpisxv7c990w44gd5g2iwfzqi3618xa3mdps69z2j4bfrcm37vq";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_canine_2 = derive2 {
     name = "pd.canine.2";
     version = "3.12.0";
     sha256 = "1dx914yyq6ry88d6fipsxsvp41pgcgllznpwsqqm2xa99y85ka5y";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_celegans = derive2 {
     name = "pd.celegans";
     version = "3.12.0";
     sha256 = "08byc5xvnbfdlikv9118k52pk37br4k8hn86xypkrmbz67fzlzpd";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_charm_hg18_example = derive2 {
     name = "pd.charm.hg18.example";
     version = "0.99.4";
     sha256 = "0nqv3h4zp83vp7q49n956920x5hdfcbw4z3hlvmqx8dixbgr1jrg";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+    ];
   };
   pd_chicken = derive2 {
     name = "pd.chicken";
     version = "3.12.0";
     sha256 = "1alkhr297ar6iv7nrjxnlhmq3xvjzpl46mdckkbxw13w73vj6p32";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_chigene_1_0_st = derive2 {
     name = "pd.chigene.1.0.st";
     version = "3.12.0";
     sha256 = "0smfgx1brfla96ijsv3a3ljcn02kpbk6sczgp06dik3g0k54788h";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_chigene_1_1_st = derive2 {
     name = "pd.chigene.1.1.st";
     version = "3.12.0";
     sha256 = "013baf38h35fsxq0f32v00rizik8iq76jm1s8azkicv90bvw5g8k";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_chogene_2_0_st = derive2 {
     name = "pd.chogene.2.0.st";
     version = "3.12.0";
     sha256 = "0pljjz466y2aav9045qgr5hbrv7alyl3gw3br4a8knbijk6fbw15";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_chogene_2_1_st = derive2 {
     name = "pd.chogene.2.1.st";
     version = "3.12.0";
     sha256 = "0d9pslimh0w37yvvfgqljbr2z5arjn6kx0wnjhp19gcch44jvkr2";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_citrus = derive2 {
     name = "pd.citrus";
     version = "3.12.0";
     sha256 = "1792gsxdr24264n121zvspdq39ac3khaghv5j66rn2nzqds75qch";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_clariom_d_human = derive2 {
     name = "pd.clariom.d.human";
     version = "3.14.1";
     sha256 = "11q4s4q07fpkl5wpmhhjfkrp4l8i8gy1i8wc80aar84lp1261vvx";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_clariom_s_human = derive2 {
     name = "pd.clariom.s.human";
     version = "3.14.1";
     sha256 = "0a68mnwv735mi9k9qxs2vv4hnh76yg1n7jjyaw34g8m7405yjxxp";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_clariom_s_human_ht = derive2 {
     name = "pd.clariom.s.human.ht";
     version = "3.14.1";
     sha256 = "08fzm8xp6wa4x03vqb28dvlz3hiwv2q5n5h9m2np0g4g40hbhg89";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_clariom_s_mouse = derive2 {
     name = "pd.clariom.s.mouse";
     version = "3.14.1";
     sha256 = "15fc25840lnhv0rlxc98akda1gis1s4xn61ycvymjii3lgx8hwpk";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_clariom_s_mouse_ht = derive2 {
     name = "pd.clariom.s.mouse.ht";
     version = "3.14.1";
     sha256 = "1ka9mganvymml306yh196rqan333ykrmqp9dfl4xs9mz57p405kk";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_clariom_s_rat = derive2 {
     name = "pd.clariom.s.rat";
     version = "3.14.1";
     sha256 = "1bx0vipcw3vjpz59h5820yanwy7b8mxb8bkgwp3n58vm24x7l304";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_clariom_s_rat_ht = derive2 {
     name = "pd.clariom.s.rat.ht";
     version = "3.14.1";
     sha256 = "17fk4qiznh2ks7r4mzbv1gnpjca39n6rzshb5dw5n73rbnd24160";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_cotton = derive2 {
     name = "pd.cotton";
     version = "3.12.0";
     sha256 = "1h71klvndi32j7hb7cy2w6asf7lb1xhs5glxajnd30y7ksigba7l";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_cyngene_1_0_st = derive2 {
     name = "pd.cyngene.1.0.st";
     version = "3.12.0";
     sha256 = "1xkv8m346x1zrnp4bhbjk2xwfq5jkbprbh417bya8swqvcyv3zbj";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_cyngene_1_1_st = derive2 {
     name = "pd.cyngene.1.1.st";
     version = "3.12.0";
     sha256 = "1kicrk0n2lik32q9nkpfy8ydh8klsy6i5cy6m2grddv80g5hc6n4";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_cyrgene_1_0_st = derive2 {
     name = "pd.cyrgene.1.0.st";
     version = "3.12.0";
     sha256 = "1s7rrwcmaar230y90hhvrx3wxlp228j88pwdh2glap2pn3d3rlnd";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_cyrgene_1_1_st = derive2 {
     name = "pd.cyrgene.1.1.st";
     version = "3.12.0";
     sha256 = "0p7j8ygyx8f5aqyy847rfcc35hrkcavi1700af971jjrha3gllc0";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_cytogenetics_array = derive2 {
     name = "pd.cytogenetics.array";
     version = "3.12.0";
     sha256 = "0gd7q64zfxda9irdmmr92iqxlswaj5v4pklsfm96xkn8lxq34dlb";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_drogene_1_0_st = derive2 {
     name = "pd.drogene.1.0.st";
     version = "3.12.0";
     sha256 = "1zp85q3a2bayr0q5r0ij62kfypzngcz9v791xsf9n9k7nx6714fi";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_drogene_1_1_st = derive2 {
     name = "pd.drogene.1.1.st";
     version = "3.12.0";
     sha256 = "0yjxjzmcx2hh6rm15p9d36vfj77fwmd7q2kbjk8h7hbpkm72ssdf";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_drosgenome1 = derive2 {
     name = "pd.drosgenome1";
     version = "3.12.0";
     sha256 = "1cp3fs2g88yv50gkd6m769idlj7kci2g82wafn17ci65g64q0g05";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_drosophila_2 = derive2 {
     name = "pd.drosophila.2";
     version = "3.12.0";
     sha256 = "0rr3l6203nfzhz21wps7dfcifvzmbnixcr2piv5jdfh7birj23aa";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_e_coli_2 = derive2 {
     name = "pd.e.coli.2";
     version = "3.12.0";
     sha256 = "1nny0w0adg433n1i20q0jdmi5yy1anpa91dgrklpvxyxbr5902vz";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_ecoli = derive2 {
     name = "pd.ecoli";
     version = "3.12.0";
     sha256 = "0mi5i0cp5xz97pb3ic6qmwl3fp4byyddvas2npll4ngarl5wv5ag";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_ecoli_asv2 = derive2 {
     name = "pd.ecoli.asv2";
     version = "3.12.0";
     sha256 = "19pn7691cr0vakxlx0q0x3p1pfc0z8l5f14475bv2fr4djljhhma";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_elegene_1_0_st = derive2 {
     name = "pd.elegene.1.0.st";
     version = "3.12.0";
     sha256 = "1if8gwvvk9jybsrcwr8sayg1czchpnlmysa9plrm50g7r2ki7m4l";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_elegene_1_1_st = derive2 {
     name = "pd.elegene.1.1.st";
     version = "3.12.0";
     sha256 = "18v3n3ss3rl2ksvjg1jk1w0mprhhxra55znixfcd8ikqsrdfj2a2";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_equgene_1_0_st = derive2 {
     name = "pd.equgene.1.0.st";
     version = "3.12.0";
     sha256 = "01vcj6a6hm9j2fbhrz244sbig63j1jyxyg068q4hizpl9lpzaibd";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_equgene_1_1_st = derive2 {
     name = "pd.equgene.1.1.st";
     version = "3.12.0";
     sha256 = "0migyzmrgqvvnkl8w61qv26hj5kjy720q4ipamdn99z9s4r8cxrn";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_feinberg_hg18_me_hx1 = derive2 {
     name = "pd.feinberg.hg18.me.hx1";
     version = "0.99.3";
     sha256 = "1k50khs7mrp1qy9z0whm5drwv59m8zn7v0zxhv26bpvmwbrnlhfg";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+    ];
   };
   pd_feinberg_mm8_me_hx1 = derive2 {
     name = "pd.feinberg.mm8.me.hx1";
     version = "0.99.3";
     sha256 = "1xk4rmpxjh9mwijwglzlycg7bk2zk599fk7xbnk114rj216y2jsm";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+    ];
   };
   pd_felgene_1_0_st = derive2 {
     name = "pd.felgene.1.0.st";
     version = "3.12.0";
     sha256 = "1lf3lp3zjprfwni2nfdpkvj2j6y7hd7znmxqcgj46vccznc49hh6";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_felgene_1_1_st = derive2 {
     name = "pd.felgene.1.1.st";
     version = "3.12.0";
     sha256 = "027cgqxfgmlkx64y6nm9h36ji781fkrnnrdxblh8h4jwjd5n36rj";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_fingene_1_0_st = derive2 {
     name = "pd.fingene.1.0.st";
     version = "3.12.0";
     sha256 = "0l19h920cghw65nqbh79s1rwijqdl7k84km0iv1fgx0kxhh28xa0";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_fingene_1_1_st = derive2 {
     name = "pd.fingene.1.1.st";
     version = "3.12.0";
     sha256 = "1habbw9fvygailw73azfrvczgp6ap1az688vz8pklqq77vlqs1qz";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_genomewidesnp_5 = derive2 {
     name = "pd.genomewidesnp.5";
     version = "3.14.1";
     sha256 = "1kiqmcc07q2m7hkgqczqndk7frpwibpsi2c0ihr5av0vjrp118ak";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_genomewidesnp_6 = derive2 {
     name = "pd.genomewidesnp.6";
     version = "3.14.1";
     sha256 = "1f35nw987axlc5rsr97i7rwcy1dd8zjjj6jf4cg75y0la6rvhfw4";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_guigene_1_0_st = derive2 {
     name = "pd.guigene.1.0.st";
     version = "3.12.0";
     sha256 = "1rq5gbdm6k0shv82zy7vrqxahzffh1xikrd3a6d1ai67n129bv6f";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_guigene_1_1_st = derive2 {
     name = "pd.guigene.1.1.st";
     version = "3.12.0";
     sha256 = "0p53kkhaa4d6ib32sfnwvs363zir227dmzxp8yqma0z4kz0djdna";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_hc_g110 = derive2 {
     name = "pd.hc.g110";
     version = "3.12.0";
     sha256 = "014bb45m2pwwbz7aca6l6442188mkp5bsk46z7x18g0aa66p06hv";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_hg_focus = derive2 {
     name = "pd.hg.focus";
     version = "3.12.0";
     sha256 = "1qlkhxq76nb55c299g7x7x8wn8nx1mg4ra5b0faflsjirkh4b32s";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_hg_u133_plus_2 = derive2 {
     name = "pd.hg.u133.plus.2";
     version = "3.12.0";
     sha256 = "02ip0mf24lw818ij8xgk7cylb5q1059jwvbdd2aynqqwy2mg31h0";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_hg_u133a = derive2 {
     name = "pd.hg.u133a";
     version = "3.12.0";
     sha256 = "08bk5im2zkb1vif1i6bgfx068xcl5q5m0ac33zpscfdq4jashm7k";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_hg_u133a_2 = derive2 {
     name = "pd.hg.u133a.2";
     version = "3.12.0";
     sha256 = "1rlh62r5zmxllkc9izr6a4yr2n88flfz1rybwvi90yggc788chxy";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_hg_u133a_tag = derive2 {
     name = "pd.hg.u133a.tag";
     version = "3.12.0";
     sha256 = "1ndjzcydshh5f3cnrav91hi47bx92z6rqliiwirhx2cqk8bvz5yp";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_hg_u133b = derive2 {
     name = "pd.hg.u133b";
     version = "3.12.0";
     sha256 = "1mafh53bj6g30869pdyl59040m2crqqbfcbdpdxfpigxpqr3rb4c";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_hg_u219 = derive2 {
     name = "pd.hg.u219";
     version = "3.12.0";
     sha256 = "04kqvh5ilf83z2iwvfw7m8xsgjxy29vqayp1lgh38y48j0nn24dk";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_hg_u95a = derive2 {
     name = "pd.hg.u95a";
     version = "3.12.0";
     sha256 = "1c7d16im1xxs8v0ccn19klwv43qr6b4iw0k5hz9cl8m10jmyw49b";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_hg_u95av2 = derive2 {
     name = "pd.hg.u95av2";
     version = "3.12.0";
     sha256 = "1l3y2bhjk67jwxvxwn5rngzn5c2dzk4lk24cm74f6px845qw5sk7";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_hg_u95b = derive2 {
     name = "pd.hg.u95b";
     version = "3.12.0";
     sha256 = "0gyxh7nagya1hgh5vvwalxmhbqm9pii3l6h1mndvx2ib58msh49h";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_hg_u95c = derive2 {
     name = "pd.hg.u95c";
     version = "3.12.0";
     sha256 = "0p9yrwjw75r5dg3z0pl4yr04agjpqv9rz3in2faw3pqawdzndihq";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_hg_u95d = derive2 {
     name = "pd.hg.u95d";
     version = "3.12.0";
     sha256 = "0ygfx73b122b468zvr9lhw2vkr1aijasrazarqjqc8bjbfm4fybw";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_hg_u95e = derive2 {
     name = "pd.hg.u95e";
     version = "3.12.0";
     sha256 = "0cksi811m9fzjq5linlsarfswp3p7rdgks0js3chv91jr3v2z3a7";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_hg18_60mer_expr = derive2 {
     name = "pd.hg18.60mer.expr";
     version = "3.12.0";
     sha256 = "1lsfsgsj6gyv0q509d0axr6g2yv226zxqh8f2n1hw0kfxwl27bm8";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_ht_hg_u133_plus_pm = derive2 {
     name = "pd.ht.hg.u133.plus.pm";
     version = "3.12.0";
     sha256 = "1000f1d28yzc0kcdf380fkx3xlgla3kn4n9f2ddawzjb7igash92";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_ht_hg_u133a = derive2 {
     name = "pd.ht.hg.u133a";
     version = "3.12.0";
     sha256 = "14bnnxsn02mpyynn8bvl8c47id9l2wfakngbvpq4h5yjy689jm1c";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_ht_mg_430a = derive2 {
     name = "pd.ht.mg.430a";
     version = "3.12.0";
     sha256 = "10shsap47217p6zmb9fn86na7if965h45l2r787cisgyyn9n45mq";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_hta_2_0 = derive2 {
     name = "pd.hta.2.0";
     version = "3.12.2";
     sha256 = "004mm93wag59arzirws3cfqjv4whl8sbv558xxg7pj1ar026g4m3";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_hu6800 = derive2 {
     name = "pd.hu6800";
     version = "3.12.0";
     sha256 = "07dj0avpx53kwaab9s126pn844nal9kn3h288n1m0kihir2mrjmv";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_huex_1_0_st_v2 = derive2 {
     name = "pd.huex.1.0.st.v2";
     version = "3.14.1";
     sha256 = "1chlvjy1gvw5r8hfmkb34m3h7w2z4s5x9gsc50qbj84988k4gzga";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_hugene_1_0_st_v1 = derive2 {
     name = "pd.hugene.1.0.st.v1";
     version = "3.14.1";
     sha256 = "1ikd6h7wnyxm11j0had2wcsxfbfrwdfw9605bvvdgd63dlvdv5dk";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_hugene_1_1_st_v1 = derive2 {
     name = "pd.hugene.1.1.st.v1";
     version = "3.14.1";
     sha256 = "0bsvwr4h8j4niagnmf7d2jd714dqk4yzdhr664z6vpx6429s0rsw";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_hugene_2_0_st = derive2 {
     name = "pd.hugene.2.0.st";
     version = "3.14.1";
     sha256 = "02m5x9mrz4ca0w84ljmdpw7rnlzqbqdq0q5k4sg7izx99k5c8r59";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_hugene_2_1_st = derive2 {
     name = "pd.hugene.2.1.st";
     version = "3.14.1";
     sha256 = "07la78206cvilfm8l2fwrcyy3gpwnhn0p32ilv043ln9drka2r8h";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_maize = derive2 {
     name = "pd.maize";
     version = "3.12.0";
     sha256 = "02viqnqf02d75sbarxh1k76966yay5i6wwdx118s4c9nlr5q6aqg";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_mapping250k_nsp = derive2 {
     name = "pd.mapping250k.nsp";
     version = "3.12.0";
     sha256 = "10j8c18glhvg07zp6w84hlc6l3a3qkvcvfnq0blpjfdk3a2lndz7";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_mapping250k_sty = derive2 {
     name = "pd.mapping250k.sty";
     version = "3.12.0";
     sha256 = "1hpyijrkr6svxxhrdp6s4jjcvr44hhbrdhrzvnw5ywpykmbphryc";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_mapping50k_hind240 = derive2 {
     name = "pd.mapping50k.hind240";
     version = "3.12.0";
     sha256 = "1whpjdr4aql846cm8nzgs613pi12qdqfixhqcfv8wrqyks27kq6s";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_mapping50k_xba240 = derive2 {
     name = "pd.mapping50k.xba240";
     version = "3.12.0";
     sha256 = "1a1f3lh5ywhyjawdbj2fzban85c8jz70lfcv3pagd5piincjwxq8";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_margene_1_0_st = derive2 {
     name = "pd.margene.1.0.st";
     version = "3.12.0";
     sha256 = "1s4l57hw511cnzj197jvvzqs8ymfbf14khxcv4llg55prxnvvnfc";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_margene_1_1_st = derive2 {
     name = "pd.margene.1.1.st";
     version = "3.12.0";
     sha256 = "067jv9486win2kv563gr4vpc96lpl02zqd09cnma7ycd7l1nvj9s";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_medgene_1_0_st = derive2 {
     name = "pd.medgene.1.0.st";
     version = "3.12.0";
     sha256 = "0f5blbhlp160av6r37icjdq2lyrvip09r4yzxhfa2vlxpcm7i83m";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_medgene_1_1_st = derive2 {
     name = "pd.medgene.1.1.st";
     version = "3.12.0";
     sha256 = "1mlyv6qjcxj9q416pmjq36q0aqp5l47pkd557ayaqd7gm3ygikcq";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_medicago = derive2 {
     name = "pd.medicago";
     version = "3.12.0";
     sha256 = "1wm81jr9d04yiyg0alj197fjigcvjhz2kvh8j6jw9yaawppr0c5p";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_mg_u74a = derive2 {
     name = "pd.mg.u74a";
     version = "3.12.0";
     sha256 = "1jji6g49icsxyam9qx3mbaspg24q0hjavi0w75k99m2ckmllc47c";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_mg_u74av2 = derive2 {
     name = "pd.mg.u74av2";
     version = "3.12.0";
     sha256 = "08ym915fb26qbz2r9kzgf7znai4mc06lr59l1da0x02iaixagg32";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_mg_u74b = derive2 {
     name = "pd.mg.u74b";
     version = "3.12.0";
     sha256 = "0yav9ghdk8y12bsqam2r0p4q3r1yymfwrz1kdg0l7qfzw3mn141d";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_mg_u74bv2 = derive2 {
     name = "pd.mg.u74bv2";
     version = "3.12.0";
     sha256 = "0hxczlax8qnghp4f7d3ph2y5j3vz3k4iwl6lyw3sig51msl4q6sd";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_mg_u74c = derive2 {
     name = "pd.mg.u74c";
     version = "3.12.0";
     sha256 = "13sq8jmwlqrci87bnl313dyqzy6v141r3fqzh1frl1w66ilw9chm";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_mg_u74cv2 = derive2 {
     name = "pd.mg.u74cv2";
     version = "3.12.0";
     sha256 = "1s59s9ch1ynrmnsn5jl2b19phij4qamgcpfs3f5zhji6ip41lckj";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_mirna_1_0 = derive2 {
     name = "pd.mirna.1.0";
     version = "3.12.0";
     sha256 = "0klkmrljgvkqvdlm07c47bl0jppbzz95ikxabfi8b3ajv78k6gn1";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_mirna_2_0 = derive2 {
     name = "pd.mirna.2.0";
     version = "3.12.0";
     sha256 = "12ynrrr0jrc0kl6s4pkn9fv3r3bh6wsbrfyywb5bvxf71n75wnqy";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_mirna_3_0 = derive2 {
     name = "pd.mirna.3.0";
     version = "3.12.0";
     sha256 = "0awghps8nlisdj2anvs400dn1hwdi8iw6xlrw17qr70fznbihdsy";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_mirna_3_1 = derive2 {
     name = "pd.mirna.3.1";
     version = "3.8.1";
     sha256 = "0g8fjwhxmps1w5f7lvnv258qn2ipggs1ar4r810amqqxd0yd5ah2";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+    ];
   };
   pd_mirna_4_0 = derive2 {
     name = "pd.mirna.4.0";
     version = "3.12.0";
     sha256 = "000gqhcvlpydrpr61853q22x8gvzmlf1kp7w98lll5g1vvwkw1ad";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_moe430a = derive2 {
     name = "pd.moe430a";
     version = "3.12.0";
     sha256 = "15qys3pm8nwkr385y8mj976k16as8r65lmzykm8cy0skl071i8wb";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_moe430b = derive2 {
     name = "pd.moe430b";
     version = "3.12.0";
     sha256 = "1xas3ld65xp2g1cfkd1n4v3yvx3g0g221c3ag550k552v0alfbyd";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_moex_1_0_st_v1 = derive2 {
     name = "pd.moex.1.0.st.v1";
     version = "3.14.1";
     sha256 = "13bqzbyqngbhj7yji568cc36fq0zw0bjaglfp2n9nnhdddd8b62x";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_mogene_1_0_st_v1 = derive2 {
     name = "pd.mogene.1.0.st.v1";
     version = "3.14.1";
     sha256 = "1hmb8kf91jd9q6b4pxiwlaj6ajzmkv1c3xsszyps5cwv13pgdjix";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_mogene_1_1_st_v1 = derive2 {
     name = "pd.mogene.1.1.st.v1";
     version = "3.14.1";
     sha256 = "13s7r8g29y56qbj2xm81r5kj65y2qcp5d24bakbhfcvz60wzljqf";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_mogene_2_0_st = derive2 {
     name = "pd.mogene.2.0.st";
     version = "3.14.1";
     sha256 = "0205jk6x8r35bmma771q6km631jlppm4y72zy85bv87dv4adxci8";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_mogene_2_1_st = derive2 {
     name = "pd.mogene.2.1.st";
     version = "3.14.1";
     sha256 = "14qwcq6yyy2ayrqv8kr33chlpgw3vkgq8iwb3yycsh3x3wz40jb8";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_mouse430_2 = derive2 {
     name = "pd.mouse430.2";
     version = "3.12.0";
     sha256 = "1ix7vkjy175cxbsbs67z38dhszxjik6370j0jkfpcknms6bh1db3";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_mouse430a_2 = derive2 {
     name = "pd.mouse430a.2";
     version = "3.12.0";
     sha256 = "11ywfshqxjmwf9q4sj97zv3ylynfkswcfaqglj883p4719lhxmc3";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_mta_1_0 = derive2 {
     name = "pd.mta.1.0";
     version = "3.12.0";
     sha256 = "07vznamds5lc1xnpv7kjwcrsd5zq0ap4gk8a85xqb93fmcc9ypqi";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_mu11ksuba = derive2 {
     name = "pd.mu11ksuba";
     version = "3.12.0";
     sha256 = "10fkys7y5b5frdrjqw3x2gqzp51lgg29nw6gxz25yi5fznc3nnv2";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_mu11ksubb = derive2 {
     name = "pd.mu11ksubb";
     version = "3.12.0";
     sha256 = "08734j3asq56v090zi0gzk3ryycjm78dfbb0xqmpr7ggqys96qp9";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_nugo_hs1a520180 = derive2 {
     name = "pd.nugo.hs1a520180";
     version = "3.4.0";
     sha256 = "1qc87zrrccld1hdqmrk1if98c6jq343gzlmib40wvshmrijp3sk3";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_nugo_mm1a520177 = derive2 {
     name = "pd.nugo.mm1a520177";
     version = "3.4.0";
     sha256 = "0568zvxc11w2i32wimhmi4271jbmpn97kb0vn4ns20hfg4h63m99";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_ovigene_1_0_st = derive2 {
     name = "pd.ovigene.1.0.st";
     version = "3.12.0";
     sha256 = "0vga20rb0v4yzd28szsppbgfhmn6ky85qrjj9llvacnlj1riwxsi";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_ovigene_1_1_st = derive2 {
     name = "pd.ovigene.1.1.st";
     version = "3.12.0";
     sha256 = "1vzrizvk1dbj6ngjxv9wpbm89q5mr8dkfhr0azrczs54c92xy48r";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_pae_g1a = derive2 {
     name = "pd.pae.g1a";
     version = "3.12.0";
     sha256 = "0b0bmzfrh7lm2i5d66z24iz0d5zj3qhw89aw011yssks7sr9lq90";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_plasmodium_anopheles = derive2 {
     name = "pd.plasmodium.anopheles";
     version = "3.12.0";
     sha256 = "0njd97jkg4hxd0jyq03227i00gmy0ccxznzqmp0mjqmkkhljn7nm";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_poplar = derive2 {
     name = "pd.poplar";
     version = "3.12.0";
     sha256 = "0j5xmf5hqvbb8ylsrvih92vxn1c1lah3mkffn64fji2lgqy9vjp9";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_porcine = derive2 {
     name = "pd.porcine";
     version = "3.12.0";
     sha256 = "0zx2gz90hhalaas3sf2rh8wcapjwmnckr0gq1r8p572chwf2rb81";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_porgene_1_0_st = derive2 {
     name = "pd.porgene.1.0.st";
     version = "3.12.0";
     sha256 = "1jiajzn31yjzs942w3i4cjqlpq81rkbryk961fqb9jpwldzg1pmy";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_porgene_1_1_st = derive2 {
     name = "pd.porgene.1.1.st";
     version = "3.12.0";
     sha256 = "038zwlckx58bw4x5naspfnvk4jcyc2g9bijrh1wd4m4k5mr1i4dk";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_rabgene_1_0_st = derive2 {
     name = "pd.rabgene.1.0.st";
     version = "3.12.0";
     sha256 = "0vwxzwgwh1a0fpyqsc3mnagin67wf2jmymm9kwhcnxargpmslm7k";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_rabgene_1_1_st = derive2 {
     name = "pd.rabgene.1.1.st";
     version = "3.12.0";
     sha256 = "0qs3ka3pdlrpqh66zb62jdfm2y6p2wyn6rcp7gb5qw0s8q9h170a";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_rae230a = derive2 {
     name = "pd.rae230a";
     version = "3.12.0";
     sha256 = "14kb35pcgxh2hmpzyqp9c2xirs0p6y5dvc3h2n568jmmdd14s7j5";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_rae230b = derive2 {
     name = "pd.rae230b";
     version = "3.12.0";
     sha256 = "1db6bm6qyrzwwa2scyw6qg7qcdqq97s5vy8kv0fnqc604b1jdzzq";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_raex_1_0_st_v1 = derive2 {
     name = "pd.raex.1.0.st.v1";
     version = "3.14.1";
     sha256 = "11sxhhpb4fy7wh5k7yxwwv141xgn4r1yshx097wicpa6561ffdkc";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_ragene_1_0_st_v1 = derive2 {
     name = "pd.ragene.1.0.st.v1";
     version = "3.14.1";
     sha256 = "0afnv1f5xvdh1vdsdfi5k1zscqzpdbf4b399wib3c8dg9vslccgx";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_ragene_1_1_st_v1 = derive2 {
     name = "pd.ragene.1.1.st.v1";
     version = "3.14.1";
     sha256 = "1krygwjhqs97gyh94xfbsfd8gg285fg5bgm7rqk7wlwp8fxx8xnn";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_ragene_2_0_st = derive2 {
     name = "pd.ragene.2.0.st";
     version = "3.14.1";
     sha256 = "1rq4ivv107853pyr4jrnbms4fgfzddndibrasgql9d4msca0sbz9";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_ragene_2_1_st = derive2 {
     name = "pd.ragene.2.1.st";
     version = "3.14.1";
     sha256 = "1k9zqhnck7fgp6g0b8vmasqjvdyqshzs567rz8qabw6jk5ifssvz";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_rat230_2 = derive2 {
     name = "pd.rat230.2";
     version = "3.12.0";
     sha256 = "0ysn0qi26b3llqs312an0mlgyahf4pgmixlcq2x2n925drns34gg";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_rcngene_1_0_st = derive2 {
     name = "pd.rcngene.1.0.st";
     version = "3.12.0";
     sha256 = "0hrhvy6dbw8g1h9qgm9frpmfp45pd5h0fnbvbvz94l98a5gda7xx";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_rcngene_1_1_st = derive2 {
     name = "pd.rcngene.1.1.st";
     version = "3.12.0";
     sha256 = "1lyizr096x5idasvlivl3lb67g7n2xvblrk5zfxglaf2fgpbrgwn";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_rg_u34a = derive2 {
     name = "pd.rg.u34a";
     version = "3.12.0";
     sha256 = "18jl5w1say8zyp50iqmd6jiw8ffa7qsk6sw7h7cw0j1g90ssf4y3";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_rg_u34b = derive2 {
     name = "pd.rg.u34b";
     version = "3.12.0";
     sha256 = "19v2g9lvadvba2dy0c0qn6j8qnsds2xa4cliiq12byad21833ss0";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_rg_u34c = derive2 {
     name = "pd.rg.u34c";
     version = "3.12.0";
     sha256 = "10j3hcszx637dfd55552b75qni0yryrjk8q6p0wkd5dh6p628qrx";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_rhegene_1_0_st = derive2 {
     name = "pd.rhegene.1.0.st";
     version = "3.12.0";
     sha256 = "1mx221xvxr4ng01ibq1pc472bn5rknfv3sjsbvvfmvqgpwk6z079";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_rhegene_1_1_st = derive2 {
     name = "pd.rhegene.1.1.st";
     version = "3.12.0";
     sha256 = "0f400qal4qmkxv705n5bzz07rkrz5zgs7swk8xp4pyp161fgb171";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_rhesus = derive2 {
     name = "pd.rhesus";
     version = "3.12.0";
     sha256 = "1zrpq7ppl2gaiprvz4sm0zsxqcw2nvn6qzwi3b0cimqf7r2091dd";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_rice = derive2 {
     name = "pd.rice";
     version = "3.12.0";
     sha256 = "0fmd505vianfspb1s5glr6aacnz45dq9skbk1qwm0a9ck6a6paav";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_rjpgene_1_0_st = derive2 {
     name = "pd.rjpgene.1.0.st";
     version = "3.12.0";
     sha256 = "18qj6sdjw17553lwcb3swdx0aiv54izdzzblgl88g90ijny8rbpa";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_rjpgene_1_1_st = derive2 {
     name = "pd.rjpgene.1.1.st";
     version = "3.12.0";
     sha256 = "0i99fyf6ya13z4hfjf3f5ssvys8wjhmwk894zy0p59p7nmphigyc";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_rn_u34 = derive2 {
     name = "pd.rn.u34";
     version = "3.12.0";
     sha256 = "0ayp6r7z7p61b1lfq9dkq4ips4apgjg6igrcnvsivlfhcfcfs0wf";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_rta_1_0 = derive2 {
     name = "pd.rta.1.0";
     version = "3.12.2";
     sha256 = "0x3j1a47lxhlqnhfvh1cii11rd433x16i6xmydwq2dkvm4xgd63h";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_rusgene_1_0_st = derive2 {
     name = "pd.rusgene.1.0.st";
     version = "3.12.0";
     sha256 = "1ik28yykkpdclr5hrv8lzafzfivakwvzgz49q7bpb1g6ihwylshw";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_rusgene_1_1_st = derive2 {
     name = "pd.rusgene.1.1.st";
     version = "3.12.0";
     sha256 = "090lxwxzj39d6qzlr7c3x50zf98g8x987rv1gdn0gcas15imya6n";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_s_aureus = derive2 {
     name = "pd.s.aureus";
     version = "3.12.0";
     sha256 = "0kszw94ymxgwd3midzkpl307ch3pyr4g5qjcf4s2jsq6mrvxw666";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_soybean = derive2 {
     name = "pd.soybean";
     version = "3.12.0";
     sha256 = "0xg90m7k1x9sgmhcp1qdwhxsyr2y5g28p7a4z6gd6mng2l7cgyh0";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_soygene_1_0_st = derive2 {
     name = "pd.soygene.1.0.st";
     version = "3.12.0";
     sha256 = "1hg90pma4ikdgxpw1f5mkjcw7na4mmjbhpr06dcssjl3bvmd4yxc";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_soygene_1_1_st = derive2 {
     name = "pd.soygene.1.1.st";
     version = "3.12.0";
     sha256 = "0978vbl59afgrzy0cmwq4mhsdz5rn5d929nz90fvczm6q8g24616";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_sugar_cane = derive2 {
     name = "pd.sugar.cane";
     version = "3.12.0";
     sha256 = "09m8m99l9mrhs4gr1rb02l54k8i2wgdzz88qlbpl4xmrfnfn99h6";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_tomato = derive2 {
     name = "pd.tomato";
     version = "3.12.0";
     sha256 = "12jn8i691j3kkgwa771f4kffzfcxv19vi0waw13akch7x7cc09q7";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_u133_x3p = derive2 {
     name = "pd.u133.x3p";
     version = "3.12.0";
     sha256 = "171rv9syn90k70ivaj8c48s827c08nycpyyc2b76jy405kaqb1gl";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_vitis_vinifera = derive2 {
     name = "pd.vitis.vinifera";
     version = "3.12.0";
     sha256 = "19r2k7wx3kygw6syqph24glw0b273gpi0z0y8n4bnd3a184g6hxz";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_wheat = derive2 {
     name = "pd.wheat";
     version = "3.12.0";
     sha256 = "12n8k5ah8fncbrb2hrpi2ah29fj5rxnh5j5zk8lfwhijg2zf52ra";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_x_laevis_2 = derive2 {
     name = "pd.x.laevis.2";
     version = "3.12.0";
     sha256 = "0zf3rc8rz05hzga2g5b8khszz6sr29dlp8z1jyn94ial284d0fn3";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_x_tropicalis = derive2 {
     name = "pd.x.tropicalis";
     version = "3.12.0";
     sha256 = "1pb6jm14k0g4z9vffi3clyh7rwc11c89hinb2amczg4xfm5lqrdr";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_xenopus_laevis = derive2 {
     name = "pd.xenopus.laevis";
     version = "3.12.0";
     sha256 = "1fxd95ak5s2dw16prxdwk20hisss32nywy9dc7y72bpqrv0v309y";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_yeast_2 = derive2 {
     name = "pd.yeast.2";
     version = "3.12.0";
     sha256 = "0l6sxg79xmlb7gdxx4bx24l35jgx5y2qfp3pxzcmdnd7c7qy6z5j";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_yg_s98 = derive2 {
     name = "pd.yg.s98";
     version = "3.12.0";
     sha256 = "1krx7kkjlyc41739c349z0sdbslp19iqfai0xzy6f4jk15524vhj";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_zebgene_1_0_st = derive2 {
     name = "pd.zebgene.1.0.st";
     version = "3.12.0";
     sha256 = "1vywph8shn23k0s8jmvx34rj34y1zxgwcssjnzbipm71f2sa15hw";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_zebgene_1_1_st = derive2 {
     name = "pd.zebgene.1.1.st";
     version = "3.12.0";
     sha256 = "0xs3kx7l78dfqkasgz8n5s8qjia5qhdcnj1l8al0ivy8mwvlpyxs";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pd_zebrafish = derive2 {
     name = "pd.zebrafish";
     version = "3.12.0";
     sha256 = "0gg7y7w51pv0vf39qzyaf09wl3vxy222nr69zgxg7cylwxmaky7v";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pedbarrayv10_db = derive2 {
     name = "pedbarrayv10.db";
     version = "3.2.3";
     sha256 = "01sn7qh5r2c2ph7gqirlzlplxscsmczf7ajffd9rsx59932f71kx";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   pedbarrayv9_db = derive2 {
     name = "pedbarrayv9.db";
     version = "3.2.3";
     sha256 = "0x9m9m4nmdhc0j5244avmlfwljcpw0sh44l1b00cx05swi3vmjlp";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   phastCons100way_UCSC_hg19 = derive2 {
     name = "phastCons100way.UCSC.hg19";
     version = "3.7.2";
     sha256 = "1jmc4k4zgkx5vr2plnidnd9bidlwlb0kr7mjg60cqjw7dq7jl1fa";
-    depends =
-      [ BSgenome GenomeInfoDb GenomicRanges GenomicScores IRanges S4Vectors ];
+    depends = [
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      GenomicScores
+      IRanges
+      S4Vectors
+    ];
   };
   phastCons100way_UCSC_hg38 = derive2 {
     name = "phastCons100way.UCSC.hg38";
     version = "3.7.1";
     sha256 = "0dka39rvx4d3wbcjypcgvc19s6cnxkkfywa4irv23kpibq1sjyv0";
-    depends =
-      [ BSgenome GenomeInfoDb GenomicRanges GenomicScores IRanges S4Vectors ];
+    depends = [
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      GenomicScores
+      IRanges
+      S4Vectors
+    ];
   };
   phastCons30way_UCSC_hg38 = derive2 {
     name = "phastCons30way.UCSC.hg38";
     version = "3.13.0";
     sha256 = "0jq5z1af0f5jqazz46gvf3nnkrp91a6qzb96bk7fjdbvk5b3z0dd";
-    depends = [ AnnotationHub GenomicScores ];
+    depends = [
+      AnnotationHub
+      GenomicScores
+    ];
   };
   phastCons35way_UCSC_mm39 = derive2 {
     name = "phastCons35way.UCSC.mm39";
     version = "3.16.0";
     sha256 = "0lniqakqxja8inq3gn168w1xja1m2kbmww0cw971smsnddypmig7";
-    depends = [ AnnotationHub GenomicScores ];
+    depends = [
+      AnnotationHub
+      GenomicScores
+    ];
   };
   phastCons7way_UCSC_hg38 = derive2 {
     name = "phastCons7way.UCSC.hg38";
     version = "3.7.1";
     sha256 = "105isdrb3nsy30wd8yy9vrrv8b7c8izc11xqqixg6rcriacd0rl0";
-    depends =
-      [ BSgenome GenomeInfoDb GenomicRanges GenomicScores IRanges S4Vectors ];
+    depends = [
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      GenomicScores
+      IRanges
+      S4Vectors
+    ];
   };
   phyloP35way_UCSC_mm39 = derive2 {
     name = "phyloP35way.UCSC.mm39";
     version = "3.16.0";
     sha256 = "1n0iywfs23dhc54mapirvaqcbx38zjf8lknbsz80p5lxp24n2lf9";
-    depends = [ AnnotationHub GenomicScores ];
+    depends = [
+      AnnotationHub
+      GenomicScores
+    ];
   };
   pig_db0 = derive2 {
     name = "pig.db0";
@@ -4896,7 +7166,10 @@ in with self; {
     name = "porcine.db";
     version = "3.13.0";
     sha256 = "1yg0nixly4akpx11fzv93jzfbrs05qck2qg9a0a76zwlnp9mmak3";
-    depends = [ AnnotationDbi org_Ss_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Ss_eg_db
+    ];
   };
   porcinecdf = derive2 {
     name = "porcinecdf";
@@ -4926,7 +7199,10 @@ in with self; {
     name = "r10kcod.db";
     version = "3.4.0";
     sha256 = "073b5fb8dcqp5iq3h6p6250l91z6bzg72nzl7qva3jin33v96nmm";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   rGenomeTracksData = derive2 {
     name = "rGenomeTracksData";
@@ -4938,7 +7214,10 @@ in with self; {
     name = "rae230a.db";
     version = "3.13.0";
     sha256 = "13mfwmx8zc519argmjd0bpgfr29bgbs9r2jln1idc9r51smqr9zy";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   rae230acdf = derive2 {
     name = "rae230acdf";
@@ -4956,7 +7235,10 @@ in with self; {
     name = "rae230b.db";
     version = "3.13.0";
     sha256 = "19xlds6z8d86kylxbgck7r9nfj58jjfblwx1npzfp5bw44jlhwzm";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   rae230bcdf = derive2 {
     name = "rae230bcdf";
@@ -4974,25 +7256,37 @@ in with self; {
     name = "raex10stprobeset.db";
     version = "8.8.0";
     sha256 = "0r8qj5ibgn1sp1yw94aylql6r88g1v5l7z0h8ji8gg34676gqpf3";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   raex10sttranscriptcluster_db = derive2 {
     name = "raex10sttranscriptcluster.db";
     version = "8.8.0";
     sha256 = "1wlbvd2dxv5qchwgcmdwy23z4xnzs42sd6sawc88sqfcyl2gp6r8";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   ragene10stprobeset_db = derive2 {
     name = "ragene10stprobeset.db";
     version = "8.8.0";
     sha256 = "14j8ld6zq1wy2dpl1wkpmp6q3qhxakj8a8wh4qplp53m4xk5cfb8";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   ragene10sttranscriptcluster_db = derive2 {
     name = "ragene10sttranscriptcluster.db";
     version = "8.8.0";
     sha256 = "1iv8hzzic2wj9hmzqcf0kayb4rhhqks23r9l0dddd3zwlbqaqc9y";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   ragene10stv1cdf = derive2 {
     name = "ragene10stv1cdf";
@@ -5010,37 +7304,55 @@ in with self; {
     name = "ragene11stprobeset.db";
     version = "8.8.0";
     sha256 = "1xx7l05g6hgqfljdlap624f5ikrak4wfnzsybbi1rlrfwcrz1z2g";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   ragene11sttranscriptcluster_db = derive2 {
     name = "ragene11sttranscriptcluster.db";
     version = "8.8.0";
     sha256 = "1y5377l8vnnrvixs9lqzx7dmxi1x7qqd94q3mfi2b2bnmf0wj0cd";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   ragene20stprobeset_db = derive2 {
     name = "ragene20stprobeset.db";
     version = "8.8.0";
     sha256 = "0c3cj4k2k1xssb2zzkdc39a031l2gf284cpdyvvjlx766nb57xxz";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   ragene20sttranscriptcluster_db = derive2 {
     name = "ragene20sttranscriptcluster.db";
     version = "8.8.0";
     sha256 = "1bi4wy0sbhsyavxwshxvf3iqmyz26q7y2vqp1h3rjshsjdmhfd0h";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   ragene21stprobeset_db = derive2 {
     name = "ragene21stprobeset.db";
     version = "8.8.0";
     sha256 = "1m0hd0nlav9dhqzvs5drl8q3llx2wjxdfvb24fmjnba4h769ns7k";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   ragene21sttranscriptcluster_db = derive2 {
     name = "ragene21sttranscriptcluster.db";
     version = "8.8.0";
     sha256 = "14hp03pizq7kprwk26s9w6s27zzbs2kk50qhjbiwic1xbrl0dp8a";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   rat_db0 = derive2 {
     name = "rat.db0";
@@ -5052,7 +7364,10 @@ in with self; {
     name = "rat2302.db";
     version = "3.13.0";
     sha256 = "1k2qm1rpq3xkj52m3n629r4qcqi2azdssb2i5shj9jdaqkmr43qc";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   rat2302cdf = derive2 {
     name = "rat2302cdf";
@@ -5064,7 +7379,10 @@ in with self; {
     name = "rat2302frmavecs";
     version = "0.99.11";
     sha256 = "0qy5hf86lrkn20yg6d46kcw9fjc0qhsbzbyavaj1v2zl34xvr1ii";
-    depends = [ affy frma ];
+    depends = [
+      affy
+      frma
+    ];
   };
   rat2302probe = derive2 {
     name = "rat2302probe";
@@ -5100,7 +7418,10 @@ in with self; {
     name = "rgu34a.db";
     version = "3.13.0";
     sha256 = "1nl28gia0zh8xkfv8llxiysxk1k1gm6cs2wvl0n1xqhnr0rhla76";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   rgu34acdf = derive2 {
     name = "rgu34acdf";
@@ -5118,7 +7439,10 @@ in with self; {
     name = "rgu34b.db";
     version = "3.13.0";
     sha256 = "0mig7x9ydkgrhqyj0kz3sq0s5mfjv5arppzmqmm2r4mk2dx1fidy";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   rgu34bcdf = derive2 {
     name = "rgu34bcdf";
@@ -5136,7 +7460,10 @@ in with self; {
     name = "rgu34c.db";
     version = "3.13.0";
     sha256 = "0jfg2qrwzh7inyif7affwp3dwph9axnbsdqba4j97pjiavwc6232";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   rgu34ccdf = derive2 {
     name = "rgu34ccdf";
@@ -5154,25 +7481,37 @@ in with self; {
     name = "rguatlas4k.db";
     version = "3.2.3";
     sha256 = "0q8xryvqixqbfqc9lfkmy9zymdlyk76vy4l3a74haj7k1m72nhi2";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   rgug4105a_db = derive2 {
     name = "rgug4105a.db";
     version = "3.2.3";
     sha256 = "0lq8k95qm0q7j65nf16p3f09dn9zs87n3k561wxrgi2lb0pf6j40";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   rgug4130a_db = derive2 {
     name = "rgug4130a.db";
     version = "3.2.3";
     sha256 = "0zlcn9spw23bj3px9z1l2f5afn09zbr6rv0nbd2h6dd12wrvy1zk";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   rgug4131a_db = derive2 {
     name = "rgug4131a.db";
     version = "3.2.3";
     sha256 = "1r272jf9cflf1yf4bznp4d59h7bd7adh1i3rf890h5ffc0xzf5cq";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   rhesus_db0 = derive2 {
     name = "rhesus.db0";
@@ -5196,7 +7535,10 @@ in with self; {
     name = "ri16cod.db";
     version = "3.4.0";
     sha256 = "1xz533vxjdyxx1wkks0kgk6b90sxs44iqcsvyds0xcm573bx8c6q";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   ricecdf = derive2 {
     name = "ricecdf";
@@ -5214,7 +7556,10 @@ in with self; {
     name = "rnu34.db";
     version = "3.13.0";
     sha256 = "155spriq65xpvf1wjw632jsfabzd4lm06l8qqzhs70qqjbnlkln0";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   rnu34cdf = derive2 {
     name = "rnu34cdf";
@@ -5232,19 +7577,28 @@ in with self; {
     name = "rta10probeset.db";
     version = "8.8.0";
     sha256 = "1v5d278bs2wv6bq0clihlribg3pzhdbppf635php0207gx7hnx89";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   rta10transcriptcluster_db = derive2 {
     name = "rta10transcriptcluster.db";
     version = "8.8.0";
     sha256 = "101mvy8bwsy235dnvga9hccxwn3hjxvqx2hxypl82i3wk2vrm5dj";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   rtu34_db = derive2 {
     name = "rtu34.db";
     version = "3.13.0";
     sha256 = "0ylny01v73m1v1bghk190i2nnjnymadvmp7s073ir7nyyw8gvzkf";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   rtu34cdf = derive2 {
     name = "rtu34cdf";
@@ -5262,7 +7616,10 @@ in with self; {
     name = "rwgcod.db";
     version = "3.4.0";
     sha256 = "1k0fpnv314lx2jf3mm6xfqa3jx353sp42awxqys9byzhg9zyj2j3";
-    depends = [ AnnotationDbi org_Rn_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Rn_eg_db
+    ];
   };
   saureuscdf = derive2 {
     name = "saureuscdf";
@@ -5316,8 +7673,16 @@ in with self; {
     name = "synaptome.db";
     version = "0.99.12";
     sha256 = "1f63s54kn78bxrhp1aidghaicymd39p3bgpnxkz9lkby50xcfwyl";
-    depends =
-      [ AnnotationHub DBI dbplyr dplyr igraph Rdpack RSQLite synaptome_data ];
+    depends = [
+      AnnotationHub
+      DBI
+      dbplyr
+      dplyr
+      igraph
+      Rdpack
+      RSQLite
+      synaptome_data
+    ];
   };
   targetscan_Hs_eg_db = derive2 {
     name = "targetscan.Hs.eg.db";
@@ -5377,7 +7742,10 @@ in with self; {
     name = "u133x3p.db";
     version = "3.2.3";
     sha256 = "17wq16zhmpjpyxfhwr57kx61b4i87jkzza8qkqmcd6kcrhqkj92y";
-    depends = [ AnnotationDbi org_Hs_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Hs_eg_db
+    ];
   };
   u133x3pcdf = derive2 {
     name = "u133x3pcdf";
@@ -5443,7 +7811,10 @@ in with self; {
     name = "xlaevis.db";
     version = "3.2.3";
     sha256 = "0cdi71c8pflb8n4yfxc0wmfi51w6z0dlz7nw5hv0hkx547v79d53";
-    depends = [ AnnotationDbi org_Xl_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Xl_eg_db
+    ];
   };
   xlaevis2cdf = derive2 {
     name = "xlaevis2cdf";
@@ -5503,7 +7874,10 @@ in with self; {
     name = "yeast2.db";
     version = "3.13.0";
     sha256 = "0aqbs3p6f3sc6nyggyk7gvg191b551rwq20009fnk0li50dg1ps6";
-    depends = [ AnnotationDbi org_Sc_sgd_db ];
+    depends = [
+      AnnotationDbi
+      org_Sc_sgd_db
+    ];
   };
   yeast2cdf = derive2 {
     name = "yeast2cdf";
@@ -5521,7 +7895,10 @@ in with self; {
     name = "ygs98.db";
     version = "3.13.0";
     sha256 = "1mp24vhx0fnjc2hhcsbnrr0ir0s1sn7bkx8j43d9kw7vzqm5xqxd";
-    depends = [ AnnotationDbi org_Sc_sgd_db ];
+    depends = [
+      AnnotationDbi
+      org_Sc_sgd_db
+    ];
   };
   ygs98cdf = derive2 {
     name = "ygs98cdf";
@@ -5545,7 +7922,10 @@ in with self; {
     name = "zebrafish.db";
     version = "3.13.0";
     sha256 = "13a65jxr3r5qjf82h1dr0k9qq20g14canqgqdd11k9gk5h31xhc7";
-    depends = [ AnnotationDbi org_Dr_eg_db ];
+    depends = [
+      AnnotationDbi
+      org_Dr_eg_db
+    ];
   };
   zebrafish_db0 = derive2 {
     name = "zebrafish.db0";
@@ -5569,92 +7949,134 @@ in with self; {
     name = "LRBase.Ath.eg.db";
     version = "2.0.1";
     sha256 = "1f9yp9rfaydzz24bhl795379clcinibi4kavxzzavrvqfvkrgw84";
-    depends = [ LRBaseDbi RSQLite ];
+    depends = [
+      LRBaseDbi
+      RSQLite
+    ];
     broken = true;
   };
   LRBase_Bta_eg_db = derive2 {
     name = "LRBase.Bta.eg.db";
     version = "2.0.1";
     sha256 = "004ajnirlqlw5zknhv456z5ziiig57qmcdp3w2cr7izdk2d97lbc";
-    depends = [ LRBaseDbi RSQLite ];
+    depends = [
+      LRBaseDbi
+      RSQLite
+    ];
     broken = true;
   };
   LRBase_Cel_eg_db = derive2 {
     name = "LRBase.Cel.eg.db";
     version = "2.0.1";
     sha256 = "0iazyqrqgc4g5kk25vzssfxjxfvp70mhnx4fpwcg73pfy4wizxjp";
-    depends = [ LRBaseDbi RSQLite ];
+    depends = [
+      LRBaseDbi
+      RSQLite
+    ];
     broken = true;
   };
   LRBase_Dme_eg_db = derive2 {
     name = "LRBase.Dme.eg.db";
     version = "2.0.1";
     sha256 = "1czhw53163cmamigzy30kwa0h3pid95qq47pf6f3b4sy8x3sd9if";
-    depends = [ LRBaseDbi RSQLite ];
+    depends = [
+      LRBaseDbi
+      RSQLite
+    ];
     broken = true;
   };
   LRBase_Dre_eg_db = derive2 {
     name = "LRBase.Dre.eg.db";
     version = "2.0.1";
     sha256 = "0xwzwhc1ksyp1k3xxd0mdk8bkw1npblwrpalnyd4awlx4lh6k8b5";
-    depends = [ LRBaseDbi RSQLite ];
+    depends = [
+      LRBaseDbi
+      RSQLite
+    ];
     broken = true;
   };
   LRBase_Gga_eg_db = derive2 {
     name = "LRBase.Gga.eg.db";
     version = "2.0.1";
     sha256 = "1nkgli39szcjh09ywn1a3zbj0k5pqng9ixaqkl0yhqqy626vk0w0";
-    depends = [ LRBaseDbi RSQLite ];
+    depends = [
+      LRBaseDbi
+      RSQLite
+    ];
     broken = true;
   };
   LRBase_Hsa_eg_db = derive2 {
     name = "LRBase.Hsa.eg.db";
     version = "2.0.1";
     sha256 = "0lvrjspmzjpx9q77lqwpqmr5jpqaqv8rjyfr3pxyv1d0kfdnqii0";
-    depends = [ LRBaseDbi RSQLite ];
+    depends = [
+      LRBaseDbi
+      RSQLite
+    ];
     broken = true;
   };
   LRBase_Mmu_eg_db = derive2 {
     name = "LRBase.Mmu.eg.db";
     version = "2.0.1";
     sha256 = "105nmhlg80jwljkpn73cx4lc4nsxadcl4pfbyl8pj1ppk1cdj1dz";
-    depends = [ LRBaseDbi RSQLite ];
+    depends = [
+      LRBaseDbi
+      RSQLite
+    ];
     broken = true;
   };
   LRBase_Pab_eg_db = derive2 {
     name = "LRBase.Pab.eg.db";
     version = "2.0.1";
     sha256 = "0p99lx34fgvknw6301r8r375w0mapsan7f8aqjd2jxvjaig2375s";
-    depends = [ LRBaseDbi RSQLite ];
+    depends = [
+      LRBaseDbi
+      RSQLite
+    ];
     broken = true;
   };
   LRBase_Rno_eg_db = derive2 {
     name = "LRBase.Rno.eg.db";
     version = "2.0.1";
     sha256 = "1hpw675m2y6nm3i3mvh9whxlaz5zpvz4wr55rha7yisxfsj6qq9a";
-    depends = [ LRBaseDbi RSQLite ];
+    depends = [
+      LRBaseDbi
+      RSQLite
+    ];
     broken = true;
   };
   LRBase_Ssc_eg_db = derive2 {
     name = "LRBase.Ssc.eg.db";
     version = "2.0.1";
     sha256 = "18pa9f16hn4awynbhmvrkdxdprr2dj0mip132sk1mfkxic2cf014";
-    depends = [ LRBaseDbi RSQLite ];
+    depends = [
+      LRBaseDbi
+      RSQLite
+    ];
     broken = true;
   };
   LRBase_Xtr_eg_db = derive2 {
     name = "LRBase.Xtr.eg.db";
     version = "2.0.1";
     sha256 = "18bk6p405cpws0ynh0q17w5fmriplmamhy1rds5rc6hf05lr2sb8";
-    depends = [ LRBaseDbi RSQLite ];
+    depends = [
+      LRBaseDbi
+      RSQLite
+    ];
     broken = true;
   };
   MafDb_gnomAD_r3_0_GRCh38 = derive2 {
     name = "MafDb.gnomAD.r3.0.GRCh38";
     version = "3.13.0";
     sha256 = "0f1qjngpshdpdg6i05qh8pmr56x4wvx29ism3vsid099ammnxdca";
-    depends =
-      [ BSgenome GenomeInfoDb GenomicRanges GenomicScores IRanges S4Vectors ];
+    depends = [
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      GenomicScores
+      IRanges
+      S4Vectors
+    ];
     broken = true;
   };
   MafH5_gnomAD_r3_0_GRCh38 = derive2 {
@@ -6188,43 +8610,74 @@ in with self; {
     name = "SNPlocs.Hsapiens.dbSNP.20101109";
     version = "0.99.9";
     sha256 = "1qxsaq2wai1rqbidz005frjw8r8m2ia9cd87ziw8i66a798rzima";
-    depends = [ GenomicRanges IRanges S4Vectors ];
+    depends = [
+      GenomicRanges
+      IRanges
+      S4Vectors
+    ];
     broken = true;
   };
   SNPlocs_Hsapiens_dbSNP_20120608 = derive2 {
     name = "SNPlocs.Hsapiens.dbSNP.20120608";
     version = "0.99.13";
     sha256 = "123n3rwkq8c8gqwhbwpsvis2x1xp137hchg9y7sv7l1givb6n2kf";
-    depends = [ BSgenome GenomicRanges IRanges ];
+    depends = [
+      BSgenome
+      GenomicRanges
+      IRanges
+    ];
     broken = true;
   };
   SNPlocs_Hsapiens_dbSNP141_GRCh38 = derive2 {
     name = "SNPlocs.Hsapiens.dbSNP141.GRCh38";
     version = "0.99.12";
     sha256 = "1hfqbf03jd2r7ybb19rl3czrjb4h4vjqlrrilfqc8yymy7myvqqb";
-    depends = [ BSgenome GenomeInfoDb GenomicRanges IRanges S4Vectors ];
+    depends = [
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      IRanges
+      S4Vectors
+    ];
     broken = true;
   };
   SNPlocs_Hsapiens_dbSNP142_GRCh37 = derive2 {
     name = "SNPlocs.Hsapiens.dbSNP142.GRCh37";
     version = "0.99.6";
     sha256 = "17ql8fsali09dx1vv9178ya7zx901vwq4bnjrs35fjrjdvx6yvfd";
-    depends = [ BSgenome GenomeInfoDb GenomicRanges IRanges ];
+    depends = [
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      IRanges
+    ];
     broken = true;
   };
   SNPlocs_Hsapiens_dbSNP151_GRCh38 = derive2 {
     name = "SNPlocs.Hsapiens.dbSNP151.GRCh38";
     version = "0.99.21";
     sha256 = "19j5h0dgxd2iw35p6fblj8b3z2d92zmmp60khw5zs70scd5fs9pb";
-    depends =
-      [ BiocGenerics BSgenome GenomeInfoDb GenomicRanges IRanges S4Vectors ];
+    depends = [
+      BiocGenerics
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      IRanges
+      S4Vectors
+    ];
     broken = true;
   };
   XtraSNPlocs_Hsapiens_dbSNP141_GRCh38 = derive2 {
     name = "XtraSNPlocs.Hsapiens.dbSNP141.GRCh38";
     version = "0.99.13";
     sha256 = "1fidmrf0xr7wwd4v1y7x2wwyplplbs1z8jqpfdjpc8aclcy38m3f";
-    depends = [ BSgenome GenomeInfoDb GenomicRanges IRanges S4Vectors ];
+    depends = [
+      BSgenome
+      GenomeInfoDb
+      GenomicRanges
+      IRanges
+      S4Vectors
+    ];
     broken = true;
   };
   greengenes13_5MgDb = derive2 {

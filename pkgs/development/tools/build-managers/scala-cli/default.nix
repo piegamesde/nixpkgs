@@ -19,8 +19,10 @@ let
   platforms = builtins.attrNames assets;
 in stdenv.mkDerivation {
   inherit pname version;
-  nativeBuildInputs = [ installShellFiles makeWrapper ]
-    ++ lib.optional stdenv.isLinux autoPatchelfHook;
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+  ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
   buildInputs =
     assert lib.assertMsg (lib.versionAtLeast jre.version "17.0.0") ''
       scala-cli requires Java 17 or newer, but ${jre.name} is ${jre.version}

@@ -69,7 +69,10 @@ let
     }:
     assert "" == name;
     assert null == src;
-    buildVscodeExtension ((removeAttrs a [ "mktplcRef" "vsix" ]) // {
+    buildVscodeExtension ((removeAttrs a [
+      "mktplcRef"
+      "vsix"
+    ]) // {
       name = "${mktplcRef.publisher}-${mktplcRef.name}-${mktplcRef.version}";
       version = mktplcRef.version;
       src = if (vsix != null) then
@@ -81,7 +84,13 @@ let
       vscodeExtUniqueId = "${mktplcRef.publisher}.${mktplcRef.name}";
     });
 
-  mktplcRefAttrList = [ "name" "publisher" "version" "sha256" "arch" ];
+  mktplcRefAttrList = [
+    "name"
+    "publisher"
+    "version"
+    "sha256"
+    "arch"
+  ];
 
   mktplcExtRefToExtDrv = ext:
     buildVscodeMarketplaceExtension (removeAttrs ext mktplcRefAttrList // {

@@ -30,7 +30,13 @@ buildDunePackage {
   inherit (carton) version src postPatch;
   duneVersion = "3";
 
-  propagatedBuildInputs = [ carton lwt decompress optint bigstringaf ];
+  propagatedBuildInputs = [
+    carton
+    lwt
+    decompress
+    optint
+    bigstringaf
+  ];
 
   doCheck = true;
   nativeCheckInputs = [ git-binary ];

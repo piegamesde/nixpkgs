@@ -8,8 +8,18 @@ buildEnv {
   inherit name;
   paths = [ qtbase ] ++ paths;
 
-  pathsToLink = [ "/bin" "/mkspecs" "/include" "/lib" "/share" "/libexec" ];
-  extraOutputsToInstall = [ "out" "dev" ];
+  pathsToLink = [
+    "/bin"
+    "/mkspecs"
+    "/include"
+    "/lib"
+    "/share"
+    "/libexec"
+  ];
+  extraOutputsToInstall = [
+    "out"
+    "dev"
+  ];
 
   postBuild = ''
     rm "$out/bin/qmake"

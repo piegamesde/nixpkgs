@@ -34,7 +34,10 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  propagatedUserEnvPkgs = [ gnome.gnome-themes-extra gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [
+    gnome.gnome-themes-extra
+    gtk-engine-murrine
+  ];
 
   postPatch = ''
     patchShebangs meson/install-file.py
@@ -63,6 +66,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jnsh/arc-theme";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ simonvandel romildo ];
+    maintainers = with maintainers; [
+      simonvandel
+      romildo
+    ];
   };
 }

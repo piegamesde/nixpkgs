@@ -131,11 +131,17 @@ in {
           ProtectControlGroups = true;
           ProtectProc = "invisible";
           ProcSubset = "pid";
-          RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+          RestrictAddressFamilies = [
+            "AF_INET"
+            "AF_INET6"
+          ];
           RestrictNamespaces = true;
           RestrictRealtime = true;
           SystemCallArchitectures = "native";
-          SystemCallFilter = [ "@system-service" "~@privileged" ];
+          SystemCallFilter = [
+            "@system-service"
+            "~@privileged"
+          ];
           UMask = "0077";
         };
       }) cfg.servers;

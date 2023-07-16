@@ -87,7 +87,10 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-A2GYnhdjkzSFnMsy99FmckiOsbRdymAdtjp55hyFLp4=";
   };
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   patches = [
     ./ignore_links.patch
@@ -107,7 +110,11 @@ python3Packages.buildPythonApplication rec {
     substituteInPlace doc/Makefile --replace "../bin" "$out/bin"
   '';
 
-  nativeBuildInputs = [ docutils help2man installShellFiles ];
+  nativeBuildInputs = [
+    docutils
+    help2man
+    installShellFiles
+  ];
 
   # Most of the non-Python dependencies here are optional command-line tools for various file-format parsers.
   # To help figuring out what's missing from the list, run: ./pkgs/tools/misc/diffoscope/list-missing-tools.sh
@@ -265,7 +272,10 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "https://diffoscope.org/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dezgeg danielfullmer ];
+    maintainers = with maintainers; [
+      dezgeg
+      danielfullmer
+    ];
     platforms = platforms.unix;
   };
 }

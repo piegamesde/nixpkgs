@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ xmlrpc_c glib zlib ];
+  buildInputs = [
+    xmlrpc_c
+    glib
+    zlib
+  ];
 
   installPhase = ''
     install -Dm755 subberthehut $out/bin/subberthehut

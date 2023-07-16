@@ -90,13 +90,22 @@ buildDunePackage rec {
     hxd
   ];
   nativeCheckInputs = [ git-binary ];
-  checkInputs = [ alcotest alcotest-lwt mirage-crypto-rng crowbar cmdliner ];
+  checkInputs = [
+    alcotest
+    alcotest-lwt
+    mirage-crypto-rng
+    crowbar
+    cmdliner
+  ];
   doCheck = !stdenv.isAarch64;
 
   meta = {
     description = "Git format and protocol in pure OCaml";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ sternenseemann vbgl ];
+    maintainers = with lib.maintainers; [
+      sternenseemann
+      vbgl
+    ];
     homepage = "https://github.com/mirage/ocaml-git";
   };
 }

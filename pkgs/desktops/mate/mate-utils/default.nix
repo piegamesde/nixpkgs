@@ -29,7 +29,13 @@ stdenv.mkDerivation rec {
     sha256 = "0bkqj8qwwml9xyvb680yy06lv3dzwkv89yrzz5jamvz88ar6m9bw";
   };
 
-  nativeBuildInputs = [ pkg-config gettext itstool inkscape wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+    itstool
+    inkscape
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     gtk3
@@ -50,7 +56,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Utilities for the MATE desktop";
     homepage = "https://mate-desktop.org";
-    license = with licenses; [ gpl2Plus lgpl2Plus ];
+    license = with licenses; [
+      gpl2Plus
+      lgpl2Plus
+    ];
     platforms = platforms.unix;
     maintainers = teams.mate.members;
   };

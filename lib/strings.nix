@@ -64,7 +64,10 @@ in rec {
     if list == [ ] || length list == 1 then
       list
     else
-      tail (lib.concatMap (x: [ separator x ]) list);
+      tail (lib.concatMap (x: [
+        separator
+        x
+      ]) list);
 
   /* Concatenate a list of strings with a separator between each element
 
@@ -586,7 +589,13 @@ in rec {
        escapeXML ''"test" 'test' < & >''
        => "&quot;test&quot; &apos;test&apos; &lt; &amp; &gt;"
   */
-  escapeXML = builtins.replaceStrings [ ''"'' "'" "<" ">" "&" ] [
+  escapeXML = builtins.replaceStrings [
+    ''"''
+    "'"
+    "<"
+    ">"
+    "&"
+  ] [
     "&quot;"
     "&apos;"
     "&lt;"
@@ -951,8 +960,12 @@ in rec {
      null, bool, list of similarly coercible values.
   */
   isConvertibleWithToString = x:
-    isStringLike x || elem (typeOf x) [ "null" "int" "float" "bool" ]
-    || (isList x && lib.all isConvertibleWithToString x);
+    isStringLike x || elem (typeOf x) [
+      "null"
+      "int"
+      "float"
+      "bool"
+    ] || (isList x && lib.all isConvertibleWithToString x);
 
   /* Check whether a value can be coerced to a string.
      The value must be a string, path, or attribute set.

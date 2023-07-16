@@ -17,7 +17,10 @@ buildPythonPackage rec {
     hash = "sha256-MVJoMnEi+319ZkhffYWYVi/wj0Ihm0nfVeEXvx7Ac/4=";
   };
 
-  propagatedBuildInputs = [ pyyaml jinja2 ];
+  propagatedBuildInputs = [
+    pyyaml
+    jinja2
+  ];
 
   checkPhase = ''
     set -e

@@ -42,7 +42,14 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [ fwupd glib gtk4 libadwaita libxmlb systemd ];
+  buildInputs = [
+    fwupd
+    glib
+    gtk4
+    libadwaita
+    libxmlb
+    systemd
+  ];
 
   mesonFlags = [ "-Dconsolekit=false" ];
 

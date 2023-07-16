@@ -28,7 +28,10 @@ mkDerivation rec {
     runHook postInstall
   '';
 
-  buildInputs = [ qtbase qtserialport ];
+  buildInputs = [
+    qtbase
+    qtserialport
+  ];
 
   meta = with lib; {
     description =

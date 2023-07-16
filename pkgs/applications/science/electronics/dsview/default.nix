@@ -30,9 +30,19 @@ mkDerivation rec {
     ./install.patch
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ boost fftw qtbase libusb1 libzip python3 ];
+  buildInputs = [
+    boost
+    fftw
+    qtbase
+    libusb1
+    libzip
+    python3
+  ];
 
   meta = with lib; {
     description =

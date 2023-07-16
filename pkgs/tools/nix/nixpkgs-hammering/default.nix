@@ -49,7 +49,12 @@ in stdenv.mkDerivation {
 
     install -Dt $out/bin tools/nixpkgs-hammer
     wrapProgram $out/bin/nixpkgs-hammer \
-      --prefix PATH : ${lib.makeBinPath [ nix rust-checks ]} \
+      --prefix PATH : ${
+        lib.makeBinPath [
+          nix
+          rust-checks
+        ]
+      } \
       --set AST_CHECK_NAMES ''${AST_CHECK_NAMES%:}
 
     cp -r lib overlays $out

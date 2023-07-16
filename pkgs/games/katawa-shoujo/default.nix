@@ -60,29 +60,35 @@ in stdenv.mkDerivation rec {
     autoPatchelfHook
     copyDesktopItems
     unrpa
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ makeWrapper undmg ];
-
-  buildInputs = [ freetype SDL_compat zlib ]
-    ++ lib.optionals devendorImageLibs [ libjpeg libpng12 ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [
-      libX11
-      libXext
-      libXi
-      libXmu
-      libGL
-      libGLU
-    ];
-
-  desktopItems = [
-    (makeDesktopItem rec {
-      name = "katawa-shoujo";
-      desktopName = "Katawa Shoujo";
-      comment = meta.description;
-      exec = name;
-      icon = name;
-      categories = [ "Game" ];
-    })
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    makeWrapper
+    undmg
   ];
+
+  buildInputs = [
+    freetype
+    SDL_compat
+    zlib
+  ] ++ lib.optionals devendorImageLibs [
+    libjpeg
+    libpng12
+  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    libX11
+    libXext
+    libXi
+    libXmu
+    libGL
+    libGLU
+  ];
+
+  desktopItems = [ (makeDesktopItem rec {
+    name = "katawa-shoujo";
+    desktopName = "Katawa Shoujo";
+    comment = meta.description;
+    exec = name;
+    icon = name;
+    categories = [ "Game" ];
+  }) ];
 
   dontConfigure = true;
   dontBuild = true;

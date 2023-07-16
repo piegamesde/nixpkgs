@@ -73,7 +73,11 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-+XK9xUeSs93egmtsQ7qATug/n9taeQkmc4ZgObPYvn4=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook dpkg makeWrapper ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    dpkg
+    makeWrapper
+  ];
 
   buildInputs = deps;
 
@@ -82,8 +86,13 @@ in stdenv.mkDerivation rec {
 
   unpackPhase = "dpkg-deb -x $src .";
 
-  runtimeDependencies =
-    [ (lib.getLib systemd) libGL libnotify libappindicator wayland ];
+  runtimeDependencies = [
+    (lib.getLib systemd)
+    libGL
+    libnotify
+    libappindicator
+    wayland
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -115,7 +124,11 @@ in stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.gpl3Only;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ Br1ght0ne ymarkus ataraxiasjel ];
+    maintainers = with maintainers; [
+      Br1ght0ne
+      ymarkus
+      ataraxiasjel
+    ];
   };
 
 }

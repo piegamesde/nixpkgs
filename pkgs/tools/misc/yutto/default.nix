@@ -22,7 +22,13 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ aiohttp aiofiles biliass dicttoxml colorama ];
+  propagatedBuildInputs = [
+    aiohttp
+    aiofiles
+    biliass
+    dicttoxml
+    colorama
+  ];
 
   preFixup = ''
     makeWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ ffmpeg ]})

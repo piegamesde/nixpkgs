@@ -16,7 +16,10 @@ buildPythonPackage rec {
     sha256 = "1drha9kshidw908k7h3gd9ws2bl64ms7bjcsa83pwb3hqa9bkspg";
   };
 
-  patches = [ ./convert.patch ./feh.patch ];
+  patches = [
+    ./convert.patch
+    ./feh.patch
+  ];
 
   postPatch = ''
     substituteInPlace pywal/backends/wal.py --subst-var-by convert "${imagemagick}/bin/convert"

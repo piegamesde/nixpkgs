@@ -13,7 +13,10 @@ stdenv.mkDerivation {
     sha256 = "0d8xfbv6dk4dz95qds7sd44b5hvara07f2g2c5g4xiwim9b7916l";
   };
 
-  makeFlags = [ "-f" "makefile.u" ];
+  makeFlags = [
+    "-f"
+    "makefile.u"
+  ];
 
   installPhase = ''
     runHook preInstall

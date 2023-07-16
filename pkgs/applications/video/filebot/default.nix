@@ -32,9 +32,19 @@ in stdenv.mkDerivation rec {
 
   unpackPhase = "tar xvf $src";
 
-  nativeBuildInputs = [ makeWrapper autoPatchelfHook ];
+  nativeBuildInputs = [
+    makeWrapper
+    autoPatchelfHook
+  ];
 
-  buildInputs = [ zlib libzen libmediainfo curlWithGnuTls libmms glib ];
+  buildInputs = [
+    zlib
+    libzen
+    libmediainfo
+    curlWithGnuTls
+    libmms
+    glib
+  ];
 
   postPatch = ''
     # replace lanterna.jar to be able to specify `com.googlecode.lanterna.terminal.UnixTerminal.sttyCommand`
@@ -66,9 +76,15 @@ in stdenv.mkDerivation rec {
     '';
     homepage = "https://filebot.net";
     changelog = "https://www.filebot.net/forums/viewforum.php?f=7";
-    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [
+      binaryBytecode
+      binaryNativeCode
+    ];
     license = licenses.unfreeRedistributable;
-    maintainers = with maintainers; [ gleber felschr ];
+    maintainers = with maintainers; [
+      gleber
+      felschr
+    ];
     platforms = platforms.linux;
   };
 }

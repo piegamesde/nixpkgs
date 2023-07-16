@@ -22,8 +22,17 @@ stdenv.mkDerivation rec {
     sha256 = "07acf0hbhkd0kg49gnj4nb5ilnv3v4xx3dsggvzvjg8gi3cjmsap";
   };
 
-  nativeBuildInputs = [ meson pkg-config ninja ];
-  buildInputs = [ pam libmysqlclient mariadb libxcrypt ];
+  nativeBuildInputs = [
+    meson
+    pkg-config
+    ninja
+  ];
+  buildInputs = [
+    pam
+    libmysqlclient
+    mariadb
+    libxcrypt
+  ];
 
   meta = with lib; {
     description = "PAM authentication module against a MySQL database";

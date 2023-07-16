@@ -49,7 +49,13 @@ stdenv.mkDerivation rec {
     sed -i 's:/usr/lib/mysql:${libmysqlclient}/lib/mysql:' configure.ac
   '';
 
-  nativeBuildInputs = [ autoreconfHook gettext gnum4 pkg-config texinfo ];
+  nativeBuildInputs = [
+    autoreconfHook
+    gettext
+    gnum4
+    pkg-config
+    texinfo
+  ];
 
   buildInputs = [
     fribidi
@@ -95,7 +101,10 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional (!pythonSupport) "--without-python"
     ++ lib.optional (!guileSupport) "--without-guile";
 
-  nativeCheckInputs = [ dejagnu mkpasswd ];
+  nativeCheckInputs = [
+    dejagnu
+    mkpasswd
+  ];
   doCheck =
     !stdenv.isDarwin; # ERROR: All 46 tests were run, 46 failed unexpectedly.
   doInstallCheck = false; # fails
@@ -140,7 +149,10 @@ stdenv.mkDerivation rec {
       gpl3Plus # tools
     ];
 
-    maintainers = with maintainers; [ orivej vrthra ];
+    maintainers = with maintainers; [
+      orivej
+      vrthra
+    ];
 
     homepage = "https://www.gnu.org/software/mailutils/";
     changelog = "https://git.savannah.gnu.org/cgit/mailutils.git/tree/NEWS";

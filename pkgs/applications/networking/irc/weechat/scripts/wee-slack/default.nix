@@ -24,7 +24,10 @@ stdenv.mkDerivation rec {
       env = "${
           buildEnv {
             name = "wee-slack-env";
-            paths = with python3Packages; [ websocket-client six ];
+            paths = with python3Packages; [
+              websocket-client
+              six
+            ];
           }
         }/${python3Packages.python.sitePackages}";
     })

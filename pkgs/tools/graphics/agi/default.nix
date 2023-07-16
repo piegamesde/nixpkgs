@@ -61,7 +61,12 @@ stdenvNoCC.mkDerivation rec {
     desktopName = "Android GPU Inspector";
     exec = "agi";
     icon = "agi";
-    categories = [ "Development" "Debugger" "Graphics" "3DGraphics" ];
+    categories = [
+      "Development"
+      "Debugger"
+      "Graphics"
+      "3DGraphics"
+    ];
   });
 
   meta = with lib; {
@@ -71,6 +76,9 @@ stdenvNoCC.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
     license = licenses.asl20;
     maintainers = [ maintainers.ivar ];
-    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [
+      binaryBytecode
+      binaryNativeCode
+    ];
   };
 }

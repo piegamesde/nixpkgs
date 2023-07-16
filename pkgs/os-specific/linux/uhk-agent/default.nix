@@ -20,7 +20,11 @@ let
 in appimageTools.wrapType2 {
   inherit pname version src;
 
-  extraPkgs = pkgs: with pkgs; [ polkit udev ];
+  extraPkgs = pkgs:
+    with pkgs; [
+      polkit
+      udev
+    ];
 
   extraInstallCommands = ''
     mv $out/bin/${pname}-${version} $out/bin/${pname}

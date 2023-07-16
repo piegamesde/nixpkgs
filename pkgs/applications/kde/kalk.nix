@@ -25,7 +25,12 @@
 mkDerivation rec {
   pname = "kalk";
 
-  nativeBuildInputs = [ cmake extra-cmake-modules bison flex ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    bison
+    flex
+  ];
 
   buildInputs = [
     gmp

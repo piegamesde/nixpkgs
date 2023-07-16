@@ -28,9 +28,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ hyperopt prometheus-client numpy ];
+  propagatedBuildInputs = [
+    hyperopt
+    prometheus-client
+    numpy
+  ];
 
-  nativeCheckInputs = [ mock requests pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    requests
+    pytestCheckHook
+  ];
 
   postPatch = ''
     # https://github.com/Paperspace/gradient-utils/issues/68

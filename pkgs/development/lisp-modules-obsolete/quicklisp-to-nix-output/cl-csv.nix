@@ -6,7 +6,10 @@ args@{
   baseName = "cl-csv";
   version = "20201016-git";
 
-  parasites = [ "cl-csv/speed-test" "cl-csv/test" ];
+  parasites = [
+    "cl-csv/speed-test"
+    "cl-csv/test"
+  ];
 
   description = "Facilities for reading and writing CSV format files";
 

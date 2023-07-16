@@ -19,7 +19,10 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ SDL2 libGLU ];
+  buildInputs = [
+    SDL2
+    libGLU
+  ];
 
   cmakeFlags = [
     "-DSDL_gpu_BUILD_DEMOS=OFF"

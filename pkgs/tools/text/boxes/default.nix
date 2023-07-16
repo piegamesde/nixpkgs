@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
 
   # Building instructions:
   # https://boxes.thomasjensen.com/build.html#building-on-linux--unix
-  nativeBuildInputs = [ bison flex ];
+  nativeBuildInputs = [
+    bison
+    flex
+  ];
 
   dontConfigure = true;
 

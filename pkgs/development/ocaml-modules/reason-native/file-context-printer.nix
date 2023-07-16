@@ -10,7 +10,10 @@
 
   nativeBuildInputs = [ reason ];
 
-  propagatedBuildInputs = [ re pastel ];
+  propagatedBuildInputs = [
+    re
+    pastel
+  ];
 
   meta = {
     description =

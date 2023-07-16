@@ -54,7 +54,13 @@ let
       else
         setupHook;
 
-      buildInputs = buildInputs ++ [ erlang perl which gitMinimal wget ];
+      buildInputs = buildInputs ++ [
+        erlang
+        perl
+        which
+        gitMinimal
+        wget
+      ];
       propagatedBuildInputs = beamDeps;
 
       buildFlags = [ "SKIP_DEPS=1" ]

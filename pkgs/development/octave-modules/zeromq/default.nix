@@ -24,7 +24,10 @@ buildOctavePackage rec {
     cd ..
   '';
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
 
   propagatedBuildInputs = [ zeromq ];
 

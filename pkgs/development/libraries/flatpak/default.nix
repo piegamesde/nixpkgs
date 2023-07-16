@@ -59,7 +59,14 @@ stdenv.mkDerivation (finalAttrs: {
   version = "1.14.4";
 
   # TODO: split out lib once we figure out what to do with triggerdir
-  outputs = [ "out" "dev" "man" "doc" "devdoc" "installedTests" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+    "doc"
+    "devdoc"
+    "installedTests"
+  ];
 
   src = fetchurl {
     url =
@@ -139,7 +146,10 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   # Required by flatpak.pc
-  propagatedBuildInputs = [ glib ostree ];
+  propagatedBuildInputs = [
+    glib
+    ostree
+  ];
 
   nativeCheckInputs = [ valgrind ];
 

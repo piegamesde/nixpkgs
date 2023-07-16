@@ -110,7 +110,12 @@
       type = with lib.types;
         let
 
-          singleIniAtom = nullOr (oneOf [ bool int float str ]) // {
+          singleIniAtom = nullOr (oneOf [
+            bool
+            int
+            float
+            str
+          ]) // {
             description = "INI atom (null, bool, int, float or string)";
           };
 
@@ -157,7 +162,12 @@
       type = with lib.types;
         let
 
-          singleAtom = nullOr (oneOf [ bool int float str ]) // {
+          singleAtom = nullOr (oneOf [
+            bool
+            int
+            float
+            str
+          ]) // {
             description = "atom (null, bool, int, float or string)";
           };
 
@@ -295,7 +305,11 @@
         else
           abort "formats.elixirConf: should never happen (value = ${value})";
 
-      escapeElixir = escape [ "\\" "#" ''"'' ];
+      escapeElixir = escape [
+        "\\"
+        "#"
+        ''"''
+      ];
       string = value: ''"${escapeElixir value}"'';
 
       attrs = set:
@@ -476,7 +490,10 @@
           black,
         }:
         runCommand name {
-          nativeBuildInputs = [ python3 black ];
+          nativeBuildInputs = [
+            python3
+            black
+          ];
           value = builtins.toJSON value;
           pythonGen = ''
             import json
@@ -486,7 +503,10 @@
                 for key, value in json.load(f).items():
                     print(f"{key} = {repr(value)}")
           '';
-          passAsFile = [ "value" "pythonGen" ];
+          passAsFile = [
+            "value"
+            "pythonGen"
+          ];
         } ''
           cat "$valuePath"
           python3 "$pythonGenPath" > $out

@@ -11,8 +11,12 @@ let
   cfg = config.services.logrotate;
 
   generateLine = n: v:
-    if builtins.elem n [ "files" "priority" "enable" "global" ] || v
-    == null then
+    if builtins.elem n [
+      "files"
+      "priority"
+      "enable"
+      "global"
+    ] || v == null then
       null
     else if builtins.elem n [ "frequency" ] then ''
       ${v}
@@ -113,12 +117,21 @@ let
       (attrValues cfg.settings)) "--mail=${pkgs.mailutils}/bin/mail";
 in {
   imports = [
-    (mkRemovedOptionModule [ "services" "logrotate" "config" ]
-      "Modify services.logrotate.settings.header instead")
-    (mkRemovedOptionModule [ "services" "logrotate" "extraConfig" ]
-      "Modify services.logrotate.settings.header instead")
-    (mkRemovedOptionModule [ "services" "logrotate" "paths" ]
-      "Add attributes to services.logrotate.settings instead")
+    (mkRemovedOptionModule [
+      "services"
+      "logrotate"
+      "config"
+    ] "Modify services.logrotate.settings.header instead")
+    (mkRemovedOptionModule [
+      "services"
+      "logrotate"
+      "extraConfig"
+    ] "Modify services.logrotate.settings.header instead")
+    (mkRemovedOptionModule [
+      "services"
+      "logrotate"
+      "paths"
+    ] "Add attributes to services.logrotate.settings instead")
   ];
 
   options = {
@@ -160,7 +173,11 @@ in {
             ...
           }: {
             freeformType = with types;
-              attrsOf (nullOr (oneOf [ int bool str ]));
+              attrsOf (nullOr (oneOf [
+                int
+                bool
+                str
+              ]));
 
             options = {
               enable =

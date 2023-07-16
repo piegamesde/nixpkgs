@@ -30,8 +30,19 @@ mkDerivation rec {
 
   separateDebugInfo = true;
 
-  nativeBuildInputs = [ cmake makeWrapper ];
-  buildInputs = [ eigen suitesparse blas lapack libGLU qtbase libqglviewer ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+  ];
+  buildInputs = [
+    eigen
+    suitesparse
+    blas
+    lapack
+    libGLU
+    qtbase
+    libqglviewer
+  ];
 
   dontWrapQtApps = true;
 
@@ -56,7 +67,11 @@ mkDerivation rec {
   meta = with lib; {
     description = "A General Framework for Graph Optimization";
     homepage = "https://github.com/RainerKuemmerle/g2o";
-    license = with licenses; [ bsd3 lgpl3 gpl3 ];
+    license = with licenses; [
+      bsd3
+      lgpl3
+      gpl3
+    ];
     maintainers = with maintainers; [ lopsided98 ];
     platforms = platforms.all;
     # fatal error: 'qglviewer.h' file not found

@@ -48,9 +48,7 @@ let
       version
       filename
     ];
-  urls_ = if url != "" then
-    [ url ]
-  else if urls != [ ] then
+  urls_ = if url != "" then [ url ] else if urls != [ ] then
     urls
   else
     map mkJarUrl repos;

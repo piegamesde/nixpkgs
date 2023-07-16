@@ -20,10 +20,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ efivar popt ];
+  buildInputs = [
+    efivar
+    popt
+  ];
 
-  makeFlags =
-    [ "EFIDIR=nixos" "PKG_CONFIG=${stdenv.cc.targetPrefix}pkg-config" ];
+  makeFlags = [
+    "EFIDIR=nixos"
+    "PKG_CONFIG=${stdenv.cc.targetPrefix}pkg-config"
+  ];
 
   installFlags = [ "prefix=$(out)" ];
 

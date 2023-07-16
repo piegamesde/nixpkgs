@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-vbm31EsOJiMeTs2tu5KPXckxPcAQbi3/PGJ5EHCC5VQ=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config texinfo ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    texinfo
+  ];
   buildInputs = [ guile ];
   propagatedBuildInputs = [ libgcrypt ];
   makeFlags = [ "GUILE_AUTO_COMPILE=0" ];

@@ -20,8 +20,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HnsMy4i8NscCVFF28IcOZ2BoXozZfZzXk4CE9c7bL/E=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config doxygen ];
-  buildInputs = [ ibus qt4 icu ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    doxygen
+  ];
+  buildInputs = [
+    ibus
+    qt4
+    icu
+  ];
 
   cmakeFlags = [ "-DQT_PLUGINS_DIR=lib/qt4/plugins" ];
 

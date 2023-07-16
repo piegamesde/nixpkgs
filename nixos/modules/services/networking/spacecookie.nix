@@ -18,13 +18,21 @@ let
 
 in {
   imports = [
-    (mkRenamedOptionModule [ "services" "spacecookie" "root" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "spacecookie"
+      "root"
+    ] [
       "services"
       "spacecookie"
       "settings"
       "root"
     ])
-    (mkRenamedOptionModule [ "services" "spacecookie" "hostname" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "spacecookie"
+      "hostname"
+    ] [
       "services"
       "spacecookie"
       "settings"
@@ -130,7 +138,11 @@ in {
             };
 
             level = mkOption {
-              type = types.enum [ "info" "warn" "error" ];
+              type = types.enum [
+                "info"
+                "warn"
+                "error"
+              ];
               default = "info";
               description = lib.mdDoc ''
                 Log level for the spacecookie service.

@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-7/YfDK3TruKCckMzAPLRrwBkHRJcX1S+AzXHWRxkZPA=";
   };
 
-  nativeBuildInputs = [ findlib ocaml ];
+  nativeBuildInputs = [
+    findlib
+    ocaml
+  ];
 
   propagatedBuildInputs = [ lem ];
 

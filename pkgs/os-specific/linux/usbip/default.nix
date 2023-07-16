@@ -23,7 +23,11 @@ stdenv.mkDerivation {
     ./fix-strncpy-truncation.patch
   ] ++ kernel.patches;
 
-  nativeBuildInputs = [ autoconf automake libtool ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+  ];
   buildInputs = [ udev ];
 
   env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=address-of-packed-member" ];
@@ -39,7 +43,10 @@ stdenv.mkDerivation {
     homepage = "https://github.com/torvalds/linux/tree/master/tools/usb/usbip";
     description =
       "allows to pass USB device from server to client over the network";
-    license = with licenses; [ gpl2Only gpl2Plus ];
+    license = with licenses; [
+      gpl2Only
+      gpl2Plus
+    ];
     platforms = platforms.linux;
     broken = kernelOlder "4.10";
   };

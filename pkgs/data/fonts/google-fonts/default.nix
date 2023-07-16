@@ -12,7 +12,10 @@ stdenvNoCC.mkDerivation {
   # Adobe Blank is split out in a separate output,
   # because it causes crashes with `libfontconfig`.
   # It has an absurd number of symbols
-  outputs = [ "out" "adobeBlank" ];
+  outputs = [
+    "out"
+    "adobeBlank"
+  ];
 
   src = fetchFromGitHub {
     owner = "google";
@@ -64,7 +67,11 @@ stdenvNoCC.mkDerivation {
   meta = with lib; {
     homepage = "https://fonts.google.com";
     description = "Font files available from Google Fonts";
-    license = with licenses; [ asl20 ofl ufl ];
+    license = with licenses; [
+      asl20
+      ofl
+      ufl
+    ];
     platforms = platforms.all;
     hydraPlatforms = [ ];
     maintainers = with maintainers; [ manveru ];

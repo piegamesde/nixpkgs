@@ -31,8 +31,14 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoconf automake ];
-  buildInputs = [ zlib libtool ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+  ];
+  buildInputs = [
+    zlib
+    libtool
+  ];
 
   installPhase = ''
     install -vD kssd $out/bin/kssd

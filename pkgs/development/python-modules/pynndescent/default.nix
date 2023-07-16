@@ -39,8 +39,13 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ joblib llvmlite numba scikit-learn scipy ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [
+    joblib
+    llvmlite
+    numba
+    scikit-learn
+    scipy
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

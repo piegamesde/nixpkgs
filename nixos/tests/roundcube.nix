@@ -18,7 +18,11 @@ import ./make-test-python.nix ({
             package = pkgs.roundcube.withPlugins
               (plugins: [ plugins.persistent_login ]);
             plugins = [ "persistent_login" ];
-            dicts = with pkgs.aspellDicts; [ en fr de ];
+            dicts = with pkgs.aspellDicts; [
+              en
+              fr
+              de
+            ];
           };
           services.nginx.virtualHosts.roundcube = {
             forceSSL = false;

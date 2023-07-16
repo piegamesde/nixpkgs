@@ -23,7 +23,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-U1h0JZgYHlNR17+NoHK/k+bdXxeNJ2QNTkYryPFOFS8=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [
     meson
@@ -35,7 +38,10 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ Cocoa ]);
-  propagatedBuildInputs = [ glib libsigcxx ];
+  propagatedBuildInputs = [
+    glib
+    libsigcxx
+  ];
 
   doCheck = false; # fails. one test needs the net, another /etc/fstab
 

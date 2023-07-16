@@ -18,8 +18,15 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  propagatedBuildInputs = [ fontmath unicodedata2 defcon ];
-  nativeCheckInputs = [ unicodedata2 fs ];
+  propagatedBuildInputs = [
+    fontmath
+    unicodedata2
+    defcon
+  ];
+  nativeCheckInputs = [
+    unicodedata2
+    fs
+  ];
 
   meta = with lib; {
     description =

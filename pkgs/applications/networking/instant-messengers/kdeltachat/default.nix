@@ -24,10 +24,19 @@ mkDerivation rec {
     hash = "sha256-6KSzsPs8tSzVOxGUWj/AvSJihrSwamZgUNGvjnmNnag=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    pkg-config
+  ];
 
-  buildInputs =
-    [ kirigami2 libdeltachat qtimageformats qtmultimedia qtwebengine ];
+  buildInputs = [
+    kirigami2
+    libdeltachat
+    qtimageformats
+    qtmultimedia
+    qtwebengine
+  ];
 
   # needed for qmlplugindump to work
   QT_PLUGIN_PATH = "${qtbase.bin}/${qtbase.qtPluginPrefix}";

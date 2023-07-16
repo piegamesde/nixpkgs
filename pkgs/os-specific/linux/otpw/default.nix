@@ -29,7 +29,10 @@ stdenv.mkDerivation rec {
     cp *.8 $out/share/man/man8
   '';
 
-  buildInputs = [ pam libxcrypt ];
+  buildInputs = [
+    pam
+    libxcrypt
+  ];
 
   hardeningDisable = [ "stackprotector" ];
 

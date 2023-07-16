@@ -27,8 +27,16 @@ buildPythonPackage rec {
     hash = "sha256-sFGAVavY16UQNJmW467+Ekojws59UMcAoCc1t9wWHM4=";
   };
 
-  propagatedBuildInputs =
-    [ emoji numpy protobuf requests six torch tqdm transformers ];
+  propagatedBuildInputs = [
+    emoji
+    numpy
+    protobuf
+    requests
+    six
+    torch
+    tqdm
+    transformers
+  ];
 
   # Tests require network access
   doCheck = false;

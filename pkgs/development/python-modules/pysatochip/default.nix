@@ -28,7 +28,13 @@ buildPythonPackage rec {
       --replace "pyopenssl==20.0.0" "pyopenssl"
   '';
 
-  propagatedBuildInputs = [ cryptography ecdsa pyaes pyopenssl pyscard ];
+  propagatedBuildInputs = [
+    cryptography
+    ecdsa
+    pyaes
+    pyopenssl
+    pyscard
+  ];
 
   nativeCheckInputs = [ certifi ];
 

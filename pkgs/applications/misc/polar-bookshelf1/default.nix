@@ -80,10 +80,20 @@ stdenv.mkDerivation rec {
     pango
   ];
 
-  nativeBuildInputs = [ autoPatchelfHook dpkg makeWrapper wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    dpkg
+    makeWrapper
+    wrapGAppsHook
+  ];
 
-  runtimeLibs =
-    lib.makeLibraryPath [ libudev0-shim glibc curl openssl libnghttp2 ];
+  runtimeLibs = lib.makeLibraryPath [
+    libudev0-shim
+    glibc
+    curl
+    openssl
+    libnghttp2
+  ];
 
   unpackPhase = ''
     dpkg-deb -x $src .

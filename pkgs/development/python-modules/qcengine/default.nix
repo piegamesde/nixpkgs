@@ -23,7 +23,13 @@ buildPythonPackage rec {
     hash = "sha256-jBA3exH/qzEaKZeumvgKD0tKnDptZdlv1KykyUHs8Bg=";
   };
 
-  propagatedBuildInputs = [ psutil py-cpuinfo pydantic pyyaml qcelemental ];
+  propagatedBuildInputs = [
+    psutil
+    py-cpuinfo
+    pydantic
+    pyyaml
+    qcelemental
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

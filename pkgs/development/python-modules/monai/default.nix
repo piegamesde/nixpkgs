@@ -32,9 +32,16 @@ buildPythonPackage rec {
     export MAX_JOBS=$NIX_BUILD_CORES;
   '';
 
-  nativeBuildInputs = [ ninja which ];
+  nativeBuildInputs = [
+    ninja
+    which
+  ];
   buildInputs = [ pybind11 ];
-  propagatedBuildInputs = [ numpy torch ignite ];
+  propagatedBuildInputs = [
+    numpy
+    torch
+    ignite
+  ];
 
   BUILD_MONAI = 1;
 

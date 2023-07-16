@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-7VHcuINhe17lRNkHUnZkVOEtD6mVWk5gu0NbrLZwprg=";
   };
 
-  propagatedBuildInputs = [ inform sly ];
+  propagatedBuildInputs = [
+    inform
+    sly
+  ];
 
   # this has a circular dependency on quantiphy
   preBuild = ''

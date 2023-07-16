@@ -44,9 +44,17 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
     wrapGAppsHook4
-  ] ++ (with rustPlatform; [ cargoSetupHook rust.cargo rust.rustc ]);
+  ] ++ (with rustPlatform; [
+    cargoSetupHook
+    rust.cargo
+    rust.rustc
+  ]);
 
-  buildInputs = [ libadwaita libsecret protobuf ];
+  buildInputs = [
+    libadwaita
+    libsecret
+    protobuf
+  ];
 
   meta = {
     changelog =
@@ -54,7 +62,10 @@ stdenv.mkDerivation rec {
     description = "An unofficial Signal GTK client";
     homepage = "https://gitlab.com/Schmiddiii/flare";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ dotlambda tomfitzhenry ];
+    maintainers = with lib.maintainers; [
+      dotlambda
+      tomfitzhenry
+    ];
     platforms = lib.platforms.linux;
   };
 }

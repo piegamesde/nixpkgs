@@ -14,7 +14,10 @@
 }:
 
 let
-  libPath = lib.makeLibraryPath [ libGL stdenv.cc.cc ];
+  libPath = lib.makeLibraryPath [
+    libGL
+    stdenv.cc.cc
+  ];
   env = buildEnv {
     name = "quake3-env";
     paths = [ ioquake3 ] ++ paks;

@@ -23,8 +23,17 @@ mkXfceDerivation {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs =
-    [ gettext exo garcon gtk3 glib libxfce4ui libxfce4util xfce4-panel xfconf ];
+  buildInputs = [
+    gettext
+    exo
+    garcon
+    gtk3
+    glib
+    libxfce4ui
+    libxfce4util
+    xfce4-panel
+    xfconf
+  ];
 
   postPatch = ''
     substituteInPlace panel-plugin/xfce4-popup-whiskermenu.in \

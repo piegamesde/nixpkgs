@@ -29,10 +29,10 @@ import ../make-test-python.nix ({
           '';
           networking.firewall.allowedUDPPorts = [ 5353 ];
           networking.firewall.allowedTCPPorts = [ 5353 ];
-          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [{
+          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
             address = "192.168.1.1";
             prefixLength = 24;
-          }];
+          } ];
         };
 
       client = {
@@ -47,10 +47,10 @@ import ../make-test-python.nix ({
               "sdns://AQAAAAAAAAAAEDE5Mi4xNjguMS4xOjUzNTMgFEHYOv0SCKSuqR5CDYa7-58cCBuXO2_5uTSVU9wNQF0WMi5kbnNjcnlwdC1jZXJ0LnNlcnZlcg";
           };
           networking.nameservers = [ "127.0.0.1" ];
-          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [{
+          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
             address = "192.168.1.2";
             prefixLength = 24;
-          }];
+          } ];
         };
 
     };

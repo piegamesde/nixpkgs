@@ -17,7 +17,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-C66QxlMBupbHYktyzHapUrl0yk+pvWZN0BLhpjIGVzI=";
 
-  ldflags = [ "-s" "-w" "-X=main.ServerVersion=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X=main.ServerVersion=${version}"
+  ];
 
   preCheck = ''
     # requires network access

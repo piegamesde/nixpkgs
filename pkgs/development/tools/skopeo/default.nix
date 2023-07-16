@@ -28,15 +28,26 @@ buildGoModule rec {
     hash = "sha256-a4uM2WjDhjz4zTiM2HWoDHQQ9aT38HV9GNUJAJmZR+w=";
   };
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   vendorHash = null;
 
   doCheck = false;
 
-  nativeBuildInputs = [ pkg-config go-md2man installShellFiles makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    go-md2man
+    installShellFiles
+    makeWrapper
+  ];
 
-  buildInputs = [ gpgme ] ++ lib.optionals stdenv.isLinux [ lvm2 btrfs-progs ];
+  buildInputs = [ gpgme ] ++ lib.optionals stdenv.isLinux [
+    lvm2
+    btrfs-progs
+  ];
 
   buildPhase = ''
     runHook preBuild
@@ -74,7 +85,10 @@ buildGoModule rec {
       "A command line utility for various operations on container images and image repositories";
     homepage = "https://github.com/containers/skopeo";
     maintainers = with maintainers;
-      [ lewo developer-guy ] ++ teams.podman.members;
+      [
+        lewo
+        developer-guy
+      ] ++ teams.podman.members;
     license = licenses.asl20;
   };
 }

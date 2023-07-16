@@ -29,9 +29,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ asyncclick importlib-metadata pydantic ];
+  propagatedBuildInputs = [
+    asyncclick
+    importlib-metadata
+    pydantic
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytest-mock pytestCheckHook voluptuous ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-mock
+    pytestCheckHook
+    voluptuous
+  ];
 
   pytestFlagsArray = [ "--asyncio-mode=auto" ];
 

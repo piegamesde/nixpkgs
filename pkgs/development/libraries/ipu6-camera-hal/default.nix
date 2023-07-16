@@ -27,7 +27,10 @@ stdenv.mkDerivation {
     hash = "sha256-AePL7IqoOhlxhfPRLpCman5DNh3wYS4MUcLgmgBUcCM=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   cmakeFlags = [
     "-DIPU_VER=${ipu6-camera-bin.ipuVersion}"

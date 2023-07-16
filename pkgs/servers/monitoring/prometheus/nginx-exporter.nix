@@ -18,7 +18,11 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-YyMySHnrjBHm3hRNJDwWBs86Ih4S5DONYuwlQ3FBjkA=";
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   passthru.tests = { inherit (nixosTests.prometheus-exporters) nginx; };
 
@@ -26,7 +30,12 @@ buildGoModule rec {
     description = "NGINX Prometheus Exporter for NGINX and NGINX Plus";
     homepage = "https://github.com/nginxinc/nginx-prometheus-exporter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ benley fpletz willibutz globin ];
+    maintainers = with maintainers; [
+      benley
+      fpletz
+      willibutz
+      globin
+    ];
     platforms = platforms.unix;
   };
 }

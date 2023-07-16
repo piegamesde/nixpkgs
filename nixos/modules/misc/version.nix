@@ -16,7 +16,18 @@ let
 
   needsEscaping = s: null != builtins.match "[a-zA-Z0-9]+" s;
   escapeIfNeccessary = s:
-    if needsEscaping s then s else ''"${lib.escape [ "$" ''"'' "\\" "`" ] s}"'';
+    if needsEscaping s then
+      s
+    else
+      ''
+        "${
+          lib.escape [
+            "$"
+            ''"''
+            "\\"
+            "`"
+          ] s
+        }"'';
   attrsToText = attrs:
     concatStringsSep "\n"
     (mapAttrsToList (n: v: "${n}=${escapeIfNeccessary (toString v)}") attrs)
@@ -52,22 +63,34 @@ let
 in {
   imports = [
     ./label.nix
-    (mkRenamedOptionModule [ "system" "nixosVersion" ] [
+    (mkRenamedOptionModule [
+      "system"
+      "nixosVersion"
+    ] [
       "system"
       "nixos"
       "version"
     ])
-    (mkRenamedOptionModule [ "system" "nixosVersionSuffix" ] [
+    (mkRenamedOptionModule [
+      "system"
+      "nixosVersionSuffix"
+    ] [
       "system"
       "nixos"
       "versionSuffix"
     ])
-    (mkRenamedOptionModule [ "system" "nixosRevision" ] [
+    (mkRenamedOptionModule [
+      "system"
+      "nixosRevision"
+    ] [
       "system"
       "nixos"
       "revision"
     ])
-    (mkRenamedOptionModule [ "system" "nixosLabel" ] [
+    (mkRenamedOptionModule [
+      "system"
+      "nixosLabel"
+    ] [
       "system"
       "nixos"
       "label"

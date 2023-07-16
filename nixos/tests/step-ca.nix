@@ -35,10 +35,10 @@ import ./make-test-python.nix ({
                 dataSource = "/var/lib/step-ca/db";
               };
               authority = {
-                provisioners = [{
+                provisioners = [ {
                   type = "ACME";
                   name = "acme";
-                }];
+                } ];
               };
             };
           };
@@ -57,7 +57,10 @@ import ./make-test-python.nix ({
           security.pki.certificateFiles =
             [ "${test-certificates}/root_ca.crt" ];
 
-          networking.firewall.allowedTCPPorts = [ 80 443 ];
+          networking.firewall.allowedTCPPorts = [
+            80
+            443
+          ];
 
           services.nginx = {
             enable = true;

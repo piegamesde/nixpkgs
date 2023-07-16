@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
   pname = "libmediaart";
   version = "1.9.6";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -38,10 +42,13 @@ stdenv.mkDerivation rec {
     docbook_xsl
     docbook_xml_dtd_412
     gobject-introspection
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-    [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
+    stdenv.hostPlatform) [ mesonEmulatorHook ];
 
-  buildInputs = [ glib gdk-pixbuf ];
+  buildInputs = [
+    glib
+    gdk-pixbuf
+  ];
 
   mesonFlags = [ "-Dgtk_doc=true" ];
 

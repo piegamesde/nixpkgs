@@ -34,8 +34,13 @@ in stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ boostPython openssl zlib python ncurses ]
-    ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
+  buildInputs = [
+    boostPython
+    openssl
+    zlib
+    python
+    ncurses
+  ] ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
 
   # https://github.com/arvidn/libtorrent/issues/6865
   postPatch = ''
@@ -54,7 +59,11 @@ in stdenv.mkDerivation {
     moveToOutput "lib/${python.libPrefix}" "$python"
   '';
 
-  outputs = [ "out" "dev" "python" ];
+  outputs = [
+    "out"
+    "dev"
+    "python"
+  ];
 
   cmakeFlags = [ "-Dpython-bindings=on" ];
 

@@ -41,12 +41,24 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ setuptools-git mock path execnet termcolor six ];
+  propagatedBuildInputs = [
+    setuptools-git
+    mock
+    path
+    execnet
+    termcolor
+    six
+  ];
 
-  nativeCheckInputs = [ cmdline pytestCheckHook ];
+  nativeCheckInputs = [
+    cmdline
+    pytestCheckHook
+  ];
 
-  disabledTests = [ "test_pretty_formatter" ]
-    ++ lib.optionals isPyPy [ "test_run" "test_run_integration" ];
+  disabledTests = [ "test_pretty_formatter" ] ++ lib.optionals isPyPy [
+    "test_run"
+    "test_run_integration"
+  ];
 
   meta = with lib; {
     description =

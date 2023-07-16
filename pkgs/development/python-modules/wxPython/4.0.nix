@@ -37,19 +37,31 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ pkg-config which doxygen setuptools wxGTK ];
+  nativeBuildInputs = [
+    pkg-config
+    which
+    doxygen
+    setuptools
+    wxGTK
+  ];
 
-  buildInputs = [ ncurses libintl ] ++ (if stdenv.isDarwin then [
+  buildInputs = [
+    ncurses
+    libintl
+  ] ++ (if stdenv.isDarwin then [
     AudioToolbox
     Carbon
     Cocoa
     CoreFoundation
     IOKit
     OpenGL
-  ] else
-    [ gtk3 ]);
+  ] else [ gtk3 ]);
 
-  propagatedBuildInputs = [ numpy pillow six ];
+  propagatedBuildInputs = [
+    numpy
+    pillow
+    six
+  ];
 
   DOXYGEN = "${doxygen}/bin/doxygen";
 

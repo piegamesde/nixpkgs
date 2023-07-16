@@ -32,9 +32,22 @@ mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake qmake pkg-config python3 wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    qmake
+    pkg-config
+    python3
+    wrapQtAppsHook
+  ];
   propagatedBuildInputs = [ python3.pkgs.pyside2 ];
-  buildInputs = [ qtbase qttools qtsvg qtwebengine rizin python3 ];
+  buildInputs = [
+    qtbase
+    qttools
+    qtsvg
+    qtwebengine
+    rizin
+    python3
+  ];
 
   cmakeFlags = [
     "-DCUTTER_USE_BUNDLED_RIZIN=OFF"
@@ -51,6 +64,9 @@ mkDerivation rec {
       "Free and Open Source Reverse Engineering Platform powered by rizin";
     homepage = src.meta.homepage;
     license = licenses.gpl3;
-    maintainers = with maintainers; [ mic92 dtzWill ];
+    maintainers = with maintainers; [
+      mic92
+      dtzWill
+    ];
   };
 }

@@ -29,7 +29,12 @@ stdenv.mkDerivation rec {
   version = "3.34.5";
 
   # TODO: split out "lib"
-  outputs = [ "out" "dev" "devdoc" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+    "man"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -73,7 +78,10 @@ stdenv.mkDerivation rec {
     gsettings-desktop-schemas
   ];
 
-  mesonFlags = [ "-Dicon_update=false" "-Dgtk_doc=true" ];
+  mesonFlags = [
+    "-Dicon_update=false"
+    "-Dgtk_doc=true"
+  ];
 
   postPatch = ''
     chmod +x meson_post_install.py # patchShebangs requires executable file

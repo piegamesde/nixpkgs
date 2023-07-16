@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoPatchelfHook ];
 
-  buildInputs = [ bzip2 xz stdenv.cc.cc.lib ];
+  buildInputs = [
+    bzip2
+    xz
+    stdenv.cc.cc.lib
+  ];
 
   installPhase = ''
     install -D stt $out/bin/stt

@@ -22,9 +22,18 @@ stdenv.mkDerivation rec {
     owner = "Radvendii";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
 
-  buildInputs = [ SDL2 SDL2_mixer libconfig libGLU ];
+  buildInputs = [
+    SDL2
+    SDL2_mixer
+    libconfig
+    libGLU
+  ];
 
   meta = with lib; {
     description = "First person Super Mario Bros";

@@ -17,5 +17,8 @@ stdenv.mkDerivation rec {
   meta = { platforms = lib.platforms.windows; };
 
   dontStrip = true;
-  hardeningDisable = [ "stackprotector" "fortify" ];
+  hardeningDisable = [
+    "stackprotector"
+    "fortify"
+  ];
 }

@@ -61,14 +61,20 @@ in stdenv.mkDerivation rec {
     ar p "$src/Debian/${region}/kyodialog_${platform}/kyodialog_${kyodialog_version}-0_${platform}.deb" data.tar.gz | tar -xz
   '';
 
-  nativeBuildInputs = [ autoPatchelfHook python3Packages.wrapPython ]
-    ++ lib.optionals withQtGui [ qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    python3Packages.wrapPython
+  ] ++ lib.optionals withQtGui [ qt5.wrapQtAppsHook ];
 
   buildInputs = [ cups ] ++ lib.optionals withQtGui [ qt5.qtbase ];
 
   # For lib/cups/filter/kyofilter_pre_H.
   # The source already contains a copy of pypdf3, but we use the Nix package
-  propagatedBuildInputs = with python3Packages; [ reportlab pypdf3 setuptools ];
+  propagatedBuildInputs = with python3Packages; [
+    reportlab
+    pypdf3
+    setuptools
+  ];
 
   installPhase = ''
     # allow cups to find the ppd files
@@ -104,6 +110,9 @@ in stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     maintainers = [ maintainers.steveej ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 }

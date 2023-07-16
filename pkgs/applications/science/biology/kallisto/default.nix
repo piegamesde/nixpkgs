@@ -19,9 +19,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-r0cdR0jTRa1wu/LDKW6NdxI3XaKj6wcIVbIlct0fFvI=";
   };
 
-  nativeBuildInputs = [ autoconf cmake ];
+  nativeBuildInputs = [
+    autoconf
+    cmake
+  ];
 
-  buildInputs = [ hdf5 zlib ];
+  buildInputs = [
+    hdf5
+    zlib
+  ];
 
   cmakeFlags = [ "-DUSE_HDF5=ON" ];
 

@@ -6,11 +6,18 @@ args@{
   baseName = "chanl";
   version = "20210411-git";
 
-  parasites = [ "chanl/examples" "chanl/tests" ];
+  parasites = [
+    "chanl/examples"
+    "chanl/tests"
+  ];
 
   description = "Communicating Sequential Process support for Common Lisp";
 
-  deps = [ args."alexandria" args."bordeaux-threads" args."fiveam" ];
+  deps = [
+    args."alexandria"
+    args."bordeaux-threads"
+    args."fiveam"
+  ];
 
   src = fetchurl {
     url =

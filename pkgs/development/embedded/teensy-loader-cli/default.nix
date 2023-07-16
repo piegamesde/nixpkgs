@@ -18,7 +18,10 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-C9Qhd6LhAES7X0sh4rofjAM+gxwuosahVQHeR76LyIo=";
   };
 
-  nativeBuildInputs = [ go-md2man installShellFiles ];
+  nativeBuildInputs = [
+    go-md2man
+    installShellFiles
+  ];
 
   buildInputs = [ libusb-compat-0_1 ];
 

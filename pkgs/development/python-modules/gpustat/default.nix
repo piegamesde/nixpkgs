@@ -23,9 +23,16 @@ buildPythonPackage rec {
   nativeBuildInputs = [ pythonRelaxDepsHook ];
   pythonRelaxDeps = [ "nvidia-ml-py" ];
 
-  propagatedBuildInputs = [ blessed nvidia-ml-py psutil ];
+  propagatedBuildInputs = [
+    blessed
+    nvidia-ml-py
+    psutil
+  ];
 
-  nativeCheckInputs = [ mockito pytestCheckHook ];
+  nativeCheckInputs = [
+    mockito
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "gpustat" ];
 

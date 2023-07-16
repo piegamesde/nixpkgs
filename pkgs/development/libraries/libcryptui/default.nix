@@ -31,8 +31,19 @@ stdenv.mkDerivation rec {
     ./fix-latest-gnupg.patch
   ];
 
-  nativeBuildInputs = [ pkg-config intltool autoreconfHook ];
-  buildInputs = [ glib gtk3 gnupg gpgme dbus-glib libgnome-keyring ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+    autoreconfHook
+  ];
+  buildInputs = [
+    glib
+    gtk3
+    gnupg
+    gpgme
+    dbus-glib
+    libgnome-keyring
+  ];
   propagatedBuildInputs = [ dbus-glib ];
 
   enableParallelBuilding = true;

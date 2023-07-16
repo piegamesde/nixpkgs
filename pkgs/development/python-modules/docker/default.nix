@@ -27,7 +27,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ packaging requests urllib3 websocket-client ];
+  propagatedBuildInputs = [
+    packaging
+    requests
+    urllib3
+    websocket-client
+  ];
 
   passthru.optional-dependencies.ssh = [ paramiko ];
 

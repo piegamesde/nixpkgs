@@ -27,15 +27,18 @@ let
             services.mysql = {
               inherit package;
               enable = true;
-              initialDatabases = [{
+              initialDatabases = [ {
                 name = "testdb";
                 schema = ./testdb.sql;
-              }];
+              } ];
             };
 
             services.mysqlBackup = {
               enable = true;
-              databases = [ "doesnotexist" "testdb" ];
+              databases = [
+                "doesnotexist"
+                "testdb"
+              ];
             };
           };
       };

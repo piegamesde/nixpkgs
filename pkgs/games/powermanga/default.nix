@@ -19,9 +19,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2nU/zoOQWm2z/Y6mXHDFfWYjYshsQp1saVRBcUT5Q+g=";
   };
 
-  nativeBuildInputs = [ autoconf automake ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+  ];
 
-  buildInputs = [ SDL SDL_mixer libpng ];
+  buildInputs = [
+    SDL
+    SDL_mixer
+    libpng
+  ];
 
   preConfigure = ''
     ./bootstrap

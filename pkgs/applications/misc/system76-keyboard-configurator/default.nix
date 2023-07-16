@@ -33,7 +33,12 @@ rustPlatform.buildRustPackage rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ gtk3 hidapi libusb1 udev ];
+  buildInputs = [
+    gtk3
+    hidapi
+    libusb1
+    udev
+  ];
 
   cargoHash = "sha256-0SFph9quh4QWR3nU5IJr4FyLGqrYvmHcZHDRli6phsc=";
 

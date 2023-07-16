@@ -29,7 +29,12 @@ stdenv.mkDerivation rec {
   pname = "gcr";
   version = "4.1.0";
 
-  outputs = [ "out" "bin" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "bin"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -51,10 +56,21 @@ stdenv.mkDerivation rec {
     shared-mime-info
   ];
 
-  buildInputs =
-    [ gnupg libgcrypt libtasn1 pango libsecret openssh systemd gtk4 ];
+  buildInputs = [
+    gnupg
+    libgcrypt
+    libtasn1
+    pango
+    libsecret
+    openssh
+    systemd
+    gtk4
+  ];
 
-  propagatedBuildInputs = [ glib p11-kit ];
+  propagatedBuildInputs = [
+    glib
+    p11-kit
+  ];
 
   nativeCheckInputs = [ python3 ];
 

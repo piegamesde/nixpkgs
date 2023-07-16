@@ -19,10 +19,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-V0g/d1B9uMn7KZU6ShzyPGXOSAYCbz4ZubnhAwz+Qsc=";
   };
 
-  outputs = [ "out" "dev" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ];
 
   nativeBuildInputs = [ cmake ];
-  nativeCheckInputs = [ cunit ncurses ];
+  nativeCheckInputs = [
+    cunit
+    ncurses
+  ];
 
   cmakeFlags = [ "-DENABLE_STATIC_LIB=OFF" ];
 

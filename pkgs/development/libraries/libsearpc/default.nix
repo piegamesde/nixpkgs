@@ -20,11 +20,17 @@ stdenv.mkDerivation rec {
     sha256 = "18i5zvrp6dv6vygxx5nc93mai2p2x786n5lnf5avrin6xiz2j6hd";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   buildInputs = [ python3 ];
 
-  propagatedBuildInputs = [ glib jansson ];
+  propagatedBuildInputs = [
+    glib
+    jansson
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/haiwen/libsearpc";

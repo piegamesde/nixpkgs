@@ -26,11 +26,20 @@ buildOctavePackage rec {
     sha256 = "sha256-UnMrIruzm3ARoTgUlMMxfjTOMZw/znZUQJmj3VEOw8I=";
   };
 
-  nativeBuildInputs = [ pkg-config autoconf automake dolfin ];
+  nativeBuildInputs = [
+    pkg-config
+    autoconf
+    automake
+    dolfin
+  ];
 
   buildInputs = [ dolfin ];
 
-  propagatedBuildInputs = [ gmsh gawk dolfin ];
+  propagatedBuildInputs = [
+    gmsh
+    gawk
+    dolfin
+  ];
 
   requiredOctavePackages = [ splines ];
 

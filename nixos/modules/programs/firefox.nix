@@ -57,7 +57,12 @@ in {
     };
 
     preferences = mkOption {
-      type = with types; attrsOf (oneOf [ bool int string ]);
+      type = with types;
+        attrsOf (oneOf [
+          bool
+          int
+          string
+        ]);
       default = { };
       description = mdDoc ''
         Preferences to set from `about:config`.
@@ -70,7 +75,12 @@ in {
     };
 
     preferencesStatus = mkOption {
-      type = types.enum [ "default" "locked" "user" "clear" ];
+      type = types.enum [
+        "default"
+        "locked"
+        "user"
+        "clear"
+      ];
       default = "locked";
       description = mdDoc ''
         The status of `firefox.preferences`.
@@ -217,17 +227,14 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [
-      (cfg.package.override {
-        extraPrefs = cfg.autoConfig;
-        extraNativeMessagingHosts = with pkgs;
-          optionals nmh.ff2mpv [ ff2mpv ]
-          ++ optionals nmh.euwebid [ web-eid-app ]
-          ++ optionals nmh.gsconnect [ gnomeExtensions.gsconnect ]
-          ++ optionals nmh.jabref [ jabref ]
-          ++ optionals nmh.passff [ passff-host ];
-      })
-    ];
+    environment.systemPackages = [ (cfg.package.override {
+      extraPrefs = cfg.autoConfig;
+      extraNativeMessagingHosts = with pkgs;
+        optionals nmh.ff2mpv [ ff2mpv ] ++ optionals nmh.euwebid [ web-eid-app ]
+        ++ optionals nmh.gsconnect [ gnomeExtensions.gsconnect ]
+        ++ optionals nmh.jabref [ jabref ]
+        ++ optionals nmh.passff [ passff-host ];
+    }) ];
 
     nixpkgs.config.firefox = {
       enableBrowserpass = nmh.browserpass;

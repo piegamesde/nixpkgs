@@ -37,9 +37,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ blessed python-editor readchar ];
+  propagatedBuildInputs = [
+    blessed
+    python-editor
+    readchar
+  ];
 
-  nativeCheckInputs = [ pexpect pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pexpect
+    pytest-mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "inquirer" ];
 

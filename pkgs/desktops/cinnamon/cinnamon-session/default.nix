@@ -64,8 +64,15 @@ stdenv.mkDerivation rec {
     gsettings-desktop-schemas
   ];
 
-  nativeBuildInputs =
-    [ meson ninja wrapGAppsHook libexecinfo python3 pkg-config libxslt ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    wrapGAppsHook
+    libexecinfo
+    python3
+    pkg-config
+    libxslt
+  ];
 
   mesonFlags = [
     # use locales from cinnamon-translations

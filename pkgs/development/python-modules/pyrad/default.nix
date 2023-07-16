@@ -21,18 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-oqgkE0xG/8cmLeRZdGoHkaHbjtByeJwzBJwEdxH8oNY=";
   };
 
-  patches = [
-    (fetchpatch {
-      # Migrate to poetry-core
-      url =
-        "https://github.com/pyradius/pyrad/commit/a4b70067dd6269e14a2f9530d820390a8a454231.patch";
-      hash = "sha256-1We9wrVY3Or3GLIKK6hZvEjVYv6JOaahgP9zOMvgErE=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    # Migrate to poetry-core
+    url =
+      "https://github.com/pyradius/pyrad/commit/a4b70067dd6269e14a2f9530d820390a8a454231.patch";
+    hash = "sha256-1We9wrVY3Or3GLIKK6hZvEjVYv6JOaahgP9zOMvgErE=";
+  }) ];
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ netaddr six ];
+  propagatedBuildInputs = [
+    netaddr
+    six
+  ];
 
   preCheck = ''
     substituteInPlace tests/testServer.py \

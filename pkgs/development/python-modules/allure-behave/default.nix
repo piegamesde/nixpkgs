@@ -23,7 +23,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "allure_behave" ];
 
-  propagatedBuildInputs = [ allure-python-commons behave ];
+  propagatedBuildInputs = [
+    allure-python-commons
+    behave
+  ];
 
   meta = with lib; {
     description = "Allure behave integration.";

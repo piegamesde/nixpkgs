@@ -117,11 +117,22 @@ in stdenv.mkDerivation rec {
         dbus.lib
         libxkbcommon
       ];
-      libwidevinecdm = lib.makeLibraryPath [ glib nss nspr ];
-      libGLESv2 =
-        lib.makeLibraryPath [ xorg.libX11 xorg.libXext xorg.libxcb wayland ];
+      libwidevinecdm = lib.makeLibraryPath [
+        glib
+        nss
+        nspr
+      ];
+      libGLESv2 = lib.makeLibraryPath [
+        xorg.libX11
+        xorg.libXext
+        xorg.libxcb
+        wayland
+      ];
       libsmartscreenn = lib.makeLibraryPath [ libuuid ];
-      liboneauth = lib.makeLibraryPath [ libuuid xorg.libX11 ];
+      liboneauth = lib.makeLibraryPath [
+        libuuid
+        xorg.libX11
+      ];
     };
   in ''
     patchelf \
@@ -216,6 +227,9 @@ in stdenv.mkDerivation rec {
     license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ zanculmarktum kuwii ];
+    maintainers = with maintainers; [
+      zanculmarktum
+      kuwii
+    ];
   };
 }

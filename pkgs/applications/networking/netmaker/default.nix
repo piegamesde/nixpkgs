@@ -5,7 +5,10 @@
   lib,
   libglvnd,
   pkg-config,
-  subPackages ? [ "." "netclient" ],
+  subPackages ? [
+    "."
+    "netclient"
+  ],
   xorg,
 }:
 

@@ -29,7 +29,10 @@ rustPlatform.buildRustPackage rec {
     description = "Userspace WireGuard® implementation in Rust";
     homepage = "https://github.com/cloudflare/boringtun";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ xrelkd marsam ];
+    maintainers = with maintainers; [
+      xrelkd
+      marsam
+    ];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

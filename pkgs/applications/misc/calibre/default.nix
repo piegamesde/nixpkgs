@@ -69,8 +69,14 @@ stdenv.mkDerivation (finalAttrs: {
   dontUseQmakeConfigure = true;
   dontUseCmakeConfigure = true;
 
-  nativeBuildInputs =
-    [ cmake pkg-config qmake removeReferencesTo wrapGAppsHook wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qmake
+    removeReferencesTo
+    wrapGAppsHook
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     fontconfig
@@ -202,7 +208,10 @@ stdenv.mkDerivation (finalAttrs: {
       lib.licenses.unfreeRedistributable
     else
       lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ pSub AndersonTorres ];
+    maintainers = with lib.maintainers; [
+      pSub
+      AndersonTorres
+    ];
     platforms = lib.platforms.unix;
     broken = stdenv.isDarwin;
   };

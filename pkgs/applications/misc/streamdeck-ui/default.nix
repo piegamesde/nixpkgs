@@ -36,17 +36,15 @@ python3Packages.buildPythonApplication rec {
     })
   ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "streamdeck-ui";
-      desktopName = "Stream Deck UI";
-      icon = "streamdeck-ui";
-      exec = "streamdeck --no-ui";
-      comment = "UI for the Elgato Stream Deck";
-      categories = [ "Utility" ];
-      noDisplay = true;
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "streamdeck-ui";
+    desktopName = "Stream Deck UI";
+    icon = "streamdeck-ui";
+    exec = "streamdeck --no-ui";
+    comment = "UI for the Elgato Stream Deck";
+    categories = [ "Utility" ];
+    noDisplay = true;
+  }) ];
 
   postInstall = let
     udevRules = ''
@@ -67,8 +65,11 @@ python3Packages.buildPythonApplication rec {
 
   format = "pyproject";
 
-  nativeBuildInputs =
-    [ python3Packages.poetry-core copyDesktopItems wrapQtAppsHook ];
+  nativeBuildInputs = [
+    python3Packages.poetry-core
+    copyDesktopItems
+    wrapQtAppsHook
+  ];
 
   propagatedBuildInputs = with python3Packages; [
     setuptools
@@ -81,8 +82,11 @@ python3Packages.buildPythonApplication rec {
     xlib
   ];
 
-  nativeCheckInputs =
-    [ xvfb-run python3Packages.pytest python3Packages.hypothesis-auto ];
+  nativeCheckInputs = [
+    xvfb-run
+    python3Packages.pytest
+    python3Packages.hypothesis-auto
+  ];
 
   # Ignored tests are not in a running or passing state.
   # Fixes have been merged upstream but not yet released.

@@ -23,7 +23,13 @@ stdenv.mkDerivation rec {
   # remove for version >1.3
   patches = [ ./determinism.patch ];
 
-  nativeBuildInputs = [ perl bdftopcf bdf2psf xorg.fonttosfnt xorg.mkfontdir ];
+  nativeBuildInputs = [
+    perl
+    bdftopcf
+    bdf2psf
+    xorg.fonttosfnt
+    xorg.mkfontdir
+  ];
 
   # configure sizes, encodings and variants
   preConfigure = (if targetsDat == null then ''
@@ -85,7 +91,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Monospace bitmap screen fonts for X11";
     homepage = "https://people.mpi-inf.mpg.de/~uwe/misc/uw-ttyp0/";
-    license = with licenses; [ free mit ];
+    license = with licenses; [
+      free
+      mit
+    ];
     maintainers = with maintainers; [ rnhmjoj ];
   };
 

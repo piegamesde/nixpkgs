@@ -37,9 +37,19 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ meson pkg-config ninja ];
+  nativeBuildInputs = [
+    meson
+    pkg-config
+    ninja
+  ];
 
-  buildInputs = [ glib gtk3 nemo python3 python3.pkgs.pygobject3 ];
+  buildInputs = [
+    glib
+    gtk3
+    nemo
+    python3
+    python3.pkgs.pygobject3
+  ];
 
   postPatch = ''
     # Tries to load libpython3.so via g_module_open ().

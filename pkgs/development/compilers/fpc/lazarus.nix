@@ -69,7 +69,10 @@ in stdenv.mkDerivation rec {
     atk
     stdenv.cc
     gdk-pixbuf
-  ] ++ lib.optionals withQt [ libqt5pas qtbase ];
+  ] ++ lib.optionals withQt [
+    libqt5pas
+    qtbase
+  ];
 
   # Disable parallel build, errors:
   #  Fatal: (1018) Compilation aborted
@@ -102,7 +105,10 @@ in stdenv.mkDerivation rec {
     "-lglib-2.0"
     "-lgtk-x11-2.0"
     "-lpango-1.0"
-  ] ++ lib.optionals withQt [ "-L${lib.getLib libqt5pas}/lib" "-lQt5Pas" ]);
+  ] ++ lib.optionals withQt [
+    "-L${lib.getLib libqt5pas}/lib"
+    "-lQt5Pas"
+  ]);
 
   preBuild = ''
     mkdir -p $out/share "$out/lazarus"
@@ -118,7 +124,14 @@ in stdenv.mkDerivation rec {
         --prefix NIX_LDFLAGS ' ' "${ldFlags}" \
         --prefix NIX_LDFLAGS_${binutils.suffixSalt} ' ' "${ldFlags}" \
         --prefix LCL_PLATFORM ' ' "$LCL_PLATFORM" \
-        --prefix PATH ':' "${lib.makeBinPath [ fpc gdb gnumake binutils ]}"
+        --prefix PATH ':' "${
+          lib.makeBinPath [
+            fpc
+            gdb
+            gnumake
+            binutils
+          ]
+        }"
     '';
 
   meta = with lib; {

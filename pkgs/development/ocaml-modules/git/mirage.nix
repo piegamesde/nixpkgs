@@ -47,8 +47,14 @@ buildDunePackage {
   minimalOCamlVersion = "4.08";
   duneVersion = "3";
 
-  buildInputs =
-    [ dns dns-client happy-eyeballs-mirage ipaddr mirage-random rresult ];
+  buildInputs = [
+    dns
+    dns-client
+    happy-eyeballs-mirage
+    ipaddr
+    mirage-random
+    rresult
+  ];
 
   propagatedBuildInputs = [
     git
@@ -78,7 +84,13 @@ buildDunePackage {
     result
   ];
 
-  checkInputs = [ alcotest alcotest-lwt bigstringaf logs ke ];
+  checkInputs = [
+    alcotest
+    alcotest-lwt
+    bigstringaf
+    logs
+    ke
+  ];
 
   meta = git.meta // {
     description = "A package to use ocaml-git with MirageOS backend";

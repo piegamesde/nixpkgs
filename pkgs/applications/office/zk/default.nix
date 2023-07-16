@@ -22,7 +22,11 @@ buildGoModule rec {
 
   CGO_ENABLED = 1;
 
-  ldflags = [ "-s" "-w" "-X=main.Build=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X=main.Build=${version}"
+  ];
 
   tags = [ "fts5" ];
 

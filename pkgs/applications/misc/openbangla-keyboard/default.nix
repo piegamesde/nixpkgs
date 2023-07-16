@@ -32,7 +32,11 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [ ibus qtbase zstd ];
+  buildInputs = [
+    ibus
+    qtbase
+    zstd
+  ];
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;

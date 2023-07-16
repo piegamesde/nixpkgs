@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xMZhUnycGeHkNZfHQ2d9mETti8HwGHZNskFqh9f0810=";
   };
 
-  nativeBuildInputs = [ pkg-config scons ];
+  nativeBuildInputs = [
+    pkg-config
+    scons
+  ];
   buildInputs = [ glib ];
 
   meta = with lib; {

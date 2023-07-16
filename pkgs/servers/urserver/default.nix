@@ -20,9 +20,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-IaLRhia6mb4h7x5MbBRtPJxJ3uTlkfOzmoTwYzwfbWA=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+  ];
 
-  buildInputs = [ stdenv.cc.cc.lib bluez libX11 libXtst ];
+  buildInputs = [
+    stdenv.cc.cc.lib
+    bluez
+    libX11
+    libXtst
+  ];
 
   installPhase = ''
     install -m755 -D urserver $out/bin/urserver

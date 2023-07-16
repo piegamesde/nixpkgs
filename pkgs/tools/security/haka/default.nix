@@ -37,7 +37,16 @@ in stdenv.mkDerivation {
   '';
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ swig wireshark check rsync libpcap gawk libedit pcre ];
+  buildInputs = [
+    swig
+    wireshark
+    check
+    rsync
+    libpcap
+    gawk
+    libedit
+    pcre
+  ];
 
   passthru.tests = { inherit (nixosTests) haka; };
 
@@ -47,6 +56,9 @@ in stdenv.mkDerivation {
     homepage = "http://www.haka-security.org/";
     license = lib.licenses.mpl20;
     maintainers = [ lib.maintainers.tvestelind ];
-    platforms = [ "x86_64-linux" "i686-linux" ]; # fails on aarch64
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ]; # fails on aarch64
   };
 }

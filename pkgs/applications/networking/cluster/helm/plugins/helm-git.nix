@@ -34,7 +34,13 @@ stdenv.mkDerivation rec {
     patchShebangs $out/helm-git/helm-git{,-plugin.sh}
     wrapProgram $out/helm-git/helm-git \
         --prefix PATH : ${
-          lib.makeBinPath [ coreutils findutils git gnugrep gnused ]
+          lib.makeBinPath [
+            coreutils
+            findutils
+            git
+            gnugrep
+            gnused
+          ]
         }
 
     runHook postInstall

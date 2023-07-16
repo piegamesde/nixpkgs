@@ -20,8 +20,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-juy+nQ7DrG818/uTH6Dv/lrrzu8qzPWwi0sX7JrhHK8=";
   };
 
-  nativeBuildInputs = [ emacs makeWrapper ];
-  buildInputs = [ espeak-ng tcl tclx ];
+  nativeBuildInputs = [
+    emacs
+    makeWrapper
+  ];
+  buildInputs = [
+    espeak-ng
+    tcl
+    tclx
+  ];
 
   preConfigure = ''
     make config

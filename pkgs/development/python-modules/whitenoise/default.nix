@@ -27,7 +27,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ brotli ];
 
-  nativeCheckInputs = [ django pytestCheckHook requests ];
+  nativeCheckInputs = [
+    django
+    pytestCheckHook
+    requests
+  ];
 
   disabledTestPaths = [
     # Don't run Django tests

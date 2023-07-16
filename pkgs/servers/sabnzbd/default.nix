@@ -25,7 +25,12 @@ let
       guessit
       pysocks
     ]);
-  path = lib.makeBinPath [ par2cmdline unrar unzip p7zip ];
+  path = lib.makeBinPath [
+    par2cmdline
+    unrar
+    unzip
+    p7zip
+  ];
 in stdenv.mkDerivation rec {
   version = "3.7.2";
   pname = "sabnzbd";
@@ -61,6 +66,9 @@ in stdenv.mkDerivation rec {
     homepage = "https://sabnzbd.org";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with lib.maintainers; [ fridh jojosch ];
+    maintainers = with lib.maintainers; [
+      fridh
+      jojosch
+    ];
   };
 }

@@ -26,7 +26,11 @@ buildPythonApplication rec {
     sha256 = "sha256-90Z2vgYT/9hBQZgfXeY7l6sGwT5KEY8X4rZMgrbTwrM=";
   };
 
-  nativeBuildInputs = [ copyDesktopItems wrapGAppsHook gobject-introspection ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    wrapGAppsHook
+    gobject-introspection
+  ];
 
   propagatedBuildInputs = [
     jellyfin-apiclient-python
@@ -79,15 +83,18 @@ buildPythonApplication rec {
   doCheck = false;
   pythonImportsCheck = [ "jellyfin_mpv_shim" ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      exec = pname;
-      icon = pname;
-      desktopName = "Jellyfin MPV Shim";
-      categories = [ "Video" "AudioVideo" "TV" "Player" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = pname;
+    exec = pname;
+    icon = pname;
+    desktopName = "Jellyfin MPV Shim";
+    categories = [
+      "Video"
+      "AudioVideo"
+      "TV"
+      "Player"
+    ];
+  }) ];
 
   meta = with lib; {
     homepage = "https://github.com/jellyfin/jellyfin-mpv-shim";

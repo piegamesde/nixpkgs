@@ -21,7 +21,10 @@ mkDerivation rec {
 
   nativeBuildInputs = [ qmake ];
 
-  buildInputs = [ qtbase qtwebengine ];
+  buildInputs = [
+    qtbase
+    qtwebengine
+  ];
 
   meta = with lib; {
     homepage = "https://vnotex.github.io/vnote";

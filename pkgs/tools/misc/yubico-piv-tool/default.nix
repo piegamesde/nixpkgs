@@ -29,9 +29,15 @@ stdenv.mkDerivation rec {
     substituteInPlace CMakeLists.txt --replace "-Werror" ""
   '';
 
-  nativeBuildInputs = [ pkg-config cmake gengetopt ];
-  buildInputs = [ openssl check ]
-    ++ (if withApplePCSC then [ PCSC ] else [ pcsclite ]);
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    gengetopt
+  ];
+  buildInputs = [
+    openssl
+    check
+  ] ++ (if withApplePCSC then [ PCSC ] else [ pcsclite ]);
 
   cmakeFlags = [
     "-DGENERATE_MAN_PAGES=OFF" # Use the man page generated at release time
@@ -73,6 +79,9 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.bsd2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ viraptor anthonyroussel ];
+    maintainers = with maintainers; [
+      viraptor
+      anthonyroussel
+    ];
   };
 }

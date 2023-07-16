@@ -16,7 +16,11 @@ in import ./make-test-python.nix {
         sslKey = "${certs.${domain}.key}";
         inherit domain;
         destination = [ domain ];
-        localRecipients = [ "root" "alice" "bob" ];
+        localRecipients = [
+          "root"
+          "alice"
+          "bob"
+        ];
       };
       services.schleuder = {
         enable = true;
@@ -105,7 +109,10 @@ in import ./make-test-python.nix {
       # https://0xacab.org/schleuder/schleuder-cli/-/blob/f8895b9f47083d8c7b99a2797c93f170f3c6a3c0/lib/schleuder-cli/helper.rb#L230-238
       systemd.tmpfiles.rules = let
         cliconfig = pkgs.runCommand "schleuder-cli.yml" {
-          nativeBuildInputs = [ pkgs.jq pkgs.openssl ];
+          nativeBuildInputs = [
+            pkgs.jq
+            pkgs.openssl
+          ];
         } ''
           fp=$(openssl x509 -in ${
             certs.${domain}.cert

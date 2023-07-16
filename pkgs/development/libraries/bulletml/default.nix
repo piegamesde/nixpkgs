@@ -49,7 +49,10 @@ in stdenv.mkDerivation {
   ];
 
   makeFlags = [ "-C src" ];
-  nativeBuildInputs = [ bison perl ];
+  nativeBuildInputs = [
+    bison
+    perl
+  ];
   hardeningDisable = [ "format" ];
 
   installPhase = ''

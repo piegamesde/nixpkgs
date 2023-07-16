@@ -23,11 +23,17 @@ buildPythonPackage rec {
     hash = "sha256-jYjaYmYqk3B4Qz9T9Sb3wbyY6eFLcR6IQ7CwpkPilVY=";
   };
 
-  propagatedBuildInputs = [ aiohttp pydantic ];
+  propagatedBuildInputs = [
+    aiohttp
+    pydantic
+  ];
 
   doCheck = lib.versionAtLeast pytest-aiohttp.version "1.0.0";
 
-  nativeCheckInputs = [ pytest-aiohttp pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-aiohttp
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "zwave_js_server" ];
 

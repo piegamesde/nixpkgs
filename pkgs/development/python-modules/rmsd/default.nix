@@ -24,6 +24,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/charnley/rmsd";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ sheepforce markuskowa ];
+    maintainers = with maintainers; [
+      sheepforce
+      markuskowa
+    ];
   };
 }

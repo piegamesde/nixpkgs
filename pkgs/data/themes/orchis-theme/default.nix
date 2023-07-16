@@ -17,8 +17,16 @@
 let
   pname = "orchis-theme";
 
-  validTweaks =
-    [ "solid" "compact" "black" "primary" "macos" "submenu" "nord" "dracula" ];
+  validTweaks = [
+    "solid"
+    "compact"
+    "black"
+    "primary"
+    "macos"
+    "submenu"
+    "nord"
+    "dracula"
+  ];
 
   nordXorDracula = with builtins;
     lib.assertMsg (!(elem "nord" tweaks) || !(elem "dracula" tweaks)) ''
@@ -39,7 +47,10 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-/X4Hr2M/7pf6JxTUvPoG5VkQd+rweEPeTNe9glSLh78=";
   };
 
-  nativeBuildInputs = [ gtk3 sassc ];
+  nativeBuildInputs = [
+    gtk3
+    sassc
+  ];
 
   buildInputs = [ gnome-themes-extra ];
 

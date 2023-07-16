@@ -19,7 +19,11 @@ let
         pkgs.xscreensaver
       ];
 
-      corePackages = [ lumina lumina-calculator lumina-pdf ];
+      corePackages = [
+        lumina
+        lumina-calculator
+        lumina-pdf
+      ];
 
     };
 

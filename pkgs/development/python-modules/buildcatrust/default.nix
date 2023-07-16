@@ -20,7 +20,10 @@ buildPythonPackage rec {
     "buildcatrust/tests/test_nonhermetic.py"
   ];
 
-  pythonImportsCheck = [ "buildcatrust" "buildcatrust.cli" ];
+  pythonImportsCheck = [
+    "buildcatrust"
+    "buildcatrust.cli"
+  ];
 
   meta = with lib; {
     description = "Build SSL/TLS trust stores";

@@ -33,7 +33,10 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ gtk3 libportal-gtk3 ];
+  buildInputs = [
+    gtk3
+    libportal-gtk3
+  ];
 
   postPatch = ''
     chmod +x meson_install.sh # patchShebangs requires executable file

@@ -49,7 +49,10 @@ let
 
 in stdenv.mkDerivation {
   name = "pkgs.formats.javaProperties-test-${jdk.name}";
-  nativeBuildInputs = [ jdk glibcLocales ];
+  nativeBuildInputs = [
+    jdk
+    glibcLocales
+  ];
 
   # technically should go through the type.merge first, but that's tested
   # in tests/formats.nix.

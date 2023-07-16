@@ -21,7 +21,11 @@ python3Packages.buildPythonApplication rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ gettext python3Packages.pyqt5 qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [
+    gettext
+    python3Packages.pyqt5
+    qt5.wrapQtAppsHook
+  ];
 
   pythonPath = with python3Packages; [
     pyqt5
@@ -32,7 +36,10 @@ python3Packages.buildPythonApplication rec {
     hsaudiotag3k
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" "NO_VENV=1" ];
+  makeFlags = [
+    "PREFIX=${placeholder "out"}"
+    "NO_VENV=1"
+  ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
   preCheck = ''

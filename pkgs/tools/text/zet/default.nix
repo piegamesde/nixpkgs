@@ -26,7 +26,10 @@ rustPlatform.buildRustPackage rec {
       "CLI utility to find the union, intersection, set difference, etc of files considered as sets of lines";
     homepage = "https://github.com/yarrow/zet";
     changelog = "https://github.com/yarrow/zet/blob/${src.rev}/CHANGELOG.md";
-    license = with licenses; [ asl20 mit ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
     maintainers = with maintainers; [ figsoda ];
   };
 }

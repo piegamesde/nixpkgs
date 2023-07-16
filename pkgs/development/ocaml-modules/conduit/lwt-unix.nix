@@ -21,11 +21,23 @@ buildDunePackage {
 
   buildInputs = [ ppx_sexp_conv ];
 
-  propagatedBuildInputs =
-    [ conduit-lwt lwt uri ipaddr ipaddr-sexp tls ca-certs logs lwt_ssl ];
+  propagatedBuildInputs = [
+    conduit-lwt
+    lwt
+    uri
+    ipaddr
+    ipaddr-sexp
+    tls
+    ca-certs
+    logs
+    lwt_ssl
+  ];
 
   doCheck = true;
-  checkInputs = [ lwt_log ssl ];
+  checkInputs = [
+    lwt_log
+    ssl
+  ];
 
   meta = conduit-lwt.meta // {
     description = "A network connection establishment library for Lwt_unix";

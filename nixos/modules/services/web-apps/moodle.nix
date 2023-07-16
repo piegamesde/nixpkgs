@@ -137,7 +137,10 @@ in {
 
     database = {
       type = mkOption {
-        type = types.enum [ "mysql" "pgsql" ];
+        type = types.enum [
+          "mysql"
+          "pgsql"
+        ];
         default = "mysql";
         description = lib.mdDoc "Database engine to use.";
       };
@@ -219,7 +222,12 @@ in {
     };
 
     poolConfig = mkOption {
-      type = with types; attrsOf (oneOf [ str int bool ]);
+      type = with types;
+        attrsOf (oneOf [
+          str
+          int
+          bool
+        ]);
       default = {
         "pm" = "dynamic";
         "pm.max_children" = 32;
@@ -269,24 +277,24 @@ in {
       enable = true;
       package = mkDefault pkgs.mariadb;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [{
+      ensureUsers = [ {
         name = cfg.database.user;
         ensurePermissions = {
           "${cfg.database.name}.*" =
             "SELECT, INSERT, UPDATE, DELETE, CREATE, CREATE TEMPORARY TABLES, DROP, INDEX, ALTER";
         };
-      }];
+      } ];
     };
 
     services.postgresql = mkIf pgsqlLocal {
       enable = true;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [{
+      ensureUsers = [ {
         name = cfg.database.user;
         ensurePermissions = {
           "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
         };
-      }];
+      } ];
     };
 
     services.phpfpm.pools.moodle = {

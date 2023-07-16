@@ -29,9 +29,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [ numpy scipy xarray ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    xarray
+  ];
 
-  nativeCheckInputs = [ einops numba pytestCheckHook ];
+  nativeCheckInputs = [
+    einops
+    numba
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "xarray_einstats" ];
 

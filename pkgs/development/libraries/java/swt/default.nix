@@ -61,7 +61,10 @@ in stdenv.mkDerivation rec {
     '';
   };
 
-  nativeBuildInputs = [ canonicalize-jars-hook pkg-config ];
+  nativeBuildInputs = [
+    canonicalize-jars-hook
+    pkg-config
+  ];
   buildInputs = [
     atk
     gtk2
@@ -74,7 +77,10 @@ in stdenv.mkDerivation rec {
     gnome2.libgnomeui
   ] ++ lib.optionals (lib.hasPrefix "8u" jdk.version) [ libXt ];
 
-  patches = [ ./awt-libs.patch ./gtk-libs.patch ];
+  patches = [
+    ./awt-libs.patch
+    ./gtk-libs.patch
+  ];
 
   prePatch = ''
     # clear whitespace from makefiles (since we match on EOL later)

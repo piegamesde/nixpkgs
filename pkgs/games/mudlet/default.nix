@@ -63,7 +63,14 @@ in stdenv.mkDerivation rec {
     hash = "sha256-j0d37C1TTb6ggXk1wTaqEcBKwsxE/B7Io90gTkc2q0M=";
   };
 
-  nativeBuildInputs = [ cmake git pkg-config qttools which wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    git
+    pkg-config
+    qttools
+    which
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     boost
@@ -109,7 +116,10 @@ in stdenv.mkDerivation rec {
       --set LUA_CPATH "${luaEnv}/lib/lua/${lua.luaversion}/?.so" \
       --prefix LUA_PATH : "$NIX_LUA_PATH" \
       --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [ libsForQt5.qtkeychain discord-rpc ]
+        lib.makeLibraryPath [
+          libsForQt5.qtkeychain
+          discord-rpc
+        ]
       }" \
       --chdir "$out";
 
@@ -119,7 +129,11 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Crossplatform mud client";
     homepage = "https://www.mudlet.org/";
-    maintainers = with maintainers; [ wyvie pstn cpu ];
+    maintainers = with maintainers; [
+      wyvie
+      pstn
+      cpu
+    ];
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
   };

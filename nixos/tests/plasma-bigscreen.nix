@@ -5,7 +5,12 @@ import ./make-test-python.nix ({
 
   {
     name = "plasma-bigscreen";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ttuegel k900 ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        ttuegel
+        k900
+      ];
+    };
 
     nodes.machine = {
         ...

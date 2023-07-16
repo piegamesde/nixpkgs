@@ -21,7 +21,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-oo/j6i7slXILqyvj/EHojsyCZzJMGd10PTZaLvI1xoc=";
 
-  buildInputs = [ gtk4 glib gobject-introspection ];
+  buildInputs = [
+    gtk4
+    glib
+    gobject-introspection
+  ];
 
   nativeBuildInputs = [ pkg-config ];
 

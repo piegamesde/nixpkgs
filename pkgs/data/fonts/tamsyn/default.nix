@@ -17,7 +17,10 @@ in stdenv.mkDerivation {
     sha256 = "0kpjzdj8sv5871b8827mjgj9dswk75h94jj5iia2bds18ih1pglp";
   };
 
-  nativeBuildInputs = [ fontforge xorg.mkfontscale ];
+  nativeBuildInputs = [
+    fontforge
+    xorg.mkfontscale
+  ];
 
   unpackPhase = ''
     tar -xzf $src --strip-components=1

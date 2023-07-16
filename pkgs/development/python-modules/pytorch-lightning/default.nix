@@ -49,7 +49,10 @@ buildPythonPackage rec {
     traitlets
   ] ++ fsspec.optional-dependencies.http;
 
-  nativeCheckInputs = [ psutil pytestCheckHook ];
+  nativeCheckInputs = [
+    psutil
+    pytestCheckHook
+  ];
 
   # Some packages are not in NixPkgs; other tests try to build distributed
   # models, which doesn't work in the sandbox.

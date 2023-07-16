@@ -31,7 +31,10 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
 
   nativeBuildInputs = [ python3.pkgs.wrapPython ];
 
-  propagatedBuildInputs = with python3.pkgs; [ debugpy jedi-language-server ];
+  propagatedBuildInputs = with python3.pkgs; [
+    debugpy
+    jedi-language-server
+  ];
 
   postPatch = ''
     # remove bundled python deps and use libs from nixpkgs
@@ -53,7 +56,15 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
 
     set -eu -o pipefail
 
-    export PATH=${lib.makeBinPath [ curl coreutils gnused jq nix ]}
+    export PATH=${
+      lib.makeBinPath [
+        curl
+        coreutils
+        gnused
+        jq
+        nix
+      ]
+    }
 
     api=$(curl -s 'https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery' \
       -H 'accept: application/json;api-version=3.0-preview.1' \
@@ -80,7 +91,14 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
     homepage = "https://github.com/Microsoft/vscode-python";
     changelog = "https://github.com/microsoft/vscode-python/releases";
     license = lib.licenses.mit;
-    platforms = [ "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
-    maintainers = [ lib.maintainers.jraygauthier lib.maintainers.jfchevrette ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-darwin"
+      "x86_64-darwin"
+    ];
+    maintainers = [
+      lib.maintainers.jraygauthier
+      lib.maintainers.jfchevrette
+    ];
   };
 }

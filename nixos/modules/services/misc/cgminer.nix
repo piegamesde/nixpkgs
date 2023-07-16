@@ -69,11 +69,11 @@ in {
         default = [ ]; # Run benchmark
         type = types.listOf (types.attrsOf types.str);
         description = lib.mdDoc "List of pools where to mine";
-        example = [{
+        example = [ {
           url = "http://p2pool.org:9332";
           username = "17EUZxTvs9uRmPsjPZSYUU3zCz9iwstudk";
           password = "X";
-        }];
+        } ];
       };
 
       hardware = mkOption {
@@ -141,7 +141,10 @@ in {
     systemd.services.cgminer = {
       path = [ pkgs.cgminer ];
 
-      after = [ "network.target" "display-manager.service" ];
+      after = [
+        "network.target"
+        "display-manager.service"
+      ];
       wantedBy = [ "multi-user.target" ];
 
       environment = {

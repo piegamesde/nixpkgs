@@ -43,9 +43,18 @@ let
     "https://www.sublimemerge.com/${if dev then "dev" else "download"}";
   versionFile = builtins.toString ./default.nix;
 
-  libPath = lib.makeLibraryPath [ xorg.libX11 glib gtk3 cairo pango curl ];
-  redirects =
-    [ "/usr/bin/pkexec=${pkexecPath}" "/bin/true=${coreutils}/bin/true" ];
+  libPath = lib.makeLibraryPath [
+    xorg.libX11
+    glib
+    gtk3
+    cairo
+    pango
+    curl
+  ];
+  redirects = [
+    "/usr/bin/pkexec=${pkexecPath}"
+    "/bin/true=${coreutils}/bin/true"
+  ];
 in let
   binaryPackage = stdenv.mkDerivation rec {
     pname = "${pnameBase}-bin";
@@ -55,8 +64,14 @@ in let
 
     dontStrip = true;
     dontPatchELF = true;
-    buildInputs = [ glib gtk3 ]; # for GSETTINGS_SCHEMAS_PATH
-    nativeBuildInputs = [ makeWrapper wrapGAppsHook ];
+    buildInputs = [
+      glib
+      gtk3
+    ]; # for GSETTINGS_SCHEMAS_PATH
+    nativeBuildInputs = [
+      makeWrapper
+      wrapGAppsHook
+    ];
 
     buildPhase = ''
       runHook preBuild
@@ -144,7 +159,13 @@ in stdenv.mkDerivation (rec {
     updateScript = let
       script = writeShellScript "${pnameBase}-update-script" ''
         set -o errexit
-        PATH=${lib.makeBinPath [ common-updater-scripts curl gnugrep ]}
+        PATH=${
+          lib.makeBinPath [
+            common-updater-scripts
+            curl
+            gnugrep
+          ]
+        }
 
         versionFile=$1
         latestVersion=$(curl -s ${versionUrl} | grep -Po '(?<=<p class="latest"><i>Version:</i> Build )([0-9]+)')
@@ -161,7 +182,10 @@ in stdenv.mkDerivation (rec {
             update-source-version "${packageAttribute}.${primaryBinary}" "$latestVersion" --file="$versionFile" --version-key=buildVersion --source-key="sources.$platform"
         done
       '';
-    in [ script versionFile ];
+    in [
+      script
+      versionFile
+    ];
   };
 
   meta = with lib; {

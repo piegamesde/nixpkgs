@@ -33,10 +33,21 @@ buildPythonPackage rec {
       --replace "--xdoctest --xdoctest-global-exec=\"import imgaug as ia\nfrom imgaug import augmenters as iaa\"" ""
   '';
 
-  propagatedBuildInputs =
-    [ imageio imagecorruptions numpy opencv3 scikitimage scipy shapely six ];
+  propagatedBuildInputs = [
+    imageio
+    imagecorruptions
+    numpy
+    opencv3
+    scikitimage
+    scipy
+    shapely
+    six
+  ];
 
-  nativeCheckInputs = [ opencv3 pytestCheckHook ];
+  nativeCheckInputs = [
+    opencv3
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Tests are outdated
@@ -65,7 +76,10 @@ buildPythonPackage rec {
     homepage = "https://github.com/aleju/imgaug";
     description = "Image augmentation for machine learning experiments";
     license = licenses.mit;
-    maintainers = with maintainers; [ cmcdragonkai rakesh4g ];
+    maintainers = with maintainers; [
+      cmcdragonkai
+      rakesh4g
+    ];
     platforms = platforms.linux;
     # Scikit-image 0.19 update broke API, see https://github.com/scikit-image/scikit-image/releases/tag/v0.19.0
     # and https://github.com/scikit-image/scikit-image/issues/6093

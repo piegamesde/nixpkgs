@@ -23,9 +23,15 @@ buildPythonPackage rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [ lapack blas ];
+  buildInputs = [
+    lapack
+    blas
+  ];
 
-  propagatedBuildInputs = [ numpy scipy ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
   pythonImportsCheck = [ "scs" ];

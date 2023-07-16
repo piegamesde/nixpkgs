@@ -56,7 +56,10 @@ let
   };
 in symlinkJoin {
   inherit name pname version;
-  paths = [ wrapper desktopItem ];
+  paths = [
+    wrapper
+    desktopItem
+  ];
 
   postBuild = ''
     mkdir -p "$out/share/pixmaps"

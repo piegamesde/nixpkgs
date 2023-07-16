@@ -25,8 +25,10 @@ buildPythonPackage rec {
     hash = "sha256-OyEeQBuYfj4iEcRt2/daSaUfTOjCVSCyHW2qffal+Bk=";
   };
 
-  propagatedBuildInputs = [ charset-normalizer cryptography ]
-    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [
+    charset-normalizer
+    cryptography
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   postInstall = ''
     for file in $out/bin/*.py; do
@@ -40,7 +42,10 @@ buildPythonPackage rec {
     substituteInPlace pdfminer/__init__.py --replace "__VERSION__" ${version}
   '';
 
-  pythonImportsCheck = [ "pdfminer" "pdfminer.high_level" ];
+  pythonImportsCheck = [
+    "pdfminer"
+    "pdfminer.high_level"
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -50,6 +55,9 @@ buildPythonPackage rec {
     description = "PDF parser and analyzer";
     homepage = "https://github.com/pdfminer/pdfminer.six";
     license = licenses.mit;
-    maintainers = with maintainers; [ psyanticy marsam ];
+    maintainers = with maintainers; [
+      psyanticy
+      marsam
+    ];
   };
 }

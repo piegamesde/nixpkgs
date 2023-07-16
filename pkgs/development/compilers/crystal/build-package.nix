@@ -33,7 +33,11 @@
   ...
 }@args:
 
-assert (builtins.elem format [ "make" "crystal" "shards" ]);
+assert (builtins.elem format [
+  "make"
+  "crystal"
+  "shards"
+]);
 let
   mkDerivationArgs = builtins.removeAttrs args [
     "format"
@@ -52,20 +56,27 @@ let
   }) (import shardsFile));
 
   # We no longer use --no-debug in accordance with upstream's recommendation
-  defaultOptions = [ "--release" "--progress" "--verbose" ];
+  defaultOptions = [
+    "--release"
+    "--progress"
+    "--verbose"
+  ];
 
   buildDirectly = shardsFile == null || crystalBinaries != { };
 
   mkCrystalBuildArgs = bin: attrs:
-    lib.concatStringsSep " " ([ "crystal" "build" ]
-      ++ lib.optionals enableParallelBuilding [ "--threads" "$NIX_BUILD_CORES" ]
-      ++ [
-        "-o"
-        bin
-        (attrs.src or (throw
-          "No source file for crystal binary ${bin} provided"))
-        (lib.concatStringsSep " " (attrs.options or defaultOptions))
-      ]);
+    lib.concatStringsSep " " ([
+      "crystal"
+      "build"
+    ] ++ lib.optionals enableParallelBuilding [
+      "--threads"
+      "$NIX_BUILD_CORES"
+    ] ++ [
+      "-o"
+      bin
+      (attrs.src or (throw "No source file for crystal binary ${bin} provided"))
+      (lib.concatStringsSep " " (attrs.options or defaultOptions))
+    ]);
 
 in stdenv.mkDerivation (mkDerivationArgs // {
 
@@ -87,9 +98,14 @@ in stdenv.mkDerivation (mkDerivationArgs // {
   buildInputs = args.buildInputs or [ ] ++ [ crystal ]
     ++ lib.optional (lib.versionAtLeast crystal.version "1.8") pcre2;
 
-  nativeBuildInputs = args.nativeBuildInputs or [ ]
-    ++ [ crystal git installShellFiles removeReferencesTo pkg-config which ]
-    ++ lib.optional (format != "crystal") shards;
+  nativeBuildInputs = args.nativeBuildInputs or [ ] ++ [
+    crystal
+    git
+    installShellFiles
+    removeReferencesTo
+    pkg-config
+    which
+  ] ++ lib.optional (format != "crystal") shards;
 
   buildPhase = args.buildPhase or (lib.concatStringsSep "\n"
     ([ "runHook preBuild" ] ++ lib.optional (format == "make")
@@ -105,15 +121,18 @@ in stdenv.mkDerivation (mkDerivationArgs // {
       "make \${installTargets:-install} $installFlags"
       ++ lib.optionals (format == "crystal") (map (bin: ''
         install -Dm555 ${
-          lib.escapeShellArgs [ bin "${placeholder "out"}/bin/${bin}" ]
+          lib.escapeShellArgs [
+            bin
+            "${placeholder "out"}/bin/${bin}"
+          ]
         }
       '') (lib.attrNames crystalBinaries))
       ++ lib.optional (format == "shards") "install -Dm555 bin/* -t $out/bin"
-      ++ [''
+      ++ [ ''
         for f in README* *.md LICENSE; do
           test -f $f && install -Dm444 $f -t $out/share/doc/${args.pname}
         done
-      ''] ++ (lib.optional installManPages ''
+      '' ] ++ (lib.optional installManPages ''
         if [ -d man ]; then
           installManPage man/*.?
         fi

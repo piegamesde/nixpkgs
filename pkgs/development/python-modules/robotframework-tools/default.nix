@@ -22,7 +22,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ zetup ];
 
-  propagatedBuildInputs = [ robotframework moretools path six modeled ];
+  propagatedBuildInputs = [
+    robotframework
+    moretools
+    path
+    six
+    modeled
+  ];
 
   postPatch = ''
     # Remove upstream's selfmade approach to collect the dependencies

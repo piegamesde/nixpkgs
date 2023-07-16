@@ -24,7 +24,13 @@ buildPythonPackage rec {
     sha256 = "1c60dpvr72g4wjqg6bc601kssl5z55v9bg09xbyh9ahch58bi212";
   };
 
-  propagatedBuildInputs = [ numpy scipy matplotlib plotly pandas ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    matplotlib
+    plotly
+    pandas
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
   pythonImportsCheck = [ "synergy" ];

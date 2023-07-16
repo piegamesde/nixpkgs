@@ -29,11 +29,24 @@ buildPythonPackage rec {
     hash = "sha256-4yF7WAFAGGhvWTV/y5dGVA/+9r1dqrXU/0/6Edgw3ow=";
   };
 
-  nativeBuildInputs = [ protobuf pybind11 ];
+  nativeBuildInputs = [
+    protobuf
+    pybind11
+  ];
 
-  propagatedBuildInputs = [ absl-py cryptography gmpy scipy sympy protobuf ];
+  propagatedBuildInputs = [
+    absl-py
+    cryptography
+    gmpy
+    scipy
+    sympy
+    protobuf
+  ];
 
-  nativeCheckInputs = [ fpylll pytestCheckHook ];
+  nativeCheckInputs = [
+    fpylll
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace requirements.txt \

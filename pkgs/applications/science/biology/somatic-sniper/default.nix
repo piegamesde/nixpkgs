@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
   patches = [ ./somatic-sniper.patch ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ zlib ncurses ];
+  buildInputs = [
+    zlib
+    ncurses
+  ];
 
   enableParallelBuilding = false;
 

@@ -25,9 +25,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ numpy pandas six ];
+  propagatedBuildInputs = [
+    numpy
+    pandas
+    six
+  ];
 
-  nativeCheckInputs = [ astropy pytestCheckHook pytest-doctestplus ];
+  nativeCheckInputs = [
+    astropy
+    pytestCheckHook
+    pytest-doctestplus
+  ];
 
   disabledTests = [ "test_query_hexadecimal_strings" ];
 

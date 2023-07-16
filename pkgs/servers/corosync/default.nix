@@ -31,10 +31,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5lVrOjhZZfITMLk4Pc0XkPKKT3ngk5grQOouwj4KKfo=";
   };
 
-  nativeBuildInputs = [ makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+  ];
 
-  buildInputs = [ kronosnet nss nspr libqb systemd.dev ]
-    ++ optional enableDbus dbus ++ optional enableInfiniBandRdma rdma-core
+  buildInputs = [
+    kronosnet
+    nss
+    nspr
+    libqb
+    systemd.dev
+  ] ++ optional enableDbus dbus ++ optional enableInfiniBandRdma rdma-core
     ++ optional enableMonitoring libstatgrab ++ optional enableSnmp net-snmp;
 
   configureFlags = [
@@ -84,6 +92,9 @@ stdenv.mkDerivation rec {
       "A Group Communication System with features for implementing high availability within applications";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ montag451 ryantm ];
+    maintainers = with maintainers; [
+      montag451
+      ryantm
+    ];
   };
 }

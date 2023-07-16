@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ aiohttp dask distributed ];
+  propagatedBuildInputs = [
+    aiohttp
+    dask
+    distributed
+  ];
 
   # tests requires cluster for testing
   doCheck = false;

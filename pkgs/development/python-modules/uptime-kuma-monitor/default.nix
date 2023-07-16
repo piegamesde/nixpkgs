@@ -20,7 +20,10 @@ buildPythonPackage rec {
     sha256 = "0zi4856hj5ar4yidh7366kx3xnh8qzydw9z8vlalcn98jf3jlnk9";
   };
 
-  propagatedBuildInputs = [ requests prometheus-client ];
+  propagatedBuildInputs = [
+    requests
+    prometheus-client
+  ];
 
   # Project has no test
   doCheck = false;

@@ -14,8 +14,10 @@
 
 let
   # choices: mcs51 z80 z180 r2k r3ka gbz80 tlcs90 ds390 ds400 pic14 pic16 hc08 s08 stm8
-  excludedPorts = excludePorts
-    ++ (lib.optionals (gputils == null) [ "pic14" "pic16" ]);
+  excludedPorts = excludePorts ++ (lib.optionals (gputils == null) [
+    "pic14"
+    "pic16"
+  ]);
 
 in stdenv.mkDerivation rec {
   pname = "sdcc";
@@ -28,9 +30,18 @@ in stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  buildInputs = [ boost gputils texinfo zlib ];
+  buildInputs = [
+    boost
+    gputils
+    texinfo
+    zlib
+  ];
 
-  nativeBuildInputs = [ autoconf bison flex ];
+  nativeBuildInputs = [
+    autoconf
+    bison
+    flex
+  ];
 
   configureFlags = map (f: "--disable-${f}-port") excludedPorts;
 
@@ -53,7 +64,10 @@ in stdenv.mkDerivation rec {
     homepage = "https://sdcc.sourceforge.net/";
     license = with licenses;
       if (gputils == null) then gpl2Plus else unfreeRedistributable;
-    maintainers = with maintainers; [ bjornfor yorickvp ];
+    maintainers = with maintainers; [
+      bjornfor
+      yorickvp
+    ];
     platforms = platforms.all;
   };
 }

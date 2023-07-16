@@ -33,7 +33,13 @@ stdenv.mkDerivation rec {
     sha256 = "85ab8cf6c4f83262f441cb0952a6147d075c3c53d0687389a3555e946b694ef2";
   };
 
-  nativeBuildInputs = [ libxml2 intltool itstool pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    libxml2
+    intltool
+    itstool
+    pkg-config
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     gtk3

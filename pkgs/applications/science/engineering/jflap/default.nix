@@ -17,33 +17,34 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "oiwJXdxWsYFj6Ovu7xZbOgTLVw8160a5YQUWbgbJlAY=";
   };
 
-  nativeBuildInputs = [ makeWrapper copyDesktopItems ];
+  nativeBuildInputs = [
+    makeWrapper
+    copyDesktopItems
+  ];
 
   buildInputs = [ jre8 ];
 
   dontUnpack = true;
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "jflap";
-      desktopName = "jflap";
-      genericName = "Formal language application";
-      exec = "jflap";
-      icon = fetchurl {
-        url = "https://www.jflap.org/jflapLogo2.jpg";
-        sha256 = "sha256-IiworHI+GT6Fm6B0E+FXnKe+hN8nZYPrxHGZFAcsWDw=";
-      };
-      comment = meta.description;
-      categories = [
-        "Development"
-        "Education"
-        "ComputerScience"
-        "DataVisualization"
-        "Engineering"
-        "Java"
-      ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "jflap";
+    desktopName = "jflap";
+    genericName = "Formal language application";
+    exec = "jflap";
+    icon = fetchurl {
+      url = "https://www.jflap.org/jflapLogo2.jpg";
+      sha256 = "sha256-IiworHI+GT6Fm6B0E+FXnKe+hN8nZYPrxHGZFAcsWDw=";
+    };
+    comment = meta.description;
+    categories = [
+      "Development"
+      "Education"
+      "ComputerScience"
+      "DataVisualization"
+      "Engineering"
+      "Java"
+    ];
+  }) ];
 
   installPhase = ''
     runHook preInstall
@@ -60,7 +61,10 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://www.jflap.org/";
     license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    maintainers = with maintainers; [ grnnja yuu ];
+    maintainers = with maintainers; [
+      grnnja
+      yuu
+    ];
     platforms = jre8.meta.platforms;
   };
 }

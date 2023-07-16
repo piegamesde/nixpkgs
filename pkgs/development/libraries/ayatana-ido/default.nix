@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0LswdcV4VSg5o5uJ6vfw713eDnMbodZPQ9d2djxHc6k=";
   };
 
-  nativeBuildInputs = [ pkg-config cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
 
   buildInputs = [ gtk3 ];
 
@@ -27,7 +30,10 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/AyatanaIndicators/ayatana-ido";
     changelog =
       "https://github.com/AyatanaIndicators/ayatana-ido/blob/${version}/ChangeLog";
-    license = [ licenses.lgpl3Plus licenses.lgpl21Plus ];
+    license = [
+      licenses.lgpl3Plus
+      licenses.lgpl21Plus
+    ];
     maintainers = [ maintainers.nickhu ];
     platforms = platforms.linux;
   };

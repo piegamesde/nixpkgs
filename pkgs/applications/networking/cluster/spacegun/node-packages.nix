@@ -10496,8 +10496,10 @@ let
         ];
       })
       (sources."@babel/types-7.6.1" // {
-        dependencies =
-          [ sources."lodash-4.17.15" sources."to-fast-properties-2.0.0" ];
+        dependencies = [
+          sources."lodash-4.17.15"
+          sources."to-fast-properties-2.0.0"
+        ];
       })
       sources."@cnakazawa/watch-1.0.3"
       (sources."@jest/console-24.9.0" // {
@@ -10631,7 +10633,10 @@ let
       sources."asn1-0.2.4"
       sources."asn1.js-4.10.1"
       (sources."assert-1.5.0" // {
-        dependencies = [ sources."inherits-2.0.1" sources."util-0.10.3" ];
+        dependencies = [
+          sources."inherits-2.0.1"
+          sources."util-0.10.3"
+        ];
       })
       sources."assert-plus-1.0.0"
       sources."assign-symbols-1.0.0"
@@ -10649,10 +10654,16 @@ let
       })
       sources."babel-6.23.0"
       (sources."babel-code-frame-6.26.0" // {
-        dependencies = [ sources."ansi-styles-2.2.1" sources."chalk-1.1.3" ];
+        dependencies = [
+          sources."ansi-styles-2.2.1"
+          sources."chalk-1.1.3"
+        ];
       })
       (sources."babel-core-6.26.3" // {
-        dependencies = [ sources."json5-0.5.1" sources."source-map-0.5.7" ];
+        dependencies = [
+          sources."json5-0.5.1"
+          sources."source-map-0.5.7"
+        ];
       })
       (sources."babel-generator-6.26.1" // {
         dependencies = [ sources."source-map-0.5.7" ];
@@ -10708,8 +10719,10 @@ let
       sources."babel-preset-env-1.7.0"
       sources."babel-preset-jest-24.9.0"
       (sources."babel-register-6.26.0" // {
-        dependencies =
-          [ sources."source-map-0.5.7" sources."source-map-support-0.4.18" ];
+        dependencies = [
+          sources."source-map-0.5.7"
+          sources."source-map-support-0.4.18"
+        ];
       })
       sources."babel-runtime-6.26.0"
       sources."babel-template-6.26.0"
@@ -10788,8 +10801,10 @@ let
       sources."cli-cursor-2.1.0"
       sources."cli-spinners-2.2.0"
       (sources."cliui-5.0.0" // {
-        dependencies =
-          [ sources."ansi-regex-4.1.0" sources."strip-ansi-5.2.0" ];
+        dependencies = [
+          sources."ansi-regex-4.1.0"
+          sources."strip-ansi-5.2.0"
+        ];
       })
       sources."clone-1.0.4"
       sources."co-4.6.0"
@@ -10825,7 +10840,10 @@ let
       sources."copy-concurrently-1.0.5"
       sources."copy-descriptor-0.1.1"
       (sources."copy-webpack-plugin-4.6.0" // {
-        dependencies = [ sources."p-limit-1.3.0" sources."p-try-1.0.0" ];
+        dependencies = [
+          sources."p-limit-1.3.0"
+          sources."p-try-1.0.0"
+        ];
       })
       sources."core-js-2.6.9"
       sources."core-util-is-1.0.2"
@@ -11111,7 +11129,10 @@ let
       })
       sources."jest-changed-files-24.9.0"
       (sources."jest-config-24.9.0" // {
-        dependencies = [ sources."babel-jest-24.9.0" sources."slash-2.0.0" ];
+        dependencies = [
+          sources."babel-jest-24.9.0"
+          sources."slash-2.0.0"
+        ];
       })
       sources."jest-diff-24.9.0"
       sources."jest-docblock-24.9.0"
@@ -11191,13 +11212,22 @@ let
         ];
       })
       (sources."koa-send-5.0.0" // {
-        dependencies = [ sources."debug-3.2.6" sources."ms-2.1.2" ];
+        dependencies = [
+          sources."debug-3.2.6"
+          sources."ms-2.1.2"
+        ];
       })
       (sources."koa-static-5.0.0" // {
-        dependencies = [ sources."debug-3.2.6" sources."ms-2.1.2" ];
+        dependencies = [
+          sources."debug-3.2.6"
+          sources."ms-2.1.2"
+        ];
       })
       (sources."koa-views-6.2.0" // {
-        dependencies = [ sources."debug-4.1.1" sources."ms-2.1.2" ];
+        dependencies = [
+          sources."debug-4.1.1"
+          sources."ms-2.1.2"
+        ];
       })
       sources."lazy-cache-1.0.4"
       sources."lcid-2.0.0"
@@ -11320,8 +11350,10 @@ let
         dependencies = [ sources."wordwrap-1.0.0" ];
       })
       (sources."ora-3.4.0" // {
-        dependencies =
-          [ sources."ansi-regex-4.1.0" sources."strip-ansi-5.2.0" ];
+        dependencies = [
+          sources."ansi-regex-4.1.0"
+          sources."strip-ansi-5.2.0"
+        ];
       })
       sources."original-1.0.2"
       sources."os-browserify-0.3.0"
@@ -11428,8 +11460,10 @@ let
       sources."regenerator-runtime-0.11.1"
       sources."regenerator-transform-0.10.1"
       (sources."regex-not-1.0.2" // {
-        dependencies =
-          [ sources."extend-shallow-3.0.2" sources."is-extendable-1.0.1" ];
+        dependencies = [
+          sources."extend-shallow-3.0.2"
+          sources."is-extendable-1.0.1"
+        ];
       })
       sources."regexpu-core-2.0.0"
       sources."regjsgen-0.2.0"
@@ -11458,8 +11492,10 @@ let
       sources."resolve-dir-1.0.1"
       sources."resolve-from-3.0.0"
       (sources."resolve-path-1.4.0" // {
-        dependencies =
-          [ sources."http-errors-1.6.3" sources."setprototypeof-1.1.0" ];
+        dependencies = [
+          sources."http-errors-1.6.3"
+          sources."setprototypeof-1.1.0"
+        ];
       })
       sources."resolve-url-0.2.1"
       sources."restore-cursor-2.0.0"
@@ -11483,8 +11519,10 @@ let
       (sources."send-0.17.1" // { dependencies = [ sources."ms-2.1.1" ]; })
       sources."serialize-javascript-1.9.1"
       (sources."serve-index-1.9.1" // {
-        dependencies =
-          [ sources."http-errors-1.6.3" sources."setprototypeof-1.1.0" ];
+        dependencies = [
+          sources."http-errors-1.6.3"
+          sources."setprototypeof-1.1.0"
+        ];
       })
       sources."serve-static-1.14.1"
       sources."set-blocking-2.0.0"
@@ -11499,13 +11537,18 @@ let
       sources."sigmund-1.0.1"
       sources."signal-exit-3.0.2"
       (sources."simple-git-1.96.0" // {
-        dependencies = [ sources."debug-3.2.6" sources."ms-2.1.2" ];
+        dependencies = [
+          sources."debug-3.2.6"
+          sources."ms-2.1.2"
+        ];
       })
       sources."sisteransi-1.0.3"
       sources."slash-1.0.0"
       (sources."snapdragon-0.8.2" // {
-        dependencies =
-          [ sources."define-property-0.2.5" sources."source-map-0.5.7" ];
+        dependencies = [
+          sources."define-property-0.2.5"
+          sources."source-map-0.5.7"
+        ];
       })
       (sources."snapdragon-node-2.1.1" // {
         dependencies = [
@@ -11535,7 +11578,10 @@ let
       sources."spdx-expression-parse-3.0.0"
       sources."spdx-license-ids-3.0.5"
       (sources."spdy-4.0.1" // {
-        dependencies = [ sources."debug-4.1.1" sources."ms-2.1.2" ];
+        dependencies = [
+          sources."debug-4.1.1"
+          sources."ms-2.1.2"
+        ];
       })
       (sources."spdy-transport-3.0.0" // {
         dependencies = [
@@ -11545,8 +11591,10 @@ let
         ];
       })
       (sources."split-string-3.1.0" // {
-        dependencies =
-          [ sources."extend-shallow-3.0.2" sources."is-extendable-1.0.1" ];
+        dependencies = [
+          sources."extend-shallow-3.0.2"
+          sources."is-extendable-1.0.1"
+        ];
       })
       sources."sprintf-js-1.0.3"
       sources."sshpk-1.16.1"
@@ -11562,12 +11610,16 @@ let
       sources."stream-http-2.8.3"
       sources."stream-shift-1.0.0"
       (sources."string-length-2.0.0" // {
-        dependencies =
-          [ sources."ansi-regex-3.0.0" sources."strip-ansi-4.0.0" ];
+        dependencies = [
+          sources."ansi-regex-3.0.0"
+          sources."strip-ansi-4.0.0"
+        ];
       })
       (sources."string-width-3.1.0" // {
-        dependencies =
-          [ sources."ansi-regex-4.1.0" sources."strip-ansi-5.2.0" ];
+        dependencies = [
+          sources."ansi-regex-4.1.0"
+          sources."strip-ansi-5.2.0"
+        ];
       })
       sources."string.prototype.trimleft-2.1.0"
       sources."string.prototype.trimright-2.1.0"
@@ -11603,8 +11655,10 @@ let
       sources."to-fast-properties-1.0.3"
       sources."to-object-path-0.3.0"
       (sources."to-regex-3.0.2" // {
-        dependencies =
-          [ sources."extend-shallow-3.0.2" sources."is-extendable-1.0.1" ];
+        dependencies = [
+          sources."extend-shallow-3.0.2"
+          sources."is-extendable-1.0.1"
+        ];
       })
       sources."to-regex-range-2.1.1"
       sources."toidentifier-1.0.0"
@@ -11706,7 +11760,10 @@ let
         ];
       })
       (sources."webpack-dev-middleware-3.7.1" // {
-        dependencies = [ sources."mime-2.4.4" sources."webpack-log-2.0.0" ];
+        dependencies = [
+          sources."mime-2.4.4"
+          sources."webpack-log-2.0.0"
+        ];
       })
       (sources."webpack-dev-server-3.7.2" // {
         dependencies = [
@@ -11749,8 +11806,10 @@ let
       sources."wordwrap-0.0.2"
       sources."worker-farm-1.7.0"
       (sources."wrap-ansi-5.1.0" // {
-        dependencies =
-          [ sources."ansi-regex-4.1.0" sources."strip-ansi-5.2.0" ];
+        dependencies = [
+          sources."ansi-regex-4.1.0"
+          sources."strip-ansi-5.2.0"
+        ];
       })
       sources."wrappy-1.0.2"
       sources."write-file-atomic-2.4.1"

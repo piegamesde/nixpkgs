@@ -29,7 +29,12 @@ let
 
 in appleDerivation {
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ bsdmake perl bison flex ];
+  nativeBuildInputs = [
+    bsdmake
+    perl
+    bison
+    flex
+  ];
   buildInputs = [ flex ];
 
   patchPhase = ''
@@ -90,7 +95,11 @@ in appleDerivation {
     touch "$out"
   '';
 
-  outputs = [ "out" "ps" "locale" ];
+  outputs = [
+    "out"
+    "ps"
+    "locale"
+  ];
   setOutputFlags = false;
 
   meta = {

@@ -43,7 +43,12 @@ buildPythonPackage rec {
       --replace '[0]), None)' "[0]), (None, '${testInventory}'))"
   '';
 
-  nativeCheckInputs = [ pytestCheckHook cython gcc graphviz ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    cython
+    gcc
+    graphviz
+  ];
 
   pythonImportsCheck = [ "sphinx_automodapi" ];
 

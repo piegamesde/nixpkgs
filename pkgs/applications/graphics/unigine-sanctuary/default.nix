@@ -25,7 +25,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-KKi70ctkEm+tx0kjBMWVKMLDrJ1TsPH+CKLDMXA6OdU=";
   };
 
-  libPath = lib.makeLibraryPath [ libglvnd openal glibc ];
+  libPath = lib.makeLibraryPath [
+    libglvnd
+    openal
+    glibc
+  ];
 
   installPhase = ''
     bash $src --target ${pname}-${version}
@@ -57,20 +61,28 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "Sanctuary";
-      exec = "Sanctuary";
-      genericName = "A GPU Stress test tool from the UNIGINE";
-      icon = "Sanctuary";
-      desktopName = "Sanctuary Benchmark";
-    })
+  desktopItems = [ (makeDesktopItem {
+    name = "Sanctuary";
+    exec = "Sanctuary";
+    genericName = "A GPU Stress test tool from the UNIGINE";
+    icon = "Sanctuary";
+    desktopName = "Sanctuary Benchmark";
+  }) ];
+
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+    imagemagick
+    copyDesktopItems
   ];
 
-  nativeBuildInputs =
-    [ autoPatchelfHook makeWrapper imagemagick copyDesktopItems ];
-
-  buildInputs = [ stdenv.cc.cc libX11 libXext libXrandr libXinerama ];
+  buildInputs = [
+    stdenv.cc.cc
+    libX11
+    libXext
+    libXrandr
+    libXinerama
+  ];
 
   dontUnpack = true;
 
@@ -80,7 +92,10 @@ stdenv.mkDerivation rec {
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.unfree;
     maintainers = [ lib.maintainers.BarinovMaxim ];
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
     mainProgram = "Sanctuary";
   };
 }

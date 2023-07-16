@@ -18,8 +18,12 @@ buildPythonPackage rec {
     sha256 = "c93b7550e64b6734bf23ce57ca974a3ea929b734c58d1fe3669728c4fd2d2eb3";
   };
 
-  propagatedBuildInputs =
-    [ msrestazure azure-common azure-mgmt-core azure-mgmt-nspkg ];
+  propagatedBuildInputs = [
+    msrestazure
+    azure-common
+    azure-mgmt-core
+    azure-mgmt-nspkg
+  ];
 
   preBuild = ''
     rm -f azure_bdist_wheel.py

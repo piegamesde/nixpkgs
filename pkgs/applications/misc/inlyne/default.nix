@@ -61,7 +61,12 @@ rustPlatform.buildRustPackage rec {
 
   postFixup = lib.optionalString stdenv.isLinux ''
     patchelf $out/bin/inlyne \
-      --add-rpath ${lib.makeLibraryPath [ libGL xorg.libX11 ]}
+      --add-rpath ${
+        lib.makeLibraryPath [
+          libGL
+          xorg.libX11
+        ]
+      }
   '';
 
   meta = with lib; {

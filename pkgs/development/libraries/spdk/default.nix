@@ -50,7 +50,16 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ python3 ];
 
-  buildInputs = [ cunit dpdk' libaio libbsd libuuid numactl openssl ncurses ];
+  buildInputs = [
+    cunit
+    dpdk'
+    libaio
+    libbsd
+    libuuid
+    numactl
+    openssl
+    ncurses
+  ];
 
   postPatch = ''
     patchShebangs .

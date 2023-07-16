@@ -24,14 +24,22 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ attrs pluggy six allure-python-commons-test ];
+  propagatedBuildInputs = [
+    attrs
+    pluggy
+    six
+    allure-python-commons-test
+  ];
 
   checkPhase = ''
     ${python.interpreter} -m doctest ./src/utils.py
     ${python.interpreter} -m doctest ./src/mapping.py
   '';
 
-  pythonImportsCheck = [ "allure" "allure_commons" ];
+  pythonImportsCheck = [
+    "allure"
+    "allure_commons"
+  ];
 
   meta = with lib; {
     description =

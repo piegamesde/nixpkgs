@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ gmp python3 ];
+  buildInputs = [
+    gmp
+    python3
+  ];
 
   strictDeps = true;
 

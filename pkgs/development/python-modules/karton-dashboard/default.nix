@@ -36,12 +36,22 @@ buildPythonPackage rec {
     })
   ];
 
-  pythonRelaxDeps = [ "Flask" "mistune" "networkx" "prometheus-client" ];
+  pythonRelaxDeps = [
+    "Flask"
+    "mistune"
+    "networkx"
+    "prometheus-client"
+  ];
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  propagatedBuildInputs =
-    [ flask karton-core mistune networkx prometheus-client ];
+  propagatedBuildInputs = [
+    flask
+    karton-core
+    mistune
+    networkx
+    prometheus-client
+  ];
 
   # Project has no tests. pythonImportsCheck requires MinIO configuration
   doCheck = false;

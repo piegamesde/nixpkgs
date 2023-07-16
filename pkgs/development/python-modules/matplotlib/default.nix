@@ -126,13 +126,26 @@ in buildPythonPackage rec {
     system_qhull=true" > mplsetup.cfg
   '';
 
-  nativeBuildInputs = [ pkg-config pybind11 setuptools-scm ];
+  nativeBuildInputs = [
+    pkg-config
+    pybind11
+    setuptools-scm
+  ];
 
-  buildInputs = [ ffmpeg-headless freetype qhull ]
-    ++ lib.optionals enableGhostscript [ ghostscript ]
-    ++ lib.optionals enableGtk3 [ cairo gobject-introspection gtk3 ]
-    ++ lib.optionals enableTk [ libX11 tcl tk ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs = [
+    ffmpeg-headless
+    freetype
+    qhull
+  ] ++ lib.optionals enableGhostscript [ ghostscript ]
+    ++ lib.optionals enableGtk3 [
+      cairo
+      gobject-introspection
+      gtk3
+    ] ++ lib.optionals enableTk [
+      libX11
+      tcl
+      tk
+    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   # clang-11: error: argument unused during compilation: '-fno-strict-overflow' [-Werror,-Wunused-command-line-argument]
   hardeningDisable = lib.optionals stdenv.isDarwin [ "strictoverflow" ];
@@ -149,8 +162,10 @@ in buildPythonPackage rec {
     pyparsing
     python-dateutil
   ] ++ lib.optionals (pythonOlder "3.10") [ importlib-resources ]
-    ++ lib.optionals enableGtk3 [ pycairo pygobject3 ]
-    ++ lib.optionals enableQt [ pyqt5 ]
+    ++ lib.optionals enableGtk3 [
+      pycairo
+      pygobject3
+    ] ++ lib.optionals enableQt [ pyqt5 ]
     ++ lib.optionals enableWebagg [ tornado ]
     ++ lib.optionals enableNbagg [ ipykernel ]
     ++ lib.optionals enableTk [ tkinter ];
@@ -178,7 +193,13 @@ in buildPythonPackage rec {
     homepage = "https://matplotlib.org/";
     changelog =
       "https://github.com/matplotlib/matplotlib/releases/tag/v${version}";
-    license = with licenses; [ psfl bsd0 ];
-    maintainers = with maintainers; [ lovek323 veprbl ];
+    license = with licenses; [
+      psfl
+      bsd0
+    ];
+    maintainers = with maintainers; [
+      lovek323
+      veprbl
+    ];
   };
 }

@@ -15,7 +15,10 @@ perlPackages.buildPerlPackage rec {
     sha256 = "1w65xbi4mw5acsrpv3phyzv82ghb29kpbb3b1b1gcinlfxl6f61m";
   };
 
-  nativeBuildInputs = [ pkg-config perlPackages.ExtUtilsPkgConfig ];
+  nativeBuildInputs = [
+    pkg-config
+    perlPackages.ExtUtilsPkgConfig
+  ];
   buildInputs = [ fribidi ];
 
   postInstall = ''

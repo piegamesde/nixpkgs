@@ -25,7 +25,14 @@ buildPythonPackage rec {
     hash = "sha256-M71vleEhRYnlf+RSGT1GbCy5NEZaG0hWmJo01n9s6Rg=";
   };
 
-  propagatedBuildInputs = [ pexpect requests paramiko packaging oyaml six ];
+  propagatedBuildInputs = [
+    pexpect
+    requests
+    paramiko
+    packaging
+    oyaml
+    six
+  ];
 
   # Tests require a local VM
   doCheck = false;

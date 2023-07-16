@@ -98,6 +98,9 @@ buildGoModule rec {
     description = "A free, open source game management panel";
     homepage = "https://www.pufferpanel.com/";
     license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ ckie tie ];
+    maintainers = with maintainers; [
+      ckie
+      tie
+    ];
   };
 }

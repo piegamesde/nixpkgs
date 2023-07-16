@@ -20,7 +20,10 @@ python3.pkgs.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3.pkgs; [ aiohttp ];
 
-  nativeCheckInputs = with python3.pkgs; [ aiounittest pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [
+    aiounittest
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+  ];
 
   buildInputs = [ SDL2 ];
 

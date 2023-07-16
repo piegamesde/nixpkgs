@@ -14,14 +14,17 @@ with lib;
   meta = { maintainers = teams.gnome.members; };
 
   # Added 2021-05-07
-  imports = [
-    (mkRenamedOptionModule [ "services" "gnome3" "glib-networking" "enable" ] [
-      "services"
-      "gnome"
-      "glib-networking"
-      "enable"
-    ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "services"
+    "gnome3"
+    "glib-networking"
+    "enable"
+  ] [
+    "services"
+    "gnome"
+    "glib-networking"
+    "enable"
+  ]) ];
 
   ###### interface
 

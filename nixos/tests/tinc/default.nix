@@ -20,7 +20,7 @@ import ../make-test-python.nix ({
       }:
       lib.mkMerge [
         {
-          subnets = [{ address = subnet; }];
+          subnets = [ { address = subnet; } ];
           settings = {
             Ed25519PublicKey = snakeoil-keys.${name}.ed25519Public;
           };
@@ -63,10 +63,10 @@ import ../make-test-python.nix ({
           networking.interfaces."tinc.myNetwork" = {
             virtual = true;
             virtualType = "tun";
-            ipv4.addresses = [{
+            ipv4.addresses = [ {
               address = subnetOf name config;
               prefixLength = 24;
-            }];
+            } ];
           };
 
           # Prevents race condition between NixOS service and tinc creating the
@@ -93,17 +93,20 @@ import ../make-test-python.nix ({
           ...
         }@args:
         makeTincNode args "static" {
-          virtualisation.vlans = [ 1 2 ];
+          virtualisation.vlans = [
+            1
+            2
+          ];
 
-          networking.interfaces.eth1.ipv4.addresses = [{
+          networking.interfaces.eth1.ipv4.addresses = [ {
             address = "192.168.1.11";
             prefixLength = 24;
-          }];
+          } ];
 
-          networking.interfaces.eth2.ipv4.addresses = [{
+          networking.interfaces.eth2.ipv4.addresses = [ {
             address = "192.168.2.11";
             prefixLength = 24;
-          }];
+          } ];
         };
 
       dynamic1 = {

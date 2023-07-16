@@ -13,7 +13,12 @@ with lib; {
     "powerpc64le-linux"
   ];
   mainProgram = "java";
-  knownVulnerabilities = optionals
-    (builtins.elem (versions.major version) [ "12" "13" "14" "15" "16" "18" ])
-    [ "This OpenJDK version has reached its end of life." ];
+  knownVulnerabilities = optionals (builtins.elem (versions.major version) [
+    "12"
+    "13"
+    "14"
+    "15"
+    "16"
+    "18"
+  ]) [ "This OpenJDK version has reached its end of life." ];
 }

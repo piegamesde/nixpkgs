@@ -18,7 +18,10 @@ buildPythonPackage rec {
     sha256 = "sha256-1ayb0zx8rFKDgqlq/tVVLqDkh47T5jofHt53r8bWr30=";
   };
 
-  propagatedBuildInputs = [ fastprogress fastcore ];
+  propagatedBuildInputs = [
+    fastprogress
+    fastcore
+  ];
 
   # no real tests
   doCheck = false;

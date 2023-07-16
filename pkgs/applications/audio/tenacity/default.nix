@@ -92,8 +92,13 @@ stdenv.mkDerivation rec {
     "-lswscale"
   ];
 
-  nativeBuildInputs = [ cmake gettext makeWrapper pkg-config python3 ]
-    ++ lib.optionals stdenv.isLinux [ linuxHeaders ];
+  nativeBuildInputs = [
+    cmake
+    gettext
+    makeWrapper
+    pkg-config
+    python3
+  ] ++ lib.optionals stdenv.isLinux [ linuxHeaders ];
 
   buildInputs = [
     alsa-lib
@@ -145,7 +150,10 @@ stdenv.mkDerivation rec {
     description = "Sound editor with graphical UI";
     homepage = "https://tenacityaudio.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ irenes lheckemann ];
+    maintainers = with maintainers; [
+      irenes
+      lheckemann
+    ];
     platforms = platforms.linux;
   };
 }

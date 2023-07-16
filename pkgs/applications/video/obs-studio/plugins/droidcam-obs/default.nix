@@ -32,8 +32,14 @@ stdenv.mkDerivation rec {
     mkdir ./build
   '';
 
-  buildInputs =
-    [ libjpeg libimobiledevice libusbmuxd libplist obs-studio ffmpeg ];
+  buildInputs = [
+    libjpeg
+    libimobiledevice
+    libusbmuxd
+    libplist
+    obs-studio
+    ffmpeg
+  ];
 
   makeFlags = [
     "ALLOW_STATIC=no"

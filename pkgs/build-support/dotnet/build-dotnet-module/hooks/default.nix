@@ -19,7 +19,10 @@ in {
   dotnetConfigureHook = callPackage ({ }:
     makeSetupHook {
       name = "dotnet-configure-hook";
-      propagatedBuildInputs = [ dotnet-sdk nuget-source ];
+      propagatedBuildInputs = [
+        dotnet-sdk
+        nuget-source
+      ];
       substitutions = {
         nugetSource = nuget-source;
         inherit runtimeId;

@@ -33,7 +33,11 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ playwright pytest-base-url python-slugify ];
+  propagatedBuildInputs = [
+    playwright
+    pytest-base-url
+    python-slugify
+  ];
 
   # Most of the tests rely on network access, or on unavailable browsers such as
   # msedge, chrome or webkit

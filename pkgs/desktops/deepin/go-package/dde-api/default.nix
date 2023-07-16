@@ -65,8 +65,12 @@ buildGoPackage rec {
 
   goDeps = ./deps.nix;
 
-  nativeBuildInputs =
-    [ pkg-config deepin-gettext-tools wrapQtAppsHook wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    deepin-gettext-tools
+    wrapQtAppsHook
+    wrapGAppsHook
+  ];
   dontWrapGApps = true;
 
   buildInputs = [

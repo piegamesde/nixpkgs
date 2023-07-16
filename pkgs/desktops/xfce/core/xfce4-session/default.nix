@@ -20,8 +20,17 @@ mkXfceDerivation {
 
   sha256 = "sha256-EyDMHGFjZWux7atpiUoCMmJIN2PGlF9h2L5qaFAzrKU=";
 
-  buildInputs =
-    [ exo gtk3 glib libxfce4ui libxfce4util libwnck xfconf polkit iceauth ];
+  buildInputs = [
+    exo
+    gtk3
+    glib
+    libxfce4ui
+    libxfce4util
+    libwnck
+    xfconf
+    polkit
+    iceauth
+  ];
 
   configureFlags = [ "--with-xsession-prefix=${placeholder "out"}" ];
 

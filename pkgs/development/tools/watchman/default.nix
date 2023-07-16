@@ -49,12 +49,19 @@ stdenv.mkDerivation rec {
     "-DENABLE_EDEN_SUPPORT=NO" # requires sapling (formerly known as eden), which is not packaged in nixpkgs
     "-DWATCHMAN_STATE_DIR=${stateDir}"
     "-DWATCHMAN_VERSION_OVERRIDE=${version}"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
-  ];
+  ] ++ lib.optionals
+    stdenv.isDarwin [ "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
+    ];
 
-  nativeBuildInputs = [ cmake pkg-config ensureNewerSourcesForZipFilesHook ]
-    ++ (with rustPlatform; [ cargoSetupHook rust.cargo rust.rustc ]);
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    ensureNewerSourcesForZipFilesHook
+  ] ++ (with rustPlatform; [
+    cargoSetupHook
+    rust.cargo
+    rust.rustc
+  ]);
 
   buildInputs = [
     pcre
@@ -93,7 +100,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Watches files and takes action when they change";
     homepage = "https://facebook.github.io/watchman";
-    maintainers = with maintainers; [ cstrahan kylesferrazza ];
+    maintainers = with maintainers; [
+      cstrahan
+      kylesferrazza
+    ];
     platforms = platforms.unix;
     license = licenses.mit;
   };

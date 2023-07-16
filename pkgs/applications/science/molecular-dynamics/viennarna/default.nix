@@ -18,9 +18,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-BUAEN88VWV4QsaJd9snEiFbzVhMPnR44D6iGa20n9Fc=";
   };
 
-  buildInputs = [ gsl mpfr perl python3 ];
+  buildInputs = [
+    gsl
+    mpfr
+    perl
+    python3
+  ];
 
-  configureFlags = [ "--with-cluster" "--with-kinwalker" ];
+  configureFlags = [
+    "--with-cluster"
+    "--with-kinwalker"
+  ];
 
   meta = with lib; {
     description = "Prediction and comparison of RNA secondary structures";

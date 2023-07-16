@@ -29,7 +29,12 @@ buildPythonPackage rec {
 
   buildInputs = [ pkgs.taskwarrior ];
 
-  propagatedBuildInputs = [ six python-dateutil kitchen pytz ];
+  propagatedBuildInputs = [
+    six
+    python-dateutil
+    kitchen
+    pytz
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

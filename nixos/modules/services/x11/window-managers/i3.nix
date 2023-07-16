@@ -41,7 +41,11 @@ in {
 
     extraPackages = mkOption {
       type = with types; listOf package;
-      default = with pkgs; [ dmenu i3status i3lock ];
+      default = with pkgs; [
+        dmenu
+        i3status
+        i3lock
+      ];
       defaultText = literalExpression ''
         with pkgs; [
           dmenu
@@ -56,7 +60,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.xserver.windowManager.session = [{
+    services.xserver.windowManager.session = [ {
       name = "i3";
       start = ''
         ${cfg.extraSessionCommands}
@@ -66,20 +70,18 @@ in {
         } &
         waitPID=$!
       '';
-    }];
+    } ];
     environment.systemPackages = [ cfg.package ] ++ cfg.extraPackages;
     environment.etc."i3/config" =
       mkIf (cfg.configFile != null) { source = cfg.configFile; };
   };
 
-  imports = [
-    (mkRemovedOptionModule [
-      "services"
-      "xserver"
-      "windowManager"
-      "i3-gaps"
-      "enable"
-    ]
-      "i3-gaps was merged into i3. Use services.xserver.windowManager.i3.enable instead.")
-  ];
+  imports = [ (mkRemovedOptionModule [
+    "services"
+    "xserver"
+    "windowManager"
+    "i3-gaps"
+    "enable"
+  ]
+    "i3-gaps was merged into i3. Use services.xserver.windowManager.i3.enable instead.") ];
 }

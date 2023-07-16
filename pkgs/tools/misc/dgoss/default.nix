@@ -32,7 +32,10 @@ resholve.mkDerivation rec {
     default = {
       scripts = [ "bin/dgoss" ];
       interpreter = "${bash}/bin/bash";
-      inputs = [ coreutils which ];
+      inputs = [
+        coreutils
+        which
+      ];
       keep = { "$CONTAINER_RUNTIME" = true; };
     };
   };

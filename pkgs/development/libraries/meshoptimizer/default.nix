@@ -24,11 +24,16 @@ in stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake ];
 
-  outputs = [ "bin" "dev" "out" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+  ];
 
-  cmakeFlags =
-    [ "-DMESHOPT_BUILD_GLTFPACK=ON" "-DMESHOPT_BASISU_PATH=${basis_universal}" ]
-    ++ lib.optional (!stdenv.hostPlatform.isStatic)
+  cmakeFlags = [
+    "-DMESHOPT_BUILD_GLTFPACK=ON"
+    "-DMESHOPT_BASISU_PATH=${basis_universal}"
+  ] ++ lib.optional (!stdenv.hostPlatform.isStatic)
     "-DMESHOPT_BUILD_SHARED_LIBS:BOOL=ON";
 
   meta = with lib; {

@@ -35,9 +35,19 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ attrs aiohttp backoff pyhumps boto3 warrant-lite ];
+  propagatedBuildInputs = [
+    attrs
+    aiohttp
+    backoff
+    pyhumps
+    boto3
+    warrant-lite
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pyoverkiz" ];
 

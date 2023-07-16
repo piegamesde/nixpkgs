@@ -25,15 +25,29 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-uy6s3YQwY/aZmQoW/qe1YrSlfNHyDTXBFxB6fPGiPNQ=";
   };
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
-  nativeBuildInputs = [ docutils makeWrapper ];
+  nativeBuildInputs = [
+    docutils
+    makeWrapper
+  ];
 
   installPhase = ''
     prefix="$out" ./install.sh
     wrapProgram "$out/bin/git-remote-gcrypt" \
       --prefix PATH ":" "${
-        lib.makeBinPath [ gnupg curl rsync coreutils gawk gnused gnugrep ]
+        lib.makeBinPath [
+          gnupg
+          curl
+          rsync
+          coreutils
+          gawk
+          gnused
+          gnugrep
+        ]
       }"
   '';
 
@@ -41,7 +55,10 @@ stdenv.mkDerivation rec {
     homepage = "https://spwhitton.name/tech/code/git-remote-gcrypt";
     description = "A git remote helper for GPG-encrypted remotes";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ellis montag451 ];
+    maintainers = with maintainers; [
+      ellis
+      montag451
+    ];
     platforms = platforms.unix;
   };
 }

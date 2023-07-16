@@ -21,7 +21,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ gevent ];
 
-  nativeCheckInputs = [ hostname pytest ];
+  nativeCheckInputs = [
+    hostname
+    pytest
+  ];
 
   # tests very flaky & hang often on darwin
   doCheck = !stdenv.isDarwin;

@@ -37,9 +37,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ charset-normalizer tomli untokenize ];
+  propagatedBuildInputs = [
+    charset-normalizer
+    tomli
+    untokenize
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "docformatter" ];
 

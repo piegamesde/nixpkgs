@@ -206,7 +206,10 @@ in {
 
     database = {
       type = mkOption {
-        type = types.enum [ "sqlite3" "mysql" ];
+        type = types.enum [
+          "sqlite3"
+          "mysql"
+        ];
         default = "sqlite3";
         description = lib.mdDoc "The database provider to use.";
       };
@@ -462,7 +465,7 @@ in {
       enable = true;
       package = mkDefault pkgs.mariadb;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [{
+      ensureUsers = [ {
         name = cfg.database.user;
         ensurePermissions = {
           "${cfg.database.name}.*" = "ALL PRIVILEGES";
@@ -471,7 +474,7 @@ in {
           # permissions so they can be used.
           "*.*" = "CREATE USER, RELOAD";
         };
-      }];
+      } ];
     };
 
     services.nginx = lib.mkIf cfg.nginx.enable {

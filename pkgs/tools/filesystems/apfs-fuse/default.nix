@@ -29,8 +29,11 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ (if stdenv.isDarwin then fuse else fuse3) bzip2 zlib ]
-    ++ lib.optional stdenv.isLinux attr;
+  buildInputs = [
+    (if stdenv.isDarwin then fuse else fuse3)
+    bzip2
+    zlib
+  ] ++ lib.optional stdenv.isLinux attr;
 
   cmakeFlags = lib.optional stdenv.isDarwin "-DUSE_FUSE3=OFF";
 

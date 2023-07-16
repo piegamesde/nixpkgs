@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ mercurial.python mercurial ];
+  buildInputs = [
+    mercurial.python
+    mercurial
+  ];
 
   installPhase = ''
     binPath=$out/bin

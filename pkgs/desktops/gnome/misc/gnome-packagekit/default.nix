@@ -26,10 +26,21 @@ stdenv.mkDerivation rec {
     sha256 = "zaRVplKpI7LqL3Axa9D92Clve2Lu8/r9nOUMjmbF8ZU=";
   };
 
-  nativeBuildInputs =
-    [ pkg-config meson ninja gettext wrapGAppsHook desktop-file-utils ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    gettext
+    wrapGAppsHook
+    desktop-file-utils
+  ];
 
-  buildInputs = [ gtk3 packagekit systemd polkit ];
+  buildInputs = [
+    gtk3
+    packagekit
+    systemd
+    polkit
+  ];
 
   postPatch = ''
     patchShebangs meson_post_install.sh

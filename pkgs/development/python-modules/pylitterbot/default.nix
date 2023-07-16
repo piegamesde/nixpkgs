@@ -29,10 +29,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ aiohttp deepdiff pyjwt ];
+  propagatedBuildInputs = [
+    aiohttp
+    deepdiff
+    pyjwt
+  ];
 
-  nativeCheckInputs =
-    [ aioresponses pytest-aiohttp pytest-freezegun pytestCheckHook ];
+  nativeCheckInputs = [
+    aioresponses
+    pytest-aiohttp
+    pytest-freezegun
+    pytestCheckHook
+  ];
 
   postPatch = ''
     # https://github.com/natekspencer/pylitterbot/issues/73

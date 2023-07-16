@@ -26,7 +26,12 @@
 let
   # packages absolutely required for gap to start
   # `*` represents the version where applicable
-  requiredPackages = [ "gapdoc" "primgrp" "smallgrp" "transgrp" ];
+  requiredPackages = [
+    "gapdoc"
+    "primgrp"
+    "smallgrp"
+    "transgrp"
+  ];
   # packages autoloaded by default if available, and their dependencies
   autoloadedPackages = [
     "atlasrep"
@@ -80,13 +85,16 @@ in stdenv.mkDerivation rec {
       patchShebangs .
     '';
 
-  buildInputs = [ readline gmp zlib ];
+  buildInputs = [
+    readline
+    gmp
+    zlib
+  ];
 
   nativeBuildInputs = [ makeWrapper ];
 
-  propagatedBuildInputs = [
-    pari # used at runtime by the alnuth package
-  ];
+  propagatedBuildInputs = [ pari # used at runtime by the alnuth package
+    ];
 
   # "teststandard" is a superset of the tests run by "check". it takes ~20min
   # instead of ~1min. tests are run twice, once with all packages loaded and

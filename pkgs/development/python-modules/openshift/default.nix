@@ -29,12 +29,20 @@ buildPythonPackage rec {
     sed -i '/--cov/d' setup.cfg
   '';
 
-  propagatedBuildInputs =
-    [ jinja2 kubernetes python-string-utils ruamel-yaml six ];
+  propagatedBuildInputs = [
+    jinja2
+    kubernetes
+    python-string-utils
+    ruamel-yaml
+    six
+  ];
 
   pythonImportsCheck = [ "openshift" ];
 
-  nativeCheckInputs = [ pytest-bdd pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-bdd
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [
     # requires kubeconfig

@@ -16,7 +16,10 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-DfPU42X9WCvOXf/BvFkfIM4yWQnunBgjjSfncaL6HPA=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ typing-extensions setuptools ];
+  propagatedBuildInputs = with python3.pkgs; [
+    typing-extensions
+    setuptools
+  ];
 
   # No test available
   doCheck = false;

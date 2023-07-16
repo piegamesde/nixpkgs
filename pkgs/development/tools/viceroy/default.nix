@@ -28,7 +28,10 @@ rustPlatform.buildRustPackage rec {
       "Viceroy provides local testing for developers working with Compute@Edge";
     homepage = "https://github.com/fastly/Viceroy";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ereslibre shyim ];
+    maintainers = with maintainers; [
+      ereslibre
+      shyim
+    ];
     platforms = platforms.unix;
   };
 }

@@ -22,7 +22,13 @@ mkDerivation rec {
     sha256 = "0cfq95mxvcgby66r61gclm1a2c6zck5aln04xmg2q8kg6p9d31fr";
   };
 
-  buildInputs = [ boost qtbase qtwebkit poppler hunspell ];
+  buildInputs = [
+    boost
+    qtbase
+    qtwebkit
+    poppler
+    hunspell
+  ];
 
   nativeBuildInputs = [ qmake ];
 

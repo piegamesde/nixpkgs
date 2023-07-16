@@ -40,7 +40,10 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   meta = with lib; {
     homepage = "https://openslide.org";

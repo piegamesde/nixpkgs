@@ -47,9 +47,16 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ fuse glib zlib ];
+  buildInputs = [
+    fuse
+    glib
+    zlib
+  ];
 
   # after autoreconfHook, glib and zlib are not found, so force link against
   # them

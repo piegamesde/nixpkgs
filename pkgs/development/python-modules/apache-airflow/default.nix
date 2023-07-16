@@ -209,7 +209,10 @@ in buildPythonPackage rec {
 
   buildInputs = [ airflow-frontend ];
 
-  nativeCheckInputs = [ freezegun pytestCheckHook ];
+  nativeCheckInputs = [
+    freezegun
+    pytestCheckHook
+  ];
 
   # By default, source code of providers is included but unusable due to missing
   # transitive dependencies. To enable a provider, add it to extraProviders
@@ -251,9 +254,9 @@ in buildPythonPackage rec {
 
   pytestFlagsArray = [ "tests/core/test_core.py" ];
 
-  disabledTests = lib.optionals stdenv.isDarwin [
-    "bash_operator_kill" # psutil.AccessDenied
-  ];
+  disabledTests =
+    lib.optionals stdenv.isDarwin [ "bash_operator_kill" # psutil.AccessDenied
+    ];
 
   # Updates yarn.lock and package.json
   passthru.updateScript = writeScript "update.sh" ''
@@ -297,6 +300,10 @@ in buildPythonPackage rec {
       "Programmatically author, schedule and monitor data pipelines";
     homepage = "https://airflow.apache.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bhipple gbpdt ingenieroariel ];
+    maintainers = with maintainers; [
+      bhipple
+      gbpdt
+      ingenieroariel
+    ];
   };
 }

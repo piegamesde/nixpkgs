@@ -21,7 +21,10 @@ buildPythonPackage {
 
   nativeBuildInputs = [ pytest-runner ];
 
-  nativeCheckInputs = [ pytest pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest
+    pytestCheckHook
+  ];
 
   propagatedBuildInputs = [ scipy ];
 
@@ -29,6 +32,9 @@ buildPythonPackage {
     homepage = "https://github.com/carsonfarmer/fastpair";
     description = "Data-structure for the dynamic closest-pair problem";
     license = licenses.mit;
-    maintainers = with maintainers; [ cmcdragonkai rakesh4g ];
+    maintainers = with maintainers; [
+      cmcdragonkai
+      rakesh4g
+    ];
   };
 }

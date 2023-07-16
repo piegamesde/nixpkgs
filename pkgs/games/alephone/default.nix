@@ -30,7 +30,10 @@
 
 let
   self = stdenv.mkDerivation rec {
-    outputs = [ "out" "icons" ];
+    outputs = [
+      "out"
+      "icons"
+    ];
     pname = "alephone";
     version = "1.4";
 
@@ -40,7 +43,10 @@ let
       sha256 = "sha256-tMwATUhUpo8W2oSWxGSZcAHVkj1PWEvUR/rpMZwWCWA=";
     };
 
-    nativeBuildInputs = [ pkg-config icoutils ];
+    nativeBuildInputs = [
+      pkg-config
+      icoutils
+    ];
 
     buildInputs = [
       boost
@@ -112,7 +118,10 @@ in self // {
 
       src = zip;
 
-      nativeBuildInputs = [ makeWrapper unzip ];
+      nativeBuildInputs = [
+        makeWrapper
+        unzip
+      ];
 
       dontConfigure = true;
       dontBuild = true;

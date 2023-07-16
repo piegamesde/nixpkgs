@@ -18,6 +18,11 @@ stdenv.mkDerivation rec {
     description = "Open Dynamics Engine";
     homepage = "https://www.ode.org";
     platforms = platforms.linux;
-    license = with licenses; [ bsd3 lgpl21 lgpl3 zlib ];
+    license = with licenses; [
+      bsd3
+      lgpl21
+      lgpl3
+      zlib
+    ];
   };
 }

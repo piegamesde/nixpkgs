@@ -24,7 +24,10 @@ let
     icon = pname;
     comment = description;
     desktopName = "jPSXdec";
-    categories = [ "AudioVideo" "Utility" ];
+    categories = [
+      "AudioVideo"
+      "Utility"
+    ];
   };
 in stdenv.mkDerivation rec {
   inherit pname version;
@@ -36,7 +39,12 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-6PLEvK4NP0/ipdygyDFFcWTIfch5y0Hren40+8iqYJs=";
   };
 
-  nativeBuildInputs = [ ant jdk unoconv makeWrapper ];
+  nativeBuildInputs = [
+    ant
+    jdk
+    unoconv
+    makeWrapper
+  ];
   buildInputs = [ jre ];
 
   patches = [ ./0001-jpsxdec-hackfix-build-with-newer-JDKs.patch ];

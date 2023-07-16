@@ -36,12 +36,23 @@ in mkDerivation {
   inherit version src;
   disabledForGRafter = "3.9";
 
-  nativeBuildInputs = [ cmake pkg-config swig python ];
-  buildInputs = [ logLib mpir boost gmp icu limesuite ]
-    ++ lib.optionals (gnuradio.hasFeature "gr-ctrlport") [
-      thrift
-      python.pkgs.thrift
-    ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    swig
+    python
+  ];
+  buildInputs = [
+    logLib
+    mpir
+    boost
+    gmp
+    icu
+    limesuite
+  ] ++ lib.optionals (gnuradio.hasFeature "gr-ctrlport") [
+    thrift
+    python.pkgs.thrift
+  ];
 
   meta = with lib; {
     description = "Gnuradio source and sink blocks for LimeSDR";

@@ -15,10 +15,18 @@ buildDunePackage rec {
   inherit (irmin) version src strictDeps;
   duneVersion = "3";
 
-  propagatedBuildInputs = [ irmin fmt logs lwt ];
+  propagatedBuildInputs = [
+    irmin
+    fmt
+    logs
+    lwt
+  ];
 
   doCheck = true;
-  checkInputs = [ alcotest irmin-test ];
+  checkInputs = [
+    alcotest
+    irmin-test
+  ];
 
   meta = irmin.meta // {
     description = "Irmin backend which allow to store values into chunks";

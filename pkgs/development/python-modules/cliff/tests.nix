@@ -21,7 +21,12 @@ buildPythonPackage rec {
   dontBuild = true;
   dontInstall = true;
 
-  nativeCheckInputs = [ cliff docutils stestr testscenarios ];
+  nativeCheckInputs = [
+    cliff
+    docutils
+    stestr
+    testscenarios
+  ];
 
   checkPhase = ''
     stestr run

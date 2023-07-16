@@ -65,7 +65,10 @@ rustPlatform.buildRustPackage rec {
     python3
   ] ++ lib.optional stdenv.isDarwin perl;
 
-  buildInputs = [ fontconfig zlib ] ++ lib.optionals stdenv.isLinux [
+  buildInputs = [
+    fontconfig
+    zlib
+  ] ++ lib.optionals stdenv.isLinux [
     libX11
     libxcb
     libxkbcommon
@@ -133,6 +136,9 @@ rustPlatform.buildRustPackage rec {
       "GPU-accelerated cross-platform terminal emulator and multiplexer written by @wez and implemented in Rust";
     homepage = "https://wezfurlong.org/wezterm";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 mimame ];
+    maintainers = with maintainers; [
+      SuperSandro2000
+      mimame
+    ];
   };
 }

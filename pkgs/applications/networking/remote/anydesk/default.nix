@@ -123,7 +123,12 @@ in stdenv.mkDerivation rec {
       $out/bin/anydesk
 
     wrapProgram $out/bin/anydesk \
-      --prefix PATH : ${lib.makeBinPath [ lsb-release pciutils ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          lsb-release
+          pciutils
+        ]
+      }
 
     substituteInPlace $out/share/applications/*.desktop \
       --subst-var out
@@ -135,6 +140,9 @@ in stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ shyim cheriimoya ];
+    maintainers = with maintainers; [
+      shyim
+      cheriimoya
+    ];
   };
 }

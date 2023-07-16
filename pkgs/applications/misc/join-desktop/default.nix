@@ -23,18 +23,28 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-k1LX/HC3tfL4Raipo7wp/LnfrPa38x8NBeKRyHJ72CU=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook dpkg makeWrapper ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    dpkg
+    makeWrapper
+  ];
 
-  buildInputs = [ alsa-lib gtk3 mesa nss xorg.libXScrnSaver xorg.libXtst ];
+  buildInputs = [
+    alsa-lib
+    gtk3
+    mesa
+    nss
+    xorg.libXScrnSaver
+    xorg.libXtst
+  ];
 
   unpackPhase = "dpkg-deb -x $src .";
 
-  runtimeDependencies = [
-    (lib.getLib systemd)
-    # TODO: check if they are required
-    # libnotify
-    # libappindicator
-  ];
+  runtimeDependencies = [ (lib.getLib systemd)
+  # TODO: check if they are required
+  # libnotify
+  # libappindicator
+    ];
 
   installPhase = ''
     runHook preInstall

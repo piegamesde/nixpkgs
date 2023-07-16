@@ -38,7 +38,13 @@ in stdenv.mkDerivation {
   passthru = {
     updateScript = writeShellScript "update-${pname}" ''
       set -o errexit
-      export PATH="${lib.makeBinPath [ curl jq common-updater-scripts ]}"
+      export PATH="${
+        lib.makeBinPath [
+          curl
+          jq
+          common-updater-scripts
+        ]
+      }"
       NEW_VERSION=$(curl -s https://api.github.com/repos/platformsh/platformsh-cli/releases/latest | jq .tag_name --raw-output)
 
       if [[ "v${version}" = "$NEW_VERSION" ]]; then

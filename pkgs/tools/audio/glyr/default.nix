@@ -20,8 +20,15 @@ stdenv.mkDerivation rec {
     sha256 = "1miwbqzkhg0v3zysrwh60pj9sv6ci4lzq2vq2hhc6pc6hdyh8xyr";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ sqlite glib curl ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    sqlite
+    glib
+    curl
+  ];
 
   meta = with lib; {
     description = "A music related metadata searchengine";

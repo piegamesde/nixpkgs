@@ -24,9 +24,21 @@ stdenv.mkDerivation rec {
     hash = "sha256-6H/MtXXGTTrAVZREAWonlfEhJZhqDaiWurl8ShovGyo=";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
 
-  buildInputs = [ curl gpgme libarchive bzip2 xz attr acl libxml2 ];
+  buildInputs = [
+    curl
+    gpgme
+    libarchive
+    bzip2
+    xz
+    attr
+    acl
+    libxml2
+  ];
 
   meta = with lib; {
     description = "A lightweight package management system based upon ipkg";

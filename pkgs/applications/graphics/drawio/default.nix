@@ -30,9 +30,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-YlJ84psoEgeDnCX+O8TvwqhTthm5voJ6dfTvTiZlkuk=";
   };
 
-  nativeBuildInputs =
-    [ copyDesktopItems fixup_yarn_lock makeWrapper nodejs yarn ]
-    ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
+  nativeBuildInputs = [
+    copyDesktopItems
+    fixup_yarn_lock
+    makeWrapper
+    nodejs
+    yarn
+  ] ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
 
   ELECTRON_SKIP_BINARY_DOWNLOAD = true;
 
@@ -75,18 +79,19 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "drawio";
-      exec = "drawio %U";
-      icon = "drawio";
-      desktopName = "drawio";
-      comment = "draw.io desktop";
-      mimeTypes = [ "application/vnd.jgraph.mxfile" "application/vnd.visio" ];
-      categories = [ "Graphics" ];
-      startupWMClass = "drawio";
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "drawio";
+    exec = "drawio %U";
+    icon = "drawio";
+    desktopName = "drawio";
+    comment = "draw.io desktop";
+    mimeTypes = [
+      "application/vnd.jgraph.mxfile"
+      "application/vnd.visio"
+    ];
+    categories = [ "Graphics" ];
+    startupWMClass = "drawio";
+  }) ];
 
   meta = with lib; {
     description = "A desktop application for creating diagrams";
@@ -94,7 +99,10 @@ stdenv.mkDerivation rec {
     license = licenses.asl20;
     changelog =
       "https://github.com/jgraph/drawio-desktop/releases/tag/v${version}";
-    maintainers = with maintainers; [ qyliss darkonion0 ];
+    maintainers = with maintainers; [
+      qyliss
+      darkonion0
+    ];
     platforms = platforms.darwin ++ platforms.linux;
     broken = stdenv.isDarwin;
   };

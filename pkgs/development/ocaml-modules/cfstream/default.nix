@@ -29,7 +29,10 @@ buildDunePackage rec {
 
   nativeBuildInputs = [ m4 ];
   checkInputs = [ ounit ];
-  propagatedBuildInputs = [ camlp-streams core_kernel ];
+  propagatedBuildInputs = [
+    camlp-streams
+    core_kernel
+  ];
 
   doCheck = true;
 

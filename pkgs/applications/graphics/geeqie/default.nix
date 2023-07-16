@@ -50,8 +50,16 @@ stdenv.mkDerivation rec {
     substituteInPlace meson.build --replace 'libtiff' 'tiff'
   '';
 
-  nativeBuildInputs =
-    [ pkg-config gettext intltool wrapGAppsHook doxygen meson ninja xxd ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+    intltool
+    wrapGAppsHook
+    doxygen
+    meson
+    ninja
+    xxd
+  ];
 
   buildInputs = [
     gtk3
@@ -78,7 +86,12 @@ stdenv.mkDerivation rec {
     # Allow geeqie to find exiv2 and exiftran, necessary to
     # losslessly rotate JPEG images.
     sed -i $out/lib/geeqie/geeqie-rotate \
-        -e '1 a export PATH=${lib.makeBinPath [ exiv2 fbida ]}:$PATH'
+        -e '1 a export PATH=${
+          lib.makeBinPath [
+            exiv2
+            fbida
+          ]
+        }:$PATH'
   '';
 
   enableParallelBuilding = true;
@@ -102,7 +115,11 @@ stdenv.mkDerivation rec {
 
     homepage = "https://www.geeqie.org/";
 
-    maintainers = with maintainers; [ jfrankenau pSub markus1189 ];
+    maintainers = with maintainers; [
+      jfrankenau
+      pSub
+      markus1189
+    ];
     platforms = platforms.gnu ++ platforms.linux;
   };
 }

@@ -47,7 +47,12 @@ stdenv.mkDerivation rec {
     sha256 = "c5+bgu+hF3mOwF3ZxksPMiYUFyDRMFLA3f5FWeLsSBU=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook (lib.getDev qttools) ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapQtAppsHook
+    (lib.getDev qttools)
+  ];
 
   buildInputs = [
     qtbase
@@ -72,8 +77,11 @@ stdenv.mkDerivation rec {
     hidapi
     rapidjson
     quirc
-  ] ++ lib.optionals trezorSupport [ libusb1 protobuf python3 ]
-    ++ lib.optionals stdenv.isDarwin [ qtmacextras ];
+  ] ++ lib.optionals trezorSupport [
+    libusb1
+    protobuf
+    python3
+  ] ++ lib.optionals stdenv.isDarwin [ qtmacextras ];
 
   postUnpack = ''
     # copy monero sources here
@@ -82,7 +90,10 @@ stdenv.mkDerivation rec {
     chmod -R +w source/monero
   '';
 
-  patches = [ ./move-log-file.patch ./use-system-libquirc.patch ];
+  patches = [
+    ./move-log-file.patch
+    ./use-system-libquirc.patch
+  ];
 
   postPatch = ''
     # set monero-gui version
@@ -109,7 +120,10 @@ stdenv.mkDerivation rec {
     icon = "monero";
     desktopName = "Monero";
     genericName = "Wallet";
-    categories = [ "Network" "Utility" ];
+    categories = [
+      "Network"
+      "Utility"
+    ];
   };
 
   postInstall = ''

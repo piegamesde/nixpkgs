@@ -273,7 +273,12 @@ in {
       qt.style = "adwaita";
 
       # Default Fonts
-      fonts.fonts = with pkgs; [ inter open-dyslexic open-sans roboto-mono ];
+      fonts.fonts = with pkgs; [
+        inter
+        open-dyslexic
+        open-sans
+        roboto-mono
+      ];
 
       fonts.fontconfig.defaultFonts = {
         monospace = [ "Roboto Mono" ];

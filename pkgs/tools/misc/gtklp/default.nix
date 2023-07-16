@@ -21,11 +21,24 @@ stdenv.mkDerivation rec {
     sha256 = "1arvnnvar22ipgnzqqq8xh0kkwyf71q2sfsf0crajpsr8a8601xy";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
 
-  buildInputs = [ cups gettext glib gtk2 libtool openssl ];
+  buildInputs = [
+    cups
+    gettext
+    glib
+    gtk2
+    libtool
+    openssl
+  ];
 
-  patches = [ ./patches/mdv-fix-str-fmt.patch ./patches/autoconf.patch ];
+  patches = [
+    ./patches/mdv-fix-str-fmt.patch
+    ./patches/autoconf.patch
+  ];
 
   # Workaround build failure on -fno-common toolchains:
   #   ld: libgtklp.a(libgtklp.o):libgtklp/libgtklp.h:83: multiple definition of `progressBar';

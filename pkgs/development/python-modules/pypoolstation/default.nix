@@ -23,7 +23,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ aiohttp backoff ];
+  propagatedBuildInputs = [
+    aiohttp
+    backoff
+  ];
 
   # Project has no tests
   doCheck = false;

@@ -69,7 +69,13 @@ in stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config python3 wrapGAppsHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    python3
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     libdrm.dev
@@ -95,7 +101,11 @@ in stdenv.mkDerivation rec {
     description = "Wayland compositor for mobile phones like the Librem 5";
     homepage = "https://gitlab.gnome.org/World/Phosh/phoc";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ masipcat tomfitzhenry zhaofengli ];
+    maintainers = with maintainers; [
+      masipcat
+      tomfitzhenry
+      zhaofengli
+    ];
     platforms = platforms.linux;
   };
 }

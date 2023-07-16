@@ -28,7 +28,10 @@ buildPythonPackage rec {
     hash = "sha256-eHTbVhgVqxMR3ZuaC6FPyYbxRpRBi53EfDqERpPBjVQ=";
   };
 
-  buildInputs = [ sqlite cython ];
+  buildInputs = [
+    sqlite
+    cython
+  ];
 
   propagatedBuildInputs = [ apsw ] ++ lib.optionals withPostgres [ psycopg2 ]
     ++ lib.optionals withMysql [ mysql-connector ];

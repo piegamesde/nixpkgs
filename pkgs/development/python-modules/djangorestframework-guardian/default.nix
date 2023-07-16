@@ -22,7 +22,10 @@ buildPythonPackage rec {
     patchShebangs manage.py
   '';
 
-  propagatedBuildInputs = [ django-guardian djangorestframework ];
+  propagatedBuildInputs = [
+    django-guardian
+    djangorestframework
+  ];
 
   checkPhase = ''
     ./manage.py test

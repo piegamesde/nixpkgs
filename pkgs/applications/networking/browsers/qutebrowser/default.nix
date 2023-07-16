@@ -86,14 +86,16 @@ buildPythonApplication {
   # Needs tox
   doCheck = false;
 
-  buildInputs = [ qtbase glib-networking ] ++ lib.optionals withMediaPlayback
-    (with gst_all_1; [
-      gst-plugins-base
-      gst-plugins-good
-      gst-plugins-bad
-      gst-plugins-ugly
-      gst-libav
-    ]);
+  buildInputs = [
+    qtbase
+    glib-networking
+  ] ++ lib.optionals withMediaPlayback (with gst_all_1; [
+    gst-plugins-base
+    gst-plugins-good
+    gst-plugins-bad
+    gst-plugins-ugly
+    gst-libav
+  ]);
 
   nativeBuildInputs = [
     wrapQtAppsHook
@@ -185,10 +187,14 @@ buildPythonApplication {
     homepage = "https://github.com/qutebrowser/qutebrowser";
     description = "Keyboard-focused browser with a minimal GUI";
     license = licenses.gpl3Plus;
-    platforms = if enableWideVine then
-      [ "x86_64-linux" ]
-    else
+    platforms = if enableWideVine then [ "x86_64-linux" ] else
       backendPackage.meta.platforms;
-    maintainers = with maintainers; [ jagajaga rnhmjoj ebzzry dotlambda nrdxp ];
+    maintainers = with maintainers; [
+      jagajaga
+      rnhmjoj
+      ebzzry
+      dotlambda
+      nrdxp
+    ];
   };
 }

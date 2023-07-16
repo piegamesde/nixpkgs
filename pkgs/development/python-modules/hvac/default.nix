@@ -20,7 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-B53KWIVt7mZG7VovIoOAnBbS3u3eHp6WFbKRAySkuWk=";
   };
 
-  propagatedBuildInputs = [ pyhcl requests six ];
+  propagatedBuildInputs = [
+    pyhcl
+    requests
+    six
+  ];
 
   # Requires running a Vault server
   doCheck = false;

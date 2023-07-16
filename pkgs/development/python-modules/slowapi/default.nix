@@ -36,11 +36,23 @@ buildPythonPackage rec {
       --replace '["redis^3.4.1"]' '["redis"]'
   '';
 
-  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
-  propagatedBuildInputs = [ limits redis ];
+  propagatedBuildInputs = [
+    limits
+    redis
+  ];
 
-  nativeCheckInputs = [ fastapi hiro mock pytestCheckHook starlette ];
+  nativeCheckInputs = [
+    fastapi
+    hiro
+    mock
+    pytestCheckHook
+    starlette
+  ];
 
   disabledTests = [
     # AssertionError: Regex pattern 'parameter `request` must be an instance of starlette.requests.Request' does not match 'This portal is not running'.

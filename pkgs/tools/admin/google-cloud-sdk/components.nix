@@ -89,7 +89,10 @@ let
       # architectures.
       architectures =
         builtins.filter (arch: builtins.elem arch (builtins.attrNames arches))
-        (lib.attrByPath [ "platform" "architectures" ] allArches component);
+        (lib.attrByPath [
+          "platform"
+          "architectures"
+        ] allArches component);
       # Operating systems supported by this component
       operating_systems =
         builtins.filter (os: builtins.elem os (builtins.attrNames oses))
@@ -97,9 +100,14 @@ let
     in mkComponent {
       pname = component.id;
       version = component.version.version_string;
-      src = lib.optionalString (lib.hasAttrByPath [ "data" "source" ] component)
-        "${baseUrl}/${component.data.source}";
-      sha256 = lib.attrByPath [ "data" "checksum" ] "" component;
+      src = lib.optionalString (lib.hasAttrByPath [
+        "data"
+        "source"
+      ] component) "${baseUrl}/${component.data.source}";
+      sha256 = lib.attrByPath [
+        "data"
+        "checksum"
+      ] "" component;
       dependencies = builtins.map (dep: builtins.getAttr dep components)
         component.dependencies;
       platforms = if component.platform == { } then
@@ -162,8 +170,10 @@ let
         # Write the snapshot file to the `.install` folder
         cp $snapshotPath $out/google-cloud-sdk/.install/${pname}.snapshot.json
       '';
-      nativeBuildInputs = [ python3 stdenv.cc.cc ]
-        ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+      nativeBuildInputs = [
+        python3
+        stdenv.cc.cc
+      ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
       buildInputs = [ libxcrypt-legacy ];
       passthru = { dependencies = filterForSystem dependencies; };
       passAsFile = [ "snapshot" ];

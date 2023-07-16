@@ -24,7 +24,12 @@ buildDunePackage rec {
     sha256 = "sha256-V0GB9Bd06IdcI5PDFHGVZ0Y/qi7tTs/4ITqPXUOxCLs=";
   };
 
-  propagatedBuildInputs = [ cryptokit ocamlnet ocurl yojson ];
+  propagatedBuildInputs = [
+    cryptokit
+    ocamlnet
+    ocurl
+    yojson
+  ];
 
   doCheck = true;
   checkInputs = [ ounit2 ];

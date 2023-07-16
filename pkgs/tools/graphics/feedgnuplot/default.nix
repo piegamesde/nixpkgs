@@ -29,11 +29,19 @@ in perlPackages.buildPerlPackage rec {
 
   outputs = [ "out" ];
 
-  nativeBuildInputs = [ makeWrapper installShellFiles ]
-    ++ lib.optional stdenv.isDarwin shortenPerlShebang;
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+  ] ++ lib.optional stdenv.isDarwin shortenPerlShebang;
 
-  buildInputs = [ gnuplot perl ]
-    ++ (with perlPackages; [ ListMoreUtils IPCRun StringShellQuote ]);
+  buildInputs = [
+    gnuplot
+    perl
+  ] ++ (with perlPackages; [
+    ListMoreUtils
+    IPCRun
+    StringShellQuote
+  ]);
 
   # Fontconfig error: Cannot load default config file
   FONTCONFIG_FILE = fontsConf;
@@ -59,7 +67,10 @@ in perlPackages.buildPerlPackage rec {
   meta = with lib; {
     description = "General purpose pipe-oriented plotting tool";
     homepage = "https://github.com/dkogan/feedgnuplot/";
-    license = with licenses; [ artistic1 gpl1Plus ];
+    license = with licenses; [
+      artistic1
+      gpl1Plus
+    ];
     platforms = platforms.unix;
     maintainers = with maintainers; [ mnacamura ];
   };

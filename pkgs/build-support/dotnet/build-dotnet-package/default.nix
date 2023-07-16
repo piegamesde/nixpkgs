@@ -15,9 +15,7 @@ attrsOrig@{
   xBuildFlags ? [ "/p:Configuration=Release" ],
   outputFiles ? [ "bin/Release/*" ],
   dllFiles ? [ "*.dll" ],
-  exeFiles ? [
-    "*.exe"
-  ]
+  exeFiles ? [ "*.exe" ]
   # Additional arguments to pass to the makeWrapper function, which wraps
   # generated binaries.
   ,
@@ -31,8 +29,12 @@ let
   attrs = {
     inherit pname version;
 
-    nativeBuildInputs = [ pkg-config makeWrapper dotnetbuildhelpers mono ]
-      ++ nativeBuildInputs;
+    nativeBuildInputs = [
+      pkg-config
+      makeWrapper
+      dotnetbuildhelpers
+      mono
+    ] ++ nativeBuildInputs;
 
     configurePhase = ''
       runHook preConfigure

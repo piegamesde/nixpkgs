@@ -68,8 +68,20 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-OjTqANxzcW/RrAdqmVYAegrlLPu6w2pjzSyZyvUYIt4=";
   };
 
-  nativeBuildInputs = [ ant unzip makeWrapper wrapGAppsHook ];
-  buildInputs = [ jdk javaPackages.jogl_2_3_2 ant rsync ffmpeg batik ];
+  nativeBuildInputs = [
+    ant
+    unzip
+    makeWrapper
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    jdk
+    javaPackages.jogl_2_3_2
+    ant
+    rsync
+    ffmpeg
+    batik
+  ];
 
   dontWrapGApps = true;
 
@@ -112,7 +124,10 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A language and IDE for electronic arts";
     homepage = "https://processing.org";
-    license = with licenses; [ gpl2Only lgpl21Only ];
+    license = with licenses; [
+      gpl2Only
+      lgpl21Only
+    ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ evan-goode ];
   };

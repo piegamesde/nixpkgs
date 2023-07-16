@@ -22,7 +22,12 @@ buildPythonPackage rec {
     hash = "sha256-GDTaPQaCy6Tyzt4vmq1rD6+2RhukUdsO+2+cOXmNZNM=";
   };
 
-  propagatedBuildInputs = [ click joblib regex tqdm ];
+  propagatedBuildInputs = [
+    click
+    joblib
+    regex
+    tqdm
+  ];
 
   # Tests require some data, the downloading of which is impure. It would
   # probably make sense to make the data another derivation, but then feeding

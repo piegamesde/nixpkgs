@@ -118,8 +118,14 @@ assert (builtins.elem cartGaussOrd [
   "orca"
   "bagel"
 ]);
-assert (builtins.elem shGaussOrd [ "standard" "gaussian" ]);
-assert (builtins.elem shellSet [ "standard" "orca" ]);
+assert (builtins.elem shGaussOrd [
+  "standard"
+  "gaussian"
+]);
+assert (builtins.elem shellSet [
+  "standard"
+  "orca"
+]);
 
 let
   pname = "libint";
@@ -129,8 +135,14 @@ let
     description =
       "Library for the evaluation of molecular integrals of many-body operators over Gaussian functions";
     homepage = "https://github.com/evaleev/libint";
-    license = with licenses; [ lgpl3Only gpl3Only ];
-    maintainers = with maintainers; [ markuskowa sheepforce ];
+    license = with licenses; [
+      lgpl3Only
+      gpl3Only
+    ];
+    maintainers = with maintainers; [
+      markuskowa
+      sheepforce
+    ];
     platforms = [ "x86_64-linux" ];
   };
 
@@ -158,10 +170,20 @@ let
       done
     '';
 
-    nativeBuildInputs = [ autoconf automake libtool mpfr python3 perl gmpxx ]
-      ++ lib.optional enableFortran gfortran;
+    nativeBuildInputs = [
+      autoconf
+      automake
+      libtool
+      mpfr
+      python3
+      perl
+      gmpxx
+    ] ++ lib.optional enableFortran gfortran;
 
-    buildInputs = [ boost eigen ];
+    buildInputs = [
+      boost
+      eigen
+    ];
 
     configureFlags = with lib;
       [
@@ -222,10 +244,15 @@ let
 
     src = "${codeGen}/${pname}-${version}.tgz";
 
-    nativeBuildInputs = [ python3 cmake ]
-      ++ lib.optional enableFortran gfortran;
+    nativeBuildInputs = [
+      python3
+      cmake
+    ] ++ lib.optional enableFortran gfortran;
 
-    buildInputs = [ boost eigen ];
+    buildInputs = [
+      boost
+      eigen
+    ];
 
     # Default is just "double", but SSE2 is available on all x86_64 CPUs.
     # AVX support is advertised, but does not work in 2.6 (possibly in 2.7).

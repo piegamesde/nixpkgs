@@ -26,17 +26,36 @@ stdenv.mkDerivation rec {
     hash = "sha256-a/+9M2zoywZBdOfXHrA4O6Q9W7HJZNTthB/aseUNefA=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
 
-  buildInputs = [ glib libgcrypt libintl libotr ncurses openssl perl ];
+  buildInputs = [
+    glib
+    libgcrypt
+    libintl
+    libotr
+    ncurses
+    openssl
+    perl
+  ];
 
-  configureFlags = [ "-Dwith-proxy=yes" "-Dwith-bot=yes" "-Dwith-perl=yes" ];
+  configureFlags = [
+    "-Dwith-proxy=yes"
+    "-Dwith-bot=yes"
+    "-Dwith-perl=yes"
+  ];
 
   meta = with lib; {
     description = "Terminal based IRC client";
     homepage = "https://irssi.org";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fab lovek323 ];
+    maintainers = with maintainers; [
+      fab
+      lovek323
+    ];
     platforms = platforms.unix;
   };
 }

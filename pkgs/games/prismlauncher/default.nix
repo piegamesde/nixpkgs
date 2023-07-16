@@ -22,7 +22,10 @@
   tomlplusplus,
   ghc_filesystem,
   msaClientID ? "",
-  jdks ? [ jdk17 jdk8 ],
+  jdks ? [
+    jdk17
+    jdk8
+  ],
   gamemodeSupport ? true,
   gamemode,
 }:
@@ -46,16 +49,28 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-7tptHKWkbdxTn6VIPxXE1K3opKRiUW2zv9r6J05dcS8=";
   };
 
-  nativeBuildInputs =
-    [ extra-cmake-modules cmake file jdk17 ninja wrapQtAppsHook ];
-  buildInputs = [ qtbase qtsvg zlib quazip ghc_filesystem tomlplusplus ]
-    ++ lib.optional (lib.versionAtLeast qtbase.version "6") qtwayland
+  nativeBuildInputs = [
+    extra-cmake-modules
+    cmake
+    file
+    jdk17
+    ninja
+    wrapQtAppsHook
+  ];
+  buildInputs = [
+    qtbase
+    qtsvg
+    zlib
+    quazip
+    ghc_filesystem
+    tomlplusplus
+  ] ++ lib.optional (lib.versionAtLeast qtbase.version "6") qtwayland
     ++ lib.optional gamemodeSupport gamemode.dev;
 
-  cmakeFlags = lib.optionals (msaClientID != "")
-    [ "-DLauncher_MSA_CLIENT_ID=${msaClientID}" ]
-    ++ lib.optionals (lib.versionAtLeast qtbase.version "6")
-    [ "-DLauncher_QT_VERSION_MAJOR=6" ];
+  cmakeFlags = lib.optionals
+    (msaClientID != "") [ "-DLauncher_MSA_CLIENT_ID=${msaClientID}" ]
+    ++ lib.optionals
+    (lib.versionAtLeast qtbase.version "6") [ "-DLauncher_QT_VERSION_MAJOR=6" ];
 
   postUnpack = ''
     rm -rf source/libraries/libnbtplusplus
@@ -98,6 +113,9 @@ in stdenv.mkDerivation rec {
     changelog =
       "https://github.com/PrismLauncher/PrismLauncher/releases/tag/${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ minion3665 Scrumplex ];
+    maintainers = with maintainers; [
+      minion3665
+      Scrumplex
+    ];
   };
 }

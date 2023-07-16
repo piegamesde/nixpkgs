@@ -22,7 +22,11 @@ buildPythonPackage rec {
     rm test-requirements.txt
   '';
 
-  propagatedBuildInputs = [ dulwich pbr sphinx ];
+  propagatedBuildInputs = [
+    dulwich
+    pbr
+    sphinx
+  ];
 
   # no tests
   doCheck = false;

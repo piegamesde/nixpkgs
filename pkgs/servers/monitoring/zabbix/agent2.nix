@@ -31,8 +31,16 @@ import ./versions.nix ({
 
     inherit vendorSha256;
 
-    nativeBuildInputs = [ autoreconfHook pkg-config ];
-    buildInputs = [ libiconv openssl pcre zlib ];
+    nativeBuildInputs = [
+      autoreconfHook
+      pkg-config
+    ];
+    buildInputs = [
+      libiconv
+      openssl
+      pcre
+      zlib
+    ];
 
     inherit (buildGoModule.go) GOOS GOARCH;
 

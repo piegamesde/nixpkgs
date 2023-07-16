@@ -91,13 +91,20 @@ in with self; {
     name = "BeadArrayUseCases";
     version = "1.36.0";
     sha256 = "079qj26622s9jb2kw1wpd5bjihmj3a9mif4y86zjna7jm1jdvzv8";
-    depends = [ beadarray GEOquery limma ];
+    depends = [
+      beadarray
+      GEOquery
+      limma
+    ];
   };
   BeadSorted_Saliva_EPIC = derive2 {
     name = "BeadSorted.Saliva.EPIC";
     version = "1.6.0";
     sha256 = "0mh10sg95djkzp9w7bjr4ggy86a0pakfi2008fk4xikjc3q7ky24";
-    depends = [ ExperimentHub minfi ];
+    depends = [
+      ExperimentHub
+      minfi
+    ];
   };
   BioImageDbs = derive2 {
     name = "BioImageDbs";
@@ -156,19 +163,28 @@ in with self; {
     name = "CCl4";
     version = "1.36.0";
     sha256 = "09zja5jzz7lh11cyjvczfgic8z4bq35j6f63irwwizxvp861w902";
-    depends = [ Biobase limma ];
+    depends = [
+      Biobase
+      limma
+    ];
   };
   CLL = derive2 {
     name = "CLL";
     version = "1.38.0";
     sha256 = "109sspddzqg08gqf5xacf2vbjs672i2d3n6a6wzr8isdyar40xx1";
-    depends = [ affy Biobase ];
+    depends = [
+      affy
+      Biobase
+    ];
   };
   CLLmethylation = derive2 {
     name = "CLLmethylation";
     version = "1.18.0";
     sha256 = "0xagl4f5cn9wax4jjh4csfd4p53ljnh09b063rk8dqm7adr2c788";
-    depends = [ ExperimentHub SummarizedExperiment ];
+    depends = [
+      ExperimentHub
+      SummarizedExperiment
+    ];
   };
   COHCAPanno = derive2 {
     name = "COHCAPanno";
@@ -192,7 +208,11 @@ in with self; {
     name = "COSMIC.67";
     version = "1.34.0";
     sha256 = "0ga0islkm9m4qry37qkw8z0zs7amqky7fy0i418k9gn0ba06xd0s";
-    depends = [ GenomicRanges SummarizedExperiment VariantAnnotation ];
+    depends = [
+      GenomicRanges
+      SummarizedExperiment
+      VariantAnnotation
+    ];
   };
   CRCL18 = derive2 {
     name = "CRCL18";
@@ -210,19 +230,29 @@ in with self; {
     name = "CellMapperData";
     version = "1.24.0";
     sha256 = "192jaz5fss0bz64jn52c7lnj81ih89dhrz6pjkyllsh8ffvqb067";
-    depends = [ CellMapper ExperimentHub ];
+    depends = [
+      CellMapper
+      ExperimentHub
+    ];
   };
   ChAMPdata = derive2 {
     name = "ChAMPdata";
     version = "2.30.0";
     sha256 = "0rz762szfl02h4d3dj7ckd41ji9mdsja8nxqw6fl086z337041zw";
-    depends = [ BiocGenerics GenomicRanges ];
+    depends = [
+      BiocGenerics
+      GenomicRanges
+    ];
   };
   ChIC_data = derive2 {
     name = "ChIC.data";
     version = "1.18.0";
     sha256 = "1ii43y280mqb0csa3g7xrw3aj1lsl4rk1hnakg27jnjk7c36jg0c";
-    depends = [ caret genomeIntervals randomForest ];
+    depends = [
+      caret
+      genomeIntervals
+      randomForest
+    ];
   };
   ChIPXpressData = derive2 {
     name = "ChIPXpressData";
@@ -240,7 +270,13 @@ in with self; {
     name = "ChimpHumanBrainData";
     version = "1.36.0";
     sha256 = "1jlm1l5vkk18r0y5jk0rz8a30f71cpzq5wimff4xnka30zkk83r9";
-    depends = [ affy hexbin limma qvalue statmod ];
+    depends = [
+      affy
+      hexbin
+      limma
+      qvalue
+      statmod
+    ];
   };
   CluMSIDdata = derive2 {
     name = "CluMSIDdata";
@@ -258,7 +294,10 @@ in with self; {
     name = "CopyNeutralIMA";
     version = "1.16.0";
     sha256 = "0s3fp0pblwpf8g1ply64n9kq41mn59gyf1wh9lncks8sfxdk1h0a";
-    depends = [ ExperimentHub Rdpack ];
+    depends = [
+      ExperimentHub
+      Rdpack
+    ];
   };
   CopyhelpeR = derive2 {
     name = "CopyhelpeR";
@@ -326,7 +365,15 @@ in with self; {
     name = "DmelSGI";
     version = "1.30.0";
     sha256 = "1isn7ay22dpvnsdjlmanfj7pdqnim4dcrq2rf8dflydgjq6hc06k";
-    depends = [ abind gplots igraph knitr limma rhdf5 TSP ];
+    depends = [
+      abind
+      gplots
+      igraph
+      knitr
+      limma
+      rhdf5
+      TSP
+    ];
   };
   DonaPLLP2013 = derive2 {
     name = "DonaPLLP2013";
@@ -338,7 +385,11 @@ in with self; {
     name = "DropletTestFiles";
     version = "1.8.0";
     sha256 = "1yzq3yddqv06j1j3wpw92ydsgi2k67dirvjn7127iwpp865hs12r";
-    depends = [ AnnotationHub ExperimentHub S4Vectors ];
+    depends = [
+      AnnotationHub
+      ExperimentHub
+      S4Vectors
+    ];
   };
   DrugVsDiseasedata = derive2 {
     name = "DrugVsDiseasedata";
@@ -385,7 +436,11 @@ in with self; {
     name = "EatonEtAlChIPseq";
     version = "0.36.0";
     sha256 = "1bpm8ds36iydbd4nv5ifrp8spdlx21k14dx18awm61d9wzg6fk1p";
-    depends = [ GenomicRanges rtracklayer ShortRead ];
+    depends = [
+      GenomicRanges
+      rtracklayer
+      ShortRead
+    ];
   };
   EpiMix_data = derive2 {
     name = "EpiMix.data";
@@ -422,13 +477,24 @@ in with self; {
     name = "Fletcher2013a";
     version = "1.34.0";
     sha256 = "1dgqhgmzhfnwyjr1wcz41ggri8i63d9b4malr1izd8gnh9c80an3";
-    depends = [ Biobase gplots limma VennDiagram ];
+    depends = [
+      Biobase
+      gplots
+      limma
+      VennDiagram
+    ];
   };
   Fletcher2013b = derive2 {
     name = "Fletcher2013b";
     version = "1.34.0";
     sha256 = "1hhsyk98q23j2d5y4l4kj15vypms9yn7skw3wcxmwl95cgdwzb9s";
-    depends = [ Fletcher2013a igraph RColorBrewer RedeR RTN ];
+    depends = [
+      Fletcher2013a
+      igraph
+      RColorBrewer
+      RedeR
+      RTN
+    ];
   };
   FlowSorted_Blood_450k = derive2 {
     name = "FlowSorted.Blood.450k";
@@ -498,13 +564,21 @@ in with self; {
     name = "GSE103322";
     version = "1.4.0";
     sha256 = "148p24hh7j07ny2jxwnvk5lq6313xmaqmn80amv1qvf78wfnf3bf";
-    depends = [ Biobase GEOquery ];
+    depends = [
+      Biobase
+      GEOquery
+    ];
   };
   GSE13015 = derive2 {
     name = "GSE13015";
     version = "1.6.0";
     sha256 = "1r3w675f53n0z6ii6xlsahyg33mc0zmcsirgp2nb4ab6r22y36sa";
-    depends = [ Biobase GEOquery preprocessCore SummarizedExperiment ];
+    depends = [
+      Biobase
+      GEOquery
+      preprocessCore
+      SummarizedExperiment
+    ];
   };
   GSE159526 = derive2 {
     name = "GSE159526";
@@ -516,13 +590,20 @@ in with self; {
     name = "GSE62944";
     version = "1.26.0";
     sha256 = "1d3zyyir01i4isqbk1sjy1d0jkrjqiyciyqqklhigk1jyk4irpvj";
-    depends = [ Biobase GEOquery ];
+    depends = [
+      Biobase
+      GEOquery
+    ];
   };
   GSVAdata = derive2 {
     name = "GSVAdata";
     version = "1.34.0";
     sha256 = "009y1ywfb11d9yrqnknjgynpm732fixrg8xk49ggf1m0r8qd7p0k";
-    depends = [ Biobase GSEABase hgu95a_db ];
+    depends = [
+      Biobase
+      GSEABase
+      hgu95a_db
+    ];
   };
   GWASdata = derive2 {
     name = "GWASdata";
@@ -556,19 +637,37 @@ in with self; {
     name = "HCAData";
     version = "1.14.0";
     sha256 = "14734jlxq0l3l3187frw40qfsgx7cv04hxl772wvaahnd8wmga9z";
-    depends = [ AnnotationHub ExperimentHub HDF5Array SingleCellExperiment ];
+    depends = [
+      AnnotationHub
+      ExperimentHub
+      HDF5Array
+      SingleCellExperiment
+    ];
   };
   HD2013SGI = derive2 {
     name = "HD2013SGI";
     version = "1.38.0";
     sha256 = "0i2sv80qw3svk8kl8yrg4n6mxjw589fz0kpqn9hbaj07z57g7rb5";
-    depends = [ EBImage geneplotter gplots limma LSD RColorBrewer splots vcd ];
+    depends = [
+      EBImage
+      geneplotter
+      gplots
+      limma
+      LSD
+      RColorBrewer
+      splots
+      vcd
+    ];
   };
   HDCytoData = derive2 {
     name = "HDCytoData";
     version = "1.18.0";
     sha256 = "1fn8q6ds10z3ymdarkfyh88pcqnrry9yhzammp84vf86f0bl8mrc";
-    depends = [ ExperimentHub flowCore SummarizedExperiment ];
+    depends = [
+      ExperimentHub
+      flowCore
+      SummarizedExperiment
+    ];
   };
   HEEBOdata = derive2 {
     name = "HEEBOdata";
@@ -661,13 +760,21 @@ in with self; {
     name = "HiContactsData";
     version = "1.0.0";
     sha256 = "1hp46qr1abllmqqimgk8lp2fb7mfb9zc9kqcfzc8fx7jbyxsqj7q";
-    depends = [ AnnotationHub BiocFileCache ExperimentHub ];
+    depends = [
+      AnnotationHub
+      BiocFileCache
+      ExperimentHub
+    ];
   };
   HighlyReplicatedRNASeq = derive2 {
     name = "HighlyReplicatedRNASeq";
     version = "1.10.0";
     sha256 = "1v6qd15k36ynmy45kd5rg7rfs9xp054jgbwksxc0hz3v50nqjl6w";
-    depends = [ ExperimentHub S4Vectors SummarizedExperiment ];
+    depends = [
+      ExperimentHub
+      S4Vectors
+      SummarizedExperiment
+    ];
   };
   Hiiragi2013 = derive2 {
     name = "Hiiragi2013";
@@ -696,7 +803,10 @@ in with self; {
     name = "HumanAffyData";
     version = "1.24.0";
     sha256 = "0sbxl4jh697220888ssi825iiakzj94m4k871lg42xn22d7991wc";
-    depends = [ Biobase ExperimentHub ];
+    depends = [
+      Biobase
+      ExperimentHub
+    ];
   };
   IHWpaper = derive2 {
     name = "IHWpaper";
@@ -758,13 +868,19 @@ in with self; {
     name = "KEGGandMetacoreDzPathwaysGEO";
     version = "1.18.0";
     sha256 = "0x582iygpw580i8afdxw41jn7gv6mp0hcy9mx8n75nkknvzs4w0g";
-    depends = [ Biobase BiocGenerics ];
+    depends = [
+      Biobase
+      BiocGenerics
+    ];
   };
   KEGGdzPathwaysGEO = derive2 {
     name = "KEGGdzPathwaysGEO";
     version = "1.36.0";
     sha256 = "09syk5d39blzzi1z8l8w1ia8ahrxhrwync7kmlwnvssbd5q1q0rd";
-    depends = [ Biobase BiocGenerics ];
+    depends = [
+      Biobase
+      BiocGenerics
+    ];
   };
   KOdata = derive2 {
     name = "KOdata";
@@ -782,7 +898,10 @@ in with self; {
     name = "LiebermanAidenHiC2009";
     version = "0.36.0";
     sha256 = "03vgrpgw3sqfrvbgm7r6avwkl85qmxl4fy0r92ikh8wr6waw7a62";
-    depends = [ IRanges KernSmooth ];
+    depends = [
+      IRanges
+      KernSmooth
+    ];
   };
   ListerEtAlBSseq = derive2 {
     name = "ListerEtAlBSseq";
@@ -818,13 +937,20 @@ in with self; {
     name = "MAQCsubset";
     version = "1.36.0";
     sha256 = "0k40plz86v4bwcwny0zd3icq4zjqfglbnrk957bvbsgacjag87cq";
-    depends = [ affy Biobase lumi ];
+    depends = [
+      affy
+      Biobase
+      lumi
+    ];
   };
   MAQCsubsetILM = derive2 {
     name = "MAQCsubsetILM";
     version = "1.36.0";
     sha256 = "1vr0avq39p8hg5zzx6fy1n9p4anvlcjbngkhiq6nprmp2s8064vg";
-    depends = [ Biobase lumi ];
+    depends = [
+      Biobase
+      lumi
+    ];
   };
   MEDIPSData = derive2 {
     name = "MEDIPSData";
@@ -918,8 +1044,13 @@ in with self; {
     name = "MetaGxPancreas";
     version = "1.18.0";
     sha256 = "1icm9y4x2qglp9gy66j71ngn61snbxy3gz3m6mdgj2vw02f93xif";
-    depends =
-      [ AnnotationHub ExperimentHub impute S4Vectors SummarizedExperiment ];
+    depends = [
+      AnnotationHub
+      ExperimentHub
+      impute
+      S4Vectors
+      SummarizedExperiment
+    ];
   };
   MethylAidData = derive2 {
     name = "MethylAidData";
@@ -1002,8 +1133,14 @@ in with self; {
     name = "NestLink";
     version = "1.14.0";
     sha256 = "0qk0c506j2gwp25hyqriii7cwh1h2rbvhahm1akxvr4j1v2pk01l";
-    depends =
-      [ AnnotationHub Biostrings ExperimentHub gplots protViz ShortRead ];
+    depends = [
+      AnnotationHub
+      Biostrings
+      ExperimentHub
+      gplots
+      protViz
+      ShortRead
+    ];
   };
   NetActivityData = derive2 {
     name = "NetActivityData";
@@ -1015,13 +1152,22 @@ in with self; {
     name = "Neve2006";
     version = "0.36.0";
     sha256 = "0i7l60ys7mnqllx30r6g8jif460z90j8cw59jv13hbym5dhdk4bi";
-    depends = [ annotate Biobase hgu133a_db ];
+    depends = [
+      annotate
+      Biobase
+      hgu133a_db
+    ];
   };
   NxtIRFdata = derive2 {
     name = "NxtIRFdata";
     version = "1.4.0";
     sha256 = "1k0krkmp13l9w6jwidc1snm5z11g3wgw2pmp9jzsxyxjimha0vh2";
-    depends = [ BiocFileCache ExperimentHub R_utils rtracklayer ];
+    depends = [
+      BiocFileCache
+      ExperimentHub
+      R_utils
+      rtracklayer
+    ];
   };
   OMICsPCAdata = derive2 {
     name = "OMICsPCAdata";
@@ -1033,7 +1179,10 @@ in with self; {
     name = "ObMiTi";
     version = "1.6.0";
     sha256 = "04hcr5ng7gqz6200zvdkfgrw1j3zkvqqh6yn5zsf9q2vwxibxyz5";
-    depends = [ ExperimentHub SummarizedExperiment ];
+    depends = [
+      ExperimentHub
+      SummarizedExperiment
+    ];
   };
   OnassisJavaLibs = derive2 {
     name = "OnassisJavaLibs";
@@ -1051,7 +1200,12 @@ in with self; {
     name = "PREDAsampledata";
     version = "0.38.0";
     sha256 = "1wmvx2vp8yfz4mx4gmcgvisxp5cn0cf3pznxh01gwiaydpafiskr";
-    depends = [ affy annotate Biobase PREDA ];
+    depends = [
+      affy
+      annotate
+      Biobase
+      PREDA
+    ];
   };
   PWMEnrich_Dmelanogaster_background = derive2 {
     name = "PWMEnrich.Dmelanogaster.background";
@@ -1093,7 +1247,11 @@ in with self; {
     name = "PhyloProfileData";
     version = "1.12.0";
     sha256 = "1kpg1a2p6cb4xa7ynlr3wmx7hx1l2xhxccbyqd8mnwn0r52njwmw";
-    depends = [ BiocStyle Biostrings ExperimentHub ];
+    depends = [
+      BiocStyle
+      Biostrings
+      ExperimentHub
+    ];
   };
   ProData = derive2 {
     name = "ProData";
@@ -1105,7 +1263,11 @@ in with self; {
     name = "PtH2O2lipids";
     version = "1.24.0";
     sha256 = "076q31wxfrxbgyhp4m0d7rxfpi3vvh9950lhcadf92mz6rc39hi0";
-    depends = [ CAMERA LOBSTAHS xcms ];
+    depends = [
+      CAMERA
+      LOBSTAHS
+      xcms
+    ];
   };
   QDNAseq_hg19 = derive2 {
     name = "QDNAseq.hg19";
@@ -1141,7 +1303,10 @@ in with self; {
     name = "RLHub";
     version = "1.4.0";
     sha256 = "1gdlg3sfpf2dpkxiaq0m2mmkpyj7v3jqb9paq6ii89l0df2rmrlb";
-    depends = [ AnnotationHub ExperimentHub ];
+    depends = [
+      AnnotationHub
+      ExperimentHub
+    ];
   };
   RMassBankData = derive2 {
     name = "RMassBankData";
@@ -1159,14 +1324,25 @@ in with self; {
     name = "RNAinteractMAPK";
     version = "1.36.0";
     sha256 = "1fpcaqvffb4qrcqs1flvhjggycdxcy93jbj3x5196kz4h9i23fvk";
-    depends =
-      [ Biobase fields gdata genefilter lattice MASS RNAinteract sparseLDA ];
+    depends = [
+      Biobase
+      fields
+      gdata
+      genefilter
+      lattice
+      MASS
+      RNAinteract
+      sparseLDA
+    ];
   };
   RNAmodR_Data = derive2 {
     name = "RNAmodR.Data";
     version = "1.12.0";
     sha256 = "1qb753pa6vz4m98s5bqjan70ygqdg4v8jkz440hdq20m2fl54k8w";
-    depends = [ ExperimentHub ExperimentHubData ];
+    depends = [
+      ExperimentHub
+      ExperimentHubData
+    ];
   };
   RNAseqData_HNRNPC_bam_chr14 = derive2 {
     name = "RNAseqData.HNRNPC.bam.chr14";
@@ -1250,19 +1426,37 @@ in with self; {
     name = "ReactomeGSA.data";
     version = "1.12.0";
     sha256 = "1vm6s3n4v4ar3znlg4qlsllddp24wamz53qnmf6ay09wq0wyy9yv";
-    depends = [ edgeR limma ReactomeGSA Seurat ];
+    depends = [
+      edgeR
+      limma
+      ReactomeGSA
+      Seurat
+    ];
   };
   RegParallel = derive2 {
     name = "RegParallel";
     version = "1.16.0";
     sha256 = "04qrk7x5b3g4r2j63w0cc2qbxqcljfkjv4qrdg0qmbn3p4gi5nqv";
-    depends = [ arm data_table doParallel foreach iterators stringr survival ];
+    depends = [
+      arm
+      data_table
+      doParallel
+      foreach
+      iterators
+      stringr
+      survival
+    ];
   };
   RforProteomics = derive2 {
     name = "RforProteomics";
     version = "1.35.1";
     sha256 = "1igdx4idgk1j0mcs8zjzd6bppj4nadryxhw2q026hazx6kj5qbxh";
-    depends = [ BiocManager biocViews MSnbase R_utils ];
+    depends = [
+      BiocManager
+      biocViews
+      MSnbase
+      R_utils
+    ];
   };
   RnBeads_hg19 = derive2 {
     name = "RnBeads.hg19";
@@ -1304,13 +1498,21 @@ in with self; {
     name = "SBGNview.data";
     version = "1.12.0";
     sha256 = "1a541w5xik81ln571dg3r4iiwprk4xzl95diqqxq2qyivvj6v66w";
-    depends = [ bookdown knitr rmarkdown ];
+    depends = [
+      bookdown
+      knitr
+      rmarkdown
+    ];
   };
   SCATEData = derive2 {
     name = "SCATEData";
     version = "1.8.0";
     sha256 = "05q33yxj99g0xbha3a7qibpcp33y98p6242lsl3my6p48fby7rh7";
-    depends = [ ExperimentHub GenomicAlignments GenomicRanges ];
+    depends = [
+      ExperimentHub
+      GenomicAlignments
+      GenomicRanges
+    ];
   };
   SCLCBam = derive2 {
     name = "SCLCBam";
@@ -1322,7 +1524,11 @@ in with self; {
     name = "SFEData";
     version = "1.0.2";
     sha256 = "1kan3yii88rz9bb3rqgrcvc30pkvrjywhwfax7q51rsz71wvb52i";
-    depends = [ AnnotationHub BiocFileCache ExperimentHub ];
+    depends = [
+      AnnotationHub
+      BiocFileCache
+      ExperimentHub
+    ];
   };
   SNAData = derive2 {
     name = "SNAData";
@@ -1346,7 +1552,10 @@ in with self; {
     name = "STexampleData";
     version = "1.6.0";
     sha256 = "0mmc41px0yz7mij6gdnjcf8vifwk8p03jy7b5lvylfggbfng579z";
-    depends = [ ExperimentHub SpatialExperiment ];
+    depends = [
+      ExperimentHub
+      SpatialExperiment
+    ];
   };
   SVM2CRMdata = derive2 {
     name = "SVM2CRMdata";
@@ -1358,7 +1567,10 @@ in with self; {
     name = "SimBenchData";
     version = "1.6.0";
     sha256 = "0jb82fb9mqiqh9b4nn2cryylzgk5g9yibcyin8wydmv4sk8xxm5w";
-    depends = [ ExperimentHub S4Vectors ];
+    depends = [
+      ExperimentHub
+      S4Vectors
+    ];
   };
   Single_mTEC_Transcriptomes = derive2 {
     name = "Single.mTEC.Transcriptomes";
@@ -1400,7 +1612,11 @@ in with self; {
     name = "SomaticCancerAlterations";
     version = "1.34.0";
     sha256 = "1zahhn2b10187hbljp9nppvr94iz067yasfgxalkhkxl09pdpksx";
-    depends = [ GenomicRanges IRanges S4Vectors ];
+    depends = [
+      GenomicRanges
+      IRanges
+      S4Vectors
+    ];
   };
   SpikeIn = derive2 {
     name = "SpikeIn";
@@ -1412,13 +1628,19 @@ in with self; {
     name = "SpikeInSubset";
     version = "1.38.0";
     sha256 = "0546mwyacdhcgglfgqkq2c02nzvq1a8pkybggnlvyz1bhrrg51ay";
-    depends = [ affy Biobase ];
+    depends = [
+      affy
+      Biobase
+    ];
   };
   TBX20BamSubset = derive2 {
     name = "TBX20BamSubset";
     version = "1.34.0";
     sha256 = "0na9f3i33h33xpbybgmxwf00mdvyvmgyfvpbj813wcrlp0m2zzhm";
-    depends = [ Rsamtools xtable ];
+    depends = [
+      Rsamtools
+      xtable
+    ];
   };
   TCGAMethylation450k = derive2 {
     name = "TCGAMethylation450k";
@@ -1454,31 +1676,52 @@ in with self; {
     name = "TENxBUSData";
     version = "1.12.0";
     sha256 = "0zqsnw0ppmh8f6x8j8ldpfza9308lspasgzbm1qw3cqa5sf2620w";
-    depends = [ AnnotationHub BiocGenerics ExperimentHub ];
+    depends = [
+      AnnotationHub
+      BiocGenerics
+      ExperimentHub
+    ];
   };
   TENxBrainData = derive2 {
     name = "TENxBrainData";
     version = "1.18.0";
     sha256 = "1mk1vjqqnpc83x5m0js3j59vxi43yp4wrzj6yrrx7rn10xz26x03";
-    depends = [ AnnotationHub ExperimentHub HDF5Array SingleCellExperiment ];
+    depends = [
+      AnnotationHub
+      ExperimentHub
+      HDF5Array
+      SingleCellExperiment
+    ];
   };
   TENxPBMCData = derive2 {
     name = "TENxPBMCData";
     version = "1.16.0";
     sha256 = "0551izai1apxs4xz9rd0f12dpbjk2qr0sz8bb69h4rxrbp2jg7r6";
-    depends = [ AnnotationHub ExperimentHub HDF5Array SingleCellExperiment ];
+    depends = [
+      AnnotationHub
+      ExperimentHub
+      HDF5Array
+      SingleCellExperiment
+    ];
   };
   TENxVisiumData = derive2 {
     name = "TENxVisiumData";
     version = "1.6.0";
     sha256 = "0z31bqcw2mjqx1vv34z55zcy2s2xnzj1h53j4nmxbwfncj40b9sm";
-    depends = [ ExperimentHub SpatialExperiment ];
+    depends = [
+      ExperimentHub
+      SpatialExperiment
+    ];
   };
   TMExplorer = derive2 {
     name = "TMExplorer";
     version = "1.8.0";
     sha256 = "13prp9ksh3k5w84bbvk731fda1psb45mi56dwd9n958rj27mwkgb";
-    depends = [ BiocFileCache Matrix SingleCellExperiment ];
+    depends = [
+      BiocFileCache
+      Matrix
+      SingleCellExperiment
+    ];
   };
   TabulaMurisData = derive2 {
     name = "TabulaMurisData";
@@ -1515,19 +1758,33 @@ in with self; {
     name = "TimerQuant";
     version = "1.28.0";
     sha256 = "0b2vh4xcns8ypmjig42zggws7pffclic57sl7w1cdmynpmn4jr33";
-    depends = [ deSolve dplyr ggplot2 gridExtra locfit shiny ];
+    depends = [
+      deSolve
+      dplyr
+      ggplot2
+      gridExtra
+      locfit
+      shiny
+    ];
   };
   VariantToolsData = derive2 {
     name = "VariantToolsData";
     version = "1.22.0";
     sha256 = "13hgmciikp246nwp0wk4528fad4ccmc587x8s45zg9ybi3ya00iw";
-    depends = [ BiocGenerics GenomicRanges VariantAnnotation ];
+    depends = [
+      BiocGenerics
+      GenomicRanges
+      VariantAnnotation
+    ];
   };
   VectraPolarisData = derive2 {
     name = "VectraPolarisData";
     version = "1.2.0";
     sha256 = "0gl92bypw6axdwj83dxmvib7p72dl1n5vqfrsy398fahx24djwln";
-    depends = [ ExperimentHub SpatialExperiment ];
+    depends = [
+      ExperimentHub
+      SpatialExperiment
+    ];
   };
   WES_1KG_WUGSC = derive2 {
     name = "WES.1KG.WUGSC";
@@ -1545,25 +1802,40 @@ in with self; {
     name = "WeberDivechaLCdata";
     version = "1.0.1";
     sha256 = "1swdzlcja42adx4j5h82nskbks8lkhbq07gvb9p09q2lg8rylc7q";
-    depends = [ ExperimentHub SingleCellExperiment SpatialExperiment ];
+    depends = [
+      ExperimentHub
+      SingleCellExperiment
+      SpatialExperiment
+    ];
   };
   XhybCasneuf = derive2 {
     name = "XhybCasneuf";
     version = "1.36.0";
     sha256 = "1r09wr45vjcr7yxxfi5l132bqg380bicdlz699961hbinvyg7pgc";
-    depends = [ affy ath1121501cdf RColorBrewer tinesath1cdf ];
+    depends = [
+      affy
+      ath1121501cdf
+      RColorBrewer
+      tinesath1cdf
+    ];
   };
   adductData = derive2 {
     name = "adductData";
     version = "1.14.0";
     sha256 = "0yfgjvq7qk5gvdjhrh2lyz77c6jd438ykd2mpfm6643zr2bkxp4g";
-    depends = [ AnnotationHub ExperimentHub ];
+    depends = [
+      AnnotationHub
+      ExperimentHub
+    ];
   };
   affycompData = derive2 {
     name = "affycompData";
     version = "1.36.0";
     sha256 = "0qcjlm2i0z8z6ab7dknwl1pdmxv69hyfpj61lhygn8ks02al12kn";
-    depends = [ affycomp Biobase ];
+    depends = [
+      affycomp
+      Biobase
+    ];
   };
   affydata = derive2 {
     name = "affydata";
@@ -1581,7 +1853,11 @@ in with self; {
     name = "alpineData";
     version = "1.24.0";
     sha256 = "00r7ks6rgiwhqsayhv6l9z7i65jxgdvlj73r2mx6c04fg0nqp3y8";
-    depends = [ AnnotationHub ExperimentHub GenomicAlignments ];
+    depends = [
+      AnnotationHub
+      ExperimentHub
+      GenomicAlignments
+    ];
   };
   antiProfilesData = derive2 {
     name = "antiProfilesData";
@@ -1605,13 +1881,19 @@ in with self; {
     name = "beadarrayExampleData";
     version = "1.36.0";
     sha256 = "15fmqxlp28j4mrbkg9fjk35ki8s15xn9kbh928cni2722b5pvxml";
-    depends = [ beadarray Biobase ];
+    depends = [
+      beadarray
+      Biobase
+    ];
   };
   benchmarkfdrData2019 = derive2 {
     name = "benchmarkfdrData2019";
     version = "1.12.0";
     sha256 = "1zhxd4y7d4j34cpvrhidz2rqd4n7ngj7wpk1klpfn3kdrsm7s4my";
-    depends = [ ExperimentHub SummarizedExperiment ];
+    depends = [
+      ExperimentHub
+      SummarizedExperiment
+    ];
   };
   beta7 = derive2 {
     name = "beta7";
@@ -1629,7 +1911,11 @@ in with self; {
     name = "biscuiteerData";
     version = "1.12.0";
     sha256 = "0a2sk4f7lxllja3pbawd5apkcvlh2flw6xa69vn71860fi9k831v";
-    depends = [ AnnotationHub curl ExperimentHub ];
+    depends = [
+      AnnotationHub
+      curl
+      ExperimentHub
+    ];
   };
   bladderbatch = derive2 {
     name = "bladderbatch";
@@ -1647,7 +1933,10 @@ in with self; {
     name = "bodymapRat";
     version = "1.14.0";
     sha256 = "1jfa3i1d1llhqqa5pxbj7raj09sw4j7ayclnr5325n49cblvrgln";
-    depends = [ ExperimentHub SummarizedExperiment ];
+    depends = [
+      ExperimentHub
+      SummarizedExperiment
+    ];
   };
   breakpointRdata = derive2 {
     name = "breakpointRdata";
@@ -1695,7 +1984,10 @@ in with self; {
     name = "brgedata";
     version = "1.20.0";
     sha256 = "0brjmgjcpx8ka1idxd4fm6aa1mgw1nbsa99di3j5n65k34dapzmi";
-    depends = [ Biobase SummarizedExperiment ];
+    depends = [
+      Biobase
+      SummarizedExperiment
+    ];
   };
   bronchialIL13 = derive2 {
     name = "bronchialIL13";
@@ -1725,7 +2017,12 @@ in with self; {
     name = "ccTutorial";
     version = "1.36.0";
     sha256 = "0c76b68hasc8g452mc3q5w2d2xar8qp8hkpg0n98pyzlm5yddqzd";
-    depends = [ affy Biobase Ringo topGO ];
+    depends = [
+      affy
+      Biobase
+      Ringo
+      topGO
+    ];
   };
   ccdata = derive2 {
     name = "ccdata";
@@ -1772,7 +2069,12 @@ in with self; {
     name = "chipseqDBData";
     version = "1.14.0";
     sha256 = "06r2l4z26barr7fa0p7brpm5ds3c234vpbcd54g5chah57n2v420";
-    depends = [ AnnotationHub ExperimentHub Rsamtools S4Vectors ];
+    depends = [
+      AnnotationHub
+      ExperimentHub
+      Rsamtools
+      S4Vectors
+    ];
   };
   chromstaRData = derive2 {
     name = "chromstaRData";
@@ -1802,7 +2104,10 @@ in with self; {
     name = "crisprScoreData";
     version = "1.2.0";
     sha256 = "0b0vkcd30m56cnk1rsincigs66yh5pvlmpzl61hz1iyhc7367bqn";
-    depends = [ AnnotationHub ExperimentHub ];
+    depends = [
+      AnnotationHub
+      ExperimentHub
+    ];
   };
   curatedAdipoArray = derive2 {
     name = "curatedAdipoArray";
@@ -1814,7 +2119,10 @@ in with self; {
     name = "curatedAdipoChIP";
     version = "1.14.0";
     sha256 = "0rhcw4wy023g55586hz6zyvzlcb3cfmm0jp3rsa0iq8pbm2r9n6m";
-    depends = [ ExperimentHub SummarizedExperiment ];
+    depends = [
+      ExperimentHub
+      SummarizedExperiment
+    ];
   };
   curatedAdipoRNA = derive2 {
     name = "curatedAdipoRNA";
@@ -1832,13 +2140,22 @@ in with self; {
     name = "curatedBreastData";
     version = "2.26.0";
     sha256 = "02iflnwfpcmglj060w5zygqccii91n2s0vp9bkl1ppj6g409pxm3";
-    depends = [ Biobase BiocStyle ggplot2 impute XML ];
+    depends = [
+      Biobase
+      BiocStyle
+      ggplot2
+      impute
+      XML
+    ];
   };
   curatedCRCData = derive2 {
     name = "curatedCRCData";
     version = "2.30.0";
     sha256 = "0hbc3d1sj1mfqszmfgkmhpnkbw4mdapp85s7bj2spmcwf0pcsr0n";
-    depends = [ BiocGenerics nlme ];
+    depends = [
+      BiocGenerics
+      nlme
+    ];
   };
   curatedMetagenomicData = derive2 {
     name = "curatedMetagenomicData";
@@ -1865,13 +2182,21 @@ in with self; {
     name = "curatedOvarianData";
     version = "1.36.0";
     sha256 = "09zb3m32a2rqwgs2x6g1ixvwnbx0100mb2m8rkbkdlfczlnq9riq";
-    depends = [ affy BiocGenerics ];
+    depends = [
+      affy
+      BiocGenerics
+    ];
   };
   curatedTBData = derive2 {
     name = "curatedTBData";
     version = "1.4.0";
     sha256 = "0ksb30h6hlksxzgp0dl1f09jr4a59zdll9jnla8xcsbqqvbkm4g7";
-    depends = [ AnnotationHub ExperimentHub MultiAssayExperiment rlang ];
+    depends = [
+      AnnotationHub
+      ExperimentHub
+      MultiAssayExperiment
+      rlang
+    ];
   };
   curatedTCGAData = derive2 {
     name = "curatedTCGAData";
@@ -1890,13 +2215,21 @@ in with self; {
     name = "davidTiling";
     version = "1.38.0";
     sha256 = "1g8q0m03ss7nf2v3rk6db93mmbzy1kc960scs37pc3s9xdm7k9ak";
-    depends = [ Biobase GO_db tilingArray ];
+    depends = [
+      Biobase
+      GO_db
+      tilingArray
+    ];
   };
   depmap = derive2 {
     name = "depmap";
     version = "1.12.0";
     sha256 = "10y1s5v6c74ynq8m0rck41w16hglnr700c322k5p9yzndf86f3hv";
-    depends = [ AnnotationHub dplyr ExperimentHub ];
+    depends = [
+      AnnotationHub
+      dplyr
+      ExperimentHub
+    ];
   };
   derfinderData = derive2 {
     name = "derfinderData";
@@ -1914,13 +2247,21 @@ in with self; {
     name = "diggitdata";
     version = "1.30.0";
     sha256 = "020v1l8h8xmxk0v5fnbvp769mks71wzdmkqjawjngd7v0jj9zclp";
-    depends = [ Biobase viper ];
+    depends = [
+      Biobase
+      viper
+    ];
   };
   dorothea = derive2 {
     name = "dorothea";
     version = "1.10.0";
     sha256 = "05vkb5mash2m8p6njk842sy5pz7vblrm8n9bphqbslm86kld5n92";
-    depends = [ bcellViper dplyr magrittr viper ];
+    depends = [
+      bcellViper
+      dplyr
+      magrittr
+      viper
+    ];
   };
   dressCheck = derive2 {
     name = "dressCheck";
@@ -1932,25 +2273,39 @@ in with self; {
     name = "dyebiasexamples";
     version = "1.38.0";
     sha256 = "0f940198kz8i81s3j3sk5kiaradvk6f9g1w7y40kr92y67p0l438";
-    depends = [ GEOquery marray ];
+    depends = [
+      GEOquery
+      marray
+    ];
   };
   easierData = derive2 {
     name = "easierData";
     version = "1.4.0";
     sha256 = "0w8g2b6d0c97m796nl09s7ls8wzs6ir7947maygi0a9qv20b2n0x";
-    depends = [ AnnotationHub ExperimentHub SummarizedExperiment ];
+    depends = [
+      AnnotationHub
+      ExperimentHub
+      SummarizedExperiment
+    ];
   };
   ecoliLeucine = derive2 {
     name = "ecoliLeucine";
     version = "1.38.0";
     sha256 = "1303yzp75n9ipvvp5avajcs45p0nz6hqisgl2h58baq9qqxgda6z";
-    depends = [ affy ecolicdf ];
+    depends = [
+      affy
+      ecolicdf
+    ];
   };
   emtdata = derive2 {
     name = "emtdata";
     version = "1.6.0";
     sha256 = "182v17zcsfi1k6vmyjg6m9pdmfzg9ljvhdvydgr63zmjhdh3l4p2";
-    depends = [ edgeR ExperimentHub SummarizedExperiment ];
+    depends = [
+      edgeR
+      ExperimentHub
+      SummarizedExperiment
+    ];
   };
   epimutacionsData = derive2 {
     name = "epimutacionsData";
@@ -1968,7 +2323,10 @@ in with self; {
     name = "etec16s";
     version = "1.26.0";
     sha256 = "1cbyzvymznf9rsi22psd61vsnf1m64zsq9fwz6yani7h4lr2i1sp";
-    depends = [ Biobase metagenomeSeq ];
+    depends = [
+      Biobase
+      metagenomeSeq
+    ];
   };
   ewceData = derive2 {
     name = "ewceData";
@@ -2028,7 +2386,13 @@ in with self; {
     name = "furrowSeg";
     version = "1.26.0";
     sha256 = "1ig42k7xwxpmcn1iairmg3lqvii5jidrm6v62whjpmvafh7sqjvc";
-    depends = [ abind dplyr EBImage locfit tiff ];
+    depends = [
+      abind
+      dplyr
+      EBImage
+      locfit
+      tiff
+    ];
   };
   gageData = derive2 {
     name = "gageData";
@@ -2058,7 +2422,10 @@ in with self; {
     name = "geneLenDataBase";
     version = "1.34.0";
     sha256 = "1xcnsg1cv1q13bwaqf4dyv05fbxpjg58c338v0nh9sg13nrg174g";
-    depends = [ GenomicFeatures rtracklayer ];
+    depends = [
+      GenomicFeatures
+      rtracklayer
+    ];
   };
   genomationData = derive2 {
     name = "genomationData";
@@ -2130,13 +2497,22 @@ in with self; {
     name = "harbChIP";
     version = "1.36.0";
     sha256 = "0dj0nmsqmp8wlhjisjj1dwiyspjkkk2jlb9qkp6p9c2brbbpzyc0";
-    depends = [ Biobase Biostrings IRanges ];
+    depends = [
+      Biobase
+      Biostrings
+      IRanges
+    ];
   };
   healthyControlsPresenceChecker = derive2 {
     name = "healthyControlsPresenceChecker";
     version = "1.2.0";
     sha256 = "1a9i2qyhz5gf98096hll7q8mwzidff8jrnclw2z1s4w3wjmv1f8q";
-    depends = [ geneExpressionFromGEO GEOquery magrittr xml2 ];
+    depends = [
+      geneExpressionFromGEO
+      GEOquery
+      magrittr
+      xml2
+    ];
   };
   healthyFlowData = derive2 {
     name = "healthyFlowData";
@@ -2172,7 +2548,10 @@ in with self; {
     name = "humanStemCell";
     version = "0.38.0";
     sha256 = "1s5jlh5xiw5hgnk3x2c6y6rb5gjmbnc8mglih8kc10y9agghj2rv";
-    depends = [ Biobase hgu133plus2_db ];
+    depends = [
+      Biobase
+      hgu133plus2_db
+    ];
   };
   imcdatasets = derive2 {
     name = "imcdatasets";
@@ -2218,7 +2597,10 @@ in with self; {
     name = "lumiBarnes";
     version = "1.38.0";
     sha256 = "00bc1s583mkj9iqn64mgz3h64kj5dnq1b9lwgz73cn9zhgzll9lx";
-    depends = [ Biobase lumi ];
+    depends = [
+      Biobase
+      lumi
+    ];
   };
   lungExpression = derive2 {
     name = "lungExpression";
@@ -2266,7 +2648,11 @@ in with self; {
     name = "mcsurvdata";
     version = "1.16.0";
     sha256 = "1wbwf365wsd931y4a0vyif02svl16rx2rglxkw93i7cdkblpjr28";
-    depends = [ AnnotationHub Biobase ExperimentHub ];
+    depends = [
+      AnnotationHub
+      Biobase
+      ExperimentHub
+    ];
   };
   metaMSdata = derive2 {
     name = "metaMSdata";
@@ -2278,7 +2664,10 @@ in with self; {
     name = "methylclockData";
     version = "1.6.0";
     sha256 = "1ip9n0329d3wx4q9a4xpng6lzrls3yx93c0z9m0j2q1jsb8bwaxa";
-    depends = [ ExperimentHub ExperimentHubData ];
+    depends = [
+      ExperimentHub
+      ExperimentHubData
+    ];
   };
   miRNATarget = derive2 {
     name = "miRNATarget";
@@ -2360,7 +2749,10 @@ in with self; {
     name = "msd16s";
     version = "1.18.0";
     sha256 = "0glsh139jn0by93f52850y5nbh14wbapc0qmr8ib7ql7y25q0l16";
-    depends = [ Biobase metagenomeSeq ];
+    depends = [
+      Biobase
+      metagenomeSeq
+    ];
   };
   msdata = derive2 {
     name = "msdata";
@@ -2397,13 +2789,20 @@ in with self; {
     name = "muscData";
     version = "1.12.0";
     sha256 = "062xiaaka1k1raq5mhmr1wxwb755ws0n00dki1zsj2kl4l4lca2f";
-    depends = [ ExperimentHub SingleCellExperiment ];
+    depends = [
+      ExperimentHub
+      SingleCellExperiment
+    ];
   };
   mvoutData = derive2 {
     name = "mvoutData";
     version = "1.34.0";
     sha256 = "0lybg4whmlr8d7glmlnz981n3cg5ypmj2w7pdkxwphmm0l0bchq5";
-    depends = [ affy Biobase lumi ];
+    depends = [
+      affy
+      Biobase
+      lumi
+    ];
   };
   nanotubes = derive2 {
     name = "nanotubes";
@@ -2415,7 +2814,11 @@ in with self; {
     name = "nullrangesData";
     version = "1.4.0";
     sha256 = "1991pdj4mwaryli85kn3v8lj367l9yqym6j5swmjmpgvszrk6b1h";
-    depends = [ ExperimentHub GenomicRanges InteractionSet ];
+    depends = [
+      ExperimentHub
+      GenomicRanges
+      InteractionSet
+    ];
   };
   oct4 = derive2 {
     name = "oct4";
@@ -2439,7 +2842,10 @@ in with self; {
     name = "pRolocdata";
     version = "1.36.0";
     sha256 = "0q1fi4msl2xyx3cgknwmfp9hlgqk46y68znrq0knnsz6fkl4n9qa";
-    depends = [ Biobase MSnbase ];
+    depends = [
+      Biobase
+      MSnbase
+    ];
   };
   parathyroidSE = derive2 {
     name = "parathyroidSE";
@@ -2469,7 +2875,15 @@ in with self; {
     name = "pd.atdschip.tiling";
     version = "0.36.0";
     sha256 = "13c9f1hwfngkp3d4ljcm5xjlr6r6fsiyb06b18q3b8kp5wya9lp2";
-    depends = [ Biostrings DBI IRanges oligo oligoClasses RSQLite S4Vectors ];
+    depends = [
+      Biostrings
+      DBI
+      IRanges
+      oligo
+      oligoClasses
+      RSQLite
+      S4Vectors
+    ];
   };
   pepDat = derive2 {
     name = "pepDat";
@@ -2535,13 +2949,20 @@ in with self; {
     name = "ptairData";
     version = "1.6.0";
     sha256 = "16x9c6gp7mg8hiw9hv49nmx41hd5sxxhyblf2jq8gf1aydvmfpij";
-    depends = [ rhdf5 signal ];
+    depends = [
+      rhdf5
+      signal
+    ];
   };
   pumadata = derive2 {
     name = "pumadata";
     version = "2.34.0";
     sha256 = "1pc7jmx5qh3zj5wk7kjfzlbq2cipw0943fw5ykqivvlinlg7f57y";
-    depends = [ Biobase oligo puma ];
+    depends = [
+      Biobase
+      oligo
+      puma
+    ];
   };
   pwrEWAS_data = derive2 {
     name = "pwrEWAS.data";
@@ -2553,7 +2974,12 @@ in with self; {
     name = "qPLEXdata";
     version = "1.16.0";
     sha256 = "177gin4y9jb7188myan5h847yzanwgfwjiwrdz2bd2iskbygbsq3";
-    depends = [ dplyr knitr MSnbase qPLEXanalyzer ];
+    depends = [
+      dplyr
+      knitr
+      MSnbase
+      qPLEXanalyzer
+    ];
   };
   rRDPData = derive2 {
     name = "rRDPData";
@@ -2571,7 +2997,12 @@ in with self; {
     name = "restfulSEData";
     version = "1.20.0";
     sha256 = "1j3ix1900mckca70n4qjzaw44mwzqfbvc5nb0ww23b5ihbly0gls";
-    depends = [ DelayedArray ExperimentHub HDF5Array SummarizedExperiment ];
+    depends = [
+      DelayedArray
+      ExperimentHub
+      HDF5Array
+      SummarizedExperiment
+    ];
   };
   rheumaticConditionWOLLBOLD = derive2 {
     name = "rheumaticConditionWOLLBOLD";
@@ -2589,8 +3020,13 @@ in with self; {
     name = "scATAC.Explorer";
     version = "1.4.0";
     sha256 = "0nkr32jm772ksrc8yns1j4nbc4sc83hcw4v6l6imwm845dv8n4kz";
-    depends =
-      [ BiocFileCache data_table Matrix S4Vectors SingleCellExperiment ];
+    depends = [
+      BiocFileCache
+      data_table
+      Matrix
+      S4Vectors
+      SingleCellExperiment
+    ];
   };
   scRNAseq = derive2 {
     name = "scRNAseq";
@@ -2625,8 +3061,13 @@ in with self; {
     name = "scpdata";
     version = "1.6.0";
     sha256 = "0kmymij0zm9sramba3nmg88ci6dvypcf36lh9bmshn692cp0ga4s";
-    depends =
-      [ AnnotationHub ExperimentHub QFeatures S4Vectors SingleCellExperiment ];
+    depends = [
+      AnnotationHub
+      ExperimentHub
+      QFeatures
+      S4Vectors
+      SingleCellExperiment
+    ];
   };
   seq2pathway_data = derive2 {
     name = "seq2pathway.data";
@@ -2683,7 +3124,16 @@ in with self; {
     name = "signatureSearchData";
     version = "1.12.0";
     sha256 = "0s4pcfnkks8bw9igj5nx3b21zpyj3zzl4dy71wc5zfb9xdzbrkbg";
-    depends = [ affy Biobase dplyr ExperimentHub limma magrittr R_utils rhdf5 ];
+    depends = [
+      affy
+      Biobase
+      dplyr
+      ExperimentHub
+      limma
+      magrittr
+      R_utils
+      rhdf5
+    ];
   };
   simpIntLists = derive2 {
     name = "simpIntLists";
@@ -2695,7 +3145,10 @@ in with self; {
     name = "spatialDmelxsim";
     version = "1.4.0";
     sha256 = "15ajjp19kfnfdddsrsgdkwa28f296xpb7jza51cnyix34n1xzrhi";
-    depends = [ ExperimentHub SummarizedExperiment ];
+    depends = [
+      ExperimentHub
+      SummarizedExperiment
+    ];
   };
   spatialLIBD = derive2 {
     name = "spatialLIBD";
@@ -2766,13 +3219,21 @@ in with self; {
     name = "systemPipeRdata";
     version = "2.2.0";
     sha256 = "1cywnnwxbwn1bfvha5dqc29lgb3q05hxdh0icql8w8lizv8z0zj6";
-    depends = [ BiocGenerics Biostrings jsonlite remotes ];
+    depends = [
+      BiocGenerics
+      Biostrings
+      jsonlite
+      remotes
+    ];
   };
   tartare = derive2 {
     name = "tartare";
     version = "1.12.0";
     sha256 = "1ygv0h8v7yll9b0kp0v8sclbhwwlkz062ycxg5qa0yzkbr5msysc";
-    depends = [ AnnotationHub ExperimentHub ];
+    depends = [
+      AnnotationHub
+      ExperimentHub
+    ];
   };
   timecoursedata = derive2 {
     name = "timecoursedata";
@@ -2906,7 +3367,10 @@ in with self; {
     name = "MAQCsubsetAFX";
     version = "1.30.0";
     sha256 = "14mwg96g7aza81vc3hpmb41scmygl8vnsi6s8p48c8v92106asmb";
-    depends = [ affy Biobase ];
+    depends = [
+      affy
+      Biobase
+    ];
     broken = true;
   };
   MSstatsBioData = derive2 {
@@ -2927,14 +3391,21 @@ in with self; {
     name = "ppiData";
     version = "0.34.0";
     sha256 = "10xbp12wim5kj1h2vkxn9x22fd92s2038w653y81jwbh2hyidybf";
-    depends = [ AnnotationDbi graph ];
+    depends = [
+      AnnotationDbi
+      graph
+    ];
     broken = true;
   };
   tcgaWGBSData_hg19 = derive2 {
     name = "tcgaWGBSData.hg19";
     version = "1.12.0";
     sha256 = "1kmh4iyh2h7vc1mlwb3sridn4nwkqdschz5md5dk53mxkn2wxcmi";
-    depends = [ bsseq ExperimentHub knitr ];
+    depends = [
+      bsseq
+      ExperimentHub
+      knitr
+    ];
     broken = true;
   };
 }

@@ -44,10 +44,10 @@ import ../make-test-python.nix ({
             hdfs.datanode = {
               enable = true;
               openFirewall = true;
-              dataDirs = [{
+              dataDirs = [ {
                 type = "DISK";
                 path = "/tmp/dn1";
-              }];
+              } ];
             };
             inherit coreSite;
           };

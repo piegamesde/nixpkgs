@@ -47,7 +47,11 @@ stdenv.mkDerivation rec {
 
   configureScript = "sh autogen.sh";
 
-  nativeBuildInputs = [ pkg-config autoconf automake ];
+  nativeBuildInputs = [
+    pkg-config
+    autoconf
+    automake
+  ];
   buildInputs = [
     gtk-doc
     lvm2

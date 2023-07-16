@@ -46,7 +46,11 @@ let
 
   windowSystems = {
     all = windowSystems.x11 ++ windowSystems.wayland;
-    x11 = [ libGLU xorg.libxcb xorg.libX11 ];
+    x11 = [
+      libGLU
+      xorg.libxcb
+      xorg.libX11
+    ];
     wayland = [ wayland ];
   };
 
@@ -73,7 +77,10 @@ assert builtins.all
 stdenv.mkDerivation rec {
   pname = "imv";
   version = "4.4.0";
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   src = fetchFromSourcehut {
     owner = "~exec64";
@@ -82,15 +89,28 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LLEEbriHzZhAOQivqHqdr6g7lh4uj++ytlme8AfRjf4=";
   };
 
-  mesonFlags =
-    [ "-Dwindows=${withWindowSystem'}" "-Dtest=enabled" "-Dman=enabled" ]
-    ++ backendFlags;
+  mesonFlags = [
+    "-Dwindows=${withWindowSystem'}"
+    "-Dtest=enabled"
+    "-Dman=enabled"
+  ] ++ backendFlags;
 
-  nativeBuildInputs =
-    [ asciidoc cmocka docbook_xsl libxslt meson ninja pkg-config ];
+  nativeBuildInputs = [
+    asciidoc
+    cmocka
+    docbook_xsl
+    libxslt
+    meson
+    ninja
+    pkg-config
+  ];
 
-  buildInputs = [ icu libxkbcommon pango inih ]
-    ++ windowSystems."${withWindowSystem'}"
+  buildInputs = [
+    icu
+    libxkbcommon
+    pango
+    inih
+  ] ++ windowSystems."${withWindowSystem'}"
     ++ builtins.map (b: backends."${b}") withBackends;
 
   postInstall = ''
@@ -114,7 +134,10 @@ stdenv.mkDerivation rec {
     description = "A command line image viewer for tiling window managers";
     homepage = "https://sr.ht/~exec64/imv/";
     license = licenses.mit;
-    maintainers = with maintainers; [ rnhmjoj markus1189 ];
+    maintainers = with maintainers; [
+      rnhmjoj
+      markus1189
+    ];
     platforms = platforms.all;
     badPlatforms = platforms.darwin;
   };

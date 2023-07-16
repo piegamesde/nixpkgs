@@ -20,9 +20,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-vhvVKESLbqHx3XumxbIWOXIreDkW3yONDMXMHxhjsvk=";
   };
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ openconnect qtwebsockets qtwebengine qtkeychain ];
+  buildInputs = [
+    openconnect
+    qtwebsockets
+    qtwebengine
+    qtkeychain
+  ];
 
   patchPhase = ''
     substituteInPlace GPService/gpservice.h \

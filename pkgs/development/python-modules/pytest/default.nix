@@ -32,12 +32,21 @@ buildPythonPackage rec {
     hash = "sha256-1F4JUvNyckGRi4/Q83b1/2swHMB3fG+aVWk1yS2KfUI=";
   };
 
-  outputs = [ "out" "testout" ];
+  outputs = [
+    "out"
+    "testout"
+  ];
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ attrs iniconfig packaging pluggy py tomli ]
-    ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ];
+  propagatedBuildInputs = [
+    attrs
+    iniconfig
+    packaging
+    pluggy
+    py
+    tomli
+  ] ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ];
 
   postInstall = ''
     mkdir $testout
@@ -74,7 +83,12 @@ buildPythonPackage rec {
     description = "Framework for writing tests";
     homepage = "https://docs.pytest.org";
     changelog = "https://github.com/pytest-dev/pytest/releases/tag/${version}";
-    maintainers = with maintainers; [ domenkozar lovek323 madjar lsix ];
+    maintainers = with maintainers; [
+      domenkozar
+      lovek323
+      madjar
+      lsix
+    ];
     license = licenses.mit;
   };
 }

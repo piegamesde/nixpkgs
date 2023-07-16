@@ -25,9 +25,16 @@ buildGoPackage rec {
 
   goDeps = ./deps.nix;
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
-  nativeBuildInputs = [ go-bindata gotools makeWrapper ];
+  nativeBuildInputs = [
+    go-bindata
+    gotools
+    makeWrapper
+  ];
 
   preBuild = "go generate ./...";
 

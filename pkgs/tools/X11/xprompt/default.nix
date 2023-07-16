@@ -22,7 +22,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-pOayKngUlrMY3bFsP4Fi+VsOLKCUQU3tdkZ+0OY1SCo=";
   };
 
-  buildInputs = [ fontconfig libX11 libXft libXinerama ];
+  buildInputs = [
+    fontconfig
+    libX11
+    libXft
+    libXinerama
+  ];
 
   postPatch = with lib;
     let
@@ -32,7 +37,10 @@ stdenv.mkDerivation rec {
         writeText "config.h" conf;
     in optionalString (conf != null) "cp ${configFile} config.h";
 
-  makeFlags = [ "CC:=$(CC)" "PREFIX=$(out)" ];
+  makeFlags = [
+    "CC:=$(CC)"
+    "PREFIX=$(out)"
+  ];
 
   passthru.updateScript = nix-update-script { };
 

@@ -19,7 +19,11 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [ "-s" "-w" "-X main.version=v${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=v${version}"
+  ];
 
   postInstall = ''
     installShellCompletion --cmd chain-bench \

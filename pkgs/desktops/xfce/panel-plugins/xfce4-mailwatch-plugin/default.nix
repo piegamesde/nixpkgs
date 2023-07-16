@@ -28,10 +28,21 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-BUlk6f5MpmhIZACZHOHqAdB6rHuiNfSxTUqPfZgABGo=";
   };
 
-  nativeBuildInputs = [ intltool pkg-config ];
+  nativeBuildInputs = [
+    intltool
+    pkg-config
+  ];
 
-  buildInputs =
-    [ libxfce4ui libxfce4util xfce4-panel exo glib gtk3 gnutls libgcrypt ];
+  buildInputs = [
+    libxfce4ui
+    libxfce4util
+    xfce4-panel
+    exo
+    glib
+    gtk3
+    gnutls
+    libgcrypt
+  ];
 
   passthru.updateScript = gitUpdater {
     url = "https://gitlab.xfce.org/panel-plugins/${pname}";

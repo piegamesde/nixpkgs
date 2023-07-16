@@ -25,8 +25,15 @@ buildPythonPackage rec {
     hash = "sha256-FC4AUHWV8UxvB1Lz3/+z/l/OhdTj1YSn4iLmXt+zwZo=";
   };
 
-  propagatedBuildInputs =
-    [ azure-common azure-core isodate msrestazure six typing-extensions uamqp ];
+  propagatedBuildInputs = [
+    azure-common
+    azure-core
+    isodate
+    msrestazure
+    six
+    typing-extensions
+    uamqp
+  ];
 
   # Tests require dev-tools
   doCheck = false;

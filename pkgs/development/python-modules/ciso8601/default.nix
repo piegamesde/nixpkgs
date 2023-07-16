@@ -21,7 +21,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [ pytestCheckHook pytz ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytz
+  ];
 
   pytestFlagsArray = [ "tests/tests.py" ];
 

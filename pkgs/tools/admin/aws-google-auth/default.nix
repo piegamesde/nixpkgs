@@ -48,7 +48,10 @@ buildPythonApplication rec {
     tzlocal
   ] ++ lib.optional withU2F python-u2flib-host;
 
-  nativeCheckInputs = [ mock nose ];
+  nativeCheckInputs = [
+    mock
+    nose
+  ];
 
   preCheck = ''
     export HOME=$TMPDIR

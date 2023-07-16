@@ -62,7 +62,11 @@ let
       sha256 = "1871ziss7ny19rw8f7bay5vznmhpqbfi4ihn3yygs06wyxhm0zmv";
     };
 
-    nativeBuildInputs = [ pkg-config autoconf unzip ];
+    nativeBuildInputs = [
+      pkg-config
+      autoconf
+      unzip
+    ];
     buildInputs = [
       cpio
       file
@@ -119,8 +123,8 @@ let
           "https://github.com/openjdk/panama-foreign/commit/af5c725b8109ce83fc04ef0f8bf6aaf0b50c0441.patch";
         sha256 = "0ja84kih5wkjn58pml53s59qnavb1z92dc88cbgw7vcyqwc1gs0h";
       })
-    ] ++ lib.optionals (!headless && enableGnome2)
-      [ ./swing-use-gtk-jdk13.patch ];
+    ] ++ lib.optionals
+      (!headless && enableGnome2) [ ./swing-use-gtk-jdk13.patch ];
 
     prePatch = ''
       chmod +x configure
@@ -130,7 +134,10 @@ let
     # JDK's build system attempts to specifically detect
     # and special-case WSL, and we don't want it to do that,
     # so pass the correct platform names explicitly
-    configurePlatforms = [ "build" "host" ];
+    configurePlatforms = [
+      "build"
+      "host"
+    ];
 
     configureFlags = [
       "--with-boot-jdk=${openjdk-bootstrap.home}"

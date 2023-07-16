@@ -78,6 +78,9 @@ in stdenvNoCC.mkDerivation {
     homepage = "https://libreoffice.org/";
     license = licenses.lgpl3;
     maintainers = with maintainers; [ tricktron ];
-    platforms = [ "x86_64-darwin" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
   };
 }

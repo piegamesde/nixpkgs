@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-oI+w9EoNgKnR+7pgvwTmsRpOQI0TxzCx8TjfSEmO7mc=";
   };
 
-  propagatedBuildInputs = [ simpleeval wcmatch ];
+  propagatedBuildInputs = [
+    simpleeval
+    wcmatch
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

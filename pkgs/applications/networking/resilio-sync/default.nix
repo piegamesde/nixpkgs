@@ -36,7 +36,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoPatchelfHook ];
 
-  buildInputs = [ stdenv.cc.libc libxcrypt-legacy ];
+  buildInputs = [
+    stdenv.cc.libc
+    libxcrypt-legacy
+  ];
 
   installPhase = ''
     install -D rslsync "$out/bin/rslsync"

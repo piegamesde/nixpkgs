@@ -25,8 +25,13 @@ buildPythonPackage rec {
     hash = "sha256-DUnhuA84nkmYkREa7vUiyLg7JUdEEeLewg3vFFlcar8=";
   };
 
-  propagatedBuildInputs =
-    [ async-timeout docopt pyserial pyserial-asyncio setuptools ];
+  propagatedBuildInputs = [
+    async-timeout
+    docopt
+    pyserial
+    pyserial-asyncio
+    setuptools
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

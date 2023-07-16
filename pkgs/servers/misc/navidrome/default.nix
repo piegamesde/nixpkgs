@@ -34,9 +34,15 @@ in buildGoModule {
 
   vendorSha256 = "sha256-C8w/qCts8VqNDTQVXtykjmSbo5uDrvS9NOu3SHpAlDE=";
 
-  nativeBuildInputs = [ makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+  ];
 
-  buildInputs = [ taglib zlib ];
+  buildInputs = [
+    taglib
+    zlib
+  ];
 
   ldflags = [
     "-X github.com/navidrome/navidrome/consts.gitSha=${src.rev}"
@@ -67,7 +73,10 @@ in buildGoModule {
     license = lib.licenses.gpl3Only;
     sourceProvenance = with lib.sourceTypes; [ fromSource ];
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ aciceri squalus ];
+    maintainers = with lib.maintainers; [
+      aciceri
+      squalus
+    ];
     # Broken on Darwin: sandbox-exec: pattern serialization length exceeds maximum (NixOS/nix#4119)
     broken = stdenv.isDarwin;
   };

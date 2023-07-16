@@ -26,22 +26,26 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-O3";
 
-  patches = [
-    (fetchpatch {
-      name = "fix-libmicrohttpd-0-9-71.patch";
-      url =
-        "https://github.com/fireice-uk/xmr-stak/compare/06e08780eab54dbc025ce3f38c948e4eef2726a0...8adb208987f5881946992ab9cd9a45e4e2a4b870.patch";
-      excludes = [ "CMakeLists.txt.user" ];
-      hash = "sha256-Yv0U5EO1P5eikn1fKvUXEwemoUIjjeTjpP9p5J8pbC0=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "fix-libmicrohttpd-0-9-71.patch";
+    url =
+      "https://github.com/fireice-uk/xmr-stak/compare/06e08780eab54dbc025ce3f38c948e4eef2726a0...8adb208987f5881946992ab9cd9a45e4e2a4b870.patch";
+    excludes = [ "CMakeLists.txt.user" ];
+    hash = "sha256-Yv0U5EO1P5eikn1fKvUXEwemoUIjjeTjpP9p5J8pbC0=";
+  }) ];
 
   cmakeFlags = [ "-DCUDA_ENABLE=OFF" ]
     ++ lib.optional (!openclSupport) "-DOpenCL_ENABLE=OFF";
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ libmicrohttpd openssl hwloc ]
-    ++ lib.optionals openclSupport [ opencl-headers ocl-icd ];
+  buildInputs = [
+    libmicrohttpd
+    openssl
+    hwloc
+  ] ++ lib.optionals openclSupport [
+    opencl-headers
+    ocl-icd
+  ];
 
   postPatch = ''
     substituteInPlace xmrstak/donate-level.hpp \

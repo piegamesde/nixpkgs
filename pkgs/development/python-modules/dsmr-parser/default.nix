@@ -25,7 +25,13 @@ buildPythonPackage rec {
     hash = "sha256-M6ztqENIeD5foagKUXtJiGfFZPHsczlB0/AH4FMIsLY=";
   };
 
-  propagatedBuildInputs = [ dlms-cosem pyserial pyserial-asyncio pytz tailer ];
+  propagatedBuildInputs = [
+    dlms-cosem
+    pyserial
+    pyserial-asyncio
+    pytz
+    tailer
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

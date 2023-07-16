@@ -30,12 +30,21 @@ stdenv.mkDerivation rec {
     sha256 = "088w0x9g3j8pn725ix8ny8knhdsfgjr3hpswsh9fvfkz5vlg2xkm";
   };
 
-  nativeBuildInputs =
-    [ cmake desktop-file-utils imagemagick perl pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    desktop-file-utils
+    imagemagick
+    perl
+    pkg-config
+    wrapGAppsHook
+  ];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString isMobile "-DSTYLUS_BASED";
 
-  buildInputs = [ gtk3 libX11 ];
+  buildInputs = [
+    gtk3
+    libX11
+  ];
 
   postInstall = ''
     for i in  $(basename -s $out/bin/*); do
@@ -70,7 +79,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Simon Tatham's portable puzzle collection";
     license = licenses.mit;
-    maintainers = with maintainers; [ raskin tomfitzhenry ];
+    maintainers = with maintainers; [
+      raskin
+      tomfitzhenry
+    ];
     platforms = platforms.linux;
     homepage = "https://www.chiark.greenend.org.uk/~sgtatham/puzzles/";
   };

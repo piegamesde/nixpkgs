@@ -24,10 +24,21 @@ mkDerivation rec {
     sha256 = "0s3sivc0xan6amibdiwfnknrl3248wzgy98w6gyxikl0qsjpygy0";
   };
 
-  nativeBuildInputs = [ qmake pkg-config ];
+  nativeBuildInputs = [
+    qmake
+    pkg-config
+  ];
 
-  buildInputs =
-    [ qtbase openjpeg fftw libpulseaudio alsa-lib hamlib libv4l fftwFloat ];
+  buildInputs = [
+    qtbase
+    openjpeg
+    fftw
+    libpulseaudio
+    alsa-lib
+    hamlib
+    libv4l
+    fftwFloat
+  ];
 
   postInstall = ''
     # Install desktop icon

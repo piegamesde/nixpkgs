@@ -18,7 +18,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-ycvGw99CcE29axG9UWD0lkQp5kxD6Eguco5Fh9Vfj6E=";
 
-  buildInputs = [ libbfd libopcodes libunwind ];
+  buildInputs = [
+    libbfd
+    libopcodes
+    libunwind
+  ];
 
   meta = with lib; {
     description = "Fuzzing and property testing front-end framework for Rust";

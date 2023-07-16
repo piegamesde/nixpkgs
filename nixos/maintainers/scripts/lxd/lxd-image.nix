@@ -14,7 +14,10 @@ with lib;
     enable = true;
     target = "/etc/nixos/lxd.nix";
     template = ./nix.tpl;
-    when = [ "create" "copy" ];
+    when = [
+      "create"
+      "copy"
+    ];
   };
 
   # copy the config for nixos-rebuild

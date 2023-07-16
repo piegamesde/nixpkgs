@@ -31,7 +31,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  makeFlags = [ "DESTDIR=$(out)/bin" "MANDIR=$(out)/share/man" ];
+  makeFlags = [
+    "DESTDIR=$(out)/bin"
+    "MANDIR=$(out)/share/man"
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/check_ssl_cert \

@@ -24,14 +24,28 @@ stdenv.mkDerivation rec {
   };
 
   # fails with make 4.4
-  nativeBuildInputs = [ ocaml findlib perl gnumake42 ];
-  buildInputs = [ gmp mpfr ppl camlidl ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+    perl
+    gnumake42
+  ];
+  buildInputs = [
+    gmp
+    mpfr
+    ppl
+    camlidl
+  ];
   propagatedBuildInputs = [ mlgmpidl ];
 
   # TODO: Doesn't produce the library correctly if true
   strictDeps = false;
 
-  outputs = [ "out" "bin" "dev" ];
+  outputs = [
+    "out"
+    "bin"
+    "dev"
+  ];
 
   configurePhase = ''
     runHook preConfigure

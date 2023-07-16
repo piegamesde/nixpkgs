@@ -43,9 +43,16 @@ in stdenv.mkDerivation rec {
     ln -s ${dict} data/$(stripHash ${dict})
   '';
 
-  nativeBuildInputs = [ cmake extra-cmake-modules python3 ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    python3
+  ];
 
-  buildInputs = [ boost fcitx5 ];
+  buildInputs = [
+    boost
+    fcitx5
+  ];
 
   meta = with lib; {
     description = "A library to support generic input method implementation";

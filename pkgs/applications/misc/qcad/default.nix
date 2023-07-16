@@ -43,10 +43,22 @@ mkDerivation rec {
     fi
   '';
 
-  nativeBuildInputs = [ installShellFiles pkg-config qmake qttools ];
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+    qmake
+    qttools
+  ];
 
-  buildInputs = [ boost libGLU muparser qtbase qtscript qtsvg qtxmlpatterns ]
-    ++ lib.optionals stdenv.isDarwin [ qtmacextras ];
+  buildInputs = [
+    boost
+    libGLU
+    muparser
+    qtbase
+    qtscript
+    qtsvg
+    qtxmlpatterns
+  ] ++ lib.optionals stdenv.isDarwin [ qtmacextras ];
 
   qmakeFlags = [
     "MUPARSER_DIR=${muparser}"
@@ -54,10 +66,11 @@ mkDerivation rec {
     "BOOST_DIR=${boost.dev}"
   ];
 
-  qtWrapperArgs = lib.optionals stdenv.isLinux
-    [ "--prefix LD_LIBRARY_PATH : ${placeholder "out"}/lib" ]
-    ++ lib.optionals stdenv.isDarwin
-    [ "--prefix DYLD_LIBRARY_PATH : ${placeholder "out"}/lib" ];
+  qtWrapperArgs = lib.optionals stdenv.isLinux [ "--prefix LD_LIBRARY_PATH : ${
+      placeholder "out"
+    }/lib" ] ++ lib.optionals stdenv.isDarwin [ "--prefix DYLD_LIBRARY_PATH : ${
+      placeholder "out"
+    }/lib" ];
 
   installPhase = ''
     runHook preInstall

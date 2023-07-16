@@ -10,7 +10,11 @@ import ./make-test-python.nix ({
   {
     name = "printing";
     meta = with pkgs.lib.maintainers; {
-      maintainers = [ domenkozar eelco matthewbauer ];
+      maintainers = [
+        domenkozar
+        eelco
+        matthewbauer
+      ];
     };
 
     nodes.server = {
@@ -31,11 +35,11 @@ import ./make-test-python.nix ({
         };
         networking.firewall.allowedTCPPorts = [ 631 ];
         # Add a HP Deskjet printer connected via USB to the server.
-        hardware.printers.ensurePrinters = [{
+        hardware.printers.ensurePrinters = [ {
           name = "DeskjetLocal";
           deviceUri = "usb://foobar/printers/foobar";
           model = "drv:///sample.drv/deskjet.ppd";
-        }];
+        } ];
       };
 
     nodes.client = {
@@ -44,11 +48,11 @@ import ./make-test-python.nix ({
         services.printing.enable = true;
         services.printing.startWhenNeeded = socket;
         # Add printer to the client as well, via IPP.
-        hardware.printers.ensurePrinters = [{
+        hardware.printers.ensurePrinters = [ {
           name = "DeskjetRemote";
           deviceUri = "ipp://server/printers/DeskjetLocal";
           model = "drv:///sample.drv/deskjet.ppd";
-        }];
+        } ];
         hardware.printers.ensureDefaultPrinter = "DeskjetRemote";
       };
 

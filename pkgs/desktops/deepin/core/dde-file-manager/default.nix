@@ -52,7 +52,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-tG3Wl1AvwWhHmIIHgexv3mVVrmOwNrwn8k/sD4+WZzk=";
   };
 
-  nativeBuildInputs = [ cmake qttools pkg-config wrapQtAppsHook wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    qttools
+    pkg-config
+    wrapQtAppsHook
+    wrapGAppsHook
+  ];
   dontWrapGApps = true;
 
   postPatch = ''
@@ -112,7 +118,10 @@ stdenv.mkDerivation rec {
     libisoburn
   ];
 
-  cmakeFlags = [ "-DVERSION=${version}" "-DDEEPIN_OS_VERSION=20" ];
+  cmakeFlags = [
+    "-DVERSION=${version}"
+    "-DDEEPIN_OS_VERSION=20"
+  ];
 
   enableParallelBuilding = true;
 

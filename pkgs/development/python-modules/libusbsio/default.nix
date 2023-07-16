@@ -33,6 +33,9 @@ buildPythonPackage rec {
     description = "NXP Secure Provisioning SDK";
     homepage = "https://github.com/NXPmicro/spsdk";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ frogamic sbruder ];
+    maintainers = with maintainers; [
+      frogamic
+      sbruder
+    ];
   };
 }

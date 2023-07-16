@@ -89,7 +89,10 @@ in stdenv.mkDerivation {
     echo "user:file_search_path(pack, '$out/lib/swipl/pack')." >> boot/init.pl
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     gmp

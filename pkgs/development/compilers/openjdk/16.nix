@@ -65,7 +65,11 @@ let
       sha256 = "165nr15dqfcxzsl5z95g4iklln4rlfkgdigdma576mx8813ldi44";
     };
 
-    nativeBuildInputs = [ pkg-config autoconf unzip ];
+    nativeBuildInputs = [
+      pkg-config
+      autoconf
+      unzip
+    ];
     buildInputs = [
       cpio
       file
@@ -117,8 +121,8 @@ let
         sha256 = "082lmc30x64x583vqq00c8y0wqih3y4r0mp1c4bqq36l22qv6b6r";
       })
       ./fix-glibc-2.34.patch
-    ] ++ lib.optionals (!headless && enableGnome2)
-      [ ./swing-use-gtk-jdk13.patch ];
+    ] ++ lib.optionals
+      (!headless && enableGnome2) [ ./swing-use-gtk-jdk13.patch ];
 
     prePatch = ''
       chmod +x configure
@@ -128,7 +132,10 @@ let
     # JDK's build system attempts to specifically detect
     # and special-case WSL, and we don't want it to do that,
     # so pass the correct platform names explicitly
-    configurePlatforms = [ "build" "host" ];
+    configurePlatforms = [
+      "build"
+      "host"
+    ];
 
     configureFlags = [
       "--with-boot-jdk=${openjdk-bootstrap.home}"

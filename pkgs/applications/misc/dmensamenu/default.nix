@@ -18,12 +18,10 @@ buildPythonApplication rec {
     sha256 = "1ck1i1k40bli6m3n49ff6987hglby9fn4vfr28jpkm3h70s2km3n";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./dmenu-path.patch;
-      inherit dmenu;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./dmenu-path.patch;
+    inherit dmenu;
+  }) ];
 
   propagatedBuildInputs = [ requests ];
 

@@ -26,14 +26,12 @@ stdenv.mkDerivation rec {
     sha256 = "H39HPkAQGubXVQV3jCpH4Pz+7Q9n03PrS70utk7Tt2k=";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "fix-flexible-array-member.patch";
-      url =
-        "https://github.com/rr-debugger/rr/commit/2979c60ef8bbf7c940afd90172ddc5d8863f766e.diff";
-      sha256 = "cmdCJetQr3ELPOyWl37h1fGfG/xvaiJpywxIAnqb5YY=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "fix-flexible-array-member.patch";
+    url =
+      "https://github.com/rr-debugger/rr/commit/2979c60ef8bbf7c940afd90172ddc5d8863f766e.diff";
+    sha256 = "cmdCJetQr3ELPOyWl37h1fGfG/xvaiJpywxIAnqb5YY=";
+  }) ];
 
   postPatch = ''
     substituteInPlace src/Command.cc --replace '_BSD_SOURCE' '_DEFAULT_SOURCE'
@@ -52,7 +50,12 @@ stdenv.mkDerivation rec {
   # See also https://github.com/NixOS/nixpkgs/pull/110846
   preConfigure = ''substituteInPlace CMakeLists.txt --replace "-flto" ""'';
 
-  nativeBuildInputs = [ cmake pkg-config which makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    which
+    makeWrapper
+  ];
   buildInputs = [
     libpfm
     zlib
@@ -97,8 +100,18 @@ stdenv.mkDerivation rec {
       time the same execution is replayed.
     '';
 
-    license = with lib.licenses; [ mit bsd2 ];
-    maintainers = with lib.maintainers; [ pierron thoughtpolice ];
-    platforms = [ "i686-linux" "x86_64-linux" "aarch64-linux" ];
+    license = with lib.licenses; [
+      mit
+      bsd2
+    ];
+    maintainers = with lib.maintainers; [
+      pierron
+      thoughtpolice
+    ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
   };
 }

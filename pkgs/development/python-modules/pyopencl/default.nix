@@ -26,10 +26,21 @@ in buildPythonPackage rec {
   version = "2022.3.1";
 
   nativeCheckInputs = [ pytest ];
-  buildInputs = [ opencl-headers pybind11 ] ++ os-specific-buildInputs;
+  buildInputs = [
+    opencl-headers
+    pybind11
+  ] ++ os-specific-buildInputs;
 
-  propagatedBuildInputs =
-    [ appdirs cffi decorator mako numpy platformdirs pytools six ];
+  propagatedBuildInputs = [
+    appdirs
+    cffi
+    decorator
+    mako
+    numpy
+    platformdirs
+    pytools
+    six
+  ];
 
   src = fetchPypi {
     inherit pname version;

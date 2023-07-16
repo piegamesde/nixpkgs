@@ -41,7 +41,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
       propagatedBuildInputs = [ lua ];
@@ -78,7 +81,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1") || (luaAtLeast "5.5");
       propagatedBuildInputs = [ lua ];
@@ -169,7 +175,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -216,7 +225,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [
@@ -265,15 +277,24 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
-      propagatedBuildInputs = [ lua penlight ];
+      propagatedBuildInputs = [
+        lua
+        penlight
+      ];
 
       meta = {
         homepage = "https://github.com/sile-typesetter/cassowary.lua";
         description = "The cassowary constraint solver";
-        maintainers = with lib.maintainers; [ marsam alerque ];
+        maintainers = with lib.maintainers; [
+          marsam
+          alerque
+        ];
         license.fullName = "Apache 2";
       };
     }) { };
@@ -304,10 +325,16 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
-      propagatedBuildInputs = [ lua penlight ];
+      propagatedBuildInputs = [
+        lua
+        penlight
+      ];
 
       meta = {
         homepage = "https://github.com/alerque/cldr-lua";
@@ -373,7 +400,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       propagatedBuildInputs = [ lpeg ];
 
@@ -408,7 +438,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       meta = {
         homepage = "http://keplerproject.github.io/coxpcall";
@@ -472,9 +505,16 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
-      propagatedBuildInputs = [ argparse luafilesystem tl ];
+      propagatedBuildInputs = [
+        argparse
+        luafilesystem
+        tl
+      ];
 
       meta = {
         homepage = "https://github.com/teal-language/cyan";
@@ -505,7 +545,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -541,10 +584,17 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.3");
-      propagatedBuildInputs = [ lpeg lua luafilesystem ];
+      propagatedBuildInputs = [
+        lpeg
+        lua
+        luafilesystem
+      ];
 
       meta = {
         homepage = "https://github.com/astoff/digestif/";
@@ -666,10 +716,18 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
-      propagatedBuildInputs = [ cldr lua luaepnf penlight ];
+      propagatedBuildInputs = [
+        cldr
+        lua
+        luaepnf
+        penlight
+      ];
 
       meta = {
         homepage = "https://github.com/alerque/fluent-lua";
@@ -700,7 +758,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (lua.luaversion != "5.1");
       propagatedBuildInputs = [ lua ];
@@ -732,7 +793,10 @@ final: prev: {
       };
 
       disabled = (luaOlder "5.1");
-      propagatedBuildInputs = [ lua plenary-nvim ];
+      propagatedBuildInputs = [
+        lua
+        plenary-nvim
+      ];
 
       meta = {
         homepage = "https://github.com/mrcjkb/haskell-tools.nvim";
@@ -843,7 +907,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -881,7 +948,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1") || (luaAtLeast "5.5");
       propagatedBuildInputs = [ lua ];
@@ -915,9 +985,15 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
-      propagatedBuildInputs = [ markdown penlight ];
+      propagatedBuildInputs = [
+        markdown
+        penlight
+      ];
 
       meta = {
         homepage = "https://github.com/lunarmodules/LDoc";
@@ -951,7 +1027,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -1098,7 +1177,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -1159,7 +1241,10 @@ final: prev: {
         sha256 = "1s3c179a64r45ffkawv9dnxw4mzwkzj00nr9z2gs5haajgpjivw6";
       };
 
-      propagatedBuildInputs = [ lpeg lua ];
+      propagatedBuildInputs = [
+        lpeg
+        lua
+      ];
 
       meta = {
         homepage =
@@ -1252,7 +1337,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -1289,7 +1377,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -1327,7 +1418,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -1364,7 +1458,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -1401,7 +1498,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -1501,10 +1601,18 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
-      propagatedBuildInputs = [ dkjson inspect lpeglabel lua ];
+      propagatedBuildInputs = [
+        dkjson
+        inspect
+        lpeglabel
+        lua
+      ];
 
       meta = {
         homepage = "https://github.com/Alloyed/lua-lsp";
@@ -1568,7 +1676,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -1606,7 +1717,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -1645,10 +1759,16 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
-      propagatedBuildInputs = [ lua lua-resty-openssl ];
+      propagatedBuildInputs = [
+        lua
+        lua-resty-openssl
+      ];
 
       meta = {
         homepage = "https://github.com/cdbattags/lua-resty-jwt";
@@ -1685,11 +1805,18 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
-      propagatedBuildInputs =
-        [ lua lua-resty-http lua-resty-jwt lua-resty-session ];
+      propagatedBuildInputs = [
+        lua
+        lua-resty-http
+        lua-resty-jwt
+        lua-resty-session
+      ];
 
       meta = {
         homepage = "https://github.com/zmartzone/lua-resty-openidc";
@@ -1722,7 +1849,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       meta = {
         homepage = "https://github.com/fffonion/lua-resty-openssl";
@@ -1758,7 +1888,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [
@@ -1797,7 +1930,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -1859,7 +1995,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -1896,7 +2035,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -1934,7 +2076,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -1995,7 +2140,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1") || (luaAtLeast "5.3");
       propagatedBuildInputs = [ lua ];
@@ -2034,10 +2182,17 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
-      propagatedBuildInputs = [ argparse lua luafilesystem ];
+      propagatedBuildInputs = [
+        argparse
+        lua
+        luafilesystem
+      ];
 
       meta = {
         homepage = "https://github.com/lunarmodules/luacheck";
@@ -2072,7 +2227,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1") || (luaAtLeast "5.5");
       propagatedBuildInputs = [ lua ];
@@ -2110,7 +2268,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
       propagatedBuildInputs = [ lua ];
@@ -2149,10 +2310,16 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
-      propagatedBuildInputs = [ lua luadbi ];
+      propagatedBuildInputs = [
+        lua
+        luadbi
+      ];
 
       meta = {
         homepage = "https://github.com/mwild1/luadbi";
@@ -2188,10 +2355,16 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
-      propagatedBuildInputs = [ lua luadbi ];
+      propagatedBuildInputs = [
+        lua
+        luadbi
+      ];
 
       meta = {
         homepage = "https://github.com/mwild1/luadbi";
@@ -2227,10 +2400,16 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
-      propagatedBuildInputs = [ lua luadbi ];
+      propagatedBuildInputs = [
+        lua
+        luadbi
+      ];
 
       meta = {
         homepage = "https://github.com/mwild1/luadbi";
@@ -2266,10 +2445,16 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1") || (luaAtLeast "5.5");
-      propagatedBuildInputs = [ lpeg lua ];
+      propagatedBuildInputs = [
+        lpeg
+        lua
+      ];
 
       meta = {
         homepage = "http://siffiejoe.github.io/lua-luaepnf/";
@@ -2331,7 +2516,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -2339,7 +2527,10 @@ final: prev: {
       meta = {
         homepage = "https://lunarmodules.github.io/luaexpat";
         description = "XML Expat parsing";
-        maintainers = with lib.maintainers; [ arobyn flosse ];
+        maintainers = with lib.maintainers; [
+          arobyn
+          flosse
+        ];
         license.fullName = "MIT/X11";
       };
     }) { };
@@ -2369,7 +2560,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -2406,7 +2600,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -2444,7 +2641,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -2481,7 +2681,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       propagatedBuildInputs = [ luasocket ];
 
@@ -2539,12 +2742,18 @@ final: prev: {
       };
 
       disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
-      propagatedBuildInputs = [ bit32 lua ];
+      propagatedBuildInputs = [
+        bit32
+        lua
+      ];
 
       meta = {
         homepage = "http://github.com/luaposix/luaposix/";
         description = "Lua bindings for POSIX";
-        maintainers = with lib.maintainers; [ vyp lblasc ];
+        maintainers = with lib.maintainers; [
+          vyp
+          lblasc
+        ];
         license.fullName = "MIT/X11";
       };
     }) { };
@@ -2603,10 +2812,16 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
-      propagatedBuildInputs = [ lua luasocket ];
+      propagatedBuildInputs = [
+        lua
+        luasocket
+      ];
 
       meta = {
         homepage = "https://github.com/brunoos/luasec/wiki";
@@ -2642,7 +2857,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -2679,7 +2897,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -2718,10 +2939,16 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
-      propagatedBuildInputs = [ lua say ];
+      propagatedBuildInputs = [
+        lua
+        say
+      ];
 
       meta = {
         homepage = "https://lunarmodules.github.io/busted/";
@@ -2874,7 +3101,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
       propagatedBuildInputs = [ lua ];
@@ -2909,7 +3139,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
       propagatedBuildInputs = [ lua ];
@@ -3037,7 +3270,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
       propagatedBuildInputs = [ lua ];
@@ -3103,10 +3339,18 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
-      propagatedBuildInputs = [ argparse lpeg lua luafilesystem ];
+      propagatedBuildInputs = [
+        argparse
+        lpeg
+        lua
+        luafilesystem
+      ];
 
       meta = {
         homepage = "http://moonscript.org";
@@ -3159,7 +3403,12 @@ final: prev: {
       };
 
       disabled = (luaOlder "5.1");
-      propagatedBuildInputs = [ coxpcall lua luv mpack ];
+      propagatedBuildInputs = [
+        coxpcall
+        lua
+        luv
+        mpack
+      ];
 
       meta = {
         homepage = "https://github.com/neovim/lua-client";
@@ -3191,7 +3440,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
       propagatedBuildInputs = [ lua ];
@@ -3226,10 +3478,16 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
-      propagatedBuildInputs = [ lua luafilesystem ];
+      propagatedBuildInputs = [
+        lua
+        luafilesystem
+      ];
 
       meta = {
         homepage = "https://lunarmodules.github.io/penlight";
@@ -3264,10 +3522,16 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
-      propagatedBuildInputs = [ lua luassert ];
+      propagatedBuildInputs = [
+        lua
+        luassert
+      ];
 
       meta = {
         homepage = "http://github.com/nvim-lua/plenary.nvim";
@@ -3298,7 +3562,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -3331,7 +3598,10 @@ final: prev: {
       };
 
       disabled = (luaOlder "5.1") || (luaAtLeast "5.5");
-      propagatedBuildInputs = [ lua luaposix ];
+      propagatedBuildInputs = [
+        lua
+        luaposix
+      ];
 
       meta = {
         homepage = "http://pjb.com.au/comp/lua/readline.html";
@@ -3361,7 +3631,10 @@ final: prev: {
       };
 
       disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
-      propagatedBuildInputs = [ lua plenary-nvim ];
+      propagatedBuildInputs = [
+        lua
+        plenary-nvim
+      ];
 
       meta = {
         homepage = "https://github.com/rest-nvim/rest.nvim";
@@ -3393,7 +3666,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -3431,7 +3707,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1") || (luaAtLeast "5.5");
       propagatedBuildInputs = [ lua ];
@@ -3468,7 +3747,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       propagatedBuildInputs = [ luv ];
 
@@ -3503,7 +3785,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1") || (luaAtLeast "5.5");
       propagatedBuildInputs = [ lua ];
@@ -3539,10 +3824,16 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1") || (luaAtLeast "5.5");
-      propagatedBuildInputs = [ lua std-_debug ];
+      propagatedBuildInputs = [
+        lua
+        std-_debug
+      ];
 
       meta = {
         homepage = "https://lua-stdlib.github.io/normalize";
@@ -3608,9 +3899,16 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
-      propagatedBuildInputs = [ cyan dkjson luafilesystem ];
+      propagatedBuildInputs = [
+        cyan
+        dkjson
+        luafilesystem
+      ];
 
       meta = {
         homepage = "https://github.com/teal-language/teal-language-server";
@@ -3639,7 +3937,10 @@ final: prev: {
       };
 
       disabled = (luaOlder "5.1");
-      propagatedBuildInputs = [ lua telescope-nvim ];
+      propagatedBuildInputs = [
+        lua
+        telescope-nvim
+      ];
 
       meta = {
         homepage = "https://github.com/mrcjkb/telescope-manix";
@@ -3674,10 +3975,16 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (lua.luaversion != "5.1");
-      propagatedBuildInputs = [ lua plenary-nvim ];
+      propagatedBuildInputs = [
+        lua
+        plenary-nvim
+      ];
 
       meta = {
         homepage = "https://github.com/nvim-telescope/telescope.nvim";
@@ -3712,9 +4019,16 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
-      propagatedBuildInputs = [ argparse compat53 luafilesystem ];
+      propagatedBuildInputs = [
+        argparse
+        compat53
+        luafilesystem
+      ];
 
       meta = {
         homepage = "https://github.com/teal-language/tl";
@@ -3746,7 +4060,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       disabled = (luaOlder "5.1");
       propagatedBuildInputs = [ lua ];
@@ -3781,7 +4098,10 @@ final: prev: {
           "deepClone": false,
           "leaveDotGit": false
         }
-      '') [ "date" "path" ]);
+      '') [
+        "date"
+        "path"
+      ]);
 
       propagatedBuildInputs = [ busted ];
 

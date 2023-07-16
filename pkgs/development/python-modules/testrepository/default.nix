@@ -21,7 +21,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ testresources ];
   buildInputs = [ pbr ];
-  propagatedBuildInputs = [ fixtures subunit testtools ];
+  propagatedBuildInputs = [
+    fixtures
+    subunit
+    testtools
+  ];
 
   checkPhase = ''
     ${python.interpreter} ./testr

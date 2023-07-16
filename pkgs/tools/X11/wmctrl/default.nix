@@ -23,7 +23,11 @@ stdenv.mkDerivation rec {
   strictDeps = true;
   depsBuildBuild = [ pkg-config ];
   nativeBuildInputs = [ glib.dev ];
-  buildInputs = [ libX11 libXmu glib ];
+  buildInputs = [
+    libX11
+    libXmu
+    glib
+  ];
 
   patches = [ ./64-bit-data.patch ];
 

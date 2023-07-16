@@ -102,7 +102,13 @@ in {
       "sddm"
       "autoLogin"
       "enable"
-    ] [ "services" "xserver" "displayManager" "autoLogin" "enable" ])
+    ] [
+      "services"
+      "xserver"
+      "displayManager"
+      "autoLogin"
+      "enable"
+    ])
     (mkRenamedOptionModule [
       "services"
       "xserver"
@@ -110,7 +116,13 @@ in {
       "sddm"
       "autoLogin"
       "user"
-    ] [ "services" "xserver" "displayManager" "autoLogin" "user" ])
+    ] [
+      "services"
+      "xserver"
+      "displayManager"
+      "autoLogin"
+      "user"
+    ])
     (mkRemovedOptionModule [
       "services"
       "xserver"

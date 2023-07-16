@@ -45,7 +45,13 @@ in stdenv.mkDerivation rec {
     makeWrapper "${dotnet-runtime}/bin/dotnet" $out/bin/Readarr \
       --add-flags "$out/share/${pname}-${version}/Readarr.dll" \
       --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [ curl sqlite libmediainfo icu openssl ]
+        lib.makeLibraryPath [
+          curl
+          sqlite
+          libmediainfo
+          icu
+          openssl
+        ]
       }
 
     runHook postInstall
@@ -62,7 +68,11 @@ in stdenv.mkDerivation rec {
     license = licenses.gpl3;
     maintainers = [ maintainers.jocelynthode ];
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
-    platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+    ];
   };
 }
 

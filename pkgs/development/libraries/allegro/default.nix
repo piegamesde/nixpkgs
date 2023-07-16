@@ -32,7 +32,10 @@ stdenv.mkDerivation rec {
     sha256 = "1m6lz35nk07dli26kkwz3wa50jsrxs1kb6w1nj14a911l34xn6gc";
   };
 
-  patches = [ ./nix-unstable-sandbox-fix.patch ./encoding.patch ];
+  patches = [
+    ./nix-unstable-sandbox-fix.patch
+    ./encoding.patch
+  ];
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [

@@ -36,12 +36,17 @@ stdenv.mkDerivation rec {
     "--with-iologdir=/var/log/sudo-io"
     "--with-sendmail=${sendmailPath}"
     "--enable-tmpfiles.d=no"
-  ] ++ lib.optionals withInsults [ "--with-insults" "--with-all-insults" ]
-    ++ lib.optionals withSssd [ "--with-sssd" "--with-sssd-lib=${sssd}/lib" ];
-
-  configureFlagsArray = [
-    "--with-passprompt=[sudo] password for %p: " # intentional trailing space
+  ] ++ lib.optionals withInsults [
+    "--with-insults"
+    "--with-all-insults"
+  ] ++ lib.optionals withSssd [
+    "--with-sssd"
+    "--with-sssd-lib=${sssd}/lib"
   ];
+
+  configureFlagsArray =
+    [ "--with-passprompt=[sudo] password for %p: " # intentional trailing space
+    ];
 
   postConfigure = ''
     cat >> pathnames.h <<'EOF'
@@ -80,7 +85,10 @@ stdenv.mkDerivation rec {
 
     license = "https://www.sudo.ws/sudo/license.html";
 
-    maintainers = with lib.maintainers; [ eelco delroth ];
+    maintainers = with lib.maintainers; [
+      eelco
+      delroth
+    ];
 
     platforms = lib.platforms.linux;
   };

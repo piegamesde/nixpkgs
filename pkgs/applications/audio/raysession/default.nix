@@ -35,15 +35,26 @@ buildPythonApplication rec {
     qttools # lrelease to build translations.
     which # which to find lrelease.
   ];
-  buildInputs = [ libjack2 bash ];
-  propagatedBuildInputs = [ pydbus pyliblo pyqt5 ];
+  buildInputs = [
+    libjack2
+    bash
+  ];
+  propagatedBuildInputs = [
+    pydbus
+    pyliblo
+    pyqt5
+  ];
 
   dontWrapQtApps = true; # The program is a python script.
 
   installFlags = [ "PREFIX=$(out)" ];
 
-  makeWrapperArgs =
-    [ "--prefix" "LD_LIBRARY_PATH" ":" (lib.makeLibraryPath [ libjack2 ]) ];
+  makeWrapperArgs = [
+    "--prefix"
+    "LD_LIBRARY_PATH"
+    ":"
+    (lib.makeLibraryPath [ libjack2 ])
+  ];
 
   postFixup = ''
     wrapPythonProgramsIn "$out/share/raysession/src" "$out $pythonPath"

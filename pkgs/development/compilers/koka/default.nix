@@ -43,15 +43,22 @@ let
     src = "${src}/kklib";
     patches = [ ./kklib-mimalloc-macos-fix.diff ];
     nativeBuildInputs = [ cmake ];
-    outputs = [ "out" "dev" ];
+    outputs = [
+      "out"
+      "dev"
+    ];
     postInstall = ''
       mkdir -p ''${!outputDev}/share/koka/v${version}
       cp -a ../../kklib ''${!outputDev}/share/koka/v${version}
     '';
   };
   inherit (pkgsHostTarget.targetPackages.stdenv) cc;
-  runtimeDeps =
-    [ cc cc.bintools.bintools pkgsHostTarget.gnumake pkgsHostTarget.cmake ];
+  runtimeDeps = [
+    cc
+    cc.bintools.bintools
+    pkgsHostTarget.gnumake
+    pkgsHostTarget.cmake
+  ];
 in mkDerivation rec {
   pname = "koka";
   inherit version src;
@@ -73,7 +80,10 @@ in mkDerivation rec {
     time
     kklib
   ];
-  executableToolDepends = [ alex makeWrapper ];
+  executableToolDepends = [
+    alex
+    makeWrapper
+  ];
   postInstall = ''
     mkdir -p $out/share/koka/v${version}
     cp -a lib $out/share/koka/v${version}
@@ -88,5 +98,8 @@ in mkDerivation rec {
   homepage = "https://github.com/koka-lang/koka";
   changelog = "${homepage}/blob/master/doc/spec/news.mdk";
   license = lib.licenses.asl20;
-  maintainers = with lib.maintainers; [ siraben sternenseemann ];
+  maintainers = with lib.maintainers; [
+    siraben
+    sternenseemann
+  ];
 }

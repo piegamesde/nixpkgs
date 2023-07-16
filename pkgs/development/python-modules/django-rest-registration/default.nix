@@ -23,9 +23,15 @@ buildPythonPackage rec {
     hash = "sha256-JoIeVjl5s60ilq9kU28Jo+GaYRKU61hoqy1GzYmMdZQ=";
   };
 
-  propagatedBuildInputs = [ django djangorestframework ];
+  propagatedBuildInputs = [
+    django
+    djangorestframework
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-django ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-django
+  ];
 
   pythonImportsCheck = [ "rest_registration" ];
 

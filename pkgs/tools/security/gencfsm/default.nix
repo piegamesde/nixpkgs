@@ -30,8 +30,15 @@ stdenv.mkDerivation rec {
     sha256 = "RXVwg/xhfAQv3pWp3UylOhMKDh9ZACTuKM4lPrn1dk8=";
   };
 
-  nativeBuildInputs =
-    [ autoconf automake intltool libtool pkg-config vala wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    intltool
+    libtool
+    pkg-config
+    vala
+    wrapGAppsHook
+  ];
   buildInputs = [
     glib
     encfs

@@ -33,9 +33,21 @@ stdenv.mkDerivation rec {
       xstring;
   };
 
-  nativeBuildInputs = [ rsync makeWrapper ];
-  buildInputs = [ hepmc imagemagick python3 latex python3.pkgs.yoda ];
-  propagatedBuildInputs = [ fastjet fastjet-contrib ];
+  nativeBuildInputs = [
+    rsync
+    makeWrapper
+  ];
+  buildInputs = [
+    hepmc
+    imagemagick
+    python3
+    latex
+    python3.pkgs.yoda
+  ];
+  propagatedBuildInputs = [
+    fastjet
+    fastjet-contrib
+  ];
 
   preConfigure = ''
     substituteInPlace bin/rivet-build.in \
@@ -64,11 +76,11 @@ stdenv.mkDerivation rec {
       --replace 'ch_cmd = [sys.executable, os.path.join(os.path.dirname(__file__),' 'ch_cmd = [('
   '';
 
-  configureFlags = [ "--with-fastjet=${fastjet}" "--with-yoda=${yoda}" ]
-    ++ (if lib.versions.major hepmc.version == "3" then
-      [ "--with-hepmc3=${hepmc}" ]
-    else
-      [ "--with-hepmc=${hepmc}" ]);
+  configureFlags = [
+    "--with-fastjet=${fastjet}"
+    "--with-yoda=${yoda}"
+  ] ++ (if lib.versions.major hepmc.version
+  == "3" then [ "--with-hepmc3=${hepmc}" ] else [ "--with-hepmc=${hepmc}" ]);
 
   enableParallelBuilding = true;
 

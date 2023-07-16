@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-crnV7OWH5UbkMM/TxTIOlXmvqBgjFmQG7RxameMOjH0=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook dpkg ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    dpkg
+  ];
 
   buildInputs = [ wrapGAppsHook ];
 

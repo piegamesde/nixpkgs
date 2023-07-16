@@ -20,12 +20,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-nrnGmJxAeobejS6zdn5Z/kOFOxyepZcxW/G4nXAt2DY=";
   };
 
-  buildInputs = [ bctoolbox sqlite ];
+  buildInputs = [
+    bctoolbox
+    sqlite
+  ];
   nativeBuildInputs = [ cmake ];
 
   # Do not build static libraries
-  cmakeFlags =
-    [ "-DENABLE_STATIC=NO" "-DCMAKE_C_FLAGS=-Wno-error=cast-function-type" ];
+  cmakeFlags = [
+    "-DENABLE_STATIC=NO"
+    "-DCMAKE_C_FLAGS=-Wno-error=cast-function-type"
+  ];
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Needed with GCC 12

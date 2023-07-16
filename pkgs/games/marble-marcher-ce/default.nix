@@ -23,8 +23,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-m5i/Q4k5S4wcojHqMYS7e1W/Ph7q/95j3oOK2xbrHSk=";
   };
 
-  buildInputs = [ sfml anttweakbar glm eigen glew ];
-  nativeBuildInputs = [ cmake makeWrapper copyDesktopItems ];
+  buildInputs = [
+    sfml
+    anttweakbar
+    glm
+    eigen
+    glew
+  ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    copyDesktopItems
+  ];
   installFlags = [ "DESTDIR=$(out)" ];
 
   prePatch = ''
@@ -43,16 +53,14 @@ stdenv.mkDerivation rec {
     ln -s $out/share/MMCE/images/MarbleMarcher.png $out/share/icons/${pname}.png
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      exec = pname;
-      icon = pname;
-      desktopName = pname;
-      comment = meta.description;
-      categories = [ "Game" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = pname;
+    exec = pname;
+    icon = pname;
+    desktopName = pname;
+    comment = meta.description;
+    categories = [ "Game" ];
+  }) ];
 
   meta = with lib; {
     description = "A fractal physics game.";

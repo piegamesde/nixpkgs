@@ -30,8 +30,10 @@ stdenvNoCC.mkDerivation rec {
       "/usr/bin/env -S awk" "${gawk}/bin/awk"
   '';
 
-  makeFlags =
-    [ "BINDIR=${placeholder "out"}/bin" "LIBDIR=${placeholder "out"}/lib" ];
+  makeFlags = [
+    "BINDIR=${placeholder "out"}/bin"
+    "LIBDIR=${placeholder "out"}/lib"
+  ];
 
   nativeBuildInputs = [ makeWrapper ];
 

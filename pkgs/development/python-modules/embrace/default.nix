@@ -24,7 +24,10 @@ buildPythonPackage rec {
     hash = "sha256-otzpDMtC229qMXon+ydS39SBoMiXJmxn48/TQXjqu5U=";
   };
 
-  propagatedBuildInputs = [ sqlparse wrapt ];
+  propagatedBuildInputs = [
+    sqlparse
+    wrapt
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

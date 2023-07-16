@@ -12,7 +12,12 @@
   testers,
 }:
 
-assert lib.elem precision [ "single" "double" "long-double" "quad-precision" ];
+assert lib.elem precision [
+  "single"
+  "double"
+  "long-double"
+  "quad-precision"
+];
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "fftw-${precision}";
@@ -26,8 +31,11 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-VskyVJhSzdz6/as4ILAgDHdCZ1vpIXnlnmIVs0DiZGc=";
   };
 
-  outputs = [ "out" "dev" "man" ]
-    ++ lib.optional withDoc "info"; # it's dev-doc only
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ] ++ lib.optional withDoc "info"; # it's dev-doc only
   outputBin = "dev"; # fftw-wisdom
 
   nativeBuildInputs = [ gfortran ];
@@ -37,7 +45,11 @@ stdenv.mkDerivation (finalAttrs: {
     llvmPackages.openmp
   ] ++ lib.optional enableMpi mpi;
 
-  configureFlags = [ "--enable-shared" "--enable-threads" "--enable-openmp" ]
+  configureFlags = [
+    "--enable-shared"
+    "--enable-threads"
+    "--enable-openmp"
+  ]
 
     ++ lib.optional (precision != "double") "--enable-${precision}"
     # https://www.fftw.org/fftw3_doc/SIMD-alignment-and-fftw_005fmalloc.html
@@ -65,14 +77,12 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://www.fftw.org/";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.spwhitt ];
-    pkgConfigModules = [
-      {
-        "single" = "fftw3f";
-        "double" = "fftw3";
-        "long-double" = "fftw3l";
-        "quad-precision" = "fftw3q";
-      }.${precision}
-    ];
+    pkgConfigModules = [ {
+      "single" = "fftw3f";
+      "double" = "fftw3";
+      "long-double" = "fftw3l";
+      "quad-precision" = "fftw3q";
+    }.${precision} ];
     platforms = platforms.unix;
   };
 })

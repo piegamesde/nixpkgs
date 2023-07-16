@@ -135,10 +135,10 @@ in {
           (cfg.queryPort + 11)
         ];
       # subsequent vServers will use the incremented voice port, let's just open the next 10
-      allowedUDPPortRanges = [{
+      allowedUDPPortRanges = [ {
         from = cfg.defaultVoicePort;
         to = cfg.defaultVoicePort + 10;
-      }];
+      } ];
     };
 
     systemd.services.teamspeak3-server = {

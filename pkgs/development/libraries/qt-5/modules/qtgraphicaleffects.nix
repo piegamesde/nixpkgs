@@ -6,5 +6,8 @@
 qtModule {
   pname = "qtgraphicaleffects";
   qtInputs = [ qtdeclarative ];
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 }

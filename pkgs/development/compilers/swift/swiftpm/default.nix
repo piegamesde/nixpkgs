@@ -81,9 +81,11 @@ let
   # Common attributes for the bootstrap derivations.
   mkBootstrapDerivation = attrs:
     stdenv.mkDerivation (attrs // {
-      nativeBuildInputs = (attrs.nativeBuildInputs or [ ])
-        ++ [ cmake ninja swift ]
-        ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+      nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [
+        cmake
+        ninja
+        swift
+      ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
 
       buildInputs = (attrs.buildInputs or [ ]) ++ [ Foundation ];
 
@@ -181,7 +183,10 @@ let
     name = "swift-tools-support-core";
     src = generated.sources.swift-tools-support-core;
 
-    buildInputs = [ swift-system sqlite ];
+    buildInputs = [
+      swift-system
+      sqlite
+    ];
 
     postInstall = cmakeGlue.TSC + ''
       # Swift modules are not installed.
@@ -201,9 +206,15 @@ let
     name = "swift-argument-parser";
     src = generated.sources.swift-argument-parser;
 
-    buildInputs = [ ncursesInput sqlite ];
+    buildInputs = [
+      ncursesInput
+      sqlite
+    ];
 
-    cmakeFlags = [ "-DBUILD_TESTING=NO" "-DBUILD_EXAMPLES=NO" ];
+    cmakeFlags = [
+      "-DBUILD_TESTING=NO"
+      "-DBUILD_EXAMPLES=NO"
+    ];
 
     postInstall = cmakeGlue.ArgumentParser
       + lib.optionalString stdenv.isLinux ''
@@ -228,7 +239,10 @@ let
     src = generated.sources.swift-llbuild;
 
     nativeBuildInputs = lib.optional stdenv.isDarwin xcbuild;
-    buildInputs = [ ncursesInput sqlite ];
+    buildInputs = [
+      ncursesInput
+      sqlite
+    ];
 
     patches = [ ./patches/llbuild-cmake-disable-rpath.patch ];
 
@@ -324,10 +338,18 @@ let
 in stdenv.mkDerivation (commonAttrs // {
   pname = "swiftpm";
 
-  nativeBuildInputs = commonAttrs.nativeBuildInputs
-    ++ [ swift swiftpm-bootstrap ];
-  buildInputs = [ ncursesInput sqlite XCTest ]
-    ++ lib.optionals stdenv.isDarwin [ CryptoKit LocalAuthentication ];
+  nativeBuildInputs = commonAttrs.nativeBuildInputs ++ [
+    swift
+    swiftpm-bootstrap
+  ];
+  buildInputs = [
+    ncursesInput
+    sqlite
+    XCTest
+  ] ++ lib.optionals stdenv.isDarwin [
+    CryptoKit
+    LocalAuthentication
+  ];
 
   configurePhase = generated.configure + ''
     # Functionality provided by Xcode XCTest, but not available in

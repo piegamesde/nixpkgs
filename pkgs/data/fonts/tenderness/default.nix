@@ -30,7 +30,10 @@ in stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "http://dotcolon.net/font/${finalAttrs.pname}/";
     description = "Serif font designed by Sora Sagano with old-style figures";
     platforms = platforms.all;
-    maintainers = with maintainers; [ leenaars minijackson ];
+    maintainers = with maintainers; [
+      leenaars
+      minijackson
+    ];
     license = licenses.ofl;
   };
 })

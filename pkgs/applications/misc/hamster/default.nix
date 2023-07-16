@@ -37,7 +37,12 @@ python3Packages.buildPythonApplication rec {
     gobject-introspection
   ];
 
-  buildInputs = [ pango gdk-pixbuf atk gtk3 ];
+  buildInputs = [
+    pango
+    gdk-pixbuf
+    atk
+    gtk3
+  ];
 
   propagatedBuildInputs = with python3Packages; [
     pygobject3

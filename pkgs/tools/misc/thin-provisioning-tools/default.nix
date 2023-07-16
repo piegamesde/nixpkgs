@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [ expat libaio boost ];
+  buildInputs = [
+    expat
+    libaio
+    boost
+  ];
 
   enableParallelBuilding = true;
 

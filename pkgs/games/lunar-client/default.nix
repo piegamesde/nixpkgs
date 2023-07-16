@@ -42,7 +42,10 @@ in appimageTools.wrapType1 rec {
     description = "Minecraft 1.7, 1.8, 1.12, 1.15, 1.16, 1.17, and 1.18 Client";
     homepage = "https://www.lunarclient.com/";
     license = with licenses; [ unfree ];
-    maintainers = with maintainers; [ zyansheep Technical27 ];
+    maintainers = with maintainers; [
+      zyansheep
+      Technical27
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

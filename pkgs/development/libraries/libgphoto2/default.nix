@@ -30,7 +30,12 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ autoreconfHook gettext libtool pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    gettext
+    libtool
+    pkg-config
+  ];
 
   buildInputs = [
     libjpeg

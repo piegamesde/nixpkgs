@@ -36,10 +36,20 @@ let
       sha256 = "07zmiiw74dyj4v0ar5vqkvk30wzcpjjzbi04nsdk5mnlzslmyi6c";
     };
 
-    nativeBuildInputs = [ cmake swig ];
+    nativeBuildInputs = [
+      cmake
+      swig
+    ];
 
-    buildInputs = [ python opencascade smesh freetype libGL libGLU libX11 ]
-      ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+    buildInputs = [
+      python
+      opencascade
+      smesh
+      freetype
+      libGL
+      libGLU
+      libX11
+    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
     propagatedBuildInputs = [ six ];
 
@@ -67,7 +77,10 @@ in buildPythonPackage rec {
 
   buildInputs = [ opencascade ];
 
-  propagatedBuildInputs = [ pyparsing pythonocc-core-cadquery ];
+  propagatedBuildInputs = [
+    pyparsing
+    pythonocc-core-cadquery
+  ];
 
   FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
 
@@ -80,6 +93,9 @@ in buildPythonPackage rec {
       "Parametric scripting language for creating and traversing CAD models";
     homepage = "https://github.com/CadQuery/cadquery";
     license = licenses.asl20;
-    maintainers = with maintainers; [ costrouc marcus7070 ];
+    maintainers = with maintainers; [
+      costrouc
+      marcus7070
+    ];
   };
 }

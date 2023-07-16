@@ -35,9 +35,19 @@ buildDunePackage rec {
     substituteInPlace ./vendor/dune --replace "mrmime.prettym" "prettym"
   '';
 
-  propagatedBuildInputs = [ logs magic-mime mrmime psq uri gluten-lwt-unix ];
+  propagatedBuildInputs = [
+    logs
+    magic-mime
+    mrmime
+    psq
+    uri
+    gluten-lwt-unix
+  ];
 
-  nativeCheckInputs = [ alcotest-lwt dune-site ];
+  nativeCheckInputs = [
+    alcotest-lwt
+    dune-site
+  ];
   # Check fails with OpenSSL 3
   doCheck = false;
 

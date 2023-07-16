@@ -33,17 +33,30 @@ stdenv.mkDerivation rec {
     sha256 = "Xe2qeF2C2OI53dCCv6xSUMaR6WRGS+GAe2gnJjYzzcw=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      inherit kmod openconnect;
-    })
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    inherit kmod openconnect;
+  }) ];
+
+  buildInputs = [
+    glib
+    libxml2
+    openconnect
+    networkmanager
+  ] ++ lib.optionals withGnome [
+    gtk3
+    libnma
+    libnma-gtk4
+    gtk4
+    gcr
+    libsecret
   ];
 
-  buildInputs = [ glib libxml2 openconnect networkmanager ]
-    ++ lib.optionals withGnome [ gtk3 libnma libnma-gtk4 gtk4 gcr libsecret ];
-
-  nativeBuildInputs = [ intltool pkg-config file ];
+  nativeBuildInputs = [
+    intltool
+    pkg-config
+    file
+  ];
 
   configureFlags = [
     "--with-gnome=${if withGnome then "yes" else "no"}"

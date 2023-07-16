@@ -30,7 +30,10 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ installShellFiles makeBinaryWrapper ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeBinaryWrapper
+  ];
 
   buildInputs =
     lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
@@ -41,7 +44,11 @@ rustPlatform.buildRustPackage rec {
   postInstall = ''
     wrapProgram $out/bin/nurl \
       --prefix PATH : ${
-        lib.makeBinPath [ gitMinimal mercurial nixVersions.unstable ]
+        lib.makeBinPath [
+          gitMinimal
+          mercurial
+          nixVersions.unstable
+        ]
       }
     installManPage artifacts/nurl.1
     installShellCompletion artifacts/nurl.{bash,fish} --zsh artifacts/_nurl

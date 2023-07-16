@@ -101,8 +101,12 @@ in mkDerivation {
     alsa-lib
   ]
   # gst_plugins needed for setup-hooks
-    ++ gst_plugins ++ lib.optionals (withIpod) [ libgpod libplist usbmuxd ]
-    ++ lib.optionals (withMTP) [ libmtp ] ++ lib.optionals (withCD) [ libcdio ]
+    ++ gst_plugins ++ lib.optionals (withIpod) [
+      libgpod
+      libplist
+      usbmuxd
+    ] ++ lib.optionals (withMTP) [ libmtp ]
+    ++ lib.optionals (withCD) [ libcdio ]
     ++ lib.optionals (withCloud) [ sparsehash ];
 
   postPatch = ''
@@ -118,7 +122,10 @@ in mkDerivation {
     rm -rf ext/{,lib}clementine-spotifyblob
   '';
 
-  cmakeFlags = [ "-DUSE_SYSTEM_PROJECTM=ON" "-DSPOTIFY_BLOB=OFF" ];
+  cmakeFlags = [
+    "-DUSE_SYSTEM_PROJECTM=ON"
+    "-DSPOTIFY_BLOB=OFF"
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/clementine \

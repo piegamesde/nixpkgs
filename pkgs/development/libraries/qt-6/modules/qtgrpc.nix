@@ -8,6 +8,12 @@
 
 qtModule {
   pname = "qtgrpc";
-  qtInputs = [ qtbase qtdeclarative ];
-  buildInputs = [ protobuf grpc ];
+  qtInputs = [
+    qtbase
+    qtdeclarative
+  ];
+  buildInputs = [
+    protobuf
+    grpc
+  ];
 }

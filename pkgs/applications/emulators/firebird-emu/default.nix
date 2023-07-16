@@ -21,7 +21,10 @@ mkDerivation rec {
 
   nativeBuildInputs = [ qmake ];
 
-  buildInputs = [ qtbase qtdeclarative ];
+  buildInputs = [
+    qtbase
+    qtdeclarative
+  ];
 
   meta = {
     homepage = "https://github.com/nspire-emus/firebird";

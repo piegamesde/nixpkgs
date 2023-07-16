@@ -25,7 +25,12 @@ in stdenv.mkDerivation rec {
   pname = "gusb";
   version = "0.3.10";
 
-  outputs = [ "bin" "out" "dev" "devdoc" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url =
@@ -33,12 +38,10 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-DrC5qw+LugxZYxyAnDe2Fu806zyOAAsLm3HPEeSTG9w=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./fix-python-path.patch;
-      python = "${pythonEnv}/bin/python3";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./fix-python-path.patch;
+    python = "${pythonEnv}/bin/python3";
+  }) ];
 
   nativeBuildInputs = [
     meson

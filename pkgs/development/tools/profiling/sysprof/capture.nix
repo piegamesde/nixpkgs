@@ -11,7 +11,10 @@ stdenv.mkDerivation rec {
 
   inherit (sysprof) src version;
 
-  nativeBuildInputs = [ meson ninja ];
+  nativeBuildInputs = [
+    meson
+    ninja
+  ];
 
   mesonFlags = [
     "-Dagent=false"

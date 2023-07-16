@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ bison ];
 
-  buildInputs = [ libressl libevent ];
+  buildInputs = [
+    libressl
+    libevent
+  ];
 
   configureFlags = [ "PREFIX=${placeholder "out"}" ];
 

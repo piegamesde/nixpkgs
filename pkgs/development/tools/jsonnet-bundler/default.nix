@@ -17,7 +17,11 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  ldflags = [ "-s" "-w" "-X main.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.Version=${version}"
+  ];
 
   meta = with lib; {
     description = "A jsonnet package manager";

@@ -28,11 +28,21 @@ buildPythonPackage rec {
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
-  nativeBuildInputs = [ setuptools-scm toml ];
+  nativeBuildInputs = [
+    setuptools-scm
+    toml
+  ];
 
-  propagatedBuildInputs = [ lsprotocol typeguard ];
+  propagatedBuildInputs = [
+    lsprotocol
+    typeguard
+  ];
 
-  nativeCheckInputs = [ mock pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   # Fixes hanging tests on Darwin
   __darwinAllowLocalNetworking = true;

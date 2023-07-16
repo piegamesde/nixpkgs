@@ -38,16 +38,35 @@ in mkDerivation {
     sha256 = "1gl6k1bwrk1y7hjyl4xvlqvmk5crl4jvsk8wrfp7ynbdin6n2i48";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs =
-    [ guile_1_8 qtbase ghostscriptX freetype libjpeg sqlite git python3 ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    guile_1_8
+    qtbase
+    ghostscriptX
+    freetype
+    libjpeg
+    sqlite
+    git
+    python3
+  ];
   NIX_LDFLAGS = "-lz";
 
   qtWrapperArgs = [
     "--suffix"
     "PATH"
     ":"
-    (lib.makeBinPath [ xmodmap which ghostscriptX aspell tex git python3 ])
+    (lib.makeBinPath [
+      xmodmap
+      which
+      ghostscriptX
+      aspell
+      tex
+      git
+      python3
+    ])
   ];
 
   postFixup = ''

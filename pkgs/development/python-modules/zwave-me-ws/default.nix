@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ requests websocket-client ];
+  propagatedBuildInputs = [
+    requests
+    websocket-client
+  ];
 
   # Module has no tests
   doCheck = false;

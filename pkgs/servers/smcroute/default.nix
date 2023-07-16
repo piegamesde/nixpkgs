@@ -18,11 +18,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-I9kc1F+GZf8Gl0Wx3J45Bf/RyFTyHVhwDz5l+sp/2pc=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
   buildInputs = [ libcap ];
 
-  configureFlags =
-    [ "--localstatedir=/var" "--with-systemd=$(out)/lib/systemd/system" ];
+  configureFlags = [
+    "--localstatedir=/var"
+    "--with-systemd=$(out)/lib/systemd/system"
+  ];
 
   meta = with lib; {
     description = "Static multicast routing daemon";

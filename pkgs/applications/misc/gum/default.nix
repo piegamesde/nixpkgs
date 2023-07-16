@@ -20,7 +20,11 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [ "-s" "-w" "-X=main.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X=main.Version=${version}"
+  ];
 
   postInstall = ''
     $out/bin/gum man > gum.1

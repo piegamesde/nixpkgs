@@ -33,15 +33,29 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config autoreconfHook gobject-introspection ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+    gobject-introspection
+  ];
 
-  buildInputs = [ gtk3 glib json-glib libsoup ];
+  buildInputs = [
+    gtk3
+    glib
+    json-glib
+    libsoup
+  ];
 
-  configureFlags =
-    [ "CFLAGS=-Wno-error" "--sysconfdir=/etc" "--localstatedir=/var" ];
+  configureFlags = [
+    "CFLAGS=-Wno-error"
+    "--sysconfdir=/etc"
+    "--localstatedir=/var"
+  ];
 
-  installFlags =
-    [ "sysconfdir=${placeholder "out"}/etc" "localstatedir=\${TMPDIR}" ];
+  installFlags = [
+    "sysconfdir=${placeholder "out"}/etc"
+    "localstatedir=\${TMPDIR}"
+  ];
 
   preConfigure = ''
     for f in {configure,m4/libtool.m4}; do

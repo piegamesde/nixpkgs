@@ -18,7 +18,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-6ikjn+tAUyAd8+Hm0nws4SOIKsRljhyL6plYvhGKe9Y=";
   };
 
-  nativeBuildInputs = [ ocaml findlib ocamlbuild topkg ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+    ocamlbuild
+    topkg
+  ];
   buildInputs = [ topkg ];
   propagatedBuildInputs = [ uutf ];
 

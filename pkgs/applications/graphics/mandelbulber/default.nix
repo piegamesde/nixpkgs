@@ -29,9 +29,21 @@ mkDerivation rec {
     sha256 = "sha256-PVyJnPPNehQ5qzhuoUsDRQ+V3azauEkIk26XfLZOmXg=";
   };
 
-  nativeBuildInputs = [ qmake qttools ];
-  buildInputs = [ qtbase qtmultimedia libpng gsl libsndfile lzo ]
-    ++ lib.optionals withOpenCL [ opencl-clhpp ocl-icd ];
+  nativeBuildInputs = [
+    qmake
+    qttools
+  ];
+  buildInputs = [
+    qtbase
+    qtmultimedia
+    libpng
+    gsl
+    libsndfile
+    lzo
+  ] ++ lib.optionals withOpenCL [
+    opencl-clhpp
+    ocl-icd
+  ];
 
   sourceRoot = "${src.name}/mandelbulber2";
 

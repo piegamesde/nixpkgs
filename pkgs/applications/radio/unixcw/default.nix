@@ -17,7 +17,11 @@ mkDerivation rec {
   };
   patches = [ ./remove-use-of-dlopen.patch ];
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libpulseaudio alsa-lib qtbase ];
+  buildInputs = [
+    libpulseaudio
+    alsa-lib
+    qtbase
+  ];
   CFLAGS = "-lasound -lpulse-simple";
 
   meta = with lib; {

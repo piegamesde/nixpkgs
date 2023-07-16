@@ -10,7 +10,11 @@ build-idris-package {
   pname = "http";
   version = "2018-02-25";
 
-  idrisDeps = [ contrib lightyear bytes ];
+  idrisDeps = [
+    contrib
+    lightyear
+    bytes
+  ];
 
   src = fetchFromGitHub {
     owner = "uwap";

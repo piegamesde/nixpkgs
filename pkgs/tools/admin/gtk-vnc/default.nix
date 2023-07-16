@@ -27,7 +27,12 @@ stdenv.mkDerivation rec {
   pname = "gtk-vnc";
   version = "1.3.1";
 
-  outputs = [ "out" "bin" "man" "dev" ];
+  outputs = [
+    "out"
+    "bin"
+    "man"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -47,8 +52,16 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [ gnutls cairo gdk-pixbuf zlib glib libgcrypt cyrus_sasl gtk3 ]
-    ++ lib.optionals pulseaudioSupport [ libpulseaudio ];
+  buildInputs = [
+    gnutls
+    cairo
+    gdk-pixbuf
+    zlib
+    glib
+    libgcrypt
+    cyrus_sasl
+    gtk3
+  ] ++ lib.optionals pulseaudioSupport [ libpulseaudio ];
 
   mesonFlags = lib.optionals (!pulseaudioSupport) [ "-Dpulseaudio=disabled" ];
 
@@ -63,7 +76,10 @@ stdenv.mkDerivation rec {
     description = "GTK VNC widget";
     homepage = "https://wiki.gnome.org/Projects/gtk-vnc";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ raskin offline ];
+    maintainers = with maintainers; [
+      raskin
+      offline
+    ];
     platforms = platforms.unix;
   };
 }

@@ -33,7 +33,10 @@ stdenv.mkDerivation rec {
     sha256 = getHash getArch;
   };
 
-  nativeBuildInputs = [ jre makeWrapper ];
+  nativeBuildInputs = [
+    jre
+    makeWrapper
+  ];
 
   installPhase = ''
     runHook preInstall

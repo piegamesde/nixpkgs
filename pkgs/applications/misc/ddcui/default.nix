@@ -27,7 +27,11 @@ mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ qtbase qttools ddcutil ];
+  buildInputs = [
+    qtbase
+    qttools
+    ddcutil
+  ];
 
   meta = with lib; {
     description =

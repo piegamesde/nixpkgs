@@ -26,7 +26,10 @@ buildPythonPackage rec {
   # there are no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "bluetooth" "bluetooth.ble" ];
+  pythonImportsCheck = [
+    "bluetooth"
+    "bluetooth.ble"
+  ];
 
   meta = with lib; {
     description = "Bluetooth Python extension module";

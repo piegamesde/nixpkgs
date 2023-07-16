@@ -45,9 +45,21 @@ stdenv.mkDerivation rec {
 
   configureScript = "sh autogen.sh";
 
-  nativeBuildInputs = [ pkg-config automake autoconf intltool ];
-  buildInputs =
-    [ libtool gobject-introspection glib gtk2 gtk-doc clutter clutter-gtk ];
+  nativeBuildInputs = [
+    pkg-config
+    automake
+    autoconf
+    intltool
+  ];
+  buildInputs = [
+    libtool
+    gobject-introspection
+    glib
+    gtk2
+    gtk-doc
+    clutter
+    clutter-gtk
+  ];
 
   # patch to resolve GL errors
   # source : https://github.com/clutter-project/mx/pull/62

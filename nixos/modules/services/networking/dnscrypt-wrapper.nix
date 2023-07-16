@@ -107,11 +107,17 @@ let
 
       configureFlags = optional stdenv.isLinux "--with-systemd";
 
-      nativeBuildInputs = [ autoreconfHook pkg-config ];
+      nativeBuildInputs = [
+        autoreconfHook
+        pkg-config
+      ];
 
       # <ldns/ldns.h> depends on <openssl/ssl.h>
-      buildInputs = [ libsodium openssl.dev ldns ]
-        ++ optional stdenv.isLinux systemd;
+      buildInputs = [
+        libsodium
+        openssl.dev
+        ldns
+      ] ++ optional stdenv.isLinux systemd;
 
       postInstall = ''
         # Previous versions required libtool files to load plugins; they are
@@ -266,7 +272,11 @@ in {
       requires = [ "dnscrypt-wrapper.service" ];
       description = "Rotates DNSCrypt wrapper keys if soon to expire";
 
-      path = with pkgs; [ dnscrypt-wrapper dnscrypt-proxy1 gawk ];
+      path = with pkgs; [
+        dnscrypt-wrapper
+        dnscrypt-proxy1
+        gawk
+      ];
       script = rotateKeys;
       serviceConfig.User = "dnscrypt-wrapper";
     };
@@ -282,11 +292,11 @@ in {
       };
     };
 
-    assertions = with cfg; [{
+    assertions = with cfg; [ {
       assertion = (providerKey.public == null && providerKey.secret == null)
         || (providerKey.secret != null && providerKey.public != null);
       message = "The secret and public provider key must be set together.";
-    }];
+    } ];
 
   };
 

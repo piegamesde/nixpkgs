@@ -49,8 +49,18 @@ in gccStdenv.mkDerivation rec {
     sha256 = "sha256-OAKaRuPP0/n8pO3wIUvGKs6n+U+EmZXUTywXYDAan1o=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ openal enet SDL2 curl gettext libiconv ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    openal
+    enet
+    SDL2
+    curl
+    gettext
+    libiconv
+  ];
 
   preAutoreconf = ''
     autoupdate

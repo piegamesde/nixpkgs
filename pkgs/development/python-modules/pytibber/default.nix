@@ -27,11 +27,18 @@ buildPythonPackage rec {
     hash = "sha256-8JeQvvCxKAmFy8kiXVD+l1EBv5mO1rWYoAg+iLjapRw=";
   };
 
-  propagatedBuildInputs =
-    [ aiohttp async-timeout gql graphql-subscription-manager python-dateutil ]
-    ++ gql.optional-dependencies.websockets;
+  propagatedBuildInputs = [
+    aiohttp
+    async-timeout
+    gql
+    graphql-subscription-manager
+    python-dateutil
+  ] ++ gql.optional-dependencies.websockets;
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "test/test.py" ];
 

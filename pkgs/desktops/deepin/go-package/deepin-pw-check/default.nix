@@ -32,7 +32,11 @@ buildGoPackage rec {
 
   goDeps = ./deps.nix;
 
-  nativeBuildInputs = [ pkg-config gettext deepin-gettext-tools ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+    deepin-gettext-tools
+  ];
 
   buildInputs = [
     go-dbus-factory

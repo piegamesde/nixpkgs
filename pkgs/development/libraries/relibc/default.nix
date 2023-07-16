@@ -5,7 +5,10 @@
 }:
 
 let
-  rpath = lib.makeLibraryPath [ buildPackages.stdenv.cc.libc "$out" ];
+  rpath = lib.makeLibraryPath [
+    buildPackages.stdenv.cc.libc
+    "$out"
+  ];
   bootstrapCrossRust = stdenvNoCC.mkDerivation {
     name = "binary-redox-rust";
 

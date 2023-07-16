@@ -155,7 +155,10 @@ let
         description = lib.mdDoc "Datasource type. Required.";
       };
       access = mkOption {
-        type = types.enum [ "proxy" "direct" ];
+        type = types.enum [
+          "proxy"
+          "direct"
+        ];
         default = "proxy";
         description = lib.mdDoc
           "Access mode. proxy or direct (Server or Browser in the UI). Required.";
@@ -301,105 +304,171 @@ let
   };
 in {
   imports = [
-    (mkRenamedOptionModule [ "services" "grafana" "protocol" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "protocol"
+    ] [
       "services"
       "grafana"
       "settings"
       "server"
       "protocol"
     ])
-    (mkRenamedOptionModule [ "services" "grafana" "addr" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "addr"
+    ] [
       "services"
       "grafana"
       "settings"
       "server"
       "http_addr"
     ])
-    (mkRenamedOptionModule [ "services" "grafana" "port" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "port"
+    ] [
       "services"
       "grafana"
       "settings"
       "server"
       "http_port"
     ])
-    (mkRenamedOptionModule [ "services" "grafana" "domain" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "domain"
+    ] [
       "services"
       "grafana"
       "settings"
       "server"
       "domain"
     ])
-    (mkRenamedOptionModule [ "services" "grafana" "rootUrl" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "rootUrl"
+    ] [
       "services"
       "grafana"
       "settings"
       "server"
       "root_url"
     ])
-    (mkRenamedOptionModule [ "services" "grafana" "staticRootPath" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "staticRootPath"
+    ] [
       "services"
       "grafana"
       "settings"
       "server"
       "static_root_path"
     ])
-    (mkRenamedOptionModule [ "services" "grafana" "certFile" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "certFile"
+    ] [
       "services"
       "grafana"
       "settings"
       "server"
       "cert_file"
     ])
-    (mkRenamedOptionModule [ "services" "grafana" "certKey" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "certKey"
+    ] [
       "services"
       "grafana"
       "settings"
       "server"
       "cert_key"
     ])
-    (mkRenamedOptionModule [ "services" "grafana" "socket" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "socket"
+    ] [
       "services"
       "grafana"
       "settings"
       "server"
       "socket"
     ])
-    (mkRenamedOptionModule [ "services" "grafana" "database" "type" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "database"
+      "type"
+    ] [
       "services"
       "grafana"
       "settings"
       "database"
       "type"
     ])
-    (mkRenamedOptionModule [ "services" "grafana" "database" "host" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "database"
+      "host"
+    ] [
       "services"
       "grafana"
       "settings"
       "database"
       "host"
     ])
-    (mkRenamedOptionModule [ "services" "grafana" "database" "name" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "database"
+      "name"
+    ] [
       "services"
       "grafana"
       "settings"
       "database"
       "name"
     ])
-    (mkRenamedOptionModule [ "services" "grafana" "database" "user" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "database"
+      "user"
+    ] [
       "services"
       "grafana"
       "settings"
       "database"
       "user"
     ])
-    (mkRenamedOptionModule [ "services" "grafana" "database" "password" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "database"
+      "password"
+    ] [
       "services"
       "grafana"
       "settings"
       "database"
       "password"
     ])
-    (mkRenamedOptionModule [ "services" "grafana" "database" "path" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "database"
+      "path"
+    ] [
       "services"
       "grafana"
       "settings"
@@ -411,22 +480,43 @@ in {
       "grafana"
       "database"
       "connMaxLifetime"
-    ] [ "services" "grafana" "settings" "database" "conn_max_lifetime" ])
-    (mkRenamedOptionModule [ "services" "grafana" "security" "adminUser" ] [
+    ] [
+      "services"
+      "grafana"
+      "settings"
+      "database"
+      "conn_max_lifetime"
+    ])
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "security"
+      "adminUser"
+    ] [
       "services"
       "grafana"
       "settings"
       "security"
       "admin_user"
     ])
-    (mkRenamedOptionModule [ "services" "grafana" "security" "adminPassword" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "security"
+      "adminPassword"
+    ] [
       "services"
       "grafana"
       "settings"
       "security"
       "admin_password"
     ])
-    (mkRenamedOptionModule [ "services" "grafana" "security" "secretKey" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "security"
+      "secretKey"
+    ] [
       "services"
       "grafana"
       "settings"
@@ -438,50 +528,91 @@ in {
       "grafana"
       "server"
       "serveFromSubPath"
-    ] [ "services" "grafana" "settings" "server" "serve_from_sub_path" ])
-    (mkRenamedOptionModule [ "services" "grafana" "smtp" "enable" ] [
+    ] [
+      "services"
+      "grafana"
+      "settings"
+      "server"
+      "serve_from_sub_path"
+    ])
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "smtp"
+      "enable"
+    ] [
       "services"
       "grafana"
       "settings"
       "smtp"
       "enabled"
     ])
-    (mkRenamedOptionModule [ "services" "grafana" "smtp" "user" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "smtp"
+      "user"
+    ] [
       "services"
       "grafana"
       "settings"
       "smtp"
       "user"
     ])
-    (mkRenamedOptionModule [ "services" "grafana" "smtp" "password" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "smtp"
+      "password"
+    ] [
       "services"
       "grafana"
       "settings"
       "smtp"
       "password"
     ])
-    (mkRenamedOptionModule [ "services" "grafana" "smtp" "fromAddress" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "smtp"
+      "fromAddress"
+    ] [
       "services"
       "grafana"
       "settings"
       "smtp"
       "from_address"
     ])
-    (mkRenamedOptionModule [ "services" "grafana" "users" "allowSignUp" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "users"
+      "allowSignUp"
+    ] [
       "services"
       "grafana"
       "settings"
       "users"
       "allow_sign_up"
     ])
-    (mkRenamedOptionModule [ "services" "grafana" "users" "allowOrgCreate" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "users"
+      "allowOrgCreate"
+    ] [
       "services"
       "grafana"
       "settings"
       "users"
       "allow_org_create"
     ])
-    (mkRenamedOptionModule [ "services" "grafana" "users" "autoAssignOrg" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "users"
+      "autoAssignOrg"
+    ] [
       "services"
       "grafana"
       "settings"
@@ -493,8 +624,19 @@ in {
       "grafana"
       "users"
       "autoAssignOrgRole"
-    ] [ "services" "grafana" "settings" "users" "auto_assign_org_role" ])
-    (mkRenamedOptionModule [ "services" "grafana" "auth" "disableLoginForm" ] [
+    ] [
+      "services"
+      "grafana"
+      "settings"
+      "users"
+      "auto_assign_org_role"
+    ])
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "auth"
+      "disableLoginForm"
+    ] [
       "services"
       "grafana"
       "settings"
@@ -507,22 +649,46 @@ in {
       "auth"
       "anonymous"
       "enable"
-    ] [ "services" "grafana" "settings" "auth.anonymous" "enabled" ])
+    ] [
+      "services"
+      "grafana"
+      "settings"
+      "auth.anonymous"
+      "enabled"
+    ])
     (mkRenamedOptionModule [
       "services"
       "grafana"
       "auth"
       "anonymous"
       "org_name"
-    ] [ "services" "grafana" "settings" "auth.anonymous" "org_name" ])
+    ] [
+      "services"
+      "grafana"
+      "settings"
+      "auth.anonymous"
+      "org_name"
+    ])
     (mkRenamedOptionModule [
       "services"
       "grafana"
       "auth"
       "anonymous"
       "org_role"
-    ] [ "services" "grafana" "settings" "auth.anonymous" "org_role" ])
-    (mkRenamedOptionModule [ "services" "grafana" "auth" "azuread" "enable" ] [
+    ] [
+      "services"
+      "grafana"
+      "settings"
+      "auth.anonymous"
+      "org_role"
+    ])
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "auth"
+      "azuread"
+      "enable"
+    ] [
       "services"
       "grafana"
       "settings"
@@ -535,29 +701,59 @@ in {
       "auth"
       "azuread"
       "allowSignUp"
-    ] [ "services" "grafana" "settings" "auth.azuread" "allow_sign_up" ])
+    ] [
+      "services"
+      "grafana"
+      "settings"
+      "auth.azuread"
+      "allow_sign_up"
+    ])
     (mkRenamedOptionModule [
       "services"
       "grafana"
       "auth"
       "azuread"
       "clientId"
-    ] [ "services" "grafana" "settings" "auth.azuread" "client_id" ])
+    ] [
+      "services"
+      "grafana"
+      "settings"
+      "auth.azuread"
+      "client_id"
+    ])
     (mkRenamedOptionModule [
       "services"
       "grafana"
       "auth"
       "azuread"
       "allowedDomains"
-    ] [ "services" "grafana" "settings" "auth.azuread" "allowed_domains" ])
+    ] [
+      "services"
+      "grafana"
+      "settings"
+      "auth.azuread"
+      "allowed_domains"
+    ])
     (mkRenamedOptionModule [
       "services"
       "grafana"
       "auth"
       "azuread"
       "allowedGroups"
-    ] [ "services" "grafana" "settings" "auth.azuread" "allowed_groups" ])
-    (mkRenamedOptionModule [ "services" "grafana" "auth" "google" "enable" ] [
+    ] [
+      "services"
+      "grafana"
+      "settings"
+      "auth.azuread"
+      "allowed_groups"
+    ])
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "auth"
+      "google"
+      "enable"
+    ] [
       "services"
       "grafana"
       "settings"
@@ -570,8 +766,20 @@ in {
       "auth"
       "google"
       "allowSignUp"
-    ] [ "services" "grafana" "settings" "auth.google" "allow_sign_up" ])
-    (mkRenamedOptionModule [ "services" "grafana" "auth" "google" "clientId" ] [
+    ] [
+      "services"
+      "grafana"
+      "settings"
+      "auth.google"
+      "allow_sign_up"
+    ])
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "auth"
+      "google"
+      "clientId"
+    ] [
       "services"
       "grafana"
       "settings"
@@ -584,9 +792,20 @@ in {
       "analytics"
       "reporting"
       "enable"
-    ] [ "services" "grafana" "settings" "analytics" "reporting_enabled" ])
+    ] [
+      "services"
+      "grafana"
+      "settings"
+      "analytics"
+      "reporting_enabled"
+    ])
 
-    (mkRemovedOptionModule [ "services" "grafana" "database" "passwordFile" ] ''
+    (mkRemovedOptionModule [
+      "services"
+      "grafana"
+      "database"
+      "passwordFile"
+    ] ''
       This option has been removed. Use 'services.grafana.settings.database.password' with file provider instead.
     '')
     (mkRemovedOptionModule [
@@ -605,7 +824,12 @@ in {
     ] ''
       This option has been removed. Use 'services.grafana.settings.security.secret_key' with file provider instead.
     '')
-    (mkRemovedOptionModule [ "services" "grafana" "smtp" "passwordFile" ] ''
+    (mkRemovedOptionModule [
+      "services"
+      "grafana"
+      "smtp"
+      "passwordFile"
+    ] ''
       This option has been removed. Use 'services.grafana.settings.smtp.password' with file provider instead.
     '')
     (mkRemovedOptionModule [
@@ -626,13 +850,22 @@ in {
     ] ''
       This option has been removed. Use 'services.grafana.settings.google.client_secret' with file provider instead.
     '')
-    (mkRemovedOptionModule [ "services" "grafana" "extraOptions" ] ''
+    (mkRemovedOptionModule [
+      "services"
+      "grafana"
+      "extraOptions"
+    ] ''
       This option has been removed. Use 'services.grafana.settings' instead. For a detailed migration guide, please
       review the release notes of NixOS 22.11.
     '')
 
-    (mkRemovedOptionModule [ "services" "grafana" "auth" "azuread" "tenantId" ]
-      "This option has been deprecated upstream.")
+    (mkRemovedOptionModule [
+      "services"
+      "grafana"
+      "auth"
+      "azuread"
+      "tenantId"
+    ] "This option has been deprecated upstream.")
   ];
 
   options.services.grafana = {
@@ -702,7 +935,12 @@ in {
             protocol = mkOption {
               description = lib.mdDoc "Which protocol to listen.";
               default = "http";
-              type = types.enum [ "http" "https" "h2" "socket" ];
+              type = types.enum [
+                "http"
+                "https"
+                "h2"
+                "socket"
+              ];
             };
 
             http_addr = mkOption {
@@ -777,7 +1015,11 @@ in {
             type = mkOption {
               description = lib.mdDoc "Database type.";
               default = "sqlite3";
-              type = types.enum [ "mysql" "sqlite3" "postgres" ];
+              type = types.enum [
+                "mysql"
+                "sqlite3"
+                "postgres"
+              ];
             };
 
             host = mkOption {
@@ -911,7 +1153,11 @@ in {
               description =
                 lib.mdDoc "Default role new users will be auto assigned.";
               default = "Viewer";
-              type = types.enum [ "Viewer" "Editor" "Admin" ];
+              type = types.enum [
+                "Viewer"
+                "Editor"
+                "Admin"
+              ];
             };
           };
 
@@ -1659,12 +1905,10 @@ in {
         RuntimeDirectory = "grafana";
         RuntimeDirectoryMode = "0755";
         # Hardening
-        AmbientCapabilities = lib.mkIf (cfg.settings.server.http_port < 1024)
-          [ "CAP_NET_BIND_SERVICE" ];
-        CapabilityBoundingSet = if (cfg.settings.server.http_port < 1024) then
-          [ "CAP_NET_BIND_SERVICE" ]
-        else
-          [ "" ];
+        AmbientCapabilities = lib.mkIf
+          (cfg.settings.server.http_port < 1024) [ "CAP_NET_BIND_SERVICE" ];
+        CapabilityBoundingSet = if (cfg.settings.server.http_port
+          < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
         DeviceAllow = [ "" ];
         LockPersonality = true;
         NoNewPrivileges = true;
@@ -1680,16 +1924,22 @@ in {
         ProtectProc = "invisible";
         ProtectSystem = "full";
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
         # Upstream grafana is not setting SystemCallFilter for compatibility
         # reasons, see https://github.com/grafana/grafana/pull/40176
-        SystemCallFilter = [ "@system-service" "~@privileged" ]
-          ++ lib.optionals (cfg.settings.server.protocol == "socket")
-          [ "@chown" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+        ] ++ lib.optionals
+          (cfg.settings.server.protocol == "socket") [ "@chown" ];
         UMask = "0027";
       };
       preStart = ''

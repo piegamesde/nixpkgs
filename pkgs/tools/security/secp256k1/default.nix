@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  configureFlags = [ "--enable-benchmark=no" "--enable-module-recovery" ];
+  configureFlags = [
+    "--enable-benchmark=no"
+    "--enable-module-recovery"
+  ];
 
   doCheck = true;
 

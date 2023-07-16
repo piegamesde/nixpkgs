@@ -19,11 +19,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-BNuJEVuzreI2AK/fqVMRHq8ZhPQjO33Y2FzkrWlfmm0=";
   };
 
-  nativeBuildInputs = [ mercury pandoc ];
+  nativeBuildInputs = [
+    mercury
+    pandoc
+  ];
 
-  buildInputs = [ ncurses gpgme ];
+  buildInputs = [
+    ncurses
+    gpgme
+  ];
 
-  makeFlags = [ "PARALLEL=-j$(NIX_BUILD_CORES)" "bower" "man" ];
+  makeFlags = [
+    "PARALLEL=-j$(NIX_BUILD_CORES)"
+    "bower"
+    "man"
+  ];
 
   installPhase = ''
     runHook preInstall

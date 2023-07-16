@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-0y2bHT7YEfTvDxTm6yLl3GmnPUYEieoGEnwkzfA6mOg=";
   };
 
-  nativeCheckInputs = [ astunparse pytestCheckHook ];
+  nativeCheckInputs = [
+    astunparse
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "gast" ];
 
@@ -30,6 +33,9 @@ buildPythonPackage rec {
       "Compatibility layer between the AST of various Python versions";
     homepage = "https://github.com/serge-sans-paille/gast/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jyp cpcloud ];
+    maintainers = with maintainers; [
+      jyp
+      cpcloud
+    ];
   };
 }

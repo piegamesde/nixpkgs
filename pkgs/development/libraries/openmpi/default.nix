@@ -42,7 +42,10 @@
 let
   cudatoolkit_joined = symlinkJoin {
     name = "${cudatoolkit.name}-unsplit";
-    paths = [ cudatoolkit.out cudatoolkit.lib ];
+    paths = [
+      cudatoolkit.out
+      cudatoolkit.lib
+    ];
   };
 in stdenv.mkDerivation rec {
   pname = "openmpi";
@@ -67,11 +70,19 @@ in stdenv.mkDerivation rec {
     find -name "Makefile.in" -exec sed -i "s/\`date\`/$ts/" \{} \;
   '';
 
-  buildInputs = [ zlib ]
-    ++ lib.optionals stdenv.isLinux [ libnl numactl pmix ucx ]
-    ++ lib.optionals cudaSupport [ cudatoolkit ] ++ [ libevent hwloc ]
-    ++ lib.optional (stdenv.isLinux || stdenv.isFreeBSD) rdma-core
-    ++ lib.optionals fabricSupport [ libpsm2 libfabric ];
+  buildInputs = [ zlib ] ++ lib.optionals stdenv.isLinux [
+    libnl
+    numactl
+    pmix
+    ucx
+  ] ++ lib.optionals cudaSupport [ cudatoolkit ] ++ [
+    libevent
+    hwloc
+  ] ++ lib.optional (stdenv.isLinux || stdenv.isFreeBSD) rdma-core
+    ++ lib.optionals fabricSupport [
+      libpsm2
+      libfabric
+    ];
 
   nativeBuildInputs = [ perl ] ++ lib.optionals fortranSupport [ gfortran ];
 

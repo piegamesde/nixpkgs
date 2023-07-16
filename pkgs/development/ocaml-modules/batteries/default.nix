@@ -27,10 +27,17 @@ else
       hash = "sha256-D/0h0/70V8jmzHIUR6i2sT2Jz9/+tfR2dQgp4Bxtimc=";
     };
 
-    nativeBuildInputs = [ ocaml findlib ocamlbuild ];
+    nativeBuildInputs = [
+      ocaml
+      findlib
+      ocamlbuild
+    ];
     nativeCheckInputs = [ qtest ];
     checkInputs = [ qcheck ];
-    propagatedBuildInputs = [ camlp-streams num ];
+    propagatedBuildInputs = [
+      camlp-streams
+      num
+    ];
 
     strictDeps = true;
 

@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "h6+br+JPEItym83MaVt+xo6o/zMtTv8+wsBoTeYa2AM=";
   };
 
-  buildInputs = [ pahole linuxHeaders ];
+  buildInputs = [
+    pahole
+    linuxHeaders
+  ];
 
   makeFlags =
     [ "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];

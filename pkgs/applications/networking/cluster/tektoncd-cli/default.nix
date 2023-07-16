@@ -70,7 +70,11 @@ buildGoModule rec {
       Pipelines.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ jk mstrangfeld vdemeester ];
+    maintainers = with maintainers; [
+      jk
+      mstrangfeld
+      vdemeester
+    ];
     mainProgram = "tkn";
   };
 }

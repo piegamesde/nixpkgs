@@ -30,7 +30,12 @@ stdenvNoCC.mkDerivation rec {
     patchShebangs $out/bin
 
     wrapProgram $out/bin/quill-qr.sh --prefix PATH : "${
-      lib.makeBinPath [ qrencode coreutils jq gzip ]
+      lib.makeBinPath [
+        qrencode
+        coreutils
+        jq
+        gzip
+      ]
     }"
   '';
 

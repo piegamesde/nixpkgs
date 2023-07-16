@@ -26,7 +26,13 @@ let
     (targetPlatform.config + "-");
 
   # See description in cc-wrapper.
-  suffixSalt = replaceStrings [ "-" "." ] [ "_" "_" ] targetPlatform.config;
+  suffixSalt = replaceStrings [
+    "-"
+    "."
+  ] [
+    "_"
+    "_"
+  ] targetPlatform.config;
 
 in stdenv.mkDerivation {
   pname = targetPrefix + pkg-config.pname + "-wrapper";
@@ -79,7 +85,10 @@ in stdenv.mkDerivation {
       ln -s ${pkg-config}/share $out/share
     '';
 
-  setupHooks = [ ../setup-hooks/role.bash ./setup-hook.sh ];
+  setupHooks = [
+    ../setup-hooks/role.bash
+    ./setup-hook.sh
+  ];
 
   postFixup =
     ##
@@ -122,9 +131,10 @@ in stdenv.mkDerivation {
     removeAttrs pkg-config.meta [ "priority" ]
   else
     { }) // {
-      description =
-        lib.attrByPath [ "meta" "description" ] "pkg-config" pkg-config_
-        + " (wrapper script)";
+      description = lib.attrByPath [
+        "meta"
+        "description"
+      ] "pkg-config" pkg-config_ + " (wrapper script)";
       priority = 10;
     };
 }

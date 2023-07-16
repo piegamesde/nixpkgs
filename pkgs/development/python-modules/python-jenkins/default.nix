@@ -32,9 +32,20 @@ buildPythonPackage rec {
   '';
 
   buildInputs = [ mock ];
-  propagatedBuildInputs = [ pbr pyyaml setuptools six multi_key_dict requests ];
+  propagatedBuildInputs = [
+    pbr
+    pyyaml
+    setuptools
+    six
+    multi_key_dict
+    requests
+  ];
 
-  nativeCheckInputs = [ stestr testscenarios requests-mock ];
+  nativeCheckInputs = [
+    stestr
+    testscenarios
+    requests-mock
+  ];
   checkPhase = ''
     stestr run
   '';

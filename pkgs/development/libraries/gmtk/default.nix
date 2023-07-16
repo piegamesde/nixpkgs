@@ -24,15 +24,21 @@ stdenv.mkDerivation rec {
     sha256 = "1zb5m1y1gckal3140gvx31572a6xpccwfmdwa1w5lx2wdq1pwk1i";
   };
 
-  nativeBuildInputs = [ libtool pkg-config intltool ];
-  buildInputs = [ glib gtk3 libpulseaudio ];
-
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      mplayer = "${mplayer}/bin/mplayer";
-    })
+  nativeBuildInputs = [
+    libtool
+    pkg-config
+    intltool
   ];
+  buildInputs = [
+    glib
+    gtk3
+    libpulseaudio
+  ];
+
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    mplayer = "${mplayer}/bin/mplayer";
+  }) ];
 
   meta = with lib; {
     description = "Common functions for gnome-mplayer and gecko-mediaplayer";

@@ -49,6 +49,9 @@ buildPythonPackage rec {
     description = "Python bindings for Unicorn CPU emulator engine";
     homepage = "https://www.unicorn-engine.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ bennofs ris ];
+    maintainers = with maintainers; [
+      bennofs
+      ris
+    ];
   };
 }

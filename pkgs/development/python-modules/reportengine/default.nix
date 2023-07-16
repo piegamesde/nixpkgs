@@ -27,10 +27,21 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit ];
 
-  propagatedBuildInputs =
-    [ jinja2 ruamel-yaml matplotlib pandas pygments blessings curio ];
+  propagatedBuildInputs = [
+    jinja2
+    ruamel-yaml
+    matplotlib
+    pandas
+    pygments
+    blessings
+    curio
+  ];
 
-  nativeCheckInputs = [ hypothesis pandoc pytestCheckHook ];
+  nativeCheckInputs = [
+    hypothesis
+    pandoc
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "reportengine" ];
 

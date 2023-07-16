@@ -113,7 +113,10 @@ let
 
     # Input file formats
     (mkFlag cddbSupport "CONFIG_CDDB=y" libcddb)
-    (mkFlag cdioSupport "CONFIG_CDIO=y" [ libcdio libcdio-paranoia ])
+    (mkFlag cdioSupport "CONFIG_CDIO=y" [
+      libcdio
+      libcdio-paranoia
+    ])
     (mkFlag cueSupport "CONFIG_CUE=y" libcue)
     (mkFlag discidSupport "CONFIG_DISCID=y" libdiscid)
     (mkFlag ffmpegSupport "CONFIG_FFMPEG=y" ffmpeg)
@@ -156,8 +159,10 @@ in stdenv.mkDerivation rec {
 
   prefixKey = "prefix=";
 
-  configureFlags = [ "CONFIG_WAV=y" "HOSTCC=${stdenv.cc.targetPrefix}cc" ]
-    ++ lib.concatMap (a: a.flags) opts;
+  configureFlags = [
+    "CONFIG_WAV=y"
+    "HOSTCC=${stdenv.cc.targetPrefix}cc"
+  ] ++ lib.concatMap (a: a.flags) opts;
 
   makeFlags = [ "LD=$(CC)" ];
 

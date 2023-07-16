@@ -67,9 +67,13 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-NkhEKeGTYUaFwv8kb1W9Cm3d8xoBi+5F4NH3wohRmV4=";
   };
 
-  nativeBuildInputs =
-    [ makeWrapper perl perlPackages.HTMLParser pkg-config xxd ]
-    ++ optional (uilib == "gtk2" || uilib == "gtk3") wrapGAppsHook;
+  nativeBuildInputs = [
+    makeWrapper
+    perl
+    perlPackages.HTMLParser
+    pkg-config
+    xxd
+  ] ++ optional (uilib == "gtk2" || uilib == "gtk3") wrapGAppsHook;
 
   buildInputs = [
     check
@@ -97,8 +101,10 @@ in stdenv.mkDerivation rec {
     libnsutils
     libnspsl
     libutf8proc
-  ] ++ optionals (uilib == "framebuffer") [ expat SDL ]
-    ++ optional (uilib == "gtk2") gtk2 ++ optional (uilib == "gtk3") gtk3;
+  ] ++ optionals (uilib == "framebuffer") [
+    expat
+    SDL
+  ] ++ optional (uilib == "gtk2") gtk2 ++ optional (uilib == "gtk3") gtk3;
 
   preConfigure = ''
     cat <<EOF > Makefile.conf
@@ -107,7 +113,10 @@ in stdenv.mkDerivation rec {
     EOF
   '';
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" "TARGET=${uilib}" ];
+  makeFlags = [
+    "PREFIX=${placeholder "out"}"
+    "TARGET=${uilib}"
+  ];
 
   meta = with lib; {
     homepage = "https://www.netsurf-browser.org/";
@@ -119,7 +128,10 @@ in stdenv.mkDerivation rec {
       capable of handling many of the web standards in use today.
     '';
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.vrthra maintainers.AndersonTorres ];
+    maintainers = [
+      maintainers.vrthra
+      maintainers.AndersonTorres
+    ];
     platforms = platforms.linux;
   };
 }

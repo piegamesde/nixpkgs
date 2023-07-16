@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-th3lp4WqqruHx2/ym3I041y2wLbYM1b+V6yXNOWuUvM=";
   };
 
-  nativeBuildInputs = [ cmake python3 ];
+  nativeBuildInputs = [
+    cmake
+    python3
+  ];
 
   meta = with lib; {
     description =

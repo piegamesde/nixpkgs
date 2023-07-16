@@ -56,5 +56,8 @@ let
   '';
 in _experimental-update-script-combinators.sequence [
   updateSource
-  [ updateLocks ./. ]
+  [
+    updateLocks
+    ./.
+  ]
 ]

@@ -20,7 +20,11 @@ stdenv.mkDerivation {
   buildInputs = [ docutils ];
   nativeBuildInputs = [ installShellFiles ];
 
-  outputs = [ "out" "doc" "man" ];
+  outputs = [
+    "out"
+    "doc"
+    "man"
+  ];
 
   configurePhase = ''
     export RST2MAN=rst2man

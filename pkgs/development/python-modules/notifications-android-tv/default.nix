@@ -31,7 +31,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  checkInputs = [ pytest-asyncio pytest-httpx ];
+  checkInputs = [
+    pytest-asyncio
+    pytest-httpx
+  ];
 
   meta = with lib; {
     description = "Python API for sending notifications to Android/Fire TVs";

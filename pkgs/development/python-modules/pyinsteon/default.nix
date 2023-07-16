@@ -30,10 +30,19 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs =
-    [ aiofiles aiohttp pypubsub pyserial pyserial-asyncio voluptuous ];
+  propagatedBuildInputs = [
+    aiofiles
+    aiohttp
+    pypubsub
+    pyserial
+    pyserial-asyncio
+    voluptuous
+  ];
 
-  nativeCheckInputs = [ async_generator pytestCheckHook ];
+  nativeCheckInputs = [
+    async_generator
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pyinsteon" ];
 

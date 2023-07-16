@@ -22,9 +22,18 @@ mkDerivation rec {
     sha256 = "sha256-sFNKyqzNrPAGitmR8YEtIf6vtnvAP7+jXk4GFnDeGJs=";
   };
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
-  buildInputs = [ qtbase qtserialport qtermwidget libcprime libcsys ];
+  buildInputs = [
+    qtbase
+    qtserialport
+    qtermwidget
+    libcprime
+    libcsys
+  ];
 
   meta = with lib; {
     description = "A terminal emulator from the C Suite";

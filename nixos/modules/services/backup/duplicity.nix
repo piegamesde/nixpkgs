@@ -84,7 +84,10 @@ in {
     extraFlags = mkOption {
       type = types.listOf types.str;
       default = [ ];
-      example = [ "--backend-retry-delay" "100" ];
+      example = [
+        "--backend-retry-delay"
+        "100"
+      ];
       description = lib.mdDoc ''
         Extra command-line flags passed to duplicity. See
         {manpage}`duplicity(1)`.
@@ -147,8 +150,10 @@ in {
 
         script = let
           target = escapeShellArg cfg.targetUrl;
-          extra = escapeShellArgs
-            ([ "--archive-dir" stateDirectory ] ++ cfg.extraFlags);
+          extra = escapeShellArgs ([
+            "--archive-dir"
+            stateDirectory
+          ] ++ cfg.extraFlags);
           dup = "${pkgs.duplicity}/bin/duplicity";
         in ''
           set -x
@@ -168,11 +173,20 @@ in {
           exec ${dup} ${
             if cfg.fullIfOlderThan == "always" then "full" else "incr"
           } ${
-            lib.escapeShellArgs ([ cfg.root cfg.targetUrl ]
-              ++ concatMap (p: [ "--include" p ]) cfg.include
-              ++ concatMap (p: [ "--exclude" p ]) cfg.exclude ++ (lib.optionals
-                (cfg.fullIfOlderThan != "never" && cfg.fullIfOlderThan
-                  != "always") [ "--full-if-older-than" cfg.fullIfOlderThan ]))
+            lib.escapeShellArgs ([
+              cfg.root
+              cfg.targetUrl
+            ] ++ concatMap (p: [
+              "--include"
+              p
+            ]) cfg.include ++ concatMap (p: [
+              "--exclude"
+              p
+            ]) cfg.exclude ++ (lib.optionals (cfg.fullIfOlderThan != "never"
+              && cfg.fullIfOlderThan != "always") [
+                "--full-if-older-than"
+                cfg.fullIfOlderThan
+              ]))
           } ${extra}
         '';
         serviceConfig = {

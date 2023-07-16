@@ -28,7 +28,10 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     wrapProgram $out/bin/git-reparent --prefix PATH : "${
-      lib.makeBinPath [ git gnused ]
+      lib.makeBinPath [
+        git
+        gnused
+      ]
     }"
   '';
 

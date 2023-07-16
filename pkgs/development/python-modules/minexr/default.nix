@@ -21,7 +21,10 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ numpy ];
 
   pythonImportsCheck = [ "minexr" ];
-  nativeCheckInputs = [ pytestCheckHook pillow ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pillow
+  ];
 
   meta = with lib; {
     description =

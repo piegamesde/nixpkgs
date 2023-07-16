@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "prefix=${placeholder "out"}" ];
 
-  nativeBuildInputs = [ perl git ];
+  nativeBuildInputs = [
+    perl
+    git
+  ];
 
   postInstall = ''
     install -Dm644 README -t "$out/share/doc/${pname}-${version}/"

@@ -122,7 +122,11 @@ in stdenv.mkDerivation (finalAttrs: {
   pname = "mpv";
   version = "0.35.1";
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
   src = fetchFromGitHub {
     owner = "mpv-player";
@@ -131,15 +135,13 @@ in stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-CoYTX9hgxLo72YdMoa0sEywg4kybHbFsypHk1rCM6tM=";
   };
 
-  patches = [
-    (fetchpatch {
-      # fixes EDL error on youtube DASH streams https://github.com/mpv-player/mpv/issues/11392
-      # to be removed on next release
-      url =
-        "https://github.com/mpv-player/mpv/commit/94c189dae76ba280d9883b16346c3dfb9720687e.patch";
-      sha256 = "sha256-GeAltLAwkOKk82YfXYSrkNEX08uPauh7+kVbBGPWeT8=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    # fixes EDL error on youtube DASH streams https://github.com/mpv-player/mpv/issues/11392
+    # to be removed on next release
+    url =
+      "https://github.com/mpv-player/mpv/commit/94c189dae76ba280d9883b16346c3dfb9720687e.patch";
+    sha256 = "sha256-GeAltLAwkOKk82YfXYSrkNEX08uPauh7+kVbBGPWeT8=";
+  }) ];
 
   postPatch = ''
     patchShebangs version.* ./TOOLS/
@@ -180,17 +182,27 @@ in stdenv.mkDerivation (finalAttrs: {
     ++ lib.optionals swiftSupport [ swift ]
     ++ lib.optionals waylandSupport [ wayland-scanner ];
 
-  buildInputs = [ ffmpeg_5 freetype libass libpthreadstubs libuchardet luaEnv ]
-    ++ lib.optionals alsaSupport [ alsa-lib ]
+  buildInputs = [
+    ffmpeg_5
+    freetype
+    libass
+    libpthreadstubs
+    libuchardet
+    luaEnv
+  ] ++ lib.optionals alsaSupport [ alsa-lib ]
     ++ lib.optionals archiveSupport [ libarchive ]
     ++ lib.optionals bluraySupport [ libbluray ]
     ++ lib.optionals bs2bSupport [ libbs2b ]
-    ++ lib.optionals cacaSupport [ libcaca ]
-    ++ lib.optionals cddaSupport [ libcdio libcdio-paranoia ]
-    ++ lib.optionals cmsSupport [ lcms2 ]
-    ++ lib.optionals drmSupport [ libdrm mesa ]
-    ++ lib.optionals dvdnavSupport [ libdvdnav libdvdnav.libdvdread ]
-    ++ lib.optionals jackaudioSupport [ libjack2 ]
+    ++ lib.optionals cacaSupport [ libcaca ] ++ lib.optionals cddaSupport [
+      libcdio
+      libcdio-paranoia
+    ] ++ lib.optionals cmsSupport [ lcms2 ] ++ lib.optionals drmSupport [
+      libdrm
+      mesa
+    ] ++ lib.optionals dvdnavSupport [
+      libdvdnav
+      libdvdnav.libdvdread
+    ] ++ lib.optionals jackaudioSupport [ libjack2 ]
     ++ lib.optionals javascriptSupport [ mujs ]
     ++ lib.optionals libpngSupport [ libpng ]
     ++ lib.optionals openalSupport [ openalSoft ]
@@ -209,8 +221,11 @@ in stdenv.mkDerivation (finalAttrs: {
       shaderc
       vulkan-headers
       vulkan-loader
-    ] ++ lib.optionals waylandSupport [ wayland wayland-protocols libxkbcommon ]
-    ++ lib.optionals x11Support [
+    ] ++ lib.optionals waylandSupport [
+      wayland
+      wayland-protocols
+      libxkbcommon
+    ] ++ lib.optionals x11Support [
       libX11
       libXext
       libGLU

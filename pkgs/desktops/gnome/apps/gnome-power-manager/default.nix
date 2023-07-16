@@ -39,7 +39,11 @@ stdenv.mkDerivation rec {
     desktop-file-utils
   ];
 
-  buildInputs = [ gtk3 glib upower ];
+  buildInputs = [
+    gtk3
+    glib
+    upower
+  ];
 
   passthru = {
     updateScript = gnome.updateScript {

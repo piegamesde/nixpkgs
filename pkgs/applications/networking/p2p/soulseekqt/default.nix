@@ -29,8 +29,15 @@ mkDerivation rec {
   dontBuild = true;
   dontConfigure = true;
 
-  nativeBuildInputs = [ imagemagick autoPatchelfHook desktop-file-utils ];
-  buildInputs = [ qtmultimedia stdenv.cc.cc ];
+  nativeBuildInputs = [
+    imagemagick
+    autoPatchelfHook
+    desktop-file-utils
+  ];
+  buildInputs = [
+    qtmultimedia
+    stdenv.cc.cc
+  ];
 
   installPhase = ''
     # directory in /nix/store so readonly

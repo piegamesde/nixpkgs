@@ -30,7 +30,10 @@ python3Packages.buildPythonApplication rec {
     webkitgtk
   ];
 
-  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
+  nativeBuildInputs = [
+    gobject-introspection
+    wrapGAppsHook
+  ];
 
   propagatedBuildInputs = with python3Packages;
     [
@@ -60,6 +63,9 @@ python3Packages.buildPythonApplication rec {
     description =
       "ROM hacking tool for Pokémon Mystery Dungeon Explorers of Sky";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ xfix marius851000 ];
+    maintainers = with maintainers; [
+      xfix
+      marius851000
+    ];
   };
 }

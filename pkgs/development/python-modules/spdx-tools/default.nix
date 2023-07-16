@@ -23,7 +23,13 @@ buildPythonPackage rec {
     hash = "sha256-QqKMKBedWOFYF1av9IgQuyJ6b5mNhhMpIZVJdEDcAK8=";
   };
 
-  propagatedBuildInputs = [ click ply pyyaml rdflib xmltodict ];
+  propagatedBuildInputs = [
+    click
+    ply
+    pyyaml
+    rdflib
+    xmltodict
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

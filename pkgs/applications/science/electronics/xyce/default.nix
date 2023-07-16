@@ -74,16 +74,25 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ autoconf automake gfortran libtool_2 ]
-    ++ lib.optionals enableDocs [
-      (texlive.combine {
-        inherit (texlive)
-          scheme-medium koma-script optional framed enumitem multirow preprint;
-      })
-    ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    gfortran
+    libtool_2
+  ] ++ lib.optionals enableDocs [ (texlive.combine {
+    inherit (texlive)
+      scheme-medium koma-script optional framed enumitem multirow preprint;
+  }) ];
 
-  buildInputs = [ bison blas flex fftw lapack suitesparse trilinos ]
-    ++ lib.optionals withMPI [ mpi ];
+  buildInputs = [
+    bison
+    blas
+    flex
+    fftw
+    lapack
+    suitesparse
+    trilinos
+  ] ++ lib.optionals withMPI [ mpi ];
 
   doCheck = enableTests;
 
@@ -102,9 +111,18 @@ stdenv.mkDerivation rec {
     popd
   '';
 
-  nativeCheckInputs =
-    [ bc perl (python3.withPackages (ps: with ps; [ numpy scipy ])) ]
-    ++ lib.optionals withMPI [ mpi openssh ];
+  nativeCheckInputs = [
+    bc
+    perl
+    (python3.withPackages (ps:
+      with ps; [
+        numpy
+        scipy
+      ]))
+  ] ++ lib.optionals withMPI [
+    mpi
+    openssh
+  ];
 
   checkPhase = ''
     XYCE_BINARY="$(pwd)/src/Xyce"
@@ -130,7 +148,10 @@ stdenv.mkDerivation rec {
       "''${EXECSTRING}"
   '';
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   postInstall = lib.optionalString enableDocs ''
     local docFiles=("doc/Users_Guide/Xyce_UG"

@@ -20,7 +20,10 @@ buildDunePackage rec {
 
   nativeBuildInputs = [ camlidl ];
   buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [ camlidl fuse ];
+  propagatedBuildInputs = [
+    camlidl
+    fuse
+  ];
 
   meta = {
     homepage = "https://sourceforge.net/projects/ocamlfuse";

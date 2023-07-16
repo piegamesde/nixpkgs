@@ -34,10 +34,21 @@ buildPythonPackage rec {
       --replace '"pytest-runner>=5.2",' ""
   '';
 
-  propagatedBuildInputs =
-    [ click defusedxml dicttoxml httpx pycryptodome typing-extensions ];
+  propagatedBuildInputs = [
+    click
+    defusedxml
+    dicttoxml
+    httpx
+    pycryptodome
+    typing-extensions
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytest-raises pytestCheckHook respx ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-raises
+    pytestCheckHook
+    respx
+  ];
 
   pythonImportsCheck = [ "ismartgate" ];
 

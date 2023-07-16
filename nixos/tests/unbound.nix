@@ -60,14 +60,14 @@ import ./make-test-python.nix ({
           ...
         }: {
           imports = [ common ];
-          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [{
+          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
             address = "192.168.0.1";
             prefixLength = 24;
-          }];
-          networking.interfaces.eth1.ipv6.addresses = lib.mkForce [{
+          } ];
+          networking.interfaces.eth1.ipv6.addresses = lib.mkForce [ {
             address = "fd21::1";
             prefixLength = 64;
-          }];
+          } ];
           networking.firewall.allowedTCPPorts = [ 53 ];
           networking.firewall.allowedUDPPorts = [ 53 ];
 
@@ -75,7 +75,12 @@ import ./make-test-python.nix ({
             enable = true;
             settings = {
               server = {
-                interface = [ "192.168.0.1" "fd21::1" "::1" "127.0.0.1" ];
+                interface = [
+                  "192.168.0.1"
+                  "fd21::1"
+                  "::1"
+                  "127.0.0.1"
+                ];
                 access-control = [
                   "192.168.0.0/24 allow"
                   "fd21::/64 allow"
@@ -99,14 +104,14 @@ import ./make-test-python.nix ({
           ...
         }: {
           imports = [ common ];
-          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [{
+          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
             address = "192.168.0.2";
             prefixLength = 24;
-          }];
-          networking.interfaces.eth1.ipv6.addresses = lib.mkForce [{
+          } ];
+          networking.interfaces.eth1.ipv6.addresses = lib.mkForce [ {
             address = "fd21::2";
             prefixLength = 64;
-          }];
+          } ];
           networking.firewall.allowedTCPPorts = [
             53 # regular DNS
             853 # DNS over TLS
@@ -141,7 +146,7 @@ import ./make-test-python.nix ({
                 tls-service-pem = "${cert}/cert.pem";
                 tls-service-key = "${cert}/key.pem";
               };
-              forward-zone = [{
+              forward-zone = [ {
                 name = ".";
                 forward-addr = [
                   (lib.head
@@ -149,7 +154,7 @@ import ./make-test-python.nix ({
                   (lib.head
                     nodes.authoritative.config.networking.interfaces.eth1.ipv4.addresses).address
                 ];
-              }];
+              } ];
             };
           };
         };
@@ -162,25 +167,30 @@ import ./make-test-python.nix ({
           ...
         }: {
           imports = [ common ];
-          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [{
+          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
             address = "192.168.0.3";
             prefixLength = 24;
-          }];
-          networking.interfaces.eth1.ipv6.addresses = lib.mkForce [{
+          } ];
+          networking.interfaces.eth1.ipv6.addresses = lib.mkForce [ {
             address = "fd21::3";
             prefixLength = 64;
-          }];
-          networking.firewall.allowedTCPPorts = [
-            53 # regular DNS
-          ];
+          } ];
+          networking.firewall.allowedTCPPorts = [ 53 # regular DNS
+            ];
           networking.firewall.allowedUDPPorts = [ 53 ];
 
           services.unbound = {
             enable = true;
             settings = {
               server = {
-                interface = [ "::1" "127.0.0.1" ];
-                access-control = [ "::1 allow" "127.0.0.0/8 allow" ];
+                interface = [
+                  "::1"
+                  "127.0.0.1"
+                ];
+                access-control = [
+                  "::1 allow"
+                  "127.0.0.0/8 allow"
+                ];
               };
               include = "/etc/unbound/extra*.conf";
             };
@@ -247,14 +257,14 @@ import ./make-test-python.nix ({
             (lib.head
               nodes.resolver.config.networking.interfaces.eth1.ipv4.addresses).address
           ];
-          networking.interfaces.eth1.ipv4.addresses = [{
+          networking.interfaces.eth1.ipv4.addresses = [ {
             address = "192.168.0.10";
             prefixLength = 24;
-          }];
-          networking.interfaces.eth1.ipv6.addresses = [{
+          } ];
+          networking.interfaces.eth1.ipv6.addresses = [ {
             address = "fd21::10";
             prefixLength = 64;
-          }];
+          } ];
         };
     };
 

@@ -71,7 +71,11 @@ import ./make-test-python.nix {
             driver.find_element('xpath', '//div[@foo="yay"]')
             open('/tmp/passed', 'w')
           '';
-        in [ pkgs.firefox-unwrapped pkgs.geckodriver testRunner ];
+        in [
+          pkgs.firefox-unwrapped
+          pkgs.geckodriver
+          testRunner
+        ];
       };
   };
 

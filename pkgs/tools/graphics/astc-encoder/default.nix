@@ -12,16 +12,7 @@ with rec {
   isas = with stdenv.hostPlatform;
     if simdExtensions != null then
       lib.toList simdExtensions
-    else if avx2Support then
-      [ "AVX2" ]
-    else if sse4_1Support then
-      [ "SSE41" ]
-    else if isx86_64 then
-      [ "SSE2" ]
-    else if isAarch64 then
-      [ "NEON" ]
-    else
-      [ "NONE" ];
+    else if avx2Support then [ "AVX2" ] else if sse4_1Support then [ "SSE41" ] else if isx86_64 then [ "SSE2" ] else if isAarch64 then [ "NEON" ] else [ "NONE" ];
 
   archFlags = lib.optionals stdenv.hostPlatform.isAarch64 [ "-DARCH=aarch64" ];
 
@@ -30,15 +21,21 @@ with rec {
   isaFlags = map (isa: "-DISA_${isa}=ON") isas;
 
   # The suffix of the binary to link as 'astcenc'
-  mainBinary =
-    builtins.replaceStrings [ "AVX2" "SSE41" "SSE2" "NEON" "NONE" "NATIVE" ] [
-      "avx2"
-      "sse4.1"
-      "sse2"
-      "neon"
-      "none"
-      "native"
-    ] (builtins.head isas);
+  mainBinary = builtins.replaceStrings [
+    "AVX2"
+    "SSE41"
+    "SSE2"
+    "NEON"
+    "NONE"
+    "NATIVE"
+  ] [
+    "avx2"
+    "sse4.1"
+    "sse2"
+    "neon"
+    "none"
+    "native"
+  ] (builtins.head isas);
 };
 
 stdenv.mkDerivation rec {

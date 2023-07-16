@@ -28,8 +28,14 @@ stdenv.mkDerivation rec {
   ];
   installTargets = "install-all";
 
-  nativeBuildInputs = [ cc65 pkg-config ];
-  buildInputs = [ libusb1 ncurses ];
+  nativeBuildInputs = [
+    cc65
+    pkg-config
+  ];
+  buildInputs = [
+    libusb1
+    ncurses
+  ];
 
   meta = with lib; {
     description =

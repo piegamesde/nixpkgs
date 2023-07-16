@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ libpcap pixiewps ];
+  buildInputs = [
+    libpcap
+    pixiewps
+  ];
 
   sourceRoot = "source/src";
 

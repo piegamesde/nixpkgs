@@ -27,7 +27,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ gmp flint mpfr libmpc ];
+  buildInputs = [
+    gmp
+    flint
+    mpfr
+    libmpc
+  ];
 
   cmakeFlags = [
     "-DWITH_FLINT=ON"

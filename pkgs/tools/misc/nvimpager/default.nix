@@ -28,14 +28,21 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ scdoc ];
 
   makeFlags = [ "PREFIX=$(out)" ];
-  buildFlags = [ "nvimpager.configured" "nvimpager.1" ];
+  buildFlags = [
+    "nvimpager.configured"
+    "nvimpager.1"
+  ];
   preBuild = ''
     patchShebangs nvimpager
     substituteInPlace nvimpager --replace ':-nvim' ':-${neovim}/bin/nvim'
   '';
 
   doCheck = true;
-  nativeCheckInputs = [ lua51Packages.busted util-linux neovim ];
+  nativeCheckInputs = [
+    lua51Packages.busted
+    util-linux
+    neovim
+  ];
   # filter out one test that fails in the sandbox of nix
   checkPhase = ''
     runHook preCheck

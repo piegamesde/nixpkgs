@@ -8,8 +8,13 @@
     version = "1.2.0";
   };
   jsduck = {
-    dependencies =
-      [ "dimensions" "json" "parallel" "rdiscount" "rkelly-remix" ];
+    dependencies = [
+      "dimensions"
+      "json"
+      "parallel"
+      "rdiscount"
+      "rkelly-remix"
+    ];
     source = {
       remotes = [ "https://rubygems.org" ];
       sha256 = "0hac7g9g6gg10bigbm8dskwwbv1dfch8ca353gh2bkwf244qq2xr";

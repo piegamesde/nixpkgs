@@ -47,9 +47,18 @@ stdenv.mkDerivation rec {
   '' else
     null;
 
-  nativeBuildInputs = [ autoconf automake halibut libtool perl pkg-config ];
-  buildInputs = lib.optionals stdenv.hostPlatform.isUnix [ gtk2 ncurses ]
-    ++ lib.optional stdenv.isDarwin darwin.apple_sdk.libs.utmp;
+  nativeBuildInputs = [
+    autoconf
+    automake
+    halibut
+    libtool
+    perl
+    pkg-config
+  ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isUnix [
+    gtk2
+    ncurses
+  ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.libs.utmp;
   enableParallelBuilding = true;
 
   meta = with lib; {

@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-/Gf7T67LPzVPhjAqTvbLiJOqfKeWvwH/WHelJZTH4ZI=";
   };
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
   separateDebugInfo = stdenv.isLinux;
 
   enableParallelBuilding = true;
@@ -30,7 +34,10 @@ stdenv.mkDerivation rec {
   makeFlags = [ "PREFIX=$(out)" ];
 
   doCheck = true;
-  nativeCheckInputs = [ python3 python3Packages.packaging ];
+  nativeCheckInputs = [
+    python3
+    python3Packages.packaging
+  ];
   checkTarget = "test";
 
   passthru.tests.version = testers.testVersion { package = trurl; };

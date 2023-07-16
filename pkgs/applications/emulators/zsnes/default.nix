@@ -34,7 +34,15 @@ in stdenv.mkDerivation {
     sha256 = "1gy79d5wdaacph0cc1amw7mqm7i0716n6mvav16p1svi26iz193v";
   };
 
-  buildInputs = [ nasm SDL zlib libpng ncurses libGLU libGL ];
+  buildInputs = [
+    nasm
+    SDL
+    zlib
+    libpng
+    ncurses
+    libGLU
+    libGL
+  ];
 
   prePatch = ''
     for i in $(cat debian/patches/series); do
@@ -75,6 +83,9 @@ in stdenv.mkDerivation {
     license = lib.licenses.gpl2Plus;
     maintainers = [ lib.maintainers.sander ];
     homepage = "https://www.zsnes.com";
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 }

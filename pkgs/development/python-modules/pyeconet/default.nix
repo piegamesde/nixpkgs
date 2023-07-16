@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ paho-mqtt aiohttp ];
+  propagatedBuildInputs = [
+    paho-mqtt
+    aiohttp
+  ];
 
   # Tests require credentials
   doCheck = false;

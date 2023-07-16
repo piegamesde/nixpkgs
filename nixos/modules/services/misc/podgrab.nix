@@ -45,7 +45,10 @@ in {
           lib.optionals (cfg.passwordFile != null) [ cfg.passwordFile ];
         ExecStart = "${pkgs.podgrab}/bin/podgrab";
         WorkingDirectory = "${pkgs.podgrab}/share";
-        StateDirectory = [ "podgrab/config" "podgrab/data" ];
+        StateDirectory = [
+          "podgrab/config"
+          "podgrab/data"
+        ];
       };
     };
   };

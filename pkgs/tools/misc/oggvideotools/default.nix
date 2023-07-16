@@ -49,9 +49,18 @@ stdenv.mkDerivation rec {
     substituteInPlace CMakeLists.txt --replace " -O0 " ""
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ boost gd libogg libtheora libvorbis ];
+  buildInputs = [
+    boost
+    gd
+    libogg
+    libtheora
+    libvorbis
+  ];
 
   meta = with lib; {
     description = "Toolbox for manipulating and creating Ogg video files";

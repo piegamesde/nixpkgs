@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ jam ];
-  buildInputs = [ openssl perl zlib ];
+  buildInputs = [
+    openssl
+    perl
+    zlib
+  ];
 
   preConfigure = ''
     export INSTALLROOT=installroot
@@ -35,9 +39,8 @@ stdenv.mkDerivation rec {
     "-Wno-error=deprecated-copy"
     "-Wno-error=implicit-fallthrough"
     "-Wno-error=nonnull"
-  ] ++ lib.optionals
-    (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11")
-    [ "-Wno-error=mismatched-new-delete" ]);
+  ] ++ lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version
+    "11") [ "-Wno-error=mismatched-new-delete" ]);
 
   buildPhase = ''jam "-j$NIX_BUILD_CORES" '';
   installPhase = ''

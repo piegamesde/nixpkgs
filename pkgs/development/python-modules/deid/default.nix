@@ -50,9 +50,16 @@ in buildPythonPackage rec {
     hash = "sha256-QqofxNjshbNfu8vZ37rB6pxj5R8q0wlUhJRhrpkKySk=";
   };
 
-  propagatedBuildInputs = [ matplotlib pydicom python-dateutil ];
+  propagatedBuildInputs = [
+    matplotlib
+    pydicom
+    python-dateutil
+  ];
 
-  nativeCheckInputs = [ deid-data pytestCheckHook ];
+  nativeCheckInputs = [
+    deid-data
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "deid" ];
 

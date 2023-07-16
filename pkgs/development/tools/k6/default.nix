@@ -41,6 +41,9 @@ buildGoModule rec {
     homepage = "https://k6.io/";
     changelog = "https://github.com/grafana/k6/releases/tag/v${version}";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ offline bryanasdev000 ];
+    maintainers = with maintainers; [
+      offline
+      bryanasdev000
+    ];
   };
 }

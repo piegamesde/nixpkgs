@@ -39,13 +39,21 @@ let
   '';
   ucd = symlinkJoin {
     name = "ucd+unihan";
-    paths = [ unihanZip unicode-character-database ];
+    paths = [
+      unihanZip
+      unicode-character-database
+    ];
   };
 in stdenv.mkDerivation rec {
   pname = "gucharmap";
   version = "15.0.4";
 
-  outputs = [ "out" "lib" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
@@ -72,12 +80,20 @@ in stdenv.mkDerivation rec {
     libxml2
     desktop-file-utils
     gobject-introspection
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-    [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
+    stdenv.hostPlatform) [ mesonEmulatorHook ];
 
-  buildInputs = [ gtk3 glib gsettings-desktop-schemas pcre2 ];
+  buildInputs = [
+    gtk3
+    glib
+    gsettings-desktop-schemas
+    pcre2
+  ];
 
-  mesonFlags = [ "-Ducd_path=${ucd}/share/unicode" "-Dvapi=false" ];
+  mesonFlags = [
+    "-Ducd_path=${ucd}/share/unicode"
+    "-Dvapi=false"
+  ];
 
   doCheck = true;
 

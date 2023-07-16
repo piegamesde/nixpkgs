@@ -24,7 +24,14 @@ buildPythonPackage rec {
     hash = "sha256-ANOBbQWLB35Vz6oil6QZDpsNpKHeKUJnDKA5Q9JRVdE=";
   };
 
-  propagatedBuildInputs = [ regex langcodes ftfy msgpack mecab-python3 jieba ];
+  propagatedBuildInputs = [
+    regex
+    langcodes
+    ftfy
+    msgpack
+    mecab-python3
+    jieba
+  ];
 
   postPatch = ''
     substituteInPlace setup.py --replace "regex ==" "regex >="

@@ -90,15 +90,29 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = false;
 
-  nativeBuildInputs =
-    [ git pkg-config rustPlatform.bindgenHook installShellFiles sphinx ];
-  buildInputs = [ openssl fuse3 libuuid acl libxcrypt ];
+  nativeBuildInputs = [
+    git
+    pkg-config
+    rustPlatform.bindgenHook
+    installShellFiles
+    sphinx
+  ];
+  buildInputs = [
+    openssl
+    fuse3
+    libuuid
+    acl
+    libxcrypt
+  ];
 
   meta = with lib; {
     description = "The command line client for Proxmox Backup Server";
     homepage = "https://pbs.proxmox.com/docs/backup-client.html";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ cofob christoph-heiss ];
+    maintainers = with maintainers; [
+      cofob
+      christoph-heiss
+    ];
     platforms = platforms.linux;
     mainProgram = pname;
   };

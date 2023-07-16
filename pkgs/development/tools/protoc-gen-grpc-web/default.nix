@@ -24,7 +24,10 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [ protobuf ];
   buildInputs = [ protobuf ];
 
-  makeFlags = [ "PREFIX=$(out)" "STATIC=${if isStatic then "yes" else "no"}" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "STATIC=${if isStatic then "yes" else "no"}"
+  ];
 
   doCheck = true;
   nativeCheckInputs = [ protobuf ];

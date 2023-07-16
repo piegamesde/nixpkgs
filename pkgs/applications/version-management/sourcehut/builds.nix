@@ -47,7 +47,14 @@ in buildPythonPackage rec {
       --replace "all: api worker" ""
   '';
 
-  propagatedBuildInputs = [ srht redis celery pyyaml markdown ansi2html ];
+  propagatedBuildInputs = [
+    srht
+    redis
+    celery
+    pyyaml
+    markdown
+    ansi2html
+  ];
 
   preBuild = ''
     export PKGVER=${version}

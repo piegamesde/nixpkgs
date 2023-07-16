@@ -29,9 +29,19 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  nativeBuildInputs = [ cmake cython ];
+  nativeBuildInputs = [
+    cmake
+    cython
+  ];
 
-  propagatedBuildInputs = [ spglib numpy scipy matplotlib ase netcdf4 ];
+  propagatedBuildInputs = [
+    spglib
+    numpy
+    scipy
+    matplotlib
+    ase
+    netcdf4
+  ];
 
   # pypi release does no include files for tests
   doCheck = false;

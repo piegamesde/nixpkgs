@@ -27,7 +27,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs = [ pillow pytest-benchmark pytest-mypy pytestCheckHook ];
+  nativeCheckInputs = [
+    pillow
+    pytest-benchmark
+    pytest-mypy
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [
     # Incompatible types in assignment

@@ -6,7 +6,10 @@ import ./make-test-python.nix ({
   in {
     name = "phosh";
     meta = with pkgs.lib.maintainers; {
-      maintainers = [ tomfitzhenry zhaofengli ];
+      maintainers = [
+        tomfitzhenry
+        zhaofengli
+      ];
     };
 
     nodes = {

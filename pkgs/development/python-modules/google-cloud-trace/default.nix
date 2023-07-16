@@ -24,11 +24,18 @@ buildPythonPackage rec {
     hash = "sha256-twaJlx/2W1BQCWZMTQbZOp74oFecL2vwZkAxK/XwE8E=";
   };
 
-  propagatedBuildInputs = [ google-api-core proto-plus protobuf ]
-    ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs = [
+    google-api-core
+    proto-plus
+    protobuf
+  ] ++ google-api-core.optional-dependencies.grpc;
 
-  nativeCheckInputs =
-    [ google-cloud-testutils mock pytestCheckHook pytest-asyncio ];
+  nativeCheckInputs = [
+    google-cloud-testutils
+    mock
+    pytestCheckHook
+    pytest-asyncio
+  ];
 
   disabledTests = [
     # require credentials
@@ -36,8 +43,11 @@ buildPythonPackage rec {
     "test_list_traces"
   ];
 
-  pythonImportsCheck =
-    [ "google.cloud.trace" "google.cloud.trace_v1" "google.cloud.trace_v2" ];
+  pythonImportsCheck = [
+    "google.cloud.trace"
+    "google.cloud.trace_v1"
+    "google.cloud.trace_v2"
+  ];
 
   meta = with lib; {
     description = "Cloud Trace API client library";

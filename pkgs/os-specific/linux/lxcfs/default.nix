@@ -28,15 +28,23 @@ stdenv.mkDerivation rec {
     sed -i -e '1i #include <sys/pidfd.h>' src/bindings.c
   '';
 
-  nativeBuildInputs = [ pkg-config help2man autoreconfHook makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    help2man
+    autoreconfHook
+    makeWrapper
+  ];
   buildInputs = [ fuse ];
 
   preConfigure = lib.optionalString enableDebugBuild ''
     sed -i 's,#AM_CFLAGS += -DDEBUG,AM_CFLAGS += -DDEBUG,' Makefile.am
   '';
 
-  configureFlags =
-    [ "--with-init-script=systemd" "--sysconfdir=/etc" "--localstatedir=/var" ];
+  configureFlags = [
+    "--with-init-script=systemd"
+    "--sysconfdir=/etc"
+    "--localstatedir=/var"
+  ];
 
   installFlags = [ "SYSTEMD_UNIT_DIR=\${out}/lib/systemd" ];
 

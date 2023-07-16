@@ -39,7 +39,10 @@ in buildPythonPackage {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [ "uasiren" "uasiren.client" ];
+  pythonImportsCheck = [
+    "uasiren"
+    "uasiren.client"
+  ];
 
   meta = with lib; {
     changelog =

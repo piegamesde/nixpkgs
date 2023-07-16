@@ -25,7 +25,11 @@ buildPythonPackage rec {
       --replace "pydsdl ~= 1.16" "pydsdl"
   '';
 
-  propagatedBuildInputs = [ importlib-resources pydsdl pyyaml ];
+  propagatedBuildInputs = [
+    importlib-resources
+    pydsdl
+    pyyaml
+  ];
 
   # allow for writable directory for darwin
   preBuild = ''
@@ -46,6 +50,9 @@ buildPythonPackage rec {
     '';
     homepage = "https://nunavut.readthedocs.io/";
     maintainers = with maintainers; [ wucke13 ];
-    license = with licenses; [ bsd3 mit ];
+    license = with licenses; [
+      bsd3
+      mit
+    ];
   };
 }

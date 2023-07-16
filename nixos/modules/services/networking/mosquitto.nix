@@ -23,7 +23,12 @@ let
     [^
     	 ]+'';
   optionType = with types;
-    oneOf [ str path bool int ] // {
+    oneOf [
+      str
+      path
+      bool
+      int
+    ] // {
       description = "string, path, bool, or integer";
     };
   optionToString = v:
@@ -93,7 +98,10 @@ let
 
         acl = mkOption {
           type = listOf str;
-          example = [ "read A/B" "readwrite A/#" ];
+          example = [
+            "read A/B"
+            "readwrite A/#"
+          ];
           default = [ ];
           description = lib.mdDoc ''
             Control client access to topics on the broker.
@@ -293,7 +301,10 @@ let
           description = lib.mdDoc ''
             Additional ACL items to prepend to the generated ACL file.
           '';
-          example = [ "pattern read #" "topic readwrite anon/report/#" ];
+          example = [
+            "pattern read #"
+            "topic readwrite anon/report/#"
+          ];
           default = [ ];
         };
 
@@ -409,10 +420,10 @@ let
 
   bridgeAsserts = prefix: bridge:
     assertKeysValid "${prefix}.settings" freeformBridgeKeys bridge.settings
-    ++ [{
+    ++ [ {
       assertion = length bridge.addresses > 0;
       message = "Bridge ${prefix} needs remote broker addresses";
-    }];
+    } ];
 
   formatBridge = name: bridge:
     [
@@ -494,8 +505,13 @@ let
     };
 
     logDest = mkOption {
-      type = listOf
-        (either path (enum [ "stdout" "stderr" "syslog" "topic" "dlt" ]));
+      type = listOf (either path (enum [
+        "stdout"
+        "stderr"
+        "syslog"
+        "topic"
+        "dlt"
+      ]));
       description = lib.mdDoc ''
         Destinations to send log messages to.
       '';
@@ -639,13 +655,21 @@ in {
             ]) cfg.bridges)
           ]));
         RemoveIPC = true;
-        RestrictAddressFamilies =
-          [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" ];
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+          "AF_NETLINK"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+          "~@resources"
+        ];
         UMask = "0077";
       };
       preStart = concatStringsSep "\n" (imap0 (idx: listener:

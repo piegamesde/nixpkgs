@@ -20,7 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-CgTx19NaBs3/UGWTMw1EFOokLJFySYzhkfV0LqxJnhc=";
   };
 
-  propagatedBuildInputs = [ dask distributed mpi4py ];
+  propagatedBuildInputs = [
+    dask
+    distributed
+    mpi4py
+  ];
 
   # Hardcoded mpirun path in tests
   doCheck = false;

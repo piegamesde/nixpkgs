@@ -30,9 +30,19 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ aiohttp awesomeversion backoff cachetools yarl ];
+  propagatedBuildInputs = [
+    aiohttp
+    awesomeversion
+    backoff
+    cachetools
+    yarl
+  ];
 
-  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    aresponses
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   postPatch = ''
     # Upstream doesn't set a version for the pyproject.toml

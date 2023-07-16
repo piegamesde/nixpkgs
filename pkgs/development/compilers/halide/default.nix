@@ -54,6 +54,9 @@ llvmPackages.stdenv.mkDerivation rec {
     homepage = "https://halide-lang.org";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ck3d atila ];
+    maintainers = with maintainers; [
+      ck3d
+      atila
+    ];
   };
 }

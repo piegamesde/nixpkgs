@@ -23,9 +23,16 @@ in backendStdenv.mkDerivation rec {
     hash = "sha256-JyhhYKSVIqUKIbC1rCJozPT1IrIyRLGrTjdPjJqsYaU=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ which addOpenGLRunpath cuda_nvcc ];
+  nativeBuildInputs = [
+    which
+    addOpenGLRunpath
+    cuda_nvcc
+  ];
 
   buildInputs = [ cuda_cudart ]
     ++ lib.optionals (lib.versionAtLeast cudaVersion "12.0.0") [ cuda_cccl ];
@@ -64,6 +71,9 @@ in backendStdenv.mkDerivation rec {
     homepage = "https://developer.nvidia.com/nccl";
     license = licenses.bsd3;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ mdaiter orivej ];
+    maintainers = with maintainers; [
+      mdaiter
+      orivej
+    ];
   };
 }

@@ -4428,7 +4428,10 @@ let
         ];
       })
       (sources."@humanwhocodes/config-array-0.5.0" // {
-        dependencies = [ sources."debug-4.3.4" sources."ms-2.1.2" ];
+        dependencies = [
+          sources."debug-4.3.4"
+          sources."ms-2.1.2"
+        ];
       })
       sources."@humanwhocodes/object-schema-1.2.1"
       sources."@jest/types-27.5.1"
@@ -4469,7 +4472,10 @@ let
       sources."acorn-jsx-5.3.2"
       sources."acorn-walk-7.2.0"
       (sources."agent-base-6.0.2" // {
-        dependencies = [ sources."debug-4.3.4" sources."ms-2.1.2" ];
+        dependencies = [
+          sources."debug-4.3.4"
+          sources."ms-2.1.2"
+        ];
       })
       sources."ajv-6.12.6"
       sources."ansi-colors-4.1.3"
@@ -4583,8 +4589,10 @@ let
       })
       sources."eslint-visitor-keys-2.1.0"
       (sources."espree-7.3.1" // {
-        dependencies =
-          [ sources."acorn-7.4.1" sources."eslint-visitor-keys-1.3.0" ];
+        dependencies = [
+          sources."acorn-7.4.1"
+          sources."eslint-visitor-keys-1.3.0"
+        ];
       })
       sources."esprima-4.0.1"
       sources."esquery-1.4.0"
@@ -4636,11 +4644,17 @@ let
       sources."htmlparser2-6.1.0"
       sources."http-errors-2.0.0"
       (sources."http-proxy-agent-4.0.1" // {
-        dependencies = [ sources."debug-4.3.4" sources."ms-2.1.2" ];
+        dependencies = [
+          sources."debug-4.3.4"
+          sources."ms-2.1.2"
+        ];
       })
       sources."http-signature-1.2.0"
       (sources."https-proxy-agent-5.0.1" // {
-        dependencies = [ sources."debug-4.3.4" sources."ms-2.1.2" ];
+        dependencies = [
+          sources."debug-4.3.4"
+          sources."ms-2.1.2"
+        ];
       })
       sources."humanize-duration-3.27.2"
       sources."humanize-duration-ts-2.1.1"
@@ -4827,8 +4841,10 @@ let
       sources."supports-preserve-symlinks-flag-1.0.0"
       sources."symbol-tree-3.2.4"
       (sources."table-6.8.0" // {
-        dependencies =
-          [ sources."ajv-8.11.0" sources."json-schema-traverse-1.0.0" ];
+        dependencies = [
+          sources."ajv-8.11.0"
+          sources."json-schema-traverse-1.0.0"
+        ];
       })
       sources."text-table-0.2.0"
       sources."to-regex-range-5.0.1"
@@ -4837,7 +4853,10 @@ let
       sources."tr46-2.1.0"
       sources."ts-mocha-9.0.2"
       (sources."ts-node-7.0.1" // {
-        dependencies = [ sources."diff-3.5.0" sources."mkdirp-0.5.6" ];
+        dependencies = [
+          sources."diff-3.5.0"
+          sources."mkdirp-0.5.6"
+        ];
       })
       (sources."tsconfig-paths-3.14.1" // {
         dependencies = [ sources."json5-1.0.1" ];

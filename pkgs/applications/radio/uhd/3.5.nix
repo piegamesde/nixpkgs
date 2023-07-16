@@ -91,8 +91,13 @@ in stdenv.mkDerivation rec {
   # Python + mako are always required for the build itself but not necessary for runtime.
   pythonEnv = python3.withPackages (ps:
     with ps;
-    [ mako ] ++ optionals (enableLibuhd_Python_api) [ numpy setuptools ]
-    ++ optionals (enableUtils) [ requests six ]);
+    [ mako ] ++ optionals (enableLibuhd_Python_api) [
+      numpy
+      setuptools
+    ] ++ optionals (enableUtils) [
+      requests
+      six
+    ]);
 
   nativeBuildInputs = [
     cmake
@@ -120,8 +125,10 @@ in stdenv.mkDerivation rec {
   # https://files.ettus.com/manual_archive/v3.15.0.0/html/page_build_guide.html#build_instructions_unix_arm
   patches = if stdenv.isAarch32 then ./neon.patch else null;
 
-  postPhases = [ "installFirmware" "removeInstalledTests" ]
-    ++ optionals (enableUtils) [ "moveUdevRules" ];
+  postPhases = [
+    "installFirmware"
+    "removeInstalledTests"
+  ] ++ optionals (enableUtils) [ "moveUdevRules" ];
 
   # UHD expects images in `$CMAKE_INSTALL_PREFIX/share/uhd/images`
   installFirmware = ''
@@ -154,6 +161,10 @@ in stdenv.mkDerivation rec {
     homepage = "https://uhd.ettus.com/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ bjornfor fpletz tomberek ];
+    maintainers = with maintainers; [
+      bjornfor
+      fpletz
+      tomberek
+    ];
   };
 }

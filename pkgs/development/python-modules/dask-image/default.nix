@@ -24,9 +24,17 @@ buildPythonPackage rec {
     hash = "sha256-8SPf0Wp9FcdmYqasFHeFCe1e7ZtJT0Mi5ZRemxWSNUc=";
   };
 
-  propagatedBuildInputs = [ dask numpy scipy pims ];
+  propagatedBuildInputs = [
+    dask
+    numpy
+    scipy
+    pims
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook scikitimage ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    scikitimage
+  ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

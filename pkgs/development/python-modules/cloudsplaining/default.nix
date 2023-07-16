@@ -50,8 +50,10 @@ buildPythonPackage rec {
     sed -i "s/'\(.*\)\(==\|>=\).*'/'\1'/g" requirements.txt
   '';
 
-  disabledTests =
-    [ "test_policy_expansion" "test_statement_details_for_allow_not_action" ];
+  disabledTests = [
+    "test_policy_expansion"
+    "test_statement_details_for_allow_not_action"
+  ];
 
   pythonImportsCheck = [ "cloudsplaining" ];
 

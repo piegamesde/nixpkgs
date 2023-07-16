@@ -80,7 +80,11 @@ buildPythonPackage rec {
     ncclient
   ];
 
-  nativeCheckInputs = [ pytestCheckHook mock ddt ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    mock
+    ddt
+  ];
 
   meta = with lib; {
     description =

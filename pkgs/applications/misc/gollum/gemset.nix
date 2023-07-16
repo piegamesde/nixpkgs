@@ -151,7 +151,10 @@
     version = "5.2.4";
   };
   gollum-rugged_adapter = {
-    dependencies = [ "mime-types" "rugged" ];
+    dependencies = [
+      "mime-types"
+      "rugged"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -215,7 +218,10 @@
     version = "1.1.0";
   };
   loofah = {
-    dependencies = [ "crass" "nokogiri" ];
+    dependencies = [
+      "crass"
+      "nokogiri"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -299,7 +305,10 @@
     version = "2.0.2";
   };
   nokogiri = {
-    dependencies = [ "mini_portile2" "racc" ];
+    dependencies = [
+      "mini_portile2"
+      "racc"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -488,7 +497,10 @@
     version = "3.7.4";
   };
   sass-listen = {
-    dependencies = [ "rb-fsevent" "rb-inotify" ];
+    dependencies = [
+      "rb-fsevent"
+      "rb-inotify"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -499,7 +511,12 @@
     version = "4.0.0";
   };
   sinatra = {
-    dependencies = [ "mustermann" "rack" "rack-protection" "tilt" ];
+    dependencies = [
+      "mustermann"
+      "rack"
+      "rack-protection"
+      "tilt"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -510,8 +527,13 @@
     version = "2.2.4";
   };
   sinatra-contrib = {
-    dependencies =
-      [ "multi_json" "mustermann" "rack-protection" "sinatra" "tilt" ];
+    dependencies = [
+      "multi_json"
+      "mustermann"
+      "rack-protection"
+      "sinatra"
+      "tilt"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -522,7 +544,10 @@
     version = "2.2.4";
   };
   sprockets = {
-    dependencies = [ "concurrent-ruby" "rack" ];
+    dependencies = [
+      "concurrent-ruby"
+      "rack"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

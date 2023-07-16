@@ -22,7 +22,10 @@ buildPythonPackage rec {
     patchShebangs manage.py
   '';
 
-  propagatedBuildInputs = [ django-guardian djangorestframework ];
+  propagatedBuildInputs = [
+    django-guardian
+    djangorestframework
+  ];
 
   checkPhase = ''
     ./manage.py test
@@ -34,6 +37,9 @@ buildPythonPackage rec {
     description = "Django-guardian support for Django REST Framework";
     homepage = "https://github.com/johnthagen/django-rest-framework-guardian2/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ 0.0 mo ];
+    maintainers = with maintainers; [
+      0.0
+      mo
+    ];
   };
 }

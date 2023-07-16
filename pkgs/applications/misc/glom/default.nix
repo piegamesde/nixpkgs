@@ -56,7 +56,13 @@ in stdenv.mkDerivation rec {
   pname = "glom";
   version = "1.32.0";
 
-  outputs = [ "out" "lib" "dev" "doc" "devdoc" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "doc"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -107,11 +113,10 @@ in stdenv.mkDerivation rec {
 
   preConfigure = "NOCONFIGURE=1 ./autogen.sh";
 
-  configureFlags = [
-    "--with-boost-python=boost_python${lib.versions.major python3.version}${
+  configureFlags =
+    [ "--with-boost-python=boost_python${lib.versions.major python3.version}${
       lib.versions.minor python3.version
-    }"
-  ];
+    }" ];
 
   makeFlags = [
     "libdocdir=${placeholder "doc"}/share/doc/$(book_name)"
@@ -131,7 +136,10 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An easy-to-use database designer and user interface";
     homepage = "http://www.glom.org/";
-    license = [ licenses.lgpl2 licenses.gpl2 ];
+    license = [
+      licenses.lgpl2
+      licenses.gpl2
+    ];
     maintainers = teams.gnome.members;
     platforms = platforms.linux;
   };

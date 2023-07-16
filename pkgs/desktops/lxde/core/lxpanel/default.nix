@@ -38,7 +38,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HjGPV9fja2HCOlBNA9JDDHja0ULBgERRBh8bPqVEHug=";
   };
 
-  nativeBuildInputs = [ pkg-config gettext m4 intltool libxmlxx ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+    m4
+    intltool
+    libxmlxx
+  ];
   buildInputs = [
     (if withGtk3 then keybinder3 else keybinder)
     (if withGtk3 then gtk3 else gtk2)

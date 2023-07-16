@@ -51,7 +51,10 @@ let
       for f in $out/bin/*; do
         wrapProgram $f \
           --prefix XINE_PLUGIN_PATH ":" "${
-            makeXinePluginPath [ "$out" xine-lib ]
+            makeXinePluginPath [
+              "$out"
+              xine-lib
+            ]
           }"
       done
     '';
@@ -74,7 +77,10 @@ let
       xine-lib
     ];
 
-    passthru.requiredXinePlugins = [ xine-lib self ];
+    passthru.requiredXinePlugins = [
+      xine-lib
+      self
+    ];
 
     meta = with lib; {
       homepage = "https://sourceforge.net/projects/xineliboutput/";

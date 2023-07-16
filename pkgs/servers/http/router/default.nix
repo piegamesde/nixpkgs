@@ -21,7 +21,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-F9MomJQShJUE9QIJJmdFxSs/FVctig17ZclndFl1SUY=";
 
-  nativeBuildInputs = [ pkg-config protobuf ];
+  nativeBuildInputs = [
+    pkg-config
+    protobuf
+  ];
 
   buildInputs = [ elfutils ];
 

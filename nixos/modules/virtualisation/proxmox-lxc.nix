@@ -39,15 +39,15 @@ with lib;
   config = let cfg = config.proxmoxLXC;
   in {
     system.build.tarball = pkgs.callPackage ../../lib/make-system-tarball.nix {
-      storeContents = [{
+      storeContents = [ {
         object = config.system.build.toplevel;
         symlink = "none";
-      }];
+      } ];
 
-      contents = [{
+      contents = [ {
         source = config.system.build.toplevel + "/init";
         target = "/sbin/init";
-      }];
+      } ];
 
       extraCommands = "mkdir -p root etc/systemd/network";
     };
@@ -70,10 +70,10 @@ with lib;
       startWhenNeeded = mkDefault true;
     };
 
-    systemd.mounts = mkIf (!cfg.privileged) [{
+    systemd.mounts = mkIf (!cfg.privileged) [ {
       where = "/sys/kernel/debug";
       enable = false;
-    }];
+    } ];
 
   };
 }

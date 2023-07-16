@@ -39,7 +39,10 @@ stdenv.mkDerivation rec {
       sed -i -e "s/-Werror//g" -e "s/-march=native//g"
   '';
 
-  nativeBuildInputs = [ pkg-config cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
 
   # for tests, adding gtest to checkInputs does not work
   # https://github.com/NixOS/nixpkgs/pull/212200
@@ -55,6 +58,9 @@ stdenv.mkDerivation rec {
     homepage = "http://rapidjson.org/";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ cstrahan dotlambda ];
+    maintainers = with maintainers; [
+      cstrahan
+      dotlambda
+    ];
   };
 }

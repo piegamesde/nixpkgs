@@ -83,8 +83,11 @@ buildDunePackage rec {
 
   nativeBuildInputs = lib.optional (lib.versionOlder version "1.7.0") cppo;
 
-  propagatedBuildInputs = [ csexp jsonrpc uutf ]
-    ++ lib.optional (lib.versionOlder version "1.7.0") stdlib-shims;
+  propagatedBuildInputs = [
+    csexp
+    jsonrpc
+    uutf
+  ] ++ lib.optional (lib.versionOlder version "1.7.0") stdlib-shims;
 
   meta = jsonrpc.meta // {
     description = "LSP protocol implementation in OCaml";

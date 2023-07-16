@@ -61,7 +61,12 @@ in stdenv.mkDerivation (finalAttrs: {
     sha256 = "01s8i64qczxqawgrzrw19asaqmcspf5l2h3203xzg56wnnhhzcw7";
   };
 
-  nativeBuildInputs = [ pkg-config python makeWrapper wafHook ];
+  nativeBuildInputs = [
+    pkg-config
+    python
+    makeWrapper
+    wafHook
+  ];
   buildInputs = [
     libsamplerate
     libsndfile

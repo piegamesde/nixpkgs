@@ -32,7 +32,12 @@ buildPythonApplication rec {
     sha256 = "0sc17vf4xz6gy0s0z9ghi68yskikdmyb4gdaxx6imrm40734k8mp";
   };
 
-  patches = [ ./css.patch ./menubar.patch ./texinfo.patch ./webbrowser.patch ];
+  patches = [
+    ./css.patch
+    ./menubar.patch
+    ./texinfo.patch
+    ./webbrowser.patch
+  ];
 
   preConfigure = ''
     aclocal
@@ -52,9 +57,15 @@ buildPythonApplication rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ gtk3 librsvg ];
+  buildInputs = [
+    gtk3
+    librsvg
+  ];
 
-  propagatedBuildInputs = [ pycairo pygobject3 ];
+  propagatedBuildInputs = [
+    pycairo
+    pygobject3
+  ];
 
   preBuild = ''
     sed -i -e 's|wav_player=.*|wav_player=${alsa-utils}/bin/aplay|' \
@@ -75,6 +86,10 @@ buildPythonApplication rec {
     homepage = "https://www.gnu.org/software/solfege/";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ bjornfor orivej anthonyroussel ];
+    maintainers = with maintainers; [
+      bjornfor
+      orivej
+      anthonyroussel
+    ];
   };
 }

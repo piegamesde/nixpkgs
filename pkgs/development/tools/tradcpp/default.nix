@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   # tradcpp only comes with BSD-make Makefile; the patch adds configure support
   nativeBuildInputs = [ autoconf ];
   preConfigure = "autoconf";
-  patches = [ ./tradcpp-configure.patch ./aarch64.patch ];
+  patches = [
+    ./tradcpp-configure.patch
+    ./aarch64.patch
+  ];
 
   meta = with lib; {
     description = "A traditional (K&R-style) C macro preprocessor";

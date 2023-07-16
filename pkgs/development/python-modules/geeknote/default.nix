@@ -28,8 +28,14 @@ buildPythonPackage {
   */
   doCheck = false;
 
-  propagatedBuildInputs =
-    [ thrift beautifulsoup4 markdown2 sqlalchemy html2text evernote ];
+  propagatedBuildInputs = [
+    thrift
+    beautifulsoup4
+    markdown2
+    sqlalchemy
+    html2text
+    evernote
+  ];
 
   meta = with lib; {
     description = "Work with Evernote from command line";

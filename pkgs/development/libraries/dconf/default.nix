@@ -21,7 +21,11 @@ in stdenv.mkDerivation rec {
   pname = "dconf";
   version = "0.40.0";
 
-  outputs = [ "out" "lib" "dev" ] ++ lib.optional (!isCross) "devdoc";
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+  ] ++ lib.optional (!isCross) "devdoc";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -41,7 +45,11 @@ in stdenv.mkDerivation rec {
     docbook_xml_dtd_42
   ] ++ lib.optional (!isCross) gtk-doc;
 
-  buildInputs = [ glib bash-completion dbus ] ++ lib.optional (!isCross) vala;
+  buildInputs = [
+    glib
+    bash-completion
+    dbus
+  ] ++ lib.optional (!isCross) vala;
   # Vala cross compilation is broken. For now, build dconf without vapi when cross-compiling.
 
   mesonFlags = [
@@ -51,9 +59,8 @@ in stdenv.mkDerivation rec {
     }" # gtk-doc does do some gobject introspection, which doesn't yet cross-compile.
   ] ++ lib.optional isCross "-Dvapi=false";
 
-  nativeCheckInputs = [
-    dbus # for dbus-daemon
-  ];
+  nativeCheckInputs = [ dbus # for dbus-daemon
+    ];
 
   doCheck = !stdenv.isAarch32 && !stdenv.isAarch64 && !stdenv.isDarwin;
 

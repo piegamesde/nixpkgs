@@ -33,14 +33,22 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ pkg-config scdoc ]
-    ++ lib.optionals waylandSupport [ wayland-scanner ];
+  nativeBuildInputs = [
+    pkg-config
+    scdoc
+  ] ++ lib.optionals waylandSupport [ wayland-scanner ];
 
   buildInputs = with lib;
-    [ cairo fribidi harfbuzz libxkbcommon pango ]
-    ++ optional ncursesSupport ncurses
-    ++ optionals waylandSupport [ wayland wayland-protocols ]
-    ++ optionals x11Support [
+    [
+      cairo
+      fribidi
+      harfbuzz
+      libxkbcommon
+      pango
+    ] ++ optional ncursesSupport ncurses ++ optionals waylandSupport [
+      wayland
+      wayland-protocols
+    ] ++ optionals x11Support [
       xorg.libX11
       xorg.libXinerama
       xorg.libXft

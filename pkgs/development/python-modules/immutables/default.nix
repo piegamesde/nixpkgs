@@ -25,7 +25,10 @@ buildPythonPackage rec {
   propagatedBuildInputs =
     lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
-  nativeCheckInputs = [ mypy pytestCheckHook ];
+  nativeCheckInputs = [
+    mypy
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Version mismatch

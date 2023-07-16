@@ -19,7 +19,10 @@ buildPythonPackage {
 
   nativeBuildInputs = [ pkgs.xorg.lndir ];
 
-  buildInputs = [ pyqt4.qt pyqt4 ];
+  buildInputs = [
+    pyqt4.qt
+    pyqt4
+  ];
 
   preConfigure = ''
     mkdir -p $out

@@ -20,10 +20,18 @@ buildPythonApplication rec {
     sha256 = "sha256-Gcw7enNIb/TrZEYa0Z04ezHUmfMmc1J+aEH6FlXbhTo=";
   };
 
-  propagatedBuildInputs = [ pyspf dnspython authres pymilter ];
+  propagatedBuildInputs = [
+    pyspf
+    dnspython
+    authres
+    pymilter
+  ];
 
-  pythonImportsCheck =
-    [ "spf_engine" "spf_engine.milter_spf" "spf_engine.policyd_spf" ];
+  pythonImportsCheck = [
+    "spf_engine"
+    "spf_engine.milter_spf"
+    "spf_engine.policyd_spf"
+  ];
 
   meta = with lib; {
     homepage = "https://launchpad.net/spf-engine/";

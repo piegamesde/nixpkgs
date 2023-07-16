@@ -19,9 +19,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-7Lo+YxpiRz0+ZLFDvYMJWWK2j0CyPDRoP1wAc+OaPJY=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ nix boost ];
+  buildInputs = [
+    nix
+    boost
+  ];
 
   meta = {
     description =

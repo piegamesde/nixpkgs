@@ -43,7 +43,10 @@ stdenv.mkDerivation (finalAttrs: rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   enableParallelBuilding = true;
 

@@ -15,7 +15,11 @@ stdenv.mkDerivation rec {
   pname = "bdep";
   version = "0.15.0";
 
-  outputs = [ "out" "doc" "man" ];
+  outputs = [
+    "out"
+    "doc"
+    "man"
+  ];
   src = fetchurl {
     url = "https://pkg.cppget.org/1/alpha/build2/bdep-${version}.tar.gz";
     sha256 = "sha256-dZldNVeQJWim3INBtOaPYP8yQMH3sjBzCLEHemvdxnU=";
@@ -23,7 +27,12 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   nativeBuildInputs = [ build2 ];
-  buildInputs = [ libbpkg libbutl libodb libodb-sqlite ];
+  buildInputs = [
+    libbpkg
+    libbutl
+    libodb
+    libodb-sqlite
+  ];
 
   build2ConfigureFlags =
     [ "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}" ];

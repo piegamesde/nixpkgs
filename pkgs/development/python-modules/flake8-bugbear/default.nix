@@ -24,9 +24,17 @@ buildPythonPackage rec {
     hash = "sha256-4iOt6KQU8QkNdmGBIyevfwqvbKpylV+BN49GjeX68xE=";
   };
 
-  propagatedBuildInputs = [ attrs flake8 ];
+  propagatedBuildInputs = [
+    attrs
+    flake8
+  ];
 
-  nativeCheckInputs = [ flake8 pytestCheckHook hypothesis hypothesmith ];
+  nativeCheckInputs = [
+    flake8
+    pytestCheckHook
+    hypothesis
+    hypothesmith
+  ];
 
   meta = with lib; {
     description = "Plugin for Flake8 to find bugs and design problems";

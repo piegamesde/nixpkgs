@@ -50,9 +50,13 @@ stdenvNoCC.mkDerivation rec {
           "--set VCMAILBOX ${libraspberrypi}/bin/vcmailbox"
         } \
         --prefix PATH : "${
-          lib.makeBinPath
-          ([ binutils-unwrapped findutils kmod pciutils (placeholder "out") ]
-            ++ lib.optionals stdenvNoCC.isAarch64 [ libraspberrypi ])
+          lib.makeBinPath ([
+            binutils-unwrapped
+            findutils
+            kmod
+            pciutils
+            (placeholder "out")
+          ] ++ lib.optionals stdenvNoCC.isAarch64 [ libraspberrypi ])
         }"
     done
   '';
@@ -62,7 +66,10 @@ stdenvNoCC.mkDerivation rec {
       "Installation scripts and binaries for the closed sourced Raspberry Pi 4 EEPROMs";
     homepage =
       "https://www.raspberrypi.org/documentation/hardware/raspberrypi/booteeprom.md";
-    license = with licenses; [ bsd3 unfreeRedistributableFirmware ];
+    license = with licenses; [
+      bsd3
+      unfreeRedistributableFirmware
+    ];
     maintainers = with maintainers; [ das_j ];
   };
 }

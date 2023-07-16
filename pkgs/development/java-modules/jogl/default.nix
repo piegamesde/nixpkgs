@@ -39,7 +39,11 @@
     '';
 
     # TODO: upgrade to jdk https://github.com/NixOS/nixpkgs/pull/89731
-    nativeBuildInputs = [ jdk8 ant git ];
+    nativeBuildInputs = [
+      jdk8
+      ant
+      git
+    ];
     buildInputs = [
       udev
       xorg.libX11

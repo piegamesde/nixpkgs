@@ -25,10 +25,10 @@ import ./make-test-python.nix ({
           };
         };
 
-        swapDevices = [{
+        swapDevices = [ {
           device = "/var/swapfile";
           size = 1; # 1MiB.
-        }];
+        } ];
       };
 
     testScript = ''

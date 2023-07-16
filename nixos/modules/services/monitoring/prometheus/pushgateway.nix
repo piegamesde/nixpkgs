@@ -87,8 +87,13 @@ in {
       };
 
       log.level = mkOption {
-        type =
-          types.nullOr (types.enum [ "debug" "info" "warn" "error" "fatal" ]);
+        type = types.nullOr (types.enum [
+          "debug"
+          "info"
+          "warn"
+          "error"
+          "fatal"
+        ]);
         default = null;
         description = lib.mdDoc ''
           Only log messages with the given severity or above.
@@ -146,12 +151,12 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = !hasPrefix "/" cfg.stateDir;
       message = "The option services.prometheus.pushgateway.stateDir"
         + " shouldn't be an absolute directory."
         + " It should be a directory relative to /var/lib.";
-    }];
+    } ];
     systemd.services.pushgateway = {
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];

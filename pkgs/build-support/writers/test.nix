@@ -186,14 +186,11 @@ let
     fsharp = makeFSharpWriter {
       libraries = {
           fetchNuGet,
-        }:
-        [
-          (fetchNuGet {
-            pname = "FSharp.SystemTextJson";
-            version = "0.17.4";
-            sha256 = "1bplzc9ybdqspii4q28l8gmfvzpkmgq5l1hlsiyg2h46w881lwg2";
-          })
-        ];
+        }: [ (fetchNuGet {
+          pname = "FSharp.SystemTextJson";
+          version = "0.17.4";
+          sha256 = "1bplzc9ybdqspii4q28l8gmfvzpkmgq5l1hlsiyg2h46w881lwg2";
+        }) ];
     } "test-writers-fsharp" ''
       #r "nuget: FSharp.SystemTextJson, 0.17.4"
 

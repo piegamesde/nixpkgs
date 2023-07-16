@@ -37,7 +37,10 @@ stdenv.mkDerivation rec {
     sed -i 's/SET(ETCDIR "\/etc")/SET(ETCDIR "etc")/g' CMakeLists.txt
   '';
 
-  nativeBuildInputs = [ pkg-config cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
 
   buildInputs = [
     curl

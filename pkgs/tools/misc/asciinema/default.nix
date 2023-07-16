@@ -24,7 +24,10 @@ python3Packages.buildPythonApplication rec {
       --replace "python3" "${python3Packages.python}/bin/python"
   '';
 
-  nativeCheckInputs = [ glibcLocales python3Packages.nose ];
+  nativeCheckInputs = [
+    glibcLocales
+    python3Packages.nose
+  ];
 
   checkPhase = ''
     LC_ALL=en_US.UTF-8 nosetests

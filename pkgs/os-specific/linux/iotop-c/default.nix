@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ ncurses ];
-  makeFlags = [ "DESTDIR=$(out)" "TARGET=iotop-c" ];
+  makeFlags = [
+    "DESTDIR=$(out)"
+    "TARGET=iotop-c"
+  ];
 
   postInstall = ''
     mv $out/usr/share/man/man8/{iotop,iotop-c}.8

@@ -42,7 +42,10 @@ buildPythonPackage rec {
     hash = "sha256-f+M4sfUzDy8hxHUiWG9hyu0EYvnjNA46OtHzBSJdID0=";
   };
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   nativeBuildInputs = [
     flit-core

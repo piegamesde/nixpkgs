@@ -22,9 +22,17 @@ buildPythonPackage rec {
     hash = "sha256-94Q3IUoX1Cb+uRqvsfpVZJ1koJSx5cQ3/XpYJ0gkQNU=";
   };
 
-  propagatedBuildInputs = [ docopt requests six ];
+  propagatedBuildInputs = [
+    docopt
+    requests
+    six
+  ];
 
-  nativeCheckInputs = [ fastavro nose pytestCheckHook ];
+  nativeCheckInputs = [
+    fastavro
+    nose
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "hdfs" ];
 

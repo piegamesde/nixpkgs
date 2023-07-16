@@ -50,14 +50,12 @@ let
     hash = "sha256-yRb6yRpX1vDmXpYu4O50MYMpP2j75aSqhXCWMF1xVH0=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./ctypes.patch;
-      libpq =
-        "${postgresql.lib}/lib/libpq${stdenv.hostPlatform.extensions.sharedLibrary}";
-      libc = "${stdenv.cc.libc}/lib/libc.so.6";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./ctypes.patch;
+    libpq =
+      "${postgresql.lib}/lib/libpq${stdenv.hostPlatform.extensions.sharedLibrary}";
+    libc = "${stdenv.cc.libc}/lib/libc.so.6";
+  }) ];
 
   baseMeta = {
     changelog =
@@ -80,7 +78,12 @@ let
       cd psycopg_c
     '';
 
-    nativeBuildInputs = [ cython_3 postgresql setuptools tomli ];
+    nativeBuildInputs = [
+      cython_3
+      postgresql
+      setuptools
+      tomli
+    ];
 
     # tested in psycopg
     doCheck = false;
@@ -117,7 +120,10 @@ in buildPythonPackage rec {
 
   disabled = pythonOlder "3.7";
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   sphinxRoot = "../docs";
 
@@ -135,22 +141,37 @@ in buildPythonPackage rec {
     cd psycopg
   '';
 
-  nativeBuildInputs =
-    [ furo setuptools shapely sphinx-autodoc-typehints sphinxHook ];
+  nativeBuildInputs = [
+    furo
+    setuptools
+    shapely
+    sphinx-autodoc-typehints
+    sphinxHook
+  ];
 
-  propagatedBuildInputs = [ psycopg-c typing-extensions ]
-    ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
+  propagatedBuildInputs = [
+    psycopg-c
+    typing-extensions
+  ] ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
 
-  pythonImportsCheck = [ "psycopg" "psycopg_c" "psycopg_pool" ];
+  pythonImportsCheck = [
+    "psycopg"
+    "psycopg_c"
+    "psycopg_pool"
+  ];
 
   passthru.optional-dependencies = {
     c = [ psycopg-c ];
     pool = [ psycopg-pool ];
   };
 
-  nativeCheckInputs =
-    [ anyio pproxy pytest-randomly pytestCheckHook postgresql ]
-    ++ lib.optional (stdenv.isLinux) postgresqlTestHook
+  nativeCheckInputs = [
+    anyio
+    pproxy
+    pytest-randomly
+    pytestCheckHook
+    postgresql
+  ] ++ lib.optional (stdenv.isLinux) postgresqlTestHook
     ++ passthru.optional-dependencies.c ++ passthru.optional-dependencies.pool;
 
   env = {
@@ -179,7 +200,12 @@ in buildPythonPackage rec {
     "tests/crdb/test_typing.py"
   ];
 
-  pytestFlagsArray = [ "-o" "cache_dir=$TMPDIR" "-m" "'not timing'" ];
+  pytestFlagsArray = [
+    "-o"
+    "cache_dir=$TMPDIR"
+    "-m"
+    "'not timing'"
+  ];
 
   postCheck = ''
     cd ${pname}

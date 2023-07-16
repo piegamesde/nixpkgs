@@ -24,7 +24,16 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ postgresql openssl lz4 bzip2 libxml2 zlib zstd libyaml ];
+  buildInputs = [
+    postgresql
+    openssl
+    lz4
+    bzip2
+    libxml2
+    zlib
+    zstd
+    libyaml
+  ];
 
   postUnpack = ''
     sourceRoot+=/src

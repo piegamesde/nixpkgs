@@ -52,7 +52,11 @@ let
     };
 
     nativeBuildInputs = [ cmake ];
-    buildInputs = [ sfml libX11 glm ];
+    buildInputs = [
+      sfml
+      libX11
+      glm
+    ];
 
     meta = with lib; {
       description =
@@ -90,7 +94,14 @@ in stdenv.mkDerivation {
   ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ serious-proton sfml glew libX11 python3 glm ];
+  buildInputs = [
+    serious-proton
+    sfml
+    glew
+    libX11
+    python3
+    glm
+  ];
 
   cmakeFlags = [
     "-DSERIOUS_PROTON_DIR=${serious-proton.src}"
@@ -104,7 +115,11 @@ in stdenv.mkDerivation {
     description = "Open source bridge simulator based on Artemis";
     homepage = "https://daid.github.io/EmptyEpsilon/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fpletz lheckemann ma27 ];
+    maintainers = with maintainers; [
+      fpletz
+      lheckemann
+      ma27
+    ];
     platforms = platforms.linux;
   };
 }

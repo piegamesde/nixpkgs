@@ -38,7 +38,11 @@ in {
       };
 
       separator = mkOption {
-        type = types.enum [ "-" "=" "+" ];
+        type = types.enum [
+          "-"
+          "="
+          "+"
+        ];
         default = "=";
         description =
           lib.mdDoc "First separator character in generated addresses";

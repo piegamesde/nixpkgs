@@ -30,11 +30,17 @@ buildPythonPackage rec {
       --replace "websocket-client~=1.3.1" "websocket-client"
   '';
 
-  propagatedBuildInputs =
-    [ python-dateutil requests python-socketio websocket-client ]
-    ++ python-socketio.optional-dependencies.client;
+  propagatedBuildInputs = [
+    python-dateutil
+    requests
+    python-socketio
+    websocket-client
+  ] ++ python-socketio.optional-dependencies.client;
 
-  nativeCheckInputs = [ pytestCheckHook jsonschema ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    jsonschema
+  ];
 
   pythonImportsCheck = [ "ripe.atlas.cousteau" ];
 

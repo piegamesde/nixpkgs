@@ -34,7 +34,10 @@ stdenv.mkDerivation rec {
     buildPackages.readline
     buildPackages.ncurses
   ];
-  buildInputs = [ readline flex ];
+  buildInputs = [
+    readline
+    flex
+  ];
 
   doCheck = true; # not cross
 

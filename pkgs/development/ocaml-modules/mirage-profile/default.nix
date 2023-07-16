@@ -21,7 +21,11 @@ buildDunePackage rec {
   };
 
   buildInputs = [ ppx_cstruct ];
-  propagatedBuildInputs = [ cstruct lwt stdlib-shims ];
+  propagatedBuildInputs = [
+    cstruct
+    lwt
+    stdlib-shims
+  ];
 
   meta = with lib; {
     description = "Collect runtime profiling information in CTF format";

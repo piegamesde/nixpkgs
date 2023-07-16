@@ -31,11 +31,24 @@ stdenv.mkDerivation rec {
     hash = "sha256-2/ZfKvlvAY4pfUU3F9pEw+OR5oRSsSAAi3/W5x4zVs0=";
   };
 
-  nativeBuildInputs =
-    [ meson ninja pkg-config wrapGAppsHook4 appstream-glib desktop-file-utils ]
-    ++ (with rustPlatform; [ cargoSetupHook rust.cargo rust.rustc ]);
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    wrapGAppsHook4
+    appstream-glib
+    desktop-file-utils
+  ] ++ (with rustPlatform; [
+    cargoSetupHook
+    rust.cargo
+    rust.rustc
+  ]);
 
-  buildInputs = [ glib gtk4 libadwaita ];
+  buildInputs = [
+    glib
+    gtk4
+    libadwaita
+  ];
 
   meta = with lib; {
     description = "Extract the dominant colors from any image";

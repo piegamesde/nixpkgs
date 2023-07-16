@@ -20,7 +20,10 @@ buildPythonPackage rec {
   pname = "pygobject";
   version = "3.44.1";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   disabled = !isPy3k;
 
@@ -35,14 +38,22 @@ buildPythonPackage rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ pkg-config meson ninja gobject-introspection ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    gobject-introspection
+  ];
 
   buildInputs = [
     # # .so files link to this
     glib
   ] ++ lib.optionals stdenv.isDarwin [ ncurses ];
 
-  propagatedBuildInputs = [ pycairo cairo ];
+  propagatedBuildInputs = [
+    pycairo
+    cairo
+  ];
 
   mesonFlags = [
     # This is only used for figuring out what version of Python is in

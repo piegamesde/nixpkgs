@@ -19,14 +19,24 @@ stdenv.mkDerivation rec {
     sha256 = "164lm5sg95ca6k546zf775g3s79mgff0az96wl6hbmlrxh4z26gb";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   GTEST_DIR = "${gtest.src}/googletest";
 
-  propagatedBuildInputs = [ eigen libepoxy ];
+  propagatedBuildInputs = [
+    eigen
+    libepoxy
+  ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ SDL2 fftw gtest ];
+  buildInputs = [
+    SDL2
+    fftw
+    gtest
+  ];
 
   enableParallelBuilding = true;
 

@@ -66,7 +66,7 @@
           inherit (deriv) src;
           srcDir = if deriv ? srcDir then deriv.srcDir else ".";
           name = deriv.name;
-          createTagFiles = [{
+          createTagFiles = [ {
             name = "${deriv.name}_haskell";
             # tagCmd = "${toString ghcsAndLibs.ghc68.ghc}/bin/hasktags --ignore-close-implementation --ctags `find . -type f -name \"*.*hs\"`; sort tags > \$TAG_FILE"; }
             # *.*hs.* to catch gtk2hs .hs.pp files
@@ -77,7 +77,7 @@
                                   }\n\n                    ${
                                     toString hasktags
                                   }/bin/hasktags --ignore-close-implementation --ctags .\n                    mv tags $TAG_FILE\n                   }";
-          }];
+          } ];
         };
       };
     };
@@ -88,10 +88,10 @@
         sourceWithTags = {
           inherit (deriv) src;
           name = "${deriv.name}-source-ctags";
-          createTagFiles = [{
+          createTagFiles = [ {
             inherit (deriv) name;
             tagCmd = "${toString ctags}/bin/ctags --sort=yes -o $TAG_FILE -R .";
-          }];
+          } ];
         };
       };
     };

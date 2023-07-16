@@ -34,7 +34,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8DzLQLCH0eMJQKQOAUHcu6Jj85l0wg658lIQZsnGyQg=";
   };
 
-  outputs = [ "out" "lib" "dev" "man" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "man"
+  ];
 
   postPatch = ''
     substituteInPlace cups/testfile.c \
@@ -46,16 +51,36 @@ stdenv.mkDerivation rec {
       sed -i '/PartOf=cups.service/d' scheduler/cups.socket.in
   '';
 
-  nativeBuildInputs = [ pkg-config removeReferencesTo ];
+  nativeBuildInputs = [
+    pkg-config
+    removeReferencesTo
+  ];
 
-  buildInputs = [ zlib libjpeg libpng libtiff libusb1 gnutls libpaper ]
-    ++ lib.optionals stdenv.isLinux [ avahi pam dbus acl ]
-    ++ lib.optional enableSystemd systemd ++ lib.optionals stdenv.isDarwin
-    (with darwin; [ configd apple_sdk.frameworks.ApplicationServices ]);
+  buildInputs = [
+    zlib
+    libjpeg
+    libpng
+    libtiff
+    libusb1
+    gnutls
+    libpaper
+  ] ++ lib.optionals stdenv.isLinux [
+    avahi
+    pam
+    dbus
+    acl
+  ] ++ lib.optional enableSystemd systemd ++ lib.optionals stdenv.isDarwin
+    (with darwin; [
+      configd
+      apple_sdk.frameworks.ApplicationServices
+    ]);
 
   propagatedBuildInputs = [ gmp ];
 
-  configurePlatforms = lib.optionals stdenv.isLinux [ "build" "host" ];
+  configurePlatforms = lib.optionals stdenv.isLinux [
+    "build"
+    "host"
+  ];
   configureFlags = [
     "--localstatedir=/var"
     "--sysconfdir=/etc"

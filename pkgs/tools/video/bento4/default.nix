@@ -15,9 +15,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Rfmyjsgn/dcIplRtPFb5AfBxWOKmP6w8IHykgVxVNsQ=";
   };
 
-  patches = [
-    ./libap4.patch # include all libraries as shared, not static
-  ];
+  patches = [ ./libap4.patch # include all libraries as shared, not static
+    ];
 
   nativeBuildInputs = [ cmake ];
 

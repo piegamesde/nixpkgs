@@ -27,7 +27,10 @@ buildPythonPackage rec {
       --replace "external/eigen3" "${eigen}/include/eigen3"
   '';
 
-  nativeBuildInputs = [ cmake eigen ];
+  nativeBuildInputs = [
+    cmake
+    eigen
+  ];
 
   dontUseCmakeConfigure = true;
 
@@ -38,8 +41,15 @@ buildPythonPackage rec {
 
   hardeningDisable = lib.optional stdenv.cc.isClang "strictoverflow";
 
-  nativeCheckInputs =
-    [ pytest h5py numba numpy pandas polarizationsolver scipy ];
+  nativeCheckInputs = [
+    pytest
+    h5py
+    numba
+    numpy
+    pandas
+    polarizationsolver
+    scipy
+  ];
 
   pythonImportsCheck = [ "cppe" ];
 }

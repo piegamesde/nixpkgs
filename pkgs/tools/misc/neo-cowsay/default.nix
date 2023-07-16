@@ -19,7 +19,10 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/cowsay" "cmd/cowthink" ];
+  subPackages = [
+    "cmd/cowsay"
+    "cmd/cowthink"
+  ];
 
   meta = with lib; {
     description = "Cowsay reborn, written in Go";

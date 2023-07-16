@@ -28,9 +28,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LbSUdU+a9G8qL7gCZVJQ6UQMATpOMtktY6FeOkUuaYI=";
   };
 
-  nativeBuildInputs = [ bison desktop-file-utils gettext pkg-config ];
-  buildInputs = [ glib gnutls libbfd libxml2 zlib ]
-    ++ lib.optionals (enableGui) [ gtk2 ];
+  nativeBuildInputs = [
+    bison
+    desktop-file-utils
+    gettext
+    pkg-config
+  ];
+  buildInputs = [
+    glib
+    gnutls
+    libbfd
+    libxml2
+    zlib
+  ] ++ lib.optionals (enableGui) [ gtk2 ];
 
   configureScript = "./build.sh";
   configureFlags = [

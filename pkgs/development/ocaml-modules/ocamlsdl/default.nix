@@ -32,11 +32,28 @@ else
 
     strictDeps = true;
 
-    nativeBuildInputs = [ pkg-config ocaml findlib ];
-    buildInputs = [ SDL SDL_image SDL_mixer SDL_ttf SDL_gfx lablgl ];
+    nativeBuildInputs = [
+      pkg-config
+      ocaml
+      findlib
+    ];
+    buildInputs = [
+      SDL
+      SDL_image
+      SDL_mixer
+      SDL_ttf
+      SDL_gfx
+      lablgl
+    ];
 
-    propagatedBuildInputs =
-      [ SDL SDL_image SDL_mixer SDL_ttf SDL_gfx pkg-config ];
+    propagatedBuildInputs = [
+      SDL
+      SDL_image
+      SDL_mixer
+      SDL_ttf
+      SDL_gfx
+      pkg-config
+    ];
     createFindlibDestdir = true;
 
     meta = {

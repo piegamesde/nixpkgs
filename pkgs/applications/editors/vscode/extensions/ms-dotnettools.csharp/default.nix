@@ -14,13 +14,23 @@ let
   version = "1.25.4";
 
   vsixInfo = let
-    linuxDebuggerBins = [ ".debugger/vsdbg-ui" ".debugger/vsdbg" ];
-    darwinX86DebuggerBins =
-      [ ".debugger/x86_64/vsdbg-ui" ".debugger/x86_64/vsdbg" ];
-    darwinAarch64DebuggerBins =
-      [ ".debugger/arm64/vsdbg-ui" ".debugger/arm64/vsdbg" ];
+    linuxDebuggerBins = [
+      ".debugger/vsdbg-ui"
+      ".debugger/vsdbg"
+    ];
+    darwinX86DebuggerBins = [
+      ".debugger/x86_64/vsdbg-ui"
+      ".debugger/x86_64/vsdbg"
+    ];
+    darwinAarch64DebuggerBins = [
+      ".debugger/arm64/vsdbg-ui"
+      ".debugger/arm64/vsdbg"
+    ];
     omniSharpBins = [ ".omnisharp/1.39.4-net6.0/OmniSharp" ];
-    razorBins = [ ".razor/createdump" ".razor/rzls" ];
+    razorBins = [
+      ".razor/createdump"
+      ".razor/rzls"
+    ];
   in {
     x86_64-linux = {
       url =
@@ -101,7 +111,11 @@ in vscode-utils.buildVscodeMarketplaceExtension rec {
       patchelf --add-needed "libssl.so" "$elf"
       patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
         --set-rpath "${
-          lib.makeLibraryPath [ stdenv.cc.cc openssl icu.out ]
+          lib.makeLibraryPath [
+            stdenv.cc.cc
+            openssl
+            icu.out
+          ]
         }:\$ORIGIN" \
         "$elf"
     }
@@ -118,7 +132,11 @@ in vscode-utils.buildVscodeMarketplaceExtension rec {
     homepage = "https://github.com/OmniSharp/omnisharp-vscode";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.jraygauthier ];
-    platforms =
-      [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
   };
 }

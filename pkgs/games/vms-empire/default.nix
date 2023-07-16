@@ -19,7 +19,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ installShellFiles ];
-  buildInputs = [ ncurses xmlto docbook_xml_dtd_44 docbook_xsl ];
+  buildInputs = [
+    ncurses
+    xmlto
+    docbook_xml_dtd_44
+    docbook_xsl
+  ];
 
   postBuild = ''
     xmlto man vms-empire.xml

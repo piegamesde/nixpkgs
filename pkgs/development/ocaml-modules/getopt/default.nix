@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
     sha256 = "0bng2mmdixpmj23xn8krlnaq66k22iclwz46r8zjrsrq3wcn1xgn";
   };
 
-  nativeBuildInputs = [ ocaml findlib ocamlbuild ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+    ocamlbuild
+  ];
 
   strictDeps = true;
 

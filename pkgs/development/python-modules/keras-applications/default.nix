@@ -23,7 +23,10 @@ buildPythonPackage rec {
   # No tests in PyPI tarball
   doCheck = false;
 
-  propagatedBuildInputs = [ numpy h5py ];
+  propagatedBuildInputs = [
+    numpy
+    h5py
+  ];
 
   meta = with lib; {
     description = "Reference implementations of popular deep learning models";

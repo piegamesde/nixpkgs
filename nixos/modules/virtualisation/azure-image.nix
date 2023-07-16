@@ -39,8 +39,14 @@ in {
     systemd.services.fetch-ssh-keys = {
       description = "Fetch host keys and authorized_keys for root user";
 
-      wantedBy = [ "sshd.service" "waagent.service" ];
-      before = [ "sshd.service" "waagent.service" ];
+      wantedBy = [
+        "sshd.service"
+        "waagent.service"
+      ];
+      before = [
+        "sshd.service"
+        "waagent.service"
+      ];
 
       path = [ pkgs.coreutils ];
       script = ''

@@ -54,7 +54,12 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  nativeBuildInputs = [ cmake doxygen graphviz makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    doxygen
+    graphviz
+    makeWrapper
+  ];
 
   # as of 0.5 FreeOrion doesn't work with "-DOpenGL_GL_PREFERENCE=GLVND"
   cmakeFlags = [ "-DOpenGL_GL_PREFERENCE=LEGACY" ];
@@ -80,7 +85,10 @@ stdenv.mkDerivation rec {
     description =
       "A free, open source, turn-based space empire and galactic conquest (4X) computer game";
     homepage = "https://www.freeorion.org/";
-    license = with licenses; [ gpl2 cc-by-sa-30 ];
+    license = with licenses; [
+      gpl2
+      cc-by-sa-30
+    ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ tex ];
   };

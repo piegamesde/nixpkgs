@@ -34,7 +34,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5Ug0U3ESC5F/gj7bahnLYkeY/weSCj0QASwdFuWwdMI=";
   };
 
-  nativeBuildInputs = [ pkg-config bmake ];
+  nativeBuildInputs = [
+    pkg-config
+    bmake
+  ];
 
   buildInputs = [
     cairo

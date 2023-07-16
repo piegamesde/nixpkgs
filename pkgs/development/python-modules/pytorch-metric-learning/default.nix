@@ -26,7 +26,13 @@ buildPythonPackage rec {
     hash = "sha256-9MIwNsiuWobgBaD2kXHz5nwBy04dxmxpF+7qfZ2l77M=";
   };
 
-  propagatedBuildInputs = [ numpy torch scikit-learn torchvision tqdm ];
+  propagatedBuildInputs = [
+    numpy
+    torch
+    scikit-learn
+    torchvision
+    tqdm
+  ];
 
   preCheck = ''
     export HOME=$TMP
@@ -35,7 +41,10 @@ buildPythonPackage rec {
   '';
 
   # package only requires `unittest`, but use `pytest` to exclude tests
-  nativeCheckInputs = [ faiss pytestCheckHook ];
+  nativeCheckInputs = [
+    faiss
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # TypeError: setup() missing 1 required positional argument: 'world_size'

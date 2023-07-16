@@ -22,7 +22,11 @@ buildDunePackage rec {
     sha256 = "106w7mabqihdhj4csk9jfqag220rwhqdp5lapn0xmw2035scvxvk";
   };
 
-  propagatedBuildInputs = [ cstruct fmt optint ];
+  propagatedBuildInputs = [
+    cstruct
+    fmt
+    optint
+  ];
 
   buildInputs = [ dune-configurator ];
 
@@ -39,7 +43,10 @@ buildDunePackage rec {
     changelog =
       "https://github.com/ocaml-multicore/ocaml-${pname}/raw/v${version}/CHANGES.md";
     description = "Bindings to io_uring for OCaml";
-    license = with lib.licenses; [ isc mit ];
+    license = with lib.licenses; [
+      isc
+      mit
+    ];
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ toastal ];
   };

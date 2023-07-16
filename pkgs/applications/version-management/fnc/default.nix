@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8up844ekIOMcPlfB2DJzR/GgJY9s/sBeYpG+YtdauvU=";
   };
 
-  buildInputs = [ libiconv ncurses zlib ];
+  buildInputs = [
+    libiconv
+    ncurses
+    zlib
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

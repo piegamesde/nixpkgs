@@ -30,7 +30,13 @@ import ./make-test-python.nix ({
   in {
     name = "mongodb";
     meta = with pkgs.lib.maintainers; {
-      maintainers = [ bluescreen303 offline cstrahan rvl phile314 ];
+      maintainers = [
+        bluescreen303
+        offline
+        cstrahan
+        rvl
+        phile314
+      ];
     };
 
     nodes = {

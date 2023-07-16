@@ -24,11 +24,19 @@ buildPythonPackage rec {
     hash = "sha256-LBjZgu5tsw211ZVXrdAySitJvzlAp1KUdRBjKitYo8E=";
   };
 
-  propagatedBuildInputs = [ rebulk babelfish python-dateutil ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  propagatedBuildInputs = [
+    rebulk
+    babelfish
+    python-dateutil
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
-  nativeCheckInputs =
-    [ py pytestCheckHook pytest-mock pytest-benchmark pyyaml ];
+  nativeCheckInputs = [
+    py
+    pytestCheckHook
+    pytest-mock
+    pytest-benchmark
+    pyyaml
+  ];
 
   pytestFlagsArray = [ "--benchmark-disable" ];
 

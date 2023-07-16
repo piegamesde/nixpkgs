@@ -4,7 +4,10 @@
 }: {
   options = {
     proto = lib.mkOption {
-      type = lib.types.enum [ "h2" "http/1.1" ];
+      type = lib.types.enum [
+        "h2"
+        "http/1.1"
+      ];
       default = "http/1.1";
       description = lib.mdDoc ''
         This option configures the protocol the backend server expects
@@ -70,7 +73,10 @@
     };
 
     affinity = lib.mkOption {
-      type = lib.types.enum [ "ip" "none" ];
+      type = lib.types.enum [
+        "ip"
+        "none"
+      ];
       default = "none";
       description = lib.mdDoc ''
         If "ip" is given, client IP based session affinity is

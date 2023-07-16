@@ -20,7 +20,12 @@ stdenv.mkDerivation rec {
   # perl provides shasum
   postInstall = ''
     for f in $out/bin/*; do
-      wrapProgram $f --prefix PATH : ${makeBinPath [ git perl ]}
+      wrapProgram $f --prefix PATH : ${
+        makeBinPath [
+          git
+          perl
+        ]
+      }
     done
   '';
 

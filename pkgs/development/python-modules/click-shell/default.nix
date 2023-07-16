@@ -22,7 +22,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ click ];
 
-  nativeCheckInputs = [ pytest-click pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-click
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "click_shell" ];
 

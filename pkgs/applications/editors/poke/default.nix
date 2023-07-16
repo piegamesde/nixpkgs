@@ -52,13 +52,24 @@ in stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ autoreconfHook gettext pkg-config texinfo ]
-    ++ lib.optionals (!isCross) [ help2man ]
-    ++ lib.optionals guiSupport [ makeWrapper tcl.tclPackageHook ];
+  nativeBuildInputs = [
+    autoreconfHook
+    gettext
+    pkg-config
+    texinfo
+  ] ++ lib.optionals (!isCross) [ help2man ] ++ lib.optionals guiSupport [
+    makeWrapper
+    tcl.tclPackageHook
+  ];
 
-  buildInputs = [ boehmgc readline ]
-    ++ lib.optionals guiSupport [ tcl tcllib tk ]
-    ++ lib.optional miSupport json_c ++ lib.optional nbdSupport libnbd
+  buildInputs = [
+    boehmgc
+    readline
+  ] ++ lib.optionals guiSupport [
+    tcl
+    tcllib
+    tk
+  ] ++ lib.optional miSupport json_c ++ lib.optional nbdSupport libnbd
     ++ lib.optional textStylingSupport gettext
     ++ lib.optional (!isCross) dejagnu;
 
@@ -112,7 +123,10 @@ in stdenv.mkDerivation rec {
     changelog =
       "https://git.savannah.gnu.org/cgit/poke.git/plain/ChangeLog?h=releases/poke-${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres kira-bruneau ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      kira-bruneau
+    ];
     platforms = platforms.unix;
   };
 }

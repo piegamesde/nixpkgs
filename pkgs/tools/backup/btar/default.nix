@@ -16,13 +16,11 @@ stdenv.mkDerivation rec {
     sha256 = "0miklk4bqblpyzh1bni4x6lqn88fa8fjn15x1k1n8bxkx60nlymd";
   };
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://build.opensuse.org/public/source/openSUSE:Factory/btar/btar-librsync.patch?rev=2";
-      sha256 = "1awqny9489vsfffav19s73xxg26m7zrhvsgf1wxb8c2izazwr785";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://build.opensuse.org/public/source/openSUSE:Factory/btar/btar-librsync.patch?rev=2";
+    sha256 = "1awqny9489vsfffav19s73xxg26m7zrhvsgf1wxb8c2izazwr785";
+  }) ];
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:

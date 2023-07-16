@@ -25,7 +25,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ asciitree numpy fasteners numcodecs ];
+  propagatedBuildInputs = [
+    asciitree
+    numpy
+    fasteners
+    numcodecs
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

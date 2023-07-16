@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-t6/Ws/Q8DO0zBzrUr/liD61VkxbOv4W4x6VgMWr+Ozk=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapQtAppsHook
+  ];
 
   buildInputs = [ dtkwidget ];
 

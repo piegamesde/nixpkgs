@@ -20,7 +20,10 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libvirt lxml ];
+  buildInputs = [
+    libvirt
+    lxml
+  ];
 
   nativeCheckInputs = [ nose ];
   checkPhase = ''

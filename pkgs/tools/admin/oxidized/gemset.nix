@@ -61,7 +61,10 @@
     version = "1.5.0";
   };
   haml = {
-    dependencies = [ "temple" "tilt" ];
+    dependencies = [
+      "temple"
+      "tilt"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -122,7 +125,14 @@
     version = "0.1.1";
   };
   oxidized = {
-    dependencies = [ "asetus" "git" "net-ssh" "net-telnet" "rugged" "slop" ];
+    dependencies = [
+      "asetus"
+      "git"
+      "net-ssh"
+      "net-telnet"
+      "rugged"
+      "slop"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -133,7 +143,10 @@
     version = "0.26.3";
   };
   oxidized-script = {
-    dependencies = [ "oxidized" "slop" ];
+    dependencies = [
+      "oxidized"
+      "slop"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -251,7 +264,10 @@
     version = "3.7.4";
   };
   sass-listen = {
-    dependencies = [ "rb-fsevent" "rb-inotify" ];
+    dependencies = [
+      "rb-fsevent"
+      "rb-inotify"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -262,7 +278,11 @@
     version = "4.0.0";
   };
   sinatra = {
-    dependencies = [ "rack" "rack-protection" "tilt" ];
+    dependencies = [
+      "rack"
+      "rack-protection"
+      "tilt"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

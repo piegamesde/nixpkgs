@@ -11,7 +11,11 @@ let
   majMin = lib.versions.majorMinor version;
   version = "7.6.21";
 
-  python = python2.withPackages (ps: [ ps.pycairo ps.pygobject2 ps.pygtk ]);
+  python = python2.withPackages (ps: [
+    ps.pycairo
+    ps.pygobject2
+    ps.pygtk
+  ]);
 in stdenv.mkDerivation rec {
   inherit version;
   pname = "fahcontrol";
@@ -22,9 +26,15 @@ in stdenv.mkDerivation rec {
     sha256 = "1vfrdqkrvdlyxaw3f6z92w5dllrv6810lmf8yhcmjcwmphipvf71";
   };
 
-  nativeBuildInputs = [ dpkg makeWrapper ];
+  nativeBuildInputs = [
+    dpkg
+    makeWrapper
+  ];
 
-  buildInputs = [ fahviewer python ];
+  buildInputs = [
+    fahviewer
+    python
+  ];
 
   unpackPhase = ''
     dpkg-deb -x ${src} ./

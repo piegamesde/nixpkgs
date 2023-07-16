@@ -54,7 +54,10 @@ stdenv.mkDerivation rec {
     categories = [ "Game" ];
   };
 
-  nativeBuildInputs = [ makeWrapper unzip ];
+  nativeBuildInputs = [
+    makeWrapper
+    unzip
+  ];
   installPhase = ''
     mkdir -p $out/share/runelite
     mkdir -p $out/share/applications
@@ -76,7 +79,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Open source Old School RuneScape client";
     homepage = "https://runelite.net/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [
+      binaryBytecode
+      binaryNativeCode
+    ];
     license = licenses.bsd2;
     maintainers = with maintainers; [ kmeakin ];
     platforms = [ "x86_64-linux" ];

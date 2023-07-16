@@ -24,7 +24,10 @@ stdenv.mkDerivation rec {
   pname = "roc-toolkit";
   version = "0.2.3";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "roc-streaming";
@@ -33,10 +36,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-wwcc2r1hrM9zryMJp+DOifSh0g6T/gdZJMpVdhqhjR8=";
   };
 
-  nativeBuildInputs = [ scons ragel gengetopt pkg-config ];
+  nativeBuildInputs = [
+    scons
+    ragel
+    gengetopt
+    pkg-config
+  ];
 
-  propagatedBuildInputs = [ libuv speexdsp ]
-    ++ lib.optional openfecSupport openfec
+  propagatedBuildInputs = [
+    libuv
+    speexdsp
+  ] ++ lib.optional openfecSupport openfec
     ++ lib.optional libunwindSupport libunwind
     ++ lib.optional pulseaudioSupport libpulseaudio
     ++ lib.optional opensslSupport openssl ++ lib.optional soxSupport sox;
@@ -49,9 +59,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!soxSupport) "--disable-sox"
     ++ lib.optional (!libunwindSupport) "--disable-libunwind"
     ++ lib.optional (!pulseaudioSupport) "--disable-pulseaudio"
-    ++ (if (!openfecSupport) then
-      [ "--disable-openfec" ]
-    else [
+    ++ (if (!openfecSupport) then [ "--disable-openfec" ] else [
       "--with-libraries=${openfec}/lib"
       "--with-openfec-includes=${openfec.dev}/include"
     ]);

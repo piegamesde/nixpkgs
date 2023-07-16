@@ -32,10 +32,19 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs =
-    [ autoreconfHook docbook_xsl gtk-doc intltool pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    docbook_xsl
+    gtk-doc
+    intltool
+    pkg-config
+  ];
 
-  buildInputs = [ aspell enchant gtk2 ];
+  buildInputs = [
+    aspell
+    enchant
+    gtk2
+  ];
 
   meta = with lib; {
     description =

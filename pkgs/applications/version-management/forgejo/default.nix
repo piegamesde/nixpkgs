@@ -51,7 +51,10 @@ in buildGoModule rec {
 
   subPackages = [ "." ];
 
-  outputs = [ "out" "data" ];
+  outputs = [
+    "out"
+    "data"
+  ];
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = lib.optional pamSupport pam;
@@ -62,8 +65,10 @@ in buildGoModule rec {
     substituteInPlace modules/setting/setting.go --subst-var data
   '';
 
-  tags = lib.optional pamSupport "pam"
-    ++ lib.optionals sqliteSupport [ "sqlite" "sqlite_unlock_notify" ];
+  tags = lib.optional pamSupport "pam" ++ lib.optionals sqliteSupport [
+    "sqlite"
+    "sqlite_unlock_notify"
+  ];
 
   ldflags = [
     "-s"
@@ -82,7 +87,14 @@ in buildGoModule rec {
     mkdir -p $out
     cp -R ./options/locale $out/locale
     wrapProgram $out/bin/gitea \
-      --prefix PATH : ${lib.makeBinPath [ bash git gzip openssh ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          bash
+          git
+          gzip
+          openssh
+        ]
+      }
   '';
 
   # $data is not available in go-modules.drv and preBuild isn't needed
@@ -93,7 +105,10 @@ in buildGoModule rec {
 
   passthru = {
     data-compressed = runCommand "forgejo-data-compressed" {
-      nativeBuildInputs = [ brotli xorg.lndir ];
+      nativeBuildInputs = [
+        brotli
+        xorg.lndir
+      ];
     } ''
       mkdir $out
       lndir ${forgejo.data}/ $out/
@@ -112,7 +127,10 @@ in buildGoModule rec {
     homepage = "https://forgejo.org";
     changelog = "https://codeberg.org/forgejo/forgejo/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ indeednotjames urandom ];
+    maintainers = with maintainers; [
+      indeednotjames
+      urandom
+    ];
     broken = stdenv.isDarwin;
     mainProgram = "gitea";
   };

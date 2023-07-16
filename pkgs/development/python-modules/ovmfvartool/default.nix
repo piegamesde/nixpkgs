@@ -27,6 +27,9 @@ buildPythonPackage rec {
     description = "Parse and generate OVMF_VARS.fd from Yaml";
     homepage = "https://github.com/hlandau/ovmfvartool";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ baloo raitobezarius ];
+    maintainers = with maintainers; [
+      baloo
+      raitobezarius
+    ];
   };
 }

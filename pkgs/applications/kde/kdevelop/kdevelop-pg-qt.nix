@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PVZgTEefjwSuMqUj7pHzB4xxcRfQ3rOelz4iSUy7ZfE=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    extra-cmake-modules
+  ];
 
   buildInputs = [ qtbase ];
 

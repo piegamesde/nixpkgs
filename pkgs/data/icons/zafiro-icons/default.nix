@@ -23,7 +23,10 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-IbFnlUOSADYMNMfvRuRPndxcQbnV12BqMDb9bJRjnoU=";
   };
 
-  nativeBuildInputs = [ gtk3 jdupes ];
+  nativeBuildInputs = [
+    gtk3
+    jdupes
+  ];
 
   propagatedBuildInputs = [
     breeze-icons

@@ -19,7 +19,10 @@ buildPythonPackage rec {
     sha256 = "sha256-j3SftxXKs9EZwdio26W5U0y5owH4yTteS4RUmzkZkoE=";
   };
 
-  propagatedBuildInputs = [ paho-mqtt requests ];
+  propagatedBuildInputs = [
+    paho-mqtt
+    requests
+  ];
 
   # Project has no tests
   doCheck = false;

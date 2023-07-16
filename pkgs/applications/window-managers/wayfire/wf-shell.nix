@@ -26,10 +26,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-iQUBuNjbZuf51A69RC6NsMHFZCFRv+d9XZ0HtP6OpOA=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config wayland-scanner ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    wayland-scanner
+  ];
 
-  buildInputs =
-    [ wayfire wf-config alsa-lib gtkmm3 gtk-layer-shell pulseaudio ];
+  buildInputs = [
+    wayfire
+    wf-config
+    alsa-lib
+    gtkmm3
+    gtk-layer-shell
+    pulseaudio
+  ];
 
   mesonFlags = [ "--sysconfdir /etc" ];
 
@@ -37,7 +48,11 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/WayfireWM/wf-shell";
     description = "GTK3-based panel for Wayfire";
     license = licenses.mit;
-    maintainers = with maintainers; [ qyliss wucke13 rewine ];
+    maintainers = with maintainers; [
+      qyliss
+      wucke13
+      rewine
+    ];
     platforms = platforms.unix;
   };
 }

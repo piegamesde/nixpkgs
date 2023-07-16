@@ -19,7 +19,11 @@ buildPythonPackage rec {
     sha256 = "1vjnicszcc9j0rgb58104fk9sry5xad1xli64jana9bkx42c6x1v";
   };
 
-  propagatedBuildInputs = [ python-slugify jinja2 setuptools ];
+  propagatedBuildInputs = [
+    python-slugify
+    jinja2
+    setuptools
+  ];
   nativeCheckInputs = [ coverage ];
 
   checkPhase = ''

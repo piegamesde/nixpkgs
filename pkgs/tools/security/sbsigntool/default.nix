@@ -27,8 +27,18 @@ stdenv.mkDerivation rec {
 
   prePatch = "patchShebangs .";
 
-  nativeBuildInputs = [ autoconf automake pkg-config help2man ];
-  buildInputs = [ openssl libuuid libbfd gnu-efi ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    pkg-config
+    help2man
+  ];
+  buildInputs = [
+    openssl
+    libuuid
+    libbfd
+    gnu-efi
+  ];
 
   configurePhase = ''
     substituteInPlace configure.ac --replace "@@NIX_GNUEFI@@" "${gnu-efi}"
@@ -51,8 +61,14 @@ stdenv.mkDerivation rec {
     description = "Tools for maintaining UEFI signature databases";
     homepage =
       "http://jk.ozlabs.org/docs/sbkeysync-maintaing-uefi-key-databases";
-    maintainers = with maintainers; [ hmenke raitobezarius ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ]; # Broken on i686
+    maintainers = with maintainers; [
+      hmenke
+      raitobezarius
+    ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ]; # Broken on i686
     license = licenses.gpl3;
   };
 }

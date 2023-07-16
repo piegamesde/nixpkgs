@@ -30,7 +30,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hifEd2uL1sBLF8H8KwYoxCyVpGkv9f4SqD6WmB7xJ7I=";
   };
 
-  nativeBuildInputs = [ libxml2 meson ninja pkg-config python3 vala ];
+  nativeBuildInputs = [
+    libxml2
+    meson
+    ninja
+    pkg-config
+    python3
+    vala
+  ];
 
   buildInputs = [
     gnome-settings-daemon # media-keys

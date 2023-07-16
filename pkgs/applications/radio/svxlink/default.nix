@@ -29,7 +29,11 @@ let
     icon = "qtel";
     desktopName = name;
     genericName = "EchoLink Client";
-    categories = [ "HamRadio" "Qt" "Network" ];
+    categories = [
+      "HamRadio"
+      "Qt"
+      "Network"
+    ];
   };
 
 in stdenv.mkDerivation rec {
@@ -51,7 +55,13 @@ in stdenv.mkDerivation rec {
   ];
   dontWrapQtApps = true;
 
-  nativeBuildInputs = [ cmake pkg-config doxygen groff wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    doxygen
+    groff
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     alsa-lib

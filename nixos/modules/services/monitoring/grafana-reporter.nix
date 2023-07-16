@@ -17,7 +17,10 @@ in {
       protocol = mkOption {
         description = lib.mdDoc "Grafana protocol.";
         default = "http";
-        type = types.enum [ "http" "https" ];
+        type = types.enum [
+          "http"
+          "https"
+        ];
       };
       addr = mkOption {
         description = lib.mdDoc "Grafana address.";

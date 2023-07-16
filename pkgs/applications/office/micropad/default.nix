@@ -32,8 +32,10 @@ in mkYarnPackage rec {
   yarnLock = ./yarn.lock;
   yarnNix = ./yarn.nix;
 
-  nativeBuildInputs = [ copyDesktopItems makeWrapper ]
-    ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    makeWrapper
+  ] ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ];
 
   buildPhase = ''
     runHook preBuild
@@ -72,17 +74,15 @@ in mkYarnPackage rec {
 
   # The desktop item properties should be kept in sync with data from upstream:
   # https://github.com/MicroPad/MicroPad-Electron/blob/master/package.json
-  desktopItems = [
-    (makeDesktopItem {
-      name = "micropad";
-      exec = "${executableName} %u";
-      icon = "micropad";
-      desktopName = "µPad";
-      startupWMClass = "µPad";
-      comment = meta.description;
-      categories = [ "Office" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "micropad";
+    exec = "${executableName} %u";
+    icon = "micropad";
+    desktopName = "µPad";
+    startupWMClass = "µPad";
+    comment = meta.description;
+    categories = [ "Office" ];
+  }) ];
 
   passthru.updateScript = ./update.sh;
 

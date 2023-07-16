@@ -16,8 +16,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-0rpAbYUU0SoeQaVNStmIEuYyiWbRAdTN7Mvm0ySDnhU=";
     rev = version;
   };
-  makeFlags = [ "PREFIX=$(out)" "CC=${stdenv.cc.targetPrefix}cc" ];
-  buildInputs = with xorg; [ libX11 libXext libXi libev ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "CC=${stdenv.cc.targetPrefix}cc"
+  ];
+  buildInputs = with xorg; [
+    libX11
+    libXext
+    libXi
+    libev
+  ];
   nativeBuildInputs = [ pkg-config ];
   meta = with lib; {
     description =

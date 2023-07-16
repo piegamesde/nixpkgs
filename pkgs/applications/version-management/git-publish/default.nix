@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "14rz5kli6sz171cvdc46z3z0nnpd57rliwr6nn6vjjc49yyfwgl4";
   };
 
-  nativeBuildInputs = [ perl installShellFiles ];
+  nativeBuildInputs = [
+    perl
+    installShellFiles
+  ];
   buildInputs = [ python ];
 
   installPhase = ''

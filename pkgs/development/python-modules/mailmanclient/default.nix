@@ -31,7 +31,10 @@ buildPythonPackage rec {
     description = "REST client for driving Mailman 3";
     homepage = "https://www.gnu.org/software/mailman/";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ globin qyliss ];
+    maintainers = with maintainers; [
+      globin
+      qyliss
+    ];
     platforms = platforms.linux;
   };
 }

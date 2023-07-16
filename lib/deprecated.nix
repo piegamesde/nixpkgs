@@ -23,7 +23,10 @@ rec {
       base = (setAttrMerge "passthru" { } (f arg) (z:
         z // {
           function = foldArgs merger f arg;
-          args = (lib.attrByPath [ "passthru" "args" ] { } z) // x;
+          args = (lib.attrByPath [
+            "passthru"
+            "args"
+          ] { } z) // x;
         }));
       withStdOverrides = base // { override = base.passthru.function; };
     in withStdOverrides;
@@ -188,10 +191,10 @@ rec {
           [ ]
         else
           builtins.concatMap (x:
-            if x != null then [{
+            if x != null then [ {
               key = x.outPath;
               val = x;
-            }] else
+            } ] else
               [ ]) ((item.val.propagatedBuildInputs or [ ])
                 ++ (item.val.propagatedNativeBuildInputs or [ ]));
     });
@@ -236,7 +239,10 @@ rec {
   # in these cases the first buildPhase will override the second one
   # ! deprecated, use mergeAttrByFunc instead
   mergeAttrsNoOverride = {
-      mergeLists ? [ "buildInputs" "propagatedBuildInputs" ],
+      mergeLists ? [
+        "buildInputs"
+        "propagatedBuildInputs"
+      ],
       overrideSnd ? [ "buildPhase" ]
     }:
     attrs1: attrs2:
@@ -308,7 +314,10 @@ rec {
     ]) // listToAttrs (map (n:
       nameValuePair n (a: b: ''
         ${a}
-        ${b}'')) [ "preConfigure" "postInstall" ]);
+        ${b}'')) [
+          "preConfigure"
+          "postInstall"
+        ]);
 
   nixType = x:
     if isAttrs x then

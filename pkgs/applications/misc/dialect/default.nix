@@ -53,7 +53,11 @@ python3.pkgs.buildPythonApplication rec {
     libadwaita
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [ dbus-python gtts pygobject3 ];
+  propagatedBuildInputs = with python3.pkgs; [
+    dbus-python
+    gtts
+    pygobject3
+  ];
 
   # Prevent double wrapping, let the Python wrapper use the args in preFixup.
   dontWrapGApps = true;

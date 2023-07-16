@@ -74,9 +74,7 @@ let
   mkPhpKeyVal = k: v:
     let
       values = if (isAttrs v && (hasAttr "_file" v || hasAttr "_raw" v))
-      || !isAttrs v then
-        [ " = ${mkPhpValue v};" ]
-      else
+      || !isAttrs v then [ " = ${mkPhpValue v};" ] else
         mkPhpAttrVals v;
     in map (e: "[${escapeShellArg k}]${e}") (flatten values);
 
@@ -160,7 +158,12 @@ let
       ...
     }:
     let
-      pathPrefix = [ "services" "dokuwiki" "sites" name ];
+      pathPrefix = [
+        "services"
+        "dokuwiki"
+        "sites"
+        name
+      ];
       fromPath = pathPrefix ++ from;
       fromOpt = getAttrFromPath from options;
       toOp = getAttrsFromPath to config;
@@ -193,9 +196,18 @@ let
       ...
     }: {
       imports = [
-        (mkRenamed [ "aclUse" ] [ "settings" "useacl" ])
-        (mkRenamed [ "superUser" ] [ "settings" "superuser" ])
-        (mkRenamed [ "disableActions" ] [ "settings" "disableactions" ])
+        (mkRenamed [ "aclUse" ] [
+          "settings"
+          "useacl"
+        ])
+        (mkRenamed [ "superUser" ] [
+          "settings"
+          "superuser"
+        ])
+        (mkRenamed [ "disableActions" ] [
+          "settings"
+          "disableactions"
+        ])
         ({
             config,
             options,
@@ -203,8 +215,12 @@ let
           }:
           let
             showPath = suffix:
-              lib.options.showOption
-              ([ "services" "dokuwiki" "sites" name ] ++ suffix);
+              lib.options.showOption ([
+                "services"
+                "dokuwiki"
+                "sites"
+                name
+              ] ++ suffix);
             replaceExtraConfig = "Please use `${
                 showPath [ "settings" ]
               }' to pass structured settings instead.";
@@ -233,14 +249,21 @@ let
                 message = "Either ${showPath [ "acl" ]} or ${
                     showPath [ "aclFile" ]
                   } is mandatory if ${
-                    showPath [ "settings" "useacl" ]
+                    showPath [
+                      "settings"
+                      "useacl"
+                    ]
                   } is true";
               }
               {
                 assertion = config.usersFile != null
                   -> config.mergedConfig.useacl != false;
-                message =
-                  "${showPath [ "settings" "useacl" ]} is required when ${
+                message = "${
+                    showPath [
+                      "settings"
+                      "useacl"
+                    ]
+                  } is required when ${
                     showPath [ "usersFile" ]
                   } is set (Currently defiend as `${config.usersFile}' in ${
                     showFiles options.usersFile.files
@@ -397,7 +420,12 @@ let
         };
 
         poolConfig = mkOption {
-          type = with types; attrsOf (oneOf [ str int bool ]);
+          type = with types;
+            attrsOf (oneOf [
+              str
+              int
+              bool
+            ]);
           default = {
             "pm" = "dynamic";
             "pm.max_children" = 32;
@@ -414,7 +442,10 @@ let
 
         phpPackage = mkOption {
           type = types.package;
-          relatedPackages = [ "php80" "php81" ];
+          relatedPackages = [
+            "php80"
+            "php81"
+          ];
           default = pkgs.php81;
           defaultText = "pkgs.php81";
           description = lib.mdDoc ''
@@ -508,7 +539,10 @@ in {
       };
 
       webserver = mkOption {
-        type = types.enum [ "nginx" "caddy" ];
+        type = types.enum [
+          "nginx"
+          "caddy"
+        ];
         default = "nginx";
         description = lib.mdDoc ''
           Whether to use nginx or caddy for virtual host management.
@@ -680,5 +714,11 @@ in {
 
   ]);
 
-  meta.maintainers = with maintainers; [ _1000101 onny dandellion 0.0 mo ];
+  meta.maintainers = with maintainers; [
+    _1000101
+    onny
+    dandellion
+    0.0
+    mo
+  ];
 }

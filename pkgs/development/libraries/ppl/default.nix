@@ -20,16 +20,17 @@ in stdenv.mkDerivation {
     sha256 = "1wgxcbgmijgk11df43aiqfzv31r3bkxmgb4yl68g21194q60nird";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "clang5-support.patch";
-      url =
-        "https://git.sagemath.org/sage.git/plain/build/pkgs/ppl/patches/clang5-support.patch?h=9.2";
-      sha256 = "1zj90hm25pkgvk4jlkfzh18ak9b98217gbidl3731fdccbw6hr87";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "clang5-support.patch";
+    url =
+      "https://git.sagemath.org/sage.git/plain/build/pkgs/ppl/patches/clang5-support.patch?h=9.2";
+    sha256 = "1zj90hm25pkgvk4jlkfzh18ak9b98217gbidl3731fdccbw6hr87";
+  }) ];
 
-  nativeBuildInputs = [ perl gnum4 ];
+  nativeBuildInputs = [
+    perl
+    gnum4
+  ];
   propagatedBuildInputs = [ gmpxx ];
 
   configureFlags = [ "--disable-watchdog" ] ++ lib.optionals stdenv.isDarwin [

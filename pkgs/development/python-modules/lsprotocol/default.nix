@@ -26,13 +26,22 @@ buildPythonPackage rec {
     hash = "sha256-gfsqn9NtO7meMks4dUhrTYVlr69Ffh339GD9FvCJvJM=";
   };
 
-  nativeBuildInputs = [ flit-core nox ];
+  nativeBuildInputs = [
+    flit-core
+    nox
+  ];
 
-  propagatedBuildInputs = [ attrs cattrs ];
+  propagatedBuildInputs = [
+    attrs
+    cattrs
+  ];
 
   nativeCheckInputs = [ pytest ];
 
-  checkInputs = [ jsonschema pyhamcrest ];
+  checkInputs = [
+    jsonschema
+    pyhamcrest
+  ];
 
   preBuild = ''
     cd packages/python
@@ -57,6 +66,9 @@ buildPythonPackage rec {
     description = "Python implementation of the Language Server Protocol";
     homepage = "https://github.com/microsoft/lsprotocol";
     license = licenses.mit;
-    maintainers = with maintainers; [ doronbehar fab ];
+    maintainers = with maintainers; [
+      doronbehar
+      fab
+    ];
   };
 }

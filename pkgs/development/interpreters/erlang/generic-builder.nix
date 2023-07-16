@@ -53,7 +53,12 @@
   odbcSupport ? false,
   odbcPackages ? [ unixODBC ],
   opensslPackage ? openssl,
-  wxPackages ? [ libGL libGLU wxGTK xorg.libX11 ],
+  wxPackages ? [
+    libGL
+    libGLU
+    wxGTK
+    xorg.libX11
+  ],
   preUnpack ? "",
   postUnpack ? "",
   patches ? [ ],
@@ -70,7 +75,10 @@
   installPhase ? "",
   preInstall ? "",
   postInstall ? "",
-  installTargets ? [ "install" "install-docs" ],
+  installTargets ? [
+    "install"
+    "install-docs"
+  ],
   checkPhase ? "",
   preCheck ? "",
   postCheck ? "",
@@ -101,13 +109,26 @@ in stdenv.mkDerivation ({
 
   inherit src version;
 
-  nativeBuildInputs = [ autoconf makeWrapper perl gnum4 libxslt libxml2 ];
+  nativeBuildInputs = [
+    autoconf
+    makeWrapper
+    perl
+    gnum4
+    libxslt
+    libxml2
+  ];
 
-  buildInputs = [ ncurses opensslPackage ] ++ optionals wxSupport wxPackages2
-    ++ optionals odbcSupport odbcPackages
+  buildInputs = [
+    ncurses
+    opensslPackage
+  ] ++ optionals wxSupport wxPackages2 ++ optionals odbcSupport odbcPackages
     ++ optionals javacSupport javacPackages ++ optional systemdSupport systemd
-    ++ optionals stdenv.isDarwin
-    (with pkgs.darwin.apple_sdk.frameworks; [ AGL Carbon Cocoa WebKit ]);
+    ++ optionals stdenv.isDarwin (with pkgs.darwin.apple_sdk.frameworks; [
+      AGL
+      Carbon
+      Cocoa
+      WebKit
+    ]);
 
   debugInfo = enableDebugInfo;
 
@@ -124,9 +145,10 @@ in stdenv.mkDerivation ({
     ./otp_build autoconf
   '';
 
-  configureFlags = [ "--with-ssl=${lib.getOutput "out" opensslPackage}" ] ++ [
-    "--with-ssl-incl=${lib.getDev opensslPackage}"
-  ] # This flag was introduced in R24
+  configureFlags = [ "--with-ssl=${lib.getOutput "out" opensslPackage}" ]
+    ++ [ "--with-ssl-incl=${
+      lib.getDev opensslPackage
+    }" ] # This flag was introduced in R24
     ++ optional enableThreads "--enable-threads"
     ++ optional enableSmpSupport "--enable-smp-support"
     ++ optional enableKernelPoll "--enable-kernel-poll"
@@ -153,7 +175,10 @@ in stdenv.mkDerivation ({
   postFixup = ''
     wrapProgram $out/lib/erlang/bin/erl --prefix PATH ":" "${gnused}/bin/"
     wrapProgram $out/lib/erlang/bin/start_erl --prefix PATH ":" "${
-      lib.makeBinPath [ gnused gawk ]
+      lib.makeBinPath [
+        gnused
+        gawk
+      ]
     }"
   '';
 
@@ -162,7 +187,14 @@ in stdenv.mkDerivation ({
     in writeScript "update.sh" ''
       #!${stdenv.shell}
       set -ox errexit
-      PATH=${lib.makeBinPath [ common-updater-scripts coreutils git gnused ]}
+      PATH=${
+        lib.makeBinPath [
+          common-updater-scripts
+          coreutils
+          git
+          gnused
+        ]
+      }
       latest=$(list-git-tags --url=https://github.com/erlang/otp.git | sed -n 's/^OTP-${major}/${major}/p' | sort -V | tail -1)
       if [ "$latest" != "${version}" ]; then
         nixpkgs="$(git rev-parse --show-toplevel)"

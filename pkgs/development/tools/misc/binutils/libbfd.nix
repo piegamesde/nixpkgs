@@ -11,8 +11,10 @@ stdenv.mkDerivation {
   dontUnpack = true;
   dontBuild = true;
   dontInstall = true;
-  propagatedBuildInputs =
-    [ binutils-unwrapped-all-targets.dev binutils-unwrapped-all-targets.lib ];
+  propagatedBuildInputs = [
+    binutils-unwrapped-all-targets.dev
+    binutils-unwrapped-all-targets.lib
+  ];
 
   passthru = { inherit (binutils-unwrapped-all-targets) dev hasPluginAPI; };
 

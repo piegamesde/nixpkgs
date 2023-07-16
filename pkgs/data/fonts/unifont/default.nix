@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-77rkcU0YajAVugWHnGscaFvcFTgWm+1WPLknQZvTjN0=";
   };
 
-  nativeBuildInputs = [ libfaketime xorg.fonttosfnt xorg.mkfontscale ];
+  nativeBuildInputs = [
+    libfaketime
+    xorg.fonttosfnt
+    xorg.mkfontscale
+  ];
 
   dontUnpack = true;
 
@@ -49,7 +53,10 @@ stdenv.mkDerivation rec {
 
     # Basically GPL2+ with font exception.
     license = "https://unifoundry.com/LICENSE.txt";
-    maintainers = [ maintainers.rycee maintainers.vrthra ];
+    maintainers = [
+      maintainers.rycee
+      maintainers.vrthra
+    ];
     platforms = platforms.all;
   };
 }

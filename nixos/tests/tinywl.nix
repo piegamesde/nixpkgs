@@ -18,7 +18,11 @@ import ./make-test-python.nix ({
         security.polkit.enable = true;
 
         environment = {
-          systemPackages = with pkgs; [ tinywl foot wayland-utils ];
+          systemPackages = with pkgs; [
+            tinywl
+            foot
+            wayland-utils
+          ];
         };
 
         # Automatically start TinyWL when logging in on tty1:

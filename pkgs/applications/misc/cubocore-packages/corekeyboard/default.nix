@@ -22,10 +22,19 @@ mkDerivation rec {
     sha256 = "sha256-zOH/w4QroMaVjWnFuWAJQ11RYlpXwIXRG9QYGDkfLVY=";
   };
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
-  buildInputs =
-    [ qtbase qtx11extras xorg.libXtst xorg.libX11 libcprime libcsys ];
+  buildInputs = [
+    qtbase
+    qtx11extras
+    xorg.libXtst
+    xorg.libX11
+    libcprime
+    libcsys
+  ];
 
   meta = with lib; {
     description = "A virtual keyboard for X11 from the C Suite";

@@ -23,7 +23,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-BqN43xNQEkjBsttaqXeiyBJq6Emp2be+JUb7Spwm2ZM=";
   };
 
-  outputs = [ "out" "dev" "doc" "info" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+    "info"
+  ];
 
   strictDeps = true;
   # mpfr.h requires gmp.h

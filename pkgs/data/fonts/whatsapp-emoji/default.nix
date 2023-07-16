@@ -25,8 +25,13 @@ stdenvNoCC.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs =
-    [ imagemagick pngquant python3Packages.nototools which zopfli ];
+  nativeBuildInputs = [
+    imagemagick
+    pngquant
+    python3Packages.nototools
+    which
+    zopfli
+  ];
 
   passthru.updateScript = nix-update-script { };
 

@@ -36,7 +36,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config ]
     ++ lib.optionals stdenv.isDarwin [ libicns ];
 
-  buildInputs = [ SDL2 libao ] ++ lib.optionals stdenv.isLinux [
+  buildInputs = [
+    SDL2
+    libao
+  ] ++ lib.optionals stdenv.isLinux [
     alsa-lib
     gtk3
     gtksourceview3
@@ -47,8 +50,12 @@ stdenv.mkDerivation rec {
     libpulseaudio
     openal
     udev
-  ] ++ lib.optionals stdenv.isDarwin
-    (with darwin.apple_sdk.frameworks; [ Carbon Cocoa OpenAL OpenGL ]);
+  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+    Carbon
+    Cocoa
+    OpenAL
+    OpenGL
+  ]);
 
   patches = [
     # Includes cmath header

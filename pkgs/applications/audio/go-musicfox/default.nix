@@ -33,7 +33,10 @@ buildGoModule rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ alsa-lib flac ];
+  buildInputs = [
+    alsa-lib
+    flac
+  ];
 
   passthru.updateScript = nix-update-script { };
 
@@ -42,6 +45,10 @@ buildGoModule rec {
     homepage = "https://github.com/anhoder/go-musicfox";
     license = licenses.mit;
     mainProgram = "musicfox";
-    maintainers = with maintainers; [ zendo Ruixi-rebirth aleksana ];
+    maintainers = with maintainers; [
+      zendo
+      Ruixi-rebirth
+      aleksana
+    ];
   };
 }

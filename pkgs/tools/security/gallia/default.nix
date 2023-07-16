@@ -18,9 +18,15 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-McHzHK404kDB992T2f84dZHDxujpPIz4qglYMmv3kTw=";
   };
 
-  pythonRelaxDeps = [ "aiofiles" "msgspec" ];
+  pythonRelaxDeps = [
+    "aiofiles"
+    "msgspec"
+  ];
 
-  nativeBuildInputs = with python3.pkgs; [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = with python3.pkgs; [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     aiofiles
@@ -39,7 +45,10 @@ python3.pkgs.buildPythonApplication rec {
 
   SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook pytest-asyncio ];
+  nativeCheckInputs = with python3.pkgs; [
+    pytestCheckHook
+    pytest-asyncio
+  ];
 
   pythonImportsCheck = [ "gallia" ];
 
@@ -53,7 +62,10 @@ python3.pkgs.buildPythonApplication rec {
     changelog =
       "https://github.com/Fraunhofer-AISEC/gallia/releases/tag/v${version}";
     license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab rumpelsepp ];
+    maintainers = with maintainers; [
+      fab
+      rumpelsepp
+    ];
     platforms = platforms.linux;
   };
 }

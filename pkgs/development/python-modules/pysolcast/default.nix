@@ -29,9 +29,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ isodate pyyaml requests ];
+  propagatedBuildInputs = [
+    isodate
+    pyyaml
+    requests
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook responses ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    responses
+  ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

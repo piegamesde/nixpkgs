@@ -29,9 +29,20 @@ stdenv.mkDerivation rec {
   configureFlags =
     [ "--with-docbook-xsl-stylesheets=${docbook_xsl}/xml/xsl/docbook" ];
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
-  buildInputs =
-    [ expat gpgme libgcrypt libxml2 libxslt gnutls curl docbook_xsl ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
+  buildInputs = [
+    expat
+    gpgme
+    libgcrypt
+    libxml2
+    libxslt
+    gnutls
+    curl
+    docbook_xsl
+  ];
 
   meta = with lib; {
     description =

@@ -45,7 +45,10 @@ mkDerivation rec {
 
   sourceRoot = "saga-${version}/saga-gis";
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     curl
@@ -67,7 +70,13 @@ mkDerivation rec {
   ]
   # See https://groups.google.com/forum/#!topic/nix-devel/h_vSzEJAPXs
   # for why the have additional buildInputs on darwin
-    ++ lib.optionals stdenv.isDarwin [ Cocoa unixODBC poppler netcdf sqlite ];
+    ++ lib.optionals stdenv.isDarwin [
+      Cocoa
+      unixODBC
+      poppler
+      netcdf
+      sqlite
+    ];
 
   cmakeFlags =
     [ "-DOpenMP_SUPPORT=${if stdenv.isDarwin then "OFF" else "ON"}" ];
@@ -76,7 +85,10 @@ mkDerivation rec {
     description = "System for Automated Geoscientific Analyses";
     homepage = "http://www.saga-gis.org";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ michelk mpickering ];
+    maintainers = with maintainers; [
+      michelk
+      mpickering
+    ];
     platforms = with platforms; unix;
   };
 }

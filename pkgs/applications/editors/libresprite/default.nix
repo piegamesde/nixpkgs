@@ -42,7 +42,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-d8GmVHYomDb74iSeEhJEVTHvbiVXggXg7xSqIKCUSzY=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ninja gtest ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    ninja
+    gtest
+  ];
 
   buildInputs = [
     curl
@@ -58,9 +63,16 @@ stdenv.mkDerivation rec {
     SDL2_image
     lua
     # no v8 due to missing libplatform and libbase
-  ] ++ lib.optionals stdenv.isDarwin [ AppKit Cocoa Foundation ];
+  ] ++ lib.optionals stdenv.isDarwin [
+    AppKit
+    Cocoa
+    Foundation
+  ];
 
-  cmakeFlags = [ "-DWITH_DESKTOP_INTEGRATION=ON" "-DWITH_WEBP_SUPPORT=ON" ];
+  cmakeFlags = [
+    "-DWITH_DESKTOP_INTEGRATION=ON"
+    "-DWITH_WEBP_SUPPORT=ON"
+  ];
 
   hardeningDisable = lib.optional stdenv.isDarwin "format";
 

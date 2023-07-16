@@ -35,17 +35,23 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ curl gdal netcdf pcre dcw-gmt gshhg-gmt ]
-    ++ (if stdenv.isDarwin then [
-      Accelerate
-      CoreGraphics
-      CoreVideo
-    ] else [
-      glibc
-      fftwSinglePrec
-      blas
-      lapack
-    ]);
+  buildInputs = [
+    curl
+    gdal
+    netcdf
+    pcre
+    dcw-gmt
+    gshhg-gmt
+  ] ++ (if stdenv.isDarwin then [
+    Accelerate
+    CoreGraphics
+    CoreVideo
+  ] else [
+    glibc
+    fftwSinglePrec
+    blas
+    lapack
+  ]);
 
   propagatedBuildInputs = [ ghostscript ];
 
@@ -83,7 +89,10 @@ stdenv.mkDerivation rec {
       transformations and includes supporting data such as coastlines, rivers,
       and political boundaries and optionally country polygons.
     '';
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ tviti ];
   };

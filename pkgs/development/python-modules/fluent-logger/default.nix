@@ -23,8 +23,12 @@ buildPythonPackage rec {
 
   # Tests fail because absent in package
   doCheck = false;
-  pythonImportsCheck =
-    [ "fluent" "fluent.event" "fluent.handler" "fluent.sender" ];
+  pythonImportsCheck = [
+    "fluent"
+    "fluent.event"
+    "fluent.handler"
+    "fluent.sender"
+  ];
 
   meta = with lib; {
     description = "A structured logger for Fluentd (Python)";

@@ -21,7 +21,13 @@ buildPythonPackage rec {
     hash = "sha256-rE3HwdOLOhVxfbJjOjo4MBLgvmZMcnyRFjfmr2pJKTw=";
   };
 
-  propagatedBuildInputs = [ cairocffi cssselect2 defusedxml pillow tinycss2 ];
+  propagatedBuildInputs = [
+    cairocffi
+    cssselect2
+    defusedxml
+    pillow
+    tinycss2
+  ];
 
   propagatedNativeBuildInputs = [ cairocffi ];
 

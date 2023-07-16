@@ -19,9 +19,15 @@ stdenv.mkDerivation rec {
     sha256 = "5gMv/HajPrUL/vkegEqHgN2d6Yzf01dTMrx4l34KMrQ=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ libusb-compat-0_1 readline ];
+  buildInputs = [
+    libusb-compat-0_1
+    readline
+  ];
 
   configureFlags = [ "sysconfdir=/etc" ];
 

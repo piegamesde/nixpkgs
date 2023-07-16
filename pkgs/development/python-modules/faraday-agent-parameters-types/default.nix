@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-jQgE/eR8Gd9nMGijH9unhHCrLUn7DbWFkTauoz3O/sM=";
   };
 
-  propagatedBuildInputs = [ marshmallow packaging ];
+  propagatedBuildInputs = [
+    marshmallow
+    packaging
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -30,8 +33,10 @@ buildPythonPackage rec {
       --replace '"pytest-runner",' ""
   '';
 
-  pythonImportsCheck =
-    [ "faraday_agent_parameters_types" "faraday_agent_parameters_types.utils" ];
+  pythonImportsCheck = [
+    "faraday_agent_parameters_types"
+    "faraday_agent_parameters_types.utils"
+  ];
 
   disabledTests = [
     # assert 'Version requested not valid' in "Invalid version: 'hola'"

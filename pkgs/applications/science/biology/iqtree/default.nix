@@ -22,7 +22,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ boost eigen zlib ];
+  buildInputs = [
+    boost
+    eigen
+    zlib
+  ];
 
   meta = with lib; {
     homepage = "http://www.iqtree.org/";

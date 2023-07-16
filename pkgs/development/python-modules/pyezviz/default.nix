@@ -24,7 +24,13 @@ buildPythonPackage rec {
     hash = "sha256-RHwsKNbjKPMp0Ddc3eEsJbLwCAgbFd+5hpzUABYnTso=";
   };
 
-  propagatedBuildInputs = [ paho-mqtt pandas pycryptodome requests xmltodict ];
+  propagatedBuildInputs = [
+    paho-mqtt
+    pandas
+    pycryptodome
+    requests
+    xmltodict
+  ];
 
   # Project has no tests. test_cam_rtsp.py is more a sample for using the module
   doCheck = false;

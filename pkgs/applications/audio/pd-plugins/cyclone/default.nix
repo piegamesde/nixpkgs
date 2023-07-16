@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ puredata ];
 
-  makeFlags = [ "pdincludepath=${puredata}/include/pd" "prefix=$(out)" ];
+  makeFlags = [
+    "pdincludepath=${puredata}/include/pd"
+    "prefix=$(out)"
+  ];
 
   postInstall = ''
     mv "$out/lib/pd-externals/cyclone" "$out/"

@@ -66,7 +66,10 @@ in python.pkgs.buildPythonApplication rec {
     sha256 = "19rhjdrf1n1q29cgpcry6pl2kl90zq0d613hhkwdir9bhq5bkknp";
   };
 
-  patches = [ packaging_fix_pull_request_patch ./release.patch ];
+  patches = [
+    packaging_fix_pull_request_patch
+    ./release.patch
+  ];
 
   # Only non-GUI tests can be run deterministically in the Nix build environment.
   checkPhase = ''

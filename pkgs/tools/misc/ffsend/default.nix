@@ -35,7 +35,10 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ]
     ++ lib.optionals stdenv.isLinux [ pkg-config ];
-  buildInputs = if stdenv.isDarwin then [ Security AppKit ] else [ openssl ];
+  buildInputs = if stdenv.isDarwin then [
+    Security
+    AppKit
+  ] else [ openssl ];
 
   preBuild = lib.optionalString (x11Support && usesX11)
     (if preferXsel && xsel != null then ''
@@ -60,7 +63,11 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://gitlab.com/timvisee/ffsend";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ lilyball equirosa marsam ];
+    maintainers = with maintainers; [
+      lilyball
+      equirosa
+      marsam
+    ];
     platforms = platforms.unix;
   };
 }

@@ -67,7 +67,11 @@ mkDerivation rec {
     "--set-default QT_QPA_PLATFORM xcb"
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ninja ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    ninja
+  ];
 
   buildInputs = [
     alsa-lib
@@ -100,7 +104,11 @@ mkDerivation rec {
     description = "Music notation and composition software";
     homepage = "https://musescore.org/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ vandenoever turion doronbehar ];
+    maintainers = with maintainers; [
+      vandenoever
+      turion
+      doronbehar
+    ];
     # Darwin requires CoreMIDI from SDK 11.3, we use the upstream built .dmg
     # file in ./darwin.nix in the meantime.
     platforms = platforms.linux;

@@ -218,8 +218,10 @@ in {
           (toString cfg.port)
           "-urlprefix"
           cfg.urlPrefix
-        ] ++ concatMap (hook: [ "-hooks" hook ]) hookFiles
-          ++ optional cfg.enableTemplates "-template"
+        ] ++ concatMap (hook: [
+          "-hooks"
+          hook
+        ]) hookFiles ++ optional cfg.enableTemplates "-template"
           ++ optional cfg.verbose "-verbose" ++ cfg.extraArgs;
       in ''
         ${cfg.package}/bin/webhook ${escapeShellArgs args}

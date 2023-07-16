@@ -55,7 +55,14 @@ python3Packages.buildPythonApplication rec {
     gobject-introspection
   ];
 
-  buildInputs = [ librsvg libnotify libadwaita libportal zbar tesseract5 ];
+  buildInputs = [
+    librsvg
+    libnotify
+    libadwaita
+    libportal
+    zbar
+    tesseract5
+  ];
 
   propagatedBuildInputs = with python3Packages; [
     pygobject3

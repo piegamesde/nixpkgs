@@ -65,7 +65,12 @@ stdenv.mkDerivation rec {
   pname = "spice-gtk";
   version = "0.42";
 
-  outputs = [ "out" "dev" "devdoc" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+    "man"
+  ];
 
   src = fetchurl {
     url = "https://www.spice-space.org/download/gtk/${pname}-${version}.tar.xz";
@@ -87,11 +92,14 @@ stdenv.mkDerivation rec {
     python3.pkgs.pyparsing
     python3.pkgs.six
     vala
-  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
-    [ mesonEmulatorHook ] ++ lib.optionals stdenv.isLinux [ wayland-scanner ];
+  ] ++ lib.optionals
+    (stdenv.buildPlatform != stdenv.hostPlatform) [ mesonEmulatorHook ]
+    ++ lib.optionals stdenv.isLinux [ wayland-scanner ];
 
-  propagatedBuildInputs =
-    [ gst_all_1.gst-plugins-base gst_all_1.gst-plugins-good ];
+  propagatedBuildInputs = [
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-good
+  ];
 
   buildInputs = [
     cyrus_sasl
@@ -111,8 +119,14 @@ stdenv.mkDerivation rec {
     usbredir
     vala
     zlib
-  ] ++ lib.optionals withPolkit [ polkit acl ]
-    ++ lib.optionals stdenv.isLinux [ libcap_ng libdrm wayland-protocols ];
+  ] ++ lib.optionals withPolkit [
+    polkit
+    acl
+  ] ++ lib.optionals stdenv.isLinux [
+    libcap_ng
+    libdrm
+    wayland-protocols
+  ];
 
   PKG_CONFIG_POLKIT_GOBJECT_1_POLICYDIR =
     "${placeholder "out"}/share/polkit-1/actions";
@@ -124,8 +138,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!stdenv.isLinux) [
       "-Dlibcap-ng=disabled"
       "-Degl=disabled"
-    ] ++ lib.optionals stdenv.hostPlatform.isMusl [
-      "-Dcoroutine=gthread" # Fixes "Function missing:makecontext"
+    ] ++ lib.optionals
+    stdenv.hostPlatform.isMusl [ "-Dcoroutine=gthread" # Fixes "Function missing:makecontext"
     ];
 
   postPatch = ''

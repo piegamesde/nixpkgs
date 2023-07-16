@@ -41,9 +41,19 @@ stdenv.mkDerivation rec {
 
   dontUseCmakeBuildDir = true;
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs =
-    [ rsync lua asciidoc libxml2 docbook_xml_dtd_45 docbook_xsl libxslt ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    rsync
+    lua
+    asciidoc
+    libxml2
+    docbook_xml_dtd_45
+    docbook_xsl
+    libxslt
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/axkibe/lsyncd";

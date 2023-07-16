@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ zig ];
-  buildInputs = [ libX11 libXfixes ];
+  buildInputs = [
+    libX11
+    libXfixes
+  ];
 
   preBuild = ''
     export HOME=$TMPDIR

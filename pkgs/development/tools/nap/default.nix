@@ -24,6 +24,9 @@ buildGoModule rec {
     description = "Code snippets in your terminal 🛌";
     homepage = "https://github.com/maaslalani/nap";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ phdcybersec maaslalani ];
+    maintainers = with lib.maintainers; [
+      phdcybersec
+      maaslalani
+    ];
   };
 }

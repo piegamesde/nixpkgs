@@ -22,7 +22,12 @@ buildPythonPackage rec {
     hash = "sha256-MUIwgG8GKL+V5GgiC7gZXn5tlSVrmTj/IFiP+hVB7Ks=";
   };
 
-  propagatedBuildInputs = [ django redis rq sentry-sdk ];
+  propagatedBuildInputs = [
+    django
+    redis
+    rq
+    sentry-sdk
+  ];
 
   pythonImportsCheck = [ "django_rq" ];
 

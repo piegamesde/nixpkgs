@@ -12,10 +12,13 @@ import ../make-test-python.nix ({
         services.kerberos_server = {
           enable = true;
           realms = {
-            "FOO.BAR".acl = [{
+            "FOO.BAR".acl = [ {
               principal = "admin";
-              access = [ "add" "cpw" ];
-            }];
+              access = [
+                "add"
+                "cpw"
+              ];
+            } ];
           };
         };
         krb5 = {

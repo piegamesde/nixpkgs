@@ -90,8 +90,13 @@ buildGoPackage rec {
 
   goDeps = ./deps.nix;
 
-  nativeBuildInputs =
-    [ pkg-config deepin-gettext-tools gettext python3 wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    deepin-gettext-tools
+    gettext
+    python3
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     go-dbus-factory

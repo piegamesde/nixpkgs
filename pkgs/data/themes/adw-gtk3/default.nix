@@ -19,7 +19,11 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-x6ul5NZDWqEQfLzmpR7X5HgUmHNSbpuTnCquVEHFHL8=";
   };
 
-  nativeBuildInputs = [ meson ninja sassc ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    sassc
+  ];
 
   postPatch = ''
     chmod +x gtk/src/adw-gtk3-dark/gtk-3.0/install-dark-theme.sh

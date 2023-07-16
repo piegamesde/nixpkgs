@@ -25,7 +25,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ pyyaml colorama jinja2 setuptools ];
+  propagatedBuildInputs = [
+    pyyaml
+    colorama
+    jinja2
+    setuptools
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

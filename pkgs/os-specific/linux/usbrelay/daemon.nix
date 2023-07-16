@@ -5,7 +5,11 @@
   installShellFiles,
 }:
 let
-  python = python3.withPackages (ps: with ps; [ usbrelay-py paho-mqtt ]);
+  python = python3.withPackages (ps:
+    with ps; [
+      usbrelay-py
+      paho-mqtt
+    ]);
   # This is a separate derivation, not just an additional output of
   # usbrelay, because otherwise, we have a cyclic dependency between
   # usbrelay (default.nix) and the python module (python.nix).

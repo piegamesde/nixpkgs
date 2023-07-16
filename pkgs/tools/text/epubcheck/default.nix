@@ -41,7 +41,12 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/w3c/epubcheck";
     description = "Validation tool for EPUB";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license = with licenses; [ asl20 bsd3 mpl10 w3c ];
+    license = with licenses; [
+      asl20
+      bsd3
+      mpl10
+      w3c
+    ];
     platforms = platforms.all;
     maintainers = with maintainers; [ eadwu ];
   };

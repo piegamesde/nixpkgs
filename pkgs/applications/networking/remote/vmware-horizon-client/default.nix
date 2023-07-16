@@ -21,7 +21,10 @@ let
 
   # For USB support, ensure that /var/run/vmware/<YOUR-UID>
   # exists and is owned by you. Then run vmware-usbarbitrator as root.
-  bins = [ "vmware-view" "vmware-usbarbitrator" ];
+  bins = [
+    "vmware-view"
+    "vmware-usbarbitrator"
+  ];
 
   mainProgram = "vmware-view";
 

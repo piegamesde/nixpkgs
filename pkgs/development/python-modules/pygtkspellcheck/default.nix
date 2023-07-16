@@ -18,7 +18,11 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ gobject-introspection ];
-  propagatedBuildInputs = [ pyenchant pygobject3 gtk3 ];
+  propagatedBuildInputs = [
+    pyenchant
+    pygobject3
+    gtk3
+  ];
 
   doCheck = false; # there are no tests
   pythonImportsCheck = [ "gtkspellcheck" ];

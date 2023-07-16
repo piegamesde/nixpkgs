@@ -33,7 +33,13 @@ stdenv.mkDerivation rec {
     patchShebangs meson_post_install.py
   '';
 
-  nativeBuildInputs = [ meson ninja pkg-config python3 wrapGAppsHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    python3
+    wrapGAppsHook
+  ];
   buildInputs = [
     libGL
     libGLU

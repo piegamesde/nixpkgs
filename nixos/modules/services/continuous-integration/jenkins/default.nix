@@ -39,7 +39,10 @@ in {
       extraGroups = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "wheel" "dialout" ];
+        example = [
+          "wheel"
+          "dialout"
+        ];
         description = lib.mdDoc ''
           List of extra groups that the "jenkins" user should be a part of.
         '';

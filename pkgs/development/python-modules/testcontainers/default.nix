@@ -24,7 +24,11 @@ buildPythonPackage rec {
     echo "${version}" > VERSION
   '';
 
-  buildInputs = [ deprecation docker wrapt ];
+  buildInputs = [
+    deprecation
+    docker
+    wrapt
+  ];
 
   # Tests require various container and database services running
   doCheck = false;

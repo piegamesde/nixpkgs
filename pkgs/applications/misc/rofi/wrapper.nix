@@ -16,7 +16,10 @@ symlinkJoin {
 
   paths = [ rofi-unwrapped.out ] ++ (lib.forEach plugins (p: p.out));
 
-  nativeBuildInputs = [ makeWrapper wrapGAppsHook ];
+  nativeBuildInputs = [
+    makeWrapper
+    wrapGAppsHook
+  ];
   buildInputs = [ gdk-pixbuf ];
 
   preferLocalBuild = true;

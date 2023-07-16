@@ -31,7 +31,12 @@ stdenv.mkDerivation rec {
     deepClone = true;
   };
 
-  nativeBuildInputs = [ pkg-config wafHook python3 python3.pkgs.wrapPython ];
+  nativeBuildInputs = [
+    pkg-config
+    wafHook
+    python3
+    python3.pkgs.wrapPython
+  ];
   buildInputs = [
     boost
     ganv
@@ -50,7 +55,10 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  pythonPath = [ python3 python3.pkgs.rdflib ];
+  pythonPath = [
+    python3
+    python3.pkgs.rdflib
+  ];
 
   postInstall = ''
     wrapPythonProgramsIn "$out/bin" "$out $pythonPath"

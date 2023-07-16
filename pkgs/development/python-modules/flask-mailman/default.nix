@@ -25,7 +25,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ flask mkdocs-material-extensions ];
+  propagatedBuildInputs = [
+    flask
+    mkdocs-material-extensions
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

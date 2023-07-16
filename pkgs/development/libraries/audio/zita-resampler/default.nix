@@ -14,7 +14,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5XRPI8VN0Vs/eDpoe9h57uKmkKRUWhW0nEzwN6pGSqI=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" "SUFFIX=" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "SUFFIX="
+  ];
 
   postPatch = ''
     cd source

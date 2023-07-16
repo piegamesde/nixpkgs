@@ -32,9 +32,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wfPSPH+E9cErVvfJZqHttFtjiUYJopM/u6w6NpRHifE=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    makeWrapper
+  ];
 
-  buildInputs = [ glfw ffmpeg-full ] ++ lib.optionals stdenv.isLinux [
+  buildInputs = [
+    glfw
+    ffmpeg-full
+  ] ++ lib.optionals stdenv.isLinux [
     libX11
     libXrandr
     libXinerama

@@ -69,7 +69,10 @@ let
   variablesSectionRendered = renderSomething renderVariable variables;
   keywordsSectionRendered = renderSomething renderKeyword keywordsSection;
 
-  content = [ variablesSectionRendered keywordsSectionRendered ];
+  content = [
+    variablesSectionRendered
+    keywordsSectionRendered
+  ];
 in writeTextFile {
   name = "${name}.pc";
   destination = "/lib/pkgconfig/${name}.pc";

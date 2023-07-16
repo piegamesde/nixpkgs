@@ -82,7 +82,10 @@ let
 
 in stdenvNoCC.mkDerivation {
   name = "macos-sierra-shared-test";
-  buildInputs = [ good.finalExe bad.finalExe ];
+  buildInputs = [
+    good.finalExe
+    bad.finalExe
+  ];
   # TODO(@Ericson2314): Be impure or require exact MacOS version of builder?
   buildCommand = ''
     if bad-asdf &> /dev/null

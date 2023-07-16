@@ -69,7 +69,11 @@ in buildPythonApplication rec {
     hicolor-icon-theme
   ];
 
-  propagatedBuildInputs = [ numpy pycairo pygobject3 ];
+  propagatedBuildInputs = [
+    numpy
+    pycairo
+    pygobject3
+  ];
 
   nativeCheckInputs = [ gtk3 ];
 
@@ -102,6 +106,9 @@ in buildPythonApplication rec {
     homepage = "http://mypaint.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ goibhniu jtojnar ];
+    maintainers = with maintainers; [
+      goibhniu
+      jtojnar
+    ];
   };
 }

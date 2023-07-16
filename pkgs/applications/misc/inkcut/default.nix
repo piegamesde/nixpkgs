@@ -52,8 +52,17 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ wrapQtAppsHook ];
 
-  propagatedBuildInputs =
-    [ enamlx twisted lxml qreactor jsonpickle pyserial pycups qtconsole pyqt5 ];
+  propagatedBuildInputs = [
+    enamlx
+    twisted
+    lxml
+    qreactor
+    jsonpickle
+    pyserial
+    pycups
+    qtconsole
+    pyqt5
+  ];
 
   # QtApplication.instance() does not work during tests?
   doCheck = false;
@@ -71,7 +80,11 @@ buildPythonApplication rec {
   ];
 
   dontWrapQtApps = true;
-  makeWrapperArgs = [ "--unset" "PYTHONPATH" "\${qtWrapperArgs[@]}" ];
+  makeWrapperArgs = [
+    "--unset"
+    "PYTHONPATH"
+    "\${qtWrapperArgs[@]}"
+  ];
 
   postInstall = ''
     mkdir -p $out/share/inkscape/extensions

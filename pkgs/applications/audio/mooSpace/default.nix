@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "10vsbddf6d7i06040850v8xkmqh3bqawczs29kfgakair809wqxl";
   };
 
-  buildInputs = [ faust2jaqt faust2lv2 ];
+  buildInputs = [
+    faust2jaqt
+    faust2lv2
+  ];
 
   patchPhase = "mv ${pname}_faust.dsp ${pname}.dsp";
 

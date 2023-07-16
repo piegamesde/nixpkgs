@@ -32,16 +32,17 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-fQAVOzynMdSLDfhcYWcaXkFW/mnv4zySGLVJNE7ql/c=";
   };
 
-  patches = lib.optionals withCloudflareZlib [
-    (substituteAll {
-      src = ./dont-fetch-external-libs.patch;
-      inherit cloudflareZlib;
-    })
-  ];
+  patches = lib.optionals withCloudflareZlib [ (substituteAll {
+    src = ./dont-fetch-external-libs.patch;
+    inherit cloudflareZlib;
+  }) ];
 
   nativeBuildInputs = [ cmake ];
   buildInputs = lib.optionals batchVersion [ yaml-cpp ]
-    ++ lib.optionals withOpenJpeg [ openjpeg openjpeg.dev ];
+    ++ lib.optionals withOpenJpeg [
+      openjpeg
+      openjpeg.dev
+    ];
 
   cmakeFlags = lib.optionals batchVersion [
     "-DBATCH_VERSION=ON"
@@ -62,7 +63,10 @@ in stdenv.mkDerivation rec {
     '';
     homepage = "https://www.nitrc.org/projects/dcm2nii";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ashgillman rbreslow ];
+    maintainers = with maintainers; [
+      ashgillman
+      rbreslow
+    ];
     platforms = platforms.all;
   };
 }

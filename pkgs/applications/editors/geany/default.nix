@@ -16,15 +16,27 @@ stdenv.mkDerivation rec {
   pname = "geany";
   version = "1.38";
 
-  outputs = [ "out" "dev" "doc" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+    "man"
+  ];
 
   src = fetchurl {
     url = "https://download.geany.org/${pname}-${version}.tar.bz2";
     sha256 = "abff176e4d48bea35ee53037c49c82f90b6d4c23e69aed6e4a5ca8ccd3aad546";
   };
 
-  nativeBuildInputs =
-    [ pkg-config intltool libintl which file hicolor-icon-theme wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+    libintl
+    which
+    file
+    hicolor-icon-theme
+    wrapGAppsHook
+  ];
 
   buildInputs = [ gtk3 ];
 

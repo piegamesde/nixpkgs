@@ -27,7 +27,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-q8AvIWr/bOzI0wV0D2emxIXYEKDYmFxbtwr2BS+xYfA=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buildInputs = [
     zlib
     bzip2

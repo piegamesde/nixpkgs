@@ -42,7 +42,10 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security SystemConfiguration ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    Security
+    SystemConfiguration
+  ];
 
   nativeBuildInputs = [ rustPlatform.bindgenHook ];
 

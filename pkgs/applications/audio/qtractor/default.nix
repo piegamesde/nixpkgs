@@ -38,7 +38,12 @@ mkDerivation rec {
     sha256 = "sha256-cKXHH7rugTJ5D7MDJmr/fX6p209wyGMQvSLbv5T0KXU=";
   };
 
-  nativeBuildInputs = [ cmake libtool pkg-config qttools ];
+  nativeBuildInputs = [
+    cmake
+    libtool
+    pkg-config
+    qttools
+  ];
 
   buildInputs = [
     alsa-lib

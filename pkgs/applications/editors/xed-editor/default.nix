@@ -29,10 +29,25 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ax769qjV0oZ6tnEE5FsXNbHETI6KNgvh0WviBsPs9j8=";
   };
 
-  nativeBuildInputs =
-    [ meson pkg-config intltool itstool ninja python3 wrapGAppsHook ];
+  nativeBuildInputs = [
+    meson
+    pkg-config
+    intltool
+    itstool
+    ninja
+    python3
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ libxml2 glib gtk3 gtksourceview4 libpeas gspell xapp ];
+  buildInputs = [
+    libxml2
+    glib
+    gtk3
+    gtksourceview4
+    libpeas
+    gspell
+    xapp
+  ];
 
   doInstallCheck = true;
   installCheckPhase = ''
@@ -49,6 +64,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxmint/xed";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ tu-maurice bobby285271 ];
+    maintainers = with maintainers; [
+      tu-maurice
+      bobby285271
+    ];
   };
 }

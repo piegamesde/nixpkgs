@@ -30,7 +30,10 @@ stdenv.mkDerivation rec {
   pname = "upower";
   version = "1.90.0";
 
-  outputs = [ "out" "dev" ] ++ lib.optionals withDocs [ "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optionals withDocs [ "devdoc" ];
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";

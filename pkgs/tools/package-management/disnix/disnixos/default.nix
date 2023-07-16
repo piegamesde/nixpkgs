@@ -20,7 +20,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ socat dysnomia disnix getopt ];
+  buildInputs = [
+    socat
+    dysnomia
+    disnix
+    getopt
+  ];
 
   meta = {
     description =

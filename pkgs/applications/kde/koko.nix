@@ -47,7 +47,10 @@ let
 in mkDerivation rec {
   pname = "koko";
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
   buildInputs = [
     exiv2
@@ -77,7 +80,10 @@ in mkDerivation rec {
     description = "Image gallery mobile application";
     homepage = "https://apps.kde.org/koko/";
     # LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
-    license = [ licenses.lgpl3Only licenses.lgpl21Only ];
+    license = [
+      licenses.lgpl3Only
+      licenses.lgpl21Only
+    ];
     maintainers = with maintainers; [ samueldr ];
   };
 }

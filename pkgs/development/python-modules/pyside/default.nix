@@ -22,15 +22,26 @@ buildPythonPackage rec {
     hash = "sha256-14XbihJRMk9WaeK6NUBV/4OMFZF8EBIJgEJEaCU8Ecg=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   preConfigure = ''
     cmakeFlagsArray=("-DCMAKE_INSTALL_PREFIX=$dev")
   '';
 
-  nativeBuildInputs = [ cmake pysideGeneratorrunner pysideShiboken qt4 ];
+  nativeBuildInputs = [
+    cmake
+    pysideGeneratorrunner
+    pysideShiboken
+    qt4
+  ];
 
-  buildInputs = [ mesa libGL ];
+  buildInputs = [
+    mesa
+    libGL
+  ];
 
   makeFlags = [ "QT_PLUGIN_PATH=${pysideShiboken}/lib/generatorrunner" ];
 

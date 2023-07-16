@@ -24,9 +24,15 @@ buildPythonPackage rec {
     hash = "sha256-M4oxFi/PpqhJgZX/wM+9rSrraIZcqzubbxnihfK0W2E=";
   };
 
-  propagatedBuildInputs = [ netifaces pycryptodome ];
+  propagatedBuildInputs = [
+    netifaces
+    pycryptodome
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [
     "greeclimate"

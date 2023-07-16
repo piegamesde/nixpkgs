@@ -35,9 +35,15 @@ buildPythonPackage rec {
   '';
   nativeBuildInputs = [ swig ] ++ lib.optionals stdenv.isDarwin [ xcbuild ];
 
-  buildInputs =
-    [ mupdf freetype harfbuzz openjpeg jbig2dec libjpeg_turbo gumbo ]
-    ++ lib.optionals (stdenv.system == "x86_64-darwin") [ memstreamHook ];
+  buildInputs = [
+    mupdf
+    freetype
+    harfbuzz
+    openjpeg
+    jbig2dec
+    libjpeg_turbo
+    gumbo
+  ] ++ lib.optionals (stdenv.system == "x86_64-darwin") [ memstreamHook ];
 
   doCheck = false;
 

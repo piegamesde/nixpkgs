@@ -34,7 +34,10 @@ in stdenv.mkDerivation rec {
     patchShebangs tests
   '';
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" "BINDIR=" ];
+  makeFlags = [
+    "PREFIX=${placeholder "out"}"
+    "BINDIR="
+  ];
 
   nativeCheckInputs = [ bash ];
   doCheck = true;

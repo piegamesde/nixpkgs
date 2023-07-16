@@ -39,7 +39,10 @@ stdenv.mkDerivation rec {
     "-DCMAKE_CXX_FLAGS_RELEASE=-DNDEBUG"
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     # has to go before others to override transitive libpng-1.6

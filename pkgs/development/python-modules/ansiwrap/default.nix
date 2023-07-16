@@ -28,7 +28,10 @@ buildPythonPackage rec {
       --replace "set(range(120, 400)).difference(LINE_LENGTHS)" "sorted(set(range(120, 400)).difference(LINE_LENGTHS))"
   '';
 
-  checkInputs = [ ansicolors pytestCheckHook ];
+  checkInputs = [
+    ansicolors
+    pytestCheckHook
+  ];
 
   propagatedBuildInputs = [ textwrap3 ];
 

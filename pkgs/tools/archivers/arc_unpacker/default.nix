@@ -25,8 +25,20 @@ stdenv.mkDerivation rec {
     hash = "sha256-STbdWH7Mr3gpOrZvujblYrIIKEWBHzy1/BaNuh4teI8=";
   };
 
-  nativeBuildInputs = [ cmake makeWrapper catch2 ];
-  buildInputs = [ boost libiconv libjpeg libpng libwebp openssl zlib ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    catch2
+  ];
+  buildInputs = [
+    boost
+    libiconv
+    libjpeg
+    libpng
+    libwebp
+    openssl
+    zlib
+  ];
 
   postPatch = ''
     cp ${catch2}/include/catch2/catch.hpp tests/test_support/catch.h

@@ -29,7 +29,12 @@ mkDerivation {
     time
     transformers
   ];
-  testHaskellDepends = [ base Cabal filepath mtl ];
+  testHaskellDepends = [
+    base
+    Cabal
+    filepath
+    mtl
+  ];
   homepage = "http://curry-language.org";
   description = "Functions for manipulating Curry programs";
   license = lib.licenses.bsd3;

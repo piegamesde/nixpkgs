@@ -18,7 +18,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [ pytest pytest-runner ];
+  nativeCheckInputs = [
+    pytest
+    pytest-runner
+  ];
 
   meta = with lib; {
     description =

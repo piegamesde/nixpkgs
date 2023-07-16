@@ -30,13 +30,31 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OzcfIFYaWez2B1lmAYvhm+knuYbyMu2ohs+kGEVG7K0=";
   };
 
-  nativeBuildInputs = [ intltool pkg-config makeWrapper wrapGAppsHook ];
-  buildInputs = [ gtk3 libxslt ];
+  nativeBuildInputs = [
+    intltool
+    pkg-config
+    makeWrapper
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    gtk3
+    libxslt
+  ];
 
   postFixup = ''
     wrapProgram $out/bin/xarchiver \
     --prefix PATH : ${
-      lib.makeBinPath [ zip unzip p7zip unar gnutar bzip2 gzip lhasa coreutils ]
+      lib.makeBinPath [
+        zip
+        unzip
+        p7zip
+        unar
+        gnutar
+        bzip2
+        gzip
+        lhasa
+        coreutils
+      ]
     }
   '';
 

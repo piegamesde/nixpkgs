@@ -35,7 +35,11 @@ buildPythonPackage rec {
     hash = "sha256-XcHP8RwC2iwD64Jc7SS+t9OxjFTsz3FbrnjMgJnN7Ak=";
   };
 
-  nativeBuildInputs = [ cython pkg-config setuptools ];
+  nativeBuildInputs = [
+    cython
+    pkg-config
+    setuptools
+  ];
 
   buildInputs = [ ffmpeg ];
 
@@ -44,7 +48,11 @@ buildPythonPackage rec {
     rm -r av
   '';
 
-  nativeCheckInputs = [ numpy pillow pytestCheckHook ];
+  nativeCheckInputs = [
+    numpy
+    pillow
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [
     # Tests that want to download FATE data

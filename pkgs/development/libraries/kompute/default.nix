@@ -36,12 +36,22 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  cmakeFlags =
-    [ "-DKOMPUTE_OPT_INSTALL=1" "-DRELEASE=1" "-DKOMPUTE_ENABLE_SPDLOG=1" ];
+  cmakeFlags = [
+    "-DKOMPUTE_OPT_INSTALL=1"
+    "-DRELEASE=1"
+    "-DKOMPUTE_ENABLE_SPDLOG=1"
+  ];
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
   buildInputs = [ fmt ];
-  propagatedBuildInputs = [ glslang vulkan-headers vulkan-loader ];
+  propagatedBuildInputs = [
+    glslang
+    vulkan-headers
+    vulkan-loader
+  ];
 
   meta = with lib; {
     description = "General purpose GPU compute framework built on Vulkan";

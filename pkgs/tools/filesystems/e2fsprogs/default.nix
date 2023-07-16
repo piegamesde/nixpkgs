@@ -24,22 +24,31 @@ stdenv.mkDerivation rec {
   };
 
   # fuse2fs adds 14mb of dependencies
-  outputs = [ "bin" "dev" "out" "man" "info" ]
-    ++ lib.optionals stdenv.isLinux [ "fuse2fs" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "man"
+    "info"
+  ] ++ lib.optionals stdenv.isLinux [ "fuse2fs" ];
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ pkg-config texinfo ];
-  buildInputs = [ libuuid gettext ] ++ lib.optionals stdenv.isLinux [ fuse ];
-
-  patches = [
-    (fetchpatch { # avoid using missing __GNUC_PREREQ(X,Y)
-      url =
-        "https://raw.githubusercontent.com/void-linux/void-packages/9583597eb3e6e6b33f61dbc615d511ce030bc443/srcpkgs/e2fsprogs/patches/fix-glibcism.patch";
-      sha256 = "1gfcsr0i3q8q2f0lqza8na0iy4l4p3cbii51ds6zmj0y4hz2dwhb";
-      excludes = [ "lib/ext2fs/hashmap.h" ];
-      extraPrefix = "";
-    })
+  nativeBuildInputs = [
+    pkg-config
+    texinfo
   ];
+  buildInputs = [
+    libuuid
+    gettext
+  ] ++ lib.optionals stdenv.isLinux [ fuse ];
+
+  patches = [ (fetchpatch { # avoid using missing __GNUC_PREREQ(X,Y)
+    url =
+      "https://raw.githubusercontent.com/void-linux/void-packages/9583597eb3e6e6b33f61dbc615d511ce030bc443/srcpkgs/e2fsprogs/patches/fix-glibcism.patch";
+    sha256 = "1gfcsr0i3q8q2f0lqza8na0iy4l4p3cbii51ds6zmj0y4hz2dwhb";
+    excludes = [ "lib/ext2fs/hashmap.h" ];
+    extraPrefix = "";
+  }) ];
 
   configureFlags = if stdenv.isLinux then [
     # It seems that the e2fsprogs is one of the few packages that cannot be
@@ -53,8 +62,7 @@ stdenv.mkDerivation rec {
     "--disable-libblkid"
     "--disable-libuuid"
     "--disable-uuidd"
-  ] else
-    [ "--enable-libuuid --disable-e2initrd-helper" ];
+  ] else [ "--enable-libuuid --disable-e2initrd-helper" ];
 
   nativeCheckInputs = [ buildPackages.perl ];
   doCheck = true;

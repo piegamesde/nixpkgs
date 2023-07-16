@@ -22,16 +22,28 @@ stdenv.mkDerivation rec {
     sha256 = "1b9g6lf37wpp211ikaji4rf74rl9xcmrlyqcw1zq3z12ji9y33bm";
   };
 
-  nativeBuildInputs = [ cmake makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+  ];
   buildInputs = [ libminc ];
-  propagatedBuildInputs =
-    (with perlPackages; [ perl GetoptTabular MNI-Perllib ])
-    ++ [ octave coreutils minc_tools ];
+  propagatedBuildInputs = (with perlPackages; [
+    perl
+    GetoptTabular
+    MNI-Perllib
+  ]) ++ [
+    octave
+    coreutils
+    minc_tools
+  ];
 
   postFixup = ''
     for p in $out/bin/*; do
       wrapProgram $p --prefix PERL5LIB : $PERL5LIB --set PATH "${
-        lib.makeBinPath [ coreutils minc_tools ]
+        lib.makeBinPath [
+          coreutils
+          minc_tools
+        ]
       }";
     done
   '';

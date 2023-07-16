@@ -120,9 +120,16 @@ in stdenv.mkDerivation (rec {
 
   dontUseCmakeConfigure = true;
 
-  hardeningDisable = [ "stackprotector" "fortify" "pic" ];
+  hardeningDisable = [
+    "stackprotector"
+    "fortify"
+    "pic"
+  ];
 
-  nativeBuildInputs = [ pkg-config cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
   buildInputs = [
     which
 
@@ -273,15 +280,19 @@ in stdenv.mkDerivation (rec {
 
   # TODO: Flask needs more testing before enabling it by default.
   #makeFlags = [ "XSM_ENABLE=y" "FLASK_ENABLE=y" "PREFIX=$(out)" "CONFIG_DIR=/etc" "XEN_EXTFILES_URL=\\$(XEN_ROOT)/xen_ext_files" ];
-  makeFlags =
-    [ "PREFIX=$(out) CONFIG_DIR=/etc" "XEN_SCRIPT_DIR=/etc/xen/scripts" ]
-    ++ (config.makeFlags or [ ]);
+  makeFlags = [
+    "PREFIX=$(out) CONFIG_DIR=/etc"
+    "XEN_SCRIPT_DIR=/etc/xen/scripts"
+  ] ++ (config.makeFlags or [ ]);
 
   preBuild = ''
     ${config.preBuild or ""}
   '';
 
-  buildFlags = [ "xen" "tools" ];
+  buildFlags = [
+    "xen"
+    "tools"
+  ];
 
   postBuild = ''
     make -C docs man-pages
@@ -340,9 +351,8 @@ in stdenv.mkDerivation (rec {
       # Affects 4.15 - 4.17
       "CVE-2022-42331"
       # https://xenbits.xen.org/docs/unstable/support-matrix.html
-    ] ++ lib.optionals (lib.versionOlder version "4.15") [
-      "This version of Xen has reached its end of life. See https://xenbits.xen.org/docs/unstable/support-matrix.html"
-    ];
+    ] ++ lib.optionals (lib.versionOlder version
+      "4.15") [ "This version of Xen has reached its end of life. See https://xenbits.xen.org/docs/unstable/support-matrix.html" ];
   } // (config.meta or { });
 } // removeAttrs config [
   "xenfiles"

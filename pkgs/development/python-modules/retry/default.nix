@@ -20,9 +20,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pbr ];
 
-  propagatedBuildInputs = [ decorator py ];
+  propagatedBuildInputs = [
+    decorator
+    py
+  ];
 
-  nativeCheckInputs = [ mock pytest ];
+  nativeCheckInputs = [
+    mock
+    pytest
+  ];
 
   checkPhase = ''
     pytest

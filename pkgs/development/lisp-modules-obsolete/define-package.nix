@@ -14,7 +14,10 @@ args@{
   meta ? { },
   overrides ? (x: { }),
   propagatedBuildInputs ? [ ],
-  asdFilesToKeep ? [ (builtins.concatStringsSep "" [ packageName ".asd" ]) ]
+  asdFilesToKeep ? [ (builtins.concatStringsSep "" [
+    packageName
+    ".asd"
+  ]) ]
 }:
 let
   deployConfigScript = ''
@@ -115,9 +118,11 @@ let
 
       eval "$postInstall"
     '';
-    propagatedBuildInputs = (args.deps or [ ])
-      ++ [ clwrapper clwrapper.lisp clwrapper.asdf ]
-      ++ (args.propagatedBuildInputs or [ ]);
+    propagatedBuildInputs = (args.deps or [ ]) ++ [
+      clwrapper
+      clwrapper.lisp
+      clwrapper.asdf
+    ] ++ (args.propagatedBuildInputs or [ ]);
     buildInputs = buildInputs;
     dontStrip = true;
 

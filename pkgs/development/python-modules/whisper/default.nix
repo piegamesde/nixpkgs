@@ -20,7 +20,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # whisper-resize.py: not found
@@ -32,7 +35,10 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/graphite-project/whisper";
     description = "Fixed size round-robin style database";
-    maintainers = with maintainers; [ offline basvandijk ];
+    maintainers = with maintainers; [
+      offline
+      basvandijk
+    ];
     license = licenses.asl20;
   };
 }

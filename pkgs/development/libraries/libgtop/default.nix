@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
   pname = "libgtop";
   version = "2.41.1";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${

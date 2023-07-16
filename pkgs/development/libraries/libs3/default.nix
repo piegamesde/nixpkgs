@@ -18,15 +18,16 @@ stdenv.mkDerivation {
     hash = "sha256-xgiY8oJlRMiXB1fw5dhNidfaq18YVwaJ8aErKU11O6U=";
   };
 
-  patches = [
-    (fetchpatch { # Fix compilation with openssl 3.0
-      url =
-        "https://github.com/bji/libs3/pull/112/commits/3c3a1cf915e62b730db854d8007ba835cb38677c.patch";
-      hash = "sha256-+rWRh8dOznHlamc/T9qbgN0E2Rww3Hn94UeErxNDccs=";
-    })
-  ];
+  patches = [ (fetchpatch { # Fix compilation with openssl 3.0
+    url =
+      "https://github.com/bji/libs3/pull/112/commits/3c3a1cf915e62b730db854d8007ba835cb38677c.patch";
+    hash = "sha256-+rWRh8dOznHlamc/T9qbgN0E2Rww3Hn94UeErxNDccs=";
+  }) ];
 
-  buildInputs = [ curl libxml2 ];
+  buildInputs = [
+    curl
+    libxml2
+  ];
 
   makeFlags = [ "DESTDIR=${placeholder "out"}" ];
 

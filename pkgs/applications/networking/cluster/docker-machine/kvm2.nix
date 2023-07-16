@@ -26,7 +26,10 @@ buildGoModule rec {
     homepage = "https://minikube.sigs.k8s.io/docs/drivers/kvm2";
     description = "KVM2 driver for docker-machine";
     license = licenses.asl20;
-    maintainers = with maintainers; [ tadfisher atkinschang ];
+    maintainers = with maintainers; [
+      tadfisher
+      atkinschang
+    ];
     platforms = platforms.linux;
   };
 }

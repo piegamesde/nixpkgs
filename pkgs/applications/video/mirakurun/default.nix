@@ -56,7 +56,12 @@ stdenvNoCC.mkDerivation rec {
     distPhase = "true";
   };
 
-  installPhase = let runtimeDeps = [ bash which v4l-utils ];
+  installPhase = let
+    runtimeDeps = [
+      bash
+      which
+      v4l-utils
+    ];
   in ''
     mkdir -p $out/bin
 

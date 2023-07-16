@@ -25,9 +25,17 @@ buildPythonPackage rec {
     hash = "sha256-HdGYLDrqQvd7hvjwhC5dY2amdHUZHTYJvD1QP89lcXU=";
   };
 
-  propagatedBuildInputs = [ httpx python-slugify python-status ];
+  propagatedBuildInputs = [
+    httpx
+    python-slugify
+    python-status
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytest-httpserver pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-httpserver
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

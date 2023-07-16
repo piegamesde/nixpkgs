@@ -27,16 +27,29 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1DgrpGYF7G5Zr9vbgtKm/Yv0HSdI7LrFYPSGKYNnNDQ=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   patches = lib.optionals stdenv.isDarwin [
     # Ubsan seems to be broken on aarch64-darwin, it produces linker errors similar to https://github.com/NixOS/nixpkgs/issues/140751
     ./disable-ubsan.patch
   ];
 
-  buildInputs = [ freetype gtk3-x11 pcre xorg.libX11 xorg.libXrandr ]
-    ++ lib.optionals stdenv.isLinux [ webkitgtk ]
-    ++ lib.optionals stdenv.isDarwin [ WebKit MetalKit CoreAudioKit simd ];
+  buildInputs = [
+    freetype
+    gtk3-x11
+    pcre
+    xorg.libX11
+    xorg.libXrandr
+  ] ++ lib.optionals stdenv.isLinux [ webkitgtk ]
+    ++ lib.optionals stdenv.isDarwin [
+      WebKit
+      MetalKit
+      CoreAudioKit
+      simd
+    ];
 
   cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];
 
@@ -46,6 +59,10 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/werman/noise-suppression-for-voice";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ panaeon henrikolsson sciencentistguy ];
+    maintainers = with maintainers; [
+      panaeon
+      henrikolsson
+      sciencentistguy
+    ];
   };
 }

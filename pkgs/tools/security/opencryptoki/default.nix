@@ -21,9 +21,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-Z11CDw9ykmJ7MI7I0H4Y/i+8/I+hRgC2frklYPP1di0=";
   };
 
-  nativeBuildInputs = [ autoreconfHook bison flex ];
+  nativeBuildInputs = [
+    autoreconfHook
+    bison
+    flex
+  ];
 
-  buildInputs = [ openldap openssl trousers ];
+  buildInputs = [
+    openldap
+    openssl
+    trousers
+  ];
 
   postPatch = ''
     substituteInPlace configure.ac \
@@ -33,7 +41,11 @@ stdenv.mkDerivation rec {
       --replace "chgrp" "true"
   '';
 
-  configureFlags = [ "--prefix=" "--disable-ccatok" "--disable-icatok" ];
+  configureFlags = [
+    "--prefix="
+    "--disable-ccatok"
+    "--disable-icatok"
+  ];
 
   enableParallelBuilding = true;
 

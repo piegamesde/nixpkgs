@@ -27,7 +27,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ defusedxml lxml paramiko ];
+  propagatedBuildInputs = [
+    defusedxml
+    lxml
+    paramiko
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

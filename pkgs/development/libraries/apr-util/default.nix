@@ -36,14 +36,19 @@ stdenv.mkDerivation rec {
 
   NIX_CFLAGS_LINK = [ "-lcrypt" ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
   outputBin = "dev";
 
   nativeBuildInputs = [ makeWrapper ]
     ++ lib.optional stdenv.isFreeBSD autoreconfHook;
 
-  configureFlags = [ "--with-apr=${apr.dev}" "--with-expat=${expat.dev}" ]
-    ++ lib.optional (!stdenv.isCygwin) "--with-crypto"
+  configureFlags = [
+    "--with-apr=${apr.dev}"
+    "--with-expat=${expat.dev}"
+  ] ++ lib.optional (!stdenv.isCygwin) "--with-crypto"
     ++ lib.optional sslSupport "--with-openssl=${openssl.dev}"
     ++ lib.optional bdbSupport "--with-berkeley-db=${db.dev}"
     ++ lib.optional ldapSupport "--with-ldap=ldap"
@@ -69,8 +74,12 @@ stdenv.mkDerivation rec {
         --replace "-ldb-6.9" "-ldb"
     '';
 
-  propagatedBuildInputs = [ apr expat libiconv libxcrypt ]
-    ++ lib.optional sslSupport openssl ++ lib.optional bdbSupport db
+  propagatedBuildInputs = [
+    apr
+    expat
+    libiconv
+    libxcrypt
+  ] ++ lib.optional sslSupport openssl ++ lib.optional bdbSupport db
     ++ lib.optional ldapSupport openldap
     ++ lib.optional stdenv.isFreeBSD cyrus_sasl;
 

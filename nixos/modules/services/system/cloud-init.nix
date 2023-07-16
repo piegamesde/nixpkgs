@@ -10,8 +10,15 @@ with lib;
 let
   cfg = config.services.cloud-init;
   path = with pkgs;
-    [ cloud-init iproute2 nettools openssh shadow util-linux busybox ]
-    ++ optional cfg.btrfs.enable btrfs-progs
+    [
+      cloud-init
+      iproute2
+      nettools
+      openssh
+      shadow
+      util-linux
+      busybox
+    ] ++ optional cfg.btrfs.enable btrfs-progs
     ++ optional cfg.ext4.enable 0.0 fsprogs;
 in {
   options = {
@@ -145,8 +152,14 @@ in {
         "sshd.service"
         "sshd-keygen.service"
       ];
-      after = [ "network-online.target" "cloud-init-local.service" ];
-      before = [ "sshd.service" "sshd-keygen.service" ];
+      after = [
+        "network-online.target"
+        "cloud-init-local.service"
+      ];
+      before = [
+        "sshd.service"
+        "sshd-keygen.service"
+      ];
       requires = [ "network.target" ];
       path = path;
       serviceConfig = {
@@ -162,7 +175,11 @@ in {
       description = "Apply the settings specified in cloud-config";
       wantedBy = [ "multi-user.target" ];
       wants = [ "network-online.target" ];
-      after = [ "network-online.target" "syslog.target" "cloud-config.target" ];
+      after = [
+        "network-online.target"
+        "syslog.target"
+        "cloud-config.target"
+      ];
 
       path = path;
       serviceConfig = {
@@ -197,7 +214,10 @@ in {
 
     systemd.targets.cloud-config = {
       description = "Cloud-config availability";
-      requires = [ "cloud-init-local.service" "cloud-init.service" ];
+      requires = [
+        "cloud-init-local.service"
+        "cloud-init.service"
+      ];
     };
   };
 }

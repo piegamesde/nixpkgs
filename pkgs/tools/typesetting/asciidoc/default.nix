@@ -153,7 +153,11 @@ in python3.pkgs.buildPythonApplication rec {
     hash = "sha256-TqC0x9xB6e2d6Wc9bgnlqgZVOmYHmUUKfE/CKAiEtag=";
   };
 
-  nativeBuildInputs = [ autoreconfHook installShellFiles unzip ];
+  nativeBuildInputs = [
+    autoreconfHook
+    installShellFiles
+    unzip
+  ];
 
   # install filters early, so their shebangs are patched too
   postPatch = with lib;
@@ -244,7 +248,11 @@ in python3.pkgs.buildPythonApplication rec {
       # We can remove PATH= when those impurities are fixed.
       # TODO: Is this still necessary when using texlive?
       sed -e "s|^ENV =.*|ENV = dict(XML_CATALOG_FILES='${docbook_xml_dtd_45}/xml/dtd/docbook/catalog.xml ${docbook_xsl_ns}/xml/xsl/docbook/catalog.xml ${docbook_xsl}/xml/xsl/docbook/catalog.xml', PATH='${
-        lib.makeBinPath [ texlive coreutils gnused ]
+        lib.makeBinPath [
+          texlive
+          coreutils
+          gnused
+        ]
       }', **(dict(filter(lambda v: v[0] == 'SOURCE_DATE_EPOCH', os.environ.items()))))|" \
           -e "s|^ASCIIDOC =.*|ASCIIDOC = '$out/bin/asciidoc'|" \
           -e "s|^XSLTPROC =.*|XSLTPROC = '${libxslt.bin}/bin/xsltproc'|" \
@@ -283,7 +291,10 @@ in python3.pkgs.buildPythonApplication rec {
     installManPage doc/asciidoc.1 doc/a2x.1 doc/testasciidoc.1
   '';
 
-  nativeCheckInputs = with python3.pkgs; [ pytest pytest-mock ];
+  nativeCheckInputs = with python3.pkgs; [
+    pytest
+    pytest-mock
+  ];
 
   checkPhase = ''
     runHook preCheck
@@ -312,6 +323,9 @@ in python3.pkgs.buildPythonApplication rec {
       "https://github.com/asciidoc-py/asciidoc-py/blob/${version}/CHANGELOG.adoc";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ bjornfor dotlambda ];
+    maintainers = with maintainers; [
+      bjornfor
+      dotlambda
+    ];
   };
 }

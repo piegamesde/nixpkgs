@@ -56,7 +56,10 @@ in stdenv.mkDerivation rec {
     vcg
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   postInstall = ''
     mv $out/bin/OpenMVS/* $out/bin

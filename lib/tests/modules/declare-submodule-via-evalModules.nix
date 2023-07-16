@@ -4,12 +4,12 @@
 }: {
   options.submodule = lib.mkOption {
     inherit (lib.evalModules {
-      modules = [{
+      modules = [ {
         options.inner = lib.mkOption {
           type = lib.types.bool;
           default = false;
         };
-      }];
+      } ];
     })
       type;
     default = { };

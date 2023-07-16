@@ -84,7 +84,12 @@ in stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ pkg-config meson ninja python3 ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    python3
+  ];
   buildInputs = [
     capstone
     file
@@ -96,8 +101,11 @@ in stdenv.mkDerivation rec {
     openssl
     libuv
     lz4
-  ] ++ lib.optionals useX11 [ gtkdialog vte gtk2 ]
-    ++ lib.optionals rubyBindings [ ruby ] ++ lib.optionals luaBindings [ lua ];
+  ] ++ lib.optionals useX11 [
+    gtkdialog
+    vte
+    gtk2
+  ] ++ lib.optionals rubyBindings [ ruby ] ++ lib.optionals luaBindings [ lua ];
 
   propagatedBuildInputs = [
     # radare2 exposes r_lib which depends on these libraries
@@ -112,7 +120,13 @@ in stdenv.mkDerivation rec {
     homepage = "https://radare.org";
     changelog = "https://github.com/radareorg/radare2/releases/tag/${version}";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ azahi raskin makefu mic92 arkivm ];
+    maintainers = with maintainers; [
+      azahi
+      raskin
+      makefu
+      mic92
+      arkivm
+    ];
     platforms = platforms.unix;
   };
 }

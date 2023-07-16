@@ -58,7 +58,10 @@ in {
 
   in {
     environment.systemPackages = [ cfg.package ];
-    boot.kernelModules = [ "tun" "openvswitch" ];
+    boot.kernelModules = [
+      "tun"
+      "openvswitch"
+    ];
 
     boot.extraModulePackages = [ cfg.package ];
 
@@ -67,7 +70,10 @@ in {
       wantedBy = [ "multi-user.target" ];
       after = [ "systemd-udev-settle.service" ];
       path = [ cfg.package ];
-      restartTriggers = [ db cfg.package ];
+      restartTriggers = [
+        db
+        cfg.package
+      ];
       # Create the config database
       preStart = ''
         mkdir -p ${runDir}
@@ -133,12 +139,14 @@ in {
 
   });
 
-  imports = [
-    (mkRemovedOptionModule [ "virtualisation" "vswitch" "ipsec" ] ''
-      OpenVSwitch IPSec functionality has been removed, because it depended on racoon,
-      which was removed from nixpkgs, because it was abanoded upstream.
-    '')
-  ];
+  imports = [ (mkRemovedOptionModule [
+    "virtualisation"
+    "vswitch"
+    "ipsec"
+  ] ''
+    OpenVSwitch IPSec functionality has been removed, because it depended on racoon,
+    which was removed from nixpkgs, because it was abanoded upstream.
+  '') ];
 
   meta.maintainers = with maintainers; [ netixx ];
 

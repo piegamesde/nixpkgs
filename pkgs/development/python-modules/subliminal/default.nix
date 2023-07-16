@@ -58,7 +58,11 @@ buildPythonPackage rec {
     stevedore
   ];
 
-  nativeCheckInputs = [ sympy vcrpy pytestCheckHook ];
+  nativeCheckInputs = [
+    sympy
+    vcrpy
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "subliminal" ];
 

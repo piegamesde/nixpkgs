@@ -195,7 +195,10 @@ in {
 
       forward = mkOption {
         default = "first";
-        type = types.enum [ "first" "only" ];
+        type = types.enum [
+          "first"
+          "only"
+        ];
         description = lib.mdDoc ''
           Whether to forward 'first' (try forwarding but lookup directly if forwarding fails) or 'only'.
         '';

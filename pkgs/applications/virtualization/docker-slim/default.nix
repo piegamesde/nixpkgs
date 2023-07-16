@@ -18,7 +18,10 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "cmd/slim" "cmd/slim-sensor" ];
+  subPackages = [
+    "cmd/slim"
+    "cmd/slim-sensor"
+  ];
 
   nativeBuildInputs = [ makeBinaryWrapper ];
 
@@ -41,6 +44,10 @@ buildGoModule rec {
     changelog =
       "https://github.com/slimtoolkit/slim/raw/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ Br1ght0ne marsam mbrgm ];
+    maintainers = with maintainers; [
+      Br1ght0ne
+      marsam
+      mbrgm
+    ];
   };
 }

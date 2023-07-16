@@ -27,7 +27,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ gawk ];
 
-  nativeBuildInputs = [ cmake makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+  ];
 
   meta = with lib; {
     description = "Tweak Linux CPU scheduler for desktop responsiveness";

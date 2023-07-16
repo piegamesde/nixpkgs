@@ -28,7 +28,10 @@ stdenv.mkDerivation rec {
 
     version = "1.0";
     pname = "sleuthkit-deps";
-    nativeBuildInputs = [ openjdk ant ];
+    nativeBuildInputs = [
+      openjdk
+      ant
+    ];
 
     src = sleuthsrc;
 
@@ -68,9 +71,20 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ autoreconfHook openjdk perl ant rdeps ];
+  nativeBuildInputs = [
+    autoreconfHook
+    openjdk
+    perl
+    ant
+    rdeps
+  ];
 
-  buildInputs = [ libewf afflib openssl zlib ];
+  buildInputs = [
+    libewf
+    afflib
+    openssl
+    zlib
+  ];
 
   # Hack to fix the RPATH
   preFixup = ''
@@ -97,7 +111,10 @@ stdenv.mkDerivation rec {
     homepage = "https://www.sleuthkit.org/";
     changelog =
       "https://github.com/sleuthkit/sleuthkit/releases/tag/sleuthkit-${version}";
-    maintainers = with maintainers; [ raskin gfrascadorio ];
+    maintainers = with maintainers; [
+      raskin
+      gfrascadorio
+    ];
     platforms = platforms.linux;
     sourceProvenance = with sourceTypes; [
       fromSource

@@ -26,8 +26,15 @@ buildPythonPackage rec {
     hash = "sha256-5/Cn70qQaUp38qko1Wq+gZMCcQtcAPtZwt7Zrx8MFc4=";
   };
 
-  propagatedBuildInputs =
-    [ beautifulsoup4 gssapi impacket ldap3 lxml pycryptodome pyasn1 ];
+  propagatedBuildInputs = [
+    beautifulsoup4
+    gssapi
+    impacket
+    ldap3
+    lxml
+    pycryptodome
+    pyasn1
+  ];
 
   # Module has no tests
   doCheck = false;

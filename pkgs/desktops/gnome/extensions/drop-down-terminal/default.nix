@@ -24,12 +24,10 @@ stdenv.mkDerivation rec {
     extensionPortalSlug = "drop-down-terminal";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./fix_vte_and_gjs.patch;
-      inherit gjs vte;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./fix_vte_and_gjs.patch;
+    inherit gjs vte;
+  }) ];
 
   installPhase = ''
     runHook preInstall

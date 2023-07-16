@@ -22,7 +22,10 @@ let
     '' + command + "touch $out");
 
   wrappedHello = hello.overrideAttrs (oa: {
-    propagatedBuildInputs = [ wrapLua lua.pkgs.cjson ];
+    propagatedBuildInputs = [
+      wrapLua
+      lua.pkgs.cjson
+    ];
     postFixup = ''
       wrapLuaPrograms
     '';

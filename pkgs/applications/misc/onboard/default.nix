@@ -54,8 +54,12 @@ in python3.pkgs.buildPythonApplication rec {
     ./hunspell-use-xdg-datadirs.patch
   ];
 
-  nativeBuildInputs =
-    [ gobject-introspection intltool pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    gobject-introspection
+    intltool
+    pkg-config
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     bash

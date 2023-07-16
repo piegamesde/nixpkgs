@@ -46,17 +46,20 @@ let
         libcublas
         libcurand
       ] ++ lib.optionals useThrustSourceBuild [ nvidia-thrust ]
-      ++ lib.optionals (!useThrustSourceBuild) [ cuda_cccl ]
-      ++ lib.optionals (cudaPackages ? cuda_profiler_api) [
-        cuda_profiler_api # cuda_profiler_api.h
-      ] ++ lib.optionals (!(cudaPackages ? cuda_profiler_api)) [
-        cuda_nvprof # cuda_profiler_api.h
+      ++ lib.optionals (!useThrustSourceBuild) [ cuda_cccl ] ++ lib.optionals
+      (cudaPackages
+        ? cuda_profiler_api) [ cuda_profiler_api # cuda_profiler_api.h
+      ] ++ lib.optionals
+      (!(cudaPackages ? cuda_profiler_api)) [ cuda_nvprof # cuda_profiler_api.h
       ];
   };
 in stdenv.mkDerivation {
   inherit pname version;
 
-  outputs = [ "out" "demos" ];
+  outputs = [
+    "out"
+    "demos"
+  ];
 
   src = fetchFromGitHub {
     owner = "facebookresearch";
@@ -65,7 +68,10 @@ in stdenv.mkDerivation {
     hash = "sha256-WSce9X6sLZmGM5F0ZkK54VqpIy8u1VB0e9/l78co29M=";
   };
 
-  buildInputs = [ blas swig ] ++ lib.optionals pythonSupport [
+  buildInputs = [
+    blas
+    swig
+  ] ++ lib.optionals pythonSupport [
     pythonPackages.setuptools
     pythonPackages.pip
     pythonPackages.wheel
@@ -74,9 +80,10 @@ in stdenv.mkDerivation {
 
   propagatedBuildInputs = lib.optionals pythonSupport [ pythonPackages.numpy ];
 
-  nativeBuildInputs = [ cmake ]
-    ++ lib.optionals cudaSupport [ cudaPackages.cuda_nvcc addOpenGLRunpath ]
-    ++ lib.optionals pythonSupport [ pythonPackages.python ];
+  nativeBuildInputs = [ cmake ] ++ lib.optionals cudaSupport [
+    cudaPackages.cuda_nvcc
+    addOpenGLRunpath
+  ] ++ lib.optionals pythonSupport [ pythonPackages.python ];
 
   passthru.extra-requires.all = [ pythonPackages.numpy ];
 

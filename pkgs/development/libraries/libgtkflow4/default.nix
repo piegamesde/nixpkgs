@@ -16,7 +16,11 @@ stdenv.mkDerivation rec {
   pname = "libgtkflow4";
   version = "0.2.6";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
   outputBin = "devdoc"; # demo app
 
   src = fetchFromGitea {
@@ -27,17 +31,30 @@ stdenv.mkDerivation rec {
     hash = "sha256-JoVq7U5JQ3pRxptR7igWFw7lcBTsgr3aVXxayLqhyFo=";
   };
 
-  nativeBuildInputs = [ vala meson ninja pkg-config gobject-introspection ];
+  nativeBuildInputs = [
+    vala
+    meson
+    ninja
+    pkg-config
+    gobject-introspection
+  ];
 
-  buildInputs = [ gtk4 glib libgflow ];
+  buildInputs = [
+    gtk4
+    glib
+    libgflow
+  ];
 
   postFixup = ''
     # Cannot be in postInstall, otherwise _multioutDocs hook in preFixup will move right back.
     moveToOutput "share/doc" "$devdoc"
   '';
 
-  mesonFlags =
-    [ "-Denable_valadoc=true" "-Denable_gtk3=false" "-Denable_gflow=false" ];
+  mesonFlags = [
+    "-Denable_valadoc=true"
+    "-Denable_gtk3=false"
+    "-Denable_gflow=false"
+  ];
 
   postPatch = ''
     rm -r libgflow

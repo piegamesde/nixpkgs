@@ -8,8 +8,11 @@ args@{
 
   description = "An extensible and cross-compatible testing framework.";
 
-  deps =
-    [ args."documentation-utils" args."form-fiddle" args."trivial-indent" ];
+  deps = [
+    args."documentation-utils"
+    args."form-fiddle"
+    args."trivial-indent"
+  ];
 
   src = fetchurl {
     url =

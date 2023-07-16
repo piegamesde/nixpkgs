@@ -26,8 +26,21 @@ stdenv.mkDerivation rec {
     sha256 = "0hy5a3q5092szk2x3s9lpn1zkszgq9bp15rxzdncxlvnanyzsasf";
   };
 
-  nativeBuildInputs = [ automake autoconf ];
-  buildInputs = [ boost zlib libX11 libICE libSM libpng libjpeg libtiff SDL ];
+  nativeBuildInputs = [
+    automake
+    autoconf
+  ];
+  buildInputs = [
+    boost
+    zlib
+    libX11
+    libICE
+    libSM
+    libpng
+    libjpeg
+    libtiff
+    SDL
+  ];
 
   # the installPhase wants to put files into $HOME. I let it put the files
   # to $TMPDIR, so they don't get into the $out
@@ -41,8 +54,11 @@ stdenv.mkDerivation rec {
                     sed -i -e 's/^povgroup.*/povgroup=nogroup/' Makefile.{am,in}
   '';
 
-  configureFlags =
-    [ "COMPILED_BY='nix'" "--with-boost-thread=boost_thread" "--with-x" ];
+  configureFlags = [
+    "COMPILED_BY='nix'"
+    "--with-boost-thread=boost_thread"
+    "--with-x"
+  ];
 
   enableParallelBuilding = true;
 

@@ -23,7 +23,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ requests requests-oauthlib six ];
+  propagatedBuildInputs = [
+    requests
+    requests-oauthlib
+    six
+  ];
 
   # Project has no tests
   doCheck = false;

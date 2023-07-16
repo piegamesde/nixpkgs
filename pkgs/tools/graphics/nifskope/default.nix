@@ -38,8 +38,15 @@ stdenv.mkDerivation {
     })
   ] ++ (lib.optional stdenv.isAarch64 ./no-sse-on-arm.patch);
 
-  buildInputs = [ qtbase qttools libGLU.dev ];
-  nativeBuildInputs = [ qmake wrapQtAppsHook ];
+  buildInputs = [
+    qtbase
+    qttools
+    libGLU.dev
+  ];
+  nativeBuildInputs = [
+    qmake
+    wrapQtAppsHook
+  ];
 
   preConfigure = ''
     shopt -s globstar

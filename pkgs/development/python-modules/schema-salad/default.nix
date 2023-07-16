@@ -27,7 +27,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ cachecontrol lockfile mistune rdflib ruamel-yaml ];
+  propagatedBuildInputs = [
+    cachecontrol
+    lockfile
+    mistune
+    rdflib
+    ruamel-yaml
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ]
     ++ passthru.optional-dependencies.pycodegen;

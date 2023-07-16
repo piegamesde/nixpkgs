@@ -31,7 +31,10 @@ buildDunePackage rec {
   };
 
   buildInputs = [ cmdliner ];
-  propagatedBuildInputs = [ optint checkseum ];
+  propagatedBuildInputs = [
+    optint
+    checkseum
+  ];
   checkInputs = [
     alcotest
     astring

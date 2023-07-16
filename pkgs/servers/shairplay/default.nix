@@ -19,9 +19,15 @@ stdenv.mkDerivation rec {
     sha256 = "02xkd9al79pbqh8rhzz5w99vv43jg5vqkqg7kxsw8c8sz9di9wsa";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ avahi libao ];
+  buildInputs = [
+    avahi
+    libao
+  ];
 
   enableParallelBuilding = true;
 

@@ -24,7 +24,12 @@ buildPythonPackage rec {
     hash = "sha256-Wyg9Y4THnjNTWQsiOanoyEEBqVgsG5MeyoGE69/n8sM=";
   };
 
-  propagatedBuildInputs = [ aiohttp paho-mqtt requests retrying ];
+  propagatedBuildInputs = [
+    aiohttp
+    paho-mqtt
+    requests
+    retrying
+  ];
 
   # Test require network access
   doCheck = false;

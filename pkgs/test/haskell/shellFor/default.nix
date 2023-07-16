@@ -6,10 +6,17 @@
 }:
 
 (haskellPackages.shellFor {
-  packages = p: [ p.constraints p.linear ];
+  packages = p: [
+    p.constraints
+    p.linear
+  ];
   extraDependencies = p: { libraryHaskellDepends = [ p.releaser ]; };
   nativeBuildInputs = [ cabal-install ];
-  phases = [ "unpackPhase" "buildPhase" "installPhase" ];
+  phases = [
+    "unpackPhase"
+    "buildPhase"
+    "installPhase"
+  ];
   unpackPhase = ''
     sourceRoot=$(pwd)/scratch
     mkdir -p "$sourceRoot"

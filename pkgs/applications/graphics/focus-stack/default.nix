@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-SoECgBMjWI+n7H6p3hf8J5E9UCLHGiiz5WAsEEioJsU=";
   };
 
-  nativeBuildInputs = [ pkg-config which ronn ];
+  nativeBuildInputs = [
+    pkg-config
+    which
+    ronn
+  ];
   buildInputs = [ opencv ];
 
   makeFlags = [ "prefix=$(out)" ];

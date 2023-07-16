@@ -36,5 +36,9 @@ mkDerivation {
     qtx11extras
     libXdmcp
   ];
-  outputs = [ "bin" "dev" "out" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+  ];
 }

@@ -25,7 +25,12 @@ stdenv.mkDerivation rec {
   installPhase = ''
     install -D neil $out/bin/neil
     wrapProgram $out/bin/neil \
-      --prefix PATH : "${lib.makeBinPath [ babashka jdk ]}"
+      --prefix PATH : "${
+        lib.makeBinPath [
+          babashka
+          jdk
+        ]
+      }"
   '';
 
   meta = with lib; {

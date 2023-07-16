@@ -43,9 +43,21 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ neon libusb-compat-0_1 openssl udev avahi freeipmi ];
+  buildInputs = [
+    neon
+    libusb-compat-0_1
+    openssl
+    udev
+    avahi
+    freeipmi
+  ];
 
-  nativeBuildInputs = [ autoreconfHook libtool pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    autoreconfHook
+    libtool
+    pkg-config
+    makeWrapper
+  ];
 
   configureFlags = [
     "--with-all"
@@ -72,7 +84,11 @@ stdenv.mkDerivation rec {
     homepage = "https://networkupstools.org/";
     platforms = platforms.linux;
     maintainers = [ maintainers.pierron ];
-    license = with licenses; [ gpl1Plus gpl2Plus gpl3Plus ];
+    license = with licenses; [
+      gpl1Plus
+      gpl2Plus
+      gpl3Plus
+    ];
     priority = 10;
   };
 }

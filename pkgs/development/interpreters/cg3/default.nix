@@ -23,7 +23,10 @@ let
 
     nativeBuildInputs = [ cmake ];
 
-    buildInputs = [ icu boost ];
+    buildInputs = [
+      icu
+      boost
+    ];
 
     doCheck = true;
 
@@ -32,14 +35,18 @@ let
         --replace '=''${prefix}//' '=/'
     '';
 
-    passthru.tests.minimal =
-      runCommand "${pname}-test" { buildInputs = [ cg3 dieHook ]; } ''
-        echo 'DELIMITERS = "."; ADD (tag) (*);' >grammar.cg3
-        printf '"<a>"\n\t"a" tag\n\n' >want.txt
-        printf '"<a>"\n\t"a"\n\n' | vislcg3 -g grammar.cg3 >got.txt
-        diff -s want.txt got.txt || die "Grammar application did not produce expected parse"
-        touch $out
-      '';
+    passthru.tests.minimal = runCommand "${pname}-test" {
+      buildInputs = [
+        cg3
+        dieHook
+      ];
+    } ''
+      echo 'DELIMITERS = "."; ADD (tag) (*);' >grammar.cg3
+      printf '"<a>"\n\t"a" tag\n\n' >want.txt
+      printf '"<a>"\n\t"a"\n\n' | vislcg3 -g grammar.cg3 >got.txt
+      diff -s want.txt got.txt || die "Grammar application did not produce expected parse"
+      touch $out
+    '';
 
     # TODO, consider optionals:
     # - Enable tcmalloc unless darwin?

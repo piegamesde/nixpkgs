@@ -80,7 +80,11 @@ stdenv.mkDerivation (finalAttrs: {
         "4.${if lib.versions.major libsoup.version == "2" then "0" else "1"}"
     }";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   # https://github.com/NixOS/nixpkgs/issues/153528
   # Can't be linked within a 4GB address space.
@@ -131,9 +135,8 @@ stdenv.mkDerivation (finalAttrs: {
     gi-docgen
     glib # for gdbus-codegen
     unifdef
-  ] ++ lib.optionals stdenv.isLinux [
-    wayland # for wayland-scanner
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ wayland # for wayland-scanner
+    ];
 
   buildInputs = [
     at-spi2-core
@@ -164,26 +167,32 @@ stdenv.mkDerivation (finalAttrs: {
     pcre
     sqlite
     woff2
-  ] ++ (with xorg; [ libXdamage libXdmcp libXt libXtst ])
-    ++ lib.optionals stdenv.isDarwin [ libedit readline ]
-    ++ lib.optional (stdenv.isDarwin && !stdenv.isAarch64) (
-      # Pull a header that contains a definition of proc_pid_rusage().
-      # (We pick just that one because using the other headers from `sdk` is not
-      # compatible with our C++ standard library. This header is already in
-      # the standard library on aarch64)
-      runCommand "webkitgtk_headers" { } ''
-        install -Dm444 "${
-          lib.getDev apple_sdk.sdk
-        }"/include/libproc.h "$out"/include/libproc.h
-      '') ++ lib.optionals stdenv.isLinux [
-        bubblewrap
-        libseccomp
-        libmanette
-        wayland
-        libwpe
-        libwpe-fdo
-        xdg-dbus-proxy
-      ] ++ lib.optionals systemdSupport [ systemd ]
+  ] ++ (with xorg; [
+    libXdamage
+    libXdmcp
+    libXt
+    libXtst
+  ]) ++ lib.optionals stdenv.isDarwin [
+    libedit
+    readline
+  ] ++ lib.optional (stdenv.isDarwin && !stdenv.isAarch64) (
+    # Pull a header that contains a definition of proc_pid_rusage().
+    # (We pick just that one because using the other headers from `sdk` is not
+    # compatible with our C++ standard library. This header is already in
+    # the standard library on aarch64)
+    runCommand "webkitgtk_headers" { } ''
+      install -Dm444 "${
+        lib.getDev apple_sdk.sdk
+      }"/include/libproc.h "$out"/include/libproc.h
+    '') ++ lib.optionals stdenv.isLinux [
+      bubblewrap
+      libseccomp
+      libmanette
+      wayland
+      libwpe
+      libwpe-fdo
+      xdg-dbus-proxy
+    ] ++ lib.optionals systemdSupport [ systemd ]
     ++ lib.optionals enableGeoLocation [ geoclue2 ]
     ++ lib.optionals withLibsecret [ libsecret ]
     ++ lib.optionals (lib.versionAtLeast gtk3.version "4.0") [
@@ -191,7 +200,10 @@ stdenv.mkDerivation (finalAttrs: {
       wayland-protocols
     ];
 
-  propagatedBuildInputs = [ gtk3 libsoup ];
+  propagatedBuildInputs = [
+    gtk3
+    libsoup
+  ];
 
   cmakeFlags = let cmakeBool = x: if x then "ON" else "OFF";
   in [

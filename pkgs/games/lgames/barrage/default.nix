@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-nFkkzT5AjcPfXsdxwvEsk4+RX9Py1mVqADvuoxE4Ha4=";
   };
 
-  buildInputs = [ SDL SDL_mixer ];
+  buildInputs = [
+    SDL
+    SDL_mixer
+  ];
 
   hardeningDisable = [ "format" ];
 

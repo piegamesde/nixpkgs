@@ -25,10 +25,19 @@ buildPythonPackage rec {
     hash = "sha256-dMVwr0ghTH4Dm2HnfDHb0r/T3COcekeIjT4BBcmGLsc=";
   };
 
-  propagatedBuildInputs = [ botocore certifi requests urllib3 ];
+  propagatedBuildInputs = [
+    botocore
+    certifi
+    requests
+    urllib3
+  ];
 
-  nativeCheckInputs = [ mock pytest-asyncio pytestCheckHook pyyaml ]
-    ++ passthru.optional-dependencies.async;
+  nativeCheckInputs = [
+    mock
+    pytest-asyncio
+    pytestCheckHook
+    pyyaml
+  ] ++ passthru.optional-dependencies.async;
 
   disabledTestPaths = [
     # require network

@@ -52,8 +52,14 @@ buildPythonPackage rec {
     scipy
   ] ++ dask.optional-dependencies.complete;
 
-  nativeCheckInputs =
-    [ pytestCheckHook pytest-xdist nbsmoke fastparquet nbconvert netcdf4 ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-xdist
+    nbsmoke
+    fastparquet
+    nbconvert
+    netcdf4
+  ];
 
   # The complete extra is for usage with conda, which we
   # don't care about

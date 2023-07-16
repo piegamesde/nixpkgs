@@ -25,7 +25,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "jmp" ];
 
-  nativeCheckInputs = [ jaxlib pytestCheckHook ];
+  nativeCheckInputs = [
+    jaxlib
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     description =

@@ -22,8 +22,13 @@ buildPythonPackage rec {
     hash = "sha256-GL0q6BEUtwg24OMxUicyXhQ5gnUiOZiowjWwmUMvSws=";
   };
 
-  propagatedBuildInputs =
-    [ click-plugins colorama requests setuptools xlsxwriter ];
+  propagatedBuildInputs = [
+    click-plugins
+    colorama
+    requests
+    setuptools
+    xlsxwriter
+  ];
 
   # The tests require a shodan api key, so skip them.
   doCheck = false;

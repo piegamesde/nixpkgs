@@ -22,7 +22,10 @@ stdenv.mkDerivation rec {
   pname = "devhelp";
   version = "43.0";
 
-  outputs = [ "out" "devdoc" ];
+  outputs = [
+    "out"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/devhelp/${

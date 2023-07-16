@@ -32,7 +32,10 @@ buildPythonApplication rec {
 
   pythonImportsCheck = [ "bkyml" ];
 
-  propagatedBuildInputs = [ ruamel-yaml setuptools ];
+  propagatedBuildInputs = [
+    ruamel-yaml
+    setuptools
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/joscha/bkyml";

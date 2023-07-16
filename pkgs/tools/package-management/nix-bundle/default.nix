@@ -24,7 +24,13 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
 
   # coreutils, gnutar are needed by nix for bootstrap
-  buildInputs = [ bzip2 coreutils gnutar gzip nix ];
+  buildInputs = [
+    bzip2
+    coreutils
+    gnutar
+    gzip
+    nix
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

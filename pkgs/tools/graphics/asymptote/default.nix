@@ -40,7 +40,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-GyW9OEolV97WtrSdIxp4MCP3JIyA1c/DQSqg8jLC0WQ=";
   };
 
-  nativeBuildInputs = [ autoreconfHook bison flex bison texinfo ];
+  nativeBuildInputs = [
+    autoreconfHook
+    bison
+    flex
+    bison
+    texinfo
+  ];
 
   buildInputs = [
     ghostscriptX
@@ -55,12 +61,21 @@ stdenv.mkDerivation rec {
     perl
     curl
     texLive
-  ] ++ (with python3Packages; [ python pyqt5 ]);
+  ] ++ (with python3Packages; [
+    python
+    pyqt5
+  ]);
 
-  propagatedBuildInputs = [ glm ]
-    ++ lib.optionals stdenv.isLinux [ freeglut libGLU libGL mesa.osmesa ]
-    ++ lib.optionals stdenv.isDarwin
-    (with darwin.apple_sdk.frameworks; [ OpenGL GLUT Cocoa ]);
+  propagatedBuildInputs = [ glm ] ++ lib.optionals stdenv.isLinux [
+    freeglut
+    libGLU
+    libGL
+    mesa.osmesa
+  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+    OpenGL
+    GLUT
+    Cocoa
+  ]);
 
   preConfigure = ''
     HOME=$TMP

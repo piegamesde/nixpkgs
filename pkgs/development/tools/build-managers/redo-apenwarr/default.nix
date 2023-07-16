@@ -50,13 +50,22 @@ stdenv.mkDerivation rec {
 
   checkTarget = "test";
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
-  installFlags = [ "PREFIX=$(out)" "DESTDIR=/" ];
+  installFlags = [
+    "PREFIX=$(out)"
+    "DESTDIR=/"
+  ];
 
   nativeBuildInputs = [
     python3
-    (with python3.pkgs; [ beautifulsoup4 markdown ])
+    (with python3.pkgs; [
+      beautifulsoup4
+      markdown
+    ])
     which
     installShellFiles
     gnumake42 # fails with make 4.4
@@ -70,7 +79,10 @@ stdenv.mkDerivation rec {
     description =
       "Smaller, easier, more powerful, and more reliable than make. An implementation of djb's redo";
     homepage = "https://github.com/apenwarr/redo";
-    maintainers = with maintainers; [ andrewchambers ck3d ];
+    maintainers = with maintainers; [
+      andrewchambers
+      ck3d
+    ];
     license = licenses.asl20;
     platforms = python3.meta.platforms;
   };

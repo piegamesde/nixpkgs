@@ -26,7 +26,10 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ packaging setuptools ];
+  propagatedBuildInputs = [
+    packaging
+    setuptools
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -45,9 +45,18 @@ buildPythonPackage rec {
 
   # Despite living in 'tool.poetry.dependencies',
   # these are only used at build time to process the image resource files
-  nativeBuildInputs = [ inkscape imagemagick jinja2 poetry-core round ];
+  nativeBuildInputs = [
+    inkscape
+    imagemagick
+    jinja2
+    poetry-core
+    round
+  ];
 
-  propagatedBuildInputs = [ graphviz typed-ast ];
+  propagatedBuildInputs = [
+    graphviz
+    typed-ast
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

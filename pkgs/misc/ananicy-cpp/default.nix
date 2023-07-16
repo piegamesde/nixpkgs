@@ -21,9 +21,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-iR7yIIGJbRwu62GIEYi70PjtlKXmkPYqSJtMddspBKA=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ spdlog nlohmann_json systemd ];
+  buildInputs = [
+    spdlog
+    nlohmann_json
+    systemd
+  ];
 
   cmakeFlags = [
     "-DUSE_EXTERNAL_JSON=ON"

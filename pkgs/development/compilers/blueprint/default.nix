@@ -21,7 +21,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-L6EGterkZ8EB6xSnJDZ3IMuOumpTpEGnU74X3UgC7k0=";
   };
 
-  nativeBuildInputs = [ meson ninja ];
+  nativeBuildInputs = [
+    meson
+    ninja
+  ];
 
   buildInputs = [ (python3.withPackages (ps: with ps; [ pygobject3 ])) ];
 
@@ -41,7 +44,10 @@ stdenv.mkDerivation (finalAttrs: {
     description = "A markup language for GTK user interface files";
     homepage = "https://gitlab.gnome.org/jwestman/blueprint-compiler";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ benediktbroich ranfdev ];
+    maintainers = with maintainers; [
+      benediktbroich
+      ranfdev
+    ];
     platforms = platforms.unix;
   };
 })

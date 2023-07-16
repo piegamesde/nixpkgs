@@ -36,7 +36,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-imWB3ffHQJ22NlEGATUa9yTto2OrWbHV2o2YEDPyb3I=";
   };
 
-  nativeBuildInputs = [ cmake gettext makeWrapper wrapGAppsHook pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    gettext
+    makeWrapper
+    wrapGAppsHook
+    pkg-config
+  ];
 
   buildInputs = [
     aqbanking
@@ -54,7 +60,11 @@ stdenv.mkDerivation rec {
     libxslt
     swig
     webkitgtk
-  ] ++ (with perlPackages; [ JSONParse FinanceQuote perl ]);
+  ] ++ (with perlPackages; [
+    JSONParse
+    FinanceQuote
+    perl
+  ]);
 
   patches = [
     # this patch disables test-gnc-timezone and test-gnc-datetime which fail due to nix datetime challenges
@@ -106,7 +116,10 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/finance-quote-wrapper \
       --prefix PERL5LIB : "${
         with perlPackages;
-        makeFullPerlPath [ JSONParse FinanceQuote ]
+        makeFullPerlPath [
+          JSONParse
+          FinanceQuote
+        ]
       }"
   '';
 
@@ -134,7 +147,11 @@ stdenv.mkDerivation rec {
       - Financial Calculations
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ domenkozar AndersonTorres rski ];
+    maintainers = with maintainers; [
+      domenkozar
+      AndersonTorres
+      rski
+    ];
     platforms = platforms.unix;
   };
 }

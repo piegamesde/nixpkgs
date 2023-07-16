@@ -21,7 +21,10 @@ in stdenv.mkDerivation rec {
     sha256 = "0ffh8chb47iaar8872gvalgm84fjzyxph16nixsxknnprqdxyrkx";
   };
 
-  nativeBuildInputs = [ python3.pkgs.wrapPython makeWrapper ];
+  nativeBuildInputs = [
+    python3.pkgs.wrapPython
+    makeWrapper
+  ];
 
   buildInputs = [ python3.pkgs.python ];
 
@@ -91,7 +94,10 @@ in stdenv.mkDerivation rec {
       "Decentralised P2P filesharing client based on the Bittorrent protocol";
     homepage = "https://www.tribler.org/";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ xvapx viric ];
+    maintainers = with maintainers; [
+      xvapx
+      viric
+    ];
     platforms = platforms.linux;
   };
 }

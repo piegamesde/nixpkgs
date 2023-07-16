@@ -35,8 +35,20 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ autoconf automake zlib curl.dev ];
-  buildInputs = [ bzip2 ncurses pcre2 readline sqlite curl ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    zlib
+    curl.dev
+  ];
+  buildInputs = [
+    bzip2
+    ncurses
+    pcre2
+    readline
+    sqlite
+    curl
+  ];
 
   preConfigure = ''
     ./autogen.sh

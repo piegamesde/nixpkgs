@@ -4,7 +4,13 @@
   makeWrapper,
   parallel,
   perlPackages,
-  extraPerlPackages ? with perlPackages; [ DBI DBDPg DBDSQLite DBDCSV TextCSV ],
+  extraPerlPackages ? with perlPackages; [
+    DBI
+    DBDPg
+    DBDSQLite
+    DBDCSV
+    TextCSV
+  ],
   willCite ? false
 }:
 

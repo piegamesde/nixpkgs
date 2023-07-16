@@ -19,12 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-FiajWpxSDRxTiCj8xGHea4e0voqOvaX6oQYB72FkVbw=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./cdll.patch;
-      libespeak_ng = "${lib.getLib espeak-ng}/lib/libespeak-ng.so";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./cdll.patch;
+    libespeak_ng = "${lib.getLib espeak-ng}/lib/libespeak-ng.so";
+  }) ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

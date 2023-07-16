@@ -31,9 +31,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ redis six sortedcontainers ];
+  propagatedBuildInputs = [
+    redis
+    six
+    sortedcontainers
+  ];
 
-  nativeCheckInputs = [ hypothesis pytest-asyncio pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    hypothesis
+    pytest-asyncio
+    pytest-mock
+    pytestCheckHook
+  ];
 
   passthru.optional-dependencies = {
     lua = [ lupa ];

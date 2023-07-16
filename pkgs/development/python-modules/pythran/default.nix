@@ -38,7 +38,15 @@ in buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ ply networkx decorator gast six numpy beniget ];
+  propagatedBuildInputs = [
+    ply
+    networkx
+    decorator
+    gast
+    six
+    numpy
+    beniget
+  ];
 
   pythonImportsCheck = [
     "pythran"

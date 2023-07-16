@@ -42,11 +42,21 @@ stdenv.mkDerivation rec {
       --replace "-lcurses" "-lncurses"
   '';
 
-  nativeBuildInputs = lib.optionals withGUI [ pkg-config makeWrapper ];
+  nativeBuildInputs = lib.optionals withGUI [
+    pkg-config
+    makeWrapper
+  ];
 
-  buildInputs =
-    [ zlib openssl ncurses libidn pcre libssh libmysqlclient postgresql ]
-    ++ lib.optional withGUI gtk2;
+  buildInputs = [
+    zlib
+    openssl
+    ncurses
+    libidn
+    pcre
+    libssh
+    libmysqlclient
+    postgresql
+  ] ++ lib.optional withGUI gtk2;
 
   enableParallelBuilding = true;
 

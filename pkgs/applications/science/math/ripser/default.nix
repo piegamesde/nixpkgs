@@ -34,8 +34,11 @@ in stdenv.mkDerivation {
 
   buildInputs = optional useGoogleHashmap sparsehash;
 
-  buildFlags = [ "-std=c++11" "-O3" "-D NDEBUG" ]
-    ++ optional useCoefficients "-D USE_COEFFICIENTS"
+  buildFlags = [
+    "-std=c++11"
+    "-O3"
+    "-D NDEBUG"
+  ] ++ optional useCoefficients "-D USE_COEFFICIENTS"
     ++ optional indicateProgress "-D INDICATE_PROGRESS"
     ++ optional useGoogleHashmap "-D USE_GOOGLE_HASHMAP"
     ++ optional (fileFormat == "lowerTriangularCsv")

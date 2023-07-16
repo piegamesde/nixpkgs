@@ -39,7 +39,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-9TT6uFqDbeW4vo6R/CG4DKfWpO2ThuviB9S+ek50mac=";
   };
 
-  nativeBuildInputs = [ intltool makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    intltool
+    makeWrapper
+    pkg-config
+  ];
 
   buildInputs = [
     gdk-pixbuf
@@ -70,9 +74,9 @@ stdenv.mkDerivation (finalAttrs: {
       -i driver/Makefile.in po/Makefile.in.in
   '';
 
-  configureFlags = [
-    "--with-app-defaults=${placeholder "out"}/share/xscreensaver/app-defaults"
-  ];
+  configureFlags = [ "--with-app-defaults=${
+      placeholder "out"
+    }/share/xscreensaver/app-defaults" ];
 
   # "marbling" has NEON code that mixes signed and unsigned vector types
   env.NIX_CFLAGS_COMPILE =
@@ -82,7 +86,12 @@ stdenv.mkDerivation (finalAttrs: {
     for bin in $out/bin/*; do
       wrapProgram "$bin" \
         --prefix PATH : "$out/libexec/xscreensaver" \
-        --prefix PATH : "${lib.makeBinPath [ coreutils perlPackages.perl ]}" \
+        --prefix PATH : "${
+          lib.makeBinPath [
+            coreutils
+            perlPackages.perl
+          ]
+        }" \
         --prefix PERL5LIB ':' $PERL5LIB
     done
   '' + lib.optionalString forceInstallAllHacks ''
@@ -99,7 +108,10 @@ stdenv.mkDerivation (finalAttrs: {
     description = "A set of screensavers";
     downloadPage = "https://www.jwz.org/xscreensaver/download.html";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ raskin AndersonTorres ];
+    maintainers = with lib.maintainers; [
+      raskin
+      AndersonTorres
+    ];
     platforms = lib.platforms.unix;
   };
 })

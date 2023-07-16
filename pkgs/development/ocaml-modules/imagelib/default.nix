@@ -21,7 +21,10 @@ buildDunePackage rec {
     hash = "sha256-BQ2TVxGlpc6temteK84TKXpx0MtHZSykL/TjKN9xGP0=";
   };
 
-  propagatedBuildInputs = [ decompress stdlib-shims ];
+  propagatedBuildInputs = [
+    decompress
+    stdlib-shims
+  ];
 
   doCheck = true;
   checkInputs = [ alcotest ];

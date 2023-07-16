@@ -20,7 +20,10 @@ stdenv.mkDerivation {
   outputHash = sha256;
   outputHashMode = "recursive";
 
-  nativeBuildInputs = [ jq nodejs ];
+  nativeBuildInputs = [
+    jq
+    nodejs
+  ];
 
   buildCommand = ''
     cp -r ${src}/* .

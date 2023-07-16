@@ -27,11 +27,19 @@ buildPythonPackage rec {
     hash = "sha256-jvDkAwuDFgo7QlZ8N7TNVsY7+aXdIDc50uIIoO+5MLs=";
   };
 
-  propagatedBuildInputs =
-    [ requests python-dateutil websocket-client ibm-cloud-sdk-core ];
+  propagatedBuildInputs = [
+    requests
+    python-dateutil
+    websocket-client
+    ibm-cloud-sdk-core
+  ];
 
-  nativeCheckInputs =
-    [ responses pytestCheckHook python-dotenv pytest-rerunfailures ];
+  nativeCheckInputs = [
+    responses
+    pytestCheckHook
+    python-dotenv
+    pytest-rerunfailures
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

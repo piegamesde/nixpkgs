@@ -24,9 +24,15 @@ in resholve.mkDerivation {
     done
   '';
 
-  buildInputs = [ getopt coreutils ];
+  buildInputs = [
+    getopt
+    coreutils
+  ];
 
-  checkInputs = [ (bats.withLibraries (p: [ p.bats-support p.bats-assert ])) ];
+  checkInputs = [ (bats.withLibraries (p: [
+    p.bats-support
+    p.bats-assert
+  ])) ];
 
   doCheck = true;
 
@@ -50,7 +56,10 @@ in resholve.mkDerivation {
   solutions.default = {
     scripts = [ "bin/locate-dominating-file" ];
     interpreter = "${bash}/bin/bash";
-    inputs = [ coreutils getopt ];
+    inputs = [
+      coreutils
+      getopt
+    ];
   };
 
   meta = with lib; {

@@ -19,7 +19,10 @@ buildPythonPackage rec {
 
   doCheck = false; # does not have any tests at all
 
-  propagatedBuildInputs = [ drawille matplotlib ];
+  propagatedBuildInputs = [
+    drawille
+    matplotlib
+  ];
 
   pythonImportsCheck = [ "drawilleplot" ];
 

@@ -11,9 +11,16 @@
 mkDerivation {
   pname = "mauikit-filebrowsing";
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
-  buildInputs = [ kconfig kio mauikit ];
+  buildInputs = [
+    kconfig
+    kio
+    mauikit
+  ];
 
   meta = with lib; {
     homepage = "https://invent.kde.org/maui/mauikit-filebrowsing";

@@ -47,8 +47,12 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-XuI6vQR2NsJLLUPGYl3K/GZmHRrKZN7J4NBd8pWSYkw=";
   };
 
-  propagatedBuildInputs =
-    [ zlib bzip2 brotli libpng ]; # needed when linking against freetype
+  propagatedBuildInputs = [
+    zlib
+    bzip2
+    brotli
+    libpng
+  ]; # needed when linking against freetype
 
   # dependence on harfbuzz is looser than the reverse dependence
   nativeBuildInputs = [
@@ -62,9 +66,15 @@ stdenv.mkDerivation (finalAttrs: {
   patches = [ ./enable-table-validation.patch ]
     ++ lib.optional useEncumberedCode ./enable-subpixel-rendering.patch;
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  configureFlags = [ "--bindir=$(dev)/bin" "--enable-freetype-config" ];
+  configureFlags = [
+    "--bindir=$(dev)/bin"
+    "--enable-freetype-config"
+  ];
 
   # native compiler to generate building tool
   CC_BUILD = "${buildPackages.stdenv.cc}/bin/cc";

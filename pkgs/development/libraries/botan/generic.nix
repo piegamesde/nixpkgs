@@ -37,8 +37,16 @@ stdenv.mkDerivation rec {
   patches = extraPatches;
   inherit postPatch;
 
-  buildInputs = [ python3 bzip2 zlib gmp boost ]
-    ++ lib.optionals stdenv.isDarwin [ CoreServices Security ];
+  buildInputs = [
+    python3
+    bzip2
+    zlib
+    gmp
+    boost
+  ] ++ lib.optionals stdenv.isDarwin [
+    CoreServices
+    Security
+  ];
 
   configurePhase = ''
     python configure.py --prefix=$out --with-bzip2 --with-zlib ${extraConfigureFlags}${

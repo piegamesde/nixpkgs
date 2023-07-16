@@ -38,10 +38,24 @@ stdenv.mkDerivation {
 
   strictDeps = true;
   depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs =
-    [ pkg-config asciidoc docbook_xsl libxslt makeWrapper libconfig pango ];
-  buildInputs =
-    [ cairo gdk-pixbuf libconfig pango xcbutilwm alsa-lib wirelesstools ];
+  nativeBuildInputs = [
+    pkg-config
+    asciidoc
+    docbook_xsl
+    libxslt
+    makeWrapper
+    libconfig
+    pango
+  ];
+  buildInputs = [
+    cairo
+    gdk-pixbuf
+    libconfig
+    pango
+    xcbutilwm
+    alsa-lib
+    wirelesstools
+  ];
 
   postPatch = ''
     substituteInPlace ./Makefile \
@@ -49,7 +63,10 @@ stdenv.mkDerivation {
       --replace "a2x" "a2x --no-xmllint"
   '';
 
-  makeFlags = [ "DESTDIR=$(out)" "PREFIX=/" ];
+  makeFlags = [
+    "DESTDIR=$(out)"
+    "PREFIX=/"
+  ];
 
   postInstall = ''
     mkdir -p $out/share/yabar/examples

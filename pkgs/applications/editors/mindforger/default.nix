@@ -21,8 +21,16 @@ stdenv.mkDerivation rec {
     sha256 = "1pghsw8kwvjhg3jpmjs0n892h2l0pm0cs6ymi8b23fwk0kfj67rd";
   };
 
-  nativeBuildInputs = [ qmake wrapGAppsHook wrapQtAppsHook ];
-  buildInputs = [ qtbase qtwebengine cmark-gfm ];
+  nativeBuildInputs = [
+    qmake
+    wrapGAppsHook
+    wrapQtAppsHook
+  ];
+  buildInputs = [
+    qtbase
+    qtwebengine
+    cmark-gfm
+  ];
 
   doCheck = true;
 
@@ -45,8 +53,12 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  qmakeFlags =
-    [ "-r" "mindforger.pro" "CONFIG+=mfnoccache" "CONFIG+=mfwebengine" ];
+  qmakeFlags = [
+    "-r"
+    "mindforger.pro"
+    "CONFIG+=mfnoccache"
+    "CONFIG+=mfwebengine"
+  ];
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     mkdir "$out"/Applications

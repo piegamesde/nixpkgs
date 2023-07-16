@@ -74,8 +74,10 @@ let
 in stdenv.mkDerivation {
   inherit meta name src version;
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper ]
-    ++ lib.optional cudaSupport addOpenGLRunpath;
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+  ] ++ lib.optional cudaSupport addOpenGLRunpath;
 
   buildInputs = [
     alsa-lib
@@ -128,7 +130,10 @@ in stdenv.mkDerivation {
 
   wrapProgramFlags = [
     "--prefix LD_LIBRARY_PATH : ${
-      lib.makeLibraryPath [ gcc-unwrapped.lib zlib ]
+      lib.makeLibraryPath [
+        gcc-unwrapped.lib
+        zlib
+      ]
     }"
     "--prefix PATH : ${lib.makeBinPath [ stdenv.cc ]}"
     # Fix libQt errors - #96490

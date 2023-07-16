@@ -17,7 +17,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-FP+3Rw5IdCahhx9giQrpepMMtF1pWcyjNglrlu9ju0Q=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/thehowl/claws";

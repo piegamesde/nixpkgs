@@ -29,6 +29,9 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://trust-dns.org/";
     maintainers = with maintainers; [ colinsane ];
     platforms = platforms.linux;
-    license = with licenses; [ asl20 mit ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
   };
 }

@@ -32,7 +32,11 @@ let
 
     # Note: libcgroup isn't needed for building, just for the afl-cgroup
     # script.
-    nativeBuildInputs = [ makeWrapper which llvm.dev ];
+    nativeBuildInputs = [
+      makeWrapper
+      which
+      llvm.dev
+    ];
     buildInputs = [ llvm ];
 
     makeFlags = [ "PREFIX=$(out)" ];
@@ -87,8 +91,14 @@ let
       '';
       homepage = "https://lcamtuf.coredump.cx/afl/";
       license = lib.licenses.asl20;
-      platforms = [ "x86_64-linux" "i686-linux" ];
-      maintainers = with lib.maintainers; [ thoughtpolice ris ];
+      platforms = [
+        "x86_64-linux"
+        "i686-linux"
+      ];
+      maintainers = with lib.maintainers; [
+        thoughtpolice
+        ris
+      ];
     };
   };
 in afl

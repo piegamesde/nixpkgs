@@ -17,7 +17,11 @@ let
     import ./make-test-python.nix ({
       inherit name;
       meta = with pkgs.lib.maintainers; {
-        maintainers = [ eelco offline basvandijk ];
+        maintainers = [
+          eelco
+          offline
+          basvandijk
+        ];
       };
       nodes = {
         one = {
@@ -90,7 +94,10 @@ let
                   enabled = true;
                   period = "5s";
                   processes = [ ".*" ];
-                  cpu.metrics = [ "percentages" "normalized_percentages" ];
+                  cpu.metrics = [
+                    "percentages"
+                    "normalized_percentages"
+                  ];
                   core.metrics = [ "percentages" ];
                 };
                 settings = {

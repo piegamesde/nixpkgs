@@ -17,7 +17,14 @@ mkXfceDerivation {
 
   sha256 = "sha256-K1cC5NnRv/C5ZiwMAmaQ8qxvlxHRsJ4F1TgR9CN8Qgc=";
 
-  buildInputs = [ glib gtk3 libexif libxfce4ui libxfce4util xfconf ];
+  buildInputs = [
+    glib
+    gtk3
+    libexif
+    libxfce4ui
+    libxfce4util
+    xfconf
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
 

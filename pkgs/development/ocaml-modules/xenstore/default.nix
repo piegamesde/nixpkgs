@@ -22,7 +22,10 @@ buildDunePackage rec {
   };
 
   buildInputs = [ ppx_cstruct ];
-  propagatedBuildInputs = [ cstruct lwt ];
+  propagatedBuildInputs = [
+    cstruct
+    lwt
+  ];
 
   doCheck = true;
   checkInputs = [ ounit2 ];

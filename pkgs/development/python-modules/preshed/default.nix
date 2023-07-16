@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ];
 
-  propagatedBuildInputs = [ cymem murmurhash ];
+  propagatedBuildInputs = [
+    cymem
+    murmurhash
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

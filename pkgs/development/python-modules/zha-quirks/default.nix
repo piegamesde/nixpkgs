@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-09heRXlaqc+qbQj+LKodu6Pq1pgQ5eVZbihOMeO5EWU=";
   };
 
-  propagatedBuildInputs = [ aiohttp zigpy ];
+  propagatedBuildInputs = [
+    aiohttp
+    zigpy
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

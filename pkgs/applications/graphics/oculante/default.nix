@@ -33,11 +33,19 @@ rustPlatform.buildRustPackage rec {
 
   cargoLock = { lockFile = ./Cargo.lock; };
 
-  nativeBuildInputs = [ cmake pkg-config nasm perl ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    nasm
+    perl
+  ];
 
   checkFlagsArray = [ "--skip=tests::net" ]; # requires network access
 
-  buildInputs = [ openssl fontconfig ] ++ lib.optionals stdenv.isLinux [
+  buildInputs = [
+    openssl
+    fontconfig
+  ] ++ lib.optionals stdenv.isLinux [
     libGL
     libX11
     libXcursor
@@ -51,7 +59,10 @@ rustPlatform.buildRustPackage rec {
 
   postFixup = lib.optionalString stdenv.isLinux ''
     patchelf $out/bin/oculante --add-rpath ${
-      lib.makeLibraryPath [ libxkbcommon libX11 ]
+      lib.makeLibraryPath [
+        libxkbcommon
+        libX11
+      ]
     }
   '';
 
@@ -62,6 +73,9 @@ rustPlatform.buildRustPackage rec {
     changelog =
       "https://github.com/woelper/oculante/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ dit7ya figsoda ];
+    maintainers = with maintainers; [
+      dit7ya
+      figsoda
+    ];
   };
 }

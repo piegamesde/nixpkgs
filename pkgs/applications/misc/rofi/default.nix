@@ -42,8 +42,18 @@ stdenv.mkDerivation rec {
     sed -i 's/~root/~nobody/g' test/helper-expand.c
   '';
 
-  depsBuildBuild = [ buildPackages.stdenv.cc pkg-config glib ];
-  nativeBuildInputs = [ meson ninja pkg-config flex bison ];
+  depsBuildBuild = [
+    buildPackages.stdenv.cc
+    pkg-config
+    glib
+  ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    flex
+    bison
+  ];
   buildInputs = [
     libxkbcommon
     pango

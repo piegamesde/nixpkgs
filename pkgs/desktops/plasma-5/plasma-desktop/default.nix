@@ -62,7 +62,11 @@
 
 mkDerivation {
   pname = "plasma-desktop";
-  nativeBuildInputs = [ extra-cmake-modules kdoctools wayland-scanner ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+    wayland-scanner
+  ];
   buildInputs = [
     boost
     fontconfig
@@ -117,7 +121,11 @@ mkDerivation {
     qqc2-desktop-style
   ];
 
-  patches = [ ./hwclock-path.patch ./tzdir.patch ./kcm-access.patch ];
+  patches = [
+    ./hwclock-path.patch
+    ./tzdir.patch
+    ./kcm-access.patch
+  ];
   CXXFLAGS = let
     # run gsettings with desktop schemas for using in kcm_accces kcm
     gsettings-wrapper = runCommandLocal "gsettings-wrapper" {

@@ -27,7 +27,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ markdown-it-py ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-regressions ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-regressions
+  ];
 
   pythonImportsCheck = [ "mdit_py_plugins" ];
 

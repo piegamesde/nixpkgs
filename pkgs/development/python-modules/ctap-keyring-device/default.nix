@@ -39,14 +39,21 @@ in buildPythonPackage rec {
       --replace "--flake8 --black --cov" ""
   '';
 
-  nativeBuildInputs = [ pythonRelaxDepsHook setuptools-scm ];
+  nativeBuildInputs = [
+    pythonRelaxDepsHook
+    setuptools-scm
+  ];
 
   pythonRemoveDeps = [
     # This is a darwin requirement missing pyobjc
     "pyobjc-framework-LocalAuthentication"
   ];
 
-  propagatedBuildInputs = [ keyring fido2_0 cryptography ];
+  propagatedBuildInputs = [
+    keyring
+    fido2_0
+    cryptography
+  ];
 
   pythonImportsCheck = [ "ctap_keyring_device" ];
 

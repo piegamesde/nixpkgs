@@ -20,7 +20,13 @@ buildPythonPackage rec {
     sha256 = "1zv2gj8cbakhh2fyr2611cbqhfk37a56x973ny9n43y70n26pzm8";
   };
 
-  propagatedBuildInputs = [ numpy opencv3 sphinx-rtd-theme lxml xmljson ];
+  propagatedBuildInputs = [
+    numpy
+    opencv3
+    sphinx-rtd-theme
+    lxml
+    xmljson
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

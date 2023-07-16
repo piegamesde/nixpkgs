@@ -36,7 +36,12 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ intltool ];
-  buildInputs = [ pidgin gmime libxml2 nss ];
+  buildInputs = [
+    pidgin
+    gmime
+    libxml2
+    nss
+  ];
   configureFlags = [ "--without-dbus" ];
   enableParallelBuilding = true;
 

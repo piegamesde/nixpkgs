@@ -31,16 +31,19 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ git ];
 
-  buildInputs = lib.optionals withWayland [ cairo libxkbcommon wayland ]
-    ++ lib.optionals withX [
-      libXi
-      libXinerama
-      libXft
-      libXfixes
-      libXtst
-      libX11
-      libXext
-    ];
+  buildInputs = lib.optionals withWayland [
+    cairo
+    libxkbcommon
+    wayland
+  ] ++ lib.optionals withX [
+    libXi
+    libXinerama
+    libXft
+    libXfixes
+    libXtst
+    libX11
+    libXext
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ]
     ++ lib.optional (!withWayland) "DISABLE_WAYLAND=y"

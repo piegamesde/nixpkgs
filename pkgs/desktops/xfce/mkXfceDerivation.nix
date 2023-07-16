@@ -36,7 +36,11 @@ let
   template = rec {
     inherit pname version;
 
-    nativeBuildInputs = [ pkg-config xfce4-dev-tools wrapGAppsHook ];
+    nativeBuildInputs = [
+      pkg-config
+      xfce4-dev-tools
+      wrapGAppsHook
+    ];
     buildInputs = [ hicolor-icon-theme ];
     configureFlags = [ "--enable-maintainer-mode" ];
 
@@ -48,7 +52,10 @@ let
     };
 
     enableParallelBuilding = true;
-    outputs = [ "out" "dev" ];
+    outputs = [
+      "out"
+      "dev"
+    ];
 
     pos = builtins.unsafeGetAttrPos "pname" args;
 
@@ -62,8 +69,14 @@ let
     };
   };
 
-  publicArgs = removeAttrs args [ "category" "pname" "sha256" ];
+  publicArgs = removeAttrs args [
+    "category"
+    "pname"
+    "sha256"
+  ];
 
-in stdenv.mkDerivation
-(recursiveUpdate template publicArgs // concatAttrLists [ template args ])
+in stdenv.mkDerivation (recursiveUpdate template publicArgs // concatAttrLists [
+  template
+  args
+])
 # TODO [ AndersonTorres ]: verify if it allows using hash attribute as an option to sha256

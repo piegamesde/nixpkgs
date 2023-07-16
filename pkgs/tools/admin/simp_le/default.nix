@@ -37,7 +37,10 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/zenhack/simp_le";
     description = "Simple Let's Encrypt client";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ gebner makefu ];
+    maintainers = with maintainers; [
+      gebner
+      makefu
+    ];
     platforms = platforms.linux;
   };
 }

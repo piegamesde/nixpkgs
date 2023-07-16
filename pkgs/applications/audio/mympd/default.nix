@@ -26,11 +26,24 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-KQf+Szr/AunL/roCtRPiC771P2A3POXPFlXUhbNej6g=";
   };
 
-  nativeBuildInputs = [ pkg-config cmake gzip perl jq ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    gzip
+    perl
+    jq
+  ];
   preConfigure = ''
     env MYMPD_BUILDDIR=$PWD/build ./build.sh createassets
   '';
-  buildInputs = [ libmpdclient openssl lua5_3 libid3tag flac pcre2 ];
+  buildInputs = [
+    libmpdclient
+    openssl
+    lua5_3
+    libid3tag
+    flac
+    pcre2
+  ];
 
   cmakeFlags = [
     "-DENABLE_LUA=ON"

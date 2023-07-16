@@ -20,11 +20,18 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  configurePlatforms = [ "build" "host" ];
+  configurePlatforms = [
+    "build"
+    "host"
+  ];
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [ stdenv.cc.libc libelf libiberty ];
+  buildInputs = [
+    stdenv.cc.libc
+    libelf
+    libiberty
+  ];
 
   # most tests fail
   doCheck = false;

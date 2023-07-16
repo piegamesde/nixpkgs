@@ -56,8 +56,14 @@ in stdenv.mkDerivation rec {
     mv ae-${_d_ae_ver} "ae"
   '';
 
-  nativeBuildInputs = [ dub ldc ];
-  buildInputs = [ ncurses zlib ];
+  nativeBuildInputs = [
+    dub
+    ldc
+  ];
+  buildInputs = [
+    ncurses
+    zlib
+  ];
 
   configurePhase = ''
     runHook preConfigure

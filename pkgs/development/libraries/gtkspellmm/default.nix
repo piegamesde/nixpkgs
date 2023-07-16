@@ -23,7 +23,12 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ gtkspell3 ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ gtk3 glib glibmm gtkmm3 ];
+  buildInputs = [
+    gtk3
+    glib
+    glibmm
+    gtkmm3
+  ];
 
   meta = with lib; {
     description = "C++ binding for the gtkspell library";

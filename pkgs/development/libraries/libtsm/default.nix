@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libxkbcommon ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   # https://github.com/Aetf/libtsm/issues/20
   postPatch = ''

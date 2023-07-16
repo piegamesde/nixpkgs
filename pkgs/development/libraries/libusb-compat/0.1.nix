@@ -11,7 +11,10 @@ stdenv.mkDerivation rec {
   pname = "libusb-compat";
   version = "0.1.8";
 
-  outputs = [ "out" "dev" ]; # get rid of propagating systemd closure
+  outputs = [
+    "out"
+    "dev"
+  ]; # get rid of propagating systemd closure
   outputBin = "dev";
 
   src = fetchFromGitHub {
@@ -23,7 +26,10 @@ stdenv.mkDerivation rec {
 
   patches = lib.optional stdenv.hostPlatform.isMusl ./fix-headers.patch;
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   buildInputs = [ libusb1 ];
 

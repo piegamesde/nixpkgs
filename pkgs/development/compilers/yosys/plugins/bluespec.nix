@@ -21,7 +21,12 @@ stdenv.mkDerivation {
     sha256 = "sha256-3cNFP/k4JsgLyUQHWU10Htl2Rh0staAcA3R4piD6hDE=";
   };
 
-  buildInputs = [ yosys readline zlib bluespec ];
+  buildInputs = [
+    yosys
+    readline
+    zlib
+    bluespec
+  ];
   nativeBuildInputs = [ pkg-config ];
 
   doCheck = true;

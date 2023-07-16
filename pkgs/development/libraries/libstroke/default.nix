@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "0bbpqzsqh9zrc6cg62f6vp1p4dzvv37blsd0gdlzdskgwvyzba8d";
   };
 
-  nativeBuildInputs = [ automake autoconf ];
+  nativeBuildInputs = [
+    automake
+    autoconf
+  ];
   buildInputs = [ libX11 ];
 
   # libstroke ships with an ancient config.sub that doesn't know about x86_64, so regenerate it.

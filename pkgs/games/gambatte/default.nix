@@ -18,7 +18,11 @@ stdenv.mkDerivation {
     sha256 = "0cc6zcvxpvi5hgcssb1zy0fkj9nk7n0d2xm88a4v05kpm5zw7sh2";
   };
 
-  buildInputs = [ scons qt4 alsa-lib ];
+  buildInputs = [
+    scons
+    qt4
+    alsa-lib
+  ];
 
   patches = [ ./fix-scons-paths.patch ];
 

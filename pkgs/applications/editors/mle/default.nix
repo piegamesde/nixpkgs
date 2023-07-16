@@ -48,9 +48,16 @@ stdenv.mkDerivation rec {
   # Enable compiler optimization
   CFLAGS = "-DTB_OPT_SELECT -O2";
 
-  nativeBuildInputs = [ makeWrapper installShellFiles ];
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+  ];
 
-  buildInputs = [ pcre uthash lua5_4 ];
+  buildInputs = [
+    pcre
+    uthash
+    lua5_4
+  ];
 
   doCheck = true;
 

@@ -55,7 +55,10 @@ in stdenv.mkDerivation ({
     esac
   '';
 
-  buildInputs = [ emacs texinfo ] ++ packageRequires ++ buildInputs;
+  buildInputs = [
+    emacs
+    texinfo
+  ] ++ packageRequires ++ buildInputs;
   propagatedBuildInputs = packageRequires;
   propagatedUserEnvPkgs = packageRequires;
 
@@ -100,4 +103,8 @@ in stdenv.mkDerivation ({
     '';
   }
 
-  // removeAttrs args [ "buildInputs" "packageRequires" "meta" ])
+  // removeAttrs args [
+    "buildInputs"
+    "packageRequires"
+    "meta"
+  ])

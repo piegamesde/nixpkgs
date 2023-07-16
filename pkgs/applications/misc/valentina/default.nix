@@ -36,9 +36,17 @@ stdenv.mkDerivation rec {
       }/bin/lrelease'
   '';
 
-  nativeBuildInputs = [ qmake qttools wrapQtAppsHook installShellFiles ];
+  nativeBuildInputs = [
+    qmake
+    qttools
+    wrapQtAppsHook
+    installShellFiles
+  ];
 
-  buildInputs = [ qtsvg qtxmlpatterns ];
+  buildInputs = [
+    qtsvg
+    qtxmlpatterns
+  ];
 
   qmakeFlags = [
     "-r"

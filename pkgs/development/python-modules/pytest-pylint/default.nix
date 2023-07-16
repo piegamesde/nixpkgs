@@ -24,7 +24,11 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ pylint six toml ];
+  propagatedBuildInputs = [
+    pylint
+    six
+    toml
+  ];
 
   # tests not included with release
   doCheck = false;

@@ -116,7 +116,14 @@ let
 
   semanticConfType = with types;
     let
-      confAtom = nullOr (oneOf [ bool int float str path package ]) // {
+      confAtom = nullOr (oneOf [
+        bool
+        int
+        float
+        str
+        path
+        package
+      ]) // {
         description =
           "Nix config atom (null, bool, int, float, str, path or package)";
       };
@@ -126,31 +133,64 @@ in {
   imports = [
     (mkRenamedOptionModuleWith {
       sinceRelease = 2003;
-      from = [ "nix" "useChroot" ];
-      to = [ "nix" "useSandbox" ];
+      from = [
+        "nix"
+        "useChroot"
+      ];
+      to = [
+        "nix"
+        "useSandbox"
+      ];
     })
     (mkRenamedOptionModuleWith {
       sinceRelease = 2003;
-      from = [ "nix" "chrootDirs" ];
-      to = [ "nix" "sandboxPaths" ];
+      from = [
+        "nix"
+        "chrootDirs"
+      ];
+      to = [
+        "nix"
+        "sandboxPaths"
+      ];
     })
     (mkRenamedOptionModuleWith {
       sinceRelease = 2205;
-      from = [ "nix" "daemonIONiceLevel" ];
-      to = [ "nix" "daemonIOSchedPriority" ];
+      from = [
+        "nix"
+        "daemonIONiceLevel"
+      ];
+      to = [
+        "nix"
+        "daemonIOSchedPriority"
+      ];
     })
     (mkRenamedOptionModuleWith {
       sinceRelease = 2211;
-      from = [ "nix" "readOnlyStore" ];
-      to = [ "boot" "readOnlyNixStore" ];
+      from = [
+        "nix"
+        "readOnlyStore"
+      ];
+      to = [
+        "boot"
+        "readOnlyNixStore"
+      ];
     })
-    (mkRemovedOptionModule [ "nix" "daemonNiceLevel" ]
-      "Consider nix.daemonCPUSchedPolicy instead.")
+    (mkRemovedOptionModule [
+      "nix"
+      "daemonNiceLevel"
+    ] "Consider nix.daemonCPUSchedPolicy instead.")
   ] ++ mapAttrsToList (oldConf: newConf:
     mkRenamedOptionModuleWith {
       sinceRelease = 2205;
-      from = [ "nix" oldConf ];
-      to = [ "nix" "settings" newConf ];
+      from = [
+        "nix"
+        oldConf
+      ];
+      to = [
+        "nix"
+        "settings"
+        newConf
+      ];
     }) legacyConfMappings;
 
   ###### interface
@@ -187,7 +227,11 @@ in {
       };
 
       daemonCPUSchedPolicy = mkOption {
-        type = types.enum [ "other" "batch" "idle" ];
+        type = types.enum [
+          "other"
+          "batch"
+          "idle"
+        ];
         default = "other";
         example = "batch";
         description = lib.mdDoc ''
@@ -217,7 +261,10 @@ in {
       };
 
       daemonIOSchedClass = mkOption {
-        type = types.enum [ "best-effort" "idle" ];
+        type = types.enum [
+          "best-effort"
+          "idle"
+        ];
         default = "best-effort";
         example = "idle";
         description = lib.mdDoc ''
@@ -263,7 +310,11 @@ in {
               '';
             };
             protocol = mkOption {
-              type = types.enum [ null "ssh" "ssh-ng" ];
+              type = types.enum [
+                null
+                "ssh"
+                "ssh-ng"
+              ];
               default = "ssh";
               example = "ssh-ng";
               description = lib.mdDoc ''
@@ -289,7 +340,10 @@ in {
             systems = mkOption {
               type = types.listOf types.str;
               default = [ ];
-              example = [ "x86_64-linux" "aarch64-linux" ];
+              example = [
+                "x86_64-linux"
+                "aarch64-linux"
+              ];
               description = lib.mdDoc ''
                 The system types the build machine can execute derivations on.
                 Either this attribute or {var}`system` must be
@@ -355,7 +409,10 @@ in {
             supportedFeatures = mkOption {
               type = types.listOf types.str;
               default = [ ];
-              example = [ "kvm" "big-parallel" ];
+              example = [
+                "kvm"
+                "big-parallel"
+              ];
               description = lib.mdDoc ''
                 A list of features supported by this builder. The builder will
                 be ignored for derivations that require features not in this
@@ -434,7 +491,13 @@ in {
       registry = mkOption {
         type = types.attrsOf (types.submodule (let
           referenceAttrs = with types;
-            attrsOf (oneOf [ str int bool path package ]);
+            attrsOf (oneOf [
+              str
+              int
+              bool
+              path
+              package
+            ]);
         in {
           config,
           name,
@@ -568,7 +631,10 @@ in {
             extra-sandbox-paths = mkOption {
               type = types.listOf types.str;
               default = [ ];
-              example = [ "/dev" "/proc" ];
+              example = [
+                "/dev"
+                "/proc"
+              ];
               description = lib.mdDoc ''
                 Directories from the host filesystem to be included
                 in the sandbox.
@@ -611,9 +677,8 @@ in {
 
             trusted-public-keys = mkOption {
               type = types.listOf types.str;
-              example = [
-                "hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs="
-              ];
+              example =
+                [ "hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs=" ];
               description = lib.mdDoc ''
                 List of public keys used to sign binary caches. If
                 {option}`nix.settings.trusted-public-keys` is enabled,
@@ -627,7 +692,11 @@ in {
             trusted-users = mkOption {
               type = types.listOf types.str;
               default = [ "root" ];
-              example = [ "root" "alice" "@wheel" ];
+              example = [
+                "root"
+                "alice"
+                "@wheel"
+              ];
               description = lib.mdDoc ''
                 A list of names of users that have additional rights when
                 connecting to the Nix daemon, such as the ability to specify
@@ -641,7 +710,11 @@ in {
 
             system-features = mkOption {
               type = types.listOf types.str;
-              example = [ "kvm" "big-parallel" "gccarch-skylake" ];
+              example = [
+                "kvm"
+                "big-parallel"
+                "gccarch-skylake"
+              ];
               description = lib.mdDoc ''
                 The set of features supported by the machine. Derivations
                 can express dependencies on system features through the
@@ -656,7 +729,12 @@ in {
             allowed-users = mkOption {
               type = types.listOf types.str;
               default = [ "*" ];
-              example = [ "@wheel" "@builders" "alice" "bob" ];
+              example = [
+                "@wheel"
+                "@builders"
+                "alice"
+                "bob"
+              ];
               description = lib.mdDoc ''
                 A list of names of users (separated by whitespace) that are
                 allowed to connect to the Nix daemon. As with
@@ -699,8 +777,10 @@ in {
   ###### implementation
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ nixPackage pkgs.nix-info ]
-      ++ optional (config.programs.bash.enableCompletion)
+    environment.systemPackages = [
+      nixPackage
+      pkgs.nix-info
+    ] ++ optional (config.programs.bash.enableCompletion)
       pkgs.nix-bash-completions;
 
     environment.etc."nix/nix.conf".source = nixConf;
@@ -745,7 +825,7 @@ in {
     };
 
     assertions = let badMachine = m: m.system == null && m.systems == [ ];
-    in [{
+    in [ {
       assertion = !(any badMachine cfg.buildMachines);
       message = ''
         At least one system type (via <varname>system</varname> or
@@ -753,7 +833,7 @@ in {
           Invalid machine specifications:
       '' + "      " + (concatStringsSep "\n      "
         (map (m: m.hostName) (filter (badMachine) cfg.buildMachines)));
-    }];
+    } ];
 
     systemd.packages = [ nixPackage ];
 
@@ -767,8 +847,11 @@ in {
     systemd.sockets.nix-daemon.wantedBy = [ "sockets.target" ];
 
     systemd.services.nix-daemon = {
-      path = [ nixPackage pkgs.util-linux config.programs.ssh.package ]
-        ++ optionals cfg.distributedBuilds [ pkgs.gzip ];
+      path = [
+        nixPackage
+        pkgs.util-linux
+        config.programs.ssh.package
+      ] ++ optionals cfg.distributedBuilds [ pkgs.gzip ];
 
       environment = cfg.envVars // {
         CURL_CA_BUNDLE = "/etc/ssl/certs/ca-certificates.crt";
@@ -840,7 +923,10 @@ in {
 
     services.xserver.displayManager.hiddenUsers = attrNames nixbldUsers;
 
-    system.activationScripts.nix = stringAfter [ "etc" "users" ] ''
+    system.activationScripts.nix = stringAfter [
+      "etc"
+      "users"
+    ] ''
       install -m 0755 -d /nix/var/nix/{gcroots,profiles}/per-user
 
       # Subscribe the root user to the NixOS channel by default.
@@ -856,13 +942,16 @@ in {
           [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
         substituters = mkAfter [ "https://cache.nixos.org/" ];
 
-        system-features = mkDefault
-          ([ "nixos-test" "benchmark" "big-parallel" "kvm" ]
-            ++ optionals (pkgs.stdenv.hostPlatform ? gcc.arch) (
-              # a builder can run code for `gcc.arch` and inferior architectures
-              [ "gccarch-${pkgs.stdenv.hostPlatform.gcc.arch}" ]
-              ++ map (x: "gccarch-${x}")
-              (systems.architectures.inferiors.${pkgs.stdenv.hostPlatform.gcc.arch} or [ ])));
+        system-features = mkDefault ([
+          "nixos-test"
+          "benchmark"
+          "big-parallel"
+          "kvm"
+        ] ++ optionals (pkgs.stdenv.hostPlatform ? gcc.arch) (
+          # a builder can run code for `gcc.arch` and inferior architectures
+          [ "gccarch-${pkgs.stdenv.hostPlatform.gcc.arch}" ]
+          ++ map (x: "gccarch-${x}")
+          (systems.architectures.inferiors.${pkgs.stdenv.hostPlatform.gcc.arch} or [ ])));
       }
 
       (mkIf (!cfg.distributedBuilds) { builders = null; })

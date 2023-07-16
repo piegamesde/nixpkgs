@@ -24,9 +24,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DlwAMA/YEnB9Z6Ry1Hvu9R9TgTw737PLtZfAVEKLjPY=";
   };
 
-  nativeBuildInputs = [ dpkg autoPatchelfHook makeWrapper nodePackages.asar ];
+  nativeBuildInputs = [
+    dpkg
+    autoPatchelfHook
+    makeWrapper
+    nodePackages.asar
+  ];
 
-  buildInputs = [ alsa-lib gtk3 libxshmfence mesa nss ];
+  buildInputs = [
+    alsa-lib
+    gtk3
+    libxshmfence
+    mesa
+    nss
+  ];
 
   unpackCmd = ''
     dpkg-deb -x ${src} ./morgen-${pname}

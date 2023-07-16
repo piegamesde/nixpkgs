@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ ];
 
-  nativeBuildInputs = [ cmake ninja unzip ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    unzip
+  ];
 
   meta = with lib; {
     description =

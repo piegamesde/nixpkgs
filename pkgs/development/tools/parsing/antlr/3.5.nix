@@ -21,13 +21,11 @@ stdenv.mkDerivation rec {
     sha256 = "1i0w2v9prrmczlwkfijfp4zfqfgrss90a7yk2hg3y0gkg2s4abbk";
   };
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://src.fedoraproject.org/rpms/antlr3/raw/f1bb8d639678047935e1761c3bf3c1c7da8d0f1d/f/0006-antlr3memory.hpp-fix-for-C-20-mode.patch";
-      sha256 = "0apk904afjqbad6c7z9r72a9lkbz69vwrl8j2a6zgxjn8dfb2p8b";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://src.fedoraproject.org/rpms/antlr3/raw/f1bb8d639678047935e1761c3bf3c1c7da8d0f1d/f/0006-antlr3memory.hpp-fix-for-C-20-mode.patch";
+    sha256 = "0apk904afjqbad6c7z9r72a9lkbz69vwrl8j2a6zgxjn8dfb2p8b";
+  }) ];
 
   installPhase = ''
     mkdir -p "$out"/{lib/antlr,bin,include}

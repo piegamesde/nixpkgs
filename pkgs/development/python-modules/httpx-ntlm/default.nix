@@ -31,7 +31,10 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ httpx pyspnego ];
+  propagatedBuildInputs = [
+    httpx
+    pyspnego
+  ];
 
   # https://github.com/ulodciv/httpx-ntlm/issues/5
   doCheck = false;

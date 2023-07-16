@@ -30,10 +30,22 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-pGjOefWnf11kG/zFGwYGet1OjAhKsULNGgh6vqvIQ7c=";
   };
 
-  nativeBuildInputs = [ cmake bison flex ];
+  nativeBuildInputs = [
+    cmake
+    bison
+    flex
+  ];
 
-  buildInputs = [ libusb-compat-0_1 libelf libftdi1 readline ]
-    ++ lib.optionals docSupport [ texLive texinfo texi2html ];
+  buildInputs = [
+    libusb-compat-0_1
+    libelf
+    libftdi1
+    readline
+  ] ++ lib.optionals docSupport [
+    texLive
+    texinfo
+    texi2html
+  ];
 
   cmakeFlags = lib.optionals docSupport [ "-DBUILD_DOC=ON" ];
 

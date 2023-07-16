@@ -51,18 +51,20 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  patches = [
-    (substituteAll {
-      src = ./paths.patch;
-      gs = "${lib.getBin ghostscript}/bin/gs";
-      jbig2 = "${lib.getBin jbig2enc}/bin/jbig2";
-      pngquant = "${lib.getBin pngquant}/bin/pngquant";
-      tesseract = "${lib.getBin tesseract}/bin/tesseract";
-      unpaper = "${lib.getBin unpaper}/bin/unpaper";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./paths.patch;
+    gs = "${lib.getBin ghostscript}/bin/gs";
+    jbig2 = "${lib.getBin jbig2enc}/bin/jbig2";
+    pngquant = "${lib.getBin pngquant}/bin/pngquant";
+    tesseract = "${lib.getBin tesseract}/bin/tesseract";
+    unpaper = "${lib.getBin unpaper}/bin/unpaper";
+  }) ];
 
-  nativeBuildInputs = [ setuptools setuptools-scm installShellFiles ];
+  nativeBuildInputs = [
+    setuptools
+    setuptools-scm
+    installShellFiles
+  ];
 
   propagatedBuildInputs = [
     coloredlogs
@@ -78,7 +80,10 @@ buildPythonPackage rec {
   ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
     ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
-  nativeCheckInputs = [ pytest-xdist pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-xdist
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "ocrmypdf" ];
 
@@ -92,8 +97,14 @@ buildPythonPackage rec {
     homepage = "https://github.com/ocrmypdf/OCRmyPDF";
     description =
       "Adds an OCR text layer to scanned PDF files, allowing them to be searched";
-    license = with licenses; [ mpl20 mit ];
-    maintainers = with maintainers; [ kiwi dotlambda ];
+    license = with licenses; [
+      mpl20
+      mit
+    ];
+    maintainers = with maintainers; [
+      kiwi
+      dotlambda
+    ];
     changelog =
       "https://github.com/ocrmypdf/OCRmyPDF/blob/${src.rev}/docs/release_notes.rst";
   };

@@ -23,14 +23,27 @@ mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ libsecret qtkeychain qttools ];
+  buildInputs = [
+    libsecret
+    qtkeychain
+    qttools
+  ];
 
-  qtWrapperArgs = [ "--prefix" "PATH" ":" (lib.makeBinPath [ restic ]) ];
+  qtWrapperArgs = [
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [ restic ])
+  ];
 
   meta = with lib; {
     description = "Restic GUI for Desktop/Laptop Backups";
     homepage = "https://git.srcbox.net/stefan/restique";
-    license = with licenses; [ gpl3Plus cc-by-sa-40 cc0 ];
+    license = with licenses; [
+      gpl3Plus
+      cc-by-sa-40
+      cc0
+    ];
     maintainers = with maintainers; [ dotlambda ];
   };
 }

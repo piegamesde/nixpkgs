@@ -34,7 +34,10 @@ in stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  buildInputs = [ SDL2 SDL2_ttf ];
+  buildInputs = [
+    SDL2
+    SDL2_ttf
+  ];
 
   installPhase = ''
     runHook preInstall

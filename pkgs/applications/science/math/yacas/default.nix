@@ -62,9 +62,16 @@ stdenv.mkDerivation rec {
     # Perl is only for the documentation
     perl
   ] ++ lib.optionals enableJava [ openjdk ];
-  buildInputs = [ ]
-    ++ lib.optionals enableGui [ qtbase wrapQtAppsHook qtwebengine ]
-    ++ lib.optionals enableJupyter [ boost jsoncpp openssl zmqpp ];
+  buildInputs = [ ] ++ lib.optionals enableGui [
+    qtbase
+    wrapQtAppsHook
+    qtwebengine
+  ] ++ lib.optionals enableJupyter [
+    boost
+    jsoncpp
+    openssl
+    zmqpp
+  ];
 
   meta = {
     description = "Easy to use, general purpose Computer Algebra System${

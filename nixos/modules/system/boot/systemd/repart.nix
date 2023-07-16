@@ -51,7 +51,12 @@ in {
       };
 
       partitions = lib.mkOption {
-        type = with lib.types; attrsOf (attrsOf (oneOf [ str int bool ]));
+        type = with lib.types;
+          attrsOf (attrsOf (oneOf [
+            str
+            int
+            bool
+          ]));
         default = { };
         example = {
           "10-root" = { Type = "root"; };
@@ -88,9 +93,9 @@ in {
       services.systemd-repart = {
         # Unset the conditions as they cannot be met before activation because
         # the definition files are not stored in the expected locations.
-        unitConfig.ConditionDirectoryNotEmpty = [
-          " " # required to unset the previous value.
-        ];
+        unitConfig.ConditionDirectoryNotEmpty =
+          [ " " # required to unset the previous value.
+          ];
         serviceConfig = {
           # systemd-repart runs before the activation script. Thus we cannot
           # rely on them being linked in /etc already. Instead we have to

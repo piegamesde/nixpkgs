@@ -44,6 +44,9 @@ buildGoModule rec {
     changelog =
       "https://github.com/hairyhenderson/gomplate/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ ris jlesquembre ];
+    maintainers = with maintainers; [
+      ris
+      jlesquembre
+    ];
   };
 }

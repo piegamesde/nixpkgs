@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ pyserial prometheus-client pyyaml ];
+  propagatedBuildInputs = [
+    pyserial
+    prometheus-client
+    pyyaml
+  ];
 
   # Module has no tests
   doCheck = false;

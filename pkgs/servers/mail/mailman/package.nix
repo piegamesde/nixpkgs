@@ -40,7 +40,10 @@ buildPythonPackage rec {
     zope_configuration
   ];
 
-  checkInputs = [ docutils sphinx ];
+  checkInputs = [
+    docutils
+    sphinx
+  ];
 
   patches = [
     (fetchpatch {
@@ -80,6 +83,9 @@ buildPythonPackage rec {
     description =
       "Free software for managing electronic mail discussion and newsletter lists";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ qyliss ma27 ];
+    maintainers = with lib.maintainers; [
+      qyliss
+      ma27
+    ];
   };
 }

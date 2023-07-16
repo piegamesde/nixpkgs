@@ -36,7 +36,11 @@ buildPythonPackage rec {
     hash = "sha256-lRc0IGpxkSnVeziFOYX7f99P7WNvz1KHy73qMPrU24I=";
   };
 
-  nativeBuildInputs = [ cython hatch-vcs hatchling ];
+  nativeBuildInputs = [
+    cython
+    hatch-vcs
+    hatchling
+  ];
 
   propagatedBuildInputs = [
     cons
@@ -49,7 +53,13 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [ jax jaxlib numba numba-scipy pytestCheckHook ];
+  nativeCheckInputs = [
+    jax
+    jaxlib
+    numba
+    numba-scipy
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

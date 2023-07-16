@@ -50,16 +50,25 @@ in buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [ markdown pygments ];
+  propagatedBuildInputs = [
+    markdown
+    pygments
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pyyaml ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pyyaml
+  ];
 
   pythonImportsCheck = map (ext: "pymdownx.${ext}") extensions;
 
   meta = with lib; {
     description = "Extensions for Python Markdown";
     homepage = "https://facelessuser.github.io/pymdown-extensions/";
-    license = with licenses; [ mit bsd2 ];
+    license = with licenses; [
+      mit
+      bsd2
+    ];
     maintainers = with maintainers; [ cpcloud ];
   };
 }

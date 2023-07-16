@@ -17,8 +17,11 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-Vunq3lsM1aSXNIr3ZMqE03f0jEI5BpWwMYhZ41tiB9M=";
 
-  ldflags =
-    [ "-s" "-w" "-X github.com/hashicorp/envconsul/version.Name=envconsul" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/hashicorp/envconsul/version.Name=envconsul"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/hashicorp/envconsul/";

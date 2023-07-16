@@ -22,8 +22,15 @@ stdenv.mkDerivation rec {
     cd src
   '';
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook ];
-  buildInputs = [ libffcall glib gtk3 ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    libffcall
+    glib
+    gtk3
+  ];
 
   configureOptions = [ "--with-gtk3" ];
 

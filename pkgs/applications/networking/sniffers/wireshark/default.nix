@@ -55,7 +55,10 @@ let
 in stdenv.mkDerivation {
   pname = "wireshark-${variant}";
   inherit version;
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitLab {
     repo = "wireshark";
@@ -80,9 +83,20 @@ in stdenv.mkDerivation {
   # Avoid referencing -dev paths because of debug assertions.
   env.NIX_CFLAGS_COMPILE = toString [ "-DQT_NO_DEBUG" ];
 
-  nativeBuildInputs =
-    [ asciidoctor bison cmake ninja flex makeWrapper pkg-config python3 perl ]
-    ++ lib.optionals withQt [ qt5.wrapQtAppsHook wrapGAppsHook ];
+  nativeBuildInputs = [
+    asciidoctor
+    bison
+    cmake
+    ninja
+    flex
+    makeWrapper
+    pkg-config
+    python3
+    perl
+  ] ++ lib.optionals withQt [
+    qt5.wrapQtAppsHook
+    wrapGAppsHook
+  ];
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
@@ -111,10 +125,17 @@ in stdenv.mkDerivation {
     c-ares
     glib
     zlib
-  ] ++ lib.optionals withQt (with qt5; [ qtbase qtmultimedia qtsvg qttools ])
-    ++ lib.optionals (withQt && stdenv.isLinux) [ qt5.qtwayland ]
-    ++ lib.optionals stdenv.isLinux [ libcap libnl sbc ]
-    ++ lib.optionals stdenv.isDarwin [
+  ] ++ lib.optionals withQt (with qt5; [
+    qtbase
+    qtmultimedia
+    qtsvg
+    qttools
+  ]) ++ lib.optionals (withQt && stdenv.isLinux) [ qt5.qtwayland ]
+    ++ lib.optionals stdenv.isLinux [
+      libcap
+      libnl
+      sbc
+    ] ++ lib.optionals stdenv.isDarwin [
       SystemConfiguration
       ApplicationServices
       gmp
@@ -186,7 +207,10 @@ in stdenv.mkDerivation {
     '';
 
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ bjornfor fpletz ];
+    maintainers = with maintainers; [
+      bjornfor
+      fpletz
+    ];
     mainProgram = if withQt then "wireshark" else "tshark";
   };
 }

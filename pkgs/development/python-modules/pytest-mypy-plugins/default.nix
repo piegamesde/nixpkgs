@@ -28,9 +28,18 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ chevron pyyaml mypy decorator regex ];
+  propagatedBuildInputs = [
+    chevron
+    pyyaml
+    mypy
+    decorator
+    regex
+  ];
 
-  nativeCheckInputs = [ mypy pytestCheckHook ];
+  nativeCheckInputs = [
+    mypy
+    pytestCheckHook
+  ];
 
   preCheck = ''
     export PATH="$PATH:$out/bin";

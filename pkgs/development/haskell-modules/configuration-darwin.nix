@@ -168,8 +168,10 @@ self: super:
     addBuildDepend darwin.apple_sdk.frameworks.Cocoa (dontCheck super.fsnotify);
 
   FractalArt = overrideCabal (drv: {
-    librarySystemDepends = [ darwin.libobjc darwin.apple_sdk.frameworks.AppKit ]
-      ++ (drv.librarySystemDepends or [ ]);
+    librarySystemDepends = [
+      darwin.libobjc
+      darwin.apple_sdk.frameworks.AppKit
+    ] ++ (drv.librarySystemDepends or [ ]);
   }) super.FractalArt;
 
   arbtt = overrideCabal (drv: {

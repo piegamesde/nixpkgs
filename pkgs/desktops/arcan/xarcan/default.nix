@@ -48,7 +48,11 @@ stdenv.mkDerivation (finalPackages: {
     hash = "sha256-rp2sNRbv0OZdfyqZfsv/v3TGQY5uyXWqbvlmUDd7iBk=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
 
   buildInputs = [
     arcan

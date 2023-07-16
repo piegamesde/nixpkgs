@@ -9,7 +9,13 @@ with lib;
 
 let
   cfg = config.services.nbd;
-  iniFields = with types; attrsOf (oneOf [ bool int float str ]);
+  iniFields = with types;
+    attrsOf (oneOf [
+      bool
+      int
+      float
+      str
+    ]);
   # The `[generic]` section must come before all the others in the
   # config file.  This means we can't just dump an attrset to INI
   # because that sorts the sections by name.  Instead, we serialize it
@@ -86,7 +92,10 @@ in {
                 allowAddresses = mkOption {
                   type = nullOr (listOf str);
                   default = null;
-                  example = [ "10.10.0.0/24" "127.0.0.1" ];
+                  example = [
+                    "10.10.0.0/24"
+                    "127.0.0.1"
+                  ];
                   description = lib.mdDoc
                     "IPs and subnets that are authorized to connect for this device. If not specified, the server will allow all connections.";
                 };
@@ -118,10 +127,10 @@ in {
   };
 
   config = mkIf cfg.server.enable {
-    assertions = [{
+    assertions = [ {
       assertion = !(cfg.server.exports ? "generic");
       message = "services.nbd.server exports must not be named 'generic'";
-    }];
+    } ];
 
     boot.kernelModules = [ "nbd" ];
 

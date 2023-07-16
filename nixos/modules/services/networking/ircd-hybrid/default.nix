@@ -13,8 +13,14 @@ let
 
   ircdService = pkgs.stdenv.mkDerivation rec {
     name = "ircd-hybrid-service";
-    scripts = [ "=>/bin" ./control.in ];
-    substFiles = [ "=>/conf" ./ircd.conf ];
+    scripts = [
+      "=>/bin"
+      ./control.in
+    ];
+    substFiles = [
+      "=>/conf"
+      ./ircd.conf
+    ];
     inherit (pkgs) ircdHybrid coreutils su iproute2 gnugrep procps;
 
     ipv6Enabled = boolToString config.networking.enableIPv6;

@@ -26,7 +26,10 @@ buildPythonPackage rec {
       --replace "py.test" "pytest"
   '';
 
-  propagatedBuildInputs = [ attrs six ];
+  propagatedBuildInputs = [
+    attrs
+    six
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

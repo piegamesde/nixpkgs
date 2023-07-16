@@ -12,7 +12,11 @@ stdenv.mkDerivation rec {
   pname = "stunnel";
   version = "5.69";
 
-  outputs = [ "out" "doc" "man" ];
+  outputs = [
+    "out"
+    "doc"
+    "man"
+  ];
 
   src = fetchurl {
     url = "https://www.stunnel.org/archive/${
@@ -39,7 +43,10 @@ stdenv.mkDerivation rec {
     rm $out/bin/stunnel3
   '';
 
-  installFlags = [ "sysconfdir=\${out}/etc" "localstatedir=\${TMPDIR}" ];
+  installFlags = [
+    "sysconfdir=\${out}/etc"
+    "localstatedir=\${TMPDIR}"
+  ];
 
   passthru.tests = { stunnel = nixosTests.stunnel; };
 

@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-XXAKp/RlBVs3KmcnuiexdYfxf0zt2A/DrsJzdC9I4vA=";
   };
 
-  propagatedBuildInputs = [ zope_interface twisted ];
+  propagatedBuildInputs = [
+    zope_interface
+    twisted
+  ];
 
   pythonImportsCheck = [ "application" ];
 
@@ -31,7 +34,10 @@ buildPythonPackage rec {
       "A collection of modules that are useful when building python applications";
     homepage = "https://github.com/AGProjects/python3-application";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ chanley yureien ];
+    maintainers = with maintainers; [
+      chanley
+      yureien
+    ];
     longDescription = ''
       This package is a collection of modules that are useful when building python applications. Their purpose is to eliminate the need to divert resources into implementing the small tasks that every application needs to do in order to run successfully and focus instead on the application logic itself.
       The modules that the application package provides are:

@@ -28,7 +28,13 @@ in stdenv.mkDerivation rec {
     hash = "sha256-91q0M/4kAr0UoWXOQIEYS1VbgEQ/F4EBOfJE9Vr1bnw=";
   };
 
-  outputs = [ "bin" "lib" "dev" "doc" "out" ];
+  outputs = [
+    "bin"
+    "lib"
+    "dev"
+    "doc"
+    "out"
+  ];
 
   cmakeFlags = [
     # Triangle is unfree
@@ -51,7 +57,10 @@ in stdenv.mkDerivation rec {
     "-DGEOGRAM_INSTALL_PKGCONFIG_DIR=${placeholder "dev"}/lib/pkgconfig"
   ];
 
-  nativeBuildInputs = [ cmake doxygen ];
+  nativeBuildInputs = [
+    cmake
+    doxygen
+  ];
 
   buildInputs = [ zlib ];
 
@@ -118,8 +127,12 @@ in stdenv.mkDerivation rec {
     # See https://github.com/BrunoLevy/geogram/issues/74
     broken = stdenv.isLinux && stdenv.isAarch64;
 
-    platforms =
-      [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
     maintainers = with maintainers; [ tmarkus ];
   };
 }

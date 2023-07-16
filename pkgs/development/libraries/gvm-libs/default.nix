@@ -33,7 +33,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-QHAkPZoLQG+UQ1YNdad+XYOywqLqIW1vBmcFkuf3pXU=";
   };
 
-  nativeBuildInputs = [ cmake doxygen pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    doxygen
+    pkg-config
+  ];
 
   buildInputs = [
     glib

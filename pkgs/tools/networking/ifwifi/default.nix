@@ -31,9 +31,7 @@ rustPlatform.buildRustPackage rec {
       --prefix PATH : "${
         lib.makeBinPath (
           # `ifwifi` runtime dep
-          [
-            networkmanager
-          ]
+          [ networkmanager ]
           # `wifiscanner` crate's runtime deps
           ++ (lib.optional stdenv.isLinux iw)
           # ++ (lib.optional stdenv.isDarwin airport) # airport isn't packaged

@@ -27,7 +27,11 @@ stdenv.mkDerivation {
 
   strictDeps = !doCheck;
 
-  nativeBuildInputs = [ ocaml findlib ocamlbuild ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+    ocamlbuild
+  ];
 
   configurePhase = "ocaml setup.ml -configure --prefix $out"
     + lib.optionalString doCheck " --enable-tests";

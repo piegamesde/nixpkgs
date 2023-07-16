@@ -30,7 +30,10 @@ in buildGoModule rec {
     sha256 = "sha256-S4KdEepNWv8J5+r/GT8+8kAKU5fq2iwQU+qyoCY1s0o=";
   };
 
-  patches = [ ./fix-shell-path.patch ./remove-bash-test.patch ];
+  patches = [
+    ./fix-shell-path.patch
+    ./remove-bash-test.patch
+  ];
 
   prePatch = ''
     # Remove some tests that can't work during a nix build
@@ -64,6 +67,11 @@ in buildGoModule rec {
     license = licenses.mit;
     homepage = "https://about.gitlab.com/gitlab-ci/";
     platforms = platforms.unix ++ platforms.darwin;
-    maintainers = with maintainers; [ bachp zimbatm globin yayayayaka ];
+    maintainers = with maintainers; [
+      bachp
+      zimbatm
+      globin
+      yayayayaka
+    ];
   };
 }

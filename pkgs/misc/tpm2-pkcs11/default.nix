@@ -43,8 +43,13 @@ stdenv.mkDerivation rec {
     ./bootstrap
   '';
 
-  nativeBuildInputs =
-    [ pkg-config autoreconfHook autoconf-archive makeWrapper patchelf ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+    autoconf-archive
+    makeWrapper
+    patchelf
+  ];
   buildInputs = [
     tpm2-tss
     tpm2-tools
@@ -62,7 +67,11 @@ stdenv.mkDerivation rec {
       ]))
   ];
 
-  outputs = [ "out" "bin" "dev" ];
+  outputs = [
+    "out"
+    "bin"
+    "dev"
+  ];
 
   dontStrip = true;
   dontPatchELF = true;
@@ -70,8 +79,13 @@ stdenv.mkDerivation rec {
   # To be able to use the userspace resource manager, the RUNPATH must
   # explicitly include the tpm2-abrmd shared libraries.
   preFixup = let
-    rpath = lib.makeLibraryPath ((lib.optional abrmdSupport tpm2-abrmd)
-      ++ [ tpm2-tss sqlite openssl glibc libyaml ]);
+    rpath = lib.makeLibraryPath ((lib.optional abrmdSupport tpm2-abrmd) ++ [
+      tpm2-tss
+      sqlite
+      openssl
+      glibc
+      libyaml
+    ]);
   in ''
     patchelf \
       --set-rpath ${rpath} \

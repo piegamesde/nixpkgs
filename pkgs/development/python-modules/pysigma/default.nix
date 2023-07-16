@@ -27,11 +27,19 @@ buildPythonPackage rec {
     hash = "sha256-lamd33oHWNhTZ5XGE7g8ztV6Mgh+Gjh2KfoyFjkGmXc=";
   };
 
-  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
   pythonRelaxDeps = [ "packaging" ];
 
-  propagatedBuildInputs = [ packaging pyparsing pyyaml requests ];
+  propagatedBuildInputs = [
+    packaging
+    pyparsing
+    pyyaml
+    requests
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

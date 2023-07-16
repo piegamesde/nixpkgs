@@ -22,8 +22,17 @@ stdenv.mkDerivation rec {
     sha256 = "0wy8cppf5xpgfqvgb3mqs1cjh81n6qzkk6zxv29wvng8nar9wsy4";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ itk libminc bicpl fftwFloat gsl ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    itk
+    libminc
+    bicpl
+    fftwFloat
+    gsl
+  ];
 
   cmakeFlags = [
     "-DLIBMINC_DIR=${libminc}/lib/cmake"

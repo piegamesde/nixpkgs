@@ -42,7 +42,10 @@ assert lib.assertMsg (enable16Bit || enable32Bit)
   "Must enable 16-Bit and/or 32-Bit system variant.";
 assert lib.assertMsg (enableSDL || enableX11)
   "Must enable SDL and/or X11 graphics interfaces.";
-assert lib.assertOneOf "withSDLVersion" withSDLVersion [ "1" "2" ];
+assert lib.assertOneOf "withSDLVersion" withSDLVersion [
+  "1"
+  "2"
+];
 assert enableHAXM -> (lib.assertMsg enableX11
   "Must enable X11 graphics interface for HAXM build.");
 let
@@ -50,8 +53,16 @@ let
   inherit (lib.strings) concatStringsSep concatMapStringsSep;
   isSDL2 = (withSDLVersion == "2");
   sdlInfix = optionalString isSDL2 "2";
-  sdlDeps1 = [ SDL SDL_ttf SDL_mixer ];
-  sdlDeps2 = [ SDL2 SDL2_ttf SDL2_mixer ];
+  sdlDeps1 = [
+    SDL
+    SDL_ttf
+    SDL_mixer
+  ];
+  sdlDeps2 = [
+    SDL2
+    SDL2_ttf
+    SDL2_mixer
+  ];
   sdlDepsBuildonly = if isSDL2 then sdlDeps1 else sdlDeps2;
   sdlDepsTarget = if isSDL2 then sdlDeps2 else sdlDeps1;
   sdlMakefileSuffix = if stdenv.hostPlatform.isWindows then
@@ -68,14 +79,8 @@ let
   sdlBins = concatStringsSep " "
     (optionals enable16Bit [ "np2kai" ] ++ optionals enable32Bit [ "np21kai" ]);
   x11ConfigureFlags = concatStringsSep " "
-    ((if ((enableHAXM && (enable16Bit || enable32Bit))
-      || (enable16Bit && enable32Bit)) then
-      [ "--enable-build-all" ]
-    else if enableHAXM then
-      [ "--enable-haxm" ]
-    else if enable32Bit then
-      [ "--enable-ia32" ]
-    else
+    ((if ((enableHAXM && (enable16Bit || enable32Bit)) || (enable16Bit
+      && enable32Bit)) then [ "--enable-build-all" ] else if enableHAXM then [ "--enable-haxm" ] else if enable32Bit then [ "--enable-ia32" ] else
       [ ]) ++ optionals (!isSDL2) [
         "--enable-sdl"
         "--enable-sdlmixer"
@@ -128,8 +133,13 @@ in stdenv.mkDerivation rec {
     nasm
   ];
 
-  buildInputs = sdlDepsTarget
-    ++ optionals enableX11 [ gtk2 libICE libSM libusb1 libXxf86vm ];
+  buildInputs = sdlDepsTarget ++ optionals enableX11 [
+    gtk2
+    libICE
+    libSM
+    libusb1
+    libXxf86vm
+  ];
 
   enableParallelBuilding = true;
 

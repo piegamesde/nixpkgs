@@ -50,7 +50,13 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Fix common misspellings in source code";
     homepage = "https://github.com/codespell-project/codespell";
-    license = with licenses; [ gpl2Only cc-by-sa-30 ];
-    maintainers = with maintainers; [ johnazoidberg SuperSandro2000 ];
+    license = with licenses; [
+      gpl2Only
+      cc-by-sa-30
+    ];
+    maintainers = with maintainers; [
+      johnazoidberg
+      SuperSandro2000
+    ];
   };
 }

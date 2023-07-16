@@ -101,7 +101,12 @@ in {
 
           See "SERVICE-LEVEL OPTIONS" in {manpage}`stunnel(8)`.
         '';
-        type = with types; attrsOf (attrsOf (nullOr (oneOf [ bool int str ])));
+        type = with types;
+          attrsOf (attrsOf (nullOr (oneOf [
+            bool
+            int
+            str
+          ])));
         example = {
           fancyWebserver = {
             accept = 443;
@@ -120,7 +125,12 @@ in {
 
           See "SERVICE-LEVEL OPTIONS" in {manpage}`stunnel(8)`.
         '';
-        type = with types; attrsOf (attrsOf (nullOr (oneOf [ bool int str ])));
+        type = with types;
+          attrsOf (attrsOf (nullOr (oneOf [
+            bool
+            int
+            str
+          ])));
 
         apply = let
           applyDefaults = c:

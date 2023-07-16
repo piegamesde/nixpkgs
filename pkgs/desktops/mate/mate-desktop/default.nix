@@ -23,9 +23,17 @@ stdenv.mkDerivation rec {
     sha256 = "EtFmiiesGr1gk1OB0/OYIbuAhGenuKz570WIXXyAohE=";
   };
 
-  nativeBuildInputs = [ pkg-config gettext wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ dconf gtk3 isocodes ];
+  buildInputs = [
+    dconf
+    gtk3
+    isocodes
+  ];
 
   enableParallelBuilding = true;
 

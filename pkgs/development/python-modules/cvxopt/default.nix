@@ -32,7 +32,10 @@ buildPythonPackage rec {
     hash = "sha256-ALGyMvnR+QLVeKnXWBS2f6AgdY1a5CLijKjO9iafpcY=";
   };
 
-  buildInputs = (if stdenv.isDarwin then [ openblas ] else [ blas lapack ]);
+  buildInputs = (if stdenv.isDarwin then [ openblas ] else [
+    blas
+    lapack
+  ]);
   doCheck = !stdenv.isDarwin;
 
   # similar to Gsl, glpk, fftw there is also a dsdp interface
@@ -63,7 +66,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ unittestCheckHook ];
 
-  unittestFlagsArray = [ "-s" "tests" ];
+  unittestFlagsArray = [
+    "-s"
+    "tests"
+  ];
 
   meta = with lib; {
     homepage = "http://cvxopt.org/";

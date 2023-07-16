@@ -14,7 +14,10 @@ let
   desktopItem = makeDesktopItem {
     desktopName = "HakuNeko Desktop";
     genericName = "Manga & Anime Downloader";
-    categories = [ "Network" "FileTransfer" ];
+    categories = [
+      "Network"
+      "FileTransfer"
+    ];
     exec = "hakuneko";
     icon = "hakuneko-desktop";
     name = "hakuneko-desktop";
@@ -43,7 +46,12 @@ in stdenv.mkDerivation rec {
   dontPatchELF = true;
   dontWrapGApps = true;
 
-  nativeBuildInputs = [ autoPatchelfHook dpkg makeWrapper wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    dpkg
+    makeWrapper
+    wrapGAppsHook
+  ];
 
   buildInputs = atomEnv.packages;
 
@@ -72,6 +80,9 @@ in stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unlicense;
     maintainers = with maintainers; [ nloomans ];
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
   };
 }

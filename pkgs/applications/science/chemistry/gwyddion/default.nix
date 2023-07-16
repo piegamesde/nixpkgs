@@ -43,10 +43,16 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-rDhYVMDTH9mSu90HZAX8ap4HF//8fYhW/ozzJdIrUgo=";
   };
 
-  nativeBuildInputs = [ pkg-config file ];
+  nativeBuildInputs = [
+    pkg-config
+    file
+  ];
 
   buildInputs = with lib;
-    [ gtk2 fftw ] ++ optional openglSupport gnome2.gtkglext
+    [
+      gtk2
+      fftw
+    ] ++ optional openglSupport gnome2.gtkglext
     ++ optional openexrSupport openexr ++ optional libXmuSupport xorg.libXmu
     ++ optional fitsSupport cfitsio ++ optional libpngSupport libpng
     ++ optional libxsltSupport libxslt ++ optional libxml2Support libxml2
@@ -54,7 +60,12 @@ in stdenv.mkDerivation rec {
     ++ optional libuniqueSupport libunique ++ optional libzipSupport libzip;
 
   propagatedBuildInputs = with lib;
-    optionals pythonSupport [ pygtk pygobject2 python gnome2.gtksourceview ];
+    optionals pythonSupport [
+      pygtk
+      pygobject2
+      python
+      gnome2.gtksourceview
+    ];
 
   # This patch corrects problems with python support, but should apply cleanly
   # regardless of whether python support is enabled, and have no effects if

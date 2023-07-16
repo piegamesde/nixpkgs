@@ -20,7 +20,13 @@
     version = "3.1.2";
   };
   image_optim = {
-    dependencies = [ "exifr" "fspath" "image_size" "in_threads" "progress" ];
+    dependencies = [
+      "exifr"
+      "fspath"
+      "image_size"
+      "in_threads"
+      "progress"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

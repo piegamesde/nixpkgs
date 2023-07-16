@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-BP+6YQ2f1EHPxH36oTXXAJbmCxBG0hGdjbL46g0X2RI=";
   };
 
-  nativeBuildInputs = [ meson ninja ];
+  nativeBuildInputs = [
+    meson
+    ninja
+  ];
 
   postInstall = ''
     mkdir -p $out/lib

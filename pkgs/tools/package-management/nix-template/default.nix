@@ -25,7 +25,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-f8Th6SbV66Uukqh1Cb5uQVa844qw1PmBB9W7EMXMU4E=";
 
-  nativeBuildInputs = [ installShellFiles makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+    pkg-config
+  ];
 
   buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
 

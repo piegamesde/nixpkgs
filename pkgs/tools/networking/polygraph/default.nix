@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
     sha256 = "1rwzci3n7q33hw3spd79adnclzwgwlxcisc9szzjmcjqhbkcpj1a";
   };
 
-  buildInputs = [ openssl zlib ncurses ];
+  buildInputs = [
+    openssl
+    zlib
+    ncurses
+  ];
 
   meta = with lib; {
     homepage = "http://www.web-polygraph.org";

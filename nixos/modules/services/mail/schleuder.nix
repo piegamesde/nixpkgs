@@ -42,7 +42,10 @@ in {
       '';
       type = lib.types.listOf lib.types.str;
       default = [ ];
-      example = [ "widget-team@example.com" "security@example.com" ];
+      example = [
+        "widget-team@example.com"
+        "security@example.com"
+      ];
     };
     /* maybe one day....
        domains = lib.mkOption {
@@ -141,7 +144,11 @@ in {
         };
       };
       schleuder-api-daemon = {
-        after = [ "local-fs.target" "network.target" "schleuder-init.service" ];
+        after = [
+          "local-fs.target"
+          "network.target"
+          "schleuder-init.service"
+        ];
         wantedBy = [ "multi-user.target" ];
         requires = [ "schleuder-init.service" ];
         serviceConfig = commonServiceConfig // {
@@ -149,7 +156,10 @@ in {
         };
       };
       schleuder-weekly-key-maintenance = {
-        after = [ "local-fs.target" "network.target" ];
+        after = [
+          "local-fs.target"
+          "network.target"
+        ];
         startAt = "weekly";
         serviceConfig = commonServiceConfig // {
           ExecStart = [

@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
     sha256 = "030vpiv44sxmjf0dng91ziq1cggwj33yp0l4xc6cdhnrv2prjs7y";
   };
 
-  buildInputs = [ libibmad openssl zlib ];
+  buildInputs = [
+    libibmad
+    openssl
+    zlib
+  ];
 
   hardeningDisable = [ "format" ];
 
@@ -27,7 +31,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Open source version of Mellanox Firmware Tools (MFT)";
     homepage = "https://github.com/Mellanox/mstflint";
-    license = with licenses; [ gpl2 bsd2 ];
+    license = with licenses; [
+      gpl2
+      bsd2
+    ];
     platforms = platforms.linux;
   };
 }

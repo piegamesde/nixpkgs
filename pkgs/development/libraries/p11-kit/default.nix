@@ -27,7 +27,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-1QIMEGBZsqLYU3v5ZswD5K9VcIGLBovJlC10lBHhH7c=";
   };
 
-  outputs = [ "out" "bin" "dev" ];
+  outputs = [
+    "out"
+    "bin"
+    "dev"
+  ];
 
   # For cross platform builds of p11-kit, libtasn1 in nativeBuildInputs
   # provides the asn1Parser binary on the hostPlatform needed for building.
@@ -45,7 +49,12 @@ stdenv.mkDerivation rec {
     which
   ];
 
-  buildInputs = [ libffi libiconv libintl libtasn1 ];
+  buildInputs = [
+    libffi
+    libiconv
+    libintl
+    libtasn1
+  ];
 
   autoreconfPhase = ''
     NOCONFIGURE=1 ./autogen.sh

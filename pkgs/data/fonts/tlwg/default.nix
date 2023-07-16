@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "hWiH5KJnYTdcrm+Kzn9HUQry8ry3SKzjA6/0536kCLQ=";
   };
 
-  nativeBuildInputs = [ autoreconfHook autoconf-archive ];
+  nativeBuildInputs = [
+    autoreconfHook
+    autoconf-archive
+  ];
 
   buildInputs = [ fontforge ];
 
@@ -26,7 +29,12 @@ stdenv.mkDerivation rec {
     description =
       "A collection of Thai scalable fonts available under free licenses";
     homepage = "https://linux.thai.net/projects/fonts-tlwg";
-    license = with licenses; [ gpl2 publicDomain lppl13c free ];
+    license = with licenses; [
+      gpl2
+      publicDomain
+      lppl13c
+      free
+    ];
     maintainers = [ maintainers.yrashk ];
   };
 }

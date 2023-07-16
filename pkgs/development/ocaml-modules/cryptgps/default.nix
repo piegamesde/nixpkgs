@@ -19,7 +19,10 @@ else
       sha256 = "1mp7i42cm9w9grmcsa69m3h1ycpn6a48p43y4xj8rsc12x9nav3s";
     };
 
-    nativeBuildInputs = [ ocaml findlib ];
+    nativeBuildInputs = [
+      ocaml
+      findlib
+    ];
 
     strictDeps = true;
 

@@ -19,8 +19,17 @@ mkXfceDerivation {
 
   sha256 = "sha256-33G7X5kA3MCNJ9Aq9ZCafP0Qm/46iUmLFB8clhKwDz8=";
 
-  buildInputs =
-    [ exo gtk3 libxfce4ui libxfce4util libwnck xfconf libnotify garcon thunar ];
+  buildInputs = [
+    exo
+    gtk3
+    libxfce4ui
+    libxfce4util
+    libwnck
+    xfconf
+    libnotify
+    garcon
+    thunar
+  ];
 
   meta = with lib; {
     description = "Xfce's desktop manager";

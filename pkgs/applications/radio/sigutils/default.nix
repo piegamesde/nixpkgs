@@ -20,15 +20,25 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wvd6sixwGmR9R4x+swLVqXre4Dqnj10jZIXUfaJcmBw=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ fftwSinglePrec libsndfile volk ];
+  buildInputs = [
+    fftwSinglePrec
+    libsndfile
+    volk
+  ];
 
   meta = with lib; {
     description = "Small signal processing utility library";
     homepage = "https://github.com/BatchDrake/sigutils";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ polygon oxapentane ];
+    maintainers = with maintainers; [
+      polygon
+      oxapentane
+    ];
   };
 }

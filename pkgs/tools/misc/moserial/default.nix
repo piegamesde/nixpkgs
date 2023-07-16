@@ -26,9 +26,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wfdI51ECqVNcUrIVjYBijf/yqpiwSQeMiKaVJSSma3k=";
   };
 
-  nativeBuildInputs = [ autoreconfHook intltool itstool pkg-config vala ];
+  nativeBuildInputs = [
+    autoreconfHook
+    intltool
+    itstool
+    pkg-config
+    vala
+  ];
 
-  buildInputs = [ glib graphviz yelp-tools gtk3 ];
+  buildInputs = [
+    glib
+    graphviz
+    yelp-tools
+    gtk3
+  ];
 
   preFixup = ''
     gappsWrapperArgs+=(

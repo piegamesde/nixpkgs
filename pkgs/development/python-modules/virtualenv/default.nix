@@ -32,14 +32,20 @@ buildPythonPackage rec {
     hash = "sha256-N6ZAuoLtQLImWZxSLUEeS+XtszmgwN4DDA3HtkbWFZA=";
   };
 
-  nativeBuildInputs = [ hatch-vcs hatchling ];
+  nativeBuildInputs = [
+    hatch-vcs
+    hatchling
+  ];
 
-  propagatedBuildInputs = [ distlib filelock platformdirs ]
-    ++ lib.optionals (pythonOlder "3.7") [ importlib-resources ]
+  propagatedBuildInputs = [
+    distlib
+    filelock
+    platformdirs
+  ] ++ lib.optionals (pythonOlder "3.7") [ importlib-resources ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  patches = lib.optionals (isPy27)
-    [ ./0001-Check-base_prefix-and-base_exec_prefix-for-Python-2.patch ];
+  patches = lib.optionals
+    (isPy27) [ ./0001-Check-base_prefix-and-base_exec_prefix-for-Python-2.patch ];
 
   nativeCheckInputs = [
     cython

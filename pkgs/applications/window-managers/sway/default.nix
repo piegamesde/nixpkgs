@@ -83,7 +83,13 @@ in stdenv.mkDerivation rec {
   strictDeps = true;
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ meson ninja pkg-config wayland-scanner scdoc ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    wayland-scanner
+    scdoc
+  ];
 
   buildInputs = [
     wayland
@@ -125,6 +131,9 @@ in stdenv.mkDerivation rec {
     changelog = "https://github.com/swaywm/sway/releases/tag/${version}";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ primeos synthetica ];
+    maintainers = with maintainers; [
+      primeos
+      synthetica
+    ];
   };
 }

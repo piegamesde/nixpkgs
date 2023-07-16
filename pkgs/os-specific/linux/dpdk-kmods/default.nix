@@ -16,13 +16,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-l9asJuw2nl63I1BxK6udy2pNunRiMJxyoXeg9V5+WgI=";
   };
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://git.launchpad.net/ubuntu/+source/dpdk-kmods/plain/debian/patches/0001-support-linux-5.18.patch?id=9d628c02c169d8190bc2cb6afd81e4d364c382cd";
-      sha256 = "sha256-j4kpx1DOnmf5lFxOhaVFNT7prEy1jrJERX2NFaybTPU=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://git.launchpad.net/ubuntu/+source/dpdk-kmods/plain/debian/patches/0001-support-linux-5.18.patch?id=9d628c02c169d8190bc2cb6afd81e4d364c382cd";
+    sha256 = "sha256-j4kpx1DOnmf5lFxOhaVFNT7prEy1jrJERX2NFaybTPU=";
+  }) ];
 
   hardeningDisable = [ "pic" ];
 

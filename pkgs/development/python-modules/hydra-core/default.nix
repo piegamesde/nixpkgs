@@ -28,13 +28,10 @@ buildPythonPackage rec {
     hash = "sha256-kD4BStnstr5hwyAOxdpPzLAJ9MZqU/CPiHkaD2HnUPI=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./antlr4.patch;
-      antlr_jar =
-        "${antlr4.out}/share/java/antlr-${antlr4.version}-complete.jar";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./antlr4.patch;
+    antlr_jar = "${antlr4.out}/share/java/antlr-${antlr4.version}-complete.jar";
+  }) ];
 
   postPatch = ''
     # We substitute the path to the jar with the one from our antlr4
@@ -46,8 +43,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ jre_headless ];
 
-  propagatedBuildInputs = [ antlr4-python3-runtime omegaconf packaging ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  propagatedBuildInputs = [
+    antlr4-python3-runtime
+    omegaconf
+    packaging
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

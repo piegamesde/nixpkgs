@@ -23,7 +23,11 @@ stdenv.mkDerivation rec {
   pname = "libportal" + lib.optionalString (variant != null) "-${variant}";
   version = "0.6";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchFromGitHub {
     owner = "flatpak";
@@ -45,8 +49,15 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ meson ninja pkg-config gi-docgen ]
-    ++ lib.optionals (variant != "qt5") [ gobject-introspection vala ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gi-docgen
+  ] ++ lib.optionals (variant != "qt5") [
+    gobject-introspection
+    vala
+  ];
 
   propagatedBuildInputs = [ glib ] ++ lib.optionals (variant == "gtk3") [ gtk3 ]
     ++ lib.optionals (variant == "gtk4") [ gtk4 ]

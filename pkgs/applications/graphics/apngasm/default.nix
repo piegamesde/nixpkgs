@@ -31,7 +31,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ boost libpng zlib ];
+  buildInputs = [
+    boost
+    libpng
+    zlib
+  ];
 
   meta = with lib; {
     description = "Create an APNG from multiple PNG files";

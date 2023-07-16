@@ -41,7 +41,15 @@ stdenv.mkDerivation rec {
     sed -i 's/\(#include <cctype>\)/\1\n#include <cstdlib>/' src/main/cpp/stringhelper.cpp
   '';
 
-  buildInputs = [ libxml2 cppunit boost apr aprutil db expat ];
+  buildInputs = [
+    libxml2
+    cppunit
+    boost
+    apr
+    aprutil
+    db
+    expat
+  ];
   nativeBuildInputs = [ libtool ];
 
   meta = {

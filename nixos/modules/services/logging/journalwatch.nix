@@ -166,7 +166,7 @@ in {
 
         # another example from upstream.
         # very useful on priority = 6, and required as journalwatch throws an error when no pattern is defined at all.
-        default = [{
+        default = [ {
           match = "SYSLOG_IDENTIFIER = systemd";
           filters = ''
             (Stopped|Stopping|Starting|Started) .*
@@ -175,7 +175,7 @@ in {
             (Reached target|Stopped target) .*
             Startup finished in \d*ms\.
           '';
-        }];
+        } ];
 
         description = lib.mdDoc ''
           filterBlocks can be defined to blacklist journal messages which are not errors.

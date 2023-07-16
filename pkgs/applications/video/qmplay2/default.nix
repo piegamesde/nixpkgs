@@ -34,7 +34,11 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     alsa-lib

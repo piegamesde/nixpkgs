@@ -134,12 +134,12 @@ in {
 
     services.postgresql = mkIf cfg.configurePostgresql {
       ensureDatabases = [ "mautrix-facebook" ];
-      ensureUsers = [{
+      ensureUsers = [ {
         name = "mautrix-facebook";
         ensurePermissions = {
           "DATABASE \"mautrix-facebook\"" = "ALL PRIVILEGES";
         };
-      }];
+      } ];
     };
 
     systemd.services.mautrix-facebook = rec {

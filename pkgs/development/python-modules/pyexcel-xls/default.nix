@@ -19,9 +19,17 @@ buildPythonPackage rec {
     sha256 = "5ec606ef8667aafbb0c3fbd8242a7c23bf175ee7c10b08f70799b84fb2db84cb";
   };
 
-  propagatedBuildInputs = [ pyexcel-io xlrd xlwt ];
+  propagatedBuildInputs = [
+    pyexcel-io
+    xlrd
+    xlwt
+  ];
 
-  nativeCheckInputs = [ nose pyexcel mock ];
+  nativeCheckInputs = [
+    nose
+    pyexcel
+    mock
+  ];
 
   postPatch = ''
     substituteInPlace setup.py --replace "xlrd<2" "xlrd<3"

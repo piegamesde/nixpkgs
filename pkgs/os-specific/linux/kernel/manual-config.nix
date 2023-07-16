@@ -124,13 +124,27 @@ in lib.makeOverridable ({
     inherit version src;
 
     depsBuildBuild = [ buildPackages.stdenv.cc ];
-    nativeBuildInputs =
-      [ perl bc nettools openssl rsync gmp libmpc mpfr zstd python3Minimal ]
-      ++ optional (kernelConf.target == "uImage") buildPackages.ubootTools
+    nativeBuildInputs = [
+      perl
+      bc
+      nettools
+      openssl
+      rsync
+      gmp
+      libmpc
+      mpfr
+      zstd
+      python3Minimal
+    ] ++ optional (kernelConf.target == "uImage") buildPackages.ubootTools
       ++ optional (lib.versionOlder version "5.8") libelf
-      ++ optionals (lib.versionAtLeast version "4.16") [ bison flex ]
-      ++ optionals (lib.versionAtLeast version "5.2") [ cpio pahole zlib ]
-      ++ optional (lib.versionAtLeast version "5.8") elfutils;
+      ++ optionals (lib.versionAtLeast version "4.16") [
+        bison
+        flex
+      ] ++ optionals (lib.versionAtLeast version "5.2") [
+        cpio
+        pahole
+        zlib
+      ] ++ optional (lib.versionAtLeast version "5.8") elfutils;
 
     patches = map (p: p.patch) kernelPatches
       # Required for deterministic builds along with some postPatch magic.
@@ -233,8 +247,14 @@ in lib.makeOverridable ({
       cd $buildRoot
     '';
 
-    hardeningDisable =
-      [ "bindnow" "format" "fortify" "stackprotector" "pic" "pie" ];
+    hardeningDisable = [
+      "bindnow"
+      "format"
+      "fortify"
+      "stackprotector"
+      "pic"
+      "pie"
+    ];
 
     # Absolute paths for compilers avoid any PATH-clobbering issues.
     makeFlags = [
@@ -243,8 +263,8 @@ in lib.makeOverridable ({
       "HOSTCC=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc"
       "HOSTLD=${buildPackages.stdenv.cc.bintools}/bin/${buildPackages.stdenv.cc.targetPrefix}ld"
       "ARCH=${stdenv.hostPlatform.linuxArch}"
-    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-      [ "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ]
+    ] ++ lib.optionals (stdenv.hostPlatform
+      != stdenv.buildPlatform) [ "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ]
       ++ (kernelConf.makeFlags or [ ]) ++ extraMakeFlags;
 
     karch = stdenv.hostPlatform.linuxArch;
@@ -260,8 +280,10 @@ in lib.makeOverridable ({
     ] ++ extraMakeFlags;
 
     installFlags = [ "INSTALL_PATH=$(out)" ]
-      ++ (optional isModular "INSTALL_MOD_PATH=$(out)")
-      ++ optionals buildDTBs [ "dtbs_install" "INSTALL_DTBS_PATH=$(out)/dtbs" ];
+      ++ (optional isModular "INSTALL_MOD_PATH=$(out)") ++ optionals buildDTBs [
+        "dtbs_install"
+        "INSTALL_DTBS_PATH=$(out)/dtbs"
+      ];
 
     preInstall = let
       # All we really need to do here is copy the final image and System.map to $out,
@@ -320,15 +342,14 @@ in lib.makeOverridable ({
     '';
 
     # Some image types need special install targets (e.g. uImage is installed with make uinstall)
-    installTargets = [
-      (kernelConf.installTarget or (if kernelConf.target == "uImage" then
+    installTargets =
+      [ (kernelConf.installTarget or (if kernelConf.target == "uImage" then
         "uinstall"
       else if kernelConf.target == "zImage" || kernelConf.target
       == "Image.gz" then
         "zinstall"
       else
-        "install"))
-    ];
+        "install")) ];
 
     postInstall = optionalString isModular ''
       if [ -z "''${dontStrip-}" ]; then
@@ -436,5 +457,9 @@ in lib.makeOverridable ({
       platforms = platforms.linux;
       timeout = 14400; # 4 hours
     } // extraMeta;
-  } // optionalAttrs (pos != null) { inherit pos; }
-    // optionalAttrs isModular { outputs = [ "out" "dev" ]; }))
+  } // optionalAttrs (pos != null) { inherit pos; } // optionalAttrs isModular {
+    outputs = [
+      "out"
+      "dev"
+    ];
+  }))

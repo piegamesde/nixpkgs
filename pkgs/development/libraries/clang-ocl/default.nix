@@ -19,7 +19,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-uMSvcVJj+me2E+7FsXZ4l4hTcK6uKEegXpkHGcuist0=";
   };
 
-  nativeBuildInputs = [ cmake rocm-cmake ];
+  nativeBuildInputs = [
+    cmake
+    rocm-cmake
+  ];
 
   buildInputs = [ rocm-device-libs ];
 

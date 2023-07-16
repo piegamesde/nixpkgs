@@ -36,7 +36,10 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-Ai6+6eZJeG0BrwNboBPfgDGkUbCC8lcj7+oxmWjWP2k=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   buildInputs = [
     dpdk_19_11

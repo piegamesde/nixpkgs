@@ -81,7 +81,13 @@ in stdenv.mkDerivation rec {
     '';
     homepage = "https://worldofgoo.com";
     license = licenses.unfree;
-    platforms = [ "i686-linux" "x86_64-linux" ];
-    maintainers = with maintainers; [ jcumming maxeaubrey ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
+    maintainers = with maintainers; [
+      jcumming
+      maxeaubrey
+    ];
   };
 }

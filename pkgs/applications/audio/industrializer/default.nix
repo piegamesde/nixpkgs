@@ -22,10 +22,21 @@ stdenv.mkDerivation rec {
     sha256 = "0k688k2wppam351by7cp9m7an09yligzd89padr8viqy63gkdk6v";
   };
 
-  nativeBuildInputs = [ pkg-config autoconf automake ];
+  nativeBuildInputs = [
+    pkg-config
+    autoconf
+    automake
+  ];
 
-  buildInputs =
-    [ alsa-lib audiofile gnome2.gtkglext gtk2 libjack2 libtool libxml2 ];
+  buildInputs = [
+    alsa-lib
+    audiofile
+    gnome2.gtkglext
+    gtk2
+    libjack2
+    libtool
+    libxml2
+  ];
 
   preConfigure = "./autogen.sh";
 

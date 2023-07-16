@@ -15,7 +15,10 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-d0xEND95u/PFnKfogLwO2vLgv+tQubMea8XWSJRuZF4=";
   };
 
-  nativeBuildInputs = [ undmg makeWrapper ];
+  nativeBuildInputs = [
+    undmg
+    makeWrapper
+  ];
 
   sourceRoot = ".";
   installPhase = ''

@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-wrbVuqIe+DY3R+Jp3zCy2Uw3fv5ejYHtRV2Sv+y/n0w=";
   };
 
-  nativeBuildInputs = [ pkg-config meson ninja ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+  ];
   buildInputs = with gst_all_1; [
     gstreamer
     gst-plugins-base
@@ -56,8 +60,14 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "OBS Studio VAAPI support via GStreamer";
     homepage = "https://github.com/fzwoch/obs-vaapi";
-    maintainers = with maintainers; [ ahuzik pedrohlc ];
+    maintainers = with maintainers; [
+      ahuzik
+      pedrohlc
+    ];
     license = licenses.gpl2Plus;
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
   };
 }

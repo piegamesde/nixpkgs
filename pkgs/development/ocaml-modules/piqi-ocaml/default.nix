@@ -22,8 +22,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-6Luq49sbo+AqLSq57mc6fLhrRx0K6G5LCUIzkGPfqYo=";
   };
 
-  nativeBuildInputs = [ ocaml findlib ];
-  buildInputs = [ piqi stdlib-shims ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+  ];
+  buildInputs = [
+    piqi
+    stdlib-shims
+  ];
 
   checkInputs = [ num ];
 

@@ -46,7 +46,10 @@ in {
         default = [ ];
         example = {
           init.defaultBranch = "main";
-          url."https://github.com/".insteadOf = [ "gh:" "github:" ];
+          url."https://github.com/".insteadOf = [
+            "gh:"
+            "github:"
+          ];
         };
         description = lib.mdDoc ''
           Configuration to write to /etc/gitconfig. A list can also be

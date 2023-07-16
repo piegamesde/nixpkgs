@@ -25,15 +25,29 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ bzip2 xz zstd ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs = [
+    bzip2
+    xz
+    zstd
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   buildNoDefaultFeatures = true;
-  buildFeatures =
-    [ "fancy-no-backtrace" "pkg-config" "rustls" "trust-dns" "zstd-thin" ];
+  buildFeatures = [
+    "fancy-no-backtrace"
+    "pkg-config"
+    "rustls"
+    "trust-dns"
+    "zstd-thin"
+  ];
 
-  cargoBuildFlags = [ "-p" "cargo-binstall" ];
-  cargoTestFlags = [ "-p" "cargo-binstall" ];
+  cargoBuildFlags = [
+    "-p"
+    "cargo-binstall"
+  ];
+  cargoTestFlags = [
+    "-p"
+    "cargo-binstall"
+  ];
 
   checkFlags = [
     # requires internet access

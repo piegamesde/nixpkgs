@@ -27,7 +27,10 @@ in stdenv.mkDerivation {
   pname = "ibus-table-chinese";
   version = "1.8.2";
 
-  srcs = [ src cmakeFedoraSrc ];
+  srcs = [
+    src
+    cmakeFedoraSrc
+  ];
   sourceRoot = src.name;
 
   postUnpack = ''
@@ -65,8 +68,15 @@ in stdenv.mkDerivation {
     rm -rf $HOME
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ ibus ibus-table python3 ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    ibus
+    ibus-table
+    python3
+  ];
 
   meta = with lib; {
     isIbusEngine = true;

@@ -51,7 +51,11 @@ stdenv.mkDerivation rec {
     ./configure --prefix="$out"
   '';
 
-  buildInputs = [ libX11 libXScrnSaver libXext ];
+  buildInputs = [
+    libX11
+    libXScrnSaver
+    libXext
+  ];
 
   meta = {
     inherit version;

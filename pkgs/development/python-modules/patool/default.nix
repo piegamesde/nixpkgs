@@ -56,7 +56,12 @@ in buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ] ++ compression-utilities;
 
-  disabledTests = [ "test_unzip" "test_unzip_file" "test_zip" "test_zip_file" ];
+  disabledTests = [
+    "test_unzip"
+    "test_unzip_file"
+    "test_zip"
+    "test_zip_file"
+  ];
 
   meta = with lib; {
     description = "portable archive file manager";

@@ -28,8 +28,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ curl libtorrent ncurses ]
-    ++ lib.optional jsonRpcSupport nlohmann_json
+  buildInputs = [
+    curl
+    libtorrent
+    ncurses
+  ] ++ lib.optional jsonRpcSupport nlohmann_json
     ++ lib.optional xmlRpcSupport xmlrpc_c;
 
   cmakeFlags = [ "-DUSE_RUNTIME_CA_DETECTION=NO" ]
@@ -57,7 +60,10 @@ stdenv.mkDerivation rec {
       "An ncurses client for libtorrent, ideal for use with screen, tmux, or dtach (jesec's fork)";
     homepage = "https://github.com/jesec/rtorrent";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ winter AndersonTorres ];
+    maintainers = with maintainers; [
+      winter
+      AndersonTorres
+    ];
     platforms = platforms.linux;
     mainProgram = "rtorrent";
   };

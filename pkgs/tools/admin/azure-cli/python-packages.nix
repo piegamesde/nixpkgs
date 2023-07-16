@@ -84,7 +84,10 @@ let
             -k 'not metadata_url and not test_send_raw_requests and not test_format_styled_text_legacy_powershell'
         '';
 
-        pythonImportsCheck = [ "azure.cli.telemetry" "azure.cli.core" ];
+        pythonImportsCheck = [
+          "azure.cli.telemetry"
+          "azure.cli.core"
+        ];
       };
 
       azure-cli-telemetry = buildAzureCliPackage {

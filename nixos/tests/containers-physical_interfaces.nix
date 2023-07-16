@@ -17,10 +17,10 @@ import ./make-test-python.nix ({
             interfaces = [ "eth1" ];
 
             config = {
-              networking.interfaces.eth1.ipv4.addresses = [{
+              networking.interfaces.eth1.ipv4.addresses = [ {
                 address = "10.10.0.1";
                 prefixLength = 24;
-              }];
+              } ];
               networking.firewall.enable = false;
             };
           };
@@ -36,10 +36,10 @@ import ./make-test-python.nix ({
 
             config = {
               networking.bridges.br0.interfaces = [ "eth1" ];
-              networking.interfaces.br0.ipv4.addresses = [{
+              networking.interfaces.br0.ipv4.addresses = [ {
                 address = "10.10.0.2";
                 prefixLength = 24;
-              }];
+              } ];
               networking.firewall.enable = false;
             };
           };
@@ -59,10 +59,10 @@ import ./make-test-python.nix ({
                 interfaces = [ "eth1" ];
                 driverOptions.mode = "active-backup";
               };
-              networking.interfaces.bond0.ipv4.addresses = [{
+              networking.interfaces.bond0.ipv4.addresses = [ {
                 address = "10.10.0.3";
                 prefixLength = 24;
-              }];
+              } ];
               networking.firewall.enable = false;
             };
           };
@@ -83,10 +83,10 @@ import ./make-test-python.nix ({
                 driverOptions.mode = "active-backup";
               };
               networking.bridges.br0.interfaces = [ "bond0" ];
-              networking.interfaces.br0.ipv4.addresses = [{
+              networking.interfaces.br0.ipv4.addresses = [ {
                 address = "10.10.0.4";
                 prefixLength = 24;
-              }];
+              } ];
               networking.firewall.enable = false;
             };
           };

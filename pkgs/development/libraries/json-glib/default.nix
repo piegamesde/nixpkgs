@@ -21,8 +21,11 @@ stdenv.mkDerivation rec {
   pname = "json-glib";
   version = "1.6.6";
 
-  outputs = [ "out" "dev" "installedTests" ]
-    ++ lib.optional withIntrospection "devdoc";
+  outputs = [
+    "out"
+    "dev"
+    "installedTests"
+  ] ++ lib.optional withIntrospection "devdoc";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -40,9 +43,18 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ meson ninja pkg-config gettext glib libxslt ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ fixDarwinDylibNames ]
-    ++ lib.optionals withIntrospection [ gobject-introspection gi-docgen ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gettext
+    glib
+    libxslt
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ fixDarwinDylibNames ]
+    ++ lib.optionals withIntrospection [
+      gobject-introspection
+      gi-docgen
+    ];
 
   propagatedBuildInputs = [ glib ];
 

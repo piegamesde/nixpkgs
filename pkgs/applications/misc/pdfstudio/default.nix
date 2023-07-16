@@ -52,9 +52,9 @@ in {
         }_linux64.deb";
       sha256 = "sha256-yELpza2C3HJJIP+ZQP7x3Tfez0Nl6ctCbHCmTmpX3jo=";
     };
-    extraBuildInputs = [
-      (lib.getLib stdenv.cc.cc) # for libstdc++.so.6 and libgomp.so.1
-    ];
+    extraBuildInputs =
+      [ (lib.getLib stdenv.cc.cc) # for libstdc++.so.6 and libgomp.so.1
+      ];
     jdk = jdk11;
   };
 
@@ -67,9 +67,9 @@ in {
         }_linux64.deb";
       sha256 = "sha256-bti+WI8JdOmUsHq8ijfxGC4ZsWXwbwwM26kuBgPDUMQ=";
     };
-    extraBuildInputs = [
-      (lib.getLib stdenv.cc.cc) # for libstdc++.so.6 and libgomp.so.1
-    ];
+    extraBuildInputs =
+      [ (lib.getLib stdenv.cc.cc) # for libstdc++.so.6 and libgomp.so.1
+      ];
     jdk = jdk17;
   };
 }.${pname}

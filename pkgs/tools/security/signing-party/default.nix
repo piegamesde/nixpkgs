@@ -70,8 +70,18 @@ in stdenv.mkDerivation rec {
 
   # Perl is required for it's pod2man.
   # Python and Perl are required for patching the script interpreter paths.
-  nativeBuildInputs = [ autoconf automake makeWrapper ];
-  buildInputs = [ python3 perl perlPackages.GnuPGInterface libmd gnupg ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    makeWrapper
+  ];
+  buildInputs = [
+    python3
+    perl
+    perlPackages.GnuPGInterface
+    libmd
+    gnupg
+  ];
 
   postInstall = ''
     # Install all tools which aren't handled by 'make install'.
@@ -152,23 +162,48 @@ in stdenv.mkDerivation rec {
         wrapProgram $out/bin/caff --set PERL5LIB \
           ${
             with perlPackages;
-            makePerlPath
-            ([ TextTemplate MIMETools MailTools TimeDate NetIDNEncode ]
-              ++ GnuPGInterfaceRuntimeDependencies)
+            makePerlPath ([
+              TextTemplate
+              MIMETools
+              MailTools
+              TimeDate
+              NetIDNEncode
+            ] ++ GnuPGInterfaceRuntimeDependencies)
           } \
           --prefix PATH ":" \
-          "${lib.makeBinPath [ nettools gnupg ]}"
+          "${
+            lib.makeBinPath [
+              nettools
+              gnupg
+            ]
+          }"
 
         wrapProgram $out/bin/gpg-key2latex --set PERL5LIB \
           ${perlPackages.makePerlPath GnuPGInterfaceRuntimeDependencies} \
           --prefix PATH ":" \
-          "${lib.makeBinPath [ gnupg libpaper ]}"
+          "${
+            lib.makeBinPath [
+              gnupg
+              libpaper
+            ]
+          }"
 
         wrapProgram $out/bin/gpg-key2ps --prefix PATH ":" \
-          "${lib.makeBinPath [ which gnupg libpaper ]}"
+          "${
+            lib.makeBinPath [
+              which
+              gnupg
+              libpaper
+            ]
+          }"
 
         wrapProgram $out/bin/gpg-mailkeys --prefix PATH ":" \
-          "${lib.makeBinPath [ gnupg qprint ]}"
+          "${
+            lib.makeBinPath [
+              gnupg
+              qprint
+            ]
+          }"
 
         wrapProgram $out/bin/gpgdir --set PERL5LIB \
           ${
@@ -182,7 +217,12 @@ in stdenv.mkDerivation rec {
           "${lib.makeBinPath [ gnupg ]}"
 
         wrapProgram $out/bin/gpgparticipants --prefix PATH ":" \
-          "${lib.makeBinPath [ getopt gnupg ]}"
+          "${
+            lib.makeBinPath [
+              getopt
+              gnupg
+            ]
+          }"
 
     #    wrapProgram $out/bin/gpgparticipants-prefill
 
@@ -250,7 +290,13 @@ in stdenv.mkDerivation rec {
       * keyart: creates a random ASCII art of a PGP key file
       * gpg-key2latex: generate LaTeX file with fingerprint paper slips
     '';
-    license = with licenses; [ bsd2 bsd3 gpl2 gpl2Plus gpl3Plus ];
+    license = with licenses; [
+      bsd2
+      bsd3
+      gpl2
+      gpl2Plus
+      gpl3Plus
+    ];
     maintainers = with maintainers; [ primeos ];
     platforms = platforms.linux;
   };

@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-I1qtrD94IpMut0a6JUHErHaksoZ+z8/dDG8U68Y5zJE=";
   };
 
-  nativeBuildInputs = [ dpkg makeWrapper ];
+  nativeBuildInputs = [
+    dpkg
+    makeWrapper
+  ];
 
   fhsEnv = buildFHSEnv {
     name = "${pname}-fhs-env";
@@ -134,7 +137,10 @@ stdenv.mkDerivation rec {
       "Official Unity3D app to download and manage Unity Projects and installations";
     homepage = "https://unity3d.com/";
     license = licenses.unfree;
-    maintainers = with maintainers; [ tesq0 huantian ];
+    maintainers = with maintainers; [
+      tesq0
+      huantian
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

@@ -29,7 +29,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ aiohttp numpy pysmb ];
+  propagatedBuildInputs = [
+    aiohttp
+    numpy
+    pysmb
+  ];
 
   nativeCheckInputs = [
     aresponses

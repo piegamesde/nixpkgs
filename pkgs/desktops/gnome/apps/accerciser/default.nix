@@ -40,7 +40,13 @@ python3.pkgs.buildPythonApplication rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ adwaita-icon-theme at-spi2-core gtk3 libwnck librsvg ];
+  buildInputs = [
+    adwaita-icon-theme
+    at-spi2-core
+    gtk3
+    libwnck
+    librsvg
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     ipython

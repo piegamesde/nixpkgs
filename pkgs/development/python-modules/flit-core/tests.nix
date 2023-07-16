@@ -15,5 +15,9 @@ buildPythonPackage rec {
   dontBuild = true;
   dontInstall = true;
 
-  nativeCheckInputs = [ flit pytestCheckHook testpath ];
+  nativeCheckInputs = [
+    flit
+    pytestCheckHook
+    testpath
+  ];
 }

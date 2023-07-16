@@ -27,8 +27,14 @@ let
     genericName = "Terminal";
     exec = "wayst";
     icon = "wayst";
-    categories = [ "System" "TerminalEmulator" ];
-    keywords = [ "wayst" "terminal" ];
+    categories = [
+      "System"
+      "TerminalEmulator"
+    ];
+    keywords = [
+      "wayst"
+      "terminal"
+    ];
     comment = "A simple terminal emulator";
   };
 in stdenv.mkDerivation rec {

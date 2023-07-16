@@ -26,8 +26,19 @@ mkDerivation rec {
     hash = "sha256-39tpvzlTy3KRxg8DzCQW2VnsaLqJ+dNQRur2TqRZytE=";
   };
 
-  nativeBuildInputs = [ pkg-config cmake extra-cmake-modules ];
-  buildInputs = [ qtbase qttools qtkeychain sqlite libsecret libregraph ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    extra-cmake-modules
+  ];
+  buildInputs = [
+    qtbase
+    qttools
+    qtkeychain
+    sqlite
+    libsecret
+    libregraph
+  ];
 
   qtWrapperArgs =
     [ "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libsecret ]}" ];
@@ -44,7 +55,10 @@ mkDerivation rec {
     description =
       "Synchronise your ownCloud with your computer using this desktop client";
     homepage = "https://owncloud.org";
-    maintainers = with maintainers; [ qknight hellwolf ];
+    maintainers = with maintainers; [
+      qknight
+      hellwolf
+    ];
     platforms = platforms.unix;
     license = licenses.gpl2Plus;
     changelog = "https://github.com/owncloud/client/releases/tag/v${version}";

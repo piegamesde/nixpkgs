@@ -80,9 +80,17 @@ let
       pkgs = [ ];
     }
     {
-      names = [ "FFMPEG" "MPG123" "SPEEXDSP" ];
+      names = [
+        "FFMPEG"
+        "MPG123"
+        "SPEEXDSP"
+      ];
       enable = withReplaygain;
-      pkgs = [ ffmpeg speex mpg123 ];
+      pkgs = [
+        ffmpeg
+        speex
+        mpg123
+      ];
     }
     {
       names = [ "HTTPS_SUPPORT" ];
@@ -130,9 +138,15 @@ let
       pkgs = [ ];
     }
     {
-      names = [ "TAGLIB" "TAGLIB_EXTRAS" ];
+      names = [
+        "TAGLIB"
+        "TAGLIB_EXTRAS"
+      ];
       enable = withTaglib;
-      pkgs = [ taglib taglib_extras ];
+      pkgs = [
+        taglib
+        taglib_extras
+      ];
     }
     {
       names = [ "UDISKS2" ];
@@ -163,12 +177,18 @@ in mkDerivation rec {
     patchShebangs playlists
   '';
 
-  buildInputs =
-    [ qtbase qtsvg (perl.withPackages (ppkgs: with ppkgs; [ URI ])) ]
-    ++ lib.flatten
+  buildInputs = [
+    qtbase
+    qtsvg
+    (perl.withPackages (ppkgs: with ppkgs; [ URI ]))
+  ] ++ lib.flatten
     (builtins.catAttrs "pkgs" (builtins.filter (e: e.enable) options));
 
-  nativeBuildInputs = [ cmake pkg-config qttools ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qttools
+  ];
 
   cmakeFlags = lib.flatten (map (e: map (f: fstat e.enable f) e.names) options);
 

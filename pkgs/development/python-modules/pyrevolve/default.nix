@@ -24,9 +24,15 @@ buildPythonPackage rec {
     hash = "sha256-JLDn3WEBcdO8YYzt/MWOHB/1kcmbmZUsiH00/4Uwlxo=";
   };
 
-  nativeBuildInputs = [ versioneer cython ];
+  nativeBuildInputs = [
+    versioneer
+    cython
+  ];
 
-  propagatedBuildInputs = [ contexttimer numpy ];
+  propagatedBuildInputs = [
+    contexttimer
+    numpy
+  ];
 
   nativeCheckInputs = [ pytest ];
   # Using approach bellow bcs the tests fail with the pytestCheckHook, throwing the following error

@@ -6,11 +6,18 @@ args@{
   baseName = "cl-unicode";
   version = "20210228-git";
 
-  parasites = [ "cl-unicode/base" "cl-unicode/build" "cl-unicode/test" ];
+  parasites = [
+    "cl-unicode/base"
+    "cl-unicode/build"
+    "cl-unicode/test"
+  ];
 
   description = "Portable Unicode Library";
 
-  deps = [ args."cl-ppcre" args."flexi-streams" ];
+  deps = [
+    args."cl-ppcre"
+    args."flexi-streams"
+  ];
 
   src = fetchurl {
     url =

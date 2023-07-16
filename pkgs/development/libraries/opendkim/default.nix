@@ -29,10 +29,18 @@ stdenv.mkDerivation rec {
     "ac_cv_func_realloc_0_nonnull=yes"
   ] ++ lib.optional stdenv.isDarwin "--with-unbound=${unbound}";
 
-  nativeBuildInputs = [ autoreconfHook pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    makeWrapper
+  ];
 
-  buildInputs = [ libbsd openssl libmilter perl ]
-    ++ lib.optional stdenv.isDarwin unbound;
+  buildInputs = [
+    libbsd
+    openssl
+    libmilter
+    perl
+  ] ++ lib.optional stdenv.isDarwin unbound;
 
   postInstall = ''
     wrapProgram $out/sbin/opendkim-genkey \

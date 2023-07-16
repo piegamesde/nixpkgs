@@ -30,13 +30,19 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ aiofiles click ];
+  propagatedBuildInputs = [
+    aiofiles
+    click
+  ];
 
   # Don't try to load the kernel module in tests.
   env.W1THERMSENSOR_NO_KERNEL_MODULE = 1;
 
-  nativeCheckInputs = [ pytest-mock pytest-asyncio pytestCheckHook ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  nativeCheckInputs = [
+    pytest-mock
+    pytest-asyncio
+    pytestCheckHook
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   # Tests for 2.0.0 currently fail on python3.11
   # https://github.com/timofurrer/w1thermsensor/issues/116

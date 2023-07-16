@@ -49,10 +49,22 @@ in stdenv.mkDerivation {
 
   version = "${edition}.${version}";
 
-  nativeBuildInputs = [ autoPatchelfHook copyDesktopItems makeWrapper ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    copyDesktopItems
+    makeWrapper
+  ];
 
-  buildInputs =
-    [ curl libGL libX11 libXext libXmu libXrandr libXrender stdenv.cc.cc.lib ];
+  buildInputs = [
+    curl
+    libGL
+    libX11
+    libXext
+    libXmu
+    libXrandr
+    libXrender
+    stdenv.cc.cc.lib
+  ];
 
   dontBuild = true;
   dontConfigure = true;
@@ -86,7 +98,12 @@ in stdenv.mkDerivation {
       --set LD_PRELOAD "${libredirect}/lib/libredirect.so" \
       --set NIX_REDIRECTS "/bin/ls=${coreutils}/bin/ls" \
       --prefix PATH : "${
-        lib.makeBinPath [ coreutils gnugrep util-linux which ]
+        lib.makeBinPath [
+          coreutils
+          gnugrep
+          util-linux
+          which
+        ]
       }"
     '';
   in ''

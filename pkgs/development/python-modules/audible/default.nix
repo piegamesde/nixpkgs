@@ -21,7 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-SIEDBuMCC/Hap2mGVbKEFic96ClN369SEsV06Sg+poY=";
   };
 
-  propagatedBuildInputs = [ beautifulsoup4 httpx pbkdf2 pillow pyaes rsa ];
+  propagatedBuildInputs = [
+    beautifulsoup4
+    httpx
+    pbkdf2
+    pillow
+    pyaes
+    rsa
+  ];
 
   postPatch = ''
     sed -i "s/httpx.*/httpx',/" setup.py

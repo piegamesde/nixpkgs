@@ -27,8 +27,15 @@ buildPythonPackage rec {
     hash = "sha256-7w8KJHrc9hBOysFBF9sLJFgXEOqKjZZIFoBTlXALSXU=";
   };
 
-  propagatedBuildInputs =
-    [ deprecated hopcroftkarp joblib matplotlib numpy scikit-learn scipy ];
+  propagatedBuildInputs = [
+    deprecated
+    hopcroftkarp
+    joblib
+    matplotlib
+    numpy
+    scikit-learn
+    scipy
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -21,7 +21,13 @@ rustPlatform.buildRustPackage rec {
     description =
       "Automatically cross-compiles the sysroot crates core, compiler_builtins, and alloc";
     homepage = "https://github.com/rust-osdev/cargo-xbuild";
-    license = with licenses; [ mit asl20 ];
-    maintainers = with maintainers; [ johntitor xrelkd ];
+    license = with licenses; [
+      mit
+      asl20
+    ];
+    maintainers = with maintainers; [
+      johntitor
+      xrelkd
+    ];
   };
 }

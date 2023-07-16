@@ -19,7 +19,10 @@ buildDunePackage rec {
     sha256 = "sha256:1788cnn10idp5i1hggg4pys7k0w8m3h2p4xa42jipfg4cpj7shaf";
   };
 
-  propagatedBuildInputs = [ base fmt ];
+  propagatedBuildInputs = [
+    base
+    fmt
+  ];
 
   doCheck = true;
 

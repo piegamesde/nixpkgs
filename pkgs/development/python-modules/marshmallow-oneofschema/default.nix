@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-Em2jQmvI5IiWREeOX/JAcdOQlpwP7k+cbCirkh82sf0=";
   };
 
-  propagatedBuildInputs = [ marshmallow setuptools ];
+  propagatedBuildInputs = [
+    marshmallow
+    setuptools
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

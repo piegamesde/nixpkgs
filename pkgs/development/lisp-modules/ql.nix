@@ -44,7 +44,12 @@ let
     cl-cffi-gtk-pango = super.cl-cffi-gtk-pango.overrideLispAttrs
       (o: { nativeLibs = [ pkgs.pango ]; });
     cl-gobject-introspection = super.cl-gobject-introspection.overrideLispAttrs
-      (o: { nativeLibs = [ pkgs.glib pkgs.gobject-introspection ]; });
+      (o: {
+        nativeLibs = [
+          pkgs.glib
+          pkgs.gobject-introspection
+        ];
+      });
     cl-mysql = super.cl-mysql.overrideLispAttrs
       (o: { nativeLibs = [ pkgs.mariadb.client ]; });
     clsql-postgresql = super.clsql-postgresql.overrideLispAttrs
@@ -77,7 +82,10 @@ let
     cl-ode = super.cl-ode.overrideLispAttrs (o: {
       nativeLibs = let
         ode' = pkgs.ode.overrideAttrs (o: {
-          configureFlags = [ "--enable-shared" "--enable-double-precision" ];
+          configureFlags = [
+            "--enable-shared"
+            "--enable-double-precision"
+          ];
         });
       in [ ode' ];
     });
@@ -108,7 +116,11 @@ let
     iolib = super.iolib.overrideLispAttrs (o: {
       nativeBuildInputs = [ pkgs.libfixposix ];
       nativeLibs = [ pkgs.libfixposix ];
-      systems = [ "iolib" "iolib/os" "iolib/pathnames" ];
+      systems = [
+        "iolib"
+        "iolib/os"
+        "iolib/pathnames"
+      ];
     });
     cl-ana_dot_hdf-cffi = super.cl-ana_dot_hdf-cffi.overrideLispAttrs (o: {
       nativeBuildInputs = [ pkgs.hdf5 ];
@@ -167,12 +179,18 @@ let
         super.cl-paths-ttf
         super.flexi-streams
       ];
-      systems = [ "mcclim-fonts" "mcclim-fonts/truetype" ];
+      systems = [
+        "mcclim-fonts"
+        "mcclim-fonts/truetype"
+      ];
     });
     mcclim-render = super.mcclim-render.overrideLispAttrs
       (o: { lispLibs = o.lispLibs ++ [ self.mcclim-fonts ]; });
     mcclim-layouts = super.mcclim-layouts.overrideLispAttrs (o: {
-      systems = [ "mcclim-layouts" "mcclim-layouts/tab" ];
+      systems = [
+        "mcclim-layouts"
+        "mcclim-layouts/tab"
+      ];
       lispLibs = o.lispLibs ++ [ self.mcclim ];
     });
   });

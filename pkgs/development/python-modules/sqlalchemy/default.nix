@@ -61,7 +61,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ] ++ lib.optionals (!isPyPy) [ cython ];
 
-  propagatedBuildInputs = [ greenlet typing-extensions ];
+  propagatedBuildInputs = [
+    greenlet
+    typing-extensions
+  ];
 
   passthru.optional-dependencies = lib.fix (self: {
     asyncio = [ greenlet ];
@@ -85,13 +88,20 @@ buildPythonPackage rec {
     pymysql = [ pymysql ];
     aiomysql = [ aiomysql ] ++ self.asyncio;
     asyncmy = [ asyncmy ] ++ self.asyncio;
-    aiosqlite = [ aiosqlite typing-extensions ] ++ self.asyncio;
+    aiosqlite = [
+      aiosqlite
+      typing-extensions
+    ] ++ self.asyncio;
     sqlcipher = [
       # TODO: sqlcipher3
     ];
   });
 
-  nativeCheckInputs = [ pytest-xdist pytestCheckHook mock ];
+  nativeCheckInputs = [
+    pytest-xdist
+    pytestCheckHook
+    mock
+  ];
 
   disabledTestPaths = [
     # typing correctness, not interesting

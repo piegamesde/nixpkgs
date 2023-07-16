@@ -11,7 +11,11 @@
     version = "2.6.0";
   };
   axiom-types = {
-    dependencies = [ "descendants_tracker" "ice_nine" "thread_safe" ];
+    dependencies = [
+      "descendants_tracker"
+      "ice_nine"
+      "thread_safe"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -136,7 +140,10 @@
     version = "0.7.3";
   };
   hirb-unicode = {
-    dependencies = [ "hirb" "unicode-display_width" ];
+    dependencies = [
+      "hirb"
+      "unicode-display_width"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -177,8 +184,14 @@
     version = "2.0.0";
   };
   pt = {
-    dependencies =
-      [ "colored" "highline" "hirb" "hirb-unicode" "thor" "tracker_api" ];
+    dependencies = [
+      "colored"
+      "highline"
+      "hirb"
+      "hirb-unicode"
+      "thor"
+      "tracker_api"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -199,7 +212,11 @@
     version = "3.0.3";
   };
   representable = {
-    dependencies = [ "declarative" "declarative-option" "uber" ];
+    dependencies = [
+      "declarative"
+      "declarative-option"
+      "uber"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -270,8 +287,12 @@
     version = "0.1.1";
   };
   virtus = {
-    dependencies =
-      [ "axiom-types" "coercible" "descendants_tracker" "equalizer" ];
+    dependencies = [
+      "axiom-types"
+      "coercible"
+      "descendants_tracker"
+      "equalizer"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

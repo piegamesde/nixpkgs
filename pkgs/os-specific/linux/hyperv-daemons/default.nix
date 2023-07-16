@@ -49,7 +49,12 @@ let
 
     postFixup = ''
       wrapProgram $out/bin/hv_kvp_daemon \
-        --prefix PATH : $out/bin:${lib.makeBinPath [ gawk iproute2 ]}
+        --prefix PATH : $out/bin:${
+          lib.makeBinPath [
+            gawk
+            iproute2
+          ]
+        }
     '';
   };
 
@@ -76,7 +81,11 @@ in stdenv.mkDerivation {
   inherit (kernel) version;
 
   # we just stick the bins into out as well as it requires "out"
-  outputs = [ "bin" "lib" "out" ];
+  outputs = [
+    "bin"
+    "lib"
+    "out"
+  ];
 
   buildInputs = [ daemons ];
 

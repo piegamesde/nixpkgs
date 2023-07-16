@@ -31,8 +31,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [ aiohttp home-assistant-bluetooth mac-vendor-lookup ];
+  propagatedBuildInputs = [
+    aiohttp
+    home-assistant-bluetooth
+    mac-vendor-lookup
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

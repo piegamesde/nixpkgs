@@ -22,7 +22,15 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ gtk2 SDL nasm zlib libpng libGLU libGL ];
+  buildInputs = [
+    gtk2
+    SDL
+    nasm
+    zlib
+    libpng
+    libGLU
+    libGL
+  ];
 
   # Work around build failures on recent GTK.
   # See http://ubuntuforums.org/showthread.php?p=10535837

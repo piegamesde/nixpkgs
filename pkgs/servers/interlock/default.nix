@@ -22,7 +22,10 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-OL6I95IpyTIc8wCwD9nWxVUTrmZH6COhsd/YwNTyvN0=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   postPatch = ''
     grep -lr '/s\?bin/' | xargs sed -i \

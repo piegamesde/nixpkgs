@@ -26,9 +26,23 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-t14m6z+5lPqpiOjgdDbKwqSWXCyrCL7zlo6BeoZtds0=";
   };
 
-  nativeBuildInputs = [ bison flex pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    bison
+    flex
+    pkg-config
+    makeWrapper
+  ];
 
-  buildInputs = [ glib libxml2 vips gtk2 fftw gsl goffice libgsf ];
+  buildInputs = [
+    glib
+    libxml2
+    vips
+    gtk2
+    fftw
+    gsl
+    goffice
+    libgsf
+  ];
 
   postFixup = ''
     wrapProgram $out/bin/nip2 --set VIPSHOME "$out"

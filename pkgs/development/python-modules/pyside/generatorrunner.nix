@@ -21,14 +21,23 @@ in stdenv.mkDerivation rec {
     hash = "sha256-JAghKY033RTD5b2elitzVQbbN3PMmT3BHwpqx8N5EYg=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   preConfigure = ''
     cmakeFlagsArray=("-DCMAKE_INSTALL_PREFIX=$dev")
   '';
 
-  nativeBuildInputs = [ cmake pythonEnv ];
-  buildInputs = [ pysideApiextractor qt4 ];
+  nativeBuildInputs = [
+    cmake
+    pythonEnv
+  ];
+  buildInputs = [
+    pysideApiextractor
+    qt4
+  ];
 
   meta = with lib; {
     description =

@@ -70,8 +70,7 @@ lib.makeOverridable ({
         (if (!drv ? outputSpecified || !drv.outputSpecified)
         && drv.meta.outputsToInstall or null != null then
           map (outName: drv.${outName}) drv.meta.outputsToInstall
-        else
-          [ drv ])
+        else [ drv ])
         # Add any extra outputs specified by the caller of `buildEnv`.
         ++ lib.filter (p: p != null)
         (builtins.map (outName: drv.${outName} or null) extraOutputsToInstall);

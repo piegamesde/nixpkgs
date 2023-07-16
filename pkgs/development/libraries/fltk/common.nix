@@ -75,26 +75,37 @@ in stdenv.mkDerivation rec {
     patchShebangs documentation/make_*
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ]
-    ++ lib.optionals withDocs [ doxygen graphviz ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ] ++ lib.optionals withDocs [
+    doxygen
+    graphviz
+  ];
 
-  buildInputs =
-    lib.optionals stdenv.hostPlatform.isDarwin [ ApplicationServices Carbon ]
-    ++ lib.optionals (withGL && !stdenv.hostPlatform.isDarwin) [ libGL libGLU ]
-    ++ lib.optionals (withExamples && withGL) [ glew ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
+    ApplicationServices
+    Carbon
+  ] ++ lib.optionals (withGL && !stdenv.hostPlatform.isDarwin) [
+    libGL
+    libGLU
+  ] ++ lib.optionals (withExamples && withGL) [ glew ];
 
-  propagatedBuildInputs = [ zlib libjpeg libpng ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [
-      freetype
-      fontconfig
-      libX11
-      libXext
-      libXinerama
-      libXfixes
-      libXcursor
-      libXft
-      libXrender
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ]
+  propagatedBuildInputs = [
+    zlib
+    libjpeg
+    libpng
+  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    freetype
+    fontconfig
+    libX11
+    libXext
+    libXinerama
+    libXfixes
+    libXcursor
+    libXft
+    libXrender
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ]
     ++ lib.optionals (withGL && stdenv.hostPlatform.isDarwin) [ OpenGL ]
     ++ lib.optionals withCairo [ cairo ] ++ lib.optionals withPango [ pango ];
 

@@ -33,7 +33,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeFlags = lib.optional staticOnly "-DBUILD_SHARED_LIBS=OFF";
 
-  outputs = [ "out" "dev" "lib" ];
+  outputs = [
+    "out"
+    "dev"
+    "lib"
+  ];
 
   doCheck = true;
 
@@ -77,7 +81,10 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = licenses.mit;
     maintainers = with maintainers; [ freezeboy ];
-    pkgConfigModules = [ "libbrotlidec" "libbrotlienc" ];
+    pkgConfigModules = [
+      "libbrotlidec"
+      "libbrotlienc"
+    ];
     platforms = platforms.all;
   };
 })

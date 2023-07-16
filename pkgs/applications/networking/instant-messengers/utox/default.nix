@@ -51,7 +51,10 @@ stdenv.mkDerivation rec {
     libopus
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   cmakeFlags = [
     "-DENABLE_AUTOUPDATE=OFF"

@@ -25,7 +25,11 @@ in stdenv.mkDerivation {
     sha256 = "sha256-/eA1i42/PMcoBbUJIGS66j7QpZ13oPkOi1Y6Q27TikU=";
   };
 
-  libPath = lib.makeLibraryPath [ libglvnd openal glibc ];
+  libPath = lib.makeLibraryPath [
+    libglvnd
+    openal
+    glibc
+  ];
 
   installPhase = ''
     bash $src --target $name
@@ -53,20 +57,28 @@ in stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "Tropics";
-      exec = "Tropics";
-      genericName = "A GPU Stress test tool from the UNIGINE";
-      icon = "Tropics";
-      desktopName = "Tropics Benchmark";
-    })
+  desktopItems = [ (makeDesktopItem {
+    name = "Tropics";
+    exec = "Tropics";
+    genericName = "A GPU Stress test tool from the UNIGINE";
+    icon = "Tropics";
+    desktopName = "Tropics Benchmark";
+  }) ];
+
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+    imagemagick
+    copyDesktopItems
   ];
 
-  nativeBuildInputs =
-    [ autoPatchelfHook makeWrapper imagemagick copyDesktopItems ];
-
-  buildInputs = [ stdenv.cc.cc libX11 libXext libXrandr libXinerama ];
+  buildInputs = [
+    stdenv.cc.cc
+    libX11
+    libXext
+    libXrandr
+    libXinerama
+  ];
 
   dontUnpack = true;
 
@@ -76,7 +88,10 @@ in stdenv.mkDerivation {
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.unfree;
     maintainers = [ lib.maintainers.BarinovMaxim ];
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
     mainProgram = "Tropics";
   };
 }

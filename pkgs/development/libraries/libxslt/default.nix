@@ -20,8 +20,13 @@ stdenv.mkDerivation rec {
   pname = "libxslt";
   version = "1.1.37";
 
-  outputs = [ "bin" "dev" "out" "doc" "devdoc" ]
-    ++ lib.optional pythonSupport "py";
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "doc"
+    "devdoc"
+  ] ++ lib.optional pythonSupport "py";
   outputMan = "bin";
 
   src = fetchurl {
@@ -33,12 +38,20 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
 
-  buildInputs = [ libxml2.dev libxcrypt ]
-    ++ lib.optionals stdenv.isDarwin [ gettext ]
-    ++ lib.optionals pythonSupport [ libxml2.py python ncurses ]
-    ++ lib.optionals cryptoSupport [ libgcrypt ];
+  buildInputs = [
+    libxml2.dev
+    libxcrypt
+  ] ++ lib.optionals stdenv.isDarwin [ gettext ]
+    ++ lib.optionals pythonSupport [
+      libxml2.py
+      python
+      ncurses
+    ] ++ lib.optionals cryptoSupport [ libgcrypt ];
 
   propagatedBuildInputs = [ findXMLCatalogs ];
 
@@ -74,7 +87,10 @@ stdenv.mkDerivation rec {
     description = "A C library and tools to do XSL transformations";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ eelco jtojnar ];
+    maintainers = with maintainers; [
+      eelco
+      jtojnar
+    ];
     broken = pythonSupport
       && !libxml2.pythonSupport; # see #73102 for why this is not an assert
   };

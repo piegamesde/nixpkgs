@@ -22,9 +22,17 @@ stdenv.mkDerivation rec {
     sha256 = "1k47gbgpp52049andr28y28nbwh9m36bbb0g8p0aka3pqlhjv72l";
   };
 
-  nativeBuildInputs = [ pkg-config scons ];
-  buildInputs = [ apr openssl aprutil zlib libiconv ]
-    ++ lib.optional (!stdenv.isCygwin) libkrb5;
+  nativeBuildInputs = [
+    pkg-config
+    scons
+  ];
+  buildInputs = [
+    apr
+    openssl
+    aprutil
+    zlib
+    libiconv
+  ] ++ lib.optional (!stdenv.isCygwin) libkrb5;
 
   patches = [
     ./scons.patch
@@ -58,7 +66,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "HTTP client library based on APR";
     license = licenses.asl20;
-    maintainers = with maintainers; [ orivej raskin ];
+    maintainers = with maintainers; [
+      orivej
+      raskin
+    ];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

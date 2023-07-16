@@ -14,15 +14,24 @@
 qtModule {
   pname = "qtsystems";
 
-  outputs = [ "out" "dev" ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ "bin" ];
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ "bin" ];
 
   qtInputs = [ qtbase ];
 
-  nativeBuildInputs = [ pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapQtAppsHook
+  ];
 
-  buildInputs =
-    lib.optionals stdenv.hostPlatform.isLinux [ bluez libevdev libX11 udev ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
+    bluez
+    libevdev
+    libX11
+    udev
+  ];
 
   qmakeFlags = [ "CONFIG+=git_build" ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [

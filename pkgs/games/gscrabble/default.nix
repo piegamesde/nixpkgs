@@ -35,7 +35,10 @@ buildPythonApplication {
     gobject-introspection
   ];
 
-  propagatedBuildInputs = with python3Packages; [ gst-python pygobject3 ];
+  propagatedBuildInputs = with python3Packages; [
+    gst-python
+    pygobject3
+  ];
 
   preFixup = ''
     gappsWrapperArgs+=(

@@ -19,9 +19,15 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontConfigure = true;
 
-  buildInputs = [ libX11 libXpm ];
+  buildInputs = [
+    libX11
+    libXpm
+  ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" "PLATFORM=linux" ];
+  makeFlags = [
+    "PREFIX=${placeholder "out"}"
+    "PLATFORM=linux"
+  ];
 
   meta = with lib; {
     homepage = "http://www.pogo.org.uk/~mark/xosview/";

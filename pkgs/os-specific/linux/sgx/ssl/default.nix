@@ -48,7 +48,12 @@ in stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ perl sgx-sdk stdenv.cc.libc which ];
+  nativeBuildInputs = [
+    perl
+    sgx-sdk
+    stdenv.cc.libc
+    which
+  ];
 
   makeFlags = [ "-C Linux" ] ++ lib.optionals debug [ "DEBUG=1" ];
 
@@ -76,8 +81,14 @@ in stdenv.mkDerivation rec {
     description =
       "Cryptographic library for Intel SGX enclave applications based on OpenSSL";
     homepage = "https://github.com/intel/intel-sgx-ssl";
-    maintainers = with maintainers; [ trundle veehaitch ];
+    maintainers = with maintainers; [
+      trundle
+      veehaitch
+    ];
     platforms = [ "x86_64-linux" ];
-    license = with licenses; [ bsd3 openssl ];
+    license = with licenses; [
+      bsd3
+      openssl
+    ];
   };
 }

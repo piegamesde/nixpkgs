@@ -99,8 +99,8 @@ in {
       };
     };
 
-    systemd.tmpfiles.rules = mkIf cfg.privateRepos
-      [ "f ${cfg.dataDir}/.htpasswd 0700 restic restic -" ];
+    systemd.tmpfiles.rules = mkIf
+      cfg.privateRepos [ "f ${cfg.dataDir}/.htpasswd 0700 restic restic -" ];
 
     users.users.restic = {
       group = "restic";

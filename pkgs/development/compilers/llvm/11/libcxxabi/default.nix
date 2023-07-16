@@ -20,7 +20,10 @@ stdenv.mkDerivation {
   src =
     fetch "libcxxabi" "1azcf31mxw59hb1x17xncnm3dyw90ylh8rqx462lvypqh3nr6c8l";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   postUnpack = ''
     unpackFile ${libcxx.src}
@@ -35,14 +38,17 @@ stdenv.mkDerivation {
     patch -p1 -d llvm -i ${./wasm.patch}
   '';
 
-  patches = [ ./no-threads.patch ./gnu-install-dirs.patch ];
+  patches = [
+    ./no-threads.patch
+    ./gnu-install-dirs.patch
+  ];
 
   nativeBuildInputs = [ cmake ];
   buildInputs = lib.optional withLibunwind libunwind;
 
   cmakeFlags = lib.optionals standalone [ "-DLLVM_ENABLE_LIBCXX=ON" ]
-    ++ lib.optionals (standalone && withLibunwind)
-    [ "-DLIBCXXABI_USE_LLVM_UNWINDER=ON" ]
+    ++ lib.optionals
+    (standalone && withLibunwind) [ "-DLIBCXXABI_USE_LLVM_UNWINDER=ON" ]
     ++ lib.optionals stdenv.hostPlatform.isWasm [
       "-DLIBCXXABI_ENABLE_THREADS=OFF"
       "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
@@ -87,7 +93,10 @@ stdenv.mkDerivation {
     '';
     # "All of the code in libc++abi is dual licensed under the MIT license and
     # the UIUC License (a BSD-like license)":
-    license = with lib.licenses; [ mit ncsa ];
+    license = with lib.licenses; [
+      mit
+      ncsa
+    ];
     maintainers = llvm_meta.maintainers ++ [ lib.maintainers.vlstill ];
   };
 }

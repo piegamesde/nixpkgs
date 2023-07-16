@@ -32,8 +32,16 @@ let
   else
     abort "Unsupported architecture";
 
-  libs = [ "lib/${gnuArch}" "lib" "usr/lib/${gnuArch}" "usr/lib" ];
-  bins = [ "bin" "usr/bin" ];
+  libs = [
+    "lib/${gnuArch}"
+    "lib"
+    "usr/lib/${gnuArch}"
+    "usr/lib"
+  ];
+  bins = [
+    "bin"
+    "usr/bin"
+  ];
 
 in stdenv.mkDerivation {
   name = "steam-runtime-wrapped";

@@ -26,7 +26,11 @@ perlPackages.buildPerlPackage rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = with perlPackages; [ IOSocketINET6 IOSocketSSL JSONPP ];
+  buildInputs = with perlPackages; [
+    IOSocketINET6
+    IOSocketSSL
+    JSONPP
+  ];
 
   installPhase = ''
     runHook preInstall

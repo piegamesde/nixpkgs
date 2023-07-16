@@ -24,14 +24,23 @@ buildPythonPackage rec {
     hash = "sha256-zTVOt3175ruIHatHTemOAt9VF4pvJn/fQIvm/DXXw9M=";
   };
 
-  propagatedBuildInputs =
-    [ google-api-core grpc-google-iam-v1 proto-plus protobuf ]
-    ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs = [
+    google-api-core
+    grpc-google-iam-v1
+    proto-plus
+    protobuf
+  ] ++ google-api-core.optional-dependencies.grpc;
 
-  nativeCheckInputs = [ mock pytestCheckHook pytest-asyncio ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+    pytest-asyncio
+  ];
 
-  pythonImportsCheck =
-    [ "google.cloud.bigquery_logging" "google.cloud.bigquery_logging_v1" ];
+  pythonImportsCheck = [
+    "google.cloud.bigquery_logging"
+    "google.cloud.bigquery_logging_v1"
+  ];
 
   meta = with lib; {
     description = "Bigquery logging client library";

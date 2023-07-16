@@ -19,8 +19,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-hnmP/56P2anR0S8zQyQqN1lbge5GgK+P8Lx8bRkwSxA=";
   };
 
-  nativeBuildInputs = [ cmake ]
-    ++ lib.optionals (python != null) [ python swig ];
+  nativeBuildInputs = [ cmake ] ++ lib.optionals (python != null) [
+    python
+    swig
+  ];
 
   cmakeFlags = [ "-DPLFIT_USE_OPENMP=ON" ]
     ++ lib.optionals (python != null) [ "-DPLFIT_COMPILE_PYTHON_MODULE=ON" ];

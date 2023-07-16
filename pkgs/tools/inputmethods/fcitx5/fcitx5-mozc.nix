@@ -56,11 +56,27 @@ in clangStdenv.mkDerivation rec {
     sha256 = "R+w0slVFpqtt7PIr1pyupJjRoQsABVZiMdZ9fKGKAqw=";
   };
 
-  nativeBuildInputs =
-    [ gyp ninja python pkg-config qt5.wrapQtAppsHook six which unzip ];
+  nativeBuildInputs = [
+    gyp
+    ninja
+    python
+    pkg-config
+    qt5.wrapQtAppsHook
+    six
+    which
+    unzip
+  ];
 
-  buildInputs =
-    [ protobuf zinnia qt5.qtbase fcitx5 abseil-cpp jsoncpp gtest gtk2 ];
+  buildInputs = [
+    protobuf
+    zinnia
+    qt5.qtbase
+    fcitx5
+    abseil-cpp
+    jsoncpp
+    gtest
+    gtk2
+  ];
 
   patches = [
     # Support linking system abseil-cpp
@@ -144,7 +160,10 @@ in clangStdenv.mkDerivation rec {
       "Fcitx5 Module of A Japanese Input Method for Chromium OS, Windows, Mac and Linux (the Open Source Edition of Google Japanese Input)";
     homepage = "https://github.com/fcitx/mozc";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ berberman govanify ];
+    maintainers = with maintainers; [
+      berberman
+      govanify
+    ];
     platforms = platforms.linux;
   };
 }

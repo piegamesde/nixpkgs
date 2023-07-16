@@ -34,7 +34,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-Ch9TT5gPC8NpwuqkwHP+3HEFocWHrCZPC0T7+3VweVc=";
 
-  nativeBuildInputs = [ installShellFiles makeWrapper ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+  ];
 
   # Flags as provided by the build automation of the project:
   #   https://github.com/fastly/cli/blob/7844f9f54d56f8326962112b5534e5c40e91bf09/.goreleaser.yml#L14-L18
@@ -74,6 +77,9 @@ buildGoModule rec {
     homepage = "https://github.com/fastly/cli";
     changelog = "https://github.com/fastly/cli/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ereslibre shyim ];
+    maintainers = with maintainers; [
+      ereslibre
+      shyim
+    ];
   };
 }

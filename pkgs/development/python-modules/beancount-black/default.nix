@@ -25,7 +25,10 @@ buildPythonPackage rec {
 
   buildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ beancount-parser click ];
+  propagatedBuildInputs = [
+    beancount-parser
+    click
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -25,7 +25,10 @@ stdenv.mkDerivation rec {
       --replace /usr/include /include
   '';
 
-  makeFlags = [ "DESTDIR=$(out)" "LIBDIR=/lib" ];
+  makeFlags = [
+    "DESTDIR=$(out)"
+    "LIBDIR=/lib"
+  ];
 
   meta = with lib; {
     description =

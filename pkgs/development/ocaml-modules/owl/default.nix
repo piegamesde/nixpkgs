@@ -19,8 +19,16 @@ buildDunePackage rec {
   duneVersion = "3";
 
   checkInputs = [ alcotest ];
-  buildInputs = [ dune-configurator stdio ];
-  propagatedBuildInputs = [ eigen openblasCompat owl-base npy ];
+  buildInputs = [
+    dune-configurator
+    stdio
+  ];
+  propagatedBuildInputs = [
+    eigen
+    openblasCompat
+    owl-base
+    npy
+  ];
 
   doCheck = !stdenv.isDarwin; # https://github.com/owlbarn/owl/issues/462
 }

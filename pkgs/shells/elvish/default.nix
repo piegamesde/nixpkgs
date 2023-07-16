@@ -23,7 +23,11 @@ in buildGoModule {
 
   subPackages = [ "cmd/elvish" ];
 
-  ldflags = [ "-s" "-w" "-X src.elv.sh/pkg/buildinfo.Version==${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X src.elv.sh/pkg/buildinfo.Version==${version}"
+  ];
 
   strictDeps = true;
 
@@ -57,6 +61,9 @@ in buildGoModule {
       status, it is already suitable for most daily interactive use.
     '';
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ vrthra AndersonTorres ];
+    maintainers = with lib.maintainers; [
+      vrthra
+      AndersonTorres
+    ];
   };
 }

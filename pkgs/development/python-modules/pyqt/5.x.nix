@@ -67,7 +67,10 @@ buildPythonPackage rec {
     export MAKEFLAGS+="''${enableParallelBuilding:+-j$NIX_BUILD_CORES}"
   '';
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   dontWrapQtApps = true;
 
@@ -89,13 +92,21 @@ buildPythonPackage rec {
     ++ lib.optional withLocation qtlocation;
 
   buildInputs = with libsForQt5;
-    [ dbus qtbase qtsvg qtdeclarative pyqt-builder ]
-    ++ lib.optional withConnectivity qtconnectivity
+    [
+      dbus
+      qtbase
+      qtsvg
+      qtdeclarative
+      pyqt-builder
+    ] ++ lib.optional withConnectivity qtconnectivity
     ++ lib.optional withWebKit qtwebkit
     ++ lib.optional withWebSockets qtwebsockets
     ++ lib.optional withLocation qtlocation;
 
-  propagatedBuildInputs = [ dbus-python pyqt5_sip ];
+  propagatedBuildInputs = [
+    dbus-python
+    pyqt5_sip
+  ];
 
   passthru = {
     inherit sip pyqt5_sip;
@@ -109,9 +120,13 @@ buildPythonPackage rec {
   # Checked using pythonImportsCheck
   doCheck = false;
 
-  pythonImportsCheck =
-    [ "PyQt5" "PyQt5.QtCore" "PyQt5.QtQml" "PyQt5.QtWidgets" "PyQt5.QtGui" ]
-    ++ lib.optional withWebSockets "PyQt5.QtWebSockets"
+  pythonImportsCheck = [
+    "PyQt5"
+    "PyQt5.QtCore"
+    "PyQt5.QtQml"
+    "PyQt5.QtWidgets"
+    "PyQt5.QtGui"
+  ] ++ lib.optional withWebSockets "PyQt5.QtWebSockets"
     ++ lib.optional withWebKit "PyQt5.QtWebKit"
     ++ lib.optional withMultimedia "PyQt5.QtMultimedia"
     ++ lib.optional withConnectivity "PyQt5.QtBluetooth"

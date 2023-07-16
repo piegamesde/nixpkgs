@@ -34,6 +34,13 @@ buildPythonApplication {
     ln -fs $out/bin/authenticator-helper $out/libexec/helper/authenticator-helper
   '';
 
-  propagatedBuildInputs =
-    [ poetry-core yubikey-manager fido2 mss zxing_cpp pillow cryptography ];
+  propagatedBuildInputs = [
+    poetry-core
+    yubikey-manager
+    fido2
+    mss
+    zxing_cpp
+    pillow
+    cryptography
+  ];
 }

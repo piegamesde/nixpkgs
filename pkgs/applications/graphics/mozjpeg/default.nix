@@ -25,8 +25,15 @@ stdenv.mkDerivation rec {
     "-DPNG_SUPPORTED=TRUE"
   ]; # See https://github.com/mozilla/mozjpeg/issues/351
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ libpng zlib nasm ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    libpng
+    zlib
+    nasm
+  ];
 
   meta = {
     description = "Mozilla JPEG Encoder Project";

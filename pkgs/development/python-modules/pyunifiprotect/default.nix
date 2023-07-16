@@ -51,7 +51,10 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools setuptools-scm ];
+  nativeBuildInputs = [
+    setuptools
+    setuptools-scm
+  ];
 
   propagatedBuildInputs = [
     aiofiles
@@ -68,7 +71,11 @@ buildPythonPackage rec {
   ] ++ typer.optional-dependencies.all;
 
   passthru.optional-dependencies = {
-    shell = [ ipython python-dotenv termcolor ];
+    shell = [
+      ipython
+      python-dotenv
+      termcolor
+    ];
   };
 
   nativeCheckInputs = [

@@ -15,7 +15,10 @@ import ./make-test-python.nix ({
         services.moosefs.master = {
           enable = true;
           openFirewall = true;
-          exports = [ "* / rw,alldirs,admin,maproot=0:0" "* . rw" ];
+          exports = [
+            "* / rw,alldirs,admin,maproot=0:0"
+            "* . rw"
+          ];
         };
       };
 

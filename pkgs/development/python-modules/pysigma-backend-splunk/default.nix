@@ -27,7 +27,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pysigma ];
 
-  nativeCheckInputs = [ pysigma-pipeline-sysmon pytestCheckHook ];
+  nativeCheckInputs = [
+    pysigma-pipeline-sysmon
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "sigma.backends.splunk" ];
 

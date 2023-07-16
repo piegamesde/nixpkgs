@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ beancount ];
 
-  nativeCheckInputs = [ pytest sh ];
+  nativeCheckInputs = [
+    pytest
+    sh
+  ];
 
   checkPhase = ''
     pytest

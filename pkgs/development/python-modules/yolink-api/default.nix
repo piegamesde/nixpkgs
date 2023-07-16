@@ -26,7 +26,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ aiohttp asyncio-mqtt pydantic tenacity ];
+  propagatedBuildInputs = [
+    aiohttp
+    asyncio-mqtt
+    pydantic
+    tenacity
+  ];
 
   # Module has no tests
   doCheck = false;

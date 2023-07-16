@@ -34,7 +34,10 @@
     version = "1.3.1";
   };
   em-websocket = {
-    dependencies = [ "addressable" "eventmachine" ];
+    dependencies = [
+      "addressable"
+      "eventmachine"
+    ];
     source = {
       remotes = [ "https://rubygems.org" ];
       sha256 = "0xkb1rc6dd3y5s7qsp4wqrri3n9gwsbvnwwv6xwgp241jxdpp4iq";
@@ -210,7 +213,11 @@
     version = "0.20.1";
   };
   sinatra = {
-    dependencies = [ "rack" "rack-protection" "tilt" ];
+    dependencies = [
+      "rack"
+      "rack-protection"
+      "tilt"
+    ];
     source = {
       remotes = [ "https://rubygems.org" ];
       sha256 = "0byxzl7rx3ki0xd7aiv1x8mbah7hzd8f81l65nq8857kmgzj1jqq";
@@ -219,7 +226,11 @@
     version = "1.4.8";
   };
   sinatra-websocket = {
-    dependencies = [ "em-websocket" "eventmachine" "thin" ];
+    dependencies = [
+      "em-websocket"
+      "eventmachine"
+      "thin"
+    ];
     source = {
       remotes = [ "https://rubygems.org" ];
       sha256 = "0as52mfw34z3ba6qjab009h2rdn0za0iwrc42kw948hbb8qzcm5m";
@@ -228,7 +239,11 @@
     version = "0.3.1";
   };
   thin = {
-    dependencies = [ "daemons" "eventmachine" "rack" ];
+    dependencies = [
+      "daemons"
+      "eventmachine"
+      "rack"
+    ];
     source = {
       remotes = [ "https://rubygems.org" ];
       sha256 = "0nagbf9pwy1vg09k6j4xqhbjjzrg5dwzvkn4ffvlj76fsn6vv61f";

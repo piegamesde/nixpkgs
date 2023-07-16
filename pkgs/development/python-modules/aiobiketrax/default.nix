@@ -35,9 +35,17 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [ "auth0-python" ];
 
-  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
-  propagatedBuildInputs = [ aiohttp auth0-python python-dateutil pyjwt ];
+  propagatedBuildInputs = [
+    aiohttp
+    auth0-python
+    python-dateutil
+    pyjwt
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

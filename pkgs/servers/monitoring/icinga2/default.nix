@@ -76,12 +76,23 @@ stdenv.mkDerivation rec {
     "-DUSE_SYSTEMD=ON"
   ];
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
-  buildInputs = [ boost openssl systemd ]
-    ++ lib.optional withPostgresql postgresql;
+  buildInputs = [
+    boost
+    openssl
+    systemd
+  ] ++ lib.optional withPostgresql postgresql;
 
-  nativeBuildInputs = [ cmake flex bison patchelf ];
+  nativeBuildInputs = [
+    cmake
+    flex
+    bison
+    patchelf
+  ];
 
   doCheck = true;
   nativeCheckInputs = [ tzdata ]; # legacytimeperiod/dst needs this

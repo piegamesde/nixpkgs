@@ -29,7 +29,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ ocl-icd opencl-clhpp ];
+  buildInputs = [
+    ocl-icd
+    opencl-clhpp
+  ];
 
   meta = with lib; {
     description =

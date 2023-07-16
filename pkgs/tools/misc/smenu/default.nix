@@ -27,7 +27,10 @@ stdenv.mkDerivation rec {
       your selection will be sent to standard output.
     '';
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ matthiasbeyer SuperSandro2000 ];
+    maintainers = with maintainers; [
+      matthiasbeyer
+      SuperSandro2000
+    ];
     platforms = platforms.unix;
   };
 }

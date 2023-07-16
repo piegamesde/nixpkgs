@@ -23,7 +23,10 @@ stdenv.mkDerivation {
   src =
     fetch "libcxxabi" "1zcqxsdjhawgz1cvpk07y3jl6fg9p3ay4nl69zsirqb2ghgyhhb2";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   postUnpack = ''
     unpackFile ${libcxx.src}
@@ -51,8 +54,8 @@ stdenv.mkDerivation {
   buildInputs = lib.optional withLibunwind libunwind;
 
   cmakeFlags = lib.optionals standalone [ "-DLLVM_ENABLE_LIBCXX=ON" ]
-    ++ lib.optionals (standalone && withLibunwind)
-    [ "-DLIBCXXABI_USE_LLVM_UNWINDER=ON" ]
+    ++ lib.optionals
+    (standalone && withLibunwind) [ "-DLIBCXXABI_USE_LLVM_UNWINDER=ON" ]
     ++ lib.optional (!enableShared) "-DLIBCXXABI_ENABLE_SHARED=OFF";
 
   preInstall = lib.optionalString stdenv.isDarwin ''
@@ -94,7 +97,10 @@ stdenv.mkDerivation {
     '';
     # "All of the code in libc++abi is dual licensed under the MIT license and
     # the UIUC License (a BSD-like license)":
-    license = with lib.licenses; [ mit ncsa ];
+    license = with lib.licenses; [
+      mit
+      ncsa
+    ];
     maintainers = llvm_meta.maintainers ++ [ lib.maintainers.vlstill ];
   };
 }

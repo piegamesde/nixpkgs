@@ -21,7 +21,10 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.0";
 
-  propagatedBuildInputs = [ twisted qtpy ];
+  propagatedBuildInputs = [
+    twisted
+    qtpy
+  ];
 
   nativeCheckInputs = [ pyqt5 ];
 

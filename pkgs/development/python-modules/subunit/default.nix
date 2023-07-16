@@ -29,12 +29,23 @@ buildPythonPackage {
       --replace "version=VERSION" 'version="${subunit.version}"'
   '';
 
-  nativeBuildInputs = [ pkg-config setuptools ];
+  nativeBuildInputs = [
+    pkg-config
+    setuptools
+  ];
 
-  buildInputs = [ check cppunit ];
+  buildInputs = [
+    check
+    cppunit
+  ];
   propagatedBuildInputs = [ testtools ];
 
-  nativeCheckInputs = [ testscenarios hypothesis fixtures pytestCheckHook ];
+  nativeCheckInputs = [
+    testscenarios
+    hypothesis
+    fixtures
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "python/subunit" ];
 

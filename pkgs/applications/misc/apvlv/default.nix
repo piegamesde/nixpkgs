@@ -30,7 +30,11 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-I${poppler.dev}/include/poppler";
 
-  nativeBuildInputs = [ cmake pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     poppler

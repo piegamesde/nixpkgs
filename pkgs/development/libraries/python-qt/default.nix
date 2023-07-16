@@ -22,15 +22,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-zbQ6X4Q2/QChaw3GAz/aVBj2JjWEz52YuPuHbBz935k=";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "remove-unneeded-pydebug-include.patch";
-      url =
-        "https://github.com/MeVisLab/pythonqt/commit/a93104dea4d9c79351276ec963e931ca617625ec.patch";
-      includes = [ "src/PythonQt.cpp" ];
-      hash = "sha256-Tc4+6dIdvrda/z3Nz1s9Xz+ZWJLV2BQh8i552UynSI0=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "remove-unneeded-pydebug-include.patch";
+    url =
+      "https://github.com/MeVisLab/pythonqt/commit/a93104dea4d9c79351276ec963e931ca617625ec.patch";
+    includes = [ "src/PythonQt.cpp" ];
+    hash = "sha256-Tc4+6dIdvrda/z3Nz1s9Xz+ZWJLV2BQh8i552UynSI0=";
+  }) ];
 
   # https://github.com/CsoundQt/CsoundQt/blob/develop/BUILDING.md#pythonqt
   postPatch = ''
@@ -40,11 +38,20 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "all" ];
 
-  nativeBuildInputs = [ qmake qtwebengine qtxmlpatterns qttools unzip ];
+  nativeBuildInputs = [
+    qmake
+    qtwebengine
+    qtxmlpatterns
+    qttools
+    unzip
+  ];
 
   buildInputs = [ python ];
 
-  qmakeFlags = [ "PythonQt.pro" "PYTHON_DIR=${python}" ];
+  qmakeFlags = [
+    "PythonQt.pro"
+    "PYTHON_DIR=${python}"
+  ];
 
   dontWrapQtApps = true;
 

@@ -19,7 +19,12 @@ let version = "5.9";
 in stdenv.mkDerivation {
   pname = "zsh";
   inherit version;
-  outputs = [ "out" "doc" "info" "man" ];
+  outputs = [
+    "out"
+    "doc"
+    "info"
+    "man"
+  ];
 
   src = fetchurl {
     url = "mirror://sourceforge/zsh/zsh-${version}.tar.xz";
@@ -32,10 +37,21 @@ in stdenv.mkDerivation {
   ];
 
   strictDeps = true;
-  nativeBuildInputs = [ autoreconfHook perl groff texinfo pcre ]
-    ++ lib.optionals stdenv.isLinux [ util-linux yodl ];
+  nativeBuildInputs = [
+    autoreconfHook
+    perl
+    groff
+    texinfo
+    pcre
+  ] ++ lib.optionals stdenv.isLinux [
+    util-linux
+    yodl
+  ];
 
-  buildInputs = [ ncurses pcre ];
+  buildInputs = [
+    ncurses
+    pcre
+  ];
 
   configureFlags = [
     "--enable-maildir-support"
@@ -118,7 +134,10 @@ in stdenv.mkDerivation {
     '';
     license = "MIT-like";
     homepage = "https://www.zsh.org/";
-    maintainers = with lib.maintainers; [ pSub artturin ];
+    maintainers = with lib.maintainers; [
+      pSub
+      artturin
+    ];
     platforms = lib.platforms.unix;
   };
 

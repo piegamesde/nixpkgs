@@ -6,7 +6,10 @@ args@{
   baseName = "trivial-utf-8";
   version = "20211209-git";
 
-  parasites = [ "trivial-utf-8/doc" "trivial-utf-8/tests" ];
+  parasites = [
+    "trivial-utf-8/doc"
+    "trivial-utf-8/tests"
+  ];
 
   description = "A small library for doing UTF-8-based input and output.";
 

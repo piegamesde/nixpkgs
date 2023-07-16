@@ -26,7 +26,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ niapy nltk pandas ];
+  propagatedBuildInputs = [
+    niapy
+    nltk
+    pandas
+  ];
 
   disabledTests = [
     # Test requires extra nltk data dependency

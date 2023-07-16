@@ -39,6 +39,9 @@ stdenv.mkDerivation rec {
     description = "The official runtime used by Steam";
     homepage = "https://github.com/ValveSoftware/steam-runtime";
     license = licenses.unfreeRedistributable; # Includes NVIDIA CG toolkit
-    maintainers = with maintainers; [ hrdinka abbradar ];
+    maintainers = with maintainers; [
+      hrdinka
+      abbradar
+    ];
   };
 }

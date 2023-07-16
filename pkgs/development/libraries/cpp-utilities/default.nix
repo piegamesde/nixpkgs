@@ -20,9 +20,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
   nativeCheckInputs = [ cppunit ];
-  buildInputs = lib.optionals stdenv.isDarwin [
-    iconv # needed on Darwin, see https://github.com/Martchus/cpp-utilities/issues/4
-  ];
+  buildInputs = lib.optionals
+    stdenv.isDarwin [ iconv # needed on Darwin, see https://github.com/Martchus/cpp-utilities/issues/4
+    ];
   # Otherwise, tests fail since the resulting shared object libc++utilities.so is only available in PWD of the make files
   preCheck = ''
     checkFlagsArray+=(

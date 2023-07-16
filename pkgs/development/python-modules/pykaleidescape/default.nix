@@ -23,9 +23,15 @@ buildPythonPackage rec {
     hash = "sha256-h5G7wV4Z+sf8Qq4GNFsp8DVDSgQgS0dLGf+DzK/egYM=";
   };
 
-  propagatedBuildInputs = [ aiohttp dnspython ];
+  propagatedBuildInputs = [
+    aiohttp
+    dnspython
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "kaleidescape" ];
 

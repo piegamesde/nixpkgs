@@ -20,8 +20,16 @@ stdenv.mkDerivation rec {
   };
 
   inherit (petsc) mpiSupport;
-  nativeBuildInputs = [ cmake python3 ];
-  buildInputs = [ gfortran blas lapack petsc ] ++ lib.optional mpiSupport mpi;
+  nativeBuildInputs = [
+    cmake
+    python3
+  ];
+  buildInputs = [
+    gfortran
+    blas
+    lapack
+    petsc
+  ] ++ lib.optional mpiSupport mpi;
   cmakeFlags = lib.optional mpiSupport "-DENABLE_MPI=1";
 
   meta = with lib; {

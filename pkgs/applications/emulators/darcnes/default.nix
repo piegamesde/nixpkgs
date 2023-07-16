@@ -20,7 +20,12 @@ stdenv.mkDerivation rec {
 
   patches = [ ./label.patch ];
 
-  buildInputs = [ libX11 libXt libXext libXaw ];
+  buildInputs = [
+    libX11
+    libXt
+    libXext
+    libXaw
+  ];
   installPhase = "install -Dt $out/bin darcnes";
 
   meta = {

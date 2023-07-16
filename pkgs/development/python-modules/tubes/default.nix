@@ -18,7 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-WbkZfy+m9/xrwygd5VeXrccpu3XJxhO09tbEFZnw14s=";
   };
 
-  propagatedBuildInputs = [ characteristic six twisted ];
+  propagatedBuildInputs = [
+    characteristic
+    six
+    twisted
+  ];
 
   checkPhase = ''
     ${python.interpreter} -m twisted.trial -j $NIX_BUILD_CORES tubes

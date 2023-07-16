@@ -42,9 +42,20 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ meson ninja pkg-config vala ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    vala
+  ];
 
-  buildInputs = [ granite gtk3 libgee switchboard wingpanel-indicator-a11y ];
+  buildInputs = [
+    granite
+    gtk3
+    libgee
+    switchboard
+    wingpanel-indicator-a11y
+  ];
 
   passthru = { updateScript = nix-update-script { }; };
 

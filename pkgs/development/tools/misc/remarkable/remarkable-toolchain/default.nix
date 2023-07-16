@@ -19,7 +19,12 @@ stdenv.mkDerivation rec {
     executable = true;
   };
 
-  nativeBuildInputs = [ libarchive python3 file which ];
+  nativeBuildInputs = [
+    libarchive
+    python3
+    file
+    which
+  ];
 
   dontUnpack = true;
   dontBuild = true;
@@ -34,7 +39,10 @@ stdenv.mkDerivation rec {
     homepage = "https://remarkable.engineering/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ nickhu siraben ];
+    maintainers = with maintainers; [
+      nickhu
+      siraben
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

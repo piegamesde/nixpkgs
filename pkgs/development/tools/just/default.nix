@@ -13,7 +13,11 @@
 rustPlatform.buildRustPackage rec {
   pname = "just";
   version = "1.13.0";
-  outputs = [ "out" "man" "doc" ];
+  outputs = [
+    "out"
+    "man"
+    "doc"
+  ];
 
   src = fetchFromGitHub {
     owner = "casey";
@@ -24,7 +28,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-91C/5m2avsW7GKQDg/Ez9fzzFhe8ih1De1RbV/MBJbM=";
 
-  nativeBuildInputs = [ installShellFiles mdbook ];
+  nativeBuildInputs = [
+    installShellFiles
+    mdbook
+  ];
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 
   preCheck = ''
@@ -76,6 +83,10 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/casey/just/blob/${version}/CHANGELOG.md";
     description = "A handy way to save and run project-specific commands";
     license = licenses.cc0;
-    maintainers = with maintainers; [ xrelkd jk adamcstephens ];
+    maintainers = with maintainers; [
+      xrelkd
+      jk
+      adamcstephens
+    ];
   };
 }

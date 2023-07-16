@@ -75,7 +75,11 @@ stdenv.mkDerivation (finalAttrs: {
     cd desmume/src/frontend/posix
   '';
 
-  mesonFlags = [ "-Db_pie=true" "-Dopenal=true" "-Dwifi=true" ];
+  mesonFlags = [
+    "-Db_pie=true"
+    "-Dopenal=true"
+    "-Dwifi=true"
+  ];
 
   meta = with lib; {
     homepage = "https://www.github.com/TASVideos/desmume/";

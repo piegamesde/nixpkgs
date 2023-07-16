@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ pysnmp-pysmi pysnmp-pyasn1 pycryptodomex ];
+  propagatedBuildInputs = [
+    pysnmp-pysmi
+    pysnmp-pyasn1
+    pycryptodomex
+  ];
 
   # Module has no test, examples are used for testing
   doCheck = false;

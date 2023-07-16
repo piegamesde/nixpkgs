@@ -45,12 +45,28 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-3pBYZJqoH7XBkJ537wPwBSmNaZprvOlVtAKTo8EOT3Q=";
   };
 
-  buildInputs = [ flac libvorbis libvpx SDL2 SDL2_mixer ]
-    ++ lib.optionals stdenv.isLinux [ alsa-lib gtk2 libGL libGLU ]
-    ++ lib.optionals stdenv.isDarwin [ AGL Cocoa GLUT OpenGL ];
+  buildInputs = [
+    flac
+    libvorbis
+    libvpx
+    SDL2
+    SDL2_mixer
+  ] ++ lib.optionals stdenv.isLinux [
+    alsa-lib
+    gtk2
+    libGL
+    libGLU
+  ] ++ lib.optionals stdenv.isDarwin [
+    AGL
+    Cocoa
+    GLUT
+    OpenGL
+  ];
 
-  nativeBuildInputs = [ makeWrapper pkg-config ]
-    ++ lib.optional (stdenv.hostPlatform.system == "i686-linux") nasm;
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+  ] ++ lib.optional (stdenv.hostPlatform.system == "i686-linux") nasm;
 
   postPatch = ''
     substituteInPlace source/imgui/src/imgui_impl_sdl.cpp \
@@ -104,7 +120,10 @@ in stdenv.mkDerivation rec {
     description = "Enhanched port of Duke Nukem 3D for various platforms";
     homepage = "http://eduke32.com";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ mikroskeem sander ];
+    maintainers = with maintainers; [
+      mikroskeem
+      sander
+    ];
     platforms = platforms.all;
   };
 }

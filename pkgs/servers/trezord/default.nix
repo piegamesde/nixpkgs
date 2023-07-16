@@ -25,13 +25,23 @@ buildGoModule rec {
   propagatedBuildInputs = lib.optionals stdenv.isLinux [ trezor-udev-rules ]
     ++ lib.optionals stdenv.isDarwin [ AppKit ];
 
-  ldflags = [ "-s" "-w" "-X main.githash=${commit}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.githash=${commit}"
+  ];
 
   meta = with lib; {
     description = "Trezor Communication Daemon aka Trezor Bridge";
     homepage = "https://trezor.io";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ canndrew jb55 prusnak mmahut _1000101 ];
+    maintainers = with maintainers; [
+      canndrew
+      jb55
+      prusnak
+      mmahut
+      _1000101
+    ];
     mainProgram = "trezord-go";
     platforms = platforms.unix;
   };

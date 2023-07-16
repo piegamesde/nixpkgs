@@ -28,14 +28,25 @@ buildPythonPackage rec {
     hash = "sha256-nEnX519kaprqAq6QTAvBY5yP0UoBKS0rEjuNMHVkA00=";
   };
 
-  propagatedBuildInputs =
-    [ click click-default-group incremental jinja2 toml setuptools ];
+  propagatedBuildInputs = [
+    click
+    click-default-group
+    incremental
+    jinja2
+    toml
+    setuptools
+  ];
 
   preCheck = ''
     export PATH=$out/bin:$PATH
   '';
 
-  nativeCheckInputs = [ git mock twisted pytestCheckHook ];
+  nativeCheckInputs = [
+    git
+    mock
+    twisted
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "towncrier" ];
 

@@ -43,11 +43,19 @@ in python.pkgs.buildPythonApplication rec {
     hash = "sha256-n77mTgElwwFaX3WQL8tZzbkPwnsyQ08OW9imSOjpBlg=";
   };
 
-  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ]
-    ++ (with python.pkgs; [ poetry-core pythonRelaxDepsHook ]);
+  nativeBuildInputs = [
+    gobject-introspection
+    wrapGAppsHook
+  ] ++ (with python.pkgs; [
+    poetry-core
+    pythonRelaxDepsHook
+  ]);
 
   # Can be removed in later versions (probably > 0.11.16)
-  pythonRelaxDeps = [ "deepdiff" "python-mpv" ];
+  pythonRelaxDeps = [
+    "deepdiff"
+    "python-mpv"
+  ];
 
   postPatch = ''
     sed -i "/--cov/d" setup.cfg
@@ -58,7 +66,10 @@ in python.pkgs.buildPythonApplication rec {
       --replace 'python-Levenshtein = "^0.12.0"' 'Levenshtein = ">0.12.0"'
   '';
 
-  buildInputs = [ gtk3 pango ] ++ lib.optional notifySupport libnotify
+  buildInputs = [
+    gtk3
+    pango
+  ] ++ lib.optional notifySupport libnotify
     ++ lib.optional networkSupport networkmanager;
 
   propagatedBuildInputs = with python.pkgs;
@@ -101,6 +112,9 @@ in python.pkgs.buildPythonApplication rec {
     changelog =
       "https://github.com/sublime-music/sublime-music/blob/v${version}/CHANGELOG.rst";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ albakham sumnerevans ];
+    maintainers = with maintainers; [
+      albakham
+      sumnerevans
+    ];
   };
 }

@@ -19,10 +19,18 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ future ];
 
-  nativeCheckInputs = [ nose pytestCheckHook simplejson ];
+  nativeCheckInputs = [
+    nose
+    pytestCheckHook
+    simplejson
+  ];
 
   # Exclude tests that require network access
-  disabledTests = [ "test_dk_parse" "test_ipv4" "test_ipv6" ];
+  disabledTests = [
+    "test_dk_parse"
+    "test_ipv4"
+    "test_ipv6"
+  ];
   pythonImportsCheck = [ "whois" ];
 
   meta = with lib; {

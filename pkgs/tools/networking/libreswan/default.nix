@@ -141,7 +141,10 @@ in stdenv.mkDerivation rec {
   ];
 
   # Hack to make install work
-  installFlags = [ "FINALVARDIR=\${out}/var" "FINALSYSCONFDIR=\${out}/etc" ];
+  installFlags = [
+    "FINALVARDIR=\${out}/var"
+    "FINALSYSCONFDIR=\${out}/etc"
+  ];
 
   postInstall = ''
     # Install examples directory (needed for letsencrypt)
@@ -161,7 +164,13 @@ in stdenv.mkDerivation rec {
     description =
       "A free software implementation of the VPN protocol based on IPSec and the Internet Key Exchange";
     platforms = platforms.linux ++ platforms.freebsd;
-    license = with licenses; [ gpl2Plus mpl20 ];
-    maintainers = with maintainers; [ afranchuk rnhmjoj ];
+    license = with licenses; [
+      gpl2Plus
+      mpl20
+    ];
+    maintainers = with maintainers; [
+      afranchuk
+      rnhmjoj
+    ];
   };
 }

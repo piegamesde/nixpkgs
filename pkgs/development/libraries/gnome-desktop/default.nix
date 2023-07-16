@@ -30,7 +30,11 @@ stdenv.mkDerivation rec {
   pname = "gnome-desktop";
   version = "44.0";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/gnome-desktop/${
@@ -39,13 +43,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-QsdzdF2EuhS8HPHExvRgYUiAOlzTN5QcY5ZHlfPFnUI=";
   };
 
-  patches = lib.optionals stdenv.isLinux [
-    (substituteAll {
-      src = ./bubblewrap-paths.patch;
-      bubblewrap_bin = "${bubblewrap}/bin/bwrap";
-      inherit (builtins) storeDir;
-    })
-  ];
+  patches = lib.optionals stdenv.isLinux [ (substituteAll {
+    src = ./bubblewrap-paths.patch;
+    bubblewrap_bin = "${bubblewrap}/bin/bwrap";
+    inherit (builtins) storeDir;
+  }) ];
 
   nativeBuildInputs = [
     pkg-config
@@ -67,15 +69,22 @@ stdenv.mkDerivation rec {
     gtk3
     gtk4
     glib
-  ] ++ lib.optionals stdenv.isLinux [ bubblewrap wayland libseccomp systemd ];
+  ] ++ lib.optionals stdenv.isLinux [
+    bubblewrap
+    wayland
+    libseccomp
+    systemd
+  ];
 
   propagatedBuildInputs = [ gsettings-desktop-schemas ];
 
-  mesonFlags = [ "-Dgtk_doc=true" "-Ddesktop_docs=false" ]
-    ++ lib.optionals (!stdenv.isLinux) [
-      "-Dsystemd=disabled"
-      "-Dudev=disabled"
-    ];
+  mesonFlags = [
+    "-Dgtk_doc=true"
+    "-Ddesktop_docs=false"
+  ] ++ lib.optionals (!stdenv.isLinux) [
+    "-Dsystemd=disabled"
+    "-Dudev=disabled"
+  ];
 
   separateDebugInfo = stdenv.isLinux;
 
@@ -86,7 +95,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Library with common API for various GNOME modules";
     homepage = "https://gitlab.gnome.org/GNOME/gnome-desktop";
-    license = with licenses; [ gpl2Plus lgpl2Plus ];
+    license = with licenses; [
+      gpl2Plus
+      lgpl2Plus
+    ];
     platforms = platforms.unix;
     maintainers = teams.gnome.members;
   };

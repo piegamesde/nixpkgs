@@ -31,7 +31,10 @@ stdenv.mkDerivation rec {
   pname = "gedit";
   version = "44.2";
 
-  outputs = [ "out" "devdoc" ];
+  outputs = [
+    "out"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/gedit/${

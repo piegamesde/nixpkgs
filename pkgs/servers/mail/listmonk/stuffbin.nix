@@ -17,7 +17,11 @@ buildGoModule rec {
     sha256 = "sha256-M72xNh7bKUMLzA+M8bJB++kJ5KCrkboQm1v8BasP3Yo=";
   };
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   meta = with lib; {
     description =

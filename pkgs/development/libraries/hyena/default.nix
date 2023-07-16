@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ mono gtk-sharp-2_0 ];
+  buildInputs = [
+    mono
+    gtk-sharp-2_0
+  ];
 
   postPatch = ''
     patchShebangs build/dll-map-makefile-verifier

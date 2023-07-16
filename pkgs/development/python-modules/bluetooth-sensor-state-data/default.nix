@@ -25,7 +25,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ home-assistant-bluetooth sensor-state-data ];
+  propagatedBuildInputs = [
+    home-assistant-bluetooth
+    sensor-state-data
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

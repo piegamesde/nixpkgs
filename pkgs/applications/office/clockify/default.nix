@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-eVZ3OqM1eoWfST7Qu9o8VmLm8ntD+ETf/0aes6RY4Y8=";
   };
 
-  nativeBuildInputs = [ dpkg makeWrapper ];
+  nativeBuildInputs = [
+    dpkg
+    makeWrapper
+  ];
 
   dontBuild = true;
   dontConfigure = true;

@@ -27,11 +27,18 @@ buildPythonPackage rec {
     hash = "sha256-jG/jJPM4t3z6UQIdc8L6y0DxZiGx5pVuGL8XwbIt60o=";
   };
 
-  propagatedBuildInputs = [ eth-typing eth-utils ];
+  propagatedBuildInputs = [
+    eth-typing
+    eth-utils
+  ];
 
-  nativeCheckInputs =
-    [ asn1tools factory_boy hypothesis pyasn1 pytestCheckHook ]
-    ++ passthru.optional-dependencies.coincurve
+  nativeCheckInputs = [
+    asn1tools
+    factory_boy
+    hypothesis
+    pyasn1
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.coincurve
     ++ lib.optional (!isPyPy) eth-hash.optional-dependencies.pysha3
     ++ lib.optional isPyPy eth-hash.optional-dependencies.pycryptodome;
 

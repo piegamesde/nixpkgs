@@ -39,7 +39,12 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ grequests mock responses pytestCheckHook ];
+  nativeCheckInputs = [
+    grequests
+    mock
+    responses
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "fxa" ];
 

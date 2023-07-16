@@ -87,8 +87,12 @@ let
       name = "php";
       enabled = phpSupport;
       cmakeFlag = "ENABLE_PHP";
-      buildInputs = [ php-embed.unwrapped.dev libxml2 pcre2 libargon2 ]
-        ++ lib.optional stdenv.isLinux systemd;
+      buildInputs = [
+        php-embed.unwrapped.dev
+        libxml2
+        pcre2
+        libargon2
+      ] ++ lib.optional stdenv.isLinux systemd;
     }
   ];
   enabledPlugins = builtins.filter (p: p.enabled) plugins;
@@ -105,24 +109,40 @@ stdenv.mkDerivation rec {
     hash = "sha256-objxAUGvBhTkbQl4GshDP3RsCkAW4z917L9WyaVoYj4=";
   };
 
-  outputs = [ "out" "man" ] ++ map (p: p.name) enabledPlugins;
+  outputs = [
+    "out"
+    "man"
+  ] ++ map (p: p.name) enabledPlugins;
 
   cmakeFlags = with lib;
     [
       "-DENABLE_MAN=ON"
       "-DENABLE_DOC=ON"
       "-DENABLE_TESTS=${if enableTests then "ON" else "OFF"}"
-    ] ++ optionals stdenv.isDarwin
-    [ "-DICONV_LIBRARY=${libiconv}/lib/libiconv.dylib" ]
+    ] ++ optionals
+    stdenv.isDarwin [ "-DICONV_LIBRARY=${libiconv}/lib/libiconv.dylib" ]
     ++ map (p: "-D${p.cmakeFlag}=" + (if p.enabled then "ON" else "OFF"))
     plugins;
 
-  nativeBuildInputs = [ cmake pkg-config asciidoctor ]
-    ++ lib.optional enableTests cpputest;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    asciidoctor
+  ] ++ lib.optional enableTests cpputest;
   buildInputs = with lib;
-    [ ncurses openssl aspell gnutls gettext zlib curl libgcrypt ]
-    ++ optionals stdenv.isDarwin [ libobjc libresolv ]
-    ++ concatMap (p: p.buildInputs) enabledPlugins ++ extraBuildInputs;
+    [
+      ncurses
+      openssl
+      aspell
+      gnutls
+      gettext
+      zlib
+      curl
+      libgcrypt
+    ] ++ optionals stdenv.isDarwin [
+      libobjc
+      libresolv
+    ] ++ concatMap (p: p.buildInputs) enabledPlugins ++ extraBuildInputs;
 
   env.NIX_CFLAGS_COMPILE = "-I${python}/include/${python.libPrefix}"
     # Fix '_res_9_init: undefined symbol' error

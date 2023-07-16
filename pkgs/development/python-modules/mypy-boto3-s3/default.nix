@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-WXqsWLssli0WZAPQvcEM36YqyCxhsC+vaaRhxaUQcIc=";
   };
 
-  propagatedBuildInputs = [ boto3 typing-extensions ];
+  propagatedBuildInputs = [
+    boto3
+    typing-extensions
+  ];
 
   # Project has no tests
   doCheck = false;

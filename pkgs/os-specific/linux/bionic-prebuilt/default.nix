@@ -146,7 +146,10 @@ in stdenvNoCC.mkDerivation rec {
     cp -v $out/include/*.h $dev/include/
   '';
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
   passthru.linuxHeaders = kernelHeaders;
 
   meta = with lib; {

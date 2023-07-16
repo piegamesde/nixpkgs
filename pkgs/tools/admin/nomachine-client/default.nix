@@ -44,8 +44,15 @@ in stdenv.mkDerivation rec {
     rm NX/bin/nxusbd-legacy NX/lib/libnxusb-legacy.so
   '';
 
-  nativeBuildInputs = [ file makeWrapper autoPatchelfHook ];
-  buildInputs = [ jsoncpp libpulseaudio ];
+  nativeBuildInputs = [
+    file
+    makeWrapper
+    autoPatchelfHook
+  ];
+  buildInputs = [
+    jsoncpp
+    libpulseaudio
+  ];
 
   installPhase = ''
     rm bin/nxplayer bin/nxrunner
@@ -96,6 +103,9 @@ in stdenv.mkDerivation rec {
       free = false;
     };
     maintainers = with maintainers; [ talyz ];
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
   };
 }

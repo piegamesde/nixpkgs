@@ -17,7 +17,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-snxbTI4q0YQq8T5NQD3kcsN59iJnhlLiu1Fvr+fCDeQ=";
   };
 
-  nativeBuildInputs = [ cmake python3 ];
+  nativeBuildInputs = [
+    cmake
+    python3
+  ];
 
   meta = with lib; {
     description =

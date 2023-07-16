@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-rnqToFi+d6D6O+JDHQxkVjTc/0RBag6Jqv4uDcE4PNc=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   meta = with lib; {
     inherit (src.meta) homepage;

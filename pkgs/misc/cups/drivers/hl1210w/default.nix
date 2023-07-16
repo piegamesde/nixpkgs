@@ -30,9 +30,17 @@ in stdenv.mkDerivation {
   pname = "cups-brother-hl1210W";
   inherit version;
 
-  srcs = [ lprdeb cupsdeb ];
+  srcs = [
+    lprdeb
+    cupsdeb
+  ];
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ cups ghostscript dpkg a2ps ];
+  buildInputs = [
+    cups
+    ghostscript
+    dpkg
+    a2ps
+  ];
   dontUnpack = true;
 
   installPhase = ''
@@ -49,10 +57,22 @@ in stdenv.mkDerivation {
     patchelf --set-interpreter ${pkgsi686Linux.glibc.out}/lib/ld-linux.so.2 $out/opt/brother/Printers/HL1210W/inf/braddprinter
 
     wrapProgram $out/opt/brother/Printers/HL1210W/lpd/psconvert2 \
-      --prefix PATH ":" ${lib.makeBinPath [ gnused coreutils gawk ]}
+      --prefix PATH ":" ${
+        lib.makeBinPath [
+          gnused
+          coreutils
+          gawk
+        ]
+      }
     wrapProgram $out/opt/brother/Printers/HL1210W/lpd/filter_HL1210W \
       --prefix PATH ":" ${
-        lib.makeBinPath [ ghostscript a2ps file gnused coreutils ]
+        lib.makeBinPath [
+          ghostscript
+          a2ps
+          file
+          gnused
+          coreutils
+        ]
       }
 
     # install cups
@@ -67,7 +87,13 @@ in stdenv.mkDerivation {
     ln -s $out/opt/brother/Printers/HL1210W/cupswrapper/brcupsconfig4 $out/lib/cups/filter/brcupsconfig4
 
     wrapProgram $out/opt/brother/Printers/HL1210W/cupswrapper/brother_lpdwrapper_HL1210W \
-      --prefix PATH ":" ${lib.makeBinPath [ gnused coreutils gawk ]}
+      --prefix PATH ":" ${
+        lib.makeBinPath [
+          gnused
+          coreutils
+          gawk
+        ]
+      }
   '';
 
   meta = {

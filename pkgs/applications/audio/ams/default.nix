@@ -22,10 +22,22 @@ stdenv.mkDerivation rec {
     rev = "3250bbcfea331c4fcb9845305eebded80054973d";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    qt5.wrapQtAppsHook
+  ];
 
-  buildInputs = [ alsa-lib ladspaH libjack2 fftw zita-alsa-pcmi ]
-    ++ (with qt5; [ qtbase qttools ]);
+  buildInputs = [
+    alsa-lib
+    ladspaH
+    libjack2
+    fftw
+    zita-alsa-pcmi
+  ] ++ (with qt5; [
+    qtbase
+    qttools
+  ]);
 
   meta = with lib; {
     description = "Realtime modular synthesizer for ALSA";

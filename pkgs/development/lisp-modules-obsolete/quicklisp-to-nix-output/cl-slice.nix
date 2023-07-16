@@ -10,7 +10,12 @@ args@{
 
   description = "DSL for array slices in Common Lisp.";
 
-  deps = [ args."alexandria" args."anaphora" args."clunit" args."let-plus" ];
+  deps = [
+    args."alexandria"
+    args."anaphora"
+    args."clunit"
+    args."let-plus"
+  ];
 
   src = fetchurl {
     url =

@@ -10,7 +10,10 @@ stdenv.mkDerivation rec {
   pname = "doodle";
   version = "0.7.2";
 
-  buildInputs = [ libextractor gettext ];
+  buildInputs = [
+    libextractor
+    gettext
+  ];
 
   src = fetchurl {
     url =

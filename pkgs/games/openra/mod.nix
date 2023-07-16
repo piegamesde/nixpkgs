@@ -28,7 +28,10 @@ in stdenv.mkDerivation (recursiveUpdate packageAttrs rec {
   pname = "openra-${mod.name}";
   inherit (mod) version;
 
-  srcs = [ mod.src engine.src ];
+  srcs = [
+    mod.src
+    engine.src
+  ];
 
   sourceRoot = ".";
 
@@ -67,7 +70,10 @@ in stdenv.mkDerivation (recursiveUpdate packageAttrs rec {
     make -C ${engineSourceName} install-engine install-common-mod-files DATA_INSTALL_DIR=$out/lib/${pname}
 
     cp -r ${engineSourceName}/mods/{${
-      concatStringsSep "," ([ "common" "modcontent" ] ++ engine.mods)
+      concatStringsSep "," ([
+        "common"
+        "modcontent"
+      ] ++ engine.mods)
     }} mods/* \
       $out/lib/${pname}/mods/
 

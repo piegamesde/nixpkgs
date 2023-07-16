@@ -44,7 +44,10 @@ buildPythonPackage rec {
     echo "graft jaraco" > MANIFEST.in
   '';
 
-  nativeBuildInputs = [ setuptools setuptools-scm ];
+  nativeBuildInputs = [
+    setuptools
+    setuptools-scm
+  ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -67,7 +70,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "jaraco.abode" ];
 
-  nativeCheckInputs = [ pytestCheckHook requests-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    requests-mock
+  ];
 
   preCheck = ''
     export HOME=$TEMP
@@ -86,6 +92,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/jaraco/jaraco.abode";
     description = "Library interfacing to the Abode home security system";
     license = licenses.mit;
-    maintainers = with maintainers; [ jamiemagee dotlambda ];
+    maintainers = with maintainers; [
+      jamiemagee
+      dotlambda
+    ];
   };
 }

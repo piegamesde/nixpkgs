@@ -95,7 +95,11 @@ in stdenv.mkDerivation {
 
   inherit src;
 
-  buildInputs = [ dpkg wrapGAppsHook gtk3 ];
+  buildInputs = [
+    dpkg
+    wrapGAppsHook
+    gtk3
+  ];
   dontUnpack = true;
 
   buildCommand = ''

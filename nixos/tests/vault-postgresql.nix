@@ -10,7 +10,12 @@ import ./make-test-python.nix ({
     ...
   }: {
     name = "vault-postgresql";
-    meta = with pkgs.lib.maintainers; { maintainers = [ lnl7 roberth ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        lnl7
+        roberth
+      ];
+    };
     nodes.machine = {
         lib,
         pkgs,

@@ -102,8 +102,10 @@ stdenv.mkDerivation rec {
     install_name_tool -change @rpath/libzstd.1.dylib $out/lib/libzstd.1.dylib $bin/bin/pzstd
   '');
 
-  outputs = [ "bin" "dev" ] ++ lib.optional stdenv.hostPlatform.isUnix "man"
-    ++ [ "out" ];
+  outputs = [
+    "bin"
+    "dev"
+  ] ++ lib.optional stdenv.hostPlatform.isUnix "man" ++ [ "out" ];
 
   passthru = {
     updateScript = nix-update-script { };

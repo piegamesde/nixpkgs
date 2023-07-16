@@ -29,17 +29,30 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-QQcuhYe3/ZMqQEFJS72+vr1AzJC9Y7mr5Fa5yFsNYIc=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config python3 vala wrapGAppsHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    python3
+    vala
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ clutter-gst clutter-gtk granite gtk3 libgee libhandy ]
-    ++ (with gst_all_1; [
-      gst-libav
-      gst-plugins-bad
-      gst-plugins-base
-      gst-plugins-good
-      gst-plugins-ugly
-      gstreamer
-    ]);
+  buildInputs = [
+    clutter-gst
+    clutter-gtk
+    granite
+    gtk3
+    libgee
+    libhandy
+  ] ++ (with gst_all_1; [
+    gst-libav
+    gst-plugins-bad
+    gst-plugins-base
+    gst-plugins-good
+    gst-plugins-ugly
+    gstreamer
+  ]);
 
   postPatch = ''
     chmod +x meson/post_install.py

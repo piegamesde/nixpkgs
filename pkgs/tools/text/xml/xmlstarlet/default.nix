@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libxml2 libxslt ];
+  buildInputs = [
+    libxml2
+    libxslt
+  ];
 
   preConfigure = ''
     export LIBXSLT_PREFIX=${libxslt.dev}

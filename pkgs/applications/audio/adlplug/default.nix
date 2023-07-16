@@ -40,7 +40,10 @@
   type ? "ADL"
 }:
 
-assert lib.assertOneOf "type" type [ "ADL" "OPN" ];
+assert lib.assertOneOf "type" type [
+  "ADL"
+  "OPN"
+];
 let
   chip = {
     ADL = "OPL3";
@@ -85,9 +88,15 @@ in stdenv.mkDerivation rec {
     "-lXrandr"
   ]);
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ fmt liblo ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+  buildInputs = [
+    fmt
+    liblo
+  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
     alsa-lib
     freetype
     libX11

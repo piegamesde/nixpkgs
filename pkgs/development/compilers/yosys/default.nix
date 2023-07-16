@@ -82,7 +82,11 @@ in stdenv.mkDerivation rec {
   };
 
   enableParallelBuilding = true;
-  nativeBuildInputs = [ pkg-config bison flex ];
+  nativeBuildInputs = [
+    pkg-config
+    bison
+    flex
+  ];
   buildInputs = [
     tcl
     readline
@@ -146,6 +150,10 @@ in stdenv.mkDerivation rec {
     homepage = "https://yosyshq.net/yosys/";
     license = licenses.isc;
     platforms = platforms.all;
-    maintainers = with maintainers; [ shell thoughtpolice emily ];
+    maintainers = with maintainers; [
+      shell
+      thoughtpolice
+      emily
+    ];
   };
 }

@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "1fkq4sqldvf6a25mm2qz95swv1qjg464736091w51djiwqbjyin9";
   };
 
-  buildInputs = [ readline bzip2 ];
+  buildInputs = [
+    readline
+    bzip2
+  ];
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:

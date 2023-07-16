@@ -36,7 +36,10 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256:11snnh5q47nqhzjb9qya6hpnmlzc060958whqvqrh4hc7gnlnqp8";
   };
 
-  nativeBuildInputs = [ makeWrapper vim-customized ];
+  nativeBuildInputs = [
+    makeWrapper
+    vim-customized
+  ];
   buildInputs = [ vim-customized ];
 
   buildPhase = ''
@@ -60,7 +63,13 @@ in stdenv.mkDerivation rec {
     # trailing slash very important for SPACEVIMDIR
     makeWrapper "${vim-customized}/bin/vim" "$out/bin/spacevim" \
         --add-flags "-u $out/SpaceVim/vimrc" --set SPACEVIMDIR "${spacevimdir}/" \
-        --prefix PATH : ${lib.makeBinPath [ fzf git ripgrep ]}
+        --prefix PATH : ${
+          lib.makeBinPath [
+            fzf
+            git
+            ripgrep
+          ]
+        }
     runHook postInstall
   '';
 

@@ -25,8 +25,14 @@ let
         pname = "lib-agent";
         sha256 = "sha256-MwtufyJVPWuK7bbX+9Kv6wEi/zq4ftXrfjrMOYpcIfc=";
       };
-      propagatedBuildInputs = oa.propagatedBuildInputs or [ ]
-        ++ [ bech32 cryptography docutils pycryptodome pynacl wheel ];
+      propagatedBuildInputs = oa.propagatedBuildInputs or [ ] ++ [
+        bech32
+        cryptography
+        docutils
+        pycryptodome
+        pynacl
+        wheel
+      ];
 
       # turn off testing because I can't get it to work
       doCheck = false;
@@ -47,7 +53,10 @@ in python3Packages.buildPythonApplication rec {
     sha256 = "sha256-GAb6crtW6rLAbFtdi6fAGCPjXpKFhravguoGjuNcIxc=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ lib-agent onlykey-cli ];
+  propagatedBuildInputs = with python3Packages; [
+    lib-agent
+    onlykey-cli
+  ];
 
   # move the python library into the sitePackages.
   postInstall = ''

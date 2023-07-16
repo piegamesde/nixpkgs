@@ -19,7 +19,10 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/frpc" "cmd/frps" ];
+  subPackages = [
+    "cmd/frpc"
+    "cmd/frps"
+  ];
 
   meta = with lib; {
     description = "Fast reverse proxy";

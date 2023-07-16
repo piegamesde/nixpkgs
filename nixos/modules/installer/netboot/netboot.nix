@@ -66,13 +66,22 @@ with lib;
         "workdir=/nix/.rw-store/work"
       ];
 
-      depends =
-        [ "/nix/.ro-store" "/nix/.rw-store/store" "/nix/.rw-store/work" ];
+      depends = [
+        "/nix/.ro-store"
+        "/nix/.rw-store/store"
+        "/nix/.rw-store/work"
+      ];
     };
 
-    boot.initrd.availableKernelModules = [ "squashfs" "overlay" ];
+    boot.initrd.availableKernelModules = [
+      "squashfs"
+      "overlay"
+    ];
 
-    boot.initrd.kernelModules = [ "loop" "overlay" ];
+    boot.initrd.kernelModules = [
+      "loop"
+      "overlay"
+    ];
 
     # Closures to be copied to the Nix store, namely the init
     # script and the top-level system configuration directory.
@@ -89,10 +98,10 @@ with lib;
       inherit (config.boot.initrd) compressor;
       prepend = [ "${config.system.build.initialRamdisk}/initrd" ];
 
-      contents = [{
+      contents = [ {
         object = config.system.build.squashfsStore;
         symlink = "/nix-store.squashfs";
-      }];
+      } ];
     };
 
     system.build.netbootIpxeScript = pkgs.writeTextDir "netboot.ipxe" ''

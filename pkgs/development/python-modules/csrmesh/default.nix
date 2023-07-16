@@ -15,7 +15,10 @@ buildPythonPackage rec {
     sha256 = "03lzam54ypcfvqvikh3gsrivvlidmz1ifdq15xv8c5i3n5b178ag";
   };
 
-  propagatedBuildInputs = [ bluepy pycryptodomex ];
+  propagatedBuildInputs = [
+    bluepy
+    pycryptodomex
+  ];
 
   # Project has no test
   doCheck = false;

@@ -44,7 +44,10 @@ in buildGoModule rec {
     description =
       "A fully-modern text-based browser, rendering to TTY and browsers";
     homepage = "https://www.brow.sh/";
-    maintainers = with maintainers; [ kalbasit siraben ];
+    maintainers = with maintainers; [
+      kalbasit
+      siraben
+    ];
     license = lib.licenses.lgpl21;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };

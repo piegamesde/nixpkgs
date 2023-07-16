@@ -8,7 +8,10 @@ args@{
 
   description = "System lacks description";
 
-  deps = [ args."alexandria" args."bordeaux-threads" ];
+  deps = [
+    args."alexandria"
+    args."bordeaux-threads"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/pcall/2010-10-06/pcall-0.3.tgz";

@@ -31,7 +31,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ boost icu ];
+  buildInputs = [
+    boost
+    icu
+  ];
 
   propagatedBuildInputs = [
     # Necessary for projects that try to find libE57Format via CMake
@@ -60,7 +63,10 @@ stdenv.mkDerivation rec {
     description = "Library for reading & writing the E57 file format";
     homepage = "https://github.com/asmaloney/libE57Format";
     license = licenses.boost;
-    maintainers = with maintainers; [ chpatrick nh2 ];
+    maintainers = with maintainers; [
+      chpatrick
+      nh2
+    ];
     platforms =
       platforms.linux; # because of the .so buiding in `postInstall` above
   };

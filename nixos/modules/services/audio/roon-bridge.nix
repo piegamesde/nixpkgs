@@ -56,10 +56,10 @@ in {
     };
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPortRanges = [{
+      allowedTCPPortRanges = [ {
         from = 9100;
         to = 9200;
-      }];
+      } ];
       allowedUDPPorts = [ 9003 ];
       extraCommands = optionalString (!config.networking.nftables.enable) ''
         iptables -A INPUT -s 224.0.0.0/4 -j ACCEPT

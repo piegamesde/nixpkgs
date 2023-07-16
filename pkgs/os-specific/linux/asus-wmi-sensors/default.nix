@@ -38,7 +38,10 @@ stdenv.mkDerivation rec {
       "Linux HWMON (lmsensors) sensors driver for various ASUS Ryzen and Threadripper motherboards";
     homepage = "https://github.com/electrified/asus-wmi-sensors";
     license = licenses.gpl2;
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
     maintainers = with maintainers; [ Frostman ];
     broken = versionOlder kernel.version "4.12";
   };

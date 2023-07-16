@@ -77,7 +77,16 @@ let
     pname = "pipewire";
     version = "0.3.70";
 
-    outputs = [ "out" "lib" "pulse" "jack" "dev" "doc" "man" "installedTests" ];
+    outputs = [
+      "out"
+      "lib"
+      "pulse"
+      "jack"
+      "dev"
+      "doc"
+      "man"
+      "installedTests"
+    ];
 
     src = fetchFromGitLab {
       domain = "gitlab.freedesktop.org";
@@ -103,8 +112,16 @@ let
     ];
 
     strictDeps = true;
-    nativeBuildInputs =
-      [ docutils doxygen graphviz meson ninja pkg-config python3 glib ];
+    nativeBuildInputs = [
+      docutils
+      doxygen
+      graphviz
+      meson
+      ninja
+      pkg-config
+      python3
+      glib
+    ];
 
     buildInputs = [
       alsa-lib
@@ -125,8 +142,10 @@ let
       ++ lib.optionals gstreamerSupport [
         gst_all_1.gst-plugins-base
         gst_all_1.gstreamer
-      ] ++ lib.optionals libcameraSupport [ libcamera libdrm ]
-      ++ lib.optional ffmpegSupport ffmpeg ++ lib.optionals bluezSupport [
+      ] ++ lib.optionals libcameraSupport [
+        libcamera
+        libdrm
+      ] ++ lib.optional ffmpegSupport ffmpeg ++ lib.optionals bluezSupport [
         bluez
         libfreeaptx
         ldacbt
@@ -137,9 +156,11 @@ let
       ] ++ lib.optional nativeModemManagerSupport modemmanager
       ++ lib.optional pulseTunnelSupport libpulseaudio
       ++ lib.optional zeroconfSupport avahi ++ lib.optional raopSupport openssl
-      ++ lib.optional rocSupport roc-toolkit
-      ++ lib.optionals x11Support [ libcanberra xorg.libX11 xorg.libXfixes ]
-      ++ lib.optional mysofaSupport libmysofa;
+      ++ lib.optional rocSupport roc-toolkit ++ lib.optionals x11Support [
+        libcanberra
+        xorg.libX11
+        xorg.libXfixes
+      ] ++ lib.optional mysofaSupport libmysofa;
 
     # Valgrind binary is required for running one optional test.
     nativeCheckInputs = lib.optional withValgrind valgrind;
@@ -215,7 +236,11 @@ let
       homepage = "https://pipewire.org/";
       license = licenses.mit;
       platforms = platforms.linux;
-      maintainers = with maintainers; [ jtojnar kranzes k900 ];
+      maintainers = with maintainers; [
+        jtojnar
+        kranzes
+        k900
+      ];
     };
   };
 

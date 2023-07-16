@@ -32,9 +32,17 @@ in stdenv.mkDerivation rec {
     substituteInPlace configure.ac --replace "-f elf64" "-f macho64"
   '';
 
-  nativeBuildInputs = [ autoreconfHook perl ] ++ lib.optionals isx86 [ nasm ];
+  nativeBuildInputs = [
+    autoreconfHook
+    perl
+  ] ++ lib.optionals isx86 [ nasm ];
 
-  buildInputs = [ zlib lzo bzip2 lz4 ];
+  buildInputs = [
+    zlib
+    lzo
+    bzip2
+    lz4
+  ];
 
   configureFlags = lib.optionals (!isx86) [ "--disable-asm" ];
 

@@ -58,7 +58,10 @@ stdenv.mkDerivation rec {
     description = "A DSP tonewheel organ emulator";
     homepage = "https://setbfree.org";
     license = licenses.gpl2;
-    platforms = [ "x86_64-linux" "i686-linux" ]; # fails on ARM and Darwin
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ]; # fails on ARM and Darwin
     maintainers = [ maintainers.goibhniu ];
   };
 }

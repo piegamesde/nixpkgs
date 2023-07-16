@@ -27,9 +27,17 @@ buildPythonPackage rec {
     sha256 = "sha256-FZipl6Z9AfiL6WH0kvUn8bVxt8JLdDVlmTSqnyxe0nY=";
   };
 
-  nativeBuildInputs = [ toml-adapt poetry-core ];
+  nativeBuildInputs = [
+    toml-adapt
+    poetry-core
+  ];
 
-  propagatedBuildInputs = [ niapy numpy scikit-learn torch ];
+  propagatedBuildInputs = [
+    niapy
+    numpy
+    scikit-learn
+    torch
+  ];
 
   # create niapy and torch dep version consistent
   preBuild = ''

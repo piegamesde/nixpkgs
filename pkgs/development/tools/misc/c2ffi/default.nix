@@ -28,7 +28,11 @@ in llvmPackages.stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ llvmPackages.llvm llvmPackages.clang llvmPackages.libclang ];
+  buildInputs = [
+    llvmPackages.llvm
+    llvmPackages.clang
+    llvmPackages.libclang
+  ];
 
   # This isn't much, but...
   doInstallCheck = true;

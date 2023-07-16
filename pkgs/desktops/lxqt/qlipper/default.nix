@@ -21,7 +21,10 @@ mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ qtbase qttools ];
+  buildInputs = [
+    qtbase
+    qttools
+  ];
 
   passthru.updateScript = gitUpdater { };
 

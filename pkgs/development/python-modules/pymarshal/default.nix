@@ -32,7 +32,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ bson ];
 
-  nativeCheckInputs = [ pytestCheckHook bson pyyaml ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    bson
+    pyyaml
+  ];
 
   pytestFlagsArray = [ "test" ];
 

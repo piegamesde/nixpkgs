@@ -44,7 +44,13 @@ buildPythonPackage rec {
   '';
 
   passthru.optional-dependencies = {
-    cli = [ click click-default-group docformatter jinja2 toposort ];
+    cli = [
+      click
+      click-default-group
+      docformatter
+      jinja2
+      toposort
+    ];
     lxml = [ lxml ];
     soap = [ requests ];
   };

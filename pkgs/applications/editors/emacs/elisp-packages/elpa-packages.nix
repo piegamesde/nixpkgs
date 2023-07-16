@@ -81,7 +81,10 @@ let
           # which are both needed to compile the tools
           # we need at runtime
           dontUnpack = false;
-          srcs = [ super.ada-mode.src self.wisi.src ];
+          srcs = [
+            super.ada-mode.src
+            self.wisi.src
+          ];
 
           sourceRoot = "ada-mode-${self.ada-mode.version}";
 

@@ -29,10 +29,21 @@ buildPythonPackage rec {
     hash = "sha256-GT9XMHzEOg04DZ/saacBfqAKc5A755m2zblJvwQjd1w=";
   };
 
-  propagatedBuildInputs =
-    [ certifi configparser future python-dateutil pytz urllib3 ];
+  propagatedBuildInputs = [
+    certifi
+    configparser
+    future
+    python-dateutil
+    pytz
+    urllib3
+  ];
 
-  nativeCheckInputs = [ faker mock nose pytestCheckHook ];
+  nativeCheckInputs = [
+    faker
+    mock
+    nose
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [
     # example credentials aren't present

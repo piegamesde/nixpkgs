@@ -12,10 +12,11 @@ let
 
 in {
 
-  imports = [
-    (lib.mkRemovedOptionModule [ "zramSwap" "numDevices" ]
-      "Using ZRAM devices as general purpose ephemeral block devices is no longer supported")
-  ];
+  imports = [ (lib.mkRemovedOptionModule [
+    "zramSwap"
+    "numDevices"
+  ]
+    "Using ZRAM devices as general purpose ephemeral block devices is no longer supported") ];
 
   ###### interface
 
@@ -77,7 +78,12 @@ in {
       algorithm = lib.mkOption {
         default = "zstd";
         example = "lz4";
-        type = with lib.types; either (enum [ "lzo" "lz4" "zstd" ]) str;
+        type = with lib.types;
+          either (enum [
+            "lzo"
+            "lz4"
+            "zstd"
+          ]) str;
         description = lib.mdDoc ''
           Compression algorithm. `lzo` has good compression,
           but is slow. `lz4` has bad compression, but is fast.
@@ -102,14 +108,14 @@ in {
 
   config = lib.mkIf cfg.enable {
 
-    assertions = [{
+    assertions = [ {
       assertion = cfg.writebackDevice == null || cfg.swapDevices <= 1;
       message =
         "A single writeback device cannot be shared among multiple zram devices";
-    }];
+    } ];
 
-    system.requiredKernelConfig = with config.lib.kernelConfig;
-      [ (isModule "ZRAM") ];
+    system.requiredKernelConfig =
+      with config.lib.kernelConfig; [ (isModule "ZRAM") ];
 
     # Disabling this for the moment, as it would create and mkswap devices twice,
     # once in stage 2 boot, and again when the zram-reloader service starts.

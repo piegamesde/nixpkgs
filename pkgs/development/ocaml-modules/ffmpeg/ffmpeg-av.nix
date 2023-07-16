@@ -22,9 +22,15 @@ buildDunePackage {
   inherit (ffmpeg-base) version src duneVersion;
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dune-configurator ]
-    ++ lib.optionals stdenv.isDarwin [ AudioToolbox VideoToolbox ];
-  propagatedBuildInputs = [ ffmpeg-avutil ffmpeg-avcodec ffmpeg.dev ];
+  buildInputs = [ dune-configurator ] ++ lib.optionals stdenv.isDarwin [
+    AudioToolbox
+    VideoToolbox
+  ];
+  propagatedBuildInputs = [
+    ffmpeg-avutil
+    ffmpeg-avcodec
+    ffmpeg.dev
+  ];
 
   doCheck = true;
 

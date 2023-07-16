@@ -24,7 +24,10 @@ let
 in mkDerivation {
   inherit pname version src;
 
-  nativeBuildInputs = [ qmake makeWrapper ];
+  nativeBuildInputs = [
+    qmake
+    makeWrapper
+  ];
 
   buildInputs = [ perlPackages.perl ];
 

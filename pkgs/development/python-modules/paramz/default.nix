@@ -18,7 +18,12 @@ buildPythonPackage rec {
     sha256 = "0917211c0f083f344e7f1bc997e0d713dbc147b6380bc19f606119394f820b9a";
   };
 
-  propagatedBuildInputs = [ numpy scipy six decorator ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    six
+    decorator
+  ];
   nativeCheckInputs = [ nose ];
 
   # Ran 113 tests in 3.082s

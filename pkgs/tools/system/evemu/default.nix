@@ -20,9 +20,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-SQDaARuqBMBVlUz+Nw6mjdxaZfVOukmzTlIqy8U2rus=";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook python3Packages.python ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+    python3Packages.python
+  ];
 
-  buildInputs = [ python3Packages.evdev libevdev ];
+  buildInputs = [
+    python3Packages.evdev
+    libevdev
+  ];
 
   strictDeps = true;
 
@@ -30,7 +37,10 @@ stdenv.mkDerivation rec {
     description =
       "Records and replays device descriptions and events to emulate input devices through the kernel's input system";
     homepage = "https://www.freedesktop.org/wiki/Evemu/";
-    license = with licenses; [ lgpl3Only gpl3Only ];
+    license = with licenses; [
+      lgpl3Only
+      gpl3Only
+    ];
     maintainers = [ maintainers.amorsillo ];
     platforms = platforms.linux;
   };

@@ -69,9 +69,9 @@ in {
       };
     };
 
-    systemd.tmpfiles.rules = [
-      "d /var/lib/misc 0755 root root -" # for dnsmasq.leases
-    ];
+    systemd.tmpfiles.rules =
+      [ "d /var/lib/misc 0755 root root -" # for dnsmasq.leases
+      ];
   };
 
 }

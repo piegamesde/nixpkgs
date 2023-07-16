@@ -46,13 +46,21 @@ stdenv.mkDerivation rec {
     hash = "sha256-EKt5mH9GmzeR4zdPDFOt26T9STpG1khVrY4DFIv5Maw=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   buildInputs = with lib;
-    [ openssl_1_1 avahi popt libconfig ] ++ optional enableLibdaemon libdaemon
-    ++ optional enableAlsa alsa-lib ++ optional enablePulse libpulseaudio
-    ++ optional enablePipewire pipewire ++ optional enableJack libjack2
-    ++ optional enableSoxr soxr ++ optionals enableAirplay2 [
+    [
+      openssl_1_1
+      avahi
+      popt
+      libconfig
+    ] ++ optional enableLibdaemon libdaemon ++ optional enableAlsa alsa-lib
+    ++ optional enablePulse libpulseaudio ++ optional enablePipewire pipewire
+    ++ optional enableJack libjack2 ++ optional enableSoxr soxr
+    ++ optionals enableAirplay2 [
       libplist
       libsodium
       libgcrypt
@@ -89,7 +97,10 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/mikebrady/shairport-sync";
     description = "Airtunes server and emulator with multi-room capabilities";
     license = licenses.mit;
-    maintainers = with maintainers; [ lnl7 jordanisaacs ];
+    maintainers = with maintainers; [
+      lnl7
+      jordanisaacs
+    ];
     platforms = platforms.unix;
   };
 }

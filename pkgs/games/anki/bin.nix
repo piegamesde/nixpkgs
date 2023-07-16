@@ -58,8 +58,15 @@ let
 
   meta = with lib; {
     inherit (anki.meta) license homepage description longDescription;
-    platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
-    maintainers = with maintainers; [ mahmoudk1000 atemu ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
+    maintainers = with maintainers; [
+      mahmoudk1000
+      atemu
+    ];
   };
 
   passthru = { inherit sources; };
@@ -69,7 +76,11 @@ let
     name = null; # Appimage sets it to "appimage-env"
 
     # Dependencies of anki
-    targetPkgs = pkgs: (with pkgs; [ xorg.libxkbfile krb5 ]);
+    targetPkgs = pkgs:
+      (with pkgs; [
+        xorg.libxkbfile
+        krb5
+      ]);
 
     runScript = writeShellScript "anki-wrapper.sh" ''
       exec ${unpacked}/bin/anki ${lib.strings.escapeShellArgs commandLineArgs}

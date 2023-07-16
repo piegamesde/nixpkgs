@@ -20,7 +20,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-i9tIz5UckON8uwGlE62b/y0M0Neqt86rR3VdNUWBo04=";
   };
 
-  nativeBuildInputs = [ gettext meson ninja python3 ];
+  nativeBuildInputs = [
+    gettext
+    meson
+    ninja
+    python3
+  ];
 
   postPatch = ''
     chmod +x meson/symlink.py

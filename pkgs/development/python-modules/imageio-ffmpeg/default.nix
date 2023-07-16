@@ -19,12 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-/aoFrRD+Bwt/qOX2FcsNKPO5t5HQCvbSoR5pQVjRCqk=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./ffmpeg-path.patch;
-      ffmpeg = "${ffmpeg_4}/bin/ffmpeg";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./ffmpeg-path.patch;
+    ffmpeg = "${ffmpeg_4}/bin/ffmpeg";
+  }) ];
 
   checkPhase = ''
     runHook preCheck

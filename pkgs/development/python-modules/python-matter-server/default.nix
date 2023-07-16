@@ -46,15 +46,26 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs =
-    [ aiohttp aiorun coloredlogs dacite orjson home-assistant-chip-clusters ];
+  propagatedBuildInputs = [
+    aiohttp
+    aiorun
+    coloredlogs
+    dacite
+    orjson
+    home-assistant-chip-clusters
+  ];
 
   passthru.optional-dependencies = {
-    server = [ cryptography home-assistant-chip-core ];
+    server = [
+      cryptography
+      home-assistant-chip-core
+    ];
   };
 
-  nativeCheckInputs = [ pytest-aiohttp pytestCheckHook ]
-    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [
+    pytest-aiohttp
+    pytestCheckHook
+  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   preCheck = let
     pythonEnv = python.withPackages

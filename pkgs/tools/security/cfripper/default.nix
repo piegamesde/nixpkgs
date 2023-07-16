@@ -26,7 +26,10 @@ python3.pkgs.buildPythonApplication rec {
     setuptools
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ moto pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [
+    moto
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

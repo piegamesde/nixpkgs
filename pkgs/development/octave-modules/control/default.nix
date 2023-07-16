@@ -31,9 +31,15 @@ buildOctavePackage rec {
     popd
   '';
 
-  nativeBuildInputs = [ gfortran autoreconfHook ];
+  nativeBuildInputs = [
+    gfortran
+    autoreconfHook
+  ];
 
-  buildInputs = [ lapack blas ];
+  buildInputs = [
+    lapack
+    blas
+  ];
 
   meta = with lib; {
     homepage = "https://gnu-octave.github.io/packages/control/";

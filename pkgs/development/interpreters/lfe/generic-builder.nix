@@ -46,13 +46,23 @@ buildRebar3 {
 
   inherit src version;
 
-  nativeBuildInputs = [ makeWrapper erlang ];
+  nativeBuildInputs = [
+    makeWrapper
+    erlang
+  ];
   beamDeps = [ proper ];
-  patches = [ ./fix-rebar-config.patch ./dedup-ebins.patch ] ++ patches;
+  patches = [
+    ./fix-rebar-config.patch
+    ./dedup-ebins.patch
+  ] ++ patches;
   doCheck = true;
   checkTarget = "travis";
 
-  makeFlags = [ "-e" "MANDB=''" "PREFIX=$$out" ];
+  makeFlags = [
+    "-e"
+    "MANDB=''"
+    "PREFIX=$$out"
+  ];
 
   # These installPhase tricks are based on Elixir's Makefile.
   # TODO: Make, upload, and apply a patch.
@@ -79,7 +89,13 @@ buildRebar3 {
     # Add some stuff to PATH so the scripts can run without problems.
     for f in $out/bin/*; do
       wrapProgram $f \
-        --prefix PATH ":" "${makeBinPath [ erlang coreutils bash ]}:$out/bin"
+        --prefix PATH ":" "${
+          makeBinPath [
+            erlang
+            coreutils
+            bash
+          ]
+        }:$out/bin"
       substituteInPlace $f --replace "/usr/bin/env" "${coreutils}/bin/env"
     done
   '';

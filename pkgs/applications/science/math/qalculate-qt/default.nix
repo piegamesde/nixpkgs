@@ -24,9 +24,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-9DT1U0iKj5C/Tc9MggEr/RwHhVr4GSOJQVhTiLFk9NY=";
   };
 
-  nativeBuildInputs = [ qmake intltool pkg-config wrapQtAppsHook ];
-  buildInputs = [ libqalculate qtbase qttools qtsvg ]
-    ++ lib.optionals stdenv.isLinux [ qtwayland ];
+  nativeBuildInputs = [
+    qmake
+    intltool
+    pkg-config
+    wrapQtAppsHook
+  ];
+  buildInputs = [
+    libqalculate
+    qtbase
+    qttools
+    qtsvg
+  ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
 
   postPatch = ''
     substituteInPlace qalculate-qt.pro\

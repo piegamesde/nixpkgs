@@ -17,14 +17,12 @@ buildPythonPackage rec {
     hash = "sha256-8yMCFEf55zB40hu5KMSPTavq6z87N+gDxta5hzXoFIM=";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "remove-leftover-six-import.patch";
-      url =
-        "https://github.com/tych0/xcffib/commit/8a488867d30464913706376ca3a9f4c98ca6c5cf.patch";
-      hash = "sha256-wEms0gC7tVqtmKMjjpH/34kdQ6HUV0h67bUGbgijlqw=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "remove-leftover-six-import.patch";
+    url =
+      "https://github.com/tych0/xcffib/commit/8a488867d30464913706376ca3a9f4c98ca6c5cf.patch";
+    hash = "sha256-wEms0gC7tVqtmKMjjpH/34kdQ6HUV0h67bUGbgijlqw=";
+  }) ];
 
   postPatch = ''
     # Hardcode cairo library path
@@ -35,7 +33,11 @@ buildPythonPackage rec {
 
   propagatedNativeBuildInputs = [ cffi ];
 
-  nativeCheckInputs = [ pytestCheckHook xorg.xeyes xorg.xorgserver ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    xorg.xeyes
+    xorg.xorgserver
+  ];
 
   preCheck = ''
     # import from $out

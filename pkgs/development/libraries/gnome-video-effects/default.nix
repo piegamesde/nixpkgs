@@ -26,7 +26,12 @@ stdenv.mkDerivation rec {
     ./fix-pc-file.patch
   ];
 
-  nativeBuildInputs = [ meson ninja pkg-config gettext ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gettext
+  ];
 
   passthru = {
     updateScript = gnome.updateScript {

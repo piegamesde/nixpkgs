@@ -52,7 +52,10 @@ in {
   config = mkIf cfg.enable {
     systemd.services.interception-tools = {
       description = "Interception tools";
-      path = [ pkgs.bash pkgs.interception-tools ] ++ cfg.plugins;
+      path = [
+        pkgs.bash
+        pkgs.interception-tools
+      ] ++ cfg.plugins;
       serviceConfig = {
         ExecStart = ''
           ${pkgs.interception-tools}/bin/udevmon -c \

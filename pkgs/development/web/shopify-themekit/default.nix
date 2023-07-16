@@ -17,7 +17,10 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-8QpkYj0fQb4plzvk6yCrZho8rq9VBiLft/EO3cczciI=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   postInstall = ''
     # Keep `theme` only

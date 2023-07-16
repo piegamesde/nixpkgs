@@ -26,13 +26,16 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ py ];
 
-  nativeCheckInputs = [ pytestCheckHook tornado ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    tornado
+  ];
 
   pythonImportsCheck = [ "zmq" ];
 
-  pytestFlagsArray = [
-    "$out/${python.sitePackages}/zmq/tests/" # Folder with tests
-  ];
+  pytestFlagsArray =
+    [ "$out/${python.sitePackages}/zmq/tests/" # Folder with tests
+    ];
 
   disabledTests = [
     # Tests hang

@@ -25,8 +25,11 @@ in stdenv.mkDerivation rec {
     hash = "sha256-GjRkDWefQFdT4i9hRcQhYsY4beMUIXxy38I5lsQytyA=";
   };
 
-  nativeBuildInputs = [ zlib libpng libtiff ]
-    ++ lib.optionals (subproject != "library") [ jabcode ];
+  nativeBuildInputs = [
+    zlib
+    libpng
+    libtiff
+  ] ++ lib.optionals (subproject != "library") [ jabcode ];
 
   preConfigure = "cd src/${subdir}";
 

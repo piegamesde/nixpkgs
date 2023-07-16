@@ -20,7 +20,11 @@ with lib;
       };
 
       digits = mkOption {
-        type = types.enum [ 6 7 8 ];
+        type = types.enum [
+          6
+          7
+          8
+        ];
         default = 6;
         description = lib.mdDoc ''
           Specify the length of the one-time password in number of

@@ -20,7 +20,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ gnutls guile libtool texinfo ];
+  buildInputs = [
+    gnutls
+    guile
+    libtool
+    texinfo
+  ];
 
   configureFlags = [
     "--with-guile-site-dir=${builtins.placeholder "out"}/share/guile/site"

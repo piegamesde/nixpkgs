@@ -29,9 +29,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ur59cqdZqXIY2dDUSie9XsxyRomVBxIW2IVKAgWYC38=";
   };
 
-  outputs = [ "dev" "out" ];
+  outputs = [
+    "dev"
+    "out"
+  ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config wayland-scanner ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    wayland-scanner
+  ];
 
   buildInputs = [ libdrm ] ++ lib.optionals (!minimal) [
     libva1-minimal
@@ -45,9 +52,9 @@ stdenv.mkDerivation rec {
   # TODO: share libs between minimal and !minimal - perhaps just symlink them
 
   # Add FHS paths for non-NixOS applications.
-  configureFlags = [
-    "--with-drivers-path=${mesa.drivers.driverLink}/lib/dri:/usr/lib/dri:/usr/lib32/dri"
-  ] ++ lib.optionals (!minimal) [ "--enable-glx" ];
+  configureFlags =
+    [ "--with-drivers-path=${mesa.drivers.driverLink}/lib/dri:/usr/lib/dri:/usr/lib32/dri" ]
+    ++ lib.optionals (!minimal) [ "--enable-glx" ];
 
   installFlags = [ "dummy_drv_video_ladir=$(out)/lib/dri" ];
 

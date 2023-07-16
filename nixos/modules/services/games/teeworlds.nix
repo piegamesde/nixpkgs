@@ -88,7 +88,10 @@ in {
         description = lib.mdDoc ''
           Extra configuration lines for the {file}`teeworlds.cfg`. See [Teeworlds Documentation](https://www.teeworlds.com/?page=docs&wiki=server_settings).
         '';
-        example = [ "sv_map dm1" "sv_gametype dm" ];
+        example = [
+          "sv_map dm1"
+          "sv_gametype dm"
+        ];
       };
     };
   };
@@ -114,7 +117,10 @@ in {
         ProtectKernelLogs = true;
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         SystemCallArchitectures = "native";
       };

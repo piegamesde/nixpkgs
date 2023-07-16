@@ -39,7 +39,10 @@ stdenv.mkDerivation (finalAttrs: {
     export CC=cc
   '';
 
-  configurePlatforms = [ "build" "target" ];
+  configurePlatforms = [
+    "build"
+    "target"
+  ];
   # flags copied from https://community.arm.com/support-forums/f/compilers-and-libraries-forum/53310/gcc-arm-none-eabi-what-were-the-newlib-compilation-options
   # sort alphabetically
   configureFlags = [ "--host=${stdenv.buildPlatform.config}" ]

@@ -22,8 +22,17 @@ stdenv.mkDerivation rec {
   };
 
   makeFlags = [ "PREFIX=$(out)" ];
-  nativeBuildInputs = [ pandoc perl ];
-  buildInputs = [ xdotool wmctrl xprop nettools perl ];
+  nativeBuildInputs = [
+    pandoc
+    perl
+  ];
+  buildInputs = [
+    xdotool
+    wmctrl
+    xprop
+    nettools
+    perl
+  ];
   postFixup = let runtimePath = lib.makeBinPath buildInputs;
   in ''
     sed -i "2 i export PATH=${runtimePath}:\$PATH" $out/bin/jumpapp

@@ -20,7 +20,10 @@ buildPythonPackage rec {
 
   disabled = !isPy3k;
 
-  buildInputs = [ libGL libX11 ];
+  buildInputs = [
+    libGL
+    libX11
+  ];
 
   postPatch = ''
     substituteInPlace glcontext/x11.cpp \

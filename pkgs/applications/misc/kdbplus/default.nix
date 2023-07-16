@@ -10,7 +10,12 @@
 
 assert (stdenv.hostPlatform.system == "i686-linux");
 
-let libPath = lib.makeLibraryPath [ stdenv.cc.libc stdenv.cc.cc zlib ];
+let
+  libPath = lib.makeLibraryPath [
+    stdenv.cc.libc
+    stdenv.cc.cc
+    zlib
+  ];
 in stdenv.mkDerivation rec {
   pname = "kdbplus";
   version = "3.6";

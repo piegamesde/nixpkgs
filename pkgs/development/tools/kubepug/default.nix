@@ -17,8 +17,11 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-faco4/6ldZiD2pkvjFgWDHbpCcNA4dGXxVhuO3PK77k=";
 
-  ldflags =
-    [ "-s" "-w" "-X=github.com/rikatz/kubepug/version.Version=${src.rev}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X=github.com/rikatz/kubepug/version.Version=${src.rev}"
+  ];
 
   patches = [ ./skip-external-network-tests.patch ];
 

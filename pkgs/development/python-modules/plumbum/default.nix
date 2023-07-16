@@ -31,10 +31,19 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ hatchling hatch-vcs ];
+  nativeBuildInputs = [
+    hatchling
+    hatch-vcs
+  ];
 
-  nativeCheckInputs =
-    [ openssh ps psutil pytest-mock pytest-timeout pytestCheckHook ];
+  nativeCheckInputs = [
+    openssh
+    ps
+    psutil
+    pytest-mock
+    pytest-timeout
+    pytestCheckHook
+  ];
 
   preCheck = ''
     export HOME=$TMP

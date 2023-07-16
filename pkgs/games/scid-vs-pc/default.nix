@@ -19,7 +19,11 @@ tcl.mkTclDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ tk libX11 zlib ];
+  buildInputs = [
+    tk
+    libX11
+    zlib
+  ];
 
   prePatch = ''
     sed -i -e '/^ *set headerPath *{/a ${tcl}/include ${tk}/include' \
@@ -76,7 +80,10 @@ tcl.mkTclDerivation rec {
     comment = meta.description;
     icon = "scid";
     exec = "scid";
-    categories = [ "Game" "BoardGame" ];
+    categories = [
+      "Game"
+      "BoardGame"
+    ];
   };
 
   meta = with lib; {

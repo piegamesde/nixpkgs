@@ -19,9 +19,16 @@ mkDerivation rec {
     sha256 = "sha256-YDgFRXFBM1tjLP99mHYJadgccHJYYPAZ1kqR+FngLKU=";
   };
 
-  nativeBuildInputs = [ wrapQtAppsHook autoPatchelfHook ];
+  nativeBuildInputs = [
+    wrapQtAppsHook
+    autoPatchelfHook
+  ];
 
-  buildInputs = [ qtbase qtmultimedia qtx11extras ];
+  buildInputs = [
+    qtbase
+    qtmultimedia
+    qtx11extras
+  ];
 
   installPhase = ''
     mkdir -p $out/bin

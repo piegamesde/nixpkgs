@@ -35,8 +35,11 @@
 
 let
   cpuName = stdenv.hostPlatform.parsed.cpu.name;
-  runtimeDependencies = [ cups ]
-    ++ lib.optionals gtkSupport [ cairo glib gtk3 ];
+  runtimeDependencies = [ cups ] ++ lib.optionals gtkSupport [
+    cairo
+    glib
+    gtk3
+  ];
   runtimeLibraryPath = lib.makeLibraryPath runtimeDependencies;
   validCpuTypes = builtins.attrNames lib.systems.parse.cpuTypes;
   providedCpuTypes = builtins.filter (arch: builtins.elem arch validCpuTypes)
@@ -65,7 +68,10 @@ let
       zlib
     ] ++ lib.optional stdenv.isAarch32 libffi;
 
-    nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
+    nativeBuildInputs = [
+      autoPatchelfHook
+      makeWrapper
+    ];
 
     # See: https://github.com/NixOS/patchelf/issues/10
     dontStrip = 1;

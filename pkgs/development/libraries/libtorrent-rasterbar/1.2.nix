@@ -38,10 +38,21 @@ in stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ automake autoconf libtool pkg-config ];
+  nativeBuildInputs = [
+    automake
+    autoconf
+    libtool
+    pkg-config
+  ];
 
-  buildInputs = [ boostPython openssl zlib python libiconv ncurses ]
-    ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
+  buildInputs = [
+    boostPython
+    openssl
+    zlib
+    python
+    libiconv
+    ncurses
+  ] ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
 
   preConfigure = "./autotool.sh";
 
@@ -50,7 +61,11 @@ in stdenv.mkDerivation {
     moveToOutput "lib/${python.libPrefix}" "$python"
   '';
 
-  outputs = [ "out" "dev" "python" ];
+  outputs = [
+    "out"
+    "dev"
+    "python"
+  ];
 
   configureFlags = [
     "--enable-python-binding"

@@ -21,8 +21,15 @@ mkDerivation rec {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ wrapQtAppsHook makeWrapper python3 ];
-  propagatedBuildInputs = with python3.pkgs; [ pyqt5 docutils ];
+  nativeBuildInputs = [
+    wrapQtAppsHook
+    makeWrapper
+    python3
+  ];
+  propagatedBuildInputs = with python3.pkgs; [
+    pyqt5
+    docutils
+  ];
 
   desktopItem = makeDesktopItem {
     name = "leo-editor";
@@ -32,7 +39,11 @@ mkDerivation rec {
     comment = meta.description;
     desktopName = "Leo";
     genericName = "Text Editor";
-    categories = [ "Application" "Development" "IDE" ];
+    categories = [
+      "Application"
+      "Development"
+      "IDE"
+    ];
     startupNotify = false;
     mimeTypes = [
       "text/plain"

@@ -23,10 +23,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xLxadSxVY3DjFDQrqj3BuOvdMaKdFSLjocfzovJCBB0=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ boost protobuf icu gtest ]
-    ++ lib.optional stdenv.isDarwin Foundation;
+  buildInputs = [
+    boost
+    protobuf
+    icu
+    gtest
+  ] ++ lib.optional stdenv.isDarwin Foundation;
 
   cmakeDir = "../cpp";
   cmakeFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [

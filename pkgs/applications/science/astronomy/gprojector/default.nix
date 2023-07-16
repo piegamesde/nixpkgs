@@ -19,19 +19,20 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-aw/p6mbTJl023d46NUZV3pnP4WVdYqZTFmgGlHEKfq0=";
   };
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "gprojector";
-      exec = "gprojector";
-      desktopName = "G.Projector";
-      comment = meta.description;
-      categories = [ "Science" ];
-      startupWMClass = "gov-nasa-giss-projector-GProjector";
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "gprojector";
+    exec = "gprojector";
+    desktopName = "G.Projector";
+    comment = meta.description;
+    categories = [ "Science" ];
+    startupWMClass = "gov-nasa-giss-projector-GProjector";
+  }) ];
 
   buildInputs = [ jre ];
-  nativeBuildInputs = [ makeWrapper copyDesktopItems ];
+  nativeBuildInputs = [
+    makeWrapper
+    copyDesktopItems
+  ];
 
   dontConfigure = true;
   dontBuild = true;

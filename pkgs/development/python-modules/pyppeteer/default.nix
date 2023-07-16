@@ -32,10 +32,21 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [ appdirs certifi importlib-metadata pyee tqdm urllib3 websockets ];
+  propagatedBuildInputs = [
+    appdirs
+    certifi
+    importlib-metadata
+    pyee
+    tqdm
+    urllib3
+    websockets
+  ];
 
-  nativeCheckInputs = [ syncer pytest-xdist pytestCheckHook ];
+  nativeCheckInputs = [
+    syncer
+    pytest-xdist
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

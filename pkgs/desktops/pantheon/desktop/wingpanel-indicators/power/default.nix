@@ -31,16 +31,29 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-TxrskbwitsilTidWifSWg9IP6BzH1y/OOrFohlENJmM=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      gnome_power_manager = gnome-power-manager;
-    })
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    gnome_power_manager = gnome-power-manager;
+  }) ];
+
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    python3
+    vala
   ];
 
-  nativeBuildInputs = [ meson ninja pkg-config python3 vala ];
-
-  buildInputs = [ bamf granite gtk3 libgee libgtop libnotify udev wingpanel ];
+  buildInputs = [
+    bamf
+    granite
+    gtk3
+    libgee
+    libgtop
+    libnotify
+    udev
+    wingpanel
+  ];
 
   postPatch = ''
     chmod +x meson/post_install.py

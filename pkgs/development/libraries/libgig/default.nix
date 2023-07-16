@@ -20,9 +20,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-oG0Jh4eAxsGd2NucM1RNU6kzV/niexSpg6qrpo//p5Q=";
   };
 
-  nativeBuildInputs = [ autoconf automake libtool pkg-config ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+    pkg-config
+  ];
 
-  buildInputs = [ libsndfile libuuid ];
+  buildInputs = [
+    libsndfile
+    libuuid
+  ];
 
   preConfigure = "make -f Makefile.svn";
 

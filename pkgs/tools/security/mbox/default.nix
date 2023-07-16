@@ -17,7 +17,10 @@ stdenv.mkDerivation {
     sha256 = "06qggqxnzcxnc34m6sbafxwr2p64x65m9zm5wp7pwyarcckhh2hd";
   };
 
-  buildInputs = [ openssl which ];
+  buildInputs = [
+    openssl
+    which
+  ];
 
   preConfigure = ''
     cd src

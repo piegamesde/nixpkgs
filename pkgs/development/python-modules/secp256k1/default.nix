@@ -25,7 +25,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  propagatedBuildInputs = [ cffi secp256k1 ];
+  propagatedBuildInputs = [
+    cffi
+    secp256k1
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

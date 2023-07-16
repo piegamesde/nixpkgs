@@ -16,7 +16,10 @@ buildPythonPackage rec {
     sha256 = "c279d9c30a7f481f1420fc37db65833b5f9816cd364dc2acaa93a11c482d4141";
   };
 
-  propagatedBuildInputs = [ requests audioread ];
+  propagatedBuildInputs = [
+    requests
+    audioread
+  ];
 
   postPatch = ''
     sed -i \

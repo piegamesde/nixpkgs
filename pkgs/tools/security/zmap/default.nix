@@ -32,10 +32,24 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DRESPECT_INSTALL_PREFIX_CONFIG=ON" ];
   dontUseCmakeBuildDir = true;
 
-  nativeBuildInputs = [ cmake pkg-config gengetopt flex byacc ];
-  buildInputs = [ libjson json_c gmp libpcap ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    gengetopt
+    flex
+    byacc
+  ];
+  buildInputs = [
+    libjson
+    json_c
+    gmp
+    libpcap
+  ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   meta = with lib; {
     homepage = "https://zmap.io/";

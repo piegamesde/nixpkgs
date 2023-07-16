@@ -48,8 +48,15 @@ stdenv.mkDerivation rec {
     texinfo
     wrapQtAppsHook
   ];
-  buildInputs =
-    [ fftw fftwFloat libusb1 qtbase qtmultimedia qtserialport boost ];
+  buildInputs = [
+    fftw
+    fftwFloat
+    libusb1
+    qtbase
+    qtmultimedia
+    qtserialport
+    boost
+  ];
 
   # Remove Git dependency from superbuild since sources are included
   patches = [ ./super.patch ];
@@ -65,8 +72,15 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://physics.princeton.edu/pulsar/k1jt/wsjtx.html";
     # Older licenses are for the statically-linked hamlib
-    license = with licenses; [ gpl3Plus gpl2Plus lgpl21Plus ];
+    license = with licenses; [
+      gpl3Plus
+      gpl2Plus
+      lgpl21Plus
+    ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ lasandell numinit ];
+    maintainers = with maintainers; [
+      lasandell
+      numinit
+    ];
   };
 }

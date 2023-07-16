@@ -3810,8 +3810,10 @@ let
       sources."agent-base-6.0.2"
       sources."ansi-regex-5.0.1"
       (sources."ansi-styles-4.3.0" // {
-        dependencies =
-          [ sources."color-convert-2.0.1" sources."color-name-1.1.4" ];
+        dependencies = [
+          sources."color-convert-2.0.1"
+          sources."color-name-1.1.4"
+        ];
       })
       sources."aproba-2.0.0"
       sources."are-we-there-yet-2.0.0"
@@ -3832,7 +3834,10 @@ let
       sources."bl-4.1.0"
       sources."blurhash-1.1.5"
       (sources."body-parser-1.20.0" // {
-        dependencies = [ sources."debug-2.6.9" sources."ms-2.0.0" ];
+        dependencies = [
+          sources."debug-2.6.9"
+          sources."ms-2.0.0"
+        ];
       })
       sources."brace-expansion-1.1.11"
       sources."buffer-5.7.1"
@@ -3889,7 +3894,10 @@ let
       sources."detect-libc-2.0.1"
       sources."diff-4.0.2"
       (sources."dom-serializer-1.4.1" // {
-        dependencies = [ sources."domhandler-4.3.1" sources."entities-2.2.0" ];
+        dependencies = [
+          sources."domhandler-4.3.1"
+          sources."entities-2.2.0"
+        ];
       })
       sources."domelementtype-2.3.0"
       sources."domhandler-3.3.0"
@@ -3911,7 +3919,10 @@ let
       sources."expand-template-2.0.3"
       sources."expire-set-1.0.0"
       (sources."express-4.18.1" // {
-        dependencies = [ sources."debug-2.6.9" sources."ms-2.0.0" ];
+        dependencies = [
+          sources."debug-2.6.9"
+          sources."ms-2.0.0"
+        ];
       })
       sources."extend-shallow-2.0.1"
       sources."fast-safe-stringify-2.1.1"
@@ -3920,7 +3931,10 @@ let
       sources."file-type-12.4.2"
       sources."file-uri-to-path-1.0.0"
       (sources."finalhandler-1.2.0" // {
-        dependencies = [ sources."debug-2.6.9" sources."ms-2.0.0" ];
+        dependencies = [
+          sources."debug-2.6.9"
+          sources."ms-2.0.0"
+        ];
       })
       sources."find-replace-3.0.0"
       sources."fn.name-1.1.0"
@@ -4126,7 +4140,10 @@ let
       sources."supports-color-7.2.0"
       sources."supports-preserve-symlinks-flag-1.0.0"
       (sources."table-layout-0.4.5" // {
-        dependencies = [ sources."array-back-2.0.0" sources."typical-2.6.1" ];
+        dependencies = [
+          sources."array-back-2.0.0"
+          sources."typical-2.6.1"
+        ];
       })
       sources."tar-6.1.11"
       (sources."tar-fs-2.1.1" // { dependencies = [ sources."chownr-1.1.4" ]; })
@@ -4174,7 +4191,10 @@ let
       sources."wide-align-1.1.5"
       sources."winston-3.8.2"
       (sources."winston-compat-0.1.5" // {
-        dependencies = [ sources."fecha-2.3.3" sources."logform-1.10.0" ];
+        dependencies = [
+          sources."fecha-2.3.3"
+          sources."logform-1.10.0"
+        ];
       })
       (sources."winston-daily-rotate-file-3.10.0" // {
         dependencies = [ sources."semver-6.3.0" ];

@@ -28,7 +28,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ click ];
 
-  nativeCheckInputs = [ pytestCheckHook jsonschema ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    jsonschema
+  ];
 
   pythonImportsCheck = [ "archspec" ];
 
@@ -37,7 +40,10 @@ buildPythonPackage rec {
       "Library for detecting, labeling, and reasoning about microarchitectures";
     homepage = "https://archspec.readthedocs.io/";
     changelog = "https://github.com/archspec/archspec/releases/tag/v0.2.0";
-    license = with licenses; [ mit asl20 ];
+    license = with licenses; [
+      mit
+      asl20
+    ];
     maintainers = with maintainers; [ atila ];
   };
 }

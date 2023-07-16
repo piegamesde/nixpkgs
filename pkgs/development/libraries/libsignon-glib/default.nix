@@ -21,7 +21,12 @@ stdenv.mkDerivation rec {
   pname = "libsignon-glib";
   version = "2.1";
 
-  outputs = [ "out" "dev" "devdoc" "py" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+    "py"
+  ];
 
   src = fetchgit {
     url = "https://gitlab.com/accounts-sso/${pname}";
@@ -44,7 +49,10 @@ stdenv.mkDerivation rec {
     vala
   ];
 
-  buildInputs = [ glib python3.pkgs.pygobject3 ];
+  buildInputs = [
+    glib
+    python3.pkgs.pygobject3
+  ];
 
   mesonFlags = [
     "-Dintrospection=true"

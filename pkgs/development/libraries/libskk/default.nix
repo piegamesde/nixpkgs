@@ -25,10 +25,22 @@ stdenv.mkDerivation rec {
     sha256 = "0y279pcgs3jrsi9vzx086xhz9jbz23dqqijp4agygc9ackp9sxy5";
   };
 
-  buildInputs = [ skk-dicts libxkbcommon ];
-  nativeBuildInputs =
-    [ vala gnome-common gobject-introspection libtool gettext pkg-config ];
-  propagatedBuildInputs = [ libgee json-glib ];
+  buildInputs = [
+    skk-dicts
+    libxkbcommon
+  ];
+  nativeBuildInputs = [
+    vala
+    gnome-common
+    gobject-introspection
+    libtool
+    gettext
+    pkg-config
+  ];
+  propagatedBuildInputs = [
+    libgee
+    json-glib
+  ];
 
   preConfigure = ''
     ./autogen.sh

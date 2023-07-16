@@ -35,12 +35,27 @@ stdenv.mkDerivation rec {
   # unaccelerated routines.
   cmakeFlags = [ "-DTILEDB_WERROR=0" ];
 
-  nativeBuildInputs = [ clang-tools cmake python3 doxygen ]
-    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [
+    clang-tools
+    cmake
+    python3
+    doxygen
+  ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
   nativeCheckInputs = [ gtest ];
 
-  buildInputs = [ catch2 zlib lz4 bzip2 zstd spdlog tbb openssl boost libpqxx ];
+  buildInputs = [
+    catch2
+    zlib
+    lz4
+    bzip2
+    zstd
+    spdlog
+    tbb
+    openssl
+    boost
+    libpqxx
+  ];
 
   # emulate the process of pulling catch down
   postPatch = ''
@@ -50,7 +65,10 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  installTargets = [ "install-tiledb" "doc" ];
+  installTargets = [
+    "install-tiledb"
+    "doc"
+  ];
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     install_name_tool -add_rpath ${tbb}/lib $out/lib/libtiledb.dylib

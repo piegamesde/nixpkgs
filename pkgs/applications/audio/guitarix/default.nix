@@ -125,7 +125,10 @@ in stdenv.mkDerivation rec {
     '';
     homepage = "http://guitarix.sourceforge.net/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ astsmtl goibhniu ];
+    maintainers = with maintainers; [
+      astsmtl
+      goibhniu
+    ];
     platforms = platforms.linux;
   };
 }

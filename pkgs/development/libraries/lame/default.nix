@@ -32,7 +32,11 @@ stdenv.mkDerivation rec {
     sha256 = "07nsn5sy3a8xbmw1bidxnsj5fj6kg9ai04icmqw40ybkp353dznx";
   };
 
-  outputs = [ "out" "lib" "doc" ]; # a small single header
+  outputs = [
+    "out"
+    "lib"
+    "doc"
+  ]; # a small single header
   outputMan = "out";
 
   nativeBuildInputs = [ ] ++ lib.optional nasmSupport nasm;

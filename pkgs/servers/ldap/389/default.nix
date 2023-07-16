@@ -94,11 +94,13 @@ stdenv.mkDerivation rec {
     tar -xzf ${cargoDeps} -C ./vendor --strip-components=1
   '';
 
-  configureFlags = [ "--enable-rust-offline" "--enable-autobind" ]
-    ++ lib.optionals withSystemd [
-      "--with-systemd"
-      "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
-    ] ++ lib.optionals withOpenldap [ "--with-openldap" ]
+  configureFlags = [
+    "--enable-rust-offline"
+    "--enable-autobind"
+  ] ++ lib.optionals withSystemd [
+    "--with-systemd"
+    "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
+  ] ++ lib.optionals withOpenldap [ "--with-openldap" ]
     ++ lib.optionals withBdb [
       "--with-db-inc=${lib.getDev db}/include"
       "--with-db-lib=${lib.getLib db}/lib"
@@ -106,7 +108,10 @@ stdenv.mkDerivation rec {
       "--with-netsnmp-inc=${lib.getDev net-snmp}/include"
       "--with-netsnmp-lib=${lib.getLib net-snmp}/lib"
     ] ++ lib.optionals (!withCockpit) [ "--disable-cockpit" ]
-    ++ lib.optionals withAsan [ "--enable-asan" "--enable-debug" ];
+    ++ lib.optionals withAsan [
+      "--enable-asan"
+      "--enable-debug"
+    ];
 
   enableParallelBuilding = true;
   # Disable parallel builds as those lack some dependencies:

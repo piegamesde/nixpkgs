@@ -19,7 +19,12 @@ buildPythonPackage rec {
     sha256 = "dd4fca02c8069497ad931a2d09914c6b0d1b50151ce876bc15bde4c747090126";
   };
 
-  propagatedBuildInputs = [ docopt six wcwidth pygments ];
+  propagatedBuildInputs = [
+    docopt
+    six
+    wcwidth
+    pygments
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

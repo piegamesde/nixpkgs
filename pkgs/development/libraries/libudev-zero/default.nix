@@ -28,7 +28,10 @@ stdenv.mkDerivation rec {
     description = "Daemonless replacement for libudev";
     changelog =
       "https://github.com/illiliti/libudev-zero/releases/tag/${version}";
-    maintainers = with maintainers; [ qyliss shamilton ];
+    maintainers = with maintainers; [
+      qyliss
+      shamilton
+    ];
     license = licenses.isc;
     platforms = platforms.linux;
   };

@@ -23,9 +23,18 @@ in stdenv.mkDerivation {
     sha256 = "04q6byyq002fhzkc2rkkahwh5b6272xakaj4m3vwm8la8jf0r0ss";
   };
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook ];
-  buildInputs =
-    [ libmtp libid3tag flac libvorbis gtk3 gsettings-desktop-schemas ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    libmtp
+    libid3tag
+    flac
+    libvorbis
+    gtk3
+    gsettings-desktop-schemas
+  ];
 
   enableParallelBuilding = true;
 

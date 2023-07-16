@@ -48,7 +48,10 @@ in stdenv.mkDerivation rec {
     hash = "sha256-snef00pTbukiLQp8eAMfuIqNV3l0wP1+KlpFnS3iKFg=";
   };
 
-  outputs = [ "out" "tools" ];
+  outputs = [
+    "out"
+    "tools"
+  ];
 
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
@@ -95,10 +98,20 @@ in stdenv.mkDerivation rec {
     libXinerama
     libXi
     fontconfig
-  ] ++ lib.optionals stdenv.isDarwin [ libpcap CoreAudioKit ForceFeedback ];
+  ] ++ lib.optionals stdenv.isDarwin [
+    libpcap
+    CoreAudioKit
+    ForceFeedback
+  ];
 
-  nativeBuildInputs =
-    [ copyDesktopItems installShellFiles makeWrapper pkg-config python3 which ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    installShellFiles
+    makeWrapper
+    pkg-config
+    python3
+    which
+  ];
 
   patches = [
     # by default MAME assumes that paths with stock resources are relative and
@@ -116,19 +129,24 @@ in stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=use-after-free" ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "MAME";
-      desktopName = "MAME";
-      exec = "mame";
-      icon = "mame";
-      type = "Application";
-      genericName = "MAME is a multi-purpose emulation framework";
-      comment = "Play vintage games using the MAME emulator";
-      categories = [ "Game" "Emulator" ];
-      keywords = [ "Game" "Emulator" "Arcade" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "MAME";
+    desktopName = "MAME";
+    exec = "mame";
+    icon = "mame";
+    type = "Application";
+    genericName = "MAME is a multi-purpose emulation framework";
+    comment = "Play vintage games using the MAME emulator";
+    categories = [
+      "Game"
+      "Emulator"
+    ];
+    keywords = [
+      "Game"
+      "Emulator"
+      "Arcade"
+    ];
+  }) ];
 
   # TODO: copy shaders from src/osd/modules/opengl/shader/glsl*.*h
   # to the final package after we figure out how they work
@@ -193,7 +211,10 @@ in stdenv.mkDerivation rec {
     '';
     changelog =
       "https://github.com/mamedev/mame/releases/download/mame${srcVersion}/whatsnew_${srcVersion}.txt";
-    license = with licenses; [ bsd3 gpl2Plus ];
+    license = with licenses; [
+      bsd3
+      gpl2Plus
+    ];
     maintainers = with maintainers; [ thiagokokada ];
     platforms = platforms.unix;
     broken = stdenv.isDarwin;

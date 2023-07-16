@@ -28,7 +28,12 @@ buildGoModule rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ opensc pcsclite softhsm yubihsm-shell ];
+  buildInputs = [
+    opensc
+    pcsclite
+    softhsm
+    yubihsm-shell
+  ];
 
   ldflags = [
     "-w"

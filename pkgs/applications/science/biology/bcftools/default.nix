@@ -22,14 +22,26 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-AfddjnAdhbLHWRckEgCcwE8pthYWrOL6dRFhI95Flsw=";
   };
 
-  nativeBuildInputs = [ perl python3 ];
+  nativeBuildInputs = [
+    perl
+    python3
+  ];
 
-  buildInputs = [ htslib zlib bzip2 xz curl ];
+  buildInputs = [
+    htslib
+    zlib
+    bzip2
+    xz
+    curl
+  ];
 
   strictDeps = true;
 
-  makeFlags =
-    [ "HSTDIR=${htslib}" "prefix=$(out)" "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = [
+    "HSTDIR=${htslib}"
+    "prefix=$(out)"
+    "CC=${stdenv.cc.targetPrefix}cc"
+  ];
 
   preCheck = ''
     patchShebangs misc/

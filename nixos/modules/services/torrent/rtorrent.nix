@@ -202,7 +202,10 @@ in {
           in {
             description = "rTorrent system service";
             after = [ "network.target" ];
-            path = [ cfg.package pkgs.bash ];
+            path = [
+              cfg.package
+              pkgs.bash
+            ];
             wantedBy = [ "multi-user.target" ];
             serviceConfig = {
               User = cfg.user;
@@ -220,9 +223,8 @@ in {
           };
       };
 
-      tmpfiles.rules = [
-        "d '${cfg.dataDir}' ${cfg.dataPermissions} ${cfg.user} ${cfg.group} -"
-      ];
+      tmpfiles.rules =
+        [ "d '${cfg.dataDir}' ${cfg.dataPermissions} ${cfg.user} ${cfg.group} -" ];
     };
   };
 }

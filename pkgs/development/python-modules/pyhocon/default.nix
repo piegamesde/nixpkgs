@@ -23,9 +23,15 @@ buildPythonPackage rec {
     hash = "sha256-H460j/DjY1lltapva3l87oyOJVjzUE9Q/oKti3SsUyU=";
   };
 
-  propagatedBuildInputs = [ pyparsing python-dateutil ];
+  propagatedBuildInputs = [
+    pyparsing
+    python-dateutil
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

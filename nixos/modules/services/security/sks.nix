@@ -15,7 +15,11 @@ let
   '';
 
 in {
-  meta.maintainers = with maintainers; [ primeos calbrecht jcumming ];
+  meta.maintainers = with maintainers; [
+    primeos
+    calbrecht
+    jcumming
+  ];
 
   options = {
 
@@ -62,7 +66,10 @@ in {
       };
 
       hkpAddress = mkOption {
-        default = [ "127.0.0.1" "::1" ];
+        default = [
+          "127.0.0.1"
+          "::1"
+        ];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           Domain names, IPv4 and/or IPv6 addresses to listen on for HKP
@@ -104,7 +111,10 @@ in {
         createHome = true;
         group = "sks";
         useDefaultShell = true;
-        packages = [ sksPkg pkgs.db ];
+        packages = [
+          sksPkg
+          pkgs.db
+        ];
       };
       groups.sks = { };
     };

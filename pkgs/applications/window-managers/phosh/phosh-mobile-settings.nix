@@ -29,7 +29,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-D605efn25Dl3Bj92DZiagcx+MMcRz0GRaWxplBRcZhA=";
   };
 
-  nativeBuildInputs = [ meson ninja phosh pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    phosh
+    pkg-config
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     desktop-file-utils

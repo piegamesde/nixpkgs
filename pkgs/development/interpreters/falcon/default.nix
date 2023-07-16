@@ -24,8 +24,15 @@ stdenv.mkDerivation {
   # causing compilation to fail.
   env.NIX_CFLAGS_COMPILE = "-Wno-narrowing";
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ pcre zlib sqlite ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    pcre
+    zlib
+    sqlite
+  ];
 
   meta = with lib; {
     description = "Programming language with macros and syntax at once";

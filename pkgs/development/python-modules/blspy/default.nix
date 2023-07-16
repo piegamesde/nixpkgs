@@ -49,9 +49,16 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake setuptools-scm ];
+  nativeBuildInputs = [
+    cmake
+    setuptools-scm
+  ];
 
-  buildInputs = [ boost gmp.static pybind11 ];
+  buildInputs = [
+    boost
+    gmp.static
+    pybind11
+  ];
 
   pythonImportsCheck = [ "blspy" ];
 

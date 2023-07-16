@@ -119,9 +119,17 @@ in multiStdenv.mkDerivation (finalAttrs: {
     )
   '';
 
-  nativeBuildInputs = [ meson ninja pkg-config wine ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    wine
+  ];
 
-  buildInputs = [ libxcb dbus ];
+  buildInputs = [
+    libxcb
+    dbus
+  ];
 
   mesonFlags = [
     "--cross-file"

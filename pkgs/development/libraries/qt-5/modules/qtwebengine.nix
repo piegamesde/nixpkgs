@@ -94,12 +94,30 @@
 
 qtModule {
   pname = "qtwebengine";
-  qtInputs = [ qtdeclarative qtquickcontrols qtlocation qtwebchannel ];
-  nativeBuildInputs =
-    [ bison flex git gperf ninja pkg-config python which gn nodejs ]
-    ++ lib.optional stdenv.isDarwin xcbuild;
+  qtInputs = [
+    qtdeclarative
+    qtquickcontrols
+    qtlocation
+    qtwebchannel
+  ];
+  nativeBuildInputs = [
+    bison
+    flex
+    git
+    gperf
+    ninja
+    pkg-config
+    python
+    which
+    gn
+    nodejs
+  ] ++ lib.optional stdenv.isDarwin xcbuild;
   doCheck = true;
-  outputs = [ "bin" "dev" "out" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+  ];
 
   enableParallelBuilding = true;
 
@@ -185,8 +203,10 @@ qtModule {
     fi
   '';
 
-  qmakeFlags = [ "--" "-system-ffmpeg" ]
-    ++ lib.optional pipewireSupport "-webengine-webrtc-pipewire"
+  qmakeFlags = [
+    "--"
+    "-system-ffmpeg"
+  ] ++ lib.optional pipewireSupport "-webengine-webrtc-pipewire"
     ++ lib.optional enableProprietaryCodecs "-proprietary-codecs";
 
   propagatedBuildInputs = [

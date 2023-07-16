@@ -26,8 +26,10 @@ mkDerivation rec {
     gst-plugins-base
     gst-plugins-good
   ]);
-  cmakeFlags = [ "-DBUILD_EXAMPLES=false" "-DBUILD_TESTS=false" ]
-    ++ lib.optionals withGstreamer [ "-DWITH_GSTREAMER=ON" ];
+  cmakeFlags = [
+    "-DBUILD_EXAMPLES=false"
+    "-DBUILD_TESTS=false"
+  ] ++ lib.optionals withGstreamer [ "-DWITH_GSTREAMER=ON" ];
 
   meta = with lib; {
     description = "Cross-platform C++ XMPP client and server library";

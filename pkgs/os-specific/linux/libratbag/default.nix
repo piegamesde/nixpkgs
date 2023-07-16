@@ -29,7 +29,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-TQ8DVj4yqq3IA0oGnLDz+QNTyNRmGqspEjkPeBmXNew=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config gitMinimal swig check valgrind ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gitMinimal
+    swig
+    check
+    valgrind
+  ];
 
   buildInputs = [
     glib
@@ -38,7 +46,11 @@ stdenv.mkDerivation rec {
     libevdev
     json-glib
     libunistring
-    (python3.withPackages (ps: with ps; [ evdev pygobject3 ]))
+    (python3.withPackages (ps:
+      with ps; [
+        evdev
+        pygobject3
+      ]))
   ];
 
   mesonFlags = [ "-Dsystemd-unit-dir=./lib/systemd/system/" ];

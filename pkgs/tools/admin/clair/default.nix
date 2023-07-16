@@ -22,13 +22,25 @@ buildGoModule rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  subPackages = [ "cmd/clair" "cmd/clairctl" ];
+  subPackages = [
+    "cmd/clair"
+    "cmd/clairctl"
+  ];
 
-  ldflags = [ "-s" "-w" "-X main.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.Version=${version}"
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/clair \
-      --prefix PATH : "${lib.makeBinPath [ rpm xz ]}"
+      --prefix PATH : "${
+        lib.makeBinPath [
+          rpm
+          xz
+        ]
+      }"
   '';
 
   meta = with lib; {

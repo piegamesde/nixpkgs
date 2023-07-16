@@ -22,7 +22,10 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     toString (lib.optionals stdenv.cc.isGNU [ "-std=c++11" ]);
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buildInputs = [ libtiff ];
   propagatedBuildInputs = [ tesseract3 ];
 

@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ gtk2 cairo glib ];
+  buildInputs = [
+    gtk2
+    cairo
+    glib
+  ];
 
   passthru = {
     updateScript = gnome.updateScript {

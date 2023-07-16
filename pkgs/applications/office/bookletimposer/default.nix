@@ -21,15 +21,27 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-AEpvsFBJfyqLucC0l4AN/nA2+aYBR50BEgAcNDJBSqg=";
   };
 
-  patches = [ ./i18n.patch ./configdir.patch ];
+  patches = [
+    ./i18n.patch
+    ./configdir.patch
+  ];
 
-  nativeBuildInputs = [ intltool pandoc wrapGAppsHook ];
+  nativeBuildInputs = [
+    intltool
+    pandoc
+    wrapGAppsHook
+  ];
 
   buildInputs = [ gobject-introspection ];
 
   propagatedBuildInputs = [
     gtk3
-    (python3.withPackages (ps: with ps; [ distutils_extra pypdf2 pygobject3 ]))
+    (python3.withPackages (ps:
+      with ps; [
+        distutils_extra
+        pypdf2
+        pygobject3
+      ]))
   ];
 
   meta = {

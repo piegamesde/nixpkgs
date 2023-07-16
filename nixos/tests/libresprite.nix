@@ -13,7 +13,10 @@ import ./make-test-python.nix ({
         imports = [ ./common/x11.nix ];
 
         services.xserver.enable = true;
-        environment.systemPackages = [ pkgs.imagemagick pkgs.libresprite ];
+        environment.systemPackages = [
+          pkgs.imagemagick
+          pkgs.libresprite
+        ];
       };
 
     enableOCR = true;

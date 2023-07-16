@@ -25,7 +25,11 @@ buildPythonPackage rec {
     hash = "sha256-JejJ1CSNxIkFgBhR/4p1ucdIJ6CHHRGNEQTY5D1/sPw=";
   };
 
-  nativeBuildInputs = [ cython cmake scikit-build ];
+  nativeBuildInputs = [
+    cython
+    cmake
+    scikit-build
+  ];
 
   propagatedBuildInputs = [ ipython ];
 

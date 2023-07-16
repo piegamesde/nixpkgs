@@ -89,18 +89,16 @@ in let
         sha256 = "sha256-h2LgMhreCgod+H/bNQzY9BvqG9ezkwikwWB3T6gHH04=";
       };
 
-      inputs = [
-        (arpa2common.overrideAttrs (old: rec {
-          version = "0.7.1";
+      inputs = [ (arpa2common.overrideAttrs (old: rec {
+        version = "0.7.1";
 
-          src = fetchFromGitLab {
-            owner = "arpa2";
-            repo = "arpa2common";
-            rev = "v${version}";
-            sha256 = "sha256-8zVsAlGtmya9EK4OkGUMu2FKJRn2Q3bg2QWGjqcii64=";
-          };
-        }))
-      ];
+        src = fetchFromGitLab {
+          owner = "arpa2";
+          repo = "arpa2common";
+          rev = "v${version}";
+          sha256 = "sha256-8zVsAlGtmya9EK4OkGUMu2FKJRn2Q3bg2QWGjqcii64=";
+        };
+      })) ];
 
       meta = with lib; {
         description = "Integrate ARPA2 Resource ACLs into nginx";
@@ -449,7 +447,14 @@ in let
         sha256 = "sha256-xp0/eqi5PJlzb9NaUbNnzEqNcxDPyjyNwZOwmlv1+ag=";
       };
 
-      inputs = [ curl geoip libmodsecurity libxml2 lmdb yajl ];
+      inputs = [
+        curl
+        geoip
+        libmodsecurity
+        libxml2
+        lmdb
+        yajl
+      ];
       disableIPC = true;
 
       meta = with lib; {
@@ -592,7 +597,10 @@ in let
         ln -s "${psol}" "$out/psol"
       '';
 
-      inputs = [ zlib libuuid ]; # psol deps
+      inputs = [
+        zlib
+        libuuid
+      ]; # psol deps
       allowMemoryWriteExecute = true;
 
       meta = with lib; {
@@ -948,7 +956,10 @@ in let
         sha256 = "0ya4330in7zjzqw57djv4icpk0n1j98nvf0f8v296yi9rjy054br";
       };
 
-      inputs = [ msgpuck.dev yajl ];
+      inputs = [
+        msgpuck.dev
+        yajl
+      ];
 
       meta = with lib; {
         description =
@@ -1008,7 +1019,13 @@ in let
         sha256 = "1z0ka0cwqbgh3fv2d5yva395sf90626rdzx7lyfrgs89gy4h9nrr";
       };
 
-      inputs = [ ffmpeg fdk_aac openssl libxml2 libiconv ];
+      inputs = [
+        ffmpeg
+        fdk_aac
+        openssl
+        libxml2
+        libiconv
+      ];
 
       meta = with lib; {
         description = "VOD packager";

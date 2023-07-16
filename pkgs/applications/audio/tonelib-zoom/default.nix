@@ -25,10 +25,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4q2vM0/q7o/FracnO2xxnr27opqfVQoN7fsqTD9Tr/c=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook dpkg ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    dpkg
+  ];
 
-  buildInputs = [ stdenv.cc.cc.lib alsa-lib freetype libglvnd webkitgtk ]
-    ++ runtimeDependencies;
+  buildInputs = [
+    stdenv.cc.cc.lib
+    alsa-lib
+    freetype
+    libglvnd
+    webkitgtk
+  ] ++ runtimeDependencies;
 
   runtimeDependencies = map lib.getLib [
     curl

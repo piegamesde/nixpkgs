@@ -27,11 +27,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ alembic flask flask-sqlalchemy ];
+  propagatedBuildInputs = [
+    alembic
+    flask
+    flask-sqlalchemy
+  ];
 
   pythonImportsCheck = [ "flask_migrate" ];
 
-  nativeCheckInputs = [ pytestCheckHook flask_script ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    flask_script
+  ];
 
   meta = with lib; {
     description =

@@ -35,7 +35,13 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake openssl libplist pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    openssl
+    libplist
+    pkg-config
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     avahi

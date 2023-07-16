@@ -27,7 +27,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ pyserial pyusb pyvisa typing-extensions ];
+  propagatedBuildInputs = [
+    pyserial
+    pyusb
+    pyvisa
+    typing-extensions
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

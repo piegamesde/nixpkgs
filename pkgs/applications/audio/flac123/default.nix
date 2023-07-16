@@ -19,7 +19,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ flac libao libogg popt ];
+  buildInputs = [
+    flac
+    libao
+    libogg
+    popt
+  ];
 
   meta = with lib; {
     homepage = "https://flac-tools.sourceforge.net/";

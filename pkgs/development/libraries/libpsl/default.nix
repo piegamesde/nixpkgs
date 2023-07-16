@@ -46,7 +46,11 @@ in stdenv.mkDerivation rec {
     libxslt
   ] ++ lib.optionals enableValgrindTests [ valgrind ];
 
-  buildInputs = [ libidn2 libunistring libxslt ];
+  buildInputs = [
+    libidn2
+    libunistring
+    libxslt
+  ];
 
   propagatedBuildInputs = [ publicsuffix-list ];
 

@@ -15,7 +15,10 @@ buildPythonApplication rec {
     sha256 = "1pa612rcc94nc461zs9sag9p46sycc214622b06gdn35rmwp0y2g";
   };
 
-  propagatedBuildInputs = [ colorama gitpython ];
+  propagatedBuildInputs = [
+    colorama
+    gitpython
+  ];
 
   # no tests
   doCheck = false;

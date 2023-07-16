@@ -32,9 +32,17 @@ stdenv.mkDerivation rec {
 
   pharo-share = import ./share.nix { inherit lib stdenv fetchurl unzip; };
 
-  hardeningDisable = [ "format" "pic" ];
+  hardeningDisable = [
+    "format"
+    "pic"
+  ];
 
-  nativeBuildInputs = [ unzip cmake gcc makeWrapper ];
+  nativeBuildInputs = [
+    unzip
+    cmake
+    gcc
+    makeWrapper
+  ];
 
   buildInputs = [
     bash

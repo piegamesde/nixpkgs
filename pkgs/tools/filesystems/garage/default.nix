@@ -34,7 +34,10 @@ let
 
       inherit cargoSha256;
 
-      nativeBuildInputs = [ protobuf pkg-config ];
+      nativeBuildInputs = [
+        protobuf
+        pkg-config
+      ];
 
       buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
 
@@ -59,13 +62,15 @@ let
       # To make integration tests pass, we include the optional k2v feature here,
       # but in buildFeatures only for version 0.8+, where it's enabled by default.
       # See: https://garagehq.deuxfleurs.fr/documentation/reference-manual/k2v/
-      checkFeatures = [ "k2v" "kubernetes-discovery" ]
-        ++ (lib.optionals (lib.versionAtLeast version "0.8") [
-          "bundled-libs"
-          "sled"
-          "lmdb"
-          "sqlite"
-        ]);
+      checkFeatures = [
+        "k2v"
+        "kubernetes-discovery"
+      ] ++ (lib.optionals (lib.versionAtLeast version "0.8") [
+        "bundled-libs"
+        "sled"
+        "lmdb"
+        "sqlite"
+      ]);
 
       passthru = nixosTests.garage;
 

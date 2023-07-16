@@ -24,11 +24,18 @@ buildPythonPackage rec {
     hash = "sha256-B+uIh8WTPPeNVU3yP8FEGc8OinY0MpJb9dHLC+nhi4I=";
   };
 
-  propagatedBuildInputs = [ beautifulsoup4 lxml cssutils ];
+  propagatedBuildInputs = [
+    beautifulsoup4
+    lxml
+    cssutils
+  ];
 
   passthru.optional-dependencies = { transcript = [ nltk ]; };
 
-  nativeCheckInputs = [ pytest-lazy-fixture pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-lazy-fixture
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     changelog =

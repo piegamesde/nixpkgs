@@ -19,8 +19,12 @@ let
   throwSystem = throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
   # assemble list of components
-  components = [ "basic" "sdk" "sqlplus" "tools" ]
-    ++ optional odbcSupport "odbc";
+  components = [
+    "basic"
+    "sdk"
+    "sqlplus"
+    "tools"
+  ] ++ optional odbcSupport "odbc";
 
   # determine the version number, there might be different ones per architecture
   version = {
@@ -102,11 +106,17 @@ in stdenv.mkDerivation {
   buildInputs = [ stdenv.cc.cc.lib ] ++ optional stdenv.isLinux libaio
     ++ optional odbcSupport unixODBC;
 
-  nativeBuildInputs = [ makeWrapper unzip ]
-    ++ optional stdenv.isLinux autoPatchelfHook
+  nativeBuildInputs = [
+    makeWrapper
+    unzip
+  ] ++ optional stdenv.isLinux autoPatchelfHook
     ++ optional stdenv.isDarwin fixDarwinDylibNames;
 
-  outputs = [ "out" "dev" "lib" ];
+  outputs = [
+    "out"
+    "dev"
+    "lib"
+  ];
 
   unpackCmd = "unzip $curSrc";
 
@@ -142,8 +152,15 @@ in stdenv.mkDerivation {
     '';
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ];
-    maintainers = with maintainers; [ flokli dylanmtaylor ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+    ];
+    maintainers = with maintainers; [
+      flokli
+      dylanmtaylor
+    ];
     hydraPlatforms = [ ];
   };
 }

@@ -23,8 +23,10 @@ let
         concatMap (profile: map (suffix: "${profile}${suffix}") listSuffixes)
         cfg.profiles);
 
-    allVariables =
-      zipAttrsWith (n: concatLists) [ absoluteVariables suffixedVariables ];
+    allVariables = zipAttrsWith (n: concatLists) [
+      absoluteVariables
+      suffixedVariables
+    ];
 
     exportVariables =
       mapAttrsToList (n: v: ''export ${n}="${concatStringsSep ":" v}"'')
@@ -48,7 +50,12 @@ in {
         strings.  The latter is concatenated, interspersed with colon
         characters.
       '';
-      type = with types; attrsOf (oneOf [ (listOf str) str path ]);
+      type = with types;
+        attrsOf (oneOf [
+          (listOf str)
+          str
+          path
+        ]);
       apply =
         mapAttrs (n: v: if isList v then concatStringsSep ":" v else "${v}");
     };
@@ -65,7 +72,10 @@ in {
       type = types.attrsOf (types.listOf types.str);
       example = {
         PATH = [ "/bin" ];
-        MANPATH = [ "/man" "/share/man" ];
+        MANPATH = [
+          "/man"
+          "/share/man"
+        ];
       };
       description = lib.mdDoc ''
         Attribute set of environment variable.  Each attribute maps to a list

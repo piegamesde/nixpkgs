@@ -27,9 +27,15 @@ stdenv.mkDerivation rec {
     "-DCPP_JWT_BUILD_EXAMPLES=OFF"
   ];
 
-  nativeBuildInputs = [ cmake gtest ];
+  nativeBuildInputs = [
+    cmake
+    gtest
+  ];
 
-  buildInputs = [ openssl nlohmann_json ];
+  buildInputs = [
+    openssl
+    nlohmann_json
+  ];
 
   doCheck = true;
 

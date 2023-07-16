@@ -24,7 +24,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [ blas gmp lapack libf2c mpfi mpfr ];
+  buildInputs = [
+    blas
+    gmp
+    lapack
+    libf2c
+    mpfi
+    mpfr
+  ];
 
   meta = with lib; {
     description = "Worst-Case Peak-Gain library";

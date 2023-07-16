@@ -31,13 +31,23 @@ stdenv.mkDerivation rec {
     "-Ddev_build=true"
   ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeCheckInputs = [ cmake libpng ];
+  nativeCheckInputs = [
+    cmake
+    libpng
+  ];
 
   buildInputs = [ zlib ];
 
-  nativeBuildInputs = [ ninja meson pkg-config ];
+  nativeBuildInputs = [
+    ninja
+    meson
+    pkg-config
+  ];
 
   meta = with lib; {
     description = "Simple, modern libpng alternative";

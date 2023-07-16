@@ -22,7 +22,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1HhmktVrilY/ZqXyYPHxOt4R6Gx4y8slqfml/EfPZvo=";
   };
 
-  nativeBuildInputs = [ pkg-config intltool gtk3 ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+    gtk3
+  ];
 
   buildInputs = [
     gnome-icon-theme

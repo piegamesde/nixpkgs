@@ -41,7 +41,10 @@
       ordinal numbers, and a part of the so-called Ketonen and Solovay
       machinery (combinatorial properties of epsilon0).
     '';
-    maintainers = with maintainers; [ siraben Zimmi48 ];
+    maintainers = with maintainers; [
+      siraben
+      Zimmi48
+    ];
     license = licenses.mit;
     platforms = platforms.unix;
   };

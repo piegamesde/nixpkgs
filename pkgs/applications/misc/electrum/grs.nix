@@ -62,7 +62,10 @@ in python3.pkgs.buildPythonApplication {
       ckcc-protocol
       keepkey
       trezor
-    ] ++ lib.optionals enableQt [ pyqt5 qdarkstyle ];
+    ] ++ lib.optionals enableQt [
+      pyqt5
+      qdarkstyle
+    ];
 
   postPatch = ''
     # make compatible with protobuf4 by easing dependencies ...

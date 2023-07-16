@@ -10,7 +10,12 @@ args@{
 
   description = "A randomized property-based testing tool for Common Lisp.";
 
-  deps = [ args."alexandria" args."closer-mop" args."optima" args."stefil" ];
+  deps = [
+    args."alexandria"
+    args."closer-mop"
+    args."optima"
+    args."stefil"
+  ];
 
   src = fetchurl {
     url =

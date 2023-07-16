@@ -72,7 +72,11 @@ in stdenv.mkDerivation {
     ln -s ${desktopItem}/share/applications/* $out/share/applications
   '';
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper imagemagick ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+    imagemagick
+  ];
 
   buildInputs = [
     libX11
@@ -93,6 +97,9 @@ in stdenv.mkDerivation {
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.unfree;
     maintainers = [ lib.maintainers.BarinovMaxim ];
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
   };
 }

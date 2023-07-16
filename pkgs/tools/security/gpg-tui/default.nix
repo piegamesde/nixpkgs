@@ -36,14 +36,18 @@ rustPlatform.buildRustPackage rec {
     python3
   ];
 
-  buildInputs = [ gpgme libgpg-error libxcb libxkbcommon ]
-    ++ lib.optionals stdenv.isDarwin [
-      AppKit
-      Foundation
-      libiconv
-      libobjc
-      libresolv
-    ];
+  buildInputs = [
+    gpgme
+    libgpg-error
+    libxcb
+    libxkbcommon
+  ] ++ lib.optionals stdenv.isDarwin [
+    AppKit
+    Foundation
+    libiconv
+    libobjc
+    libresolv
+  ];
 
   meta = with lib; {
     description = "Terminal user interface for GnuPG";

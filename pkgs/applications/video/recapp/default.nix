@@ -58,7 +58,11 @@ python3.pkgs.buildPythonApplication rec {
     gst_all_1.gst-plugins-ugly
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [ pulsectl pydbus pygobject3 ];
+  propagatedBuildInputs = with python3.pkgs; [
+    pulsectl
+    pydbus
+    pygobject3
+  ];
 
   dontWrapGApps = true;
 
@@ -66,7 +70,10 @@ python3.pkgs.buildPythonApplication rec {
     makeWrapperArgs+=(
       "''${gappsWrapperArgs[@]}"
       "--prefix" "PATH" ":" "${
-        lib.makeBinPath [ gst_all_1.gstreamer.dev slop ]
+        lib.makeBinPath [
+          gst_all_1.gstreamer.dev
+          slop
+        ]
       }"
     )
   '';

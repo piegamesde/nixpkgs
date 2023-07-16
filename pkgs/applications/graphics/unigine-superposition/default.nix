@@ -39,7 +39,10 @@ let
       sha256 = "12hzlz792pf8pvxf13fww3qhahqzwzkxq9q3mq20hbhvaphbg7nd";
     };
 
-    nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
+    nativeBuildInputs = [
+      autoPatchelfHook
+      makeWrapper
+    ];
 
     buildInputs = [
       glib

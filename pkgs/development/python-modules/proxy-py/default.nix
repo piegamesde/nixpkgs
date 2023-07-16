@@ -41,10 +41,19 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ paramiko typing-extensions ];
+  propagatedBuildInputs = [
+    paramiko
+    typing-extensions
+  ];
 
-  nativeCheckInputs =
-    [ httpx openssl gnumake pytest-asyncio pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    httpx
+    openssl
+    gnumake
+    pytest-asyncio
+    pytest-mock
+    pytestCheckHook
+  ];
 
   preCheck = ''
     export HOME=$(mktemp -d);

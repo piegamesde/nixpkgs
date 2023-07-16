@@ -17,7 +17,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-kowdyUVi3hliqkL8VQo5dS3Dpxd4LQi5+5brkdnv0lE=";
   };
 
-  nativeBuildInputs = [ cc65 python3 ];
+  nativeBuildInputs = [
+    cc65
+    python3
+  ];
 
   postPatch = ''
     patchShebangs scripts/

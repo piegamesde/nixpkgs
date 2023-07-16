@@ -27,10 +27,21 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs =
-    [ libGL libX11 libXext libXrandr libXinerama libXcursor freetype alsa-lib ];
+  buildInputs = [
+    libGL
+    libX11
+    libXext
+    libXrandr
+    libXinerama
+    libXcursor
+    freetype
+    alsa-lib
+  ];
 
   cmakeFlags = [
     "-DCMAKE_AR=${gcc-unwrapped}/bin/gcc-ar"

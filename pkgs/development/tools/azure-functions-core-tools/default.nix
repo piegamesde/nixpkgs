@@ -88,9 +88,16 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/Azure/azure-functions-core-tools";
     description = "Command line tools for Azure Functions";
-    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [
+      binaryBytecode
+      binaryNativeCode
+    ];
     license = licenses.mit;
     maintainers = with maintainers; [ ];
-    platforms = [ "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-darwin"
+      "x86_64-darwin"
+    ];
   };
 }

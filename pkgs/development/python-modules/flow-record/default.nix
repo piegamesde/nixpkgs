@@ -29,12 +29,19 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools setuptools-scm wheel ];
+  nativeBuildInputs = [
+    setuptools
+    setuptools-scm
+    wheel
+  ];
 
   propagatedBuildInputs = [ msgpack ];
 
   passthru.optional-dependencies = {
-    compression = [ lz4 zstandard ];
+    compression = [
+      lz4
+      zstandard
+    ];
     elastic = [ elasticsearch ];
   };
 

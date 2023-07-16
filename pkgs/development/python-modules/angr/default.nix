@@ -73,13 +73,22 @@ buildPythonPackage rec {
     unicorn
   ];
 
-  setupPyBuildFlags = lib.optionals stdenv.isLinux [ "--plat-name" "linux" ];
+  setupPyBuildFlags = lib.optionals stdenv.isLinux [
+    "--plat-name"
+    "linux"
+  ];
 
   # Tests have additional requirements, e.g., pypcode and angr binaries
   # cle is executing the tests with the angr binaries
   doCheck = false;
 
-  pythonImportsCheck = [ "angr" "claripy" "cle" "pyvex" "archinfo" ];
+  pythonImportsCheck = [
+    "angr"
+    "claripy"
+    "cle"
+    "pyvex"
+    "archinfo"
+  ];
 
   meta = with lib; {
     description = "Powerful and user-friendly binary analysis platform";

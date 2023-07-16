@@ -22,13 +22,22 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-CEZP5n8qEAzsqn8dz3u1nG0YoT7J1P+WfN7urkRTuVg=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = lib.optionals stdenv.isLinux [ libusb1 udev ];
+  buildInputs = lib.optionals stdenv.isLinux [
+    libusb1
+    udev
+  ];
 
   enableParallelBuilding = true;
 
-  propagatedBuildInputs = lib.optionals stdenv.isDarwin [ Cocoa IOKit ];
+  propagatedBuildInputs = lib.optionals stdenv.isDarwin [
+    Cocoa
+    IOKit
+  ];
 
   passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
@@ -43,7 +52,10 @@ stdenv.mkDerivation (finalAttrs: {
       gpl3Only
     ];
     pkgConfigModules = lib.optionals stdenv.isDarwin [ "hidapi" ]
-      ++ lib.optionals stdenv.isLinux [ "hidapi-hidraw" "hidapi-libusb" ];
+      ++ lib.optionals stdenv.isLinux [
+        "hidapi-hidraw"
+        "hidapi-libusb"
+      ];
     platforms = platforms.unix;
   };
 })

@@ -11,7 +11,10 @@
     version = "6.1.6";
   };
   activerecord = {
-    dependencies = [ "activemodel" "activesupport" ];
+    dependencies = [
+      "activemodel"
+      "activesupport"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -22,7 +25,13 @@
     version = "6.1.6";
   };
   activesupport = {
-    dependencies = [ "concurrent-ruby" "i18n" "minitest" "tzinfo" "zeitwerk" ];
+    dependencies = [
+      "concurrent-ruby"
+      "i18n"
+      "minitest"
+      "tzinfo"
+      "zeitwerk"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -116,7 +125,10 @@
     version = "2.7.1";
   };
   mail-gpg = {
-    dependencies = [ "gpgme" "mail" ];
+    dependencies = [
+      "gpgme"
+      "mail"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -243,7 +255,12 @@
     version = "4.0.3";
   };
   sinatra = {
-    dependencies = [ "mustermann" "rack" "rack-protection" "tilt" ];
+    dependencies = [
+      "mustermann"
+      "rack"
+      "rack-protection"
+      "tilt"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -254,8 +271,13 @@
     version = "2.2.0";
   };
   sinatra-contrib = {
-    dependencies =
-      [ "multi_json" "mustermann" "rack-protection" "sinatra" "tilt" ];
+    dependencies = [
+      "multi_json"
+      "mustermann"
+      "rack-protection"
+      "sinatra"
+      "tilt"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -276,7 +298,11 @@
     version = "1.4.4";
   };
   thin = {
-    dependencies = [ "daemons" "eventmachine" "rack" ];
+    dependencies = [
+      "daemons"
+      "eventmachine"
+      "rack"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

@@ -85,12 +85,25 @@ in stdenv.mkDerivation rec {
   '';
 
   env.NIX_CFLAGS_COMPILE = toString [ "-I${libtirpc.dev}/include/tirpc" ];
-  NIX_LDFLAGS = [ "-L${libtirpc.dev}/lib" "-ltirpc" ];
+  NIX_LDFLAGS = [
+    "-L${libtirpc.dev}/lib"
+    "-ltirpc"
+  ];
 
-  nativeBuildInputs =
-    [ pkg-config go rpcsvc-proto makeWrapper removeReferencesTo ];
+  nativeBuildInputs = [
+    pkg-config
+    go
+    rpcsvc-proto
+    makeWrapper
+    removeReferencesTo
+  ];
 
-  buildInputs = [ libelf libcap libseccomp libtirpc ];
+  buildInputs = [
+    libelf
+    libcap
+    libseccomp
+    libtirpc
+  ];
 
   makeFlags = [
     "WITH_LIBELF=yes"
@@ -103,7 +116,11 @@ in stdenv.mkDerivation rec {
 
   postInstall = let
     inherit (addOpenGLRunpath) driverLink;
-    libraryPath = lib.makeLibraryPath [ "$out" driverLink "${driverLink}-32" ];
+    libraryPath = lib.makeLibraryPath [
+      "$out"
+      driverLink
+      "${driverLink}-32"
+    ];
   in ''
     remove-references-to -t "${go}" $out/lib/libnvidia-container-go.so.1.9.0
     wrapProgram $out/bin/nvidia-container-cli --prefix LD_LIBRARY_PATH : ${libraryPath}

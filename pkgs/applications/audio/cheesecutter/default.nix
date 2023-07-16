@@ -22,8 +22,10 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.hostPlatform.isDarwin
     ./0002-Prepend-libSDL.dylib-to-macOS-SDL-loader.patch;
 
-  nativeBuildInputs = [ acme ldc ]
-    ++ lib.optional (!stdenv.hostPlatform.isDarwin) patchelf;
+  nativeBuildInputs = [
+    acme
+    ldc
+  ] ++ lib.optional (!stdenv.hostPlatform.isDarwin) patchelf;
 
   buildInputs = [ SDL ];
 
@@ -50,7 +52,11 @@ stdenv.mkDerivation rec {
     description = "A tracker program for composing music for the SID chip";
     homepage = "https://github.com/theyamo/CheeseCutter/";
     license = licenses.gpl2Plus;
-    platforms = [ "x86_64-linux" "i686-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+      "x86_64-darwin"
+    ];
     maintainers = with maintainers; [ OPNA2608 ];
   };
 }

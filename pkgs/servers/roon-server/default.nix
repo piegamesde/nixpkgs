@@ -17,7 +17,13 @@
 }:
 let
   version = "2.0-1259";
-  urlVersion = builtins.replaceStrings [ "." "-" ] [ "00" "0" ] version;
+  urlVersion = builtins.replaceStrings [
+    "."
+    "-"
+  ] [
+    "00"
+    "0"
+  ] version;
 in stdenv.mkDerivation {
   pname = "roon-server";
   inherit version;
@@ -31,10 +37,19 @@ in stdenv.mkDerivation {
   dontConfigure = true;
   dontBuild = true;
 
-  buildInputs =
-    [ alsa-lib freetype krb5 libtasn1 lttng-ust_2_12 stdenv.cc.cc.lib ];
+  buildInputs = [
+    alsa-lib
+    freetype
+    krb5
+    libtasn1
+    lttng-ust_2_12
+    stdenv.cc.cc.lib
+  ];
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+  ];
 
   installPhase = let
     # NB: While this might seem like odd behavior, it's what Roon expects. The
@@ -55,11 +70,20 @@ in stdenv.mkDerivation {
           --add-flags "$binDir/$binName.dll" \
           --argv0 "$binName" \
           --prefix LD_LIBRARY_PATH : "${
-            lib.makeLibraryPath [ alsa-lib icu66 ffmpeg openssl ]
+            lib.makeLibraryPath [
+              alsa-lib
+              icu66
+              ffmpeg
+              openssl
+            ]
           }" \
           --prefix PATH : "$dotnetDir" \
           --prefix PATH : "${
-            lib.makeBinPath [ alsa-utils cifs-utils ffmpeg ]
+            lib.makeBinPath [
+              alsa-utils
+              cifs-utils
+              ffmpeg
+            ]
           }" \
           --chdir "$binDir" \
           --set DOTNET_ROOT "$dotnetDir"
@@ -91,7 +115,10 @@ in stdenv.mkDerivation {
     homepage = "https://roonlabs.com";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    maintainers = with maintainers; [ lovesegfault steell ];
+    maintainers = with maintainers; [
+      lovesegfault
+      steell
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

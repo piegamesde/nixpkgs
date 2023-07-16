@@ -20,9 +20,16 @@ in buildPythonPackage rec {
     hash = "sha256-XM1zG1JjbdEEV6i42FjLDQJv+qsePnUbr3kb+APjfXs=";
   };
 
-  propagatedBuildInputs = [ six pytz tzlocal ];
+  propagatedBuildInputs = [
+    six
+    pytz
+    tzlocal
+  ];
 
-  nativeCheckInputs = [ taskwarrior wsl_stub ];
+  nativeCheckInputs = [
+    taskwarrior
+    wsl_stub
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/robgolding/tasklib";

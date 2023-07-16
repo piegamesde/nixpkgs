@@ -23,7 +23,13 @@ buildPythonPackage rec {
     hash = "sha256-Oudl06lAnuYMD7TSTC3raoBheqknBU9bzX/JjwaV5Yc=";
   };
 
-  propagatedBuildInputs = [ cssselect2 lxml pillow reportlab tinycss2 ];
+  propagatedBuildInputs = [
+    cssselect2
+    lxml
+    pillow
+    reportlab
+    tinycss2
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

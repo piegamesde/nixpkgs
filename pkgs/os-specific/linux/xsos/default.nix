@@ -12,8 +12,15 @@
   sysvinit,
 }:
 let
-  binPath =
-    [ iproute2 dmidecode ethtool pciutils multipath-tools iproute2 sysvinit ];
+  binPath = [
+    iproute2
+    dmidecode
+    ethtool
+    pciutils
+    multipath-tools
+    iproute2
+    sysvinit
+  ];
 
 in stdenv.mkDerivation rec {
   pname = "xsos";
@@ -26,7 +33,10 @@ in stdenv.mkDerivation rec {
     sha256 = "11cc8z3pz4gl0mwl2fc701mn4cgx50fybygx0rvs9bhvb0jnphay";
   };
 
-  nativeBuildInputs = [ makeWrapper installShellFiles ];
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+  ];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -39,7 +49,10 @@ in stdenv.mkDerivation rec {
     description = "Summarize system info from sosreports";
     homepage = "https://github.com/ryran/xsos";
     license = licenses.gpl3;
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
     maintainers = [ maintainers.nixinator ];
   };
 }

@@ -85,8 +85,12 @@ in stdenv.mkDerivation rec {
     '';
   };
 
-  nativeBuildInputs = [ cmake pkg-config autoPatchelfHook makeWrapper ]
-    ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    autoPatchelfHook
+    makeWrapper
+  ] ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ];
 
   buildInputs = [
     libcbs
@@ -119,7 +123,12 @@ in stdenv.mkDerivation rec {
     libappindicator
   ] ++ lib.optionals cudaSupport [ cudaPackages.cudatoolkit ];
 
-  runtimeDependencies = [ avahi mesa xorg.libXrandr libxcb ];
+  runtimeDependencies = [
+    avahi
+    mesa
+    xorg.libXrandr
+    libxcb
+  ];
 
   cmakeFlags = [ "-Wno-dev" ];
 

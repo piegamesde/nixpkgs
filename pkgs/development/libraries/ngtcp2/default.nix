@@ -24,11 +24,22 @@ stdenv.mkDerivation rec {
     hash = "sha256-VsacRYvjTWVx2ga952s1vs02GElXIW6umgcYr3UCcgE=";
   };
 
-  outputs = [ "out" "dev" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ];
 
   nativeBuildInputs = [ cmake ];
-  nativeCheckInputs = [ cunit ncurses ];
-  buildInputs = [ libev nghttp3 quictls ] ++ lib.optional withJemalloc jemalloc;
+  nativeCheckInputs = [
+    cunit
+    ncurses
+  ];
+  buildInputs = [
+    libev
+    nghttp3
+    quictls
+  ] ++ lib.optional withJemalloc jemalloc;
 
   cmakeFlags = [ "-DENABLE_STATIC_LIB=OFF" ];
 

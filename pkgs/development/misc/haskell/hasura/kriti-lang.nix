@@ -67,7 +67,10 @@ mkDerivation {
     utf8-string
     vector
   ];
-  libraryToolDepends = [ alex happy ];
+  libraryToolDepends = [
+    alex
+    happy
+  ];
   executableHaskellDepends = [
     aeson
     base

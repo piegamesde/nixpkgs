@@ -31,8 +31,13 @@ buildPythonPackage rec {
     hash = "sha256-mLGyeC48bEkEk4uEwOuTJyEGnf25E0MTvv98g8LfJL8=";
   };
 
-  propagatedBuildInputs =
-    [ brotlicffi certifi charset-normalizer idna urllib3 ];
+  propagatedBuildInputs = [
+    brotlicffi
+    certifi
+    charset-normalizer
+    idna
+    urllib3
+  ];
 
   passthru.optional-dependencies = {
     security = [ ];
@@ -40,8 +45,11 @@ buildPythonPackage rec {
     use_chardet_on_py3 = [ chardet ];
   };
 
-  nativeCheckInputs = [ pytest-mock pytest-xdist pytestCheckHook ]
-    ++ passthru.optional-dependencies.socks;
+  nativeCheckInputs = [
+    pytest-mock
+    pytest-xdist
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.socks;
 
   disabledTests = [
     # Disable tests that require network access and use httpbin

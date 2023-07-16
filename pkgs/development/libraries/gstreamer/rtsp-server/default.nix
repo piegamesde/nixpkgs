@@ -26,13 +26,25 @@ stdenv.mkDerivation rec {
     hash = "sha256-K+Suz7iHEBAOpxFe0CFkA+gJQ0Tr8UYJQnG41Nc4KL8=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs =
-    [ meson ninja gettext gobject-introspection pkg-config python3 ]
-    ++ lib.optionals enableDocumentation [ hotdoc ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    gettext
+    gobject-introspection
+    pkg-config
+    python3
+  ] ++ lib.optionals enableDocumentation [ hotdoc ];
 
-  buildInputs = [ gst-plugins-base gst-plugins-bad gobject-introspection ];
+  buildInputs = [
+    gst-plugins-base
+    gst-plugins-bad
+    gobject-introspection
+  ];
 
   mesonFlags = [
     "-Dexamples=disabled" # requires many dependencies and probably not useful for our users

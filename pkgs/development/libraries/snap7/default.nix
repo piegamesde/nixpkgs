@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
     '';
   };
 
-  outputs = [ "out" "dev" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ];
 
   makefile = "x86_64_linux.mk";
   makeFlags = [ "LibInstall=$(out)/lib" ];

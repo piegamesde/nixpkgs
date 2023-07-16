@@ -222,8 +222,10 @@ self: super:
     # Too strict bounds on doctest which isn't used, but is part of the configuration
     jailbreak = true;
     # vector-doctest seems to be broken when executed via ./Setup test
-    testTarget =
-      lib.concatStringsSep " " [ "vector-tests-O0" "vector-tests-O2" ];
+    testTarget = lib.concatStringsSep " " [
+      "vector-tests-O0"
+      "vector-tests-O2"
+    ];
   }) super.vector;
 
   # There are numerical tests on random data, that may fail occasionally
@@ -278,7 +280,10 @@ self: super:
     url =
       "https://github.com/jaspervdj/patat/commit/be9e0fe5642ba6aa7b25705ba17950923e9951fa.patch";
     sha256 = "sha256-Vxxi46qrkIyzYQZ+fe1vNTPldcQEI2rX2H40GvFJR2M=";
-    excludes = [ "stack.yaml" "stack.yaml.lock" ];
+    excludes = [
+      "stack.yaml"
+      "stack.yaml.lock"
+    ];
   }) super.patat;
 
   # The latest release on hackage has an upper bound on containers which
@@ -371,16 +376,14 @@ self: super:
     (markBroken (dontDistribute super.pandoc-cli));
 
   inline-c-cpp = overrideCabal (drv: {
-    patches = drv.patches or [ ] ++ [
-      (fetchpatch {
-        # awaiting release >0.5.0.0
-        url =
-          "https://github.com/fpco/inline-c/commit/e176b8e8c3c94e7d8289a8b7cc4ce8e737741730.patch";
-        name = "inline-c-cpp-pr-132-1.patch";
-        sha256 = "sha256-CdZXAT3Ar4KKDGyAUu8A7hzddKe5/AuMKoZSjt3o0UE=";
-        stripLen = 1;
-      })
-    ];
+    patches = drv.patches or [ ] ++ [ (fetchpatch {
+      # awaiting release >0.5.0.0
+      url =
+        "https://github.com/fpco/inline-c/commit/e176b8e8c3c94e7d8289a8b7cc4ce8e737741730.patch";
+      name = "inline-c-cpp-pr-132-1.patch";
+      sha256 = "sha256-CdZXAT3Ar4KKDGyAUu8A7hzddKe5/AuMKoZSjt3o0UE=";
+      stripLen = 1;
+    }) ];
     postPatch = (drv.postPatch or "") + ''
       substituteInPlace inline-c-cpp.cabal --replace "-optc-std=c++11" ""
     '';
@@ -858,7 +861,11 @@ self: super:
     })
   ] (overrideCabal (drv: {
     buildDepends = [ pkgs.libpcap ];
-    buildTools = with pkgs.buildPackages; [ gettext perl help2man ];
+    buildTools = with pkgs.buildPackages; [
+      gettext
+      perl
+      help2man
+    ];
     postInstall = ''
       make install PREFIX=$out
     '';
@@ -1230,7 +1237,10 @@ self: super:
             "https://github.com/dhall-lang/dhall-haskell/commit/49b9b3e3ce1718a89773c2b1bfa3c2af1a6e8752.patch";
           sha256 = "12sh5md81nlhyzzkmf7jrll3w1rvg2j48m57hfyvjn8has9c4gw6";
           stripLen = 1;
-          includes = [ "dhall-nix.cabal" "src/Dhall/Nix.hs" ];
+          includes = [
+            "dhall-nix.cabal"
+            "src/Dhall/Nix.hs"
+          ];
         })
       ] ++ drv.patches or [ ];
       prePatch = drv.prePatch or "" + ''
@@ -1337,12 +1347,10 @@ self: super:
 
   # Fix for base >= 4.11
   scat = overrideCabal (drv: {
-    patches = [
-      (fetchpatch {
-        url = "https://github.com/redelmann/scat/pull/6.diff";
-        sha256 = "07nj2p0kg05livhgp1hkkdph0j0a6lb216f8x348qjasy0lzbfhl";
-      })
-    ];
+    patches = [ (fetchpatch {
+      url = "https://github.com/redelmann/scat/pull/6.diff";
+      sha256 = "07nj2p0kg05livhgp1hkkdph0j0a6lb216f8x348qjasy0lzbfhl";
+    }) ];
   }) super.scat;
 
   # Fix build with attr-2.4.48 (see #53716)
@@ -1367,8 +1375,10 @@ self: super:
       # We don't have a MySQL test hook yet
       "--skip=/Esqueleto/MySQL"
     ];
-    testToolDepends = drv.testToolDepends or [ ]
-      ++ [ pkgs.postgresql pkgs.postgresqlTestHook ];
+    testToolDepends = drv.testToolDepends or [ ] ++ [
+      pkgs.postgresql
+      pkgs.postgresqlTestHook
+    ];
   }) super.esqueleto;
 
   # Requires API keys to run tests
@@ -1461,14 +1471,12 @@ self: super:
   # 2022-03-12: Pick patches from master for compat with Stackage Nightly
   # 2022-12-07: Lift bounds to allow dependencies shipped with LTS-20
   #             https://github.com/jgm/gitit/pull/683
-  gitit = appendPatches [
-    (fetchpatch {
-      name = "gitit-fix-build-with-hoauth2-2.3.0.patch";
-      url =
-        "https://github.com/jgm/gitit/commit/fd534c0155eef1790500c834e612ab22cf9b67b6.patch";
-      sha256 = "0hmlqkavn8hr0b4y4hxs1yyg0r79ylkzhzwy1dzbb3a2q86ydd2f";
-    })
-  ] (doJailbreak super.gitit);
+  gitit = appendPatches [ (fetchpatch {
+    name = "gitit-fix-build-with-hoauth2-2.3.0.patch";
+    url =
+      "https://github.com/jgm/gitit/commit/fd534c0155eef1790500c834e612ab22cf9b67b6.patch";
+    sha256 = "0hmlqkavn8hr0b4y4hxs1yyg0r79ylkzhzwy1dzbb3a2q86ydd2f";
+  }) ] (doJailbreak super.gitit);
 
   # Test suite requires database
   persistent-mysql = dontCheck super.persistent-mysql;
@@ -1493,8 +1501,10 @@ self: super:
         PGDATABASE=test
         PGUSER=test
       '';
-      testToolDepends = drv.testToolDepends or [ ]
-        ++ [ pkgs.postgresql pkgs.postgresqlTestHook ];
+      testToolDepends = drv.testToolDepends or [ ] ++ [
+        pkgs.postgresql
+        pkgs.postgresqlTestHook
+      ];
     }) super.persistent-postgresql;
 
   # Test suite requires a later version of persistent-test which depends on persistent 2.14
@@ -1664,9 +1674,15 @@ self: super:
   hasura-ekg-json =
     super.hasura-ekg-json.override { ekg-core = self.hasura-ekg-core; };
   pg-client = overrideCabal (drv: {
-    librarySystemDepends = with pkgs; [ postgresql krb5.dev openssl.dev ];
-    testToolDepends = drv.testToolDepends or [ ]
-      ++ [ pkgs.postgresql pkgs.postgresqlTestHook ];
+    librarySystemDepends = with pkgs; [
+      postgresql
+      krb5.dev
+      openssl.dev
+    ];
+    testToolDepends = drv.testToolDepends or [ ] ++ [
+      pkgs.postgresql
+      pkgs.postgresqlTestHook
+    ];
     # https://github.com/NixOS/nixpkgs/issues/198495
     doCheck = pkgs.postgresql.doCheck;
     preCheck = drv.preCheck or "" + ''
@@ -1680,13 +1696,11 @@ self: super:
 
   hcoord = overrideCabal (drv: {
     # Remove when https://github.com/danfran/hcoord/pull/8 is merged.
-    patches = [
-      (fetchpatch {
-        url =
-          "https://github.com/danfran/hcoord/pull/8/commits/762738b9e4284139f5c21f553667a9975bad688e.patch";
-        sha256 = "03r4jg9a6xh7w3jz3g4bs7ff35wa4rrmjgcggq51y0jc1sjqvhyz";
-      })
-    ];
+    patches = [ (fetchpatch {
+      url =
+        "https://github.com/danfran/hcoord/pull/8/commits/762738b9e4284139f5c21f553667a9975bad688e.patch";
+      sha256 = "03r4jg9a6xh7w3jz3g4bs7ff35wa4rrmjgcggq51y0jc1sjqvhyz";
+    }) ];
     # Remove when https://github.com/danfran/hcoord/issues/9 is closed.
     doCheck = false;
   }) super.hcoord;
@@ -1710,7 +1724,12 @@ self: super:
   #   so add them to build input and also wrap the resulting binary so they're in
   #   PATH.
   # - Patch can be removed on next package set bump (for v0.2.11)
-  update-nix-fetchgit = let deps = [ pkgs.git pkgs.nix pkgs.nix-prefetch-git ];
+  update-nix-fetchgit = let
+    deps = [
+      pkgs.git
+      pkgs.nix
+      pkgs.nix-prefetch-git
+    ];
   in self.generateOptparseApplicativeCompletions [ "update-nix-fetchgit" ]
   (overrideCabal (drv: {
     buildTools = drv.buildTools or [ ] ++ [ pkgs.buildPackages.makeWrapper ];
@@ -1722,13 +1741,11 @@ self: super:
   }) (addTestToolDepends deps super.update-nix-fetchgit));
 
   # Raise version bounds: https://github.com/idontgetoutmuch/binary-low-level/pull/16
-  binary-strict = appendPatches [
-    (fetchpatch {
-      url =
-        "https://github.com/idontgetoutmuch/binary-low-level/pull/16/commits/c16d06a1f274559be0dea0b1f7497753e1b1a8ae.patch";
-      sha256 = "sha256-deSbudy+2je1SWapirWZ1IVWtJ0sJVR5O/fnaAaib2g=";
-    })
-  ] super.binary-strict;
+  binary-strict = appendPatches [ (fetchpatch {
+    url =
+      "https://github.com/idontgetoutmuch/binary-low-level/pull/16/commits/c16d06a1f274559be0dea0b1f7497753e1b1a8ae.patch";
+    sha256 = "sha256-deSbudy+2je1SWapirWZ1IVWtJ0sJVR5O/fnaAaib2g=";
+  }) ] super.binary-strict;
 
   # 2020-11-15: nettle tests are pre MonadFail change
   # https://github.com/stbuehler/haskell-nettle/issues/10
@@ -1903,14 +1920,12 @@ self: super:
   vivid-supercollider = dontCheck super.vivid-supercollider;
 
   # while waiting for a new release: https://github.com/brendanhay/amazonka/pull/572
-  amazonka = appendPatches [
-    (fetchpatch {
-      relative = "amazonka";
-      url =
-        "https://github.com/brendanhay/amazonka/commit/43ddd87b1ebd6af755b166e16336259ec025b337.patch";
-      sha256 = "sha256-9Ed3qrLGRaNCdvqWMyg8ydAnqDkFqWKLLoObv/5jG54=";
-    })
-  ] (doJailbreak super.amazonka);
+  amazonka = appendPatches [ (fetchpatch {
+    relative = "amazonka";
+    url =
+      "https://github.com/brendanhay/amazonka/commit/43ddd87b1ebd6af755b166e16336259ec025b337.patch";
+    sha256 = "sha256-9Ed3qrLGRaNCdvqWMyg8ydAnqDkFqWKLLoObv/5jG54=";
+  }) ] (doJailbreak super.amazonka);
 
   # Test suite does not compile.
   feed = dontCheck super.feed;
@@ -2052,15 +2067,16 @@ self: super:
     # Apply patch which fixes a compilation failure we encountered.
     # Will need to be kept until we can drop ghc-bignum entirely,
     # i. e. if GHC 8.10.* and 8.8.* have been removed.
-    configureFlags = [ "-f" "Native" ];
-    patches = [
-      (fetchpatch {
-        url =
-          "https://gitlab.haskell.org/ghc/ghc/-/commit/08d1588bf38d83140a86817a7a615db486357d4f.patch";
-        sha256 = "sha256-Y9WW0KDQ/qY2L9ObPvh1i/6lxXIlprbxzdSBDfiaMtE=";
-        relative = "libraries/ghc-bignum";
-      })
+    configureFlags = [
+      "-f"
+      "Native"
     ];
+    patches = [ (fetchpatch {
+      url =
+        "https://gitlab.haskell.org/ghc/ghc/-/commit/08d1588bf38d83140a86817a7a615db486357d4f.patch";
+      sha256 = "sha256-Y9WW0KDQ/qY2L9ObPvh1i/6lxXIlprbxzdSBDfiaMtE=";
+      relative = "libraries/ghc-bignum";
+    }) ];
   };
 
   # 2021-04-09: outdated base and alex-tools
@@ -2149,16 +2165,14 @@ self: super:
 
   # Fix build with bytestring >= 0.11 (GHC 9.2)
   # https://github.com/llvm-hs/llvm-hs/pull/389
-  llvm-hs-pure = appendPatches [
-    (fetchpatch {
-      name = "llvm-hs-pure-bytestring-0.11.patch";
-      url =
-        "https://github.com/llvm-hs/llvm-hs/commit/fe8fd556e8d2cc028f61d4d7b4b6bf18c456d090.patch";
-      sha256 = "sha256-1d4wQg6JEJL3GwmXQpvbW7VOY5DwjUPmIsLEEur0Kps=";
-      relative = "llvm-hs-pure";
-      excludes = [ "**/Triple.hs" ]; # doesn't exist in 9.0.0
-    })
-  ] (overrideCabal {
+  llvm-hs-pure = appendPatches [ (fetchpatch {
+    name = "llvm-hs-pure-bytestring-0.11.patch";
+    url =
+      "https://github.com/llvm-hs/llvm-hs/commit/fe8fd556e8d2cc028f61d4d7b4b6bf18c456d090.patch";
+    sha256 = "sha256-1d4wQg6JEJL3GwmXQpvbW7VOY5DwjUPmIsLEEur0Kps=";
+    relative = "llvm-hs-pure";
+    excludes = [ "**/Triple.hs" ]; # doesn't exist in 9.0.0
+  }) ] (overrideCabal {
     # Hackage Revision prevents patch from applying. Revision 1 does not allow
     # bytestring-0.11.4 which is bundled with 9.2.6.
     editedCabalFile = null;
@@ -2210,8 +2224,10 @@ self: super:
       })
     # Provide newly added dependencies
     (overrideCabal (drv: {
-      libraryHaskellDepends = drv.libraryHaskellDepends or [ ]
-        ++ [ self.cryptonite self.memory ];
+      libraryHaskellDepends = drv.libraryHaskellDepends or [ ] ++ [
+        self.cryptonite
+        self.memory
+      ];
       testHaskellDepends = drv.testHaskellDepends or [ ]
         ++ [ self.inspection-testing ];
     }))
@@ -2231,8 +2247,12 @@ self: super:
 
   # Disable flaky tests
   # https://github.com/DavidEichmann/alpaca-netcode/issues/2
-  alpaca-netcode = overrideCabal { testFlags = [ "--pattern" "!/[NOCI]/" ]; }
-    super.alpaca-netcode;
+  alpaca-netcode = overrideCabal {
+    testFlags = [
+      "--pattern"
+      "!/[NOCI]/"
+    ];
+  } super.alpaca-netcode;
 
   # 2021-05-22: Tests fail sometimes (even consistently on hydra)
   # when running a fs-related test with >= 12 jobs. To work around
@@ -2308,21 +2328,28 @@ self: super:
 
   # https://github.com/AndrewRademacher/aeson-casing/issues/8
   aeson-casing = assert super.aeson-casing.version == "0.2.0.0";
-    overrideCabal
-    (drv: { testFlags = [ "-p" "! /encode train/" ] ++ drv.testFlags or [ ]; })
-    super.aeson-casing;
+    overrideCabal (drv: {
+      testFlags = [
+        "-p"
+        "! /encode train/"
+      ] ++ drv.testFlags or [ ];
+    }) super.aeson-casing;
 
   # https://github.com/emc2/HUnit-Plus/issues/26
   HUnit-Plus = dontCheck super.HUnit-Plus;
   # https://github.com/ewestern/haskell-postgis/issues/7
   haskell-postgis = overrideCabal (drv: {
-    testFlags = [ "--skip" "/Geo/Hexable/Encodes a linestring/" ]
-      ++ drv.testFlags or [ ];
+    testFlags = [
+      "--skip"
+      "/Geo/Hexable/Encodes a linestring/"
+    ] ++ drv.testFlags or [ ];
   }) super.haskell-postgis;
   # https://github.com/ChrisPenner/json-to-haskell/issues/5
   json-to-haskell = overrideCabal (drv: {
-    testFlags = [ "--match" "/should sanitize weird field and record names/" ]
-      ++ drv.testFlags or [ ];
+    testFlags = [
+      "--match"
+      "/should sanitize weird field and record names/"
+    ] ++ drv.testFlags or [ ];
   }) super.json-to-haskell;
   # https://github.com/fieldstrength/aeson-deriving/issues/5
   aeson-deriving = dontCheck super.aeson-deriving;
@@ -2333,24 +2360,33 @@ self: super:
       "!/field.unexpected-value/&&!/field.missing-field/&&!/argument.unexpected-value/&&!/argument.missing-field/"
     ] ++ drv.testFlags or [ ];
   }) super.morpheus-graphql-core;
-  morpheus-graphql = overrideCabal
-    (drv: { testFlags = [ "-p" "!/Test Rendering/" ] ++ drv.testFlags or [ ]; })
-    super.morpheus-graphql;
+  morpheus-graphql = overrideCabal (drv: {
+    testFlags = [
+      "-p"
+      "!/Test Rendering/"
+    ] ++ drv.testFlags or [ ];
+  }) super.morpheus-graphql;
   drunken-bishop = doJailbreak super.drunken-bishop;
   # https://github.com/SupercedeTech/dropbox-client/issues/1
   dropbox = overrideCabal (drv: {
-    testFlags =
-      [ "--skip" "/Dropbox/Dropbox aeson aeson/encodes list folder correctly/" ]
-      ++ drv.testFlags or [ ];
+    testFlags = [
+      "--skip"
+      "/Dropbox/Dropbox aeson aeson/encodes list folder correctly/"
+    ] ++ drv.testFlags or [ ];
   }) super.dropbox;
   # https://github.com/alonsodomin/haskell-schema/issues/11
   hschema-aeson = overrideCabal (drv: {
-    testFlags = [ "--skip" "/toJsonSerializer/should generate valid JSON/" ]
-      ++ drv.testFlags or [ ];
+    testFlags = [
+      "--skip"
+      "/toJsonSerializer/should generate valid JSON/"
+    ] ++ drv.testFlags or [ ];
   }) super.hschema-aeson;
   # https://github.com/minio/minio-hs/issues/165
   minio-hs = overrideCabal (drv: {
-    testFlags = [ "-p" "!/Test mkSelectRequest/" ] ++ drv.testFlags or [ ];
+    testFlags = [
+      "-p"
+      "!/Test mkSelectRequest/"
+    ] ++ drv.testFlags or [ ];
   }) super.minio-hs;
 
   # Invalid CPP in test suite: https://github.com/cdornan/memory-cd/issues/1

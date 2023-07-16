@@ -41,7 +41,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [ mock pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [ "tests/test_benchmark.py" ];
 

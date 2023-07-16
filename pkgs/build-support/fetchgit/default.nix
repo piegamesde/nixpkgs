@@ -118,8 +118,11 @@ else
 
     GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
-    impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ netrcImpureEnvVars
-      ++ [ "GIT_PROXY_COMMAND" "NIX_GIT_SSL_CAINFO" "SOCKS_SERVER" ];
+    impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ netrcImpureEnvVars ++ [
+      "GIT_PROXY_COMMAND"
+      "NIX_GIT_SSL_CAINFO"
+      "SOCKS_SERVER"
+    ];
 
     inherit preferLocalBuild meta allowedRequisites;
 

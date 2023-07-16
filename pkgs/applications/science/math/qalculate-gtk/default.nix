@@ -23,14 +23,26 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  nativeBuildInputs = [ intltool pkg-config autoreconfHook wrapGAppsHook ];
-  buildInputs = [ libqalculate gtk3 ];
+  nativeBuildInputs = [
+    intltool
+    pkg-config
+    autoreconfHook
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    libqalculate
+    gtk3
+  ];
   enableParallelBuilding = true;
 
   meta = with lib; {
     description = "The ultimate desktop calculator";
     homepage = "http://qalculate.github.io";
-    maintainers = with maintainers; [ gebner doronbehar alyaeanyx ];
+    maintainers = with maintainers; [
+      gebner
+      doronbehar
+      alyaeanyx
+    ];
     license = licenses.gpl2Plus;
     platforms = platforms.all;
   };

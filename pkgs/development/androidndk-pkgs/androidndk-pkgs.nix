@@ -52,8 +52,13 @@ let
   targetInfo = ndkInfoFun stdenv.targetPlatform;
 
   inherit (stdenv.targetPlatform) sdkVer;
-  suffixSalt =
-    lib.replaceStrings [ "-" "." ] [ "_" "_" ] stdenv.targetPlatform.config;
+  suffixSalt = lib.replaceStrings [
+    "-"
+    "."
+  ] [
+    "_"
+    "_"
+  ] stdenv.targetPlatform.config;
 
   # targetInfo.triple is what Google thinks the toolchain should be, this is a little
   # different from what we use. We make it four parts to conform with the existing
@@ -67,7 +72,10 @@ in rec {
   binaries = stdenv.mkDerivation {
     pname = "${targetPrefix}ndk-toolchain";
     inherit (androidndk) version;
-    nativeBuildInputs = [ makeWrapper autoPatchelfHook ];
+    nativeBuildInputs = [
+      makeWrapper
+      autoPatchelfHook
+    ];
     propagatedBuildInputs = [ androidndk ];
     passthru = {
       inherit targetPrefix;

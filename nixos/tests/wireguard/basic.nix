@@ -19,13 +19,19 @@ import ../make-test-python.nix ({
           boot = lib.mkIf (kernelPackages != null) { inherit kernelPackages; };
           networking.firewall.allowedUDPPorts = [ 23542 ];
           networking.wireguard.interfaces.wg0 = {
-            ips = [ "10.23.42.1/32" "fc00::1/128" ];
+            ips = [
+              "10.23.42.1/32"
+              "fc00::1/128"
+            ];
             listenPort = 23542;
 
             inherit (wg-snakeoil-keys.peer0) privateKey;
 
             peers = lib.singleton {
-              allowedIPs = [ "10.23.42.2/32" "fc00::2/128" ];
+              allowedIPs = [
+                "10.23.42.2/32"
+                "fc00::2/128"
+              ];
 
               inherit (wg-snakeoil-keys.peer1) publicKey;
             };
@@ -39,14 +45,20 @@ import ../make-test-python.nix ({
         extraConfig = {
           boot = lib.mkIf (kernelPackages != null) { inherit kernelPackages; };
           networking.wireguard.interfaces.wg0 = {
-            ips = [ "10.23.42.2/32" "fc00::2/128" ];
+            ips = [
+              "10.23.42.2/32"
+              "fc00::2/128"
+            ];
             listenPort = 23542;
             allowedIPsAsRoutes = false;
 
             inherit (wg-snakeoil-keys.peer1) privateKey;
 
             peers = lib.singleton {
-              allowedIPs = [ "0.0.0.0/0" "::/0" ];
+              allowedIPs = [
+                "0.0.0.0/0"
+                "::/0"
+              ];
               endpoint = "192.168.0.1:23542";
               persistentKeepalive = 25;
 

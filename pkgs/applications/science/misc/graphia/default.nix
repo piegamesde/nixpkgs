@@ -35,9 +35,16 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ qtbase qtquickcontrols2 qtgraphicaleffects ];
+  buildInputs = [
+    qtbase
+    qtquickcontrols2
+    qtgraphicaleffects
+  ];
 
   meta = with lib; {
     # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/graphia.x86_64-darwin

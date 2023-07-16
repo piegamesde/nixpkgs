@@ -17,8 +17,11 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-ZBI3WDXfJKBEF2rmUN3LvOOPT1185dHmj88qJKsdUiE=";
 
-  ldflags =
-    [ "-w" "-s" "-X github.com/k1LoW/oshka/version.Version=${version}" ];
+  ldflags = [
+    "-w"
+    "-s"
+    "-X github.com/k1LoW/oshka/version.Version=${version}"
+  ];
 
   # Tests requires a running Docker instance
   doCheck = false;

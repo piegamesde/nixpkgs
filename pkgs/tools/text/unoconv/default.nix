@@ -25,7 +25,10 @@ stdenv.mkDerivation rec {
     sha256 = "1akx64686in8j8arl6vsgp2n3bv770q48pfv283c6fz6wf9p8fvr";
   };
 
-  nativeBuildInputs = [ asciidoc makeWrapper ];
+  nativeBuildInputs = [
+    asciidoc
+    makeWrapper
+  ];
 
   preBuild = ''
     makeFlags=prefix="$out"

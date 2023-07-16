@@ -33,7 +33,11 @@ stdenvNoCC.mkDerivation {
     longDescription = ''
       Pre-patched and adjusted fonts for usage with the Powerline plugin.
     '';
-    license = with licenses; [ asl20 free ofl ];
+    license = with licenses; [
+      asl20
+      free
+      ofl
+    ];
     platforms = platforms.all;
     maintainers = with maintainers; [ malyn ];
   };

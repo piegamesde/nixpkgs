@@ -25,7 +25,10 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ fftwSinglePrec lv2 ];
+  buildInputs = [
+    fftwSinglePrec
+    lv2
+  ];
 
   installPhase = "make install-system";
 

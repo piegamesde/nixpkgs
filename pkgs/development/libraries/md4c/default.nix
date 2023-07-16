@@ -24,7 +24,10 @@ stdenv.mkDerivation rec {
     ./fix-pkgconfig.patch
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   meta = with lib; {
     description = "Markdown parser made in C";

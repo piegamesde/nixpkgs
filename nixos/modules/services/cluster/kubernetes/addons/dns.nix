@@ -55,7 +55,10 @@ in {
         See: <https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md>.
       '';
       default = "Reconcile";
-      type = types.enum [ "Reconcile" "EnsureExists" ];
+      type = types.enum [
+        "Reconcile"
+        "EnsureExists"
+      ];
     };
 
     coredns = mkOption {
@@ -133,8 +136,16 @@ in {
         rules = [
           {
             apiGroups = [ "" ];
-            resources = [ "endpoints" "services" "pods" "namespaces" ];
-            verbs = [ "list" "watch" ];
+            resources = [
+              "endpoints"
+              "services"
+              "pods"
+              "namespaces"
+            ];
+            verbs = [
+              "list"
+              "watch"
+            ];
           }
           {
             apiGroups = [ "" ];
@@ -144,7 +155,10 @@ in {
           {
             apiGroups = [ "discovery.k8s.io" ];
             resources = [ "endpointslices" ];
-            verbs = [ "list" "watch" ];
+            verbs = [
+              "list"
+              "watch"
+            ];
           }
         ];
       };
@@ -169,11 +183,11 @@ in {
           kind = "ClusterRole";
           name = "system:coredns";
         };
-        subjects = [{
+        subjects = [ {
           kind = "ServiceAccount";
           name = "coredns";
           namespace = "kube-system";
-        }];
+        } ];
       };
     };
 
@@ -230,8 +244,11 @@ in {
           template = {
             metadata = { labels = { k8s-app = "kube-dns"; }; };
             spec = {
-              containers = [{
-                args = [ "-conf" "/etc/coredns/Corefile" ];
+              containers = [ {
+                args = [
+                  "-conf"
+                  "/etc/coredns/Corefile"
+                ];
                 image = with cfg.coredns; "${imageName}:${finalImageTag}";
                 imagePullPolicy = "Never";
                 livenessProbe = {
@@ -275,12 +292,12 @@ in {
                   capabilities = { drop = [ "all" ]; };
                   readOnlyRootFilesystem = true;
                 };
-                volumeMounts = [{
+                volumeMounts = [ {
                   mountPath = "/etc/coredns";
                   name = "config-volume";
                   readOnly = true;
-                }];
-              }];
+                } ];
+              } ];
               dnsPolicy = "Default";
               nodeSelector = { "beta.kubernetes.io/os" = "linux"; };
               serviceAccountName = "coredns";
@@ -294,16 +311,16 @@ in {
                   operator = "Exists";
                 }
               ];
-              volumes = [{
+              volumes = [ {
                 configMap = {
-                  items = [{
+                  items = [ {
                     key = "Corefile";
                     path = "Corefile";
-                  }];
+                  } ];
                   name = "coredns";
                 };
                 name = "config-volume";
-              }];
+              } ];
             };
           };
         };

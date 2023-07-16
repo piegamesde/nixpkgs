@@ -31,15 +31,33 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-oFGgQa52NPNOouNHvyZoen7jDIqxckpjLFfzfbbcT/c=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ bzip2 libarchive libconfuse libsodium xz zlib ]
-    ++ lib.optionals stdenv.isDarwin [ DiskArbitration ];
+  buildInputs = [
+    bzip2
+    libarchive
+    libconfuse
+    libsodium
+    xz
+    zlib
+  ] ++ lib.optionals stdenv.isDarwin [ DiskArbitration ];
 
-  propagatedBuildInputs = [ coreutils unzip zip ]
-    ++ lib.optionals doCheck [ mtools dosfstools ];
+  propagatedBuildInputs = [
+    coreutils
+    unzip
+    zip
+  ] ++ lib.optionals doCheck [
+    mtools
+    dosfstools
+  ];
 
-  nativeCheckInputs = [ which xdelta ];
+  nativeCheckInputs = [
+    which
+    xdelta
+  ];
 
   doCheck = !stdenv.isDarwin;
 

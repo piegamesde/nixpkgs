@@ -68,8 +68,11 @@ in stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ wrapGAppsHook ]
-    ++ (with ocamlPackages; [ ocaml findlib dune_3 ]);
+  nativeBuildInputs = [ wrapGAppsHook ] ++ (with ocamlPackages; [
+    ocaml
+    findlib
+    dune_3
+  ]);
 
   buildInputs = with ocamlPackages; [
     dune-site
@@ -132,7 +135,10 @@ in stdenv.mkDerivation rec {
       "An extensible and collaborative platform dedicated to source-code analysis of C software";
     homepage = "http://frama-c.com/";
     license = lib.licenses.lgpl21;
-    maintainers = with lib.maintainers; [ thoughtpolice amiddelk ];
+    maintainers = with lib.maintainers; [
+      thoughtpolice
+      amiddelk
+    ];
     platforms = lib.platforms.unix;
   };
 }

@@ -27,7 +27,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ jsonschema rfc3339-validator ];
+  propagatedBuildInputs = [
+    jsonschema
+    rfc3339-validator
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

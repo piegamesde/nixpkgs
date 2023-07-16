@@ -20,7 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-yu4BNvYai3iBVNyOfAOsLd5XrcFw8cR4arRyFJHKbpk=";
   };
 
-  propagatedBuildInputs = [ pytest invoke ];
+  propagatedBuildInputs = [
+    pytest
+    invoke
+  ];
   # There are no tests in pylnk3.
   doCheck = false;
 

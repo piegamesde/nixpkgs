@@ -19,9 +19,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-hjDlY18O+VDJR68vwrIZwsQAa40xU+V3bCAA4GFHJEQ=";
   };
 
-  nativeBuildInputs = [ cmake qttools wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    qttools
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ qtbase qtsvg ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
+  buildInputs = [
+    qtbase
+    qtsvg
+  ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
 
   installPhase = if stdenv.isDarwin then ''
     runHook preInstall

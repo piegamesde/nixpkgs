@@ -28,7 +28,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ pdfrw reportlab setuptools svglib xdg ];
+  propagatedBuildInputs = [
+    pdfrw
+    reportlab
+    setuptools
+    svglib
+    xdg
+  ];
 
   # upstream has no tests
   doCheck = false;

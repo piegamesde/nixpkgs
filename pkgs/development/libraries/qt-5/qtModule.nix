@@ -23,10 +23,16 @@ in mkDerivation (args // {
   inherit pname version src;
   patches = (args.patches or [ ]) ++ (patches.${pname} or [ ]);
 
-  nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [ perl self.qmake ];
+  nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
+    perl
+    self.qmake
+  ];
   propagatedBuildInputs = args.qtInputs ++ (args.propagatedBuildInputs or [ ]);
 
-  outputs = args.outputs or [ "out" "dev" ];
+  outputs = args.outputs or [
+    "out"
+    "dev"
+  ];
   setOutputFlags = args.setOutputFlags or false;
 
   preHook = ''
@@ -77,8 +83,18 @@ in mkDerivation (args // {
   meta = {
     homepage = "https://www.qt.io";
     description = "A cross-platform application framework for C++";
-    license = with licenses; [ fdl13Plus gpl2Plus lgpl21Plus lgpl3Plus ];
-    maintainers = with maintainers; [ qknight ttuegel periklis bkchr ];
+    license = with licenses; [
+      fdl13Plus
+      gpl2Plus
+      lgpl21Plus
+      lgpl3Plus
+    ];
+    maintainers = with maintainers; [
+      qknight
+      ttuegel
+      periklis
+      bkchr
+    ];
     platforms = platforms.unix;
   } // (args.meta or { });
 })

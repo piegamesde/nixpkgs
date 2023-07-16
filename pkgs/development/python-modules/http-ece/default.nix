@@ -23,7 +23,12 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ cryptography ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  nativeCheckInputs = [ coverage flake8 mock nose ];
+  nativeCheckInputs = [
+    coverage
+    flake8
+    mock
+    nose
+  ];
 
   meta = with lib; {
     description = "Encipher HTTP Messages";

@@ -21,9 +21,17 @@ buildPythonPackage rec {
     hash = "sha256-8VrpI/pk5IhEvqzo036cnIbJ1Hu3UfQ6GHTNkNJUYvo=";
   };
 
-  propagatedBuildInputs = [ async_generator trio wsproto ];
+  propagatedBuildInputs = [
+    async_generator
+    trio
+    wsproto
+  ];
 
-  nativeCheckInputs = [ pytest-trio pytestCheckHook trustme ];
+  nativeCheckInputs = [
+    pytest-trio
+    pytestCheckHook
+    trustme
+  ];
 
   pythonImportsCheck = [ "trio_websocket" ];
 

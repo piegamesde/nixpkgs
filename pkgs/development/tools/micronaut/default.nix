@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Z4Nf4U6hPuSDvCLCxymaouPz+msUytR7Gqof4opATxo=";
   };
 
-  nativeBuildInputs = [ makeWrapper installShellFiles ];
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+  ];
 
   installPhase = ''
     runHook preInstall

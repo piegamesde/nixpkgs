@@ -144,9 +144,10 @@ let
         };
 
         prune = mkOption {
-          type = types.nullOr
-            (types.coercedTo (types.enum [ "disable" "manual" ])
-              (x: if x == "disable" then 0 else 1) types.ints.unsigned);
+          type = types.nullOr (types.coercedTo (types.enum [
+            "disable"
+            "manual"
+          ]) (x: if x == "disable" then 0 else 1) types.ints.unsigned);
           default = null;
           example = 10000;
           description = lib.mdDoc ''
@@ -186,9 +187,12 @@ in {
 
     assertions = flatten (mapAttrsToList (bitcoindName: cfg: [
       {
-        assertion = (cfg.prune != null)
-          -> (builtins.elem cfg.prune [ "disable" "manual" 0 1 ]
-            || (builtins.isInt cfg.prune && cfg.prune >= 550));
+        assertion = (cfg.prune != null) -> (builtins.elem cfg.prune [
+          "disable"
+          "manual"
+          0
+          1
+        ] || (builtins.isInt cfg.prune && cfg.prune >= 550));
         message = ''
           If set, services.bitcoind.${bitcoindName}.prune has to be "disable", "manual", 0 , 1 or >= 550.
         '';
@@ -261,8 +265,8 @@ in {
         };
       }))) eachBitcoind;
 
-    systemd.tmpfiles.rules = flatten (mapAttrsToList (bitcoindName: cfg:
-      [ "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ])
+    systemd.tmpfiles.rules = flatten (mapAttrsToList
+      (bitcoindName: cfg: [ "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ])
       eachBitcoind);
 
     users.users = mapAttrs' (bitcoindName: cfg:

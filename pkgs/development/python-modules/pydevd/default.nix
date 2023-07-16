@@ -24,7 +24,13 @@ buildPythonPackage rec {
     hash = "sha256-TDU/V7kY7zVxiP4OVjGqpsRVYplpkgCly2qAOqhZONo=";
   };
 
-  nativeCheckInputs = [ numpy psutil pytestCheckHook trio untangle ];
+  nativeCheckInputs = [
+    numpy
+    psutil
+    pytestCheckHook
+    trio
+    untangle
+  ];
 
   disabledTests = [
     # Require network connection

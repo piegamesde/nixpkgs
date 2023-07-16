@@ -21,7 +21,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fZnZH2j/IXbfsJkJG8s2ArOrWwVE2kgvSREVaSVoDyo=";
   };
 
-  nativeBuildInputs = [ jdk ant texinfo pkg-config ];
+  nativeBuildInputs = [
+    jdk
+    ant
+    texinfo
+    pkg-config
+  ];
   buildInputs = [ libffi ];
 
   buildPhase = ''

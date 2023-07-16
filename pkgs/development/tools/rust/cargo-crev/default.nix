@@ -33,7 +33,10 @@ rustPlatform.buildRustPackage rec {
     git config --global user.email "nobody@example.com"
   '';
 
-  nativeBuildInputs = [ perl pkg-config ];
+  nativeBuildInputs = [
+    perl
+    pkg-config
+  ];
 
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
     SystemConfiguration
@@ -49,7 +52,11 @@ rustPlatform.buildRustPackage rec {
     description =
       "A cryptographically verifiable code review system for the cargo (Rust) package manager";
     homepage = "https://github.com/crev-dev/cargo-crev";
-    license = with licenses; [ asl20 mit mpl20 ];
+    license = with licenses; [
+      asl20
+      mit
+      mpl20
+    ];
     maintainers = with maintainers; [ b4dm4n ];
   };
 }

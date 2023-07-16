@@ -22,14 +22,12 @@
 let
   rdbtools-patched = rdbtools.overridePythonAttrs (oldAttrs: {
     # Add required additional flag for resp-app
-    patches = [
-      (fetchpatch {
-        name = "Add-flag-to-parse-only-key-names.patch";
-        url =
-          "https://github.com/uglide/redis-rdb-tools/commit/b74946e6fbca589947ef0186429d5ce45a074b87.patch";
-        hash = "sha256-1gjqB/IDSsAbrwzWSezlAW/2SYr6BFm1QJ2HAHK2fFs=";
-      })
-    ];
+    patches = [ (fetchpatch {
+      name = "Add-flag-to-parse-only-key-names.patch";
+      url =
+        "https://github.com/uglide/redis-rdb-tools/commit/b74946e6fbca589947ef0186429d5ce45a074b87.patch";
+      hash = "sha256-1gjqB/IDSsAbrwzWSezlAW/2SYr6BFm1QJ2HAHK2fFs=";
+    }) ];
   });
 in mkDerivation rec {
   pname = "RESP.app";
@@ -43,11 +41,23 @@ in mkDerivation rec {
     sha256 = "sha256-5eI3J2RsYE5Ejb1r8YkgzmGX2FyaCLFD0lc10J+fOT4=";
   };
 
-  nativeBuildInputs = [ python3Packages.wrapPython qmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    python3Packages.wrapPython
+    qmake
+    wrapQtAppsHook
+  ];
 
-  buildInputs =
-    [ brotli lz4 pyotherside python3 qtbase qtcharts qttools snappy zstd ]
-    ++ pythonPath;
+  buildInputs = [
+    brotli
+    lz4
+    pyotherside
+    python3
+    qtbase
+    qtcharts
+    qttools
+    snappy
+    zstd
+  ] ++ pythonPath;
 
   pythonPath = with python3Packages; [
     bitstring

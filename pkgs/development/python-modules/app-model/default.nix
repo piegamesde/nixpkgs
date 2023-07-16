@@ -28,9 +28,17 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ hatch-vcs hatchling ];
+  nativeBuildInputs = [
+    hatch-vcs
+    hatchling
+  ];
 
-  propagatedBuildInputs = [ psygnal pydantic in-n-out typing-extensions ];
+  propagatedBuildInputs = [
+    psygnal
+    pydantic
+    in-n-out
+    typing-extensions
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

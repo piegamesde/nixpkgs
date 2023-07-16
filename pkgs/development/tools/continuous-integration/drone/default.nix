@@ -18,7 +18,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-I4GQ/KRM8vFOaMrGdSWll5PAk8ivFXdje7GTGYRPECw=";
 
-  tags = lib.optionals (!enableUnfree) [ "oss" "nolimit" ];
+  tags = lib.optionals (!enableUnfree) [
+    "oss"
+    "nolimit"
+  ];
 
   doCheck = false;
 
@@ -26,7 +29,11 @@ buildGoModule rec {
     description =
       "Continuous Integration platform built on container technology";
     homepage = "https://github.com/harness/drone";
-    maintainers = with maintainers; [ elohmeier vdemeester techknowlogick ];
+    maintainers = with maintainers; [
+      elohmeier
+      vdemeester
+      techknowlogick
+    ];
     license = with licenses;
       if enableUnfree then unfreeRedistributable else asl20;
   };

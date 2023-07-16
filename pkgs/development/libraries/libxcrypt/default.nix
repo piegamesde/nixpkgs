@@ -19,15 +19,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-6HrPnGUsVzpHE9VYIVn5jzBdVu1fdUzmT1fUGU1rOm8=";
   };
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   configureFlags = [
     "--enable-hashes=${enableHashes}"
     "--enable-obsolete-api=glibc"
     "--disable-failure-tokens"
-  ] ++ lib.optionals
-    (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.libc == "bionic")
-    [ "--disable-werror" ];
+  ] ++ lib.optionals (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.libc
+    == "bionic") [ "--disable-werror" ];
 
   nativeBuildInputs = [ perl ];
 
@@ -54,7 +56,10 @@ stdenv.mkDerivation rec {
       "Extended crypt library for descrypt, md5crypt, bcrypt, and others";
     homepage = "https://github.com/besser82/libxcrypt/";
     platforms = platforms.all;
-    maintainers = with maintainers; [ dottedmag hexa ];
+    maintainers = with maintainers; [
+      dottedmag
+      hexa
+    ];
     license = licenses.lgpl21Plus;
   };
 }

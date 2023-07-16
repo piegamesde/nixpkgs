@@ -21,9 +21,16 @@ buildGoModule rec {
   vendorSha256 = "sha256-9n/782uKu7qNV/WEpbEV3aHcPXipyOhGdAhT/F4O2xc=";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ btrfs-progs lvm2 ];
+  buildInputs = [
+    btrfs-progs
+    lvm2
+  ];
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   preCheck = ''
     # Remove tests that use networking

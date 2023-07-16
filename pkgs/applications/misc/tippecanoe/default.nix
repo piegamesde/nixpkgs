@@ -19,7 +19,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-FWdAMIAoj3/+SQLIan++UpmWH1o3v92FsDw//b5RorM=";
   };
 
-  buildInputs = [ sqlite zlib ];
+  buildInputs = [
+    sqlite
+    zlib
+  ];
   nativeCheckInputs = [ perl ];
 
   makeFlags = [ "PREFIX=$(out)" ];

@@ -26,9 +26,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-n4Vkxb/7fr214PgB6VFNgH1tMDgTBS/UHUQ6V4uGkDA=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    pkg-config
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ libarchive libslirp qtbase qtmultimedia SDL2 wayland ];
+  buildInputs = [
+    libarchive
+    libslirp
+    qtbase
+    qtmultimedia
+    SDL2
+    wayland
+  ];
 
   qtWrapperArgs =
     [ "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libpcap ]}" ];
@@ -37,7 +49,12 @@ stdenv.mkDerivation rec {
     homepage = "https://melonds.kuribo64.net/";
     description = "Work in progress Nintendo DS emulator";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ artemist benley shamilton xfix ];
+    maintainers = with maintainers; [
+      artemist
+      benley
+      shamilton
+      xfix
+    ];
     platforms = platforms.linux;
   };
 }

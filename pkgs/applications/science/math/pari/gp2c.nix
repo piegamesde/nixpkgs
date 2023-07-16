@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-JhN07Kc+vXbBEqlZPcootkgSqnYlYf2lpLLCzXmmnTY=";
   };
 
-  buildInputs = [ pari perl ];
+  buildInputs = [
+    pari
+    perl
+  ];
 
   configureFlags = [
     "--with-paricfg=${pari}/lib/pari/pari.cfg"

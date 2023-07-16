@@ -42,15 +42,27 @@ buildPythonPackage rec {
     hash = "sha256-ZLRzkyoFbAY2Xs1ORWBqvc2gpKovg9wRs/RtAryOcVg=";
   };
 
-  nativeBuildInputs = [ hatch-fancy-pypi-readme hatchling ];
+  nativeBuildInputs = [
+    hatch-fancy-pypi-readme
+    hatchling
+  ];
 
-  propagatedBuildInputs = [ certifi httpcore rfc3986 sniffio ];
+  propagatedBuildInputs = [
+    certifi
+    httpcore
+    rfc3986
+    sniffio
+  ];
 
   passthru.optional-dependencies = {
     http2 = [ h2 ];
     socks = [ socksio ];
     brotli = if isPyPy then [ brotlicffi ] else [ brotli ];
-    cli = [ click rich pygments ];
+    cli = [
+      click
+      rich
+      pygments
+    ];
   };
 
   # trustme uses pyopenssl
@@ -104,6 +116,9 @@ buildPythonPackage rec {
     description = "The next generation HTTP client";
     homepage = "https://github.com/encode/httpx";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ costrouc fab ];
+    maintainers = with maintainers; [
+      costrouc
+      fab
+    ];
   };
 }

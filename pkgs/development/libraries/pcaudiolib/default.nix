@@ -25,7 +25,13 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-ZG/HBk5DHaZP/H3M01vDr3M2nP9awwsPuKpwtalz3EE=";
   };
 
-  nativeBuildInputs = [ autoconf automake libtool pkg-config which ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+    pkg-config
+    which
+  ];
 
   buildInputs = [ portaudio ] ++ lib.optional stdenv.isLinux alsa-lib
     ++ lib.optional pulseaudioSupport libpulseaudio;

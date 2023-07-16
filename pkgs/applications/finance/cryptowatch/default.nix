@@ -25,9 +25,16 @@ stdenv.mkDerivation rec {
 
   unpackPhase = "unzip $src";
 
-  nativeBuildInputs = [ autoPatchelfHook wrapGAppsHook unzip ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    wrapGAppsHook
+    unzip
+  ];
 
-  buildInputs = [ dbus udev ];
+  buildInputs = [
+    dbus
+    udev
+  ];
 
   sourceRoot = ".";
 
@@ -38,7 +45,13 @@ stdenv.mkDerivation rec {
   preFixup = ''
     gappsWrapperArgs+=(
       --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [ libGL libX11 libXcursor libXrandr libXi ]
+        lib.makeLibraryPath [
+          libGL
+          libX11
+          libXcursor
+          libXrandr
+          libXi
+        ]
       }"
     )
   '';

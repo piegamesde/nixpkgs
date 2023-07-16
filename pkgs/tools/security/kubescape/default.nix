@@ -85,6 +85,9 @@ buildGoModule rec {
       Jenkins, CircleCI and Github workflows.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab jk ];
+    maintainers = with maintainers; [
+      fab
+      jk
+    ];
   };
 }

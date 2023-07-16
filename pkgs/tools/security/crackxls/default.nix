@@ -34,8 +34,16 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config autoconf automake ];
-  buildInputs = [ openssl libgsf gmp ];
+  nativeBuildInputs = [
+    pkg-config
+    autoconf
+    automake
+  ];
+  buildInputs = [
+    openssl
+    libgsf
+    gmp
+  ];
 
   # Avoid "-O5 -march=native"
   makeFlags = [ "OPTIM_FLAGS=" ];

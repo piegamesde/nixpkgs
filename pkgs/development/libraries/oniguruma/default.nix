@@ -16,7 +16,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-KM1iwUZGI8eRBWX7HMqqAQSy/osSvNZG6B9ztHU1IT4=";
   };
 
-  outputs = [ "dev" "lib" "out" ];
+  outputs = [
+    "dev"
+    "lib"
+    "out"
+  ];
   outputBin = "dev"; # onig-config
 
   nativeBuildInputs = [ autoreconfHook ];

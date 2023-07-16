@@ -27,7 +27,10 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jerome-pouiller/reredirect";
     license = licenses.mit;
     maintainers = [ maintainers.tobim ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 }
 

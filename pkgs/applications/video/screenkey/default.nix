@@ -27,7 +27,10 @@ python3.pkgs.buildPythonApplication rec {
     gobject-introspection
   ];
 
-  buildInputs = [ gtk3 libappindicator-gtk3 ];
+  buildInputs = [
+    gtk3
+    libappindicator-gtk3
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     babel

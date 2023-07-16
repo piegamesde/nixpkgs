@@ -30,7 +30,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-lOneKeJUcw6jOX/3iv9BDWOJ3xip/vGhzxHHNAbtsS8=";
   };
 
-  nativeBuildInputs = [ pkg-config makeWrapper texinfo autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+    texinfo
+    autoreconfHook
+  ];
 
   propagatedBuildInputs = [
     guile

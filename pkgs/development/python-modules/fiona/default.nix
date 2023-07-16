@@ -41,16 +41,25 @@ buildPythonPackage rec {
 
   buildInputs = [ gdal ];
 
-  propagatedBuildInputs =
-    [ attrs certifi click cligj click-plugins munch setuptools ];
+  propagatedBuildInputs = [
+    attrs
+    certifi
+    click
+    cligj
+    click-plugins
+    munch
+    setuptools
+  ];
 
   passthru.optional-dependencies = {
     calc = [ shapely ];
     s3 = [ boto3 ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook pytz ]
-    ++ passthru.optional-dependencies.s3;
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytz
+  ] ++ passthru.optional-dependencies.s3;
 
   preCheck = ''
     rm -r fiona # prevent importing local fiona

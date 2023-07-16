@@ -17,7 +17,12 @@ buildPythonPackage rec {
     hash = "sha256-ggYGoD4mLPHNT1niVsKPpEZCUiTVuCo9EnX9eBeFI+Q=";
   };
 
-  propagatedBuildInputs = [ importlib-metadata setuptools sqlparse tabulate ];
+  propagatedBuildInputs = [
+    importlib-metadata
+    setuptools
+    sqlparse
+    tabulate
+  ];
 
   doCheck = false; # pypi tarball does not contain tests
 

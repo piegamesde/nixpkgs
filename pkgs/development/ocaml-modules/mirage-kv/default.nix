@@ -20,7 +20,10 @@ buildDunePackage rec {
     hash = "sha256-p6i4zUVgxtTnUiBIjb8W6u9xRTczVl4WwfFcl5tVqnE=";
   };
 
-  propagatedBuildInputs = [ fmt lwt ];
+  propagatedBuildInputs = [
+    fmt
+    lwt
+  ];
 
   doCheck = true;
   checkInputs = [ alcotest ];

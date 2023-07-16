@@ -41,7 +41,16 @@ in stdenv.mkDerivation {
   patches = [ ./0001-Fix-build-with-unbound-1.6.1.patch ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ git gperf pcre unbound libev tokyocabinet bash libsrs2 ];
+  buildInputs = [
+    git
+    gperf
+    pcre
+    unbound
+    libev
+    tokyocabinet
+    bash
+    libsrs2
+  ];
 
   postUnpack = ''
     cp -Rp ${libCommonSrc}/* ${srcRoot}/common;
@@ -56,7 +65,10 @@ in stdenv.mkDerivation {
   env.NIX_CFLAGS_COMPILE =
     "-Wno-error=unused-result -Wno-error=nonnull-compare -Wno-error=format-truncation";
 
-  makeFlags = [ "DESTDIR=$(out)" "prefix=" ];
+  makeFlags = [
+    "DESTDIR=$(out)"
+    "prefix="
+  ];
 
   meta = {
     description = "A collection of postfix-related tools";

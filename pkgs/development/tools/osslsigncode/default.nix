@@ -35,16 +35,25 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ curl openssl ];
+  buildInputs = [
+    curl
+    openssl
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/mtrojnar/osslsigncode";
     description =
       "OpenSSL based Authenticode signing for PE/MSI/Java CAB files";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ mmahut prusnak ];
+    maintainers = with maintainers; [
+      mmahut
+      prusnak
+    ];
     platforms = platforms.all;
   };
 }

@@ -16,10 +16,10 @@ import ./make-test-python.nix ({
         lib,
         ...
       }: {
-        networking.interfaces.eth1.ipv4.addresses = lib.mkForce [{
+        networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
           address = addr;
           prefixLength = 24;
-        }];
+        } ];
 
         networking.ucarp = {
           enable = true;

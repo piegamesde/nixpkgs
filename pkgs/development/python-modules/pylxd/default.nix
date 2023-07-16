@@ -33,9 +33,16 @@ buildPythonPackage rec {
     ws4py
   ];
 
-  nativeCheckInputs = [ ddt mock-services pytestCheckHook ];
+  nativeCheckInputs = [
+    ddt
+    mock-services
+    pytestCheckHook
+  ];
 
-  disabledTestPaths = [ "integration" "migration" ];
+  disabledTestPaths = [
+    "integration"
+    "migration"
+  ];
 
   pythonImportsCheck = [ "pylxd" ];
 

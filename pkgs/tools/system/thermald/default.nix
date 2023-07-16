@@ -22,7 +22,10 @@ stdenv.mkDerivation rec {
   pname = "thermald";
   version = "2.5.2";
 
-  outputs = [ "out" "devdoc" ];
+  outputs = [
+    "out"
+    "devdoc"
+  ];
 
   src = fetchFromGitHub {
     owner = "intel";
@@ -42,7 +45,14 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ dbus dbus-glib libevdev libxml2 xz upower ];
+  buildInputs = [
+    dbus
+    dbus-glib
+    libevdev
+    libxml2
+    xz
+    upower
+  ];
 
   configureFlags = [
     "--sysconfdir=${placeholder "out"}/etc"
@@ -64,7 +74,10 @@ stdenv.mkDerivation rec {
     changelog =
       "https://github.com/intel/thermal_daemon/blob/master/README.txt";
     license = licenses.gpl2Plus;
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
     maintainers = with maintainers; [ abbradar ];
   };
 }

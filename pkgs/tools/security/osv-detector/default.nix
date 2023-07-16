@@ -19,7 +19,11 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-KAxpDQIRrLZIOvfW8wf0CV4Fj6l3W6nNZNCH3ZE6yJc=";
 
-  ldflags = [ "-w" "-s" "-X main.version=${version}" ];
+  ldflags = [
+    "-w"
+    "-s"
+    "-X main.version=${version}"
+  ];
 
   passthru.tests.version = testers.testVersion {
     package = osv-detector;

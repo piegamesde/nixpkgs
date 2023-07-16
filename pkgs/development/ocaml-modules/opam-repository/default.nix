@@ -23,7 +23,10 @@ buildDunePackage rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ unzip curl ];
+  nativeBuildInputs = [
+    unzip
+    curl
+  ];
   propagatedBuildInputs = [ opam-format ];
 
   meta = opam-format.meta // {

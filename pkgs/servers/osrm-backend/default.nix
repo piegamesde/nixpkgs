@@ -25,9 +25,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-kqRYE26aeq7nCen56TJo3BlyLFWn4NMltsq+re64/VQ=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ bzip2 libxml2 libzip boost lua luabind tbb expat ];
+  buildInputs = [
+    bzip2
+    libxml2
+    libzip
+    boost
+    lua
+    luabind
+    tbb
+    expat
+  ];
 
   patches = [ ./darwin.patch ];
 

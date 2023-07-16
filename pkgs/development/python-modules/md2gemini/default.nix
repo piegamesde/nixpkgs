@@ -12,7 +12,11 @@ buildPythonPackage rec {
   pname = "md2gemini";
   version = "1.9.0";
 
-  propagatedBuildInputs = [ mistune cjkwrap wcwidth ];
+  propagatedBuildInputs = [
+    mistune
+    cjkwrap
+    wcwidth
+  ];
   nativeCheckInputs = [ pytestCheckHook ];
   pythonImportsCheck = [ "md2gemini" ];
 

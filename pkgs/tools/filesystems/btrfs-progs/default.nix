@@ -30,7 +30,17 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ] ++ [ sphinx ];
 
-  buildInputs = [ acl attr 0.0 fsprogs libuuid lzo udev zlib zstd ];
+  buildInputs = [
+    acl
+    attr
+    0.0
+    fsprogs
+    libuuid
+    lzo
+    udev
+    zlib
+    zstd
+  ];
 
   # gcc bug with -O1 on ARM with gcc 4.8
   # This should be fine on all platforms so apply universally

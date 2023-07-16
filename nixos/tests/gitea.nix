@@ -24,7 +24,11 @@ let
   '';
   signingPrivateKeyId = "4D642DE8B678C79D";
 
-  supportedDbTypes = [ "mysql" "postgres" "sqlite3" ];
+  supportedDbTypes = [
+    "mysql"
+    "postgres"
+    "sqlite3"
+  ];
   makeGiteaTest = type:
     nameValuePair type (makeTest {
       name = "${giteaPackage.pname}-${type}";
@@ -49,7 +53,11 @@ let
               settings.service.DISABLE_REGISTRATION = true;
               settings."repository.signing".SIGNING_KEY = signingPrivateKeyId;
             };
-            environment.systemPackages = [ giteaPackage pkgs.gnupg pkgs.jq ];
+            environment.systemPackages = [
+              giteaPackage
+              pkgs.gnupg
+              pkgs.jq
+            ];
             services.openssh.enable = true;
           };
         client1 = {

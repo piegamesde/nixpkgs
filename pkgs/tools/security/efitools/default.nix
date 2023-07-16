@@ -13,9 +13,17 @@ stdenv.mkDerivation rec {
   pname = "efitools";
   version = "1.9.2";
 
-  buildInputs = [ gnu-efi openssl sbsigntool ];
+  buildInputs = [
+    gnu-efi
+    openssl
+    sbsigntool
+  ];
 
-  nativeBuildInputs = [ perl perlPackages.FileSlurp help2man ];
+  nativeBuildInputs = [
+    perl
+    perlPackages.FileSlurp
+    help2man
+  ];
 
   src = fetchgit {
     url = "https://git.kernel.org/pub/scm/linux/kernel/git/jejb/efitools.git";

@@ -28,11 +28,25 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ git setuptools-scm toml ];
+  nativeBuildInputs = [
+    git
+    setuptools-scm
+    toml
+  ];
 
-  propagatedBuildInputs = [ asttokens executing pure-eval ];
+  propagatedBuildInputs = [
+    asttokens
+    executing
+    pure-eval
+  ];
 
-  nativeCheckInputs = [ cython littleutils pygments pytestCheckHook typeguard ];
+  nativeCheckInputs = [
+    cython
+    littleutils
+    pygments
+    pytestCheckHook
+    typeguard
+  ];
 
   disabledTests = [
     # AssertionError

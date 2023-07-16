@@ -43,12 +43,22 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ aiohttp ];
 
   passthru.optional-dependencies = {
-    console = [ certifi docopt geopy ];
-    mqtt = [ amqtt certifi ];
+    console = [
+      certifi
+      docopt
+      geopy
+    ];
+    mqtt = [
+      amqtt
+      certifi
+    ];
   };
 
-  checkInputs = [ mock pytest-asyncio pytestCheckHook ]
-    ++ passthru.optional-dependencies.mqtt;
+  checkInputs = [
+    mock
+    pytest-asyncio
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.mqtt;
 
   pythonImportsCheck = [ "volvooncall" ];
 

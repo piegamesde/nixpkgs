@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-CpTxixCLmyHzomo9VB8FbDTtyxfchyoUShVhj+1672c=";
   };
 
-  nativeBuildInputs = [ setuptools wheel ];
+  nativeBuildInputs = [
+    setuptools
+    wheel
+  ];
 
   propagatedBuildInputs = [ packaging ];
 

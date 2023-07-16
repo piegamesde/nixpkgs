@@ -20,9 +20,16 @@ mkDerivation rec {
     sha256 = "sha256-ThEzuwBrPUkXURcW9KiXJs8ExqYWZamlfeQ1IggMWdc=";
   };
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
-  buildInputs = [ qtbase libcprime libcsys ];
+  buildInputs = [
+    qtbase
+    libcprime
+    libcsys
+  ];
 
   meta = with lib; {
     description = "Shows information about apps from the C Suite";

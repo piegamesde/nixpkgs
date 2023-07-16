@@ -7483,8 +7483,10 @@ let
         ];
       })
       (sources."@babel/eslint-parser-7.21.3" // {
-        dependencies =
-          [ sources."eslint-visitor-keys-2.1.0" sources."semver-6.3.0" ];
+        dependencies = [
+          sources."eslint-visitor-keys-2.1.0"
+          sources."semver-6.3.0"
+        ];
       })
       sources."@babel/generator-7.21.4"
       sources."@babel/helper-annotate-as-pure-7.18.6"
@@ -7499,8 +7501,11 @@ let
       sources."@babel/helper-create-class-features-plugin-7.21.4"
       sources."@babel/helper-create-regexp-features-plugin-7.21.4"
       (sources."@babel/helper-define-polyfill-provider-0.3.3" // {
-        dependencies =
-          [ sources."debug-4.3.4" sources."ms-2.1.2" sources."semver-6.3.0" ];
+        dependencies = [
+          sources."debug-4.3.4"
+          sources."ms-2.1.2"
+          sources."semver-6.3.0"
+        ];
       })
       sources."@babel/helper-environment-visitor-7.18.9"
       sources."@babel/helper-explode-assignable-expression-7.18.6"
@@ -7595,7 +7600,10 @@ let
       sources."@babel/runtime-7.14.6"
       sources."@babel/template-7.20.7"
       (sources."@babel/traverse-7.21.4" // {
-        dependencies = [ sources."debug-4.3.3" sources."ms-2.1.2" ];
+        dependencies = [
+          sources."debug-4.3.3"
+          sources."ms-2.1.2"
+        ];
       })
       sources."@babel/types-7.21.4"
       sources."@discoveryjs/json-ext-0.5.7"
@@ -7615,7 +7623,10 @@ let
       sources."@fortawesome/free-solid-svg-icons-6.4.0"
       sources."@fortawesome/vue-fontawesome-2.0.10"
       (sources."@humanwhocodes/config-array-0.11.8" // {
-        dependencies = [ sources."debug-4.3.3" sources."ms-2.1.2" ];
+        dependencies = [
+          sources."debug-4.3.3"
+          sources."ms-2.1.2"
+        ];
       })
       sources."@humanwhocodes/module-importer-1.0.1"
       sources."@humanwhocodes/object-schema-1.2.1"
@@ -7656,7 +7667,10 @@ let
       sources."@types/ws-8.5.3"
       sources."@vue/compiler-sfc-2.7.14"
       (sources."@vue/component-compiler-utils-3.2.2" // {
-        dependencies = [ sources."picocolors-0.2.1" sources."postcss-7.0.39" ];
+        dependencies = [
+          sources."picocolors-0.2.1"
+          sources."postcss-7.0.39"
+        ];
       })
       sources."@webassemblyjs/ast-1.11.1"
       sources."@webassemblyjs/floating-point-hex-parser-1.11.1"
@@ -7685,8 +7699,10 @@ let
       sources."acorn-walk-8.2.0"
       sources."ajv-6.12.6"
       (sources."ajv-formats-2.1.1" // {
-        dependencies =
-          [ sources."ajv-8.8.1" sources."json-schema-traverse-1.0.0" ];
+        dependencies = [
+          sources."ajv-8.8.1"
+          sources."json-schema-traverse-1.0.0"
+        ];
       })
       sources."ajv-keywords-3.5.2"
       sources."ansi-html-community-0.0.8"
@@ -7726,8 +7742,10 @@ let
         dependencies = [ sources."bytes-3.1.2" ];
       })
       (sources."bonjour-service-1.0.11" // {
-        dependencies =
-          [ sources."dns-packet-5.3.1" sources."multicast-dns-7.2.4" ];
+        dependencies = [
+          sources."dns-packet-5.3.1"
+          sources."multicast-dns-7.2.4"
+        ];
       })
       sources."boolbase-1.0.0"
       sources."brace-expansion-1.1.11"
@@ -7791,7 +7809,10 @@ let
       sources."define-lazy-prop-2.0.0"
       sources."define-properties-1.1.4"
       (sources."del-4.1.1" // {
-        dependencies = [ sources."pify-4.0.1" sources."rimraf-2.7.1" ];
+        dependencies = [
+          sources."pify-4.0.1"
+          sources."rimraf-2.7.1"
+        ];
       })
       sources."delayed-stream-1.0.0"
       sources."depd-1.1.2"
@@ -7846,10 +7867,16 @@ let
         dependencies = [ sources."semver-6.3.0" ];
       })
       (sources."eslint-import-resolver-node-0.3.7" // {
-        dependencies = [ sources."debug-3.2.7" sources."ms-2.1.3" ];
+        dependencies = [
+          sources."debug-3.2.7"
+          sources."ms-2.1.3"
+        ];
       })
       (sources."eslint-module-utils-2.7.4" // {
-        dependencies = [ sources."debug-3.2.7" sources."ms-2.1.3" ];
+        dependencies = [
+          sources."debug-3.2.7"
+          sources."ms-2.1.3"
+        ];
       })
       (sources."eslint-plugin-import-2.27.5" // {
         dependencies = [
@@ -7884,8 +7911,10 @@ let
       sources."events-3.3.0"
       sources."execa-5.1.1"
       (sources."express-4.17.3" // {
-        dependencies =
-          [ sources."array-flatten-1.1.1" sources."safe-buffer-5.2.1" ];
+        dependencies = [
+          sources."array-flatten-1.1.1"
+          sources."safe-buffer-5.2.1"
+        ];
       })
       sources."fast-deep-equal-3.1.3"
       sources."fast-glob-3.2.11"
@@ -8029,8 +8058,10 @@ let
       sources."isexe-2.0.0"
       sources."isobject-3.0.1"
       (sources."jest-worker-27.4.6" // {
-        dependencies =
-          [ sources."has-flag-4.0.0" sources."supports-color-8.1.1" ];
+        dependencies = [
+          sources."has-flag-4.0.0"
+          sources."supports-color-8.1.1"
+        ];
       })
       sources."js-sdsl-4.1.4"
       sources."js-tokens-4.0.0"
@@ -8178,15 +8209,23 @@ let
       sources."select-hose-2.0.0"
       sources."selfsigned-2.1.1"
       (sources."semver-7.3.8" // {
-        dependencies = [ sources."lru-cache-6.0.0" sources."yallist-4.0.0" ];
+        dependencies = [
+          sources."lru-cache-6.0.0"
+          sources."yallist-4.0.0"
+        ];
       })
       (sources."send-0.17.2" // {
-        dependencies = [ sources."mime-1.6.0" sources."ms-2.1.3" ];
+        dependencies = [
+          sources."mime-1.6.0"
+          sources."ms-2.1.3"
+        ];
       })
       sources."serialize-javascript-6.0.0"
       (sources."serve-index-1.9.1" // {
-        dependencies =
-          [ sources."http-errors-1.6.3" sources."setprototypeof-1.1.0" ];
+        dependencies = [
+          sources."http-errors-1.6.3"
+          sources."setprototypeof-1.1.0"
+        ];
       })
       sources."serve-static-1.14.2"
       sources."setprototypeof-1.2.0"
@@ -8202,10 +8241,16 @@ let
       sources."source-map-0.6.1"
       sources."source-map-js-1.0.2"
       (sources."spdy-4.0.2" // {
-        dependencies = [ sources."debug-4.3.3" sources."ms-2.1.2" ];
+        dependencies = [
+          sources."debug-4.3.3"
+          sources."ms-2.1.2"
+        ];
       })
       (sources."spdy-transport-3.0.0" // {
-        dependencies = [ sources."debug-4.3.3" sources."ms-2.1.2" ];
+        dependencies = [
+          sources."debug-4.3.3"
+          sources."ms-2.1.2"
+        ];
       })
       sources."statuses-1.5.0"
       sources."string.prototype.trimend-1.0.6"

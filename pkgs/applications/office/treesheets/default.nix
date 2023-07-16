@@ -22,7 +22,12 @@ stdenv.mkDerivation rec {
     sha256 = "rfYEpbhfWiviojqWWMhmYjpDh04hfRPGPdDQtcqhr8o=";
   };
 
-  nativeBuildInputs = [ cmake ninja wrapGAppsHook makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    wrapGAppsHook
+    makeWrapper
+  ];
 
   buildInputs = [ wxGTK ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
@@ -54,7 +59,10 @@ stdenv.mkDerivation rec {
     '';
 
     homepage = "https://strlen.com/treesheets/";
-    maintainers = with maintainers; [ obadz avery ];
+    maintainers = with maintainers; [
+      obadz
+      avery
+    ];
     platforms = platforms.unix;
     license = licenses.zlib;
   };

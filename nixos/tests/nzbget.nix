@@ -3,7 +3,12 @@ import ./make-test-python.nix ({
     ...
   }: {
     name = "nzbget";
-    meta = with pkgs.lib.maintainers; { maintainers = [ aanderse flokli ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        aanderse
+        flokli
+      ];
+    };
 
     nodes = {
       server = {

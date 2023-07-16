@@ -23,7 +23,13 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/dtolnay/cargo-expand";
     changelog =
       "https://github.com/dtolnay/cargo-expand/releases/tag/${version}";
-    license = with licenses; [ mit asl20 ];
-    maintainers = with maintainers; [ figsoda xrelkd ];
+    license = with licenses; [
+      mit
+      asl20
+    ];
+    maintainers = with maintainers; [
+      figsoda
+      xrelkd
+    ];
   };
 }

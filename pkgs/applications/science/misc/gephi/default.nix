@@ -21,7 +21,10 @@ let
   deps = stdenv.mkDerivation {
     name = "gephi-${version}-deps";
     inherit src;
-    buildInputs = [ jdk maven ];
+    buildInputs = [
+      jdk
+      maven
+    ];
     buildPhase = ''
       while mvn package -Dmaven.repo.local=$out/.m2 -Dmaven.wagon.rto=5000; [ $? = 1 ]; do
         echo "timeout, restart maven to continue downloading"
@@ -40,7 +43,10 @@ in stdenv.mkDerivation {
 
   inherit src;
 
-  buildInputs = [ jdk maven ];
+  buildInputs = [
+    jdk
+    maven
+  ];
 
   buildPhase = ''
     # 'maven.repo.local' must be writable so copy it out of nix store

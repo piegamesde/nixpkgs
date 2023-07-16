@@ -30,9 +30,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ ipython numpy pandas requests tqdm ];
+  propagatedBuildInputs = [
+    ipython
+    numpy
+    pandas
+    requests
+    tqdm
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook responses ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    responses
+  ];
 
   pythonImportsCheck = [ "cdcs" ];
 

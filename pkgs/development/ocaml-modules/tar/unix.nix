@@ -11,7 +11,11 @@ buildDunePackage rec {
   inherit (tar) version src doCheck;
   duneVersion = "3";
 
-  propagatedBuildInputs = [ tar cstruct-lwt lwt ];
+  propagatedBuildInputs = [
+    tar
+    cstruct-lwt
+    lwt
+  ];
 
   meta = tar.meta // {
     description = "Decode and encode tar format files from Unix";

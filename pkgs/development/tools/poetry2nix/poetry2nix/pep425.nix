@@ -15,7 +15,10 @@ let
     ver = builtins.splitVersion python.version;
     major = builtins.elemAt ver 0;
     minor = builtins.elemAt ver 1;
-    tags = [ "cp" "py" ];
+    tags = [
+      "cp"
+      "py"
+    ];
   in { inherit major minor tags; };
   abiTag = "cp${pythonVer.major}${pythonVer.minor}m";
 
@@ -111,7 +114,10 @@ let
         if stdenv.targetPlatform.isAarch64 then
           (p:
             p == "any" || (hasInfix "macosx" p
-              && lib.lists.any (e: hasSuffix e p) [ "arm64" "aarch64" ]))
+              && lib.lists.any (e: hasSuffix e p) [
+                "arm64"
+                "aarch64"
+              ]))
         else
           (p: p == "any" || (hasInfix "macosx" p && hasSuffix "x86_64" p))
       else

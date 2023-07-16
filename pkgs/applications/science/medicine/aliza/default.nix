@@ -30,7 +30,10 @@ stdenv.mkDerivation {
     name = "aliza.rpm";
   };
 
-  nativeBuildInputs = [ makeWrapper rpmextract ];
+  nativeBuildInputs = [
+    makeWrapper
+    rpmextract
+  ];
 
   unpackCmd = "rpmextract $curSrc";
 

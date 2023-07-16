@@ -25,8 +25,13 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ perl ];
 
-  buildInputs = [ libiconv openssl ]
-    ++ lib.optionals stdenv.isDarwin [ Security SystemConfiguration ];
+  buildInputs = [
+    libiconv
+    openssl
+  ] ++ lib.optionals stdenv.isDarwin [
+    Security
+    SystemConfiguration
+  ];
 
   doCheck = false;
 

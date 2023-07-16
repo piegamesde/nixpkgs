@@ -25,9 +25,16 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  buildInputs = [ pytest pytest-asyncio ];
+  buildInputs = [
+    pytest
+    pytest-asyncio
+  ];
 
-  nativeCheckInputs = [ aiohttp pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    aiohttp
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Disable tests which requires network access

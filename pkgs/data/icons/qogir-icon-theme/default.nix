@@ -13,9 +13,16 @@
 
 let pname = "qogir-icon-theme";
 
-in lib.checkListOfEnum "${pname}: color variants" [ "standard" "dark" "all" ]
-colorVariants lib.checkListOfEnum
-"${pname}: theme variants" [ "default" "manjaro" "ubuntu" "all" ] themeVariants
+in lib.checkListOfEnum "${pname}: color variants" [
+  "standard"
+  "dark"
+  "all"
+] colorVariants lib.checkListOfEnum "${pname}: theme variants" [
+  "default"
+  "manjaro"
+  "ubuntu"
+  "all"
+] themeVariants
 
 stdenvNoCC.mkDerivation rec {
   inherit pname;
@@ -28,7 +35,10 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-yXpHm/iXtBdEo6m8W7Itp3N9vrWRTb7S3aKi0X2RObo=";
   };
 
-  nativeBuildInputs = [ gtk3 jdupes ];
+  nativeBuildInputs = [
+    gtk3
+    jdupes
+  ];
 
   propagatedBuildInputs = [ hicolor-icon-theme ];
 

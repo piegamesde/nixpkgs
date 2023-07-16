@@ -30,7 +30,13 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ meson ninja cmake pkg-config protobuf ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    cmake
+    pkg-config
+    protobuf
+  ];
 
   buildInputs = [
     boxfort.dev
@@ -51,14 +57,20 @@ stdenv.mkDerivation rec {
     patchShebangs ci/isdir.py src/protocol/gen-pb.py
   '';
 
-  outputs = [ "dev" "out" ];
+  outputs = [
+    "dev"
+    "out"
+  ];
 
   meta = with lib; {
     description =
       "A cross-platform C and C++ unit testing framework for the 21th century";
     homepage = "https://github.com/Snaipe/Criterion";
     license = licenses.mit;
-    maintainers = with maintainers; [ thesola10 Yumasi ];
+    maintainers = with maintainers; [
+      thesola10
+      Yumasi
+    ];
     platforms = platforms.unix;
   };
 }

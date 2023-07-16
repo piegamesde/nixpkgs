@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
   pname = "libgxps";
   version = "0.3.2";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -29,13 +32,24 @@ stdenv.mkDerivation rec {
     sha256 = "bSeGclajXM+baSU+sqiKMrrKO5fV9O9/guNmf6Q1JRw=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config gobject-introspection ];
-  buildInputs = [ glib cairo freetype libjpeg libtiff lcms2 ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gobject-introspection
+  ];
+  buildInputs = [
+    glib
+    cairo
+    freetype
+    libjpeg
+    libtiff
+    lcms2
+  ];
   propagatedBuildInputs = [ libarchive ];
 
-  mesonFlags = [ "-Denable-test=false" ]
-    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
-    [ "-Ddisable-introspection=true" ];
+  mesonFlags = [ "-Denable-test=false" ] ++ lib.optionals (stdenv.buildPlatform
+    != stdenv.hostPlatform) [ "-Ddisable-introspection=true" ];
 
   passthru = {
     updateScript = gnome.updateScript {

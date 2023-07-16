@@ -24,15 +24,25 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-UdQ3J+KhxFRMf9DuR3hvRD458TiK2nNaUJrUrwokWco=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ libcbor zlib ] ++ lib.optionals stdenv.isDarwin [ hidapi ]
+  buildInputs = [
+    libcbor
+    zlib
+  ] ++ lib.optionals stdenv.isDarwin [ hidapi ]
     ++ lib.optionals stdenv.isLinux [ udev ]
     ++ lib.optionals (stdenv.isLinux && withPcsclite) [ pcsclite ];
 
   propagatedBuildInputs = [ openssl ];
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
   cmakeFlags = [
     "-DUDEV_RULES_DIR=${placeholder "out"}/etc/udev/rules.d"
@@ -47,7 +57,10 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/Yubico/libfido2";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ dtzWill prusnak ];
+    maintainers = with maintainers; [
+      dtzWill
+      prusnak
+    ];
     platforms = platforms.unix;
   };
 }

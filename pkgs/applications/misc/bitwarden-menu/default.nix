@@ -16,7 +16,10 @@ buildPythonApplication rec {
     hash = "sha256-OC+MHEiUU6bDT2wSSDtu0KnwDwBpbLTBta0xjfuzlOI=";
   };
 
-  propagatedBuildInputs = [ pynput xdg ];
+  propagatedBuildInputs = [
+    pynput
+    xdg
+  ];
 
   doCheck = false;
 

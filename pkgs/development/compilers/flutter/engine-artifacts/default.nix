@@ -22,20 +22,30 @@ let
       };
     };
     platform = {
-      android = (lib.genAttrs [ "arm" "arm64" "x64" ] (arch: {
-        base = [{ archive = "artifacts.zip"; }];
-        variants = lib.genAttrs [ "profile" "release" ] (variant: [
+      android = (lib.genAttrs [
+        "arm"
+        "arm64"
+        "x64"
+      ] (arch: {
+        base = [ { archive = "artifacts.zip"; } ];
+        variants = lib.genAttrs [
+          "profile"
+          "release"
+        ] (variant: [
           { archive = "artifacts.zip"; }
           { archive = "${lib.toLower hostPlatform.uname.system}-x64.zip"; }
         ]);
       })) // {
         "x86" = {
-          base = [{ archive = "artifacts.zip"; }];
-          variants.jit-release = [{ archive = "artifacts.zip"; }];
+          base = [ { archive = "artifacts.zip"; } ];
+          variants.jit-release = [ { archive = "artifacts.zip"; } ];
         };
       };
 
-      linux = lib.genAttrs [ "arm64" "x64" ] (arch:
+      linux = lib.genAttrs [
+        "arm64"
+        "x64"
+      ] (arch:
         let
           linux-flutter-gtk = {
             archive = "linux-${arch}-flutter-gtk.zip";
@@ -64,8 +74,11 @@ let
             { archive = "font-subset.zip"; }
             linux-flutter-gtk
           ];
-          variants = lib.genAttrs [ "debug" "profile" "release" ]
-            (variant: [ linux-flutter-gtk ]);
+          variants = lib.genAttrs [
+            "debug"
+            "profile"
+            "release"
+          ] (variant: [ linux-flutter-gtk ]);
         });
     };
   };

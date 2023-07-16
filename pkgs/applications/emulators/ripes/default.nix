@@ -23,9 +23,18 @@ mkDerivation rec {
     sha256 = "sha256-fRkab0G2zjK1VYzH21yhL7Cr0rS4I8ir8gwH9ALy60A=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config python3 wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    python3
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ qtbase qtsvg qtcharts ];
+  buildInputs = [
+    qtbase
+    qtsvg
+    qtcharts
+  ];
 
   installPhase = ''
     install -D Ripes $out/bin/Ripes

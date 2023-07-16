@@ -21,8 +21,15 @@ tcl.mkTclDerivation rec {
     sha256 = "18jl56p0hwgynxpvr0v7b5mvvzc1m64fn61c0957bgb45mc250yq";
   };
 
-  nativeBuildInputs = [ automake autoconf libtool ];
-  buildInputs = [ readline tk ];
+  nativeBuildInputs = [
+    automake
+    autoconf
+    libtool
+  ];
+  buildInputs = [
+    readline
+    tk
+  ];
 
   preConfigure = "NOCONFIGURE=1 ./autogen.sh";
 

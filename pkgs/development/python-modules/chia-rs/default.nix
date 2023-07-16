@@ -28,7 +28,10 @@ buildPythonPackage rec {
     cp ${./Cargo.lock} Cargo.lock
   '';
 
-  nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];
+  nativeBuildInputs = with rustPlatform; [
+    cargoSetupHook
+    maturinBuildHook
+  ];
 
   preBuild = ''
     # avoid ENOENT in maturinBuildHook

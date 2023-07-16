@@ -101,8 +101,10 @@ let
     pg_ctl stop
   '';
 
-  argsForBuildRustPackage =
-    builtins.removeAttrs args [ "postgresql" "useFakeRustfmt" ];
+  argsForBuildRustPackage = builtins.removeAttrs args [
+    "postgresql"
+    "useFakeRustfmt"
+  ];
 
   # so we don't accidentally `(rustPlatform.buildRustPackage argsForBuildRustPackage) // { ... }` because
   # we forgot parentheses
@@ -110,9 +112,12 @@ let
     buildInputs = (args.buildInputs or [ ])
       ++ lib.optionals stdenv.isDarwin [ Security ];
 
-    nativeBuildInputs = (args.nativeBuildInputs or [ ])
-      ++ [ cargo-pgx postgresql pkg-config rustPlatform.bindgenHook ]
-      ++ lib.optionals useFakeRustfmt [ fakeRustfmt ];
+    nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
+      cargo-pgx
+      postgresql
+      pkg-config
+      rustPlatform.bindgenHook
+    ] ++ lib.optionals useFakeRustfmt [ fakeRustfmt ];
 
     buildPhase = ''
       runHook preBuild

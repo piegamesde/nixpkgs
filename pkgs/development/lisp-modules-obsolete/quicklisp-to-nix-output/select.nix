@@ -10,7 +10,12 @@ args@{
 
   description = "DSL for array slices.";
 
-  deps = [ args."alexandria" args."anaphora" args."fiveam" args."let-plus" ];
+  deps = [
+    args."alexandria"
+    args."anaphora"
+    args."fiveam"
+    args."let-plus"
+  ];
 
   src = fetchurl {
     url =

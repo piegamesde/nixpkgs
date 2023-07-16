@@ -21,9 +21,15 @@ buildPythonPackage rec {
 
   pythonNamespaces = [ "jaraco" ];
 
-  nativeBuildInputs = [ setuptools setuptools-scm ];
+  nativeBuildInputs = [
+    setuptools
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs = [ tempora six ];
+  propagatedBuildInputs = [
+    tempora
+    six
+  ];
 
   # test no longer packaged with pypi
   doCheck = false;

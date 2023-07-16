@@ -20,7 +20,11 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ requests ];
-  nativeCheckInputs = [ flake8 mock pytest ];
+  nativeCheckInputs = [
+    flake8
+    mock
+    pytest
+  ];
   doCheck = isPy3k; # fails on linting
 
   postPatch = ''

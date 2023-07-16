@@ -28,10 +28,21 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-WEqa2NQ49QrKf572mChha/0u8+kov6GnArsZtu8Igio=";
 
-  nativeBuildInputs = [ installShellFiles makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+    pkg-config
+  ];
 
-  buildInputs = [ libgit2 oniguruma xorg.libxcb ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv Security zlib ];
+  buildInputs = [
+    libgit2
+    oniguruma
+    xorg.libxcb
+  ] ++ lib.optionals stdenv.isDarwin [
+    libiconv
+    Security
+    zlib
+  ];
 
   RUSTONIG_SYSTEM_LIBONIG = true;
 

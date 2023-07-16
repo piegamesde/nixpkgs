@@ -17,7 +17,12 @@ buildPythonPackage rec {
     sha256 = "456f8c1be99da268554b29c6b5383532e58119def5a65d85270bc6a0ecc26aaf";
   };
 
-  propagatedBuildInputs = [ jinja2 mistune pygments setuptools ];
+  propagatedBuildInputs = [
+    jinja2
+    mistune
+    pygments
+    setuptools
+  ];
 
   pythonImportsCheck = [ "mrkd" ];
 

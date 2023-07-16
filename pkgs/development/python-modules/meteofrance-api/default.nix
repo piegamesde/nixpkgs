@@ -28,9 +28,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ pytz requests typing-extensions urllib3 ];
+  propagatedBuildInputs = [
+    pytz
+    requests
+    typing-extensions
+    urllib3
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook requests-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    requests-mock
+  ];
 
   pythonImportsCheck = [ "meteofrance_api" ];
 

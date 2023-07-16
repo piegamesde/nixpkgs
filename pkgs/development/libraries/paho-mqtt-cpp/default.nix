@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ openssl paho-mqtt-c ];
+  buildInputs = [
+    openssl
+    paho-mqtt-c
+  ];
 
   meta = with lib; {
     description = "Eclipse Paho MQTT C++ Client Library";

@@ -33,8 +33,10 @@ buildPythonPackage rec {
     nose
   ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ]
-    ++ passthru.optional-dependencies.GATTTOOL;
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.GATTTOOL;
 
   postPatch = ''
     # Not support for Python < 3.4
@@ -46,7 +48,10 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python wrapper the BGAPI for accessing Bluetooth LE Devices";
     homepage = "https://github.com/peplin/pygatt";
-    license = with licenses; [ asl20 mit ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
     maintainers = with maintainers; [ fab ];
   };
 }

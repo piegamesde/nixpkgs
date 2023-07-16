@@ -25,8 +25,14 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ qt5.wrapQtAppsHook ];
 
-  propagatedBuildInputs =
-    [ legendary-gl pypresence pyqt5 qtawesome requests typing-extensions ];
+  propagatedBuildInputs = [
+    legendary-gl
+    pypresence
+    pyqt5
+    qtawesome
+    requests
+    typing-extensions
+  ];
 
   patches = [
     ./fix-instance.patch

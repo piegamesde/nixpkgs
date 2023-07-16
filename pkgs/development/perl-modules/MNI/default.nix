@@ -22,7 +22,10 @@ buildPerlPackage {
   meta = {
     description = "MNI MINC perllib (not used much anymore)";
     homepage = "https://github.com/BIC-MNI/mni-perllib";
-    license = with lib.licenses; [ artistic1 gpl1Plus ];
+    license = with lib.licenses; [
+      artistic1
+      gpl1Plus
+    ];
     maintainers = with lib.maintainers; [ bcdarwin ];
   };
 }

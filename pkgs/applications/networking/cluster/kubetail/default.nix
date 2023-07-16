@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-kkbhhAaiKP01LR7F5JVMgy6Ujji8JDc+Aaho1vft3XQ=";
   };
 
-  nativeBuildInputs = [ installShellFiles makeWrapper ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+  ];
 
   installPhase = ''
     install -Dm755 kubetail "$out/bin/kubetail"

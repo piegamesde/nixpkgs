@@ -46,7 +46,10 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
   pythonRelaxDeps = [ "loguru" ];
 
@@ -79,6 +82,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/ms7m/notify-py";
     changelog = "https://github.com/ms7m/notify-py/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ austinbutler dotlambda ];
+    maintainers = with maintainers; [
+      austinbutler
+      dotlambda
+    ];
   };
 }

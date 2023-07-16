@@ -36,13 +36,23 @@ buildPythonPackage rec {
     hash = "sha256-Zhk4m+HNtimhPWfiBLi9dqJ0fp2D8d0u9k6ROG0/jBo=";
   };
 
-  nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];
+  nativeBuildInputs = with rustPlatform; [
+    cargoSetupHook
+    maturinBuildHook
+  ];
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 
   pythonImportsCheck = [ "retworkx" ];
-  nativeCheckInputs =
-    [ pytestCheckHook fixtures graphviz matplotlib networkx numpy pydot ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    fixtures
+    graphviz
+    matplotlib
+    networkx
+    numpy
+    pydot
+  ];
 
   preCheck = ''
     export TESTDIR=$(mktemp -d)

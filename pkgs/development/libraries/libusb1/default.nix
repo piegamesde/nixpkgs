@@ -25,11 +25,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LEy45YiFbueCCi8d2hguujMsxBezaTUERHUpFsTKGZQ=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
   propagatedBuildInputs = lib.optional enableUdev udev
-    ++ lib.optionals stdenv.isDarwin [ libobjc IOKit Security ];
+    ++ lib.optionals stdenv.isDarwin [
+      libobjc
+      IOKit
+      Security
+    ];
 
   dontDisableStatic = withStatic;
 
@@ -54,6 +64,9 @@ stdenv.mkDerivation rec {
     '';
     platforms = platforms.all;
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ prusnak realsnick ];
+    maintainers = with maintainers; [
+      prusnak
+      realsnick
+    ];
   };
 }

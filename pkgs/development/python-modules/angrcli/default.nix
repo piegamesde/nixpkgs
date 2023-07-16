@@ -25,17 +25,28 @@ buildPythonPackage rec {
     hash = "sha256-a5ajUBQwt3xUNkeSOeGOAFf47wd4UVk+LcuAHGqbq4s=";
   };
 
-  propagatedBuildInputs = [ angr cmd2 pygments ];
+  propagatedBuildInputs = [
+    angr
+    cmd2
+    pygments
+  ];
 
-  nativeCheckInputs = [ coreutils pytestCheckHook ];
+  nativeCheckInputs = [
+    coreutils
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace tests/test_derefs.py \
       --replace "/bin/ls" "${coreutils}/bin/ls"
   '';
 
-  disabledTests =
-    [ "test_sims" "test_proper_termination" "test_branching" "test_morph" ];
+  disabledTests = [
+    "test_sims"
+    "test_proper_termination"
+    "test_branching"
+    "test_morph"
+  ];
 
   pythonImportsCheck = [ "angrcli" ];
 

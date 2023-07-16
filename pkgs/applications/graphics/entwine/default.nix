@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dhYJhXtfMmqQLWuV3Dux/sGTsVxCI7RXR2sPlwIry0g=";
   };
 
-  buildInputs = [ openssl pdal curl ];
+  buildInputs = [
+    openssl
+    pdal
+    curl
+  ];
 
   nativeBuildInputs = [ cmake ];
 

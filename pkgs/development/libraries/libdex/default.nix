@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
   pname = "libdex";
   version = "0.2.0";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
@@ -27,10 +31,19 @@ stdenv.mkDerivation rec {
     sha256 = "54TwMdO29jordVqlBsMZOVtHc7s7ivf/4OkpCSNu7VE=";
   };
 
-  nativeBuildInputs =
-    [ gi-docgen gobject-introspection meson ninja pkg-config vala ];
+  nativeBuildInputs = [
+    gi-docgen
+    gobject-introspection
+    meson
+    ninja
+    pkg-config
+    vala
+  ];
 
-  buildInputs = [ glib liburing ];
+  buildInputs = [
+    glib
+    liburing
+  ];
 
   mesonFlags = [ "-Ddocs=true" ];
 

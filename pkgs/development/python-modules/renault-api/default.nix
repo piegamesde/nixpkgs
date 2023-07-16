@@ -31,10 +31,20 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [ aiohttp click dateparser marshmallow-dataclass pyjwt tabulate ];
+  propagatedBuildInputs = [
+    aiohttp
+    click
+    dateparser
+    marshmallow-dataclass
+    pyjwt
+    tabulate
+  ];
 
-  nativeCheckInputs = [ aioresponses pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    aioresponses
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "--asyncio-mode=auto" ];
 

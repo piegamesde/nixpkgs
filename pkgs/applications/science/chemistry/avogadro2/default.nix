@@ -35,9 +35,18 @@ in stdenv.mkDerivation rec {
     cp -r ${avogadroI18N} avogadro-i18n
   '';
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ avogadrolibs molequeue eigen hdf5 qttools ];
+  buildInputs = [
+    avogadrolibs
+    molequeue
+    eigen
+    hdf5
+    qttools
+  ];
 
   propagatedBuildInputs = [ openbabel ];
 

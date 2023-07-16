@@ -27,14 +27,24 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [ openssl ] ++ lib.optional stdenv.isLinux pcsclite
-    ++ lib.optionals stdenv.isDarwin [ IOKit Foundation PCSC ];
+    ++ lib.optionals stdenv.isDarwin [
+      IOKit
+      Foundation
+      PCSC
+    ];
 
   meta = with lib; {
     description = "YubiKey plugin for age";
     homepage = "https://github.com/str4d/age-plugin-yubikey";
     changelog =
       "https://github.com/str4d/age-plugin-yubikey/blob/${src.rev}/CHANGELOG.md";
-    license = with licenses; [ mit asl20 ];
-    maintainers = with maintainers; [ kranzes vtuan10 ];
+    license = with licenses; [
+      mit
+      asl20
+    ];
+    maintainers = with maintainers; [
+      kranzes
+      vtuan10
+    ];
   };
 }

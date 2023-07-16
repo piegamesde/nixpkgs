@@ -18,7 +18,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ];
 
-  buildInputs = [ hypothesis pytestCheckHook ];
+  buildInputs = [
+    hypothesis
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace setup.py --replace '"pytest-runner", ' ""

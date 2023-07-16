@@ -20,7 +20,10 @@ in buildPythonPackage (common // {
 
   disabled = !isPy3k;
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   prePatch = ''
     cd daemon
@@ -30,7 +33,10 @@ in buildPythonPackage (common // {
     substituteInPlace openrazer_daemon/daemon.py --replace "plugdev" "openrazer"
   '';
 
-  nativeBuildInputs = [ makeWrapper wrapGAppsHook ];
+  nativeBuildInputs = [
+    makeWrapper
+    wrapGAppsHook
+  ];
 
   propagatedBuildInputs = [
     daemonize

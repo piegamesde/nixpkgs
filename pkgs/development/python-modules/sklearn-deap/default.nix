@@ -31,7 +31,12 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ numpy scipy deap scikit-learn ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    deap
+    scikit-learn
+  ];
 
   checkPhase = ''
     ${python.interpreter} test.py

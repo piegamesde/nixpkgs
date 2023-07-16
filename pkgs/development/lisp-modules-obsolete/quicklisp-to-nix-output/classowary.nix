@@ -9,7 +9,10 @@ args@{
   description =
     "An implementation of the Cassowary linear constraint solver toolkit";
 
-  deps = [ args."documentation-utils" args."trivial-indent" ];
+  deps = [
+    args."documentation-utils"
+    args."trivial-indent"
+  ];
 
   src = fetchurl {
     url =

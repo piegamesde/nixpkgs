@@ -27,7 +27,11 @@ mkDerivation rec {
 
   pythonPath = with python3Packages; [ lxml ];
 
-  nativeBuildInputs = [ cmake pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    makeWrapper
+  ];
 
   buildInputs = [
     boost

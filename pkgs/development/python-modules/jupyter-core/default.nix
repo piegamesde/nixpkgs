@@ -36,7 +36,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [ platformdirs traitlets ];
+  propagatedBuildInputs = [
+    platformdirs
+    traitlets
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

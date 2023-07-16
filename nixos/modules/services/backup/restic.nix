@@ -52,7 +52,11 @@ in {
           };
 
           rcloneOptions = mkOption {
-            type = with types; nullOr (attrsOf (oneOf [ str bool ]));
+            type = with types;
+              nullOr (attrsOf (oneOf [
+                str
+                bool
+              ]));
             default = null;
             description = lib.mdDoc ''
               Options to pass to rclone to control its behavior.
@@ -69,7 +73,11 @@ in {
           };
 
           rcloneConfig = mkOption {
-            type = with types; nullOr (attrsOf (oneOf [ str bool ]));
+            type = with types;
+              nullOr (attrsOf (oneOf [
+                str
+                bool
+              ]));
             default = null;
             description = lib.mdDoc ''
               Configuration for the rclone remote being used for backup.
@@ -129,7 +137,10 @@ in {
               backup command will be run.  This can be used to create a
               prune-only job.
             '';
-            example = [ "/var/lib/postgresql" "/home/user/backup" ];
+            example = [
+              "/var/lib/postgresql"
+              "/home/user/backup"
+            ];
           };
 
           exclude = mkOption {
@@ -140,7 +151,11 @@ in {
               https://restic.readthedocs.io/en/latest/040_backup.html#excluding-files for
               details on syntax.
             '';
-            example = [ "/var/cache" "/home/*/.cache" ".git" ];
+            example = [
+              "/var/cache"
+              "/home/*/.cache"
+              ".git"
+            ];
           };
 
           timerConfig = mkOption {
@@ -179,9 +194,8 @@ in {
             description = lib.mdDoc ''
               Extra extended options to be passed to the restic --option flag.
             '';
-            example = [
-              "sftp.command='ssh backup@192.168.1.100 -i /home/user/.ssh/id_rsa -s sftp'"
-            ];
+            example =
+              [ "sftp.command='ssh backup@192.168.1.100 -i /home/user/.ssh/id_rsa -s sftp'" ];
           };
 
           initialize = mkOption {
@@ -269,9 +283,8 @@ in {
         paths = [ "/home" ];
         repository = "sftp:backup@host:/backups/home";
         passwordFile = "/etc/nixos/secrets/restic-password";
-        extraOptions = [
-          "sftp.command='ssh backup@host -i /etc/nixos/secrets/backup-private-key -s sftp'"
-        ];
+        extraOptions =
+          [ "sftp.command='ssh backup@host -i /etc/nixos/secrets/backup-private-key -s sftp'" ];
         timerConfig = {
           OnCalendar = "00:05";
           RandomizedDelaySec = "5h";
@@ -294,14 +307,10 @@ in {
       let
         extraOptions = concatMapStrings (arg: " -o ${arg}") backup.extraOptions;
         resticCmd = "${backup.package}/bin/restic${extraOptions}";
-        excludeFlags = if (backup.exclude != [ ]) then
-          [
-            "--exclude-file=${
-              pkgs.writeText "exclude-patterns"
-              (concatStringsSep "\n" backup.exclude)
-            }"
-          ]
-        else
+        excludeFlags = if (backup.exclude != [ ]) then [ "--exclude-file=${
+          pkgs.writeText "exclude-patterns"
+          (concatStringsSep "\n" backup.exclude)
+        }" ] else
           [ ];
         filesFromTmpFile = "/run/restic-backups-${name}/includes";
         backupPaths = if (backup.dynamicFilesFrom == null) then
@@ -342,11 +351,9 @@ in {
         restartIfChanged = false;
         serviceConfig = {
           Type = "oneshot";
-          ExecStart = (optionals (backupPaths != "") [
-            "${resticCmd} backup ${
+          ExecStart = (optionals (backupPaths != "") [ "${resticCmd} backup ${
               concatStringsSep " " (backup.extraBackupArgs ++ excludeFlags)
-            } ${backupPaths}"
-          ]) ++ pruneCmd;
+            } ${backupPaths}" ]) ++ pruneCmd;
           User = backup.user;
           RuntimeDirectory = "restic-backups-${name}";
           CacheDirectory = "restic-backups-${name}";

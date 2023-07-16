@@ -43,14 +43,22 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ python3 ];
 
-  makeFlags = [ "PREFIX=$(out)" "SYSCONFDIR=${placeholder "out"}/etc" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "SYSCONFDIR=${placeholder "out"}/etc"
+  ];
 
   dontConfigure = true;
   dontBuild = true;
 
   postInstall = ''
     wrapProgram $out/bin/ananicy \
-      --prefix PATH : ${lib.makeBinPath [ schedtool util-linux ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          schedtool
+          util-linux
+        ]
+      }
 
     substituteInPlace $out/lib/systemd/system/ananicy.service \
       --replace "/sbin/sysctl" "${sysctl}/bin/sysctl" \

@@ -53,7 +53,10 @@ stdenv.mkDerivation rec {
   pname = "evolution-data-server";
   version = "3.48.1";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/evolution-data-server/${
@@ -62,12 +65,10 @@ stdenv.mkDerivation rec {
     sha256 = "XOYsHmfyeJNCp/SgNbEC905i7YX2DoGlt/PgQWVATf8=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      inherit tzdata;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    inherit tzdata;
+  }) ];
 
   prePatch = ''
     substitute ${./hardcode-gsettings.patch} hardcode-gsettings.patch \
@@ -110,8 +111,16 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withGtk4 [ gtk4 ]
     ++ lib.optionals (withGtk4 && enableOAuth2) [ webkitgtk_6_0 ];
 
-  propagatedBuildInputs =
-    [ db libsecret nss nspr libical libsoup_3 libxml2 json-glib ];
+  propagatedBuildInputs = [
+    db
+    libsecret
+    nss
+    nspr
+    libical
+    libsoup_3
+    libxml2
+    json-glib
+  ];
 
   cmakeFlags = [
     "-DENABLE_UOA=OFF"

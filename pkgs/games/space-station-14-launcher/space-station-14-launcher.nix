@@ -51,8 +51,10 @@ in buildDotnetModule rec {
   buildType = "Release";
   selfContainedBuild = false;
 
-  projectFile =
-    [ "SS14.Loader/SS14.Loader.csproj" "SS14.Launcher/SS14.Launcher.csproj" ];
+  projectFile = [
+    "SS14.Loader/SS14.Loader.csproj"
+    "SS14.Launcher/SS14.Launcher.csproj"
+  ];
 
   nugetDeps = ./deps.nix;
 
@@ -64,9 +66,17 @@ in buildDotnetModule rec {
   dotnet-sdk = dotnetCorePackages.sdk_7_0;
   dotnet-runtime = dotnetCorePackages.runtime_7_0;
 
-  dotnetFlags = [ "-p:FullRelease=true" "-p:RobustILLink=true" "-nologo" ];
+  dotnetFlags = [
+    "-p:FullRelease=true"
+    "-p:RobustILLink=true"
+    "-nologo"
+  ];
 
-  nativeBuildInputs = [ wrapGAppsHook iconConvTools copyDesktopItems ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    iconConvTools
+    copyDesktopItems
+  ];
 
   runtimeDeps = [
     # Required by the game.
@@ -101,17 +111,15 @@ in buildDotnetModule rec {
 
   executables = [ "SS14.Launcher" ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      exec = meta.mainProgram;
-      icon = pname;
-      desktopName = "Space Station 14 Launcher";
-      comment = meta.description;
-      categories = [ "Game" ];
-      startupWMClass = meta.mainProgram;
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = pname;
+    exec = meta.mainProgram;
+    icon = pname;
+    desktopName = "Space Station 14 Launcher";
+    comment = meta.description;
+    categories = [ "Game" ];
+    startupWMClass = meta.mainProgram;
+  }) ];
 
   postInstall = ''
     mkdir -p $out/lib/space-station-14-launcher/loader

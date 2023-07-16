@@ -20,7 +20,10 @@ in stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ glib notmuch ];
+  buildInputs = [
+    glib
+    notmuch
+  ];
 
   installPhase = "install -D notmuch-addrlookup $out/bin/notmuch-addrlookup";
 

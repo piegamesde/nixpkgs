@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-YVZSqTynlAH7y6vH07wsFCLMWnde/cBx4jjfJ4ZV3LA=";
   };
 
-  propagatedBuildInputs = [ aiohttp prettytable ];
+  propagatedBuildInputs = [
+    aiohttp
+    prettytable
+  ];
 
   pythonImportsCheck = [ "aiosomecomfort" ];
 

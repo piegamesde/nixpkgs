@@ -39,7 +39,10 @@ let
     # Sans) than that horror.  But we do need the Adobe fonts for some
     # old non-fontconfig applications.  (Possibly this could be done
     # better using a fontconfig rule.)
-    [ pkgs.xorg.fontadobe100dpi pkgs.xorg.fontadobe75dpi ];
+    [
+      pkgs.xorg.fontadobe100dpi
+      pkgs.xorg.fontadobe75dpi
+    ];
 
   xrandrOptions = {
     output = mkOption {
@@ -176,13 +179,27 @@ in {
     ./display-managers/default.nix
     ./window-managers/default.nix
     ./desktop-managers/default.nix
-    (mkRemovedOptionModule [ "services" "xserver" "startGnuPGAgent" ]
-      "See the 16.09 release notes for more information.")
-    (mkRemovedOptionModule [ "services" "xserver" "startDbusSession" ]
+    (mkRemovedOptionModule [
+      "services"
+      "xserver"
+      "startGnuPGAgent"
+    ] "See the 16.09 release notes for more information.")
+    (mkRemovedOptionModule [
+      "services"
+      "xserver"
+      "startDbusSession"
+    ]
       "The user D-Bus session is now always socket activated and this option can safely be removed.")
-    (mkRemovedOptionModule [ "services" "xserver" "useXFS" ]
-      "Use services.xserver.fontPath instead of useXFS")
-    (mkRemovedOptionModule [ "services" "xserver" "useGlamor" ]
+    (mkRemovedOptionModule [
+      "services"
+      "xserver"
+      "useXFS"
+    ] "Use services.xserver.fontPath instead of useXFS")
+    (mkRemovedOptionModule [
+      "services"
+      "xserver"
+      "useGlamor"
+    ]
       "Option services.xserver.useGlamor was removed because it is unnecessary. Drivers that uses Glamor will use it automatically.")
   ];
 
@@ -296,7 +313,10 @@ in {
 
       videoDrivers = mkOption {
         type = types.listOf types.str;
-        default = [ "modesetting" "fbdev" ];
+        default = [
+          "modesetting"
+          "fbdev"
+        ];
         example = [
           "nvidia"
           "nvidiaLegacy390"
@@ -307,7 +327,10 @@ in {
         # TODO(@oxij): think how to easily add the rest, like those nvidia things
         relatedPackages = concatLists (mapAttrsToList (n: v:
           optional (hasPrefix "xf86video" n) {
-            path = [ "xorg" n ];
+            path = [
+              "xorg"
+              n
+            ];
             title = removePrefix "xf86video" n;
           }) pkgs.xorg);
         description = lib.mdDoc ''
@@ -796,9 +819,11 @@ in {
       };
     };
 
-    services.xserver.displayManager.xserverArgs =
-      [ "-config ${configFile}" "-xkbdir" "${cfg.xkbDir}" ]
-      ++ optional (cfg.display != null) ":${toString cfg.display}"
+    services.xserver.displayManager.xserverArgs = [
+      "-config ${configFile}"
+      "-xkbdir"
+      "${cfg.xkbDir}"
+    ] ++ optional (cfg.display != null) ":${toString cfg.display}"
       ++ optional (cfg.tty != null) "vt${toString cfg.tty}"
       ++ optional (cfg.dpi != null) "-dpi ${toString cfg.dpi}"
       ++ optional (cfg.logFile != null) "-logfile ${toString cfg.logFile}"
@@ -810,8 +835,10 @@ in {
       "-arinterval ${toString cfg.autoRepeatInterval}"
       ++ optional cfg.terminateOnReset "-terminate";
 
-    services.xserver.modules = concatLists (catAttrs "modules" cfg.drivers)
-      ++ [ xorg.xorgserver.out xorg.xf86inputevdev.out ];
+    services.xserver.modules = concatLists (catAttrs "modules" cfg.drivers) ++ [
+      xorg.xorgserver.out
+      xorg.xf86inputevdev.out
+    ];
 
     system.extraDependencies = singleton (pkgs.runCommand "xkb-validated" {
       inherit (cfg) xkbModel layout xkbVariant xkbOptions;
@@ -915,7 +942,11 @@ in {
                       }
                     EndSubSection
                   '';
-                in concatMapStrings f [ 8 16 24 ])
+                in concatMapStrings f [
+                  8
+                  16
+                  24
+                ])
             }
 
           EndSection

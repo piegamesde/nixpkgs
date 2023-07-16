@@ -23,7 +23,11 @@ buildPythonPackage rec {
     sed -i '/^addopts/d' setup.cfg
   '';
 
-  nativeCheckInputs = [ asynctest pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    asynctest
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "--asyncio-mode=auto" ];
 

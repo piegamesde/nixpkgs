@@ -34,10 +34,16 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace "-pm755" "-pDm755"
   '';
 
-  nativeBuildInputs = [ makeWrapper installShellFiles ];
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+  ];
 
-  makeFlags =
-    [ "PREFIX=$(out)" "GITVER=${version}" "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "GITVER=${version}"
+    "CC=${stdenv.cc.targetPrefix}cc"
+  ];
 
   enableParallelBuilding = true;
 

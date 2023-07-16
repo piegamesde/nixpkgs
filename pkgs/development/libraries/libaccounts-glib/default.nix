@@ -24,7 +24,12 @@ stdenv.mkDerivation rec {
   pname = "libaccounts-glib";
   version = "1.24";
 
-  outputs = [ "out" "dev" "devdoc" "py" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+    "py"
+  ];
 
   src = fetchFromGitLab {
     owner = "accounts-sso";
@@ -47,10 +52,16 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
     vala
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-    [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
+    stdenv.hostPlatform) [ mesonEmulatorHook ];
 
-  buildInputs = [ glib libxml2 libxslt python3.pkgs.pygobject3 sqlite ];
+  buildInputs = [
+    glib
+    libxml2
+    libxslt
+    python3.pkgs.pygobject3
+    sqlite
+  ];
 
   # TODO: send patch upstream to make running tests optional
   postPatch =
@@ -61,11 +72,9 @@ stdenv.mkDerivation rec {
 
   LC_ALL = "en_US.UTF-8";
 
-  mesonFlags = [
-    "-Dpy-overrides-dir=${
+  mesonFlags = [ "-Dpy-overrides-dir=${
       placeholder "py"
-    }/${python3.sitePackages}/gi/overrides"
-  ];
+    }/${python3.sitePackages}/gi/overrides" ];
 
   meta = with lib; {
     description =

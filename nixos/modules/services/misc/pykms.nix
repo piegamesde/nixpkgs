@@ -13,10 +13,11 @@ let
 in {
   meta.maintainers = with lib.maintainers; [ peterhoeg ];
 
-  imports = [
-    (mkRemovedOptionModule [ "services" "pykms" "verbose" ]
-      "Use services.pykms.logLevel instead")
-  ];
+  imports = [ (mkRemovedOptionModule [
+    "services"
+    "pykms"
+    "verbose"
+  ] "Use services.pykms.logLevel instead") ];
 
   options = {
     services.pykms = {
@@ -52,8 +53,14 @@ in {
       };
 
       logLevel = mkOption {
-        type =
-          types.enum [ "CRITICAL" "ERROR" "WARNING" "INFO" "DEBUG" "MININFO" ];
+        type = types.enum [
+          "CRITICAL"
+          "ERROR"
+          "WARNING"
+          "INFO"
+          "DEBUG"
+          "MININFO"
+        ];
         default = "INFO";
         description = lib.mdDoc "How much to log";
       };
@@ -86,7 +93,10 @@ in {
           "--logfile=STDOUT"
           "--loglevel=${cfg.logLevel}"
           "--sqlite=${libDir}/clients.db"
-        ] ++ cfg.extraArgs ++ [ cfg.listenAddress (toString cfg.port) ]);
+        ] ++ cfg.extraArgs ++ [
+          cfg.listenAddress
+          (toString cfg.port)
+        ]);
         ProtectHome = "tmpfs";
         WorkingDirectory = libDir;
         SyslogIdentifier = "pykms";

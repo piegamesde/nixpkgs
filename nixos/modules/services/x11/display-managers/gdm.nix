@@ -52,7 +52,13 @@ in {
       "gdm"
       "autoLogin"
       "enable"
-    ] [ "services" "xserver" "displayManager" "autoLogin" "enable" ])
+    ] [
+      "services"
+      "xserver"
+      "displayManager"
+      "autoLogin"
+      "enable"
+    ])
     (mkRenamedOptionModule [
       "services"
       "xserver"
@@ -60,7 +66,13 @@ in {
       "gdm"
       "autoLogin"
       "user"
-    ] [ "services" "xserver" "displayManager" "autoLogin" "user" ])
+    ] [
+      "services"
+      "xserver"
+      "displayManager"
+      "autoLogin"
+      "user"
+    ])
 
     (mkRemovedOptionModule [
       "services"
@@ -178,7 +190,11 @@ in {
       ];
 
     # Otherwise GDM will not be able to start correctly and display Wayland sessions
-    systemd.packages = with pkgs.gnome; [ gdm gnome-session gnome-shell ];
+    systemd.packages = with pkgs.gnome; [
+      gdm
+      gnome-session
+      gnome-shell
+    ];
     environment.systemPackages = [ pkgs.gnome.adwaita-icon-theme ];
 
     # We dont use the upstream gdm service
@@ -201,8 +217,10 @@ in {
       "plymouth-quit.service"
       "plymouth-start.service"
     ];
-    systemd.services.display-manager.conflicts =
-      [ "getty@tty${gdm.initialVT}.service" "plymouth-quit.service" ];
+    systemd.services.display-manager.conflicts = [
+      "getty@tty${gdm.initialVT}.service"
+      "plymouth-quit.service"
+    ];
     systemd.services.display-manager.onFailure = [ "plymouth-quit.service" ];
 
     # Prevent nixos-rebuild switch from bringing down the graphical

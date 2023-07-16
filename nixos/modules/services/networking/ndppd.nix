@@ -90,7 +90,11 @@ let
         default = null;
       };
       method = mkOption {
-        type = types.enum [ "static" "iface" "auto" ];
+        type = types.enum [
+          "static"
+          "iface"
+          "auto"
+        ];
         description = lib.mdDoc ''
           static: Immediately answer any Neighbor Solicitation Messages
             (if they match the IP rule).
@@ -161,10 +165,10 @@ in {
   };
 
   config = mkIf cfg.enable {
-    warnings = mkIf (cfg.interface != null && cfg.network != null) [''
+    warnings = mkIf (cfg.interface != null && cfg.network != null) [ ''
       The options services.ndppd.interface and services.ndppd.network will probably be removed soon,
       please use services.ndppd.proxies.<interface>.rules.<network> instead.
-    ''];
+    '' ];
 
     services.ndppd.proxies =
       mkIf (cfg.interface != null && cfg.network != null) {
@@ -173,7 +177,10 @@ in {
 
     systemd.services.ndppd = {
       description = "NDP Proxy Daemon";
-      documentation = [ "man:ndppd(1)" "man:ndppd.conf(5)" ];
+      documentation = [
+        "man:ndppd(1)"
+        "man:ndppd.conf(5)"
+      ];
       after = [ "network-pre.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {

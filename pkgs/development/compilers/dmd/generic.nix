@@ -147,15 +147,25 @@ in stdenv.mkDerivation rec {
       substituteInPlace phobos/std/socket.d --replace "foreach (name; names)" "names = []; foreach (name; names)"
     '';
 
-  nativeBuildInputs = [ makeWrapper which installShellFiles ]
-    ++ lib.optionals (lib.versionOlder version "2.088.0") [ git ];
+  nativeBuildInputs = [
+    makeWrapper
+    which
+    installShellFiles
+  ] ++ lib.optionals (lib.versionOlder version "2.088.0") [ git ];
 
-  buildInputs = [ curl tzdata ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
+  buildInputs = [
+    curl
+    tzdata
+  ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
 
   nativeCheckInputs = [ gdb ]
     ++ lib.optionals (lib.versionOlder version "2.089.0") [ unzip ];
 
-  buildFlags = [ "BUILD=release" "ENABLE_RELEASE=1" "PIC=1" ];
+  buildFlags = [
+    "BUILD=release"
+    "ENABLE_RELEASE=1"
+    "PIC=1"
+  ];
 
   # Build and install are based on http://wiki.dlang.org/Building_DMD
   buildPhase = ''
@@ -233,7 +243,15 @@ in stdenv.mkDerivation rec {
     # Everything is now Boost licensed, even the backend.
     # https://github.com/dlang/dmd/pull/6680
     license = licenses.boost;
-    maintainers = with maintainers; [ ThomasMader lionello dukc ];
-    platforms = [ "x86_64-linux" "i686-linux" "x86_64-darwin" ];
+    maintainers = with maintainers; [
+      ThomasMader
+      lionello
+      dukc
+    ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+      "x86_64-darwin"
+    ];
   };
 }

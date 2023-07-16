@@ -40,13 +40,24 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ httpx ];
 
-  nativeBuildInputs = [ llvmPackages.clang pkg-config ]
-    ++ (with rustPlatform; [ cargoSetupHook maturinBuildHook ]);
+  nativeBuildInputs = [
+    llvmPackages.clang
+    pkg-config
+  ] ++ (with rustPlatform; [
+    cargoSetupHook
+    maturinBuildHook
+  ]);
 
   buildInputs = [ nettle ] ++ lib.optionals stdenv.isLinux [ pcsclite ]
-    ++ lib.optionals stdenv.isDarwin [ PCSC libiconv ];
+    ++ lib.optionals stdenv.isDarwin [
+      PCSC
+      libiconv
+    ];
 
-  nativeCheckInputs = [ pytestCheckHook vcrpy ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    vcrpy
+  ];
 
   preCheck = ''
     # import from $out

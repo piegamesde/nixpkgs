@@ -21,9 +21,15 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ decorator greenlet ];
+  propagatedBuildInputs = [
+    decorator
+    greenlet
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook twisted ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    twisted
+  ];
 
   pythonImportsCheck = [ "pytest_twisted" ];
 

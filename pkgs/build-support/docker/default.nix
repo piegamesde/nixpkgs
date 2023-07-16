@@ -87,57 +87,64 @@ in rec {
     ;
   };
 
-  pullImage =
-    let fixName = name: builtins.replaceStrings [ "/" ":" ] [ "-" "-" ] name;
-    in {
-      imageName
-      # To find the digest of an image, you can use skopeo:
-      # see doc/functions.xml
-      ,
-      imageDigest,
-      sha256,
-      os ?
-        "linux", # Image architecture, defaults to the architecture of the `hostPlatform` when unset
-      arch ? defaultArchitecture
-        # This is used to set name to the pulled image
-      ,
-      finalImageName ? imageName
-        # This used to set a tag to the pulled image
-      ,
-      finalImageTag ? "latest"
-        # This is used to disable TLS certificate verification, allowing access to http registries on (hopefully) trusted networks
-      ,
-      tlsVerify ? true
+  pullImage = let
+    fixName = name:
+      builtins.replaceStrings [
+        "/"
+        ":"
+      ] [
+        "-"
+        "-"
+      ] name;
+  in {
+    imageName
+    # To find the digest of an image, you can use skopeo:
+    # see doc/functions.xml
+    ,
+    imageDigest,
+    sha256,
+    os ?
+      "linux", # Image architecture, defaults to the architecture of the `hostPlatform` when unset
+    arch ? defaultArchitecture
+      # This is used to set name to the pulled image
+    ,
+    finalImageName ? imageName
+      # This used to set a tag to the pulled image
+    ,
+    finalImageTag ? "latest"
+      # This is used to disable TLS certificate verification, allowing access to http registries on (hopefully) trusted networks
+    ,
+    tlsVerify ? true
 
-      ,
-      name ? fixName "docker-image-${finalImageName}-${finalImageTag}.tar"
-    }:
+    ,
+    name ? fixName "docker-image-${finalImageName}-${finalImageTag}.tar"
+  }:
 
-    runCommand name {
-      inherit imageDigest;
-      imageName = finalImageName;
-      imageTag = finalImageTag;
-      impureEnvVars = lib.fetchers.proxyImpureEnvVars;
-      outputHashMode = "flat";
-      outputHashAlgo = "sha256";
-      outputHash = sha256;
+  runCommand name {
+    inherit imageDigest;
+    imageName = finalImageName;
+    imageTag = finalImageTag;
+    impureEnvVars = lib.fetchers.proxyImpureEnvVars;
+    outputHashMode = "flat";
+    outputHashAlgo = "sha256";
+    outputHash = sha256;
 
-      nativeBuildInputs = [ skopeo ];
-      SSL_CERT_FILE = "${cacert.out}/etc/ssl/certs/ca-bundle.crt";
+    nativeBuildInputs = [ skopeo ];
+    SSL_CERT_FILE = "${cacert.out}/etc/ssl/certs/ca-bundle.crt";
 
-      sourceURL = "docker://${imageName}@${imageDigest}";
-      destNameTag = "${finalImageName}:${finalImageTag}";
-    } ''
-      skopeo \
-        --insecure-policy \
-        --tmpdir=$TMPDIR \
-        --override-os ${os} \
-        --override-arch ${arch} \
-        copy \
-        --src-tls-verify=${lib.boolToString tlsVerify} \
-        "$sourceURL" "docker-archive://$out:$destNameTag" \
-        | cat  # pipe through cat to force-disable progress bar
-    '';
+    sourceURL = "docker://${imageName}@${imageDigest}";
+    destNameTag = "${finalImageName}:${finalImageTag}";
+  } ''
+    skopeo \
+      --insecure-policy \
+      --tmpdir=$TMPDIR \
+      --override-os ${os} \
+      --override-arch ${arch} \
+      copy \
+      --src-tls-verify=${lib.boolToString tlsVerify} \
+      "$sourceURL" "docker-archive://$out:$destNameTag" \
+      | cat  # pipe through cat to force-disable progress bar
+  '';
 
   # We need to sum layer.tar, not a directory, hence tarsum instead of nix-hash.
   # And we cannot untar it, because then we cannot preserve permissions etc.
@@ -216,7 +223,14 @@ in rec {
       inherit fromImage fromImageName fromImageTag;
       memSize = buildVMMemorySize;
 
-      nativeBuildInputs = [ util-linux 0.0 fsprogs jshon rsync jq ];
+      nativeBuildInputs = [
+        util-linux
+        0.0
+        fsprogs
+        jshon
+        rsync
+        jq
+      ];
     } ''
       mkdir disk
       mkfs /dev/${vmTools.hd}
@@ -355,7 +369,11 @@ in rec {
     runCommand "docker-layer-${name}" {
       inherit baseJson extraCommands;
       contents = copyToRoot;
-      nativeBuildInputs = [ jshon rsync tarsum ];
+      nativeBuildInputs = [
+        jshon
+        rsync
+        tarsum
+      ];
     } ''
       mkdir layer
       if [[ -n "$contents" ]]; then
@@ -571,7 +589,12 @@ in rec {
           copyToRoot = rootContents;
         };
       result = runCommand "docker-image-${baseName}.tar.gz" {
-        nativeBuildInputs = [ jshon pigz jq moreutils ];
+        nativeBuildInputs = [
+          jshon
+          pigz
+          jq
+          moreutils
+        ];
         # Image name must be lowercase
         imageName = lib.toLower name;
         imageTag = if tag == null then "" else tag;
@@ -737,7 +760,10 @@ in rec {
   mergeImages = images:
     runCommand "merge-docker-images" {
       inherit images;
-      nativeBuildInputs = [ pigz jq ];
+      nativeBuildInputs = [
+        pigz
+        jq
+      ];
     } ''
       mkdir image inputs
       # Extract images
@@ -912,13 +938,20 @@ in rec {
       };
 
       closureRoots = lib.optionals includeStorePaths # normally true
-        ([ baseJson customisationLayer ]);
+        ([
+          baseJson
+          customisationLayer
+        ]);
       overallClosure =
         writeText "closure" (lib.concatStringsSep " " closureRoots);
 
       # These derivations are only created as implementation details of docker-tools,
       # so they'll be excluded from the created images.
-      unnecessaryDrvs = [ baseJson overallClosure customisationLayer ];
+      unnecessaryDrvs = [
+        baseJson
+        overallClosure
+        customisationLayer
+      ];
 
       conf = runCommand "${baseName}-conf.json" {
         inherit fromImage maxLayers created;
@@ -1169,11 +1202,9 @@ in rec {
           # https://github.com/NixOS/nix/blob/ffe155abd36366a870482625543f9bf924a58281/src/libstore/build/local-derivation-goal.cc#L906-L910
           # Slightly differs however: We use the passed-in homeDirectory instead of sandboxBuildDir.
           # We're doing this because it's arguably a bug in Nix that sandboxBuildDir is used here: https://github.com/NixOS/nix/issues/6379
-          extraPasswdLines = [
-            "nixbld:x:${toString uid}:${
+          extraPasswdLines = [ "nixbld:x:${toString uid}:${
               toString gid
-            }:Build user:${homeDirectory}:/noshell"
-          ];
+            }:Build user:${homeDirectory}:/noshell" ];
           extraGroupLines = [ "nixbld:!:${toString gid}:" ];
         })
       ];
@@ -1196,7 +1227,14 @@ in rec {
       config.Cmd =
         # https://github.com/NixOS/nix/blob/2.8.0/src/nix-build/nix-build.cc#L185-L186
         # https://github.com/NixOS/nix/blob/2.8.0/src/nix-build/nix-build.cc#L534-L536
-        if run == null then [ shell "--rcfile" rcfile ] else [ shell rcfile ];
+        if run == null then [
+          shell
+          "--rcfile"
+          rcfile
+        ] else [
+          shell
+          rcfile
+        ];
       config.WorkingDir = sandboxBuildDir;
       config.Env = lib.mapAttrsToList (name: value: "${name}=${value}") envVars;
     };

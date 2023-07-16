@@ -30,9 +30,18 @@ mkDerivation rec {
       --replace "/usr/bin/qrencode" "${qrencode}/bin/qrencode"
   '';
 
-  buildInputs = [ git gnupg pass qtbase qtsvg ];
+  buildInputs = [
+    git
+    gnupg
+    pass
+    qtbase
+    qtsvg
+  ];
 
-  nativeBuildInputs = [ qmake qttools ];
+  nativeBuildInputs = [
+    qmake
+    qttools
+  ];
 
   patches = [
     # Fix path to pass-otp plugin `/usr/lib/password-store/extensions/otp.bash` being hardcoded.
@@ -50,8 +59,14 @@ mkDerivation rec {
     "QMAKE_LUPDATE=${qttools.dev}/bin/lupdate"
   ];
 
-  qtWrapperArgs =
-    [ "--suffix PATH : ${lib.makeBinPath [ git gnupg pass pwgen ]}" ];
+  qtWrapperArgs = [ "--suffix PATH : ${
+      lib.makeBinPath [
+        git
+        gnupg
+        pass
+        pwgen
+      ]
+    }" ];
 
   postInstall = ''
     install -D qtpass.desktop -t $out/share/applications

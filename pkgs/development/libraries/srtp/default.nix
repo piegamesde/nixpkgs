@@ -20,11 +20,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OvCw7oF1OuamP3qO2BsimeBSHq1rcXFLfK8KnbbgkMU=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
 
-  buildInputs = [ libpcap openssl ];
+  buildInputs = [
+    libpcap
+    openssl
+  ];
 
   # rtpw tests hang
   preConfigure = ''

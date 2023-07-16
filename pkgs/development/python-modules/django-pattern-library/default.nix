@@ -22,7 +22,11 @@ buildPythonPackage rec {
     sha256 = "sha256-V299HpbfNLa9cpVhBfzD41oe95xqh+ktQVMMVvm5Xao=";
   };
 
-  propagatedBuildInputs = [ django pyyaml markdown ];
+  propagatedBuildInputs = [
+    django
+    pyyaml
+    markdown
+  ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

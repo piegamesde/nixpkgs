@@ -26,8 +26,14 @@ buildPythonPackage rec {
     hash = "sha256-2k7FdgWM0ESHQb2za87yhXGaR/rbMYLVcv10QexUH1A=";
   };
 
-  propagatedBuildInputs =
-    [ coloredlogs executor humanfriendly naturalsort property-manager six ];
+  propagatedBuildInputs = [
+    coloredlogs
+    executor
+    humanfriendly
+    naturalsort
+    property-manager
+    six
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

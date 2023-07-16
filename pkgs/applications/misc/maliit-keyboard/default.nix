@@ -58,7 +58,11 @@ mkDerivation rec {
     "-DCMAKE_INSTALL_LIBDIR=lib"
   ];
 
-  nativeBuildInputs = [ cmake pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapGAppsHook
+  ];
 
   postInstall = ''
     glib-compile-schemas "$out"/share/glib-2.0/schemas
@@ -67,7 +71,11 @@ mkDerivation rec {
   meta = with lib; {
     description = "Virtual keyboard";
     homepage = "http://maliit.github.io/";
-    license = with licenses; [ lgpl3Only bsd3 cc-by-30 ];
+    license = with licenses; [
+      lgpl3Only
+      bsd3
+      cc-by-30
+    ];
     maintainers = with maintainers; [ samueldr ];
   };
 }

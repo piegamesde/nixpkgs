@@ -49,15 +49,26 @@ stdenv.mkDerivation rec {
     desktop-file-utils # update-desktop-database
     libxml2 # xmllint
     wrapGAppsHook4
-  ] ++ (with rustPlatform; [ cargoSetupHook rust.cargo rust.rustc ]);
+  ] ++ (with rustPlatform; [
+    cargoSetupHook
+    rust.cargo
+    rust.rustc
+  ]);
 
-  buildInputs = [ openssl dbus libadwaita ] ++ (with gst_all_1; [
+  buildInputs = [
+    openssl
+    dbus
+    libadwaita
+  ] ++ (with gst_all_1; [
     gstreamer
     gst-plugins-base
     gst-plugins-good
     gst-plugins-bad
     gst-plugins-ugly
-  ]) ++ lib.optionals stdenv.isDarwin [ Foundation SystemConfiguration ];
+  ]) ++ lib.optionals stdenv.isDarwin [
+    Foundation
+    SystemConfiguration
+  ];
 
   meta = with lib; {
     description = "A Rust + GTK based netease cloud music player";

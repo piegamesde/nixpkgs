@@ -40,7 +40,10 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ dnspython protobuf ];
+  propagatedBuildInputs = [
+    dnspython
+    protobuf
+  ];
 
   pythonImportsCheck = [ "mysql" ];
 
@@ -57,6 +60,9 @@ buildPythonPackage rec {
     changelog =
       "https://raw.githubusercontent.com/mysql/mysql-connector-python/${version}/CHANGES.txt";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ neosimsim turion ];
+    maintainers = with maintainers; [
+      neosimsim
+      turion
+    ];
   };
 }

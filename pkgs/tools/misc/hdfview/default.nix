@@ -26,7 +26,11 @@ stdenv.mkDerivation rec {
     ./0001-Hardcode-isUbuntu-false-to-avoid-hostname-dependency.patch
   ];
 
-  nativeBuildInputs = [ ant jdk copyDesktopItems ];
+  nativeBuildInputs = [
+    ant
+    jdk
+    copyDesktopItems
+  ];
 
   HDFLIBS = (hdf4.override { javaSupport = true; }).out;
   HDF5LIBS = (hdf5.override { javaSupport = true; }).out;
@@ -46,7 +50,10 @@ stdenv.mkDerivation rec {
     exec = name;
     icon = name;
     comment = meta.description;
-    categories = [ "Science" "DataVisualization" ];
+    categories = [
+      "Science"
+      "DataVisualization"
+    ];
   };
 
   installPhase = ''

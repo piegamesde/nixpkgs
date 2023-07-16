@@ -25,10 +25,17 @@ buildPythonPackage rec {
     hash = "sha256-/BdSB7CD/ob8vinYDZVy0FNU23PSCiHF8jHGQUDsm1w=";
   };
 
-  propagatedBuildInputs = [ aiohttp orjson ];
+  propagatedBuildInputs = [
+    aiohttp
+    orjson
+  ];
 
-  nativeCheckInputs =
-    [ aioresponses pytest-aiohttp pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    aioresponses
+    pytest-aiohttp
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "--asyncio-mode=auto" ];
 

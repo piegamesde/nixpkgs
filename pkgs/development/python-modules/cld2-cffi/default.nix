@@ -17,7 +17,10 @@ buildPythonPackage rec {
     sha256 = "0rvcdx4fdh5yk4d2nlddq1q1r2r0xqp86hpmbdn447pdcj1r8a9s";
   };
 
-  propagatedBuildInputs = [ six cffi ];
+  propagatedBuildInputs = [
+    six
+    cffi
+  ];
   nativeCheckInputs = [ nose ];
 
   # gcc doesn't approve of this code, so disable -Werror

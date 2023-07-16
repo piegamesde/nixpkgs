@@ -15,7 +15,10 @@ in {
 
     system.fsPackages = [ pkgs.f2fs-tools ];
 
-    boot.initrd.availableKernelModules = mkIf inInitrd [ "f2fs" "crc32" ];
+    boot.initrd.availableKernelModules = mkIf inInitrd [
+      "f2fs"
+      "crc32"
+    ];
 
     boot.initrd.extraUtilsCommands =
       mkIf (inInitrd && !config.boot.initrd.systemd.enable) ''

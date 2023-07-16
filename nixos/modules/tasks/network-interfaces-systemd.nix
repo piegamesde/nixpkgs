@@ -70,7 +70,10 @@ let
         # When wait-online.anyInterface is enabled, RequiredForOnline really
         # means "sufficient for online", so we can enable it.
         # Otherwise, don't block the network coming online because of default networks.
-        matchConfig.Name = [ "en*" "eth*" ];
+        matchConfig.Name = [
+          "en*"
+          "eth*"
+        ];
         DHCP = "yes";
         linkConfig.RequiredForOnline = lib.mkDefault (if initrd then
           config.boot.initrd.systemd.network.wait-online.anyInterface
@@ -166,8 +169,10 @@ in {
       # Note this is if initrd.network.enable, not if
       # initrd.systemd.network.enable. By setting the latter and not the
       # former, the user retains full control over the configuration.
-      boot.initrd.systemd.network =
-        mkMerge [ (genericDhcpNetworks true) interfaceNetworks ];
+      boot.initrd.systemd.network = mkMerge [
+        (genericDhcpNetworks true)
+        interfaceNetworks
+      ];
     })
 
     (mkIf cfg.useNetworkd {
@@ -268,7 +273,10 @@ in {
                 PacketsPerSlave = simp "packets_per_slave";
                 GratuitousARP = {
                   valTransform = id;
-                  optNames = [ "num_grat_arp" "num_unsol_na" ];
+                  optNames = [
+                    "num_grat_arp"
+                    "num_unsol_na"
+                  ];
                 };
                 AllSlavesActive = simp "all_slaves_active";
                 MinLinks = simp "min_links";
@@ -426,7 +434,10 @@ in {
               pkgs.writeText "vswitch-${n}-openFlowRules" v.openFlowRules;
           in {
             description = "Open vSwitch Interface ${n}";
-            wantedBy = [ "network.target" (subsystemDevice n) ];
+            wantedBy = [
+              "network.target"
+              (subsystemDevice n)
+            ];
             # and create bridge before systemd-networkd starts because it might create internal interfaces
             before = [ "systemd-networkd.service" ];
             # shutdown the bridge when network is shutdown
@@ -434,12 +445,18 @@ in {
             # requires ovs-vswitchd to be alive at all times
             bindsTo = [ "ovs-vswitchd.service" ];
             # start switch after physical interfaces and vswitch daemon
-            after = [ "network-pre.target" "ovs-vswitchd.service" ] ++ deps;
+            after = [
+              "network-pre.target"
+              "ovs-vswitchd.service"
+            ] ++ deps;
             wants =
               deps; # if one or more interface fails, the switch should continue to run
             serviceConfig.Type = "oneshot";
             serviceConfig.RemainAfterExit = true;
-            path = [ pkgs.iproute2 config.virtualisation.vswitch.package ];
+            path = [
+              pkgs.iproute2
+              config.virtualisation.vswitch.package
+            ];
             preStart = ''
               echo "Resetting Open vSwitch ${n}..."
               ovs-vsctl --if-exists del-br ${n} -- add-br ${n} \

@@ -30,7 +30,10 @@ in stdenv.mkDerivation rec {
 
   passAsFile = [ "paths" ];
 
-  nativeBuildInputs = [ glib wrapGAppsHook ];
+  nativeBuildInputs = [
+    glib
+    wrapGAppsHook
+  ];
 
   buildInputs = lib.forEach selectedPlugs (x: x.buildInputs) ++ selectedPlugs;
 

@@ -46,7 +46,10 @@ let
     xorg.libXrandr
     xorg.libXxf86vm
     xorg.libxcb
-  ] ++ lib.optionals stdenv.isLinux [ libxkbcommon wayland ];
+  ] ++ lib.optionals stdenv.isLinux [
+    libxkbcommon
+    wayland
+  ];
 in rustPlatform.buildRustPackage rec {
   pname = "alacritty";
   version = "0.12.0";
@@ -60,8 +63,14 @@ in rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-4liPfNJ2JGniz8Os4Np+XSXCJBHND13XLPWDy3Gc/F8=";
 
-  nativeBuildInputs =
-    [ cmake installShellFiles makeWrapper ncurses pkg-config python3 ];
+  nativeBuildInputs = [
+    cmake
+    installShellFiles
+    makeWrapper
+    ncurses
+    pkg-config
+    python3
+  ];
 
   buildInputs = rpathLibs ++ lib.optionals stdenv.isDarwin [
     AppKit
@@ -73,7 +82,10 @@ in rustPlatform.buildRustPackage rec {
     OpenGL
   ];
 
-  outputs = [ "out" "terminfo" ];
+  outputs = [
+    "out"
+    "terminfo"
+  ];
 
   postPatch = lib.optionalString (!xdg-utils.meta.broken) ''
     substituteInPlace alacritty/src/config/ui_config.rs \
@@ -123,7 +135,10 @@ in rustPlatform.buildRustPackage rec {
     description = "A cross-platform, GPU-accelerated terminal emulator";
     homepage = "https://github.com/alacritty/alacritty";
     license = licenses.asl20;
-    maintainers = with maintainers; [ Br1ght0ne mic92 ];
+    maintainers = with maintainers; [
+      Br1ght0ne
+      mic92
+    ];
     platforms = platforms.unix;
     changelog =
       "https://github.com/alacritty/alacritty/blob/v${version}/CHANGELOG.md";

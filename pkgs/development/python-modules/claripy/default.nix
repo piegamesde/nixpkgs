@@ -28,7 +28,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ cachetools decorator future pysmt z3 ];
+  propagatedBuildInputs = [
+    cachetools
+    decorator
+    future
+    pysmt
+    z3
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

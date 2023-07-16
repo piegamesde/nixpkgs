@@ -31,8 +31,15 @@ buildPythonPackage rec {
 
   format = "pyproject";
 
-  nativeBuildInputs = [ pkg-config rustfmt setuptools-rust ]
-    ++ (with rustPlatform; [ cargoSetupHook rust.cargo rust.rustc ]);
+  nativeBuildInputs = [
+    pkg-config
+    rustfmt
+    setuptools-rust
+  ] ++ (with rustPlatform; [
+    cargoSetupHook
+    rust.cargo
+    rust.rustc
+  ]);
 
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
 

@@ -51,7 +51,10 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/ful1e5/Bibata_Extra_Cursor";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ dtzWill AdsonCicilioti ];
+    maintainers = with maintainers; [
+      dtzWill
+      AdsonCicilioti
+    ];
     # unmaintained as of Nov 9, 2022. unable to be build with clickgen version 2.x
     broken = true;
   };

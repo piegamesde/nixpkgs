@@ -18,17 +18,20 @@ stdenv.mkDerivation rec {
     sha256 = "0g5b550vk11l639y8p5sx1v1i6ihgqk0x1hd0ri1bc2yzpdbjmcv";
   };
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://raw.githubusercontent.com/void-linux/void-packages/4a5bfe522ea5afd8203e804dc6a642d0871cd6dd/srcpkgs/fbv/patches/giflib-5.1.patch";
-      sha256 = "00q1zcn92yvvyij68bnq0m1sr3a411w914f4nyp6mpz0j5xc6dc7";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://raw.githubusercontent.com/void-linux/void-packages/4a5bfe522ea5afd8203e804dc6a642d0871cd6dd/srcpkgs/fbv/patches/giflib-5.1.patch";
+    sha256 = "00q1zcn92yvvyij68bnq0m1sr3a411w914f4nyp6mpz0j5xc6dc7";
+  }) ];
 
   patchFlags = [ "-p0" ];
 
-  buildInputs = [ getopt libjpeg libpng12 giflib ];
+  buildInputs = [
+    getopt
+    libjpeg
+    libpng12
+    giflib
+  ];
   makeFlags = [ "LDFLAGS=-lgif" ];
 
   enableParallelBuilding = true;

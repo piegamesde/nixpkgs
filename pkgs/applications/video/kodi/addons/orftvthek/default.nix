@@ -20,7 +20,12 @@ buildKodiAddon rec {
     sha256 = "sha256-r18vQ+2TSeflwByEAX33vIZG5qIGneraf5rLBugl5BU=";
   };
 
-  propagatedBuildInputs = [ future kodi-six simplejson inputstreamhelper ];
+  propagatedBuildInputs = [
+    future
+    kodi-six
+    simplejson
+    inputstreamhelper
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/s0faking/plugin.video.orftvthek";

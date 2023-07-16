@@ -20,7 +20,10 @@ buildDunePackage rec {
     sha256 = "1jmjyb9a4v7l0xxgdwpr9zshzr8xk3hybra6y2dp51anbwk8kv46";
   };
 
-  propagatedBuildInputs = [ cstruct mirage-random ];
+  propagatedBuildInputs = [
+    cstruct
+    mirage-random
+  ];
 
   meta = with lib; {
     description = "Stub random device implementation for testing";

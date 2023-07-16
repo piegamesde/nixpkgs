@@ -34,8 +34,7 @@ rustPlatform.buildRustPackage {
   postFixup = ''
     wrapProgram "$out/bin/yabridgectl" \
       --prefix PATH : ${
-        lib.makeBinPath [
-          wine # winedump
+        lib.makeBinPath [ wine # winedump
         ]
       }
   '';

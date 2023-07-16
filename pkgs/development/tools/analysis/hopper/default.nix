@@ -24,9 +24,17 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ autoPatchelfHook wrapQtAppsHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ gnustep.libobjc libbsd libffi_3_3 ncurses6 ];
+  buildInputs = [
+    gnustep.libobjc
+    libbsd
+    libffi_3_3
+    ncurses6
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -61,7 +69,10 @@ stdenv.mkDerivation rec {
     homepage = "https://www.hopperapp.com/index.html";
     description = "A macOS and Linux Disassembler";
     license = licenses.unfree;
-    maintainers = with maintainers; [ luis Enteee ];
+    maintainers = with maintainers; [
+      luis
+      Enteee
+    ];
     platforms = platforms.linux;
   };
 }

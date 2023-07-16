@@ -48,14 +48,12 @@ in stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
-  patches = [
-    (fetchpatch {
-      name = "Ensure-absolute-paths-in-pkg-config-file.patch";
-      url =
-        "https://github.com/open62541/open62541/commit/023d4b6b8bdec987f8f3ffee6c09801bbee4fa2d.patch";
-      sha256 = "sha256-mq4h32js2RjI0Ljown/01SXA3gc+7+zX8meIcvDPvoA=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "Ensure-absolute-paths-in-pkg-config-file.patch";
+    url =
+      "https://github.com/open62541/open62541/commit/023d4b6b8bdec987f8f3ffee6c09801bbee4fa2d.patch";
+    sha256 = "sha256-mq4h32js2RjI0Ljown/01SXA3gc+7+zX8meIcvDPvoA=";
+  }) ];
 
   cmakeFlags = [
     "-DOPEN62541_VERSION=v${finalAttrs.version}"
@@ -71,9 +69,15 @@ in stdenv.mkDerivation (finalAttrs: {
     "-DUA_ENABLE_ENCRYPTION=${lib.toUpper withEncryption}"
     ++ lib.optional withPubSub "-DUA_ENABLE_PUBSUB=ON";
 
-  nativeBuildInputs = [ cmake pkg-config python3Packages.python ]
-    ++ lib.optionals withDoc
-    (with python3Packages; [ sphinx sphinx_rtd_theme graphviz-nox ]);
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    python3Packages.python
+  ] ++ lib.optionals withDoc (with python3Packages; [
+    sphinx
+    sphinx_rtd_theme
+    graphviz-nox
+  ]);
 
   buildInputs = lib.optional (withEncryption != false) encryptionBackend;
 
@@ -81,7 +85,10 @@ in stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  checkInputs = [ check subunit ];
+  checkInputs = [
+    check
+    subunit
+  ];
 
   # Tests must run sequentially to avoid port collisions on localhost
   enableParallelChecking = false;

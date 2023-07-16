@@ -22,8 +22,11 @@ let
 
   usePostgresql = cfg.settings.database.name == "psycopg2";
   hasLocalPostgresDB = let args = cfg.settings.database.args;
-  in usePostgresql
-  && (!(args ? host) || (elem args.host [ "localhost" "127.0.0.1" "::1" ]));
+  in usePostgresql && (!(args ? host) || (elem args.host [
+    "localhost"
+    "127.0.0.1"
+    "::1"
+  ]));
 
   registerNewMatrixUser = let
     isIpv6 = x: lib.length (lib.splitString ":" x) > 1;
@@ -68,7 +71,11 @@ in {
       Database configuration must be done manually. An exemplary setup is demonstrated in
       <nixpkgs/nixos/tests/matrix/synapse.nix>
     '')
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "web_client" ] "")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "web_client"
+    ] "")
     (mkRemovedOptionModule [
       "services"
       "matrix-synapse"
@@ -81,28 +88,46 @@ in {
     '')
 
     # options that don't exist in synapse anymore
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "bind_host" ]
-      "Use listener settings instead.")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "bind_port" ]
-      "Use listener settings instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "bind_host"
+    ] "Use listener settings instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "bind_port"
+    ] "Use listener settings instead.")
     (mkRemovedOptionModule [
       "services"
       "matrix-synapse"
       "expire_access_tokens"
     ] "")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "no_tls" ]
-      "It is no longer supported by synapse.")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "tls_dh_param_path" ]
-      "It was removed from synapse.")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "unsecure_port" ]
-      "Use settings.listeners instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "no_tls"
+    ] "It is no longer supported by synapse.")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "tls_dh_param_path"
+    ] "It was removed from synapse.")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "unsecure_port"
+    ] "Use settings.listeners instead.")
     (mkRemovedOptionModule [
       "services"
       "matrix-synapse"
       "user_creation_max_duration"
     ] "It is no longer supported by synapse.")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "verbose" ]
-      "Use a log config instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "verbose"
+    ] "Use a log config instead.")
 
     # options that were moved into rfc42 style settings
     (mkRemovedOptionModule [
@@ -110,40 +135,92 @@ in {
       "matrix-synapse"
       "app_service_config_files"
     ] "Use settings.app_service_config_files instead")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "database_args" ]
-      "Use settings.database.args instead")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "database_name" ]
-      "Use settings.database.args.database instead")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "database_type" ]
-      "Use settings.database.name instead")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "database_user" ]
-      "Use settings.database.args.user instead")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "dynamic_thumbnails" ]
-      "Use settings.dynamic_thumbnails instead")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "enable_metrics" ]
-      "Use settings.enable_metrics instead")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "enable_registration" ]
-      "Use settings.enable_registration instead")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "extraConfig" ]
-      "Use settings instead.")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "listeners" ]
-      "Use settings.listeners instead")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "logConfig" ]
-      "Use settings.log_config instead")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "max_image_pixels" ]
-      "Use settings.max_image_pixels instead")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "max_upload_size" ]
-      "Use settings.max_upload_size instead")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "presence" "enabled" ]
-      "Use settings.presence.enabled instead")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "public_baseurl" ]
-      "Use settings.public_baseurl instead")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "report_stats" ]
-      "Use settings.report_stats instead")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "server_name" ]
-      "Use settings.server_name instead")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "servers" ]
-      "Use settings.trusted_key_servers instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "database_args"
+    ] "Use settings.database.args instead")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "database_name"
+    ] "Use settings.database.args.database instead")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "database_type"
+    ] "Use settings.database.name instead")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "database_user"
+    ] "Use settings.database.args.user instead")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "dynamic_thumbnails"
+    ] "Use settings.dynamic_thumbnails instead")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "enable_metrics"
+    ] "Use settings.enable_metrics instead")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "enable_registration"
+    ] "Use settings.enable_registration instead")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "extraConfig"
+    ] "Use settings instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "listeners"
+    ] "Use settings.listeners instead")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "logConfig"
+    ] "Use settings.log_config instead")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "max_image_pixels"
+    ] "Use settings.max_image_pixels instead")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "max_upload_size"
+    ] "Use settings.max_upload_size instead")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "presence"
+      "enabled"
+    ] "Use settings.presence.enabled instead")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "public_baseurl"
+    ] "Use settings.public_baseurl instead")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "report_stats"
+    ] "Use settings.report_stats instead")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "server_name"
+    ] "Use settings.server_name instead")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "servers"
+    ] "Use settings.trusted_key_servers instead.")
     (mkRemovedOptionModule [
       "services"
       "matrix-synapse"
@@ -154,14 +231,26 @@ in {
       "matrix-synapse"
       "tls_private_key_path"
     ] "Use settings.tls_private_key_path instead")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "turn_shared_secret" ]
-      "Use settings.turn_shared_secret instead")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "turn_uris" ]
-      "Use settings.turn_uris instead")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "turn_user_lifetime" ]
-      "Use settings.turn_user_lifetime instead")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "url_preview_enabled" ]
-      "Use settings.url_preview_enabled instead")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "turn_shared_secret"
+    ] "Use settings.turn_shared_secret instead")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "turn_uris"
+    ] "Use settings.turn_uris instead")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "turn_user_lifetime"
+    ] "Use settings.turn_user_lifetime instead")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "url_preview_enabled"
+    ] "Use settings.url_preview_enabled instead")
     (mkRemovedOptionModule [
       "services"
       "matrix-synapse"
@@ -191,17 +280,26 @@ in {
       "account_threepid_delegates"
       "msisdn"
     ] "Use settings.account_threepid_delegates.msisdn instead")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "allow_guest_access" ]
-      "Use settings.allow_guest_access instead")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "bcrypt_rounds" ]
-      "Use settings.bcrypt_rounds instead")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "allow_guest_access"
+    ] "Use settings.allow_guest_access instead")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "bcrypt_rounds"
+    ] "Use settings.bcrypt_rounds instead")
     (mkRemovedOptionModule [
       "services"
       "matrix-synapse"
       "enable_registration_captcha"
     ] "Use settings.enable_registration_captcha instead")
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "event_cache_size" ]
-      "Use settings.event_cache_size instead")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "event_cache_size"
+    ] "Use settings.event_cache_size instead")
     (mkRemovedOptionModule [
       "services"
       "matrix-synapse"
@@ -271,8 +369,11 @@ in {
     ] "Use settings.room_prejoin-state.disable_default_event_types instead")
 
     # Options that should be passed via extraConfigFiles, so they are not persisted into the nix store
-    (mkRemovedOptionModule [ "services" "matrix-synapse" "macaroon_secret_key" ]
-      "Pass this value via extraConfigFiles instead")
+    (mkRemovedOptionModule [
+      "services"
+      "matrix-synapse"
+      "macaroon_secret_key"
+    ] "Pass this value via extraConfigFiles instead")
     (mkRemovedOptionModule [
       "services"
       "matrix-synapse"
@@ -510,7 +611,10 @@ in {
 
                     bind_addresses = mkOption {
                       type = types.listOf types.str;
-                      default = [ "::1" "127.0.0.1" ];
+                      default = [
+                        "::1"
+                        "127.0.0.1"
+                      ];
                       example = literalExpression ''
                         [
                           "::"
@@ -523,8 +627,12 @@ in {
                     };
 
                     type = mkOption {
-                      type =
-                        types.enum [ "http" "manhole" "metrics" "replication" ];
+                      type = types.enum [
+                        "http"
+                        "manhole"
+                        "metrics"
+                        "replication"
+                      ];
                       default = "http";
                       example = "metrics";
                       description = lib.mdDoc ''
@@ -587,7 +695,7 @@ in {
                     };
                   };
                 });
-                default = [{
+                default = [ {
                   port = 8008;
                   bind_addresses = [ "127.0.0.1" ];
                   type = "http";
@@ -603,14 +711,17 @@ in {
                       compress = false;
                     }
                   ];
-                }];
+                } ];
                 description = lib.mdDoc ''
                   List of ports that Synapse should listen on, their purpose and their configuration.
                 '';
               };
 
               database.name = mkOption {
-                type = types.enum [ "sqlite3" "psycopg2" ];
+                type = types.enum [
+                  "sqlite3"
+                  "psycopg2"
+                ];
                 default =
                   if versionAtLeast config.system.stateVersion "18.03" then
                     "psycopg2"
@@ -805,13 +916,13 @@ in {
                     };
                   };
                 });
-                default = [{
+                default = [ {
                   server_name = "matrix.org";
                   verify_keys = {
                     "ed25519:auto" =
                       "Noi6WqcDj0QmPxCNQqgezwTlBKrfqehY1u2FyWP9uYw";
                   };
-                }];
+                } ];
                 description = lib.mdDoc ''
                   The trusted servers to download signing keys from.
                 '';
@@ -845,7 +956,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = hasLocalPostgresDB -> config.services.postgresql.enable;
       message = ''
         Cannot deploy matrix-synapse with a configuration for a local postgresql database
@@ -861,7 +972,7 @@ in {
 
         For further information about this update, please read the release-notes of 20.03 carefully.
       '';
-    }];
+    } ];
 
     services.matrix-synapse.configFile = configFile;
 
@@ -887,8 +998,8 @@ in {
           --generate-keys
       '';
       environment = {
-        PYTHONPATH = makeSearchPathOutput "lib" cfg.package.python.sitePackages
-          [ pluginsEnv ];
+        PYTHONPATH = makeSearchPathOutput "lib"
+          cfg.package.python.sitePackages [ pluginsEnv ];
       } // optionalAttrs (cfg.withJemalloc) {
         LD_PRELOAD = "${pkgs.jemalloc}/lib/libjemalloc.so";
       };
@@ -897,12 +1008,11 @@ in {
         User = "matrix-synapse";
         Group = "matrix-synapse";
         WorkingDirectory = cfg.dataDir;
-        ExecStartPre = [
-          ("+" + (pkgs.writeShellScript "matrix-synapse-fix-permissions" ''
+        ExecStartPre = [ ("+"
+          + (pkgs.writeShellScript "matrix-synapse-fix-permissions" ''
             chown matrix-synapse:matrix-synapse ${cfg.settings.signing_key_path}
             chmod 0600 ${cfg.settings.signing_key_path}
-          ''))
-        ];
+          '')) ];
         ExecStart = ''
           ${cfg.package}/bin/synapse_homeserver \
             ${
@@ -935,12 +1045,20 @@ in {
         ProtectSystem = "strict";
         ReadWritePaths = [ cfg.dataDir ];
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@resources" "~@privileged" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@resources"
+          "~@privileged"
+        ];
       };
     };
 

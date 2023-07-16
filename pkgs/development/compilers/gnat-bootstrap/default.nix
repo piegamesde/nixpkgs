@@ -158,7 +158,10 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/gnat";
     license = licenses.gpl3;
     maintainers = with maintainers; [ ethindp ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
 }

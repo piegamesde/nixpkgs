@@ -58,7 +58,10 @@ python3Packages.buildPythonApplication rec {
 
   # Disable some non-passing tests:
   # https://github.com/egh/ledger-autosync/issues/127
-  disabledTests = [ "test_payee_match" "test_args_only" ];
+  disabledTests = [
+    "test_payee_match"
+    "test_args_only"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/egh/ledger-autosync";

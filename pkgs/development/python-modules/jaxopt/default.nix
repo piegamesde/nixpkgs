@@ -27,9 +27,21 @@ buildPythonPackage rec {
     hash = "sha256-WOsr/Dvguu9/qX6+LMlAKM3EANtYPtDu8Uo2157+bs0=";
   };
 
-  propagatedBuildInputs = [ absl-py jax jaxlib matplotlib numpy scipy ];
+  propagatedBuildInputs = [
+    absl-py
+    jax
+    jaxlib
+    matplotlib
+    numpy
+    scipy
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook cvxpy optax scikit-learn ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    cvxpy
+    optax
+    scikit-learn
+  ];
 
   pythonImportsCheck = [
     "jaxopt"

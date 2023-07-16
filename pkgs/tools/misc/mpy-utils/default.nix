@@ -17,7 +17,10 @@ buildPythonApplication rec {
     hash = "sha256-die8hseaidhs9X7mfFvV8C8zn0uyw08gcHNqmjl+2Z4=";
   };
 
-  propagatedBuildInputs = [ fusepy pyserial ];
+  propagatedBuildInputs = [
+    fusepy
+    pyserial
+  ];
 
   meta = with lib; {
     description = "MicroPython development utility programs";

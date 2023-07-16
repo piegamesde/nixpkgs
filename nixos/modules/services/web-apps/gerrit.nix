@@ -150,12 +150,12 @@ in {
 
   config = mkIf cfg.enable {
 
-    assertions = [{
+    assertions = [ {
       assertion = cfg.replicationSettings != { }
         -> elem "replication" cfg.builtinPlugins;
       message =
         "Gerrit replicationSettings require enabling the replication plugin";
-    }];
+    } ];
 
     services.gerrit.settings = {
       cache.directory = "/var/cache/gerrit";
@@ -181,9 +181,18 @@ in {
 
       wantedBy = [ "multi-user.target" ];
       requires = [ "gerrit.socket" ];
-      after = [ "gerrit.socket" "network.target" ];
+      after = [
+        "gerrit.socket"
+        "network.target"
+      ];
 
-      path = [ gerrit-cli pkgs.bash pkgs.coreutils pkgs.git pkgs.openssh ];
+      path = [
+        gerrit-cli
+        pkgs.bash
+        pkgs.coreutils
+        pkgs.git
+        pkgs.openssh
+      ];
 
       environment = {
         GERRIT_HOME = "%S/gerrit";
@@ -227,7 +236,10 @@ in {
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ edef zimbatm ];
+  meta.maintainers = with lib.maintainers; [
+    edef
+    zimbatm
+  ];
   # uses attributes of the linked package
   meta.buildDocsInSandbox = false;
 }

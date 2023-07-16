@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ cryptography ];
 
-  nativeCheckInputs = [ pytestCheckHook xmldiff ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    xmldiff
+  ];
 
   pythonImportsCheck = [ "psrpcore" ];
 

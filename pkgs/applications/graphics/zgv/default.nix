@@ -20,7 +20,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ SDL SDL_image libjpeg libpng libtiff ];
+  buildInputs = [
+    SDL
+    SDL_image
+    libjpeg
+    libpng
+    libtiff
+  ];
 
   hardeningDisable = [ "format" ];
 

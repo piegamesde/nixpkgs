@@ -20,14 +20,22 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  propagatedBuildInputs = [ azure-common azure-mgmt-core msrest msrestazure ];
+  propagatedBuildInputs = [
+    azure-common
+    azure-mgmt-core
+    msrest
+    msrestazure
+  ];
 
   # no tests included
   doCheck = false;
 
   pythonNamespaces = [ "azure.mgmt" ];
 
-  pythonImportsCheck = [ "azure.common" "azure.mgmt.appconfiguration" ];
+  pythonImportsCheck = [
+    "azure.common"
+    "azure.mgmt.appconfiguration"
+  ];
 
   meta = with lib; {
     description =

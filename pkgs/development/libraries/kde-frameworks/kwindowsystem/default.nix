@@ -11,7 +11,15 @@
 mkDerivation {
   pname = "kwindowsystem";
   nativeBuildInputs = [ extra-cmake-modules ];
-  buildInputs = [ libpthreadstubs libXdmcp qttools qtx11extras ];
+  buildInputs = [
+    libpthreadstubs
+    libXdmcp
+    qttools
+    qtx11extras
+  ];
   propagatedBuildInputs = [ qtbase ];
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 }

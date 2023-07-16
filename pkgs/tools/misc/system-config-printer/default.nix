@@ -97,7 +97,11 @@ stdenv.mkDerivation rec {
     "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
   ];
 
-  stripDebugList = [ "bin" "lib" "etc/udev" ];
+  stripDebugList = [
+    "bin"
+    "lib"
+    "etc/udev"
+  ];
 
   doCheck = true;
 

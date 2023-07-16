@@ -18,12 +18,10 @@ stdenv.mkDerivation rec {
   };
 
   patches = with python3.pkgs;
-    [
-      (substituteAll {
-        src = ./websockify.patch;
-        inherit websockify;
-      })
-    ] ++ [ ./fix-paths.patch ];
+    [ (substituteAll {
+      src = ./websockify.patch;
+      inherit websockify;
+    }) ] ++ [ ./fix-paths.patch ];
 
   postPatch = ''
     substituteAllInPlace utils/novnc_proxy
@@ -42,7 +40,13 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "VNC client web application";
     homepage = "https://novnc.com";
-    license = with licenses; [ mpl20 ofl bsd3 bsd2 mit ];
+    license = with licenses; [
+      mpl20
+      ofl
+      bsd3
+      bsd2
+      mit
+    ];
     maintainers = with maintainers; [ neverbehave ];
   };
 }

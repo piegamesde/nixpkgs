@@ -22,9 +22,17 @@ mkDerivation rec {
     sha256 = "sha256-58ja76N7LrJ0f/SsNMYr7Z9hdW60PwsNlTkHQ+NEdUM=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
-  buildInputs = [ kidletime kio libcanberra pulseaudio ];
+  buildInputs = [
+    kidletime
+    kio
+    libcanberra
+    pulseaudio
+  ];
 
   meta = with lib; {
     description =

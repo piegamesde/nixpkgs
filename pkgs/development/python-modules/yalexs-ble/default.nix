@@ -29,10 +29,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [ async-timeout bleak bleak-retry-connector cryptography lru-dict ];
+  propagatedBuildInputs = [
+    async-timeout
+    bleak
+    bleak-retry-connector
+    cryptography
+    lru-dict
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

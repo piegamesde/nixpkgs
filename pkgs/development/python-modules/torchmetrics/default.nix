@@ -27,7 +27,10 @@ in buildPythonPackage {
     hash = "sha256-cyzAY5NKP+SgoZmwBBLsI0yQ1M4jdOB6/9+/k/+5mns=";
   };
 
-  propagatedBuildInputs = [ packaging py-deprecate ];
+  propagatedBuildInputs = [
+    packaging
+    py-deprecate
+  ];
 
   # Let the user bring their own instance
   buildInputs = [ torch ];

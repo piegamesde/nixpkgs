@@ -28,9 +28,21 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [ libsodium mbedtls_2 libev c-ares pcre ];
-  nativeBuildInputs =
-    [ cmake asciidoc xmlto docbook_xml_dtd_45 docbook_xsl libxslt ];
+  buildInputs = [
+    libsodium
+    mbedtls_2
+    libev
+    c-ares
+    pcre
+  ];
+  nativeBuildInputs = [
+    cmake
+    asciidoc
+    xmlto
+    docbook_xml_dtd_45
+    docbook_xsl
+    libxslt
+  ];
 
   cmakeFlags = [
     "-DWITH_STATIC=OFF"

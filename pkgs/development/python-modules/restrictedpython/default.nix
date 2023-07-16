@@ -20,7 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-QFzwvZ7sLxmxMmtfSCKO/lbWWQtOkYJrjMOyzUAKlq0=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook pytest-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-mock
+  ];
 
   pythonImportsCheck = [ "RestrictedPython" ];
 

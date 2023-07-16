@@ -33,7 +33,12 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pdm.backend" ];
 
-  nativeCheckInputs = [ editables git pytestCheckHook setuptools ];
+  nativeCheckInputs = [
+    editables
+    git
+    pytestCheckHook
+    setuptools
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/pdm-project/pdm-backend";

@@ -26,7 +26,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ ifaddr requests six websocket-client ];
+  propagatedBuildInputs = [
+    ifaddr
+    requests
+    six
+    websocket-client
+  ];
 
   # Tests require access to the Roon API
   doCheck = false;

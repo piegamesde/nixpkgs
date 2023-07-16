@@ -7,13 +7,22 @@ import ../make-test-python.nix ({
   let
     imageEnv = pkgs.buildEnv {
       name = "k3s-pause-image-env";
-      paths = with pkgs; [ tini (hiPrio coreutils) busybox ];
+      paths = with pkgs; [
+        tini
+        (hiPrio coreutils)
+        busybox
+      ];
     };
     pauseImage = pkgs.dockerTools.streamLayeredImage {
       name = "test.local/pause";
       tag = "local";
       contents = imageEnv;
-      config.Entrypoint = [ "/bin/tini" "--" "/bin/sleep" "inf" ];
+      config.Entrypoint = [
+        "/bin/tini"
+        "--"
+        "/bin/sleep"
+        "inf"
+      ];
     };
     testPodYaml = pkgs.writeText "test.yml" ''
       apiVersion: v1
@@ -35,7 +44,10 @@ import ../make-test-python.nix ({
         pkgs,
         ...
       }: {
-        environment.systemPackages = with pkgs; [ k3s gzip ];
+        environment.systemPackages = with pkgs; [
+          k3s
+          gzip
+        ];
 
         # k3s uses enough resources the default vm fails.
         virtualisation.memorySize = 1536;

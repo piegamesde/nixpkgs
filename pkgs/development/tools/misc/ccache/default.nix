@@ -25,7 +25,10 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-X7Pv+yEQaKPdWTiKq67kSAyimyKvLSCYr4EjLlw+J0U=";
   };
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   patches = [
     # When building for Darwin, test/run uses dwarfdump, whereas on
@@ -38,7 +41,11 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  nativeBuildInputs = [ asciidoctor cmake perl ];
+  nativeBuildInputs = [
+    asciidoctor
+    cmake
+    perl
+  ];
   buildInputs = [ zstd ];
 
   cmakeFlags = [
@@ -55,13 +62,13 @@ stdenv.mkDerivation (finalAttrs: {
   ] ++ lib.optional stdenv.isDarwin xcodebuild;
 
   checkPhase = let
-    badTests = [
-      "test.trim_dir" # flaky on hydra (possibly filesystem-specific?)
-    ] ++ lib.optionals stdenv.isDarwin [
-      "test.basedir"
-      "test.multi_arch"
-      "test.nocpp2"
-    ];
+    badTests =
+      [ "test.trim_dir" # flaky on hydra (possibly filesystem-specific?)
+      ] ++ lib.optionals stdenv.isDarwin [
+        "test.basedir"
+        "test.multi_arch"
+        "test.nocpp2"
+      ];
   in ''
     runHook preCheck
     export HOME=$(mktemp -d)
@@ -127,7 +134,10 @@ stdenv.mkDerivation (finalAttrs: {
         builtins.replaceStrings [ "." ] [ "_" ] finalAttrs.version
       }";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ kira-bruneau r-burns ];
+    maintainers = with maintainers; [
+      kira-bruneau
+      r-burns
+    ];
     platforms = platforms.unix;
   };
 })

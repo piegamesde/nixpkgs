@@ -20,9 +20,18 @@ buildGoModule rec {
   subPackages = [ "cmd/litefs" ];
 
   # following https://github.com/superfly/litefs/blob/main/Dockerfile
-  ldflags = [ "-s" "-w" "-X main.Version=${version}" "-extldflags=-static" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.Version=${version}"
+    "-extldflags=-static"
+  ];
 
-  tags = [ "osusergo" "netgo" "sqlite_omit_load_extension" ];
+  tags = [
+    "osusergo"
+    "netgo"
+    "sqlite_omit_load_extension"
+  ];
 
   doCheck = false; # fails
 

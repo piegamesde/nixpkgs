@@ -45,8 +45,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    lib.optionals stdenv.isDarwin [ AudioToolbox AudioUnit CoreServices ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    AudioToolbox
+    AudioUnit
+    CoreServices
+  ];
 
   propagatedBuildInputs = [
     SDL2
@@ -62,7 +65,10 @@ stdenv.mkDerivation rec {
     timidity
   ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   meta = with lib; {
     description = "SDL multi-channel audio mixer library";

@@ -25,8 +25,14 @@ mkDerivation {
     perlPackages.URI
     qtbase
   ];
-  buildInputs = [ karchive ki18n ];
-  outputs = [ "out" "dev" ];
+  buildInputs = [
+    karchive
+    ki18n
+  ];
+  outputs = [
+    "out"
+    "dev"
+  ];
   patches = [ ./kdoctools-no-find-docbook-xml.patch ];
   cmakeFlags = [
     "-DDocBookXML4_DTD_DIR=${docbook_xml_dtd_45}/xml/dtd/docbook"

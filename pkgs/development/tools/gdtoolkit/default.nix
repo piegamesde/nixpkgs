@@ -32,8 +32,11 @@ in python3Packages.buildPythonApplication rec {
 
   disabled = python3Packages.pythonOlder "3.7";
 
-  propagatedBuildInputs = [ lark080 ]
-    ++ (with python3Packages; [ docopt pyyaml setuptools ]);
+  propagatedBuildInputs = [ lark080 ] ++ (with python3Packages; [
+    docopt
+    pyyaml
+    setuptools
+  ]);
 
   doCheck = true;
 
@@ -69,14 +72,21 @@ in python3Packages.buildPythonApplication rec {
     rm tests/potential-godot-bugs/multiline-subscription-expression.gd
   '';
 
-  pythonImportsCheck =
-    [ "gdtoolkit" "gdtoolkit.formatter" "gdtoolkit.linter" "gdtoolkit.parser" ];
+  pythonImportsCheck = [
+    "gdtoolkit"
+    "gdtoolkit.formatter"
+    "gdtoolkit.linter"
+    "gdtoolkit.parser"
+  ];
 
   meta = with lib; {
     description =
       "Independent set of tools for working with Godot's GDScript - parser, linter and formatter";
     homepage = "https://github.com/Scony/godot-gdscript-toolkit";
     license = licenses.mit;
-    maintainers = with maintainers; [ shiryel tmarkus ];
+    maintainers = with maintainers; [
+      shiryel
+      tmarkus
+    ];
   };
 }

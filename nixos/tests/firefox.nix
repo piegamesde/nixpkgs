@@ -14,7 +14,12 @@ import ./make-test-python.nix ({
 
   in {
     name = firefoxPackage'.unwrapped.pname;
-    meta = with pkgs.lib.maintainers; { maintainers = [ eelco shlevy ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        eelco
+        shlevy
+      ];
+    };
 
     nodes.machine = {
         pkgs,
@@ -23,7 +28,10 @@ import ./make-test-python.nix ({
 
       {
         imports = [ ./common/x11.nix ];
-        environment.systemPackages = [ firefoxPackage' pkgs.xdotool ];
+        environment.systemPackages = [
+          firefoxPackage'
+          pkgs.xdotool
+        ];
 
         # Create a virtual sound device, with mixing
         # and all, for recording audio.

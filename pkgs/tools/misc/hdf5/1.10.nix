@@ -22,7 +22,10 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-AMS+cJbzb9yvpPl04SbGwUEkKOOOvHsYHZB0WeeB8ZE=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   buildInputs = optional javaSupport jdk;
 

@@ -36,8 +36,10 @@ stdenv.mkDerivation rec {
     sha256 = "03ndk46h6093v8s18d5iffz48zhlshq7jrk6vgpjfs6z2iqgd2sy";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ]
-    ++ lib.optionals withGui [ wrapQtAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ] ++ lib.optionals withGui [ wrapQtAppsHook ];
 
   buildInputs = [
     glib
@@ -51,7 +53,11 @@ stdenv.mkDerivation rec {
     miniupnpc
     protobuf
     util-linux
-  ] ++ lib.optionals withGui [ qtbase qttools qrencode ];
+  ] ++ lib.optionals withGui [
+    qtbase
+    qttools
+    qrencode
+  ];
 
   configureFlags = [ "--with-boost-libdir=${boost.out}/lib" ]
     ++ lib.optional enableUpnp "--enable-upnp-default"

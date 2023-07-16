@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-LnOg1dVs6lXgPTwRYg7uJ3LCdExYrCxS47UEJxKHhVU=";
   };
 
-  nativeCheckInputs = [ numpy pytestCheckHook ];
+  nativeCheckInputs = [
+    numpy
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [
     # Requires a very old version of nptyping

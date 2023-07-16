@@ -24,7 +24,14 @@ buildDunePackage rec {
     sha256 = "sha256-615AOkrbQI6vRosA5Kz3Epipe9f9+Gs9+g3bVl5gzBY=";
   };
 
-  buildInputs = [ async cohttp_static_handler core_unix owee ppx_jane shell ];
+  buildInputs = [
+    async
+    cohttp_static_handler
+    core_unix
+    owee
+    ppx_jane
+    shell
+  ];
 
   meta = with lib; {
     description =

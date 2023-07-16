@@ -23,9 +23,17 @@ buildPythonPackage rec {
     hash = "sha256-UXWVSS3eVwpP1ranb2REQMG6UeIzjIpnHX8Edf2o+f0=";
   };
 
-  propagatedBuildInputs = [ fastnumbers pyicu ];
+  propagatedBuildInputs = [
+    fastnumbers
+    pyicu
+  ];
 
-  nativeCheckInputs = [ glibcLocales hypothesis pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    glibcLocales
+    hypothesis
+    pytest-mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "natsort" ];
 

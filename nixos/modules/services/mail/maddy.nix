@@ -195,7 +195,11 @@ in {
       localDomains = mkOption {
         type = with types; listOf str;
         default = [ "$(primary_domain)" ];
-        example = [ "$(primary_domain)" "example.com" "other.example.com" ];
+        example = [
+          "$(primary_domain)"
+          "example.com"
+          "other.example.com"
+        ];
         description = lib.mdDoc ''
           Define list of allowed domains.
         '';
@@ -218,7 +222,11 @@ in {
 
       tls = {
         loader = mkOption {
-          type = with types; nullOr (enum [ "file" "off" ]);
+          type = with types;
+            nullOr (enum [
+              "file"
+              "off"
+            ]);
           default = "off";
           description = lib.mdDoc ''
             TLS certificates are obtained by modules called "certificate
@@ -291,7 +299,10 @@ in {
           and can be created using the `ensureCredentials` option.
           This option does not delete accounts which are not (anymore) listed.
         '';
-        example = [ "user1@localhost" "user2@localhost" ];
+        example = [
+          "user1@localhost"
+          "user2@localhost"
+        ];
       };
 
       ensureCredentials = mkOption {
@@ -326,7 +337,7 @@ in {
 
   config = mkIf cfg.enable {
 
-    assertions = [{
+    assertions = [ {
       assertion = cfg.tls.loader == "file" -> cfg.tls.certificates != [ ];
       message = ''
         If maddy is configured to use TLS, tls.certificates with attribute sets
@@ -334,7 +345,7 @@ in {
         Read more about obtaining TLS certificates here:
         https://maddy.email/tutorials/setting-up/#tls-certificates
       '';
-    }];
+    } ];
 
     systemd = {
 
@@ -416,8 +427,13 @@ in {
 
     users.groups = optionalAttrs (cfg.group == name) { ${cfg.group} = { }; };
 
-    networking.firewall =
-      mkIf cfg.openFirewall { allowedTCPPorts = [ 25 143 587 ]; };
+    networking.firewall = mkIf cfg.openFirewall {
+      allowedTCPPorts = [
+        25
+        143
+        587
+      ];
+    };
 
     environment.systemPackages = [ pkgs.maddy ];
   };

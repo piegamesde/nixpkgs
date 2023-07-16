@@ -8,7 +8,10 @@ args@{
 
   description = "JSON parser/encoder";
 
-  deps = [ args."alexandria" args."trivial-gray-streams" ];
+  deps = [
+    args."alexandria"
+    args."trivial-gray-streams"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/yason/2019-12-27/yason-v0.7.8.tgz";

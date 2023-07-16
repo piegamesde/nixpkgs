@@ -27,9 +27,14 @@
   threadSupport ? stdenv.hostPlatform.isx86,
   x11Support ? stdenv.hostPlatform.isx86,
   dllSupport ? true,
-  withModules ? [ "pcre" "rawsock" ]
-    ++ lib.optionals stdenv.isLinux [ "bindings/glibc" "zlib" "wildcard" ]
-    ++ lib.optional x11Support "clx/new-clx"
+  withModules ? [
+    "pcre"
+    "rawsock"
+  ] ++ lib.optionals stdenv.isLinux [
+    "bindings/glibc"
+    "zlib"
+    "wildcard"
+  ] ++ lib.optional x11Support "clx/new-clx"
 }:
 
 assert x11Support -> (libX11 != null && libXau != null && libXt != null

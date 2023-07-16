@@ -20,7 +20,10 @@ mkDerivation {
 
   nativeBuildInputs = [ qmake ];
 
-  buildInputs = [ qtbase qtx11extras ];
+  buildInputs = [
+    qtbase
+    qtx11extras
+  ];
 
   meta = with lib; {
     description = "Free Pascal Qt5 binding library";

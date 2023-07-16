@@ -23,8 +23,20 @@ stdenv.mkDerivation rec {
     sha256 = "1fy3nvgxv3igwc1d23zailcgigj1d0f2kkh7a5j24c0dyqz5zxmw";
   };
 
-  buildInputs = [ libxml2 freetype glew libGLU libGL libjpeg qtbase python3 ];
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  buildInputs = [
+    libxml2
+    freetype
+    glew
+    libGLU
+    libGL
+    libjpeg
+    qtbase
+    python3
+  ];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ];
 
   qtWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ python3 ]}" ];
 

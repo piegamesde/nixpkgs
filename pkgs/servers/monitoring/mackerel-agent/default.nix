@@ -27,7 +27,10 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  ldflags = [ "-X=main.version=${version}" "-X=main.gitcommit=v${version}" ];
+  ldflags = [
+    "-X=main.version=${version}"
+    "-X=main.gitcommit=v${version}"
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/mackerel-agent \

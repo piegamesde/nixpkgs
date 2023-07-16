@@ -39,9 +39,17 @@ stdenv.mkDerivation (finalAttrs: {
     vulkan-headers
   ];
 
-  nativeBuildInputs = [ cctools sigtool xcbuild ];
+  nativeBuildInputs = [
+    cctools
+    sigtool
+    xcbuild
+  ];
 
-  outputs = [ "out" "bin" "dev" ];
+  outputs = [
+    "out"
+    "bin"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "KhronosGroup";

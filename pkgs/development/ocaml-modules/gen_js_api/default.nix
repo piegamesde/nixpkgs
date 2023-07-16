@@ -22,8 +22,14 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.11";
 
-  propagatedBuildInputs = [ ojs ppxlib ];
-  nativeCheckInputs = [ js_of_ocaml-compiler nodejs ];
+  propagatedBuildInputs = [
+    ojs
+    ppxlib
+  ];
+  nativeCheckInputs = [
+    js_of_ocaml-compiler
+    nodejs
+  ];
   doCheck = true;
 
   meta = {

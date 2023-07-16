@@ -88,8 +88,12 @@ in {
           NIX_REDIRECTS = "/var/run=/run/pppd";
         };
         serviceConfig = let
-          capabilities =
-            [ "CAP_BPF" "CAP_SYS_TTY_CONFIG" "CAP_NET_ADMIN" "CAP_NET_RAW" ];
+          capabilities = [
+            "CAP_BPF"
+            "CAP_SYS_TTY_CONFIG"
+            "CAP_NET_ADMIN"
+            "CAP_NET_RAW"
+          ];
         in {
           ExecStart = "${
               getBin cfg.package

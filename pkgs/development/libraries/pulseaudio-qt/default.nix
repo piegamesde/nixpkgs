@@ -21,7 +21,11 @@ mkDerivation rec {
 
   buildInputs = [ pulseaudio ];
 
-  nativeBuildInputs = [ pkg-config cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    extra-cmake-modules
+  ];
 
   meta = with lib; {
     description = "Pulseaudio bindings for Qt";

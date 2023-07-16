@@ -34,7 +34,10 @@ stdenv.mkDerivation rec {
       automatically updated to contain the encrypted and authenticated
       contents.
     '';
-    license = with licenses; [ bsd2 mit ];
+    license = with licenses; [
+      bsd2
+      mit
+    ];
     platforms = platforms.unix;
   };
 }

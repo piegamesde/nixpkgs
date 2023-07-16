@@ -20,7 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-d5kyVNsf9vhOtuHXXjtrcsui7yCBOlhbLYHo5ePHE8Y=";
   };
 
-  propagatedBuildInputs = [ editorconfig six ];
+  propagatedBuildInputs = [
+    editorconfig
+    six
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

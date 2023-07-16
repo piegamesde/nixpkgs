@@ -24,7 +24,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   # tests are fetching an external git repository
-  cmakeFlags = [ "-DWITH_TESTS=OFF" "-DWITH_GIT_CATCH=OFF" ];
+  cmakeFlags = [
+    "-DWITH_TESTS=OFF"
+    "-DWITH_GIT_CATCH=OFF"
+  ];
 
   meta = with lib; {
     description = "A wrapper for dmenu that recognize .desktop files";

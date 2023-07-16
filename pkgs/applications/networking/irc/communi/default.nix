@@ -23,9 +23,15 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ qmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ libcommuni qtbase ];
+  buildInputs = [
+    libcommuni
+    qtbase
+  ];
 
   # libCommuni.dylib is installed in $out/Applications/Communi.app/Contents/Frameworks/ on Darwin
   # Wrapper hook thinks it's a binary because it's in $out/Applications, wraps it with a shell script

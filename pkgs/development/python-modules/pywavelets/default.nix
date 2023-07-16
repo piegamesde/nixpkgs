@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-ZDevPd8IMRjCbY+Xq0OwckuVbJ+Vjp6niGWfaig0upM=";
   };
 
-  nativeCheckInputs = [ nose pytest ];
+  nativeCheckInputs = [
+    nose
+    pytest
+  ];
 
   buildInputs = [ cython ];
 

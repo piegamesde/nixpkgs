@@ -29,13 +29,11 @@ stdenv.mkDerivation rec {
 
   # Remove upon next release since upstream is fixed
   # https://github.com/bstansell/conserver/pull/82
-  patches = [
-    (fetchpatch {
-      url =
-        "https://github.com/bstansell/conserver/commit/84fc79a459e00dbc87b8cfc943c5045bfcc7aeeb.patch";
-      sha256 = "sha256:1dy8r9z7rv8512fl0rk5gi1vl02hnh7x0i6flvpcc13h6r6fhxyc";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://github.com/bstansell/conserver/commit/84fc79a459e00dbc87b8cfc943c5045bfcc7aeeb.patch";
+    sha256 = "sha256:1dy8r9z7rv8512fl0rk5gi1vl02hnh7x0i6flvpcc13h6r6fhxyc";
+  }) ];
 
   nativeBuildInputs = [ autoreconfHook ];
 
@@ -43,8 +41,10 @@ stdenv.mkDerivation rec {
     ++ lib.optionals gssapiSupport [ libkrb5 ]
     ++ lib.optionals opensslSupport [ openssl ];
 
-  configureFlags = [ "--with-ccffile=/dev/null" "--with-cffile=/dev/null" ]
-    ++ lib.optionals freeipmiSupport [ "--with-freeipmi=${freeipmi}/include" ]
+  configureFlags = [
+    "--with-ccffile=/dev/null"
+    "--with-cffile=/dev/null"
+  ] ++ lib.optionals freeipmiSupport [ "--with-freeipmi=${freeipmi}/include" ]
     ++ lib.optionals gssapiSupport [ "--with-gssapi=${libkrb5.dev}/include" ]
     ++ lib.optionals ipv6Support [ "--with-ipv6" ]
     ++ lib.optionals opensslSupport [ "--with-openssl=${openssl.dev}/include" ]

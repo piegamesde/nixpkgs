@@ -38,6 +38,9 @@ stdenv.mkDerivation {
     homepage = "http://myrepos.branchable.com/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ antono henrytill ];
+    maintainers = with lib.maintainers; [
+      antono
+      henrytill
+    ];
   };
 }

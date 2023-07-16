@@ -21,9 +21,17 @@ buildPythonPackage rec {
     hash = "sha256-Vx51WBjjNPIfLlwMnAuwHnGNljhnjKkU0tWB9M9rjsw=";
   };
 
-  propagatedBuildInputs = [ aiohttp backoff yarl ];
+  propagatedBuildInputs = [
+    aiohttp
+    backoff
+    yarl
+  ];
 
-  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    aresponses
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "aiomodernforms" ];
 

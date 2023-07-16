@@ -41,7 +41,12 @@ stdenv.mkDerivation rec {
       --replace "/bin/rm" "rm"
   '';
 
-  nativeBuildInputs = [ autoreconfHook git pkg-config which ];
+  nativeBuildInputs = [
+    autoreconfHook
+    git
+    pkg-config
+    which
+  ];
 
   buildInputs = [
     curl

@@ -94,8 +94,13 @@ in stdenv.mkDerivation (pkg // {
   src = fetchgit (import ./src-main.nix);
   version = "1.18.0";
 
-  nativeBuildInputs = getAttrDef "nativeBuildInputs" [ ] pkg
-    ++ [ autoconf automake libtool cmake autoreconfHook ];
+  nativeBuildInputs = getAttrDef "nativeBuildInputs" [ ] pkg ++ [
+    autoconf
+    automake
+    libtool
+    cmake
+    autoreconfHook
+  ];
 
   buildInputs = getAttrDef "buildInputs" [ ] pkg
     ++ lib.optional ifDeps joinedDeps;

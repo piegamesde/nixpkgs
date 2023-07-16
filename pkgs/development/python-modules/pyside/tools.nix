@@ -20,7 +20,10 @@ buildPythonPackage rec {
     sha256 = "017i2yxgjrisaifxqnl3ym8ijl63l2yl6a3474dsqhlyqz2nx2ll";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   preConfigure = ''
     cmakeFlagsArray=("-DCMAKE_INSTALL_PREFIX=$dev")
@@ -30,7 +33,10 @@ buildPythonPackage rec {
 
   buildInputs = [ qt4 ];
 
-  propagatedBuildInputs = [ pyside pysideShiboken ];
+  propagatedBuildInputs = [
+    pyside
+    pysideShiboken
+  ];
 
   meta = with lib; {
     description =

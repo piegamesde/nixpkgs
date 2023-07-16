@@ -11,7 +11,10 @@ stdenv.mkDerivation rec {
   pname = "libimobiledevice-glue";
   version = "0.pre+date=2022-05-22";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "libimobiledevice";
@@ -20,7 +23,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-BAdpJK6/iUKCNYLaCJQo0VK63AdIafO8wGbNhnvEc/o=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   propagatedBuildInputs = [ libplist ];
 

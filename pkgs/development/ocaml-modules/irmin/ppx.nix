@@ -20,12 +20,19 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.10";
   duneVersion = "3";
 
-  propagatedBuildInputs = [ ppx_repr ppxlib logs ];
+  propagatedBuildInputs = [
+    ppx_repr
+    ppxlib
+    logs
+  ];
 
   meta = {
     homepage = "https://irmin.org/";
     description = "PPX deriver for Irmin generics";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ vbgl sternenseemann ];
+    maintainers = with lib.maintainers; [
+      vbgl
+      sternenseemann
+    ];
   };
 }

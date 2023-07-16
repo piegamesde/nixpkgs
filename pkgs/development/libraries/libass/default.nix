@@ -35,10 +35,16 @@ stdenv.mkDerivation rec {
     (lib.enableFeature largeTilesSupport "large-tiles")
   ];
 
-  nativeBuildInputs = [ pkg-config yasm ];
+  nativeBuildInputs = [
+    pkg-config
+    yasm
+  ];
 
-  buildInputs = [ freetype fribidi harfbuzz ]
-    ++ lib.optional fontconfigSupport fontconfig
+  buildInputs = [
+    freetype
+    fribidi
+    harfbuzz
+  ] ++ lib.optional fontconfigSupport fontconfig
     ++ lib.optional stdenv.isDarwin libiconv;
 
   meta = with lib; {

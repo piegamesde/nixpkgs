@@ -26,7 +26,14 @@ stdenvNoCC.mkDerivation rec {
     for f in rm{,dir}trash; do
       install -D ./$f $out/bin/$f
       wrapProgram $out/bin/$f \
-        --prefix PATH : ${lib.makeBinPath [ trash-cli coreutils which getopt ]}
+        --prefix PATH : ${
+          lib.makeBinPath [
+            trash-cli
+            coreutils
+            which
+            getopt
+          ]
+        }
     done
   '';
 

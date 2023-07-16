@@ -10,7 +10,10 @@ args@{
 
   description = "Parse floating point values in strings.";
 
-  deps = [ args."alexandria" args."lisp-unit" ];
+  deps = [
+    args."alexandria"
+    args."lisp-unit"
+  ];
 
   src = fetchurl {
     url =

@@ -23,7 +23,10 @@ mkDerivation {
     license = with lib.licenses; [ gpl2 ];
     maintainers = [ lib.maintainers.fridh ];
   };
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
   buildInputs = [
     gmp
     kconfig

@@ -28,8 +28,17 @@ stdenv.mkDerivation rec {
     substituteInPlace data/org.gsmartcontrol.policy --replace "/usr/sbin" $out/bin
   '';
 
-  nativeBuildInputs = [ autoreconfHook gettext pkg-config wrapGAppsHook ];
-  buildInputs = [ gtkmm3 pcre-cpp gnome.adwaita-icon-theme ];
+  nativeBuildInputs = [
+    autoreconfHook
+    gettext
+    pkg-config
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    gtkmm3
+    pcre-cpp
+    gnome.adwaita-icon-theme
+  ];
 
   enableParallelBuilding = true;
 

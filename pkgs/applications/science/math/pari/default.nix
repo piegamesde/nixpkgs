@@ -39,13 +39,19 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ gmp libX11 perl readline tex ]
-    ++ lib.optionals withThread [ libpthreadstubs ];
+  buildInputs = [
+    gmp
+    libX11
+    perl
+    readline
+    tex
+  ] ++ lib.optionals withThread [ libpthreadstubs ];
 
   configureScript = "./Configure";
-  configureFlags =
-    [ "--with-gmp=${lib.getDev gmp}" "--with-readline=${lib.getDev readline}" ]
-    ++ lib.optional withThread "--mt=pthread";
+  configureFlags = [
+    "--with-gmp=${lib.getDev gmp}"
+    "--with-readline=${lib.getDev readline}"
+  ] ++ lib.optional withThread "--mt=pthread";
 
   preConfigure = ''
     export LD=$CC

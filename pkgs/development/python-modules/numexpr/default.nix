@@ -22,7 +22,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ numpy ];
 
-  propagatedBuildInputs = [ numpy packaging ];
+  propagatedBuildInputs = [
+    numpy
+    packaging
+  ];
 
   preBuild = ''
     # Remove existing site.cfg, use the one we built for numpy

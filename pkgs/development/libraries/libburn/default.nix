@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
       "A library by which preformatted data get onto optical media: CD, DVD, BD (Blu-Ray)";
     homepage = "http://libburnia-project.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ abbradar vrthra ];
+    maintainers = with maintainers; [
+      abbradar
+      vrthra
+    ];
     mainProgram = "cdrskin";
     platforms = with platforms; unix;
   };

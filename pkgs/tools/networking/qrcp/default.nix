@@ -41,7 +41,10 @@ buildGoModule rec {
       complete.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz SuperSandro2000 ];
+    maintainers = with maintainers; [
+      fgaz
+      SuperSandro2000
+    ];
     broken = stdenv.isDarwin; # needs golang.org/x/sys bump
   };
 }

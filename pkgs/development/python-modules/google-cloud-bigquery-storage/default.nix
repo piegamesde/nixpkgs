@@ -25,8 +25,10 @@ buildPythonPackage rec {
     hash = "sha256-DZtfQqcD8yELSzrUWhgTkZH5NHQP3zYpsbIv2VrfC7o=";
   };
 
-  propagatedBuildInputs = [ google-api-core protobuf ]
-    ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs = [
+    google-api-core
+    protobuf
+  ] ++ google-api-core.optional-dependencies.grpc;
 
   passthru.optional-dependencies = {
     fastavro = [ fastavro ];
@@ -34,7 +36,11 @@ buildPythonPackage rec {
     pyarrow = [ pyarrow ];
   };
 
-  nativeCheckInputs = [ google-auth google-cloud-bigquery pytestCheckHook ];
+  nativeCheckInputs = [
+    google-auth
+    google-cloud-bigquery
+    pytestCheckHook
+  ];
 
   # Dependency loop with google-cloud-bigquery
   doCheck = false;

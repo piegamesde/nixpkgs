@@ -7,7 +7,11 @@
   mumble_i686,
 }:
 
-let binPath = lib.makeBinPath [ which file ];
+let
+  binPath = lib.makeBinPath [
+    which
+    file
+  ];
 in stdenv.mkDerivation {
   pname = "mumble-overlay";
   version = mumble.version;

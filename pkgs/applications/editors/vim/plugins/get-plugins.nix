@@ -8,7 +8,10 @@ let
       inherit buildNeovimPluginFrom2Nix buildVimPluginFrom2Nix;
     } { } { };
   hasChecksum = value:
-    lib.isAttrs value && lib.hasAttrByPath [ "src" "outputHash" ] value;
+    lib.isAttrs value && lib.hasAttrByPath [
+      "src"
+      "outputHash"
+    ] value;
   getChecksum = name: value:
     if hasChecksum value then {
       submodules = value.src.fetchSubmodules or false;

@@ -45,7 +45,10 @@ in stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
   buildInputs = [
     lua
     file

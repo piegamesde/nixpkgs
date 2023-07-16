@@ -15,7 +15,10 @@ buildPythonPackage rec {
     sha256 = "1k1rifz8x6qcicmx2is9vgxcj0qb2f5pvzrp7zhmvbmci3yack3f";
   };
 
-  propagatedBuildInputs = [ termcolor colorama ];
+  propagatedBuildInputs = [
+    termcolor
+    colorama
+  ];
 
   meta = with lib; {
     description =

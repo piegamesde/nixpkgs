@@ -27,7 +27,10 @@ let
   deps = stdenv.mkDerivation {
     pname = "${pname}-deps";
     inherit version src sourceRoot;
-    nativeBuildInputs = [ gradle_7 perl ];
+    nativeBuildInputs = [
+      gradle_7
+      perl
+    ];
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d)
       # https://github.com/gradle/gradle/issues/4426
@@ -47,21 +50,24 @@ let
 in stdenv.mkDerivation rec {
   inherit pname version src sourceRoot;
 
-  nativeBuildInputs = [ jdk gradle_7 makeWrapper copyDesktopItems ];
+  nativeBuildInputs = [
+    jdk
+    gradle_7
+    makeWrapper
+    copyDesktopItems
+  ];
 
   executable-name = "KeY";
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "KeY";
-      exec = executable-name;
-      icon = "key";
-      comment = meta.description;
-      desktopName = "KeY";
-      genericName = "KeY";
-      categories = [ "Science" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "KeY";
+    exec = executable-name;
+    icon = "key";
+    comment = meta.description;
+    desktopName = "KeY";
+    genericName = "KeY";
+    categories = [ "Science" ];
+  }) ];
 
   # disable tests (broken on darwin)
   gradleAction = if stdenv.isDarwin then "assemble" else "build";

@@ -30,7 +30,10 @@ stdenv.mkDerivation rec {
     description = "An inline issue manager";
     homepage = "https://goosecode.com/watson/";
     license = with licenses; mit;
-    maintainers = with maintainers; [ robertodr nicknovitski ];
+    maintainers = with maintainers; [
+      robertodr
+      nicknovitski
+    ];
     mainProgram = "watson";
     platforms = platforms.unix;
   };

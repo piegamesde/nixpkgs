@@ -23,7 +23,11 @@ stdenv.mkDerivation rec {
   pname = "libdazzle";
   version = "3.44.0";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
   outputBin = "dev";
 
   src = fetchurl {
@@ -45,11 +49,14 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_43
     dbus
     glib
-  ] ++ lib.optionals stdenv.isLinux [ xvfb-run ]
-    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-    [ mesonEmulatorHook ];
+  ] ++ lib.optionals stdenv.isLinux [ xvfb-run ] ++ lib.optionals
+    (!stdenv.buildPlatform.canExecute
+      stdenv.hostPlatform) [ mesonEmulatorHook ];
 
-  buildInputs = [ glib gtk3 ];
+  buildInputs = [
+    glib
+    gtk3
+  ];
 
   mesonFlags = [ "-Denable_gtk_doc=true" ];
 

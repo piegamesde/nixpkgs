@@ -27,9 +27,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [ asttokens executing pygments ];
+  propagatedBuildInputs = [
+    asttokens
+    executing
+    pygments
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-mock
+  ];
 
   pytestFlagsArray = [
     # pytest.PytestRemovedIn8Warning: Passing None has been deprecated.

@@ -9,7 +9,10 @@ stdenv.mkDerivation rec {
   pname = "ufiformat";
   version = "0.9.9";
 
-  buildInputs = [ 0.0 fsprogs ];
+  buildInputs = [
+    0.0
+    fsprogs
+  ];
 
   src = fetchFromGitHub {
     owner = "tedigh";

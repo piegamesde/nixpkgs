@@ -27,7 +27,11 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/sdk/python";
 
-  propagatedBuildInputs = [ parver pulumi semver ];
+  propagatedBuildInputs = [
+    parver
+    pulumi
+    semver
+  ];
 
   # Checks require cloud resources
   doCheck = false;

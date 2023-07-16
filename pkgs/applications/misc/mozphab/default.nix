@@ -27,7 +27,10 @@ python3.pkgs.buildPythonApplication rec {
       --replace "glean-sdk>=50.0.1,==50.*" "glean-sdk"
   '';
 
-  nativeBuildInputs = with python3.pkgs; [ setuptools setuptools-scm ];
+  nativeBuildInputs = with python3.pkgs; [
+    setuptools
+    setuptools-scm
+  ];
 
   env.SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -41,7 +44,11 @@ python3.pkgs.buildPythonApplication rec {
     setuptools
   ];
 
-  nativeCheckInputs = [ git mercurial patch ] ++ (with python3.pkgs; [
+  nativeCheckInputs = [
+    git
+    mercurial
+    patch
+  ] ++ (with python3.pkgs; [
     callee
     immutabledict
     hg-evolve

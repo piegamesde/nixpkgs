@@ -26,7 +26,11 @@ in {
       };
 
       socketType = mkOption {
-        type = types.enum [ "unix" "tcp" "tcp6" ];
+        type = types.enum [
+          "unix"
+          "tcp"
+          "tcp6"
+        ];
         default = "unix";
         description = lib.mdDoc "Socket type: 'unix', 'tcp' or 'tcp6'.";
       };

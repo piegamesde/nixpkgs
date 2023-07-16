@@ -22,7 +22,10 @@ buildPythonPackage rec {
       --replace 'debug=True' 'debug=True, use_reloader=False'
   '';
 
-  propagatedBuildInputs = [ flask mutagen ];
+  propagatedBuildInputs = [
+    flask
+    mutagen
+  ];
 
   meta = {
     description =

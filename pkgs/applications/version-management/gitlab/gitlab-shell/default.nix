@@ -16,7 +16,10 @@ buildGoModule rec {
     sha256 = "sha256-dMxWnv+YfoDy9rhuCx+JIxFyjHejttkkqkQ4owdI/4g=";
   };
 
-  buildInputs = [ ruby libkrb5 ];
+  buildInputs = [
+    ruby
+    libkrb5
+  ];
 
   patches = [ ./remove-hardcoded-locations.patch ];
 
@@ -32,7 +35,11 @@ buildGoModule rec {
     description = "SSH access and repository management app for GitLab";
     homepage = "http://www.gitlab.com/";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ globin talyz yayayayaka ];
+    maintainers = with maintainers; [
+      globin
+      talyz
+      yayayayaka
+    ];
     license = licenses.mit;
   };
 }

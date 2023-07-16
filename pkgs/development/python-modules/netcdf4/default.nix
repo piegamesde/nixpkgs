@@ -27,9 +27,20 @@ buildPythonPackage rec {
     hash = "sha256-A4KwL/aiiEGfb/7IXexA9FH0G4dVVHFUxXXd2fD0rlM=";
   };
 
-  nativeBuildInputs = [ setuptools cython ];
+  nativeBuildInputs = [
+    setuptools
+    cython
+  ];
 
-  propagatedBuildInputs = [ cftime numpy zlib netcdf hdf5 curl libjpeg ];
+  propagatedBuildInputs = [
+    cftime
+    numpy
+    zlib
+    netcdf
+    hdf5
+    curl
+    libjpeg
+  ];
 
   checkPhase = ''
     pushd test/

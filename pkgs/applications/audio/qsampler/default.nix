@@ -21,8 +21,18 @@ mkDerivation rec {
     sha256 = "1wr7k739zx2nz00b810f60g9k3y92w05nfci987hw7y2sks9rd8j";
   };
 
-  nativeBuildInputs = [ autoconf automake libtool pkg-config qttools ];
-  buildInputs = [ liblscp libgig qtbase ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+    pkg-config
+    qttools
+  ];
+  buildInputs = [
+    liblscp
+    libgig
+    qtbase
+  ];
 
   preConfigure = "make -f Makefile.svn";
 

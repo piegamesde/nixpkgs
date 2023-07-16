@@ -21,11 +21,18 @@ buildPythonPackage rec {
     hash = "sha256-LBavz5Nh2ObmIwLCem8nHvsuKgPwkzbS/OzFPmSje/M=";
   };
 
-  propagatedBuildInputs = [ django django-appconf celery ];
+  propagatedBuildInputs = [
+    django
+    django-appconf
+    celery
+  ];
 
   DJANGO_SETTINGS_MODULE = "tests.settings";
 
-  nativeCheckInputs = [ pytest-django pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-django
+    pytestCheckHook
+  ];
 
   checkPhase = ''
     ${python.executable} runtests.py

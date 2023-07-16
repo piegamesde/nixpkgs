@@ -23,7 +23,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ trio ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook pytest-trio ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+    pytest-trio
+  ];
 
   disabledTests = [
     # network access

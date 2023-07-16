@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ ghostscript ];
 
-  makeFlags = [ "PREFIX=$(out)/" "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = [
+    "PREFIX=$(out)/"
+    "CC=${stdenv.cc.targetPrefix}cc"
+  ];
 
   meta = {
     description = "Document layout system similar in style to LaTeX";

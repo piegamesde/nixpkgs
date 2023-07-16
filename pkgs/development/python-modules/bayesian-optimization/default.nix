@@ -22,7 +22,10 @@ buildPythonPackage rec {
     sha256 = "01mg9npiqh1qmq5ldnbpjmr8qkiw827msiv3crpkhbj4bdzasbfm";
   };
 
-  propagatedBuildInputs = [ scikit-learn scipy ];
+  propagatedBuildInputs = [
+    scikit-learn
+    scipy
+  ];
 
   patches = [
     # TypeError with scipy >= 1.8

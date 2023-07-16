@@ -51,7 +51,11 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-asyncio pytest-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-asyncio
+    pytest-mock
+  ];
 
   pythonImportsCheck = [ "asyncua" ];
 

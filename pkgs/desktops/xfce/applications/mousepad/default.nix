@@ -17,7 +17,11 @@ mkXfceDerivation {
 
   nativeBuildInputs = [ gobject-introspection ];
 
-  buildInputs = [ gtk3 gtksourceview4 gspell ];
+  buildInputs = [
+    gtk3
+    gtksourceview4
+    gspell
+  ];
 
   # Use the GSettings keyfile backend rather than DConf
   configureFlags = [ "--enable-keyfile-settings" ];

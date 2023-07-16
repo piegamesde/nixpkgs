@@ -25,8 +25,12 @@ buildPythonPackage rec {
     hash = "sha256-6la8rCmMtH2N4/P5OVGht1wgSuiW16MmF5a422LADV4=";
   };
 
-  propagatedBuildInputs =
-    [ python-dateutil python-slugify requests sortedcontainers ];
+  propagatedBuildInputs = [
+    python-dateutil
+    python-slugify
+    requests
+    sortedcontainers
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

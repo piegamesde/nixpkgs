@@ -19,17 +19,19 @@ stdenv.mkDerivation rec {
     owner = pname;
   };
 
-  patches = [
-    (fetchpatch { # https://github.com/lz4/lz4/pull/1162
-      name = "build-shared-no.patch";
-      url =
-        "https://github.com/lz4/lz4/commit/851ef4b23c7cbf4ceb2ba1099666a8b5ec4fa195.patch";
-      sha256 = "sha256-P+/uz3m7EAmHgXF/1Vncc0uKKxNVq6HNIsElx0rGxpw=";
-    })
-  ];
+  patches = [ (fetchpatch { # https://github.com/lz4/lz4/pull/1162
+    name = "build-shared-no.patch";
+    url =
+      "https://github.com/lz4/lz4/commit/851ef4b23c7cbf4ceb2ba1099666a8b5ec4fa195.patch";
+    sha256 = "sha256-P+/uz3m7EAmHgXF/1Vncc0uKKxNVq6HNIsElx0rGxpw=";
+  }) ];
 
   # TODO(@Ericson2314): Separate binaries and libraries
-  outputs = [ "bin" "out" "dev" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+  ];
 
   buildInputs = lib.optional doCheck valgrind;
 
@@ -66,7 +68,10 @@ stdenv.mkDerivation rec {
       multi-core systems.
     '';
     homepage = "https://lz4.github.io/lz4/";
-    license = with licenses; [ bsd2 gpl2Plus ];
+    license = with licenses; [
+      bsd2
+      gpl2Plus
+    ];
     platforms = platforms.all;
   };
 }

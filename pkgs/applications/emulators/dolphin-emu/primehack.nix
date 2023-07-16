@@ -60,8 +60,10 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ pkg-config cmake ]
-    ++ lib.optional stdenv.isLinux wrapQtAppsHook;
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ] ++ lib.optional stdenv.isLinux wrapQtAppsHook;
 
   buildInputs = [
     curl
@@ -106,8 +108,10 @@ stdenv.mkDerivation rec {
     IOKit
   ];
 
-  cmakeFlags = [ "-DUSE_SHARED_ENET=ON" "-DENABLE_LTO=ON" ]
-    ++ lib.optionals stdenv.isDarwin [ "-DOSX_USE_DEFAULT_SEARCH_PATH=True" ];
+  cmakeFlags = [
+    "-DUSE_SHARED_ENET=ON"
+    "-DENABLE_LTO=ON"
+  ] ++ lib.optionals stdenv.isDarwin [ "-DOSX_USE_DEFAULT_SEARCH_PATH=True" ];
 
   qtWrapperArgs = lib.optionals stdenv.isLinux [
     "--prefix LD_LIBRARY_PATH : ${vulkan-loader}/lib"
@@ -138,7 +142,11 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/shiiion/dolphin";
     description = "Gamecube/Wii/Triforce emulator for x86_64 and ARMv8";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ MP2E ashkitten Madouura ];
+    maintainers = with maintainers; [
+      MP2E
+      ashkitten
+      Madouura
+    ];
     broken = stdenv.isDarwin;
     platforms = platforms.unix;
   };

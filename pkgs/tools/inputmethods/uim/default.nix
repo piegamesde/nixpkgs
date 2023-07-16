@@ -85,13 +85,21 @@ stdenv.mkDerivation rec {
     librsvg # used by uim build to generate png pixmaps from svg
   ];
 
-  buildInputs = [ ncurses m17n_lib m17n_db expat ]
-    ++ lib.optional withAnthy anthy ++ lib.optional withGtk2 gtk2
+  buildInputs = [
+    ncurses
+    m17n_lib
+    m17n_db
+    expat
+  ] ++ lib.optional withAnthy anthy ++ lib.optional withGtk2 gtk2
     ++ lib.optional withGtk3 gtk3 ++ lib.optional withQt4 qt4
-    ++ lib.optionals withQt5 [ qt5.qtbase.bin qt5.qtbase.dev ]
-    ++ lib.optional withLibnotify libnotify ++ lib.optional withSqlite sqlite
-    ++ lib.optionals withNetworking [ curl openssl ]
-    ++ lib.optional withFFI libffi ++ lib.optional withMisc libeb;
+    ++ lib.optionals withQt5 [
+      qt5.qtbase.bin
+      qt5.qtbase.dev
+    ] ++ lib.optional withLibnotify libnotify ++ lib.optional withSqlite sqlite
+    ++ lib.optionals withNetworking [
+      curl
+      openssl
+    ] ++ lib.optional withFFI libffi ++ lib.optional withMisc libeb;
 
   prePatch = ''
     patchShebangs *.sh */*.sh */*/*.sh
@@ -136,10 +144,13 @@ stdenv.mkDerivation rec {
     "--with-expat=${expat.dev}"
   ] ++ lib.optional withAnthy "--with-anthy-utf8"
     ++ lib.optional withGtk2 "--with-gtk2"
-    ++ lib.optional withGtk3 "--with-gtk3"
-    ++ lib.optionals withQt4 [ "--with-qt4" "--with-qt4-immodule" ]
-    ++ lib.optionals withQt5 [ "--with-qt5" "--with-qt5-immodule" ]
-    ++ lib.optional withLibnotify "--enable-notify=libnotify"
+    ++ lib.optional withGtk3 "--with-gtk3" ++ lib.optionals withQt4 [
+      "--with-qt4"
+      "--with-qt4-immodule"
+    ] ++ lib.optionals withQt5 [
+      "--with-qt5"
+      "--with-qt5-immodule"
+    ] ++ lib.optional withLibnotify "--enable-notify=libnotify"
     ++ lib.optional withSqlite "--with-sqlite3"
     ++ lib.optionals withNetworking [
       "--with-curl"
@@ -167,6 +178,9 @@ stdenv.mkDerivation rec {
     description = "A multilingual input method framework";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ericsagnes oxij ];
+    maintainers = with maintainers; [
+      ericsagnes
+      oxij
+    ];
   };
 }

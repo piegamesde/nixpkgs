@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-tDtstF3ivKjG01vOZ8Ga1zTjIZFSTWt5QPY1VQvyFMU=";
   };
 
-  nativeBuildInputs = [ ant jdk makeWrapper ];
+  nativeBuildInputs = [
+    ant
+    jdk
+    makeWrapper
+  ];
 
   buildPhase = ''
     ant jar

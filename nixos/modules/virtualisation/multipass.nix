@@ -14,7 +14,13 @@ in {
       '');
 
       logLevel = lib.mkOption {
-        type = lib.types.enum [ "error" "warning" "info" "debug" "trace" ];
+        type = lib.types.enum [
+          "error"
+          "warning"
+          "info"
+          "debug"
+          "trace"
+        ];
         default = "debug";
         description = lib.mdDoc ''
           The logging verbosity of the multipassd binary.

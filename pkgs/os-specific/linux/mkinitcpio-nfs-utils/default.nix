@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     name = "mkinitcpio-nfs-utils-${version}.tar.gz";
   };
 
-  makeFlags = [ "DESTDIR=$(out)" "bindir=/bin" ];
+  makeFlags = [
+    "DESTDIR=$(out)"
+    "bindir=/bin"
+  ];
 
   postInstall = ''
     rm -rf $out/usr

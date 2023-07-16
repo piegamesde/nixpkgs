@@ -26,10 +26,15 @@ buildPythonPackage rec {
     hash = "sha256-6MWUkvZp5CYUWsbMGXM2gudjn5075j5FIuaNnCrgRNs=";
   };
 
-  nativeBuildInputs = [ poetry-core setuptools ];
+  nativeBuildInputs = [
+    poetry-core
+    setuptools
+  ];
 
-  propagatedBuildInputs = [ markdown-it-py tomli ]
-    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
+  propagatedBuildInputs = [
+    markdown-it-py
+    tomli
+  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
     ++ lib.optionals (pythonOlder "3.7") [ typing-extensions ];
 
   nativeCheckInputs = [ pytestCheckHook ];

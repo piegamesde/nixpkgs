@@ -36,7 +36,12 @@ buildPythonPackage rec {
     sed -i '/cov/d' tox.ini
   '';
 
-  propagatedBuildInputs = [ django jwcrypto oauthlib requests ];
+  propagatedBuildInputs = [
+    django
+    jwcrypto
+    oauthlib
+    requests
+  ];
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
   pythonRelaxDeps = [ "django" ];

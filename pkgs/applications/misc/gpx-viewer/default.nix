@@ -35,7 +35,12 @@ stdenv.mkDerivation rec {
     pkg-config
     wrapGAppsHook # Fix error: GLib-GIO-ERROR **: No GSettings schemas are installed on the system
   ];
-  buildInputs = [ gdl libchamplain gnome.adwaita-icon-theme libxml2 ];
+  buildInputs = [
+    gdl
+    libchamplain
+    gnome.adwaita-icon-theme
+    libxml2
+  ];
 
   meta = with lib; {
     homepage = "https://blog.sarine.nl/tag/gpxviewer/";

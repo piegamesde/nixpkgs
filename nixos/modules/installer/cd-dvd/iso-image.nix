@@ -695,13 +695,16 @@ in {
         "upperdir=/nix/.rw-store/store"
         "workdir=/nix/.rw-store/work"
       ];
-      depends =
-        [ "/nix/.ro-store" "/nix/.rw-store/store" "/nix/.rw-store/work" ];
+      depends = [
+        "/nix/.ro-store"
+        "/nix/.rw-store/store"
+        "/nix/.rw-store/work"
+      ];
     };
   };
 
   config = {
-    assertions = [{
+    assertions = [ {
       assertion = !(stringLength config.isoImage.volumeID > 32);
       # https://wiki.osdev.org/ISO_9660#The_Primary_Volume_Descriptor
       # Volume Identifier can only be 32 bytes
@@ -710,7 +713,7 @@ in {
         howmany = toString length;
         toomany = toString (length - 32);
       in "isoImage.volumeID ${config.isoImage.volumeID} is ${howmany} characters. That is ${toomany} characters longer than the limit of 32.";
-    }];
+    } ];
 
     boot.loader.grub.version = 2;
 
@@ -718,8 +721,10 @@ in {
     # here and it causes a cyclic dependency.
     boot.loader.grub.enable = false;
 
-    environment.systemPackages = [ grubPkgs.grub2 grubPkgs.grub2_efi ]
-      ++ optional (config.isoImage.makeBiosBootable && canx86BiosBoot)
+    environment.systemPackages = [
+      grubPkgs.grub2
+      grubPkgs.grub2_efi
+    ] ++ optional (config.isoImage.makeBiosBootable && canx86BiosBoot)
       pkgs.syslinux;
 
     # In stage 1 of the boot, mount the CD as the root FS by label so
@@ -730,15 +735,24 @@ in {
     # UUID of the USB stick.  It would be nicer to write
     # `root=/dev/disk/by-label/...' here, but UNetbootin doesn't
     # recognise that.
-    boot.kernelParams =
-      [ "root=LABEL=${config.isoImage.volumeID}" "boot.shell_on_fail" ];
+    boot.kernelParams = [
+      "root=LABEL=${config.isoImage.volumeID}"
+      "boot.shell_on_fail"
+    ];
 
     fileSystems = config.lib.isoFileSystems;
 
-    boot.initrd.availableKernelModules =
-      [ "squashfs" "iso9660" "uas" "overlay" ];
+    boot.initrd.availableKernelModules = [
+      "squashfs"
+      "iso9660"
+      "uas"
+      "overlay"
+    ];
 
-    boot.initrd.kernelModules = [ "loop" "overlay" ];
+    boot.initrd.kernelModules = [
+      "loop"
+      "overlay"
+    ];
 
     # Closures to be copied to the Nix store on the CD, namely the init
     # script and the top-level system configuration directory.
@@ -811,13 +825,13 @@ in {
         target = "/EFI/boot/efi-background.png";
       }
     ] ++ optionals (config.boot.loader.grub.memtest86.enable
-      && config.isoImage.makeBiosBootable && canx86BiosBoot) [{
+      && config.isoImage.makeBiosBootable && canx86BiosBoot) [ {
         source = "${pkgs.memtest86plus}/memtest.bin";
         target = "/boot/memtest.bin";
-      }] ++ optionals (config.isoImage.grubTheme != null) [{
+      } ] ++ optionals (config.isoImage.grubTheme != null) [ {
         source = config.isoImage.grubTheme;
         target = "/EFI/boot/grub-theme";
-      }];
+      } ];
 
     boot.loader.timeout = 10;
 

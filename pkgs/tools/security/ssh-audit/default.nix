@@ -22,6 +22,9 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/jtesta/ssh-audit";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ tv SuperSandro2000 ];
+    maintainers = with maintainers; [
+      tv
+      SuperSandro2000
+    ];
   };
 }

@@ -133,17 +133,17 @@ in {
       virtualType = "tun";
       virtualOwner = mkIf config.networking.useNetworkd "";
       ipv4 = {
-        addresses = [{
+        addresses = [ {
           address = cfg.ipv4.router.address;
           prefixLength = 32;
-        }];
+        } ];
         routes = [ cfg.ipv4.pool ];
       };
       ipv6 = {
-        addresses = [{
+        addresses = [ {
           address = cfg.ipv6.router.address;
           prefixLength = 128;
-        }];
+        } ];
         routes = [ cfg.ipv6.pool ];
       };
     };
@@ -163,12 +163,20 @@ in {
         #  - nixos-scripts: 2.1
         #  - systemd-networkd: 1.6
         ProtectHome = true;
-        SystemCallFilter =
-          [ "@network-io" "@system-service" "~@privileged" "~@resources" ];
+        SystemCallFilter = [
+          "@network-io"
+          "@system-service"
+          "~@privileged"
+          "~@resources"
+        ];
         ProtectKernelLogs = true;
         AmbientCapabilities = [ "CAP_NET_ADMIN" ];
         CapabilityBoundingSet = "";
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_NETLINK" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_NETLINK"
+        ];
         StateDirectory = "tayga";
         DynamicUser = mkIf config.networking.useNetworkd true;
         MemoryDenyWriteExecute = true;

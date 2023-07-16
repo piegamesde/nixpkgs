@@ -24,7 +24,13 @@ buildPythonPackage rec {
     hash = "sha256-/fFKotDibc+wcoGteloh5OEKbQdN/W1NdF+mWf8mSNw=";
   };
 
-  propagatedBuildInputs = [ gym torch tensorboard tqdm packaging ];
+  propagatedBuildInputs = [
+    gym
+    torch
+    tensorboard
+    tqdm
+    packaging
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
   doCheck = torch.cudaSupport;

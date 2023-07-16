@@ -95,7 +95,11 @@ let
     CYPRESS_INSTALL_BINARY = "0";
     NG_CLI_ANALYTICS = "false";
 
-    npmBuildFlags = [ "--" "--configuration" "production" ];
+    npmBuildFlags = [
+      "--"
+      "--configuration"
+      "production"
+    ];
 
     installPhase = ''
       runHook preInstall
@@ -309,6 +313,10 @@ in python.pkgs.buildPythonApplication rec {
     changelog =
       "https://github.com/paperless-ngx/paperless-ngx/releases/tag/v${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ lukegb gador erikarvstedt ];
+    maintainers = with maintainers; [
+      lukegb
+      gador
+      erikarvstedt
+    ];
   };
 }

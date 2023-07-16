@@ -30,23 +30,30 @@ buildPythonPackage rec {
     hash = "sha256-n73F5y922rsu0YFjAwQlUVpSa6Scs/xyfZHREmqKiHU=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./paths.patch;
-      ffmpeg = "${ffmpeg}/bin/ffmpeg";
-      libopus =
-        "${libopus}/lib/libopus${stdenv.hostPlatform.extensions.sharedLibrary}";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./paths.patch;
+    ffmpeg = "${ffmpeg}/bin/ffmpeg";
+    libopus =
+      "${libopus}/lib/libopus${stdenv.hostPlatform.extensions.sharedLibrary}";
+  }) ];
 
-  propagatedBuildInputs =
-    [ aiodns aiohttp brotli faust-cchardet orjson pynacl ];
+  propagatedBuildInputs = [
+    aiodns
+    aiohttp
+    brotli
+    faust-cchardet
+    orjson
+    pynacl
+  ];
 
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck =
-    [ "nextcord" "nextcord.ext.commands" "nextcord.ext.tasks" ];
+  pythonImportsCheck = [
+    "nextcord"
+    "nextcord.ext.commands"
+    "nextcord.ext.tasks"
+  ];
 
   meta = with lib; {
     changelog =

@@ -21,16 +21,31 @@ let
 
 in {
   imports = [
-    (mkRemovedOptionModule [ "services" "mysql" "pidDir" ]
-      "Don't wait for pidfiles, describe dependencies through systemd.")
-    (mkRemovedOptionModule [ "services" "mysql" "rootPassword" ]
-      "Use socket authentication or set the password outside of the nix store.")
-    (mkRemovedOptionModule [ "services" "mysql" "extraOptions" ]
-      "Use services.mysql.settings.mysqld instead.")
-    (mkRemovedOptionModule [ "services" "mysql" "bind" ]
-      "Use services.mysql.settings.mysqld.bind-address instead.")
-    (mkRemovedOptionModule [ "services" "mysql" "port" ]
-      "Use services.mysql.settings.mysqld.port instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "mysql"
+      "pidDir"
+    ] "Don't wait for pidfiles, describe dependencies through systemd.")
+    (mkRemovedOptionModule [
+      "services"
+      "mysql"
+      "rootPassword"
+    ] "Use socket authentication or set the password outside of the nix store.")
+    (mkRemovedOptionModule [
+      "services"
+      "mysql"
+      "extraOptions"
+    ] "Use services.mysql.settings.mysqld instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "mysql"
+      "bind"
+    ] "Use services.mysql.settings.mysqld.bind-address instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "mysql"
+      "port"
+    ] "Use services.mysql.settings.mysqld.port instead.")
   ];
 
   ###### interface
@@ -192,7 +207,10 @@ in {
           option is changed. This means that databases created once through this option or
           otherwise have to be removed manually.
         '';
-        example = [ "nextcloud" "matomo" ];
+        example = [
+          "nextcloud"
+          "matomo"
+        ];
       };
 
       ensureUsers = mkOption {
@@ -257,7 +275,11 @@ in {
 
       replication = {
         role = mkOption {
-          type = types.enum [ "master" "slave" "none" ];
+          type = types.enum [
+            "master"
+            "slave"
+            "none"
+          ];
           default = "none";
           description = lib.mdDoc "Role of the MySQL server instance.";
         };
@@ -322,8 +344,11 @@ in {
             "mysql-bin-${toString cfg.replication.serverId}.index";
           relay-log = "mysql-relay-bin";
           server-id = cfg.replication.serverId;
-          binlog-ignore-db =
-            [ "information_schema" "performance_schema" "mysql" ];
+          binlog-ignore-db = [
+            "information_schema"
+            "performance_schema"
+            "mysql"
+          ];
         })
       (mkIf (!isMariaDB) { plugin-load-add = "auth_socket.so"; })
     ];
@@ -526,7 +551,11 @@ in {
           ProtectKernelTunables = true;
           ProtectKernelModules = true;
           ProtectControlGroups = true;
-          RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+          RestrictAddressFamilies = [
+            "AF_UNIX"
+            "AF_INET"
+            "AF_INET6"
+          ];
           LockPersonality = true;
           MemoryDenyWriteExecute = true;
           RestrictRealtime = true;

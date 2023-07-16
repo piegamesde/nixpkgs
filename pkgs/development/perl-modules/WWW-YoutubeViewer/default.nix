@@ -22,7 +22,12 @@ buildPerlPackage rec {
   };
 
   nativeBuildInputs = lib.optional stdenv.isDarwin shortenPerlShebang;
-  propagatedBuildInputs = [ LWP LWPProtocolHttps DataDump JSON ];
+  propagatedBuildInputs = [
+    LWP
+    LWPProtocolHttps
+    DataDump
+    JSON
+  ];
   postInstall = lib.optionalString stdenv.isDarwin ''
     shortenPerlShebang $out/bin/youtube-viewer
   '';

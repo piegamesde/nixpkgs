@@ -42,13 +42,19 @@ buildPythonPackage rec {
     patchShebangs json/bin/jsonschema_suite
   '';
 
-  nativeBuildInputs = [ hatch-fancy-pypi-readme hatch-vcs hatchling ];
+  nativeBuildInputs = [
+    hatch-fancy-pypi-readme
+    hatch-vcs
+    hatchling
+  ];
 
-  propagatedBuildInputs = [ attrs pyrsistent ]
-    ++ lib.optionals (pythonOlder "3.8") [
-      importlib-metadata
-      typing-extensions
-    ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  propagatedBuildInputs = [
+    attrs
+    pyrsistent
+  ] ++ lib.optionals (pythonOlder "3.8") [
+    importlib-metadata
+    typing-extensions
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
   passthru.optional-dependencies = {
     format = [

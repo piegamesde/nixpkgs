@@ -38,8 +38,10 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
 
-  disabledTests =
-    [ "test_which_success" "test_readable_plan_file_is_not_json" ];
+  disabledTests = [
+    "test_which_success"
+    "test_readable_plan_file_is_not_json"
+  ];
 
   pythonImportsCheck = [ "terraform_compliance" ];
 

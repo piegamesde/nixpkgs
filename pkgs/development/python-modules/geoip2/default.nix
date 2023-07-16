@@ -25,9 +25,18 @@ buildPythonPackage rec {
     hash = "sha256-8OgLzoCwa7OL0Iv0h31ahONU6TIJXmzPtNJ7tZj6T4M=";
   };
 
-  propagatedBuildInputs = [ aiohttp maxminddb requests urllib3 ];
+  propagatedBuildInputs = [
+    aiohttp
+    maxminddb
+    requests
+    urllib3
+  ];
 
-  nativeCheckInputs = [ mocket requests-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mocket
+    requests-mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "geoip2" ];
 

@@ -29,14 +29,28 @@ stdenv.mkDerivation rec {
     hash = "sha256-UgwCfy2ssaPuSWeN2SXHBDXv/uLdrDoGr/Q9wXiuCnc=";
   };
 
-  nativeBuildInputs = [ pkg-config which zip ]
-    ++ lib.optionals stdenv.isDarwin [ libicns ];
+  nativeBuildInputs = [
+    pkg-config
+    which
+    zip
+  ] ++ lib.optionals stdenv.isDarwin [ libicns ];
 
-  buildInputs = [ capstone jansson libunistring wxGTK32 ]
-    ++ (with lua53Packages; [ lua busted ])
-    ++ (with perlPackages; [ perl TemplateToolkit ])
-    ++ lib.optionals stdenv.isLinux [ gtk3 ]
-    ++ lib.optionals stdenv.isDarwin [ Carbon Cocoa IOKit ];
+  buildInputs = [
+    capstone
+    jansson
+    libunistring
+    wxGTK32
+  ] ++ (with lua53Packages; [
+    lua
+    busted
+  ]) ++ (with perlPackages; [
+    perl
+    TemplateToolkit
+  ]) ++ lib.optionals stdenv.isLinux [ gtk3 ] ++ lib.optionals stdenv.isDarwin [
+    Carbon
+    Cocoa
+    IOKit
+  ];
 
   makeFlags = [ "prefix=${placeholder "out"}" ]
     ++ lib.optionals stdenv.isDarwin [ "-f Makefile.osx" ];
@@ -53,7 +67,10 @@ stdenv.mkDerivation rec {
     changelog =
       "https://github.com/solemnwarning/rehex/raw/${version}/CHANGES.txt";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ markus1189 wegank ];
+    maintainers = with maintainers; [
+      markus1189
+      wegank
+    ];
     platforms = platforms.all;
   };
 }

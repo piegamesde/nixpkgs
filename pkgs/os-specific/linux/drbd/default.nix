@@ -32,12 +32,16 @@ stdenv.mkDerivation rec {
     sha256 = "1l99kcrb0j85wxxmrdihpx9bk1a4sdi7wlp5m1x5l24k8ck1m5cf";
   };
 
-  nativeBuildInputs = [ flex libxslt docbook_xsl asciidoctor ];
-
-  buildInputs = [
-    perl
-    # perlPackages.Po4a used by ja documentation
+  nativeBuildInputs = [
+    flex
+    libxslt
+    docbook_xsl
+    asciidoctor
   ];
+
+  buildInputs = [ perl
+    # perlPackages.Po4a used by ja documentation
+    ];
 
   configureFlags = [
     "--libdir=${placeholder "out"}/lib"
@@ -47,8 +51,10 @@ stdenv.mkDerivation rec {
     "--without-distro"
   ];
 
-  makeFlags = [ "SOURCE_DATE_EPOCH=1" "WANT_DRBD_REPRODUCIBLE_BUILD=1" ]
-    ++ lib.optional (!forOCF) "OCF_ROOT=${ocf-resource-agents}/usr/lib/ocf}";
+  makeFlags = [
+    "SOURCE_DATE_EPOCH=1"
+    "WANT_DRBD_REPRODUCIBLE_BUILD=1"
+  ] ++ lib.optional (!forOCF) "OCF_ROOT=${ocf-resource-agents}/usr/lib/ocf}";
 
   installFlags = [
     "prefix="
@@ -120,6 +126,9 @@ stdenv.mkDerivation rec {
       "Distributed Replicated Block Device, a distributed storage system for Linux (userspace utilities)";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ryantm astro ];
+    maintainers = with maintainers; [
+      ryantm
+      astro
+    ];
   };
 }

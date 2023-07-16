@@ -27,9 +27,17 @@ stdenv.mkDerivation rec {
       --replace "LIBS += -L/usr/local/opt/poppler-qt5/lib -lpoppler-qt6" "LIBS += -lpoppler-qt5"
   '';
 
-  nativeBuildInputs = [ pkg-config qmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    qmake
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ qtsvg poppler libzip ];
+  buildInputs = [
+    qtsvg
+    poppler
+    libzip
+  ];
 
   # We use a separate build-dir as otherwise ld seems to get confused between
   # directory and executable name on buildPhase.

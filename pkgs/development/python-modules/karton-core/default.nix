@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-TKO0l0AKsC9MMB58ao/EXcJ9k/J3y3S9tc127H7vA6w=";
   };
 
-  propagatedBuildInputs = [ boto3 redis ];
+  propagatedBuildInputs = [
+    boto3
+    redis
+  ];
 
   nativeCheckInputs = [ unittestCheckHook ];
 
@@ -34,6 +37,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/CERT-Polska/karton/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ chivay fab ];
+    maintainers = with maintainers; [
+      chivay
+      fab
+    ];
   };
 }

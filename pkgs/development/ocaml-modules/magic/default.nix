@@ -22,7 +22,10 @@ stdenv.mkDerivation rec {
   createFindlibDestdir = true;
 
   nativeBuildInputs = [ which ];
-  buildInputs = [ ocaml findlib ];
+  buildInputs = [
+    ocaml
+    findlib
+  ];
   propagatedBuildInputs = [ file ];
 
   meta = with lib; {

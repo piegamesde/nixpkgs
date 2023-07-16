@@ -13,7 +13,13 @@
 mkDerivation {
   pname = "kpeople";
   nativeBuildInputs = [ extra-cmake-modules ];
-  buildInputs =
-    [ kcoreaddons ki18n kitemviews kservice kwidgetsaddons qtdeclarative ];
+  buildInputs = [
+    kcoreaddons
+    ki18n
+    kitemviews
+    kservice
+    kwidgetsaddons
+    qtdeclarative
+  ];
   propagatedBuildInputs = [ qtbase ];
 }

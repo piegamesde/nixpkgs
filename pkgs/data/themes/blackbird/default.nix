@@ -24,7 +24,10 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Dark Desktop Suite for Gtk, Xfce and Metacity";
     homepage = "https://github.com/shimmerproject/Blackbird";
-    license = with lib.licenses; [ gpl2Plus cc-by-nc-sa-30 ];
+    license = with lib.licenses; [
+      gpl2Plus
+      cc-by-nc-sa-30
+    ];
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.romildo ];
   };

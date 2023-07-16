@@ -33,8 +33,13 @@ let
     '';
 
   databaseSettingsOpts = with types; {
-    freeformType =
-      oneOf [ (listOf str) (listOf (attrsOf anything)) str int bool ];
+    freeformType = oneOf [
+      (listOf str)
+      (listOf (attrsOf anything))
+      str
+      int
+      bool
+    ];
 
     options = {
       "app.notify_emails" = mkOption {
@@ -45,7 +50,12 @@ let
 
       "privacy.exportable" = mkOption {
         type = listOf str;
-        default = [ "profile" "subscriptions" "campaign_views" "link_clicks" ];
+        default = [
+          "profile"
+          "subscriptions"
+          "campaign_views"
+          "link_clicks"
+        ];
         description = lib.mdDoc
           "List of fields which can be exported through an automatic export request";
       };
@@ -59,7 +69,12 @@ let
 
       smtp = mkOption {
         type = listOf (submodule {
-          freeformType = with types; attrsOf (oneOf [ str int bool ]);
+          freeformType = with types;
+            attrsOf (oneOf [
+              str
+              int
+              bool
+            ]);
 
           options = {
             enabled =
@@ -79,7 +94,11 @@ let
               default = 1;
             };
             tls_type = mkOption {
-              type = types.enum [ "none" "STARTTLS" "TLS" ];
+              type = types.enum [
+                "none"
+                "STARTTLS"
+                "TLS"
+              ];
               description =
                 lib.mdDoc "Type of TLS authentication with the SMTP server";
             };
@@ -91,8 +110,14 @@ let
 
       # TODO: refine this type based on the smtp one.
       "bounce.mailboxes" = mkOption {
-        type = listOf
-          (submodule { freeformType = with types; oneOf [ str int bool ]; });
+        type = listOf (submodule {
+          freeformType = with types;
+            oneOf [
+              str
+              int
+              bool
+            ];
+        });
         default = [ ];
         description = lib.mdDoc "List of bounce mailboxes";
       };
@@ -172,10 +197,10 @@ in {
     services.postgresql = mkIf cfg.database.createLocally {
       enable = true;
 
-      ensureUsers = [{
+      ensureUsers = [ {
         name = "listmonk";
         ensurePermissions = { "DATABASE listmonk" = "ALL PRIVILEGES"; };
-      }];
+      } ];
 
       ensureDatabases = [ "listmonk" ];
     };
@@ -209,7 +234,10 @@ in {
         NoNewPrivileges = true;
         CapabilityBoundingSet = "";
         SystemCallArchitecture = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+        ];
         ProtectDevices = true;
         ProtectControlGroups = true;
         ProtectKernelTunables = true;
@@ -220,7 +248,11 @@ in {
         UMask = "0027";
         MemoryDenyWriteExecute = true;
         LockPersonality = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+        ];
         ProtectKernelModules = true;
         PrivateUsers = true;
       };

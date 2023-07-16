@@ -44,7 +44,12 @@ buildPythonPackage rec {
     ujson
   ];
 
-  nativeCheckInputs = [ pytest-vcr pytest-timeout pytestCheckHook vcrpy ];
+  nativeCheckInputs = [
+    pytest-vcr
+    pytest-timeout
+    pytestCheckHook
+    vcrpy
+  ];
 
   disabledTestPaths = [
     # Tests require a running Docker instance

@@ -71,7 +71,10 @@ stdenv.mkDerivation rec {
   # http://forum.world.st/OSProcess-fork-issue-with-Debian-built-VM-td4947326.html
   #
   # (stack protection is disabled above for gcc 4.8 compatibility.)
-  nativeBuildInputs = [ autoreconfHook unzip ];
+  nativeBuildInputs = [
+    autoreconfHook
+    unzip
+  ];
   buildInputs = [
     bash
     glibc
@@ -101,8 +104,11 @@ stdenv.mkDerivation rec {
 
   # Configure with options modeled on the 'mvm' build script from the vm.
   configureScript = "platforms/unix/config/configure";
-  configureFlags =
-    [ "--without-npsqueak" "--with-vmversion=5.0" "--with-src=${vm}" ];
+  configureFlags = [
+    "--without-npsqueak"
+    "--with-vmversion=5.0"
+    "--with-src=${vm}"
+  ];
 
   # -fcommon is a workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:
@@ -194,6 +200,9 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.mit;
     maintainers = [ maintainers.lukego ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 }

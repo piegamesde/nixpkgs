@@ -29,7 +29,11 @@ let
           inherit version;
           hash = "sha256-U+eSxo02hP9BQLTLHAKvOCEJA2j4EQ/eVMC9tjhEkzI=";
         };
-        propagatedBuildInputs = [ self.six self.python-dateutil self.requests ];
+        propagatedBuildInputs = [
+          self.six
+          self.python-dateutil
+          self.requests
+        ];
         pythonImportsCheck = [ "okta" ];
         doCheck = false; # no tests were included with this version
       });
@@ -65,7 +69,10 @@ in python.pkgs.buildPythonApplication rec {
     pyjwt
   ];
 
-  checkInputs = with python.pkgs; [ pytestCheckHook responses ];
+  checkInputs = with python.pkgs; [
+    pytestCheckHook
+    responses
+  ];
 
   disabledTests = [ "test_build_factor_name_webauthn_registered" ];
 

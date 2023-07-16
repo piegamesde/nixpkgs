@@ -21,8 +21,15 @@ stdenv.mkDerivation rec {
     sha256 = "0i8j8rgyha3ara6d4iis3wcimszf2csxdwrm5yq0wyhg74g7cvjd";
   };
 
-  buildInputs =
-    [ libpulseaudio SDL2 SDL2.dev SDL2_image SDL2_ttf alsa-lib libjack2 ];
+  buildInputs = [
+    libpulseaudio
+    SDL2
+    SDL2.dev
+    SDL2_image
+    SDL2_ttf
+    alsa-lib
+    libjack2
+  ];
 
   sourceRoot = "source/picoloop";
 

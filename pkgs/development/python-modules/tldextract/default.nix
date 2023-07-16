@@ -27,9 +27,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ filelock idna requests requests-file ];
+  propagatedBuildInputs = [
+    filelock
+    idna
+    requests
+    requests-file
+  ];
 
-  nativeCheckInputs = [ pytest-mock pytestCheckHook responses ];
+  nativeCheckInputs = [
+    pytest-mock
+    pytestCheckHook
+    responses
+  ];
 
   postPatch = ''
     substituteInPlace pytest.ini \

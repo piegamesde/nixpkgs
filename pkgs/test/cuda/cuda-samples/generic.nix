@@ -20,18 +20,19 @@ stdenv.mkDerivation rec {
     inherit sha256;
   };
 
-  nativeBuildInputs = [ pkg-config addOpenGLRunpath ];
+  nativeBuildInputs = [
+    pkg-config
+    addOpenGLRunpath
+  ];
 
   buildInputs = [ cudatoolkit ];
 
   # See https://github.com/NVIDIA/cuda-samples/issues/75.
-  patches = lib.optionals (version == "11.3") [
-    (fetchpatch {
-      url =
-        "https://github.com/NVIDIA/cuda-samples/commit/5c3ec60faeb7a3c4ad9372c99114d7bb922fda8d.patch";
-      sha256 = "sha256-0XxdmNK9MPpHwv8+qECJTvXGlFxc+fIbta4ynYprfpU=";
-    })
-  ];
+  patches = lib.optionals (version == "11.3") [ (fetchpatch {
+    url =
+      "https://github.com/NVIDIA/cuda-samples/commit/5c3ec60faeb7a3c4ad9372c99114d7bb922fda8d.patch";
+    sha256 = "sha256-0XxdmNK9MPpHwv8+qECJTvXGlFxc+fIbta4ynYprfpU=";
+  }) ];
 
   enableParallelBuilding = true;
 

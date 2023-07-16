@@ -24,7 +24,15 @@ buildPythonPackage rec {
     hash = "sha256-NG1TOppqRbIZHLxJjlaXD4icYlAUkSxtmmC/fsS/pXo=";
   };
 
-  propagatedBuildInputs = [ numpy scipy six pandas pyyaml matplotlib numba ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    six
+    pandas
+    pyyaml
+    matplotlib
+    numba
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

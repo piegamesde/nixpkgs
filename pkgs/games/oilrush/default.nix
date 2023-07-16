@@ -82,11 +82,23 @@ in stdenv.mkDerivation {
     patchelf --set-rpath ${stdenv.cc.cc.lib}/lib64:${stdenv.cc.cc.lib}/lib\
              libRakNet_$arch.so
     patchelf --set-rpath ${stdenv.cc.cc.lib}/lib64:${
-      makeLibraryPath [ stdenv.cc.cc libX11 libXext libXinerama libXrandr ]
+      makeLibraryPath [
+        stdenv.cc.cc
+        libX11
+        libXext
+        libXinerama
+        libXrandr
+      ]
     }\
              libUnigine_$arch.so
     patchelf --set-rpath ${stdenv.cc.cc.lib}/lib64:${
-      makeLibraryPath [ stdenv.cc.cc libX11 libXext libXinerama libXrandr ]
+      makeLibraryPath [
+        stdenv.cc.cc
+        libX11
+        libXext
+        libXinerama
+        libXrandr
+      ]
     }\
              OilRush_$arch
   '';

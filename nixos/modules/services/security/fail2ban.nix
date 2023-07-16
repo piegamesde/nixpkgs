@@ -200,7 +200,10 @@ in {
       ignoreIP = mkOption {
         default = [ ];
         type = types.listOf types.str;
-        example = [ "192.168.0.0/16" "2001:DB8::42" ];
+        example = [
+          "192.168.0.0/16"
+          "2001:DB8::42"
+        ];
         description = lib.mdDoc ''
           "ignoreIP" can be a list of IP addresses, CIDR masks or DNS hosts. Fail2ban will not ban a host which
           matches an address in this list. Several addresses can be defined using space (and/or comma) separator.
@@ -223,7 +226,12 @@ in {
       };
 
       extraSettings = mkOption {
-        type = with types; attrsOf (oneOf [ bool ints.positive str ]);
+        type = with types;
+          attrsOf (oneOf [
+            bool
+            ints.positive
+            str
+          ]);
         default = { };
         description = lib.mdDoc ''
           Extra default configuration for all jails (i.e. `[DEFAULT]`). See
@@ -289,17 +297,16 @@ in {
   ###### implementation
 
   config = mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = (cfg.bantime-increment.formula == null
         || cfg.bantime-increment.multipliers == null);
       message = ''
         Options `services.fail2ban.bantime-increment.formula` and `services.fail2ban.bantime-increment.multipliers` cannot be both specified.
       '';
-    }];
+    } ];
 
-    warnings = mkIf
-      (!config.networking.firewall.enable && !config.networking.nftables.enable)
-      [ "fail2ban can not be used without a firewall" ];
+    warnings = mkIf (!config.networking.firewall.enable
+      && !config.networking.nftables.enable) [ "fail2ban can not be used without a firewall" ];
 
     environment.systemPackages = [ cfg.package ];
 
@@ -323,10 +330,17 @@ in {
       wantedBy = [ "multi-user.target" ];
       partOf = optional config.networking.firewall.enable "firewall.service";
 
-      restartTriggers = [ fail2banConf jailConf pathsConf ];
+      restartTriggers = [
+        fail2banConf
+        jailConf
+        pathsConf
+      ];
 
-      path = [ cfg.package cfg.packageFirewall pkgs.iproute2 ]
-        ++ cfg.extraPackages;
+      path = [
+        cfg.package
+        cfg.packageFirewall
+        pkgs.iproute2
+      ] ++ cfg.extraPackages;
 
       serviceConfig = {
         # Capabilities

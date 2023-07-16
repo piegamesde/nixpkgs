@@ -90,7 +90,10 @@ in stdenv.mkDerivation rec {
     tar -xvf data.tar.xz
   '';
 
-  nativeBuildInputs = [ patchelf makeWrapper ];
+  nativeBuildInputs = [
+    patchelf
+    makeWrapper
+  ];
 
   dontWrapQtApps = true;
 
@@ -218,7 +221,13 @@ in stdenv.mkDerivation rec {
     homepage = "https://vivaldi.com";
     license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ otwieracz badmutex ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    maintainers = with maintainers; [
+      otwieracz
+      badmutex
+    ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
   };
 }

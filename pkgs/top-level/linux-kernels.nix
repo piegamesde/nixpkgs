@@ -131,13 +131,17 @@ in {
       };
 
       linux_rt_5_4 = callPackage ../os-specific/linux/kernel/linux-rt-5.4.nix {
-        kernelPatches =
-          [ kernelPatches.bridge_stp_helper kernelPatches.request_key_helper ];
+        kernelPatches = [
+          kernelPatches.bridge_stp_helper
+          kernelPatches.request_key_helper
+        ];
       };
 
       linux_5_10 = callPackage ../os-specific/linux/kernel/linux-5.10.nix {
-        kernelPatches =
-          [ kernelPatches.bridge_stp_helper kernelPatches.request_key_helper ];
+        kernelPatches = [
+          kernelPatches.bridge_stp_helper
+          kernelPatches.request_key_helper
+        ];
       };
 
       linux_rt_5_10 =
@@ -238,13 +242,17 @@ in {
       zenKernels = callPackage ../os-specific/linux/kernel/zen-kernels.nix;
 
       linux_zen = (zenKernels {
-        kernelPatches =
-          [ kernelPatches.bridge_stp_helper kernelPatches.request_key_helper ];
+        kernelPatches = [
+          kernelPatches.bridge_stp_helper
+          kernelPatches.request_key_helper
+        ];
       }).zen;
 
       linux_lqx = (zenKernels {
-        kernelPatches =
-          [ kernelPatches.bridge_stp_helper kernelPatches.request_key_helper ];
+        kernelPatches = [
+          kernelPatches.bridge_stp_helper
+          kernelPatches.request_key_helper
+        ];
       }).lqx;
 
       # This contains the variants of the XanMod kernel

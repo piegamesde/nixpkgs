@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-HY2LTm3JckAzNMVuAJNs/0LixBwiG/QKa7ILquY0Q+c=";
   };
 
-  propagatedBuildInputs = [ fsspec oci ];
+  propagatedBuildInputs = [
+    fsspec
+    oci
+  ];
 
   # Module has no tests
   doCheck = false;

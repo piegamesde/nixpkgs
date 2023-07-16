@@ -45,8 +45,12 @@ let
     "products"
     "gtkSupport"
   ];
-  runtimeLibraryPath = lib.makeLibraryPath
-    ([ cups ] ++ lib.optionals gtkSupport [ cairo glib gtk3 ]);
+  runtimeLibraryPath = lib.makeLibraryPath ([ cups ]
+    ++ lib.optionals gtkSupport [
+      cairo
+      glib
+      gtk3
+    ]);
   mapProducts = key: default:
     (map (p: p.graalvmPhases.${key} or default) products);
   concatProducts = key: lib.concatStringsSep "\n" (mapProducts key "");
@@ -92,11 +96,15 @@ let
 
     dontStrip = true;
 
-    nativeBuildInputs = [ unzip makeWrapper ]
-      ++ lib.optional stdenv.isLinux autoPatchelfHook;
+    nativeBuildInputs = [
+      unzip
+      makeWrapper
+    ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
 
-    propagatedBuildInputs = [ setJavaClassPath zlib ]
-      ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Foundation;
+    propagatedBuildInputs = [
+      setJavaClassPath
+      zlib
+    ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Foundation;
 
     buildInputs = lib.optionals stdenv.isLinux [
       alsa-lib # libasound.so wanted by lib/libjsound.so
@@ -169,7 +177,11 @@ let
       ({
         homepage = "https://www.graalvm.org/";
         description = "High-Performance Polyglot VM";
-        license = with licenses; [ upl gpl2Classpath bsd3 ];
+        license = with licenses; [
+          upl
+          gpl2Classpath
+          bsd3
+        ];
         sourceProvenance = with sourceTypes; [ binaryNativeCode ];
         mainProgram = "java";
         maintainers = with maintainers; teams.graalvm-ce.members ++ [ ];

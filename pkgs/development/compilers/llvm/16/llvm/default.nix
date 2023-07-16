@@ -89,18 +89,33 @@ stdenv.mkDerivation (rec {
 
   sourceRoot = "${src.name}/${pname}";
 
-  outputs = [ "out" "lib" "dev" "python" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "python"
+  ];
 
-  nativeBuildInputs = [ cmake ninja python ] ++ optionals enableManpages [
+  nativeBuildInputs = [
+    cmake
+    ninja
+    python
+  ] ++ optionals enableManpages [
     # Note: we intentionally use `python3Packages` instead of `python3.pkgs`;
     # splicing does *not* work with the latter. (TODO: fix)
     python3Packages.sphinx
     python3Packages.recommonmark
   ];
 
-  buildInputs = [ libxml2 libffi ] ++ optional enablePFM libpfm; # exegesis
+  buildInputs = [
+    libxml2
+    libffi
+  ] ++ optional enablePFM libpfm; # exegesis
 
-  propagatedBuildInputs = [ ncurses zlib ];
+  propagatedBuildInputs = [
+    ncurses
+    zlib
+  ];
 
   nativeCheckInputs = [ which ] ++ lib.optional stdenv.isDarwin sysctl;
 

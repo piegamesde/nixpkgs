@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-VwpZ1RY6Sul7xvWY7ZoOxZ7KgbRmKRwcVdF9e2b3f6Q=";
   };
 
-  nativeCheckInputs = [ pytest-xdist pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-xdist
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Disable tests which require QEMU to run

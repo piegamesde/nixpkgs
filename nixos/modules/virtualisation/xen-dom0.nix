@@ -13,9 +13,16 @@ let cfg = config.virtualisation.xen;
 
 in {
   imports = [
-    (mkRemovedOptionModule [ "virtualisation" "xen" "qemu" ]
-      "You don't need this option anymore, it will work without it.")
-    (mkRenamedOptionModule [ "virtualisation" "xen" "qemu-package" ] [
+    (mkRemovedOptionModule [
+      "virtualisation"
+      "xen"
+      "qemu"
+    ] "You don't need this option anymore, it will work without it.")
+    (mkRenamedOptionModule [
+      "virtualisation"
+      "xen"
+      "qemu-package"
+    ] [
       "virtualisation"
       "xen"
       "package-qemu"
@@ -46,7 +53,10 @@ in {
       description = lib.mdDoc ''
         The package used for Xen binary.
       '';
-      relatedPackages = [ "xen" "xen-light" ];
+      relatedPackages = [
+        "xen"
+        "xen-light"
+      ];
     };
 
     virtualisation.xen.package-qemu = mkOption {
@@ -209,9 +219,10 @@ in {
       options loop max_loop=64
     '';
 
-    virtualisation.xen.bootParams = [ ]
-      ++ optionals cfg.trace [ "loglvl=all" "guest_loglvl=all" ]
-      ++ optional (cfg.domain0MemorySize != 0)
+    virtualisation.xen.bootParams = [ ] ++ optionals cfg.trace [
+      "loglvl=all"
+      "guest_loglvl=all"
+    ] ++ optional (cfg.domain0MemorySize != 0)
       "dom0_mem=${toString cfg.domain0MemorySize}M";
 
     system.extraSystemBuilderCmds = ''
@@ -265,12 +276,18 @@ in {
     # Xen provides udev rules.
     services.udev.packages = [ cfg.package ];
 
-    services.udev.path = [ pkgs.bridge-utils pkgs.iproute2 ];
+    services.udev.path = [
+      pkgs.bridge-utils
+      pkgs.iproute2
+    ];
 
     systemd.services.xen-store = {
       description = "Xen Store Daemon";
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "xen-store.socket" ];
+      after = [
+        "network.target"
+        "xen-store.socket"
+      ];
       requires = [ "xen-store.socket" ];
       preStart = ''
         export XENSTORED_ROOTDIR="/var/lib/xenstored"
@@ -322,8 +339,10 @@ in {
       description = "XenStore Socket for userspace API";
       wantedBy = [ "sockets.target" ];
       socketConfig = {
-        ListenStream =
-          [ "/var/run/xenstored/socket" "/var/run/xenstored/socket_ro" ];
+        ListenStream = [
+          "/var/run/xenstored/socket"
+          "/var/run/xenstored/socket_ro"
+        ];
         SocketMode = "0660";
         SocketUser = "root";
         SocketGroup = "root";
@@ -367,7 +386,10 @@ in {
     systemd.services.xen-watchdog = {
       description = "Xen Watchdog Daemon";
       wantedBy = [ "multi-user.target" ];
-      after = [ "xen-qemu.service" "xen-domains.service" ];
+      after = [
+        "xen-qemu.service"
+        "xen-domains.service"
+      ];
       serviceConfig.ExecStart = "${cfg.package}/bin/xenwatchdogd 30 15";
       serviceConfig.Type = "forking";
       serviceConfig.RestartSec = "1";
@@ -477,15 +499,24 @@ in {
       description =
         "Xen domains - automatically starts, saves and restores Xen domains";
       wantedBy = [ "multi-user.target" ];
-      after = [ "xen-bridge.service" "xen-qemu.service" ];
-      requires = [ "xen-bridge.service" "xen-qemu.service" ];
+      after = [
+        "xen-bridge.service"
+        "xen-qemu.service"
+      ];
+      requires = [
+        "xen-bridge.service"
+        "xen-qemu.service"
+      ];
       ## To prevent a race between dhcpcd and xend's bridge setup script
       ## (which renames eth* to peth* and recreates eth* as a virtual
       ## device), start dhcpcd after xend.
       before = [ "dhcpd.service" ];
       restartIfChanged = false;
       serviceConfig.RemainAfterExit = "yes";
-      path = [ cfg.package cfg.package-qemu ];
+      path = [
+        cfg.package
+        cfg.package-qemu
+      ];
       environment.XENDOM_CONFIG = "${cfg.package}/etc/sysconfig/xendomains";
       preStart = "mkdir -p /var/lock/subsys -m 755";
       serviceConfig.ExecStart = "${cfg.package}/etc/init.d/xendomains start";

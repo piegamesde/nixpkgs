@@ -32,6 +32,11 @@ mkDerivation rec {
     description = "A standard library for use with the Agda compiler";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with maintainers; [ jwiegley mudri alexarice turion ];
+    maintainers = with maintainers; [
+      jwiegley
+      mudri
+      alexarice
+      turion
+    ];
   };
 }

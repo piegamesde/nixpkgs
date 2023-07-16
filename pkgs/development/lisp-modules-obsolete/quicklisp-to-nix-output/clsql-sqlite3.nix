@@ -8,7 +8,11 @@ args@{
 
   description = "Common Lisp Sqlite3 Driver";
 
-  deps = [ args."clsql" args."clsql-uffi" args."uffi" ];
+  deps = [
+    args."clsql"
+    args."clsql-uffi"
+    args."uffi"
+  ];
 
   src = fetchurl {
     url =

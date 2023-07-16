@@ -29,10 +29,18 @@ buildPythonPackage rec {
     hash = "sha256-epwnExmyCWmwaOz+mJnAl1peEeHLBdQGC62BlLfSTQQ=";
   };
 
-  propagatedBuildInputs = [ filelock numpy protobuf six typing-extensions ]
-    ++ lib.optionals cudaSupport [ cupy ];
+  propagatedBuildInputs = [
+    filelock
+    numpy
+    protobuf
+    six
+    typing-extensions
+  ] ++ lib.optionals cudaSupport [ cupy ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "tests/chainer_tests/utils_tests" ];
 
@@ -44,7 +52,11 @@ buildPythonPackage rec {
     rm setup.cfg
   '';
 
-  disabledTests = [ "gpu" "cupy" "ideep" ];
+  disabledTests = [
+    "gpu"
+    "cupy"
+    "ideep"
+  ];
 
   pythonImportsCheck = [ "chainer" ];
 

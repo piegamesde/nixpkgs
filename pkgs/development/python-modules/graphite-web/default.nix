@@ -101,6 +101,9 @@ buildPythonPackage rec {
     description = "Enterprise scalable realtime graphing";
     homepage = "http://graphiteapp.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ offline basvandijk ];
+    maintainers = with maintainers; [
+      offline
+      basvandijk
+    ];
   };
 }

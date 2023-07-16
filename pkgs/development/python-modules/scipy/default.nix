@@ -37,14 +37,28 @@ buildPythonPackage rec {
     ./disable-datasets-tests.patch
   ];
 
-  nativeBuildInputs = [ cython gfortran meson-python pythran pkg-config wheel ];
+  nativeBuildInputs = [
+    cython
+    gfortran
+    meson-python
+    pythran
+    pkg-config
+    wheel
+  ];
 
-  buildInputs = [ numpy.blas pybind11 pooch ]
-    ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ];
+  buildInputs = [
+    numpy.blas
+    pybind11
+    pooch
+  ] ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ];
 
   propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [ nose pytest pytest-xdist ];
+  nativeCheckInputs = [
+    nose
+    pytest
+    pytest-xdist
+  ];
 
   doCheck = !(stdenv.isx86_64 && stdenv.isDarwin);
 

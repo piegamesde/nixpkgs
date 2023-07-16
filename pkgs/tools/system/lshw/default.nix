@@ -26,9 +26,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ hwdata ] ++ lib.optionals withGUI [ gtk2 sqlite ];
+  buildInputs = [ hwdata ] ++ lib.optionals withGUI [
+    gtk2
+    sqlite
+  ];
 
-  makeFlags = [ "PREFIX=$(out)" "VERSION=${src.rev}" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "VERSION=${src.rev}"
+  ];
 
   buildFlags = [ "all" ] ++ lib.optional withGUI "gui";
 

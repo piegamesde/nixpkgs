@@ -22,7 +22,10 @@ python3.pkgs.buildPythonApplication rec {
 
   depsBuildBuild = [ python3 ];
 
-  nativeBuildInputs = [ meson ninja ];
+  nativeBuildInputs = [
+    meson
+    ninja
+  ];
 
   pythonPath = with python3.pkgs; [
     jinja2

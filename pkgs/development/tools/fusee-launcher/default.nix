@@ -35,7 +35,10 @@ stdenv.mkDerivation {
     makeWrapper
     python3Packages.wrapPython
   ];
-  buildInputs = [ python3 python3Packages.pyusb ];
+  buildInputs = [
+    python3
+    python3Packages.pyusb
+  ];
   pythonPath = with python3Packages; [ pyusb ];
 
   meta = with lib; {

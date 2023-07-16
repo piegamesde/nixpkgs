@@ -53,7 +53,10 @@ buildDunePackage rec {
   duneVersion = "3";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dune-configurator gsl ];
+  buildInputs = [
+    dune-configurator
+    gsl
+  ];
   propagatedBuildInputs =
     lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Accelerate ];
 

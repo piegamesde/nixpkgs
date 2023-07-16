@@ -8,42 +8,72 @@
 
 mkCoqDerivation {
 
-  namePrefix = [ "coq" "mathcomp" ];
+  namePrefix = [
+    "coq"
+    "mathcomp"
+  ];
   pname = "finmap";
   owner = "math-comp";
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch [ coq.version mathcomp.version ] [
+    lib.switch [
+      coq.version
+      mathcomp.version
+    ] [
       {
-        cases = [ (range "8.13" "8.17") (isGe "1.12") ];
+        cases = [
+          (range "8.13" "8.17")
+          (isGe "1.12")
+        ];
         out = "1.5.2";
       }
       {
-        cases = [ (isGe "8.10") (isGe "1.11") ];
+        cases = [
+          (isGe "8.10")
+          (isGe "1.11")
+        ];
         out = "1.5.1";
       }
       {
-        cases = [ (range "8.7" "8.11") "1.11.0" ];
+        cases = [
+          (range "8.7" "8.11")
+          "1.11.0"
+        ];
         out = "1.5.0";
       }
       {
-        cases = [ (isEq "8.11") (range "1.8" "1.10") ];
+        cases = [
+          (isEq "8.11")
+          (range "1.8" "1.10")
+        ];
         out = "1.4.0+coq-8.11";
       }
       {
-        cases = [ (range "8.7" "8.11.0") (range "1.8" "1.10") ];
+        cases = [
+          (range "8.7" "8.11.0")
+          (range "1.8" "1.10")
+        ];
         out = "1.4.0";
       }
       {
-        cases = [ (range "8.7" "8.11.0") (range "1.8" "1.10") ];
+        cases = [
+          (range "8.7" "8.11.0")
+          (range "1.8" "1.10")
+        ];
         out = "1.3.4";
       }
       {
-        cases = [ (range "8.7" "8.9") "1.7.0" ];
+        cases = [
+          (range "8.7" "8.9")
+          "1.7.0"
+        ];
         out = "1.1.0";
       }
       {
-        cases = [ (range "8.6" "8.7") (range "1.6.1" "1.7") ];
+        cases = [
+          (range "8.6" "8.7")
+          (range "1.6.1" "1.7")
+        ];
         out = "1.0.0";
       }
     ] null;

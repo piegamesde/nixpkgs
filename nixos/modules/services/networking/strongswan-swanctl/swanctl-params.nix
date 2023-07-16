@@ -205,7 +205,12 @@ in {
       specified; this option has no effect on connections using IKEv2.
     '';
 
-    fragmentation = mkEnumParam [ "yes" "accept" "force" "no" ] "yes" ''
+    fragmentation = mkEnumParam [
+      "yes"
+      "accept"
+      "force"
+      "no"
+    ] "yes" ''
       Use IKE fragmentation (proprietary IKEv1 extension or RFC 7383 IKEv2
       fragmentation). Acceptable values are `yes` (the default
       since 5.5.1), `accept` (since versions:5.5.3),
@@ -226,7 +231,12 @@ in {
       irrespective of the value of this option (even when set to no).
     '';
 
-    childless = mkEnumParam [ "allow" "prefer" "force" "never" ] "allow" ''
+    childless = mkEnumParam [
+      "allow"
+      "prefer"
+      "force"
+      "never"
+    ] "allow" ''
       Use childless IKE_SA initiation (_allow_, _prefer_, _force_ or _never_).
 
       Use childless IKE_SA initiation (RFC 6023) for IKEv2, with the first
@@ -253,7 +263,11 @@ in {
       of the initial IKE packets.
     '';
 
-    send_cert = mkEnumParam [ "always" "never" "ifasked" ] "ifasked" ''
+    send_cert = mkEnumParam [
+      "always"
+      "never"
+      "ifasked"
+    ] "ifasked" ''
       Send certificate payloads when using certificate authentication.
 
       - With the default of `ifasked` the daemon sends
@@ -281,7 +295,12 @@ in {
       establishes or fails with a permanent error.
     '';
 
-    unique = mkEnumParam [ "no" "never" "keep" "replace" ] "no" ''
+    unique = mkEnumParam [
+      "no"
+      "never"
+      "keep"
+      "replace"
+    ] "no" ''
       Connection uniqueness policy to enforce. To avoid multiple connections
       from the same user, a uniqueness policy can be enforced.
 
@@ -584,7 +603,11 @@ in {
         `pubkey` directory or an absolute path.
       '';
 
-      revocation = mkEnumParam [ "strict" "ifuri" "relaxed" ] "relaxed" ''
+      revocation = mkEnumParam [
+        "strict"
+        "ifuri"
+        "relaxed"
+      ] "relaxed" ''
         Certificate revocation policy for CRL or OCSP revocation.
 
         - A `strict` revocation policy fails if no revocation information is
@@ -856,7 +879,11 @@ in {
         forwarded traffic for this CHILD_SA. Since 5.5.1.
       '';
 
-      dpd_action = mkEnumParam [ "clear" "trap" "restart" ] "clear" ''
+      dpd_action = mkEnumParam [
+        "clear"
+        "trap"
+        "restart"
+      ] "clear" ''
         Action to perform for this CHILD_SA on DPD timeout. The default clear
         closes the CHILD_SA and does not take further action. trap installs a
         trap policy, which will catch matching traffic and tries to re-negotiate
@@ -1001,7 +1028,13 @@ in {
         protection.
       '';
 
-      hw_offload = mkEnumParam [ "yes" "no" "auto" "crypto" "packet" ] "no" ''
+      hw_offload = mkEnumParam [
+        "yes"
+        "no"
+        "auto"
+        "crypto"
+        "packet"
+      ] "no" ''
         Enable hardware offload for this CHILD_SA, if supported by the IPsec
         implementation. The values `crypto` or `packet` enforce crypto or full
         packet offloading and the installation will fail if the selected mode is not
@@ -1023,7 +1056,12 @@ in {
         not supported by all kernel interfaces.
       '';
 
-      copy_dscp = mkEnumParam [ "out" "in" "yes" "no" ] "out" ''
+      copy_dscp = mkEnumParam [
+        "out"
+        "in"
+        "yes"
+        "no"
+      ] "out" ''
         Whether to copy the DSCP (Differentiated Services Field Codepoint)
         header field to/from the outer IP header in tunnel mode. The value
         `out` only copies the field from the inner to the outer
@@ -1038,7 +1076,11 @@ in {
         all kernel interfaces.
       '';
 
-      start_action = mkEnumParam [ "none" "trap" "start" ] "none" ''
+      start_action = mkEnumParam [
+        "none"
+        "trap"
+        "start"
+      ] "none" ''
         Action to perform after loading the configuration.
 
         - The default of `none` loads the connection only, which
@@ -1054,7 +1096,11 @@ in {
         `trap` get uninstalled.
       '';
 
-      close_action = mkEnumParam [ "none" "trap" "start" ] "none" ''
+      close_action = mkEnumParam [
+        "none"
+        "trap"
+        "start"
+      ] "none" ''
         Action to perform after a CHILD_SA gets closed by the peer.
 
         - The default of `none` does not take any action,

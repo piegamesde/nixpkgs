@@ -17,9 +17,15 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   # Required versions not available
-  pythonRelaxDeps = [ "textual" "tzlocal" ];
+  pythonRelaxDeps = [
+    "textual"
+    "tzlocal"
+  ];
 
-  nativeBuildInputs = with python3.pkgs; [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = with python3.pkgs; [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     textual

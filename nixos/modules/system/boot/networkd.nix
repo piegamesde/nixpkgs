@@ -29,11 +29,15 @@ let
         (assertValueOneOf "ManageForeignRoutes" boolValues)
       ];
 
-      sectionDHCPv4 = checkUnitConfig "DHCPv4"
-        [ (assertOnlyFields [ "DUIDType" "DUIDRawData" ]) ];
+      sectionDHCPv4 = checkUnitConfig "DHCPv4" [ (assertOnlyFields [
+        "DUIDType"
+        "DUIDRawData"
+      ]) ];
 
-      sectionDHCPv6 = checkUnitConfig "DHCPv6"
-        [ (assertOnlyFields [ "DUIDType" "DUIDRawData" ]) ];
+      sectionDHCPv6 = checkUnitConfig "DHCPv6" [ (assertOnlyFields [
+        "DUIDType"
+        "DUIDRawData"
+      ]) ];
     };
 
     link = {
@@ -69,11 +73,18 @@ let
           "RxBufferSize"
           "TxBufferSize"
         ])
-        (assertValueOneOf "MACAddressPolicy" [ "persistent" "random" "none" ])
+        (assertValueOneOf "MACAddressPolicy" [
+          "persistent"
+          "random"
+          "none"
+        ])
         (assertMacAddress "MACAddress")
         (assertByteFormat "MTUBytes")
         (assertByteFormat "BitsPerSecond")
-        (assertValueOneOf "Duplex" [ "half" "full" ])
+        (assertValueOneOf "Duplex" [
+          "half"
+          "full"
+        ])
         (assertValueOneOf "AutoNegotiation" boolValues)
         (assertValueOneOf "WakeOnLan" [
           "phy"
@@ -85,7 +96,13 @@ let
           "secureon"
           "off"
         ])
-        (assertValueOneOf "Port" [ "tp" "aui" "bnc" "mii" "fibre" ])
+        (assertValueOneOf "Port" [
+          "tp"
+          "aui"
+          "bnc"
+          "mii"
+          "fibre"
+        ])
         (assertValueOneOf "ReceiveChecksumOffload" boolValues)
         (assertValueOneOf "TransmitChecksumOffload" boolValues)
         (assertValueOneOf "TCPSegmentationOffload" boolValues)
@@ -173,7 +190,13 @@ let
       ];
 
       sectionVLAN = checkUnitConfig "VLAN" [
-        (assertOnlyFields [ "Id" "GVRP" "MVRP" "LooseBinding" "ReorderHeader" ])
+        (assertOnlyFields [
+          "Id"
+          "GVRP"
+          "MVRP"
+          "LooseBinding"
+          "ReorderHeader"
+        ])
         (assertInt "Id")
         (assertRange "Id" 0 4094)
         (assertValueOneOf "GVRP" boolValues)
@@ -184,7 +207,12 @@ let
 
       sectionMACVLAN = checkUnitConfig "MACVLAN" [
         (assertOnlyFields [ "Mode" ])
-        (assertValueOneOf "Mode" [ "private" "vepa" "bridge" "passthru" ])
+        (assertValueOneOf "Mode" [
+          "private"
+          "vepa"
+          "bridge"
+          "passthru"
+        ])
       ];
 
       sectionVXLAN = checkUnitConfig "VXLAN" [
@@ -264,7 +292,11 @@ let
         (assertRange "TTL" 0 255)
         (assertValueOneOf "DiscoverPathMTU" boolValues)
         (assertValueOneOf "CopyDSCP" boolValues)
-        (assertValueOneOf "Mode" [ "ip6ip6" "ipip6" "any" ])
+        (assertValueOneOf "Mode" [
+          "ip6ip6"
+          "ipip6"
+          "any"
+        ])
         (assertValueOneOf "Independent" boolValues)
         (assertValueOneOf "AssignToLoopback" boolValues)
         (assertValueOneOf "AllowLocalRemote" boolValues)
@@ -282,7 +314,11 @@ let
       ];
 
       sectionFooOverUDP = checkUnitConfig "FooOverUDP" [
-        (assertOnlyFields [ "Port" "Encapsulation" "Protocol" ])
+        (assertOnlyFields [
+          "Port"
+          "Encapsulation"
+          "Protocol"
+        ])
         (assertPort "Port")
         (assertValueOneOf "Encapsulation" [
           "FooOverUDP"
@@ -291,7 +327,10 @@ let
       ];
 
       sectionPeer = checkUnitConfig "Peer" [
-        (assertOnlyFields [ "Name" "MACAddress" ])
+        (assertOnlyFields [
+          "Name"
+          "MACAddress"
+        ])
         (assertMacAddress "MACAddress")
       ];
 
@@ -316,7 +355,10 @@ let
         (assertRange "TunnelId" 1 4294967295)
         (assertInt "PeerTunnelId")
         (assertRange "PeerTunnelId" 1 4294967295)
-        (assertValueOneOf "EncapsulationType" [ "ip" "udp" ])
+        (assertValueOneOf "EncapsulationType" [
+          "ip"
+          "udp"
+        ])
         (assertPort "UDPSourcePort")
         (assertPort "UDPDestinationPort")
         (assertValueOneOf "UDPChecksum" boolValues)
@@ -338,7 +380,10 @@ let
         (assertHasField "PeerSessionId")
         (assertInt "PeerSessionId")
         (assertRange "PeerSessionId" 1 4294967295)
-        (assertValueOneOf "Layer2SpecificHeader" [ "none" "default" ])
+        (assertValueOneOf "Layer2SpecificHeader" [
+          "none"
+          "default"
+        ])
       ];
 
       # NOTE The PrivateKey directive is missing on purpose here, please
@@ -415,15 +460,34 @@ let
           "encap2+3"
           "encap3+4"
         ])
-        (assertValueOneOf "LACPTransmitRate" [ "slow" "fast" ])
-        (assertValueOneOf "AdSelect" [ "stable" "bandwidth" "count" ])
+        (assertValueOneOf "LACPTransmitRate" [
+          "slow"
+          "fast"
+        ])
+        (assertValueOneOf "AdSelect" [
+          "stable"
+          "bandwidth"
+          "count"
+        ])
         (assertInt "AdActorSystemPriority")
         (assertRange "AdActorSystemPriority" 1 65535)
         (assertInt "AdUserPortKey")
         (assertRange "AdUserPortKey" 0 1023)
-        (assertValueOneOf "FailOverMACPolicy" [ "none" "active" "follow" ])
-        (assertValueOneOf "ARPValidate" [ "none" "active" "backup" "all" ])
-        (assertValueOneOf "ARPAllTargets" [ "any" "all" ])
+        (assertValueOneOf "FailOverMACPolicy" [
+          "none"
+          "active"
+          "follow"
+        ])
+        (assertValueOneOf "ARPValidate" [
+          "none"
+          "active"
+          "backup"
+          "all"
+        ])
+        (assertValueOneOf "ARPAllTargets" [
+          "any"
+          "all"
+        ])
         (assertValueOneOf "PrimaryReselectPolicy" [
           "always"
           "better"
@@ -442,7 +506,10 @@ let
       ];
 
       sectionXfrm = checkUnitConfig "Xfrm" [
-        (assertOnlyFields [ "InterfaceId" "Independent" ])
+        (assertOnlyFields [
+          "InterfaceId"
+          "Independent"
+        ])
         (assertInt "InterfaceId")
         (assertRange "InterfaceId" 1 4294967295)
         (assertValueOneOf "Independent" boolValues)
@@ -467,14 +534,21 @@ let
           "GatewayBandwithUp"
           "RoutingAlgorithm"
         ])
-        (assertValueOneOf "GatewayMode" [ "off" "client" "server" ])
+        (assertValueOneOf "GatewayMode" [
+          "off"
+          "client"
+          "server"
+        ])
         (assertValueOneOf "Aggregation" boolValues)
         (assertValueOneOf "BridgeLoopAvoidance" boolValues)
         (assertValueOneOf "DistributedArpTable" boolValues)
         (assertValueOneOf "Fragmentation" boolValues)
         (assertInt "HopPenalty")
         (assertRange "HopPenalty" 0 255)
-        (assertValueOneOf "RoutingAlgorithm" [ "batman-v" "batman-iv" ])
+        (assertValueOneOf "RoutingAlgorithm" [
+          "batman-v"
+          "batman-iv"
+        ])
       ];
     };
 
@@ -582,7 +656,12 @@ let
           "BatmanAdvanced"
         ])
         # Note: For DHCP the values both, none, v4, v6 are deprecated
-        (assertValueOneOf "DHCP" [ "yes" "no" "ipv4" "ipv6" ])
+        (assertValueOneOf "DHCP" [
+          "yes"
+          "no"
+          "ipv4"
+          "ipv6"
+        ])
         (assertValueOneOf "DHCPServer" boolValues)
         (assertValueOneOf "LinkLocalAddressing" [
           "yes"
@@ -599,14 +678,25 @@ let
         (assertValueOneOf "DNSOverTLS" (boolValues ++ [ "opportunistic" ]))
         (assertValueOneOf "DNSSEC" (boolValues ++ [ "allow-downgrade" ]))
         (assertValueOneOf "LLDP" (boolValues ++ [ "routers-only" ]))
-        (assertValueOneOf "EmitLLDP" (boolValues
-          ++ [ "nearest-bridge" "non-tpmr-bridge" "customer-bridge" ]))
+        (assertValueOneOf "EmitLLDP" (boolValues ++ [
+          "nearest-bridge"
+          "non-tpmr-bridge"
+          "customer-bridge"
+        ]))
         (assertValueOneOf "DNSDefaultRoute" boolValues)
-        (assertValueOneOf "IPForward" (boolValues ++ [ "ipv4" "ipv6" ]))
-        (assertValueOneOf "IPMasquerade"
-          (boolValues ++ [ "ipv4" "ipv6" "both" ]))
-        (assertValueOneOf "IPv6PrivacyExtensions"
-          (boolValues ++ [ "prefer-public" "kernel" ]))
+        (assertValueOneOf "IPForward" (boolValues ++ [
+          "ipv4"
+          "ipv6"
+        ]))
+        (assertValueOneOf "IPMasquerade" (boolValues ++ [
+          "ipv4"
+          "ipv6"
+          "both"
+        ]))
+        (assertValueOneOf "IPv6PrivacyExtensions" (boolValues ++ [
+          "prefer-public"
+          "kernel"
+        ]))
         (assertValueOneOf "IPv6AcceptRA" boolValues)
         (assertInt "IPv6DuplicateAddressDetection")
         (assertMinimum "IPv6DuplicateAddressDetection" 0)
@@ -620,8 +710,11 @@ let
         (assertValueOneOf "ActiveSlave" boolValues)
         (assertValueOneOf "PrimarySlave" boolValues)
         (assertValueOneOf "ConfigureWithoutCarrier" boolValues)
-        (assertValueOneOf "KeepConfiguration"
-          (boolValues ++ [ "static" "dhcp-on-stop" "dhcp" ]))
+        (assertValueOneOf "KeepConfiguration" (boolValues ++ [
+          "static"
+          "dhcp-on-stop"
+          "dhcp"
+        ]))
       ];
 
       sectionAddress = checkUnitConfig "Address" [
@@ -640,7 +733,12 @@ let
           "AutoJoin"
         ])
         (assertHasField "Address")
-        (assertValueOneOf "PreferredLifetime" [ "forever" "infinity" "0" 0 ])
+        (assertValueOneOf "PreferredLifetime" [
+          "forever"
+          "infinity"
+          "0"
+          0
+        ])
         (assertInt "RouteMetric")
         (assertValueOneOf "HomeAddress" boolValues)
         (assertValueOneOf "DuplicateAddressDetection" [
@@ -682,10 +780,18 @@ let
         (assertPort "SourcePort")
         (assertPort "DestinationPort")
         (assertValueOneOf "InvertRule" boolValues)
-        (assertValueOneOf "Family" [ "ipv4" "ipv6" "both" ])
+        (assertValueOneOf "Family" [
+          "ipv4"
+          "ipv6"
+          "both"
+        ])
         (assertInt "SuppressPrefixLength")
         (assertRange "SuppressPrefixLength" 0 128)
-        (assertValueOneOf "Type" [ "blackhole" "unreachable" "prohibit" ])
+        (assertValueOneOf "Type" [
+          "blackhole"
+          "unreachable"
+          "prohibit"
+        ])
         (assertRange "SuppressInterfaceGroup" 0 2147483647)
       ];
 
@@ -713,8 +819,18 @@ let
         ])
         (assertValueOneOf "GatewayOnLink" boolValues)
         (assertInt "Metric")
-        (assertValueOneOf "IPv6Preference" [ "low" "medium" "high" ])
-        (assertValueOneOf "Scope" [ "global" "site" "link" "host" "nowhere" ])
+        (assertValueOneOf "IPv6Preference" [
+          "low"
+          "medium"
+          "high"
+        ])
+        (assertValueOneOf "Scope" [
+          "global"
+          "site"
+          "link"
+          "host"
+          "nowhere"
+        ])
         (assertValueOneOf "Type" [
           "unicast"
           "local"
@@ -732,7 +848,10 @@ let
         (assertValueOneOf "FastOpenNoCookie" boolValues)
         (assertValueOneOf "TTLPropagate" boolValues)
         (assertByteFormat "MTUBytes")
-        (assertValueOneOf "IPServiceType" [ "CS6" "CS4" ])
+        (assertValueOneOf "IPServiceType" [
+          "CS6"
+          "CS4"
+        ])
       ];
 
       sectionDHCPv4 = checkUnitConfig "DHCPv4" [
@@ -781,7 +900,11 @@ let
         (assertValueOneOf "UseDomains" (boolValues ++ [ "route" ]))
         (assertValueOneOf "UseRoutes" boolValues)
         (assertValueOneOf "UseTimezone" boolValues)
-        (assertValueOneOf "ClientIdentifier" [ "mac" "duid" "duid-only" ])
+        (assertValueOneOf "ClientIdentifier" [
+          "mac"
+          "duid"
+          "duid-only"
+        ])
         (assertInt "IAID")
         (assertValueOneOf "RequestBroadcast" boolValues)
         (assertInt "RouteMetric")
@@ -791,7 +914,10 @@ let
         (assertPort "ListenPort")
         (assertValueOneOf "SendRelease" boolValues)
         (assertValueOneOf "SendDecline" boolValues)
-        (assertValueOneOf "FallbackLeaseLifetimeSec" [ "forever" "infinity" ])
+        (assertValueOneOf "FallbackLeaseLifetimeSec" [
+          "forever"
+          "infinity"
+        ])
         (assertValueOneOf "Use6RD" boolValues)
       ];
 
@@ -820,7 +946,11 @@ let
         (assertValueOneOf "UseNTP" boolValues)
         (assertInt "RouteMetric")
         (assertValueOneOf "RapidCommit" boolValues)
-        (assertValueOneOf "WithoutRA" [ "no" "solicit" "information-request" ])
+        (assertValueOneOf "WithoutRA" [
+          "no"
+          "solicit"
+          "information-request"
+        ])
         (assertRange "SendOption" 1 65536)
         (assertInt "IAID")
         (assertValueOneOf "UseDelegatedPrefix" boolValues)
@@ -959,13 +1089,19 @@ let
       ];
 
       sectionIPv6RoutePrefix = checkUnitConfig "IPv6RoutePrefix" [
-        (assertOnlyFields [ "Route" "LifetimeSec" ])
+        (assertOnlyFields [
+          "Route"
+          "LifetimeSec"
+        ])
         (assertHasField "Route")
         (assertInt "LifetimeSec")
       ];
 
       sectionDHCPServerStaticLease = checkUnitConfig "DHCPServerStaticLease" [
-        (assertOnlyFields [ "MACAddress" "Address" ])
+        (assertOnlyFields [
+          "MACAddress"
+          "Address"
+        ])
         (assertHasField "MACAddress")
         (assertHasField "Address")
         (assertMacAddress "MACAddress")
@@ -1027,11 +1163,19 @@ let
         (assertRange "VLANId" 0 4094)
         (assertInt "VNI")
         (assertRange "VNI" 1 16777215)
-        (assertValueOneOf "AssociatedWith" [ "use" "self" "master" "router" ])
+        (assertValueOneOf "AssociatedWith" [
+          "use"
+          "self"
+          "master"
+          "router"
+        ])
       ];
 
       sectionBridgeMDB = checkUnitConfig "BridgeMDB" [
-        (assertOnlyFields [ "MulticastGroupAddress" "VLANId" ])
+        (assertOnlyFields [
+          "MulticastGroupAddress"
+          "VLANId"
+        ])
         (assertHasField "MulticastGroupAddress")
         (assertInt "VLANId")
         (assertRange "VLANId" 0 4094)
@@ -1099,14 +1243,26 @@ let
       ];
 
       sectionIPoIB = checkUnitConfig "IPoIB" [
-        (assertOnlyFields [ "Mode" "IgnoreUserspaceMulticastGroup" ])
-        (assertValueOneOf "Mode" [ "datagram" "connected" ])
+        (assertOnlyFields [
+          "Mode"
+          "IgnoreUserspaceMulticastGroup"
+        ])
+        (assertValueOneOf "Mode" [
+          "datagram"
+          "connected"
+        ])
         (assertValueOneOf "IgnoreUserspaceMulticastGroup" boolValues)
       ];
 
       sectionQDisc = checkUnitConfig "QDisc" [
-        (assertOnlyFields [ "Parent" "Handle" ])
-        (assertValueOneOf "Parent" [ "clsact" "ingress" ])
+        (assertOnlyFields [
+          "Parent"
+          "Handle"
+        ])
+        (assertValueOneOf "Parent" [
+          "clsact"
+          "ingress"
+        ])
       ];
 
       sectionNetworkEmulator = checkUnitConfig "NetworkEmulator" [
@@ -1123,8 +1279,8 @@ let
         (assertRange "PacketLimit" 0 4294967294)
       ];
 
-      sectionTokenBucketFilter = checkUnitConfig "TokenBucketFilter" [
-        (assertOnlyFields [
+      sectionTokenBucketFilter =
+        checkUnitConfig "TokenBucketFilter" [ (assertOnlyFields [
           "Parent"
           "Handle"
           "LatencySec"
@@ -1134,50 +1290,78 @@ let
           "MPUBytes"
           "PeakRate"
           "MTUBytes"
-        ])
-      ];
+        ]) ];
 
       sectionPIE = checkUnitConfig "PIE" [
-        (assertOnlyFields [ "Parent" "Handle" "PacketLimit" ])
+        (assertOnlyFields [
+          "Parent"
+          "Handle"
+          "PacketLimit"
+        ])
         (assertInt "PacketLimit")
         (assertRange "PacketLimit" 1 4294967294)
       ];
 
       sectionFlowQueuePIE = checkUnitConfig "FlowQueuePIE" [
-        (assertOnlyFields [ "Parent" "Handle" "PacketLimit" ])
+        (assertOnlyFields [
+          "Parent"
+          "Handle"
+          "PacketLimit"
+        ])
         (assertInt "PacketLimit")
         (assertRange "PacketLimit" 1 4294967294)
       ];
 
       sectionStochasticFairBlue = checkUnitConfig "StochasticFairBlue" [
-        (assertOnlyFields [ "Parent" "Handle" "PacketLimit" ])
+        (assertOnlyFields [
+          "Parent"
+          "Handle"
+          "PacketLimit"
+        ])
         (assertInt "PacketLimit")
         (assertRange "PacketLimit" 1 4294967294)
       ];
 
       sectionStochasticFairnessQueueing =
         checkUnitConfig "StochasticFairnessQueueing" [
-          (assertOnlyFields [ "Parent" "Handle" "PerturbPeriodSec" ])
+          (assertOnlyFields [
+            "Parent"
+            "Handle"
+            "PerturbPeriodSec"
+          ])
           (assertInt "PerturbPeriodSec")
         ];
 
-      sectionBFIFO = checkUnitConfig "BFIFO"
-        [ (assertOnlyFields [ "Parent" "Handle" "LimitBytes" ]) ];
+      sectionBFIFO = checkUnitConfig "BFIFO" [ (assertOnlyFields [
+        "Parent"
+        "Handle"
+        "LimitBytes"
+      ]) ];
 
       sectionPFIFO = checkUnitConfig "PFIFO" [
-        (assertOnlyFields [ "Parent" "Handle" "PacketLimit" ])
+        (assertOnlyFields [
+          "Parent"
+          "Handle"
+          "PacketLimit"
+        ])
         (assertInt "PacketLimit")
         (assertRange "PacketLimit" 0 4294967294)
       ];
 
       sectionPFIFOHeadDrop = checkUnitConfig "PFIFOHeadDrop" [
-        (assertOnlyFields [ "Parent" "Handle" "PacketLimit" ])
+        (assertOnlyFields [
+          "Parent"
+          "Handle"
+          "PacketLimit"
+        ])
         (assertInt "PacketLimit")
         (assertRange "PacketLimit" 0 4294967294)
       ];
 
-      sectionPFIFOFast = checkUnitConfig "PFIFOFast"
-        [ (assertOnlyFields [ "Parent" "Handle" ]) ];
+      sectionPFIFOFast = checkUnitConfig "PFIFOFast" [ (assertOnlyFields [
+        "Parent"
+        "Handle"
+      ]) ];
 
       sectionCAKE = checkUnitConfig "CAKE" [
         (assertOnlyFields [
@@ -1201,7 +1385,11 @@ let
         (assertRange "OverheadBytes" (-64) 256)
         (assertInt "MPUBytes")
         (assertRange "MPUBytes" 1 256)
-        (assertValueOneOf "CompensationMode" [ "none" "atm" "ptm" ])
+        (assertValueOneOf "CompensationMode" [
+          "none"
+          "atm"
+          "ptm"
+        ])
         (assertValueOneOf "UseRawPacketSize" boolValues)
         (assertValueOneOf "FlowIsolationMode" [
           "none"
@@ -1241,12 +1429,17 @@ let
       ];
 
       sectionDeficitRoundRobinScheduler =
-        checkUnitConfig "DeficitRoundRobinScheduler"
-        [ (assertOnlyFields [ "Parent" "Handle" ]) ];
+        checkUnitConfig "DeficitRoundRobinScheduler" [ (assertOnlyFields [
+          "Parent"
+          "Handle"
+        ]) ];
 
       sectionDeficitRoundRobinSchedulerClass =
-        checkUnitConfig "DeficitRoundRobinSchedulerClass"
-        [ (assertOnlyFields [ "Parent" "Handle" "QuantumBytes" ]) ];
+        checkUnitConfig "DeficitRoundRobinSchedulerClass" [ (assertOnlyFields [
+          "Parent"
+          "Handle"
+          "QuantumBytes"
+        ]) ];
 
       sectionEnhancedTransmissionSelection =
         checkUnitConfig "EnhancedTransmissionSelection" [
@@ -1319,47 +1512,70 @@ let
         (assertValueOneOf "Pacing" boolValues)
       ];
 
-      sectionTrivialLinkEqualizer = checkUnitConfig "TrivialLinkEqualizer"
-        [ (assertOnlyFields [ "Parent" "Handle" "Id" ]) ];
+      sectionTrivialLinkEqualizer =
+        checkUnitConfig "TrivialLinkEqualizer" [ (assertOnlyFields [
+          "Parent"
+          "Handle"
+          "Id"
+        ]) ];
 
       sectionHierarchyTokenBucket = checkUnitConfig "HierarchyTokenBucket" [
-        (assertOnlyFields [ "Parent" "Handle" "DefaultClass" "RateToQuantum" ])
+        (assertOnlyFields [
+          "Parent"
+          "Handle"
+          "DefaultClass"
+          "RateToQuantum"
+        ])
         (assertInt "RateToQuantum")
       ];
 
       sectionHierarchyTokenBucketClass =
-        checkUnitConfig "HierarchyTokenBucketClass" [
-          (assertOnlyFields [
-            "Parent"
-            "ClassId"
-            "Priority"
-            "QuantumBytes"
-            "MTUBytes"
-            "OverheadBytes"
-            "Rate"
-            "CeilRate"
-            "BufferBytes"
-            "CeilBufferBytes"
-          ])
-        ];
+        checkUnitConfig "HierarchyTokenBucketClass" [ (assertOnlyFields [
+          "Parent"
+          "ClassId"
+          "Priority"
+          "QuantumBytes"
+          "MTUBytes"
+          "OverheadBytes"
+          "Rate"
+          "CeilRate"
+          "BufferBytes"
+          "CeilBufferBytes"
+        ]) ];
 
       sectionHeavyHitterFilter = checkUnitConfig "HeavyHitterFilter" [
-        (assertOnlyFields [ "Parent" "Handle" "PacketLimit" ])
+        (assertOnlyFields [
+          "Parent"
+          "Handle"
+          "PacketLimit"
+        ])
         (assertInt "PacketLimit")
         (assertRange "PacketLimit" 0 4294967294)
       ];
 
-      sectionQuickFairQueueing = checkUnitConfig "QuickFairQueueing"
-        [ (assertOnlyFields [ "Parent" "Handle" ]) ];
+      sectionQuickFairQueueing =
+        checkUnitConfig "QuickFairQueueing" [ (assertOnlyFields [
+          "Parent"
+          "Handle"
+        ]) ];
 
       sectionQuickFairQueueingClass = checkUnitConfig "QuickFairQueueingClass" [
-        (assertOnlyFields [ "Parent" "ClassId" "Weight" "MaxPacketBytes" ])
+        (assertOnlyFields [
+          "Parent"
+          "ClassId"
+          "Weight"
+          "MaxPacketBytes"
+        ])
         (assertInt "Weight")
         (assertRange "Weight" 1 1023)
       ];
 
       sectionBridgeVLAN = checkUnitConfig "BridgeVLAN" [
-        (assertOnlyFields [ "VLAN" "EgressUntagged" "PVID" ])
+        (assertOnlyFields [
+          "VLAN"
+          "EgressUntagged"
+          "PVID"
+        ])
         (assertInt "PVID")
         (assertRange "PVID" 0 4094)
       ];
@@ -1619,13 +1835,13 @@ let
 
     l2tpSessions = mkOption {
       default = [ ];
-      example = [{
+      example = [ {
         l2tpSessionConfig = {
           SessionId = 25;
           PeerSessionId = 26;
           Name = "l2tp-sess";
         };
-      }];
+      } ];
       type = with types; listOf (submodule l2tpSessionOptions);
       description = lib.mdDoc ''
         Each item in this array specifies an option in the
@@ -1655,7 +1871,7 @@ let
 
     wireguardPeers = mkOption {
       default = [ ];
-      example = [{
+      example = [ {
         wireguardPeerConfig = {
           Endpoint = "192.168.1.1:51820";
           PublicKey = "27s0OvaBBdHoJYkH9osZpjpgSOVNw+RaKfboT/Sfq0g=";
@@ -1663,7 +1879,7 @@ let
           AllowedIPs = [ "10.0.0.1/32" ];
           PersistentKeepalive = 15;
         };
-      }];
+      } ];
       type = with types; listOf (submodule wireguardPeerOptions);
       description = lib.mdDoc ''
         Each item in this array specifies an option in the
@@ -2028,12 +2244,12 @@ let
 
     dhcpServerStaticLeases = mkOption {
       default = [ ];
-      example = [{
+      example = [ {
         dhcpServerStaticLeaseConfig = {
           MACAddress = "65:43:4a:5b:d8:5f";
           Address = "192.168.1.42";
         };
-      }];
+      } ];
       type = with types; listOf (submodule dhcpServerStaticLeaseOptions);
       description = lib.mdDoc ''
         A list of DHCPServerStaticLease sections to be added to the unit.  See
@@ -2043,12 +2259,12 @@ let
 
     ipv6Prefixes = mkOption {
       default = [ ];
-      example = [{
+      example = [ {
         ipv6PrefixConfig = {
           AddressAutoconfiguration = true;
           OnLink = true;
         };
-      }];
+      } ];
       type = with types; listOf (submodule ipv6PrefixOptions);
       description = lib.mdDoc ''
         A list of ipv6Prefix sections to be added to the unit.  See
@@ -2058,12 +2274,12 @@ let
 
     ipv6RoutePrefixes = mkOption {
       default = [ ];
-      example = [{
+      example = [ {
         ipv6RoutePrefixConfig = {
           Route = "fd00::/64";
           LifetimeSec = 3600;
         };
-      }];
+      } ];
       type = with types; listOf (submodule ipv6RoutePrefixOptions);
       description = lib.mdDoc ''
         A list of ipv6RoutePrefix sections to be added to the unit.  See
@@ -2088,13 +2304,13 @@ let
 
     bridgeFDBs = mkOption {
       default = [ ];
-      example = [{
+      example = [ {
         bridgeFDBConfig = {
           MACAddress = "90:e2:ba:43:fc:71";
           Destination = "192.168.100.4";
           VNI = 3600;
         };
-      }];
+      } ];
       type = with types; listOf (submodule bridgeFDBOptions);
       description = lib.mdDoc ''
         A list of BridgeFDB sections to be added to the unit.  See
@@ -2104,12 +2320,12 @@ let
 
     bridgeMDBs = mkOption {
       default = [ ];
-      example = [{
+      example = [ {
         bridgeMDBConfig = {
           MulticastGroupAddress = "ff02::1:2:3:4";
           VLANId = 10;
         };
-      }];
+      } ];
       type = with types; listOf (submodule bridgeMDBOptions);
       description = lib.mdDoc ''
         A list of BridgeMDB sections to be added to the unit.  See
@@ -2529,7 +2745,7 @@ let
 
     bridgeVLANs = mkOption {
       default = [ ];
-      example = [{ bridgeVLANConfig = { VLAN = "10-20"; }; }];
+      example = [ { bridgeVLANConfig = { VLAN = "10-20"; }; } ];
       type = with types; listOf (submodule bridgeVLANOptions);
       description = lib.mdDoc ''
         A list of BridgeVLAN sections to be added to the unit.  See
@@ -3017,14 +3233,14 @@ let
     links = mkOption {
       default = { };
       inherit visible;
-      type = with types; attrsOf (submodule [{ options = linkOptions; }]);
+      type = with types; attrsOf (submodule [ { options = linkOptions; } ]);
       description = lib.mdDoc "Definition of systemd network links.";
     };
 
     netdevs = mkOption {
       default = { };
       inherit visible;
-      type = with types; attrsOf (submodule [{ options = netdevOptions; }]);
+      type = with types; attrsOf (submodule [ { options = netdevOptions; } ]);
       description = lib.mdDoc "Definition of systemd network devices.";
     };
 
@@ -3032,7 +3248,10 @@ let
       default = { };
       inherit visible;
       type = with types;
-        attrsOf (submodule [ { options = networkOptions; } networkConfig ]);
+        attrsOf (submodule [
+          { options = networkOptions; }
+          networkConfig
+        ]);
       description = lib.mdDoc "Definition of systemd networks.";
     };
 
@@ -3040,7 +3259,10 @@ let
       default = { };
       inherit visible;
       type = with types;
-        submodule [ { options = networkdOptions; } networkdConfig ];
+        submodule [
+          { options = networkdOptions; }
+          networkdConfig
+        ];
       description = lib.mdDoc "Definition of global systemd network config.";
     };
 
@@ -3231,9 +3453,8 @@ let
       # network daemons.
       systemd.network.units = lib.filterAttrs (n: _: hasSuffix ".link" n)
         config.systemd.network.units;
-      systemd.storePaths = [
-        "${config.boot.initrd.systemd.package}/lib/systemd/network/99-default.link"
-      ];
+      systemd.storePaths =
+        [ "${config.boot.initrd.systemd.package}/lib/systemd/network/99-default.link" ];
     }
 
     (mkIf cfg.enable {
@@ -3276,9 +3497,19 @@ let
         mkIf config.boot.initrd.network.flushBeforeStage2 {
           description = "Flush Network Configuration";
           wantedBy = [ "initrd.target" ];
-          after = [ "systemd-networkd.service" "dbus.socket" "dbus.service" ];
-          before = [ "shutdown.target" "initrd-switch-root.target" ];
-          conflicts = [ "shutdown.target" "initrd-switch-root.target" ];
+          after = [
+            "systemd-networkd.service"
+            "dbus.socket"
+            "dbus.service"
+          ];
+          before = [
+            "shutdown.target"
+            "initrd-switch-root.target"
+          ];
+          conflicts = [
+            "shutdown.target"
+            "initrd-switch-root.target"
+          ];
           unitConfig.DefaultDependencies = false;
           serviceConfig = {
             # This service does nothing when starting, but brings down
@@ -3318,13 +3549,13 @@ in {
   config = mkMerge [
     stage2Config
     (mkIf config.boot.initrd.systemd.enable {
-      assertions = [{
+      assertions = [ {
         assertion = config.boot.initrd.network.udhcpc.extraArgs == [ ];
         message = ''
           boot.initrd.network.udhcpc.extraArgs is not supported when
           boot.initrd.systemd.enable is enabled
         '';
-      }];
+      } ];
 
       boot.initrd = stage1Config;
     })

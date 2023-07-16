@@ -8,7 +8,10 @@ args@{
 
   description = "A shortcut macro to write DEFCLASS forms quickly.";
 
-  deps = [ args."alexandria" args."anaphora" ];
+  deps = [
+    args."alexandria"
+    args."anaphora"
+  ];
 
   src = fetchurl {
     url =

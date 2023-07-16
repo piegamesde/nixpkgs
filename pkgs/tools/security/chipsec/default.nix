@@ -22,14 +22,23 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-bK8wlwhP0pi8rOs8ysbSZ+0aZOaX4mckfH/p4OLGnes=";
   };
 
-  patches = lib.optionals withDriver [ ./ko-path.diff ./compile-ko.diff ];
+  patches = lib.optionals withDriver [
+    ./ko-path.diff
+    ./compile-ko.diff
+  ];
 
   KSRC = lib.optionalString withDriver
     "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
 
-  nativeBuildInputs = [ libelf nasm ];
+  nativeBuildInputs = [
+    libelf
+    nasm
+  ];
 
-  nativeCheckInputs = with python3.pkgs; [ distro pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [
+    distro
+    pytestCheckHook
+  ];
 
   preBuild = lib.optionalString withDriver ''
     export CHIPSEC_BUILD_LIB=$(mktemp -d)

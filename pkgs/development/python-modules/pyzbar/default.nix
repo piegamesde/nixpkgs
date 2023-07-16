@@ -20,7 +20,11 @@ buildPythonPackage rec {
     sha256 = "8IZQY6qB4r1SUPItDlTDnVQuPs0I38K3yJ6LiPJuwbU=";
   };
 
-  propagatedBuildInputs = [ zbar pillow numpy ];
+  propagatedBuildInputs = [
+    zbar
+    pillow
+    numpy
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

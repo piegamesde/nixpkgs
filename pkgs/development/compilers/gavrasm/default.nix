@@ -6,7 +6,13 @@
   lang ? "en"
 }:
 
-assert lib.assertOneOf "lang" lang [ "cn" "de" "en" "fr" "tr" ];
+assert lib.assertOneOf "lang" lang [
+  "cn"
+  "de"
+  "en"
+  "fr"
+  "tr"
+];
 
 stdenv.mkDerivation rec {
   pname = "gavrasm";

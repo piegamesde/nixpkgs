@@ -17,20 +17,30 @@ in stdenv.mkDerivation {
 
   src = sourceAttrs.src;
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://github.com/NICMx/Jool/commit/490ddb0933061cab3c2a7952dffc61789deed565.patch";
-      hash = "sha256-1dpMth0ocPHujlk+96St1a63RipcWiL/CdmSz4O87Lg=";
-    })
+  patches = [ (fetchpatch {
+    url =
+      "https://github.com/NICMx/Jool/commit/490ddb0933061cab3c2a7952dffc61789deed565.patch";
+    hash = "sha256-1dpMth0ocPHujlk+96St1a63RipcWiL/CdmSz4O87Lg=";
+  }) ];
+
+  outputs = [
+    "out"
+    "man"
   ];
 
-  outputs = [ "out" "man" ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    libnl
+    iptables
+  ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ libnl iptables ];
-
-  makeFlags = [ "-C" "src/usr" ];
+  makeFlags = [
+    "-C"
+    "src/usr"
+  ];
 
   prePatch = ''
     sed -e 's%^XTABLES_SO_DIR = .*%XTABLES_SO_DIR = '"$out"'/lib/xtables%g' -i src/usr/iptables/Makefile

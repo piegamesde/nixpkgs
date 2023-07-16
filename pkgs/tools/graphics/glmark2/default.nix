@@ -31,13 +31,26 @@ stdenv.mkDerivation rec {
   };
 
   depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs = [ pkg-config makeWrapper meson ninja wayland-scanner ];
-  buildInputs =
-    [ libjpeg libpng libX11 libdrm udev wayland wayland-protocols mesa ];
-
-  mesonFlags = [
-    "-Dflavors=drm-gl,drm-glesv2,gbm-gl,gbm-glesv2,wayland-gl,wayland-glesv2,x11-gl,x11-gl-egl,x11-glesv2"
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+    meson
+    ninja
+    wayland-scanner
   ];
+  buildInputs = [
+    libjpeg
+    libpng
+    libX11
+    libdrm
+    udev
+    wayland
+    wayland-protocols
+    mesa
+  ];
+
+  mesonFlags =
+    [ "-Dflavors=drm-gl,drm-glesv2,gbm-gl,gbm-glesv2,wayland-gl,wayland-glesv2,x11-gl,x11-gl-egl,x11-glesv2" ];
 
   postInstall = ''
     for binary in $out/bin/glmark2*; do

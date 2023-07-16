@@ -45,10 +45,23 @@ mkDerivation {
     th-lift-instances
     unordered-containers
   ];
-  testHaskellDepends =
-    [ attoparsec base bytestring hedgehog prettyprinter text text-builder ];
-  benchmarkHaskellDepends =
-    [ base bytestring prettyprinter tasty-bench text text-builder ];
+  testHaskellDepends = [
+    attoparsec
+    base
+    bytestring
+    hedgehog
+    prettyprinter
+    text
+    text-builder
+  ];
+  benchmarkHaskellDepends = [
+    base
+    bytestring
+    prettyprinter
+    tasty-bench
+    text
+    text-builder
+  ];
   homepage = "https://github.com/hasura/graphql-parser-hs";
   description = "A native Haskell GraphQL parser";
   license = lib.licenses.bsd3;

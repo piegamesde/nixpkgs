@@ -38,10 +38,20 @@ let
         maintainers = with maintainers; [ vidbina ];
       } // (attrs.meta or { });
 
-    nativeBuildInputs = [ makeWrapper dpkg ];
+    nativeBuildInputs = [
+      makeWrapper
+      dpkg
+    ];
 
-    libs =
-      attrs.libs or [ atk cairo gdk-pixbuf glib gtk2-x11 pango xorg.libX11 ];
+    libs = attrs.libs or [
+      atk
+      cairo
+      gdk-pixbuf
+      glib
+      gtk2-x11
+      pango
+      xorg.libX11
+    ];
 
     dontBuild = true;
 

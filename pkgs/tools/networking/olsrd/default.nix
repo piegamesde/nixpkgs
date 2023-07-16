@@ -28,7 +28,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ bison flex ];
+  buildInputs = [
+    bison
+    flex
+  ];
 
   preConfigure = ''
     makeFlags="prefix=$out ETCDIR=$out/etc"

@@ -20,7 +20,12 @@ buildPythonPackage rec {
     sha256 = "1wl2w5xfdkrv0qzsz084z2k6sycfyq62mqqgciycha3dywf2fvva";
   };
 
-  propagatedBuildInputs = [ requests enum-compat websocket-client zeroconf ];
+  propagatedBuildInputs = [
+    requests
+    enum-compat
+    websocket-client
+    zeroconf
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

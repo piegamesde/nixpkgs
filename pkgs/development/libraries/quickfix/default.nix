@@ -30,7 +30,11 @@ stdenv.mkDerivation rec {
   ];
 
   # autoreconfHook does not work
-  nativeBuildInputs = [ autoconf automake libtool ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+  ];
 
   enableParallelBuilding = true;
 

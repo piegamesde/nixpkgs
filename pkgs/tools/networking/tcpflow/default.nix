@@ -24,8 +24,16 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ automake autoconf ];
-  buildInputs = [ openssl zlib libpcap boost ] ++ lib.optional useCairo cairo;
+  nativeBuildInputs = [
+    automake
+    autoconf
+  ];
+  buildInputs = [
+    openssl
+    zlib
+    libpcap
+    boost
+  ] ++ lib.optional useCairo cairo;
 
   prePatch = ''
     substituteInPlace bootstrap.sh \
@@ -48,7 +56,10 @@ stdenv.mkDerivation rec {
     '';
     inherit (src.meta) homepage;
     license = licenses.gpl3;
-    maintainers = with maintainers; [ raskin obadz ];
+    maintainers = with maintainers; [
+      raskin
+      obadz
+    ];
     platforms = platforms.unix;
   };
 }

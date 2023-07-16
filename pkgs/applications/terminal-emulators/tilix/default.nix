@@ -45,8 +45,15 @@ stdenv.mkDerivation rec {
     appstream
   ];
 
-  buildInputs =
-    [ dbus gettext dconf gsettings-desktop-schemas gtkd libsecret libunwind ];
+  buildInputs = [
+    dbus
+    gettext
+    dconf
+    gsettings-desktop-schemas
+    gtkd
+    libsecret
+    libunwind
+  ];
 
   postPatch = ''
     chmod +x meson_post_install.py

@@ -16,7 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-c6WfDSFi0WJFNcPDt1+VZVa9uyBV6vVUp77xR9P5x2A=";
   };
 
-  nativeCheckInputs = [ glibcLocales pytest ];
+  nativeCheckInputs = [
+    glibcLocales
+    pytest
+  ];
 
   # JPLTest uses assets not distributed in package
   checkPhase = ''

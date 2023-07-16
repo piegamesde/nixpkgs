@@ -46,8 +46,13 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ fftw perl hwloc blas lapack ] ++ lib.optional enableMpi mpi
-    ++ lib.optional enableCuda cudatoolkit;
+  buildInputs = [
+    fftw
+    perl
+    hwloc
+    blas
+    lapack
+  ] ++ lib.optional enableMpi mpi ++ lib.optional enableCuda cudatoolkit;
 
   propagatedBuildInputs = lib.optional enableMpi mpi;
   propagatedUserEnvPkgs = lib.optional enableMpi mpi;
@@ -56,16 +61,14 @@ in stdenv.mkDerivation rec {
     "-DGMX_SIMD:STRING=${SIMD cpuAcceleration}"
     "-DGMX_OPENMP:BOOL=TRUE"
     "-DBUILD_SHARED_LIBS=ON"
-  ] ++ (if singlePrec then
-    [ "-DGMX_DOUBLE=OFF" ]
-  else [
+  ] ++ (if singlePrec then [ "-DGMX_DOUBLE=OFF" ] else [
     "-DGMX_DOUBLE=ON"
     "-DGMX_DEFAULT_SUFFIX=OFF"
   ]) ++ (if enableMpi then [
     "-DGMX_MPI:BOOL=TRUE"
     "-DGMX_THREAD_MPI:BOOL=FALSE"
-  ] else
-    [ "-DGMX_MPI:BOOL=FALSE" ]) ++ lib.optional enableCuda "-DGMX_GPU=CUDA";
+  ] else [ "-DGMX_MPI:BOOL=FALSE" ])
+    ++ lib.optional enableCuda "-DGMX_GPU=CUDA";
 
   postFixup = ''
     substituteInPlace "$out"/lib/pkgconfig/*.pc \
@@ -97,6 +100,9 @@ in stdenv.mkDerivation rec {
       See: https://www.gromacs.org/About_Gromacs for details.
     '';
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sheepforce markuskowa ];
+    maintainers = with maintainers; [
+      sheepforce
+      markuskowa
+    ];
   };
 }

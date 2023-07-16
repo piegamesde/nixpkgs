@@ -44,6 +44,9 @@ buildPythonPackage rec {
       takes away some of the drudgery of maintaining your code.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ AndersonTorres siddharthist ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      siddharthist
+    ];
   };
 }

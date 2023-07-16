@@ -71,7 +71,10 @@ in {
 
     systemd.services.dnscrypt-proxy2 = {
       description = "DNSCrypt-proxy client";
-      wants = [ "network-online.target" "nss-lookup.target" ];
+      wants = [
+        "network-online.target"
+        "nss-lookup.target"
+      ];
       before = [ "nss-lookup.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
@@ -95,7 +98,10 @@ in {
         ProtectKernelTunables = true;
         ProtectSystem = "strict";
         Restart = "always";
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RuntimeDirectory = "dnscrypt-proxy";

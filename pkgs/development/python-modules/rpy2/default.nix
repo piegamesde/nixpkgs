@@ -45,7 +45,13 @@ buildPythonPackage rec {
     substituteInPlace 'requirements.txt' --replace 'pytest' ""
   '';
 
-  buildInputs = [ pcre xz bzip2 zlib icu ] ++ (with rPackages; [
+  buildInputs = [
+    pcre
+    xz
+    bzip2
+    zlib
+    icu
+  ] ++ (with rPackages; [
     # packages expected by the test framework
     ggplot2
     dplyr
@@ -59,12 +65,20 @@ buildPythonPackage rec {
     tidyr
   ]) ++ extraRPackages ++ rWrapper.recommendedPackages;
 
-  nativeBuildInputs = [
-    R # needed at setup time to detect R_HOME (alternatively set R_HOME explicitly)
-  ];
+  nativeBuildInputs =
+    [ R # needed at setup time to detect R_HOME (alternatively set R_HOME explicitly)
+    ];
 
-  propagatedBuildInputs =
-    [ ipython jinja2 pytz pandas numpy cffi tzlocal simplegeneric ];
+  propagatedBuildInputs = [
+    ipython
+    jinja2
+    pytz
+    pandas
+    numpy
+    cffi
+    tzlocal
+    simplegeneric
+  ];
 
   doCheck = !stdenv.isDarwin;
 

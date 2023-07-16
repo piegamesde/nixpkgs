@@ -48,8 +48,10 @@ buildPythonPackage rec {
         "${lib.getDev dep}/include"
         "${lib.getDev dep}/include/SDL2"
       ]) buildInputs);
-      buildinputs_lib = builtins.toJSON (builtins.concatMap
-        (dep: [ "${lib.getLib dep}/" "${lib.getLib dep}/lib" ]) buildInputs);
+      buildinputs_lib = builtins.toJSON (builtins.concatMap (dep: [
+        "${lib.getLib dep}/"
+        "${lib.getLib dep}/lib"
+      ]) buildInputs);
     })
   ];
 
@@ -59,7 +61,10 @@ buildPythonPackage rec {
       --replace /usr/X11/bin/fc-list ${fontconfig}/bin/fc-list
   '';
 
-  nativeBuildInputs = [ pkg-config SDL2 ];
+  nativeBuildInputs = [
+    pkg-config
+    SDL2
+  ];
 
   buildInputs = [
     SDL2

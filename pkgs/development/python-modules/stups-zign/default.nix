@@ -31,11 +31,17 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ stups-tokens stups-cli-support ];
+  propagatedBuildInputs = [
+    stups-tokens
+    stups-cli-support
+  ];
 
   preCheck = "\n    export HOME=$TEMPDIR\n  ";
 
-  nativeCheckInputs = [ pytest pytest-cov ];
+  nativeCheckInputs = [
+    pytest
+    pytest-cov
+  ];
 
   meta = with lib; {
     description = "OAuth2 token management command line utility.";

@@ -23,7 +23,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pycodestyle ];
 
-  nativeCheckInputs = [ flake8 pycodestyle pylama pytestCheckHook ];
+  nativeCheckInputs = [
+    flake8
+    pycodestyle
+    pylama
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "flake8_import_order" ];
 
@@ -33,7 +38,10 @@ buildPythonPackage rec {
     homepage = "https://github.com/PyCQA/flake8-import-order";
     changelog =
       "https://github.com/PyCQA/flake8-import-order/blob/${version}/CHANGELOG.rst";
-    license = with licenses; [ lgpl3 mit ];
+    license = with licenses; [
+      lgpl3
+      mit
+    ];
     maintainers = with maintainers; [ ];
   };
 }

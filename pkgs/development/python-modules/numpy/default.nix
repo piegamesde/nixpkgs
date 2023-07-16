@@ -59,8 +59,14 @@ in buildPythonPackage rec {
     ./numpy-distutils-C++.patch
   ];
 
-  nativeBuildInputs = [ gfortran cython ];
-  buildInputs = [ blas lapack ];
+  nativeBuildInputs = [
+    gfortran
+    cython
+  ];
+  buildInputs = [
+    blas
+    lapack
+  ];
 
   # we default openblas to build with 64 threads
   # if a machine has more than 64 threads, it will segfault

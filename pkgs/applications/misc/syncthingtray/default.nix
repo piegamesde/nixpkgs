@@ -43,15 +43,22 @@ mkDerivation rec {
     sha256 = "sha256-6s78vytYxU7FWGQRO56qgmtZBlHbXMz3iVAbBXycDmI=";
   };
 
-  buildInputs = [ qtbase cpp-utilities qtutilities boost qtforkawesome ]
-    ++ lib.optionals stdenv.isDarwin [ iconv ]
+  buildInputs = [
+    qtbase
+    cpp-utilities
+    qtutilities
+    boost
+    qtforkawesome
+  ] ++ lib.optionals stdenv.isDarwin [ iconv ]
     ++ lib.optionals webviewSupport [ qtwebengine ]
     ++ lib.optionals jsSupport [ qtdeclarative ]
     ++ lib.optionals kioPluginSupport [ kio ]
     ++ lib.optionals plasmoidSupport [ plasma-framework ];
 
-  nativeBuildInputs = [ cmake qttools ]
-    ++ lib.optionals plasmoidSupport [ extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    qttools
+  ] ++ lib.optionals plasmoidSupport [ extra-cmake-modules ];
 
   # No tests are available by upstream, but we test --help anyway
   # Don't test on Darwin because output is .app

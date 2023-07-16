@@ -19,7 +19,12 @@ buildPythonPackage rec {
     hash = "sha256-DBGjjxNDE48sUFHA00xMVF9EgBdMG9QcAlb+gm4LqlU=";
   };
 
-  propagatedBuildInputs = [ nbconvert nbformat sphinx ipywidgets ];
+  propagatedBuildInputs = [
+    nbconvert
+    nbformat
+    sphinx
+    ipywidgets
+  ];
 
   doCheck = false;
 

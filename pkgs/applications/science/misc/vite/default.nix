@@ -32,7 +32,11 @@ in stdenv.mkDerivation {
   '';
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ qt4 libGLU libGL ];
+  buildInputs = [
+    qt4
+    libGLU
+    libGL
+  ];
 
   NIX_LDFLAGS = "-lGLU";
 

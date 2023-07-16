@@ -22,7 +22,10 @@ stdenv.mkDerivation rec {
     sha256 = "00frn2dd4kjhlmwkasrx4a820fwrg8f8hmiwh51m63bpj00vwn0r";
   };
 
-  nativeBuildInputs = [ gtk3 python3Packages.python ];
+  nativeBuildInputs = [
+    gtk3
+    python3Packages.python
+  ];
 
   propagatedBuildInputs = [
     gnome-icon-theme
@@ -69,7 +72,10 @@ stdenv.mkDerivation rec {
     description =
       "Ubuntu monochrome and Suru icon themes, Ambiance and Radiance themes, and Ubuntu artwork";
     homepage = "https://launchpad.net/ubuntu-themes";
-    license = with licenses; [ cc-by-sa-40 gpl3 ];
+    license = with licenses; [
+      cc-by-sa-40
+      gpl3
+    ];
     platforms = platforms.linux;
     maintainers = [ maintainers.romildo ];
   };

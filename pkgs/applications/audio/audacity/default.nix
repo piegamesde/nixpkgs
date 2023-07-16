@@ -84,9 +84,14 @@ stdenv.mkDerivation rec {
       sed -z -i "s/NSAppearanceName.*systemAppearance//" src/AudacityApp.mm
     '';
 
-  nativeBuildInputs =
-    [ cmake gettext pkg-config python3 makeWrapper wrapGAppsHook ]
-    ++ lib.optionals stdenv.isLinux [ linuxHeaders ];
+  nativeBuildInputs = [
+    cmake
+    gettext
+    pkg-config
+    python3
+    makeWrapper
+    wrapGAppsHook
+  ] ++ lib.optionals stdenv.isLinux [ linuxHeaders ];
 
   buildInputs = [
     expat
@@ -193,7 +198,11 @@ stdenv.mkDerivation rec {
       # Documentation.
       cc-by-30
     ];
-    maintainers = with maintainers; [ lheckemann veprbl wegank ];
+    maintainers = with maintainers; [
+      lheckemann
+      veprbl
+      wegank
+    ];
     platforms = platforms.unix;
   };
 }

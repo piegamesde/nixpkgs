@@ -40,7 +40,12 @@ stdenv.mkDerivation rec {
       --replace "/usr/sbin" "${partclone}/bin"
   '';
 
-  nativeBuildInputs = [ cmake qttools pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    qttools
+    pkg-config
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     qtbase

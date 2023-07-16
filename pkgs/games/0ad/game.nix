@@ -62,7 +62,11 @@ in stdenv.mkDerivation rec {
     sha256 = "Lhxt9+MxLnfF+CeIZkz/w6eNO/YGBsAAOSdeHRPA7ks=";
   };
 
-  nativeBuildInputs = [ python3 perl pkg-config ];
+  nativeBuildInputs = [
+    python3
+    perl
+    pkg-config
+  ];
 
   buildInputs = [
     spidermonkey_78_6

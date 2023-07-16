@@ -37,26 +37,39 @@ buildPythonPackage rec {
     hash = "sha256-sL2XvqiQP1orpyGSV6ROPx+dAAc9bMGt1o8L7saWkqw=";
   };
 
-  nativeBuildInputs = [ hatch-fancy-pypi-readme hatch-vcs hatchling ];
+  nativeBuildInputs = [
+    hatch-fancy-pypi-readme
+    hatch-vcs
+    hatchling
+  ];
 
-  propagatedBuildInputs =
-    [ click mypy-extensions packaging pathspec platformdirs ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+  propagatedBuildInputs = [
+    click
+    mypy-extensions
+    packaging
+    pathspec
+    platformdirs
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ]
     ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
   passthru.optional-dependencies = {
     colorama = [ colorama ];
     d = [ aiohttp ];
     uvloop = [ uvloop ];
-    jupyter = [ ipython tokenize-rt ];
+    jupyter = [
+      ipython
+      tokenize-rt
+    ];
   };
 
   # Necessary for the tests to pass on Darwin with sandbox enabled.
   # Black starts a local server and needs to bind a local address.
   __darwinAllowLocalNetworking = true;
 
-  nativeCheckInputs = [ pytestCheckHook parameterized ]
-    ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [
+    pytestCheckHook
+    parameterized
+  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
   preCheck = ''
     export PATH="$PATH:$out/bin"
@@ -87,6 +100,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/psf/black";
     changelog = "https://github.com/psf/black/blob/${version}/CHANGES.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ sveitser autophagy ];
+    maintainers = with maintainers; [
+      sveitser
+      autophagy
+    ];
   };
 }

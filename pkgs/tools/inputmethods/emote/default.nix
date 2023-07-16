@@ -32,12 +32,23 @@ python3Packages.buildPythonApplication rec {
     substituteInPlace snap/gui/emote.desktop --replace "Icon=\''${SNAP}/usr/share/icons/emote.svg" "Icon=emote.svg"
   '';
 
-  nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    gobject-introspection
+  ];
 
-  buildInputs = [ atk gdk-pixbuf gtk3 keybinder3 pango ];
+  buildInputs = [
+    atk
+    gdk-pixbuf
+    gtk3
+    keybinder3
+    pango
+  ];
 
-  propagatedBuildInputs =
-    [ python3Packages.manimpango python3Packages.pygobject3 ];
+  propagatedBuildInputs = [
+    python3Packages.manimpango
+    python3Packages.pygobject3
+  ];
 
   postInstall = ''
     install -D snap/gui/emote.desktop $out/share/applications/emote.desktop
@@ -59,7 +70,10 @@ python3Packages.buildPythonApplication rec {
     description = "Modern emoji picker for Linux";
     homepage = "https://github.com/tom-james-watson/emote";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ emilytrau SuperSandro2000 ];
+    maintainers = with maintainers; [
+      emilytrau
+      SuperSandro2000
+    ];
     platforms = platforms.linux;
   };
 }

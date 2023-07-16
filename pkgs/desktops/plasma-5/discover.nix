@@ -35,7 +35,12 @@
 
 mkDerivation {
   pname = "discover";
-  nativeBuildInputs = [ extra-cmake-modules gettext kdoctools python3 ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    gettext
+    kdoctools
+    python3
+  ];
   buildInputs = [
     # discount is needed for libmarkdown
     appstream-qt

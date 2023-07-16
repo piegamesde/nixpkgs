@@ -21,9 +21,16 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ qmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ qtquickcontrols2 qtserialport qtsvg ];
+  buildInputs = [
+    qtquickcontrols2
+    qtserialport
+    qtsvg
+  ];
 
   meta = with lib; {
     description =

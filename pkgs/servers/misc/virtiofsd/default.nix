@@ -24,7 +24,10 @@ rustPlatform.buildRustPackage rec {
   LIBCAPNG_LINK_TYPE =
     if stdenv.hostPlatform.isStatic then "static" else "dylib";
 
-  buildInputs = [ libcap_ng libseccomp ];
+  buildInputs = [
+    libcap_ng
+    libseccomp
+  ];
 
   meta = with lib; {
     homepage = "https://gitlab.com/virtio-fs/virtiofsd";

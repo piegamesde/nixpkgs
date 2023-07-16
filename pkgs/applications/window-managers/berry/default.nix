@@ -25,9 +25,20 @@ stdenv.mkDerivation rec {
     hash = "sha256-xMJRiLNtwVRQf9HiCF3ClLKEmdDNxcY35IYxe+L7+Hk=";
   };
 
-  nativeBuildInputs = [ copyDesktopItems pkg-config which ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    pkg-config
+    which
+  ];
 
-  buildInputs = [ libX11 libXext libXft libXinerama fontconfig freetype ];
+  buildInputs = [
+    libX11
+    libXext
+    libXft
+    libXinerama
+    fontconfig
+    freetype
+  ];
 
   postPatch = ''
     sed -i --regexp-extended 's/(pkg_verstr=").*(")/\1${version}\2/' configure
@@ -37,16 +48,14 @@ stdenv.mkDerivation rec {
     patchShebangs configure
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      exec = "berry";
-      comment = meta.description;
-      desktopName = "Berry Window Manager";
-      genericName = "Berry Window Manager";
-      categories = [ "Utility" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = pname;
+    exec = "berry";
+    comment = meta.description;
+    desktopName = "Berry Window Manager";
+    genericName = "Berry Window Manager";
+    categories = [ "Utility" ];
+  }) ];
 
   meta = with lib; {
     homepage = "https://berrywm.org/";

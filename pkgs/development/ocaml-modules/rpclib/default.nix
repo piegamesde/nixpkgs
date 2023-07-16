@@ -23,8 +23,15 @@ buildDunePackage rec {
     hash = "sha256-ziPrdWwCjZN0vRmCMpa923wjfT8FVFLTDRz30VIW6WM=";
   };
 
-  buildInputs = [ cmdliner yojson ];
-  propagatedBuildInputs = [ base64 rresult xmlm ];
+  buildInputs = [
+    cmdliner
+    yojson
+  ];
+  propagatedBuildInputs = [
+    base64
+    rresult
+    xmlm
+  ];
   checkInputs = [ alcotest ];
 
   doCheck = true;

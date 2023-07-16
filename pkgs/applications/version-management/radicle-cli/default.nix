@@ -44,11 +44,17 @@ rustPlatform.buildRustPackage rec {
   # Otherwise, there are errors due to the `abigen` macro from `ethers`.
   auditable = false;
 
-  nativeBuildInputs = [ pkg-config cmake installShellFiles asciidoctor ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ DarwinTools ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    installShellFiles
+    asciidoctor
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ DarwinTools ];
 
-  buildInputs = [ openssl ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ libusb1 AppKit ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    libusb1
+    AppKit
+  ];
 
   postInstall = ''
     for f in $(find . -name '*.adoc'); do
@@ -58,7 +64,10 @@ rustPlatform.buildRustPackage rec {
     done
   '';
 
-  nativeCheckInputs = [ git openssh ];
+  nativeCheckInputs = [
+    git
+    openssh
+  ];
   preCheck = ''
     eval $(ssh-agent)
   '';

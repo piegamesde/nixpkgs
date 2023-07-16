@@ -41,7 +41,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ chardet packaging requests ruamel-yaml six ];
+  propagatedBuildInputs = [
+    chardet
+    packaging
+    requests
+    ruamel-yaml
+    six
+  ];
 
   passthru.optional-dependencies = {
     cli = [ click ];
@@ -56,8 +62,11 @@ buildPythonPackage rec {
 
   # Disable tests that require network
   disabledTestPaths = [ "tests/test_convert.py" ];
-  disabledTests =
-    [ "test_convert_defaults" "test_convert_output" "test_fetch_url_http" ];
+  disabledTests = [
+    "test_convert_defaults"
+    "test_convert_output"
+    "test_fetch_url_http"
+  ];
   pythonImportsCheck = [ "prance" ];
 
   meta = with lib; {

@@ -42,7 +42,11 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake git swig ];
+  nativeBuildInputs = [
+    cmake
+    git
+    swig
+  ];
 
   buildInputs = [
     bzip2

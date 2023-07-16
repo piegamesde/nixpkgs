@@ -37,8 +37,12 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = { babel = [ babel ]; };
 
-  nativeCheckInputs = [ chameleon lingua mock pytestCheckHook ]
-    ++ passthru.optional-dependencies.babel;
+  nativeCheckInputs = [
+    chameleon
+    lingua
+    mock
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.babel;
 
   disabledTests = lib.optionals isPyPy [
     # https://github.com/sqlalchemy/mako/issues/315

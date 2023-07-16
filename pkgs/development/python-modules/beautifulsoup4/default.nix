@@ -16,7 +16,10 @@ buildPythonPackage rec {
   version = "4.11.2";
   format = "setuptools";
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   disabled = pythonOlder "3.6";
 
@@ -27,7 +30,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ sphinxHook ];
 
-  propagatedBuildInputs = [ chardet html5lib lxml soupsieve ];
+  propagatedBuildInputs = [
+    chardet
+    html5lib
+    lxml
+    soupsieve
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -34,8 +34,15 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs =
-    [ clang cmake glslang llvm llvmPackages.openmp pkg-config rsync ];
+  nativeBuildInputs = [
+    clang
+    cmake
+    glslang
+    llvm
+    llvmPackages.openmp
+    pkg-config
+    rsync
+  ];
 
   buildInputs = [
     exiv2
@@ -54,7 +61,10 @@ stdenv.mkDerivation rec {
 
   dontUseCmakeConfigure = true;
 
-  makeFlags = [ "DESTDIR=$(out)" "prefix=" ];
+  makeFlags = [
+    "DESTDIR=$(out)"
+    "prefix="
+  ];
 
   meta = with lib; {
     description = "A vulkan-powered raw image processor";

@@ -21,7 +21,10 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.03.0";
 
   buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [ ctypes lilv ];
+  propagatedBuildInputs = [
+    ctypes
+    lilv
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/savonet/ocaml-lilv";

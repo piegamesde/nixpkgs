@@ -35,7 +35,13 @@ stdenv.mkDerivation rec {
 
   patches = [ ./rtcwake-search-PATH-for-shutdown.patch ];
 
-  outputs = [ "bin" "dev" "out" "lib" "man" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "lib"
+    "man"
+  ];
   separateDebugInfo = true;
 
   postPatch = ''
@@ -75,10 +81,15 @@ stdenv.mkDerivation rec {
     "usrsbin_execdir=${placeholder "bin"}/sbin"
   ];
 
-  nativeBuildInputs = [ pkg-config installShellFiles ]
-    ++ lib.optionals translateManpages [ po4a ];
+  nativeBuildInputs = [
+    pkg-config
+    installShellFiles
+  ] ++ lib.optionals translateManpages [ po4a ];
 
-  buildInputs = [ zlib libxcrypt ] ++ lib.optionals pamSupport [ pam ]
+  buildInputs = [
+    zlib
+    libxcrypt
+  ] ++ lib.optionals pamSupport [ pam ]
     ++ lib.optionals capabilitiesSupport [ libcap_ng ]
     ++ lib.optionals ncursesSupport [ ncurses ]
     ++ lib.optionals systemdSupport [ systemd ];

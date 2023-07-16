@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-CEpyRxC9d7EuxupMQaX7WUCZ7lhyE6LhQY7Koe0NJ1A=";
   };
 
-  buildInputs = [ cython taglib ];
+  buildInputs = [
+    cython
+    taglib
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

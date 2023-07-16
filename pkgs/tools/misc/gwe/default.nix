@@ -63,7 +63,12 @@ in stdenv.mkDerivation rec {
     pythonEnv
   ];
 
-  buildInputs = [ gtk3 libdazzle libappindicator-gtk3 libnotify ];
+  buildInputs = [
+    gtk3
+    libdazzle
+    libappindicator-gtk3
+    libnotify
+  ];
 
   postInstall = ''
     mv $out/bin/gwe $out/lib/gwe-bin
@@ -73,7 +78,10 @@ in stdenv.mkDerivation rec {
       --prefix LD_LIBRARY_PATH : "/run/opengl-driver/lib" \
       --prefix PATH : "${
         builtins.concatStringsSep ":" [
-          (lib.makeBinPath [ nvidia_x11 nvidia_x11.settings ])
+          (lib.makeBinPath [
+            nvidia_x11
+            nvidia_x11.settings
+          ])
           "/run/wrappers/bin"
         ]
       }" \

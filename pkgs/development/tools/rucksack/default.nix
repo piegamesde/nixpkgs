@@ -19,11 +19,17 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ liblaxjson freeimage ];
+  buildInputs = [
+    liblaxjson
+    freeimage
+  ];
 
   meta = with lib; {
     description = "Texture packer and resource bundler";
-    platforms = [ "i686-linux" "x86_64-linux" ]; # fails on Darwin and AArch64
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ]; # fails on Darwin and AArch64
     homepage = "https://github.com/andrewrk/rucksack";
     license = licenses.mit;
     maintainers = [ maintainers.andrewrk ];

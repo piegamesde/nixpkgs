@@ -22,7 +22,10 @@
 mkDerivation rec {
   pname = "calindori";
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
   buildInputs = [
     kcalendarcore

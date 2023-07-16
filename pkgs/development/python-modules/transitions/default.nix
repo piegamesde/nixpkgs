@@ -28,7 +28,12 @@ buildPythonPackage rec {
     pygraphviz # optional
   ];
 
-  nativeCheckInputs = [ pytestCheckHook mock graphviz pycodestyle ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    mock
+    graphviz
+    pycodestyle
+  ];
 
   preCheck = ''
     export FONTCONFIG_FILE=${fontconfig.out}/etc/fonts/fonts.conf

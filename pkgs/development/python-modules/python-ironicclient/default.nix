@@ -43,7 +43,11 @@ buildPythonPackage rec {
     stevedore
   ];
 
-  nativeCheckInputs = [ stestr requests-mock oslotest ];
+  nativeCheckInputs = [
+    stestr
+    requests-mock
+    oslotest
+  ];
 
   checkPhase = ''
     stestr run

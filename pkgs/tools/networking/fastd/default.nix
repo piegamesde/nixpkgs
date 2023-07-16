@@ -25,10 +25,20 @@ stdenv.mkDerivation rec {
     sha256 = "0qni32j7d3za9f87m68wq8zgalvfxdrx1zxi6l4x7vvmpcw5nhpq";
   };
 
-  nativeBuildInputs = [ bison meson ninja pkg-config ];
+  nativeBuildInputs = [
+    bison
+    meson
+    ninja
+    pkg-config
+  ];
 
-  buildInputs = [ json_c libcap libsodium libuecc openssl ]
-    ++ lib.optionals (stdenv.isLinux) [ libmnl ];
+  buildInputs = [
+    json_c
+    libcap
+    libsodium
+    libuecc
+    openssl
+  ] ++ lib.optionals (stdenv.isLinux) [ libmnl ];
 
   # some options are only available on x86
   mesonFlags = lib.optionals (!stdenv.hostPlatform.isx86) [
@@ -40,7 +50,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Fast and Secure Tunneling Daemon";
     homepage = "https://projects.universe-factory.net/projects/fastd/wiki";
-    license = with licenses; [ bsd2 bsd3 ];
+    license = with licenses; [
+      bsd2
+      bsd3
+    ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ fpletz ];
   };

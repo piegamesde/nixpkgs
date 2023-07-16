@@ -44,6 +44,8 @@ mkDerivation {
     wrapQtApp $out/bin/plasma-bigscreen-wayland
   '';
 
-  passthru.providedSessions =
-    [ "plasma-bigscreen-x11" "plasma-bigscreen-wayland" ];
+  passthru.providedSessions = [
+    "plasma-bigscreen-x11"
+    "plasma-bigscreen-wayland"
+  ];
 }

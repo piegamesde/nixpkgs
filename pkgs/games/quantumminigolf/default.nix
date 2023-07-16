@@ -18,7 +18,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Y3LUGk6pAuNGVOYkc0WYDbgJFtwJJn+aLRHmCKY7W5k=";
   };
 
-  buildInputs = [ fftwSinglePrec freetype SDL SDL_ttf ];
+  buildInputs = [
+    fftwSinglePrec
+    freetype
+    SDL
+    SDL_ttf
+  ];
 
   preBuild = ''
     export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${

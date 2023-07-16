@@ -28,8 +28,15 @@ stdenv.mkDerivation rec {
     sha256 = "aw04rHhQQWmd9iiSbjXbe1/6CG7g1pNMIioZxrmSO68=";
   };
 
-  nativeBuildInputs =
-    [ pkg-config meson ninja wrapGAppsHook4 python3 gobject-introspection gjs ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    wrapGAppsHook4
+    python3
+    gobject-introspection
+    gjs
+  ];
 
   buildInputs = [
     gtk4

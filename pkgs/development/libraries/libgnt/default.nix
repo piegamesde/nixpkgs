@@ -16,17 +16,30 @@ stdenv.mkDerivation rec {
   pname = "libgnt";
   version = "2.14.1";
 
-  outputs = [ "out" "dev" ] ++ lib.optional buildDocs "devdoc";
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optional buildDocs "devdoc";
 
   src = fetchurl {
     url = "mirror://sourceforge/pidgin/${pname}-${version}.tar.xz";
     sha256 = "1n2bxg0ignn53c08cp69pj4sdg53kwlqn23rincyjmpr327fdhsy";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config ]
-    ++ lib.optionals buildDocs [ gtk-doc docbook-xsl-nons ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ] ++ lib.optionals buildDocs [
+    gtk-doc
+    docbook-xsl-nons
+  ];
 
-  buildInputs = [ glib ncurses libxml2 ];
+  buildInputs = [
+    glib
+    ncurses
+    libxml2
+  ];
 
   postPatch = ''
     substituteInPlace meson.build --replace \

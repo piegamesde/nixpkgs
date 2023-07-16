@@ -22,7 +22,11 @@ stdenv.mkDerivation {
     sha256 = "0h4b74lv59p4hhrvrqdmlnchn2i0v5id4kl8xc7j26l9884q0383";
   };
 
-  outputs = [ "dev" "out" "lib" ];
+  outputs = [
+    "dev"
+    "out"
+    "lib"
+  ];
 
   patches = [ ./openexrid.patch ];
 
@@ -37,7 +41,15 @@ stdenv.mkDerivation {
                            -I${openfx.dev}/include/OpenFX
   '';
 
-  buildInputs = [ re2 openfx zlib ilmbase libGLU libGL openexr ];
+  buildInputs = [
+    re2
+    openfx
+    zlib
+    ilmbase
+    libGLU
+    libGL
+    openexr
+  ];
 
   enableParallelBuilding = true;
 

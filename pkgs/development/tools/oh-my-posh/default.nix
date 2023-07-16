@@ -22,9 +22,17 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [ "-s" "-w" "-X main.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.Version=${version}"
+  ];
 
-  tags = [ "netgo" "osusergo" "static_build" ];
+  tags = [
+    "netgo"
+    "osusergo"
+    "static_build"
+  ];
 
   postPatch = ''
     # this test requires internet access
@@ -47,6 +55,9 @@ buildGoModule rec {
     changelog =
       "https://github.com/JanDeDobbeleer/oh-my-posh/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ lucperkins urandom ];
+    maintainers = with maintainers; [
+      lucperkins
+      urandom
+    ];
   };
 }

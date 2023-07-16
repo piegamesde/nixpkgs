@@ -12,17 +12,22 @@ let
   cfg = config.services.calibre-server;
 
 in {
-  imports = [
-    (mkChangedOptionModule [ "services" "calibre-server" "libraryDir" ] [
-      "services"
-      "calibre-server"
-      "libraries"
-    ] (config:
-      let
-        libraryDir =
-          getAttrFromPath [ "services" "calibre-server" "libraryDir" ] config;
-      in [ libraryDir ]))
-  ];
+  imports = [ (mkChangedOptionModule [
+    "services"
+    "calibre-server"
+    "libraryDir"
+  ] [
+    "services"
+    "calibre-server"
+    "libraries"
+  ] (config:
+    let
+      libraryDir = getAttrFromPath [
+        "services"
+        "calibre-server"
+        "libraryDir"
+      ] config;
+    in [ libraryDir ])) ];
 
   ###### interface
 

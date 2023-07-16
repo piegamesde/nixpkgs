@@ -50,13 +50,30 @@ buildGoModule rec {
       --replace "/usr/share/misc/usb.ids" "${hwdata}/share/hwdata/usb.ids"
   '';
 
-  excludedPackages = [ "test" "lxd/db/generate" ];
+  excludedPackages = [
+    "test"
+    "lxd/db/generate"
+  ];
 
-  nativeBuildInputs = [ installShellFiles pkg-config makeWrapper ];
-  buildInputs =
-    [ lxc acl libcap dqlite.dev raft-canonical.dev sqlite udev.dev ];
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+    makeWrapper
+  ];
+  buildInputs = [
+    lxc
+    acl
+    libcap
+    dqlite.dev
+    raft-canonical.dev
+    sqlite
+    udev.dev
+  ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
   tags = [ "libsqlite3" ];
 
   preBuild = ''
@@ -94,11 +111,9 @@ buildGoModule rec {
         bash
         criu
         attr
-      ] ++ [
-        (writeShellScriptBin "apparmor_parser" ''
-          exec '${apparmor-parser}/bin/apparmor_parser' -I '${apparmor-profiles}/etc/apparmor.d' "$@"
-        '')
-      ])
+      ] ++ [ (writeShellScriptBin "apparmor_parser" ''
+        exec '${apparmor-parser}/bin/apparmor_parser' -I '${apparmor-profiles}/etc/apparmor.d' "$@"
+      '') ])
     }
 
     installShellCompletion --bash --name lxd ./scripts/bash/lxd-client
@@ -113,7 +128,10 @@ buildGoModule rec {
     homepage = "https://linuxcontainers.org/lxd/";
     changelog = "https://github.com/lxc/lxd/releases/tag/lxd-${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ marsam adamcstephens ];
+    maintainers = with maintainers; [
+      marsam
+      adamcstephens
+    ];
     platforms = platforms.linux;
   };
 }

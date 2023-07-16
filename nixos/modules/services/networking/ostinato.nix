@@ -41,7 +41,10 @@ in {
       };
 
       rateAccuracy = mkOption {
-        type = types.enum [ "High" "Low" ];
+        type = types.enum [
+          "High"
+          "Low"
+        ];
         default = "High";
         description = lib.mdDoc ''
           To ensure that the actual transmit rate is as close as possible to
@@ -69,7 +72,10 @@ in {
         include = mkOption {
           type = types.listOf types.str;
           default = [ ];
-          example = [ "eth*" "lo*" ];
+          example = [
+            "eth*"
+            "lo*"
+          ];
           description = lib.mdDoc ''
             For a port to pass the filter and appear on the port list managed
             by drone, it be allowed by this include list.
@@ -78,7 +84,10 @@ in {
         exclude = mkOption {
           type = types.listOf types.str;
           default = [ ];
-          example = [ "usbmon*" "eth0" ];
+          example = [
+            "usbmon*"
+            "eth0"
+          ];
           description = lib.mdDoc ''
             A list of ports does not appear on the port list managed by drone.
           '';

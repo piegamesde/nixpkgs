@@ -46,8 +46,14 @@ in stdenv.mkDerivation rec {
     xorg.libxcb
   ];
 
-  nativeBuildInputs =
-    [ addOpenGLRunpath xvfb-run fontconfig wrapQtAppsHook qmake qttools ];
+  nativeBuildInputs = [
+    addOpenGLRunpath
+    xvfb-run
+    fontconfig
+    wrapQtAppsHook
+    qmake
+    qttools
+  ];
 
   postPatch = ''
     substituteInPlace common.pri \

@@ -27,10 +27,22 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-k3U8ICnwMbR6vN+gELWytI2Etri5lvbE6AX6lUpr7dQ=";
   };
 
-  nativeBuildInputs =
-    [ desktop-file-utils meson ninja vala pkg-config wrapGAppsHook4 ];
+  nativeBuildInputs = [
+    desktop-file-utils
+    meson
+    ninja
+    vala
+    pkg-config
+    wrapGAppsHook4
+  ];
 
-  buildInputs = [ glib gtk4 json-glib libadwaita libgee ];
+  buildInputs = [
+    glib
+    gtk4
+    json-glib
+    libadwaita
+    libgee
+  ];
 
   passthru = { updateScript = nix-update-script { }; };
 

@@ -17,9 +17,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ fuse xz ];
+  buildInputs = [
+    fuse
+    xz
+  ];
 
-  configureFlags = [ "--enable-library" "--enable-fuse" ];
+  configureFlags = [
+    "--enable-library"
+    "--enable-fuse"
+  ];
 
   meta = {
     homepage = "https://avf.sourceforge.net/";

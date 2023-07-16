@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libfido2 pam openssl ];
+  buildInputs = [
+    libfido2
+    pam
+    openssl
+  ];
 
   preConfigure = ''
     configureFlagsArray+=("--with-pam-dir=$out/lib/security")

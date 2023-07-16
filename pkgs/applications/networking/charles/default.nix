@@ -18,7 +18,12 @@ let
     }@attrs:
     let
       desktopItem = makeDesktopItem {
-        categories = [ "Network" "Development" "WebDevelopment" "Java" ];
+        categories = [
+          "Network"
+          "Development"
+          "WebDevelopment"
+          "Java"
+        ];
         desktopName = "Charles";
         exec = "charles %F";
         genericName = "Web Debugging Proxy";
@@ -42,7 +47,10 @@ let
       src = fetchurl {
         url =
           "https://www.charlesproxy.com/assets/release/${version}/charles-proxy-${version}${platform}.tar.gz";
-        curlOptsList = [ "--user-agent" "Mozilla/5.0" ]; # HTTP 104 otherwise
+        curlOptsList = [
+          "--user-agent"
+          "Mozilla/5.0"
+        ]; # HTTP 104 otherwise
         inherit sha256;
       };
       nativeBuildInputs = [ makeWrapper ];

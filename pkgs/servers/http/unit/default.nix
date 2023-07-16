@@ -58,8 +58,10 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ which ];
 
-  buildInputs = [ pcre2.dev ] ++ optionals withPython3 [ python3 ncurses ]
-    ++ optional withPHP81 php81-unit ++ optional withPHP82 php82-unit
+  buildInputs = [ pcre2.dev ] ++ optionals withPython3 [
+    python3
+    ncurses
+  ] ++ optional withPHP81 php81-unit ++ optional withPHP82 php82-unit
     ++ optional withPerl534 perl534 ++ optional withPerl536 perl536
     ++ optional withPerldevel perldevel ++ optional withRuby_2_7 ruby_2_7
     ++ optional withRuby_3_0 ruby_3_0 ++ optional withRuby_3_1 ruby_3_1

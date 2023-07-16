@@ -31,9 +31,20 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ numpy packaging psutil pyyaml torch ];
+  propagatedBuildInputs = [
+    numpy
+    packaging
+    psutil
+    pyyaml
+    torch
+  ];
 
-  nativeCheckInputs = [ evaluate parameterized pytestCheckHook transformers ];
+  nativeCheckInputs = [
+    evaluate
+    parameterized
+    pytestCheckHook
+    transformers
+  ];
   preCheck = ''
     export HOME=$(mktemp -d)
     export PATH=$out/bin:$PATH

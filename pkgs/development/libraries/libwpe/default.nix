@@ -20,9 +20,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-sdDNzw+Nu0lOZbD3kT41cQbamg1X9Pu3udEjim2+mt4=";
   };
 
-  nativeBuildInputs = [ pkg-config meson ninja ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+  ];
 
-  buildInputs = [ libxkbcommon libGL libX11 ];
+  buildInputs = [
+    libxkbcommon
+    libGL
+    libX11
+  ];
 
   meta = with lib; {
     description = "General-purpose library for WPE WebKit";

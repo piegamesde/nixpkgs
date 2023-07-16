@@ -23,7 +23,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-mock
+  ];
 
   meta = with lib; {
     homepage = "https://www.pykka.org/";

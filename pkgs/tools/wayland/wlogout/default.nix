@@ -32,9 +32,18 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs = [ pkg-config meson ninja scdoc ];
-  buildInputs = [ gtk3 libxkbcommon wayland wayland-protocols ]
-    ++ lib.optionals withGtkLayerShell [ gtk-layer-shell ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    scdoc
+  ];
+  buildInputs = [
+    gtk3
+    libxkbcommon
+    wayland
+    wayland-protocols
+  ] ++ lib.optionals withGtkLayerShell [ gtk-layer-shell ];
 
   postPatch = ''
     substituteInPlace style.css \

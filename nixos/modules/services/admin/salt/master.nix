@@ -47,9 +47,7 @@ in {
       description = "Salt Master";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      path = with pkgs;
-        [
-          util-linux # for dmesg
+      path = with pkgs; [ util-linux # for dmesg
         ];
       serviceConfig = {
         ExecStart = "${pkgs.salt}/bin/salt-master";

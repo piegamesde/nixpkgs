@@ -22,8 +22,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OiGKUnsKX0ihDRceZoNkcZcEAnz17h2j2QUOSVcxQEY=";
   };
 
-  nativeBuildInputs =
-    [ meson ninja pkg-config gtk-doc docbook_xsl gobject-introspection ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gtk-doc
+    docbook_xsl
+    gobject-introspection
+  ];
   buildInputs = [ glib ];
 
   mesonFlags = [ "-Dbash-completions=true" ];

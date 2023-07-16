@@ -12,11 +12,16 @@ let
     }@argSet:
     derivation {
       inherit name;
-      text = (builtins.toJSON
-        (lib.filterAttrs (n: v: builtins.any (x: x == n) [ "name" "system" ])
-          argSet));
+      text = (builtins.toJSON (lib.filterAttrs (n: v:
+        builtins.any (x: x == n) [
+          "name"
+          "system"
+        ]) argSet));
       builder = stdenv.shell;
-      args = [ "-c" "echo  $(<$textPath) > $out" ];
+      args = [
+        "-c"
+        "echo  $(<$textPath) > $out"
+      ];
       system = stdenv.hostPlatform.system;
       passAsFile = [ "text" ];
     };

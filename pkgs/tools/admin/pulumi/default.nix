@@ -113,6 +113,9 @@ buildGoModule rec {
     sourceProvenance = [ sourceTypes.fromSource ];
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ trundle veehaitch ];
+    maintainers = with maintainers; [
+      trundle
+      veehaitch
+    ];
   };
 }

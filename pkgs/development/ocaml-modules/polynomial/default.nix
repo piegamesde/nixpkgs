@@ -17,7 +17,10 @@ buildDunePackage rec {
     sha256 = "sha256-is/PrYLCwStHiQsNq5OVRCwHdXjO2K2Z7FrXgytRfAU=";
   };
 
-  propagatedBuildInputs = [ zarith ff-sig ];
+  propagatedBuildInputs = [
+    zarith
+    ff-sig
+  ];
 
   doCheck = false; # circular dependencies
 

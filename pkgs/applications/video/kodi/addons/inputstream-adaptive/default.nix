@@ -30,13 +30,21 @@ in buildKodiBinaryAddon rec {
     sha256 = "sha256-QG0qBRbUJJgsRLS2cQIDeTDYLjqVD0dRaZ7pCxpxNcs=";
   };
 
-  extraCMakeFlags = [ "-DENABLE_INTERNAL_BENTO4=ON" "-DBENTO4_URL=${bento4}" ];
+  extraCMakeFlags = [
+    "-DENABLE_INTERNAL_BENTO4=ON"
+    "-DBENTO4_URL=${bento4}"
+  ];
 
   extraNativeBuildInputs = [ gtest ];
 
   extraBuildInputs = [ expat ];
 
-  extraRuntimeDependencies = [ glib nspr nss stdenv.cc.cc.lib ];
+  extraRuntimeDependencies = [
+    glib
+    nspr
+    nss
+    stdenv.cc.cc.lib
+  ];
 
   extraInstallPhase = let n = namespace;
   in ''

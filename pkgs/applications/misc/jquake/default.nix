@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-oIYkYmI8uG4zjnm1Jq1mzIcSwRlKbWJqvACygQyp9sA=";
   };
 
-  nativeBuildInputs = [ unzip copyDesktopItems ];
+  nativeBuildInputs = [
+    unzip
+    copyDesktopItems
+  ];
 
   sourceRoot = ".";
 
@@ -56,14 +59,12 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "JQuake";
-      desktopName = "JQuake";
-      exec = "JQuake";
-      comment = "Real-time earthquake map of Japan";
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "JQuake";
+    desktopName = "JQuake";
+    exec = "JQuake";
+    comment = "Real-time earthquake map of Japan";
+  }) ];
 
   meta = with lib; {
     description = "Real-time earthquake map of Japan";

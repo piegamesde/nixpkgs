@@ -18,12 +18,10 @@ buildPythonPackage rec {
     sha256 = "1a44zz9zsxy48ahlpjjrddpyfi7cnfknicfcp35hi588qm430mag";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./nmap-path.patch;
-      nmap = "${lib.getBin nmap}/bin/nmap";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./nmap-path.patch;
+    nmap = "${lib.getBin nmap}/bin/nmap";
+  }) ];
 
   # upstream tests require sudo
   # make sure nmap is found instead

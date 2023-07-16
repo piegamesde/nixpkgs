@@ -24,8 +24,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ httpx ];
 
-  nativeCheckInputs =
-    [ httpcore httpx flask pytest-asyncio pytestCheckHook starlette trio ];
+  nativeCheckInputs = [
+    httpcore
+    httpx
+    flask
+    pytest-asyncio
+    pytestCheckHook
+    starlette
+    trio
+  ];
 
   postPatch = ''
     sed -i "/--cov/d" setup.cfg

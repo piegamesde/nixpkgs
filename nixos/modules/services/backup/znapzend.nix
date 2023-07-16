@@ -53,7 +53,14 @@ let
         "string containing all of the characters ${concatStringsSep ", " list}";
     };
 
-  timestampType = stringContainingStrings [ "%Y" "%m" "%d" "%H" "%M" "%S" ];
+  timestampType = stringContainingStrings [
+    "%Y"
+    "%m"
+    "%d"
+    "%H"
+    "%M"
+    "%S"
+  ];
 
   destType = srcConfig:
     submodule ({
@@ -314,7 +321,13 @@ in {
       logLevel = mkOption {
         default = "debug";
         example = "warning";
-        type = enum [ "debug" "info" "warning" "err" "alert" ];
+        type = enum [
+          "debug"
+          "info"
+          "warning"
+          "err"
+          "alert"
+        ];
         description = lib.mdDoc ''
           The log level when logging to file. Any of debug, info, warning, err,
           alert. Default in daemonized form is debug.
@@ -443,7 +456,11 @@ in {
         wantedBy = [ "zfs.target" ];
         after = [ "zfs.target" ];
 
-        path = with pkgs; [ zfs mbuffer openssh ];
+        path = with pkgs; [
+          zfs
+          mbuffer
+          openssh
+        ];
 
         preStart = optionalString cfg.pure ''
           echo Resetting znapzend zetups
@@ -483,5 +500,8 @@ in {
     };
   };
 
-  meta.maintainers = with maintainers; [ infinisil SlothOfAnarchy ];
+  meta.maintainers = with maintainers; [
+    infinisil
+    SlothOfAnarchy
+  ];
 }

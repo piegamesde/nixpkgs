@@ -31,7 +31,11 @@ stdenv.mkDerivation rec {
   pname = "packagekit";
   version = "1.2.5.1pre";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchFromGitHub {
     owner = "PackageKit";

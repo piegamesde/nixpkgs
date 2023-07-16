@@ -22,7 +22,13 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ cython ];
-  propagatedBuildInputs = [ numpy scipy six paramz matplotlib ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    six
+    paramz
+    matplotlib
+  ];
   nativeCheckInputs = [ nose ];
 
   # $ nosetests GPy/testing/*.py

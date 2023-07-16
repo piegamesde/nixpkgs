@@ -52,8 +52,18 @@ in stdenv.mkDerivation {
     echo 'return "none"' > $out/src/UpdateCheck.lua
   '';
 
-  nativeBuildInputs = [ meson ninja pkg-config qttools wrapQtAppsHook ];
-  buildInputs = [ qtbase luajit luajit.pkgs.lua-curl ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    qttools
+    wrapQtAppsHook
+  ];
+  buildInputs = [
+    qtbase
+    luajit
+    luajit.pkgs.lua-curl
+  ];
   dontWrapQtApps = true;
 
   installPhase = ''

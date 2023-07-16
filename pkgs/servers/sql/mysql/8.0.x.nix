@@ -41,12 +41,15 @@ let
       hash = "sha256-liAC9dkG9C9AsnejnS25OTEkjB8H/49DEsKI5jgD3RI=";
     };
 
-    nativeBuildInputs = [ bison cmake pkg-config ]
-      ++ lib.optionals (!stdenv.isDarwin) [ rpcsvc-proto ];
+    nativeBuildInputs = [
+      bison
+      cmake
+      pkg-config
+    ] ++ lib.optionals (!stdenv.isDarwin) [ rpcsvc-proto ];
 
-    patches = [
-      ./no-force-outline-atomics.patch # Do not force compilers to turn on -moutline-atomics switch
-    ];
+    patches =
+      [ ./no-force-outline-atomics.patch # Do not force compilers to turn on -moutline-atomics switch
+      ];
 
     ## NOTE: MySQL upstream frequently twiddles the invocations of libtool. When updating, you might proactively grep for libtool references.
     postPatch = ''
@@ -69,15 +72,20 @@ let
       zlib
       zstd
       libfido2
-    ] ++ lib.optionals stdenv.isLinux [ numactl libtirpc ]
-      ++ lib.optionals stdenv.isDarwin [
-        cctools
-        CoreServices
-        developer_cmds
-        DarwinTools
-      ];
+    ] ++ lib.optionals stdenv.isLinux [
+      numactl
+      libtirpc
+    ] ++ lib.optionals stdenv.isDarwin [
+      cctools
+      CoreServices
+      developer_cmds
+      DarwinTools
+    ];
 
-    outputs = [ "out" "static" ];
+    outputs = [
+      "out"
+      "static"
+    ];
 
     cmakeFlags = [
       "-DFORCE_UNSUPPORTED_COMPILER=1" # To configure on Darwin.

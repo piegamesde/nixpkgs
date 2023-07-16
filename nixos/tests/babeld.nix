@@ -17,24 +17,24 @@ import ./make-test-python.nix ({
           networking = {
             useDHCP = false;
             interfaces."eth1" = {
-              ipv4.addresses = lib.mkForce [{
+              ipv4.addresses = lib.mkForce [ {
                 address = "192.168.10.2";
                 prefixLength = 24;
-              }];
-              ipv4.routes = lib.mkForce [{
+              } ];
+              ipv4.routes = lib.mkForce [ {
                 address = "0.0.0.0";
                 prefixLength = 0;
                 via = "192.168.10.1";
-              }];
-              ipv6.addresses = lib.mkForce [{
+              } ];
+              ipv6.addresses = lib.mkForce [ {
                 address = "2001:db8:10::2";
                 prefixLength = 64;
-              }];
-              ipv6.routes = lib.mkForce [{
+              } ];
+              ipv6.routes = lib.mkForce [ {
                 address = "::";
                 prefixLength = 0;
                 via = "2001:db8:10::1";
-              }];
+              } ];
             };
           };
         };
@@ -44,32 +44,35 @@ import ./make-test-python.nix ({
           lib,
           ...
         }: {
-          virtualisation.vlans = [ 10 20 ];
+          virtualisation.vlans = [
+            10
+            20
+          ];
 
           networking = {
             useDHCP = false;
             firewall.enable = false;
 
             interfaces."eth1" = {
-              ipv4.addresses = lib.mkForce [{
+              ipv4.addresses = lib.mkForce [ {
                 address = "192.168.10.1";
                 prefixLength = 24;
-              }];
-              ipv6.addresses = lib.mkForce [{
+              } ];
+              ipv6.addresses = lib.mkForce [ {
                 address = "2001:db8:10::1";
                 prefixLength = 64;
-              }];
+              } ];
             };
 
             interfaces."eth2" = {
-              ipv4.addresses = lib.mkForce [{
+              ipv4.addresses = lib.mkForce [ {
                 address = "192.168.20.1";
                 prefixLength = 24;
-              }];
-              ipv6.addresses = lib.mkForce [{
+              } ];
+              ipv6.addresses = lib.mkForce [ {
                 address = "2001:db8:20::1";
                 prefixLength = 64;
-              }];
+              } ];
             };
           };
 
@@ -105,32 +108,35 @@ import ./make-test-python.nix ({
           lib,
           ...
         }: {
-          virtualisation.vlans = [ 20 30 ];
+          virtualisation.vlans = [
+            20
+            30
+          ];
 
           networking = {
             useDHCP = false;
             firewall.enable = false;
 
             interfaces."eth1" = {
-              ipv4.addresses = lib.mkForce [{
+              ipv4.addresses = lib.mkForce [ {
                 address = "192.168.20.2";
                 prefixLength = 24;
-              }];
-              ipv6.addresses = lib.mkForce [{
+              } ];
+              ipv6.addresses = lib.mkForce [ {
                 address = "2001:db8:20::2";
                 prefixLength = 64;
-              }];
+              } ];
             };
 
             interfaces."eth2" = {
-              ipv4.addresses = lib.mkForce [{
+              ipv4.addresses = lib.mkForce [ {
                 address = "192.168.30.1";
                 prefixLength = 24;
-              }];
-              ipv6.addresses = lib.mkForce [{
+              } ];
+              ipv6.addresses = lib.mkForce [ {
                 address = "2001:db8:30::1";
                 prefixLength = 64;
-              }];
+              } ];
             };
           };
 

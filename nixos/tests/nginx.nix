@@ -9,7 +9,12 @@ import ./make-test-python.nix ({
     ...
   }: {
     name = "nginx";
-    meta = with pkgs.lib.maintainers; { maintainers = [ mbbx6spp danbst ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        mbbx6spp
+        danbst
+      ];
+    };
 
     nodes = {
       webserver = {
@@ -57,10 +62,10 @@ import ./make-test-python.nix ({
           };
 
           specialisation.justReloadSystem.configuration = {
-            services.nginx.virtualHosts."1.my.test".listen = [{
+            services.nginx.virtualHosts."1.my.test".listen = [ {
               addr = "127.0.0.1";
               port = 8080;
-            }];
+            } ];
           };
 
           specialisation.reloadRestartSystem.configuration = {

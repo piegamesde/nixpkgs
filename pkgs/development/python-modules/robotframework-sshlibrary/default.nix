@@ -19,7 +19,11 @@ buildPythonPackage rec {
   # unit tests are impure
   doCheck = false;
 
-  propagatedBuildInputs = [ robotframework paramiko scp ];
+  propagatedBuildInputs = [
+    robotframework
+    paramiko
+    scp
+  ];
 
   meta = with lib; {
     description =

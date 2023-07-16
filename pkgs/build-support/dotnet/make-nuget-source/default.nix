@@ -16,7 +16,10 @@ let
     inherit name;
 
     meta.description = description;
-    nativeBuildInputs = [ dotnetPackages.Nuget xml2 ];
+    nativeBuildInputs = [
+      dotnetPackages.Nuget
+      xml2
+    ];
 
     buildCommand = ''
       export HOME=$(mktemp -d)

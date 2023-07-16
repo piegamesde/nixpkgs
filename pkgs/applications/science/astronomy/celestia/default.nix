@@ -27,7 +27,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-iBlrP9Yr/l3tzR1PpRf8C87WfrL6mZDwDtWyd2yJ7Dc=";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
   buildInputs = [
     freeglut
     gtk2
@@ -41,7 +44,10 @@ stdenv.mkDerivation rec {
     libGL
   ];
 
-  configureFlags = [ "--with-gtk" "--with-lua=${lua}" ];
+  configureFlags = [
+    "--with-gtk"
+    "--with-lua=${lua}"
+  ];
 
   enableParallelBuilding = true;
 

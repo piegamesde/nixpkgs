@@ -21,7 +21,12 @@ buildPythonPackage rec {
     sha256 = "1JCKWb+3mdQYnL250Ml+kFkx6VAlBC7FL6XcQlQ+kC4=";
   };
 
-  propagatedBuildInputs = [ ciso8601 geopy requests sseclient ];
+  propagatedBuildInputs = [
+    ciso8601
+    geopy
+    requests
+    sseclient
+  ];
 
   # Project has no tests
   doCheck = false;

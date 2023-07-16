@@ -42,7 +42,11 @@ buildPythonPackage rec {
     seaborn
   ];
 
-  nativeCheckInputs = [ xvfb-run torch torchvision ];
+  nativeCheckInputs = [
+    xvfb-run
+    torch
+    torchvision
+  ];
 
   pythonImportsCheck = [ "boxx" ];
 

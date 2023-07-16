@@ -20,11 +20,21 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "17h8saja45bv612yk0pra9ncbp2mjnx5n10q25nqhl765ks4bmb5";
   };
 
-  nativeBuildInputs = [ gettext gobject-introspection wrapGAppsHook ];
+  nativeBuildInputs = [
+    gettext
+    gobject-introspection
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ pango gtksourceview3 ];
+  buildInputs = [
+    pango
+    gtksourceview3
+  ];
 
-  propagatedBuildInputs = with python3.pkgs; [ pycairo pygobject3 ];
+  propagatedBuildInputs = with python3.pkgs; [
+    pycairo
+    pygobject3
+  ];
 
   # to prevent double wrapping
   dontWrapGApps = true;

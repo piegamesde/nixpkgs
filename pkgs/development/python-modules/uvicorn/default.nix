@@ -30,15 +30,26 @@ buildPythonPackage rec {
     hash = "sha256-yca6JI3/aqdZF7SxFeYr84GOeQnLBmbm1dIXjngX9Ng=";
   };
 
-  outputs = [ "out" "testsout" ];
+  outputs = [
+    "out"
+    "testsout"
+  ];
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [ click h11 ]
-    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [
+    click
+    h11
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
-  passthru.optional-dependencies.standard =
-    [ httptools python-dotenv pyyaml uvloop watchfiles websockets ];
+  passthru.optional-dependencies.standard = [
+    httptools
+    python-dotenv
+    pyyaml
+    uvloop
+    watchfiles
+    websockets
+  ];
 
   postInstall = ''
     mkdir $testsout

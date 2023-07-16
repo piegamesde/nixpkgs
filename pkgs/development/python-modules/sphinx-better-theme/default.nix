@@ -8,7 +8,10 @@
 buildPythonPackage rec {
   pname = "sphinx-better-theme";
   version = "0.1.5";
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   src = fetchFromGitHub {
     owner = "irskep";

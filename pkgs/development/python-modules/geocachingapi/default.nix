@@ -27,7 +27,11 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  propagatedBuildInputs = [ aiohttp backoff yarl ];
+  propagatedBuildInputs = [
+    aiohttp
+    backoff
+    yarl
+  ];
 
   # Tests require a token and network access
   doCheck = false;

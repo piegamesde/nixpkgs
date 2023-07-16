@@ -26,7 +26,11 @@ buildGoModule rec {
     description = "Prometheus Exporter for FRITZ!Box (TR64 and UPnP)";
     homepage = "https://github.com/mxschmitt/fritzbox_exporter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bachp flokli sbruder ];
+    maintainers = with maintainers; [
+      bachp
+      flokli
+      sbruder
+    ];
     platforms = platforms.unix;
   };
 }

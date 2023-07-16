@@ -63,11 +63,19 @@ stdenv.mkDerivation rec {
     hash = "sha256-sdNenmzI/yvN9w4Z83ojDJi+2QBx2hxhJQCFkc5kCZw=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config scdoc wrapGAppsHook ]
-    ++ lib.optional withMediaPlayer gobject-introspection;
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    scdoc
+    wrapGAppsHook
+  ] ++ lib.optional withMediaPlayer gobject-introspection;
 
-  propagatedBuildInputs =
-    lib.optionals withMediaPlayer [ glib playerctl python3.pkgs.pygobject3 ];
+  propagatedBuildInputs = lib.optionals withMediaPlayer [
+    glib
+    playerctl
+    python3.pkgs.pygobject3
+  ];
 
   strictDeps = false;
 

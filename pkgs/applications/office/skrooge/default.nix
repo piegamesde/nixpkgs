@@ -36,7 +36,12 @@ mkDerivation rec {
     sha256 = "sha256-s2SkGMBx7HVpr1NBUJpqji3PTPnw4RqnkakdQVC5ric=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules kdoctools shared-mime-info ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    kdoctools
+    shared-mime-info
+  ];
 
   buildInputs = [
     qtwebengine

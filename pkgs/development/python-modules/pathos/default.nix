@@ -23,7 +23,12 @@ buildPythonPackage rec {
     hash = "sha256-Jc7pMVjOUSaZydRh87FsHivEAXpX9v6EbZNkHwPeq/Q=";
   };
 
-  propagatedBuildInputs = [ dill pox ppft multiprocess ];
+  propagatedBuildInputs = [
+    dill
+    pox
+    ppft
+    multiprocess
+  ];
 
   # Require network
   doCheck = false;

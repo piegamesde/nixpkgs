@@ -19,9 +19,15 @@ mkDerivation rec {
     sha256 = "sha256-IWzgRwouI/0bQBuEd9CV0Ue6cF2HwRw3jMdLyGA1+TY=";
   };
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
-  buildInputs = [ qtbase udisks2 ];
+  buildInputs = [
+    qtbase
+    udisks2
+  ];
 
   meta = with lib; {
     description =

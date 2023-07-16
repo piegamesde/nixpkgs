@@ -39,7 +39,13 @@ buildGoModule rec {
     # These are runtime dependencies
     wrapProgram $out/bin/buildkite-agent \
       --prefix PATH : '${
-        lib.makeBinPath [ openssh git coreutils gnused gnugrep ]
+        lib.makeBinPath [
+          openssh
+          git
+          coreutils
+          gnused
+          gnugrep
+        ]
       }'
   '';
 
@@ -56,7 +62,12 @@ buildGoModule rec {
     '';
     homepage = "https://buildkite.com/docs/agent";
     license = licenses.mit;
-    maintainers = with maintainers; [ pawelpacana zimbatm rvl techknowlogick ];
+    maintainers = with maintainers; [
+      pawelpacana
+      zimbatm
+      rvl
+      techknowlogick
+    ];
     platforms = with platforms; unix ++ darwin;
   };
 }

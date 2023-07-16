@@ -42,8 +42,12 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = { libcst = [ libcst ]; };
 
-  nativeCheckInputs =
-    [ google-cloud-testutils mock pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    google-cloud-testutils
+    mock
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [
     "google.cloud.asset"

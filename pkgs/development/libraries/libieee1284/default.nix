@@ -31,8 +31,14 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs =
-    [ autoconf automake libtool xmlto docbook_xml_dtd_412 docbook_xsl ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+    xmlto
+    docbook_xml_dtd_412
+    docbook_xsl
+  ];
 
   configureFlags = [ "--without-python" ];
 

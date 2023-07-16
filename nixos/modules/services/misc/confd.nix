@@ -27,7 +27,12 @@ in {
     backend = mkOption {
       description = lib.mdDoc "Confd config storage backend to use.";
       default = "etcd";
-      type = types.enum [ "etcd" "consul" "redis" "zookeeper" ];
+      type = types.enum [
+        "etcd"
+        "consul"
+        "redis"
+        "zookeeper"
+      ];
     };
 
     interval = mkOption {
@@ -58,7 +63,10 @@ in {
     logLevel = mkOption {
       description = lib.mdDoc "Confd log level.";
       default = "info";
-      type = types.enum [ "info" "debug" ];
+      type = types.enum [
+        "info"
+        "debug"
+      ];
     };
 
     confDir = mkOption {

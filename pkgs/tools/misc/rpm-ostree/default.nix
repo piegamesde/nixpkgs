@@ -44,7 +44,12 @@ stdenv.mkDerivation rec {
   pname = "rpm-ostree";
   version = "2023.3";
 
-  outputs = [ "out" "dev" "man" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url =
@@ -97,8 +102,10 @@ stdenv.mkDerivation rec {
     cppunit
   ];
 
-  configureFlags =
-    [ "--enable-gtk-doc" "--with-bubblewrap=${bubblewrap}/bin/bwrap" ];
+  configureFlags = [
+    "--enable-gtk-doc"
+    "--with-bubblewrap=${bubblewrap}/bin/bwrap"
+  ];
 
   dontUseCmakeConfigure = true;
 

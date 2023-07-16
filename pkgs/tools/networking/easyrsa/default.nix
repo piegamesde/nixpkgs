@@ -47,7 +47,10 @@ stdenv.mkDerivation rec {
     description = "Simple shell based CA utility";
     homepage = "https://openvpn.net/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.offline maintainers.numinit ];
+    maintainers = [
+      maintainers.offline
+      maintainers.numinit
+    ];
     platforms = platforms.unix;
   };
 }

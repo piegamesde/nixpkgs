@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-AhVI+7FiWyH+DfAXnau4aAHJAJtsWEpmnU90ey2z35o=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook nodejs ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    nodejs
+  ];
 
   preCheck = ''
     # do not execute legacy tests

@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9y/7jni5zIITUWd75AxsfG/b5vCYotmeMeC9aYM2WEs=";
   };
 
-  nativeBuildInputs = [ makeWrapper copyDesktopItems ];
+  nativeBuildInputs = [
+    makeWrapper
+    copyDesktopItems
+  ];
 
   desktopItems = makeDesktopItem {
     type = "Application";

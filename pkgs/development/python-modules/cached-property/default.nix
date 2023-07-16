@@ -32,7 +32,10 @@ buildPythonPackage rec {
     })
   ];
 
-  checkInputs = [ pytestCheckHook freezegun ];
+  checkInputs = [
+    pytestCheckHook
+    freezegun
+  ];
 
   disabledTests = [
     # https://github.com/pydanny/cached-property/issues/131

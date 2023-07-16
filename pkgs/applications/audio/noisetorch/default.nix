@@ -20,8 +20,12 @@ buildGoModule rec {
 
   doCheck = false;
 
-  ldflags =
-    [ "-s" "-w" "-X main.version=${version}" "-X main.distribution=nixpkgs" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+    "-X main.distribution=nixpkgs"
+  ];
 
   subPackages = [ "." ];
 
@@ -42,6 +46,9 @@ buildGoModule rec {
     homepage = "https://github.com/noisetorch/NoiseTorch";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ panaeon lom ];
+    maintainers = with maintainers; [
+      panaeon
+      lom
+    ];
   };
 }

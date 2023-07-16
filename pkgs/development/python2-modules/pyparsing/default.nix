@@ -24,7 +24,10 @@ let
 
     # circular dependencies if enabled by default
     doCheck = false;
-    nativeCheckInputs = [ jinja2 railroad-diagrams ];
+    nativeCheckInputs = [
+      jinja2
+      railroad-diagrams
+    ];
 
     checkPhase = ''
       python -m unittest

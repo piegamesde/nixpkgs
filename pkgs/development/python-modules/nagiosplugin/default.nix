@@ -22,7 +22,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ twine ];
 
-  nativeCheckInputs = [ numpy pytestCheckHook ];
+  nativeCheckInputs = [
+    numpy
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Test relies on who, which does not work in the sandbox

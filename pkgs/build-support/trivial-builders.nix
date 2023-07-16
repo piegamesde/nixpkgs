@@ -477,7 +477,10 @@ in rec {
       ...
     }:
     let
-      args = removeAttrs args_ [ "name" "postBuild" ] // {
+      args = removeAttrs args_ [
+        "name"
+        "postBuild"
+      ] // {
         inherit preferLocalBuild allowSubstitutes;
         passAsFile = [ "paths" ];
       }; # pass the defaults
@@ -613,7 +616,12 @@ in rec {
   # Write the references (i.e. the runtime dependencies in the Nix store) of `path' to a file.
 
   writeReferencesToFile = path:
-    runCommand "runtime-deps" { exportReferencesGraph = [ "graph" path ]; } ''
+    runCommand "runtime-deps" {
+      exportReferencesGraph = [
+        "graph"
+        path
+      ];
+    } ''
       touch $out
       while read path; do
         echo $path >> $out
@@ -629,7 +637,10 @@ in rec {
   */
   writeDirectReferencesToFile = path:
     runCommand "runtime-references" {
-      exportReferencesGraph = [ "graph" path ];
+      exportReferencesGraph = [
+        "graph"
+        path
+      ];
       inherit path;
     } ''
       touch ./references

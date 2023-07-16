@@ -58,7 +58,12 @@ stdenv.mkDerivation rec {
     description = "Web Client for Jellyfin";
     homepage = "https://jellyfin.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ nyanloutre minijackson purcell jojosch ];
+    maintainers = with maintainers; [
+      nyanloutre
+      minijackson
+      purcell
+      jojosch
+    ];
     platforms = nodejs.meta.platforms;
   };
 }

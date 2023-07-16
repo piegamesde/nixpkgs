@@ -31,19 +31,30 @@ stdenv.mkDerivation rec {
     hash = "sha256-+d0Yp+e/wzlRmUIs4SffiphkqmM/7avJrt3JNOgO19I=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ glslang vulkan-headers vulkan-loader ]
-    ++ lib.optionals (!stdenv.isDarwin) [
-      libffi
-      libX11
-      libXau
-      libxcb
-      libXdmcp
-      libXrandr
-      wayland
-      wayland-protocols
-    ] ++ lib.optionals stdenv.isDarwin [ moltenvk moltenvk.dev AppKit Cocoa ];
+  buildInputs = [
+    glslang
+    vulkan-headers
+    vulkan-loader
+  ] ++ lib.optionals (!stdenv.isDarwin) [
+    libffi
+    libX11
+    libXau
+    libxcb
+    libXdmcp
+    libXrandr
+    wayland
+    wayland-protocols
+  ] ++ lib.optionals stdenv.isDarwin [
+    moltenvk
+    moltenvk.dev
+    AppKit
+    Cocoa
+  ];
 
   libraryPath = lib.strings.makeLibraryPath [ vulkan-loader ];
 
@@ -89,7 +100,10 @@ stdenv.mkDerivation rec {
       use of the Vulkan API.
     '';
     homepage = "https://github.com/KhronosGroup/Vulkan-Tools";
-    hydraPlatforms = [ "x86_64-linux" "i686-linux" ];
+    hydraPlatforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
     platforms = platforms.unix;
     license = licenses.asl20;
     maintainers = [ maintainers.ralith ];

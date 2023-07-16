@@ -25,14 +25,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyparsing ];
 
-  nativeCheckInputs = [ chardet pytestCheckHook ];
-
-  patches = [
-    (substituteAll {
-      src = ./hardcode-graphviz-path.patch;
-      inherit graphviz;
-    })
+  nativeCheckInputs = [
+    chardet
+    pytestCheckHook
   ];
+
+  patches = [ (substituteAll {
+    src = ./hardcode-graphviz-path.patch;
+    inherit graphviz;
+  }) ];
 
   postPatch = ''
     # test_graphviz_regression_tests also fails upstream: https://github.com/pydot/pydot/pull/198

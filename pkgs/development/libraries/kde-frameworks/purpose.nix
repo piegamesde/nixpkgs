@@ -17,7 +17,10 @@
 
 mkDerivation {
   pname = "purpose";
-  nativeBuildInputs = [ extra-cmake-modules intltool ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    intltool
+  ];
   buildInputs = [
     qtbase
     accounts-qt

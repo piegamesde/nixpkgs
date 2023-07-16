@@ -27,11 +27,23 @@ buildPythonPackage rec {
     hash = "sha256-D04eTAlckEqgKA+59BRljlyneHYoqqZvLYmt/gBLHcU=";
   };
 
-  propagatedBuildInputs = [ arviz formulae numpy pandas pymc scipy ];
+  propagatedBuildInputs = [
+    arviz
+    formulae
+    numpy
+    pandas
+    pymc
+    scipy
+  ];
 
   preCheck = "export HOME=$(mktemp -d)";
 
-  nativeCheckInputs = [ blackjax graphviz numpyro pytestCheckHook ];
+  nativeCheckInputs = [
+    blackjax
+    graphviz
+    numpyro
+    pytestCheckHook
+  ];
   disabledTests = [
     # attempt to fetch data:
     "test_data_is_copied"

@@ -44,7 +44,10 @@ in stdenv.mkDerivation rec {
     sha256 = "0v1x2hrh9hiqkvnbq11kf34v4i5a2x0ffxbzqaa8skyl26nmfn11";
   };
 
-  srcs = [ binSrc codeSrc ];
+  srcs = [
+    binSrc
+    codeSrc
+  ];
 
   sourceRoot = "${pname}-${version}";
 

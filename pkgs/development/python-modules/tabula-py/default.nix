@@ -36,7 +36,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ distro numpy pandas setuptools ];
+  propagatedBuildInputs = [
+    distro
+    numpy
+    pandas
+    setuptools
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

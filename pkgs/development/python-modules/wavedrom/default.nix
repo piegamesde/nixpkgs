@@ -27,9 +27,19 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ attrdict pyyaml svgwrite six ];
+  propagatedBuildInputs = [
+    attrdict
+    pyyaml
+    svgwrite
+    six
+  ];
 
-  nativeCheckInputs = [ cairosvg pillow pytestCheckHook xmldiff ];
+  nativeCheckInputs = [
+    cairosvg
+    pillow
+    pytestCheckHook
+    xmldiff
+  ];
 
   disabledTests = [
     # Requires to clone a full git repository

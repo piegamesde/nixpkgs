@@ -36,7 +36,11 @@ let
   deps = stdenv.mkDerivation {
     pname = "${pname}-deps";
     inherit src version patches;
-    nativeBuildInputs = [ gradle perl git ];
+    nativeBuildInputs = [
+      gradle
+      perl
+      git
+    ];
 
     buildPhase = ''
       export MA1SD_BUILD_VERSION=${version}
@@ -60,7 +64,11 @@ let
 
 in stdenv.mkDerivation {
   inherit pname src version patches;
-  nativeBuildInputs = [ gradle perl makeWrapper ];
+  nativeBuildInputs = [
+    gradle
+    perl
+    makeWrapper
+  ];
   buildInputs = [ jre ];
 
   postPatch = ''

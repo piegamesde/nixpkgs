@@ -18,7 +18,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-ZyTo79M5nqtqrtTOGanzgHcnSvqCKACacNBWzhYG5nY=";
 
-  ldflags = [ "-s" "-w" "-X 'main.version=${version}'" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X 'main.version=${version}'"
+  ];
 
   meta = with lib; {
     description = "Language Server Protocol server for Jsonnet";

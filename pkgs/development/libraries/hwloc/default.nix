@@ -25,13 +25,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fMSTGiD+9Ffgkzrz83W+bq+ncD/eIeE3v7loWxQJWZ4=";
   };
 
-  configureFlags = [ "--localstatedir=/var" "--enable-netloc" ];
+  configureFlags = [
+    "--localstatedir=/var"
+    "--enable-netloc"
+  ];
 
   # XXX: libX11 is not directly needed, but needed as a propagated dep of Cairo.
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ expat ncurses ] ++ lib.optionals x11Support [ cairo libX11 ]
-    ++ lib.optionals stdenv.isLinux [ numactl ]
+  buildInputs = [
+    expat
+    ncurses
+  ] ++ lib.optionals x11Support [
+    cairo
+    libX11
+  ] ++ lib.optionals stdenv.isLinux [ numactl ]
     ++ lib.optional enableCuda cudaPackages.cudatoolkit;
 
   # Since `libpci' appears in `hwloc.pc', it must be propagated.
@@ -55,7 +63,13 @@ stdenv.mkDerivation rec {
   # fail on some build machines.
   doCheck = false;
 
-  outputs = [ "out" "lib" "dev" "doc" "man" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "doc"
+    "man"
+  ];
 
   meta = with lib; {
     description =
@@ -78,7 +92,10 @@ stdenv.mkDerivation rec {
     # https://www.open-mpi.org/projects/hwloc/license.php
     license = licenses.bsd3;
     homepage = "https://www.open-mpi.org/projects/hwloc/";
-    maintainers = with maintainers; [ fpletz markuskowa ];
+    maintainers = with maintainers; [
+      fpletz
+      markuskowa
+    ];
     platforms = platforms.all;
   };
 }

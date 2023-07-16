@@ -31,9 +31,15 @@ in stdenv.mkDerivation {
   # Perl is needed for testing
   nativeBuildInputs = [ perl ]
     ++ lib.optional stdenv.hostPlatform.isLoongArch64 autoreconfHook;
-  outputs = [ "out" "info" ]; # the man pages are rather small
+  outputs = [
+    "out"
+    "info"
+  ]; # the man pages are rather small
 
-  buildInputs = [ pcre libiconv ];
+  buildInputs = [
+    pcre
+    libiconv
+  ];
 
   # cygwin: FAIL: multibyte-white-space
   # freebsd: FAIL mb-non-UTF8-performance
@@ -70,7 +76,10 @@ in stdenv.mkDerivation {
 
     license = licenses.gpl3Plus;
 
-    maintainers = [ maintainers.eelco maintainers.m00wl ];
+    maintainers = [
+      maintainers.eelco
+      maintainers.m00wl
+    ];
     platforms = platforms.all;
     mainProgram = "grep";
   };

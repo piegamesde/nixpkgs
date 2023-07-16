@@ -19,7 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-hBg02Wypd+MyqM2SUD53djhm5OMP2QAmsp8Stf+UT2c=";
   };
 
-  propagatedBuildInputs = [ aiohttp pyserial websockets ];
+  propagatedBuildInputs = [
+    aiohttp
+    pyserial
+    websockets
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

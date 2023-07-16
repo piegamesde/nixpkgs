@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-RgYinpo8eVzRaSkcnFkSq+IqpcFt6LCCHkpHyB/7u5M=";
   };
 
-  propagatedBuildInputs = [ python-dateutil python-mimeparse ];
+  propagatedBuildInputs = [
+    python-dateutil
+    python-mimeparse
+  ];
 
   # Tests requires a Django instance
   doCheck = false;

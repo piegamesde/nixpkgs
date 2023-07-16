@@ -19,6 +19,12 @@ buildDunePackage rec {
 
   doCheck = true;
 
-  propagatedBuildInputs =
-    [ async core cstruct cstruct-async mirage-crypto-rng-async tls ];
+  propagatedBuildInputs = [
+    async
+    core
+    cstruct
+    cstruct-async
+    mirage-crypto-rng-async
+    tls
+  ];
 }

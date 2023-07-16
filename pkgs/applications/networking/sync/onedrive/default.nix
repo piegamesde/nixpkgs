@@ -24,9 +24,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-yHpjutZV2u1VhnLxsQIu0NtKnqwtoRn4TM+8tXJ4RNo=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ldc installShellFiles pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    ldc
+    installShellFiles
+    pkg-config
+  ];
 
-  buildInputs = [ curl sqlite libnotify ] ++ lib.optional withSystemd systemd;
+  buildInputs = [
+    curl
+    sqlite
+    libnotify
+  ] ++ lib.optional withSystemd systemd;
 
   configureFlags = [ "--enable-notifications" ] ++ lib.optionals withSystemd [
     "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
@@ -45,7 +54,11 @@ stdenv.mkDerivation rec {
     description = "A complete tool to interact with OneDrive on Linux";
     homepage = "https://github.com/abraunegg/onedrive";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ srgom peterhoeg bertof ];
+    maintainers = with maintainers; [
+      srgom
+      peterhoeg
+      bertof
+    ];
     platforms = platforms.linux;
   };
 }

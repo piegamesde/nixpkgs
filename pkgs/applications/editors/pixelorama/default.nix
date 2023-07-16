@@ -56,7 +56,10 @@ in stdenv.mkDerivation rec {
     description =
       "A free & open-source 2D sprite editor, made with the Godot Engine!";
     license = licenses.mit;
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
     maintainers = with maintainers; [ felschr ];
   };
 }

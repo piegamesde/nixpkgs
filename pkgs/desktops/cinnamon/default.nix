@@ -21,7 +21,11 @@ lib.makeScope pkgs.newScope (self:
       });
 
     # Extensions added here will be shipped by default
-    nemoExtensions = [ folder-color-switcher nemo-fileroller nemo-python ];
+    nemoExtensions = [
+      folder-color-switcher
+      nemo-fileroller
+      nemo-python
+    ];
 
     # blueberry -> pkgs/tools/bluetooth/blueberry/default.nix
     bulky = callPackage ./bulky { };

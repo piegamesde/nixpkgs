@@ -26,7 +26,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pytest-runner ];
 
-  propagatedBuildInputs = [ morphys six python-baseconv ];
+  propagatedBuildInputs = [
+    morphys
+    six
+    python-baseconv
+  ];
 
   nativeCheckInputs = [ pytest ];
 

@@ -26,7 +26,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ typish ];
 
-  nativeCheckInputs = [ attrs pytestCheckHook tzdata ];
+  nativeCheckInputs = [
+    attrs
+    pytestCheckHook
+    tzdata
+  ];
 
   disabledTestPaths = [
     # These tests are based on timings, which fail

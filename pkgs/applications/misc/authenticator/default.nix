@@ -39,14 +39,19 @@ stdenv.mkDerivation rec {
     hash = "sha256-ZVDKTJojblVCbbdtnqcL+UVW1vkmu99AXCbgyCGNHCM=";
   };
 
-  nativeBuildInputs =
-    [ appstream-glib desktop-file-utils meson ninja pkg-config wrapGAppsHook4 ]
-    ++ (with rustPlatform; [
-      cargoSetupHook
-      rust.cargo
-      rust.rustc
-      bindgenHook
-    ]);
+  nativeBuildInputs = [
+    appstream-glib
+    desktop-file-utils
+    meson
+    ninja
+    pkg-config
+    wrapGAppsHook4
+  ] ++ (with rustPlatform; [
+    cargoSetupHook
+    rust.cargo
+    rust.rustc
+    bindgenHook
+  ]);
 
   buildInputs = [
     gdk-pixbuf

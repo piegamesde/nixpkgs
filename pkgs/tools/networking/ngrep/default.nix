@@ -19,16 +19,17 @@ stdenv.mkDerivation rec {
     sha256 = "1x2fyd7wdqlj1r76ilal06cl2wmbz0ws6i3ys204sbjh1cj6dcl7";
   };
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://patch-diff.githubusercontent.com/raw/jpr5/ngrep/pull/11.patch";
-      sha256 = "0k5qzvj8j3r1409qwwvzp7m3clgs2g7hs4q68bhrqbrsvvb2h5dh";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://patch-diff.githubusercontent.com/raw/jpr5/ngrep/pull/11.patch";
+    sha256 = "0k5qzvj8j3r1409qwwvzp7m3clgs2g7hs4q68bhrqbrsvvb2h5dh";
+  }) ];
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ libpcap pcre ];
+  buildInputs = [
+    libpcap
+    pcre
+  ];
 
   configureFlags = [
     "--enable-ipv6"

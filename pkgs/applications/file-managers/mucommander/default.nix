@@ -32,7 +32,10 @@ let
   deps = stdenv.mkDerivation {
     pname = "mucommander-deps";
     inherit version src postPatch;
-    nativeBuildInputs = [ gradle_7 perl ];
+    nativeBuildInputs = [
+      gradle_7
+      perl
+    ];
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d)
       gradle --no-daemon tgz
@@ -56,7 +59,11 @@ let
 in stdenv.mkDerivation rec {
   pname = "mucommander";
   inherit version src postPatch;
-  nativeBuildInputs = [ gradle_7 perl makeWrapper ];
+  nativeBuildInputs = [
+    gradle_7
+    perl
+    makeWrapper
+  ];
 
   # Point to our local deps repo
   gradleInit = writeText "init.gradle" ''

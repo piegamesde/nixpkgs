@@ -16,7 +16,11 @@ stdenv.mkDerivation rec {
 
   patches = [ ./x86_64-cpuid.patch ];
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
   outputBin = "dev"; # oil-bugreport
 
   nativeBuildInputs = [ pkg-config ];

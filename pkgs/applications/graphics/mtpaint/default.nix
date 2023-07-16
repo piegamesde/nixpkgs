@@ -26,10 +26,23 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [ freetype giflib gtk3 lcms2 libjpeg libpng libtiff openjpeg gifsicle ];
+  buildInputs = [
+    freetype
+    giflib
+    gtk3
+    lcms2
+    libjpeg
+    libpng
+    libtiff
+    openjpeg
+    gifsicle
+  ];
 
-  configureFlags = [ "gtk3" "intl" "man" ];
+  configureFlags = [
+    "gtk3"
+    "intl"
+    "man"
+  ];
 
   meta = {
     description = "A simple GTK painting program";

@@ -32,7 +32,10 @@ in {
   config = mkIf cfg.enable {
     systemd.services.doh-proxy-rust = {
       description = "doh-proxy-rust";
-      after = [ "network.target" "nss-lookup.target" ];
+      after = [
+        "network.target"
+        "nss-lookup.target"
+      ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         ExecStart =
@@ -56,7 +59,10 @@ in {
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
         SystemCallErrorNumber = "EPERM";
-        SystemCallFilter = [ "@system-service" "~@privileged @resources" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged @resources"
+        ];
       };
     };
   };

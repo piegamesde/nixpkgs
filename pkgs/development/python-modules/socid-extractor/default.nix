@@ -22,7 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-tDKwYgW1vEyPzuouPGK9tdTf3vNr+UaosHtQe23srG0=";
   };
 
-  propagatedBuildInputs = [ beautifulsoup4 python-dateutil requests ];
+  propagatedBuildInputs = [
+    beautifulsoup4
+    python-dateutil
+    requests
+  ];
 
   postPatch = ''
     # https://github.com/soxoj/socid-extractor/pull/125

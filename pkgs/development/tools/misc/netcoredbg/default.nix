@@ -37,8 +37,14 @@ let
     # needed until https://github.com/dotnet/runtime/issues/78286 is resolved
     # patch for darwin from: https://github.com/Samsung/netcoredbg/pull/103#issuecomment-1446457522
     # needed until: ?
-    patches = [ ./arm64.patch ./darwin.patch ];
-    nativeBuildInputs = [ cmake dotnet-sdk ];
+    patches = [
+      ./arm64.patch
+      ./darwin.patch
+    ];
+    nativeBuildInputs = [
+      cmake
+      dotnet-sdk
+    ];
 
     hardeningDisable = [ "strictoverflow" ];
 
@@ -86,7 +92,12 @@ in stdenv.mkDerivation rec {
   passthru = {
     inherit (managed) fetch-deps;
 
-    updateScript = [ ./update.sh pname version meta.homepage ];
+    updateScript = [
+      ./update.sh
+      pname
+      version
+      meta.homepage
+    ];
   };
 
   meta = with lib; {
@@ -94,6 +105,9 @@ in stdenv.mkDerivation rec {
     homepage = "https://github.com/Samsung/netcoredbg";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ leo60228 konradmalik ];
+    maintainers = with maintainers; [
+      leo60228
+      konradmalik
+    ];
   };
 }

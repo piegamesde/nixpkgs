@@ -22,13 +22,20 @@ buildPythonPackage rec {
     hash = "sha256-WiJi5wvwBLgsxs5xZ16TMKoFj+MNsuh82BJa1N0a5OE=";
   };
 
-  nativeBuildInputs = [ hatch-nodejs-version hatchling ];
+  nativeBuildInputs = [
+    hatch-nodejs-version
+    hatchling
+  ];
 
   propagatedBuildInputs = [ y-py ];
 
   pythonImportsCheck = [ "jupyter_ydoc" ];
 
-  nativeCheckInputs = [ pytestCheckHook websockets ypy-websocket ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    websockets
+    ypy-websocket
+  ];
 
   # requires a Node.js environment
   doCheck = false;

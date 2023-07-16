@@ -27,9 +27,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ];
 
-  propagatedBuildInputs = [ smart-open numpy scipy ];
+  propagatedBuildInputs = [
+    smart-open
+    numpy
+    scipy
+  ];
 
-  nativeCheckInputs = [ mock pyemd pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pyemd
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "gensim" ];
 

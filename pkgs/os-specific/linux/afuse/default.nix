@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "06i855h8a1w2jfly2gfy7vwhb2fp74yxbf3r69s28lki2kzwjar6";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
   buildInputs = [ fuse ];
 
   postPatch = lib.optionalString stdenv.isDarwin ''

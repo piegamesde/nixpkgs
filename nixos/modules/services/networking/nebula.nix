@@ -129,22 +129,22 @@ in {
               type = types.listOf types.attrs;
               default = [ ];
               description = lib.mdDoc "Firewall rules for outbound traffic.";
-              example = [{
+              example = [ {
                 port = "any";
                 proto = "any";
                 host = "any";
-              }];
+              } ];
             };
 
             firewall.inbound = mkOption {
               type = types.listOf types.attrs;
               default = [ ];
               description = lib.mdDoc "Firewall rules for inbound traffic.";
-              example = [{
+              example = [ {
                 port = "any";
                 proto = "any";
                 host = "any";
-              }];
+              } ];
             };
 
             settings = mkOption {
@@ -213,7 +213,10 @@ in {
         "nebula@${netName}" = {
           description = "Nebula VPN service for ${netName}";
           wants = [ "basic.target" ];
-          after = [ "basic.target" "network.target" ];
+          after = [
+            "basic.target"
+            "network.target"
+          ];
           before = [ "sshd.service" ];
           wantedBy = [ "multi-user.target" ];
           serviceConfig = {

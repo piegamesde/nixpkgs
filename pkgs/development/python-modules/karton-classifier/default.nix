@@ -23,7 +23,11 @@ buildPythonPackage rec {
     hash = "sha256-TRmAin0TAOIwR5EBMwTOJ9QaHO+mOx/eAjgqvyQZDj4=";
   };
 
-  propagatedBuildInputs = [ chardet karton-core python-magic ];
+  propagatedBuildInputs = [
+    chardet
+    karton-core
+    python-magic
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

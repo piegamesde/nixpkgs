@@ -34,12 +34,23 @@ let
         patchShebangs scripts
       '';
 
-      nativeBuildInputs = [ bison dtc flex openssl libusb1 lzop pkg-config ];
+      nativeBuildInputs = [
+        bison
+        dtc
+        flex
+        openssl
+        libusb1
+        lzop
+        pkg-config
+      ];
       depsBuildBuild = [ buildPackages.stdenv.cc ];
 
       hardeningDisable = [ "all" ];
 
-      makeFlags = [ "DTC=dtc" "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ];
+      makeFlags = [
+        "DTC=dtc"
+        "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
+      ];
 
       configurePhase = ''
         runHook preConfigure

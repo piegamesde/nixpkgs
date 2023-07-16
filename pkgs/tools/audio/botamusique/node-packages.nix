@@ -5491,14 +5491,23 @@ let
         ];
       })
       (sources."eslint-import-resolver-node-0.3.4" // {
-        dependencies = [ sources."debug-2.6.9" sources."ms-2.0.0" ];
+        dependencies = [
+          sources."debug-2.6.9"
+          sources."ms-2.0.0"
+        ];
       })
       (sources."eslint-module-utils-2.6.0" // {
-        dependencies = [ sources."debug-2.6.9" sources."ms-2.0.0" ];
+        dependencies = [
+          sources."debug-2.6.9"
+          sources."ms-2.0.0"
+        ];
       })
       (sources."eslint-plugin-import-2.22.1" // {
-        dependencies =
-          [ sources."debug-2.6.9" sources."doctrine-1.5.0" sources."ms-2.0.0" ];
+        dependencies = [
+          sources."debug-2.6.9"
+          sources."doctrine-1.5.0"
+          sources."ms-2.0.0"
+        ];
       })
       sources."eslint-plugin-jquery-1.5.1"
       (sources."eslint-plugin-jsdoc-30.7.8" // {
@@ -5597,8 +5606,10 @@ let
       sources."isarray-1.0.0"
       sources."isexe-2.0.0"
       (sources."jest-worker-26.6.2" // {
-        dependencies =
-          [ sources."has-flag-4.0.0" sources."supports-color-7.2.0" ];
+        dependencies = [
+          sources."has-flag-4.0.0"
+          sources."supports-color-7.2.0"
+        ];
       })
       sources."jquery-3.5.1"
       sources."jquery-migrate-3.3.2"
@@ -5616,7 +5627,10 @@ let
       sources."levn-0.4.1"
       sources."lines-and-columns-1.1.6"
       (sources."load-json-file-2.0.0" // {
-        dependencies = [ sources."parse-json-2.2.0" sources."pify-2.3.0" ];
+        dependencies = [
+          sources."parse-json-2.2.0"
+          sources."pify-2.3.0"
+        ];
       })
       sources."loader-runner-4.1.0"
       (sources."loader-utils-1.4.0" // {
@@ -5631,8 +5645,10 @@ let
       sources."mime-types-2.1.27"
       sources."mimic-fn-2.1.0"
       (sources."mini-css-extract-plugin-1.3.1" // {
-        dependencies =
-          [ sources."loader-utils-2.0.0" sources."schema-utils-3.0.0" ];
+        dependencies = [
+          sources."loader-utils-2.0.0"
+          sources."schema-utils-3.0.0"
+        ];
       })
       sources."minimatch-3.0.4"
       sources."minimist-1.2.5"
@@ -5700,7 +5716,10 @@ let
       sources."punycode-2.1.1"
       sources."randombytes-2.1.0"
       (sources."read-pkg-2.0.0" // {
-        dependencies = [ sources."path-type-2.0.0" sources."pify-2.3.0" ];
+        dependencies = [
+          sources."path-type-2.0.0"
+          sources."pify-2.3.0"
+        ];
       })
       sources."read-pkg-up-2.0.0"
       sources."readable-stream-3.6.0"
@@ -5720,8 +5739,10 @@ let
       })
       sources."relateurl-0.2.7"
       (sources."renderkid-2.0.4" // {
-        dependencies =
-          [ sources."ansi-regex-2.1.1" sources."strip-ansi-3.0.1" ];
+        dependencies = [
+          sources."ansi-regex-2.1.1"
+          sources."strip-ansi-3.0.1"
+        ];
       })
       sources."resolve-1.19.0"
       (sources."resolve-cwd-3.0.0" // {
@@ -5756,8 +5777,10 @@ let
       sources."spdx-license-ids-3.0.6"
       sources."sprintf-js-1.0.3"
       (sources."string-width-3.1.0" // {
-        dependencies =
-          [ sources."ansi-regex-4.1.0" sources."strip-ansi-5.2.0" ];
+        dependencies = [
+          sources."ansi-regex-4.1.0"
+          sources."strip-ansi-5.2.0"
+        ];
       })
       sources."string.prototype.trimend-1.0.3"
       sources."string.prototype.trimstart-1.0.3"
@@ -5773,8 +5796,10 @@ let
       sources."table-layout-1.0.1"
       sources."tapable-1.1.3"
       (sources."terser-4.8.0" // {
-        dependencies =
-          [ sources."commander-2.20.3" sources."source-map-0.6.1" ];
+        dependencies = [
+          sources."commander-2.20.3"
+          sources."source-map-0.6.1"
+        ];
       })
       (sources."terser-webpack-plugin-5.0.3" // {
         dependencies = [

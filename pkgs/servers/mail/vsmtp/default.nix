@@ -22,7 +22,11 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildFeatures = [ "telemetry" "journald" "syslog" ];
+  buildFeatures = [
+    "telemetry"
+    "journald"
+    "syslog"
+  ];
 
   # tests do not run well in the nix sandbox
   doCheck = false;

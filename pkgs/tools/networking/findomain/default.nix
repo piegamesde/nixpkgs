@@ -32,7 +32,10 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ installShellFiles pkg-config ];
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+  ];
 
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
@@ -48,6 +51,9 @@ rustPlatform.buildRustPackage rec {
     changelog =
       "https://github.com/Findomain/Findomain/releases/tag/${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ Br1ght0ne figsoda ];
+    maintainers = with maintainers; [
+      Br1ght0ne
+      figsoda
+    ];
   };
 }

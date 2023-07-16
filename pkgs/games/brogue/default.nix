@@ -37,7 +37,11 @@ stdenv.mkDerivation rec {
     rm -rf src/libtcod*
   '';
 
-  buildInputs = [ SDL ncurses libtcod ];
+  buildInputs = [
+    SDL
+    ncurses
+    libtcod
+  ];
 
   desktopItem = makeDesktopItem {
     name = "brogue";
@@ -46,7 +50,10 @@ stdenv.mkDerivation rec {
     comment = "Brave the Dungeons of Doom!";
     icon = "brogue";
     exec = "brogue";
-    categories = [ "Game" "AdventureGame" ];
+    categories = [
+      "Game"
+      "AdventureGame"
+    ];
   };
 
   installPhase = ''
@@ -58,7 +65,10 @@ stdenv.mkDerivation rec {
   '';
 
   # fix crash; shouldn’t be a security risk because it’s an offline game
-  hardeningDisable = [ "stackprotector" "fortify" ];
+  hardeningDisable = [
+    "stackprotector"
+    "fortify"
+  ];
 
   meta = with lib; {
     description = "A roguelike game";

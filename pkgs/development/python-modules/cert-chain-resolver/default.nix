@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ cryptography ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-mock six ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-mock
+    six
+  ];
 
   disabledTests = [
     # Tests require network access

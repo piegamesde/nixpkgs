@@ -13,7 +13,11 @@ stdenv.mkDerivation rec {
   pname = "debugedit";
   version = "5.0";
 
-  nativeBuildInputs = [ autoreconfHook pkg-config help2man ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    help2man
+  ];
   buildInputs = [ elfutils ];
   nativeCheckInputs = [ util-linux ]; # Tests use `rev`
 

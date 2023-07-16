@@ -22,9 +22,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-En2e0FDKLpMjuxa2aXuvI6h7d+D1D5x1dDg96924/qM=";
   };
 
-  nativeBuildInputs = [ autoreconfHook intltool pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    intltool
+    pkg-config
+  ];
 
-  buildInputs = [ libxml2 pciutils gtk2 ddccontrol-db ];
+  buildInputs = [
+    libxml2
+    pciutils
+    gtk2
+    ddccontrol-db
+  ];
 
   configureFlags =
     [ "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system" ];

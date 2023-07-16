@@ -19,7 +19,12 @@ buildPythonPackage rec {
     sha256 = "1m0hllvmr5nkl4zy8yyzfgw9zmbrrzd5pw87ahd2mq68fjpcaqq5";
   };
 
-  propagatedBuildInputs = [ future kinparse pyspice graphviz ];
+  propagatedBuildInputs = [
+    future
+    kinparse
+    pyspice
+    graphviz
+  ];
 
   # Checks require availability of the kicad symbol libraries.
   doCheck = false;

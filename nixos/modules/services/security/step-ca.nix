@@ -81,14 +81,14 @@ in {
     configFile = settingsFormat.generate "ca.json"
       (cfg.settings // { address = cfg.address + ":" + toString cfg.port; });
   in {
-    assertions = [{
+    assertions = [ {
       assertion = !lib.isStorePath cfg.intermediatePasswordFile;
       message = ''
         <option>services.step-ca.intermediatePasswordFile</option> points to
         a file in the Nix store. You should use a quoted absolute path to
         prevent this.
       '';
-    }];
+    } ];
 
     systemd.packages = [ cfg.package ];
 

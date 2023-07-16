@@ -22,7 +22,10 @@ buildDunePackage rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  propagatedBuildInputs = [ cstruct bigarray-compat ];
+  propagatedBuildInputs = [
+    cstruct
+    bigarray-compat
+  ];
   checkInputs = [ ounit ];
   doCheck = true;
 

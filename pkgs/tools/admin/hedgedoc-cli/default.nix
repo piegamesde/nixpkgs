@@ -27,7 +27,13 @@ in stdenv.mkDerivation {
     mkdir -p $out/bin
     cp $src/bin/codimd $out/bin
     wrapProgram $out/bin/codimd \
-      --prefix PATH : ${lib.makeBinPath [ jq wget curl ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          jq
+          wget
+          curl
+        ]
+      }
     ln -s $out/bin/codimd $out/bin/hedgedoc-cli
     runHook postInstall
   '';

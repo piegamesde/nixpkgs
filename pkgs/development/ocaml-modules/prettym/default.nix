@@ -25,9 +25,19 @@ buildDunePackage rec {
   duneVersion = "3";
   minimalOCamlVersion = "4.08";
 
-  propagatedBuildInputs = [ bigarray-overlap bigstringaf fmt ke ];
+  propagatedBuildInputs = [
+    bigarray-overlap
+    bigstringaf
+    fmt
+    ke
+  ];
 
-  checkInputs = [ ptime alcotest jsonm base64 ];
+  checkInputs = [
+    ptime
+    alcotest
+    jsonm
+    base64
+  ];
   doCheck = true;
 
   meta = {

@@ -24,9 +24,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ gmp ];
 
-  nativeBuildInputs = [
-    python3 # needed by ./configure to create the makefile
-  ];
+  nativeBuildInputs = [ python3 # needed by ./configure to create the makefile
+    ];
 
   # name of library file ("libzn_poly.so")
   libbasename = "libzn_poly";
@@ -37,7 +36,10 @@ stdenv.mkDerivation rec {
   # Tuning (either autotuning or with hand-written parameters) is possible
   # but not implemented here.
   # It seems buggy anyways (see homepage).
-  buildFlags = [ "all" "${libbasename}${libext}" ];
+  buildFlags = [
+    "all"
+    "${libbasename}${libext}"
+  ];
 
   configureFlags = lib.optionals (!tune) [ "--disable-tuning" ];
 

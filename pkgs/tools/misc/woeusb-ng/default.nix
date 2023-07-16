@@ -29,7 +29,14 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ wrapGAppsHook ];
 
-  propagatedBuildInputs = [ p7zip parted grub2 termcolor wxPython_4_2 six ];
+  propagatedBuildInputs = [
+    p7zip
+    parted
+    grub2
+    termcolor
+    wxPython_4_2
+    six
+  ];
 
   preConfigure = ''
     mkdir -p $out/bin $out/share/applications $out/share/polkit-1/actions

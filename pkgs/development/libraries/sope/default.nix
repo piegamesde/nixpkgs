@@ -39,10 +39,15 @@ gnustep.stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
   nativeBuildInputs = [ gnustep.make ];
-  buildInputs = [ gnustep.base libxml2 openssl ]
-    ++ lib.optional (openldap != null) openldap
-    ++ lib.optionals (mariadb != null) [ libmysqlclient mariadb ]
-    ++ lib.optional (postgresql != null) postgresql;
+  buildInputs = [
+    gnustep.base
+    libxml2
+    openssl
+  ] ++ lib.optional (openldap != null) openldap
+    ++ lib.optionals (mariadb != null) [
+      libmysqlclient
+      mariadb
+    ] ++ lib.optional (postgresql != null) postgresql;
 
   # Configure directories where files are installed to. Everything is automatically
   # put into $out (thanks GNUstep) apart from the makefiles location which is where
@@ -56,9 +61,12 @@ gnustep.stdenv.mkDerivation rec {
     EOF
   '';
 
-  configureFlags =
-    [ "--prefix=" "--disable-debug" "--enable-xml" "--with-ssl=ssl" ]
-    ++ lib.optional (openldap != null) "--enable-openldap"
+  configureFlags = [
+    "--prefix="
+    "--disable-debug"
+    "--enable-xml"
+    "--with-ssl=ssl"
+  ] ++ lib.optional (openldap != null) "--enable-openldap"
     ++ lib.optional (mariadb != null) "--enable-mysql"
     ++ lib.optional (postgresql != null) "--enable-postgresql";
 
@@ -76,6 +84,9 @@ gnustep.stdenv.mkDerivation rec {
     license = licenses.publicDomain;
     homepage = "https://github.com/inverse-inc/sope";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ajs124 das_j ];
+    maintainers = with maintainers; [
+      ajs124
+      das_j
+    ];
   };
 }

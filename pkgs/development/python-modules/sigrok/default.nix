@@ -24,19 +24,24 @@ toPythonModule ((libsigrok.override { inherit python; }).overrideAttrs (orig: {
     ./python-install.patch
   ];
 
-  nativeBuildInputs = orig.nativeBuildInputs or [ ]
-    ++ [ autoreconfHook setuptools swig numpy ]
-    ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [
-      pythonImportsCheckHook
-      pythonCatchConflictsHook
-    ];
-
-  buildInputs = orig.buildInputs or [ ] ++ [
-    pygobject3 # makes headers available the configure script checks for
+  nativeBuildInputs = orig.nativeBuildInputs or [ ] ++ [
+    autoreconfHook
+    setuptools
+    swig
+    numpy
+  ] ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [
+    pythonImportsCheckHook
+    pythonCatchConflictsHook
   ];
 
-  propagatedBuildInputs = orig.propagatedBuildInputs or [ ]
-    ++ [ pygobject3 numpy ];
+  buildInputs = orig.buildInputs or [ ]
+    ++ [ pygobject3 # makes headers available the configure script checks for
+    ];
+
+  propagatedBuildInputs = orig.propagatedBuildInputs or [ ] ++ [
+    pygobject3
+    numpy
+  ];
 
   postInstall = ''
     ${orig.postInstall or ""}
@@ -45,7 +50,10 @@ toPythonModule ((libsigrok.override { inherit python; }).overrideAttrs (orig: {
     export PYTHONPATH="$out/${python.sitePackages}:$PYTHONPATH"
   '';
 
-  pythonImportsCheck = [ "sigrok" "sigrok.core" ];
+  pythonImportsCheck = [
+    "sigrok"
+    "sigrok.core"
+  ];
 
   meta = orig.meta // {
     description = "Python bindings for libsigrok";

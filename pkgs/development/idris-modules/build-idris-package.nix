@@ -43,7 +43,10 @@ in stdenv.mkDerivation ({
   pname = "idris-${pname}";
   inherit version;
 
-  buildInputs = [ idris-with-packages gmp ] ++ extraBuildInputs;
+  buildInputs = [
+    idris-with-packages
+    gmp
+  ] ++ extraBuildInputs;
   propagatedBuildInputs = allIdrisDeps;
 
   # Some packages use the style

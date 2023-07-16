@@ -29,7 +29,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ asks trio xdg ];
+  propagatedBuildInputs = [
+    asks
+    trio
+    xdg
+  ];
 
   # upstream has no tests
   doCheck = false;

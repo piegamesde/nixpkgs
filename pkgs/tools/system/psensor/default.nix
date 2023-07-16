@@ -23,9 +23,19 @@ stdenv.mkDerivation rec {
     sha256 = "1ark901va79gfq5p8h8dqypjgm3f8crmj37520q3slwz2rfphkq8";
   };
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ lm_sensors libgtop libatasmart gtk3 libnotify udisks2 ];
+  buildInputs = [
+    lm_sensors
+    libgtop
+    libatasmart
+    gtk3
+    libnotify
+    udisks2
+  ];
 
   preConfigure = ''
     NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${libXNVCtrl}/include -Wno-error"

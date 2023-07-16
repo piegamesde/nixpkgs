@@ -17,7 +17,10 @@ import ./make-test-python.nix ({
     unfreePredicate = pkg:
       with lib;
       let
-        allowPackageNames = [ "quake3-demodata" "quake3-pointrelease" ];
+        allowPackageNames = [
+          "quake3-demodata"
+          "quake3-pointrelease"
+        ];
         allowLicenses = [ lib.licenses.unfreeRedistributable ];
       in elem pkg.pname allowPackageNames
       && elem (pkg.meta.license or null) allowLicenses;
@@ -37,7 +40,12 @@ import ./make-test-python.nix ({
 
   in rec {
     name = "quake3";
-    meta = with lib.maintainers; { maintainers = [ domenkozar eelco ]; };
+    meta = with lib.maintainers; {
+      maintainers = [
+        domenkozar
+        eelco
+      ];
+    };
 
     # TODO: lcov doesn't work atm
     #makeCoverageReport = true;

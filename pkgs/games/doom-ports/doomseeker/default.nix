@@ -24,10 +24,23 @@ mkDerivation {
     sha256 = "17fna3a604miqsvply3klnmypps4ifz8axgd3pj96z46ybxs8akw";
   };
 
-  patches = [ ./fix_paths.patch ./qt_build_fix.patch ];
+  patches = [
+    ./fix_paths.patch
+    ./qt_build_fix.patch
+  ];
 
-  nativeBuildInputs = [ cmake qttools pkg-config xxd ];
-  buildInputs = [ qtbase qtmultimedia zlib bzip2 ];
+  nativeBuildInputs = [
+    cmake
+    qttools
+    pkg-config
+    xxd
+  ];
+  buildInputs = [
+    qtbase
+    qtmultimedia
+    zlib
+    bzip2
+  ];
 
   hardeningDisable = lib.optional stdenv.isDarwin "format";
 

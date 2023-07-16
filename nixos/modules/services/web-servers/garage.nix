@@ -29,7 +29,11 @@ in {
     };
 
     logLevel = mkOption {
-      type = types.enum ([ "info" "debug" "trace" ]);
+      type = types.enum ([
+        "info"
+        "debug"
+        "trace"
+      ]);
       default = "info";
       example = "debug";
       description = lib.mdDoc
@@ -57,7 +61,15 @@ in {
 
           replication_mode = mkOption {
             default = "none";
-            type = types.enum ([ "none" "1" "2" "3" 1 2 3 ]);
+            type = types.enum ([
+              "none"
+              "1"
+              "2"
+              "3"
+              1
+              2
+              3
+            ]);
             apply = v: toString v;
             description = lib.mdDoc
               "Garage replication mode, defaults to none, see: <https://garagehq.deuxfleurs.fr/documentation/reference-manual/configuration/#replication-mode> for reference.";
@@ -88,8 +100,14 @@ in {
 
     systemd.services.garage = {
       description = "Garage Object Storage (S3 compatible)";
-      after = [ "network.target" "network-online.target" ];
-      wants = [ "network.target" "network-online.target" ];
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
+      wants = [
+        "network.target"
+        "network-online.target"
+      ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/garage server";

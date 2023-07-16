@@ -19,7 +19,11 @@ in stdenv.mkDerivation rec {
   pname = "libepc";
   version = "0.4.6";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -28,9 +32,21 @@ in stdenv.mkDerivation rec {
     sha256 = "1s3svb2slqjsrqfv50c2ymnqcijcxb5gnx6bfibwh9l5ga290n91";
   };
 
-  nativeBuildInputs = [ pkg-config intltool gtk-doc ];
-  buildInputs = [ glib libuuid gtk3 ];
-  propagatedBuildInputs = [ avahiWithGtk gnutls libsoup ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+    gtk-doc
+  ];
+  buildInputs = [
+    glib
+    libuuid
+    gtk3
+  ];
+  propagatedBuildInputs = [
+    avahiWithGtk
+    gnutls
+    libsoup
+  ];
 
   enableParallelBuilding = true;
 

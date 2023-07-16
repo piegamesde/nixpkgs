@@ -22,10 +22,16 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-Twg2C29OwXfCK/rYXnyjbhmCClnsFHz8le9h4AmzXfA=";
 
-  libPath = lib.makeLibraryPath [ wayland libxkbcommon ];
+  libPath = lib.makeLibraryPath [
+    wayland
+    libxkbcommon
+  ];
 
   buildInputs = [ fontconfig ];
-  nativeBuildInputs = [ makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+  ];
 
   postInstall = ''
     wrapProgram "$out/bin/kickoff" --prefix LD_LIBRARY_PATH : "${libPath}"

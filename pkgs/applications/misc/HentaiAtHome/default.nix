@@ -19,7 +19,10 @@ stdenvNoCC.mkDerivation rec {
     stripRoot = false;
   };
 
-  nativeBuildInputs = [ jdk makeWrapper ];
+  nativeBuildInputs = [
+    jdk
+    makeWrapper
+  ];
 
   LANG = "en_US.UTF-8";
   LOCALE_ARCHIVE = lib.optionalString (stdenvNoCC.buildPlatform.libc == "glibc")

@@ -245,19 +245,20 @@ in buildStdenv.mkDerivation ({
   outputs = [ "out" ] ++ lib.optionals crashreporterSupport [ "symbols" ];
 
   # Add another configure-build-profiling run before the final configure phase if we build with pgo
-  preConfigurePhases =
-    lib.optionals pgoSupport [ "configurePhase" "buildPhase" "profilingPhase" ];
+  preConfigurePhases = lib.optionals pgoSupport [
+    "configurePhase"
+    "buildPhase"
+    "profilingPhase"
+  ];
 
-  patches = lib.optionals
-    (lib.versionAtLeast version "112.0" && lib.versionOlder version "113.0") [
-      (fetchpatch {
-        # Crash when desktop scaling does not divide window scale on Wayland
-        # https://bugzilla.mozilla.org/show_bug.cgi?id=1803016
-        name = "mozbz1803016.patch";
-        url = "https://hg.mozilla.org/mozilla-central/raw-rev/1068e0955cfb";
-        hash = "sha256-iPqmofsmgvlFNm+mqVPbdgMKmP68ANuzYu+PzfCpoNA=";
-      })
-    ] ++ lib.optionals (lib.versionOlder version "114.0") [
+  patches = lib.optionals (lib.versionAtLeast version "112.0"
+    && lib.versionOlder version "113.0") [ (fetchpatch {
+      # Crash when desktop scaling does not divide window scale on Wayland
+      # https://bugzilla.mozilla.org/show_bug.cgi?id=1803016
+      name = "mozbz1803016.patch";
+      url = "https://hg.mozilla.org/mozilla-central/raw-rev/1068e0955cfb";
+      hash = "sha256-iPqmofsmgvlFNm+mqVPbdgMKmP68ANuzYu+PzfCpoNA=";
+    }) ] ++ lib.optionals (lib.versionOlder version "114.0") [
       # https://bugzilla.mozilla.org/show_bug.cgi?id=1830040
       # https://hg.mozilla.org/mozilla-central/rev/cddb250a28d8
       (fetchpatch {
@@ -280,7 +281,10 @@ in buildStdenv.mkDerivation ({
   # Ignore trivial whitespace changes in patches, this fixes compatibility of
   # ./env_var_for_system_dir.patch with Firefox >=65 without having to track
   # two patches.
-  patchFlags = [ "-p1" "-l" ];
+  patchFlags = [
+    "-p1"
+    "-l"
+  ];
 
   # if not explicitly set, wrong cc from buildStdenv would be used
   HOST_CC = "${llvmPackagesBuildBuild.stdenv.cc}/bin/cc";
@@ -302,8 +306,10 @@ in buildStdenv.mkDerivation ({
     unzip
     which
     wrapGAppsHook
-  ] ++ lib.optionals crashreporterSupport [ dump_syms patchelf ]
-    ++ lib.optionals pgoSupport [ xvfb-run ] ++ extraNativeBuildInputs;
+  ] ++ lib.optionals crashreporterSupport [
+    dump_syms
+    patchelf
+  ] ++ lib.optionals pgoSupport [ xvfb-run ] ++ extraNativeBuildInputs;
 
   setOutputFlags =
     false; # `./mach configure` doesn't understand `--*dir=` flags.
@@ -492,8 +498,10 @@ in buildStdenv.mkDerivation ({
     ++ lib.optional alsaSupport alsa-lib ++ lib.optional jackSupport libjack2
     ++ lib.optional pulseaudioSupport libpulseaudio # only headers are needed
     ++ lib.optional sndioSupport sndio ++ lib.optional gssSupport libkrb5
-    ++ lib.optionals waylandSupport [ libxkbcommon libdrm ]
-    ++ lib.optional jemallocSupport jemalloc ++ extraBuildInputs;
+    ++ lib.optionals waylandSupport [
+      libxkbcommon
+      libdrm
+    ] ++ lib.optional jemallocSupport jemalloc ++ extraBuildInputs;
 
   profilingPhase = lib.optionalString pgoSupport ''
     # Package up Firefox for profiling

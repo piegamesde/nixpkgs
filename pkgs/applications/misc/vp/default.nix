@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [ SDL SDL_image ];
+  buildInputs = [
+    SDL
+    SDL_image
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-I${SDL}/include/SDL -I${SDL_image}/include/SDL";
 

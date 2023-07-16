@@ -18,7 +18,12 @@ let
     sha256 = "sha256-EEp9dxz/+l5XkNaVBFgv5v64sizQILnljRAzwXv/yV8=";
   };
 in runCommand "appimage-run-tests" {
-  buildInputs = [ appimage-run glibcLocales file xdg-utils ];
+  buildInputs = [
+    appimage-run
+    glibcLocales
+    file
+    xdg-utils
+  ];
   meta.platforms = [ "x86_64-linux" ];
 } ''
   export HOME=$(mktemp -d)

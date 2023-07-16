@@ -28,7 +28,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ parso ];
 
-  nativeCheckInputs = [ attrs django_3 pytestCheckHook ];
+  nativeCheckInputs = [
+    attrs
+    django_3
+    pytestCheckHook
+  ];
 
   preCheck = ''
     export HOME=$TMPDIR

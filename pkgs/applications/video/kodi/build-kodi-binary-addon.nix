@@ -24,7 +24,11 @@ toKodiAddon (stdenv.mkDerivation ({
   dontStrip = true;
 
   nativeBuildInputs = [ cmake ] ++ extraNativeBuildInputs;
-  buildInputs = [ kodi kodi-platform libcec_platform ] ++ extraBuildInputs;
+  buildInputs = [
+    kodi
+    kodi-platform
+    libcec_platform
+  ] ++ extraBuildInputs;
 
   inherit extraRuntimeDependencies;
 

@@ -36,15 +36,19 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-oTnBZt9/9EccXgczBRZC7lVWwcyKSnjxRVg8XIGrMvs=";
   };
 
-  hardeningDisable = [
-    "format"
-  ]
-  # bionic libc is super weird and has issues with fortify outside of its own libc, check this comment:
-  # https://github.com/NixOS/nixpkgs/pull/192630#discussion_r978985593
-  # or you can check libc/include/sys/cdefs.h in bionic source code
+  hardeningDisable = [ "format" ]
+    # bionic libc is super weird and has issues with fortify outside of its own libc, check this comment:
+    # https://github.com/NixOS/nixpkgs/pull/192630#discussion_r978985593
+    # or you can check libc/include/sys/cdefs.h in bionic source code
     ++ lib.optional (stdenv.hostPlatform.libc == "bionic") "fortify";
 
-  outputs = [ "out" "dev" "man" "doc" "info" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+    "doc"
+    "info"
+  ];
 
   separateDebugInfo = true;
 
@@ -71,23 +75,25 @@ in stdenv.mkDerivation rec {
     })
   ];
 
-  configureFlags = [
-    (if interactive then "--with-installed-readline" else "--disable-readline")
-  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    "bash_cv_job_control_missing=nomissing"
-    "bash_cv_sys_named_pipes=nomissing"
-    "bash_cv_getcwd_malloc=yes"
-  ] ++ lib.optionals stdenv.hostPlatform.isCygwin [
-    "--without-libintl-prefix"
-    "--without-libiconv-prefix"
+  configureFlags = [ (if interactive then
     "--with-installed-readline"
-    "bash_cv_dev_stdin=present"
-    "bash_cv_dev_fd=standard"
-    "bash_cv_termcap_lib=libncurses"
-  ] ++ lib.optionals (stdenv.hostPlatform.libc == "musl") [
-    "--without-bash-malloc"
-    "--disable-nls"
-  ];
+  else
+    "--disable-readline") ]
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      "bash_cv_job_control_missing=nomissing"
+      "bash_cv_sys_named_pipes=nomissing"
+      "bash_cv_getcwd_malloc=yes"
+    ] ++ lib.optionals stdenv.hostPlatform.isCygwin [
+      "--without-libintl-prefix"
+      "--without-libiconv-prefix"
+      "--with-installed-readline"
+      "bash_cv_dev_stdin=present"
+      "bash_cv_dev_fd=standard"
+      "bash_cv_termcap_lib=libncurses"
+    ] ++ lib.optionals (stdenv.hostPlatform.libc == "musl") [
+      "--without-bash-malloc"
+      "--disable-nls"
+    ];
 
   strictDeps = true;
   # Note: Bison is needed because the patches above modify parse.y.

@@ -32,7 +32,13 @@ python3.pkgs.buildPythonApplication rec {
     python3.pkgs.pytest-runner
   ];
 
-  buildInputs = [ gtk3 keybinder3 libnotify python3 vte ];
+  buildInputs = [
+    gtk3
+    keybinder3
+    libnotify
+    python3
+    vte
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     configobj

@@ -85,7 +85,10 @@ in python.pkgs.buildPythonApplication rec {
     transmission-rpc
   ];
 
-  pythonImportsCheck = [ "flexget" "flexget.plugins.clients.transmission" ];
+  pythonImportsCheck = [
+    "flexget"
+    "flexget.plugins.clients.transmission"
+  ];
 
   meta = with lib; {
     homepage = "https://flexget.com/";

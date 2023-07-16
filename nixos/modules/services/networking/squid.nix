@@ -168,7 +168,10 @@ in {
     systemd.services.squid = {
       description = "Squid caching proxy";
       documentation = [ "man:squid(8)" ];
-      after = [ "network.target" "nss-lookup.target" ];
+      after = [
+        "network.target"
+        "nss-lookup.target"
+      ];
       wantedBy = [ "multi-user.target" ];
       preStart = ''
         mkdir -p "/var/log/squid"

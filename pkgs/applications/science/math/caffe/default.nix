@@ -66,7 +66,10 @@ in stdenv.mkDerivation rec {
     sha256 = "104jp3cm823i3cdph7hgsnj6l77ygbwsy35mdmzhmsi4jxprd9j3";
   };
 
-  nativeBuildInputs = [ cmake doxygen ];
+  nativeBuildInputs = [
+    cmake
+    doxygen
+  ];
 
   cmakeFlags =
     # It's important that caffe is passed the major and minor version only because that's what
@@ -80,17 +83,31 @@ in stdenv.mkDerivation rec {
     ] ++ (if cudaSupport then [
       "-DCUDA_ARCH_NAME=All"
       "-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/cc"
-    ] else
-      [ "-DCPU_ONLY=ON" ]) ++ [ "-DUSE_NCCL=${toggle ncclSupport}" ]
+    ] else [ "-DCPU_ONLY=ON" ]) ++ [ "-DUSE_NCCL=${toggle ncclSupport}" ]
     ++ [ "-DUSE_LEVELDB=${toggle leveldbSupport}" ]
     ++ [ "-DUSE_LMDB=${toggle lmdbSupport}" ];
 
-  buildInputs = [ boost gflags glog protobuf hdf5-cpp opencv3 blas ]
-    ++ lib.optional cudaSupport cudatoolkit ++ lib.optional cudnnSupport cudnn
+  buildInputs = [
+    boost
+    gflags
+    glog
+    protobuf
+    hdf5-cpp
+    opencv3
+    blas
+  ] ++ lib.optional cudaSupport cudatoolkit ++ lib.optional cudnnSupport cudnn
     ++ lib.optional lmdbSupport lmdb ++ lib.optional ncclSupport nccl
-    ++ lib.optionals leveldbSupport [ leveldb snappy ]
-    ++ lib.optionals pythonSupport [ python numpy ]
-    ++ lib.optionals stdenv.isDarwin [ Accelerate CoreGraphics CoreVideo ];
+    ++ lib.optionals leveldbSupport [
+      leveldb
+      snappy
+    ] ++ lib.optionals pythonSupport [
+      python
+      numpy
+    ] ++ lib.optionals stdenv.isDarwin [
+      Accelerate
+      CoreGraphics
+      CoreVideo
+    ];
 
   propagatedBuildInputs = lib.optionals pythonSupport (
     # requirements.txt
@@ -113,7 +130,10 @@ in stdenv.mkDerivation rec {
       pp.six
     ] ++ lib.optional leveldbSupport pp.leveldb));
 
-  outputs = [ "bin" "out" ];
+  outputs = [
+    "bin"
+    "out"
+  ];
   propagatedBuildOutputs = [ ]; # otherwise propagates out -> bin cycle
 
   patches = [ ./darwin.patch ] ++ lib.optional pythonSupport (substituteAll {

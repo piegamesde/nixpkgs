@@ -25,7 +25,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [ mutagen six ];
+  propagatedBuildInputs = [
+    mutagen
+    six
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

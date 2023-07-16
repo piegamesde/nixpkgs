@@ -28,7 +28,11 @@ mkDerivation rec {
     sha256 = "1s5yy240x4cvrk93acygnrp5m10xp7ln013gdfbm0r5xvd8xy19k";
   };
 
-  nativeBuildInputs = [ extra-cmake-modules kdoctools wrapGAppsHook ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+    wrapGAppsHook
+  ];
 
   propagatedBuildInputs = [
     baloo

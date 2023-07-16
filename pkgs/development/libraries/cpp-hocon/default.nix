@@ -27,7 +27,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ boost curl leatherman ];
+  buildInputs = [
+    boost
+    curl
+    leatherman
+  ];
 
   meta = with lib; {
     inherit (src.meta) homepage;

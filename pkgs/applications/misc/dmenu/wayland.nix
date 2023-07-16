@@ -27,11 +27,27 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-CeJWLBPAzE3JITVuS6f4CQxLz9v09WvfG3O0wErJJS4=";
   };
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs = [ meson ninja pkg-config makeWrapper wayland-scanner ];
-  buildInputs = [ cairo pango wayland-protocols glib wayland libxkbcommon ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    makeWrapper
+    wayland-scanner
+  ];
+  buildInputs = [
+    cairo
+    pango
+    wayland-protocols
+    glib
+    wayland
+    libxkbcommon
+  ];
 
   # Patch to support cross-compilation, see https://github.com/nyyManni/dmenu-wayland/pull/23/
   patches = [

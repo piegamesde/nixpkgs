@@ -24,8 +24,14 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs =
-    [ docutils jinja2 markdown-it-py mdit-py-plugins pyyaml typing-extensions ];
+  propagatedBuildInputs = [
+    docutils
+    jinja2
+    markdown-it-py
+    mdit-py-plugins
+    pyyaml
+    typing-extensions
+  ];
 
   pythonImportsCheck = [ "myst_parser" ];
 

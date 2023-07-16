@@ -43,9 +43,17 @@ in stdenv.mkDerivation rec {
   pname = "jameica";
   inherit version;
 
-  nativeBuildInputs = [ ant jdk wrapGAppsHook makeWrapper ];
-  buildInputs = lib.optionals stdenv.isLinux [ gtk2 glib xorg.libXtst ]
-    ++ lib.optional stdenv.isDarwin Cocoa;
+  nativeBuildInputs = [
+    ant
+    jdk
+    wrapGAppsHook
+    makeWrapper
+  ];
+  buildInputs = lib.optionals stdenv.isLinux [
+    gtk2
+    glib
+    xorg.libXtst
+  ] ++ lib.optional stdenv.isDarwin Cocoa;
 
   src = fetchFromGitHub {
     owner = "willuhn";
@@ -102,7 +110,15 @@ in stdenv.mkDerivation rec {
       binaryBytecode # source bundles dependencies as jars
     ];
     license = licenses.gpl2Plus;
-    platforms = [ "x86_64-linux" "i686-linux" "x86_64-darwin" "aarch64-linux" ];
-    maintainers = with maintainers; [ flokli r3dl3g ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+      "x86_64-darwin"
+      "aarch64-linux"
+    ];
+    maintainers = with maintainers; [
+      flokli
+      r3dl3g
+    ];
   };
 }

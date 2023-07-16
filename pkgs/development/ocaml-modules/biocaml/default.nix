@@ -36,10 +36,21 @@ buildDunePackage rec {
     sha256 = "0rcvf8gwq7sz15mghl9ing722rl2zpnqif9dfxrnpdxiv0rl0731";
   };
 
-  buildInputs = [ ppx_jane ppx_sexp_conv ];
+  buildInputs = [
+    ppx_jane
+    ppx_sexp_conv
+  ];
   checkInputs = [ ounit ];
-  propagatedBuildInputs =
-    [ async base64 camlzip cfstream core rresult uri xmlm ];
+  propagatedBuildInputs = [
+    async
+    base64
+    camlzip
+    cfstream
+    core
+    rresult
+    uri
+    xmlm
+  ];
 
   meta = with lib; {
     description = "Bioinformatics library for Ocaml";

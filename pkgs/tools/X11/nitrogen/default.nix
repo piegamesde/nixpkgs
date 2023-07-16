@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ glib gtkmm2 ];
+  buildInputs = [
+    glib
+    gtkmm2
+  ];
 
   patchPhase = ''
     patchShebangs data/icon-theme-installer

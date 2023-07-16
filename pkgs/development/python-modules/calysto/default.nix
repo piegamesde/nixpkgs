@@ -21,7 +21,13 @@ buildPythonPackage rec {
     hash = "sha256-lr/cHFshpFs/PGMCsa3FKMRPTP+eE9ziH5XCpV+KzO8=";
   };
 
-  propagatedBuildInputs = [ metakernel svgwrite ipywidgets cairosvg numpy ];
+  propagatedBuildInputs = [
+    metakernel
+    svgwrite
+    ipywidgets
+    cairosvg
+    numpy
+  ];
 
   # there are no tests
   doCheck = false;

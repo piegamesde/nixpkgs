@@ -24,15 +24,28 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-erpYC4klkgvZ9D+4qM/qIHajsyOGKRbX7lhs6lfWFTQ=";
   };
 
-  buildInputs = [ file libmnl libnftnl libnl net-snmp openssl ];
+  buildInputs = [
+    file
+    libmnl
+    libnftnl
+    libnl
+    net-snmp
+    openssl
+  ];
 
   enableParallelBuilding = true;
 
   passthru.tests.keepalived = nixosTests.keepalived;
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
 
-  configureFlags = [ "--enable-sha1" "--enable-snmp" ];
+  configureFlags = [
+    "--enable-sha1"
+    "--enable-snmp"
+  ];
 
   meta = with lib; {
     homepage = "https://keepalived.org";

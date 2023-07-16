@@ -10,7 +10,10 @@ build-idris-package {
   version = "2018-06-25";
 
   ipkgName = "Bi";
-  idrisDeps = [ contrib pruviloj ];
+  idrisDeps = [
+    contrib
+    pruviloj
+  ];
 
   src = fetchFromGitHub {
     owner = "sbp";

@@ -45,9 +45,15 @@ buildPythonPackage rec {
     })
   ];
 
-  pythonRelaxDeps = [ "attrs" "httpx" ];
+  pythonRelaxDeps = [
+    "attrs"
+    "httpx"
+  ];
 
-  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
   propagatedBuildInputs = [
     attrs
@@ -61,7 +67,11 @@ buildPythonPackage rec {
     toml
   ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook respx ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+    respx
+  ];
 
   # Tests are failing on Python 3.11, Fatal Python error: Aborted
   doCheck = !(pythonAtLeast "3.11");

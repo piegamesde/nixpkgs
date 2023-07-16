@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   patches = [ ./eboard.patch ];
 
   buildInputs = [ gtk2 ];
-  nativeBuildInputs = [ perl pkg-config ];
+  nativeBuildInputs = [
+    perl
+    pkg-config
+  ];
 
   hardeningDisable = [ "format" ];
 

@@ -15,7 +15,10 @@ buildPythonPackage rec {
     sha256 = "0ys4hrmjbxl4qr26qr3dhhs27yfwn1635vwjdqh1qgjmrmcr1c0b";
   };
 
-  propagatedBuildInputs = [ msrest mock ];
+  propagatedBuildInputs = [
+    msrest
+    mock
+  ];
 
   # no tests included
   doCheck = false;

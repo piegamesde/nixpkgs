@@ -23,7 +23,10 @@ buildPythonPackage rec {
     patchShebangs .
   '';
   nativeCheckInputs = [ pytestCheckHook ];
-  propagatedBuildInputs = [ braceexpand inform ];
+  propagatedBuildInputs = [
+    braceexpand
+    inform
+  ];
 
   meta = with lib; {
     description = "shell library";

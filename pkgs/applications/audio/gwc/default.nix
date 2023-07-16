@@ -23,10 +23,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hRwy++gZiW/olIIeiVTpdIjPLIHgvgVUGEaUX9tpFbY=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs =
-    [ alsa-lib libpulseaudio gtk2 hicolor-icon-theme libsndfile fftw ];
+  buildInputs = [
+    alsa-lib
+    libpulseaudio
+    gtk2
+    hicolor-icon-theme
+    libsndfile
+    fftw
+  ];
 
   enableParallelBuilding = false; # Fails to generate machine.h in time.
 

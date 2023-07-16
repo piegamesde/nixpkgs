@@ -21,7 +21,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ libGLU libGL libX11 libXi ];
+  buildInputs = [
+    libGLU
+    libGL
+    libX11
+    libXi
+  ];
 
   sourceRoot = "liquidfun/Box2D/";
 

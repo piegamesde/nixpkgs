@@ -46,7 +46,12 @@ stdenv.mkDerivation rec {
     ./plugins_dir.patch
   ];
 
-  nativeBuildInputs = [ cmake python3 qtbase qtdeclarative ];
+  nativeBuildInputs = [
+    cmake
+    python3
+    qtbase
+    qtdeclarative
+  ];
 
   propagatedBuildInputs = [
     # Made by BC

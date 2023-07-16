@@ -18,7 +18,11 @@ let
     prePatch = ''
       substituteInPlace ./setup.py --replace "extra_deps = []" "extra_deps = router_feature_deps"
     '';
-    extraBuildInputs = [ janus ncclient paramiko ];
+    extraBuildInputs = [
+      janus
+      ncclient
+      paramiko
+    ];
   } else {
     prePatch = "";
     extraBuildInputs = [ ];
@@ -39,7 +43,10 @@ in buildPythonPackage rec {
   # No useful tests
   doCheck = false;
 
-  propagatedBuildInputs = [ pyyaml sanic ] ++ opts.extraBuildInputs;
+  propagatedBuildInputs = [
+    pyyaml
+    sanic
+  ] ++ opts.extraBuildInputs;
 
   prePatch = opts.prePatch;
 

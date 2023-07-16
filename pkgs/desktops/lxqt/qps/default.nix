@@ -24,9 +24,19 @@ mkDerivation rec {
     sha256 = "70mANEnui/orN+8eIBzCCSsh5wvPXuPUAAwRcXtHsaY=";
   };
 
-  nativeBuildInputs = [ cmake lxqt-build-tools ];
+  nativeBuildInputs = [
+    cmake
+    lxqt-build-tools
+  ];
 
-  buildInputs = [ kwindowsystem liblxqt libqtxdg qtbase qttools qtx11extras ];
+  buildInputs = [
+    kwindowsystem
+    liblxqt
+    libqtxdg
+    qtbase
+    qttools
+    qtx11extras
+  ];
 
   passthru.updateScript = gitUpdater { };
 

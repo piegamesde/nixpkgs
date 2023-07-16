@@ -13,10 +13,10 @@ in {
         pkgs,
         ...
       }: {
-        virtualisation.forwardPorts = [{
+        virtualisation.forwardPorts = [ {
           host.port = forwardedPort;
           guest.port = internalPort;
-        }];
+        } ];
         services.webhook = {
           enable = true;
           port = internalPort;
@@ -41,7 +41,10 @@ in {
       };
   };
 
-  extraPythonPackages = p: [ p.requests p.types-requests ];
+  extraPythonPackages = p: [
+    p.requests
+    p.types-requests
+  ];
 
   testScript = {
       nodes,

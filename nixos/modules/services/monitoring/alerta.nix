@@ -65,7 +65,10 @@ in {
       type = types.listOf types.str;
       description = lib.mdDoc
         "List of URLs that can access the API for Cross-Origin Resource Sharing (CORS)";
-      default = [ "http://localhost" "http://localhost:5000" ];
+      default = [
+        "http://localhost"
+        "http://localhost:5000"
+      ];
     };
 
     authenticationRequired = mkOption {

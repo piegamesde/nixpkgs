@@ -35,7 +35,10 @@ stdenv.mkDerivation rec {
     zita-alsa-pcmi
   ];
 
-  makeFlags = [ "PREFIX=$(out)" "SUFFIX=''" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "SUFFIX=''"
+  ];
 
   preConfigure = ''
     cd ./source/

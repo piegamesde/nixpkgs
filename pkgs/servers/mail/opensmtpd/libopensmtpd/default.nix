@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ mandoc ];
 
-  makeFlags = [ "-f Makefile.gnu" "DESTDIR=$(out)" "LOCALBASE=" ];
+  makeFlags = [
+    "-f Makefile.gnu"
+    "DESTDIR=$(out)"
+    "LOCALBASE="
+  ];
 
   meta = with lib; {
     description = "Library for creating OpenSMTPD filters";

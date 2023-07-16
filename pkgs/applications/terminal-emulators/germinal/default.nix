@@ -25,12 +25,22 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HUi+skF4bJj5CY2cNTOC4tl7jhvpXYKqBx2rqKzjlo0=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config wrapGAppsHook ];
-  buildInputs = [ appstream-glib dbus pango pcre2 vte ];
-
-  configureFlags = [
-    "--with-dbusservicesdir=${placeholder "out"}/etc/dbus-1/system-services/"
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    wrapGAppsHook
   ];
+  buildInputs = [
+    appstream-glib
+    dbus
+    pango
+    pcre2
+    vte
+  ];
+
+  configureFlags = [ "--with-dbusservicesdir=${
+      placeholder "out"
+    }/etc/dbus-1/system-services/" ];
 
   dontWrapGApps = true;
 

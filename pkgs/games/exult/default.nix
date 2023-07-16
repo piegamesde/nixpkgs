@@ -24,9 +24,19 @@ stdenv.mkDerivation rec {
     hash = "sha256-Y7FpgiGuqR4ZG/PNSfLcNcRWeeC7GebUTighXsCfy+E=";
   };
 
-  nativeBuildInputs = [ autoconf automake libtool pkg-config ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+    pkg-config
+  ];
 
-  buildInputs = [ SDL2 libogg libvorbis zlib ];
+  buildInputs = [
+    SDL2
+    libogg
+    libvorbis
+    zlib
+  ];
 
   preConfigure = ''
     ./autogen.sh
@@ -49,6 +59,9 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://exult.info";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ azahi eelco ];
+    maintainers = with maintainers; [
+      azahi
+      eelco
+    ];
   };
 }

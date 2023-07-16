@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
   pname = "bpkg";
   version = "0.15.0";
 
-  outputs = [ "out" "doc" "man" ];
+  outputs = [
+    "out"
+    "doc"
+    "man"
+  ];
 
   src = fetchurl {
     url = "https://pkg.cppget.org/1/alpha/build2/bpkg-${version}.tar.gz";
@@ -26,8 +30,17 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   nativeBuildInputs = [ build2 ];
-  buildInputs = [ build2 libbpkg libbutl libodb libodb-sqlite ];
-  nativeCheckInputs = [ git openssl ];
+  buildInputs = [
+    build2
+    libbpkg
+    libbutl
+    libodb
+    libodb-sqlite
+  ];
+  nativeCheckInputs = [
+    git
+    openssl
+  ];
 
   doCheck = !stdenv.isDarwin; # tests hang
 

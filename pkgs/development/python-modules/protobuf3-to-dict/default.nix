@@ -19,7 +19,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "protobuf_to_dict" ];
 
-  propagatedBuildInputs = [ protobuf six ];
+  propagatedBuildInputs = [
+    protobuf
+    six
+  ];
 
   meta = with lib; {
     description =

@@ -43,8 +43,11 @@
     version = "9.1.0";
   };
   cucumber-core = {
-    dependencies =
-      [ "cucumber-gherkin" "cucumber-messages" "cucumber-tag-expressions" ];
+    dependencies = [
+      "cucumber-gherkin"
+      "cucumber-messages"
+      "cucumber-tag-expressions"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

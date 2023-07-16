@@ -26,8 +26,16 @@ let
             + concatMapStrings (t: " (${t.description})") ts;
         };
       level = ints.unsigned;
-      special = enum [ "level auto" "level full-speed" "level disengaged" ];
-    in tuple [ (either level special) level level ];
+      special = enum [
+        "level auto"
+        "level full-speed"
+        "level disengaged"
+      ];
+    in tuple [
+      (either level special)
+      level
+      level
+    ];
 
   # sensor or fan config
   sensorType = name:
@@ -35,7 +43,12 @@ let
       freeformType = types.attrsOf settingsFormat.type;
       options = {
         type = mkOption {
-          type = types.enum [ "hwmon" "atasmart" "tpacpi" "nvml" ];
+          type = types.enum [
+            "hwmon"
+            "atasmart"
+            "tpacpi"
+            "nvml"
+          ];
           description = lib.mdDoc ''
             The ${name} type, can be
             `hwmon` for standard ${name}s,
@@ -90,9 +103,13 @@ let
       query,
       ...
     }@args:
-    (filterAttrs (k: v: v != null && !(elem k [ "type" "query" ])) args) // {
-      "${type}" = query;
-    };
+    (filterAttrs (k: v:
+      v != null && !(elem k [
+        "type"
+        "query"
+      ])) args) // {
+        "${type}" = query;
+      };
 
   syntaxNote = name: ''
     ::: {.note}
@@ -140,10 +157,10 @@ in {
 
       sensors = mkOption {
         type = types.listOf (sensorType "sensor");
-        default = [{
+        default = [ {
           type = "tpacpi";
           query = "/proc/acpi/ibm/thermal";
-        }];
+        } ];
         description = lib.mdDoc ''
           List of temperature sensors thinkfan will monitor.
 
@@ -153,10 +170,10 @@ in {
 
       fans = mkOption {
         type = types.listOf (sensorType "fan");
-        default = [{
+        default = [ {
           type = "tpacpi";
           query = "/proc/acpi/ibm/fan";
-        }];
+        } ];
         description = lib.mdDoc ''
           List of fans thinkfan will control.
 
@@ -167,13 +184,41 @@ in {
       levels = mkOption {
         type = types.listOf levelType;
         default = [
-          [ 0 0 55 ]
-          [ 1 48 60 ]
-          [ 2 50 61 ]
-          [ 3 52 63 ]
-          [ 6 56 65 ]
-          [ 7 60 85 ]
-          [ "level auto" 80 32767 ]
+          [
+            0
+            0
+            55
+          ]
+          [
+            1
+            48
+            60
+          ]
+          [
+            2
+            50
+            61
+          ]
+          [
+            3
+            52
+            63
+          ]
+          [
+            6
+            56
+            65
+          ]
+          [
+            7
+            60
+            85
+          ]
+          [
+            "level auto"
+            80
+            32767
+          ]
         ];
         description = lib.mdDoc ''
           [LEVEL LOW HIGH]
@@ -190,7 +235,10 @@ in {
       extraArgs = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "-b" "0" ];
+        example = [
+          "-b"
+          "0"
+        ];
         description = lib.mdDoc ''
           A list of extra command line arguments to pass to thinkfan.
           Check the thinkfan(1) manpage for available arguments.
@@ -226,8 +274,10 @@ in {
     systemd.packages = [ thinkfan ];
 
     systemd.services = {
-      thinkfan.environment.THINKFAN_ARGS =
-        escapeShellArgs ([ "-c" configFile ] ++ cfg.extraArgs);
+      thinkfan.environment.THINKFAN_ARGS = escapeShellArgs ([
+        "-c"
+        configFile
+      ] ++ cfg.extraArgs);
 
       # must be added manually, see issue #81138
       thinkfan.wantedBy = [ "multi-user.target" ];

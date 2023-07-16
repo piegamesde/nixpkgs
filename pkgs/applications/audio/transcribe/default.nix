@@ -34,7 +34,11 @@ stdenv.mkDerivation rec {
   else
     throw "Platform not supported";
 
-  nativeBuildInputs = [ which xdg-utils wrapGAppsHook ];
+  nativeBuildInputs = [
+    which
+    xdg-utils
+    wrapGAppsHook
+  ];
 
   buildInputs = with gst_all_1; [
     gst-plugins-base

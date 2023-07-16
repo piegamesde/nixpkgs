@@ -25,8 +25,14 @@ buildPythonPackage rec {
     hash = "sha256-Ffi55FZsZUKDcS4qV46NpRK3VP6axzrL2BO+hYW7J9E=";
   };
 
-  propagatedBuildInputs =
-    [ cachetools paho-mqtt pytz requests requests-oauthlib schedule ];
+  propagatedBuildInputs = [
+    cachetools
+    paho-mqtt
+    pytz
+    requests
+    requests-oauthlib
+    schedule
+  ];
 
   # Project has no tests
   doCheck = false;

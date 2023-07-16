@@ -27,7 +27,14 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  propagatedBuildInputs = [ future imageio numpy pandas torch tensorboard ];
+  propagatedBuildInputs = [
+    future
+    imageio
+    numpy
+    pandas
+    torch
+    tensorboard
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/williamFalcon/test-tube";

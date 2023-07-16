@@ -78,7 +78,10 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/phiresky/ripgrep-all";
     license = with licenses; [ agpl3Plus ];
-    maintainers = with maintainers; [ zaninime ma27 ];
+    maintainers = with maintainers; [
+      zaninime
+      ma27
+    ];
     mainProgram = "rga";
   };
 }

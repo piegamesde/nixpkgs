@@ -40,7 +40,13 @@ in stdenv.mkDerivation rec {
     ./fix-installation.patch
   ];
 
-  nativeBuildInputs = [ bison cmake file flex python3 ];
+  nativeBuildInputs = [
+    bison
+    cmake
+    file
+    flex
+    python3
+  ];
 
   buildInputs = [
     broker
@@ -95,7 +101,11 @@ in stdenv.mkDerivation rec {
     homepage = "https://www.zeek.org";
     changelog = "https://github.com/zeek/zeek/blob/v${version}/CHANGES";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ pSub marsam tobim ];
+    maintainers = with maintainers; [
+      pSub
+      marsam
+      tobim
+    ];
     platforms = platforms.unix;
   };
 }

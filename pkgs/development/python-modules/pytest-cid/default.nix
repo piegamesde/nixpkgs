@@ -28,7 +28,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ py-cid ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-cov ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-cov
+  ];
 
   pythonImportsCheck = [ "pytest_cid" ];
 

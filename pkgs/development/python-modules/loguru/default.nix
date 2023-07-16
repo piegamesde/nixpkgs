@@ -30,7 +30,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = lib.optionals (pythonOlder "3.7") [ aiocontextvars ];
 
-  nativeCheckInputs = [ pytestCheckHook colorama freezegun mypy ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    colorama
+    freezegun
+    mypy
+  ];
 
   disabledTestPaths =
     lib.optionals stdenv.isDarwin [ "tests/test_multiprocessing.py" ];
@@ -48,6 +53,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/Delgan/loguru";
     description = "Python logging made (stupidly) simple";
     license = licenses.mit;
-    maintainers = with maintainers; [ jakewaksbaum rmcgibbo ];
+    maintainers = with maintainers; [
+      jakewaksbaum
+      rmcgibbo
+    ];
   };
 }

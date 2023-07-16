@@ -25,7 +25,10 @@ rustPlatform.buildRustPackage rec {
     description =
       "CLI tool for developing, testing, and publishing Dioxus apps";
     homepage = "https://dioxuslabs.com";
-    license = with licenses; [ mit asl20 ];
+    license = with licenses; [
+      mit
+      asl20
+    ];
     maintainers = with maintainers; [ xanderio ];
   };
 }

@@ -23,7 +23,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  nativeCheckInputs = [ pytest-mock pytestCheckHook tomli twine ];
+  nativeCheckInputs = [
+    pytest-mock
+    pytestCheckHook
+    tomli
+    twine
+  ];
 
   disabledTests = [
     # tests pip install, which unsuprisingly fails

@@ -32,7 +32,10 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ copyDesktopItems ];
 
-  buildInputs = [ SDL SDL_mixer ];
+  buildInputs = [
+    SDL
+    SDL_mixer
+  ];
 
   sourceRoot = "rott-${version}/rott";
 
@@ -52,16 +55,14 @@ in stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "rott";
-      exec = "rott";
-      desktopName = "Rise of the Triad: ${
-          if buildShareware then "The HUNT Begins" else "Dark War"
-        }";
-      categories = [ "Game" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "rott";
+    exec = "rott";
+    desktopName = "Rise of the Triad: ${
+        if buildShareware then "The HUNT Begins" else "Dark War"
+      }";
+    categories = [ "Game" ];
+  }) ];
 
   meta = with lib; {
     description = "SDL port of Rise of the Triad";

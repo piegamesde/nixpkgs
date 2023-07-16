@@ -33,7 +33,11 @@ in stdenv.mkDerivation rec {
     sha256 = "1xff5whr02cixihgd257dc70hnyf22j3zamvhsvg4lp7zq9l2in4";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook libtool ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+    libtool
+  ];
   buildInputs = [
     freetype
     fluidsynth
@@ -53,8 +57,11 @@ in stdenv.mkDerivation rec {
         ++ [ "--enable-openssl-compatibility" ];
     }))
   ];
-  env.NIX_CFLAGS_COMPILE = toString (makeSDLFlags [ SDL SDL_ttf SDL_gfx ]
-    ++ [ "-I${libxml2.dev}/include/libxml2" ]);
+  env.NIX_CFLAGS_COMPILE = toString (makeSDLFlags [
+    SDL
+    SDL_ttf
+    SDL_gfx
+  ] ++ [ "-I${libxml2.dev}/include/libxml2" ]);
 
   hardeningDisable = [ "format" ];
 

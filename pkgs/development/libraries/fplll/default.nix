@@ -20,9 +20,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+1EdNdmEk5tQDd1DXklPbEKC/Dr2yV2gwbtwBtZxpNM=";
   };
 
-  nativeBuildInputs = [ pkg-config gettext autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+    autoreconfHook
+  ];
 
-  buildInputs = [ gmp mpfr ];
+  buildInputs = [
+    gmp
+    mpfr
+  ];
 
   meta = with lib; {
     description = "Lattice algorithms using floating-point arithmetic";

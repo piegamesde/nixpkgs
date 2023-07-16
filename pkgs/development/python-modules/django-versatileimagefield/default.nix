@@ -15,7 +15,10 @@ buildPythonPackage rec {
     inherit pname version;
     hash = "sha256-FlHbLtNthDz7F4jyYBRyopPZuoZyk2m29uVZERI1esc=";
   };
-  propagatedBuildInputs = [ pillow python-magic ];
+  propagatedBuildInputs = [
+    pillow
+    python-magic
+  ];
 
   nativeCheckInputs = [ django ];
 

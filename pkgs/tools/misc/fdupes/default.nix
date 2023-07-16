@@ -19,8 +19,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-8GYQfnUxS790pDXw2sjnDZNB55PMDaCcO6daIa/MPMw=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ ncurses pcre2 ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    ncurses
+    pcre2
+  ];
 
   meta = with lib; {
     description =

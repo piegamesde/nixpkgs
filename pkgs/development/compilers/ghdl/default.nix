@@ -48,8 +48,8 @@ stdenv.mkDerivation rec {
     # See https://github.com/ghdl/ghdl/pull/2058
     "--disable-werror"
     "--enable-synth"
-  ] ++ lib.optionals (backend == "llvm")
-    [ "--with-llvm-config=${llvm.dev}/bin/llvm-config" ];
+  ] ++ lib.optionals
+    (backend == "llvm") [ "--with-llvm-config=${llvm.dev}/bin/llvm-config" ];
 
   hardeningDisable = [ "format" ];
 
@@ -65,7 +65,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/ghdl/ghdl";
     description = "VHDL 2008/93/87 simulator";
-    maintainers = with maintainers; [ lucus16 thoughtpolice ];
+    maintainers = with maintainers; [
+      lucus16
+      thoughtpolice
+    ];
     platforms = platforms.linux;
     license = licenses.gpl2;
   };

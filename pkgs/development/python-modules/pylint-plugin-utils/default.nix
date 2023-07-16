@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-uDsSSUWdlzuQz6umoYLbIotOYNEnLQu041ZZVMRd2ww=";
   };
 
-  propagatedBuildInputs = [ pylint toml ];
+  propagatedBuildInputs = [
+    pylint
+    toml
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

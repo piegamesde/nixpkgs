@@ -35,7 +35,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ pytz requests tzlocal ];
+  propagatedBuildInputs = [
+    pytz
+    requests
+    tzlocal
+  ];
 
   passthru.optional-dependencies = lib.fix (self: {
     kerberos = [ requests-kerberos ];
@@ -44,8 +48,10 @@ buildPythonPackage rec {
     all = self.kerberos ++ self.sqlalchemy;
   });
 
-  nativeCheckInputs = [ httpretty pytestCheckHook ]
-    ++ passthru.optional-dependencies.all;
+  nativeCheckInputs = [
+    httpretty
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.all;
 
   pythonImportsCheck = [ "trino" ];
 

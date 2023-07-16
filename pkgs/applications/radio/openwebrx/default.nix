@@ -33,7 +33,10 @@ let
       sha256 = "1j80zclg1cl5clqd00qqa16prz7cyc32bvxqz2mh540cirygq24w";
     };
 
-    pythonImportsCheck = [ "js8py" "test" ];
+    pythonImportsCheck = [
+      "js8py"
+      "test"
+    ];
 
     meta = with lib; {
       homepage = "https://github.com/jketterl/js8py";
@@ -55,10 +58,18 @@ let
       sha256 = "sha256-1H0TJ8QN3b6Lof5TWvyokhCeN+dN7ITwzRvEo2X8OWc=";
     };
 
-    nativeBuildInputs = [ cmake pkg-config ];
+    nativeBuildInputs = [
+      cmake
+      pkg-config
+    ];
 
-    buildInputs =
-      [ libsamplerate fftwFloat csdr rtl-sdr soapysdr-with-plugins ];
+    buildInputs = [
+      libsamplerate
+      fftwFloat
+      csdr
+      rtl-sdr
+      soapysdr-with-plugins
+    ];
 
     meta = with lib; {
       homepage = "https://github.com/jketterl/owrx_connector";
@@ -95,7 +106,11 @@ in buildPythonApplication rec {
     codecserver
   ];
 
-  pythonImportsCheck = [ "csdr" "owrx" "test" ];
+  pythonImportsCheck = [
+    "csdr"
+    "owrx"
+    "test"
+  ];
 
   passthru = { inherit js8py owrx_connector; };
 

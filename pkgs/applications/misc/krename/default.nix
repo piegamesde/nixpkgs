@@ -26,11 +26,24 @@ in mkDerivation rec {
     sha256 = "sha256-sjxgp93Z9ttN1/VaxV/MqKVY+miq+PpcuJ4er2kvI+0=";
   };
 
-  buildInputs = [ taglib exiv2 podofo ];
+  buildInputs = [
+    taglib
+    exiv2
+    podofo
+  ];
 
-  nativeBuildInputs = [ extra-cmake-modules kdoctools wrapGAppsHook ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+    wrapGAppsHook
+  ];
 
-  propagatedBuildInputs = [ kconfig kcrash kinit kjsembed ];
+  propagatedBuildInputs = [
+    kconfig
+    kcrash
+    kinit
+    kjsembed
+  ];
 
   NIX_LDFLAGS = "-ltag";
 

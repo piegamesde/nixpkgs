@@ -13,7 +13,10 @@ python3Packages.buildPythonApplication rec {
     sha256 = "11vxgax4xgkggnq4fr1rh2rcvzspkkimck5p3h4phdj3qpnj0680";
   };
 
-  propagatedBuildInputs = with python3Packages; [ mopidy pylast ];
+  propagatedBuildInputs = with python3Packages; [
+    mopidy
+    pylast
+  ];
 
   # no tests implemented
   doCheck = false;

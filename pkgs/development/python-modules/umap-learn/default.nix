@@ -48,9 +48,20 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ numba numpy pynndescent scikit-learn scipy tqdm ];
+  propagatedBuildInputs = [
+    numba
+    numpy
+    pynndescent
+    scikit-learn
+    scipy
+    tqdm
+  ];
 
-  nativeCheckInputs = [ keras pytestCheckHook tensorflow ];
+  nativeCheckInputs = [
+    keras
+    pytestCheckHook
+    tensorflow
+  ];
 
   preCheck = ''
     export HOME=$TMPDIR

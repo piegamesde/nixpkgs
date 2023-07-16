@@ -10,7 +10,12 @@
     version = "3.3.3";
   };
   mail = {
-    dependencies = [ "mini_mime" "net-imap" "net-pop" "net-smtp" ];
+    dependencies = [
+      "mini_mime"
+      "net-imap"
+      "net-pop"
+      "net-smtp"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -31,7 +36,10 @@
     version = "1.1.2";
   };
   net-imap = {
-    dependencies = [ "date" "net-protocol" ];
+    dependencies = [
+      "date"
+      "net-protocol"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -85,7 +93,10 @@
     version = "0.5.0";
   };
   taskjuggler = {
-    dependencies = [ "mail" "term-ansicolor" ];
+    dependencies = [
+      "mail"
+      "term-ansicolor"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

@@ -9,12 +9,15 @@ import ../make-test-python.nix ({
       database = {
         networking = {
           interfaces.eth1 = {
-            ipv4.addresses = [{
+            ipv4.addresses = [ {
               address = "192.168.2.10";
               prefixLength = 24;
-            }];
+            } ];
           };
-          firewall.allowedTCPPorts = [ 5432 31638 ];
+          firewall.allowedTCPPorts = [
+            5432
+            31638
+          ];
         };
 
         services.postgresql = {
@@ -61,10 +64,10 @@ import ../make-test-python.nix ({
 
           networking = {
             interfaces.eth1 = {
-              ipv4.addresses = [{
+              ipv4.addresses = [ {
                 address = "192.168.2.11";
                 prefixLength = 24;
-              }];
+              } ];
             };
             extraHosts = ''
               192.168.2.11 peertube.local
@@ -103,10 +106,10 @@ import ../make-test-python.nix ({
         environment.systemPackages = [ pkgs.jq ];
         networking = {
           interfaces.eth1 = {
-            ipv4.addresses = [{
+            ipv4.addresses = [ {
               address = "192.168.2.12";
               prefixLength = 24;
-            }];
+            } ];
           };
           extraHosts = ''
             192.168.2.11 peertube.local

@@ -80,10 +80,16 @@ in stdenv.mkDerivation rec {
     comment = "FlightGear Flight Simulator";
     desktopName = "FlightGear";
     genericName = "Flight simulator";
-    categories = [ "Game" "Simulation" ];
+    categories = [
+      "Game"
+      "Simulation"
+    ];
   };
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ];
   buildInputs = [
     freeglut
     freealut

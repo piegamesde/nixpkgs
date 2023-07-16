@@ -38,8 +38,15 @@ stdenv.mkDerivation rec {
     ./fix-paths.patch
   ];
 
-  nativeBuildInputs =
-    [ pkg-config gettext itstool wrapGAppsHook meson ninja glib ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+    itstool
+    wrapGAppsHook
+    meson
+    ninja
+    glib
+  ];
 
   buildInputs = [
     bash

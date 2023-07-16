@@ -53,13 +53,30 @@ mkDerivation rec {
       --replace "opencc.2" "opencc"
   '';
 
-  nativeBuildInputs = [ pkg-config qmake ];
-  buildInputs = [ qtbase qtsvg qtwebkit qttools libvorbis hunspell xz lzo ]
-    ++ lib.optionals stdenv.isLinux [ qtx11extras libXtst ]
-    ++ lib.optionals stdenv.isDarwin [ bzip2 libiconv ]
-    ++ lib.optional withCC opencc ++ lib.optional withEpwing libeb
-    ++ lib.optional withExtraTiff libtiff
-    ++ lib.optionals withFFmpeg [ libao ffmpeg ] ++ lib.optional withZim zstd;
+  nativeBuildInputs = [
+    pkg-config
+    qmake
+  ];
+  buildInputs = [
+    qtbase
+    qtsvg
+    qtwebkit
+    qttools
+    libvorbis
+    hunspell
+    xz
+    lzo
+  ] ++ lib.optionals stdenv.isLinux [
+    qtx11extras
+    libXtst
+  ] ++ lib.optionals stdenv.isDarwin [
+    bzip2
+    libiconv
+  ] ++ lib.optional withCC opencc ++ lib.optional withEpwing libeb
+    ++ lib.optional withExtraTiff libtiff ++ lib.optionals withFFmpeg [
+      libao
+      ffmpeg
+    ] ++ lib.optional withZim zstd;
 
   qmakeFlags = with lib; [
     "goldendict.pro"
@@ -81,7 +98,11 @@ mkDerivation rec {
     homepage = "http://goldendict.org/";
     description = "A feature-rich dictionary lookup program";
     platforms = with platforms; linux ++ darwin;
-    maintainers = with maintainers; [ gebner astsmtl sikmir ];
+    maintainers = with maintainers; [
+      gebner
+      astsmtl
+      sikmir
+    ];
     license = licenses.gpl3Plus;
   };
 }

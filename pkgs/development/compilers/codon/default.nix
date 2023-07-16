@@ -35,7 +35,13 @@ let
       sha256 = "sha256-03SPQgNdrpR6/JZ5aR/ntoh/FnZvCjT/6bTAcZaFafw=";
     };
 
-    nativeBuildInputs = [ cmake git lld ninja python3 ];
+    nativeBuildInputs = [
+      cmake
+      git
+      lld
+      ninja
+      python3
+    ];
 
     cmakeFlags = [
       "-DCMAKE_CXX_COMPILER=clang++"
@@ -55,7 +61,13 @@ let
 
     inherit src;
 
-    nativeBuildInputs = [ cacert cmake git perl python3 ];
+    nativeBuildInputs = [
+      cacert
+      cmake
+      git
+      perl
+      python3
+    ];
 
     dontBuild = true;
 
@@ -90,7 +102,14 @@ in stdenv.mkDerivation {
     ./Add-a-hash-to-the-googletest-binary.patch
   ];
 
-  nativeBuildInputs = [ cmake git lld ninja perl python3 ];
+  nativeBuildInputs = [
+    cmake
+    git
+    lld
+    ninja
+    perl
+    python3
+  ];
 
   postUnpack = ''
     mkdir -p $sourceRoot/build

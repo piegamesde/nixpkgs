@@ -23,7 +23,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-KtZXW7+J9a4uKHnK8sqj5WVaIjG3d6tzBBDxa7Wv4AE=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   postPatch = ''
     substituteInPlace GNUmakefile \
@@ -58,7 +61,10 @@ stdenv.mkDerivation rec {
       "https://raw.githubusercontent.com/weidai11/cryptopp/CRYPTOPP_${underscoredVersion}/History.txt"
       "https://github.com/weidai11/cryptopp/releases/tag/CRYPTOPP_${underscoredVersion}"
     ];
-    license = with licenses; [ boost publicDomain ];
+    license = with licenses; [
+      boost
+      publicDomain
+    ];
     platforms = platforms.all;
     maintainers = with maintainers; [ c0bw3b ];
   };

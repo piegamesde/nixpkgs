@@ -78,7 +78,11 @@ else
 
     strictDeps = true;
 
-    nativeBuildInputs = [ which ocaml ocamlbuild ];
+    nativeBuildInputs = [
+      which
+      ocaml
+      ocamlbuild
+    ];
 
     # build fails otherwise
     enableParallelBuilding = false;
@@ -105,7 +109,10 @@ else
 
     makeFlags = [ "all" ];
 
-    installTargets = [ "install" "install-META" ];
+    installTargets = [
+      "install"
+      "install-META"
+    ];
 
     dontStrip = true;
 

@@ -24,9 +24,17 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake makeWrapper python3 ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    python3
+  ];
 
-  buildInputs = [ bison flex zlib ];
+  buildInputs = [
+    bison
+    flex
+    zlib
+  ];
 
   postPatch = ''
     patchShebangs scripts tests/scripts
@@ -36,7 +44,12 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     for b in $out/bin/*
-      do wrapProgram "$b" --prefix PATH : "${lib.makeBinPath [ bison flex ]}"
+      do wrapProgram "$b" --prefix PATH : "${
+        lib.makeBinPath [
+          bison
+          flex
+        ]
+      }"
     done
   '';
 

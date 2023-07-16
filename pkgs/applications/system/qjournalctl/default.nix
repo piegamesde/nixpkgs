@@ -24,9 +24,16 @@ stdenv.mkDerivation rec {
     substituteInPlace qjournalctl.pro --replace /usr/ $out/
   '';
 
-  nativeBuildInputs = [ qmake pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    pkg-config
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ libssh qtbase ];
+  buildInputs = [
+    libssh
+    qtbase
+  ];
 
   meta = with lib; {
     description =
@@ -34,6 +41,10 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/pentix/qjournalctl";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ dtzWill srgom romildo ];
+    maintainers = with maintainers; [
+      dtzWill
+      srgom
+      romildo
+    ];
   };
 }

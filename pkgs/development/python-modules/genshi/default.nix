@@ -19,7 +19,10 @@ buildPythonPackage rec {
   # FAIL: test_sanitize_remove_src_javascript (genshi.filters.tests.html.HTMLSanitizerTestCase)
   doCheck = false;
 
-  propagatedBuildInputs = [ setuptools six ];
+  propagatedBuildInputs = [
+    setuptools
+    six
+  ];
 
   meta = with lib; {
     description =

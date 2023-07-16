@@ -36,7 +36,10 @@ in stdenv.mkDerivation ({
 
   src = fetchurl { inherit (param) url sha256; };
 
-  nativeBuildInputs = [ ocaml findlib ] ++ param.nativeBuildInputs;
+  nativeBuildInputs = [
+    ocaml
+    findlib
+  ] ++ param.nativeBuildInputs;
   buildInputs = [ benchmark ];
 
   strictDeps = true;

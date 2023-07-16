@@ -38,10 +38,18 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ fields ];
 
-  pythonImportsCheck =
-    [ "aspectlib" "aspectlib.contrib" "aspectlib.debug" "aspectlib.test" ];
+  pythonImportsCheck = [
+    "aspectlib"
+    "aspectlib.contrib"
+    "aspectlib.debug"
+    "aspectlib.test"
+  ];
 
-  checkInputs = [ process-tests pytestCheckHook tornado ];
+  checkInputs = [
+    process-tests
+    pytestCheckHook
+    tornado
+  ];
 
   __darwinAllowLocalNetworking = true;
 

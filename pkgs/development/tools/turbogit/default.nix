@@ -22,7 +22,10 @@ buildGoModule rec {
   subPackages = [ "." ];
 
   buildInputs = [ libgit2 ];
-  nativeBuildInputs = [ installShellFiles pkg-config ];
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+  ];
   postInstall = ''
     # Move turbogit binary to tug
     ln -s $out/bin/turbogit $out/bin/tug

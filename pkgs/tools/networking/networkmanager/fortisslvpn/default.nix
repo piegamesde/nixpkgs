@@ -40,10 +40,25 @@ stdenv.mkDerivation rec {
     ./support-ppp-2.5.0.patch
   ];
 
-  nativeBuildInputs = [ autoreconfHook gettext pkg-config file ];
+  nativeBuildInputs = [
+    autoreconfHook
+    gettext
+    pkg-config
+    file
+  ];
 
-  buildInputs = [ openfortivpn networkmanager ppp glib ]
-    ++ lib.optionals withGnome [ gtk3 gtk4 libsecret libnma libnma-gtk4 ];
+  buildInputs = [
+    openfortivpn
+    networkmanager
+    ppp
+    glib
+  ] ++ lib.optionals withGnome [
+    gtk3
+    gtk4
+    libsecret
+    libnma
+    libnma-gtk4
+  ];
 
   configureFlags = [
     "--with-gnome=${if withGnome then "yes" else "no"}"

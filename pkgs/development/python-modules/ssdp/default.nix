@@ -29,7 +29,10 @@ buildPythonPackage rec {
       --replace "--cov" ""
   '';
 
-  nativeBuildInputs = [ flit-core flit-scm ];
+  nativeBuildInputs = [
+    flit-core
+    flit-scm
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

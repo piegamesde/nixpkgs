@@ -19,7 +19,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-cXzNOvWIU388AU5hzLwmIGaX5DvzIJJCvgkP2BA4jao=";
   };
 
-  nativeBuildInputs = [ cmake rocm-cmake gfortran ];
+  nativeBuildInputs = [
+    cmake
+    rocm-cmake
+    gfortran
+  ];
 
   cmakeFlags = [
     "-DHIPFORT_COMPILER=${gfortran}/bin/gfortran"

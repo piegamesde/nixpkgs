@@ -18,13 +18,21 @@ stdenv.mkDerivation rec {
     sha256 = "0g5v0l0zmqh049mhv62n8s5bpm0yrlby7mkxxhs5qwadp8v4w9mw";
   };
 
-  buildInputs = [ alsa-lib libjack2 zita-alsa-pcmi zita-resampler ];
+  buildInputs = [
+    alsa-lib
+    libjack2
+    zita-alsa-pcmi
+    zita-resampler
+  ];
 
   preConfigure = ''
     cd ./source/
   '';
 
-  makeFlags = [ "PREFIX=$(out)" "MANDIR=$(out)/share/man/man1" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "MANDIR=$(out)/share/man/man1"
+  ];
 
   enableParallelBuilding = true;
 

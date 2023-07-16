@@ -43,7 +43,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-Z85/oSV2TUKEoum09G6OHNw6K/Evt1wMCcleTcc96EY=";
   };
 
-  patches = [ ./makefiles.patch ./dont-phone-home.patch ];
+  patches = [
+    ./makefiles.patch
+    ./dont-phone-home.patch
+  ];
 
   nativeBuildInputs = [
     autoconf
@@ -55,7 +58,15 @@ stdenv.mkDerivation rec {
     texinfo # for makeinfo
   ];
 
-  buildInputs = [ bison curl flex gnutls libgcrypt libuuid zlib ];
+  buildInputs = [
+    bison
+    curl
+    flex
+    gnutls
+    libgcrypt
+    libuuid
+    zlib
+  ];
 
   enableParallelBuilding = true;
 

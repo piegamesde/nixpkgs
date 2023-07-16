@@ -26,11 +26,23 @@ buildPythonPackage rec {
     hash = "sha256-T62k/dqlwb1ppbopb/2UjMy1da16vlPRSWD1b+Mt1ME=";
   };
 
-  nativeBuildInputs = [ hatch-vcs hatchling ];
+  nativeBuildInputs = [
+    hatch-vcs
+    hatchling
+  ];
 
-  propagatedBuildInputs = [ numpy packaging ];
+  propagatedBuildInputs = [
+    numpy
+    packaging
+  ];
 
-  checkInputs = [ awkward notebook numba papermill pytestCheckHook ];
+  checkInputs = [
+    awkward
+    notebook
+    numba
+    papermill
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "vector" ];
 

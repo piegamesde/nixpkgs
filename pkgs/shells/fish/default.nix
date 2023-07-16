@@ -199,11 +199,21 @@ let
       rm tests/pexpects/exit_handlers.py
     '';
 
-    outputs = [ "out" "doc" ];
+    outputs = [
+      "out"
+      "doc"
+    ];
     strictDeps = true;
-    nativeBuildInputs = [ cmake gettext ];
+    nativeBuildInputs = [
+      cmake
+      gettext
+    ];
 
-    buildInputs = [ ncurses libiconv pcre2 ];
+    buildInputs = [
+      ncurses
+      libiconv
+      pcre2
+    ];
 
     cmakeFlags =
       [ "-DCMAKE_INSTALL_DOCDIR=${placeholder "doc"}/share/doc/fish" ]
@@ -220,13 +230,21 @@ let
     '';
 
     # Required binaries during execution
-    propagatedBuildInputs = [ coreutils gnugrep gnused groff gettext ]
-      ++ lib.optional (!stdenv.isDarwin) man-db;
+    propagatedBuildInputs = [
+      coreutils
+      gnugrep
+      gnused
+      groff
+      gettext
+    ] ++ lib.optional (!stdenv.isDarwin) man-db;
 
     doCheck = true;
 
-    nativeCheckInputs =
-      [ coreutils (python3.withPackages (ps: [ ps.pexpect ])) procps ];
+    nativeCheckInputs = [
+      coreutils
+      (python3.withPackages (ps: [ ps.pexpect ]))
+      procps
+    ];
 
     checkPhase = ''
       make test
@@ -284,7 +302,11 @@ let
       homepage = "https://fishshell.com/";
       license = licenses.gpl2;
       platforms = platforms.unix;
-      maintainers = with maintainers; [ cole-h winter srapenne ];
+      maintainers = with maintainers; [
+        cole-h
+        winter
+        srapenne
+      ];
     };
 
     passthru = {

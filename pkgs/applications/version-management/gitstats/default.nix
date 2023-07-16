@@ -34,7 +34,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ installShellFiles perl ];
+  nativeBuildInputs = [
+    installShellFiles
+    perl
+  ];
 
   buildInputs = [ python3 ];
 
@@ -47,7 +50,10 @@ stdenv.mkDerivation rec {
         -i gitstats
   '';
 
-  makeFlags = [ "PREFIX=$(out)" "VERSION=${version}" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "VERSION=${version}"
+  ];
 
   buildFlags = [ "man" ];
 

@@ -31,9 +31,20 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ defusedxml jinja2 json5 python-pam pyyaml ];
+  propagatedBuildInputs = [
+    defusedxml
+    jinja2
+    json5
+    python-pam
+    pyyaml
+  ];
 
-  nativeCheckInputs = [ cheroot pytestCheckHook requests webtest ];
+  nativeCheckInputs = [
+    cheroot
+    pytestCheckHook
+    requests
+    webtest
+  ];
 
   pythonImportsCheck = [ "wsgidav" ];
 

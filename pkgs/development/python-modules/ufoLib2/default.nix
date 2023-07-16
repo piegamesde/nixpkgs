@@ -27,14 +27,22 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ attrs fonttools ]
-    ++ fonttools.optional-dependencies.ufo;
+  propagatedBuildInputs = [
+    attrs
+    fonttools
+  ] ++ fonttools.optional-dependencies.ufo;
 
   passthru.optional-dependencies = {
     lxml = [ lxml ];
     converters = [ cattrs ];
-    json = [ cattrs orjson ];
-    msgpack = [ cattrs msgpack ];
+    json = [
+      cattrs
+      orjson
+    ];
+    msgpack = [
+      cattrs
+      msgpack
+    ];
   };
 
   nativeCheckInputs = [ pytestCheckHook ]

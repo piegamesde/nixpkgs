@@ -26,9 +26,18 @@ buildPythonPackage rec {
     hash = "sha256-sfqCK2r9Io1gDDHL9s9R37J0h9KcOQML3B2zJx2+QuA=";
   };
 
-  nativeBuildInputs = [ cython packaging ];
+  nativeBuildInputs = [
+    cython
+    packaging
+  ];
 
-  propagatedBuildInputs = [ numpy scipy h5py nibabel tqdm ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    h5py
+    nibabel
+    tqdm
+  ];
 
   # disable tests for now due to:
   #   - some tests require data download (see dipy/dipy/issues/2092);

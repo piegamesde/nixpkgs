@@ -16,8 +16,12 @@
   gcr,
   withLibsecret ? true,
   libsecret,
-  enabledFlavors ? [ "curses" "tty" "gtk2" "emacs" ]
-    ++ lib.optionals stdenv.isLinux [ "gnome3" ]
+  enabledFlavors ? [
+    "curses"
+    "tty"
+    "gtk2"
+    "emacs"
+  ] ++ lib.optionals stdenv.isLinux [ "gnome3" ]
     ++ lib.optionals (!stdenv.isDarwin) [ "qt" ]
 }:
 
@@ -77,25 +81,27 @@ in pinentryMkDerivation rec {
     sha256 = "sha256-RXoYXlqFI4+5RalV3GNSq5YtyLSHILYvyfpIx1QKQGc=";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ]
-    ++ lib.concatMap (f: flavorInfo.${f}.nativeBuildInputs or [ ])
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ] ++ lib.concatMap (f: flavorInfo.${f}.nativeBuildInputs or [ ])
     enabledFlavors;
 
-  buildInputs = [ libgpg-error libassuan ]
-    ++ lib.optional withLibsecret libsecret
+  buildInputs = [
+    libgpg-error
+    libassuan
+  ] ++ lib.optional withLibsecret libsecret
     ++ lib.concatMap (f: flavorInfo.${f}.buildInputs or [ ]) enabledFlavors;
 
   dontWrapGApps = true;
   dontWrapQtApps = true;
 
   patches = [ ./autoconf-ar.patch ]
-    ++ lib.optionals (lib.elem "gtk2" enabledFlavors) [
-      (fetchpatch {
-        url =
-          "https://salsa.debian.org/debian/pinentry/raw/debian/1.1.0-1/debian/patches/0007-gtk2-When-X11-input-grabbing-fails-try-again-over-0..patch";
-        sha256 = "15r1axby3fdlzz9wg5zx7miv7gqx2jy4immaw4xmmw5skiifnhfd";
-      })
-    ];
+    ++ lib.optionals (lib.elem "gtk2" enabledFlavors) [ (fetchpatch {
+      url =
+        "https://salsa.debian.org/debian/pinentry/raw/debian/1.1.0-1/debian/patches/0007-gtk2-When-X11-input-grabbing-fails-try-again-over-0..patch";
+      sha256 = "15r1axby3fdlzz9wg5zx7miv7gqx2jy4immaw4xmmw5skiifnhfd";
+    }) ];
 
   configureFlags = [
     "--with-libgpg-error-prefix=${libgpg-error.dev}"
@@ -131,6 +137,9 @@ in pinentryMkDerivation rec {
       Pinentry provides a console and (optional) GTK and Qt GUIs allowing users
       to enter a passphrase when `gpg' or `gpg2' is run and needs it.
     '';
-    maintainers = with maintainers; [ ttuegel fpletz ];
+    maintainers = with maintainers; [
+      ttuegel
+      fpletz
+    ];
   };
 }

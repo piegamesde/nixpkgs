@@ -10,8 +10,10 @@ in {
     Enables the systemd JSON user/group record lookup service
   '');
   config = lib.mkIf cfg.enable {
-    systemd.additionalUpstreamSystemUnits =
-      [ "systemd-userdbd.socket" "systemd-userdbd.service" ];
+    systemd.additionalUpstreamSystemUnits = [
+      "systemd-userdbd.socket"
+      "systemd-userdbd.service"
+    ];
 
     systemd.sockets.systemd-userdbd.wantedBy = [ "sockets.target" ];
   };

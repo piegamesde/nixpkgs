@@ -10,7 +10,11 @@
   ...
 }@args:
 stdenv.mkDerivation (args // {
-  nativeBuildInputs = [ makeWrapper make which ] ++ nativeBuildInputs;
+  nativeBuildInputs = [
+    makeWrapper
+    make
+    which
+  ] ++ nativeBuildInputs;
 
   builder = ./builder.sh;
   setupHook = ./setup-hook.sh;
@@ -22,7 +26,10 @@ stdenv.mkDerivation (args // {
 
     license = lib.licenses.lgpl2Plus;
 
-    maintainers = with lib.maintainers; [ ashalkhakov matthewbauer ];
+    maintainers = with lib.maintainers; [
+      ashalkhakov
+      matthewbauer
+    ];
     platforms = lib.platforms.linux;
   } // (if builtins.hasAttr "meta" args then args.meta else { });
 })

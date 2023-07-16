@@ -19,8 +19,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LuI9XFDPx0qw/+kkpXd0FOMESERAp31R1+ttkGuJnPA=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ file protobufc ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    file
+    protobufc
+  ];
 
   preBuild = ''
     make lib/riemann/proto/riemann.pb-c.h

@@ -28,11 +28,23 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs =
-    [ curl cfitsio libev libusb1 zlib boost libnova libjpeg gsl fftw ];
+  buildInputs = [
+    curl
+    cfitsio
+    libev
+    libusb1
+    zlib
+    boost
+    libnova
+    libjpeg
+    gsl
+    fftw
+  ];
 
-  cmakeFlags =
-    [ "-DCMAKE_INSTALL_LIBDIR=lib" "-DUDEVRULES_INSTALL_DIR=lib/udev/rules.d" ];
+  cmakeFlags = [
+    "-DCMAKE_INSTALL_LIBDIR=lib"
+    "-DUDEVRULES_INSTALL_DIR=lib/udev/rules.d"
+  ];
 
   meta = with lib; {
     homepage = "https://www.indilib.org/";

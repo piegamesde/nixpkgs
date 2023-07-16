@@ -8,7 +8,12 @@ args@{
 
   description = "Programming interface for Enchant spell-checker library";
 
-  deps = [ args."alexandria" args."babel" args."cffi" args."trivial-features" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."cffi"
+    args."trivial-features"
+  ];
 
   src = fetchurl {
     url =

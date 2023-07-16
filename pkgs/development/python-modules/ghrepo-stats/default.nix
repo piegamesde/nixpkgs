@@ -28,7 +28,11 @@ buildPythonPackage rec {
       --replace "bs4" "beautifulsoup4"
   '';
 
-  propagatedBuildInputs = [ beautifulsoup4 matplotlib pygithub ];
+  propagatedBuildInputs = [
+    beautifulsoup4
+    matplotlib
+    pygithub
+  ];
 
   # Module has no tests
   doCheck = false;

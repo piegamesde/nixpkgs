@@ -23,9 +23,15 @@ buildPythonPackage rec {
     hash = "sha256-J7GVh+iY+69rFzf4hN/KLFZMZ1/S3CL5TZ7SsP5Oy3g=";
   };
 
-  propagatedBuildInputs = [ oauth2client pyu2f ];
+  propagatedBuildInputs = [
+    oauth2client
+    pyu2f
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "google_reauth" ];
 

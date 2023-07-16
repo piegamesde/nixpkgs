@@ -21,7 +21,11 @@
     version = "1.0.3";
   };
   claide-plugins = {
-    dependencies = [ "cork" "nap" "open4" ];
+    dependencies = [
+      "cork"
+      "nap"
+      "open4"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -77,7 +81,10 @@
     version = "8.3.1";
   };
   danger-gitlab = {
-    dependencies = [ "danger" "gitlab" ];
+    dependencies = [
+      "danger"
+      "gitlab"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -212,7 +219,10 @@
     version = "1.9.1";
   };
   gitlab = {
-    dependencies = [ "httparty" "terminal-table" ];
+    dependencies = [
+      "httparty"
+      "terminal-table"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -223,7 +233,10 @@
     version = "4.17.0";
   };
   httparty = {
-    dependencies = [ "mime-types" "multi_xml" ];
+    dependencies = [
+      "mime-types"
+      "multi_xml"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -317,7 +330,10 @@
     version = "0.1.2";
   };
   octokit = {
-    dependencies = [ "faraday" "sawyer" ];
+    dependencies = [
+      "faraday"
+      "sawyer"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -378,7 +394,10 @@
     version = "0.0.5";
   };
   sawyer = {
-    dependencies = [ "addressable" "faraday" ];
+    dependencies = [
+      "addressable"
+      "faraday"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

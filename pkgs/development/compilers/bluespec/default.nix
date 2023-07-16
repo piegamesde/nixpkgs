@@ -25,8 +25,13 @@
 }:
 
 let
-  ghcWithPackages =
-    ghc.withPackages (g: (with g; [ old-time regex-compat syb split ]));
+  ghcWithPackages = ghc.withPackages (g:
+    (with g; [
+      old-time
+      regex-compat
+      syb
+      split
+    ]));
 
 in stdenv.mkDerivation rec {
   pname = "bluespec";
@@ -47,7 +52,10 @@ in stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   # https://github.com/B-Lang-org/bsc/pull/278
   patches = [ ./libstp_stub_makefile.patch ];
@@ -104,7 +112,10 @@ in stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeCheckInputs = [ gmp-static verilog ];
+  nativeCheckInputs = [
+    gmp-static
+    verilog
+  ];
 
   checkTarget = "check-smoke";
 
@@ -128,6 +139,9 @@ in stdenv.mkDerivation rec {
     mainProgram = "bsc";
     # darwin fails at https://github.com/B-Lang-org/bsc/pull/35#issuecomment-583731562
     # aarch64 fails, as GHC fails with "ghc: could not execute: opt"
-    maintainers = with lib.maintainers; [ jcumming thoughtpolice ];
+    maintainers = with lib.maintainers; [
+      jcumming
+      thoughtpolice
+    ];
   };
 }

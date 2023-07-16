@@ -32,7 +32,10 @@ python3.pkgs.buildPythonApplication rec {
     kubernetes
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook requests-mock ];
+  nativeCheckInputs = with python3.pkgs; [
+    pytestCheckHook
+    requests-mock
+  ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

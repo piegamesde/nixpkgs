@@ -23,8 +23,14 @@ buildPythonPackage rec {
     hash = "sha256-VAEgrM9F9M/HjL726RzofJT/Sc8R6WIF/D/gZH5ncBs=";
   };
 
-  propagatedBuildInputs =
-    [ attrs beautifulsoup4 requests future pyyaml jsonlines ];
+  propagatedBuildInputs = [
+    attrs
+    beautifulsoup4
+    requests
+    future
+    pyyaml
+    jsonlines
+  ];
 
   # no tests associated with package
   doCheck = false;

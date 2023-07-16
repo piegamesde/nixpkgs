@@ -25,8 +25,18 @@ stdenv.mkDerivation rec {
     sha256 = "0rrq2ddridc09m6fixdmbngn42xmv8cmdf6r8zzn2s98fqib5qd6";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook cmake ];
-  buildInputs = [ flex bison qt4 libX11 gperf adms ] ++ kernels;
+  nativeBuildInputs = [
+    wrapGAppsHook
+    cmake
+  ];
+  buildInputs = [
+    flex
+    bison
+    qt4
+    libX11
+    gperf
+    adms
+  ] ++ kernels;
 
   preConfigure = ''
     # Make custom kernels avaible from qucs-s

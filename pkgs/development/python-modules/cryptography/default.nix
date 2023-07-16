@@ -47,13 +47,21 @@ in buildPythonPackage rec {
 
   cargoRoot = "src/rust";
 
-  nativeBuildInputs = lib.optionals (!isPyPy) [ cffi pkg-config ]
-    ++ [ rustPlatform.cargoSetupHook setuptools-rust ]
-    ++ (with rustPlatform; [ rust.cargo rust.rustc ]);
+  nativeBuildInputs = lib.optionals (!isPyPy) [
+    cffi
+    pkg-config
+  ] ++ [
+    rustPlatform.cargoSetupHook
+    setuptools-rust
+  ] ++ (with rustPlatform; [
+    rust.cargo
+    rust.rustc
+  ]);
 
-  buildInputs = [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ Security libiconv ]
-    ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
+    Security
+    libiconv
+  ] ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ];
 
   propagatedBuildInputs = lib.optionals (!isPyPy) [ cffi ];
 
@@ -91,7 +99,11 @@ in buildPythonPackage rec {
     homepage = "https://github.com/pyca/cryptography";
     changelog = "https://cryptography.io/en/latest/changelog/#v"
       + replaceStrings [ "." ] [ "-" ] version;
-    license = with licenses; [ asl20 bsd3 psfl ];
+    license = with licenses; [
+      asl20
+      bsd3
+      psfl
+    ];
     maintainers = with maintainers; [ SuperSandro2000 ];
   };
 }

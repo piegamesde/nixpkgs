@@ -35,14 +35,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-77X+AvHFWfYYIio3c+EYf11jg/1IbYhNUweRIDHMOZw=";
   };
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://patch-diff.githubusercontent.com/raw/TigerVNC/tigervnc/pull/1383.patch";
-      sha256 = "sha256-r3QLtxVD0wIv2NWVN9r0LVxSlLurDHgkAZfkpIjmZyU=";
-      name = "Xvnc-support-Xorg-1.21-PR1383.patch";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://patch-diff.githubusercontent.com/raw/TigerVNC/tigervnc/pull/1383.patch";
+    sha256 = "sha256-r3QLtxVD0wIv2NWVN9r0LVxSlLurDHgkAZfkpIjmZyU=";
+    name = "Xvnc-support-Xorg-1.21-PR1383.patch";
+  }) ];
 
   postPatch = lib.optionalString stdenv.isLinux ''
     sed -i -e '/^\$cmd \.= " -pn";/a$cmd .= " -xkbdir ${xkeyboard_config}/etc/X11/xkb";' unix/vncserver/vncserver.in
@@ -107,7 +105,12 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/bin/vncserver \
       --prefix PATH : ${
-        lib.makeBinPath (with xorg; [ xterm twm xsetroot xauth ])
+        lib.makeBinPath (with xorg; [
+          xterm
+          twm
+          xsetroot
+          xauth
+        ])
       }
   '' + lib.optionalString stdenv.isDarwin ''
     mkdir -p $out/Applications
@@ -118,32 +121,44 @@ stdenv.mkDerivation rec {
     chmod +x $out/bin/vncviewer
   '';
 
-  buildInputs = [ fltk gnutls libjpeg_turbo pixman gawk ]
-    ++ lib.optionals stdenv.isLinux (with xorg;
-      [
-        nettle
-        pam
-        perl
-        xorgproto
-        utilmacros
-        libXtst
-        libXext
-        libX11
-        libXext
-        libICE
-        libXi
-        libSM
-        libXft
-        libxkbfile
-        libXfont2
-        libpciaccess
-        libGLU
-      ] ++ xorg.xorgserver.buildInputs);
+  buildInputs = [
+    fltk
+    gnutls
+    libjpeg_turbo
+    pixman
+    gawk
+  ] ++ lib.optionals stdenv.isLinux (with xorg;
+    [
+      nettle
+      pam
+      perl
+      xorgproto
+      utilmacros
+      libXtst
+      libXext
+      libX11
+      libXext
+      libICE
+      libXi
+      libSM
+      libXft
+      libxkbfile
+      libXfont2
+      libpciaccess
+      libGLU
+    ] ++ xorg.xorgserver.buildInputs);
 
-  nativeBuildInputs = [ cmake gettext ] ++ lib.optionals stdenv.isLinux
-    (with xorg;
-      [ fontutil libtool makeWrapper utilmacros zlib ]
-      ++ xorg.xorgserver.nativeBuildInputs);
+  nativeBuildInputs = [
+    cmake
+    gettext
+  ] ++ lib.optionals stdenv.isLinux (with xorg;
+    [
+      fontutil
+      libtool
+      makeWrapper
+      utilmacros
+      zlib
+    ] ++ xorg.xorgserver.nativeBuildInputs);
 
   propagatedBuildInputs =
     lib.optional stdenv.isLinux xorg.xorgserver.propagatedBuildInputs;

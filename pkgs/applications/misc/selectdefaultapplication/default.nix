@@ -18,7 +18,10 @@ stdenv.mkDerivation {
     sha256 = "C/70xpt6RoQNIlAjSJhOCyheolK4Xp6RiSZmeqMP4fw=";
   };
 
-  nativeBuildInputs = [ qmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    wrapQtAppsHook
+  ];
   buildInputs = [ qtbase ];
 
   installPhase = ''

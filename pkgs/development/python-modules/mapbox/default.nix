@@ -33,7 +33,10 @@ buildPythonPackage rec {
     polyline
     uritemplate
   ];
-  nativeCheckInputs = [ pytestCheckHook responses ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    responses
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/mapbox/mapbox-sdk-py";

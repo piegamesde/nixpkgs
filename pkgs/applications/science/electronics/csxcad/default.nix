@@ -26,7 +26,16 @@ stdenv.mkDerivation rec {
 
   patches = [ ./searchPath.patch ];
 
-  buildInputs = [ cgal_5 boost gmp mpfr vtk fparser tinyxml hdf5 ];
+  buildInputs = [
+    cgal_5
+    boost
+    gmp
+    mpfr
+    vtk
+    fparser
+    tinyxml
+    hdf5
+  ];
 
   nativeBuildInputs = [ cmake ];
 

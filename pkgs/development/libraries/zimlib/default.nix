@@ -33,9 +33,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2eJqmvs/GrvOD/pq8dTubaiO9ZpW2WqTNQByv354Z0w=";
   };
 
-  nativeBuildInputs = [ meson pkg-config ninja python3 ];
+  nativeBuildInputs = [
+    meson
+    pkg-config
+    ninja
+    python3
+  ];
 
-  propagatedBuildInputs = [ icu libuuid xapian xz zstd ];
+  propagatedBuildInputs = [
+    icu
+    libuuid
+    xapian
+    xz
+    zstd
+  ];
 
   postPatch = ''
     patchShebangs scripts

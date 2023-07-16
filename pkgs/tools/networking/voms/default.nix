@@ -34,11 +34,26 @@ stdenv.mkDerivation rec {
 
   passthru = { inherit externalEtc; };
 
-  nativeBuildInputs = [ autoreconfHook bison flex pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    bison
+    flex
+    pkg-config
+  ];
 
-  buildInputs = [ expat gsoap openssl zlib ];
+  buildInputs = [
+    expat
+    gsoap
+    openssl
+    zlib
+  ];
 
-  outputs = [ "bin" "out" "dev" "man" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+    "man"
+  ];
 
   preAutoreconf = ''
     mkdir -p aux src/autogen

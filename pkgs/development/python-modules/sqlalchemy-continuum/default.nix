@@ -28,7 +28,10 @@ buildPythonPackage rec {
     hash = "sha256-1+k/lx6R8tW9gM3M2kqaVEwpmx8cMhDXeqCjyd8O2hM=";
   };
 
-  propagatedBuildInputs = [ sqlalchemy sqlalchemy-utils ];
+  propagatedBuildInputs = [
+    sqlalchemy
+    sqlalchemy-utils
+  ];
 
   passthru.optional-dependencies = {
     flask = [ flask ];
@@ -38,8 +41,11 @@ buildPythonPackage rec {
     i18n = [ sqlalchemy-i18n ];
   };
 
-  nativeCheckInputs = [ psycopg2 pymysql pytestCheckHook ]
-    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [
+    psycopg2
+    pymysql
+    pytestCheckHook
+  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   # Indicate tests that we don't have a database server at hand
   DB = "sqlite";

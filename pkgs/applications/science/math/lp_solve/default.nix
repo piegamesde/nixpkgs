@@ -17,10 +17,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-bUq/9cxqqpM66ObBeiJt8PwLZxxDj2lxXUHQn+gfkC8=";
   };
 
-  nativeBuildInputs =
-    lib.optionals stdenv.isDarwin [ cctools fixDarwinDylibNames ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
-    [ autoSignDarwinBinariesHook ];
+  nativeBuildInputs = lib.optionals stdenv.isDarwin [
+    cctools
+    fixDarwinDylibNames
+  ] ++ lib.optionals
+    (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
 
   dontConfigure = true;
 

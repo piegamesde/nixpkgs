@@ -49,7 +49,11 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ stestr testscenarios requests-mock ];
+  nativeCheckInputs = [
+    stestr
+    testscenarios
+    requests-mock
+  ];
 
   checkPhase = ''
     stestr run -e <(echo "

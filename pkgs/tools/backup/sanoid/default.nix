@@ -28,7 +28,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = with perlPackages; [ perl ConfigIniFiles CaptureTiny ];
+  buildInputs = with perlPackages; [
+    perl
+    ConfigIniFiles
+    CaptureTiny
+  ];
 
   passthru.tests = nixosTests.sanoid;
 
@@ -47,7 +51,11 @@ stdenv.mkDerivation rec {
     wrapProgram "$out/bin/sanoid" \
       --prefix PERL5LIB : "$PERL5LIB" \
       --prefix PATH : "${
-        lib.makeBinPath [ procps "/run/booted-system/sw" zfs ]
+        lib.makeBinPath [
+          procps
+          "/run/booted-system/sw"
+          zfs
+        ]
       }"
 
     install -m755 syncoid "$out/bin/syncoid"
@@ -71,7 +79,12 @@ stdenv.mkDerivation rec {
     install -m755 findoid "$out/bin/findoid"
     wrapProgram "$out/bin/findoid" \
       --prefix PERL5LIB : "$PERL5LIB" \
-      --prefix PATH : "${lib.makeBinPath [ "/run/booted-system/sw" zfs ]}"
+      --prefix PATH : "${
+        lib.makeBinPath [
+          "/run/booted-system/sw"
+          zfs
+        ]
+      }"
 
     runHook postInstall
   '';

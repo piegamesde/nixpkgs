@@ -67,6 +67,9 @@ python3.pkgs.buildPythonApplication rec {
     description = "Rewrite of the popular wireless network auditor, wifite";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ lassulus danielfullmer ];
+    maintainers = with maintainers; [
+      lassulus
+      danielfullmer
+    ];
   };
 }

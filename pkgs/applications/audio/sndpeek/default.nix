@@ -28,8 +28,17 @@ stdenv.mkDerivation rec {
   # symbol-not-found-error is thrown
   patches = [ ./pthread.patch ];
 
-  buildInputs =
-    [ freeglut alsa-lib mesa libGLU libsndfile libX11 libXmu libXext libXi ];
+  buildInputs = [
+    freeglut
+    alsa-lib
+    mesa
+    libGLU
+    libsndfile
+    libX11
+    libXmu
+    libXext
+    libXi
+  ];
   buildFlags = [ "linux-alsa" ];
 
   installPhase = ''

@@ -26,9 +26,18 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs =
-    [ pkg-config meson ninja gobject-introspection libtool vala ];
-  buildInputs = [ glib libcanberra ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    gobject-introspection
+    libtool
+    vala
+  ];
+  buildInputs = [
+    glib
+    libcanberra
+  ];
 
   mesonFlags = [
     "-Dintrospection=${

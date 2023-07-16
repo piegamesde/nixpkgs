@@ -19,7 +19,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [ pytest mock sphinx ];
+  nativeCheckInputs = [
+    pytest
+    mock
+    sphinx
+  ];
 
   checkPhase = ''
     py.test

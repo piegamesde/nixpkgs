@@ -18,7 +18,11 @@ mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ qtbase qttools sqlite ];
+  buildInputs = [
+    qtbase
+    qttools
+    sqlite
+  ];
 
   cmakeFlags = [ "-DEMBED_SQLITE=OFF" ];
 

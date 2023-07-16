@@ -28,10 +28,22 @@ stdenv.mkDerivation rec {
     hash = "sha256-XUC24KzZSU4+F2JZMsydukvAwEGdMxCnkPG6QHnCw6w=";
   };
 
-  nativeBuildInputs =
-    [ meson ninja pkg-config wrapGAppsHook4 appstream-glib desktop-file-utils ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    wrapGAppsHook4
+    appstream-glib
+    desktop-file-utils
+  ];
 
-  buildInputs = [ glib gtk4 libadwaita gtksourceview5 libpanel ];
+  buildInputs = [
+    glib
+    gtk4
+    libadwaita
+    gtksourceview5
+    libpanel
+  ];
 
   meta = with lib; {
     description =

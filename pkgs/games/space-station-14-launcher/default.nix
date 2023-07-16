@@ -16,7 +16,10 @@ let
 in buildFHSEnv rec {
   name = "space-station-14-launcher-wrapped";
 
-  targetPkgs = pkgs: [ space-station-14-launcher soundfont-fluid-fixed ];
+  targetPkgs = pkgs: [
+    space-station-14-launcher
+    soundfont-fluid-fixed
+  ];
 
   runScript = "SS14.Launcher";
 

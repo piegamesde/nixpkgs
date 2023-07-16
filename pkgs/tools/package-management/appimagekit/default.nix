@@ -143,7 +143,12 @@ in stdenv.mkDerivation rec {
     cp "${desktop-file-utils}/bin/desktop-file-validate" "$out/bin"
 
     wrapProgram "$out/bin/appimagetool" \
-      --prefix PATH : "${lib.makeBinPath [ file gnupg ]}" \
+      --prefix PATH : "${
+        lib.makeBinPath [
+          file
+          gnupg
+        ]
+      }" \
       --unset SOURCE_DATE_EPOCH
   '';
 

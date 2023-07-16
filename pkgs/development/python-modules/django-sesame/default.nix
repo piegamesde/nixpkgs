@@ -25,7 +25,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs = [ django ua-parser ];
+  nativeCheckInputs = [
+    django
+    ua-parser
+  ];
 
   pythonImportsCheck = [ "sesame" ];
 

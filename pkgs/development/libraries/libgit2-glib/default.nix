@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
   pname = "libgit2-glib";
   version = "1.1.0";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -29,8 +33,15 @@ stdenv.mkDerivation rec {
     sha256 = "w43XV12vgUHh5CIzOldfr2XzySEMCOg+mBuI3UG/HvM=";
   };
 
-  nativeBuildInputs =
-    [ meson ninja pkg-config vala gtk-doc gobject-introspection gi-docgen ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    vala
+    gtk-doc
+    gobject-introspection
+    gi-docgen
+  ];
 
   propagatedBuildInputs = [
     # Required by libgit2-glib-1.0.pc

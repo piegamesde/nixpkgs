@@ -22,10 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-JVXRVq7yrRLj15ZMKVCBvCsrRP8KcRj9XNvfeH0rXVc=";
   };
 
-  propagatedBuildInputs = [ google-api-core proto-plus protobuf ]
-    ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs = [
+    google-api-core
+    proto-plus
+    protobuf
+  ] ++ google-api-core.optional-dependencies.grpc;
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   # Prevent google directory from shadowing google imports
   preCheck = ''
@@ -40,6 +46,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/googleapis/python-org-policy/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ austinbutler SuperSandro2000 ];
+    maintainers = with maintainers; [
+      austinbutler
+      SuperSandro2000
+    ];
   };
 }

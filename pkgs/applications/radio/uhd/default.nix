@@ -41,8 +41,13 @@ let
   # Later used in pythonEnv generation. Python + mako are always required for the build itself but not necessary for runtime.
   pythonEnvArg = (ps:
     with ps;
-    [ mako ] ++ optionals (enablePythonApi) [ numpy setuptools ]
-    ++ optionals (enableUtils) [ requests six ]);
+    [ mako ] ++ optionals (enablePythonApi) [
+      numpy
+      setuptools
+    ] ++ optionals (enableUtils) [
+      requests
+      six
+    ]);
 
 in stdenv.mkDerivation rec {
   pname = "uhd";
@@ -50,7 +55,10 @@ in stdenv.mkDerivation rec {
   # and xxx.yyy.zzz. Hrmpf... style keeps changing
   version = "4.4.0.0";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "EttusResearch";
@@ -107,8 +115,10 @@ in stdenv.mkDerivation rec {
   # However, if enableLibuhd_Python_api *or* enableUtils is on, we need
   # pythonEnv for runtime as well. The utilities' runtime dependencies are
   # handled at the environment
-    ++ optionals (enableExamples) [ ncurses ncurses.dev ]
-    ++ optionals (enablePythonApi || enableUtils) [ pythonEnv ]
+    ++ optionals (enableExamples) [
+      ncurses
+      ncurses.dev
+    ] ++ optionals (enablePythonApi || enableUtils) [ pythonEnv ]
     ++ optionals (enableDpdk) [ dpdk ];
 
   # many tests fails on darwin, according to ofborg
@@ -123,9 +133,11 @@ in stdenv.mkDerivation rec {
     ./no-adapter-tests.patch
   ];
 
-  postPhases = [ "installFirmware" "removeInstalledTests" ]
-    ++ optionals (enableUtils && stdenv.targetPlatform.isLinux)
-    [ "moveUdevRules" ];
+  postPhases = [
+    "installFirmware"
+    "removeInstalledTests"
+  ] ++ optionals
+    (enableUtils && stdenv.targetPlatform.isLinux) [ "moveUdevRules" ];
 
   # UHD expects images in `$CMAKE_INSTALL_PREFIX/share/uhd/images`
   installFirmware = ''
@@ -157,6 +169,11 @@ in stdenv.mkDerivation rec {
     homepage = "https://uhd.ettus.com/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ bjornfor fpletz tomberek doronbehar ];
+    maintainers = with maintainers; [
+      bjornfor
+      fpletz
+      tomberek
+      doronbehar
+    ];
   };
 }

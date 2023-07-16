@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ libpng perl ];
+  buildInputs = [
+    libpng
+    perl
+  ];
   propagatedBuildInputs = [ perlPackages.LWP ];
 
   # Fixes a build failure on aarch64-darwin. Define for all Darwin targets for when x86_64-darwin

@@ -27,8 +27,10 @@ buildPythonPackage rec {
     sed -i 's|sys.executable, "-m", "ruff"|"${ruff}/bin/ruff"|' pylsp_ruff/plugin.py
   '';
 
-  propagatedBuildInputs = [ lsprotocol python-lsp-server ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs = [
+    lsprotocol
+    python-lsp-server
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   doCheck = true;
 

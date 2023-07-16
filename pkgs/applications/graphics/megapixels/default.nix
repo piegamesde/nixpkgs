@@ -24,7 +24,10 @@ assert jpgSupport -> tiffSupport;
 let
   inherit (lib) makeBinPath optional optionals optionalString;
   runtimePath = makeBinPath (optional tiffSupport libraw
-    ++ optionals jpgSupport [ graphicsmagick exiftool ]);
+    ++ optionals jpgSupport [
+      graphicsmagick
+      exiftool
+    ]);
 in stdenv.mkDerivation rec {
   pname = "megapixels";
   version = "1.6.0";
@@ -36,9 +39,21 @@ in stdenv.mkDerivation rec {
     hash = "sha256-xrO9Xr9DPjlDs4yaKy32yb4X8wFqLKfy8rsjtBuN+Rg=";
   };
 
-  nativeBuildInputs = [ glib meson ninja pkg-config wrapGAppsHook4 ];
+  nativeBuildInputs = [
+    glib
+    meson
+    ninja
+    pkg-config
+    wrapGAppsHook4
+  ];
 
-  buildInputs = [ feedbackd gtk4 libepoxy xorg.libXrandr zbar ];
+  buildInputs = [
+    feedbackd
+    gtk4
+    libepoxy
+    xorg.libXrandr
+    zbar
+  ];
 
   postInstall = ''
     glib-compile-schemas $out/share/glib-2.0/schemas
@@ -56,7 +71,10 @@ in stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/postmarketOS/megapixels";
     changelog = "https://gitlab.com/postmarketOS/megapixels/-/tags/${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ OPNA2608 dotlambda ];
+    maintainers = with maintainers; [
+      OPNA2608
+      dotlambda
+    ];
     platforms = platforms.linux;
   };
 }

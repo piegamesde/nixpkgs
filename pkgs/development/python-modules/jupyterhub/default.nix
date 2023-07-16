@@ -155,6 +155,9 @@ in buildPythonPackage rec {
     changelog =
       "https://github.com/jupyterhub/jupyterhub/blob/${version}/docs/source/changelog.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ixxie cstrahan ];
+    maintainers = with maintainers; [
+      ixxie
+      cstrahan
+    ];
   };
 }

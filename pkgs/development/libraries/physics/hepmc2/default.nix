@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = [ "-Dmomentum:STRING=GEV" "-Dlength:STRING=MM" ];
+  cmakeFlags = [
+    "-Dmomentum:STRING=GEV"
+    "-Dlength:STRING=MM"
+  ];
 
   meta = with lib; {
     description =

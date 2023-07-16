@@ -42,11 +42,20 @@ in {
 
   serviceOpts = {
     serviceConfig = {
-      AmbientCapabilities = [ "CAP_SYS_RAWIO" "CAP_SYS_ADMIN" ];
-      CapabilityBoundingSet = [ "CAP_SYS_RAWIO" "CAP_SYS_ADMIN" ];
+      AmbientCapabilities = [
+        "CAP_SYS_RAWIO"
+        "CAP_SYS_ADMIN"
+      ];
+      CapabilityBoundingSet = [
+        "CAP_SYS_RAWIO"
+        "CAP_SYS_ADMIN"
+      ];
       DevicePolicy = "closed";
-      DeviceAllow =
-        lib.mkOverride 50 [ "block-blkext rw" "block-sd rw" "char-nvme rw" ];
+      DeviceAllow = lib.mkOverride 50 [
+        "block-blkext rw"
+        "block-sd rw"
+        "char-nvme rw"
+      ];
       ExecStart = ''
         ${pkgs.prometheus-smartctl-exporter}/bin/smartctl_exporter ${args}
       '';
@@ -54,7 +63,10 @@ in {
       ProtectProc = "invisible";
       ProcSubset = "pid";
       SupplementaryGroups = [ "disk" ];
-      SystemCallFilter = [ "@system-service" "~@privileged" ];
+      SystemCallFilter = [
+        "@system-service"
+        "~@privileged"
+      ];
     };
   };
 }

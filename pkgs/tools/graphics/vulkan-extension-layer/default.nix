@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-CuwYpB8HX8pnR+ElkQfckpKDLKyZIzqm4F9kluM1cKo=";
   };
 
-  nativeBuildInputs = [ cmake jq ];
+  nativeBuildInputs = [
+    cmake
+    jq
+  ];
 
   buildInputs = [ vulkan-headers ];
 

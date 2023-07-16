@@ -22,15 +22,20 @@ let
   broken = old: { meta = old.meta // { broken = true; }; };
   brokenOnDarwin = old: { meta = old.meta // { broken = stdenv.isDarwin; }; };
 in {
-  allegro = addToBuildInputsWithPkgConfig ([ pkgs.allegro5 pkgs.libglvnd ]
-    ++ lib.optionals stdenv.isDarwin
-    [ pkgs.darwin.apple_sdk.frameworks.OpenGL ]);
+  allegro = addToBuildInputsWithPkgConfig ([
+    pkgs.allegro5
+    pkgs.libglvnd
+  ] ++ lib.optionals
+    stdenv.isDarwin [ pkgs.darwin.apple_sdk.frameworks.OpenGL ]);
   breadline = addToBuildInputs pkgs.readline;
   blas = addToBuildInputsWithPkgConfig pkgs.blas;
   blosc = addToBuildInputs pkgs.c-blosc;
   cairo = old:
     (addToBuildInputsWithPkgConfig pkgs.cairo old)
-    // (addToPropagatedBuildInputs (with chickenEggs; [ srfi-1 srfi-13 ]) old);
+    // (addToPropagatedBuildInputs (with chickenEggs; [
+      srfi-1
+      srfi-13
+    ]) old);
   cmark = addToBuildInputs pkgs.cmark;
   dbus = addToBuildInputsWithPkgConfig pkgs.dbus;
   epoxy = addToPropagatedBuildInputsWithPkgConfig pkgs.libepoxy;
@@ -55,13 +60,17 @@ in {
   mdh = addToBuildInputs pkgs.pcre;
   nanomsg = addToBuildInputs pkgs.nanomsg;
   ncurses = addToBuildInputsWithPkgConfig [ pkgs.ncurses ];
-  opencl = addToBuildInputs ([ pkgs.opencl-headers pkgs.ocl-icd ]
-    ++ lib.optionals stdenv.isDarwin
-    [ pkgs.darwin.apple_sdk.frameworks.OpenCL ]);
+  opencl = addToBuildInputs ([
+    pkgs.opencl-headers
+    pkgs.ocl-icd
+  ] ++ lib.optionals
+    stdenv.isDarwin [ pkgs.darwin.apple_sdk.frameworks.OpenCL ]);
   opengl = old:
     # csc: invalid option `-framework OpenGL'
-    (brokenOnDarwin old)
-    // (addToBuildInputsWithPkgConfig [ pkgs.libGL pkgs.libGLU ] old);
+    (brokenOnDarwin old) // (addToBuildInputsWithPkgConfig [
+      pkgs.libGL
+      pkgs.libGLU
+    ] old);
   openssl = addToBuildInputs pkgs.openssl;
   plot = addToBuildInputs pkgs.plotutils;
   postgresql = addToBuildInputsWithPkgConfig pkgs.postgresql;
@@ -78,8 +87,14 @@ in {
     (brokenOnDarwin old) // (addToBuildInputs pkgs.libstemmer old);
   stfl = old:
     # Undefined symbols for architecture arm64: "_clearok"
-    (brokenOnDarwin old) // (addToBuildInputs [ pkgs.ncurses pkgs.stfl ] old);
-  taglib = addToBuildInputs [ pkgs.zlib pkgs.taglib ];
+    (brokenOnDarwin old) // (addToBuildInputs [
+      pkgs.ncurses
+      pkgs.stfl
+    ] old);
+  taglib = addToBuildInputs [
+    pkgs.zlib
+    pkgs.taglib
+  ];
   uuid-lib = addToBuildInputs pkgs.libuuid;
   ws-client = addToBuildInputs pkgs.zlib;
   xlib = addToPropagatedBuildInputs pkgs.xorg.libX11;

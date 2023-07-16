@@ -29,13 +29,24 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [ "aiofiles" ];
 
-  nativeBuildInputs = [ hatchling pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    hatchling
+    pythonRelaxDepsHook
+  ];
 
-  propagatedBuildInputs = [ aiofiles aiosqlite y-py ];
+  propagatedBuildInputs = [
+    aiofiles
+    aiosqlite
+    y-py
+  ];
 
   pythonImportsCheck = [ "ypy_websocket" ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook websockets ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+    websockets
+  ];
 
   disabledTestPaths = [
     # requires installing yjs Node.js module

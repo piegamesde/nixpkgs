@@ -23,18 +23,20 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-UOo9LBeOA6H/A7dM6wIa0wXyAaq9xGnX9EUBzK4Y0ng=";
   };
 
-  nativeBuildInputs = [ unzip makeWrapper copyDesktopItems ];
-
-  desktopItems = [
-    (makeDesktopItem rec {
-      name = pname;
-      exec = pname;
-      icon = "rfb64";
-      desktopName = "Imposto de Renda Pessoa Física";
-      comment = "Programa Oficial da Receita para elaboração do IRPF";
-      categories = [ "Office" ];
-    })
+  nativeBuildInputs = [
+    unzip
+    makeWrapper
+    copyDesktopItems
   ];
+
+  desktopItems = [ (makeDesktopItem rec {
+    name = pname;
+    exec = pname;
+    icon = "rfb64";
+    desktopName = "Imposto de Renda Pessoa Física";
+    comment = "Programa Oficial da Receita para elaboração do IRPF";
+    categories = [ "Office" ];
+  }) ];
 
   installPhase = ''
     runHook preInstall

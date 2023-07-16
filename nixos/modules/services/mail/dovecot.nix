@@ -144,7 +144,11 @@ let
           description = lib.mdDoc "The name of the mailbox.";
         };
         auto = mkOption {
-          type = types.enum [ "no" "create" "subscribe" ];
+          type = types.enum [
+            "no"
+            "create"
+            "subscribe"
+          ];
           default = "no";
           example = "subscribe";
           description = lib.mdDoc
@@ -177,7 +181,11 @@ let
       };
     };
 in {
-  imports = [ (mkRemovedOptionModule [ "services" "dovecot2" "package" ] "") ];
+  imports = [ (mkRemovedOptionModule [
+    "services"
+    "dovecot2"
+    "package"
+  ] "") ];
 
   options.services.dovecot2 = {
     enable = mkEnableOption (lib.mdDoc "the dovecot 2.x POP3/IMAP server");
@@ -438,7 +446,10 @@ in {
 
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ cfg.configFile modulesDir ];
+      restartTriggers = [
+        cfg.configFile
+        modulesDir
+      ];
 
       startLimitIntervalSec = 60; # 1 min
       serviceConfig = {
@@ -472,10 +483,8 @@ in {
 
     environment.systemPackages = [ dovecotPkg ];
 
-    warnings = mkIf (any isList options.services.dovecot2.mailboxes.definitions)
-      [
-        "Declaring `services.dovecot2.mailboxes' as a list is deprecated and will break eval in 21.05! See the release notes for more info for migration."
-      ];
+    warnings = mkIf (any isList
+      options.services.dovecot2.mailboxes.definitions) [ "Declaring `services.dovecot2.mailboxes' as a list is deprecated and will break eval in 21.05! See the release notes for more info for migration." ];
 
     assertions = [
       {

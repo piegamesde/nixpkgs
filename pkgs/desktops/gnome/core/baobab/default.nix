@@ -45,7 +45,11 @@ stdenv.mkDerivation rec {
     libadwaita
   ];
 
-  buildInputs = [ gtk4 libadwaita glib ];
+  buildInputs = [
+    gtk4
+    libadwaita
+    glib
+  ];
 
   doCheck = true;
 

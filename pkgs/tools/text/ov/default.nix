@@ -20,13 +20,23 @@ buildGoModule rec {
 
   vendorHash = "sha256-BM9XnjAiX3qAukqwbl3Aij1scKU2+txx4SHC8aHaS/Q=";
 
-  ldflags = [ "-X main.Version=v${version}" "-X main.Revision=${src.rev}" ];
+  ldflags = [
+    "-X main.Version=v${version}"
+    "-X main.Revision=${src.rev}"
+  ];
 
   subPackages = [ "." ];
 
-  nativeBuildInputs = [ installShellFiles pandoc makeWrapper ];
+  nativeBuildInputs = [
+    installShellFiles
+    pandoc
+    makeWrapper
+  ];
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   postInstall = ''
     installShellCompletion --cmd ov \

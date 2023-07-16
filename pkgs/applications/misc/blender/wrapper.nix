@@ -14,7 +14,10 @@ stdenv.mkDerivation {
   inherit (blender) version;
   src = blender;
 
-  nativeBuildInputs = [ python39Packages.wrapPython makeWrapper ];
+  nativeBuildInputs = [
+    python39Packages.wrapPython
+    makeWrapper
+  ];
   installPhase = ''
     mkdir $out/{share/applications,bin} -p
     sed 's/Exec=blender/Exec=blender-${name}/g' $src/share/applications/blender.desktop > $out/share/applications/blender-${name}.desktop

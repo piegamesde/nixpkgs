@@ -35,6 +35,9 @@ python3.pkgs.buildPythonApplication rec {
     description = "Convert between markup languages";
     homepage = "https://txt2tags.org/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ dotlambda kovirobi ];
+    maintainers = with lib.maintainers; [
+      dotlambda
+      kovirobi
+    ];
   };
 }

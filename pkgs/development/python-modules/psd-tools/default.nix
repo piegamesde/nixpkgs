@@ -28,7 +28,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ];
 
-  propagatedBuildInputs = [ aggdraw docopt ipython pillow scikitimage ];
+  propagatedBuildInputs = [
+    aggdraw
+    docopt
+    ipython
+    pillow
+    scikitimage
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

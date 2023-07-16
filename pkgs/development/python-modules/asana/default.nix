@@ -23,9 +23,15 @@ buildPythonPackage rec {
     hash = "sha256-hvAyKGoNkX3bs7Mz2h7SnOa5T6J88c0YiTR/L8fgfi8=";
   };
 
-  propagatedBuildInputs = [ requests requests-oauthlib ];
+  propagatedBuildInputs = [
+    requests
+    requests-oauthlib
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook responses ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    responses
+  ];
 
   pythonImportsCheck = [ "asana" ];
 

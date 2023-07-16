@@ -41,7 +41,12 @@ stdenv.mkDerivation rec {
       --replace "\''${_qt_bin_dir}/../" "${qtmultimedia}/lib/qt-6/"
   '';
 
-  nativeBuildInputs = [ cmake perl wrapGAppsHook wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    perl
+    wrapGAppsHook
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     qtbase

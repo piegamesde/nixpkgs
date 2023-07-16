@@ -26,7 +26,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-1n3LpaKOCQS2CIa25fdSvHycOlxwlhU4VbWtyp24bFE=";
   };
 
-  outputs = [ "bin" "dev" "out" "doc" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "doc"
+  ];
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   nativeBuildInputs = [
@@ -37,7 +42,12 @@ stdenv.mkDerivation rec {
     pkg-config
     libuuid # codegen tool uses libuuid
   ];
-  buildInputs = [ readline icu inih liburcu ];
+  buildInputs = [
+    readline
+    icu
+    inih
+    liburcu
+  ];
   propagatedBuildInputs = [ libuuid ]; # Dev headers include <uuid/uuid.h>
 
   enableParallelBuilding = true;
@@ -78,6 +88,9 @@ stdenv.mkDerivation rec {
       gpl3Plus
     ]; # see https://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git/tree/debian/copyright
     platforms = platforms.linux;
-    maintainers = with maintainers; [ dezgeg ajs124 ];
+    maintainers = with maintainers; [
+      dezgeg
+      ajs124
+    ];
   };
 }

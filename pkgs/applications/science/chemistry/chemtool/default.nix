@@ -19,8 +19,15 @@ stdenv.mkDerivation rec {
     sha256 = "hhYaBGE4azNKX/sXzfCUpJGUGIRngnL0V0mBNRTdr8s=";
   };
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook ];
-  buildInputs = [ libX11 gtk2 fig2dev ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    libX11
+    gtk2
+    fig2dev
+  ];
 
   # Workaround build on -fno-common toolchains like upstream gcc-10.
   # Otherwise built fails as:

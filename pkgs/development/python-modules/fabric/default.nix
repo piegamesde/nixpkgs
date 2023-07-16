@@ -25,9 +25,17 @@ buildPythonPackage rec {
         --replace ', "pathlib2"' ' '
   '';
 
-  propagatedBuildInputs = [ invoke paramiko cryptography ];
+  propagatedBuildInputs = [
+    invoke
+    paramiko
+    cryptography
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-relaxed mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-relaxed
+    mock
+  ];
 
   # ==================================== ERRORS ====================================
   # ________________________ ERROR collecting test session _________________________

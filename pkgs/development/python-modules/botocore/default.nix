@@ -20,9 +20,17 @@ buildPythonPackage rec {
     hash = "sha256-x97UQGK+07kolEz7CeFXjtP+0OTJjeTyM/PCBWqNSR4=";
   };
 
-  propagatedBuildInputs = [ python-dateutil jmespath docutils urllib3 ];
+  propagatedBuildInputs = [
+    python-dateutil
+    jmespath
+    docutils
+    urllib3
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook jsonschema ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    jsonschema
+  ];
 
   doCheck = true;
 

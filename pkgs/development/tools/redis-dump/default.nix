@@ -7,7 +7,10 @@
 bundlerApp {
   pname = "redis-dump";
   gemdir = ./.;
-  exes = [ "redis-dump" "redis-load" ];
+  exes = [
+    "redis-dump"
+    "redis-load"
+  ];
 
   passthru.updateScript = bundlerUpdateScript "redis-dump";
 
@@ -15,7 +18,11 @@ bundlerApp {
     description = "Backup and restore your Redis data to and from JSON";
     homepage = "http://delanotes.com/redis-dump/";
     license = licenses.mit;
-    maintainers = with maintainers; [ offline manveru nicknovitski ];
+    maintainers = with maintainers; [
+      offline
+      manveru
+      nicknovitski
+    ];
     platforms = platforms.unix;
   };
 }

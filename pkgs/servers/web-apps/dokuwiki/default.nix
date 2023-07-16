@@ -66,7 +66,12 @@ stdenv.mkDerivation rec {
         aclConfig ? null,
         pname ? (p: "${p.pname}-combined")
       }:
-      let isNotEmpty = x: lib.optionalString (!builtins.elem x [ null "" ]);
+      let
+        isNotEmpty = x:
+          lib.optionalString (!builtins.elem x [
+            null
+            ""
+          ]);
       in basePackage.overrideAttrs (prev: {
         pname = if builtins.isFunction pname then pname prev else pname;
 

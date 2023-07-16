@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-eACVPIQFgiGiVmQ/PjUxP/UH/hBOsCywz5PlgpA4dk4=";
   };
 
-  propagatedBuildInputs = [ networkx numpy ];
+  propagatedBuildInputs = [
+    networkx
+    numpy
+  ];
 
   nativeCheckInputs = [ nose ];
 

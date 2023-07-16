@@ -23,13 +23,15 @@ in {
 
   ###### interface
 
-  imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "opensmtpd"
-      "addSendmailToSystemPath"
-    ] [ "services" "opensmtpd" "setSendmail" ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "services"
+    "opensmtpd"
+    "addSendmailToSystemPath"
+  ] [
+    "services"
+    "opensmtpd"
+    "setSendmail"
+  ]) ];
 
   options = {
 
@@ -58,7 +60,10 @@ in {
       extraServerArgs = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "-v" "-P mta" ];
+        example = [
+          "-v"
+          "-P mta"
+        ];
         description = lib.mdDoc ''
           Extra command line arguments provided when the smtpd process
           is started.

@@ -49,10 +49,11 @@ let
   groupAccessAvailable = versionAtLeast postgresql.version "11.0";
 
 in {
-  imports = [
-    (mkRemovedOptionModule [ "services" "postgresql" "extraConfig" ]
-      "Use services.postgresql.settings instead.")
-  ];
+  imports = [ (mkRemovedOptionModule [
+    "services"
+    "postgresql"
+    "extraConfig"
+  ] "Use services.postgresql.settings instead.") ];
 
   ###### interface
 
@@ -131,7 +132,10 @@ in {
       initdbArgs = mkOption {
         type = with types; listOf str;
         default = [ ];
-        example = [ "--data-checksums" "--allow-group-access" ];
+        example = [
+          "--data-checksums"
+          "--allow-group-access"
+        ];
         description = lib.mdDoc ''
           Additional arguments passed to `initdb` during data dir
           initialisation.
@@ -155,7 +159,10 @@ in {
           option is changed. This means that databases created once through this option or
           otherwise have to be removed manually.
         '';
-        example = [ "gitea" "nextcloud" ];
+        example = [
+          "gitea"
+          "nextcloud"
+        ];
       };
 
       ensureUsers = mkOption {
@@ -399,7 +406,13 @@ in {
       };
 
       settings = mkOption {
-        type = with types; attrsOf (oneOf [ bool float int str ]);
+        type = with types;
+          attrsOf (oneOf [
+            bool
+            float
+            int
+            str
+          ]);
         default = { };
         description = lib.mdDoc ''
           PostgreSQL configuration. Refer to
@@ -616,5 +629,8 @@ in {
   };
 
   meta.doc = ./postgresql.md;
-  meta.maintainers = with lib.maintainers; [ thoughtpolice danbst ];
+  meta.maintainers = with lib.maintainers; [
+    thoughtpolice
+    danbst
+  ];
 }

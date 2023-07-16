@@ -10,7 +10,10 @@
 let
   testScript = writeShellApplication {
     name = "tvbrowser-test-script";
-    runtimeInputs = [ xorg.xwininfo tvbrowser ];
+    runtimeInputs = [
+      xorg.xwininfo
+      tvbrowser
+    ];
     text = ''
       function find_tvbrowser_windows {
         for window_name in java tvbrowser-TVBrowser 'Setup assistant' ; do

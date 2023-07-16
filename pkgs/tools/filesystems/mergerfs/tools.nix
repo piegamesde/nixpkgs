@@ -22,8 +22,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ python3 ];
 
-  makeFlags =
-    [ "INSTALL=${coreutils}/bin/install" "PREFIX=${placeholder "out"}" ];
+  makeFlags = [
+    "INSTALL=${coreutils}/bin/install"
+    "PREFIX=${placeholder "out"}"
+  ];
 
   postInstall = with lib; ''
     wrapProgram $out/bin/mergerfs.balance --prefix PATH : ${

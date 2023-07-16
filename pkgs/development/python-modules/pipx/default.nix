@@ -29,8 +29,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [ argcomplete packaging platformdirs userpath ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [
+    argcomplete
+    packaging
+    platformdirs
+    userpath
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

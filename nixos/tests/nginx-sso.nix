@@ -17,13 +17,13 @@ import ./make-test-python.nix ({
           providers.token.tokens = { myuser = "MyToken"; };
 
           acl = {
-            rule_sets = [{
-              rules = [{
+            rule_sets = [ {
+              rules = [ {
                 field = "x-application";
                 equals = "MyApp";
-              }];
+              } ];
               allow = [ "myuser" ];
-            }];
+            } ];
           };
         };
       };

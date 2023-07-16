@@ -29,8 +29,12 @@ mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs =
-    [ pkg-config python3Packages.wrapPython qmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    python3Packages.wrapPython
+    qmake
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     libXScrnSaver
@@ -66,7 +70,10 @@ mkDerivation rec {
       matrix-nio
     ] ++ matrix-nio.optional-dependencies.e2e;
 
-  qmakeFlags = [ "PREFIX=${placeholder "out"}" "CONFIG+=qtquickcompiler" ];
+  qmakeFlags = [
+    "PREFIX=${placeholder "out"}"
+    "CONFIG+=qtquickcompiler"
+  ];
 
   dontWrapQtApps = true;
   postInstall = ''
@@ -81,7 +88,10 @@ mkDerivation rec {
     description =
       "A fancy, customizable, keyboard-operable Qt/QML+Python Matrix chat client for encrypted and decentralized communication";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ colemickens AndersonTorres ];
+    maintainers = with maintainers; [
+      colemickens
+      AndersonTorres
+    ];
     inherit (qtbase.meta) platforms;
     broken = stdenv.isDarwin || python3Packages.isPy37
       || python3Packages.isPy38;

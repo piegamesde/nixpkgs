@@ -16,7 +16,10 @@ buildDunePackage rec {
     hash = "sha256-i/P/F80Oyy1rbR2UywjvCJ1Eyu+W6brmvmg51Cj6MY8=";
   };
 
-  propagatedBuildInputs = [ camlp-streams easy-format ];
+  propagatedBuildInputs = [
+    camlp-streams
+    easy-format
+  ];
 
   meta = {
     description =

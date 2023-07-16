@@ -19,7 +19,10 @@ buildDunePackage rec {
     hash = "sha256-WmYpG/cQtF9+lVDs1WIievUZ1f7+iZ2hufsdD1HHNeo=";
   };
 
-  checkInputs = [ ppx_sexp_conv ounit2 ];
+  checkInputs = [
+    ppx_sexp_conv
+    ounit2
+  ];
   doCheck = true;
 
   meta = with lib; {

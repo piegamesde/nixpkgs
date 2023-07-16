@@ -73,6 +73,9 @@ buildGoModule rec {
       compare different deployment options upfront.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ davegallant jk ];
+    maintainers = with maintainers; [
+      davegallant
+      jk
+    ];
   };
 }

@@ -23,7 +23,11 @@ in stdenv.mkDerivation rec {
     ++ optional stdenv.isDarwin CoreAudio;
   propagatedBuildInputs = optional stdenv.isLinux libpulseaudio;
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
   NIX_LDFLAGS = optionalString stdenv.isLinux "-lasound";
 
@@ -35,7 +39,10 @@ in stdenv.mkDerivation rec {
     description = "A library for playing tracker music module files";
     homepage = "https://mikmod.shlomifish.org/";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ astsmtl lovek323 ];
+    maintainers = with maintainers; [
+      astsmtl
+      lovek323
+    ];
     platforms = platforms.unix;
 
     longDescription = ''

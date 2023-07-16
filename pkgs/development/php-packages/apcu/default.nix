@@ -20,9 +20,15 @@ in buildPecl {
   buildInputs = [ pcre2 ];
   doCheck = true;
   checkTarget = "test";
-  checkFlagsArray = [ "REPORT_EXIT_STATUS=1" "NO_INTERACTION=1" ];
+  checkFlagsArray = [
+    "REPORT_EXIT_STATUS=1"
+    "NO_INTERACTION=1"
+  ];
   makeFlags = [ "phpincludedir=$(dev)/include" ];
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   meta = with lib; {
     changelog = "https://github.com/krakjoe/apcu/releases/tag/v${version}";

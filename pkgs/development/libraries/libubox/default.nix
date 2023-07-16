@@ -32,7 +32,10 @@ stdenv.mkDerivation {
       "-DBUILD_LUA=OFF")
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buildInputs = [ json_c ] ++ lib.optional with_lua lua5_1
     ++ lib.optional with_ustream_ssl ustream-ssl;
 

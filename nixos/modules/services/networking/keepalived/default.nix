@@ -142,11 +142,11 @@ let
     ] ++ flatten (map (virtualIpAssertions i.name) i.virtualIps)
     ++ flatten (map (vrrpScriptAssertion i.name) i.trackScripts);
 
-  virtualIpAssertions = vrrpName: ip: [{
+  virtualIpAssertions = vrrpName: ip: [ {
     assertion = ip.addr != "";
     message =
       "The 'addr' option for an services.keepalived.vrrpInstances.${vrrpName}.virtualIps entry cannot be empty.";
-  }];
+  } ];
 
   vrrpScriptAssertion = vrrpName: scriptName: {
     assertion = builtins.hasAttr scriptName cfg.vrrpScripts;
@@ -302,7 +302,11 @@ in {
     systemd.timers.keepalived-boot-delay = {
       description =
         "Keepalive Daemon delay to avoid instant transition to MASTER state";
-      after = [ "network.target" "network-online.target" "syslog.target" ];
+      after = [
+        "network.target"
+        "network-online.target"
+        "syslog.target"
+      ];
       requires = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
       timerConfig = {
@@ -318,7 +322,11 @@ in {
         "/run/keepalived/keepalived.conf";
     in {
       description = "Keepalive Daemon (LVS and VRRP)";
-      after = [ "network.target" "network-online.target" "syslog.target" ];
+      after = [
+        "network.target"
+        "network-online.target"
+        "syslog.target"
+      ];
       wants = [ "network-online.target" ];
       serviceConfig = {
         Type = "forking";

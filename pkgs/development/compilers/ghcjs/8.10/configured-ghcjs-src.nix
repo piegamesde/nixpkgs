@@ -19,8 +19,17 @@
 }:
 
 runCommand "configured-ghcjs-src" {
-  nativeBuildInputs =
-    [ perl autoconf automake python3 ghc happy alex cabal-install gcc ];
+  nativeBuildInputs = [
+    perl
+    autoconf
+    automake
+    python3
+    ghc
+    happy
+    alex
+    cabal-install
+    gcc
+  ];
 
   inherit ghcjsSrc;
 

@@ -28,9 +28,18 @@ buildPythonPackage rec {
     hash = "sha256-C+/M25oCLTNGGEUj2EyXn3UjcvPvDYFmmUW8IOoF1uU=";
   };
 
-  propagatedBuildInputs = [ aiohttp apispec jinja2 packaging webargs ];
+  propagatedBuildInputs = [
+    aiohttp
+    apispec
+    jinja2
+    packaging
+    webargs
+  ];
 
-  nativeCheckInputs = [ pytest-aiohttp pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-aiohttp
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "aiohttp_apispec" ];
 

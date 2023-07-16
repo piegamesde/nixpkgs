@@ -24,7 +24,13 @@ in stdenv.mkDerivation {
 
   strictDeps = true;
   depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs = [ makeWrapper meson ninja pkg-config wayland-scanner ];
+  nativeBuildInputs = [
+    makeWrapper
+    meson
+    ninja
+    pkg-config
+    wayland-scanner
+  ];
   buildInputs = [
     hyprland-protocols
     inih

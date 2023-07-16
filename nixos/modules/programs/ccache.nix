@@ -22,7 +22,11 @@ in {
       description =
         lib.mdDoc "Nix top-level packages to be compiled using CCache";
       default = [ ];
-      example = [ "wxGTK32" "ffmpeg" "libav_all" ];
+      example = [
+        "wxGTK32"
+        "ffmpeg"
+        "libav_all"
+      ];
     };
   };
 

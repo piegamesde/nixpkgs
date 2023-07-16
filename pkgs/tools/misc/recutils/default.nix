@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ curl ];
 
-  nativeCheckInputs = [ bc check ];
+  nativeCheckInputs = [
+    bc
+    check
+  ];
 
   doCheck = true;
 

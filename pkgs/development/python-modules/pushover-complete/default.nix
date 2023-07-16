@@ -22,9 +22,16 @@ buildPythonPackage rec {
     sha256 = "8a8f867e1f27762a28a0832c33c6003ca54ee04c935678d124b4c071f7cf5a1f";
   };
 
-  propagatedBuildInputs = [ requests six ];
+  propagatedBuildInputs = [
+    requests
+    six
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook requests-toolbelt responses ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    requests-toolbelt
+    responses
+  ];
 
   pythonImportsCheck = [ "pushover_complete" ];
 

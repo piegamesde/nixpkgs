@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
   pname = "enchant";
   version = "2.3.4";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url =
@@ -24,14 +27,24 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-H34mdE2xyaD+ph0hafTlwc5DXPjCcxw34+QFQRnplKA=";
   };
 
-  nativeBuildInputs = [ groff pkg-config ];
+  nativeBuildInputs = [
+    groff
+    pkg-config
+  ];
 
-  buildInputs = [ glib hunspell nuspell ];
+  buildInputs = [
+    glib
+    hunspell
+    nuspell
+  ];
 
   nativeCheckInputs = [ unittest-cpp ];
 
   # libtool puts these to .la files
-  propagatedBuildInputs = [ hspell aspell ];
+  propagatedBuildInputs = [
+    hspell
+    aspell
+  ];
 
   enableParallelBuilding = true;
 

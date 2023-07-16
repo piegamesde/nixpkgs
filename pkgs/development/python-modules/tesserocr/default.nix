@@ -33,9 +33,15 @@ buildPythonPackage rec {
     sed -i '/allheaders.h/a\    pass\n\ncdef extern from "leptonica/pix_internal.h" nogil:' tesseract.pxd
   '';
 
-  nativeBuildInputs = [ cython pkg-config ];
+  nativeBuildInputs = [
+    cython
+    pkg-config
+  ];
 
-  buildInputs = [ leptonica tesseract4 ];
+  buildInputs = [
+    leptonica
+    tesseract4
+  ];
 
   propagatedBuildInputs = [ pillow ];
 

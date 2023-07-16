@@ -23,8 +23,18 @@
   OpenGL,
 }:
 let
-  rpathLibs = [ libGL libX11 libXcursor libXi libXrandr libXxf86vm libxcb ]
-    ++ lib.optionals stdenv.isLinux [ libxkbcommon wayland ];
+  rpathLibs = [
+    libGL
+    libX11
+    libXcursor
+    libXi
+    libXrandr
+    libXxf86vm
+    libxcb
+  ] ++ lib.optionals stdenv.isLinux [
+    libxkbcommon
+    wayland
+  ];
 in rustPlatform.buildRustPackage rec {
   pname = "emulsion";
   version = "9.0";
@@ -38,7 +48,12 @@ in rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-2wiLamnGqACx1r4WJbWPCN3tvhww/rRWz8fcvAbjYE0=";
 
-  nativeBuildInputs = [ installShellFiles makeWrapper pkg-config python3 ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+    pkg-config
+    python3
+  ];
 
   buildInputs = rpathLibs ++ lib.optionals stdenv.isDarwin [
     AppKit

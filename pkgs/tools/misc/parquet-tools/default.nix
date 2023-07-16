@@ -26,14 +26,32 @@ buildPythonApplication rec {
       --replace "format_version: 1.0" "format_version: 2.6"
   '';
 
-  pythonRelaxDeps = [ "halo" "tabulate" "thrift" ];
+  pythonRelaxDeps = [
+    "halo"
+    "tabulate"
+    "thrift"
+  ];
 
-  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
-  propagatedBuildInputs =
-    [ boto3 colorama halo pandas pyarrow tabulate thrift ];
+  propagatedBuildInputs = [
+    boto3
+    colorama
+    halo
+    pandas
+    pyarrow
+    tabulate
+    thrift
+  ];
 
-  nativeCheckInputs = [ moto pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    moto
+    pytest-mock
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # These tests try to read Python code as parquet and fail

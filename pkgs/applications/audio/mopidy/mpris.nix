@@ -14,7 +14,10 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-rHQgNIyludTEL7RDC8dIpyGTMOt1Tazn6i/orKlSP4U=";
   };
 
-  propagatedBuildInputs = [ mopidy python3Packages.pydbus ];
+  propagatedBuildInputs = [
+    mopidy
+    python3Packages.pydbus
+  ];
 
   doCheck = false;
 

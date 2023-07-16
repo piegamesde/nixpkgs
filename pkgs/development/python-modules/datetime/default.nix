@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-5H7s2y/2zsQC3Azs1yakotO8ZVLCRV8yPahbX09C5L8=";
   };
 
-  propagatedBuildInputs = [ pytz zope_interface ];
+  propagatedBuildInputs = [
+    pytz
+    zope_interface
+  ];
 
   pythonImportsCheck = [ "DateTime" ];
 

@@ -27,9 +27,22 @@ stdenv.mkDerivation rec {
     sha256 = "XqdgfuNlZCxVWSf+3FteH+COdPBh0MPrCL2QG16yAII=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config gettext wrapGAppsHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gettext
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ gupnp_1_6 libsoup_3 gssdp_1_6 gtk3 gupnp-av gtksourceview4 ];
+  buildInputs = [
+    gupnp_1_6
+    libsoup_3
+    gssdp_1_6
+    gtk3
+    gupnp-av
+    gtksourceview4
+  ];
 
   passthru = {
     updateScript = gnome.updateScript {

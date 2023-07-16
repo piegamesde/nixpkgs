@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [ python rcs git ];
+  buildInputs = [
+    python
+    rcs
+    git
+  ];
 
   preConfigure = ''
     patchShebangs .
@@ -45,7 +49,10 @@ stdenv.mkDerivation rec {
     '';
     changelog = "https://gitlab.com/esr/src/raw/${version}/NEWS";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ calvertvl AndersonTorres ];
+    maintainers = with maintainers; [
+      calvertvl
+      AndersonTorres
+    ];
     inherit (python.meta) platforms;
   };
 }

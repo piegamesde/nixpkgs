@@ -6,5 +6,8 @@
 
 qtModule {
   pname = "qtwebglplugin";
-  qtInputs = [ qtbase qtwebsockets ];
+  qtInputs = [
+    qtbase
+    qtwebsockets
+  ];
 }

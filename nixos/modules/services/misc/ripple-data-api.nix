@@ -51,7 +51,10 @@ in {
       importMode = mkOption {
         description = lib.mdDoc "Ripple data api import mode.";
         default = "liveOnly";
-        type = types.enum [ "live" "liveOnly" ];
+        type = types.enum [
+          "live"
+          "liveOnly"
+        ];
       };
 
       minLedger = mkOption {
@@ -129,8 +132,10 @@ in {
       rippleds = mkOption {
         description =
           lib.mdDoc "List of rippleds to be used by ripple data api.";
-        default =
-          [ "http://s_east.ripple.com:51234" "http://s_west.ripple.com:51234" ];
+        default = [
+          "http://s_east.ripple.com:51234"
+          "http://s_west.ripple.com:51234"
+        ];
         type = types.listOf types.str;
       };
     };

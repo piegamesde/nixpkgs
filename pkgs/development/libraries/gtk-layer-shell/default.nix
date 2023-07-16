@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
   pname = "gtk-layer-shell";
   version = "0.8.0";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
   outputBin = "devdoc"; # for demo
 
   src = fetchFromGitHub {
@@ -63,9 +67,15 @@ stdenv.mkDerivation rec {
     wayland-scanner
   ];
 
-  buildInputs = [ wayland gtk3 ];
+  buildInputs = [
+    wayland
+    gtk3
+  ];
 
-  mesonFlags = [ "-Ddocs=true" "-Dexamples=true" ];
+  mesonFlags = [
+    "-Ddocs=true"
+    "-Dexamples=true"
+  ];
 
   meta = with lib; {
     description =

@@ -58,8 +58,13 @@ melpaBuild rec {
   commit = "2d94f553a394ce73bcb91490b81e0fc042baa8d3";
   # elisp dependencies
   packageRequires = [ pkgs.emacsPackages.markdown-mode ];
-  buildInputs =
-    [ (pkgs.python3.withPackages (ps: with ps; [ openai epc sexpdata six ])) ];
+  buildInputs = [ (pkgs.python3.withPackages (ps:
+    with ps; [
+      openai
+      epc
+      sexpdata
+      six
+    ])) ];
   recipe = pkgs.writeText "recipe" ''
     (mind-wave
     :repo "manateelazycat/mind-wave"

@@ -16,7 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-q994axJexRU1SUlg9P71NvaZRpR9dj46GX85cbvMEy8=";
   };
 
-  buildInputs = [ openssl bzip2 ];
+  buildInputs = [
+    openssl
+    bzip2
+  ];
 
   pythonImportsCheck = [ "Ice" ];
 

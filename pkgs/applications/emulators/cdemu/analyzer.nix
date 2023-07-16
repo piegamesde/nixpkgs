@@ -35,7 +35,12 @@ in callPackage pkg {
     python3Packages.matplotlib
   ];
   drvParams = {
-    nativeBuildInputs = [ gobject-introspection cmake makeWrapper intltool ];
+    nativeBuildInputs = [
+      gobject-introspection
+      cmake
+      makeWrapper
+      intltool
+    ];
     postFixup = ''
       wrapProgram $out/bin/image-analyzer \
         --set PYTHONPATH "$PYTHONPATH" \

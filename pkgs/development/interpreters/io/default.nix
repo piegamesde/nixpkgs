@@ -44,17 +44,17 @@ stdenv.mkDerivation {
     sha256 = "07rg1zrz6i6ghp11cm14w7bbaaa1s8sb0y5i7gr2sds0ijlpq223";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "check-for-sysctl-h.patch";
-      url =
-        "https://github.com/IoLanguage/io/pull/446/commits/9f3e4d87b6d4c1bf583134d55d1cf92d3464c49f.patch";
-      sha256 =
-        "9f06073ac17f26c2ef6298143bdd1babe7783c228f9667622aa6c91bb7ec7fa0";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "check-for-sysctl-h.patch";
+    url =
+      "https://github.com/IoLanguage/io/pull/446/commits/9f3e4d87b6d4c1bf583134d55d1cf92d3464c49f.patch";
+    sha256 = "9f06073ac17f26c2ef6298143bdd1babe7783c228f9667622aa6c91bb7ec7fa0";
+  }) ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     zlib
@@ -114,7 +114,11 @@ stdenv.mkDerivation {
     homepage = "https://iolanguage.org/";
     license = licenses.bsd3;
 
-    maintainers = with maintainers; [ raskin maggesi vrthra ];
+    maintainers = with maintainers; [
+      raskin
+      maggesi
+      vrthra
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

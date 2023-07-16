@@ -24,9 +24,19 @@ stdenv.mkDerivation rec {
   # Necessary to avoid using multiple ffmpeg and gtk libs
   autoPatchelfIgnoreMissingDeps = true;
 
-  nativeBuildInputs = [ autoPatchelfHook dpkg makeWrapper ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    dpkg
+    makeWrapper
+  ];
 
-  buildInputs = [ atk gdk-pixbuf ffmpeg gtk3 libXtst ];
+  buildInputs = [
+    atk
+    gdk-pixbuf
+    ffmpeg
+    gtk3
+    libXtst
+  ];
 
   libPath = lib.makeLibraryPath buildInputs;
 
@@ -52,7 +62,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Digital signature tool for Costa Rican electronic invoicing";
     homepage = "https://signum.one/download.html";
-    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [
+      binaryBytecode
+      binaryNativeCode
+    ];
     license = licenses.unfree;
     maintainers = with maintainers; [ wolfangaukang ];
     platforms = [ "x86_64-linux" ];

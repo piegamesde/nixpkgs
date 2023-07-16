@@ -77,8 +77,13 @@ mkDerivation rec {
     sha256 = "sha256-o/MPAbfRttWFgivNXr+N9p4P8CRWOnJGLr+AadvaIuE=";
   };
 
-  nativeBuildInputs =
-    [ cmake doxygen extra-cmake-modules kdoctools wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    doxygen
+    extra-cmake-modules
+    kdoctools
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     bison
@@ -140,7 +145,11 @@ mkDerivation rec {
   preFixup = ''
     qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
     qtWrapperArgs+=(--prefix PATH : ${
-      lib.makeBinPath [ gnumake hugin enblend-enfuse ]
+      lib.makeBinPath [
+        gnumake
+        hugin
+        enblend-enfuse
+      ]
     })
     qtWrapperArgs+=(--suffix DK_PLUGIN_PATH : ${
       placeholder "out"

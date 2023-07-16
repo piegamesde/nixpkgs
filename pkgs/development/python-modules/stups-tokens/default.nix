@@ -23,7 +23,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [ mock pytest pytest-cov ];
+  nativeCheckInputs = [
+    mock
+    pytest
+    pytest-cov
+  ];
 
   meta = with lib; {
     description =

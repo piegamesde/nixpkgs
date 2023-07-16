@@ -26,8 +26,16 @@ let
         inherit rev sha256;
       };
 
-      nativeBuildInputs = [ pkg-config gcc-arm-embedded ];
-      buildInputs = [ ncurses readline pcsclite qt5.qtbase ];
+      nativeBuildInputs = [
+        pkg-config
+        gcc-arm-embedded
+      ];
+      buildInputs = [
+        ncurses
+        readline
+        pcsclite
+        qt5.qtbase
+      ];
 
       dontWrapQtApps = true;
 

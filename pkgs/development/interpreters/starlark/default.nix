@@ -18,7 +18,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-AvZh7IqRRAAOG10rLodHLNSuTIQHXPTJkRXsAhZGNe0=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/google/starlark-go";

@@ -52,8 +52,8 @@ in {
       serviceConfig = {
         DynamicUser = true;
         ExecStart = "${pkgs.merecat}/bin/merecat -n -f ${configFile}";
-        AmbientCapabilities = lib.mkIf ((cfg.settings.port or 80) < 1024)
-          [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = lib.mkIf
+          ((cfg.settings.port or 80) < 1024) [ "CAP_NET_BIND_SERVICE" ];
       };
     };
 

@@ -36,10 +36,19 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs =
-    [ attrs pdfminer-six commoncode plugincode binaryornot typecode-libmagic ];
+  propagatedBuildInputs = [
+    attrs
+    pdfminer-six
+    commoncode
+    plugincode
+    binaryornot
+    typecode-libmagic
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-xdist ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-xdist
+  ];
 
   disabledTests = [
     "TestFileTypesDataDriven"

@@ -36,11 +36,9 @@ python3Packages.buildPythonApplication rec {
 
   '';
 
-  makeWrapperArgs = [
-    "--prefix PYTHONPATH : ${
+  makeWrapperArgs = [ "--prefix PYTHONPATH : ${
       placeholder "out"
-    }/lib/${python3Packages.python.libPrefix}/site-packages"
-  ];
+    }/lib/${python3Packages.python.libPrefix}/site-packages" ];
 
   postInstall = ''
     wrapProgram $out/bin/xonsh \
@@ -78,21 +76,31 @@ python3Packages.buildPythonApplication rec {
     HOME=$TMPDIR
   '';
 
-  nativeCheckInputs = [ glibcLocales git ] ++ (with python3Packages; [
+  nativeCheckInputs = [
+    glibcLocales
+    git
+  ] ++ (with python3Packages; [
     pyte
     pytestCheckHook
     pytest-mock
     pytest-subprocess
   ]);
 
-  propagatedBuildInputs = with python3Packages; [ ply prompt-toolkit pygments ];
+  propagatedBuildInputs = with python3Packages; [
+    ply
+    prompt-toolkit
+    pygments
+  ];
 
   meta = with lib; {
     description = "A Python-ish, BASHwards-compatible shell";
     homepage = "https://xon.sh/";
     changelog = "https://github.com/xonsh/xonsh/raw/${version}/CHANGELOG.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ spwhitt vrthra ];
+    maintainers = with maintainers; [
+      spwhitt
+      vrthra
+    ];
   };
 
   passthru = { shellPath = "/bin/xonsh"; };

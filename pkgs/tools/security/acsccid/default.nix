@@ -25,11 +25,20 @@ stdenv.mkDerivation rec {
     sha256 = "12aahrvsk21qgpjwcrr01s742ixs44nmjkvcvqyzhqb307x1rrn3";
   };
 
-  nativeBuildInputs =
-    [ pkg-config autoconf automake libtool gettext flex perl ];
+  nativeBuildInputs = [
+    pkg-config
+    autoconf
+    automake
+    libtool
+    gettext
+    flex
+    perl
+  ];
 
-  buildInputs = [ pcsclite libusb1 ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = [
+    pcsclite
+    libusb1
+  ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
   configureFlags = [ "--enable-usbdropdir=${placeholder "out"}/pcsc/drivers" ];
 

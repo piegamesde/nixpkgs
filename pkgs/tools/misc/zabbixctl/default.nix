@@ -17,7 +17,10 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-BphQcPPmeNU7RDtaHJQxIoW8xxD86xWgqLBsLR08Tag=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "Most effective way for operating in Zabbix Server";

@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
   pname = "gnome-autoar";
   version = "0.4.4";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/gnome-autoar/${
@@ -26,11 +29,20 @@ stdenv.mkDerivation rec {
     sha256 = "wK++MzvPPLFEGh9XTMjsexuBl3eRRdTt7uKJb9rPw8I=";
   };
 
-  nativeBuildInputs = [ gobject-introspection meson ninja pkg-config vala ];
+  nativeBuildInputs = [
+    gobject-introspection
+    meson
+    ninja
+    pkg-config
+    vala
+  ];
 
   buildInputs = [ gtk3 ];
 
-  propagatedBuildInputs = [ libarchive glib ];
+  propagatedBuildInputs = [
+    libarchive
+    glib
+  ];
 
   mesonFlags = [ "-Dvapi=true" ];
 

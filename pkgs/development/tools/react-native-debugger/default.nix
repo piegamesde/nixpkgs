@@ -75,7 +75,10 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-/uVXMVrVS7n4/mqz6IlKkk63hy67fn9KRjZ1wP5MHB0=";
   };
 
-  nativeBuildInputs = [ makeWrapper unzip ];
+  nativeBuildInputs = [
+    makeWrapper
+    unzip
+  ];
   buildCommand = ''
     shopt -s extglob
     mkdir -p $out
@@ -104,7 +107,10 @@ in stdenv.mkDerivation rec {
     exec = "react-native-debugger";
     desktopName = "React Native Debugger";
     genericName = "React Native Debugger";
-    categories = [ "Development" "Debugger" ];
+    categories = [
+      "Development"
+      "Debugger"
+    ];
   };
 
   meta = with lib; {

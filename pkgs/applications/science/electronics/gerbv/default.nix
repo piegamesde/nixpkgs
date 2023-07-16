@@ -33,8 +33,18 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config automake autoconf ];
-  buildInputs = [ gettext libtool cairo gtk2-x11 ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    automake
+    autoconf
+  ];
+  buildInputs = [
+    gettext
+    libtool
+    cairo
+    gtk2-x11
+  ];
 
   configureFlags = [ "--disable-update-desktop-database" ];
 

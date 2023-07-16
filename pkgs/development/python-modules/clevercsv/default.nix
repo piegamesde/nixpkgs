@@ -34,7 +34,11 @@ buildPythonPackage rec {
     hash = "sha256-/JveB6fpIJvR5byGcmO9XBuCbUw7yNTpSoDs68Wffmo=";
   };
 
-  propagatedBuildInputs = [ chardet regex packaging ];
+  propagatedBuildInputs = [
+    chardet
+    regex
+    packaging
+  ];
 
   passthru.optional-dependencies = {
     full = [
@@ -48,7 +52,10 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ]
     ++ passthru.optional-dependencies.full;
 
-  pythonImportsCheck = [ "clevercsv" "clevercsv.cparser" ];
+  pythonImportsCheck = [
+    "clevercsv"
+    "clevercsv.cparser"
+  ];
 
   preCheck = ''
     # by linking the installed version the tests also have access to compiled native libraries

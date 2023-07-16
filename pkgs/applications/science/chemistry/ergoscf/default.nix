@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "1s50k2gfs3y6r5kddifn4p0wmj0yk85wm5vf9v3swm1c0h43riix";
   };
 
-  buildInputs = [ blas lapack ];
+  buildInputs = [
+    blas
+    lapack
+  ];
 
   patches = [ ./math-constants.patch ];
 
@@ -23,8 +26,10 @@ stdenv.mkDerivation rec {
     patchShebangs ./test
   '';
 
-  configureFlags = [ "--enable-linalgebra-templates" "--enable-performance" ]
-    ++ lib.optional stdenv.isx86_64 "--enable-sse-intrinsics";
+  configureFlags = [
+    "--enable-linalgebra-templates"
+    "--enable-performance"
+  ] ++ lib.optional stdenv.isx86_64 "--enable-sse-intrinsics";
 
   LDFLAGS = "-lblas -llapack";
 

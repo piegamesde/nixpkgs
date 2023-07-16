@@ -20,10 +20,16 @@ buildGoModule rec {
 
   vendorHash = "sha256-WbPYTETTOzqWH+q6fzyDgm0wMScbLWlksLxkDjopF4E=";
 
-  ldflags =
-    [ "-s" "-w" "-X github.com/foxboron/sbctl.DatabasePath=${databasePath}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/foxboron/sbctl.DatabasePath=${databasePath}"
+  ];
 
-  nativeBuildInputs = [ installShellFiles asciidoc ];
+  nativeBuildInputs = [
+    installShellFiles
+    asciidoc
+  ];
 
   postBuild = ''
     make docs/sbctl.8

@@ -51,7 +51,12 @@ python3Packages.buildPythonApplication rec {
       "--prefix"
       "PATH"
       ":"
-      (lib.makeBinPath [ gitMinimal rpm dpkg fakeroot ])
+      (lib.makeBinPath [
+        gitMinimal
+        rpm
+        dpkg
+        fakeroot
+      ])
     ];
 
   nativeCheckInputs = with python3Packages; [ pytest ];
@@ -65,8 +70,7 @@ python3Packages.buildPythonApplication rec {
     description = "Upstream packaging automation tool";
     homepage = "https://pkg.labs.nic.cz/pages/apkg";
     license = licenses.gpl3Plus;
-    maintainers = [
-      maintainers.vcunat # close to upstream
-    ];
+    maintainers = [ maintainers.vcunat # close to upstream
+      ];
   };
 }

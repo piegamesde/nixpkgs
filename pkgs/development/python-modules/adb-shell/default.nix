@@ -28,15 +28,22 @@ buildPythonPackage rec {
     hash = "sha256-+RU3nyJpHq0r/9erEbjUILpwIPWq14HdOX7LkSxySs4=";
   };
 
-  propagatedBuildInputs = [ cryptography pyasn1 rsa ];
+  propagatedBuildInputs = [
+    cryptography
+    pyasn1
+    rsa
+  ];
 
   passthru.optional-dependencies = {
     async = [ aiofiles ];
     usb = [ libusb1 ];
   };
 
-  nativeCheckInputs = [ mock pycryptodome pytestCheckHook ]
-    ++ passthru.optional-dependencies.async
+  nativeCheckInputs = [
+    mock
+    pycryptodome
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.async
     ++ passthru.optional-dependencies.usb;
 
   pythonImportsCheck = [ "adb_shell" ];

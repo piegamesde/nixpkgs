@@ -15,7 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-Jk6wvvcDEeHfy7dUcjbnzFIeGBYm5tXzCI26yy+t2qs=";
   };
 
-  propagatedBuildInputs = [ logilab-common six ];
+  propagatedBuildInputs = [
+    logilab-common
+    six
+  ];
 
   meta = with lib; {
     description =

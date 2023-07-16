@@ -25,14 +25,22 @@ stdenvNoCC.mkDerivation rec {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper installShellFiles ];
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+  ];
 
   installPhase = ''
     mkdir -p $out/bin
     install -Dm755 -t $out/bin tmpmail
     installManPage tmpmail.1
     wrapProgram $out/bin/tmpmail --prefix PATH : ${
-      lib.makeBinPath [ w3m curl jq xclip ]
+      lib.makeBinPath [
+        w3m
+        curl
+        jq
+        xclip
+      ]
     }
   '';
 

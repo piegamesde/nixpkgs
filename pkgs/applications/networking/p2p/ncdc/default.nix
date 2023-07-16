@@ -23,8 +23,19 @@ stdenv.mkDerivation rec {
     hash = "sha256-lYgSFAd6Wzwk+7rwIK2g0ITuO1lqfDzB4OaKqsTJteY=";
   };
 
-  nativeBuildInputs = [ perl pkg-config ];
-  buildInputs = [ ncurses zlib bzip2 sqlite glib gnutls libmaxminddb ];
+  nativeBuildInputs = [
+    perl
+    pkg-config
+  ];
+  buildInputs = [
+    ncurses
+    zlib
+    bzip2
+    sqlite
+    glib
+    gnutls
+    libmaxminddb
+  ];
 
   configureFlags = [ "--with-geoip" ];
 

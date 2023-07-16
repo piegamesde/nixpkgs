@@ -27,10 +27,21 @@ buildPythonPackage rec {
     hash = "sha256-xXKBKCl+bSaXkQhc+Wwv/fzvWM+DxjSly5LrA7KSmDg=";
   };
 
-  propagatedBuildInputs =
-    [ argcomplete colorama jmespath pygments pyyaml six tabulate ];
+  propagatedBuildInputs = [
+    argcomplete
+    colorama
+    jmespath
+    pygments
+    pyyaml
+    six
+    tabulate
+  ];
 
-  nativeCheckInputs = [ mock vcrpy pytest ];
+  nativeCheckInputs = [
+    mock
+    vcrpy
+    pytest
+  ];
 
   checkPhase = ''
     HOME=$TMPDIR pytest .

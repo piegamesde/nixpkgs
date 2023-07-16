@@ -22,9 +22,20 @@ buildPythonPackage rec {
     hash = "sha256-bDbhZ5JoIZ5pO6lA2yvyVMJAygJmTeECtyaa/DxUVzE=";
   };
 
-  propagatedBuildInputs = [ cryptography http-ece py-vapid requests six ];
+  propagatedBuildInputs = [
+    cryptography
+    http-ece
+    py-vapid
+    requests
+    six
+  ];
 
-  nativeCheckInputs = [ coverage flake8 mock pytestCheckHook ];
+  nativeCheckInputs = [
+    coverage
+    flake8
+    mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pywebpush" ];
 

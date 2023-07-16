@@ -11,8 +11,13 @@ let
 
   runtimeDeps = ps:
     with ps;
-    [ certifi setuptools pip virtualenv virtualenv-clone ]
-    ++ lib.optionals stdenv.hostPlatform.isAndroid [ pyjnius ];
+    [
+      certifi
+      setuptools
+      pip
+      virtualenv
+      virtualenv-clone
+    ] ++ lib.optionals stdenv.hostPlatform.isAndroid [ pyjnius ];
 
   pythonEnv = python3.withPackages runtimeDeps;
 

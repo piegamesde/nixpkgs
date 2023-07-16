@@ -28,7 +28,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ duckdb sqlalchemy ];
+  propagatedBuildInputs = [
+    duckdb
+    sqlalchemy
+  ];
 
   preCheck = ''
     export HOME="$(mktemp -d)"
@@ -37,8 +40,12 @@ buildPythonPackage rec {
   # this test tries to download the httpfs extension
   disabledTests = [ "test_preload_extension" ];
 
-  nativeCheckInputs =
-    [ pytestCheckHook hypothesis ipython-sql typing-extensions ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    hypothesis
+    ipython-sql
+    typing-extensions
+  ];
 
   pythonImportsCheck = [ "duckdb_engine" ];
 

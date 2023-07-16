@@ -36,9 +36,16 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ pyserial click ecdsa ];
+  propagatedBuildInputs = [
+    pyserial
+    click
+    ecdsa
+  ];
 
-  nativeCheckInputs = [ behave nose ];
+  nativeCheckInputs = [
+    behave
+    nose
+  ];
 
   preCheck = ''
     mkdir test-reports

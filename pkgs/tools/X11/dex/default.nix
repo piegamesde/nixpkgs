@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ python3 ];
   nativeBuildInputs = [ python3.pkgs.sphinx ];
-  makeFlags = [ "PREFIX=$(out)" "VERSION=$(version)" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "VERSION=$(version)"
+  ];
 
   meta = with lib; {
     description =

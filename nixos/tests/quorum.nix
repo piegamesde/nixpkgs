@@ -37,9 +37,8 @@ import ./make-test-python.nix ({
           services.quorum = {
             enable = true;
             permissioned = false;
-            staticNodes = [
-              "enode://dd333ec28f0a8910c92eb4d336461eea1c20803eed9cf2c056557f986e720f8e693605bba2f4e8f289b1162e5ac7c80c914c7178130711e393ca76abc1d92f57@0.0.0.0:30303?discport=0"
-            ];
+            staticNodes =
+              [ "enode://dd333ec28f0a8910c92eb4d336461eea1c20803eed9cf2c056557f986e720f8e693605bba2f4e8f289b1162e5ac7c80c914c7178130711e393ca76abc1d92f57@0.0.0.0:30303?discport=0" ];
             genesis = {
               alloc = {
                 "189d23d201b03ae1cf9113672df29a5d672aefa3" = {

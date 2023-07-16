@@ -39,7 +39,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-mLyJfblF5WnWBV3rX1ZRupccou4t5mBpo3W7+ECNMVI=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config vala wrapGAppsHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    vala
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     appstream

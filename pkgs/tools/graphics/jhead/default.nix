@@ -57,7 +57,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libjpeg ];
 
-  makeFlags = [ "CPPFLAGS=" "CFLAGS=-O3" "LDFLAGS=" ];
+  makeFlags = [
+    "CPPFLAGS="
+    "CFLAGS=-O3"
+    "LDFLAGS="
+  ];
 
   installPhase = ''
     mkdir -p \

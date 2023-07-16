@@ -43,7 +43,10 @@ let
         version = "1.9.0";
         sha256 = "sha256-0ofodEBqFQVghkKwo9tbaNato/KrABrsh+f018efwBc=";
       };
-      beamDeps = [ erlware_commons getopt ];
+      beamDeps = [
+        erlware_commons
+        getopt
+      ];
     };
     getopt = builder {
       name = "getopt";

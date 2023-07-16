@@ -171,7 +171,10 @@ let
     pipewire
     wayland
   ] ++ lib.optional pulseSupport libpulseaudio
-    ++ lib.optional libvaSupport libva ++ [ gtk3 gtk4 ];
+    ++ lib.optional libvaSupport libva ++ [
+      gtk3
+      gtk4
+    ];
 
   suffix = lib.optionalString (channel != "stable") "-${channel}";
 
@@ -187,7 +190,10 @@ in stdenv.mkDerivation {
 
   src = chromium.chromeSrc;
 
-  nativeBuildInputs = [ patchelf makeWrapper ];
+  nativeBuildInputs = [
+    patchelf
+    makeWrapper
+  ];
   buildInputs = [
     # needed for GSETTINGS_SCHEMAS_PATH
     gsettings-desktop-schemas

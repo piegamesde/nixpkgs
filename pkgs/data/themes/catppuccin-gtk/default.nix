@@ -30,9 +30,21 @@ let
     "teal"
     "yellow"
   ];
-  validSizes = [ "standard" "compact" ];
-  validTweaks = [ "black" "rimless" "normal" ];
-  validVariants = [ "latte" "frappe" "macchiato" "mocha" ];
+  validSizes = [
+    "standard"
+    "compact"
+  ];
+  validTweaks = [
+    "black"
+    "rimless"
+    "normal"
+  ];
+  validVariants = [
+    "latte"
+    "frappe"
+    "macchiato"
+    "mocha"
+  ];
 
   pname = "catppuccin-gtk";
 
@@ -52,10 +64,15 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-dzRXt9/OdPyiy3mu9pmPYeu69OXCnR+zEqbD1C5BKqM=";
   };
 
-  nativeBuildInputs = [ gtk3 sassc ];
+  nativeBuildInputs = [
+    gtk3
+    sassc
+  ];
 
-  buildInputs =
-    [ gnome-themes-extra (python3.withPackages (ps: [ ps.catppuccin ])) ];
+  buildInputs = [
+    gnome-themes-extra
+    (python3.withPackages (ps: [ ps.catppuccin ]))
+  ];
 
   propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 

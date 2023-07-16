@@ -44,7 +44,10 @@ in stdenvNoCC.mkDerivation {
     description = "preexec and precmd functions for Bash just like Zsh";
     license = licenses.mit;
     homepage = "https://github.com/rcaloras/bash-preexec";
-    maintainers = [ maintainers.hawkw maintainers.rycee ];
+    maintainers = [
+      maintainers.hawkw
+      maintainers.rycee
+    ];
     platforms = platforms.unix;
   };
 }

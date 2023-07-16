@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ ncurses ];
 
-  patches = [ ./ftop-fix_buffer_overflow.patch ./ftop-fix_printf_format.patch ];
+  patches = [
+    ./ftop-fix_buffer_overflow.patch
+    ./ftop-fix_printf_format.patch
+  ];
   patchFlags = [ "-p0" ];
 
   postPatch = ''

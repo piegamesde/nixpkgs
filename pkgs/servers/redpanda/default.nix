@@ -49,7 +49,10 @@ in buildGoModule rec {
     description = "Redpanda client";
     homepage = "https://redpanda.com/";
     license = licenses.bsl11;
-    maintainers = with maintainers; [ avakhrenev happysalada ];
+    maintainers = with maintainers; [
+      avakhrenev
+      happysalada
+    ];
     platforms = platforms.all;
   };
 }

@@ -92,8 +92,11 @@ in buildFHSEnvChroot rec {
       "script"
     ];
     # Should we install all executables ?
-    modelsimExecutables =
-      map (c: "modelsim_ase/bin/${c}") [ "vsim" "vlog" "vlib" ];
+    modelsimExecutables = map (c: "modelsim_ase/bin/${c}") [
+      "vsim"
+      "vlog"
+      "vlib"
+    ];
   in ''
     mkdir -p $out/share/applications $out/share/icons/128x128
     ln -s ${desktopItem}/share/applications/* $out/share/applications

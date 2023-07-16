@@ -21,7 +21,11 @@ buildPythonPackage rec {
       --replace "'opencv-python >= 3.4.5'," ""
   '';
 
-  propagatedBuildInputs = [ numpy scikitimage opencv3 ];
+  propagatedBuildInputs = [
+    numpy
+    scikitimage
+    opencv3
+  ];
 
   doCheck = false;
   pythonImportsCheck = [ "imagecorruptions" ];

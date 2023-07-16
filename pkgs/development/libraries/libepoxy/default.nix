@@ -35,12 +35,26 @@ in stdenv.mkDerivation rec {
     substituteInPlace src/dispatch_common.h --replace "PLATFORM_HAS_GLX 0" "PLATFORM_HAS_GLX 1"
   '';
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ meson ninja pkg-config utilmacros python3 ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    utilmacros
+    python3
+  ];
 
-  buildInputs = lib.optionals x11Support [ libGL libX11 ]
-    ++ lib.optionals stdenv.isDarwin [ Carbon OpenGL ];
+  buildInputs = lib.optionals x11Support [
+    libGL
+    libX11
+  ] ++ lib.optionals stdenv.isDarwin [
+    Carbon
+    OpenGL
+  ];
 
   mesonFlags = [
     "-Degl=${if (x11Support && !stdenv.isDarwin) then "yes" else "no"}"

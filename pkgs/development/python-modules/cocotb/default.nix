@@ -51,7 +51,12 @@ buildPythonPackage rec {
     ./0001-Patch-LDCXXSHARED-for-macOS-along-with-LDSHARED.patch
   ];
 
-  nativeCheckInputs = [ cocotb-bus pytestCheckHook swig verilog ];
+  nativeCheckInputs = [
+    cocotb-bus
+    pytestCheckHook
+    swig
+    verilog
+  ];
   preCheck = ''
     export PATH=$out/bin:$PATH
     mv cocotb cocotb.hidden

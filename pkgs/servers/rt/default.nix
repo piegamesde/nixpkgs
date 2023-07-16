@@ -27,7 +27,10 @@ stdenv.mkDerivation rec {
     ./override-generated.patch
   ];
 
-  nativeBuildInputs = [ autoreconfHook makeWrapper ];
+  nativeBuildInputs = [
+    autoreconfHook
+    makeWrapper
+  ];
 
   buildInputs = [
     perl
@@ -154,7 +157,12 @@ stdenv.mkDerivation rec {
   postFixup = ''
     for i in $(find $out/bin -type f); do
       wrapProgram $i --prefix PERL5LIB ':' $PERL5LIB \
-        --prefix PATH ":" "${lib.makeBinPath [ openssl gnupg ]}"
+        --prefix PATH ":" "${
+          lib.makeBinPath [
+            openssl
+            gnupg
+          ]
+        }"
     done
 
     rm -r $out/var

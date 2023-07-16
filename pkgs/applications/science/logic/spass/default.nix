@@ -25,7 +25,10 @@ in stdenv.mkDerivation {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ bison flex ];
+  nativeBuildInputs = [
+    bison
+    flex
+  ];
 
   buildPhase = ''
     make RM="rm -f" proparser.c ${extraTools} opt

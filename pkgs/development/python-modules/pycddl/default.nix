@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-w0CGbPeiXyS74HqZXyiXhvaAMUaIj5onwjl9gWKAjqY=";
   };
 
-  nativeBuildInputs = with rustPlatform; [ maturinBuildHook cargoSetupHook ];
+  nativeBuildInputs = with rustPlatform; [
+    maturinBuildHook
+    cargoSetupHook
+  ];
 
   postPatch = ''
     # We don't place pytest-benchmark in the closure because we have no
@@ -41,7 +44,11 @@ buildPythonPackage rec {
     hash = "sha256-g96eeaqN9taPED4u+UKUcoitf5aTGFrW2/TOHoHEVHs=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook psutil cbor2 ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    psutil
+    cbor2
+  ];
   pythonImportsCheck = [ "pycddl" ];
 
   meta = with lib; {

@@ -29,7 +29,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ packaging pyparsing ];
+  propagatedBuildInputs = [
+    packaging
+    pyparsing
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

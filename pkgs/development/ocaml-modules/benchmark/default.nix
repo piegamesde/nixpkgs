@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ ocaml findlib ocamlbuild ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+    ocamlbuild
+  ];
   buildInputs = [ ocaml_pcre ];
 
   createFindlibDestdir = true;

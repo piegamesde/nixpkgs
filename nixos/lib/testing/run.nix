@@ -37,7 +37,10 @@ in {
         derivation = hostPkgs.stdenv.mkDerivation {
           name = "vm-test-run-${config.name}";
 
-          requiredSystemFeatures = [ "kvm" "nixos-test" ];
+          requiredSystemFeatures = [
+            "kvm"
+            "nixos-test"
+          ];
 
           buildCommand = ''
             mkdir -p $out

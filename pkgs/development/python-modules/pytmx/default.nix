@@ -23,7 +23,11 @@ buildPythonPackage rec {
     sha256 = "05v8zv06fymvgv332g48kcing4k4ncy2iwgpy1qmxrpin1avyynx";
   };
 
-  propagatedBuildInputs = [ pygame pyglet pysdl2 ];
+  propagatedBuildInputs = [
+    pygame
+    pyglet
+    pysdl2
+  ];
 
   pythonImportsCheck = [
     "pytmx.pytmx"

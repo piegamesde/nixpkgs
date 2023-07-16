@@ -34,9 +34,19 @@ let
 in myNodePackages.package.override {
   inherit version src;
 
-  nativeBuildInputs =
-    [ nodejs.pkgs.node-pre-gyp nodejs.pkgs.node-gyp-build pkg-config which ];
-  buildInputs = [ libjpeg pixman cairo pango postgresql ];
+  nativeBuildInputs = [
+    nodejs.pkgs.node-pre-gyp
+    nodejs.pkgs.node-gyp-build
+    pkg-config
+    which
+  ];
+  buildInputs = [
+    libjpeg
+    pixman
+    cairo
+    pango
+    postgresql
+  ];
 
   postRebuild = ''
     # Build typescript stuff

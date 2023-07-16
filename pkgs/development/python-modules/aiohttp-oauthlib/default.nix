@@ -20,7 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-iTzRpZ3dDC5OmA46VE+XELfE/7nie0zQOLUf4dcDk7c=";
   };
 
-  propagatedBuildInputs = [ oauthlib aiohttp ];
+  propagatedBuildInputs = [
+    oauthlib
+    aiohttp
+  ];
 
   nativeBuildInputs = [ setuptools-scm ];
 

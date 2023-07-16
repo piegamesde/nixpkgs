@@ -18,7 +18,11 @@ tcl.mkTclDerivation {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ tk libX11 zlib ];
+  buildInputs = [
+    tk
+    libX11
+    zlib
+  ];
 
   prePatch = ''
     sed -i -e '/^ *set headerPath *{/a ${tcl}/include ${tk}/include' \
@@ -30,7 +34,10 @@ tcl.mkTclDerivation {
       tcl/config.tcl
   '';
 
-  configureFlags = [ "BINDIR=$(out)/bin" "SHAREDIR=$(out)/share" ];
+  configureFlags = [
+    "BINDIR=$(out)/bin"
+    "SHAREDIR=$(out)/share"
+  ];
 
   hardeningDisable = [ "format" ];
 

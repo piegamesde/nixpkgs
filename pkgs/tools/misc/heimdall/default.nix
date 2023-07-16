@@ -21,7 +21,10 @@ mkDerivation rec {
     sha256 = "1ygn4snvcmi98rgldgxf5hwm7zzi1zcsihfvm6awf9s6mpcjzbqz";
   };
 
-  buildInputs = [ zlib libusb1 ] ++ lib.optional enableGUI qtbase;
+  buildInputs = [
+    zlib
+    libusb1
+  ] ++ lib.optional enableGUI qtbase;
   nativeBuildInputs = [ cmake ];
 
   cmakeFlags = [

@@ -46,8 +46,16 @@ python3Packages.buildPythonApplication rec {
   strictDeps = false;
   dontWrapGApps = true;
 
-  buildInputs = [ atk gdk-pixbuf gtk-layer-shell pango ];
-  nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
+  buildInputs = [
+    atk
+    gdk-pixbuf
+    gtk-layer-shell
+    pango
+  ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    gobject-introspection
+  ];
   propagatedBuildInputs = (with python3Packages; [
     i3ipc
     netifaces

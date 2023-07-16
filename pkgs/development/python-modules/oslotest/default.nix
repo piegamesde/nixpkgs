@@ -19,7 +19,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pbr ];
 
-  propagatedBuildInputs = [ fixtures subunit ];
+  propagatedBuildInputs = [
+    fixtures
+    subunit
+  ];
 
   # check in passthru.tests.pytest to escape infinite recursion with other oslo components
   doCheck = false;

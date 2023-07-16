@@ -25,9 +25,15 @@ stdenv.mkDerivation rec {
   configureFlags = lib.optional libnotifySupport "--enable-libnotify"
     ++ lib.optional debug "--enable-debug";
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ curl gdk-pixbuf ] ++ lib.optional libnotifySupport libnotify;
+  buildInputs = [
+    curl
+    gdk-pixbuf
+  ] ++ lib.optional libnotifySupport libnotify;
 
   meta = with lib; {
     description =
@@ -45,7 +51,10 @@ stdenv.mkDerivation rec {
       + Inside cmus run `:set status_display_program=cmusfm` to set up cmusfm
     '';
     homepage = "https://github.com/Arkq/cmusfm/";
-    maintainers = with lib.maintainers; [ CharlesHD mudri ];
+    maintainers = with lib.maintainers; [
+      CharlesHD
+      mudri
+    ];
     license = licenses.gpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
   };

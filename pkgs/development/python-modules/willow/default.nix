@@ -18,7 +18,10 @@ buildPythonPackage rec {
     hash = "sha256-Dfj/UoUx4AtI1Av3Ltgb6sHcgvLULlu+1K/wIYvvjA0=";
   };
 
-  propagatedBuildInputs = [ six pillow ];
+  propagatedBuildInputs = [
+    six
+    pillow
+  ];
 
   # Test data is not included
   # https://github.com/torchbox/Willow/issues/34

@@ -13,5 +13,9 @@ let
   };
 in callPackage pkg {
   nativeBuildInputs = [ intltool ];
-  buildInputs = [ glib libao libmirage ];
+  buildInputs = [
+    glib
+    libao
+    libmirage
+  ];
 }

@@ -16,10 +16,10 @@ import ./make-test-python.nix ({
           enable = true;
 
           globalKeterConfig = {
-            listeners = [{
+            listeners = [ {
               host = "*4";
               inherit port;
-            }];
+            } ];
           };
           bundle = {
             appName = "test-bundle";

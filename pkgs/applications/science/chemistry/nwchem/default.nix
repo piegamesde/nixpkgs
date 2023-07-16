@@ -54,9 +54,22 @@ in stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs =
-    [ perl automake autoconf libtool makeWrapper gfortran which ];
-  buildInputs = [ tcsh openssh blas lapack python3 ];
+  nativeBuildInputs = [
+    perl
+    automake
+    autoconf
+    libtool
+    makeWrapper
+    gfortran
+    which
+  ];
+  buildInputs = [
+    tcsh
+    openssh
+    blas
+    lapack
+    python3
+  ];
   propagatedBuildInputs = [ mpi ];
   propagatedUserEnvPkgs = [ mpi ];
 
@@ -175,7 +188,10 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Open Source High-Performance Computational Chemistry";
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ sheepforce markuskowa ];
+    maintainers = with maintainers; [
+      sheepforce
+      markuskowa
+    ];
     homepage = "https://nwchemgit.github.io";
     license = licenses.ecl20;
   };

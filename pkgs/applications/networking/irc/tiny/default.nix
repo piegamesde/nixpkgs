@@ -39,6 +39,9 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/osa1/tiny";
     changelog = "https://github.com/osa1/tiny/raw/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ Br1ght0ne vyp ];
+    maintainers = with maintainers; [
+      Br1ght0ne
+      vyp
+    ];
   };
 }

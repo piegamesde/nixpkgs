@@ -25,7 +25,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ httpx pydicom ];
+  propagatedBuildInputs = [
+    httpx
+    pydicom
+  ];
 
   doCheck = false; # requires orthanc server (not in Nixpkgs)
 

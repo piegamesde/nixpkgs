@@ -11,7 +11,10 @@ let
     pkgSha256 = "1prrdhv0ia0axc6b73crszqzh802wlkihz6d100yvg7wbgmqabd7";
   };
 in callPackage pkg {
-  nativeBuildInputs = [ makeWrapper intltool ];
+  nativeBuildInputs = [
+    makeWrapper
+    intltool
+  ];
   buildInputs = [
     python3Packages.python
     python3Packages.dbus-python

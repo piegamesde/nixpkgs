@@ -152,6 +152,9 @@ in stdenv.mkDerivation rec {
     description = "A PowerDNS web interface with advanced features";
     homepage = "https://github.com/ngoduykhanh/PowerDNS-Admin";
     license = licenses.mit;
-    maintainers = with maintainers; [ Flakebi zhaofengli ];
+    maintainers = with maintainers; [
+      Flakebi
+      zhaofengli
+    ];
   };
 }

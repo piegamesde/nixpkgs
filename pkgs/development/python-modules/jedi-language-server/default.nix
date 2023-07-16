@@ -31,12 +31,24 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [ "pygls" ];
 
-  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
-  propagatedBuildInputs =
-    [ docstring-to-markdown jedi lsprotocol pydantic pygls ];
+  propagatedBuildInputs = [
+    docstring-to-markdown
+    jedi
+    lsprotocol
+    pydantic
+    pygls
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pyhamcrest python-jsonrpc-server ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pyhamcrest
+    python-jsonrpc-server
+  ];
 
   preCheck = ''
     HOME="$(mktemp -d)"

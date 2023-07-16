@@ -31,8 +31,17 @@ stdenv.mkDerivation rec {
   '';
 
   buildInputs = lib.optional stdenv.isLinux emacs;
-  nativeBuildInputs =
-    [ gnulib autoconf bison automake gettext gperf texinfo perl rsync ];
+  nativeBuildInputs = [
+    gnulib
+    autoconf
+    bison
+    automake
+    gettext
+    gperf
+    texinfo
+    perl
+    rsync
+  ];
 
   doCheck = !stdenv.isDarwin;
 

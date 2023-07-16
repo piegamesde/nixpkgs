@@ -21,14 +21,19 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ buildsystem ];
 
-  makeFlags =
-    [ "PREFIX=$(out)" "NSSHARED=${buildsystem}/share/netsurf-buildsystem" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "NSSHARED=${buildsystem}/share/netsurf-buildsystem"
+  ];
 
   meta = with lib; {
     homepage = "https://www.netsurf-browser.org/";
     description = "UTF8 Processing library for netsurf browser";
     license = licenses.mit;
-    maintainers = [ maintainers.vrthra maintainers.AndersonTorres ];
+    maintainers = [
+      maintainers.vrthra
+      maintainers.AndersonTorres
+    ];
     platforms = platforms.linux;
   };
 }

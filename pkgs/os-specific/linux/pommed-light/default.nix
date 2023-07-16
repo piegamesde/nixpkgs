@@ -42,7 +42,14 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ pciutils libconfuse alsa-lib audiofile zlib eject ];
+  buildInputs = [
+    pciutils
+    libconfuse
+    alsa-lib
+    audiofile
+    zlib
+    eject
+  ];
 
   installPhase = ''
     install -Dm755 pommed/pommed $out/bin/pommed

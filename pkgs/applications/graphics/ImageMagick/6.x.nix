@@ -77,7 +77,11 @@ in stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-slQcA0cblxtG/1DiJx5swUh7Kfwgz5HG70eqJFLaQJI=";
   };
 
-  outputs = [ "out" "dev" "doc" ]; # bin/ isn't really big
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ]; # bin/ isn't really big
   outputMan = "out"; # it's tiny
 
   enableParallelBuilding = true;
@@ -96,7 +100,10 @@ in stdenv.mkDerivation (finalAttrs: {
     "--disable-shared"
   ];
 
-  nativeBuildInputs = [ pkg-config libtool ];
+  nativeBuildInputs = [
+    pkg-config
+    libtool
+  ];
 
   buildInputs = [ ] ++ lib.optional zlibSupport zlib
     ++ lib.optional fontconfigSupport fontconfig
@@ -109,8 +116,10 @@ in stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional djvulibreSupport djvulibre
     ++ lib.optional openexrSupport openexr
     ++ lib.optional librsvgSupport librsvg
-    ++ lib.optional openjpegSupport openjpeg
-    ++ lib.optionals stdenv.isDarwin [ ApplicationServices Foundation ];
+    ++ lib.optional openjpegSupport openjpeg ++ lib.optionals stdenv.isDarwin [
+      ApplicationServices
+      Foundation
+    ];
 
   propagatedBuildInputs = [ fftw ] ++ lib.optional bzip2Support bzip2
     ++ lib.optional freetypeSupport freetype
@@ -143,7 +152,10 @@ in stdenv.mkDerivation (finalAttrs: {
     changelog = "https://legacy.imagemagick.org/script/changelog.php";
     description =
       "A software suite to create, edit, compose, or convert bitmap images";
-    pkgConfigModules = [ "ImageMagick" "MagickWand" ];
+    pkgConfigModules = [
+      "ImageMagick"
+      "MagickWand"
+    ];
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ ];
     license = licenses.asl20;

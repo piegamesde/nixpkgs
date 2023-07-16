@@ -28,7 +28,10 @@ in stdenv.mkDerivation (finalAttrs: {
 
   patches = [ ./cmake.patch ];
 
-  nativeBuildInputs = [ cmake rocm-cmake ];
+  nativeBuildInputs = [
+    cmake
+    rocm-cmake
+  ];
 
   buildInputs = [ libxml2 ];
   cmakeFlags = [ "-DLLVM_TARGETS_TO_BUILD=AMDGPU;${llvmNativeTarget}" ];

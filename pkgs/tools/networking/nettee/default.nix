@@ -27,7 +27,12 @@ in stdenv.mkDerivation {
     platforms = lib.platforms.linux;
   };
 
-  outputs = [ "bin" "man" "doc" "out" ];
+  outputs = [
+    "bin"
+    "man"
+    "doc"
+    "out"
+  ];
 
   patchPhase = ''
     # h_addr field was removed
@@ -56,7 +61,11 @@ in stdenv.mkDerivation {
           "beowulf.master"
           "topology_info"
         ];
-        noiseFiles = [ "*.c" "*.h" "nettee" ];
+        noiseFiles = [
+          "*.c"
+          "*.h"
+          "nettee"
+        ];
       }
     } $doc/share/doc/nettee
 

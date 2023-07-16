@@ -44,7 +44,10 @@ import ./make-test-python.nix ({
             };
 
             security.sudo.wheelNeedsPassword = false;
-            nix.settings.trusted-users = [ "root" "build" ];
+            nix.settings.trusted-users = [
+              "root"
+              "build"
+            ];
             documentation.nixos.enable = false;
 
             # builds.sr.ht-image-specific network settings
@@ -53,10 +56,10 @@ import ./make-test-python.nix ({
               dhcpcd.enable = false;
               defaultGateway.address = "10.0.2.2";
               usePredictableInterfaceNames = false;
-              interfaces."eth0".ipv4.addresses = [{
+              interfaces."eth0".ipv4.addresses = [ {
                 address = "10.0.2.15";
                 prefixLength = 25;
-              }];
+              } ];
               enableIPv6 = false;
               nameservers = [
                 # OpenNIC anycast
@@ -110,7 +113,7 @@ import ./make-test-python.nix ({
         inherit pkgs lib config;
         diskSize = 16000;
         format = "qcow2-compressed";
-        contents = [{
+        contents = [ {
           source = pkgs.writeText "gitconfig" ''
             [user]
               name = builds.sr.ht
@@ -120,7 +123,7 @@ import ./make-test-python.nix ({
           user = "build";
           group = "users";
           mode = "644";
-        }];
+        } ];
       };
     };
 
@@ -147,7 +150,11 @@ import ./make-test-python.nix ({
 
         services.sourcehut = {
           enable = true;
-          services = [ "builds" "git" "meta" ];
+          services = [
+            "builds"
+            "git"
+            "meta"
+          ];
           nginx.enable = true;
           nginx.virtualHost = {
             forceSSL = true;

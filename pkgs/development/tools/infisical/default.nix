@@ -59,7 +59,11 @@ in stdenv.mkDerivation (finalAttrs: {
     downloadPage = "https://github.com/Infisical/infisical/releases/";
     license = licenses.mit;
     maintainers = [ maintainers.ivanmoreau ];
-    platforms =
-      [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+      "aarch64-linux"
+    ];
   };
 })

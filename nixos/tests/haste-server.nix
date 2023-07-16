@@ -10,7 +10,10 @@ import ./make-test-python.nix ({
         pkgs,
         ...
       }: {
-        environment.systemPackages = with pkgs; [ curl jq ];
+        environment.systemPackages = with pkgs; [
+          curl
+          jq
+        ];
 
         services.haste-server = { enable = true; };
       };

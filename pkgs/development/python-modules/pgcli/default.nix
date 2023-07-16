@@ -45,7 +45,10 @@ buildPythonPackage rec {
     sshtunnel
   ];
 
-  nativeCheckInputs = [ pytestCheckHook mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    mock
+  ];
 
   disabledTests =
     lib.optionals stdenv.isDarwin [ "test_application_name_db_uri" ];
@@ -59,6 +62,9 @@ buildPythonPackage rec {
     homepage = "https://pgcli.com";
     changelog = "https://github.com/dbcli/pgcli/raw/v${version}/changelog.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dywedir SuperSandro2000 ];
+    maintainers = with maintainers; [
+      dywedir
+      SuperSandro2000
+    ];
   };
 }

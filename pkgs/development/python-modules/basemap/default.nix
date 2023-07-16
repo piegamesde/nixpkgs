@@ -29,7 +29,12 @@ buildPythonPackage rec {
 
   sourceRoot = "source/packages/basemap";
 
-  nativeBuildInputs = [ cython geos pythonRelaxDepsHook setuptools ];
+  nativeBuildInputs = [
+    cython
+    geos
+    pythonRelaxDepsHook
+    setuptools
+  ];
 
   pythonRelaxDeps = true;
 
@@ -65,6 +70,9 @@ buildPythonPackage rec {
       http://matplotlib.github.com/basemap/users/examples.html for examples of what it can do.
     '';
     maintainers = with maintainers; [ ];
-    license = with licenses; [ mit lgpl21 ];
+    license = with licenses; [
+      mit
+      lgpl21
+    ];
   };
 }

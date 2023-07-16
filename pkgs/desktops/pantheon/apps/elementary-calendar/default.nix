@@ -44,7 +44,14 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ meson ninja pkg-config python3 vala wrapGAppsHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    python3
+    vala
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     clutter

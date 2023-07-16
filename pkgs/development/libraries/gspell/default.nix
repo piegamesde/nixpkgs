@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
   pname = "gspell";
   version = "1.12.1";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
   outputBin = "dev";
 
   src = fetchurl {
@@ -46,7 +49,10 @@ stdenv.mkDerivation rec {
     glib
   ];
 
-  buildInputs = [ gtk3 icu ];
+  buildInputs = [
+    gtk3
+    icu
+  ];
 
   propagatedBuildInputs = [
     # required for pkg-config

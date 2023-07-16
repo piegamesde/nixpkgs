@@ -54,7 +54,12 @@ assert usbBootable -> isohybridMbrImage != "";
 stdenv.mkDerivation {
   name = isoName;
   builder = ./make-iso9660-image.sh;
-  nativeBuildInputs = [ xorriso syslinux zstd libossp_uuid ];
+  nativeBuildInputs = [
+    xorriso
+    syslinux
+    zstd
+    libossp_uuid
+  ];
 
   inherit isoName bootable bootImage compressImage volumeID efiBootImage
     efiBootable isohybridMbrImage usbBootable;

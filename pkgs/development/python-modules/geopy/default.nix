@@ -25,7 +25,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ geographiclib ];
 
-  nativeCheckInputs = [ async_generator docutils pytestCheckHook pytz ];
+  nativeCheckInputs = [
+    async_generator
+    docutils
+    pytestCheckHook
+    pytz
+  ];
 
   disabledTests = [
     # ignore --skip-tests-requiring-internet flag

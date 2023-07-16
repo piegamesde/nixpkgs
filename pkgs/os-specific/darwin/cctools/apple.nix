@@ -36,8 +36,14 @@ let
         --replace '#ifndef RLD' '#if 1'
     '';
 
-    nativeBuildInputs = [ xcbuildHook memstreamHook ];
-    buildInputs = [ libobjc llvm ];
+    nativeBuildInputs = [
+      xcbuildHook
+      memstreamHook
+    ];
+    buildInputs = [
+      libobjc
+      llvm
+    ];
 
     xcbuildFlags = [ "MACOSX_DEPLOYMENT_TARGET=10.12" ];
 
@@ -85,7 +91,12 @@ let
     '';
 
     nativeBuildInputs = [ xcbuildHook ];
-    buildInputs = [ libtapi libunwind llvm xar ];
+    buildInputs = [
+      libtapi
+      libunwind
+      llvm
+      xar
+    ];
 
     installPhase = ''
       runHook preInstall
@@ -101,7 +112,10 @@ in symlinkJoin rec {
   name = "cctools-${version}";
   version = "${cctools.version}-${ld64.version}";
 
-  paths = [ cctools ld64 ];
+  paths = [
+    cctools
+    ld64
+  ];
 
   # workaround for the fetch-tarballs script
   passthru = {

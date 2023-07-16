@@ -54,9 +54,15 @@ in stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ llvmMerged ncurses libxml2 ]
-    ++ lib.optionals enableCUDA [ cuda ]
-    ++ lib.optionals stdenv.isDarwin [ libobjc Cocoa Foundation ];
+  buildInputs = [
+    llvmMerged
+    ncurses
+    libxml2
+  ] ++ lib.optionals enableCUDA [ cuda ] ++ lib.optionals stdenv.isDarwin [
+    libobjc
+    Cocoa
+    Foundation
+  ];
 
   cmakeFlags = [
     "-DHAS_TERRA_VERSION=0"
@@ -67,7 +73,12 @@ in stdenv.mkDerivation rec {
 
   doCheck = true;
   hardeningDisable = [ "fortify" ];
-  outputs = [ "bin" "dev" "out" "static" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "static"
+  ];
 
   patches = [ ./nix-cflags.patch ];
 

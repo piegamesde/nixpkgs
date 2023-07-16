@@ -42,19 +42,38 @@ buildPythonPackage rec {
     hash = "sha256-YNShjuLC7gBRn11oAd5Kp5CfCn92vAo/K4QNIXm/Mtc=";
   };
 
-  nativeBuildInputs = [ astropy-extension-helpers setuptools-scm ];
+  nativeBuildInputs = [
+    astropy-extension-helpers
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs = [ astropy astropy-helpers numpy parfive ];
+  propagatedBuildInputs = [
+    astropy
+    astropy-helpers
+    numpy
+    parfive
+  ];
 
   passthru.optional-dependencies = {
-    asdf = [
-      asdf
+    asdf = [ asdf
       # asdf-astropy
-    ];
+      ];
     database = [ sqlalchemy ];
-    image = [ scikitimage scipy ];
-    net = [ beautifulsoup4 drms python-dateutil tqdm zeep ];
-    jpeg2000 = [ glymur lxml ];
+    image = [
+      scikitimage
+      scipy
+    ];
+    net = [
+      beautifulsoup4
+      drms
+      python-dateutil
+      tqdm
+      zeep
+    ];
+    jpeg2000 = [
+      glymur
+      lxml
+    ];
     timeseries = [
       # cdflib
       h5netcdf
@@ -64,8 +83,12 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ hypothesis pytest-astropy pytest-mock pytestCheckHook ]
-    ++ passthru.optional-dependencies.asdf
+  nativeCheckInputs = [
+    hypothesis
+    pytest-astropy
+    pytest-mock
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.asdf
     ++ passthru.optional-dependencies.database
     ++ passthru.optional-dependencies.image
     ++ passthru.optional-dependencies.net
@@ -119,7 +142,10 @@ buildPythonPackage rec {
     "sunpy/io/setup_package.py"
   ];
 
-  pytestFlagsArray = [ "-W" "ignore::DeprecationWarning" ];
+  pytestFlagsArray = [
+    "-W"
+    "ignore::DeprecationWarning"
+  ];
 
   # Wants a configuration file
   # pythonImportsCheck = [

@@ -17,7 +17,10 @@ buildPythonPackage rec {
     hash = "sha256-NyUQJEbcimlrLsd1sdKvQ7E69qf56+6KNxFbuVQ6LFg=";
   };
 
-  propagatedBuildInputs = [ numpy pyqt5 ];
+  propagatedBuildInputs = [
+    numpy
+    pyqt5
+  ];
 
   # no tests executed
   doCheck = false;

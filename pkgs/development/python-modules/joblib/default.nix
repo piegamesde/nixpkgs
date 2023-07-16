@@ -23,17 +23,25 @@ buildPythonPackage rec {
     hash = "sha256-4c7kp55K8iiBFk8hjUMR9gB0GX+3B+CC6AO2H20TcBg=";
   };
 
-  nativeCheckInputs = [ sphinx numpydoc pytestCheckHook psutil ];
-  propagatedBuildInputs = [ lz4 setuptools ];
+  nativeCheckInputs = [
+    sphinx
+    numpydoc
+    pytestCheckHook
+    psutil
+  ];
+  propagatedBuildInputs = [
+    lz4
+    setuptools
+  ];
 
   pytestFlagsArray = [ "joblib/test" ];
   disabledTests = [
     "test_disk_used" # test_disk_used is broken: https://github.com/joblib/joblib/issues/57
     "test_parallel_call_cached_function_defined_in_jupyter" # jupyter not available during tests
     "test_nested_parallel_warnings" # tests is flaky under load
-  ] ++ lib.optionals stdenv.isDarwin [
-    "test_dispatch_multiprocessing" # test_dispatch_multiprocessing is broken only on Darwin.
-  ];
+  ] ++ lib.optionals
+    stdenv.isDarwin [ "test_dispatch_multiprocessing" # test_dispatch_multiprocessing is broken only on Darwin.
+    ];
 
   meta = with lib; {
     description =

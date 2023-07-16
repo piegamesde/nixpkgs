@@ -37,7 +37,10 @@ in buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [ pytestCheckHook lxml ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    lxml
+  ];
 
   # don't depend on testFiles unless doFullCheck as it may not be extractable
   # on some filesystems due to weird filenames

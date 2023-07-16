@@ -26,14 +26,25 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vr/St4BghrndjUQ0nZI/uJq+F/MjEj6ulc4DYwQ/pgU=";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
 
   postPatch = ''
     sed -i s#/usr/share/fonts/TTF#${dejavu_fonts}/share/fonts/truetype#g data/program.conf
   '';
 
-  buildInputs =
-    [ SDL2 SDL2_ttf SDL2_image boost libmpdclient libwtk-sdl2 icu libconfig ];
+  buildInputs = [
+    SDL2
+    SDL2_ttf
+    SDL2_image
+    boost
+    libmpdclient
+    libwtk-sdl2
+    icu
+    libconfig
+  ];
 
   # https://stackoverflow.com/questions/53089494/configure-error-could-not-find-a-version-of-the-library
   configureFlags = [ "--with-boost-libdir=${boost.out}/lib" ];

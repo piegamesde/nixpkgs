@@ -25,7 +25,10 @@ buildPythonPackage {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ pint pandas ];
+  propagatedBuildInputs = [
+    pint
+    pandas
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

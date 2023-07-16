@@ -22,9 +22,18 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-QFPl3I2nFWMmgQRGxrlt4Vh5N4SygvBLjeFiQpgRr8o=";
   };
 
-  nativeBuildInputs = [ nasm pkg-config ];
+  nativeBuildInputs = [
+    nasm
+    pkg-config
+  ];
 
-  buildInputs = [ SDL libGL libGLU libpng zlib ];
+  buildInputs = [
+    SDL
+    libGL
+    libGLU
+    libpng
+    zlib
+  ];
 
   dontConfigure = true;
 

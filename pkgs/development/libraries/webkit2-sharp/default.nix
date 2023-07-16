@@ -21,9 +21,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256:0a7vx81zvzn2wq4q2mqrxvlps1mqk28lm1gpfndqryxm4iiw28vc";
   };
 
-  nativeBuildInputs = [ autoreconfHook libxslt mono pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    libxslt
+    mono
+    pkg-config
+  ];
 
-  buildInputs = [ gtk-sharp-3_0 webkitgtk ];
+  buildInputs = [
+    gtk-sharp-3_0
+    webkitgtk
+  ];
 
   postPatch = ''
     # Workaround build failure with WebKitGTK 2.40.0

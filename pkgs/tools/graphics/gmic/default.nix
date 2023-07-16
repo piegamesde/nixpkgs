@@ -29,7 +29,12 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "gmic";
   version = "3.2.4";
 
-  outputs = [ "out" "lib" "dev" "man" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "man"
+  ];
 
   src = fetchFromGitHub {
     owner = "GreycLab";
@@ -48,10 +53,23 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-ExMCxFkkctqrdSy5M/TXD5GBRmRA9YEdsYW8nWiTEYY=";
   };
 
-  nativeBuildInputs = [ cmake ninja pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    pkg-config
+  ];
 
-  buildInputs =
-    [ cimg fftw graphicsmagick libjpeg libpng libtiff opencv openexr zlib ];
+  buildInputs = [
+    cimg
+    fftw
+    graphicsmagick
+    libjpeg
+    libpng
+    libtiff
+    opencv
+    openexr
+    zlib
+  ];
 
   cmakeFlags = [
     "-DBUILD_LIB_STATIC=OFF"

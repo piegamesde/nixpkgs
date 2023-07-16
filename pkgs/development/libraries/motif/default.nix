@@ -45,9 +45,15 @@ stdenv.mkDerivation rec {
     libiconv
   ];
 
-  nativeBuildInputs = [ pkg-config flex ];
+  nativeBuildInputs = [
+    pkg-config
+    flex
+  ];
 
-  propagatedBuildInputs = [ libXp libXau ];
+  propagatedBuildInputs = [
+    libXp
+    libXau
+  ];
 
   prePatch = lib.optionalString (!demoSupport) ''
     sed '/^SUBDIRS =,^$/s/\<demos\>//' -i Makefile.{am,in}

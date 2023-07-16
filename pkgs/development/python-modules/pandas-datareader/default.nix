@@ -22,7 +22,11 @@ buildPythonPackage rec {
   doCheck = false;
   pythonImportsCheck = [ "pandas_datareader" ];
 
-  propagatedBuildInputs = [ pandas lxml requests ];
+  propagatedBuildInputs = [
+    pandas
+    lxml
+    requests
+  ];
 
   meta = with lib; {
     description =

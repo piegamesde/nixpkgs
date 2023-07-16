@@ -25,7 +25,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests-toolbelt ];
 
-  nativeCheckInputs = [ numpy pytest ];
+  nativeCheckInputs = [
+    numpy
+    pytest
+  ];
 
   checkPhase = ''
     make test

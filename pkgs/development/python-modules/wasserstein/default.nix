@@ -21,7 +21,10 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ llvmPackages.openmp ];
-  propagatedBuildInputs = [ numpy wurlitzer ];
+  propagatedBuildInputs = [
+    numpy
+    wurlitzer
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
   pytestFlagsArray = [ "wasserstein/tests" ];

@@ -96,13 +96,22 @@ in {
         ProtectKernelTunables = true;
         ProtectProc = "ptraceable";
         ProtectSystem = "strict";
-        RestrictAddressFamilies =
-          [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" "AF_XDP" ];
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+          "AF_NETLINK"
+          "AF_XDP"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = "native";
         SystemCallErrorNumber = "EPERM";
-        SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+          "~@resources"
+        ];
         UMask = "0066";
       };
     };

@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
   # gcc-10.
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  nativeBuildInputs = [ pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
   buildInputs = [ gtk ];
 
   src = fetchurl {

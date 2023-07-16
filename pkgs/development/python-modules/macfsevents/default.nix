@@ -15,7 +15,10 @@ buildPythonPackage rec {
     sha256 = "1324b66b356051de662ba87d84f73ada062acd42b047ed1246e60a449f833e10";
   };
 
-  buildInputs = [ CoreFoundation CoreServices ];
+  buildInputs = [
+    CoreFoundation
+    CoreServices
+  ];
 
   # Some tests fail under nix build directory
   doCheck = false;

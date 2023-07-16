@@ -24,9 +24,16 @@ buildPythonPackage rec {
     hash = "sha256-lOd2AqnrkexNqT/usmJts5NW7vJtV8CRsliYgkhgRaU=";
   };
 
-  propagatedBuildInputs = [ pyyaml requests untangle ];
+  propagatedBuildInputs = [
+    pyyaml
+    requests
+    untangle
+  ];
 
-  nativeCheckInputs = [ pytest-vcr pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-vcr
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pyqvrpro" ];
 

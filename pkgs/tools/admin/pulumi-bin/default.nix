@@ -29,8 +29,10 @@ in stdenv.mkDerivation {
       --zsh  <($out/bin/pulumi completion zsh)
   '';
 
-  nativeBuildInputs = [ installShellFiles ]
-    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook makeWrapper ];
+  nativeBuildInputs = [ installShellFiles ] ++ lib.optionals stdenv.isLinux [
+    autoPatchelfHook
+    makeWrapper
+  ];
   buildInputs = [ stdenv.cc.cc.libgcc or null ];
 
   meta = with lib; {

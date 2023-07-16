@@ -37,7 +37,12 @@ buildPythonPackage rec {
     hash = "sha256-zMU2MU7MFTWSig2j1PaBLPtKM5/7gNkFajKXw3A+fIQ=";
   };
 
-  propagatedBuildInputs = [ deprecated packaging setuptools typing-extensions ];
+  propagatedBuildInputs = [
+    deprecated
+    packaging
+    setuptools
+    typing-extensions
+  ];
 
   nativeCheckInputs = [
     etcd3

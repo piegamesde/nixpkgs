@@ -27,9 +27,19 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-Nok4oqTezO84q9IDZvgi33ZeKfRL+tpg7QEDmp2ZZpU=";
   };
 
-  buildInputs = [ gtk3 gdk-pixbuf ];
-  nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
-  propagatedBuildInputs = (with python3.pkgs; [ pillow pygobject3 pycairo ]);
+  buildInputs = [
+    gtk3
+    gdk-pixbuf
+  ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    gobject-introspection
+  ];
+  propagatedBuildInputs = (with python3.pkgs; [
+    pillow
+    pygobject3
+    pycairo
+  ]);
 
   # Tests are broken
   doCheck = false;
@@ -41,8 +51,11 @@ python3.pkgs.buildPythonApplication rec {
     makeWrapperArgs+=(
       "''${gappsWrapperArgs[@]}"
       "--prefix" "PATH" ":" "${
-        lib.makeBinPath
-        ([ p7zip lhasa mupdf ] ++ lib.optional (unrarSupport) unrar)
+        lib.makeBinPath ([
+          p7zip
+          lhasa
+          mupdf
+        ] ++ lib.optional (unrarSupport) unrar)
       }"
     )
   '';

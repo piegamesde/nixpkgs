@@ -29,25 +29,32 @@ buildPythonPackage rec {
     hash = "sha256-bl+LqEg2uZ/mC+X7J/hL5K2Rm7trScqmroHnBYS1Xlg=";
   };
 
-  outputs = [ "out" "doc" ];
-
-  nativeBuildInputs = [ sphinx sphinx-rtd-theme ];
-
-  patches = [
-    (fetchpatch {
-      # docs: Make extlinks compatible with sphinx 6.0
-      # https://github.com/quodlibet/mutagen/pull/590
-      url =
-        "https://github.com/quodlibet/mutagen/commit/37b4e6bddc03e1f715425c418ea84bac15116907.patch";
-      hash = "sha256-CnGfHY4RhRhOLvlRTH/NZwzCnAL3VhU6xosuh6fkqGQ=";
-    })
+  outputs = [
+    "out"
+    "doc"
   ];
+
+  nativeBuildInputs = [
+    sphinx
+    sphinx-rtd-theme
+  ];
+
+  patches = [ (fetchpatch {
+    # docs: Make extlinks compatible with sphinx 6.0
+    # https://github.com/quodlibet/mutagen/pull/590
+    url =
+      "https://github.com/quodlibet/mutagen/commit/37b4e6bddc03e1f715425c418ea84bac15116907.patch";
+    hash = "sha256-CnGfHY4RhRhOLvlRTH/NZwzCnAL3VhU6xosuh6fkqGQ=";
+  }) ];
 
   postInstall = ''
     ${python.pythonForBuild.interpreter} setup.py build_sphinx --build-dir=$doc
   '';
 
-  nativeCheckInputs = [ hypothesis pytestCheckHook ];
+  nativeCheckInputs = [
+    hypothesis
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Hypothesis produces unreliable results: Falsified on the first call but did not on a subsequent one

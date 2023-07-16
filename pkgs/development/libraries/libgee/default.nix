@@ -14,7 +14,10 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "libgee";
   version = "0.20.6";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/libgee/${
@@ -23,7 +26,12 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "G/g09eENYMxhJNdO08HdONpkZ4f794ciILi0Bo5HbU0=";
   };
 
-  nativeBuildInputs = [ pkg-config autoconf vala gobject-introspection ];
+  nativeBuildInputs = [
+    pkg-config
+    autoconf
+    vala
+    gobject-introspection
+  ];
 
   buildInputs = [ glib ];
 

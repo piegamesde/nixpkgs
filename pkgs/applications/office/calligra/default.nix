@@ -117,7 +117,10 @@ mkDerivation rec {
       --replace 'CMAKE_CXX_STANDARD 11' 'CMAKE_CXX_STANDARD 17'
   '';
 
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
 
   buildInputs = [
     boost
@@ -202,8 +205,14 @@ mkDerivation rec {
       vector graphics.
     '';
     homepage = "https://www.calligra.org/";
-    maintainers = with maintainers; [ ebzzry zraexy ];
+    maintainers = with maintainers; [
+      ebzzry
+      zraexy
+    ];
     platforms = platforms.linux;
-    license = with licenses; [ gpl2 lgpl2 ];
+    license = with licenses; [
+      gpl2
+      lgpl2
+    ];
   };
 }

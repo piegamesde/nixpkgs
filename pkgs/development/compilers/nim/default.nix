@@ -109,8 +109,13 @@ in {
       hash = "sha256-rO8LCrdzYE1Nc5S2hRntt0+zD0aRIpSyi8J+DHtLTcI=";
     };
 
-    buildInputs = [ boehmgc openssl pcre readline sqlite ]
-      ++ lib.optional stdenv.isDarwin Security;
+    buildInputs = [
+      boehmgc
+      openssl
+      pcre
+      readline
+      sqlite
+    ] ++ lib.optional stdenv.isDarwin Security;
 
     patches = [
       ./NIM_CONFIG_DIR.patch
@@ -182,7 +187,11 @@ in {
     depsBuildBuild = [ nim-unwrapped ];
     buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
 
-    nimFlags = [ "--cpu:${nimHost.cpu}" "--os:${nimHost.os}" "-d:release" ];
+    nimFlags = [
+      "--cpu:${nimHost.cpu}"
+      "--os:${nimHost.os}"
+      "-d:release"
+    ];
 
     buildPhase = ''
       runHook preBuild
@@ -221,10 +230,9 @@ in {
       # 'std/sysrand' module.
       depsTargetTargetPropagated = lib.optional stdenv.isDarwin Security;
 
-      patches = [
-        ./nim.cfg.patch
+      patches = [ ./nim.cfg.patch
         # Remove configurations that clash with ours
-      ];
+        ];
 
       unpackPhase = ''
         runHook preUnpack
@@ -288,7 +296,12 @@ in {
         }/bin"
         # Used by nim-gdb
 
-        "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ openssl pcre ]}"
+        "--prefix LD_LIBRARY_PATH : ${
+          lib.makeLibraryPath [
+            openssl
+            pcre
+          ]
+        }"
         # These libraries may be referred to by the standard library.
         # This is broken for cross-compilation because the package
         # set will be shifted back by nativeBuildInputs.

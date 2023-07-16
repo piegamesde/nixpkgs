@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ autoconf perl ];
+  nativeBuildInputs = [
+    autoconf
+    perl
+  ];
   buildInputs = [ autoconf ];
 
   setupHook = ./setup-hook.sh;

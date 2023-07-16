@@ -34,11 +34,21 @@ in stdenv.mkDerivation rec {
   pname = "sisco.lv2";
   inherit version;
 
-  srcs = [ src robtkSrc ];
+  srcs = [
+    src
+    robtkSrc
+  ];
   sourceRoot = src.name;
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ lv2 pango cairo libjack2 libGLU libGL ];
+  buildInputs = [
+    lv2
+    pango
+    cairo
+    libjack2
+    libGLU
+    libGL
+  ];
 
   postUnpack =
     "chmod u+w -R ${robtkName}-src; mv ${robtkName}-src/* ${sourceRoot}/robtk";

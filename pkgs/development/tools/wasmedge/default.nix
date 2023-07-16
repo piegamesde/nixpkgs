@@ -23,10 +23,18 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-4xoS9d5bV9CqYhYTK1wzlA2PKMbsOote6eAeT56ch08=";
   };
 
-  nativeBuildInputs = [ cmake llvmPackages.lld ];
+  nativeBuildInputs = [
+    cmake
+    llvmPackages.lld
+  ];
 
-  buildInputs = [ boost spdlog llvmPackages.llvm libxml2 libffi ]
-    ++ lib.optionals stdenv.isDarwin [ Foundation ];
+  buildInputs = [
+    boost
+    spdlog
+    llvmPackages.llvm
+    libxml2
+    libffi
+  ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"

@@ -29,9 +29,16 @@ buildPythonPackage rec {
       --replace 'version="master",' 'version="${version}",'
   '';
 
-  propagatedBuildInputs = [ aiohttp aiofiles ];
+  propagatedBuildInputs = [
+    aiohttp
+    aiofiles
+  ];
 
-  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    aresponses
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "aioskybell" ];
 

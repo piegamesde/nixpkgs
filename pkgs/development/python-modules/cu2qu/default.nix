@@ -32,10 +32,16 @@ in buildPythonPackage rec {
     extension = "zip";
   };
 
-  nativeBuildInputs = [ cython setuptools setuptools-scm ];
+  nativeBuildInputs = [
+    cython
+    setuptools
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs = [ defcon fonttools ]
-    ++ fonttools.optional-dependencies.ufo;
+  propagatedBuildInputs = [
+    defcon
+    fonttools
+  ] ++ fonttools.optional-dependencies.ufo;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

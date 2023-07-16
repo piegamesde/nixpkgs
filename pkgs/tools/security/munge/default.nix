@@ -24,7 +24,11 @@ stdenv.mkDerivation rec {
     autoreconfHook
     libgcrypt # provides libgcrypt.m4
   ];
-  buildInputs = [ libgcrypt zlib bzip2 ];
+  buildInputs = [
+    libgcrypt
+    zlib
+    bzip2
+  ];
 
   preAutoreconf = ''
     # Remove the install-data stuff, since it tries to write to /var

@@ -24,18 +24,20 @@ buildPythonPackage rec {
     hash = "sha256-UuAz/k/Tnumupv3ybFR7PkYHwG3kH7M5oobZykEP+ao=";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "python311-compat.patch";
-      url =
-        "https://github.com/sloria/webtest-aiohttp/commit/64e5ab1867ea9ef87901bb2a1a6142566bffc90b.patch";
-      hash = "sha256-OKJGajqJLFMkcbGmGfU9G5hCpJaj24Gs363sI0z7YZw=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "python311-compat.patch";
+    url =
+      "https://github.com/sloria/webtest-aiohttp/commit/64e5ab1867ea9ef87901bb2a1a6142566bffc90b.patch";
+    hash = "sha256-OKJGajqJLFMkcbGmGfU9G5hCpJaj24Gs363sI0z7YZw=";
+  }) ];
 
   propagatedBuildInputs = [ webtest ];
 
-  nativeCheckInputs = [ aiohttp pytest-aiohttp pytestCheckHook ];
+  nativeCheckInputs = [
+    aiohttp
+    pytest-aiohttp
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "webtest_aiohttp" ];
 

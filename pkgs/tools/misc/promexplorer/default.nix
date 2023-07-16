@@ -14,7 +14,10 @@ nimPackages.buildNimPackage rec {
     hash = "sha256-Fj3RCVygixs+iIlLptX6aOsG4jJa/jUN8hXYkjZ7K/A=";
   };
 
-  buildInputs = with nimPackages; [ illwill illwillwidgets ];
+  buildInputs = with nimPackages; [
+    illwill
+    illwillwidgets
+  ];
 
   meta = with lib; {
     description = "A simple tool to explore prometheus exporter metrics";

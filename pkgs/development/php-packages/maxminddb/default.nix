@@ -28,6 +28,10 @@ in buildPecl {
       "C extension that is a drop-in replacement for MaxMind\\Db\\Reader";
     license = with licenses; [ asl20 ];
     homepage = "https://github.com/maxmind/MaxMind-DB-Reader-php";
-    maintainers = with maintainers; [ ajs124 das_j ] ++ teams.php.members;
+    maintainers = with maintainers;
+      [
+        ajs124
+        das_j
+      ] ++ teams.php.members;
   };
 }

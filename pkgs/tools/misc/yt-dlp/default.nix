@@ -47,8 +47,8 @@ buildPythonPackage rec {
   makeWrapperArgs = let
     packagesToBinPath = [ ] ++ lib.optional atomicparsleySupport atomicparsley
       ++ lib.optional ffmpegSupport ffmpeg ++ lib.optional rtmpSupport rtmpdump;
-  in lib.optionalString (packagesToBinPath != [ ])
-  [ ''--prefix PATH : "${lib.makeBinPath packagesToBinPath}"'' ];
+  in lib.optionalString (packagesToBinPath != [ ]) [ ''
+    --prefix PATH : "${lib.makeBinPath packagesToBinPath}"'' ];
 
   setupPyBuildFlags = [ "build_lazy_extractors" ];
 
@@ -59,7 +59,10 @@ buildPythonPackage rec {
     ln -s "$out/bin/yt-dlp" "$out/bin/youtube-dl"
   '';
 
-  passthru.updateScript = [ update-python-libraries (toString ./.) ];
+  passthru.updateScript = [
+    update-python-libraries
+    (toString ./.)
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/yt-dlp/yt-dlp/";
@@ -74,6 +77,10 @@ buildPythonPackage rec {
       you can modify it, redistribute it or use it however you like.
     '';
     license = licenses.unlicense;
-    maintainers = with maintainers; [ mkg20001 SuperSandro2000 marsam ];
+    maintainers = with maintainers; [
+      mkg20001
+      SuperSandro2000
+      marsam
+    ];
   };
 }

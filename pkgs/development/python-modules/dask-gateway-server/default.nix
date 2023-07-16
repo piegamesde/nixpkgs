@@ -31,13 +31,21 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ go ];
 
-  propagatedBuildInputs = [ aiohttp colorlog cryptography traitlets ];
+  propagatedBuildInputs = [
+    aiohttp
+    colorlog
+    cryptography
+    traitlets
+  ];
 
   passthru.optional-dependencies = {
     kerberos = [ pykerberos ];
     jobqueue = [ sqlalchemy ];
     local = [ sqlalchemy ];
-    yarn = [ skein sqlalchemy ];
+    yarn = [
+      skein
+      sqlalchemy
+    ];
   };
 
   preBuild = ''

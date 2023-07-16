@@ -19,8 +19,12 @@ buildGoModule rec {
 
   vendorHash = "sha256-KNHi8lSsya/vbpsWbr7un3bKsb6GcyhkrTurRhczxns=";
 
-  ldflags =
-    [ "-s" "-w" "-X main.version=${version}" "-X main.builtBy=nixpkgs" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+    "-X main.builtBy=nixpkgs"
+  ];
 
   # tests expect the source files to be a build repo
   doCheck = false;

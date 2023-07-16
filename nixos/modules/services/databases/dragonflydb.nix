@@ -153,7 +153,10 @@ in {
         ProtectKernelModules = true;
         ProtectControlGroups = true;
         LockPersonality = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictRealtime = true;
         PrivateMounts = true;
         MemoryDenyWriteExecute = true;

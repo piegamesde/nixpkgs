@@ -10,7 +10,10 @@ args@{
 
   description = "small library to deal with command-line arguments";
 
-  deps = [ args."alexandria" args."hu_dot_dwim_dot_stefil" ];
+  deps = [
+    args."alexandria"
+    args."hu_dot_dwim_dot_stefil"
+  ];
 
   src = fetchurl {
     url =

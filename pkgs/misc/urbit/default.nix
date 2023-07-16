@@ -33,8 +33,12 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://urbit.org";
     description = "An operating function";
-    platforms =
-      [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
     maintainers = [ maintainers.matthew-levan ];
     license = licenses.mit;
   };

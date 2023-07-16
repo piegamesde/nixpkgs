@@ -33,7 +33,10 @@ stdenv.mkDerivation {
 
   cmakeFlags = [ "-D${lib.toUpper ssl_implementation.pname}=ON" ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buildInputs = [ ssl_implementation ];
 
   passthru = { inherit ssl_implementation; };

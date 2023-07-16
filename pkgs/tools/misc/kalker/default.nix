@@ -20,9 +20,16 @@ rustPlatform.buildRustPackage rec {
 
   cargoLock = { lockFile = ./Cargo.lock; };
 
-  buildInputs = [ gmp mpfr libmpc ];
+  buildInputs = [
+    gmp
+    mpfr
+    libmpc
+  ];
 
-  outputs = [ "out" "lib" ];
+  outputs = [
+    "out"
+    "lib"
+  ];
 
   postPatch = ''
     ln -s ${./Cargo.lock} Cargo.lock
@@ -43,6 +50,9 @@ rustPlatform.buildRustPackage rec {
       variables, functions, derivation, integration, and complex numbers
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda lovesegfault ];
+    maintainers = with maintainers; [
+      figsoda
+      lovesegfault
+    ];
   };
 }

@@ -50,7 +50,10 @@ in {
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 
-      path = [ pkgs.munge pkgs.coreutils ];
+      path = [
+        pkgs.munge
+        pkgs.coreutils
+      ];
 
       serviceConfig = {
         ExecStartPre = "+${pkgs.coreutils}/bin/chmod 0400 ${cfg.password}";

@@ -38,7 +38,11 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config autoreconfHook wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+    wrapGAppsHook
+  ];
   buildInputs = [
     gnome.adwaita-icon-theme
     avahi
@@ -53,7 +57,10 @@ stdenv.mkDerivation rec {
     description = "PulseAudio system tray";
     homepage = "https://github.com/christophgysin/pasystray";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ exlevan kamilchm ];
+    maintainers = with maintainers; [
+      exlevan
+      kamilchm
+    ];
     platforms = platforms.linux;
   };
 }

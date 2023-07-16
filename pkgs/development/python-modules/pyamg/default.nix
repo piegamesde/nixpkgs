@@ -20,7 +20,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ numpy scipy pytest pybind11 ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    pytest
+    pybind11
+  ];
 
   # failed with "ModuleNotFoundError: No module named 'pyamg.amg_core.evolution_strength'"
   doCheck = false;
@@ -29,7 +34,10 @@ buildPythonPackage rec {
   #   PYTHONPATH="$PWD/build/lib.linux-*:$PYTHONPATH" ${python3.interpreter} -c "import pyamg; pyamg.test()"
   # '';
 
-  pythonImportsCheck = [ "pyamg" "pyamg.amg_core.evolution_strength" ];
+  pythonImportsCheck = [
+    "pyamg"
+    "pyamg.amg_core.evolution_strength"
+  ];
 
   meta = with lib; {
     description = "Algebraic Multigrid Solvers in Python";

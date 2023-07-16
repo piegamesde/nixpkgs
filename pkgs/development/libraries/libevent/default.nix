@@ -35,7 +35,10 @@ stdenv.mkDerivation rec {
 
   # libevent_openssl is moved into its own output, so that openssl isn't present
   # in the default closure.
-  outputs = [ "out" "dev" ] ++ lib.optional sslSupport "openssl";
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optional sslSupport "openssl";
   outputBin = "dev";
   propagatedBuildOutputs = [ "out" ] ++ lib.optional sslSupport "openssl";
 

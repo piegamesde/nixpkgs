@@ -75,8 +75,10 @@ in {
       # around it, we force the path to the cfgFile.
       #
       # https://github.com/NixOS/nixpkgs/issues/121088
-      serviceConfig.ExecStart =
-        [ "" "${getBin package}/bin/pcscd -f -x -c ${cfgFile}" ];
+      serviceConfig.ExecStart = [
+        ""
+        "${getBin package}/bin/pcscd -f -x -c ${cfgFile}"
+      ];
     };
   };
 }

@@ -23,7 +23,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ fonttools fs pyclipper defcon fontpens ];
+  propagatedBuildInputs = [
+    fonttools
+    fs
+    pyclipper
+    defcon
+    fontpens
+  ];
 
   nativeCheckInputs = [ pytest ];
 

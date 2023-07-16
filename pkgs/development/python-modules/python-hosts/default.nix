@@ -22,7 +22,11 @@ buildPythonPackage rec {
     substituteInPlace python_hosts/utils.py --replace "import win_inet_pton" ""
   '';
 
-  nativeCheckInputs = [ pyyaml pytest pytest-cov ];
+  nativeCheckInputs = [
+    pyyaml
+    pytest
+    pytest-cov
+  ];
 
   # Removing 1 test file (it requires internet connection) and keeping the other two
   checkPhase = ''

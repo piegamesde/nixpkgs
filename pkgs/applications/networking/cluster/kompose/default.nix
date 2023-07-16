@@ -22,17 +22,21 @@ buildGoModule rec {
 
   vendorHash = "sha256-/i4R50heqf0v2F2GTZCKGq10+xKKr+zPkqWKa+afue8=";
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://github.com/kubernetes/kompose/commit/0964a7ccd16504b6e5ef49a07978c87cca803d46.patch";
-      hash = "sha256-NMHLxx7Ae6Z+pacj538ivxIby7rNz3IbfDPbeLA0sMc=";
-    })
+  patches = [ (fetchpatch {
+    url =
+      "https://github.com/kubernetes/kompose/commit/0964a7ccd16504b6e5ef49a07978c87cca803d46.patch";
+    hash = "sha256-NMHLxx7Ae6Z+pacj538ivxIby7rNz3IbfDPbeLA0sMc=";
+  }) ];
+
+  nativeBuildInputs = [
+    installShellFiles
+    git
   ];
 
-  nativeBuildInputs = [ installShellFiles git ];
-
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   checkFlags = [ "-short" ];
 
@@ -53,7 +57,10 @@ buildGoModule rec {
       "A tool to help users who are familiar with docker-compose move to Kubernetes";
     homepage = "https://kompose.io";
     license = licenses.asl20;
-    maintainers = with maintainers; [ thpham vdemeester ];
+    maintainers = with maintainers; [
+      thpham
+      vdemeester
+    ];
     platforms = platforms.unix;
   };
 }

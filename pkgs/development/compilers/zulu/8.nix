@@ -35,8 +35,11 @@ let
   hash = if stdenv.isDarwin then sha256_darwin else sha256_linux;
   extension = if stdenv.isDarwin then "zip" else "tar.gz";
 
-  runtimeDependencies = [ cups ]
-    ++ lib.optionals gtkSupport [ cairo glib gtk3 ];
+  runtimeDependencies = [ cups ] ++ lib.optionals gtkSupport [
+    cairo
+    glib
+    gtk3
+  ];
   runtimeLibraryPath = lib.makeLibraryPath runtimeDependencies;
 
 in stdenv.mkDerivation {
@@ -109,7 +112,10 @@ in stdenv.mkDerivation {
       operating systems, containers, hypervisors and Cloud platforms.
     '';
     maintainers = with maintainers; [ ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
     mainProgram = "java";
   };
 }

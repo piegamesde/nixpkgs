@@ -65,8 +65,17 @@ let
         inherit rev sha256;
       };
 
-      nativeBuildInputs = [ python2 openjdk which m4 mono ];
-      buildInputs = [ libressl boost ];
+      nativeBuildInputs = [
+        python2
+        openjdk
+        which
+        m4
+        mono
+      ];
+      buildInputs = [
+        libressl
+        boost
+      ];
 
       inherit patches;
       postPatch = ''
@@ -102,12 +111,12 @@ let
       ]
       # Don't compile FDBLibTLS if we don't need it in 6.0 or later;
       # it gets statically linked in
-        ++ lib.optionals (lib.versionOlder version "6.0") [
-          "fdb_c"
-        ]
+        ++ lib.optionals (lib.versionOlder version "6.0") [ "fdb_c" ]
         # Needed environment overrides
-        ++ [ "KVRELEASE=1" "NOSTRIP=1" ]
-        ++ lib.optionals officialRelease [ "RELEASE=true" ];
+        ++ [
+          "KVRELEASE=1"
+          "NOSTRIP=1"
+        ] ++ lib.optionals officialRelease [ "RELEASE=true" ];
 
       # on 6.0 and later, we can specify all this information manually
       configurePhase = lib.optionalString (lib.versionAtLeast version "6.0") ''
@@ -156,7 +165,12 @@ let
         ln -sfv $out/bin/fdbbackup $out/libexec/backup_agent
       '';
 
-      outputs = [ "out" "lib" "dev" "pythonsrc" ];
+      outputs = [
+        "out"
+        "lib"
+        "dev"
+        "pythonsrc"
+      ];
 
       meta = with lib; {
         description = "Open source, distributed, transactional key-value store";

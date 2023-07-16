@@ -25,10 +25,21 @@ buildPythonPackage rec {
     hash = "sha256-6tIhKCa8wg01gNFygCS6GdUHfbWBu7wOZeMkCExRR34=";
   };
 
-  propagatedBuildInputs = [ six charset-normalizer ];
+  propagatedBuildInputs = [
+    six
+    charset-normalizer
+  ];
 
-  nativeCheckInputs =
-    [ django jinja2 mako nose tornado pyramid pyramid_mako pytestCheckHook ];
+  nativeCheckInputs = [
+    django
+    jinja2
+    mako
+    nose
+    tornado
+    pyramid
+    pyramid_mako
+    pytestCheckHook
+  ];
 
   pytestCheckFlags = [ "pypugjs/testsuite" ];
 

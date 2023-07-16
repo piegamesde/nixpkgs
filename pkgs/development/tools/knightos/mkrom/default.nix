@@ -18,10 +18,16 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ asciidoc libxslt.bin ];
+  nativeBuildInputs = [
+    asciidoc
+    libxslt.bin
+  ];
 
   installFlags = [ "DESTDIR=$(out)" ];
-  installTargets = [ "install" "install_man" ];
+  installTargets = [
+    "install"
+    "install_man"
+  ];
 
   meta = with lib; {
     homepage = "https://knightos.org/";

@@ -21,24 +21,30 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper copyDesktopItems ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+    copyDesktopItems
+  ];
   buildInputs = [ stdenv.cc.cc.lib ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "fiji";
-      exec = "fiji %F";
-      tryExec = "fiji";
-      icon = "fiji";
-      mimeTypes = [ "image/*" ];
-      comment = "Scientific Image Analysis";
-      desktopName = "Fiji Is Just ImageJ";
-      genericName = "Fiji Is Just ImageJ";
-      categories = [ "Education" "Science" "ImageProcessing" ];
-      startupNotify = true;
-      startupWMClass = "fiji-Main";
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "fiji";
+    exec = "fiji %F";
+    tryExec = "fiji";
+    icon = "fiji";
+    mimeTypes = [ "image/*" ];
+    comment = "Scientific Image Analysis";
+    desktopName = "Fiji Is Just ImageJ";
+    genericName = "Fiji Is Just ImageJ";
+    categories = [
+      "Education"
+      "Science"
+      "ImageProcessing"
+    ];
+    startupNotify = true;
+    startupWMClass = "fiji-Main";
+  }) ];
 
   installPhase = ''
     runHook preInstall
@@ -69,8 +75,16 @@ stdenv.mkDerivation rec {
     description =
       "batteries-included distribution of ImageJ2, bundling a lot of plugins which facilitate scientific image analysis";
     platforms = [ "x86_64-linux" ];
-    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
-    license = with lib.licenses; [ gpl2Plus gpl3Plus bsd2 publicDomain ];
+    sourceProvenance = with sourceTypes; [
+      binaryBytecode
+      binaryNativeCode
+    ];
+    license = with lib.licenses; [
+      gpl2Plus
+      gpl3Plus
+      bsd2
+      publicDomain
+    ];
     maintainers = with maintainers; [ zane ];
   };
 }

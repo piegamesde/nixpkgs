@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "07j02y994ybh274fp7ydjvi76h34y2c34ndwjpjfcwwr03b48cfp";
   };
 
-  propagatedBuildInputs = [ ilbc mediastreamer ];
+  propagatedBuildInputs = [
+    ilbc
+    mediastreamer
+  ];
   nativeBuildInputs = [ pkg-config ];
 
   configureFlags = [

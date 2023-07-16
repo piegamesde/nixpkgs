@@ -38,8 +38,14 @@ in stdenv.mkDerivation {
   meta = with lib; {
     description = "The newest Realtek rtlwifi codes";
     homepage = "https://github.com/lwfinger/rtw88";
-    license = with licenses; [ bsd3 gpl2Only ];
-    maintainers = with maintainers; [ tvorog atila ];
+    license = with licenses; [
+      bsd3
+      gpl2Only
+    ];
+    maintainers = with maintainers; [
+      tvorog
+      atila
+    ];
     platforms = platforms.linux;
     broken = kernel.kernelOlder "4.20";
     priority = -1;

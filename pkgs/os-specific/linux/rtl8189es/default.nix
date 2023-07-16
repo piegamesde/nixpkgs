@@ -18,9 +18,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-l/xUxs63Y5LVT6ZafuRc+iaCXCSt2HwysYJLJ5hg3RM=";
   };
 
-  nativeBuildInputs = [ bc nukeReferences ] ++ kernel.moduleBuildDependencies;
+  nativeBuildInputs = [
+    bc
+    nukeReferences
+  ] ++ kernel.moduleBuildDependencies;
 
-  hardeningDisable = [ "pic" "format" ];
+  hardeningDisable = [
+    "pic"
+    "format"
+  ];
 
   prePatch = ''
     substituteInPlace ./Makefile --replace /lib/modules/ "${kernel.dev}/lib/modules/"
@@ -52,6 +58,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jwrdegoede/rtl8189ES_linux";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ danielfullmer lheckemann ];
+    maintainers = with maintainers; [
+      danielfullmer
+      lheckemann
+    ];
   };
 }

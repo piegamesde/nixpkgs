@@ -88,7 +88,10 @@ in stdenv.mkDerivation rec {
     ./pid_location.patch
   ];
 
-  buildInputs = [ libg15 libg15render ];
+  buildInputs = [
+    libg15
+    libg15render
+  ];
 
   # Workaround build failure on -fno-common toolchains like upstream gcc-10:
   #  ld: g15_plugins.o:/build/g15daemon-1.9.5.3/g15daemon/./g15daemon.h:218:

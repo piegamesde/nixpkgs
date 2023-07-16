@@ -28,9 +28,18 @@ stdenv.mkDerivation rec {
       --replace "libgtk-3.so" "${lib.getLib gtk3}/lib/libgtk-3.so"
   '';
 
-  nativeBuildInputs = [ pkg-config meson ninja wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ SDL2 gtk3 freetype ];
+  buildInputs = [
+    SDL2
+    gtk3
+    freetype
+  ];
 
   meta = with lib; {
     description = "GPU Trace Visualizer";

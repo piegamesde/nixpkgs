@@ -29,7 +29,10 @@ buildPythonApplication rec {
       bsd2 # uefi_firmware/compression/Tiano/**/*
       publicDomain # uefi_firmware/compression/LZMA/SDK/C/*
     ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     maintainers = [ maintainers.samueldr ];
   };
 }

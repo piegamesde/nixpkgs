@@ -36,15 +36,24 @@ stdenv.mkDerivation rec {
       serialization/tests/TestSerializeIntegrator.cpp
   '';
 
-  nativeBuildInputs = [ cmake gfortran swig doxygen python3Packages.python ]
-    ++ lib.optional enableCuda addOpenGLRunpath;
+  nativeBuildInputs = [
+    cmake
+    gfortran
+    swig
+    doxygen
+    python3Packages.python
+  ] ++ lib.optional enableCuda addOpenGLRunpath;
 
-  buildInputs = [ fftwSinglePrec ]
-    ++ lib.optionals enableOpencl [ ocl-icd opencl-headers ]
-    ++ lib.optional enableCuda cudaPackages.cudatoolkit;
+  buildInputs = [ fftwSinglePrec ] ++ lib.optionals enableOpencl [
+    ocl-icd
+    opencl-headers
+  ] ++ lib.optional enableCuda cudaPackages.cudatoolkit;
 
-  propagatedBuildInputs =
-    lib.optionals enablePython (with python3Packages; [ python numpy cython ]);
+  propagatedBuildInputs = lib.optionals enablePython (with python3Packages; [
+    python
+    numpy
+    cython
+  ]);
 
   cmakeFlags = [
     "-DBUILD_TESTING=ON"
@@ -91,7 +100,11 @@ stdenv.mkDerivation rec {
     description =
       "Toolkit for molecular simulation using high performance GPU code";
     homepage = "https://openmm.org/";
-    license = with licenses; [ gpl3Plus lgpl3Plus mit ];
+    license = with licenses; [
+      gpl3Plus
+      lgpl3Plus
+      mit
+    ];
     platforms = platforms.linux;
     maintainers = [ maintainers.sheepforce ];
   };

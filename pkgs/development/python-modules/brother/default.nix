@@ -24,9 +24,16 @@ buildPythonPackage rec {
     hash = "sha256-f55daLPBepNDIfZFAZWdkAvEkNb0cyYQt9LkqyIMrnY=";
   };
 
-  propagatedBuildInputs = [ dacite pysnmplib ];
+  propagatedBuildInputs = [
+    dacite
+    pysnmplib
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytest-error-for-skips pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-error-for-skips
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "brother" ];
 

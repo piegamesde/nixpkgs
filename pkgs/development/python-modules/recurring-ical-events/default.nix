@@ -25,9 +25,19 @@ buildPythonPackage rec {
     hash = "sha256-aM7c/HE8xLqT5wCLaCrfFn6c7FIkCJA6TTICZprAgNM=";
   };
 
-  propagatedBuildInputs = [ icalendar pytz python-dateutil x-wr-timezone ];
+  propagatedBuildInputs = [
+    icalendar
+    pytz
+    python-dateutil
+    x-wr-timezone
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook restructuredtext_lint pygments tzdata ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    restructuredtext_lint
+    pygments
+    tzdata
+  ];
 
   pythonImportsCheck = [ "recurring_ical_events" ];
 

@@ -21,9 +21,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jbIhcxZzGlklpoMjLAYkKlh/CBE8R4jARO6nfnzSXOQ=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules xorgproto uthash ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    xorgproto
+    uthash
+  ];
 
-  buildInputs = [ xcbutil xcbutilkeysyms ];
+  buildInputs = [
+    xcbutil
+    xcbutilkeysyms
+  ];
 
   meta = with lib; {
     description = "input method development support for xcb";

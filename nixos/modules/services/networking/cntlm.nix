@@ -87,7 +87,10 @@ in {
       '';
       default = [ ];
       type = types.listOf types.str;
-      example = [ "*.example.com" "example.com" ];
+      example = [
+        "*.example.com"
+        "example.com"
+      ];
     };
 
     port = mkOption {

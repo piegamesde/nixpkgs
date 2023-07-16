@@ -25,7 +25,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ setuptools types-setuptools ];
+  propagatedBuildInputs = [
+    setuptools
+    types-setuptools
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

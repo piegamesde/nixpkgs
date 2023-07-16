@@ -29,7 +29,10 @@ let
         description = "Cloudflare's certificate manager";
         platforms = platforms.linux;
         license = licenses.bsd2;
-        maintainers = with maintainers; [ johanot srhb ];
+        maintainers = with maintainers; [
+          johanot
+          srhb
+        ];
       };
     };
 in {
@@ -39,11 +42,9 @@ in {
     # The following patch makes it possible to use a self-signed x509 cert
     # for the cfssl apiserver.
     # TODO: remove patch when PR is merged.
-    patches = [
-      (fetchpatch {
-        url = "https://github.com/cloudflare/certmgr/pull/51.patch";
-        sha256 = "0jhsw159d2mgybvbbn6pmvj4yqr5cwcal5fjwkcn9m4f4zlb6qrs";
-      })
-    ];
+    patches = [ (fetchpatch {
+      url = "https://github.com/cloudflare/certmgr/pull/51.patch";
+      sha256 = "0jhsw159d2mgybvbbn6pmvj4yqr5cwcal5fjwkcn9m4f4zlb6qrs";
+    }) ];
   };
 }

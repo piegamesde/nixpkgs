@@ -27,9 +27,16 @@ stdenv.mkDerivation rec {
       --replace "PKGCONFIG += sigutils fftw3" "PKGCONFIG += sigutils fftw3f"
   '';
 
-  nativeBuildInputs = [ qmake pkg-config ];
+  nativeBuildInputs = [
+    qmake
+    pkg-config
+  ];
 
-  buildInputs = [ qtbase sigutils fftwSinglePrec ];
+  buildInputs = [
+    qtbase
+    sigutils
+    fftwSinglePrec
+  ];
 
   qmakeFlags = [ "SuWidgetsLib.pro" ];
 
@@ -38,6 +45,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/BatchDrake/SuWidgets";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ polygon oxapentane ];
+    maintainers = with maintainers; [
+      polygon
+      oxapentane
+    ];
   };
 }

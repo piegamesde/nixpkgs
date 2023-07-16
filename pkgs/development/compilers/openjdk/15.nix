@@ -64,7 +64,14 @@ let
       sha256 = "1h8n5figc9q0k9p8b0qggyhvqagvxanfih1lj5j492c74cd1mx1l";
     };
 
-    nativeBuildInputs = [ pkg-config autoconf unzip zip file which ];
+    nativeBuildInputs = [
+      pkg-config
+      autoconf
+      unzip
+      zip
+      file
+      which
+    ];
     buildInputs = [
       cpio
       perl
@@ -112,8 +119,8 @@ let
           "https://src.fedoraproject.org/rpms/java-openjdk/raw/06c001c7d87f2e9fe4fedeef2d993bcd5d7afa2a/f/rh1673833-remove_removal_of_wformat_during_test_compilation.patch";
         sha256 = "082lmc30x64x583vqq00c8y0wqih3y4r0mp1c4bqq36l22qv6b6r";
       })
-    ] ++ lib.optionals (!headless && enableGnome2)
-      [ ./swing-use-gtk-jdk13.patch ];
+    ] ++ lib.optionals
+      (!headless && enableGnome2) [ ./swing-use-gtk-jdk13.patch ];
 
     prePatch = ''
       chmod +x configure
@@ -123,7 +130,10 @@ let
     # JDK's build system attempts to specifically detect
     # and special-case WSL, and we don't want it to do that,
     # so pass the correct platform names explicitly
-    configurePlatforms = [ "build" "host" ];
+    configurePlatforms = [
+      "build"
+      "host"
+    ];
 
     configureFlags = [
       "--with-boot-jdk=${openjdk-bootstrap.home}"

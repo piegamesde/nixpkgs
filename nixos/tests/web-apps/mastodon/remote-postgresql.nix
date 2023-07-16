@@ -16,16 +16,20 @@ import ../../make-test-python.nix ({
 
   in {
     name = "mastodon-remote-postgresql";
-    meta.maintainers = with pkgs.lib.maintainers; [ erictapen izorkin turion ];
+    meta.maintainers = with pkgs.lib.maintainers; [
+      erictapen
+      izorkin
+      turion
+    ];
 
     nodes = {
       database = {
         networking = {
           interfaces.eth1 = {
-            ipv4.addresses = [{
+            ipv4.addresses = [ {
               address = "192.168.2.102";
               prefixLength = 24;
-            }];
+            } ];
           };
           extraHosts = hosts;
           firewall.allowedTCPPorts = [ 5432 ];
@@ -48,13 +52,16 @@ import ../../make-test-python.nix ({
       nginx = {
         networking = {
           interfaces.eth1 = {
-            ipv4.addresses = [{
+            ipv4.addresses = [ {
               address = "192.168.2.103";
               prefixLength = 24;
-            }];
+            } ];
           };
           extraHosts = hosts;
-          firewall.allowedTCPPorts = [ 80 443 ];
+          firewall.allowedTCPPorts = [
+            80
+            443
+          ];
         };
 
         security = { pki.certificateFiles = [ "${cert pkgs}/cert.pem" ]; };
@@ -97,13 +104,16 @@ import ../../make-test-python.nix ({
 
           networking = {
             interfaces.eth1 = {
-              ipv4.addresses = [{
+              ipv4.addresses = [ {
                 address = "192.168.2.201";
                 prefixLength = 24;
-              }];
+              } ];
             };
             extraHosts = hosts;
-            firewall.allowedTCPPorts = [ 55001 55002 ];
+            firewall.allowedTCPPorts = [
+              55001
+              55002
+            ];
           };
 
           services.mastodon = {
@@ -139,10 +149,10 @@ import ../../make-test-python.nix ({
           environment.systemPackages = [ pkgs.jq ];
           networking = {
             interfaces.eth1 = {
-              ipv4.addresses = [{
+              ipv4.addresses = [ {
                 address = "192.168.2.202";
                 prefixLength = 24;
-              }];
+              } ];
             };
             extraHosts = hosts;
           };

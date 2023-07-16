@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ django django-debug-toolbar graphene-django ];
+  propagatedBuildInputs = [
+    django
+    django-debug-toolbar
+    graphene-django
+  ];
 
   pythonImportsCheck = [ "graphiql_debug_toolbar" ];
 

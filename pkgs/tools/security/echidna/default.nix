@@ -92,7 +92,11 @@ mkDerivation rec {
   ];
   libraryToolDepends = [ hpack ];
   executableHaskellDepends = libraryHaskellDepends;
-  testHaskellDepends = [ tasty tasty-hunit tasty-quickcheck ];
+  testHaskellDepends = [
+    tasty
+    tasty-hunit
+    tasty-quickcheck
+  ];
   preConfigure = ''
     hpack
     # re-enable dynamic build for Linux

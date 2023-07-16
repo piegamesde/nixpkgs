@@ -7,7 +7,11 @@
   libXinerama,
 }:
 
-let rpathLibs = [ libXinerama libX11 ];
+let
+  rpathLibs = [
+    libXinerama
+    libX11
+  ];
 
 in rustPlatform.buildRustPackage rec {
   pname = "leftwm";

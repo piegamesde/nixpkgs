@@ -21,9 +21,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-zpxvADZfYTUdlNLMZJSCanPL40EGl9BBCxR7oDhvOTw=";
   };
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
-  buildInputs = [ catch2 expected-lite fmt gsl-lite ];
+  buildInputs = [
+    catch2
+    expected-lite
+    fmt
+    gsl-lite
+  ];
 
   postPatch = ''
     # Disable a test that requires an internet connection.

@@ -34,7 +34,10 @@ let
     comment = description;
     desktopName = "URxvt";
     genericName = pname;
-    categories = [ "System" "TerminalEmulator" ];
+    categories = [
+      "System"
+      "TerminalEmulator"
+    ];
   };
 
   fetchPatchFromAUR = {
@@ -74,7 +77,10 @@ stdenv.mkDerivation {
     libptytty
   ] ++ optional perlSupport perl ++ optional gdkPixbufSupport gdk-pixbuf;
 
-  outputs = [ "out" "terminfo" ];
+  outputs = [
+    "out"
+    "terminfo"
+  ];
 
   patches = (if emojiSupport then [
     # the required patches to libXft are in nixpkgs by default, see
@@ -91,8 +97,7 @@ stdenv.mkDerivation {
       rev = "69701a09c2c206233952b84bc966407f6774f1dc";
       sha256 = "1jj5ai2182nq912279adihi4zph1w4dvbdqa1pwacy4na6y0fz9y";
     })
-  ] else
-    [ ./patches/9.06-font-width.patch ])
+  ] else [ ./patches/9.06-font-width.patch ])
     ++ [ ./patches/256-color-resources.patch ]
     ++ optional stdenv.isDarwin ./patches/makefile-phony.patch;
 
@@ -103,7 +108,11 @@ stdenv.mkDerivation {
     (enableFeature unicode3Support "unicode3")
   ] ++ optional emojiSupport "--enable-wide-glyphs";
 
-  LDFLAGS = [ "-lfontconfig" "-lXrender" "-lpthread" ];
+  LDFLAGS = [
+    "-lfontconfig"
+    "-lXrender"
+    "-lpthread"
+  ];
   CFLAGS = [ "-I${freetype.dev}/include/freetype2" ];
 
   preConfigure = ''

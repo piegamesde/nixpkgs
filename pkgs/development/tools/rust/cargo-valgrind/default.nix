@@ -30,7 +30,10 @@ rustPlatform.buildRustPackage rec {
     }
   '';
 
-  checkFlags = [ "--skip examples_are_runnable" "--skip tests_are_runnable" ];
+  checkFlags = [
+    "--skip examples_are_runnable"
+    "--skip tests_are_runnable"
+  ];
 
   meta = with lib; {
     description = ''

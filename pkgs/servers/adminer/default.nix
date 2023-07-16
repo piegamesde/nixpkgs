@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2rkNq79sc5RBFxWuiaSlpWr0rwrnEFlnW1WcoxjoP2M=";
   };
 
-  nativeBuildInputs = [ php php.packages.composer ];
+  nativeBuildInputs = [
+    php
+    php.packages.composer
+  ];
 
   buildPhase = ''
     runHook preBuild
@@ -41,8 +44,14 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Database management in a single PHP file";
     homepage = "https://www.adminer.org";
-    license = with licenses; [ asl20 gpl2Only ];
-    maintainers = with maintainers; [ jtojnar sstef ];
+    license = with licenses; [
+      asl20
+      gpl2Only
+    ];
+    maintainers = with maintainers; [
+      jtojnar
+      sstef
+    ];
     platforms = platforms.all;
   };
 }

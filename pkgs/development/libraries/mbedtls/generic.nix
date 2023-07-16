@@ -28,7 +28,12 @@ stdenv.mkDerivation rec {
     inherit hash;
   };
 
-  nativeBuildInputs = [ cmake ninja perl python3 ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    perl
+    python3
+  ];
 
   strictDeps = true;
 

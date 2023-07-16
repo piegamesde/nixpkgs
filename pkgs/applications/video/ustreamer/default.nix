@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Ervzk5TNYvo7nHyt0cBN8BMjgJKu2sqeXCltero3AnE=";
   };
 
-  buildInputs = [ libbsd libevent libjpeg ];
+  buildInputs = [
+    libbsd
+    libevent
+    libjpeg
+  ];
 
   enableParallelBuilding = true;
 

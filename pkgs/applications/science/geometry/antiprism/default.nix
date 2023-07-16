@@ -21,7 +21,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ libX11 libGLU libGL.dev freeglut.dev ];
+  buildInputs = [
+    libX11
+    libGLU
+    libGL.dev
+    freeglut.dev
+  ];
 
   meta = with lib; {
     homepage = "https://www.antiprism.com";

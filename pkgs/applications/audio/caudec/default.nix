@@ -35,7 +35,15 @@ stdenv.mkDerivation rec {
       for executable in $(cd $out/bin && ls); do
     wrapProgram $out/bin/$executable \
       --prefix PATH : "${
-        lib.makeBinPath [ bc findutils sox procps opusTools lame flac ]
+        lib.makeBinPath [
+          bc
+          findutils
+          sox
+          procps
+          opusTools
+          lame
+          flac
+        ]
       }"
       done
   '';

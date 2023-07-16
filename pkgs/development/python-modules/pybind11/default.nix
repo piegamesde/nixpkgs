@@ -55,8 +55,8 @@ in buildPythonPackage rec {
   cmakeFlags = [
     "-DBoost_INCLUDE_DIR=${lib.getDev boost}/include"
     "-DEIGEN3_INCLUDE_DIR=${lib.getDev eigen}/include/eigen3"
-  ] ++ lib.optionals (python.isPy3k && !stdenv.cc.isClang)
-    [ "-DPYBIND11_CXX_STANDARD=-std=c++17" ];
+  ] ++ lib.optionals (python.isPy3k
+    && !stdenv.cc.isClang) [ "-DPYBIND11_CXX_STANDARD=-std=c++17" ];
 
   postBuild = ''
     # build tests
@@ -70,7 +70,11 @@ in buildPythonPackage rec {
     ln -sf $out/include/pybind11 $out/include/${python.libPrefix}/pybind11
   '';
 
-  nativeCheckInputs = [ catch numpy pytestCheckHook ];
+  nativeCheckInputs = [
+    catch
+    numpy
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [
     # require dependencies not available in nixpkgs
@@ -101,6 +105,9 @@ in buildPythonPackage rec {
       bindings of existing C++ code.
     '';
     license = licenses.bsd3;
-    maintainers = with maintainers; [ yuriaisaka dotlambda ];
+    maintainers = with maintainers; [
+      yuriaisaka
+      dotlambda
+    ];
   };
 }

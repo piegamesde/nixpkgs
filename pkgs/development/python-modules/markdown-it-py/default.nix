@@ -41,8 +41,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ mdurl ];
 
-  nativeCheckInputs = [ pytest-regressions pytestCheckHook ]
-    ++ passthru.optional-dependencies.linkify;
+  nativeCheckInputs = [
+    pytest-regressions
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.linkify;
 
   # disable and remove benchmark tests
   preCheck = ''
@@ -53,7 +55,13 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "markdown_it" ];
 
   passthru.optional-dependencies = {
-    compare = [ commonmark markdown mistletoe mistune panflute ];
+    compare = [
+      commonmark
+      markdown
+      mistletoe
+      mistune
+      panflute
+    ];
     linkify = [ linkify-it-py ];
     rtd = [
       attrs

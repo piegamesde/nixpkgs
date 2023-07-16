@@ -23,7 +23,10 @@ let
       calculus in one easy-to-use package.
     '';
     homepage = "https://www.geogebra.org/";
-    maintainers = with maintainers; [ voidless sikmir ];
+    maintainers = with maintainers; [
+      voidless
+      sikmir
+    ];
     license = licenses.geogebra;
     sourceProvenance = with sourceTypes; [
       binaryBytecode
@@ -47,7 +50,10 @@ let
     dontConfigure = true;
     dontBuild = true;
 
-    nativeBuildInputs = [ unzip makeWrapper ];
+    nativeBuildInputs = [
+      unzip
+      makeWrapper
+    ];
 
     unpackPhase = ''
       unzip $src

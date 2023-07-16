@@ -22,7 +22,11 @@ buildPythonPackage rec {
   #     --replace "ujson>=2.0.0,<=5.4.0" "ujson>=2.0.0,<=5.7.0"
   #   '';
 
-  propagatedBuildInputs = [ lxml xlsxwriter pillow ];
+  propagatedBuildInputs = [
+    lxml
+    xlsxwriter
+    pillow
+  ];
 
   doCheck = false;
 

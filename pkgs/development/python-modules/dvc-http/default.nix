@@ -28,7 +28,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ dvc-objects fsspec aiohttp-retry ];
+  propagatedBuildInputs = [
+    dvc-objects
+    fsspec
+    aiohttp-retry
+  ];
 
   # Currently it's not possible to run the tests
   # ModuleNotFoundError: No module named 'dvc.testing'

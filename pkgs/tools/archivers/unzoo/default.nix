@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-oPq1I7EsvHaJ7anHbm/KWrYrxJkM79rLhgRfSAdoLtk=";
   };
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   buildPhase = ''
     runHook preBuild

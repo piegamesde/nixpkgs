@@ -22,19 +22,31 @@ mkCoqDerivation {
 
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch [ coq.version mathcomp.version ] [
+    lib.switch [
+      coq.version
+      mathcomp.version
+    ] [
       {
-        cases = [ (range "8.10" "8.16") (isGe "1.12.0") ];
+        cases = [
+          (range "8.10" "8.16")
+          (isGe "1.12.0")
+        ];
         out = "1.15";
       }
       {
-        cases = [ (range "8.10" "8.12") "1.11.0" ];
+        cases = [
+          (range "8.10" "8.12")
+          "1.11.0"
+        ];
         out = "1.11";
       }
     ] null;
 
-  propagatedBuildInputs =
-    [ mathcomp.ssreflect mathcomp.algebra mathcomp.fingroup ];
+  propagatedBuildInputs = [
+    mathcomp.ssreflect
+    mathcomp.algebra
+    mathcomp.fingroup
+  ];
 
   meta = with lib; {
     description =

@@ -27,9 +27,24 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/XPvy98Il4i8cDl9vH6f0/AZmiSqseSXnen7HfMqCDo=";
   };
 
-  nativeBuildInputs = [ glib meson ninja pkg-config scdoc wrapGAppsHook ];
+  nativeBuildInputs = [
+    glib
+    meson
+    ninja
+    pkg-config
+    scdoc
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ cairo pango gtk libnotify wayland glib hicolor-icon-theme ];
+  buildInputs = [
+    cairo
+    pango
+    gtk
+    libnotify
+    wayland
+    glib
+    hicolor-icon-theme
+  ];
 
   strictDeps = true;
 

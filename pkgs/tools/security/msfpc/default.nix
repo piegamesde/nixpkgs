@@ -32,7 +32,14 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     wrapProgram $out/bin/msfpc \
-      --prefix PATH : "${lib.makeBinPath [ metasploit curl inetutils openssl ]}"
+      --prefix PATH : "${
+        lib.makeBinPath [
+          metasploit
+          curl
+          inetutils
+          openssl
+        ]
+      }"
   '';
 
   meta = with lib; {

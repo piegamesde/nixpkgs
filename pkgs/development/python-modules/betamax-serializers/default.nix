@@ -15,7 +15,10 @@ buildPythonPackage rec {
     sha256 = "0ja9isbjmzzhxdj69s0kdsvw8nkp073w6an6a4liy5vk3fdl2p1l";
   };
 
-  buildInputs = [ betamax pyyaml ];
+  buildInputs = [
+    betamax
+    pyyaml
+  ];
 
   meta = with lib; {
     homepage = "https://gitlab.com/betamax/serializers";

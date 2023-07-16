@@ -23,24 +23,25 @@ let
     inherit pname src version;
     strictDeps = true;
 
-    buildInputs = [
-      sane-backends # for libsane.so.1
-    ] ++ extraBuildInputs;
+    buildInputs = [ sane-backends # for libsane.so.1
+      ] ++ extraBuildInputs;
 
-    nativeBuildInputs = [ autoPatchelfHook dpkg copyDesktopItems ];
-
-    desktopItems = [
-      (makeDesktopItem {
-        name = "${pname}";
-        desktopName = desktopName;
-        genericName = "View and edit PDF files";
-        exec = "${pname} %f";
-        icon = "${pname}";
-        comment = "Views and edits PDF files";
-        mimeTypes = [ "application/pdf" ];
-        categories = [ "Office" ];
-      })
+    nativeBuildInputs = [
+      autoPatchelfHook
+      dpkg
+      copyDesktopItems
     ];
+
+    desktopItems = [ (makeDesktopItem {
+      name = "${pname}";
+      desktopName = desktopName;
+      genericName = "View and edit PDF files";
+      exec = "${pname} %f";
+      icon = "${pname}";
+      comment = "Views and edits PDF files";
+      mimeTypes = [ "application/pdf" ];
+      categories = [ "Office" ];
+    }) ];
 
     unpackCmd = "dpkg-deb -x $src ./${program}-${version}";
     dontBuild = true;
@@ -66,7 +67,10 @@ let
   # Package with cups in FHS sandbox, because JAVA bin expects "/usr/bin/lpr" for printing.
 in buildFHSEnv {
   name = pname;
-  targetPkgs = pkgs: [ cups thisPackage ];
+  targetPkgs = pkgs: [
+    cups
+    thisPackage
+  ];
   runScript = "${program}${year}";
 
   # link desktop item and icon into FHS user environment
@@ -81,7 +85,10 @@ in buildFHSEnv {
     homepage = "https://www.qoppa.com/${pname}/";
     description = "An easy to use, full-featured PDF editing software";
     longDescription = longDescription;
-    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [
+      binaryBytecode
+      binaryNativeCode
+    ];
     license = licenses.unfree;
     platforms = platforms.linux;
     mainProgram = pname;

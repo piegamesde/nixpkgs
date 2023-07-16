@@ -17,7 +17,10 @@ buildPythonPackage rec {
     sha256 = "sha256-4n6oQ+AAvdJY/5KflxAp62chjyrlSUkmt319DKZk33w=";
   };
 
-  propagatedBuildInputs = [ srht pyyaml ];
+  propagatedBuildInputs = [
+    srht
+    pyyaml
+  ];
 
   preBuild = ''
     export PKGVER=${version}

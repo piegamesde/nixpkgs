@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
   pname = "template-glib";
   version = "3.36.1";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${

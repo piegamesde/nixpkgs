@@ -22,7 +22,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ ant jdk ];
+  buildInputs = [
+    ant
+    jdk
+  ];
   buildPhase = ''
     export ANT_OPTS=-Dbuild.sysclasspath=ignore
     ${ant}/bin/ant -f openproj_build/build.xml

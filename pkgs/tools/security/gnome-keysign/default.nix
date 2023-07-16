@@ -40,8 +40,13 @@ python3.pkgs.buildPythonApplication rec {
     })
   ];
 
-  nativeBuildInputs = [ wrapGAppsHook gobject-introspection ]
-    ++ (with python3.pkgs; [ babel babelgladeextractor ]);
+  nativeBuildInputs = [
+    wrapGAppsHook
+    gobject-introspection
+  ] ++ (with python3.pkgs; [
+    babel
+    babelgladeextractor
+  ]);
 
   buildInputs = [
     # TODO: add avahi support

@@ -23,7 +23,11 @@ stdenv.mkDerivation {
   pname = "netpbm";
   version = "11.2.0";
 
-  outputs = [ "bin" "out" "dev" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+  ];
 
   src = fetchsvn {
     url = "https://svn.code.sf.net/p/netpbm/code/advanced";
@@ -31,10 +35,21 @@ stdenv.mkDerivation {
     sha256 = "LIcB8EBMGTiFw5hrvWZPxr8Zol6WUH/1I7kVohbo4eA=";
   };
 
-  nativeBuildInputs = [ pkg-config flex makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    flex
+    makeWrapper
+  ];
 
-  buildInputs = [ zlib perl libpng libjpeg libxml2 libtiff jbigkit ]
-    ++ lib.optional enableX11 libX11;
+  buildInputs = [
+    zlib
+    perl
+    libpng
+    libjpeg
+    libxml2
+    libtiff
+    jbigkit
+  ] ++ lib.optional enableX11 libX11;
 
   strictDeps = true;
 

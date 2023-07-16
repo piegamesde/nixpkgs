@@ -49,6 +49,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/igraph/python-igraph/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ MostAwesomeDude dotlambda ];
+    maintainers = with maintainers; [
+      MostAwesomeDude
+      dotlambda
+    ];
   };
 }

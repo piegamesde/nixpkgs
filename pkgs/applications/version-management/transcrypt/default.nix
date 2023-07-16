@@ -24,7 +24,15 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ git openssl coreutils util-linux gnugrep gnused gawk ];
+  buildInputs = [
+    git
+    openssl
+    coreutils
+    util-linux
+    gnugrep
+    gnused
+    gawk
+  ];
 
   patches = [ ./helper-scripts_depspathprefix.patch ];
 
@@ -36,12 +44,27 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/bin/transcrypt \
       --prefix PATH : "${
-        lib.makeBinPath [ git openssl coreutils util-linux gnugrep gnused gawk ]
+        lib.makeBinPath [
+          git
+          openssl
+          coreutils
+          util-linux
+          gnugrep
+          gnused
+          gawk
+        ]
       }"
 
     cat > $out/bin/transcrypt-depspathprefix << EOF
     #!${stdenv.shell}
-    echo "${lib.makeBinPath [ git openssl coreutils gawk ]}:"
+    echo "${
+      lib.makeBinPath [
+        git
+        openssl
+        coreutils
+        gawk
+      ]
+    }:"
     EOF
     chmod +x $out/bin/transcrypt-depspathprefix
   '';

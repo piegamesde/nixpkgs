@@ -79,9 +79,17 @@ let
         --replace '-Wl,--no-undefined' ""
     '';
 
-    nativeBuildInputs = [ cmake git llvm.dev ];
+    nativeBuildInputs = [
+      cmake
+      git
+      llvm.dev
+    ];
 
-    buildInputs = [ libclang llvm spirv-llvm-translator ];
+    buildInputs = [
+      libclang
+      llvm
+      spirv-llvm-translator
+    ];
 
     cmakeFlags = [
       "-DPREFERRED_LLVM_VERSION=${lib.getVersion llvm}"

@@ -31,7 +31,11 @@ buildPythonPackage rec {
     rm test-requirements.txt
   '';
 
-  nativeBuildInputs = [ installShellFiles openstackdocstheme sphinx ];
+  nativeBuildInputs = [
+    installShellFiles
+    openstackdocstheme
+    sphinx
+  ];
 
   propagatedBuildInputs = [
     autopage

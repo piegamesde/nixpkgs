@@ -22,7 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-mkCICKuo9NYkfjjbuDInq+ENwZsQJMf5C1HS+8nafJI=";
   };
 
-  propagatedBuildInputs = [ cryptography netifaces pyserial ];
+  propagatedBuildInputs = [
+    cryptography
+    netifaces
+    pyserial
+  ];
 
   # Module has no tests
   doCheck = false;

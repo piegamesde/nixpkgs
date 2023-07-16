@@ -122,8 +122,11 @@ stdenv.mkDerivation rec {
     homepage = "https://open-watcom.github.io";
     license = licenses.watcom;
     platforms = with platforms; windows ++ unix;
-    badPlatforms = platforms.riscv
-      ++ [ "powerpc64-linux" "powerpc64le-linux" "mips64el-linux" ];
+    badPlatforms = platforms.riscv ++ [
+      "powerpc64-linux"
+      "powerpc64le-linux"
+      "mips64el-linux"
+    ];
     maintainers = with maintainers; [ OPNA2608 ];
   };
 }

@@ -21,18 +21,20 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper copyDesktopItems unzip ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      desktopName = "Logisim-evolution";
-      exec = "logisim-evolution";
-      icon = "logisim-evolution";
-      comment = meta.description;
-      categories = [ "Education" ];
-    })
+  nativeBuildInputs = [
+    makeWrapper
+    copyDesktopItems
+    unzip
   ];
+
+  desktopItems = [ (makeDesktopItem {
+    name = pname;
+    desktopName = "Logisim-evolution";
+    exec = "logisim-evolution";
+    icon = "logisim-evolution";
+    comment = meta.description;
+    categories = [ "Education" ];
+  }) ];
 
   installPhase = ''
     runHook preInstall

@@ -25,7 +25,10 @@ mkDerivation rec {
     fetchSubmodules = true;
   };
   patches = [ ./fix-cmake-hunspell-1.7.patch ];
-  nativeBuildInputs = [ cmake qttools ];
+  nativeBuildInputs = [
+    cmake
+    qttools
+  ];
   buildInputs = [
     qtbase
     qtmultimedia

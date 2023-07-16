@@ -19,7 +19,12 @@ buildGoModule rec {
 
   CGO_ENABLED = 0;
 
-  ldflags = [ "-s" "-w" "-X main.version=v${version}" "-extldflags=-static" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=v${version}"
+    "-extldflags=-static"
+  ];
 
   tags = [ "withoutebpf" ];
 

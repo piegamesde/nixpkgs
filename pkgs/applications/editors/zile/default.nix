@@ -21,7 +21,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-d+t9r/PJi9yI2qGsBA3MynK4HcMvwxZuB53Xpj5Cx0E=";
   };
 
-  buildInputs = [ boehmgc glib libgee ncurses ];
+  buildInputs = [
+    boehmgc
+    glib
+    libgee
+    ncurses
+  ];
   nativeBuildInputs = [
     perl
     pkg-config
@@ -70,7 +75,10 @@ stdenv.mkDerivation rec {
       every Emacs user should feel at home.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ pSub AndersonTorres ];
+    maintainers = with maintainers; [
+      pSub
+      AndersonTorres
+    ];
     platforms = platforms.unix;
   };
 }

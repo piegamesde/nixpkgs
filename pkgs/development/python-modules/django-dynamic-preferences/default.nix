@@ -30,9 +30,16 @@ buildPythonPackage rec {
 
   buildInputs = [ django ];
 
-  propagatedBuildInputs = [ six persisting-theory ];
+  propagatedBuildInputs = [
+    six
+    persisting-theory
+  ];
 
-  nativeCheckInputs = [ djangorestframework pytestCheckHook pytest-django ];
+  nativeCheckInputs = [
+    djangorestframework
+    pytestCheckHook
+    pytest-django
+  ];
 
   env.DJANGO_SETTINGS = "tests.settings";
 

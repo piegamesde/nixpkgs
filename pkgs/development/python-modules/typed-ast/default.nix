@@ -33,8 +33,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck =
-    [ "typed_ast" "typed_ast.ast27" "typed_ast.ast3" "typed_ast.conversions" ];
+  pythonImportsCheck = [
+    "typed_ast"
+    "typed_ast.ast27"
+    "typed_ast.ast3"
+    "typed_ast.conversions"
+  ];
 
   meta = with lib; {
     description = "Python AST modules with type comment support";

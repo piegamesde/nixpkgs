@@ -33,8 +33,18 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DOPENLOCO_BUILD_TESTS=NO" ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ SDL2 libpng libzip openal yaml-cpp span-lite ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    SDL2
+    libpng
+    libzip
+    openal
+    yaml-cpp
+    span-lite
+  ];
 
   meta = {
     description =

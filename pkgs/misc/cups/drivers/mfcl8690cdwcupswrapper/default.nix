@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
     sha256 = "1bl9r8mmj4vnanwpfjqgq3c9lf2v46wp5k6r2n9iqprf7ldd1kb2";
   };
 
-  nativeBuildInputs = [ dpkg makeWrapper ];
+  nativeBuildInputs = [
+    dpkg
+    makeWrapper
+  ];
 
   dontUnpack = true;
 
@@ -37,7 +40,13 @@ stdenv.mkDerivation rec {
       --replace "PRINTER =~" "PRINTER = \"mfcl8690cdw\"; #"
 
     wrapProgram $dir/cupswrapper/brother_lpdwrapper_mfcl8690cdw \
-      --prefix PATH : ${lib.makeBinPath [ coreutils gnugrep gnused ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          coreutils
+          gnugrep
+          gnused
+        ]
+      }
 
     mkdir -p $out/lib/cups/filter
     mkdir -p $out/share/cups/model

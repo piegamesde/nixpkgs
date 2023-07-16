@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-Sc6BCIRbf1+GraTScmV4EAgwtSE/JXNe0f2XhKyACIY=";
   };
 
-  propagatedBuildInputs = [ crownstone-core pyserial ];
+  propagatedBuildInputs = [
+    crownstone-core
+    pyserial
+  ];
 
   # Project has no tests
   doCheck = false;

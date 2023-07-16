@@ -25,9 +25,22 @@ mkDerivation rec {
     sha256 = "sha256-sIQxUiTGQCcHmxBp0Mf49e/XVaJe7onlLHiorMlNLZ8=";
   };
 
-  nativeBuildInputs = [ qmake pkg-config ];
-  buildInputs = [ poppler libunarr libGLU qtmultimedia qtscript ];
-  propagatedBuildInputs = [ qtquickcontrols2 qtgraphicaleffects qtdeclarative ];
+  nativeBuildInputs = [
+    qmake
+    pkg-config
+  ];
+  buildInputs = [
+    poppler
+    libunarr
+    libGLU
+    qtmultimedia
+    qtscript
+  ];
+  propagatedBuildInputs = [
+    qtquickcontrols2
+    qtgraphicaleffects
+    qtdeclarative
+  ];
 
   meta = {
     description =

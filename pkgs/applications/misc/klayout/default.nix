@@ -28,9 +28,19 @@ mkDerivation rec {
     patchShebangs .
   '';
 
-  nativeBuildInputs = [ which perl python3 ruby ];
+  nativeBuildInputs = [
+    which
+    perl
+    python3
+    ruby
+  ];
 
-  buildInputs = [ qtbase qtmultimedia qttools qtxmlpatterns ];
+  buildInputs = [
+    qtbase
+    qtmultimedia
+    qttools
+    qtxmlpatterns
+  ];
 
   buildPhase = ''
     runHook preBuild

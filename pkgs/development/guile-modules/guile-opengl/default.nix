@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-NdK5UwUszX5B0kKbynG8oD2PCKIGpZ1x91ktBDvpDo8=";
   };
 
-  nativeBuildInputs = [ pkg-config guile ];
+  nativeBuildInputs = [
+    pkg-config
+    guile
+  ];
 
   meta = with lib; {
     homepage = "https://www.gnu.org/software/guile-opengl/";

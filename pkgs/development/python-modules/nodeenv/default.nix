@@ -26,7 +26,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   preFixup = ''
     substituteInPlace $out/${python.sitePackages}/nodeenv.py \

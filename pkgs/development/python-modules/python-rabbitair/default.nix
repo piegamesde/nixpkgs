@@ -27,10 +27,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ cryptography zeroconf ]
-    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [
+    cryptography
+    zeroconf
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "rabbitair" ];
 

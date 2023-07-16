@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ openssl zlib ];
+  buildInputs = [
+    openssl
+    zlib
+  ];
 
   # Disabled because a test is flaky; see https://github.com/jesec/libtorrent/issues/4.
   # doCheck = true;
@@ -37,7 +40,10 @@ stdenv.mkDerivation rec {
     description =
       "A BitTorrent library written in C++ for *nix, with focus on high performance and good code (jesec's fork)";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ winter AndersonTorres ];
+    maintainers = with maintainers; [
+      winter
+      AndersonTorres
+    ];
     platforms = platforms.linux;
   };
 }

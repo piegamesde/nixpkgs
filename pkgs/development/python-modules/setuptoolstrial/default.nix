@@ -19,8 +19,16 @@ buildPythonPackage rec {
     sha256 = "14220f8f761c48ba1e2526f087195077cf54fad7098b382ce220422f0ff59b12";
   };
 
-  buildInputs = [ pytest virtualenv pytest-runner pytest-virtualenv ];
-  propagatedBuildInputs = [ twisted pathlib2 ];
+  buildInputs = [
+    pytest
+    virtualenv
+    pytest-runner
+    pytest-virtualenv
+  ];
+  propagatedBuildInputs = [
+    twisted
+    pathlib2
+  ];
 
   postPatch = ''
     sed -i '12,$d' tests/test_main.py

@@ -28,9 +28,19 @@ buildPythonPackage rec {
     hash = "sha256-aIpZ4ln4L57HwK8H0FqsyNnXosnAp3ingrJI6/MPS90=";
   };
 
-  propagatedBuildInputs = [ beautifulsoup4 envoy-utils httpx pyjwt ];
+  propagatedBuildInputs = [
+    beautifulsoup4
+    envoy-utils
+    httpx
+    pyjwt
+  ];
 
-  nativeCheckInputs = [ pytest-raises pytest-asyncio pytestCheckHook respx ];
+  nativeCheckInputs = [
+    pytest-raises
+    pytest-asyncio
+    pytestCheckHook
+    respx
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

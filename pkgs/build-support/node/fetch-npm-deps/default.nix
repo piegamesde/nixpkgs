@@ -32,7 +32,11 @@
 
     postInstall = ''
       wrapProgram "$out/bin/prefetch-npm-deps" --prefix PATH : ${
-        lib.makeBinPath [ gnutar gzip nix ]
+        lib.makeBinPath [
+          gnutar
+          gzip
+          nix
+        ]
       }
     '';
 

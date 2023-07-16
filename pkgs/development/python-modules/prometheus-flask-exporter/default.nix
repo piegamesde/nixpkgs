@@ -18,7 +18,10 @@ buildPythonPackage rec {
     hash = "sha256-GAQ80J7at8Apqu+DUMN3+rLi/lrNv5Y7w/DKpUN2iu8=";
   };
 
-  propagatedBuildInputs = [ flask prometheus-client ];
+  propagatedBuildInputs = [
+    flask
+    prometheus-client
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
   pytestFlagsArray = [ "tests/" ];

@@ -58,7 +58,10 @@ in stdenv.mkDerivation rec {
     sed -i 's,CDLL(",CDLL("${libpulseaudio.out}/lib/,g' blueman/main/PulseAudioUtils.py
   '';
 
-  pythonPath = with pythonPackages; [ pygobject3 pycairo ];
+  pythonPath = with pythonPackages; [
+    pygobject3
+    pycairo
+  ];
 
   propagatedUserEnvPkgs = [ obex_data_server ];
 
@@ -69,7 +72,13 @@ in stdenv.mkDerivation rec {
   ];
 
   makeWrapperArgs = [
-    "--prefix PATH ':' ${lib.makeBinPath [ dnsmasq dhcp iproute2 ]}"
+    "--prefix PATH ':' ${
+      lib.makeBinPath [
+        dnsmasq
+        dhcp
+        iproute2
+      ]
+    }"
     "--suffix PATH ':' ${lib.makeBinPath [ xdg-utils ]}"
   ];
 

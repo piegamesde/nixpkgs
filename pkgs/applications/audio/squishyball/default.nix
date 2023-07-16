@@ -24,9 +24,18 @@ stdenv.mkDerivation rec {
     sha256 = "07zs8wx1ahf3q505fk9b6cgzlkhnayfsscch46yy9s1wgxgphj7s";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ flac libao libvorbis ncurses opusfile ];
+  buildInputs = [
+    flac
+    libao
+    libvorbis
+    ncurses
+    opusfile
+  ];
 
   patches = [
     ./gnu-screen.patch

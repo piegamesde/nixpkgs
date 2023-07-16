@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ curl mpv yajl ];
+  buildInputs = [
+    curl
+    mpv
+    yajl
+  ];
 
   installPhase = ''
     install -Dm555 build/jftui $out/bin/jftui

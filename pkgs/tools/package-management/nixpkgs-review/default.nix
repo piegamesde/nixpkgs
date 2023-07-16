@@ -27,7 +27,10 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   makeWrapperArgs = let
-    binPath = [ nix git ] ++ lib.optional withSandboxSupport bubblewrap
+    binPath = [
+      nix
+      git
+    ] ++ lib.optional withSandboxSupport bubblewrap
       ++ lib.optional withNom nix-output-monitor;
   in [
     "--prefix PATH : ${lib.makeBinPath binPath}"
@@ -44,6 +47,10 @@ python3.pkgs.buildPythonApplication rec {
     changelog =
       "https://github.com/Mic92/nixpkgs-review/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda mic92 SuperSandro2000 ];
+    maintainers = with maintainers; [
+      figsoda
+      mic92
+      SuperSandro2000
+    ];
   };
 }

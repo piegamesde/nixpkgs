@@ -29,10 +29,10 @@ let
     commitlog_directory = "${cfg.homeDir}/commitlog";
     saved_caches_directory = "${cfg.homeDir}/saved_caches";
   } // optionalAttrs (cfg.seedAddresses != [ ]) {
-    seed_provider = [{
+    seed_provider = [ {
       class_name = "org.apache.cassandra.locator.SimpleSeedProvider";
-      parameters = [{ seeds = concatStringsSep "," cfg.seedAddresses; }];
-    }];
+      parameters = [ { seeds = concatStringsSep "," cfg.seedAddresses; } ];
+    } ];
   } // optionalAttrs atLeast3 { hints_directory = "${cfg.homeDir}/hints"; });
 
   cassandraConfigWithAddresses = cassandraConfig
@@ -85,8 +85,9 @@ let
   fullJvmOptions = cfg.jvmOpts ++ optionals (cfg.jmxRoles != [ ]) [
     "-Dcom.sun.management.jmxremote.authenticate=true"
     "-Dcom.sun.management.jmxremote.password.file=${cfg.jmxRolesFile}"
-  ] ++ optionals cfg.remoteJmx
-    [ "-Djava.rmi.server.hostname=${cfg.rpcAddress}" ] ++ optionals atLeast4 [
+  ] ++ optionals
+    cfg.remoteJmx [ "-Djava.rmi.server.hostname=${cfg.rpcAddress}" ]
+    ++ optionals atLeast4 [
       # Historically, we don't use a log dir, whereas the upstream scripts do
       # expect this. We override those by providing our own -Xlog:gc flag.
       "-Xlog:gc=warning,heap*=warning,age*=warning,safepoint=warning,promotion*=warning"
@@ -513,9 +514,11 @@ in {
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        ExecStart = concatStringsSep " "
-          ([ "${cfg.package}/bin/nodetool" "repair" "--full" ]
-            ++ cfg.fullRepairOptions);
+        ExecStart = concatStringsSep " " ([
+          "${cfg.package}/bin/nodetool"
+          "repair"
+          "--full"
+        ] ++ cfg.fullRepairOptions);
       };
     };
 
@@ -538,9 +541,10 @@ in {
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        ExecStart = concatStringsSep " "
-          ([ "${cfg.package}/bin/nodetool" "repair" ]
-            ++ cfg.incrementalRepairOptions);
+        ExecStart = concatStringsSep " " ([
+          "${cfg.package}/bin/nodetool"
+          "repair"
+        ] ++ cfg.incrementalRepairOptions);
       };
     };
 

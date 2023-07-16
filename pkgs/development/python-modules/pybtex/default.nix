@@ -14,7 +14,11 @@ buildPythonPackage rec {
   doCheck = false;
   pythonImportsCheck = [ "pybtex" ];
 
-  propagatedBuildInputs = [ latexcodec pyyaml setuptools ];
+  propagatedBuildInputs = [
+    latexcodec
+    pyyaml
+    setuptools
+  ];
 
   src = fetchPypi {
     inherit version pname;

@@ -35,19 +35,29 @@ buildPythonPackage rec {
     hash = "sha256-rUY5fnsWg2UisF0tGORvHot8laCs8eVAvuVKUOG5ibw=";
   };
 
-  propagatedBuildInputs =
-    [ h5py numpy psutil qiskit-terra retworkx scikit-learn scipy ]
-    ++ lib.optional withPyscf pyscf;
+  propagatedBuildInputs = [
+    h5py
+    numpy
+    psutil
+    qiskit-terra
+    retworkx
+    scikit-learn
+    scipy
+  ] ++ lib.optional withPyscf pyscf;
 
-  nativeCheckInputs = [ pytestCheckHook ddt pylatexenc qiskit-aer ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    ddt
+    pylatexenc
+    qiskit-aer
+  ];
 
   pythonImportsCheck = [ "qiskit_nature" ];
 
   pytestFlagsArray = [ "--durations=10" ];
 
-  disabledTests = [
-    "test_two_qubit_reduction" # failure cause unclear
-  ];
+  disabledTests = [ "test_two_qubit_reduction" # failure cause unclear
+    ];
 
   meta = with lib; {
     description = "Software for developing quantum computing programs";

@@ -46,13 +46,22 @@ import ./make-test-python.nix ({
         ...
       }: {
         virtualisation = {
-          emptyDiskImages = [ 20480 20480 20480 ];
+          emptyDiskImages = [
+            20480
+            20480
+            20480
+          ];
           vlans = [ 1 ];
         };
 
         networking = networkConfig;
 
-        environment.systemPackages = with pkgs; [ bash sudo ceph xfsprogs ];
+        environment.systemPackages = with pkgs; [
+          bash
+          sudo
+          ceph
+          xfsprogs
+        ];
 
         boot.kernelModules = [ "xfs" ];
 
@@ -61,10 +70,10 @@ import ./make-test-python.nix ({
 
     networkMonA = {
       dhcpcd.enable = false;
-      interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [{
+      interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
         address = cfg.monA.ip;
         prefixLength = 24;
-      }];
+      } ];
     };
     cephConfigMonA = generateCephConfig {
       daemonConfig = {
@@ -78,7 +87,11 @@ import ./make-test-python.nix ({
         };
         osd = {
           enable = true;
-          daemons = [ cfg.osd0.name cfg.osd1.name cfg.osd2.name ];
+          daemons = [
+            cfg.osd0.name
+            cfg.osd1.name
+            cfg.osd2.name
+          ];
         };
       };
     };
@@ -207,7 +220,12 @@ import ./make-test-python.nix ({
       '';
   in {
     name = "basic-single-node-ceph-cluster";
-    meta = with pkgs.lib.maintainers; { maintainers = [ lejonet johanot ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        lejonet
+        johanot
+      ];
+    };
 
     nodes = {
       monA = generateHost {

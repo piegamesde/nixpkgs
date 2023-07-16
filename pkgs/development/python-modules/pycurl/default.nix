@@ -40,11 +40,18 @@ buildPythonPackage rec {
     export PYCURL_SSL_LIBRARY=openssl
   '';
 
-  buildInputs = [ curl openssl ];
+  buildInputs = [
+    curl
+    openssl
+  ];
 
   nativeBuildInputs = [ curl ];
 
-  nativeCheckInputs = [ bottle pytestCheckHook flaky ];
+  nativeCheckInputs = [
+    bottle
+    pytestCheckHook
+    flaky
+  ];
 
   pytestFlagsArray = [
     # don't pick up the tests directory below examples/
@@ -75,7 +82,10 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "http://pycurl.io/";
     description = "Python Interface To The cURL library";
-    license = with licenses; [ lgpl2Only mit ];
+    license = with licenses; [
+      lgpl2Only
+      mit
+    ];
     maintainers = with maintainers; [ SuperSandro2000 ];
   };
 }

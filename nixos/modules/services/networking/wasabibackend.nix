@@ -58,7 +58,11 @@ in {
       };
 
       network = mkOption {
-        type = types.enum [ "mainnet" "testnet" "regtest" ];
+        type = types.enum [
+          "mainnet"
+          "testnet"
+          "regtest"
+        ];
         default = "mainnet";
         description =
           lib.mdDoc "The network to use for the Wasabi backend service.";

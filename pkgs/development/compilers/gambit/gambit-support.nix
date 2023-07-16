@@ -38,6 +38,10 @@ rec {
     # NB regarding platforms: continuously tested on Linux,
     # tested on macOS once in a while, *should* work everywhere.
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ thoughtpolice raskin fare ];
+    maintainers = with lib.maintainers; [
+      thoughtpolice
+      raskin
+      fare
+    ];
   };
 }

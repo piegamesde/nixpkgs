@@ -23,7 +23,13 @@ buildPythonPackage rec {
     hash = "sha256-DZmKF0C5zexTQ/kbDtTg0FLEocNU4dYMOFCJyvuiV98=";
   };
 
-  propagatedBuildInputs = [ cryptography deprecated pynacl pyjwt requests ];
+  propagatedBuildInputs = [
+    cryptography
+    deprecated
+    pynacl
+    pyjwt
+    requests
+  ];
 
   # Test suite makes REST calls against github.com
   doCheck = false;

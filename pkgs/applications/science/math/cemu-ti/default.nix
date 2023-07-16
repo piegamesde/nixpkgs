@@ -20,9 +20,16 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ qmake wrapQtAppsHook pkg-config ];
+  nativeBuildInputs = [
+    qmake
+    wrapQtAppsHook
+    pkg-config
+  ];
 
-  buildInputs = [ libarchive libpng ];
+  buildInputs = [
+    libarchive
+    libpng
+  ];
 
   qmakeFlags = [ "gui/qt" ];
 
@@ -32,7 +39,10 @@ stdenv.mkDerivation rec {
     homepage = "https://ce-programming.github.io/CEmu";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ luc65r ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
     broken = stdenv.isDarwin;
   };
 }

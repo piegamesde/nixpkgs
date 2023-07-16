@@ -21,10 +21,14 @@
   extraMeta = {
     branch = "master";
     broken = stdenv.isAarch64;
-    maintainers = with lib.maintainers; [ davidak Madouura pedrohlc ];
+    maintainers = with lib.maintainers; [
+      davidak
+      Madouura
+      pedrohlc
+    ];
   };
 
-  kernelPatches = [{
+  kernelPatches = [ {
     name = "bcachefs-${currentCommit}";
 
     patch = fetchpatch {
@@ -37,5 +41,5 @@
     };
 
     extraConfig = "BCACHEFS_FS m";
-  }] ++ kernelPatches;
+  } ] ++ kernelPatches;
 }))

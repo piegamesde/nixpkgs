@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "13zkxwp6r6kcxv4x459vwscr0n0sik4a3kcz5xnmlpvcdnbxi586";
   };
 
-  nativeBuildInputs = [ xorg.fonttosfnt xorg.mkfontdir ];
+  nativeBuildInputs = [
+    xorg.fonttosfnt
+    xorg.mkfontdir
+  ];
 
   buildPhase = ''
     patchShebangs make.sh

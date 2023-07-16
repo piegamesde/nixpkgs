@@ -18,7 +18,12 @@ stdenv.mkDerivation rec {
     sha256 = "1pp1hvidpilq37skkmbgba4lvzi01rasy04y0cnas9ck0canv00s";
   };
 
-  buildInputs = [ texinfo allegro perl libX11 ];
+  buildInputs = [
+    texinfo
+    allegro
+    perl
+    libX11
+  ];
 
   configurePhase = ''
     sh fix.sh unix

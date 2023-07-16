@@ -17,10 +17,16 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ perl ];
 
-  configureFlags =
-    [ "--sysconfdir=/etc" "--localstatedir=/var" "--disable-suid-install" ];
+  configureFlags = [
+    "--sysconfdir=/etc"
+    "--localstatedir=/var"
+    "--disable-suid-install"
+  ];
 
-  installFlags = [ "sysconfdir=\${out}/etc" "localstatedir=$(TMPDIR)" ];
+  installFlags = [
+    "sysconfdir=\${out}/etc"
+    "localstatedir=$(TMPDIR)"
+  ];
 
   meta = with lib; {
     homepage = "https://www.remlab.net/ndisc6/";

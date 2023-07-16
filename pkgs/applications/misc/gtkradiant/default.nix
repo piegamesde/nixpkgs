@@ -129,24 +129,34 @@ in stdenv.mkDerivation rec {
         exit 1
       fi
     '';
-  in [ scons pkg-config python svn copyDesktopItems ];
+  in [
+    scons
+    pkg-config
+    python
+    svn
+    copyDesktopItems
+  ];
 
-  buildInputs = [ glib libxml2 gtk2 libGLU gnome2.gtkglext ];
+  buildInputs = [
+    glib
+    libxml2
+    gtk2
+    libGLU
+    gnome2.gtkglext
+  ];
 
   enableParallelBuilding = true;
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "gtkradiant";
-      exec = "gtkradiant";
-      desktopName = "GtkRadiant";
-      comment = meta.description;
-      categories = [ "Development" ];
-      icon = "gtkradiant";
-      # includes its own splash screen
-      startupNotify = false;
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "gtkradiant";
+    exec = "gtkradiant";
+    desktopName = "GtkRadiant";
+    comment = meta.description;
+    categories = [ "Development" ];
+    icon = "gtkradiant";
+    # includes its own splash screen
+    startupNotify = false;
+  }) ];
 
   postInstall = ''
     mkdir -p $out/{bin,lib}
@@ -162,7 +172,11 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Level editor for idTech games";
     homepage = "https://icculus.org/gtkradiant/";
-    license = with licenses; [ gpl2Only bsdOriginal lgpl21Only ];
+    license = with licenses; [
+      gpl2Only
+      bsdOriginal
+      lgpl21Only
+    ];
     maintainers = with maintainers; [ astro ];
     platforms = platforms.unix;
   };

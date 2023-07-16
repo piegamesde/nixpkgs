@@ -35,8 +35,13 @@ let
 
     nativeBuildInputs = [ hatchling ];
 
-    propagatedBuildInputs =
-      [ async_generator traitlets nbformat nest-asyncio jupyter-client ];
+    propagatedBuildInputs = [
+      async_generator
+      traitlets
+      nbformat
+      nest-asyncio
+      jupyter-client
+    ];
 
     # circular dependencies if enabled by default
     doCheck = false;

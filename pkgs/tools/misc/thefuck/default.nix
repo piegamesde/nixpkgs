@@ -25,9 +25,20 @@ buildPythonApplication rec {
     sha256 = "sha256-bRCy95owBJaxoyCNQF6gEENoxCkmorhyKzZgU1dQN6I=";
   };
 
-  propagatedBuildInputs = [ colorama decorator psutil pyte six ];
+  propagatedBuildInputs = [
+    colorama
+    decorator
+    psutil
+    pyte
+    six
+  ];
 
-  nativeCheckInputs = [ go mock pytestCheckHook pytest-mock ];
+  nativeCheckInputs = [
+    go
+    mock
+    pytestCheckHook
+    pytest-mock
+  ];
 
   disabledTests = lib.optionals stdenv.isDarwin [
     "test_settings_defaults"

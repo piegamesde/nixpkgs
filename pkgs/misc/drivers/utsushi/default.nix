@@ -56,11 +56,22 @@ in stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs =
-    [ autoreconfHook pkg-config autoconf-archive fakegit libxslt ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    autoconf-archive
+    fakegit
+    libxslt
+  ];
 
-  buildInputs =
-    [ boost.dev gtkmm2.dev imagemagick sane-backends udev.dev libusb1.dev ];
+  buildInputs = [
+    boost.dev
+    gtkmm2.dev
+    imagemagick
+    sane-backends
+    udev.dev
+    libusb1.dev
+  ];
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-error=deprecated-declarations"
@@ -174,7 +185,10 @@ in stdenv.mkDerivation rec {
     '';
     homepage = "https://gitlab.com/utsushi/imagescan";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ wucke13 maxwilson ];
+    maintainers = with maintainers; [
+      wucke13
+      maxwilson
+    ];
     platforms = platforms.linux;
   };
 }

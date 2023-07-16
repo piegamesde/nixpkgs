@@ -24,8 +24,10 @@ in appimageTools.wrapType2 rec {
 
   multiPkgs = null; # no 32bit needed
   extraPkgs = p:
-    (appimageTools.defaultFhsEnvArgs.multiPkgs p)
-    ++ [ p.libsecret p.xorg.libxkbfile ];
+    (appimageTools.defaultFhsEnvArgs.multiPkgs p) ++ [
+      p.libsecret
+      p.xorg.libxkbfile
+    ];
 
   extraInstallCommands = ''
     # Strip version from binary name.
@@ -43,7 +45,10 @@ in appimageTools.wrapType2 rec {
       "A simple and elegant markdown editor, available for Linux, macOS and Windows";
     homepage = "https://marktext.app";
     license = licenses.mit;
-    maintainers = with maintainers; [ nh2 eduarrrd ];
+    maintainers = with maintainers; [
+      nh2
+      eduarrrd
+    ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "marktext";
   };

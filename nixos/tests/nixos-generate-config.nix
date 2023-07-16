@@ -14,11 +14,11 @@ import ./make-test-python.nix ({
         }
       '';
 
-      system.nixos-generate-config.desktopConfiguration = [''
+      system.nixos-generate-config.desktopConfiguration = [ ''
         # DESKTOP
         services.xserver.displayManager.gdm.enable = true;
         services.xserver.desktopManager.gnome.enable = true;
-      ''];
+      '' ];
     };
     testScript = ''
       start_all()

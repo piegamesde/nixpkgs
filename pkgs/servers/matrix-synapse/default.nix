@@ -39,9 +39,14 @@ buildPythonApplication rec {
     sed -i '/^setuptools_rust =/d' pyproject.toml
   '';
 
-  nativeBuildInputs =
-    [ poetry-core rustPlatform.cargoSetupHook setuptools-rust ]
-    ++ (with rustPlatform.rust; [ cargo rustc ]);
+  nativeBuildInputs = [
+    poetry-core
+    rustPlatform.cargoSetupHook
+    setuptools-rust
+  ] ++ (with rustPlatform.rust; [
+    cargo
+    rustc
+  ]);
 
   buildInputs = [ openssl ];
 
@@ -80,10 +85,16 @@ buildPythonApplication rec {
     twisted
     typing-extensions
     unpaddedbase64
-  ] ++ lib.optional enableSystemd systemd
-    ++ lib.optionals enableRedis [ hiredis txredisapi ];
+  ] ++ lib.optional enableSystemd systemd ++ lib.optionals enableRedis [
+    hiredis
+    txredisapi
+  ];
 
-  nativeCheckInputs = [ mock parameterized openssl ];
+  nativeCheckInputs = [
+    mock
+    parameterized
+    openssl
+  ];
 
   doCheck = !stdenv.isDarwin;
 

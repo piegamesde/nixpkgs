@@ -21,11 +21,22 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VUz7/gVCvds5G04+Bb+7/D4oK5Vb1WIY0hwGFkgfZes=";
   };
 
-  outputs = [ "out" "dev" "bin" ];
+  outputs = [
+    "out"
+    "dev"
+    "bin"
+  ];
 
-  nativeBuildInputs = [ pkg-config meson ninja docutils ];
-  buildInputs = [ libpthreadstubs libpciaccess ]
-    ++ lib.optional withValgrind valgrind-light;
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    docutils
+  ];
+  buildInputs = [
+    libpthreadstubs
+    libpciaccess
+  ] ++ lib.optional withValgrind valgrind-light;
 
   mesonFlags = [
     "-Dinstall-test-programs=true"

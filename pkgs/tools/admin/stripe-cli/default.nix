@@ -79,7 +79,10 @@ buildGoModule rec {
       Create, retrieve, update, or delete API objects.
     '';
     license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ RaghavSood jk ];
+    maintainers = with maintainers; [
+      RaghavSood
+      jk
+    ];
     mainProgram = "stripe";
   };
 }

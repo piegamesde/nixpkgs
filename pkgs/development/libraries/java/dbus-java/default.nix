@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
   PREFIX = "\${out}";
   JAVAUNIXLIBDIR = "${libmatthew_java}/lib/jni";
   JAVAUNIXJARDIR = "${libmatthew_java}/share/java";
-  buildInputs = [ gettext jdk8 ];
+  buildInputs = [
+    gettext
+    jdk8
+  ];
   # I'm too lazy to build the documentation
   preBuild = ''
     sed -i -e "s|all: bin doc man|all: bin|" \

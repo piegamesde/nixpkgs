@@ -43,9 +43,15 @@ python3.pkgs.buildPythonApplication rec {
     gobject-introspection
   ];
 
-  buildInputs = [ gtk3 libhandy_0 ];
+  buildInputs = [
+    gtk3
+    libhandy_0
+  ];
 
-  propagatedBuildInputs = with python3.pkgs; [ pygobject3 pyxdg ];
+  propagatedBuildInputs = with python3.pkgs; [
+    pygobject3
+    pyxdg
+  ];
 
   meta = with lib; {
     description = "USB mass storage emulator for Linux handhelds";

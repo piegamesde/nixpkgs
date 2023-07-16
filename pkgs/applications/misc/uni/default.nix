@@ -17,7 +17,11 @@ buildGoModule rec {
 
   vendorSha256 = "6HNFCUSJA6oduCx/SCUQQeCHGS7ohaWRunixdwMurBw=";
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/arp242/uni";

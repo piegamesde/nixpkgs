@@ -20,7 +20,10 @@ buildPythonApplication rec {
     owner = "nosarthur";
   };
 
-  propagatedBuildInputs = [ pyyaml setuptools ];
+  propagatedBuildInputs = [
+    pyyaml
+    setuptools
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -31,7 +34,10 @@ buildPythonApplication rec {
     done
   '';
 
-  nativeCheckInputs = [ git pytest ];
+  nativeCheckInputs = [
+    git
+    pytest
+  ];
 
   checkPhase = ''
     git init

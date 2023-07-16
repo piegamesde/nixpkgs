@@ -34,7 +34,10 @@ in {
 
       internalIPs = mkOption {
         type = types.listOf types.str;
-        example = [ "192.168.1.1/24" "enp1s0" ];
+        example = [
+          "192.168.1.1/24"
+          "enp1s0"
+        ];
         description = lib.mdDoc ''
           The IP address ranges to listen on.
         '';

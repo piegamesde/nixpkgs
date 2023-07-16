@@ -21,7 +21,10 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = {
     lxml = [ lxml ];
-    html5lib = [ beautifulsoup4 html5lib ];
+    html5lib = [
+      beautifulsoup4
+      html5lib
+    ];
   };
 
   checkInputs = passthru.optional-dependencies.lxml

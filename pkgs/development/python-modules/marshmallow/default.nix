@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ packaging ];
 
-  nativeCheckInputs = [ pytestCheckHook pytz simplejson ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytz
+    simplejson
+  ];
 
   pythonImportsCheck = [ "marshmallow" ];
 

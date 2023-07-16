@@ -21,15 +21,27 @@ buildPythonPackage rec {
     hash = "sha256-dmFc3DNTlEajYQ5e8QK2WfehwYwAsWyG2cxKg5ykEaI=";
   };
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
-  nativeBuildInputs = [ sphinx-rtd-theme sphinxHook ];
+  nativeBuildInputs = [
+    sphinx-rtd-theme
+    sphinxHook
+  ];
 
   propagatedBuildInputs = [ colorzero ];
 
-  pythonImportsCheck = [ "gpiozero" "gpiozero.tools" ];
+  pythonImportsCheck = [
+    "gpiozero"
+    "gpiozero.tools"
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     description = "A simple interface to GPIO devices with Raspberry Pi";

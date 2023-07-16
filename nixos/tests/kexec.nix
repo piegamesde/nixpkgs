@@ -4,7 +4,12 @@ import ./make-test-python.nix ({
     ...
   }: {
     name = "kexec";
-    meta = with lib.maintainers; { maintainers = [ flokli lassulus ]; };
+    meta = with lib.maintainers; {
+      maintainers = [
+        flokli
+        lassulus
+      ];
+    };
 
     nodes = {
       node1 = {

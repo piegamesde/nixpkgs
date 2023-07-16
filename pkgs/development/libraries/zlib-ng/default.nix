@@ -18,13 +18,22 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Q+u71XXfHafmTL8tmk4XcgpbSdBIunveL9Q78LqiZF0=";
   };
 
-  outputs = [ "out" "dev" "bin" ];
+  outputs = [
+    "out"
+    "dev"
+    "bin"
+  ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  cmakeFlags =
-    [ "-DCMAKE_INSTALL_PREFIX=/" "-DBUILD_SHARED_LIBS=ON" "-DINSTALL_UTILS=ON" ]
-    ++ lib.optionals withZlibCompat [ "-DZLIB_COMPAT=ON" ];
+  cmakeFlags = [
+    "-DCMAKE_INSTALL_PREFIX=/"
+    "-DBUILD_SHARED_LIBS=ON"
+    "-DINSTALL_UTILS=ON"
+  ] ++ lib.optionals withZlibCompat [ "-DZLIB_COMPAT=ON" ];
 
   meta = with lib; {
     description =

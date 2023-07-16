@@ -58,25 +58,47 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ geos proj ];
+  buildInputs = [
+    geos
+    proj
+  ];
 
-  propagatedBuildInputs = [ matplotlib numpy pyproj pyshp shapely ];
+  propagatedBuildInputs = [
+    matplotlib
+    numpy
+    pyproj
+    pyshp
+    shapely
+  ];
 
   passthru.optional-dependencies = {
-    ows = [ owslib pillow ];
-    plotting = [ gdal pillow scipy ];
+    ows = [
+      owslib
+      pillow
+    ];
+    plotting = [
+      gdal
+      pillow
+      scipy
+    ];
   };
 
-  nativeCheckInputs = [ pytest-mpl pytestCheckHook ]
-    ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [
+    pytest-mpl
+    pytestCheckHook
+  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
   preCheck = ''
     export FONTCONFIG_FILE=${fontconfig.out}/etc/fonts/fonts.conf
     export HOME=$TMPDIR
   '';
 
-  pytestFlagsArray =
-    [ "--pyargs" "cartopy" "-m" "'not network and not natural_earth'" ];
+  pytestFlagsArray = [
+    "--pyargs"
+    "cartopy"
+    "-m"
+    "'not network and not natural_earth'"
+  ];
 
   disabledTests = [ "test_gridliner_labels_bbox_style" ];
 

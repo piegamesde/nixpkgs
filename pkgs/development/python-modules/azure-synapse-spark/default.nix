@@ -17,7 +17,11 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  propagatedBuildInputs = [ azure-common azure-core msrest ];
+  propagatedBuildInputs = [
+    azure-common
+    azure-core
+    msrest
+  ];
 
   pythonImportsCheck = [ "azure.synapse.spark" ];
 

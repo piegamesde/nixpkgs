@@ -27,8 +27,14 @@ buildPythonPackage rec {
     hash = "sha256-H3oL8sk2r267wV0hoHOq9r9DY2Atxs+hZUVb6tmHy0w=";
   };
 
-  propagatedBuildInputs =
-    [ colorclass easygui msoffcrypto-tool olefile pcodedmp pyparsing ];
+  propagatedBuildInputs = [
+    colorclass
+    easygui
+    msoffcrypto-tool
+    olefile
+    pcodedmp
+    pyparsing
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

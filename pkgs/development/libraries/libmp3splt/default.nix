@@ -16,9 +16,15 @@ stdenv.mkDerivation rec {
     sha256 = "1p1mn2hsmj5cp40fnc8g1yfvk72p8pjxi866gjdkgjsqrr7xdvih";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
   nativeBuildInputs = [ libtool ];
-  buildInputs = [ libmad libid3tag ];
+  buildInputs = [
+    libmad
+    libid3tag
+  ];
 
   configureFlags = [ "--disable-pcre" ];
 

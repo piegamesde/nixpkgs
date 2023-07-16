@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-7mN6GPRbXfEUfCrCrCs71SSt4x2Ch2y3a5rfXnuwVA0=";
   };
 
-  propagatedBuildInputs = [ aiohttp lxml ];
+  propagatedBuildInputs = [
+    aiohttp
+    lxml
+  ];
 
   # Module has no tests
   doCheck = false;

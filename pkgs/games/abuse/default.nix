@@ -26,17 +26,18 @@ stdenv.mkDerivation rec {
     "--enable-debug"
   ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "abuse";
-      exec = "abuse";
-      icon = "abuse";
-      desktopName = "Abuse";
-      comment =
-        "Side-scroller action game that pits you against ruthless alien killers";
-      categories = [ "Game" "ActionGame" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "abuse";
+    exec = "abuse";
+    icon = "abuse";
+    desktopName = "Abuse";
+    comment =
+      "Side-scroller action game that pits you against ruthless alien killers";
+    categories = [
+      "Game"
+      "ActionGame"
+    ];
+  }) ];
 
   postInstall = ''
     mkdir $out/etc
@@ -50,7 +51,11 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ copyDesktopItems ];
-  buildInputs = [ SDL SDL_mixer freepats ];
+  buildInputs = [
+    SDL
+    SDL_mixer
+    freepats
+  ];
 
   meta = with lib; {
     description =

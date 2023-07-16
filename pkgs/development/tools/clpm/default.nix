@@ -66,6 +66,9 @@ stdenv.mkDerivation rec {
     homepage = "https://www.clpm.dev/";
     license = licenses.bsd2;
     maintainers = [ maintainers.petterstorvik ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 }

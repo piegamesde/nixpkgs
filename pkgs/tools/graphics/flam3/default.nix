@@ -19,7 +19,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-cKRfmTcyWY2LyxqojTzxD2wnxu5eh3emHi51bhS3gYg=";
   };
 
-  buildInputs = [ libjpeg libpng libxml2 zlib ];
+  buildInputs = [
+    libjpeg
+    libpng
+    libxml2
+    zlib
+  ];
 
   meta = with lib; {
     homepage = "https://flam3.com/";

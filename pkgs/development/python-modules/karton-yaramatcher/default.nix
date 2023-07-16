@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-ulWwPXbjqQXwSRi8MFdcx7vC7P19yu66Ll8jkuTesao=";
   };
 
-  propagatedBuildInputs = [ karton-core yara-python ];
+  propagatedBuildInputs = [
+    karton-core
+    yara-python
+  ];
 
   nativeCheckInputs = [ unittestCheckHook ];
 

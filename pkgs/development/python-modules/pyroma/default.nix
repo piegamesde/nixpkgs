@@ -20,7 +20,12 @@ buildPythonPackage rec {
     sha256 = "0ln9w984n48nyxwzd1y48l6b18lnv52radcyizaw56lapcgxrzdr";
   };
 
-  propagatedBuildInputs = [ docutils pygments setuptools requests ];
+  propagatedBuildInputs = [
+    docutils
+    pygments
+    setuptools
+    requests
+  ];
 
   # https://github.com/regebro/pyroma/blob/3.2/Makefile#L23
   # PyPITest requires network access

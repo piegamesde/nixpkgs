@@ -21,8 +21,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-rqca7gpH46hk4MEPMHqYnteYJnGpLS/gu4XP7xWqDzo=";
   };
 
-  nativeBuildInputs = [ pkg-config cmake git ];
-  buildInputs = [ zlib sparsehash CoreServices ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    git
+  ];
+  buildInputs = [
+    zlib
+    sparsehash
+    CoreServices
+  ];
 
   meta = with lib; {
     description =

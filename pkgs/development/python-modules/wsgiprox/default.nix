@@ -18,7 +18,10 @@ buildPythonPackage rec {
     hash = "sha256-EquddaNrVceyJHuQMCajKHGZX2Q7ebR0Zhvi2pl2WEw=";
   };
 
-  propagatedBuildInputs = [ six certauth ];
+  propagatedBuildInputs = [
+    six
+    certauth
+  ];
 
   pythonImportsCheck = [ "wsgiprox" ];
 

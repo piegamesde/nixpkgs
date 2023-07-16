@@ -12,8 +12,15 @@ import ./make-test-python.nix ({
     '';
     # deliberately using a local empty file instead of pkgs.emptyFile to have
     # a non-store path in the test
-    args =
-      [ "a%Nything" "lang=\${LANG}" ";" "/bin/sh -c date" ./empty-file 4.2 23 ];
+    args = [
+      "a%Nything"
+      "lang=\${LANG}"
+      ";"
+      "/bin/sh -c date"
+      ./empty-file
+      4.2
+      23
+    ];
   in {
     name = "systemd-escaping";
 

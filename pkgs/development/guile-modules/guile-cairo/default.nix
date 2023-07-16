@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ cairo expat guile ];
+  buildInputs = [
+    cairo
+    expat
+    guile
+  ];
 
   enableParallelBuilding = true;
 

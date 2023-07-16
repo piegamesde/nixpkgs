@@ -72,7 +72,15 @@ mkDerivation {
     uuid
     vector
   ];
-  testHaskellDepends = [ async base bytestring hspec mtl safe-exceptions time ];
+  testHaskellDepends = [
+    async
+    base
+    bytestring
+    hspec
+    mtl
+    safe-exceptions
+    time
+  ];
   benchmarkHaskellDepends = [
     base
     bytestring

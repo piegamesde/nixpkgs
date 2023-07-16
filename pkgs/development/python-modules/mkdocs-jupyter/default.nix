@@ -35,10 +35,19 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [ "nbconvert" ];
 
-  nativeBuildInputs = [ hatchling pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    hatchling
+    pythonRelaxDepsHook
+  ];
 
-  propagatedBuildInputs =
-    [ ipykernel jupytext mkdocs mkdocs-material nbconvert pygments ];
+  propagatedBuildInputs = [
+    ipykernel
+    jupytext
+    mkdocs
+    mkdocs-material
+    nbconvert
+    pygments
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

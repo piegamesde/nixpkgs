@@ -63,7 +63,11 @@ in buildPythonPackage rec {
       --replace "all: api gitsrht-dispatch gitsrht-keys gitsrht-shell gitsrht-update-hook" ""
   '';
 
-  propagatedBuildInputs = [ srht pygit2 scmsrht ];
+  propagatedBuildInputs = [
+    srht
+    pygit2
+    scmsrht
+  ];
 
   preBuild = ''
     export PKGVER=${version}

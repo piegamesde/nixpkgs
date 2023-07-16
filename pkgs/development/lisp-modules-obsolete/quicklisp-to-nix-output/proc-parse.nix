@@ -8,7 +8,11 @@ args@{
 
   description = "Procedural vector parser";
 
-  deps = [ args."alexandria" args."babel" args."trivial-features" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."trivial-features"
+  ];
 
   src = fetchurl {
     url =

@@ -16,7 +16,11 @@ stdenv.mkDerivation rec {
     cp makerpm $out/bin
   '';
 
-  buildInputs = [ zlib libarchive openssl ];
+  buildInputs = [
+    zlib
+    libarchive
+    openssl
+  ];
 
   src = fetchFromGitHub {
     owner = "ivan-tkatchev";

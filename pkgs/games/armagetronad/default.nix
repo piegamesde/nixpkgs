@@ -41,7 +41,10 @@ in stdenv.mkDerivation {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libxml2 zlib ] ++ lib.optionals (!dedicatedServer) [
+  buildInputs = [
+    libxml2
+    zlib
+  ] ++ lib.optionals (!dedicatedServer) [
     SDL
     SDL_image
     libxml2

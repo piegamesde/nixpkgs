@@ -185,8 +185,14 @@ in {
       description = "RabbitMQ Server";
 
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "epmd.socket" ];
-      wants = [ "network.target" "epmd.socket" ];
+      after = [
+        "network.target"
+        "epmd.socket"
+      ];
+      wants = [
+        "network.target"
+        "epmd.socket"
+      ];
 
       path = [
         cfg.package

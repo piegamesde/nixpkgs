@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--with-asterisk=${asterisk}" ];
 
-  installFlags = [ "DESTDIR=/build/dest" "DATAROOTDIR=/build/dest" ];
+  installFlags = [
+    "DESTDIR=/build/dest"
+    "DATAROOTDIR=/build/dest"
+  ];
 
   postInstall = ''
     mkdir -p "$out"

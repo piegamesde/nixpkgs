@@ -172,7 +172,11 @@ let
               zipstream-ng
             ] ++ lib.optionals stdenv.isDarwin [ py.pkgs.appdirs ];
 
-          nativeCheckInputs = with self; [ ddt mock pytestCheckHook ];
+          nativeCheckInputs = with self; [
+            ddt
+            mock
+            pytestCheckHook
+          ];
 
           patches = [
             # substitute pip and let it find out, that it can't write anywhere
@@ -222,10 +226,10 @@ let
             rm pytest.ini
           '';
 
-          disabledTests = [
-            "test_check_setup" # Why should it be able to call pip?
-          ] ++ lib.optionals stdenv.isDarwin
-            [ "test_set_external_modification" ];
+          disabledTests =
+            [ "test_check_setup" # Why should it be able to call pip?
+            ] ++ lib.optionals
+            stdenv.isDarwin [ "test_set_external_modification" ];
 
           passthru = {
             inherit (self) python;

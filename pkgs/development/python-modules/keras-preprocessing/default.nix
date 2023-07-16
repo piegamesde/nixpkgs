@@ -28,7 +28,10 @@ buildPythonPackage rec {
     pillow
   ];
 
-  nativeCheckInputs = [ pytest keras ];
+  nativeCheckInputs = [
+    pytest
+    keras
+  ];
 
   checkPhase = ''
     py.test tests/

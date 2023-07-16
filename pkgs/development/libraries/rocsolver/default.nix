@@ -30,10 +30,16 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-UHUcA9CVPuYFpE2DTvRrRMMj51yNPo5wMTKnByL2RTg=";
   };
 
-  nativeBuildInputs = [ cmake rocm-cmake hip ]
-    ++ lib.optionals (buildTests || buildBenchmarks) [ gfortran ];
+  nativeBuildInputs = [
+    cmake
+    rocm-cmake
+    hip
+  ] ++ lib.optionals (buildTests || buildBenchmarks) [ gfortran ];
 
-  buildInputs = [ rocblas fmt ] ++ lib.optionals buildTests [ gtest ]
+  buildInputs = [
+    rocblas
+    fmt
+  ] ++ lib.optionals buildTests [ gtest ]
     ++ lib.optionals (buildTests || buildBenchmarks) [ lapack-reference ];
 
   cmakeFlags = [
@@ -43,9 +49,9 @@ stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_INSTALL_BINDIR=bin"
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
-  ] ++ lib.optionals (gpuTargets != [ ])
-    [ "-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}" ]
-    ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
+  ] ++ lib.optionals (gpuTargets != [ ]) [ "-DAMDGPU_TARGETS=${
+      lib.concatStringsSep ";" gpuTargets
+    }" ] ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
     ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ];
 
   postInstall = lib.optionalString buildTests ''

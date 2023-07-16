@@ -36,7 +36,14 @@ buildPythonPackage rec {
       --replace "all: api" ""
   '';
 
-  propagatedBuildInputs = [ srht pygit2 asyncpg aiosmtpd emailthreads redis ];
+  propagatedBuildInputs = [
+    srht
+    pygit2
+    asyncpg
+    aiosmtpd
+    emailthreads
+    redis
+  ];
 
   preBuild = ''
     export PKGVER=${version}

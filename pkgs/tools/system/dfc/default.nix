@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "0m1fd7l85ckb7bq4c5c3g257bkjglm8gq7x42pkmpp87fkknc94n";
   };
 
-  nativeBuildInputs = [ cmake gettext ];
+  nativeBuildInputs = [
+    cmake
+    gettext
+  ];
 
   meta = {
     homepage = "https://projects.gw-computing.net/projects/dfc";

@@ -9,7 +9,10 @@ import ./make-test-python.nix ({
         pkgs,
         ...
       }: {
-        imports = [ ./common/user-account.nix ./common/x11.nix ];
+        imports = [
+          ./common/user-account.nix
+          ./common/x11.nix
+        ];
 
         # increase screen size to make the whole program visible
         virtualisation.resolution = {

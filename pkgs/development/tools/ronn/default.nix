@@ -40,7 +40,10 @@ stdenv.mkDerivation rec {
     description = "markdown-based tool for building manpages";
     homepage = "https://github.com/apjanke/ronn-ng";
     license = licenses.mit;
-    maintainers = with maintainers; [ zimbatm nicknovitski ];
+    maintainers = with maintainers; [
+      zimbatm
+      nicknovitski
+    ];
     platforms = env.ruby.meta.platforms;
   };
 }

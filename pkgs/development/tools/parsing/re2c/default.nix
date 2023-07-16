@@ -24,7 +24,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ovwmltu97fzNQT0oZHefrAo4yV9HV1NwcY4PTSM5Bro=";
   };
 
-  nativeBuildInputs = [ autoreconfHook python3 ];
+  nativeBuildInputs = [
+    autoreconfHook
+    python3
+  ];
 
   doCheck = true;
   enableParallelBuilding = true;

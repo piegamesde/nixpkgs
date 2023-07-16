@@ -60,25 +60,30 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  depsBuildBuild =
-    [ buildPackages.stdenv.cc buildPackages.ncurses buildPackages.libffi ];
+  depsBuildBuild = [
+    buildPackages.stdenv.cc
+    buildPackages.ncurses
+    buildPackages.libffi
+  ];
 
-  buildInputs = [ ncurses libffi ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [
-      gpm
-      libGL
-      libX11
-      libXext
-      libXpm
-      libXrandr
-    ];
+  buildInputs = [
+    ncurses
+    libffi
+  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    gpm
+    libGL
+    libX11
+    libXext
+    libXpm
+    libXrandr
+  ];
 
   enableParallelBuilding = true;
 
   hardeningDisable = [ "format" ];
 
-  makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
-    [ "TARGET=${stdenv.hostPlatform.config}" ];
+  makeFlags = lib.optionals (stdenv.buildPlatform
+    != stdenv.hostPlatform) [ "TARGET=${stdenv.hostPlatform.config}" ];
 
   preBuild = ''
     export buildJobs=$NIX_BUILD_CORES

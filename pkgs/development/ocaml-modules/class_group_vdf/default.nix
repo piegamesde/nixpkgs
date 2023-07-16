@@ -26,13 +26,23 @@ buildDunePackage (rec {
 
   minimalOCamlVersion = "4.08";
 
-  nativeBuildInputs = [ gmp pkg-config dune-configurator ];
+  nativeBuildInputs = [
+    gmp
+    pkg-config
+    dune-configurator
+  ];
 
   buildInputs = [ dune-configurator ];
 
-  propagatedBuildInputs = [ zarith integers ];
+  propagatedBuildInputs = [
+    zarith
+    integers
+  ];
 
-  checkInputs = [ alcotest bisect_ppx ];
+  checkInputs = [
+    alcotest
+    bisect_ppx
+  ];
 
   doCheck = true;
 

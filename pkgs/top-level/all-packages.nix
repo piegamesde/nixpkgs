@@ -173,7 +173,10 @@ with pkgs;
 
   auditBlasHook = makeSetupHook {
     name = "auto-blas-hook";
-    propagatedBuildInputs = [ blas lapack ];
+    propagatedBuildInputs = [
+      blas
+      lapack
+    ];
   } ../build-support/setup-hooks/audit-blas.sh;
 
   autoreconfHook = callPackage ({
@@ -185,7 +188,12 @@ with pkgs;
     }:
     makeSetupHook {
       name = "autoreconf-hook";
-      propagatedBuildInputs = [ autoconf automake gettext libtool ];
+      propagatedBuildInputs = [
+        autoconf
+        automake
+        gettext
+        libtool
+      ];
     } ../build-support/setup-hooks/autoreconf.sh) { };
 
   autoreconfHook264 = autoreconfHook.override {
@@ -381,7 +389,10 @@ with pkgs;
 
   gogUnpackHook = makeSetupHook {
     name = "gog-unpack-hook";
-    propagatedBuildInputs = [ innoextract file-rename ];
+    propagatedBuildInputs = [
+      innoextract
+      file-rename
+    ];
   } ../build-support/setup-hooks/gog-unpack.sh;
 
   buildEnv = callPackage ../build-support/buildenv { }; # not actually a package
@@ -1237,8 +1248,12 @@ with pkgs;
 
   desktopToDarwinBundle = makeSetupHook {
     name = "desktop-to-darwin-bundle-hook";
-    propagatedBuildInputs =
-      [ writeDarwinBundle librsvg imagemagick python3Packages.icnsutil ];
+    propagatedBuildInputs = [
+      writeDarwinBundle
+      librsvg
+      imagemagick
+      python3Packages.icnsutil
+    ];
   } ../build-support/setup-hooks/desktop-to-darwin-bundle.sh;
 
   keepBuildTree = makeSetupHook { name = "keep-build-tree-hook"; }
@@ -1253,7 +1268,10 @@ with pkgs;
 
   makeGCOVReport = makeSetupHook {
     name = "make-gcov-report-hook";
-    propagatedBuildInputs = [ lcov enableGCOVInstrumentation ];
+    propagatedBuildInputs = [
+      lcov
+      enableGCOVInstrumentation
+    ];
   } ../build-support/setup-hooks/make-coverage-analysis-report.sh;
 
   makeHardcodeGsettingsPatch =
@@ -1287,7 +1305,10 @@ with pkgs;
 
   validatePkgConfig = makeSetupHook {
     name = "validate-pkg-config";
-    propagatedBuildInputs = [ findutils pkg-config ];
+    propagatedBuildInputs = [
+      findutils
+      pkg-config
+    ];
   } ../build-support/setup-hooks/validate-pkg-config.sh;
 
   patchPpdFilesHook =
@@ -1820,7 +1841,11 @@ with pkgs;
 
   git = callPackage ../applications/version-management/git {
     inherit (darwin.apple_sdk.frameworks) CoreServices Security;
-    perlLibs = [ perlPackages.LWP perlPackages.URI perlPackages.TermReadKey ];
+    perlLibs = [
+      perlPackages.LWP
+      perlPackages.URI
+      perlPackages.TermReadKey
+    ];
     smtpPerlLibs = [
       perlPackages.libnet
       perlPackages.NetSMTPSSL
@@ -4222,7 +4247,12 @@ with pkgs;
     paths = [ cabal2nix-unwrapped ];
     postBuild = ''
       wrapProgram $out/bin/cabal2nix \
-        --prefix PATH ":" "${lib.makeBinPath [ nix nix-prefetch-scripts ]}"
+        --prefix PATH ":" "${
+          lib.makeBinPath [
+            nix
+            nix-prefetch-scripts
+          ]
+        }"
     '';
   };
 
@@ -8855,7 +8885,10 @@ with pkgs;
   ihaskell = callPackage ../development/tools/haskell/ihaskell/wrapper.nix {
     inherit (haskellPackages) ghcWithPackages;
 
-    jupyter = python3.withPackages (ps: [ ps.jupyter ps.notebook ]);
+    jupyter = python3.withPackages (ps: [
+      ps.jupyter
+      ps.notebook
+    ]);
 
     packages = config.ihaskell.packages or (_: [ ]);
   };
@@ -9862,12 +9895,36 @@ with pkgs;
     eriDeriv = 2;
     eri3Deriv = 2;
     eri2Deriv = 2;
-    eriAm = [ 6 5 4 ];
-    eri3Am = [ 6 5 4 ];
-    eri2Am = [ 6 5 4 ];
-    eriOptAm = [ 3 2 2 ];
-    eri3OptAm = [ 3 2 2 ];
-    eri2OptAm = [ 3 2 2 ];
+    eriAm = [
+      6
+      5
+      4
+    ];
+    eri3Am = [
+      6
+      5
+      4
+    ];
+    eri2Am = [
+      6
+      5
+      4
+    ];
+    eriOptAm = [
+      3
+      2
+      2
+    ];
+    eri3OptAm = [
+      3
+      2
+      2
+    ];
+    eri2OptAm = [
+      3
+      2
+      2
+    ];
     enableOneBody = true;
     oneBodyDerivOrd = 2;
     enableGeneric = false;
@@ -11013,8 +11070,10 @@ with pkgs;
 
   openrgb = libsForQt5.callPackage ../applications/misc/openrgb { };
 
-  openrgb-with-all-plugins =
-    openrgb.withPlugins [ openrgb-plugin-effects openrgb-plugin-hardwaresync ];
+  openrgb-with-all-plugins = openrgb.withPlugins [
+    openrgb-plugin-effects
+    openrgb-plugin-hardwaresync
+  ];
 
   openrgb-plugin-effects =
     libsForQt5.callPackage ../applications/misc/openrgb-plugins/effects { };
@@ -16908,7 +16967,12 @@ with pkgs;
   squeak = callPackage ../development/compilers/squeak { };
 
   squirrel-sql = callPackage ../development/tools/database/squirrel-sql {
-    drivers = [ jtds_jdbc mssql_jdbc mysql_jdbc postgresql_jdbc ];
+    drivers = [
+      jtds_jdbc
+      mssql_jdbc
+      mysql_jdbc
+      postgresql_jdbc
+    ];
   };
 
   stalin = callPackage ../development/compilers/stalin { };
@@ -17371,7 +17435,10 @@ with pkgs;
   octaveFull = libsForQt5.callPackage ../development/interpreters/octave {
     python = python3;
     enableQt = true;
-    overridePlatforms = [ "x86_64-linux" "x86_64-darwin" ];
+    overridePlatforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
   };
 
   octave-kernel =
@@ -18477,7 +18544,12 @@ with pkgs;
 
   cmakeCurses = cmake.override { uiToolkits = [ "ncurses" ]; };
 
-  cmakeWithGui = cmake.override { uiToolkits = [ "ncurses" "qt5" ]; };
+  cmakeWithGui = cmake.override {
+    uiToolkits = [
+      "ncurses"
+      "qt5"
+    ];
+  };
 
   cmake-format =
     python3Packages.callPackage ../development/tools/cmake-format { };
@@ -22626,7 +22698,10 @@ with pkgs;
 
   libiconvReal = callPackage ../development/libraries/libiconv { };
 
-  iconv = if lib.elem stdenv.hostPlatform.libc [ "glibc" "musl" ] then
+  iconv = if lib.elem stdenv.hostPlatform.libc [
+    "glibc"
+    "musl"
+  ] then
     lib.getBin stdenv.cc.libc
   else if stdenv.hostPlatform.isDarwin then
     lib.getBin darwin.libiconv
@@ -23245,7 +23320,11 @@ with pkgs;
   libxml2Python = let inherit (python3.pkgs) libxml2;
   in pkgs.buildEnv { # slightly hacky
     name = "libxml2+py-${res.libxml2.version}";
-    paths = with libxml2; [ dev bin py ];
+    paths = with libxml2; [
+      dev
+      bin
+      py
+    ];
     inherit (libxml2) passthru;
     # the hook to find catalogs is hidden by buildEnv
     postBuild = ''
@@ -23718,8 +23797,10 @@ with pkgs;
         (callPackage ../applications/virtualization/libnvidia-container { });
     in symlinkJoin {
       inherit name;
-      paths = [ libnvidia-container nvidia-container-toolkit ]
-        ++ additionalPaths;
+      paths = [
+        libnvidia-container
+        nvidia-container-toolkit
+      ] ++ additionalPaths;
     };
 
   nvidia-docker = mkNvidiaContainerPkg {
@@ -25493,13 +25574,19 @@ with pkgs;
       readline = readline63;
     };
     faslExt = "fas";
-    flags = [ "-E" "UTF-8" ];
+    flags = [
+      "-E"
+      "UTF-8"
+    ];
   };
 
   clisp-tip = wrapLisp {
     pkg = callPackage ../development/interpreters/clisp/hg.nix { };
     faslExt = "fas";
-    flags = [ "-E" "UTF-8" ];
+    flags = [
+      "-E"
+      "UTF-8"
+    ];
   };
 
   wrapLispi686Linux =
@@ -26280,7 +26367,11 @@ with pkgs;
     withPerl = false;
     # We don't use `with` statement here on purpose!
     # See https://github.com/NixOS/nixpkgs/pull/10474#discussion_r42369334
-    modules = [ nginxModules.rtmp nginxModules.dav nginxModules.moreheaders ];
+    modules = [
+      nginxModules.rtmp
+      nginxModules.dav
+      nginxModules.moreheaders
+    ];
     # Use latest boringssl to allow http3 support
     openssl = quictls;
   };
@@ -26290,7 +26381,11 @@ with pkgs;
     withPerl = false;
     # We don't use `with` statement here on purpose!
     # See https://github.com/NixOS/nixpkgs/pull/10474#discussion_r42369334
-    modules = [ nginxModules.rtmp nginxModules.dav nginxModules.moreheaders ];
+    modules = [
+      nginxModules.rtmp
+      nginxModules.dav
+      nginxModules.moreheaders
+    ];
   };
 
   nginxMainline = callPackage ../servers/http/nginx/mainline.nix {
@@ -26299,7 +26394,10 @@ with pkgs;
     withPerl = false;
     # We don't use `with` statement here on purpose!
     # See https://github.com/NixOS/nixpkgs/pull/10474#discussion_r42369334
-    modules = [ nginxModules.dav nginxModules.moreheaders ];
+    modules = [
+      nginxModules.dav
+      nginxModules.moreheaders
+    ];
   };
 
   nginxModules =
@@ -31054,7 +31152,10 @@ with pkgs;
     callPackage ../applications/networking/mailreaders/evolution/evolution { };
   evolutionWithPlugins = callPackage
     ../applications/networking/mailreaders/evolution/evolution/wrapper.nix {
-      plugins = [ evolution evolution-ews ];
+      plugins = [
+        evolution
+        evolution-ews
+      ];
     };
 
   keepass = callPackage ../applications/misc/keepass { };
@@ -32059,7 +32160,12 @@ with pkgs;
 
   hyper-haskell = callPackage ../development/tools/haskell/hyper-haskell {
     hyper-haskell-server = hyper-haskell-server-with-packages.override {
-      packages = self: with self; [ hyper-extra diagrams csound-catalog ];
+      packages = self:
+        with self; [
+          hyper-extra
+          diagrams
+          csound-catalog
+        ];
     };
     extra-packages = [ csound ];
   };
@@ -37816,7 +37922,10 @@ with pkgs;
   quake3demo = quake3wrapper {
     name = "quake3-demo-${lib.getVersion quake3demodata}";
     description = "Demo of Quake 3 Arena, a classic first-person shooter";
-    paks = [ quake3pointrelease quake3demodata ];
+    paks = [
+      quake3pointrelease
+      quake3demodata
+    ];
   };
 
   quake3demodata = callPackage ../games/quake3/content/demo.nix { };
@@ -38036,7 +38145,12 @@ with pkgs;
   };
 
   tengine = callPackage ../servers/http/tengine {
-    modules = with nginxModules; [ rtmp dav moreheaders modsecurity ];
+    modules = with nginxModules; [
+      rtmp
+      dav
+      moreheaders
+      modsecurity
+    ];
   };
 
   tennix = callPackage ../games/tennix { };
@@ -39135,8 +39249,11 @@ with pkgs;
     polyml = polyml.overrideAttrs (_: {
       pname = "polyml-for-isabelle";
       version = "2022";
-      configureFlags =
-        [ "--enable-intinf-as-int" "--with-gmp" "--disable-shared" ];
+      configureFlags = [
+        "--enable-intinf-as-int"
+        "--with-gmp"
+        "--disable-shared"
+      ];
       buildFlags = [ "compiler" ];
       src = fetchFromGitHub {
         owner = "polyml";
@@ -40217,18 +40334,15 @@ with pkgs;
   nixos = configuration:
     let
       c = import (path + "/nixos/lib/eval-config.nix") {
-        modules = [
-          ({
-              lib,
-              ...
-            }: {
-              config.nixpkgs.pkgs = lib.mkDefault pkgs;
-              config.nixpkgs.localSystem = lib.mkDefault stdenv.hostPlatform;
-            })
-        ] ++ (if builtins.isList configuration then
-          configuration
-        else
-          [ configuration ]);
+        modules = [ ({
+            lib,
+            ...
+          }: {
+            config.nixpkgs.pkgs = lib.mkDefault pkgs;
+            config.nixpkgs.localSystem = lib.mkDefault stdenv.hostPlatform;
+          }) ] ++ (if builtins.isList configuration then
+            configuration
+          else [ configuration ]);
       };
     in c.config.system.build // c;
 

@@ -104,7 +104,10 @@ let
     homepage = "https://www.scootersoftware.com";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    maintainers = with maintainers; [ ktor arkivm ];
+    maintainers = with maintainers; [
+      ktor
+      arkivm
+    ];
     platforms = builtins.attrNames srcs;
   };
 in if stdenv.isDarwin then darwin else linux

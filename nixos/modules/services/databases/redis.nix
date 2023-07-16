@@ -30,159 +30,262 @@ let
 
 in {
   imports = [
-    (mkRemovedOptionModule [ "services" "redis" "user" ]
-      "The redis module now is hardcoded to the redis user.")
-    (mkRemovedOptionModule [ "services" "redis" "dbpath" ]
-      "The redis module now uses /var/lib/redis as data directory.")
-    (mkRemovedOptionModule [ "services" "redis" "dbFilename" ]
+    (mkRemovedOptionModule [
+      "services"
+      "redis"
+      "user"
+    ] "The redis module now is hardcoded to the redis user.")
+    (mkRemovedOptionModule [
+      "services"
+      "redis"
+      "dbpath"
+    ] "The redis module now uses /var/lib/redis as data directory.")
+    (mkRemovedOptionModule [
+      "services"
+      "redis"
+      "dbFilename"
+    ]
       "The redis module now uses /var/lib/redis/dump.rdb as database dump location.")
-    (mkRemovedOptionModule [ "services" "redis" "appendOnlyFilename" ]
-      "This option was never used.")
-    (mkRemovedOptionModule [ "services" "redis" "pidFile" ]
-      "This option was removed.")
-    (mkRemovedOptionModule [ "services" "redis" "extraConfig" ]
-      "Use services.redis.servers.*.settings instead.")
-    (mkRenamedOptionModule [ "services" "redis" "enable" ] [
+    (mkRemovedOptionModule [
+      "services"
+      "redis"
+      "appendOnlyFilename"
+    ] "This option was never used.")
+    (mkRemovedOptionModule [
+      "services"
+      "redis"
+      "pidFile"
+    ] "This option was removed.")
+    (mkRemovedOptionModule [
+      "services"
+      "redis"
+      "extraConfig"
+    ] "Use services.redis.servers.*.settings instead.")
+    (mkRenamedOptionModule [
+      "services"
+      "redis"
+      "enable"
+    ] [
       "services"
       "redis"
       "servers"
       ""
       "enable"
     ])
-    (mkRenamedOptionModule [ "services" "redis" "port" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "redis"
+      "port"
+    ] [
       "services"
       "redis"
       "servers"
       ""
       "port"
     ])
-    (mkRenamedOptionModule [ "services" "redis" "openFirewall" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "redis"
+      "openFirewall"
+    ] [
       "services"
       "redis"
       "servers"
       ""
       "openFirewall"
     ])
-    (mkRenamedOptionModule [ "services" "redis" "bind" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "redis"
+      "bind"
+    ] [
       "services"
       "redis"
       "servers"
       ""
       "bind"
     ])
-    (mkRenamedOptionModule [ "services" "redis" "unixSocket" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "redis"
+      "unixSocket"
+    ] [
       "services"
       "redis"
       "servers"
       ""
       "unixSocket"
     ])
-    (mkRenamedOptionModule [ "services" "redis" "unixSocketPerm" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "redis"
+      "unixSocketPerm"
+    ] [
       "services"
       "redis"
       "servers"
       ""
       "unixSocketPerm"
     ])
-    (mkRenamedOptionModule [ "services" "redis" "logLevel" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "redis"
+      "logLevel"
+    ] [
       "services"
       "redis"
       "servers"
       ""
       "logLevel"
     ])
-    (mkRenamedOptionModule [ "services" "redis" "logfile" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "redis"
+      "logfile"
+    ] [
       "services"
       "redis"
       "servers"
       ""
       "logfile"
     ])
-    (mkRenamedOptionModule [ "services" "redis" "syslog" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "redis"
+      "syslog"
+    ] [
       "services"
       "redis"
       "servers"
       ""
       "syslog"
     ])
-    (mkRenamedOptionModule [ "services" "redis" "databases" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "redis"
+      "databases"
+    ] [
       "services"
       "redis"
       "servers"
       ""
       "databases"
     ])
-    (mkRenamedOptionModule [ "services" "redis" "maxclients" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "redis"
+      "maxclients"
+    ] [
       "services"
       "redis"
       "servers"
       ""
       "maxclients"
     ])
-    (mkRenamedOptionModule [ "services" "redis" "save" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "redis"
+      "save"
+    ] [
       "services"
       "redis"
       "servers"
       ""
       "save"
     ])
-    (mkRenamedOptionModule [ "services" "redis" "slaveOf" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "redis"
+      "slaveOf"
+    ] [
       "services"
       "redis"
       "servers"
       ""
       "slaveOf"
     ])
-    (mkRenamedOptionModule [ "services" "redis" "masterAuth" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "redis"
+      "masterAuth"
+    ] [
       "services"
       "redis"
       "servers"
       ""
       "masterAuth"
     ])
-    (mkRenamedOptionModule [ "services" "redis" "requirePass" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "redis"
+      "requirePass"
+    ] [
       "services"
       "redis"
       "servers"
       ""
       "requirePass"
     ])
-    (mkRenamedOptionModule [ "services" "redis" "requirePassFile" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "redis"
+      "requirePassFile"
+    ] [
       "services"
       "redis"
       "servers"
       ""
       "requirePassFile"
     ])
-    (mkRenamedOptionModule [ "services" "redis" "appendOnly" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "redis"
+      "appendOnly"
+    ] [
       "services"
       "redis"
       "servers"
       ""
       "appendOnly"
     ])
-    (mkRenamedOptionModule [ "services" "redis" "appendFsync" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "redis"
+      "appendFsync"
+    ] [
       "services"
       "redis"
       "servers"
       ""
       "appendFsync"
     ])
-    (mkRenamedOptionModule [ "services" "redis" "slowLogLogSlowerThan" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "redis"
+      "slowLogLogSlowerThan"
+    ] [
       "services"
       "redis"
       "servers"
       ""
       "slowLogLogSlowerThan"
     ])
-    (mkRenamedOptionModule [ "services" "redis" "slowLogMaxLen" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "redis"
+      "slowLogMaxLen"
+    ] [
       "services"
       "redis"
       "servers"
       ""
       "slowLogMaxLen"
     ])
-    (mkRenamedOptionModule [ "services" "redis" "settings" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "redis"
+      "settings"
+    ] [
       "services"
       "redis"
       "servers"
@@ -326,7 +429,20 @@ in {
 
                 save = mkOption {
                   type = with types; listOf (listOf int);
-                  default = [ [ 900 1 ] [ 300 10 ] [ 60 10000 ] ];
+                  default = [
+                    [
+                      900
+                      1
+                    ]
+                    [
+                      300
+                      10
+                    ]
+                    [
+                      60
+                      10000
+                    ]
+                  ];
                   description = mdDoc ''
                     The schedule in which data is persisted to disk, represented as a list of lists where the first element represent the amount of seconds and the second the number of changes.
 
@@ -423,7 +539,12 @@ in {
                 settings = mkOption {
                   # TODO: this should be converted to freeformType
                   type = with types;
-                    attrsOf (oneOf [ bool int str (listOf str) ]);
+                    attrsOf (oneOf [
+                      bool
+                      int
+                      str
+                      (listOf str)
+                    ]);
                   default = { };
                   description = lib.mdDoc ''
                     Redis configuration. Refer to
@@ -575,9 +696,10 @@ in {
           ProtectKernelModules = true;
           ProtectKernelTunables = true;
           ProtectControlGroups = true;
-          RestrictAddressFamilies =
-            optionals (conf.port != 0) [ "AF_INET" "AF_INET6" ]
-            ++ optional (conf.unixSocket != null) "AF_UNIX";
+          RestrictAddressFamilies = optionals (conf.port != 0) [
+            "AF_INET"
+            "AF_INET6"
+          ] ++ optional (conf.unixSocket != null) "AF_UNIX";
           RestrictNamespaces = true;
           LockPersonality = true;
           MemoryDenyWriteExecute = true;

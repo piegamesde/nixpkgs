@@ -42,13 +42,28 @@ in buildPythonApplication rec {
     hash = "sha256-umIjXJ0et6Pi5Ejj96Q+ZhiKS+yj7bsgb4uQW6Ym6rU=";
   };
 
-  nativeBuildInputs =
-    [ wrapGAppsHook glib gobject-introspection setuptools-scm ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    glib
+    gobject-introspection
+    setuptools-scm
+  ];
 
-  buildInputs = [ libappindicator-gtk3 libnotify gtk3 ];
+  buildInputs = [
+    libappindicator-gtk3
+    libnotify
+    gtk3
+  ];
 
-  pythonPath =
-    [ click_7 dbus-python ewmh pulsectl pygobject3 pyxdg setproctitle ];
+  pythonPath = [
+    click_7
+    dbus-python
+    ewmh
+    pulsectl
+    pygobject3
+    pyxdg
+    setproctitle
+  ];
 
   doCheck = false; # There are no tests.
   dontWrapGApps = true;
@@ -67,7 +82,13 @@ in buildPythonApplication rec {
   preFixup = ''
     gappsWrapperArgs+=(
       --prefix PATH : ${
-        lib.makeBinPath [ procps xautolock xscreensaver xfce.xfconf xset ]
+        lib.makeBinPath [
+          procps
+          xautolock
+          xscreensaver
+          xfce.xfconf
+          xset
+        ]
       }
     )
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")

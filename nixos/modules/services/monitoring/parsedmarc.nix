@@ -399,7 +399,11 @@ in {
     services.geoipupdate = lib.mkIf cfg.provision.geoIp {
       enable = true;
       settings = {
-        EditionIDs = [ "GeoLite2-ASN" "GeoLite2-City" "GeoLite2-Country" ];
+        EditionIDs = [
+          "GeoLite2-ASN"
+          "GeoLite2-City"
+          "GeoLite2-Country"
+        ];
         DatabaseDirectory = "/var/lib/GeoIP";
       };
     };
@@ -453,10 +457,10 @@ in {
             }
           ];
         dashboards.settings.providers =
-          lib.mkIf cfg.provision.grafana.dashboard [{
+          lib.mkIf cfg.provision.grafana.dashboard [ {
             name = "parsedmarc";
             options.path = "${pkgs.python3Packages.parsedmarc.dashboard}";
-          }];
+          } ];
       };
     };
 
@@ -484,9 +488,12 @@ in {
       # lists, empty attrsets and null. This makes it possible to
       # list interesting options in `settings` without them always
       # ending up in the resulting config.
-      filteredConfig =
-        lib.converge (lib.filterAttrsRecursive (_: v: !elem v [ null [ ] { } ]))
-        cfg.settings;
+      filteredConfig = lib.converge (lib.filterAttrsRecursive (_: v:
+        !elem v [
+          null
+          [ ]
+          { }
+        ])) cfg.settings;
 
       # Extract secrets (attributes set to an attrset with a
       # "_secret" key) from the settings and generate the commands
@@ -506,8 +513,16 @@ in {
       secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
     in {
       wantedBy = [ "multi-user.target" ];
-      after = [ "postfix.service" "dovecot2.service" "elasticsearch.service" ];
-      path = with pkgs; [ replace-secret openssl shadow ];
+      after = [
+        "postfix.service"
+        "dovecot2.service"
+        "elasticsearch.service"
+      ];
+      path = with pkgs; [
+        replace-secret
+        openssl
+        shadow
+      ];
       serviceConfig = {
         ExecStartPre = let
           startPreFullPrivileges = ''
@@ -547,8 +562,16 @@ in {
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
         ProcSubset = "pid";
-        SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
-        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+          "~@resources"
+        ];
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictRealtime = true;
         RestrictNamespaces = true;
         MemoryDenyWriteExecute = true;

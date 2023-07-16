@@ -30,13 +30,21 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  propagatedBuildInputs = [ contexter six ];
-
-  pythonRemoveDeps = [
-    "weakrefmethod" # needed until https://github.com/Numergy/signalslot/pull/17
+  propagatedBuildInputs = [
+    contexter
+    six
   ];
 
-  nativeCheckInputs = [ eventlet mock pytest-xdist pytestCheckHook ];
+  pythonRemoveDeps =
+    [ "weakrefmethod" # needed until https://github.com/Numergy/signalslot/pull/17
+    ];
+
+  nativeCheckInputs = [
+    eventlet
+    mock
+    pytest-xdist
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "signalslot" ];
 

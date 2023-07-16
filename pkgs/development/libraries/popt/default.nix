@@ -14,8 +14,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wlpIOPyOTByKrLi9Yg7bMISj1jv4mH/a08onWMYyQPk=";
   };
 
-  patches =
-    lib.optionals stdenv.isCygwin [ ./1.16-cygwin.patch ./1.16-vpath.patch ];
+  patches = lib.optionals stdenv.isCygwin [
+    ./1.16-cygwin.patch
+    ./1.16-vpath.patch
+  ];
 
   doCheck = false; # fails
 

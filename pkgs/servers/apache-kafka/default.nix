@@ -60,7 +60,14 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre bash gnugrep gnused coreutils ps ];
+  buildInputs = [
+    jre
+    bash
+    gnugrep
+    gnused
+    coreutils
+    ps
+  ];
 
   installPhase = ''
     mkdir -p $out

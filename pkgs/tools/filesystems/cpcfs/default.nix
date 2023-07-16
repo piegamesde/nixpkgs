@@ -22,7 +22,12 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "source/src";
 
-  nativeBuildInputs = [ makeWrapper ncurses readline ronn ];
+  nativeBuildInputs = [
+    makeWrapper
+    ncurses
+    readline
+    ronn
+  ];
 
   postPatch = ''
     substituteInPlace Makefile \

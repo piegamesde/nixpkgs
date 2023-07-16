@@ -26,8 +26,13 @@ stdenv.mkDerivation rec {
     sha256 = "8eyWeoiJ3b/GlqGVfmkf2/uS7FnOpRNgbfxwWjclw8w=";
   };
 
-  nativeBuildInputs =
-    [ autoreconfHook libxml2 pkg-config wrapGAppsHook xdg-desktop-portal ];
+  nativeBuildInputs = [
+    autoreconfHook
+    libxml2
+    pkg-config
+    wrapGAppsHook
+    xdg-desktop-portal
+  ];
 
   buildInputs = [
     glib

@@ -27,24 +27,31 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-kdntnzGpu1NUP6rrBaH7ASwE7XT18vHcgf39bp5A4ds=";
   };
 
-  nativeBuildInputs = [ copyDesktopItems makeWrapper ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = "Sharedown";
-      exec = "Sharedown";
-      icon = "Sharedown";
-      comment =
-        "An Application to save your Sharepoint videos for offline usage.";
-      desktopName = "Sharedown";
-      categories = [ "Network" "Archiving" ];
-    })
+  nativeBuildInputs = [
+    copyDesktopItems
+    makeWrapper
   ];
+
+  desktopItems = [ (makeDesktopItem {
+    name = "Sharedown";
+    exec = "Sharedown";
+    icon = "Sharedown";
+    comment =
+      "An Application to save your Sharepoint videos for offline usage.";
+    desktopName = "Sharedown";
+    categories = [
+      "Network"
+      "Archiving"
+    ];
+  }) ];
 
   dontBuild = true;
 
   installPhase = let
-    binPath = lib.makeBinPath ([ ffmpeg yt-dlp ]);
+    binPath = lib.makeBinPath ([
+      ffmpeg
+      yt-dlp
+    ]);
 
     modules = yarn2nix-moretea.mkYarnModules {
       name = "${pname}-modules-${version}";
@@ -54,7 +61,10 @@ stdenvNoCC.mkDerivation rec {
 
       pkgConfig = {
         keytar = {
-          nativeBuildInputs = [ python3 pkg-config ];
+          nativeBuildInputs = [
+            python3
+            pkg-config
+          ];
           buildInputs = [ libsecret ];
           postInstall = ''
             yarn --offline run build

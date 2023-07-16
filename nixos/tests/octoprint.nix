@@ -24,7 +24,11 @@ import ./make-test-python.nix ({
             };
             plugins = {
               # these need internet access and pollute the output with connection failed errors
-              _disabled = [ "softwareupdate" "announcements" "pluginmanager" ];
+              _disabled = [
+                "softwareupdate"
+                "announcements"
+                "pluginmanager"
+              ];
             };
           };
         };

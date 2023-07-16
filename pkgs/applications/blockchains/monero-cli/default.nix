@@ -61,7 +61,10 @@ in stdenv.mkDerivation rec {
     cp -r . $source
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     boost
@@ -76,8 +79,15 @@ in stdenv.mkDerivation rec {
     randomx
     rapidjson
     protobuf
-  ] ++ lib.optionals stdenv.isDarwin [ IOKit CoreData PCSC ]
-    ++ lib.optionals trezorSupport [ libusb1 protobuf python3 ];
+  ] ++ lib.optionals stdenv.isDarwin [
+    IOKit
+    CoreData
+    PCSC
+  ] ++ lib.optionals trezorSupport [
+    libusb1
+    protobuf
+    python3
+  ];
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"
@@ -87,7 +97,10 @@ in stdenv.mkDerivation rec {
     "-DRandomX_ROOT_DIR=${randomx}"
   ] ++ lib.optional stdenv.isDarwin "-DBoost_USE_MULTITHREADED=OFF";
 
-  outputs = [ "out" "source" ];
+  outputs = [
+    "out"
+    "source"
+  ];
 
   meta = with lib; {
     description = "Private, secure, untraceable currency";

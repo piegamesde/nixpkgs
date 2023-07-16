@@ -26,7 +26,11 @@ buildPythonPackage rec {
   buildInputs = [ portaudio ];
   nativeBuildInputs = [ cython ];
 
-  propagatedBuildInputs = [ cffi pa-ringbuffer sounddevice ];
+  propagatedBuildInputs = [
+    cffi
+    pa-ringbuffer
+    sounddevice
+  ];
 
   meta = {
     description =

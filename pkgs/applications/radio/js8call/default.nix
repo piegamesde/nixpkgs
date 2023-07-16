@@ -26,10 +26,22 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-mFPhiAAibCiAkLrysAmIQalVCGd9ips2lqbAsowYprY=";
   };
 
-  nativeBuildInputs = [ wrapQtAppsHook gfortran pkg-config cmake ];
+  nativeBuildInputs = [
+    wrapQtAppsHook
+    gfortran
+    pkg-config
+    cmake
+  ];
 
-  buildInputs =
-    [ hamlib libusb1 fftw fftwFloat qtbase qtmultimedia qtserialport ];
+  buildInputs = [
+    hamlib
+    libusb1
+    fftw
+    fftwFloat
+    qtbase
+    qtmultimedia
+    qtserialport
+  ];
 
   prePatch = ''
     substituteInPlace CMakeLists.txt \

@@ -199,7 +199,10 @@ in {
     systemd.services.magneticow = {
       description = "Magnetico web interface";
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "magneticod.service" ];
+      after = [
+        "network.target"
+        "magneticod.service"
+      ];
 
       serviceConfig = {
         User = "magnetico";
@@ -209,13 +212,13 @@ in {
       };
     };
 
-    assertions = [{
+    assertions = [ {
       assertion = cfg.web.credentialsFile == null || cfg.web.credentials == { };
       message = ''
         The options services.magnetico.web.credentialsFile and
         services.magnetico.web.credentials are mutually exclusives.
       '';
-    }];
+    } ];
 
   };
 

@@ -19,7 +19,10 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   postInstall = ''
     installManPage bombadillo.1

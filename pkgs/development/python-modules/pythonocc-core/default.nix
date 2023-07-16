@@ -36,7 +36,10 @@ stdenv.mkDerivation rec {
     --replace "/usr/X11R6/lib/libGLU.dylib" "${libGLU}/lib/libGLU.dylib"
   '';
 
-  nativeBuildInputs = [ cmake swig4 ];
+  nativeBuildInputs = [
+    cmake
+    swig4
+  ];
   buildInputs = [
     python
     opencascade-occt

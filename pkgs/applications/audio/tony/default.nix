@@ -58,7 +58,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     alsa-lib

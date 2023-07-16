@@ -40,8 +40,18 @@ let
       chmod -R a+w ./tools/cling
     '';
 
-    nativeBuildInputs = [ python3 git cmake llvmPackages_5.llvm.dev ];
-    buildInputs = [ libffi llvmPackages_5.llvm zlib ncurses ];
+    nativeBuildInputs = [
+      python3
+      git
+      cmake
+      llvmPackages_5.llvm.dev
+    ];
+    buildInputs = [
+      libffi
+      llvmPackages_5.llvm
+      zlib
+      ncurses
+    ];
 
     strictDeps = true;
 
@@ -57,7 +67,10 @@ let
     meta = with lib; {
       description = "The Interactive C++ Interpreter";
       homepage = "https://root.cern/cling/";
-      license = with licenses; [ lgpl21 ncsa ];
+      license = with licenses; [
+        lgpl21
+        ncsa
+      ];
       maintainers = with maintainers; [ thomasjm ];
       platforms = platforms.unix;
     };

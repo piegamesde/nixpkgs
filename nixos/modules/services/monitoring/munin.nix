@@ -243,7 +243,10 @@ in {
           `/var/log/munin/munin-update.log` for timing
           information, and the NixOS build of Munin does not write this file.
         '';
-        example = [ "diskstats" "zfs_usage_*" ];
+        example = [
+          "diskstats"
+          "zfs_usage_*"
+        ];
       };
     };
 

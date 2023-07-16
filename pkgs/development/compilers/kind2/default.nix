@@ -19,8 +19,8 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs =
     lib.optionals stdenv.isDarwin [ darwin.apple_sdk_11_0.frameworks.Security ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64)
-    [ darwin.apple_sdk_11_0.frameworks.CoreFoundation ];
+    ++ lib.optionals (stdenv.isDarwin
+      && stdenv.isx86_64) [ darwin.apple_sdk_11_0.frameworks.CoreFoundation ];
 
   # requires nightly features
   RUSTC_BOOTSTRAP = true;

@@ -22,9 +22,18 @@ buildPythonApplication rec {
     sha256 = "sha256-hUGKOJEDZMK5uhHoevFt1ay6QQEcoN4F8cPxln5uMRo=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    gobject-introspection
+  ];
 
-  propagatedBuildInputs = [ mpv requests python-mpv-jsonipc pystray tkinter ];
+  propagatedBuildInputs = [
+    mpv
+    requests
+    python-mpv-jsonipc
+    pystray
+    tkinter
+  ];
 
   # needed for pystray to access appindicator using GI
   preFixup = ''

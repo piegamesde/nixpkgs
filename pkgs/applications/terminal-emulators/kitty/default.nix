@@ -58,16 +58,21 @@ buildPythonApplication rec {
   };
   vendorHash = "sha256-vq19exqsEtXhN20mgC5GCpYGm8s9AC6nlfCfG1lUiI8=";
 
-  buildInputs = [ harfbuzz ncurses lcms2 librsync openssl.dev ]
-    ++ lib.optionals stdenv.isDarwin [
-      Cocoa
-      Kernel
-      UniformTypeIdentifiers
-      UserNotifications
-      libpng
-      python3
-      zlib
-    ] ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [ Libsystem ]
+  buildInputs = [
+    harfbuzz
+    ncurses
+    lcms2
+    librsync
+    openssl.dev
+  ] ++ lib.optionals stdenv.isDarwin [
+    Cocoa
+    Kernel
+    UniformTypeIdentifiers
+    UserNotifications
+    libpng
+    python3
+    zlib
+  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [ Libsystem ]
     ++ lib.optionals stdenv.isLinux [
       fontconfig
       libunistring
@@ -100,7 +105,12 @@ buildPythonApplication rec {
     libicns # For the png2icns tool.
   ];
 
-  outputs = [ "out" "terminfo" "shell_integration" "kitten" ];
+  outputs = [
+    "out"
+    "terminfo"
+    "shell_integration"
+    "kitten"
+  ];
 
   patches = [
     # Gets `test_ssh_env_vars` to pass when `bzip2` is in the output of `env`.
@@ -221,7 +231,10 @@ buildPythonApplication rec {
       cp linux-package/bin/kitten $kitten/bin/kitten
     ''}
     wrapProgram "$out/bin/kitty" --prefix PATH : "$out/bin:${
-      lib.makeBinPath [ imagemagick ncurses.dev ]
+      lib.makeBinPath [
+        imagemagick
+        ncurses.dev
+      ]
     }"
 
     installShellCompletion --cmd kitty \
@@ -259,6 +272,11 @@ buildPythonApplication rec {
     license = licenses.gpl3Only;
     changelog = "https://sw.kovidgoyal.net/kitty/changelog/";
     platforms = platforms.darwin ++ platforms.linux;
-    maintainers = with maintainers; [ tex rvolosatovs Luflosi adamcstephens ];
+    maintainers = with maintainers; [
+      tex
+      rvolosatovs
+      Luflosi
+      adamcstephens
+    ];
   };
 }

@@ -55,10 +55,10 @@ import ./make-test-python.nix ({
                 interfaces = [ "eth1" ];
               };
 
-              subnet4 = [{
+              subnet4 = [ {
                 subnet = "10.0.0.0/29";
-                pools = [{ pool = "10.0.0.3 - 10.0.0.3"; }];
-              }];
+                pools = [ { pool = "10.0.0.3 - 10.0.0.3"; } ];
+              } ];
 
               # Enable communication between dhcp4 and a local dhcp-ddns
               # instance.
@@ -77,15 +77,15 @@ import ./make-test-python.nix ({
                 # Configure updates of a forward zone named `lan.nixos.test`
                 # hosted at the nameserver at 10.0.0.2
                 # https://kea.readthedocs.io/en/kea-2.2.0/arm/ddns.html#adding-forward-dns-servers
-                ddns-domains = [{
+                ddns-domains = [ {
                   name = "lan.nixos.test.";
                   # Use a TSIG key in production!
                   key-name = "";
-                  dns-servers = [{
+                  dns-servers = [ {
                     ip-address = "10.0.0.2";
                     port = 53;
-                  }];
-                }];
+                  } ];
+                } ];
               };
             };
           };

@@ -52,7 +52,10 @@ in {
 
       unit = mkOption {
         description = lib.mdDoc "Celcius or Fahrenheit";
-        type = types.enum [ "C" "F" ];
+        type = types.enum [
+          "C"
+          "F"
+        ];
         default = "C";
       };
 

@@ -15,5 +15,9 @@ buildPythonPackage {
   dontBuild = true;
   dontInstall = true;
 
-  nativeCheckInputs = [ attrs hypothesis pytestCheckHook ];
+  nativeCheckInputs = [
+    attrs
+    hypothesis
+    pytestCheckHook
+  ];
 }

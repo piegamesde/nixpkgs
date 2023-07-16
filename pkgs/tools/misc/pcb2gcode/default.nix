@@ -34,9 +34,18 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ boost glibmm gtkmm2 gerbv librsvg ];
+  buildInputs = [
+    boost
+    glibmm
+    gtkmm2
+    gerbv
+    librsvg
+  ];
 
   postPatch = ''
     substituteInPlace ./Makefile.am \

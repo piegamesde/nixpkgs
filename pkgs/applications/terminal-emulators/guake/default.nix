@@ -27,9 +27,21 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-BW13fBH26UqMPMjV8JC4QkpgzyoPfCpAfSkJD68uOZU=";
   };
 
-  nativeBuildInputs = [ gobject-introspection wrapGAppsHook python3.pkgs.pip ];
+  nativeBuildInputs = [
+    gobject-introspection
+    wrapGAppsHook
+    python3.pkgs.pip
+  ];
 
-  buildInputs = [ glibcLocales gtk3 keybinder3 libnotify libwnck python3 vte ];
+  buildInputs = [
+    glibcLocales
+    gtk3
+    keybinder3
+    libnotify
+    libwnck
+    python3
+    vte
+  ];
 
   makeWrapperArgs =
     [ "--set LOCALE_ARCHIVE ${glibcLocales}/lib/locale/locale-archive" ];

@@ -20,7 +20,10 @@
 mkDerivation {
   pname = "qmlkonsole";
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
   buildInputs = [
     kconfig
@@ -36,7 +39,11 @@ mkDerivation {
   meta = with lib; {
     description = "Terminal app for Plasma Mobile";
     homepage = "https://invent.kde.org/plasma-mobile/qmlkonsole";
-    license = with licenses; [ gpl2Plus gpl3Plus cc0 ];
+    license = with licenses; [
+      gpl2Plus
+      gpl3Plus
+      cc0
+    ];
     maintainers = with maintainers; [ balsoft ];
   };
 }

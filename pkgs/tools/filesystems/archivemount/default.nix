@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ fuse libarchive ];
+  buildInputs = [
+    fuse
+    libarchive
+  ];
 
   meta = {
     description =

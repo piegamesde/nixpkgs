@@ -17,7 +17,10 @@ buildPythonPackage rec {
   };
 
   nativeCheckInputs = [ zope_testrunner ];
-  propagatedBuildInputs = [ six chardet ];
+  propagatedBuildInputs = [
+    six
+    chardet
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/kilink/ghdiff";

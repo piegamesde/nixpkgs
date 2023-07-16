@@ -19,13 +19,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OU6/slrPDgzn9tvXZJKSWbcFbpS/EAsOi52FtjeYdvA=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-
-  propagatedBuildInputs = [ glib libsndfile ]; # Both are needed for includes.
-
-  cmakeFlags = [
-    "-DLIB_SUFFIX=" # Install in $out/lib.
+  nativeBuildInputs = [
+    cmake
+    pkg-config
   ];
+
+  propagatedBuildInputs = [
+    glib
+    libsndfile
+  ]; # Both are needed for includes.
+
+  cmakeFlags = [ "-DLIB_SUFFIX=" # Install in $out/lib.
+    ];
 
   meta = with lib; {
     homepage = "http://www.swamiproject.org/";

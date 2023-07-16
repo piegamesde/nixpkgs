@@ -79,11 +79,22 @@ in stdenv.mkDerivation rec {
     (lib.optionalString stdenv.isDarwin "-framework CoreFoundation")
   ];
 
-  nativeBuildInputs = [ cacert wrapGAppsHook ];
+  nativeBuildInputs = [
+    cacert
+    wrapGAppsHook
+  ];
 
-  buildInputs =
-    [ fontconfig libffi libtool sqlite gsettings-desktop-schemas gtk3 ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv CoreFoundation ];
+  buildInputs = [
+    fontconfig
+    libffi
+    libtool
+    sqlite
+    gsettings-desktop-schemas
+    gtk3
+  ] ++ lib.optionals stdenv.isDarwin [
+    libiconv
+    CoreFoundation
+  ];
 
   preConfigure = ''
     unset AR
@@ -97,8 +108,10 @@ in stdenv.mkDerivation rec {
   '';
 
   shared = if stdenv.isDarwin then "dylib" else "shared";
-  configureFlags = [ "--enable-${shared}" "--enable-lt=${libtool}/bin/libtool" ]
-    ++ lib.optionals disableDocs [ "--disable-docs" ]
+  configureFlags = [
+    "--enable-${shared}"
+    "--enable-lt=${libtool}/bin/libtool"
+  ] ++ lib.optionals disableDocs [ "--disable-docs" ]
     ++ lib.optionals stdenv.isDarwin [ "--enable-xonx" ];
 
   configureScript = "../configure";
@@ -121,8 +134,15 @@ in stdenv.mkDerivation rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ henrytill vrthra ];
-    platforms = [ "x86_64-darwin" "x86_64-linux" "aarch64-linux" ];
+    maintainers = with maintainers; [
+      henrytill
+      vrthra
+    ];
+    platforms = [
+      "x86_64-darwin"
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     broken = stdenv.isDarwin; # No support yet for setting FFI lookup path
   };
 }

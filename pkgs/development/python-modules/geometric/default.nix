@@ -22,7 +22,12 @@ buildPythonPackage rec {
 
   patches = [ ./ase-is-optional.patch ];
 
-  propagatedBuildInputs = [ networkx numpy scipy six ];
+  propagatedBuildInputs = [
+    networkx
+    numpy
+    scipy
+    six
+  ];
 
   preCheck = ''
     export OMP_NUM_THREADS=2

@@ -23,9 +23,15 @@ buildPythonPackage rec {
     hash = "sha256-HhesXzxVjhWJkubiBi6sMoXi/zicqn99dqT5bilycS8=";
   };
 
-  propagatedBuildInputs = [ aiohttp jsonrpc-base ];
+  propagatedBuildInputs = [
+    aiohttp
+    jsonrpc-base
+  ];
 
-  nativeCheckInputs = [ pytest-aiohttp pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-aiohttp
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "tests.py" ];
 

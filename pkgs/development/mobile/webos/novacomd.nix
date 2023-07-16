@@ -33,7 +33,11 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake pkg-config webos.cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    webos.cmake-modules
+  ];
 
   buildInputs = [ libusb-compat-0_1 ];
 

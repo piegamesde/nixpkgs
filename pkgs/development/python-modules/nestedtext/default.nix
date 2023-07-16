@@ -31,8 +31,13 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ inform ];
 
-  nativeCheckInputs =
-    [ docopt hypothesis quantiphy pytestCheckHook voluptuous ];
+  nativeCheckInputs = [
+    docopt
+    hypothesis
+    quantiphy
+    pytestCheckHook
+    voluptuous
+  ];
 
   # Tests depend on quantiphy. To avoid infinite recursion, tests are only
   # enabled when building passthru.tests.

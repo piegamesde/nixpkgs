@@ -24,8 +24,13 @@ buildPythonPackage rec {
     hash = "sha256-UIx9/IZg6Wv596wHzQb0CO6zwmQXUaFEPKBojo2LXmA=";
   };
 
-  propagatedBuildInputs = [ socat psutil hglib pygit2 pyuv ]
-    ++ lib.optionals (!stdenv.isDarwin) [ i3ipc ];
+  propagatedBuildInputs = [
+    socat
+    psutil
+    hglib
+    pygit2
+    pyuv
+  ] ++ lib.optionals (!stdenv.isDarwin) [ i3ipc ];
 
   # tests are travis-specific
   doCheck = false;

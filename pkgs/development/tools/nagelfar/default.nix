@@ -16,7 +16,11 @@ tcl.mkTclDerivation {
     sha256 = "sha256-bdH53LSOKMwq53obVQitl7bpaSpwvMce8oJgg/GKrg0=";
   };
 
-  buildInputs = [ tcl tcllib tk ];
+  buildInputs = [
+    tcl
+    tcllib
+    tk
+  ];
 
   installPhase = ''
     install -Dm 755 $src/nagelfar.tcl $out/bin/nagelfar

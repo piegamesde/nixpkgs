@@ -35,10 +35,16 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ cmake pkg-config installShellFiles ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    installShellFiles
+  ];
 
-  buildInputs = [ openssl ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ Security libiconv ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    Security
+    libiconv
+  ];
 
   # TODO export TREMOR_PATH($out/lib) variable
   postInstall = ''
@@ -82,6 +88,9 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://www.tremor.rs/";
     license = licenses.asl20;
     platforms = platforms.x86_64;
-    maintainers = with maintainers; [ humancalico happysalada ];
+    maintainers = with maintainers; [
+      humancalico
+      happysalada
+    ];
   };
 }

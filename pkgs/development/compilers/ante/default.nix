@@ -29,7 +29,11 @@ rustPlatform.buildRustPackage {
      that is not the same as the one included by default with rustPlatform.
   */
   nativeBuildInputs = [ llvmPackages_13.llvm ];
-  buildInputs = [ libffi libxml2 ncurses ];
+  buildInputs = [
+    libffi
+    libxml2
+    ncurses
+  ];
 
   postPatch = ''
     substituteInPlace tests/golden_tests.rs --replace \

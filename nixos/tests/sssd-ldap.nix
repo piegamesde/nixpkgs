@@ -30,7 +30,10 @@ in import ./make-test-python.nix ({
               ];
               "olcDatabase={1}mdb" = {
                 attrs = {
-                  objectClass = [ "olcDatabaseConfig" "olcMdbConfig" ];
+                  objectClass = [
+                    "olcDatabaseConfig"
+                    "olcMdbConfig"
+                  ];
                   olcDatabase = "{1}mdb";
                   olcDbDirectory = "/var/lib/openldap/db";
                   olcSuffix = dbSuffix;

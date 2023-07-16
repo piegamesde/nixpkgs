@@ -44,25 +44,25 @@ import ./make-test-python.nix ({
           ...
         }@args:
         makeNebulaNode args "lighthouse" {
-          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [{
+          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
             address = "192.168.1.1";
             prefixLength = 24;
-          }];
+          } ];
 
           services.nebula.networks.smoke = {
             isLighthouse = true;
             isRelay = true;
             firewall = {
-              outbound = [{
+              outbound = [ {
                 port = "any";
                 proto = "any";
                 host = "any";
-              }];
-              inbound = [{
+              } ];
+              inbound = [ {
                 port = "any";
                 proto = "any";
                 host = "any";
-              }];
+              } ];
             };
           };
         };
@@ -71,10 +71,10 @@ import ./make-test-python.nix ({
           ...
         }@args:
         makeNebulaNode args "allowAny" {
-          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [{
+          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
             address = "192.168.1.2";
             prefixLength = 24;
-          }];
+          } ];
 
           services.nebula.networks.smoke = {
             staticHostMap = { "10.0.100.1" = [ "192.168.1.1:4242" ]; };
@@ -82,16 +82,16 @@ import ./make-test-python.nix ({
             lighthouses = [ "10.0.100.1" ];
             relays = [ "10.0.100.1" ];
             firewall = {
-              outbound = [{
+              outbound = [ {
                 port = "any";
                 proto = "any";
                 host = "any";
-              }];
-              inbound = [{
+              } ];
+              inbound = [ {
                 port = "any";
                 proto = "any";
                 host = "any";
-              }];
+              } ];
             };
           };
         };
@@ -100,10 +100,10 @@ import ./make-test-python.nix ({
           ...
         }@args:
         makeNebulaNode args "allowFromLighthouse" {
-          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [{
+          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
             address = "192.168.1.3";
             prefixLength = 24;
-          }];
+          } ];
 
           services.nebula.networks.smoke = {
             staticHostMap = { "10.0.100.1" = [ "192.168.1.1:4242" ]; };
@@ -111,16 +111,16 @@ import ./make-test-python.nix ({
             lighthouses = [ "10.0.100.1" ];
             relays = [ "10.0.100.1" ];
             firewall = {
-              outbound = [{
+              outbound = [ {
                 port = "any";
                 proto = "any";
                 host = "any";
-              }];
-              inbound = [{
+              } ];
+              inbound = [ {
                 port = "any";
                 proto = "any";
                 host = "lighthouse";
-              }];
+              } ];
             };
           };
         };
@@ -129,10 +129,10 @@ import ./make-test-python.nix ({
           ...
         }@args:
         makeNebulaNode args "allowToLighthouse" {
-          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [{
+          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
             address = "192.168.1.4";
             prefixLength = 24;
-          }];
+          } ];
 
           services.nebula.networks.smoke = {
             enable = true;
@@ -141,16 +141,16 @@ import ./make-test-python.nix ({
             lighthouses = [ "10.0.100.1" ];
             relays = [ "10.0.100.1" ];
             firewall = {
-              outbound = [{
+              outbound = [ {
                 port = "any";
                 proto = "any";
                 host = "lighthouse";
-              }];
-              inbound = [{
+              } ];
+              inbound = [ {
                 port = "any";
                 proto = "any";
                 host = "any";
-              }];
+              } ];
             };
           };
         };
@@ -159,10 +159,10 @@ import ./make-test-python.nix ({
           ...
         }@args:
         makeNebulaNode args "disabled" {
-          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [{
+          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
             address = "192.168.1.5";
             prefixLength = 24;
-          }];
+          } ];
 
           services.nebula.networks.smoke = {
             enable = false;
@@ -171,16 +171,16 @@ import ./make-test-python.nix ({
             lighthouses = [ "10.0.100.1" ];
             relays = [ "10.0.100.1" ];
             firewall = {
-              outbound = [{
+              outbound = [ {
                 port = "any";
                 proto = "any";
                 host = "lighthouse";
-              }];
-              inbound = [{
+              } ];
+              inbound = [ {
                 port = "any";
                 proto = "any";
                 host = "any";
-              }];
+              } ];
             };
           };
         };

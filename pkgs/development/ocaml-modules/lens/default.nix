@@ -21,7 +21,10 @@ buildDunePackage rec {
   };
 
   minimalOCamlVersion = "4.10";
-  buildInputs = [ ppx_deriving ppxlib ];
+  buildInputs = [
+    ppx_deriving
+    ppxlib
+  ];
 
   doCheck = true;
   checkInputs = [ ounit ];

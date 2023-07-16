@@ -28,7 +28,10 @@ buildDunePackage {
   ];
 
   doCheck = true;
-  checkInputs = [ alcotest base64 ];
+  checkInputs = [
+    alcotest
+    base64
+  ];
 
   meta = dns.meta // { description = "DNSSec support for OCaml-DNS"; };
 }

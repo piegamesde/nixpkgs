@@ -30,8 +30,8 @@ import ../make-test-python.nix ({
           pkgs,
           ...
         }: {
-          environment.systemPackages = [
-            (pkgs.writers.writePython3Bin "do_test" {
+          environment.systemPackages =
+            [ (pkgs.writers.writePython3Bin "do_test" {
               libraries = [ pkgs.python3Packages.matrix-nio ];
             } ''
               import asyncio
@@ -80,8 +80,7 @@ import ../make-test-python.nix ({
                   await client.close()
 
               asyncio.get_event_loop().run_until_complete(main())
-            '')
-          ];
+            '') ];
         };
     };
 

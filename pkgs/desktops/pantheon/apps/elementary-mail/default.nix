@@ -31,8 +31,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dvDlvn8KvFmiP/NClRtHNEs5gPTUjlzgTYmgIaCfoLw=";
   };
 
-  nativeBuildInputs =
-    [ libxml2 meson ninja pkg-config python3 vala wrapGAppsHook ];
+  nativeBuildInputs = [
+    libxml2
+    meson
+    ninja
+    pkg-config
+    python3
+    vala
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     evolution-data-server

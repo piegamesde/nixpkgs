@@ -58,7 +58,10 @@ in (buildPythonApplication {
 
   doCheck = withDoCheck;
   nativeCheckInputs = [ psutil ];
-  pythonImportsCheck = [ "evdev" "inputremapper" ];
+  pythonImportsCheck = [
+    "evdev"
+    "inputremapper"
+  ];
 
   # Custom test script, can't use plain pytest / pytestCheckHook
   # We only run tests in the unit folder, integration tests require UI
@@ -79,7 +82,12 @@ in (buildPythonApplication {
         <allow own=\"*\"/>
       </policy>
     </busconfig>" > dbus.cfg
-    PATH=${lib.makeBinPath ([ dbus procps ] ++ maybeXmodmap)}:$PATH \
+    PATH=${
+      lib.makeBinPath ([
+        dbus
+        procps
+      ] ++ maybeXmodmap)
+    }:$PATH \
       USER="$(id -u -n)" \
       DBUS_SYSTEM_BUS_ADDRESS=unix:path=/build/system_bus_socket \
       ${dbus}/bin/dbus-run-session --config-file dbus.cfg \

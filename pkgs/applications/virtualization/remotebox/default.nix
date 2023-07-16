@@ -17,7 +17,13 @@ stdenv.mkDerivation rec {
     sha256 = "0csf6gd7pqq4abia4z0zpzlq865ri1z0821kjy7p3iawqlfn75pb";
   };
 
-  buildInputs = with perlPackages; [ perl Glib Gtk2 Pango SOAPLite ];
+  buildInputs = with perlPackages; [
+    perl
+    Glib
+    Gtk2
+    Pango
+    SOAPLite
+  ];
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''

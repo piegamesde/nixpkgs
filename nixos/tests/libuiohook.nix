@@ -12,7 +12,10 @@ import ./make-test-python.nix ({
       }:
       let user = nodes.client.config.users.users.alice;
       in {
-        imports = [ ./common/user-account.nix ./common/x11.nix ];
+        imports = [
+          ./common/user-account.nix
+          ./common/x11.nix
+        ];
 
         environment.systemPackages = [ pkgs.libuiohook.test ];
 

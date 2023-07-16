@@ -18,7 +18,12 @@ buildPythonApplication rec {
     sha256 = "0xhrvg3d8ffnbbizsrfppcd2y98znvkgxjdmvbvin458m2rwccka";
   };
 
-  propagatedBuildInputs = [ numpy scipy imagemagick pillow ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    imagemagick
+    pillow
+  ];
 
   meta = with lib; {
     description =

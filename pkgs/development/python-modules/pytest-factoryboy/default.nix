@@ -24,9 +24,17 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ factory_boy inflection ];
+  propagatedBuildInputs = [
+    factory_boy
+    inflection
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook pytestcache pytest-cov ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+    pytestcache
+    pytest-cov
+  ];
 
   pytestFlagsArray = [ "--ignore=docs" ];
   pythonImportsCheck = [ "pytest_factoryboy" ];

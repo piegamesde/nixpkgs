@@ -65,9 +65,13 @@ in stdenv.mkDerivation rec {
     ./Provide-runtime-plugin-destination-as-relative-path.patch
   ];
 
-  nativeBuildInputs =
-    [ addOpenGLRunpath cmake pkg-config wrapGAppsHook wrapQtAppsHook ]
-    ++ optional scriptingSupport swig;
+  nativeBuildInputs = [
+    addOpenGLRunpath
+    cmake
+    pkg-config
+    wrapGAppsHook
+    wrapQtAppsHook
+  ] ++ optional scriptingSupport swig;
 
   buildInputs = [
     curl
@@ -93,9 +97,14 @@ in stdenv.mkDerivation rec {
     libva
     srt
     qtwayland
-  ] ++ optionals scriptingSupport [ luajit python3 ]
-    ++ optional alsaSupport alsa-lib ++ optional pulseaudioSupport libpulseaudio
-    ++ optionals pipewireSupport [ pipewire libdrm ];
+  ] ++ optionals scriptingSupport [
+    luajit
+    python3
+  ] ++ optional alsaSupport alsa-lib ++ optional pulseaudioSupport libpulseaudio
+    ++ optionals pipewireSupport [
+      pipewire
+      libdrm
+    ];
 
   # Copied from the obs-linuxbrowser
   postUnpack = ''
@@ -125,7 +134,12 @@ in stdenv.mkDerivation rec {
   dontWrapGApps = true;
   preFixup = ''
     qtWrapperArgs+=(
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ xorg.libX11 libvlc ]}"
+      --prefix LD_LIBRARY_PATH : "${
+        lib.makeLibraryPath [
+          xorg.libX11
+          libvlc
+        ]
+      }"
       ''${gappsWrapperArgs[@]}
     )
   '';
@@ -144,9 +158,18 @@ in stdenv.mkDerivation rec {
       video content, efficiently
     '';
     homepage = "https://obsproject.com";
-    maintainers = with maintainers; [ jb55 MP2E V miangraham ];
+    maintainers = with maintainers; [
+      jb55
+      MP2E
+      V
+      miangraham
+    ];
     license = licenses.gpl2Plus;
-    platforms = [ "x86_64-linux" "i686-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+      "aarch64-linux"
+    ];
     mainProgram = "obs";
   };
 }

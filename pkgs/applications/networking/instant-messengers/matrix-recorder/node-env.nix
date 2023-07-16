@@ -448,8 +448,11 @@ let
       ];
     in stdenv.mkDerivation ({
       name = "node_${name}-${version}";
-      buildInputs = [ tarWrapper python nodejs ]
-        ++ lib.optional (stdenv.isLinux) util-linux
+      buildInputs = [
+        tarWrapper
+        python
+        nodejs
+      ] ++ lib.optional (stdenv.isLinux) util-linux
         ++ lib.optional (stdenv.isDarwin) libtool ++ buildInputs;
 
       inherit
@@ -459,7 +462,10 @@ let
       compositionScript = composePackage args;
       pinpointDependenciesScript = pinpointDependenciesOfPackage args;
 
-      passAsFile = [ "compositionScript" "pinpointDependenciesScript" ];
+      passAsFile = [
+        "compositionScript"
+        "pinpointDependenciesScript"
+      ];
 
       installPhase = ''
         # Create and enter a root node_modules/ folder
@@ -518,13 +524,20 @@ let
     }@args:
 
     let
-      extraArgs = removeAttrs args [ "name" "dependencies" "buildInputs" ];
+      extraArgs = removeAttrs args [
+        "name"
+        "dependencies"
+        "buildInputs"
+      ];
 
       nodeDependencies = stdenv.mkDerivation ({
         name = "node-dependencies-${name}-${version}";
 
-        buildInputs = [ tarWrapper python nodejs ]
-          ++ lib.optional (stdenv.isLinux) util-linux
+        buildInputs = [
+          tarWrapper
+          python
+          nodejs
+        ] ++ lib.optional (stdenv.isLinux) util-linux
           ++ lib.optional (stdenv.isDarwin) libtool ++ buildInputs;
 
         inherit
@@ -534,7 +547,10 @@ let
         includeScript = includeDependencies { inherit dependencies; };
         pinpointDependenciesScript = pinpointDependenciesOfPackage args;
 
-        passAsFile = [ "includeScript" "pinpointDependenciesScript" ];
+        passAsFile = [
+          "includeScript"
+          "pinpointDependenciesScript"
+        ];
 
         installPhase = ''
           mkdir -p $out/${packageName}
@@ -573,8 +589,10 @@ let
     in stdenv.mkDerivation {
       name = "node-shell-${name}-${version}";
 
-      buildInputs = [ python nodejs ]
-        ++ lib.optional (stdenv.isLinux) util-linux ++ buildInputs;
+      buildInputs = [
+        python
+        nodejs
+      ] ++ lib.optional (stdenv.isLinux) util-linux ++ buildInputs;
       buildCommand = ''
         mkdir -p $out/bin
         cat > $out/bin/shell <<EOF

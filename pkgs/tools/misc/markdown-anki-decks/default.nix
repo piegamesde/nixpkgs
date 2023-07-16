@@ -16,8 +16,13 @@ python3.pkgs.buildPythonApplication rec {
   nativeBuildInputs = with python3.pkgs; [ poetry-core ];
 
   propagatedBuildInputs = with python3.pkgs;
-    [ beautifulsoup4 genanki markdown python-frontmatter typer ]
-    ++ typer.optional-dependencies.all;
+    [
+      beautifulsoup4
+      genanki
+      markdown
+      python-frontmatter
+      typer
+    ] ++ typer.optional-dependencies.all;
 
   postPatch = ''
     substituteInPlace pyproject.toml \

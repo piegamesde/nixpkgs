@@ -16,18 +16,26 @@ import ./make-test-python.nix ({
     else
       (if withFirewall then "firewall" else "nat");
 
-    routerBase = lib.mkMerge [{
-      virtualisation.vlans = [ 2 1 ];
+    routerBase = lib.mkMerge [ {
+      virtualisation.vlans = [
+        2
+        1
+      ];
       networking.firewall.enable = withFirewall;
       networking.firewall.filterForward = nftables;
       networking.nftables.enable = nftables;
       networking.nat.internalIPs = [ "192.168.1.0/24" ];
       networking.nat.externalInterface = "eth1";
-    }];
+    } ];
   in {
     name = "nat" + (lib.optionalString nftables "Nftables")
       + (if withFirewall then "WithFirewall" else "Standalone");
-    meta = with pkgs.lib.maintainers; { maintainers = [ eelco rob ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        eelco
+        rob
+      ];
+    };
 
     nodes = {
       client = {
@@ -35,22 +43,28 @@ import ./make-test-python.nix ({
           nodes,
           ...
         }:
-        lib.mkMerge [{
+        lib.mkMerge [ {
           virtualisation.vlans = [ 1 ];
           networking.defaultGateway = (pkgs.lib.head
             nodes.router.config.networking.interfaces.eth2.ipv4.addresses).address;
           networking.nftables.enable = nftables;
-        }];
+        } ];
 
       router = {
           ...
         }:
-        lib.mkMerge [ routerBase { networking.nat.enable = true; } ];
+        lib.mkMerge [
+          routerBase
+          { networking.nat.enable = true; }
+        ];
 
       routerDummyNoNat = {
           ...
         }:
-        lib.mkMerge [ routerBase { networking.nat.enable = false; } ];
+        lib.mkMerge [
+          routerBase
+          { networking.nat.enable = false; }
+        ];
 
       server = {
           ...

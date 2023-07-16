@@ -41,7 +41,11 @@ in stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ OpenGL Cocoa IOKit ];
+  buildInputs = [
+    OpenGL
+    Cocoa
+    IOKit
+  ];
 
   meta = {
     homepage = "http://irrlicht.sourceforge.net/";

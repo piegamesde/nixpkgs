@@ -10,7 +10,10 @@ stdenv.mkDerivation rec {
   pname = "ax25-apps";
   version = "0.0.8-rc5";
 
-  buildInputs = [ libax25 ncurses ];
+  buildInputs = [
+    libax25
+    ncurses
+  ];
 
   # Due to recent unsolvable administrative domain problems with linux-ax25.org,
   # the new domain is linux-ax25.in-berlin.de

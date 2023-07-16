@@ -25,9 +25,16 @@ buildPythonPackage rec {
     hash = "sha256-jwLfth+UaisPR0p+UHfm6qMXT2eSYWnsYEp0BqyeI9U=";
   };
 
-  propagatedBuildInputs = [ urllib3 esprima requests ];
+  propagatedBuildInputs = [
+    urllib3
+    esprima
+    requests
+  ];
 
-  nativeCheckInputs = [ requests-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    requests-mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "quantum_gateway" ];
 

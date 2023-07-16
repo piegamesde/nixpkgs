@@ -16,8 +16,14 @@ let
     google_translate = [ mutagen ];
     google_sheets = [ oauth2client ];
     govee_ble = [ ibeacon-ble ];
-    hassio =
-      [ bellows zha-quirks zigpy-deconz zigpy-xbee zigpy-zigate zigpy-znp ];
+    hassio = [
+      bellows
+      zha-quirks
+      zigpy-deconz
+      zigpy-xbee
+      zigpy-zigate
+      zigpy-znp
+    ];
     homeassistant_sky_connect = [
       bellows
       zha-quirks
@@ -27,17 +33,36 @@ let
       zigpy-znp
       zwave-js-server-python
     ];
-    homeassistant_yellow =
-      [ bellows zha-quirks zigpy-deconz zigpy-xbee zigpy-zigate zigpy-znp ];
+    homeassistant_yellow = [
+      bellows
+      zha-quirks
+      zigpy-deconz
+      zigpy-xbee
+      zigpy-zigate
+      zigpy-znp
+    ];
     lovelace = [ pychromecast ];
     mopeka = [ pyswitchbot ];
     nest = [ av ];
-    onboarding = [ pymetno radios rpi-bad-power ];
-    otbr =
-      [ bellows zha-quirks zigpy-deconz zigpy-xbee zigpy-zigate zigpy-znp ];
+    onboarding = [
+      pymetno
+      radios
+      rpi-bad-power
+    ];
+    otbr = [
+      bellows
+      zha-quirks
+      zigpy-deconz
+      zigpy-xbee
+      zigpy-zigate
+      zigpy-znp
+    ];
     raspberry_pi = [ rpi-bad-power ];
     shelly = [ pyswitchbot ];
-    tilt_ble = [ govee-ble ibeacon-ble ];
+    tilt_ble = [
+      govee-ble
+      ibeacon-ble
+    ];
     tomorrowio = [ pyclimacell ];
     version = [ aioaseko ];
     xiaomi_miio = [ arrow ];
@@ -103,10 +128,13 @@ in lib.listToAttrs (map (component:
       ++ [ "--numprocesses=2" ] ++ extraPytestFlagsArray.${component} or [ ]
       ++ [ "tests/components/${component}" ];
 
-    preCheck = old.preCheck + lib.optionalString
-      (builtins.elem component [ "emulated_hue" "songpal" "system_log" ]) ''
-        patch -p1 < ${./patches/tests-mock-source-ip.patch}
-      '';
+    preCheck = old.preCheck + lib.optionalString (builtins.elem component [
+      "emulated_hue"
+      "songpal"
+      "system_log"
+    ]) ''
+      patch -p1 < ${./patches/tests-mock-source-ip.patch}
+    '';
 
     meta = old.meta // {
       broken = lib.elem component [ ];

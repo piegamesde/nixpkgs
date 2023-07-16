@@ -25,7 +25,12 @@ stdenv.mkDerivation rec {
     sed -i 's/fonts_directories=".*"/fonts_directories="$inconsolata $migu"/' ricty_generator.sh
   '';
 
-  buildInputs = [ google-fonts migu fontforge which ];
+  buildInputs = [
+    google-fonts
+    migu
+    fontforge
+    which
+  ];
 
   buildPhase = ''
     inconsolata=${google-fonts} migu=${migu} ./ricty_generator.sh auto

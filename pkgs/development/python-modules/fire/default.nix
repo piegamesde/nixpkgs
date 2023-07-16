@@ -36,9 +36,17 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ six termcolor ];
+  propagatedBuildInputs = [
+    six
+    termcolor
+  ];
 
-  nativeCheckInputs = [ hypothesis mock levenshtein pytestCheckHook ];
+  nativeCheckInputs = [
+    hypothesis
+    mock
+    levenshtein
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "fire" ];
 

@@ -151,7 +151,10 @@ in stdenv.mkDerivation rec {
   pname = "openblas";
   version = "0.3.21";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "xianyi";
@@ -194,9 +197,15 @@ in stdenv.mkDerivation rec {
     "bindnow"
   ];
 
-  nativeBuildInputs = [ perl which ];
+  nativeBuildInputs = [
+    perl
+    which
+  ];
 
-  depsBuildBuild = [ buildPackages.gfortran buildPackages.stdenv.cc ];
+  depsBuildBuild = [
+    buildPackages.gfortran
+    buildPackages.stdenv.cc
+  ];
 
   enableParallelBuilding = true;
 

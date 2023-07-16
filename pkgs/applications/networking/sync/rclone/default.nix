@@ -26,15 +26,25 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   buildInputs =
     lib.optional enableCmount (if stdenv.isDarwin then macfuse-stubs else fuse);
-  nativeBuildInputs = [ installShellFiles makeWrapper ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+  ];
 
   tags = lib.optionals enableCmount [ "cmount" ];
 
-  ldflags = [ "-s" "-w" "-X github.com/rclone/rclone/fs.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/rclone/rclone/fs.Version=${version}"
+  ];
 
   postInstall = let
     rcloneBin = if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
@@ -63,6 +73,10 @@ buildGoModule rec {
     changelog =
       "https://github.com/rclone/rclone/blob/v${version}/docs/content/changelog.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ danielfullmer marsam SuperSandro2000 ];
+    maintainers = with maintainers; [
+      danielfullmer
+      marsam
+      SuperSandro2000
+    ];
   };
 }

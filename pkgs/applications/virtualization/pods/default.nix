@@ -42,7 +42,13 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [ gtk4 gtksourceview5 libadwaita libpanel vte-gtk4 ];
+  buildInputs = [
+    gtk4
+    gtksourceview5
+    libadwaita
+    libpanel
+    vte-gtk4
+  ];
 
   meta = with lib; {
     description = "A podman desktop application";

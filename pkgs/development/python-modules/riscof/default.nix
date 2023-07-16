@@ -22,7 +22,11 @@ buildPythonPackage rec {
   postPatch =
     "substituteInPlace riscof/requirements.txt --replace 'GitPython==3.1.17' GitPython";
 
-  propagatedBuildInputs = [ riscv-isac riscv-config jinja2 ];
+  propagatedBuildInputs = [
+    riscv-isac
+    riscv-config
+    jinja2
+  ];
 
   patches = [
     # riscof copies a template directory from the store, but breaks because it doesn't change permissions and expects it to be writeable

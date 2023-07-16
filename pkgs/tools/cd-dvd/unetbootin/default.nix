@@ -29,7 +29,11 @@ stdenv.mkDerivation rec {
     sourceRoot=$(echo */src/unetbootin)
   '';
 
-  buildInputs = [ qtbase qttools qmake ];
+  buildInputs = [
+    qtbase
+    qttools
+    qmake
+  ];
 
   nativeBuildInputs = [ wrapQtAppsHook ];
 
@@ -67,7 +71,13 @@ stdenv.mkDerivation rec {
   '';
 
   qtWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath [ mtools p7zip which ]}"
+    "--prefix PATH : ${
+      lib.makeBinPath [
+        mtools
+        p7zip
+        which
+      ]
+    }"
     "--set QT_X11_NO_MITSHM 1"
   ];
 

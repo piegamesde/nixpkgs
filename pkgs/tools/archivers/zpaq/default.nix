@@ -16,13 +16,15 @@ stdenv.mkDerivation rec {
     sha256 = "0v44rlg9gvwc4ggr2lhcqll8ppal3dk7zsg5bqwcc5lg3ynk2pz4";
   };
 
-  nativeBuildInputs = [
-    perl # for pod2man
-  ];
+  nativeBuildInputs = [ perl # for pod2man
+    ];
 
   CPPFLAGS = [ "-Dunix" ]
     ++ lib.optional (!stdenv.isi686 && !stdenv.isx86_64) "-DNOJIT";
-  CXXFLAGS = [ "-O3" "-DNDEBUG" ];
+  CXXFLAGS = [
+    "-O3"
+    "-DNDEBUG"
+  ];
 
   enableParallelBuilding = true;
 

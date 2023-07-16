@@ -31,7 +31,11 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoconf automake gettext ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    gettext
+  ];
   buildInputs = [ ncurses ];
 
   preConfigure =

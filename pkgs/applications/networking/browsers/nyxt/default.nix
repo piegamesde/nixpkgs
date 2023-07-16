@@ -24,7 +24,10 @@ stdenv.mkDerivation rec {
 
   src = sbclPackages.nyxt;
 
-  nativeBuildInputs = [ makeWrapper wrapGAppsHook ];
+  nativeBuildInputs = [
+    makeWrapper
+    wrapGAppsHook
+  ];
   gstBuildInputs = with gst_all_1; [
     gstreamer
     gst-libav
@@ -73,7 +76,10 @@ stdenv.mkDerivation rec {
       "Infinitely extensible web-browser (with Lisp development files using WebKitGTK platform port)";
     homepage = "https://nyxt.atlas.engineer";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lewo payas ];
+    maintainers = with maintainers; [
+      lewo
+      payas
+    ];
     platforms = platforms.all;
   };
 }

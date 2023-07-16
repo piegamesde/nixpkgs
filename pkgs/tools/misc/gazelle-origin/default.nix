@@ -21,7 +21,11 @@ buildPythonApplication rec {
     hash = "sha256-+yMKnfG2f+A1/MxSBFLaHfpCgI2m968iXqt+2QanM/c=";
   };
 
-  propagatedBuildInputs = [ bencoder pyyaml requests ];
+  propagatedBuildInputs = [
+    bencoder
+    pyyaml
+    requests
+  ];
 
   pythonImportsCheck = [ "gazelleorigin" ];
 

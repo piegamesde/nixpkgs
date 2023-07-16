@@ -30,9 +30,20 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-3SijgvIPb+QBAWZaTivw8P5aYjctGfgnVrFYcGl8PyE=";
 
-  nativeBuildInputs = [ cmake pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    makeWrapper
+  ];
 
-  buildInputs = [ fontconfig freetype libX11 libXcursor libXrandr libXi ];
+  buildInputs = [
+    fontconfig
+    freetype
+    libX11
+    libXcursor
+    libXrandr
+    libXi
+  ];
 
   postInstall = ''
     install -Dm644 assets/com.github.mtkennerly.ludusavi.metainfo.xml -t \
@@ -60,7 +71,10 @@ rustPlatform.buildRustPackage rec {
   in ''
     patchelf --set-rpath "${libPath}" "$out/bin/$pname"
     wrapProgram $out/bin/$pname --prefix PATH : ${
-      lib.makeBinPath [ gnome.zenity libsForQt5.kdialog ]
+      lib.makeBinPath [
+        gnome.zenity
+        libsForQt5.kdialog
+      ]
     }
   '';
 

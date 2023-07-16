@@ -58,7 +58,12 @@ in import ./make-test-python.nix ({
               "create " = "0750 root utmp";
             };
             # multiple paths should be aggregated
-            multipath = { files = [ "file1" "file2" ]; };
+            multipath = {
+              files = [
+                "file1"
+                "file2"
+              ];
+            };
             # overriding imported path should keep existing attributes
             # (e.g. olddir is still set)
             import = { notifempty = true; };

@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   patches = [ ./catalog-in-library-vicinity.patch ];
 
   nativeBuildInputs = [ unzip ];
-  buildInputs = [ scheme texinfo ];
+  buildInputs = [
+    scheme
+    texinfo
+  ];
 
   postInstall = ''
     ln -s mklibcat{.scm,}

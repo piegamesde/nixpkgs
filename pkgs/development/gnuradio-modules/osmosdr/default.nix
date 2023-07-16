@@ -47,7 +47,10 @@ in mkDerivation {
   inherit version src;
   disabledForGRafter = "3.11";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   buildInputs = [
     logLib
@@ -73,20 +76,21 @@ in mkDerivation {
       darwin.apple_sdk.frameworks.IOKit
       darwin.apple_sdk.frameworks.Security
     ];
-  cmakeFlags = [
-    (if (gnuradio.hasFeature "python-support") then
-      "-DENABLE_PYTHON=ON"
+  cmakeFlags = [ (if (gnuradio.hasFeature "python-support") then
+    "-DENABLE_PYTHON=ON"
+  else
+    "-DENABLE_PYTHON=OFF") ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    swig
+  ] ++ lib.optionals (gnuradio.hasFeature "python-support") [
+    (if (gnuradio.versionAttr.major == "3.7") then
+      python.pkgs.cheetah
     else
-      "-DENABLE_PYTHON=OFF")
+      python.pkgs.mako)
+    python
   ];
-  nativeBuildInputs = [ cmake pkg-config swig ]
-    ++ lib.optionals (gnuradio.hasFeature "python-support") [
-      (if (gnuradio.versionAttr.major == "3.7") then
-        python.pkgs.cheetah
-      else
-        python.pkgs.mako)
-      python
-    ];
 
   meta = with lib; {
     description = "Gnuradio block for OsmoSDR and rtl-sdr";

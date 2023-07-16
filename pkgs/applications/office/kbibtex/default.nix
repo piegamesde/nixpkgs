@@ -45,7 +45,10 @@ mkDerivation rec {
     hash = "sha256-sSeyQKfNd8U4YZ3IgqOZs8bM13oEQopJevkG8U0JuMQ=";
   };
 
-  nativeBuildInputs = [ extra-cmake-modules shared-mime-info ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    shared-mime-info
+  ];
 
   buildInputs = [
     qtxmlpatterns
@@ -68,7 +71,12 @@ mkDerivation rec {
     poppler
   ];
 
-  qtWrapperArgs = [ "--prefix" "PATH" ":" "${lib.makeBinPath [ bibutils ]}" ];
+  qtWrapperArgs = [
+    "--prefix"
+    "PATH"
+    ":"
+    "${lib.makeBinPath [ bibutils ]}"
+  ];
 
   meta = with lib; {
     description = "Bibliography editor for KDE";

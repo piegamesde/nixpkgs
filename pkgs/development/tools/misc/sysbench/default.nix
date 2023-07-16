@@ -17,9 +17,14 @@ stdenv.mkDerivation rec {
   pname = "sysbench";
   version = "1.0.20";
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ libmysqlclient luajit ]
-    ++ lib.optionals stdenv.isLinux [ libaio ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    libmysqlclient
+    luajit
+  ] ++ lib.optionals stdenv.isLinux [ libaio ];
 
   src = fetchFromGitHub {
     owner = "akopytov";

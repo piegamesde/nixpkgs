@@ -15,7 +15,11 @@ let
 
       meta = {
         maintainers = with lib.maintainers;
-          [ adisbladis benley mkaito ] ++ lib.teams.serokell.members;
+          [
+            adisbladis
+            benley
+            mkaito
+          ] ++ lib.teams.serokell.members;
       };
 
       nodes = {
@@ -43,4 +47,7 @@ let
     };
 
 in lib.foldl' (attrs: backend: attrs // { ${backend} = mkOCITest backend; })
-{ } [ "docker" "podman" ]
+{ } [
+  "docker"
+  "podman"
+]

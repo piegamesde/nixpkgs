@@ -58,14 +58,17 @@ in buildPythonPackage rec {
     xmlschema
   ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
-  nativeCheckInputs = [ pyasn1 pymongo3 pytestCheckHook responses ];
-
-  patches = [
-    (substituteAll {
-      src = ./hardcode-xmlsec1-path.patch;
-      inherit xmlsec;
-    })
+  nativeCheckInputs = [
+    pyasn1
+    pymongo3
+    pytestCheckHook
+    responses
   ];
+
+  patches = [ (substituteAll {
+    src = ./hardcode-xmlsec1-path.patch;
+    inherit xmlsec;
+  }) ];
 
   postPatch = ''
     # fix failing tests on systems with 32bit time_t

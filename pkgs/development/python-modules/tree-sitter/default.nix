@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-6T8ILFRdZkm8+11oHtJV6wBKbOIpiJcaEo9AaS/uxg0=";
   };
 
-  nativeBuildInputs = [ setuptools wheel ];
+  nativeBuildInputs = [
+    setuptools
+    wheel
+  ];
 
   # PyPI tarball doesn't contains tests and source has additional requirements
   doCheck = false;

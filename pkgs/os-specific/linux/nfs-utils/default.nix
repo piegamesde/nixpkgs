@@ -24,7 +24,12 @@
   enablePython ? true
 }:
 
-let statdPath = lib.makeBinPath [ systemd util-linux coreutils ];
+let
+  statdPath = lib.makeBinPath [
+    systemd
+    util-linux
+    coreutils
+  ];
 
 in stdenv.mkDerivation rec {
   pname = "nfs-utils";
@@ -38,9 +43,18 @@ in stdenv.mkDerivation rec {
 
   # libnfsidmap is built together with nfs-utils from the same source,
   # put it in the "lib" output, and the headers in "dev"
-  outputs = [ "out" "dev" "lib" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "lib"
+    "man"
+  ];
 
-  nativeBuildInputs = [ pkg-config buildPackages.stdenv.cc rpcsvc-proto ];
+  nativeBuildInputs = [
+    pkg-config
+    buildPackages.stdenv.cc
+    rpcsvc-proto
+  ];
 
   buildInputs = [
     libtirpc
@@ -109,9 +123,17 @@ in stdenv.mkDerivation rec {
     "generator_dir=$(out)/etc/systemd/system-generators"
   ];
 
-  installFlags = [ "statedir=$(TMPDIR)" "statdpath=$(TMPDIR)" ];
+  installFlags = [
+    "statedir=$(TMPDIR)"
+    "statdpath=$(TMPDIR)"
+  ];
 
-  stripDebugList = [ "lib" "libexec" "bin" "etc/systemd/system-generators" ];
+  stripDebugList = [
+    "lib"
+    "libexec"
+    "bin"
+    "etc/systemd/system-generators"
+  ];
 
   postInstall = ''
     # Not used on NixOS

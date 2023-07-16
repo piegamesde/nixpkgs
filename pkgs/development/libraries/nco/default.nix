@@ -25,9 +25,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-L1aAACWDVrPdl8IHSpch3l8EhdjAxOcUAZchKMYKWqY=";
   };
 
-  nativeBuildInputs = [ flex which antlr2 ];
+  nativeBuildInputs = [
+    flex
+    which
+    antlr2
+  ];
 
-  buildInputs = [ netcdf netcdfcxx4 gsl udunits curl coreutils ];
+  buildInputs = [
+    netcdf
+    netcdfcxx4
+    gsl
+    udunits
+    curl
+    coreutils
+  ];
 
   postPatch = ''
     substituteInPlace src/nco/nco_fl_utl.c \

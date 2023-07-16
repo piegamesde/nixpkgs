@@ -129,13 +129,13 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = cfg.insecure || (cfg.certFile != null && cfg.keyFile != null);
       message = ''
         Galene needs both certFile and keyFile defined for encryption, or
         the insecure flag.
       '';
-    }];
+    } ];
 
     systemd.services.galene = {
       description = "galene";
@@ -149,7 +149,7 @@ in {
         ''}
       '';
 
-      serviceConfig = mkMerge [{
+      serviceConfig = mkMerge [ {
         Type = "simple";
         User = cfg.user;
         Group = cfg.group;
@@ -192,14 +192,20 @@ in {
         ProtectSystem = "strict";
         ReadWritePaths = cfg.recordingsDir;
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+        ];
         UMask = "0077";
-      }];
+      } ];
     };
 
     users.users = mkIf (cfg.user == "galene") {

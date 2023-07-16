@@ -57,10 +57,15 @@ in stdenvNoCC.mkDerivation {
   preferLocalBuild = true;
   enableParallelBuilding = true;
 
-  impureEnvVars = fetchers.proxyImpureEnvVars
-    ++ [ "GIT_PROXY_COMMAND" "SOCKS_SERVER" ];
+  impureEnvVars = fetchers.proxyImpureEnvVars ++ [
+    "GIT_PROXY_COMMAND"
+    "SOCKS_SERVER"
+  ];
 
-  nativeBuildInputs = [ gitRepo cacert ];
+  nativeBuildInputs = [
+    gitRepo
+    cacert
+  ];
 
   GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 

@@ -134,7 +134,12 @@ in {
     routes = lib.mkOption {
       type = lib.types.listOf (lib.types.submodule {
         freeformType = with lib.types;
-          attrsOf (nullOr (oneOf [ bool int float str ]) // {
+          attrsOf (nullOr (oneOf [
+            bool
+            int
+            float
+            str
+          ]) // {
             description = "INI atom (null, bool, int, float or string)";
           });
         options.route = lib.mkOption {

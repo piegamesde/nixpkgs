@@ -15,7 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-yza3iGspJ2+C8WhfPykfQjXmac2HhdFHQtRl0Trvaqs=";
   };
 
-  propagatedBuildInputs = [ zope_interface zope_schema ];
+  propagatedBuildInputs = [
+    zope_interface
+    zope_schema
+  ];
 
   checkPhase = ''
     cd src/zope/filerepresentation && python -m unittest

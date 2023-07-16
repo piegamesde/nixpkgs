@@ -23,7 +23,11 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ i3ipc xlib six ];
+  propagatedBuildInputs = [
+    i3ipc
+    xlib
+    six
+  ];
 
   # No tests available
   doCheck = false;

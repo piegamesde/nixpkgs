@@ -117,8 +117,14 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = "-lgcc_s";
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ glib libXinerama ] ++ optionals docsSupport [
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    glib
+    libXinerama
+  ] ++ optionals docsSupport [
     docbook2x
     docbook_xsl
     docbook_xml_dtd_44
@@ -133,9 +139,13 @@ stdenv.mkDerivation rec {
     xorg.libXft
     xorg.libSM
   ] ++ optional xdamageSupport libXdamage ++ optional imlib2Support imlib2
-    ++ optional luaSupport lua ++ optionals luaImlib2Support [ toluapp imlib2 ]
-    ++ optionals luaCairoSupport [ toluapp cairo ]
-    ++ optional wirelessSupport wirelesstools ++ optional curlSupport curl
+    ++ optional luaSupport lua ++ optionals luaImlib2Support [
+      toluapp
+      imlib2
+    ] ++ optionals luaCairoSupport [
+      toluapp
+      cairo
+    ] ++ optional wirelessSupport wirelesstools ++ optional curlSupport curl
     ++ optional rssSupport libxml2 ++ optional weatherXoapSupport libxml2
     ++ optional nvidiaSupport libXNVCtrl ++ optional pulseSupport libpulseaudio
     ++ optional journalSupport systemd;

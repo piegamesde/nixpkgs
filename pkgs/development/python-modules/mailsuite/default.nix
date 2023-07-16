@@ -29,8 +29,14 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs =
-    [ dnspython expiringdict html2text mail-parser imapclient publicsuffix2 ];
+  propagatedBuildInputs = [
+    dnspython
+    expiringdict
+    html2text
+    mail-parser
+    imapclient
+    publicsuffix2
+  ];
 
   pythonImportsCheck = [ "mailsuite" ];
 

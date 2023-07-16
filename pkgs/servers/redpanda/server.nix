@@ -34,7 +34,10 @@ let
   seastar = callPackage ./seastar.nix { };
   base64 = callPackage ./base64.nix { };
   hdr-histogram = callPackage ./hdr-histogram.nix { };
-  kafka-codegen-venv = python3.withPackages (ps: [ ps.jinja2 ps.jsonschema ]);
+  kafka-codegen-venv = python3.withPackages (ps: [
+    ps.jinja2
+    ps.jsonschema
+  ]);
   rapidjson = callPackage ./rapidjson.nix { };
 in llvmPackages_14.stdenv.mkDerivation rec {
   inherit pname version src;
@@ -113,7 +116,10 @@ in llvmPackages_14.stdenv.mkDerivation rec {
       ZooKeeper-free, Jepsen-tested and source available.
     '';
     homepage = "https://redpanda.com/";
-    maintainers = with maintainers; [ avakhrenev happysalada ];
+    maintainers = with maintainers; [
+      avakhrenev
+      happysalada
+    ];
     platforms = platforms.linux;
   };
 }

@@ -28,7 +28,11 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-M+6+zrxy8VpJQS0dG/xORMbflKEq8wO2DEOjGrA6OUw=";
 
-  nativeBuildInputs = [ copyDesktopItems makeBinaryWrapper python3 ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    makeBinaryWrapper
+    python3
+  ];
 
   buildInputs = [ python3.pkgs.python-rtmidi ];
 
@@ -63,17 +67,20 @@ buildNpmPackage rec {
     XDG_CONFIG_HOME="$(mktemp -d)" $out/bin/open-stage-control --help
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "open-stage-control";
-      exec = "open-stage-control";
-      icon = "open-stage-control";
-      desktopName = "Open Stage Control";
-      comment = meta.description;
-      categories = [ "Network" "Audio" "AudioVideo" "Midi" ];
-      startupWMClass = "open-stage-control";
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "open-stage-control";
+    exec = "open-stage-control";
+    icon = "open-stage-control";
+    desktopName = "Open Stage Control";
+    comment = meta.description;
+    categories = [
+      "Network"
+      "Audio"
+      "AudioVideo"
+      "Midi"
+    ];
+    startupWMClass = "open-stage-control";
+  }) ];
 
   passthru.updateScript = nix-update-script { };
 

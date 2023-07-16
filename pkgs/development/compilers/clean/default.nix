@@ -21,7 +21,10 @@ stdenv.mkDerivation {
   else
     throw "Architecture not supported";
 
-  hardeningDisable = [ "format" "pic" ];
+  hardeningDisable = [
+    "format"
+    "pic"
+  ];
 
   # clm uses timestamps of dcl, icl, abc and o files to decide what must be rebuild
   # and for chroot builds all of the library files will have equal timestamps.  This
@@ -55,6 +58,9 @@ stdenv.mkDerivation {
     homepage = "http://wiki.clean.cs.ru.nl/Clean";
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.erin ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 }

@@ -24,8 +24,18 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ pkg-config meson ninja wayland-scanner ];
-  buildInputs = [ cairo gdk-pixbuf wayland wayland-protocols ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    wayland-scanner
+  ];
+  buildInputs = [
+    cairo
+    gdk-pixbuf
+    wayland
+    wayland-protocols
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/vilhalmer/oguri/";

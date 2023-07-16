@@ -38,9 +38,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ perl ];
 
-  buildInputs = [ zlib bzip2 ];
+  buildInputs = [
+    zlib
+    bzip2
+  ];
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   CLANG = lib.optionalString stdenv.cc.isClang "1";
 

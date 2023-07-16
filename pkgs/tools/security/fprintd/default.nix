@@ -29,7 +29,10 @@
 stdenv.mkDerivation rec {
   pname = "fprintd";
   version = "1.94.2";
-  outputs = [ "out" "devdoc" ];
+  outputs = [
+    "out"
+    "devdoc"
+  ];
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -61,7 +64,14 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_412
   ];
 
-  buildInputs = [ glib polkit nss pam systemd libfprint ];
+  buildInputs = [
+    glib
+    polkit
+    nss
+    pam
+    systemd
+    libfprint
+  ];
 
   nativeCheckInputs = with python3.pkgs; [
     gobject-introspection # for setup hook

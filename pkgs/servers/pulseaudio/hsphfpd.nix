@@ -6,7 +6,12 @@
   perlPackages,
 }:
 
-let perlLibs = with perlPackages; [ NetDBus XMLTwig XMLParser ];
+let
+  perlLibs = with perlPackages; [
+    NetDBus
+    XMLTwig
+    XMLParser
+  ];
 in stdenv.mkDerivation {
   pname = "hsphfpd";
   version = "2020-12-05";

@@ -48,7 +48,10 @@ buildPythonPackage rec {
       --replace 'aiohttp-socks = "^0.7.0"' 'aiohttp-socks = "*"'
   '';
 
-  nativeBuildInputs = [ git poetry-core ];
+  nativeBuildInputs = [
+    git
+    poetry-core
+  ];
 
   propagatedBuildInputs = [
     aiofiles
@@ -65,7 +68,12 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    e2e = [ atomicwrites cachetools python-olm peewee ];
+    e2e = [
+      atomicwrites
+      cachetools
+      python-olm
+      peewee
+    ];
   };
 
   nativeCheckInputs = [
@@ -94,6 +102,10 @@ buildPythonPackage rec {
     description =
       "A Python Matrix client library, designed according to sans I/O principles";
     license = licenses.isc;
-    maintainers = with maintainers; [ tilpner emily symphorien ];
+    maintainers = with maintainers; [
+      tilpner
+      emily
+      symphorien
+    ];
   };
 }

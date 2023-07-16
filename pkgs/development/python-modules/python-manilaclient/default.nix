@@ -31,8 +31,12 @@ buildPythonPackage rec {
     hash = "sha256-iKBbR4h9J9OiQMHjUHxUVk+NbCRUYmIPtWxRwVVGQtY=";
   };
 
-  nativeBuildInputs =
-    [ installShellFiles openstackdocstheme sphinx sphinxcontrib-programoutput ];
+  nativeBuildInputs = [
+    installShellFiles
+    openstackdocstheme
+    sphinx
+    sphinxcontrib-programoutput
+  ];
 
   propagatedBuildInputs = [
     pbr

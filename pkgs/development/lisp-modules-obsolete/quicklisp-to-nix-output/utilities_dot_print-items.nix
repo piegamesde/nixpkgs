@@ -10,7 +10,10 @@ args@{
 
   description = "A protocol for flexible and composable printing.";
 
-  deps = [ args."alexandria" args."fiveam" ];
+  deps = [
+    args."alexandria"
+    args."fiveam"
+  ];
 
   src = fetchurl {
     url =

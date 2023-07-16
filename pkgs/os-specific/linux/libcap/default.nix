@@ -22,7 +22,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zpsi/cJxvrba51Q9pfdM8ky4LmhIz9CIpaBp3sXqUZg=";
   };
 
-  outputs = [ "out" "dev" "lib" "man" "doc" ] ++ lib.optional usePam "pam";
+  outputs = [
+    "out"
+    "dev"
+    "lib"
+    "man"
+    "doc"
+  ] ++ lib.optional usePam "pam";
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 

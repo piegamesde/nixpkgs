@@ -26,7 +26,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ aiohttp requests loguru pydantic ];
+  propagatedBuildInputs = [
+    aiohttp
+    requests
+    loguru
+    pydantic
+  ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

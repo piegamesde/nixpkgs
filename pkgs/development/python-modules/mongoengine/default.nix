@@ -23,9 +23,17 @@ buildPythonPackage rec {
     hash = "sha256-mPz9Nyoyke++e9vBWSKunc9VGHCP8pbmldgKty5HIMA=";
   };
 
-  propagatedBuildInputs = [ pymongo six ];
+  propagatedBuildInputs = [
+    pymongo
+    six
+  ];
 
-  nativeCheckInputs = [ nose pillow coverage blinker ];
+  nativeCheckInputs = [
+    nose
+    pillow
+    coverage
+    blinker
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

@@ -22,7 +22,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [ pytest flask ];
+  nativeCheckInputs = [
+    pytest
+    flask
+  ];
   pythonImportsCheck = [ "roku" ];
 
   meta = with lib; {

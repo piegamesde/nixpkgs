@@ -27,8 +27,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ hidapi libftdi1 libusb1 ]
-    ++ lib.optional stdenv.isLinux libgpiod;
+  buildInputs = [
+    hidapi
+    libftdi1
+    libusb1
+  ] ++ lib.optional stdenv.isLinux libgpiod;
 
   configureFlags = [
     "--disable-werror"
@@ -71,7 +74,10 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://openocd.sourceforge.net/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ bjornfor prusnak ];
+    maintainers = with maintainers; [
+      bjornfor
+      prusnak
+    ];
     platforms = platforms.unix;
   };
 }

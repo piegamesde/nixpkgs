@@ -100,14 +100,14 @@ in {
   ###### implementation
 
   config = mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = (cfg.tlsCertificate != null)
         == (cfg.tlsCertificateKey != null);
       message = ''
         services.soju.tlsCertificate and services.soju.tlsCertificateKey
         must both be specified to enable TLS.
       '';
-    }];
+    } ];
 
     systemd.services.soju = {
       description = "soju IRC bouncer";

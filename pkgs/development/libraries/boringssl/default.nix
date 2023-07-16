@@ -19,7 +19,11 @@ buildGoModule {
     sha256 = "04fja4fdwhc69clmvg8i12zm6ks3sfl3r8i5bxn4x63b9dj5znlx";
   };
 
-  nativeBuildInputs = [ cmake ninja perl ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    perl
+  ];
 
   vendorSha256 = null;
 
@@ -56,12 +60,21 @@ buildGoModule {
     mv ../include $dev
   '';
 
-  outputs = [ "out" "bin" "dev" ];
+  outputs = [
+    "out"
+    "bin"
+    "dev"
+  ];
 
   meta = with lib; {
     description = "Free TLS/SSL implementation";
     homepage = "https://boringssl.googlesource.com";
     maintainers = [ maintainers.thoughtpolice ];
-    license = with licenses; [ openssl isc mit bsd3 ];
+    license = with licenses; [
+      openssl
+      isc
+      mit
+      bsd3
+    ];
   };
 }

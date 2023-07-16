@@ -25,9 +25,15 @@ buildPythonPackage rec {
 
   buildInputs = [ graphviz ];
 
-  propagatedBuildInputs = [ graphviz stdlib-list ];
+  propagatedBuildInputs = [
+    graphviz
+    stdlib-list
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pyyaml ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pyyaml
+  ];
 
   postPatch = ''
     # Path is hard-coded

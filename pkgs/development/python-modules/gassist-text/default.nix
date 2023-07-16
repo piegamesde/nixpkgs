@@ -28,8 +28,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs =
-    [ beautifulsoup4 google-auth grpcio protobuf requests ];
+  propagatedBuildInputs = [
+    beautifulsoup4
+    google-auth
+    grpcio
+    protobuf
+    requests
+  ];
 
   checkInputs = [ pytestCheckHook ];
 

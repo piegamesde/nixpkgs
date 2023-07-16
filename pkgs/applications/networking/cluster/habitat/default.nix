@@ -33,7 +33,12 @@ rustPlatform.buildRustPackage rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libsodium libarchive openssl zeromq ];
+  buildInputs = [
+    libsodium
+    libarchive
+    openssl
+    zeromq
+  ];
 
   cargoBuildFlags = [ "--package hab" ];
 

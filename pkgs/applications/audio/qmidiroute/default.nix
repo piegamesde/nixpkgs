@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ qt4 alsa-lib ];
+  buildInputs = [
+    qt4
+    alsa-lib
+  ];
 
   meta = with lib; {
     description = "MIDI event processor and router";

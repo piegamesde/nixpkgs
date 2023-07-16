@@ -252,6 +252,9 @@ in {
 
   meta = {
     buildDocsInSandbox = false;
-    maintainers = with maintainers; [ lom SuperSandro2000 ];
+    maintainers = with maintainers; [
+      lom
+      SuperSandro2000
+    ];
   };
 }

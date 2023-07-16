@@ -42,7 +42,14 @@ in stdenv.mkDerivation rec {
     throw
     "Platform is not supported. Use instalation native to your platform https://www.renoise.com/";
 
-  buildInputs = [ alsa-lib libjack2 libX11 libXcursor libXext libXrandr ];
+  buildInputs = [
+    alsa-lib
+    libjack2
+    libX11
+    libXcursor
+    libXext
+    libXrandr
+  ];
 
   installPhase = ''
     cp -r Resources $out

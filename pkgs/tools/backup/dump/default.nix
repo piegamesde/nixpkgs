@@ -21,7 +21,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ 0.0 fsprogs ncurses readline ];
+  buildInputs = [
+    0.0
+    fsprogs
+    ncurses
+    readline
+  ];
 
   meta = with lib; {
     homepage = "https://dump.sourceforge.io/";

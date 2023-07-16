@@ -20,9 +20,16 @@ stdenv.mkDerivation {
     sha256 = "n9mfu8H2OS8dKPNhtJxBfMDp8aHEIcxg/R+kcRNOBpk=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ fftw rtl-sdr libusb1 ];
+  buildInputs = [
+    fftw
+    rtl-sdr
+    libusb1
+  ];
 
   meta = with lib; {
     description =
@@ -36,7 +43,10 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/steve-m/kalibrate-rtl";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ bjornfor viraptor ];
+    maintainers = with maintainers; [
+      bjornfor
+      viraptor
+    ];
     mainProgram = "kal";
     platforms = platforms.linux ++ platforms.darwin;
   };

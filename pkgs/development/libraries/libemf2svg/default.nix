@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ fontconfig freetype libpng ];
+  buildInputs = [
+    fontconfig
+    freetype
+    libpng
+  ];
 
   meta = with lib; {
     description = "Microsoft EMF to SVG conversion library";

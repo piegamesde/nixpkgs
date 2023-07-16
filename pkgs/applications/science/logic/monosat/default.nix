@@ -52,7 +52,11 @@ let
     inherit src patches;
     postPatch = commonPostPatch;
     nativeBuildInputs = [ cmake ];
-    buildInputs = [ zlib gmp jdk8 ];
+    buildInputs = [
+      zlib
+      gmp
+      jdk8
+    ];
 
     cmakeFlags = [
       "-DBUILD_STATIC=OFF"
@@ -87,7 +91,10 @@ let
     buildPythonPackage {
       inherit pname version src patches;
 
-      propagatedBuildInputs = [ core cython ];
+      propagatedBuildInputs = [
+        core
+        cython
+      ];
 
       # This tells setup.py to use cython, which should produce faster bindings
       MONOSAT_CYTHON = true;
@@ -107,6 +114,9 @@ let
 
       nativeCheckInputs = [ pytestCheckHook ];
 
-      disabledTests = [ "test_assertAtMostOne" "test_assertEqual" ];
+      disabledTests = [
+        "test_assertAtMostOne"
+        "test_assertEqual"
+      ];
     };
 in core

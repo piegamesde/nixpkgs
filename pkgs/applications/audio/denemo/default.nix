@@ -58,7 +58,12 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  nativeBuildInputs = [ wrapGAppsHook intltool gettext pkg-config ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    intltool
+    gettext
+    pkg-config
+  ];
 
   meta = with lib; {
     description = "Music notation and composition software used with lilypond";

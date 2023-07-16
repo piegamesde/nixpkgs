@@ -16,8 +16,22 @@
 }:
 
 let
-  langPkgs =
-    [ "ar" "cs" "de" "en" "es" "fa" "fr" "it" "lb" "nl" "pt" "ru" "sv" "sw" ];
+  langPkgs = [
+    "ar"
+    "cs"
+    "de"
+    "en"
+    "es"
+    "fa"
+    "fr"
+    "it"
+    "lb"
+    "nl"
+    "pt"
+    "ru"
+    "sv"
+    "sw"
+  ];
 in buildPythonPackage rec {
   pname = "gruut";
   version = "2.3.4";
@@ -37,13 +51,22 @@ in buildPythonPackage rec {
       --replace "networkx>=2.5.0,<3.0.0" "networkx"
   '';
 
-  propagatedBuildInputs =
-    [ babel gruut-ipa jsonlines num2words python-crfsuite dateparser networkx ]
-    ++ (map (lang:
-      callPackage ./language-pack.nix { inherit lang version format src; })
-      langPkgs);
+  propagatedBuildInputs = [
+    babel
+    gruut-ipa
+    jsonlines
+    num2words
+    python-crfsuite
+    dateparser
+    networkx
+  ] ++ (map
+    (lang: callPackage ./language-pack.nix { inherit lang version format src; })
+    langPkgs);
 
-  nativeCheckInputs = [ glibcLocales pytestCheckHook ];
+  nativeCheckInputs = [
+    glibcLocales
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # https://github.com/rhasspy/gruut/issues/25

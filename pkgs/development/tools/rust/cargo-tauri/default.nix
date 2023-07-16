@@ -30,9 +30,16 @@ in rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-t5MlJpQOA5T/EwbPoSD95kATGReiZTmq+JkbDVbRj+0=";
 
-  buildInputs =
-    lib.optionals stdenv.isLinux [ glibc libsoup cairo gtk3 webkitgtk ]
-    ++ lib.optionals stdenv.isDarwin [ CoreServices Security ];
+  buildInputs = lib.optionals stdenv.isLinux [
+    glibc
+    libsoup
+    cairo
+    gtk3
+    webkitgtk
+  ] ++ lib.optionals stdenv.isDarwin [
+    CoreServices
+    Security
+  ];
   nativeBuildInputs = [ pkg-config ];
 
   meta = with lib; {

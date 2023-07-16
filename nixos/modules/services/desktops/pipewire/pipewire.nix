@@ -88,12 +88,20 @@ in {
   };
 
   imports = [
-    (lib.mkRemovedOptionModule [ "services" "pipewire" "config" ] ''
+    (lib.mkRemovedOptionModule [
+      "services"
+      "pipewire"
+      "config"
+    ] ''
       Overriding default Pipewire configuration through NixOS options never worked correctly and is no longer supported.
       Please create drop-in files in /etc/pipewire/pipewire.conf.d/ to make the desired setting changes instead.
     '')
 
-    (lib.mkRemovedOptionModule [ "services" "pipewire" "media-session" ] ''
+    (lib.mkRemovedOptionModule [
+      "services"
+      "pipewire"
+      "media-session"
+    ] ''
       pipewire-media-session is no longer supported upstream and has been removed.
       Please switch to `services.pipewire.wireplumber` instead.
     '')
@@ -183,8 +191,10 @@ in {
       users.pipewire = {
         uid = config.ids.uids.pipewire;
         group = "pipewire";
-        extraGroups = [ "audio" "video" ]
-          ++ lib.optional config.security.rtkit.enable "rtkit";
+        extraGroups = [
+          "audio"
+          "video"
+        ] ++ lib.optional config.security.rtkit.enable "rtkit";
         description = "Pipewire system service user";
         isSystemUser = true;
         home = "/var/lib/pipewire";

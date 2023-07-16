@@ -18,9 +18,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-MTu8tvJXpo6+Z0aSIZ27nmerNtNBOwnL/jDkGedIiM8=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  cmakeFlags = [ "-DBUILD_EXAMPLES=OFF" "-DBUILD_BLACKBOX_TESTS=OFF" ];
+  cmakeFlags = [
+    "-DBUILD_EXAMPLES=OFF"
+    "-DBUILD_BLACKBOX_TESTS=OFF"
+  ];
 
   # https://github.com/nu-book/zxing-cpp/issues/335
   postPatch = ''

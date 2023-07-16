@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-3wqO0pWWFRQeoGNvbSDdLNYFyjNnv+O++F7+vTBUJoI=";
   };
 
-  propagatedBuildInputs = [ toolz multipledispatch ];
+  propagatedBuildInputs = [
+    toolz
+    multipledispatch
+  ];
 
   nativeCheckInputs = [
     py
@@ -30,8 +33,11 @@ buildPythonPackage rec {
     pytest-benchmark # Needed for the `--benchmark-skip` flag
   ];
 
-  pytestFlagsArray =
-    [ "--benchmark-skip" "--html=testing-report.html" "--self-contained-html" ];
+  pytestFlagsArray = [
+    "--benchmark-skip"
+    "--html=testing-report.html"
+    "--self-contained-html"
+  ];
 
   pythonImportsCheck = [ "unification" ];
 

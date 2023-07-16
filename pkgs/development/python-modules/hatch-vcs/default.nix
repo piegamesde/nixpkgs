@@ -24,9 +24,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [ hatchling setuptools-scm ];
+  propagatedBuildInputs = [
+    hatchling
+    setuptools-scm
+  ];
 
-  nativeCheckInputs = [ git pytestCheckHook ];
+  nativeCheckInputs = [
+    git
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # incompatible with setuptools-scm>=7

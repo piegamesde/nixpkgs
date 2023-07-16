@@ -59,7 +59,12 @@ stdenv.mkDerivation rec {
       --replace 'file.readAll().startsWith(DEFINE_DDE_DOCK_PATH"dde-dock")' 'file.readAll().contains("dde-dock")'
   '';
 
-  nativeBuildInputs = [ cmake pkg-config extra-cmake-modules wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    extra-cmake-modules
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     qtbase
@@ -101,7 +106,10 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DKWIN_BUILD_RUNNERS=OFF" ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   meta = with lib; {
     description =

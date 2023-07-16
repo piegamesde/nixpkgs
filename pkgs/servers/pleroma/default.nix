@@ -81,7 +81,11 @@ beamPackages.mixRelease rec {
           rev = "b647d0deecaa3acb140854fe4bda5b7e1dc6d1c8";
           sha256 = "0c7vmakcxlcs3j040018i7bfd6z0yq6fjfig02g5fgakx398s0x6";
         };
-        beamDeps = with final; [ combine plug inet_cidr ];
+        beamDeps = with final; [
+          combine
+          plug
+          inet_cidr
+        ];
       };
       prometheus_phx = beamPackages.buildMix rec {
         name = "prometheus_phx";
@@ -183,7 +187,11 @@ beamPackages.mixRelease rec {
     description = "ActivityPub microblogging server";
     homepage = "https://git.pleroma.social/pleroma/pleroma";
     license = licenses.agpl3;
-    maintainers = with maintainers; [ ninjatrappeur yuka kloenk ];
+    maintainers = with maintainers; [
+      ninjatrappeur
+      yuka
+      kloenk
+    ];
     platforms = platforms.unix;
   };
 }

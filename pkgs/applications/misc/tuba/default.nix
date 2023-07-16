@@ -33,8 +33,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-LPhGGIHvN/hc71PL50TBw1Q0ysubdtJaEiUEI29HRrE=";
   };
 
-  nativeBuildInputs =
-    [ meson ninja pkg-config vala python3 wrapGAppsHook4 desktop-file-utils ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    vala
+    python3
+    wrapGAppsHook4
+    desktop-file-utils
+  ];
 
   buildInputs = [
     glib

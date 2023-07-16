@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-zeSV2acjtSWUYnrMjEBtrSPlXRvrNQRX5SYPYHnaOy0=";
   };
 
-  propagatedBuildInputs = [ requests ciso8601 ];
+  propagatedBuildInputs = [
+    requests
+    ciso8601
+  ];
 
   # All tests require network access
   doCheck = false;

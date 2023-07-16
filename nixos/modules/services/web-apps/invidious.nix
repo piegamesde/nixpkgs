@@ -45,10 +45,18 @@ let
         ProtectHome = true;
         ProtectKernelLogs = true;
         ProtectProc = "invisible";
-        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+          "~@resources"
+        ];
       };
     };
 
@@ -70,12 +78,12 @@ let
       };
     } // (lib.optionalAttrs (cfg.domain != null) { inherit (cfg) domain; });
 
-    assertions = [{
+    assertions = [ {
       assertion = cfg.database.host != null -> cfg.database.passwordFile
         != null;
       message =
         "If database host isn't null, database password needs to be set";
-    }];
+    } ];
   };
 
   # Settings necessary for running with an automatically managed local database
@@ -145,11 +153,11 @@ let
       };
     };
 
-    assertions = [{
+    assertions = [ {
       assertion = cfg.domain != null;
       message =
         "To use services.invidious.nginx, you need to set services.invidious.domain";
-    }];
+    } ];
   };
 in {
   options.services.invidious = {
@@ -264,6 +272,9 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable
-    (lib.mkMerge [ serviceConfig localDatabaseConfig nginxConfig ]);
+  config = lib.mkIf cfg.enable (lib.mkMerge [
+    serviceConfig
+    localDatabaseConfig
+    nginxConfig
+  ]);
 }

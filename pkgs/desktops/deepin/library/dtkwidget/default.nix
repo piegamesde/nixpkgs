@@ -35,7 +35,13 @@ stdenv.mkDerivation rec {
                 "auto dataDirs = DStandardPaths::standardLocations(QStandardPaths::GenericDataLocation) << \"$out/share\";"
   '';
 
-  nativeBuildInputs = [ cmake qttools doxygen pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    qttools
+    doxygen
+    pkg-config
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     qtbase

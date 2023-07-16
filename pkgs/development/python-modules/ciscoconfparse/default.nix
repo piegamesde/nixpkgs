@@ -32,7 +32,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ passlib deprecat dnspython loguru toml ];
+  propagatedBuildInputs = [
+    passlib
+    deprecat
+    dnspython
+    loguru
+    toml
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

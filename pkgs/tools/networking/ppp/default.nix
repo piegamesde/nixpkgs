@@ -23,10 +23,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-J7udiLiJiJ1PzNxD+XYAUPXZ+ABGXt2U3hSFUWJXe94=";
   };
 
-  configureFlags = [ "--with-openssl=${openssl.dev}" "--sysconfdir=/etc" ];
+  configureFlags = [
+    "--with-openssl=${openssl.dev}"
+    "--sysconfdir=/etc"
+  ];
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
-  buildInputs = [ libpcap libxcrypt openssl bash ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
+  buildInputs = [
+    libpcap
+    libxcrypt
+    openssl
+    bash
+  ];
 
   postPatch = ''
     for file in $(find -name Makefile.linux); do
@@ -60,7 +71,12 @@ stdenv.mkDerivation rec {
     homepage = "https://ppp.samba.org";
     description =
       "Point-to-point implementation to provide Internet connections over serial lines";
-    license = with licenses; [ bsdOriginal publicDomain gpl2 lgpl2 ];
+    license = with licenses; [
+      bsdOriginal
+      publicDomain
+      gpl2
+      lgpl2
+    ];
     platforms = platforms.linux;
     maintainers = [ ];
   };

@@ -45,13 +45,22 @@ in python3Packages.buildPythonApplication rec {
     pandas
   ];
 
-  makeWrapperArgs =
-    [ "--prefix" "PATH" ":" (lib.makeBinPath [ bcftools htslib ]) ];
+  makeWrapperArgs = [
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [
+      bcftools
+      htslib
+    ])
+  ];
 
   pythonImportsCheck = [ "truvari" ];
 
-  nativeCheckInputs = [ bcftools htslib ]
-    ++ (with python3Packages; [ coverage ]);
+  nativeCheckInputs = [
+    bcftools
+    htslib
+  ] ++ (with python3Packages; [ coverage ]);
 
   checkPhase = ''
     runHook preCheck
@@ -66,7 +75,10 @@ in python3Packages.buildPythonApplication rec {
     description = "Structural variant comparison tool for VCFs";
     homepage = "https://github.com/ACEnglish/truvari";
     license = licenses.mit;
-    maintainers = with maintainers; [ natsukium scalavision ];
+    maintainers = with maintainers; [
+      natsukium
+      scalavision
+    ];
     longDescription = ''
       Truvari is a benchmarking tool for comparison sets of SVs.
       It can calculate the recall, precision, and f-measure of a

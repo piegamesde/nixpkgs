@@ -158,8 +158,13 @@ let
     default_cc_wrapper = clang; # Instead of `@out@` in the original.
     coreutils_bin = lib.getBin coreutils;
     gnugrep_bin = gnugrep;
-    suffixSalt =
-      lib.replaceStrings [ "-" "." ] [ "_" "_" ] targetPlatform.config;
+    suffixSalt = lib.replaceStrings [
+      "-"
+      "."
+    ] [
+      "_"
+      "_"
+    ] targetPlatform.config;
     use_response_file_by_default = 1;
     swiftDriver = "";
     # NOTE: @prog@ needs to be filled elsewhere.
@@ -199,7 +204,13 @@ in stdenv.mkDerivation {
   pname = "swift";
   inherit (sources) version;
 
-  outputs = [ "out" "lib" "dev" "doc" "man" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "doc"
+    "man"
+  ];
 
   nativeBuildInputs = [
     cmake
@@ -224,7 +235,11 @@ in stdenv.mkDerivation {
     swig
     libxml2
   ] ++ lib.optionals stdenv.isLinux [ libuuid ]
-    ++ lib.optionals stdenv.isDarwin [ CoreServices Foundation Combine ];
+    ++ lib.optionals stdenv.isDarwin [
+      CoreServices
+      Foundation
+      Combine
+    ];
 
   # This is a partial reimplementation of our setup hook. Because we reuse
   # the Swift wrapper for the Swift build itself, we need to do some of the

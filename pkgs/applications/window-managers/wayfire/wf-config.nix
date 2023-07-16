@@ -23,20 +23,28 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ADUBvDJcPYEB9ZvaFIgTfemo1WYwiWgCWX/z2yrEPtA=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
 
-  buildInputs = [ libevdev libxml2 ];
+  buildInputs = [
+    libevdev
+    libxml2
+  ];
 
   propagatedBuildInputs = [ glm ];
 
-  nativeCheckInputs = [ cmake doctest ];
+  nativeCheckInputs = [
+    cmake
+    doctest
+  ];
   # CMake is just used for finding doctest.
   dontUseCmakeConfigure = true;
 
-  mesonFlags = [
-    (lib.mesonEnable "tests"
-      (stdenv.buildPlatform.canExecute stdenv.hostPlatform))
-  ];
+  mesonFlags = [ (lib.mesonEnable "tests"
+    (stdenv.buildPlatform.canExecute stdenv.hostPlatform)) ];
 
   doCheck = true;
 
@@ -45,7 +53,11 @@ stdenv.mkDerivation rec {
     description =
       "Library for managing configuration files, written for Wayfire";
     license = licenses.mit;
-    maintainers = with maintainers; [ qyliss wucke13 rewine ];
+    maintainers = with maintainers; [
+      qyliss
+      wucke13
+      rewine
+    ];
     platforms = platforms.unix;
   };
 }

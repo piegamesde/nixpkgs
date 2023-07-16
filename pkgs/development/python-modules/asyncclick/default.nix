@@ -28,9 +28,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ anyio ];
 
-  nativeCheckInputs = [ pytestCheckHook trio ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    trio
+  ];
 
-  pytestFlagsArray = [ "-W" "ignore::trio.TrioDeprecationWarning" ];
+  pytestFlagsArray = [
+    "-W"
+    "ignore::trio.TrioDeprecationWarning"
+  ];
 
   disabledTests = [
     # RuntimeWarning: coroutine 'Context.invoke' was never awaited

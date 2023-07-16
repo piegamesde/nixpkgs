@@ -18,13 +18,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-A12GdevbMaO2QkGAk3VsXzwcDkF+6dEapse2xfdqzPM=";
   };
 
-  nativeBuildInputs = [ cmake python3 ];
+  nativeBuildInputs = [
+    cmake
+    python3
+  ];
 
   propagatedBuildInputs = [ opencl-headers ];
 
   strictDeps = true;
 
-  cmakeFlags = [ "-DBUILD_EXAMPLES=OFF" "-DBUILD_TESTS=OFF" ];
+  cmakeFlags = [
+    "-DBUILD_EXAMPLES=OFF"
+    "-DBUILD_TESTS=OFF"
+  ];
 
   meta = with lib; {
     description = "OpenCL Host API C++ bindings";

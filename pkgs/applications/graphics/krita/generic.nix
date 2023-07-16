@@ -58,8 +58,12 @@ mkDerivation rec {
     inherit sha256;
   };
 
-  nativeBuildInputs =
-    [ cmake extra-cmake-modules python3Packages.sip makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    python3Packages.sip
+    makeWrapper
+  ];
 
   buildInputs = [
     karchive
@@ -106,8 +110,10 @@ mkDerivation rec {
   # Krita runs custom python scripts in CMake with custom PYTHONPATH which krita determined in their CMake script.
   # Patch the PYTHONPATH so python scripts can import sip successfully.
   postPatch = let
-    pythonPath =
-      python3Packages.makePythonPath (with python3Packages; [ sip setuptools ]);
+    pythonPath = python3Packages.makePythonPath (with python3Packages; [
+      sip
+      setuptools
+    ]);
   in ''
     substituteInPlace cmake/modules/FindSIP.cmake \
       --replace 'PYTHONPATH=''${_sip_python_path}' 'PYTHONPATH=${pythonPath}'
@@ -128,7 +134,11 @@ mkDerivation rec {
   meta = with lib; {
     description = "A free and open source painting application";
     homepage = "https://krita.org/";
-    maintainers = with maintainers; [ abbradar sifmelcara nek0 ];
+    maintainers = with maintainers; [
+      abbradar
+      sifmelcara
+      nek0
+    ];
     platforms = platforms.linux;
     license = licenses.gpl3Only;
   };

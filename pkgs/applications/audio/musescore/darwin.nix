@@ -6,7 +6,11 @@
 }:
 
 let
-  versionComponents = [ "4" "0" "1" ];
+  versionComponents = [
+    "4"
+    "0"
+    "1"
+  ];
   appName = "MuseScore ${builtins.head versionComponents}";
   ref = "230121751";
 

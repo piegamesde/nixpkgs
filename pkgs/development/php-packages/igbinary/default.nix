@@ -11,7 +11,10 @@ buildPecl {
 
   configureFlags = [ "--enable-igbinary" ];
   makeFlags = [ "phpincludedir=$(dev)/include" ];
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   meta = with lib; {
     description = "Binary serialization for PHP";

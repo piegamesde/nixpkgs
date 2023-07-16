@@ -21,18 +21,19 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ ronn ];
 
-  patches = [
-    (fetchpatch {
-      name = "fix-format-specifier.patch";
-      url =
-        "https://github.com/discoteq/flock/commit/408bad42eb8d76cdd0c504c2f97f21c0b424c3b1.patch";
-      sha256 = "sha256-YuFKXWTBu9A2kBNqkg1Oek6vDbVo/y8dB1k9Fuh3QmA";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "fix-format-specifier.patch";
+    url =
+      "https://github.com/discoteq/flock/commit/408bad42eb8d76cdd0c504c2f97f21c0b424c3b1.patch";
+    sha256 = "sha256-YuFKXWTBu9A2kBNqkg1Oek6vDbVo/y8dB1k9Fuh3QmA";
+  }) ];
 
   meta = with lib; {
     description = "Cross-platform version of flock(1)";
-    maintainers = with maintainers; [ matthewbauer msfjarvis ];
+    maintainers = with maintainers; [
+      matthewbauer
+      msfjarvis
+    ];
     platforms = platforms.all;
     license = licenses.isc;
   };

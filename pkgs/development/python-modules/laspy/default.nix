@@ -16,11 +16,17 @@ buildPythonPackage rec {
     sha256 = "sha256-Wdbp6kjuZkJh+pp9OVczdsRNgn41/Tdt7nGFvewcQ1w=";
   };
 
-  propagatedBuildInputs = [ numpy laszip ];
+  propagatedBuildInputs = [
+    numpy
+    laszip
+  ];
 
   checkInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [ "laspy" "laszip" ];
+  pythonImportsCheck = [
+    "laspy"
+    "laszip"
+  ];
 
   meta = with lib; {
     description = "Interface for reading/modifying/creating .LAS LIDAR files";

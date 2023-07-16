@@ -42,7 +42,13 @@ in mkDerivation {
     inherit sha256;
   };
 
-  nativeBuildInputs = [ pkg-config qmake qttools wrapGAppsHook wrapQtAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    qmake
+    qttools
+    wrapGAppsHook
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     zlib
@@ -59,8 +65,10 @@ in mkDerivation {
     qtgraphicaleffects
   ] ++ lib.optionals (stdenv.isLinux) [ qtwayland ];
 
-  qmakeFlags =
-    [ "DEFINES+=DISABLE_APPLICATION_UPDATES" "CONFIG+=qtquickcompiler" ];
+  qmakeFlags = [
+    "DEFINES+=DISABLE_APPLICATION_UPDATES"
+    "CONFIG+=qtquickcompiler"
+  ];
 
   dontWrapGApps = true;
 

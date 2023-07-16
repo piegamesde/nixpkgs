@@ -18,12 +18,10 @@ buildPythonPackage rec {
     hash = "sha256-6coAak3ySIpgvZp0ABHulI2BkEviNk8BflYBaVCPVg8=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      libevdev = lib.getLib pkgs.libevdev;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    libevdev = lib.getLib pkgs.libevdev;
+  }) ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

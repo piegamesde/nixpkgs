@@ -21,7 +21,10 @@ buildGoModule rec {
   vendorSha256 = null;
   subPackages = ".";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ OpenGL AppKit ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    OpenGL
+    AppKit
+  ];
 
   meta = with lib; {
     description = "GUI frontend for Delve";

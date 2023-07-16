@@ -434,7 +434,11 @@ in stdenv.mkDerivation (finalAttrs: {
       patchShebangs tools test src/!(rpm|kernel-install|ukify) src/kernel-install/test-kernel-install.sh
     '';
 
-  outputs = [ "out" "man" "dev" ];
+  outputs = [
+    "out"
+    "man"
+    "dev"
+  ];
 
   nativeBuildInputs = [
     pkg-config
@@ -454,8 +458,11 @@ in stdenv.mkDerivation (finalAttrs: {
     docbook_xml_dtd_42
     docbook_xml_dtd_45
     bash
-    (buildPackages.python3Packages.python.withPackages
-      (ps: with ps; [ lxml jinja2 ]))
+    (buildPackages.python3Packages.python.withPackages (ps:
+      with ps; [
+        lxml
+        jinja2
+      ]))
   ] ++ lib.optionals withLibBPF [
     bpftools
     buildPackages.llvmPackages.clang
@@ -470,12 +477,18 @@ in stdenv.mkDerivation (finalAttrs: {
     bashInteractive # for patch shebangs
   ]
 
-    ++ lib.optionals wantGcrypt [ libgcrypt libgpg-error ]
-    ++ lib.optional withTests glib ++ lib.optional withAcl acl
+    ++ lib.optionals wantGcrypt [
+      libgcrypt
+      libgpg-error
+    ] ++ lib.optional withTests glib ++ lib.optional withAcl acl
     ++ lib.optional withApparmor libapparmor ++ lib.optional withAudit audit
     ++ lib.optional wantCurl (lib.getDev curl)
-    ++ lib.optionals withCompression [ bzip2 lz4 xz zstd ]
-    ++ lib.optional withCoredump elfutils
+    ++ lib.optionals withCompression [
+      bzip2
+      lz4
+      xz
+      zstd
+    ] ++ lib.optional withCoredump elfutils
     ++ lib.optional withCryptsetup (lib.getDev cryptsetup.dev)
     ++ lib.optional withEfi gnu-efi ++ lib.optional withKexectools kexec-tools
     ++ lib.optional withKmod kmod ++ lib.optional withLibidn2 libidn2
@@ -603,8 +616,10 @@ in stdenv.mkDerivation (finalAttrs: {
     ++ lib.optionals stdenv.hostPlatform.isMusl [
       "-Dgshadow=false"
       "-Didn=false"
-    ]
-    ++ lib.optionals withKmod [ "-Dkmod=true" "-Dkmod-path=${kmod}/bin/kmod" ];
+    ] ++ lib.optionals withKmod [
+      "-Dkmod=true"
+      "-Dkmod-path=${kmod}/bin/kmod"
+    ];
   preConfigure = let
     # A list of all the runtime binaries that the systemd executables, tests and libraries are referencing in their source code, scripts and unit files.
     # As soon as a dependency isn't required anymore we should remove it from the list. The `where` attribute for each of the replacement patterns must be exhaustive. If another (unhandled) case is found in the source code the build fails with an error message.
@@ -623,7 +638,10 @@ in stdenv.mkDerivation (finalAttrs: {
       {
         search = "/sbin/swapon";
         replacement = "${lib.getBin util-linux}/sbin/swapon";
-        where = [ "src/core/swap.c" "src/basic/unit-def.h" ];
+        where = [
+          "src/core/swap.c"
+          "src/basic/unit-def.h"
+        ];
       }
       {
         search = "/sbin/swapoff";
@@ -682,11 +700,11 @@ in stdenv.mkDerivation (finalAttrs: {
           "src/import/pull-tar.c"
         ];
       }
-    ] ++ lib.optionals withKmod [{
+    ] ++ lib.optionals withKmod [ {
       search = "/sbin/modprobe";
       replacement = "${lib.getBin kmod}/sbin/modprobe";
       where = [ "units/modprobe@.service" ];
-    }];
+    } ];
 
     # { replacement, search, where } -> List[str]
     mkSubstitute = {
@@ -704,7 +722,11 @@ in stdenv.mkDerivation (finalAttrs: {
         where,
         ignore ? [ ]
       }:
-      let ignore' = lib.concatStringsSep "|" (ignore ++ [ "^test" "NEWS" ]);
+      let
+        ignore' = lib.concatStringsSep "|" (ignore ++ [
+          "^test"
+          "NEWS"
+        ]);
       in ''
         set +e
         search=$(grep '${search}' -r | grep -v "${replacement}" | grep -Ev "${ignore'}")
@@ -844,6 +866,10 @@ in stdenv.mkDerivation (finalAttrs: {
     # https://github.com/systemd/systemd/issues/20600#issuecomment-912338965
     broken = stdenv.hostPlatform.isStatic;
     priority = 10;
-    maintainers = with maintainers; [ flokli kloenk mic92 ];
+    maintainers = with maintainers; [
+      flokli
+      kloenk
+      mic92
+    ];
   };
 })

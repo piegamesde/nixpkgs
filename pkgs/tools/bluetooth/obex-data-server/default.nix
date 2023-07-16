@@ -26,7 +26,14 @@ stdenv.mkDerivation rec {
     pkg-config
     dbus-glib # required for dbus-binding-tool
   ];
-  buildInputs = [ libusb-compat-0_1 glib dbus-glib bluez openobex dbus ];
+  buildInputs = [
+    libusb-compat-0_1
+    glib
+    dbus-glib
+    bluez
+    openobex
+    dbus
+  ];
 
   patches = [ ./obex-data-server-0.4.6-build-fixes-1.patch ];
 

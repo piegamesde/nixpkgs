@@ -16,6 +16,9 @@ bundlerEnv {
     description = "CLI and Ruby client library for Travis CI";
     homepage = "https://github.com/travis-ci/travis.rb";
     license = licenses.mit;
-    maintainers = with maintainers; [ zimbatm nicknovitski ];
+    maintainers = with maintainers; [
+      zimbatm
+      nicknovitski
+    ];
   };
 }

@@ -23,9 +23,16 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-0V2ftZmuKXRhOFWCroYOxQqW3NFh9Uuwcg0CM1sFlcQ=";
 
-  nativeBuildInputs = [ pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
 
-  buildInputs = [ openssl dbus sqlite ];
+  buildInputs = [
+    openssl
+    dbus
+    sqlite
+  ];
 
   nativeCheckInputs = [ file ];
 

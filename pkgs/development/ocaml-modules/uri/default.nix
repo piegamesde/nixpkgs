@@ -21,7 +21,10 @@ buildDunePackage rec {
   };
 
   checkInputs = [ ounit ];
-  propagatedBuildInputs = [ angstrom stringext ];
+  propagatedBuildInputs = [
+    angstrom
+    stringext
+  ];
   doCheck = true;
 
   meta = {

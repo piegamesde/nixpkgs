@@ -10,7 +10,12 @@
 
 let
 
-  libPath = lib.makeLibraryPath [ libGLU libGL stdenv.cc.cc libX11 ];
+  libPath = lib.makeLibraryPath [
+    libGLU
+    libGL
+    stdenv.cc.cc
+    libX11
+  ];
 
   inidir = "\\\${XDG_CONFIG_HOME:-\\$HOME/.config}/kisslicer";
 
@@ -27,7 +32,11 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [ libGLU libGL libX11 ];
+  buildInputs = [
+    libGLU
+    libGL
+    libX11
+  ];
 
   installPhase = ''
     mkdir -p $out/bin

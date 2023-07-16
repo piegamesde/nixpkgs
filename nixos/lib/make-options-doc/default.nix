@@ -101,7 +101,11 @@ let
 
   optionsNix = builtins.listToAttrs (map (o: {
     name = o.name;
-    value = removeAttrs o [ "name" "visible" "internal" ];
+    value = removeAttrs o [
+      "name"
+      "visible"
+      "internal"
+    ];
   }) optionsList);
 
 in rec {
@@ -129,7 +133,10 @@ in rec {
 
   optionsJSON = pkgs.runCommand "options.json" {
     meta.description = "List of NixOS options in JSON format";
-    nativeBuildInputs = [ pkgs.brotli pkgs.python3Minimal ];
+    nativeBuildInputs = [
+      pkgs.brotli
+      pkgs.python3Minimal
+    ];
     options = builtins.toFile "options.json"
       (builtins.unsafeDiscardStringContext (builtins.toJSON optionsNix));
     # merge with an empty set if baseOptionsJSON is null to run markdown

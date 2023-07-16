@@ -30,7 +30,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ unittestCheckHook ];
 
-  unittestFlagsArray = [ "-s" "test" ];
+  unittestFlagsArray = [
+    "-s"
+    "test"
+  ];
 
   pythonImportsCheck = [ "serial" ];
 

@@ -47,7 +47,10 @@ stdenv.mkDerivation rec {
     ./make-thumbnailer-wrappable.patch
   ];
 
-  propagatedUserEnvPkgs = [ telepathy-idle telepathy-logger ];
+  propagatedUserEnvPkgs = [
+    telepathy-idle
+    telepathy-logger
+  ];
 
   nativeBuildInputs = [
     meson

@@ -82,7 +82,10 @@ let
       libuuid
     ];
 
-    extraOutputsToInstall = [ "lib" "out" ];
+    extraOutputsToInstall = [
+      "lib"
+      "out"
+    ];
   };
 
 in stdenv.mkDerivation rec {
@@ -149,7 +152,10 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An app runtime based on Chromium and node.js";
     homepage = "https://nwjs.io/";
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
     maintainers = [ maintainers.offline ];
     license = licenses.bsd3;
   };

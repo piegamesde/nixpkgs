@@ -19,7 +19,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-1YHYDC22yvtADOIuYxzonV7yaLsQOFELwEEXvu77JdE=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   GOWORK = "off";
 

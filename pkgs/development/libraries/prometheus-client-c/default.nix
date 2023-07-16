@@ -71,7 +71,10 @@ in rec {
   libpromhttp = build {
     pname = "libpromhttp";
     subdir = "promhttp";
-    buildInputs = [ libmicrohttpd libprom ];
+    buildInputs = [
+      libmicrohttpd
+      libprom
+    ];
     description = "A Prometheus HTTP Endpoint in C";
   };
 }

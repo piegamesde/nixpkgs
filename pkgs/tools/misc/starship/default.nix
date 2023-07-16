@@ -24,9 +24,16 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-t+Ur6QmemMz6WAZnii7f2O+9R7hPp+5oej4PuaifznE=";
   };
 
-  nativeBuildInputs = [ installShellFiles cmake ];
+  nativeBuildInputs = [
+    installShellFiles
+    cmake
+  ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security Foundation Cocoa ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    Security
+    Foundation
+    Cocoa
+  ];
 
   NIX_LDFLAGS = lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
     "-framework"

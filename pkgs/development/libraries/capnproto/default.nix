@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  propagatedBuildInputs = [ openssl zlib ];
+  propagatedBuildInputs = [
+    openssl
+    zlib
+  ];
 
   meta = with lib; {
     homepage = "https://capnproto.org/";

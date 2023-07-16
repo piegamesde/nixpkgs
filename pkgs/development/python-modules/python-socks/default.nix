@@ -31,12 +31,23 @@ buildPythonPackage rec {
     hash = "sha256-QvUuCS8B/6+dgzWrflizLfNlAUeOPpUPtmFaE6LGYGc=";
   };
 
-  propagatedBuildInputs = [ trio curio async-timeout ];
+  propagatedBuildInputs = [
+    trio
+    curio
+    async-timeout
+  ];
 
   doCheck = false; # requires tiny_proxy module
 
-  nativeCheckInputs =
-    [ anyio flask pytest-asyncio pytest-trio pytestCheckHook trustme yarl ];
+  nativeCheckInputs = [
+    anyio
+    flask
+    pytest-asyncio
+    pytest-trio
+    pytestCheckHook
+    trustme
+    yarl
+  ];
 
   pythonImportsCheck = [ "python_socks" ];
 

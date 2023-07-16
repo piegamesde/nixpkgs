@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-I41bslYoSGPNm1+Xpf4kHFDnIqLN8vg5cEqbFIpDT5A=";
   };
 
-  nativeBuildInputs = [ cmake python3 ];
+  nativeBuildInputs = [
+    cmake
+    python3
+  ];
 
   postPatch = ''
     # Fix default value of "test_data_path" to make tests work

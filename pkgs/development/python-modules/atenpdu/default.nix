@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-E/cRjbispHiS38BdIvOKD4jOFrDmpx8L4eAlMV8Re70=";
   };
 
-  propagatedBuildInputs = [ async-timeout pysnmplib ];
+  propagatedBuildInputs = [
+    async-timeout
+    pysnmplib
+  ];
 
   # Project has no test
   doCheck = false;

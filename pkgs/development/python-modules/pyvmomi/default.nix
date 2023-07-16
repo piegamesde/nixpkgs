@@ -21,12 +21,18 @@ buildPythonPackage rec {
     hash = "sha256-t54FUgEXEUpb3SqayY7gCmj1egavIaoXMfuShDL9dBo=";
   };
 
-  propagatedBuildInputs = [ requests six ];
+  propagatedBuildInputs = [
+    requests
+    six
+  ];
 
   # Requires old version of vcrpy
   doCheck = false;
 
-  pythonImportsCheck = [ "pyVim" "pyVmomi" ];
+  pythonImportsCheck = [
+    "pyVim"
+    "pyVmomi"
+  ];
 
   meta = with lib; {
     description =

@@ -24,11 +24,18 @@ buildPythonPackage rec {
     hash = "sha256-PuzjidORMFVlmFZbmnu9O92FoiuXrC8NNRyjwdodriY=";
   };
 
-  nativeBuildInputs = [ cython_3 setuptools setuptools-scm ];
+  nativeBuildInputs = [
+    cython_3
+    setuptools
+    setuptools-scm
+  ];
 
   propagatedBuildInputs = [ future ];
 
-  nativeCheckInputs = [ pytestCheckHook toolz ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    toolz
+  ];
 
   pythonImportsCheck = [ "in_n_out" ];
 

@@ -42,13 +42,22 @@ buildPythonPackage rec {
     hash = "sha256-qkvhmXJNxA8v+kbZ6ulxJAQr7ReQpb+JkbhOUnL59KM=";
   };
 
-  propagatedBuildInputs = [ aiohttp paramiko requests smbprotocol tqdm ];
+  propagatedBuildInputs = [
+    aiohttp
+    paramiko
+    requests
+    smbprotocol
+    tqdm
+  ];
 
   passthru.optional-dependencies = {
     entrypoints = [ ];
     abfs = [ adlfs ];
     adl = [ adlfs ];
-    dask = [ dask distributed ];
+    dask = [
+      dask
+      distributed
+    ];
     dropbox = [
       # missing dropboxdrivefs
       requests
@@ -60,7 +69,10 @@ buildPythonPackage rec {
     gs = [ gcsfs ];
     hdfs = [ pyarrow ];
     arrow = [ pyarrow ];
-    http = [ aiohttp requests ];
+    http = [
+      aiohttp
+      requests
+    ];
     sftp = [ paramiko ];
     s3 = [ s3fs ];
     oci = [ ocifs ];
@@ -72,8 +84,13 @@ buildPythonPackage rec {
     tqdm = [ tqdm ];
   };
 
-  nativeCheckInputs =
-    [ numpy pytest-asyncio pytest-mock pytest-vcr pytestCheckHook ];
+  nativeCheckInputs = [
+    numpy
+    pytest-asyncio
+    pytest-mock
+    pytest-vcr
+    pytestCheckHook
+  ];
 
   __darwinAllowLocalNetworking = true;
 

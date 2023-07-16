@@ -28,12 +28,25 @@ buildPythonPackage rec {
     sha256 = "0x2lyg52m6a0vn0665pgd1z1qrydglyfxxcggw6xzngpnngb6v5v";
   };
 
-  nativeBuildInputs =
-    [ cmake pkg-config pysideApiextractor pysideGeneratorrunner sphinx qt4 ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    pysideApiextractor
+    pysideGeneratorrunner
+    sphinx
+    qt4
+  ];
 
-  buildInputs = [ python libxml2 libxslt ];
+  buildInputs = [
+    python
+    libxml2
+    libxslt
+  ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   preConfigure = ''
     cmakeFlagsArray=("-DCMAKE_INSTALL_PREFIX=$dev")

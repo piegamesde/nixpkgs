@@ -153,8 +153,10 @@ let
     ] ++ optionals cfg.package.withPortabled [
       "dbus-org.freedesktop.portable1.service"
       "systemd-portabled.service"
-    ] ++ [ "systemd-exit.service" "systemd-update-done.service" ]
-    ++ cfg.additionalUpstreamSystemUnits;
+    ] ++ [
+      "systemd-exit.service"
+      "systemd-update-done.service"
+    ] ++ cfg.additionalUpstreamSystemUnits;
 
   upstreamSystemWants = [
     "sysinit.target.wants"
@@ -284,7 +286,12 @@ in {
     };
 
     systemd.globalEnvironment = mkOption {
-      type = with types; attrsOf (nullOr (oneOf [ str path package ]));
+      type = with types;
+        attrsOf (nullOr (oneOf [
+          str
+          path
+          package
+        ]));
       default = { };
       example = { TZ = "CET"; };
       description = lib.mdDoc ''
@@ -293,7 +300,12 @@ in {
     };
 
     systemd.managerEnvironment = mkOption {
-      type = with types; attrsOf (nullOr (oneOf [ str path package ]));
+      type = with types;
+        attrsOf (nullOr (oneOf [
+          str
+          path
+          package
+        ]));
       default = { };
       example = { SYSTEMD_LOG_LEVEL = "debug"; };
       description = lib.mdDoc ''
@@ -341,7 +353,10 @@ in {
     systemd.additionalUpstreamSystemUnits = mkOption {
       default = [ ];
       type = types.listOf types.str;
-      example = [ "debug-shell.service" "systemd-quotacheck.service" ];
+      example = [
+        "debug-shell.service"
+        "systemd-quotacheck.service"
+      ];
       description = lib.mdDoc ''
         Additional units shipped with systemd that shall be enabled.
       '';
@@ -430,19 +445,15 @@ in {
     system.nssModules = [ cfg.package.out ];
     system.nssDatabases = {
       hosts = (mkMerge [
-        (mkOrder 400 [
-          "mymachines"
-        ]) # 400 to ensure it comes before resolve (which is mkBefore'd)
-        (mkOrder 999 [
-          "myhostname"
-        ]) # after files (which is 998), but before regular nss modules
+        (mkOrder
+          400 [ "mymachines" ]) # 400 to ensure it comes before resolve (which is mkBefore'd)
+        (mkOrder
+          999 [ "myhostname" ]) # after files (which is 998), but before regular nss modules
       ]);
       passwd = (mkMerge [ (mkAfter [ "systemd" ]) ]);
-      group = (mkMerge [
-        (mkAfter [
-          "[success=merge] systemd"
-        ]) # need merge so that NSS won't stop at file-based groups
-      ]);
+      group =
+        (mkMerge [ (mkAfter [ "[success=merge] systemd" ]) # need merge so that NSS won't stop at file-based groups
+          ]);
     };
 
     environment.systemPackages = [ cfg.package ];
@@ -661,20 +672,37 @@ in {
 
   # FIXME: Remove these eventually.
   imports = [
-    (mkRenamedOptionModule [ "boot" "systemd" "sockets" ] [
+    (mkRenamedOptionModule [
+      "boot"
+      "systemd"
+      "sockets"
+    ] [
       "systemd"
       "sockets"
     ])
-    (mkRenamedOptionModule [ "boot" "systemd" "targets" ] [
+    (mkRenamedOptionModule [
+      "boot"
+      "systemd"
+      "targets"
+    ] [
       "systemd"
       "targets"
     ])
-    (mkRenamedOptionModule [ "boot" "systemd" "services" ] [
+    (mkRenamedOptionModule [
+      "boot"
+      "systemd"
+      "services"
+    ] [
       "systemd"
       "services"
     ])
-    (mkRenamedOptionModule [ "jobs" ] [ "systemd" "services" ])
-    (mkRemovedOptionModule [ "systemd" "generator-packages" ]
-      "Use systemd.packages instead.")
+    (mkRenamedOptionModule [ "jobs" ] [
+      "systemd"
+      "services"
+    ])
+    (mkRemovedOptionModule [
+      "systemd"
+      "generator-packages"
+    ] "Use systemd.packages instead.")
   ];
 }

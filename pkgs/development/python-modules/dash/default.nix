@@ -44,11 +44,23 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    celery = [ celery redis ];
-    diskcache = [ diskcache multiprocess psutil ];
+    celery = [
+      celery
+      redis
+    ];
+    diskcache = [
+      diskcache
+      multiprocess
+      psutil
+    ];
   };
 
-  nativeCheckInputs = [ mock pytest-mock pytestCheckHook pyyaml ];
+  nativeCheckInputs = [
+    mock
+    pytest-mock
+    pytestCheckHook
+    pyyaml
+  ];
 
   disabledTestPaths = [
     "tests/unit/test_browser.py"

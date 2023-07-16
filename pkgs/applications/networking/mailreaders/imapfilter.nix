@@ -17,9 +17,16 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     sha256 = "sha256-nHKZ3skRbDhKWocaw5mbaRnZC37FxFIVd08iFgrEA0s=";
   };
-  makeFlags = [ "SSLCAFILE=/etc/ssl/certs/ca-bundle.crt" "PREFIX=$(out)" ];
+  makeFlags = [
+    "SSLCAFILE=/etc/ssl/certs/ca-bundle.crt"
+    "PREFIX=$(out)"
+  ];
 
-  buildInputs = [ openssl pcre2 lua ];
+  buildInputs = [
+    openssl
+    pcre2
+    lua
+  ];
 
   meta = {
     homepage = "https://github.com/lefcha/imapfilter";

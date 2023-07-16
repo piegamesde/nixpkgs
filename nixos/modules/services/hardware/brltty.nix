@@ -10,8 +10,12 @@ with lib;
 let
   cfg = config.services.brltty;
 
-  targets =
-    [ "default.target" "multi-user.target" "rescue.target" "emergency.target" ];
+  targets = [
+    "default.target"
+    "multi-user.target"
+    "rescue.target"
+    "emergency.target"
+  ];
 
   genApiKey = pkgs.writers.writeDash "generate-brlapi-key" ''
     if ! test -f /etc/brlapi.key; then

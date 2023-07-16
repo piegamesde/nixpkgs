@@ -23,7 +23,11 @@ let
     name = "${pname}-deps";
     inherit src;
 
-    nativeBuildInputs = [ gradle jdk perl ];
+    nativeBuildInputs = [
+      gradle
+      jdk
+      perl
+    ];
 
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d)
@@ -57,7 +61,11 @@ let
 in stdenv.mkDerivation {
   inherit pname version src;
 
-  nativeBuildInputs = [ gradle jdk makeWrapper ];
+  nativeBuildInputs = [
+    gradle
+    jdk
+    makeWrapper
+  ];
 
   # Otherwise, Gradle fails with `java.net.SocketException: Operation not permitted`
   __darwinAllowLocalNetworking = true;

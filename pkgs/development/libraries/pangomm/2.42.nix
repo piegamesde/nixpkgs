@@ -24,11 +24,22 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-GyTJJiSuEnXMtXdYF10198Oa0zQtjAtLpg8NmEnS0Io=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ pkg-config meson ninja python3 ]
-    ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
-  propagatedBuildInputs = [ pango glibmm cairomm ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    python3
+  ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
+  propagatedBuildInputs = [
+    pango
+    glibmm
+    cairomm
+  ];
 
   doCheck = true;
 
@@ -44,8 +55,14 @@ stdenv.mkDerivation rec {
     broken = (stdenv.isLinux && stdenv.isAarch64) || stdenv.isDarwin;
     description = "C++ interface to the Pango text rendering library";
     homepage = "https://www.pango.org/";
-    license = with licenses; [ lgpl2 lgpl21 ];
-    maintainers = with maintainers; [ lovek323 raskin ];
+    license = with licenses; [
+      lgpl2
+      lgpl21
+    ];
+    maintainers = with maintainers; [
+      lovek323
+      raskin
+    ];
     platforms = platforms.unix;
 
     longDescription = ''

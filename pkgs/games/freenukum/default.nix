@@ -20,7 +20,11 @@ let
     exec = pname;
     icon = pname;
     comment = description;
-    categories = [ "Game" "ArcadeGame" "ActionGame" ];
+    categories = [
+      "Game"
+      "ArcadeGame"
+      "ActionGame"
+    ];
     genericName = pname;
   };
 
@@ -40,7 +44,11 @@ in rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = [ SDL2 SDL2_ttf SDL2_image ];
+  buildInputs = [
+    SDL2
+    SDL2_ttf
+    SDL2_image
+  ];
 
   postPatch = ''
     substituteInPlace src/graphics.rs \

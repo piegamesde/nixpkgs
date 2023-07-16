@@ -13,7 +13,11 @@ stdenv.mkDerivation {
   version = "unstable-2015-02-12";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ opencv2 ncurses portaudio ];
+  buildInputs = [
+    opencv2
+    ncurses
+    portaudio
+  ];
 
   enableParallelBuilding = true;
 

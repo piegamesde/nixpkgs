@@ -33,7 +33,11 @@ stdenv.mkDerivation rec {
     sha256 = "0kpdp6v8m8j0r7ppyy067shr0lfgrlh0dwb7ccws76d389vizwhb";
   };
 
-  nativeBuildInputs = [ pkg-config autoconf automake ];
+  nativeBuildInputs = [
+    pkg-config
+    autoconf
+    automake
+  ];
   buildInputs = [
     SDL2
     libGLU

@@ -18,7 +18,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ unittestCheckHook ];
 
-  unittestFlagsArray = [ "-s" "pytz/tests" ];
+  unittestFlagsArray = [
+    "-s"
+    "pytz/tests"
+  ];
 
   pythonImportsCheck = [ "pytz" ];
 

@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ libev libnl libpcap ];
+  buildInputs = [
+    libev
+    libnl
+    libpcap
+  ];
 
   meta = with lib; {
     description =

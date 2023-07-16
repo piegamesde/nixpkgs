@@ -25,7 +25,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs = [ pytestCheckHook six ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    six
+  ];
 
   pythonImportsCheck = [ "funcparserlib" ];
 

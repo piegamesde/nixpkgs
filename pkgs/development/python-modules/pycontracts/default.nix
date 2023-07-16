@@ -19,7 +19,12 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ nose ];
-  propagatedBuildInputs = [ pyparsing decorator six future ];
+  propagatedBuildInputs = [
+    pyparsing
+    decorator
+    six
+    future
+  ];
 
   meta = with lib; {
     description =

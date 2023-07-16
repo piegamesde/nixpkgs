@@ -23,13 +23,20 @@ buildPythonPackage {
     make include/olm/olm.h
   '';
 
-  propagatedBuildInputs = [ cffi future ];
+  propagatedBuildInputs = [
+    cffi
+    future
+  ];
 
   propagatedNativeBuildInputs = [ cffi ];
 
   pythonImportsCheck = [ "olm" ];
 
-  nativeCheckInputs = [ aspectlib pytest-benchmark pytestCheckHook ];
+  nativeCheckInputs = [
+    aspectlib
+    pytest-benchmark
+    pytestCheckHook
+  ];
 
   meta = {
     inherit (olm.meta) license maintainers;

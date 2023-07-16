@@ -28,7 +28,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-reFxSOYQOf9QcoZzaLt4D1yKGQoDxpt/3rwiHgP1DCo=";
   };
 
-  nativeBuildInputs = [ cmake rocm-cmake hip ];
+  nativeBuildInputs = [
+    cmake
+    rocm-cmake
+    hip
+  ];
 
   buildInputs = [ rocprim ] ++ lib.optionals buildTests [ gtest ]
     ++ lib.optionals buildBenchmarks [ gbenchmark ];

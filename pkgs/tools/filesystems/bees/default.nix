@@ -29,9 +29,8 @@ let
       util-linux # for uuid.h
     ];
 
-    nativeBuildInputs = [
-      python3Packages.markdown # documentation build
-    ];
+    nativeBuildInputs = [ python3Packages.markdown # documentation build
+      ];
 
     preBuild = ''
       git() { if [[ $1 = describe ]]; then echo ${version}; else command git "$@"; fi; }

@@ -31,7 +31,12 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ libgcrypt enchant gtkmm3 libchamplain ];
+  buildInputs = [
+    libgcrypt
+    enchant
+    gtkmm3
+    libchamplain
+  ];
 
   postInstall = ''
     substituteInPlace $out/share/applications/net.sourceforge.Lifeograph.desktop \

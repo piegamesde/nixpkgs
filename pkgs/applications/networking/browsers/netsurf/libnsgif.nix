@@ -33,7 +33,10 @@ stdenv.mkDerivation rec {
     homepage = "https://www.netsurf-browser.org/projects/${libname}/";
     description = "GIF Decoder for netsurf browser";
     license = licenses.mit;
-    maintainers = [ maintainers.vrthra maintainers.AndersonTorres ];
+    maintainers = [
+      maintainers.vrthra
+      maintainers.AndersonTorres
+    ];
     platforms = platforms.unix;
   };
 }

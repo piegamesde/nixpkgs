@@ -27,9 +27,19 @@ buildPythonPackage rec {
     hash = "sha256-eGN2QvPHZ8gfPPFdUbAP9cs43jzUHDBS/w1tni1shB0=";
   };
 
-  propagatedBuildInputs = [ gpiozero pyserial pyserial-asyncio pyusb zigpy ];
+  propagatedBuildInputs = [
+    gpiozero
+    pyserial
+    pyserial-asyncio
+    pyusb
+    zigpy
+  ];
 
-  nativeCheckInputs = [ mock pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "zigpy_zigate" ];
 

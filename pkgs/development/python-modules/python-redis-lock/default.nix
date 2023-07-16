@@ -29,8 +29,13 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ redis ]
     ++ lib.optionals withDjango [ django-redis ];
 
-  nativeCheckInputs =
-    [ eventlet gevent pytestCheckHook process-tests pkgs.redis ];
+  nativeCheckInputs = [
+    eventlet
+    gevent
+    pytestCheckHook
+    process-tests
+    pkgs.redis
+  ];
 
   disabledTests = [
     # https://github.com/ionelmc/python-redis-lock/issues/86

@@ -24,7 +24,10 @@ let
   webSettings = {
     DEFAULT_FROM_EMAIL = cfg.siteOwner;
     SERVER_EMAIL = cfg.siteOwner;
-    ALLOWED_HOSTS = [ "localhost" "127.0.0.1" ] ++ cfg.webHosts;
+    ALLOWED_HOSTS = [
+      "localhost"
+      "127.0.0.1"
+    ] ++ cfg.webHosts;
     COMPRESS_OFFLINE = true;
     STATIC_ROOT = "/var/lib/mailman-web-static";
     MEDIA_ROOT = "/var/lib/mailman-web/media";
@@ -78,19 +81,31 @@ in {
   ###### interface
 
   imports = [
-    (mkRenamedOptionModule [ "services" "mailman" "hyperkittyBaseUrl" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "mailman"
+      "hyperkittyBaseUrl"
+    ] [
       "services"
       "mailman"
       "hyperkitty"
       "baseUrl"
     ])
 
-    (mkRemovedOptionModule [ "services" "mailman" "hyperkittyApiKey" ] ''
+    (mkRemovedOptionModule [
+      "services"
+      "mailman"
+      "hyperkittyApiKey"
+    ] ''
       The Hyperkitty API key is now generated on first run, and not
       stored in the world-readable Nix store.  To continue using
       Hyperkitty, you must set services.mailman.hyperkitty.enable = true.
     '')
-    (mkRemovedOptionModule [ "services" "mailman" "package" ] ''
+    (mkRemovedOptionModule [
+      "services"
+      "mailman"
+      "package"
+    ] ''
       Didn't have an effect for several years.
     '')
   ];
@@ -396,13 +411,13 @@ in {
             See <https://mailman.readthedocs.io/en/latest/src/mailman/docs/mta.html>.
           '';
         };
-    in [{
+    in [ {
       assertion = cfg.webHosts != [ ];
       message = ''
         services.mailman.serve.enable requires there to be at least one entry
         in services.mailman.webHosts.
       '';
-    }] ++ (lib.optionals cfg.enablePostfix [
+    } ] ++ (lib.optionals cfg.enablePostfix [
       {
         assertion = postfix.enable;
         message = ''
@@ -416,8 +431,14 @@ in {
         '';
       }
       (requirePostfixHash [ "relayDomains" ] "postfix_domains")
-      (requirePostfixHash [ "config" "transport_maps" ] "postfix_lmtp")
-      (requirePostfixHash [ "config" "local_recipient_maps" ] "postfix_lmtp")
+      (requirePostfixHash [
+        "config"
+        "transport_maps"
+      ] "postfix_lmtp")
+      (requirePostfixHash [
+        "config"
+        "local_recipient_maps"
+      ] "postfix_lmtp")
     ]);
 
     users.users.mailman = {
@@ -498,22 +519,23 @@ in {
       });
     };
 
-    environment.systemPackages = [
-      (pkgs.buildEnv {
-        name = "mailman-tools";
-        # We don't want to pollute the system PATH with a python
-        # interpreter etc. so let's pick only the stuff we actually
-        # want from {web,mailman}Env
-        pathsToLink = [ "/bin" ];
-        paths = [ mailmanEnv webEnv ];
-        # Only mailman-related stuff is installed, the rest is removed
-        # in `postBuild`.
-        ignoreCollisions = true;
-        postBuild = ''
-          find $out/bin/ -mindepth 1 -not -name "mailman*" -delete
-        '';
-      })
-    ];
+    environment.systemPackages = [ (pkgs.buildEnv {
+      name = "mailman-tools";
+      # We don't want to pollute the system PATH with a python
+      # interpreter etc. so let's pick only the stuff we actually
+      # want from {web,mailman}Env
+      pathsToLink = [ "/bin" ];
+      paths = [
+        mailmanEnv
+        webEnv
+      ];
+      # Only mailman-related stuff is installed, the rest is removed
+      # in `postBuild`.
+      ignoreCollisions = true;
+      postBuild = ''
+        find $out/bin/ -mindepth 1 -not -name "mailman*" -delete
+      '';
+    }) ];
 
     services.postfix = lib.mkIf cfg.enablePostfix {
       recipientDelimiter =
@@ -647,8 +669,10 @@ in {
       in {
         wantedBy = [ "multi-user.target" ];
         after = optional withPostgresql "postgresql.service";
-        requires = [ "mailman-uwsgi.socket" "mailman-web-setup.service" ]
-          ++ optional withPostgresql "postgresql.service";
+        requires = [
+          "mailman-uwsgi.socket"
+          "mailman-web-setup.service"
+        ] ++ optional withPostgresql "postgresql.service";
         restartTriggers =
           [ config.environment.etc."mailman3/settings.py".source ];
         serviceConfig = {
@@ -680,7 +704,10 @@ in {
         after = [ "network.target" ];
         restartTriggers =
           [ config.environment.etc."mailman3/settings.py".source ];
-        wantedBy = [ "mailman.service" "multi-user.target" ];
+        wantedBy = [
+          "mailman.service"
+          "multi-user.target"
+        ];
         serviceConfig = {
           ExecStart = "${webEnv}/bin/mailman-web qcluster";
           User = cfg.webUser;
@@ -711,7 +738,11 @@ in {
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ lheckemann qyliss ma27 ];
+    maintainers = with lib.maintainers; [
+      lheckemann
+      qyliss
+      ma27
+    ];
     doc = ./mailman.md;
   };
 

@@ -21,7 +21,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [ hatchling packaging ];
+  propagatedBuildInputs = [
+    hatchling
+    packaging
+  ];
 
   doCheck = false; # missing coincidence dependency
 

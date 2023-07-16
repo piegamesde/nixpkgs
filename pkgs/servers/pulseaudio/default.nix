@@ -99,7 +99,10 @@ stdenv.mkDerivation rec {
     ./0007-Fix-link-args-on-darwin.patch
   ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [
     pkg-config
@@ -109,43 +112,51 @@ stdenv.mkDerivation rec {
     perlPackages.perl
     perlPackages.XMLParser
     m4
-  ] ++ lib.optionals stdenv.isLinux [
-    glib
-  ]
-  # gstreamer plugin discovery requires wrapping
+  ] ++ lib.optionals stdenv.isLinux [ glib ]
+    # gstreamer plugin discovery requires wrapping
     ++ lib.optional (bluetoothSupport && advancedBluetoothCodecs) wrapGAppsHook;
 
   propagatedBuildInputs = lib.optionals stdenv.isLinux [ libcap ];
 
-  buildInputs = [ libtool libsndfile soxr speexdsp fftwFloat check ]
-    ++ lib.optionals stdenv.isLinux [ glib dbus ]
-    ++ lib.optionals stdenv.isDarwin [
-      AudioUnit
-      Cocoa
-      CoreServices
-      CoreAudio
-      libintl
-    ] ++ lib.optionals (!libOnly) ([ libasyncns webrtc-audio-processing ]
-      ++ lib.optional jackaudioSupport libjack2 ++ lib.optionals x11Support [
-        xorg.libICE
-        xorg.libSM
-        xorg.libX11
-        xorg.libXi
-        xorg.libXtst
-      ] ++ lib.optional useSystemd systemd
-      ++ lib.optionals stdenv.isLinux [ alsa-lib udev ]
-      ++ lib.optional airtunesSupport openssl
-      ++ lib.optionals bluetoothSupport [
-        bluez5
-        sbc
-      ]
-      # aptX and LDAC codecs are in gst-plugins-bad so far, rtpldacpay is in -good
-      ++ lib.optionals (bluetoothSupport && advancedBluetoothCodecs)
-      (builtins.attrValues {
-        inherit (gst_all_1)
-          gst-plugins-bad gst-plugins-good gst-plugins-base gstreamer;
-      }) ++ lib.optional remoteControlSupport lirc
-      ++ lib.optional zeroconfSupport avahi);
+  buildInputs = [
+    libtool
+    libsndfile
+    soxr
+    speexdsp
+    fftwFloat
+    check
+  ] ++ lib.optionals stdenv.isLinux [
+    glib
+    dbus
+  ] ++ lib.optionals stdenv.isDarwin [
+    AudioUnit
+    Cocoa
+    CoreServices
+    CoreAudio
+    libintl
+  ] ++ lib.optionals (!libOnly) ([
+    libasyncns
+    webrtc-audio-processing
+  ] ++ lib.optional jackaudioSupport libjack2 ++ lib.optionals x11Support [
+    xorg.libICE
+    xorg.libSM
+    xorg.libX11
+    xorg.libXi
+    xorg.libXtst
+  ] ++ lib.optional useSystemd systemd ++ lib.optionals stdenv.isLinux [
+    alsa-lib
+    udev
+  ] ++ lib.optional airtunesSupport openssl ++ lib.optionals bluetoothSupport [
+    bluez5
+    sbc
+  ]
+  # aptX and LDAC codecs are in gst-plugins-bad so far, rtpldacpay is in -good
+    ++ lib.optionals (bluetoothSupport && advancedBluetoothCodecs)
+    (builtins.attrValues {
+      inherit (gst_all_1)
+        gst-plugins-bad gst-plugins-good gst-plugins-base gstreamer;
+    }) ++ lib.optional remoteControlSupport lirc
+    ++ lib.optional zeroconfSupport avahi);
 
   mesonFlags = [
     "-Dalsa=${if !libOnly && alsaSupport then "enabled" else "disabled"}"

@@ -41,7 +41,10 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  checkInputs = [ cmdliner ounit ];
+  checkInputs = [
+    cmdliner
+    ounit
+  ];
 
   meta = with lib; {
     description = "Xen Vchan implementation";

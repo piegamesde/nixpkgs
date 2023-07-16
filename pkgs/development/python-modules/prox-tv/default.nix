@@ -23,7 +23,10 @@ buildPythonPackage {
 
   nativeCheckInputs = [ nose ];
 
-  propagatedBuildInputs = [ numpy cffi ];
+  propagatedBuildInputs = [
+    numpy
+    cffi
+  ];
 
   # this test is known to fail on darwin
   checkPhase = ''
@@ -34,7 +37,10 @@ buildPythonPackage {
 
   propagatedNativeBuildInputs = [ cffi ];
 
-  buildInputs = [ blas lapack ];
+  buildInputs = [
+    blas
+    lapack
+  ];
 
   enableParallelBuilding = true;
 

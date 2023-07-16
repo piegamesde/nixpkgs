@@ -49,7 +49,7 @@ import ./make-test-python.nix ({
               };
 
               http.services.simplehttp = {
-                loadBalancer.servers = [{ url = "http://127.0.0.1:8000"; }];
+                loadBalancer.servers = [ { url = "http://127.0.0.1:8000"; } ];
               };
             };
 

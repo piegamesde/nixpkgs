@@ -34,7 +34,11 @@ let
         an entry's protected string fields, such as the password field
       '';
       homepage = "https://github.com/SketchingDev/Character-Copy";
-      platforms = [ "aarch64-linux" "i686-linux" "x86_64-linux" ];
+      platforms = [
+        "aarch64-linux"
+        "i686-linux"
+        "x86_64-linux"
+      ];
       # licensing info was found in source files https://github.com/SketchingDev/Character-Copy/search?q=license
       license = licenses.gpl2;
       maintainers = with maintainers; [ nazarewk ];
@@ -43,5 +47,8 @@ let
   # Mono is required to compile plugin at runtime, after loading.
 in buildEnv {
   name = drv.name;
-  paths = [ mono drv ];
+  paths = [
+    mono
+    drv
+  ];
 }

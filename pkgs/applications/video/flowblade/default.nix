@@ -31,11 +31,21 @@ stdenv.mkDerivation rec {
     gtk3
     gobject-introspection
     ladspaPlugins
-    (python3.withPackages
-      (ps: with ps; [ mlt pygobject3 dbus-python numpy pillow ]))
+    (python3.withPackages (ps:
+      with ps; [
+        mlt
+        pygobject3
+        dbus-python
+        numpy
+        pillow
+      ]))
   ];
 
-  nativeBuildInputs = [ gobject-introspection makeWrapper wrapGAppsHook ];
+  nativeBuildInputs = [
+    gobject-introspection
+    makeWrapper
+    wrapGAppsHook
+  ];
 
   installPhase = ''
     runHook preInstall

@@ -31,7 +31,11 @@ stdenv.mkDerivation rec {
     sha256 = "0hbdwqagxh1mdpxfdqr1ps3yqvk0v0c5zm0bwk56y6l1zwbs0ymp";
   };
 
-  nativeBuildInputs = [ gettext pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    gettext
+    pkg-config
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     dbus-glib
@@ -58,7 +62,12 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "MATE settings daemon";
     homepage = "https://github.com/mate-desktop/mate-settings-daemon";
-    license = with licenses; [ gpl2Plus gpl3Plus lgpl2Plus mit ];
+    license = with licenses; [
+      gpl2Plus
+      gpl3Plus
+      lgpl2Plus
+      mit
+    ];
     platforms = platforms.unix;
     maintainers = teams.mate.members;
   };

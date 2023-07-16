@@ -26,8 +26,11 @@ in final: prev: {
   "@forge/cli" = prev."@forge/cli".override {
     nativeBuildInputs = [ pkgs.pkg-config ];
     buildInputs = with pkgs;
-      [ libsecret final.node-gyp-build final.node-pre-gyp ]
-      ++ lib.optionals stdenv.isDarwin [
+      [
+        libsecret
+        final.node-gyp-build
+        final.node-pre-gyp
+      ] ++ lib.optionals stdenv.isDarwin [
         darwin.apple_sdk.frameworks.AppKit
         darwin.apple_sdk.frameworks.Security
       ];
@@ -38,9 +41,19 @@ in final: prev: {
   "@medable/mdctl-cli" = prev."@medable/mdctl-cli".override (oldAttrs: {
     nativeBuildInputs = with pkgs;
       with darwin.apple_sdk.frameworks;
-      [ glib libsecret pkg-config ]
-      ++ lib.optionals stdenv.isDarwin [ AppKit Security ];
-    buildInputs = [ final.node-gyp-build final.node-pre-gyp nodejs ];
+      [
+        glib
+        libsecret
+        pkg-config
+      ] ++ lib.optionals stdenv.isDarwin [
+        AppKit
+        Security
+      ];
+    buildInputs = [
+      final.node-gyp-build
+      final.node-pre-gyp
+      nodejs
+    ];
 
     meta = oldAttrs.meta // { broken = since "16"; };
   });
@@ -86,7 +99,12 @@ in final: prev: {
     nativeBuildInputs = with pkgs;
       [ pkg-config ]
       ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
-    buildInputs = with pkgs; [ pixman cairo pango giflib ];
+    buildInputs = with pkgs; [
+      pixman
+      cairo
+      pango
+      giflib
+    ];
   };
 
   bower2nix = prev.bower2nix.override {
@@ -94,7 +112,10 @@ in final: prev: {
     postInstall = ''
       for prog in bower2nix fetch-bower; do
         wrapProgram "$out/bin/$prog" --prefix PATH : ${
-          lib.makeBinPath [ pkgs.git pkgs.nix ]
+          lib.makeBinPath [
+            pkgs.git
+            pkgs.nix
+          ]
         }
       done
     '';
@@ -115,8 +136,12 @@ in final: prev: {
     (oldAttrs: { meta = oldAttrs.meta // { broken = since "10"; }; });
 
   dat = prev.dat.override (oldAttrs: {
-    buildInputs =
-      [ final.node-gyp-build pkgs.libtool pkgs.autoconf pkgs.automake ];
+    buildInputs = [
+      final.node-gyp-build
+      pkgs.libtool
+      pkgs.autoconf
+      pkgs.automake
+    ];
     meta = oldAttrs.meta // { broken = since "12"; };
   });
 
@@ -127,8 +152,11 @@ in final: prev: {
   epgstation = prev."epgstation-../../applications/video/epgstation".override
     (oldAttrs: {
       buildInputs = [ pkgs.postgresql ];
-      nativeBuildInputs =
-        [ final.node-pre-gyp final.node-gyp-build pkgs.which ];
+      nativeBuildInputs = [
+        final.node-pre-gyp
+        final.node-gyp-build
+        pkgs.which
+      ];
       meta = oldAttrs.meta // { platforms = lib.platforms.none; };
     });
 
@@ -197,19 +225,28 @@ in final: prev: {
     '';
   };
 
-  hsd =
-    prev.hsd.override { buildInputs = [ final.node-gyp-build pkgs.unbound ]; };
+  hsd = prev.hsd.override {
+    buildInputs = [
+      final.node-gyp-build
+      pkgs.unbound
+    ];
+  };
 
   ijavascript = prev.ijavascript.override (oldAttrs: {
     preRebuild = ''
       export npm_config_zmq_external=true
     '';
-    buildInputs = oldAttrs.buildInputs ++ [ final.node-gyp-build pkgs.zeromq ];
+    buildInputs = oldAttrs.buildInputs ++ [
+      final.node-gyp-build
+      pkgs.zeromq
+    ];
   });
 
   insect = prev.insect.override (oldAttrs: {
-    nativeBuildInputs = oldAttrs.nativeBuildInputs or [ ]
-      ++ [ pkgs.psc-package final.pulp ];
+    nativeBuildInputs = oldAttrs.nativeBuildInputs or [ ] ++ [
+      pkgs.psc-package
+      final.pulp
+    ];
   });
 
   intelephense = prev.intelephense.override
@@ -252,7 +289,11 @@ in final: prev: {
   keyoxide = prev.keyoxide.override {
     nativeBuildInputs = [ pkgs.pkg-config ];
     buildInputs = with pkgs;
-      [ pixman cairo pango ]
+      [
+        pixman
+        cairo
+        pango
+      ]
       ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
   };
 
@@ -266,7 +307,10 @@ in final: prev: {
   };
 
   manta = prev.manta.override (oldAttrs: {
-    nativeBuildInputs = with pkgs; [ nodejs_14 installShellFiles ];
+    nativeBuildInputs = with pkgs; [
+      nodejs_14
+      installShellFiles
+    ];
     postInstall = ''
       # create completions, following upstream procedure https://github.com/joyent/node-manta/blob/v5.2.3/Makefile#L85-L91
       completion_cmds=$(find ./bin -type f -printf "%f\n")
@@ -369,13 +413,16 @@ in final: prev: {
       sed 's/"link:/"file:/g' --in-place package.json
     '';
 
-    postInstall =
-      let pnpmLibPath = lib.makeBinPath [ nodejs.passthru.python nodejs ];
-      in ''
-        for prog in $out/bin/*; do
-          wrapProgram "$prog" --prefix PATH : ${pnpmLibPath}
-        done
-      '';
+    postInstall = let
+      pnpmLibPath = lib.makeBinPath [
+        nodejs.passthru.python
+        nodejs
+      ];
+    in ''
+      for prog in $out/bin/*; do
+        wrapProgram "$prog" --prefix PATH : ${pnpmLibPath}
+      done
+    '';
   };
 
   postcss-cli = prev.postcss-cli.override (oldAttrs: {
@@ -450,7 +497,11 @@ in final: prev: {
     };
 
     nativeBuildInputs = [ pkgs.pkg-config ];
-    buildInputs = with pkgs; [ pixman cairo pango ];
+    buildInputs = with pkgs; [
+      pixman
+      cairo
+      pango
+    ];
   });
 
   reveal-md = prev.reveal-md.override (lib.optionalAttrs (!stdenv.isDarwin) {
@@ -467,7 +518,11 @@ in final: prev: {
   rush = prev."@microsoft/rush".override { name = "rush"; };
 
   ssb-server = prev.ssb-server.override (oldAttrs: {
-    buildInputs = [ pkgs.automake pkgs.autoconf final.node-gyp-build ];
+    buildInputs = [
+      pkgs.automake
+      pkgs.autoconf
+      final.node-gyp-build
+    ];
     meta = oldAttrs.meta // { broken = since "10"; };
   });
 
@@ -502,7 +557,11 @@ in final: prev: {
 
   tedicross =
     prev."tedicross-git+https://github.com/TediCross/TediCross.git#v0.8.7".override {
-      nativeBuildInputs = with pkgs; [ makeWrapper libtool autoconf ];
+      nativeBuildInputs = with pkgs; [
+        makeWrapper
+        libtool
+        autoconf
+      ];
       postInstall = ''
         makeWrapper '${nodejs}/bin/node' "$out/bin/tedicross" \
           --add-flags "$out/lib/node_modules/tedicross/main.js"
@@ -583,7 +642,13 @@ in final: prev: {
   vega-cli = prev.vega-cli.override {
     nativeBuildInputs = [ pkgs.pkg-config ];
     buildInputs = with pkgs;
-      [ final.node-pre-gyp pixman cairo pango libjpeg ]
+      [
+        final.node-pre-gyp
+        pixman
+        cairo
+        pango
+        libjpeg
+      ]
       ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
   };
 
@@ -606,11 +671,19 @@ in final: prev: {
   volar = final."@volar/vue-language-server".override { name = "volar"; };
 
   wavedrom-cli = prev.wavedrom-cli.override {
-    nativeBuildInputs = [ pkgs.pkg-config final.node-pre-gyp ];
+    nativeBuildInputs = [
+      pkgs.pkg-config
+      final.node-pre-gyp
+    ];
     # These dependencies are required by
     # https://github.com/Automattic/node-canvas.
     buildInputs = with pkgs;
-      [ giflib pixman cairo pango ]
+      [
+        giflib
+        pixman
+        cairo
+        pango
+      ]
       ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
   };
 

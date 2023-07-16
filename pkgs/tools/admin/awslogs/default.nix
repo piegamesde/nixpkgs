@@ -33,7 +33,10 @@ python3.pkgs.buildPythonApplication rec {
       --replace '>=3.5.*' '>=3.5'
   '';
 
-  disabledTests = [ "test_main_get_query" "test_main_get_with_color" ];
+  disabledTests = [
+    "test_main_get_query"
+    "test_main_get_with_color"
+  ];
 
   pythonImportsCheck = [ "awslogs" ];
 

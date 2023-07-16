@@ -33,15 +33,24 @@ in stdenv.mkDerivation {
     })
   ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  configureFlags = [ "--enable-idl" "--enable-secure-api" ];
+  configureFlags = [
+    "--enable-idl"
+    "--enable-secure-api"
+  ];
 
   enableParallelBuilding = true;
 
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ windows.mingw_w64_headers ];
-  hardeningDisable = [ "stackprotector" "fortify" ];
+  hardeningDisable = [
+    "stackprotector"
+    "fortify"
+  ];
 
   meta = { platforms = lib.platforms.windows; };
 }

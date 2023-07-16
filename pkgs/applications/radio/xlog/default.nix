@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-DGLIB_DISABLE_DEPRECATION_WARNINGS";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ glib gtk2 hamlib ];
+  buildInputs = [
+    glib
+    gtk2
+    hamlib
+  ];
 
   meta = with lib; {
     description = "An amateur radio logging program";

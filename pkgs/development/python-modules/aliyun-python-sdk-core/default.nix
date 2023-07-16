@@ -22,7 +22,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  propagatedBuildInputs = [ cryptography jmespath ];
+  propagatedBuildInputs = [
+    cryptography
+    jmespath
+  ];
 
   # All components are stored in a mono repo
   doCheck = false;

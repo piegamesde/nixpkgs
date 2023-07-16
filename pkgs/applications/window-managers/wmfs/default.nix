@@ -34,7 +34,14 @@ stdenv.mkDerivation {
     })
   ];
 
-  buildInputs = [ imlib2 libX11 libXinerama libXrandr libXpm libXft ];
+  buildInputs = [
+    imlib2
+    libX11
+    libXinerama
+    libXrandr
+    libXpm
+    libXft
+  ];
 
   preConfigure = "substituteInPlace configure --replace '-lxft' '-lXft'";
 

@@ -6,7 +6,10 @@ args@{
   baseName = "cl-async";
   version = "20211020-git";
 
-  parasites = [ "cl-async-base" "cl-async-util" ];
+  parasites = [
+    "cl-async-base"
+    "cl-async-util"
+  ];
 
   description = "Asynchronous operations for Common Lisp.";
 

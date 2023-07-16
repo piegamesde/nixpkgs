@@ -17,7 +17,10 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-vNXD5SauBpCtP7VPTumQ0/wXfW0PjtooS21cjpAole8=";
   };
 
-  nativeBuildInputs = [ installShellFiles python3Packages.wrapPython ];
+  nativeBuildInputs = [
+    installShellFiles
+    python3Packages.wrapPython
+  ];
 
   # There is no setup.py
   dontConfigure = true;

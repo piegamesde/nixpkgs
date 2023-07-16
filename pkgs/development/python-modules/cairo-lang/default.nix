@@ -70,7 +70,10 @@ buildPythonPackage rec {
     pyyaml
   ] ++ eth-hash.optional-dependencies.pycryptodome;
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonRelaxDeps = [ "frozendict" ];
 

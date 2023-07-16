@@ -442,43 +442,93 @@ let
 in {
 
   imports = [
-    (mkRemovedOptionModule [ "services" "httpd" "extraSubservices" ]
+    (mkRemovedOptionModule [
+      "services"
+      "httpd"
+      "extraSubservices"
+    ]
       "Most existing subservices have been ported to the NixOS module system. Please update your configuration accordingly.")
-    (mkRemovedOptionModule [ "services" "httpd" "stateDir" ]
-      "The httpd module now uses /run/httpd as a runtime directory.")
-    (mkRenamedOptionModule [ "services" "httpd" "multiProcessingModule" ] [
+    (mkRemovedOptionModule [
+      "services"
+      "httpd"
+      "stateDir"
+    ] "The httpd module now uses /run/httpd as a runtime directory.")
+    (mkRenamedOptionModule [
+      "services"
+      "httpd"
+      "multiProcessingModule"
+    ] [
       "services"
       "httpd"
       "mpm"
     ])
 
     # virtualHosts options
-    (mkRemovedOptionModule [ "services" "httpd" "documentRoot" ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule [ "services" "httpd" "enableSSL" ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule [ "services" "httpd" "enableUserDir" ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule [ "services" "httpd" "globalRedirect" ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule [ "services" "httpd" "hostName" ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule [ "services" "httpd" "listen" ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule [ "services" "httpd" "robotsEntries" ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule [ "services" "httpd" "servedDirs" ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule [ "services" "httpd" "servedFiles" ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule [ "services" "httpd" "serverAliases" ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule [ "services" "httpd" "sslServerCert" ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule [ "services" "httpd" "sslServerChain" ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule [ "services" "httpd" "sslServerKey" ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
+    (mkRemovedOptionModule [
+      "services"
+      "httpd"
+      "documentRoot"
+    ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+    (mkRemovedOptionModule [
+      "services"
+      "httpd"
+      "enableSSL"
+    ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+    (mkRemovedOptionModule [
+      "services"
+      "httpd"
+      "enableUserDir"
+    ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+    (mkRemovedOptionModule [
+      "services"
+      "httpd"
+      "globalRedirect"
+    ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+    (mkRemovedOptionModule [
+      "services"
+      "httpd"
+      "hostName"
+    ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+    (mkRemovedOptionModule [
+      "services"
+      "httpd"
+      "listen"
+    ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+    (mkRemovedOptionModule [
+      "services"
+      "httpd"
+      "robotsEntries"
+    ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+    (mkRemovedOptionModule [
+      "services"
+      "httpd"
+      "servedDirs"
+    ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+    (mkRemovedOptionModule [
+      "services"
+      "httpd"
+      "servedFiles"
+    ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+    (mkRemovedOptionModule [
+      "services"
+      "httpd"
+      "serverAliases"
+    ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+    (mkRemovedOptionModule [
+      "services"
+      "httpd"
+      "sslServerCert"
+    ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+    (mkRemovedOptionModule [
+      "services"
+      "httpd"
+      "sslServerChain"
+    ] "Please define a virtual host using `services.httpd.virtualHosts`.")
+    (mkRemovedOptionModule [
+      "services"
+      "httpd"
+      "sslServerKey"
+    ] "Please define a virtual host using `services.httpd.virtualHosts`.")
   ];
 
   # interface
@@ -664,7 +714,11 @@ in {
       };
 
       mpm = mkOption {
-        type = types.enum [ "event" "prefork" "worker" ];
+        type = types.enum [
+          "event"
+          "prefork"
+          "worker"
+        ];
         default = "event";
         example = "worker";
         description = lib.mdDoc ''
@@ -800,7 +854,10 @@ in {
 
     # httpd requires a stable path to the configuration file for reloads
     environment.etc."httpd/httpd.conf".source = cfg.configFile;
-    environment.systemPackages = [ apachectl pkg ];
+    environment.systemPackages = [
+      apachectl
+      pkg
+    ];
 
     services.logrotate = optionalAttrs (cfg.logFormat != "none") {
       enable = mkDefault true;
@@ -888,7 +945,11 @@ in {
       before = map (certName: "acme-${certName}.service") dependentCertNames;
       restartTriggers = [ cfg.configFile ];
 
-      path = [ pkg pkgs.coreutils pkgs.gnugrep ];
+      path = [
+        pkg
+        pkgs.coreutils
+        pkgs.gnugrep
+      ];
 
       environment = optionalAttrs cfg.enablePHP { PHPRC = phpIni; }
         // optionalAttrs cfg.enableMellon {

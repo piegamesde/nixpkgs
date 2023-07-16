@@ -47,7 +47,12 @@ import ./make-test-python.nix ({
 
   in {
     name = "switch-test";
-    meta = with pkgs.lib.maintainers; { maintainers = [ gleber das_j ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        gleber
+        das_j
+      ];
+    };
 
     nodes = {
       machine = {
@@ -135,44 +140,38 @@ import ./make-test-python.nix ({
 
             simpleServiceWithExtraSection.configuration = {
               imports = [ simpleServiceNostop.configuration ];
-              systemd.packages = [
-                (pkgs.writeTextFile {
-                  name = "systemd-extra-section";
-                  destination = "/etc/systemd/system/test.service";
-                  text = ''
-                    [X-Test]
-                    X-Test-Value=a
-                  '';
-                })
-              ];
+              systemd.packages = [ (pkgs.writeTextFile {
+                name = "systemd-extra-section";
+                destination = "/etc/systemd/system/test.service";
+                text = ''
+                  [X-Test]
+                  X-Test-Value=a
+                '';
+              }) ];
             };
 
             simpleServiceWithExtraSectionOtherName.configuration = {
               imports = [ simpleServiceNostop.configuration ];
-              systemd.packages = [
-                (pkgs.writeTextFile {
-                  name = "systemd-extra-section";
-                  destination = "/etc/systemd/system/test.service";
-                  text = ''
-                    [X-Test2]
-                    X-Test-Value=a
-                  '';
-                })
-              ];
+              systemd.packages = [ (pkgs.writeTextFile {
+                name = "systemd-extra-section";
+                destination = "/etc/systemd/system/test.service";
+                text = ''
+                  [X-Test2]
+                  X-Test-Value=a
+                '';
+              }) ];
             };
 
             simpleServiceWithInstallSection.configuration = {
               imports = [ simpleServiceNostop.configuration ];
-              systemd.packages = [
-                (pkgs.writeTextFile {
-                  name = "systemd-extra-section";
-                  destination = "/etc/systemd/system/test.service";
-                  text = ''
-                    [Install]
-                    WantedBy=multi-user.target
-                  '';
-                })
-              ];
+              systemd.packages = [ (pkgs.writeTextFile {
+                name = "systemd-extra-section";
+                destination = "/etc/systemd/system/test.service";
+                text = ''
+                  [Install]
+                  WantedBy=multi-user.target
+                '';
+              }) ];
             };
 
             simpleServiceWithExtraKey.configuration = {
@@ -388,25 +387,25 @@ import ./make-test-python.nix ({
             };
 
             mount.configuration = {
-              systemd.mounts = [{
+              systemd.mounts = [ {
                 description = "Testmount";
                 what = "tmpfs";
                 type = "tmpfs";
                 where = "/testmount";
                 options = "size=1M";
                 wantedBy = [ "local-fs.target" ];
-              }];
+              } ];
             };
 
             mountModified.configuration = {
-              systemd.mounts = [{
+              systemd.mounts = [ {
                 description = "Testmount";
                 what = "tmpfs";
                 type = "tmpfs";
                 where = "/testmount";
                 options = "size=10M";
                 wantedBy = [ "local-fs.target" ];
-              }];
+              } ];
             };
 
             timer.configuration = {

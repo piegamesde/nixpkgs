@@ -17,7 +17,10 @@ stdenv.mkDerivation {
     sha256 = "sha256-5oQ/jZfz7izTcYR+N801HYh4lH2MF54PCMnmA4CpRwc=";
   };
 
-  buildInputs = [ ant jdk ];
+  buildInputs = [
+    ant
+    jdk
+  ];
 
   buildPhase = "mkdir lib; ant";
 

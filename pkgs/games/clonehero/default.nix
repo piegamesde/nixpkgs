@@ -23,7 +23,10 @@ in stdenv.mkDerivation rec {
     sha256 = "0k9jcnd55yhr42gj8cmysd18yldp4k3cpk4z884p2ww03fyfq7mi";
   };
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   nativeBuildInputs = [ autoPatchelfHook ];
 

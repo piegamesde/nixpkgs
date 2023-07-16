@@ -25,7 +25,10 @@ buildPythonPackage rec {
     hash = "sha256-Fnj0n3NS3SetOlwSmGkLE979vNJnYE6i6xwVBslpNz4=";
   };
 
-  propagatedBuildInputs = [ django pytz ];
+  propagatedBuildInputs = [
+    django
+    pytz
+  ];
 
   nativeCheckInputs = [
     pytest-django
@@ -43,7 +46,10 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Web APIs for Django, made easy";
     homepage = "https://www.django-rest-framework.org/";
-    maintainers = with maintainers; [ desiderius SuperSandro2000 ];
+    maintainers = with maintainers; [
+      desiderius
+      SuperSandro2000
+    ];
     license = licenses.bsd2;
   };
 }

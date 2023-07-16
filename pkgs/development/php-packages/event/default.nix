@@ -26,7 +26,10 @@ buildPecl {
   '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl libevent ];
+  buildInputs = [
+    openssl
+    libevent
+  ];
   internalDeps = [ php.extensions.sockets ];
 
   meta = with lib; {

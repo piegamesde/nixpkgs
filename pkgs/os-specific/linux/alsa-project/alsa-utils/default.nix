@@ -21,18 +21,31 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4UD6YEw1Hza9chZ8iGDGnYG5ZK5qtTmS1kNN3jjpMzw=";
   };
 
-  nativeBuildInputs = [ gettext makeWrapper ];
-  buildInputs = [ alsa-lib ncurses libsamplerate fftw ];
+  nativeBuildInputs = [
+    gettext
+    makeWrapper
+  ];
+  buildInputs = [
+    alsa-lib
+    ncurses
+    libsamplerate
+    fftw
+  ];
 
-  configureFlags =
-    [ "--disable-xmlto" "--with-udev-rules-dir=$(out)/lib/udev/rules.d" ];
+  configureFlags = [
+    "--disable-xmlto"
+    "--with-udev-rules-dir=$(out)/lib/udev/rules.d"
+  ];
 
   installFlags = [ "ASOUND_STATE_DIR=$(TMPDIR)/dummy" ];
 
   postFixup = ''
     mv $out/bin/alsa-info.sh $out/bin/alsa-info
     wrapProgram $out/bin/alsa-info --prefix PATH : "${
-      lib.makeBinPath [ which pciutils ]
+      lib.makeBinPath [
+        which
+        pciutils
+      ]
     }"
   '';
 

@@ -26,8 +26,12 @@ in {
       mkEnableOption (mdDoc "Enable the stevenblack hosts file blocklist");
 
     block = mkOption {
-      type =
-        types.listOf (types.enum [ "fakenews" "gambling" "porn" "social" ]);
+      type = types.listOf (types.enum [
+        "fakenews"
+        "gambling"
+        "porn"
+        "social"
+      ]);
       default = [ ];
       description = mdDoc "Additional blocklist extensions.";
     };
@@ -35,10 +39,12 @@ in {
 
   config = mkIf cfg.enable {
     networking.hostFiles = [ ]
-      ++ optionals (activatedHosts != [ ]) [ hostsPath ]
-      ++ optionals (activatedHosts == [ ])
-      [ "${pkgs.stevenblack-blocklist}/hosts" ];
+      ++ optionals (activatedHosts != [ ]) [ hostsPath ] ++ optionals
+      (activatedHosts == [ ]) [ "${pkgs.stevenblack-blocklist}/hosts" ];
   };
 
-  meta.maintainers = [ maintainers.fortuneteller2k maintainers.artturin ];
+  meta.maintainers = [
+    maintainers.fortuneteller2k
+    maintainers.artturin
+  ];
 }

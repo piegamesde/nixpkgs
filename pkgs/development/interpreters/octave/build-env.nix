@@ -25,7 +25,10 @@ in buildEnv {
   extraOutputsToInstall = [ "out" ] ++ extraOutputsToInstall;
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ texinfo wrapOctave ];
+  buildInputs = [
+    texinfo
+    wrapOctave
+  ];
 
   # During "build" we must first unlink the /share symlink to octave's /share
   # Then, we can re-symlink the all of octave/share, except for /share/octave

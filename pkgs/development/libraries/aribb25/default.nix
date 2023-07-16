@@ -24,8 +24,10 @@ stdenv.mkDerivation rec {
     sha256 = "1kb9crfqib0npiyjk4zb63zqlzbhqm35nz8nafsvdjd71qbd2amp";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ]
-    ++ lib.optional stdenv.isDarwin xcbuild;
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ] ++ lib.optional stdenv.isDarwin xcbuild;
   buildInputs = if stdenv.isDarwin then [ PCSC ] else [ pcsclite ];
 
   patches = let

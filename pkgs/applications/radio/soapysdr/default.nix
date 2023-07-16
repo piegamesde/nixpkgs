@@ -40,9 +40,18 @@ in stdenv.mkDerivation (finalAttrs: {
     ./fix-pkgconfig.patch
   ];
 
-  nativeBuildInputs = [ cmake makeWrapper pkg-config ];
-  buildInputs = [ libusb-compat-0_1 ncurses ]
-    ++ lib.optionals usePython [ python swig2 ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    pkg-config
+  ];
+  buildInputs = [
+    libusb-compat-0_1
+    ncurses
+  ] ++ lib.optionals usePython [
+    python
+    swig2
+  ];
 
   propagatedBuildInputs = lib.optional usePython python.pkgs.numpy;
 

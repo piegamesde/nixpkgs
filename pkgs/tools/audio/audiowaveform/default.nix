@@ -22,9 +22,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DxVEAe9j4BAMrfMiaxDfkGvL6CCT/v5oKTrxmgkHuyM=";
   };
 
-  nativeBuildInputs = [ cmake gtest ];
+  nativeBuildInputs = [
+    cmake
+    gtest
+  ];
 
-  buildInputs = [ boost gd libsndfile libmad libid3tag ];
+  buildInputs = [
+    boost
+    gd
+    libsndfile
+    libmad
+    libid3tag
+  ];
 
   preConfigure = ''
     ln -s ${gtest.src} googletest

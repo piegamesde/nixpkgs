@@ -22,7 +22,13 @@ buildPythonPackage rec {
     hash = "sha256-ZvhwIhkoES71jyv8Xv0dd44Z7tFAZzmE2XsiH7wFJfQ=";
   };
 
-  propagatedBuildInputs = [ colorama configobj packaging pyyaml pykwalify ];
+  propagatedBuildInputs = [
+    colorama
+    configobj
+    packaging
+    pyyaml
+    pykwalify
+  ];
 
   # pypi package does not include tests (and for good reason):
   # tests run under 'tox' and have west try to git clone repos (not sandboxable)

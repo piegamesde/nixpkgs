@@ -23,7 +23,10 @@ stdenv.mkDerivation rec {
   pname = "libvirt-glib";
   version = "4.0.0";
 
-  outputs = [ "out" "dev" ] ++ lib.optional withDocs "devdoc";
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optional withDocs "devdoc";
 
   src = fetchurl {
     url = "https://libvirt.org/sources/glib/${pname}-${version}.tar.xz";
@@ -39,13 +42,23 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs =
-    [ meson ninja pkg-config gettext vala gobject-introspection ]
-    ++ lib.optionals withIntrospection [ gobject-introspection ]
-    ++ lib.optionals withDocs [ gtk-doc docbook-xsl-nons ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gettext
+    vala
+    gobject-introspection
+  ] ++ lib.optionals withIntrospection [ gobject-introspection ]
+    ++ lib.optionals withDocs [
+      gtk-doc
+      docbook-xsl-nons
+    ];
 
-  buildInputs = [ libvirt libxml2 ]
-    ++ lib.optionals stdenv.isLinux [ libcap_ng ];
+  buildInputs = [
+    libvirt
+    libxml2
+  ] ++ lib.optionals stdenv.isLinux [ libcap_ng ];
 
   strictDeps = true;
 

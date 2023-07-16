@@ -26,8 +26,18 @@ in {
       "kubernetes"
       "apiserver"
       "admissionControl"
-    ] [ "services" "kubernetes" "apiserver" "enableAdmissionPlugins" ])
-    (mkRenamedOptionModule [ "services" "kubernetes" "apiserver" "address" ] [
+    ] [
+      "services"
+      "kubernetes"
+      "apiserver"
+      "enableAdmissionPlugins"
+    ])
+    (mkRenamedOptionModule [
+      "services"
+      "kubernetes"
+      "apiserver"
+      "address"
+    ] [
       "services"
       "kubernetes"
       "apiserver"
@@ -51,28 +61,48 @@ in {
       "apiserver"
       "publicAddress"
     ] "")
-    (mkRenamedOptionModule [ "services" "kubernetes" "etcd" "servers" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "kubernetes"
+      "etcd"
+      "servers"
+    ] [
       "services"
       "kubernetes"
       "apiserver"
       "etcd"
       "servers"
     ])
-    (mkRenamedOptionModule [ "services" "kubernetes" "etcd" "keyFile" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "kubernetes"
+      "etcd"
+      "keyFile"
+    ] [
       "services"
       "kubernetes"
       "apiserver"
       "etcd"
       "keyFile"
     ])
-    (mkRenamedOptionModule [ "services" "kubernetes" "etcd" "certFile" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "kubernetes"
+      "etcd"
+      "certFile"
+    ] [
       "services"
       "kubernetes"
       "apiserver"
       "etcd"
       "certFile"
     ])
-    (mkRenamedOptionModule [ "services" "kubernetes" "etcd" "caFile" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "kubernetes"
+      "etcd"
+      "caFile"
+    ] [
       "services"
       "kubernetes"
       "apiserver"
@@ -110,8 +140,14 @@ in {
         "RBAC"
         "Node"
       ]; # Enabling RBAC by default, although kubernetes default is AllowAllow
-      type = listOf
-        (enum [ "AlwaysAllow" "AlwaysDeny" "ABAC" "Webhook" "RBAC" "Node" ]);
+      type = listOf (enum [
+        "AlwaysAllow"
+        "AlwaysDeny"
+        "ABAC"
+        "Webhook"
+        "RBAC"
+        "Node"
+      ]);
     };
 
     authorizationPolicy = mkOption {
@@ -291,7 +327,10 @@ in {
         Kubernetes apiserver storage backend.
       '';
       default = "etcd3";
-      type = enum [ "etcd2" "etcd3" ];
+      type = enum [
+        "etcd2"
+        "etcd3"
+      ];
     };
 
     securePort = mkOption {
@@ -530,8 +569,8 @@ in {
         listenClientUrls = mkDefault [ "https://0.0.0.0:2379" ];
         listenPeerUrls = mkDefault [ "https://0.0.0.0:2380" ];
         advertiseClientUrls = mkDefault [ "https://${top.masterAddress}:2379" ];
-        initialCluster = mkDefault
-          [ "${top.masterAddress}=https://${top.masterAddress}:2380" ];
+        initialCluster =
+          mkDefault [ "${top.masterAddress}=https://${top.masterAddress}:2380" ];
         name = mkDefault top.masterAddress;
         initialAdvertisePeerUrls =
           mkDefault [ "https://${top.masterAddress}:2380" ];
@@ -548,10 +587,10 @@ in {
             kind = "ClusterRole";
             name = "system:kubelet-api-admin";
           };
-          subjects = [{
+          subjects = [ {
             kind = "User";
             name = "system:kube-apiserver";
-          }];
+          } ];
         };
 
       };

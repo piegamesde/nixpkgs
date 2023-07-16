@@ -29,9 +29,17 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ vcrpy attrs ];
+  propagatedBuildInputs = [
+    vcrpy
+    attrs
+  ];
 
-  checkInputs = [ pytestCheckHook pytest-httpbin pytest-mock requests ];
+  checkInputs = [
+    pytestCheckHook
+    pytest-httpbin
+    pytest-mock
+    requests
+  ];
 
   disabledTests = [ "test_block_network_with_allowed_hosts" ]
     ++ lib.optionals stdenv.isDarwin [

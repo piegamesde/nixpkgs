@@ -23,14 +23,15 @@ in buildPecl {
 
   configureFlags = [ "--with-couchbase" ];
 
-  buildInputs = [ libcouchbase zlib ];
-
-  patches = [
-    (substituteAll {
-      src = ./libcouchbase.patch;
-      inherit libcouchbase;
-    })
+  buildInputs = [
+    libcouchbase
+    zlib
   ];
+
+  patches = [ (substituteAll {
+    src = ./libcouchbase.patch;
+    inherit libcouchbase;
+  }) ];
 
   meta = with lib; {
     changelog =

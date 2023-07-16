@@ -47,14 +47,29 @@ in stdenv.mkDerivation rec {
 
   src = versions.${pinegrowVersion}.src;
 
-  nativeBuildInputs = [ unzip autoPatchelfHook makeWrapper wrapGAppsHook ];
+  nativeBuildInputs = [
+    unzip
+    autoPatchelfHook
+    makeWrapper
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ udev nwjs gcc-unwrapped gsettings-desktop-schemas gtk3 ];
+  buildInputs = [
+    udev
+    nwjs
+    gcc-unwrapped
+    gsettings-desktop-schemas
+    gtk3
+  ];
 
   dontWrapGApps = true;
   makeWrapperArgs = [
     "--prefix LD_LIBRARY_PATH : ${
-      lib.makeLibraryPath [ gcc-unwrapped.lib gtk3 udev ]
+      lib.makeLibraryPath [
+        gcc-unwrapped.lib
+        gtk3
+        udev
+      ]
     }"
     "--prefix PATH : ${lib.makeBinPath [ stdenv.cc ]}"
   ];

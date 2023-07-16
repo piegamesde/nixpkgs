@@ -27,8 +27,14 @@ in wrapDerivation ({
 
     pname = "emscripten-${lib.getName args}";
     version = lib.getVersion args;
-    buildInputs = [ emscripten python3 ] ++ buildInputs;
-    nativeBuildInputs = [ emscripten python3 ] ++ nativeBuildInputs;
+    buildInputs = [
+      emscripten
+      python3
+    ] ++ buildInputs;
+    nativeBuildInputs = [
+      emscripten
+      python3
+    ] ++ nativeBuildInputs;
 
     # fake conftest results with emscripten's python magic
     EMCONFIGURE_JS = 2;

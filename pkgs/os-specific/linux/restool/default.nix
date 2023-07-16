@@ -24,8 +24,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ryTDyqSy39e8Omf7l8lK4mLWr8jccDhMVPldkVGSQVo=";
   };
 
-  nativeBuildInputs = [ file pandoc ];
-  buildInputs = [ bash coreutils dtc gawk gnugrep gnused which ];
+  nativeBuildInputs = [
+    file
+    pandoc
+  ];
+  buildInputs = [
+    bash
+    coreutils
+    dtc
+    gawk
+    gnugrep
+    gnused
+    which
+  ];
 
   enableParallelBuilding = true;
   makeFlags = [

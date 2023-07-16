@@ -24,7 +24,10 @@ buildDunePackage rec {
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [ taglib zlib ];
+  propagatedBuildInputs = [
+    taglib
+    zlib
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/savonet/ocaml-taglib";

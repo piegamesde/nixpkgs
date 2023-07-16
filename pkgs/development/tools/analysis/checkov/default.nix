@@ -35,10 +35,18 @@ buildPythonApplication rec {
 
   patches = [ ./flake8-compat-5.x.patch ];
 
-  pythonRelaxDeps =
-    [ "dpath" "bc-detect-secrets" "bc-python-hcl2" "pycep-parser" "networkx" ];
+  pythonRelaxDeps = [
+    "dpath"
+    "bc-detect-secrets"
+    "bc-python-hcl2"
+    "pycep-parser"
+    "networkx"
+  ];
 
-  nativeBuildInputs = [ pythonRelaxDepsHook setuptools-scm ];
+  nativeBuildInputs = [
+    pythonRelaxDepsHook
+    setuptools-scm
+  ];
 
   propagatedBuildInputs = [
     aiodns
@@ -153,6 +161,9 @@ buildPythonApplication rec {
       Kubernetes, Serverless framework and other infrastructure-as-code-languages.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ anhdle14 fab ];
+    maintainers = with maintainers; [
+      anhdle14
+      fab
+    ];
   };
 }

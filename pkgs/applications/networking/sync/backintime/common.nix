@@ -13,9 +13,20 @@
 }:
 
 let
-  python' = python3.withPackages (ps: with ps; [ dbus-python keyring ]);
+  python' = python3.withPackages (ps:
+    with ps; [
+      dbus-python
+      keyring
+    ]);
 
-  apps = lib.makeBinPath [ openssh python' cron rsync sshfs-fuse encfs ];
+  apps = lib.makeBinPath [
+    openssh
+    python'
+    cron
+    rsync
+    sshfs-fuse
+    encfs
+  ];
 in stdenv.mkDerivation rec {
   pname = "backintime-common";
   version = "1.3.3";
@@ -27,7 +38,10 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-cKmzq155/dCl5wZA2SE3XjfCocHxTh4Wa2IdfzSfQHg=";
   };
 
-  nativeBuildInputs = [ makeWrapper gettext ];
+  nativeBuildInputs = [
+    makeWrapper
+    gettext
+  ];
   buildInputs = [ python' ];
 
   installFlags = [ "DEST=$(out)" ];

@@ -57,9 +57,22 @@ in stdenv.mkDerivation {
     cat ${aflplusplus.src.name}/qemu_mode/patches/*.diff > all.patch
   '';
 
-  nativeBuildInputs = [ python3 perl pkg-config flex bison autoconf texinfo ];
+  nativeBuildInputs = [
+    python3
+    perl
+    pkg-config
+    flex
+    bison
+    autoconf
+    texinfo
+  ];
 
-  buildInputs = [ zlib glib pixman libuuid ];
+  buildInputs = [
+    zlib
+    glib
+    pixman
+    libuuid
+  ];
 
   enableParallelBuilding = true;
 

@@ -48,7 +48,10 @@ let
 
     buildFeatures = [ "weak-linkage" ];
 
-    cargoBuildFlags = [ "--lib" "--bin=codelldb" ];
+    cargoBuildFlags = [
+      "--lib"
+      "--bin=codelldb"
+    ];
 
     # Tests are linked to liblldb but it is not available here.
     doCheck = false;
@@ -70,7 +73,12 @@ in stdenv.mkDerivation {
 
   installPrefix = "share/vscode/extensions/${vscodeExtUniqueId}";
 
-  nativeBuildInputs = [ cmake nodejs unzip makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    nodejs
+    unzip
+    makeWrapper
+  ];
 
   patches = [ ./cmake-build-extension-only.patch ];
 

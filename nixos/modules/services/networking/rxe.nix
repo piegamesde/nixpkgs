@@ -36,7 +36,10 @@ in {
       description = "RoCE interfaces";
 
       wantedBy = [ "multi-user.target" ];
-      after = [ "systemd-modules-load.service" "network-online.target" ];
+      after = [
+        "systemd-modules-load.service"
+        "network-online.target"
+      ];
       wants = [ "network-pre.target" ];
 
       serviceConfig = {

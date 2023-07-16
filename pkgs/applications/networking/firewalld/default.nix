@@ -23,8 +23,14 @@
 let
   pythonPath = python3.withPackages (ps:
     with ps;
-    [ dbus-python nftables pygobject3 ]
-    ++ lib.optionals withGui [ pyqt5 pyqt5_sip ]);
+    [
+      dbus-python
+      nftables
+      pygobject3
+    ] ++ lib.optionals withGui [
+      pyqt5
+      pyqt5_sip
+    ]);
 in stdenv.mkDerivation rec {
   pname = "firewalld";
   version = "1.3.2";
@@ -62,10 +68,19 @@ in stdenv.mkDerivation rec {
     pkg-config
     python3
     python3.pkgs.wrapPython
-  ] ++ lib.optionals withGui [ gobject-introspection wrapGAppsNoGuiHook ];
+  ] ++ lib.optionals withGui [
+    gobject-introspection
+    wrapGAppsNoGuiHook
+  ];
 
-  buildInputs = [ bash glib ]
-    ++ lib.optionals withGui [ gtk3 libnotify pythonPath ];
+  buildInputs = [
+    bash
+    glib
+  ] ++ lib.optionals withGui [
+    gtk3
+    libnotify
+    pythonPath
+  ];
 
   dontWrapGApps = true;
 

@@ -24,8 +24,11 @@ stdenv.mkDerivation rec {
     sed -i '/WX_CLEAR_ARRAY/s/$/;/' src/{createtable,sqlite3table}.cpp
   '';
 
-  buildInputs = [ wxGTK wxsqlite3 sqlite ]
-    ++ lib.optional stdenv.isDarwin Cocoa;
+  buildInputs = [
+    wxGTK
+    wxsqlite3
+    sqlite
+  ] ++ lib.optional stdenv.isDarwin Cocoa;
 
   makeFlags = [ "LDFLAGS=-L${wxsqlite3}/lib" ]
     ++ lib.optionals stdenv.isDarwin [ "SETFILE=${setfile}/bin/SetFile" ];

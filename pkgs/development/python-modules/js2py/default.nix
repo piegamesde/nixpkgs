@@ -17,7 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-OfOmqoRpGA77o8hncnHfJ8MTMv0bRx3xryr1i4e4ly8=";
   };
 
-  propagatedBuildInputs = [ pyjsparser six tzlocal ];
+  propagatedBuildInputs = [
+    pyjsparser
+    six
+    tzlocal
+  ];
 
   # Test require network connection
   doCheck = false;

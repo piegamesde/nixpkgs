@@ -64,7 +64,10 @@ in stdenv.mkDerivation rec {
     "ARCH=${hostarch}"
   ];
 
-  buildFlags = [ "gnuefi" "fs_gnuefi" ];
+  buildFlags = [
+    "gnuefi"
+    "fs_gnuefi"
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -151,8 +154,15 @@ in stdenv.mkDerivation rec {
       Linux kernels that provide EFI stub support.
     '';
     homepage = "http://refind.sourceforge.net/";
-    maintainers = with maintainers; [ AndersonTorres samueldr ];
-    platforms = [ "i686-linux" "x86_64-linux" "aarch64-linux" ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      samueldr
+    ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     license = licenses.gpl3Plus;
   };
 

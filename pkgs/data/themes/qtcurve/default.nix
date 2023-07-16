@@ -55,7 +55,11 @@ mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake extra-cmake-modules pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    pkg-config
+  ];
 
   buildInputs = [
     qtbase

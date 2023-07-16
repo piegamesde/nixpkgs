@@ -19,7 +19,10 @@ buildPythonPackage rec {
     sha256 = "1hpls1hwisdjx1g15cq052bdn9fvh43r120llws8bvgvj9ivnaha";
   };
 
-  nativeCheckInputs = [ docutils pytestCheckHook ];
+  nativeCheckInputs = [
+    docutils
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [
     # file imports 'dummy_threading', which was deprecated since py37

@@ -30,8 +30,17 @@ stdenv.mkDerivation rec {
     ./bootstrap
   '';
 
-  nativeBuildInputs =
-    [ gengetopt m4 git gnupg perl autoconf automake help2man pkg-config ];
+  nativeBuildInputs = [
+    gengetopt
+    m4
+    git
+    gnupg
+    perl
+    autoconf
+    automake
+    help2man
+    pkg-config
+  ];
   buildInputs = [ boehmgc ];
 
   meta = {

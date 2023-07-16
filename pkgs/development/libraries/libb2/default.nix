@@ -19,7 +19,11 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "0qj8aaqvfcavj1vj5asm4pqm03ap7q8x4c2fy83cqggvky0frgya";
   };
 
-  nativeBuildInputs = [ autoreconfHook libtool pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    libtool
+    pkg-config
+  ];
 
   configureFlags = lib.optional stdenv.hostPlatform.isx86 "--enable-fat=yes";
 
@@ -34,7 +38,10 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://blake2.net/";
     pkgConfigModules = [ "libb2" ];
     platforms = platforms.all;
-    maintainers = with maintainers; [ dfoxfranke dotlambda ];
+    maintainers = with maintainers; [
+      dfoxfranke
+      dotlambda
+    ];
     license = licenses.cc0;
   };
 })

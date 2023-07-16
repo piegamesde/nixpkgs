@@ -165,7 +165,14 @@ in {
 
     logLevel = mkOption {
       default = 1;
-      type = types.enum [ 0 1 2 3 4 5 ];
+      type = types.enum [
+        0
+        1
+        2
+        3
+        4
+        5
+      ];
       description = lib.mdDoc "Log level (0 = DEBUG, 5 = FATAL).";
     };
   };

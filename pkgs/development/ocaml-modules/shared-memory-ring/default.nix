@@ -25,7 +25,10 @@ buildDunePackage rec {
   propagatedBuildInputs = [ cstruct ];
 
   doCheck = true;
-  checkInputs = [ lwt ounit ];
+  checkInputs = [
+    lwt
+    ounit
+  ];
 
   meta = with lib; {
     description = "Shared memory rings for RPC and bytestream communications";

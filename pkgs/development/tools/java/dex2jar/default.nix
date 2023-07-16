@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "1g3mrbyl8sdw1nhp17z23qbfzqpa0w2yxrywgphvd04jdr6yn1vr";
   };
 
-  nativeBuildInputs = [ makeWrapper unzip ];
+  nativeBuildInputs = [
+    makeWrapper
+    unzip
+  ];
 
   postPatch = ''
     rm *.bat

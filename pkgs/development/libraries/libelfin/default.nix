@@ -17,12 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "143x680c6hsy51kngs04ypg4ql3lp498llcwj4lh1v0qp5qvjhyz";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./0001-Don-t-detect-package-version-with-Git.patch;
-      inherit version;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./0001-Don-t-detect-package-version-with-Git.patch;
+    inherit version;
+  }) ];
 
   nativeBuildInputs = [ python3 ];
 

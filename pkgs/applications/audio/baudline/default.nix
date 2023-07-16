@@ -12,8 +12,14 @@
 }:
 
 let
-  rpath =
-    lib.makeLibraryPath [ libXmu libXt libX11 libXext libXxf86vm libjack2 ];
+  rpath = lib.makeLibraryPath [
+    libXmu
+    libXt
+    libX11
+    libXext
+    libXxf86vm
+    libjack2
+  ];
 in stdenv.mkDerivation rec {
   pname = "baudline";
   version = "1.08";
@@ -71,7 +77,10 @@ in stdenv.mkDerivation rec {
     # (Do NOT (re)distribute on hydra.)
     license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
     maintainers = [ maintainers.bjornfor ];
   };
 

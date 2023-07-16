@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ lv2 zita-resampler ];
+  buildInputs = [
+    lv2
+    zita-resampler
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

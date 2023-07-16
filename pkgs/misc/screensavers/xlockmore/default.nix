@@ -22,7 +22,14 @@ stdenv.mkDerivation rec {
   };
 
   # Optionally, it can use GTK.
-  buildInputs = [ pam libX11 libXext.dev libXinerama libXdmcp libXt ];
+  buildInputs = [
+    pam
+    libX11
+    libXext.dev
+    libXinerama
+    libXdmcp
+    libXt
+  ];
   nativeBuildInputs = [ autoreconfHook ];
 
   # Don't try to install `xlock' setuid. Password authentication works

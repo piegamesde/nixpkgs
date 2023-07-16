@@ -42,7 +42,11 @@ in stdenv.mkDerivation rec {
     ${rpmextract}/bin/rpmextract $src
   '';
 
-  nativeBuildInputs = [ addOpenGLRunpath autoPatchelfHook rpmextract ];
+  nativeBuildInputs = [
+    addOpenGLRunpath
+    autoPatchelfHook
+    rpmextract
+  ];
 
   buildInputs = [
     alsa-lib

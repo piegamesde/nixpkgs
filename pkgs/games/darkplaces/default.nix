@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-5KsUcgHbuzFUE6LcclqI8VPSFbXZzBnxzOBB9Kf8krI=";
   };
 
-  buildInputs = [ zlib libjpeg SDL2 ];
+  buildInputs = [
+    zlib
+    libjpeg
+    SDL2
+  ];
 
   buildFlags = [ "release" ];
 

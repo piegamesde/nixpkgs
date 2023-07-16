@@ -10,40 +10,67 @@
 }@args:
 mkCoqDerivation {
 
-  namePrefix = [ "coq" "mathcomp" ];
+  namePrefix = [
+    "coq"
+    "mathcomp"
+  ];
   pname = "multinomials";
 
   owner = "math-comp";
 
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch [ coq.version mathcomp.version ] [
+    lib.switch [
+      coq.version
+      mathcomp.version
+    ] [
       {
-        cases = [ (isGe "8.10") (isGe "1.13.0") ];
+        cases = [
+          (isGe "8.10")
+          (isGe "1.13.0")
+        ];
         out = "1.5.6";
       }
       {
-        cases = [ (range "8.10" "8.16") (range "1.12.0" "1.15.0") ];
+        cases = [
+          (range "8.10" "8.16")
+          (range "1.12.0" "1.15.0")
+        ];
         out = "1.5.5";
       }
       {
-        cases = [ (range "8.10" "8.12") "1.12.0" ];
+        cases = [
+          (range "8.10" "8.12")
+          "1.12.0"
+        ];
         out = "1.5.3";
       }
       {
-        cases = [ (range "8.7" "8.12") "1.11.0" ];
+        cases = [
+          (range "8.7" "8.12")
+          "1.11.0"
+        ];
         out = "1.5.2";
       }
       {
-        cases = [ (range "8.7" "8.11") (range "1.8" "1.10") ];
+        cases = [
+          (range "8.7" "8.11")
+          (range "1.8" "1.10")
+        ];
         out = "1.5.0";
       }
       {
-        cases = [ (range "8.7" "8.10") (range "1.8" "1.10") ];
+        cases = [
+          (range "8.7" "8.10")
+          (range "1.8" "1.10")
+        ];
         out = "1.4";
       }
       {
-        cases = [ "8.6" (range "1.6" "1.7") ];
+        cases = [
+          "8.6"
+          (range "1.6" "1.7")
+        ];
         out = "1.1";
       }
     ] null;

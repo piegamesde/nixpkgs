@@ -50,12 +50,19 @@ stdenv.mkDerivation rec {
     sqlite
   ];
 
-  nativeBuildInputs = [ boost.dev pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    boost.dev
+    pkg-config
+    wrapGAppsHook
+  ];
 
   CASROOT = opencascade-occt;
 
-  installFlags =
-    [ "INSTALL=${coreutils}/bin/install" "DESTDIR=$(out)" "PREFIX=" ];
+  installFlags = [
+    "INSTALL=${coreutils}/bin/install"
+    "DESTDIR=$(out)"
+    "PREFIX="
+  ];
 
   enableParallelBuilding = true;
 

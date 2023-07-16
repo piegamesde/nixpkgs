@@ -30,9 +30,17 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-JWjmMvqIm4in1aPq2UgYmL0eWjrrRBiU6vH3FnCZZ40=";
   };
 
-  nativeBuildInputs = [ cmake rocm-cmake hip gfortran ];
+  nativeBuildInputs = [
+    cmake
+    rocm-cmake
+    hip
+    gfortran
+  ];
 
-  buildInputs = [ rocsparse git ] ++ lib.optionals buildTests [ gtest ]
+  buildInputs = [
+    rocsparse
+    git
+  ] ++ lib.optionals buildTests [ gtest ]
     ++ lib.optionals (buildTests || buildSamples) [ openmp ];
 
   cmakeFlags = [
@@ -99,7 +107,10 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $sample/bin
     mv clients/staging/example_* $sample/bin
     patchelf --set-rpath $out/lib:${
-      lib.makeLibraryPath (finalAttrs.buildInputs ++ [ hip gfortran.cc ])
+      lib.makeLibraryPath (finalAttrs.buildInputs ++ [
+        hip
+        gfortran.cc
+      ])
     } $sample/bin/example_*
   '';
 

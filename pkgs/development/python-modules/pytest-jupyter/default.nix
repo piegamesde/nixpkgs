@@ -45,14 +45,22 @@ let
     propagatedBuildInputs = [ jupyter-core ];
 
     passthru.optional-dependencies = rec {
-      client = [ jupyter-client ipykernel ];
-      server = [ jupyter-server nbformat ] ++ client;
+      client = [
+        jupyter-client
+        ipykernel
+      ];
+      server = [
+        jupyter-server
+        nbformat
+      ] ++ client;
     };
 
     doCheck = false; # infinite recursion with jupyter-server
 
-    nativeCheckInputs = [ pytest-timeout pytestCheckHook ]
-      ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+    nativeCheckInputs = [
+      pytest-timeout
+      pytestCheckHook
+    ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
     passthru.tests = {
       check = self.overridePythonAttrs (_: { doCheck = false; });

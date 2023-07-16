@@ -26,10 +26,17 @@ python3.pkgs.buildPythonApplication rec {
     intltoolize -f
   '';
 
-  nativeBuildInputs =
-    [ autoreconfHook gobject-introspection intltool wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoreconfHook
+    gobject-introspection
+    intltool
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ glib libnotify ];
+  buildInputs = [
+    glib
+    libnotify
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     dbus-python

@@ -29,7 +29,13 @@ buildPythonPackage rec {
   # to force it a little.
   pipInstallFlags = [ "--ignore-installed" ];
 
-  nativeCheckInputs = [ mock scripttest virtualenv pretend pytest ];
+  nativeCheckInputs = [
+    mock
+    scripttest
+    virtualenv
+    pretend
+    pytest
+  ];
   # Pip wants pytest, but tests are not distributed
   doCheck = false;
 

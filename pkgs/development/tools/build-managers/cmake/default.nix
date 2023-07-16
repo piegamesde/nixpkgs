@@ -33,7 +33,10 @@ let
   cursesUI = lib.elem "ncurses" uiToolkits;
   qt5UI = lib.elem "qt5" uiToolkits;
   # Accepts only "ncurses" and "qt5" as possible uiToolkits
-in assert lib.subtractLists [ "ncurses" "qt5" ] uiToolkits == [ ];
+in assert lib.subtractLists [
+  "ncurses"
+  "qt5"
+] uiToolkits == [ ];
 # Minimal, bootstrap cmake does not have toolkits
 assert isBootstrap -> (uiToolkits == [ ]);
 stdenv.mkDerivation rec {
@@ -63,10 +66,16 @@ stdenv.mkDerivation rec {
     # On Darwin, always set CMAKE_SHARED_LIBRARY_RUNTIME_C_FLAG.
     ++ lib.optional stdenv.isDarwin ./006-darwin-always-set-runtime-c-flag.diff;
 
-  outputs = [ "out" ] ++ lib.optionals buildDocs [ "man" "info" ];
+  outputs = [ "out" ] ++ lib.optionals buildDocs [
+    "man"
+    "info"
+  ];
   setOutputFlags = false;
 
-  setupHooks = [ ./setup-hook.sh ./check-pc-files-hook.sh ];
+  setupHooks = [
+    ./setup-hook.sh
+    ./check-pc-files-hook.sh
+  ];
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
@@ -105,8 +114,7 @@ stdenv.mkDerivation rec {
   ] ++ (if useSharedLibraries then [
     "--no-system-jsoncpp"
     "--system-libs"
-  ] else
-    [ "--no-system-libs" ]) # FIXME: cleanup
+  ] else [ "--no-system-libs" ]) # FIXME: cleanup
     ++ lib.optional qt5UI "--qt-gui" ++ lib.optionals buildDocs [
       "--sphinx-build=${sphinx}/bin/sphinx-build"
       "--sphinx-info"
@@ -170,7 +178,11 @@ stdenv.mkDerivation rec {
         lib.versions.majorMinor version
       }/release/${lib.versions.majorMinor version}.html";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ttuegel lnl7 AndersonTorres ];
+    maintainers = with maintainers; [
+      ttuegel
+      lnl7
+      AndersonTorres
+    ];
     platforms = platforms.all;
     broken = (qt5UI && stdenv.isDarwin);
   };

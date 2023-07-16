@@ -27,7 +27,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-QQvc9S+9h0Qy/qBROwJMZIALf/Rbj/9my4PZGxQzlnM=";
   };
 
-  nativeBuildInputs = [ pkg-config cmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     mp4v2

@@ -26,9 +26,18 @@ buildPythonPackage rec {
     hash = "sha256-wJVFjy6QgYb6GX9pZTylYFvCRWmD2lAFZKnodsa8Yqo=";
   };
 
-  propagatedBuildInputs = [ aio-geojson-client aiohttp pytz ];
+  propagatedBuildInputs = [
+    aio-geojson-client
+    aiohttp
+    pytz
+  ];
 
-  nativeCheckInputs = [ aresponses mock pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    aresponses
+    mock
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "aio_geojson_geonetnz_volcano" ];
 

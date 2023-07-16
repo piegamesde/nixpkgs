@@ -22,7 +22,11 @@ stdenv.mkDerivation rec {
     ./0001-javac-encoding.diff
   ];
 
-  nativeBuildInputs = [ ant jdk makeWrapper ];
+  nativeBuildInputs = [
+    ant
+    jdk
+    makeWrapper
+  ];
 
   dontConfigure = true;
 

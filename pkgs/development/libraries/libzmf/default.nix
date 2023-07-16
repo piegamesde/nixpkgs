@@ -22,8 +22,18 @@ stdenv.mkDerivation rec {
     sha256 = "08mg5kmkjrmqrd8j5rkzw9vdqlvibhb1ynp6bmfxnzq5rcq1l197";
   };
 
-  buildInputs = [ boost icu libpng librevenge zlib cppunit ];
-  nativeBuildInputs = [ doxygen pkg-config ];
+  buildInputs = [
+    boost
+    icu
+    libpng
+    librevenge
+    zlib
+    cppunit
+  ];
+  nativeBuildInputs = [
+    doxygen
+    pkg-config
+  ];
   configureFlags = [ "--disable-werror" ];
 
   meta = {

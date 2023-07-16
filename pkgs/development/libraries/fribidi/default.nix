@@ -14,7 +14,11 @@ stdenv.mkDerivation rec {
   pname = "fribidi";
   version = "1.0.12";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   # NOTE: Only URL tarball has "Have pre-generated man pages: true", which works-around upstream usage of some rare ancient `c2man` fossil application.
   src = fetchurl {
@@ -27,8 +31,11 @@ stdenv.mkDerivation rec {
     patchShebangs test
   '';
 
-  nativeBuildInputs = [ meson ninja pkg-config ]
-    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 

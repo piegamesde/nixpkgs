@@ -37,7 +37,11 @@ in mkDerivation rec {
     sha256 = "0lrcmcxc924ixddii8cyglqlwwxvk7f00g4yzbss5i3fgcbh8n96";
   };
 
-  nativeBuildInputs = [ cmake doxygen graphviz ];
+  nativeBuildInputs = [
+    cmake
+    doxygen
+    graphviz
+  ];
 
   buildInputs = [
     boost'

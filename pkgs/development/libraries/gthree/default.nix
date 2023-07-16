@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
   pname = "gthree";
   version = "0.9.0";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchFromGitHub {
     owner = "alexlarsson";
@@ -49,9 +53,16 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  buildInputs = [ libepoxy json-glib ];
+  buildInputs = [
+    libepoxy
+    json-glib
+  ];
 
-  propagatedBuildInputs = [ glib gtk3 graphene ];
+  propagatedBuildInputs = [
+    glib
+    gtk3
+    graphene
+  ];
 
   mesonFlags = [
     "-Dgtk_doc=${if stdenv.isDarwin then "false" else "true"}"

@@ -40,9 +40,10 @@ let
         sha256 = cargoHash;
       };
 
-      nativeBuildInputs =
-        (with rustPlatform; [ cargoSetupHook maturinBuildHook ])
-        ++ extraNativeBuildInputs;
+      nativeBuildInputs = (with rustPlatform; [
+        cargoSetupHook
+        maturinBuildHook
+      ]) ++ extraNativeBuildInputs;
 
       postPatch = ''
         # Workaround for metadata, that maturin 0.14 does not accept in Cargo.toml anymore
@@ -96,7 +97,12 @@ in rec {
     buildAndTestSubdir = "packages/compiler-llvm";
     cargoHash = "sha256-xawbf5gXXV+7I2F2fDSaMvjtFvGDBtqX7wL3c28TSbA=";
     extraNativeBuildInputs = [ rustPlatform.rust.rustc.llvm ];
-    extraBuildInputs = [ libffi libxml2.out ncurses zlib ];
+    extraBuildInputs = [
+      libffi
+      libxml2.out
+      ncurses
+      zlib
+    ];
   };
 
   wasmer-compiler-singlepass = common {

@@ -89,7 +89,7 @@ with lib;
     })
 
     (mkIf (cfg.emulateWheel) {
-      services.xserver.inputClassSections = [''
+      services.xserver.inputClassSections = [ ''
         Identifier "Trackpoint Wheel Emulation"
         MatchProduct "${
           if cfg.fakeButtons then
@@ -103,7 +103,7 @@ with lib;
         Option "Emulate3Buttons" "false"
         Option "XAxisMapping" "6 7"
         Option "YAxisMapping" "4 5"
-      ''];
+      '' ];
     })
 
     (mkIf cfg.fakeButtons {

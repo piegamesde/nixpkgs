@@ -38,10 +38,19 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    makeWrapper
+  ];
 
-  buildInputs = [ alsa-lib alsa-plugins libtool icu pcre2 ]
-    ++ lib.optional pulseaudioSupport libpulseaudio;
+  buildInputs = [
+    alsa-lib
+    alsa-plugins
+    libtool
+    icu
+    pcre2
+  ] ++ lib.optional pulseaudioSupport libpulseaudio;
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Needed with GCC 12

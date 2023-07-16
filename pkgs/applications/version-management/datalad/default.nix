@@ -19,7 +19,10 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-vqO37o5NxQk+gHfvhM1I2ea9/q9ZaLWkDEyPYJKEPcs";
   };
 
-  nativeBuildInputs = [ installShellFiles git ];
+  nativeBuildInputs = [
+    installShellFiles
+    git
+  ];
 
   propagatedBuildInputs = with python3.pkgs;
     [

@@ -38,9 +38,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ fonttools lxml fs ];
+  propagatedBuildInputs = [
+    fonttools
+    lxml
+    fs
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-cov pytest-xdist ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-cov
+    pytest-xdist
+  ];
   disabledTests = lib.optionals (!runAllTests) [
     # Slow tests, reduces test time from ~5 mins to ~30s
     "test_mmufo"

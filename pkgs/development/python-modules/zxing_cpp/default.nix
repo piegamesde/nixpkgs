@@ -16,7 +16,10 @@ buildPythonPackage rec {
   patches = [ ./use-nixpkgs-pybind11.patch ];
   dontUseCmakeConfigure = true;
 
-  propagatedBuildInputs = [ pybind11 numpy ];
+  propagatedBuildInputs = [
+    pybind11
+    numpy
+  ];
 
   nativeBuildInputs = [ cmake ];
 

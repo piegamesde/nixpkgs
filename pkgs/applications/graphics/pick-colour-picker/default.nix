@@ -28,11 +28,20 @@ buildPythonPackage rec {
     sed "s|os.environ.get('SNAP'), \"usr\"|'$out'|g" -i pick/__main__.py
   '';
 
-  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
+  nativeBuildInputs = [
+    gobject-introspection
+    wrapGAppsHook
+  ];
 
-  pythonPath = [ pygobject3 pycairo ];
+  pythonPath = [
+    pygobject3
+    pycairo
+  ];
 
-  buildInputs = [ glib gtk3 ];
+  buildInputs = [
+    glib
+    gtk3
+  ];
 
   meta = with lib; {
     homepage = "https://kryogenix.org/code/pick/";

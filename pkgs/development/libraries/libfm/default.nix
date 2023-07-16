@@ -26,8 +26,16 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-pQQmMDBM+OXYz/nVZca9VG8ii0jJYBU+02ajTofK0eU=";
   };
 
-  nativeBuildInputs = [ vala pkg-config intltool ];
-  buildInputs = [ glib gtk pango ] ++ optional (!extraOnly) menu-cache;
+  nativeBuildInputs = [
+    vala
+    pkg-config
+    intltool
+  ];
+  buildInputs = [
+    glib
+    gtk
+    pango
+  ] ++ optional (!extraOnly) menu-cache;
 
   configureFlags = [ "--sysconfdir=/etc" ]
     ++ optional extraOnly "--with-extra-only"

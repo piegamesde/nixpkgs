@@ -49,6 +49,10 @@ lib.makeScope pkgs.newScope (self:
 
     all-wrapped = callPackage ./wrapper.nix {
       name = "all-wrapped";
-      appls = [ durden cat9 pipeworld ];
+      appls = [
+        durden
+        cat9
+        pipeworld
+      ];
     };
   })

@@ -13,7 +13,12 @@ stdenv.mkDerivation rec {
   pname = "scotch";
   src_name = "scotch_${version}";
 
-  buildInputs = [ bison mpi flex zlib ];
+  buildInputs = [
+    bison
+    mpi
+    flex
+    zlib
+  ];
 
   src = fetchurl {
     url =

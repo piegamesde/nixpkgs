@@ -12,19 +12,31 @@ let
 
   providers = {
     cloudflare = {
-      ips = [ "1.1.1.1" "1.0.0.1" ];
+      ips = [
+        "1.1.1.1"
+        "1.0.0.1"
+      ];
       url = "https://cloudflare-dns.com/dns-query";
     };
     google = {
-      ips = [ "8.8.8.8" "8.8.4.4" ];
+      ips = [
+        "8.8.8.8"
+        "8.8.4.4"
+      ];
       url = "https://dns.google/dns-query";
     };
     quad9 = {
-      ips = [ "9.9.9.9" "149.112.112.112" ];
+      ips = [
+        "9.9.9.9"
+        "149.112.112.112"
+      ];
       url = "https://dns.quad9.net/dns-query";
     };
     opendns = {
-      ips = [ "208.67.222.222" "208.67.220.220" ];
+      ips = [
+        "208.67.222.222"
+        "208.67.220.220"
+      ];
       url = "https://doh.opendns.com/dns-query";
     };
     custom = { inherit (cfg.provider) ips url; };

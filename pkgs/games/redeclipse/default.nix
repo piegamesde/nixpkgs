@@ -25,11 +25,26 @@ stdenv.mkDerivation rec {
     sha256 = "143i713ggbk607qr4n39pi0pn8d93x9x6fcbh8rc51jb9qhi8p5i";
   };
 
-  buildInputs = [ libX11 freetype zlib SDL2 SDL2_image SDL2_mixer ];
+  buildInputs = [
+    libX11
+    freetype
+    zlib
+    SDL2
+    SDL2_image
+    SDL2_mixer
+  ];
 
-  nativeBuildInputs = [ curl ed pkg-config ];
+  nativeBuildInputs = [
+    curl
+    ed
+    pkg-config
+  ];
 
-  makeFlags = [ "-C" "src/" "prefix=$(out)" ];
+  makeFlags = [
+    "-C"
+    "src/"
+    "prefix=$(out)"
+  ];
 
   enableParallelBuilding = true;
 
@@ -49,7 +64,10 @@ stdenv.mkDerivation rec {
       environments.
     '';
     homepage = "https://www.redeclipse.net";
-    license = with licenses; [ licenses.zlib cc-by-sa-30 ];
+    license = with licenses; [
+      licenses.zlib
+      cc-by-sa-30
+    ];
     maintainers = with maintainers; [ lambda-11235 ];
     platforms = platforms.linux;
     hydraPlatforms = [ ];

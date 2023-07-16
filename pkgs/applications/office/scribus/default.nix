@@ -26,7 +26,11 @@
   lib,
 }:
 
-let pythonEnv = python3.withPackages (ps: [ ps.pillow ps.tkinter ]);
+let
+  pythonEnv = python3.withPackages (ps: [
+    ps.pillow
+    ps.tkinter
+  ]);
 in mkDerivation rec {
   pname = "scribus";
 
@@ -70,7 +74,10 @@ in mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     boost
@@ -100,12 +107,20 @@ in mkDerivation rec {
   ];
 
   meta = with lib; {
-    maintainers = with maintainers; [ erictapen kiwi ];
+    maintainers = with maintainers; [
+      erictapen
+      kiwi
+    ];
     platforms = platforms.linux;
     description = "Desktop Publishing (DTP) and Layout program for Linux";
     homepage = "https://www.scribus.net";
     # There are a lot of licenses...
     # https://github.com/scribusproject/scribus/blob/20508d69ca4fc7030477db8dee79fd1e012b52d2/COPYING#L15-L19
-    license = with licenses; [ bsd3 gpl2Plus mit publicDomain ];
+    license = with licenses; [
+      bsd3
+      gpl2Plus
+      mit
+      publicDomain
+    ];
   };
 }

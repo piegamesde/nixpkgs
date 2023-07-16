@@ -24,8 +24,19 @@ stdenv.mkDerivation rec {
     sha256 = "WjpPNUEYw4aGrh57J+7kkxKFXgCJWNaWAmueFbNUJJo=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ libXft libXpm lv2 fftw libjack2 libsamplerate libsndfile ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    libXft
+    libXpm
+    lv2
+    fftw
+    libjack2
+    libsamplerate
+    libsndfile
+  ];
 
   meta = with lib; {
     description = "Rakarrak effects ported to LV2";

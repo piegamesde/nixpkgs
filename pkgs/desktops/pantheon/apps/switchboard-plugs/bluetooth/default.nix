@@ -37,7 +37,12 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ meson ninja pkg-config vala ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    vala
+  ];
 
   buildInputs = [
     bluez

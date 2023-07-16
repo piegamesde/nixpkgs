@@ -144,10 +144,22 @@ in stdenv.mkDerivation {
     sed -i 's@cached_path = path_string.*@cached_path = getenv("DF_DIR");@' library/Process-linux.cpp
   '';
 
-  nativeBuildInputs = [ cmake perl XMLLibXML XMLLibXSLT fakegit ];
+  nativeBuildInputs = [
+    cmake
+    perl
+    XMLLibXML
+    XMLLibXSLT
+    fakegit
+  ];
   # We don't use system libraries because dfhack needs old C++ ABI.
-  buildInputs = [ zlib SDL ]
-    ++ lib.optionals enableStoneSense [ allegro5 libGLU libGL ];
+  buildInputs = [
+    zlib
+    SDL
+  ] ++ lib.optionals enableStoneSense [
+    allegro5
+    libGLU
+    libGL
+  ];
 
   preConfigure = ''
     # Trick build system into believing we have .git
@@ -155,11 +167,13 @@ in stdenv.mkDerivation {
     touch .git/index .git/modules/library/xml/index
   '';
 
-  cmakeFlags = [ "-DDFHACK_BUILD_ARCH=${arch}" "-DDOWNLOAD_RUBY=OFF" ]
-    ++ lib.optionals enableStoneSense [
-      "-DBUILD_STONESENSE=ON"
-      "-DSTONESENSE_INTERNAL_SO=OFF"
-    ];
+  cmakeFlags = [
+    "-DDFHACK_BUILD_ARCH=${arch}"
+    "-DDOWNLOAD_RUBY=OFF"
+  ] ++ lib.optionals enableStoneSense [
+    "-DBUILD_STONESENSE=ON"
+    "-DSTONESENSE_INTERNAL_SO=OFF"
+  ];
 
   # dfhack expects an unversioned libruby.so to be present in the hack
   # subdirectory for ruby plugins to function.
@@ -174,7 +188,10 @@ in stdenv.mkDerivation {
       "Memory hacking library for Dwarf Fortress and a set of tools that use it";
     homepage = "https://github.com/DFHack/dfhack/";
     license = licenses.zlib;
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
     maintainers = with maintainers; [
       robbinch
       a1russell

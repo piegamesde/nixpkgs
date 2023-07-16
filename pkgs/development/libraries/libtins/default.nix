@@ -26,11 +26,20 @@ stdenv.mkDerivation rec {
     chmod -R a+w googletest
   '';
 
-  nativeBuildInputs = [ cmake gtest ];
-  buildInputs = [ openssl libpcap boost ];
+  nativeBuildInputs = [
+    cmake
+    gtest
+  ];
+  buildInputs = [
+    openssl
+    libpcap
+    boost
+  ];
 
-  configureFlags =
-    [ "--with-boost-libdir=${boost.out}/lib" "--with-boost=${boost.dev}" ];
+  configureFlags = [
+    "--with-boost-libdir=${boost.out}/lib"
+    "--with-boost=${boost.dev}"
+  ];
 
   doCheck = true;
   checkTarget = "tests test";

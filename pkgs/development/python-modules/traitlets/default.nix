@@ -24,8 +24,16 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ hatchling ];
-  nativeCheckInputs = [ glibcLocales pytest mock ];
-  propagatedBuildInputs = [ ipython_genutils decorator six ];
+  nativeCheckInputs = [
+    glibcLocales
+    pytest
+    mock
+  ];
+  propagatedBuildInputs = [
+    ipython_genutils
+    decorator
+    six
+  ];
 
   checkPhase = ''
     LC_ALL="en_US.UTF-8" py.test

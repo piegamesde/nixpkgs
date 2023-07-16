@@ -22,8 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-HmqQLeYOpcP30q9+J0UAa05Lm97eiIoH+EQcmTjy7n0=";
   };
 
-  nativeCheckInputs = [ nose pytest hypothesis six ];
-  propagatedBuildInputs = [ spark_parser xdis ];
+  nativeCheckInputs = [
+    nose
+    pytest
+    hypothesis
+    six
+  ];
+  propagatedBuildInputs = [
+    spark_parser
+    xdis
+  ];
 
   # six import errors (yet it is supplied...)
   checkPhase = ''

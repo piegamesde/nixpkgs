@@ -26,7 +26,12 @@ stdenv.mkDerivation rec {
   pname = "libheif";
   version = "1.15.2";
 
-  outputs = [ "bin" "out" "dev" "man" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+    "man"
+  ];
 
   src = fetchFromGitHub {
     owner = "strukturag";
@@ -35,9 +40,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VbMBZ17leGezng2FYKgiSq04Se0PT0a3WqjM6xZ3zS4=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ dav1d rav1e libde265 x265 libpng libjpeg libaom gdk-pixbuf ];
+  buildInputs = [
+    dav1d
+    rav1e
+    libde265
+    x265
+    libpng
+    libjpeg
+    libaom
+    gdk-pixbuf
+  ];
 
   enableParallelBuilding = true;
 

@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
     sha256 = "1aqdwmgdd74wq73f1zp28yqj91gd6p6nf9nbdfibl7mlklbzvak8";
   };
 
-  buildInputs = [ luajit openssl zlib ];
+  buildInputs = [
+    luajit
+    openssl
+    zlib
+  ];
 
   patchPhase = ''
     rm -rf deps/luajit && mkdir deps/luajit

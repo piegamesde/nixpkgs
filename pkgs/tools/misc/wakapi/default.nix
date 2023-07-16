@@ -20,7 +20,10 @@ buildGoModule rec {
   # Not a go module required by the project, contains development utilities
   excludedPackages = [ "scripts" ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     homepage = "https://wakapi.dev/";

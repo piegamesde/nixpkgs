@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
   pname = "libqrtr-glib";
   version = "1.2.2";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -39,8 +43,8 @@ stdenv.mkDerivation rec {
     gtk-doc
     docbook-xsl-nons
     docbook_xml_dtd_43
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-    [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
+    stdenv.hostPlatform) [ mesonEmulatorHook ];
 
   buildInputs = [ glib ];
 

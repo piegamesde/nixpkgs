@@ -55,7 +55,10 @@ in {
     };
 
     systemd.services.drbd = {
-      after = [ "systemd-udev.settle.service" "network.target" ];
+      after = [
+        "systemd-udev.settle.service"
+        "network.target"
+      ];
       wants = [ "systemd-udev.settle.service" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {

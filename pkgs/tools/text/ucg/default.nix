@@ -18,9 +18,15 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-Osdyxp8DoEjcr2wQLCPqOQ2zQf/0JWYxaDpZB02ACWo=";
   };
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   buildInputs = [ pcre ];
 

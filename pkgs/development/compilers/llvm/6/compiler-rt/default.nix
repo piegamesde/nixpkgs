@@ -23,12 +23,15 @@ in stdenv.mkDerivation {
   src =
     fetch "compiler-rt" "1fcr3jn24yr8lh36nc0c4ikli4744i2q9m1ik67p1jymwwaixkgl";
 
-  nativeBuildInputs = [ cmake python3 libllvm.dev ];
+  nativeBuildInputs = [
+    cmake
+    python3
+    libllvm.dev
+  ];
   buildInputs = lib.optional stdenv.hostPlatform.isDarwin libcxxabi;
 
-  env.NIX_CFLAGS_COMPILE = toString [
-    "-DSCUDO_DEFAULT_OPTIONS=DeleteSizeMismatch=0:DeallocationTypeMismatch=0"
-  ];
+  env.NIX_CFLAGS_COMPILE =
+    toString [ "-DSCUDO_DEFAULT_OPTIONS=DeleteSizeMismatch=0:DeallocationTypeMismatch=0" ];
 
   cmakeFlags = [
     "-DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON"
@@ -38,8 +41,8 @@ in stdenv.mkDerivation {
     "-DCOMPILER_RT_BUILD_SANITIZERS=OFF"
     "-DCOMPILER_RT_BUILD_XRAY=OFF"
     "-DCOMPILER_RT_BUILD_LIBFUZZER=OFF"
-  ] ++ lib.optionals (useLLVM || bareMetal)
-    [ "-DCOMPILER_RT_BUILD_PROFILE=OFF" ]
+  ] ++ lib.optionals
+    (useLLVM || bareMetal) [ "-DCOMPILER_RT_BUILD_PROFILE=OFF" ]
     ++ lib.optionals (useLLVM || bareMetal) [
       "-DCMAKE_C_COMPILER_WORKS=ON"
       "-DCMAKE_CXX_COMPILER_WORKS=ON"
@@ -60,7 +63,10 @@ in stdenv.mkDerivation {
       "-DDARWIN_osx_ARCHS=${stdenv.hostPlatform.darwinArch}"
     ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   patches = [
     ./codesign.patch # Revert compiler-rt commit that makes codesign mandatory
@@ -116,7 +122,10 @@ in stdenv.mkDerivation {
     '';
     # "All of the code in the compiler-rt project is dual licensed under the MIT
     # license and the UIUC License (a BSD-like license)":
-    license = with lib.licenses; [ mit ncsa ];
+    license = with lib.licenses; [
+      mit
+      ncsa
+    ];
     broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64;
   };
 }

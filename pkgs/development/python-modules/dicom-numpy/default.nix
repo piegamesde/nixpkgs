@@ -20,7 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-QIPuSFaWgHmcTddZ8H9kgzLYuwGUzy/FVsi/ttSUskA=";
   };
 
-  propagatedBuildInputs = [ numpy pydicom ];
+  propagatedBuildInputs = [
+    numpy
+    pydicom
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

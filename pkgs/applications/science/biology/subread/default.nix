@@ -35,7 +35,10 @@ stdenv.mkDerivation rec {
       "High-performance read alignment, quantification and mutation discovery";
     license = licenses.gpl3;
     maintainers = with maintainers; [ jbedo ];
-    platforms = [ "x86_64-darwin" "x86_64-linux" ];
+    platforms = [
+      "x86_64-darwin"
+      "x86_64-linux"
+    ];
     homepage = "https://subread.sourceforge.net/";
   };
 

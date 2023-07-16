@@ -56,7 +56,10 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [ "sagemaker" "sagemaker.lineage.visualizer" ];
+  pythonImportsCheck = [
+    "sagemaker"
+    "sagemaker.lineage.visualizer"
+  ];
 
   meta = with lib; {
     description =

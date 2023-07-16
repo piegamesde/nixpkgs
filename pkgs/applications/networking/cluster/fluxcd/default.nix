@@ -39,7 +39,11 @@ in buildGoModule rec {
     rm source/cmd/flux/create_secret_git_test.go
   '';
 
-  ldflags = [ "-s" "-w" "-X main.VERSION=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.VERSION=${version}"
+  ];
 
   subPackages = [ "cmd/flux" ];
 
@@ -74,7 +78,10 @@ in buildGoModule rec {
     '';
     homepage = "https://fluxcd.io";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bryanasdev000 jlesquembre ];
+    maintainers = with maintainers; [
+      bryanasdev000
+      jlesquembre
+    ];
     mainProgram = "flux";
   };
 }

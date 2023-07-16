@@ -42,9 +42,9 @@ buildPythonApplication rec {
     rm test-requirements.txt
   '';
 
-  disabledTests = [
-    "test_build_cache_db" # expects to be run from a git repository
-  ];
+  disabledTests =
+    [ "test_build_cache_db" # expects to be run from a git repository
+    ];
 
   # verify executable
   postCheck = ''
@@ -55,6 +55,9 @@ buildPythonApplication rec {
     description = "Release Notes Manager";
     homepage = "https://docs.openstack.org/reno/latest";
     license = licenses.asl20;
-    maintainers = with maintainers; [ drewrisinger guillaumekoenig ];
+    maintainers = with maintainers; [
+      drewrisinger
+      guillaumekoenig
+    ];
   };
 }

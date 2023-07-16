@@ -54,7 +54,10 @@ let
 
   nvidiaLibs = lib.makeLibraryPath nvidia_x11s;
 
-  bbdPath = lib.makeBinPath [ kmod xorgserver ];
+  bbdPath = lib.makeBinPath [
+    kmod
+    xorgserver
+  ];
 
   xmodules = lib.concatStringsSep "," (map (x: "${x.out or x}/lib/xorg/modules")
     ([ xorgserver ] ++ lib.optional (!useNvidia) xf86videonouveau));
@@ -123,8 +126,19 @@ in stdenv.mkDerivation rec {
 
   # Build-time dependencies of bumblebeed and optirun.
   # Note that it has several runtime dependencies.
-  buildInputs = [ libX11 glib libbsd kmod ];
-  nativeBuildInputs = [ makeWrapper pkg-config help2man automake111x autoconf ];
+  buildInputs = [
+    libX11
+    glib
+    libbsd
+    kmod
+  ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+    help2man
+    automake111x
+    autoconf
+  ];
 
   # The order of LDPATH is very specific: First X11 then the host
   # environment then the optional sub architecture paths.
@@ -133,14 +147,13 @@ in stdenv.mkDerivation rec {
   # includes the acceleration driver. As this is used for the X11
   # server, which runs under the host architecture, this does not
   # include the sub architecture components.
-  configureFlags = [
-    "--with-udev-rules=$out/lib/udev/rules.d"
+  configureFlags = [ "--with-udev-rules=$out/lib/udev/rules.d"
     # see #10282
     #"CONF_PRIMUS_LD_PATH=${primusLibs}"
-  ] ++ lib.optionals useNvidia [
-    "CONF_LDPATH_NVIDIA=${nvidiaLibs}"
-    "CONF_MODPATH_NVIDIA=${nvidia_x11.bin}/lib/xorg/modules"
-  ];
+    ] ++ lib.optionals useNvidia [
+      "CONF_LDPATH_NVIDIA=${nvidiaLibs}"
+      "CONF_MODPATH_NVIDIA=${nvidia_x11.bin}/lib/xorg/modules"
+    ];
 
   CFLAGS = [ ''-DX_MODULE_APPENDS=\"${xmodules}\"'' ];
 

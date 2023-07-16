@@ -22,7 +22,10 @@ buildDunePackage rec {
 
   propagatedBuildInputs = lib.optional withLwt lwt;
 
-  buildInputs = [ cmdliner dune-configurator ];
+  buildInputs = [
+    cmdliner
+    dune-configurator
+  ];
 
   doCheck = true;
 

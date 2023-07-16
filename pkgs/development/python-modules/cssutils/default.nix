@@ -29,13 +29,21 @@ buildPythonPackage rec {
     hash = "sha256-99zSPBzskJ/fNjDeNG4UE7eyVVk23sFLouu5kTvwgY4=";
   };
 
-  nativeBuildInputs = [ setuptools setuptools-scm ];
+  nativeBuildInputs = [
+    setuptools
+    setuptools-scm
+  ];
 
   propagatedBuildInputs =
     lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  nativeCheckInputs = [ cssselect jaraco-test lxml mock pytestCheckHook ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  nativeCheckInputs = [
+    cssselect
+    jaraco-test
+    lxml
+    mock
+    pytestCheckHook
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
   disabledTests = [
     # access network

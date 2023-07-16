@@ -78,7 +78,13 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin $out/lib/udev/rules.d $out/share/icons/hicolor/256x256/apps
     makeWrapper $out/share/roomeqwizard/roomeqwizard $out/bin/roomeqwizard \
       --set INSTALL4J_JAVA_HOME_OVERRIDE ${jdk8} \
-      --prefix PATH : ${lib.makeBinPath [ coreutils gnused gawk ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          coreutils
+          gnused
+          gawk
+        ]
+      }
 
     cp -r "$desktopItem/share/applications" $out/share/
     cp $out/share/roomeqwizard/.install4j/s_*.png "$out/share/icons/hicolor/256x256/apps/${pname}.png"

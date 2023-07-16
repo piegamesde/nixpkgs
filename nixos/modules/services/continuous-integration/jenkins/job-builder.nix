@@ -123,7 +123,7 @@ in {
   };
 
   config = mkIf (jenkinsCfg.enable && cfg.enable) {
-    assertions = [{
+    assertions = [ {
       assertion = if cfg.accessUser != "" then
         (cfg.accessToken != "" && cfg.accessTokenFile == "")
         || (cfg.accessToken == "" && cfg.accessTokenFile != "")
@@ -135,7 +135,7 @@ in {
           services.jenkins.jobBuilder.accessToken = "${cfg.accessToken}"
           services.jenkins.jobBuilder.accessTokenFile = "${cfg.accessTokenFile}"
       '';
-    }];
+    } ];
 
     systemd.services.jenkins-job-builder = {
       description = "Jenkins Job Builder Service";
@@ -144,7 +144,10 @@ in {
       after = [ "jenkins.service" ];
       wantedBy = [ "multi-user.target" ];
 
-      path = with pkgs; [ jenkins-job-builder curl ];
+      path = with pkgs; [
+        jenkins-job-builder
+        curl
+      ];
 
       # Q: Why manipulate files directly instead of using "jenkins-jobs upload [...]"?
       # A: Because this module is for administering a local jenkins install,

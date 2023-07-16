@@ -42,7 +42,12 @@ stdenv.mkDerivation rec {
     yelp-tools
   ];
 
-  buildInputs = [ gtk3 librsvg guile libcanberra-gtk3 ];
+  buildInputs = [
+    gtk3
+    librsvg
+    guile
+    libcanberra-gtk3
+  ];
 
   prePatch = ''
     patchShebangs cards/meson_svgz.sh

@@ -28,13 +28,26 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ libvirt ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config findlib perl ocaml ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    findlib
+    perl
+    ocaml
+  ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Foundation AppKit ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    Foundation
+    AppKit
+  ];
 
   strictDeps = true;
 
-  buildFlags = [ "all" "opt" "CPPFLAGS=-Wno-error" ];
+  buildFlags = [
+    "all"
+    "opt"
+    "CPPFLAGS=-Wno-error"
+  ];
   installTargets = "install-opt";
   preInstall = ''
     # Fix 'dllmllibvirt.so' install failure into non-existent directory.

@@ -89,7 +89,10 @@ in with builtins; {
     branch = "release-6.0";
     sha256 = "0q1mscailad0z7zf1nypv4g7gx3damfp45nf8nzyq47nsw5gz69p";
 
-    patches = [ ./patches/ldflags-6.0.patch ./patches/include-fixes-6.0.patch ];
+    patches = [
+      ./patches/ldflags-6.0.patch
+      ./patches/include-fixes-6.0.patch
+    ];
   };
 
   # 6.1 and later versions should always use CMake

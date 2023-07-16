@@ -26,7 +26,10 @@ perlPackages.buildPerlPackage rec {
   #
   # Check the version bundled with Perl like this:
   #   perl -e 'use ExtUtils::MakeMaker qw($VERSION); print "$VERSION\n"'
-  nativeBuildInputs = [ makeWrapper perlPackages.ExtUtilsMakeMaker ];
+  nativeBuildInputs = [
+    makeWrapper
+    perlPackages.ExtUtilsMakeMaker
+  ];
   buildInputs = (with perlPackages; [
     HTMLParser
     NetCIDRLite
@@ -50,7 +53,10 @@ perlPackages.buildPerlPackage rec {
 
   # Enabling 'taint' mode is desirable, but that flag disables support
   # for the PERL5LIB environment variable. Needs further investigation.
-  makeFlags = [ "PERL_BIN=${perlPackages.perl}/bin/perl" "PERL_TAINT=no" ];
+  makeFlags = [
+    "PERL_BIN=${perlPackages.perl}/bin/perl"
+    "PERL_TAINT=no"
+  ];
 
   makeMakerFlags = [ "SYSCONFDIR=/etc LOCALSTATEDIR=/var/lib/spamassassin" ];
 
@@ -62,7 +68,12 @@ perlPackages.buildPerlPackage rec {
 
     for n in "$out/bin/"*; do
       wrapProgram "$n" --prefix PERL5LIB : "$PERL5LIB" --prefix PATH : ${
-        lib.makeBinPath [ gnupg re2c gcc gnumake ]
+        lib.makeBinPath [
+          gnupg
+          re2c
+          gcc
+          gnumake
+        ]
       }
     done
   '';
@@ -72,6 +83,9 @@ perlPackages.buildPerlPackage rec {
     description = "Open-Source Spam Filter";
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ qknight qyliss ];
+    maintainers = with lib.maintainers; [
+      qknight
+      qyliss
+    ];
   };
 }

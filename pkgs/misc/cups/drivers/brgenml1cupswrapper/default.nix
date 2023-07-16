@@ -77,7 +77,14 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ cups perl coreutils gnused gnugrep brgenml1lpr ];
+  buildInputs = [
+    cups
+    perl
+    coreutils
+    gnused
+    gnugrep
+    brgenml1lpr
+  ];
 
   dontBuild = true;
 

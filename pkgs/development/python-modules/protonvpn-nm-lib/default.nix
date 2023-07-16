@@ -47,12 +47,10 @@ buildPythonPackage rec {
     xdg-utils
   ];
 
-  patches = [
-    (substituteAll {
-      src = ./0001-Patching-GIRepository.patch;
-      networkmanager_path = "${networkmanager}/lib/girepository-1.0";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./0001-Patching-GIRepository.patch;
+    networkmanager_path = "${networkmanager}/lib/girepository-1.0";
+  }) ];
 
   postPatch = ''
     substituteInPlace protonvpn_nm_lib/core/dbus/dbus_reconnect.py \

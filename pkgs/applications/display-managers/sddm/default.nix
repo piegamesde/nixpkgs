@@ -63,7 +63,12 @@ in mkDerivation {
       sed -e '1i#include <sys/time.h>' -i src/helper/HelperApp.cpp
     '';
 
-  nativeBuildInputs = [ cmake extra-cmake-modules pkg-config qttools ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    pkg-config
+    qttools
+  ];
 
   buildInputs = [
     libxcb
@@ -105,7 +110,10 @@ in mkDerivation {
   meta = with lib; {
     description = "QML based X11 display manager";
     homepage = "https://github.com/sddm/sddm";
-    maintainers = with maintainers; [ abbradar ttuegel ];
+    maintainers = with maintainers; [
+      abbradar
+      ttuegel
+    ];
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
   };

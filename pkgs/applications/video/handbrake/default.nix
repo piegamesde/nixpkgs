@@ -193,8 +193,17 @@ in let
         --replace /usr/include/libxml2 ${libxml2.dev}/include/libxml2
     '';
 
-    nativeBuildInputs = [ autoconf automake libtool m4 pkg-config python3 ]
-      ++ optionals useGtk [ intltool wrapGAppsHook ];
+    nativeBuildInputs = [
+      autoconf
+      automake
+      libtool
+      m4
+      pkg-config
+      python3
+    ] ++ optionals useGtk [
+      intltool
+      wrapGAppsHook
+    ];
 
     buildInputs = [
       a52dec
@@ -297,7 +306,10 @@ in let
         GTK GUI - `ghb`
       '';
       license = licenses.gpl2Only;
-      maintainers = with maintainers; [ Anton-Latukha wmertens ];
+      maintainers = with maintainers; [
+        Anton-Latukha
+        wmertens
+      ];
       platforms = with platforms; unix;
       broken = stdenv.isDarwin
         && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13";

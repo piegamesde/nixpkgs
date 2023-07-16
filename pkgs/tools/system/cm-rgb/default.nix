@@ -30,7 +30,12 @@ buildPythonApplication rec {
     wrapGAppsHook
   ];
 
-  propagatedBuildInputs = [ click hidapi psutil pygobject3 ];
+  propagatedBuildInputs = [
+    click
+    hidapi
+    psutil
+    pygobject3
+  ];
 
   postInstall = ''
     mkdir -p $out/etc/udev/rules.d

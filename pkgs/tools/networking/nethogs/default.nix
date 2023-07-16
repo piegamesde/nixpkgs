@@ -17,11 +17,20 @@ stdenv.mkDerivation rec {
     sha256 = "10shdwvfj90lp2fxz9260342a1c2n1jbw058qy5pyq5kh3xwr9b8";
   };
 
-  buildInputs = [ ncurses libpcap ];
+  buildInputs = [
+    ncurses
+    libpcap
+  ];
 
-  makeFlags = [ "VERSION=${version}" "nethogs" ];
+  makeFlags = [
+    "VERSION=${version}"
+    "nethogs"
+  ];
 
-  installFlags = [ "PREFIX=$(out)" "sbin=$(out)/bin" ];
+  installFlags = [
+    "PREFIX=$(out)"
+    "sbin=$(out)/bin"
+  ];
 
   meta = with lib; {
     description = "A small 'net top' tool, grouping bandwidth by process";

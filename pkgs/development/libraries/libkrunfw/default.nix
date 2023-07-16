@@ -41,7 +41,13 @@ stdenv.mkDerivation rec {
       --replace 'gcc' '$(CC)'
   '';
 
-  nativeBuildInputs = [ flex bison bc python3 python3.pkgs.pyelftools ];
+  nativeBuildInputs = [
+    flex
+    bison
+    bc
+    python3
+    python3.pkgs.pyelftools
+  ];
   buildInputs = lib.optionals stdenv.isLinux [ elfutils ];
 
   makeFlags = [
@@ -55,9 +61,15 @@ stdenv.mkDerivation rec {
     description =
       "A dynamic library bundling the guest payload consumed by libkrun";
     homepage = "https://github.com/containers/libkrunfw";
-    license = with licenses; [ lgpl2Only lgpl21Only ];
+    license = with licenses; [
+      lgpl2Only
+      lgpl21Only
+    ];
     maintainers = with maintainers; [ nickcao ];
-    platforms = [ "x86_64-linux" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-darwin"
+    ];
     sourceProvenance = with sourceTypes;
       lib.optionals stdenv.isDarwin [ binaryNativeCode ];
   };

@@ -22,9 +22,15 @@ buildPythonPackage rec {
     hash = "sha256-vFbEV/ZMXvKZeQUR536OZQ/5uIkt4tOWcCGRPMdc34I";
   };
 
-  nativeBuildInputs = [ hatchling hatch-jupyter-builder ];
+  nativeBuildInputs = [
+    hatchling
+    hatch-jupyter-builder
+  ];
 
-  propagatedBuildInputs = [ ipywidgets jupyter-ui-poll ];
+  propagatedBuildInputs = [
+    ipywidgets
+    jupyter-ui-poll
+  ];
 
   nativeCheckImports = [ pytestCheckHook ];
   pythonImportsCheck = [ "ipyniivue" ];

@@ -40,7 +40,12 @@ import ./make-test-python.nix ({
   in {
     name = "bittorrent";
     meta = with pkgs.lib.maintainers; {
-      maintainers = [ domenkozar eelco rob bobvanderlinden ];
+      maintainers = [
+        domenkozar
+        eelco
+        rob
+        bobvanderlinden
+      ];
     };
 
     nodes = {
@@ -52,10 +57,10 @@ import ./make-test-python.nix ({
 
           virtualisation.vlans = [ 1 ];
           networking.firewall.enable = false;
-          networking.interfaces.eth1.ipv4.addresses = [{
+          networking.interfaces.eth1.ipv4.addresses = [ {
             address = externalTrackerAddress;
             prefixLength = 24;
-          }];
+          } ];
 
           # We need Apache on the tracker to serve the torrents.
           services.httpd = {
@@ -75,21 +80,24 @@ import ./make-test-python.nix ({
           nodes,
           ...
         }: {
-          virtualisation.vlans = [ 1 2 ];
+          virtualisation.vlans = [
+            1
+            2
+          ];
           networking.nat.enable = true;
           networking.nat.internalInterfaces = [ "eth2" ];
           networking.nat.externalInterface = "eth1";
           networking.firewall.enable = true;
           networking.firewall.trustedInterfaces = [ "eth2" ];
           networking.interfaces.eth0.ipv4.addresses = [ ];
-          networking.interfaces.eth1.ipv4.addresses = [{
+          networking.interfaces.eth1.ipv4.addresses = [ {
             address = externalRouterAddress;
             prefixLength = 24;
-          }];
-          networking.interfaces.eth2.ipv4.addresses = [{
+          } ];
+          networking.interfaces.eth2.ipv4.addresses = [ {
             address = internalRouterAddress;
             prefixLength = 24;
-          }];
+          } ];
           services.miniupnpd = {
             enable = true;
             externalInterface = "eth1";
@@ -110,10 +118,10 @@ import ./make-test-python.nix ({
 
           virtualisation.vlans = [ 2 ];
           networking.interfaces.eth0.ipv4.addresses = [ ];
-          networking.interfaces.eth1.ipv4.addresses = [{
+          networking.interfaces.eth1.ipv4.addresses = [ {
             address = internalClient1Address;
             prefixLength = 24;
-          }];
+          } ];
           networking.defaultGateway = internalRouterAddress;
           networking.firewall.enable = false;
         };
@@ -126,10 +134,10 @@ import ./make-test-python.nix ({
 
           virtualisation.vlans = [ 1 ];
           networking.interfaces.eth0.ipv4.addresses = [ ];
-          networking.interfaces.eth1.ipv4.addresses = [{
+          networking.interfaces.eth1.ipv4.addresses = [ {
             address = externalClient2Address;
             prefixLength = 24;
-          }];
+          } ];
           networking.firewall.enable = false;
         };
     };

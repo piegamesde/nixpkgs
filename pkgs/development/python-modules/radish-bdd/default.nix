@@ -44,7 +44,12 @@ buildPythonPackage rec {
     tag-expressions
   ];
 
-  nativeCheckInputs = [ freezegun pytest-mock pytestCheckHook pyyaml ];
+  nativeCheckInputs = [
+    freezegun
+    pytest-mock
+    pytestCheckHook
+    pyyaml
+  ];
 
   pythonImportsCheck = [ "radish" ];
 

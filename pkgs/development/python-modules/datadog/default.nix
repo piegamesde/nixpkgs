@@ -31,8 +31,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs =
-    [ click freezegun mock pytestCheckHook pytest-vcr python-dateutil vcrpy ];
+  nativeCheckInputs = [
+    click
+    freezegun
+    mock
+    pytestCheckHook
+    pytest-vcr
+    python-dateutil
+    vcrpy
+  ];
 
   disabledTestPaths = [ "tests/performance" ];
 

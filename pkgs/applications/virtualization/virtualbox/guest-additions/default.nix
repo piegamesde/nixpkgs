@@ -57,7 +57,10 @@ in stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     "-Wno-error=incompatible-pointer-types -Wno-error=implicit-function-declaration";
 
-  nativeBuildInputs = [ patchelf makeWrapper ];
+  nativeBuildInputs = [
+    patchelf
+    makeWrapper
+  ];
   buildInputs = [ cdrkit ] ++ kernel.moduleBuildDependencies;
 
   prePatch = ''
@@ -65,7 +68,11 @@ in stdenv.mkDerivation rec {
       --replace "<ttm/" "<drm/ttm/"
   '';
 
-  patchFlags = [ "-p1" "-d" "src/vboxguest-${version}" ];
+  patchFlags = [
+    "-p1"
+    "-d"
+    "src/vboxguest-${version}"
+  ];
 
   unpackPhase = ''
     isoinfo -J -i $src -x /VBoxLinuxAdditions.run > ./VBoxLinuxAdditions.run
@@ -195,7 +202,10 @@ in stdenv.mkDerivation rec {
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = "GPL";
     maintainers = [ lib.maintainers.sander ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
     broken = stdenv.hostPlatform.is32bit && (kernel.kernelAtLeast "5.10");
   };
 }

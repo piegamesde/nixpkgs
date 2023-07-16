@@ -12,7 +12,14 @@
 }:
 
 let
-  path = lib.makeBinPath [ bc dbus gawk gnused libnotify pulseaudio ];
+  path = lib.makeBinPath [
+    bc
+    dbus
+    gawk
+    gnused
+    libnotify
+    pulseaudio
+  ];
   pname = "pulseaudio-ctl";
 
 in stdenv.mkDerivation rec {

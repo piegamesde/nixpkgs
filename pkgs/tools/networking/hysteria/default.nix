@@ -17,7 +17,11 @@ buildGoModule rec {
   vendorSha256 = "sha256-hpV+16yU03fT8FIfxbEnIcafn6H/IMpMns9onPPPrDk=";
   proxyVendor = true;
 
-  ldflags = [ "-s" "-w" "-X main.appVersion=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.appVersion=${version}"
+  ];
 
   postInstall = ''
     mv $out/bin/cmd $out/bin/hysteria

@@ -14,7 +14,10 @@ buildPythonPackage rec {
     hash = "sha256-YmuoI0IR25joad92IwoTfExAoS1yRFxF1fW3FvB24v0=";
   };
 
-  outputs = [ "out" "testout" ];
+  outputs = [
+    "out"
+    "testout"
+  ];
 
   postInstall = ''
     # Install tests as the tests output.

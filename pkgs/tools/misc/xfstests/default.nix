@@ -42,8 +42,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hPFoqNmB8pewvBN1nzVMkTrMHCo0xc8tmmIODaiDeRw=";
   };
 
-  nativeBuildInputs = [ autoconf automake libtool ];
-  buildInputs = [ acl attr gawk libaio libuuid libxfs openssl perl ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+  ];
+  buildInputs = [
+    acl
+    attr
+    gawk
+    libaio
+    libuuid
+    libxfs
+    openssl
+    perl
+  ];
 
   hardeningDisable = [ "format" ];
   enableParallelBuilding = true;

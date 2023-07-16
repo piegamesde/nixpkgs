@@ -54,9 +54,8 @@ let
       };
       doCheck = true;
 
-      nativeBuildInputs = [ makeWrapper ]
-        ++ optionals (stdenv.isLinux && (nativeLibs != [ ] || libPatches != ""))
-        [ autoPatchelfHook ];
+      nativeBuildInputs = [ makeWrapper ] ++ optionals (stdenv.isLinux
+        && (nativeLibs != [ ] || libPatches != "")) [ autoPatchelfHook ];
       buildInputs = [ openssl ] ++ nativeLibs;
 
       installPhase = ''
@@ -72,7 +71,13 @@ let
             --set-default HADOOP_HOME $out/lib/${untarDir}\
             --run "test -d /etc/hadoop-conf && export HADOOP_CONF_DIR=\''${HADOOP_CONF_DIR-'/etc/hadoop-conf/'}"\
             --set-default HADOOP_CONF_DIR $out/lib/${untarDir}/etc/hadoop/\
-            --prefix PATH : "${makeBinPath [ bash coreutils which ]}"\
+            --prefix PATH : "${
+              makeBinPath [
+                bash
+                coreutils
+                which
+              ]
+            }"\
             --prefix JAVA_LIBRARY_PATH : "${makeLibraryPath buildInputs}"
         done
       '' + optionalString sparkSupport ''
@@ -102,7 +107,10 @@ let
         '';
         maintainers = with maintainers; [ illustris ];
         platforms = attrNames platformAttrs;
-      } (attrByPath [ stdenv.system "meta" ] { } platformAttrs);
+      } (attrByPath [
+        stdenv.system
+        "meta"
+      ] { } platformAttrs);
     };
 in {
   # Different version of hadoop support different java runtime versions
@@ -118,7 +126,10 @@ in {
       aarch64-linux = {
         version = "3.3.1";
         hash = "sha256-v1Om2pk0wsgKBghRD2wgTSHJoKd3jkm1wPKAeDcKlgI=";
-        meta.knownVulnerabilities = [ "CVE-2021-37404" "CVE-2021-33036" ];
+        meta.knownVulnerabilities = [
+          "CVE-2021-37404"
+          "CVE-2021-33036"
+        ];
       };
       aarch64-darwin = aarch64-linux;
     };
@@ -126,7 +137,12 @@ in {
     jdk = jdk11_headless;
     inherit openssl;
     # TODO: Package and add Intel Storage Acceleration Library
-    nativeLibs = [ stdenv.cc.cc.lib protobuf zlib snappy ];
+    nativeLibs = [
+      stdenv.cc.cc.lib
+      protobuf
+      zlib
+      snappy
+    ];
     libPatches = ''
       ln -s ${
         getLib cyrus_sasl

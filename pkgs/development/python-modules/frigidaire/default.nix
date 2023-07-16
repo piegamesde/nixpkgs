@@ -29,7 +29,13 @@ buildPythonPackage rec {
       --replace 'version = "SNAPSHOT"' 'version = "${version}"'
   '';
 
-  propagatedBuildInputs = [ certifi chardet idna requests urllib3 ];
+  propagatedBuildInputs = [
+    certifi
+    chardet
+    idna
+    requests
+    urllib3
+  ];
 
   # Project has no tests
   doCheck = false;

@@ -22,9 +22,16 @@ mkDerivation rec {
 
   patches = [ ./0001-fix-application-dirs.patch ];
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
-  buildInputs = [ qtbase qtconnectivity libnotify ];
+  buildInputs = [
+    qtbase
+    qtconnectivity
+    libnotify
+  ];
 
   meta = with lib; {
     description =

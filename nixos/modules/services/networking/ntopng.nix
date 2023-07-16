@@ -35,13 +35,15 @@ let
 
 in {
 
-  imports = [
-    (mkRenamedOptionModule [ "services" "ntopng" "http-port" ] [
-      "services"
-      "ntopng"
-      "httpPort"
-    ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "services"
+    "ntopng"
+    "http-port"
+  ] [
+    "services"
+    "ntopng"
+    "httpPort"
+  ]) ];
 
   options = {
 
@@ -68,7 +70,10 @@ in {
 
       interfaces = mkOption {
         default = [ "any" ];
-        example = [ "eth0" "wlan0" ];
+        example = [
+          "eth0"
+          "wlan0"
+        ];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           List of interfaces to monitor. Use "any" to monitor all interfaces.

@@ -27,7 +27,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ async-timeout btsocket pyric usb-devices ];
+  propagatedBuildInputs = [
+    async-timeout
+    btsocket
+    pyric
+    usb-devices
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

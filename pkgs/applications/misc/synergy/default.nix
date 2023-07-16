@@ -68,8 +68,10 @@ stdenv.mkDerivation rec {
       --replace "/usr/share/X11/xkb/rules/evdev.xml" "${xkeyboardconfig}/share/X11/xkb/rules/evdev.xml"
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ]
-    ++ lib.optional withGUI wrapQtAppsHook;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ] ++ lib.optional withGUI wrapQtAppsHook;
 
   buildInputs = [
     qttools # Used for translations even when not building the GUI
@@ -81,9 +83,8 @@ stdenv.mkDerivation rec {
     Cocoa
     CoreServices
     ScreenSaver
-  ] ++ lib.optionals
-    (stdenv.isDarwin && darwin.apple_sdk.frameworks ? UserNotifications)
-    [ darwin.apple_sdk.frameworks.UserNotifications ]
+  ] ++ lib.optionals (stdenv.isDarwin && darwin.apple_sdk.frameworks
+    ? UserNotifications) [ darwin.apple_sdk.frameworks.UserNotifications ]
     ++ lib.optionals stdenv.isLinux [
       util-linux
       libselinux
@@ -152,7 +153,10 @@ stdenv.mkDerivation rec {
       "https://github.com/symless/synergy-core/blob/${version}/ChangeLog";
     mainProgram = lib.optionalString (!withGUI) "synergyc";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ talyz ivar ];
+    maintainers = with maintainers; [
+      talyz
+      ivar
+    ];
     platforms = platforms.unix;
   };
 }

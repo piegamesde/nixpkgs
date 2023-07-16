@@ -29,10 +29,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flitBuildHook ];
 
-  propagatedBuildInputs = [ quantiphy-eval rkm-codes ];
+  propagatedBuildInputs = [
+    quantiphy-eval
+    rkm-codes
+  ];
 
-  nativeCheckInputs =
-    [ inform parametrize-from-file pytestCheckHook setuptools voluptuous ];
+  nativeCheckInputs = [
+    inform
+    parametrize-from-file
+    pytestCheckHook
+    setuptools
+    voluptuous
+  ];
 
   pythonImportsCheck = [ "quantiphy" ];
 

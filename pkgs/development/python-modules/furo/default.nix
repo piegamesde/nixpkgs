@@ -22,7 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-SrK+JUotXlJ5LQynk6EsNVgt0JiXIopt1HiF2r1clSE=";
   };
 
-  propagatedBuildInputs = [ sphinx beautifulsoup4 sphinx-basic-ng ];
+  propagatedBuildInputs = [
+    sphinx
+    beautifulsoup4
+    sphinx-basic-ng
+  ];
 
   installCheckPhase = ''
     # furo was built incorrectly if this directory is empty

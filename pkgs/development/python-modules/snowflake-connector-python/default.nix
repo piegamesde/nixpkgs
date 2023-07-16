@@ -58,7 +58,10 @@ buildPythonPackage rec {
   # https://github.com/snowflakedb/snowflake-connector-python/tree/master/.github/workflows/parameters
   doCheck = false;
 
-  pythonImportsCheck = [ "snowflake" "snowflake.connector" ];
+  pythonImportsCheck = [
+    "snowflake"
+    "snowflake.connector"
+  ];
 
   meta = with lib; {
     changelog =

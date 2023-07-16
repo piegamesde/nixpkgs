@@ -25,9 +25,17 @@ buildPythonPackage rec {
     hash = "sha256-8nEGnZ6ay6x622kSGQqEj2M49+V6+68+lSN/6DzI9NI=";
   };
 
-  propagatedBuildInputs = [ markupsafe jinja2 pyramid zope_deprecation ];
+  propagatedBuildInputs = [
+    markupsafe
+    jinja2
+    pyramid
+    zope_deprecation
+  ];
 
-  nativeCheckInputs = [ webtest pytestCheckHook ];
+  nativeCheckInputs = [
+    webtest
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

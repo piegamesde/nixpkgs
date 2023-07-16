@@ -40,9 +40,19 @@ in mkDerivation rec {
 
   patches = extraPatches;
 
-  nativeBuildInputs = [ dos2unix cmake pkg-config qttools ];
+  nativeBuildInputs = [
+    dos2unix
+    cmake
+    pkg-config
+    qttools
+  ];
 
-  buildInputs = [ qtbase qwt6_1 rtaudio rtmidi ];
+  buildInputs = [
+    qtbase
+    qwt6_1
+    rtaudio
+    rtmidi
+  ];
 
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
     mkdir $out/{bin,Applications}

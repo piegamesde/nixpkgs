@@ -36,7 +36,10 @@
 mkDerivation rec {
   pname = "plasma-dialer";
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
   buildInputs = [
     callaudiod

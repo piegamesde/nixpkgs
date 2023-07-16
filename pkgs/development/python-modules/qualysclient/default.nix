@@ -33,10 +33,20 @@ buildPythonPackage rec {
       --replace "version=__version__," 'version="${version}",'
   '';
 
-  propagatedBuildInputs =
-    [ certifi charset-normalizer idna lxml requests urllib3 ];
+  propagatedBuildInputs = [
+    certifi
+    charset-normalizer
+    idna
+    lxml
+    requests
+    urllib3
+  ];
 
-  nativeCheckInputs = [ pytest-mock pytestCheckHook responses ];
+  nativeCheckInputs = [
+    pytest-mock
+    pytestCheckHook
+    responses
+  ];
 
   pythonImportsCheck = [ "qualysclient" ];
 

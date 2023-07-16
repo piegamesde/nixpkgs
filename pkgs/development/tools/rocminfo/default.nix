@@ -30,7 +30,10 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-4wZTm5AZgG8xEd6uYqxWq4bWZgcSYZ2WYA1z4RAPF8U=";
   };
 
-  nativeBuildInputs = [ cmake rocm-cmake ];
+  nativeBuildInputs = [
+    cmake
+    rocm-cmake
+  ];
 
   buildInputs = [ rocm-runtime ];
   propagatedBuildInputs = [ python3 ];

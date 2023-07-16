@@ -27,13 +27,16 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  nativeBuildInputs = [ python3 re2c installShellFiles ]
-    ++ lib.optionals buildDocs [
-      asciidoc
-      docbook_xml_dtd_45
-      docbook_xsl
-      libxslt.bin
-    ];
+  nativeBuildInputs = [
+    python3
+    re2c
+    installShellFiles
+  ] ++ lib.optionals buildDocs [
+    asciidoc
+    docbook_xml_dtd_45
+    docbook_xsl
+    libxslt.bin
+  ];
 
   patches = lib.optionals stdenv.is32bit [
     # Otherwise ninja may fail on some files in a larger FS.
@@ -100,6 +103,10 @@ stdenv.mkDerivation rec {
     homepage = "https://ninja-build.org/";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ thoughtpolice bjornfor orivej ];
+    maintainers = with maintainers; [
+      thoughtpolice
+      bjornfor
+      orivej
+    ];
   };
 }

@@ -10,7 +10,10 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ mirage-block logs ];
+  propagatedBuildInputs = [
+    mirage-block
+    logs
+  ];
 
   meta = mirage-block.meta // {
     description = "Block signatures and implementations for MirageOS using Lwt";

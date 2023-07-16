@@ -18,10 +18,18 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ autoreconfHook which ]
-    ++ (with ocamlPackages; [ findlib ocaml ]);
+  nativeBuildInputs = [
+    autoreconfHook
+    which
+  ] ++ (with ocamlPackages; [
+    findlib
+    ocaml
+  ]);
 
-  buildInputs = with ocamlPackages; [ functory num ];
+  buildInputs = with ocamlPackages; [
+    functory
+    num
+  ];
 
   # https://github.com/cubicle-model-checker/cubicle/issues/1
   env = {

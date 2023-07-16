@@ -20,9 +20,15 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ ninja makeWrapper ];
+  nativeBuildInputs = [
+    ninja
+    makeWrapper
+  ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ CoreFoundation Foundation ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    CoreFoundation
+    Foundation
+  ];
 
   postPatch = ''
     # filewatch tests are failing on darwin
@@ -81,7 +87,10 @@ stdenv.mkDerivation rec {
     changelog =
       "https://github.com/LuaLS/lua-language-server/blob/${version}/changelog.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda sei40kr ];
+    maintainers = with maintainers; [
+      figsoda
+      sei40kr
+    ];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

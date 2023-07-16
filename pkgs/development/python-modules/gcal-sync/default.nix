@@ -26,10 +26,18 @@ buildPythonPackage rec {
     hash = "sha256-Z5XRyhObREj38BWnexQnwHS1y2Ewyv5/KPkl/ybHvUE=";
   };
 
-  propagatedBuildInputs = [ aiohttp ical pydantic ];
+  propagatedBuildInputs = [
+    aiohttp
+    ical
+    pydantic
+  ];
 
-  nativeCheckInputs =
-    [ freezegun pytest-aiohttp pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    freezegun
+    pytest-aiohttp
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "gcal_sync" ];
 

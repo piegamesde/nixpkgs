@@ -56,13 +56,27 @@ let
 in {
 
   imports = [
-    (mkAliasOptionModuleMD [ "services" "compton" ] [ "services" "picom" ])
-    (mkRemovedOptionModule [ "services" "picom" "refreshRate" ] ''
+    (mkAliasOptionModuleMD [
+      "services"
+      "compton"
+    ] [
+      "services"
+      "picom"
+    ])
+    (mkRemovedOptionModule [
+      "services"
+      "picom"
+      "refreshRate"
+    ] ''
       This option corresponds to `refresh-rate`, which has been unused
       since picom v6 and was subsequently removed by upstream.
       See https://github.com/yshui/picom/commit/bcbc410
     '')
-    (mkRemovedOptionModule [ "services" "picom" "experimentalBackends" ] ''
+    (mkRemovedOptionModule [
+      "services"
+      "picom"
+      "experimentalBackends"
+    ] ''
       This option was removed by upstream since picom v10.
     '')
   ];
@@ -95,8 +109,14 @@ in {
 
     fadeSteps = mkOption {
       type = pairOf (types.numbers.between 1.0e-2 1);
-      default = [ 2.8e-2 3.0e-2 ];
-      example = [ 4.0e-2 4.0e-2 ];
+      default = [
+        2.8e-2
+        3.0e-2
+      ];
+      example = [
+        4.0e-2
+        4.0e-2
+      ];
       description = lib.mdDoc ''
         Opacity change between fade steps (in and out).
       '';
@@ -105,7 +125,11 @@ in {
     fadeExclude = mkOption {
       type = types.listOf types.str;
       default = [ ];
-      example = [ "window_type *= 'menu'" "name ~= 'Firefox$'" "focused = 1" ];
+      example = [
+        "window_type *= 'menu'"
+        "name ~= 'Firefox$'"
+        "focused = 1"
+      ];
       description = lib.mdDoc ''
         List of conditions of windows that should not be faded.
         See `picom(1)` man page for more examples.
@@ -122,8 +146,14 @@ in {
 
     shadowOffsets = mkOption {
       type = pairOf types.int;
-      default = [ (-15) (-15) ];
-      example = [ (-10) (-15) ];
+      default = [
+        (-15)
+        (-15)
+      ];
+      example = [
+        (-10)
+        (-15)
+      ];
       description = lib.mdDoc ''
         Left and right offset for shadows (in pixels).
       '';
@@ -141,7 +171,11 @@ in {
     shadowExclude = mkOption {
       type = types.listOf types.str;
       default = [ ];
-      example = [ "window_type *= 'menu'" "name ~= 'Firefox$'" "focused = 1" ];
+      example = [
+        "window_type *= 'menu'"
+        "name ~= 'Firefox$'"
+        "focused = 1"
+      ];
       description = lib.mdDoc ''
         List of conditions of windows that should have no shadow.
         See `picom(1)` man page for more examples.
@@ -206,7 +240,12 @@ in {
     };
 
     backend = mkOption {
-      type = types.enum [ "egl" "glx" "xrender" "xr_glx_hybrid" ];
+      type = types.enum [
+        "egl"
+        "glx"
+        "xrender"
+        "xr_glx_hybrid"
+      ];
       default = "xrender";
       description = lib.mdDoc ''
         Backend to use: `egl`, `glx`, `xrender` or `xr_glx_hybrid`.
@@ -240,11 +279,20 @@ in {
 
     settings = with types;
       let
-        scalar = oneOf [ bool int float str ] // {
+        scalar = oneOf [
+          bool
+          int
+          float
+          str
+        ] // {
           description = "scalar types";
         };
 
-        libConfig = oneOf [ scalar (listOf libConfig) (attrsOf libConfig) ] // {
+        libConfig = oneOf [
+          scalar
+          (listOf libConfig)
+          (attrsOf libConfig)
+        ] // {
           description = "libconfig type";
         };
 

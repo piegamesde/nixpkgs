@@ -28,12 +28,24 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-YByJ8y7SJelSet49ZNDQXSMgLAWuIf+nflnXDuRZf80=";
   };
 
-  nativeBuildInputs = [ swig pkg-config libtool ];
+  nativeBuildInputs = [
+    swig
+    pkg-config
+    libtool
+  ];
 
-  buildInputs = [ gd libxml2 libusb-compat-0_1 boost ]
-    ++ lib.optionals pythonBindings [ python3 ncurses ]
-    ++ lib.optionals tclBindings [ tcl ]
-    ++ lib.optionals perlBindings [ perl perlPackages.ExtUtilsMakeMaker ];
+  buildInputs = [
+    gd
+    libxml2
+    libusb-compat-0_1
+    boost
+  ] ++ lib.optionals pythonBindings [
+    python3
+    ncurses
+  ] ++ lib.optionals tclBindings [ tcl ] ++ lib.optionals perlBindings [
+    perl
+    perlPackages.ExtUtilsMakeMaker
+  ];
 
   configureFlags = lib.optionals perlBindings [ "--with-perl-binding" ]
     ++ lib.optionals tclBindings [
@@ -51,7 +63,10 @@ stdenv.mkDerivation rec {
       which lets one control a radio transceiver or receiver, either from
       command line interface or in a text-oriented interactive interface.
     '';
-    license = with licenses; [ gpl2Plus lgpl2Plus ];
+    license = with licenses; [
+      gpl2Plus
+      lgpl2Plus
+    ];
     homepage = "https://hamlib.sourceforge.net";
     maintainers = with maintainers; [ relrod ];
     platforms = with platforms; unix;

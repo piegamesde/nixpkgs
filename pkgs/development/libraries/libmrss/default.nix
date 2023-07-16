@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  propagatedBuildInputs = [ curl libnxml ];
+  propagatedBuildInputs = [
+    curl
+    libnxml
+  ];
 
   meta = {
     homepage = "http://www.autistici.org/bakunin/libmrss/doc";

@@ -28,11 +28,18 @@ stdenv.mkDerivation rec {
     glib
     gtk3
     ibus
-    (python3.withPackages (ps: [ ps.pygobject3 (ps.toPythonModule ibus) ]))
+    (python3.withPackages (ps: [
+      ps.pygobject3
+      (ps.toPythonModule ibus)
+    ]))
   ];
 
-  nativeBuildInputs =
-    [ gettext gobject-introspection pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    gettext
+    gobject-introspection
+    pkg-config
+    wrapGAppsHook
+  ];
 
   configureFlags = [ "--with-anthy-zipcode=${anthy}/share/anthy/zipcode.t" ];
 
@@ -46,6 +53,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/fujiwarat/ibus-anthy";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ gebner ericsagnes ];
+    maintainers = with maintainers; [
+      gebner
+      ericsagnes
+    ];
   };
 }

@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ];
 
-  nativeCheckInputs = [ aiofiles pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    aiofiles
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   preBuild = ''
     export CYTHONIZE=1

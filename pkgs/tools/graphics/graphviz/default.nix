@@ -38,11 +38,29 @@ in stdenv.mkDerivation rec {
     hash = "sha256-y91YiBJT45slK266UGfow7MFdrdMXZQm3FYBWs1YuuE=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config python3 bison flex ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    python3
+    bison
+    flex
+  ];
 
-  buildInputs = [ libpng libjpeg expat fontconfig gd gts libdevil pango bash ]
-    ++ optionals withXorg (with xorg; [ libXrender libXaw libXpm ])
-    ++ optionals stdenv.isDarwin [ ApplicationServices ];
+  buildInputs = [
+    libpng
+    libjpeg
+    expat
+    fontconfig
+    gd
+    gts
+    libdevil
+    pango
+    bash
+  ] ++ optionals withXorg (with xorg; [
+    libXrender
+    libXaw
+    libXpm
+  ]) ++ optionals stdenv.isDarwin [ ApplicationServices ];
 
   hardeningDisable = [ "fortify" ];
 
@@ -78,6 +96,9 @@ in stdenv.mkDerivation rec {
     description = "Graph visualization tools";
     license = licenses.epl10;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ bjornfor raskin ];
+    maintainers = with maintainers; [
+      bjornfor
+      raskin
+    ];
   };
 }

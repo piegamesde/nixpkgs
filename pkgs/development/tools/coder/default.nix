@@ -34,7 +34,11 @@ buildGoModule rec {
 
   tags = [ "embed" ];
 
-  ldflags = [ "-s" "-w" "-X github.com/coder/coder/buildinfo.tag=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/coder/coder/buildinfo.tag=${version}"
+  ];
 
   subPackages = [ "cmd/..." ];
 
@@ -81,7 +85,10 @@ buildGoModule rec {
       "Provision software development environments via Terraform on Linux, macOS, Windows, X86, ARM, and of course, Kubernetes";
     homepage = "https://coder.com";
     license = lib.licenses.agpl3;
-    maintainers = [ lib.maintainers.ghuntley lib.maintainers.urandom ];
+    maintainers = [
+      lib.maintainers.ghuntley
+      lib.maintainers.urandom
+    ];
     # Failed to download Chromium 109.0.5414.46
     broken = true; # At 2023-03-30
   };

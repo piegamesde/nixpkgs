@@ -103,7 +103,10 @@ let
         '') // {
           inherit (weechat) name man;
           unwrapped = weechat;
-          outputs = [ "out" "man" ];
+          outputs = [
+            "out"
+            "man"
+          ];
         };
     in buildEnv {
       name = "weechat-bin-env-${weechat.version}";

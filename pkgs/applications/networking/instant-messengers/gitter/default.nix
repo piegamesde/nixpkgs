@@ -94,7 +94,10 @@ in stdenv.mkDerivation rec {
     sha256 = "1ps9akylqrril4902r8mi0mprm0hb5wra51ry6c1rb5xz5nrzgh1";
   };
 
-  nativeBuildInputs = [ makeWrapper dpkg ];
+  nativeBuildInputs = [
+    makeWrapper
+    dpkg
+  ];
 
   unpackPhase = "dpkg -x $src .";
 
@@ -125,7 +128,10 @@ in stdenv.mkDerivation rec {
     icon = pname;
     desktopName = "Gitter";
     genericName = meta.description;
-    categories = [ "Network" "InstantMessaging" ];
+    categories = [
+      "Network"
+      "InstantMessaging"
+    ];
   };
 
   meta = with lib; {

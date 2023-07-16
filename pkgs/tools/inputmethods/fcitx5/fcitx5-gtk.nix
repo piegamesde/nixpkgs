@@ -63,7 +63,10 @@ stdenv.mkDerivation rec {
     libXtst
   ] ++ lib.optional withGTK2 gtk2;
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
   meta = with lib; {
     description = "Fcitx5 gtk im module and glib based dbus client library";

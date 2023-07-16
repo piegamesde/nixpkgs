@@ -7,7 +7,12 @@
   variant ? null
 }:
 
-assert lib.elem variant [ null "cpp" "pcre16" "pcre32" ];
+assert lib.elem variant [
+  null
+  "cpp"
+  "pcre16"
+  "pcre32"
+];
 
 stdenv.mkDerivation rec {
   pname = "pcre" + lib.optionalString (variant == "cpp") "-cpp"
@@ -20,13 +25,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Ta5v3NK7C7bDe1+Xwzwr6VTadDmFNpzdrDVG4yGL/7g=";
   };
 
-  outputs = [ "bin" "dev" "out" "doc" "man" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "doc"
+    "man"
+  ];
 
   # Disable jit on Apple Silicon, https://github.com/zherczeg/sljit/issues/51
   configureFlags = lib.optional
     (!(stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64))
-    "--enable-jit=auto" ++ [ "--enable-unicode-properties" "--disable-cpp" ]
-    ++ lib.optional (variant != null) "--enable-${variant}";
+    "--enable-jit=auto" ++ [
+      "--enable-unicode-properties"
+      "--disable-cpp"
+    ] ++ lib.optional (variant != null) "--enable-${variant}";
 
   # https://bugs.exim.org/show_bug.cgi?id=2173
   patches = [ ./stacksize-detection.patch ];

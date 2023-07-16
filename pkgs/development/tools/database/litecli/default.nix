@@ -22,7 +22,10 @@ python3Packages.buildPythonApplication rec {
     sqlparse
   ];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook mock ];
+  nativeCheckInputs = with python3Packages; [
+    pytestCheckHook
+    mock
+  ];
 
   pythonImportsCheck = [ "litecli" ];
 

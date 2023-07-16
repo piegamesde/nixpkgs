@@ -28,5 +28,10 @@ mkDerivation {
     kwindowsystem
     sonnet
   ];
-  propagatedBuildInputs = [ kconfig kconfigwidgets qtbase qttools ];
+  propagatedBuildInputs = [
+    kconfig
+    kconfigwidgets
+    qtbase
+    qttools
+  ];
 }

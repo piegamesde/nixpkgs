@@ -27,7 +27,13 @@ buildPythonPackage rec {
     hash = "sha256-Xl790WhqpWavDTzBMTsTHksZdleo/9A2aebT+tknBew=";
   };
 
-  propagatedBuildInputs = [ click dlib face-recognition-models numpy pillow ];
+  propagatedBuildInputs = [
+    click
+    dlib
+    face-recognition-models
+    numpy
+    pillow
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

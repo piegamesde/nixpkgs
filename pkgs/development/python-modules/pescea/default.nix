@@ -27,7 +27,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ async-timeout ];
 
-  nativeCheckInputs = [ pytest-asyncio pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-mock
+    pytestCheckHook
+  ];
 
   postPatch = ''
     # https://github.com/lazdavila/pescea/pull/1

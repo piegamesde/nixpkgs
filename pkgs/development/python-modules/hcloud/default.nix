@@ -22,9 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-N71bpWOH48SRxbq9PgirkdXwOQzV6IDk3+oZ4haBvJ4=";
   };
 
-  propagatedBuildInputs = [ future requests python-dateutil ];
+  propagatedBuildInputs = [
+    future
+    requests
+    python-dateutil
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "hcloud" ];
 

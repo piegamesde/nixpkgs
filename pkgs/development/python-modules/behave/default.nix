@@ -28,7 +28,13 @@ buildPythonPackage rec {
     hash = "sha256-B8PUN1Q4UAsDWrHjPZDlpaPjCKjI/pAogCSI+BQnaWs=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook mock path pyhamcrest pytest-html ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    mock
+    path
+    pyhamcrest
+    pytest-html
+  ];
 
   # upstream tests are failing, so instead we only check if we can import it
   doCheck = false;
@@ -36,8 +42,13 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "behave" ];
 
   buildInputs = [ glibcLocales ];
-  propagatedBuildInputs =
-    [ colorama cucumber-tag-expressions parse parse-type six ];
+  propagatedBuildInputs = [
+    colorama
+    cucumber-tag-expressions
+    parse
+    parse-type
+    six
+  ];
 
   postPatch = ''
     patchShebangs bin
@@ -45,8 +56,8 @@ buildPythonPackage rec {
 
   # timing-based test flaky on Darwin
   # https://github.com/NixOS/nixpkgs/pull/97737#issuecomment-691489824
-  disabledTests = lib.optionals stdenv.isDarwin
-    [ "test_step_decorator_async_run_until_complete" ];
+  disabledTests = lib.optionals
+    stdenv.isDarwin [ "test_step_decorator_async_run_until_complete" ];
 
   postCheck = ''
     export LANG="en_US.UTF-8"
@@ -61,6 +72,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/behave/behave";
     description = "behaviour-driven development, Python style";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ alunduil maxxk ];
+    maintainers = with maintainers; [
+      alunduil
+      maxxk
+    ];
   };
 }

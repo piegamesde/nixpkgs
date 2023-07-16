@@ -30,9 +30,16 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  propagatedBuildInputs = [ getmac requests semver ];
+  propagatedBuildInputs = [
+    getmac
+    requests
+    semver
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook responses ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    responses
+  ];
 
   pythonImportsCheck = [ "vilfo" ];
 

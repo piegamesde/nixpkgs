@@ -46,10 +46,23 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs =
-    [ meson ninja vala gobject-introspection perl bison gettext pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    vala
+    gobject-introspection
+    perl
+    bison
+    gettext
+    pkg-config
+  ];
 
-  buildInputs = [ glib libgsf gcab bzip2 ];
+  buildInputs = [
+    glib
+    libgsf
+    gcab
+    bzip2
+  ];
 
   # WiX tests fail on darwin
   doCheck = !stdenv.isDarwin;

@@ -19,11 +19,17 @@ stdenv.mkDerivation rec {
     sha256 = "0qzlb7cd608q62kyppd0a8c65l03vrwqql6gsm465rky23b6dyr8";
   };
 
-  nativeBuildInputs = [ cmake gfortran ];
+  nativeBuildInputs = [
+    cmake
+    gfortran
+  ];
 
   propagatedBuildInputs = [ blas ];
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=true" "-DUSE_XSDK_DEFAULTS=true" ];
+  cmakeFlags = [
+    "-DBUILD_SHARED_LIBS=true"
+    "-DUSE_XSDK_DEFAULTS=true"
+  ];
 
   patches = [ ./add-superlu-lib-as-dependency-for-the-unit-tests.patch ];
 

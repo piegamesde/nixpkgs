@@ -19,7 +19,12 @@ buildPythonPackage rec {
     hash = "sha256-4y5pe0CFD3C1+N0kP/2j9Wser2zkn8Uf4203ci45Rq0=";
   };
 
-  propagatedBuildInputs = [ click ecdsa hidapi pyaes ];
+  propagatedBuildInputs = [
+    click
+    ecdsa
+    hidapi
+    pyaes
+  ];
 
   # Project has no tests
   doCheck = false;

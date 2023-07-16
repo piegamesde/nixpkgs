@@ -26,10 +26,17 @@ buildGoModule rec {
     ./go-modules.patch
   ];
 
-  subPackages = [ "cmd/dave" "cmd/davecli" ];
+  subPackages = [
+    "cmd/dave"
+    "cmd/davecli"
+  ];
 
-  ldflags =
-    [ "-s" "-w" "-X main.version=${version}" "-X main.builtBy=nixpkgs" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+    "-X main.builtBy=nixpkgs"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/micromata/dave";

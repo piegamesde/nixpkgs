@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ ibus ibus-table python3 ];
+  buildInputs = [
+    ibus
+    ibus-table
+    python3
+  ];
 
   preBuild = ''
     export HOME=$TMPDIR

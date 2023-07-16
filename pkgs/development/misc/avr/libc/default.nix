@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "1s2lnqsbr1zs7dvsbyyckay52lm8mbjjaqf3cyx5qpcbq3jwx10b";
   };
 
-  nativeBuildInputs = [ automake autoconf ];
+  nativeBuildInputs = [
+    automake
+    autoconf
+  ];
 
   # Make sure we don't strip the libraries in lib/gcc/avr.
   stripDebugList = [ "bin" ];
@@ -29,6 +32,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/avrdudes/avr-libc";
     license = licenses.bsd3;
     platforms = [ "avr-none" ];
-    maintainers = with maintainers; [ mguentner emilytrau ];
+    maintainers = with maintainers; [
+      mguentner
+      emilytrau
+    ];
   };
 }

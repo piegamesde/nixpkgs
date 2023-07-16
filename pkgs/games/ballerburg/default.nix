@@ -25,20 +25,22 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-BiX0shPBGA8sshee8rxs41x+mdsrJzBqhpDDic6sYwA=";
   };
 
-  nativeBuildInputs = [ cmake copyDesktopItems imagemagick ];
+  nativeBuildInputs = [
+    cmake
+    copyDesktopItems
+    imagemagick
+  ];
 
   buildInputs = [ SDL ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "Ballerburg";
-      desktopName = "Ballerburg SDL";
-      exec = "_NET_WM_ICON=ballerburg ballerburg";
-      comment = meta.description;
-      icon = "ballerburg";
-      categories = [ "Game" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "Ballerburg";
+    desktopName = "Ballerburg SDL";
+    exec = "_NET_WM_ICON=ballerburg ballerburg";
+    comment = meta.description;
+    icon = "ballerburg";
+    categories = [ "Game" ];
+  }) ];
 
   postInstall = ''
     # Generate and install icon files

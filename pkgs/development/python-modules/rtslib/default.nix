@@ -28,7 +28,11 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ six pyudev pygobject3 ];
+  propagatedBuildInputs = [
+    six
+    pyudev
+    pygobject3
+  ];
 
   meta = with lib; {
     description =

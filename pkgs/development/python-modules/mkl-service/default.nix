@@ -23,7 +23,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ nose ];
   nativeBuildInputs = [ cython ];
-  propagatedBuildInputs = [ mkl six ];
+  propagatedBuildInputs = [
+    mkl
+    six
+  ];
 
   meta = with lib; {
     description =

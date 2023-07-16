@@ -177,7 +177,10 @@ in {
           "unistim.conf"
         ];
         type = types.listOf types.str;
-        example = [ "sip.conf" "dundi.conf" ];
+        example = [
+          "sip.conf"
+          "dundi.conf"
+        ];
         description = lib.mdDoc ''
           Sets these config files to the default content. The default value for
                     this option contains all necesscary files to avoid errors at startup.
@@ -188,7 +191,11 @@ in {
       extraArguments = mkOption {
         default = [ ];
         type = types.listOf types.str;
-        example = [ "-vvvddd" "-e" "1024" ];
+        example = [
+          "-vvvddd"
+          "-e"
+          "1024"
+        ];
         description = lib.mdDoc ''
           Additional command line arguments to pass to Asterisk.
         '';

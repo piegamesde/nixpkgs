@@ -84,7 +84,10 @@ in {
         # Hardening
         CapabilityBoundingSet = [ "" ];
         DynamicUser = true;
-        IPAddressDeny = [ "link-local" "multicast" ];
+        IPAddressDeny = [
+          "link-local"
+          "multicast"
+        ];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         ProcSubset = "pid";
@@ -102,10 +105,16 @@ in {
         ProtectSystem = "strict";
         RestrictNamespaces = true;
         RestrictRealtime = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
         StateDirectory = "botamusique";
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service @resources" "~@privileged" ];
+        SystemCallFilter = [
+          "@system-service @resources"
+          "~@privileged"
+        ];
         UMask = "0077";
         WorkingDirectory = "/var/lib/botamusique";
       };

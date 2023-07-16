@@ -30,8 +30,10 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ makeWrapper ]
     ++ lib.optional (!opensslSupport) pkg-config;
-  buildInputs = [ libgcrypt perl ]
-    ++ (if opensslSupport then [ openssl ] else [ gnutls ]);
+  buildInputs = [
+    libgcrypt
+    perl
+  ] ++ (if opensslSupport then [ openssl ] else [ gnutls ]);
 
   makeFlags = [
     "PREFIX=$(out)"

@@ -13,8 +13,15 @@
 
 qtModule {
   pname = "qtspeech";
-  qtInputs = [ qtbase qtmultimedia ];
+  qtInputs = [
+    qtbase
+    qtmultimedia
+  ];
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = lib.optionals stdenv.isLinux [ flite alsa-lib speechd ];
+  buildInputs = lib.optionals stdenv.isLinux [
+    flite
+    alsa-lib
+    speechd
+  ];
   propagatedBuildInputs = lib.optionals stdenv.isDarwin [ Cocoa ];
 }

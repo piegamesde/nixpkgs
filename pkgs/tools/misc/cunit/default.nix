@@ -12,7 +12,11 @@ stdenv.mkDerivation rec {
   pname = "CUnit";
   version = "2.1-3";
 
-  nativeBuildInputs = [ autoreconfHook autoconf automake ];
+  nativeBuildInputs = [
+    autoreconfHook
+    autoconf
+    automake
+  ];
   buildInputs = [ libtool ];
 
   src = fetchurl {

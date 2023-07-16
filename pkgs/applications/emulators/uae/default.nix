@@ -18,11 +18,19 @@ stdenv.mkDerivation rec {
     sha256 = "05s3cd1rd5a970s938qf4c2xm3l7f54g5iaqw56v8smk355m4qr4";
   };
 
-  configureFlags =
-    [ "--with-sdl" "--with-sdl-sound" "--with-sdl-gfx" "--with-alsa" ];
+  configureFlags = [
+    "--with-sdl"
+    "--with-sdl-sound"
+    "--with-sdl-gfx"
+    "--with-alsa"
+  ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ gtk2 alsa-lib SDL ];
+  buildInputs = [
+    gtk2
+    alsa-lib
+    SDL
+  ];
 
   hardeningDisable = [ "format" ];
   # Workaround build failure on -fno-common toolchains:

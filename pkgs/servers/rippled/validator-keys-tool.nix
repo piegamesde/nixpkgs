@@ -22,7 +22,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ openssl boost zlib icu rippled ];
+  buildInputs = [
+    openssl
+    boost
+    zlib
+    icu
+    rippled
+  ];
 
   hardeningDisable = [ "format" ];
 
@@ -37,7 +43,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Generate master and ephemeral rippled validator keys";
     homepage = "https://github.com/ripple/validator-keys-tool";
-    maintainers = with maintainers; [ offline rmcgibbo ];
+    maintainers = with maintainers; [
+      offline
+      rmcgibbo
+    ];
     license = licenses.isc;
     platforms = [ "x86_64-linux" ];
   };

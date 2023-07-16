@@ -29,7 +29,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ cryptography ];
 
-  nativeCheckInputs = [ pytestCheckHook freezegun pytest-cov ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    freezegun
+    pytest-cov
+  ];
 
   pythonImportsCheck = [ "jwt" ];
 

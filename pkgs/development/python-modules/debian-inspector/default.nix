@@ -29,7 +29,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ chardet attrs commoncode ];
+  propagatedBuildInputs = [
+    chardet
+    attrs
+    commoncode
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -39,7 +43,11 @@ buildPythonPackage rec {
     description =
       "Utilities to parse Debian package, copyright and control files";
     homepage = "https://github.com/nexB/debian-inspector";
-    license = with licenses; [ asl20 bsd3 mit ];
+    license = with licenses; [
+      asl20
+      bsd3
+      mit
+    ];
     maintainers = [ ];
   };
 }

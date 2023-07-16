@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ glib libsigrok libsigrokdecode ];
+  buildInputs = [
+    glib
+    libsigrok
+    libsigrokdecode
+  ];
 
   meta = with lib; {
     description =

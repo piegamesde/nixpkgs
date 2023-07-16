@@ -42,7 +42,10 @@ import ./make-test-python.nix {
               ExecStart = testServer;
               StandardInput = "socket";
             };
-          } // removeAttrs config [ "confinement" "serviceConfig" ];
+          } // removeAttrs config [
+            "confinement"
+            "serviceConfig"
+          ];
 
           __testSteps = lib.mkOrder num (''
             machine.succeed("echo ${toString num} > /teststep")

@@ -26,10 +26,21 @@ buildDunePackage rec {
     sha256 = "sha256-gVvBj4NqqKR2mn944g9F0bFZ8Me+WC87skti0dBW3Cg=";
   };
 
-  propagatedBuildInputs = [ fmt lwt mirage-flow logs ];
+  propagatedBuildInputs = [
+    fmt
+    lwt
+    mirage-flow
+    logs
+  ];
 
   doCheck = true;
-  checkInputs = [ alcotest alcotest-lwt bigstringaf cstruct ke ];
+  checkInputs = [
+    alcotest
+    alcotest-lwt
+    bigstringaf
+    cstruct
+    ke
+  ];
 
   meta = with lib; {
     description = "A simple protocol dispatcher";

@@ -27,13 +27,21 @@ buildPythonPackage rec {
       --replace "rjsmin == 1.2.0" "rjsmin>=1.2.0"
   '';
 
-  propagatedBuildInputs = [ rcssmin rjsmin django-appconf ];
+  propagatedBuildInputs = [
+    rcssmin
+    rjsmin
+    django-appconf
+  ];
 
   pythonImportsCheck = [ "compressor" ];
 
   doCheck = false; # missing package django-sekizai
 
-  nativeCheckInputs = [ beautifulsoup4 brotli pytestCheckHook ];
+  nativeCheckInputs = [
+    beautifulsoup4
+    brotli
+    pytestCheckHook
+  ];
 
   DJANGO_SETTINGS_MODULE = "compressor.test_settings";
 

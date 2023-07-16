@@ -33,8 +33,15 @@ stdenv.mkDerivation rec {
     ./0001-Depend-on-.a-instead-of-.so-when-building-static.patch
   ];
 
-  nativeBuildInputs = [ flex bison pkg-config which ]
-    ++ lib.optionals pythonSupport [ python swig ];
+  nativeBuildInputs = [
+    flex
+    bison
+    pkg-config
+    which
+  ] ++ lib.optionals pythonSupport [
+    python
+    swig
+  ];
 
   buildInputs = [ libyaml ];
 
@@ -42,9 +49,15 @@ stdenv.mkDerivation rec {
     patchShebangs pylibfdt/
   '';
 
-  makeFlags =
-    [ "PYTHON=python" "STATIC_BUILD=${toString stdenv.hostPlatform.isStatic}" ];
-  installFlags = [ "INSTALL=install" "PREFIX=$(out)" "SETUP_PREFIX=$(out)" ];
+  makeFlags = [
+    "PYTHON=python"
+    "STATIC_BUILD=${toString stdenv.hostPlatform.isStatic}"
+  ];
+  installFlags = [
+    "INSTALL=install"
+    "PREFIX=$(out)"
+    "SETUP_PREFIX=$(out)"
+  ];
 
   postFixup = lib.optionalString stdenv.isDarwin ''
     install_name_tool -id $out/lib/libfdt.dylib $out/lib/libfdt-${version}.dylib

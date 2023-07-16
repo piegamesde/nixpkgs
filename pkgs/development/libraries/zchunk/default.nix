@@ -21,11 +21,22 @@ stdenv.mkDerivation rec {
     hash = "sha256-9T1u2Qvy2gRUQzgAp81x+tSbHXuEoxhYhS1T9XntvKk=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
 
-  buildInputs = [ curl zstd ] ++ lib.optional stdenv.isDarwin argp-standalone;
+  buildInputs = [
+    curl
+    zstd
+  ] ++ lib.optional stdenv.isDarwin argp-standalone;
 
-  outputs = [ "out" "lib" "dev" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/zchunk/zchunk";

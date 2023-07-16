@@ -31,7 +31,10 @@ buildPythonPackage rec {
     hash = "sha256-qCkBVirM09iA1sXiOB9FJns8bHjQq7rRk8XbRWrtBDI=";
   };
 
-  nativeBuildInputs = [ setuptools setuptools-scm ];
+  nativeBuildInputs = [
+    setuptools
+    setuptools-scm
+  ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -45,7 +48,13 @@ buildPythonPackage rec {
     sed -i '/packages=/d' setup.py
   '';
 
-  propagatedBuildInputs = [ aiohttp requests beautifulsoup4 urllib3 html5lib ];
+  propagatedBuildInputs = [
+    aiohttp
+    requests
+    beautifulsoup4
+    urllib3
+    html5lib
+  ];
 
   nativeCheckInputs = [
     aioresponses
@@ -55,7 +64,10 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [ "raincloudy" "raincloudy.aio" ];
+  pythonImportsCheck = [
+    "raincloudy"
+    "raincloudy.aio"
+  ];
 
   disabledTests = [
     # Test requires network access

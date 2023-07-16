@@ -30,7 +30,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ jsonschema pathable pyyaml typing-extensions ];
+  propagatedBuildInputs = [
+    jsonschema
+    pathable
+    pyyaml
+    typing-extensions
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

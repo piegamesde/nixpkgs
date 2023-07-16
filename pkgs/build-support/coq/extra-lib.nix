@@ -90,7 +90,10 @@ recursiveUpdate lib (rec {
             hd = head l;
             tl = tail l;
           in if pred hd then
-            loop (vv ++ [ v hd ]) [ ] tl
+            loop (vv ++ [
+              v
+              hd
+            ]) [ ] tl
           else
             loop vv (v ++ [ hd ]) tl);
     in loop [ ] [ ] l;

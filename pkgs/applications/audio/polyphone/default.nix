@@ -27,10 +27,22 @@ mkDerivation rec {
     sha256 = "09habv51pw71wrb39shqi80i2w39dx5a39klzswsald5j9sia0ir";
   };
 
-  buildInputs =
-    [ alsa-lib libjack2 portaudio libogg flac libvorbis rtmidi qtsvg ];
+  buildInputs = [
+    alsa-lib
+    libjack2
+    portaudio
+    libogg
+    flac
+    libvorbis
+    rtmidi
+    qtsvg
+  ];
 
-  nativeBuildInputs = [ qmake qttools pkg-config ];
+  nativeBuildInputs = [
+    qmake
+    qttools
+    pkg-config
+  ];
 
   preConfigure = ''
     cd ./sources/

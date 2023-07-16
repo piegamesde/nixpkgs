@@ -39,7 +39,10 @@ in stdenv.mkDerivation {
     sha256 = "1xq059r2bplaa0nd0wkhw80jfwd962x0h5hgd7fz2yp6largw34m";
   };
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   patches = [
     # Pull upstream fix for -fno-common toolchain
@@ -53,7 +56,12 @@ in stdenv.mkDerivation {
     })
   ];
 
-  nativeBuildInputs = [ makeWrapper pkg-config python3 which ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+    python3
+    which
+  ];
 
   buildInputs = [
     avahi
@@ -70,13 +78,14 @@ in stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  env.NIX_CFLAGS_COMPILE = toString
-    ([ "-Wno-error=format-truncation" "-Wno-error=stringop-truncation" ]
-      ++ lib.optionals
-      (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12") [
-        # Needed with GCC 12 but unrecognized with GCC 9
-        "-Wno-error=use-after-free"
-      ]);
+  env.NIX_CFLAGS_COMPILE = toString ([
+    "-Wno-error=format-truncation"
+    "-Wno-error=stringop-truncation"
+  ] ++ lib.optionals
+    (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12") [
+      # Needed with GCC 12 but unrecognized with GCC 9
+      "-Wno-error=use-after-free"
+    ]);
 
   configureFlags = [
     # disable dvbscan, as having it enabled causes a network download which

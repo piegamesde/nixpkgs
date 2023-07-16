@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ texinfo ];
-  makeFlags = [ "PREFIX=$(out)" "LOCAL_ROOT=$(out)/share/polipo/www" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "LOCAL_ROOT=$(out)/share/polipo/www"
+  ];
 
   meta = with lib; {
     homepage = "http://www.pps.jussieu.fr/~jch/software/polipo/";
@@ -24,8 +27,7 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = with maintainers; [ ehmry ];
     platforms = platforms.all;
-    knownVulnerabilities = [
-      "Unmaintained upstream: https://github.com/jech/polipo/commit/4d42ca1b5849"
-    ];
+    knownVulnerabilities =
+      [ "Unmaintained upstream: https://github.com/jech/polipo/commit/4d42ca1b5849" ];
   };
 }

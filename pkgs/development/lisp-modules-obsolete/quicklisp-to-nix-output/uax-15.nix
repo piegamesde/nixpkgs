@@ -11,7 +11,11 @@ args@{
   description =
     "Common lisp implementation of Unicode normalization functions :nfc, :nfd, :nfkc and :nfkd (Uax-15)";
 
-  deps = [ args."cl-ppcre" args."parachute" args."split-sequence" ];
+  deps = [
+    args."cl-ppcre"
+    args."parachute"
+    args."split-sequence"
+  ];
 
   src = fetchurl {
     url =

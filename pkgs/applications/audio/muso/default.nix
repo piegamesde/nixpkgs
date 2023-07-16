@@ -19,7 +19,10 @@ rustPlatform.buildRustPackage rec {
     sha256 = "1dnfslliss173igympl7h1zc0qz0g10kf96dwrcj6aglmvvw426p";
   };
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook
+  ];
   buildInputs = lib.optional stdenv.isDarwin CoreServices;
 
   preConfigure = ''

@@ -273,52 +273,51 @@ let
     (optionalString enableSeparateDataOutput
       "--datadir=$data/share/${ghcNameWithPrefix}")
     (optionalString enableSeparateDocOutput "--docdir=${docdir "$doc"}")
-  ] ++ optionals stdenv.hasCC [
-    "--with-gcc=$CC" # Clang won't work without that extra information.
-  ] ++ [
-    "--package-db=$packageConfDir"
-    (optionalString (enableSharedExecutables && stdenv.isLinux)
-      "--ghc-option=-optl=-Wl,-rpath=$out/${ghcLibdir}/${pname}-${version}")
-    (optionalString (enableSharedExecutables && stdenv.isDarwin)
-      "--ghc-option=-optl=-Wl,-headerpad_max_install_names")
-    (optionalString enableParallelBuilding
-      "--ghc-options=${parallelBuildingFlags}")
-    (optionalString useCpphs
-      "--with-cpphs=${cpphs}/bin/cpphs --ghc-options=-cpp --ghc-options=-pgmP${cpphs}/bin/cpphs --ghc-options=-optP--cpp")
-    (enableFeature (enableDeadCodeElimination && !stdenv.hostPlatform.isAarch32
-      && !stdenv.hostPlatform.isAarch64 && (versionAtLeast "8.0.1" ghc.version))
-      "split-objs")
-    (enableFeature enableLibraryProfiling "library-profiling")
-    (optionalString ((enableExecutableProfiling || enableLibraryProfiling)
-      && versionOlder "8" ghc.version) "--profiling-detail=${profilingDetail}")
-    (enableFeature enableExecutableProfiling
-      (if versionOlder ghc.version "8" then
-        "executable-profiling"
-      else
-        "profiling"))
-    (enableFeature enableSharedLibraries "shared")
-    (optionalString (versionAtLeast ghc.version "7.10")
-      (enableFeature doCoverage "coverage"))
-    (optionalString (versionOlder "8.4" ghc.version)
-      (enableFeature enableStaticLibraries "static"))
-    (optionalString (isGhcjs || versionOlder "7.4" ghc.version)
-      (enableFeature enableSharedExecutables "executable-dynamic"))
-    (optionalString (isGhcjs || versionOlder "7" ghc.version)
-      (enableFeature doCheck "tests"))
-    (enableFeature doBenchmark "benchmarks")
-    "--enable-library-vanilla" # TODO: Should this be configurable?
-    (enableFeature enableLibraryForGhci "library-for-ghci")
   ] ++ optionals
-    (enableDeadCodeElimination && (lib.versionOlder "8.0.1" ghc.version))
-    [ "--ghc-option=-split-sections" ] ++ optionals dontStrip [
-      "--disable-library-stripping"
-      "--disable-executable-stripping"
-    ] ++ optionals isGhcjs [ "--ghcjs" ] ++ optionals isCross
+    stdenv.hasCC [ "--with-gcc=$CC" # Clang won't work without that extra information.
+    ] ++ [
+      "--package-db=$packageConfDir"
+      (optionalString (enableSharedExecutables && stdenv.isLinux)
+        "--ghc-option=-optl=-Wl,-rpath=$out/${ghcLibdir}/${pname}-${version}")
+      (optionalString (enableSharedExecutables && stdenv.isDarwin)
+        "--ghc-option=-optl=-Wl,-headerpad_max_install_names")
+      (optionalString enableParallelBuilding
+        "--ghc-options=${parallelBuildingFlags}")
+      (optionalString useCpphs
+        "--with-cpphs=${cpphs}/bin/cpphs --ghc-options=-cpp --ghc-options=-pgmP${cpphs}/bin/cpphs --ghc-options=-optP--cpp")
+      (enableFeature (enableDeadCodeElimination
+        && !stdenv.hostPlatform.isAarch32 && !stdenv.hostPlatform.isAarch64
+        && (versionAtLeast "8.0.1" ghc.version)) "split-objs")
+      (enableFeature enableLibraryProfiling "library-profiling")
+      (optionalString ((enableExecutableProfiling || enableLibraryProfiling)
+        && versionOlder "8" ghc.version)
+        "--profiling-detail=${profilingDetail}")
+      (enableFeature enableExecutableProfiling
+        (if versionOlder ghc.version "8" then
+          "executable-profiling"
+        else
+          "profiling"))
+      (enableFeature enableSharedLibraries "shared")
+      (optionalString (versionAtLeast ghc.version "7.10")
+        (enableFeature doCoverage "coverage"))
+      (optionalString (versionOlder "8.4" ghc.version)
+        (enableFeature enableStaticLibraries "static"))
+      (optionalString (isGhcjs || versionOlder "7.4" ghc.version)
+        (enableFeature enableSharedExecutables "executable-dynamic"))
+      (optionalString (isGhcjs || versionOlder "7" ghc.version)
+        (enableFeature doCheck "tests"))
+      (enableFeature doBenchmark "benchmarks")
+      "--enable-library-vanilla" # TODO: Should this be configurable?
+      (enableFeature enableLibraryForGhci "library-for-ghci")
+    ] ++ optionals (enableDeadCodeElimination && (lib.versionOlder "8.0.1"
+      ghc.version)) [ "--ghc-option=-split-sections" ] ++ optionals dontStrip [
+        "--disable-library-stripping"
+        "--disable-executable-stripping"
+      ] ++ optionals isGhcjs [ "--ghcjs" ] ++ optionals isCross
     ([ "--configure-option=--host=${stdenv.hostPlatform.config}" ]
       ++ crossCabalFlags)
-    ++ optionals enableSeparateBinOutput [ "--bindir=${binDir}" ]
-    ++ optionals (doHaddockInterfaces && isLibrary)
-    [ "--ghc-options=-haddock" ];
+    ++ optionals enableSeparateBinOutput [ "--bindir=${binDir}" ] ++ optionals
+    (doHaddockInterfaces && isLibrary) [ "--ghc-options=-haddock" ];
 
   setupCompileFlags = [
     (optionalString (!coreSetup) "-${nativePackageDbFlag}=$setupPackageConfDir")
@@ -333,17 +332,17 @@ let
     ++ executablePkgconfigDepends ++ optionals doCheck testPkgconfigDepends
     ++ optionals doBenchmark benchmarkPkgconfigDepends;
 
-  depsBuildBuild = [
-    nativeGhc
-  ]
-  # CC_FOR_BUILD may be necessary if we have no C preprocessor for the host
-  # platform. See crossCabalFlags above for more details.
+  depsBuildBuild = [ nativeGhc ]
+    # CC_FOR_BUILD may be necessary if we have no C preprocessor for the host
+    # platform. See crossCabalFlags above for more details.
     ++ lib.optionals (!stdenv.hasCC) [ buildPackages.stdenv.cc ];
   collectedToolDepends = buildTools ++ libraryToolDepends
     ++ executableToolDepends ++ optionals doCheck testToolDepends
     ++ optionals doBenchmark benchmarkToolDepends;
-  nativeBuildInputs = [ ghc removeReferencesTo ]
-    ++ optional (allPkgconfigDepends != [ ]) pkg-config ++ setupHaskellDepends
+  nativeBuildInputs = [
+    ghc
+    removeReferencesTo
+  ] ++ optional (allPkgconfigDepends != [ ]) pkg-config ++ setupHaskellDepends
     ++ collectedToolDepends;
   propagatedBuildInputs = buildDepends ++ libraryHaskellDepends
     ++ executableHaskellDepends ++ libraryFrameworkDepends;

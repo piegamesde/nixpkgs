@@ -64,7 +64,10 @@ in rec {
 
   definition = {
     displayName = "Clojure";
-    argv = [ "${launcher}/bin/clojupyter" "{connection_file}" ];
+    argv = [
+      "${launcher}/bin/clojupyter"
+      "{connection_file}"
+    ];
     language = "clojure";
     logo32 = sizedLogo "32";
     logo64 = sizedLogo "64";

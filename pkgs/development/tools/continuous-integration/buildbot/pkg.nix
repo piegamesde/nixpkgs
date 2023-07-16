@@ -31,7 +31,10 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://buildbot.net/";
     description = "Buildbot Packaging Helper";
-    maintainers = with maintainers; [ ryansydnor lopsided98 ];
+    maintainers = with maintainers; [
+      ryansydnor
+      lopsided98
+    ];
     license = licenses.gpl2;
   };
 }

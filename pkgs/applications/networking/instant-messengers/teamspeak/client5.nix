@@ -63,18 +63,25 @@ stdenv.mkDerivation rec {
     xorg.libxshmfence
   ];
 
-  nativeBuildInputs = [ autoPatchelfHook copyDesktopItems makeWrapper ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = "TeamSpeak";
-      exec = "TeamSpeak";
-      icon = pname;
-      desktopName = pname;
-      comment = "TeamSpeak Voice Communication Client";
-      categories = [ "Audio" "AudioVideo" "Chat" "Network" ];
-    })
+  nativeBuildInputs = [
+    autoPatchelfHook
+    copyDesktopItems
+    makeWrapper
   ];
+
+  desktopItems = [ (makeDesktopItem {
+    name = "TeamSpeak";
+    exec = "TeamSpeak";
+    icon = pname;
+    desktopName = pname;
+    comment = "TeamSpeak Voice Communication Client";
+    categories = [
+      "Audio"
+      "AudioVideo"
+      "Chat"
+      "Network"
+    ];
+  }) ];
 
   dontConfigure = true;
   dontBuild = true;

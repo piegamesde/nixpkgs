@@ -48,15 +48,18 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-cErtSbGetacXizSyhzYg7CmdsIdS1qhXT5XUGHmriFE=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  configureFlags = [
-    "--localstatedir=/var/lib"
-  ]
-  # krb5's ./configure does not allow passing --enable-shared and --enable-static at the same time.
-  # See https://bbs.archlinux.org/viewtopic.php?pid=1576737#p1576737
-    ++ lib.optionals staticOnly [ "--enable-static" "--disable-shared" ]
-    ++ lib.optional withVerto "--with-system-verto"
+  configureFlags = [ "--localstatedir=/var/lib" ]
+    # krb5's ./configure does not allow passing --enable-shared and --enable-static at the same time.
+    # See https://bbs.archlinux.org/viewtopic.php?pid=1576737#p1576737
+    ++ lib.optionals staticOnly [
+      "--enable-static"
+      "--disable-shared"
+    ] ++ lib.optional withVerto "--with-system-verto"
     ++ lib.optional stdenv.isFreeBSD ''WARN_CFLAGS=""''
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       "krb5_cv_attr_constructor_destructor=yes,yes"
@@ -64,15 +67,20 @@ in stdenv.mkDerivation rec {
       "ac_cv_printf_positional=yes"
     ];
 
-  nativeBuildInputs = [ pkg-config perl ] ++ lib.optional (!libOnly) bison
+  nativeBuildInputs = [
+    pkg-config
+    perl
+  ] ++ lib.optional (!libOnly) bison
     # Provides the mig command used by the build scripts
     ++ lib.optional stdenv.isDarwin bootstrap_cmds;
 
   buildInputs = [ openssl ] ++ lib.optionals (stdenv.hostPlatform.isLinux
     && stdenv.hostPlatform.libc != "bionic"
     && !(stdenv.hostPlatform.useLLVM or false)) [ keyutils ]
-    ++ lib.optionals (!libOnly) [ openldap libedit ]
-    ++ lib.optionals withVerto [ libverto ];
+    ++ lib.optionals (!libOnly) [
+      openldap
+      libedit
+    ] ++ lib.optionals withVerto [ libverto ];
 
   sourceRoot = "krb5-${version}/src";
 
@@ -81,7 +89,12 @@ in stdenv.mkDerivation rec {
         --replace "'ld " "'${stdenv.cc.targetPrefix}ld "
   '';
 
-  libFolders = [ "util" "include" "lib" "build-tools" ];
+  libFolders = [
+    "util"
+    "include"
+    "lib"
+    "build-tools"
+  ];
 
   buildPhase = lib.optionalString libOnly ''
     runHook preBuild

@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-VCwIAeSAN4tMwB8TXN/ukrws0qYv/jHHeEu++m56AHA=";
   };
 
-  propagatedBuildInputs = [ aiohttp yarl ];
+  propagatedBuildInputs = [
+    aiohttp
+    yarl
+  ];
 
   # Project has no tests
   doCheck = false;

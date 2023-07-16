@@ -14,15 +14,20 @@ stdenv.mkDerivation rec {
   pname = "libsnark";
   version = "unstable-2018-01-15";
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ openssl boost gmp ]
-    ++ lib.optional stdenv.hostPlatform.isLinux procps;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    openssl
+    boost
+    gmp
+  ] ++ lib.optional stdenv.hostPlatform.isLinux procps;
 
   cmakeFlags =
     lib.optionals stdenv.hostPlatform.isDarwin [ "-DWITH_PROCPS=OFF" ]
-    ++ lib.optionals
-    (stdenv.hostPlatform.isDarwin || !stdenv.hostPlatform.isx86)
-    [ "-DWITH_SUPERCOP=OFF" ]
+    ++ lib.optionals (stdenv.hostPlatform.isDarwin
+      || !stdenv.hostPlatform.isx86) [ "-DWITH_SUPERCOP=OFF" ]
     ++ lib.optionals (!stdenv.hostPlatform.isx86) [ "-DCURVE=ALT_BN128" ];
 
   src = fetchFromGitHub {

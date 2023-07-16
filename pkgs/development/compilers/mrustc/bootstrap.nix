@@ -51,8 +51,15 @@ in stdenv.mkDerivation rec {
   dontUseCmakeConfigure = true;
 
   strictDeps = true;
-  nativeBuildInputs =
-    [ cmake mrustc mrustc-minicargo pkg-config python3 time which ];
+  nativeBuildInputs = [
+    cmake
+    mrustc
+    mrustc-minicargo
+    pkg-config
+    python3
+    time
+    which
+  ];
   buildInputs = [
     # for rustc
     llvm_12
@@ -138,8 +145,14 @@ in stdenv.mkDerivation rec {
       This is useful for bootstrapping the main Rust compiler without
       an initial binary toolchain download.
     '';
-    maintainers = with maintainers; [ progval r-burns ];
-    license = with licenses; [ mit asl20 ];
+    maintainers = with maintainers; [
+      progval
+      r-burns
+    ];
+    license = with licenses; [
+      mit
+      asl20
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

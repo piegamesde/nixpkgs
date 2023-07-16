@@ -69,14 +69,16 @@ let
     ''--http.doc_root="${toString cfg.http.docRoot}"'');
 
 in {
-  imports = [
-    (mkRenamedOptionModule [ "services" "snapserver" "controlPort" ] [
-      "services"
-      "snapserver"
-      "tcp"
-      "port"
-    ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "services"
+    "snapserver"
+    "controlPort"
+  ] [
+    "services"
+    "snapserver"
+    "tcp"
+    "port"
+  ]) ];
 
   ###### interface
 
@@ -209,7 +211,10 @@ in {
           attrsOf (submodule {
             options = {
               location = mkOption {
-                type = types.oneOf [ types.path types.str ];
+                type = types.oneOf [
+                  types.path
+                  types.str
+                ];
                 description = lib.mdDoc ''
                   For type `pipe` or `file`, the path to the pipe or file.
                   For type `librespot`, `airplay` or `process`, the path to the corresponding binary.
@@ -304,7 +309,10 @@ in {
       after = [ "network.target" ];
       description = "Snapserver";
       wantedBy = [ "multi-user.target" ];
-      before = [ "mpd.service" "mopidy.service" ];
+      before = [
+        "mpd.service"
+        "mopidy.service"
+      ];
 
       serviceConfig = {
         DynamicUser = true;

@@ -71,6 +71,9 @@ in appimageTools.wrapType2 {
     description = "Software for Saleae logic analyzers";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ j-hui newam ];
+    maintainers = with maintainers; [
+      j-hui
+      newam
+    ];
   };
 }

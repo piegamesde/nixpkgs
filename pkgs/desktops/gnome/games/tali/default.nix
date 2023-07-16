@@ -42,7 +42,12 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ gtk3 gdk-pixbuf librsvg libgnome-games-support ];
+  buildInputs = [
+    gtk3
+    gdk-pixbuf
+    librsvg
+    libgnome-games-support
+  ];
 
   postPatch = ''
     chmod +x build-aux/meson_post_install.py

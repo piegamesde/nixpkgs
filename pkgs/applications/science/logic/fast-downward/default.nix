@@ -19,8 +19,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-GwZ5BGzLRMgWNBaA7M2D2p9OxvdyWqm+sTwxGpcI/qY=";
   };
 
-  nativeBuildInputs = [ cmake python3.pkgs.wrapPython ];
-  buildInputs = [ python3 osi ];
+  nativeBuildInputs = [
+    cmake
+    python3.pkgs.wrapPython
+  ];
+  buildInputs = [
+    python3
+    osi
+  ];
 
   cmakeFlags =
     lib.optionals osi.withCplex [ "-DDOWNWARD_CPLEX_ROOT=${cplex}/cplex" ];

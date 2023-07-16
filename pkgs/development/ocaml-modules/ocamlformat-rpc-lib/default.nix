@@ -30,12 +30,18 @@ in buildDunePackage rec {
   minimalOCamlVersion = "4.08";
   duneVersion = "3";
 
-  propagatedBuildInputs = [ csexp sexplib0 ];
+  propagatedBuildInputs = [
+    csexp
+    sexplib0
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/ocaml-ppx/ocamlformat";
     description = "Auto-formatter for OCaml code (RPC mode)";
     license = licenses.mit;
-    maintainers = with maintainers; [ Zimmi48 marsam ];
+    maintainers = with maintainers; [
+      Zimmi48
+      marsam
+    ];
   };
 }

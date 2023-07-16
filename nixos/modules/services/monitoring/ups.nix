@@ -191,7 +191,10 @@ in {
 
     systemd.services.upsd = {
       description = "Uninterruptible Power Supplies (Daemon)";
-      after = [ "network.target" "upsmon.service" ];
+      after = [
+        "network.target"
+        "upsmon.service"
+      ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig.Type = "forking";
       # TODO: replace 'root' by another username.
@@ -235,7 +238,10 @@ in {
 
     power.ups.schedulerRules = mkDefault "${pkgs.nut}/etc/upssched.conf.sample";
 
-    system.activationScripts.upsSetup = stringAfter [ "users" "groups" ] ''
+    system.activationScripts.upsSetup = stringAfter [
+      "users"
+      "groups"
+    ] ''
       # Used to store pid files of drivers.
       mkdir -p /var/state/ups
     '';

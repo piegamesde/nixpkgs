@@ -34,18 +34,31 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0/wkUk7PMPbBSGzDuSd82yxRzvAYxkbEhM5LTVt4bMA=";
   };
 
-  nativeBuildInputs = [ pkg-config makeWrapper python3.pkgs.cython ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+    python3.pkgs.cython
+  ];
 
-  buildInputs = [ SDL2 libpng ffmpeg freetype glew libGLU libGL fribidi zlib ]
-    ++ (with python3.pkgs; [
-      python
-      pygame_sdl2
-      tkinter
-      future
-      six
-      pefile
-      requests
-    ]);
+  buildInputs = [
+    SDL2
+    libpng
+    ffmpeg
+    freetype
+    glew
+    libGLU
+    libGL
+    fribidi
+    zlib
+  ] ++ (with python3.pkgs; [
+    python
+    pygame_sdl2
+    tkinter
+    future
+    six
+    pefile
+    requests
+  ]);
 
   RENPY_DEPS_INSTALL = lib.concatStringsSep "::" (map (path: path) [
     SDL2
@@ -62,7 +75,10 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  patches = [ ./renpy-system-fribidi.diff ./shutup-erofs-errors.patch ];
+  patches = [
+    ./renpy-system-fribidi.diff
+    ./shutup-erofs-errors.patch
+  ];
 
   postPatch = ''
     substituteInPlace module/setup.py \

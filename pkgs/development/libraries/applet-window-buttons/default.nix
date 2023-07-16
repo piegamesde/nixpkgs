@@ -31,9 +31,17 @@ mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
-  buildInputs = [ kcoreaddons kdeclarative kdecoration plasma-framework ];
+  buildInputs = [
+    kcoreaddons
+    kdeclarative
+    kdecoration
+    plasma-framework
+  ];
 
   meta = with lib; {
     description =

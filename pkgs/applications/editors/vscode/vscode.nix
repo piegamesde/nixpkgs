@@ -73,7 +73,12 @@ in callPackage ./generic.nix rec {
     homepage = "https://code.visualstudio.com/";
     downloadPage = "https://code.visualstudio.com/Updates";
     license = licenses.unfree;
-    maintainers = with maintainers; [ eadwu synthetica maxeaubrey bobby285271 ];
+    maintainers = with maintainers; [
+      eadwu
+      synthetica
+      maxeaubrey
+      bobby285271
+    ];
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"

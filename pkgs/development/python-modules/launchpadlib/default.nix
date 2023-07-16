@@ -43,8 +43,11 @@ buildPythonPackage rec {
 
   doCheck = isPy3k;
 
-  pythonImportsCheck =
-    [ "launchpadlib" "launchpadlib.apps" "launchpadlib.credentials" ];
+  pythonImportsCheck = [
+    "launchpadlib"
+    "launchpadlib.apps"
+    "launchpadlib.credentials"
+  ];
 
   meta = with lib; {
     description =

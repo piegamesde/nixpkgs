@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [ nose pytestCheckHook ];
+  nativeCheckInputs = [
+    nose
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "braintree" ];
 

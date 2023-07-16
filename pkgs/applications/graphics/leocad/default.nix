@@ -32,21 +32,24 @@ in mkDerivation rec {
     sha256 = "1ifbxngkbmg6d8vv08amxbnfvlyjdwzykrjp98lbwvgb0b843ygq";
   };
 
-  nativeBuildInputs = [ qmake qttools ];
+  nativeBuildInputs = [
+    qmake
+    qttools
+  ];
 
   buildInputs = [ zlib ];
 
   propagatedBuildInputs = [ povray ];
 
-  patches = [
-    (substituteAll {
-      src = ./povray.patch;
-      inherit povray;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./povray.patch;
+    inherit povray;
+  }) ];
 
-  qmakeFlags =
-    [ "INSTALL_PREFIX=${placeholder "out"}" "DISABLE_UPDATE_CHECK=1" ];
+  qmakeFlags = [
+    "INSTALL_PREFIX=${placeholder "out"}"
+    "DISABLE_UPDATE_CHECK=1"
+  ];
 
   qtWrapperArgs = [ "--set-default LEOCAD_LIB ${parts}" ];
 

@@ -92,15 +92,18 @@ in {
 
     networking.firewall = mkIf cfg.openFirewall {
       allowedTCPPorts = [ 5000 ];
-      allowedUDPPortRanges = [{
+      allowedUDPPortRanges = [ {
         from = 6001;
         to = 6011;
-      }];
+      } ];
     };
 
     systemd.services.shairport-sync = {
       description = "shairport-sync";
-      after = [ "network.target" "avahi-daemon.service" ];
+      after = [
+        "network.target"
+        "avahi-daemon.service"
+      ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         User = cfg.user;

@@ -40,7 +40,11 @@ let
 
   xmonad = if (cfg.config != null) then xmonad-config else xmonad-vanilla;
 in {
-  meta.maintainers = with maintainers; [ lassulus xaverdh ivanbrennan ];
+  meta.maintainers = with maintainers; [
+    lassulus
+    xaverdh
+    ivanbrennan
+  ];
 
   options = {
     services.xserver.windowManager.xmonad = {
@@ -193,7 +197,7 @@ in {
   };
   config = mkIf cfg.enable {
     services.xserver.windowManager = {
-      session = [{
+      session = [ {
         name = "xmonad";
         start = ''
           systemd-cat -t xmonad -- ${xmonad}/bin/xmonad ${
@@ -201,7 +205,7 @@ in {
           } &
           waitPID=$!
         '';
-      }];
+      } ];
     };
 
     environment.systemPackages = [ xmonad ];

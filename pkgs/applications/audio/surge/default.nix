@@ -52,7 +52,12 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake git pkg-config python3 ];
+  nativeBuildInputs = [
+    cmake
+    git
+    pkg-config
+    python3
+  ];
 
   buildInputs = [
     cairo
@@ -97,6 +102,9 @@ stdenv.mkDerivation rec {
     homepage = "https://surge-synthesizer.github.io";
     license = licenses.gpl3;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ magnetophon orivej ];
+    maintainers = with maintainers; [
+      magnetophon
+      orivej
+    ];
   };
 }

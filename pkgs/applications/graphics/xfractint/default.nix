@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "1ba77jifxv8jql044mdydh4p4ms4w5vw3qrqmcfzlvqfxk7h2m2f";
   };
 
-  buildInputs = [ libX11 libXft ];
+  buildInputs = [
+    libX11
+    libXft
+  ];
 
   configurePhase = ''
     sed -e 's@/usr/bin/@@' -i Makefile

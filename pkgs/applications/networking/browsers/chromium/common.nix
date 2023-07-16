@@ -106,8 +106,12 @@
 buildFun:
 
 let
-  python3WithPackages = python3.pythonForBuild.withPackages
-    (ps: with ps; [ ply jinja2 setuptools ]);
+  python3WithPackages = python3.pythonForBuild.withPackages (ps:
+    with ps; [
+      ply
+      jinja2
+      setuptools
+    ]);
   clangFormatPython3 = fetchurl {
     url =
       "https://chromium.googlesource.com/chromium/tools/build/+/e77882e0dde52c2ccf33c5570929b75b4a2a2522/recipes/recipe_modules/chromium/resources/clang-format?format=TEXT";
@@ -131,7 +135,15 @@ let
   mkGnFlags = let
     # Serialize Nix types into GN types according to this document:
     # https://source.chromium.org/gn/gn/+/master:docs/language.md
-    mkGnString = value: ''"${lib.escape [ ''"'' "$" "\\" ] value}"'';
+    mkGnString = value:
+      ''
+        "${
+          lib.escape [
+            ''"''
+            "$"
+            "\\"
+          ] value
+        }"'';
     sanitize = value:
       if value == true then
         "true"
@@ -247,9 +259,10 @@ let
       curl
       libepoxy
       libffi
-    ] ++ lib.optional systemdSupport systemd
-      ++ lib.optionals cupsSupport [ libgcrypt cups ]
-      ++ lib.optional pulseSupport libpulseaudio;
+    ] ++ lib.optional systemdSupport systemd ++ lib.optionals cupsSupport [
+      libgcrypt
+      cups
+    ] ++ lib.optional pulseSupport libpulseaudio;
 
     patches = [
       # Optional patch to use SOURCE_DATE_EPOCH in compute_build_timestamp.py (should be upstreamed):
@@ -451,7 +464,10 @@ let
       chromiumBinary="$libExecPath/$packageName"
       origRpath="$(patchelf --print-rpath "$chromiumBinary")"
       patchelf --set-rpath "${
-        lib.makeLibraryPath [ libGL vulkan-loader ]
+        lib.makeLibraryPath [
+          libGL
+          vulkan-loader
+        ]
       }:$origRpath" "$chromiumBinary"
     '';
 
@@ -462,7 +478,10 @@ let
   };
 
   # Remove some extraAttrs we supplied to the base attributes already.
-in stdenv.mkDerivation (base
-  // removeAttrs extraAttrs [ "name" "gnFlags" "buildTargets" ] // {
-    passthru = base.passthru // (extraAttrs.passthru or { });
-  })
+in stdenv.mkDerivation (base // removeAttrs extraAttrs [
+  "name"
+  "gnFlags"
+  "buildTargets"
+] // {
+  passthru = base.passthru // (extraAttrs.passthru or { });
+})

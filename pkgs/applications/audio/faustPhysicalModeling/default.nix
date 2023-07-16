@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1ZS7SVTWI1vNOGycZIDyKLgwfNooIGDa8Wmr6qfFSkU=";
   };
 
-  buildInputs = [ faust2jaqt faust2lv2 ];
+  buildInputs = [
+    faust2jaqt
+    faust2lv2
+  ];
 
   buildPhase = ''
     cd examples/physicalModeling

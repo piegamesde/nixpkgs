@@ -42,12 +42,21 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs =
-    [ meson ninja pkg-config gettext glib gobject-introspection ];
-  buildInputs = [ libxml2 glib ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gettext
+    glib
+    gobject-introspection
+  ];
+  buildInputs = [
+    libxml2
+    glib
+  ];
 
-  mesonFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
-    [ "-Dintrospection=false" ];
+  mesonFlags = lib.optionals
+    (stdenv.buildPlatform != stdenv.hostPlatform) [ "-Dintrospection=false" ];
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Videos";

@@ -17,7 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-vBFCRXwZ91C48GuOet2Obbo7gM02M2c9+7rhp0l6w54=";
   };
 
-  propagatedBuildInputs = [ oath pycryptodome requests ];
+  propagatedBuildInputs = [
+    oath
+    pycryptodome
+    requests
+  ];
 
   nativeCheckInputs = [ pytest ];
   # test_check_token_detects_valid_hotp_token,

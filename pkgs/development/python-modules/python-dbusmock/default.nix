@@ -36,7 +36,14 @@ in buildPythonPackage rec {
 
   propagatedBuildInputs = [ dbus-python ];
 
-  nativeCheckInputs = [ dbus pygobject3 bluez pbap-client networkmanager nose ];
+  nativeCheckInputs = [
+    dbus
+    pygobject3
+    bluez
+    pbap-client
+    networkmanager
+    nose
+  ];
 
   # TODO: Get the rest of these tests running?
   NOSE_EXCLUDE = lib.concatStringsSep "," [

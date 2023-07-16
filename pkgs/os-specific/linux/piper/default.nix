@@ -39,10 +39,23 @@ python3.pkgs.buildPythonApplication rec {
     appstream-glib
     gobject-introspection
   ];
-  buildInputs = [ gtk3 glib gnome.adwaita-icon-theme python3 librsvg ];
-  propagatedBuildInputs = with python3.pkgs; [ lxml evdev pygobject3 ];
+  buildInputs = [
+    gtk3
+    glib
+    gnome.adwaita-icon-theme
+    python3
+    librsvg
+  ];
+  propagatedBuildInputs = with python3.pkgs; [
+    lxml
+    evdev
+    pygobject3
+  ];
 
-  mesonFlags = [ "-Druntime-dependency-checks=false" "-Dtests=false" ];
+  mesonFlags = [
+    "-Druntime-dependency-checks=false"
+    "-Dtests=false"
+  ];
 
   postPatch = ''
     chmod +x meson_install.sh # patchShebangs requires executable file

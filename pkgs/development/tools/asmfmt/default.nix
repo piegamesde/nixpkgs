@@ -21,7 +21,10 @@ buildGoModule rec {
   # but these binaries are outdated and are offered by other packages.
   subPackages = [ "cmd/asmfmt" ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   # There are no tests.
   doCheck = false;

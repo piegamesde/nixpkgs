@@ -20,7 +20,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "xyzservices.providers" ];
 
-  nativeCheckInputs = [ mercantile pytestCheckHook requests ];
+  nativeCheckInputs = [
+    mercantile
+    pytestCheckHook
+    requests
+  ];
 
   meta = with lib; {
     changelog =

@@ -33,7 +33,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [ path nbconvert pytestCheckHook ];
+  nativeCheckInputs = [
+    path
+    nbconvert
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "zetup" ];
 

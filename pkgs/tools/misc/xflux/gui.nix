@@ -27,9 +27,16 @@ buildPythonApplication rec {
     sha256 = "09zphcd9821ink63636swql4g85hg6lpsazqg1mawlk9ikc8zbps";
   };
 
-  propagatedBuildInputs = [ pyxdg pexpect pygobject3 ];
+  propagatedBuildInputs = [
+    pyxdg
+    pexpect
+    pygobject3
+  ];
 
-  buildInputs = [ xflux gtk3 ];
+  buildInputs = [
+    xflux
+    gtk3
+  ];
 
   nativeBuildInputs = [
     wrapGAppsHook

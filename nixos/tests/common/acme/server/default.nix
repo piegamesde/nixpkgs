@@ -113,7 +113,12 @@ in {
     # This has priority 140, because modules/testing/test-instrumentation.nix
     # already overrides this with priority 150.
     networking.nameservers = lib.mkOverride 140 [ "127.0.0.1" ];
-    networking.firewall.allowedTCPPorts = [ 80 443 15000 4002 ];
+    networking.firewall.allowedTCPPorts = [
+      80
+      443
+      15000
+      4002
+    ];
 
     networking.extraHosts = ''
       127.0.0.1 ${domain}

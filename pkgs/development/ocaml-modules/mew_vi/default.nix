@@ -19,7 +19,10 @@ buildDunePackage rec {
     sha256 = "0lihbf822k5zasl60w5mhwmdkljlq49c9saayrws7g4qc1j353r8";
   };
 
-  propagatedBuildInputs = [ mew react ];
+  propagatedBuildInputs = [
+    mew
+    react
+  ];
 
   meta = {
     inherit (src.meta) homepage;

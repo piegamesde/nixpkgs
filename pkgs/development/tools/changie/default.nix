@@ -20,7 +20,11 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [ "-s" "-w" "-X=main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X=main.version=${version}"
+  ];
 
   postInstall = ''
     installShellCompletion --cmd changie \
@@ -36,6 +40,9 @@ buildGoModule rec {
     changelog =
       "https://github.com/miniscruff/changie/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda matthiasbeyer ];
+    maintainers = with maintainers; [
+      figsoda
+      matthiasbeyer
+    ];
   };
 }

@@ -13,7 +13,12 @@ callPackage ./generic.nix (args // rec {
 
   sha256 = "sha256-9a3gR3lV8xFFTDZD+fJPCALVztgmggzyIpsPZCOw/uY=";
 
-  additionalBuildInputs = [ cairo libvterm-neovim robodoc cmake ];
+  additionalBuildInputs = [
+    cairo
+    libvterm-neovim
+    robodoc
+    cmake
+  ];
 
   description = "Realtime Lua as programmable glue in LV2";
 

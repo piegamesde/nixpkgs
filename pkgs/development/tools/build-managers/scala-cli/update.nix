@@ -16,7 +16,16 @@
 
 writeShellScript "${pname}-update-script" ''
   set -o errexit
-  PATH=${lib.makeBinPath [ curl jq gnused git nix coreutils ]}
+  PATH=${
+    lib.makeBinPath [
+      curl
+      jq
+      gnused
+      git
+      nix
+      coreutils
+    ]
+  }
 
   latest_version=$(curl -s "https://api.github.com/repos/VirtusLab/scala-cli/releases?per_page=1" | jq ".[0].tag_name" --raw-output | sed 's/^v//')
 

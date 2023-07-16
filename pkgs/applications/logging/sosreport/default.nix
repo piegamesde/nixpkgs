@@ -22,7 +22,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ gettext ];
 
-  propagatedBuildInputs = [ magic pexpect pyyaml setuptools ];
+  propagatedBuildInputs = [
+    magic
+    pexpect
+    pyyaml
+    setuptools
+  ];
 
   # requires avocado-framework 94.0, latest version as of writing is 96.0
   doCheck = false;

@@ -36,8 +36,15 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs =
-    [ click ecdsa fido2 intelhex pyserial pyusb requests ];
+  propagatedBuildInputs = [
+    click
+    ecdsa
+    fido2
+    intelhex
+    pyserial
+    pyusb
+    requests
+  ];
 
   # no tests
   doCheck = false;

@@ -18,7 +18,11 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-FvX4r7AZgSq52T9CKE9RagsKgQXExTYPptQBXadA3eI=";
   };
 
-  nativeBuildInputs = [ python3 sassc sass ];
+  nativeBuildInputs = [
+    python3
+    sassc
+    sass
+  ];
 
   preBuild = ''
     patchShebangs .

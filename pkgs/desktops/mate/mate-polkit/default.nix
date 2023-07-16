@@ -23,9 +23,18 @@ stdenv.mkDerivation rec {
     sha256 = "9bewtd/FMwLEBAMkWZjrkSGvP1DnFmagmrc7slRSA1c=";
   };
 
-  nativeBuildInputs = [ gobject-introspection gettext pkg-config ];
+  nativeBuildInputs = [
+    gobject-introspection
+    gettext
+    pkg-config
+  ];
 
-  buildInputs = [ gtk3 libappindicator-gtk3 libindicator-gtk3 polkit ];
+  buildInputs = [
+    gtk3
+    libappindicator-gtk3
+    libindicator-gtk3
+    polkit
+  ];
 
   enableParallelBuilding = true;
 

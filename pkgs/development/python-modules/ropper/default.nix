@@ -23,7 +23,10 @@ buildPythonPackage rec {
     hash = "sha256-agbqP5O9QEP5UKkaWI5HxAlMsCBPKNSLnAAo2WFDXS8=";
   };
 
-  propagatedBuildInputs = [ capstone filebytes ];
+  propagatedBuildInputs = [
+    capstone
+    filebytes
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

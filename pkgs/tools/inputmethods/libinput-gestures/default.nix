@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
     rev = version;
     sha256 = "sha256-uBABs2FPvF+HO+VSNvz2F0Bc9Ja8ek1ULiu89/wvTv4=";
   };
-  patches = [ ./0001-hardcode-name.patch ./0002-paths.patch ];
+  patches = [
+    ./0001-hardcode-name.patch
+    ./0002-paths.patch
+  ];
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ python3 ];

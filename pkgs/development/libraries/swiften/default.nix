@@ -38,9 +38,18 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ scons ];
 
-  buildInputs = [ libidn lua miniupnpc expat zlib ];
+  buildInputs = [
+    libidn
+    lua
+    miniupnpc
+    expat
+    zlib
+  ];
 
-  propagatedBuildInputs = [ openssl boost ];
+  propagatedBuildInputs = [
+    openssl
+    boost
+  ];
 
   sconsFlags = [
     "openssl=${openssl.dev}"

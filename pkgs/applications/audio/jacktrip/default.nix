@@ -32,7 +32,13 @@ mkDerivation rec {
     rm build
   '';
 
-  buildInputs = [ rtaudio qtbase qtx11extras libjack2 dbus ];
+  buildInputs = [
+    rtaudio
+    qtbase
+    qtx11extras
+    libjack2
+    dbus
+  ];
 
   nativeBuildInputs = [
     python3
@@ -51,7 +57,11 @@ mkDerivation rec {
   meta = with lib; {
     description = "Multi-machine audio network performance over the Internet";
     homepage = "https://jacktrip.github.io/jacktrip/";
-    license = with licenses; [ gpl3 lgpl3 mit ];
+    license = with licenses; [
+      gpl3
+      lgpl3
+      mit
+    ];
     maintainers = [ maintainers.iwanb ];
     platforms = platforms.linux;
   };

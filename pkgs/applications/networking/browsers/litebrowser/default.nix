@@ -24,9 +24,18 @@ stdenv.mkDerivation {
     fetchSubmodules = true; # litehtml submodule
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ gtk3 gtkmm3 curl poco gumbo ];
+  buildInputs = [
+    gtk3
+    gtkmm3
+    curl
+    poco
+    gumbo
+  ];
 
   cmakeFlags = [ "-DEXTERNAL_GUMBO=ON" ];
 

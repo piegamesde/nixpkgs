@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-11fa6scRcC+bQxEccCgxSJaMjwkUVs4DQj1NSaXlpb8=";
   };
 
-  propagatedBuildInputs = [ pytz tomlkit ];
+  propagatedBuildInputs = [
+    pytz
+    tomlkit
+  ];
 
   # Missing dependencies
   doCheck = false;

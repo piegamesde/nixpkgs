@@ -20,7 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-GSuZne5M1PsRpdhhFlyq0C2PBhfA+Ab8Wwn5BfGgPKA=";
   };
 
-  propagatedBuildInputs = [ setuptools typing-extensions ];
+  propagatedBuildInputs = [
+    setuptools
+    typing-extensions
+  ];
 
   pythonImportsCheck = [ "simple_di" ];
 

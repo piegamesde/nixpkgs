@@ -18,7 +18,10 @@ in {
       hash = "sha256-tJaNc1GfT4dH6FVI+4XSG2Zdob8bqQCnxJmXbmqK49I=";
     };
 
-    nativeBuildInputs = [ mkfontscale mkfontdir ];
+    nativeBuildInputs = [
+      mkfontscale
+      mkfontdir
+    ];
 
     installPhase = ''
       runHook preInstall
@@ -51,7 +54,10 @@ in {
       hash = "sha256-48GeBOp6VltKz/bx5CSAhNLhB1LjBb991sdugIYNwds=";
     };
 
-    nativeBuildInputs = [ mkfontscale mkfontdir ];
+    nativeBuildInputs = [
+      mkfontscale
+      mkfontdir
+    ];
 
     installPhase = ''
       runHook preInstall

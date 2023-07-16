@@ -20,7 +20,10 @@ trivialBuild {
     homepage = "https://www.emacswiki.org/emacs/IsearchPlus";
     description = "Extensions to isearch";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ leungbk AndersonTorres ];
+    maintainers = with maintainers; [
+      leungbk
+      AndersonTorres
+    ];
     inherit (emacs.meta) platforms;
   };
 }

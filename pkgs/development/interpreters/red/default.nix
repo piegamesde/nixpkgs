@@ -22,7 +22,10 @@ stdenv.mkDerivation rec {
     sha256 = "1c1v0pyhf3d8z98qc93a5zmx0bbl0qq5lr8mbkdgygqsq2bv2xbz";
   };
 
-  buildInputs = [ pkgsi686Linux.curl stdenv_32bit ];
+  buildInputs = [
+    pkgsi686Linux.curl
+    stdenv_32bit
+  ];
 
   r2 = "./rebol/releases/rebol-core/rebol";
 
@@ -92,7 +95,10 @@ stdenv.mkDerivation rec {
       concurrency and multi-core CPUs
     '';
     maintainers = with maintainers; [ uralbash ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
     license = licenses.bsd3;
     homepage = "https://www.red-lang.org/";
   };

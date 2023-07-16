@@ -21,9 +21,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fDimH0BX0zxGuOMNLhNbMGMr2pS+qbZhflSpoLFK+Ng=";
   };
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ qtbase qttools extra-cmake-modules kauth ];
+  buildInputs = [
+    qtbase
+    qttools
+    extra-cmake-modules
+    kauth
+  ];
 
   postInstall = ''
     # so that kdiskmark can be used as unpriviledged user even on non-kde
@@ -31,7 +39,12 @@ stdenv.mkDerivation rec {
     ln -s ${kauth}/share/dbus-1/system.d/org.kde.kf5auth.conf $out/share/dbus-1/system.d/00-kdiskmark-needs-org.kde.kf5auth.conf
   '';
 
-  qtWrapperArgs = [ "--prefix" "PATH" ":" (lib.makeBinPath [ fio ]) ];
+  qtWrapperArgs = [
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [ fio ])
+  ];
 
   meta = with lib; {
     description =

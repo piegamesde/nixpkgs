@@ -58,15 +58,17 @@ stdenv.mkDerivation rec {
     '';
 
   strictDeps = true;
-  nativeBuildInputs = [
-    pkg-config
-  ]
-  # This is not the same as the libkrb5 from the inputs! pkgs.libkrb5 is
-  # needed here to access krb5-config in order to cross compile. See:
-  # https://github.com/NixOS/nixpkgs/pull/107606
+  nativeBuildInputs = [ pkg-config ]
+    # This is not the same as the libkrb5 from the inputs! pkgs.libkrb5 is
+    # needed here to access krb5-config in order to cross compile. See:
+    # https://github.com/NixOS/nixpkgs/pull/107606
     ++ lib.optional withKerberos pkgs.libkrb5 ++ extraNativeBuildInputs;
-  buildInputs = [ zlib openssl libedit ] ++ lib.optional withFIDO libfido2
-    ++ lib.optional withKerberos libkrb5 ++ lib.optional stdenv.isLinux pam;
+  buildInputs = [
+    zlib
+    openssl
+    libedit
+  ] ++ lib.optional withFIDO libfido2 ++ lib.optional withKerberos libkrb5
+    ++ lib.optional stdenv.isLinux pam;
 
   preConfigure = ''
     # Setting LD causes `configure' and `make' to disagree about which linker
@@ -153,7 +155,11 @@ stdenv.mkDerivation rec {
   checkTarget = lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isMusl)
     "t-exec"
     # other tests are less demanding of the environment
-    ++ [ "unit" "file-tests" "interop-tests" ];
+    ++ [
+      "unit"
+      "file-tests"
+      "interop-tests"
+    ];
 
   postInstall = ''
     # Install ssh-copy-id, it's very useful.
@@ -174,8 +180,10 @@ stdenv.mkDerivation rec {
       changelog = "https://www.openssh.com/releasenotes.html";
       license = licenses.bsd2;
       platforms = platforms.unix ++ platforms.windows;
-      maintainers = (extraMeta.maintainers or [ ])
-        ++ (with maintainers; [ eelco aneeshusa ]);
+      maintainers = (extraMeta.maintainers or [ ]) ++ (with maintainers; [
+        eelco
+        aneeshusa
+      ]);
       mainProgram = "ssh";
     } // extraMeta;
 }

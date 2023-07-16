@@ -33,7 +33,14 @@ let
   # their assertions too
     (attrValues config.fileSystems);
 
-  specialFSTypes = [ "proc" "sysfs" "tmpfs" "ramfs" "devtmpfs" "devpts" ];
+  specialFSTypes = [
+    "proc"
+    "sysfs"
+    "tmpfs"
+    "ramfs"
+    "devtmpfs"
+    "devpts"
+  ];
 
   nonEmptyWithoutTrailingSlash =
     addCheckDesc "non-empty without trailing slash" types.str
@@ -220,7 +227,13 @@ let
       || isBindMount fs;
     # https://wiki.archlinux.org/index.php/fstab#Filepath_spaces
     escape = string:
-      builtins.replaceStrings [ " " "	" ] [ "\\040" "\\011" ] string;
+      builtins.replaceStrings [
+        " "
+        "	"
+      ] [
+        "\\040"
+        "\\011"
+      ] string;
   in fstabFileSystems:
   {
     rootPrefix ? "",
@@ -267,8 +280,10 @@ in {
           "/bigdisk".label = "bigdisk";
         }
       '';
-      type =
-        types.attrsOf (types.submodule [ coreFileSystemOpts fileSystemOpts ]);
+      type = types.attrsOf (types.submodule [
+        coreFileSystemOpts
+        fileSystemOpts
+      ]);
       description = lib.mdDoc ''
         The file systems to be mounted.  It must include an entry for
         the root directory (`mountPoint = "/"`).  Each
@@ -378,7 +393,10 @@ in {
     system.fsPackages = [ pkgs.dosfstools ];
 
     environment.systemPackages = with pkgs;
-      [ fuse3 fuse ] ++ config.system.fsPackages;
+      [
+        fuse3
+        fuse
+      ] ++ config.system.fsPackages;
 
     environment.etc.fstab.text = let
       swapOptions = sw:
@@ -413,7 +431,10 @@ in {
     # Provide a target that pulls in all filesystems.
     systemd.targets.fs = {
       description = "All File Systems";
-      wants = [ "local-fs.target" "remote-fs.target" ];
+      wants = [
+        "local-fs.target"
+        "remote-fs.target"
+      ];
     };
 
     systemd.services =
@@ -428,7 +449,10 @@ in {
           in nameValuePair "mkfs-${device'}" {
             description = "Initialisation of Filesystem ${fs.device}";
             wantedBy = [ mountPoint' ];
-            before = [ mountPoint' "systemd-fsck@${device'}.service" ];
+            before = [
+              mountPoint'
+              "systemd-fsck@${device'}.service"
+            ];
             requires = [ device'' ];
             after = [ device'' ];
             path = [ pkgs.util-linux ] ++ config.system.fsPackages;
@@ -491,7 +515,11 @@ in {
     boot.specialFileSystems = {
       "/proc" = {
         fsType = "proc";
-        options = [ "nosuid" "noexec" "nodev" ];
+        options = [
+          "nosuid"
+          "noexec"
+          "nodev"
+        ];
       };
       "/run" = {
         fsType = "tmpfs";
@@ -505,8 +533,12 @@ in {
       };
       "/dev" = {
         fsType = "devtmpfs";
-        options =
-          [ "nosuid" "strictatime" "mode=755" "size=${config.boot.devSize}" ];
+        options = [
+          "nosuid"
+          "strictatime"
+          "mode=755"
+          "size=${config.boot.devSize}"
+        ];
       };
       "/dev/shm" = {
         fsType = "tmpfs";
@@ -532,7 +564,11 @@ in {
       # To hold secrets that shouldn't be written to disk
       "/run/keys" = {
         fsType = "ramfs";
-        options = [ "nosuid" "nodev" "mode=750" ];
+        options = [
+          "nosuid"
+          "nodev"
+          "mode=750"
+        ];
       };
     } // optionalAttrs (!config.boot.isContainer) {
       # systemd-nspawn populates /sys by itself, and remounting it causes all
@@ -540,7 +576,11 @@ in {
       # nodes).
       "/sys" = {
         fsType = "sysfs";
-        options = [ "nosuid" "noexec" "nodev" ];
+        options = [
+          "nosuid"
+          "noexec"
+          "nodev"
+        ];
       };
     };
 

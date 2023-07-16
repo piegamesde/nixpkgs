@@ -23,9 +23,16 @@ buildPythonPackage rec {
     hash = "sha256-SYjzyPqKR6BpC5z3P/ASDXe0mwi8Hz413b8Fm7cc5zo=";
   };
 
-  propagatedBuildInputs = [ urllib3 sqlalchemy geojson ];
+  propagatedBuildInputs = [
+    urllib3
+    sqlalchemy
+    geojson
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytz ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytz
+  ];
 
   disabledTests = [
     # the following tests require network access

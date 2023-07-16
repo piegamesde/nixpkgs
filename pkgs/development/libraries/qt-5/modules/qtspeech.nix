@@ -11,5 +11,8 @@ qtModule {
   qtInputs = [ ];
   buildInputs = lib.optionals stdenv.isLinux [ speechd ];
   nativeBuildInputs = [ pkg-config ];
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 }

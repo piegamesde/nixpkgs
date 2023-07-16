@@ -22,7 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-wfmRjHFu6H3J6hNin8ZA2454xXrLgcUdeR8iGXFomRE=";
   };
 
-  propagatedBuildInputs = [ hexbytes eth-utils rlp ];
+  propagatedBuildInputs = [
+    hexbytes
+    eth-utils
+    rlp
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ]
     ++ eth-hash.optional-dependencies.pycryptodome;

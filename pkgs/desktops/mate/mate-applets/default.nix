@@ -37,7 +37,12 @@ stdenv.mkDerivation rec {
     sha256 = "Orj2HbN23DM85MGHIsY6B/qz6OEnK34OCXrUWXsXwsI=";
   };
 
-  nativeBuildInputs = [ gettext itstool pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    gettext
+    itstool
+    pkg-config
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     dbus-glib
@@ -68,7 +73,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Applets for use with the MATE panel";
     homepage = "https://mate-desktop.org";
-    license = with licenses; [ gpl2Plus lgpl2Plus ];
+    license = with licenses; [
+      gpl2Plus
+      lgpl2Plus
+    ];
     platforms = platforms.linux;
     maintainers = teams.mate.members;
   };

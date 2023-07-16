@@ -21,9 +21,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-iEW+n1PSnDoCzQCVfl4T1nchc0kL2q/M3jKNYW2f9/8=";
   };
 
-  nativeBuildInputs = [ pkg-config python3 which ];
+  nativeBuildInputs = [
+    pkg-config
+    python3
+    which
+  ];
 
-  buildInputs = [ zlib zstd openssl ];
+  buildInputs = [
+    zlib
+    zstd
+    openssl
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=strict-overflow";
 

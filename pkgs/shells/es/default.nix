@@ -40,7 +40,10 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://wryun.github.io/es-shell/";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ sjmackenzie ttuegel ];
+    maintainers = with maintainers; [
+      sjmackenzie
+      ttuegel
+    ];
     platforms = platforms.all;
   };
 

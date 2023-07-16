@@ -38,7 +38,12 @@ stdenv.mkDerivation rec {
       --replace "/usr" "$out"
   '';
 
-  nativeBuildInputs = [ qmake pkg-config qttools wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    pkg-config
+    qttools
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     dtkwidget

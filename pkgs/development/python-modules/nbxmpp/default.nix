@@ -33,8 +33,13 @@ buildPythonPackage rec {
 
   buildInputs = [ precis-i18n ];
 
-  propagatedBuildInputs =
-    [ gobject-introspection idna libsoup_3 pygobject3 pyopenssl ];
+  propagatedBuildInputs = [
+    gobject-introspection
+    idna
+    libsoup_3
+    pygobject3
+    pyopenssl
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

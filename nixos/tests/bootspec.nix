@@ -20,7 +20,11 @@ let
   standard = {
     boot.bootspec.enable = true;
 
-    imports = [ baseline systemd-boot uefi ];
+    imports = [
+      baseline
+      systemd-boot
+      uefi
+    ];
   };
 in {
   basic = makeTest {
@@ -44,7 +48,11 @@ in {
     nodes.machine = {
       boot.bootspec.enable = true;
 
-      imports = [ baseline grub uefi ];
+      imports = [
+        baseline
+        grub
+        uefi
+      ];
     };
 
     testScript = ''
@@ -62,7 +70,10 @@ in {
     nodes.machine = {
       boot.bootspec.enable = true;
 
-      imports = [ baseline grub ];
+      imports = [
+        baseline
+        grub
+      ];
     };
 
     testScript = ''

@@ -34,7 +34,10 @@ in stdenv.mkDerivation rec {
 
   buildInputs = [ gtk3 ];
 
-  nativeBuildInputs = [ makeShellWrapper wrapGAppsHook ];
+  nativeBuildInputs = [
+    makeShellWrapper
+    wrapGAppsHook
+  ];
 
   dontWrapGApps = true;
 
@@ -67,7 +70,12 @@ in stdenv.mkDerivation rec {
       --chdir "$out/toolbox" \
       --add-flags "-data ~/.tla-toolbox" \
       --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [ gtk3 libXtst glib zlib ]
+        lib.makeLibraryPath [
+          gtk3
+          libXtst
+          glib
+          zlib
+        ]
       }"  \
       "''${gappsWrapperArgs[@]}"
 

@@ -30,7 +30,12 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = with ocamlPackages; [ ocaml dune_3 findlib ocamlbuild ];
+  nativeBuildInputs = with ocamlPackages; [
+    ocaml
+    dune_3
+    findlib
+    ocamlbuild
+  ];
 
   buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ]
     ++ (with ocamlPackages;
@@ -55,6 +60,9 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/facebook/flow/raw/v${version}/Changelog.md";
     license = licenses.mit;
     platforms = ocamlPackages.ocaml.meta.platforms;
-    maintainers = with maintainers; [ marsam puffnfresh ];
+    maintainers = with maintainers; [
+      marsam
+      puffnfresh
+    ];
   };
 }

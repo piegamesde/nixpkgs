@@ -11,7 +11,10 @@ args@{
   description =
     "Bordeaux Threads makes writing portable multi-threaded apps simple.";
 
-  deps = [ args."alexandria" args."fiveam" ];
+  deps = [
+    args."alexandria"
+    args."fiveam"
+  ];
 
   src = fetchurl {
     url =

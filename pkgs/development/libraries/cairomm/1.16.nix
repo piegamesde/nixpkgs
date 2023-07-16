@@ -16,23 +16,36 @@ stdenv.mkDerivation rec {
   pname = "cairomm";
   version = "1.16.2";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "https://www.cairographics.org/releases/cairomm-${version}.tar.xz";
     sha256 = "amO/mKl92isPVeNNG18/uQnvi3D5uNOCyx/zl459wT8=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
 
   buildInputs = [
     boost # for tests
     fontconfig
   ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
 
-  propagatedBuildInputs = [ cairo libsigcxx30 ];
+  propagatedBuildInputs = [
+    cairo
+    libsigcxx30
+  ];
 
-  mesonFlags = [ "-Dbuild-tests=true" "-Dboost-shared=true" ];
+  mesonFlags = [
+    "-Dbuild-tests=true"
+    "-Dboost-shared=true"
+  ];
 
   # Meson is no longer able to pick up Boost automatically.
   # https://github.com/NixOS/nixpkgs/issues/86131
@@ -57,7 +70,10 @@ stdenv.mkDerivation rec {
       when available (e.g., through the X Render Extension).
     '';
     homepage = "https://www.cairographics.org/";
-    license = with licenses; [ lgpl2Plus mpl10 ];
+    license = with licenses; [
+      lgpl2Plus
+      mpl10
+    ];
     maintainers = teams.gnome.members;
     platforms = platforms.unix;
   };

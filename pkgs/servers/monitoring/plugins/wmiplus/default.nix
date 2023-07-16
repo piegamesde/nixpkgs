@@ -53,7 +53,10 @@ stdenv.mkDerivation rec {
     TryTiny
   ];
 
-  nativeBuildInputs = [ makeWrapper txt2man ];
+  nativeBuildInputs = [
+    makeWrapper
+    txt2man
+  ];
 
   dontConfigure = true;
   dontBuild = true;

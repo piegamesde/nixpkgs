@@ -104,21 +104,39 @@ let
       done
     '';
 
-    outputs = [ "out" "lib" "doc" "man" ];
+    outputs = [
+      "out"
+      "lib"
+      "doc"
+      "man"
+    ];
 
     meta = with lib; {
       description = "Formally verified C compiler";
       homepage = "https://compcert.org";
       license = licenses.inria-compcert;
-      platforms = [ "x86_64-linux" "x86_64-darwin" ];
-      maintainers = with maintainers; [ thoughtpolice jwiegley vbgl ];
+      platforms = [
+        "x86_64-linux"
+        "x86_64-darwin"
+      ];
+      maintainers = with maintainers; [
+        thoughtpolice
+        jwiegley
+        vbgl
+      ];
     };
   };
 in compcert.overrideAttrs (o: {
   patches = with lib.versions;
-    lib.switch [ coq.version o.version ] [
+    lib.switch [
+      coq.version
+      o.version
+    ] [
       {
-        cases = [ (range "8.12.2" "8.13.2") "3.8" ];
+        cases = [
+          (range "8.12.2" "8.13.2")
+          "3.8"
+        ];
         out = [
           # Support for Coq 8.12.2
           (fetchpatch {
@@ -153,7 +171,10 @@ in compcert.overrideAttrs (o: {
         ];
       }
       {
-        cases = [ (range "8.14" "8.15") "3.10" ];
+        cases = [
+          (range "8.14" "8.15")
+          "3.10"
+        ];
         out = [
           # Support for Coq 8.14.1
           (fetchpatch {
@@ -186,7 +207,10 @@ in compcert.overrideAttrs (o: {
         ];
       }
       {
-        cases = [ (isEq "8.16") (range "3.11" "3.12") ];
+        cases = [
+          (isEq "8.16")
+          (range "3.11" "3.12")
+        ];
         out = [
           # Support for Coq 8.16.0
           (fetchpatch {

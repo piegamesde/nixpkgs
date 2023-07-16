@@ -32,7 +32,10 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.11";
   duneVersion = "3";
 
-  buildInputs = [ cmdliner ppxlib ];
+  buildInputs = [
+    cmdliner
+    ppxlib
+  ];
 
   meta = with lib; {
     description =

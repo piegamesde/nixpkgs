@@ -20,7 +20,11 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "bs4" "beautifulsoup4"
   '';
 
-  propagatedBuildInputs = [ requests requests-cache beautifulsoup4 ];
+  propagatedBuildInputs = [
+    requests
+    requests-cache
+    beautifulsoup4
+  ];
 
   # No tests available
   doCheck = false;

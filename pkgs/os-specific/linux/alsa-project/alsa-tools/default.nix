@@ -20,7 +20,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ alsa-lib fltk13 gtk2 gtk3 ];
+  buildInputs = [
+    alsa-lib
+    fltk13
+    gtk2
+    gtk3
+  ];
 
   env.TOOLSET = lib.concatStringsSep " " [
     "as10k1"

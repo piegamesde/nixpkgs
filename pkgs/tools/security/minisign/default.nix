@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-sczGs6du797WUkfr3JiTI/bUHp7vKEeZtJdCryFcYu8=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buildInputs = [ libsodium ];
 
   meta = with lib; {

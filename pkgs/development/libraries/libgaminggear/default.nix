@@ -23,9 +23,17 @@ stdenv.mkDerivation rec {
     sha256 = "0jf5i1iv8j842imgiixbhwcr6qcwa93m27lzr6gb01ri5v35kggz";
   };
 
-  outputs = [ "dev" "out" "bin" ];
+  outputs = [
+    "dev"
+    "out"
+    "bin"
+  ];
 
-  nativeBuildInputs = [ cmake pkg-config gettext ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    gettext
+  ];
 
   propagatedBuildInputs = [
     gtk2

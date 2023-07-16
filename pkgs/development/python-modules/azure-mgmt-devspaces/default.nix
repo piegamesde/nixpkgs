@@ -17,7 +17,11 @@ buildPythonPackage rec {
     sha256 = "0dvjsr9i87j1ggbj3dcmgifpk64xr5f5ziwf7z1fwkcx0szcid7k";
   };
 
-  propagatedBuildInputs = [ msrestazure azure-common azure-mgmt-nspkg ];
+  propagatedBuildInputs = [
+    msrestazure
+    azure-common
+    azure-mgmt-nspkg
+  ];
 
   # has no tests
   doCheck = false;

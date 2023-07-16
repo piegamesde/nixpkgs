@@ -13,7 +13,11 @@ mkDerivation rec {
   version = "2.5.5";
 
   nativeBuildInputs = [ qmake ];
-  buildInputs = [ qtbase qtwebengine qtwebkit ];
+  buildInputs = [
+    qtbase
+    qtwebengine
+    qtwebkit
+  ];
 
   src = fetchFromGitHub {
     owner = "MiniZinc";

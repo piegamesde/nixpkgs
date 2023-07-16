@@ -25,9 +25,21 @@ stdenv.mkDerivation rec {
     sha256 = "03ibk51swxfl7pfrhcrfiffdi4mnf8kla0g1xj1lsrvrjwapfx03";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ libharu libpng zlib bison flex gengetopt help2man groff ];
+  buildInputs = [
+    libharu
+    libpng
+    zlib
+    bison
+    flex
+    gengetopt
+    help2man
+    groff
+  ];
 
   configureFlags = [ "--enable-library" ];
 

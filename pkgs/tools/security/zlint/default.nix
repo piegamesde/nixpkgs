@@ -28,7 +28,11 @@ buildGoModule rec {
 
   excludedPackages = [ "lints" ];
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   passthru.tests.version = testers.testVersion {
     package = zlint;

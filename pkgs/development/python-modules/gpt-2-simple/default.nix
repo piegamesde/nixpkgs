@@ -21,7 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-WwD4sDcc28zXEOISJsq8e+rgaNrrgIy79Wa4J3E7Ovc=";
   };
 
-  propagatedBuildInputs = [ regex requests tqdm numpy toposort tensorflow ];
+  propagatedBuildInputs = [
+    regex
+    requests
+    tqdm
+    numpy
+    toposort
+    tensorflow
+  ];
 
   dontCheck = true; # no tests in upstream
 

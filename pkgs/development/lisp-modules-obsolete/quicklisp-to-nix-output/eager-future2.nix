@@ -9,7 +9,11 @@ args@{
   description =
     "Parallel programming library providing the futures/promises synchronization mechanism";
 
-  deps = [ args."alexandria" args."bordeaux-threads" args."trivial-garbage" ];
+  deps = [
+    args."alexandria"
+    args."bordeaux-threads"
+    args."trivial-garbage"
+  ];
 
   src = fetchurl {
     url =

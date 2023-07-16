@@ -44,7 +44,14 @@ buildPythonPackage rec {
     '';
   };
 
-  buildInputs = [ glibcLocales pandoc git mock markdown typogrify ];
+  buildInputs = [
+    glibcLocales
+    pandoc
+    git
+    mock
+    markdown
+    typogrify
+  ];
 
   propagatedBuildInputs = [
     beautifulsoup4
@@ -63,7 +70,11 @@ buildPythonPackage rec {
     unidecode
   ];
 
-  nativeCheckInputs = [ pytest-xdist pytestCheckHook pandoc ];
+  nativeCheckInputs = [
+    pytest-xdist
+    pytestCheckHook
+    pandoc
+  ];
 
   postPatch = ''
     substituteInPlace pelican/tests/test_pelican.py \
@@ -100,6 +111,9 @@ buildPythonPackage rec {
       "Static site generator that requires no database or server-side logic";
     homepage = "https://getpelican.com/";
     license = licenses.agpl3;
-    maintainers = with maintainers; [ offline prikhi ];
+    maintainers = with maintainers; [
+      offline
+      prikhi
+    ];
   };
 }

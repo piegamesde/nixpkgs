@@ -39,8 +39,14 @@ stdenv.mkDerivation rec {
     substituteInPlace ./configure --replace -lcurses -lncurses
   '';
 
-  nativeBuildInputs = [ flex bison ];
-  buildInputs = [ libxml2 ncurses ];
+  nativeBuildInputs = [
+    flex
+    bison
+  ];
+  buildInputs = [
+    libxml2
+    ncurses
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-I${libxml2.dev}/include/libxml2";
 

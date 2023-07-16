@@ -27,7 +27,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [ bash curl dnsutils gawk jq netcat ];
+  buildInputs = [
+    bash
+    curl
+    dnsutils
+    gawk
+    jq
+    netcat
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -39,7 +46,14 @@ stdenv.mkDerivation rec {
 
     wrapProgram "$out/bin/twa" \
       --prefix PATH : ${
-        lib.makeBinPath [ curl dnsutils gawk jq ncurses netcat ]
+        lib.makeBinPath [
+          curl
+          dnsutils
+          gawk
+          jq
+          ncurses
+          netcat
+        ]
       }
 
     runHook postInstall

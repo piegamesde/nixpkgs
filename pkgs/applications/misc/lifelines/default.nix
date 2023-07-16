@@ -33,8 +33,16 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ gettext libiconv ncurses perl ];
-  nativeBuildInputs = [ autoreconfHook bison ];
+  buildInputs = [
+    gettext
+    libiconv
+    ncurses
+    perl
+  ];
+  nativeBuildInputs = [
+    autoreconfHook
+    bison
+  ];
 
   meta = with lib; {
     description = "Genealogy tool with ncurses interface";

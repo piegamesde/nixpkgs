@@ -6,7 +6,10 @@ args@{
   baseName = "mgl-pax";
   version = "20211209-git";
 
-  parasites = [ "mgl-pax/document" "mgl-pax/navigate" ];
+  parasites = [
+    "mgl-pax/document"
+    "mgl-pax/navigate"
+  ];
 
   description = ''
     Exploratory programming tool and documentation

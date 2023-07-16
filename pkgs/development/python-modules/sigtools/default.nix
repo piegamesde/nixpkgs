@@ -27,7 +27,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ attrs ];
 
-  nativeCheckInputs = [ mock repeated-test sphinx unittestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    repeated-test
+    sphinx
+    unittestCheckHook
+  ];
 
   pythonImportsCheck = [ "sigtools" ];
 

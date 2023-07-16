@@ -16,7 +16,12 @@ let
       description =
         "Open-source re-implementation of Westwood Studios' 2D Command and Conquer games";
       homepage = "https://www.openra.net/";
-      mods = [ "cnc" "d2k" "ra" "ts" ];
+      mods = [
+        "cnc"
+        "d2k"
+        "ra"
+        "ts"
+      ];
       src = fetchFromGitHub {
         owner = "OpenRA";
         repo = "OpenRA";

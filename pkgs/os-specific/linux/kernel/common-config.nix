@@ -199,23 +199,35 @@ let
       NF_CONNTRACK_TIMEOUT = yes;
       NF_CONNTRACK_TIMESTAMP = yes;
       NETFILTER_NETLINK_GLUE_CT = yes;
-      NF_TABLES_INET =
-        mkMerge [ (whenOlder "4.17" module) (whenAtLeast "4.17" yes) ];
-      NF_TABLES_NETDEV =
-        mkMerge [ (whenOlder "4.17" module) (whenAtLeast "4.17" yes) ];
+      NF_TABLES_INET = mkMerge [
+        (whenOlder "4.17" module)
+        (whenAtLeast "4.17" yes)
+      ];
+      NF_TABLES_NETDEV = mkMerge [
+        (whenOlder "4.17" module)
+        (whenAtLeast "4.17" yes)
+      ];
       NFT_REJECT_NETDEV = whenAtLeast "5.11" module;
 
       # IP: Netfilter Configuration
-      NF_TABLES_IPV4 =
-        mkMerge [ (whenOlder "4.17" module) (whenAtLeast "4.17" yes) ];
-      NF_TABLES_ARP =
-        mkMerge [ (whenOlder "4.17" module) (whenAtLeast "4.17" yes) ];
+      NF_TABLES_IPV4 = mkMerge [
+        (whenOlder "4.17" module)
+        (whenAtLeast "4.17" yes)
+      ];
+      NF_TABLES_ARP = mkMerge [
+        (whenOlder "4.17" module)
+        (whenAtLeast "4.17" yes)
+      ];
       # IPv6: Netfilter Configuration
-      NF_TABLES_IPV6 =
-        mkMerge [ (whenOlder "4.17" module) (whenAtLeast "4.17" yes) ];
+      NF_TABLES_IPV6 = mkMerge [
+        (whenOlder "4.17" module)
+        (whenAtLeast "4.17" yes)
+      ];
       # Bridge Netfilter Configuration
-      NF_TABLES_BRIDGE =
-        mkMerge [ (whenBetween "4.19" "5.3" yes) (whenAtLeast "5.3" module) ];
+      NF_TABLES_BRIDGE = mkMerge [
+        (whenBetween "4.19" "5.3" yes)
+        (whenAtLeast "5.3" module)
+      ];
 
       # needed for `dropwatch`
       # Builtin-only since https://github.com/torvalds/linux/commit/f4b6bcc7002f0e3a3428bac33cf1945abff95450
@@ -256,10 +268,14 @@ let
       B43_PHY_HT = option yes;
       BCMA_HOST_PCI = option yes;
       RTW88 = whenAtLeast "5.2" module;
-      RTW88_8822BE =
-        mkMerge [ (whenBetween "5.2" "5.8" yes) (whenAtLeast "5.8" module) ];
-      RTW88_8822CE =
-        mkMerge [ (whenBetween "5.2" "5.8" yes) (whenAtLeast "5.8" module) ];
+      RTW88_8822BE = mkMerge [
+        (whenBetween "5.2" "5.8" yes)
+        (whenAtLeast "5.8" module)
+      ];
+      RTW88_8822CE = mkMerge [
+        (whenBetween "5.2" "5.8" yes)
+        (whenAtLeast "5.8" module)
+      ];
     };
 
     fb = {
@@ -991,7 +1007,10 @@ let
       X86_AMD_PLATFORM_DEVICE = yes;
       X86_PLATFORM_DRIVERS_DELL = whenAtLeast "5.12" yes;
 
-      LIRC = mkMerge [ (whenOlder "4.16" module) (whenAtLeast "4.17" yes) ];
+      LIRC = mkMerge [
+        (whenOlder "4.16" module)
+        (whenAtLeast "4.17" yes)
+      ];
 
       SCHED_CORE = whenAtLeast "5.14" yes;
 

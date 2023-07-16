@@ -31,11 +31,22 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ pybind11 setuptools-scm ];
+  nativeBuildInputs = [
+    pybind11
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs = [ numpy pandas ];
+  propagatedBuildInputs = [
+    numpy
+    pandas
+  ];
 
-  nativeCheckInputs = [ google-cloud-storage mypy psutil pytestCheckHook ];
+  nativeCheckInputs = [
+    google-cloud-storage
+    mypy
+    psutil
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "duckdb" ];
 
@@ -43,6 +54,9 @@ buildPythonPackage rec {
     description = "Python binding for DuckDB";
     homepage = "https://duckdb.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ costrouc cpcloud ];
+    maintainers = with maintainers; [
+      costrouc
+      cpcloud
+    ];
   };
 }

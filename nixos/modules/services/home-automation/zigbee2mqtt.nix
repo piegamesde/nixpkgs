@@ -14,11 +14,18 @@ let
   configFile = format.generate "zigbee2mqtt.yaml" cfg.settings;
 
 in {
-  meta.maintainers = with maintainers; [ sweber hexa ];
+  meta.maintainers = with maintainers; [
+    sweber
+    hexa
+  ];
 
   imports = [
     # Remove warning before the 21.11 release
-    (mkRenamedOptionModule [ "services" "zigbee2mqtt" "config" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "zigbee2mqtt"
+      "config"
+    ] [
       "services"
       "zigbee2mqtt"
       "settings"
@@ -114,14 +121,19 @@ in {
         ProtectSystem = "strict";
         ReadWritePaths = cfg.dataDir;
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SupplementaryGroups = [ "dialout" ];
         SystemCallArchitectures = "native";
-        SystemCallFilter =
-          [ "@system-service @pkey" "~@privileged @resources" ];
+        SystemCallFilter = [
+          "@system-service @pkey"
+          "~@privileged @resources"
+        ];
         UMask = "0077";
       };
       preStart = ''

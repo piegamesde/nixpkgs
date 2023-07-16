@@ -33,7 +33,10 @@ in stdenv.mkDerivation ({
   name = lib.replaceStrings [ " " ] [ "" ]
     name; # Android APKs may contain white spaces in their names, but Nix store paths cannot
   ANDROID_HOME = "${androidsdk}/libexec/android-sdk";
-  buildInputs = [ jdk ant ];
+  buildInputs = [
+    jdk
+    ant
+  ];
   buildPhase = ''
     ${lib.optionalString release ''
       # Provide key singing attributes

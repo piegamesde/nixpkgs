@@ -24,9 +24,16 @@ buildPythonPackage rec {
     hash = "sha256-3r5BwVlNolji2HIGjqv8gkizx4wWxrKYkiNmSJedKmI=";
   };
 
-  propagatedBuildInputs = [ aiohttp ffmpeg-python requests ];
+  propagatedBuildInputs = [
+    aiohttp
+    ffmpeg-python
+    requests
+  ];
 
-  nativeCheckInputs = [ aiounittest pytestCheckHook ];
+  nativeCheckInputs = [
+    aiounittest
+    pytestCheckHook
+  ];
 
   postPatch = ''
     # Packages in nixpkgs is different than the module name

@@ -19,7 +19,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [ mock nose pytest ];
+  nativeCheckInputs = [
+    mock
+    nose
+    pytest
+  ];
 
   checkPhase = ''
     pytest mohawk/tests.py

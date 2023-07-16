@@ -25,9 +25,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-iautgHOVzdLWYGOVu3wHBDt30uCbaP58mDz/l7buB1k=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ gtk3 wxGTK32 curl gettext glib indi-full libnova ];
+  buildInputs = [
+    gtk3
+    wxGTK32
+    curl
+    gettext
+    glib
+    indi-full
+    libnova
+  ];
 
   cmakeFlags = [ "-DOPENSOURCE_ONLY=1" ];
 

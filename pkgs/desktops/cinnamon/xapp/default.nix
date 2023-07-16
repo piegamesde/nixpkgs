@@ -25,7 +25,10 @@ stdenv.mkDerivation rec {
   pname = "xapp";
   version = "2.4.3";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "linuxmint";
@@ -34,7 +37,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-j04vy/uVWY08Xdxqfo2MMUAlqsUMJTsAt67+XjkdhFg=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config python3 vala wrapGAppsHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    python3
+    vala
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     gobject-introspection
@@ -53,13 +63,15 @@ stdenv.mkDerivation rec {
   ];
 
   # Requires in xapp.pc
-  propagatedBuildInputs = [ gtk3 cairo glib ];
-
-  mesonFlags = [
-    "-Dpy-overrides-dir=${
-      placeholder "out"
-    }/${python3.sitePackages}/gi/overrides"
+  propagatedBuildInputs = [
+    gtk3
+    cairo
+    glib
   ];
+
+  mesonFlags = [ "-Dpy-overrides-dir=${
+      placeholder "out"
+    }/${python3.sitePackages}/gi/overrides" ];
 
   postPatch = ''
     chmod +x schemas/meson_install_schemas.py # patchShebangs requires executable file

@@ -41,12 +41,26 @@ stdenv.mkDerivation {
     mkdir -p config
   '';
 
-  configureFlags = [ "--with-gd" "--with-glib" ];
+  configureFlags = [
+    "--with-gd"
+    "--with-glib"
+  ];
   CFLAGS = "-Wall";
 
   strictDeps = true;
-  nativeBuildInputs = [ autoreconfHook pkg-config getopt libxslt ];
-  buildInputs = [ bash libxml2 gd.dev glib nix ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    getopt
+    libxslt
+  ];
+  buildInputs = [
+    bash
+    libxml2
+    gd.dev
+    glib
+    nix
+  ];
   nativeCheckInputs = [ nix ];
 
   doCheck = true;

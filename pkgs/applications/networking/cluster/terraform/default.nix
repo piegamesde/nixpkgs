@@ -19,7 +19,12 @@ let
       vendorHash ? null,
       ...
     }@attrs:
-    let attrs' = builtins.removeAttrs attrs [ "version" "hash" "vendorHash" ];
+    let
+      attrs' = builtins.removeAttrs attrs [
+        "version"
+        "hash"
+        "vendorHash"
+      ];
     in buildGoModule ({
       pname = "terraform";
       inherit version vendorHash;
@@ -31,7 +36,10 @@ let
         inherit hash;
       };
 
-      ldflags = [ "-s" "-w" ];
+      ldflags = [
+        "-s"
+        "-w"
+      ];
 
       postConfigure = ''
         # speakeasy hardcodes /bin/stty https://github.com/bgentry/speakeasy/issues/22

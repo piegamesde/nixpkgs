@@ -30,11 +30,26 @@ stdenv.mkDerivation rec {
     sha256 = "4/ID12JukDDvJzWupc76r7W8Us5erwv8oXZhDnB6VDk=";
   };
 
-  nativeBuildInputs =
-    [ desktop-file-utils wrapGAppsHook meson ninja pkg-config appstream-glib ];
+  nativeBuildInputs = [
+    desktop-file-utils
+    wrapGAppsHook
+    meson
+    ninja
+    pkg-config
+    appstream-glib
+  ];
 
-  buildInputs =
-    [ gtk3 json-glib curl glib gettext libmrss geoip libproxy libappindicator ];
+  buildInputs = [
+    gtk3
+    json-glib
+    curl
+    glib
+    gettext
+    libmrss
+    geoip
+    libproxy
+    libappindicator
+  ];
 
   doCheck = false; # Requires network access
 

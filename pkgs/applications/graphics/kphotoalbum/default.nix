@@ -28,11 +28,26 @@ mkDerivation rec {
 
   # not sure if we really need phonon when we have vlc, but on KDE it's bound to
   # be on the system anyway, so there is no real harm including it
-  buildInputs = [ exiv2 phonon libvlc ];
+  buildInputs = [
+    exiv2
+    phonon
+    libvlc
+  ];
 
-  nativeBuildInputs = [ extra-cmake-modules kdoctools wrapGAppsHook ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+    wrapGAppsHook
+  ];
 
-  propagatedBuildInputs = [ kconfig kiconthemes kio kinit kpurpose libkdcraw ];
+  propagatedBuildInputs = [
+    kconfig
+    kiconthemes
+    kio
+    kinit
+    kpurpose
+    libkdcraw
+  ];
 
   qtWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ ffmpeg ]}" ];
 

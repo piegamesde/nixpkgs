@@ -107,7 +107,10 @@ rec {
         # Do not remove static from make files as we want a static binary
         postPatch = "";
 
-        buildInputs = [ glibc glibc.static ];
+        buildInputs = [
+          glibc
+          glibc.static
+        ];
 
         env.NIX_CFLAGS_COMPILE = "-DMINIMAL=ON";
       });
@@ -127,8 +130,14 @@ rec {
 
         goPackagePath = "github.com/docker/docker";
 
-        nativeBuildInputs =
-          [ makeWrapper pkg-config go-md2man go libtool installShellFiles ];
+        nativeBuildInputs = [
+          makeWrapper
+          pkg-config
+          go-md2man
+          go
+          libtool
+          installShellFiles
+        ];
         buildInputs = [ sqlite ] ++ lib.optional withLvm lvm2
           ++ lib.optional withBtrfs btrfs-progs
           ++ lib.optional withSystemd systemd
@@ -147,7 +156,11 @@ rec {
         ]);
 
         extraUserPath = lib.optionals (stdenv.isLinux && !clientOnly)
-          (lib.makeBinPath [ rootlesskit slirp4netns fuse-overlayfs ]);
+          (lib.makeBinPath [
+            rootlesskit
+            slirp4netns
+            fuse-overlayfs
+          ]);
 
         patches = [
           # This patch incorporates code from a PR fixing using buildkit with the ZFS graph driver.
@@ -227,8 +240,14 @@ rec {
 
       goPackagePath = "github.com/docker/cli";
 
-      nativeBuildInputs =
-        [ makeWrapper pkg-config go-md2man go libtool installShellFiles ];
+      nativeBuildInputs = [
+        makeWrapper
+        pkg-config
+        go-md2man
+        go
+        libtool
+        installShellFiles
+      ];
       buildInputs = lib.optional (!clientOnly) sqlite
         ++ lib.optional withLvm lvm2 ++ lib.optional withBtrfs btrfs-progs
         ++ lib.optional withSystemd systemd
@@ -260,7 +279,10 @@ rec {
         cd -
       '';
 
-      outputs = [ "out" "man" ];
+      outputs = [
+        "out"
+        "man"
+      ];
 
       installPhase = ''
         cd ./go/src/${goPackagePath}

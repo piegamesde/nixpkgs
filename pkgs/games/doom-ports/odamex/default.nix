@@ -20,9 +20,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WBqO5fWzemw1kYlY192v0nnZkbIEVuWmjWYMy+1ODPQ=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    makeWrapper
+  ];
 
-  buildInputs = [ SDL SDL_mixer SDL_net wxGTK32 ];
+  buildInputs = [
+    SDL
+    SDL_mixer
+    SDL_net
+    wxGTK32
+  ];
 
   installPhase = ''
     runHook preInstall

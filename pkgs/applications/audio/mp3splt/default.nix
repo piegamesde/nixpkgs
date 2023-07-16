@@ -15,11 +15,17 @@ stdenv.mkDerivation rec {
     sha256 = "1aiv20gypb6r84qabz8gblk8vi42cg3x333vk2pi3fyqvl82phry";
   };
 
-  configureFlags = [ "--enable-oggsplt-symlink" "--enable-flacsplt-symlink" ];
+  configureFlags = [
+    "--enable-oggsplt-symlink"
+    "--enable-flacsplt-symlink"
+  ];
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ libmp3splt ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   meta = with lib; {
     description =

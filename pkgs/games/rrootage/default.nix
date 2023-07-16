@@ -56,10 +56,19 @@ in stdenv.mkDerivation {
     substituteInPlace "src/barragemanager.cc" --replace "/usr/share/games/rrootage" "$out/share/games/rrootage"
   '';
 
-  buildInputs = [ SDL SDL_mixer bulletml ];
-  makeFlags = [ "-C src" "-f makefile.lin" ];
-  hardeningDisable =
-    [ "stackprotector" "fortify" ]; # buffer overflow without this
+  buildInputs = [
+    SDL
+    SDL_mixer
+    bulletml
+  ];
+  makeFlags = [
+    "-C src"
+    "-f makefile.lin"
+  ];
+  hardeningDisable = [
+    "stackprotector"
+    "fortify"
+  ]; # buffer overflow without this
 
   installPhase = ''
     install -d "$out"/share/games

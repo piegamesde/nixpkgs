@@ -24,9 +24,15 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace "{1..9}" "1 5"
   '';
 
-  nativeBuildInputs = [ ronn shocco ];
+  nativeBuildInputs = [
+    ronn
+    shocco
+  ];
 
-  installTargets = [ "install" "install-man" ];
+  installTargets = [
+    "install"
+    "install-man"
+  ];
 
   preInstall = ''
     for i in 1 5; do

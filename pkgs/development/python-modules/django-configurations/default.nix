@@ -30,8 +30,13 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ django ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  nativeCheckInputs =
-    [ mock dj-database-url dj-email-url dj-search-url django-cache-url ];
+  nativeCheckInputs = [
+    mock
+    dj-database-url
+    dj-email-url
+    dj-search-url
+    django-cache-url
+  ];
 
   checkPhase = ''
     export PYTHONPATH=.:$PYTHONPATH

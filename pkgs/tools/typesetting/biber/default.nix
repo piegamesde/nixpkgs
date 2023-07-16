@@ -84,7 +84,10 @@ in perlPackages.buildPerlModule {
 
   meta = with lib; {
     description = "Backend for BibLaTeX";
-    license = with licenses; [ artistic1 gpl1Plus ];
+    license = with licenses; [
+      artistic1
+      gpl1Plus
+    ];
     platforms = platforms.unix;
     maintainers = [ maintainers.ttuegel ];
   };

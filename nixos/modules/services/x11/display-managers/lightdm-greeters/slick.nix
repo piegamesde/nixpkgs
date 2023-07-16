@@ -142,7 +142,11 @@ in {
       };
     };
 
-    environment.systemPackages = [ cursors icons theme ];
+    environment.systemPackages = [
+      cursors
+      icons
+      theme
+    ];
 
     fonts.fonts = [ font ];
 

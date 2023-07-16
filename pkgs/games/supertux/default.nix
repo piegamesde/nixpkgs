@@ -35,7 +35,10 @@ stdenv.mkDerivation rec {
     sed '1i#include <memory>' -i external/partio_zip/zip_manager.hpp # gcc12
   '';
 
-  nativeBuildInputs = [ pkg-config cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
 
   buildInputs = [
     boost

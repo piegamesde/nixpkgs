@@ -23,9 +23,17 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  nativeBuildInputs = [ pkg-config cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
 
-  buildInputs = [ jansson snappy xz zlib ];
+  buildInputs = [
+    jansson
+    snappy
+    xz
+    zlib
+  ];
 
   meta = with lib; {
     description =

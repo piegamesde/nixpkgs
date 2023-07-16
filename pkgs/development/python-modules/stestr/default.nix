@@ -27,8 +27,15 @@ buildPythonPackage rec {
     rm test-requirements.txt
   '';
 
-  propagatedBuildInputs =
-    [ cliff fixtures future pbr subunit testtools voluptuous ];
+  propagatedBuildInputs = [
+    cliff
+    fixtures
+    future
+    pbr
+    subunit
+    testtools
+    voluptuous
+  ];
 
   # check in passthru.tests.pytest to escape infinite recursion with other oslo components
   doCheck = false;

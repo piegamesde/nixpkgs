@@ -16,7 +16,10 @@ in {
       ids = mkOption {
         type = types.listOf types.string;
         default = [ "*" ];
-        example = [ "*" "-0123:0456" ];
+        example = [
+          "*"
+          "-0123:0456"
+        ];
         description = lib.mdDoc ''
           Device identifiers, as shown by {manpage}`keyd(1)`.
         '';
@@ -81,14 +84,19 @@ in {
         Restart = "always";
 
         DynamicUser = true;
-        SupplementaryGroups =
-          [ config.users.groups.input.name config.users.groups.uinput.name ];
+        SupplementaryGroups = [
+          config.users.groups.input.name
+          config.users.groups.uinput.name
+        ];
 
         RuntimeDirectory = "keyd";
 
         # Hardening
         CapabilityBoundingSet = "";
-        DeviceAllow = [ "char-input rw" "/dev/uinput rw" ];
+        DeviceAllow = [
+          "char-input rw"
+          "/dev/uinput rw"
+        ];
         ProtectClock = true;
         PrivateNetwork = true;
         ProtectHome = true;

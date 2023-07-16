@@ -8,9 +8,15 @@ import ./make-test-python.nix ({
         lib,
         ...
       }: {
-        imports = [ common/user-account.nix common/x11.nix ];
+        imports = [
+          common/user-account.nix
+          common/x11.nix
+        ];
 
-        virtualisation.emptyDiskImages = [ 512 512 ];
+        virtualisation.emptyDiskImages = [
+          512
+          512
+        ];
 
         environment.systemPackages = [ pkgs.cryptsetup ];
 
@@ -31,7 +37,12 @@ import ./make-test-python.nix ({
 
         systemd.shutdown.test = pkgs.writeScript "test.shutdown" ''
           #!${pkgs.runtimeShell}
-          PATH=${lib.makeBinPath (with pkgs; [ util-linux coreutils ])}
+          PATH=${
+            lib.makeBinPath (with pkgs; [
+              util-linux
+              coreutils
+            ])
+          }
           mount -t 9p shared -o trans=virtio,version=9p2000.L /tmp/shared
           touch /tmp/shared/shutdown-test
           umount /tmp/shared

@@ -32,8 +32,18 @@ mkDerivation {
     sha256 = "sha256-ReWQNzeoyTF66hVnevf6Kkrnt0/PqRHd3oyyPYtx+0M=";
   };
 
-  nativeBuildInputs = [ inkscape meson ninja pkg-config wrapQtAppsHook ];
-  buildInputs = [ yaml-cpp qtbase qtsvg ];
+  nativeBuildInputs = [
+    inkscape
+    meson
+    ninja
+    pkg-config
+    wrapQtAppsHook
+  ];
+  buildInputs = [
+    yaml-cpp
+    qtbase
+    qtsvg
+  ];
 
   postPatch = ''
     substituteInPlace src/application/*.cpp \

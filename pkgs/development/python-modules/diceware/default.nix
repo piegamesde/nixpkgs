@@ -21,7 +21,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [ coverage pytest ];
+  nativeCheckInputs = [
+    coverage
+    pytest
+  ];
 
   # see https://github.com/ulif/diceware/commit/a7d844df76cd4b95a717f21ef5aa6167477b6733
   checkPhase = ''

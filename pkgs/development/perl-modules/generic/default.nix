@@ -8,7 +8,10 @@
 {
   buildInputs ? [ ],
   nativeBuildInputs ? [ ],
-  outputs ? [ "out" "devdoc" ],
+  outputs ? [
+    "out"
+    "devdoc"
+  ],
   src ? null
 
     # enabling or disabling does nothing for perl packages so set it explicitly
@@ -57,11 +60,8 @@ lib.throwIf (attrs ? name) ''
     builder = ./builder.sh;
 
     buildInputs = buildInputs ++ [ perl ];
-    nativeBuildInputs = nativeBuildInputs
-      ++ (if stdenv.buildPlatform != stdenv.hostPlatform then
-        [ perl.mini ]
-      else
-        [ perl ]);
+    nativeBuildInputs = nativeBuildInputs ++ (if stdenv.buildPlatform
+    != stdenv.hostPlatform then [ perl.mini ] else [ perl ]);
 
     inherit outputs src doCheck checkTarget enableParallelBuilding;
     env = {

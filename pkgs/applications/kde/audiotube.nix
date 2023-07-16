@@ -45,7 +45,10 @@ mkDerivation rec {
     gstreamer
   ]) ++ pythonPath;
 
-  pythonPath = with python3Packages; [ yt-dlp ytmusicapi ];
+  pythonPath = with python3Packages; [
+    yt-dlp
+    ytmusicapi
+  ];
 
   preFixup = ''
     buildPythonPath "$pythonPath"
@@ -58,7 +61,12 @@ mkDerivation rec {
     description = "Client for YouTube Music";
     homepage = "https://invent.kde.org/plasma-mobile/audiotube";
     # https://invent.kde.org/plasma-mobile/audiotube/-/tree/c503d0607a3386112beaa9cf990ab85fe33ef115/LICENSES
-    license = with licenses; [ bsd2 cc0 gpl2Only gpl3Only ];
+    license = with licenses; [
+      bsd2
+      cc0
+      gpl2Only
+      gpl3Only
+    ];
     maintainers = with maintainers; [ samueldr ];
   };
 }

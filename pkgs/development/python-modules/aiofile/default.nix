@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ caio ];
 
-  nativeCheckInputs = [ aiomisc aiomisc-pytest pytestCheckHook ];
+  nativeCheckInputs = [
+    aiomisc
+    aiomisc-pytest
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "aiofile" ];
 

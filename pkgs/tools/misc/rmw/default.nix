@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ pkg-config meson ninja ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+  ];
 
   buildInputs = [ ncurses ];
 

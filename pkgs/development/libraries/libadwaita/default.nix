@@ -23,7 +23,11 @@ stdenv.mkDerivation rec {
   pname = "libadwaita";
   version = "1.3.2";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
   outputBin = "devdoc"; # demo app
 
   src = fetchFromGitLab {
@@ -36,14 +40,23 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs =
-    [ gi-docgen meson ninja pkg-config sassc vala gobject-introspection ];
+  nativeBuildInputs = [
+    gi-docgen
+    meson
+    ninja
+    pkg-config
+    sassc
+    vala
+    gobject-introspection
+  ];
 
   mesonFlags = [ "-Dgtk_doc=true" ]
     ++ lib.optionals (!doCheck) [ "-Dtests=false" ];
 
-  buildInputs = [ fribidi ]
-    ++ lib.optionals stdenv.isDarwin [ AppKit Foundation ];
+  buildInputs = [ fribidi ] ++ lib.optionals stdenv.isDarwin [
+    AppKit
+    Foundation
+  ];
 
   propagatedBuildInputs = [ gtk4 ];
 

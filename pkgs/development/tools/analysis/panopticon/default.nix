@@ -21,7 +21,11 @@ rustPlatform.buildRustPackage rec {
     sha256 = "1zv87nqhrzsxx0m891df4vagzssj3kblfv9yp7j96dw0vn9950qa";
   };
 
-  nativeBuildInputs = [ cmake pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    makeWrapper
+  ];
   propagatedBuildInputs = with qt5; [
     qt5.qtbase
     qtdeclarative

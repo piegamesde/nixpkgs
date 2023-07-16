@@ -17,7 +17,12 @@ stdenv.mkDerivation rec {
     "apache-${zookeeper.pname}-${version}/zookeeper-contrib/zookeeper-contrib-zkfuse";
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ zookeeper_mt log4cxx boost fuse ];
+  buildInputs = [
+    zookeeper_mt
+    log4cxx
+    boost
+    fuse
+  ];
 
   postPatch = ''
     # Make the async API accessible, and use the proper include path.
@@ -37,7 +42,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     platforms = platforms.linux;
-    maintainers = with maintainers; [ cstrahan ztzg ];
+    maintainers = with maintainers; [
+      cstrahan
+      ztzg
+    ];
     license = licenses.asl20;
   };
 }

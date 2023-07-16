@@ -17,7 +17,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-uQKTE36pLO8uhrX794utqaDGUeyqRz6zLCQFA7DYkNc=";
   };
 
-  buildInputs = [ bzip2 lzo openssl zlib ];
+  buildInputs = [
+    bzip2
+    lzo
+    openssl
+    zlib
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

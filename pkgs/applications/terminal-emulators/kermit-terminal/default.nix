@@ -21,9 +21,16 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-XPHF33Nu+H8OcQFwsuUOhDBDWKm8sh5B36sfROeSWPg=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ gtk3 pcre vte ];
+  buildInputs = [
+    gtk3
+    pcre
+    vte
+  ];
 
   passthru.tests.test = nixosTests.terminal-emulators.kermit;
 

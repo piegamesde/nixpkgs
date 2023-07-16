@@ -24,7 +24,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ cryptography ];
 
-  nativeCheckInputs = [ flake8 mock nose pytest ];
+  nativeCheckInputs = [
+    flake8
+    mock
+    nose
+    pytest
+  ];
 
   meta = with lib; {
     description = "Library for VAPID header generation";

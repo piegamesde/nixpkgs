@@ -48,7 +48,10 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   strictDeps = true;
-  outputs = [ "out" "dev" ] ++ lib.optional splitStaticOutput "static";
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optional splitStaticOutput "static";
   setOutputFlags = false;
   outputDoc = "dev"; # single tiny man3 page
 

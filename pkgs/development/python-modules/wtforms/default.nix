@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-azUbuxLdWK9X/+8FvHhCXQjRkU4P1o7hQUO3reAjxbw=";
   };
 
-  propagatedBuildInputs = [ markupsafe babel ];
+  propagatedBuildInputs = [
+    markupsafe
+    babel
+  ];
 
   passthru.optional-dependencies = { email = [ email-validator ]; };
 

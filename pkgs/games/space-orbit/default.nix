@@ -17,7 +17,16 @@ stdenv.mkDerivation rec {
   version = "1.01";
   patchversion = "9";
 
-  buildInputs = [ libGLU libGL libXi libXt libXext libX11 libXmu freeglut ];
+  buildInputs = [
+    libGLU
+    libGL
+    libXi
+    libXt
+    libXext
+    libX11
+    libXmu
+    freeglut
+  ];
 
   src = fetchurl {
     url =
@@ -25,13 +34,11 @@ stdenv.mkDerivation rec {
     sha256 = "1kx69f9jqnfzwjh47cl1df8p8hn3bnp6bznxnb6c4wx32ijn5gri";
   };
 
-  patches = [
-    (fetchurl {
-      url =
-        "mirror://debian/pool/main/s/space-orbit/space-orbit_${version}-${patchversion}.diff.gz";
-      sha256 = "1v3s97day6fhv08l2rn81waiprhi1lfyjjsj55axfh6n6zqfn1w2";
-    })
-  ];
+  patches = [ (fetchurl {
+    url =
+      "mirror://debian/pool/main/s/space-orbit/space-orbit_${version}-${patchversion}.diff.gz";
+    sha256 = "1v3s97day6fhv08l2rn81waiprhi1lfyjjsj55axfh6n6zqfn1w2";
+  }) ];
 
   preBuild = ''
     cd src

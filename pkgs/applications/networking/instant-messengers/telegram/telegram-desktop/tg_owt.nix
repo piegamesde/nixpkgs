@@ -51,9 +51,17 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ pkg-config cmake ninja yasm ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    ninja
+    yasm
+  ];
 
   buildInputs = [
     libjpeg

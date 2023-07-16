@@ -119,12 +119,12 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion =
         !((cfg.webDriverSupport == true) && (cfg.playwrightSupport == true));
       message =
         "'services.changedetection-io.webDriverSupport' and 'services.changedetection-io.playwrightSupport' cannot be used together.";
-    }];
+    } ];
 
     systemd =
       let defaultStateDir = cfg.datastorePath == "/var/lib/changedetection-io";
@@ -163,8 +163,8 @@ in {
             Restart = "on-failure";
           };
         };
-        tmpfiles.rules = mkIf defaultStateDir
-          [ "d ${cfg.datastorePath} 0750 ${cfg.user} ${cfg.group} - -" ];
+        tmpfiles.rules = mkIf
+          defaultStateDir [ "d ${cfg.datastorePath} 0750 ${cfg.user} ${cfg.group} - -" ];
       };
 
     users = {

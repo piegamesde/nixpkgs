@@ -20,7 +20,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [ pytest-cov pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-cov
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "brottsplatskartan" ];
 

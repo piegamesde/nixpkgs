@@ -56,7 +56,12 @@ stdenv.mkDerivation rec {
     vala
     desktop-file-utils
   ];
-  buildInputs = [ gtk3 librsvg gsound gnome.adwaita-icon-theme ];
+  buildInputs = [
+    gtk3
+    librsvg
+    gsound
+    gnome.adwaita-icon-theme
+  ];
 
   passthru = {
     updateScript = gnome.updateScript {

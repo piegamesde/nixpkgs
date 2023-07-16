@@ -36,7 +36,10 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-J9eVFIfmyBviVuT1MYKb5yoacbPqOAT3A8jahWv5qw8=";
   };
 
-  buildInputs = [ ffmpeg x264 ] ++ lib.optionals stdenv.isDarwin [
+  buildInputs = [
+    ffmpeg
+    x264
+  ] ++ lib.optionals stdenv.isDarwin [
     ApplicationServices
     Carbon
     Cocoa
@@ -60,8 +63,16 @@ rustPlatform.buildRustPackage rec {
     libdrm
   ];
 
-  nativeBuildInputs = [ cmake git nodePackages.typescript makeWrapper ]
-    ++ lib.optionals stdenv.isLinux [ pkg-config autoconf libtool ];
+  nativeBuildInputs = [
+    cmake
+    git
+    nodePackages.typescript
+    makeWrapper
+  ] ++ lib.optionals stdenv.isLinux [
+    pkg-config
+    autoconf
+    libtool
+  ];
 
   cargoLock = {
     lockFile = ./Cargo.lock;

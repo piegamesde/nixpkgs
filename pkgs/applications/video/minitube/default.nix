@@ -35,10 +35,19 @@ mkDerivation rec {
     ./lib_media_src_mpv_mpvwidget.patch
   ];
 
-  nativeBuildInputs = [ qmake qttools ];
+  nativeBuildInputs = [
+    qmake
+    qttools
+  ];
 
-  buildInputs =
-    [ phonon phonon-backend-vlc qtbase qtdeclarative qtx11extras mpv ];
+  buildInputs = [
+    phonon
+    phonon-backend-vlc
+    qtbase
+    qtdeclarative
+    qtx11extras
+    mpv
+  ];
 
   qmakeFlags = [ "DEFINES+=APP_GOOGLE_API_KEY=${withAPIKey}" ];
 

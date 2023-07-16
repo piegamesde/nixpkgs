@@ -16,7 +16,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ unittestCheckHook ];
 
-  unittestFlagsArray = [ "-s" "tests" ];
+  unittestFlagsArray = [
+    "-s"
+    "tests"
+  ];
 
   meta = with lib; {
     description = "C parser in Python";

@@ -62,8 +62,14 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  nativeBuildInputs =
-    [ copyDesktopItems gtest makeWrapper meson ninja pkg-config ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    gtest
+    makeWrapper
+    meson
+    ninja
+    pkg-config
+  ];
 
   buildInputs = [
     alsa-lib
@@ -86,17 +92,18 @@ stdenv.mkDerivation (finalAttrs: {
     speexdsp
   ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "dosbox-staging";
-      exec = "dosbox-staging";
-      icon = "dosbox-staging";
-      comment = "x86 dos emulator enhanced";
-      desktopName = "DosBox-Staging";
-      genericName = "DOS emulator";
-      categories = [ "Emulator" "Game" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "dosbox-staging";
+    exec = "dosbox-staging";
+    icon = "dosbox-staging";
+    comment = "x86 dos emulator enhanced";
+    desktopName = "DosBox-Staging";
+    genericName = "DOS emulator";
+    categories = [
+      "Emulator"
+      "Game"
+    ];
+  }) ];
 
   postFixup = ''
     # Rename binary, add a wrapper, and copy manual to avoid conflict with
@@ -122,7 +129,10 @@ stdenv.mkDerivation (finalAttrs: {
       practices.
     '';
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ joshuafern AndersonTorres ];
+    maintainers = with lib.maintainers; [
+      joshuafern
+      AndersonTorres
+    ];
     platforms = lib.platforms.unix;
     priority = 101;
   };

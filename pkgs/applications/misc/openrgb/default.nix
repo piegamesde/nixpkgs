@@ -26,8 +26,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-46dL1D5oVlw6mNuFDCbbrUDmq42yFXV/qFJ1JnPT5/s=";
   };
 
-  nativeBuildInputs = [ qmake pkg-config wrapQtAppsHook ];
-  buildInputs = [ libusb1 hidapi mbedtls_2 qtbase qttools ];
+  nativeBuildInputs = [
+    qmake
+    pkg-config
+    wrapQtAppsHook
+  ];
+  buildInputs = [
+    libusb1
+    hidapi
+    mbedtls_2
+    qtbase
+    qttools
+  ];
 
   postPatch = ''
     patchShebangs scripts/build-udev-rules.sh
@@ -62,7 +72,11 @@ stdenv.mkDerivation rec {
         # Welcome to Escape Hell, we have backslashes
         ''
           DEFINES+=OPENRGB_EXTRA_PLUGIN_DIRECTORY=\\\""${
-            lib.escape [ "\\" ''"'' " " ] (toString pluginsDir)
+            lib.escape [
+              "\\"
+              ''"''
+              " "
+            ] (toString pluginsDir)
           }/lib\\\""''
       ];
     });

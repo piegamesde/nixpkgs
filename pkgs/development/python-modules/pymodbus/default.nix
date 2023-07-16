@@ -32,8 +32,15 @@ buildPythonPackage rec {
   };
 
   # Twisted asynchronous version is not supported due to a missing dependency
-  propagatedBuildInputs =
-    [ aiohttp click prompt-toolkit pygments pyserial pyserial-asyncio tornado ];
+  propagatedBuildInputs = [
+    aiohttp
+    click
+    prompt-toolkit
+    pygments
+    pyserial
+    pyserial-asyncio
+    tornado
+  ];
 
   nativeCheckInputs = [
     mock

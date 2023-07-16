@@ -55,7 +55,10 @@ in runBuildTests {
       float = 3.141;
       str = "foo";
       attrs.foo = null;
-      list = [ null null ];
+      list = [
+        null
+        null
+      ];
       path = ./formats.nix;
     };
     expected = ''
@@ -86,7 +89,10 @@ in runBuildTests {
       float = 3.141;
       str = "foo";
       attrs.foo = null;
-      list = [ null null ];
+      list = [
+        null
+        null
+      ];
       path = ./formats.nix;
     };
     expected = ''
@@ -125,7 +131,13 @@ in runBuildTests {
   testIniDuplicateKeys = {
     drv = evalFormat formats.ini { listsAsDuplicateKeys = true; } {
       foo = {
-        bar = [ null true "test" 1.2 10 ];
+        bar = [
+          null
+          true
+          "test"
+          1.2
+          10
+        ];
         baz = false;
         qux = "qux";
       };
@@ -148,7 +160,13 @@ in runBuildTests {
         concatMapStringsSep ", " (generators.mkValueStringDefault { });
     } {
       foo = {
-        bar = [ null true "test" 1.2 10 ];
+        bar = [
+          null
+          true
+          "test"
+          1.2
+          10
+        ];
         baz = false;
         qux = "qux";
       };
@@ -178,7 +196,13 @@ in runBuildTests {
 
   testKeyValueDuplicateKeys = {
     drv = evalFormat formats.keyValue { listsAsDuplicateKeys = true; } {
-      bar = [ null true "test" 1.2 10 ];
+      bar = [
+        null
+        true
+        "test"
+        1.2
+        10
+      ];
       baz = false;
       qux = "qux";
     };
@@ -198,7 +222,13 @@ in runBuildTests {
       listToValue =
         concatMapStringsSep ", " (generators.mkValueStringDefault { });
     } {
-      bar = [ null true "test" 1.2 10 ];
+      bar = [
+        null
+        true
+        "test"
+        1.2
+        10
+      ];
       baz = false;
       qux = "qux";
     };
@@ -217,7 +247,10 @@ in runBuildTests {
       float = 3.141;
       str = "foo";
       attrs.foo = "foo";
-      list = [ 1 2 ];
+      list = [
+        1
+        2
+      ];
       level1.level2.level3.level4 = "deep";
     };
     expected = ''

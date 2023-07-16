@@ -73,8 +73,14 @@ rec {
       syntax trees, regex wrestling, or painful DSLs.
     '';
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ jk ambroisie ];
+    maintainers = with maintainers; [
+      jk
+      ambroisie
+    ];
     # limited by semgrep-core
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
   };
 }

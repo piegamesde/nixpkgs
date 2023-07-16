@@ -22,7 +22,10 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-AYD78u70y8cY19hmM/aDjQEzxO8u9lPWhCFxRe5cqXI=";
   };
 
-  nativeBuildInputs = [ gfortran cmake ];
+  nativeBuildInputs = [
+    gfortran
+    cmake
+  ];
 
   # Configure stage fails on aarch64-darwin otherwise, due to either clang 11 or gfortran 10.
   hardeningDisable =

@@ -56,7 +56,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VYBolB6VJ3lT/rNl87qMW5DU5rdFCNvKezSLzx5y1JI=";
   };
 
-  nativeBuildInputs = [ cmake ninja pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    pkg-config
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     gsettings-desktop-schemas
@@ -116,7 +121,10 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     homepage = "https://gitlab.com/Remmina/Remmina";
     description = "Remote desktop client written in GTK";
-    maintainers = with maintainers; [ melsigl ryantm ];
+    maintainers = with maintainers; [
+      melsigl
+      ryantm
+    ];
     platforms = platforms.linux;
   };
 }

@@ -31,7 +31,12 @@ import ./make-test-python.nix ({
     bobProjectId = "3";
   in {
     name = "gitlab";
-    meta = with pkgs.lib.maintainers; { maintainers = [ globin yayayayaka ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        globin
+        yayayayaka
+      ];
+    };
 
     nodes = {
       gitlab = {

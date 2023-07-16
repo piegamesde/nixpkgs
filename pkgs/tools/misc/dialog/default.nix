@@ -37,7 +37,10 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://invisible-island.net/dialog/dialog.html";
     description = "Display dialog boxes from shell";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ AndersonTorres spacefrogg ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      spacefrogg
+    ];
     inherit (ncurses.meta) platforms;
   };
 })

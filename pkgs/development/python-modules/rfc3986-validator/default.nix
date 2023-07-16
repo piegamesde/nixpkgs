@@ -23,7 +23,11 @@ buildPythonPackage rec {
       --replace "'pytest-runner'," ""
   '';
 
-  nativeCheckInputs = [ hypothesis pytestCheckHook rfc3987 ];
+  nativeCheckInputs = [
+    hypothesis
+    pytestCheckHook
+    rfc3987
+  ];
 
   meta = with lib; {
     description = "Pure python rfc3986 validator";

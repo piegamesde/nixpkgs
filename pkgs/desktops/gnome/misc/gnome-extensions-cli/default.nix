@@ -24,10 +24,20 @@ buildPythonApplication rec {
     hash = "sha256-4eRVmG5lqK8ql9WpvXsf18znOt7kDSnpQnLfy73doy4=";
   };
 
-  nativeBuildInputs = [ gobject-introspection poetry-core wrapGAppsNoGuiHook ];
+  nativeBuildInputs = [
+    gobject-introspection
+    poetry-core
+    wrapGAppsNoGuiHook
+  ];
 
-  propagatedBuildInputs =
-    [ colorama more-itertools packaging pydantic requests pygobject3 ];
+  propagatedBuildInputs = [
+    colorama
+    more-itertools
+    packaging
+    pydantic
+    requests
+    pygobject3
+  ];
 
   pythonImportsCheck = [ "gnome_extensions_cli" ];
 

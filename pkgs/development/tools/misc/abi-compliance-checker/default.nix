@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
     sha256 = "1f1f9j2nf9j83sfl2ljadch99v6ha8rq8xm7ax5akc05hjpyckij";
   };
 
-  buildInputs = [ binutils ctags perl ];
+  buildInputs = [
+    binutils
+    ctags
+    perl
+  ];
   propagatedBuildInputs = [ abi-dumper ];
 
   makeFlags = [ "prefix=$(out)" ];

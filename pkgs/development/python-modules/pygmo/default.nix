@@ -28,17 +28,28 @@ toPythonModule (stdenv.mkDerivation rec {
     hash = "sha256-gjmZf66AcNaAMqyLerBgRu5RUzV6qrT7DigTNE39AwI=";
   };
 
-  cmakeFlags = [
-    "-DPYGMO_INSTALL_PATH=${
+  cmakeFlags = [ "-DPYGMO_INSTALL_PATH=${
       placeholder "out"
-    }/lib/${python.libPrefix}/site-packages"
-  ];
+    }/lib/${python.libPrefix}/site-packages" ];
 
   nativeBuildInputs = [ cmake ];
 
-  propagatedBuildInputs = [ cloudpickle ipyparallel numba numpy python ];
+  propagatedBuildInputs = [
+    cloudpickle
+    ipyparallel
+    numba
+    numpy
+    python
+  ];
 
-  buildInputs = [ boost eigen ipopt nlopt pagmo2 pybind11 ];
+  buildInputs = [
+    boost
+    eigen
+    ipopt
+    nlopt
+    pagmo2
+    pybind11
+  ];
 
   doCheck = true;
 

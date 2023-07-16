@@ -29,70 +29,113 @@ let
 
 in {
   imports = [
-    (mkRenamedOptionModule [ "services" "gitea" "cookieSecure" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "gitea"
+      "cookieSecure"
+    ] [
       "services"
       "gitea"
       "settings"
       "session"
       "COOKIE_SECURE"
     ])
-    (mkRenamedOptionModule [ "services" "gitea" "disableRegistration" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "gitea"
+      "disableRegistration"
+    ] [
       "services"
       "gitea"
       "settings"
       "service"
       "DISABLE_REGISTRATION"
     ])
-    (mkRenamedOptionModule [ "services" "gitea" "domain" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "gitea"
+      "domain"
+    ] [
       "services"
       "gitea"
       "settings"
       "server"
       "DOMAIN"
     ])
-    (mkRenamedOptionModule [ "services" "gitea" "httpAddress" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "gitea"
+      "httpAddress"
+    ] [
       "services"
       "gitea"
       "settings"
       "server"
       "HTTP_ADDR"
     ])
-    (mkRenamedOptionModule [ "services" "gitea" "httpPort" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "gitea"
+      "httpPort"
+    ] [
       "services"
       "gitea"
       "settings"
       "server"
       "HTTP_PORT"
     ])
-    (mkRenamedOptionModule [ "services" "gitea" "log" "level" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "gitea"
+      "log"
+      "level"
+    ] [
       "services"
       "gitea"
       "settings"
       "log"
       "LEVEL"
     ])
-    (mkRenamedOptionModule [ "services" "gitea" "log" "rootPath" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "gitea"
+      "log"
+      "rootPath"
+    ] [
       "services"
       "gitea"
       "settings"
       "log"
       "ROOT_PATH"
     ])
-    (mkRenamedOptionModule [ "services" "gitea" "rootUrl" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "gitea"
+      "rootUrl"
+    ] [
       "services"
       "gitea"
       "settings"
       "server"
       "ROOT_URL"
     ])
-    (mkRenamedOptionModule [ "services" "gitea" "ssh" "clonePort" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "gitea"
+      "ssh"
+      "clonePort"
+    ] [
       "services"
       "gitea"
       "settings"
       "server"
       "SSH_PORT"
     ])
-    (mkRenamedOptionModule [ "services" "gitea" "staticRootPath" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "gitea"
+      "staticRootPath"
+    ] [
       "services"
       "gitea"
       "settings"
@@ -100,7 +143,11 @@ in {
       "STATIC_ROOT_PATH"
     ])
 
-    (mkChangedOptionModule [ "services" "gitea" "enableUnixSocket" ] [
+    (mkChangedOptionModule [
+      "services"
+      "gitea"
+      "enableUnixSocket"
+    ] [
       "services"
       "gitea"
       "settings"
@@ -109,7 +156,12 @@ in {
     ] (config:
       if config.services.gitea.enableUnixSocket then "http+unix" else "http"))
 
-    (mkRemovedOptionModule [ "services" "gitea" "ssh" "enable" ]
+    (mkRemovedOptionModule [
+      "services"
+      "gitea"
+      "ssh"
+      "enable"
+    ]
       "services.gitea.ssh.enable has been migrated into freeform setting services.gitea.settings.server.DISABLE_SSH. Keep in mind that the setting is inverted")
   ];
 
@@ -164,7 +216,11 @@ in {
 
       database = {
         type = mkOption {
-          type = types.enum [ "sqlite3" "mysql" "postgres" ];
+          type = types.enum [
+            "sqlite3"
+            "mysql"
+            "postgres"
+          ];
           example = "mysql";
           default = "sqlite3";
           description = lib.mdDoc "Database engine to use.";
@@ -393,8 +449,13 @@ in {
 
             server = {
               PROTOCOL = mkOption {
-                type =
-                  types.enum [ "http" "https" "fcgi" "http+unix" "fcgi+unix" ];
+                type = types.enum [
+                  "http"
+                  "https"
+                  "fcgi"
+                  "http+unix"
+                  "fcgi+unix"
+                ];
                 default = "http";
                 description = lib.mdDoc ''
                   Listen protocol. `+unix` means "over unix", not "in addition to."'';
@@ -502,12 +563,12 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = cfg.database.createDatabase -> useSqlite || cfg.database.user
         == cfg.user;
       message =
         "services.gitea.database.user must match services.gitea.user if the database is to be automatically provisioned";
-    }];
+    } ];
 
     services.gitea.settings = {
       "cron.update_checker".ENABLED = lib.mkDefault false;
@@ -555,12 +616,12 @@ in {
         enable = mkDefault true;
 
         ensureDatabases = [ cfg.database.name ];
-        ensureUsers = [{
+        ensureUsers = [ {
           name = cfg.database.user;
           ensurePermissions = {
             "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
           };
-        }];
+        } ];
       };
 
     services.mysql = optionalAttrs (useMysql && cfg.database.createDatabase) {
@@ -568,10 +629,10 @@ in {
       package = mkDefault pkgs.mariadb;
 
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [{
+      ensureUsers = [ {
         name = cfg.database.user;
         ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
-      }];
+      } ];
     };
 
     systemd.tmpfiles.rules = [
@@ -612,7 +673,11 @@ in {
         ++ lib.optional usePostgresql "postgresql.service"
         ++ lib.optional useMysql "mysql.service";
       wantedBy = [ "multi-user.target" ];
-      path = [ cfg.package pkgs.git pkgs.gnupg ];
+      path = [
+        cfg.package
+        pkgs.git
+        pkgs.gnupg
+      ];
 
       # In older versions the secret naming for JWT was kind of confusing.
       # The file jwt_secret hold the value for LFS_JWT_SECRET and JWT_SECRET
@@ -804,5 +869,9 @@ in {
       timerConfig.OnCalendar = cfg.dump.interval;
     };
   };
-  meta.maintainers = with lib.maintainers; [ srhb ma27 thehedgeh0g ];
+  meta.maintainers = with lib.maintainers; [
+    srhb
+    ma27
+    thehedgeh0g
+  ];
 }

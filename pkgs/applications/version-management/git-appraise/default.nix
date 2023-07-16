@@ -17,7 +17,10 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-Lzq4qpDAUjKFA2T685eW9NCfzEhDsn5UR1A1cIaZadE=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "Distributed code review system for Git repos";

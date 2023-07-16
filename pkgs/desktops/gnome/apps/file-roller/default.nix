@@ -48,8 +48,16 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs =
-    [ cpio glib gtk3 libhandy json-glib libarchive libportal-gtk3 nautilus ];
+  buildInputs = [
+    cpio
+    glib
+    gtk3
+    libhandy
+    json-glib
+    libarchive
+    libportal-gtk3
+    nautilus
+  ];
 
   postPatch = ''
     patchShebangs data/set-mime-type-entry.py

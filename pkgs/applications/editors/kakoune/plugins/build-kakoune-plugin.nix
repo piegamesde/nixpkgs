@@ -15,20 +15,22 @@
       path ? lib.getName name,
       ...
     }:
-    stdenv.mkDerivation ((builtins.removeAttrs attrs [ "namePrefix" "path" ])
-      // {
-        name = namePrefix + name;
+    stdenv.mkDerivation ((builtins.removeAttrs attrs [
+      "namePrefix"
+      "path"
+    ]) // {
+      name = namePrefix + name;
 
-        installPhase = ''
-          runHook preInstall
+      installPhase = ''
+        runHook preInstall
 
-          target=$out/${rtpPath}/${path}
-          mkdir -p $out/${rtpPath}
-          cp -r . $target
+        target=$out/${rtpPath}/${path}
+        mkdir -p $out/${rtpPath}
+        cp -r . $target
 
-          runHook postInstall
-        '';
-      });
+        runHook postInstall
+      '';
+    });
 
   buildKakounePluginFrom2Nix = attrs:
     buildKakounePlugin ({

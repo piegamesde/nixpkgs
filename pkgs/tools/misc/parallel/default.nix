@@ -17,10 +17,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-kQZZPQncTeDglLexQ5CjCdj8sdJxBKU4FNFpN9y648I=";
   };
 
-  outputs = [ "out" "man" "doc" ];
+  outputs = [
+    "out"
+    "man"
+    "doc"
+  ];
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perl procps ];
+  buildInputs = [
+    perl
+    procps
+  ];
 
   preInstall = ''
     patchShebangs ./src/parallel
@@ -28,7 +35,13 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/parallel \
-      --prefix PATH : "${lib.makeBinPath [ procps perl coreutils ]}"
+      --prefix PATH : "${
+        lib.makeBinPath [
+          procps
+          perl
+          coreutils
+        ]
+      }"
   '';
 
   doCheck = true;
@@ -55,6 +68,10 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/parallel/";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ pSub vrthra tomberek ];
+    maintainers = with maintainers; [
+      pSub
+      vrthra
+      tomberek
+    ];
   };
 }

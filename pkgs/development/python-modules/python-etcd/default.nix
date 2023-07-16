@@ -18,9 +18,16 @@ buildPythonPackage rec {
     sha256 = "f1b5ebb825a3e8190494f5ce1509fde9069f2754838ed90402a8c11e1f52b8cb";
   };
 
-  buildInputs = [ nose mock pyopenssl ];
+  buildInputs = [
+    nose
+    mock
+    pyopenssl
+  ];
 
-  propagatedBuildInputs = [ urllib3 dnspython ];
+  propagatedBuildInputs = [
+    urllib3
+    dnspython
+  ];
 
   postPatch = ''
     sed -i '19s/dns/"dnspython"/' setup.py

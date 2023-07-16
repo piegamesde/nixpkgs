@@ -19,7 +19,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [ nose mock ];
+  nativeCheckInputs = [
+    nose
+    mock
+  ];
 
   patchPhase = ''
     # Failing test: ERROR: statsd.tests.test_ipv6_resolution_udp

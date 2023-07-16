@@ -29,9 +29,15 @@ buildPythonPackage rec {
 
   buildInputs = [ pkgs.libxml2 ];
 
-  propagatedBuildInputs = [ chardet lxml ];
+  propagatedBuildInputs = [
+    chardet
+    lxml
+  ];
 
-  nativeCheckInputs = [ beautifulsoup4 pytestCheckHook ];
+  nativeCheckInputs = [
+    beautifulsoup4
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "html5_parser" ];
 

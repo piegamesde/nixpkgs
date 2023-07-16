@@ -37,10 +37,19 @@ stdenv.mkDerivation rec {
     "-DBUILD_SHARED_LIBS=${if staticBuild then "OFF" else "ON"}"
   ];
 
-  nativeBuildInputs = [ cmake python3 pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    python3
+    pkg-config
+  ];
 
-  buildInputs = [ zlib libssh2 openssl pcre http-parser ]
-    ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [
+    zlib
+    libssh2
+    openssl
+    pcre
+    http-parser
+  ] ++ lib.optional stdenv.isDarwin Security;
 
   propagatedBuildInputs = lib.optional (!stdenv.isLinux) libiconv;
 

@@ -23,7 +23,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-K6v+00basjI32ON27ZjC5spQi/zWCcslDwQwyosq2iY=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   patches = [
     # Fix tests for statically linked variant upstream PR is
@@ -118,9 +121,16 @@ stdenv.mkDerivation rec {
     sed '/${tdRegexp}/d' -i test/test-list.h
   '';
 
-  nativeBuildInputs = [ automake autoconf libtool pkg-config ];
-  buildInputs =
-    lib.optionals stdenv.isDarwin [ ApplicationServices CoreServices ];
+  nativeBuildInputs = [
+    automake
+    autoconf
+    libtool
+    pkg-config
+  ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    ApplicationServices
+    CoreServices
+  ];
 
   preConfigure = ''
     LIBTOOLIZE=libtoolize ./autogen.sh
@@ -146,7 +156,13 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/libuv/libuv/blob/v${version}/ChangeLog";
     maintainers = with maintainers; [ cstrahan ];
     platforms = platforms.all;
-    license = with licenses; [ mit isc bsd2 bsd3 cc-by-40 ];
+    license = with licenses; [
+      mit
+      isc
+      bsd2
+      bsd3
+      cc-by-40
+    ];
   };
 
 }

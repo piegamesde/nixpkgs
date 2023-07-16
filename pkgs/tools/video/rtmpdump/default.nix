@@ -33,17 +33,23 @@ stdenv.mkDerivation {
     })
   ];
 
-  makeFlags = [ "prefix=$(out)" "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ]
-    ++ lib.optional gnutlsSupport "CRYPTO=GNUTLS"
+  makeFlags = [
+    "prefix=$(out)"
+    "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
+  ] ++ lib.optional gnutlsSupport "CRYPTO=GNUTLS"
     ++ lib.optional opensslSupport "CRYPTO=OPENSSL"
     ++ lib.optional stdenv.isDarwin "SYS=darwin"
     ++ lib.optional stdenv.cc.isClang "CC=clang";
 
-  propagatedBuildInputs = [ zlib ]
-    ++ lib.optionals gnutlsSupport [ gnutls nettle ]
-    ++ lib.optional opensslSupport openssl;
+  propagatedBuildInputs = [ zlib ] ++ lib.optionals gnutlsSupport [
+    gnutls
+    nettle
+  ] ++ lib.optional opensslSupport openssl;
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   separateDebugInfo = true;
 

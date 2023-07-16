@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-O4j89fE7fYPthhCH8b2gGskkelEA4mU6GvSbKIl+4Mk=";
   };
 
-  propagatedBuildInputs = [ python-magic requests ];
+  propagatedBuildInputs = [
+    python-magic
+    requests
+  ];
 
   # Module has no tests
   doCheck = false;

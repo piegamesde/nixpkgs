@@ -21,9 +21,15 @@ stdenv.mkDerivation rec {
     sha256 = "1wjgmmaca4baw7k5c3vdap9hnjc49ciagi5kvpvync3aqfmdvkha";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ libcdio ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv IOKit DiskArbitration ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [ libcdio ] ++ lib.optionals stdenv.isDarwin [
+    libiconv
+    IOKit
+    DiskArbitration
+  ];
 
   propagatedBuildInputs = lib.optional stdenv.isDarwin DiskArbitration;
 

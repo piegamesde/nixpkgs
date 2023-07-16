@@ -27,10 +27,23 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-x46BS+By5Zj5xeYRD45eXRDCAOqwpkkivVyJPnhkAMc=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs =
-    [ grpc protobuf openssl nlohmann_json gtest spdlog c-ares zlib sqlite re2 ];
+  buildInputs = [
+    grpc
+    protobuf
+    openssl
+    nlohmann_json
+    gtest
+    spdlog
+    c-ares
+    zlib
+    sqlite
+    re2
+  ];
 
   patches = [
     # Default libexec would be set to /nix/store/*-bear//nix/store/*-bear/libexec/...
@@ -48,6 +61,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/rizsotto/Bear";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ babariviere qyliss ];
+    maintainers = with maintainers; [
+      babariviere
+      qyliss
+    ];
   };
 }

@@ -32,10 +32,22 @@ stdenv.mkDerivation rec {
     rm -r external/{miniupnpc,rapidjson}
   '';
 
-  nativeBuildInputs = [ cmake pkg-config git ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    git
+  ];
 
-  buildInputs =
-    [ boost miniupnpc openssl unbound readline libsodium rapidjson cppzmq ];
+  buildInputs = [
+    boost
+    miniupnpc
+    openssl
+    unbound
+    readline
+    libsodium
+    rapidjson
+    cppzmq
+  ];
 
   meta = with lib; {
     description =

@@ -26,7 +26,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-15KG+LkPkCLFsnWHUAQpQbqol/izAn/HRinszVRB5Ao=";
   };
 
-  nativeBuildInputs = [ autoreconfHook perl pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    perl
+    pkg-config
+  ];
 
   buildInputs = [ libsidplayfp ] ++ lib.optional alsaSupport alsa-lib
     ++ lib.optional pulseSupport libpulseaudio
@@ -42,7 +46,10 @@ stdenv.mkDerivation rec {
     description = "A SID player using libsidplayfp";
     homepage = "https://github.com/libsidplayfp/sidplayfp";
     license = with licenses; [ gpl2Plus ];
-    maintainers = with maintainers; [ dezgeg OPNA2608 ];
+    maintainers = with maintainers; [
+      dezgeg
+      OPNA2608
+    ];
     platforms = platforms.all;
   };
 }

@@ -15,7 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-3DX02V3Srpx6hqimWbesxfkDqslVH4+8uXY7XYDmjX0=";
   };
 
-  propagatedBuildInputs = [ requests types-requests ];
+  propagatedBuildInputs = [
+    requests
+    types-requests
+  ];
 
   pythonImportsCheck = [ "pyarr" ];
 

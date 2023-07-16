@@ -20,6 +20,11 @@ in stdenv.mkDerivation {
     homepage = "https://wiki.winehq.org/Create_Fonts";
     license = with lib.licenses; [ lgpl21Plus ];
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ avnik raskin bendlas johnazoidberg ];
+    maintainers = with lib.maintainers; [
+      avnik
+      raskin
+      bendlas
+      johnazoidberg
+    ];
   };
 }

@@ -30,8 +30,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-h+QUBT2VwPWu2l05Zkcp+0vHN/x40uXxw2KYjq7l/Xk=";
   };
 
-  nativeBuildInputs =
-    [ fixup_yarn_lock yarn nodejs pkg-config python3 libsass ];
+  nativeBuildInputs = [
+    fixup_yarn_lock
+    yarn
+    nodejs
+    pkg-config
+    python3
+    libsass
+  ];
 
   postPatch = ''
     cp ${./yarn.lock} yarn.lock

@@ -25,9 +25,17 @@ buildPythonPackage rec {
     sha256 = "120snnsh9n5svfwkyj1w9jrxf99jnqm0jk282yypd3lpyca1l9hj";
   };
 
-  propagatedBuildInputs = [ requests requests-oauthlib six ];
+  propagatedBuildInputs = [
+    requests
+    requests-oauthlib
+    six
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook responses ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+    responses
+  ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

@@ -17,7 +17,11 @@ in {
     serverAliases = mkOption {
       type = types.listOf types.str;
       default = [ ];
-      example = [ "www.example.org" "www.example.org:8080" "example.org" ];
+      example = [
+        "www.example.org"
+        "www.example.org:8080"
+        "example.org"
+      ];
       description = lib.mdDoc ''
         Additional names of virtual hosts served by this virtual host configuration.
       '';
@@ -197,10 +201,10 @@ in {
     servedDirs = mkOption {
       type = types.listOf types.attrs;
       default = [ ];
-      example = [{
+      example = [ {
         urlPath = "/nix";
         dir = "/home/eelco/Dev/nix-homepage";
-      }];
+      } ];
       description = lib.mdDoc ''
         This option provides a simple way to serve static directories.
       '';
@@ -209,10 +213,10 @@ in {
     servedFiles = mkOption {
       type = types.listOf types.attrs;
       default = [ ];
-      example = [{
+      example = [ {
         urlPath = "/foo/bar.png";
         file = "/home/eelco/some-file.png";
-      }];
+      } ];
       description = lib.mdDoc ''
         This option provides a simple way to serve individual, static files.
 

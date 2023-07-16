@@ -323,7 +323,12 @@ let
           default = "Prosody Chatrooms";
         };
         restrictRoomCreation = mkOption {
-          type = types.enum [ true false "admin" "local" ];
+          type = types.enum [
+            true
+            false
+            "admin"
+            "local"
+          ];
           default = false;
           description = lib.mdDoc "Restrict room creation to server admins";
         };
@@ -619,7 +624,10 @@ in {
 
       httpInterfaces = mkOption {
         type = types.listOf types.str;
-        default = [ "*" "::" ];
+        default = [
+          "*"
+          "::"
+        ];
         description =
           lib.mdDoc "Interfaces on which the HTTP server will listen on.";
       };
@@ -632,7 +640,10 @@ in {
 
       httpsInterfaces = mkOption {
         type = types.listOf types.str;
-        default = [ "*" "::" ];
+        default = [
+          "*"
+          "::"
+        ];
         description =
           lib.mdDoc "Interfaces on which the HTTPS server will listen on.";
       };
@@ -716,7 +727,7 @@ in {
       muc = mkOption {
         type = types.listOf (types.submodule mucOpts);
         default = [ ];
-        example = [{ domain = "conference.my-xmpp-example-host.org"; }];
+        example = [ { domain = "conference.my-xmpp-example-host.org"; } ];
         description = lib.mdDoc "Multi User Chat (MUC) configuration";
       };
 
@@ -751,13 +762,20 @@ in {
       admins = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "admin1@example.com" "admin2@example.com" ];
+        example = [
+          "admin1@example.com"
+          "admin2@example.com"
+        ];
         description = lib.mdDoc "List of administrators of the current host";
       };
 
       authentication = mkOption {
-        type =
-          types.enum [ "internal_plain" "internal_hashed" "cyrus" "anonymous" ];
+        type = types.enum [
+          "internal_plain"
+          "internal_hashed"
+          "cyrus"
+          "anonymous"
+        ];
         default = "internal_hashed";
         example = "internal_plain";
         description = lib.mdDoc "Authentication mechanism used for logins.";
@@ -808,16 +826,16 @@ in {
     environment.systemPackages = [ cfg.package ];
 
     environment.etc."prosody/prosody.cfg.lua".text = let
-      httpDiscoItems = if (cfg.uploadHttp != null) then [{
+      httpDiscoItems = if (cfg.uploadHttp != null) then [ {
         url = cfg.uploadHttp.domain;
         description = "HTTP upload endpoint";
-      }] else
+      } ] else
         [ ];
       mucDiscoItems = builtins.foldl' (acc: muc:
-        [{
+        [ {
           url = muc.domain;
           description = "${muc.domain} MUC endpoint";
-        }] ++ acc) [ ] cfg.muc;
+        } ] ++ acc) [ ] cfg.muc;
       discoItems = cfg.disco_items ++ httpDiscoItems ++ mucDiscoItems;
     in ''
 

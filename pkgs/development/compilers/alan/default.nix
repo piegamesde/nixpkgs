@@ -39,7 +39,12 @@ stdenv.mkDerivation rec {
     cp bin/a2a3 $out/bin
   '';
 
-  nativeBuildInputs = [ cgreen openjdk pkg-config which ];
+  nativeBuildInputs = [
+    cgreen
+    openjdk
+    pkg-config
+    which
+  ];
 
   meta = with lib; {
     homepage = "https://www.alanif.se/";

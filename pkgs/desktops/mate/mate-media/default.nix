@@ -33,7 +33,12 @@ stdenv.mkDerivation rec {
     mate.mate-desktop
   ];
 
-  nativeBuildInputs = [ pkg-config gettext libtool wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+    libtool
+    wrapGAppsHook
+  ];
 
   enableParallelBuilding = true;
 

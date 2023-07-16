@@ -32,9 +32,13 @@ let
           prefix ? { },
           const ? { }
         }:
-        lib.concatLists
-        ((lib.mapAttrsToList (from: to: [ "-p" "${from}:${to}" ]) prefix)
-          ++ (lib.mapAttrsToList (from: to: [ "-c" "${from}:${to}" ]) const));
+        lib.concatLists ((lib.mapAttrsToList (from: to: [
+          "-p"
+          "${from}:${to}"
+        ]) prefix) ++ (lib.mapAttrsToList (from: to: [
+          "-c"
+          "${from}:${to}"
+        ]) const));
 
       rewrites = depList:
         lib.fold mergeRewrites { } (map (dep: dep.tbdRewrites)

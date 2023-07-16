@@ -32,16 +32,29 @@ in stdenv.mkDerivation rec {
     hash = "sha256-cr5QdkKO/HNvtc2w4ynJixuLauhPCwtsSC3UEV7+C1A=";
   };
 
-  nativeBuildInputs = [ pkg-config scons ];
+  nativeBuildInputs = [
+    pkg-config
+    scons
+  ];
 
-  buildInputs = [ libGLU libGL libpng physfs SDL2 SDL2_image SDL2_mixer ];
+  buildInputs = [
+    libGLU
+    libGL
+    libpng
+    physfs
+    SDL2
+    SDL2_image
+    SDL2_mixer
+  ];
 
   enableParallelBuilding = true;
 
   sconsFlags = [ "sdl2=1" ];
 
-  env.NIX_CFLAGS_COMPILE =
-    toString [ "-Wno-format-nonliteral" "-Wno-format-truncation" ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    "-Wno-format-nonliteral"
+    "-Wno-format-truncation"
+  ];
 
   postInstall = ''
     install -Dm644 ${music} $out/share/games/dxx-rebirth/${music.name}

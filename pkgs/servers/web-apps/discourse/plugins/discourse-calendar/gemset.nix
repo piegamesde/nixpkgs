@@ -1,6 +1,11 @@
 {
   activesupport = {
-    dependencies = [ "concurrent-ruby" "i18n" "minitest" "tzinfo" ];
+    dependencies = [
+      "concurrent-ruby"
+      "i18n"
+      "minitest"
+      "tzinfo"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

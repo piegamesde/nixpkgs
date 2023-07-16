@@ -1,7 +1,10 @@
 {
   addressable = {
     dependencies = [ "public_suffix" ];
-    groups = [ "default" "test" ];
+    groups = [
+      "default"
+      "test"
+    ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -12,7 +15,10 @@
   };
   atk = {
     dependencies = [ "glib2" ];
-    groups = [ "default" "plugin" ];
+    groups = [
+      "default"
+      "plugin"
+    ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -22,8 +28,15 @@
     version = "3.4.1";
   };
   cairo = {
-    dependencies = [ "native-package-installer" "pkg-config" "red-colors" ];
-    groups = [ "default" "plugin" ];
+    dependencies = [
+      "native-package-installer"
+      "pkg-config"
+      "red-colors"
+    ];
+    groups = [
+      "default"
+      "plugin"
+    ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -33,8 +46,14 @@
     version = "1.17.5";
   };
   cairo-gobject = {
-    dependencies = [ "cairo" "glib2" ];
-    groups = [ "default" "plugin" ];
+    dependencies = [
+      "cairo"
+      "glib2"
+    ];
+    groups = [
+      "default"
+      "plugin"
+    ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -45,7 +64,10 @@
   };
   crack = {
     dependencies = [ "rexml" ];
-    groups = [ "default" "test" ];
+    groups = [
+      "default"
+      "test"
+    ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -88,7 +110,10 @@
   };
   gdk_pixbuf2 = {
     dependencies = [ "gio2" ];
-    groups = [ "default" "plugin" ];
+    groups = [
+      "default"
+      "plugin"
+    ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -98,8 +123,14 @@
     version = "3.4.1";
   };
   gettext = {
-    dependencies = [ "locale" "text" ];
-    groups = [ "default" "plugin" ];
+    dependencies = [
+      "locale"
+      "text"
+    ];
+    groups = [
+      "default"
+      "plugin"
+    ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -110,7 +141,10 @@
   };
   gio2 = {
     dependencies = [ "gobject-introspection" ];
-    groups = [ "default" "plugin" ];
+    groups = [
+      "default"
+      "plugin"
+    ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -120,8 +154,14 @@
     version = "3.4.1";
   };
   glib2 = {
-    dependencies = [ "native-package-installer" "pkg-config" ];
-    groups = [ "default" "plugin" ];
+    dependencies = [
+      "native-package-installer"
+      "pkg-config"
+    ];
+    groups = [
+      "default"
+      "plugin"
+    ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -132,7 +172,10 @@
   };
   gobject-introspection = {
     dependencies = [ "glib2" ];
-    groups = [ "default" "plugin" ];
+    groups = [
+      "default"
+      "plugin"
+    ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -142,7 +185,11 @@
     version = "3.4.1";
   };
   gtk2 = {
-    dependencies = [ "atk" "gdk_pixbuf2" "pango" ];
+    dependencies = [
+      "atk"
+      "gdk_pixbuf2"
+      "pango"
+    ];
     groups = [ "plugin" ];
     platforms = [ ];
     source = {
@@ -153,7 +200,10 @@
     version = "3.4.1";
   };
   hashdiff = {
-    groups = [ "default" "test" ];
+    groups = [
+      "default"
+      "test"
+    ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -183,7 +233,10 @@
     version = "1.0.0";
   };
   locale = {
-    groups = [ "default" "plugin" ];
+    groups = [
+      "default"
+      "plugin"
+    ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -203,7 +256,10 @@
     version = "0.16.2";
   };
   mini_portile2 = {
-    groups = [ "default" "plugin" ];
+    groups = [
+      "default"
+      "plugin"
+    ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -233,7 +289,10 @@
     version = "1.4.1";
   };
   native-package-installer = {
-    groups = [ "default" "plugin" ];
+    groups = [
+      "default"
+      "plugin"
+    ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -243,7 +302,10 @@
     version = "1.1.1";
   };
   nokogiri = {
-    dependencies = [ "mini_portile2" "racc" ];
+    dependencies = [
+      "mini_portile2"
+      "racc"
+    ];
     groups = [ "plugin" ];
     platforms = [ ];
     source = {
@@ -264,8 +326,14 @@
     version = "0.5.6";
   };
   pango = {
-    dependencies = [ "cairo-gobject" "gobject-introspection" ];
-    groups = [ "default" "plugin" ];
+    dependencies = [
+      "cairo-gobject"
+      "gobject-introspection"
+    ];
+    groups = [
+      "default"
+      "plugin"
+    ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -275,7 +343,10 @@
     version = "3.4.1";
   };
   pkg-config = {
-    groups = [ "default" "plugin" ];
+    groups = [
+      "default"
+      "plugin"
+    ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -285,7 +356,10 @@
     version = "1.4.6";
   };
   pluggaloid = {
-    dependencies = [ "delayer" "instance_storage" ];
+    dependencies = [
+      "delayer"
+      "instance_storage"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -296,7 +370,10 @@
     version = "1.5.0";
   };
   power_assert = {
-    groups = [ "default" "test" ];
+    groups = [
+      "default"
+      "test"
+    ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -306,7 +383,10 @@
     version = "2.0.0";
   };
   public_suffix = {
-    groups = [ "default" "test" ];
+    groups = [
+      "default"
+      "test"
+    ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -316,7 +396,10 @@
     version = "4.0.6";
   };
   racc = {
-    groups = [ "default" "plugin" ];
+    groups = [
+      "default"
+      "plugin"
+    ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -336,7 +419,10 @@
     version = "13.0.3";
   };
   red-colors = {
-    groups = [ "default" "plugin" ];
+    groups = [
+      "default"
+      "plugin"
+    ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -346,7 +432,10 @@
     version = "0.1.1";
   };
   rexml = {
-    groups = [ "default" "test" ];
+    groups = [
+      "default"
+      "test"
+    ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -377,7 +466,10 @@
     version = "3.4.0";
   };
   text = {
-    groups = [ "default" "plugin" ];
+    groups = [
+      "default"
+      "plugin"
+    ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -397,7 +489,11 @@
     version = "0.1.2";
   };
   webmock = {
-    dependencies = [ "addressable" "crack" "hashdiff" ];
+    dependencies = [
+      "addressable"
+      "crack"
+      "hashdiff"
+    ];
     groups = [ "test" ];
     platforms = [ ];
     source = {

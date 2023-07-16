@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9GBoHbLNEnPz81s2rBYO3S0bXldetwc8eu9i5CgvYFE=";
   };
 
-  buildInputs = [ chez chez-srfi chez-mit ];
+  buildInputs = [
+    chez
+    chez-srfi
+    chez-mit
+  ];
 
   buildPhase = ''
     make PREFIX=$out CHEZ=${chez}/bin/scheme

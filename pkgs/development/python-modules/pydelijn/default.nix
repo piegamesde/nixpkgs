@@ -20,7 +20,11 @@ buildPythonPackage rec {
     sha256 = "c5b6565c50d4f97d28baca9faf487281c2a5db635060b69f659e27c28a1a6e93";
   };
 
-  propagatedBuildInputs = [ aiohttp async-timeout pytz ];
+  propagatedBuildInputs = [
+    aiohttp
+    async-timeout
+    pytz
+  ];
 
   postPatch = ''
     # Remove with next release

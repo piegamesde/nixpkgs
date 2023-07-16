@@ -21,9 +21,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ asciidoctor ];
 
-  buildInputs = [ gawk gnused ];
+  buildInputs = [
+    gawk
+    gnused
+  ];
 
-  makeFlags = [ "prefix=$(out)" "DESTDIR=" ];
+  makeFlags = [
+    "prefix=$(out)"
+    "DESTDIR="
+  ];
 
   postPatch = ''
     patchShebangs .

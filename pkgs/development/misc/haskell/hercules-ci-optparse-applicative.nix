@@ -18,9 +18,17 @@ mkDerivation {
     rev = "3d20deefbef2e66d3c075facc5d01c1aede34f3c";
     sha256 = "sha256-FnFbPvy5iITT7rAjZBBUNQdo3UDP2z8iLg0MiIdXMdo=";
   };
-  libraryHaskellDepends =
-    [ ansi-wl-pprint base process transformers transformers-compat ];
-  testHaskellDepends = [ base QuickCheck ];
+  libraryHaskellDepends = [
+    ansi-wl-pprint
+    base
+    process
+    transformers
+    transformers-compat
+  ];
+  testHaskellDepends = [
+    base
+    QuickCheck
+  ];
   homepage = "https://github.com/hercules-ci/optparse-applicative";
   description =
     "Utilities and combinators for parsing command line options (fork)";

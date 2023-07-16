@@ -54,8 +54,14 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [ "backoff" ];
 
-  propagatedBuildInputs =
-    [ backoff google-api-core ndjson pydantic requests tqdm ];
+  propagatedBuildInputs = [
+    backoff
+    google-api-core
+    ndjson
+    pydantic
+    requests
+    tqdm
+  ];
 
   passthru.optional-dependencies = {
     data = [
@@ -73,8 +79,12 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ nbconvert nbformat pytest-cases pytestCheckHook ]
-    ++ passthru.optional-dependencies.data;
+  nativeCheckInputs = [
+    nbconvert
+    nbformat
+    pytest-cases
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.data;
 
   disabledTestPaths = [
     # Requires network access

@@ -20,8 +20,14 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake gperf ];
-  buildInputs = [ openssl zlib ];
+  nativeBuildInputs = [
+    cmake
+    gperf
+  ];
+  buildInputs = [
+    openssl
+    zlib
+  ];
 
   meta = with lib; {
     description = "Telegram Bot API server";

@@ -12,9 +12,17 @@
 mkDerivation {
   pname = "kirigami-gallery";
 
-  nativeBuildInputs = [ extra-cmake-modules qttools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    qttools
+  ];
 
-  buildInputs = [ qtgraphicaleffects qtquickcontrols2 kirigami2 kitemmodels ];
+  buildInputs = [
+    qtgraphicaleffects
+    qtquickcontrols2
+    kirigami2
+    kitemmodels
+  ];
 
   meta = with lib; {
     homepage = "https://apps.kde.org/kirigami2.gallery/";

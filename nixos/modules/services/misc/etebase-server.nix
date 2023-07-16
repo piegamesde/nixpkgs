@@ -10,8 +10,11 @@ with lib;
 let
   cfg = config.services.etebase-server;
 
-  pythonEnv =
-    pkgs.python3.withPackages (ps: with ps; [ etebase-server daphne ]);
+  pythonEnv = pkgs.python3.withPackages (ps:
+    with ps; [
+      etebase-server
+      daphne
+    ]);
 
   iniFmt = pkgs.formats.ini { };
 
@@ -20,17 +23,31 @@ let
   defaultUser = "etebase-server";
 in {
   imports = [
-    (mkRemovedOptionModule [ "services" "etebase-server" "customIni" ]
-      "Set the option `services.etebase-server.settings' instead.")
-    (mkRemovedOptionModule [ "services" "etebase-server" "database" ]
-      "Set the option `services.etebase-server.settings.database' instead.")
-    (mkRenamedOptionModule [ "services" "etebase-server" "secretFile" ] [
+    (mkRemovedOptionModule [
+      "services"
+      "etebase-server"
+      "customIni"
+    ] "Set the option `services.etebase-server.settings' instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "etebase-server"
+      "database"
+    ] "Set the option `services.etebase-server.settings.database' instead.")
+    (mkRenamedOptionModule [
+      "services"
+      "etebase-server"
+      "secretFile"
+    ] [
       "services"
       "etebase-server"
       "settings"
       "secret_file"
     ])
-    (mkRenamedOptionModule [ "services" "etebase-server" "host" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "etebase-server"
+      "host"
+    ] [
       "services"
       "etebase-server"
       "settings"
@@ -173,25 +190,25 @@ in {
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = with pkgs;
-      [
-        (runCommand "etebase-server" { nativeBuildInputs = [ makeWrapper ]; } ''
-          makeWrapper ${pythonEnv}/bin/etebase-server \
-            $out/bin/etebase-server \
-            --chdir ${escapeShellArg cfg.dataDir} \
-            --prefix ETEBASE_EASY_CONFIG_PATH : "${configIni}"
-        '')
-      ];
+    environment.systemPackages = with pkgs; [ (runCommand "etebase-server" {
+      nativeBuildInputs = [ makeWrapper ];
+    } ''
+      makeWrapper ${pythonEnv}/bin/etebase-server \
+        $out/bin/etebase-server \
+        --chdir ${escapeShellArg cfg.dataDir} \
+        --prefix ETEBASE_EASY_CONFIG_PATH : "${configIni}"
+    '') ];
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' - ${cfg.user} ${
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' - ${cfg.user} ${
         config.users.users.${cfg.user}.group
-      } - -"
-    ];
+      } - -" ];
 
     systemd.services.etebase-server = {
       description = "An Etebase (EteSync 2.0) server";
-      after = [ "network.target" "systemd-tmpfiles-setup.service" ];
+      after = [
+        "network.target"
+        "systemd-tmpfiles-setup.service"
+      ];
       wantedBy = [ "multi-user.target" ];
       path = [ pythonEnv ];
       serviceConfig = {

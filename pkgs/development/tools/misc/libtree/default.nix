@@ -22,7 +22,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-C5QlQsBL9Als80Tv13ex2XS5Yj50Ht8eDfGYAtnh/HI=";
   };
 
-  buildInputs = [ cxxopts elfio termcolor ];
+  buildInputs = [
+    cxxopts
+    elfio
+    termcolor
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 
@@ -39,6 +43,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/haampie/libtree";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ prusnak rardiol ];
+    maintainers = with maintainers; [
+      prusnak
+      rardiol
+    ];
   };
 }

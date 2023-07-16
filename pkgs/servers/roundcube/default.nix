@@ -39,7 +39,11 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Open Source Webmail Software";
-    maintainers = with lib.maintainers; [ vskilet globin ma27 ];
+    maintainers = with lib.maintainers; [
+      vskilet
+      globin
+      ma27
+    ];
     license = lib.licenses.gpl3;
     platforms = lib.platforms.all;
   };

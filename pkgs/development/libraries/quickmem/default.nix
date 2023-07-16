@@ -20,9 +20,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-cqg8QN4/I+zql7lVDDAgFA05Dmg4ylBTvPSPP7WATdc=";
   };
 
-  nativeBuildInputs = [ cmake doxygen graphviz ];
+  nativeBuildInputs = [
+    cmake
+    doxygen
+    graphviz
+  ];
 
-  buildInputs = [ arpa2cm arpa2common ];
+  buildInputs = [
+    arpa2cm
+    arpa2common
+  ];
 
   doCheck = true;
 

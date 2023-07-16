@@ -7,7 +7,12 @@
 stdenv.mkDerivation rec {
   pname = "mpdecimal";
   version = "2.5.1";
-  outputs = [ "out" "cxx" "doc" "dev" ];
+  outputs = [
+    "out"
+    "cxx"
+    "doc"
+    "dev"
+  ];
 
   src = fetchurl {
     url =

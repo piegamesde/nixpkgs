@@ -16,7 +16,10 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = with python3Packages; [ pdm-pep517 ];
 
-  propagatedBuildInputs = with python3Packages; [ click prometheus-client ];
+  propagatedBuildInputs = with python3Packages; [
+    click
+    prometheus-client
+  ];
 
   checkPhase = ''
     $out/bin/kea-exporter --help > /dev/null

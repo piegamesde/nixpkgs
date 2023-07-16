@@ -23,9 +23,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-oIzOXUnCFqd3HPyKp58r+enRRpaE7f9hqNITtxCCB7I=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ libconfuse libxcrypt ];
+  buildInputs = [
+    libconfuse
+    libxcrypt
+  ];
 
   passthru.tests = {
     testVersion = testers.testVersion {

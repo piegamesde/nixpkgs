@@ -22,9 +22,16 @@ buildGoModule rec {
 
   doCheck = false;
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
-  nativeBuildInputs = [ go-md2man installShellFiles ];
+  nativeBuildInputs = [
+    go-md2man
+    installShellFiles
+  ];
 
   postInstall = ''
     make docs SHELL="$SHELL"

@@ -54,8 +54,15 @@ stdenv.mkDerivation rec {
     sha256 = "tJpa3u3JGx0yVPAw9affjiYYLjNAzvd3Ecob9FU+5lA=";
   };
 
-  nativeBuildInputs =
-    [ cmake intltool itstool libxml2 ninja pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    intltool
+    itstool
+    libxml2
+    ninja
+    pkg-config
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     gnome.adwaita-icon-theme

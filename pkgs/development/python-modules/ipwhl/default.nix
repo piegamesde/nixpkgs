@@ -22,7 +22,10 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ kubo ];
-  propagatedBuildInputs = [ packaging tomli ];
+  propagatedBuildInputs = [
+    packaging
+    tomli
+  ];
   doCheck = false; # there's no test
   pythonImportsCheck = [ "ipwhl" ];
 

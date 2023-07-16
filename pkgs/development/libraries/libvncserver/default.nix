@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
   pname = "libvncserver";
   version = "0.9.14";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "LibVNC";
@@ -28,8 +31,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ libjpeg openssl libgcrypt libpng ]
-    ++ lib.optionals stdenv.isLinux [ systemd ]
+  buildInputs = [
+    libjpeg
+    openssl
+    libgcrypt
+    libpng
+  ] ++ lib.optionals stdenv.isLinux [ systemd ]
     ++ lib.optionals stdenv.isDarwin [ Carbon ];
 
   propagatedBuildInputs = [ zlib ];

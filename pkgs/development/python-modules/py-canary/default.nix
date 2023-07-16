@@ -28,7 +28,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [ mock pytestCheckHook requests-mock ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+    requests-mock
+  ];
 
   pythonImportsCheck = [ "canary" ];
 

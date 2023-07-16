@@ -23,7 +23,10 @@ buildPythonPackage rec {
     hash = "sha256-MQFJm0ebgvBAP2Fb9SDB+LlQaBjSdePiit4lzGvNuSs=";
   };
 
-  buildInputs = lib.optionals stdenv.isDarwin [ CoreFoundation Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    CoreFoundation
+    Security
+  ];
 
   # Required to suppress -Werror
   # https://github.com/NixOS/nixpkgs/issues/39687
@@ -31,7 +34,10 @@ buildPythonPackage rec {
 
   # gcc <10 is not supported, LLVM on darwin is just fine
   nativeBuildInputs = [ cmake ]
-    ++ lib.optionals (!stdenv.isDarwin && stdenv.isAarch64) [ gcc10 perl ];
+    ++ lib.optionals (!stdenv.isDarwin && stdenv.isAarch64) [
+      gcc10
+      perl
+    ];
 
   dontUseCmakeConfigure = true;
 

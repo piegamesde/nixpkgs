@@ -51,8 +51,10 @@ stdenv.mkDerivation rec {
 
   wafPath = "buildtools/bin/waf";
 
-  wafConfigureFlags =
-    [ "--bundled-libraries=NONE" "--builtin-libraries=replace" ];
+  wafConfigureFlags = [
+    "--bundled-libraries=NONE"
+    "--builtin-libraries=replace"
+  ];
 
   # python-config from build Python gives incorrect values when cross-compiling.
   # If python-config is not found, the build falls back to using the sysconfig

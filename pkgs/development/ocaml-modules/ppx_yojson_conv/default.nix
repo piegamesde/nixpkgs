@@ -19,7 +19,11 @@ buildDunePackage rec {
     sha256 = "sha256-lSOUSMVgsRiArEhFTKpAj2yFBPbtaIc/SxdPA+24xXs=";
   };
 
-  propagatedBuildInputs = [ ppx_js_style ppx_yojson_conv_lib ppxlib ];
+  propagatedBuildInputs = [
+    ppx_js_style
+    ppx_yojson_conv_lib
+    ppxlib
+  ];
 
   meta = with lib; {
     description =

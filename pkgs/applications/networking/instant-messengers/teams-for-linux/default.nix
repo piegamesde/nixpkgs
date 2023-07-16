@@ -37,8 +37,13 @@ stdenv.mkDerivation rec {
     ./screensharing-wayland-hack-fix.patch
   ];
 
-  nativeBuildInputs =
-    [ yarn fixup_yarn_lock nodejs copyDesktopItems makeWrapper ];
+  nativeBuildInputs = [
+    yarn
+    fixup_yarn_lock
+    nodejs
+    copyDesktopItems
+    makeWrapper
+  ];
 
   configurePhase = ''
     runHook preConfigure
@@ -84,9 +89,17 @@ stdenv.mkDerivation rec {
     makeWrapper '${electron}/bin/electron' "$out/bin/teams-for-linux" \
       ${
         lib.optionalString stdenv.isLinux ''
-          --prefix PATH : ${lib.makeBinPath [ alsa-utils which ]} \
+          --prefix PATH : ${
+            lib.makeBinPath [
+              alsa-utils
+              which
+            ]
+          } \
           --prefix LD_LIBRARY_PATH : ${
-            lib.makeLibraryPath [ libpulseaudio pipewire ]
+            lib.makeLibraryPath [
+              libpulseaudio
+              pipewire
+            ]
           } \
         ''
       } \
@@ -96,16 +109,18 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      exec = pname;
-      icon = pname;
-      desktopName = "Microsoft Teams for Linux";
-      comment = meta.description;
-      categories = [ "Network" "InstantMessaging" "Chat" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = pname;
+    exec = pname;
+    icon = pname;
+    desktopName = "Microsoft Teams for Linux";
+    comment = meta.description;
+    categories = [
+      "Network"
+      "InstantMessaging"
+      "Chat"
+    ];
+  }) ];
 
   passthru.updateScript = ./update.sh;
 
@@ -113,7 +128,10 @@ stdenv.mkDerivation rec {
     description = "Unofficial Microsoft Teams client for Linux";
     homepage = "https://github.com/IsmaelMartinez/teams-for-linux";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ muscaln lilyinstarlight ];
+    maintainers = with maintainers; [
+      muscaln
+      lilyinstarlight
+    ];
     platforms = platforms.unix;
     broken = stdenv.isDarwin;
   };

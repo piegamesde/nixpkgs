@@ -67,8 +67,10 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-VCdQyK98smMOIBeAtPmfPczusG9QW0eexoJBweavYaU=";
   };
 
-  hardeningDisable = [ "format" "pie" ]
-    ++ lib.optionals enableStatic [ "fortify" ];
+  hardeningDisable = [
+    "format"
+    "pie"
+  ] ++ lib.optionals enableStatic [ "fortify" ];
 
   patches = [
     ./busybox-in-store.patch
@@ -179,7 +181,10 @@ in stdenv.mkDerivation rec {
       "Tiny versions of common UNIX utilities in a single small executable";
     homepage = "https://busybox.net/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ TethysSvensson qyliss ];
+    maintainers = with maintainers; [
+      TethysSvensson
+      qyliss
+    ];
     platforms = platforms.linux;
     priority = 10;
   };

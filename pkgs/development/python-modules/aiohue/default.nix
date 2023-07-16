@@ -23,11 +23,18 @@ buildPythonPackage rec {
     hash = "sha256-DzslGfKwsXXWWhbTb0apJCsnNdnUe7AbvrRT8ZnPbVU=";
   };
 
-  propagatedBuildInputs = [ awesomeversion aiohttp asyncio-throttle ];
+  propagatedBuildInputs = [
+    awesomeversion
+    aiohttp
+    asyncio-throttle
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [ "aiohue" "aiohue.discovery" ];
+  pythonImportsCheck = [
+    "aiohue"
+    "aiohue.discovery"
+  ];
 
   disabledTestPaths = [
     # File are prefixed with test_

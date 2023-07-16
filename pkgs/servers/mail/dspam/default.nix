@@ -25,7 +25,13 @@ let
     ++ lib.optional withMySQL "mysql_drv" ++ lib.optional withPgSQL "pgsql_drv"
     ++ lib.optional withSQLite "sqlite3_drv"
     ++ lib.optional withDB "libdb4_drv");
-  maintenancePath = lib.makeBinPath [ gawk gnused gnugrep coreutils which ];
+  maintenancePath = lib.makeBinPath [
+    gawk
+    gnused
+    gnugrep
+    coreutils
+    which
+  ];
 
 in stdenv.mkDerivation rec {
   pname = "dspam";
@@ -41,9 +47,10 @@ in stdenv.mkDerivation rec {
     ./mariadb.patch
   ];
 
-  buildInputs = [ perlPackages.perl ]
-    ++ lib.optionals withMySQL [ zlib mariadb-connector-c.out ]
-    ++ lib.optional withPgSQL postgresql ++ lib.optional withSQLite sqlite
+  buildInputs = [ perlPackages.perl ] ++ lib.optionals withMySQL [
+    zlib
+    mariadb-connector-c.out
+  ] ++ lib.optional withPgSQL postgresql ++ lib.optional withSQLite sqlite
     ++ lib.optional withDB db;
   nativeBuildInputs = [ makeWrapper ];
   # patch out libmysql >= 5 check, since mariadb-connector is at 3.x

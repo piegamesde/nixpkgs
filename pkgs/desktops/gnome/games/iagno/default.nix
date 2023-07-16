@@ -58,7 +58,13 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  buildInputs = [ gtk3 gnome.adwaita-icon-theme gdk-pixbuf librsvg gsound ];
+  buildInputs = [
+    gtk3
+    gnome.adwaita-icon-theme
+    gdk-pixbuf
+    librsvg
+    gsound
+  ];
 
   passthru = {
     updateScript = gnome.updateScript {

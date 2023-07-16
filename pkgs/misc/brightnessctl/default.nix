@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
     sha256 = "0immxc7almmpg80n3bdn834p3nrrz7bspl2syhb04s3lawa5y2lq";
   };
 
-  makeFlags = [ "PREFIX=" "DESTDIR=$(out)" "ENABLE_SYSTEMD=1" ];
+  makeFlags = [
+    "PREFIX="
+    "DESTDIR=$(out)"
+    "ENABLE_SYSTEMD=1"
+  ];
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ systemd ];

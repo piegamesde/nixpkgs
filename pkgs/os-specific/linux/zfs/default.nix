@@ -48,8 +48,14 @@ let
 
   smartmon = smartmontools.override { inherit enableMail; };
 
-  buildKernel = any (n: n == configFile) [ "kernel" "all" ];
-  buildUser = any (n: n == configFile) [ "user" "all" ];
+  buildKernel = any (n: n == configFile) [
+    "kernel"
+    "all"
+  ];
+  buildUser = any (n: n == configFile) [
+    "user"
+    "all"
+  ];
 
   # XXX: You always want to build kernel modules with the same stdenv as the
   # kernel was built with. However, since zfs can also be built for userspace we
@@ -80,14 +86,12 @@ let
         inherit rev sha256;
       };
 
-      patches = [
-        (fetchpatch {
-          name = "musl.patch";
-          url =
-            "https://github.com/openzfs/zfs/commit/1f19826c9ac85835cbde61a7439d9d1fefe43a4a.patch";
-          sha256 = "XEaK227ubfOwlB2s851UvZ6xp/QOtYUWYsKTkEHzmo0=";
-        })
-      ] ++ extraPatches;
+      patches = [ (fetchpatch {
+        name = "musl.patch";
+        url =
+          "https://github.com/openzfs/zfs/commit/1f19826c9ac85835cbde61a7439d9d1fefe43a4a.patch";
+        sha256 = "XEaK227ubfOwlB2s851UvZ6xp/QOtYUWYsKTkEHzmo0=";
+      }) ] ++ extraPatches;
 
       postPatch = optionalString buildKernel ''
         patchShebangs scripts
@@ -134,20 +138,38 @@ let
 
         substituteInPlace ./cmd/vdev_id/vdev_id \
           --replace "PATH=/bin:/sbin:/usr/bin:/usr/sbin" \
-          "PATH=${makeBinPath [ coreutils gawk gnused gnugrep systemd ]}"
+          "PATH=${
+            makeBinPath [
+              coreutils
+              gawk
+              gnused
+              gnugrep
+              systemd
+            ]
+          }"
       '';
 
-      nativeBuildInputs = [ autoreconfHook269 nukeReferences ]
-        ++ optionals buildKernel (kernel.moduleBuildDependencies ++ [ perl ])
+      nativeBuildInputs = [
+        autoreconfHook269
+        nukeReferences
+      ] ++ optionals buildKernel (kernel.moduleBuildDependencies ++ [ perl ])
         ++ optional buildUser pkg-config;
-      buildInputs = optionals buildUser [ zlib libuuid attr libtirpc ]
-        ++ optional buildUser openssl ++ optional buildUser curl
+      buildInputs = optionals buildUser [
+        zlib
+        libuuid
+        attr
+        libtirpc
+      ] ++ optional buildUser openssl ++ optional buildUser curl
         ++ optional (buildUser && enablePython) python3;
 
       # for zdb to get the rpath to libgcc_s, needed for pthread_cancel to work
       NIX_CFLAGS_LINK = "-lgcc_s";
 
-      hardeningDisable = [ "fortify" "stackprotector" "pic" ];
+      hardeningDisable = [
+        "fortify"
+        "stackprotector"
+        "pic"
+      ];
 
       configureFlags = [
         "--with-config=${configFile}"
@@ -232,9 +254,7 @@ let
       passthru = {
         inherit enableMail latestCompatibleLinuxPackages;
 
-        tests = if isUnstable then
-          [ nixosTests.zfs.unstable ]
-        else [
+        tests = if isUnstable then [ nixosTests.zfs.unstable ] else [
           nixosTests.zfs.installer
           nixosTests.zfs.stable
         ];

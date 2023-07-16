@@ -23,7 +23,10 @@ buildDunePackage rec {
 
   buildInputs = [ gen_js_api ];
 
-  propagatedBuildInputs = [ js_of_ocaml-compiler ojs ];
+  propagatedBuildInputs = [
+    js_of_ocaml-compiler
+    ojs
+  ];
 
   meta = {
     homepage = "https://github.com/LexiFi/ocaml-vdom";

@@ -67,7 +67,10 @@ in {
         LockPersonality = true;
         RestrictRealtime = true;
         RestrictNamespaces = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
         SystemCallFilter = "@system-service";
         SystemCallArchitectures = "native";
         CapabilityBoundingSet = "";

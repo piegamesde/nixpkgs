@@ -23,7 +23,15 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ freetype pango libpng libtiff giflib libjpeg netpbm ];
+  buildInputs = [
+    freetype
+    pango
+    libpng
+    libtiff
+    giflib
+    libjpeg
+    netpbm
+  ];
 
   patches = [
     (fetchpatch {
@@ -48,7 +56,10 @@ stdenv.mkDerivation rec {
       "Renders an image of the earth or other planets into the X root window";
     homepage = "https://xplanet.sourceforge.net";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ lassulus sander ];
+    maintainers = with maintainers; [
+      lassulus
+      sander
+    ];
     platforms = platforms.all;
   };
 }

@@ -44,7 +44,10 @@ in stdenv.mkDerivation rec {
 
   # If we were to use "dev" here instead of headers, the setupHook would be
   # placed in that output instead of "out".
-  outputs = [ "out" "headers" ];
+  outputs = [
+    "out"
+    "headers"
+  ];
   outputInclude = "headers";
 
   src = fetchFromGitHub {
@@ -54,10 +57,22 @@ in stdenv.mkDerivation rec {
     hash = "sha256-+Vjy3hzzpC+bFNSEHLsfUaaHMSrMv2G+B8lGjui0fJs=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config jq ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    jq
+  ];
 
-  buildInputs =
-    [ libX11 libXau libXdmcp libXrandr libffi libxcb vulkan-headers wayland ];
+  buildInputs = [
+    libX11
+    libXau
+    libXdmcp
+    libXrandr
+    libffi
+    libxcb
+    vulkan-headers
+    wayland
+  ];
 
   cmakeFlags = [
     "-DGLSLANG_INSTALL_DIR=${glslang}"

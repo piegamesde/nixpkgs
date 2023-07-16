@@ -19,7 +19,10 @@ buildGoModule rec {
 
   subPackages = [ "cmd/esbuild" ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "An extremely fast JavaScript bundler";
@@ -27,6 +30,9 @@ buildGoModule rec {
     changelog =
       "https://github.com/evanw/esbuild/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ lucus16 marsam ];
+    maintainers = with maintainers; [
+      lucus16
+      marsam
+    ];
   };
 }

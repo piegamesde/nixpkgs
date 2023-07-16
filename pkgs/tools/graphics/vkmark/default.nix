@@ -27,7 +27,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/awEJbmSiNJT71bijI5mrJkKN4DhRNxXO/qYpQECFnA=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
   buildInputs = [
     vulkan-headers
     vulkan-loader

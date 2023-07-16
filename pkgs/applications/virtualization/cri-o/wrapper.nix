@@ -17,8 +17,14 @@
 }:
 
 let
-  binPath = lib.makeBinPath
-    ([ runc conntrack-tools crun conmon util-linux iptables ] ++ extraPackages);
+  binPath = lib.makeBinPath ([
+    runc
+    conntrack-tools
+    crun
+    conmon
+    util-linux
+    iptables
+  ] ++ extraPackages);
 
 in runCommand cri-o-unwrapped.name {
   name = "${cri-o-unwrapped.pname}-wrapper-${cri-o-unwrapped.version}";
@@ -28,7 +34,10 @@ in runCommand cri-o-unwrapped.name {
 
   meta = builtins.removeAttrs cri-o-unwrapped.meta [ "outputsToInstall" ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   nativeBuildInputs = [ makeWrapper ];
 

@@ -29,9 +29,15 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [ sqlite ] ++ lib.optionals stdenv.isLinux [ openssl ]
     ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
-  cargoBuildFlags = [ "--package" "arti" ];
+  cargoBuildFlags = [
+    "--package"
+    "arti"
+  ];
 
-  cargoTestFlags = [ "--package" "arti" ];
+  cargoTestFlags = [
+    "--package"
+    "arti"
+  ];
 
   meta = with lib; {
     description = "An implementation of Tor in Rust";

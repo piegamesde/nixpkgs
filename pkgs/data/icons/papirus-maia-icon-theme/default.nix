@@ -21,10 +21,17 @@ stdenv.mkDerivation rec {
     sha256 = "0d6lvdg5nw5wfaq8lxszcws174vg12ywkrqzn6czimhmhp48jf5p";
   };
 
-  nativeBuildInputs = [ cmake gtk3 ];
+  nativeBuildInputs = [
+    cmake
+    gtk3
+  ];
 
-  propagatedBuildInputs =
-    [ breeze-icons gnome-icon-theme papirus-icon-theme hicolor-icon-theme ];
+  propagatedBuildInputs = [
+    breeze-icons
+    gnome-icon-theme
+    papirus-icon-theme
+    hicolor-icon-theme
+  ];
 
   dontDropIconThemeCache = true;
 

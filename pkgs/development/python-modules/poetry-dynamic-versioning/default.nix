@@ -28,9 +28,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ dunamai jinja2 markupsafe tomlkit ];
+  propagatedBuildInputs = [
+    dunamai
+    jinja2
+    markupsafe
+    tomlkit
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook poetry ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    poetry
+  ];
 
   # virtualenv: error: argument dest: the destination . is not write-able at /
   doCheck = false;

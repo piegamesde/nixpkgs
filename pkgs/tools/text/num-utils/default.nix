@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
   patchPhase = ''
     substituteInPlace Makefile --replace "-o 0 -g 0" "" --replace "\$(RPMDIR)" ""
   '';
-  makeFlags = [ "TOPDIR=${placeholder "out"}" "PERL=${perl}/bin/perl" ];
+  makeFlags = [
+    "TOPDIR=${placeholder "out"}"
+    "PERL=${perl}/bin/perl"
+  ];
 
   meta = with lib; {
     description = "Programs for dealing with numbers from the command line";

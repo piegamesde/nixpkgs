@@ -34,8 +34,11 @@ rustPlatform.buildRustPackage rec {
     gpgme # gpgme runs a small script at build time so has to go here
   ];
 
-  buildInputs = [ openssl dbus libgpg-error ]
-    ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = [
+    openssl
+    dbus
+    libgpg-error
+  ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
   meta = with lib; {
     description = "Tool for working with a stack of patches";

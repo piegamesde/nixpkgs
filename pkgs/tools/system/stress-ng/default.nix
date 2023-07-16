@@ -30,15 +30,19 @@ stdenv.mkDerivation rec {
   ''; # needed because of Darwin patch on libbsd
 
   # All platforms inputs then Linux-only ones
-  buildInputs = [ judy libbsd libgcrypt zlib ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [
-      attr
-      keyutils
-      libaio
-      libapparmor
-      libcap
-      lksctp-tools
-    ];
+  buildInputs = [
+    judy
+    libbsd
+    libgcrypt
+    zlib
+  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    attr
+    keyutils
+    libaio
+    libapparmor
+    libcap
+    lksctp-tools
+  ];
 
   makeFlags = [
     "BINDIR=${placeholder "out"}/bin"

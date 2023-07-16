@@ -18,7 +18,12 @@ buildPythonPackage rec {
     sha256 = "da128a7e0291be7fa2063848df92a9180cf5c16d42adc09d2bc2efd711536bfb";
   };
 
-  propagatedBuildInputs = [ msrest msrestazure azure-common azure-mgmt-core ];
+  propagatedBuildInputs = [
+    msrest
+    msrestazure
+    azure-common
+    azure-mgmt-core
+  ];
 
   pythonNamespaces = [ "azure.mgmt" ];
 

@@ -117,28 +117,31 @@ in {
         ${n} ${toString v}
       '') cfg.settings);
     };
-    environment.systemPackages =
-      [ atop (lib.mkIf cfg.netatop.enable cfg.netatop.package) ];
+    environment.systemPackages = [
+      atop
+      (lib.mkIf cfg.netatop.enable cfg.netatop.package)
+    ];
     boot.extraModulePackages =
       [ (lib.mkIf cfg.netatop.enable cfg.netatop.package) ];
     systemd = let
       mkSystemd = type: cond: name: restartTriggers: {
         ${name} = lib.mkIf cond {
           inherit restartTriggers;
-          wantedBy = [
-            (if type == "services" then
-              "multi-user.target"
-            else if type == "timers" then
-              "timers.target"
-            else
-              null)
-          ];
+          wantedBy = [ (if type == "services" then
+            "multi-user.target"
+          else if type == "timers" then
+            "timers.target"
+          else
+            null) ];
         };
       };
       mkService = mkSystemd "services";
       mkTimer = mkSystemd "timers";
     in {
-      packages = [ atop (lib.mkIf cfg.netatop.enable cfg.netatop.package) ];
+      packages = [
+        atop
+        (lib.mkIf cfg.netatop.enable cfg.netatop.package)
+      ];
       services = mkService cfg.atopService.enable "atop" [ atop ]
         // lib.mkIf cfg.atopService.enable {
           # always convert logs to newer version first

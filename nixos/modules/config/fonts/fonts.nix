@@ -19,10 +19,10 @@ let
     pkgs.noto-fonts-emoji
   ];
 in {
-  imports = [
-    (mkRemovedOptionModule [ "fonts" "enableCoreFonts" ]
-      "Use fonts.fonts = [ pkgs.corefonts ]; instead.")
-  ];
+  imports = [ (mkRemovedOptionModule [
+    "fonts"
+    "enableCoreFonts"
+  ] "Use fonts.fonts = [ pkgs.corefonts ]; instead.") ];
 
   options = {
 

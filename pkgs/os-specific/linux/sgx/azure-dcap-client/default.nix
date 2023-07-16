@@ -56,7 +56,11 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ curl nlohmann_json openssl ];
+  buildInputs = [
+    curl
+    nlohmann_json
+    openssl
+  ];
 
   postPatch = ''
     mkdir -p src/Linux/ext/intel
@@ -69,7 +73,10 @@ in stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-deprecated-declarations";
 
-  makeFlags = [ "-C src/Linux" "prefix=$(out)" ];
+  makeFlags = [
+    "-C src/Linux"
+    "prefix=$(out)"
+  ];
 
   # Online test suite; run with
   # $(nix-build -A sgx-azure-dcap-client.tests.suite)/bin/tests
@@ -79,7 +86,10 @@ in stdenv.mkDerivation rec {
     description =
       "Interfaces between SGX SDKs and the Azure Attestation SGX Certification Cache";
     homepage = "https://github.com/microsoft/azure-dcap-client";
-    maintainers = with maintainers; [ trundle veehaitch ];
+    maintainers = with maintainers; [
+      trundle
+      veehaitch
+    ];
     platforms = [ "x86_64-linux" ];
     license = [ licenses.mit ];
   };

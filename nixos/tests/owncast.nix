@@ -13,14 +13,14 @@ import ./make-test-python.nix ({
         with pkgs.lib; {
           networking = {
             dhcpcd.enable = false;
-            interfaces.eth1.ipv6.addresses = mkOverride 0 [{
+            interfaces.eth1.ipv6.addresses = mkOverride 0 [ {
               address = "fd00::2";
               prefixLength = 64;
-            }];
-            interfaces.eth1.ipv4.addresses = mkOverride 0 [{
+            } ];
+            interfaces.eth1.ipv4.addresses = mkOverride 0 [ {
               address = "192.168.1.2";
               prefixLength = 24;
-            }];
+            } ];
           };
         };
       server = {
@@ -32,14 +32,14 @@ import ./make-test-python.nix ({
             dhcpcd.enable = false;
             useNetworkd = true;
             useDHCP = false;
-            interfaces.eth1.ipv6.addresses = mkOverride 0 [{
+            interfaces.eth1.ipv6.addresses = mkOverride 0 [ {
               address = "fd00::1";
               prefixLength = 64;
-            }];
-            interfaces.eth1.ipv4.addresses = mkOverride 0 [{
+            } ];
+            interfaces.eth1.ipv4.addresses = mkOverride 0 [ {
               address = "192.168.1.1";
               prefixLength = 24;
-            }];
+            } ];
 
             firewall.allowedTCPPorts = [ 8080 ];
           };

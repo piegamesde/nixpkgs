@@ -98,7 +98,10 @@ rustPlatform.buildRustPackage rec {
     description =
       "An Adobe Flash Player emulator written in the Rust programming language.";
     homepage = "https://ruffle.rs/";
-    license = with licenses; [ mit asl20 ];
+    license = with licenses; [
+      mit
+      asl20
+    ];
     maintainers = with maintainers; [ govanify ];
     platforms = platforms.linux;
   };

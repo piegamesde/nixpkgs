@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [ wxGTK32 chmlib ];
+  buildInputs = [
+    wxGTK32
+    chmlib
+  ];
 
   configureFlags = [ "--with-wx-prefix=${wxGTK32}" ];
 

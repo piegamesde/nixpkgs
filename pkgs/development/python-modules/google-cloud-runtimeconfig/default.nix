@@ -21,9 +21,15 @@ buildPythonPackage rec {
     hash = "sha256-MPmyvm2FSrUzb1y5i4xl5Cqea6sxixLoZ7V1hxNi7hw=";
   };
 
-  propagatedBuildInputs = [ google-api-core google-cloud-core ];
+  propagatedBuildInputs = [
+    google-api-core
+    google-cloud-core
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   # Client tests require credentials
   disabledTests = [ "client_options" ];

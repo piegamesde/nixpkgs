@@ -16,7 +16,11 @@ buildPythonApplication rec {
     sha256 = "0akrrz735vjfrm78plwyg84vabj0x3qficq9xxmy9kr40fhdkzpb";
   };
 
-  propagatedBuildInputs = [ setuptools requests requests-cache ];
+  propagatedBuildInputs = [
+    setuptools
+    requests
+    requests-cache
+  ];
 
   # No tests in archive
   doCheck = false;

@@ -33,7 +33,10 @@ mkDerivation rec {
 
   cmakeFlags = [ "-DKDE_INSTALL_USE_QT_SYS_PATHS=ON" ];
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
   buildInputs = [
     fcitx5

@@ -62,14 +62,23 @@ let
 
 in symlinkJoin {
   name = "tsc-${version}";
-  paths = [ tsc tsc-dyn ];
+  paths = [
+    tsc
+    tsc-dyn
+  ];
 
   passthru = {
     updateScript = let pythonEnv = python3.withPackages (ps: [ ps.requests ]);
     in writeScript "tsc-update" ''
       #!${runtimeShell}
       set -euo pipefail
-      export PATH=${lib.makeBinPath [ nix-prefetch-github nix pythonEnv ]}:$PATH
+      export PATH=${
+        lib.makeBinPath [
+          nix-prefetch-github
+          nix
+          pythonEnv
+        ]
+      }:$PATH
       exec python3 ${builtins.toString ./update.py} ${builtins.toString ./.}
     '';
   };

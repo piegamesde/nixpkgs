@@ -21,7 +21,15 @@ stdenv.mkDerivation rec {
     sha256 = "0p81wl7labyfb6rgp0hi42l2akn3n7r2bnxal1wyvjylzw8vsk3v";
   };
 
-  buildInputs = [ libICE libpng12 libSM libX11 libXext xorgproto zlib ];
+  buildInputs = [
+    libICE
+    libpng12
+    libSM
+    libX11
+    libXext
+    xorgproto
+    zlib
+  ];
 
   patches = [
     (fetchpatch {

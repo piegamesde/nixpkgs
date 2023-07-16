@@ -48,7 +48,10 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-oXkGrMHjs8uui0pzGYW8jnttet/5IX0r8eat0n5saFk=";
   };
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   patches = [
     # Find MangoHud & vkBasalt Vulkan layers using the XDG Base Directory Specification
@@ -63,9 +66,19 @@ in stdenv.mkDerivation rec {
       --replace '/usr/share/icons/hicolor/128x128/apps/goverlay.png' "$out/share/icons/hicolor/128x128/apps/goverlay.png"
   '';
 
-  nativeBuildInputs = [ fpc lazarus-qt wrapQtAppsHook ];
+  nativeBuildInputs = [
+    fpc
+    lazarus-qt
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ breeze-qt5 libGL libGLU libqt5pas libX11 ];
+  buildInputs = [
+    breeze-qt5
+    libGL
+    libGLU
+    libqt5pas
+    libX11
+  ];
 
   NIX_LDFLAGS = "-lGLU -rpath ${lib.makeLibraryPath buildInputs}";
 

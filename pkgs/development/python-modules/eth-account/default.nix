@@ -30,8 +30,16 @@ buildPythonPackage rec {
       --replace "bitarray>=1.2.1,<1.3.0" "bitarray>=2.4.0,<3"
   '';
 
-  propagatedBuildInputs =
-    [ bitarray eth-abi eth-keyfile eth-keys eth-rlp eth-utils hexbytes rlp ];
+  propagatedBuildInputs = [
+    bitarray
+    eth-abi
+    eth-keyfile
+    eth-keys
+    eth-rlp
+    eth-utils
+    hexbytes
+    rlp
+  ];
 
   # require buildinga npm project
   doCheck = false;

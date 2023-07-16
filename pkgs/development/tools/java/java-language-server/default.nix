@@ -61,7 +61,11 @@ in stdenv.mkDerivation rec {
     outputHash = "sha256-YkcQKmm8oeEH7uyUzV/qGoe4LiI6o5wZ7o69qrO3oCA=";
   };
 
-  nativeBuildInputs = [ maven jdk makeWrapper ];
+  nativeBuildInputs = [
+    maven
+    jdk
+    makeWrapper
+  ];
 
   dontConfigure = true;
   buildPhase = ''

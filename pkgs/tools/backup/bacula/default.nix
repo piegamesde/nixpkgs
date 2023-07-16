@@ -28,12 +28,18 @@ stdenv.mkDerivation rec {
       --replace "10.*)" "*)"
   '';
 
-  buildInputs = [ postgresql sqlite zlib ncurses openssl readline ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      CoreFoundation
-      IOKit
-    ]
-    # acl relies on attr, which I can't get to build on darwin
+  buildInputs = [
+    postgresql
+    sqlite
+    zlib
+    ncurses
+    openssl
+    readline
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    CoreFoundation
+    IOKit
+  ]
+  # acl relies on attr, which I can't get to build on darwin
     ++ lib.optional (!stdenv.isDarwin) acl;
 
   configureFlags = [
@@ -45,7 +51,10 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
     "ac_cv_func_setpgrp_void=yes";
 
-  installFlags = [ "logdir=\${out}/logdir" "working_dir=\${out}/workdir" ];
+  installFlags = [
+    "logdir=\${out}/logdir"
+    "working_dir=\${out}/workdir"
+  ];
 
   postInstall = ''
     mkdir -p $out/bin
@@ -55,8 +64,14 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Enterprise ready, Network Backup Tool";
     homepage = "http://bacula.org/";
-    license = with licenses; [ agpl3Only bsd2 ];
-    maintainers = with maintainers; [ lovek323 eleanor ];
+    license = with licenses; [
+      agpl3Only
+      bsd2
+    ];
+    maintainers = with maintainers; [
+      lovek323
+      eleanor
+    ];
     platforms = platforms.all;
   };
 }

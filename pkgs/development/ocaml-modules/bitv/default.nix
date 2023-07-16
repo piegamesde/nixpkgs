@@ -23,7 +23,12 @@ else
       sha256 = "sha256-sZwq6c10hBBS9tGvKlWD9GE3JBrZPByfDrXE6xIPcG4=";
     };
 
-    nativeBuildInputs = [ autoreconfHook which ocaml findlib ];
+    nativeBuildInputs = [
+      autoreconfHook
+      which
+      ocaml
+      findlib
+    ];
 
     createFindlibDestdir = true;
 

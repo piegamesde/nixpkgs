@@ -40,9 +40,18 @@ buildPythonPackage rec {
         "self.assertEqual("
   '';
 
-  nativeCheckInputs = [ pytestCheckHook python-snap7 opencv4 matplotlib ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    python-snap7
+    opencv4
+    matplotlib
+  ];
 
-  pythonImportsCheck = [ "remi" "editor" "editor.widgets" ];
+  pythonImportsCheck = [
+    "remi"
+    "editor"
+    "editor.widgets"
+  ];
 
   meta = with lib; {
     description = "Pythonic, lightweight and websocket-based webui library";

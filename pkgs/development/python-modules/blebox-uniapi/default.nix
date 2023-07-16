@@ -29,9 +29,16 @@ buildPythonPackage rec {
       --replace "pytest-runner" ""
   '';
 
-  propagatedBuildInputs = [ aiohttp semver ];
+  propagatedBuildInputs = [
+    aiohttp
+    semver
+  ];
 
-  nativeCheckInputs = [ deepmerge pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    deepmerge
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "blebox_uniapi" ];
 

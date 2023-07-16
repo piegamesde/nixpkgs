@@ -21,7 +21,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1Ys04TwhWYZ8ORJgr04kGO6/lI1I36sC6kcrVoP/r1k=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config python3 ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    python3
+  ];
 
   buildInputs = [ gnu-efi ];
 

@@ -21,9 +21,16 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ logical-unification ];
 
-  nativeCheckInputs = [ py pytestCheckHook pytest-html ];
+  nativeCheckInputs = [
+    py
+    pytestCheckHook
+    pytest-html
+  ];
 
-  pytestFlagsArray = [ "--html=testing-report.html" "--self-contained-html" ];
+  pytestFlagsArray = [
+    "--html=testing-report.html"
+    "--self-contained-html"
+  ];
 
   pythonImportsCheck = [ "cons" ];
 

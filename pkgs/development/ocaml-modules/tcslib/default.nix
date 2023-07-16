@@ -22,7 +22,10 @@ buildOasisPackage rec {
   };
 
   buildInputs = [ ounit ];
-  propagatedBuildInputs = [ extlib num ];
+  propagatedBuildInputs = [
+    extlib
+    num
+  ];
 
   meta = {
     homepage = "https://github.com/tcsprojects/tcslib";

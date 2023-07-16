@@ -18,7 +18,13 @@ buildPythonPackage rec {
     sha256 = "1zm8x2pd0q6zza0fw7hg9g1qvybfnjq6ql9b8mh2fc45l7l25655";
   };
 
-  propagatedBuildInputs = [ cflow graphviz pydot networkx which ];
+  propagatedBuildInputs = [
+    cflow
+    graphviz
+    pydot
+    networkx
+    which
+  ];
 
   pythonImportsCheck = [ "pycflow2dot" ];
   checkPhase = ''

@@ -77,7 +77,10 @@ in {
 
       database = {
         type = mkOption {
-          type = types.enum [ "PostgreSQL" "MySQL" ];
+          type = types.enum [
+            "PostgreSQL"
+            "MySQL"
+          ];
           default = "PostgreSQL";
           example = "MySQL";
           description = lib.mdDoc "Database engine to use.";
@@ -227,22 +230,22 @@ in {
         enable = true;
         package = mkDefault pkgs.mariadb;
         ensureDatabases = [ cfg.database.name ];
-        ensureUsers = [{
+        ensureUsers = [ {
           name = cfg.database.user;
           ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
-        }];
+        } ];
       };
 
     services.postgresql = optionalAttrs
       (cfg.database.createLocally && cfg.database.type == "PostgreSQL") {
         enable = true;
         ensureDatabases = [ cfg.database.name ];
-        ensureUsers = [{
+        ensureUsers = [ {
           name = cfg.database.user;
           ensurePermissions = {
             "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
           };
-        }];
+        } ];
       };
 
     systemd.services.zammad-web = {
@@ -251,7 +254,10 @@ in {
         # loading all the gems takes time
         TimeoutStartSec = 1200;
       };
-      after = [ "network.target" "postgresql.service" ];
+      after = [
+        "network.target"
+        "postgresql.service"
+      ];
       requires = [ "postgresql.service" ];
       description = "Zammad web";
       wantedBy = [ "multi-user.target" ];
@@ -326,5 +332,8 @@ in {
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ garbas taeer ];
+  meta.maintainers = with lib.maintainers; [
+    garbas
+    taeer
+  ];
 }

@@ -77,16 +77,13 @@ stdenv.mkDerivation rec {
     "--with-perl=${perl}"
     "--with-filter-perl"
 
-  ] ++ lib.optionals enableMysql [
-    "--with-table-mysql"
+  ] ++ lib.optionals enableMysql [ "--with-table-mysql"
 
-  ] ++ lib.optionals enablePostgres [
-    "--with-table-postgres"
+    ] ++ lib.optionals enablePostgres [ "--with-table-postgres"
 
-  ] ++ lib.optionals enableSqlite [
-    "--with-table-sqlite"
+    ] ++ lib.optionals enableSqlite [ "--with-table-sqlite"
 
-  ] ++ lib.optionals enableRedis [ "--with-table-redis" ];
+    ] ++ lib.optionals enableRedis [ "--with-table-redis" ];
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString enableRedis "-I${hiredis}/include/hiredis -lhiredis"
@@ -97,6 +94,9 @@ stdenv.mkDerivation rec {
     description = "Extra plugins for the OpenSMTPD mail server";
     license = licenses.isc;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ gebner ekleog ];
+    maintainers = with maintainers; [
+      gebner
+      ekleog
+    ];
   };
 }

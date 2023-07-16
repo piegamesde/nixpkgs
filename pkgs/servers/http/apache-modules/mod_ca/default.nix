@@ -20,7 +20,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ apacheHttpd openssl openldap apr aprutil ];
+  buildInputs = [
+    apacheHttpd
+    openssl
+    openldap
+    apr
+    aprutil
+  ];
 
   # Note that configureFlags and installFlags are inherited by
   # the various submodules.

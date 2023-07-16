@@ -24,7 +24,10 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ gdal openssl ] ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [
+    gdal
+    openssl
+  ] ++ lib.optional stdenv.isDarwin Security;
 
   meta = with lib; {
     description = "Vector tile server specialized on publishing MVT tiles";

@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-7JNfFKSYWgyyNnWNzXGLqWRwSW+5r6PBMelKeAmx8sc=";
   };
 
-  buildInputs = [ python3 boost ];
+  buildInputs = [
+    python3
+    boost
+  ];
   nativeBuildInputs = [ cmake ];
 
   meta = with lib; {

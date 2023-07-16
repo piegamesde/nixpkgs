@@ -23,8 +23,16 @@ stdenv.mkDerivation {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ autoconf automake libtool makeWrapper ];
-  buildInputs = [ popt alsa-lib ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+    makeWrapper
+  ];
+  buildInputs = [
+    popt
+    alsa-lib
+  ];
 
   patchPhase = ''
     substituteInPlace "src/main.cpp" --replace "/usr/share/pico/lang" "$out/share/lang"

@@ -54,14 +54,12 @@ buildPythonPackage rec {
     hash = "sha256-e61wLFqc3HLCWUiVW3Gzbay1Oi8b7HsLT3+jPnbA4YY=";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "switch-to-poetry-core.patch";
-      url =
-        "https://github.com/strawberry-graphql/strawberry/commit/710bb96f47c244e78fc54c921802bcdb48f5f421.patch";
-      hash = "sha256-ekUZ2hDPCqwXp9n0YjBikwSkhCmVKUzQk7LrPECcD7Y=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "switch-to-poetry-core.patch";
+    url =
+      "https://github.com/strawberry-graphql/strawberry/commit/710bb96f47c244e78fc54c921802bcdb48f5f421.patch";
+    hash = "sha256-ekUZ2hDPCqwXp9n0YjBikwSkhCmVKUzQk7LrPECcD7Y=";
+  }) ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -70,26 +68,64 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ graphql-core python-dateutil typing-extensions ];
+  propagatedBuildInputs = [
+    graphql-core
+    python-dateutil
+    typing-extensions
+  ];
 
   passthru.optional-dependencies = {
-    aiohttp = [ aiohttp pytest-aiohttp ];
-    asgi = [ starlette python-multipart ];
-    debug = [ rich libcst ];
-    debug-server =
-      [ click libcst pygments python-multipart rich starlette uvicorn ];
-    django = [ django pytest-django asgiref ];
-    channels = [ channels asgiref ];
-    flask = [ flask pytest-flask ];
+    aiohttp = [
+      aiohttp
+      pytest-aiohttp
+    ];
+    asgi = [
+      starlette
+      python-multipart
+    ];
+    debug = [
+      rich
+      libcst
+    ];
+    debug-server = [
+      click
+      libcst
+      pygments
+      python-multipart
+      rich
+      starlette
+      uvicorn
+    ];
+    django = [
+      django
+      pytest-django
+      asgiref
+    ];
+    channels = [
+      channels
+      asgiref
+    ];
+    flask = [
+      flask
+      pytest-flask
+    ];
     # opentelemetry = [
     #   opentelemetry-api
     #   opentelemetry-sdk
     # ];
     pydantic = [ pydantic ];
     sanic = [ sanic ];
-    fastapi = [ fastapi python-multipart ];
+    fastapi = [
+      fastapi
+      python-multipart
+    ];
     chalice = [ chalice ];
-    cli = [ click pygments rich libcst ];
+    cli = [
+      click
+      pygments
+      rich
+      libcst
+    ];
     # starlite = [
     #   starlite
     # ];

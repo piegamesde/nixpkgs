@@ -8,7 +8,10 @@
   nix-update-script,
   v2ray-geoip,
   v2ray-domain-list-community,
-  assets ? [ v2ray-geoip v2ray-domain-list-community ]
+  assets ? [
+    v2ray-geoip
+    v2ray-domain-list-community
+  ]
 }:
 
 buildGoModule rec {
@@ -26,7 +29,11 @@ buildGoModule rec {
   # https://github.com/Mic92/nix-update/pull/95
   vendorSha256 = "sha256-0uc+oncdOdIhIygr2ktT7f1qHIeyoVEnjyhzsUMjMBY=";
 
-  ldflags = [ "-s" "-w" "-buildid=" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-buildid="
+  ];
 
   subPackages = [ "main" ];
 

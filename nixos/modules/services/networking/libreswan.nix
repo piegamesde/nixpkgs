@@ -26,8 +26,14 @@ let
       substring (head nonchars).ind
       (add 1 (sub (last nonchars).ind (head nonchars).ind)) str;
   indent = str:
-    concatStrings
-    (concatMap (s: [ "  " (trim [ " " "	" ] s) "\n" ]) (splitString "\n" str));
+    concatStrings (concatMap (s: [
+      "  "
+      (trim [
+        " "
+        "	"
+      ] s)
+      "\n"
+    ]) (splitString "\n" str));
   configText = indent (toString cfg.configSetup);
   connectionText = concatStrings (mapAttrsToList (n: v: ''
     conn ${n}
@@ -130,7 +136,10 @@ in {
   config = mkIf cfg.enable {
 
     # Install package, systemd units, etc.
-    environment.systemPackages = [ pkgs.libreswan pkgs.iproute2 ];
+    environment.systemPackages = [
+      pkgs.libreswan
+      pkgs.iproute2
+    ];
     systemd.packages = [ pkgs.libreswan ];
     systemd.tmpfiles.packages = [ pkgs.libreswan ];
 

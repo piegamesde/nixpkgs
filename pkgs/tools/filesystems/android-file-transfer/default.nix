@@ -25,8 +25,17 @@ mkDerivation rec {
 
   patches = [ ./darwin-dont-vendor-dependencies.patch ];
 
-  nativeBuildInputs = [ cmake readline pkg-config wrapQtAppsHook ];
-  buildInputs = [ fuse qtbase qttools ];
+  nativeBuildInputs = [
+    cmake
+    readline
+    pkg-config
+    wrapQtAppsHook
+  ];
+  buildInputs = [
+    fuse
+    qtbase
+    qttools
+  ];
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     mkdir $out/Applications

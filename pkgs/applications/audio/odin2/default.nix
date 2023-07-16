@@ -34,7 +34,10 @@ stdenv.mkDerivation rec {
       libs/JUCELV2/modules/juce_gui_basics/windows/juce_ComponentPeer.h # gcc12
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     alsa-lib
@@ -50,8 +53,13 @@ stdenv.mkDerivation rec {
   ];
 
   # JUCE dlopen's these at runtime, crashes without them
-  NIX_LDFLAGS =
-    (toString [ "-lX11" "-lXext" "-lXcursor" "-lXinerama" "-lXrandr" ]);
+  NIX_LDFLAGS = (toString [
+    "-lX11"
+    "-lXext"
+    "-lXcursor"
+    "-lXinerama"
+    "-lXrandr"
+  ]);
 
   cmakeFlags = [
     "-DCMAKE_AR=${gcc-unwrapped}/bin/gcc-ar"

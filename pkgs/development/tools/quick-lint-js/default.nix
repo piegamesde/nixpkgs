@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OxzemfWYItYb4XWpW2tNUn4yZHUIpS8MJXaP8+3z4YY=";
   };
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
   doCheck = true;
 
   # Temporary workaround for https://github.com/NixOS/nixpkgs/pull/108496#issuecomment-1192083379

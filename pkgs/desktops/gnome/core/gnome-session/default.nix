@@ -34,7 +34,10 @@ stdenv.mkDerivation rec {
   # Also bump ./ctl.nix when bumping major version.
   version = "44.0";
 
-  outputs = [ "out" "sessions" ];
+  outputs = [
+    "out"
+    "sessions"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/gnome-session/${
@@ -43,14 +46,12 @@ stdenv.mkDerivation rec {
     sha256 = "zPgpqWUmE16en5F1JlFdNqUJK9+jFvNzfdjFpSTb8sY=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      gsettings = "${glib.bin}/bin/gsettings";
-      dbusLaunch = "${dbus.lib}/bin/dbus-launch";
-      bash = "${bash}/bin/bash";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    gsettings = "${glib.bin}/bin/gsettings";
+    dbusLaunch = "${dbus.lib}/bin/dbus-launch";
+    bash = "${bash}/bin/bash";
+  }) ];
 
   nativeBuildInputs = [
     meson
@@ -80,7 +81,10 @@ stdenv.mkDerivation rec {
     libepoxy
   ];
 
-  mesonFlags = [ "-Dsystemd=true" "-Dsystemd_session=default" ];
+  mesonFlags = [
+    "-Dsystemd=true"
+    "-Dsystemd_session=default"
+  ];
 
   postPatch = ''
     chmod +x meson_post_install.py # patchShebangs requires executable file
@@ -128,7 +132,10 @@ stdenv.mkDerivation rec {
       packageName = "gnome-session";
       attrPath = "gnome.gnome-session";
     };
-    providedSessions = [ "gnome" "gnome-xorg" ];
+    providedSessions = [
+      "gnome"
+      "gnome-xorg"
+    ];
   };
 
   meta = with lib; {

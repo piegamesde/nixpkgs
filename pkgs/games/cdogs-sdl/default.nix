@@ -40,10 +40,20 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     pkg-config
     cmake
-    (python3.withPackages (pp: with pp; [ pp.protobuf setuptools ]))
+    (python3.withPackages (pp:
+      with pp; [
+        pp.protobuf
+        setuptools
+      ]))
   ];
 
-  buildInputs = [ SDL2 SDL2_image SDL2_mixer gtk3-x11 protobuf ];
+  buildInputs = [
+    SDL2
+    SDL2_image
+    SDL2_mixer
+    gtk3-x11
+    protobuf
+  ];
 
   meta = with lib; {
     homepage = "https://cxong.github.io/cdogs-sdl";

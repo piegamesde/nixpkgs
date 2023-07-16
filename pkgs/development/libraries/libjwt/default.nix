@@ -19,8 +19,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fdMrJaD0jq4aQtxNLUvPVP6dWMwp3Mz4TuW2zX6r7QA=";
   };
 
-  buildInputs = [ jansson openssl ];
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  buildInputs = [
+    jansson
+    openssl
+  ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/benmcollins/libjwt";

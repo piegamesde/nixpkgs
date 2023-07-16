@@ -33,11 +33,21 @@ buildPythonPackage rec {
       --replace py.test"" "pytest"
   '';
 
-  propagatedBuildInputs = [ future numpy ];
+  propagatedBuildInputs = [
+    future
+    numpy
+  ];
 
-  nativeCheckInputs = [ joblib pytest scikit-learn ];
+  nativeCheckInputs = [
+    joblib
+    pytest
+    scikit-learn
+  ];
 
-  pythonImportsCheck = [ "mdp" "bimdp" ];
+  pythonImportsCheck = [
+    "mdp"
+    "bimdp"
+  ];
 
   checkPhase = ''
     runHook preCheck

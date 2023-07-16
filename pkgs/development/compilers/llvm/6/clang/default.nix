@@ -30,11 +30,16 @@ let
       mv clang-tools-extra-* $sourceRoot/tools/extra
     '';
 
-    nativeBuildInputs = [ cmake python3 ]
-      ++ lib.optional enableManpages python3.pkgs.sphinx
+    nativeBuildInputs = [
+      cmake
+      python3
+    ] ++ lib.optional enableManpages python3.pkgs.sphinx
       ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
-    buildInputs = [ libxml2 libllvm ];
+    buildInputs = [
+      libxml2
+      libllvm
+    ];
 
     cmakeFlags = [
       "-DCMAKE_CXX_FLAGS=-std=c++11"
@@ -71,7 +76,12 @@ let
       sed -i -e 's/lgcc_s/lgcc_eh/' lib/Driver/ToolChains/*.cpp
     '';
 
-    outputs = [ "out" "lib" "dev" "python" ];
+    outputs = [
+      "out"
+      "lib"
+      "dev"
+      "python"
+    ];
 
     postInstall = ''
       ln -sv $out/bin/clang $out/bin/cpp

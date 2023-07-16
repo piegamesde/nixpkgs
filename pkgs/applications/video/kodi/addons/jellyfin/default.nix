@@ -40,7 +40,14 @@ in buildKodiAddon rec {
     mv /build/source/addon.xml $out${addonDir}/${namespace}/
   '';
 
-  propagatedBuildInputs = [ requests dateutil six kodi-six signals websocket ];
+  propagatedBuildInputs = [
+    requests
+    dateutil
+    six
+    kodi-six
+    signals
+    websocket
+  ];
 
   meta = with lib; {
     homepage = "https://jellyfin.org/";

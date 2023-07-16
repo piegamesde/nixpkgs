@@ -94,13 +94,18 @@ stdenv.mkDerivation rec {
     "--with-job-template=${jobTemplate}"
   ] ++ lib.optional enableLegacy "--enable-legacy";
 
-  buildInputs = [ getopt netcat ] ++ lib.optional stdenv.isLinux systemd
+  buildInputs = [
+    getopt
+    netcat
+  ] ++ lib.optional stdenv.isLinux systemd
     ++ lib.optional enableEjabberdDump ejabberd
     ++ lib.optional enableMySQLDatabase mariadb.out
     ++ lib.optional enablePostgreSQLDatabase postgresql
     ++ lib.optional enableSubversionRepository subversion
-    ++ lib.optionals enableMongoDatabase [ mongodb mongodb-tools ]
-    ++ lib.optional enableInfluxDatabase influxdb
+    ++ lib.optionals enableMongoDatabase [
+      mongodb
+      mongodb-tools
+    ] ++ lib.optional enableInfluxDatabase influxdb
     ++ lib.optional enableSupervisordProgram supervisor
     ++ lib.optional enableDockerContainer docker
     ++ lib.optional enableNginxWebApplication nginx

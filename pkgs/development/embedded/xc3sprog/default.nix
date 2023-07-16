@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ libusb-compat-0_1 libftdi ];
+  buildInputs = [
+    libusb-compat-0_1
+    libftdi
+  ];
 
   cmakeFlags = [
     # file RPATH_CHANGE could not write new RPATH

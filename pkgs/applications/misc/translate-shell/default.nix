@@ -30,7 +30,15 @@ stdenv.mkDerivation rec {
   postInstall = ''
     wrapProgram $out/bin/trans \
       --prefix PATH : ${
-        lib.makeBinPath [ gawk curl ncurses rlwrap groff fribidi hexdump ]
+        lib.makeBinPath [
+          gawk
+          curl
+          ncurses
+          rlwrap
+          groff
+          fribidi
+          hexdump
+        ]
       }
   '';
 
@@ -39,7 +47,10 @@ stdenv.mkDerivation rec {
     description =
       "Command-line translator using Google Translate, Bing Translator, Yandex.Translate, and Apertium";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ ebzzry infinisil ];
+    maintainers = with maintainers; [
+      ebzzry
+      infinisil
+    ];
     mainProgram = "trans";
     platforms = platforms.unix;
   };

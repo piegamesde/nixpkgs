@@ -8,7 +8,10 @@ args@{
 
   description = "Optimized Pattern Matching Library";
 
-  deps = [ args."alexandria" args."closer-mop" ];
+  deps = [
+    args."alexandria"
+    args."closer-mop"
+  ];
 
   src = fetchurl {
     url =

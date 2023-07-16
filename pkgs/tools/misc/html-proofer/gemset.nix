@@ -71,7 +71,10 @@
     version = "2.5.0";
   };
   nokogiri = {
-    dependencies = [ "mini_portile2" "racc" ];
+    dependencies = [
+      "mini_portile2"
+      "racc"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

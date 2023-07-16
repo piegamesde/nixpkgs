@@ -17,7 +17,12 @@ buildDunePackage {
 
   buildInputs = [ dune-configurator ];
 
-  propagatedBuildInputs = [ async logs mirage-crypto mirage-crypto-rng ];
+  propagatedBuildInputs = [
+    async
+    logs
+    mirage-crypto
+    mirage-crypto-rng
+  ];
 
   strictDeps = true;
 

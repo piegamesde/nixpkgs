@@ -23,10 +23,22 @@
 
 qtModule {
   pname = "qtmultimedia";
-  qtInputs = [ qtbase qtdeclarative qtsvg qtshadertools ];
+  qtInputs = [
+    qtbase
+    qtdeclarative
+    qtsvg
+    qtshadertools
+  ];
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libunwind orc ]
-    ++ lib.optionals stdenv.isLinux [ libpulseaudio elfutils alsa-lib wayland ];
+  buildInputs = [
+    libunwind
+    orc
+  ] ++ lib.optionals stdenv.isLinux [
+    libpulseaudio
+    elfutils
+    alsa-lib
+    wayland
+  ];
   propagatedBuildInputs = lib.optionals stdenv.isLinux [
     gstreamer
     gst-plugins-base

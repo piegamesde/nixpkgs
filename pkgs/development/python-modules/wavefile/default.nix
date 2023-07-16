@@ -23,11 +23,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  buildInputs = [ pyaudio libsndfile ];
+  buildInputs = [
+    pyaudio
+    libsndfile
+  ];
 
   propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [ pyaudio numpy libsndfile ];
+  nativeCheckInputs = [
+    pyaudio
+    numpy
+    libsndfile
+  ];
 
   patches = [
     # Fix check error

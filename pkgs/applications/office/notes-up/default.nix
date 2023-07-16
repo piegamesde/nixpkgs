@@ -32,8 +32,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-t9BCtdWd2JLrKTcmri1Lgl5RLBYD2xWCtMxoVXz0XPk=";
   };
 
-  nativeBuildInputs =
-    [ desktop-file-utils meson ninja pkg-config python3 vala wrapGAppsHook ];
+  nativeBuildInputs = [
+    desktop-file-utils
+    meson
+    ninja
+    pkg-config
+    python3
+    vala
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     discount

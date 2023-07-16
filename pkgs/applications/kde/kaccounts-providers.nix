@@ -25,7 +25,11 @@ mkDerivation {
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };
-  nativeBuildInputs = [ extra-cmake-modules intltool kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    intltool
+    kdoctools
+  ];
   buildInputs = [
     accounts-qt
     kaccounts-integration

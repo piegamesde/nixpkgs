@@ -59,7 +59,12 @@ mkDerivation {
     template-haskell
     transformers
   ];
-  testHaskellDepends = [ base Cabal curry-base filepath ];
+  testHaskellDepends = [
+    base
+    Cabal
+    curry-base
+    filepath
+  ];
   homepage = "http://curry-language.org";
   description =
     "Compile the functional logic language Curry to several intermediate formats";

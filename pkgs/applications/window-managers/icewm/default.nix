@@ -51,7 +51,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-VcUc1T3uTj8fhSZ+/XWRzgoenjqA/gguxuNsj+PYzB0=";
   };
 
-  nativeBuildInputs = [ cmake perl pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    perl
+    pkg-config
+  ];
 
   buildInputs = [
     expat
@@ -88,7 +92,10 @@ stdenv.mkDerivation (finalAttrs: {
     pcre2
   ];
 
-  cmakeFlags = [ "-DPREFIX=$out" "-DCFGDIR=/etc/icewm" ];
+  cmakeFlags = [
+    "-DPREFIX=$out"
+    "-DCFGDIR=/etc/icewm"
+  ];
 
   # install legacy themes
   postInstall = ''

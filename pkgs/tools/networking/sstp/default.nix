@@ -31,9 +31,16 @@ stdenv.mkDerivation rec {
     "--with-pppd-plugin-dir=$(out)/lib/pppd"
   ];
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
 
-  buildInputs = [ libevent openssl ppp ];
+  buildInputs = [
+    libevent
+    openssl
+    ppp
+  ];
 
   meta = with lib; {
     description = "SSTP client for Linux";

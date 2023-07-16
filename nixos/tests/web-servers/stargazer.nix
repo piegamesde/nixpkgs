@@ -13,12 +13,12 @@
       }: {
         services.stargazer = {
           enable = true;
-          routes = [{
+          routes = [ {
             route = "localhost";
             root = toString (pkgs.writeTextDir "index.gmi" ''
               # Hello NixOS!
             '');
-          }];
+          } ];
         };
       };
   };

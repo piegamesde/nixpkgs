@@ -44,7 +44,10 @@ stdenv.mkDerivation rec {
     desktopName = "JPEXS Free Flash Decompiler";
     genericName = "Flash Decompiler";
     comment = meta.description;
-    categories = [ "Development" "Java" ];
+    categories = [
+      "Development"
+      "Java"
+    ];
     startupWMClass = "com-jpexs-decompiler-flash-gui-Main";
   };
 

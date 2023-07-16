@@ -22,8 +22,13 @@ buildPythonPackage rec {
     hash = "sha256-jEnrGTddSqs+W4NYYGFODLF+VrtaIOGHSAj6W+xno1g=";
   };
 
-  propagatedBuildInputs = [ passlib pyparsing six twisted zope_interface ]
-    ++ twisted.optional-dependencies.tls;
+  propagatedBuildInputs = [
+    passlib
+    pyparsing
+    six
+    twisted
+    zope_interface
+  ] ++ twisted.optional-dependencies.tls;
 
   nativeCheckInputs = [ twisted ];
 

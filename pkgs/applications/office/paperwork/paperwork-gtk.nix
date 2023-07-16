@@ -95,7 +95,13 @@ in python3Packages.buildPythonApplication rec {
     gdk-pixbuf # for the setup hook
   ] ++ documentation_deps;
 
-  buildInputs = [ gnome.adwaita-icon-theme libnotify librsvg gtk3 cairo ];
+  buildInputs = [
+    gnome.adwaita-icon-theme
+    libnotify
+    librsvg
+    gtk3
+    cairo
+  ];
 
   dontWrapGApps = true;
 
@@ -144,7 +150,10 @@ in python3Packages.buildPythonApplication rec {
     description = "A personal document manager for scanned documents";
     homepage = "https://openpaper.work/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ aszlig symphorien ];
+    maintainers = with lib.maintainers; [
+      aszlig
+      symphorien
+    ];
     platforms = lib.platforms.linux;
   };
 }

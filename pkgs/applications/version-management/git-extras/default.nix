@@ -21,12 +21,17 @@ stdenv.mkDerivation rec {
     patchShebangs check_dependencies.sh
   '';
 
-  nativeBuildInputs = [ unixtools.column which ];
+  nativeBuildInputs = [
+    unixtools.column
+    which
+  ];
 
   dontBuild = true;
 
-  installFlags =
-    [ "PREFIX=${placeholder "out"}" "SYSCONFDIR=${placeholder "out"}/share" ];
+  installFlags = [
+    "PREFIX=${placeholder "out"}"
+    "SYSCONFDIR=${placeholder "out"}/share"
+  ];
 
   postInstall = ''
     # bash completion is already handled by make install
@@ -39,6 +44,10 @@ stdenv.mkDerivation rec {
       "GIT utilities -- repo summary, repl, changelog population, author commit percentages and more";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ spwhitt cko SuperSandro2000 ];
+    maintainers = with maintainers; [
+      spwhitt
+      cko
+      SuperSandro2000
+    ];
   };
 }

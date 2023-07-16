@@ -83,8 +83,21 @@ in stdenv.mkDerivation rec {
   rev = "153d40c761a25a745d7ebf0ee3a024bbc2c840b5";
   commit-num = "611"; # Run `git rev-list --count HEAD`
 
-  nativeBuildInputs = [ cmake python3 jdk17 git rsync ant ninja ];
-  buildInputs = [ libX11 libXdamage nss nspr ];
+  nativeBuildInputs = [
+    cmake
+    python3
+    jdk17
+    git
+    rsync
+    ant
+    ninja
+  ];
+  buildInputs = [
+    libX11
+    libXdamage
+    nss
+    nspr
+  ];
 
   src = fetchFromGitHub {
     owner = "jetbrains";
@@ -136,7 +149,10 @@ in stdenv.mkDerivation rec {
     runHook postConfigure
   '';
 
-  outputs = [ "out" "unpacked" ];
+  outputs = [
+    "out"
+    "unpacked"
+  ];
 
   postBuild = ''
     export JCEF_ROOT_DIR=$(realpath ..)

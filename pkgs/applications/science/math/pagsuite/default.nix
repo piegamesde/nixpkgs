@@ -21,9 +21,15 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "pagsuite_${lib.replaceStrings [ "." ] [ "_" ] version}";
 
-  nativeBuildInputs = [ cmake unzip ];
+  nativeBuildInputs = [
+    cmake
+    unzip
+  ];
 
-  buildInputs = [ gmp scalp ];
+  buildInputs = [
+    gmp
+    scalp
+  ];
 
   meta = with lib; {
     description = "Optimization tools for the (P)MCM problem";

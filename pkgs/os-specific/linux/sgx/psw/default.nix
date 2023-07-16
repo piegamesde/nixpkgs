@@ -46,9 +46,19 @@ stdenv.mkDerivation rec {
     tar -zxf ${dcap.prebuilt} -C $sourceRoot/external/dcap_source/QuoteGeneration/
   '';
 
-  nativeBuildInputs = [ cmake file makeWrapper python3 sgx-sdk which ];
+  nativeBuildInputs = [
+    cmake
+    file
+    makeWrapper
+    python3
+    sgx-sdk
+    which
+  ];
 
-  buildInputs = [ curl protobuf ];
+  buildInputs = [
+    curl
+    protobuf
+  ];
 
   hardeningDisable = lib.optionals debug [ "fortify" ];
 
@@ -66,8 +76,10 @@ stdenv.mkDerivation rec {
 
   buildFlags = [ "psw_install_pkg" ] ++ lib.optionals debug [ "DEBUG=1" ];
 
-  installFlags =
-    [ "-C linux/installer/common/psw/output" "DESTDIR=$(TMPDIR)/install" ];
+  installFlags = [
+    "-C linux/installer/common/psw/output"
+    "DESTDIR=$(TMPDIR)/install"
+  ];
 
   postInstall = ''
     installDir=$TMPDIR/install
@@ -143,7 +155,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Intel SGX Architectural Enclave Service Manager";
     homepage = "https://github.com/intel/linux-sgx";
-    maintainers = with maintainers; [ veehaitch citadelcore ];
+    maintainers = with maintainers; [
+      veehaitch
+      citadelcore
+    ];
     platforms = [ "x86_64-linux" ];
     license = with licenses; [ bsd3 ];
   };

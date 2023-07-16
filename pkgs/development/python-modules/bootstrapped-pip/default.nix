@@ -16,7 +16,11 @@ stdenv.mkDerivation rec {
   inherit (pip) version;
   name = "${python.libPrefix}-bootstrapped-${pname}-${version}";
 
-  srcs = [ wheel.src pip.src setuptools.src ];
+  srcs = [
+    wheel.src
+    pip.src
+    setuptools.src
+  ];
   sourceRoot = ".";
 
   dontUseSetuptoolsBuild = true;
@@ -37,7 +41,10 @@ stdenv.mkDerivation rec {
   ''
     + (pip.postPatch or ""); # `pip` does not necessarily have a `postPatch` field.
 
-  nativeBuildInputs = [ makeWrapper unzip ];
+  nativeBuildInputs = [
+    makeWrapper
+    unzip
+  ];
   buildInputs = [ python ];
 
   dontBuild = true;

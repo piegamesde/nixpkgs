@@ -56,8 +56,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ]
     ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
 
-  buildInputs = [ libjpeg zlib ] ++ lib.optional javaSupport jdk
-    ++ lib.optional szipSupport szip ++ lib.optional uselibtirpc libtirpc;
+  buildInputs = [
+    libjpeg
+    zlib
+  ] ++ lib.optional javaSupport jdk ++ lib.optional szipSupport szip
+    ++ lib.optional uselibtirpc libtirpc;
 
   preConfigure = lib.optionalString uselibtirpc ''
     # Make tirpc discovery work with CMAKE_PREFIX_PATH
@@ -78,11 +81,13 @@ stdenv.mkDerivation rec {
     "-DHDF4_ENABLE_Z_LIB_SUPPORT=ON"
     "-DHDF4_BUILD_FORTRAN=OFF"
     "-DJPEG_DIR=${libjpeg}"
-  ] ++ lib.optionals javaSupport [ "-DHDF4_BUILD_JAVA=ON" "-DJAVA_HOME=${jdk}" ]
-    ++ lib.optionals szipSupport [
-      "-DHDF4_ENABLE_SZIP_ENCODING=ON"
-      "-DHDF4_ENABLE_SZIP_SUPPORT=ON"
-    ];
+  ] ++ lib.optionals javaSupport [
+    "-DHDF4_BUILD_JAVA=ON"
+    "-DJAVA_HOME=${jdk}"
+  ] ++ lib.optionals szipSupport [
+    "-DHDF4_ENABLE_SZIP_ENCODING=ON"
+    "-DHDF4_ENABLE_SZIP_SUPPORT=ON"
+  ];
 
   doCheck = true;
 
@@ -102,7 +107,11 @@ stdenv.mkDerivation rec {
     runHook postCheck
   '';
 
-  outputs = [ "bin" "dev" "out" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+  ];
 
   postInstall = ''
     moveToOutput bin "$bin"

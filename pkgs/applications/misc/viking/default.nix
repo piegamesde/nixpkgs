@@ -54,8 +54,13 @@ stdenv.mkDerivation rec {
     yelp-tools
   ];
 
-  buildInputs = [ curl gdk-pixbuf gtk3 json-glib libxml2 ]
-    ++ lib.optional withGeoClue geoclue2 ++ lib.optional withGeoTag gexiv2
+  buildInputs = [
+    curl
+    gdk-pixbuf
+    gtk3
+    json-glib
+    libxml2
+  ] ++ lib.optional withGeoClue geoclue2 ++ lib.optional withGeoTag gexiv2
     ++ lib.optional withMagic file ++ lib.optional withMapnik mapnik
     ++ lib.optional withMBTiles sqlite ++ lib.optional withMd5Hash nettle
     ++ lib.optional withOAuth liboauth
@@ -93,7 +98,10 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://sourceforge.net/projects/viking/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ pSub sikmir ];
+    maintainers = with maintainers; [
+      pSub
+      sikmir
+    ];
     platforms = with platforms; linux;
   };
 }

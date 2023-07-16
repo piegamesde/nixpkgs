@@ -24,18 +24,36 @@ stdenv.mkDerivation rec {
     sha256 = "QYVqGxeWC7Tiz8aNY/LukwG4EW0km/RunGEfkzY/A38=";
   };
 
-  nativeBuildInputs = [ asciidoctor makeBinaryWrapper ];
-  buildInputs = [ bash coreutils gawk glibc util-linux ];
+  nativeBuildInputs = [
+    asciidoctor
+    makeBinaryWrapper
+  ];
+  buildInputs = [
+    bash
+    coreutils
+    gawk
+    glibc
+    util-linux
+  ];
 
   dontConfigure = true;
   dontBuild = true;
 
-  installFlags = [ "DESTDIR=$(out)" ''PREFIX=""'' ];
+  installFlags = [
+    "DESTDIR=$(out)"
+    ''PREFIX=""''
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/sudo \
       --prefix PATH : ${
-        lib.makeBinPath [ bash coreutils gawk glibc util-linux ]
+        lib.makeBinPath [
+          bash
+          coreutils
+          gawk
+          glibc
+          util-linux
+        ]
       }
   '';
 

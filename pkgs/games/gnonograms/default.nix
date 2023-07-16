@@ -44,7 +44,12 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ gtk3 pantheon.granite libgee libhandy ];
+  buildInputs = [
+    gtk3
+    pantheon.granite
+    libgee
+    libhandy
+  ];
 
   meta = with lib; {
     description = "Nonograms puzzle game";

@@ -39,10 +39,25 @@ buildPythonPackage rec {
         --replace "rich ==" "rich >="
   '';
 
-  propagatedBuildInputs =
-    [ click prettytable prompt-toolkit ptable pygments requests rich urllib3 ];
+  propagatedBuildInputs = [
+    click
+    prettytable
+    prompt-toolkit
+    ptable
+    pygments
+    requests
+    rich
+    urllib3
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook sphinx testtools tkinter zeep ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+    sphinx
+    testtools
+    tkinter
+    zeep
+  ];
 
   # Otherwise soap_tests.py will fail to create directory
   # Permission denied: '/homeless-shelter'

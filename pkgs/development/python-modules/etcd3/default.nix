@@ -25,12 +25,23 @@ buildPythonPackage rec {
     hash = "sha256-YM72+fkCDYXl6DORJa/O0sqXqHDWQcFLv2ifQ9kEHBo=";
   };
 
-  propagatedBuildInputs = [ grpcio protobuf six tenacity ];
+  propagatedBuildInputs = [
+    grpcio
+    protobuf
+    six
+    tenacity
+  ];
 
   # various failures and incompatible with newer hypothesis versions
   doCheck = false;
 
-  nativeCheckInputs = [ etcd hypothesis mock pifpaf pytestCheckHook ];
+  nativeCheckInputs = [
+    etcd
+    hypothesis
+    mock
+    pifpaf
+    pytestCheckHook
+  ];
 
   preCheck = ''
     pifpaf -e PYTHON run etcd --cluster

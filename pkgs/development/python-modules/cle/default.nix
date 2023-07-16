@@ -43,10 +43,20 @@ in buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs =
-    [ cffi minidump pefile pyelftools pyvex pyxbe sortedcontainers ];
+  propagatedBuildInputs = [
+    cffi
+    minidump
+    pefile
+    pyelftools
+    pyvex
+    pyxbe
+    sortedcontainers
+  ];
 
-  nativeCheckInputs = [ nose pytestCheckHook ];
+  nativeCheckInputs = [
+    nose
+    pytestCheckHook
+  ];
 
   # Place test binaries in the right location (location is hard-coded in the tests)
   preCheck = ''

@@ -17,5 +17,9 @@ mkDerivation {
     platforms = platforms.linux;
   };
   nativeBuildInputs = [ extra-cmake-modules ];
-  buildInputs = [ kdoctools kcompletion kxmlgui ];
+  buildInputs = [
+    kdoctools
+    kcompletion
+    kxmlgui
+  ];
 }

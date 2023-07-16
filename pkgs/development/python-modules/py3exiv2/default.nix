@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-ZgDaa4lxmdTaZhkblgRfPMxfVwENp2s6xdKSuD/MqEQ=";
   };
 
-  buildInputs = [ boost exiv2 ];
+  buildInputs = [
+    boost
+    exiv2
+  ];
 
   # Work around Python distutils compiling C++ with $CC (see issue #26709)
   env.NIX_CFLAGS_COMPILE =

@@ -32,8 +32,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [ async-timeout bleak bleak-retry-connector flux-led ];
+  propagatedBuildInputs = [
+    async-timeout
+    bleak
+    bleak-retry-connector
+    flux-led
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

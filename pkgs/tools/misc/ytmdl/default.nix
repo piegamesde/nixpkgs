@@ -42,7 +42,12 @@ python3Packages.buildPythonApplication rec {
     spotipy
   ];
 
-  makeWrapperArgs = [ "--prefix" "PATH" ":" (lib.makeBinPath [ ffmpeg ]) ];
+  makeWrapperArgs = [
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [ ffmpeg ])
+  ];
 
   # This application has no tests
   doCheck = false;

@@ -27,7 +27,14 @@ stdenv.mkDerivation rec {
     sha256 = "1hj06qvm02a2hx1a67igp45kxlbkczjlg20gr8lbp73l36k8yfvc";
   };
 
-  buildInputs = [ flex bison zlib libpng ncurses ed ];
+  buildInputs = [
+    flex
+    bison
+    zlib
+    libpng
+    ncurses
+    ed
+  ];
 
   hardeningDisable = [ "format" ];
 
@@ -41,8 +48,12 @@ stdenv.mkDerivation rec {
   '' else
     null;
 
-  patches =
-    [ ./environment.patch ./getline.patch ./clang.patch ./extramembot.patch ];
+  patches = [
+    ./environment.patch
+    ./getline.patch
+    ./clang.patch
+    ./extramembot.patch
+  ];
 
   setupHook = ./setup-hook.sh;
 

@@ -35,7 +35,11 @@ stdenv.mkDerivation {
 
   cmakeFlags = lib.optional debug "-DCMAKE_BUILD_TYPE=Debug";
 
-  nativeBuildInputs = [ cmake ninja pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    pkg-config
+  ];
 
   buildInputs = [
     cairo

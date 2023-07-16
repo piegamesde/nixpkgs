@@ -23,8 +23,17 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ z3 makeWrapper installShellFiles removeReferencesTo ]
-    ++ (with ocamlPackages; [ ocaml findlib ocamlbuild menhir ]);
+  nativeBuildInputs = [
+    z3
+    makeWrapper
+    installShellFiles
+    removeReferencesTo
+  ] ++ (with ocamlPackages; [
+    ocaml
+    findlib
+    ocamlbuild
+    menhir
+  ]);
 
   buildInputs = with ocamlPackages; [
     batteries
@@ -79,7 +88,10 @@ stdenv.mkDerivation rec {
     homepage = "https://www.fstar-lang.org";
     changelog = "https://github.com/FStarLang/FStar/raw/v${version}/CHANGES.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ gebner pnmadelaine ];
+    maintainers = with maintainers; [
+      gebner
+      pnmadelaine
+    ];
     mainProgram = "fstar.exe";
     platforms = with platforms; darwin ++ linux;
   };

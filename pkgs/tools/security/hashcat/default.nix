@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ opencl-headers xxHash ];
+  buildInputs = [
+    opencl-headers
+    xxHash
+  ];
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"
@@ -45,6 +48,9 @@ stdenv.mkDerivation rec {
     homepage = "https://hashcat.net/hashcat/";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ kierdavis zimbatm ];
+    maintainers = with maintainers; [
+      kierdavis
+      zimbatm
+    ];
   };
 }

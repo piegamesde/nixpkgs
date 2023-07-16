@@ -19,8 +19,14 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ colorama openai pyperclip rich shellingham typer ]
-    ++ typer.optional-dependencies.all;
+  propagatedBuildInputs = [
+    colorama
+    openai
+    pyperclip
+    rich
+    shellingham
+    typer
+  ] ++ typer.optional-dependencies.all;
 
   # No tests available
   doCheck = false;

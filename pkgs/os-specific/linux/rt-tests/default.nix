@@ -18,10 +18,16 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ numactl python3 ];
+  buildInputs = [
+    numactl
+    python3
+  ];
 
-  makeFlags =
-    [ "prefix=$(out)" "DESTDIR=" "PYLIB=$(out)/${python3.sitePackages}" ];
+  makeFlags = [
+    "prefix=$(out)"
+    "DESTDIR="
+    "PYLIB=$(out)/${python3.sitePackages}"
+  ];
 
   postInstall = ''
     wrapProgram "$out/bin/determine_maximum_mpps.sh" --prefix PATH : $out/bin

@@ -25,9 +25,18 @@ stdenv.mkDerivation {
     cd sources/pyside2-tools
   '';
 
-  nativeBuildInputs = [ cmake wrapPython ];
-  propagatedBuildInputs = [ shiboken2 pyside2 ];
-  buildInputs = [ python qt5.qtbase ];
+  nativeBuildInputs = [
+    cmake
+    wrapPython
+  ];
+  propagatedBuildInputs = [
+    shiboken2
+    pyside2
+  ];
+  buildInputs = [
+    python
+    qt5.qtbase
+  ];
 
   cmakeFlags = [ "-DBUILD_TESTS=OFF" ];
 

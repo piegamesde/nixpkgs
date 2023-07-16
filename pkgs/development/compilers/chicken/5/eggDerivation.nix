@@ -55,5 +55,8 @@ in (stdenv.mkDerivation ({
   dontConfigure = true;
 
   meta = { inherit (chicken.meta) platforms; } // args.meta or { };
-} // builtins.removeAttrs args [ "name" "buildInputs" "meta" ])).overrideAttrs
-override
+} // builtins.removeAttrs args [
+  "name"
+  "buildInputs"
+  "meta"
+])).overrideAttrs override

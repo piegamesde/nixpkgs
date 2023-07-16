@@ -20,7 +20,10 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ json5 packaging ];
+  propagatedBuildInputs = [
+    json5
+    packaging
+  ];
 
   preBuild = "export SETUPTOOLS_SCM_PRETEND_VERSION=${version}";
 

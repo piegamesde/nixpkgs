@@ -20,11 +20,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zl4D5Rn2N+H4FAEazjXE+HszwLur7sNbr1+9NHnpGVY=";
   };
 
-  outputs = [ "out" "man" "info" ];
+  outputs = [
+    "out"
+    "man"
+    "info"
+  ];
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ xz.bin makeWrapper ];
+  nativeBuildInputs = [
+    xz.bin
+    makeWrapper
+  ];
 
   makeFlags = [
     "SHELL=/bin/sh"

@@ -47,7 +47,10 @@ let
 in stdenv.mkDerivation {
   inherit pname version src appimage;
 
-  nativeBuildInputs = [ makeWrapper copyDesktopItems ];
+  nativeBuildInputs = [
+    makeWrapper
+    copyDesktopItems
+  ];
 
   installPhase = ''
     runHook preInstall

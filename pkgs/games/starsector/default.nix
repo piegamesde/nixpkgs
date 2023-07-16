@@ -22,22 +22,26 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+0zGJHM+SMonx3sytCQNQA/QBgzdPMEfQvOjrCDSOs8=";
   };
 
-  nativeBuildInputs = [ copyDesktopItems makeWrapper ];
-  buildInputs = [ xorg.libXxf86vm openal ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    makeWrapper
+  ];
+  buildInputs = [
+    xorg.libXxf86vm
+    openal
+  ];
 
   dontBuild = true;
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "starsector";
-      exec = "starsector";
-      icon = "starsector";
-      comment = meta.description;
-      genericName = "starsector";
-      desktopName = "Starsector";
-      categories = [ "Game" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "starsector";
+    exec = "starsector";
+    icon = "starsector";
+    comment = meta.description;
+    genericName = "starsector";
+    desktopName = "Starsector";
+    categories = [ "Game" ];
+  }) ];
 
   # need to cd into $out in order for classpath to pick up correct jar files
   installPhase = ''

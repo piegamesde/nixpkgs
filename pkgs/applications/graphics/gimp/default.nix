@@ -58,7 +58,10 @@ in stdenv.mkDerivation (finalAttrs: {
   pname = "gimp";
   version = "2.10.34";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "http://download.gimp.org/pub/gimp/v${
@@ -125,12 +128,15 @@ in stdenv.mkDerivation (finalAttrs: {
     glib-networking
     libmypaint
     mypaint-brushes1
-  ] ++ lib.optionals stdenv.isDarwin [ AppKit Cocoa gtk-mac-integration-gtk2 ]
-    ++ lib.optionals stdenv.isLinux [ libgudev ] ++ lib.optionals withPython [
-      python
-      # Duplicated here because python.withPackages does not expose the dev output with pkg-config files
-      python2.pkgs.pygtk
-    ];
+  ] ++ lib.optionals stdenv.isDarwin [
+    AppKit
+    Cocoa
+    gtk-mac-integration-gtk2
+  ] ++ lib.optionals stdenv.isLinux [ libgudev ] ++ lib.optionals withPython [
+    python
+    # Duplicated here because python.withPackages does not expose the dev output with pkg-config files
+    python2.pkgs.pygtk
+  ];
 
   # needed by gimp-2.0.pc
   propagatedBuildInputs = [ gegl ];
@@ -142,9 +148,9 @@ in stdenv.mkDerivation (finalAttrs: {
     "--with-icc-directory=/run/current-system/sw/share/color/icc"
     # fix libdir in pc files (${exec_prefix} needs to be passed verbatim)
     "--libdir=\${exec_prefix}/lib"
-  ] ++ lib.optionals (!withPython) [
-    "--disable-python" # depends on Python2 which was EOLed on 2020-01-01
-  ];
+  ] ++ lib.optionals
+    (!withPython) [ "--disable-python" # depends on Python2 which was EOLed on 2020-01-01
+    ];
 
   enableParallelBuilding = true;
 

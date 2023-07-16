@@ -167,8 +167,10 @@ let
         (sec "addressbook")
         (strOpt "defaulturl" cfg.addressbook.defaulturl)
       ] ++ (optionalEmptyList "subscriptions" cfg.addressbook.subscriptions)
-      ++ [ (sec "meshnets") (boolOpt "yggdrasil" cfg.yggdrasil.enable) ]
-      ++ (optionalNullString "yggaddress" cfg.yggdrasil.address)
+      ++ [
+        (sec "meshnets")
+        (boolOpt "yggdrasil" cfg.yggdrasil.enable)
+      ] ++ (optionalNullString "yggaddress" cfg.yggdrasil.address)
       ++ (flip map (collect (proto: proto ? port && proto ? address) cfg.proto)
         (proto:
           let
@@ -272,18 +274,23 @@ let
   in pkgs.writeText "i2pd-tunnels.conf" opts;
 
   i2pdFlags = concatStringsSep " "
-    (optional (cfg.address != null) ("--host=" + cfg.address)
-      ++ [ "--service" ("--conf=" + i2pdConf) ("--tunconf=" + tunnelConf) ]);
+    (optional (cfg.address != null) ("--host=" + cfg.address) ++ [
+      "--service"
+      ("--conf=" + i2pdConf)
+      ("--tunconf=" + tunnelConf)
+    ]);
 
 in {
 
-  imports = [
-    (mkRenamedOptionModule [ "services" "i2pd" "extIp" ] [
-      "services"
-      "i2pd"
-      "address"
-    ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "services"
+    "i2pd"
+    "extIp"
+  ] [
+    "services"
+    "i2pd"
+    "address"
+  ]) ];
 
   ###### interface
 
@@ -309,7 +316,12 @@ in {
       };
 
       logLevel = mkOption {
-        type = types.enum [ "debug" "info" "warn" "error" ];
+        type = types.enum [
+          "debug"
+          "info"
+          "warn"
+          "error"
+        ];
         default = "error";
         description = lib.mdDoc ''
           The log level. {command}`i2pd` defaults to "info"

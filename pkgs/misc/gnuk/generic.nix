@@ -24,8 +24,16 @@ stdenv.mkDerivation {
 
   inherit version src;
 
-  nativeBuildInputs = [ gcc-arm-embedded binutils-arm-embedded makeWrapper ];
-  buildInputs = with python3Packages; [ python pyusb colorama ];
+  nativeBuildInputs = [
+    gcc-arm-embedded
+    binutils-arm-embedded
+    makeWrapper
+  ];
+  buildInputs = with python3Packages; [
+    python
+    pyusb
+    colorama
+  ];
 
   configurePhase = ''
     cd src

@@ -19,8 +19,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xim5SB9/26FMjLqhiV+lj+Rm5Tk5luSIqwyYb3kXoFY=";
   };
 
-  buildInputs = [ curl libzip ];
-  nativeBuildInputs = [ pkg-config installShellFiles ];
+  buildInputs = [
+    curl
+    libzip
+  ];
+  nativeBuildInputs = [
+    pkg-config
+    installShellFiles
+  ];
 
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
@@ -44,7 +50,10 @@ stdenv.mkDerivation rec {
     changelog =
       "https://github.com/tldr-pages/tldr-c-client/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ taeer carlosdagos ];
+    maintainers = with maintainers; [
+      taeer
+      carlosdagos
+    ];
     platforms = platforms.all;
   };
 }

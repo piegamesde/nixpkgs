@@ -26,7 +26,14 @@ buildPythonPackage rec {
   # https://github.com/NixOS/nixpkgs/issues/156767
   buildInputs = [ jaxlib ];
 
-  propagatedBuildInputs = [ jax numpy parameterized pillow scipy tensorboard ];
+  propagatedBuildInputs = [
+    jax
+    numpy
+    parameterized
+    pillow
+    scipy
+    tensorboard
+  ];
 
   pythonImportsCheck = [ "objax" ];
 

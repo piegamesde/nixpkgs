@@ -22,7 +22,14 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ astring asetmap fmt re lwt alcotest ];
+  propagatedBuildInputs = [
+    astring
+    asetmap
+    fmt
+    re
+    lwt
+    alcotest
+  ];
 
   meta = {
     description = "Client library for Prometheus monitoring";

@@ -23,7 +23,10 @@ buildGoModule rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libGL nssmdns ] ++ (with xorg; [
+  buildInputs = [
+    libGL
+    nssmdns
+  ] ++ (with xorg; [
     libX11
     libX11.dev
     libXcursor

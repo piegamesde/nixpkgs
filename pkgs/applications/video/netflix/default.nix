@@ -44,7 +44,11 @@ let
     desktopName = "Netflix via Google Chrome";
     genericName =
       "A video streaming service providing films and exclusive TV series";
-    categories = [ "TV" "AudioVideo" "Network" ];
+    categories = [
+      "TV"
+      "AudioVideo"
+      "Network"
+    ];
     startupNotify = true;
   };
 
@@ -62,5 +66,8 @@ let
 
 in symlinkJoin {
   inherit name meta;
-  paths = [ script desktopItem ];
+  paths = [
+    script
+    desktopItem
+  ];
 }

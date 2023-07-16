@@ -30,8 +30,15 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-fcommon";
   NIX_LDFLAGS = lib.optionalString stdenv.isLinux "-lgcc_s";
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ pcre zlib xz ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    pcre
+    zlib
+    xz
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/ggreer/the_silver_searcher/";

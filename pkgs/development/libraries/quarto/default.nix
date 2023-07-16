@@ -48,8 +48,12 @@ stdenv.mkDerivation rec {
         }
       }/bin/R \
       --prefix QUARTO_PYTHON : ${
-        python3.withPackages
-        (ps: with ps; [ jupyter ipython ] ++ (extraPythonPackages ps))
+        python3.withPackages (ps:
+          with ps;
+          [
+            jupyter
+            ipython
+          ] ++ (extraPythonPackages ps))
       }/bin/python3
   '';
 
@@ -79,6 +83,9 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ mrtarantoga ];
     platforms = [ "x86_64-linux" ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode binaryBytecode ];
+    sourceProvenance = with sourceTypes; [
+      binaryNativeCode
+      binaryBytecode
+    ];
   };
 }

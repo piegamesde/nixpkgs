@@ -20,8 +20,21 @@ stdenv.mkDerivation rec {
   pname = "opensmtpd";
   version = "6.8.0p2";
 
-  nativeBuildInputs = [ autoconf automake libtool bison ];
-  buildInputs = [ libasr libevent zlib libressl db pam libxcrypt ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+    bison
+  ];
+  buildInputs = [
+    libasr
+    libevent
+    zlib
+    libressl
+    db
+    pam
+    libxcrypt
+  ];
 
   src = fetchurl {
     url = "https://www.opensmtpd.org/archives/${pname}-${version}.tar.gz";
@@ -58,9 +71,15 @@ stdenv.mkDerivation rec {
   ];
 
   # See https://github.com/OpenSMTPD/OpenSMTPD/pull/884
-  makeFlags = [ "CFLAGS=-ffunction-sections" "LDFLAGS=-Wl,--gc-sections" ];
+  makeFlags = [
+    "CFLAGS=-ffunction-sections"
+    "LDFLAGS=-Wl,--gc-sections"
+  ];
 
-  installFlags = [ "sysconfdir=\${out}/etc" "localstatedir=\${TMPDIR}" ];
+  installFlags = [
+    "sysconfdir=\${out}/etc"
+    "localstatedir=\${TMPDIR}"
+  ];
 
   meta = with lib; {
     homepage = "https://www.opensmtpd.org/";
@@ -70,7 +89,10 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.isc;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ obadz ekleog ];
+    maintainers = with maintainers; [
+      obadz
+      ekleog
+    ];
   };
   passthru.tests = {
     basic-functionality-and-dovecot-interaction = nixosTests.opensmtpd;

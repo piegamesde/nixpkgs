@@ -44,6 +44,9 @@ rustPlatform.buildRustPackage rec {
       with nice colors.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ figsoda jk ];
+    maintainers = with maintainers; [
+      figsoda
+      jk
+    ];
   };
 }

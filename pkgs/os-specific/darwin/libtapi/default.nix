@@ -30,7 +30,10 @@ stdenv.mkDerivation {
       ./native-clang-tblgen.patch
     ];
 
-  nativeBuildInputs = [ cmake python3 ];
+  nativeBuildInputs = [
+    cmake
+    python3
+  ];
 
   # ncurses is required here to avoid a reference to bootstrap-tools, which is
   # not allowed for the stdenv.
@@ -71,9 +74,17 @@ stdenv.mkDerivation {
     cmakeFlagsArray+=(-DCMAKE_CXX_FLAGS="$INCLUDE_FIX")
   '';
 
-  buildFlags = [ "clangBasic" "libtapi" "tapi" ];
+  buildFlags = [
+    "clangBasic"
+    "libtapi"
+    "tapi"
+  ];
 
-  installTargets = [ "install-libtapi" "install-tapi-headers" "install-tapi" ];
+  installTargets = [
+    "install-libtapi"
+    "install-tapi-headers"
+    "install-tapi"
+  ];
 
   meta = with lib; {
     description =

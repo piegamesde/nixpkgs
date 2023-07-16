@@ -77,8 +77,11 @@ stdenv.mkDerivation rec {
     libvirt-glib
     libxml2
     vte
-  ] ++ optionals ovirtSupport [ libgovirt ] ++ optionals spiceSupport
-    ([ gdbm spice-gtk spice-protocol ] ++ optionals stdenv.isLinux [ libcap ]);
+  ] ++ optionals ovirtSupport [ libgovirt ] ++ optionals spiceSupport ([
+    gdbm
+    spice-gtk
+    spice-protocol
+  ] ++ optionals stdenv.isLinux [ libcap ]);
 
   # Required for USB redirection PolicyKit rules file
   propagatedUserEnvPkgs = optional spiceSupport spice-gtk;
@@ -93,7 +96,10 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A viewer for remote virtual machines";
-    maintainers = with maintainers; [ raskin atemu ];
+    maintainers = with maintainers; [
+      raskin
+      atemu
+    ];
     platforms = with platforms; linux ++ darwin;
     license = licenses.gpl2;
   };

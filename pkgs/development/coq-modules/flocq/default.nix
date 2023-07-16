@@ -46,7 +46,10 @@ mkCoqDerivation {
     "0q5a038ww5dn72yvwn5298d3ridkcngb1dik8hdyr3xh7gr5qibj";
   releaseRev = v: "flocq-${v}";
 
-  nativeBuildInputs = [ bash autoconf ];
+  nativeBuildInputs = [
+    bash
+    autoconf
+  ];
   mlPlugin = true;
   useMelquiondRemake.logpath = "Flocq";
 

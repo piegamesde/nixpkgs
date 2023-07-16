@@ -23,9 +23,19 @@ mkDerivation {
   };
   disabledForGRafter = "3.8";
 
-  nativeBuildInputs = [ cmake pkg-config swig python ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    swig
+    python
+  ];
 
-  buildInputs = [ cppunit logLib boost libsodium ];
+  buildInputs = [
+    cppunit
+    logLib
+    boost
+    libsodium
+  ];
 
   meta = with lib; {
     description = "Gnuradio block for encryption";

@@ -36,8 +36,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-D2hrdej2Q69AYjDn2Ey4vBSOmzBY3UzZMUdJSRjurdA=";
   };
 
-  nativeBuildInputs =
-    [ cmake docbook_xml_dtd_45 docbook_xsl pkg-config python3 wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    docbook_xml_dtd_45
+    docbook_xsl
+    pkg-config
+    python3
+    wrapQtAppsHook
+  ];
   buildInputs = [
     chromaprint
     ffmpeg

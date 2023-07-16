@@ -9,7 +9,10 @@ build-idris-package {
   pname = "js";
   version = "2018-11-27";
 
-  idrisDeps = [ contrib pruviloj ];
+  idrisDeps = [
+    contrib
+    pruviloj
+  ];
 
   src = fetchFromGitHub {
     owner = "rbarreiro";

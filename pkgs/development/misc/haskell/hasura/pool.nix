@@ -33,7 +33,10 @@ mkDerivation {
     transformers-base
     vector
   ];
-  testHaskellDepends = [ base hspec ];
+  testHaskellDepends = [
+    base
+    hspec
+  ];
   homepage = "https://github.com/bos/pool";
   description = "A high-performance striped resource pooling implementation";
   license = lib.licenses.bsd3;

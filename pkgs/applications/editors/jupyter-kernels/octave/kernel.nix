@@ -15,7 +15,10 @@ buildPythonPackage rec {
     sha256 = "sha256-5ki2lekfK7frPsmPBIzYQOfANCUY9x+F2ZRAQSdPTxo=";
   };
 
-  propagatedBuildInputs = [ metakernel ipykernel ];
+  propagatedBuildInputs = [
+    metakernel
+    ipykernel
+  ];
 
   # Tests fail because the kernel appears to be halting or failing to launch
   # There appears to be a similar problem with metakernel's tests

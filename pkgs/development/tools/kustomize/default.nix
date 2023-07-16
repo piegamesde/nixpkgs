@@ -10,7 +10,11 @@ buildGoModule rec {
   version = "4.5.4";
 
   ldflags = let t = "sigs.k8s.io/kustomize/api/provenance";
-  in [ "-s" "-X ${t}.version=${version}" "-X ${t}.gitCommit=${src.rev}" ];
+  in [
+    "-s"
+    "-X ${t}.version=${version}"
+    "-X ${t}.gitCommit=${src.rev}"
+  ];
 
   src = fetchFromGitHub {
     owner = "kubernetes-sigs";

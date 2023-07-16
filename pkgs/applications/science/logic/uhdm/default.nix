@@ -19,12 +19,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-z3vURlKXCW5W2naVwJjBXcn94u80JsBxlUOIy9ylsJw=";
   };
 
-  nativeBuildInputs =
-    [ cmake (python3.withPackages (p: with p; [ orderedmultidict ])) gtest ];
+  nativeBuildInputs = [
+    cmake
+    (python3.withPackages (p: with p; [ orderedmultidict ]))
+    gtest
+  ];
 
   buildInputs = [ capnproto ];
 
-  cmakeFlags = [ "-DUHDM_USE_HOST_GTEST=On" "-DUHDM_USE_HOST_CAPNP=On" ];
+  cmakeFlags = [
+    "-DUHDM_USE_HOST_GTEST=On"
+    "-DUHDM_USE_HOST_CAPNP=On"
+  ];
 
   doCheck = true;
   checkPhase = "make test";

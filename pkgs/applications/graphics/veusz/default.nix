@@ -14,8 +14,11 @@ python3Packages.buildPythonApplication rec {
     sha256 = "whcaxF5LMEJNj8NSYeLpnb5uJboRl+vCQ1WxBrJjldE=";
   };
 
-  nativeBuildInputs =
-    [ wrapQtAppsHook python3Packages.sip python3Packages.tomli ];
+  nativeBuildInputs = [
+    wrapQtAppsHook
+    python3Packages.sip
+    python3Packages.tomli
+  ];
 
   buildInputs = [ qtbase ];
 

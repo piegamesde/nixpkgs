@@ -17,7 +17,12 @@ buildPythonPackage rec {
     hash = "sha256-kO6aH+4N2jDigw4SmFUIHqF70bBqVTpiti3hXK/xohk=";
   };
 
-  propagatedBuildInputs = [ pytz requests six tenacity ];
+  propagatedBuildInputs = [
+    pytz
+    requests
+    six
+    tenacity
+  ];
 
   # No tests in archive
   doCheck = false;

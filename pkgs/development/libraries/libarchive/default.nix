@@ -43,7 +43,11 @@ in assert xarSupport -> libxml2 != null;
     hash = "sha256-wQbA6vlXH8pnpY7LJLkjrRFEBpcaPR1SqxnK71UVwxg=";
   };
 
-  outputs = [ "out" "lib" "dev" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+  ];
 
   postPatch = let
     skipTestPaths = [
@@ -67,15 +71,31 @@ in assert xarSupport -> libxml2 != null;
     ${lib.concatStringsSep "\n" (map removeTest skipTestPaths)}
   '';
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ bzip2 lzo openssl xz zlib zstd ]
-    ++ lib.optional stdenv.hostPlatform.isUnix sharutils
-    ++ lib.optionals stdenv.isLinux [ acl attr 0.0 fsprogs ]
-    ++ lib.optional xarSupport libxml2;
+  buildInputs = [
+    bzip2
+    lzo
+    openssl
+    xz
+    zlib
+    zstd
+  ] ++ lib.optional stdenv.hostPlatform.isUnix sharutils
+    ++ lib.optionals stdenv.isLinux [
+      acl
+      attr
+      0.0
+      fsprogs
+    ] ++ lib.optional xarSupport libxml2;
 
   # Without this, pkg-config-based dependencies are unhappy
-  propagatedBuildInputs = lib.optionals stdenv.isLinux [ attr acl ];
+  propagatedBuildInputs = lib.optionals stdenv.isLinux [
+    attr
+    acl
+  ];
 
   configureFlags = lib.optional (!xarSupport) "--without-xml2";
 
@@ -106,7 +126,10 @@ in assert xarSupport -> libxml2 != null;
     changelog =
       "https://github.com/libarchive/libarchive/releases/tag/v${finalAttrs.version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jcumming AndersonTorres ];
+    maintainers = with maintainers; [
+      jcumming
+      AndersonTorres
+    ];
     platforms = platforms.all;
   };
 

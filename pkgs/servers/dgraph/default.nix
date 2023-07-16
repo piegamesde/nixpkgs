@@ -30,7 +30,10 @@ buildGoModule rec {
 
   # todo those dependencies are required in the makefile, but verify how they are used
   # actually
-  buildInputs = [ jemalloc nodejs ];
+  buildInputs = [
+    jemalloc
+    nodejs
+  ];
 
   subPackages = [ "dgraph" ];
 

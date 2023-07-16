@@ -33,7 +33,10 @@ in lib.recurseIntoAttrs {
           ...
         }: {
           system.nixos = dummyVersioning;
-          environment.systemPackages = [ pkgs.proof-of-overlay-hello figlet ];
+          environment.systemPackages = [
+            pkgs.proof-of-overlay-hello
+            figlet
+          ];
         };
       testScript = ''
         machine.succeed("hello | figlet >/dev/console")
@@ -82,7 +85,11 @@ in lib.recurseIntoAttrs {
     multiOutput = runCommand "testBuildFailure-multiOutput" {
       failed = testers.testBuildFailure (runCommand "fail" {
         # dev will be the default output
-        outputs = [ "dev" "doc" "out" ];
+        outputs = [
+          "dev"
+          "doc"
+          "out"
+        ];
       } ''
         echo i am failing
         exit 1

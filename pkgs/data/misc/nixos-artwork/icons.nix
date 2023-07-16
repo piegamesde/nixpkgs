@@ -17,5 +17,8 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ imagemagick ];
 
-  makeFlags = [ "DESTDIR=${placeholder "out"}" "prefix=" ];
+  makeFlags = [
+    "DESTDIR=${placeholder "out"}"
+    "prefix="
+  ];
 }

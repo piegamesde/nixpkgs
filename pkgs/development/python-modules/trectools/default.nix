@@ -33,8 +33,16 @@ buildPythonPackage rec {
       --replace "bs4 >= 0.0.0.1" "beautifulsoup4 >= 4.11.1"
   '';
 
-  propagatedBuildInputs =
-    [ pandas numpy scikit-learn scipy lxml beautifulsoup4 matplotlib sarge ];
+  propagatedBuildInputs = [
+    pandas
+    numpy
+    scikit-learn
+    scipy
+    lxml
+    beautifulsoup4
+    matplotlib
+    sarge
+  ];
 
   checkPhase = ''
     cd unittests

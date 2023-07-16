@@ -33,9 +33,17 @@ rustPlatform.buildRustPackage rec {
   LIBSSH2_SYS_USE_PKG_CONFIG = true;
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl zlib libssh2 libgit2 ]
-    ++ (lib.optionals stdenv.isDarwin ([ IOKit Security CoreFoundation AppKit ]
-      ++ (lib.optionals stdenv.isAarch64 [ System ])));
+  buildInputs = [
+    openssl
+    zlib
+    libssh2
+    libgit2
+  ] ++ (lib.optionals stdenv.isDarwin ([
+    IOKit
+    Security
+    CoreFoundation
+    AppKit
+  ] ++ (lib.optionals stdenv.isAarch64 [ System ])));
 
   meta = with lib; {
     description =

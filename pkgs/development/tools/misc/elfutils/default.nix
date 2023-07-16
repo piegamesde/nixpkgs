@@ -72,19 +72,37 @@ stdenv.mkDerivation rec {
     sed -i s/run-backtrace-dwarf.sh//g tests/Makefile.in
   '';
 
-  outputs = [ "bin" "dev" "out" "man" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "man"
+  ];
 
   # We need bzip2 in NativeInputs because otherwise we can't unpack the src,
   # as the host-bzip2 will be in the path.
-  nativeBuildInputs = [ m4 bison flex gettext bzip2 ]
-    ++ lib.optional enableDebuginfod pkg-config;
-  buildInputs = [ zlib zstd bzip2 xz ]
-    ++ lib.optionals stdenv.hostPlatform.isMusl [
-      argp-standalone
-      musl-fts
-      musl-obstack
-    ]
-    ++ lib.optionals enableDebuginfod [ sqlite curl libmicrohttpd libarchive ];
+  nativeBuildInputs = [
+    m4
+    bison
+    flex
+    gettext
+    bzip2
+  ] ++ lib.optional enableDebuginfod pkg-config;
+  buildInputs = [
+    zlib
+    zstd
+    bzip2
+    xz
+  ] ++ lib.optionals stdenv.hostPlatform.isMusl [
+    argp-standalone
+    musl-fts
+    musl-obstack
+  ] ++ lib.optionals enableDebuginfod [
+    sqlite
+    curl
+    libmicrohttpd
+    libarchive
+  ];
 
   propagatedNativeBuildInputs = [ setupDebugInfoDirs ];
 
@@ -116,7 +134,14 @@ stdenv.mkDerivation rec {
     broken = stdenv.hostPlatform.isStatic;
     # licenses are GPL2 or LGPL3+ for libraries, GPL3+ for bins,
     # but since this package isn't split that way, all three are listed.
-    license = with licenses; [ gpl2Only lgpl3Plus gpl3Plus ];
-    maintainers = with maintainers; [ eelco r-burns ];
+    license = with licenses; [
+      gpl2Only
+      lgpl3Plus
+      gpl3Plus
+    ];
+    maintainers = with maintainers; [
+      eelco
+      r-burns
+    ];
   };
 }

@@ -39,7 +39,11 @@ in buildGoModule rec {
   ldflags =
     [ "-X github.com/codenotary/immudb/cmd/version.Version=${version}" ];
 
-  subPackages = [ "cmd/immudb" "cmd/immuclient" "cmd/immuadmin" ];
+  subPackages = [
+    "cmd/immudb"
+    "cmd/immuclient"
+    "cmd/immuadmin"
+  ];
 
   postInstall = ''
     mkdir -p share/completions

@@ -45,10 +45,22 @@ in stdenv.mkDerivation {
     sed -i "s:set (FAAD2_PREFIX .*):set (FAAD2_PREFIX \"$srcRoot/faad2-prefix\"):" CMakeLists.txt
   '';
 
-  nativeBuildInputs = [ cmake autoconf automake libtool ];
-  buildInputs = [ rtl-sdr libao fftwFloat ];
+  nativeBuildInputs = [
+    cmake
+    autoconf
+    automake
+    libtool
+  ];
+  buildInputs = [
+    rtl-sdr
+    libao
+    fftwFloat
+  ];
 
-  cmakeFlags = [ "-DUSE_COLOR=ON" "-DUSE_FAAD2=ON" ];
+  cmakeFlags = [
+    "-DUSE_COLOR=ON"
+    "-DUSE_FAAD2=ON"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/theori-io/nrsc5";

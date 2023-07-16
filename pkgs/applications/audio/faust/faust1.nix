@@ -23,7 +23,10 @@ let
     downloadPage = "https://sourceforge.net/projects/faudiostream/files/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ magnetophon pmahoney ];
+    maintainers = with maintainers; [
+      magnetophon
+      pmahoney
+    ];
   };
 
   faust = stdenv.mkDerivation {
@@ -161,7 +164,10 @@ let
 
     stdenv.mkDerivation ((faust2ApplBase args) // {
 
-      nativeBuildInputs = [ pkg-config makeWrapper ];
+      nativeBuildInputs = [
+        pkg-config
+        makeWrapper
+      ];
 
       propagatedBuildInputs = [ faust ] ++ propagatedBuildInputs;
 

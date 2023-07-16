@@ -33,9 +33,19 @@ stdenv.mkDerivation rec {
     "-DAVIF_BUILD_APPS=ON"
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ libaom zlib libpng libjpeg dav1d libyuv ];
+  buildInputs = [
+    libaom
+    zlib
+    libpng
+    libjpeg
+    dav1d
+    libyuv
+  ];
 
   meta = with lib; {
     description = "C implementation of the AV1 Image File Format";

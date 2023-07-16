@@ -87,7 +87,10 @@ let
       pname = "SharpFont";
       version = "4.0.1";
       sha256 = "1yd3cm4ww0hw2k3aymf792hp6skyg8qn491m2a3fhkzvsl8z7vs8";
-      outputFiles = [ "lib/*" "config/*" ];
+      outputFiles = [
+        "lib/*"
+        "config/*"
+      ];
     };
 
     SmartIrc4net = fetchNuGet {
@@ -192,7 +195,10 @@ let
         ln -sn ${dotnetPackages.NUnit}/lib/dotnet/NUnit Source/packages/NUnit.2.6.3/lib
       '';
 
-      buildInputs = [ dotnetPackages.NUnit dotnetPackages.NUnitRunners ];
+      buildInputs = [
+        dotnetPackages.NUnit
+        dotnetPackages.NUnitRunners
+      ];
 
       xBuildFiles = [ "Source/Boogie.sln" ];
 
@@ -262,8 +268,11 @@ let
       buildInputs = [ Boogie ];
 
       xBuildFiles = [ "Source/Dafny.sln" ];
-      xBuildFlags =
-        [ "/p:Configuration=Checked" "/p:Platform=Any CPU" "/t:Rebuild" ];
+      xBuildFlags = [
+        "/p:Configuration=Checked"
+        "/p:Platform=Any CPU"
+        "/t:Rebuild"
+      ];
 
       outputFiles = [ "Binaries/*" ];
 

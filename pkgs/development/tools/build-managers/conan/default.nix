@@ -37,9 +37,17 @@ python3.pkgs.buildPythonApplication rec {
       requests
       tqdm
       urllib3
-    ] ++ lib.optionals stdenv.isDarwin [ idna cryptography pyopenssl ];
+    ] ++ lib.optionals stdenv.isDarwin [
+      idna
+      cryptography
+      pyopenssl
+    ];
 
-  nativeCheckInputs = [ git pkg-config zlib ] ++ (with python3.pkgs; [
+  nativeCheckInputs = [
+    git
+    pkg-config
+    zlib
+  ] ++ (with python3.pkgs; [
     mock
     parameterized
     pytest-xdist
@@ -49,7 +57,10 @@ python3.pkgs.buildPythonApplication rec {
 
   pythonImportsCheck = [ "conan" ];
 
-  pytestFlagsArray = [ "-n" "$NIX_BUILD_CORES" ];
+  pytestFlagsArray = [
+    "-n"
+    "$NIX_BUILD_CORES"
+  ];
 
   disabledTests = [
     # Tests require network access

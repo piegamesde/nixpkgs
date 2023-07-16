@@ -13,7 +13,10 @@ stdenv.mkDerivation rec {
 
   src = looking-glass-client.src;
   sourceRoot = "source/module";
-  hardeningDisable = [ "pic" "format" ];
+  hardeningDisable = [
+    "pic"
+    "format"
+  ];
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
   makeFlags = [

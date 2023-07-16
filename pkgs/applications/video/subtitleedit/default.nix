@@ -32,11 +32,24 @@ stdenv.mkDerivation rec {
     rm -rf source
   '';
 
-  nativeBuildInputs = [ copyDesktopItems icoutils makeWrapper ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    icoutils
+    makeWrapper
+  ];
 
-  runtimeLibs = lib.makeLibraryPath [ gtk2 hunspell mpv tesseract4 ];
+  runtimeLibs = lib.makeLibraryPath [
+    gtk2
+    hunspell
+    mpv
+    tesseract4
+  ];
 
-  runtimeBins = lib.makeBinPath [ ffmpeg hunspell tesseract4 ];
+  runtimeBins = lib.makeBinPath [
+    ffmpeg
+    hunspell
+    tesseract4
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -60,16 +73,14 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      desktopName = "Subtitle Edit";
-      exec = "subtitleedit";
-      icon = "subtitleedit";
-      comment = meta.description;
-      categories = [ "Video" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = pname;
+    desktopName = "Subtitle Edit";
+    exec = "subtitleedit";
+    icon = "subtitleedit";
+    comment = meta.description;
+    categories = [ "Video" ];
+  }) ];
 
   passthru.updateScript = nix-update-script { };
 

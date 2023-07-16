@@ -25,9 +25,16 @@ buildPythonPackage rec {
       --replace "--cov" ""
   '';
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
-  nativeBuildInputs = [ pkginfo sphinx-rtd-theme sphinxHook ];
+  nativeBuildInputs = [
+    pkginfo
+    sphinx-rtd-theme
+    sphinxHook
+  ];
 
   pythonImportsCheck = [ "colorzero" ];
 

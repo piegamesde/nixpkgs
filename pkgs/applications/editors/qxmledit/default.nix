@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
   pname = "qxmledit";
   version = "0.9.17";
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   src = fetchFromGitHub {
     owner = "lbellonda";
@@ -26,7 +29,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ qmake ];
 
-  buildInputs = [ qtbase qtxmlpatterns qtsvg qtscxml qtquick1 libGLU ];
+  buildInputs = [
+    qtbase
+    qtxmlpatterns
+    qtsvg
+    qtscxml
+    qtquick1
+    libGLU
+  ];
 
   qmakeFlags = [ "CONFIG+=release" ];
 

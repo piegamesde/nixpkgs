@@ -30,7 +30,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-sK3KrtZzrV2jkQveZnSHDR5I4v7baL/sARje2mDpIMI=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    makeWrapper
+  ];
 
   buildInputs = [
     libX11

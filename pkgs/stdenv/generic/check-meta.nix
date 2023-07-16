@@ -286,10 +286,10 @@ let
   # We don't include this in lib for now because this function is flawed: it accepts things like `mkIf true 42`.
   typeCheck = type: value:
     let
-      merged = lib.mergeDefinitions [ ] type [{
+      merged = lib.mergeDefinitions [ ] type [ {
         file = lib.unknownModule;
         inherit value;
-      }];
+      } ];
       eval = builtins.tryEval (builtins.deepSeq merged.mergedValue null);
     in eval.success;
 
@@ -510,8 +510,10 @@ let
       #   Services and users should specify outputs explicitly,
       #   unless they are comfortable with this default.
       outputsToInstall = let hasOutput = out: builtins.elem out outputs;
-      in [ (lib.findFirst hasOutput null ([ "bin" "out" ] ++ outputs)) ]
-      ++ lib.optional (hasOutput "man") "man";
+      in [ (lib.findFirst hasOutput null ([
+        "bin"
+        "out"
+      ] ++ outputs)) ] ++ lib.optional (hasOutput "man") "man";
     } // attrs.meta or { }
     # Fill `meta.position` to identify the source location of the package.
     // lib.optionalAttrs (pos != null) {

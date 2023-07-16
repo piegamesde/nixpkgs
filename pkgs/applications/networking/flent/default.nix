@@ -17,9 +17,16 @@ buildPythonApplication rec {
 
   buildInputs = [ python.pkgs.sphinx ];
   nativeBuildInputs = [ qt5.wrapQtAppsHook ];
-  propagatedBuildInputs =
-    [ procps python.pkgs.matplotlib python.pkgs.pyqt5 python.pkgs.qtpy ];
-  nativeCheckInputs = [ python.pkgs.mock xvfb-run ];
+  propagatedBuildInputs = [
+    procps
+    python.pkgs.matplotlib
+    python.pkgs.pyqt5
+    python.pkgs.qtpy
+  ];
+  nativeCheckInputs = [
+    python.pkgs.mock
+    xvfb-run
+  ];
 
   checkPhase = ''
     # we want the gui tests to always run

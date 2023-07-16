@@ -10,7 +10,12 @@ args@{
 
   description = "Simple color library for Common Lisp";
 
-  deps = [ args."alexandria" args."anaphora" args."let-plus" args."lift" ];
+  deps = [
+    args."alexandria"
+    args."anaphora"
+    args."let-plus"
+    args."lift"
+  ];
 
   src = fetchurl {
     url =

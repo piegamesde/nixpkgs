@@ -29,10 +29,17 @@ mkDerivation {
   meta = {
     homepage = "https://apps.kde.org/akregator/";
     description = "KDE feed reader";
-    license = with lib.licenses; [ gpl2Plus lgpl21Plus fdl12Plus ];
+    license = with lib.licenses; [
+      gpl2Plus
+      lgpl21Plus
+      fdl12Plus
+    ];
     maintainers = kdepimTeam;
   };
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
   buildInputs = [
     qtwebengine
 
@@ -56,5 +63,8 @@ mkDerivation {
     messagelib
     syndication
   ];
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 }

@@ -45,6 +45,10 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://typst.app";
     changelog = "https://github.com/typst/typst/releases/tag/${src.rev}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ drupol figsoda kanashimia ];
+    maintainers = with maintainers; [
+      drupol
+      figsoda
+      kanashimia
+    ];
   };
 }

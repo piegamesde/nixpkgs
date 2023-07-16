@@ -62,32 +62,42 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ libpng libtiff ] ++ optionals enableQt
-    (if lib.versionOlder majorVersion "9" then [
-      qtbase
-      qtx11extras
-      qttools
-    ] else
-      [ (qtEnv "qvtk-qt-env" [ qtx11extras qttools qtdeclarative ]) ])
-    ++ optionals stdenv.isLinux [ libGLU xorgproto libXt ]
-    ++ optionals stdenv.isDarwin [
-      xpc
-      AGL
-      Cocoa
-      CoreServices
-      DiskArbitration
-      IOKit
-      CFNetwork
-      Security
-      ApplicationServices
-      CoreText
-      IOSurface
-      ImageIO
-      OpenGL
-      GLUT
-    ] ++ optionals enablePython [ python ];
+  buildInputs = [
+    libpng
+    libtiff
+  ] ++ optionals enableQt (if lib.versionOlder majorVersion "9" then [
+    qtbase
+    qtx11extras
+    qttools
+  ] else [ (qtEnv "qvtk-qt-env" [
+    qtx11extras
+    qttools
+    qtdeclarative
+  ]) ]) ++ optionals stdenv.isLinux [
+    libGLU
+    xorgproto
+    libXt
+  ] ++ optionals stdenv.isDarwin [
+    xpc
+    AGL
+    Cocoa
+    CoreServices
+    DiskArbitration
+    IOKit
+    CFNetwork
+    Security
+    ApplicationServices
+    CoreText
+    IOSurface
+    ImageIO
+    OpenGL
+    GLUT
+  ] ++ optionals enablePython [ python ];
   propagatedBuildInputs = optionals stdenv.isDarwin [ libobjc ]
-    ++ optionals stdenv.isLinux [ libX11 libGL ];
+    ++ optionals stdenv.isLinux [
+      libX11
+      libGL
+    ];
   # see https://github.com/NixOS/nixpkgs/pull/178367#issuecomment-1238827254
 
   patches = map fetchpatch patchesToFetch;
@@ -119,16 +129,15 @@ in stdenv.mkDerivation rec {
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
     "-DCMAKE_INSTALL_BINDIR=bin"
     "-DVTK_VERSIONED_INSTALL=OFF"
-  ] ++ optionals enableQt [
-    "-D${
+  ] ++ optionals enableQt [ "-D${
       if lib.versionOlder version "9.0" then
         "VTK_Group_Qt:BOOL=ON"
       else
         "VTK_GROUP_ENABLE_Qt:STRING=YES"
-    }"
-  ] ++ optionals (enableQt && lib.versionOlder version "8.0")
-    [ "-DVTK_QT_VERSION=5" ] ++ optionals stdenv.isDarwin
-    [ "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks" ]
+    }" ] ++ optionals
+    (enableQt && lib.versionOlder version "8.0") [ "-DVTK_QT_VERSION=5" ]
+    ++ optionals
+    stdenv.isDarwin [ "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks" ]
     ++ optionals enablePython [
       "-DVTK_WRAP_PYTHON:BOOL=ON"
       "-DVTK_PYTHON_VERSION:STRING=${pythonMajor}"
@@ -152,7 +161,11 @@ in stdenv.mkDerivation rec {
       "Open source libraries for 3D computer graphics, image processing and visualization";
     homepage = "https://www.vtk.org/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ knedlsepp tfmoraes lheckemann ];
+    maintainers = with maintainers; [
+      knedlsepp
+      tfmoraes
+      lheckemann
+    ];
     platforms = with platforms; unix;
     # /nix/store/xxxxxxx-apple-framework-Security/Library/Frameworks/Security.framework/Headers/Authorization.h:192:7: error: variably modified 'bytes' at file scope
     broken = stdenv.isDarwin && (lib.versions.major majorVersion == "8");

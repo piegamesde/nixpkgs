@@ -44,7 +44,11 @@ buildPythonPackage rec {
 
   buildInputs = lib.optional stdenv.isDarwin libcxx;
 
-  propagatedBuildInputs = [ numpy python-dateutil pytz ];
+  propagatedBuildInputs = [
+    numpy
+    python-dateutil
+    pytz
+  ];
 
   nativeCheckInputs = [
     glibcLocales
@@ -141,7 +145,11 @@ buildPythonPackage rec {
     changelog = "https://pandas.pydata.org/docs/whatsnew/index.html";
     description = "Python Data Analysis Library";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ raskin fridh knedlsepp ];
+    maintainers = with maintainers; [
+      raskin
+      fridh
+      knedlsepp
+    ];
     platforms = platforms.unix;
   };
 }

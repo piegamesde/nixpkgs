@@ -32,13 +32,29 @@ in buildPythonPackage rec {
 
   sourceRoot = "apache-arrow-${version}/python";
 
-  nativeBuildInputs = [ cmake cython pkg-config setuptools-scm ];
+  nativeBuildInputs = [
+    cmake
+    cython
+    pkg-config
+    setuptools-scm
+  ];
 
   buildInputs = [ arrow-cpp ];
 
-  propagatedBuildInputs = [ cffi cloudpickle fsspec numpy scipy ];
+  propagatedBuildInputs = [
+    cffi
+    cloudpickle
+    fsspec
+    numpy
+    scipy
+  ];
 
-  nativeCheckInputs = [ hypothesis pandas pytestCheckHook pytest-lazy-fixture ];
+  nativeCheckInputs = [
+    hypothesis
+    pandas
+    pytestCheckHook
+    pytest-lazy-fixture
+  ];
 
   PYARROW_BUILD_TYPE = "release";
 
@@ -147,6 +163,9 @@ in buildPythonPackage rec {
     homepage = "https://arrow.apache.org/";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ veprbl cpcloud ];
+    maintainers = with maintainers; [
+      veprbl
+      cpcloud
+    ];
   };
 }

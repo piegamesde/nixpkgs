@@ -38,8 +38,15 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs =
-    [ gettext meson ninja vala pkg-config python3 wrapGAppsHook ];
+  nativeBuildInputs = [
+    gettext
+    meson
+    ninja
+    vala
+    pkg-config
+    python3
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     curl

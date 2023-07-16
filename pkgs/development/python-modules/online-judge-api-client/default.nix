@@ -18,8 +18,13 @@
 let
   # NOTE This is needed to download & run another Python program internally in
   #      order to generate test cases for library-checker problems.
-  pythonEnv =
-    python.withPackages (ps: with ps; [ colorlog jinja2 markdown toml ]);
+  pythonEnv = python.withPackages (ps:
+    with ps; [
+      colorlog
+      jinja2
+      markdown
+      toml
+    ]);
 in buildPythonPackage rec {
   pname = "online-judge-api-client";
   version = "10.10.1";
@@ -38,13 +43,23 @@ in buildPythonPackage rec {
       --subst-var-by pythonInterpreter ${pythonEnv.interpreter}
   '';
 
-  propagatedBuildInputs =
-    [ appdirs beautifulsoup4 colorlog jsonschema lxml requests toml ];
+  propagatedBuildInputs = [
+    appdirs
+    beautifulsoup4
+    colorlog
+    jsonschema
+    lxml
+    requests
+    toml
+  ];
 
   # Requires internet access
   doCheck = false;
 
-  pythonImportsCheck = [ "onlinejudge" "onlinejudge_api" ];
+  pythonImportsCheck = [
+    "onlinejudge"
+    "onlinejudge_api"
+  ];
 
   meta = with lib; {
     description = "API client to develop tools for competitive programming";

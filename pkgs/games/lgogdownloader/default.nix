@@ -33,11 +33,24 @@ stdenv.mkDerivation rec {
     hash = "sha256-zSAtQPgniI4hwhqiknP4zQAH6dhEmoAC1iF577ahnFU=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config help2man ]
-    ++ lib.optional enableGui wrapQtAppsHook;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    help2man
+  ] ++ lib.optional enableGui wrapQtAppsHook;
 
-  buildInputs = [ boost curl htmlcxx jsoncpp liboauth rhash tinyxml-2 ]
-    ++ lib.optionals enableGui [ qtbase qtwebengine ];
+  buildInputs = [
+    boost
+    curl
+    htmlcxx
+    jsoncpp
+    liboauth
+    rhash
+    tinyxml-2
+  ] ++ lib.optionals enableGui [
+    qtbase
+    qtwebengine
+  ];
 
   cmakeFlags = lib.optional enableGui "-DUSE_QT_GUI=ON";
 

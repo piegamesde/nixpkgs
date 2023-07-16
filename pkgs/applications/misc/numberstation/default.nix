@@ -42,9 +42,17 @@ python3.pkgs.buildPythonApplication rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ gtk3 libhandy librsvg ];
+  buildInputs = [
+    gtk3
+    libhandy
+    librsvg
+  ];
 
-  propagatedBuildInputs = with python3.pkgs; [ keyring pygobject3 pyotp ];
+  propagatedBuildInputs = with python3.pkgs; [
+    keyring
+    pygobject3
+    pyotp
+  ];
 
   dontWrapGApps = true;
 
@@ -56,6 +64,9 @@ python3.pkgs.buildPythonApplication rec {
     description = "TOTP Authentication application for mobile";
     homepage = "https://sr.ht/~martijnbraam/numberstation/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ dotlambda tomfitzhenry ];
+    maintainers = with maintainers; [
+      dotlambda
+      tomfitzhenry
+    ];
   };
 }

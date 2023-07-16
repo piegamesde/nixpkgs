@@ -27,7 +27,10 @@ import ./make-test-python.nix ({
             allow_remote = true;
             download_location = "/var/lib/deluge/my-download";
             daemon_port = 58846;
-            listen_ports = [ 6881 6889 ];
+            listen_ports = [
+              6881
+              6889
+            ];
           };
           web = {
             enable = true;

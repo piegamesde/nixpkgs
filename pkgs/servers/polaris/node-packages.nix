@@ -4081,8 +4081,10 @@ let
         dependencies = [ sources."debug-3.2.7" ];
       })
       (sources."@parcel/bundler-default-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       sources."@parcel/cache-2.3.2"
       (sources."@parcel/codeframe-2.3.2" // {
@@ -4094,13 +4096,17 @@ let
         ];
       })
       (sources."@parcel/compressor-raw-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       sources."@parcel/config-default-2.3.2"
       (sources."@parcel/core-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       sources."@parcel/diagnostic-2.3.2"
       sources."@parcel/events-2.3.2"
@@ -4120,8 +4126,10 @@ let
         ];
       })
       (sources."@parcel/namer-default-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       sources."@parcel/node-resolver-core-2.3.2"
       (sources."@parcel/optimizer-cssnano-2.3.2" // {
@@ -4133,43 +4141,61 @@ let
         ];
       })
       (sources."@parcel/optimizer-htmlnano-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       (sources."@parcel/optimizer-image-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       (sources."@parcel/optimizer-svgo-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       (sources."@parcel/optimizer-terser-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       (sources."@parcel/package-manager-2.3.2" // {
         dependencies = [ sources."@parcel/types-2.3.2" ];
       })
       (sources."@parcel/packager-css-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       (sources."@parcel/packager-html-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       (sources."@parcel/packager-js-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       (sources."@parcel/packager-raw-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       (sources."@parcel/packager-svg-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       sources."@parcel/plugin-2.0.0-beta.2"
       (sources."@parcel/reporter-cli-2.3.2" // {
@@ -4183,33 +4209,47 @@ let
         ];
       })
       (sources."@parcel/reporter-dev-server-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       (sources."@parcel/resolver-default-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       (sources."@parcel/runtime-browser-hmr-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       (sources."@parcel/runtime-js-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       (sources."@parcel/runtime-react-refresh-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       (sources."@parcel/runtime-service-worker-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       sources."@parcel/source-map-2.0.2"
       (sources."@parcel/transformer-babel-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       (sources."@parcel/transformer-css-2.3.2" // {
         dependencies = [
@@ -4227,20 +4267,28 @@ let
         ];
       })
       (sources."@parcel/transformer-image-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       (sources."@parcel/transformer-js-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       (sources."@parcel/transformer-json-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       (sources."@parcel/transformer-postcss-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       (sources."@parcel/transformer-posthtml-2.3.2" // {
         dependencies = [
@@ -4250,12 +4298,16 @@ let
         ];
       })
       (sources."@parcel/transformer-raw-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       (sources."@parcel/transformer-react-refresh-wrap-2.3.2" // {
-        dependencies =
-          [ sources."@parcel/plugin-2.3.2" sources."@parcel/types-2.3.2" ];
+        dependencies = [
+          sources."@parcel/plugin-2.3.2"
+          sources."@parcel/types-2.3.2"
+        ];
       })
       (sources."@parcel/transformer-svg-2.3.2" // {
         dependencies = [
@@ -4409,8 +4461,10 @@ let
       sources."csso-4.2.0"
       sources."csstype-2.6.20"
       (sources."cypress-4.12.1" // {
-        dependencies =
-          [ sources."commander-4.1.1" sources."log-symbols-3.0.0" ];
+        dependencies = [
+          sources."commander-4.1.1"
+          sources."log-symbols-3.0.0"
+        ];
       })
       sources."dashdash-1.14.1"
       sources."date-fns-1.30.1"
@@ -4438,7 +4492,10 @@ let
       sources."exit-hook-1.1.1"
       sources."extend-3.0.2"
       (sources."extract-zip-1.7.0" // {
-        dependencies = [ sources."debug-2.6.9" sources."ms-2.0.0" ];
+        dependencies = [
+          sources."debug-2.6.9"
+          sources."ms-2.0.0"
+        ];
       })
       sources."extsprintf-1.3.0"
       sources."fd-slicer-1.1.0"
@@ -4630,8 +4687,10 @@ let
       sources."sshpk-1.16.1"
       sources."stable-0.1.8"
       (sources."string-width-2.1.1" // {
-        dependencies =
-          [ sources."ansi-regex-3.0.0" sources."strip-ansi-4.0.0" ];
+        dependencies = [
+          sources."ansi-regex-3.0.0"
+          sources."strip-ansi-4.0.0"
+        ];
       })
       sources."string_decoder-1.1.1"
       sources."strip-ansi-3.0.1"
@@ -4643,8 +4702,10 @@ let
       sources."svgo-2.8.0"
       sources."symbol-observable-1.2.0"
       (sources."terser-5.12.1" // {
-        dependencies =
-          [ sources."commander-2.20.3" sources."source-map-0.7.3" ];
+        dependencies = [
+          sources."commander-2.20.3"
+          sources."source-map-0.7.3"
+        ];
       })
       sources."throttleit-1.0.0"
       sources."timsort-0.3.0"
@@ -4668,8 +4729,10 @@ let
       sources."weak-lru-cache-1.2.2"
       sources."which-1.3.1"
       (sources."wrap-ansi-3.0.1" // {
-        dependencies =
-          [ sources."ansi-regex-3.0.0" sources."strip-ansi-4.0.0" ];
+        dependencies = [
+          sources."ansi-regex-3.0.0"
+          sources."strip-ansi-4.0.0"
+        ];
       })
       sources."wrappy-1.0.2"
       sources."xxhash-wasm-0.4.2"

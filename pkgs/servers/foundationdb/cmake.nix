@@ -51,14 +51,22 @@ let
         inherit rev sha256;
       };
 
-      buildInputs = [ ssl boost ]
-        ++ lib.optionals (lib.versionAtLeast version "7.1.0") [
-          msgpack
-          toml11
-        ];
+      buildInputs = [
+        ssl
+        boost
+      ] ++ lib.optionals (lib.versionAtLeast version "7.1.0") [
+        msgpack
+        toml11
+      ];
 
-      nativeBuildInputs = [ pkg-config cmake ninja python3 openjdk mono ]
-        ++ lib.optionals useClang [ llvmPackages.lld ];
+      nativeBuildInputs = [
+        pkg-config
+        cmake
+        ninja
+        python3
+        openjdk
+        mono
+      ] ++ lib.optionals useClang [ llvmPackages.lld ];
 
       separateDebugInfo = true;
       dontFixCmake = true;
@@ -153,16 +161,24 @@ let
         mv lib/fdb-java-*.jar $lib/share/java/fdb-java.jar
       '';
 
-      outputs = [ "out" "dev" "lib" "pythonsrc" ];
+      outputs = [
+        "out"
+        "dev"
+        "lib"
+        "pythonsrc"
+      ];
 
       meta = with lib; {
         description = "Open source, distributed, transactional key-value store";
         homepage = "https://www.foundationdb.org";
         license = licenses.asl20;
         platforms = [ "x86_64-linux" ] ++ lib.optionals
-          (lib.versionAtLeast version "7.1.0" && !(avxEnabled version))
-          [ "aarch64-linux" ];
-        maintainers = with maintainers; [ thoughtpolice lostnet ];
+          (lib.versionAtLeast version "7.1.0"
+            && !(avxEnabled version)) [ "aarch64-linux" ];
+        maintainers = with maintainers; [
+          thoughtpolice
+          lostnet
+        ];
       };
     };
 in makeFdb

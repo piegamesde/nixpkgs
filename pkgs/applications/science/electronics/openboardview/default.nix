@@ -26,9 +26,17 @@ in stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake pkg-config python3 wrapGAppsHook ];
-  buildInputs = [ SDL2 fontconfig gtk3 ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    python3
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    SDL2
+    fontconfig
+    gtk3
+  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   postPatch = ''
     substituteInPlace src/openboardview/CMakeLists.txt \
@@ -36,7 +44,10 @@ in stdenv.mkDerivation rec {
     substituteInPlace CMakeLists.txt --replace "fixup_bundle" "#fixup_bundle"
   '';
 
-  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" "-DGLAD_REPRODUCIBLE=On" ];
+  cmakeFlags = [
+    "-DCMAKE_BUILD_TYPE=Release"
+    "-DGLAD_REPRODUCIBLE=On"
+  ];
 
   dontWrapGApps = true;
   postFixup = lib.optionalString stdenv.isDarwin ''

@@ -20,7 +20,10 @@ import ./make-test-python.nix ({
   in {
     name = "mumble";
     meta = with pkgs.lib.maintainers; {
-      maintainers = [ thoughtpolice eelco ];
+      maintainers = [
+        thoughtpolice
+        eelco
+      ];
     };
 
     nodes = {

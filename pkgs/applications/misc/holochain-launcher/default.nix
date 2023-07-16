@@ -27,7 +27,11 @@ stdenv.mkDerivation rec {
     wrapGAppsHook # required for FileChooser
   ];
 
-  buildInputs = [ openssl webkitgtk libappindicator ];
+  buildInputs = [
+    openssl
+    webkitgtk
+    libappindicator
+  ];
 
   unpackCmd = "dpkg-deb -x $curSrc source";
 

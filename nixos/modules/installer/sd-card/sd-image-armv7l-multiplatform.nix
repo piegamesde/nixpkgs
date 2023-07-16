@@ -8,7 +8,10 @@
 }:
 
 {
-  imports = [ ../../profiles/base.nix ./sd-image.nix ];
+  imports = [
+    ../../profiles/base.nix
+    ./sd-image.nix
+  ];
 
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = true;

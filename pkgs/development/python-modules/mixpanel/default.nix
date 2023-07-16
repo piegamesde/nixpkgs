@@ -27,9 +27,16 @@ buildPythonPackage rec {
     hash = "sha256-jV2NLEc23uaI5Q7ZXDwGaZV9iAKQLMAETRTw8epZwQA=";
   };
 
-  propagatedBuildInputs = [ requests six urllib3 ];
+  propagatedBuildInputs = [
+    requests
+    six
+    urllib3
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook responses ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    responses
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/mixpanel/mixpanel-python";

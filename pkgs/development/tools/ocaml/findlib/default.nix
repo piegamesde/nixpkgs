@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ ocaml ];
   buildInputs = lib.optional (lib.versionOlder ocaml.version "4.07") ncurses;
 
-  patches = [ ./ldconf.patch ./install_topfind.patch ];
+  patches = [
+    ./ldconf.patch
+    ./install_topfind.patch
+  ];
 
   dontAddPrefix = true;
   dontAddStaticConfigureFlags = true;
@@ -36,7 +39,10 @@ stdenv.mkDerivation rec {
     "${placeholder "out"}/etc/findlib.conf"
   ];
 
-  buildFlags = [ "all" "opt" ];
+  buildFlags = [
+    "all"
+    "opt"
+  ];
 
   setupHook = writeText "setupHook.sh" ''
     addOCamlPath () {
@@ -82,7 +88,10 @@ stdenv.mkDerivation rec {
     description = "O'Caml library manager";
     homepage = "http://projects.camlcity.org/projects/findlib.html";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ maggesi vbmithr ];
+    maintainers = with lib.maintainers; [
+      maggesi
+      vbmithr
+    ];
     mainProgram = "ocamlfind";
     platforms = ocaml.meta.platforms or [ ];
   };

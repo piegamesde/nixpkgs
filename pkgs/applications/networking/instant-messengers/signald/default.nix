@@ -51,7 +51,10 @@ let
   deps = stdenv.mkDerivation {
     pname = "${pname}-deps";
     inherit src version;
-    nativeBuildInputs = [ gradle perl ];
+    nativeBuildInputs = [
+      gradle
+      perl
+    ];
     patches =
       [ ./0001-Fetch-buildconfig-during-gradle-build-inside-Nix-FOD.patch ];
     buildPhase = ''
@@ -97,12 +100,10 @@ let
 in stdenv.mkDerivation {
   inherit pname src version;
 
-  patches = [
-    (substituteAll {
-      src = ./0002-buildconfig-local-deps-fixes.patch;
-      inherit deps;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./0002-buildconfig-local-deps-fixes.patch;
+    inherit deps;
+  }) ];
 
   passthru = {
     # Mostly for debugging purposes.
@@ -131,7 +132,11 @@ in stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  nativeBuildInputs = [ git gradle makeWrapper ];
+  nativeBuildInputs = [
+    git
+    gradle
+    makeWrapper
+  ];
 
   doCheck = true;
 
@@ -148,7 +153,13 @@ in stdenv.mkDerivation {
       binaryBytecode # deps
     ];
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ expipiplus1 ma27 ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    maintainers = with maintainers; [
+      expipiplus1
+      ma27
+    ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
   };
 }

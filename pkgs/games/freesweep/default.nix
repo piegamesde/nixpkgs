@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-iuu81yHbNrjdPsimBrPK58PJ0d8i3ySM7rFUG/d8NJM";
   };
 
-  nativeBuildInputs = [ updateAutotoolsGnuConfigScriptsHook installShellFiles ];
+  nativeBuildInputs = [
+    updateAutotoolsGnuConfigScriptsHook
+    installShellFiles
+  ];
   buildInputs = [ ncurses ];
 
   configureFlags = [ "--with-prefsdir=$out/share" ];

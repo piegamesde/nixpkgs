@@ -29,7 +29,12 @@ stdenv.mkDerivation rec {
 
   CFLAGS = "-D_DARWIN_C_SOURCE";
   makeFlags = [ "DESTDIR=$(out)" ];
-  buildInputs = [ libX11 libXi libXt libXft ];
+  buildInputs = [
+    libX11
+    libXi
+    libXt
+    libXft
+  ];
   # build fails when run in parallel
   enableParallelBuilding = false;
 

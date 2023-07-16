@@ -54,7 +54,12 @@ stdenv.mkDerivation rec {
   #   so that the server can be built without openjdk dependency.
   # * Perhaps allow to build the client on non-Linux platforms.
 
-  nativeBuildInputs = [ cmake makeWrapper openjdk_headless python3 ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    openjdk_headless
+    python3
+  ];
 
   buildInputs = [
     bzip2
@@ -116,7 +121,14 @@ stdenv.mkDerivation rec {
     # It checks for it using `which twm`.
     # vncserver needs also needs `xauth` and we add in `xterm` for convenience
     wrapProgram $out/bin/vncserver \
-      --prefix PATH : ${lib.makeBinPath [ which xorg.twm xorg.xauth xterm ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          which
+          xorg.twm
+          xorg.xauth
+          xterm
+        ]
+      }
 
     # Patch /usr/bin/perl
     patchShebangs $out/bin/vncserver

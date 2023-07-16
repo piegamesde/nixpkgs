@@ -29,7 +29,10 @@ stdenv.mkDerivation rec {
       --replace 'CONFIG_INCLUDES =' $'CONFIG_INCLUDES = -I../../../usr/include\n#'
   '';
 
-  nativeBuildInputs = [ flex bison ];
+  nativeBuildInputs = [
+    flex
+    bison
+  ];
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:

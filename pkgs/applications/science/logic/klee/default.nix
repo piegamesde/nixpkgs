@@ -71,7 +71,10 @@ in stdenv.mkDerivation rec {
     z3
   ];
 
-  nativeBuildInputs = [ clang cmake ];
+  nativeBuildInputs = [
+    clang
+    cmake
+  ];
 
   nativeCheckInputs = [
     gtest

@@ -38,11 +38,24 @@ stdenv.mkDerivation rec {
     sed -i "s@pkg_get_variable(SESSION_BUS_DIR.*@set(SESSION_BUS_DIR $SESSION_BUS_DIR)@" CMakeLists.txt
   '';
 
-  nativeBuildInputs = [ dbus cmake pkg-config bash-completion ];
+  nativeBuildInputs = [
+    dbus
+    cmake
+    pkg-config
+    bash-completion
+  ];
 
   buildInputs = with lib;
-    [ gsl popt upower clightd systemd geoclue2 libconfig libmodule ]
-    ++ optional withGeoclue geoclue2 ++ optional withUpower upower;
+    [
+      gsl
+      popt
+      upower
+      clightd
+      systemd
+      geoclue2
+      libconfig
+      libmodule
+    ] ++ optional withGeoclue geoclue2 ++ optional withUpower upower;
 
   cmakeFlags = [
     # bash-completion.pc completionsdir=${bash-completion.out}

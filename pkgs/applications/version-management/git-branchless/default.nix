@@ -28,8 +28,15 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ ncurses openssl sqlite ]
-    ++ lib.optionals stdenv.isDarwin [ Security SystemConfiguration libiconv ];
+  buildInputs = [
+    ncurses
+    openssl
+    sqlite
+  ] ++ lib.optionals stdenv.isDarwin [
+    Security
+    SystemConfiguration
+    libiconv
+  ];
 
   preCheck = ''
     export TEST_GIT=${git}/bin/git
@@ -47,6 +54,10 @@ rustPlatform.buildRustPackage rec {
       "A suite of tools to help you visualize, navigate, manipulate, and repair your commit history";
     homepage = "https://github.com/arxanas/git-branchless";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ msfjarvis nh2 hmenke ];
+    maintainers = with maintainers; [
+      msfjarvis
+      nh2
+      hmenke
+    ];
   };
 }

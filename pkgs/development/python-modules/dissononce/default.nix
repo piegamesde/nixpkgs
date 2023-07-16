@@ -23,7 +23,10 @@ buildPythonPackage rec {
     HOME=$(mktemp -d) py.test tests/
   '';
 
-  propagatedBuildInputs = [ cryptography transitions ];
+  propagatedBuildInputs = [
+    cryptography
+    transitions
+  ];
 
   meta = with lib; {
     homepage = "https://pypi.org/project/dissononce/";

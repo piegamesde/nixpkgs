@@ -13,7 +13,10 @@
     shortRev = "gfedcba";
   },
   stableBranch ? false,
-  supportedSystems ? [ "aarch64-linux" "x86_64-linux" ] # no i686-linux
+  supportedSystems ? [
+    "aarch64-linux"
+    "x86_64-linux"
+  ] # no i686-linux
 }:
 
 let
@@ -66,7 +69,10 @@ in rec {
       maintainers = [ lib.maintainers.eelco ];
     };
     constituents = lib.flatten [
-      [ "nixos.channel" "nixpkgs.tarball" ]
+      [
+        "nixos.channel"
+        "nixpkgs.tarball"
+      ]
       (map (onSystems [ "x86_64-linux" ]) [
         "nixos.tests.boot.biosCdrom"
         "nixos.tests.installer.lvm"

@@ -17,8 +17,11 @@
     "9p"
     "9pnet_virtio"
   ];
-  boot.initrd.kernelModules =
-    [ "virtio_balloon" "virtio_console" "virtio_rng" ];
+  boot.initrd.kernelModules = [
+    "virtio_balloon"
+    "virtio_console"
+    "virtio_rng"
+  ];
 
   boot.initrd.postDeviceCommands =
     lib.mkIf (!config.boot.initrd.systemd.enable) ''

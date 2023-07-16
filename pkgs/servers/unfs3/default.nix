@@ -20,7 +20,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-5iAriIutBhwyZVS7AG2fnkrHOI7pNAKfYv062Cy0WXw=";
   };
 
-  nativeBuildInputs = [ flex bison autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    flex
+    bison
+    autoreconfHook
+    pkg-config
+  ];
 
   buildInputs = [ libtirpc ];
 

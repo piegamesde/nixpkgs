@@ -223,7 +223,10 @@ let
         });
 
         erlang = super.erlang.overrideAttrs (attrs: {
-          buildInputs = attrs.buildInputs ++ [ pkgs.perl pkgs.ncurses ];
+          buildInputs = attrs.buildInputs ++ [
+            pkgs.perl
+            pkgs.ncurses
+          ];
         });
 
         # https://github.com/syl20bnr/evil-escape/pull/86
@@ -254,8 +257,11 @@ let
             pkgs.pkg-config
             pkgs.removeReferencesTo
           ];
-          buildInputs = old.buildInputs
-            ++ [ pkgs.libpng pkgs.zlib pkgs.poppler ];
+          buildInputs = old.buildInputs ++ [
+            pkgs.libpng
+            pkgs.zlib
+            pkgs.poppler
+          ];
           preBuild = ''
             make server/epdfinfo
             remove-references-to ${
@@ -303,8 +309,14 @@ let
           dontUseCmakeBuildDir = true;
           doCheck = pkgs.stdenv.isLinux;
           packageRequires = [ self.emacs ];
-          buildInputs = [ pkgs.llvmPackages.libclang self.emacs ];
-          nativeBuildInputs = [ pkgs.cmake pkgs.llvmPackages.llvm ];
+          buildInputs = [
+            pkgs.llvmPackages.libclang
+            self.emacs
+          ];
+          nativeBuildInputs = [
+            pkgs.cmake
+            pkgs.llvmPackages.llvm
+          ];
         });
 
         # tries to write a log file to $HOME
@@ -588,8 +600,12 @@ let
 
         # missing dependencies
         evil-search-highlight-persist =
-          super.evil-search-highlight-persist.overrideAttrs
-          (attrs: { packageRequires = with self; [ evil highlight ]; });
+          super.evil-search-highlight-persist.overrideAttrs (attrs: {
+            packageRequires = with self; [
+              evil
+              highlight
+            ];
+          });
 
         hamlet-mode = super.hamlet-mode.overrideAttrs (attrs: {
           patches = [
@@ -620,9 +636,14 @@ let
 
         vterm = super.vterm.overrideAttrs (old: {
           nativeBuildInputs = [ pkgs.cmake ];
-          buildInputs = old.buildInputs ++ [ self.emacs pkgs.libvterm-neovim ];
-          cmakeFlags =
-            [ "-DEMACS_SOURCE=${self.emacs.src}" "-DUSE_SYSTEM_LIBVTERM=ON" ];
+          buildInputs = old.buildInputs ++ [
+            self.emacs
+            pkgs.libvterm-neovim
+          ];
+          cmakeFlags = [
+            "-DEMACS_SOURCE=${self.emacs.src}"
+            "-DUSE_SYSTEM_LIBVTERM=ON"
+          ];
           # we need the proper out directory to exist, so we do this in the
           # postInstall instead of postBuild
           postInstall = (old.postInstall or "") + "\n" + ''

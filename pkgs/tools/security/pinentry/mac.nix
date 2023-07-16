@@ -33,10 +33,21 @@ stdenv.mkDerivation rec {
     chmod -R u+w macosx/*.nib
   '';
 
-  nativeBuildInputs = [ autoreconfHook texinfo ];
-  buildInputs = [ libassuan libgpg-error libiconv Cocoa ];
+  nativeBuildInputs = [
+    autoreconfHook
+    texinfo
+  ];
+  buildInputs = [
+    libassuan
+    libgpg-error
+    libiconv
+    Cocoa
+  ];
 
-  configureFlags = [ "--enable-maintainer-mode" "--disable-ncurses" ];
+  configureFlags = [
+    "--enable-maintainer-mode"
+    "--disable-ncurses"
+  ];
 
   installPhase = ''
     mkdir -p $out/Applications

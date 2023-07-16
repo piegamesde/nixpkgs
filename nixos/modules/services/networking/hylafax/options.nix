@@ -326,7 +326,11 @@ in {
       '';
     };
     faxqclean.archiving = mkOption {
-      type = enum [ "never" "as-flagged" "always" ];
+      type = enum [
+        "never"
+        "as-flagged"
+        "always"
+      ];
       default = "as-flagged";
       example = "always";
       description = lib.mdDoc ''
@@ -361,7 +365,9 @@ in {
 
   };
 
-  config.services.hylafax = mkIf (config.services.hylafax.enable)
-    (mkMerge [ defaultConfig localConfig ]);
+  config.services.hylafax = mkIf (config.services.hylafax.enable) (mkMerge [
+    defaultConfig
+    localConfig
+  ]);
 
 }

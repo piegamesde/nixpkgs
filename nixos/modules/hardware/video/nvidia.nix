@@ -40,7 +40,12 @@ let
 
 in {
   imports = [
-    (mkRenamedOptionModule [ "hardware" "nvidia" "optimus_prime" "enable" ] [
+    (mkRenamedOptionModule [
+      "hardware"
+      "nvidia"
+      "optimus_prime"
+      "enable"
+    ] [
       "hardware"
       "nvidia"
       "prime"
@@ -52,26 +57,46 @@ in {
       "nvidia"
       "optimus_prime"
       "allowExternalGpu"
-    ] [ "hardware" "nvidia" "prime" "allowExternalGpu" ])
+    ] [
+      "hardware"
+      "nvidia"
+      "prime"
+      "allowExternalGpu"
+    ])
     (mkRenamedOptionModule [
       "hardware"
       "nvidia"
       "prime"
       "sync"
       "allowExternalGpu"
-    ] [ "hardware" "nvidia" "prime" "allowExternalGpu" ])
+    ] [
+      "hardware"
+      "nvidia"
+      "prime"
+      "allowExternalGpu"
+    ])
     (mkRenamedOptionModule [
       "hardware"
       "nvidia"
       "optimus_prime"
       "nvidiaBusId"
-    ] [ "hardware" "nvidia" "prime" "nvidiaBusId" ])
+    ] [
+      "hardware"
+      "nvidia"
+      "prime"
+      "nvidiaBusId"
+    ])
     (mkRenamedOptionModule [
       "hardware"
       "nvidia"
       "optimus_prime"
       "intelBusId"
-    ] [ "hardware" "nvidia" "prime" "intelBusId" ])
+    ] [
+      "hardware"
+      "nvidia"
+      "prime"
+      "intelBusId"
+    ])
   ];
 
   options = {
@@ -438,22 +463,26 @@ in {
     environment.etc."egl/egl_external_platform.d".source =
       "/run/opengl-driver/share/egl/egl_external_platform.d/";
 
-    hardware.opengl.extraPackages = [ nvidia_x11.out pkgs.nvidia-vaapi-driver ];
-    hardware.opengl.extraPackages32 =
-      [ nvidia_x11.lib32 pkgs.pkgsi686Linux.nvidia-vaapi-driver ];
+    hardware.opengl.extraPackages = [
+      nvidia_x11.out
+      pkgs.nvidia-vaapi-driver
+    ];
+    hardware.opengl.extraPackages32 = [
+      nvidia_x11.lib32
+      pkgs.pkgsi686Linux.nvidia-vaapi-driver
+    ];
 
     environment.systemPackages = [ nvidia_x11.bin ]
       ++ optionals cfg.nvidiaSettings [ nvidia_x11.settings ]
       ++ optionals nvidiaPersistencedEnabled [ nvidia_x11.persistenced ]
-      ++ optionals offloadCfg.enableOffloadCmd [
-        (pkgs.writeShellScriptBin "nvidia-offload" ''
+      ++ optionals offloadCfg.enableOffloadCmd [ (pkgs.writeShellScriptBin
+        "nvidia-offload" ''
           export __NV_PRIME_RENDER_OFFLOAD=1
           export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
           export __GLX_VENDOR_LIBRARY_NAME=nvidia
           export __VK_LAYER_NV_optimus=NVIDIA_only
           exec "$@"
-        '')
-      ];
+        '') ];
 
     systemd.packages = optional cfg.powerManagement.enable nvidia_x11.out;
 
@@ -480,9 +509,14 @@ in {
           "suspend"
         ])) // {
           nvidia-resume = (baseNvidiaService "resume") // {
-            after = [ "systemd-suspend.service" "systemd-hibernate.service" ];
-            requiredBy =
-              [ "systemd-suspend.service" "systemd-hibernate.service" ];
+            after = [
+              "systemd-suspend.service"
+              "systemd-hibernate.service"
+            ];
+            requiredBy = [
+              "systemd-suspend.service"
+              "systemd-hibernate.service"
+            ];
           };
         };
     in optionalAttrs cfg.powerManagement.enable services
@@ -560,7 +594,10 @@ in {
       options nvidia "NVreg_DynamicPowerManagement=0x02"
     '';
 
-    boot.blacklistedKernelModules = [ "nouveau" "nvidiafb" ];
+    boot.blacklistedKernelModules = [
+      "nouveau"
+      "nvidiafb"
+    ];
 
     services.acpid.enable = true;
 

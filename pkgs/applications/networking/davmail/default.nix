@@ -38,7 +38,10 @@ in stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ makeWrapper unzip ];
+  nativeBuildInputs = [
+    makeWrapper
+    unzip
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -50,7 +53,13 @@ in stdenv.mkDerivation rec {
         lib.versions.major gtk'.version
       }" \
       --prefix PATH : ${jre'}/bin \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ glib gtk' libXtst ]}
+      --prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          glib
+          gtk'
+          libXtst
+        ]
+      }
 
     runHook postInstall
   '';

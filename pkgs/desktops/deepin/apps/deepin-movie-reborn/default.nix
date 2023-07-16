@@ -45,14 +45,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0m8wYRQGsdN4zpnHUJKCfF05SdvTauRSp6gCu2F9ZAI";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "feat-rewrite-libPath-to-read-LD_LIBRARY_PATH.patch";
-      url =
-        "https://github.com/linuxdeepin/deepin-movie-reborn/commit/432bf452ed244c256e99ecaf80bb6a0eef9b4a74.patch";
-      sha256 = "sha256-5hRQ8D9twBKgouVpIBa1pdAGk0lI/wEdQaHBBHFCZBA";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "feat-rewrite-libPath-to-read-LD_LIBRARY_PATH.patch";
+    url =
+      "https://github.com/linuxdeepin/deepin-movie-reborn/commit/432bf452ed244c256e99ecaf80bb6a0eef9b4a74.patch";
+    sha256 = "sha256-5hRQ8D9twBKgouVpIBa1pdAGk0lI/wEdQaHBBHFCZBA";
+  }) ];
 
   postPatch = ''
     # https://github.com/linuxdeepin/deepin-movie-reborn/pull/198
@@ -86,9 +84,17 @@ stdenv.mkDerivation rec {
       }/lib/libgstpbutils-1.0.so"'
   '';
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ cmake pkg-config qttools wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qttools
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     dtkwidget
@@ -114,7 +120,10 @@ stdenv.mkDerivation rec {
     mpv
     gtest
     libpulseaudio
-  ] ++ (with gst_all_1; [ gstreamer gst-plugins-base ]);
+  ] ++ (with gst_all_1; [
+    gstreamer
+    gst-plugins-base
+  ]);
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-I${gst_all_1.gstreamer.dev}/include/gstreamer-1.0"
@@ -125,8 +134,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  qtWrapperArgs = [
-    "--prefix LD_LIBRARY_PATH : ${
+  qtWrapperArgs = [ "--prefix LD_LIBRARY_PATH : ${
       lib.makeLibraryPath [
         mpv
         ffmpeg
@@ -134,8 +142,7 @@ stdenv.mkDerivation rec {
         gst_all_1.gstreamer
         gst_all_1.gst-plugins-base
       ]
-    }"
-  ];
+    }" ];
 
   preFixup = ''
     glib-compile-schemas ${glib.makeSchemaPath "$out" "${pname}-${version}"}

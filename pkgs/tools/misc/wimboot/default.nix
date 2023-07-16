@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "source/src";
 
-  buildInputs = [ libbfd zlib libiberty ];
+  buildInputs = [
+    libbfd
+    zlib
+    libiberty
+  ];
   makeFlags = [ "wimboot.x86_64.efi" ];
 
   env.NIX_CFLAGS_COMPILE = toString [
@@ -37,7 +41,10 @@ stdenv.mkDerivation rec {
     homepage = "https://ipxe.org/wimboot";
     description = "Windows Imaging Format bootloader";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ das_j ajs124 ];
+    maintainers = with maintainers; [
+      das_j
+      ajs124
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

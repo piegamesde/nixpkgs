@@ -124,7 +124,11 @@ let
     inherit (config.system) extraDependencies;
 
     # Needed by switch-to-configuration.
-    perl = pkgs.perl.withPackages (p: with p; [ ConfigIniFiles FileSlurp ]);
+    perl = pkgs.perl.withPackages (p:
+      with p; [
+        ConfigIniFiles
+        FileSlurp
+      ]);
   } // config.system.systemBuilderArgs);
 
   # Handle assertions and warnings
@@ -159,10 +163,15 @@ let
 in {
   imports = [
     ../build.nix
-    (mkRemovedOptionModule [ "nesting" "clone" ]
+    (mkRemovedOptionModule [
+      "nesting"
+      "clone"
+    ]
       "Use `specialisation.«name» = { inheritParentConfig = true; configuration = { ... }; }` instead.")
-    (mkRemovedOptionModule [ "nesting" "children" ]
-      "Use `specialisation.«name».configuration = { ... }` instead.")
+    (mkRemovedOptionModule [
+      "nesting"
+      "children"
+    ] "Use `specialisation.«name».configuration = { ... }` instead.")
   ];
 
   options = {
@@ -362,10 +371,10 @@ in {
   };
 
   config = {
-    assertions = [{
+    assertions = [ {
       assertion = config.system.copySystemConfiguration -> !lib.inPureEvalMode;
       message = "system.copySystemConfiguration is not supported with flakes";
-    }];
+    } ];
 
     system.extraSystemBuilderCmds =
       optionalString config.system.copySystemConfiguration ''

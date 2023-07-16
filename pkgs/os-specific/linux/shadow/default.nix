@@ -36,7 +36,12 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-L54DhdBYthfB9436t/XWXiqKhW7rfd0GLS7pYGB32rA=";
   };
 
-  outputs = [ "out" "su" "dev" "man" ];
+  outputs = [
+    "out"
+    "su"
+    "dev"
+    "man"
+  ];
 
   RUNTIME_SHELL = runtimeShell;
 

@@ -22,10 +22,18 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "0xh6ppr73p76z60ym49b4d0liwdc96w41cc5p07d48hxjsa6qd6n";
   };
 
-  nativeBuildInputs = [ meson ninja python3 gtk3 ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    python3
+    gtk3
+  ];
 
-  propagatedBuildInputs =
-    [ pantheon.elementary-icon-theme gnome-icon-theme hicolor-icon-theme ];
+  propagatedBuildInputs = [
+    pantheon.elementary-icon-theme
+    gnome-icon-theme
+    hicolor-icon-theme
+  ];
 
   dontDropIconThemeCache = true;
 
@@ -36,7 +44,10 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "A sexy and modern icon theme with Tango influences";
     homepage = "https://snwh.org/moka";
-    license = with licenses; [ cc-by-sa-40 gpl3 ];
+    license = with licenses; [
+      cc-by-sa-40
+      gpl3
+    ];
     platforms = platforms.all;
     maintainers = with maintainers; [ romildo ];
   };

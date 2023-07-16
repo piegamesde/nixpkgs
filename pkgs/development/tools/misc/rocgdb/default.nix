@@ -32,7 +32,13 @@ stdenv.mkDerivation (finalAttrs: {
     flex
   ];
 
-  buildInputs = [ zlib elfutils gmp ncurses expat ];
+  buildInputs = [
+    zlib
+    elfutils
+    gmp
+    ncurses
+    expat
+  ];
 
   # `-Wno-format-nonliteral` doesn't work
   env.NIX_CFLAGS_COMPILE = "-Wno-error=format-security";
@@ -46,7 +52,11 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "ROCm source-level debugger for Linux, based on GDB";
     homepage = "https://github.com/ROCm-Developer-Tools/ROCgdb";
-    license = with licenses; [ gpl2 gpl3 bsd3 ];
+    license = with licenses; [
+      gpl2
+      gpl3
+      bsd3
+    ];
     maintainers = teams.rocm.members;
     platforms = platforms.linux;
   };

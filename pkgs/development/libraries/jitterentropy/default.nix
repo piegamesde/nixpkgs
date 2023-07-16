@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-go7eGwBoZ58LkgKL7t8oZSc1cFlE6fPOT/ML3Aa8+CM=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   enableParallelBuilding = true;
   hardeningDisable = [ "fortify" ]; # avoid warnings
@@ -33,6 +36,9 @@ stdenv.mkDerivation rec {
       gpl2Only
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ johnazoidberg c0bw3b ];
+    maintainers = with maintainers; [
+      johnazoidberg
+      c0bw3b
+    ];
   };
 }

@@ -20,8 +20,14 @@ stdenv.mkDerivation {
     sha256 = "NMQE2zU858b6OZhdS2oZnGvLK+eb7yU0nFaMAcpNw04=";
   };
 
-  nativeBuildInputs = [ imagemagick pkg-config ];
-  buildInputs = [ wayland wayland-protocols ];
+  nativeBuildInputs = [
+    imagemagick
+    pkg-config
+  ];
+  buildInputs = [
+    wayland
+    wayland-protocols
+  ];
 
   installPhase = ''
     runHook preBuild

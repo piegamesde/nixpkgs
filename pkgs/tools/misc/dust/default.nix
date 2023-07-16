@@ -40,7 +40,10 @@ rustPlatform.buildRustPackage rec {
     description = "du + rust = dust. Like du but more intuitive";
     homepage = "https://github.com/bootandy/dust";
     license = licenses.asl20;
-    maintainers = with maintainers; [ infinisil SuperSandro2000 ];
+    maintainers = with maintainers; [
+      infinisil
+      SuperSandro2000
+    ];
     mainProgram = "dust";
   };
 }

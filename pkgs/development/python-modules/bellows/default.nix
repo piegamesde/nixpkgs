@@ -28,10 +28,20 @@ buildPythonPackage rec {
     hash = "sha256-I9PXFdRXHQ7OnzCdB631nlfnkpConl+j5Z3iiH7RcA4=";
   };
 
-  propagatedBuildInputs =
-    [ click click-log pure-pcapy3 pyserial-asyncio voluptuous zigpy ];
+  propagatedBuildInputs = [
+    click
+    click-log
+    pure-pcapy3
+    pyserial-asyncio
+    voluptuous
+    zigpy
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-asyncio pytest-timeout ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-asyncio
+    pytest-timeout
+  ];
 
   pythonImportsCheck = [ "bellows" ];
 

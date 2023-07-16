@@ -68,6 +68,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/Yelp/bravado-core/blob/v${version}/CHANGELOG.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ vanschelven nickcao ];
+    maintainers = with maintainers; [
+      vanschelven
+      nickcao
+    ];
   };
 }

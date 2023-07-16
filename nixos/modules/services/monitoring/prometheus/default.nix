@@ -23,7 +23,13 @@ let
   '';
 
   reload = pkgs.writeShellScriptBin "reload-prometheus" ''
-    PATH="${makeBinPath (with pkgs; [ systemd coreutils gnugrep ])}"
+    PATH="${
+      makeBinPath (with pkgs; [
+        systemd
+        coreutils
+        gnugrep
+      ])
+    }"
     cursor=$(journalctl --show-cursor -n0 | grep -oP "cursor: \K.*")
     kill -HUP $MAINPID
     journalctl -u prometheus.service --after-cursor="$cursor" -f \
@@ -48,9 +54,9 @@ let
   # This becomes the main config file for Prometheus
   promConfig = {
     global = filterValidPrometheus cfg.globalConfig;
-    rule_files = map (promtoolCheck "check rules" "rules") (cfg.ruleFiles ++ [
-      (pkgs.writeText "prometheus.rules" (concatStringsSep "\n" cfg.rules))
-    ]);
+    rule_files = map (promtoolCheck "check rules" "rules") (cfg.ruleFiles
+      ++ [ (pkgs.writeText "prometheus.rules"
+        (concatStringsSep "\n" cfg.rules)) ]);
     scrape_configs = filterValidPrometheus cfg.scrapeConfigs;
     remote_write = filterValidPrometheus cfg.remoteWrite;
     remote_read = filterValidPrometheus cfg.remoteRead;
@@ -91,9 +97,8 @@ let
     if isAttrs x then
       listToAttrs (concatMap (name:
         let v = x.${name};
-        in if pred name v then
-          [ (nameValuePair name (filterAttrsListRecursive pred v)) ]
-        else
+        in if pred name v then [ (nameValuePair name
+          (filterAttrsListRecursive pred v)) ] else
           [ ]) (attrNames x))
     else if isList x then
       map (filterAttrsListRecursive pred) x
@@ -315,7 +320,10 @@ let
         by the target will be ignored.
       '';
 
-      scheme = mkDefOpt (types.enum [ "http" "https" ]) "http" ''
+      scheme = mkDefOpt (types.enum [
+        "http"
+        "https"
+      ]) "http" ''
         The URL scheme with which to fetch metrics from targets.
       '';
 
@@ -520,11 +528,13 @@ let
         The Azure environment.
       '';
 
-      authentication_method =
-        mkDefOpt (types.enum [ "OAuth" "ManagedIdentity" ]) "OAuth" ''
-          The authentication method, either OAuth or ManagedIdentity.
-          See https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview
-        '';
+      authentication_method = mkDefOpt (types.enum [
+        "OAuth"
+        "ManagedIdentity"
+      ]) "OAuth" ''
+        The authentication method, either OAuth or ManagedIdentity.
+        See https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview
+      '';
 
       subscription_id = mkOption {
         type = types.str;
@@ -679,7 +689,11 @@ let
 
   promTypes.dockerswarm_sd_config = mkDockerSdConfigModule {
     role = mkOption {
-      type = types.enum [ "services" "tasks" "nodes" ];
+      type = types.enum [
+        "services"
+        "tasks"
+        "nodes"
+      ];
       description = lib.mdDoc ''
         Role of the targets to retrieve. Must be `services`, `tasks`, or `nodes`.
       '';
@@ -695,7 +709,11 @@ let
         '';
       };
 
-      type = mkDefOpt (types.enum [ "SRV" "A" "AAAA" ]) "SRV" ''
+      type = mkDefOpt (types.enum [
+        "SRV"
+        "A"
+        "AAAA"
+      ]) "SRV" ''
         The type of DNS query to perform. One of SRV, A, or AAAA.
       '';
 
@@ -844,7 +862,10 @@ let
 
   promTypes.hetzner_sd_config = mkSdConfigModule {
     role = mkOption {
-      type = types.enum [ "robot" "hcloud" ];
+      type = types.enum [
+        "robot"
+        "hcloud"
+      ];
       description = lib.mdDoc ''
         The Hetzner role of entities that should be discovered.
         One of `robot` or `hcloud`.
@@ -900,7 +921,13 @@ let
     '';
 
     role = mkOption {
-      type = types.enum [ "endpoints" "service" "pod" "node" "ingress" ];
+      type = types.enum [
+        "endpoints"
+        "service"
+        "pod"
+        "node"
+        "ingress"
+      ];
       description = lib.mdDoc ''
         The Kubernetes role of entities that should be discovered.
         One of endpoints, service, pod, node, or ingress.
@@ -1154,10 +1181,13 @@ let
         instead be specified in the relabeling rule.
       '';
 
-      availability =
-        mkDefOpt (types.enum [ "public" "admin" "internal" ]) "public" ''
-          The availability of the endpoint to connect to. Must be one of public, admin or internal.
-        '';
+      availability = mkDefOpt (types.enum [
+        "public"
+        "admin"
+        "internal"
+      ]) "public" ''
+        The availability of the endpoint to connect to. Must be one of public, admin or internal.
+      '';
 
       tls_config = mkOpt promTypes.tls_config ''
         TLS configuration.
@@ -1227,7 +1257,10 @@ let
       };
 
       role = mkOption {
-        type = types.enum [ "instance" "baremetal" ];
+        type = types.enum [
+          "instance"
+          "baremetal"
+        ];
         description = lib.mdDoc ''
           Role of the targets to retrieve. Must be `instance` or `baremetal`.
         '';
@@ -1283,7 +1316,10 @@ let
         '';
       };
 
-      role = mkDefOpt (types.enum [ "container" "cn" ]) "container" ''
+      role = mkDefOpt (types.enum [
+        "container"
+        "cn"
+      ]) "container" ''
         The type of targets to discover, can be set to:
         - "container" to discover virtual machines (SmartOS zones, lx/KVM/bhyve branded zones) running on Triton
         - "cn" to discover compute nodes (servers/global zones) making up the Triton infrastructure
@@ -1566,14 +1602,24 @@ let
 in {
 
   imports = [
-    (mkRenamedOptionModule [ "services" "prometheus2" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "prometheus2"
+    ] [
       "services"
       "prometheus"
     ])
-    (mkRemovedOptionModule [ "services" "prometheus" "environmentFile" ]
+    (mkRemovedOptionModule [
+      "services"
+      "prometheus"
+      "environmentFile"
+    ]
       "It has been removed since it was causing issues (https://github.com/NixOS/nixpkgs/issues/126083) and Prometheus now has native support for secret files, i.e. `basic_auth.password_file` and `authorization.credentials_file`.")
-    (mkRemovedOptionModule [ "services" "prometheus" "alertmanagerTimeout" ]
-      "Deprecated upstream and no longer had any effect")
+    (mkRemovedOptionModule [
+      "services"
+      "prometheus"
+      "alertmanagerTimeout"
+    ] "Deprecated upstream and no longer had any effect")
   ];
 
   options.services.prometheus = {
@@ -1771,22 +1817,19 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [
-      (let
-        # Match something with dots (an IPv4 address) or something ending in
-        # a square bracket (an IPv6 addresses) followed by a port number.
-        legacy =
-          builtins.match "(.*\\..*|.*]):([[:digit:]]+)" cfg.listenAddress;
-      in {
-        assertion = legacy == null;
-        message = ''
-          Do not specify the port for Prometheus to listen on in the
-          listenAddress option; use the port option instead:
-            services.prometheus.listenAddress = ${builtins.elemAt legacy 0};
-            services.prometheus.port = ${builtins.elemAt legacy 1};
-        '';
-      })
-    ];
+    assertions = [ (let
+      # Match something with dots (an IPv4 address) or something ending in
+      # a square bracket (an IPv6 addresses) followed by a port number.
+      legacy = builtins.match "(.*\\..*|.*]):([[:digit:]]+)" cfg.listenAddress;
+    in {
+      assertion = legacy == null;
+      message = ''
+        Do not specify the port for Prometheus to listen on in the
+        listenAddress option; use the port option instead:
+          services.prometheus.listenAddress = ${builtins.elemAt legacy 0};
+          services.prometheus.port = ${builtins.elemAt legacy 1};
+      '';
+    }) ];
 
     users.groups.prometheus.gid = config.ids.gids.prometheus;
     users.users.prometheus = {
@@ -1834,12 +1877,19 @@ in {
         ProtectProc = "invisible";
         ProtectSystem = "full";
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+        ];
       };
     };
     # prometheus-config-reload will activate after prometheus. However, what we

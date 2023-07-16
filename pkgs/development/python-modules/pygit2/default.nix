@@ -31,8 +31,10 @@ buildPythonPackage rec {
 
   buildInputs = [ libgit2 ];
 
-  propagatedBuildInputs = [ cached-property pycparser ]
-    ++ lib.optionals (!isPyPy) [ cffi ];
+  propagatedBuildInputs = [
+    cached-property
+    pycparser
+  ] ++ lib.optionals (!isPyPy) [ cffi ];
 
   propagatedNativeBuildInputs = lib.optionals (!isPyPy) [ cffi ];
 

@@ -22,12 +22,17 @@ buildPythonPackage rec {
     hash = "sha256-uVKe5wR/2NS/SiGC3mGRVCQN8X++YOrTmQeMGuFSr5o=";
   };
 
-  propagatedBuildInputs = [ google-auth google-api-core ];
+  propagatedBuildInputs = [
+    google-auth
+    google-api-core
+  ];
 
   passthru.optional-dependencies = { grpc = [ grpcio ]; };
 
-  nativeCheckInputs = [ mock pytestCheckHook ]
-    ++ passthru.optional-dependencies.grpc;
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.grpc;
 
   # prevent google directory from shadowing google imports
   preCheck = ''

@@ -29,10 +29,19 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs =
-    [ six inflection ruamel-yaml coreapi djangorestframework ];
+  propagatedBuildInputs = [
+    six
+    inflection
+    ruamel-yaml
+    coreapi
+    djangorestframework
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-django datadiff ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-django
+    datadiff
+  ];
 
   # ImportError: No module named 'testproj.settings'
   doCheck = false;

@@ -30,7 +30,12 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  nativeBuildInputs = [ cmake gfortran pkg-config libsForQt5.wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    gfortran
+    pkg-config
+    libsForQt5.wrapQtAppsHook
+  ];
   buildInputs = [
     mpi
     blas
@@ -68,7 +73,10 @@ stdenv.mkDerivation rec {
     homepage = "https://elmerfem.org";
     description = "A finite element software for multiphysical problems";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ wulfsta broke ];
+    maintainers = with maintainers; [
+      wulfsta
+      broke
+    ];
     license = licenses.lgpl21;
   };
 

@@ -15,15 +15,30 @@
 }:
 
 let
-  arches = [ "x86_64" "i686" "armv7l" ];
+  arches = [
+    "x86_64"
+    "i686"
+    "armv7l"
+  ];
 
-  runtimeDeps = [ ghostscript file gnused gnugrep coreutils which ];
+  runtimeDeps = [
+    ghostscript
+    file
+    gnused
+    gnugrep
+    coreutils
+    which
+  ];
 
 in stdenv.mkDerivation rec {
   pname = "cups-brother-hll2350dw";
   version = "4.0.0-1";
 
-  nativeBuildInputs = [ dpkg makeWrapper autoPatchelfHook ];
+  nativeBuildInputs = [
+    dpkg
+    makeWrapper
+    autoPatchelfHook
+  ];
   buildInputs = [ perl ];
 
   dontUnpack = true;

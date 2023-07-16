@@ -139,8 +139,14 @@ in {
       systemd.services = mapAttrs' (name: instance:
         nameValuePair "${flavour}-${name}"
         (createAgentInstance { inherit name instance flavour; })) cfg.instances;
-    }) [ "consul-template" "vault-agent" ]);
+    }) [
+      "consul-template"
+      "vault-agent"
+    ]);
 
-  meta.maintainers = with maintainers; [ indeednotjames tcheronneau ];
+  meta.maintainers = with maintainers; [
+    indeednotjames
+    tcheronneau
+  ];
 }
 

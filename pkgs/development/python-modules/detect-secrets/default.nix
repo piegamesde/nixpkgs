@@ -29,10 +29,20 @@ buildPythonPackage rec {
     leaveDotGit = true;
   };
 
-  propagatedBuildInputs = [ gibberish-detector pyyaml pyahocorasick requests ];
+  propagatedBuildInputs = [
+    gibberish-detector
+    pyyaml
+    pyahocorasick
+    requests
+  ];
 
-  nativeCheckInputs =
-    [ mock pytestCheckHook responses unidiff pkgs.gitMinimal ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+    responses
+    unidiff
+    pkgs.gitMinimal
+  ];
 
   preCheck = ''
     export HOME=$(mktemp -d);

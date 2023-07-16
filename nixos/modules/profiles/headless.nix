@@ -18,7 +18,10 @@ with lib;
   systemd.services."autovt@".enable = false;
 
   # Since we can't manually respond to a panic, just reboot.
-  boot.kernelParams = [ "panic=1" "boot.panic_on_fail" ];
+  boot.kernelParams = [
+    "panic=1"
+    "boot.panic_on_fail"
+  ];
 
   # Don't allow emergency mode, because we don't have a console.
   systemd.enableEmergencyMode = false;

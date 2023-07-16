@@ -22,8 +22,13 @@ buildPythonPackage rec {
 
   patches = [ ./fix-locations.patch ];
 
-  propagatedBuildInputs =
-    [ packaging platformdirs portalocker pyparsing sympy ];
+  propagatedBuildInputs = [
+    packaging
+    platformdirs
+    portalocker
+    pyparsing
+    sympy
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -47,7 +47,10 @@ buildPythonPackage rec {
 
   doCheck = lib.versionAtLeast pytest-aiohttp.version "1.0.0";
 
-  nativeCheckInputs = [ pytest-aiohttp pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-aiohttp
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [
     # Tests require network access

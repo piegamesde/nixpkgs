@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-kjNqJddioCZoh/cZL3YNplweIGopWIGzCYQOnKDqZmw=";
   };
 
-  nativeBuildInputs = [ cmake xxd ];
+  nativeBuildInputs = [
+    cmake
+    xxd
+  ];
   cmakeFlags = lib.optional stdenv.hostPlatform.isx86 "-DHAVE_SSE2=1"
     ++ lib.optional stdenv.hostPlatform.isAarch "-DHAVE_ARM8=1"
     ++ lib.optional stdenv.hostPlatform.avx2Support "-DHAVE_AVX2=1"

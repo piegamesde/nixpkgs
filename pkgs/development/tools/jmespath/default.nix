@@ -19,7 +19,10 @@ buildGoModule rec {
 
   excludedPackages = [ "./internal/testify" ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "A JMESPath implementation in Go";

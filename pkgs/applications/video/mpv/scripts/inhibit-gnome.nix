@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ dbus mpv-unwrapped ];
+  buildInputs = [
+    dbus
+    mpv-unwrapped
+  ];
 
   passthru.scriptName = "mpv_inhibit_gnome.so";
 

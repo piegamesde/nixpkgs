@@ -29,8 +29,12 @@ buildPythonPackage rec {
       --replace "python-socketio>=4,<5" "python-socketio>=4"
   '';
 
-  propagatedBuildInputs =
-    [ aiohttp xmltodict python-socketio websocket-client ];
+  propagatedBuildInputs = [
+    aiohttp
+    xmltodict
+    python-socketio
+    websocket-client
+  ];
 
   # tests access network
   doCheck = false;

@@ -25,9 +25,14 @@ buildPythonPackage rec {
     hash = "sha256-k7r/gk8KBW5xA2tCO5QqdPB7kJ5F4/o4GFuRD1l8XAg=";
   };
 
-  propagatedBuildInputs =
-    [ django django-stubs-ext mypy types-pytz types-pyyaml typing-extensions ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs = [
+    django
+    django-stubs-ext
+    mypy
+    types-pytz
+    types-pyyaml
+    typing-extensions
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

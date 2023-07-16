@@ -19,8 +19,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-eSWgk6KdEyjDLPc27CsOCXDU7AKMoXNyzoA6dSwZ5TI=";
   };
 
-  nativeBuildInputs = [ cmake llvmPackages.llvm.dev ];
-  buildInputs = with llvmPackages; [ libclang llvm rapidjson ];
+  nativeBuildInputs = [
+    cmake
+    llvmPackages.llvm.dev
+  ];
+  buildInputs = with llvmPackages; [
+    libclang
+    llvm
+    rapidjson
+  ];
 
   cmakeFlags = [ "-DCCLS_VERSION=${version}" ];
 
@@ -43,6 +50,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/MaskRay/ccls";
     license = licenses.asl20;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ mic92 tobim ];
+    maintainers = with maintainers; [
+      mic92
+      tobim
+    ];
   };
 }

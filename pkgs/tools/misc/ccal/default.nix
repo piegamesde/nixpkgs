@@ -17,8 +17,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  makeFlags = [ "CXX:=$(CXX)" "BINDIR=$(out)/bin" "MANDIR=$(out)/share/man" ];
-  installTargets = [ "install" "install-man" ];
+  makeFlags = [
+    "CXX:=$(CXX)"
+    "BINDIR=$(out)/bin"
+    "MANDIR=$(out)/share/man"
+  ];
+  installTargets = [
+    "install"
+    "install-man"
+  ];
 
   # ccalpdf depends on a `ps2pdf` binary in PATH
   postFixup = ''

@@ -10,12 +10,16 @@ with lib;
 let
   cfg = config.services.getty;
 
-  baseArgs = [ "--login-program" "${cfg.loginProgram}" ]
-    ++ optionals (cfg.autologinUser != null) [ "--autologin" cfg.autologinUser ]
-    ++ optionals (cfg.loginOptions != null) [
-      "--login-options"
-      cfg.loginOptions
-    ] ++ cfg.extraArgs;
+  baseArgs = [
+    "--login-program"
+    "${cfg.loginProgram}"
+  ] ++ optionals (cfg.autologinUser != null) [
+    "--autologin"
+    cfg.autologinUser
+  ] ++ optionals (cfg.loginOptions != null) [
+    "--login-options"
+    cfg.loginOptions
+  ] ++ cfg.extraArgs;
 
   gettyCmd = args:
     "@${pkgs.util-linux}/sbin/agetty agetty ${
@@ -27,8 +31,18 @@ in {
   ###### interface
 
   imports = [
-    (mkRenamedOptionModule [ "services" "mingetty" ] [ "services" "getty" ])
-    (mkRemovedOptionModule [ "services" "getty" "serialSpeed" ] ''
+    (mkRenamedOptionModule [
+      "services"
+      "mingetty"
+    ] [
+      "services"
+      "getty"
+    ])
+    (mkRemovedOptionModule [
+      "services"
+      "getty"
+      "serialSpeed"
+    ] ''
       set non-standard baudrates with `boot.kernelParams` i.e. boot.kernelParams = ["console=ttyS2,1500000"];'')
   ];
 

@@ -26,7 +26,13 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [ httplib2 py pytestCheckHook requests urllib3 ];
+  nativeCheckInputs = [
+    httplib2
+    py
+    pytestCheckHook
+    requests
+    urllib3
+  ];
 
   disabledTests = [
     "test_http_not_intercepted"

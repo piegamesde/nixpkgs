@@ -9,9 +9,13 @@ with lib;
 
 let cfg = config.services.tautulli;
 in {
-  imports = [
-    (mkRenamedOptionModule [ "services" "plexpy" ] [ "services" "tautulli" ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "services"
+    "plexpy"
+  ] [
+    "services"
+    "tautulli"
+  ]) ];
 
   options = {
     services.tautulli = {

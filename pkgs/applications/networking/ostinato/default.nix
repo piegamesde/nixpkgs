@@ -33,9 +33,18 @@ mkDerivation rec {
     sha256 = "f5c067823f2934e4d358d76f65a343efd69ad783a7aeabd7ab4ce3cd03490d70";
   };
 
-  buildInputs = [ qtbase protobuf libpcap qtscript libnl ];
+  buildInputs = [
+    qtbase
+    protobuf
+    libpcap
+    qtscript
+    libnl
+  ];
 
-  nativeBuildInputs = [ copyDesktopItems qmake ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    qmake
+  ];
 
   patches = [ ./drone_ini.patch ];
   prePatch = ''

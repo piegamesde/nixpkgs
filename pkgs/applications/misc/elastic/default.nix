@@ -40,7 +40,13 @@ stdenv.mkDerivation rec {
     blueprint-compiler
   ];
 
-  buildInputs = [ gtk4 libadwaita libgee gtksourceview5 template-glib ];
+  buildInputs = [
+    gtk4
+    libadwaita
+    libgee
+    gtksourceview5
+    template-glib
+  ];
 
   meta = with lib; {
     description = "Design spring animations";

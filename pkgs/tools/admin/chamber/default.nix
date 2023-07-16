@@ -19,7 +19,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-ENsKm3D3URCrRUiqqebkgFS//2h9SlLbAQHdjisdGlE=";
 
-  ldflags = [ "-s" "-w" "-X main.Version=v${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.Version=v${version}"
+  ];
 
   meta = with lib; {
     description =

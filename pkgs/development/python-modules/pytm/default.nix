@@ -21,14 +21,22 @@ buildPythonPackage rec {
     sha256 = "1bx4s9a5kdyr2xvpw0smmh7zi9w38891yfqzdj1bmnsjl57x6qrg";
   };
 
-  propagatedBuildInputs = [ pydal graphviz pandoc plantuml ];
+  propagatedBuildInputs = [
+    pydal
+    graphviz
+    pandoc
+    plantuml
+  ];
 
   pythonImportsCheck = [ "pytm" ];
 
   meta = with lib; {
     description = "A Pythonic framework for threat modeling";
     homepage = "https://owasp.org/www-project-pytm/";
-    license = with licenses; [ capec mit ];
+    license = with licenses; [
+      capec
+      mit
+    ];
     maintainers = with maintainers; [ wamserma ];
   };
 }

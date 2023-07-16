@@ -21,7 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-5hN6vDJE797Mcw/u0FsXVCzNr4c1pmuRQa0KN42HKSI=";
   };
 
-  propagatedBuildInputs = [ azure-mgmt-common azure-mgmt-core msrest ];
+  propagatedBuildInputs = [
+    azure-mgmt-common
+    azure-mgmt-core
+    msrest
+  ];
 
   # Module has no tests
   doCheck = false;
@@ -34,6 +38,10 @@ buildPythonPackage rec {
     description = "Microsoft Azure SDK for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ olcai maxwilson jonringer ];
+    maintainers = with maintainers; [
+      olcai
+      maxwilson
+      jonringer
+    ];
   };
 }

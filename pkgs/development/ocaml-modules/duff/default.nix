@@ -25,7 +25,12 @@ buildDunePackage rec {
   propagatedBuildInputs = [ fmt ];
 
   doCheck = true;
-  checkInputs = [ alcotest crowbar hxd bigstringaf ];
+  checkInputs = [
+    alcotest
+    crowbar
+    hxd
+    bigstringaf
+  ];
 
   meta = {
     description = "Pure OCaml implementation of libXdiff (Rabin’s fingerprint)";

@@ -4,12 +4,12 @@
 }: {
   options.submodule = lib.mkOption {
     type = lib.types.submoduleWith {
-      modules = [{
+      modules = [ {
         options.inner = lib.mkOption {
           type = lib.types.bool;
           default = false;
         };
-      }];
+      } ];
     };
     default = { };
   };

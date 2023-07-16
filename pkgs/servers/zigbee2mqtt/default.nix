@@ -36,7 +36,10 @@ buildNpmPackage rec {
       It bridges events and allows you to control your Zigbee devices via MQTT.
       In this way you can integrate your Zigbee devices with whatever smart home infrastructure you are using.
     '';
-    maintainers = with maintainers; [ sweber hexa ];
+    maintainers = with maintainers; [
+      sweber
+      hexa
+    ];
     platforms = platforms.linux;
   };
 }

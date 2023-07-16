@@ -9,7 +9,11 @@ derivation ({
 
   builder = bootstrapFiles.busybox;
 
-  args = [ "ash" "-e" ./scripts/unpack-bootstrap-tools.sh ];
+  args = [
+    "ash"
+    "-e"
+    ./scripts/unpack-bootstrap-tools.sh
+  ];
 
   tarball = bootstrapFiles.bootstrapTools;
 

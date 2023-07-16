@@ -29,7 +29,10 @@ in {
     };
 
     theme = mkOption {
-      type = types.enum [ "alps" "sourcehut" ];
+      type = types.enum [
+        "alps"
+        "sourcehut"
+      ];
       default = "sourcehut";
       description = lib.mdDoc ''
         The frontend's theme to use.
@@ -100,7 +103,10 @@ in {
       description = "alps is a simple and extensible webmail.";
       documentation = [ "https://git.sr.ht/~migadu/alps" ];
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "network-online.target" ];
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/alps ${escapeShellArgs cfg.args}";
@@ -124,14 +130,20 @@ in {
         ProtectProc = "invisible";
         ProtectSystem = "strict";
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SocketBindAllow = cfg.port;
         SocketBindDeny = "any";
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged @obsolete" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged @obsolete"
+        ];
       };
     };
   };

@@ -46,20 +46,24 @@ stdenvNoCC.mkDerivation rec {
     sparseCheckout = [ sparseCheckout ];
   } + sparseCheckout;
 
-  nativeBuildInputs = [ copyDesktopItems makeWrapper ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      exec = "itch %U";
-      tryExec = pname;
-      icon = pname;
-      desktopName = pname;
-      mimeTypes = [ "x-scheme-handler/itchio" "x-scheme-handler/itch" ];
-      comment = "Install and play itch.io games easily";
-      categories = [ "Game" ];
-    })
+  nativeBuildInputs = [
+    copyDesktopItems
+    makeWrapper
   ];
+
+  desktopItems = [ (makeDesktopItem {
+    name = pname;
+    exec = "itch %U";
+    tryExec = pname;
+    icon = pname;
+    desktopName = pname;
+    mimeTypes = [
+      "x-scheme-handler/itchio"
+      "x-scheme-handler/itch"
+    ];
+    comment = "Install and play itch.io games easily";
+    categories = [ "Game" ];
+  }) ];
 
   # As taken from https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=itch-bin
   installPhase = ''

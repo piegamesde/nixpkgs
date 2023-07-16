@@ -48,12 +48,22 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-qW6Fk2GB71fvZSsfu+mykabSxEKvaikZ/pQQZUycOy0=";
   };
 
-  nativeBuildInputs = [ cmake cuda-native-redist ninja which ]
-    ++ lists.optionals pythonSupport
-    (with python3Packages; [ pip setuptools wheel ]);
+  nativeBuildInputs = [
+    cmake
+    cuda-native-redist
+    ninja
+    which
+  ] ++ lists.optionals pythonSupport (with python3Packages; [
+    pip
+    setuptools
+    wheel
+  ]);
 
-  buildInputs = [ cuda-redist ]
-    ++ lib.optionals pythonSupport (with python3Packages; [ pybind11 python ]);
+  buildInputs = [ cuda-redist ] ++ lib.optionals pythonSupport
+    (with python3Packages; [
+      pybind11
+      python
+    ]);
 
   propagatedBuildInputs =
     lib.optionals pythonSupport (with python3Packages; [ torch ]);

@@ -30,11 +30,21 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--disable-examples" ];
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
   outputDoc = "devdoc";
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
-  propagatedBuildInputs = [ libogg libvorbis ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
+  propagatedBuildInputs = [
+    libogg
+    libvorbis
+  ];
 
   meta = with lib; {
     homepage = "https://www.theora.org/";

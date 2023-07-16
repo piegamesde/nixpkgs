@@ -18,10 +18,17 @@ stdenv.mkDerivation rec {
     sha256 = "1gpcic6b6xk3g4956jcsqljf33kj5g43cahmydq6m8rn39sadvlv";
   };
 
-  nativeBuildInputs = [ flex bison ];
+  nativeBuildInputs = [
+    flex
+    bison
+  ];
   buildInputs = [ fftw ];
 
-  configureFlags = [ "--with-ngshared" "--enable-xspice" "--enable-cider" ];
+  configureFlags = [
+    "--with-ngshared"
+    "--enable-xspice"
+    "--enable-cider"
+  ];
 
   meta = with lib; {
     description = "The Next Generation Spice (Electronic Circuit Simulator)";

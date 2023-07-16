@@ -31,9 +31,21 @@ stdenv.mkDerivation rec {
       --replace "/usr/bin/file" "${file}/bin/file"
   '';
 
-  nativeBuildInputs = [ gobject-introspection pkg-config ];
+  nativeBuildInputs = [
+    gobject-introspection
+    pkg-config
+  ];
 
-  buildInputs = [ gtk2 glib cairo atk pango libtiff libpng libjpeg ];
+  buildInputs = [
+    gtk2
+    glib
+    cairo
+    atk
+    pango
+    libtiff
+    libpng
+    libjpeg
+  ];
 
   meta = with lib; {
     homepage = "https://gtkextra.sourceforge.net/";

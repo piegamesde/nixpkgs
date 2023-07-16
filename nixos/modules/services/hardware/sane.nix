@@ -37,7 +37,10 @@ let
     LD_LIBRARY_PATH = [ "/etc/sane-libs" ];
   };
 
-  backends = [ pkg netConf ] ++ optional config.services.saned.enable sanedConf
+  backends = [
+    pkg
+    netConf
+  ] ++ optional config.services.saned.enable sanedConf
     ++ config.hardware.sane.extraBackends;
   saneConfig = pkgs.mkSaneConfig {
     paths = backends;
@@ -199,7 +202,10 @@ in {
       systemd.sockets.saned = {
         description = "saned incoming socket";
         wantedBy = [ "sockets.target" ];
-        listenStreams = [ "0.0.0.0:6566" "[::]:6566" ];
+        listenStreams = [
+          "0.0.0.0:6566"
+          "[::]:6566"
+        ];
         socketConfig = {
           # saned needs to distinguish between IPv4 and IPv6 to open matching data sockets.
           BindIPv6Only = "ipv6-only";

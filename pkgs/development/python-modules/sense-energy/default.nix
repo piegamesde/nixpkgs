@@ -30,8 +30,14 @@ buildPythonPackage rec {
       --replace "{{VERSION_PLACEHOLDER}}" "${version}"
   '';
 
-  propagatedBuildInputs =
-    [ aiohttp async-timeout orjson requests websocket-client websockets ];
+  propagatedBuildInputs = [
+    aiohttp
+    async-timeout
+    orjson
+    requests
+    websocket-client
+    websockets
+  ];
 
   # no tests implemented
   doCheck = false;

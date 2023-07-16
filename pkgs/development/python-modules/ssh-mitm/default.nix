@@ -28,8 +28,16 @@ buildPythonPackage rec {
     hash = "sha256-koV7g6ZmrrXk60rrDP8BwrDZk3shiyJigQgNcb4BASE=";
   };
 
-  propagatedBuildInputs =
-    [ argcomplete colored packaging paramiko pytz pyyaml rich sshpubkeys ];
+  propagatedBuildInputs = [
+    argcomplete
+    colored
+    packaging
+    paramiko
+    pytz
+    pyyaml
+    rich
+    sshpubkeys
+  ];
 
   # Module has no tests
   doCheck = false;

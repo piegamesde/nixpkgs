@@ -20,12 +20,22 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-YAwGgV5Vllz8JlIASbGIkdRzpciQbgPiXl5DjiSEJyE=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ ronn git cmocka ];
+  buildInputs = [
+    ronn
+    git
+    cmocka
+  ];
 
-  configureFlags =
-    [ "--enable-git-receiver" "--enable-make" "--enable-runserver" ];
+  configureFlags = [
+    "--enable-git-receiver"
+    "--enable-make"
+    "--enable-runserver"
+  ];
 
   doCheck = true;
 

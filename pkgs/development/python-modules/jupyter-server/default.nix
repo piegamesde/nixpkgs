@@ -46,7 +46,10 @@ buildPythonPackage rec {
     hash = "sha256-jddZkukLfKVWeUoe1cylEmPGl6vG0N9WGvV0qhwKAz8=";
   };
 
-  nativeBuildInputs = [ hatch-jupyter-builder hatchling ];
+  nativeBuildInputs = [
+    hatch-jupyter-builder
+    hatchling
+  ];
 
   propagatedBuildInputs = [
     argon2-cffi

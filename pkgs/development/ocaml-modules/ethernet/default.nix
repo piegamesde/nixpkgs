@@ -27,8 +27,14 @@ buildDunePackage rec {
 
   buildInputs = [ ppx_cstruct ];
 
-  propagatedBuildInputs =
-    [ cstruct mirage-net macaddr mirage-profile lwt logs ];
+  propagatedBuildInputs = [
+    cstruct
+    mirage-net
+    macaddr
+    mirage-profile
+    lwt
+    logs
+  ];
 
   meta = with lib; {
     description = "OCaml Ethernet (IEEE 802.3) layer, used in MirageOS";

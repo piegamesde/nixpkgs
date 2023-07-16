@@ -47,8 +47,17 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs = [ which ];
 
-  buildInputs = [ libtpms openssl libtasn1 glib json-glib gnutls ]
-    ++ lib.optionals stdenv.isLinux [ fuse libseccomp ];
+  buildInputs = [
+    libtpms
+    openssl
+    libtasn1
+    glib
+    json-glib
+    gnutls
+  ] ++ lib.optionals stdenv.isLinux [
+    fuse
+    libseccomp
+  ];
 
   configureFlags = [ "--localstatedir=/var" ]
     ++ lib.optionals stdenv.isLinux [ "--with-cuse" ];
@@ -92,7 +101,10 @@ stdenv.mkDerivation rec {
   doCheck = true;
   enableParallelBuilding = true;
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   passthru.tests = { inherit (nixosTests) systemd-cryptenroll; };
 

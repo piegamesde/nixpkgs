@@ -54,7 +54,11 @@ stdenv.mkDerivation rec {
     description =
       "A complete sqlite3-compatible CLI front-end for libspatialite";
     homepage = "https://www.gaia-gis.it/fossil/spatialite-tools";
-    license = with licenses; [ mpl11 gpl2Plus lgpl21Plus ];
+    license = with licenses; [
+      mpl11
+      gpl2Plus
+      lgpl21Plus
+    ];
     platforms = platforms.unix;
     maintainers = with maintainers; [ dotlambda ];
     mainProgram = "spatialite_tool";

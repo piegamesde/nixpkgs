@@ -28,7 +28,11 @@ buildPythonPackage rec {
 
   buildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ aioftp aiohttp tqdm ];
+  propagatedBuildInputs = [
+    aioftp
+    aiohttp
+    tqdm
+  ];
 
   nativeCheckInputs = [
     aiofiles

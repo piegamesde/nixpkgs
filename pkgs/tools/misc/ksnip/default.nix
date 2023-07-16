@@ -23,10 +23,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-a5mS2mrbs0CyZ83hwwFdherq6kMS93ItQIDKu1AjnN4=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    wrapQtAppsHook
+  ];
 
-  buildInputs =
-    [ kcolorpicker kimageannotator qtsvg qttranslations qtx11extras ];
+  buildInputs = [
+    kcolorpicker
+    kimageannotator
+    qtsvg
+    qttranslations
+    qtx11extras
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/ksnip/ksnip";

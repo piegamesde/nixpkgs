@@ -23,7 +23,10 @@ in stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  buildFlags = [ "LDFLAGS=-L${xercesc}/lib" "CPPFLAGS=-I${xercesc}/include" ];
+  buildFlags = [
+    "LDFLAGS=-L${xercesc}/lib"
+    "CPPFLAGS=-I${xercesc}/include"
+  ];
   installFlags = buildFlags ++ [ "install_prefix=${placeholder "out"}" ];
 
   buildInputs = [ xercesc ];

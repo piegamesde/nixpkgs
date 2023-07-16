@@ -23,7 +23,10 @@ buildPythonPackage rec {
       --replace 'version="master",' 'version="${version}",'
   '';
 
-  propagatedBuildInputs = [ aiohttp async-timeout ];
+  propagatedBuildInputs = [
+    aiohttp
+    async-timeout
+  ];
 
   # Project has no tests
   doCheck = false;

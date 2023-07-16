@@ -28,9 +28,20 @@ buildPythonPackage rec {
     hash = "sha256-Voc1ME0iGQCMaDfBXDSVnRp8olvId+fLhH8sqHwB2Ak=";
   };
 
-  propagatedBuildInputs = [ aiohttp haversine xmltodict requests dateparser ];
+  propagatedBuildInputs = [
+    aiohttp
+    haversine
+    xmltodict
+    requests
+    dateparser
+  ];
 
-  nativeCheckInputs = [ aresponses mock pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    aresponses
+    mock
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "aio_georss_client" ];
 

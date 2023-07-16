@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
   pname = "sundials";
   version = "6.5.1";
 
-  outputs = [ "out" "examples" ];
+  outputs = [
+    "out"
+    "examples"
+  ];
 
   src = fetchurl {
     url =
@@ -24,11 +27,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-QlIwOAUXHk290ZoB5Swdz+Da/FmcPP7bClwv+wRainU=";
   };
 
-  nativeBuildInputs = [ cmake gfortran ];
+  nativeBuildInputs = [
+    cmake
+    gfortran
+  ];
 
   buildInputs = [ python ] ++ lib.optionals (lapackSupport)
   # Check that the same index size is used for both libraries
-    (assert (blas.isILP64 == lapack.isILP64); [ blas lapack ])
+    (assert (blas.isILP64 == lapack.isILP64); [
+      blas
+      lapack
+    ])
     # KLU support is based on Suitesparse. It is tested upstream according to the
     # section 1.1.4.2 of INSTALL_GUIDE.pdf found in the source tarball.
     ++ lib.optionals (kluSupport) [ suitesparse ];
@@ -42,16 +51,14 @@ stdenv.mkDerivation rec {
       "-DENABLE_KLU=ON"
       "-DKLU_INCLUDE_DIR=${suitesparse.dev}/include"
       "-DKLU_LIBRARY_DIR=${suitesparse}/lib"
-    ] ++ [
-      (
-        # Use the correct index type according to lapack and blas used. They are
-        # already supposed to be compatible but we check both for extra safety. 64
-        # should be the default but we prefer to be explicit, for extra safety.
-        if blas.isILP64 then
-          "-DSUNDIALS_INDEX_SIZE=64"
-        else
-          "-DSUNDIALS_INDEX_SIZE=32")
-    ];
+    ] ++ [ (
+      # Use the correct index type according to lapack and blas used. They are
+      # already supposed to be compatible but we check both for extra safety. 64
+      # should be the default but we prefer to be explicit, for extra safety.
+      if blas.isILP64 then
+        "-DSUNDIALS_INDEX_SIZE=64"
+      else
+        "-DSUNDIALS_INDEX_SIZE=32") ];
 
   doCheck = true;
   checkTarget = "test";

@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Kqj6XQkwPU7pmR8JY8f7iMqpOYjvWxS5Yir/YTBPXjM=";
   };
 
-  nativeBuildInputs = [ copyDesktopItems makeWrapper ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    makeWrapper
+  ];
 
   dontConfigure = true;
   dontBuild = true;
@@ -53,7 +56,10 @@ stdenv.mkDerivation rec {
       --add-flags $out/share/tutanota-desktop/resources/app.asar \
       --run "mkdir -p /tmp/tutanota" \
       --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [ libsecret stdenv.cc.cc.lib ]
+        lib.makeLibraryPath [
+          libsecret
+          stdenv.cc.cc.lib
+        ]
       }
 
     runHook postInstall

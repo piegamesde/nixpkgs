@@ -43,7 +43,7 @@ in {
     # for mimirtool
     environment.systemPackages = [ pkgs.mimir ];
 
-    assertions = [{
+    assertions = [ {
       assertion = ((cfg.configuration == { } -> cfg.configFile != null)
         && (cfg.configFile != null -> cfg.configuration == { }));
       message = ''
@@ -51,7 +51,7 @@ in {
         'services.mimir.configuration' or
         'services.mimir.configFile'.
       '';
-    }];
+    } ];
 
     systemd.services.mimir = {
       description = "mimir Service Daemon";

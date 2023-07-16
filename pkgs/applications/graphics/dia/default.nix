@@ -43,13 +43,23 @@ stdenv.mkDerivation {
     patchShebangs .
   '';
 
-  buildInputs = [ graphene gtk2 libxml2 python3 poppler ]
-    ++ lib.optionals withDocs [ libxslt ]
+  buildInputs = [
+    graphene
+    gtk2
+    libxml2
+    python3
+    poppler
+  ] ++ lib.optionals withDocs [ libxslt ]
     ++ lib.optionals stdenv.isDarwin [ gtk-mac-integration-gtk2 ];
 
-  nativeBuildInputs =
-    [ appstream-glib desktop-file-utils intltool meson ninja pkg-config ]
-    ++ lib.optionals withDocs [ dblatex ];
+  nativeBuildInputs = [
+    appstream-glib
+    desktop-file-utils
+    intltool
+    meson
+    ninja
+    pkg-config
+  ] ++ lib.optionals withDocs [ dblatex ];
 
   meta = with lib; {
     description = "Gnome Diagram drawing software";

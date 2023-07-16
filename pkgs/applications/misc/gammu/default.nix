@@ -40,13 +40,25 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
 
   strictDeps = true;
 
-  buildInputs = [ bash bluez libusb1 curl gettext sqlite libiconv ]
-    ++ lib.optionals dbiSupport [ libdbi libdbiDrivers ]
-    ++ lib.optionals postgresSupport [ postgresql ];
+  buildInputs = [
+    bash
+    bluez
+    libusb1
+    curl
+    gettext
+    sqlite
+    libiconv
+  ] ++ lib.optionals dbiSupport [
+    libdbi
+    libdbiDrivers
+  ] ++ lib.optionals postgresSupport [ postgresql ];
 
   meta = with lib; {
     homepage = "https://wammu.eu/gammu/";

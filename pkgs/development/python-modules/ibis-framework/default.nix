@@ -61,7 +61,12 @@
   typing-extensions,
 }:
 let
-  testBackends = [ "datafusion" "duckdb" "pandas" "sqlite" ];
+  testBackends = [
+    "datafusion"
+    "duckdb"
+    "pandas"
+    "sqlite"
+  ];
 
   ibisTestingData = fetchFromGitHub {
     name = "ibis-testing-data";
@@ -175,22 +180,71 @@ in buildPythonPackage rec {
         google-cloud-bigquery-storage
         pydata-google-auth
       ];
-      clickhouse = [ clickhouse-cityhash clickhouse-driver lz4 sqlalchemy ];
-      dask = [ dask pyarrow regex ];
+      clickhouse = [
+        clickhouse-cityhash
+        clickhouse-driver
+        lz4
+        sqlalchemy
+      ];
+      dask = [
+        dask
+        pyarrow
+        regex
+      ];
       datafusion = [ datafusion ];
-      druid = [ pydruid sqlalchemy ];
-      duckdb =
-        [ duckdb duckdb-engine packaging pyarrow sqlalchemy sqlalchemy-views ];
-      geospatial = [ geoalchemy2 geopandas shapely ];
-      mysql = [ sqlalchemy pymysql sqlalchemy-views ];
+      druid = [
+        pydruid
+        sqlalchemy
+      ];
+      duckdb = [
+        duckdb
+        duckdb-engine
+        packaging
+        pyarrow
+        sqlalchemy
+        sqlalchemy-views
+      ];
+      geospatial = [
+        geoalchemy2
+        geopandas
+        shapely
+      ];
+      mysql = [
+        sqlalchemy
+        pymysql
+        sqlalchemy-views
+      ];
       pandas = [ regex ];
-      polars = [ polars pyarrow ];
-      postgres = [ psycopg2 sqlalchemy sqlalchemy-views ];
-      pyspark = [ pyarrow pyspark sqlalchemy ];
-      snowflake =
-        [ snowflake-connector-python snowflake-sqlalchemy sqlalchemy-views ];
-      sqlite = [ regex sqlalchemy sqlite sqlalchemy-views ];
-      trino = [ trino-python-client sqlalchemy sqlalchemy-views ];
+      polars = [
+        polars
+        pyarrow
+      ];
+      postgres = [
+        psycopg2
+        sqlalchemy
+        sqlalchemy-views
+      ];
+      pyspark = [
+        pyarrow
+        pyspark
+        sqlalchemy
+      ];
+      snowflake = [
+        snowflake-connector-python
+        snowflake-sqlalchemy
+        sqlalchemy-views
+      ];
+      sqlite = [
+        regex
+        sqlalchemy
+        sqlite
+        sqlalchemy-views
+      ];
+      trino = [
+        trino-python-client
+        sqlalchemy
+        sqlalchemy-views
+      ];
       visualization = [ graphviz-nox ];
       decompiler = [ black ];
     };
@@ -202,6 +256,9 @@ in buildPythonPackage rec {
     changelog =
       "https://github.com/ibis-project/ibis/blob/${version}/docs/release_notes.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ costrouc cpcloud ];
+    maintainers = with maintainers; [
+      costrouc
+      cpcloud
+    ];
   };
 }

@@ -23,7 +23,11 @@ buildPythonPackage rec {
     sed -i -e '13,14d;37d' setup.py
   '';
 
-  propagatedBuildInputs = [ simplejson pytz requests ];
+  propagatedBuildInputs = [
+    simplejson
+    pytz
+    requests
+  ];
 
   # No proper tests are available
   doCheck = false;

@@ -36,7 +36,14 @@ buildPythonPackage rec {
 
   sourceRoot = "source/package";
 
-  nativeBuildInputs = [ hassil jinja2 pyyaml regex setuptools voluptuous ];
+  nativeBuildInputs = [
+    hassil
+    jinja2
+    pyyaml
+    regex
+    setuptools
+    voluptuous
+  ];
 
   postInstall = ''
     pushd ..
@@ -45,7 +52,10 @@ buildPythonPackage rec {
     popd
   '';
 
-  checkInputs = [ pytest-xdist pytestCheckHook ];
+  checkInputs = [
+    pytest-xdist
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "../tests" ];
 

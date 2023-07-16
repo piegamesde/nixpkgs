@@ -23,7 +23,10 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ wheel ];
 
   # Using pytes instead of setuptools check hook allows disabling specific tests
-  nativeCheckInputs = [ pytestCheckHook pytest-runner ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-runner
+  ];
   dontUseSetuptoolsCheck = true;
   disabledTests = [
     # Test fails with a an error: AssertionError: assert 30 == 31

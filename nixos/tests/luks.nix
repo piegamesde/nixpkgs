@@ -11,7 +11,10 @@ import ./make-test-python.nix ({
       }: {
         # Use systemd-boot
         virtualisation = {
-          emptyDiskImages = [ 512 512 ];
+          emptyDiskImages = [
+            512
+            512
+          ];
           useBootLoader = true;
           useEFIBoot = true;
         };
@@ -30,8 +33,10 @@ import ./make-test-python.nix ({
             };
             virtualisation.rootDevice = "/dev/mapper/cryptroot";
           };
-          boot-luks-custom-keymap.configuration =
-            lib.mkMerge [ boot-luks.configuration { console.keyMap = "neo"; } ];
+          boot-luks-custom-keymap.configuration = lib.mkMerge [
+            boot-luks.configuration
+            { console.keyMap = "neo"; }
+          ];
         };
       };
 

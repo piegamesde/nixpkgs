@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  outputs = [ "out" "bin" ];
+  outputs = [
+    "out"
+    "bin"
+  ];
 
   buildCommand = ''
     mkdir -p $out/share/java

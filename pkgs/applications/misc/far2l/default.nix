@@ -59,17 +59,40 @@ stdenv.mkDerivation rec {
 
   patches = [ ./python_prebuild.patch ];
 
-  nativeBuildInputs = [ cmake ninja pkg-config m4 makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    pkg-config
+    m4
+    makeWrapper
+  ];
 
   buildInputs = lib.optional withTTYX libX11 ++ lib.optional withGUI wxGTK32
-    ++ lib.optional withUCD libuchardet
-    ++ lib.optionals withColorer [ spdlog xercesc ]
-    ++ lib.optionals withMultiArc [ libarchive pcre ]
-    ++ lib.optionals withNetRocks [ openssl libssh libnfs neon ]
+    ++ lib.optional withUCD libuchardet ++ lib.optionals withColorer [
+      spdlog
+      xercesc
+    ] ++ lib.optionals withMultiArc [
+      libarchive
+      pcre
+    ] ++ lib.optionals withNetRocks [
+      openssl
+      libssh
+      libnfs
+      neon
+    ]
     ++ lib.optional (withNetRocks && !stdenv.isDarwin) samba # broken on darwin
-    ++ lib.optionals withPython
-    (with python3Packages; [ python cffi debugpy pcpp ])
-    ++ lib.optionals stdenv.isDarwin [ IOKit Carbon Cocoa AudioToolbox OpenGL ];
+    ++ lib.optionals withPython (with python3Packages; [
+      python
+      cffi
+      debugpy
+      pcpp
+    ]) ++ lib.optionals stdenv.isDarwin [
+      IOKit
+      Carbon
+      Cocoa
+      AudioToolbox
+      OpenGL
+    ];
 
   postPatch = ''
     patchShebangs python/src/prebuild.sh
@@ -93,7 +116,15 @@ stdenv.mkDerivation rec {
       PYTHON = withPython;
     };
 
-  runtimeDeps = [ unzip zip p7zip xz gzip bzip2 gnutar ];
+  runtimeDeps = [
+    unzip
+    zip
+    p7zip
+    xz
+    gzip
+    bzip2
+    gnutar
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/far2l \

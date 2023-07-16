@@ -30,7 +30,11 @@ in {
         default = { };
         type = types.submodule {
           freeformType = with types;
-            (attrsOf (nullOr (oneOf [ str int bool ]))) // {
+            (attrsOf (nullOr (oneOf [
+              str
+              int
+              bool
+            ]))) // {
               description = "settings option";
             };
           options.admin = mkOption {
@@ -192,13 +196,11 @@ in {
         WatchdogSec = 20;
         Restart = "always";
         # Use "+" because credentialsFile may not be accessible to User= or Group=.
-        ExecStartPre = [
-          ("+" + pkgs.writeShellScript "biboumi-prestart" ''
-            set -eux
-            cat ${settingsFile} '${cfg.credentialsFile}' |
-            install -m 644 /dev/stdin /run/biboumi/biboumi.cfg
-          '')
-        ];
+        ExecStartPre = [ ("+" + pkgs.writeShellScript "biboumi-prestart" ''
+          set -eux
+          cat ${settingsFile} '${cfg.credentialsFile}' |
+          install -m 644 /dev/stdin /run/biboumi/biboumi.cfg
+        '') ];
         ExecStart = "${pkgs.biboumi}/bin/biboumi /run/biboumi/biboumi.cfg";
         ExecReload = "${pkgs.coreutils}/bin/kill -USR1 $MAINPID";
         # Firewalls needing opening for output connections can still do that
@@ -212,7 +214,10 @@ in {
         RootDirectory = rootDir;
         RootDirectoryStartOnly = true;
         InaccessiblePaths = [ "-+${rootDir}" ];
-        RuntimeDirectory = [ "biboumi" (removePrefix "/run/" rootDir) ];
+        RuntimeDirectory = [
+          "biboumi"
+          (removePrefix "/run/" rootDir)
+        ];
         RuntimeDirectoryMode = "700";
         StateDirectory = "biboumi";
         StateDirectoryMode = "700";
@@ -225,7 +230,10 @@ in {
           "/run/systemd/notify"
           "/run/systemd/journal/socket"
         ];
-        BindReadOnlyPaths = [ builtins.storeDir "/etc" ];
+        BindReadOnlyPaths = [
+          builtins.storeDir
+          "/etc"
+        ];
         # The following options are only for optimizing:
         # systemd-analyze security biboumi
         AmbientCapabilities =
@@ -254,7 +262,11 @@ in {
         ProtectSystem = "strict";
         RemoveIPC = true;
         # AF_UNIX is for /run/systemd/notify
-        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;

@@ -15,7 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-IkTNlierFXIG9WSVUfVoirfQ6z7JOYlCaa5NhnBSuxc=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook matplotlib ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    matplotlib
+  ];
 
   meta = with lib; {
     description =

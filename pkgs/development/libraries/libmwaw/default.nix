@@ -22,7 +22,14 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ boost cppunit zlib libwpg libwpd librevenge ];
+  buildInputs = [
+    boost
+    cppunit
+    zlib
+    libwpg
+    libwpd
+    librevenge
+  ];
   enableParallelBuilding = true;
 
   meta = with lib; {

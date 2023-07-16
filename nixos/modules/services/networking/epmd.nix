@@ -43,12 +43,12 @@ in {
 
   ###### implementation
   config = mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = cfg.listenStream == "[::]:4369"
         -> config.networking.enableIPv6;
       message =
         "epmd listens by default on ipv6, enable ipv6 or change config.services.epmd.listenStream";
-    }];
+    } ];
     systemd.sockets.epmd = rec {
       description = "Erlang Port Mapper Daemon Activation Socket";
       wantedBy = [ "sockets.target" ];

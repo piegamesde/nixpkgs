@@ -44,7 +44,12 @@ stdenv.mkDerivation rec {
     libdecor
     glslang
   ] ++ lib.optional (mesa ? osmesa) mesa.osmesa;
-  nativeBuildInputs = [ meson ninja pkg-config wayland ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    wayland
+  ];
 
   mesonFlags = [
     "-Degl=${if stdenv.isDarwin then "disabled" else "auto"}"

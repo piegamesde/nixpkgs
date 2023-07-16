@@ -29,9 +29,17 @@ let boolToUpper = b: lib.toUpper (lib.boolToString b);
 in stdenv.mkDerivation rec {
   version = "0.8.4";
   pname = "davix" + lib.optionalString enableThirdPartyCopy "-copy";
-  nativeBuildInputs = [ cmake pkg-config python3 ];
-  buildInputs = [ openssl libxml2 boost curl ]
-    ++ lib.optional stdenv.isDarwin Security
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    python3
+  ];
+  buildInputs = [
+    openssl
+    libxml2
+    boost
+    curl
+  ] ++ lib.optional stdenv.isDarwin Security
     ++ lib.optional (!stdenv.isDarwin) libuuid
     ++ lib.optional (enableThirdPartyCopy) gsoap;
 

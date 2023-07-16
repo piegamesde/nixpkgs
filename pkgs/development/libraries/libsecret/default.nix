@@ -27,7 +27,10 @@ stdenv.mkDerivation rec {
   pname = "libsecret";
   version = "0.20.5";
 
-  outputs = [ "out" "dev" ] ++ lib.optional withIntrospection "devdoc";
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optional withIntrospection "devdoc";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -49,14 +52,22 @@ stdenv.mkDerivation rec {
     libintl
     vala
     glib
-  ] ++ lib.optionals withIntrospection [ gi-docgen gobject-introspection ];
+  ] ++ lib.optionals withIntrospection [
+    gi-docgen
+    gobject-introspection
+  ];
 
   buildInputs = [ libgcrypt ];
 
   propagatedBuildInputs = [ glib ];
 
-  nativeCheckInputs =
-    [ python3 python3.pkgs.dbus-python python3.pkgs.pygobject3 dbus gjs ];
+  nativeCheckInputs = [
+    python3
+    python3.pkgs.dbus-python
+    python3.pkgs.pygobject3
+    dbus
+    gjs
+  ];
 
   mesonFlags = [
     (lib.mesonBool "introspection" withIntrospection)

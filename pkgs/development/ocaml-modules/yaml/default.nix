@@ -28,11 +28,21 @@ buildDunePackage rec {
   duneVersion = "3";
 
   buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [ bos ctypes ];
+  propagatedBuildInputs = [
+    bos
+    ctypes
+  ];
 
   doCheck = true;
   nativeCheckInputs = [ mdx.bin ];
-  checkInputs = [ fmt logs alcotest crowbar junit_alcotest ezjsonm ];
+  checkInputs = [
+    fmt
+    logs
+    alcotest
+    crowbar
+    junit_alcotest
+    ezjsonm
+  ];
 
   meta = {
     description = "Parse and generate YAML 1.1 files";

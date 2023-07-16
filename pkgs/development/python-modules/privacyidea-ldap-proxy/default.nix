@@ -28,7 +28,11 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ twisted ldaptor configobj ];
+  propagatedBuildInputs = [
+    twisted
+    ldaptor
+    configobj
+  ];
 
   pythonImportsCheck = [ "pi_ldapproxy" ];
 

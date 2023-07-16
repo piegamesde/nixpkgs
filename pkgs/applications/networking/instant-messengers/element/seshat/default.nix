@@ -29,7 +29,11 @@ in rustPlatform.buildRustPackage rec {
 
   sourceRoot = "source/seshat-node/native";
 
-  nativeBuildInputs = [ nodejs python3 yarn ];
+  nativeBuildInputs = [
+    nodejs
+    python3
+    yarn
+  ];
   buildInputs = [ sqlcipher ] ++ lib.optional stdenv.isDarwin CoreServices;
 
   npm_config_nodedir = nodejs;

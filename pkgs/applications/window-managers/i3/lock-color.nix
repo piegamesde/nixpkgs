@@ -28,7 +28,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-bbjkvgSKD57sdOtPYGLAKpQoIsJnF6s6ySq4dTWC3tI=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
   buildInputs = [
     libxcb
     xcbutilkeysyms
@@ -47,8 +50,11 @@ stdenv.mkDerivation rec {
   preInstall = ''
     mkdir -p $out/share/man/man1
   '';
-  installFlags =
-    [ "PREFIX=\${out}" "SYSCONFDIR=\${out}/etc" "MANDIR=\${out}/share/man" ];
+  installFlags = [
+    "PREFIX=\${out}"
+    "SYSCONFDIR=\${out}/etc"
+    "MANDIR=\${out}/share/man"
+  ];
   postInstall = ''
     mv $out/bin/i3lock $out/bin/i3lock-color
     ln -s $out/bin/i3lock-color $out/bin/i3lock

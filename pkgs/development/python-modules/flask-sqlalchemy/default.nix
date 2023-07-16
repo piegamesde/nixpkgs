@@ -25,9 +25,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pdm-pep517 ];
 
-  propagatedBuildInputs = [ flask sqlalchemy ];
+  propagatedBuildInputs = [
+    flask
+    sqlalchemy
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # flaky

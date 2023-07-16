@@ -23,9 +23,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-n9KPtTj/mHXrnFJnbWPO3H+Vol3Z2mg7XLl55ynyLwY=";
   };
 
-  nativeBuildInputs = [ installShellFiles tcl ];
+  nativeBuildInputs = [
+    installShellFiles
+    tcl
+  ];
 
-  buildInputs = [ readline ncurses openssl zlib ];
+  buildInputs = [
+    readline
+    ncurses
+    openssl
+    zlib
+  ];
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 

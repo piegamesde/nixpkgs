@@ -35,9 +35,17 @@ stdenv.mkDerivation {
       --replace "@rpath" "$out/lib"
   '';
 
-  nativeBuildInputs = [ cmake ninja unzip wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    unzip
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ libxcrypt qtbase ];
+  buildInputs = [
+    libxcrypt
+    qtbase
+  ];
 
   cmakeFlags = [
     # Disable network operations

@@ -59,7 +59,10 @@ in {
   cargoNextestHook = callPackage ({ }:
     makeSetupHook {
       name = "cargo-nextest-hook.sh";
-      propagatedBuildInputs = [ cargo cargo-nextest ];
+      propagatedBuildInputs = [
+        cargo
+        cargo-nextest
+      ];
       substitutions = { inherit rustTargetPlatformSpec; };
     } ./cargo-nextest-hook.sh) { };
 
@@ -92,7 +95,11 @@ in {
   maturinBuildHook = callPackage ({ }:
     makeSetupHook {
       name = "maturin-build-hook.sh";
-      propagatedBuildInputs = [ cargo maturin rustc ];
+      propagatedBuildInputs = [
+        cargo
+        maturin
+        rustc
+      ];
       substitutions = {
         inherit ccForBuild ccForHost cxxForBuild cxxForHost rustBuildPlatform
           rustTargetPlatform rustTargetPlatformSpec;

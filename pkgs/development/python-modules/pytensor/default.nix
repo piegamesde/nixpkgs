@@ -47,7 +47,13 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  checkInputs = [ jax jaxlib numba numba-scipy pytestCheckHook ];
+  checkInputs = [
+    jax
+    jaxlib
+    numba
+    numba-scipy
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

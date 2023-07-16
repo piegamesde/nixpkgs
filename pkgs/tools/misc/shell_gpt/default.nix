@@ -29,7 +29,12 @@ python3.pkgs.buildPythonApplication rec {
     hatchling
   ];
 
-  pythonRelaxDeps = [ "requests" "rich" "distro" "typer" ];
+  pythonRelaxDeps = [
+    "requests"
+    "rich"
+    "distro"
+    "typer"
+  ];
 
   passthru.updateScript = nix-update-script { };
 

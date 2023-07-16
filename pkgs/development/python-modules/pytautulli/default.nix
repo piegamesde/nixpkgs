@@ -34,7 +34,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  checkInputs = [ aresponses pytest-asyncio ];
+  checkInputs = [
+    aresponses
+    pytest-asyncio
+  ];
 
   pytestFlagsArray = [ "--asyncio-mode=auto" ];
 

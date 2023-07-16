@@ -27,7 +27,12 @@ buildPythonPackage rec {
       --replace "protobuf>=3.19.1,<4" "protobuf>=3.19.1"
   '';
 
-  propagatedBuildInputs = [ casttube protobuf requests zeroconf ];
+  propagatedBuildInputs = [
+    casttube
+    protobuf
+    requests
+    zeroconf
+  ];
 
   # no tests available
   doCheck = false;

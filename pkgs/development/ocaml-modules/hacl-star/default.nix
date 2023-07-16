@@ -17,9 +17,17 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ hacl-star-raw zarith ];
+  propagatedBuildInputs = [
+    hacl-star-raw
+    zarith
+  ];
 
   nativeBuildInputs = [ cppo ];
 
-  checkInputs = [ alcotest secp256k1-internal qcheck-core cstruct ];
+  checkInputs = [
+    alcotest
+    secp256k1-internal
+    qcheck-core
+    cstruct
+  ];
 }

@@ -27,12 +27,18 @@ let
 
     inherit src version;
 
-    propagatedBuildInputs = [ drawio-headless pandocfilters ];
+    propagatedBuildInputs = [
+      drawio-headless
+      pandocfilters
+    ];
 
     passthru.tests.example-doc = let
       env = {
-        nativeBuildInputs =
-          [ pandoc pandoc-drawio-filter texlive.combined.scheme-tetex ];
+        nativeBuildInputs = [
+          pandoc
+          pandoc-drawio-filter
+          texlive.combined.scheme-tetex
+        ];
       };
     in runCommand "$pandoc-drawio-filter-example-doc.pdf" env ''
       cp -r ${src}/example/* .

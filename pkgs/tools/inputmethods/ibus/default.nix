@@ -82,7 +82,11 @@ in stdenv.mkDerivation rec {
     })
   ];
 
-  outputs = [ "out" "dev" "installedTests" ];
+  outputs = [
+    "out"
+    "dev"
+    "installedTests"
+  ];
 
   postPatch = ''
     patchShebangs --build data/dconf/make-dconf-override-db.sh
@@ -144,7 +148,10 @@ in stdenv.mkDerivation rec {
     isocodes
     json-glib
     libnotify
-  ] ++ lib.optionals withWayland [ libxkbcommon wayland ];
+  ] ++ lib.optionals withWayland [
+    libxkbcommon
+    wayland
+  ];
 
   enableParallelBuilding = true;
 
@@ -176,6 +183,9 @@ in stdenv.mkDerivation rec {
     description = "Intelligent Input Bus, input method framework";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ttuegel yana ];
+    maintainers = with maintainers; [
+      ttuegel
+      yana
+    ];
   };
 }

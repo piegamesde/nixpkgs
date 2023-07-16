@@ -20,9 +20,16 @@ buildPythonPackage rec {
     hash = "sha256-7+kFmtzeze0QlGf6z/M4J4F7z771a5NWewB1S3+bxn4=";
   };
 
-  propagatedBuildInputs = [ pyyaml jsonschema six ];
+  propagatedBuildInputs = [
+    pyyaml
+    jsonschema
+    six
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    mock
+  ];
 
   pythonImportsCheck = [ "swagger_spec_validator" ];
 

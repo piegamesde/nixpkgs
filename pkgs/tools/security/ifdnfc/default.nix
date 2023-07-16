@@ -18,11 +18,20 @@ stdenv.mkDerivation {
     rev = "0e48e8e";
     sha256 = "1cxnvhhlcbm8h49rlw5racspb85fmwqqhd3gzzpzy68vrs0b37vg";
   };
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
-  buildInputs = [ pcsclite libnfc ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
+  buildInputs = [
+    pcsclite
+    libnfc
+  ];
 
   configureFlags = [ "--prefix=$(out)" ];
-  makeFlags = [ "DESTDIR=/" "usbdropdir=$(out)/pcsc/drivers" ];
+  makeFlags = [
+    "DESTDIR=/"
+    "usbdropdir=$(out)/pcsc/drivers"
+  ];
 
   meta = with lib; {
     description = "PC/SC IFD Handler based on libnfc";

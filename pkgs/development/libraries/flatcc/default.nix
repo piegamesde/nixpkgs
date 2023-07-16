@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = [ "-DFLATCC_INSTALL=on" "-DCMAKE_BUILD_TYPE=Release" ];
+  cmakeFlags = [
+    "-DFLATCC_INSTALL=on"
+    "-DCMAKE_BUILD_TYPE=Release"
+  ];
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-error=misleading-indentation"

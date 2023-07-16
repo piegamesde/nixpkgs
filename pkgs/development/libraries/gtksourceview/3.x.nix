@@ -39,13 +39,32 @@ stdenv.mkDerivation (finalAttrs: {
     shared-mime-info
   ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ pkg-config intltool perl gobject-introspection vala ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+    perl
+    gobject-introspection
+    vala
+  ];
 
-  nativeCheckInputs = [ xvfb-run dbus ];
+  nativeCheckInputs = [
+    xvfb-run
+    dbus
+  ];
 
-  buildInputs = [ atk cairo glib pango libxml2 gettext ];
+  buildInputs = [
+    atk
+    cairo
+    glib
+    pango
+    libxml2
+    gettext
+  ];
 
   preBuild = ''
     substituteInPlace gtksourceview/gtksourceview-utils.c --replace "@NIX_SHARE_PATH@" "$out/share"

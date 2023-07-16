@@ -41,8 +41,14 @@ python3.pkgs.buildPythonApplication rec {
     blueprint-compiler
   ];
 
-  buildInputs =
-    [ gtk4 gdk-pixbuf webkitgtk gtksourceview5 glib-networking libadwaita ];
+  buildInputs = [
+    gtk4
+    gdk-pixbuf
+    webkitgtk
+    gtksourceview5
+    glib-networking
+    libadwaita
+  ];
 
   pythonPath = with python3.pkgs; [
     pygobject3

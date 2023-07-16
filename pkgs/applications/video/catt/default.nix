@@ -47,8 +47,14 @@ buildPythonApplication rec {
     hash = "sha256-Q9ePWRLwuuTG+oPKFg7xn1gj4uAVlXUxegWdyH3Yd90=";
   };
 
-  propagatedBuildInputs =
-    [ click ifaddr pychromecast protobuf requests yt-dlp ];
+  propagatedBuildInputs = [
+    click
+    ifaddr
+    pychromecast
+    protobuf
+    requests
+    yt-dlp
+  ];
 
   doCheck = false; # attempts to access various URLs
 

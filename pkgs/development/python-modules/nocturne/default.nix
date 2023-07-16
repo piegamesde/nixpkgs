@@ -31,12 +31,10 @@ buildPythonPackage rec {
     ln -s ${pybind11.src} $sourceRoot/third_party/pybind11
   '';
 
-  patches = [
-    (substituteAll {
-      src = ./dependencies.patch;
-      gtest_src = gtest.src;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./dependencies.patch;
+    gtest_src = gtest.src;
+  }) ];
 
   nativeBuildInputs = [ cmake ];
   dontUseCmakeConfigure = true;
@@ -44,7 +42,10 @@ buildPythonPackage rec {
   buildInputs = [ sfml ];
 
   # hydra-core and pyvirtualdisplay are not declared as dependences but they are requirements
-  propagatedBuildInputs = [ hydra-core pyvirtualdisplay ];
+  propagatedBuildInputs = [
+    hydra-core
+    pyvirtualdisplay
+  ];
 
   # Test suite requires hydra-submitit-launcher which is not packaged as of 2022-01-02
   doCheck = false;

@@ -24,7 +24,11 @@ stdenv.mkDerivation rec {
         "https://github.com/vgropp/bwm-ng/commit/6a2087db6cc7ac5b5f667fcd17c262c079e8dcf2.patch";
       sha256 = "1l5dii9d52v0x0sq458ybw7m9p8aan2vl94gwx5s8mgxsnbcmzzx";
       # accidentally committed changes
-      excludes = [ "config.h.in~" "configure.in" "configure~" ];
+      excludes = [
+        "config.h.in~"
+        "configure.in"
+        "configure~"
+      ];
     })
   ];
 

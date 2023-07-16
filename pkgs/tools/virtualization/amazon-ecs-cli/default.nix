@@ -40,6 +40,9 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.asl20;
     maintainers = with maintainers; [ Scriptkiddi ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
   };
 }

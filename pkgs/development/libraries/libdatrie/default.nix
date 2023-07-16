@@ -14,7 +14,12 @@ stdenv.mkDerivation rec {
   pname = "libdatrie";
   version = "2019-12-20";
 
-  outputs = [ "bin" "out" "lib" "dev" ];
+  outputs = [
+    "bin"
+    "out"
+    "lib"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "tlwg";
@@ -23,7 +28,11 @@ stdenv.mkDerivation rec {
     sha256 = "03dc363259iyiidrgadzc7i03mmfdj8h78j82vk6z53w6fxq5zxc";
   };
 
-  nativeBuildInputs = [ autoreconfHook autoconf-archive installShellFiles ];
+  nativeBuildInputs = [
+    autoreconfHook
+    autoconf-archive
+    installShellFiles
+  ];
 
   buildInputs = [ libiconv ];
 

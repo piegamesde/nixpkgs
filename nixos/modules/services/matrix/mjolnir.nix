@@ -32,12 +32,16 @@ let
   };
 
   moduleConfigFile = pkgs.writeText "module-config.yaml" (generators.toYAML { }
-    (filterAttrs (_: v: v != null)
-      (fold recursiveUpdate { } [ yamlConfig cfg.settings ])));
+    (filterAttrs (_: v: v != null) (fold recursiveUpdate { } [
+      yamlConfig
+      cfg.settings
+    ])));
 
   # these config files will be merged one after the other to build the final config
-  configFiles =
-    [ "${pkgs.mjolnir}/share/mjolnir/config/default.yaml" moduleConfigFile ];
+  configFiles = [
+    "${pkgs.mjolnir}/share/mjolnir/config/default.yaml"
+    moduleConfigFile
+  ];
 
   # this will generate the default.yaml file with all configFiles as inputs and
   # replace all secret strings using replace-secret

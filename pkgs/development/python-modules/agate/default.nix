@@ -31,10 +31,23 @@ buildPythonPackage rec {
     hash = "sha256-7Ew9bgeheymCL8xXSW5li0LdFvGYb/7gPxmC4w6tHvM=";
   };
 
-  propagatedBuildInputs =
-    [ babel isodate leather parsedatetime python-slugify pytimeparse ];
+  propagatedBuildInputs = [
+    babel
+    isodate
+    leather
+    parsedatetime
+    python-slugify
+    pytimeparse
+  ];
 
-  nativeCheckInputs = [ cssselect glibcLocales lxml nose pyicu pytz ];
+  nativeCheckInputs = [
+    cssselect
+    glibcLocales
+    lxml
+    nose
+    pyicu
+    pytz
+  ];
 
   checkPhase = ''
     LC_ALL="en_US.UTF-8" nosetests tests

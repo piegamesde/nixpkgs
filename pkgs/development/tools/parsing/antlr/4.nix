@@ -96,9 +96,17 @@ let
           src = source;
           sourceRoot = "source/runtime/Cpp";
 
-          outputs = [ "out" "dev" "doc" ];
+          outputs = [
+            "out"
+            "dev"
+            "doc"
+          ];
 
-          nativeBuildInputs = [ cmake ninja pkg-config ];
+          nativeBuildInputs = [
+            cmake
+            ninja
+            pkg-config
+          ];
           buildInputs = lib.optional stdenv.isDarwin CoreFoundation
             ++ extraCppBuildInputs;
 
@@ -148,8 +156,10 @@ in {
     sourceSha256 = "sha256-Z1P81L0aPbimitzrHH/9rxsMCA6Qn3i42jFbUmVqu1E=";
     jarSha256 = "sha256-QZSdQfINMdW4J3GHc13XVRCN9Ss422yGUQjTOCBA+Rg=";
     extraCppBuildInputs = lib.optional stdenv.isLinux libuuid;
-    extraCppCmakeFlags =
-      [ "-DANTLR4_INSTALL=ON" "-DANTLR_BUILD_CPP_TESTS=OFF" ];
+    extraCppCmakeFlags = [
+      "-DANTLR4_INSTALL=ON"
+      "-DANTLR_BUILD_CPP_TESTS=OFF"
+    ];
   }).antlr;
 
   antlr4_9 = (mkAntlr {

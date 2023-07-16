@@ -25,7 +25,13 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ alsa-lib dbus gtk3 openssl ffmpeg ];
+  buildInputs = [
+    alsa-lib
+    dbus
+    gtk3
+    openssl
+    ffmpeg
+  ];
 
   postInstall = ''
     mv packaging/rootfs/usr/share $out/share

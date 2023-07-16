@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-MzEO/saHEBl1JwVlFC6P2UKm9RZnV7KVrNd9h4cPV/w=";
   };
 
-  buildInputs = [ readline libedit bc ];
+  buildInputs = [
+    readline
+    libedit
+    bc
+  ];
 
   patches = [ ./fix-install-path.patch ];
 
@@ -104,7 +108,11 @@ stdenv.mkDerivation rec {
       problems that are not already well understood.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ raskin synthetica AndersonTorres ];
+    maintainers = with maintainers; [
+      raskin
+      synthetica
+      AndersonTorres
+    ];
     platforms = with platforms; unix;
   };
 }

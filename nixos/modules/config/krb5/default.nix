@@ -29,11 +29,13 @@ let
       };
     };
 
-    domain_realm = optionalAttrs
-      (lib.all (value: value != null) [ cfg.domainRealm cfg.defaultRealm ]) {
-        ".${cfg.domainRealm}" = cfg.defaultRealm;
-        ${cfg.domainRealm} = cfg.defaultRealm;
-      };
+    domain_realm = optionalAttrs (lib.all (value: value != null) [
+      cfg.domainRealm
+      cfg.defaultRealm
+    ]) {
+      ".${cfg.domainRealm}" = cfg.defaultRealm;
+      ${cfg.domainRealm} = cfg.defaultRealm;
+    };
   };
 
   mergedConfig = (recursiveUpdate defaultConfig {

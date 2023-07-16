@@ -38,7 +38,10 @@ buildGoPackage rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ Hypervisor vmnet ];
+  buildInputs = [
+    Hypervisor
+    vmnet
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/machine-drivers/docker-machine-driver-xhyve";

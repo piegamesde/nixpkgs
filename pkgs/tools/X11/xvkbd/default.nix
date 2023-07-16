@@ -21,7 +21,15 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libXt libXaw libXtst xorgproto libXi Xaw3d libXpm ];
+  buildInputs = [
+    libXt
+    libXaw
+    libXtst
+    xorgproto
+    libXi
+    Xaw3d
+    libXpm
+  ];
 
   makeFlags = [
     # avoid default libXt location

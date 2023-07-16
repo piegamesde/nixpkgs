@@ -23,7 +23,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs = [ lxml pytestCheckHook ];
+  nativeCheckInputs = [
+    lxml
+    pytestCheckHook
+  ];
 
   postPatch = ''
     # Was fixed upstream but not released

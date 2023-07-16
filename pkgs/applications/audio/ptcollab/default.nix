@@ -23,9 +23,17 @@ mkDerivation rec {
     sha256 = "sha256-O7CNPMS0eRcqt2xAtyEFyLSV8U2xbxuV1DpBxZAFwQs=";
   };
 
-  nativeBuildInputs = [ qmake pkg-config ];
+  nativeBuildInputs = [
+    qmake
+    pkg-config
+  ];
 
-  buildInputs = [ qtbase qtmultimedia libvorbis rtmidi ];
+  buildInputs = [
+    qtbase
+    qtmultimedia
+    libvorbis
+    rtmidi
+  ];
 
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
     # Move appbundles to Applications before wrapping happens

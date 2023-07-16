@@ -19,8 +19,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-fhfevQCw0E5TorHx61Vltpmv7DAjgH73i27O7aBKxz4=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ libnfc xz ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    libnfc
+    xz
+  ];
 
   meta = with lib; {
     description =

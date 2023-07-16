@@ -42,7 +42,15 @@ stdenv.mkDerivation rec {
     xvfb-run
   ];
 
-  buildInputs = [ granite gtk3 libgee libhandy libnotify pcre2 vte ];
+  buildInputs = [
+    granite
+    gtk3
+    libgee
+    libhandy
+    libnotify
+    pcre2
+    vte
+  ];
 
   postPatch = ''
     chmod +x meson/post_install.py

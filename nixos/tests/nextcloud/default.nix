@@ -31,4 +31,7 @@ foldl (matrix: ver:
         inherit system pkgs;
         nextcloudVersion = ver;
       };
-  }) { } [ 25 26 ]
+  }) { } [
+    25
+    26
+  ]

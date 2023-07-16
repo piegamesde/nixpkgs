@@ -16,7 +16,11 @@ import ../../make-test-python.nix ({
 
   in {
     name = "mastodon-standard";
-    meta.maintainers = with pkgs.lib.maintainers; [ erictapen izorkin turion ];
+    meta.maintainers = with pkgs.lib.maintainers; [
+      erictapen
+      izorkin
+      turion
+    ];
 
     nodes = {
       server = {
@@ -28,13 +32,16 @@ import ../../make-test-python.nix ({
 
           networking = {
             interfaces.eth1 = {
-              ipv4.addresses = [{
+              ipv4.addresses = [ {
                 address = "192.168.2.101";
                 prefixLength = 24;
-              }];
+              } ];
             };
             extraHosts = hosts;
-            firewall.allowedTCPPorts = [ 80 443 ];
+            firewall.allowedTCPPorts = [
+              80
+              443
+            ];
           };
 
           security = { pki.certificateFiles = [ "${cert pkgs}/cert.pem" ]; };
@@ -73,10 +80,10 @@ import ../../make-test-python.nix ({
           environment.systemPackages = [ pkgs.jq ];
           networking = {
             interfaces.eth1 = {
-              ipv4.addresses = [{
+              ipv4.addresses = [ {
                 address = "192.168.2.102";
                 prefixLength = 24;
-              }];
+              } ];
             };
             extraHosts = hosts;
           };

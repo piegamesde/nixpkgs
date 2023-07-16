@@ -15,7 +15,11 @@ buildDunePackage rec {
 
   dontAddPrefix = true;
 
-  propagatedBuildInputs = [ dune-glob dune-private-libs dune-rpc ];
+  propagatedBuildInputs = [
+    dune-glob
+    dune-private-libs
+    dune-rpc
+  ];
 
   preBuild = ''
     rm -r vendor/csexp

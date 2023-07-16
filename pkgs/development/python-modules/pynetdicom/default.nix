@@ -26,7 +26,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pydicom ];
 
-  nativeCheckInputs = [ pyfakefs pytestCheckHook sqlalchemy ];
+  nativeCheckInputs = [
+    pyfakefs
+    pytestCheckHook
+    sqlalchemy
+  ];
 
   disabledTests = [
     # Some tests needs network capabilities

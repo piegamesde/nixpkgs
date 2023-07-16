@@ -69,6 +69,9 @@ buildPythonPackage rec {
       "Python library for programming and debugging Arm Cortex-M microcontrollers";
     homepage = "https://pyocd.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ frogamic sbruder ];
+    maintainers = with maintainers; [
+      frogamic
+      sbruder
+    ];
   };
 }

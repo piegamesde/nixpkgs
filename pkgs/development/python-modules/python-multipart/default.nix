@@ -28,7 +28,11 @@ buildPythonPackage rec {
       --replace "yaml.load" "yaml.safe_load"
   '';
 
-  nativeCheckInputs = [ pytestCheckHook mock pyyaml ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    mock
+    pyyaml
+  ];
 
   meta = with lib; {
     description = "A streaming multipart parser for Python";

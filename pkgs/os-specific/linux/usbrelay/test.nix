@@ -29,13 +29,16 @@ import ../../../../nixos/tests/make-test-python.nix ({
       systemd.services.usbrelayd = { after = [ "mosquitto.service" ]; };
       services.mosquitto = {
         enable = true;
-        listeners = [{
+        listeners = [ {
           acl = [ "pattern readwrite #" ];
           omitPasswordAuth = true;
           settings.allow_anonymous = true;
-        }];
+        } ];
       };
-      environment.systemPackages = [ pkgs.usbrelay pkgs.mosquitto ];
+      environment.systemPackages = [
+        pkgs.usbrelay
+        pkgs.mosquitto
+      ];
       documentation.nixos.enable =
         false; # building nixos manual takes long time
     };

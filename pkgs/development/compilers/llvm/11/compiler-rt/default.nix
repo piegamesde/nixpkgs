@@ -28,25 +28,27 @@ in stdenv.mkDerivation {
   src =
     fetch "compiler-rt" "0x1j8ngf1zj63wlnns9vlibafq48qcm72p4jpaxkmkb4qw0grwfy";
 
-  nativeBuildInputs = [ cmake python3 libllvm.dev ]
-    ++ lib.optional stdenv.isDarwin xcbuild.xcrun;
+  nativeBuildInputs = [
+    cmake
+    python3
+    libllvm.dev
+  ] ++ lib.optional stdenv.isDarwin xcbuild.xcrun;
 
-  env.NIX_CFLAGS_COMPILE = toString [
-    "-DSCUDO_DEFAULT_OPTIONS=DeleteSizeMismatch=0:DeallocationTypeMismatch=0"
-  ];
+  env.NIX_CFLAGS_COMPILE =
+    toString [ "-DSCUDO_DEFAULT_OPTIONS=DeleteSizeMismatch=0:DeallocationTypeMismatch=0" ];
 
   cmakeFlags = [
     "-DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON"
     "-DCMAKE_C_COMPILER_TARGET=${stdenv.hostPlatform.config}"
     "-DCMAKE_ASM_COMPILER_TARGET=${stdenv.hostPlatform.config}"
-  ] ++ lib.optionals (haveLibc && stdenv.hostPlatform.isGnu)
-    [ "-DSANITIZER_COMMON_CFLAGS=-I${libxcrypt}/include" ]
+  ] ++ lib.optionals (haveLibc
+    && stdenv.hostPlatform.isGnu) [ "-DSANITIZER_COMMON_CFLAGS=-I${libxcrypt}/include" ]
     ++ lib.optionals (useLLVM || bareMetal || isMusl || isNewDarwinBootstrap) [
       "-DCOMPILER_RT_BUILD_SANITIZERS=OFF"
       "-DCOMPILER_RT_BUILD_XRAY=OFF"
       "-DCOMPILER_RT_BUILD_LIBFUZZER=OFF"
-    ] ++ lib.optionals (useLLVM || bareMetal)
-    [ "-DCOMPILER_RT_BUILD_PROFILE=OFF" ]
+    ] ++ lib.optionals
+    (useLLVM || bareMetal) [ "-DCOMPILER_RT_BUILD_PROFILE=OFF" ]
     ++ lib.optionals (!haveLibc || bareMetal) [
       "-DCMAKE_C_COMPILER_WORKS=ON"
       "-DCMAKE_CXX_COMPILER_WORKS=ON"
@@ -66,7 +68,10 @@ in stdenv.mkDerivation {
       "-DDARWIN_osx_BUILTIN_ARCHS=${stdenv.hostPlatform.darwinArch}"
     ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   patches = [
     ./codesign.patch # Revert compiler-rt commit that makes codesign mandatory
@@ -145,7 +150,10 @@ in stdenv.mkDerivation {
     '';
     # "All of the code in the compiler-rt project is dual licensed under the MIT
     # license and the UIUC License (a BSD-like license)":
-    license = with lib.licenses; [ mit ncsa ];
+    license = with lib.licenses; [
+      mit
+      ncsa
+    ];
     # compiler-rt requires a Clang stdenv on 32-bit RISC-V:
     # https://reviews.llvm.org/D43106#1019077
     broken = stdenv.hostPlatform.isRiscV && stdenv.hostPlatform.is32bit

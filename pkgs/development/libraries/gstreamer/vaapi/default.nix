@@ -36,10 +36,19 @@ stdenv.mkDerivation rec {
     hash = "sha256-0uZC+XRfl9n3On9Qhedlmpox/iCbd05uRdrgQbQ13wY=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ meson ninja pkg-config python3 bzip2 wayland ]
-    ++ lib.optionals enableDocumentation [ hotdoc ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    python3
+    bzip2
+    wayland
+  ] ++ lib.optionals enableDocumentation [ hotdoc ];
 
   buildInputs = [
     gstreamer

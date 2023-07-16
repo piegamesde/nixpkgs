@@ -32,14 +32,19 @@ in stdenv.mkDerivation rec {
 
   inherit blas64;
 
-  nativeBuildInputs = [ perl python3 ];
+  nativeBuildInputs = [
+    perl
+    python3
+  ];
 
   doCheck = true;
 
   enableParallelBuilding = true;
 
-  configureFlags = [ "--enable-cblas" "--blas-int-size=${blasIntSize}" ]
-    ++ lib.optionals withOpenMP [ "--enable-threading=openmp" ]
+  configureFlags = [
+    "--enable-cblas"
+    "--blas-int-size=${blasIntSize}"
+  ] ++ lib.optionals withOpenMP [ "--enable-threading=openmp" ]
     ++ [ withArchitecture ];
 
   postPatch = ''

@@ -172,16 +172,15 @@ in {
       group = cfg.group;
     };
 
-    assertions = [{
+    assertions = [ {
       assertion = cfg.sso.enable -> ((cfg.sso.applicationPassword == null)
         != (cfg.sso.applicationPasswordFile));
       message =
         "Please set either applicationPassword or applicationPasswordFile";
-    }];
+    } ];
 
-    warnings = mkIf (cfg.sso.enable && cfg.sso.applicationPassword != null) [
-      "Using `services.confluence.sso.applicationPassword` is deprecated! Use `applicationPasswordFile` instead!"
-    ];
+    warnings = mkIf (cfg.sso.enable && cfg.sso.applicationPassword
+      != null) [ "Using `services.confluence.sso.applicationPassword` is deprecated! Use `applicationPasswordFile` instead!" ];
 
     users.groups.${cfg.group} = { };
 
@@ -203,7 +202,10 @@ in {
       requires = [ "postgresql.service" ];
       after = [ "postgresql.service" ];
 
-      path = [ cfg.jrePackage pkgs.bash ];
+      path = [
+        cfg.jrePackage
+        pkgs.bash
+      ];
 
       environment = {
         CONF_USER = cfg.user;

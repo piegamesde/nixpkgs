@@ -24,7 +24,11 @@ in buildPythonPackage {
     hash = "sha256-mS+3CR0kJ/DZczlG+PNQrN1NHQEgV/Kq02S6eflwM5w=";
   };
 
-  buildInputs = [ click gmpy2 numpy ];
+  buildInputs = [
+    click
+    gmpy2
+    numpy
+  ];
 
   # 29/233 tests fail
   doCheck = false;

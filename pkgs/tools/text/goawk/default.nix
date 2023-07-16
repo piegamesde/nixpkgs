@@ -32,7 +32,10 @@ buildGoModule rec {
       --replace "TestShellCommand" "SkipShellCommand"
   '';
 
-  checkFlags = [ "-awk" "${gawk}/bin/gawk" ];
+  checkFlags = [
+    "-awk"
+    "${gawk}/bin/gawk"
+  ];
 
   doCheck = (stdenv.system != "aarch64-darwin");
 

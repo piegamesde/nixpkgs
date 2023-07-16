@@ -28,7 +28,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-p7kiOxy4o0RwmN3LFfLSpkz08KcYYMVxVAEUvAX1KEA=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config python3 wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    python3
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     gtkmm3

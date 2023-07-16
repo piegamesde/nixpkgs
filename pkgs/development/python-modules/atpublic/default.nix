@@ -26,7 +26,10 @@ buildPythonPackage rec {
   propagatedBuildInputs =
     lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
-  nativeCheckInputs = [ pytestCheckHook sybil ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    sybil
+  ];
 
   postPatch = ''
     sed -i '/cov=public/d' pyproject.toml

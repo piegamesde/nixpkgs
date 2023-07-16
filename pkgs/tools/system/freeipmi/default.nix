@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  buildInputs = [ libgcrypt readline libgpg-error ];
+  buildInputs = [
+    libgcrypt
+    readline
+    libgpg-error
+  ];
 
   configureFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
     "ac_cv_file__dev_urandom=true"

@@ -17,15 +17,17 @@ stdenv.mkDerivation rec {
     sha256 = "066hqhg7k90xcw5aq86pgr4l7apzvnb4559vj5s010avbk8adbh2";
   };
 
-  buildInputs = [ zlib bzip2 openssl ];
-
-  patches = [
-    (fetchpatch {
-      url =
-        "https://raw.githubusercontent.com/Homebrew/formula-patches/85fa66a9/dmg2img/openssl-1.1.diff";
-      sha256 = "076sz69hf3ryylplg025vl8sj991cb81g3yazsmrf8anrd7ffmxx";
-    })
+  buildInputs = [
+    zlib
+    bzip2
+    openssl
   ];
+
+  patches = [ (fetchpatch {
+    url =
+      "https://raw.githubusercontent.com/Homebrew/formula-patches/85fa66a9/dmg2img/openssl-1.1.diff";
+    sha256 = "076sz69hf3ryylplg025vl8sj991cb81g3yazsmrf8anrd7ffmxx";
+  }) ];
 
   patchFlags = [ "-p0" ];
 

@@ -21,9 +21,19 @@
 }:
 
 assert blas-ilp64.isILP64;
-assert lib.elem blas-ilp64.passthru.implementation [ "openblas" "mkl" ];
+assert lib.elem blas-ilp64.passthru.implementation [
+  "openblas"
+  "mkl"
+];
 
-let python = python3.withPackages (ps: with ps; [ six pyparsing numpy h5py ]);
+let
+  python = python3.withPackages (ps:
+    with ps; [
+      six
+      pyparsing
+      numpy
+      h5py
+    ]);
 
 in stdenv.mkDerivation {
   pname = "openmolcas";
@@ -48,11 +58,24 @@ in stdenv.mkDerivation {
       "/usr/bin/env','python3" "python3"
   '';
 
-  nativeBuildInputs =
-    [ perl gfortran cmake texlive.combined.scheme-minimal makeWrapper ];
+  nativeBuildInputs = [
+    perl
+    gfortran
+    cmake
+    texlive.combined.scheme-minimal
+    makeWrapper
+  ];
 
-  buildInputs = [ blas-ilp64.passthru.provider hdf5-cpp python armadillo libxc ]
-    ++ lib.optionals enableMpi [ mpi globalarrays ];
+  buildInputs = [
+    blas-ilp64.passthru.provider
+    hdf5-cpp
+    python
+    armadillo
+    libxc
+  ] ++ lib.optionals enableMpi [
+    mpi
+    globalarrays
+  ];
 
   passthru = lib.optionalAttrs enableMpi { inherit mpi; };
 
@@ -69,7 +92,10 @@ in stdenv.mkDerivation {
   ] ++ lib.optionals (blas-ilp64.passthru.implementation == "mkl") [
     "-DMKLROOT=${blas-ilp64.passthru.provider}"
     "-DLINALG=MKL"
-  ] ++ lib.optionals enableMpi [ "-DGA=ON" "-DMPI=ON" ];
+  ] ++ lib.optionals enableMpi [
+    "-DGA=ON"
+    "-DMPI=ON"
+  ];
 
   preConfigure = lib.optionalString enableMpi ''
     export GAROOT=${globalarrays};

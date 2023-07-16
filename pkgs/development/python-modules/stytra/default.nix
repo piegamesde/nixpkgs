@@ -74,7 +74,11 @@ buildPythonPackage rec {
     av
   ];
 
-  nativeCheckInputs = [ nose pytestCheckHook pyserial ];
+  nativeCheckInputs = [
+    nose
+    pytestCheckHook
+    pyserial
+  ];
 
   meta = with lib; {
     description =

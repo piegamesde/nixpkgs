@@ -17,7 +17,10 @@ qt5.mkDerivation {
     hash = "sha256-TECuQ5WXpeikc9tXEE/wVBnRbdYd0OaIFFhsBRmaukA=";
   };
 
-  nativeBuildInputs = [ unzip autoPatchelfHook ];
+  nativeBuildInputs = [
+    unzip
+    autoPatchelfHook
+  ];
 
   buildInputs = [ portaudio ];
 

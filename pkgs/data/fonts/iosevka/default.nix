@@ -70,11 +70,13 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-6zt7q5aGb6jaa6YBr4HqawZjf2jqNnR9xQM/abKpT04=";
 
-  nativeBuildInputs = [ remarshal ttfautohint-nox ]
-    ++ lib.optionals stdenv.isDarwin [
-      # libtool
-      darwin.cctools
-    ];
+  nativeBuildInputs = [
+    remarshal
+    ttfautohint-nox
+  ] ++ lib.optionals stdenv.isDarwin [
+    # libtool
+    darwin.cctools
+  ];
 
   buildPlan = if builtins.isAttrs privateBuildPlan then
     builtins.toJSON { buildPlans.${pname} = privateBuildPlan; }

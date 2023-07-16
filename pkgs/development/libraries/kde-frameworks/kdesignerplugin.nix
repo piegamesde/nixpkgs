@@ -19,7 +19,10 @@
 
 mkDerivation {
   pname = "kdesignerplugin";
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
   buildInputs = [
     kcompletion
     kconfig

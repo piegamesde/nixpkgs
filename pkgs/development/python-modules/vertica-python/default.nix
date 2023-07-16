@@ -23,9 +23,17 @@ buildPythonPackage rec {
     hash = "sha256-NmTwYQwWzV1ga4u+XApQNZsel52Tg8B5Z7vUnUmQoC8=";
   };
 
-  propagatedBuildInputs = [ future python-dateutil six ];
+  propagatedBuildInputs = [
+    future
+    python-dateutil
+    six
+  ];
 
-  nativeCheckInputs = [ mock parameterized pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    parameterized
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [
     # Integration tests require an accessible Vertica db

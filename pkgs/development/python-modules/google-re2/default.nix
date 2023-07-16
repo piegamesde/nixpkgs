@@ -20,7 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-IcitwpY2DeH/QmuqOMcS6tpiLChY0ZXrSH5BXZQZTpE=";
   };
 
-  propagatedBuildInputs = [ pybind11 re2 six ];
+  propagatedBuildInputs = [
+    pybind11
+    re2
+    six
+  ];
 
   pythonImportsCheck = [ "re2" ];
 

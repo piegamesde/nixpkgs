@@ -21,9 +21,16 @@ buildPythonPackage rec {
     hash = "sha256-3unAb6iubUQaQB+SKGf8YZbt2idO69n7/sVPB2nCqeI=";
   };
 
-  nativeBuildInputs = [ setuptools wheel ];
+  nativeBuildInputs = [
+    setuptools
+    wheel
+  ];
 
-  propagatedBuildInputs = [ packaging ply toml ];
+  propagatedBuildInputs = [
+    packaging
+    ply
+    toml
+  ];
 
   # There aren't tests
   doCheck = false;

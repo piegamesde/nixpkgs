@@ -18,7 +18,13 @@ buildPythonPackage rec {
     sha256 = "36e033ebbbe5aca0fab031ffaf3611d5bc5c50237df68ff81bb95f8be353a1ee";
   };
 
-  propagatedBuildInputs = [ notebook nbconvert nbformat pandoc-attributes six ];
+  propagatedBuildInputs = [
+    notebook
+    nbconvert
+    nbformat
+    pandoc-attributes
+    six
+  ];
 
   # No tests in pypi source
   doCheck = false;

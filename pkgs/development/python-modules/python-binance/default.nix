@@ -27,9 +27,19 @@ buildPythonPackage rec {
     hash = "sha256-e88INUEkjOSVOD0KSs9LmstuQ7dQZdJk8K6VqFEusww=";
   };
 
-  propagatedBuildInputs = [ aiohttp dateparser requests six ujson websockets ];
+  propagatedBuildInputs = [
+    aiohttp
+    dateparser
+    requests
+    six
+    ujson
+    websockets
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook requests-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    requests-mock
+  ];
 
   disabledTestPaths = [
     # Tests require network access

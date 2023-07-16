@@ -20,8 +20,17 @@ stdenv.mkDerivation rec {
     sha256 = "1bmcjl1x1rdh514q9z3hzyjmjmwwwkziipjpjsl301bwmiwrd8a8";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config texinfo ];
-  buildInputs = [ gdbm gmp libffi readline ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    texinfo
+  ];
+  buildInputs = [
+    gdbm
+    gmp
+    libffi
+    readline
+  ];
 
   # ensure libsystem/ctype functions don't get duplicated when using clang
   configureFlags = lib.optionals stdenv.isDarwin [ "CFLAGS=-std=gnu89" ];

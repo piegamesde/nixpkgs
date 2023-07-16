@@ -37,7 +37,11 @@ stdenv.mkDerivation rec {
     sha256 = "ac124fb17dbc4ac5310a30a396245a6ba304b3c89abed0f8a47d727462c8da4d";
   };
 
-  outputs = [ "bin" "out" "dev" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+  ];
 
   configureFlags = [
     "--with-configdir=/etc/knot"
@@ -52,7 +56,10 @@ stdenv.mkDerivation rec {
     ./runtime-deps.patch
   ];
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
   buildInputs = [
     gnutls
     liburcu
@@ -78,7 +85,10 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  CFLAGS = [ "-O2" "-DNDEBUG" ];
+  CFLAGS = [
+    "-O2"
+    "-DNDEBUG"
+  ];
 
   doCheck = true;
   checkFlags = [ "V=1" ]; # verbose output in case some test fails

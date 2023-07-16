@@ -26,11 +26,22 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ automake autoconf git libtool pkg-config ripgrep ];
+  nativeBuildInputs = [
+    automake
+    autoconf
+    git
+    libtool
+    pkg-config
+    ripgrep
+  ];
 
   buildInputs = [ libunwind ];
 
-  propagatedBuildInputs = [ bison flex postgresql ];
+  propagatedBuildInputs = [
+    bison
+    flex
+    postgresql
+  ];
 
   enableParallelBuilding = true;
 

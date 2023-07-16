@@ -52,9 +52,21 @@ stdenv.mkDerivation rec {
     "--with-pidfile-dir=/run"
   ];
 
-  buildInputs = [ freetype libX11 libftdi libusb-compat-0_1 libusb1 ncurses ];
+  buildInputs = [
+    freetype
+    libX11
+    libftdi
+    libusb-compat-0_1
+    libusb1
+    ncurses
+  ];
 
-  nativeBuildInputs = [ autoreconfHook doxygen makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    doxygen
+    makeWrapper
+    pkg-config
+  ];
 
   # In 0.5.9: gcc: error: libbignum.a: No such file or directory
   enableParallelBuilding = false;

@@ -18,7 +18,10 @@ buildPythonPackage rec {
     hash = "sha256-609Zme9IUl8eHNxzrYsRAg7bgZho/OklGM7oI+imyZQ=";
   };
 
-  propagatedBuildInputs = [ authlib httpx ];
+  propagatedBuildInputs = [
+    authlib
+    httpx
+  ];
 
   # upstream has no tests
   doCheck = false;

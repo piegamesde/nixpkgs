@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [ libnet libpcap ];
+  buildInputs = [
+    libnet
+    libpcap
+  ];
 
   meta = with lib; {
     description =

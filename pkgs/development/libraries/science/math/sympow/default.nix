@@ -36,7 +36,14 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  nativeBuildInputs = [ makeWrapper which autoconf help2man file pari ];
+  nativeBuildInputs = [
+    makeWrapper
+    which
+    autoconf
+    help2man
+    file
+    pari
+  ];
 
   configurePhase = ''
     runHook preConfigure

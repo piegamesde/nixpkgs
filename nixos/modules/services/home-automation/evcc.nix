@@ -42,12 +42,13 @@ in {
 
   config = mkIf cfg.enable {
     systemd.services.evcc = {
-      after = [ "network-online.target" "mosquitto.target" ];
+      after = [
+        "network-online.target"
+        "mosquitto.target"
+      ];
       wantedBy = [ "multi-user.target" ];
       environment.HOME = "/var/lib/evcc";
-      path = with pkgs;
-        [
-          glibc # requires getent
+      path = with pkgs; [ glibc # requires getent
         ];
       serviceConfig = {
         ExecStart = "${package}/bin/evcc --config ${configFile} ${
@@ -59,7 +60,11 @@ in {
         DynamicUser = true;
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         PrivateTmp = true;
@@ -75,7 +80,10 @@ in {
         ProtectProc = "invisible";
         StateDirectory = "evcc";
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+        ];
         UMask = "0077";
         User = "evcc";
       };

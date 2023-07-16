@@ -30,9 +30,15 @@ in mkDerivation rec {
   };
 
   nativeBuildInputs = [ qmake ];
-  buildInputs = [ qtbase qtwebsockets ];
+  buildInputs = [
+    qtbase
+    qtwebsockets
+  ];
 
-  qmakeFlags = [ "michabo.pro" "DESTDIR=${placeholder "out"}/bin" ];
+  qmakeFlags = [
+    "michabo.pro"
+    "DESTDIR=${placeholder "out"}/bin"
+  ];
 
   postInstall = ''
     ln -s ${desktopItem}/share $out/share

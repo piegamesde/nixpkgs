@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-FyrYqNqp0PTEHHit3Rn00jtvPOvgVy+lz3jDRJnsobI=";
   };
 
-  propagatedBuildInputs = [ prompt-toolkit winacl ];
+  propagatedBuildInputs = [
+    prompt-toolkit
+    winacl
+  ];
 
   # Project doesn't have tests
   doCheck = false;

@@ -25,7 +25,10 @@ buildGoModule rec {
 
   CGO_ENABLED = 0;
   GOFLAGS = [ "-trimpath" ];
-  ldFlags = [ "-buildid=" "-w" ];
+  ldFlags = [
+    "-buildid="
+    "-w"
+  ];
 
   doCheck = false;
 
@@ -43,7 +46,10 @@ buildGoModule rec {
     description =
       "Kubernetes IN Docker - local clusters for testing Kubernetes";
     homepage = "https://github.com/kubernetes-sigs/kind";
-    maintainers = with maintainers; [ offline rawkode ];
+    maintainers = with maintainers; [
+      offline
+      rawkode
+    ];
     license = licenses.asl20;
     platforms = platforms.unix;
   };

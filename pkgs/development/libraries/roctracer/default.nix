@@ -33,8 +33,14 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-5vYUNczylB2ehlvhq1u/H8KUXt8ku2E+jawKrKsU7LY=";
   };
 
-  nativeBuildInputs = [ cmake clang hip ]
-    ++ lib.optionals buildDocs [ doxygen graphviz ];
+  nativeBuildInputs = [
+    cmake
+    clang
+    hip
+  ] ++ lib.optionals buildDocs [
+    doxygen
+    graphviz
+  ];
 
   buildInputs = [
     rocm-device-libs
@@ -76,8 +82,11 @@ stdenv.mkDerivation (finalAttrs: {
     find $out/test -executable -type f -exec mv {} $test/bin \;
     rm $test/bin/{*.sh,*.py}
     patchelf --set-rpath $out/lib:${
-      lib.makeLibraryPath
-      (finalAttrs.buildInputs ++ [ hip gcc-unwrapped.lib rocm-runtime ])
+      lib.makeLibraryPath (finalAttrs.buildInputs ++ [
+        hip
+        gcc-unwrapped.lib
+        rocm-runtime
+      ])
     } $test/bin/*
     rm -rf $out/test
   '';

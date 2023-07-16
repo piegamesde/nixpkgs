@@ -27,9 +27,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ twine ];
 
-  propagatedBuildInputs = [ docutils lockfile ];
+  propagatedBuildInputs = [
+    docutils
+    lockfile
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook testscenarios testtools ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    testscenarios
+    testtools
+  ];
 
   patches = [
     # Should be fixed in the next release
@@ -67,14 +74,21 @@ buildPythonPackage rec {
     "YearRange_TestCase"
   ];
 
-  pythonImportsCheck =
-    [ "daemon" "daemon.daemon" "daemon.pidfile" "daemon.runner" ];
+  pythonImportsCheck = [
+    "daemon"
+    "daemon.daemon"
+    "daemon.pidfile"
+    "daemon.runner"
+  ];
 
   meta = with lib; {
     description = "Library to implement a well-behaved Unix daemon process";
     homepage = "https://pagure.io/python-daemon/";
     # See "Copying" section in https://pagure.io/python-daemon/blob/main/f/README
-    license = with licenses; [ gpl3Plus asl20 ];
+    license = with licenses; [
+      gpl3Plus
+      asl20
+    ];
     maintainers = with maintainers; [ ];
   };
 }

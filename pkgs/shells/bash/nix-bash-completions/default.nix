@@ -45,7 +45,10 @@ stdenv.mkDerivation rec {
     description = "Bash completions for Nix, NixOS, and NixOps";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ hedning ncfavier ];
+    maintainers = with maintainers; [
+      hedning
+      ncfavier
+    ];
     # Set a lower priority such that Nix wins in case of conflicts.
     priority = 10;
   };

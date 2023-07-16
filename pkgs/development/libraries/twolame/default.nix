@@ -19,7 +19,10 @@ stdenv.mkDerivation {
     sha256 = "1rq3yc8ygzdqid9zk6pixmm4w9sk2vrlx217lhn5bjaglv7iyf7x";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
   buildInputs = [ libsndfile ];
 
   doCheck =

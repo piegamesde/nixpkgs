@@ -29,7 +29,12 @@ stdenv.mkDerivation {
       sha256 = "08r34ylzs31wwf0la995pb149ccq0vr7qg4792pkhca57zi0bff8";
     })
   ];
-  buildInputs = [ libsndfile libsamplerate liblo libjack2 ];
+  buildInputs = [
+    libsndfile
+    libsamplerate
+    liblo
+    libjack2
+  ];
   postPatch = ''
     sed -i "s|./samples|$out/share/dirt/samples|" dirt.c
   '';

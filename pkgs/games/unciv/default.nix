@@ -18,7 +18,10 @@ let
     categories = [ "Game" ];
   };
 
-  envLibPath = lib.makeLibraryPath [ libpulseaudio libXxf86vm ];
+  envLibPath = lib.makeLibraryPath [
+    libpulseaudio
+    libXxf86vm
+  ];
 
 in stdenv.mkDerivation rec {
   pname = "unciv";
@@ -32,7 +35,10 @@ in stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ copyDesktopItems makeWrapper ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    makeWrapper
+  ];
 
   installPhase = ''
     runHook preInstall

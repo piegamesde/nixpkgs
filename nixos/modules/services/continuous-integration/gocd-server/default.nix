@@ -35,7 +35,10 @@ in {
       extraGroups = mkOption {
         default = [ ];
         type = types.listOf types.str;
-        example = [ "wheel" "docker" ];
+        example = [
+          "wheel"
+          "docker"
+        ];
         description = lib.mdDoc ''
           List of extra groups that the "gocd-server" user should be a part of.
         '';

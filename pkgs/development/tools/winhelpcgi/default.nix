@@ -17,7 +17,10 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libwmf libpng ];
+  buildInputs = [
+    libwmf
+    libpng
+  ];
 
   meta = {
     description =

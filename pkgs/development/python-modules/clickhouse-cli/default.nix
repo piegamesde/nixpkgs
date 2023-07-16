@@ -18,7 +18,13 @@ buildPythonPackage rec {
     hash = "sha256-pa3vkIyNblS1LOwBReTqg8JAR2Ii32a2QIHWjau0uZE=";
   };
 
-  propagatedBuildInputs = [ click prompt-toolkit pygments requests sqlparse ];
+  propagatedBuildInputs = [
+    click
+    prompt-toolkit
+    pygments
+    requests
+    sqlparse
+  ];
 
   pythonImportsCheck = [ "clickhouse_cli" ];
 

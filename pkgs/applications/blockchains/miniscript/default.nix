@@ -30,6 +30,9 @@ stdenv.mkDerivation rec {
     homepage = "https://bitcoin.sipa.be/miniscript/";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ RaghavSood jb55 ];
+    maintainers = with maintainers; [
+      RaghavSood
+      jb55
+    ];
   };
 }

@@ -19,7 +19,10 @@
       meta = with lib; {
         broken = stdenv.isDarwin;
         description = "OpenSteno Plover stenography software";
-        maintainers = with maintainers; [ twey kovirobi ];
+        maintainers = with maintainers; [
+          twey
+          kovirobi
+        ];
         license = licenses.gpl2;
       };
 
@@ -34,9 +37,19 @@
       # sed on many of the platforms Plover builds for
       postPatch = "sed -i /PyQt5/d setup.cfg";
 
-      nativeCheckInputs = [ pytest mock ];
-      propagatedBuildInputs =
-        [ babel pyqt5 xlib pyserial appdirs wcwidth setuptools ];
+      nativeCheckInputs = [
+        pytest
+        mock
+      ];
+      propagatedBuildInputs = [
+        babel
+        pyqt5
+        xlib
+        pyserial
+        appdirs
+        wcwidth
+        setuptools
+      ];
 
       dontWrapQtApps = true;
 

@@ -23,9 +23,17 @@ buildPythonPackage rec {
     hash = "sha256-q2s+wngDKtWm5mxGHNAc63Ed6tiQD9gLHVoQZNWFB0w=";
   };
 
-  propagatedBuildInputs = [ pyftdi pyopenssl pyserial pyusb ];
+  propagatedBuildInputs = [
+    pyftdi
+    pyopenssl
+    pyserial
+    pyusb
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Socket issue, https://github.com/nutechsoftware/alarmdecoder/issues/45

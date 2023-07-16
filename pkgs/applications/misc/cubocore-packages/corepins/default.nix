@@ -20,9 +20,16 @@ mkDerivation rec {
     sha256 = "sha256-wrP9Jm3T9gzEwEjNH2SXSqwP/+YRxVIyQRSPxdYgPCs=";
   };
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
-  buildInputs = [ qtbase libcprime libcsys ];
+  buildInputs = [
+    qtbase
+    libcprime
+    libcsys
+  ];
 
   meta = with lib; {
     description = "A bookmarking app from the C Suite";

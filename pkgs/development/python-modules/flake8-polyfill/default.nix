@@ -20,7 +20,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ flake8 ];
 
-  nativeCheckInputs = [ mock pep8 pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pep8
+    pytestCheckHook
+  ];
 
   patches = [
     # Skip unnecessary tests on Flake8, https://github.com/PyCQA/pep8-naming/pull/181

@@ -30,11 +30,17 @@ let
 
     sourceRoot = "${src.name}/${pname}";
 
-    nativeBuildInputs = [ cmake ninja python3 ]
-      ++ lib.optional enableManpages python3.pkgs.sphinx
+    nativeBuildInputs = [
+      cmake
+      ninja
+      python3
+    ] ++ lib.optional enableManpages python3.pkgs.sphinx
       ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
-    buildInputs = [ libxml2 libllvm ];
+    buildInputs = [
+      libxml2
+      libllvm
+    ];
 
     cmakeFlags = [
       "-DCLANG_INSTALL_PACKAGE_DIR=${placeholder "dev"}/lib/cmake/clang"
@@ -69,7 +75,12 @@ let
       sed -i -e 's/lgcc_s/lgcc_eh/' lib/Driver/ToolChains/*.cpp
     '';
 
-    outputs = [ "out" "lib" "dev" "python" ];
+    outputs = [
+      "out"
+      "lib"
+      "dev"
+      "python"
+    ];
 
     postInstall = ''
       ln -sv $out/bin/clang $out/bin/cpp

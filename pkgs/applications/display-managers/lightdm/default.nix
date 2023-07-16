@@ -36,7 +36,10 @@ stdenv.mkDerivation rec {
   pname = "lightdm";
   version = "1.32.0";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "canonical";
@@ -99,8 +102,10 @@ stdenv.mkDerivation rec {
     "--disable-dmrc"
   ] ++ lib.optional withQt5 "--enable-liblightdm-qt5";
 
-  installFlags =
-    [ "sysconfdir=${placeholder "out"}/etc" "localstatedir=\${TMPDIR}" ];
+  installFlags = [
+    "sysconfdir=${placeholder "out"}/etc"
+    "localstatedir=\${TMPDIR}"
+  ];
 
   prePatch = ''
     substituteInPlace autogen.sh \

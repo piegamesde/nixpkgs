@@ -15,7 +15,11 @@ stdenv.mkDerivation rec {
     sha256 = "1annhqc71jcgx5zvcy31c1c488ygx4q1ygrwyy2y0ww743smbchw";
   };
 
-  buildInputs = [ xorg.libX11 xorg.libXext xorg.libXrender ];
+  buildInputs = [
+    xorg.libX11
+    xorg.libXext
+    xorg.libXrender
+  ];
 
   buildPhase = if stdenv.hostPlatform.system == "x86_64-linux" then ''
     make all64

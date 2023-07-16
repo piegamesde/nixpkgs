@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ six cffi ];
+  propagatedBuildInputs = [
+    six
+    cffi
+  ];
 
   propagatedNativeBuildInputs = [ cffi ];
 

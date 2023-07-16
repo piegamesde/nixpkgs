@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-xk8+oERonZWzxKEmZutfvovzVOz9ZP5O83cMDTz9i3Y=";
   };
 
-  propagatedBuildInputs = [ requests pyopenssl ];
+  propagatedBuildInputs = [
+    requests
+    pyopenssl
+  ];
 
   # Project has no tests
   doCheck = false;

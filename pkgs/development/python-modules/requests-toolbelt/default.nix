@@ -22,7 +22,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [ betamax mock pytestCheckHook ];
+  nativeCheckInputs = [
+    betamax
+    mock
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # https://github.com/requests/toolbelt/issues/306

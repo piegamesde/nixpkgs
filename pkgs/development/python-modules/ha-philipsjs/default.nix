@@ -25,9 +25,17 @@ buildPythonPackage rec {
     hash = "sha256-5SneI1aZiUyLGYmtRXJYPBUtQR08fV+MWkjIQXt208s=";
   };
 
-  propagatedBuildInputs = [ cryptography httpx ];
+  propagatedBuildInputs = [
+    cryptography
+    httpx
+  ];
 
-  nativeCheckInputs = [ pytest-aiohttp pytest-mock pytestCheckHook respx ];
+  nativeCheckInputs = [
+    pytest-aiohttp
+    pytest-mock
+    pytestCheckHook
+    respx
+  ];
 
   pythonImportsCheck = [ "haphilipsjs" ];
 

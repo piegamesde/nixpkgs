@@ -20,21 +20,39 @@ let
 
 in {
   imports = [
-    (mkRenamedOptionModule [ "services" "piwik" "enable" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "piwik"
+      "enable"
+    ] [
       "services"
       "matomo"
       "enable"
     ])
-    (mkRenamedOptionModule [ "services" "piwik" "webServerUser" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "piwik"
+      "webServerUser"
+    ] [
       "services"
       "matomo"
       "webServerUser"
     ])
-    (mkRemovedOptionModule [ "services" "piwik" "phpfpmProcessManagerConfig" ]
-      "Use services.phpfpm.pools.<name>.settings")
-    (mkRemovedOptionModule [ "services" "matomo" "phpfpmProcessManagerConfig" ]
-      "Use services.phpfpm.pools.<name>.settings")
-    (mkRenamedOptionModule [ "services" "piwik" "nginx" ] [
+    (mkRemovedOptionModule [
+      "services"
+      "piwik"
+      "phpfpmProcessManagerConfig"
+    ] "Use services.phpfpm.pools.<name>.settings")
+    (mkRemovedOptionModule [
+      "services"
+      "matomo"
+      "phpfpmProcessManagerConfig"
+    ] "Use services.phpfpm.pools.<name>.settings")
+    (mkRenamedOptionModule [
+      "services"
+      "piwik"
+      "nginx"
+    ] [
       "services"
       "matomo"
       "nginx"
@@ -43,7 +61,11 @@ in {
       "services"
       "matomo"
       "periodicArchiveProcessingUrl"
-    ] [ "services" "matomo" "hostname" ])
+    ] [
+      "services"
+      "matomo"
+      "hostname"
+    ])
   ];
 
   options = {
@@ -144,15 +166,14 @@ in {
   };
 
   config = mkIf cfg.enable {
-    warnings = mkIf (cfg.nginx != null && cfg.webServerUser != null) [
-      "If services.matomo.nginx is set, services.matomo.nginx.webServerUser is ignored and should be removed."
-    ];
+    warnings = mkIf (cfg.nginx != null && cfg.webServerUser
+      != null) [ "If services.matomo.nginx is set, services.matomo.nginx.webServerUser is ignored and should be removed." ];
 
-    assertions = [{
+    assertions = [ {
       assertion = cfg.nginx != null || cfg.webServerUser != null;
       message =
         "Either services.matomo.nginx or services.matomo.nginx.webServerUser is mandatory";
-    }];
+    } ];
 
     users.users.${user} = {
       isSystemUser = true;

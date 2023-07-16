@@ -17,7 +17,10 @@ stdenv.mkDerivation {
   src =
     fetch "libcxxabi" "12lp799rskr4fc2xr64qn4jfkjnfd8b1aymvsxyn4k9ar7r9pgqv";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   postUnpack = ''
     unpackFile ${libcxx.src}
@@ -73,7 +76,10 @@ stdenv.mkDerivation {
     '';
     # "All of the code in libc++abi is dual licensed under the MIT license and
     # the UIUC License (a BSD-like license)":
-    license = with lib.licenses; [ mit ncsa ];
+    license = with lib.licenses; [
+      mit
+      ncsa
+    ];
     maintainers = llvm_meta.maintainers ++ [ lib.maintainers.vlstill ];
   };
 }

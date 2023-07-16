@@ -12,7 +12,11 @@ in stdenv.mkDerivation rec {
   pname = "mongoose";
   version = "3.0.4";
 
-  outputs = [ "bin" "out" "dev" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "DrTimothyAldenDavis";
@@ -27,8 +31,10 @@ in stdenv.mkDerivation rec {
 
   dontUseCmakeConfigure = true;
 
-  cmakeFlags =
-    [ "-DBLAS_LIBRARIES=${blas}" "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON" ];
+  cmakeFlags = [
+    "-DBLAS_LIBRARIES=${blas}"
+    "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"
+  ];
 
   buildPhase = ''
     runHook preConfigure

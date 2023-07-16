@@ -18,13 +18,19 @@ buildPythonPackage rec {
     hash = "sha256-vNTvSQYjjptdPsHz0zM9paq3iodZrhcEralPm6YRZJE=";
   };
 
-  propagatedBuildInputs = [ aiohttp click ];
+  propagatedBuildInputs = [
+    aiohttp
+    click
+  ];
 
   # no tests implemented
   doCheck = false;
 
-  pythonImportsCheck =
-    [ "aioazuredevops.builds" "aioazuredevops.client" "aioazuredevops.core" ];
+  pythonImportsCheck = [
+    "aioazuredevops.builds"
+    "aioazuredevops.client"
+    "aioazuredevops.core"
+  ];
 
   meta = with lib; {
     description = "Get data from the Azure DevOps API";

@@ -26,8 +26,13 @@ buildPythonPackage rec {
   };
   sourceRoot = "${src.name}/zulip";
 
-  propagatedBuildInputs =
-    [ requests matrix-client distro click typing-extensions ];
+  propagatedBuildInputs = [
+    requests
+    matrix-client
+    distro
+    click
+    typing-extensions
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

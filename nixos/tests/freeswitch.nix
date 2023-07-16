@@ -12,10 +12,10 @@ import ./make-test-python.nix ({
         }: {
           networking.useDHCP = false;
           networking.interfaces.eth1 = {
-            ipv4.addresses = [{
+            ipv4.addresses = [ {
               address = "192.168.0.1";
               prefixLength = 24;
-            }];
+            } ];
           };
           services.freeswitch = {
             enable = true;

@@ -14,7 +14,13 @@
   libGL,
 }:
 
-let qtEnv = env "tiled-qt-env" [ qtbase qtdeclarative qtsvg qttools ];
+let
+  qtEnv = env "tiled-qt-env" [
+    qtbase
+    qtdeclarative
+    qtsvg
+    qttools
+  ];
 
 in stdenv.mkDerivation rec {
   pname = "tiled";
@@ -27,10 +33,21 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-zrDka6yXJ++UuGFepn8glQ1r7ufBcjsnNZuH+jnkJw0=";
   };
 
-  nativeBuildInputs = [ pkg-config qbs wrapQtAppsHook ];
-  buildInputs = [ qtEnv zlib libGL ];
+  nativeBuildInputs = [
+    pkg-config
+    qbs
+    wrapQtAppsHook
+  ];
+  buildInputs = [
+    qtEnv
+    zlib
+    libGL
+  ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   strictDeps = true;
 

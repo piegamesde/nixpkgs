@@ -23,7 +23,10 @@ let
     exec = "SideQuest";
     desktopName = name;
     genericName = "VR App Store";
-    categories = [ "Settings" "PackageManager" ];
+    categories = [
+      "Settings"
+      "PackageManager"
+    ];
   };
 
   sidequest = stdenv.mkDerivation {
@@ -52,7 +55,10 @@ let
       patchelf \
         --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
         --set-rpath "${atomEnv.libPath}/lib:${
-          lib.makeLibraryPath [ libuuid at-spi2-atk ]
+          lib.makeLibraryPath [
+            libuuid
+            at-spi2-atk
+          ]
         }:$out/lib/SideQuest" \
         "$out/lib/SideQuest/sidequest"
     '';
@@ -70,7 +76,10 @@ in buildFHSEnv {
       downloadPage = "https://github.com/SideQuestVR/SideQuest/releases";
       sourceProvenance = with sourceTypes; [ binaryNativeCode ];
       license = licenses.mit;
-      maintainers = with maintainers; [ joepie91 rvolosatovs ];
+      maintainers = with maintainers; [
+        joepie91
+        rvolosatovs
+      ];
       platforms = [ "x86_64-linux" ];
     };
   };

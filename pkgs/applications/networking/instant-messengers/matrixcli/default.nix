@@ -28,8 +28,15 @@ let
 
     src = "${mainsrc}/matrix-python-sdk/";
 
-    propagatedBuildInputs =
-      [ requests responses olm python-olm canonicaljson pytest-runner pytest ];
+    propagatedBuildInputs = [
+      requests
+      responses
+      olm
+      python-olm
+      canonicaljson
+      pytest-runner
+      pytest
+    ];
 
     doCheck = false;
     doInstallCheck = false;
@@ -47,7 +54,10 @@ in buildPythonApplication rec {
 
   src = mainsrc;
 
-  propagatedBuildInputs = [ pygobject3 sdk ];
+  propagatedBuildInputs = [
+    pygobject3
+    sdk
+  ];
 
   meta = {
     description = "CLI client for Matrix";

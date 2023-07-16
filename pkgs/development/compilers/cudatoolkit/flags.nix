@@ -137,14 +137,35 @@ let
     };
 
   # When changing names or formats: pause, validate, and update the assert
-in assert (formatCapabilities { cudaCapabilities = [ "7.5" "8.6" ]; }) == {
-  cudaCapabilities = [ "7.5" "8.6" ];
+in assert (formatCapabilities {
+  cudaCapabilities = [
+    "7.5"
+    "8.6"
+  ];
+}) == {
+  cudaCapabilities = [
+    "7.5"
+    "8.6"
+  ];
   enableForwardCompat = true;
 
-  archNames = [ "Turing" "Ampere" ];
-  realArches = [ "sm_75" "sm_86" ];
-  virtualArches = [ "compute_75" "compute_86" ];
-  arches = [ "sm_75" "sm_86" "compute_86" ];
+  archNames = [
+    "Turing"
+    "Ampere"
+  ];
+  realArches = [
+    "sm_75"
+    "sm_86"
+  ];
+  virtualArches = [
+    "compute_75"
+    "compute_86"
+  ];
+  arches = [
+    "sm_75"
+    "sm_86"
+    "compute_86"
+  ];
 
   gencode = [
     "-gencode=arch=compute_75,code=sm_75"

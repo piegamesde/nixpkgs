@@ -43,7 +43,11 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  outputs = [ "out" "systemd_unit" "systemd_unit_hardened" ];
+  outputs = [
+    "out"
+    "systemd_unit"
+    "systemd_unit_hardened"
+  ];
 
   postPatch = ''
     substituteInPlace 'misc/systemd/ipfs.service' \
@@ -68,6 +72,9 @@ buildGoModule rec {
     license = licenses.mit;
     platforms = platforms.unix;
     mainProgram = "ipfs";
-    maintainers = with maintainers; [ Luflosi fpletz ];
+    maintainers = with maintainers; [
+      Luflosi
+      fpletz
+    ];
   };
 }

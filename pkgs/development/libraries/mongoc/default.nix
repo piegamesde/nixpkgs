@@ -36,10 +36,20 @@ in stdenv.mkDerivation rec {
       --replace "\\\''${prefix}/" ""
   '';
 
-  nativeBuildInputs = [ cmake pkg-config perl ];
-  buildInputs = [ openssl zlib cyrus_sasl ]
-    ++ lib.optionals stdenv.isDarwin [ Security ];
-  propagatedBuildInputs = [ libbson snappy ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    perl
+  ];
+  buildInputs = [
+    openssl
+    zlib
+    cyrus_sasl
+  ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  propagatedBuildInputs = [
+    libbson
+    snappy
+  ];
 
   # -DMONGOC_TEST_USE_CRYPT_SHARED=OFF
   # The `mongodl.py` script is causing issues, and you also need to disabled sandboxing for it. However, it is used only to run some tests.

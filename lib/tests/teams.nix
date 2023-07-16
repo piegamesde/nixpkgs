@@ -34,7 +34,11 @@ let
 
   checkTeam = team: uncheckedAttrs:
     let
-      prefix = [ "lib" "maintainer-team" team ];
+      prefix = [
+        "lib"
+        "maintainer-team"
+        team
+      ];
       checkedAttrs = (lib.modules.evalModules {
         inherit prefix;
         modules = [

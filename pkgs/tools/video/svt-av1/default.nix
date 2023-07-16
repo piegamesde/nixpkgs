@@ -18,7 +18,10 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-jmr5egbuqLnBW7OFuaQk3F4s5xqTpXhWcJAfZySGWeU=";
   };
 
-  nativeBuildInputs = [ cmake nasm ];
+  nativeBuildInputs = [
+    cmake
+    nasm
+  ];
 
   passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 
@@ -37,7 +40,10 @@ stdenv.mkDerivation (finalAttrs: {
 
     changelog =
       "https://gitlab.com/AOMediaCodec/SVT-AV1/-/blob/v${finalAttrs.version}/CHANGELOG.md";
-    license = with licenses; [ aom bsd3 ];
+    license = with licenses; [
+      aom
+      bsd3
+    ];
     maintainers = with maintainers; [ Madouura ];
     platforms = platforms.unix;
     # error: use of undeclared identifier 'kCVPixelFormatType_444YpCbCr16BiPlanarVideoRange'

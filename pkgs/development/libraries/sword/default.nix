@@ -20,13 +20,20 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ icu clucene_core curl ];
+  buildInputs = [
+    icu
+    clucene_core
+    curl
+  ];
 
   prePatch = ''
     patchShebangs .;
   '';
 
-  configureFlags = [ "--without-conf" "--enable-tests=no" ];
+  configureFlags = [
+    "--without-conf"
+    "--enable-tests=no"
+  ];
   CXXFLAGS = [
     "-Wno-unused-but-set-variable"
     # compat with icu61+ https://github.com/unicode-org/icu/blob/release-64-2/icu4c/readme.html#L554

@@ -29,7 +29,11 @@ let
       meta = with lib; {
         homepage = "https://www.elastic.co/products/beats";
         license = licenses.asl20;
-        maintainers = with maintainers; [ fadenb basvandijk dfithian ];
+        maintainers = with maintainers; [
+          fadenb
+          basvandijk
+          dfithian
+        ];
         platforms = platforms.linux;
       };
     } // extraArgs);

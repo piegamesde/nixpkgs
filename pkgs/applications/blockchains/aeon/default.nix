@@ -30,10 +30,24 @@ in stdenv.mkDerivation {
     sha256 = "sha256-2MptLS12CUm9eUKm+V+yYpbLVwNyZeZ5HvAFyjEc4R4=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config git doxygen graphviz ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    git
+    doxygen
+    graphviz
+  ];
 
-  buildInputs =
-    [ boost miniupnpc openssl unbound cppzmq pcsclite readline libsodium ];
+  buildInputs = [
+    boost
+    miniupnpc
+    openssl
+    unbound
+    cppzmq
+    pcsclite
+    readline
+    libsodium
+  ];
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"

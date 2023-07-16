@@ -30,8 +30,11 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags =
-    [ "-s" "-w" "-X github.com/gohugoio/hugo/common/hugo.vendorInfo=nixpkgs" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/gohugoio/hugo/common/hugo.vendorInfo=nixpkgs"
+  ];
 
   postInstall = let emulator = stdenv.hostPlatform.emulator buildPackages;
   in ''
@@ -47,6 +50,10 @@ buildGoModule rec {
     description = "A fast and modern static website engine";
     homepage = "https://gohugo.io";
     license = licenses.asl20;
-    maintainers = with maintainers; [ schneefux Br1ght0ne Frostman ];
+    maintainers = with maintainers; [
+      schneefux
+      Br1ght0ne
+      Frostman
+    ];
   };
 }

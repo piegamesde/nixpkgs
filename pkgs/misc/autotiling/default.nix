@@ -17,7 +17,10 @@ buildPythonApplication rec {
     sha256 = "sha256-4iiiiuXCHFXEeA99ikq/G3q2KXBZ7vwpfET7QtoDVds=";
   };
 
-  propagatedBuildInputs = [ i3ipc importlib-metadata ];
+  propagatedBuildInputs = [
+    i3ipc
+    importlib-metadata
+  ];
   doCheck = false;
 
   meta = with lib; {

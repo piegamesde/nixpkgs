@@ -34,7 +34,10 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/runtimes";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   postUnpack = lib.optionalString stdenv.isDarwin ''
     export TRIPLE=x86_64-apple-darwin
@@ -63,7 +66,11 @@ stdenv.mkDerivation rec {
     cd ../runtimes
   '';
 
-  nativeBuildInputs = [ cmake ninja python3 ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    python3
+  ];
   buildInputs =
     lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm) libunwind;
 
@@ -112,7 +119,10 @@ stdenv.mkDerivation rec {
     '';
     # "All of the code in libc++abi is dual licensed under the MIT license and
     # the UIUC License (a BSD-like license)":
-    license = with lib.licenses; [ mit ncsa ];
+    license = with lib.licenses; [
+      mit
+      ncsa
+    ];
     maintainers = llvm_meta.maintainers ++ [ lib.maintainers.vlstill ];
   };
 }

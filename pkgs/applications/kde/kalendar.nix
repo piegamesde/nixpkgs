@@ -48,7 +48,11 @@
 mkDerivation rec {
   pname = "kalendar";
 
-  nativeBuildInputs = [ cmake extra-cmake-modules makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    makeWrapper
+  ];
 
   buildInputs = [
     qtbase
@@ -88,11 +92,19 @@ mkDerivation rec {
     messagelib
   ];
 
-  propagatedUserEnvPkgs = [ akonadi kdepim-runtime akonadi-search ];
+  propagatedUserEnvPkgs = [
+    akonadi
+    kdepim-runtime
+    akonadi-search
+  ];
   postFixup = ''
     wrapProgram "$out/bin/kalendar" \
       --prefix PATH : "${
-        lib.makeBinPath [ akonadi kdepim-runtime akonadi-search ]
+        lib.makeBinPath [
+          akonadi
+          kdepim-runtime
+          akonadi-search
+        ]
       }"
   '';
 

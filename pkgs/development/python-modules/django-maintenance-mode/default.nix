@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-Mcj8O20hCINGf5T3PCG9jq0onSrm4R+Ke5CLMqMDmuU=";
   };
 
-  propagatedBuildInputs = [ django python-fsutil ];
+  propagatedBuildInputs = [
+    django
+    python-fsutil
+  ];
 
   nativeCheckInputs = [ pytest ];
 

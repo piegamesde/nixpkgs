@@ -26,9 +26,16 @@ buildDunePackage rec {
 
   nativeBuildInputs = [ reason ];
 
-  buildInputs = [ ppxlib reason ];
+  buildInputs = [
+    ppxlib
+    reason
+  ];
 
-  propagatedBuildInputs = [ reason result yojson ];
+  propagatedBuildInputs = [
+    reason
+    result
+    yojson
+  ];
 
   checkInputs = [ alcotest ];
 
@@ -38,6 +45,9 @@ buildDunePackage rec {
     homepage = "https://github.com/reasonml-community/graphql_ppx";
     description = "GraphQL PPX rewriter for Bucklescript/ReasonML";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ Zimmi48 jtcoolen ];
+    maintainers = with lib.maintainers; [
+      Zimmi48
+      jtcoolen
+    ];
   };
 }

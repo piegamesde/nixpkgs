@@ -30,7 +30,10 @@ in stdenv.mkDerivation rec {
   pname = "tmux";
   version = "3.3a";
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   src = fetchFromGitHub {
     owner = "tmux";
@@ -41,14 +44,23 @@ in stdenv.mkDerivation rec {
 
   patches = [ ./CVE-2022-47016.patch ];
 
-  nativeBuildInputs = [ pkg-config autoreconfHook bison ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+    bison
+  ];
 
-  buildInputs = [ ncurses libevent ] ++ lib.optionals withSystemd [ systemd ]
+  buildInputs = [
+    ncurses
+    libevent
+  ] ++ lib.optionals withSystemd [ systemd ]
     ++ lib.optionals withUtf8proc [ utf8proc ]
     ++ lib.optionals withUtempter [ libutempter ];
 
-  configureFlags = [ "--sysconfdir=/etc" "--localstatedir=/var" ]
-    ++ lib.optionals withSystemd [ "--enable-systemd" ]
+  configureFlags = [
+    "--sysconfdir=/etc"
+    "--localstatedir=/var"
+  ] ++ lib.optionals withSystemd [ "--enable-systemd" ]
     ++ lib.optionals withUtempter [ "--enable-utempter" ]
     ++ lib.optionals withUtf8proc [ "--enable-utf8proc" ];
 

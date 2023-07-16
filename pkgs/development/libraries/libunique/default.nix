@@ -36,7 +36,11 @@ stdenv.mkDerivation rec {
   ] ++ [ ./gcc7-bug.patch ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ glib gtk2 dbus-glib ];
+  buildInputs = [
+    glib
+    gtk2
+    dbus-glib
+  ];
 
   doCheck = true;
 

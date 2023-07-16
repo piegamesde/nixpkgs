@@ -14,6 +14,9 @@
         ./base-configuration.nix
         (lib.modules.importJSON ./server-network.json)
       ];
-      environment.systemPackages = [ pkgs.hello pkgs.figlet ];
+      environment.systemPackages = [
+        pkgs.hello
+        pkgs.figlet
+      ];
     };
 }

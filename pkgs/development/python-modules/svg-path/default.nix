@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-GiFZ+duJjfk8RjfP08yvfaH9Bz9Z+ppZUMc+RtSqGso=";
   };
 
-  nativeCheckInputs = [ pillow pytestCheckHook ];
+  nativeCheckInputs = [
+    pillow
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # generated image differs from example

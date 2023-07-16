@@ -62,9 +62,10 @@ let
       { };
 
   immediateDependenciesOf = drv:
-    concatLists (mapAttrsToList (n: v: derivationsIn v) (removeAttrs drv
-      ([ "meta" "passthru" ]
-        ++ optionals (drv ? passthru) (attrNames drv.passthru))));
+    concatLists (mapAttrsToList (n: v: derivationsIn v) (removeAttrs drv ([
+      "meta"
+      "passthru"
+    ] ++ optionals (drv ? passthru) (attrNames drv.passthru))));
 
   derivationsIn = x:
     if !canEval x then

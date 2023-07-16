@@ -29,17 +29,33 @@ stdenv.mkDerivation rec {
     hash = "sha256-62JybT4nqHgjaaJP1jZKiIXtJGKzu9qwkd/8gTnuBtg=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ meson ninja pkg-config gobject-introspection ]
-    ++ lib.optionals enableDocumentation [ hotdoc ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gobject-introspection
+  ] ++ lib.optionals enableDocumentation [ hotdoc ];
 
-  buildInputs = [ cairo python3 json-glib gobject-introspection ];
+  buildInputs = [
+    cairo
+    python3
+    json-glib
+    gobject-introspection
+  ];
 
-  propagatedBuildInputs =
-    [ gstreamer gst-plugins-base gst-plugins-bad gst-rtsp-server ];
+  propagatedBuildInputs = [
+    gstreamer
+    gst-plugins-base
+    gst-plugins-bad
+    gst-rtsp-server
+  ];
 
   mesonFlags = [ (lib.mesonEnable "doc" enableDocumentation) ];
 

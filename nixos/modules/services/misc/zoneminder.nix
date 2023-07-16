@@ -30,7 +30,12 @@ let
   dirs = dirList: [ dirName ] ++ map (e: "${dirName}/${e}") dirList;
 
   cacheDirs = [ "swap" ];
-  libDirs = [ "events" "exports" "images" "sounds" ];
+  libDirs = [
+    "events"
+    "exports"
+    "images"
+    "sounds"
+  ];
 
   dirStanzas = baseDir:
     lib.concatStringsSep "\n"
@@ -82,7 +87,10 @@ in {
       '');
 
       webserver = mkOption {
-        type = types.enum [ "nginx" "none" ];
+        type = types.enum [
+          "nginx"
+          "none"
+        ];
         default = "nginx";
         description = lib.mdDoc ''
           The webserver to configure for the PHP frontend.
@@ -189,11 +197,11 @@ in {
 
   config = lib.mkIf cfg.enable {
 
-    assertions = [{
+    assertions = [ {
       assertion = cfg.database.createLocally -> cfg.database.username == user;
       message =
         "services.zoneminder.database.username must be set to ${user} if services.zoneminder.database.createLocally is set true";
-    }];
+    } ];
 
     environment.etc = {
       "zoneminder/60-defaults.conf".source = defaultsFile;
@@ -216,10 +224,10 @@ in {
         enable = true;
         package = lib.mkDefault pkgs.mariadb;
         ensureDatabases = [ cfg.database.name ];
-        ensureUsers = [{
+        ensureUsers = [ {
           name = cfg.database.username;
           ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
-        }];
+        } ];
       };
 
       nginx = lib.mkIf useNginx {
@@ -228,10 +236,10 @@ in {
           ${cfg.hostname} = {
             default = true;
             root = "${pkg}/share/zoneminder/www";
-            listen = [{
+            listen = [ {
               addr = "0.0.0.0";
               inherit (cfg) port;
-            }];
+            } ];
             extraConfig = let fcgi = config.services.fcgiwrap;
             in ''
               index index.php;
@@ -293,7 +301,10 @@ in {
               enabled,
               all,
             }:
-            enabled ++ [ all.apcu all.sysvsem ]);
+            enabled ++ [
+              all.apcu
+              all.sysvsem
+            ]);
           phpOptions = ''
             date.timezone = "${config.time.timeZone}"
           '';
@@ -319,11 +330,18 @@ in {
       zoneminder = with pkgs; {
         inherit (zoneminder.meta) description;
         documentation = [ "https://zoneminder.readthedocs.org/en/latest/" ];
-        path = [ coreutils procps psmisc ];
+        path = [
+          coreutils
+          procps
+          psmisc
+        ];
         after = [ "nginx.service" ]
           ++ lib.optional cfg.database.createLocally "mysql.service";
         wantedBy = [ "multi-user.target" ];
-        restartTriggers = [ defaultsFile configFile ];
+        restartTriggers = [
+          defaultsFile
+          configFile
+        ];
         preStart = lib.optionalString useCustomDir ''
           install -dm775 -o ${user} -g ${group} ${cfg.storageDir}/{${
             lib.concatStringsSep "," libDirs

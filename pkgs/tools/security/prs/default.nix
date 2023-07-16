@@ -34,9 +34,21 @@ rustPlatform.buildRustPackage rec {
     done
   '';
 
-  nativeBuildInputs = [ gpgme installShellFiles pkg-config python3 ];
+  nativeBuildInputs = [
+    gpgme
+    installShellFiles
+    pkg-config
+    python3
+  ];
 
-  buildInputs = [ dbus glib gpgme gtk3 libxcb libxkbcommon ];
+  buildInputs = [
+    dbus
+    glib
+    gpgme
+    gtk3
+    libxcb
+    libxkbcommon
+  ];
 
   postInstall = ''
     for shell in bash fish zsh; do

@@ -29,8 +29,14 @@ stdenv.mkDerivation rec {
     sha256 = "0lway12q2xygiwjgrx7chgka838jbnmlzz98g7agag1rwzd481ii";
   };
 
-  nativeBuildInputs =
-    [ gettext isocodes itstool perl pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    gettext
+    isocodes
+    itstool
+    perl
+    pkg-config
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     adwaita-icon-theme
@@ -49,7 +55,11 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Powerful text editor for the MATE desktop";
     homepage = "https://mate-desktop.org";
-    license = with licenses; [ gpl2Plus lgpl2Plus fdl11Plus ];
+    license = with licenses; [
+      gpl2Plus
+      lgpl2Plus
+      fdl11Plus
+    ];
     platforms = platforms.unix;
     maintainers = teams.mate.members;
   };

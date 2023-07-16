@@ -93,7 +93,11 @@
 }:
 
 let
-  pythonPkgs = with python3.pkgs; [ python3 wrapPython pygobject3 ];
+  pythonPkgs = with python3.pkgs; [
+    python3
+    wrapPython
+    pygobject3
+  ];
 
   features = [
     {
@@ -132,7 +136,10 @@ let
     {
       flags = [ "dbus" ];
       enabled = enableDbus;
-      deps = [ dbus dbus-glib ];
+      deps = [
+        dbus
+        dbus-glib
+      ];
     }
     {
       flags = [ "dillo-plugin" ];
@@ -146,7 +153,10 @@ let
     {
       flags = [ "fancy-plugin" ];
       enabled = enablePluginFancy;
-      deps = [ libsoup webkitgtk ];
+      deps = [
+        libsoup
+        webkitgtk
+      ];
     }
     {
       flags = [ "fetchinfo-plugin" ];
@@ -218,9 +228,16 @@ let
       deps = [ perl ];
     }
     {
-      flags = [ "pgpcore-plugin" "pgpinline-plugin" "pgpmime-plugin" ];
+      flags = [
+        "pgpcore-plugin"
+        "pgpinline-plugin"
+        "pgpmime-plugin"
+      ];
       enabled = enablePluginPgp;
-      deps = [ gnupg gpgme ];
+      deps = [
+        gnupg
+        gpgme
+      ];
     }
     {
       flags = [ "python-plugin" ];
@@ -274,7 +291,10 @@ in stdenv.mkDerivation rec {
     hash = "sha256-sYnnAMGJb14N6wt21L+oIOt6wZNe4Qqpr7raPPU6A0Q=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   patches = [ ./mime.patch ];
 
@@ -292,11 +312,21 @@ in stdenv.mkDerivation rec {
         --subst-var-by MIMEROOTDIR ${shared-mime-info}/share
   '';
 
-  nativeBuildInputs = [ autoreconfHook pkg-config bison flex wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    bison
+    flex
+    wrapGAppsHook
+  ];
   propagatedBuildInputs = pythonPkgs;
 
-  buildInputs = [ curl gsettings-desktop-schemas glib-networking gtk3 ]
-    ++ lib.concatMap (f: lib.optionals f.enabled f.deps)
+  buildInputs = [
+    curl
+    gsettings-desktop-schemas
+    glib-networking
+    gtk3
+  ] ++ lib.concatMap (f: lib.optionals f.enabled f.deps)
     (lib.filter (f: f ? deps) features);
 
   configureFlags = [

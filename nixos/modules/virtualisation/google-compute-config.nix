@@ -5,7 +5,10 @@
   ...
 }:
 with lib; {
-  imports = [ ../profiles/headless.nix ../profiles/qemu-guest.nix ];
+  imports = [
+    ../profiles/headless.nix
+    ../profiles/qemu-guest.nix
+  ];
 
   fileSystems."/" = {
     fsType = "ext4";
@@ -14,9 +17,16 @@ with lib; {
   };
 
   boot.growPartition = true;
-  boot.kernelParams = [ "console=ttyS0" "panic=1" "boot.panic_on_fail" ];
+  boot.kernelParams = [
+    "console=ttyS0"
+    "panic=1"
+    "boot.panic_on_fail"
+  ];
   boot.initrd.kernelModules = [ "virtio_scsi" ];
-  boot.kernelModules = [ "virtio_pci" "virtio_net" ];
+  boot.kernelModules = [
+    "virtio_pci"
+    "virtio_net"
+  ];
 
   # Generate a GRUB menu.
   boot.loader.grub.device = "/dev/sda";
@@ -71,13 +81,13 @@ with lib; {
   systemd.services.google-startup-scripts.wantedBy = [ "multi-user.target" ];
   systemd.services.google-shutdown-scripts.wantedBy = [ "multi-user.target" ];
 
-  security.sudo.extraRules = mkIf config.users.mutableUsers [{
+  security.sudo.extraRules = mkIf config.users.mutableUsers [ {
     groups = [ "google-sudoers" ];
-    commands = [{
+    commands = [ {
       command = "ALL";
       options = [ "NOPASSWD" ];
-    }];
-  }];
+    } ];
+  } ];
 
   users.groups.google-sudoers = mkIf config.users.mutableUsers { };
 

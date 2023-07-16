@@ -35,14 +35,12 @@ in stdenv.mkDerivation {
     sha256 = "0ixf0f7qv0mc7zrw9w1sb60w833g4rqrfj8cjxwzv2vimqcksccz";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "fix-compilation-with-clang.patch";
-      url =
-        "https://github.com/lensfun/lensfun/commit/5c2065685a22f19f8138365c0e5acf0be8329c02.patch";
-      sha256 = "sha256-tAOCNL37pKE7hfQCu+hUTKLFnRHWF5Dplqf+GaucG+4=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "fix-compilation-with-clang.patch";
+    url =
+      "https://github.com/lensfun/lensfun/commit/5c2065685a22f19f8138365c0e5acf0be8329c02.patch";
+    sha256 = "sha256-tAOCNL37pKE7hfQCu+hUTKLFnRHWF5Dplqf+GaucG+4=";
+  }) ];
 
   # replace database with a more recent snapshot
   # the mastr branch uses version 2 profiles, while 0.3.3 requires version 1 profiles,
@@ -63,7 +61,11 @@ in stdenv.mkDerivation {
     python3.pkgs.lxml # For the db converison
   ];
 
-  buildInputs = [ glib zlib libpng ];
+  buildInputs = [
+    glib
+    zlib
+    libpng
+  ];
 
   cmakeFlags = [ "-DINSTALL_HELPER_SCRIPTS=OFF" ];
 

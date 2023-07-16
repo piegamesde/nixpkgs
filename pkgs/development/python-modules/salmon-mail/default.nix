@@ -22,8 +22,18 @@ buildPythonPackage rec {
     sha256 = "0q2m6xri1b7qv46rqpv2qfdgk2jvswj8lpaacnxwjna3m685fhfx";
   };
 
-  nativeCheckInputs = [ jinja2 mock ];
-  propagatedBuildInputs = [ chardet dnspython lmtpd python-daemon six click ];
+  nativeCheckInputs = [
+    jinja2
+    mock
+  ];
+  propagatedBuildInputs = [
+    chardet
+    dnspython
+    lmtpd
+    python-daemon
+    six
+    click
+  ];
 
   # Darwin tests fail without this. See:
   # https://github.com/NixOS/nixpkgs/pull/82166#discussion_r399909846

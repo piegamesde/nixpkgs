@@ -61,7 +61,11 @@ let
     meta = with lib; {
       description = "Ruby interpreter written in Java";
       homepage = "http://jruby.org/";
-      license = with licenses; [ cpl10 gpl2 lgpl21 ];
+      license = with licenses; [
+        cpl10
+        gpl2
+        lgpl21
+      ];
       platforms = platforms.unix;
       maintainers = [ maintainers.fzakaria ];
       sourceProvenance = with sourceTypes; [ binaryBytecode ];

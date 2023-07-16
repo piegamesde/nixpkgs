@@ -34,8 +34,12 @@ buildPythonPackage rec {
     pytest $out/${python.sitePackages}/systemd
   '';
 
-  pythonImportsCheck =
-    [ "systemd.journal" "systemd.id128" "systemd.daemon" "systemd.login" ];
+  pythonImportsCheck = [
+    "systemd.journal"
+    "systemd.id128"
+    "systemd.daemon"
+    "systemd.login"
+  ];
 
   meta = with lib; {
     description = "Python module for native access to the systemd facilities";

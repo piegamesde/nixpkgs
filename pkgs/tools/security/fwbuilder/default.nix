@@ -28,9 +28,17 @@ stdenv.mkDerivation rec {
     substituteInPlace CMakeLists.txt --replace ';-Werror;' ';'
   '';
 
-  nativeBuildInputs = [ cmake ninja wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ wayland wayland-protocols qtwayland ];
+  buildInputs = [
+    wayland
+    wayland-protocols
+    qtwayland
+  ];
 
   meta = with lib; {
     description = "GUI Firewall Management Application";

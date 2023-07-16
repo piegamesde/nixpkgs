@@ -50,9 +50,15 @@ in buildPythonPackage rec {
   nativeBuildInputs = [ numpy ]
     ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
 
-  propagatedBuildInputs = [ numpy llvmlite setuptools ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-metadata ]
-    ++ lib.optionals cudaSupport [ cudatoolkit cudatoolkit.lib ];
+  propagatedBuildInputs = [
+    numpy
+    llvmlite
+    setuptools
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-metadata ]
+    ++ lib.optionals cudaSupport [
+      cudatoolkit
+      cudatoolkit.lib
+    ];
 
   patches = [
     # fix failure in test_cache_invalidate (numba.tests.test_caching.TestCache)
@@ -65,13 +71,11 @@ in buildPythonPackage rec {
     })
     # Backport numpy 1.24 support from https://github.com/numba/numba/pull/8691
     ./numpy-1.24.patch
-  ] ++ lib.optionals cudaSupport [
-    (substituteAll {
-      src = ./cuda_path.patch;
-      cuda_toolkit_path = cudatoolkit;
-      cuda_toolkit_lib_path = cudatoolkit.lib;
-    })
-  ];
+  ] ++ lib.optionals cudaSupport [ (substituteAll {
+    src = ./cuda_path.patch;
+    cuda_toolkit_path = cudatoolkit;
+    cuda_toolkit_lib_path = cudatoolkit.lib;
+  }) ];
 
   postFixup = lib.optionalString cudaSupport ''
     find $out -type f \( -name '*.so' -or -name '*.so.*' \) | while read lib; do
@@ -105,7 +109,12 @@ in buildPythonPackage rec {
     fullSuite = runCommand "${pname}-test" { } ''
       pushd $(mktemp -d)
       # pip and python in $PATH is needed for the test suite to pass fully
-      PATH=${python.withPackages (p: [ p.numba p.pip ])}/bin:$PATH
+      PATH=${
+        python.withPackages (p: [
+          p.numba
+          p.pip
+        ])
+      }/bin:$PATH
       HOME=$PWD python -m numba.runtests -m $NIX_BUILD_CORES
       popd
       touch $out # stop Nix from complaining no output was generated and failing the build

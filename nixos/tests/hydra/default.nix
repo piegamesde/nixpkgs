@@ -17,7 +17,12 @@ let
     name: package:
     makeTest {
       name = "hydra-${name}";
-      meta = with pkgs.lib.maintainers; { maintainers = [ lewo ma27 ]; };
+      meta = with pkgs.lib.maintainers; {
+        maintainers = [
+          lewo
+          ma27
+        ];
+      };
 
       nodes.machine = {
           pkgs,

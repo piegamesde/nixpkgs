@@ -16,7 +16,10 @@ buildPythonPackage rec {
     sha256 = "0lwlr5smz8vfm5h9a9i7da3q1c24xqc6vm9jdywdpgxfbi5i7mpm";
   };
 
-  propagatedBuildInputs = [ flask blinker ];
+  propagatedBuildInputs = [
+    flask
+    blinker
+  ];
 
   nativeCheckInputs = [ nose ];
 

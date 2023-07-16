@@ -70,7 +70,11 @@ buildPythonPackage rec {
     werkzeug
   ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  nativeCheckInputs = [ pytest-click pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-click
+    pytest-mock
+    pytestCheckHook
+  ];
 
   postInstall = ''
     cp -r lektor/translations "$out/${python.sitePackages}/lektor/"

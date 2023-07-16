@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
     sha256 = "09qrhqhv264x8phnf3pnb0cwq75l7xdsj9xkwlvhry81nxz0d5v0";
   };
 
-  nativeBuildInputs = [ ant makeWrapper copyDesktopItems ];
+  nativeBuildInputs = [
+    ant
+    makeWrapper
+    copyDesktopItems
+  ];
 
   buildInputs = [ openjdk8 ];
 
@@ -67,26 +71,24 @@ stdenv.mkDerivation rec {
     ant
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "brmodelo";
-      desktopName = "brModelo";
-      genericName = "Entity-relationship diagramming tool";
-      exec = "brmodelo";
-      icon = "brmodelo";
-      comment = meta.description;
-      categories = [
-        "Development"
-        "Education"
-        "Database"
-        "2DGraphics"
-        "ComputerScience"
-        "DataVisualization"
-        "Engineering"
-        "Java"
-      ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "brmodelo";
+    desktopName = "brModelo";
+    genericName = "Entity-relationship diagramming tool";
+    exec = "brmodelo";
+    icon = "brmodelo";
+    comment = meta.description;
+    categories = [
+      "Development"
+      "Education"
+      "Database"
+      "2DGraphics"
+      "ComputerScience"
+      "DataVisualization"
+      "Engineering"
+      "Java"
+    ];
+  }) ];
 
   installPhase = ''
     install -d $out/bin $out/share/doc/${pname} $out/share/java

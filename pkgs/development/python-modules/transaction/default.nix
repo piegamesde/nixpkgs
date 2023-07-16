@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-ZdCx6pLb58Tjsjf7a9i0Heoj10Wee92MOIC//a+RL6Q=";
   };
 
-  propagatedBuildInputs = [ zope_interface mock ];
+  propagatedBuildInputs = [
+    zope_interface
+    mock
+  ];
 
   pythonImportsCheck = [ "transaction" ];
 

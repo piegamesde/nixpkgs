@@ -47,8 +47,12 @@ in stdenv.mkDerivation rec {
   sourceRoot = "nextpnr";
 
   nativeBuildInputs = [ cmake ] ++ (lib.optional enableGui wrapQtAppsHook);
-  buildInputs = [ boostPython python3 eigen python3Packages.apycula ]
-    ++ (lib.optional enableGui qtbase)
+  buildInputs = [
+    boostPython
+    python3
+    eigen
+    python3Packages.apycula
+  ] ++ (lib.optional enableGui qtbase)
     ++ (lib.optional stdenv.cc.isClang llvmPackages.openmp);
 
   cmakeFlags = [
@@ -90,6 +94,9 @@ in stdenv.mkDerivation rec {
     homepage = "https://github.com/yosyshq/nextpnr";
     license = licenses.isc;
     platforms = platforms.all;
-    maintainers = with maintainers; [ thoughtpolice emily ];
+    maintainers = with maintainers; [
+      thoughtpolice
+      emily
+    ];
   };
 }

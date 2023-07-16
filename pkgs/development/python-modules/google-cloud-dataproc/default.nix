@@ -25,18 +25,29 @@ buildPythonPackage rec {
     hash = "sha256-GJbhT2PBIaPx4sIhKHzH/QBlDSpz+LOPggQK5tWqt78=";
   };
 
-  propagatedBuildInputs =
-    [ google-api-core grpc-google-iam-v1 libcst proto-plus protobuf ]
-    ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs = [
+    google-api-core
+    grpc-google-iam-v1
+    libcst
+    proto-plus
+    protobuf
+  ] ++ google-api-core.optional-dependencies.grpc;
 
-  nativeCheckInputs = [ mock pytestCheckHook pytest-asyncio ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+    pytest-asyncio
+  ];
 
   disabledTests = [
     # Test requires credentials
     "test_list_clusters"
   ];
 
-  pythonImportsCheck = [ "google.cloud.dataproc" "google.cloud.dataproc_v1" ];
+  pythonImportsCheck = [
+    "google.cloud.dataproc"
+    "google.cloud.dataproc_v1"
+  ];
 
   meta = with lib; {
     description = "Google Cloud Dataproc API client library";

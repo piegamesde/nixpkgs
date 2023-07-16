@@ -23,7 +23,11 @@ buildDunePackage rec {
 
   buildInputs = [ dune-configurator ];
 
-  propagatedBuildInputs = [ SDL2 SDL2_ttf tsdl ];
+  propagatedBuildInputs = [
+    SDL2
+    SDL2_ttf
+    tsdl
+  ];
 
   meta = with lib; {
     description = "SDL2_ttf bindings for Ocaml with Tsdl";

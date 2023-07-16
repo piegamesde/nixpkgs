@@ -31,12 +31,10 @@ buildPythonPackage rec {
   };
 
   # See: https://review.openstack.org/#/c/608382/
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/openstack/sqlalchemy-migrate/pull/18.patch";
-      sha256 = "1qyfq2m7w7xqf0r9bc2x42qcra4r9k9l9g1jy5j0fvlb6bvvjj07";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url = "https://github.com/openstack/sqlalchemy-migrate/pull/18.patch";
+    sha256 = "1qyfq2m7w7xqf0r9bc2x42qcra4r9k9l9g1jy5j0fvlb6bvvjj07";
+  }) ];
 
   postPatch = ''
     substituteInPlace test-requirements.txt \
@@ -47,8 +45,19 @@ buildPythonPackage rec {
       --replace "pylint" ""
   '';
 
-  nativeCheckInputs = [ scripttest pytz testrepository ];
-  propagatedBuildInputs = [ pbr tempita decorator sqlalchemy six sqlparse ];
+  nativeCheckInputs = [
+    scripttest
+    pytz
+    testrepository
+  ];
+  propagatedBuildInputs = [
+    pbr
+    tempita
+    decorator
+    sqlalchemy
+    six
+    sqlparse
+  ];
 
   doCheck = !stdenv.isDarwin;
 

@@ -24,9 +24,17 @@ buildPythonPackage rec {
     hash = "sha256-fNPoGixJLgHCgfGAvMKoa1ILFz0rZWy12J2ZR1Qj4BM=";
   };
 
-  propagatedBuildInputs = [ pyyaml six yarl wrapt ];
+  propagatedBuildInputs = [
+    pyyaml
+    six
+    yarl
+    wrapt
+  ];
 
-  nativeCheckInputs = [ pytest-httpbin pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-httpbin
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [ "tests/integration" ];
 

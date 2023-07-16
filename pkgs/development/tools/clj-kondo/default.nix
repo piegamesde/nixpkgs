@@ -14,8 +14,10 @@ buildGraalvmNativeImage rec {
     sha256 = "sha256-SuhLt0FNZNRX803Doa2xT9a8n35WxDtOwxXj+dZ7YXc=";
   };
 
-  extraNativeImageBuildArgs =
-    [ "-H:+ReportExceptionStackTraces" "--no-fallback" ];
+  extraNativeImageBuildArgs = [
+    "-H:+ReportExceptionStackTraces"
+    "--no-fallback"
+  ];
 
   meta = with lib; {
     description = "A linter for Clojure code that sparks joy";
@@ -24,6 +26,10 @@ buildGraalvmNativeImage rec {
     license = licenses.epl10;
     changelog =
       "https://github.com/clj-kondo/clj-kondo/blob/v${version}/CHANGELOG.md";
-    maintainers = with maintainers; [ jlesquembre bandresen thiagokokada ];
+    maintainers = with maintainers; [
+      jlesquembre
+      bandresen
+      thiagokokada
+    ];
   };
 }

@@ -41,7 +41,10 @@ python3.pkgs.buildPythonApplication rec {
     uvloop
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ pytest pytest-asyncio ];
+  nativeCheckInputs = with python3.pkgs; [
+    pytest
+    pytest-asyncio
+  ];
 
   # We don't run other tests (discovery modules) because they require network access
   checkPhase = ''
@@ -60,7 +63,10 @@ python3.pkgs.buildPythonApplication rec {
       gathers emails, names, subdomains, IPs, and URLs using multiple public data sources.
     '';
     homepage = "https://github.com/laramies/theHarvester";
-    maintainers = with maintainers; [ c0bw3b treemo ];
+    maintainers = with maintainers; [
+      c0bw3b
+      treemo
+    ];
     license = licenses.gpl2Only;
   };
 }

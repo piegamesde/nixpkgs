@@ -14,7 +14,12 @@
 }:
 let
 
-  perlWithPkgs = perl.withPackages (ps: with ps; [ JSON TermReadKey Tk ]);
+  perlWithPkgs = perl.withPackages (ps:
+    with ps; [
+      JSON
+      TermReadKey
+      Tk
+    ]);
 
 in stdenv.mkDerivation rec {
   pname = "net-snmp";
@@ -39,7 +44,12 @@ in stdenv.mkDerivation rec {
       "0gh164wy6zfiwiszh58fsvr25k0ns14r3099664qykgpmickkqid")
   ];
 
-  outputs = [ "bin" "out" "dev" "lib" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+    "lib"
+  ];
 
   configureFlags = [
     "--with-default-snmp-version=3"
@@ -56,7 +66,12 @@ in stdenv.mkDerivation rec {
     substituteInPlace testing/fulltests/support/simple_TESTCONF.sh --replace "/bin/netstat" "${nettools}/bin/netstat"
   '';
 
-  nativeBuildInputs = [ autoreconfHook nettools removeReferencesTo file ];
+  nativeBuildInputs = [
+    autoreconfHook
+    nettools
+    removeReferencesTo
+    file
+  ];
   buildInputs = [ openssl ] ++ lib.optional withPerlTools perlWithPkgs;
 
   enableParallelBuilding = true;

@@ -23,9 +23,19 @@ stdenv.mkDerivation rec {
     sha256 = "0ms3sqmwqkrqb92d7jy2hqwnz5yd7cbrz73n321jik0jilrwl5w8";
   };
 
-  buildInputs =
-    [ boost openssl log4shib xercesc xml-security-c xml-tooling-c zlib ];
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  buildInputs = [
+    boost
+    openssl
+    log4shib
+    xercesc
+    xml-security-c
+    xml-tooling-c
+    zlib
+  ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   configureFlags = [ "--with-xmltooling=${xml-tooling-c}" ];
 

@@ -15,11 +15,19 @@ buildGoModule rec {
     hash = "sha256-zmWfOLBb+GWw9v6LdCC7/WaP1Wz7UipPwqkmI1+rG8Q=";
   };
 
-  ldflags = [ "-s" "-w" "-X main.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.Version=${version}"
+  ];
 
   vendorHash = "sha256-S1XUgjdSVTWXehOLCxXcvj0SH12cxqvYadVlCw/saF4=";
 
-  excludedPackages = [ "example/server-db" "test/e2e" "tui-example" ];
+  excludedPackages = [
+    "example/server-db"
+    "test/e2e"
+    "tui-example"
+  ];
 
   # tests require network access
   doCheck = false;

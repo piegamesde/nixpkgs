@@ -44,7 +44,10 @@ in {
     security.polkit.adminIdentities = mkOption {
       type = types.listOf types.str;
       default = [ "unix-group:wheel" ];
-      example = [ "unix-user:alice" "unix-group:admin" ];
+      example = [
+        "unix-user:alice"
+        "unix-group:admin"
+      ];
       description = lib.mdDoc ''
         Specifies which users are considered “administrators”, for those
         actions that require the user to authenticate as an
@@ -57,7 +60,10 @@ in {
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.polkit.bin pkgs.polkit.out ];
+    environment.systemPackages = [
+      pkgs.polkit.bin
+      pkgs.polkit.out
+    ];
 
     systemd.packages = [ pkgs.polkit.out ];
 

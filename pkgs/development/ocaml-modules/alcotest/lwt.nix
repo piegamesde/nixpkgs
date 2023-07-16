@@ -16,10 +16,18 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ alcotest logs lwt fmt ];
+  propagatedBuildInputs = [
+    alcotest
+    logs
+    lwt
+    fmt
+  ];
 
   doCheck = true;
-  checkInputs = [ re cmdliner ];
+  checkInputs = [
+    re
+    cmdliner
+  ];
 
   meta = alcotest.meta // { description = "Lwt-based helpers for Alcotest"; };
 

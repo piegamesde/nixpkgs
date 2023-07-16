@@ -14,7 +14,11 @@ let
     isExecutable = true;
     inherit (pkgs) bash;
     inherit (config.system.nixos) distroName;
-    path = [ pkgs.coreutils pkgs.gnused pkgs.gnugrep ];
+    path = [
+      pkgs.coreutils
+      pkgs.gnused
+      pkgs.gnugrep
+    ];
   };
 
 in {

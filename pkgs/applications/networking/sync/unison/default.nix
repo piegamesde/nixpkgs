@@ -27,10 +27,16 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ glib wrapGAppsHook ocamlPackages.ocaml ]
-    ++ lib.optional enableX11 copyDesktopItems;
-  buildInputs = [ gsettings-desktop-schemas ncurses zlib ]
-    ++ lib.optional stdenv.isDarwin Cocoa;
+  nativeBuildInputs = [
+    glib
+    wrapGAppsHook
+    ocamlPackages.ocaml
+  ] ++ lib.optional enableX11 copyDesktopItems;
+  buildInputs = [
+    gsettings-desktop-schemas
+    ncurses
+    zlib
+  ] ++ lib.optional stdenv.isDarwin Cocoa;
 
   preBuild = lib.optionalString enableX11 ''
     sed -i "s|\(OCAMLOPT=.*\)$|\1 -I $(echo "${ocamlPackages.lablgtk3}"/lib/ocaml/*/site-lib/lablgtk3)|" src/Makefile.OCaml
@@ -61,7 +67,11 @@ stdenv.mkDerivation rec {
     genericName = "File synchronization tool";
     exec = "unison";
     icon = "unison";
-    categories = [ "Utility" "FileTools" "GTK" ];
+    categories = [
+      "Utility"
+      "FileTools"
+      "GTK"
+    ];
     startupNotify = true;
     startupWMClass = "Unison";
   });

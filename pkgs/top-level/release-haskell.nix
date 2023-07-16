@@ -35,9 +35,7 @@ let
   # [ drv1 drv2 drv3 ]
   accumulateDerivations = jobList:
     lib.concatMap (attrs:
-      if lib.isDerivation attrs then
-        [ attrs ]
-      else
+      if lib.isDerivation attrs then [ attrs ] else
         lib.optionals (lib.isAttrs attrs)
         (accumulateDerivations (lib.attrValues attrs))) jobList;
 
@@ -222,7 +220,10 @@ let
     (mapTestOn {
       haskellPackages = packagePlatforms pkgs.haskellPackages;
       haskell.compiler = packagePlatforms pkgs.haskell.compiler
-        // (lib.genAttrs [ "ghcjs" "ghcjs810" ] (ghcjsName: {
+        // (lib.genAttrs [
+          "ghcjs"
+          "ghcjs810"
+        ] (ghcjsName: {
           # We can't build ghcjs itself, since it exceeds 3GB (Hydra's output limit) due
           # to the size of its bundled libs. We can however save users a bit of compile
           # time by building the bootstrap ghcjs on Hydra. For this reason, we overwrite
@@ -372,9 +373,15 @@ let
       language-nix = lib.subtractLists [ compilerNames.ghc961 ] released;
       nix-paths = released;
       titlecase = released;
-      ghc-api-compat =
-        [ compilerNames.ghc884 compilerNames.ghc8107 compilerNames.ghc902 ];
-      ghc-bignum = [ compilerNames.ghc884 compilerNames.ghc8107 ];
+      ghc-api-compat = [
+        compilerNames.ghc884
+        compilerNames.ghc8107
+        compilerNames.ghc902
+      ];
+      ghc-bignum = [
+        compilerNames.ghc884
+        compilerNames.ghc8107
+      ];
       ghc-lib = released;
       ghc-lib-parser = released;
       ghc-lib-parser-ex = released;
@@ -486,8 +493,10 @@ let
         meta = {
           description =
             "Static haskell builds using the pkgsStatic infrastructure";
-          maintainers =
-            [ lib.maintainers.sternenseemann lib.maintainers.rnhmjoj ];
+          maintainers = [
+            lib.maintainers.sternenseemann
+            lib.maintainers.rnhmjoj
+          ];
         };
         constituents = accumulateDerivations [
           jobs.pkgsStatic.haskellPackages

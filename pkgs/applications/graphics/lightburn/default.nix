@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
   pname = "lightburn";
   version = "1.2.01";
 
-  nativeBuildInputs = [ p7zip autoPatchelfHook wrapQtAppsHook ];
+  nativeBuildInputs = [
+    p7zip
+    autoPatchelfHook
+    wrapQtAppsHook
+  ];
 
   src = fetchurl {
     url =
@@ -25,7 +29,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-V4hswyj6Ly6inaIlHlxpvER8ar09wZ55Ad+xH4GbHfs=";
   };
 
-  buildInputs = [ nss nspr libusb1 qtbase qtmultimedia qtserialport ];
+  buildInputs = [
+    nss
+    nspr
+    libusb1
+    qtbase
+    qtmultimedia
+    qtserialport
+  ];
 
   # We nuke the vendored Qt5 libraries that LightBurn ships and instead use our
   # own.

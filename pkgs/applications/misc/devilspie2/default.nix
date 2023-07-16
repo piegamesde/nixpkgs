@@ -20,8 +20,16 @@ stdenv.mkDerivation rec {
     sha256 = "Cp8erdKyKjGBY+QYAGXUlSIboaQ60gIepoZs0RgEJkA=";
   };
 
-  nativeBuildInputs = [ intltool pkg-config ];
-  buildInputs = [ glib gtk lua libwnck ];
+  nativeBuildInputs = [
+    intltool
+    pkg-config
+  ];
+  buildInputs = [
+    glib
+    gtk
+    lua
+    libwnck
+  ];
 
   installPhase = ''
     mkdir -p $out/bin $out/share/man/man1

@@ -110,17 +110,17 @@ let
   append-version = p: n: p + display-pkg n "" coqPackages.${n}.version + "-";
   prefix-name = foldl append-version "" namePrefix;
   useDune = args.useDune or (useDuneifVersion fetched.version);
-  coqlib-flags = switch coq.coq-version [{
+  coqlib-flags = switch coq.coq-version [ {
     case = v: versions.isLe "8.6" v && v != "dev";
     out = [ "COQLIB=$(out)/lib/coq/${coq.coq-version}/" ];
-  }] [
+  } ] [
     "COQLIBINSTALL=$(out)/lib/coq/${coq.coq-version}/user-contrib"
     "COQPLUGININSTALL=$(OCAMLFIND_DESTDIR)"
   ];
-  docdir-flags = switch coq.coq-version [{
+  docdir-flags = switch coq.coq-version [ {
     case = v: versions.isLe "8.6" v && v != "dev";
     out = [ "DOCDIR=$(out)/share/coq/${coq.coq-version}/" ];
-  }] [ "COQDOCINSTALL=$(out)/share/coq/${coq.coq-version}/user-contrib" ];
+  } ] [ "COQDOCINSTALL=$(out)/share/coq/${coq.coq-version}/user-contrib" ];
 
 in stdenv.mkDerivation (removeAttrs ({
 
@@ -140,10 +140,10 @@ in stdenv.mkDerivation (removeAttrs ({
 
   meta = ({
     platforms = coq.meta.platforms;
-  } // (switch domain [{
+  } // (switch domain [ {
     case = pred.union isGitHubDomain isGitLabDomain;
     out = { homepage = "https://${domain}/${owner}/${repo}"; };
-  }] { }) // optionalAttrs (fetched.broken or false) {
+  } ] { }) // optionalAttrs (fetched.broken or false) {
     coqFilter = true;
     broken = true;
   }) // (args.meta or { });

@@ -28,10 +28,22 @@ buildPythonPackage rec {
     hash = "sha256-UPdYfHorJSj3NQWBf5Q3rFwdBNV26b4mTS3u/9t0WnY=";
   };
 
-  propagatedBuildInputs =
-    [ iso8601 keystoneauth1 oslo-i18n oslo-serialization pbr prettytable ];
+  propagatedBuildInputs = [
+    iso8601
+    keystoneauth1
+    oslo-i18n
+    oslo-serialization
+    pbr
+    prettytable
+  ];
 
-  nativeCheckInputs = [ ddt openssl requests-mock stestr testscenarios ];
+  nativeCheckInputs = [
+    ddt
+    openssl
+    requests-mock
+    stestr
+    testscenarios
+  ];
 
   checkPhase = ''
     stestr run -e <(echo "

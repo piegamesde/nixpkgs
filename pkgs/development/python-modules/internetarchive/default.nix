@@ -38,7 +38,11 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  nativeCheckInputs = [ pytest responses glibcLocales ];
+  nativeCheckInputs = [
+    pytest
+    responses
+    glibcLocales
+  ];
 
   # tests depend on network
   doCheck = false;

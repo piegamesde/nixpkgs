@@ -42,18 +42,26 @@ in stdenv.mkDerivation rec {
     sha256 = "0jisxzajsc4wfvxabvfzd0x9y1fxzg39fkhap1781q7wyi4ry9kd";
   };
 
-  nativeBuildInputs = [ makeWrapper copyDesktopItems imagemagick dpkg zip xz ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = "Bisq";
-      exec = "bisq-desktop";
-      icon = "bisq";
-      desktopName = "Bisq ${version}";
-      genericName = "Decentralized bitcoin exchange";
-      categories = [ "Network" "P2P" ];
-    })
+  nativeBuildInputs = [
+    makeWrapper
+    copyDesktopItems
+    imagemagick
+    dpkg
+    zip
+    xz
   ];
+
+  desktopItems = [ (makeDesktopItem {
+    name = "Bisq";
+    exec = "bisq-desktop";
+    icon = "bisq";
+    desktopName = "Bisq ${version}";
+    genericName = "Decentralized bitcoin exchange";
+    categories = [
+      "Network"
+      "P2P"
+    ];
+  }) ];
 
   unpackPhase = ''
     dpkg -x $src .
@@ -97,7 +105,10 @@ in stdenv.mkDerivation rec {
     homepage = "https://bisq.network";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.mit;
-    maintainers = with maintainers; [ juaningan emmanuelrosa ];
+    maintainers = with maintainers; [
+      juaningan
+      emmanuelrosa
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

@@ -33,11 +33,18 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = {
     table = [ tabulate ];
-    markdown = [ tabulate matplotlib ];
+    markdown = [
+      tabulate
+      matplotlib
+    ];
   };
 
-  nativeCheckInputs = [ funcy pytestCheckHook pytest-mock pytest-test-utils ]
-    ++ passthru.optional-dependencies.table
+  nativeCheckInputs = [
+    funcy
+    pytestCheckHook
+    pytest-mock
+    pytest-test-utils
+  ] ++ passthru.optional-dependencies.table
     ++ passthru.optional-dependencies.markdown;
 
   disabledTestPaths = lib.optionals stdenv.isDarwin [ "tests/test_vega.py" ];

@@ -55,9 +55,8 @@ in stdenv.mkDerivation rec {
     gtk3
   ];
 
-  runtimeDependencies = [
-    gtk3 # libSwell needs libgdk-3.so.0
-  ] ++ lib.optional jackSupport jackLibrary
+  runtimeDependencies = [ gtk3 # libSwell needs libgdk-3.so.0
+    ] ++ lib.optional jackSupport jackLibrary
     ++ lib.optional pulseaudioSupport libpulseaudio;
 
   dontBuild = true;
@@ -105,7 +104,10 @@ in stdenv.mkDerivation rec {
     homepage = "https://www.reaper.fm/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     maintainers = with maintainers; [
       jfrankenau
       ilian

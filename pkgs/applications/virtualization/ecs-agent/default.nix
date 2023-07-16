@@ -21,7 +21,10 @@ buildGoModule rec {
 
   excludedPackages = [ "./version/gen" ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description =

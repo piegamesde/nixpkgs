@@ -32,8 +32,18 @@ else
       sha256 = "sha256-rEeU9AWpCzuAtAOe7hJHBmJjP97BZsQsPFQQ8uZLUzA=";
     };
 
-    nativeBuildInputs = [ ocaml findlib ocamlbuild topkg ];
-    buildInputs = [ topkg uutf uunf uucd ];
+    nativeBuildInputs = [
+      ocaml
+      findlib
+      ocamlbuild
+      topkg
+    ];
+    buildInputs = [
+      topkg
+      uutf
+      uunf
+      uucd
+    ];
 
     propagatedBuildInputs = [ uchar ];
 

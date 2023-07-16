@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libpng zlib ];
+  buildInputs = [
+    libpng
+    zlib
+  ];
 
   installPhase = ''
     runHook preInstall

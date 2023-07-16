@@ -31,9 +31,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ sqlalchemy setuptools ];
+  propagatedBuildInputs = [
+    sqlalchemy
+    setuptools
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-sugar pymysql psycopg2 ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-sugar
+    pymysql
+    psycopg2
+  ];
 
   pythonImportsCheck = [ "sqlalchemy_jsonfield" ];
 

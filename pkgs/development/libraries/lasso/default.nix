@@ -25,7 +25,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-ahgxv9v49CTHUIq6R7BF1RNB7A/ekSLziwuGsJbvUz4=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config python3 ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    python3
+  ];
 
   buildInputs = [
     glib

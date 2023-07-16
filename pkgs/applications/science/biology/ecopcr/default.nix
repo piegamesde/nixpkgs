@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-ssvWpi7HuuRRAkpqqrX3ijLuBqM3QsrmrG+t7/m6fZA=";
   };
 
-  buildInputs = [ gcc python3 zlib ];
+  buildInputs = [
+    gcc
+    python3
+    zlib
+  ];
 
   preConfigure = ''
     cd src

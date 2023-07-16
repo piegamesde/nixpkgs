@@ -21,7 +21,10 @@ buildGoModule rec {
   vendorHash = null;
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl libpcap ];
+  buildInputs = [
+    openssl
+    libpcap
+  ];
 
   # Mongodb incorrectly names all of their binaries main
   # Let's work around this with our own installer

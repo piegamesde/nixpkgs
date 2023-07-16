@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ mpi perl ];
+  buildInputs = [
+    mpi
+    perl
+  ];
 
   enableParallelBuilding = true;
 

@@ -31,7 +31,13 @@ in buildPythonApplication rec {
 
   doCheck = false; # weird error
 
-  propagatedBuildInputs = [ iowait psutil pyzmq tornado six ];
+  propagatedBuildInputs = [
+    iowait
+    psutil
+    pyzmq
+    tornado
+    six
+  ];
 
   meta = with lib; {
     description = "A process and socket manager";

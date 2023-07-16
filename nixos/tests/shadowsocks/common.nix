@@ -16,10 +16,10 @@ import ../make-test-python.nix ({
       server = {
         boot.kernel.sysctl."net.ipv4.ip_forward" = "1";
         networking.useDHCP = false;
-        networking.interfaces.eth1.ipv4.addresses = [{
+        networking.interfaces.eth1.ipv4.addresses = [ {
           address = "192.168.0.1";
           prefixLength = 24;
-        }];
+        } ];
         networking.firewall.rejectPackets = true;
         networking.firewall.allowedTCPPorts = [ 8488 ];
         networking.firewall.allowedUDPPorts = [ 8488 ];
@@ -45,10 +45,10 @@ import ../make-test-python.nix ({
 
       client = {
         networking.useDHCP = false;
-        networking.interfaces.eth1.ipv4.addresses = [{
+        networking.interfaces.eth1.ipv4.addresses = [ {
           address = "192.168.0.2";
           prefixLength = 24;
-        }];
+        } ];
         systemd.services.shadowsocks-client = {
           description = "connect to shadowsocks";
           after = [ "network.target" ];

@@ -178,12 +178,20 @@ let
 
 in {
   imports = [
-    (mkRenamedOptionModule [ "services" "hercules-ci-agent" "extraOptions" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "hercules-ci-agent"
+      "extraOptions"
+    ] [
       "services"
       "hercules-ci-agent"
       "settings"
     ])
-    (mkRenamedOptionModule [ "services" "hercules-ci-agent" "baseDirectory" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "hercules-ci-agent"
+      "baseDirectory"
+    ] [
       "services"
       "hercules-ci-agent"
       "settings"
@@ -193,8 +201,17 @@ in {
       "services"
       "hercules-ci-agent"
       "concurrentTasks"
-    ] [ "services" "hercules-ci-agent" "settings" "concurrentTasks" ])
-    (mkRemovedOptionModule [ "services" "hercules-ci-agent" "patchNix" ]
+    ] [
+      "services"
+      "hercules-ci-agent"
+      "settings"
+      "concurrentTasks"
+    ])
+    (mkRemovedOptionModule [
+      "services"
+      "hercules-ci-agent"
+      "patchNix"
+    ]
       "Nix versions packaged in this version of Nixpkgs don't need a patched nix-daemon to work correctly in Hercules CI Agent clusters.")
   ];
 

@@ -78,7 +78,12 @@ stdenv.mkDerivation rec {
     menhir
   ];
 
-  buildInputs = with ocamlPackages; [ ocaml_pcre parmap pyml stdcompat ];
+  buildInputs = with ocamlPackages; [
+    ocaml_pcre
+    parmap
+    pyml
+    stdcompat
+  ];
 
   strictDeps = true;
 

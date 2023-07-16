@@ -31,8 +31,18 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook4 glib ];
-  buildInputs = [ gtk4 libadwaita bluez dbus openssl ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook4
+    glib
+  ];
+  buildInputs = [
+    gtk4
+    libadwaita
+    bluez
+    dbus
+    openssl
+  ];
 
   postInstall = ''
     install -Dm444 assets/io.gitlab.azymohliad.WatchMate.desktop -t $out/share/applications/

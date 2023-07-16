@@ -24,11 +24,26 @@ stdenv.mkDerivation rec {
     hash = "sha256-qyJGnrBOElQ3s2VoOWfW1luacd33haanmzKidMBgCpc=";
   };
 
-  outputs = [ "out" "doc" "man" ];
+  outputs = [
+    "out"
+    "doc"
+    "man"
+  ];
 
-  nativeBuildInputs = [ cmake pkg-config sphinx ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    sphinx
+  ];
 
-  buildInputs = [ glib pcre libmysqlclient libressl zlib zstd ];
+  buildInputs = [
+    glib
+    pcre
+    libmysqlclient
+    libressl
+    zlib
+    zstd
+  ];
 
   cmakeFlags = [
     "-DCMAKE_SKIP_BUILD_RPATH=ON"

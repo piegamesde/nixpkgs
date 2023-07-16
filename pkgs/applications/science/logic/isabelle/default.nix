@@ -72,8 +72,13 @@ in stdenv.mkDerivation (finalAttrs: rec {
 
   nativeBuildInputs = [ java ];
 
-  buildInputs = [ polyml veriT vampire eprover-ho nettools ]
-    ++ lib.optionals (!stdenv.isDarwin) [ java ];
+  buildInputs = [
+    polyml
+    veriT
+    vampire
+    eprover-ho
+    nettools
+  ] ++ lib.optionals (!stdenv.isDarwin) [ java ];
 
   sourceRoot = "${dirname}${lib.optionalString stdenv.isDarwin ".app"}";
 
@@ -215,7 +220,11 @@ in stdenv.mkDerivation (finalAttrs: rec {
     icon = "isabelle";
     desktopName = "Isabelle";
     comment = meta.description;
-    categories = [ "Education" "Science" "Math" ];
+    categories = [
+      "Education"
+      "Science"
+      "Math"
+    ];
   };
 
   meta = with lib; {
@@ -232,7 +241,10 @@ in stdenv.mkDerivation (finalAttrs: rec {
       binaryNativeCode # source bundles binary dependencies
     ];
     license = licenses.bsd3;
-    maintainers = [ maintainers.jwiegley maintainers.jvanbruegge ];
+    maintainers = [
+      maintainers.jwiegley
+      maintainers.jvanbruegge
+    ];
     platforms = platforms.unix;
   };
 

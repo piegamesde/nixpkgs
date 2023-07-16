@@ -63,7 +63,12 @@ let
   hplipArch = hplipPlatforms.${stdenv.hostPlatform.system} or (throw
     "HPLIP not supported on ${stdenv.hostPlatform.system}");
 
-  pluginArches = [ "x86_32" "x86_64" "arm32" "arm64" ];
+  pluginArches = [
+    "x86_32"
+    "x86_64"
+    "arm32"
+    "arm64"
+  ];
 
 in assert withPlugin -> builtins.elem hplipArch pluginArches
   || throw "HPLIP plugin not supported on ${stdenv.hostPlatform.system}";
@@ -87,14 +92,34 @@ python3Packages.buildPythonApplication {
     avahi
   ];
 
-  nativeBuildInputs = [ pkg-config removeReferencesTo autoreconfHook ]
-    ++ lib.optional withQt5 qt5.wrapQtAppsHook;
+  nativeBuildInputs = [
+    pkg-config
+    removeReferencesTo
+    autoreconfHook
+  ] ++ lib.optional withQt5 qt5.wrapQtAppsHook;
 
   pythonPath = with python3Packages;
-    [ dbus pillow pygobject3 reportlab usbutils sip_4 dbus-python distro ]
-    ++ lib.optionals withQt5 [ pyqt5 pyqt5_sip enum-compat ];
+    [
+      dbus
+      pillow
+      pygobject3
+      reportlab
+      usbutils
+      sip_4
+      dbus-python
+      distro
+    ] ++ lib.optionals withQt5 [
+      pyqt5
+      pyqt5_sip
+      enum-compat
+    ];
 
-  makeWrapperArgs = [ "--prefix" "PATH" ":" "${nettools}/bin" ];
+  makeWrapperArgs = [
+    "--prefix"
+    "PATH"
+    ":"
+    "${nettools}/bin"
+  ];
 
   patches = [
     # HPLIP's getSystemPPDs() function relies on searching for PPDs below common FHS
@@ -291,7 +316,11 @@ python3Packages.buildPythonApplication {
     license = if withPlugin then
       licenses.unfree
     else
-      with licenses; [ mit bsd2 gpl2Plus ];
+      with licenses; [
+        mit
+        bsd2
+        gpl2Plus
+      ];
     platforms = [
       "i686-linux"
       "x86_64-linux"

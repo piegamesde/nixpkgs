@@ -21,12 +21,23 @@ stdenv.mkDerivation rec {
     sha256 = "12srvxca51czpfjl0gabpidj9n84mw78ivxy5w75qhq2mmc798sb";
   };
 
-  outputs = [ "bin" "out" "dev" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+  ];
 
   # TODO: Investigate whether git can be dropped: It's only used to apply patches
-  nativeBuildInputs = [ cmake pkg-config git ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    git
+  ];
 
-  buildInputs = [ lcms2 tinyxml ] ++ lib.optional stdenv.isDarwin boost;
+  buildInputs = [
+    lcms2
+    tinyxml
+  ] ++ lib.optional stdenv.isDarwin boost;
 
   postPatch = ''
     substituteInPlace src/core/CMakeLists.txt --replace "-Werror" ""

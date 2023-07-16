@@ -10,7 +10,12 @@ args@{
 
   description = "Stefil - Simple Test Framework In Lisp";
 
-  deps = [ args."alexandria" args."iterate" args."metabang-bind" args."swank" ];
+  deps = [
+    args."alexandria"
+    args."iterate"
+    args."metabang-bind"
+    args."swank"
+  ];
 
   src = fetchurl {
     url =

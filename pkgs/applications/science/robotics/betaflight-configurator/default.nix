@@ -29,9 +29,15 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-9FzMyBIR2u1zXHtTWJABM6RF1+OyjYdEPlRwtig9blI=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook unzip ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    unzip
+  ];
 
-  buildInputs = [ gsettings-desktop-schemas gtk3 ];
+  buildInputs = [
+    gsettings-desktop-schemas
+    gtk3
+  ];
 
   installPhase = ''
     mkdir -p $out/bin \

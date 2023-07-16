@@ -24,10 +24,18 @@ buildPythonPackage rec {
     hash = "sha256-hAUD92wlQZ0BZ++e/KdIOgTzavmUkrH3esDhI3mbl5Y=";
   };
 
-  propagatedBuildInputs = [ aiohttp metar ];
+  propagatedBuildInputs = [
+    aiohttp
+    metar
+  ];
 
-  nativeCheckInputs =
-    [ freezegun pytest-aiohttp pytest-asyncio pytest-cov pytestCheckHook ];
+  nativeCheckInputs = [
+    freezegun
+    pytest-aiohttp
+    pytest-asyncio
+    pytest-cov
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pynws" ];
 

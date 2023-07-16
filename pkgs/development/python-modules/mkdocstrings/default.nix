@@ -35,8 +35,14 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pdm-pep517 ];
 
-  propagatedBuildInputs =
-    [ jinja2 markdown markupsafe mkdocs mkdocs-autorefs pymdown-extensions ];
+  propagatedBuildInputs = [
+    jinja2
+    markdown
+    markupsafe
+    mkdocs
+    mkdocs-autorefs
+    pymdown-extensions
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

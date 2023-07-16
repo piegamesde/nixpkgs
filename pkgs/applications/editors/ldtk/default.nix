@@ -19,7 +19,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-8GiMm1Nb2jRLFWtGNsSfrW1jIi9yKCcyuUKwMEqoUZI=";
   };
 
-  nativeBuildInputs = [ unzip makeWrapper copyDesktopItems appimage-run ];
+  nativeBuildInputs = [
+    unzip
+    makeWrapper
+    copyDesktopItems
+    appimage-run
+  ];
 
   buildInputs = [ appimage-run ];
 
@@ -43,18 +48,16 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "ldtk";
-      exec = "ldtk";
-      icon = "ldtk";
-      terminal = false;
-      desktopName = "LDtk";
-      comment = "2D level editor";
-      categories = [ "Utility" ];
-      mimeTypes = [ "application/json" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "ldtk";
+    exec = "ldtk";
+    icon = "ldtk";
+    terminal = false;
+    desktopName = "LDtk";
+    comment = "2D level editor";
+    categories = [ "Utility" ];
+    mimeTypes = [ "application/json" ];
+  }) ];
 
   meta = with lib; {
     description = "Modern, lightweight and efficient 2D level editor";

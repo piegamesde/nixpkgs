@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
       --replace gcc '${stdenv.cc.targetPrefix}cc'
   '';
 
-  makeFlags = [ "BINDIR=$(out)/bin" "MANDIR=$(out)/share/man" ];
+  makeFlags = [
+    "BINDIR=$(out)/bin"
+    "MANDIR=$(out)/share/man"
+  ];
 
   preInstall = ''
     mkdir -p $out/bin

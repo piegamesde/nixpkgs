@@ -23,11 +23,24 @@ stdenv.mkDerivation {
     sha256 = "05afqi33rv7k6pbkkw4mynj6p97vkzhhh13y5nh0yxkyhcgf45pm";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
 
-  buildInputs = [ glib pcre readline systemd udev ];
+  buildInputs = [
+    glib
+    pcre
+    readline
+    systemd
+    udev
+  ];
 
-  mesonFlags = [ "-Drely-udev=true" "-Dbuild-tests=true" ];
+  mesonFlags = [
+    "-Drely-udev=true"
+    "-Dbuild-tests=true"
+  ];
 
   meta = with lib; {
     description = "Connect external monitors via Wi-Fi";

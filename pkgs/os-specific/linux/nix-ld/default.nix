@@ -28,7 +28,10 @@ in stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeBuildInputs = [ meson ninja ];
+  nativeBuildInputs = [
+    meson
+    ninja
+  ];
 
   mesonFlags = [ "-Dnix-system=${stdenv.system}" ];
 

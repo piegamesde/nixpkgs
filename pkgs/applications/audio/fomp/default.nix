@@ -17,8 +17,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xnGijydiO3B7BjSlryFuH1j/OPio9hCYbniq2IXp2W8=";
   };
 
-  nativeBuildInputs = [ pkg-config wafHook ];
-  buildInputs = [ lv2 python3 ];
+  nativeBuildInputs = [
+    pkg-config
+    wafHook
+  ];
+  buildInputs = [
+    lv2
+    python3
+  ];
 
   meta = with lib; {
     homepage = "https://drobilla.net/software/fomp.html";

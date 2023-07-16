@@ -37,9 +37,18 @@ buildGoModule rec {
     xorg.libXext
     xorg.libXxf86vm
     libglvnd
-  ] ++ lib.optionals stdenv.isDarwin [ Carbon Cocoa Kernel UserNotifications ];
+  ] ++ lib.optionals stdenv.isDarwin [
+    Carbon
+    Cocoa
+    Kernel
+    UserNotifications
+  ];
 
-  ldflags = [ "-s" "-w" "-linkmode=external" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-linkmode=external"
+  ];
 
   # conditionally build with GUI or not (go2tv or go2tv-lite sub-packages)
   subPackages = [ "cmd/${pname}" ];

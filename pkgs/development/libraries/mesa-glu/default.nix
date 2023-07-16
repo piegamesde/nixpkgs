@@ -23,7 +23,10 @@ stdenv.mkDerivation (finalAttrs: {
   propagatedBuildInputs = [ libGL ]
     ++ lib.optional stdenv.isDarwin ApplicationServices;
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 

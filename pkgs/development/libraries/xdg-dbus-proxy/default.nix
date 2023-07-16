@@ -22,8 +22,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HsDqtT0eSZZtciNSvP1RrEAtzlGQuu3HSahUHnYWcKs=";
   };
 
-  nativeBuildInputs =
-    [ meson ninja pkg-config libxslt docbook-xsl-nons docbook_xml_dtd_43 ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    libxslt
+    docbook-xsl-nons
+    docbook_xml_dtd_43
+  ];
 
   buildInputs = [ glib ];
 

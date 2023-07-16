@@ -81,7 +81,11 @@ buildPythonPackage rec {
     zopfli
   ];
 
-  nativeCheckInputs = [ pillow six bash ];
+  nativeCheckInputs = [
+    pillow
+    six
+    bash
+  ];
 
   checkPhase = ''
     patchShebangs tests/

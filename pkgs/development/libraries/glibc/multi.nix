@@ -9,7 +9,13 @@ let
   glibc64 = glibc;
 in runCommand "${nameVersion.name}-multi-${nameVersion.version}"
 # out as the first output is an exception exclusive to glibc
-{ outputs = [ "out" "bin" "dev" ]; } # TODO: no static version here (yet)
+{
+  outputs = [
+    "out"
+    "bin"
+    "dev"
+  ];
+} # TODO: no static version here (yet)
 ''
   mkdir -p "$out/lib"
   ln -s '${glibc64.out}'/lib/* "$out/lib"

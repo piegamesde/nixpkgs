@@ -28,12 +28,22 @@ buildPythonPackage rec {
     hash = "sha256-/T4Z508LBaka5mZ+erFwMBW6RoE1nZM61N/NMotmt4E=";
   };
 
-  nativeBuildInputs = [ setuptools poetry-core ];
+  nativeBuildInputs = [
+    setuptools
+    poetry-core
+  ];
 
-  propagatedBuildInputs = [ aiormq yarl ]
-    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [
+    aiormq
+    yarl
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
-  nativeCheckInputs = [ aiomisc-pytest pamqp pytestCheckHook shortuuid ];
+  nativeCheckInputs = [
+    aiomisc-pytest
+    pamqp
+    pytestCheckHook
+    shortuuid
+  ];
 
   disabledTestPaths = [
     # Tests attempt to connect to a RabbitMQ server

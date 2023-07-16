@@ -42,8 +42,15 @@ stdenv.mkDerivation rec {
   ];
 
   enableParallelBuilding = true;
-  nativeBuildInputs =
-    [ cmake pkg-config rustc rust-bindgen rustfmt cargo python3 ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    rustc
+    rust-bindgen
+    rustfmt
+    cargo
+    python3
+  ];
   buildInputs = [
     zlib
     bzip2
@@ -72,7 +79,11 @@ stdenv.mkDerivation rec {
     description =
       "Antivirus engine designed for detecting Trojans, viruses, malware and other malicious threats";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ robberer qknight globin ];
+    maintainers = with maintainers; [
+      robberer
+      qknight
+      globin
+    ];
     platforms = platforms.unix;
   };
 }

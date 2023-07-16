@@ -38,7 +38,10 @@ buildPythonPackage rec {
     homepage = "https://github.com/simplejson/simplejson";
     changelog =
       "https://github.com/simplejson/simplejson/blob/v${version}/CHANGES.txt";
-    license = with licenses; [ mit afl21 ];
+    license = with licenses; [
+      mit
+      afl21
+    ];
     maintainers = with maintainers; [ fab ];
   };
 }

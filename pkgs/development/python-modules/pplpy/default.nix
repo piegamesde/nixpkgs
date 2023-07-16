@@ -21,15 +21,26 @@ buildPythonPackage rec {
     sha256 = "500bd0f4ae1a76956fae7fcba77854f5ec3e64fce76803664983763c3f2bd8bd";
   };
 
-  buildInputs = [ gmp mpfr libmpc ppl ];
-
-  nativeBuildInputs = [
-    sphinx # docbuild, called by make
+  buildInputs = [
+    gmp
+    mpfr
+    libmpc
+    ppl
   ];
 
-  propagatedBuildInputs = [ cython cysignals gmpy2 ];
+  nativeBuildInputs = [ sphinx # docbuild, called by make
+    ];
 
-  outputs = [ "out" "doc" ];
+  propagatedBuildInputs = [
+    cython
+    cysignals
+    gmpy2
+  ];
+
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   postBuild = ''
     # Find the build result in order to put it into PYTHONPATH. The doc

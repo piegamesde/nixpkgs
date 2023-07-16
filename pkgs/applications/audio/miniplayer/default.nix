@@ -15,8 +15,15 @@ buildPythonApplication rec {
     hash = "sha256-iUUsVIDLQAiaMomfA2LvvJZ2ePhgADtC6GCwIpRC1MA=";
   };
 
-  propagatedBuildInputs =
-    [ colorthief ffmpeg-python mpd2 pillow pixcat requests ueberzug ];
+  propagatedBuildInputs = [
+    colorthief
+    ffmpeg-python
+    mpd2
+    pillow
+    pixcat
+    requests
+    ueberzug
+  ];
 
   # pythonImportsCheck is disabled because this package doesn't expose any modules.
 

@@ -33,19 +33,37 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-R3Zrt7BjqrutBUOGsZCqf2wUUkQnr9Qnww7EJlEgJ+c=";
   };
 
-  outputs = [ "out" "lib" "dev" "man" "dnsutils" "host" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "man"
+    "dnsutils"
+    "host"
+  ];
 
   patches = [ ./dont-keep-configure-flags.patch ];
 
-  nativeBuildInputs = [ perl pkg-config ];
-  buildInputs = [ libtool libxml2 openssl libuv nghttp2 jemalloc ]
-    ++ lib.optional stdenv.isLinux libcap ++ lib.optional enableGSSAPI libkrb5
+  nativeBuildInputs = [
+    perl
+    pkg-config
+  ];
+  buildInputs = [
+    libtool
+    libxml2
+    openssl
+    libuv
+    nghttp2
+    jemalloc
+  ] ++ lib.optional stdenv.isLinux libcap ++ lib.optional enableGSSAPI libkrb5
     ++ lib.optional enablePython (python3.withPackages (ps: with ps; [ ply ]));
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  configureFlags = [ "--localstatedir=/var" "--without-lmdb" ]
-    ++ lib.optional enableGSSAPI "--with-gssapi=${libkrb5.dev}/bin/krb5-config"
+  configureFlags = [
+    "--localstatedir=/var"
+    "--without-lmdb"
+  ] ++ lib.optional enableGSSAPI "--with-gssapi=${libkrb5.dev}/bin/krb5-config"
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
     "BUILD_CC=$(CC_FOR_BUILD)";
 
@@ -102,6 +120,10 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ globin ];
     platforms = platforms.unix;
 
-    outputsToInstall = [ "out" "dnsutils" "host" ];
+    outputsToInstall = [
+      "out"
+      "dnsutils"
+      "host"
+    ];
   };
 }

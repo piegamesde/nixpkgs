@@ -53,7 +53,12 @@ in stdenv.mkDerivation rec {
       }/bin/perl@'
 
     for p in $out/bin/*
-      do wrapProgram "$p" --prefix PATH ":" "${lib.makeBinPath [ which bzip2 ]}"
+      do wrapProgram "$p" --prefix PATH ":" "${
+        lib.makeBinPath [
+          which
+          bzip2
+        ]
+      }"
     done
 
     patchShebangs $out

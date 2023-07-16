@@ -6,5 +6,8 @@
 
 qtModule {
   pname = "qtserialbus";
-  qtInputs = [ qtbase qtserialport ];
+  qtInputs = [
+    qtbase
+    qtserialport
+  ];
 }

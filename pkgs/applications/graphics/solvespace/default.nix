@@ -43,7 +43,11 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     at-spi2-core

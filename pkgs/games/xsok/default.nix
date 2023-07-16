@@ -25,7 +25,13 @@ stdenv.mkDerivation rec {
     sha256 = "057ircp13hfpy513c7wpyp986hsvhqs7km98w4k39f5wkvp3dj02";
   };
 
-  buildInputs = [ libX11 libXt libXaw libXpm libXext ];
+  buildInputs = [
+    libX11
+    libXt
+    libXaw
+    libXpm
+    libXext
+  ];
   nativeBuildInputs = [ imake ];
 
   env.NIX_CFLAGS_COMPILE = " -isystem ${libXpm.dev}/include/X11 ";

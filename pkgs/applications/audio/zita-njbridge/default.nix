@@ -16,13 +16,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-EBF2oL1AfKt7/9Mm6NaIbBtlshK8M/LvuXsD+SbEeQc=";
   };
 
-  buildInputs = [ libjack2 zita-resampler ];
+  buildInputs = [
+    libjack2
+    zita-resampler
+  ];
 
   preConfigure = ''
     cd ./source/
   '';
 
-  makeFlags = [ "PREFIX=$(out)" "MANDIR=$(out)" "SUFFIX=''" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "MANDIR=$(out)"
+    "SUFFIX=''"
+  ];
 
   meta = with lib; {
     description =

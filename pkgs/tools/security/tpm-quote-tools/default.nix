@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "1qjs83xb4np4yn1bhbjfhvkiika410v8icwnjix5ad96w2nlxp0h";
   };
 
-  buildInputs = [ trousers openssl ];
+  buildInputs = [
+    trousers
+    openssl
+  ];
 
   postFixup = ''
     patchelf \

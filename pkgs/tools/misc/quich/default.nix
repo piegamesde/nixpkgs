@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  makeFlags = [ "DESTDIR=" "PREFIX=$(out)" "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = [
+    "DESTDIR="
+    "PREFIX=$(out)"
+    "CC=${stdenv.cc.targetPrefix}cc"
+  ];
 
   meta = with lib; {
     description = "The advanced terminal calculator";

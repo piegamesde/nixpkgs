@@ -29,7 +29,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ python3 wafHook ];
+  nativeBuildInputs = [
+    python3
+    wafHook
+  ];
 
   postInstall = ''
     mkdir -p $out/bin

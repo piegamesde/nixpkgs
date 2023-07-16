@@ -16,8 +16,11 @@ stdenv.mkDerivation {
   name = "nix-info";
   src = ./info.sh;
 
-  path = lib.makeBinPath ([ coreutils findutils gnugrep ]
-    ++ (lib.optionals stdenv.isDarwin [ darwin.DarwinTools ]));
+  path = lib.makeBinPath ([
+    coreutils
+    findutils
+    gnugrep
+  ] ++ (lib.optionals stdenv.isDarwin [ darwin.DarwinTools ]));
   is_darwin = if stdenv.isDarwin then "yes" else "no";
 
   sandboxtest = ./sandbox.nix;

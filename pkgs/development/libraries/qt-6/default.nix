@@ -90,7 +90,10 @@ let
         qtwebengine
         qtwebsockets
         qtwebview
-      ] ++ lib.optionals (!stdenv.isDarwin) [ qtwayland libglvnd ]);
+      ] ++ lib.optionals (!stdenv.isDarwin) [
+        qtwayland
+        libglvnd
+      ]);
 
       qt3d = callPackage ./modules/qt3d.nix { };
       qt5compat = callPackage ./modules/qt5compat.nix { };

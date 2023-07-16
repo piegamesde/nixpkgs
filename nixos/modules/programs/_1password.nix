@@ -12,11 +12,13 @@ let
   cfg = config.programs._1password;
 
 in {
-  imports = [
-    (mkRemovedOptionModule [ "programs" "_1password" "gid" ] ''
-      A preallocated GID will be used instead.
-    '')
-  ];
+  imports = [ (mkRemovedOptionModule [
+    "programs"
+    "_1password"
+    "gid"
+  ] ''
+    A preallocated GID will be used instead.
+  '') ];
 
   options = {
     programs._1password = {

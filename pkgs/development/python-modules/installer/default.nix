@@ -22,7 +22,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  nativeCheckInputs = [ pytestCheckHook mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    mock
+  ];
 
   meta = with lib; {
     changelog =
@@ -31,6 +34,9 @@ buildPythonPackage rec {
     description =
       "A low-level library for installing a Python package from a wheel distribution";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud fridh ];
+    maintainers = with maintainers; [
+      cpcloud
+      fridh
+    ];
   };
 }

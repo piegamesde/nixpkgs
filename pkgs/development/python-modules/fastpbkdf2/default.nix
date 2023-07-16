@@ -22,7 +22,10 @@ buildPythonPackage rec {
 
   buildInputs = [ openssl ];
   nativeCheckInputs = [ pytest ];
-  propagatedBuildInputs = [ cffi six ];
+  propagatedBuildInputs = [
+    cffi
+    six
+  ];
   propagatedNativeBuildInputs = [ cffi ];
 
   meta = with lib; {

@@ -19,7 +19,10 @@
 mkDerivation rec {
   pname = "alligator";
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
   buildInputs = [
     kconfig
@@ -36,7 +39,10 @@ mkDerivation rec {
     homepage = "https://invent.kde.org/plasma-mobile/alligator";
     # https://invent.kde.org/plasma-mobile/alligator/-/commit/db30f159c4700244532b17a260deb95551045b7a
     #  * SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-    license = with licenses; [ gpl2Only gpl3Only ];
+    license = with licenses; [
+      gpl2Only
+      gpl3Only
+    ];
     maintainers = with maintainers; [ samueldr ];
   };
 }

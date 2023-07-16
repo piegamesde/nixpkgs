@@ -22,9 +22,19 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+  ];
 
-  buildInputs = [ alsa-lib curl gtk3 stdenv.cc.cc.lib webkitgtk zenity ];
+  buildInputs = [
+    alsa-lib
+    curl
+    gtk3
+    stdenv.cc.cc.lib
+    webkitgtk
+    zenity
+  ];
 
   installPhase = ''
     mkdir -p "$out/bin"

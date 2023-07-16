@@ -6,7 +6,10 @@ import ./make-test-python.nix ({
   }: {
     name = "netdata";
     meta = with pkgs.lib.maintainers; {
-      maintainers = [ cransom raitobezarius ];
+      maintainers = [
+        cransom
+        raitobezarius
+      ];
     };
 
     nodes = {
@@ -14,7 +17,10 @@ import ./make-test-python.nix ({
           pkgs,
           ...
         }: {
-          environment.systemPackages = with pkgs; [ curl jq ];
+          environment.systemPackages = with pkgs; [
+            curl
+            jq
+          ];
           services.netdata.enable = true;
         };
     };

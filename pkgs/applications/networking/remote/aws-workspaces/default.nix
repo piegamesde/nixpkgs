@@ -36,7 +36,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1ysj020fYOmIRvZR27+7ZNqdzqkA2QbrCwDU18ouxaI=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+  ];
 
   # Crashes at startup when stripping:
   # "Failed to create CoreCLR, HRESULT: 0x80004005"
@@ -92,6 +95,9 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ]; # TODO Mac support
-    maintainers = with maintainers; [ mausch dylanmtaylor ];
+    maintainers = with maintainers; [
+      mausch
+      dylanmtaylor
+    ];
   };
 }

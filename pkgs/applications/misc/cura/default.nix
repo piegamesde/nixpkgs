@@ -29,7 +29,11 @@ mkDerivation rec {
     sha256 = "sha256-7y4OcbeQHv+loJ4cMgPU0e818Zsv90EwARdztNWS8zM=";
   };
 
-  buildInputs = [ qtbase qtquickcontrols2 qtgraphicaleffects ];
+  buildInputs = [
+    qtbase
+    qtquickcontrols2
+    qtgraphicaleffects
+  ];
   propagatedBuildInputs = with python3.pkgs;
     [
       libsavitar
@@ -43,10 +47,15 @@ mkDerivation rec {
       trimesh
       keyring
     ] ++ plugins;
-  nativeBuildInputs = [ cmake python3.pkgs.wrapPython ];
+  nativeBuildInputs = [
+    cmake
+    python3.pkgs.wrapPython
+  ];
 
-  cmakeFlags =
-    [ "-DURANIUM_DIR=${python3.pkgs.uranium.src}" "-DCURA_VERSION=${version}" ];
+  cmakeFlags = [
+    "-DURANIUM_DIR=${python3.pkgs.uranium.src}"
+    "-DCURA_VERSION=${version}"
+  ];
 
   makeWrapperArgs = [
     # hacky workaround for https://github.com/NixOS/nixpkgs/issues/59901
@@ -78,6 +87,9 @@ mkDerivation rec {
     homepage = "https://github.com/Ultimaker/Cura";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar gebner ];
+    maintainers = with maintainers; [
+      abbradar
+      gebner
+    ];
   };
 }

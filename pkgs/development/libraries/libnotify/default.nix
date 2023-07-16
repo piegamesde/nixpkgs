@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
   pname = "libnotify";
   version = "0.8.2";
 
-  outputs = [ "out" "man" "dev" ];
+  outputs = [
+    "out"
+    "man"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -47,7 +51,10 @@ stdenv.mkDerivation rec {
     glib # for glib-mkenums needed during the build
   ] ++ lib.optionals withIntrospection [ gobject-introspection ];
 
-  propagatedBuildInputs = [ gdk-pixbuf glib ];
+  propagatedBuildInputs = [
+    gdk-pixbuf
+    glib
+  ];
 
   passthru = {
     updateScript = gnome.updateScript {

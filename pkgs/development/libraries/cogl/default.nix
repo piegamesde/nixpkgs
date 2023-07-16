@@ -44,10 +44,18 @@ stdenv.mkDerivation rec {
     ./patches/gnome_bugzilla_787443_361056_deepin.patch
   ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs =
-    [ pkg-config libintl automake autoconf gobject-introspection ];
+  nativeBuildInputs = [
+    pkg-config
+    libintl
+    automake
+    autoconf
+    gobject-introspection
+  ];
 
   configureFlags = [ "--enable-introspection" ]
     ++ lib.optionals (!stdenv.isDarwin) [
@@ -56,27 +64,35 @@ stdenv.mkDerivation rec {
       "--enable-wayland-egl-server"
       "--enable-gles1"
       "--enable-gles2"
-    ] ++ lib.optionals stdenv.isDarwin [ "--disable-glx" "--without-x" ]
-    ++ lib.optionals gstreamerSupport [ "--enable-cogl-gst" ];
+    ] ++ lib.optionals stdenv.isDarwin [
+      "--disable-glx"
+      "--without-x"
+    ] ++ lib.optionals gstreamerSupport [ "--enable-cogl-gst" ];
 
   # TODO: this shouldn't propagate so many things
   # especially not gobject-introspection
-  propagatedBuildInputs = [ glib gdk-pixbuf gobject-introspection ]
-    ++ lib.optionals stdenv.isLinux [
-      wayland
-      mesa
-      libGL
-      xorg.libXrandr
-      xorg.libXfixes
-      xorg.libXcomposite
-      xorg.libXdamage
-    ] ++ lib.optionals gstreamerSupport [
-      gst_all_1.gstreamer
-      gst_all_1.gst-plugins-base
-    ];
+  propagatedBuildInputs = [
+    glib
+    gdk-pixbuf
+    gobject-introspection
+  ] ++ lib.optionals stdenv.isLinux [
+    wayland
+    mesa
+    libGL
+    xorg.libXrandr
+    xorg.libXfixes
+    xorg.libXcomposite
+    xorg.libXdamage
+  ] ++ lib.optionals gstreamerSupport [
+    gst_all_1.gstreamer
+    gst_all_1.gst-plugins-base
+  ];
 
-  buildInputs = lib.optionals pangoSupport [ pango cairo harfbuzz ]
-    ++ lib.optionals stdenv.isDarwin [ OpenGL ];
+  buildInputs = lib.optionals pangoSupport [
+    pango
+    cairo
+    harfbuzz
+  ] ++ lib.optionals stdenv.isDarwin [ OpenGL ];
 
   COGL_PANGO_DEP_CFLAGS = toString
     (lib.optionals (stdenv.isDarwin && pangoSupport) [
@@ -107,6 +123,11 @@ stdenv.mkDerivation rec {
     '';
 
     platforms = platforms.unix;
-    license = with licenses; [ mit bsd3 publicDomain sgi-b-20 ];
+    license = with licenses; [
+      mit
+      bsd3
+      publicDomain
+      sgi-b-20
+    ];
   };
 }

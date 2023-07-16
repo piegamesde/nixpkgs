@@ -94,10 +94,10 @@ in {
       type = types.submodule { freeformType = jsonType; };
 
       default = {
-        users = [{
+        users = [ {
           regex = "@irc_.*";
           exclusive = true;
-        }];
+        } ];
         aliases = [ ];
         rooms = [ ];
       };
@@ -121,9 +121,8 @@ in {
   config = mkIf cfg.enable {
     systemd.services.heisenbridge = {
       description = "Matrix<->IRC bridge";
-      before = [
-        "matrix-synapse.service"
-      ]; # So the registration file can be used by Synapse
+      before =
+        [ "matrix-synapse.service" ]; # So the registration file can be used by Synapse
       wantedBy = [ "multi-user.target" ];
 
       preStart = ''
@@ -208,7 +207,11 @@ in {
         NoNewPrivileges = true;
         LockPersonality = true;
         RestrictRealtime = true;
-        SystemCallFilter = [ "@system-service" "~@privileged" "@chown" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+          "@chown"
+        ];
         SystemCallArchitectures = "native";
         RestrictAddressFamilies = "AF_INET AF_INET6";
       };

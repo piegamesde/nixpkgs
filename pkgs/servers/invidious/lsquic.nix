@@ -97,8 +97,15 @@ in stdenv.mkDerivation rec {
       --replace ".so" "${stdenv.hostPlatform.extensions.sharedLibrary}"
   '';
 
-  nativeBuildInputs = [ cmake perl ];
-  buildInputs = [ boringssl' libevent zlib ];
+  nativeBuildInputs = [
+    cmake
+    perl
+  ];
+  buildInputs = [
+    boringssl'
+    libevent
+    zlib
+  ];
 
   cmakeFlags = [
     "-DBORINGSSL_DIR=${lib.getDev boringssl'}"
@@ -129,7 +136,10 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A library for QUIC and HTTP/3 (version for Invidious)";
     homepage = "https://github.com/litespeedtech/lsquic";
-    maintainers = with maintainers; [ infinisil sbruder ];
+    maintainers = with maintainers; [
+      infinisil
+      sbruder
+    ];
     license = with licenses; [
       openssl
       isc

@@ -15,8 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+FvNYfJ5I91RfuJTiOPhj5KW8HoOq8OgnnpFEgefSGc=";
   };
 
-  buildFlags =
-    [ "CC=${stdenv.cc.targetPrefix}cc" "CXX=${stdenv.cc.targetPrefix}c++" ];
+  buildFlags = [
+    "CC=${stdenv.cc.targetPrefix}cc"
+    "CXX=${stdenv.cc.targetPrefix}c++"
+  ];
 
   installPhase = ''
     runHook preInstall

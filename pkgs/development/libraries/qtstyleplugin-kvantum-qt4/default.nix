@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ qmake4Hook ];
-  buildInputs = [ qt4 libX11 libXext ];
+  buildInputs = [
+    qt4
+    libX11
+    libXext
+  ];
 
   sourceRoot = "source/Kvantum";
 

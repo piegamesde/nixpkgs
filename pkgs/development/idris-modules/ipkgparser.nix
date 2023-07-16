@@ -10,7 +10,11 @@ build-idris-package {
   pname = "ipkgparser";
   version = "2017-11-14";
 
-  idrisDeps = [ contrib effects lightyear ];
+  idrisDeps = [
+    contrib
+    effects
+    lightyear
+  ];
 
   src = fetchFromGitHub {
     owner = "emptyflash";

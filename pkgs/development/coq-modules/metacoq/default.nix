@@ -55,7 +55,13 @@ let
   releaseRev = v: "v${v}";
 
   # list of core metacoq packages sorted by dependency order
-  packages = [ "template-coq" "pcuic" "safechecker" "erasure" "all" ];
+  packages = [
+    "template-coq"
+    "pcuic"
+    "safechecker"
+    "erasure"
+    "all"
+  ];
 
   template-coq = metacoq_ "template-coq";
 
@@ -76,8 +82,10 @@ let
         inherit version pname defaultVersion release releaseRev repo owner;
 
         mlPlugin = true;
-        propagatedBuildInputs = [ equations coq.ocamlPackages.zarith ]
-          ++ metacoq-deps;
+        propagatedBuildInputs = [
+          equations
+          coq.ocamlPackages.zarith
+        ] ++ metacoq-deps;
 
         patchPhase = ''
           patchShebangs ./configure.sh
@@ -92,7 +100,10 @@ let
 
         configurePhase = optionalString (package == "all") pkgallMake + ''
           touch ${pkgpath}/metacoq-config
-        '' + optionalString (elem package [ "safechecker" "erasure" ]) ''
+        '' + optionalString (elem package [
+          "safechecker"
+          "erasure"
+        ]) ''
           echo  "-I ${template-coq}/lib/coq/${coq.coq-version}/user-contrib/MetaCoq/Template/" > ${pkgpath}/metacoq-config
         '' + optionalString (package == "single") ''
           ./configure.sh local

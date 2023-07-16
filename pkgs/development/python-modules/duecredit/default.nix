@@ -21,9 +21,17 @@ buildPythonPackage rec {
     hash = "sha256-Dg/Yfp5GzmyUMI6feAwgP+g22JYoQE+L9a+Wp0V77Rw=";
   };
 
-  propagatedBuildInputs = [ citeproc-py requests six ];
+  propagatedBuildInputs = [
+    citeproc-py
+    requests
+    six
+  ];
 
-  nativeCheckInputs = [ pytest pytestCheckHook vcrpy ];
+  nativeCheckInputs = [
+    pytest
+    pytestCheckHook
+    vcrpy
+  ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

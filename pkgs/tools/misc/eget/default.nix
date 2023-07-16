@@ -22,9 +22,16 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-A3lZtV0pXh4KxINl413xGbw2Pz7OzvIQiFSRubH428c=";
 
-  ldflags = [ "-s" "-w" "-X main.Version=v${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.Version=v${version}"
+  ];
 
-  nativeBuildInputs = [ pandoc installShellFiles ];
+  nativeBuildInputs = [
+    pandoc
+    installShellFiles
+  ];
 
   postInstall = ''
     pandoc man/eget.md -s -t man -o eget.1

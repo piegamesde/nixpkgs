@@ -54,7 +54,11 @@ in stdenv.mkDerivation {
   else
     throw "moneyplex requires i686-linux or x86_64-linux");
 
-  phases = [ "unpackPhase" "installPhase" "postInstall" ];
+  phases = [
+    "unpackPhase"
+    "installPhase"
+    "postInstall"
+  ];
 
   buildInputs = [ ];
 

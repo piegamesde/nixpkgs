@@ -19,7 +19,11 @@ buildPythonPackage rec {
     sha256 = "0cbcvvy3qaqv8925z608qmkc1l914crzw79krwrz2vpm2fyribab";
   };
 
-  propagatedBuildInputs = [ beautifulsoup4 enum-compat pyserial ];
+  propagatedBuildInputs = [
+    beautifulsoup4
+    enum-compat
+    pyserial
+  ];
 
   nativeCheckInputs = [ nose ];
 
@@ -31,8 +35,11 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck =
-    [ "enocean.communicators" "enocean.protocol.packet" "enocean.utils" ];
+  pythonImportsCheck = [
+    "enocean.communicators"
+    "enocean.protocol.packet"
+    "enocean.utils"
+  ];
 
   meta = with lib; {
     description = "EnOcean serial protocol implementation";

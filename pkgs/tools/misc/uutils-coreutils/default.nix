@@ -28,9 +28,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-ZbGLBjjAsdEhWK3/RS+yRI70xqV+5fzg76Y2Lip1m9A=";
   };
 
-  nativeBuildInputs = [ rustPlatform.cargoSetupHook sphinx ];
+  nativeBuildInputs = [
+    rustPlatform.cargoSetupHook
+    sphinx
+  ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    Security
+    libiconv
+  ];
 
   makeFlags = [
     "CARGO=${cargo}/bin/cargo"
@@ -50,7 +56,10 @@ stdenv.mkDerivation rec {
       CLI utils in Rust. This repo is to aggregate the GNU coreutils rewrites.
     '';
     homepage = "https://github.com/uutils/coreutils";
-    maintainers = with maintainers; [ siraben SuperSandro2000 ];
+    maintainers = with maintainers; [
+      siraben
+      SuperSandro2000
+    ];
     license = licenses.mit;
     platforms = platforms.unix;
   };

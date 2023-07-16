@@ -28,14 +28,34 @@ stdenv.mkDerivation rec {
     hash = "sha256-zd0HDUzVYLyFjhIudBJQaKJUtYMjZeQRLALSkyD9tXU=";
   };
 
-  nativeBuildInputs = [ autoreconfHook autogen pkg-config python3 ];
-  buildInputs = [ flac lame libmpg123 libogg libopus libvorbis ]
-    ++ lib.optionals stdenv.isLinux [ alsa-lib ]
-    ++ lib.optionals stdenv.isDarwin [ Carbon AudioToolbox ];
+  nativeBuildInputs = [
+    autoreconfHook
+    autogen
+    pkg-config
+    python3
+  ];
+  buildInputs = [
+    flac
+    lame
+    libmpg123
+    libogg
+    libopus
+    libvorbis
+  ] ++ lib.optionals stdenv.isLinux [ alsa-lib ]
+    ++ lib.optionals stdenv.isDarwin [
+      Carbon
+      AudioToolbox
+    ];
 
   enableParallelBuilding = true;
 
-  outputs = [ "bin" "dev" "out" "man" "doc" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "man"
+    "doc"
+  ];
 
   # need headers from the Carbon.framework in /System/Library/Frameworks to
   # compile this on darwin -- not sure how to handle

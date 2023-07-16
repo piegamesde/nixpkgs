@@ -85,7 +85,10 @@ let
     patches = [ ./0001-Use-protobuf-gradle-plugin.patch ];
     postPatch = fixProtoc + addResolveStep;
 
-    nativeBuildInputs = [ gradle perl ] ++ lib.optional stdenv.isDarwin xcbuild;
+    nativeBuildInputs = [
+      gradle
+      perl
+    ] ++ lib.optional stdenv.isDarwin xcbuild;
     buildPhase = ''
       export HOME="$NIX_BUILD_TOP/home"
       mkdir -p "$HOME"
@@ -113,8 +116,12 @@ let
 in stdenv.mkDerivation rec {
   inherit pname version src;
 
-  nativeBuildInputs = [ gradle unzip makeWrapper icoutils ]
-    ++ lib.optional stdenv.isDarwin xcbuild;
+  nativeBuildInputs = [
+    gradle
+    unzip
+    makeWrapper
+    icoutils
+  ] ++ lib.optional stdenv.isDarwin xcbuild;
 
   dontStrip = true;
 
@@ -165,7 +172,11 @@ in stdenv.mkDerivation rec {
     description =
       "A software reverse engineering (SRE) suite of tools developed by NSA's Research Directorate in support of the Cybersecurity mission";
     homepage = "https://ghidra-sre.org/";
-    platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
     sourceProvenance = with sourceTypes; [
       fromSource
       binaryBytecode # deps

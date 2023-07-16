@@ -33,7 +33,12 @@ stdenv.mkDerivation rec {
     sha256 = "0j6wqzx5frca8b5i6812vvr5iwk7440fka70bmqn00k0vfhsc2x3";
   };
 
-  nativeBuildInputs = [ dos2unix edid-decode hexdump zsh ];
+  nativeBuildInputs = [
+    dos2unix
+    edid-decode
+    hexdump
+    zsh
+  ];
 
   postPatch = ''
     patchShebangs modeline2edid
@@ -56,7 +61,10 @@ stdenv.mkDerivation rec {
       "Hackerswork to generate an EDID blob from given Xorg Modelines";
     homepage = "https://github.com/akatrevorjay/edid-generator";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ flokli nazarewk ];
+    maintainers = with lib.maintainers; [
+      flokli
+      nazarewk
+    ];
     platforms = lib.platforms.all;
     broken =
       stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/edid-generator.x86_64-darwin

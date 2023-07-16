@@ -50,13 +50,23 @@ stdenv.mkDerivation rec {
     ++ lib.optional (stdenv.hostPlatform.libc or null == "msvcrt")
     ./mingw-boolean.patch;
 
-  outputs = [ "bin" "dev" "dev_private" "out" "man" "doc" ];
+  outputs = [
+    "bin"
+    "dev"
+    "dev_private"
+    "out"
+    "man"
+    "doc"
+  ];
 
   postFixup = ''
     moveToOutput include/transupp.h $dev_private
   '';
 
-  nativeBuildInputs = [ cmake nasm ] ++ lib.optionals enableJava [ openjdk ];
+  nativeBuildInputs = [
+    cmake
+    nasm
+  ] ++ lib.optionals enableJava [ openjdk ];
 
   cmakeFlags = [
     "-DENABLE_STATIC=${if enableStatic then "1" else "0"}"
@@ -83,7 +93,11 @@ stdenv.mkDerivation rec {
     homepage = "https://libjpeg-turbo.org/";
     description = "A faster (using SIMD) libjpeg implementation";
     license = licenses.ijg; # and some parts under other BSD-style licenses
-    maintainers = with maintainers; [ vcunat colemickens kamadorueda ];
+    maintainers = with maintainers; [
+      vcunat
+      colemickens
+      kamadorueda
+    ];
     platforms = platforms.all;
   };
 }

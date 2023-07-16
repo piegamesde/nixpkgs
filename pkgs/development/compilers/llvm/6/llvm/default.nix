@@ -71,14 +71,27 @@ in stdenv.mkDerivation (rec {
     mv polly-* $sourceRoot/tools/polly
   '';
 
-  outputs = [ "out" "lib" "dev" "python" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "python"
+  ];
 
-  nativeBuildInputs = [ cmake python ]
-    ++ optional enableManpages python3.pkgs.sphinx;
+  nativeBuildInputs = [
+    cmake
+    python
+  ] ++ optional enableManpages python3.pkgs.sphinx;
 
-  buildInputs = [ libxml2 libffi ];
+  buildInputs = [
+    libxml2
+    libffi
+  ];
 
-  propagatedBuildInputs = [ ncurses zlib ];
+  propagatedBuildInputs = [
+    ncurses
+    zlib
+  ];
 
   patches = [
     # Patches to fix tests, included in llvm_7
@@ -192,8 +205,9 @@ in stdenv.mkDerivation (rec {
       "-DSPHINX_OUTPUT_MAN=ON"
       "-DSPHINX_OUTPUT_HTML=OFF"
       "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
-    ] ++ optionals (enableGoldPlugin)
-    [ "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include" ] ++ optionals (isDarwin) [
+    ] ++ optionals
+    (enableGoldPlugin) [ "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include" ]
+    ++ optionals (isDarwin) [
       "-DLLVM_ENABLE_LIBCXX=ON"
       "-DCAN_TARGET_i386=false"
     ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [

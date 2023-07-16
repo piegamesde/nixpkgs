@@ -33,7 +33,11 @@ in {
       path = [ pkgs.coreutils ];
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      documentation = [ "man:vnstatd(1)" "man:vnstat(1)" "man:vnstat.conf(5)" ];
+      documentation = [
+        "man:vnstatd(1)"
+        "man:vnstat(1)"
+        "man:vnstat.conf(5)"
+      ];
       serviceConfig = {
         ExecStart = "${pkgs.vnstat}/bin/vnstatd -n";
         ExecReload = "${pkgs.procps}/bin/kill -HUP $MAINPID";

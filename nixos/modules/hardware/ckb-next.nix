@@ -11,12 +11,20 @@ let cfg = config.hardware.ckb-next;
 
 in {
   imports = [
-    (mkRenamedOptionModule [ "hardware" "ckb" "enable" ] [
+    (mkRenamedOptionModule [
+      "hardware"
+      "ckb"
+      "enable"
+    ] [
       "hardware"
       "ckb-next"
       "enable"
     ])
-    (mkRenamedOptionModule [ "hardware" "ckb" "package" ] [
+    (mkRenamedOptionModule [
+      "hardware"
+      "ckb"
+      "package"
+    ] [
       "hardware"
       "ckb-next"
       "package"

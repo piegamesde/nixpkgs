@@ -91,10 +91,10 @@ in {
           };
         });
         default = [ ];
-        example = [{
+        example = [ {
           callbackURL = "https://example.com/client/oidc/callback";
           id = "service";
-        }];
+        } ];
         description = lib.mdDoc ''
           List of OIDC clients.
 
@@ -166,11 +166,11 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = cfg.dex.enable -> cfg.ldap.searchUserName != "";
       message =
         "services.portunus.dex.enable requires services.portunus.ldap.searchUserName to be set.";
-    }];
+    } ];
 
     # add ldapsearch(1) etc. to interactive shells
     environment.systemPackages = [ cfg.ldap.package ];
@@ -191,7 +191,7 @@ in {
           config.file = "/var/lib/dex/dex.db";
         };
         enablePasswordDB = false;
-        connectors = [{
+        connectors = [ {
           type = "ldap";
           id = "ldap";
           name = "LDAP";
@@ -213,13 +213,13 @@ in {
               baseDN = "ou=groups,${cfg.ldap.suffix}";
               filter = "(objectclass=groupOfNames)";
               nameAttr = "cn";
-              userMatchers = [{
+              userMatchers = [ {
                 userAttr = "DN";
                 groupAttr = "member";
-              }];
+              } ];
             };
           };
-        }];
+        } ];
 
         staticClients = forEach cfg.dex.oidcClients (client: {
           inherit (client) id;

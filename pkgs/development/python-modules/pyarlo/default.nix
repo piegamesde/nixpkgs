@@ -20,9 +20,16 @@ buildPythonPackage rec {
     sha256 = "0pp7y2llk4xnf6zh57j5xas0gw5zqm42qaqssd8p4qa3g5rds8k3";
   };
 
-  propagatedBuildInputs = [ requests sseclient-py ];
+  propagatedBuildInputs = [
+    requests
+    sseclient-py
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook mock requests-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    mock
+    requests-mock
+  ];
 
   pythonImportsCheck = [ "pyarlo" ];
 

@@ -38,7 +38,10 @@ buildPythonPackage rec {
     hash = "sha256-tcsxtFbBdMC6+ixzqhnR+5UNwcQmnPQSvuyNA2IYelI=";
   };
 
-  nativeBuildInputs = [ setuptools pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    setuptools
+    pythonRelaxDepsHook
+  ];
 
   propagatedBuildInputs = [
     cython
@@ -64,11 +67,17 @@ buildPythonPackage rec {
     rm -r atomman
   '';
 
-  nativeCheckInputs = [ ase phonopy pymatgen pytest pytestCheckHook ];
-
-  disabledTests = [
-    "test_unique_shifts_prototype" # needs network access to download database files
+  nativeCheckInputs = [
+    ase
+    phonopy
+    pymatgen
+    pytest
+    pytestCheckHook
   ];
+
+  disabledTests =
+    [ "test_unique_shifts_prototype" # needs network access to download database files
+    ];
 
   pythonImportsCheck = [ "atomman" ];
 

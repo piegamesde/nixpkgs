@@ -21,13 +21,21 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libunwind lz4 ] ++ (with python3.pkgs; [ cython ]);
+  buildInputs = [
+    libunwind
+    lz4
+  ] ++ (with python3.pkgs; [ cython ]);
 
-  propagatedBuildInputs = with python3.pkgs; [ jinja2 rich ];
+  propagatedBuildInputs = with python3.pkgs; [
+    jinja2
+    rich
+  ];
 
   nativeCheckInputs = with python3.pkgs;
-    [ ipython pytestCheckHook ]
-    ++ lib.optionals (pythonOlder "3.11") [ greenlet ];
+    [
+      ipython
+      pytestCheckHook
+    ] ++ lib.optionals (pythonOlder "3.11") [ greenlet ];
 
   pythonImportsCheck = [ "memray" ];
 

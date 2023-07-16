@@ -21,7 +21,10 @@ buildGoModule rec {
     cp ${./go.mod} go.mod
   '';
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "Formatter for NASM source files";

@@ -22,7 +22,10 @@
 mkDerivation rec {
   pname = "ktrip";
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
   buildInputs = [
     kconfig

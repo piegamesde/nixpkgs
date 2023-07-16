@@ -23,9 +23,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hYEHM4FOYcPmQ5Yxh520PKy8HiD+G0xv9hrn8SmA07w=";
   };
 
-  nativeBuildInputs = [ pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
 
-  buildInputs = [ glew libX11 libXcomposite glfw libpulseaudio ffmpeg ];
+  buildInputs = [
+    glew
+    libX11
+    libXcomposite
+    glfw
+    libpulseaudio
+    ffmpeg
+  ];
 
   postPatch = ''
     substituteInPlace ./build.sh \

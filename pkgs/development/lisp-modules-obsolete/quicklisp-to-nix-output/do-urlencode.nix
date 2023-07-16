@@ -8,7 +8,11 @@ args@{
 
   description = "Percent Encoding (aka URL Encoding) library";
 
-  deps = [ args."alexandria" args."babel" args."trivial-features" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."trivial-features"
+  ];
 
   src = fetchurl {
     url =

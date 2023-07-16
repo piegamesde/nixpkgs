@@ -26,7 +26,12 @@ stdenv.mkDerivation {
 
   sourceRoot = "source/${ipuVersion}";
 
-  nativeBuildInputs = [ autoPatchelfHook stdenv.cc.cc.lib expat zlib ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    stdenv.cc.cc.lib
+    expat
+    zlib
+  ];
 
   installPhase = ''
     runHook preInstall

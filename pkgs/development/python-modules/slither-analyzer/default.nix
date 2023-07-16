@@ -29,7 +29,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  propagatedBuildInputs = [ crytic-compile packaging prettytable setuptools ];
+  propagatedBuildInputs = [
+    crytic-compile
+    packaging
+    prettytable
+    setuptools
+  ];
 
   postFixup = lib.optionalString withSolc ''
     wrapProgram $out/bin/slither \
@@ -49,6 +54,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/trailofbits/slither";
     changelog = "https://github.com/crytic/slither/releases/tag/${version}";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ arturcygan fab ];
+    maintainers = with maintainers; [
+      arturcygan
+      fab
+    ];
   };
 }

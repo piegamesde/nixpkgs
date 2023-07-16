@@ -33,7 +33,10 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/skeeto/endlessh";
     changelog = "https://github.com/skeeto/endlessh/releases/tag/${version}";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ azahi marsam ];
+    maintainers = with maintainers; [
+      azahi
+      marsam
+    ];
     platforms = platforms.unix;
   };
 }

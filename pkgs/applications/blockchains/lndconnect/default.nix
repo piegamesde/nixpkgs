@@ -17,7 +17,10 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-iE0nht3PH2R9pTyyrySk759untC7snGt3wTXk4/pjrU=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "Generate QRCode to connect apps to lnd Resources";

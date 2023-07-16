@@ -115,7 +115,10 @@ let
         ];
 
         # hardening
-        DeviceAllow = [ "/dev/uinput rw" "char-input r" ];
+        DeviceAllow = [
+          "/dev/uinput rw"
+          "char-input r"
+        ];
         CapabilityBoundingSet = [ "" ];
         DevicePolicy = "closed";
         IPAddressAllow = optional (keyboard.port != null) "localhost";
@@ -138,7 +141,11 @@ let
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = [ "native" ];
-        SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+          "~@resources"
+        ];
         UMask = "0077";
       };
     };

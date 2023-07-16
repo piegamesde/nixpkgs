@@ -46,8 +46,14 @@ buildPythonPackage rec {
     semver
   ];
 
-  nativeCheckInputs =
-    [ freezegun jsonpickle mypy pytest-aiohttp pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    freezegun
+    jsonpickle
+    mypy
+    pytest-aiohttp
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "plugwise" ];
 

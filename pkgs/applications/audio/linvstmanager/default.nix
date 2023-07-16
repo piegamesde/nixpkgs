@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-K6eugimMy/MZgHYkg+zfF8DDqUuqqoeymxHtcFGu2Uk=";
   };
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ];
 
   buildInputs = [ qtbase ];
 

@@ -20,7 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-7ZMkA5WzWJKSwvpOoZYQO9JgedCdxNGrkFuPmYm4aRE=";
   };
 
-  nativeBuildInputs = [ setuptools wheel ];
+  nativeBuildInputs = [
+    setuptools
+    wheel
+  ];
 
   propagatedBuildInputs = [ redis ];
 

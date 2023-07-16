@@ -21,10 +21,16 @@ in stdenv.mkDerivation rec {
   };
 
   # perl is used at build time to gather the ferm version.
-  nativeBuildInputs = [ makeWrapper perl ];
+  nativeBuildInputs = [
+    makeWrapper
+    perl
+  ];
   buildInputs = [ perl ];
 
-  makeFlags = [ "PERL=perl" "PREFIX=${placeholder "out"}" ];
+  makeFlags = [
+    "PERL=perl"
+    "PREFIX=${placeholder "out"}"
+  ];
 
   postInstall = ''
     rm -r $out/lib/systemd

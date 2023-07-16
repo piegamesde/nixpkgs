@@ -51,7 +51,10 @@ stdenv.mkDerivation rec {
     rm -R $out/lib $out/include
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     boost
@@ -65,7 +68,11 @@ stdenv.mkDerivation rec {
     protobuf
     curl
     sqlite
-  ] ++ lib.optionals trezorSupport [ libusb1 protobuf python3 ];
+  ] ++ lib.optionals trezorSupport [
+    libusb1
+    protobuf
+    python3
+  ];
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"

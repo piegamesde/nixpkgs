@@ -31,9 +31,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ aiohttp async-timeout ];
+  propagatedBuildInputs = [
+    aiohttp
+    async-timeout
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-aiohttp ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-aiohttp
+  ];
 
   pythonImportsCheck = [ "aiojobs" ];
 

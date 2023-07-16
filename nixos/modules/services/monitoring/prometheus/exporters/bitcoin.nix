@@ -27,7 +27,10 @@ in {
     };
 
     rpcScheme = mkOption {
-      type = types.enum [ "http" "https" ];
+      type = types.enum [
+        "http"
+        "https"
+      ];
       default = "http";
       description = lib.mdDoc ''
         Whether to connect to bitcoind over http or https.

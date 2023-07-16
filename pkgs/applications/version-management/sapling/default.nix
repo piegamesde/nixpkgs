@@ -61,7 +61,11 @@ let
     src = addonsSrc;
     inherit version;
 
-    nativeBuildInputs = [ fixup_yarn_lock nodejs yarn ];
+    nativeBuildInputs = [
+      fixup_yarn_lock
+      nodejs
+      yarn
+    ];
 
     buildPhase = ''
       runHook preBuild
@@ -146,8 +150,14 @@ in python3Packages.buildPythonApplication {
       --set LOCALE_ARCHIVE "${glibcLocales}/lib/locale/locale-archive"
   '';
 
-  nativeBuildInputs = [ curl pkg-config ]
-    ++ (with rustPlatform; [ myCargoSetupHook rust.cargo rust.rustc ]);
+  nativeBuildInputs = [
+    curl
+    pkg-config
+  ] ++ (with rustPlatform; [
+    myCargoSetupHook
+    rust.cargo
+    rust.rustc
+  ]);
 
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
     curl
@@ -180,7 +190,10 @@ in python3Packages.buildPythonApplication {
     description = "A Scalable, User-Friendly Source Control System";
     homepage = "https://sapling-scm.com";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ pbar thoughtpolice ];
+    maintainers = with maintainers; [
+      pbar
+      thoughtpolice
+    ];
     platforms = platforms.unix;
     mainProgram = "sl";
   };

@@ -38,12 +38,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-AcgZ5/8d1U/zGs4QeOkgkZS7ttCW6gtUv/Xuf4O4VE0=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config libtool ];
-  buildInputs = [ libcdada libpcap ] ++ lib.optional withJansson jansson
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    libtool
+  ];
+  buildInputs = [
+    libcdada
+    libpcap
+  ] ++ lib.optional withJansson jansson
     ++ lib.optional withNflog libnetfilter_log ++ lib.optional withSQLite sqlite
-    ++ lib.optional withPgSQL postgresql
-    ++ lib.optionals withMysql [ libmysqlclient zlib numactl ]
-    ++ lib.optional gnutlsSupport gnutls;
+    ++ lib.optional withPgSQL postgresql ++ lib.optionals withMysql [
+      libmysqlclient
+      zlib
+      numactl
+    ] ++ lib.optional gnutlsSupport gnutls;
 
   MYSQL_CONFIG = lib.optionalString withMysql
     "${lib.getDev libmysqlclient}/bin/mysql_config";

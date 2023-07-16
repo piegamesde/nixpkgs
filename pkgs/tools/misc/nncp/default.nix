@@ -15,14 +15,21 @@
 stdenv.mkDerivation rec {
   pname = "nncp";
   version = "8.8.3";
-  outputs = [ "out" "doc" "info" ];
+  outputs = [
+    "out"
+    "doc"
+    "info"
+  ];
 
   src = fetchurl {
     url = "http://www.nncpgo.org/download/${pname}-${version}.tar.xz";
     hash = "sha256-IldQCEdH6XDYK+DW5lB/5HFFFGuq1nDkCwEaVo7vIvE=";
   };
 
-  nativeBuildInputs = [ go redo-apenwarr ];
+  nativeBuildInputs = [
+    go
+    redo-apenwarr
+  ];
 
   # Build parameters
   CFGPATH = cfgPath;
@@ -68,6 +75,9 @@ stdenv.mkDerivation rec {
     changelog = "http://www.nncpgo.org/News.html";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ehmry woffs ];
+    maintainers = with maintainers; [
+      ehmry
+      woffs
+    ];
   };
 }

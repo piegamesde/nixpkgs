@@ -108,7 +108,10 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://www.crufty.net/help/sjg/bmake.html";
     description = "Portable version of NetBSD 'make'";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ thoughtpolice AndersonTorres ];
+    maintainers = with maintainers; [
+      thoughtpolice
+      AndersonTorres
+    ];
     platforms = platforms.unix;
   };
 

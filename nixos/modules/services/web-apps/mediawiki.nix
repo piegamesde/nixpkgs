@@ -319,14 +319,23 @@ in {
       };
 
       webserver = mkOption {
-        type = types.enum [ "apache" "none" ];
+        type = types.enum [
+          "apache"
+          "none"
+        ];
         default = "apache";
         description = lib.mdDoc "Webserver to use.";
       };
 
       database = {
         type = mkOption {
-          type = types.enum [ "mysql" "postgres" "sqlite" "mssql" "oracle" ];
+          type = types.enum [
+            "mysql"
+            "postgres"
+            "sqlite"
+            "mssql"
+            "oracle"
+          ];
           default = "mysql";
           description = lib.mdDoc
             "Database engine to use. MySQL/MariaDB is the database of choice by MediaWiki developers.";
@@ -424,7 +433,12 @@ in {
       };
 
       poolConfig = mkOption {
-        type = with types; attrsOf (oneOf [ str int bool ]);
+        type = with types;
+          attrsOf (oneOf [
+            str
+            int
+            bool
+          ]);
         default = {
           "pm" = "dynamic";
           "pm.max_children" = 32;
@@ -455,14 +469,16 @@ in {
     };
   };
 
-  imports = [
-    (lib.mkRenamedOptionModule [ "services" "mediawiki" "virtualHost" ] [
-      "services"
-      "mediawiki"
-      "httpd"
-      "virtualHost"
-    ])
-  ];
+  imports = [ (lib.mkRenamedOptionModule [
+    "services"
+    "mediawiki"
+    "virtualHost"
+  ] [
+    "services"
+    "mediawiki"
+    "httpd"
+    "virtualHost"
+  ]) ];
 
   # implementation
   config = mkIf cfg.enable {
@@ -503,22 +519,22 @@ in {
         enable = true;
         package = mkDefault pkgs.mariadb;
         ensureDatabases = [ cfg.database.name ];
-        ensureUsers = [{
+        ensureUsers = [ {
           name = cfg.database.user;
           ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
-        }];
+        } ];
       };
 
     services.postgresql =
       mkIf (cfg.database.type == "postgres" && cfg.database.createLocally) {
         enable = true;
         ensureDatabases = [ cfg.database.name ];
-        ensureUsers = [{
+        ensureUsers = [ {
           name = cfg.database.user;
           ensurePermissions = {
             "DATABASE \"${cfg.database.name}\"" = "ALL PRIVILEGES";
           };
-        }];
+        } ];
       };
 
     services.phpfpm.pools.mediawiki = {

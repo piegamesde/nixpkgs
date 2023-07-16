@@ -60,8 +60,12 @@ in {
               "Host and port combination for the server to listen on.";
           };
           db_adapter = mkOption {
-            type = types.nullOr
-              (types.enum [ "sqlite3" "postgres" "mysql" "mysql2" ]);
+            type = types.nullOr (types.enum [
+              "sqlite3"
+              "postgres"
+              "mysql"
+              "mysql2"
+            ]);
             default = null;
             description = lib.mdDoc
               "Which database type to use. For choices other than sqlite3, the dbUrl has to be specified as well.";

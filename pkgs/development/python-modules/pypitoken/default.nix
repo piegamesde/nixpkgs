@@ -31,9 +31,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ pymacaroons jsonschema typing-extensions ];
+  propagatedBuildInputs = [
+    pymacaroons
+    jsonschema
+    typing-extensions
+  ];
 
-  nativeCheckInputs = [ pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pypitoken" ];
 

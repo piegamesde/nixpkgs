@@ -11,7 +11,10 @@ args@{
   description =
     "A Common Lisp test framework that treasures your failures, logical continuation of Stefil.";
 
-  deps = [ args."alexandria" args."trivial-gray-streams" ];
+  deps = [
+    args."alexandria"
+    args."trivial-gray-streams"
+  ];
 
   src = fetchurl {
     url =

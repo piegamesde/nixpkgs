@@ -32,9 +32,14 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs =
-    [ requests jsonschema json5 babel jupyter-server tomli ]
-    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  propagatedBuildInputs = [
+    requests
+    jsonschema
+    json5
+    babel
+    jupyter-server
+    tomli
+  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
 
   nativeCheckInputs = [
     openapi-core

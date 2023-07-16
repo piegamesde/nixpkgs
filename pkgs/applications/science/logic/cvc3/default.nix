@@ -18,12 +18,20 @@ stdenv.mkDerivation rec {
     sha256 = "1xxcwhz3y6djrycw8sm6xz83wb4hb12rd1n0skvc7fng0rh1snym";
   };
 
-  buildInputs = [ gmp flex bison perl ];
+  buildInputs = [
+    gmp
+    flex
+    bison
+    perl
+  ];
 
   patches = [ ./cvc3-2.4.1-gccv6-fix.patch ];
 
   # fails to configure on darwin due to gmp not found
-  configureFlags = [ "LIBS=-L${gmp}/lib" "CXXFLAGS=-I${gmp.dev}/include" ];
+  configureFlags = [
+    "LIBS=-L${gmp}/lib"
+    "CXXFLAGS=-I${gmp.dev}/include"
+  ];
 
   postPatch = ''
     sed -e "s@ /bin/bash@bash@g" -i Makefile.std

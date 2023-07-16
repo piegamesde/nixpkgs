@@ -34,13 +34,25 @@ buildPythonPackage rec {
       --replace 'get_output(f"{kc} gssapi --prefix")' '"${lib.getDev krb5}"'
   '';
 
-  nativeBuildInputs = [ cython krb5 ];
+  nativeBuildInputs = [
+    cython
+    krb5
+  ];
 
-  propagatedBuildInputs = [ decorator six ];
+  propagatedBuildInputs = [
+    decorator
+    six
+  ];
 
   buildInputs = lib.optionals stdenv.isDarwin [ GSS ];
 
-  nativeCheckInputs = [ k5test nose parameterized shouldbe six ];
+  nativeCheckInputs = [
+    k5test
+    nose
+    parameterized
+    shouldbe
+    six
+  ];
 
   doCheck = pythonOlder "3.8" # `shouldbe` not available
     && !stdenv.isDarwin; # many failures on darwin

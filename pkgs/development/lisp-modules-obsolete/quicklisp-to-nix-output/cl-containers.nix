@@ -6,8 +6,10 @@ args@{
   baseName = "cl-containers";
   version = "20200427-git";
 
-  parasites =
-    [ "cl-containers/with-moptilities" "cl-containers/with-utilities" ];
+  parasites = [
+    "cl-containers/with-moptilities"
+    "cl-containers/with-utilities"
+  ];
 
   description = "A generic container library for Common Lisp";
 

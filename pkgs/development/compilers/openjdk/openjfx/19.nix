@@ -61,9 +61,25 @@ let
         })
       ];
 
-      buildInputs =
-        [ gtk2 gtk3 libXtst libXxf86vm glib alsa-lib ffmpeg_4 icu68 ];
-      nativeBuildInputs = [ gradle_ perl pkg-config cmake gperf python3 ruby ];
+      buildInputs = [
+        gtk2
+        gtk3
+        libXtst
+        libXxf86vm
+        glib
+        alsa-lib
+        ffmpeg_4
+        icu68
+      ];
+      nativeBuildInputs = [
+        gradle_
+        perl
+        pkg-config
+        cmake
+        gperf
+        python3
+        ruby
+      ];
 
       dontUseCmakeConfigure = true;
 
@@ -136,7 +152,10 @@ in makePackage {
     done
   '';
 
-  disallowedReferences = [ openjdk17_headless openjdk19_headless ];
+  disallowedReferences = [
+    openjdk17_headless
+    openjdk19_headless
+  ];
 
   passthru.deps = deps;
 

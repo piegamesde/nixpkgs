@@ -21,9 +21,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-bkTbnf7vyTxA623JVGUgrwAuXK7d8kzijOK1F4Sh4yY=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
   buildInputs = [ gnutls ];
 
   configureFlags = [ "--with-gnutls=yes" ];
@@ -39,9 +45,7 @@ stdenv.mkDerivation rec {
     description = "an effort to implement RFC9000 QUIC protocol.";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers;
-      [
-        vcunat # for knot-dns
+    maintainers = with maintainers; [ vcunat # for knot-dns
       ];
   };
 }

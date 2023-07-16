@@ -19,7 +19,12 @@ stdenv.mkDerivation rec {
     sha256 = "1d3rc03vgz32faj7qi18iiggxvxlqrj9lsk5jkpa9r1mcs5d89my";
   };
 
-  buildInputs = [ perl Cocoa AppKit ScriptingBridge ];
+  buildInputs = [
+    perl
+    Cocoa
+    AppKit
+    ScriptingBridge
+  ];
 
   patches = [ ./trash.diff ];
 

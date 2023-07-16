@@ -24,7 +24,10 @@ buildPythonPackage rec {
     echo -n > requirements.txt
   '';
 
-  buildInputs = [ setuptools napalm ];
+  buildInputs = [
+    setuptools
+    napalm
+  ];
   propagatedBuildInputs = [ netmiko ];
 
   # setup.cfg seems to contain invalid pytest parameters

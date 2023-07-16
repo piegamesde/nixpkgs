@@ -44,13 +44,30 @@ buildPythonPackage rec {
       --replace "pytest" ""
   '';
 
-  nativeBuildInputs = [ cmake cython ninja numpy scikit-build setuptools ];
+  nativeBuildInputs = [
+    cmake
+    cython
+    ninja
+    numpy
+    scikit-build
+    setuptools
+  ];
 
   dontUseCmakeConfigure = true;
 
-  propagatedBuildInputs = [ msgpack ndindex numpy py-cpuinfo rich ];
+  propagatedBuildInputs = [
+    msgpack
+    ndindex
+    numpy
+    py-cpuinfo
+    rich
+  ];
 
-  nativeCheckInputs = [ psutil pytestCheckHook torch ];
+  nativeCheckInputs = [
+    psutil
+    pytestCheckHook
+    torch
+  ];
 
   meta = with lib; {
     description =

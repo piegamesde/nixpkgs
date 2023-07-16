@@ -34,10 +34,11 @@ let
   ];
 
 in {
-  imports = [
-    (mkRemovedOptionModule [ "services" "packagekit" "backend" ]
-      "Always set to Nix.")
-  ];
+  imports = [ (mkRemovedOptionModule [
+    "services"
+    "packagekit"
+    "backend"
+  ] "Always set to Nix.") ];
 
   options.services.packagekit = {
     enable = mkEnableOption (lib.mdDoc ''

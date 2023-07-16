@@ -237,7 +237,10 @@ let
           serviceConfig.ProtectKernelTunables = true;
           serviceConfig.ProtectSystem = mkDefault "strict";
           serviceConfig.RemoveIPC = true;
-          serviceConfig.RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+          serviceConfig.RestrictAddressFamilies = [
+            "AF_INET"
+            "AF_INET6"
+          ];
           serviceConfig.RestrictNamespaces = true;
           serviceConfig.RestrictRealtime = true;
           serviceConfig.RestrictSUIDSGID = true;
@@ -261,7 +264,11 @@ in {
     "unifiExporter"
     "varnishExporter"
   ] (opt:
-    lib.mkRemovedOptionModule [ "services" "prometheus" "${opt}" ] ''
+    lib.mkRemovedOptionModule [
+      "services"
+      "prometheus"
+      "${opt}"
+    ] ''
       The prometheus exporters are now configured using `services.prometheus.exporters'.
       See the 18.03 release notes for more information.
     ''));
@@ -287,7 +294,7 @@ in {
     '';
   };
 
-  config = mkMerge ([{
+  config = mkMerge ([ {
     assertions = [
       {
         assertion = cfg.ipmi.enable -> (cfg.ipmi.configFile != null)
@@ -346,25 +353,19 @@ in {
       '';
     })) ++ config.services.prometheus.exporters.assertions;
     warnings = config.services.prometheus.exporters.warnings;
-  }] ++ [
-    (mkIf config.services.minio.enable {
-      services.prometheus.exporters.minio.minioAddress =
-        mkDefault "http://localhost:9000";
-      services.prometheus.exporters.minio.minioAccessKey =
-        mkDefault config.services.minio.accessKey;
-      services.prometheus.exporters.minio.minioAccessSecret =
-        mkDefault config.services.minio.secretKey;
-    })
-  ] ++ [
-    (mkIf config.services.prometheus.exporters.rtl_433.enable {
-      hardware.rtl-sdr.enable = mkDefault true;
-    })
-  ] ++ [
-    (mkIf config.services.postfix.enable {
-      services.prometheus.exporters.postfix.group =
-        mkDefault config.services.postfix.setgidGroup;
-    })
-  ] ++ (mapAttrsToList (name: conf:
+  } ] ++ [ (mkIf config.services.minio.enable {
+    services.prometheus.exporters.minio.minioAddress =
+      mkDefault "http://localhost:9000";
+    services.prometheus.exporters.minio.minioAccessKey =
+      mkDefault config.services.minio.accessKey;
+    services.prometheus.exporters.minio.minioAccessSecret =
+      mkDefault config.services.minio.secretKey;
+  }) ] ++ [ (mkIf config.services.prometheus.exporters.rtl_433.enable {
+    hardware.rtl-sdr.enable = mkDefault true;
+  }) ] ++ [ (mkIf config.services.postfix.enable {
+    services.prometheus.exporters.postfix.group =
+      mkDefault config.services.postfix.setgidGroup;
+  }) ] ++ (mapAttrsToList (name: conf:
     mkExporterConf {
       inherit name;
       inherit (conf) serviceOpts;

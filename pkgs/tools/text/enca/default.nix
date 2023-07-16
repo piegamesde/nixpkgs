@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "1f78jmrggv3jymql8imm5m9yc8nqjw5l99mpwki2245l8357wj1s";
   };
 
-  buildInputs = [ recode libiconv ];
+  buildInputs = [
+    recode
+    libiconv
+  ];
 
   meta = with lib; {
     description = "Detects the encoding of text files and reencodes them";

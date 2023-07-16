@@ -15,7 +15,10 @@ buildPythonPackage rec {
     sha256 = "sha256-/U59a6od0JI27VHX+Bvue/7tQy+iwU+g8yt9/GgdoH4=";
   };
 
-  propagatedBuildInputs = [ boto3 cryptography ];
+  propagatedBuildInputs = [
+    boto3
+    cryptography
+  ];
 
   # has no tests
   doCheck = false;

@@ -25,7 +25,10 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ decopatch makefun ];
+  propagatedBuildInputs = [
+    decopatch
+    makefun
+  ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

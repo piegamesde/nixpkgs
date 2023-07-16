@@ -17,9 +17,16 @@ buildPythonPackage rec {
     sha256 = "sha256-+Nad+8bMtYKJbUCpppRXqhB1zdbvvFXTTHlwJLQLzDg=";
   };
 
-  propagatedBuildInputs = [ mailman requests zope_interface ];
+  propagatedBuildInputs = [
+    mailman
+    requests
+    zope_interface
+  ];
 
-  nativeCheckInputs = [ mock nose2 ];
+  nativeCheckInputs = [
+    mock
+    nose2
+  ];
 
   checkPhase = ''
     ${python.interpreter} -m nose2 -v
@@ -34,6 +41,9 @@ buildPythonPackage rec {
     description = "Mailman archiver plugin for HyperKitty";
     homepage = "https://gitlab.com/mailman/mailman-hyperkitty";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ globin qyliss ];
+    maintainers = with maintainers; [
+      globin
+      qyliss
+    ];
   };
 }

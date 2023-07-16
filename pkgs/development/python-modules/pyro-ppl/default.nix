@@ -31,7 +31,13 @@ buildPythonPackage rec {
     hash = "sha256-dm+tYeUt9IiF3pbUEhPaH46MG3ns8witUxifzRXBy0E=";
   };
 
-  propagatedBuildInputs = [ pyro-api torch networkx opt-einsum tqdm ];
+  propagatedBuildInputs = [
+    pyro-api
+    torch
+    networkx
+    opt-einsum
+    tqdm
+  ];
 
   passthru.optional-dependencies = {
     extras = [
@@ -52,13 +58,20 @@ buildPythonPackage rec {
   # pyro not shipping tests do simple smoke test instead
   doCheck = false;
 
-  pythonImportsCheck =
-    [ "pyro" "pyro.distributions" "pyro.infer" "pyro.optim" ];
+  pythonImportsCheck = [
+    "pyro"
+    "pyro.distributions"
+    "pyro.infer"
+    "pyro.optim"
+  ];
 
   meta = with lib; {
     description = "Library for probabilistic modeling and inference";
     homepage = "http://pyro.ai";
     license = licenses.asl20;
-    maintainers = with maintainers; [ teh georgewhewell ];
+    maintainers = with maintainers; [
+      teh
+      georgewhewell
+    ];
   };
 }

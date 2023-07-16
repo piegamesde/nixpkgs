@@ -25,7 +25,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ py ];
 
-  nativeCheckInputs = [ freezegun numpy py pytestCheckHook ];
+  nativeCheckInputs = [
+    freezegun
+    numpy
+    py
+    pytestCheckHook
+  ];
 
   patches = [
     # Support for later Python releases, https://github.com/antocuni/pypytools/pull/2

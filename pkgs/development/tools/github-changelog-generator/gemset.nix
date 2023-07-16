@@ -1,6 +1,11 @@
 {
   activesupport = {
-    dependencies = [ "concurrent-ruby" "i18n" "minitest" "tzinfo" ];
+    dependencies = [
+      "concurrent-ruby"
+      "i18n"
+      "minitest"
+      "tzinfo"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -22,7 +27,11 @@
     version = "2.8.0";
   };
   async = {
-    dependencies = [ "console" "nio4r" "timers" ];
+    dependencies = [
+      "console"
+      "nio4r"
+      "timers"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -51,7 +60,10 @@
     version = "0.56.5";
   };
   async-http-faraday = {
-    dependencies = [ "async-http" "faraday" ];
+    dependencies = [
+      "async-http"
+      "faraday"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -321,7 +333,10 @@
     version = "2.5.8";
   };
   octokit = {
-    dependencies = [ "faraday" "sawyer" ];
+    dependencies = [
+      "faraday"
+      "sawyer"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -363,7 +378,10 @@
     version = "0.14.2";
   };
   protocol-http2 = {
-    dependencies = [ "protocol-hpack" "protocol-http" ];
+    dependencies = [
+      "protocol-hpack"
+      "protocol-http"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -414,7 +432,10 @@
     version = "0.0.5";
   };
   sawyer = {
-    dependencies = [ "addressable" "faraday" ];
+    dependencies = [
+      "addressable"
+      "faraday"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

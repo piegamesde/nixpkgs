@@ -29,7 +29,10 @@ in buildPythonPackage rec {
 
   nativeCheckInputs = [ unittestCheckHook ];
 
-  unittestFlagsArray = [ "-s" testDir ];
+  unittestFlagsArray = [
+    "-s"
+    testDir
+  ];
 
   meta = with lib; {
     description = "Backport of typing module to Python versions older than 3.5";

@@ -27,9 +27,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ brotli ijson python-magic pytz requests-oauthlib ];
+  propagatedBuildInputs = [
+    brotli
+    ijson
+    python-magic
+    pytz
+    requests-oauthlib
+  ];
 
-  nativeCheckInputs = [ httpretty pytestCheckHook ];
+  nativeCheckInputs = [
+    httpretty
+    pytestCheckHook
+  ];
 
   patches = [
     # Switch to peotry-core, https://github.com/rbw/pysnow/pull/183

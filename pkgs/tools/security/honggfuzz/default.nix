@@ -35,8 +35,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ llvm ];
-  propagatedBuildInputs =
-    [ libbfd_2_38 libopcodes_2_38 libunwind libblocksruntime ];
+  propagatedBuildInputs = [
+    libbfd_2_38
+    libopcodes_2_38
+    libunwind
+    libblocksruntime
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 
@@ -67,6 +71,9 @@ stdenv.mkDerivation rec {
     homepage = "https://honggfuzz.dev/";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ cpu chivay ];
+    maintainers = with lib.maintainers; [
+      cpu
+      chivay
+    ];
   };
 }

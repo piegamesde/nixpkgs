@@ -23,7 +23,12 @@ else
       sha256 = "0nlafnp0pwx0n4aszpsk6nvcvqi9im306p4jhx70si7k3xprlr2j";
     };
 
-    nativeBuildInputs = [ ocaml findlib ocamlbuild topkg ];
+    nativeBuildInputs = [
+      ocaml
+      findlib
+      ocamlbuild
+      topkg
+    ];
     buildInputs = [ topkg ];
 
     propagatedBuildInputs = [ faraday ];

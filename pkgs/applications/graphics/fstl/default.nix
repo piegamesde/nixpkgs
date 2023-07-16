@@ -11,7 +11,10 @@ mkDerivation rec {
   pname = "fstl";
   version = "0.9.4";
 
-  buildInputs = [ qtbase mesa_glu ];
+  buildInputs = [
+    qtbase
+    mesa_glu
+  ];
 
   prePatch = ''
     sed -i "s|/usr/bin|$out/bin|g" qt/fstl.pro

@@ -19,7 +19,10 @@ mkDerivation rec {
     sha256 = "sha256-jQXnDoLkqbDZxfsYKPDsTOE7p/BFeA8wEznpbkRVGdw=";
   };
 
-  nativeBuildInputs = [ qmake makeWrapper ];
+  nativeBuildInputs = [
+    qmake
+    makeWrapper
+  ];
   buildInputs = [ qtsvg ];
 
   hardeningDisable = [ "format" ];

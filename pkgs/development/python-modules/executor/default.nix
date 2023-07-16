@@ -26,10 +26,19 @@ buildPythonPackage rec {
     sha256 = "1mr0662c5l5zx0wjapcprp8p2xawfd0im3616df5sgv79fqzwfqs";
   };
 
-  propagatedBuildInputs =
-    [ coloredlogs humanfriendly property-manager fasteners six ];
+  propagatedBuildInputs = [
+    coloredlogs
+    humanfriendly
+    property-manager
+    fasteners
+    six
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook mock virtualenv ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    mock
+    virtualenv
+  ];
 
   # ignore impure tests
   disabledTests = [

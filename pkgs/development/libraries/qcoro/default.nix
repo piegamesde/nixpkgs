@@ -21,11 +21,21 @@ gcc12Stdenv.mkDerivation rec {
     sha256 = "sha256-kf2W/WAZCpLkq1UIy7iZri4vNaqjGjotB/Xsb+byZV4=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ wrapQtAppsHook cmake ];
+  nativeBuildInputs = [
+    wrapQtAppsHook
+    cmake
+  ];
 
-  buildInputs = [ qtbase qtwebsockets libpthreadstubs ];
+  buildInputs = [
+    qtbase
+    qtwebsockets
+    libpthreadstubs
+  ];
 
   meta = with lib; {
     description =

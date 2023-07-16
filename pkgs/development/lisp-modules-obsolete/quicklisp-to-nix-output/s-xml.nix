@@ -6,7 +6,10 @@ args@{
   baseName = "s-xml";
   version = "20150608-git";
 
-  parasites = [ "s-xml.examples" "s-xml.test" ];
+  parasites = [
+    "s-xml.examples"
+    "s-xml.test"
+  ];
 
   description = "Simple Common Lisp XML Parser";
 

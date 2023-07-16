@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-bQtfye+gn7GOyzCtji4st5hsV40rPzuaYDP7N1tZ8wg=";
   };
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
   # Required for case-insensitive filesystems ("BUILD" exists)
   dontUseCmakeBuildDir = true;

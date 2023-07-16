@@ -81,9 +81,18 @@ in stdenv.mkDerivation (finalAttrs: {
     perl
     python3Packages.python
     python3Packages.cppheaderparser
-  ] ++ lib.optionals buildDocs [ doxygen graphviz fontconfig ];
+  ] ++ lib.optionals buildDocs [
+    doxygen
+    graphviz
+    fontconfig
+  ];
 
-  buildInputs = [ numactl libxml2 libX11 libglvnd ];
+  buildInputs = [
+    numactl
+    libxml2
+    libX11
+    libglvnd
+  ];
 
   propagatedBuildInputs = [
     stdenv.cc
@@ -147,9 +156,16 @@ in stdenv.mkDerivation (finalAttrs: {
     # All known and valid general GPU targets
     # We cannot use this for each ROCm library, as each defines their own supported targets
     # See: https://github.com/RadeonOpenCompute/ROCm/blob/77cbac4abab13046ee93d8b5bf410684caf91145/README.md#library-target-matrix
-    gpuTargets =
-      lib.forEach [ "803" "900" "906" "908" "90a" "1010" "1012" "1030" ]
-      (target: "gfx${target}");
+    gpuTargets = lib.forEach [
+      "803"
+      "900"
+      "906"
+      "908"
+      "90a"
+      "1010"
+      "1012"
+      "1030"
+    ] (target: "gfx${target}");
 
     updateScript = rocmUpdateScript {
       name = finalAttrs.pname;

@@ -24,8 +24,11 @@ buildPythonPackage rec {
     hash = "sha256-1XK9HRSdIhlunSno3FpvD3dIgZ4zbpSTS9kxj+8+S3g=";
   };
 
-  propagatedBuildInputs = [ aiohttp ]
-    ++ lib.optionals withVoice [ libopus pynacl ffmpeg ];
+  propagatedBuildInputs = [ aiohttp ] ++ lib.optionals withVoice [
+    libopus
+    pynacl
+    ffmpeg
+  ];
 
   patchPhase = ''
     substituteInPlace "discord/opus.py" \

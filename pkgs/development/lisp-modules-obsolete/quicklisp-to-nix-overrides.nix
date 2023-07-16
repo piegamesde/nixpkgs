@@ -37,7 +37,10 @@ in {
   };
   iterate = multiOverride [
     skipBuildPhase
-    (ifLispNotIn [ "sbcl" "gcl" ] (x: { parasites = [ ]; }))
+    (ifLispNotIn [
+      "sbcl"
+      "gcl"
+    ] (x: { parasites = [ ]; }))
   ];
   cl-fuse = x: {
     propagatedBuildInputs = [ pkgs.fuse ];
@@ -56,8 +59,10 @@ in {
   };
   hunchentoot = addNativeLibs [ pkgs.openssl ];
   iolib = x: {
-    propagatedBuildInputs = (x.propagatedBuildInputs or [ ])
-      ++ (with pkgs; [ libfixposix gcc ]);
+    propagatedBuildInputs = (x.propagatedBuildInputs or [ ]) ++ (with pkgs; [
+      libfixposix
+      gcc
+    ]);
     overrides = y:
       (x.overrides y) // {
         prePatch = ''
@@ -69,7 +74,10 @@ in {
 
   };
   cxml = skipBuildPhase;
-  wookie = addNativeLibs (with pkgs; [ libuv openssl ]);
+  wookie = addNativeLibs (with pkgs; [
+    libuv
+    openssl
+  ]);
   lev = addNativeLibs [ pkgs.libev ];
   cl_plus_ssl = x: rec {
     propagatedBuildInputs = [ pkgs.openssl ];
@@ -84,8 +92,10 @@ in {
   };
   cl-colors = skipBuildPhase;
   cl-libuv = addNativeLibs [ pkgs.libuv ];
-  cl-async-ssl =
-    addNativeLibs [ pkgs.openssl (import ./openssl-lib-marked.nix) ];
+  cl-async-ssl = addNativeLibs [
+    pkgs.openssl
+    (import ./openssl-lib-marked.nix)
+  ];
   cl-async-test = addNativeLibs [ pkgs.openssl ];
   clsql = multiOverride [
     (x: {
@@ -103,7 +113,10 @@ in {
           '';
         };
     })
-    (ifLispIn [ "ecl" "clisp" ] (x: {
+    (ifLispIn [
+      "ecl"
+      "clisp"
+    ] (x: {
       deps =
         pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath)
         (x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ]));
@@ -115,7 +128,10 @@ in {
         };
     }))
   ];
-  clsql-postgresql-socket = ifLispIn [ "ecl" "clisp" ] (x: {
+  clsql-postgresql-socket = ifLispIn [
+    "ecl"
+    "clisp"
+  ] (x: {
     deps =
       pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath)
       (x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ]));
@@ -219,7 +235,11 @@ in {
     asdFilesToKeep = (x.asdFilesToKeep or [ ]) ++ [ "cl-unification-lib.asd" ];
   };
   simple-date = x: {
-    deps = with quicklisp-to-nix-packages; [ fiveam md5 usocket ];
+    deps = with quicklisp-to-nix-packages; [
+      fiveam
+      md5
+      usocket
+    ];
     parasites = [
       # Needs pomo? Wants to do queries unconditionally?
       # "simple-date/tests"
@@ -228,8 +248,10 @@ in {
   cl-postgres = x: {
     deps = pkgs.lib.filter
       (x: x.outPath != quicklisp-to-nix-packages.simple-date.outPath) x.deps;
-    parasites = (x.parasites or [ ])
-      ++ [ "simple-date" "simple-date/postgres-glue" ];
+    parasites = (x.parasites or [ ]) ++ [
+      "simple-date"
+      "simple-date/postgres-glue"
+    ];
     asdFilesToKeep = x.asdFilesToKeep ++ [ "simple-date.asd" ];
   };
   buildnode = x: {
@@ -238,8 +260,10 @@ in {
     parasites = pkgs.lib.filter (x: x != "buildnode-test") x.parasites;
   };
   postmodern = x: {
-    asdFilesToKeep = (x.asdFilesToKeep or [ ])
-      ++ [ "postmodern.asd" "simple-date.asd" ];
+    asdFilesToKeep = (x.asdFilesToKeep or [ ]) ++ [
+      "postmodern.asd"
+      "simple-date.asd"
+    ];
     parasites = (pkgs.lib.filter (x: x != "postmodern/tests") x.parasites)
       ++ [ "simple-date/postgres-glue" ];
     deps =
@@ -294,8 +318,10 @@ in {
         '';
       };
   };
-  woo = ifLispNotIn [ "sbcl" "gcl" ]
-    (extraLispDeps (with quicklisp-to-nix-packages; [ cl-speedy-queue ]));
+  woo = ifLispNotIn [
+    "sbcl"
+    "gcl"
+  ] (extraLispDeps (with quicklisp-to-nix-packages; [ cl-speedy-queue ]));
   cl-syslog = x: {
     overrides = y:
       (x.overrides y) // {
@@ -304,12 +330,19 @@ in {
         '';
       };
   };
-  log4cl = ifLispNotIn [ "sbcl" "gcl" ]
-    (extraLispDeps (with quicklisp-to-nix-packages; [ cl-syslog ]));
-  md5 = ifLispNotIn [ "sbcl" "ccl" "gcl" ]
-    (extraLispDeps (with quicklisp-to-nix-packages; [ flexi-streams ]));
-  cl-gobject-introspection =
-    addNativeLibs (with pkgs; [ glib gobject-introspection ]);
+  log4cl = ifLispNotIn [
+    "sbcl"
+    "gcl"
+  ] (extraLispDeps (with quicklisp-to-nix-packages; [ cl-syslog ]));
+  md5 = ifLispNotIn [
+    "sbcl"
+    "ccl"
+    "gcl"
+  ] (extraLispDeps (with quicklisp-to-nix-packages; [ flexi-streams ]));
+  cl-gobject-introspection = addNativeLibs (with pkgs; [
+    glib
+    gobject-introspection
+  ]);
   generic-cl = x: { parasites = [ ]; };
   static-dispatch = x: {
     overrides = y:

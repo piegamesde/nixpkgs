@@ -18,7 +18,11 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ levenshtein ];
-  nativeCheckInputs = [ pycodestyle hypothesis pytest ];
+  nativeCheckInputs = [
+    pycodestyle
+    hypothesis
+    pytest
+  ];
 
   meta = with lib; {
     description = "Fuzzy string matching for Python";

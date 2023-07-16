@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libmnl libnfnetlink ];
+  buildInputs = [
+    libmnl
+    libnfnetlink
+  ];
 
   meta = with lib; {
     homepage = "https://www.netfilter.org/projects/libnetfilter_queue/";

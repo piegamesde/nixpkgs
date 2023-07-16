@@ -25,7 +25,10 @@ mkYarnPackage rec {
 
   ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
-  nativeBuildInputs = [ makeWrapper copyDesktopItems ];
+  nativeBuildInputs = [
+    makeWrapper
+    copyDesktopItems
+  ];
 
   postBuild = ''
     pushd deps/kuro
@@ -60,18 +63,16 @@ mkYarnPackage rec {
   # note: `doDist = false;` does not work.
   distPhase = "true";
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      exec = pname;
-      icon = pname;
-      desktopName = "Kuro";
-      genericName = "Microsoft To-Do Client";
-      comment = meta.description;
-      categories = [ "Office" ];
-      startupWMClass = pname;
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = pname;
+    exec = pname;
+    icon = pname;
+    desktopName = "Kuro";
+    genericName = "Microsoft To-Do Client";
+    comment = meta.description;
+    categories = [ "Office" ];
+    startupWMClass = pname;
+  }) ];
 
   meta = with lib; {
     description =

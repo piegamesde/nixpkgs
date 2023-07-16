@@ -22,7 +22,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [ pytestCheckHook waitress ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    waitress
+  ];
 
   pythonImportsCheck = [ "requests_unixsocket" ];
 

@@ -18,10 +18,21 @@ buildPythonApplication rec {
     sha256 = "1lpfdai0pf90ffrzgmmkadbd86rb7250i3mglpkc82aj6prjm6yb";
   };
 
-  propagatedBuildInputs =
-    [ arrow icalendar glibcLocales prompt-toolkit urwid watchdog ];
+  propagatedBuildInputs = [
+    arrow
+    icalendar
+    glibcLocales
+    prompt-toolkit
+    urwid
+    watchdog
+  ];
 
-  nativeCheckInputs = [ unittestCheckHook mock freezegun pylint ];
+  nativeCheckInputs = [
+    unittestCheckHook
+    mock
+    freezegun
+    pylint
+  ];
 
   # Skip test that has been reported multiple times upstream without result:
   # bram85/topydo#271, bram85/topydo#274.

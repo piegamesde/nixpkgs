@@ -118,19 +118,25 @@ in mkDerivation rec {
   ] ++ lib.optional withGrass grass ++ lib.optional withWebKit qtwebkit
     ++ pythonBuildInputs;
 
-  nativeBuildInputs = [ makeWrapper wrapGAppsHook cmake flex bison ninja ];
-
-  patches = [
-    (substituteAll {
-      src = ./set-pyqt-package-dirs.patch;
-      pyQt5PackageDir = "${py.pkgs.pyqt5}/${py.pkgs.python.sitePackages}";
-      qsciPackageDir =
-        "${py.pkgs.qscintilla-qt5}/${py.pkgs.python.sitePackages}";
-    })
+  nativeBuildInputs = [
+    makeWrapper
+    wrapGAppsHook
+    cmake
+    flex
+    bison
+    ninja
   ];
 
-  cmakeFlags = [ "-DWITH_3D=True" "-DWITH_PDAL=TRUE" ]
-    ++ lib.optional (!withWebKit) "-DWITH_QTWEBKIT=OFF"
+  patches = [ (substituteAll {
+    src = ./set-pyqt-package-dirs.patch;
+    pyQt5PackageDir = "${py.pkgs.pyqt5}/${py.pkgs.python.sitePackages}";
+    qsciPackageDir = "${py.pkgs.qscintilla-qt5}/${py.pkgs.python.sitePackages}";
+  }) ];
+
+  cmakeFlags = [
+    "-DWITH_3D=True"
+    "-DWITH_PDAL=TRUE"
+  ] ++ lib.optional (!withWebKit) "-DWITH_QTWEBKIT=OFF"
     ++ lib.optional withGrass (let
       gmajor = lib.versions.major grass.version;
       gminor = lib.versions.minor grass.version;
@@ -153,6 +159,10 @@ in mkDerivation rec {
     homepage = "https://www.qgis.org";
     license = lib.licenses.gpl2Plus;
     platforms = with lib.platforms; linux;
-    maintainers = with lib.maintainers; [ lsix sikmir willcohen ];
+    maintainers = with lib.maintainers; [
+      lsix
+      sikmir
+      willcohen
+    ];
   };
 }

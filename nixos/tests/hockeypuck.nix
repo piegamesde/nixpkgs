@@ -40,10 +40,10 @@ import ./make-test-python.nix ({
         services.postgresql = {
           enable = true;
           ensureDatabases = [ "hockeypuck" ];
-          ensureUsers = [{
+          ensureUsers = [ {
             name = "hockeypuck";
             ensurePermissions."DATABASE hockeypuck" = "ALL PRIVILEGES";
-          }];
+          } ];
         };
       };
 

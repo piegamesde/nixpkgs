@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "1bj70cnhbh6ziy02x988wwl7cbwaq17ld7qwhswqkgnnx8rpgxid";
   };
 
-  nativeBuildInputs = [ cmake gfortran ];
+  nativeBuildInputs = [
+    cmake
+    gfortran
+  ];
 
   propagatedBuildInputs = [ (python3.withPackages (p: with p; [ pybind11 ])) ];
 

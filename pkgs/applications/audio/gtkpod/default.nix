@@ -32,7 +32,11 @@ stdenv.mkDerivation rec {
     sed -i 's/which/type -P/' scripts/*.sh
   '';
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook intltool ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook
+    intltool
+  ];
   buildInputs = [
     curl
     gettext
@@ -47,7 +51,10 @@ stdenv.mkDerivation rec {
     gdl
     gnome.adwaita-icon-theme
     gnome.anjuta
-  ] ++ (with perlPackages; [ perl XMLParser ]);
+  ] ++ (with perlPackages; [
+    perl
+    XMLParser
+  ]);
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:

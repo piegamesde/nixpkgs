@@ -60,7 +60,10 @@ mkDerivation {
     qtmultimedia
   ];
 
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
 
   meta = {
     description = "Integrated IRC client for KDE";

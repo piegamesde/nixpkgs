@@ -26,7 +26,13 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ xorgserver xorgproto utilmacros libgestures libevdevc ];
+  buildInputs = [
+    xorgserver
+    xorgproto
+    utilmacros
+    libgestures
+    libevdevc
+  ];
 
   configureFlags = [ "--with-sdkdir=${placeholder "out"}" ];
 

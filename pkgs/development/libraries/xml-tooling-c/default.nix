@@ -22,8 +22,18 @@ stdenv.mkDerivation rec {
     sha256 = "0frj4w70l06nva6dvdcivgm1ax69rqbjdzzbgp0sxhiqhddslbas";
   };
 
-  buildInputs = [ boost curl openssl log4shib xercesc xml-security-c ];
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  buildInputs = [
+    boost
+    curl
+    openssl
+    log4shib
+    xercesc
+    xml-security-c
+  ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   env.NIX_CFLAGS_COMPILE = toString [ "-std=c++14" ];
 

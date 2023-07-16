@@ -68,7 +68,10 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--enable-ansi" ];
 
-  hardeningDisable = [ "pic" "bindnow" ];
+  hardeningDisable = [
+    "pic"
+    "bindnow"
+  ];
 
   meta = {
     description = "GNU Common Lisp compiler working via GCC";

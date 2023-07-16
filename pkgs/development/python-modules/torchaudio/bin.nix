@@ -39,7 +39,10 @@ buildPythonPackage rec {
     ffmpeg_4.lib
   ];
 
-  nativeBuildInputs = [ autoPatchelfHook addOpenGLRunpath ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    addOpenGLRunpath
+  ];
 
   propagatedBuildInputs = [ torch-bin ];
 
@@ -61,7 +64,10 @@ buildPythonPackage rec {
     # https://www.intel.com/content/www/us/en/developer/articles/license/onemkl-license-faq.html
     license = licenses.bsd3;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    platforms = [ "aarch64-linux" "x86_64-linux" ];
+    platforms = [
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
     maintainers = with maintainers; [ junjihashimoto ];
   };
 }

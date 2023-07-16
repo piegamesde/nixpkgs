@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "10xdydwmsnkx8hzsm74pa546yahp29wifydbc48yywv3sfj5anm7";
   };
 
-  buildInputs = [ faust2jaqt faust2lv2 ];
+  buildInputs = [
+    faust2jaqt
+    faust2lv2
+  ];
 
   buildPhase = ''
     faust2jaqt -vec -time -t 99999 LazyLimiter.dsp

@@ -21,6 +21,9 @@ build-idris-package {
     description = "Parser combinators for Idris";
     homepage = "https://github.com/ziman/lightyear";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ siddharthist brainrape ];
+    maintainers = with lib.maintainers; [
+      siddharthist
+      brainrape
+    ];
   };
 }

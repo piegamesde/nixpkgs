@@ -26,14 +26,23 @@ buildPythonPackage rec {
     hash = "sha256-umHw9DFLIsoxBNlUSuSmaRy5O270lP0tLZ8rilw0oWg=";
   };
 
-  propagatedBuildInputs = [ async-timeout dnspython netifaces pyroute2 ifaddr ];
+  propagatedBuildInputs = [
+    async-timeout
+    dnspython
+    netifaces
+    pyroute2
+    ifaddr
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \
       --replace '"pytest-runner>=5.2",' ""
   '';
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Tests require access to /etc/resolv.conf

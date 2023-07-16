@@ -23,9 +23,18 @@ buildPythonPackage rec {
     hash = "sha256-PLExHhEnxkEiXsE0rqvpNWwVZ+YoaDa2BTx8LktdHl0=";
   };
 
-  propagatedBuildInputs = [ matplotlib numpy pillow webcolors flit-core ];
+  propagatedBuildInputs = [
+    matplotlib
+    numpy
+    pillow
+    webcolors
+    flit-core
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pandas ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pandas
+  ];
 
   meta = with lib; {
     description =

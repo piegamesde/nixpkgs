@@ -32,15 +32,31 @@ buildPythonPackage rec {
     hash = "sha256-9o3EDhgmne2J1QfzjjNQc1mUcyCzoVrCnWXqjWkiZU0=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook nbconvert jupyter jupyter-client ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    nbconvert
+    jupyter
+    jupyter-client
+  ];
 
-  propagatedBuildInputs =
-    [ joblib numpy scipy pandas matplotlib numba pybind11 ];
+  propagatedBuildInputs = [
+    joblib
+    numpy
+    scipy
+    pandas
+    matplotlib
+    numba
+    pybind11
+  ];
 
   # uses setuptools to drive build process
   dontUseCmakeConfigure = true;
 
-  nativeBuildInputs = [ cmake ninja scikit-build ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    scikit-build
+  ];
 
   pythonImportsCheck = [ "phik" ];
 

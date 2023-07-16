@@ -38,6 +38,9 @@ rustPlatform.buildRustPackage rec {
     changelog =
       "https://github.com/Misterio77/flavours/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fortuneteller2k misterio77 ];
+    maintainers = with maintainers; [
+      fortuneteller2k
+      misterio77
+    ];
   };
 }

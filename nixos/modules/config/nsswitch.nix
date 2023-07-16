@@ -92,16 +92,17 @@ with lib;
     };
   };
 
-  imports = [
-    (mkRenamedOptionModule [ "system" "nssHosts" ] [
-      "system"
-      "nssDatabases"
-      "hosts"
-    ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "system"
+    "nssHosts"
+  ] [
+    "system"
+    "nssDatabases"
+    "hosts"
+  ]) ];
 
   config = {
-    assertions = [{
+    assertions = [ {
       assertion = config.system.nssModules.path != ""
         -> config.services.nscd.enable;
       message = ''
@@ -111,7 +112,7 @@ with lib;
         If disabling nscd is really necessary, it is possible to disable loading NSS modules
         by setting `system.nssModules = lib.mkForce [];` in your configuration.nix.
       '';
-    }];
+    } ];
 
     # Name Service Switch configuration file.  Required by the C
     # library.
@@ -133,7 +134,10 @@ with lib;
       passwd = mkBefore [ "files" ];
       group = mkBefore [ "files" ];
       shadow = mkBefore [ "files" ];
-      hosts = mkMerge [ (mkOrder 998 [ "files" ]) (mkOrder 1499 [ "dns" ]) ];
+      hosts = mkMerge [
+        (mkOrder 998 [ "files" ])
+        (mkOrder 1499 [ "dns" ])
+      ];
       services = mkBefore [ "files" ];
     };
   };

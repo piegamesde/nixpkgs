@@ -21,7 +21,13 @@ let
     '';
 
   configType = with types;
-    let atom = oneOf [ int bool string path ];
+    let
+      atom = oneOf [
+        int
+        bool
+        string
+        path
+      ];
     in attrsOf (either atom (listOf atom)) // {
       description = ''
         privoxy configuration type. The format consists of an attribute
@@ -41,9 +47,9 @@ let
     # to parse the options in order of appearance, so this must come first.
     # Nix however doesn't preserve the order in attrsets, so we have to
     # hardcode confdir here.
-    [''
+    [ ''
       confdir ${pkgs.privoxy}/etc
-    ''] ++ mapAttrsToList serialise cfg.settings));
+    '' ] ++ mapAttrsToList serialise cfg.settings));
 
   inspectAction = pkgs.writeText "inspect-all-https.action" ''
     # Enable HTTPS inspection for all requests
@@ -154,7 +160,10 @@ in {
           apply = x:
             x ++ optional (cfg.userActions != "")
             (toString (pkgs.writeText "user.actions" cfg.userActions));
-          default = [ "match-all.action" "default.action" ];
+          default = [
+            "match-all.action"
+            "default.action"
+          ];
           description = lib.mdDoc ''
             List of paths to Privoxy action files. These paths may either be
             absolute or relative to the privoxy configuration directory.
@@ -220,7 +229,10 @@ in {
 
     systemd.services.privoxy = {
       description = "Filtering web proxy";
-      after = [ "network.target" "nss-lookup.target" ];
+      after = [
+        "network.target"
+        "nss-lookup.target"
+      ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         User = "privoxy";
@@ -232,7 +244,10 @@ in {
         ProtectSystem = "full";
       };
       unitConfig = mkIf cfg.inspectHttps {
-        ConditionPathExists = with cfg.settings; [ ca-cert-file ca-key-file ];
+        ConditionPathExists = with cfg.settings; [
+          ca-cert-file
+          ca-key-file
+        ];
       };
     };
 
@@ -250,8 +265,10 @@ in {
       # This is needed for external filters
       temporary-directory = "/tmp";
       filterfile = [ "default.filter" ];
-      actionsfile = [ "match-all.action" "default.action" ]
-        ++ optional cfg.inspectHttps (toString inspectAction);
+      actionsfile = [
+        "match-all.action"
+        "default.action"
+      ] ++ optional cfg.inspectHttps (toString inspectAction);
     } // (optionalAttrs cfg.enableTor {
       forward-socks5 = "/ 127.0.0.1:9063 .";
       toggle = true;
@@ -268,8 +285,17 @@ in {
   };
 
   imports = let
-    top = x: [ "services" "privoxy" x ];
-    setting = x: [ "services" "privoxy" "settings" x ];
+    top = x: [
+      "services"
+      "privoxy"
+      x
+    ];
+    setting = x: [
+      "services"
+      "privoxy"
+      "settings"
+      x
+    ];
   in [
     (mkRenamedOptionModule (top "enableEditActions")
       (setting "enable-edit-actions"))

@@ -29,8 +29,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-sKLqokVROvCW3E13AQmDIzXGlMbBKqXpL++uhoVBbxw=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config which gettext ];
-  buildInputs = [ libftdi1 libtool libusb-compat-0_1 readline ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    which
+    gettext
+  ];
+  buildInputs = [
+    libftdi1
+    libtool
+    libusb-compat-0_1
+    readline
+  ];
 
   configureFlags = [
     (lib.enableFeature bsdlSupport "bsdl")
@@ -42,7 +52,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://urjtag.org/";
     description = "Universal JTAG library, server and tools";
-    license = with licenses; [ gpl2Plus lgpl21Plus ];
+    license = with licenses; [
+      gpl2Plus
+      lgpl21Plus
+    ];
     maintainers = with maintainers; [ AndersonTorres ];
     platforms = platforms.linux;
   };

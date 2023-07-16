@@ -18,8 +18,10 @@ let
     name = "netbox-extraConfig.py";
     text = cfg.extraConfig;
   };
-  configFile =
-    pkgs.concatText "configuration.py" [ settingsFile extraConfigFile ];
+  configFile = pkgs.concatText "configuration.py" [
+    settingsFile
+    extraConfigFile
+  ];
 
   pkg = (cfg.package.overrideAttrs (old: {
     installPhase = old.installPhase + ''
@@ -247,10 +249,10 @@ in {
     services.postgresql = {
       enable = true;
       ensureDatabases = [ "netbox" ];
-      ensureUsers = [{
+      ensureUsers = [ {
         name = "netbox";
         ensurePermissions = { "DATABASE netbox" = "ALL PRIVILEGES"; };
-      }];
+      } ];
     };
 
     environment.systemPackages = [ netboxManageScript ];
@@ -258,7 +260,10 @@ in {
     systemd.targets.netbox = {
       description = "Target for all NetBox services";
       wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" "redis-netbox.service" ];
+      after = [
+        "network-online.target"
+        "redis-netbox.service"
+      ];
     };
 
     systemd.services = let

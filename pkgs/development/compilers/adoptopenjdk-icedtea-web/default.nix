@@ -27,8 +27,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hpEVWG9ltNDL/0EFJjgQRRce+BLcCO4ZERULYZxyC1o=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config bc ];
-  buildInputs = [ cargo rustc glib xulrunner zip npapi_sdk ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    bc
+  ];
+  buildInputs = [
+    cargo
+    rustc
+    glib
+    xulrunner
+    zip
+    npapi_sdk
+  ];
 
   preConfigure = ''
     configureFlagsArray+=("BIN_BASH=${bash}/bin/bash")

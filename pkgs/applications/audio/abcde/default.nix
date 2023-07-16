@@ -42,7 +42,11 @@ in stdenv.mkDerivation {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = with perlPackages; [ perl MusicBrainz MusicBrainzDiscID ];
+  buildInputs = with perlPackages; [
+    perl
+    MusicBrainz
+    MusicBrainzDiscID
+  ];
 
   installFlags = [ "sysconfdir=$(out)/etc" ];
 

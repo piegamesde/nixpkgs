@@ -32,9 +32,20 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "monero" ];
 
-  propagatedBuildInputs = [ pycryptodomex pynacl pysocks requests six varint ];
+  propagatedBuildInputs = [
+    pycryptodomex
+    pynacl
+    pysocks
+    requests
+    six
+    varint
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-cov responses ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-cov
+    responses
+  ];
 
   meta = with lib; {
     description = "Comprehensive Python module for handling Monero";

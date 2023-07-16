@@ -17,8 +17,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ perl ];
 
-  makeFlags =
-    [ "CC=${stdenv.cc.targetPrefix}cc" "PREFIX=${placeholder "out"}" ];
+  makeFlags = [
+    "CC=${stdenv.cc.targetPrefix}cc"
+    "PREFIX=${placeholder "out"}"
+  ];
 
   meta = with lib; {
     description = "Interactive fiction compiler and libraries";

@@ -19,7 +19,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ m4 ];
-  buildInputs = if stdenv.isDarwin then [ Carbon IOKit ] else [ acl libcap ];
+  buildInputs = if stdenv.isDarwin then [
+    Carbon
+    IOKit
+  ] else [
+    acl
+    libcap
+  ];
 
   postPatch = ''
     sed "/\.mk3/d" -i libschily/Targets.man
@@ -47,7 +53,11 @@ stdenv.mkDerivation rec {
     homepage = "https://cdrtools.sourceforge.net/private/cdrecord.html";
     description =
       "Highly portable CD/DVD/BluRay command line recording software";
-    license = with licenses; [ cddl gpl2 lgpl21 ];
+    license = with licenses; [
+      cddl
+      gpl2
+      lgpl21
+    ];
     platforms = with platforms; linux ++ darwin;
     # Licensing issues: This package contains code licensed under CDDL, GPL2
     # and LGPL2. There is a debate regarding the legality of distributing this

@@ -29,7 +29,12 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  nativeCheckInputs = [ passlib pytestCheckHook twine webtest ];
+  nativeCheckInputs = [
+    passlib
+    pytestCheckHook
+    twine
+    webtest
+  ];
 
   disabledTests = [
     # fails to install the package
@@ -48,7 +53,13 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/pypiserver/pypiserver";
     description = "Minimal PyPI server for use with pip/easy_install";
-    license = with licenses; [ mit zlib ];
-    maintainers = with maintainers; [ austinbutler SuperSandro2000 ];
+    license = with licenses; [
+      mit
+      zlib
+    ];
+    maintainers = with maintainers; [
+      austinbutler
+      SuperSandro2000
+    ];
   };
 }

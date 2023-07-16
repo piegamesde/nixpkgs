@@ -37,7 +37,12 @@ python3.pkgs.buildPythonApplication rec {
     desktop-file-utils
   ];
 
-  buildInputs = [ glib gtk4 libadwaita librsvg ];
+  buildInputs = [
+    glib
+    gtk4
+    libadwaita
+    librsvg
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [ pygobject3 ];
 

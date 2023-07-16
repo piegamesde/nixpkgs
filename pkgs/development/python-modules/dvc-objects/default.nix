@@ -33,10 +33,20 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs =
-    [ flatten-dict fsspec funcy pygtrie shortuuid tqdm typing-extensions ];
+  propagatedBuildInputs = [
+    flatten-dict
+    fsspec
+    funcy
+    pygtrie
+    shortuuid
+    tqdm
+    typing-extensions
+  ];
 
-  nativeCheckInputs = [ pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "dvc_objects" ];
 

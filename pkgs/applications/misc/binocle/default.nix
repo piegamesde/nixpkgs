@@ -43,8 +43,13 @@ rustPlatform.buildRustPackage rec {
   postInstall = lib.optionalString (!stdenv.isDarwin) ''
     wrapProgram $out/bin/binocle \
       --suffix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath
-        (with xorg; [ libX11 libXcursor libXi libXrandr ] ++ [ vulkan-loader ])
+        lib.makeLibraryPath (with xorg;
+          [
+            libX11
+            libXcursor
+            libXi
+            libXrandr
+          ] ++ [ vulkan-loader ])
       }
   '';
 

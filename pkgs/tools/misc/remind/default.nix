@@ -10,7 +10,10 @@
 
 let
   inherit (lib) optional optionals optionalString;
-  tclLibraries = optionals tkremind [ tcllib tk ];
+  tclLibraries = optionals tkremind [
+    tcllib
+    tk
+  ];
   tkremindPatch = optionalString tkremind ''
     substituteInPlace scripts/tkremind --replace "exec wish" "exec ${tk}/bin/wish"
   '';
@@ -39,7 +42,10 @@ in tcl.mkTclDerivation rec {
     homepage = "https://dianne.skoll.ca/projects/remind/";
     description = "Sophisticated calendar and alarm program for the console";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ raskin kovirobi ];
+    maintainers = with maintainers; [
+      raskin
+      kovirobi
+    ];
     platforms = platforms.unix;
   };
 }

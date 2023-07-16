@@ -27,7 +27,10 @@ let
 in stdenv.mkDerivation rec {
   pname = "laminar";
   version = "1.2";
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
   src = fetchFromGitHub {
     owner = "ohwgiles";
     repo = "laminar";
@@ -37,8 +40,18 @@ in stdenv.mkDerivation rec {
   patches = [ ./patches/no-network.patch ];
 
   # We need both binary from "capnproto" and library files.
-  nativeBuildInputs = [ cmake pandoc capnproto ];
-  buildInputs = [ capnproto sqlite boost zlib rapidjson ];
+  nativeBuildInputs = [
+    cmake
+    pandoc
+    capnproto
+  ];
+  buildInputs = [
+    capnproto
+    sqlite
+    boost
+    zlib
+    rapidjson
+  ];
   cmakeFlags = [ "-DLAMINAR_VERSION=${version}" ];
 
   preBuild = ''
@@ -63,6 +76,9 @@ in stdenv.mkDerivation rec {
     homepage = "https://laminar.ohwg.net";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ kaction maralorn ];
+    maintainers = with maintainers; [
+      kaction
+      maralorn
+    ];
   };
 }

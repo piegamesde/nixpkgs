@@ -36,7 +36,14 @@ stdenv.mkDerivation rec {
     sha256 = "1c4n89rdl9r13kmmh2qymmy9sa6shjwai7df48k2kfn0pnzq5mad";
   };
 
-  nativeBuildInputs = [ cmake libxml2 ninja vala pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    libxml2
+    ninja
+    vala
+    pkg-config
+    wrapGAppsHook
+  ];
 
   buildInputs = with gst_all_1; [
     clutter-gst

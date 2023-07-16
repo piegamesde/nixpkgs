@@ -43,25 +43,48 @@ buildDunePackage rec {
     hash = "sha256-NAm4Xq7L0Dgynr8cKZQ356M4GR6D19LbCRxvnSlIf1U=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./carton-find-getconf.patch;
-      getconf = "${getconf}";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./carton-find-getconf.patch;
+    getconf = "${getconf}";
+  }) ];
 
   # remove changelogs for mimic and the git* packages
   postPatch = ''
     rm CHANGES.md
   '';
 
-  buildInputs = [ cmdliner digestif result rresult fpath bos hxd ];
-  propagatedBuildInputs =
-    [ ke duff decompress cstruct optint bigstringaf checkseum logs psq fmt ];
+  buildInputs = [
+    cmdliner
+    digestif
+    result
+    rresult
+    fpath
+    bos
+    hxd
+  ];
+  propagatedBuildInputs = [
+    ke
+    duff
+    decompress
+    cstruct
+    optint
+    bigstringaf
+    checkseum
+    logs
+    psq
+    fmt
+  ];
 
   doCheck = true;
   nativeBuildInputs = [ findlib ];
-  checkInputs = [ base64 alcotest alcotest-lwt crowbar lwt mirage-flow ];
+  checkInputs = [
+    base64
+    alcotest
+    alcotest-lwt
+    crowbar
+    lwt
+    mirage-flow
+  ];
 
   meta = with lib; {
     description = "Implementation of PACKv2 file in OCaml";

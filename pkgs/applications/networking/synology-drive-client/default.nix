@@ -26,8 +26,14 @@ let
     homepage = "https://www.synology.com/en-global/dsm/feature/drive";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    maintainers = with maintainers; [ jcouyang MoritzBoehme ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    maintainers = with maintainers; [
+      jcouyang
+      MoritzBoehme
+    ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
   };
   passthru.updateScript = writeScript "update-synology-drive-client" ''
     #!/usr/bin/env nix-shell
@@ -50,9 +56,17 @@ let
       sha256 = "sha256-olORBipyAv3jYQ7Gv8i4dHoCAdMcTcJR72/UYCPAVt0=";
     };
 
-    nativeBuildInputs = [ autoPatchelfHook dpkg ];
+    nativeBuildInputs = [
+      autoPatchelfHook
+      dpkg
+    ];
 
-    buildInputs = [ glibc gtk3 pango libxcb ];
+    buildInputs = [
+      glibc
+      gtk3
+      pango
+      libxcb
+    ];
 
     unpackPhase = ''
       mkdir -p $out
@@ -81,7 +95,11 @@ let
       sha256 = "sha256-oNo/2Fim63xiWiVuY99Q18dHOPHydQJr7C9tib8LLOE=";
     };
 
-    nativeBuildInputs = [ cpio xar undmg ];
+    nativeBuildInputs = [
+      cpio
+      xar
+      undmg
+    ];
 
     postUnpack = ''
       xar -xf 'Install Synology Drive Client.pkg'

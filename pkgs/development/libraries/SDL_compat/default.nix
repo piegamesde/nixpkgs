@@ -28,13 +28,19 @@ in stdenv.mkDerivation rec {
     hash = "sha256-8b9rFI4iRpBJqeJ2KRJ9vRyv9gYwa9jRWCuXRfA3x50=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ]
-    ++ optionals (stdenv.isDarwin && stdenv.isAarch64)
-    [ autoSignDarwinBinariesHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ] ++ optionals
+    (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
 
-  propagatedBuildInputs = [ SDL2 ]
-    ++ optionals stdenv.hostPlatform.isDarwin [ libiconv Cocoa ]
-    ++ optionals openglSupport [ libGL libGLU ];
+  propagatedBuildInputs = [ SDL2 ] ++ optionals stdenv.hostPlatform.isDarwin [
+    libiconv
+    Cocoa
+  ] ++ optionals openglSupport [
+    libGL
+    libGLU
+  ];
 
   enableParallelBuilding = true;
 

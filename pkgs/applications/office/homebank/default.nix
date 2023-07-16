@@ -19,8 +19,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Rg6OjHLkwVIDnXqzqPXA8DxqSdrh2T6V/gLBND8vx9o=";
   };
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook intltool ];
-  buildInputs = [ gtk libofx libsoup gnome.adwaita-icon-theme ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook
+    intltool
+  ];
+  buildInputs = [
+    gtk
+    libofx
+    libsoup
+    gnome.adwaita-icon-theme
+  ];
 
   meta = with lib; {
     description = "Free, easy, personal accounting for everyone";

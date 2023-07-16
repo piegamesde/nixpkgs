@@ -43,18 +43,27 @@ stdenv.mkDerivation rec {
     sha256 = "1nm4vxgmisn1b6l3drmz0q04x067j2i8lw5rnf0acaapwlp8qwvi";
   };
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://sources.debian.org/data/main/a/amule/1%3A2.3.3-3/debian/patches/wx3.2.patch";
-      hash = "sha256-OX5Ef80bL+dQqHo2OBLZvzMUrU6aOHfsF7AtoE1r7rs=";
-    })
+  patches = [ (fetchpatch {
+    url =
+      "https://sources.debian.org/data/main/a/amule/1%3A2.3.3-3/debian/patches/wx3.2.patch";
+    hash = "sha256-OX5Ef80bL+dQqHo2OBLZvzMUrU6aOHfsF7AtoE1r7rs=";
+  }) ];
+
+  nativeBuildInputs = [
+    cmake
+    gettext
+    makeWrapper
+    pkg-config
   ];
 
-  nativeBuildInputs = [ cmake gettext makeWrapper pkg-config ];
-
-  buildInputs = [ zlib wxGTK32 perl cryptopp.dev libupnp boost ]
-    ++ lib.optional httpServer libpng ++ lib.optional client libX11;
+  buildInputs = [
+    zlib
+    wxGTK32
+    perl
+    cryptopp.dev
+    libupnp
+    boost
+  ] ++ lib.optional httpServer libpng ++ lib.optional client libX11;
 
   cmakeFlags = [
     "-DBUILD_MONOLITHIC=${if monolithic then "ON" else "OFF"}"

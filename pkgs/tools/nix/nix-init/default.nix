@@ -34,12 +34,23 @@ in rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-+Vj3TqNxMgaUmhzCgSEGl58Jh1PLsC6q/DfDbfg2mmo=";
 
-  nativeBuildInputs = [ curl installShellFiles makeBinaryWrapper pkg-config ];
+  nativeBuildInputs = [
+    curl
+    installShellFiles
+    makeBinaryWrapper
+    pkg-config
+  ];
 
-  buildInputs = [ bzip2 curl libgit2_1_5 openssl zlib zstd ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64)
-    [ darwin.apple_sdk.frameworks.CoreFoundation ];
+  buildInputs = [
+    bzip2
+    curl
+    libgit2_1_5
+    openssl
+    zlib
+    zstd
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
+    ++ lib.optionals (stdenv.isDarwin
+      && stdenv.isx86_64) [ darwin.apple_sdk.frameworks.CoreFoundation ];
 
   buildNoDefaultFeatures = true;
 
@@ -61,7 +72,12 @@ in rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     wrapProgram $out/bin/nix-init \
-      --prefix PATH : ${lib.makeBinPath [ nix nurl ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          nix
+          nurl
+        ]
+      }
     installManPage artifacts/nix-init.1
     installShellCompletion artifacts/nix-init.{bash,fish} --zsh artifacts/_nix-init
   '';

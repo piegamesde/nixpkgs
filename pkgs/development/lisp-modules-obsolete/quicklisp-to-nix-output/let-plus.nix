@@ -10,7 +10,11 @@ args@{
 
   description = "Destructuring extension of LET*.";
 
-  deps = [ args."alexandria" args."anaphora" args."lift" ];
+  deps = [
+    args."alexandria"
+    args."anaphora"
+    args."lift"
+  ];
 
   src = fetchurl {
     url =

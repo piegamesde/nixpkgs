@@ -18,7 +18,13 @@ buildPythonPackage rec {
     sha256 = "00cxzfifvgcf3d3s8lsj1yxcwyf3a1964p86fj7b42q8pa0b4r3i";
   };
 
-  propagatedBuildInputs = [ pygments dominate beautifulsoup4 docutils sphinx ];
+  propagatedBuildInputs = [
+    pygments
+    dominate
+    beautifulsoup4
+    docutils
+    sphinx
+  ];
 
   doCheck = false;
 

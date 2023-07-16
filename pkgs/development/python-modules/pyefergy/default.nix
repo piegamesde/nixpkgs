@@ -29,7 +29,11 @@ buildPythonPackage rec {
       --replace 'version="master",' 'version="${version}",'
   '';
 
-  propagatedBuildInputs = [ aiohttp iso4217 pytz ];
+  propagatedBuildInputs = [
+    aiohttp
+    iso4217
+    pytz
+  ];
 
   # Tests require network access
   doCheck = false;

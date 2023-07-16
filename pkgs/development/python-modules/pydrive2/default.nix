@@ -22,8 +22,12 @@ buildPythonPackage rec {
     hash = "sha256-qPUNmWydx25RwAO8wHcP6XIi+gH7Dm6p0CfwrPfs564=";
   };
 
-  propagatedBuildInputs =
-    [ google-api-python-client oauth2client pyopenssl pyyaml ];
+  propagatedBuildInputs = [
+    google-api-python-client
+    oauth2client
+    pyopenssl
+    pyyaml
+  ];
 
   doCheck = false;
 

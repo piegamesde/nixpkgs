@@ -78,10 +78,18 @@ in buildGoModule rec {
 
   doCheck = false;
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
-  nativeBuildInputs =
-    [ pkg-config go-md2man installShellFiles makeWrapper python3 ];
+  nativeBuildInputs = [
+    pkg-config
+    go-md2man
+    installShellFiles
+    makeWrapper
+    python3
+  ];
 
   buildInputs = lib.optionals stdenv.isLinux [
     btrfs-progs

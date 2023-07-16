@@ -10,7 +10,10 @@
 let
   readline-all = symlinkJoin {
     name = "readline-all";
-    paths = [ readline readline.dev ];
+    paths = [
+      readline
+      readline.dev
+    ];
   };
 in stdenv.mkDerivation rec {
   pname = "oil";
@@ -53,7 +56,10 @@ in stdenv.mkDerivation rec {
     ];
 
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ lheckemann alva ];
+    maintainers = with lib.maintainers; [
+      lheckemann
+      alva
+    ];
     changelog = "https://www.oilshell.org/release/${version}/changelog.html";
   };
 

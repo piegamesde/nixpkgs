@@ -30,7 +30,10 @@ in stdenv.mkDerivation (finalAttrs: {
   in "libappindicator-${postfix}";
   version = "12.10.1+20.10.20200706.1";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchgit {
     url = "https://git.launchpad.net/ubuntu/+source/libappindicator";
@@ -38,12 +41,23 @@ in stdenv.mkDerivation (finalAttrs: {
     sha256 = "0xjvbl4gn7ra2fs6gn2g9s787kzb5cg9hv79iqsz949rxh4iw32d";
   };
 
-  nativeBuildInputs =
-    [ pkg-config autoreconfHook vala gobject-introspection gtk-doc ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+    vala
+    gobject-introspection
+    gtk-doc
+  ];
 
   propagatedBuildInputs = {
-    "2" = [ gtk2 libdbusmenu-gtk2 ];
-    "3" = [ gtk3 libdbusmenu-gtk3 ];
+    "2" = [
+      gtk2
+      libdbusmenu-gtk2
+    ];
+    "3" = [
+      gtk3
+      libdbusmenu-gtk3
+    ];
   }.${gtkVersion} or throwBadGtkVersion;
 
   buildInputs = [
@@ -74,8 +88,10 @@ in stdenv.mkDerivation (finalAttrs: {
 
   doCheck = false; # generates shebangs in check phase, too lazy to fix
 
-  installFlags =
-    [ "sysconfdir=${placeholder "out"}/etc" "localstatedir=\${TMPDIR}" ];
+  installFlags = [
+    "sysconfdir=${placeholder "out"}/etc"
+    "localstatedir=\${TMPDIR}"
+  ];
 
   passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
@@ -83,7 +99,10 @@ in stdenv.mkDerivation (finalAttrs: {
     description =
       "A library to allow applications to export a menu into the Unity Menu bar";
     homepage = "https://launchpad.net/libappindicator";
-    license = with licenses; [ lgpl21 lgpl3 ];
+    license = with licenses; [
+      lgpl21
+      lgpl3
+    ];
     pkgConfigModules = {
       "2" = [ "appindicator-0.1" ];
       "3" = [ "appindicator3-0.1" ];

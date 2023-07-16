@@ -25,7 +25,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-TD5du7I6Hw1PC8s9NI19jYCXlaZMnsdVj/a0q+M8Raw=";
 
-  nativeBuildInputs = [ pkg-config copyDesktopItems ];
+  nativeBuildInputs = [
+    pkg-config
+    copyDesktopItems
+  ];
 
   buildInputs = if withGui then [
     openssl
@@ -37,8 +40,7 @@ rustPlatform.buildRustPackage rec {
     xorg.libxcb
     libGL
     libGL.dev
-  ] else
-    [ openssl ];
+  ] else [ openssl ];
 
   buildNoDefaultFeatures = true;
   buildFeatures = [ (if withGui then "egui" else "cli") ];
@@ -56,7 +58,13 @@ rustPlatform.buildRustPackage rec {
     comment =
       "A simple tool to grab updates for PS3 games, directly from Sony's servers using their updates API.";
     categories = [ "Network" ];
-    keywords = [ "psn" "ps3" "sony" "playstation" "update" ];
+    keywords = [
+      "psn"
+      "ps3"
+      "sony"
+      "playstation"
+      "update"
+    ];
   });
   desktopItems = lib.optionals withGui [ desktopItem ];
 

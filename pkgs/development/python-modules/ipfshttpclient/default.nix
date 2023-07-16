@@ -33,7 +33,10 @@ buildPythonPackage rec {
     hash = "sha256-OmC67pN2BbuGwM43xNDKlsLhwVeUbpvfOazyIDvoMEA=";
   };
 
-  propagatedBuildInputs = [ py-multiaddr requests ];
+  propagatedBuildInputs = [
+    py-multiaddr
+    requests
+  ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -87,6 +90,9 @@ buildPythonPackage rec {
     description = "A python client library for the IPFS API";
     homepage = "https://github.com/ipfs-shipyard/py-ipfs-http-client";
     license = licenses.mit;
-    maintainers = with maintainers; [ mguentner Luflosi ];
+    maintainers = with maintainers; [
+      mguentner
+      Luflosi
+    ];
   };
 }

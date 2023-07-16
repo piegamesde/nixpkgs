@@ -40,7 +40,10 @@ buildPythonPackage rec {
     hash = "sha256-JMrir4MramEaAdfcNfQtJmwdbHWkJrhp2MskG3gjM2k=";
   };
 
-  propagatedBuildInputs = [ flask wtforms ];
+  propagatedBuildInputs = [
+    flask
+    wtforms
+  ];
 
   passthru.optional-dependencies = {
     aws = [ boto ];

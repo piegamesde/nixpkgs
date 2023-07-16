@@ -101,7 +101,14 @@ perlPackages.buildPerlPackage rec {
     cp -r . $out
     wrapProgram $out/slimserver.pl \
       --prefix PATH : "${
-        lib.makeBinPath [ lame flac faad2 sox monkeysAudio wavpack ]
+        lib.makeBinPath [
+          lame
+          flac
+          faad2
+          sox
+          monkeysAudio
+          wavpack
+        ]
       }"
   '';
 

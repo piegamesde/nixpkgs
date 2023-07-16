@@ -31,7 +31,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XWsubjdD1tg0o7x/aoAalemAChehWkwh4fkP2WRvhAw=";
   };
 
-  nativeBuildInputs = [ jam unzip ];
+  nativeBuildInputs = [
+    jam
+    unzip
+  ];
 
   postPatch =
     lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''

@@ -23,7 +23,10 @@ rustPlatform.buildRustPackage rec {
     cp ${./Cargo.lock} Cargo.lock
   '';
 
-  cargoBuildFlags = [ "--workspace" "--exclude=demo" ];
+  cargoBuildFlags = [
+    "--workspace"
+    "--exclude=demo"
+  ];
 
   postBuild = ''
     cargo doc --release
@@ -31,7 +34,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoTestFlags = [ "--workspace" ];
 
-  outputs = [ "out" "doc" "dev" ];
+  outputs = [
+    "out"
+    "doc"
+    "dev"
+  ];
 
   postInstall = ''
     mkdir -p $doc

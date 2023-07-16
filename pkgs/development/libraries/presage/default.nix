@@ -43,14 +43,25 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs =
-    [ autoreconfHook doxygen fontconfig gettext graphviz help2man pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    doxygen
+    fontconfig
+    gettext
+    graphviz
+    help2man
+    pkg-config
+  ];
 
   preBuild = ''
     export FONTCONFIG_FILE=${fontconfig.out}/etc/fonts/fonts.conf
   '';
 
-  buildInputs = [ dbus sqlite tinyxml ];
+  buildInputs = [
+    dbus
+    sqlite
+    tinyxml
+  ];
 
   nativeCheckInputs = [ cppunit ];
 

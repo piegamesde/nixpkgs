@@ -76,10 +76,25 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    babel = [ babel flask-babel ];
-    common = [ bcrypt bleach flask-mailman qrcode ];
-    fsqla = [ flask-sqlalchemy sqlalchemy sqlalchemy-utils ];
-    mfa = [ cryptography phonenumbers ];
+    babel = [
+      babel
+      flask-babel
+    ];
+    common = [
+      bcrypt
+      bleach
+      flask-mailman
+      qrcode
+    ];
+    fsqla = [
+      flask-sqlalchemy
+      sqlalchemy
+      sqlalchemy-utils
+    ];
+    mfa = [
+      cryptography
+      phonenumbers
+    ];
   };
 
   nativeCheckInputs = [

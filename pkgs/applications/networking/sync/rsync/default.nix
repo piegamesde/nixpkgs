@@ -31,9 +31,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ perl ];
 
-  buildInputs = [ libiconv zlib popt ] ++ lib.optional enableACLs acl
-    ++ lib.optional enableZstd zstd ++ lib.optional enableLZ4 lz4
-    ++ lib.optional enableOpenSSL openssl ++ lib.optional enableXXHash xxHash;
+  buildInputs = [
+    libiconv
+    zlib
+    popt
+  ] ++ lib.optional enableACLs acl ++ lib.optional enableZstd zstd
+    ++ lib.optional enableLZ4 lz4 ++ lib.optional enableOpenSSL openssl
+    ++ lib.optional enableXXHash xxHash;
 
   configureFlags = [
     "--with-nobody-group=nogroup"
@@ -56,6 +60,10 @@ stdenv.mkDerivation rec {
     homepage = "https://rsync.samba.org/";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with lib.maintainers; [ ehmry kampfschlaefer ivan ];
+    maintainers = with lib.maintainers; [
+      ehmry
+      kampfschlaefer
+      ivan
+    ];
   };
 }

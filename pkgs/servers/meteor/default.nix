@@ -75,7 +75,12 @@ in stdenv.mkDerivation {
     popd
     substituteInPlace $out/tools/cli/main.js \
       --replace "@INTERPRETER@" "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-      --replace "@RPATH@" "${lib.makeLibraryPath [ stdenv.cc.cc zlib ]}" \
+      --replace "@RPATH@" "${
+        lib.makeLibraryPath [
+          stdenv.cc.cc
+          zlib
+        ]
+      }" \
       --replace "@PATCHELF@" "${patchelf}/bin/patchelf"
 
     # Patch node.
@@ -89,7 +94,10 @@ in stdenv.mkDerivation {
       patchelf \
         --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
         --set-rpath "$(patchelf --print-rpath $p):${
-          lib.makeLibraryPath [ stdenv.cc.cc zlib ]
+          lib.makeLibraryPath [
+            stdenv.cc.cc
+            zlib
+          ]
         }" \
         $p
     done

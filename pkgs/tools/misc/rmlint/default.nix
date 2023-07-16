@@ -39,10 +39,21 @@ stdenv.mkDerivation rec {
     ./scons-nix-env.patch
   ];
 
-  nativeBuildInputs = [ pkg-config sphinx scons ]
-    ++ lib.optionals withGui [ makeWrapper wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    sphinx
+    scons
+  ] ++ lib.optionals withGui [
+    makeWrapper
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ glib json-glib libelf util-linux ] ++ lib.optionals withGui [
+  buildInputs = [
+    glib
+    json-glib
+    libelf
+    util-linux
+  ] ++ lib.optionals withGui [
     cairo
     gobject-introspection
     gtksourceview3
@@ -78,6 +89,9 @@ stdenv.mkDerivation rec {
     homepage = "https://rmlint.readthedocs.org";
     platforms = platforms.unix;
     license = licenses.gpl3;
-    maintainers = with maintainers; [ aaschmid koral ];
+    maintainers = with maintainers; [
+      aaschmid
+      koral
+    ];
   };
 }

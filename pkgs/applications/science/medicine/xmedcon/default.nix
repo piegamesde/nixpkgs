@@ -18,7 +18,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-g1CRJDokLDzB+1YIuVQNByBLx01CI47EwGeluqVDujk=";
   };
 
-  buildInputs = [ gtk3 glib libpng zlib ];
+  buildInputs = [
+    gtk3
+    glib
+    libpng
+    zlib
+  ];
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -26,7 +31,10 @@ stdenv.mkDerivation rec {
     description = "An open source toolkit for medical image conversion ";
     homepage = "https://xmedcon.sourceforge.io/Main/HomePage";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ arianvp flokli ];
+    maintainers = with maintainers; [
+      arianvp
+      flokli
+    ];
     platforms = platforms.darwin ++ platforms.linux;
   };
 }

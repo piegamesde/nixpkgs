@@ -23,9 +23,18 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs install_links.py
   '';
 
-  nativeBuildInputs = [ meson python3 ninja ];
+  nativeBuildInputs = [
+    meson
+    python3
+    ninja
+  ];
 
-  outputs = [ "bin" "dev" "out" "man" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "man"
+  ];
 
   mesonFlags = [ "-Ddocs=disabled" ];
 

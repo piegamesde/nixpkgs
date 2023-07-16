@@ -19,7 +19,10 @@ llvmPackages.stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ llvmPackages.llvm llvmPackages.lld ];
+  buildInputs = [
+    llvmPackages.llvm
+    llvmPackages.lld
+  ];
 
   nativeCheckInputs = [ python3 ];
 

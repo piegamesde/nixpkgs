@@ -23,7 +23,10 @@ stdenv.mkDerivation rec {
   pname = "light-locker";
   version = "1.9.0";
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   src = fetchFromGitHub {
     owner = "the-cavalry";
@@ -32,10 +35,24 @@ stdenv.mkDerivation rec {
     sha256 = "1z5lcd02gqax65qc14hj5khifg7gr53zy3s5i6apba50lbdlfk46";
   };
 
-  nativeBuildInputs = [ intltool meson ninja pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    intltool
+    meson
+    ninja
+    pkg-config
+    wrapGAppsHook
+  ];
 
-  buildInputs =
-    [ dbus-glib glib gtk3 libX11 libXScrnSaver libXext libXxf86vm systemd ];
+  buildInputs = [
+    dbus-glib
+    glib
+    gtk3
+    libX11
+    libXScrnSaver
+    libXext
+    libXxf86vm
+    systemd
+  ];
 
   mesonFlags = [
     "-Dmit-ext=true"

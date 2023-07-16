@@ -37,8 +37,8 @@ stdenv.mkDerivation rec {
     filteredTests = lib.optionals stdenv.hostPlatform.isMusl [
       "Symbolize.SymbolizeStackConsumption"
       "Symbolize.SymbolizeWithDemanglingStackConsumption"
-    ] ++ lib.optionals stdenv.hostPlatform.isStatic
-      [ "LogBacktraceAt.DoesBacktraceAtRightLineWhenEnabled" ];
+    ] ++ lib.optionals
+      stdenv.hostPlatform.isStatic [ "LogBacktraceAt.DoesBacktraceAtRightLineWhenEnabled" ];
   in lib.optionalString doCheck
   "-${builtins.concatStringsSep ":" filteredTests}";
 
@@ -47,6 +47,9 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     description = "Library for application-level logging";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ nh2 r-burns ];
+    maintainers = with maintainers; [
+      nh2
+      r-burns
+    ];
   };
 }

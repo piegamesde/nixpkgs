@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
   pname = "rest";
   version = "0.9.1";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -44,10 +48,20 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs =
-    [ meson ninja pkg-config gi-docgen gobject-introspection ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gi-docgen
+    gobject-introspection
+  ];
 
-  propagatedBuildInputs = [ glib json-glib libsoup_3 libxml2 ];
+  propagatedBuildInputs = [
+    glib
+    json-glib
+    libsoup_3
+    libxml2
+  ];
 
   mesonFlags = [
     "-Dexamples=false"

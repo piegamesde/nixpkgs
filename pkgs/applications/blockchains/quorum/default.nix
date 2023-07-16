@@ -21,7 +21,10 @@ buildGoPackage rec {
     sha256 = "0xfdaqp9bj5dkw12gy19lxj73zh7w80j051xclsvnd41sfah86ll";
   };
 
-  buildInputs = [ git which ];
+  buildInputs = [
+    git
+    which
+  ];
 
   buildPhase = ''
     cd "go/src/$goPackagePath"

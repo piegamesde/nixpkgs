@@ -21,16 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-hT80KxVi3e6XkDjsjs7lQFzdm2p8uB7WzbgBjJ6AJjM=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./jq-path.patch;
-      jq = "${lib.getBin jq}/bin/jq";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./jq-path.patch;
+    jq = "${lib.getBin jq}/bin/jq";
+  }) ];
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ pyyaml xmltodict toml argcomplete ];
+  propagatedBuildInputs = [
+    pyyaml
+    xmltodict
+    toml
+    argcomplete
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -43,6 +46,9 @@ buildPythonPackage rec {
       "Command-line YAML/XML/TOML processor - jq wrapper for YAML, XML, TOML documents";
     homepage = "https://github.com/kislyuk/yq";
     license = licenses.asl20;
-    maintainers = with maintainers; [ womfoo SuperSandro2000 ];
+    maintainers = with maintainers; [
+      womfoo
+      SuperSandro2000
+    ];
   };
 }

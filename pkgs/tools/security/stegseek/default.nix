@@ -23,7 +23,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ libjpeg libmcrypt libmhash libtool zlib ];
+  buildInputs = [
+    libjpeg
+    libmcrypt
+    libmhash
+    libtool
+    zlib
+  ];
 
   doCheck = true;
 

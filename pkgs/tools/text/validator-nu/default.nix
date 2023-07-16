@@ -25,7 +25,12 @@ let
     pname = "${pname}-deps";
     inherit version src;
 
-    nativeBuildInputs = [ git jdk_headless python3 python3.pkgs.certifi ];
+    nativeBuildInputs = [
+      git
+      jdk_headless
+      python3
+      python3.pkgs.certifi
+    ];
 
     buildPhase = ''
       python checker.py dldeps
@@ -43,7 +48,12 @@ let
 in stdenvNoCC.mkDerivation rec {
   inherit pname version src;
 
-  nativeBuildInputs = [ git jdk_headless makeWrapper python3 ];
+  nativeBuildInputs = [
+    git
+    jdk_headless
+    makeWrapper
+    python3
+  ];
 
   buildPhase = ''
     ln -s '${deps}/dependencies' '${deps}/extras' .
@@ -63,6 +73,9 @@ in stdenvNoCC.mkDerivation rec {
     license = licenses.mit;
     maintainers = with maintainers; [ andersk ];
     mainProgram = "vnu";
-    sourceProvenance = with sourceTypes; [ binaryBytecode fromSource ];
+    sourceProvenance = with sourceTypes; [
+      binaryBytecode
+      fromSource
+    ];
   };
 }

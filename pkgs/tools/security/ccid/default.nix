@@ -26,8 +26,14 @@ stdenv.mkDerivation rec {
     configureFlagsArray+=("--enable-usbdropdir=$out/pcsc/drivers")
   '';
 
-  nativeBuildInputs = [ pkg-config perl ];
-  buildInputs = [ pcsclite libusb1 ];
+  nativeBuildInputs = [
+    pkg-config
+    perl
+  ];
+  buildInputs = [
+    pcsclite
+    libusb1
+  ];
 
   meta = with lib; {
     description = "ccid drivers for pcsclite";

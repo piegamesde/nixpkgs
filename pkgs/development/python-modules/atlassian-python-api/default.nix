@@ -25,8 +25,13 @@ buildPythonPackage rec {
     hash = "sha256-en+4EKkmTQWMgnGZaGs+O9Yh2TI03xW111wbp9O8dYE=";
   };
 
-  propagatedBuildInputs =
-    [ deprecated oauthlib requests requests-oauthlib six ];
+  propagatedBuildInputs = [
+    deprecated
+    oauthlib
+    requests
+    requests-oauthlib
+    six
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

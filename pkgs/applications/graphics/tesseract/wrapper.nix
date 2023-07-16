@@ -64,7 +64,10 @@ let
   # Only run test when all languages are available
   test = lib.optionalAttrs (enableLanguages == null) {
     tests.default = runCommand "tesseract-test-ocr" {
-      buildInputs = [ tesseractWithData imagemagick ];
+      buildInputs = [
+        tesseractWithData
+        imagemagick
+      ];
     } ''
       text="hello nix"
 

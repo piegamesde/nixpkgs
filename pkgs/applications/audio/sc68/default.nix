@@ -27,9 +27,20 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ autoconf automake hexdump libtool pkg-config which ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    hexdump
+    libtool
+    pkg-config
+    which
+  ];
 
-  buildInputs = [ curl libao zlib ];
+  buildInputs = [
+    curl
+    libao
+    zlib
+  ];
 
   meta = with lib; {
     description = "Atari ST and Amiga music player";

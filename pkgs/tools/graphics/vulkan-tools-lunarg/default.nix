@@ -35,7 +35,13 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake python3 jq which pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    python3
+    jq
+    which
+    pkg-config
+  ];
 
   buildInputs = [
     expat
@@ -55,7 +61,10 @@ stdenv.mkDerivation rec {
     "-DVULKAN_VALIDATIONLAYERS_INSTALL_DIR=${
       symlinkJoin {
         name = "vulkan-validation-layers-merged";
-        paths = [ vulkan-validation-layers.headers vulkan-validation-layers ];
+        paths = [
+          vulkan-validation-layers.headers
+          vulkan-validation-layers
+        ];
       }
     }"
     # Hide dev warnings that are useless for packaging

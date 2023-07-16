@@ -17,7 +17,10 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ pytest-runner ];
-  propagatedBuildInputs = [ numpy pyyaml ];
+  propagatedBuildInputs = [
+    numpy
+    pyyaml
+  ];
 
   # Tests require git lfs download of repository
   doCheck = false;

@@ -25,9 +25,18 @@ buildPythonPackage rec {
     hash = "sha256-vT7Y/6bD+txEVEw/zelMogQ0V7BIHHRitrC1COByzhY=";
   };
 
-  propagatedBuildInputs = [ numpy scipy requests ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    requests
+  ];
 
-  passthru.optional-dependencies = { plotting = [ matplotlib seaborn ]; };
+  passthru.optional-dependencies = {
+    plotting = [
+      matplotlib
+      seaborn
+    ];
+  };
 
   nativeCheckInputs = [ pytestCheckHook ]
     ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);

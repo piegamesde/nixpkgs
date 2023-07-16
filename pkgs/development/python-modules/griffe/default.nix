@@ -38,7 +38,11 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ colorama ]
     ++ lib.optionals (pythonOlder "3.8") [ cached-property ];
 
-  nativeCheckInputs = [ git jsonschema pytestCheckHook ];
+  nativeCheckInputs = [
+    git
+    jsonschema
+    pytestCheckHook
+  ];
 
   passthru.optional-dependencies = { async = [ aiofiles ]; };
 

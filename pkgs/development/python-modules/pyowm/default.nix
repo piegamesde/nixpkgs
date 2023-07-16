@@ -28,7 +28,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  propagatedBuildInputs = [ geojson pysocks requests ];
+  propagatedBuildInputs = [
+    geojson
+    pysocks
+    requests
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

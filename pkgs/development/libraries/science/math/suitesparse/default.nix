@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
   pname = "suitesparse";
   version = "5.13.0";
 
-  outputs = [ "out" "dev" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ];
 
   src = fetchFromGitHub {
     owner = "DrTimothyAldenDavis";
@@ -30,8 +34,14 @@ stdenv.mkDerivation rec {
 
   # Use compatible indexing for lapack and blas used
   buildInputs = assert (blas.isILP64 == lapack.isILP64);
-    [ blas lapack metis gfortran.cc.lib gmp mpfr ]
-    ++ lib.optional enableCuda cudatoolkit;
+    [
+      blas
+      lapack
+      metis
+      gfortran.cc.lib
+      gmp
+      mpfr
+    ] ++ lib.optional enableCuda cudatoolkit;
 
   preConfigure = ''
     # Mongoose and GraphBLAS are packaged separately
@@ -63,7 +73,11 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://faculty.cse.tamu.edu/davis/suitesparse.html";
     description = "A suite of sparse matrix algorithms";
-    license = with licenses; [ bsd2 gpl2Plus lgpl21Plus ];
+    license = with licenses; [
+      bsd2
+      gpl2Plus
+      lgpl21Plus
+    ];
     maintainers = with maintainers; [ ttuegel ];
     platforms = with platforms; unix;
   };

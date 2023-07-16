@@ -322,14 +322,23 @@ in {
       isSystemUser = true;
       group = "jibri";
       home = "/var/lib/jibri";
-      extraGroups = [ "jitsi-meet" "adm" "audio" "video" "plugdev" ];
+      extraGroups = [
+        "jitsi-meet"
+        "adm"
+        "audio"
+        "video"
+        "plugdev"
+      ];
     };
 
     systemd.services.jibri-xorg = {
       description = "Jitsi Xorg Process";
 
       after = [ "network.target" ];
-      wantedBy = [ "jibri.service" "jibri-icewm.service" ];
+      wantedBy = [
+        "jibri.service"
+        "jibri-icewm.service"
+      ];
 
       preStart = ''
         cp --no-preserve=mode,ownership ${pkgs.jibri}/etc/jitsi/jibri/* /var/lib/jibri
@@ -378,11 +387,18 @@ in {
     systemd.services.jibri = {
       description = "Jibri Process";
 
-      requires = [ "jibri-icewm.service" "jibri-xorg.service" ];
+      requires = [
+        "jibri-icewm.service"
+        "jibri-xorg.service"
+      ];
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
-      path = with pkgs; [ chromedriver chromium ffmpeg-full ];
+      path = with pkgs; [
+        chromedriver
+        chromium
+        ffmpeg-full
+      ];
 
       script = (concatStrings (mapAttrsToList (name: env: ''
         export ${
@@ -414,9 +430,8 @@ in {
     # Configure Chromium to not show the "Chrome is being controlled by automatic test software" message.
     environment.etc."chromium/policies/managed/managed_policies.json".text =
       builtins.toJSON { CommandLineFlagSecurityWarningsEnabled = false; };
-    warnings = [
-      "All security warnings for Chromium have been disabled. This is necessary for Jibri, but it also impacts all other uses of Chromium on this system."
-    ];
+    warnings =
+      [ "All security warnings for Chromium have been disabled. This is necessary for Jibri, but it also impacts all other uses of Chromium on this system." ];
 
     boot = {
       extraModprobeConfig = ''

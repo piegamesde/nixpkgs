@@ -28,7 +28,10 @@ buildPythonPackage rec {
       --replace "siobrultech_protocols==" "siobrultech_protocols>="
   '';
 
-  propagatedBuildInputs = [ aiohttp siobrultech-protocols ];
+  propagatedBuildInputs = [
+    aiohttp
+    siobrultech-protocols
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

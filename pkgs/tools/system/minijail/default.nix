@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libcap ];
 
-  makeFlags = [ "ECHO=echo" "LIBDIR=$(out)/lib" ];
+  makeFlags = [
+    "ECHO=echo"
+    "LIBDIR=$(out)/lib"
+  ];
 
   postPatch = ''
     substituteInPlace Makefile --replace /bin/echo echo
@@ -45,7 +48,10 @@ stdenv.mkDerivation rec {
     changelog =
       "https://android.googlesource.com/platform/external/minijail/+/refs/tags/linux-v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ pcarrier qyliss ];
+    maintainers = with maintainers; [
+      pcarrier
+      qyliss
+    ];
     platforms = platforms.linux;
   };
 }

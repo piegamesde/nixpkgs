@@ -20,7 +20,11 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.08";
   duneVersion = "3";
 
-  propagatedBuildInputs = [ zarith digestif fmt ];
+  propagatedBuildInputs = [
+    zarith
+    digestif
+    fmt
+  ];
 
   meta = with lib; {
     description = "Base58 encoding for Tezos";

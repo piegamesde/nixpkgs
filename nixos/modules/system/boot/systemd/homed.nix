@@ -12,14 +12,16 @@ in {
   '');
 
   config = lib.mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = config.services.nscd.enable;
       message =
         "systemd-homed requires the use of systemd nss module. services.nscd.enable must be set to true,";
-    }];
+    } ];
 
-    systemd.additionalUpstreamSystemUnits =
-      [ "systemd-homed.service" "systemd-homed-activate.service" ];
+    systemd.additionalUpstreamSystemUnits = [
+      "systemd-homed.service"
+      "systemd-homed-activate.service"
+    ];
 
     # This is mentioned in homed's [Install] section.
     #

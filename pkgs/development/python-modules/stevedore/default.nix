@@ -19,8 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-LEKNIziXYnno6yGW96lJEJYNn3ui9B85iFEelcpEcCE=";
   };
 
-  propagatedBuildInputs = [ pbr setuptools six ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [
+    pbr
+    setuptools
+    six
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   doCheck = false;
   pythonImportsCheck = [ "stevedore" ];

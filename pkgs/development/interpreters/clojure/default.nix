@@ -20,10 +20,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-X4uvzyS9FIrJvL5gqOe4CTye2OuODzhxmXcOOPDkDOY=";
   };
 
-  nativeBuildInputs = [ installShellFiles makeWrapper ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+  ];
 
   # See https://github.com/clojure/brew-install/blob/1.10.3/src/main/resources/clojure/install/linux-install.sh
-  installPhase = let binPath = lib.makeBinPath [ rlwrap jdk ];
+  installPhase = let
+    binPath = lib.makeBinPath [
+      rlwrap
+      jdk
+    ];
   in ''
     runHook preInstall
 
@@ -99,7 +106,10 @@ stdenv.mkDerivation rec {
       offers a software transactional memory system and reactive Agent
       system that ensure clean, correct, multithreaded designs.
     '';
-    maintainers = with maintainers; [ jlesquembre thiagokokada ];
+    maintainers = with maintainers; [
+      jlesquembre
+      thiagokokada
+    ];
     platforms = platforms.unix;
   };
 }

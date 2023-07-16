@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ installShellFiles zig ];
+  nativeBuildInputs = [
+    installShellFiles
+    zig
+  ];
 
   postConfigure = ''
     export XDG_CACHE_HOME=$(mktemp -d)

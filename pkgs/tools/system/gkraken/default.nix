@@ -42,7 +42,13 @@ python3Packages.buildPythonApplication rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ gobject-introspection glib gtk3 libnotify dbus ];
+  buildInputs = [
+    gobject-introspection
+    glib
+    gtk3
+    libnotify
+    dbus
+  ];
 
   propagatedBuildInputs = with python3Packages; [
     pygobject3

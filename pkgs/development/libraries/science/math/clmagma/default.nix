@@ -49,7 +49,14 @@ in stdenv.mkDerivation rec {
     name = "clmagma-${version}.tar.gz";
   };
 
-  buildInputs = [ gfortran clblas opencl-headers ocl-icd mkl intel-ocl ];
+  buildInputs = [
+    gfortran
+    clblas
+    opencl-headers
+    ocl-icd
+    mkl
+    intel-ocl
+  ];
 
   enableParallelBuilding = true;
 

@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-rOdeYewjoFVbHdNPHN6ZC2g6X5yr84/JFE6tGSDIoRU=";
   };
 
-  propagatedBuildInputs = [ dicttoxml2 xmltodict ];
+  propagatedBuildInputs = [
+    dicttoxml2
+    xmltodict
+  ];
 
   # Project has no tests
   doCheck = false;

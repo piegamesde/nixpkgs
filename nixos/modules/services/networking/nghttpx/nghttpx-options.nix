@@ -11,14 +11,14 @@
       description = lib.mdDoc ''
         A list of frontend listener specifications.
       '';
-      example = [{
+      example = [ {
         server = {
           host = "*";
           port = 80;
         };
 
         params = { tls = "no-tls"; };
-      }];
+      } ];
     };
 
     backends = lib.mkOption {
@@ -27,7 +27,7 @@
       description = lib.mdDoc ''
         A list of backend specifications.
       '';
-      example = [{
+      example = [ {
         server = {
           host = "172.16.0.22";
           port = 8443;
@@ -37,7 +37,7 @@
           proto = "http/1.1";
           redirect-if-not-tls = true;
         };
-      }];
+      } ];
     };
 
     tls = lib.mkOption {
@@ -91,7 +91,11 @@
     };
 
     backend-address-family = lib.mkOption {
-      type = lib.types.enum [ "auto" "IPv4" "IPv6" ];
+      type = lib.types.enum [
+        "auto"
+        "IPv4"
+        "IPv6"
+      ];
       default = "auto";
       description = lib.mdDoc ''
         Specify address family of backend connections. If "auto" is

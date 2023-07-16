@@ -33,11 +33,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-stRgCQnlvs5a1jgY37MLsZ/SrJ9ShHsaenStQEBxgQU=";
   };
 
-  outputs = [ "out" "doc" "man" ];
+  outputs = [
+    "out"
+    "doc"
+    "man"
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_SYSCONF_PREFIX=${placeholder "out"}/etc" ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   depsBuildBuild = [ asciidoc ];
 
@@ -80,7 +87,12 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   nativeCheckInputs = [
-    (python3.withPackages (ps: with ps; [ ewmh pytest xlib ]))
+    (python3.withPackages (ps:
+      with ps; [
+        ewmh
+        pytest
+        xlib
+      ]))
     xdotool
     xorgserver
     xsetroot

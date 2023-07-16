@@ -35,7 +35,10 @@ buildGoModule rec {
     description =
       "All-in-one router, firewall and service proxy for Kubernetes";
     license = licenses.asl20;
-    maintainers = with maintainers; [ colemickens johanot ];
+    maintainers = with maintainers; [
+      colemickens
+      johanot
+    ];
     platforms = platforms.linux;
   };
 }

@@ -38,7 +38,10 @@ let
 
   assetsDir = symlinkJoin {
     name = "assets";
-    paths = [ v2ray-geoip v2ray-domain-list-community ];
+    paths = [
+      v2ray-geoip
+      v2ray-domain-list-community
+    ];
   };
 
 in buildGoModule {
@@ -47,7 +50,11 @@ in buildGoModule {
   src = "${src}/service";
   vendorSha256 = "sha256-vnhqI9G/p+SLLA4sre2wfmg1RKIYZmzeL0pSTbHb+Ck=";
 
-  ldflags = [ "-s" "-w" "-X github.com/v2rayA/v2rayA/conf.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/v2rayA/v2rayA/conf.Version=${version}"
+  ];
 
   subPackages = [ "." ];
 

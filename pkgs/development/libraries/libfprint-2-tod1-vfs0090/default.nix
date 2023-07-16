@@ -33,8 +33,21 @@ stdenv.mkDerivation {
     ./0002-vfs0090-add-missing-linux-limits.h-include.patch
   ];
 
-  nativeBuildInputs = [ pkg-config meson ninja ];
-  buildInputs = [ libfprint libfprint-tod glib gusb udev nss openssl pixman ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+  ];
+  buildInputs = [
+    libfprint
+    libfprint-tod
+    glib
+    gusb
+    udev
+    nss
+    openssl
+    pixman
+  ];
 
   installPhase = ''
     runHook preInstall

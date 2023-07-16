@@ -48,11 +48,24 @@ let
         name = pname;
         comment = description;
         genericName = "Computer Aided (Interior) Design";
-        categories = [ "Graphics" "2DGraphics" "3DGraphics" ];
+        categories = [
+          "Graphics"
+          "2DGraphics"
+          "3DGraphics"
+        ];
       };
 
-      nativeBuildInputs = [ makeWrapper unzip ];
-      buildInputs = [ ant jre8 jdk8 gtk3 gsettings-desktop-schemas ];
+      nativeBuildInputs = [
+        makeWrapper
+        unzip
+      ];
+      buildInputs = [
+        ant
+        jre8
+        jdk8
+        gtk3
+        gsettings-desktop-schemas
+      ];
 
       postPatch = ''
         sed -i -e 's,../SweetHome3D,${applicationSrc},g' build.xml

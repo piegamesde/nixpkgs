@@ -23,7 +23,10 @@ buildDunePackage rec {
   };
 
   checkInputs = [ alcotest ];
-  propagatedBuildInputs = [ angstrom faraday ];
+  propagatedBuildInputs = [
+    angstrom
+    faraday
+  ];
   doCheck = true;
 
   meta = {

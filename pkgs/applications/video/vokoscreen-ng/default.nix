@@ -35,7 +35,12 @@ mkDerivation rec {
 
   qmakeFlags = [ "src/vokoscreenNG.pro" ];
 
-  nativeBuildInputs = [ qttools pkg-config qmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qttools
+    pkg-config
+    qmake
+    wrapQtAppsHook
+  ];
   buildInputs = [
     gstreamer
     libX11

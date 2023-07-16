@@ -67,16 +67,26 @@ in stdenv.mkDerivation rec {
     substituteInPlace runtime/phobos/std/socket.d --replace "foreach (name; names)" "names = []; foreach (name; names)"
   '';
 
-  nativeBuildInputs =
-    [ cmake ldcBootstrap lit lit.python llvm_11.dev makeWrapper ninja unzip ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin
-    [ darwin.apple_sdk.frameworks.Foundation ]
+  nativeBuildInputs = [
+    cmake
+    ldcBootstrap
+    lit
+    lit.python
+    llvm_11.dev
+    makeWrapper
+    ninja
+    unzip
+  ] ++ lib.optionals
+    stdenv.hostPlatform.isDarwin [ darwin.apple_sdk.frameworks.Foundation ]
     ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
       # https://github.com/NixOS/nixpkgs/pull/36378#issuecomment-385034818
       gdb
     ];
 
-  buildInputs = [ curl tzdata ];
+  buildInputs = [
+    curl
+    tzdata
+  ];
 
   cmakeFlags = [
     "-DD_FLAGS=-d-version=TZDatabaseDir;-d-version=LibcurlPath;-J${pathConfig}"
@@ -142,8 +152,17 @@ in stdenv.mkDerivation rec {
     description = "The LLVM-based D compiler";
     homepage = "https://github.com/ldc-developers/ldc";
     # from https://github.com/ldc-developers/ldc/blob/master/LICENSE
-    license = with licenses; [ bsd3 boost mit ncsa gpl2Plus ];
-    maintainers = with maintainers; [ ThomasMader lionello ];
+    license = with licenses; [
+      bsd3
+      boost
+      mit
+      ncsa
+      gpl2Plus
+    ];
+    maintainers = with maintainers; [
+      ThomasMader
+      lionello
+    ];
     platforms = [
       "x86_64-linux"
       "i686-linux"

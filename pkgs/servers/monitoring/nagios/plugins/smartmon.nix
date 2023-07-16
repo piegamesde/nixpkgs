@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "tiIeFiHdDgqoeznk9XdCE7owIMnnsQ0fmtj8foFoUD8=";
   };
 
-  buildInputs = [ (python3.withPackages (pp: [ pp.psutil ])) smartmontools ];
+  buildInputs = [
+    (python3.withPackages (pp: [ pp.psutil ]))
+    smartmontools
+  ];
 
   postPatch = ''
     patchShebangs check_smartmon.py

@@ -50,7 +50,12 @@ in stdenv.mkDerivation rec {
 
   preConfigure = "patchShebangs src/liboslexec/serialize-bc.bash ";
 
-  nativeBuildInputs = [ bison clang cmake flex ];
+  nativeBuildInputs = [
+    bison
+    clang
+    cmake
+    flex
+  ];
 
   buildInputs = [
     boost_static

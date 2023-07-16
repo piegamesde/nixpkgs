@@ -48,16 +48,42 @@ stdenv.mkDerivation rec {
 
   dontPatchELF = true;
 
-  nativeBuildInputs = [ pkg-config autoreconfHook perl gperf bison flex ];
-  buildInputs = [ curl gmp python3 ldns unbound openssl pcsclite ]
-    ++ lib.optionals enableTNC [ trousers sqlite libxml2 ]
-    ++ lib.optionals stdenv.isLinux [ systemd.dev pam iptables ]
-    ++ lib.optionals stdenv.isDarwin
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+    perl
+    gperf
+    bison
+    flex
+  ];
+  buildInputs = [
+    curl
+    gmp
+    python3
+    ldns
+    unbound
+    openssl
+    pcsclite
+  ] ++ lib.optionals enableTNC [
+    trousers
+    sqlite
+    libxml2
+  ] ++ lib.optionals stdenv.isLinux [
+    systemd.dev
+    pam
+    iptables
+  ] ++ lib.optionals stdenv.isDarwin
     (with darwin.apple_sdk.frameworks; [ SystemConfiguration ])
-    ++ lib.optionals enableNetworkManager [ networkmanager glib ];
+    ++ lib.optionals enableNetworkManager [
+      networkmanager
+      glib
+    ];
 
-  patches =
-    [ ./ext_auth-path.patch ./firewall_defaults.patch ./updown-path.patch ];
+  patches = [
+    ./ext_auth-path.patch
+    ./firewall_defaults.patch
+    ./updown-path.patch
+  ];
 
   postPatch = lib.optionalString stdenv.isLinux ''
     # glibc-2.26 reorganized internal includes
@@ -99,8 +125,10 @@ stdenv.mkDerivation rec {
     "--enable-forecast"
     "--enable-connmark"
     "--enable-af-alg"
-  ] ++ lib.optionals stdenv.isx86_64 [ "--enable-aesni" "--enable-rdrand" ]
-    ++ lib.optional (stdenv.hostPlatform.system == "i686-linux")
+  ] ++ lib.optionals stdenv.isx86_64 [
+    "--enable-aesni"
+    "--enable-rdrand"
+  ] ++ lib.optional (stdenv.hostPlatform.system == "i686-linux")
     "--enable-padlock" ++ lib.optionals enableTNC [
       "--disable-gmp"
       "--disable-aes"

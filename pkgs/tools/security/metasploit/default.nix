@@ -60,7 +60,10 @@ in stdenv.mkDerivation rec {
     homepage = "https://docs.metasploit.com/";
     platforms = platforms.unix;
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab makefu ];
+    maintainers = with maintainers; [
+      fab
+      makefu
+    ];
     mainProgram = "msfconsole";
   };
 }

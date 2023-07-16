@@ -41,19 +41,28 @@ stdenv.mkDerivation rec {
   };
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ pkg-config texinfo ];
-  buildInputs =
-    [ gettext libassuan libgcrypt libgpg-error libiconv libksba npth ]
-    ++ lib.optionals (!enableMinimal) [
-      adns
-      bzip2
-      gnutls
-      libusb1
-      openldap
-      readline
-      sqlite
-      zlib
-    ] ++ lib.optionals withTpm2Tss [ tpm2-tss ];
+  nativeBuildInputs = [
+    pkg-config
+    texinfo
+  ];
+  buildInputs = [
+    gettext
+    libassuan
+    libgcrypt
+    libgpg-error
+    libiconv
+    libksba
+    npth
+  ] ++ lib.optionals (!enableMinimal) [
+    adns
+    bzip2
+    gnutls
+    libusb1
+    openldap
+    readline
+    sqlite
+    zlib
+  ] ++ lib.optionals withTpm2Tss [ tpm2-tss ];
 
   patches = [
     ./fix-libusb-include-path.patch
@@ -132,7 +141,10 @@ stdenv.mkDerivation rec {
       frontend applications and libraries are available.  Version 2 of GnuPG
       also provides support for S/MIME.
     '';
-    maintainers = with maintainers; [ fpletz vrthra ];
+    maintainers = with maintainers; [
+      fpletz
+      vrthra
+    ];
     platforms = platforms.all;
     mainProgram = "gpg";
   };

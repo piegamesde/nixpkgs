@@ -34,10 +34,19 @@ buildPythonPackage rec {
       --replace 'pyxdg = "^0.28"' 'pyxdg = "*"'
   '';
 
-  nativeBuildInputs = [ docutils installShellFiles poetry-core ];
+  nativeBuildInputs = [
+    docutils
+    installShellFiles
+    poetry-core
+  ];
 
-  propagatedBuildInputs =
-    [ google-api-python-client simplejson oauth2client setuptools pyxdg ];
+  propagatedBuildInputs = [
+    google-api-python-client
+    simplejson
+    oauth2client
+    setuptools
+    pyxdg
+  ];
 
   postInstall = ''
     rst2man goobook.1.rst goobook.1

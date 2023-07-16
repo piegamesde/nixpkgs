@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-SwdE1c7OEg5nncs5QqaTKCL77KddeHw7ZilctQ4L9RA=";
   };
 
-  nativeBuildInputs = [ iucode-tool libarchive ];
+  nativeBuildInputs = [
+    iucode-tool
+    libarchive
+  ];
 
   installPhase = ''
     runHook preInstall

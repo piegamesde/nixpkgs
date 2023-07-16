@@ -34,13 +34,27 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-oBCrG/3HKsWgjS4kEs1HHA/r1mrx2TSbwNeWh53lsXo=";
   };
 
-  nativeBuildInputs = [ docbook_xml_dtd_45 docbook_xsl libtool pkg-config ];
+  nativeBuildInputs = [
+    docbook_xml_dtd_45
+    docbook_xsl
+    libtool
+    pkg-config
+  ];
 
-  buildInputs = [ curl readline wget ] ++ lib.optionals enableSDL2 [ SDL2 ]
-    ++ lib.optionals enableTerm [ ncurses ]
-    ++ lib.optionals enableWx [ gtk3 wxGTK ]
-    ++ lib.optionals enableX11 [ libGL libGLU libX11 libXpm ]
-    ++ lib.optionals stdenv.isDarwin [ libobjc ];
+  buildInputs = [
+    curl
+    readline
+    wget
+  ] ++ lib.optionals enableSDL2 [ SDL2 ] ++ lib.optionals enableTerm [ ncurses ]
+    ++ lib.optionals enableWx [
+      gtk3
+      wxGTK
+    ] ++ lib.optionals enableX11 [
+      libGL
+      libGLU
+      libX11
+      libXpm
+    ] ++ lib.optionals stdenv.isDarwin [ libobjc ];
 
   configureFlags = [
     "--with-rfb=no"
@@ -99,9 +113,10 @@ stdenv.mkDerivation (finalAttrs: {
     "--enable-x86-debugger"
   ] ++ lib.optionals enableSDL2 [ "--with-sdl2" ]
     ++ lib.optionals enableTerm [ "--with-term" ]
-    ++ lib.optionals enableWx [ "--with-wx" ]
-    ++ lib.optionals enableX11 [ "--with-x" "--with-x11" ]
-    ++ lib.optionals (!stdenv.isDarwin) [
+    ++ lib.optionals enableWx [ "--with-wx" ] ++ lib.optionals enableX11 [
+      "--with-x"
+      "--with-x11"
+    ] ++ lib.optionals (!stdenv.isDarwin) [
       "--enable-e1000"
       "--enable-es1370"
       "--enable-ne2000"

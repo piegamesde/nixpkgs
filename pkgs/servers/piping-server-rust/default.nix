@@ -20,7 +20,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-jZio6y2m14tVi3nTQqh+8W3hxft5PfAIWm2XpuyCKDU=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ CoreServices Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    CoreServices
+    Security
+  ];
 
   meta = with lib; {
     description =

@@ -31,8 +31,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [ numpy httpx grpcio typing-extensions grpcio-tools pydantic urllib3 h2 ];
+  propagatedBuildInputs = [
+    numpy
+    httpx
+    grpcio
+    typing-extensions
+    grpcio-tools
+    pydantic
+    urllib3
+    h2
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

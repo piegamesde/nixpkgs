@@ -33,7 +33,11 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.08";
   duneVersion = "3";
 
-  buildInputs = [ fmt ptime domain-name ];
+  buildInputs = [
+    fmt
+    ptime
+    domain-name
+  ];
 
   propagatedBuildInputs = [
     logs

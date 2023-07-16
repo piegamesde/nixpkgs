@@ -80,9 +80,10 @@ in {
     xdg.menus.enable = true;
     xdg.icons.enable = true;
     xdg.portal.enable = mkDefault true;
-    xdg.portal.extraPortals = mkDefault [
-      (pkgs.xdg-desktop-portal-gtk.override { buildPortalsInGnome = false; })
-    ];
+    xdg.portal.extraPortals =
+      mkDefault [ (pkgs.xdg-desktop-portal-gtk.override {
+        buildPortalsInGnome = false;
+      }) ];
 
     environment.sessionVariables = {
       NIX_GSETTINGS_OVERRIDES_DIR =

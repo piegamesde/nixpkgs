@@ -33,11 +33,25 @@ buildPythonPackage rec {
     hash = "sha256-6ulg3R59QHy31CXit8tddi6F0vPKVRZDIu0zdS19xu0=";
   };
 
-  propagatedBuildInputs =
-    [ autograd autograd-gamma formulaic matplotlib numpy pandas scipy ];
+  propagatedBuildInputs = [
+    autograd
+    autograd-gamma
+    formulaic
+    matplotlib
+    numpy
+    pandas
+    scipy
+  ];
 
-  nativeCheckInputs =
-    [ dill flaky jinja2 psutil pytestCheckHook scikit-learn sybil ];
+  nativeCheckInputs = [
+    dill
+    flaky
+    jinja2
+    psutil
+    pytestCheckHook
+    scikit-learn
+    sybil
+  ];
 
   pythonImportsCheck = [ "lifelines" ];
 

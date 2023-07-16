@@ -37,6 +37,9 @@ stdenv.mkDerivation rec {
       "The Trino CLI provides a terminal-based, interactive shell for running queries";
     homepage = "https://github.com/trinodb/trino";
     license = licenses.asl20;
-    maintainers = with maintainers; [ regadas cpcloud ];
+    maintainers = with maintainers; [
+      regadas
+      cpcloud
+    ];
   };
 }

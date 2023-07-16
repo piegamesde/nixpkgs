@@ -24,8 +24,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1zYHYJXVhJdWQKeM0VVM4VzL3r3XPXebfR7IAEgyt+c=";
   };
 
-  nativeBuildInputs = [ doxygen graphviz pkg-config perl ];
-  buildInputs = [ bzip2 zlib xz lz4 lzo zstd ];
+  nativeBuildInputs = [
+    doxygen
+    graphviz
+    pkg-config
+    perl
+  ];
+  buildInputs = [
+    bzip2
+    zlib
+    xz
+    lz4
+    lzo
+    zstd
+  ];
 
   enableParallelBuilding = true;
 

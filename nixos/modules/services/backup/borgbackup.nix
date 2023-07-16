@@ -100,7 +100,10 @@ let
       backupScript = mkBackupScript backupJobName cfg;
     in nameValuePair backupJobName {
       description = "BorgBackup job ${name}";
-      path = with pkgs; [ borgbackup openssh ];
+      path = with pkgs; [
+        borgbackup
+        openssh
+      ];
       script = "exec " + optionalString cfg.inhibitsSleep ''
         \
                 ${pkgs.systemd}/bin/systemd-inhibit \
@@ -115,9 +118,10 @@ let
         CPUSchedulingPolicy = "idle";
         IOSchedulingClass = "idle";
         ProtectSystem = "strict";
-        ReadWritePaths =
-          [ "${userHome}/.config/borg" "${userHome}/.cache/borg" ]
-          ++ cfg.readWritePaths
+        ReadWritePaths = [
+          "${userHome}/.config/borg"
+          "${userHome}/.cache/borg"
+        ] ++ cfg.readWritePaths
           # Borg needs write access to repo if it is not remote
           ++ optional (isLocalPath cfg.repo) cfg.repo;
         PrivateTmp = cfg.privateTmp;
@@ -231,7 +235,10 @@ let
   };
 
   mkSourceAssertions = name: cfg: {
-    assertion = count isNull [ cfg.dumpCommand cfg.paths ] == 1;
+    assertion = count isNull [
+      cfg.dumpCommand
+      cfg.paths
+    ] == 1;
     message = ''
       Exactly one of borgbackup.jobs.${name}.paths or borgbackup.jobs.${name}.dumpCommand
       must be set.
@@ -472,7 +479,10 @@ in {
             {command}`borg help patterns` for pattern syntax.
           '';
           default = [ ];
-          example = [ "/home/*/.cache" "/nix" ];
+          example = [
+            "/home/*/.cache"
+            "/nix"
+          ];
         };
 
         patterns = mkOption {
@@ -484,7 +494,10 @@ in {
             backed up. See [{command}`borg help patterns`](https://borgbackup.readthedocs.io/en/stable/usage/help.html#borg-patterns) for pattern syntax.
           '';
           default = [ ];
-          example = [ "+ /home/susan" "- /home/*" ];
+          example = [
+            "+ /home/susan"
+            "- /home/*"
+          ];
         };
 
         readWritePaths = mkOption {

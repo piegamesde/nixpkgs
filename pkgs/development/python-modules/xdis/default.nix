@@ -29,7 +29,10 @@ buildPythonPackage rec {
       --replace "3.10.4" "3.10.5 3.10.6"
   '';
 
-  propagatedBuildInputs = [ click six ];
+  propagatedBuildInputs = [
+    click
+    six
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -27,7 +27,12 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs = [ meson ninja pkg-config scdoc ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    scdoc
+  ];
   buildInputs = [
     # Optional dependencies:
     mesa

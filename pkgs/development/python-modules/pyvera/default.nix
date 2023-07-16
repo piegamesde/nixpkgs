@@ -27,8 +27,13 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs =
-    [ pytest-asyncio pytest-timeout pytest-cov pytestCheckHook responses ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-timeout
+    pytest-cov
+    pytestCheckHook
+    responses
+  ];
 
   pythonImportsCheck = [ "pyvera" ];
 

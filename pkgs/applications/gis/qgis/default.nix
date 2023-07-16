@@ -14,7 +14,10 @@ in symlinkJoin rec {
 
   paths = [ qgis-unwrapped ];
 
-  nativeBuildInputs = [ makeWrapper qgis-unwrapped.py.pkgs.wrapPython ];
+  nativeBuildInputs = [
+    makeWrapper
+    qgis-unwrapped.py.pkgs.wrapPython
+  ];
 
   # extend to add to the python environment of QGIS without rebuilding QGIS application.
   pythonInputs = qgis-unwrapped.pythonBuildInputs

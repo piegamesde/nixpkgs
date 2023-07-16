@@ -27,9 +27,19 @@ buildPythonApplication {
 
   nativeBuildInputs = [ wrapGAppsHook ];
 
-  buildInputs = [ gobject-introspection gtk3 libappindicator libpulseaudio ];
+  buildInputs = [
+    gobject-introspection
+    gtk3
+    libappindicator
+    libpulseaudio
+  ];
 
-  propagatedBuildInputs = [ pycairo pygobject3 six xlib ];
+  propagatedBuildInputs = [
+    pycairo
+    pygobject3
+    six
+    xlib
+  ];
 
   postPatch = ''
     substituteInPlace hushboard/_pulsectl.py \

@@ -67,7 +67,13 @@ in {
   config = lib.mkIf cfg.enable {
     boot.extraModulePackages = [ config.boot.kernelPackages.vmware ];
     boot.extraModprobeConfig = "alias char-major-10-229 fuse";
-    boot.kernelModules = [ "vmw_pvscsi" "vmw_vmci" "vmmon" "vmnet" "fuse" ];
+    boot.kernelModules = [
+      "vmw_pvscsi"
+      "vmw_vmci"
+      "vmmon"
+      "vmnet"
+      "fuse"
+    ];
 
     environment.systemPackages = [ cfg.package ] ++ cfg.extraPackages;
     services.printing.drivers = [ cfg.package ];
@@ -96,29 +102,31 @@ in {
 
     ###### wrappers activation script
 
-    system.activationScripts.vmwareWrappers =
-      lib.stringAfter [ "specialfs" "users" ] ''
-        mkdir -p "${parentWrapperDir}"
-        chmod 755 "${parentWrapperDir}"
-        # We want to place the tmpdirs for the wrappers to the parent dir.
-        wrapperDir=$(mktemp --directory --tmpdir="${parentWrapperDir}" wrappers.XXXXXXXXXX)
-        chmod a+rx "$wrapperDir"
-        ${lib.concatStringsSep "\n" (vmwareWrappers)}
-        if [ -L ${wrapperDir} ]; then
-          # Atomically replace the symlink
-          # See https://axialcorps.com/2013/07/03/atomically-replacing-files-and-directories/
-          old=$(readlink -f ${wrapperDir})
-          if [ -e "${wrapperDir}-tmp" ]; then
-            rm --force --recursive "${wrapperDir}-tmp"
-          fi
-          ln --symbolic --force --no-dereference "$wrapperDir" "${wrapperDir}-tmp"
-          mv --no-target-directory "${wrapperDir}-tmp" "${wrapperDir}"
-          rm --force --recursive "$old"
-        else
-          # For initial setup
-          ln --symbolic "$wrapperDir" "${wrapperDir}"
+    system.activationScripts.vmwareWrappers = lib.stringAfter [
+      "specialfs"
+      "users"
+    ] ''
+      mkdir -p "${parentWrapperDir}"
+      chmod 755 "${parentWrapperDir}"
+      # We want to place the tmpdirs for the wrappers to the parent dir.
+      wrapperDir=$(mktemp --directory --tmpdir="${parentWrapperDir}" wrappers.XXXXXXXXXX)
+      chmod a+rx "$wrapperDir"
+      ${lib.concatStringsSep "\n" (vmwareWrappers)}
+      if [ -L ${wrapperDir} ]; then
+        # Atomically replace the symlink
+        # See https://axialcorps.com/2013/07/03/atomically-replacing-files-and-directories/
+        old=$(readlink -f ${wrapperDir})
+        if [ -e "${wrapperDir}-tmp" ]; then
+          rm --force --recursive "${wrapperDir}-tmp"
         fi
-      '';
+        ln --symbolic --force --no-dereference "$wrapperDir" "${wrapperDir}-tmp"
+        mv --no-target-directory "${wrapperDir}-tmp" "${wrapperDir}"
+        rm --force --recursive "$old"
+      else
+        # For initial setup
+        ln --symbolic "$wrapperDir" "${wrapperDir}"
+      fi
+    '';
 
     # Services
 
@@ -136,9 +144,8 @@ in {
       unitConfig.ConditionPathExists = "!/etc/vmware/networking";
       serviceConfig = {
         UMask = "0077";
-        ExecStart = [
-          "${cfg.package}/bin/vmware-networks --postinstall vmware-player,0,1"
-        ];
+        ExecStart =
+          [ "${cfg.package}/bin/vmware-networks --postinstall vmware-player,0,1" ];
         Type = "oneshot";
         RemainAfterExit = "yes";
       };

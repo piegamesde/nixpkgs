@@ -13,7 +13,10 @@ in {
   extraOpts = {
     fetchType = mkOption {
       # TODO: add shm when upstream implemented it
-      type = types.enum [ "tcp" "uds" ];
+      type = types.enum [
+        "tcp"
+        "uds"
+      ];
       default = "uds";
       description = lib.mdDoc ''
         Which methods the exporter uses to get the information from unbound.
@@ -42,7 +45,7 @@ in {
     };
   };
 
-  serviceOpts = mkMerge ([{
+  serviceOpts = mkMerge ([ {
     serviceConfig = {
       ExecStart = ''
         ${pkgs.prometheus-unbound-exporter}/bin/unbound-telemetry \
@@ -60,10 +63,8 @@ in {
         "AF_UNIX"
       ];
     };
-  }] ++ [
-    (mkIf config.services.unbound.enable {
-      after = [ "unbound.service" ];
-      requires = [ "unbound.service" ];
-    })
-  ]);
+  } ] ++ [ (mkIf config.services.unbound.enable {
+    after = [ "unbound.service" ];
+    requires = [ "unbound.service" ];
+  }) ]);
 }

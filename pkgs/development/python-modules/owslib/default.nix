@@ -33,7 +33,14 @@ buildPythonPackage rec {
       --replace " --doctest-modules --doctest-glob 'tests/**/*.txt' --cov-report term-missing --cov owslib" ""
   '';
 
-  propagatedBuildInputs = [ lxml pyproj python-dateutil pytz pyyaml requests ];
+  propagatedBuildInputs = [
+    lxml
+    pyproj
+    python-dateutil
+    pytz
+    pyyaml
+    requests
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

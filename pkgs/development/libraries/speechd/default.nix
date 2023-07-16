@@ -43,12 +43,10 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-i0ZJkl5oy+GntMCge7BBznc4s1yQamAr+CmG2xqg82Q=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      utillinux = util-linux;
-    })
-  ] ++ lib.optionals (withEspeak && espeak.mbrolaSupport) [
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    utillinux = util-linux;
+  }) ] ++ lib.optionals (withEspeak && espeak.mbrolaSupport) [
     # Replace FHS paths.
     (substituteAll {
       src = ./fix-mbrola-paths.patch;
@@ -56,12 +54,29 @@ in stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs =
-    [ pkg-config autoreconfHook gettext libtool itstool texinfo wrapPython ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+    gettext
+    libtool
+    itstool
+    texinfo
+    wrapPython
+  ];
 
-  buildInputs = [ glib dotconf libsndfile libao libpulseaudio alsa-lib python ]
-    ++ lib.optionals withEspeak [ espeak sonic pcaudiolib ]
-    ++ lib.optionals withFlite [ flite ] ++ lib.optionals withPico [ svox ];
+  buildInputs = [
+    glib
+    dotconf
+    libsndfile
+    libao
+    libpulseaudio
+    alsa-lib
+    python
+  ] ++ lib.optionals withEspeak [
+    espeak
+    sonic
+    pcaudiolib
+  ] ++ lib.optionals withFlite [ flite ] ++ lib.optionals withPico [ svox ];
 
   pythonPath = [ pyxdg ];
 
@@ -90,7 +105,10 @@ in stdenv.mkDerivation rec {
     description = "Common interface to speech synthesis";
     homepage = "https://devel.freebsoft.org/speechd";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ berce jtojnar ];
+    maintainers = with maintainers; [
+      berce
+      jtojnar
+    ];
     platforms = platforms.linux;
   };
 }

@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
   pname = "pangomm";
   version = "2.50.1";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -26,10 +29,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zMmSNBPkCMK/9jffZjJIMn1ygi8R45S0I+HFZSt9khQ=";
   };
 
-  nativeBuildInputs = [ pkg-config meson ninja python3 ]
-    ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    python3
+  ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
 
-  propagatedBuildInputs = [ pango glibmm_2_68 cairomm_1_16 ];
+  propagatedBuildInputs = [
+    pango
+    glibmm_2_68
+    cairomm_1_16
+  ];
 
   doCheck = true;
 
@@ -52,8 +63,10 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.pango.org/";
     license = licenses.lgpl21Plus;
-    maintainers = teams.gnome.members
-      ++ (with maintainers; [ lovek323 raskin ]);
+    maintainers = teams.gnome.members ++ (with maintainers; [
+      lovek323
+      raskin
+    ]);
     platforms = platforms.unix;
   };
 }

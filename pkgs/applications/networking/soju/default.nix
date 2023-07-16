@@ -19,12 +19,22 @@ buildGoModule rec {
 
   vendorHash = "sha256-n1wwi7I2hDLOe08RkJOiopDUGI6uhipNpBdeOLARIoU=";
 
-  subPackages =
-    [ "cmd/soju" "cmd/sojuctl" "contrib/migrate-db" "contrib/znc-import" ];
+  subPackages = [
+    "cmd/soju"
+    "cmd/sojuctl"
+    "contrib/migrate-db"
+    "contrib/znc-import"
+  ];
 
-  nativeBuildInputs = [ installShellFiles scdoc ];
+  nativeBuildInputs = [
+    installShellFiles
+    scdoc
+  ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   postBuild = ''
     make doc/soju.1
@@ -54,6 +64,9 @@ buildGoModule rec {
     homepage = "https://soju.im";
     changelog = "https://git.sr.ht/~emersion/soju/refs/${src.rev}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ azahi malte-v ];
+    maintainers = with maintainers; [
+      azahi
+      malte-v
+    ];
   };
 }

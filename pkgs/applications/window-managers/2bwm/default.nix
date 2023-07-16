@@ -25,7 +25,14 @@ stdenv.mkDerivation rec {
   # Allow users set their own list of patches
   inherit patches;
 
-  buildInputs = [ libxcb xcbutilkeysyms xcbutilwm libX11 xcbutil xcbutilxrm ];
+  buildInputs = [
+    libxcb
+    xcbutilkeysyms
+    xcbutilwm
+    libX11
+    xcbutil
+    xcbutilxrm
+  ];
 
   installPhase = ''make install DESTDIR=$out PREFIX=""'';
 

@@ -27,9 +27,20 @@ mkDerivation rec {
     sha256 = "sha256-DQM3IJ0pRkX4OsrjZGROg50LfKb621UnpvtqSjxchz8=";
   };
 
-  nativeBuildInputs = [ cmake docbook_xsl qttools ];
-  buildInputs =
-    [ appstream qtbase qtsvg qtquickcontrols2 qtwebview itstool librsvg ];
+  nativeBuildInputs = [
+    cmake
+    docbook_xsl
+    qttools
+  ];
+  buildInputs = [
+    appstream
+    qtbase
+    qtsvg
+    qtquickcontrols2
+    qtwebview
+    itstool
+    librsvg
+  ];
 
   patchPhase = ''
     substituteInPlace pentobi_thumbnailer/CMakeLists.txt --replace "/manpages" "/share/xml/docbook-xsl/manpages/"

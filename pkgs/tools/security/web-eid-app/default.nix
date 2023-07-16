@@ -22,7 +22,10 @@ mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     gtest # required during build of lib/libelectronic-id/lib/libpcsc-cpp

@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-EQyu7lV8F/U8cZklYYIMk9ut1FTcoBvGc8Ggx6JerDk=";
   };
 
-  propagatedBuildInputs = [ pbr requests ];
+  propagatedBuildInputs = [
+    pbr
+    requests
+  ];
 
   # Project has no tests
   doCheck = false;

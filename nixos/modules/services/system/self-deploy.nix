@@ -64,7 +64,12 @@ in {
     };
 
     switchCommand = lib.mkOption {
-      type = lib.types.enum [ "boot" "switch" "dry-activate" "test" ];
+      type = lib.types.enum [
+        "boot"
+        "switch"
+        "dry-activate"
+        "test"
+      ];
 
       default = "switch";
 
@@ -74,7 +79,11 @@ in {
     };
 
     repository = lib.mkOption {
-      type = with lib.types; oneOf [ path str ];
+      type = with lib.types;
+        oneOf [
+          path
+          str
+        ];
 
       description = lib.mdDoc ''
         The repository to fetch from. Must be properly formatted for git.
@@ -145,8 +154,12 @@ in {
       restartIfChanged = false;
 
       path = with pkgs;
-        [ git gnutar gzip nix ]
-        ++ lib.optionals (cfg.switchCommand == "boot") [ systemd ];
+        [
+          git
+          gnutar
+          gzip
+          nix
+        ] ++ lib.optionals (cfg.switchCommand == "boot") [ systemd ];
 
       script = ''
         if [ ! -e ${repositoryDirectory} ]; then

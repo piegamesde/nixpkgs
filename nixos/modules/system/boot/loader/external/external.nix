@@ -10,7 +10,11 @@ with lib;
 let cfg = config.boot.loader.external;
 in {
   meta = {
-    maintainers = with maintainers; [ cole-h grahamc raitobezarius ];
+    maintainers = with maintainers; [
+      cole-h
+      grahamc
+      raitobezarius
+    ];
     doc = ./external.md;
   };
 

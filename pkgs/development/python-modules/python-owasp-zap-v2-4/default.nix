@@ -20,9 +20,16 @@ buildPythonPackage rec {
     sha256 = "0b46m9s0vwaaq8vhiqspdr2ns9qdw65fnjh8mf58gjinlsd27ygk";
   };
 
-  propagatedBuildInputs = [ requests six ];
+  propagatedBuildInputs = [
+    requests
+    six
+  ];
 
-  nativeCheckInputs = [ pyhamcrest pytestCheckHook requests-mock ];
+  nativeCheckInputs = [
+    pyhamcrest
+    pytestCheckHook
+    requests-mock
+  ];
 
   pythonImportsCheck = [ "zapv2" ];
 

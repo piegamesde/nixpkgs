@@ -6,7 +6,12 @@ import ./make-test-python.nix ({
     ...
   }: {
     name = "munin";
-    meta = with pkgs.lib.maintainers; { maintainers = [ domenkozar eelco ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        domenkozar
+        eelco
+      ];
+    };
 
     nodes = {
       one = {

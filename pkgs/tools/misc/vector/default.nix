@@ -71,14 +71,24 @@ in rustPlatform.buildRustPackage {
       "tracing-0.2.0" = "sha256-YAxeEofFA43PX2hafh3RY+C81a2v6n1fGzYz2FycC3M=";
     };
   };
-  nativeBuildInputs = [ pkg-config cmake perl git ];
-  buildInputs = [ oniguruma openssl protobuf rdkafka zstd ]
-    ++ lib.optionals stdenv.isDarwin [
-      Security
-      libiconv
-      coreutils
-      CoreServices
-    ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    perl
+    git
+  ];
+  buildInputs = [
+    oniguruma
+    openssl
+    protobuf
+    rdkafka
+    zstd
+  ] ++ lib.optionals stdenv.isDarwin [
+    Security
+    libiconv
+    coreutils
+    CoreServices
+  ];
 
   # needed for internal protobuf c wrapper library
   PROTOC = "${protobuf}/bin/protoc";
@@ -138,7 +148,10 @@ in rustPlatform.buildRustPackage {
     description = "A high-performance observability data pipeline";
     homepage = "https://github.com/vectordotdev/vector";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ thoughtpolice happysalada ];
+    maintainers = with maintainers; [
+      thoughtpolice
+      happysalada
+    ];
     platforms = with platforms; all;
   };
 }

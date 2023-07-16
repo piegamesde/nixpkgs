@@ -15,8 +15,17 @@ stdenv.mkDerivation rec {
   pname = "libmatchbox";
   version = "1.11";
 
-  buildInputs = [ libXft libICE pango libjpeg ];
-  propagatedBuildInputs = [ libX11 libXext libpng ];
+  buildInputs = [
+    libXft
+    libICE
+    pango
+    libjpeg
+  ];
+  propagatedBuildInputs = [
+    libX11
+    libXext
+    libpng
+  ];
   NIX_LDFLAGS = "-lX11";
 
   src = fetchurl {

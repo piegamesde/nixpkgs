@@ -16,7 +16,11 @@ buildPythonPackage rec {
     sha256 = "0023ihrz0waxbhq28xh1ymvk51ih882y9psg4glm6s9d1zmqvdph";
   };
 
-  propagatedBuildInputs = [ appdirs biopython proglog ];
+  propagatedBuildInputs = [
+    appdirs
+    biopython
+    proglog
+  ];
 
   # Project hasn't released the tests yet
   doCheck = false;

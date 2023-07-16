@@ -22,11 +22,15 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ flit-core setuptools-scm ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  nativeBuildInputs = [
+    flit-core
+    setuptools-scm
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
-  propagatedBuildInputs = [ flit-core setuptools-scm ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs = [
+    flit-core
+    setuptools-scm
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   pythonImportsCheck = [ "flit_scm" ];
 

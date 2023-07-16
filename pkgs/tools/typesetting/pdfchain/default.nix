@@ -21,9 +21,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Hu4Pk9voyc75+f5OwKEOCkXKjN5nzWzv+izmyEN1Lz0=";
   };
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook autoconf ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook
+    autoconf
+  ];
 
-  buildInputs = [ gtkmm3 pdftk glib ];
+  buildInputs = [
+    gtkmm3
+    pdftk
+    glib
+  ];
 
   patches = let
     fetchDebianPatch = {

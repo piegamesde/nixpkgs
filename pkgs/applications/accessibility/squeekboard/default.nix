@@ -46,8 +46,18 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [ "-Dnewer=true" ];
 
-  nativeBuildInputs = [ meson ninja pkg-config glib wayland wrapGAppsHook ]
-    ++ (with rustPlatform; [ cargoSetupHook rust.cargo rust.rustc ]);
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    glib
+    wayland
+    wrapGAppsHook
+  ] ++ (with rustPlatform; [
+    cargoSetupHook
+    rust.cargo
+    rust.rustc
+  ]);
 
   buildInputs = [
     gtk3
@@ -66,7 +76,10 @@ stdenv.mkDerivation rec {
     description = "A virtual keyboard supporting Wayland";
     homepage = "https://source.puri.sm/Librem5/squeekboard";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ artturin tomfitzhenry ];
+    maintainers = with maintainers; [
+      artturin
+      tomfitzhenry
+    ];
     platforms = platforms.linux;
   };
 }

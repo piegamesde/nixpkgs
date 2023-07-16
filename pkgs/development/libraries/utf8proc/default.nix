@@ -23,7 +23,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" "-DUTF8PROC_ENABLE_TESTING=ON" ];
+  cmakeFlags = [
+    "-DBUILD_SHARED_LIBS=ON"
+    "-DUTF8PROC_ENABLE_TESTING=ON"
+  ];
 
   doCheck = true;
 
@@ -34,6 +37,9 @@ stdenv.mkDerivation rec {
     homepage = "https://juliastrings.github.io/utf8proc/";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ maintainers.ftrvxmtrx maintainers.sternenseemann ];
+    maintainers = [
+      maintainers.ftrvxmtrx
+      maintainers.sternenseemann
+    ];
   };
 }

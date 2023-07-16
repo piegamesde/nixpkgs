@@ -82,8 +82,7 @@ in stdenvNoCC.mkDerivation ({
   nativeBuildInputs = [ validatePkgConfig ] ++ (if stdenvNoCC.isDarwin then [
     _7zz
     darwin.cctools
-  ] else
-    [ rpmextract ]);
+  ] else [ rpmextract ]);
 
   buildPhase = if stdenvNoCC.isDarwin then ''
     for f in bootstrapper.app/Contents/Resources/packages/*/cupPayload.cup; do
@@ -205,7 +204,10 @@ in stdenvNoCC.mkDerivation ({
     homepage = "https://software.intel.com/en-us/mkl";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.issl;
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
     maintainers = with maintainers; [ bhipple ];
   };
 } // lib.optionalAttrs stdenvNoCC.isDarwin {

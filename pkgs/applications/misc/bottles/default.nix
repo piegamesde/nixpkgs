@@ -62,7 +62,12 @@ python3Packages.buildPythonApplication rec {
     desktop-file-utils
   ];
 
-  buildInputs = [ librsvg gtk4 gtksourceview5 libadwaita ];
+  buildInputs = [
+    librsvg
+    gtk4
+    gtksourceview5
+    libadwaita
+  ];
 
   propagatedBuildInputs = with python3Packages;
     [
@@ -112,7 +117,10 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://usebottles.com/";
     downloadPage = "https://github.com/bottlesdevs/Bottles/releases";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ psydvl shamilton ];
+    maintainers = with maintainers; [
+      psydvl
+      shamilton
+    ];
     platforms = platforms.linux;
   };
 }

@@ -24,7 +24,12 @@ mkDerivation rec {
     rm release.sh
   '';
 
-  buildInputs = [ kcoreaddons kwindowsystem plasma-framework systemsettings ];
+  buildInputs = [
+    kcoreaddons
+    kwindowsystem
+    plasma-framework
+    systemsettings
+  ];
 
   dontBuild = true;
 

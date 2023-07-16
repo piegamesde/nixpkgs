@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ tcl tk libX11 ];
+  buildInputs = [
+    tcl
+    tk
+    libX11
+  ];
 
   makeFlags = [
     "BINDIR=$(out)/bin"

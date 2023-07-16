@@ -23,13 +23,26 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-nhRXFxSrzkq3SdJ4ZmWlKl7SwxwOz6ZYboIsBmgdFJ8=";
 
-  nativeBuildInputs = [ pkg-config cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
 
-  buildInputs = [ openssl alsa-lib dbus fontconfig ];
+  buildInputs = [
+    openssl
+    alsa-lib
+    dbus
+    fontconfig
+  ];
 
   buildNoDefaultFeatures = true;
 
-  buildFeatures = [ "rodio-backend" "media-control" "image" "lyric-finder" ];
+  buildFeatures = [
+    "rodio-backend"
+    "media-control"
+    "image"
+    "lyric-finder"
+  ];
 
   meta = with lib; {
     description = "A command driven spotify player";

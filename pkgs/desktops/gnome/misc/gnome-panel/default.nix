@@ -27,7 +27,11 @@ stdenv.mkDerivation rec {
   pname = "gnome-panel";
   version = "3.47.1";
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -60,8 +64,14 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  nativeBuildInputs =
-    [ autoreconfHook gettext itstool libxml2 pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoreconfHook
+    gettext
+    itstool
+    libxml2
+    pkg-config
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     dconf

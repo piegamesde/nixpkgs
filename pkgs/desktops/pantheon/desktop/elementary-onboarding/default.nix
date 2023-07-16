@@ -29,7 +29,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OWALEcVOOh7wjEEvysd+MQhB/iK3105XCIVp5pklMwY=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config python3 vala wrapGAppsHook4 ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    python3
+    vala
+    wrapGAppsHook4
+  ];
 
   buildInputs = [
     appcenter # settings schema

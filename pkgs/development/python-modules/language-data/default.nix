@@ -22,7 +22,10 @@ buildPythonPackage rec {
     sha256 = "51TUVHXPHG6ofbnxI6+o5lrtr+QCIpGKu+OjDK3l7Mc=";
   };
 
-  nativeBuildInputs = [ poetry-core setuptools ];
+  nativeBuildInputs = [
+    poetry-core
+    setuptools
+  ];
 
   propagatedBuildInputs = [ marisa-trie ];
 

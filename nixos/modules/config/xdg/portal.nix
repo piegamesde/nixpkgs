@@ -10,7 +10,11 @@ let
 
 in {
   imports = [
-    (mkRenamedOptionModule [ "services" "flatpak" "extraPortals" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "flatpak"
+      "extraPortals"
+    ] [
       "xdg"
       "portal"
       "extraPortals"
@@ -23,14 +27,18 @@ in {
         ...
       }:
       let
-        from = [ "xdg" "portal" "gtkUsePortal" ];
+        from = [
+          "xdg"
+          "portal"
+          "gtkUsePortal"
+        ];
         fromOpt = lib.getAttrFromPath from options;
       in {
-        warnings = lib.mkIf config.xdg.portal.gtkUsePortal [
-          "The option `${lib.showOption from}' defined in ${
+        warnings = lib.mkIf config.xdg.portal.gtkUsePortal [ "The option `${
+            lib.showOption from
+          }' defined in ${
             lib.showFiles fromOpt.files
-          } has been deprecated. Setting the variable globally with `environment.sessionVariables' NixOS option can have unforseen side-effects."
-        ];
+          } has been deprecated. Setting the variable globally with `environment.sessionVariables' NixOS option can have unforseen side-effects." ];
       })
   ];
 
@@ -86,17 +94,19 @@ in {
     joinedPortals = pkgs.buildEnv {
       name = "xdg-portals";
       paths = packages;
-      pathsToLink =
-        [ "/share/xdg-desktop-portal/portals" "/share/applications" ];
+      pathsToLink = [
+        "/share/xdg-desktop-portal/portals"
+        "/share/applications"
+      ];
     };
 
   in mkIf cfg.enable {
 
-    assertions = [{
+    assertions = [ {
       assertion = cfg.extraPortals != [ ];
       message =
         "Setting xdg.portal.enable to true requires a portal implementation in xdg.portal.extraPortals such as xdg-desktop-portal-gtk or xdg-desktop-portal-kde.";
-    }];
+    } ];
 
     services.dbus.packages = packages;
     systemd.packages = packages;

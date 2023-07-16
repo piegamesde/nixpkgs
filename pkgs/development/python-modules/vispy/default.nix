@@ -28,21 +28,29 @@ buildPythonPackage rec {
     hash = "sha256-FBwt3MwRWFVbyJ8JAQxLHXVEh+gWNXMz8x55WnFGoCQ=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./library-paths.patch;
-      fontconfig =
-        "${fontconfig.lib}/lib/libfontconfig${stdenv.hostPlatform.extensions.sharedLibrary}";
-      gl =
-        "${libGL.out}/lib/libGL${stdenv.hostPlatform.extensions.sharedLibrary}";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./library-paths.patch;
+    fontconfig =
+      "${fontconfig.lib}/lib/libfontconfig${stdenv.hostPlatform.extensions.sharedLibrary}";
+    gl =
+      "${libGL.out}/lib/libGL${stdenv.hostPlatform.extensions.sharedLibrary}";
+  }) ];
 
-  nativeBuildInputs = [ cython setuptools-scm setuptools-scm-git-archive ];
+  nativeBuildInputs = [
+    cython
+    setuptools-scm
+    setuptools-scm-git-archive
+  ];
 
   buildInputs = [ libGL ];
 
-  propagatedBuildInputs = [ fontconfig freetype-py hsluv kiwisolver numpy ];
+  propagatedBuildInputs = [
+    fontconfig
+    freetype-py
+    hsluv
+    kiwisolver
+    numpy
+  ];
 
   doCheck = false; # otherwise runs OSX code on linux.
 

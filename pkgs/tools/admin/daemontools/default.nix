@@ -24,7 +24,10 @@ in stdenv.mkDerivation rec {
 
   patches = [ ./fix-nix-usernamespace-build.patch ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 

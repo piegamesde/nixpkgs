@@ -18,7 +18,11 @@ buildGoModule rec {
 
   vendorSha256 = "1qm328ldkaifj1vsrz025vsa2wqzii9rky00b6wh8jf31f4ljbzv";
 
-  ldflags = [ "-s" "-w" "-X=github.com/davrodpin/mole/cmd.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X=github.com/davrodpin/mole/cmd.version=${version}"
+  ];
 
   meta = with lib; {
     description = "CLI application to create SSH tunnels";

@@ -22,7 +22,10 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-iIvynt8Qg9PmR2q7JsLtRlYxfHGaShMD8kbbPL89DzE=";
   };
 
-  nativeBuildInputs = [ gtk3 papirus-folders ];
+  nativeBuildInputs = [
+    gtk3
+    papirus-folders
+  ];
 
   propagatedBuildInputs = [
     pantheon.elementary-icon-theme
@@ -55,6 +58,9 @@ stdenvNoCC.mkDerivation rec {
     license = licenses.gpl3Only;
     # darwin gives hash mismatch in source, probably because of file names differing only in case
     platforms = platforms.linux;
-    maintainers = with maintainers; [ romildo fortuneteller2k ];
+    maintainers = with maintainers; [
+      romildo
+      fortuneteller2k
+    ];
   };
 }

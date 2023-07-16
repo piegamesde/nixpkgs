@@ -22,7 +22,10 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  ldflags = [ "-s" "-w" ] ++ (with lib;
+  ldflags = [
+    "-s"
+    "-w"
+  ] ++ (with lib;
     mapAttrsToList (n: v: "-X github.com/sahib/brig/version.${n}=${v}")
     (with versions; {
       Major = major version;

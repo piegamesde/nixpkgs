@@ -32,7 +32,11 @@ in buildGoModule rec {
 
   doCheck = false;
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   nativeBuildInputs = [
     debianutils
@@ -63,6 +67,9 @@ in buildGoModule rec {
       "Send push notifications to your phone or desktop via PUT/POST";
     homepage = "https://ntfy.sh";
     license = licenses.asl20;
-    maintainers = with maintainers; [ arjan-s fpletz ];
+    maintainers = with maintainers; [
+      arjan-s
+      fpletz
+    ];
   };
 }

@@ -23,9 +23,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2tZWIN58J6zNHG3dahNfg5eNiS8ykWFQyRSyikuzdjE=";
   };
 
-  nativeBuildInputs = [ meson ninja cmake pkg-config rpcsvc-proto ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    cmake
+    pkg-config
+    rpcsvc-proto
+  ];
 
-  buildInputs = [ libtirpc avahi libxml2 ];
+  buildInputs = [
+    libtirpc
+    avahi
+    libxml2
+  ];
 
   meta = with lib; {
     description = "Library for communicating with LXI compatible instruments";

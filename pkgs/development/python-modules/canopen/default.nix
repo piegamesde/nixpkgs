@@ -23,7 +23,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ can canmatrix ];
+  propagatedBuildInputs = [
+    can
+    canmatrix
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

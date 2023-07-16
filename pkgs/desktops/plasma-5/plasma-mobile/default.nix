@@ -33,7 +33,10 @@
 mkDerivation {
   pname = "plasma-mobile";
 
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
   buildInputs = [
     appstream
     libdbusmenu

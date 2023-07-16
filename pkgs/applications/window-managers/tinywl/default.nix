@@ -17,8 +17,18 @@ stdenv.mkDerivation {
 
   sourceRoot = "source/tinywl";
 
-  nativeBuildInputs = [ pkg-config wayland-scanner ];
-  buildInputs = [ libxkbcommon pixman udev wayland wayland-protocols wlroots ];
+  nativeBuildInputs = [
+    pkg-config
+    wayland-scanner
+  ];
+  buildInputs = [
+    libxkbcommon
+    pixman
+    udev
+    wayland
+    wayland-protocols
+    wlroots
+  ];
 
   installPhase = ''
     runHook preInstall

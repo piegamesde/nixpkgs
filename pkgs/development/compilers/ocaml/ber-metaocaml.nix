@@ -11,7 +11,10 @@
 }:
 
 let
-  x11deps = [ libX11 xorgproto ];
+  x11deps = [
+    libX11
+    xorgproto
+  ];
   inherit (lib) optionals;
 
   baseOcamlBranch = "4.11";

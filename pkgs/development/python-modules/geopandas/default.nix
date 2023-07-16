@@ -27,9 +27,18 @@ buildPythonPackage rec {
     hash = "sha256-ntOZ2WCoMz5ZpqPeupqPC3cN8mbQmEAvJGaFblu0ibY=";
   };
 
-  propagatedBuildInputs = [ fiona packaging pandas pyproj shapely ];
+  propagatedBuildInputs = [
+    fiona
+    packaging
+    pandas
+    pyproj
+    shapely
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook rtree ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    rtree
+  ];
 
   doCheck = !stdenv.isDarwin;
 

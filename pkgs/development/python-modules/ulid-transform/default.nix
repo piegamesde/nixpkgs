@@ -23,7 +23,11 @@ buildPythonPackage rec {
     hash = "sha256-AQeCgos/6BCvITTSnBYxefvAMWHHbJBsmbVMACl6L3o=";
   };
 
-  nativeBuildInputs = [ cython poetry-core setuptools ];
+  nativeBuildInputs = [
+    cython
+    poetry-core
+    setuptools
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

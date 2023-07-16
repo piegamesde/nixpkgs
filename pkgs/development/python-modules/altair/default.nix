@@ -30,12 +30,24 @@ buildPythonPackage rec {
     hash = "sha256-OTmaJnxJsw0QLBBBHmerJjdBVqhLGuufzRUUBCm6ScU=";
   };
 
-  propagatedBuildInputs =
-    [ entrypoints jsonschema numpy pandas six toolz jinja2 ]
-    ++ lib.optionals (pythonOlder "3.5") [ typing ];
+  propagatedBuildInputs = [
+    entrypoints
+    jsonschema
+    numpy
+    pandas
+    six
+    toolz
+    jinja2
+  ] ++ lib.optionals (pythonOlder "3.5") [ typing ];
 
-  nativeCheckInputs =
-    [ glibcLocales ipython pytestCheckHook recommonmark sphinx vega_datasets ];
+  nativeCheckInputs = [
+    glibcLocales
+    ipython
+    pytestCheckHook
+    recommonmark
+    sphinx
+    vega_datasets
+  ];
 
   pythonImportsCheck = [ "altair" ];
 

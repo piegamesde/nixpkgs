@@ -14,7 +14,11 @@ stdenv.mkDerivation {
 
   sourceRoot = "source/examples/cube";
 
-  buildInputs = [ libX11 mesa_glu libspnav ];
+  buildInputs = [
+    libX11
+    mesa_glu
+    libspnav
+  ];
 
   makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
 

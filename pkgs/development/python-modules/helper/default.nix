@@ -20,9 +20,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyyaml ];
 
-  nativeCheckInputs = [ pytestCheckHook mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    mock
+  ];
 
-  pythonImportsCheck = [ "helper" "helper.config" ];
+  pythonImportsCheck = [
+    "helper"
+    "helper.config"
+  ];
 
   meta = with lib; {
     description =

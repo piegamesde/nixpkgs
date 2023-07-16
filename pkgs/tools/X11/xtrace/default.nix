@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
     sha256 = "1yff6x847nksciail9jly41mv70sl8sadh0m5d847ypbjmxcwjpq";
   };
 
-  nativeBuildInputs = [ autoreconfHook makeWrapper ];
+  nativeBuildInputs = [
+    autoreconfHook
+    makeWrapper
+  ];
   buildInputs = [ libX11 ];
 
   postInstall = ''

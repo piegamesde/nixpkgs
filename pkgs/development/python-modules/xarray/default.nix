@@ -25,9 +25,16 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = "${version}";
 
-  nativeBuildInputs = [ setuptoolsBuildHook setuptools-scm ];
+  nativeBuildInputs = [
+    setuptoolsBuildHook
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs = [ numpy packaging pandas ];
+  propagatedBuildInputs = [
+    numpy
+    packaging
+    pandas
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

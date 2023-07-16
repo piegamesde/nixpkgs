@@ -36,18 +36,36 @@ stdenv.mkDerivation rec {
     hash = "sha256-6yjZ50ZTXfKcfYwuuAwqXOWsVucpNRWEC9F3rcYSRXQ=";
   };
 
-  outputs = [ "bin" "out" "dev" "man" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+    "man"
+  ];
 
   passthru.tests = lib.optionalAttrs enableTests {
     test-runner = callPackage ./test-runner.nix { };
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs =
-    [ curl libkrb5 libuuid libxcrypt libxml2 openssl readline zlib fuse ]
-    ++ lib.optionals stdenv.isLinux [ systemd voms ]
-    ++ lib.optionals enableTests [ cppunit ];
+  buildInputs = [
+    curl
+    libkrb5
+    libuuid
+    libxcrypt
+    libxml2
+    openssl
+    readline
+    zlib
+    fuse
+  ] ++ lib.optionals stdenv.isLinux [
+    systemd
+    voms
+  ] ++ lib.optionals enableTests [ cppunit ];
 
   preConfigure = ''
     patchShebangs genversion.sh

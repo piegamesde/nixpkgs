@@ -24,8 +24,15 @@ buildPythonPackage rec {
     hash = "sha256-M0G+UvFCegKEDA+0PI1voesMqIItKC0591ruZ4YvjMU=";
   };
 
-  propagatedBuildInputs =
-    [ aiohttp bidict humanize lxml requests slixmpp websockets ];
+  propagatedBuildInputs = [
+    aiohttp
+    bidict
+    humanize
+    lxml
+    requests
+    slixmpp
+    websockets
+  ];
 
   # Tests are not shipped and source is not tagged
   # https://github.com/simbaja/gehome/issues/32

@@ -21,7 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-3f3hvui00oItu6t9rKecoCquqsD1Eeqz+SEsLBqGt48=";
   };
 
-  propagatedBuildInputs = [ geopy requests urllib3 ];
+  propagatedBuildInputs = [
+    geopy
+    requests
+    urllib3
+  ];
 
   # no tests implemented
   doCheck = false;

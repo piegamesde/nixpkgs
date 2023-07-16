@@ -37,7 +37,10 @@ buildPythonPackage rec {
     hash = "sha256-B2piRWx9TfKlGTPOAAGsq2GxyfHIRBVFpk6dxES0WF0=";
   };
 
-  nativeBuildInputs = [ cython glibcLocales ];
+  nativeBuildInputs = [
+    cython
+    glibcLocales
+  ];
 
   propagatedBuildInputs = [
     matplotlib

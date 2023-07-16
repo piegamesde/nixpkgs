@@ -14,7 +14,13 @@
       zsh,
     }:
     runCommandLocal "patch-rc-path-bash-test" {
-      nativeBuildInputs = [ bash ksh patchRcPathBash shellcheck zsh ];
+      nativeBuildInputs = [
+        bash
+        ksh
+        patchRcPathBash
+        shellcheck
+        zsh
+      ];
       meta = {
         description = "Package test of patchActivateBash";
         inherit (patchRcPathBash.meta) maintainers;
@@ -145,7 +151,10 @@
       tcsh,
     }:
     runCommandLocal "patch-rc-path-csh-test" {
-      nativeBuildInputs = [ patchRcPathCsh tcsh ];
+      nativeBuildInputs = [
+        patchRcPathCsh
+        tcsh
+      ];
       meta = {
         description = "Package test of patchActivateCsh";
         inherit (patchRcPathCsh.meta) maintainers;
@@ -218,7 +227,10 @@
       patchRcPathFish,
     }:
     runCommandLocal "patch-rc-path-fish-test" {
-      nativeBuildInputs = [ fish patchRcPathFish ];
+      nativeBuildInputs = [
+        fish
+        patchRcPathFish
+      ];
       meta = {
         description = "Package test of patchActivateFish";
         inherit (patchRcPathFish.meta) maintainers;
@@ -303,7 +315,13 @@
       shellcheck,
     }:
     runCommandLocal "patch-rc-path-posix-test" {
-      nativeBuildInputs = [ bash dash ksh patchRcPathPosix shellcheck ];
+      nativeBuildInputs = [
+        bash
+        dash
+        ksh
+        patchRcPathPosix
+        shellcheck
+      ];
       meta = {
         description = "Package test of patchActivatePosix";
         inherit (patchRcPathPosix.meta) maintainers;

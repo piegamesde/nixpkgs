@@ -31,10 +31,8 @@ rustPlatform.buildRustPackage rec {
       libiconv
       curl
     ]);
-  nativeBuildInputs = [
-    pkg-config
-  ]
-  # curl-sys wants to run curl-config on darwin
+  nativeBuildInputs = [ pkg-config ]
+    # curl-sys wants to run curl-config on darwin
     ++ lib.optionals stdenv.isDarwin [ curl.dev ];
 
   # skip tests with networking or other failures
@@ -68,6 +66,9 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ evanjs jk ];
+    maintainers = with maintainers; [
+      evanjs
+      jk
+    ];
   };
 }

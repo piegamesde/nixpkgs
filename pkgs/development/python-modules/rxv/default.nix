@@ -32,7 +32,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ defusedxml requests ];
+  propagatedBuildInputs = [
+    defusedxml
+    requests
+  ];
 
   nativeCheckInputs = [
     mock

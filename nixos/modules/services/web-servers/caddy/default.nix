@@ -59,14 +59,25 @@ let
     import ../../../security/acme/mk-cert-ownership-assertion.nix;
 in {
   imports = [
-    (mkRemovedOptionModule [ "services" "caddy" "agree" ]
-      "this option is no longer necessary for Caddy 2")
-    (mkRenamedOptionModule [ "services" "caddy" "ca" ] [
+    (mkRemovedOptionModule [
+      "services"
+      "caddy"
+      "agree"
+    ] "this option is no longer necessary for Caddy 2")
+    (mkRenamedOptionModule [
+      "services"
+      "caddy"
+      "ca"
+    ] [
       "services"
       "caddy"
       "acmeCA"
     ])
-    (mkRenamedOptionModule [ "services" "caddy" "config" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "caddy"
+      "config"
+    ] [
       "services"
       "caddy"
       "extraConfig"
@@ -295,12 +306,12 @@ in {
   # implementation
   config = mkIf cfg.enable {
 
-    assertions = [{
+    assertions = [ {
       assertion = cfg.configFile == configFile -> cfg.adapter == "caddyfile"
         || cfg.adapter == null;
       message =
         "To specify an adapter other than 'caddyfile' please provide your own configuration via `services.caddy.configFile`";
-    }] ++ map (name:
+    } ] ++ map (name:
       mkCertOwnershipAssertion {
         inherit (cfg) group user;
         cert = config.security.acme.certs.${name};

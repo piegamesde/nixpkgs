@@ -24,8 +24,10 @@ rustPlatform.buildRustPackage rec {
 
   # buildAndTestSubdir = "cli";
 
-  nativeBuildInputs =
-    lib.optionals stdenv.isLinux [ pkg-config rustPlatform.bindgenHook ];
+  nativeBuildInputs = lib.optionals stdenv.isLinux [
+    pkg-config
+    rustPlatform.bindgenHook
+  ];
 
   # Needed to get openssl-sys to use pkg-config.
   OPENSSL_NO_VENDOR = 1;
@@ -38,7 +40,10 @@ rustPlatform.buildRustPackage rec {
   # ROCKSDB_INCLUDE_DIR="${rocksdb}/include";
   # ROCKSDB_LIB_DIR="${rocksdb}/lib";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security curl ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    Security
+    curl
+  ];
 
   # some tests are flaky and some need network access
   # TODO finish filtering the tests to enable them

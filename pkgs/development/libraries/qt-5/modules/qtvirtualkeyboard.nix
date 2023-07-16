@@ -8,5 +8,10 @@
 
 qtModule {
   pname = "qtvirtualkeyboard";
-  qtInputs = [ qtbase qtdeclarative qtsvg hunspell ];
+  qtInputs = [
+    qtbase
+    qtdeclarative
+    qtsvg
+    hunspell
+  ];
 }

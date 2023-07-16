@@ -34,8 +34,10 @@ buildGoModule rec {
     "noembed" # disables embedded `runc`
   ];
 
-  ldflags =
-    [ "-X github.com/genuinetools/img/version.VERSION=v${version}" "-s -w" ];
+  ldflags = [
+    "-X github.com/genuinetools/img/version.VERSION=v${version}"
+    "-s -w"
+  ];
 
   postInstall = ''
     wrapProgram "$out/bin/img" --prefix PATH : ${lib.makeBinPath [ runc ]}

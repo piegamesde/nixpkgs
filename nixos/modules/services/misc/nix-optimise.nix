@@ -38,10 +38,10 @@ in {
   ###### implementation
 
   config = {
-    assertions = [{
+    assertions = [ {
       assertion = cfg.automatic -> config.nix.enable;
       message = "nix.optimise.automatic requires nix.enable";
-    }];
+    } ];
 
     systemd.services.nix-optimise = lib.mkIf config.nix.enable {
       description = "Nix Store Optimiser";

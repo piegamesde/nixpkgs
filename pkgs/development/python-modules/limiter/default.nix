@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-2Et4ozVf9t+tp2XtLbDk/LgLIU+jQAEAlU8hA5lpxdk=";
   };
 
-  propagatedBuildInputs = [ strenum token-bucket ];
+  propagatedBuildInputs = [
+    strenum
+    token-bucket
+  ];
 
   # Module has no tests
   doCheck = false;

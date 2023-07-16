@@ -23,7 +23,11 @@
 
     patterns = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      example = [ "*.host.net/v1/" "host.org/v2/mypath" "/somepath" ];
+      example = [
+        "*.host.net/v1/"
+        "host.org/v2/mypath"
+        "/somepath"
+      ];
       default = [ ];
       description = lib.mdDoc ''
         List of nghttpx backend patterns.

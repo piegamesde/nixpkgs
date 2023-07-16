@@ -20,7 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-H/S+/urmOmcHbAJkUVFik1mB3V1RVS8FLcJmv2SZc0U=";
   };
 
-  propagatedBuildInputs = [ requests requests-toolbelt pyparsing ];
+  propagatedBuildInputs = [
+    requests
+    requests-toolbelt
+    pyparsing
+  ];
 
   # The tests require several other dependencies, some of which aren't in
   # nixpkgs yet, and also aren't included in the PyPI bundle.  TODO.

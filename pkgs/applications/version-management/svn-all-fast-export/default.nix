@@ -21,8 +21,15 @@ in stdenv.mkDerivation {
     sha256 = "1b5yx2316hbyvw3v30vn1ljma9yd21nd59wis1gi34g92lgvqcd6";
   };
 
-  nativeBuildInputs = [ qmake qttools ];
-  buildInputs = [ apr.dev subversion.dev qtbase ];
+  nativeBuildInputs = [
+    qmake
+    qttools
+  ];
+  buildInputs = [
+    apr.dev
+    subversion.dev
+    qtbase
+  ];
 
   qmakeFlags = [
     "VERSION=${version}"

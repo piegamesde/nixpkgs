@@ -164,18 +164,35 @@ in stdenv.mkDerivation rec {
     ++ lib.optionals numaSupport [ numactl ]
     ++ lib.optionals alsaSupport [ alsa-lib ]
     ++ lib.optionals pulseSupport [ libpulseaudio ]
-    ++ lib.optionals sdlSupport [ SDL2 SDL2_image ]
-    ++ lib.optionals jackSupport [ libjack2 ]
-    ++ lib.optionals gtkSupport [ gtk3 gettext vte ]
-    ++ lib.optionals vncSupport [ libjpeg libpng ]
-    ++ lib.optionals smartcardSupport [ libcacard ]
-    ++ lib.optionals spiceSupport [ spice-protocol spice ]
-    ++ lib.optionals usbredirSupport [ usbredir ]
-    ++ lib.optionals stdenv.isLinux [ libaio libcap_ng libcap attr ]
-    ++ lib.optionals xenSupport [ xen ] ++ lib.optionals cephSupport [ ceph ]
-    ++ lib.optionals glusterfsSupport [ glusterfs libuuid ]
-    ++ lib.optionals openGLSupport [ mesa libepoxy libdrm ]
-    ++ lib.optionals virglSupport [ virglrenderer ]
+    ++ lib.optionals sdlSupport [
+      SDL2
+      SDL2_image
+    ] ++ lib.optionals jackSupport [ libjack2 ] ++ lib.optionals gtkSupport [
+      gtk3
+      gettext
+      vte
+    ] ++ lib.optionals vncSupport [
+      libjpeg
+      libpng
+    ] ++ lib.optionals smartcardSupport [ libcacard ]
+    ++ lib.optionals spiceSupport [
+      spice-protocol
+      spice
+    ] ++ lib.optionals usbredirSupport [ usbredir ]
+    ++ lib.optionals stdenv.isLinux [
+      libaio
+      libcap_ng
+      libcap
+      attr
+    ] ++ lib.optionals xenSupport [ xen ] ++ lib.optionals cephSupport [ ceph ]
+    ++ lib.optionals glusterfsSupport [
+      glusterfs
+      libuuid
+    ] ++ lib.optionals openGLSupport [
+      mesa
+      libepoxy
+      libdrm
+    ] ++ lib.optionals virglSupport [ virglrenderer ]
     ++ lib.optionals libiscsiSupport [ libiscsi ]
     ++ lib.optionals smbdSupport [ samba ]
     ++ lib.optionals uringSupport [ liburing ]
@@ -251,8 +268,10 @@ in stdenv.mkDerivation rec {
     ++ lib.optional usbredirSupport "--enable-usb-redir"
     ++ lib.optional (hostCpuTargets != null)
     "--target-list=${lib.concatStringsSep "," hostCpuTargets}"
-    ++ lib.optionals stdenv.isDarwin [ "--enable-cocoa" "--enable-hvf" ]
-    ++ lib.optional stdenv.isLinux "--enable-linux-aio"
+    ++ lib.optionals stdenv.isDarwin [
+      "--enable-cocoa"
+      "--enable-hvf"
+    ] ++ lib.optional stdenv.isLinux "--enable-linux-aio"
     ++ lib.optional gtkSupport "--enable-gtk"
     ++ lib.optional xenSupport "--enable-xen"
     ++ lib.optional cephSupport "--enable-rbd"
@@ -342,7 +361,10 @@ in stdenv.mkDerivation rec {
     description = "A generic and open source machine emulator and virtualizer";
     license = licenses.gpl2Plus;
     mainProgram = "qemu-kvm";
-    maintainers = with maintainers; [ eelco qyliss ];
+    maintainers = with maintainers; [
+      eelco
+      qyliss
+    ];
     platforms = platforms.unix;
   };
 }

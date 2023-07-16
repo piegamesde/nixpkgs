@@ -25,10 +25,21 @@ buildPythonPackage rec {
     sha256 = "001wqh7gx2dv3sf7a5xsbppz9r88f5qwrp05jzjsjcm6cbcvmsz0";
   };
 
-  propagatedBuildInputs =
-    [ jsonpatch netaddr prettytable python-dateutil requests six ];
+  propagatedBuildInputs = [
+    jsonpatch
+    netaddr
+    prettytable
+    python-dateutil
+    requests
+    six
+  ];
 
-  nativeCheckInputs = [ fixtures pytestCheckHook requests-mock testtools ];
+  nativeCheckInputs = [
+    fixtures
+    pytestCheckHook
+    requests-mock
+    testtools
+  ];
 
   pythonImportsCheck = [ "fiblary3" ];
 

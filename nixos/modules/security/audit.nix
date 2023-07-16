@@ -61,7 +61,11 @@ in {
   options = {
     security.audit = {
       enable = mkOption {
-        type = types.enum [ false true "lock" ];
+        type = types.enum [
+          false
+          true
+          "lock"
+        ];
         default = false;
         description = lib.mdDoc ''
           Whether to enable the Linux audit system. The special `lock` value can be used to
@@ -72,7 +76,11 @@ in {
       };
 
       failureMode = mkOption {
-        type = types.enum [ "silent" "printk" "panic" ];
+        type = types.enum [
+          "silent"
+          "printk"
+          "panic"
+        ];
         default = "printk";
         description =
           lib.mdDoc "How to handle critical errors in the auditing system";

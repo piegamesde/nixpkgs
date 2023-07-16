@@ -19,7 +19,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ];
 
-  nativeCheckInputs = [ pytestCheckHook readme_renderer hypothesis ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    readme_renderer
+    hypothesis
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

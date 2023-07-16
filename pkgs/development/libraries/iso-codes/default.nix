@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-QI95nfQTVGj6fKNetrBcQAS+pEPYHKWLibLkgkAagrs=";
   };
 
-  nativeBuildInputs = [ gettext python3 ];
+  nativeBuildInputs = [
+    gettext
+    python3
+  ];
 
   enableParallelBuilding = true;
 

@@ -36,11 +36,21 @@ stdenv.mkDerivation rec {
       --replace "-msse4.2 -maes" ""
   '';
 
-  nativeBuildInputs = [ cmake gettext git makeWrapper pkg-config wrapGAppsHook ]
-    ++ lib.optionals stdenv.isLinux [ lsb-release ];
+  nativeBuildInputs = [
+    cmake
+    gettext
+    git
+    makeWrapper
+    pkg-config
+    wrapGAppsHook
+  ] ++ lib.optionals stdenv.isLinux [ lsb-release ];
 
-  buildInputs = [ curl sqlite wxGTK32 gtk3 ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.libobjc ];
+  buildInputs = [
+    curl
+    sqlite
+    wxGTK32
+    gtk3
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.libobjc ];
 
   env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isClang [
     "-Wno-deprecated-copy"

@@ -40,8 +40,10 @@ let
 
       nativeBuildInputs = [ python ]
         ++ optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
-        ++ optional javaBindings jdk
-        ++ optionals ocamlBindings [ ocaml findlib ];
+        ++ optional javaBindings jdk ++ optionals ocamlBindings [
+          ocaml
+          findlib
+        ];
       propagatedBuildInputs = [ python.pkgs.setuptools ]
         ++ optionals ocamlBindings [ zarith ];
       enableParallelBuilding = true;
@@ -51,11 +53,12 @@ let
         mkdir -p $OCAMLFIND_DESTDIR/stublibs
       '';
 
-      configurePhase = concatStringsSep " " ([
-        "${python.pythonForBuild.interpreter} scripts/mk_make.py --prefix=$out"
-      ] ++ optional javaBindings "--java" ++ optional ocamlBindings "--ml"
-        ++ optional pythonBindings
-        "--python --pypkgdir=$out/${python.sitePackages}") + "\n" + "cd build";
+      configurePhase = concatStringsSep " "
+        ([ "${python.pythonForBuild.interpreter} scripts/mk_make.py --prefix=$out" ]
+          ++ optional javaBindings "--java" ++ optional ocamlBindings "--ml"
+          ++ optional pythonBindings
+          "--python --pypkgdir=$out/${python.sitePackages}") + "\n"
+        + "cd build";
 
       doCheck = true;
       checkPhase = ''
@@ -77,15 +80,22 @@ let
         moveToOutput "lib/libz3java.${stdenv.hostPlatform.extensions.sharedLibrary}" "$java"
       '';
 
-      outputs = [ "out" "lib" "dev" "python" ] ++ optional javaBindings "java"
-        ++ optional ocamlBindings "ocaml";
+      outputs = [
+        "out"
+        "lib"
+        "dev"
+        "python"
+      ] ++ optional javaBindings "java" ++ optional ocamlBindings "ocaml";
 
       meta = with lib; {
         description = "A high-performance theorem prover and SMT solver";
         homepage = "https://github.com/Z3Prover/z3";
         license = licenses.mit;
         platforms = platforms.unix;
-        maintainers = with maintainers; [ thoughtpolice ttuegel ];
+        maintainers = with maintainers; [
+          thoughtpolice
+          ttuegel
+        ];
       };
     };
 in {

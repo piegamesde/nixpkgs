@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [ jdk_headless ant saxon ];
+  buildInputs = [
+    jdk_headless
+    ant
+    saxon
+  ];
 
   CLASSPATH = "lib/saxon.jar";
 

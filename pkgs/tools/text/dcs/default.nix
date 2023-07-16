@@ -22,7 +22,10 @@ buildGoModule {
   # Depends on dcs binaries
   doCheck = false;
 
-  nativeBuildInputs = [ yuicompressor zopfli ];
+  nativeBuildInputs = [
+    yuicompressor
+    zopfli
+  ];
 
   postBuild = ''
     make -C static -j$NIX_BUILD_CORES

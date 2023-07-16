@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
   pname = "babl";
   version = "0.1.102";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "https://download.gimp.org/pub/babl/${
@@ -24,7 +27,13 @@ stdenv.mkDerivation rec {
     sha256 = "a88bb28506575f95158c8c89df6e23686e50c8b9fea412bf49fe8b80002d84f0";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config gobject-introspection vala ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gobject-introspection
+    vala
+  ];
 
   buildInputs = [ lcms2 ];
 

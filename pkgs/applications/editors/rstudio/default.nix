@@ -78,20 +78,35 @@ in (if server then stdenv.mkDerivation else mkDerivation) (rec {
   inherit pname version src RSTUDIO_VERSION_MAJOR RSTUDIO_VERSION_MINOR
     RSTUDIO_VERSION_PATCH RSTUDIO_VERSION_SUFFIX;
 
-  nativeBuildInputs = [ cmake unzip ant jdk makeWrapper pandoc nodejs ]
-    ++ lib.optionals (!server) [ copyDesktopItems ];
+  nativeBuildInputs = [
+    cmake
+    unzip
+    ant
+    jdk
+    makeWrapper
+    pandoc
+    nodejs
+  ] ++ lib.optionals (!server) [ copyDesktopItems ];
 
-  buildInputs = [ boost zlib openssl R libuuid yaml-cpp soci postgresql ]
-    ++ (if server then [
-      sqlite.dev
-      pam
-    ] else [
-      qtbase
-      qtxmlpatterns
-      qtsensors
-      qtwebengine
-      qtwebchannel
-    ]);
+  buildInputs = [
+    boost
+    zlib
+    openssl
+    R
+    libuuid
+    yaml-cpp
+    soci
+    postgresql
+  ] ++ (if server then [
+    sqlite.dev
+    pam
+  ] else [
+    qtbase
+    qtxmlpatterns
+    qtsensors
+    qtwebengine
+    qtwebchannel
+  ]);
 
   cmakeFlags = [
     "-DRSTUDIO_TARGET=${if server then "Server" else "Desktop"}"
@@ -193,7 +208,10 @@ in (if server then stdenv.mkDerivation else mkDerivation) (rec {
     inherit description;
     homepage = "https://www.rstudio.com/";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ ciil cfhammill ];
+    maintainers = with maintainers; [
+      ciil
+      cfhammill
+    ];
     mainProgram = "rstudio" + lib.optionalString server "-server";
     platforms = platforms.linux;
   };
@@ -205,38 +223,36 @@ in (if server then stdenv.mkDerivation else mkDerivation) (rec {
 } // lib.optionalAttrs (!server) {
   qtWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ gnumake ]}" ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      exec = "rstudio %F";
-      icon = "rstudio";
-      desktopName = "RStudio";
-      genericName = "IDE";
-      comment = description;
-      categories = [ "Development" ];
-      mimeTypes = [
-        "text/x-r-source"
-        "text/x-r"
-        "text/x-R"
-        "text/x-r-doc"
-        "text/x-r-sweave"
-        "text/x-r-markdown"
-        "text/x-r-html"
-        "text/x-r-presentation"
-        "application/x-r-data"
-        "application/x-r-project"
-        "text/x-r-history"
-        "text/x-r-profile"
-        "text/x-tex"
-        "text/x-markdown"
-        "text/html"
-        "text/css"
-        "text/javascript"
-        "text/x-chdr"
-        "text/x-csrc"
-        "text/x-c++hdr"
-        "text/x-c++src"
-      ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = pname;
+    exec = "rstudio %F";
+    icon = "rstudio";
+    desktopName = "RStudio";
+    genericName = "IDE";
+    comment = description;
+    categories = [ "Development" ];
+    mimeTypes = [
+      "text/x-r-source"
+      "text/x-r"
+      "text/x-R"
+      "text/x-r-doc"
+      "text/x-r-sweave"
+      "text/x-r-markdown"
+      "text/x-r-html"
+      "text/x-r-presentation"
+      "application/x-r-data"
+      "application/x-r-project"
+      "text/x-r-history"
+      "text/x-r-profile"
+      "text/x-tex"
+      "text/x-markdown"
+      "text/html"
+      "text/css"
+      "text/javascript"
+      "text/x-chdr"
+      "text/x-csrc"
+      "text/x-c++hdr"
+      "text/x-c++src"
+    ];
+  }) ];
 })

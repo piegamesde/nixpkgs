@@ -47,7 +47,10 @@ stdenv.mkDerivation rec {
     makeWrapper ${electron_21}/bin/electron $out/bin/${pname} \
       --add-flags $out/share/${pname}/resources/app.asar \
       --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [ stdenv.cc.cc libsecret ]
+        lib.makeLibraryPath [
+          stdenv.cc.cc
+          libsecret
+        ]
       }" \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
   '';
@@ -57,6 +60,9 @@ stdenv.mkDerivation rec {
     description = "The official Todoist electron app";
     platforms = [ "x86_64-linux" ];
     license = licenses.unfree;
-    maintainers = with maintainers; [ i077 kylesferrazza ];
+    maintainers = with maintainers; [
+      i077
+      kylesferrazza
+    ];
   };
 }

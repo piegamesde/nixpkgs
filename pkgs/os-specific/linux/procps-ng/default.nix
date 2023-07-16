@@ -44,8 +44,10 @@ stdenv.mkDerivation rec {
   buildInputs = [ ncurses ] ++ lib.optional withSystemd systemd;
   nativeBuildInputs = [ pkg-config ];
 
-  makeFlags = [ "usrbin_execdir=$(out)/bin" ]
-    ++ lib.optionals watchOnly [ "watch" "PKG_LDFLAGS=" ];
+  makeFlags = [ "usrbin_execdir=$(out)/bin" ] ++ lib.optionals watchOnly [
+    "watch"
+    "PKG_LDFLAGS="
+  ];
 
   enableParallelBuilding = true;
 

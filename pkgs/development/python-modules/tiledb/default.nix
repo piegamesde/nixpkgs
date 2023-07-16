@@ -26,7 +26,11 @@ buildPythonPackage rec {
     hash = "sha256-Be83b9JVxGxPYoOfqTfVm7qAjZD7cfH5BG6tbSHXhIQ=";
   };
 
-  nativeBuildInputs = [ cython pybind11 setuptools-scm ];
+  nativeBuildInputs = [
+    cython
+    pybind11
+    setuptools-scm
+  ];
 
   buildInputs = [ tiledb ];
 

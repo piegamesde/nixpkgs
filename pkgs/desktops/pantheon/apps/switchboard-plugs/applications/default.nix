@@ -25,9 +25,20 @@ stdenv.mkDerivation rec {
     sha256 = "18izmzhqp6x5ivha9yl8gyz9adyrsylw7w5p0cwm1bndgqbi7yh5";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config vala ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    vala
+  ];
 
-  buildInputs = [ flatpak granite gtk3 libgee switchboard ];
+  buildInputs = [
+    flatpak
+    granite
+    gtk3
+    libgee
+    switchboard
+  ];
 
   passthru = { updateScript = nix-update-script { }; };
 

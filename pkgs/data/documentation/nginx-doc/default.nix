@@ -21,7 +21,10 @@ stdenv.mkDerivation {
     sha256 = "029n4mnmjw94h01qalmjgf1c2h3h7wm798xv5knk3padxiy4m28b";
   };
   patches = [ ./exclude-google-analytics.patch ];
-  nativeBuildInputs = [ libxslt libxml2 ];
+  nativeBuildInputs = [
+    libxslt
+    libxml2
+  ];
 
   # Generated documentation is not local-friendly, since it assumes that link to directory
   # is the same as link to index.html in that directory, which is not how browsers behave

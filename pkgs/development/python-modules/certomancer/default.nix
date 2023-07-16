@@ -34,8 +34,14 @@ buildPythonPackage rec {
     sha256 = "4v2e46ZrzhKXpMULj0vmDRoLOypi030eaADAYjLMg5M=";
   };
 
-  propagatedBuildInputs =
-    [ asn1crypto click oscrypto pyyaml python-dateutil tzlocal ];
+  propagatedBuildInputs = [
+    asn1crypto
+    click
+    oscrypto
+    pyyaml
+    python-dateutil
+    tzlocal
+  ];
 
   postPatch = ''
     substituteInPlace setup.py --replace ", 'pytest-runner'" ""

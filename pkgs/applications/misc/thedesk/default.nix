@@ -23,9 +23,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0EvJ60yTRi3R0glgI8l3r7mxR76McDA1x5aF6WQDbdU=";
   };
 
-  nativeBuildInputs = [ dpkg autoPatchelfHook makeWrapper ];
+  nativeBuildInputs = [
+    dpkg
+    autoPatchelfHook
+    makeWrapper
+  ];
 
-  buildInputs = [ alsa-lib gtk3 libxshmfence mesa nss ];
+  buildInputs = [
+    alsa-lib
+    gtk3
+    libxshmfence
+    mesa
+    nss
+  ];
 
   dontBuild = true;
   dontConfigure = true;

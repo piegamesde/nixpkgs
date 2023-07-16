@@ -19,9 +19,16 @@ buildGoModule rec {
 
   vendorHash = "sha256-Uy8GR+mNVElx+MOu8IxHjBhp1GT5nLqqizQH9q1s0wA=";
 
-  subPackages = [ "cmd/zed" "cmd/zq" ];
+  subPackages = [
+    "cmd/zed"
+    "cmd/zq"
+  ];
 
-  ldflags = [ "-s" "-w" "-X=github.com/brimdata/zed/cli.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X=github.com/brimdata/zed/cli.version=${version}"
+  ];
 
   passthru.tests = {
     zed-version = testers.testVersion { package = zed; };
@@ -36,6 +43,9 @@ buildGoModule rec {
     homepage = "https://zed.brimdata.io";
     changelog = "https://github.com/brimdata/zed/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dit7ya knl ];
+    maintainers = with maintainers; [
+      dit7ya
+      knl
+    ];
   };
 }

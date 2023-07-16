@@ -76,9 +76,11 @@ let
         StateDirectory = [ "public-inbox" ];
         StateDirectoryMode = "0750";
         WorkingDirectory = stateDir;
-        BindReadOnlyPaths =
-          [ "/etc" "/run/systemd" "${config.i18n.glibcLocales}" ]
-          ++ mapAttrsToList (name: inbox: inbox.description) cfg.inboxes ++
+        BindReadOnlyPaths = [
+          "/etc"
+          "/run/systemd"
+          "${config.i18n.glibcLocales}"
+        ] ++ mapAttrsToList (name: inbox: inbox.description) cfg.inboxes ++
           # Without confinement the whole Nix store
           # is made available to the service
           optionals
@@ -104,8 +106,10 @@ let
         ProtectProc = "invisible";
         #ProtectSystem = "strict";
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_UNIX" ]
-          ++ optionals needNetwork [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [ "AF_UNIX" ] ++ optionals needNetwork [
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
@@ -145,7 +149,11 @@ let
         mode = "full-apivfs";
         # Inline::C needs a /bin/sh, and dash is enough
         binSh = "${pkgs.dash}/bin/dash";
-        packages = [ pkgs.iana-etc (getLib pkgs.nss) pkgs.tzdata ];
+        packages = [
+          pkgs.iana-etc
+          (getLib pkgs.nss)
+          pkgs.tzdata
+        ];
       };
     };
 
@@ -300,7 +308,10 @@ in {
             # freeform settings either globally under the `publicinbox` section, or for specific
             # inboxes through additional nesting.
             freeformType = with types;
-              attrsOf (oneOf [ iniAtom (attrsOf iniAtom) ]);
+              attrsOf (oneOf [
+                iniAtom
+                (attrsOf iniAtom)
+              ]);
 
             options.css = mkOption {
               type = with types; listOf str;
@@ -318,7 +329,12 @@ in {
               description = lib.mdDoc "NNTP URLs to this public-inbox instance";
             };
             options.wwwlisting = mkOption {
-              type = with types; enum [ "all" "404" "match=domain" ];
+              type = with types;
+                enum [
+                  "all"
+                  "404"
+                  "match=domain"
+                ];
               default = "404";
               description = lib.mdDoc ''
                 Controls which lists (if any) are listed for when the root
@@ -328,7 +344,11 @@ in {
           };
         };
         options.publicinboxmda.spamcheck = mkOption {
-          type = with types; enum [ "spamc" "none" ];
+          type = with types;
+            enum [
+              "spamc"
+              "none"
+            ];
           default = "none";
           description = lib.mdDoc ''
             If set to spamc, {manpage}`public-inbox-watch(1)` will filter spam
@@ -336,7 +356,11 @@ in {
           '';
         };
         options.publicinboxwatch.spamcheck = mkOption {
-          type = with types; enum [ "spamc" "none" ];
+          type = with types;
+            enum [
+              "spamc"
+              "none"
+            ];
           default = "none";
           description = lib.mdDoc ''
             If set to spamc, {manpage}`public-inbox-watch(1)` will filter spam
@@ -408,8 +432,12 @@ in {
     };
     networking.firewall = mkIf cfg.openFirewall {
       allowedTCPPorts = mkMerge (map (proto:
-        (mkIf (cfg.${proto}.enable && types.port.check cfg.${proto}.port)
-          [ cfg.${proto}.port ])) [ "imap" "http" "nntp" ]);
+        (mkIf (cfg.${proto}.enable
+          && types.port.check cfg.${proto}.port) [ cfg.${proto}.port ])) [
+            "imap"
+            "http"
+            "nntp"
+          ]);
     };
     services.postfix = mkIf (cfg.postfix.enable && cfg.mda.enable) {
       # Not sure limiting to 1 is necessary, but better safe than sorry.
@@ -458,14 +486,20 @@ in {
           listenStreams = [ (toString cfg.${proto}.port) ];
           wantedBy = [ "sockets.target" ];
         };
-      }) [ "imap" "http" "nntp" ]);
+      }) [
+        "imap"
+        "http"
+        "nntp"
+      ]);
     systemd.services = mkMerge [
       (mkIf cfg.imap.enable {
         public-inbox-imapd = mkMerge [
           (serviceConfig "imapd")
           {
-            after =
-              [ "public-inbox-init.service" "public-inbox-watch.service" ];
+            after = [
+              "public-inbox-init.service"
+              "public-inbox-watch.service"
+            ];
             requires = [ "public-inbox-init.service" ];
             serviceConfig = {
               ExecStart = escapeShellArgs
@@ -473,8 +507,10 @@ in {
                   ++ optionals (cfg.imap.cert != null) [
                     "--cert"
                     cfg.imap.cert
-                  ]
-                  ++ optionals (cfg.imap.key != null) [ "--key" cfg.imap.key ]);
+                  ] ++ optionals (cfg.imap.key != null) [
+                    "--key"
+                    cfg.imap.key
+                  ]);
             };
           }
         ];
@@ -483,43 +519,43 @@ in {
         public-inbox-httpd = mkMerge [
           (serviceConfig "httpd")
           {
-            after =
-              [ "public-inbox-init.service" "public-inbox-watch.service" ];
+            after = [
+              "public-inbox-init.service"
+              "public-inbox-watch.service"
+            ];
             requires = [ "public-inbox-init.service" ];
             serviceConfig = {
               ExecStart = escapeShellArgs
                 ([ "${cfg.package}/bin/public-inbox-httpd" ] ++ cfg.http.args ++
                   # See https://public-inbox.org/public-inbox.git/tree/examples/public-inbox.psgi
                   # for upstream's example.
-                  [
-                    (pkgs.writeText "public-inbox.psgi" ''
-                      #!${cfg.package.fullperl} -w
-                      use strict;
-                      use warnings;
-                      use Plack::Builder;
-                      use PublicInbox::WWW;
+                  [ (pkgs.writeText "public-inbox.psgi" ''
+                    #!${cfg.package.fullperl} -w
+                    use strict;
+                    use warnings;
+                    use Plack::Builder;
+                    use PublicInbox::WWW;
 
-                      my $www = PublicInbox::WWW->new;
-                      $www->preload;
+                    my $www = PublicInbox::WWW->new;
+                    $www->preload;
 
-                      builder {
-                        # If reached through a reverse proxy,
-                        # make it transparent by resetting some HTTP headers
-                        # used by public-inbox to generate URIs.
-                        enable 'ReverseProxy';
+                    builder {
+                      # If reached through a reverse proxy,
+                      # make it transparent by resetting some HTTP headers
+                      # used by public-inbox to generate URIs.
+                      enable 'ReverseProxy';
 
-                        # No need to send a response body if it's an HTTP HEAD requests.
-                        enable 'Head';
+                      # No need to send a response body if it's an HTTP HEAD requests.
+                      enable 'Head';
 
-                        # Route according to configured domains and root paths.
-                        ${
-                          concatMapStrings (path: ''
-                            mount q(${path}) => sub { $www->call(@_); };
-                          '') cfg.http.mounts
-                        }
+                      # Route according to configured domains and root paths.
+                      ${
+                        concatMapStrings (path: ''
+                          mount q(${path}) => sub { $www->call(@_); };
+                        '') cfg.http.mounts
                       }
-                    '')
-                  ]);
+                    }
+                  '') ]);
             };
           }
         ];
@@ -528,8 +564,10 @@ in {
         public-inbox-nntpd = mkMerge [
           (serviceConfig "nntpd")
           {
-            after =
-              [ "public-inbox-init.service" "public-inbox-watch.service" ];
+            after = [
+              "public-inbox-init.service"
+              "public-inbox-watch.service"
+            ];
             requires = [ "public-inbox-init.service" ];
             serviceConfig = {
               ExecStart = escapeShellArgs
@@ -537,8 +575,10 @@ in {
                   ++ optionals (cfg.nntp.cert != null) [
                     "--cert"
                     cfg.nntp.cert
-                  ]
-                  ++ optionals (cfg.nntp.key != null) [ "--key" cfg.nntp.key ]);
+                  ] ++ optionals (cfg.nntp.key != null) [
+                    "--key"
+                    cfg.nntp.key
+                  ]);
             };
           }
         ];
@@ -591,9 +631,11 @@ in {
                 PI_CONFIG=$conf_dir/conf \
                 ${cfg.package}/bin/public-inbox-init -V2 \
                   ${
-                    escapeShellArgs
-                    ([ name "${stateDir}/inboxes/${name}" inbox.url ]
-                      ++ inbox.address)
+                    escapeShellArgs ([
+                      name
+                      "${stateDir}/inboxes/${name}"
+                      inbox.url
+                    ] ++ inbox.address)
                   }
 
                 rm -rf $conf_dir
@@ -633,5 +675,8 @@ in {
     ];
     environment.systemPackages = with pkgs; [ cfg.package ];
   };
-  meta.maintainers = with lib.maintainers; [ julm qyliss ];
+  meta.maintainers = with lib.maintainers; [
+    julm
+    qyliss
+  ];
 }

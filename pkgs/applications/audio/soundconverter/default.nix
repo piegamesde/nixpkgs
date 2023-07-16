@@ -37,7 +37,10 @@ python3Packages.buildPythonApplication rec {
     (gst_all_1.gst-plugins-bad.override { inherit faacSupport; })
   ];
 
-  nativeBuildInputs = [ intltool wrapGAppsHook ];
+  nativeBuildInputs = [
+    intltool
+    wrapGAppsHook
+  ];
 
   propagatedBuildInputs = [
     python3Packages.gst-python
@@ -63,7 +66,11 @@ python3Packages.buildPythonApplication rec {
   in ''
     export HOME=$TMPDIR
     export XDG_DATA_DIRS=$XDG_DATA_DIRS:${
-      xdgPaths [ gtk3 gsettings-desktop-schemas self ]
+      xdgPaths [
+        gtk3
+        gsettings-desktop-schemas
+        self
+      ]
     }
     # FIXME: Fails due to weird Gio.file_parse_name() behavior.
     sed -i '49 a\    @unittest.skip("Gio.file_parse_name issues")' tests/testcases/names.py

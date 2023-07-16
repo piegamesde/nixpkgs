@@ -24,10 +24,18 @@ buildPythonPackage rec {
     hash = "sha256-DyFRCQGjyv75YVBPN+1xWjKQtPUv29xblYu2TehkkVo=";
   };
 
-  propagatedBuildInputs = [ requests pyjwt ]
-    ++ pyjwt.optional-dependencies.crypto;
+  propagatedBuildInputs = [
+    requests
+    pyjwt
+  ] ++ pyjwt.optional-dependencies.crypto;
 
-  nativeCheckInputs = [ aiohttp aioresponses callee mock pytestCheckHook ];
+  nativeCheckInputs = [
+    aiohttp
+    aioresponses
+    callee
+    mock
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Tries to ping websites (e.g. google.com)

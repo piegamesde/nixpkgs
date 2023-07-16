@@ -8,7 +8,11 @@ args@{
 
   description = "A flowchart and generalised graph library.";
 
-  deps = [ args."closer-mop" args."documentation-utils" args."trivial-indent" ];
+  deps = [
+    args."closer-mop"
+    args."documentation-utils"
+    args."trivial-indent"
+  ];
 
   src = fetchurl {
     url =

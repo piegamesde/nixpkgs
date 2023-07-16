@@ -41,8 +41,11 @@ let
 in stdenv.mkDerivation ({
   pname = "${product}-java${javaVersion}";
 
-  nativeBuildInputs = [ perl unzip makeWrapper ]
-    ++ lib.optional stdenv.isLinux autoPatchelfHook ++ extraNativeBuildInputs;
+  nativeBuildInputs = [
+    perl
+    unzip
+    makeWrapper
+  ] ++ lib.optional stdenv.isLinux autoPatchelfHook ++ extraNativeBuildInputs;
 
   buildInputs = [
     stdenv.cc.cc.lib # libstdc++.so.6

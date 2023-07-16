@@ -51,7 +51,12 @@ stdenv.mkDerivation rec {
       --replace "/usr/bin/deepin-image-viewer" "$out/bin/deepin-image-viewer"
   '';
 
-  nativeBuildInputs = [ cmake pkg-config qttools wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qttools
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     qtbase

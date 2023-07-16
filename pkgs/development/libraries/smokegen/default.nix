@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ cmake qt4 ];
+  nativeBuildInputs = [
+    cmake
+    qt4
+  ];
   buildInputs = [ qt4 ];
 
   meta = with lib; {

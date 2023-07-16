@@ -34,7 +34,10 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  propagatedBuildInputs = [ django six ];
+  propagatedBuildInputs = [
+    django
+    six
+  ];
 
   meta = with lib; {
     description =

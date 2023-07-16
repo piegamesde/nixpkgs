@@ -32,7 +32,14 @@ in stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ ncurses libX11 libXaw libXt libXext libXmu ];
+  buildInputs = [
+    ncurses
+    libX11
+    libXaw
+    libXt
+    libXext
+    libXmu
+  ];
 
   sourceRoot = "source/Sil/src";
 
@@ -88,7 +95,10 @@ in stdenv.mkDerivation rec {
     '';
     homepage = "http://www.amirrorclear.net/flowers/game/sil/index.html";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ michaelpj kenran ];
+    maintainers = with lib.maintainers; [
+      michaelpj
+      kenran
+    ];
     platforms = lib.platforms.linux;
     mainProgram = "sil";
   };

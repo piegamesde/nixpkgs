@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ SDL libSM ];
+  buildInputs = [
+    SDL
+    libSM
+  ];
 
   meta = {
     homepage = "https://logarithmic.net/pfh/synaesthesia";

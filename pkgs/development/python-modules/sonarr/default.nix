@@ -20,9 +20,16 @@ buildPythonPackage rec {
     sha256 = "0gi34951qhzzrq59hj93mnkid8cvvknlamkhir6ya9mb23fr7bya";
   };
 
-  propagatedBuildInputs = [ aiohttp yarl ];
+  propagatedBuildInputs = [
+    aiohttp
+    yarl
+  ];
 
-  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    aresponses
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "sonarr" ];
 

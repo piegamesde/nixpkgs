@@ -33,10 +33,17 @@ in stdenv.mkDerivation rec {
     # build extensions
     export ${platformLdLibraryPath}="$(pwd)/build"
   '';
-  nativeBuildInputs = [ pkg-config cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
 
-  buildInputs = [ libffi boehmgc openssl zlib ]
-    ++ lib.optional odbcSupport libiodbc;
+  buildInputs = [
+    libffi
+    boehmgc
+    openssl
+    zlib
+  ] ++ lib.optional odbcSupport libiodbc;
 
   meta = with lib; {
     broken = stdenv.isDarwin;

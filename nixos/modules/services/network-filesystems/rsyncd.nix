@@ -40,7 +40,10 @@ in {
           cvs = {
             path = "/data/cvs";
             comment = "CVS repository (requires authentication)";
-            "auth users" = [ "tridge" "susan" ];
+            "auth users" = [
+              "tridge"
+              "susan"
+            ];
             "secrets file" = "/etc/rsyncd.secrets";
           };
         };
@@ -61,8 +64,11 @@ in {
   };
 
   imports = (map (option:
-    mkRemovedOptionModule [ "services" "rsyncd" option ]
-    "This option was removed in favor of `services.rsyncd.settings`.") [
+    mkRemovedOptionModule [
+      "services"
+      "rsyncd"
+      option
+    ] "This option was removed in favor of `services.rsyncd.settings`.") [
       "address"
       "extraConfig"
       "motd"
@@ -87,7 +93,10 @@ in {
 
         description = "fast remote file copy program daemon";
         after = [ "network.target" ];
-        documentation = [ "man:rsync(1)" "man:rsyncd.conf(5)" ];
+        documentation = [
+          "man:rsync(1)"
+          "man:rsyncd.conf(5)"
+        ];
 
         serviceConfig = serviceConfigSecurity // {
           ExecStart =

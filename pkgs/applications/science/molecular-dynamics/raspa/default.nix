@@ -22,9 +22,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-i8Y+pejiOuyPNJto+/0CmRoAnMljCrnDFx8qDh4I/68=";
   };
 
-  nativeBuildInputs = [ autoreconfHook makeWrapper ];
+  nativeBuildInputs = [
+    autoreconfHook
+    makeWrapper
+  ];
 
-  buildInputs = [ fftw lapack openblas ];
+  buildInputs = [
+    fftw
+    lapack
+    openblas
+  ];
 
   # Prepare for the Python binding packaging.
   strictDeps = true;

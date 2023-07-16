@@ -27,7 +27,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [ bashInteractive pytest-timeout pytestCheckHook ];
+  nativeCheckInputs = [
+    bashInteractive
+    pytest-timeout
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

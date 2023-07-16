@@ -25,7 +25,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ];
   buildInputs = lib.optionals doCheck [ nose ];
-  propagatedBuildInputs = [ matplotlib nibabel numpy scipy sympy ];
+  propagatedBuildInputs = [
+    matplotlib
+    nibabel
+    numpy
+    scipy
+    sympy
+  ];
 
   preBuild = ''
     make recythonize

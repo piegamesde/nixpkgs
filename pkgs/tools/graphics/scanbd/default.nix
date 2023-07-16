@@ -20,7 +20,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dbus libconfuse libjpeg sane-backends systemd ];
+  buildInputs = [
+    dbus
+    libconfuse
+    libjpeg
+    sane-backends
+    systemd
+  ];
 
   configureFlags = [
     "--disable-Werror"

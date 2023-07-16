@@ -20,7 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-mdzaFwUKllSZZuU7yJ5x2mcAlNU9lUKzsNAZfQNeb1I=";
   };
 
-  propagatedBuildInputs = [ dnspython future ldap3 ];
+  propagatedBuildInputs = [
+    dnspython
+    future
+    ldap3
+  ];
 
   # requires ldap server
   doCheck = false;

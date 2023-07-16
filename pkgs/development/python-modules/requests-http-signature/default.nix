@@ -28,7 +28,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ http-message-signatures http-sfv requests ];
+  propagatedBuildInputs = [
+    http-message-signatures
+    http-sfv
+    requests
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

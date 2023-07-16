@@ -21,7 +21,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-cUE2IZOunR/NIo/qytORRfNqCsf87LfpKA8o/v4Nkhk=";
 
-  nativeBuildInputs = [ glib pkg-config wrapGAppsHook4 ];
+  nativeBuildInputs = [
+    glib
+    pkg-config
+    wrapGAppsHook4
+  ];
 
   buildInputs = [ gtk4 ];
 

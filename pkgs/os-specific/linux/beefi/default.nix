@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = [ binutils-unwrapped systemd ];
+  buildInputs = [
+    binutils-unwrapped
+    systemd
+  ];
 
   patchPhase = ''
     substituteInPlace beefi \

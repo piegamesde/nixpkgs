@@ -22,6 +22,9 @@ buildGoModule rec {
       "Web server for multi-language, real-time synchronization and searchable documentation";
     homepage = "https://asouldocs.dev/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ivar anthonyroussel ];
+    maintainers = with maintainers; [
+      ivar
+      anthonyroussel
+    ];
   };
 }

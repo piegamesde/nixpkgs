@@ -20,17 +20,20 @@ stdenv.mkDerivation {
     sha256 = "1dxzsnir3158p8y2128s08r9ca0ywr9mcznivmhn1lycw8mg4nfl";
   };
 
-  buildInputs = [ gnused xorg.xprop rlwrap ncurses ];
-
-  patches = [
-    (substituteAll {
-      src = ./paths.patch;
-      sed = "${gnused}/bin/sed";
-      xprop = "${xorg.xprop}/bin/xprop";
-      rlwrap = "${rlwrap}/bin/rlwrap";
-      tput = "${ncurses}/bin/tput";
-    })
+  buildInputs = [
+    gnused
+    xorg.xprop
+    rlwrap
+    ncurses
   ];
+
+  patches = [ (substituteAll {
+    src = ./paths.patch;
+    sed = "${gnused}/bin/sed";
+    xprop = "${xorg.xprop}/bin/xprop";
+    rlwrap = "${rlwrap}/bin/rlwrap";
+    tput = "${ncurses}/bin/tput";
+  }) ];
 
   buildPhase = ''
     mkdir -p $out/bin

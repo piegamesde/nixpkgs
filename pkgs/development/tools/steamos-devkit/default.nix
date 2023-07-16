@@ -23,9 +23,17 @@ let
       sha256 = "sha256-k070ue132m8H1Zm8bo7J7spCS5dSTGOj689ci7vJ+aw=";
     };
 
-    nativeBuildInputs = with python3.pkgs; [ cython pkg-config SDL2 ];
+    nativeBuildInputs = with python3.pkgs; [
+      cython
+      pkg-config
+      SDL2
+    ];
 
-    propagatedBuildInputs = with python3.pkgs; [ click pyopengl pysdl2 ];
+    propagatedBuildInputs = with python3.pkgs; [
+      click
+      pyopengl
+      pysdl2
+    ];
 
     # Requires OpenGL acceleration
     doCheck = false;
@@ -108,13 +116,11 @@ in python3.pkgs.buildPythonPackage rec {
   doCheck = false;
   pythonImportsCheck = [ "devkit_client" ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "SteamOS-Devkit";
-      exec = "steamos-devkit";
-      desktopName = "SteamOS Devkit Client";
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "SteamOS-Devkit";
+    exec = "steamos-devkit";
+    desktopName = "SteamOS Devkit Client";
+  }) ];
 
   meta = with lib; {
     description = "SteamOS Devkit Client";

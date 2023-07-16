@@ -24,13 +24,23 @@ buildPythonPackage rec {
     hash = "sha256-QdllA1QTSJ8vWaSJ0XoUanX53sb4RaOmdXBCFEsoWMU=";
   };
 
-  propagatedBuildInputs = [ slicerator imageio numpy ];
+  propagatedBuildInputs = [
+    slicerator
+    imageio
+    numpy
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook scikitimage ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    scikitimage
+  ];
 
   pythonImportsCheck = [ "pims" ];
 
-  pytestFlagsArray = [ "-W" "ignore::DeprecationWarning" ];
+  pytestFlagsArray = [
+    "-W"
+    "ignore::DeprecationWarning"
+  ];
 
   disabledTests = [
     # NotImplementedError: Do not know how to deal with infinite readers

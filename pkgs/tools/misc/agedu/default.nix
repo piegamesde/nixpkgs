@@ -19,7 +19,10 @@ in stdenv.mkDerivation {
     hash = "sha256-5wqpL7wrFwIf6lxVte+GXLsXYY0/36EIAUepVNDCnSE=";
   };
 
-  nativeBuildInputs = [ cmake halibut ];
+  nativeBuildInputs = [
+    cmake
+    halibut
+  ];
 
   meta = with lib; {
     description = "A Unix utility for tracking down wasted disk space";

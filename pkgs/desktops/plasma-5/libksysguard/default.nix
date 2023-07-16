@@ -47,5 +47,9 @@ mkDerivation {
     qtsensors
     lm_sensors
   ];
-  outputs = [ "bin" "dev" "out" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+  ];
 }

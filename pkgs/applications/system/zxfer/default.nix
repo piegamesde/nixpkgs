@@ -47,7 +47,15 @@ resholve.mkDerivation rec {
   solutions.default = {
     scripts = [ "bin/zxfer" ];
     interpreter = "${bash}/bin/sh";
-    inputs = [ coreutils gawk gnugrep gnused openssh rsync which ];
+    inputs = [
+      coreutils
+      gawk
+      gnugrep
+      gnused
+      openssh
+      rsync
+      which
+    ];
     fake.external = [
       "kldload" # bsd builtin
       "kldstat" # bsd builtin

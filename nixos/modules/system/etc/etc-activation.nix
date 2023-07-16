@@ -9,7 +9,9 @@ in {
   imports = [ ./etc.nix ];
 
   config = {
-    system.activationScripts.etc = stringAfter [ "users" "groups" ]
-      config.system.build.etcActivationCommands;
+    system.activationScripts.etc = stringAfter [
+      "users"
+      "groups"
+    ] config.system.build.etcActivationCommands;
   };
 }

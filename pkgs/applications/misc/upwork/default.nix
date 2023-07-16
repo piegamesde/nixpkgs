@@ -53,7 +53,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9X1U/ImI8GfCiYLpLD+jICYAYsAr1NJLlOMvecXK7hc=";
   };
 
-  nativeBuildInputs = [ dpkg wrapGAppsHook autoPatchelfHook ];
+  nativeBuildInputs = [
+    dpkg
+    wrapGAppsHook
+    autoPatchelfHook
+  ];
 
   buildInputs = [
     libcxx
@@ -135,6 +139,9 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ zakkor wolfangaukang ];
+    maintainers = with maintainers; [
+      zakkor
+      wolfangaukang
+    ];
   };
 }

@@ -19,7 +19,10 @@ buildPythonPackage rec {
     sha256 = "12y3chxhqxk2yxin055f0f45nabj0s8hil12hw0lwzlbax6k9ss6";
   };
 
-  propagatedBuildInputs = [ django django-js-asset ];
+  propagatedBuildInputs = [
+    django
+    django-js-asset
+  ];
 
   pythonImportsCheck = [ "mptt" ];
 

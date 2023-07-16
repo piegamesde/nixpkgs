@@ -123,8 +123,10 @@ let
       }:
       crossPkgs.runCommand "test-pkg-config-${crossPkgs.hostPlatform.config}" {
         depsBuildBuild = [ crossPkgs.pkgsBuildBuild.pkg-config ];
-        nativeBuildInputs =
-          [ crossPkgs.pkgsBuildHost.pkg-config crossPkgs.buildPackages.zlib ];
+        nativeBuildInputs = [
+          crossPkgs.pkgsBuildHost.pkg-config
+          crossPkgs.buildPackages.zlib
+        ];
         depsBuildTarget = [ crossPkgs.pkgsBuildTarget.pkg-config ];
         buildInputs = [ crossPkgs.zlib ];
         NIX_DEBUG = 7;

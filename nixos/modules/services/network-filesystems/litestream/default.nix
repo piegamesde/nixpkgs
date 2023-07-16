@@ -27,10 +27,10 @@ in {
       '';
       type = settingsFormat.type;
       example = {
-        dbs = [{
+        dbs = [ {
           path = "/var/lib/db1";
-          replicas = [{ url = "s3://mybkt.litestream.io/db1"; }];
-        }];
+          replicas = [ { url = "s3://mybkt.litestream.io/db1"; } ];
+        } ];
       };
     };
 

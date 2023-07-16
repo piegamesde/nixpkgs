@@ -22,7 +22,11 @@ buildGoModule rec {
 
   subPackages = [ "cmd/kubedog" ];
 
-  ldflags = [ "-s" "-w" "-X github.com/werf/kubedog.Version=${src.rev}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/werf/kubedog.Version=${src.rev}"
+  ];
 
   # There are no tests.
   doCheck = false;

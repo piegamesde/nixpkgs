@@ -58,11 +58,16 @@ buildPythonPackage rec {
     sphinx-codeautolink
   ];
 
-  propagatedBuildInputs = [ attrs sortedcontainers ]
-    ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ];
+  propagatedBuildInputs = [
+    attrs
+    sortedcontainers
+  ] ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ];
 
-  nativeCheckInputs = [ pexpect pytest-xdist pytestCheckHook ]
-    ++ lib.optionals (isPyPy) [ tzdata ];
+  nativeCheckInputs = [
+    pexpect
+    pytest-xdist
+    pytestCheckHook
+  ] ++ lib.optionals (isPyPy) [ tzdata ];
 
   inherit doCheck;
 

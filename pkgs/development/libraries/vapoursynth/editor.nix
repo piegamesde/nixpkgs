@@ -24,7 +24,11 @@ let
     };
 
     nativeBuildInputs = [ qmake ];
-    buildInputs = [ qtbase vapoursynth qtwebsockets ];
+    buildInputs = [
+      qtbase
+      vapoursynth
+      qtwebsockets
+    ];
 
     dontWrapQtApps = true;
 

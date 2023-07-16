@@ -37,11 +37,18 @@ in useStdenv.mkDerivation {
   '';
 
   makeFlags = [ "-e" ];
-  buildFlags = [ (if withLibc then "k-libc" else "k") "libk.so" ];
+  buildFlags = [
+    (if withLibc then "k-libc" else "k")
+    "libk.so"
+  ];
   checkTarget = "t";
   inherit doCheck;
 
-  outputs = [ "out" "dev" "lib" ];
+  outputs = [
+    "out"
+    "dev"
+    "lib"
+  ];
 
   # TODO(@sternenseemann): package bulgarian translation
   installPhase = ''
@@ -60,6 +67,9 @@ in useStdenv.mkDerivation {
     homepage = "https://codeberg.org/ngn/k";
     license = lib.licenses.agpl3Only;
     maintainers = [ lib.maintainers.sternenseemann ];
-    platforms = [ "x86_64-linux" "x86_64-freebsd13" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-freebsd13"
+    ];
   };
 }

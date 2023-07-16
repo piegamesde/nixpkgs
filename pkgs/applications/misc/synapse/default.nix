@@ -33,7 +33,15 @@ in stdenv.mkDerivation rec {
     # For setup hook
     gobject-introspection
   ];
-  buildInputs = [ glib libnotify gtk3 libgee keybinder3 json-glib zeitgeist ];
+  buildInputs = [
+    glib
+    libnotify
+    gtk3
+    libgee
+    keybinder3
+    json-glib
+    zeitgeist
+  ];
 
   meta = with lib; {
     longDescription = ''

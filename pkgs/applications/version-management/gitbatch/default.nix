@@ -18,11 +18,13 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-wwpaJO5cXMsvqFXj+qGiIm4zg/SL4YCm2mNnG/qdilw=";
 
-  ldflags = [ "-s" "-w" ];
-
-  nativeBuildInputs = [
-    git # required by unit tests
+  ldflags = [
+    "-s"
+    "-w"
   ];
+
+  nativeBuildInputs = [ git # required by unit tests
+    ];
 
   preCheck = ''
     HOME=$(mktemp -d)

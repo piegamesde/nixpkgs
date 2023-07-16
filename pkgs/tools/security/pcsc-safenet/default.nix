@@ -34,11 +34,18 @@ stdenv.mkDerivation rec {
     dpkg-deb -x "$src/$debName" .
   '';
 
-  buildInputs = [ gtk3 openssl_1_1 pcsclite ];
+  buildInputs = [
+    gtk3
+    openssl_1_1
+    pcsclite
+  ];
 
   runtimeDependencies = [ openssl_1_1 ];
 
-  nativeBuildInputs = [ autoPatchelfHook dpkg ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    dpkg
+  ];
 
   installPhase = ''
     mv usr/* .

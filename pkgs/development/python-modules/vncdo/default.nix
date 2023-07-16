@@ -20,7 +20,13 @@ buildPythonPackage rec {
     sha256 = "0h3ccr8zi7xpgn6hz43x1045x5l4bhha7py8x00g8bv6gaqlbwxn";
   };
 
-  propagatedBuildInputs = [ pillow twisted pexpect nose ptyprocess ];
+  propagatedBuildInputs = [
+    pillow
+    twisted
+    pexpect
+    nose
+    ptyprocess
+  ];
 
   doCheck = !isPy27;
 

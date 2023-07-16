@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-S6jS0cg9tHSfmP6VHyISkXJxczhPx3HDdxT46c+YmE8=";
   };
 
-  buildInputs = [ openssl libpcap libxcrypt ];
+  buildInputs = [
+    openssl
+    libpcap
+    libxcrypt
+  ];
 
   installPhase = ''
     install -Dm755 asleap $out/bin/asleap

@@ -44,16 +44,25 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ jsoncpp libGL ];
+  buildInputs = [
+    jsoncpp
+    libGL
+  ];
 
-  cmakeFlags = [ "-DUSE_SYSTEM_JSONCPP=ON" "-DBUILD_SHARED=1" ];
+  cmakeFlags = [
+    "-DUSE_SYSTEM_JSONCPP=ON"
+    "-DBUILD_SHARED=1"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/ValveSoftware/openvr";
     description =
       "An API and runtime that allows access to VR hardware from multiple vendors without requiring that applications have specific knowledge of the hardware they are targeting";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ pedrohlc Scrumplex ];
+    maintainers = with maintainers; [
+      pedrohlc
+      Scrumplex
+    ];
     platforms = platforms.unix;
   };
 }

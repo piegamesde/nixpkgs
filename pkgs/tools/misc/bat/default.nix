@@ -23,9 +23,16 @@ rustPlatform.buildRustPackage rec {
   };
   cargoHash = "sha256-wZNdYGCLKD80gV1QUTgKsFSNYkbDubknPB3e6dsyEgs=";
 
-  nativeBuildInputs = [ pkg-config installShellFiles makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    installShellFiles
+    makeWrapper
+  ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    Security
+    libiconv
+  ];
 
   postInstall = ''
     installManPage $releaseDir/build/bat-*/out/assets/manual/bat.1
@@ -39,7 +46,10 @@ rustPlatform.buildRustPackage rec {
       --prefix PATH : "${lib.makeBinPath [ less ]}"
   '';
 
-  checkFlags = [ "--skip=pager_more" "--skip=pager_most" ];
+  checkFlags = [
+    "--skip=pager_more"
+    "--skip=pager_most"
+  ];
 
   doInstallCheck = true;
   installCheckPhase = ''
@@ -62,6 +72,11 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ dywedir lilyball zowoq SuperSandro2000 ];
+    maintainers = with maintainers; [
+      dywedir
+      lilyball
+      zowoq
+      SuperSandro2000
+    ];
   };
 }

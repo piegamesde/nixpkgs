@@ -69,17 +69,15 @@ buildDotnetModule rec {
     runHook postFixup
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      desktopName = "osu!";
-      name = "osu";
-      exec = "osu!";
-      icon = "osu!";
-      comment = meta.description;
-      type = "Application";
-      categories = [ "Game" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    desktopName = "osu!";
+    name = "osu";
+    exec = "osu!";
+    icon = "osu!";
+    comment = meta.description;
+    type = "Application";
+    categories = [ "Game" ];
+  }) ];
 
   meta = with lib; {
     description =
@@ -90,7 +88,10 @@ buildDotnetModule rec {
       cc-by-nc-40
       unfreeRedistributable # osu-framework contains libbass.so in repository
     ];
-    maintainers = with maintainers; [ oxalica thiagokokada ];
+    maintainers = with maintainers; [
+      oxalica
+      thiagokokada
+    ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "osu!";
   };

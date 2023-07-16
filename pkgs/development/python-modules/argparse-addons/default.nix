@@ -20,6 +20,9 @@ buildPythonPackage rec {
     description = "Additional Python argparse types and actions";
     homepage = "https://github.com/eerimoq/argparse_addons";
     license = licenses.mit;
-    maintainers = with maintainers; [ frogamic sbruder ];
+    maintainers = with maintainers; [
+      frogamic
+      sbruder
+    ];
   };
 }

@@ -22,11 +22,21 @@ buildPythonPackage rec {
     hash = "sha256-wK33h+Qg737hSv+2HF4hvfBDDsJpI+7mGbRgUQvrZb0=";
   };
 
-  propagatedBuildInputs = [ colorama tqdm ];
+  propagatedBuildInputs = [
+    colorama
+    tqdm
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook ffmpeg procps ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    ffmpeg
+    procps
+  ];
 
-  disabledTests = [ "test_quit" "test_quit_gracefully" ];
+  disabledTests = [
+    "test_quit"
+    "test_quit_gracefully"
+  ];
 
   pytestFlagsArray = [ "test/test.py" ];
 

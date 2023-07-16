@@ -22,8 +22,16 @@ stdenv.mkDerivation rec {
 
   patches = [ ./pkg-config.patch ];
 
-  nativeBuildInputs = [ ocaml findlib ocamlbuild topkg ];
-  buildInputs = [ topkg ocamlbuild ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+    ocamlbuild
+    topkg
+  ];
+  buildInputs = [
+    topkg
+    ocamlbuild
+  ];
 
   propagatedBuildInputs = [ astring ];
 

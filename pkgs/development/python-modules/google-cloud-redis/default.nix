@@ -22,10 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-gQ3xG2QcnrSvl1hsvlcY9g77JW8fFk/Pci01tNqpAUs=";
   };
 
-  propagatedBuildInputs = [ google-api-core proto-plus protobuf ]
-    ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs = [
+    google-api-core
+    proto-plus
+    protobuf
+  ] ++ google-api-core.optional-dependencies.grpc;
 
-  nativeCheckInputs = [ pytestCheckHook pytest-asyncio ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-asyncio
+  ];
 
   pythonImportsCheck = [
     "google.cloud.redis"

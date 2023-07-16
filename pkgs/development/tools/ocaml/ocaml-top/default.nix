@@ -18,7 +18,11 @@ buildDunePackage rec {
   };
 
   nativeBuildInputs = [ ocp-build ];
-  buildInputs = [ ncurses lablgtk3-sourceview3 ocp-index ];
+  buildInputs = [
+    ncurses
+    lablgtk3-sourceview3
+    ocp-index
+  ];
 
   configurePhase = ''
     export TERM=xterm

@@ -20,8 +20,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-ybnW9ip1QVadmbYLP+gvo49k9ExHfnsOhSnI6NjsAQk=";
   };
 
-  nativeBuildInputs = [ gnused python3 ];
-  buildInputs = [ postgresql doxygen xmlto ];
+  nativeBuildInputs = [
+    gnused
+    python3
+  ];
+  buildInputs = [
+    postgresql
+    doxygen
+    xmlto
+  ];
 
   preConfigure = ''
     patchShebangs .

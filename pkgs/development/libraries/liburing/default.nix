@@ -48,7 +48,12 @@ stdenv.mkDerivation rec {
   # Doesn't recognize platform flags
   configurePlatforms = [ ];
 
-  outputs = [ "out" "bin" "dev" "man" ];
+  outputs = [
+    "out"
+    "bin"
+    "dev"
+    "man"
+  ];
 
   postInstall = ''
     # Copy the examples into $bin. Most reverse dependency of this package should

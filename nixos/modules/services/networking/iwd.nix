@@ -52,12 +52,12 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = !config.networking.wireless.enable;
       message = ''
         Only one wireless daemon is allowed at the time: networking.wireless.enable and networking.wireless.iwd.enable are mutually exclusive.
       '';
-    }];
+    } ];
 
     environment.etc."iwd/${configFile.name}".source = configFile;
 

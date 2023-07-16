@@ -22,7 +22,10 @@
 stdenv.mkDerivation rec {
   pname = "libfprint";
   version = "1.94.5";
-  outputs = [ "out" "devdoc" ];
+  outputs = [
+    "out"
+    "devdoc"
+  ];
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -51,7 +54,14 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  buildInputs = [ gusb pixman glib nss cairo libgudev ];
+  buildInputs = [
+    gusb
+    pixman
+    glib
+    nss
+    cairo
+    libgudev
+  ];
 
   mesonFlags = [
     "-Dudev_rules_dir=${placeholder "out"}/lib/udev/rules.d"

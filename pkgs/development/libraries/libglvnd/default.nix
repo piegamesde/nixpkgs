@@ -23,8 +23,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-p/vLxagN9nCYw1JpUmZetgctQbrp3Wo33OVFrtvmnjQ=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config python3 addOpenGLRunpath ];
-  buildInputs = [ libX11 libXext xorgproto ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    python3
+    addOpenGLRunpath
+  ];
+  buildInputs = [
+    libX11
+    libXext
+    xorgproto
+  ];
 
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace src/GLX/Makefile.am \
@@ -52,7 +61,10 @@ stdenv.mkDerivation rec {
     (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
     "--disable-asm";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   # Set RUNPATH so that libGLX can find driver libraries in /run/opengl-driver(-32)/lib.
   # Note that libEGL does not need it because it uses driver config files which should
@@ -76,7 +88,13 @@ stdenv.mkDerivation rec {
     # https://gitlab.freedesktop.org/glvnd/libglvnd#libglvnd:
     changelog =
       "https://gitlab.freedesktop.org/glvnd/libglvnd/-/tags/v${version}";
-    license = with licenses; [ mit bsd1 bsd3 gpl3Only asl20 ];
+    license = with licenses; [
+      mit
+      bsd1
+      bsd3
+      gpl3Only
+      asl20
+    ];
     platforms = platforms.unix;
     maintainers = with maintainers; [ primeos ];
   };

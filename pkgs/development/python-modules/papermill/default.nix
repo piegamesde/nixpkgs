@@ -47,14 +47,20 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    azure = [ azure-datalake-store azure-storage-blob ];
+    azure = [
+      azure-datalake-store
+      azure-storage-blob
+    ];
     gcs = [ gcsfs ];
     github = [ pygithub ];
     hdfs = [ pyarrow ];
     s3 = [ boto3 ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook pytest-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-mock
+  ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

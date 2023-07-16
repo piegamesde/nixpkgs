@@ -21,12 +21,22 @@ stdenv.mkDerivation rec {
     hash = "sha256-S7Z2nGQt07YBHlbA1u/+rvDwtzT381e90jieoiun+E8=";
   };
 
-  nativeBuildInputs = [ xorg-autoconf autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    xorg-autoconf
+    autoreconfHook
+    pkg-config
+  ];
 
   configureFlags = [ "--with-appdefaultdir=$out/share/X11/app-defaults" ];
 
-  buildInputs =
-    [ xorg.libX11 xorg.libXext xorg.libSM xorg.libXmu xorg.libXaw xorg.libXt ];
+  buildInputs = [
+    xorg.libX11
+    xorg.libXext
+    xorg.libSM
+    xorg.libXmu
+    xorg.libXaw
+    xorg.libXt
+  ];
 
   meta = with lib; {
     description = "X Window System logo display demo";

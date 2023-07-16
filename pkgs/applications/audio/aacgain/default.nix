@@ -27,7 +27,12 @@ stdenv.mkDerivation rec {
     chmod -R +w 3rdparty
   '';
 
-  nativeBuildInputs = [ cmake autoconf automake libtool ];
+  nativeBuildInputs = [
+    cmake
+    autoconf
+    automake
+    libtool
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=narrowing";
 

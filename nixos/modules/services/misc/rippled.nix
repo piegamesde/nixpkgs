@@ -115,7 +115,13 @@ let
 
         protocol = mkOption {
           description = lib.mdDoc "Protocols expose by rippled.";
-          type = types.listOf (types.enum [ "http" "https" "ws" "wss" "peer" ]);
+          type = types.listOf (types.enum [
+            "http"
+            "https"
+            "ws"
+            "wss"
+            "peer"
+          ]);
         };
 
         user = mkOption {
@@ -173,7 +179,10 @@ let
     options = {
       type = mkOption {
         description = lib.mdDoc "Rippled database type.";
-        type = types.enum [ "rocksdb" "nudb" ];
+        type = types.enum [
+          "rocksdb"
+          "nudb"
+        ];
         default = "rocksdb";
       };
 
@@ -249,7 +258,10 @@ in {
           ws_public = {
             port = 5006;
             ip = "0.0.0.0";
-            protocol = [ "ws" "wss" ];
+            protocol = [
+              "ws"
+              "wss"
+            ];
           };
         };
       };
@@ -286,7 +298,13 @@ in {
           Rippled size of the node you are running.
           "tiny", "small", "medium", "large", and "huge"
         '';
-        type = types.enum [ "tiny" "small" "medium" "large" "huge" ];
+        type = types.enum [
+          "tiny"
+          "small"
+          "medium"
+          "large"
+          "huge"
+        ];
         default = "small";
       };
 
@@ -384,7 +402,11 @@ in {
 
       logLevel = mkOption {
         description = lib.mdDoc "Logging verbosity.";
-        type = types.enum [ "debug" "error" "info" ];
+        type = types.enum [
+          "debug"
+          "error"
+          "info"
+        ];
         default = "error";
       };
 

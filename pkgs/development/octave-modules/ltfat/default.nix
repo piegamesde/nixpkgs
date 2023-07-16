@@ -22,8 +22,16 @@ buildOctavePackage rec {
     sha256 = "sha256-8AqEDEfgYwftKUj8ynFQzBa3G3zTdhNtsZ2bW16DV7Q=";
   };
 
-  buildInputs =
-    [ fftw fftwSinglePrec fftwFloat fftwLongDouble lapack blas portaudio jdk ];
+  buildInputs = [
+    fftw
+    fftwSinglePrec
+    fftwFloat
+    fftwLongDouble
+    lapack
+    blas
+    portaudio
+    jdk
+  ];
 
   meta = with lib; {
     name = "The Large Time-Frequency Analysis Toolbox";

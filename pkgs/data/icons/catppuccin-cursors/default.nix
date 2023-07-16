@@ -7,7 +7,12 @@
 
 let
   dimensions = {
-    palette = [ "Frappe" "Latte" "Macchiato" "Mocha" ];
+    palette = [
+      "Frappe"
+      "Latte"
+      "Macchiato"
+      "Mocha"
+    ];
     color = [
       "Blue"
       "Dark"

@@ -50,8 +50,10 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
-      systemd.tmpfiles.rules =
-        [ "d ${cfg.videoDir} 0755 vdr vdr -" "Z ${cfg.videoDir} - vdr vdr -" ];
+      systemd.tmpfiles.rules = [
+        "d ${cfg.videoDir} 0755 vdr vdr -"
+        "Z ${cfg.videoDir} - vdr vdr -"
+      ];
 
       systemd.services.vdr = {
         description = "VDR";

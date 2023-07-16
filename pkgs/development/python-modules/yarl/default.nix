@@ -27,8 +27,10 @@ buildPythonPackage rec {
     sed -i '/^addopts/d' setup.cfg
   '';
 
-  propagatedBuildInputs = [ idna multidict ]
-    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [
+    idna
+    multidict
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   preCheck = ''
     # don't import yarl from ./ so the C extension is available

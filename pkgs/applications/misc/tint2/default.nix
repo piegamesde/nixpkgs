@@ -35,7 +35,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-SqpAjclwu3HN07LAZgvXGzjMK6G+nYLDdl90o1+9aog=";
   };
 
-  nativeBuildInputs = [ pkg-config cmake gettext wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    gettext
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     cairo

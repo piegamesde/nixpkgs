@@ -26,8 +26,15 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-UJzYBsGj/TMhQoMourx7UPGBpN0MPi4pEN8m1sXLw/g=";
   };
 
-  buildInputs = [ libusb1 libjpeg8 cups ];
-  nativeBuildInputs = [ dpkg autoPatchelfHook ];
+  buildInputs = [
+    libusb1
+    libjpeg8
+    cups
+  ];
+  nativeBuildInputs = [
+    dpkg
+    autoPatchelfHook
+  ];
 
   installPhase = ''
     dpkg-deb -x ./Resources/pantum_${version}-1_${architecture}.deb .
@@ -49,6 +56,9 @@ in stdenv.mkDerivation rec {
     homepage = "https://global.pantum.com/";
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.unfree;
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 }

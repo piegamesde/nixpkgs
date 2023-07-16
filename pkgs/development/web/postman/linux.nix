@@ -69,17 +69,15 @@ in stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "postman";
-      exec = "postman";
-      icon = "postman";
-      comment = "API Development Environment";
-      desktopName = "Postman";
-      genericName = "Postman";
-      categories = [ "Development" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "postman";
+    exec = "postman";
+    icon = "postman";
+    comment = "API Development Environment";
+    desktopName = "Postman";
+    genericName = "Postman";
+    categories = [ "Development" ];
+  }) ];
 
   buildInputs = [
     stdenv.cc.cc.lib
@@ -119,7 +117,10 @@ in stdenv.mkDerivation rec {
     xorg.libxshmfence
   ];
 
-  nativeBuildInputs = [ wrapGAppsHook copyDesktopItems ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    copyDesktopItems
+  ];
 
   installPhase = ''
     runHook preInstall

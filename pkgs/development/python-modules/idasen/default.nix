@@ -27,9 +27,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ bleak pyyaml voluptuous ];
+  propagatedBuildInputs = [
+    bleak
+    pyyaml
+    voluptuous
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-asyncio ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-asyncio
+  ];
 
   pythonImportsCheck = [ "idasen" ];
 

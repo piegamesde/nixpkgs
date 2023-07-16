@@ -39,9 +39,17 @@ stdenv.mkDerivation rec {
     ln -s ${openrgb.src} OpenRGB
   '';
 
-  nativeBuildInputs = [ qmake pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    pkg-config
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ qtbase glib openal ];
+  buildInputs = [
+    qtbase
+    glib
+    openal
+  ];
 
   meta = with lib; {
     homepage = "https://gitlab.com/OpenRGBDevelopers/OpenRGBEffectsPlugin";

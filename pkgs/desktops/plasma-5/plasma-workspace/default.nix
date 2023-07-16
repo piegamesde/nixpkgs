@@ -72,9 +72,15 @@ let inherit (lib) getBin getLib;
 
 in mkDerivation {
   pname = "plasma-workspace";
-  passthru.providedSessions = [ "plasma" "plasmawayland" ];
+  passthru.providedSessions = [
+    "plasma"
+    "plasmawayland"
+  ];
 
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
   buildInputs = [
     isocodes
     libdbusmenu
@@ -139,13 +145,18 @@ in mkDerivation {
     libdrm
   ];
   propagatedUserEnvPkgs = [ qtgraphicaleffects ];
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   cmakeFlags =
     [ "-DNIXPKGS_BREEZE_WALLPAPERS=${getBin breeze-qt5}/share/wallpapers" ];
 
-  patches =
-    [ ./0001-startkde.patch ./0002-absolute-wallpaper-install-dir.patch ];
+  patches = [
+    ./0001-startkde.patch
+    ./0002-absolute-wallpaper-install-dir.patch
+  ];
 
   # QT_INSTALL_BINS refers to qtbase, and qdbus is in qttools
   postPatch = ''

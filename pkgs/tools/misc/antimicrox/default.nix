@@ -22,8 +22,17 @@ mkDerivation rec {
     sha256 = "sha256-svEk+IFttkCXmoAOFH3k2rRC/OL9HXOLiuGrCh10YNc=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules pkg-config itstool ];
-  buildInputs = [ SDL2 qttools xorg.libXtst ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    pkg-config
+    itstool
+  ];
+  buildInputs = [
+    SDL2
+    qttools
+    xorg.libXtst
+  ];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \

@@ -23,7 +23,12 @@ buildPythonPackage rec {
     hash = "sha256-4+DlP+BH0UdWcYRBBApdc3E18L2zPvsdY6GTW5WCGnQ=";
   };
 
-  propagatedBuildInputs = [ networkx numpy pint pydantic ];
+  propagatedBuildInputs = [
+    networkx
+    numpy
+    pint
+    pydantic
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

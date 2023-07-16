@@ -36,7 +36,11 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  outputs = [ "out" "dev" "info" ];
+  outputs = [
+    "out"
+    "dev"
+    "info"
+  ];
   outputBin = "dev";
 
   # The CPU Jitter random number generator must not be compiled with
@@ -58,7 +62,10 @@ stdenv.mkDerivation rec {
 
   # Necessary to generate correct assembly when compiling for aarch32 on
   # aarch64
-  configurePlatforms = [ "host" "build" ];
+  configurePlatforms = [
+    "host"
+    "build"
+  ];
 
   postConfigure = ''
     sed -i configure \

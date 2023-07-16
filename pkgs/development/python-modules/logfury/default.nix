@@ -22,7 +22,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [ pytestCheckHook testfixtures ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    testfixtures
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

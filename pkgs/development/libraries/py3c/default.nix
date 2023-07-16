@@ -35,6 +35,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/encukou/py3c";
     description = "Python 2/3 compatibility layer for C extensions";
     license = licenses.mit;
-    maintainers = with maintainers; [ ajs124 dotlambda ];
+    maintainers = with maintainers; [
+      ajs124
+      dotlambda
+    ];
   };
 }

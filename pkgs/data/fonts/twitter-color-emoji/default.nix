@@ -26,13 +26,20 @@ let
     sha256 = "sha256-UQ4PwO4D1kw7JOMf6xSaRBfT822KwrvWBPDmaQjkRVQ=";
   };
 
-  pythonEnv = python3.withPackages (ps: with ps; [ fonttools nototools ]);
+  pythonEnv = python3.withPackages (ps:
+    with ps; [
+      fonttools
+      nototools
+    ]);
 
 in stdenv.mkDerivation rec {
   pname = "twitter-color-emoji";
   inherit version;
 
-  srcs = [ noto-fonts-emoji.src twemojiSrc ];
+  srcs = [
+    noto-fonts-emoji.src
+    twemojiSrc
+  ];
 
   sourceRoot = noto-fonts-emoji.src.name;
 
@@ -41,8 +48,15 @@ in stdenv.mkDerivation rec {
     mv ${twemojiSrc.name} ${noto-fonts-emoji.src.name}
   '';
 
-  nativeBuildInputs =
-    [ cairo imagemagick pkg-config pngquant pythonEnv which zopfli ];
+  nativeBuildInputs = [
+    cairo
+    imagemagick
+    pkg-config
+    pngquant
+    pythonEnv
+    which
+    zopfli
+  ];
 
   postPatch = let
     templateSubstitutions = lib.concatStringsSep "; " [
@@ -101,7 +115,15 @@ in stdenv.mkDerivation rec {
     ## Non-artwork is MIT
     # In Fedora twitter-twemoji-fonts source
     ## spec files are MIT: https://fedoraproject.org/wiki/Licensing:Main#License_of_Fedora_SPEC_Files
-    license = with licenses; [ asl20 ofl cc-by-40 mit ];
-    maintainers = with maintainers; [ jtojnar emily ];
+    license = with licenses; [
+      asl20
+      ofl
+      cc-by-40
+      mit
+    ];
+    maintainers = with maintainers; [
+      jtojnar
+      emily
+    ];
   };
 }

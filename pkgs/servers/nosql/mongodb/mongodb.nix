@@ -35,8 +35,15 @@ with lib;
 
 let
   variants = if versionAtLeast version "6.0" then rec {
-    python = scons.python.withPackages
-      (ps: with ps; [ pyyaml cheetah3 psutil setuptools packaging pymongo ]);
+    python = scons.python.withPackages (ps:
+      with ps; [
+        pyyaml
+        cheetah3
+        psutil
+        setuptools
+        packaging
+        pymongo
+      ]);
 
     scons = sconsPackages.scons_3_1_2;
 
@@ -44,8 +51,13 @@ let
     mozjsReplace = "defined(HAVE___SINCOS)";
 
   } else rec {
-    python = scons.python.withPackages
-      (ps: with ps; [ pyyaml cheetah3 psutil setuptools ]);
+    python = scons.python.withPackages (ps:
+      with ps; [
+        pyyaml
+        cheetah3
+        psutil
+        setuptools
+      ]);
 
     scons = sconsPackages.scons_3_1_2;
 
@@ -91,7 +103,11 @@ in stdenv.mkDerivation rec {
     sasl
     snappy
     zlib
-  ] ++ lib.optionals stdenv.isDarwin [ Security CoreFoundation cctools ];
+  ] ++ lib.optionals stdenv.isDarwin [
+    Security
+    CoreFoundation
+    cctools
+  ];
 
   # MongoDB keeps track of its build parameters, which tricks nix into
   # keeping dependencies to build inputs in the final output.
@@ -183,7 +199,11 @@ in stdenv.mkDerivation rec {
     homepage = "http://www.mongodb.org";
     inherit license;
 
-    maintainers = with maintainers; [ bluescreen303 offline cstrahan ];
+    maintainers = with maintainers; [
+      bluescreen303
+      offline
+      cstrahan
+    ];
     platforms = subtractLists systems.doubles.i686 systems.doubles.unix;
     broken = (versionOlder version "6.0" && stdenv.system == "aarch64-darwin");
   };

@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
     sha256 = "7ImjiG/rIKGPHq3Vh/mftY7pqw/vfOxD3LJeT87HmCk=";
   };
 
-  nativeBuildInputs = [ bison pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    bison
+    pkg-config
+    makeWrapper
+  ];
 
   postPatch = ''
     substituteInPlace mk/c.mk \

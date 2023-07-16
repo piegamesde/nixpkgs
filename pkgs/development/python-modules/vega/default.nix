@@ -19,7 +19,12 @@ buildPythonPackage rec {
     hash = "sha256-cO+7Ynbv/+uoNUOPQvDNZji04llHUBlm95Cyfy+Ny80=";
   };
 
-  propagatedBuildInputs = [ jupyter jupyter-core pandas ipywidgets ];
+  propagatedBuildInputs = [
+    jupyter
+    jupyter-core
+    pandas
+    ipywidgets
+  ];
 
   # currently, recommonmark is broken on python3
   doCheck = false;

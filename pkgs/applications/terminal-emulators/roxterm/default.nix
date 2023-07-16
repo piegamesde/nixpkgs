@@ -40,7 +40,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jVcf/nrEq8dM8rw40ZhXGJjt3DQLroCePtIAdAsVIfs=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config wrapGAppsHook libxslt ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapGAppsHook
+    libxslt
+  ];
 
   buildInputs = [
     gtk3

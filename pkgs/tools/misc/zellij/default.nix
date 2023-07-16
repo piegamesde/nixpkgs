@@ -27,10 +27,17 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-71HQ/75tl6ogGm5geDPZtz8oYCxUkAWUrU1lhK2AG0c=";
 
-  nativeBuildInputs = [ mandown installShellFiles pkg-config ];
+  nativeBuildInputs = [
+    mandown
+    installShellFiles
+    pkg-config
+  ];
 
-  buildInputs = [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv DiskArbitration Foundation ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
+    libiconv
+    DiskArbitration
+    Foundation
+  ];
 
   preCheck = ''
     HOME=$TMPDIR
@@ -54,6 +61,11 @@ rustPlatform.buildRustPackage rec {
     changelog =
       "https://github.com/zellij-org/zellij/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
-    maintainers = with maintainers; [ therealansh _0x4A6F abbe thehedgeh0g ];
+    maintainers = with maintainers; [
+      therealansh
+      _0x4A6F
+      abbe
+      thehedgeh0g
+    ];
   };
 }

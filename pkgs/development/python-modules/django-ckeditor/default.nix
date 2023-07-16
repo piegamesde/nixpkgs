@@ -27,11 +27,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ django django-js-asset pillow ];
+  propagatedBuildInputs = [
+    django
+    django-js-asset
+    pillow
+  ];
 
   DJANGO_SETTINGS_MODULE = "ckeditor_demo.settings";
 
-  checkInputs = [ django-extensions selenium ];
+  checkInputs = [
+    django-extensions
+    selenium
+  ];
 
   checkPhase = ''
     runHook preCheck

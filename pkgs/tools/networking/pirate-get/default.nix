@@ -14,7 +14,11 @@ buildPythonApplication rec {
     sha256 = "sha256-VtnVyJqrdGXTqcyzpHCOMUI9G7/BkXzihDrBrsxl7Eg=";
   };
 
-  propagatedBuildInputs = [ colorama veryprettytable pyperclip ];
+  propagatedBuildInputs = [
+    colorama
+    veryprettytable
+    pyperclip
+  ];
 
   meta = with lib; {
     description = "A command line interface for The Pirate Bay";

@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
     sha256 = "09lqp82aymj3silpwmjkkf4mgv3b1xw7181ck89lz2nxb98sr9im";
   };
 
-  buildInputs = [ gdk-pixbuf gtk_engines librsvg ];
+  buildInputs = [
+    gdk-pixbuf
+    gtk_engines
+    librsvg
+  ];
 
   propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 

@@ -20,7 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-I4I3vwW1kJsgLFPMGpe9hkD3iEeC3AqI4pCi6SCWPx4=";
   };
 
-  nativeBuildInputs = [ poetry-core setuptools ];
+  nativeBuildInputs = [
+    poetry-core
+    setuptools
+  ];
 
   propagatedBuildInputs = [ cryptography ];
 

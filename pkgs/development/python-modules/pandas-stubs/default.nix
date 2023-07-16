@@ -39,7 +39,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ pandas types-pytz ];
+  propagatedBuildInputs = [
+    pandas
+    types-pytz
+  ];
 
   nativeCheckInputs = [
     jinja2
@@ -105,9 +108,9 @@ buildPythonPackage rec {
     "test_value_label_type_mismatch"
     "test_read_sql_via_sqlalchemy_connection"
     "test_read_sql_via_sqlalchemy_engine"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "test_plotting" # Fatal Python error: Illegal instruction
-  ];
+  ] ++ lib.optionals
+    stdenv.isDarwin [ "test_plotting" # Fatal Python error: Illegal instruction
+    ];
 
   pythonImportsCheck = [ "pandas" ];
 

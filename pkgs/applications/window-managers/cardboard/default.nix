@@ -66,7 +66,13 @@ in stdenv.mkDerivation rec {
     hash = "sha256-Kn5NyQSDyX7/nn2bKZPnsuepkoppi5XIkdu7IDy5r4w=";
   };
 
-  nativeBuildInputs = [ meson ninja pandoc pkg-config unzip ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pandoc
+    pkg-config
+    unzip
+  ];
   buildInputs = [
     ffmpeg
     libGL

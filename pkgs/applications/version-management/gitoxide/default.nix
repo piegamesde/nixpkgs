@@ -25,13 +25,15 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-5JvDqp3dZ9rcOS17YzwgNwJYQGQ021cpd0ClrR+1+5Y=";
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buildInputs = [ curl ] ++ (if stdenv.isDarwin then [
     libiconv
     Security
     SystemConfiguration
-  ] else
-    [ openssl ]);
+  ] else [ openssl ]);
 
   # Needed to get openssl-sys to use pkg-config.
   OPENSSL_NO_VENDOR = 1;

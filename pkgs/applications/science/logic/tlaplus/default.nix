@@ -42,6 +42,9 @@ stdenv.mkDerivation rec {
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ florentc thoughtpolice ];
+    maintainers = with lib.maintainers; [
+      florentc
+      thoughtpolice
+    ];
   };
 }

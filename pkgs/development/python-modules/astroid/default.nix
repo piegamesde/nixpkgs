@@ -29,11 +29,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ lazy-object-proxy wrapt ]
-    ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ]
+  propagatedBuildInputs = [
+    lazy-object-proxy
+    wrapt
+  ] ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ]
     ++ lib.optionals (!isPyPy && pythonOlder "3.8") [ typed-ast ];
 
-  nativeCheckInputs = [ pytestCheckHook typing-extensions ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    typing-extensions
+  ];
 
   disabledTests = [
     # DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('tests.testdata.python3.data.path_pkg_resources_1.package')`.

@@ -41,7 +41,11 @@ stdenv.mkDerivation rec {
     gtk3
   ];
 
-  buildInputs = [ glib gtk4 libadwaita ];
+  buildInputs = [
+    glib
+    gtk4
+    libadwaita
+  ];
 
   postPatch = ''
     patchShebangs build-aux/meson/post_install.py

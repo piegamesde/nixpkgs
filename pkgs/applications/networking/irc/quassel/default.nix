@@ -63,24 +63,37 @@ in (if !buildClient then stdenv.mkDerivation else mkDerivation) rec {
   # Prevent ``undefined reference to `qt_version_tag''' in SSL check
   env.NIX_CFLAGS_COMPILE = "-DQT_NO_VERSION_TAGGING=1";
 
-  nativeBuildInputs = [ cmake makeWrapper ];
-  buildInputs = [ qtbase boost zlib ]
-    ++ lib.optionals buildCore [ qtscript qca-qt5 ]
-    ++ lib.optionals buildClient [ libdbusmenu phonon ]
-    ++ lib.optionals (buildClient && withKDE) [
-      extra-cmake-modules
-      kconfigwidgets
-      kcoreaddons
-      knotifications
-      knotifyconfig
-      ktextwidgets
-      kwidgetsaddons
-      kxmlgui
-    ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+  ];
+  buildInputs = [
+    qtbase
+    boost
+    zlib
+  ] ++ lib.optionals buildCore [
+    qtscript
+    qca-qt5
+  ] ++ lib.optionals buildClient [
+    libdbusmenu
+    phonon
+  ] ++ lib.optionals (buildClient && withKDE) [
+    extra-cmake-modules
+    kconfigwidgets
+    kcoreaddons
+    knotifications
+    knotifyconfig
+    ktextwidgets
+    kwidgetsaddons
+    kxmlgui
+  ];
 
-  cmakeFlags = [ "-DEMBED_DATA=OFF" "-DUSE_QT5=ON" ] ++ edf static "STATIC"
-    ++ edf monolithic "WANT_MONO" ++ edf enableDaemon "WANT_CORE"
-    ++ edf client "WANT_QTCLIENT" ++ edf withKDE "WITH_KDE";
+  cmakeFlags = [
+    "-DEMBED_DATA=OFF"
+    "-DUSE_QT5=ON"
+  ] ++ edf static "STATIC" ++ edf monolithic "WANT_MONO"
+    ++ edf enableDaemon "WANT_CORE" ++ edf client "WANT_QTCLIENT"
+    ++ edf withKDE "WITH_KDE";
 
   dontWrapQtApps = true;
 

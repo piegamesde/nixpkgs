@@ -16,13 +16,22 @@ let
 in {
   options = {
     once = mkOption {
-      type =
-        types.submodule { imports = [ decl moduleWithKey moduleWithKey ]; };
+      type = types.submodule {
+        imports = [
+          decl
+          moduleWithKey
+          moduleWithKey
+        ];
+      };
       default = { };
     };
     twice = mkOption {
       type = types.submodule {
-        imports = [ decl moduleWithoutKey moduleWithoutKey ];
+        imports = [
+          decl
+          moduleWithoutKey
+          moduleWithoutKey
+        ];
       };
       default = { };
     };

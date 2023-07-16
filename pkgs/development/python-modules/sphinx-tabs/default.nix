@@ -20,7 +20,10 @@
 buildPythonPackage rec {
   pname = "sphinx-tabs";
   version = "3.4.1";
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   src = fetchFromGitHub {
     owner = "executablebooks";
@@ -33,11 +36,21 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace 'docutils~=0.18.0' 'docutils'
   '';
 
-  nativeBuildInputs = [ pythonImportsCheckHook sphinxHook ];
+  nativeBuildInputs = [
+    pythonImportsCheckHook
+    sphinxHook
+  ];
 
-  propagatedBuildInputs = [ sphinx pygments docutils ];
+  propagatedBuildInputs = [
+    sphinx
+    pygments
+    docutils
+  ];
 
-  nativeCheckInputs = [ pytest beautifulsoup4 ];
+  nativeCheckInputs = [
+    pytest
+    beautifulsoup4
+  ];
 
   pythonImportsCheck = [ "sphinx_tabs" ];
 

@@ -36,11 +36,17 @@ else
       tar --strip-components=1 -xf ${ocaml.src} -C "${src.name}/ocaml"
     '';
 
-    patches = [ ./no-opam.patch ./configurable-binding.patch ];
+    patches = [
+      ./no-opam.patch
+      ./configurable-binding.patch
+    ];
 
     strictDeps = true;
 
-    nativeBuildInputs = [ ocaml pkg-config ];
+    nativeBuildInputs = [
+      ocaml
+      pkg-config
+    ];
 
     propagatedBuildInputs = [ solo5 ];
 
@@ -67,7 +73,10 @@ else
           os,
         }:
         "${arch}-${os}") (cartesianProductOfSets {
-          arch = [ "aarch64" "x86_64" ];
+          arch = [
+            "aarch64"
+            "x86_64"
+          ];
           os = [ "linux" ];
         } ++ [
           {

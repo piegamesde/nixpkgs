@@ -31,11 +31,24 @@ stdenv.mkDerivation rec {
     sha256 = "ua9xXA+UQHGVpCZL0srX58DDUgpfNa+AAIKsxZbhvMk=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config hexdump ]
-    ++ lib.optionals withGui [ wrapQtAppsHook ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    hexdump
+  ] ++ lib.optionals withGui [ wrapQtAppsHook ];
 
-  buildInputs = [ openssl boost libevent db4 zeromq gmp ]
-    ++ lib.optionals withGui [ qtbase qttools protobuf ];
+  buildInputs = [
+    openssl
+    boost
+    libevent
+    db4
+    zeromq
+    gmp
+  ] ++ lib.optionals withGui [
+    qtbase
+    qttools
+    protobuf
+  ];
 
   enableParallelBuilding = true;
 

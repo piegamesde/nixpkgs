@@ -28,9 +28,18 @@ let
       sha256 = "13xq34sb7383b37hwy076gnhf96prpk1b4087p87xnwswxbrisih";
     };
 
-    nativeBuildInputs = [ xar cpio python3 pbzx ];
+    nativeBuildInputs = [
+      xar
+      cpio
+      python3
+      pbzx
+    ];
 
-    outputs = [ "out" "dev" "man" ];
+    outputs = [
+      "out"
+      "dev"
+      "man"
+    ];
 
     unpackPhase = ''
       xar -x -f $src
@@ -68,8 +77,11 @@ let
   mkFrameworkSubs = name: deps:
     let
       deps' = deps // { "${name}" = placeholder "out"; };
-      substArgs = lib.concatMap (x: [ "--subst-var-by" x deps'."${x}" ])
-        (lib.attrNames deps');
+      substArgs = lib.concatMap (x: [
+        "--subst-var-by"
+        x
+        deps'."${x}"
+      ]) (lib.attrNames deps');
     in lib.escapeShellArgs substArgs;
 
   framework = name: deps:
@@ -303,9 +315,8 @@ in rec {
       });
 
       Carbon = lib.overrideDerivation super.Carbon (drv: {
-        extraTBDFiles = [
-          "Versions/A/Frameworks/HTMLRendering.framework/Versions/A/HTMLRendering.tbd"
-        ];
+        extraTBDFiles =
+          [ "Versions/A/Frameworks/HTMLRendering.framework/Versions/A/HTMLRendering.tbd" ];
       });
 
       CoreFoundation = lib.overrideDerivation super.CoreFoundation
@@ -323,9 +334,8 @@ in rec {
       });
 
       IMServicePlugIn = lib.overrideDerivation super.IMServicePlugIn (drv: {
-        extraTBDFiles = [
-          "Versions/A/Frameworks/IMServicePlugInSupport.framework/Versions/A/IMServicePlugInSupport.tbd"
-        ];
+        extraTBDFiles =
+          [ "Versions/A/Frameworks/IMServicePlugInSupport.framework/Versions/A/IMServicePlugInSupport.tbd" ];
       });
 
       Security = lib.overrideDerivation super.Security

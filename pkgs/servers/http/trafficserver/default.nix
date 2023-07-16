@@ -79,12 +79,21 @@ stdenv.mkDerivation rec {
   #
   # [1]: https://github.com/apache/trafficserver/pull/5617
   # [2]: https://github.com/apache/trafficserver/blob/3fd2c60/configure.ac#L742-L788
-  nativeBuildInputs = [ makeWrapper pkg-config file python3 ]
-    ++ (with perlPackages; [ perl ExtUtilsMakeMaker ])
-    ++ lib.optionals stdenv.isLinux [ linuxHeaders ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+    file
+    python3
+  ] ++ (with perlPackages; [
+    perl
+    ExtUtilsMakeMaker
+  ]) ++ lib.optionals stdenv.isLinux [ linuxHeaders ];
 
-  buildInputs = [ openssl pcre perlPackages.perl ]
-    ++ lib.optional withBrotli brotli ++ lib.optional withCap libcap
+  buildInputs = [
+    openssl
+    pcre
+    perlPackages.perl
+  ] ++ lib.optional withBrotli brotli ++ lib.optional withCap libcap
     ++ lib.optional withCjose cjose ++ lib.optional withCurl curl
     ++ lib.optional withGeoIP geoip ++ lib.optional withHiredis hiredis
     ++ lib.optional withHwloc hwloc ++ lib.optional withImageMagick imagemagick
@@ -94,7 +103,10 @@ stdenv.mkDerivation rec {
     ++ lib.optional withUnwind libunwind
     ++ lib.optional withMaxmindDB libmaxminddb;
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   postPatch = ''
     patchShebangs \

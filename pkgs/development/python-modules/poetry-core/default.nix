@@ -61,8 +61,10 @@ buildPythonPackage rec {
   ];
 
   # Requires git history to work correctly
-  disabledTests =
-    [ "default_with_excluded_data" "default_src_with_excluded_data" ];
+  disabledTests = [
+    "default_with_excluded_data"
+    "default_src_with_excluded_data"
+  ];
 
   pythonImportsCheck = [ "poetry.core" ];
 

@@ -61,8 +61,18 @@ clangStdenv.mkDerivation rec {
       and run this installation again.
     '';
   };
-  nativeBuildInputs = [ autoconf automake ];
-  buildInputs = [ git xz gnutar openssl libtool clang ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+  ];
+  buildInputs = [
+    git
+    xz
+    gnutar
+    openssl
+    libtool
+    clang
+  ];
   alt_wrapper = ./alt_wrapper.c;
   builder = ./9.2_builder.sh;
   meta = {

@@ -26,7 +26,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-f9esbQi5WWSMAGlEs9HJFToOvmOrbP2lDW1gGh/48gw=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [
     meson
@@ -56,7 +59,12 @@ stdenv.mkDerivation rec {
       This module contains JavaScript bindings based on gobject-introspection.
     '';
 
-    license = with licenses; [ gpl2Plus lgpl2Plus mit mpl11 ];
+    license = with licenses; [
+      gpl2Plus
+      lgpl2Plus
+      mit
+      mpl11
+    ];
 
     platforms = platforms.linux;
     maintainers = teams.cinnamon.members;

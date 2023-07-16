@@ -20,23 +20,24 @@ stdenv.mkDerivation rec {
   # this fixes a typedef compilation error with gcc-3.x
   patches = [ ./fix-compilation.patch ];
 
-  buildInputs = [ SDL2 SDL2_net ];
+  buildInputs = [
+    SDL2
+    SDL2_net
+  ];
 
   postInstall = ''
     mkdir -p $out/bin
     ln -s $out/games/Maelstrom/Maelstrom $out/bin/maelstrom
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "maelstrom";
-      exec = "maelstrom";
-      desktopName = "Maelstrom";
-      genericName = "Maelstrom";
-      comment = "An arcade-style game resembling Asteroids";
-      categories = [ "Game" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "maelstrom";
+    exec = "maelstrom";
+    desktopName = "Maelstrom";
+    genericName = "Maelstrom";
+    comment = "An arcade-style game resembling Asteroids";
+    categories = [ "Game" ];
+  }) ];
 
   meta = with lib; {
     description = "An arcade-style game resembling Asteroids";

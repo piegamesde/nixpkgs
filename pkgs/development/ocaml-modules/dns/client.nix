@@ -29,8 +29,13 @@ buildDunePackage {
   inherit (dns) src version;
   duneVersion = "3";
 
-  propagatedBuildInputs =
-    [ dns randomconv domain-name mtime mirage-crypto-rng ];
+  propagatedBuildInputs = [
+    dns
+    randomconv
+    domain-name
+    mtime
+    mirage-crypto-rng
+  ];
   checkInputs = [ alcotest ];
   doCheck = true;
 

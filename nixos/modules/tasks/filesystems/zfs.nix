@@ -43,7 +43,13 @@ let
 
   dataPools = unique (filter (pool: !(elem pool rootPools)) allPools);
 
-  snapshotNames = [ "frequent" "hourly" "daily" "weekly" "monthly" ];
+  snapshotNames = [
+    "frequent"
+    "hourly"
+    "daily"
+    "weekly"
+    "monthly"
+  ];
 
   # When importing ZFS pools, there's one difficulty: These scripts may run
   # before the backing devices (physical HDDs, etc.) of the pool have been
@@ -221,10 +227,11 @@ let
 
 in {
 
-  imports = [
-    (mkRemovedOptionModule [ "boot" "zfs" "enableLegacyCrypto" ]
-      "The corresponding package was removed from nixpkgs.")
-  ];
+  imports = [ (mkRemovedOptionModule [
+    "boot"
+    "zfs"
+    "enableLegacyCrypto"
+  ] "The corresponding package was removed from nixpkgs.") ];
 
   ###### interface
 
@@ -273,7 +280,10 @@ in {
       extraPools = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "tank" "data" ];
+        example = [
+          "tank"
+          "data"
+        ];
         description = lib.mdDoc ''
           Name or GUID of extra ZFS pools that you wish to import during boot.
 
@@ -334,7 +344,10 @@ in {
       requestEncryptionCredentials = mkOption {
         type = types.either types.bool (types.listOf types.str);
         default = true;
-        example = [ "tank" "data" ];
+        example = [
+          "tank"
+          "data"
+        ];
         description = lib.mdDoc ''
           If true on import encryption keys or passwords for all encrypted datasets
           are requested. To only decrypt selected datasets supply a list of dataset
@@ -468,10 +481,15 @@ in {
     };
 
     services.zfs.expandOnBoot = mkOption {
-      type =
-        types.either (types.enum [ "disabled" "all" ]) (types.listOf types.str);
+      type = types.either (types.enum [
+        "disabled"
+        "all"
+      ]) (types.listOf types.str);
       default = "disabled";
-      example = [ "tank" "dozer" ];
+      example = [
+        "tank"
+        "dozer"
+      ];
       description = lib.mdDoc ''
         After importing, expand each device in the specified pools.
 
@@ -493,7 +511,13 @@ in {
         };
 
       settings = mkOption {
-        type = with types; attrsOf (oneOf [ str int bool (listOf str) ]);
+        type = with types;
+          attrsOf (oneOf [
+            str
+            int
+            bool
+            (listOf str)
+          ]);
         example = literalExpression ''
           {
             ZED_DEBUG_LOG = "/tmp/zed.debug.log";
@@ -558,12 +582,10 @@ in {
         kernelParams =
           lib.optionals (!config.boot.zfs.allowHibernation) [ "nohibernate" ];
 
-        extraModulePackages = [
-          (if config.boot.zfs.enableUnstable then
-            config.boot.kernelPackages.zfsUnstable
-          else
-            config.boot.kernelPackages.zfs)
-        ];
+        extraModulePackages = [ (if config.boot.zfs.enableUnstable then
+          config.boot.kernelPackages.zfsUnstable
+        else
+          config.boot.kernelPackages.zfs) ];
       };
 
       boot.initrd = mkIf inInitrd {
@@ -577,16 +599,14 @@ in {
           $out/bin/zfs --help >/dev/null 2>&1
           $out/bin/zpool --help >/dev/null 2>&1
         '';
-        postDeviceCommands = concatStringsSep "\n" ([''
+        postDeviceCommands = concatStringsSep "\n" ([ ''
           ZFS_FORCE="${optionalString cfgZfs.forceImportRoot "-f"}"
-        ''] ++ [
-          (importLib {
-            # See comments at importLib definition.
-            zpoolCmd = "zpool";
-            awkCmd = "awk";
-            inherit cfgZfs;
-          })
-        ] ++ (map (pool: ''
+        '' ] ++ [ (importLib {
+          # See comments at importLib definition.
+          zpoolCmd = "zpool";
+          awkCmd = "awk";
+          inherit cfgZfs;
+        }) ] ++ (map (pool: ''
           echo -n "importing root ZFS pool \"${pool}\"..."
           # Loop across the import until it succeeds, because the devices needed may not be discovered yet.
           if ! poolImported "${pool}"; then
@@ -710,8 +730,11 @@ in {
           };
 
       in listToAttrs (map createImportService' dataPools
-        ++ map createSyncService allPools
-        ++ map createZfsService [ "zfs-mount" "zfs-share" "zfs-zed" ]);
+        ++ map createSyncService allPools ++ map createZfsService [
+          "zfs-mount"
+          "zfs-share"
+          "zfs-zed"
+        ]);
 
       systemd.targets.zfs-import =
         let services = map (pool: "zfs-import-${pool}.service") dataPools;
@@ -838,9 +861,8 @@ in {
 
       systemd.timers.zfs-scrub = {
         wantedBy = [ "timers.target" ];
-        after = [
-          "multi-user.target"
-        ]; # Apparently scrubbing before boot is complete hangs the system? #53583
+        after =
+          [ "multi-user.target" ]; # Apparently scrubbing before boot is complete hangs the system? #53583
         timerConfig = {
           OnCalendar = cfgScrub.interval;
           Persistent = "yes";

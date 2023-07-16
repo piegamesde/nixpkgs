@@ -27,7 +27,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs = [ jinja2 pytestCheckHook pyyaml toml ];
+  nativeCheckInputs = [
+    jinja2
+    pytestCheckHook
+    pyyaml
+    toml
+  ];
 
   pythonImportsCheck = [ "netutils" ];
 

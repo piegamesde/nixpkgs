@@ -51,12 +51,22 @@ stdenv.mkDerivation rec {
                   '!defined(__ANDROID__) && !defined(__OpenBSD__) && 0'
     '';
 
-  outputs = [ "bin" "dev" "out" "man" "doc" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "man"
+    "doc"
+  ];
   setOutputFlags = false;
   separateDebugInfo = !stdenv.hostPlatform.isDarwin
     && !(stdenv.hostPlatform.useLLVM or false) && stdenv.cc.isGNU;
 
-  nativeBuildInputs = [ makeWrapper perl removeReferencesTo ];
+  nativeBuildInputs = [
+    makeWrapper
+    perl
+    removeReferencesTo
+  ];
   buildInputs = lib.optional withCryptodev cryptodev;
 
   # TODO(@Ericson2314): Improve with mass rebuild

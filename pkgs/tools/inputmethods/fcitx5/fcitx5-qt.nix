@@ -37,14 +37,25 @@ mkDerivation rec {
     "-DENABLE_QT6=1"
   ];
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
-  buildInputs = [ fcitx5 qtx11extras libxcb libXdmcp ];
+  buildInputs = [
+    fcitx5
+    qtx11extras
+    libxcb
+    libXdmcp
+  ];
 
   meta = with lib; {
     description = "Fcitx5 Qt Library";
     homepage = "https://github.com/fcitx/fcitx5-qt";
-    license = with licenses; [ lgpl21Plus bsd3 ];
+    license = with licenses; [
+      lgpl21Plus
+      bsd3
+    ];
     maintainers = with maintainers; [ poscat ];
     platforms = platforms.linux;
   };

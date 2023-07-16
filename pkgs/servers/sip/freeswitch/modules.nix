@@ -127,7 +127,10 @@ in {
   endpoints = {
     alsa = mk "endpoints/mod_alsa" [ ];
     dingaling = mk "endpoints/mod_dingaling" [ ];
-    gsmopen = mk "endpoints/mod_gsmopen" [ gsmlib libctb ];
+    gsmopen = mk "endpoints/mod_gsmopen" [
+      gsmlib
+      libctb
+    ];
     h323 = mk "endpoints/mod_h323" [ ];
     khomp = mk "endpoints/mod_khomp" [ ];
     loopback = mk "endpoints/mod_loopback" [ ];
@@ -165,7 +168,12 @@ in {
     imagick = mk "formats/mod_imagick" [ ];
     local_stream = mk "formats/mod_local_stream" [ ];
     native_file = mk "formats/mod_native_file" [ ];
-    opusfile = mk "formats/mod_opusfile" [ libopus opusfile libopusenc libogg ];
+    opusfile = mk "formats/mod_opusfile" [
+      libopus
+      opusfile
+      libopusenc
+      libogg
+    ];
     png = mk "formats/mod_png" [ ];
     portaudio_stream = mk "formats/mod_portaudio_stream" [ ];
     shell_stream = mk "formats/mod_shell_stream" [ ];

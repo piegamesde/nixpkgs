@@ -13,10 +13,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-W7fbTscqArOy0SfViQaGTgE1iw81pvGQuAlwN4ovjPY=";
   };
 
-  buildFlags = with stdenv;
-    [
-      (if isDarwin then "osx" else if isFreeBSD then "freebsd" else "cpulimit")
-    ];
+  buildFlags = with stdenv; [ (if isDarwin then
+    "osx"
+  else if isFreeBSD then
+    "freebsd"
+  else
+    "cpulimit") ];
 
   installFlags = [ "PREFIX=$(out)" ];
 

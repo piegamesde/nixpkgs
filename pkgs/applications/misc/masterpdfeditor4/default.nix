@@ -19,9 +19,17 @@ stdenv.mkDerivation rec {
     sha256 = "0k5bzlhqglskiiq86nmy18mnh5bf2w3mr9cq3pibrwn5pisxnxxc";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook wrapQtAppsHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ qtbase qtsvg sane-backends stdenv.cc.cc ];
+  buildInputs = [
+    qtbase
+    qtsvg
+    sane-backends
+    stdenv.cc.cc
+  ];
 
   installPhase = ''
     runHook preInstall

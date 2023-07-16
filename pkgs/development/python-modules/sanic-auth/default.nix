@@ -19,7 +19,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ sanic ];
 
-  nativeCheckInputs = [ pytestCheckHook sanic-testing ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    sanic-testing
+  ];
 
   disabledTests = [
     # incompatible with sanic>=22.3.0

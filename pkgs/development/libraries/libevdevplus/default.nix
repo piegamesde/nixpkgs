@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
     sha256 = "09y65s16gch0w7fy1s9yjk9gz3bjzxix36h5wmwww6lkj2i1z3rj";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   meta = with lib; {
     inherit (src.meta) homepage;

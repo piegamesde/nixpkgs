@@ -30,7 +30,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-localserver ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-localserver
+  ];
 
   pytestFlagsArray = [ "tests" ];
 

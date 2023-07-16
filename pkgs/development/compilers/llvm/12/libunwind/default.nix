@@ -25,7 +25,10 @@ stdenv.mkDerivation rec {
 
   patches = [ ./gnu-install-dirs.patch ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [ cmake ];
 

@@ -8,12 +8,12 @@ in {
   options.bare-submodule = mkOption {
     type = types.submoduleWith {
       shorthandOnlyDefinesConfig = config.shorthandOnlyDefinesConfig;
-      modules = [{
+      modules = [ {
         options.nested = mkOption {
           type = types.int;
           default = 1;
         };
-      }];
+      } ];
     };
   };
 }

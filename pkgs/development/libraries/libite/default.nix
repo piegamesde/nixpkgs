@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-orxmd6yItB6XLj650RQb0CP/EnN9563v+P9xz9LEJkY=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
   buildInputs = [ libconfuse ];
 
   meta = with lib; {
@@ -38,7 +41,12 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/troglobit/libite";
     platforms = with platforms; linux ++ netbsd;
     maintainers = with maintainers; [ fpletz ];
-    license = with licenses; [ mit isc bsd2 bsd3 ];
+    license = with licenses; [
+      mit
+      isc
+      bsd2
+      bsd3
+    ];
   };
 }
 

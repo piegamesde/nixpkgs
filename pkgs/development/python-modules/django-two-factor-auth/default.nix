@@ -30,17 +30,28 @@ buildPythonPackage rec {
     hash = "sha256-+E6kSD00ChPiRLT2i43dNlVkbvuR1vKkbSZfD1Bf3qc=";
   };
 
-  nativeBuildInputs = [ pythonRelaxDepsHook setuptools-scm ];
+  nativeBuildInputs = [
+    pythonRelaxDepsHook
+    setuptools-scm
+  ];
 
   pythonRelaxDeps = [ "django-phonenumber-field" ];
 
-  propagatedBuildInputs =
-    [ django django-formtools django-otp django-phonenumber-field qrcode ];
+  propagatedBuildInputs = [
+    django
+    django-formtools
+    django-otp
+    django-phonenumber-field
+    qrcode
+  ];
 
   passthru.optional-dependencies = {
     call = [ twilio ];
     sms = [ twilio ];
-    webauthn = [ pydantic webauthn ];
+    webauthn = [
+      pydantic
+      webauthn
+    ];
     # yubikey = [
     #   django-otp-yubikey
     # ];

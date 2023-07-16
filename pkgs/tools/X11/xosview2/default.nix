@@ -37,7 +37,10 @@ stdenv.mkDerivation (finalAttrs: {
       connect to it on a network, then you can popup an xosview instance and
       monitor what is going on.
     '';
-    license = with licenses; [ gpl2 bsdOriginal ];
+    license = with licenses; [
+      gpl2
+      bsdOriginal
+    ];
     maintainers = with maintainers; [ AndersonTorres ];
     platforms = platforms.all;
   };

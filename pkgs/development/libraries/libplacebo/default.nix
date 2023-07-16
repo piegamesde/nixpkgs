@@ -37,17 +37,24 @@ stdenv.mkDerivation rec {
     python3Packages.glad2
   ];
 
-  buildInputs =
-    [ vulkan-loader shaderc lcms2 libGL xorg.libX11 libunwind libdovi ];
+  buildInputs = [
+    vulkan-loader
+    shaderc
+    lcms2
+    libGL
+    xorg.libX11
+    libunwind
+    libdovi
+  ];
 
   mesonFlags = [
     "-Dvulkan-registry=${vulkan-headers}/share/vulkan/registry/vk.xml"
     "-Ddemos=false" # Don't build and install the demo programs
     "-Dd3d11=disabled" # Disable the Direct3D 11 based renderer
     "-Dglslang=disabled" # rely on shaderc for GLSL compilation instead
-  ] ++ lib.optionals stdenv.isDarwin [
-    "-Dunwind=disabled" # libplacebo doesn’t build with `darwin.libunwind`
-  ];
+  ] ++ lib.optionals
+    stdenv.isDarwin [ "-Dunwind=disabled" # libplacebo doesn’t build with `darwin.libunwind`
+    ];
 
   postPatch = ''
     substituteInPlace meson.build \
@@ -67,7 +74,10 @@ stdenv.mkDerivation rec {
     changelog =
       "https://code.videolan.org/videolan/libplacebo/-/tags/v${version}";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ primeos tadeokondrak ];
+    maintainers = with maintainers; [
+      primeos
+      tadeokondrak
+    ];
     platforms = platforms.all;
   };
 }

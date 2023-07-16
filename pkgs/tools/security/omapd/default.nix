@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
 
   patches = [ ./zlib.patch ];
 
-  buildInputs = [ qt4 zlib gdb ];
+  buildInputs = [
+    qt4
+    zlib
+    gdb
+  ];
 
   buildPhase = ''
     (cd plugins/RAMHashTables; qmake; make)

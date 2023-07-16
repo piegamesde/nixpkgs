@@ -131,24 +131,38 @@ in stdenv.mkDerivation rec {
   '';
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ pkg-config yasm ];
+  nativeBuildInputs = [
+    pkg-config
+    yasm
+  ];
   buildInputs = with lib;
-    [ freetype ffmpeg_4 ] ++ optional aalibSupport aalib
-    ++ optional fontconfigSupport fontconfig ++ optional fribidiSupport fribidi
-    ++ optionals x11Support [ libX11 libXext libGLU libGL ]
-    ++ optional alsaSupport alsa-lib ++ optional xvSupport libXv
+    [
+      freetype
+      ffmpeg_4
+    ] ++ optional aalibSupport aalib ++ optional fontconfigSupport fontconfig
+    ++ optional fribidiSupport fribidi ++ optionals x11Support [
+      libX11
+      libXext
+      libGLU
+      libGL
+    ] ++ optional alsaSupport alsa-lib ++ optional xvSupport libXv
     ++ optional theoraSupport libtheora ++ optional cacaSupport libcaca
     ++ optional xineramaSupport libXinerama ++ optional dvdnavSupport libdvdnav
     ++ optional dvdreadSupport libdvdread ++ optional bluraySupport libbluray
     ++ optional cddaSupport cdparanoia ++ optional jackaudioSupport libjack2
-    ++ optionals amrSupport [ amrnb amrwb ] ++ optional x264Support x264
-    ++ optional pulseSupport libpulseaudio
+    ++ optionals amrSupport [
+      amrnb
+      amrwb
+    ] ++ optional x264Support x264 ++ optional pulseSupport libpulseaudio
     ++ optional screenSaverSupport libXScrnSaver ++ optional lameSupport lame
     ++ optional vdpauSupport libvdpau ++ optional speexSupport speex
     ++ optional libpngSupport libpng ++ optional libjpegSupport libjpeg
     ++ optional bs2bSupport libbs2b ++ optional v4lSupport libv4l
     ++ (with darwin.apple_sdk.frameworks;
-      optionals stdenv.isDarwin [ Cocoa OpenGL ]);
+      optionals stdenv.isDarwin [
+        Cocoa
+        OpenGL
+      ]);
 
   configurePlatforms = [ ];
   configureFlags = with lib;
@@ -228,9 +242,10 @@ in stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = with lib;
     toString (optional fontconfigSupport "-lfontconfig"
-      ++ optional fribidiSupport "-lfribidi"
-      ++ optionals x11Support [ "-lX11" "-lXext" ]
-      ++ optional x264Support "-lx264" ++ [ "-lfreetype" ]);
+      ++ optional fribidiSupport "-lfribidi" ++ optionals x11Support [
+        "-lX11"
+        "-lXext"
+      ] ++ optional x264Support "-lx264" ++ [ "-lfreetype" ]);
 
   installTargets = [ "install" ] ++ lib.optional x11Support "install-gui";
 
@@ -250,7 +265,11 @@ in stdenv.mkDerivation rec {
     homepage = "http://mplayerhq.hu";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ eelco ];
-    platforms =
-      [ "i686-linux" "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
   };
 }

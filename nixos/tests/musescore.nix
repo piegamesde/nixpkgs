@@ -24,7 +24,10 @@ import ./make-test-python.nix ({
         imports = [ ./common/x11.nix ];
 
         services.xserver.enable = true;
-        environment.systemPackages = with pkgs; [ musescore pdfgrep ];
+        environment.systemPackages = with pkgs; [
+          musescore
+          pdfgrep
+        ];
       };
 
     enableOCR = true;

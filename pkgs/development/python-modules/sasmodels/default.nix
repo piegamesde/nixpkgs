@@ -28,7 +28,13 @@ buildPythonPackage rec {
 
   buildInputs = [ opencl-headers ];
 
-  propagatedBuildInputs = [ docutils matplotlib numpy scipy pyopencl ];
+  propagatedBuildInputs = [
+    docutils
+    matplotlib
+    numpy
+    scipy
+    pyopencl
+  ];
 
   # Note: the 1.0.5 release should be compatible with pytest6, so this can
   # be set back to 'pytest' at that point

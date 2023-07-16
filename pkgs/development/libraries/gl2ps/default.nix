@@ -21,13 +21,22 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ zlib libGL libGLU libpng freeglut ];
+  buildInputs = [
+    zlib
+    libGL
+    libGLU
+    libpng
+    freeglut
+  ];
 
   meta = with lib; {
     homepage = "http://geuz.org/gl2ps";
     description = "An OpenGL to PostScript printing library";
     platforms = platforms.all;
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ raskin twhitehead ];
+    maintainers = with maintainers; [
+      raskin
+      twhitehead
+    ];
   };
 }

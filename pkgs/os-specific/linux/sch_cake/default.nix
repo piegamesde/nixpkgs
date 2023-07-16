@@ -31,7 +31,10 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "The cake qdisc scheduler";
     homepage = "https://www.bufferbloat.net/projects/codel/wiki/Cake/";
-    license = with licenses; [ bsd3 gpl2 ];
+    license = with licenses; [
+      bsd3
+      gpl2
+    ];
     maintainers = with maintainers; [ fpletz ];
     platforms = platforms.linux;
     broken = lib.versionAtLeast kernel.version "4.13";

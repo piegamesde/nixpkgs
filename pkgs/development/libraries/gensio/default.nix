@@ -22,7 +22,10 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--with-python=no" ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   meta = with lib; {
     description = "General Stream I/O";

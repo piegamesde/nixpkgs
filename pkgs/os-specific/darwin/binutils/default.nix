@@ -35,7 +35,10 @@ in stdenv.mkDerivation {
   pname = "${targetPrefix}cctools-binutils-darwin"
     + lib.optionalString dualAs "-dualas";
   inherit (cctools) version;
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
   buildCommand = ''
     mkdir -p $out/bin $out/include
 

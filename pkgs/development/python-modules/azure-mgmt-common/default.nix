@@ -20,8 +20,12 @@ buildPythonPackage rec {
     sha256 = "c63812c13d9f36615c07f874bc602b733bb516f1ed62ab73189b8f71c6bfbfe6";
   };
 
-  propagatedBuildInputs =
-    [ azure-common azure-mgmt-nspkg requests msrestazure ];
+  propagatedBuildInputs = [
+    azure-common
+    azure-mgmt-nspkg
+    requests
+    msrestazure
+  ];
 
   postInstall = if isPy3k then
     ""
@@ -36,6 +40,9 @@ buildPythonPackage rec {
     description = "This is the Microsoft Azure Resource Management common code";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ olcai maxwilson ];
+    maintainers = with maintainers; [
+      olcai
+      maxwilson
+    ];
   };
 }

@@ -1,10 +1,10 @@
 # The Nix expression is a 1:1 mapping of the spacevim toml config which you can find on their website: spacevim.org/quick-start-guide/#configuration
 
 {
-  custom_plugins = [{
+  custom_plugins = [ {
     merged = false;
     name = "lilydjwg/colorizer";
-  }];
+  } ];
   layers = [
     { name = "default"; }
     {

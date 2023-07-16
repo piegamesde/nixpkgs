@@ -31,9 +31,16 @@ mkDerivation rec {
     neovim.unwrapped # only used to generate help tags at build time
     qtbase
     qtsvg
-  ] ++ (with python3Packages; [ jinja2 python msgpack ]);
+  ] ++ (with python3Packages; [
+    jinja2
+    python
+    msgpack
+  ]);
 
-  nativeBuildInputs = [ cmake doxygen ];
+  nativeBuildInputs = [
+    cmake
+    doxygen
+  ];
 
   preCheck = ''
     # The GUI tests require a running X server, disable them

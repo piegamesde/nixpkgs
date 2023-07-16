@@ -42,7 +42,10 @@ buildDunePackage rec {
     yojson
   ];
 
-  checkInputs = [ alcotest dedukti ];
+  checkInputs = [
+    alcotest
+    dedukti
+  ];
   doCheck =
     false; # anomaly: Sys_error("/homeless-shelter/.why3.conf: No such file or directory")
 

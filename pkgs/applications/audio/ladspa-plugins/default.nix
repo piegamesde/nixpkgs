@@ -22,9 +22,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-eOtIhNcuItREUShI8JRlBVKfMfovpdfIYu+m37v4KLE=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs =
-    [ fftw ladspaH libxml2 perlPackages.perl perlPackages.XMLParser ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    fftw
+    ladspaH
+    libxml2
+    perlPackages.perl
+    perlPackages.XMLParser
+  ];
 
   patchPhase = ''
     patchShebangs .

@@ -34,7 +34,11 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ autoreconfHook pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    makeWrapper
+  ];
   buildInputs = [
     glibmm
     libconfig

@@ -26,9 +26,17 @@ else
       hash = "sha256-LzUrR8K88CjY/R5yUK3y6KG85hUMjbzuebHGqI8KhhM=";
     };
 
-    nativeBuildInputs = [ pkg-config ocaml findlib ];
+    nativeBuildInputs = [
+      pkg-config
+      ocaml
+      findlib
+    ];
     buildInputs = [ ncurses ];
-    propagatedBuildInputs = [ integers libffi bigarray-compat ];
+    propagatedBuildInputs = [
+      integers
+      libffi
+      bigarray-compat
+    ];
 
     strictDeps = true;
 

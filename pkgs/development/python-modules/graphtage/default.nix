@@ -31,8 +31,15 @@ buildPythonPackage rec {
       --replace "json5==0.9.5" "json5>=0.9.5"
   '';
 
-  propagatedBuildInputs =
-    [ colorama intervaltree json5 pyyaml scipy tqdm typing-extensions ];
+  propagatedBuildInputs = [
+    colorama
+    intervaltree
+    json5
+    pyyaml
+    scipy
+    tqdm
+    typing-extensions
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

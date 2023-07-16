@@ -37,7 +37,16 @@ in {
 
     settings = mkOption {
       type = with types;
-        attrsOf (oneOf [ str int bool (listOf (oneOf [ str int bool ])) ]);
+        attrsOf (oneOf [
+          str
+          int
+          bool
+          (listOf (oneOf [
+            str
+            int
+            bool
+          ]))
+        ]);
       default = { };
       example = {
         hide_kernel_threads = true;

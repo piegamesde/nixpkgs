@@ -106,7 +106,11 @@ in {
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
         # AF_UNIX is for ssh-keygen, which relies on nscd to resolve the uid to a user
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = "native";

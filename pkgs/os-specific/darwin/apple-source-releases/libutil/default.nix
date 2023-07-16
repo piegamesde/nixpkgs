@@ -18,7 +18,10 @@ appleDerivation' (if headersOnly then stdenvNoCC else stdenv) {
       --replace '#include <xpc/xpc.h>' ""
   '';
 
-  xcbuildFlags = [ "-target" "util" ];
+  xcbuildFlags = [
+    "-target"
+    "util"
+  ];
 
   installPhase = ''
     mkdir -p $out/include

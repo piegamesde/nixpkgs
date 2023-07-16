@@ -20,9 +20,16 @@ mkDerivation rec {
     sha256 = "sha256-wRF2Z2n9rEixmKYDRqKxQad2JDSxsgfGIWQWpjz/+yU=";
   };
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
-  buildInputs = [ qtbase libcprime libcsys ];
+  buildInputs = [
+    qtbase
+    libcprime
+    libcsys
+  ];
 
   meta = with lib; {
     description = "A paint app from the C Suite";

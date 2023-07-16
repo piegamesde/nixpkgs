@@ -93,8 +93,10 @@ in buildPythonPackage rec {
     "test_reader"
   ];
 
-  nativeBuildInputs = [ ninja which ]
-    ++ lib.optionals cudaSupport [ cuda-native-redist ];
+  nativeBuildInputs = [
+    ninja
+    which
+  ] ++ lib.optionals cudaSupport [ cuda-native-redist ];
 
   buildInputs = [ torch ] ++ lib.optionals cudaSupport [ cuda-redist ];
 
@@ -109,7 +111,14 @@ in buildPythonPackage rec {
     tifffile
   ];
 
-  propagatedBuildInputs = [ torch opencv4 yapf packaging pillow addict ];
+  propagatedBuildInputs = [
+    torch
+    opencv4
+    yapf
+    packaging
+    pillow
+    addict
+  ];
 
   pythonImportsCheck = [ "mmcv" ];
 

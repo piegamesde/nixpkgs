@@ -18,7 +18,10 @@ buildPythonPackage rec {
 
   disabled = !isPy3k;
 
-  propagatedBuildInputs = [ pyusb pyserial ];
+  propagatedBuildInputs = [
+    pyusb
+    pyserial
+  ];
 
   preBuild = ''
     echo "$version" > VERSION

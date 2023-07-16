@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-5InImTbucggjf/tl8K31ZtLrwu5hqvggl7sYb0eqIEg=";
   };
 
-  propagatedBuildInputs = [ yasi metakernel ];
+  propagatedBuildInputs = [
+    yasi
+    metakernel
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

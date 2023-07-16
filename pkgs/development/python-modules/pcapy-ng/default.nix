@@ -24,7 +24,10 @@ buildPythonPackage rec {
     hash = "sha256-6LA2n7Kv0MiZcqUJpi0lDN4Q+GcOttYw7hJwVqK/DU0=";
   };
 
-  nativeBuildInputs = [ cython pkgconfig ];
+  nativeBuildInputs = [
+    cython
+    pkgconfig
+  ];
 
   buildInputs = [ libpcap ];
 

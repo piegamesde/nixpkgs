@@ -24,9 +24,17 @@ buildPythonPackage rec {
     hash = "sha256-Fv0bZGoHOtPedd3hKg3+UpuDbyGjvbzuKoi+8k6REqc=";
   };
 
-  propagatedBuildInputs = [ dask distributed docrep ];
+  propagatedBuildInputs = [
+    dask
+    distributed
+    docrep
+  ];
 
-  nativeCheckInputs = [ cryptography pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    cryptography
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Tests have additional requirements (e.g., sge, etc.)

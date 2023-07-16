@@ -30,7 +30,12 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoPatchelfHook ];
 
-  buildInputs = [ libidn11 zlib bzip2 stdenv.cc.cc.lib ];
+  buildInputs = [
+    libidn11
+    zlib
+    bzip2
+    stdenv.cc.cc.lib
+  ];
 
   sourceRoot = "./sratoolkit.${version}-ubuntu64/bin";
 

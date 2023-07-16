@@ -23,8 +23,14 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs =
-    [ glyphslib ufo2ft fonttools fontmath lxml setuptools ];
+  propagatedBuildInputs = [
+    glyphslib
+    ufo2ft
+    fonttools
+    fontmath
+    lxml
+    setuptools
+  ];
 
   pythonImportsCheck = [ "fontmake" ];
 

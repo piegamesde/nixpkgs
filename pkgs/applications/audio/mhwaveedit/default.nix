@@ -29,7 +29,11 @@ stdenv.mkDerivation rec {
     sha256 = "037pbq23kh8hsih994x2sv483imglwcrqrx6m8visq9c46fi0j1y";
   };
 
-  nativeBuildInputs = [ autoreconfHook makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    makeWrapper
+    pkg-config
+  ];
 
   preAutoreconf = "(cd docgen && sh gendocs.sh)";
 

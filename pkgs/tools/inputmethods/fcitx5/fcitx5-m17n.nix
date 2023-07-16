@@ -23,9 +23,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-MCSJGZGpnOcZ9ZHlUDOPrbfo61HRM4s2xuj8zblyW/8=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules pkg-config gettext ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    pkg-config
+    gettext
+  ];
 
-  buildInputs = [ fcitx5 m17n_db m17n_lib fmt ];
+  buildInputs = [
+    fcitx5
+    m17n_db
+    m17n_lib
+    fmt
+  ];
 
   meta = with lib; {
     description = "m17n support for Fcitx5";

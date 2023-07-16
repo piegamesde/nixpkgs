@@ -67,7 +67,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-rY/qPaG+ZMg8RbHTY6a0uo/WD1veOyPsc4VXCexeq/c=";
   };
   dontDisableStatic = if withStatic then 1 else 0;
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
   outputBin = "dev"; # sdl-config
 
   patches = [
@@ -89,8 +92,10 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ pkg-config ]
-    ++ lib.optionals waylandSupport [ wayland wayland-scanner ];
+  nativeBuildInputs = [ pkg-config ] ++ lib.optionals waylandSupport [
+    wayland
+    wayland-scanner
+  ];
 
   dlopenPropagatedBuildInputs = [ ]
     # Propagated for #include <GLES/gl.h> in SDL_opengles.h.
@@ -101,13 +106,16 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = lib.optionals x11Support [ xorgproto ]
     ++ dlopenPropagatedBuildInputs;
 
-  dlopenBuildInputs = lib.optionals alsaSupport [ alsa-lib audiofile ]
-    ++ lib.optional dbusSupport dbus ++ lib.optional libdecorSupport libdecor
+  dlopenBuildInputs = lib.optionals alsaSupport [
+    alsa-lib
+    audiofile
+  ] ++ lib.optional dbusSupport dbus ++ lib.optional libdecorSupport libdecor
     ++ lib.optional pipewireSupport pipewire
     ++ lib.optional pulseaudioSupport libpulseaudio
-    ++ lib.optional udevSupport udev
-    ++ lib.optionals waylandSupport [ wayland libxkbcommon ]
-    ++ lib.optionals x11Support [
+    ++ lib.optional udevSupport udev ++ lib.optionals waylandSupport [
+      wayland
+      libxkbcommon
+    ] ++ lib.optionals x11Support [
       libICE
       libXi
       libXScrnSaver
@@ -116,7 +124,10 @@ stdenv.mkDerivation rec {
       libXext
       libXrandr
       libXxf86vm
-    ] ++ lib.optionals drmSupport [ libdrm mesa ];
+    ] ++ lib.optionals drmSupport [
+      libdrm
+      mesa
+    ];
 
   buildInputs = [ libiconv ] ++ dlopenBuildInputs
     ++ lib.optional ibusSupport ibus

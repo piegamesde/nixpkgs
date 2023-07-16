@@ -42,9 +42,15 @@ in {
     ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [ python3 ]
     ++ lib.optionals stdenv.isDarwin [ rustPlatform.bindgenHook ];
 
-  buildInputs = [ openssl zstd ]
-    ++ lib.optionals stdenv.isDarwin [ zlib libiconv Libsystem Security ]
-    ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [ xorg.libX11 ]
+  buildInputs = [
+    openssl
+    zstd
+  ] ++ lib.optionals stdenv.isDarwin [
+    zlib
+    libiconv
+    Libsystem
+    Security
+  ] ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [ xorg.libX11 ]
     ++ lib.optionals (withDefaultFeatures && stdenv.isDarwin) [
       AppKit
       nghttp2
@@ -70,7 +76,11 @@ in {
     description = "A modern shell written in Rust";
     homepage = "https://www.nushell.sh/";
     license = licenses.mit;
-    maintainers = with maintainers; [ Br1ght0ne johntitor marsam ];
+    maintainers = with maintainers; [
+      Br1ght0ne
+      johntitor
+      marsam
+    ];
     mainProgram = "nu";
   };
 

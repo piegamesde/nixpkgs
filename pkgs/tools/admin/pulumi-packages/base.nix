@@ -22,7 +22,10 @@ let
 
       doCheck = false;
 
-      ldflags = [ "-s" "-w" ] ++ extraLdflags;
+      ldflags = [
+        "-s"
+        "-w"
+      ] ++ extraLdflags;
     } // args);
 
   mkPythonPackage = {
@@ -47,7 +50,11 @@ let
 
         sourceRoot = "${src.name}/sdk/python";
 
-        propagatedBuildInputs = [ parver pulumi semver ];
+        propagatedBuildInputs = [
+          parver
+          pulumi
+          semver
+        ];
 
         postPatch = ''
           sed -i \

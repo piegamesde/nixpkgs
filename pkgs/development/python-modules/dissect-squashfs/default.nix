@@ -28,11 +28,23 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools setuptools-scm ];
+  nativeBuildInputs = [
+    setuptools
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs = [ dissect-cstruct dissect-util ];
+  propagatedBuildInputs = [
+    dissect-cstruct
+    dissect-util
+  ];
 
-  passthru.optional-dependencies = { full = [ lz4 python-lzo zstandard ]; };
+  passthru.optional-dependencies = {
+    full = [
+      lz4
+      python-lzo
+      zstandard
+    ];
+  };
 
   pythonImportsCheck = [ "dissect.squashfs" ];
 

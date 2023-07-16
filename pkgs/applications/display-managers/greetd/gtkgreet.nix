@@ -23,9 +23,19 @@ stdenv.mkDerivation rec {
     sha256 = "ms+2FdtzzNlmlzNxFhu4cpX5H+5H+9ZOtZ0p8uVA3lo=";
   };
 
-  nativeBuildInputs = [ pkg-config meson ninja cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    cmake
+  ];
 
-  buildInputs = [ gtk3 gtk-layer-shell json_c scdoc ];
+  buildInputs = [
+    gtk3
+    gtk-layer-shell
+    json_c
+    scdoc
+  ];
 
   mesonFlags = [ "-Dlayershell=enabled" ];
 

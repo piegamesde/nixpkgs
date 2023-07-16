@@ -34,7 +34,13 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libmpdclient ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
-  nativeBuildInputs = [ installShellFiles meson ninja pkg-config sphinx ];
+  nativeBuildInputs = [
+    installShellFiles
+    meson
+    ninja
+    pkg-config
+    sphinx
+  ];
 
   postInstall = ''
     installShellCompletion --cmd mpc --bash $out/share/doc/mpc/contrib/mpc-completion.bash

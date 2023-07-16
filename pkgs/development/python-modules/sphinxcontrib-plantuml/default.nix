@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-OdLkvEDV4JMSYSmhRPVrbuFfWM+lBItZSOY6Ea/ztYY=";
   };
 
-  propagatedBuildInputs = [ sphinx plantuml ];
+  propagatedBuildInputs = [
+    sphinx
+    plantuml
+  ];
 
   # No tests included.
   doCheck = false;

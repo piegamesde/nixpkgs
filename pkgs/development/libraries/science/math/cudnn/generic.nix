@@ -52,7 +52,10 @@ in backendStdenv.mkDerivation {
 
   # Check and normalize Runpath against DT_NEEDED using autoPatchelf.
   # Prepend /run/opengl-driver/lib using addOpenGLRunpath for dlopen("libcudacuda.so")
-  nativeBuildInputs = [ autoPatchelfHook autoAddOpenGLRunpathHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    autoAddOpenGLRunpathHook
+  ];
 
   # Used by autoPatchelfHook
   buildInputs = [
@@ -113,6 +116,9 @@ in backendStdenv.mkDerivation {
     # TODO: consider marking unfreRedistributable when not using runfile
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ mdaiter samuela ];
+    maintainers = with maintainers; [
+      mdaiter
+      samuela
+    ];
   };
 }

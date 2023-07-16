@@ -23,10 +23,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-nnnxlkYVTSRB6ZcuIUDFol999+amGtqegHXK+06ITK8=";
   };
 
-  nativeBuildInputs =
-    [ doxygen pkg-config python3 python3Packages.sphinx wafHook ];
+  nativeBuildInputs = [
+    doxygen
+    pkg-config
+    python3
+    python3Packages.sphinx
+    wafHook
+  ];
 
-  buildInputs = [ boost openssl sqlite ];
+  buildInputs = [
+    boost
+    openssl
+    sqlite
+  ];
 
   wafConfigureFlags = [
     "--with-openssl=${openssl.dev}"
@@ -62,6 +71,9 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.lgpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sjmackenzie bertof ];
+    maintainers = with maintainers; [
+      sjmackenzie
+      bertof
+    ];
   };
 }

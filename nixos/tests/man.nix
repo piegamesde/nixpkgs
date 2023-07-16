@@ -4,7 +4,10 @@ import ./make-test-python.nix ({
     ...
   }:
   let
-    manImplementations = [ "mandoc" "man-db" ];
+    manImplementations = [
+      "mandoc"
+      "man-db"
+    ];
 
     machineNames = builtins.map machineSafe manImplementations;
 
@@ -12,8 +15,11 @@ import ./make-test-python.nix ({
       # Note: mandoc currently can't index symlinked section directories.
       # So if a man section comes from one package exclusively (e. g.
       # 1p from man-pages-posix and 2 from man-pages), it isn't searchable.
-      environment.systemPackages =
-        [ pkgs.man-pages pkgs.openssl pkgs.libunwind ];
+      environment.systemPackages = [
+        pkgs.man-pages
+        pkgs.openssl
+        pkgs.libunwind
+      ];
 
       documentation = {
         enable = true;

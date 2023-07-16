@@ -15,7 +15,11 @@ in import ./make-test-python.nix ({
         networking.extraHosts = ''
           127.0.0.1 ${domain}
         '';
-        networking.firewall.allowedTCPPorts = [ 25 465 993 ];
+        networking.firewall.allowedTCPPorts = [
+          25
+          465
+          993
+        ];
         services.postfix = {
           enable = true;
           enableSubmission = true;
@@ -54,8 +58,8 @@ in import ./make-test-python.nix ({
               port = 465;
             };
           };
-          environment.systemPackages = [
-            (pkgs.writers.writePython3Bin "test-alps-login" { } ''
+          environment.systemPackages =
+            [ (pkgs.writers.writePython3Bin "test-alps-login" { } ''
               from urllib.request import build_opener, HTTPCookieProcessor, Request
               from urllib.parse import urlencode, urljoin
               from http.cookiejar import CookieJar
@@ -88,8 +92,7 @@ in import ./make-test-python.nix ({
                   # Check that the alps_session cookie is now gone
                   print(cookiejar)
                   assert all(cookie.name != "alps_session" for cookie in cookiejar)
-            '')
-          ];
+            '') ];
         };
     };
 

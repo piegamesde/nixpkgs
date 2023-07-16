@@ -23,8 +23,16 @@ buildPythonPackage rec {
   # pip depend on $HOME setting
   preConfigure = "export HOME=$TMPDIR";
 
-  buildInputs = [ pbr pip pkgs.which ];
-  propagatedBuildInputs = [ stevedore virtualenv virtualenv-clone ];
+  buildInputs = [
+    pbr
+    pip
+    pkgs.which
+  ];
+  propagatedBuildInputs = [
+    stevedore
+    virtualenv
+    virtualenv-clone
+  ];
 
   postPatch = ''
     for file in "virtualenvwrapper.sh" "virtualenvwrapper_lazy.sh"; do

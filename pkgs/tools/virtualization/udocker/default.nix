@@ -19,20 +19,23 @@ python3Packages.buildPythonApplication rec {
 
   # crun patchelf proot runc fakechroot
   # are download statistically linked during runtime
-  buildInputs = [ singularity ]
-    ++ (with python3Packages; [ pytest-runner pycurl ]);
+  buildInputs = [ singularity ] ++ (with python3Packages; [
+    pytest-runner
+    pycurl
+  ]);
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://github.com/indigo-dc/udocker/commit/9f7d6c5f9a3925bf87d000603c5b306d73bb0fa3.patch";
-      sha256 = "sha256-fiqvVqfdVIlILbSs6oDWmbWU9piZEI2oiAKUcmecx9Q=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://github.com/indigo-dc/udocker/commit/9f7d6c5f9a3925bf87d000603c5b306d73bb0fa3.patch";
+    sha256 = "sha256-fiqvVqfdVIlILbSs6oDWmbWU9piZEI2oiAKUcmecx9Q=";
+  }) ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
-  disabledTests = [ "test_02__load_structure" "test_05__get_volume_bindings" ];
+  disabledTests = [
+    "test_02__load_structure"
+    "test_05__get_volume_bindings"
+  ];
 
   disabledTestPaths = [
     # Network

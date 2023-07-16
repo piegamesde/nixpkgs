@@ -9,7 +9,10 @@ with lib;
 
 let cfg = config.services.pixiecore;
 in {
-  meta.maintainers = with maintainers; [ bbigras danderson ];
+  meta.maintainers = with maintainers; [
+    bbigras
+    danderson
+  ];
 
   options = {
     services.pixiecore = {
@@ -26,7 +29,11 @@ in {
       mode = mkOption {
         description = lib.mdDoc "Which mode to use";
         default = "boot";
-        type = types.enum [ "api" "boot" "quick" ];
+        type = types.enum [
+          "api"
+          "boot"
+          "quick"
+        ];
       };
 
       debug = mkOption {
@@ -122,8 +129,15 @@ in {
     };
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ 4011 cfg.port cfg.statusPort ];
-      allowedUDPPorts = [ 67 69 ];
+      allowedTCPPorts = [
+        4011
+        cfg.port
+        cfg.statusPort
+      ];
+      allowedUDPPorts = [
+        67
+        69
+      ];
     };
 
     systemd.services.pixiecore = {
@@ -138,8 +152,14 @@ in {
           ++ optional cfg.dhcpNoBind "cap_net_raw";
         ExecStart = let
           argString = if cfg.mode == "boot" then
-            [ "boot" cfg.kernel ] ++ optional (cfg.initrd != "") cfg.initrd
-            ++ optionals (cfg.cmdLine != "") [ "--cmdline" cfg.cmdLine ]
+            [
+              "boot"
+              cfg.kernel
+            ] ++ optional (cfg.initrd != "") cfg.initrd
+            ++ optionals (cfg.cmdLine != "") [
+              "--cmdline"
+              cfg.cmdLine
+            ]
           else if cfg.mode == "quick" then [
             "quick"
             cfg.quick

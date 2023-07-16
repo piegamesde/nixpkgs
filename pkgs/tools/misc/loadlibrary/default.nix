@@ -20,7 +20,10 @@ stdenv_32bit.mkDerivation rec {
     sha256 = "01hb7wzfh1s5b8cvmrmr1gqknpq5zpzj9prq3wrpsgg129jpsjkb";
   };
 
-  buildInputs = [ cabextract readline ];
+  buildInputs = [
+    cabextract
+    readline
+  ];
 
   installPhase = ''
     mkdir -p $out/bin/

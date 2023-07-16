@@ -46,7 +46,10 @@ buildPythonPackage rec {
 
   buildInputs = [ libev ];
 
-  propagatedBuildInputs = [ six geomet ];
+  propagatedBuildInputs = [
+    six
+    geomet
+  ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -101,6 +104,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/datastax/python-driver/blob/${version}/CHANGELOG.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ turion ris ];
+    maintainers = with maintainers; [
+      turion
+      ris
+    ];
   };
 }

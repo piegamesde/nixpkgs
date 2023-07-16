@@ -36,7 +36,11 @@ stdenv.mkDerivation rec {
     sed 1i'#include <linux/limits.h>' -i mod_notionflux/notionflux/notionflux.c
   '';
 
-  nativeBuildInputs = [ pkg-config makeWrapper groff ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+    groff
+  ];
   buildInputs = [
     lua
     gettext
@@ -51,9 +55,15 @@ stdenv.mkDerivation rec {
     libXft
   ];
 
-  buildFlags = [ "LUA_DIR=${lua}" "X11_PREFIX=/no-such-path" ];
+  buildFlags = [
+    "LUA_DIR=${lua}"
+    "X11_PREFIX=/no-such-path"
+  ];
 
-  makeFlags = [ "NOTION_RELEASE=${version}" "PREFIX=\${out}" ];
+  makeFlags = [
+    "NOTION_RELEASE=${version}"
+    "PREFIX=\${out}"
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/notion \
@@ -64,7 +74,11 @@ stdenv.mkDerivation rec {
     description = "Tiling tabbed window manager";
     homepage = "https://notionwm.net";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ jfb AndersonTorres raboof ];
+    maintainers = with maintainers; [
+      jfb
+      AndersonTorres
+      raboof
+    ];
     platforms = platforms.linux;
   };
 }

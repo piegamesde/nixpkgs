@@ -23,7 +23,11 @@ stdenv.mkDerivation rec {
   # ref: https://github.com/NixOS/nixpkgs/pull/219434
   version = "2022-08-08";
 
-  outputs = [ "dev" "lib" "out" ];
+  outputs = [
+    "dev"
+    "lib"
+    "out"
+  ];
 
   src = fetchFromGitHub {
     owner = "lkl";
@@ -32,9 +36,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-24sNREdnhkF+P+3P0qEh2tF1jHKF7KcbFSn/rPK2zWs=";
   };
 
-  nativeBuildInputs = [ bc bison flex python3 ];
+  nativeBuildInputs = [
+    bc
+    bison
+    flex
+    python3
+  ];
 
-  buildInputs = [ fuse libarchive ];
+  buildInputs = [
+    fuse
+    libarchive
+  ];
 
   postPatch = ''
     # Fix a /usr/bin/env reference in here that breaks sandboxed builds
@@ -66,7 +78,10 @@ stdenv.mkDerivation rec {
   # We turn off format and fortify because of these errors (fortify implies -O2, which breaks the jitter entropy code):
   #   fs/xfs/xfs_log_recover.c:2575:3: error: format not a string literal and no format arguments [-Werror=format-security]
   #   crypto/jitterentropy.c:54:3: error: #error "The CPU Jitter random number generator must not be compiled with optimizations. See documentation. Use the compiler switch -O0 for compiling jitterentropy.c."
-  hardeningDisable = [ "format" "fortify" ];
+  hardeningDisable = [
+    "format"
+    "fortify"
+  ];
 
   # Fixes the following error when using liblkl-hijack.so on aarch64-linux:
   # symbol lookup error: liblkl-hijack.so: undefined symbol: __aarch64_ldadd4_sync
@@ -92,6 +107,9 @@ stdenv.mkDerivation rec {
     platforms =
       platforms.linux; # Darwin probably works too but I haven't tested it
     license = licenses.gpl2;
-    maintainers = with maintainers; [ copumpkin raitobezarius ];
+    maintainers = with maintainers; [
+      copumpkin
+      raitobezarius
+    ];
   };
 }

@@ -29,7 +29,10 @@ python3.pkgs.buildPythonApplication rec {
       pytz # https://github.com/Kozea/Radicale/issues/816
     ] ++ passlib.optional-dependencies.bcrypt;
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook waitress ];
+  nativeCheckInputs = with python3.pkgs; [
+    pytestCheckHook
+    waitress
+  ];
 
   passthru.tests = { inherit (nixosTests) radicale; };
 
@@ -37,6 +40,9 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://radicale.org/v3.html";
     description = "CalDAV and CardDAV server";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda erictapen ];
+    maintainers = with maintainers; [
+      dotlambda
+      erictapen
+    ];
   };
 }

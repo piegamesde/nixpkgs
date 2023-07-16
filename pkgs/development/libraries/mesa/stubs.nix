@@ -9,7 +9,10 @@
 stdenv.mkDerivation (finalAttrs: {
   pname = "libGL";
   inherit (if stdenv.hostPlatform.isDarwin then mesa else libglvnd) version;
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   # On macOS, libglvnd is not supported, so we just use what mesa
   # build. We need to also include OpenGL.framework, and some
@@ -82,7 +85,12 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Stub bindings using "
       + (if stdenv.hostPlatform.isDarwin then "mesa" else "libglvnd");
-    pkgConfigModules = [ "gl" "egl" "glesv1_cm" "glesv2" ];
+    pkgConfigModules = [
+      "gl"
+      "egl"
+      "glesv1_cm"
+      "glesv2"
+    ];
   } // {
     inherit (if stdenv.hostPlatform.isDarwin then mesa.meta else libglvnd.meta)
       homepage license platforms;

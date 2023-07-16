@@ -18,7 +18,12 @@ let
   else
     throw "Unsupported architecture";
   bins = "${arch}-ubuntu-1604";
-  libPath = lib.makeLibraryPath [ stdenv.cc.cc util-linux libusb1 evdi ];
+  libPath = lib.makeLibraryPath [
+    stdenv.cc.cc
+    util-linux
+    libusb1
+    evdi
+  ];
 
 in stdenv.mkDerivation rec {
   pname = "displaylink";
@@ -42,7 +47,10 @@ in stdenv.mkDerivation rec {
     '';
   };
 
-  nativeBuildInputs = [ unzip makeWrapper ];
+  nativeBuildInputs = [
+    unzip
+    makeWrapper
+  ];
 
   unpackPhase = ''
     unzip $src
@@ -73,8 +81,15 @@ in stdenv.mkDerivation rec {
     description = "DisplayLink DL-5xxx, DL-41xx and DL-3x00 Driver for Linux";
     homepage = "https://www.displaylink.com/";
     license = licenses.unfree;
-    maintainers = with maintainers; [ abbradar peterhoeg eyjhb ];
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    maintainers = with maintainers; [
+      abbradar
+      peterhoeg
+      eyjhb
+    ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
     hydraPlatforms = [ ];
   };
 }

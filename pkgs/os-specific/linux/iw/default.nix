@@ -31,7 +31,10 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://wireless.wiki.kernel.org/en/users/Documentation/iw";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ viric primeos ];
+    maintainers = with lib.maintainers; [
+      viric
+      primeos
+    ];
     platforms = with lib.platforms; linux;
   };
 }

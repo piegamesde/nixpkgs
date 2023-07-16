@@ -63,8 +63,15 @@ in buildDunePackage rec {
     sha256 = "sha256:1vzza33hd41740dqrx4854rqpyd8wv7kwpsvvmlpck841i9lh8h5";
   };
 
-  nativeBuildInputs = [ makeWrapper which ];
-  buildInputs = [ lwt_react camlzip findlib ];
+  nativeBuildInputs = [
+    makeWrapper
+    which
+  ];
+  buildInputs = [
+    lwt_react
+    camlzip
+    findlib
+  ];
 
   propagatedBuildInputs = [
     cohttp
@@ -80,7 +87,11 @@ in buildDunePackage rec {
 
   patches = [ ./cohttp-5.patch ];
 
-  configureFlags = [ "--root $(out)" "--prefix /" "--temproot ''" ];
+  configureFlags = [
+    "--root $(out)"
+    "--prefix /"
+    "--temproot ''"
+  ];
 
   dontAddPrefix = true;
   dontAddStaticConfigureFlags = true;

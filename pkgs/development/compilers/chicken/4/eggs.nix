@@ -40,7 +40,12 @@
       sha256 = "1b9x66kfcglld4xhm06vba00gw37vr07c859kj7lmwnk9nwhcplg";
     };
 
-    buildInputs = [ intarweb uri-common simple-md5 sendfile ];
+    buildInputs = [
+      intarweb
+      uri-common
+      simple-md5
+      sendfile
+    ];
   };
 
   intarweb = eggDerivation {
@@ -52,7 +57,11 @@
       sha256 = "1arjgn5g4jfdzj3nlrhxk235qwf6k6jxr14yhnncnfbgdb820xp8";
     };
 
-    buildInputs = [ defstruct uri-common base64 ];
+    buildInputs = [
+      defstruct
+      uri-common
+      base64
+    ];
   };
 
   matchable = eggDerivation {
@@ -106,7 +115,11 @@
       sha256 = "01ds1gixcn4rz657x3hr4rhw2496hsjff42ninw0k39l8i1cbh7c";
     };
 
-    buildInputs = [ uri-generic defstruct matchable ];
+    buildInputs = [
+      uri-generic
+      defstruct
+      matchable
+    ];
   };
 
   uri-generic = eggDerivation {

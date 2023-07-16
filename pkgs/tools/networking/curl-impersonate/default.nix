@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  nativeBuildInputs = [ autoPatchelfHook zlib ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    zlib
+  ];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -28,7 +31,10 @@ stdenv.mkDerivation rec {
     description =
       "curl-impersonate: A special build of curl that can impersonate Chrome & Firefox ";
     homepage = "https://github.com/lwthiker/curl-impersonate";
-    license = with licenses; [ curl mit ];
+    license = with licenses; [
+      curl
+      mit
+    ];
     maintainers = with maintainers; [ deliciouslytyped ];
     platforms =
       platforms.linux; # TODO I'm unsure about the restrictions here, feel free to expand the platforms it if it works elsewhere.

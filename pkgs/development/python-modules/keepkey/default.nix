@@ -21,7 +21,13 @@ buildPythonPackage rec {
     sha256 = "00hqppdj3s9y25x4ad59y8axq94dd4chhw9zixq32sdrd9v8z55a";
   };
 
-  propagatedBuildInputs = [ ecdsa hidapi libusb1 mnemonic protobuf ];
+  propagatedBuildInputs = [
+    ecdsa
+    hidapi
+    libusb1
+    mnemonic
+    protobuf
+  ];
 
   nativeCheckInputs = [ pytest ];
 

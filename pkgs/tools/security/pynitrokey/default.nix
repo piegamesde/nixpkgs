@@ -40,8 +40,13 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  pythonRelaxDeps =
-    [ "cryptography" "protobuf" "python-dateutil" "spsdk" "typing_extensions" ];
+  pythonRelaxDeps = [
+    "cryptography"
+    "protobuf"
+    "python-dateutil"
+    "spsdk"
+    "typing_extensions"
+  ];
 
   # libnitrokey is not propagated to users of pynitrokey
   # It is only usable from the wrapped bin/nitropy
@@ -56,7 +61,10 @@ buildPythonApplication rec {
   meta = with lib; {
     description = "Python client for Nitrokey devices";
     homepage = "https://github.com/Nitrokey/pynitrokey";
-    license = with licenses; [ asl20 mit ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
     maintainers = with maintainers; [ frogamic ];
     mainProgram = "nitropy";
   };

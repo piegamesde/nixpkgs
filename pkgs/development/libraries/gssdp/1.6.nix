@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
   pname = "gssdp";
   version = "1.6.2";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/gssdp/${
@@ -30,15 +34,13 @@ stdenv.mkDerivation rec {
     sha256 = "QQs3be7O2YNrV/SI+ABS/koU+J4HWxzszyjlH0kPn7k=";
   };
 
-  patches = [
-    (fetchpatch {
-      # https://gitlab.gnome.org/GNOME/gssdp/-/merge_requests/11
-      name = "gi-docgen-as-native-dep.patch";
-      url =
-        "https://gitlab.gnome.org/GNOME/gssdp/-/commit/db9d02c22005be7e5e81b43a3ab777250bd7b27b.diff";
-      hash = "sha256-Q2kwZlpNvSzIcMalrOm5lO5iFe+myS7J0S0vkcp10cw=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    # https://gitlab.gnome.org/GNOME/gssdp/-/merge_requests/11
+    name = "gi-docgen-as-native-dep.patch";
+    url =
+      "https://gitlab.gnome.org/GNOME/gssdp/-/commit/db9d02c22005be7e5e81b43a3ab777250bd7b27b.diff";
+    hash = "sha256-Q2kwZlpNvSzIcMalrOm5lO5iFe+myS7J0S0vkcp10cw=";
+  }) ];
 
   depsBuildBuild = [ pkg-config ];
 
@@ -57,7 +59,10 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ glib ];
 
-  mesonFlags = [ "-Dgtk_doc=true" "-Dsniffer=false" ];
+  mesonFlags = [
+    "-Dgtk_doc=true"
+    "-Dsniffer=false"
+  ];
 
   doCheck = true;
 

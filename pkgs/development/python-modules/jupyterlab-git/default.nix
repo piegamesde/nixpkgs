@@ -30,10 +30,20 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ jupyter-packaging ];
 
-  propagatedBuildInputs = [ jupyter-server nbdime git nbformat pexpect ];
+  propagatedBuildInputs = [
+    jupyter-server
+    nbdime
+    git
+    nbformat
+    pexpect
+  ];
 
-  nativeCheckInputs =
-    [ jupyterlab pytest-asyncio pytest-tornasync pytestCheckHook ];
+  nativeCheckInputs = [
+    jupyterlab
+    pytest-asyncio
+    pytest-tornasync
+    pytestCheckHook
+  ];
 
   # All Tests on darwin fail or are skipped due to sandbox
   doCheck = !stdenv.isDarwin;
@@ -47,7 +57,10 @@ buildPythonPackage rec {
     "jupyterlab_git/tests/test_settings.py"
   ];
 
-  disabledTests = [ "test_Git_get_nbdiff_file" "test_Git_get_nbdiff_dict" ];
+  disabledTests = [
+    "test_Git_get_nbdiff_file"
+    "test_Git_get_nbdiff_dict"
+  ];
 
   pythonImportsCheck = [ "jupyterlab_git" ];
 

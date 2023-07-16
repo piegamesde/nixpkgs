@@ -43,9 +43,7 @@ let
       name,
       value,
     }:
-    if !isAttrs value then
-      [ "${name} ${value}" ]
-    else
+    if !isAttrs value then [ "${name} ${value}" ] else
       concatLists (mapAttrsToList (genSection name) value);
 
   sudo_doas = if config.security.sudo.enable then
@@ -100,7 +98,11 @@ in {
       ioSchedulingClass = mkOption {
         description = lib.mdDoc
           "IO scheduling class for btrbk (see ionice(1) for a quick description). Applies to local instances, and remote ones connecting by ssh if set to idle.";
-        type = types.enum [ "idle" "best-effort" "realtime" ];
+        type = types.enum [
+          "idle"
+          "best-effort"
+          "realtime"
+        ];
         default = "best-effort";
       };
       instances = mkOption {
@@ -165,7 +167,11 @@ in {
                   "send"
                   "receive"
                 ]);
-                example = [ "source" "info" "send" ];
+                example = [
+                  "source"
+                  "info"
+                  "send"
+                ];
                 description = lib.mdDoc
                   "What actions can be performed with this SSH key. See ssh_filter_btrbk(1) for details";
               };
@@ -179,7 +185,7 @@ in {
   config = mkIf (sshEnabled || serviceEnabled) {
     environment.systemPackages = [ pkgs.btrbk ] ++ cfg.extraPackages;
     security.sudo = mkIf (sudo_doas == "sudo") {
-      extraRules = [{
+      extraRules = [ {
         users = [ "btrbk" ];
         commands = [
           {
@@ -208,7 +214,7 @@ in {
             options = [ "NOPASSWD" ];
           }
         ];
-      }];
+      } ];
     };
     security.doas = mkIf (sudo_doas == "doas") {
       extraRules = let

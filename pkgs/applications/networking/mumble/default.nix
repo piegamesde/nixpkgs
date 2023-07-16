@@ -42,12 +42,20 @@ let
       pname = overrides.type;
       version = source.version;
 
-      nativeBuildInputs =
-        [ cmake pkg-config python3 qt5.wrapQtAppsHook qt5.qttools ]
-        ++ (overrides.nativeBuildInputs or [ ]);
+      nativeBuildInputs = [
+        cmake
+        pkg-config
+        python3
+        qt5.wrapQtAppsHook
+        qt5.qttools
+      ] ++ (overrides.nativeBuildInputs or [ ]);
 
-      buildInputs = [ avahi boost poco protobuf ]
-        ++ (overrides.buildInputs or [ ]);
+      buildInputs = [
+        avahi
+        boost
+        poco
+        protobuf
+      ] ++ (overrides.buildInputs or [ ]);
 
       cmakeFlags = [ "-D g15=OFF" ] ++ (overrides.configureFlags or [ ]);
 
@@ -61,7 +69,10 @@ let
         description = "Low-latency, high quality voice chat software";
         homepage = "https://mumble.info";
         license = licenses.bsd3;
-        maintainers = with maintainers; [ infinisil felixsinger ];
+        maintainers = with maintainers; [
+          infinisil
+          felixsinger
+        ];
         platforms = platforms.linux;
       };
     });
@@ -71,9 +82,16 @@ let
       type = "mumble";
 
       nativeBuildInputs = [ qt5.qttools ];
-      buildInputs =
-        [ flac libogg libopus libsndfile libvorbis qt5.qtsvg rnnoise speex ]
-        ++ lib.optional (!jackSupport) alsa-lib
+      buildInputs = [
+        flac
+        libogg
+        libopus
+        libsndfile
+        libvorbis
+        qt5.qtsvg
+        rnnoise
+        speex
+      ] ++ lib.optional (!jackSupport) alsa-lib
         ++ lib.optional jackSupport libjack2
         ++ lib.optional speechdSupport speechd
         ++ lib.optional pulseSupport libpulseaudio
@@ -118,7 +136,10 @@ let
         ] ++ lib.optional grpcSupport "-D grpc=ON";
 
       buildInputs = [ libcap ] ++ lib.optional iceSupport zeroc-ice
-        ++ lib.optionals grpcSupport [ grpc which ];
+        ++ lib.optionals grpcSupport [
+          grpc
+          which
+        ];
     } source;
 
   source = rec {

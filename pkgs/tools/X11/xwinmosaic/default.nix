@@ -31,8 +31,14 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config cmake ];
-  buildInputs = [ gtk2 libXdamage ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
+  buildInputs = [
+    gtk2
+    libXdamage
+  ];
 
   meta = {
     description = "X window switcher drawing a colourful grid";

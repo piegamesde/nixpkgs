@@ -29,10 +29,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ aiohttp typing-extensions ];
+  propagatedBuildInputs = [
+    aiohttp
+    typing-extensions
+  ];
 
-  nativeCheckInputs =
-    [ aresponses pytest-aiohttp pytest-asyncio pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    aresponses
+    pytest-aiohttp
+    pytest-asyncio
+    pytest-mock
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [
     # Examples are prefix with test_

@@ -18,7 +18,10 @@ rustPlatform.buildRustPackage rec {
     sha256 = "1yb81j7mbqqb8jcn78dx4ydp7ncbzvaczkli6cqay5jf5j6dbk1z";
   };
 
-  nativeBuildInputs = [ pkg-config glib ];
+  nativeBuildInputs = [
+    pkg-config
+    glib
+  ];
 
   buildInputs = [ gtk3 ];
 

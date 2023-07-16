@@ -36,10 +36,17 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ glib gtk3 qtbase qtwayland ]
-    ++ lib.optionals (!useQt6) [ adwaita-qt ]
+  buildInputs = [
+    glib
+    gtk3
+    qtbase
+    qtwayland
+  ] ++ lib.optionals (!useQt6) [ adwaita-qt ]
     ++ lib.optionals useQt6 [ adwaita-qt6 ];
 
   # Qt setup hook complains about missing `wrapQtAppsHook` otherwise.

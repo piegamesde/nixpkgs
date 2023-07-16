@@ -30,7 +30,11 @@ mkDerivation rec {
   };
 
   buildInputs = [ qtbase ];
-  nativeBuildInputs = [ qmake cmake zip ];
+  nativeBuildInputs = [
+    qmake
+    cmake
+    zip
+  ];
 
   dontConfigure = true;
   buildPhase = ''

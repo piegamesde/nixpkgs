@@ -22,7 +22,10 @@ in appimageTools.wrapType2 rec {
 
   multiPkgs = null; # no 32bit needed
   extraPkgs = pkgs:
-    (appimageTools.defaultFhsEnvArgs.multiPkgs pkgs) ++ [ texlive pandoc ];
+    (appimageTools.defaultFhsEnvArgs.multiPkgs pkgs) ++ [
+      texlive
+      pandoc
+    ];
   extraInstallCommands = ''
     mv $out/bin/{${name},${pname}}
     install -m 444 -D ${appimageContents}/Zettlr.desktop $out/share/applications/Zettlr.desktop

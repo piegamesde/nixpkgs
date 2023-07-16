@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook typing-extensions ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+    typing-extensions
+  ];
 
   pythonImportsCheck = [ "bite" ];
 

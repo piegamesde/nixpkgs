@@ -89,7 +89,10 @@ in rec {
       unidecode
     ];
 
-    buildInputs = [ tor obfs4 ];
+    buildInputs = [
+      tor
+      obfs4
+    ];
 
     nativeCheckInputs = [ pytestCheckHook ];
 
@@ -98,14 +101,14 @@ in rec {
       export HOME="$(mktemp -d)"
     '';
 
-    disabledTests = [
-      "test_get_tor_paths_linux" # expects /usr instead of /nix/store
-    ] ++ lib.optionals stdenv.isDarwin [
-      # on darwin (and only on darwin) onionshare attempts to discover
-      # user's *real* homedir via /etc/passwd, making it more painful
-      # to fake
-      "test_receive_mode_webhook"
-    ];
+    disabledTests =
+      [ "test_get_tor_paths_linux" # expects /usr instead of /nix/store
+      ] ++ lib.optionals stdenv.isDarwin [
+        # on darwin (and only on darwin) onionshare attempts to discover
+        # user's *real* homedir via /etc/passwd, making it more painful
+        # to fake
+        "test_receive_mode_webhook"
+      ];
   };
 
   onionshare-gui = buildPythonApplication {
@@ -122,7 +125,14 @@ in rec {
     ];
 
     disable = !isPy3k;
-    propagatedBuildInputs = [ onionshare pyqt5 pyside2 psutil qrcode pysocks ];
+    propagatedBuildInputs = [
+      onionshare
+      pyqt5
+      pyside2
+      psutil
+      qrcode
+      pysocks
+    ];
 
     nativeBuildInputs = [ qt5.wrapQtAppsHook ];
 

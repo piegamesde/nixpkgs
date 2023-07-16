@@ -73,14 +73,12 @@ in stdenv.mkDerivation rec {
   # will leave us under ARGMAX.
   strictDeps = true;
 
-  patches = [
-    (substituteAll {
-      src = ./fix-python-paths.patch;
-      # Python is used at run-time to execute scripts,
-      # e.g., those from the "Effects" menu.
-      python3 = "${python3Env}/bin/python";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./fix-python-paths.patch;
+    # Python is used at run-time to execute scripts,
+    # e.g., those from the "Effects" menu.
+    python3 = "${python3Env}/bin/python";
+  }) ];
 
   postPatch = ''
     patchShebangs share/extensions
@@ -106,7 +104,10 @@ in stdenv.mkDerivation rec {
     glib # for setup hook
     gdk-pixbuf # for setup hook
     wrapGAppsHook
-  ] ++ (with perlPackages; [ perl XMLParser ]);
+  ] ++ (with perlPackages; [
+    perl
+    XMLParser
+  ]);
 
   buildInputs = [
     boehmgc
@@ -138,7 +139,10 @@ in stdenv.mkDerivation rec {
     python3Env
     zlib
   ] ++ lib.optionals (!stdenv.isDarwin) [ gspell ]
-    ++ lib.optionals stdenv.isDarwin [ cairo gtk-mac-integration ];
+    ++ lib.optionals stdenv.isDarwin [
+      cairo
+      gtk-mac-integration
+    ];
 
   # Make sure PyXML modules can be found at run-time.
   postInstall = lib.optionalString stdenv.isDarwin ''

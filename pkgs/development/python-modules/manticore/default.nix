@@ -47,7 +47,11 @@ buildPythonPackage rec {
     pyyaml
     rlp
     wasm
-  ] ++ lib.optionals (stdenv.isLinux) [ capstone pyelftools unicorn ];
+  ] ++ lib.optionals (stdenv.isLinux) [
+    capstone
+    pyelftools
+    unicorn
+  ];
 
   postPatch = ''
     # Python API is not used in the code, only z3 from PATH

@@ -31,7 +31,10 @@
     version = "0.3.1";
   };
   zsteg = {
-    dependencies = [ "iostruct" "zpng" ];
+    dependencies = [
+      "iostruct"
+      "zpng"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

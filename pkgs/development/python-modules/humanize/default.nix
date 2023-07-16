@@ -27,7 +27,11 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ hatch-vcs hatchling gettext ];
+  nativeBuildInputs = [
+    hatch-vcs
+    hatchling
+    gettext
+  ];
 
   propagatedBuildInputs =
     lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
@@ -40,7 +44,10 @@ buildPythonPackage rec {
     cp -r 'src/humanize/locale' "$out/lib/"*'/site-packages/humanize/'
   '';
 
-  nativeCheckInputs = [ freezegun pytestCheckHook ];
+  nativeCheckInputs = [
+    freezegun
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "humanize" ];
 
@@ -50,6 +57,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/python-humanize/humanize/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ rmcgibbo Luflosi ];
+    maintainers = with maintainers; [
+      rmcgibbo
+      Luflosi
+    ];
   };
 }

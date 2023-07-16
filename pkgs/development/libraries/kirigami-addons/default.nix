@@ -25,9 +25,16 @@ mkDerivation rec {
     hash = "sha256-ObbpM1gVVFhOIHOla5YS8YYe+JoPgdZ8kJ356wLTJq4=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
-  buildInputs = [ ki18n kirigami2 qtquickcontrols2 ];
+  buildInputs = [
+    ki18n
+    kirigami2
+    qtquickcontrols2
+  ];
 
   meta = with lib; {
     description = "Add-ons for the Kirigami framework";

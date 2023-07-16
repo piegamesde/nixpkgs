@@ -16,7 +16,14 @@ stdenv.mkDerivation rec {
   version = "0.50.02";
 
   nativeBuildInputs = [ unzip ];
-  buildInputs = [ perl libX11 libXpm gpm ncurses slang ];
+  buildInputs = [
+    perl
+    libX11
+    libXpm
+    gpm
+    ncurses
+    slang
+  ];
 
   ftesrc = fetchurl {
     url = "mirror://sourceforge/fte/fte-20110708-src.zip";
@@ -26,11 +33,17 @@ stdenv.mkDerivation rec {
     url = "mirror://sourceforge/fte/fte-20110708-common.zip";
     sha256 = "1xva4kh0674sj2b9rhf2amlr37yxmsvjkgyj89gpcn0rndw1ahaq";
   };
-  src = [ ftesrc ftecommon ];
+  src = [
+    ftesrc
+    ftecommon
+  ];
 
   buildFlags = [ "PREFIX=$(out)" ];
 
-  installFlags = [ "PREFIX=$(out)" "INSTALL_NONROOT=1" ];
+  installFlags = [
+    "PREFIX=$(out)"
+    "INSTALL_NONROOT=1"
+  ];
 
   meta = with lib; {
     description = "A free text editor for developers";

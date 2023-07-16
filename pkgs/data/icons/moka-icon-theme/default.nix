@@ -22,9 +22,18 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "0m4kfarkl94wdhsds2q1l9x5hfa9l3117l8j6j7qm7sf7yzr90c8";
   };
 
-  nativeBuildInputs = [ meson ninja gtk3 python3 jdupes ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    gtk3
+    python3
+    jdupes
+  ];
 
-  propagatedBuildInputs = [ faba-icon-theme hicolor-icon-theme ];
+  propagatedBuildInputs = [
+    faba-icon-theme
+    hicolor-icon-theme
+  ];
 
   dontDropIconThemeCache = true;
 
@@ -45,7 +54,10 @@ stdenvNoCC.mkDerivation rec {
     description =
       "Icon theme designed with a minimal flat style using simple geometry and bright colours";
     homepage = "https://snwh.org/moka";
-    license = with licenses; [ cc-by-sa-40 gpl3Only ];
+    license = with licenses; [
+      cc-by-sa-40
+      gpl3Only
+    ];
     # darwin cannot deal with file names differing only in case
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];

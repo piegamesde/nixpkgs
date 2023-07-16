@@ -56,6 +56,12 @@ buildGoModule rec {
       Headscale implements this coordination server.
     '';
     license = licenses.bsd3;
-    maintainers = with maintainers; [ nkje jk kradalby misterio77 ghuntley ];
+    maintainers = with maintainers; [
+      nkje
+      jk
+      kradalby
+      misterio77
+      ghuntley
+    ];
   };
 }

@@ -19,7 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-/RM1tqtGBCUa1fcqh5yvVQMNzaEqpAUPonciEIE6lC4=";
   };
 
-  propagatedBuildInputs = [ aenum requests simplejson ];
+  propagatedBuildInputs = [
+    aenum
+    requests
+    simplejson
+  ];
 
   # no tests implemented
   doCheck = false;

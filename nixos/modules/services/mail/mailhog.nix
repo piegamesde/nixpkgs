@@ -21,7 +21,11 @@ let
 in {
   ###### interface
 
-  imports = [ (mkRemovedOptionModule [ "services" "mailhog" "user" ] "") ];
+  imports = [ (mkRemovedOptionModule [
+    "services"
+    "mailhog"
+    "user"
+  ] "") ];
 
   options = {
 
@@ -29,7 +33,10 @@ in {
       enable = mkEnableOption (lib.mdDoc "MailHog");
 
       storage = mkOption {
-        type = types.enum [ "maildir" "memory" ];
+        type = types.enum [
+          "maildir"
+          "memory"
+        ];
         default = "memory";
         description = lib.mdDoc "Store mails on disk or in memory.";
       };

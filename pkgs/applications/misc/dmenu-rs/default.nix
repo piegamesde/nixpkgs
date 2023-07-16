@@ -38,7 +38,12 @@ stdenv.mkDerivation rec {
     rustPlatform.cargoSetupHook
   ];
 
-  buildInputs = [ expat fontconfig libXft libXinerama ];
+  buildInputs = [
+    expat
+    fontconfig
+    libXft
+    libXinerama
+  ];
 
   # The dmenu-rs repository does not include a Cargo.lock because of its
   # dynamic build and plugin support. Generating it with make and checking it

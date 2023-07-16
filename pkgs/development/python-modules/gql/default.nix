@@ -41,7 +41,11 @@ buildPythonPackage rec {
       "websockets>=10,<12;python_version>'3.6'"
   '';
 
-  propagatedBuildInputs = [ backoff graphql-core yarl ];
+  propagatedBuildInputs = [
+    backoff
+    graphql-core
+    yarl
+  ];
 
   nativeCheckInputs = [
     aiofiles
@@ -54,9 +58,20 @@ buildPythonPackage rec {
   ] ++ passthru.optional-dependencies.all;
 
   passthru.optional-dependencies = {
-    all = [ aiohttp botocore requests requests-toolbelt urllib3 websockets ];
+    all = [
+      aiohttp
+      botocore
+      requests
+      requests-toolbelt
+      urllib3
+      websockets
+    ];
     aiohttp = [ aiohttp ];
-    requests = [ requests requests-toolbelt urllib3 ];
+    requests = [
+      requests
+      requests-toolbelt
+      urllib3
+    ];
     websockets = [ websockets ];
     botocore = [ botocore ];
   };

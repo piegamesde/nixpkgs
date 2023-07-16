@@ -23,7 +23,10 @@ buildGoModule rec {
 
   CGO_ENABLED = 0;
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   # There too many integration tests.
   doCheck = false;

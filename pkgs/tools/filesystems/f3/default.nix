@@ -27,12 +27,13 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  buildInputs = lib.optionals stdenv.isLinux [ systemd parted ]
-    ++ lib.optionals stdenv.isDarwin [ argp-standalone ];
+  buildInputs = lib.optionals stdenv.isLinux [
+    systemd
+    parted
+  ] ++ lib.optionals stdenv.isDarwin [ argp-standalone ];
 
-  buildFlags = [
-    "all" # f3read, f3write
-  ] ++ lib.optional stdenv.isLinux "extra"; # f3brew, f3fix, f3probe
+  buildFlags = [ "all" # f3read, f3write
+    ] ++ lib.optional stdenv.isLinux "extra"; # f3brew, f3fix, f3probe
 
   installFlags = [ "PREFIX=${placeholder "out"}" ];
 
@@ -47,6 +48,9 @@ stdenv.mkDerivation rec {
     description = "Fight Flash Fraud";
     homepage = "https://fight-flash-fraud.readthedocs.io/en/stable/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ makefu evils ];
+    maintainers = with maintainers; [
+      makefu
+      evils
+    ];
   };
 }

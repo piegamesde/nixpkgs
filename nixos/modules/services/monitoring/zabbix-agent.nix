@@ -25,10 +25,11 @@ let
     (toKeyValue { listsAsDuplicateKeys = true; } cfg.settings);
 
 in {
-  imports = [
-    (lib.mkRemovedOptionModule [ "services" "zabbixAgent" "extraConfig" ]
-      "Use services.zabbixAgent.settings instead.")
-  ];
+  imports = [ (lib.mkRemovedOptionModule [
+    "services"
+    "zabbixAgent"
+    "extraConfig"
+  ] "Use services.zabbixAgent.settings instead.") ];
 
   # interface
 
@@ -109,7 +110,12 @@ in {
       };
 
       settings = mkOption {
-        type = with types; attrsOf (oneOf [ int str (listOf str) ]);
+        type = with types;
+          attrsOf (oneOf [
+            int
+            str
+            (listOf str)
+          ]);
         default = { };
         description = lib.mdDoc ''
           Zabbix Agent configuration. Refer to
@@ -165,7 +171,11 @@ in {
       # https://www.zabbix.com/documentation/current/manual/config/items/userparameters
       # > User parameters are commands executed by Zabbix agent.
       # > /bin/sh is used as a command line interpreter under UNIX operating systems.
-      path = with pkgs; [ bash "/run/wrappers" ] ++ cfg.extraPackages;
+      path = with pkgs;
+        [
+          bash
+          "/run/wrappers"
+        ] ++ cfg.extraPackages;
 
       serviceConfig = {
         ExecStart =

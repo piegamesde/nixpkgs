@@ -24,7 +24,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-aJaRVQH5UeI9AtywRTRpwswiqk13oAH/c6JkfC0p590=";
   };
 
-  outputs = [ "out" "dev" "info" ];
+  outputs = [
+    "out"
+    "dev"
+    "info"
+  ];
   outputBin = "dev";
 
   # The CPU Jitter random number generator must not be compiled with
@@ -45,7 +49,10 @@ stdenv.mkDerivation rec {
 
   # Necessary to generate correct assembly when compiling for aarch32 on
   # aarch64
-  configurePlatforms = [ "host" "build" ];
+  configurePlatforms = [
+    "host"
+    "build"
+  ];
 
   postConfigure = ''
     sed -i configure \
@@ -71,8 +78,7 @@ stdenv.mkDerivation rec {
     description = "General-purpose cryptographic library";
     license = licenses.lgpl2Plus;
     platforms = platforms.all;
-    knownVulnerabilities = [
-      "CVE-2018-12437" # CVE is about LibTomCrypt
-    ];
+    knownVulnerabilities = [ "CVE-2018-12437" # CVE is about LibTomCrypt
+      ];
   };
 }

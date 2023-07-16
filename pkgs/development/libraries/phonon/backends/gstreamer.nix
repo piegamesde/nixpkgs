@@ -72,7 +72,12 @@ stdenv.mkDerivation rec {
     qtx11extras
   ];
 
-  nativeBuildInputs = [ cmake pkg-config extra-cmake-modules qttools ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    extra-cmake-modules
+    qttools
+  ];
 
   cmakeFlags = [ "-DCMAKE_BUILD_TYPE=${if debug then "Debug" else "Release"}" ];
 }

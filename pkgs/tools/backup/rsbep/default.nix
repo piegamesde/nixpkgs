@@ -27,7 +27,10 @@ stdenv.mkDerivation rec {
 
     # Fix store dependencies in scripts
     path="export PATH=$out/bin:$libexecDir:${
-      lib.makeBinPath [ coreutils gawk ]
+      lib.makeBinPath [
+        coreutils
+        gawk
+      ]
     }"
     sed -i "2i$path" freeze.sh
     sed -i "2i$path" melt.sh

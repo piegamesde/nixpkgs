@@ -31,8 +31,15 @@
 }:
 
 let
-  visualizationPackages =
-    [ ipython ipyvuetify ipywidgets matplotlib plotly pyperclip seaborn ];
+  visualizationPackages = [
+    ipython
+    ipyvuetify
+    ipywidgets
+    matplotlib
+    plotly
+    pyperclip
+    seaborn
+  ];
 in buildPythonPackage rec {
   pname = "qiskit-ibmq-provider";
   version = "0.20.1";
@@ -61,9 +68,14 @@ in buildPythonPackage rec {
   '';
 
   # Most tests require credentials to run on IBMQ
-  nativeCheckInputs =
-    [ pytestCheckHook nbconvert nbformat pproxy qiskit-aer vcrpy ]
-    ++ lib.optionals (!withVisualization) visualizationPackages;
+  nativeCheckInputs = [
+    pytestCheckHook
+    nbconvert
+    nbformat
+    pproxy
+    qiskit-aer
+    vcrpy
+  ] ++ lib.optionals (!withVisualization) visualizationPackages;
 
   pythonImportsCheck = [ "qiskit.providers.ibmq" ];
   disabledTests = [

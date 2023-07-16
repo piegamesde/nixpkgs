@@ -41,7 +41,10 @@ stdenv.mkDerivation rec {
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ aaronjanse neonfuz ];
+    maintainers = with lib.maintainers; [
+      aaronjanse
+      neonfuz
+    ];
     mainProgram = "minecraft-server";
   };
 }

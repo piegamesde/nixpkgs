@@ -23,8 +23,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-CysPzlup8TVVR4rCm3cWTjnxwJznMv0wbaeCC0ofWSU=";
 
-  nativeBuildInputs = [ makeWrapper installShellFiles ]
-    ++ lib.optionals stdenv.isDarwin [ xcbuild.xcrun sigtool ];
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+  ] ++ lib.optionals stdenv.isDarwin [
+    xcbuild.xcrun
+    sigtool
+  ];
 
   # clean fails with read only vendor dir
   postPatch = ''

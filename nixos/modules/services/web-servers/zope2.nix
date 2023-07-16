@@ -235,9 +235,8 @@ in {
           '';
         in {
           #description = "${name} instance";
-          after = [
-            "network.target"
-          ]; # with RelStorage also add "postgresql.service"
+          after =
+            [ "network.target" ]; # with RelStorage also add "postgresql.service"
           wantedBy = [ "multi-user.target" ];
           path = opts.packages;
           preStart = ''

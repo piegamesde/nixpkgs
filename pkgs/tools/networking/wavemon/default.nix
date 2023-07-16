@@ -20,14 +20,20 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libnl ncurses ];
+  buildInputs = [
+    libnl
+    ncurses
+  ];
 
   meta = with lib; {
     description =
       "Ncurses-based monitoring application for wireless network devices";
     homepage = "https://github.com/uoaerg/wavemon";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ raskin fpletz ];
+    maintainers = with maintainers; [
+      raskin
+      fpletz
+    ];
     platforms = platforms.linux;
   };
 }

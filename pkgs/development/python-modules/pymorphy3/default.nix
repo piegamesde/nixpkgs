@@ -20,8 +20,12 @@ buildPythonPackage rec {
     hash = "sha256-5MXAYcjZPUrGf5G5e7Yml1SLukrZURA0TCv0GiP56rM=";
   };
 
-  propagatedBuildInputs =
-    [ dawg-python docopt pymorphy3-dicts-ru pymorphy3-dicts-uk ];
+  propagatedBuildInputs = [
+    dawg-python
+    docopt
+    pymorphy3-dicts-ru
+    pymorphy3-dicts-uk
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

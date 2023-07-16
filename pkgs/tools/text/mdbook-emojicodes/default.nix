@@ -19,8 +19,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-z9UKBBCr8R1I9k48JsEBnVokQDfaj9lt+qfIUvJ/5lE=";
 
-  buildInputs = lib.optionals stdenv.isDarwin
-    [ darwin.apple_sdk.frameworks.CoreFoundation ];
+  buildInputs = lib.optionals
+    stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreFoundation ];
 
   meta = with lib; {
     description =

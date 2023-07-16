@@ -8,7 +8,11 @@ args@{
 
   description = "ANSI control string characters, focused on color";
 
-  deps = [ args."alexandria" args."cl-colors2" args."cl-ppcre" ];
+  deps = [
+    args."alexandria"
+    args."cl-colors2"
+    args."cl-ppcre"
+  ];
 
   src = fetchurl {
     url =

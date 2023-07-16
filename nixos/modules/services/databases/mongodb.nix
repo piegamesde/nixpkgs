@@ -120,10 +120,10 @@ in {
   ###### implementation
 
   config = mkIf config.services.mongodb.enable {
-    assertions = [{
+    assertions = [ {
       assertion = !cfg.enableAuth || cfg.initialRootPassword != null;
       message = "`enableAuth` requires `initialRootPassword` to be set.";
-    }];
+    } ];
 
     users.users.mongodb = mkIf (cfg.user == "mongodb") {
       name = "mongodb";

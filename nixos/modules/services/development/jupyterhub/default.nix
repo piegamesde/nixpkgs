@@ -78,8 +78,11 @@ in {
 
     jupyterhubEnv = mkOption {
       type = types.package;
-      default = pkgs.python3.withPackages
-        (p: with p; [ jupyterhub jupyterhub-systemdspawner ]);
+      default = pkgs.python3.withPackages (p:
+        with p; [
+          jupyterhub
+          jupyterhub-systemdspawner
+        ]);
       defaultText = literalExpression ''
         pkgs.python3.withPackages (p: with p; [
           jupyterhub
@@ -98,8 +101,11 @@ in {
 
     jupyterlabEnv = mkOption {
       type = types.package;
-      default =
-        pkgs.python3.withPackages (p: with p; [ jupyterhub jupyterlab ]);
+      default = pkgs.python3.withPackages (p:
+        with p; [
+          jupyterhub
+          jupyterlab
+        ]);
       defaultText = literalExpression ''
         pkgs.python3.withPackages (p: with p; [
           jupyterhub
@@ -180,23 +186,21 @@ in {
     };
   };
 
-  config = mkMerge [
-    (mkIf cfg.enable {
-      systemd.services.jupyterhub = {
-        description = "Jupyterhub development server";
+  config = mkMerge [ (mkIf cfg.enable {
+    systemd.services.jupyterhub = {
+      description = "Jupyterhub development server";
 
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
 
-        serviceConfig = {
-          Restart = "always";
-          ExecStart =
-            "${cfg.jupyterhubEnv}/bin/jupyterhub --config ${jupyterhubConfig}";
-          User = "root";
-          StateDirectory = cfg.stateDirectory;
-          WorkingDirectory = "/var/lib/${cfg.stateDirectory}";
-        };
+      serviceConfig = {
+        Restart = "always";
+        ExecStart =
+          "${cfg.jupyterhubEnv}/bin/jupyterhub --config ${jupyterhubConfig}";
+        User = "root";
+        StateDirectory = cfg.stateDirectory;
+        WorkingDirectory = "/var/lib/${cfg.stateDirectory}";
       };
-    })
-  ];
+    };
+  }) ];
 }

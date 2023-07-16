@@ -28,11 +28,23 @@ stdenv.mkDerivation rec {
     echo "${version}" > .tarball-version
   '';
 
-  propagatedBuildInputs = [ talloc libmnl ];
+  propagatedBuildInputs = [
+    talloc
+    libmnl
+  ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config python3 ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    python3
+  ];
 
-  buildInputs = [ gnutls libusb1 lksctp-tools pcsclite ];
+  buildInputs = [
+    gnutls
+    libusb1
+    lksctp-tools
+    pcsclite
+  ];
 
   enableParallelBuilding = true;
 

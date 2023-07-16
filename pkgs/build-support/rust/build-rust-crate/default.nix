@@ -286,8 +286,12 @@ lib.makeOverridable (
       }";
     version = crate.version;
     depsBuildBuild = [ pkgsBuildBuild.stdenv.cc ];
-    nativeBuildInputs = [ rust stdenv.cc cargo jq ]
-      ++ lib.optionals stdenv.buildPlatform.isDarwin [ libiconv ]
+    nativeBuildInputs = [
+      rust
+      stdenv.cc
+      cargo
+      jq
+    ] ++ lib.optionals stdenv.buildPlatform.isDarwin [ libiconv ]
       ++ (crate.nativeBuildInputs or [ ]) ++ nativeBuildInputs_;
     buildInputs = lib.optionals stdenv.isDarwin [ libiconv ]
       ++ (crate.buildInputs or [ ]) ++ buildInputs_;
@@ -334,11 +338,9 @@ lib.makeOverridable (
     else
       [ ];
     crateHomepage = crate.homepage or "";
-    crateType = if lib.attrByPath [ "procMacro" ] false crate then
-      [ "proc-macro" ]
-    else if lib.attrByPath [ "plugin" ] false crate then
-      [ "dylib" ]
-    else
+    crateType = if lib.attrByPath [ "procMacro" ] false
+    crate then [ "proc-macro" ] else if lib.attrByPath [ "plugin" ] false
+    crate then [ "dylib" ] else
       (crate.type or [ "lib" ]);
     colors = lib.attrByPath [ "colors" ] "always" crate;
     extraLinkFlags = lib.concatStringsSep " " (crate.extraLinkFlags or [ ]);
@@ -368,7 +370,10 @@ lib.makeOverridable (
 
     # depending on the test setting we are either producing something with bins
     # and libs or just test binaries
-    outputs = if buildTests then [ "out" ] else [ "out" "lib" ];
+    outputs = if buildTests then [ "out" ] else [
+      "out"
+      "lib"
+    ];
     outputDev = if buildTests then [ "out" ] else [ "lib" ];
 
     meta = { mainProgram = crateName; };

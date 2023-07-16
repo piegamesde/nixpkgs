@@ -25,12 +25,21 @@ buildPythonPackage rec {
     hash = "sha256-Hb+iISf9Aug3JIf+3kcXwYPshAe2CkqbGPEuSY2Ij9s=";
   };
 
-  propagatedBuildInputs = [ cookiecutter networkx pandas tornado tqdm ];
+  propagatedBuildInputs = [
+    cookiecutter
+    networkx
+    pandas
+    tornado
+    tqdm
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [ "test_examples" "test_run" "test_scaffold_creates_project_dir" ];
+  disabledTests = [
+    "test_examples"
+    "test_run"
+    "test_scaffold_creates_project_dir"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/projectmesa/mesa";

@@ -44,7 +44,10 @@ let
 in stdenv.mkDerivation {
   pname = "zeek-broker";
   version = "unstable-2023-02-01";
-  outputs = [ "out" "py" ];
+  outputs = [
+    "out"
+    "py"
+  ];
 
   strictDeps = true;
 
@@ -67,7 +70,10 @@ in stdenv.mkDerivation {
   patches = [ ./0001-Fix-include-path-in-exported-CMake-targets.patch ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ openssl python3.pkgs.pybind11 ];
+  buildInputs = [
+    openssl
+    python3.pkgs.pybind11
+  ];
   propagatedBuildInputs = [ caf' ];
 
   cmakeFlags = [

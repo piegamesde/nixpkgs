@@ -46,7 +46,12 @@ stdenv.mkDerivation rec {
      --replace "/usr" "$out"
   '';
 
-  nativeBuildInputs = [ qmake pkg-config qttools wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    pkg-config
+    qttools
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     dtkwidget
@@ -67,13 +72,21 @@ stdenv.mkDerivation rec {
     portaudio
     kwayland
     udev
-  ] ++ (with gst_all_1; [ gstreamer gst-plugins-base gst-plugins-good ]);
+  ] ++ (with gst_all_1; [
+    gstreamer
+    gst-plugins-base
+    gst-plugins-good
+  ]);
 
   # qt5integration must be placed before qtsvg in QT_PLUGIN_PATH
   qtWrapperArgs = [
     "--prefix QT_PLUGIN_PATH : ${qt5integration}/${qtbase.qtPluginPrefix}"
     "--prefix LD_LIBRARY_PATH : ${
-      lib.makeLibraryPath [ udev gst_all_1.gstreamer libv4l ]
+      lib.makeLibraryPath [
+        udev
+        gst_all_1.gstreamer
+        libv4l
+      ]
     }"
   ];
 

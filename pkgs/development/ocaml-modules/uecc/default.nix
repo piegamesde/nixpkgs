@@ -24,7 +24,11 @@ buildDunePackage rec {
 
   propagatedBuildInputs = [ bigstring ];
 
-  checkInputs = [ alcotest cstruct hex ];
+  checkInputs = [
+    alcotest
+    cstruct
+    hex
+  ];
 
   doCheck = lib.versionAtLeast ocaml.version "4.08";
 

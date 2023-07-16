@@ -99,8 +99,10 @@ let
       ++ (lib.optional includeChannel channelSources);
   };
 
-  modulesTree =
-    pkgs.aggregateModules (with config.boot.kernelPackages; [ kernel zfs ]);
+  modulesTree = pkgs.aggregateModules (with config.boot.kernelPackages; [
+    kernel
+    zfs
+  ]);
 
   tools = lib.makeBinPath (with pkgs; [
     config.system.build.nixos-enter
@@ -174,7 +176,10 @@ let
   fileSystemsCfgFile =
     let mountable = lib.filterAttrs (_: value: hasDefinedMount value) datasets;
     in pkgs.runCommand "filesystem-config.nix" {
-      buildInputs = with pkgs; [ jq nixpkgs-fmt ];
+      buildInputs = with pkgs; [
+        jq
+        nixpkgs-fmt
+      ];
       filesystems = builtins.toJSON {
         fileSystems = lib.mapAttrs' (dataset: attrs: {
           name = attrs.mount;
@@ -212,8 +217,13 @@ let
     '';
 
   image = (pkgs.vmTools.override {
-    rootModules = [ "zfs" "9p" "9pnet_virtio" "virtio_pci" "virtio_blk" ]
-      ++ (pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos");
+    rootModules = [
+      "zfs"
+      "9p"
+      "9pnet_virtio"
+      "virtio_pci"
+      "virtio_blk"
+    ] ++ (pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos");
     kernel = modulesTree;
   }).runInLinuxVM (pkgs.runCommand name {
     memSize = 1024;

@@ -33,7 +33,11 @@ buildPythonPackage rec {
     description = "Module to hyphenate text";
     homepage = "https://github.com/Kozea/Pyphen";
     changelog = "https://github.com/Kozea/Pyphen/releases/tag/${version}";
-    license = with licenses; [ gpl2 lgpl21 mpl20 ];
+    license = with licenses; [
+      gpl2
+      lgpl21
+      mpl20
+    ];
     maintainers = with maintainers; [ rvl ];
   };
 }

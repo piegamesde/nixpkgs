@@ -20,7 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-CpzMMp2C3UOiUna9EcUucD/PKv7AZlkaU8QJfWntoi8=";
   };
 
-  propagatedBuildInputs = [ aiohttp urllib3 ];
+  propagatedBuildInputs = [
+    aiohttp
+    urllib3
+  ];
 
   # no tests are present
   doCheck = false;

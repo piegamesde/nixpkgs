@@ -46,7 +46,10 @@ python3.pkgs.buildPythonApplication rec {
       --replace "'pytest-runner'," ""
   '';
 
-  pythonRelaxDeps = [ "grandalf" "crysp" ];
+  pythonRelaxDeps = [
+    "grandalf"
+    "crysp"
+  ];
 
   pythonImportsCheck = [ "amoco" ];
 

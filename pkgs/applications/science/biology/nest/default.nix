@@ -38,15 +38,21 @@ stdenv.mkDerivation rec {
       --replace "\''${CMAKE_INSTALL_LIBDIR}/python" "lib/python"
   '';
 
-  nativeBuildInputs = [ cmake pkg-config findutils ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    findutils
+  ];
 
   buildInputs = [
     gsl
     readline
     libtool # libltdl
     boost
-  ] ++ lib.optionals withPython [ python3 python3.pkgs.cython ]
-    ++ lib.optional withMpi mpi
+  ] ++ lib.optionals withPython [
+    python3
+    python3.pkgs.cython
+  ] ++ lib.optional withMpi mpi
     ++ lib.optional stdenv.isDarwin llvmPackages.openmp;
 
   propagatedBuildInputs = with python3.pkgs; [ numpy ];
@@ -74,7 +80,10 @@ stdenv.mkDerivation rec {
     changelog =
       "https://github.com/nest/nest-simulator/releases/tag/v${version}";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ jiegec davidcromp ];
+    maintainers = with maintainers; [
+      jiegec
+      davidcromp
+    ];
     platforms = platforms.unix;
   };
 }

@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vZ2GPrlMHMe2vStjktbyLtXS5SoNzHbNwFi+CL1Z4VQ=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   buildInputs = [
     ldns # optional for DDNS (but cheap anyway)

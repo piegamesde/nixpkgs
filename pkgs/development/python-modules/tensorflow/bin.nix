@@ -133,10 +133,16 @@ in buildPythonPackage {
   # patchelf --shrink-rpath will remove the cuda libraries.
   postFixup = let
     # rpaths we only need to add if CUDA is enabled.
-    cudapaths =
-      lib.optionals cudaSupport [ cudatoolkit.out cudatoolkit.lib cudnn ];
+    cudapaths = lib.optionals cudaSupport [
+      cudatoolkit.out
+      cudatoolkit.lib
+      cudnn
+    ];
 
-    libpaths = [ stdenv.cc.cc.lib zlib ];
+    libpaths = [
+      stdenv.cc.cc.lib
+      zlib
+    ];
 
     rpath = lib.makeLibraryPath (libpaths ++ cudapaths);
   in lib.optionalString stdenv.isLinux ''
@@ -186,8 +192,11 @@ in buildPythonPackage {
     rm $out/bin/tensorboard
   '';
 
-  pythonImportsCheck =
-    [ "tensorflow" "tensorflow.python" "tensorflow.python.framework" ];
+  pythonImportsCheck = [
+    "tensorflow"
+    "tensorflow.python"
+    "tensorflow.python.framework"
+  ];
 
   passthru = { inherit cudaPackages; };
 
@@ -197,7 +206,14 @@ in buildPythonPackage {
     homepage = "http://tensorflow.org";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.asl20;
-    maintainers = with maintainers; [ jyp abbradar cdepillabout ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    maintainers = with maintainers; [
+      jyp
+      abbradar
+      cdepillabout
+    ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
   };
 }

@@ -25,7 +25,10 @@ mkDerivation {
     maintainers = [ lib.maintainers.ttuegel ];
   };
   nativeBuildInputs = [ extra-cmake-modules ];
-  buildInputs = [ cups ki18n ];
+  buildInputs = [
+    cups
+    ki18n
+  ];
   propagatedBuildInputs = [
     kconfig
     kconfigwidgets
@@ -40,7 +43,10 @@ mkDerivation {
     plasma-framework
     qtdeclarative
   ];
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
   # Fix build with cups deprecations etc.
   # See: https://github.com/NixOS/nixpkgs/issues/73334
   env.NIX_CFLAGS_COMPILE =

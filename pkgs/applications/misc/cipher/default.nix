@@ -27,10 +27,22 @@ stdenv.mkDerivation rec {
     sha256 = "00azc5ck17zkdypfza6x1viknwhimd9fqgk2ybff3mx6aphmla7a";
   };
 
-  nativeBuildInputs =
-    [ gettext meson ninja vala pkg-config python3 wrapGAppsHook ];
+  nativeBuildInputs = [
+    gettext
+    meson
+    ninja
+    vala
+    pkg-config
+    python3
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ glib gtk3 pantheon.granite libgee ];
+  buildInputs = [
+    glib
+    gtk3
+    pantheon.granite
+    libgee
+  ];
 
   postPatch = ''
     substituteInPlace data/com.github.arshubham.cipher.desktop.in \

@@ -19,7 +19,11 @@ buildGoModule rec {
 
   doCheck = false;
 
-  ldflags = [ "-s" "-w" "-X main.tag=v${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.tag=v${version}"
+  ];
 
   meta = with lib; {
     description =

@@ -17,7 +17,10 @@ buildOctavePackage rec {
     sha256 = "sha256-hgFb1KFE1KJC8skIaeT/7h/fg1aqRpedGnEPY24zZSI=";
   };
 
-  requiredOctavePackages = [ fpl msh ];
+  requiredOctavePackages = [
+    fpl
+    msh
+  ];
 
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/bim/index.html";

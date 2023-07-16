@@ -40,7 +40,10 @@ in stdenv.mkDerivation rec {
     patchShebangs scripts
   '';
 
-  nativeBuildInputs = [ makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+  ];
   buildInputs = [
     xz
     dpkg

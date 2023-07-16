@@ -43,10 +43,16 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "OHI/kT4HMlWUTxIeGXjtuIYBzQKM3XTGXuE9cviNDTM=";
   };
 
-  nativeBuildInputs = [ gtk3 jdupes ];
+  nativeBuildInputs = [
+    gtk3
+    jdupes
+  ];
 
-  propagatedBuildInputs =
-    [ adwaita-icon-theme libsForQt5.breeze-icons hicolor-icon-theme ];
+  propagatedBuildInputs = [
+    adwaita-icon-theme
+    libsForQt5.breeze-icons
+    hicolor-icon-theme
+  ];
 
   dontDropIconThemeCache = true;
 

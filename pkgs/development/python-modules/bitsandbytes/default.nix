@@ -85,7 +85,12 @@ in buildPythonPackage {
   propagatedBuildInputs = [ torch ];
 
   doCheck = false; # tests require CUDA and also GPU access
-  nativeCheckInputs = [ pytestCheckHook einops lion-pytorch scipy ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    einops
+    lion-pytorch
+    scipy
+  ];
 
   pythonImportsCheck = [ "bitsandbytes" ];
 

@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "1790ajyhk0ax8xxamnrk176gc9gvhadzy78qia4rd8jzm89ir7gr";
   };
 
-  nativeBuildInputs = [ pkg-config cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
   buildInputs = [ freetype ];
 
   patches = lib.optionals stdenv.isDarwin [ ./macosx.patch ];

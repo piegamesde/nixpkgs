@@ -25,14 +25,21 @@ stdenv.mkDerivation rec {
     sha256 = "1qlz55fp4i9dd8sdwmy1m8i4i1jy1s09cpmlxzrgf7v34w72ncm7";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = if stdenv.isDarwin then [
     AppKit
     ApplicationServices
     Carbon
   ] else
-    [ libX11 libxkbcommon xinput ] ++ (with xorg; [
+    [
+      libX11
+      libxkbcommon
+      xinput
+    ] ++ (with xorg; [
       libXau
       libXdmcp
       libXi
@@ -43,7 +50,10 @@ stdenv.mkDerivation rec {
       libxkbfile
     ]);
 
-  outputs = [ "out" "test" ];
+  outputs = [
+    "out"
+    "test"
+  ];
 
   # We build the tests, but they're only installed when using the "test" output.
   # This will produce a "uiohook_tests" binary which can be run to test the

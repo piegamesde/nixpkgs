@@ -24,7 +24,10 @@ buildPythonPackage rec {
     hash = "sha256-0V+CSLNxippr4LphejLRWR+fo5xhRGm/rOd3uganO3U=";
   };
 
-  propagatedBuildInputs = [ pydata-sphinx-theme sphinx ];
+  propagatedBuildInputs = [
+    pydata-sphinx-theme
+    sphinx
+  ];
 
   pythonImportsCheck = [ "sphinx_book_theme" ];
 

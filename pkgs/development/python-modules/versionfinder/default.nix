@@ -23,9 +23,15 @@ buildPythonPackage rec {
     sha256 = "16mvjwyhmw39l8by69dgr9b9jnl7yav36523lkh7w7pwd529pbb9";
   };
 
-  propagatedBuildInputs = [ gitpython backoff ];
+  propagatedBuildInputs = [
+    gitpython
+    backoff
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook requests ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    requests
+  ];
 
   disabledTestPaths = [
     # Acceptance tests use the network

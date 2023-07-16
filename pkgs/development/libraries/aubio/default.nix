@@ -21,8 +21,18 @@ stdenv.mkDerivation rec {
     sha256 = "1npks71ljc48w6858l9bq30kaf5nph8z0v61jkfb70xb9np850nl";
   };
 
-  nativeBuildInputs = [ pkg-config python3 wafHook ];
-  buildInputs = [ alsa-lib fftw libjack2 libsamplerate libsndfile ];
+  nativeBuildInputs = [
+    pkg-config
+    python3
+    wafHook
+  ];
+  buildInputs = [
+    alsa-lib
+    fftw
+    libjack2
+    libsamplerate
+    libsndfile
+  ];
 
   strictDeps = true;
   dontAddWafCrossFlags = true;
@@ -33,7 +43,11 @@ stdenv.mkDerivation rec {
     description = "Library for audio labelling";
     homepage = "https://aubio.org/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ goibhniu marcweber fpletz ];
+    maintainers = with maintainers; [
+      goibhniu
+      marcweber
+      fpletz
+    ];
     platforms = platforms.linux;
   };
 }

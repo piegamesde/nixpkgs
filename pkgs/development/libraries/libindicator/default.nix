@@ -23,7 +23,10 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ pkg-config glib ];
+  nativeBuildInputs = [
+    pkg-config
+    glib
+  ];
 
   buildInputs = [ (if gtkVersion == "2" then gtk2 else gtk3) ];
 
@@ -43,7 +46,10 @@ stdenv.mkDerivation rec {
     "--with-gtk=${gtkVersion}"
   ];
 
-  installFlags = [ "sysconfdir=\${out}/etc" "localstatedir=\${TMPDIR}" ];
+  installFlags = [
+    "sysconfdir=\${out}/etc"
+    "localstatedir=\${TMPDIR}"
+  ];
 
   doCheck = false; # fails 8 out of 8 tests
 

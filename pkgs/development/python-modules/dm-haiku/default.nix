@@ -19,9 +19,16 @@ buildPythonPackage rec {
     hash = "sha256-d5THbfMRrbBL/2sQ99l2yeaTI9gT+bSkcxmVdRJT5bA=";
   };
 
-  outputs = [ "out" "testsout" ];
+  outputs = [
+    "out"
+    "testsout"
+  ];
 
-  propagatedBuildInputs = [ jaxlib jmp tabulate ];
+  propagatedBuildInputs = [
+    jaxlib
+    jmp
+    tabulate
+  ];
 
   pythonImportsCheck = [ "haiku" ];
 

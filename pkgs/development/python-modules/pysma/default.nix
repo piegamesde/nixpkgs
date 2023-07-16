@@ -20,7 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-4u564tLk91duYv1IClHddur6t+Rbla/e9P0yWAxw2sw=";
   };
 
-  propagatedBuildInputs = [ aiohttp attrs jmespath ];
+  propagatedBuildInputs = [
+    aiohttp
+    attrs
+    jmespath
+  ];
 
   # pypi does not contain tests and GitHub archive not available
   doCheck = false;

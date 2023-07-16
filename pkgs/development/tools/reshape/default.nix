@@ -20,7 +20,10 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-iX8qhDk0PP0AB3bJ6ck8AZ9SCErFH416ggAkgK8O900=";
   };
 
-  nativeCheckInputs = [ postgresqlTestHook postgresql ];
+  nativeCheckInputs = [
+    postgresqlTestHook
+    postgresql
+  ];
 
   dontUseCargoParallelTests = true;
 

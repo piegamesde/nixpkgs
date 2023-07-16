@@ -26,9 +26,17 @@ mkDerivation rec {
     sha256 = "00wfr7dvbyl7pg1xgssgz8a94c7c4n5r9266lhy9qcbz456hdcgj";
   };
 
-  nativeBuildInputs = [ pkg-config cmake ];
-  buildInputs = [ qtbase qttools seafile-shared jansson libsearpc ]
-    ++ lib.optional withShibboleth qtwebengine;
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
+  buildInputs = [
+    qtbase
+    qttools
+    seafile-shared
+    jansson
+    libsearpc
+  ] ++ lib.optional withShibboleth qtwebengine;
 
   cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ]
     ++ lib.optional withShibboleth "-DBUILD_SHIBBOLETH_SUPPORT=ON";
@@ -41,6 +49,9 @@ mkDerivation rec {
       "Desktop client for Seafile, the Next-generation Open Source Cloud Storage";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ schmittlauch greizgh ];
+    maintainers = with maintainers; [
+      schmittlauch
+      greizgh
+    ];
   };
 }

@@ -32,8 +32,12 @@ stdenv.mkDerivation rec {
   '';
 
   wrapperPath = with lib;
-    makeBinPath ([ coreutils git gnugrep gnused ]
-      ++ lib.optionals stdenv.isLinux [ inotify-tools ]);
+    makeBinPath ([
+      coreutils
+      git
+      gnugrep
+      gnused
+    ] ++ lib.optionals stdenv.isLinux [ inotify-tools ]);
 
   postFixup = ''
     wrap_path="${wrapperPath}":$out/bin

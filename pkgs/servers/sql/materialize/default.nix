@@ -109,8 +109,11 @@ in rustPlatform.buildRustPackage rec {
   # Needed to get openssl-sys to use pkg-config.
   OPENSSL_NO_VENDOR = 1;
 
-  buildInputs = [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv DiskArbitration Foundation ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
+    libiconv
+    DiskArbitration
+    Foundation
+  ];
 
   # Skip tests that use the network
   checkFlags = [
@@ -142,7 +145,11 @@ in rustPlatform.buildRustPackage rec {
     description =
       "A streaming SQL materialized view engine for real-time applications";
     license = licenses.bsl11;
-    platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+      "aarch64-linux"
+    ];
     maintainers = [ maintainers.petrosagg ];
   };
 }

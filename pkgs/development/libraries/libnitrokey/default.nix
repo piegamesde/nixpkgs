@@ -19,10 +19,15 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-9ZMR1g04gNzslax6NpD6KykfUfjpKFIizaMMn06iJa0=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  cmakeFlags =
-    [ "-DADD_GIT_INFO=OFF" "-DCMAKE_INSTALL_UDEVRULESDIR=etc/udev/rules.d" ];
+  cmakeFlags = [
+    "-DADD_GIT_INFO=OFF"
+    "-DCMAKE_INSTALL_UDEVRULESDIR=etc/udev/rules.d"
+  ];
 
   buildInputs = [ libusb1 ];
 
@@ -33,6 +38,9 @@ stdenv.mkDerivation (finalAttrs: {
       "Communicate with Nitrokey devices in a clean and easy manner";
     homepage = "https://github.com/Nitrokey/libnitrokey";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ panicgh raitobezarius ];
+    maintainers = with maintainers; [
+      panicgh
+      raitobezarius
+    ];
   };
 })

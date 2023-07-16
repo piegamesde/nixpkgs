@@ -47,7 +47,12 @@ in mkDerivation rec {
     sha256 = "sha256-TpxVC0GFZD3jGISnDWHKEetgVVpznm5k/Vc2dwVfSG4=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ncurses file ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    ncurses
+    file
+  ];
 
   buildInputs = [
     fontconfig

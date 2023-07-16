@@ -21,7 +21,10 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-a4Lk4wh4mvXEjLgFksZIVVtbp+zTUyjtLVuk7vuot2k=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   nativeBuildInputs = lib.optionals withSystemdSupport [ makeWrapper ];
   buildInputs = lib.optionals withSystemdSupport [ systemd ];
@@ -38,6 +41,9 @@ buildGoModule rec {
     inherit (src.meta) homepage;
     description = "A Prometheus exporter for Postfix";
     license = licenses.asl20;
-    maintainers = with maintainers; [ willibutz globin ];
+    maintainers = with maintainers; [
+      willibutz
+      globin
+    ];
   };
 }

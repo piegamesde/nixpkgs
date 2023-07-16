@@ -18,7 +18,13 @@ stdenv.mkDerivation rec {
     sha256 = "0vwdlyvh7c4y80q5vp7fyfpzbqk9lq3w8pvavi139njkalbxc14i";
   };
 
-  buildInputs = [ SDL SDL_mixer libintl libpng zlib ];
+  buildInputs = [
+    SDL
+    SDL_mixer
+    libintl
+    libpng
+    zlib
+  ];
 
   meta = with lib; {
     homepage = "http://lgames.sourceforge.net/LBreakout2/";

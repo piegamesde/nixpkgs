@@ -51,15 +51,17 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ gst_all_1.gst-plugins-base gst_all_1.gstreamer ]
-    ++ lib.optionals (!stdenv.isDarwin) [
-      gtk3
-      libSM
-      libXinerama
-      libXtst
-      libXxf86vm
-      xorgproto
-    ] ++ lib.optional withMesa libGLU
+  buildInputs = [
+    gst_all_1.gst-plugins-base
+    gst_all_1.gstreamer
+  ] ++ lib.optionals (!stdenv.isDarwin) [
+    gtk3
+    libSM
+    libXinerama
+    libXtst
+    libXxf86vm
+    xorgproto
+  ] ++ lib.optional withMesa libGLU
     ++ lib.optional (withWebKit && !stdenv.isDarwin) webkitgtk
     ++ lib.optional (withWebKit && stdenv.isDarwin) WebKit
     ++ lib.optionals stdenv.isDarwin [
@@ -84,9 +86,13 @@ stdenv.mkDerivation rec {
     (if compat30 then "--enable-compat30" else "--disable-compat30")
   ] ++ lib.optional (!withEGL) "--disable-glcanvasegl"
     ++ lib.optional unicode "--enable-unicode"
-    ++ lib.optional withMesa "--with-opengl"
-    ++ lib.optionals stdenv.isDarwin [ "--with-osx_cocoa" "--with-libiconv" ]
-    ++ lib.optionals withWebKit [ "--enable-webview" "--enable-webviewwebkit" ];
+    ++ lib.optional withMesa "--with-opengl" ++ lib.optionals stdenv.isDarwin [
+      "--with-osx_cocoa"
+      "--with-libiconv"
+    ] ++ lib.optionals withWebKit [
+      "--enable-webview"
+      "--enable-webviewwebkit"
+    ];
 
   SEARCH_LIB = "${libGLU.out}/lib ${libGL.out}/lib ";
 

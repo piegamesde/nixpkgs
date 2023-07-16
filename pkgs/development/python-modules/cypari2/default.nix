@@ -46,7 +46,10 @@ buildPythonPackage rec {
 
   buildInputs = [ gmp ];
 
-  propagatedBuildInputs = [ cysignals cython ];
+  propagatedBuildInputs = [
+    cysignals
+    cython
+  ];
 
   checkPhase = ''
     make check

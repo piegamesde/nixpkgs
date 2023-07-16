@@ -104,7 +104,13 @@ let
     passthru = {
       updateScript = writeShellScript "update-${pname}" ''
         set -o errexit
-        export PATH="${lib.makeBinPath [ curl jq common-updater-scripts ]}"
+        export PATH="${
+          lib.makeBinPath [
+            curl
+            jq
+            common-updater-scripts
+          ]
+        }"
         NEW_VERSION=$(curl --silent https://blackfire.io/api/v1/releases | jq .probe.php --raw-output)
 
         if [[ "${version}" = "$NEW_VERSION" ]]; then

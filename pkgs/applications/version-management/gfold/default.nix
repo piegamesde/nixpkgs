@@ -26,7 +26,10 @@ in rustPlatform.buildRustPackage {
 
   cargoHash = "sha256-o7bUgm2SEDis6h+feUYE/Ew6pwbYCw/peRvb4c64TlM=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    libiconv
+    Security
+  ];
 
   passthru.tests.version = testers.testVersion {
     package = gfold;

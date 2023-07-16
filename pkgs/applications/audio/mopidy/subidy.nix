@@ -16,7 +16,10 @@ pythonPackages.buildPythonApplication rec {
     sha256 = "0c5ghhhrj5v3yp4zmll9ari6r5c6ha8c1izwqshvadn40b02q7xz";
   };
 
-  propagatedBuildInputs = [ mopidy pythonPackages.py-sonic ];
+  propagatedBuildInputs = [
+    mopidy
+    pythonPackages.py-sonic
+  ];
 
   nativeCheckInputs = with pythonPackages; [ pytestCheckHook ];
 

@@ -34,10 +34,20 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-KoFa6JzoEPT5/ns9X/hMfu8bOh29HD9n2qGJ3gzhiBA=";
   };
 
-  nativeBuildInputs = [ cmake rocm-cmake git ]
-    ++ lib.optionals buildDocs [ latex doxygen graphviz ];
+  nativeBuildInputs = [
+    cmake
+    rocm-cmake
+    git
+  ] ++ lib.optionals buildDocs [
+    latex
+    doxygen
+    graphviz
+  ];
 
-  buildInputs = [ rocm-comgr rocm-runtime ];
+  buildInputs = [
+    rocm-comgr
+    rocm-runtime
+  ];
 
   # Unfortunately, it seems like we have to call make on this manually
   postBuild = lib.optionalString buildDocs ''

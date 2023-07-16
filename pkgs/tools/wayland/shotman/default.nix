@@ -27,7 +27,10 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
 
   buildInputs = [ libxkbcommon ];
 

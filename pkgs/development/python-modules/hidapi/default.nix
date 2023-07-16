@@ -21,10 +21,14 @@ buildPythonPackage rec {
 
   nativeBuildInputs = lib.optionals stdenv.isDarwin [ xcbuild ];
 
-  propagatedBuildInputs = [ cython ]
-    ++ lib.optionals stdenv.isLinux [ libusb1 udev ]
-    ++ lib.optionals stdenv.isDarwin
-    (with darwin.apple_sdk.frameworks; [ AppKit CoreFoundation IOKit ]);
+  propagatedBuildInputs = [ cython ] ++ lib.optionals stdenv.isLinux [
+    libusb1
+    udev
+  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+    AppKit
+    CoreFoundation
+    IOKit
+  ]);
 
   # Fix the USB backend library lookup
   postPatch = lib.optionalString stdenv.isLinux ''
@@ -41,7 +45,13 @@ buildPythonPackage rec {
     homepage = "https://github.com/trezor/cython-hidapi";
     # license can actually be either bsd3 or gpl3
     # see https://github.com/trezor/cython-hidapi/blob/master/LICENSE-orig.txt
-    license = with licenses; [ bsd3 gpl3Only ];
-    maintainers = with maintainers; [ np prusnak ];
+    license = with licenses; [
+      bsd3
+      gpl3Only
+    ];
+    maintainers = with maintainers; [
+      np
+      prusnak
+    ];
   };
 }

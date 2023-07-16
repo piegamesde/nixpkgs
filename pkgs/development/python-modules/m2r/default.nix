@@ -32,7 +32,10 @@ buildPythonPackage rec {
       --replace "optional" "positional"
   '';
 
-  propagatedBuildInputs = [ mistune docutils ];
+  propagatedBuildInputs = [
+    mistune
+    docutils
+  ];
 
   nativeCheckInputs = [ pygments ];
 
@@ -40,7 +43,10 @@ buildPythonPackage rec {
     homepage = "https://github.com/miyakogi/m2r";
     description = "Markdown to reStructuredText converter";
     license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres SuperSandro2000 ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      SuperSandro2000
+    ];
     # https://github.com/miyakogi/m2r/issues/66
     broken = versionAtLeast mistune.version "2";
   };

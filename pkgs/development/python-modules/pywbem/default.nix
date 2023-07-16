@@ -35,8 +35,16 @@ buildPythonPackage rec {
     hash = "sha256-4mqwMkR17lMp10lx+UK0sxW2rA7a8njnDha1YDJ475g=";
   };
 
-  propagatedBuildInputs =
-    [ mock nocasedict nocaselist pbr ply pyyaml six yamlloader ];
+  propagatedBuildInputs = [
+    mock
+    nocasedict
+    nocaselist
+    pbr
+    ply
+    pyyaml
+    six
+    yamlloader
+  ];
 
   nativeCheckInputs = [
     decorator

@@ -19,14 +19,13 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-IDTAZmOzkUg0kLUM0oWuVbi8EwE4sEpLWrNAtq/he+g=";
   };
 
-  patches = [
-    (fetchpatch { # https://github.com/HRKings/pokemonsay-newgenerations/pull/5
+  patches =
+    [ (fetchpatch { # https://github.com/HRKings/pokemonsay-newgenerations/pull/5
       name = "word-wrap-fix.patch";
       url =
         "https://github.com/pbsds/pokemonsay-newgenerations/commit/7056d7ba689479a8e6c14ec000be1dfcd83afeb0.patch";
       hash = "sha256-aqUJkyJDWArLjChxLZ4BbC6XAB53LAqARzTvEAxrFCI=";
-    })
-  ];
+    }) ];
 
   postPatch = ''
     substituteInPlace pokemonsay.sh \

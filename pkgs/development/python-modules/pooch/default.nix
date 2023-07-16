@@ -26,7 +26,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ packaging appdirs requests ];
+  propagatedBuildInputs = [
+    packaging
+    appdirs
+    requests
+  ];
 
   preCheck = "HOME=$TMPDIR";
   nativeCheckInputs = [ pytestCheckHook ];

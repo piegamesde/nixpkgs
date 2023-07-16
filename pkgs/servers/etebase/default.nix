@@ -29,9 +29,15 @@ buildPythonPackage rec {
 
   patches = [ ./secret.patch ];
 
-  propagatedBuildInputs =
-    [ aiofiles django_3 fastapi msgpack pynacl redis typing-extensions ]
-    ++ lib.optional withLdap python-ldap ++ lib.optional withPostgres psycopg2;
+  propagatedBuildInputs = [
+    aiofiles
+    django_3
+    fastapi
+    msgpack
+    pynacl
+    redis
+    typing-extensions
+  ] ++ lib.optional withLdap python-ldap ++ lib.optional withPostgres psycopg2;
 
   installPhase = ''
     mkdir -p $out/bin $out/lib

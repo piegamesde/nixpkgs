@@ -144,7 +144,11 @@ in {
         '';
       };
       linkStyle = mkOption {
-        type = types.enum [ "original" "absolute" "relative" ];
+        type = types.enum [
+          "original"
+          "absolute"
+          "relative"
+        ];
         default = "relative";
         example = "absolute";
         description = lib.mdDoc "DNS name for the urls generated in the cgi.";
@@ -299,11 +303,11 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = !(cfg.sendmail != null && cfg.mailHost != "");
       message =
         "services.smokeping: sendmail and Mailhost cannot both be enabled.";
-    }];
+    } ];
     security.wrappers = {
       fping = {
         setuid = true;
@@ -355,7 +359,12 @@ in {
     systemd.services.thttpd = mkIf cfg.webService {
       requiredBy = [ "multi-user.target" ];
       requires = [ "smokeping.service" ];
-      path = with pkgs; [ bash rrdtool smokeping thttpd ];
+      path = with pkgs; [
+        bash
+        rrdtool
+        smokeping
+        thttpd
+      ];
       serviceConfig = {
         Restart = "always";
         ExecStart = lib.concatStringsSep " " (lib.concatLists [
@@ -371,6 +380,9 @@ in {
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ erictapen nh2 ];
+  meta.maintainers = with lib.maintainers; [
+    erictapen
+    nh2
+  ];
 }
 

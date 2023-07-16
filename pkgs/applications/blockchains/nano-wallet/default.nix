@@ -39,8 +39,16 @@ stdenv.mkDerivation rec {
     optionToFlag = name: value: "-D${name}=${value}";
   in lib.mapAttrsToList optionToFlag options;
 
-  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
-  buildInputs = [ boost libGL qtbase ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapQtAppsHook
+  ];
+  buildInputs = [
+    boost
+    libGL
+    qtbase
+  ];
 
   strictDeps = true;
 

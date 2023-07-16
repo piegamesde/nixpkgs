@@ -26,8 +26,11 @@ buildPythonPackage rec {
     hash = "sha256-dN9LlLpQ/ZoVIFrAQ1NxMvsHqWsgdJVLUIAFwkheEL4=";
   };
 
-  propagatedBuildInputs = [ mccabe pycodestyle pyflakes ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [
+    mccabe
+    pycodestyle
+    pyflakes
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   # Tests fail on Python 3.7 due to importlib using a deprecated interface
   doCheck = pythonAtLeast "3.7";

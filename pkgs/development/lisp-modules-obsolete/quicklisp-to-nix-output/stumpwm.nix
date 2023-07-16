@@ -8,7 +8,11 @@ args@{
 
   description = "A tiling, keyboard driven window manager";
 
-  deps = [ args."alexandria" args."cl-ppcre" args."clx" ];
+  deps = [
+    args."alexandria"
+    args."cl-ppcre"
+    args."clx"
+  ];
 
   src = fetchurl {
     url =

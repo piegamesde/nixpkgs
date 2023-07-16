@@ -24,7 +24,13 @@ stdenv.mkDerivation rec {
     sed -i -e '/sys\/types\.h>/a #include <sys/sysmacros.h>' diod/ops.c
   '';
 
-  buildInputs = [ munge lua libcap perl ncurses ];
+  buildInputs = [
+    munge
+    lua
+    libcap
+    perl
+    ncurses
+  ];
 
   meta = with lib; {
     description =

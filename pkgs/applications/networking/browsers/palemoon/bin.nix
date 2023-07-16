@@ -41,62 +41,78 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ autoPatchelfHook copyDesktopItems wrapGAppsHook ];
-
-  buildInputs = [ alsa-lib dbus-glib gtk2-x11 libXt stdenv.cc.cc.lib ]
-    ++ lib.optionals withGTK3 [ gtk3 ];
-
-  desktopItems = [
-    (makeDesktopItem rec {
-      name = pname;
-      desktopName = "Pale Moon Web Browser";
-      comment = "Browse the World Wide Web";
-      keywords = [ "Internet" "WWW" "Browser" "Web" "Explorer" ];
-      exec = "palemoon %u";
-      terminal = false;
-      type = "Application";
-      icon = "palemoon";
-      categories = [ "Network" "WebBrowser" ];
-      mimeTypes = [
-        "text/html"
-        "text/xml"
-        "application/xhtml+xml"
-        "application/xml"
-        "application/rss+xml"
-        "application/rdf+xml"
-        "image/gif"
-        "image/jpeg"
-        "image/png"
-        "x-scheme-handler/http"
-        "x-scheme-handler/https"
-        "x-scheme-handler/ftp"
-        "x-scheme-handler/chrome"
-        "video/webm"
-        "application/x-xpinstall"
-      ];
-      startupNotify = true;
-      startupWMClass = "Pale moon";
-      extraConfig = { X-MultipleArgs = "false"; };
-      actions = {
-        "NewTab" = {
-          name = "Open new tab";
-          exec = "palemoon -new-tab https://start.palemoon.org";
-        };
-        "NewWindow" = {
-          name = "Open new window";
-          exec = "palemoon -new-window";
-        };
-        "NewPrivateWindow" = {
-          name = "Open new private window";
-          exec = "palemoon -private-window";
-        };
-        "ProfileManager" = {
-          name = "Open the Profile Manager";
-          exec = "palemoon --ProfileManager";
-        };
-      };
-    })
+  nativeBuildInputs = [
+    autoPatchelfHook
+    copyDesktopItems
+    wrapGAppsHook
   ];
+
+  buildInputs = [
+    alsa-lib
+    dbus-glib
+    gtk2-x11
+    libXt
+    stdenv.cc.cc.lib
+  ] ++ lib.optionals withGTK3 [ gtk3 ];
+
+  desktopItems = [ (makeDesktopItem rec {
+    name = pname;
+    desktopName = "Pale Moon Web Browser";
+    comment = "Browse the World Wide Web";
+    keywords = [
+      "Internet"
+      "WWW"
+      "Browser"
+      "Web"
+      "Explorer"
+    ];
+    exec = "palemoon %u";
+    terminal = false;
+    type = "Application";
+    icon = "palemoon";
+    categories = [
+      "Network"
+      "WebBrowser"
+    ];
+    mimeTypes = [
+      "text/html"
+      "text/xml"
+      "application/xhtml+xml"
+      "application/xml"
+      "application/rss+xml"
+      "application/rdf+xml"
+      "image/gif"
+      "image/jpeg"
+      "image/png"
+      "x-scheme-handler/http"
+      "x-scheme-handler/https"
+      "x-scheme-handler/ftp"
+      "x-scheme-handler/chrome"
+      "video/webm"
+      "application/x-xpinstall"
+    ];
+    startupNotify = true;
+    startupWMClass = "Pale moon";
+    extraConfig = { X-MultipleArgs = "false"; };
+    actions = {
+      "NewTab" = {
+        name = "Open new tab";
+        exec = "palemoon -new-tab https://start.palemoon.org";
+      };
+      "NewWindow" = {
+        name = "Open new window";
+        exec = "palemoon -new-window";
+      };
+      "NewPrivateWindow" = {
+        name = "Open new private window";
+        exec = "palemoon -private-window";
+      };
+      "ProfileManager" = {
+        name = "Open the Profile Manager";
+        exec = "palemoon --ProfileManager";
+      };
+    };
+  }) ];
 
   dontConfigure = true;
   dontBuild = true;
@@ -134,7 +150,10 @@ stdenv.mkDerivation rec {
     # Make optional dependencies available
     gappsWrapperArgs+=(
       --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [ ffmpeg libpulseaudio ]
+        lib.makeLibraryPath [
+          ffmpeg
+          libpulseaudio
+        ]
       }"
     )
     wrapGApp $out/lib/palemoon/palemoon
@@ -166,7 +185,10 @@ stdenv.mkDerivation rec {
         # TODO free, redistributable? Has strict limitations on what modifications may be done & shipped by packagers
       }
     ];
-    maintainers = with maintainers; [ AndersonTorres OPNA2608 ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      OPNA2608
+    ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     mainProgram = "palemoon";
     platforms = [ "x86_64-linux" ];

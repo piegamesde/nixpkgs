@@ -15,7 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-5XkVT0blnLG158a01jDfQl1Rx9U1LMsqaMjTdN7Q4QQ=";
   };
 
-  propagatedBuildInputs = [ pygithub python-gitlab ];
+  propagatedBuildInputs = [
+    pygithub
+    python-gitlab
+  ];
 
   doCheck = false;
 

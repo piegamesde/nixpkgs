@@ -22,7 +22,12 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--with-ssl=openssl" ];
 
-  propagatedBuildInputs = [ openssl libidn glib zlib ];
+  propagatedBuildInputs = [
+    openssl
+    libidn
+    glib
+    zlib
+  ];
 
   nativeBuildInputs = [ pkg-config ];
 

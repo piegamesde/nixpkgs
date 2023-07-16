@@ -10,7 +10,10 @@ buildPythonPackage rec {
   inherit (flit) version;
   format = "pyproject";
 
-  outputs = [ "out" "testsout" ];
+  outputs = [
+    "out"
+    "testsout"
+  ];
 
   inherit (flit) src patches;
 
@@ -36,6 +39,9 @@ buildPythonPackage rec {
       "Distribution-building parts of Flit. See flit package for more information";
     homepage = "https://github.com/pypa/flit";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fridh SuperSandro2000 ];
+    maintainers = with maintainers; [
+      fridh
+      SuperSandro2000
+    ];
   };
 }

@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ boost librevenge zlib ];
+  buildInputs = [
+    boost
+    librevenge
+    zlib
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-fallthrough";
 

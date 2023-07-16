@@ -31,7 +31,10 @@ buildPythonPackage rec {
   ];
 
   propagatedBuildInputs = [ scikit-learn ];
-  nativeCheckInputs = [ pytest-randomly pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-randomly
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace setup.py --replace sklearn scikit-learn

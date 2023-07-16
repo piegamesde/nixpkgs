@@ -2,7 +2,7 @@
 let
   prefix =
     "https://sources.debian.org/data/main/g/gamin/0.1.10-4.1/debian/patches";
-in [{
+in [ {
   url = "${prefix}/17_deprecated_const_return.patch";
   sha256 = "0bssrqcmyivlpk2g0q71d1yavd4wv1lw34l8qipm0ndljjd6rbrk";
-}]
+} ]

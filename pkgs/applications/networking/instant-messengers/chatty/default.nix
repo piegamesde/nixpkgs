@@ -88,7 +88,10 @@ stdenv.mkDerivation rec {
     homepage = "https://source.puri.sm/Librem5/chatty";
     changelog = "https://source.puri.sm/Librem5/chatty/-/blob/${src.rev}/NEWS";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda tomfitzhenry ];
+    maintainers = with maintainers; [
+      dotlambda
+      tomfitzhenry
+    ];
     platforms = platforms.linux;
   };
 }

@@ -29,9 +29,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs =
-    [ autocommand jaraco-context jaraco_functools inflect ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  propagatedBuildInputs = [
+    autocommand
+    jaraco-context
+    jaraco_functools
+    inflect
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
   nativeCheckInputs = [ pytestCheckHook ]
     ++ lib.optionals (pythonOlder "3.10") [ pathlib2 ];

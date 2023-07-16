@@ -41,9 +41,17 @@ stdenv.mkDerivation rec {
     gtk3
   ];
 
-  buildInputs = [ gtk3 python3.pkgs.gatt gobject-introspection ];
+  buildInputs = [
+    gtk3
+    python3.pkgs.gatt
+    gobject-introspection
+  ];
 
-  pythonPath = with python3.pkgs; [ gatt pybluez requests ];
+  pythonPath = with python3.pkgs; [
+    gatt
+    pybluez
+    requests
+  ];
 
   preFixup = ''
     buildPythonPath "$out $pythonPath"

@@ -49,7 +49,10 @@ stdenv.mkDerivation rec {
     substituteInPlace CMakeLists.txt --replace "-march=x86-64" ""
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     boost
@@ -66,7 +69,11 @@ stdenv.mkDerivation rec {
     protobuf
     readline
     easyloggingpp
-  ] ++ lib.optionals trezorSupport [ libusb1 protobuf python3 ];
+  ] ++ lib.optionals trezorSupport [
+    libusb1
+    protobuf
+    python3
+  ];
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"
@@ -77,7 +84,10 @@ stdenv.mkDerivation rec {
     "-DRandomX_ROOT_DIR=${randomx}"
   ] ++ lib.optional stdenv.isDarwin "-DBoost_USE_MULTITHREADED=OFF";
 
-  outputs = [ "out" "source" ];
+  outputs = [
+    "out"
+    "source"
+  ];
 
   meta = with lib; {
     description =

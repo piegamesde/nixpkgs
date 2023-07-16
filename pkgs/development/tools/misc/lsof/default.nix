@@ -30,7 +30,10 @@ in stdenv.mkDerivation rec {
   '';
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ perl which ];
+  nativeBuildInputs = [
+    perl
+    which
+  ];
   buildInputs = [ ncurses ];
 
   # Stop build scripts from searching global include paths

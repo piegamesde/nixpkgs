@@ -26,16 +26,21 @@ buildPythonPackage rec {
     hash = "sha256-Vu7oXC1brsgBwr2q59TAgx8j1AFRbi5mjRNIWZTbkUU=";
   };
 
-  propagatedBuildInputs = [ six twisted pyopenssl ]
-    ++ twisted.optional-dependencies.tls;
+  propagatedBuildInputs = [
+    six
+    twisted
+    pyopenssl
+  ] ++ twisted.optional-dependencies.tls;
 
   passthru.optional-dependencies = {
     i2p = [ txi2p-tahoe ];
     tor = [ txtorcon ];
   };
 
-  nativeCheckInputs = [ mock pytestCheckHook ]
-    ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
   pythonImportsCheck = [ "foolscap" ];
 

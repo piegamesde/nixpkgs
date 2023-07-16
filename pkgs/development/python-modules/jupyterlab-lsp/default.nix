@@ -15,7 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-1VPRfs+F24h2xJeoJglZQpuCcPDk6Ptf8cWrAW3G5to=";
   };
 
-  propagatedBuildInputs = [ jupyterlab jupyter-lsp ];
+  propagatedBuildInputs = [
+    jupyterlab
+    jupyter-lsp
+  ];
   # No tests
   doCheck = false;
   pythonImportsCheck = [ "jupyterlab_lsp" ];

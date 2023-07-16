@@ -20,7 +20,10 @@
     version = "1.0.0";
   };
   pry = {
-    dependencies = [ "coderay" "method_source" ];
+    dependencies = [
+      "coderay"
+      "method_source"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

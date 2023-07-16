@@ -17,7 +17,10 @@ stdenv.mkDerivation {
     sha256 = "0akrdca4jjdkfdya36vy1y5vzimrc4pp5jm24rmlw8hbqxvj72ri";
   };
 
-  buildInputs = [ systemd libxml2 ];
+  buildInputs = [
+    systemd
+    libxml2
+  ];
 
   installPhase = ''
     runHook preInstall

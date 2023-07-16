@@ -28,8 +28,10 @@ let
   # List of known build systems that are passed through from nixpkgs unmodified
   knownBuildSystems =
     builtins.fromJSON (builtins.readFile ./known-build-systems.json);
-  nixpkgsBuildSystems =
-    lib.subtractLists [ "poetry" "poetry-core" ] knownBuildSystems;
+  nixpkgsBuildSystems = lib.subtractLists [
+    "poetry"
+    "poetry-core"
+  ] knownBuildSystems;
 
   mkInputAttrs = {
       py,
@@ -38,9 +40,7 @@ let
       includeBuildSystem ? true,
       groups ? [ ],
       checkGroups ? [ "dev" ],
-      extras ? [
-        "*"
-      ] # * means all extras, otherwise include the dependencies for a given extra
+      extras ? [ "*" ] # * means all extras, otherwise include the dependencies for a given extra
     }:
     let
       getInputs = attr: attrs.${attr} or [ ];
@@ -184,12 +184,15 @@ in lib.makeScope pkgs.newScope (self: {
       poetryLock = readTOML poetrylock;
 
       # Lock file version 1.1 files
-      lockFiles =
-        let lockfiles = lib.getAttrFromPath [ "metadata" "files" ] poetryLock;
-        in lib.listToAttrs (lib.mapAttrsToList (n: v: {
-          name = normalizePackageName n;
-          value = v;
-        }) lockfiles);
+      lockFiles = let
+        lockfiles = lib.getAttrFromPath [
+          "metadata"
+          "files"
+        ] poetryLock;
+      in lib.listToAttrs (lib.mapAttrsToList (n: v: {
+        name = normalizePackageName n;
+        value = v;
+      }) lockfiles);
 
       evalPep508 = mkEvalPep508 python;
 
@@ -291,8 +294,7 @@ in lib.makeScope pkgs.newScope (self: {
       ] ++ # User provided overrides
         (if builtins.typeOf overrides == "list" then
           overrides
-        else
-          [ overrides ]));
+        else [ overrides ]));
       packageOverrides =
         lib.foldr lib.composeExtensions (self: super: { }) overlays;
       py = python.override {
@@ -529,6 +531,9 @@ in lib.makeScope pkgs.newScope (self: {
     /* Returns the specified overlay and returns a list
        combining it with poetry2nix default overrides
     */
-    withDefaults = overlay: [ overlay self.defaultPoetryOverrides ];
+    withDefaults = overlay: [
+      overlay
+      self.defaultPoetryOverrides
+    ];
   };
 })

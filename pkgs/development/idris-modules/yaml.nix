@@ -10,7 +10,10 @@ build-idris-package {
   version = "2018-01-25";
 
   ipkgName = "Yaml";
-  idrisDeps = [ contrib lightyear ];
+  idrisDeps = [
+    contrib
+    lightyear
+  ];
 
   src = fetchFromGitHub {
     owner = "Heather";

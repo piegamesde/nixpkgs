@@ -20,13 +20,21 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  propagatedBuildInputs = [ azure-common azure-mgmt-core msrest msrestazure ];
+  propagatedBuildInputs = [
+    azure-common
+    azure-mgmt-core
+    msrest
+    msrestazure
+  ];
 
   # no tests included
   doCheck = false;
 
-  pythonImportsCheck =
-    [ "azure.common" "azure.mgmt.core" "azure.mgmt.imagebuilder" ];
+  pythonImportsCheck = [
+    "azure.common"
+    "azure.mgmt.core"
+    "azure.mgmt.imagebuilder"
+  ];
 
   meta = with lib; {
     description = "Microsoft Azure Image Builder Client Library for Python";

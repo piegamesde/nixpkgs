@@ -22,8 +22,13 @@ buildPythonPackage rec {
     sha256 = "bfacdcadd7903ed6afce6168e1977e473b431677b358f8fd42e80b48cedd19ab";
   };
 
-  propagatedBuildInputs =
-    [ cached-property chevron frozendict pystache pyyaml ];
+  propagatedBuildInputs = [
+    cached-property
+    chevron
+    frozendict
+    pystache
+    pyyaml
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

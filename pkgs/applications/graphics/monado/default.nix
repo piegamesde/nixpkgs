@@ -60,7 +60,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zieJmI6BKHpYyCPOOUora9qoWn+NXehbHKvoi4h81UA=";
   };
 
-  nativeBuildInputs = [ cmake doxygen glslang pkg-config python3 ];
+  nativeBuildInputs = [
+    cmake
+    doxygen
+    glslang
+    pkg-config
+    python3
+  ];
 
   cmakeFlags = [
     "-DXRT_FEATURE_SERVICE=${if serviceSupport then "ON" else "OFF"}"
@@ -120,7 +126,10 @@ stdenv.mkDerivation rec {
     description = "Open source XR runtime";
     homepage = "https://monado.freedesktop.org/";
     license = licenses.boost;
-    maintainers = with maintainers; [ expipiplus1 prusnak ];
+    maintainers = with maintainers; [
+      expipiplus1
+      prusnak
+    ];
     platforms = platforms.linux;
     mainProgram = "monado-cli";
   };

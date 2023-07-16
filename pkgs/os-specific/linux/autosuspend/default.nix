@@ -20,7 +20,11 @@ python3.pkgs.buildPythonApplication rec {
       --replace '--cov-config=setup.cfg' ""
   '';
 
-  propagatedBuildInputs = with python3.pkgs; [ portalocker psutil dbus-python ];
+  propagatedBuildInputs = with python3.pkgs; [
+    portalocker
+    psutil
+    dbus-python
+  ];
 
   nativeCheckInputs = with python3.pkgs; [
     pytestCheckHook
@@ -40,7 +44,10 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   # Disable tests that need root
-  disabledTests = [ "test_smoke" "test_multiple_sessions" ];
+  disabledTests = [
+    "test_smoke"
+    "test_multiple_sessions"
+  ];
 
   doCheck = true;
 

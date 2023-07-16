@@ -37,7 +37,10 @@ buildPythonApplication rec {
 
   nativeCheckInputs = [ git ];
 
-  checkInputs = [ pytestCheckHook pytest-mock ];
+  checkInputs = [
+    pytestCheckHook
+    pytest-mock
+  ];
 
   disabledTests = [ "pycodestyle" ];
 

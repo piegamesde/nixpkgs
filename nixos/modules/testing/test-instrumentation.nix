@@ -19,10 +19,14 @@ in {
 
     systemd.services.backdoor = {
       wantedBy = [ "multi-user.target" ];
-      requires =
-        [ "dev-hvc0.device" "dev-${qemu-common.qemuSerialDevice}.device" ];
-      after =
-        [ "dev-hvc0.device" "dev-${qemu-common.qemuSerialDevice}.device" ];
+      requires = [
+        "dev-hvc0.device"
+        "dev-${qemu-common.qemuSerialDevice}.device"
+      ];
+      after = [
+        "dev-hvc0.device"
+        "dev-${qemu-common.qemuSerialDevice}.device"
+      ];
       script = ''
         export USER=root
         export HOME=/root

@@ -32,9 +32,19 @@ in stdenv.mkDerivation rec {
       --replace ' -dylib_file $GL_DYLIB: $GL_DYLIB' ""
   '';
 
-  nativeBuildInputs = [ autoreconfHook doxygen pkg-config ];
-  buildInputs = [ freetype ]
-    ++ (if stdenv.isDarwin then [ OpenGL GLUT ] else [ libGL libGLU freeglut ]);
+  nativeBuildInputs = [
+    autoreconfHook
+    doxygen
+    pkg-config
+  ];
+  buildInputs = [ freetype ] ++ (if stdenv.isDarwin then [
+    OpenGL
+    GLUT
+  ] else [
+    libGL
+    libGLU
+    freeglut
+  ]);
 
   configureFlags = [ "--with-ft-prefix=${lib.getDev freetype}" ];
 

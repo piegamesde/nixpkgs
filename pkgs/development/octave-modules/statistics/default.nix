@@ -20,7 +20,10 @@ buildOctavePackage rec {
 
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/statistics/index.html";
-    license = with licenses; [ gpl3Plus publicDomain ];
+    license = with licenses; [
+      gpl3Plus
+      publicDomain
+    ];
     maintainers = with maintainers; [ KarlJoad ];
     description = "Additional statistics functions for Octave";
   };

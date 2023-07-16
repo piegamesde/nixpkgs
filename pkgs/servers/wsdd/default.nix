@@ -19,9 +19,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-xfZVGi3OxuRI+Zh6L3Ru4J4j5BB1EAN3fllRCVA/c5o=";
   };
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
-  nativeBuildInputs = [ installShellFiles makeWrapper ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+  ];
 
   buildInputs = [ python3 ];
 

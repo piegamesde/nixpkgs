@@ -15,7 +15,10 @@ buildPythonPackage rec {
     sha256 = "f9b614112dc8248af3d03b989da4aeca70e747d32fe7e6fce9512945365e3f83";
   };
 
-  buildInputs = [ pyasn1 pycrypto ];
+  buildInputs = [
+    pyasn1
+    pycrypto
+  ];
 
   meta = with lib; {
     description = "Toolkit for safe and simple cryptography";

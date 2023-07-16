@@ -22,7 +22,10 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ libmilter ];
-  propagatedBuildInputs = [ bsddb3 pydns ];
+  propagatedBuildInputs = [
+    bsddb3
+    pydns
+  ];
 
   preBuild = ''
     sed -i 's/import thread/import _thread as thread/' Milter/greylist.py

@@ -30,19 +30,29 @@ stdenv.mkDerivation rec {
 
   patches = [ ./gnu-install-dirs.patch ];
 
-  nativeBuildInputs = [ cmake ninja ];
-  buildInputs = [ libllvm libxml2 ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
+  buildInputs = [
+    libllvm
+    libxml2
+  ];
 
   cmakeFlags =
     [ "-DLLD_INSTALL_PACKAGE_DIR=${placeholder "dev"}/lib/cmake/lld" ]
-    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-    [ "-DLLVM_TABLEGEN_EXE=${buildLlvmTools.llvm}/bin/llvm-tblgen" ];
+    ++ lib.optionals (stdenv.hostPlatform
+      != stdenv.buildPlatform) [ "-DLLVM_TABLEGEN_EXE=${buildLlvmTools.llvm}/bin/llvm-tblgen" ];
 
   # Musl's default stack size is too small for lld to be able to link Firefox.
   LDFLAGS =
     lib.optionalString stdenv.hostPlatform.isMusl "-Wl,-z,stack-size=2097152";
 
-  outputs = [ "out" "lib" "dev" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+  ];
 
   meta = llvm_meta // {
     homepage = "https://lld.llvm.org/";

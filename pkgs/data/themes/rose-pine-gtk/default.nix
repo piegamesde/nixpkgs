@@ -23,9 +23,8 @@ stdenvNoCC.mkDerivation rec {
     gtk_engines # pixmap engine for Gtk2
   ];
 
-  propagatedUserEnvPkgs = [
-    gtk-engine-murrine # murrine engine for Gtk2
-  ];
+  propagatedUserEnvPkgs = [ gtk-engine-murrine # murrine engine for Gtk2
+    ];
 
   # avoid the makefile which is only for theme maintainers
   dontBuild = true;
@@ -47,6 +46,9 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/rose-pine/gtk";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ romildo the-argus ];
+    maintainers = with maintainers; [
+      romildo
+      the-argus
+    ];
   };
 }

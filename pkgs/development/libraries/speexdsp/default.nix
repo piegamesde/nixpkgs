@@ -21,9 +21,16 @@ stdenv.mkDerivation rec {
   postPatch =
     "sed '3i#include <stdint.h>' -i ./include/speex/speexdsp_config_types.h.in";
 
-  outputs = [ "out" "dev" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
   buildInputs = [ fftw ];
 
   configureFlags = [ "--with-fft=gpl-fftw3" ]

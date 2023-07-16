@@ -9,5 +9,9 @@
 mkDerivation {
   pname = "plasma-thunderbolt";
   nativeBuildInputs = [ extra-cmake-modules ];
-  buildInputs = [ kcmutils kcoreaddons bolt ];
+  buildInputs = [
+    kcmutils
+    kcoreaddons
+    bolt
+  ];
 }

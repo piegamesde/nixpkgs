@@ -22,8 +22,19 @@ buildPythonPackage rec {
     hash = "sha256-fjNbNY/Dr7lgVGPrHJTvPGuhyPR6IVS7ohBQMI+J1+k=";
   };
 
-  propagatedBuildInputs = [ numpy torch scikit-learn scipy tabulate tqdm ];
-  nativeCheckInputs = [ flaky pandas pytestCheckHook ];
+  propagatedBuildInputs = [
+    numpy
+    torch
+    scikit-learn
+    scipy
+    tabulate
+    tqdm
+  ];
+  nativeCheckInputs = [
+    flaky
+    pandas
+    pytestCheckHook
+  ];
 
   # patch out pytest-cov dep/invocation
   postPatch = ''

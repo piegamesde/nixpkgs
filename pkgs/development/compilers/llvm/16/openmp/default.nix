@@ -28,15 +28,28 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/${pname}";
 
-  patches =
-    [ ./fix-find-tool.patch ./gnu-install-dirs.patch ./run-lit-directly.patch ];
-
-  outputs = [ "out" "dev" ];
-
-  nativeBuildInputs = [ cmake ninja perl pkg-config lit ];
-  buildInputs = [
-    (if stdenv.buildPlatform == stdenv.hostPlatform then llvm else targetLlvm)
+  patches = [
+    ./fix-find-tool.patch
+    ./gnu-install-dirs.patch
+    ./run-lit-directly.patch
   ];
+
+  outputs = [
+    "out"
+    "dev"
+  ];
+
+  nativeBuildInputs = [
+    cmake
+    ninja
+    perl
+    pkg-config
+    lit
+  ];
+  buildInputs = [ (if stdenv.buildPlatform == stdenv.hostPlatform then
+    llvm
+  else
+    targetLlvm) ];
 
   nativeCheckInputs = lib.optional stdenv.hostPlatform.isDarwin xcbuild.xcrun;
 
@@ -67,6 +80,9 @@ stdenv.mkDerivation rec {
     '';
     # "All of the code is dual licensed under the MIT license and the UIUC
     # License (a BSD-like license)":
-    license = with lib.licenses; [ mit ncsa ];
+    license = with lib.licenses; [
+      mit
+      ncsa
+    ];
   };
 }

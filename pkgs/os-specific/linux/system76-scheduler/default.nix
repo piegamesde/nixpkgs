@@ -23,8 +23,15 @@ in rustPlatform.buildRustPackage {
   };
   cargoSha256 = "sha256-hpFDAhOzm4v3lBWwAl/10pS5xvKCScdKsp5wpCeQ+FE=";
 
-  nativeBuildInputs = [ pkg-config llvm clang ];
-  buildInputs = [ dbus pipewire ];
+  nativeBuildInputs = [
+    pkg-config
+    llvm
+    clang
+  ];
+  buildInputs = [
+    dbus
+    pipewire
+  ];
 
   LIBCLANG_PATH = "${libclang.lib}/lib";
   EXECSNOOP_PATH = "${bcc}/bin/execsnoop";
@@ -42,7 +49,11 @@ in rustPlatform.buildRustPackage {
     description = "System76 Scheduler";
     homepage = "https://github.com/pop-os/system76-scheduler";
     license = licenses.mpl20;
-    platforms = [ "x86_64-linux" "x86-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "x86-linux"
+      "aarch64-linux"
+    ];
     maintainers = [ maintainers.cmm ];
   };
 }

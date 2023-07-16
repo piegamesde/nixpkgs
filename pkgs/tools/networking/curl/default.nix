@@ -88,14 +88,23 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [ ./7.79.1-darwin-no-systemconfiguration.patch ];
 
-  outputs = [ "bin" "dev" "out" "man" "devdoc" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "man"
+    "devdoc"
+  ];
   separateDebugInfo = stdenv.isLinux;
 
   enableParallelBuilding = true;
 
   strictDeps = true;
 
-  nativeBuildInputs = [ pkg-config perl ];
+  nativeBuildInputs = [
+    pkg-config
+    perl
+  ];
 
   # Zlib and OpenSSL must be propagated because `libcurl.la' contains
   # "-lz -lssl", which aren't necessary direct build inputs of
@@ -104,12 +113,14 @@ stdenv.mkDerivation (finalAttrs: {
     optional brotliSupport brotli ++ optional c-aresSupport c-aresMinimal
     ++ optional gnutlsSupport gnutls ++ optional gsaslSupport gsasl
     ++ optional gssSupport libkrb5 ++ optional http2Support nghttp2
-    ++ optionals http3Support [ nghttp3 ngtcp2 ] ++ optional idnSupport libidn2
-    ++ optional ldapSupport openldap ++ optional opensslSupport openssl
-    ++ optional pslSupport libpsl ++ optional rtmpSupport rtmpdump
-    ++ optional scpSupport libssh2 ++ optional wolfsslSupport wolfssl
-    ++ optional rustlsSupport rustls-ffi ++ optional zlibSupport zlib
-    ++ optional zstdSupport zstd;
+    ++ optionals http3Support [
+      nghttp3
+      ngtcp2
+    ] ++ optional idnSupport libidn2 ++ optional ldapSupport openldap
+    ++ optional opensslSupport openssl ++ optional pslSupport libpsl
+    ++ optional rtmpSupport rtmpdump ++ optional scpSupport libssh2
+    ++ optional wolfsslSupport wolfssl ++ optional rustlsSupport rustls-ffi
+    ++ optional zlibSupport zlib ++ optional zstdSupport zstd;
 
   # for the second line see https://curl.haxx.se/mail/tracker-2014-03/0087.html
   preConfigure = ''
@@ -148,9 +159,8 @@ stdenv.mkDerivation (finalAttrs: {
       # Without this curl might detect /etc/ssl/cert.pem at build time on macOS, causing curl to ignore NIX_SSL_CERT_FILE.
       "--without-ca-bundle"
       "--without-ca-path"
-    ] ++ lib.optionals
-    (!gnutlsSupport && !opensslSupport && !wolfsslSupport && !rustlsSupport)
-    [ "--without-ssl" ];
+    ] ++ lib.optionals (!gnutlsSupport && !opensslSupport && !wolfsslSupport
+      && !rustlsSupport) [ "--without-ssl" ];
 
   CXX = "${stdenv.cc.targetPrefix}c++";
   CXXCPP = "${stdenv.cc.targetPrefix}c++ -E";

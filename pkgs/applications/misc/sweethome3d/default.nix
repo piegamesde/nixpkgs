@@ -52,7 +52,11 @@ let
         icon = pname;
         comment = description;
         genericName = "Computer Aided (Interior) Design";
-        categories = [ "Graphics" "2DGraphics" "3DGraphics" ];
+        categories = [
+          "Graphics"
+          "2DGraphics"
+          "3DGraphics"
+        ];
       };
 
       postPatch = ''
@@ -65,9 +69,19 @@ let
         find . -name '*.so' | xargs strings | { grep '/nix/store' || :; } >> ./.jar-paths
       '';
 
-      nativeBuildInputs = [ makeWrapper unzip autoPatchelfHook ];
-      buildInputs =
-        [ ant jdk8 p7zip gtk3 gsettings-desktop-schemas libXxf86vm ];
+      nativeBuildInputs = [
+        makeWrapper
+        unzip
+        autoPatchelfHook
+      ];
+      buildInputs = [
+        ant
+        jdk8
+        p7zip
+        gtk3
+        gsettings-desktop-schemas
+        libXxf86vm
+      ];
 
       buildPhase = ''
         runHook preBuild

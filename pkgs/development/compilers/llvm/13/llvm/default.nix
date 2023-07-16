@@ -67,14 +67,25 @@ in stdenv.mkDerivation (rec {
   inherit src;
   sourceRoot = "source/${pname}";
 
-  outputs = [ "out" "lib" "dev" "python" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "python"
+  ];
 
-  nativeBuildInputs = [ cmake python ] ++ optionals enableManpages [
+  nativeBuildInputs = [
+    cmake
+    python
+  ] ++ optionals enableManpages [
     python3.pkgs.sphinx
     python3.pkgs.recommonmark
   ];
 
-  buildInputs = [ libxml2 libffi ] ++ optional enablePFM libpfm; # exegesis
+  buildInputs = [
+    libxml2
+    libffi
+  ] ++ optional enablePFM libpfm; # exegesis
 
   propagatedBuildInputs =
     optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ ncurses ]
@@ -186,8 +197,9 @@ in stdenv.mkDerivation (rec {
       "-DSPHINX_OUTPUT_MAN=ON"
       "-DSPHINX_OUTPUT_HTML=OFF"
       "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
-    ] ++ optionals (enableGoldPlugin)
-    [ "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include" ] ++ optionals isDarwin [
+    ] ++ optionals
+    (enableGoldPlugin) [ "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include" ]
+    ++ optionals isDarwin [
       "-DLLVM_ENABLE_LIBCXX=ON"
       "-DCAN_TARGET_i386=false"
     ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [

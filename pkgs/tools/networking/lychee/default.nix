@@ -32,7 +32,10 @@ rustPlatform.buildRustPackage rec {
     description =
       "A fast, async, resource-friendly link checker written in Rust.";
     homepage = "https://github.com/lycheeverse/lychee";
-    license = with licenses; [ asl20 mit ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
     maintainers = with maintainers; [ tuxinaut ];
   };
 }

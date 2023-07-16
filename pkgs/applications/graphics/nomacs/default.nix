@@ -45,10 +45,22 @@ mkDerivation rec {
     sourceRoot=$(echo */ImageLounge)
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs =
-    [ qtbase qttools qtsvg qtimageformats exiv2 opencv4 libraw libtiff quazip ];
+  buildInputs = [
+    qtbase
+    qttools
+    qtsvg
+    qtimageformats
+    exiv2
+    opencv4
+    libraw
+    libtiff
+    quazip
+  ];
 
   cmakeFlags = [
     "-DENABLE_OPENCV=ON"

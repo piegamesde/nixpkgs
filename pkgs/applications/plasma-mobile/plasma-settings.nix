@@ -28,7 +28,10 @@
 mkDerivation rec {
   pname = "plasma-settings";
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
   buildInputs = [
     kauth

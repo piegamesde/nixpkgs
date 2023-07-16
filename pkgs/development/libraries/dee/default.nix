@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
   pname = "dee";
   version = "unstable-2017-06-16";
 
-  outputs = [ "out" "dev" "py" ];
+  outputs = [
+    "out"
+    "dev"
+    "py"
+  ];
 
   src = fetchgit {
     url = "https://git.launchpad.net/ubuntu/+source/dee";
@@ -40,10 +44,19 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs =
-    [ pkg-config vala autoreconfHook gobject-introspection python3 ];
+  nativeBuildInputs = [
+    pkg-config
+    vala
+    autoreconfHook
+    gobject-introspection
+    python3
+  ];
 
-  buildInputs = [ glib icu dbus-glib ];
+  buildInputs = [
+    glib
+    icu
+    dbus-glib
+  ];
 
   configureFlags = [
     "--disable-gtk-doc"

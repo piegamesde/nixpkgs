@@ -1,7 +1,13 @@
 {
   git_fame = {
-    dependencies =
-      [ "hirb" "memoist" "method_profiler" "progressbar" "scrub_rb" "trollop" ];
+    dependencies = [
+      "hirb"
+      "memoist"
+      "method_profiler"
+      "progressbar"
+      "scrub_rb"
+      "trollop"
+    ];
     source = {
       remotes = [ "https://rubygems.org" ];
       sha256 = "02k5ls5zyif8skdbnym6zw9y76whlnksw2m94jsh2n1ygk98izdd";

@@ -75,16 +75,34 @@ let
 
     CC_host = "cc";
     CXX_host = "c++";
-    depsBuildBuild = [ buildPackages.stdenv.cc openssl libuv zlib ];
+    depsBuildBuild = [
+      buildPackages.stdenv.cc
+      openssl
+      libuv
+      zlib
+    ];
 
-    buildInputs =
-      lib.optionals stdenv.isDarwin [ CoreServices ApplicationServices ]
-      ++ [ zlib libuv openssl http-parser icu ];
+    buildInputs = lib.optionals stdenv.isDarwin [
+      CoreServices
+      ApplicationServices
+    ] ++ [
+      zlib
+      libuv
+      openssl
+      http-parser
+      icu
+    ];
 
-    nativeBuildInputs = [ which pkg-config python ]
-      ++ lib.optionals stdenv.isDarwin [ xcbuild ];
+    nativeBuildInputs = [
+      which
+      pkg-config
+      python
+    ] ++ lib.optionals stdenv.isDarwin [ xcbuild ];
 
-    outputs = [ "out" "libv8" ];
+    outputs = [
+      "out"
+      "libv8"
+    ];
     setOutputFlags = false;
     moveToDev = false;
 
@@ -124,10 +142,10 @@ let
         else
           throw "unsupported cpu ${stdenv.hostPlatform.uname.processor}"
       }"
-    ]) ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "fpu" gcc)
-      [ "--with-arm-fpu=${gcc.fpu}" ])
-    ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "float-abi" gcc)
-      [ "--with-arm-float-abi=${gcc.float-abi}" ]) ++ extraConfigFlags;
+    ]) ++ (lib.optionals (isCross && isAarch32
+      && lib.hasAttr "fpu" gcc) [ "--with-arm-fpu=${gcc.fpu}" ])
+    ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "float-abi"
+      gcc) [ "--with-arm-float-abi=${gcc.float-abi}" ]) ++ extraConfigFlags;
 
     configurePlatforms = [ ];
 
@@ -234,7 +252,12 @@ let
       homepage = "https://nodejs.org";
       changelog = "https://github.com/nodejs/node/releases/tag/v${version}";
       license = licenses.mit;
-      maintainers = with maintainers; [ goibhniu gilligan cko marsam ];
+      maintainers = with maintainers; [
+        goibhniu
+        gilligan
+        cko
+        marsam
+      ];
       platforms = platforms.linux ++ platforms.darwin;
       mainProgram = "node";
       knownVulnerabilities = optional (versionOlder version "14")

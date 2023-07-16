@@ -23,7 +23,11 @@ buildPythonPackage rec {
     hash = "sha256-xPPR2z3h8RpoAROpKpu9ZoDxGq5Stm9wQVt4Stj/6fg=";
   };
 
-  propagatedBuildInputs = [ isodate lxml xmlsec ];
+  propagatedBuildInputs = [
+    isodate
+    lxml
+    xmlsec
+  ];
 
   nativeCheckInputs = [ freezegun ];
 

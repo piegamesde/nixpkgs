@@ -45,7 +45,10 @@ let
 in stdenv.mkDerivation rec {
   inherit pname version src;
 
-  nativeBuildInputs = [ maven makeWrapper ];
+  nativeBuildInputs = [
+    maven
+    makeWrapper
+  ];
 
   buildPhase = ''
     mvn --offline -Dmaven.repo.local=${deps} package;

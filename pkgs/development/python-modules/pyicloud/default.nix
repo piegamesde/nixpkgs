@@ -26,10 +26,22 @@ buildPythonPackage rec {
     hash = "sha256-2E1pdHHt8o7CGpdG+u4xy5OyNCueUGVw5CY8oicYd5w=";
   };
 
-  propagatedBuildInputs =
-    [ certifi click future keyring keyrings-alt pytz requests six tzlocal ];
+  propagatedBuildInputs = [
+    certifi
+    click
+    future
+    keyring
+    keyrings-alt
+    pytz
+    requests
+    six
+    tzlocal
+  ];
 
-  nativeCheckInputs = [ pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-mock
+    pytestCheckHook
+  ];
 
   postPatch = ''
     sed -i \

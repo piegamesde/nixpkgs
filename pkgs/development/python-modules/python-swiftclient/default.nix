@@ -25,9 +25,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  propagatedBuildInputs = [ pbr python-keystoneclient ];
+  propagatedBuildInputs = [
+    pbr
+    python-keystoneclient
+  ];
 
-  nativeCheckInputs = [ mock openstacksdk stestr ];
+  nativeCheckInputs = [
+    mock
+    openstacksdk
+    stestr
+  ];
 
   postInstall = ''
     installShellCompletion --cmd swift \

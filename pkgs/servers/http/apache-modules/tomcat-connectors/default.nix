@@ -16,8 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "15wfj1mvad15j1fqw67qbpbpwrcz3rb0zdhrq6z2sax1l05kc6yb";
   };
 
-  configureFlags =
-    [ "--with-apxs=${apacheHttpd.dev}/bin/apxs" "--with-java-home=${jdk}" ];
+  configureFlags = [
+    "--with-apxs=${apacheHttpd.dev}/bin/apxs"
+    "--with-java-home=${jdk}"
+  ];
 
   setSourceRoot = ''
     sourceRoot=$(echo */native)
@@ -28,7 +30,10 @@ stdenv.mkDerivation rec {
     cp apache-2.0/mod_jk.so $out/modules
   '';
 
-  buildInputs = [ apacheHttpd jdk ];
+  buildInputs = [
+    apacheHttpd
+    jdk
+  ];
 
   meta = with lib; {
     description =

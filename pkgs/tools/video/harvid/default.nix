@@ -33,9 +33,16 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ ffmpeg_4 libjpeg libpng ];
+  buildInputs = [
+    ffmpeg_4
+    libjpeg
+    libpng
+  ];
 
-  makeFlags = [ "DESTDIR=$(out)" ''libdir="/lib"'' ];
+  makeFlags = [
+    "DESTDIR=$(out)"
+    ''libdir="/lib"''
+  ];
 
   postInstall = ''
     mkdir -p $out/bin

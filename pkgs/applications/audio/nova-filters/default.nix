@@ -17,8 +17,14 @@ stdenv.mkDerivation {
     sha256 = "16064vvl2w5lz4xi3lyjk4xx7fphwsxc14ajykvndiz170q32s6i";
   };
 
-  nativeBuildInputs = [ pkg-config scons ];
-  buildInputs = [ boost ladspaH ];
+  nativeBuildInputs = [
+    pkg-config
+    scons
+  ];
+  buildInputs = [
+    boost
+    ladspaH
+  ];
 
   patchPhase = ''
     # remove TERM:

@@ -28,7 +28,10 @@ import ./make-test-python.nix ({
         inherit (config.services) gitolite public-inbox;
         # Git repositories paths in Gitolite.
         # Only their baseNameOf is used for configuring public-inbox.
-        repositories = [ "user/repo1" "user/repo2" ];
+        repositories = [
+          "user/repo1"
+          "user/repo2"
+        ];
       in {
         virtualisation.diskSize = 1 * 1024;
         virtualisation.memorySize = 1 * 1024;
@@ -172,7 +175,10 @@ import ./make-test-python.nix ({
           recipientDelimiter = "+";
         };
 
-        environment.systemPackages = [ pkgs.mailutils pkgs.openssl ];
+        environment.systemPackages = [
+          pkgs.mailutils
+          pkgs.openssl
+        ];
 
       };
 

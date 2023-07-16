@@ -19,9 +19,17 @@ buildPythonPackage rec {
     hash = "sha256-eWsq0+1MuZuIMItTP7L1WcMPpu+0+p/aETR/SD0kWIQ=";
   };
 
-  propagatedBuildInputs = [ python-dateutil docopt pyyaml ruamel-yaml ];
+  propagatedBuildInputs = [
+    python-dateutil
+    docopt
+    pyyaml
+    ruamel-yaml
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook testfixtures ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    testfixtures
+  ];
 
   disabledTests = [ "test_multi_file_support" ];
 

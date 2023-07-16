@@ -25,7 +25,11 @@ in stdenv.mkDerivation rec {
   dontBuild = true;
   dontStrip = true;
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper nodePackages.asar ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+    nodePackages.asar
+  ];
   installPhase = ''
     mkdir -p $out/bin $out/opt/teleprompter $out/share/applications
     asar e resources/app.asar $out/opt/teleprompter/resources/app.asar.unpacked

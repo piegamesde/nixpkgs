@@ -19,7 +19,12 @@ stdenv.mkDerivation rec {
 
   patches = [ ./spinlocks.patch ];
 
-  buildInputs = [ libauto launchd libc_old libunwind ];
+  buildInputs = [
+    libauto
+    launchd
+    libc_old
+    libunwind
+  ];
 
   buildPhase = ''
     cp ${./objc-probes.h} runtime/objc-probes.h

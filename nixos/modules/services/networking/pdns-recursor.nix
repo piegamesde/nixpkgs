@@ -11,7 +11,13 @@ let
   cfg = config.services.pdns-recursor;
 
   oneOrMore = type: with types; either type (listOf type);
-  valueType = with types; oneOf [ int str bool path ];
+  valueType = with types;
+    oneOf [
+      int
+      str
+      bool
+      path
+    ];
   configType = with types; attrsOf (nullOr (oneOrMore valueType));
 
   toBool = val: if val then "yes" else "no";
@@ -42,7 +48,10 @@ in {
 
     dns.address = mkOption {
       type = oneOrMore types.str;
-      default = [ "::" "0.0.0.0" ];
+      default = [
+        "::"
+        "0.0.0.0"
+      ];
       description = lib.mdDoc ''
         IP addresses Recursor DNS server will bind to.
       '';
@@ -69,7 +78,10 @@ in {
         "fc00::/7"
         "fe80::/10"
       ];
-      example = [ "0.0.0.0/0" "::/0" ];
+      example = [
+        "0.0.0.0/0"
+        "::/0"
+      ];
       description = lib.mdDoc ''
         IP address ranges of clients allowed to make DNS queries.
       '';
@@ -93,8 +105,14 @@ in {
 
     api.allowFrom = mkOption {
       type = types.listOf types.str;
-      default = [ "127.0.0.1" "::1" ];
-      example = [ "0.0.0.0/0" "::/0" ];
+      default = [
+        "127.0.0.1"
+        "::1"
+      ];
+      example = [
+        "0.0.0.0/0"
+        "::/0"
+      ];
       description = lib.mdDoc ''
         IP address ranges of clients allowed to make API requests.
       '';
@@ -229,10 +247,12 @@ in {
 
   };
 
-  imports = [
-    (mkRemovedOptionModule [ "services" "pdns-recursor" "extraConfig" ]
-      "To change extra Recursor settings use services.pdns-recursor.settings instead.")
-  ];
+  imports = [ (mkRemovedOptionModule [
+    "services"
+    "pdns-recursor"
+    "extraConfig"
+  ]
+    "To change extra Recursor settings use services.pdns-recursor.settings instead.") ];
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];
 

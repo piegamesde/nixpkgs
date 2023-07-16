@@ -43,7 +43,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-2daXxTbpSUlig47y901JOkWRxbZGH4qrvNMepJbvS3o=";
   };
 
-  nativeBuildInputs = [ asciidoc cmake lmdbxx pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    asciidoc
+    cmake
+    lmdbxx
+    pkg-config
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     boost17x
@@ -74,9 +80,9 @@ stdenv.mkDerivation rec {
       libnice
     ]);
 
-  cmakeFlags = [
-    "-DCOMPILE_QML=ON" # see https://github.com/Nheko-Reborn/nheko/issues/389
-  ];
+  cmakeFlags =
+    [ "-DCOMPILE_QML=ON" # see https://github.com/Nheko-Reborn/nheko/issues/389
+    ];
 
   preFixup = lib.optionalString voipSupport ''
     # add gstreamer plugins path to the wrapper
@@ -87,7 +93,10 @@ stdenv.mkDerivation rec {
     description = "Desktop client for the Matrix protocol";
     homepage = "https://github.com/Nheko-Reborn/nheko";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ekleog fpletz ];
+    maintainers = with maintainers; [
+      ekleog
+      fpletz
+    ];
     platforms = platforms.all;
     # Should be fixable if a higher clang version is used, see:
     # https://github.com/NixOS/nixpkgs/pull/85922#issuecomment-619287177

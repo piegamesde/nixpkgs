@@ -21,8 +21,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-subtests ]
-    ++ lib.optionals (pythonOlder "3.7") [ importlib-resources ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-subtests
+  ] ++ lib.optionals (pythonOlder "3.7") [ importlib-resources ];
 
   pythonImportsCheck = [ "tzdata" ];
 

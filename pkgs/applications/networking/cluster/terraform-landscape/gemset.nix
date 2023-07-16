@@ -41,7 +41,12 @@
     version = "0.3.5";
   };
   terraform_landscape = {
-    dependencies = [ "colorize" "commander" "diffy" "treetop" ];
+    dependencies = [
+      "colorize"
+      "commander"
+      "diffy"
+      "treetop"
+    ];
     source = {
       remotes = [ "https://rubygems.org" ];
       sha256 = "1i93pih7r6zcqpjhsmvkpfkgbh0l66c60i6fkiymq7vy2xd6wnns";

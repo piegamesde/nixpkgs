@@ -21,9 +21,15 @@ buildPythonPackage rec {
   # Prevent circular dependency
   pythonRemoveDeps = [ "dvc" ];
 
-  nativeBuildInputs = [ setuptools-scm pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    setuptools-scm
+    pythonRelaxDepsHook
+  ];
 
-  propagatedBuildInputs = [ bcrypt sshfs ];
+  propagatedBuildInputs = [
+    bcrypt
+    sshfs
+  ];
 
   # bcrypt is enabled for sshfs in nixpkgs
   postPatch = ''

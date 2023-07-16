@@ -208,7 +208,10 @@ stdenv.mkDerivation (rec {
 
   enableParallelBuilding = true;
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   patches = [
     # Fix docs build with sphinx >= 6.0
@@ -297,8 +300,10 @@ stdenv.mkDerivation (rec {
     '';
 
   # TODO(@Ericson2314): Always pass "--target" and always prefix.
-  configurePlatforms = [ "build" "host" ]
-    ++ lib.optional (targetPlatform != hostPlatform) "target";
+  configurePlatforms = [
+    "build"
+    "host"
+  ] ++ lib.optional (targetPlatform != hostPlatform) "target";
 
   # `--with` flags for libraries needed for RTS linker
   configureFlags = [
@@ -316,13 +321,14 @@ stdenv.mkDerivation (rec {
     != "glibc" && !targetPlatform.isWindows) [
       "--with-iconv-includes=${libiconv}/include"
       "--with-iconv-libraries=${libiconv}/lib"
-    ] ++ lib.optionals (targetPlatform != hostPlatform)
-    [ "--enable-bootstrap-with-devel-snapshot" ] ++ lib.optionals useLdGold [
+    ] ++ lib.optionals (targetPlatform
+      != hostPlatform) [ "--enable-bootstrap-with-devel-snapshot" ]
+    ++ lib.optionals useLdGold [
       "CFLAGS=-fuse-ld=gold"
       "CONF_GCC_LINKER_OPTS_STAGE1=-fuse-ld=gold"
       "CONF_GCC_LINKER_OPTS_STAGE2=-fuse-ld=gold"
-    ] ++ lib.optionals (disableLargeAddressSpace)
-    [ "--disable-large-address-space" ];
+    ] ++ lib.optionals
+    (disableLargeAddressSpace) [ "--disable-large-address-space" ];
 
   # Make sure we never relax`$PATH` and hooks support for compatibility.
   strictDeps = true;
@@ -340,13 +346,17 @@ stdenv.mkDerivation (rec {
     bootPkgs.alex
     bootPkgs.happy
     bootPkgs.hscolour
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
-    [ autoSignDarwinBinariesHook ] ++ lib.optionals enableDocs [ sphinx ];
+  ] ++ lib.optionals
+    (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ]
+    ++ lib.optionals enableDocs [ sphinx ];
 
   # For building runtime libs
   depsBuildTarget = toolsForTarget;
 
-  buildInputs = [ perl bash ] ++ (libDeps hostPlatform);
+  buildInputs = [
+    perl
+    bash
+  ] ++ (libDeps hostPlatform);
 
   depsTargetTarget = map lib.getDev (libDeps targetPlatform);
   depsTargetTargetPropagated =
@@ -359,16 +369,14 @@ stdenv.mkDerivation (rec {
 
   checkTarget = "test";
 
-  hardeningDisable = [
-    "format"
-  ]
-  # In nixpkgs, musl based builds currently enable `pie` hardening by default
-  # (see `defaultHardeningFlags` in `make-derivation.nix`).
-  # But GHC cannot currently produce outputs that are ready for `-pie` linking.
-  # Thus, disable `pie` hardening, otherwise `recompile with -fPIE` errors appear.
-  # See:
-  # * https://github.com/NixOS/nixpkgs/issues/129247
-  # * https://gitlab.haskell.org/ghc/ghc/-/issues/19580
+  hardeningDisable = [ "format" ]
+    # In nixpkgs, musl based builds currently enable `pie` hardening by default
+    # (see `defaultHardeningFlags` in `make-derivation.nix`).
+    # But GHC cannot currently produce outputs that are ready for `-pie` linking.
+    # Thus, disable `pie` hardening, otherwise `recompile with -fPIE` errors appear.
+    # See:
+    # * https://github.com/NixOS/nixpkgs/issues/129247
+    # * https://gitlab.haskell.org/ghc/ghc/-/issues/19580
     ++ lib.optional stdenv.targetPlatform.isMusl "pie";
 
   # big-parallel allows us to build with more than 2 cores on

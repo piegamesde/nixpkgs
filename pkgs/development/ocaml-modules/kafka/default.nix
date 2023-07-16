@@ -18,7 +18,10 @@ buildDunePackage rec {
     sha256 = "0m9212yap0a00hd0f61i4y4fna3141p77qj3mm7jl1h4q60jdhvy";
   };
 
-  propagatedBuildInputs = [ rdkafka zlib ];
+  propagatedBuildInputs = [
+    rdkafka
+    zlib
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/didier-wenzek/ocaml-kafka";

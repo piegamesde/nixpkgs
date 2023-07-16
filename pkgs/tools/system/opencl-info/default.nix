@@ -25,7 +25,10 @@ stdenv.mkDerivation {
     ./opencl-info-clhpp2.diff
   ];
 
-  buildInputs = [ opencl-clhpp ocl-icd ];
+  buildInputs = [
+    opencl-clhpp
+    ocl-icd
+  ];
 
   NIX_LDFLAGS = "-lOpenCL";
 

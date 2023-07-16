@@ -29,7 +29,10 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libnl openssl ];
+  buildInputs = [
+    libnl
+    openssl
+  ];
 
   extraConfig = ''
     CONFIG_DRIVER_WIRED=y

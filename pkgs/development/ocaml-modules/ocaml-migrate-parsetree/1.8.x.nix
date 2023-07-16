@@ -25,7 +25,10 @@ else
       sha256 = "16x8sxc4ygxrr1868qpzfqyrvjf3hfxvjzmxmf6ibgglq7ixa2nq";
     };
 
-    propagatedBuildInputs = [ ppx_derivers result ];
+    propagatedBuildInputs = [
+      ppx_derivers
+      result
+    ];
 
     meta = {
       description = "Convert OCaml parsetrees between different major versions";

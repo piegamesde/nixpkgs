@@ -171,7 +171,10 @@ let
         version = "1.3.1";
         sha256 = "sha256-eoiQv4GFoyUs1OvYJv5fita5MCTt+IV26yeunl3BnWk=";
       };
-      beamDeps = [ katana_code zipper ];
+      beamDeps = [
+        katana_code
+        zipper
+      ];
     };
     egithub = builder {
       name = "egithub";
@@ -181,7 +184,12 @@ let
         version = "0.7.0";
         sha256 = "sha256-4AnOEe/YAI0PntWdnEiOPpq+MCoPLNbWY+TMJnVvzEw=";
       };
-      beamDeps = [ goldrush hackney jsx lager ];
+      beamDeps = [
+        goldrush
+        hackney
+        jsx
+        lager
+      ];
     };
   };
 in self

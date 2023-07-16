@@ -24,7 +24,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = [ gccmakedep libX11 libXext libXpm imake ];
+  buildInputs = [
+    gccmakedep
+    libX11
+    libXext
+    libXpm
+    imake
+  ];
 
   buildPhase = ''
     (cd man && xmkmf)

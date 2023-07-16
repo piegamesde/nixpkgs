@@ -22,11 +22,22 @@ stdenv.mkDerivation rec {
     sha256 = "0s6prfh55hn11vrs72ph1gs01v0vngly81pvyjm5v1sgwymdxx57";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config docbook2x ];
-  buildInputs = [ boost libxml2 curl cppunit ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    docbook2x
+  ];
+  buildInputs = [
+    boost
+    libxml2
+    curl
+    cppunit
+  ];
 
-  configureFlags =
-    [ "--disable-werror" "DOCBOOK2MAN=${docbook2x}/bin/docbook2man" ];
+  configureFlags = [
+    "--disable-werror"
+    "DOCBOOK2MAN=${docbook2x}/bin/docbook2man"
+  ];
 
   doCheck = true;
 

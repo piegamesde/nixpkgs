@@ -20,7 +20,10 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-oUy9HhybNMjRBWoqqal1Mw8cC5RddgN4izxAl0cgnKE=";
   };
 
-  nativeBuildInputs = [ meson ninja ];
+  nativeBuildInputs = [
+    meson
+    ninja
+  ];
 
   postPatch = ''
     substituteInPlace varlink-wrapper.py \

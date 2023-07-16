@@ -30,8 +30,13 @@ let
     pname = "rocfft";
     version = "5.4.3";
 
-    outputs = [ "out" "libzero" "libone" "libtwo" "libthree" ]
-      ++ lib.optionals buildTests [ "test" ]
+    outputs = [
+      "out"
+      "libzero"
+      "libone"
+      "libtwo"
+      "libthree"
+    ] ++ lib.optionals buildTests [ "test" ]
       ++ lib.optionals buildBenchmarks [ "benchmark" ];
 
     src = fetchFromGitHub {
@@ -41,9 +46,16 @@ let
       hash = "sha256-FsefE0B2hF5ZcHDB6TscwFeZ1NKFkWX7VDpEvvbDbOk=";
     };
 
-    nativeBuildInputs = [ cmake rocm-cmake hip ];
+    nativeBuildInputs = [
+      cmake
+      rocm-cmake
+      hip
+    ];
 
-    buildInputs = [ sqlite python3 ] ++ lib.optionals buildTests [ gtest ]
+    buildInputs = [
+      sqlite
+      python3
+    ] ++ lib.optionals buildTests [ gtest ]
       ++ lib.optionals (buildTests || buildBenchmarks) [
         rocrand
         boost
@@ -52,7 +64,10 @@ let
         openmp
       ];
 
-    propagatedBuildInputs = lib.optionals buildTests [ fftw fftwFloat ];
+    propagatedBuildInputs = lib.optionals buildTests [
+      fftw
+      fftwFloat
+    ];
 
     cmakeFlags = [
       "-DCMAKE_C_COMPILER=hipcc"

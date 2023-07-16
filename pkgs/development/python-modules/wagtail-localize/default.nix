@@ -26,9 +26,19 @@ buildPythonPackage rec {
     sha256 = "sha256-aNz4OoUUXWMCahMxuYBxvNWnw7Inxd5svBgwLgoirW8=";
   };
 
-  propagatedBuildInputs = [ django wagtail polib typing-extensions ];
+  propagatedBuildInputs = [
+    django
+    wagtail
+    polib
+    typing-extensions
+  ];
 
-  checkInputs = [ dj-database-url django-rq freezegun google-cloud-translate ];
+  checkInputs = [
+    dj-database-url
+    django-rq
+    freezegun
+    google-cloud-translate
+  ];
 
   nativeBuildInputs = [ flit-core ];
 

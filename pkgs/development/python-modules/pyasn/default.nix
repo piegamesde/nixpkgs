@@ -35,7 +35,10 @@ buildPythonPackage rec {
     description =
       "Offline IP address to Autonomous System Number lookup module";
     homepage = "https://github.com/hadiasghari/pyasn";
-    license = with licenses; [ bsdOriginal mit ];
+    license = with licenses; [
+      bsdOriginal
+      mit
+    ];
     maintainers = with maintainers; [ onny ];
   };
 }

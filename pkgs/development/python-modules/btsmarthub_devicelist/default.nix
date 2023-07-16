@@ -23,7 +23,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [ responses requests pytestCheckHook ];
+  nativeCheckInputs = [
+    responses
+    requests
+    pytestCheckHook
+  ];
 
   disabledTests = [ "test_btsmarthub2_detection_neither_router_present" ];
 

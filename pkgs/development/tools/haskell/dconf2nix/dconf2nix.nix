@@ -22,11 +22,23 @@ mkDerivation {
   };
   isLibrary = true;
   isExecutable = true;
-  libraryHaskellDepends =
-    [ base containers emojis optparse-applicative parsec text ];
+  libraryHaskellDepends = [
+    base
+    containers
+    emojis
+    optparse-applicative
+    parsec
+    text
+  ];
   executableHaskellDepends = [ base ];
-  testHaskellDepends =
-    [ base containers hedgehog parsec template-haskell text ];
+  testHaskellDepends = [
+    base
+    containers
+    hedgehog
+    parsec
+    template-haskell
+    text
+  ];
   description = "Convert dconf files to Nix, as expected by Home Manager";
   license = lib.licenses.asl20;
   mainProgram = "dconf2nix";

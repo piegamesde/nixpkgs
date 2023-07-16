@@ -37,7 +37,13 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-xQ8GWa0Gmd3lbwKodJhrsZeuR4j7NT4zIUh+kNhVY/w=";
   };
 
-  nativeBuildInputs = [ clang curl llvm python3 which ];
+  nativeBuildInputs = [
+    clang
+    curl
+    llvm
+    python3
+    which
+  ];
 
   # Some uClibc sources depend on Linux headers.
   UCLIBC_KERNEL_HEADERS = "${linuxHeaders}/include";

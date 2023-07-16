@@ -30,7 +30,12 @@ buildPythonPackage rec {
     export PATH=$out/bin:$PATH
   '';
 
-  nativeCheckInputs = [ pytestCheckHook coreutils jq bc ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    coreutils
+    jq
+    bc
+  ];
 
   pythonImportsCheck = [ "pyp" ];
 

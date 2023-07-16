@@ -5,17 +5,29 @@
   dart,
   src,
   includedEngineArtifacts ? {
-    common = [ "flutter_patched_sdk" "flutter_patched_sdk_product" ];
+    common = [
+      "flutter_patched_sdk"
+      "flutter_patched_sdk_product"
+    ];
     platform = {
-      android = lib.optionalAttrs stdenv.hostPlatform.isx86_64
-        ((lib.genAttrs [ "arm" "arm64" "x64" ]
-          (architecture: [ "profile" "release" ])) // {
-            x86 = [ "jit-release" ];
-          });
+      android = lib.optionalAttrs stdenv.hostPlatform.isx86_64 ((lib.genAttrs [
+        "arm"
+        "arm64"
+        "x64"
+      ] (architecture: [
+        "profile"
+        "release"
+      ])) // {
+        x86 = [ "jit-release" ];
+      });
       linux = lib.optionals stdenv.hostPlatform.isLinux (lib.genAttrs
         ((lib.optional stdenv.hostPlatform.isx86_64 "x64")
           ++ (lib.optional stdenv.hostPlatform.isAarch64 "arm64"))
-        (architecture: [ "debug" "profile" "release" ]));
+        (architecture: [
+          "debug"
+          "profile"
+          "release"
+        ]));
     };
   }
 
@@ -85,7 +97,10 @@ let
     name = "flutter-${version}-unwrapped";
     inherit src patches version;
 
-    outputs = [ "out" "cache" ];
+    outputs = [
+      "out"
+      "cache"
+    ];
 
     buildInputs = [ git ];
 
@@ -184,7 +199,10 @@ let
       '';
       homepage = "https://flutter.dev";
       license = licenses.bsd3;
-      platforms = [ "x86_64-linux" "aarch64-linux" ];
+      platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
       maintainers = with maintainers; [
         babariviere
         ericdallo

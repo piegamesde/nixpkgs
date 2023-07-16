@@ -43,11 +43,21 @@ in buildPythonPackage rec {
   # jaxlib is _not_ included in propagatedBuildInputs because there are
   # different versions of jaxlib depending on the desired target hardware. The
   # JAX project ships separate wheels for CPU, GPU, and TPU.
-  propagatedBuildInputs =
-    [ absl-py etils numpy opt-einsum scipy typing-extensions ]
-    ++ etils.optional-dependencies.epath;
+  propagatedBuildInputs = [
+    absl-py
+    etils
+    numpy
+    opt-einsum
+    scipy
+    typing-extensions
+  ] ++ etils.optional-dependencies.epath;
 
-  nativeCheckInputs = [ jaxlib' matplotlib pytestCheckHook pytest-xdist ];
+  nativeCheckInputs = [
+    jaxlib'
+    matplotlib
+    pytestCheckHook
+    pytest-xdist
+  ];
 
   # high parallelism will result in the tests getting stuck
   dontUsePytestXdist = true;
@@ -56,8 +66,11 @@ in buildPythonPackage rec {
   # which creates a circular dependency. See https://discourse.nixos.org/t/how-to-nix-ify-python-packages-with-circular-dependencies/14648/2.
   # Not a big deal, this is how the JAX docs suggest running the test suite
   # anyhow.
-  pytestFlagsArray =
-    [ "--numprocesses=4" "-W ignore::DeprecationWarning" "tests/" ];
+  pytestFlagsArray = [
+    "--numprocesses=4"
+    "-W ignore::DeprecationWarning"
+    "tests/"
+  ];
 
   disabledTests = [
     # Exceeds tolerance when the machine is busy

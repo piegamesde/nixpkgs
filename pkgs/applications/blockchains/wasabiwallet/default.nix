@@ -48,10 +48,16 @@ in stdenv.mkDerivation rec {
     desktopName = "Wasabi";
     genericName = "Bitcoin wallet";
     comment = meta.description;
-    categories = [ "Network" "Utility" ];
+    categories = [
+      "Network"
+      "Utility"
+    ];
   };
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+  ];
   buildInputs = runtimeLibs ++ [ lttng-ust_2_12 ];
 
   installPhase = ''

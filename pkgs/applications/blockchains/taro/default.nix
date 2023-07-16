@@ -17,9 +17,15 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-huQZy62lx82lmuCQ7RQ+7SLMJIBYKfXbw+2ZkswPXxw=";
 
-  subPackages = [ "cmd/tarocli" "cmd/tarod" ];
+  subPackages = [
+    "cmd/tarocli"
+    "cmd/tarod"
+  ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "Daemon for the Taro protocol specification";

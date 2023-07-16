@@ -28,6 +28,9 @@ buildPythonPackage rec {
     description = "Facilitate effortless color terminal output";
     homepage = "https://pypi.org/project/${pname}/";
     license = licenses.mit;
-    maintainers = with maintainers; [ dschrempf peterhoeg ];
+    maintainers = with maintainers; [
+      dschrempf
+      peterhoeg
+    ];
   };
 }

@@ -20,7 +20,12 @@ buildPythonPackage rec {
     hash = "sha256-PNvEHH5w2ptntRGzqWrqlbIzJJsT60OXg/Dh5f6Wq9k=";
   };
 
-  propagatedBuildInputs = [ eth-abi py-ecc pycryptodome rlp ];
+  propagatedBuildInputs = [
+    eth-abi
+    py-ecc
+    pycryptodome
+    rlp
+  ];
 
   # lots of: isinstance() arg 2 must be a type or tuple of types
   doCheck = false;

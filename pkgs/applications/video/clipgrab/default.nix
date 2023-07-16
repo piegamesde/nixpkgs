@@ -34,7 +34,10 @@ mkDerivation rec {
     qtwebchannel
     qtwebengine
   ];
-  nativeBuildInputs = [ qmake qttools ];
+  nativeBuildInputs = [
+    qmake
+    qttools
+  ];
 
   patches = [ ./yt-dlp-path.patch ];
 
@@ -57,7 +60,12 @@ mkDerivation rec {
     desktopName = "ClipGrab";
     comment = meta.description;
     genericName = "Web video downloader";
-    categories = [ "Qt" "AudioVideo" "Audio" "Video" ];
+    categories = [
+      "Qt"
+      "AudioVideo"
+      "Audio"
+      "Video"
+    ];
   };
 
   installPhase = ''

@@ -27,7 +27,10 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ plaster pastedeploy ];
+  propagatedBuildInputs = [
+    plaster
+    pastedeploy
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

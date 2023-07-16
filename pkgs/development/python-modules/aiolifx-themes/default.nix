@@ -36,7 +36,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiolifx ];
 
-  nativeCheckInputs = [ async-timeout pytestCheckHook pytest-asyncio ];
+  nativeCheckInputs = [
+    async-timeout
+    pytestCheckHook
+    pytest-asyncio
+  ];
 
   pythonImportsCheck = [ "aiolifx_themes" ];
 

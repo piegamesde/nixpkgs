@@ -19,6 +19,10 @@ buildPerlPackage rec {
   meta = {
     description = "Mozilla's ldap client library";
     homepage = "https://metacpan.org/release/perldap";
-    license = with lib.licenses; [ mpl20 lgpl21Plus gpl2Plus ];
+    license = with lib.licenses; [
+      mpl20
+      lgpl21Plus
+      gpl2Plus
+    ];
   };
 }

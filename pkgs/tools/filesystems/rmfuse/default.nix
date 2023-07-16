@@ -24,7 +24,13 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeBuildInputs = with python3.pkgs; [ poetry-core ];
 
-  propagatedBuildInputs = with python3.pkgs; [ bidict rmrl rmcl pyfuse3 xdg ];
+  propagatedBuildInputs = with python3.pkgs; [
+    bidict
+    rmrl
+    rmcl
+    pyfuse3
+    xdg
+  ];
 
   meta = {
     description = "FUSE access to the reMarkable Cloud";

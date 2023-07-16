@@ -40,8 +40,14 @@ in stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake makeWrapper ];
-  buildInputs = [ SDL2 SDL2_mixer ] ++ lib.optional stdenv.isDarwin Cocoa;
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+  ];
+  buildInputs = [
+    SDL2
+    SDL2_mixer
+  ] ++ lib.optional stdenv.isDarwin Cocoa;
 
   # Darwin needs a custom installphase since it is excluded from the cmake install
   # https://github.com/k4zmu2a/SpaceCadetPinball/blob/0f88e43ba261bc21fa5c3ef9d44969a2a079d0de/CMakeLists.txt#L221
@@ -67,7 +73,10 @@ in stdenv.mkDerivation rec {
       "Reverse engineering of 3D Pinball for Windows – Space Cadet, a game bundled with Windows";
     homepage = "https://github.com/k4zmu2a/SpaceCadetPinball";
     # The assets are unfree while the code is labeled as MIT
-    license = with licenses; [ unfree mit ];
+    license = with licenses; [
+      unfree
+      mit
+    ];
     maintainers = [ maintainers.hqurve ];
     platforms = platforms.all;
     mainProgram = "SpaceCadetPinball";

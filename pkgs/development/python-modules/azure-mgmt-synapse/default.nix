@@ -20,7 +20,12 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  propagatedBuildInputs = [ azure-common azure-mgmt-core msrest msrestazure ];
+  propagatedBuildInputs = [
+    azure-common
+    azure-mgmt-core
+    msrest
+    msrestazure
+  ];
 
   pythonImportsCheck = [ "azure.mgmt.synapse" ];
 

@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openexr libpng12 libjpeg ];
+  buildInputs = [
+    openexr
+    libpng12
+    libjpeg
+  ];
 
   meta = with lib; {
     description = "Collection of utilities for manipulating OpenEXR images";

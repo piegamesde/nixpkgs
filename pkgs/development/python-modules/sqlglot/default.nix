@@ -23,7 +23,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ python-dateutil ];
 
-  nativeCheckInputs = [ pytestCheckHook duckdb pyspark ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    duckdb
+    pyspark
+  ];
 
   # these integration tests assume a running Spark instance
   disabledTestPaths = [ "tests/dataframe/integration" ];

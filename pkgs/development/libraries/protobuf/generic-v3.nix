@@ -47,8 +47,7 @@ let
       buildInputs = [ zlib ];
       configureFlags = if buildProtobuf == null then
         [ ]
-      else
-        [ "--with-protoc=${buildProtobuf}/bin/protoc" ];
+      else [ "--with-protoc=${buildProtobuf}/bin/protoc" ];
 
       enableParallelBuilding = true;
 

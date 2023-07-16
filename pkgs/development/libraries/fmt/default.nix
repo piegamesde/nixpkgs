@@ -17,7 +17,10 @@ let
       pname = "fmt";
       inherit version;
 
-      outputs = [ "out" "dev" ];
+      outputs = [
+        "out"
+        "dev"
+      ];
 
       src = fetchFromGitHub {
         owner = "fmtlib";

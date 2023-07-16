@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
     mv README.txt README
   '';
 
-  nativeBuildInputs = [ autoreconfHook dos2unix ];
+  nativeBuildInputs = [
+    autoreconfHook
+    dos2unix
+  ];
 
   meta = {
     homepage = "https://www.libpgf.org/";

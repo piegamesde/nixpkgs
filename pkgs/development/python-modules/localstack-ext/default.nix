@@ -39,8 +39,16 @@ buildPythonPackage rec {
       --replace "requests>=2.20.0,<2.26" "requests~=2.20"
   '';
 
-  propagatedBuildInputs =
-    [ dill dnslib dnspython plux pyaes python-jose requests tabulate ];
+  propagatedBuildInputs = [
+    dill
+    dnslib
+    dnspython
+    plux
+    pyaes
+    python-jose
+    requests
+    tabulate
+  ];
 
   pythonImportsCheck = [ "localstack_ext" ];
 

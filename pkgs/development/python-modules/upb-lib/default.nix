@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-I1lnIr8ptDCyK8r0bvFWFPUGRwoMsQcNnSCSwzdt1Bc=";
   };
 
-  propagatedBuildInputs = [ pyserial-asyncio pytz ];
+  propagatedBuildInputs = [
+    pyserial-asyncio
+    pytz
+  ];
 
   # no tests on PyPI, no tags on GitHub
   doCheck = false;

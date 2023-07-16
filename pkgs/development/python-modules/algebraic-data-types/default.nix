@@ -22,7 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-RHLI5rmFxklzG9dyYgYfSS/srCjcxNpzNcK/RPNJBPE=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook hypothesis mypy ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    hypothesis
+    mypy
+  ];
 
   disabledTestPaths = [
     # AttributeError: module 'mypy.types' has no attribute 'TypeVarDef'

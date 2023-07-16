@@ -25,7 +25,10 @@ buildPythonPackage rec {
       --replace "setup_requires=['setuptools_scm']," "setup_requires=[],"
   '';
 
-  propagatedBuildInputs = [ numpy scikit-learn ];
+  propagatedBuildInputs = [
+    numpy
+    scikit-learn
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

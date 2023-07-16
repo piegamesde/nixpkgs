@@ -29,7 +29,10 @@ let
     lib.unique (drvs ++ (builtins.concatMap (drv: drv.dependencies) drvs)));
 
   # Components to install by default
-  defaultComponents = with components; [ alpha beta ];
+  defaultComponents = with components; [
+    alpha
+    beta
+  ];
 
   comps = [ google-cloud-sdk ]
     ++ filterPreInstalled (findDepsRecursive (defaultComponents ++ comps_));

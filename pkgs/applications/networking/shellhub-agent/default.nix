@@ -25,7 +25,11 @@ buildGo120Module rec {
 
   vendorSha256 = "sha256-TInS0uTpjTrLuthRn0SOSDh3j0bf+XCP4PVcL19mBiQ=";
 
-  ldflags = [ "-s" "-w" "-X main.AgentVersion=v${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.AgentVersion=v${version}"
+  ];
 
   passthru = {
     updateScript = gitUpdater {

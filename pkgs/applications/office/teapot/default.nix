@@ -32,7 +32,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ libtirpc ncurses ];
+  buildInputs = [
+    libtirpc
+    ncurses
+  ];
 
   # By no known reason libtirpc is not detected
   env.NIX_CFLAGS_COMPILE = toString [ "-I${libtirpc.dev}/include/tirpc" ];

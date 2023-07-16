@@ -26,11 +26,17 @@ stdenv.mkDerivation rec {
       --replace /sbin/ifconfig ifconfig
   '';
 
-  buildInputs = [ openssl readline ];
+  buildInputs = [
+    openssl
+    readline
+  ];
 
   hardeningEnable = [ "pie" ];
 
-  nativeCheckInputs = [ which nettools ];
+  nativeCheckInputs = [
+    which
+    nettools
+  ];
   doCheck = false; # fails a bunch, hangs
 
   passthru.tests = lib.optionalAttrs stdenv.buildPlatform.isLinux {

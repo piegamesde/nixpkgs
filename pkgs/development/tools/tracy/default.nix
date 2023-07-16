@@ -25,19 +25,25 @@ in stdenv.mkDerivation rec {
   };
 
   patches = lib.optionals (stdenv.isDarwin
-    && !(lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"))
-    [ ./0001-remove-unifiedtypeidentifiers-framework ];
+    && !(lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion
+      "11")) [ ./0001-remove-unifiedtypeidentifiers-framework ];
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ capstone freetype glfw ]
-    ++ lib.optionals stdenv.isLinux [ dbus hicolor-icon-theme tbb ]
-    ++ lib.optionals stdenv.isDarwin [
-      darwin.apple_sdk.frameworks.AppKit
-      darwin.apple_sdk.frameworks.Carbon
-    ] ++ lib.optionals (stdenv.isDarwin
-      && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
-    [ darwin.apple_sdk.frameworks.UniformTypeIdentifiers ];
+  buildInputs = [
+    capstone
+    freetype
+    glfw
+  ] ++ lib.optionals stdenv.isLinux [
+    dbus
+    hicolor-icon-theme
+    tbb
+  ] ++ lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.AppKit
+    darwin.apple_sdk.frameworks.Carbon
+  ] ++ lib.optionals (stdenv.isDarwin
+    && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion
+    "11") [ darwin.apple_sdk.frameworks.UniformTypeIdentifiers ];
 
   env.NIX_CFLAGS_COMPILE = toString ([ ]
     # Apple's compiler finds a format string security error on
@@ -79,6 +85,9 @@ in stdenv.mkDerivation rec {
     homepage = "https://github.com/wolfpld/tracy";
     platforms = platforms.linux ++ platforms.darwin;
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mpickering nagisa ];
+    maintainers = with maintainers; [
+      mpickering
+      nagisa
+    ];
   };
 }

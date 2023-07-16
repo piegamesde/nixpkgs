@@ -36,12 +36,18 @@ stdenv.mkDerivation rec {
     sha256 = "0cawzizr3rjz81blpvxvxrcvcdai1adj66885ss390444qq1fnv7";
   };
 
-  propagatedBuildInputs = [ glfw freetype openssl ]
-    ++ lib.optional stdenv.hostPlatform.isUnix upx;
+  propagatedBuildInputs = [
+    glfw
+    freetype
+    openssl
+  ] ++ lib.optional stdenv.hostPlatform.isUnix upx;
 
   nativeBuildInputs = [ makeWrapper ];
 
-  makeFlags = [ "local=1" "VC=${vc}" ];
+  makeFlags = [
+    "local=1"
+    "VC=${vc}"
+  ];
 
   preBuild = ''
     export HOME=$(mktemp -d)

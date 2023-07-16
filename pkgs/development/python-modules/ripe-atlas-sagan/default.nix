@@ -24,7 +24,11 @@ buildPythonPackage rec {
     hash = "sha256-xIBIKsQvDmVBa/C8/7Wr3WKeepHaGhoXlgatXSUtWLA=";
   };
 
-  propagatedBuildInputs = [ cryptography python-dateutil pytz ];
+  propagatedBuildInputs = [
+    cryptography
+    python-dateutil
+    pytz
+  ];
 
   passthru.optional-dependencies = { fast = [ ujson ]; };
 

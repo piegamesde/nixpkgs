@@ -25,7 +25,10 @@ stdenv.mkDerivation {
     cp catdocx.sh $out/libexec
     chmod +x $out/libexec/catdocx.sh
     wrapProgram $out/libexec/catdocx.sh --prefix PATH : "${
-      lib.makeBinPath [ unzip catdoc ]
+      lib.makeBinPath [
+        unzip
+        catdoc
+      ]
     }"
     ln -s $out/libexec/catdocx.sh $out/bin/catdocx
   '';

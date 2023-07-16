@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-ocsigen-start";
   version = "6.0.1";
 
-  nativeBuildInputs = [ ocaml findlib eliom ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+    eliom
+  ];
   buildInputs = [ ocsigen-ppx-rpc ];
   propagatedBuildInputs = [
     pgocaml_ppx

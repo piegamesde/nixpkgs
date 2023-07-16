@@ -43,7 +43,12 @@ python3.pkgs.buildPythonApplication rec {
     argcomplete
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ pyfakefs mock ddt pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [
+    pyfakefs
+    mock
+    ddt
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [
     # Disabling git tests because they expect git to be preconfigured
@@ -61,6 +66,9 @@ python3.pkgs.buildPythonApplication rec {
     description = "Command-line bibliography manager";
     homepage = "https://github.com/pubs/pubs";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ gebner dotlambda ];
+    maintainers = with maintainers; [
+      gebner
+      dotlambda
+    ];
   };
 }

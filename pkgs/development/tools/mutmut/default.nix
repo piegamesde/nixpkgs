@@ -25,7 +25,13 @@ let
 
       doCheck = false;
 
-      propagatedBuildInputs = [ click glob2 parso pony junit-xml ];
+      propagatedBuildInputs = [
+        click
+        glob2
+        parso
+        pony
+        junit-xml
+      ];
 
       passthru.tests.version = testers.testVersion { package = self; };
 

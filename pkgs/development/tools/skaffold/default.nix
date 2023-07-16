@@ -54,6 +54,9 @@ buildGoModule rec {
       It also provides building blocks and describe customizations for a CI/CD pipeline.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ vdemeester bryanasdev000 ];
+    maintainers = with maintainers; [
+      vdemeester
+      bryanasdev000
+    ];
   };
 }

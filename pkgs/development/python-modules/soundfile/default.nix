@@ -28,7 +28,11 @@ buildPythonPackage rec {
   '';
 
   nativeCheckInputs = [ pytestCheckHook ];
-  propagatedBuildInputs = [ numpy libsndfile cffi ];
+  propagatedBuildInputs = [
+    numpy
+    libsndfile
+    cffi
+  ];
   propagatedNativeBuildInputs = [ cffi ];
 
   meta = {

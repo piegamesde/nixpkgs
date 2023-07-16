@@ -27,7 +27,11 @@ let
 in symlinkJoin {
   name = "run-x16-${emulator.version}";
 
-  paths = [ emulator rom runScript ];
+  paths = [
+    emulator
+    rom
+    runScript
+  ];
 }
 # TODO [ AndersonTorres ]:
 

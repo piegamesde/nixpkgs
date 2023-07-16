@@ -22,9 +22,18 @@ buildPythonPackage rec {
     sha256 = "fq2NpjIQkIq1yzXEUxi6cz80kutVqcH6MqJXHtpTFsk=";
   };
 
-  propagatedBuildInputs = [ pygments six wcwidth ];
+  propagatedBuildInputs = [
+    pygments
+    six
+    wcwidth
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pyte pexpect ptyprocess ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pyte
+    pexpect
+    ptyprocess
+  ];
 
   pythonImportsCheck = [ "lineedit" ];
 

@@ -41,12 +41,31 @@ stdenv.mkDerivation rec {
   postFixup = ''
     chmod +x $out/share/rofi-emoji/clipboard-adapter.sh
     wrapProgram $out/share/rofi-emoji/clipboard-adapter.sh \
-      --prefix PATH ":" ${lib.makeBinPath [ libnotify wl-clipboard xclip xsel ]}
+      --prefix PATH ":" ${
+        lib.makeBinPath [
+          libnotify
+          wl-clipboard
+          xclip
+          xsel
+        ]
+      }
   '';
 
-  nativeBuildInputs = [ autoreconfHook pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    makeWrapper
+  ];
 
-  buildInputs = [ cairo glib libnotify rofi-unwrapped wl-clipboard xclip xsel ];
+  buildInputs = [
+    cairo
+    glib
+    libnotify
+    rofi-unwrapped
+    wl-clipboard
+    xclip
+    xsel
+  ];
 
   meta = with lib; {
     description = "An emoji selector plugin for Rofi";

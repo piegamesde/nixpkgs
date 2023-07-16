@@ -25,15 +25,13 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-4yQY+GM8lvqWgTUqVutjuY4pQgNHLBFKUkJwnTaWZ4U=";
   };
 
-  patches = [
-    (fetchpatch {
-      # Fix HashIndexSizeTestCase.test_size_on_disk_accurate problems on ZFS,
-      # see https://github.com/borgbackup/borg/issues/7250
-      url =
-        "https://github.com/borgbackup/borg/pull/7252/commits/fe3775cf8078c18d8fe39a7f42e52e96d3ecd054.patch";
-      hash = "sha256-gdssHfhdkmRfSAOeXsq9Afg7xqGM3NLIq4QnzmPBhw4=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    # Fix HashIndexSizeTestCase.test_size_on_disk_accurate problems on ZFS,
+    # see https://github.com/borgbackup/borg/issues/7250
+    url =
+      "https://github.com/borgbackup/borg/pull/7252/commits/fe3775cf8078c18d8fe39a7f42e52e96d3ecd054.patch";
+    hash = "sha256-gdssHfhdkmRfSAOeXsq9Afg7xqGM3NLIq4QnzmPBhw4=";
+  }) ];
 
   postPatch = ''
     # sandbox does not support setuid/setgid/sticky bits
@@ -54,10 +52,18 @@ python3.pkgs.buildPythonApplication rec {
     installShellFiles
   ];
 
-  sphinxBuilders = [ "singlehtml" "man" ];
+  sphinxBuilders = [
+    "singlehtml"
+    "man"
+  ];
 
-  buildInputs = [ libb2 lz4 xxHash zstd openssl ]
-    ++ lib.optionals stdenv.isLinux [ acl ];
+  buildInputs = [
+    libb2
+    lz4
+    xxHash
+    zstd
+    openssl
+  ] ++ lib.optionals stdenv.isLinux [ acl ];
 
   propagatedBuildInputs = with python3.pkgs; [
     msgpack
@@ -84,7 +90,11 @@ python3.pkgs.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "--benchmark-skip" "--pyargs" "borg.testsuite" ];
+  pytestFlagsArray = [
+    "--benchmark-skip"
+    "--pyargs"
+    "borg.testsuite"
+  ];
 
   disabledTests = [
     # fuse: device not found, try 'modprobe fuse' first
@@ -110,7 +120,11 @@ python3.pkgs.buildPythonApplication rec {
 
   passthru.tests = { inherit (nixosTests) borgbackup; };
 
-  outputs = [ "out" "doc" "man" ];
+  outputs = [
+    "out"
+    "doc"
+    "man"
+  ];
 
   meta = with lib; {
     description = "Deduplicating archiver with compression and encryption";
@@ -118,6 +132,9 @@ python3.pkgs.buildPythonApplication rec {
     license = licenses.bsd3;
     platforms = platforms.unix; # Darwin and FreeBSD mentioned on homepage
     mainProgram = "borg";
-    maintainers = with maintainers; [ dotlambda globin ];
+    maintainers = with maintainers; [
+      dotlambda
+      globin
+    ];
   };
 }

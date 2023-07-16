@@ -34,7 +34,7 @@ in rec {
       version = "1.3.0";
       authors = [ "Daniel Reiter Horn <danielrh@dropbox.com>" ];
       sha256 = "1jcp27pzmqdszgp80y484g4kwbjbg7x8a589drcwbxg0i8xwkir9";
-      crateBin = [{ name = "example"; }];
+      crateBin = [ { name = "example"; } ];
       inherit dependencies buildDependencies features;
     };
   brotli_2_5_0_ = {
@@ -45,10 +45,12 @@ in rec {
     buildRustCrate {
       crateName = "brotli";
       version = "2.5.0";
-      authors =
-        [ "Daniel Reiter Horn <danielrh@dropbox.com>" "The Brotli Authors" ];
+      authors = [
+        "Daniel Reiter Horn <danielrh@dropbox.com>"
+        "The Brotli Authors"
+      ];
       sha256 = "1ynw4hkdwnp0kj30p86ls44ahv4s99258s019bqrq4mya8hlsb5b";
-      crateBin = [{ name = "brotli"; }];
+      crateBin = [ { name = "brotli"; } ];
       inherit dependencies buildDependencies features;
     };
   brotli_decompressor_1_3_1_ = {
@@ -59,10 +61,12 @@ in rec {
     buildRustCrate {
       crateName = "brotli-decompressor";
       version = "1.3.1";
-      authors =
-        [ "Daniel Reiter Horn <danielrh@dropbox.com>" "The Brotli Authors" ];
+      authors = [
+        "Daniel Reiter Horn <danielrh@dropbox.com>"
+        "The Brotli Authors"
+      ];
       sha256 = "022g69q1xzwdj0130qm3fa4qwpn4q1jx3lc8yz0v0v201p7bm8fb";
-      crateBin = [{ name = "brotli-decompressor"; }];
+      crateBin = [ { name = "brotli-decompressor"; } ];
       inherit dependencies buildDependencies features;
     };
   alloc_no_stdlib_1_3_0 = {
@@ -109,7 +113,10 @@ in rec {
       brotli_decompressor_1_3_1.seccomp =
         (f.brotli_decompressor_1_3_1.seccomp or false)
         || (brotli_2_5_0.seccomp or false) || (f.brotli_2_5_0.seccomp or false);
-    }) [ alloc_no_stdlib_1_3_0_features brotli_decompressor_1_3_1_features ];
+    }) [
+      alloc_no_stdlib_1_3_0_features
+      brotli_decompressor_1_3_1_features
+    ];
   brotli_decompressor_1_3_1 = {
       features ? (brotli_decompressor_1_3_1_features { })
     }:

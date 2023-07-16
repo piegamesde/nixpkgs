@@ -27,8 +27,13 @@ in mkOpenModelicaDerivation ({
   omdeps = [ ];
   omautoconf = true;
 
-  nativeBuildInputs = [ jre8 gfortran flex bison pkg-config ]
-    ++ lib.optional isCross nativeOMCompiler;
+  nativeBuildInputs = [
+    jre8
+    gfortran
+    flex
+    bison
+    pkg-config
+  ] ++ lib.optional isCross nativeOMCompiler;
 
   buildInputs = [
     targetPackages.stdenv.cc.cc
@@ -59,7 +64,10 @@ in mkOpenModelicaDerivation ({
     description = "Modelica compiler from OpenModelica suite";
     homepage = "https://openmodelica.org";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ balodja smironov ];
+    maintainers = with maintainers; [
+      balodja
+      smironov
+    ];
     platforms = platforms.linux;
   };
 } // lib.optionalAttrs isCross {

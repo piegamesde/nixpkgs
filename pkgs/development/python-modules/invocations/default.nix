@@ -31,8 +31,15 @@ buildPythonPackage rec {
       --replace "semantic_version>=2.4,<2.7" "semantic_version"
   '';
 
-  propagatedBuildInputs =
-    [ blessings invoke releases semantic-version tabulate tqdm twine ];
+  propagatedBuildInputs = [
+    blessings
+    invoke
+    releases
+    semantic-version
+    tabulate
+    tqdm
+    twine
+  ];
 
   # There's an error loading the test suite. See https://github.com/pyinvoke/invocations/issues/29.
   doCheck = false;

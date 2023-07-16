@@ -20,6 +20,9 @@ buildDunePackage rec {
     description = "An experimental OCaml library to work with DWARF format";
     homepage = "https://github.com/let-def/owee/";
     license = licenses.mit;
-    maintainers = with maintainers; [ vbgl alizter ];
+    maintainers = with maintainers; [
+      vbgl
+      alizter
+    ];
   };
 }

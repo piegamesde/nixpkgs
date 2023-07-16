@@ -29,14 +29,31 @@ mkDerivation rec {
     sha256 = "04gw5y3dxdpivm2xqacqq85fdzx7xkl0c3h3hdazljb0c3cxxs6h";
   };
 
-  buildInputs = [ sqlite icoutils qtbase qtsvg qttools ];
+  buildInputs = [
+    sqlite
+    icoutils
+    qtbase
+    qtsvg
+    qttools
+  ];
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ];
 
   # Add runtime deps.
   postInstall = ''
     wrapProgram $out/bin/q4wine \
-      --prefix PATH : ${lib.makeBinPath [ icoutils wget fuseiso wine which ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          icoutils
+          wget
+          fuseiso
+          wine
+          which
+        ]
+      }
   '';
 
   meta = with lib; {

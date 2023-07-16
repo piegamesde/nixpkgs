@@ -23,8 +23,12 @@ stdenv.mkDerivation rec {
   pname = "openbox";
   version = "3.6.1";
 
-  nativeBuildInputs =
-    [ autoreconfHook pkg-config makeWrapper python3.pkgs.wrapPython ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    makeWrapper
+    python3.pkgs.wrapPython
+  ];
 
   buildInputs = [
     libxml2
@@ -38,7 +42,10 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  propagatedBuildInputs = [ pango imlib2 ];
+  propagatedBuildInputs = [
+    pango
+    imlib2
+  ];
 
   pythonPath = with python3.pkgs; [ pyxdg ];
 

@@ -25,7 +25,10 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-KEg92RYgJd7naHFDKbdXEy075bt6NLcmX8VhQROHVPs=";
   };
 
-  nativeBuildInputs = [ makeWrapper installShellFiles ];
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+  ];
 
   dontUnpack = true;
   dontBuild = true;

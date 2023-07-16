@@ -20,7 +20,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ lxml ];
 
-  nativeCheckInputs = [ pytestCheckHook six ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    six
+  ];
 
   pythonImportsCheck = [ "html_text" ];
 

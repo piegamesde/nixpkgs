@@ -24,7 +24,10 @@ mkYarnPackage rec {
     hash = "sha256-tPkhnnKDS5TICsW66YCOy7xWFj5usLyDMbYMYQ3Euoc=";
   };
 
-  nativeBuildInputs = [ which makeWrapper ];
+  nativeBuildInputs = [
+    which
+    makeWrapper
+  ];
   extraBuildInputs = [ python3 ];
 
   packageJSON = ./package.json;

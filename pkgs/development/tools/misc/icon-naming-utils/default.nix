@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "071fj2jm5kydlz02ic5sylhmw6h2p3cgrm3gwdfabinqkqcv4jh4";
   };
 
-  buildInputs = [ librsvg (perl.withPackages (p: [ p.XMLSimple ])) ];
+  buildInputs = [
+    librsvg
+    (perl.withPackages (p: [ p.XMLSimple ]))
+  ];
 
   meta = with lib; {
     homepage =

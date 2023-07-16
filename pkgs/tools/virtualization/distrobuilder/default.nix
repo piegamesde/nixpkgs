@@ -12,7 +12,14 @@
   fetchpatch,
 }:
 
-let bins = [ coreutils gnupg gnutar squashfsTools debootstrap ];
+let
+  bins = [
+    coreutils
+    gnupg
+    gnutar
+    squashfsTools
+    debootstrap
+  ];
 in buildGoModule rec {
   pname = "distrobuilder";
   version = "2.1";
@@ -49,7 +56,10 @@ in buildGoModule rec {
   # tests require a local keyserver (mkg20001/nixpkgs branch distrobuilder-with-tests) but gpg is currently broken in tests
   doCheck = false;
 
-  nativeBuildInputs = [ pkg-config makeWrapper ] ++ bins;
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ] ++ bins;
 
   postInstall = ''
     wrapProgram $out/bin/distrobuilder --prefix PATH ":" ${lib.makeBinPath bins}

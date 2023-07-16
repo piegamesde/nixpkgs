@@ -42,7 +42,11 @@ stdenv.mkDerivation rec {
   ];
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ bc pkg-config perl ];
+  nativeBuildInputs = [
+    bc
+    pkg-config
+    perl
+  ];
   buildInputs = [
     openssl
     srt

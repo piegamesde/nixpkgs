@@ -35,8 +35,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ wrapQtAppsHook ];
 
-  propagatedBuildInputs =
-    [ apptools envisage numpy packaging pyface pygments pyqt5 traitsui vtk ];
+  propagatedBuildInputs = [
+    apptools
+    envisage
+    numpy
+    packaging
+    pyface
+    pygments
+    pyqt5
+    traitsui
+    vtk
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 

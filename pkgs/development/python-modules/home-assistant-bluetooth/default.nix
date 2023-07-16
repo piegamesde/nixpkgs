@@ -29,7 +29,11 @@ buildPythonPackage rec {
     sed -i '/addopts/d' pyproject.toml
   '';
 
-  nativeBuildInputs = [ cython poetry-core setuptools ];
+  nativeBuildInputs = [
+    cython
+    poetry-core
+    setuptools
+  ];
 
   propagatedBuildInputs = [ bleak ];
 

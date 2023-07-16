@@ -3539,8 +3539,10 @@ let
       })
       sources."watchpack-2.4.0"
       (sources."webpack-5.73.0" // {
-        dependencies =
-          [ sources."enhanced-resolve-5.10.0" sources."tapable-2.2.1" ];
+        dependencies = [
+          sources."enhanced-resolve-5.10.0"
+          sources."tapable-2.2.1"
+        ];
       })
       (sources."webpack-cli-4.10.0" // {
         dependencies = [ sources."commander-7.2.0" ];

@@ -117,7 +117,12 @@ in (buildGoModule {
     inherit enableSeccomp enableSuid projectName removeCompat starterSuidPath;
   };
 
-  nativeBuildInputs = [ makeWrapper pkg-config util-linux which ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+    util-linux
+    which
+  ];
 
   # Search inside the project sources
   # and see the `control` file of the Debian package from upstream repos
@@ -138,8 +143,10 @@ in (buildGoModule {
 
   configureScript = "./mconfig";
 
-  configureFlags = [ "--localstatedir=/var/lib" "--runstatedir=/var/run" ]
-    ++ lib.optional (!enableSeccomp) "--without-seccomp"
+  configureFlags = [
+    "--localstatedir=/var/lib"
+    "--runstatedir=/var/run"
+  ] ++ lib.optional (!enableSeccomp) "--without-seccomp"
     ++ lib.optional (enableSuid != defaultToSuid)
     (if enableSuid then "--with-suid" else "--without-suid")
     ++ extraConfigureFlags;
@@ -239,7 +246,10 @@ in (buildGoModule {
       '';
       license = licenses.bsd3;
       platforms = platforms.linux;
-      maintainers = with maintainers; [ jbedo ShamrockLee ];
+      maintainers = with maintainers; [
+        jbedo
+        ShamrockLee
+      ];
       mainProgram = projectName;
     } // extraMeta;
 }).overrideAttrs (finalAttrs: prevAttrs: {
@@ -247,7 +257,10 @@ in (buildGoModule {
     tests = {
       image-hello-cowsay = singularity-tools.buildImage {
         name = "hello-cowsay";
-        contents = [ hello cowsay ];
+        contents = [
+          hello
+          cowsay
+        ];
         singularity = finalAttrs.finalPackage;
       };
     };

@@ -24,11 +24,15 @@ buildPythonPackage rec {
     hash = "sha256-E2vUROc2FcAv00k50YpdxaaYIRDk1yGSPB8cHHw+7Yw=";
   };
 
-  propagatedBuildInputs = [ eth-hash eth-typing ]
-    ++ lib.optional (!isPyPy) cytoolz ++ lib.optional isPyPy toolz;
+  propagatedBuildInputs = [
+    eth-hash
+    eth-typing
+  ] ++ lib.optional (!isPyPy) cytoolz ++ lib.optional isPyPy toolz;
 
-  nativeCheckInputs = [ hypothesis pytestCheckHook ]
-    ++ eth-hash.optional-dependencies.pycryptodome;
+  nativeCheckInputs = [
+    hypothesis
+    pytestCheckHook
+  ] ++ eth-hash.optional-dependencies.pycryptodome;
 
   pythonImportsCheck = [ "eth_utils" ];
 

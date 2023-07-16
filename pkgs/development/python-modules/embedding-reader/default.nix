@@ -25,7 +25,12 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [ "pyarrow" ];
 
-  propagatedBuildInputs = [ fsspec numpy pandas pyarrow ];
+  propagatedBuildInputs = [
+    fsspec
+    numpy
+    pandas
+    pyarrow
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

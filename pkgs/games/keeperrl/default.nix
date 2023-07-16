@@ -54,8 +54,17 @@ stdenv.mkDerivation rec {
     mv data $sourceRoot
   '';
 
-  buildInputs =
-    [ openal curl libogg libvorbis libtheora SDL2 SDL2_image zlib clang ];
+  buildInputs = [
+    openal
+    curl
+    libogg
+    libvorbis
+    libtheora
+    SDL2
+    SDL2_image
+    zlib
+    clang
+  ];
 
   env.NIX_CFLAGS_COMPILE = toString [ "-I${SDL2.dev}/include/SDL2" ];
 
@@ -84,6 +93,9 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2;
     maintainers = with maintainers; [ onny ];
     # TODO: Add OS X
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 }

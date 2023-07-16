@@ -33,7 +33,10 @@ mkDerivation rec {
       --replace "add_definitions (-Wall -Werror)" "add_definitions (-Wall)"
   '';
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
   buildInputs = [
     qtx11extras

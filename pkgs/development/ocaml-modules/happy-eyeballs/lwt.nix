@@ -20,9 +20,21 @@ buildDunePackage {
   minimalOCamlVersion = "4.08";
   duneVersion = "3";
 
-  buildInputs = [ cmdliner duration domain-name ipaddr fmt mtime ];
+  buildInputs = [
+    cmdliner
+    duration
+    domain-name
+    ipaddr
+    fmt
+    mtime
+  ];
 
-  propagatedBuildInputs = [ dns-client-lwt happy-eyeballs logs lwt ];
+  propagatedBuildInputs = [
+    dns-client-lwt
+    happy-eyeballs
+    logs
+    lwt
+  ];
 
   doCheck = true;
 

@@ -41,14 +41,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-6xQniOLNUk8tDkooDN3Tp6sb43GqoynO6+fN9yhNqZ4=";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "symbolic-icons.patch";
-      url =
-        "https://github.com/astroidmail/astroid/commit/7c2022f06a4146ad62e858bcaacdb4ee817851b9.patch";
-      hash = "sha256-hZHOg1wUR8Kpd6017fWzhMmG+/WQxSOCnsiyIvUcpbU=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "symbolic-icons.patch";
+    url =
+      "https://github.com/astroidmail/astroid/commit/7c2022f06a4146ad62e858bcaacdb4ee817851b9.patch";
+    hash = "sha256-hZHOg1wUR8Kpd6017fWzhMmG+/WQxSOCnsiyIvUcpbU=";
+  }) ];
 
   nativeBuildInputs = [
     cmake
@@ -93,7 +91,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://astroidmail.github.io/";
     description = "GTK frontend to the notmuch mail system";
-    maintainers = with maintainers; [ bdimcheff SuprDewd ];
+    maintainers = with maintainers; [
+      bdimcheff
+      SuprDewd
+    ];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

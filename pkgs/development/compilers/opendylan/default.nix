@@ -26,11 +26,17 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ makeWrapper autoconf automake ];
-  buildInputs = (if stdenv.hostPlatform.system == "i686-linux" then
-    [ mps ]
-  else
-    [ boehmgc ]) ++ [ opendylan-bootstrap boehmgc perl ];
+  nativeBuildInputs = [
+    makeWrapper
+    autoconf
+    automake
+  ];
+  buildInputs = (if stdenv.hostPlatform.system
+  == "i686-linux" then [ mps ] else [ boehmgc ]) ++ [
+    opendylan-bootstrap
+    boehmgc
+    perl
+  ];
 
   preConfigure = if stdenv.hostPlatform.system == "i686-linux" then ''
     mkdir -p $TMPDIR/mps
@@ -40,12 +46,10 @@ stdenv.mkDerivation {
     ./autogen.sh
   '';
 
-  configureFlags = [
-    (if stdenv.hostPlatform.system == "i686-linux" then
-      "--with-mps=$(TMPDIR)/mps"
-    else
-      "--with-gc=${boehmgc.out}")
-  ];
+  configureFlags = [ (if stdenv.hostPlatform.system == "i686-linux" then
+    "--with-mps=$(TMPDIR)/mps"
+  else
+    "--with-gc=${boehmgc.out}") ];
   buildPhase = "make 3-stage-bootstrap";
 
   postInstall =

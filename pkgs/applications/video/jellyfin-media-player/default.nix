@@ -65,10 +65,18 @@ mkDerivation rec {
       MediaPlayer
     ];
 
-  nativeBuildInputs = [ cmake ninja pkg-config python3 ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    pkg-config
+    python3
+  ];
 
-  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" "-DQTROOT=${qtbase}" "-GNinja" ]
-    ++ lib.optionals (!withDbus) [ "-DLINUX_X11POWER=ON" ];
+  cmakeFlags = [
+    "-DCMAKE_BUILD_TYPE=Release"
+    "-DQTROOT=${qtbase}"
+    "-GNinja"
+  ] ++ lib.optionals (!withDbus) [ "-DLINUX_X11POWER=ON" ];
 
   preConfigure = ''
     # link the jellyfin-web files to be copied by cmake (see fix-web-path.patch)
@@ -89,9 +97,18 @@ mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/jellyfin/jellyfin-media-player";
     description = "Jellyfin Desktop Client based on Plex Media Player";
-    license = with licenses; [ gpl2Only mit ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
-    maintainers = with maintainers; [ jojosch kranzes ];
+    license = with licenses; [
+      gpl2Only
+      mit
+    ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
+    maintainers = with maintainers; [
+      jojosch
+      kranzes
+    ];
     mainProgram = "jellyfinmediaplayer";
   };
 }

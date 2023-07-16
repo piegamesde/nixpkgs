@@ -19,7 +19,12 @@ mkDerivation rec {
     hash = "sha256-HZCD5884pHuHey+d+HRx/F/Sp1b6ZUy7MdqqZ08H0lU=";
   };
 
-  buildInputs = [ kcoreaddons kwindowsystem plasma-framework systemsettings ];
+  buildInputs = [
+    kcoreaddons
+    kwindowsystem
+    plasma-framework
+    systemsettings
+  ];
 
   dontBuild = true;
 

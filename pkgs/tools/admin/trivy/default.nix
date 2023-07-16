@@ -18,9 +18,16 @@ buildGoModule rec {
   proxyVendor = true;
   vendorHash = "sha256-JlLQpBiviVXcX1xK0pi2igErCzvOXBc28m4fzDuIQ1U=";
 
-  excludedPackages = [ "magefiles" "misc" ];
+  excludedPackages = [
+    "magefiles"
+    "misc"
+  ];
 
-  ldflags = [ "-s" "-w" "-X main.version=v${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=v${version}"
+  ];
 
   # Tests require network access
   doCheck = false;

@@ -128,17 +128,17 @@ in {
     systemd.services.pomerium-config-reload = mkIf (cfg.useACMEHost != null) {
       # TODO(lukegb): figure out how to make config reloading work with credentials.
 
-      wantedBy =
-        [ "acme-finished-${cfg.useACMEHost}.target" "multi-user.target" ];
+      wantedBy = [
+        "acme-finished-${cfg.useACMEHost}.target"
+        "multi-user.target"
+      ];
       # Before the finished targets, after the renew services.
       before = [ "acme-finished-${cfg.useACMEHost}.target" ];
       after = [ "acme-${cfg.useACMEHost}.service" ];
       # Block reloading if not all certs exist yet.
-      unitConfig.ConditionPathExists = [
-        "${
+      unitConfig.ConditionPathExists = [ "${
           config.security.acme.certs.${cfg.useACMEHost}.directory
-        }/fullchain.pem"
-      ];
+        }/fullchain.pem" ];
       serviceConfig = {
         Type = "oneshot";
         TimeoutSec = 60;

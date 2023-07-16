@@ -23,24 +23,28 @@ in stdenv.mkDerivation rec {
     sha256 = "14l1f9hrp6m7z3cm5yl0njba6gfixzdirxjl8nihp9val0685vm0";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./fix-lib-paths.patch;
-      antlr4RuntimeCpp = antlr4.runtime.cpp.dev;
-      inherit libargs catch2 yaml-cpp;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./fix-lib-paths.patch;
+    antlr4RuntimeCpp = antlr4.runtime.cpp.dev;
+    inherit libargs catch2 yaml-cpp;
+  }) ];
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ antlr4.runtime.cpp yaml-cpp ];
+  buildInputs = [
+    antlr4.runtime.cpp
+    yaml-cpp
+  ];
 
   meta = with lib; {
     description = "Code formatter for Lua";
     homepage = "https://github.com/Koihik/LuaFormatter";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ figsoda SuperSandro2000 ];
+    maintainers = with maintainers; [
+      figsoda
+      SuperSandro2000
+    ];
     mainProgram = "lua-format";
   };
 }

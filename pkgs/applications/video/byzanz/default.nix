@@ -36,7 +36,10 @@ stdenv.mkDerivation {
     "-Wno-error=incompatible-pointer-types"
   ];
 
-  nativeBuildInputs = [ pkg-config intltool ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+  ];
   buildInputs = [
     which
     gnome.gnome-common

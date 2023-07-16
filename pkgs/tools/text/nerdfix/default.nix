@@ -23,7 +23,10 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/loichyan/nerdfix";
     changelog =
       "https://github.com/loichyan/nerdfix/blob/${src.rev}/CHANGELOG.md";
-    license = with licenses; [ asl20 mit ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
     maintainers = with maintainers; [ figsoda ];
   };
 }

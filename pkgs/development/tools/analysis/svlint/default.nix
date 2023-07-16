@@ -15,7 +15,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-yD7oQyT7QimUOtaqaUURPP8hV0z6QKBhItk5C+rJjwo=";
 
-  cargoBuildFlags = [ "--bin" "svlint" ];
+  cargoBuildFlags = [
+    "--bin"
+    "svlint"
+  ];
 
   meta = with lib; {
     description = "SystemVerilog linter";

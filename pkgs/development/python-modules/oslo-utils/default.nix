@@ -51,8 +51,15 @@ buildPythonPackage rec {
     pytz
   ];
 
-  nativeCheckInputs =
-    [ ddt eventlet fixtures oslotest stestr testscenarios pyyaml ];
+  nativeCheckInputs = [
+    ddt
+    eventlet
+    fixtures
+    oslotest
+    stestr
+    testscenarios
+    pyyaml
+  ];
 
   checkPhase = ''
     echo "nameserver 127.0.0.1" > resolv.conf

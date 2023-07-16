@@ -30,7 +30,7 @@ in {
     };
 
     services.kubernetes.kubelet = {
-      cni.config = mkDefault [{
+      cni.config = mkDefault [ {
         name = "mynet";
         type = "flannel";
         cniVersion = "0.3.1";
@@ -38,7 +38,7 @@ in {
           isDefaultGateway = true;
           bridge = "mynet";
         };
-      }];
+      } ];
     };
 
     networking = {
@@ -46,7 +46,10 @@ in {
         8285 # flannel udp
         8472 # flannel vxlan
       ];
-      dhcpcd.denyInterfaces = [ "mynet*" "flannel*" ];
+      dhcpcd.denyInterfaces = [
+        "mynet*"
+        "flannel*"
+      ];
     };
 
     services.kubernetes.pki.certs = {
@@ -75,7 +78,10 @@ in {
               {
                 apiGroups = [ "" ];
                 resources = [ "nodes" ];
-                verbs = [ "list" "watch" ];
+                verbs = [
+                  "list"
+                  "watch"
+                ];
               }
               {
                 apiGroups = [ "" ];
@@ -94,10 +100,10 @@ in {
               kind = "ClusterRole";
               name = "flannel";
             };
-            subjects = [{
+            subjects = [ {
               kind = "User";
               name = "flannel-client";
-            }];
+            } ];
           };
 
         };

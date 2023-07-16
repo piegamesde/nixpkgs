@@ -22,9 +22,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-Tkd46NxLvGe+RpCSFdCsYrFWc3PAtXI1aCq8177jla0=";
   };
 
-  nativeBuildInputs = [ bash-completion pkg-config perl ];
+  nativeBuildInputs = [
+    bash-completion
+    pkg-config
+    perl
+  ];
 
-  buildInputs = [ fuse fuse3 gnutls libxml2 ];
+  buildInputs = [
+    fuse
+    fuse3
+    gnutls
+    libxml2
+  ];
 
   installFlags = [ "bashcompdir=$(out)/share/bash-completion/completions" ];
 
@@ -47,7 +56,10 @@ stdenv.mkDerivation rec {
       - Shell (nbdsh) for command line and scripting.
     '';
     license = with licenses; lgpl21Plus;
-    maintainers = with maintainers; [ AndersonTorres humancalico ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      humancalico
+    ];
     platforms = with platforms; linux;
   };
 }

@@ -28,9 +28,16 @@ buildPythonPackage rec {
     sed -i "/--cov/d" setup.cfg
   '';
 
-  propagatedBuildInputs = [ bleak click ];
+  propagatedBuildInputs = [
+    bleak
+    click
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pyzerproc" ];
 

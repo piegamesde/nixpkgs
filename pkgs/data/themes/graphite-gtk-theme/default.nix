@@ -32,12 +32,24 @@ in lib.checkListOfEnum "${pname}: theme variants" [
   "teal"
   "blue"
   "all"
-] themeVariants lib.checkListOfEnum
-"${pname}: color variants" [ "standard" "light" "dark" ] colorVariants
-lib.checkListOfEnum "${pname}: size variants" [ "standard" "compact" ]
-sizeVariants lib.checkListOfEnum
-"${pname}: tweaks" [ "nord" "black" "dark" "rimless" "normal" ] tweaks
-lib.checkListOfEnum "${pname}: grub screens" [ "1080p" "2k" "4k" ] grubScreens
+] themeVariants lib.checkListOfEnum "${pname}: color variants" [
+  "standard"
+  "light"
+  "dark"
+] colorVariants lib.checkListOfEnum "${pname}: size variants" [
+  "standard"
+  "compact"
+] sizeVariants lib.checkListOfEnum "${pname}: tweaks" [
+  "nord"
+  "black"
+  "dark"
+  "rimless"
+  "normal"
+] tweaks lib.checkListOfEnum "${pname}: grub screens" [
+  "1080p"
+  "2k"
+  "4k"
+] grubScreens
 
 stdenvNoCC.mkDerivation rec {
   inherit pname;
@@ -50,7 +62,10 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "PaqEkl0E3pUEJDEv1WwUqcjzAcQniN8rUGhVgbOxuhA=";
   };
 
-  nativeBuildInputs = [ jdupes sassc ];
+  nativeBuildInputs = [
+    jdupes
+    sassc
+  ];
 
   buildInputs = [ gnome-themes-extra ];
 

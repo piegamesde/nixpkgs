@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "03323nnhb4y9nzwva04mq7xg03dvdrgp689g89f69jqc261skcqx";
   };
 
-  nativeBuildInputs = [ autoconf automake ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+  ];
   buildInputs = [ libevent ];
 
   preConfigure = ''

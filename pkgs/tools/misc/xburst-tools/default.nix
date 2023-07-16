@@ -36,14 +36,24 @@ in stdenv.mkDerivation {
     "CROSS_COMPILE=${gccCross.targetPrefix}"
   ];
 
-  hardeningDisable = [ "pic" "stackprotector" ];
+  hardeningDisable = [
+    "pic"
+    "stackprotector"
+  ];
 
   # Not to strip cross build binaries (this is for the gcc-cross-wrapper)
   dontCrossStrip = true;
 
-  nativeBuildInputs = [ autoconf automake pkg-config ];
-  buildInputs = [ libusb-compat-0_1 libusb1 libconfuse ]
-    ++ lib.optional (gccCross != null) gccCross;
+  nativeBuildInputs = [
+    autoconf
+    automake
+    pkg-config
+  ];
+  buildInputs = [
+    libusb-compat-0_1
+    libusb1
+    libconfuse
+  ] ++ lib.optional (gccCross != null) gccCross;
 
   meta = {
     broken = stdenv.isDarwin;

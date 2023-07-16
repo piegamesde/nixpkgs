@@ -94,7 +94,12 @@ in stdenv.mkDerivation rec {
     sha256 = "1bywmdj54glzd0kffvr27r84n4dsd0pskkbmh59mllbxvj0qwy7f";
   };
 
-  nativeBuildInputs = [ makeWrapper fakeLess which unzip ];
+  nativeBuildInputs = [
+    makeWrapper
+    fakeLess
+    which
+    unzip
+  ];
 
   unpackPhase = ''
     echo -e '\ny' | sh -xe $src
@@ -156,8 +161,14 @@ in stdenv.mkDerivation rec {
       url = "https://www.teamspeak.com/en/privacy-and-terms/";
       free = false;
     };
-    maintainers = with maintainers; [ lhvwb lukegb ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    maintainers = with maintainers; [
+      lhvwb
+      lukegb
+    ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 }
 

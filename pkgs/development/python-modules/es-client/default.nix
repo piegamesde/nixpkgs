@@ -33,10 +33,22 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs =
-    [ certifi click elastic-transport elasticsearch8 pyyaml six voluptuous ];
+  propagatedBuildInputs = [
+    certifi
+    click
+    elastic-transport
+    elasticsearch8
+    pyyaml
+    six
+    voluptuous
+  ];
 
-  nativeCheckInputs = [ mock pytest-asyncio pytestCheckHook requests ];
+  nativeCheckInputs = [
+    mock
+    pytest-asyncio
+    pytestCheckHook
+    requests
+  ];
 
   pythonImportsCheck = [ "es_client" ];
 

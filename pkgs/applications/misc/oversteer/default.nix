@@ -44,7 +44,10 @@ in stdenv.mkDerivation {
     sha256 = "sha256-9MWRb0NXUbB8c+pH0mjUzsz849PmEjsZMhQr4wsmlKI=";
   };
 
-  buildInputs = [ bash gtk3 ];
+  buildInputs = [
+    bash
+    gtk3
+  ];
 
   nativeBuildInputs = [
     pkg-config
@@ -62,7 +65,11 @@ in stdenv.mkDerivation {
 
   dontUseCmakeConfigure = true;
 
-  propagatedBuildInputs = [ python gtk3 python3Packages.pygobject3 ];
+  propagatedBuildInputs = [
+    python
+    gtk3
+    python3Packages.pygobject3
+  ];
 
   mesonFlags = [
     "--prefix"

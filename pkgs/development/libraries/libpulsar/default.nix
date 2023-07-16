@@ -48,7 +48,10 @@ let
     }
   else
     boost17x;
-  defaultOptionals = [ boost protobuf ] ++ lib.optional python3Support python3
+  defaultOptionals = [
+    boost
+    protobuf
+  ] ++ lib.optional python3Support python3
     ++ lib.optional snappySupport snappy.dev ++ lib.optional zlibSupport zlib
     ++ lib.optional zstdSupport zstd ++ lib.optional log4cxxSupport log4cxx;
 
@@ -65,10 +68,17 @@ in stdenv.mkDerivation rec {
   sourceRoot = "apache-pulsar-${version}-src/pulsar-client-cpp";
 
   # clang-tools needed for clang-format
-  nativeBuildInputs = [ cmake pkg-config clangTools ] ++ defaultOptionals
-    ++ lib.optional gtestSupport gtest.dev;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    clangTools
+  ] ++ defaultOptionals ++ lib.optional gtestSupport gtest.dev;
 
-  buildInputs = [ jsoncpp openssl curl ] ++ defaultOptionals;
+  buildInputs = [
+    jsoncpp
+    openssl
+    curl
+  ] ++ defaultOptionals;
 
   # Needed for GCC on Linux
   env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=return-type" ];

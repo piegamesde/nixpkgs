@@ -14,9 +14,15 @@
 mkDerivation {
   pname = "solid";
   patches = [ ./fix-search-path.patch ];
-  nativeBuildInputs = [ bison extra-cmake-modules flex ]
-    ++ lib.optionals stdenv.isLinux [ media-player-info ];
-  buildInputs = [ qtdeclarative qttools ];
+  nativeBuildInputs = [
+    bison
+    extra-cmake-modules
+    flex
+  ] ++ lib.optionals stdenv.isLinux [ media-player-info ];
+  buildInputs = [
+    qtdeclarative
+    qttools
+  ];
   propagatedBuildInputs = [ qtbase ];
   propagatedUserEnvPkgs = lib.optionals stdenv.isLinux [ media-player-info ];
 }

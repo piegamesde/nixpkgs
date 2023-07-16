@@ -74,9 +74,16 @@ in buildPythonPackage rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ boost cairo ];
+  buildInputs = [
+    boost
+    cairo
+  ];
 
-  propagatedBuildInputs = [ numpy pandas pillow ];
+  propagatedBuildInputs = [
+    numpy
+    pandas
+    pillow
+  ];
 
   hardeningDisable = [ "format" ]; # required by yaehmop
 
@@ -129,7 +136,11 @@ in buildPythonPackage rec {
     (cd $RDBASE/rdkit/Chem && python $RDBASE/rdkit/TestRunner.py test_list.py)
   '';
 
-  pythonImportsCheck = [ "rdkit" "rdkit.Chem" "rdkit.Chem.AllChem" ];
+  pythonImportsCheck = [
+    "rdkit"
+    "rdkit.Chem"
+    "rdkit.Chem.AllChem"
+  ];
 
   meta = with lib; {
     description = "Open source toolkit for cheminformatics";

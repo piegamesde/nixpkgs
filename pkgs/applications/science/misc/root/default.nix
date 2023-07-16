@@ -59,14 +59,12 @@
 let
 
   _llvm_9 = llvm_9.overrideAttrs (prev: {
-    patches = (prev.patches or [ ]) ++ [
-      (fetchpatch {
-        url =
-          "https://github.com/root-project/root/commit/a9c961cf4613ff1f0ea50f188e4a4b0eb749b17d.diff";
-        stripLen = 3;
-        hash = "sha256-LH2RipJICEDWOr7JzX5s0QiUhEwXNMFEJihYKy9qWpo=";
-      })
-    ];
+    patches = (prev.patches or [ ]) ++ [ (fetchpatch {
+      url =
+        "https://github.com/root-project/root/commit/a9c961cf4613ff1f0ea50f188e4a4b0eb749b17d.diff";
+      stripLen = 3;
+      hash = "sha256-LH2RipJICEDWOr7JzX5s0QiUhEwXNMFEJihYKy9qWpo=";
+    }) ];
   });
 
 in stdenv.mkDerivation rec {
@@ -80,7 +78,12 @@ in stdenv.mkDerivation rec {
     hash = "sha256-jla+w5cQQBeqVPnrVU3noaE0R0/gs7sPQ6cPxPq9Yl8=";
   };
 
-  nativeBuildInputs = [ makeWrapper cmake pkg-config git ];
+  nativeBuildInputs = [
+    makeWrapper
+    cmake
+    pkg-config
+    git
+  ];
   propagatedBuildInputs = [ nlohmann_json ];
   buildInputs = [
     davix
@@ -118,7 +121,11 @@ in stdenv.mkDerivation rec {
     libXext
     libGLU
     libGL
-  ] ++ lib.optionals (stdenv.isDarwin) [ Cocoa CoreSymbolication OpenGL ];
+  ] ++ lib.optionals (stdenv.isDarwin) [
+    Cocoa
+    CoreSymbolication
+    OpenGL
+  ];
 
   patches = [ ./sw_vers.patch ];
 
@@ -264,7 +271,11 @@ in stdenv.mkDerivation rec {
       ]
     }"
     patchRcPathFish "$out/bin/thisroot.fish" "${
-      lib.makeBinPath [ coreutils man which ]
+      lib.makeBinPath [
+        coreutils
+        man
+        which
+      ]
     }"
   '';
 

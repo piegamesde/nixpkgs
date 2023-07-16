@@ -15,12 +15,12 @@ import ./make-test-python.nix ({
           enable = true;
           settings = {
             # Enable Prometheus output for status assertions.
-            global.monitoring = [{
+            global.monitoring = [ {
               type = "prometheus";
               listen = ":9811";
-            }];
+            } ];
             # Create a periodic snapshot job for an ephemeral zpool.
-            jobs = [{
+            jobs = [ {
               name = "snap_test";
               type = "snap";
 
@@ -31,11 +31,11 @@ import ./make-test-python.nix ({
                 interval = "1s";
               };
 
-              pruning.keep = [{
+              pruning.keep = [ {
                 type = "last_n";
                 count = 8;
-              }];
-            }];
+              } ];
+            } ];
           };
         };
       };

@@ -22,8 +22,17 @@ buildPythonPackage rec {
     hash = "sha256-nbSxqMmYWi71s74bbB9LAlPKEslTqG/j266cLfNHrwg=";
   };
 
-  propagatedBuildInputs = [ numpy scipy torch ];
-  nativeCheckInputs = [ nose2 autograd matplotlib tensorflow ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    torch
+  ];
+  nativeCheckInputs = [
+    nose2
+    autograd
+    matplotlib
+    tensorflow
+  ];
 
   checkPhase = ''
     runHook preCheck

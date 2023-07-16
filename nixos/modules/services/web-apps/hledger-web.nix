@@ -142,5 +142,8 @@ in {
 
   };
 
-  meta.maintainers = with lib.maintainers; [ marijanp erictapen ];
+  meta.maintainers = with lib.maintainers; [
+    marijanp
+    erictapen
+  ];
 }

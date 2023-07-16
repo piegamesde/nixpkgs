@@ -34,14 +34,19 @@ in stdenv.mkDerivation rec {
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  nativeBuildInputs =
-    [ perl ninja (buildPackages.python3.withPackages (ps: with ps; [ gyp ])) ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      darwin.cctools
-      fixDarwinDylibNames
-    ];
+  nativeBuildInputs = [
+    perl
+    ninja
+    (buildPackages.python3.withPackages (ps: with ps; [ gyp ]))
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    darwin.cctools
+    fixDarwinDylibNames
+  ];
 
-  buildInputs = [ zlib sqlite ];
+  buildInputs = [
+    zlib
+    sqlite
+  ];
 
   propagatedBuildInputs = [ nspr ];
 
@@ -69,7 +74,11 @@ in stdenv.mkDerivation rec {
     substituteInPlace nss/coreconf/config.gypi --replace "'DYLIB_INSTALL_NAME_BASE': '@executable_path'" "'DYLIB_INSTALL_NAME_BASE': '$out/lib'"
   '';
 
-  outputs = [ "out" "dev" "tools" ];
+  outputs = [
+    "out"
+    "dev"
+    "tools"
+  ];
 
   preConfigure = "cd nss";
 
@@ -113,12 +122,13 @@ in stdenv.mkDerivation rec {
     runHook postBuild
   '';
 
-  env.NIX_CFLAGS_COMPILE = toString
-    ([ "-Wno-error" ''-DNIX_NSS_LIBDIR="${placeholder "out"}/lib/"'' ]
-      ++ lib.optionals stdenv.hostPlatform.is64bit [ "-DNSS_USE_64=1" ]
-      ++ lib.optionals stdenv.hostPlatform.isILP32 [
-        "-DNS_PTR_LE_32=1" # See RNG_RandomUpdate() in drdbg.c
-      ]);
+  env.NIX_CFLAGS_COMPILE = toString ([
+    "-Wno-error"
+    ''-DNIX_NSS_LIBDIR="${placeholder "out"}/lib/"''
+  ] ++ lib.optionals stdenv.hostPlatform.is64bit [ "-DNSS_USE_64=1" ]
+    ++ lib.optionals
+    stdenv.hostPlatform.isILP32 [ "-DNS_PTR_LE_32=1" # See RNG_RandomUpdate() in drdbg.c
+    ]);
 
   installPhase = ''
     runHook preInstall
@@ -195,7 +205,10 @@ in stdenv.mkDerivation rec {
       "A set of libraries for development of security-enabled client and server applications";
     changelog =
       "https://github.com/nss-dev/nss/blob/master/doc/rst/releases/nss_${underscoreVersion}.rst";
-    maintainers = with maintainers; [ hexa ajs124 ];
+    maintainers = with maintainers; [
+      hexa
+      ajs124
+    ];
     license = licenses.mpl20;
     platforms = platforms.all;
   };

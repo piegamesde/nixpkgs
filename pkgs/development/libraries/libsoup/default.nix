@@ -24,7 +24,10 @@ stdenv.mkDerivation rec {
   pname = "libsoup";
   version = "2.74.3";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -35,13 +38,27 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ meson ninja pkg-config glib ]
-    ++ lib.optionals withIntrospection [ gobject-introspection vala ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    glib
+  ] ++ lib.optionals withIntrospection [
+    gobject-introspection
+    vala
+  ];
 
-  buildInputs = [ sqlite libpsl glib.out brotli ]
-    ++ lib.optionals stdenv.isLinux [ libsysprof-capture ];
+  buildInputs = [
+    sqlite
+    libpsl
+    glib.out
+    brotli
+  ] ++ lib.optionals stdenv.isLinux [ libsysprof-capture ];
 
-  propagatedBuildInputs = [ glib libxml2 ];
+  propagatedBuildInputs = [
+    glib
+    libxml2
+  ];
 
   mesonFlags = [
     "-Dtls_check=false" # glib-networking is a runtime dependency, not a compile-time dependency

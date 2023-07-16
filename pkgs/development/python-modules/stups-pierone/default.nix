@@ -25,13 +25,21 @@ buildPythonPackage rec {
     hash = "sha256-OypGYHfiFUfcUndylM2N2WfPnfXXJ4gvWypUbltYAYE=";
   };
 
-  propagatedBuildInputs = [ requests stups-cli-support stups-zign ];
+  propagatedBuildInputs = [
+    requests
+    stups-cli-support
+    stups-zign
+  ];
 
   preCheck = ''
     export HOME=$TEMPDIR
   '';
 
-  nativeCheckInputs = [ pytest pytest-cov hypothesis ];
+  nativeCheckInputs = [
+    pytest
+    pytest-cov
+    hypothesis
+  ];
 
   pythonImportsCheck = [ "pierone" ];
 

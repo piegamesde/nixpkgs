@@ -15,14 +15,17 @@ let
   cfg = config.networking;
   opt = options.networking;
 
-  localhostMultiple = any (elem "localhost")
-    (attrValues (removeAttrs cfg.hosts [ "127.0.0.1" "::1" ]));
+  localhostMultiple = any (elem "localhost") (attrValues
+    (removeAttrs cfg.hosts [
+      "127.0.0.1"
+      "::1"
+    ]));
 
 in {
-  imports = [
-    (mkRemovedOptionModule [ "networking" "hostConf" ]
-      ''Use environment.etc."host.conf" instead.'')
-  ];
+  imports = [ (mkRemovedOptionModule [
+    "networking"
+    "hostConf"
+  ] ''Use environment.etc."host.conf" instead.'') ];
 
   options = {
 
@@ -158,14 +161,14 @@ in {
 
   config = {
 
-    assertions = [{
+    assertions = [ {
       assertion = !localhostMultiple;
       message = ''
         `networking.hosts` maps "localhost" to something other than "127.0.0.1"
         or "::1". This will break some applications. Please use
         `networking.extraHosts` if you really want to add such a mapping.
       '';
-    }];
+    } ];
 
     # These entries are required for "hostname -f" and to resolve both the
     # hostname and FQDN correctly:
@@ -193,7 +196,11 @@ in {
       in pkgs.writeText "string-hosts"
       (allToString (filterAttrs (_: v: v != [ ]) cfg.hosts));
       extraHosts = pkgs.writeText "extra-hosts" cfg.extraHosts;
-    in mkBefore [ localhostHosts stringHosts extraHosts ];
+    in mkBefore [
+      localhostHosts
+      stringHosts
+      extraHosts
+    ];
 
     environment.etc = { # /etc/services: TCP/UDP port assignments.
       services.source = pkgs.iana-etc + "/etc/services";

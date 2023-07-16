@@ -28,10 +28,20 @@ mkDerivation rec {
 
   outputs = [ "out" ];
 
-  nativeBuildInputs = [ pkg-config cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
 
-  buildInputs =
-    [ qtbase json_c mesa_glu freeglut libtraceevent libtracefs trace-cmd ];
+  buildInputs = [
+    qtbase
+    json_c
+    mesa_glu
+    freeglut
+    libtraceevent
+    libtracefs
+    trace-cmd
+  ];
 
   cmakeFlags = [
     "-D_INSTALL_PREFIX=${placeholder "out"}"

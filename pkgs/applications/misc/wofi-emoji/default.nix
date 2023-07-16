@@ -27,7 +27,11 @@ in stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ jq ];
-  buildInputs = [ wofi wtype wl-clipboard ];
+  buildInputs = [
+    wofi
+    wtype
+    wl-clipboard
+  ];
 
   postPatch = ''
     substituteInPlace build.sh \

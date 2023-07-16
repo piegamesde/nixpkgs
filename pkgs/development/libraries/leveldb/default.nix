@@ -32,7 +32,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   buildInputs = [ snappy ];
 

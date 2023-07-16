@@ -26,7 +26,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VPmVoCoVyljzqtbkuT3e6jhXClP708V/6zy1bVoET7c=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   buildInputs = [
     ffmpeg_4

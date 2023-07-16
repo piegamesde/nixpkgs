@@ -29,7 +29,11 @@ buildPythonPackage rec {
       --replace "--cov-append --cov-report term --cov tinydb" ""
   '';
 
-  nativeCheckInputs = [ pytestCheckHook pycodestyle pyyaml ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pycodestyle
+    pyyaml
+  ];
 
   pythonImportsCheck = [ "tinydb" ];
 

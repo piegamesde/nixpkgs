@@ -25,17 +25,25 @@ stdenv.mkDerivation rec {
     sha256 = "WJwZ4/oQJC1iOaXMuVhVmENqVuvpTS6ypQtZUMzh1SA=";
   };
 
-  nativeBuildInputs = [ pkg-config gettext wrapGAppsHook ];
-
-  buildInputs = [ gtk3 gupnp mate.caja mate.mate-desktop imagemagick ];
-
-  patches = [
-    (substituteAll {
-      src = ./hardcode-gsettings.patch;
-      caja_gsetttings_path = glib.getSchemaPath mate.caja;
-      desktop_gsetttings_path = glib.getSchemaPath mate.mate-desktop;
-    })
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+    wrapGAppsHook
   ];
+
+  buildInputs = [
+    gtk3
+    gupnp
+    mate.caja
+    mate.mate-desktop
+    imagemagick
+  ];
+
+  patches = [ (substituteAll {
+    src = ./hardcode-gsettings.patch;
+    caja_gsetttings_path = glib.getSchemaPath mate.caja;
+    desktop_gsetttings_path = glib.getSchemaPath mate.mate-desktop;
+  }) ];
 
   postPatch = ''
     substituteInPlace open-terminal/caja-open-terminal.c --subst-var-by \

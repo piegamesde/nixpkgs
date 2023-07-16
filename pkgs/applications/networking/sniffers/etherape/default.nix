@@ -20,8 +20,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9UsQtWOXB1yYofGS4rMIF+ISWBsJKd0DBOFfqOr1n5Y=";
   };
 
-  nativeBuildInputs = [ itstool pkg-config (lib.getBin libxml2) ];
-  buildInputs = [ libtool gtk3 libpcap goocanvas2 popt ];
+  nativeBuildInputs = [
+    itstool
+    pkg-config
+    (lib.getBin libxml2)
+  ];
+  buildInputs = [
+    libtool
+    gtk3
+    libpcap
+    goocanvas2
+    popt
+  ];
 
   meta = with lib; {
     homepage = "http://etherape.sourceforge.net/";

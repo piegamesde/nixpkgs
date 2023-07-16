@@ -33,6 +33,9 @@ stdenv.mkDerivation rec {
       "Linux tool to display or modify x86 model-specific registers (MSRs)";
     license = licenses.bsd0;
     maintainers = with maintainers; [ AndersonTorres ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 }

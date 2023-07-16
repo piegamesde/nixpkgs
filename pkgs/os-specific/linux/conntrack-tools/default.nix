@@ -35,7 +35,11 @@ stdenv.mkDerivation rec {
     systemd
     libtirpc
   ];
-  nativeBuildInputs = [ flex bison pkg-config ];
+  nativeBuildInputs = [
+    flex
+    bison
+    pkg-config
+  ];
 
   meta = with lib; {
     homepage = "http://conntrack-tools.netfilter.org/";

@@ -41,8 +41,14 @@ in stdenv.mkDerivation rec {
   pname = "ipxe";
   version = "unstable-2023-03-30";
 
-  nativeBuildInputs = [ gnu-efi mtools openssl perl xorriso xz ]
-    ++ lib.optional stdenv.hostPlatform.isx86 syslinux;
+  nativeBuildInputs = [
+    gnu-efi
+    mtools
+    openssl
+    perl
+    xorriso
+    xz
+  ] ++ lib.optional stdenv.hostPlatform.isx86 syslinux;
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   strictDeps = true;
@@ -59,7 +65,10 @@ in stdenv.mkDerivation rec {
   ''; # calling syslinux on a FAT image isn't going to work
 
   # not possible due to assembler code
-  hardeningDisable = [ "pic" "stackprotector" ];
+  hardeningDisable = [
+    "pic"
+    "stackprotector"
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 

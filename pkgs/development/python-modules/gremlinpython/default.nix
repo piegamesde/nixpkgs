@@ -39,9 +39,19 @@ buildPythonPackage rec {
   # setup-requires requirements
   nativeBuildInputs = [ importlib-metadata ];
 
-  propagatedBuildInputs = [ aenum aiohttp isodate nest-asyncio ];
+  propagatedBuildInputs = [
+    aenum
+    aiohttp
+    isodate
+    nest-asyncio
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook mock pyhamcrest radish-bdd ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    mock
+    pyhamcrest
+    radish-bdd
+  ];
 
   # disable custom pytest report generation
   preCheck = ''
@@ -67,6 +77,9 @@ buildPythonPackage rec {
       "Gremlin-Python implements Gremlin, the graph traversal language of Apache TinkerPop, within the Python language";
     homepage = "https://tinkerpop.apache.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ turion ris ];
+    maintainers = with maintainers; [
+      turion
+      ris
+    ];
   };
 }

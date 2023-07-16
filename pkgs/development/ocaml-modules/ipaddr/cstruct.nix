@@ -12,7 +12,10 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ ipaddr cstruct ];
+  propagatedBuildInputs = [
+    ipaddr
+    cstruct
+  ];
 
   doCheck = true;
 

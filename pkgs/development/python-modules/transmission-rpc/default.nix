@@ -28,9 +28,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ requests typing-extensions ];
+  propagatedBuildInputs = [
+    requests
+    typing-extensions
+  ];
 
-  nativeCheckInputs = [ python-dotenv pytz pytestCheckHook yarl ];
+  nativeCheckInputs = [
+    python-dotenv
+    pytz
+    pytestCheckHook
+    yarl
+  ];
 
   pythonImportsCheck = [ "transmission_rpc" ];
 

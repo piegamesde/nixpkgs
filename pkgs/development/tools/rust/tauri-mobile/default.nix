@@ -34,7 +34,11 @@ in rustPlatform.buildRustPackage {
   '';
 
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
-  nativeBuildInputs = [ pkg-config git makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    git
+    makeWrapper
+  ];
 
   preInstall = ''
     mkdir -p $out/share/

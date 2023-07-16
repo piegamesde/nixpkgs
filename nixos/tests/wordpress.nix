@@ -34,7 +34,10 @@ import ./make-test-python.nix ({
           };
 
           networking.firewall.allowedTCPPorts = [ 80 ];
-          networking.hosts."127.0.0.1" = [ "site1.local" "site2.local" ];
+          networking.hosts."127.0.0.1" = [
+            "site1.local"
+            "site2.local"
+          ];
         };
 
         "wp${version}_nginx" = _: {
@@ -51,7 +54,10 @@ import ./make-test-python.nix ({
           };
 
           networking.firewall.allowedTCPPorts = [ 80 ];
-          networking.hosts."127.0.0.1" = [ "site1.local" "site2.local" ];
+          networking.hosts."127.0.0.1" = [
+            "site1.local"
+            "site2.local"
+          ];
         };
 
         "wp${version}_caddy" = _: {
@@ -68,9 +74,15 @@ import ./make-test-python.nix ({
           };
 
           networking.firewall.allowedTCPPorts = [ 80 ];
-          networking.hosts."127.0.0.1" = [ "site1.local" "site2.local" ];
+          networking.hosts."127.0.0.1" = [
+            "site1.local"
+            "site2.local"
+          ];
         };
-      }) { } [ "6_1" "6_2" ];
+      }) { } [
+        "6_1"
+        "6_2"
+      ];
 
     testScript = ''
       import re

@@ -61,7 +61,10 @@ import ./make-test-python.nix ({
   in {
     name = "mosquitto";
     meta = with pkgs.lib; {
-      maintainers = with maintainers; [ pennae peterhoeg ];
+      maintainers = with maintainers; [
+        pennae
+        peterhoeg
+      ];
     };
 
     nodes = let
@@ -76,7 +79,11 @@ import ./make-test-python.nix ({
           pkgs,
           ...
         }: {
-          networking.firewall.allowedTCPPorts = [ port tlsPort anonPort ];
+          networking.firewall.allowedTCPPorts = [
+            port
+            tlsPort
+            anonPort
+          ];
           services.mosquitto = {
             enable = true;
             settings = { sys_interval = 1; };

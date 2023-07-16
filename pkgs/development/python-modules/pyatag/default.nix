@@ -25,7 +25,10 @@ buildPythonPackage rec {
   # no tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [ "pyatag" "pyatag.discovery" ];
+  pythonImportsCheck = [
+    "pyatag"
+    "pyatag.discovery"
+  ];
 
   meta = with lib; {
     description = "Python module to talk to Atag One";

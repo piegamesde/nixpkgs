@@ -10,7 +10,10 @@ args@{
 
   description = "Optimized byte-swapping primitives.";
 
-  deps = [ args."fiveam" args."trivial-features" ];
+  deps = [
+    args."fiveam"
+    args."trivial-features"
+  ];
 
   src = fetchurl {
     url =

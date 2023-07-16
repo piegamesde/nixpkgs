@@ -15,7 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-a8bT1ADqzP7r0ohEa8CN2DCDNnxYuF1A/mwS1371kvE=";
   };
 
-  propagatedBuildInputs = [ sphinx markdown ];
+  propagatedBuildInputs = [
+    sphinx
+    markdown
+  ];
 
   pythonImportsCheck = [ "sphinx_markdown_tables" ];
 

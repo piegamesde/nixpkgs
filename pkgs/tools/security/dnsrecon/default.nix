@@ -37,6 +37,9 @@ python3.pkgs.buildPythonApplication rec {
     description = "DNS Enumeration script";
     homepage = "https://github.com/darkoperator/dnsrecon";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ c0bw3b fab ];
+    maintainers = with maintainers; [
+      c0bw3b
+      fab
+    ];
   };
 }

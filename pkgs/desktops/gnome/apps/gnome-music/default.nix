@@ -80,7 +80,11 @@ python3.pkgs.buildPythonApplication rec {
     gst-libav
   ]);
 
-  pythonPath = with python3.pkgs; [ pycairo dbus-python pygobject3 ];
+  pythonPath = with python3.pkgs; [
+    pycairo
+    dbus-python
+    pygobject3
+  ];
 
   # Prevent double wrapping, let the Python wrapper use the args in preFixup.
   dontWrapGApps = true;

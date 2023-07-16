@@ -18,7 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-58jcE699sJe+1koFHS3Unp8K9JXCaZXACp7oQmkNNMA=";
   };
 
-  nativeCheckInputs = [ objgraph psutil pytestCheckHook ];
+  nativeCheckInputs = [
+    objgraph
+    psutil
+    pytestCheckHook
+  ];
 
   doCheck =
     false; # installed tests need to be executed, not sure how to accomplish that

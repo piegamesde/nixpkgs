@@ -22,7 +22,13 @@ buildPythonPackage rec {
     hash = "sha256-GhqFwVleB9jbFMXwnwnmQzUCxRxZWXDtwJBVHw25lBQ=";
   };
 
-  propagatedBuildInputs = [ html5lib packaging setuptools six webencodings ];
+  propagatedBuildInputs = [
+    html5lib
+    packaging
+    setuptools
+    six
+    webencodings
+  ];
 
   passthru.optional-dependencies = { css = [ tinycss2 ]; };
 

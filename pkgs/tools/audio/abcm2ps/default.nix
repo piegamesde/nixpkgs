@@ -21,9 +21,15 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--INSTALL=install" ];
 
-  nativeBuildInputs = [ docutils pkg-config ];
+  nativeBuildInputs = [
+    docutils
+    pkg-config
+  ];
 
-  buildInputs = [ freetype pango ];
+  buildInputs = [
+    freetype
+    pango
+  ];
 
   meta = with lib; {
     homepage = "http://moinejf.free.fr/";

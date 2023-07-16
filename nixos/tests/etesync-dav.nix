@@ -11,7 +11,10 @@ import ./make-test-python.nix ({
         pkgs,
         ...
       }: {
-        environment.systemPackages = [ pkgs.curl pkgs.etesync-dav ];
+        environment.systemPackages = [
+          pkgs.curl
+          pkgs.etesync-dav
+        ];
       };
 
     testScript = ''

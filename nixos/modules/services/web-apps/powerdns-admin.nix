@@ -127,7 +127,11 @@ in {
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;

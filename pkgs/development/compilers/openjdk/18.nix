@@ -65,7 +65,11 @@ let
       sha256 = "sha256-yGPC8VA983Ml6Fv/oiEgRrcVe4oe+Q4oCHbzOmFbZq8=";
     };
 
-    nativeBuildInputs = [ pkg-config autoconf unzip ];
+    nativeBuildInputs = [
+      pkg-config
+      autoconf
+      unzip
+    ];
     buildInputs = [
       cpio
       file
@@ -126,8 +130,8 @@ let
           "https://git.alpinelinux.org/aports/plain/testing/openjdk18/FixNullPtrCast.patch?id=b93d1fc37fcf106144958d957bb97c7db67bd41f";
         hash = "sha256-nvO8RcmKwMcPdzq28mZ4If1XJ6FQ76CYWqRIozPCk5U=";
       })
-    ] ++ lib.optionals (!headless && enableGnome2)
-      [ ./swing-use-gtk-jdk13.patch ];
+    ] ++ lib.optionals
+      (!headless && enableGnome2) [ ./swing-use-gtk-jdk13.patch ];
 
     postPatch = ''
       chmod +x configure
@@ -137,7 +141,10 @@ let
     # JDK's build system attempts to specifically detect
     # and special-case WSL, and we don't want it to do that,
     # so pass the correct platform names explicitly
-    configurePlatforms = [ "build" "host" ];
+    configurePlatforms = [
+      "build"
+      "host"
+    ];
 
     configureFlags = [
       "--with-boot-jdk=${openjdk-bootstrap.home}"

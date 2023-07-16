@@ -25,7 +25,13 @@ buildPythonPackage rec {
     hash = "sha256-82Fk9qbiiCD5Rts1d14sK/njeN7DcjKMKPqE7S/1WHs=";
   };
 
-  propagatedBuildInputs = [ jwcrypto numpy redis requests simplejson ];
+  propagatedBuildInputs = [
+    jwcrypto
+    numpy
+    redis
+    requests
+    simplejson
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

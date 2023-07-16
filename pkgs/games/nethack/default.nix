@@ -37,7 +37,10 @@ let
   else
     "unix";
   userDir = "~/.config/nethack";
-  binPath = lib.makeBinPath [ coreutils less ];
+  binPath = lib.makeBinPath [
+    coreutils
+    less
+  ];
 
 in stdenv.mkDerivation rec {
   version = "3.6.7";
@@ -55,18 +58,30 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-mM9n323r+WaKYXRaqEwJvKs2Ll0z9blE7FFV1E0qrLI=";
   };
 
-  buildInputs = [ ncurses ] ++ lib.optionals x11Mode [ libXaw libXext libXpm ]
-    ++ lib.optionals qtMode [ gzip qt5.qtbase.bin qt5.qtmultimedia.bin ];
+  buildInputs = [ ncurses ] ++ lib.optionals x11Mode [
+    libXaw
+    libXext
+    libXpm
+  ] ++ lib.optionals qtMode [
+    gzip
+    qt5.qtbase.bin
+    qt5.qtmultimedia.bin
+  ];
 
-  nativeBuildInputs = [ flex bison ]
-    ++ lib.optionals x11Mode [ mkfontdir bdftopcf ] ++ lib.optionals qtMode [
-      pkg-config
-      mkfontdir
-      qt5.qtbase.dev
-      qt5.qtmultimedia.dev
-      qt5.wrapQtAppsHook
-      bdftopcf
-    ];
+  nativeBuildInputs = [
+    flex
+    bison
+  ] ++ lib.optionals x11Mode [
+    mkfontdir
+    bdftopcf
+  ] ++ lib.optionals qtMode [
+    pkg-config
+    mkfontdir
+    qt5.qtbase.dev
+    qt5.qtmultimedia.dev
+    qt5.wrapQtAppsHook
+    bdftopcf
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

@@ -20,7 +20,10 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.03";
 
-  propagatedBuildInputs = [ seq stdlib-shims ];
+  propagatedBuildInputs = [
+    seq
+    stdlib-shims
+  ];
 
   checkInputs = [ ounit2 ];
   doCheck = lib.versionAtLeast ocaml.version "4.04";

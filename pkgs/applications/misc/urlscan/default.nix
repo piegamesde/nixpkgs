@@ -25,6 +25,9 @@ python3Packages.buildPythonApplication rec {
     description = "Mutt and terminal url selector (similar to urlview)";
     homepage = "https://github.com/firecat53/urlscan";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ dpaetzel jfrankenau ];
+    maintainers = with maintainers; [
+      dpaetzel
+      jfrankenau
+    ];
   };
 }

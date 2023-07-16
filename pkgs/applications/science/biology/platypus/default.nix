@@ -22,7 +22,11 @@ in stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ htslib python zlib ];
+  buildInputs = [
+    htslib
+    python
+    zlib
+  ];
 
   buildPhase = ''
     patchShebangs .

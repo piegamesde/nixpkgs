@@ -23,9 +23,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-P6gitA5cXfNbNDy4ohRLyXj/5dUXkCkOdE/9rJPzNCg=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ libgcrypt yajl curl expat boost libiberty ];
+  buildInputs = [
+    libgcrypt
+    yajl
+    curl
+    expat
+    boost
+    libiberty
+  ];
 
   meta = with lib; {
     description = "A console Google Drive client";

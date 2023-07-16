@@ -32,9 +32,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-pYD2HxAszE9Ux1xsSJ7s2R13U8ct5tDo3ZP7H0+F9Rc=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buildInputs = [
     libGLU
     libGL

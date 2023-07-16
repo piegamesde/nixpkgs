@@ -29,7 +29,10 @@ rustPlatform.buildRustPackage rec {
     description = "A client for the Hydra CI";
     homepage = "https://github.com/nlewo/hydra-cli";
     license = with licenses; [ mit ];
-    maintainers = with maintainers; [ gilligan lewo ];
+    maintainers = with maintainers; [
+      gilligan
+      lewo
+    ];
   };
 
 }

@@ -16,7 +16,10 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-6OSa8tOTAzQbi5aYPDJotWApeh8E3wi4V7RN16Go/E4=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ colorama python-dateutil ];
+  propagatedBuildInputs = with python3.pkgs; [
+    colorama
+    python-dateutil
+  ];
 
   # Project has no tests
   doCheck = false;

@@ -31,8 +31,11 @@ in stdenv.mkDerivation rec {
   patches = optionals stdenv.isDarwin [ ./darwin-fix-configure.patch ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libxml2 openssl bash ]
-    ++ lib.optional compressionSupport zlib;
+  buildInputs = [
+    libxml2
+    openssl
+    bash
+  ] ++ lib.optional compressionSupport zlib;
 
   strictDeps = true;
 

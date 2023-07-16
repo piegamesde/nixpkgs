@@ -25,7 +25,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ bottle ];
 
-  nativeCheckInputs = [ numpy pytestCheckHook pyyaml redis ];
+  nativeCheckInputs = [
+    numpy
+    pytestCheckHook
+    pyyaml
+    redis
+  ];
 
   pythonImportsCheck = [ "jug" ];
 

@@ -28,7 +28,10 @@ stdenv.mkDerivation rec {
     sha256 = "0a69q11z194fdfwyazjyyylx57sqs9j4lz7jwh5qcws8syqgb23z";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buildInputs = [
     libetpan
     icu

@@ -22,7 +22,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ vine ];
 
-  nativeCheckInputs = [ case pytestCheckHook ];
+  nativeCheckInputs = [
+    case
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Requires network access

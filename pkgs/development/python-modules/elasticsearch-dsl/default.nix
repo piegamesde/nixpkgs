@@ -16,7 +16,11 @@ buildPythonPackage rec {
     sha256 = "c4a7b93882918a413b63bed54018a1685d7410ffd8facbc860ee7fd57f214a6d";
   };
 
-  propagatedBuildInputs = [ elasticsearch python-dateutil six ];
+  propagatedBuildInputs = [
+    elasticsearch
+    python-dateutil
+    six
+  ];
 
   # ImportError: No module named test_elasticsearch_dsl
   # Tests require a local instance of elasticsearch

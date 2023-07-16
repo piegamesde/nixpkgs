@@ -11,7 +11,10 @@ buildDunePackage {
 
   inherit (functoria) version src;
 
-  propagatedBuildInputs = [ cmdliner fmt ];
+  propagatedBuildInputs = [
+    cmdliner
+    fmt
+  ];
 
   meta = with lib; {
     inherit (functoria.meta) homepage license;

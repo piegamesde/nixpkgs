@@ -26,11 +26,24 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ scdoc pkg-config wayland-scanner glib ];
+  nativeBuildInputs = [
+    scdoc
+    pkg-config
+    wayland-scanner
+    glib
+  ];
 
-  buildInputs = [ wayland gtk3 pam gtk-layer-shell ];
+  buildInputs = [
+    wayland
+    gtk3
+    pam
+    gtk-layer-shell
+  ];
 
-  installFlags = [ "DESTDIR=$(out)" "PREFIX=" ];
+  installFlags = [
+    "DESTDIR=$(out)"
+    "PREFIX="
+  ];
 
   meta = with lib; {
     description = "GTK-based lockscreen for Wayland";

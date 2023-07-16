@@ -29,7 +29,12 @@ buildPythonPackage rec {
     sed -i '/addopts/d' ./setup.cfg
   '';
 
-  nativeCheckInputs = [ pytestCheckHook anyio pytest-asyncio pytest-vcr ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    anyio
+    pytest-asyncio
+    pytest-vcr
+  ];
 
   pythonImportsCheck = [ "notion_client" ];
 

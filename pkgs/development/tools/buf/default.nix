@@ -31,7 +31,10 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   nativeCheckInputs = [
     git # Required for TestGitCloner
@@ -78,6 +81,9 @@ buildGoModule rec {
     description =
       "Create consistent Protobuf APIs that preserve compatibility and comply with design best-practices";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jk lrewega ];
+    maintainers = with maintainers; [
+      jk
+      lrewega
+    ];
   };
 }

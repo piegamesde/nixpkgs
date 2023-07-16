@@ -62,7 +62,10 @@ python3.pkgs.buildPythonApplication rec {
     changelog =
       "https://github.com/samschott/maestral/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg sfrijters ];
+    maintainers = with maintainers; [
+      peterhoeg
+      sfrijters
+    ];
     platforms = platforms.linux;
     mainProgram = "maestral_qt";
   };

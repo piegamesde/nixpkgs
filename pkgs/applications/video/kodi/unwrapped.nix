@@ -170,9 +170,19 @@ let
       "-DOS=${stdenv.hostPlatform.parsed.kernel.name}"
       "-DPKG_CONFIG_EXECUTABLE=pkg-config"
     ];
-    buildInputs = [ libidn2 libtasn1 p11-kit zlib libva ]
-      ++ lib.optional vdpauSupport libvdpau;
-    nativeBuildInputs = [ cmake nasm pkg-config gnutls ];
+    buildInputs = [
+      libidn2
+      libtasn1
+      p11-kit
+      zlib
+      libva
+    ] ++ lib.optional vdpauSupport libvdpau;
+    nativeBuildInputs = [
+      cmake
+      nasm
+      pkg-config
+      gnutls
+    ];
   };
 
   # We can build these externally but FindLibDvd.cmake forces us to build it
@@ -307,7 +317,11 @@ in stdenv.mkDerivation {
       wayland-protocols
       # Not sure why ".dev" is needed here, but CMake doesn't find libxkbcommon otherwise
       libxkbcommon.dev
-    ] ++ lib.optionals gbmSupport [ libxkbcommon.dev mesa.dev libinput.dev ];
+    ] ++ lib.optionals gbmSupport [
+      libxkbcommon.dev
+      mesa.dev
+      libinput.dev
+    ];
 
   nativeBuildInputs = [
     cmake
@@ -330,7 +344,10 @@ in stdenv.mkDerivation {
     libpng
     libjpeg
     lzo
-  ] ++ lib.optionals waylandSupport [ wayland-protocols waylandpp.bin ];
+  ] ++ lib.optionals waylandSupport [
+    wayland-protocols
+    waylandpp.bin
+  ];
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
@@ -354,8 +371,8 @@ in stdenv.mkDerivation {
     # whitelisted directories). This adds the entire nix store to the Kodi
     # webserver whitelist to avoid this problem.
     "-DKODI_WEBSERVER_EXTRA_WHITELIST=${builtins.storeDir}"
-  ] ++ lib.optionals waylandSupport
-    [ "-DWAYLANDPP_SCANNER=${buildPackages.waylandpp}/bin/wayland-scanner++" ];
+  ] ++ lib.optionals
+    waylandSupport [ "-DWAYLANDPP_SCANNER=${buildPackages.waylandpp}/bin/wayland-scanner++" ];
 
   # 14 tests fail but the biggest issue is that every test takes 30 seconds -
   # I'm guessing there is a thing waiting to time out
@@ -385,14 +402,22 @@ in stdenv.mkDerivation {
     for p in $(ls --ignore=kodi-send $out/bin/) ; do
       wrapProgram $out/bin/$p \
         --prefix PATH ":" "${
-          lib.makeBinPath ([ python3Packages.python glxinfo ]
-            ++ lib.optional x11Support xdpyinfo
+          lib.makeBinPath ([
+            python3Packages.python
+            glxinfo
+          ] ++ lib.optional x11Support xdpyinfo
             ++ lib.optional sambaSupport samba)
         }" \
         --prefix LD_LIBRARY_PATH ":" "${
-          lib.makeLibraryPath
-          ([ curl systemd libmad libvdpau libcec libcec_platform libass ]
-            ++ lib.optional nfsSupport libnfs
+          lib.makeLibraryPath ([
+            curl
+            systemd
+            libmad
+            libvdpau
+            libcec
+            libcec_platform
+            libass
+          ] ++ lib.optional nfsSupport libnfs
             ++ lib.optional rtmpSupport rtmpdump)
         }"
     done

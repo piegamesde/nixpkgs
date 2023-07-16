@@ -51,7 +51,10 @@ let
 
       strictDeps = true;
 
-      nativeBuildInputs = [ aspell which ];
+      nativeBuildInputs = [
+        aspell
+        which
+      ];
 
       dontAddPrefix = true;
 
@@ -122,28 +125,35 @@ let
           homepage = "http://ftp.gnu.org/gnu/aspell/dict/0index.html";
         } // (args.meta or { });
 
-      } // lib.optionalAttrs
-        (stdenv.isDarwin && lib.elem language [ "is" "nb" ]) {
-          # tar: Cannot open: Illegal byte sequence
-          unpackPhase = ''
-            runHook preUnpack
+      } // lib.optionalAttrs (stdenv.isDarwin && lib.elem language [
+        "is"
+        "nb"
+      ]) {
+        # tar: Cannot open: Illegal byte sequence
+        unpackPhase = ''
+          runHook preUnpack
 
-            tar -xf $src --strip-components=1 || true
+          tar -xf $src --strip-components=1 || true
 
-            runHook postUnpack
+          runHook postUnpack
+        '';
+
+        postPatch = lib.getAttr language {
+          is = ''
+            cp icelandic.alias íslenska.alias
+            sed -i 's/ .slenska\.alias/ íslenska.alias/g' Makefile.pre
           '';
-
-          postPatch = lib.getAttr language {
-            is = ''
-              cp icelandic.alias íslenska.alias
-              sed -i 's/ .slenska\.alias/ íslenska.alias/g' Makefile.pre
-            '';
-            nb = ''
-              cp bokmal.alias bokmål.alias
-              sed -i 's/ bokm.l\.alias/ bokmål.alias/g' Makefile.pre
-            '';
-          };
-        } // removeAttrs args [ "language" "filename" "sha256" "meta" ];
+          nb = ''
+            cp bokmal.alias bokmål.alias
+            sed -i 's/ bokm.l\.alias/ bokmål.alias/g' Makefile.pre
+          '';
+        };
+      } // removeAttrs args [
+        "language"
+        "filename"
+        "sha256"
+        "meta"
+      ];
     in buildDict buildArgs;
 
   # Function to compile txt dict files into Aspell dictionaries.

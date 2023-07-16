@@ -26,7 +26,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ZHdyLZ3+TCpQ77tcNuDlN2124qLDZu9DdH5x7RI1HIs=";
   };
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ];
   buildInputs = [
     alsa-lib
     fftwSinglePrec
@@ -52,7 +55,10 @@ stdenv.mkDerivation rec {
       "Application for practicing playing musical scores and ear training";
     homepage = "https://nootka.sourceforge.io/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ mmlb orivej ];
+    maintainers = with maintainers; [
+      mmlb
+      orivej
+    ];
     platforms = platforms.linux;
   };
 }

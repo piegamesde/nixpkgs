@@ -18,12 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jnXq44NiQiSYsvaBF828TklLg9d6z6n+gCZKgbFiERI=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./exec-path.patch;
-      file_roller = file-roller;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./exec-path.patch;
+    file_roller = file-roller;
+  }) ];
 
   dontConfigure = true;
 

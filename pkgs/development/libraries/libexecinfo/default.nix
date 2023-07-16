@@ -33,7 +33,10 @@ stdenv.mkDerivation rec {
     ./30-linux-makefile.patch
   ];
 
-  makeFlags = [ "CC:=$(CC)" "AR:=$(AR)" ];
+  makeFlags = [
+    "CC:=$(CC)"
+    "AR:=$(AR)"
+  ];
   hardeningEnable = [ "stackprotector" ];
 
   buildFlags = lib.optional enableStatic "static"

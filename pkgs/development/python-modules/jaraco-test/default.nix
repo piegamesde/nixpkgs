@@ -26,10 +26,18 @@ buildPythonPackage rec {
     hash = "sha256-f2f8xTlTgXGCPlqp+dA04ulRLOTzVNEb39hNtytGHUA=";
   };
 
-  nativeBuildInputs = [ setuptools setuptools-scm ];
+  nativeBuildInputs = [
+    setuptools
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs =
-    [ toml jaraco_functools jaraco-context more-itertools jaraco_collections ];
+  propagatedBuildInputs = [
+    toml
+    jaraco_functools
+    jaraco-context
+    more-itertools
+    jaraco_collections
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

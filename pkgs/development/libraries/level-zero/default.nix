@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-hCipWbhVsYYqfGXO6CFDPmxiFO7Dc0I/nCnj6lRS2go=";
   };
 
-  nativeBuildInputs = [ cmake addOpenGLRunpath ];
+  nativeBuildInputs = [
+    cmake
+    addOpenGLRunpath
+  ];
 
   postFixup = ''
     addOpenGLRunpath $out/lib/libze_loader.so

@@ -49,7 +49,11 @@ in stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jdk8 jre8 ant ];
+  buildInputs = [
+    jdk8
+    jre8
+    ant
+  ];
   buildPhase = ''
     cd apple_stubs
     ant

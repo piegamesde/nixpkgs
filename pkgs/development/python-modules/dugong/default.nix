@@ -30,7 +30,10 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "HTTP 1.1 client designed for REST-ful APIs";
     homepage = "https://github.com/python-dugong/python-dugong/";
-    license = with licenses; [ psfl asl20 ];
+    license = with licenses; [
+      psfl
+      asl20
+    ];
     maintainers = with maintainers; [ ];
   };
 }

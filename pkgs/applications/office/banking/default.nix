@@ -46,7 +46,10 @@ python3.pkgs.buildPythonApplication rec {
     gtk4 # for gtk4-update-icon-cache
   ];
 
-  buildInputs = [ libadwaita librsvg ];
+  buildInputs = [
+    libadwaita
+    librsvg
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     cryptography

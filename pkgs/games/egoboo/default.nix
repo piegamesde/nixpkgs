@@ -39,7 +39,14 @@ stdenv.mkDerivation rec {
     cp -v -Rd controls.txt setup.txt players modules basicdat $out/share/egoboo-${version}
   '';
 
-  buildInputs = [ libGLU libGL SDL SDL_mixer SDL_image SDL_ttf ];
+  buildInputs = [
+    libGLU
+    libGL
+    SDL
+    SDL_mixer
+    SDL_image
+    SDL_ttf
+  ];
 
   /* This big commented thing may be needed for versions 2.8.0 or beyond
      I keep it here for future updates.

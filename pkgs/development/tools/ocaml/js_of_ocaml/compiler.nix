@@ -23,10 +23,17 @@ buildDunePackage rec {
   };
 
   nativeBuildInputs = [ menhir ];
-  buildInputs = [ cmdliner ppxlib ];
+  buildInputs = [
+    cmdliner
+    ppxlib
+  ];
 
   configurePlatforms = [ ];
-  propagatedBuildInputs = [ menhirLib yojson findlib ];
+  propagatedBuildInputs = [
+    menhirLib
+    yojson
+    findlib
+  ];
 
   meta = {
     description = "Compiler from OCaml bytecode to Javascript";

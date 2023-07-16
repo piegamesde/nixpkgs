@@ -21,12 +21,22 @@ buildPythonPackage rec {
     hash = "sha256-6IGTn3griooslN6+qRYLJiWaJhvsxa1xj1+1kQ57yN0=";
   };
 
-  propagatedBuildInputs = [ numpy pandas scipy ];
+  propagatedBuildInputs = [
+    numpy
+    pandas
+    scipy
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
   # use assertions of form `assert pytest.approx(...)`, which is now disallowed:
-  disabledTests = [ "test_basic" "test_degree" ];
-  pythonImportsCheck = [ "formulae" "formulae.matrices" ];
+  disabledTests = [
+    "test_basic"
+    "test_degree"
+  ];
+  pythonImportsCheck = [
+    "formulae"
+    "formulae.matrices"
+  ];
 
   meta = with lib; {
     homepage = "https://bambinos.github.io/formulae";

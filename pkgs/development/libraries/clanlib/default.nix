@@ -25,9 +25,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-SVsLWcTP+PCIGDWLkadMpJPj4coLK9dJrW4sc2+HotE=";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
-  buildInputs =
-    [ libGL libpng xorg.xorgproto freetype fontconfig alsa-lib libXrender ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
+  buildInputs = [
+    libGL
+    libpng
+    xorg.xorgproto
+    freetype
+    fontconfig
+    alsa-lib
+    libXrender
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/sphair/ClanLib";

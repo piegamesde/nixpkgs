@@ -28,10 +28,19 @@ buildPythonPackage rec {
   propagatedBuildInputs =
     lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
 
-  nativeCheckInputs = [ factory_boy faker numpy pytest-xdist pytestCheckHook ];
+  nativeCheckInputs = [
+    factory_boy
+    faker
+    numpy
+    pytest-xdist
+    pytestCheckHook
+  ];
 
   # needs special invocation, copied from tox.ini
-  pytestFlagsArray = [ "-p" "no:randomly" ];
+  pytestFlagsArray = [
+    "-p"
+    "no:randomly"
+  ];
 
   pythonImportsCheck = [ "pytest_randomly" ];
 

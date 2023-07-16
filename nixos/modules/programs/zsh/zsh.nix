@@ -121,8 +121,15 @@ in {
 
       setOptions = mkOption {
         type = types.listOf types.str;
-        default = [ "HIST_IGNORE_DUPS" "SHARE_HISTORY" "HIST_FCNTL_LOCK" ];
-        example = [ "EXTENDED_HISTORY" "RM_STAR_WAIT" ];
+        default = [
+          "HIST_IGNORE_DUPS"
+          "SHARE_HISTORY"
+          "HIST_FCNTL_LOCK"
+        ];
+        example = [
+          "EXTENDED_HISTORY"
+          "RM_STAR_WAIT"
+        ];
         description = lib.mdDoc ''
           Configure zsh options. See
           {manpage}`zshoptions(1)`.
@@ -291,8 +298,10 @@ in {
 
     #users.defaultUserShell = mkDefault "/run/current-system/sw/bin/zsh";
 
-    environment.shells =
-      [ "/run/current-system/sw/bin/zsh" "${pkgs.zsh}/bin/zsh" ];
+    environment.shells = [
+      "/run/current-system/sw/bin/zsh"
+      "${pkgs.zsh}/bin/zsh"
+    ];
 
   };
 

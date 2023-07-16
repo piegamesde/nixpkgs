@@ -34,10 +34,19 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ mesa glfw libXi libXcursor libXrandr libXinerama ]
-    ++ lib.optional alsaSupport alsa-lib
+  buildInputs = [
+    mesa
+    glfw
+    libXi
+    libXcursor
+    libXrandr
+    libXinerama
+  ] ++ lib.optional alsaSupport alsa-lib
     ++ lib.optional pulseSupport libpulseaudio;
-  propagatedBuildInputs = [ libGLU libX11 ];
+  propagatedBuildInputs = [
+    libGLU
+    libX11
+  ];
 
   patches = [
     # fixes glfw compile error;
@@ -51,9 +60,11 @@ stdenv.mkDerivation rec {
   ];
 
   # https://github.com/raysan5/raylib/wiki/CMake-Build-Options
-  cmakeFlags =
-    [ "-DUSE_EXTERNAL_GLFW=ON" "-DBUILD_EXAMPLES=OFF" "-DCUSTOMIZE_BUILD=1" ]
-    ++ lib.optional includeEverything "-DINCLUDE_EVERYTHING=ON"
+  cmakeFlags = [
+    "-DUSE_EXTERNAL_GLFW=ON"
+    "-DBUILD_EXAMPLES=OFF"
+    "-DCUSTOMIZE_BUILD=1"
+  ] ++ lib.optional includeEverything "-DINCLUDE_EVERYTHING=ON"
     ++ lib.optional sharedLib "-DBUILD_SHARED_LIBS=ON";
 
   # fix libasound.so/libpulse.so not being found

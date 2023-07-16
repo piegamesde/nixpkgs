@@ -14,7 +14,12 @@ let
   # This is not exactly user-friendly.
   kdeConfigurationType = with types;
     let
-      valueTypes = (oneOf [ bool float int str ]) // {
+      valueTypes = (oneOf [
+        bool
+        float
+        int
+        str
+      ]) // {
         description = "KDE Configuration value";
         emptyValue.value = "";
       };
@@ -92,7 +97,10 @@ in {
       };
 
       phononBackend = mkOption {
-        type = types.enum [ "gstreamer" "vlc" ];
+        type = types.enum [
+          "gstreamer"
+          "vlc"
+        ];
         default = "vlc";
         example = "gstreamer";
         description = lib.mdDoc "Phonon audio backend to install.";
@@ -178,7 +186,12 @@ in {
       "plasma5"
       "supportDDC"
     ] "DDC/CI is no longer supported upstream.")
-    (mkRenamedOptionModule [ "services" "xserver" "desktopManager" "kde5" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "xserver"
+      "desktopManager"
+      "kde5"
+    ] [
       "services"
       "xserver"
       "desktopManager"
@@ -190,7 +203,11 @@ in {
       "desktopManager"
       "plasma5"
       "excludePackages"
-    ] [ "environment" "plasma5" "excludePackages" ])
+    ] [
+      "environment"
+      "plasma5"
+      "excludePackages"
+    ])
   ];
 
   config = mkMerge [
@@ -367,9 +384,15 @@ in {
       # Enable GTK applications to load SVG icons
       services.xserver.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
 
-      fonts.fonts = with pkgs; [ cfg.notoPackage hack-font ];
+      fonts.fonts = with pkgs; [
+        cfg.notoPackage
+        hack-font
+      ];
       fonts.fontconfig.defaultFonts = {
-        monospace = [ "Hack" "Noto Sans Mono" ];
+        monospace = [
+          "Hack"
+          "Noto Sans Mono"
+        ];
         sansSerif = [ "Noto Sans" ];
         serif = [ "Noto Serif" ];
       };
@@ -435,11 +458,11 @@ in {
     (mkIf cfg.enable {
 
       # Seed our configuration into nixos-generate-config
-      system.nixos-generate-config.desktopConfiguration = [''
+      system.nixos-generate-config.desktopConfiguration = [ ''
         # Enable the Plasma 5 Desktop Environment.
         services.xserver.displayManager.sddm.enable = true;
         services.xserver.desktopManager.plasma5.enable = true;
-      ''];
+      '' ];
 
       services.xserver.displayManager.sessionPackages =
         [ pkgs.libsForQt5.plasma5.plasma-workspace ];
@@ -469,8 +492,14 @@ in {
             kio-admin
             kio-extras
           ];
-          optionalPackages =
-            [ ark elisa gwenview okular khelpcenter print-manager ];
+          optionalPackages = [
+            ark
+            elisa
+            gwenview
+            okular
+            khelpcenter
+            print-manager
+          ];
         in requiredPackages ++ utils.removePackagesByName optionalPackages
         config.environment.plasma5.excludePackages;
 

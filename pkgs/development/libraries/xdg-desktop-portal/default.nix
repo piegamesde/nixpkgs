@@ -30,7 +30,10 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "xdg-desktop-portal";
   version = "1.16.0";
 
-  outputs = [ "out" "installedTests" ];
+  outputs = [
+    "out"
+    "installedTests"
+  ];
 
   src = fetchFromGitHub {
     owner = "flatpak";
@@ -49,7 +52,12 @@ stdenv.mkDerivation (finalAttrs: {
     '')
   ];
 
-  nativeBuildInputs = [ autoreconfHook libxml2 pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoreconfHook
+    libxml2
+    pkg-config
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     acl

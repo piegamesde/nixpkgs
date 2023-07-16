@@ -21,7 +21,11 @@ let
       (filterAttrs (k: v: v != null) cfg.shellAliases));
 
 in {
-  imports = [ (mkRemovedOptionModule [ "programs" "bash" "enable" ] "") ];
+  imports = [ (mkRemovedOptionModule [
+    "programs"
+    "bash"
+    "enable"
+  ] "") ];
 
   options = {
 

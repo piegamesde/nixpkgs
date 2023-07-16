@@ -58,7 +58,11 @@
 }:
 
 let
-  python = python3.withPackages (p: with p; [ pygobject3 setuptools ]);
+  python = python3.withPackages (p:
+    with p; [
+      pygobject3
+      setuptools
+    ]);
 
   isx86 = stdenv.hostPlatform.isx86;
 
@@ -114,7 +118,14 @@ in stdenv.mkDerivation (finalAttrs: {
   # libfwupd goes to lib
   # daemon, plug-ins and libfwupdplugin go to out
   # CLI programs go to out
-  outputs = [ "out" "lib" "dev" "devdoc" "man" "installedTests" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "devdoc"
+    "man"
+    "installedTests"
+  ];
 
   src = fetchFromGitHub {
     owner = "fwupd";
@@ -279,7 +290,12 @@ in stdenv.mkDerivation (finalAttrs: {
     cp --recursive --dereference "${test-firmware}/installed-tests/tests" "$installedTests/libexec/installed-tests/fwupd"
   '';
 
-  preFixup = let binPath = [ efibootmgr bubblewrap tpm2-tools ];
+  preFixup = let
+    binPath = [
+      efibootmgr
+      bubblewrap
+      tpm2-tools
+    ];
   in ''
     gappsWrapperArgs+=(
       --prefix XDG_DATA_DIRS : "${shared-mime-info}/share"
@@ -326,7 +342,10 @@ in stdenv.mkDerivation (finalAttrs: {
       ++ lib.optionals isx86 [ "fwupd/thunderbolt.conf" ];
 
     # DisabledPlugins key in fwupd/daemon.conf
-    defaultDisabledPlugins = [ "test" "test_ble" ];
+    defaultDisabledPlugins = [
+      "test"
+      "test_ble"
+    ];
 
     # For updating.
     inherit test-firmware;

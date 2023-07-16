@@ -69,11 +69,25 @@ else
       export CAML_LD_LIBRARY_PATH="''${CAML_LD_LIBRARY_PATH-}''${CAML_LD_LIBRARY_PATH:+:}$1/lib/ocaml/${ocaml.version}/site-lib/ocaml${ocaml.version}-bap-${version}-llvm-plugins/"
     '';
 
-    nativeBuildInputs =
-      [ which makeWrapper ocaml findlib ocamlbuild ocaml_oasis ];
+    nativeBuildInputs = [
+      which
+      makeWrapper
+      ocaml
+      findlib
+      ocamlbuild
+      ocaml_oasis
+    ];
 
-    buildInputs =
-      [ ocamlbuild linenoise ounit ppx_bitstring z3 utop libxml2 ncurses ];
+    buildInputs = [
+      ocamlbuild
+      linenoise
+      ounit
+      ppx_bitstring
+      z3
+      utop
+      libxml2
+      ncurses
+    ];
 
     propagatedBuildInputs = [
       bitstring

@@ -17,7 +17,12 @@ stdenv.mkDerivation {
     sha256 = "1g9l2dfp99dqih2ir2limqfjgagh3v9aqly6x0l3qavx3qkkwf61";
   };
   nativeBuildInputs = [ unzip ];
-  buildInputs = [ libnsl libX11 libXt libxcrypt ];
+  buildInputs = [
+    libnsl
+    libX11
+    libXt
+    libxcrypt
+  ];
 
   hardeningDisable = [ "fortify" ];
 

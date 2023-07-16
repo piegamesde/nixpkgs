@@ -24,9 +24,16 @@ buildPythonPackage rec {
     hash = "sha256-kwD6yJhVTaVAAUVA6k4r6HZy4w+MPDF7DfJBS8wGE/c=";
   };
 
-  propagatedBuildInputs = [ paramiko requests ];
+  propagatedBuildInputs = [
+    paramiko
+    requests
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook requests-toolbelt responses ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    requests-toolbelt
+    responses
+  ];
 
   disabledTestPaths = [
     # Tests require openssh_wrapper which is outdated and not available

@@ -25,7 +25,13 @@ stdenv.mkDerivation rec {
     sha256 = "0sfm3w2n73kl5w7gb1m6q8gy5k4rgwvzz79n6yhs9w3sag3ix8sk";
   };
 
-  buildInputs = [ udev bison sysfsutils kmod flex ];
+  buildInputs = [
+    udev
+    bison
+    sysfsutils
+    kmod
+    flex
+  ];
 
   patchPhase = ''
     sed -i "
@@ -42,7 +48,10 @@ stdenv.mkDerivation rec {
       "ln -sf ${configOpts} ./config/config.opts");
 
   makeFlags = [ "LEX=flex" ];
-  installFlags = [ "INSTALL=install" "DESTDIR=${placeholder "out"}" ];
+  installFlags = [
+    "INSTALL=install"
+    "DESTDIR=${placeholder "out"}"
+  ];
   postInstall = lib.concatMapStrings (path: ''
     for f in : $(find ${path} -type f); do
       test "$f" == ":" && continue;

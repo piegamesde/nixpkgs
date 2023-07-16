@@ -22,7 +22,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-did6qAUawmQ/juLzJWIXGzmErj9tBKgM7HROTezX+tw=";
 
-  nativeBuildInputs = [ asciidoctor installShellFiles ];
+  nativeBuildInputs = [
+    asciidoctor
+    installShellFiles
+  ];
 
   ldflags = [
     "-s"
@@ -60,6 +63,9 @@ buildGoModule rec {
     changelog =
       "https://github.com/git-lfs/git-lfs/raw/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ twey marsam ];
+    maintainers = with maintainers; [
+      twey
+      marsam
+    ];
   };
 }

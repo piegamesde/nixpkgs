@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-dN0d6wu5FqL/5FQrpQn+wlyEvp52pa5dkxLu3j3bxnw=";
   };
 
-  propagatedBuildInputs = [ click six ];
+  propagatedBuildInputs = [
+    click
+    six
+  ];
 
   pythonImportsCheck = [ "geomet" ];
 
@@ -31,6 +34,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/geomet/geomet";
     changelog = "https://github.com/geomet/geomet/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ turion ris ];
+    maintainers = with maintainers; [
+      turion
+      ris
+    ];
   };
 }

@@ -21,10 +21,19 @@ perlPackages.buildPerlModule {
   };
   patches = [ ./fix-compilation.patch ];
 
-  nativeBuildInputs = [ copyDesktopItems pkg-config ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    pkg-config
+  ];
 
-  buildInputs =
-    [ glib SDL SDL_mixer SDL_Pango perlPackages.SDL perlPackages.FileSlurp ];
+  buildInputs = [
+    glib
+    SDL
+    SDL_mixer
+    SDL_Pango
+    perlPackages.SDL
+    perlPackages.FileSlurp
+  ];
   propagatedBuildInputs = with perlPackages; [
     AlienSDL
     CompressBzip2
@@ -36,16 +45,14 @@ perlPackages.buildPerlModule {
 
   perlPreHook = "export LD=$CC";
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "frozen-bubble";
-      exec = "frozen-bubble";
-      desktopName = "Frozen Bubble";
-      genericName = "Frozen Bubble";
-      comment = "Arcade/reflex colour matching game";
-      categories = [ "Game" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "frozen-bubble";
+    exec = "frozen-bubble";
+    desktopName = "Frozen Bubble";
+    genericName = "Frozen Bubble";
+    comment = "Arcade/reflex colour matching game";
+    categories = [ "Game" ];
+  }) ];
 
   meta = {
     description = "Puzzle with Bubbles";

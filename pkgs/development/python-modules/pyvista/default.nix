@@ -22,7 +22,14 @@ buildPythonPackage rec {
     hash = "sha256-CK9KdIpi46QI1KxWkzo/rQ+Vp+NZfhnFEeSjdFCwgzI=";
   };
 
-  propagatedBuildInputs = [ imageio numpy pillow pooch scooby vtk ];
+  propagatedBuildInputs = [
+    imageio
+    numpy
+    pillow
+    pooch
+    scooby
+    vtk
+  ];
 
   # Fatal Python error: Aborted
   doCheck = false;

@@ -26,7 +26,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ click rich ];
+  propagatedBuildInputs = [
+    click
+    rich
+  ];
 
   pythonImportsCheck = [ "name_that_hash" ];
 

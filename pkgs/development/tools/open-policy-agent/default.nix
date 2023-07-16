@@ -89,6 +89,9 @@ buildGoModule rec {
       in microservices, Kubernetes, CI/CD pipelines, API gateways, and more.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ lewo jk ];
+    maintainers = with maintainers; [
+      lewo
+      jk
+    ];
   };
 }

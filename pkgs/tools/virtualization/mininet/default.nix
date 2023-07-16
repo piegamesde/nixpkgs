@@ -12,7 +12,10 @@ in stdenv.mkDerivation rec {
   pname = "mininet";
   version = "2.3.0";
 
-  outputs = [ "out" "py" ];
+  outputs = [
+    "out"
+    "py"
+  ];
 
   src = fetchFromGitHub {
     owner = "mininet";
@@ -27,9 +30,15 @@ in stdenv.mkDerivation rec {
   pythonPath = [ python3.pkgs.setuptools ];
   nativeBuildInputs = [ help2man ];
 
-  propagatedBuildInputs = [ python3 which ];
+  propagatedBuildInputs = [
+    python3
+    which
+  ];
 
-  installTargets = [ "install-mnexec" "install-manpages" ];
+  installTargets = [
+    "install-mnexec"
+    "install-manpages"
+  ];
 
   preInstall = ''
     mkdir -p $out $py

@@ -20,11 +20,17 @@ buildPythonPackage rec {
     hash = "sha256-BO1YBLqzgVPVmB/JLYPc9qIog0U3aFYfBX53flwFdZk=";
   };
 
-  propagatedBuildInputs = [ six mypy-extensions ];
+  propagatedBuildInputs = [
+    six
+    mypy-extensions
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [ "pyannotate_runtime" "pyannotate_tools" ];
+  pythonImportsCheck = [
+    "pyannotate_runtime"
+    "pyannotate_tools"
+  ];
 
   meta = with lib; {
     description = "Auto-generate PEP-484 annotations";

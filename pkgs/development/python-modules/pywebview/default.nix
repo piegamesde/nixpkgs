@@ -31,10 +31,19 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ qt5.wrapQtAppsHook ];
 
-  propagatedBuildInputs = [ bottle pyqtwebengine proxy_tools six ]
-    ++ lib.optionals (pythonOlder "3.7") [ importlib-resources ];
+  propagatedBuildInputs = [
+    bottle
+    pyqtwebengine
+    proxy_tools
+    six
+  ] ++ lib.optionals (pythonOlder "3.7") [ importlib-resources ];
 
-  nativeCheckInputs = [ pygobject3 pytest qtpy xvfb-run ];
+  nativeCheckInputs = [
+    pygobject3
+    pytest
+    qtpy
+    xvfb-run
+  ];
 
   checkPhase = ''
     # Cannot create directory /homeless-shelter/.... Error: FILE_ERROR_ACCESS_DENIED

@@ -55,7 +55,14 @@ in stdenv.mkDerivation rec {
     sha256 = "0xvivw79719fa1q762b76nyvzawfd3hmp8y5j04bax8a7f8mfa9k";
   };
 
-  nativeBuildInputs = [ pkg-config cmake flex bison doxygen wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    flex
+    bison
+    doxygen
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     libpng

@@ -17,7 +17,10 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-NFQbulW07sljskjLn6A4f+PMMCJxploYqAHE+K7XxH8=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "Web screenshot utility";

@@ -64,7 +64,10 @@ makeSetupHook {
         strictDeps = true;
         nativeBuildInputs = [ wrapGAppsHook ];
 
-        installFlags = [ "bin-foo" "libexec-bar" ];
+        installFlags = [
+          "bin-foo"
+          "libexec-bar"
+        ];
       };
 
       # The wrapper for executable files should add path to dconf GIO module.
@@ -105,11 +108,17 @@ makeSetupHook {
         src = sample-project;
 
         strictDeps = true;
-        nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
+        nativeBuildInputs = [
+          gobject-introspection
+          wrapGAppsHook
+        ];
 
         buildInputs = [ typelib-Mahjong ];
 
-        installFlags = [ "bin-foo" "libexec-bar" ];
+        installFlags = [
+          "bin-foo"
+          "libexec-bar"
+        ];
       };
 
       # Testing cooperation with gobject-introspection setup hook,
@@ -128,7 +137,10 @@ makeSetupHook {
       typelib-Bechamel = stdenv.mkDerivation {
         name = "typelib-Bechamel";
 
-        outputs = [ "out" "lib" ];
+        outputs = [
+          "out"
+          "lib"
+        ];
 
         src = sample-project;
 
@@ -146,11 +158,17 @@ makeSetupHook {
         src = sample-project;
 
         strictDeps = true;
-        nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
+        nativeBuildInputs = [
+          gobject-introspection
+          wrapGAppsHook
+        ];
 
         buildInputs = [ typelib-Bechamel ];
 
-        installFlags = [ "bin-foo" "libexec-bar" ];
+        installFlags = [
+          "bin-foo"
+          "libexec-bar"
+        ];
       };
 
       # Testing cooperation with gobject-introspection setup hook,
@@ -174,9 +192,16 @@ makeSetupHook {
         src = sample-project;
 
         strictDeps = true;
-        nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
+        nativeBuildInputs = [
+          gobject-introspection
+          wrapGAppsHook
+        ];
 
-        installFlags = [ "typelib-Cow" "bin-foo" "libexec-bar" ];
+        installFlags = [
+          "typelib-Cow"
+          "bin-foo"
+          "libexec-bar"
+        ];
       };
 
       # Testing cooperation with gobject-introspection setup hook,

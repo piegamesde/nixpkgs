@@ -51,6 +51,9 @@ poetry2nix.mkPoetryApplication {
 
   meta = with lib; {
     inherit (python.meta) platforms;
-    maintainers = with maintainers; [ adisbladis jakewaksbaum ];
+    maintainers = with maintainers; [
+      adisbladis
+      jakewaksbaum
+    ];
   };
 }

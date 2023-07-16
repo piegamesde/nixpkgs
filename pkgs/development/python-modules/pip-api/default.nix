@@ -23,7 +23,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pip ];
 
-  nativeCheckInputs = [ pretend pytestCheckHook virtualenv ];
+  nativeCheckInputs = [
+    pretend
+    pytestCheckHook
+    virtualenv
+  ];
 
   pythonImportsCheck = [ "pip_api" ];
 

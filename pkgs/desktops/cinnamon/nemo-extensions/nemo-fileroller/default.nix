@@ -24,9 +24,17 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/nemo-fileroller";
 
-  nativeBuildInputs = [ meson pkg-config ninja ];
+  nativeBuildInputs = [
+    meson
+    pkg-config
+    ninja
+  ];
 
-  buildInputs = [ glib gtk3 nemo ];
+  buildInputs = [
+    glib
+    gtk3
+    nemo
+  ];
 
   postPatch = ''
     substituteInPlace src/nemo-fileroller.c \

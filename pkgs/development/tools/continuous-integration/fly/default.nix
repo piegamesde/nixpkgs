@@ -21,8 +21,11 @@ buildGoModule rec {
 
   subPackages = [ "fly" ];
 
-  ldflags =
-    [ "-s" "-w" "-X github.com/concourse/concourse.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/concourse/concourse.Version=${version}"
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -40,6 +43,9 @@ buildGoModule rec {
     description = "Command line interface to Concourse CI";
     homepage = "https://concourse-ci.org";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ivanbrennan SuperSandro2000 ];
+    maintainers = with maintainers; [
+      ivanbrennan
+      SuperSandro2000
+    ];
   };
 }

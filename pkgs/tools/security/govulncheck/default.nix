@@ -37,7 +37,10 @@ buildGoModule {
     rm internal/govulncheck/callstacks_test.go
   '';
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     homepage = "https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck";
@@ -66,6 +69,9 @@ buildGoModule {
       reported for a Linux build.
     '';
     license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ jk SuperSandro2000 ];
+    maintainers = with maintainers; [
+      jk
+      SuperSandro2000
+    ];
   };
 }

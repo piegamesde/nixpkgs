@@ -34,8 +34,10 @@ buildPythonPackage rec {
   configurePhase = "cmakeConfigurePhase";
 
   libraryPath = lib.makeLibraryPath (lib.optionals cudaSupport
-    (with cudaPackages; [ cudatoolkit.lib cudatoolkit.out ])
-    ++ lib.optionals openclSupport
+    (with cudaPackages; [
+      cudatoolkit.lib
+      cudatoolkit.out
+    ]) ++ lib.optionals openclSupport
     ([ clblas ] ++ lib.optional (!stdenv.isDarwin) ocl-icd));
 
   preBuild = ''
@@ -60,12 +62,19 @@ buildPythonPackage rec {
     addOpenGLRunpath $out/lib/libgpuarray.so
   '';
 
-  propagatedBuildInputs = [ numpy six mako ];
+  propagatedBuildInputs = [
+    numpy
+    six
+    mako
+  ];
 
   nativeBuildInputs = [ cmake ]
     ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
 
-  buildInputs = [ cython nose ];
+  buildInputs = [
+    cython
+    nose
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/Theano/libgpuarray";

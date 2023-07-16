@@ -59,8 +59,12 @@ in stdenv.mkDerivation rec {
 
   unpackPhase = "dpkg-deb -x $src .";
 
-  nativeBuildInputs =
-    [ dpkg autoPatchelfHook wrapGAppsHook qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [
+    dpkg
+    autoPatchelfHook
+    wrapGAppsHook
+    qt5.wrapQtAppsHook
+  ];
 
   buildInputs = [
     alsa-lib

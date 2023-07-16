@@ -35,7 +35,11 @@ mkDerivation {
   meta = {
     homepage = "https://apps.kde.org/kate/";
     description = "Advanced text editor";
-    license = with lib.licenses; [ gpl3 lgpl3 lgpl2 ];
+    license = with lib.licenses; [
+      gpl3
+      lgpl3
+      lgpl2
+    ];
     maintainers = [ lib.maintainers.ttuegel ];
   };
 
@@ -49,7 +53,10 @@ mkDerivation {
       --replace InitialPreference=8 InitialPreference=1
   '';
 
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
   buildInputs = [
     libgit2
     kactivities

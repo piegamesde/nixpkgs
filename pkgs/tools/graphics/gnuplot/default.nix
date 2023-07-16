@@ -47,15 +47,31 @@ in (if withQt then mkDerivation else stdenv.mkDerivation) rec {
     sha256 = "sha256-AvwnkYIA7WTY8MO4T+gblbWc1HrZnycJOa5JfBnydBk=";
   };
 
-  nativeBuildInputs = [ makeWrapper pkg-config texinfo ]
-    ++ lib.optional withQt qttools;
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+    texinfo
+  ] ++ lib.optional withQt qttools;
 
-  buildInputs = [ cairo gd libcerf pango readline zlib ]
-    ++ lib.optional withTeXLive
+  buildInputs = [
+    cairo
+    gd
+    libcerf
+    pango
+    readline
+    zlib
+  ] ++ lib.optional withTeXLive
     (texlive.combine { inherit (texlive) scheme-small; })
     ++ lib.optional withLua lua ++ lib.optional withCaca libcaca
-    ++ lib.optionals withX [ libX11 libXpm libXt libXaw ]
-    ++ lib.optionals withQt [ qtbase qtsvg ] ++ lib.optional withWxGTK wxGTK32
+    ++ lib.optionals withX [
+      libX11
+      libXpm
+      libXt
+      libXaw
+    ] ++ lib.optionals withQt [
+      qtbase
+      qtsvg
+    ] ++ lib.optional withWxGTK wxGTK32
     ++ lib.optional (withWxGTK && stdenv.isDarwin) Cocoa;
 
   postPatch = ''

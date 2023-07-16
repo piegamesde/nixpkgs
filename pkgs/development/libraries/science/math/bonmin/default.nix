@@ -27,8 +27,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HU25WjvG01oL3U1wG6ivTcYaN51MMxgLdKZ3AkDNe2Y=";
   };
 
-  nativeBuildInputs = [ gfortran pkg-config ];
-  buildInputs = [ blas bzip2 cbc clp ipopt lapack libamplsolver zlib ];
+  nativeBuildInputs = [
+    gfortran
+    pkg-config
+  ];
+  buildInputs = [
+    blas
+    bzip2
+    cbc
+    clp
+    ipopt
+    lapack
+    libamplsolver
+    zlib
+  ];
 
   meta = with lib; {
     description =

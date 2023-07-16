@@ -22,7 +22,10 @@ stdenv.mkDerivation rec {
     substituteInPlace airspy-tools/CMakeLists.txt --replace "/etc/udev/rules.d" "$out/etc/udev/rules.d"
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buildInputs = [ libusb1 ];
 
   cmakeFlags = lib.optionals stdenv.isLinux [ "-DINSTALL_UDEV_RULES=ON" ];

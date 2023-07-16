@@ -40,9 +40,17 @@ rustPlatform.buildRustPackage rec {
 
   RUSTC_BOOTSTRAP = true;
 
-  nativeBuildInputs = [ cmake pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ atk glib gtk3-x11 ];
+  buildInputs = [
+    atk
+    glib
+    gtk3-x11
+  ];
 
   cargoTestFlags = [ "--all" ];
 

@@ -15,7 +15,10 @@ bundlerApp {
     description = "Tool and libraries for maintaining Ruby gems";
     homepage = "https://github.com/nyarly/corundum";
     license = licenses.mit;
-    maintainers = with maintainers; [ nyarly nicknovitski ];
+    maintainers = with maintainers; [
+      nyarly
+      nicknovitski
+    ];
     platforms = platforms.unix;
   };
 }

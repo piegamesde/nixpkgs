@@ -22,9 +22,16 @@ buildPythonPackage rec {
     sha256 = "0z98hzvkp6jmllyd4x4y0f5n6nnxrizw6g5l2clxdn93mifjavp0";
   };
 
-  propagatedBuildInputs = [ click click-datetime deprecation ];
+  propagatedBuildInputs = [
+    click
+    click-datetime
+    deprecation
+  ];
 
-  nativeCheckInputs = [ pytest voluptuous ];
+  nativeCheckInputs = [
+    pytest
+    voluptuous
+  ];
 
   checkPhase = ''
     py.test pyHS100

@@ -224,7 +224,14 @@ let
         genericName = "Email Client";
         comment =
           "Read and write e-mails or RSS feeds, or manage tasks on calendars.";
-        categories = [ "Network" "Chat" "Email" "Feed" "GTK" "News" ];
+        categories = [
+          "Network"
+          "Chat"
+          "Email"
+          "Feed"
+          "GTK"
+          "News"
+        ];
         keywords = [
           "mail"
           "email"
@@ -250,7 +257,10 @@ let
         };
       } else {
         genericName = "Web Browser";
-        categories = [ "Network" "WebBrowser" ];
+        categories = [
+          "Network"
+          "WebBrowser"
+        ];
         mimeTypes = [
           "text/html"
           "text/xml"
@@ -275,7 +285,11 @@ let
         };
       }));
 
-      nativeBuildInputs = [ makeWrapper lndir jq ];
+      nativeBuildInputs = [
+        makeWrapper
+        lndir
+        jq
+      ];
       buildInputs = [ browser.gtk3 ];
 
       buildCommand = ''

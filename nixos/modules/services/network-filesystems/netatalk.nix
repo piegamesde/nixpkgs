@@ -56,8 +56,11 @@ in {
   };
 
   imports = (map (option:
-    mkRemovedOptionModule [ "services" "netatalk" option ]
-    "This option was removed in favor of `services.netatalk.settings`.") [
+    mkRemovedOptionModule [
+      "services"
+      "netatalk"
+      option
+    ] "This option was removed in favor of `services.netatalk.settings`.") [
       "extraConfig"
       "homes"
       "volumes"
@@ -74,7 +77,10 @@ in {
       description = "Netatalk AFP fileserver for Macintosh clients";
       unitConfig.Documentation =
         "man:afp.conf(5) man:netatalk(8) man:afpd(8) man:cnid_metad(8) man:cnid_dbd(8)";
-      after = [ "network.target" "avahi-daemon.service" ];
+      after = [
+        "network.target"
+        "avahi-daemon.service"
+      ];
       wantedBy = [ "multi-user.target" ];
 
       path = [ pkgs.netatalk ];

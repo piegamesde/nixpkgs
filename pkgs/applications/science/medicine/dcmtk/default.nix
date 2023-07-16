@@ -24,7 +24,14 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ libpng zlib libtiff libxml2 openssl libiconv ];
+  buildInputs = [
+    libpng
+    zlib
+    libtiff
+    libxml2
+    openssl
+    libiconv
+  ];
 
   # This is only needed until https://github.com/DCMTK/dcmtk/pull/75/files is merged
   patches = [ ./0001-Fix-cmake.patch ];

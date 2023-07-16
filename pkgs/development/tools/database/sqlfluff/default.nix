@@ -39,7 +39,10 @@ python3.pkgs.buildPythonApplication rec {
       importlib_metadata
     ];
 
-  nativeCheckInputs = with python3.pkgs; [ hypothesis pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [
+    hypothesis
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [
     # Don't run the plugin related tests

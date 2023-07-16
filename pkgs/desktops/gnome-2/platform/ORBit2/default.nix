@@ -19,10 +19,19 @@ stdenv.mkDerivation rec {
     sha256 = "0l3mhpyym9m5iz09fz0rgiqxl2ym6kpkwpsp1xrr4aa80nlh1jam";
   };
 
-  nativeBuildInputs = [ pkg-config libintl ];
-  propagatedBuildInputs = [ glib libIDL ];
+  nativeBuildInputs = [
+    pkg-config
+    libintl
+  ];
+  propagatedBuildInputs = [
+    glib
+    libIDL
+  ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   preBuild = ''
     sed 's/-DG_DISABLE_DEPRECATED//' -i linc2/src/Makefile

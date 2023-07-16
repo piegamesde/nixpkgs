@@ -27,9 +27,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ async-timeout cryptography ifaddr ];
+  propagatedBuildInputs = [
+    async-timeout
+    cryptography
+    ifaddr
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "xknx" ];
 

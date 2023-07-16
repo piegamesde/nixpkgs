@@ -74,7 +74,10 @@ in {
         pkgs.gawk
       ];
 
-      wantedBy = [ "bee.service" "multi-user.target" ];
+      wantedBy = [
+        "bee.service"
+        "multi-user.target"
+      ];
 
       serviceConfig = {
         User = cfg.user;
@@ -89,8 +92,10 @@ in {
           "" # this hides/overrides what's in the original entry
           "${pkgs.bee-clef}/share/bee-clef/bee-clef-service stop"
         ];
-        Environment =
-          [ "CONFIGDIR=${cfg.dataDir}" "PASSWORD_FILE=${cfg.passwordFile}" ];
+        Environment = [
+          "CONFIGDIR=${cfg.dataDir}"
+          "PASSWORD_FILE=${cfg.passwordFile}"
+        ];
       };
     };
 

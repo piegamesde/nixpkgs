@@ -24,7 +24,10 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ pkg-config ]
     ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
 
-  buildInputs = [ libusb1 openssl ] ++ lib.optionals stdenv.isDarwin [ AppKit ];
+  buildInputs = [
+    libusb1
+    openssl
+  ] ++ lib.optionals stdenv.isDarwin [ AppKit ];
 
   meta = with lib; {
     description = "CLI tool for on-chip debugging and flashing of ARM chips";
@@ -35,6 +38,9 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ xgroleau newam ];
+    maintainers = with maintainers; [
+      xgroleau
+      newam
+    ];
   };
 }

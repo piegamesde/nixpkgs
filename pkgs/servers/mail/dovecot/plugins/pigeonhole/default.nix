@@ -16,7 +16,10 @@ in stdenv.mkDerivation rec {
     hash = "sha256-rjK9SHDqLBMorgm6IG6ewSEoBG1q/KUvu8nvf3VhfJg=";
   };
 
-  buildInputs = [ dovecot openssl ];
+  buildInputs = [
+    dovecot
+    openssl
+  ];
 
   preConfigure = ''
     substituteInPlace src/managesieve/managesieve-settings.c --replace \
@@ -39,7 +42,10 @@ in stdenv.mkDerivation rec {
     homepage = "https://pigeonhole.dovecot.org/";
     description = "A sieve plugin for the Dovecot IMAP server";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ globin ajs124 ];
+    maintainers = with maintainers; [
+      globin
+      ajs124
+    ];
     platforms = platforms.unix;
   };
 }

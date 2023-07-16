@@ -17,7 +17,10 @@ buildPythonPackage rec {
     hash = "sha256-CZh2knpLT7xt5s6+kTQ4Mq9LcpKgWvgdFCkPtMucJTM=";
   };
 
-  propagatedBuildInputs = [ async-timeout xmltodict ];
+  propagatedBuildInputs = [
+    async-timeout
+    xmltodict
+  ];
 
   # Project has no tests
   doCheck = false;

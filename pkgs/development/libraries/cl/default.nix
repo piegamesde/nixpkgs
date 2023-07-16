@@ -25,7 +25,12 @@ stdenv.mkDerivation rec {
       --replace "-m64" ""
   '';
 
-  buildInputs = [ erlang rebar opencl-headers ocl-icd ];
+  buildInputs = [
+    erlang
+    rebar
+    opencl-headers
+    ocl-icd
+  ];
 
   buildPhase = ''
     rebar compile

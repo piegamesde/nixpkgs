@@ -10,7 +10,10 @@
 }:
 
 let
-  patches = [ ./use-go-in-path.patch ./fix-rules-go-3408.patch ];
+  patches = [
+    ./use-go-in-path.patch
+    ./fix-rules-go-3408.patch
+  ];
 
   # Patch the protoc alias so that it always builds from source.
   rulesProto = fetchFromGitHub {
@@ -37,7 +40,11 @@ in buildBazelPackage rec {
     sha256 = "sha256-wigrE9u1VuFnqLWyVJK3M7xsjyme2dDG6YTcD9whKnw=";
   };
 
-  nativeBuildInputs = [ go git python3 ];
+  nativeBuildInputs = [
+    go
+    git
+    python3
+  ];
   removeRulesCC = false;
 
   bazel = bazel_5;

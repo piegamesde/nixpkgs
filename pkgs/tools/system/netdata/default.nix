@@ -56,17 +56,34 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ autoreconfHook pkg-config makeWrapper protobuf ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    makeWrapper
+    protobuf
+  ];
   # bash is only used to rewrite shebangs
-  buildInputs = [ bash curl jemalloc libuv zlib ]
-    ++ lib.optionals stdenv.isDarwin [ CoreFoundation IOKit libossp_uuid ]
-    ++ lib.optionals (!stdenv.isDarwin) [ libcap libuuid ]
-    ++ lib.optionals withCups [ cups ] ++ lib.optionals withDBengine [ lz4 ]
-    ++ lib.optionals withIpmi [ freeipmi ]
-    ++ lib.optionals withNetfilter [ libmnl libnetfilter_acct ]
-    ++ lib.optionals withCloud [ json_c ]
-    ++ lib.optionals withConnPubSub [ google-cloud-cpp grpc ]
-    ++ lib.optionals withConnPrometheus [ snappy ]
+  buildInputs = [
+    bash
+    curl
+    jemalloc
+    libuv
+    zlib
+  ] ++ lib.optionals stdenv.isDarwin [
+    CoreFoundation
+    IOKit
+    libossp_uuid
+  ] ++ lib.optionals (!stdenv.isDarwin) [
+    libcap
+    libuuid
+  ] ++ lib.optionals withCups [ cups ] ++ lib.optionals withDBengine [ lz4 ]
+    ++ lib.optionals withIpmi [ freeipmi ] ++ lib.optionals withNetfilter [
+      libmnl
+      libnetfilter_acct
+    ] ++ lib.optionals withCloud [ json_c ] ++ lib.optionals withConnPubSub [
+      google-cloud-cpp
+      grpc
+    ] ++ lib.optionals withConnPrometheus [ snappy ]
     ++ lib.optionals (withCloud || withConnPrometheus) [ protobuf ]
     ++ lib.optionals withSsl [ openssl ];
 

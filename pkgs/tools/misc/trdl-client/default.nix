@@ -25,10 +25,16 @@ buildGoModule rec {
 
   CGO_ENABLED = 0;
 
-  ldflags =
-    [ "-s" "-w" "-X github.com/werf/trdl/client/pkg/trdl.Version=${src.rev}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/werf/trdl/client/pkg/trdl.Version=${src.rev}"
+  ];
 
-  tags = [ "dfrunmount" "dfssh" ];
+  tags = [
+    "dfrunmount"
+    "dfssh"
+  ];
 
   # There are no tests for cmd/trdl.
   doCheck = false;

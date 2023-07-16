@@ -18,7 +18,10 @@ let
       dontBuild = true;
       darwinDontCodeSign = true;
 
-      nativeBuildInputs = [ cpio pbzx ];
+      nativeBuildInputs = [
+        cpio
+        pbzx
+      ];
 
       outputs = [ "out" ];
 
@@ -82,7 +85,12 @@ let
   } // builtins.listToAttrs (map (v: {
     name = "clang${v}Stdenv";
     value = mkStdenv pkgs."llvmPackages_${v}".stdenv;
-  }) [ "12" "13" "14" "15" ]);
+  }) [
+    "12"
+    "13"
+    "14"
+    "15"
+  ]);
 
   callPackage = newScope (packages // pkgs.darwin // { inherit MacOSX-SDK; });
 

@@ -24,11 +24,25 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-IGWR3VjPhO84CDba0TO1jJ0a+SSR9amCXDRqFiBEvP4=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ giflib libjpeg libpng libtiff libwebp openjpeg zlib ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    giflib
+    libjpeg
+    libpng
+    libtiff
+    libwebp
+    openjpeg
+    zlib
+  ];
   enableParallelBuilding = true;
 
-  nativeCheckInputs = [ which gnuplot ];
+  nativeCheckInputs = [
+    which
+    gnuplot
+  ];
 
   # Fails on pngio_reg for unknown reason
   doCheck = false; # !stdenv.isDarwin;

@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-nThI0o9m2AM8LTew3TX/lz80kxGoq87geaYw/VokIVk=";
   };
 
-  nativeBuildInputs = [ boost autoconf automake ];
+  nativeBuildInputs = [
+    boost
+    autoconf
+    automake
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/Genivia/RE-flex";

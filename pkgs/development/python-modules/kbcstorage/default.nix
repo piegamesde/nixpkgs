@@ -37,13 +37,20 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ azure-storage-blob boto3 requests ];
+  propagatedBuildInputs = [
+    azure-storage-blob
+    boto3
+    requests
+  ];
 
   # Requires API token and an active Keboola bucket
   # ValueError: Root URL is required.
   doCheck = false;
 
-  nativeCheckInputs = [ unittestCheckHook responses ];
+  nativeCheckInputs = [
+    unittestCheckHook
+    responses
+  ];
 
   pythonImportsCheck = [
     "kbcstorage"

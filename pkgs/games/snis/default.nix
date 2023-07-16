@@ -47,7 +47,11 @@ stdenv.mkDerivation {
       --replace "/bin/rm" "${coreutils}/bin/rm"
   '';
 
-  nativeBuildInputs = [ pkg-config openscad makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    openscad
+    makeWrapper
+  ];
   buildInputs = [
     coreutils
     portaudio

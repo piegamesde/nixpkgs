@@ -23,8 +23,17 @@ stdenv.mkDerivation rec {
   };
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ autoreconfHook docbook2x ];
-  buildInputs = [ libarchive libcap_ng lzo zstd docbook_xml_dtd_45 ];
+  nativeBuildInputs = [
+    autoreconfHook
+    docbook2x
+  ];
+  buildInputs = [
+    libarchive
+    libcap_ng
+    lzo
+    zstd
+    docbook_xml_dtd_45
+  ];
 
   meta = with lib; {
     description =

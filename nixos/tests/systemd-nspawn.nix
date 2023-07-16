@@ -28,7 +28,10 @@ import ./make-test-python.nix ({
       '');
 
     nspawnImages = (pkgs.runCommand "localhost" {
-      buildInputs = [ pkgs.coreutils pkgs.gnupg ];
+      buildInputs = [
+        pkgs.coreutils
+        pkgs.gnupg
+      ];
     } ''
       mkdir -p $out
       cd $out

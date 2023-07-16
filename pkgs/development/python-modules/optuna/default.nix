@@ -57,9 +57,17 @@ buildPythonPackage rec {
     cma
   ];
 
-  propagatedBuildInputs =
-    [ sqlalchemy numpy scipy six cliff colorlog pandas alembic tqdm ]
-    ++ lib.optionals (pythonOlder "3.5") [ typing ];
+  propagatedBuildInputs = [
+    sqlalchemy
+    numpy
+    scipy
+    six
+    cliff
+    colorlog
+    pandas
+    alembic
+    tqdm
+  ] ++ lib.optionals (pythonOlder "3.5") [ typing ];
 
   configurePhase = lib.optionalString (!pythonOlder "3.5") ''
     substituteInPlace setup.py \

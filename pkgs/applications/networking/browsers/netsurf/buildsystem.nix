@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
     homepage = "https://www.netsurf-browser.org/";
     description = "NetSurf browser shared build system";
     license = licenses.mit;
-    maintainers = [ maintainers.vrthra maintainers.AndersonTorres ];
+    maintainers = [
+      maintainers.vrthra
+      maintainers.AndersonTorres
+    ];
     platforms = platforms.unix;
   };
 }

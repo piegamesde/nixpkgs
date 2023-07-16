@@ -77,8 +77,8 @@ in stdenv.mkDerivation rec {
       "-DCMAKE_C_COMPILER=${cudaPackages.cudatoolkit.cc}/bin/gcc"
       "-DCMAKE_CXX_COMPILER=${cudaPackages.cudatoolkit.cc}/bin/g++"
     ] ++ lib.optionals (cudaSupport
-      && lib.versionAtLeast cudaPackages.cudatoolkit.version "11.4.0")
-    [ "-DBUILD_WITH_CUDA_CUB=ON" ]
+      && lib.versionAtLeast cudaPackages.cudatoolkit.version
+      "11.4.0") [ "-DBUILD_WITH_CUDA_CUB=ON" ]
     ++ lib.optionals ncclSupport [ "-DUSE_NCCL=ON" ]
     ++ lib.optionals rLibrary [ "-DR_LIB=ON" ];
 
@@ -141,6 +141,9 @@ in stdenv.mkDerivation rec {
     homepage = "https://github.com/dmlc/xgboost";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ abbradar nviets ];
+    maintainers = with maintainers; [
+      abbradar
+      nviets
+    ];
   };
 }

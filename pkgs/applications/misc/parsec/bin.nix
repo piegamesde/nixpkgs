@@ -37,7 +37,11 @@ stdenvNoCC.mkDerivation {
     runHook postUnpack
   '';
 
-  nativeBuildInputs = [ dpkg autoPatchelfHook makeWrapper ];
+  nativeBuildInputs = [
+    dpkg
+    autoPatchelfHook
+    makeWrapper
+  ];
 
   buildInputs = [
     stdenv.cc.cc # libstdc++

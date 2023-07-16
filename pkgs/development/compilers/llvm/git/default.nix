@@ -177,7 +177,10 @@ in let
       libcxxClang = wrapCCWith rec {
         cc = tools.clang-unwrapped;
         libcxx = targetLlvmLibraries.libcxx;
-        extraPackages = [ libcxx.cxxabi targetLlvmLibraries.compiler-rt ];
+        extraPackages = [
+          libcxx.cxxabi
+          targetLlvmLibraries.compiler-rt
+        ];
         extraBuildCommands = mkExtraBuildCommands cc;
       };
 
@@ -210,9 +213,11 @@ in let
         cc = tools.clang-unwrapped;
         libcxx = targetLlvmLibraries.libcxx;
         bintools = bintools';
-        extraPackages = [ libcxx.cxxabi targetLlvmLibraries.compiler-rt ]
-          ++ lib.optionals (!stdenv.targetPlatform.isWasm)
-          [ targetLlvmLibraries.libunwind ];
+        extraPackages = [
+          libcxx.cxxabi
+          targetLlvmLibraries.compiler-rt
+        ] ++ lib.optionals
+          (!stdenv.targetPlatform.isWasm) [ targetLlvmLibraries.libunwind ];
         extraBuildCommands = mkExtraBuildCommands cc;
         nixSupport.cc-cflags = [
           "-rtlib=compiler-rt"
@@ -243,8 +248,10 @@ in let
         bintools = bintoolsNoLibc';
         extraPackages = [ targetLlvmLibraries.compiler-rt ];
         extraBuildCommands = mkExtraBuildCommands cc;
-        nixSupport.cc-cflags =
-          [ "-rtlib=compiler-rt" "-B${targetLlvmLibraries.compiler-rt}/lib" ];
+        nixSupport.cc-cflags = [
+          "-rtlib=compiler-rt"
+          "-B${targetLlvmLibraries.compiler-rt}/lib"
+        ];
       };
 
       clangNoCompilerRt = wrapCCWith rec {

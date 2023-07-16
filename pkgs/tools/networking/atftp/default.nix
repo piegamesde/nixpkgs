@@ -26,11 +26,22 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  nativeBuildInputs = [ autoreconfHook makeWrapper ];
+  nativeBuildInputs = [
+    autoreconfHook
+    makeWrapper
+  ];
 
-  buildInputs = [ gcc pcre2 readline tcp_wrappers ];
+  buildInputs = [
+    gcc
+    pcre2
+    readline
+    tcp_wrappers
+  ];
 
-  nativeCheckInputs = [ perl ps ];
+  nativeCheckInputs = [
+    perl
+    ps
+  ];
 
   # Expects pre-GCC5 inline semantics
   env.NIX_CFLAGS_COMPILE = "-std=gnu89";

@@ -12,7 +12,11 @@ stdenv.mkDerivation rec {
   pname = "libESMTP";
   version = "1.1.0";
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
   buildInputs = [ openssl ];
 
   src = fetchFromGitHub {

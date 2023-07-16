@@ -24,8 +24,15 @@ buildPythonPackage rec {
     hash = "sha256-fPeEKTfRL142RIMSQxpByIAy09sXlmDjIATikc82Iuw=";
   };
 
-  propagatedBuildInputs =
-    [ aesedb aiosmb aiowinreg minikerberos msldap winsspi minidump ];
+  propagatedBuildInputs = [
+    aesedb
+    aiosmb
+    aiowinreg
+    minikerberos
+    msldap
+    winsspi
+    minidump
+  ];
 
   # Project doesn't have tests
   doCheck = false;

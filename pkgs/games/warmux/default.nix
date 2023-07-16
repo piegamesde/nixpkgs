@@ -40,7 +40,14 @@ stdenv.mkDerivation {
   preConfigure = "patchShebangs autogen.sh && ./autogen.sh";
   configureFlagsArray = ("CFLAGS=-include ${zlib.dev}/include/zlib.h");
 
-  nativeBuildInputs = [ autoconf automake gettext intltool libtool pkg-config ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    gettext
+    intltool
+    libtool
+    pkg-config
+  ];
   buildInputs = [
     zlib
     curl
@@ -66,7 +73,10 @@ stdenv.mkDerivation {
       "Ballistics turn-based battle game between teams - unofficial copy";
     maintainers = with maintainers; [ raskin ];
     platforms = platforms.linux;
-    license = with licenses; [ gpl2 ufl ];
+    license = with licenses; [
+      gpl2
+      ufl
+    ];
     homepage = "https://github.com/fluxer/warmux";
   };
 }

@@ -52,7 +52,10 @@ stdenv.mkDerivation rec {
     readline
     zlib
   ];
-  nativeBuildInputs = [ pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
 
   installPhase = ''
     runHook preInstall

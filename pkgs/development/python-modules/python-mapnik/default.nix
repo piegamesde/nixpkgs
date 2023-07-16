@@ -76,7 +76,10 @@ buildPythonPackage rec {
     sqlite
   ];
 
-  propagatedBuildInputs = [ pillow pycairo ];
+  propagatedBuildInputs = [
+    pillow
+    pycairo
+  ];
 
   configureFlags = [ "XMLPARSER=libxml2" ];
 
@@ -92,7 +95,10 @@ buildPythonPackage rec {
     export XMLPARSER=libxml2
   '';
 
-  nativeCheckInputs = [ nose pytestCheckHook ];
+  nativeCheckInputs = [
+    nose
+    pytestCheckHook
+  ];
 
   preCheck = ''
     # import from $out

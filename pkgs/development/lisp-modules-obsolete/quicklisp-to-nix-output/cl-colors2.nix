@@ -10,7 +10,11 @@ args@{
 
   description = "Simple color library for Common Lisp";
 
-  deps = [ args."alexandria" args."cl-ppcre" args."clunit2" ];
+  deps = [
+    args."alexandria"
+    args."cl-ppcre"
+    args."clunit2"
+  ];
 
   src = fetchurl {
     url =

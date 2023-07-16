@@ -34,8 +34,14 @@ buildPythonPackage rec {
     hash = "sha256-2MPXV+rVXZYMTZe11T8x8GKQmHZwUlkwarCkheVkERo=";
   };
 
-  propagatedBuildInputs =
-    [ aiodns aiohttp boto3 sqlalchemy websocket-client websockets ];
+  propagatedBuildInputs = [
+    aiodns
+    aiohttp
+    boto3
+    sqlalchemy
+    websocket-client
+    websockets
+  ];
 
   nativeCheckInputs = [
     codecov

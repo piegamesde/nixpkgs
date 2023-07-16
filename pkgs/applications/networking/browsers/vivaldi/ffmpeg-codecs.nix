@@ -30,7 +30,11 @@ stdenv.mkDerivation rec {
     homepage = "https://ffmpeg.org/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ betaboon cawilliamson lluchs ];
+    maintainers = with maintainers; [
+      betaboon
+      cawilliamson
+      lluchs
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

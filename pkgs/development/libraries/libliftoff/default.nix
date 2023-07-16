@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-NPwhsd6IOQ0XxNQQNdaaM4kmwoLftokV86WYhoa5csY=";
   };
 
-  nativeBuildInputs = [ meson pkg-config ninja ];
+  nativeBuildInputs = [
+    meson
+    pkg-config
+    ninja
+  ];
 
   buildInputs = [ libdrm ];
 
@@ -36,6 +40,10 @@ stdenv.mkDerivation rec {
       "https://github.com/emersion/libliftoff/releases/tag/v${version}";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pedrohlc primeos Scrumplex ];
+    maintainers = with maintainers; [
+      pedrohlc
+      primeos
+      Scrumplex
+    ];
   };
 }

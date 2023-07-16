@@ -29,10 +29,21 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs =
-    [ libjpeg zlib libpng eigen libtiff cereal openmp ceres-solver ];
+  buildInputs = [
+    libjpeg
+    zlib
+    libpng
+    eigen
+    libtiff
+    cereal
+    openmp
+    ceres-solver
+  ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   cmakeFlags = [
     "-DCMAKE_CXX_FLAGS=-std=c++11"
@@ -58,6 +69,9 @@ stdenv.mkDerivation rec {
     homepage = "https://openmvg.readthedocs.io/en/latest/";
     license = lib.licenses.mpl20;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ mdaiter bouk ];
+    maintainers = with lib.maintainers; [
+      mdaiter
+      bouk
+    ];
   };
 }

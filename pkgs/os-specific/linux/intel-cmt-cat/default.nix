@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  makeFlags = [ "PREFIX=$(out)" "NOLDCONFIG=y" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "NOLDCONFIG=y"
+  ];
 
   meta = with lib; {
     description =

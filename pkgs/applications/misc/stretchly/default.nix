@@ -77,7 +77,10 @@ stdenv.mkDerivation rec {
     homepage = "https://hovancik.net/stretchly";
     downloadPage = "https://hovancik.net/stretchly/downloads/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ _1000101 oxalica ];
+    maintainers = with maintainers; [
+      _1000101
+      oxalica
+    ];
     platforms = platforms.linux;
   };
 }

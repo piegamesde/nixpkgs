@@ -35,9 +35,20 @@ stdenv.mkDerivation rec {
       --replace "-Wno-stringop-overflow" ""
   '';
 
-  nativeBuildInputs = [ m4 meson ninja pkg-config scdoc ];
+  nativeBuildInputs = [
+    m4
+    meson
+    ninja
+    pkg-config
+    scdoc
+  ];
 
-  buildInputs = [ curl dbus json_c libevent ];
+  buildInputs = [
+    curl
+    dbus
+    json_c
+    libevent
+  ];
 
   mesonFlags = [ "-Dversion=${version}" ];
 

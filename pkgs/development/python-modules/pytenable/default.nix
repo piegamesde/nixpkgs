@@ -47,7 +47,12 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [ responses pytest-datafiles pytest-vcr pytestCheckHook ];
+  nativeCheckInputs = [
+    responses
+    pytest-datafiles
+    pytest-vcr
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Disable tests that requires a Docker container

@@ -17,7 +17,10 @@ stdenv.mkDerivation {
     sha256 = "sha256-SuElfmk7zONolTiyg0pyvbfvyJRn3r9OrXwpTzLw8LI=";
   };
 
-  buildInputs = [ libowfat zlib ];
+  buildInputs = [
+    libowfat
+    zlib
+  ];
 
   makeFlags = [
     "LIBOWFAT_HEADERS=${libowfat}/include/libowfat"

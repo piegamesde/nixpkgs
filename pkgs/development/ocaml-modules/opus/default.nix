@@ -23,7 +23,10 @@ buildDunePackage rec {
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [ ogg libopus.dev ];
+  propagatedBuildInputs = [
+    ogg
+    libopus.dev
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/savonet/ocaml-opus";

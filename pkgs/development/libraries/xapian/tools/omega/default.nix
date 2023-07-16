@@ -20,7 +20,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-iKETxVmPyVgz4SEscL5GOrudVgFWTSG4YWNvc3lVqtU=";
   };
 
-  buildInputs = [ xapian perl pcre2 zlib libmagic ];
+  buildInputs = [
+    xapian
+    perl
+    pcre2
+    zlib
+    libmagic
+  ];
   nativeBuildInputs = [ pkg-config ];
 
   meta = with lib; {

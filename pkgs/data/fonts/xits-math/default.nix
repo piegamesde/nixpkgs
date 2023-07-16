@@ -16,7 +16,11 @@ stdenv.mkDerivation rec {
     sha256 = "1x3r505dylz9rz8dj98h5n9d0zixyxmvvhnjnms9qxdrz9bxy9g1";
   };
 
-  nativeBuildInputs = (with python3Packages; [ python fonttools fontforge ]);
+  nativeBuildInputs = (with python3Packages; [
+    python
+    fonttools
+    fontforge
+  ]);
 
   postPatch = ''
     rm *.otf

@@ -26,9 +26,16 @@ stdenv.mkDerivation rec {
 
   patches = [ ./fix-pkgconfig.patch ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ vulkan-headers ]
-    ++ lib.optionals (!stdenv.isDarwin) [ libX11 libxcb libXrandr wayland ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [ vulkan-headers ] ++ lib.optionals (!stdenv.isDarwin) [
+    libX11
+    libxcb
+    libXrandr
+    wayland
+  ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_INCLUDEDIR=${vulkan-headers}/include" ]
     ++ lib.optional stdenv.isDarwin "-DSYSCONFDIR=${moltenvk}/share"
@@ -37,7 +44,10 @@ stdenv.mkDerivation rec {
     ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
     "-DUSE_GAS=OFF";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   doInstallCheck = true;
 

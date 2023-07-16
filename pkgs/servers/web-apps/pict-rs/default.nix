@@ -35,7 +35,13 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     wrapProgram "$out/bin/pict-rs" \
-        --prefix PATH : "${lib.makeBinPath [ imagemagick ffmpeg exiftool ]}"
+        --prefix PATH : "${
+          lib.makeBinPath [
+            imagemagick
+            ffmpeg
+            exiftool
+          ]
+        }"
   '';
 
   passthru.tests = { inherit (nixosTests) pict-rs; };

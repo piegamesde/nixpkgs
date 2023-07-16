@@ -18,9 +18,8 @@ buildGoModule rec {
   vendorHash = "sha256-SbNFi5DE3zhTUw0rsX6n+dpYcdDsaDh+zVUrfxgo/4g=";
   subPackages = [ "cmd/portal/" ];
 
-  ldflags = [
-    "-s -X main.version=${version}"
-  ]; # from: https://github.com/SpatiumPortae/portal/blob/master/Makefile#L3
+  ldflags =
+    [ "-s -X main.version=${version}" ]; # from: https://github.com/SpatiumPortae/portal/blob/master/Makefile#L3
 
   meta = with lib; {
     description =

@@ -18,7 +18,11 @@ mkDerivation rec {
     sha256 = "1v75cysargmp4fk7px5zgib1p6h5ya4w39rndbzk614fcnv0iipd";
   };
 
-  buildInputs = [ qtbase qtmultimedia tinyxml-2 ];
+  buildInputs = [
+    qtbase
+    qtmultimedia
+    tinyxml-2
+  ];
 
   nativeBuildInputs = [ cmake ];
 

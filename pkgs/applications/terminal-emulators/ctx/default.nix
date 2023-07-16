@@ -26,7 +26,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ SDL2 alsa-lib babl curl libdrm ];
+  buildInputs = [
+    SDL2
+    alsa-lib
+    babl
+    curl
+    libdrm
+  ];
 
   configureScript = "./configure.sh";
   configureFlags = lib.optional enableFb "--enable-fb";

@@ -18,7 +18,14 @@ let
   version = "2019-04-23";
   rev = "ef4524e2239ddbb60f26e05bfba1f4f28cb7b54f";
   sha256 = "0dl2qp686vbs160b3i9qypb7sv37phy2wn21kgzljbk3wnci3yv4";
-  buildInputs = [ qtbase qtmultimedia taglib libmediainfo libzen libbass ];
+  buildInputs = [
+    qtbase
+    qtmultimedia
+    taglib
+    libmediainfo
+    libzen
+    libbass
+  ];
 
   plugins = [
     "albumartex"

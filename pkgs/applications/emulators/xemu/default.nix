@@ -81,14 +81,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildFlags = [ "qemu-system-i386" ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "xemu";
-      desktopName = "xemu";
-      exec = "xemu";
-      icon = "xemu";
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "xemu";
+    desktopName = "xemu";
+    exec = "xemu";
+    icon = "xemu";
+  }) ];
 
   preConfigure = ''
     patchShebangs .
@@ -138,7 +136,10 @@ stdenv.mkDerivation (finalAttrs: {
     changelog =
       "https://github.com/xemu-project/xemu/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ AndersonTorres genericnerdyusername ];
+    maintainers = with lib.maintainers; [
+      AndersonTorres
+      genericnerdyusername
+    ];
     platforms = with lib.platforms; linux;
   };
 })

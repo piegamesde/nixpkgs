@@ -33,7 +33,10 @@ stdenv.mkDerivation rec {
 
     makeWrapper ${jre}/bin/java $out/bin/ipscan \
       --prefix LD_LIBRARY_PATH : "$out/lib/:${
-        lib.makeLibraryPath [ swt xorg.libXtst ]
+        lib.makeLibraryPath [
+          swt
+          xorg.libXtst
+        ]
       }" \
       --add-flags "-Xmx256m -cp $out/share/${pname}-${version}.jar:${swt}/jars/swt.jar net.azib.ipscan.Main"
 

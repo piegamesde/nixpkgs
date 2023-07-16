@@ -23,8 +23,11 @@ stdenv.mkDerivation rec {
     sed -e '/SANE_CAP_ALWAYS_SETTABLE/d' -i src/gtkglue.c
   '';
 
-  buildInputs = [ sane-backends libX11 gtk2 ]
-    ++ lib.optional (libusb-compat-0_1 != null) libusb-compat-0_1;
+  buildInputs = [
+    sane-backends
+    libX11
+    gtk2
+  ] ++ lib.optional (libusb-compat-0_1 != null) libusb-compat-0_1;
   nativeBuildInputs = [ pkg-config ];
 
   enableParallelBuilding = true;

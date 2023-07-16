@@ -144,7 +144,11 @@ in {
               description = lib.mdDoc "URL path part of the web interface.";
             };
             settings = mkOption {
-              type = attrsOf (oneOf [ str int bool ]);
+              type = attrsOf (oneOf [
+                str
+                int
+                bool
+              ]);
               default = { };
               example = { default_max_list_members = 3; };
               description = lib.mdDoc ''
@@ -182,7 +186,11 @@ in {
 
     database = {
       type = mkOption {
-        type = enum [ "SQLite" "PostgreSQL" "MySQL" ];
+        type = enum [
+          "SQLite"
+          "PostgreSQL"
+          "MySQL"
+        ];
         default = "SQLite";
         example = "MySQL";
         description = lib.mdDoc "Database engine to use.";
@@ -256,7 +264,10 @@ in {
       };
 
       server = mkOption {
-        type = enum [ "nginx" "none" ];
+        type = enum [
+          "nginx"
+          "none"
+        ];
         default = "nginx";
         description = lib.mdDoc ''
           The webserver used for the Sympa web interface. Set it to `none` if you want to configure it yourself.
@@ -283,7 +294,10 @@ in {
 
     mta = {
       type = mkOption {
-        type = enum [ "postfix" "none" ];
+        type = enum [
+          "postfix"
+          "none"
+        ];
         default = "postfix";
         description = lib.mdDoc ''
           Mail transfer agent (MTA) integration. Use `none` if you want to configure it yourself.
@@ -296,7 +310,11 @@ in {
     };
 
     settings = mkOption {
-      type = attrsOf (oneOf [ str int bool ]);
+      type = attrsOf (oneOf [
+        str
+        int
+        bool
+      ]);
       default = { };
       example = literalExpression ''
         {
@@ -595,24 +613,27 @@ in {
       enable = true;
       package = mkDefault pkgs.mariadb;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [{
+      ensureUsers = [ {
         name = cfg.database.user;
         ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
-      }];
+      } ];
     };
 
     services.postgresql = optionalAttrs pgsqlLocal {
       enable = true;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [{
+      ensureUsers = [ {
         name = cfg.database.user;
         ensurePermissions = {
           "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
         };
-      }];
+      } ];
     };
 
   };
 
-  meta.maintainers = with maintainers; [ mmilata sorki ];
+  meta.maintainers = with maintainers; [
+    mmilata
+    sorki
+  ];
 }

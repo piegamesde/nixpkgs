@@ -18,8 +18,10 @@ buildPythonPackage rec {
     hash = "sha256-qBSXQyruLVGJ0QeihnEUXOqYpvVftdFM5ED3usHT0OQ=";
   };
 
-  propagatedBuildInputs =
-    [ python-socketio python-socketio.optional-dependencies.client ];
+  propagatedBuildInputs = [
+    python-socketio
+    python-socketio.optional-dependencies.client
+  ];
 
   pythonImportsCheck = [ "uptime_kuma_api" ];
 

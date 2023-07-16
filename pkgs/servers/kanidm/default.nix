@@ -47,9 +47,17 @@ in rustPlatform.buildRustPackage rec {
       --replace '@web_ui_pkg_path@' "$out/ui"
   '';
 
-  nativeBuildInputs = [ pkg-config installShellFiles ];
+  nativeBuildInputs = [
+    pkg-config
+    installShellFiles
+  ];
 
-  buildInputs = [ udev openssl sqlite pam ];
+  buildInputs = [
+    udev
+    openssl
+    sqlite
+    pam
+  ];
 
   # The UI needs to be in place before the tests are run.
   postBuild = ''
@@ -76,6 +84,9 @@ in rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/kanidm/kanidm";
     license = licenses.mpl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ erictapen Flakebi ];
+    maintainers = with maintainers; [
+      erictapen
+      Flakebi
+    ];
   };
 }

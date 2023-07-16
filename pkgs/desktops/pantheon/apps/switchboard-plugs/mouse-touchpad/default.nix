@@ -31,14 +31,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-iXkNdUMHa0IF2FLn34/6G4w3m53GRZun8yzc8dxAg20=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      touchegg = touchegg;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    touchegg = touchegg;
+  }) ];
 
-  nativeBuildInputs = [ meson ninja pkg-config vala ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    vala
+  ];
 
   buildInputs = [
     gala

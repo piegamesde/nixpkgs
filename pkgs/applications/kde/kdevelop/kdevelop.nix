@@ -49,10 +49,19 @@ let llvmPackages = llvmPackages_13;
 in mkDerivation rec {
   pname = "kdevelop";
 
-  nativeBuildInputs =
-    [ cmake gettext pkg-config extra-cmake-modules makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    gettext
+    pkg-config
+    extra-cmake-modules
+    makeWrapper
+  ];
 
-  buildInputs = [ kdevelop-pg-qt llvmPackages.llvm llvmPackages.libclang ];
+  buildInputs = [
+    kdevelop-pg-qt
+    llvmPackages.llvm
+    llvmPackages.libclang
+  ];
 
   propagatedBuildInputs = [
     qtquickcontrols
@@ -91,18 +100,21 @@ in mkDerivation rec {
 
   # https://cgit.kde.org/kdevelop.git/commit/?id=716372ae2e8dff9c51e94d33443536786e4bd85b
   # required as nixos seems to be unable to find CLANG_BUILTIN_DIR
-  cmakeFlags = [
-    "-DCLANG_BUILTIN_DIR=${llvmPackages.libclang.lib}/lib/clang/${
+  cmakeFlags = [ "-DCLANG_BUILTIN_DIR=${llvmPackages.libclang.lib}/lib/clang/${
       lib.getVersion llvmPackages.clang
-    }/include"
-  ];
+    }/include" ];
 
   dontWrapQtApps = true;
 
   postInstall = ''
     # The kdevelop! script (shell environment) needs qdbus and kioclient5 in PATH.
     wrapProgram "$out/bin/kdevelop!" \
-      --prefix PATH ":" "${lib.makeBinPath [ qttools kde-cli-tools ]}"
+      --prefix PATH ":" "${
+        lib.makeBinPath [
+          qttools
+          kde-cli-tools
+        ]
+      }"
 
     wrapQtApp "$out/bin/kdevelop"
 
@@ -124,6 +136,9 @@ in mkDerivation rec {
       libraries and is under development since 1998.
     '';
     homepage = "https://www.kdevelop.org";
-    license = with licenses; [ gpl2Plus lgpl2Plus ];
+    license = with licenses; [
+      gpl2Plus
+      lgpl2Plus
+    ];
   };
 }

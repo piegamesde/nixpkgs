@@ -19,7 +19,13 @@ buildPythonPackage rec {
     hash = "sha256-QedLuwd0ES2LWhZ72Cjh3+ZZ7HbRyNsyLN9lNFbY5dQ=";
   };
 
-  propagatedBuildInputs = [ feedparser httpx loca markdownify trio ];
+  propagatedBuildInputs = [
+    feedparser
+    httpx
+    loca
+    markdownify
+    trio
+  ];
 
   doCheck = false; # upstream has no test
   pythonImportsCheck = [ "rsskey" ];

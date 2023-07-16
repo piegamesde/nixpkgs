@@ -34,7 +34,10 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ numpy scipy ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+  ];
 
   nativeCheckInputs = [ nose ];
 

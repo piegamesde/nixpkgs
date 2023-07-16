@@ -37,15 +37,24 @@ stdenv.mkDerivation rec {
     "-DUSE_AVX_INSTRUCTIONS=${if avxSupport then "yes" else "no"}"
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ libpng libjpeg ] ++ lib.optional guiSupport libX11;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    libpng
+    libjpeg
+  ] ++ lib.optional guiSupport libX11;
 
   meta = with lib; {
     description =
       "A general purpose cross-platform C++ machine learning library";
     homepage = "http://www.dlib.net";
     license = licenses.boost;
-    maintainers = with maintainers; [ christopherpoole ma27 ];
+    maintainers = with maintainers; [
+      christopherpoole
+      ma27
+    ];
     platforms = platforms.unix;
   };
 }

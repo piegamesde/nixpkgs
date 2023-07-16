@@ -20,9 +20,15 @@ in stdenv.mkDerivation {
     sha256 = "sha256-Be+dPUnxC2+cHzqL2FAqXOU7NjEAHiPBKh7spuYkvhc=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ meson ninja ];
+  nativeBuildInputs = [
+    meson
+    ninja
+  ];
 
   meta = with lib; {
     description =

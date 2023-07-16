@@ -139,10 +139,24 @@ in stdenv.mkDerivation rec {
   };
 
   hardeningDisable = [ "format" ];
-  cmakeFlags = [ "-Dstatic=OFF" "-DBoost_NO_BOOST_CMAKE=ON" ];
+  cmakeFlags = [
+    "-Dstatic=OFF"
+    "-DBoost_NO_BOOST_CMAKE=ON"
+  ];
 
-  nativeBuildInputs = [ pkg-config cmake git ];
-  buildInputs = [ openssl openssl.dev boostSharedStatic grpc protobuf libnsl ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    git
+  ];
+  buildInputs = [
+    openssl
+    openssl.dev
+    boostSharedStatic
+    grpc
+    protobuf
+    libnsl
+  ];
 
   preConfigure = ''
     export HOME=$PWD
@@ -172,7 +186,10 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Ripple P2P payment network reference server";
     homepage = "https://github.com/ripple/rippled";
-    maintainers = with maintainers; [ offline RaghavSood ];
+    maintainers = with maintainers; [
+      offline
+      RaghavSood
+    ];
     license = licenses.isc;
     platforms = [ "x86_64-linux" ];
   };

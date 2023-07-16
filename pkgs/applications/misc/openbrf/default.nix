@@ -22,7 +22,11 @@ mkDerivation {
     sha256 = "16254cnr60ihcn7bki7wl1qm6gkvzb99cn66md1pnb7za8nvzf4j";
   };
 
-  buildInputs = [ qtbase vcg glew ];
+  buildInputs = [
+    qtbase
+    vcg
+    glew
+  ];
 
   nativeBuildInputs = [ qmake ];
 
@@ -39,7 +43,13 @@ mkDerivation {
 
     patchelf  \
       --set-rpath "${
-        lib.makeLibraryPath [ qtbase glew stdenv.cc.cc libGLU libGL ]
+        lib.makeLibraryPath [
+          qtbase
+          glew
+          stdenv.cc.cc
+          libGLU
+          libGL
+        ]
       }" \
       $out/share/openBrf/openBrf
 

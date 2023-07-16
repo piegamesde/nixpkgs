@@ -25,9 +25,22 @@ stdenv.mkDerivation rec {
     hash = "sha256-2oKesdr2eNZhDlGrFRiH5/8APFkGJfxPCNvzFoIumdQ=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config gettext zip ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    gettext
+    zip
+  ];
 
-  buildInputs = [ SDL2 SDL2_image SDL2_mixer SDL2_ttf SDL2_ttf boost physfs ];
+  buildInputs = [
+    SDL2
+    SDL2_image
+    SDL2_mixer
+    SDL2_ttf
+    SDL2_ttf
+    boost
+    physfs
+  ];
 
   preConfigure = ''
     patchShebangs packdata.sh source/misc/translation/*.sh

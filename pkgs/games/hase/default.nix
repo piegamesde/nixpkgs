@@ -22,7 +22,10 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ sparrow3d zlib ];
+  buildInputs = [
+    sparrow3d
+    zlib
+  ];
 
   buildPhase = ''
     NIX_CFLAGS_COMPILE=$(pkg-config --cflags sparrow3d zlib)

@@ -29,8 +29,16 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  buildInputs = [ espeak gpsd hamlib perl python3 ]
-    ++ (optionals stdenv.isLinux [ alsa-lib udev ]);
+  buildInputs = [
+    espeak
+    gpsd
+    hamlib
+    perl
+    python3
+  ] ++ (optionals stdenv.isLinux [
+    alsa-lib
+    udev
+  ]);
 
   postPatch = ''
     substituteInPlace conf/CMakeLists.txt \

@@ -28,7 +28,12 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ omake ocaml flex bison ];
+  nativeBuildInputs = [
+    omake
+    ocaml
+    flex
+    bison
+  ];
 
   hardeningDisable = [ "format" ];
 

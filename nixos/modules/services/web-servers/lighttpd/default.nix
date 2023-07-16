@@ -176,7 +176,10 @@ in {
       enableModules = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "mod_cgi" "mod_status" ];
+        example = [
+          "mod_cgi"
+          "mod_status"
+        ];
         description = lib.mdDoc ''
           List of lighttpd modules to enable. Sub-services take care of
           enabling modules as needed, so this option is mainly for when you
@@ -232,7 +235,7 @@ in {
 
   config = mkIf cfg.enable {
 
-    assertions = [{
+    assertions = [ {
       assertion = all (x: elem x allKnownModules) cfg.enableModules;
       message = ''
         One (or more) modules in services.lighttpd.enableModules are
@@ -242,7 +245,7 @@ in {
 
         services.lighttpd.enableModules: ${toString cfg.enableModules}
       '';
-    }];
+    } ];
 
     services.lighttpd.enableModules = mkMerge [
       (mkIf cfg.mod_status [ "mod_status" ])

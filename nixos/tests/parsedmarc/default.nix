@@ -85,7 +85,10 @@ in {
           };
         };
 
-        environment.systemPackages = [ (sendEmail "dmarc@localhost") pkgs.jq ];
+        environment.systemPackages = [
+          (sendEmail "dmarc@localhost")
+          pkgs.jq
+        ];
       };
 
     testScript = {

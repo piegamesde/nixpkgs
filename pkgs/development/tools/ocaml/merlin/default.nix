@@ -23,17 +23,21 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.02.3";
 
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      dot_merlin_reader = "${dot-merlin-reader}/bin/dot-merlin-reader";
-      dune = "${dune_2}/bin/dune";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    dot_merlin_reader = "${dot-merlin-reader}/bin/dot-merlin-reader";
+    dune = "${dune_2}/bin/dune";
+  }) ];
 
   strictDeps = true;
 
-  buildInputs = [ dot-merlin-reader yojson csexp result menhirSdk ];
+  buildInputs = [
+    dot-merlin-reader
+    yojson
+    csexp
+    result
+    menhirSdk
+  ];
 
   meta = with lib; {
     description =

@@ -30,7 +30,14 @@ in stdenv.mkDerivation rec {
 
   preConfigure = "make -f Makefile.svn";
 
-  nativeBuildInputs = [ autoconf automake intltool libtool pkg-config which ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    intltool
+    libtool
+    pkg-config
+    which
+  ];
 
   buildInputs = [
     docbook_xml_dtd_45

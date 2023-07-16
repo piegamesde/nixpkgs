@@ -17,9 +17,15 @@ stdenv.mkDerivation {
     sha256 = "0p84ivwsp8ds4drn0hx2ax04gp0xyq6blj1iqfsmrs4slrajdmqs";
   };
 
-  buildInputs = [ libsoundio lame ];
+  buildInputs = [
+    libsoundio
+    lame
+  ];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" "PREFIX=$(out)" ];
+  makeFlags = [
+    "CC=${stdenv.cc.targetPrefix}cc"
+    "PREFIX=$(out)"
+  ];
 
   meta = with lib; {
     description =

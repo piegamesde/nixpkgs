@@ -19,7 +19,16 @@ mkDerivation {
     license = with lib.licenses; [ gpl2 ];
     maintainers = [ lib.maintainers.iblech ];
   };
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
-  buildInputs =
-    [ karchive kcoreaddons kfilemetadata ktextwidgets kwidgetsaddons kio ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
+  buildInputs = [
+    karchive
+    kcoreaddons
+    kfilemetadata
+    ktextwidgets
+    kwidgetsaddons
+    kio
+  ];
 }

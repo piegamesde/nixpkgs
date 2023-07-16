@@ -25,8 +25,14 @@ buildPythonPackage rec {
     hash = "sha256-/Iz1F40Y00bgJUvNrkPGyA8Kkch92Kijeg8TQ8mostM=";
   };
 
-  propagatedBuildInputs =
-    [ async-timeout attrs httpx orjson packaging xmltodict ];
+  propagatedBuildInputs = [
+    async-timeout
+    attrs
+    httpx
+    orjson
+    packaging
+    xmltodict
+  ];
 
   # Tests requires a server on localhost
   doCheck = false;

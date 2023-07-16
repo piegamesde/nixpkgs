@@ -31,7 +31,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [ hypothesis pytest ];
+  nativeCheckInputs = [
+    hypothesis
+    pytest
+  ];
 
   pythonImportsCheck = [ "blis" ];
 

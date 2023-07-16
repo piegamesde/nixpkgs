@@ -8,7 +8,10 @@ import ./make-test-python.nix ({
   let port = 5678;
   in {
     name = "n8n";
-    meta.maintainers = with maintainers; [ freezeboy k900 ];
+    meta.maintainers = with maintainers; [
+      freezeboy
+      k900
+    ];
 
     nodes.machine = {
         pkgs,

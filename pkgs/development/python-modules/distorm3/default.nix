@@ -20,7 +20,10 @@ buildPythonPackage rec {
     sha256 = "012bh1l2w7i9q8rcnznj3x0lra09d5yxd3r42cbrqdwl1mmg26qn";
   };
 
-  nativeCheckInputs = [ pytestCheckHook yasm ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    yasm
+  ];
 
   disabledTests = [
     # TypeError: __init__() missing 3 required positional...

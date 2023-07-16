@@ -27,7 +27,10 @@ buildGoModule rec {
   # FIXME: tests fail due to read-only nix store
   doCheck = false;
 
-  buildInputs = lib.optionals stdenv.isDarwin [ CoreFoundation IOKit ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    CoreFoundation
+    IOKit
+  ];
 
   excludedPackages = [ "docs/node-mixin" ];
 
@@ -47,6 +50,11 @@ buildGoModule rec {
     description = "Prometheus exporter for machine metrics";
     homepage = "https://github.com/prometheus/node_exporter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ benley fpletz globin Frostman ];
+    maintainers = with maintainers; [
+      benley
+      fpletz
+      globin
+      Frostman
+    ];
   };
 }

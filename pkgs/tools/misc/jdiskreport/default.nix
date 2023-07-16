@@ -27,7 +27,10 @@ in stdenv.mkDerivation rec {
     sha256 = "0d5mzkwsbh9s9b1vyvpaawqc09b0q41l2a7pmwf7386b1fsx6d58";
   };
 
-  nativeBuildInputs = [ copyDesktopItems unzip ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    unzip
+  ];
   inherit jre;
 
   installPhase = ''
@@ -57,7 +60,10 @@ in stdenv.mkDerivation rec {
     description = "A graphical utility to visualize disk usage";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.unfreeRedistributable; # TODO freedist, libs under BSD-3
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
     maintainers = with maintainers; [ kylesferrazza ];
   };
 }

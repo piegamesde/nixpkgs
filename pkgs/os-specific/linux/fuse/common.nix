@@ -52,13 +52,21 @@ in stdenv.mkDerivation rec {
       })
     ]);
 
-  nativeBuildInputs =
-    if isFuse3 then [ meson ninja pkg-config ] else [ autoreconfHook gettext ];
+  nativeBuildInputs = if isFuse3 then [
+    meson
+    ninja
+    pkg-config
+  ] else [
+    autoreconfHook
+    gettext
+  ];
 
   outputs = [ "out" ] ++ lib.optional isFuse3 "common";
 
-  mesonFlags =
-    lib.optionals isFuse3 [ "-Dudevrulesdir=/udev/rules.d" "-Duseroot=false" ];
+  mesonFlags = lib.optionals isFuse3 [
+    "-Dudevrulesdir=/udev/rules.d"
+    "-Duseroot=false"
+  ];
 
   preConfigure = ''
     export MOUNT_FUSE_PATH=$out/sbin
@@ -82,7 +90,10 @@ in stdenv.mkDerivation rec {
     ./makeconf.sh
   '');
 
-  nativeCheckInputs = [ which ] ++ (with python3Packages; [ python pytest ]);
+  nativeCheckInputs = [ which ] ++ (with python3Packages; [
+    python
+    pytest
+  ]);
 
   checkPhase = ''
     python3 -m pytest test/
@@ -115,7 +126,10 @@ in stdenv.mkDerivation rec {
     changelog =
       "https://github.com/libfuse/libfuse/releases/tag/fuse-${version}";
     platforms = platforms.linux;
-    license = with licenses; [ gpl2Only lgpl21Only ];
+    license = with licenses; [
+      gpl2Only
+      lgpl21Only
+    ];
     maintainers = [ maintainers.primeos ];
   };
 }

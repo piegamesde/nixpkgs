@@ -87,7 +87,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description =
       "Multivariate probabilistic modeling and uncertainty treatment library";
-    license = with licenses; [ lgpl3 gpl3 ];
+    license = with licenses; [
+      lgpl3
+      gpl3
+    ];
     homepage = "https://openturns.github.io/www/";
     maintainers = with maintainers; [ gdinh ];
     platforms = platforms.unix;

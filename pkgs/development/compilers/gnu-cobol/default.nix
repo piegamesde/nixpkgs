@@ -42,9 +42,20 @@ stdenv.mkDerivation rec {
     texlive.combined.scheme-basic
   ];
 
-  buildInputs = [ cjson db gmp libxml2 ncurses ];
+  buildInputs = [
+    cjson
+    db
+    gmp
+    libxml2
+    ncurses
+  ];
 
-  outputs = [ "bin" "dev" "lib" "out" ];
+  outputs = [
+    "bin"
+    "dev"
+    "lib"
+    "out"
+  ];
   # XXX: Without this, we get a cycle between bin and dev
   propagatedBuildOutputs = [ ];
 
@@ -61,7 +72,11 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  installFlags = [ "install-pdf" "install-html" "localedir=$out/share/locale" ];
+  installFlags = [
+    "install-pdf"
+    "install-html"
+    "localedir=$out/share/locale"
+  ];
 
   # Tests must run after install.
   doCheck = false;
@@ -95,8 +110,14 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An open-source COBOL compiler";
     homepage = "https://sourceforge.net/projects/gnucobol/";
-    license = with licenses; [ gpl3Only lgpl3Only ];
-    maintainers = with maintainers; [ ericsagnes lovesegfault ];
+    license = with licenses; [
+      gpl3Only
+      lgpl3Only
+    ];
+    maintainers = with maintainers; [
+      ericsagnes
+      lovesegfault
+    ];
     platforms = platforms.all;
   };
 }

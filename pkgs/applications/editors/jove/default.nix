@@ -20,7 +20,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [ groff ncurses ];
+  buildInputs = [
+    groff
+    ncurses
+  ];
 
   dontConfigure = true;
 

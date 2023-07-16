@@ -63,7 +63,10 @@
 
 mkDerivation {
   pname = "kwin";
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
   buildInputs = [
     libepoxy
     lcms2
@@ -121,7 +124,10 @@ mkDerivation {
     libqaccessibilityclient
 
   ];
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   postPatch = ''
     patchShebangs src/effects/strip-effect-metadata.py

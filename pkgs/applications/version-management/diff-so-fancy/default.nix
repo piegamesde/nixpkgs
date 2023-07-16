@@ -23,9 +23,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [
-    perl # needed for patchShebangs
-  ];
+  buildInputs = [ perl # needed for patchShebangs
+    ];
 
   dontBuild = true;
 
@@ -60,6 +59,10 @@ stdenv.mkDerivation rec {
       diff-so-fancy builds on the good-lookin' output of git contrib's
       diff-highlight to upgrade your diffs' appearances.
     '';
-    maintainers = with maintainers; [ fpletz globin ma27 ];
+    maintainers = with maintainers; [
+      fpletz
+      globin
+      ma27
+    ];
   };
 }

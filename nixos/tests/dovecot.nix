@@ -9,7 +9,10 @@ import ./make-test-python.nix {
       services.postfix.enable = true;
       services.dovecot2 = {
         enable = true;
-        protocols = [ "imap" "pop3" ];
+        protocols = [
+          "imap"
+          "pop3"
+        ];
         modules = [ pkgs.dovecot_pigeonhole ];
         mailUser = "vmail";
         mailGroup = "vmail";
@@ -70,7 +73,12 @@ import ./make-test-python.nix {
             pop.quit()
         '';
 
-      in [ sendTestMail sendTestMailViaDeliveryAgent testImap testPop ];
+      in [
+        sendTestMail
+        sendTestMailViaDeliveryAgent
+        testImap
+        testPop
+      ];
     };
 
   testScript = ''

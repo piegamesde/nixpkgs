@@ -32,7 +32,11 @@ stdenv.mkDerivation rec {
     cp ${configFile} config.def.h
   '';
 
-  buildInputs = [ libinput libX11 wayland ];
+  buildInputs = [
+    libinput
+    libX11
+    wayland
+  ];
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 

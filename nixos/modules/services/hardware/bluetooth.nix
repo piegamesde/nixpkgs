@@ -24,12 +24,20 @@ let
 
 in {
   imports = [
-    (mkRenamedOptionModule [ "hardware" "bluetooth" "config" ] [
+    (mkRenamedOptionModule [
+      "hardware"
+      "bluetooth"
+      "config"
+    ] [
       "hardware"
       "bluetooth"
       "settings"
     ])
-    (mkRemovedOptionModule [ "hardware" "bluetooth" "extraConfig" ] ''
+    (mkRemovedOptionModule [
+      "hardware"
+      "bluetooth"
+      "extraConfig"
+    ] ''
       Use hardware.bluetooth.settings instead.
 
       This is part of the general move to use structured settings instead of raw
@@ -124,8 +132,10 @@ in {
         # will in fact load the configuration file at /etc/bluetooth/main.conf
         # so force it here to avoid any ambiguity and things suddenly breaking
         # if/when the bluez derivation is changed.
-        args = [ "-f" "/etc/bluetooth/main.conf" ]
-          ++ optional hasDisabledPlugins
+        args = [
+          "-f"
+          "/etc/bluetooth/main.conf"
+        ] ++ optional hasDisabledPlugins
           "--noplugin=${concatStringsSep "," cfg.disabledPlugins}";
       in {
         wantedBy = [ "bluetooth.target" ];

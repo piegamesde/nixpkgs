@@ -19,7 +19,11 @@ buildOctavePackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  propagatedBuildInputs = [ jack2 alsa-lib rtmidi ];
+  propagatedBuildInputs = [
+    jack2
+    alsa-lib
+    rtmidi
+  ];
 
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/audio/index.html";

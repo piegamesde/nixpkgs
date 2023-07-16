@@ -22,7 +22,12 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  buildInputs = [ jdk ant acl attr ];
+  buildInputs = [
+    jdk
+    ant
+    acl
+    attr
+  ];
 
   patches = [ ./fix-javah-bug.diff ];
 
@@ -39,7 +44,10 @@ stdenv.mkDerivation rec {
 
     sed -i "s#^PROGRAM_DIR.*#PROGRAM_DIR=$out#g" bin/areca_run.sh
     sed -i "s#^LIBRARY_PATH.*#LIBRARY_PATH=$out/lib:${
-      lib.makeLibraryPath [ swt acl ]
+      lib.makeLibraryPath [
+        swt
+        acl
+      ]
     }#g" bin/areca_run.sh
 
     # https://sourceforge.net/p/areca/bugs/563/

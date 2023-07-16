@@ -17,7 +17,12 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-bqF5v52uxbvmVmphXAmcWlCI6nbQzZemCxlTcqhRDTY=";
 
-  cargoBuildFlags = [ "-p" "rslint_cli" "-p" "rslint_lsp" ];
+  cargoBuildFlags = [
+    "-p"
+    "rslint_cli"
+    "-p"
+    "rslint_lsp"
+  ];
 
   meta = with lib; {
     description =

@@ -21,6 +21,9 @@ in {
         capabilities = "cap_net_raw+p";
         source = "${pkgs.liboping}/bin/${exec}";
       };
-    }) [ "oping" "noping" ]);
+    }) [
+      "oping"
+      "noping"
+    ]);
   };
 }

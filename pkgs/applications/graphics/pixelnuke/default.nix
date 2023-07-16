@@ -20,7 +20,11 @@ stdenv.mkDerivation {
 
   sourceRoot = "source/pixelnuke";
 
-  buildInputs = [ libevent glew glfw ];
+  buildInputs = [
+    libevent
+    glew
+    glfw
+  ];
 
   installPhase = ''
     install -Dm755 ./pixelnuke $out/bin/pixelnuke

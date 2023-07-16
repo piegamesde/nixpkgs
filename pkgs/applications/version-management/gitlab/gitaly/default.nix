@@ -47,7 +47,14 @@ let
     tags = [ "static,system_libgit2" ];
 
     nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ rubyEnv.wrappedRuby libgit2 openssl zlib pcre http-parser ];
+    buildInputs = [
+      rubyEnv.wrappedRuby
+      libgit2
+      openssl
+      zlib
+      pcre
+      http-parser
+    ];
 
     doCheck = false;
   };
@@ -67,7 +74,10 @@ in buildGoModule ({
 
   passthru = { inherit rubyEnv; };
 
-  subPackages = [ "cmd/gitaly" "cmd/gitaly-backup" ];
+  subPackages = [
+    "cmd/gitaly"
+    "cmd/gitaly-backup"
+  ];
 
   preConfigure = ''
     mkdir -p _build/bin
@@ -79,14 +89,22 @@ in buildGoModule ({
     cp -rv $src/ruby/{bin,lib} $ruby
   '';
 
-  outputs = [ "out" "ruby" ];
+  outputs = [
+    "out"
+    "ruby"
+  ];
 
   meta = with lib; {
     homepage = "https://gitlab.com/gitlab-org/gitaly";
     description =
       "A Git RPC service for handling all the git calls made by GitLab";
     platforms = platforms.linux ++ [ "x86_64-darwin" ];
-    maintainers = with maintainers; [ roblabla globin talyz yayayayaka ];
+    maintainers = with maintainers; [
+      roblabla
+      globin
+      talyz
+      yayayayaka
+    ];
     license = licenses.mit;
   };
 } // commonOpts)

@@ -32,9 +32,21 @@ stdenv.mkDerivation rec {
     hash = "sha256-OIZ617QLjiTiDwcsn0DnRussYtjDkVyifr2mdSqA98A=";
   };
 
-  nativeBuildInputs = [ pkg-config zig makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    zig
+    makeWrapper
+  ];
 
-  buildInputs = [ curl SDL2 SDL2_gfx SDL2_image SDL2_ttf jq ncurses ];
+  buildInputs = [
+    curl
+    SDL2
+    SDL2_gfx
+    SDL2_image
+    SDL2_ttf
+    jq
+    ncurses
+  ];
 
   preBuild = ''
     export HOME=$TMPDIR
@@ -91,7 +103,11 @@ stdenv.mkDerivation rec {
 
     homepage = "https://mepo.milesalan.com";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ sikmir McSinyx laalsaas ];
+    maintainers = with maintainers; [
+      sikmir
+      McSinyx
+      laalsaas
+    ];
     platforms = platforms.linux;
   };
 }

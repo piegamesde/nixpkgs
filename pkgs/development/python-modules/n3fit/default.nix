@@ -25,7 +25,13 @@ buildPythonPackage rec {
       --replace '= __give_git()' '= "'$version'"'
   '';
 
-  propagatedBuildInputs = [ hyperopt keras psutil tensorflow validphys2 ];
+  propagatedBuildInputs = [
+    hyperopt
+    keras
+    psutil
+    tensorflow
+    validphys2
+  ];
 
   postInstall = ''
     for prog in "$out"/bin/*; do

@@ -22,9 +22,18 @@ stdenv.mkDerivation rec {
     sha256 = "0lmjwafvfxy07zn18v3dzjwwpnid2xffgvy2dzlwkbns8gb60ds2";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config ronn ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    ronn
+  ];
 
-  buildInputs = [ espeak-ng alsa-lib systemd ];
+  buildInputs = [
+    espeak-ng
+    alsa-lib
+    systemd
+  ];
 
   PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR =
     "${placeholder "out"}/lib/systemd/system";

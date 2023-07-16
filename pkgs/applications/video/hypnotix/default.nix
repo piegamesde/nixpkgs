@@ -22,14 +22,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-R9bp1RQHHCrIE/3rIAHzWHXpXBUDUpJTkO53n+xZw3Q=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./libmpv-path.patch;
-      libmpv = "${
-          lib.getLib mpv
-        }/lib/libmpv${stdenv.hostPlatform.extensions.sharedLibrary}";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./libmpv-path.patch;
+    libmpv = "${
+        lib.getLib mpv
+      }/lib/libmpv${stdenv.hostPlatform.extensions.sharedLibrary}";
+  }) ];
 
   postPatch = ''
     substituteInPlace usr/lib/hypnotix/hypnotix.py \
@@ -37,8 +35,12 @@ stdenv.mkDerivation rec {
       --replace /usr/share/hypnotix $out/share/hypnotix
   '';
 
-  nativeBuildInputs =
-    [ gettext gobject-introspection python3.pkgs.wrapPython wrapGAppsHook ];
+  nativeBuildInputs = [
+    gettext
+    gobject-introspection
+    python3.pkgs.wrapPython
+    wrapGAppsHook
+  ];
 
   dontWrapGApps = true;
 
@@ -79,7 +81,10 @@ stdenv.mkDerivation rec {
     changelog =
       "https://github.com/linuxmint/hypnotix/blob/${src.rev}/debian/changelog";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ dotlambda bobby285271 ];
+    maintainers = with lib.maintainers; [
+      dotlambda
+      bobby285271
+    ];
     platforms = lib.platforms.linux;
   };
 }

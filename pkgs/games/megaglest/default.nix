@@ -59,7 +59,11 @@ let
   };
   path-env = buildEnv {
     name = "megaglest-path-env";
-    paths = [ bash which gnome.zenity ];
+    paths = [
+      bash
+      which
+      gnome.zenity
+    ];
   };
 in stdenv.mkDerivation {
   pname = "megaglest";
@@ -108,7 +112,12 @@ in stdenv.mkDerivation {
     })
   ];
 
-  nativeBuildInputs = [ cmake pkg-config makeWrapper git ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    makeWrapper
+    git
+  ];
   buildInputs = [
     curl
     SDL2

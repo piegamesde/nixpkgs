@@ -41,12 +41,20 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ cmake pkg-config removeReferencesTo ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    removeReferencesTo
+  ];
 
   buildInputs = lib.optional alsaSupport alsa-lib
     ++ lib.optional dbusSupport dbus ++ lib.optional pipewireSupport pipewire
     ++ lib.optional pulseSupport libpulseaudio
-    ++ lib.optionals stdenv.isDarwin [ CoreServices AudioUnit AudioToolbox ];
+    ++ lib.optionals stdenv.isDarwin [
+      CoreServices
+      AudioUnit
+      AudioToolbox
+    ];
 
   cmakeFlags = [
     # Automatically links dependencies without having to rely on dlopen, thus

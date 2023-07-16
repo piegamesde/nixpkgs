@@ -13,7 +13,10 @@ args@{
     available.  If it is, then the library provides the
     REGULAR-EXPRESSION-TEMPLATE.'';
 
-  deps = [ args."cl-ppcre" args."cl-unification" ];
+  deps = [
+    args."cl-ppcre"
+    args."cl-unification"
+  ];
 
   src = fetchurl {
     url =

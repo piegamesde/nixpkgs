@@ -23,8 +23,11 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libgit2 openssl zlib ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs = [
+    libgit2
+    openssl
+    zlib
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   meta = with lib; {
     description =

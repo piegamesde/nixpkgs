@@ -37,6 +37,9 @@ stdenv.mkDerivation rec {
       "Make recommendations for increased performance and stability of MariaDB/MySQL";
     homepage = "https://github.com/major/MySQLTuner-perl";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ peterhoeg shamilton ];
+    maintainers = with maintainers; [
+      peterhoeg
+      shamilton
+    ];
   };
 }

@@ -21,7 +21,10 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ natsort panflute ];
+  propagatedBuildInputs = [
+    natsort
+    panflute
+  ];
 
   pythonImportsCheck = [ "pandoc_include.main" ];
 

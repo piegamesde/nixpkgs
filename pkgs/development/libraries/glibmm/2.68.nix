@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
   pname = "glibmm";
   version = "2.76.0";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -35,7 +38,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = lib.optionals stdenv.isDarwin [ Cocoa ];
 
-  propagatedBuildInputs = [ glib libsigcxx30 ];
+  propagatedBuildInputs = [
+    glib
+    libsigcxx30
+  ];
 
   doCheck = false; # fails. one test needs the net, another /etc/fstab
 

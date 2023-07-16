@@ -14,7 +14,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-yNtLuYCMHLvQAVM7CDGPardrh3q27TE9l31qhUbMf8k=";
   };
 
-  buildInputs = [ libX11 libXpm ];
+  buildInputs = [
+    libX11
+    libXpm
+  ];
 
   buildPhase = ''
     make all HIGH_SCORES_FILE=.xgalaga++.scores

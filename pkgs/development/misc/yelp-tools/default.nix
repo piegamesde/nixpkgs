@@ -25,7 +25,11 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "PklqQCDUFFuZ/VCKJfoJM2pQOk6JAAKEIecsaksR+QU=";
   };
 
-  nativeBuildInputs = [ pkg-config meson ninja ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+  ];
 
   propagatedBuildInputs = [
     libxml2 # xmllint required by yelp-check.

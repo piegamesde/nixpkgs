@@ -97,7 +97,10 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/samschott/maestral/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg sfrijters ];
+    maintainers = with maintainers; [
+      peterhoeg
+      sfrijters
+    ];
     platforms = platforms.unix;
   };
 }

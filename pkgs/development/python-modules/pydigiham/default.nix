@@ -21,7 +21,10 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ digiham ];
-  buildInputs = [ codecserver pycsdr ];
+  buildInputs = [
+    codecserver
+    pycsdr
+  ];
   # make pycsdr header files available
   preBuild = ''
     ln -s ${pycsdr}/include/${python.libPrefix}/pycsdr src/pycsdr

@@ -33,7 +33,10 @@ stdenv.mkDerivation rec {
     description = "Simple JavaScript Duckumentation generator";
     homepage = "https://github.com/senchalabs/jsduck";
     license = with licenses; gpl3;
-    maintainers = with maintainers; [ periklis nicknovitski ];
+    maintainers = with maintainers; [
+      periklis
+      nicknovitski
+    ];
     platforms = platforms.unix;
   };
 }

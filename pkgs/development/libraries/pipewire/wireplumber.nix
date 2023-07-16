@@ -22,7 +22,10 @@ in stdenv.mkDerivation rec {
   pname = "wireplumber";
   version = "0.4.14";
 
-  outputs = [ "out" "dev" ] ++ lib.optional enableDocs "doc";
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optional enableDocs "doc";
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -32,18 +35,29 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-PKS+WErdZuSU4jrFHQcRbnZIHlnlv06R6ZxIAIBptko=";
   };
 
-  nativeBuildInputs = [ meson pkg-config ninja ]
-    ++ lib.optionals enableDocs [ graphviz ]
+  nativeBuildInputs = [
+    meson
+    pkg-config
+    ninja
+  ] ++ lib.optionals enableDocs [ graphviz ]
     ++ lib.optionals enableGI [ gobject-introspection ]
     ++ lib.optionals (enableDocs || enableGI) [
       doxygen
       (python3.pythonForBuild.withPackages (ps:
         with ps;
-        lib.optionals enableDocs [ sphinx sphinx-rtd-theme breathe ]
-        ++ lib.optionals enableGI [ lxml ]))
+        lib.optionals enableDocs [
+          sphinx
+          sphinx-rtd-theme
+          breathe
+        ] ++ lib.optionals enableGI [ lxml ]))
     ];
 
-  buildInputs = [ glib systemd lua5_4 pipewire ];
+  buildInputs = [
+    glib
+    systemd
+    lua5_4
+    pipewire
+  ];
 
   mesonFlags = [
     "-Dsystem-lua=true"

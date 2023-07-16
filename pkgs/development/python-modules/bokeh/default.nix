@@ -42,13 +42,11 @@ buildPythonPackage rec {
     hash = "sha256-7zOAEWGvN5Zlq3o0aE8iCYYeOu/VyAOiH7u5nZSHSwM=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./hardcode-nodejs-npmjs-paths.patch;
-      node_bin = "${nodejs}/bin/node";
-      npm_bin = "${nodejs}/bin/npm";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./hardcode-nodejs-npmjs-paths.patch;
+    node_bin = "${nodejs}/bin/node";
+    npm_bin = "${nodejs}/bin/npm";
+  }) ];
 
   disabled = isPyPy || isPy27;
 

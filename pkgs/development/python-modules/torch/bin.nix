@@ -111,10 +111,18 @@ in buildPythonPackage {
     # https://www.intel.com/content/www/us/en/developer/articles/license/onemkl-license-faq.html
     # torch's license is BSD3.
     # torch-bin includes CUDA and MKL binaries, therefore unfreeRedistributable is set.
-    license = with licenses; [ bsd3 issl unfreeRedistributable ];
+    license = with licenses; [
+      bsd3
+      issl
+      unfreeRedistributable
+    ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    platforms =
-      [ "aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux" ];
+    platforms = [
+      "aarch64-darwin"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "x86_64-linux"
+    ];
     hydraPlatforms = [ ]; # output size 3.2G on 1.11.0
     maintainers = with maintainers; [ junjihashimoto ];
   };

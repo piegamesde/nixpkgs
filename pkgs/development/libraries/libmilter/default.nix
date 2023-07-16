@@ -38,7 +38,11 @@ stdenv.mkDerivation rec {
     sh Build -f ./a.m4
   '';
 
-  patches = [ ./install.patch ./sharedlib.patch ./darwin.patch ];
+  patches = [
+    ./install.patch
+    ./sharedlib.patch
+    ./darwin.patch
+  ];
 
   nativeBuildInputs = [ m4 ]
     ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;

@@ -115,7 +115,10 @@ in {
 
       superuserRealm = mkOption {
         type = types.listOf types.str;
-        default = [ "super" "administrators" ];
+        default = [
+          "super"
+          "administrators"
+        ];
         description = lib.mdDoc ''
           The realm where users are allowed to login as administrators.
         '';
@@ -210,7 +213,12 @@ in {
           '';
         };
         action = mkOption {
-          type = types.enum [ "delete" "mark" "disable" "unassign" ];
+          type = types.enum [
+            "delete"
+            "mark"
+            "disable"
+            "unassign"
+          ];
           description = lib.mdDoc ''
             Which action to take for matching tokens.
           '';
@@ -262,7 +270,12 @@ in {
 
         settings = mkOption {
           type = with types;
-            attrsOf (attrsOf (oneOf [ str bool int (listOf str) ]));
+            attrsOf (attrsOf (oneOf [
+              str
+              bool
+              int
+              (listOf str)
+            ]));
           default = { };
           description = lib.mdDoc ''
             Attribute-set containing the settings for `privacyidea-ldap-proxy`.
@@ -288,17 +301,19 @@ in {
 
     (mkIf cfg.enable {
 
-      assertions = [{
+      assertions = [ {
         assertion = cfg.tokenjanitor.enable
           -> (cfg.tokenjanitor.orphaned || cfg.tokenjanitor.unassigned);
         message = ''
           privacyidea-token-janitor has no effect if neither orphaned nor unassigned tokens
           are to be searched.
         '';
-      }];
+      } ];
 
-      environment.systemPackages =
-        [ pkgs.privacyidea (hiPrio privacyidea-token-janitor) ];
+      environment.systemPackages = [
+        pkgs.privacyidea
+        (hiPrio privacyidea-token-janitor)
+      ];
 
       services.postgresql.enable = mkDefault true;
 
@@ -421,17 +436,16 @@ in {
 
     (mkIf cfg.ldap-proxy.enable {
 
-      assertions = [{
+      assertions = [ {
         assertion = let xor = a: b: a && !b || !a && b;
         in xor (cfg.ldap-proxy.settings == { })
         (cfg.ldap-proxy.configFile == null);
         message =
           "configFile & settings are mutually exclusive for services.privacyidea.ldap-proxy!";
-      }];
+      } ];
 
-      warnings = mkIf (cfg.ldap-proxy.configFile != null) [
-        "Using services.privacyidea.ldap-proxy.configFile is deprecated! Use the RFC42-style settings option instead!"
-      ];
+      warnings = mkIf (cfg.ldap-proxy.configFile
+        != null) [ "Using services.privacyidea.ldap-proxy.configFile is deprecated! Use the RFC42-style settings option instead!" ];
 
       systemd.services.privacyidea-ldap-proxy = let
         ldap-proxy-env =
@@ -443,8 +457,8 @@ in {
           User = cfg.ldap-proxy.user;
           Group = cfg.ldap-proxy.group;
           StateDirectory = "privacyidea-ldap-proxy";
-          EnvironmentFile = mkIf (cfg.ldap-proxy.environmentFile != null)
-            [ cfg.ldap-proxy.environmentFile ];
+          EnvironmentFile = mkIf (cfg.ldap-proxy.environmentFile
+            != null) [ cfg.ldap-proxy.environmentFile ];
           ExecStartPre =
             "${pkgs.writeShellScript "substitute-secrets-ldap-proxy" ''
               umask 0077

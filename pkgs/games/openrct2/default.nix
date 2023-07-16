@@ -79,7 +79,10 @@ in stdenv.mkDerivation {
 
   src = openrct2-src;
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     SDL2

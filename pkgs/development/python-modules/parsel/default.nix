@@ -29,9 +29,18 @@ buildPythonPackage rec {
       --replace '"pytest-runner",' ""
   '';
 
-  propagatedBuildInputs = [ cssselect jmespath lxml packaging w3lib ];
+  propagatedBuildInputs = [
+    cssselect
+    jmespath
+    lxml
+    packaging
+    w3lib
+  ];
 
-  nativeCheckInputs = [ psutil pytestCheckHook ];
+  nativeCheckInputs = [
+    psutil
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "parsel" ];
 

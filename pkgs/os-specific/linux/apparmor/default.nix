@@ -41,7 +41,10 @@ let
       homepage = "https://apparmor.net/";
       description = "A mandatory access control system - ${component}";
       license = licenses.gpl2;
-      maintainers = with maintainers; [ julm thoughtpolice ];
+      maintainers = with maintainers; [
+        julm
+        thoughtpolice
+      ];
       platforms = platforms.linux;
     };
 
@@ -53,7 +56,13 @@ let
   };
 
   aa-teardown = writeShellScript "aa-teardown" ''
-    PATH="${lib.makeBinPath [ coreutils gnused gnugrep ]}:$PATH"
+    PATH="${
+      lib.makeBinPath [
+        coreutils
+        gnused
+        gnugrep
+      ]
+    }:$PATH"
     . ${apparmor-parser}/lib/apparmor/rc.apparmor.functions
     remove_profiles
   '';
@@ -69,14 +78,12 @@ let
       --replace "/usr/include/linux/capability.h" "${linuxHeaders}/include/linux/capability.h"
   '';
 
-  patches = lib.optionals stdenv.hostPlatform.isMusl [
-    (fetchpatch {
-      url =
-        "https://git.alpinelinux.org/aports/plain/testing/apparmor/0003-Added-missing-typedef-definitions-on-parser.patch?id=74b8427cc21f04e32030d047ae92caa618105b53";
-      name = "0003-Added-missing-typedef-definitions-on-parser.patch";
-      sha256 = "0yyaqz8jlmn1bm37arggprqz0njb4lhjni2d9c8qfqj0kll0bam0";
-    })
-  ];
+  patches = lib.optionals stdenv.hostPlatform.isMusl [ (fetchpatch {
+    url =
+      "https://git.alpinelinux.org/aports/plain/testing/apparmor/0003-Added-missing-typedef-definitions-on-parser.patch?id=74b8427cc21f04e32030d047ae92caa618105b53";
+    name = "0003-Added-missing-typedef-definitions-on-parser.patch";
+    sha256 = "0yyaqz8jlmn1bm37arggprqz0njb4lhjni2d9c8qfqj0kll0bam0";
+  }) ];
 
   python = python3.withPackages (ps: with ps; [ setuptools ]);
 
@@ -97,9 +104,16 @@ let
     # configure: error: python is required when enabling python bindings
     strictDeps = false;
 
-    nativeBuildInputs =
-      [ autoreconfHook bison flex pkg-config swig ncurses which perl ]
-      ++ lib.optional withPython python;
+    nativeBuildInputs = [
+      autoreconfHook
+      bison
+      flex
+      pkg-config
+      swig
+      ncurses
+      which
+      perl
+    ] ++ lib.optional withPython python;
 
     buildInputs = [ libxcrypt ] ++ lib.optional withPerl perl
       ++ lib.optional withPython python;
@@ -142,9 +156,19 @@ let
 
     strictDeps = true;
 
-    nativeBuildInputs = [ makeWrapper which python ];
+    nativeBuildInputs = [
+      makeWrapper
+      which
+      python
+    ];
 
-    buildInputs = [ bash perl python libapparmor libapparmor.python ];
+    buildInputs = [
+      bash
+      perl
+      python
+      libapparmor
+      libapparmor.python
+    ];
 
     prePatch = prePatchCommon +
       # Do not build vim file
@@ -196,7 +220,11 @@ let
 
     src = apparmor-sources;
 
-    nativeBuildInputs = [ pkg-config libapparmor which ];
+    nativeBuildInputs = [
+      pkg-config
+      libapparmor
+      which
+    ];
 
     buildInputs = [ libapparmor ];
 
@@ -204,9 +232,15 @@ let
     postPatch = ''
       cd ./binutils
     '';
-    makeFlags = [ "LANGS=" "USE_SYSTEM=1" ];
-    installFlags =
-      [ "DESTDIR=$(out)" "BINDIR=$(out)/bin" "SBINDIR=$(out)/bin" ];
+    makeFlags = [
+      "LANGS="
+      "USE_SYSTEM=1"
+    ];
+    installFlags = [
+      "DESTDIR=$(out)"
+      "BINDIR=$(out)/bin"
+      "SBINDIR=$(out)/bin"
+    ];
 
     inherit doCheck;
 
@@ -219,7 +253,11 @@ let
 
     src = apparmor-sources;
 
-    nativeBuildInputs = [ bison flex which ];
+    nativeBuildInputs = [
+      bison
+      flex
+      which
+    ];
 
     buildInputs = [ libapparmor ];
 
@@ -246,7 +284,10 @@ let
       "INCLUDEDIR=${libapparmor}/include"
       "AR=${stdenv.cc.bintools.targetPrefix}ar"
     ];
-    installFlags = [ "DESTDIR=$(out)" "DISTRO=unknown" ];
+    installFlags = [
+      "DESTDIR=$(out)"
+      "DISTRO=unknown"
+    ];
 
     inherit doCheck;
 
@@ -259,9 +300,15 @@ let
 
     src = apparmor-sources;
 
-    nativeBuildInputs = [ pkg-config which ];
+    nativeBuildInputs = [
+      pkg-config
+      which
+    ];
 
-    buildInputs = [ libapparmor pam ];
+    buildInputs = [
+      libapparmor
+      pam
+    ];
 
     postPatch = ''
       cd ./changehat/pam_apparmor
@@ -286,8 +333,10 @@ let
       cd ./profiles
     '';
 
-    installFlags =
-      [ "DESTDIR=$(out)" "EXTRAS_DEST=$(out)/share/apparmor/extra-profiles" ];
+    installFlags = [
+      "DESTDIR=$(out)"
+      "EXTRAS_DEST=$(out)/share/apparmor/extra-profiles"
+    ];
 
     inherit doCheck;
 

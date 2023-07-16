@@ -14,7 +14,10 @@
 buildNimPackage rec {
   pname = "eris";
   version = "20230201";
-  outputs = [ "bin" "out" ];
+  outputs = [
+    "bin"
+    "out"
+  ];
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "eris";
@@ -23,7 +26,14 @@ buildNimPackage rec {
     hash = "sha256-6vlD/woqTkbSRWhRtQD/ynk0DG+GrGwh6x+qUmo6YSQ=";
   };
   propagatedNativeBuildInputs = [ pkg-config ];
-  propagatedBuildInputs = [ base32 coap cbor freedesktop_org syndicate tkrzw ];
+  propagatedBuildInputs = [
+    base32
+    coap
+    cbor
+    freedesktop_org
+    syndicate
+    tkrzw
+  ];
   postInstall = ''
     mkdir -p "$bin/share/applications"
     substitute "eris-open.desktop" "$bin/share/applications/eris-open.desktop"\

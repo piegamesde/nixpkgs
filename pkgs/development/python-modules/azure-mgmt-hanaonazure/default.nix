@@ -20,8 +20,12 @@ buildPythonPackage rec {
     sha256 = "f2f8342fbfded8be4165fb0d6f010b68df074886811db3e2c9a50b360ee2dd3a";
   };
 
-  propagatedBuildInputs = [ msrest msrestazure azure-common azure-mgmt-core ]
-    ++ lib.optionals (!isPy3k) [ azure-mgmt-nspkg ];
+  propagatedBuildInputs = [
+    msrest
+    msrestazure
+    azure-common
+    azure-mgmt-core
+  ] ++ lib.optionals (!isPy3k) [ azure-mgmt-nspkg ];
 
   # has no tests
   doCheck = false;

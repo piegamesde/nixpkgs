@@ -28,8 +28,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-Uet3zdjLdI4qpiuU4CtW2WwWGcFaOhotLLKfnsAUqho=";
   };
 
-  nativeBuildInputs =
-    [ fixup_yarn_lock yarn nodejs jpegoptim oxipng nodePackages.svgo ];
+  nativeBuildInputs = [
+    fixup_yarn_lock
+    yarn
+    nodejs
+    jpegoptim
+    oxipng
+    nodePackages.svgo
+  ];
 
   postPatch = ''
     # Build scripts assume to be used within a Git repository checkout

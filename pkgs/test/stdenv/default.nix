@@ -206,7 +206,10 @@ in {
         # declare -a list=('a' 'b' )
         # and a json array in attrs.json
         # "list":["a","b"]
-        list = [ "a" "b" ];
+        list = [
+          "a"
+          "b"
+        ];
         # will be a bash associative array(dictionary) in attrs.sh
         # declare -A array=(['a']='1' ['b']='2' )
         # and a json object in attrs.json
@@ -284,8 +287,17 @@ in {
       EXAMPLE_INT = 123;
       EXAMPLE_INT_NEG = -123;
       EXAMPLE_STR = "foo bar";
-      EXAMPLE_LIST = [ "foo" "bar" ];
-      EXAMPLE_NESTED_LIST = [ [ "foo" "bar" ] [ "baz" ] ];
+      EXAMPLE_LIST = [
+        "foo"
+        "bar"
+      ];
+      EXAMPLE_NESTED_LIST = [
+        [
+          "foo"
+          "bar"
+        ]
+        [ "baz" ]
+      ];
       EXAMPLE_ATTRS = { foo = "bar"; };
       EXAMPLE_NESTED_ATTRS = { foo.bar = "baz"; };
 

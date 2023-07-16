@@ -16,7 +16,11 @@ stdenv.mkDerivation rec {
   pname = "gdk-pixbuf-xlib";
   version = "2.40.2";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
@@ -26,10 +30,19 @@ stdenv.mkDerivation rec {
     hash = "sha256-b4EUaYzg2NlBMU90dGQivOvkv9KKSzES/ymPqzrelu8=";
   };
 
-  nativeBuildInputs =
-    [ meson ninja pkg-config docbook-xsl-nons docbook_xml_dtd_43 gtk-doc ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    docbook-xsl-nons
+    docbook_xml_dtd_43
+    gtk-doc
+  ];
 
-  propagatedBuildInputs = [ gdk-pixbuf libX11 ];
+  propagatedBuildInputs = [
+    gdk-pixbuf
+    libX11
+  ];
 
   mesonFlags = [ "-Dgtk_doc=true" ];
 

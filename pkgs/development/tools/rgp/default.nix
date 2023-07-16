@@ -30,7 +30,10 @@ in stdenv.mkDerivation {
     hash = "sha256-1JxW6vXfOYDaCnHWEq8crjuu0QrUCwahm+ipOKVDQPA=";
   };
 
-  nativeBuildInputs = [ makeWrapper autoPatchelfHook ];
+  nativeBuildInputs = [
+    makeWrapper
+    autoPatchelfHook
+  ];
 
   buildInputs = [
     dbus

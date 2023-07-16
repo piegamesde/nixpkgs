@@ -32,13 +32,21 @@ buildPythonPackage rec {
 
   buildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ attrs colorama pyperclip wcwidth ]
-    ++ lib.optionals (pythonOlder "3.8") [
-      typing-extensions
-      importlib-metadata
-    ];
+  propagatedBuildInputs = [
+    attrs
+    colorama
+    pyperclip
+    wcwidth
+  ] ++ lib.optionals (pythonOlder "3.8") [
+    typing-extensions
+    importlib-metadata
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook glibcLocales pytest-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    glibcLocales
+    pytest-mock
+  ];
 
   disabledTests = [
     # Don't require vim for tests, it causes lots of rebuilds

@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
 
   LIBUV_ROOT_DIR = "${libuv}/";
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ zlib libuv openssl.dev ];
+  buildInputs = [
+    zlib
+    libuv
+    openssl.dev
+  ];
 
   cmakeFlags = lib.attrsets.mapAttrsToList (name: value:
     "-DCASS_BUILD_${name}:BOOL=${if value then "ON" else "OFF"}") {

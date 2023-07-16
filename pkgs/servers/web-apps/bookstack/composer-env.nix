@@ -154,9 +154,16 @@ let
             ''}
           '') (builtins.attrNames dependencies);
 
-      extraArgs = removeAttrs args [ "packages" "devPackages" "buildInputs" ];
+      extraArgs = removeAttrs args [
+        "packages"
+        "devPackages"
+        "buildInputs"
+      ];
     in stdenv.mkDerivation ({
-      buildInputs = [ php composer ] ++ buildInputs;
+      buildInputs = [
+        php
+        composer
+      ] ++ buildInputs;
 
       inherit unpackPhase buildPhase;
 

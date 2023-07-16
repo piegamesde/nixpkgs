@@ -59,7 +59,10 @@ stdenv.mkDerivation rec {
     gappsWrapperArgs+=(--prefix XDG_DATA_DIRS : "${shared-mime-info}/share")
   '';
 
-  nativeBuildInputs = [ pkg-config intltool ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+  ];
   buildInputs = [
     gtk3
     udev
@@ -84,6 +87,9 @@ stdenv.mkDerivation rec {
     homepage = "http://ignorantguru.github.io/spacefm/";
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ jagajaga obadz ];
+    maintainers = with maintainers; [
+      jagajaga
+      obadz
+    ];
   };
 }

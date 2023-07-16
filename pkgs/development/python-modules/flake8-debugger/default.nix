@@ -20,7 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-UrACVglB422b+Ab8olI9x/uFYKKV1fGm4VrC3tenOEA=";
   };
 
-  propagatedBuildInputs = [ flake8 pycodestyle ];
+  propagatedBuildInputs = [
+    flake8
+    pycodestyle
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

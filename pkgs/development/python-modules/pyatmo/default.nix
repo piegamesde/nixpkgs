@@ -33,10 +33,20 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ aiohttp oauthlib requests requests-oauthlib ];
+  propagatedBuildInputs = [
+    aiohttp
+    oauthlib
+    requests
+    requests-oauthlib
+  ];
 
-  nativeCheckInputs =
-    [ pytest-asyncio pytest-mock pytestCheckHook requests-mock time-machine ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-mock
+    pytestCheckHook
+    requests-mock
+    time-machine
+  ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

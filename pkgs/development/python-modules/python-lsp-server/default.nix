@@ -54,10 +54,19 @@ buildPythonPackage rec {
       --replace "--cov pylsp --cov test" ""
   '';
 
-  pythonRelaxDeps =
-    [ "autopep8" "flake8" "mccabe" "pycodestyle" "pydocstyle" "pyflakes" ];
+  pythonRelaxDeps = [
+    "autopep8"
+    "flake8"
+    "mccabe"
+    "pycodestyle"
+    "pydocstyle"
+    "pyflakes"
+  ];
 
-  nativeBuildInputs = [ pythonRelaxDepsHook setuptools-scm ];
+  nativeBuildInputs = [
+    pythonRelaxDepsHook
+    setuptools-scm
+  ];
 
   propagatedBuildInputs = [
     docstring-to-markdown
@@ -90,12 +99,20 @@ buildPythonPackage rec {
     pyflakes = [ pyflakes ];
     pylint = [ pylint ];
     rope = [ rope ];
-    yapf = [ whatthepatch yapf ];
+    yapf = [
+      whatthepatch
+      yapf
+    ];
     websockets = [ websockets ];
   };
 
-  nativeCheckInputs = [ flaky matplotlib numpy pandas pytestCheckHook ]
-    ++ passthru.optional-dependencies.all
+  nativeCheckInputs = [
+    flaky
+    matplotlib
+    numpy
+    pandas
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.all
     # pyqt5 is broken on aarch64-darwin
     ++ lib.optionals (!stdenv.isDarwin || !stdenv.isAarch64) [ pyqt5 ];
 
@@ -114,7 +131,10 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d);
   '';
 
-  pythonImportsCheck = [ "pylsp" "pylsp.python_lsp" ];
+  pythonImportsCheck = [
+    "pylsp"
+    "pylsp.python_lsp"
+  ];
 
   meta = with lib; {
     description = "Python implementation of the Language Server Protocol";

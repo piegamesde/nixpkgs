@@ -28,8 +28,15 @@ let
     sed '1i#include <ctime>' -i zod_src/common.cpp # gcc12
   '';
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs =
-    [ SDL SDL_image SDL_ttf SDL_mixer libmysqlclient wxGTK32 coreutils ];
+  buildInputs = [
+    SDL
+    SDL_image
+    SDL_ttf
+    SDL_mixer
+    libmysqlclient
+    wxGTK32
+    coreutils
+  ];
   hardeningDisable = [ "format" ];
   NIX_LDFLAGS = "-L${libmysqlclient}/lib/mysql";
   zod_engine = stdenv.mkDerivation {
@@ -64,12 +71,10 @@ let
     # the Idea is to apply the scalingFactor to all positions and sizes and I tested 1,2,3 and 4
     # 2,3,4 look acceptable on my 4k monitor and 1 is unreadable.
     # also the ./ in the run command is removed to have easier time starting the game
-    patches = [
-      (substituteAll {
-        inherit scalingFactor;
-        src = ./0002-add-scaling-factor-to-source.patch;
-      })
-    ];
+    patches = [ (substituteAll {
+      inherit scalingFactor;
+      src = ./0002-add-scaling-factor-to-source.patch;
+    }) ];
     postPatch = ''
       substituteInPlace zod_launcher_src/zod_launcherFrm.cpp \
         --replace 'message = wxT("./zod");' 'message = wxT("zod");' \
@@ -93,7 +98,12 @@ let
   '';
 in symlinkJoin {
   inherit name;
-  paths = [ zod_engine zod_launcher zod_map_editor zod_assets ];
+  paths = [
+    zod_engine
+    zod_launcher
+    zod_map_editor
+    zod_assets
+  ];
   meta = with lib; {
     description = "Multiplayer remake of ZED";
     homepage = "http://zod.sourceforge.net/";

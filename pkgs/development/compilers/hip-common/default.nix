@@ -21,15 +21,13 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-44CZWk6EsP5EduzBCBbOh2kshS89qOm4v3mx/xNDzV0=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./0000-fixup-paths.patch;
-      inherit llvm rocminfo;
-      clang = stdenv.cc;
-      rocm_runtime = rocm-runtime;
-      lsb_release = lsb-release;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./0000-fixup-paths.patch;
+    inherit llvm rocminfo;
+    clang = stdenv.cc;
+    rocm_runtime = rocm-runtime;
+    lsb_release = lsb-release;
+  }) ];
 
   dontConfigure = true;
   dontBuild = true;

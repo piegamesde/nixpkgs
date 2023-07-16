@@ -198,7 +198,10 @@ let
       };
 
       allowedIPs = mkOption {
-        example = [ "10.192.122.3/32" "10.192.124.1/24" ];
+        example = [
+          "10.192.122.3/32"
+          "10.192.124.1/24"
+        ];
         type = with types; listOf str;
         description = lib.mdDoc ''
           List of IP (v4 or v6) addresses with CIDR masks from
@@ -316,7 +319,10 @@ let
     in nameValuePair "wg-quick-${name}" {
       description = "wg-quick WireGuard Tunnel - ${name}";
       requires = [ "network-online.target" ];
-      after = [ "network.target" "network-online.target" ];
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
       wantedBy = optional values.autostart "multi-user.target";
       environment.DEVICE = name;
       path = [
@@ -361,11 +367,11 @@ in {
           wg0 = {
             address = [ "192.168.20.4/24" ];
             privateKey = "yAnz5TF+lXXJte14tji3zlMNq+hd2rYUIgJBgB3fBmk=";
-            peers = [{
+            peers = [ {
               allowedIPs = [ "192.168.20.1/32" ];
               publicKey = "xTIBA5rboUvnH4htodjb6e697QjLERt1NAB4mZqp8Dg=";
               endpoint = "demo.wireguard.io:12913";
-            }];
+            } ];
           };
         };
         type = with types; attrsOf (submodule interfaceOpts);

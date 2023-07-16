@@ -48,10 +48,21 @@ in py.pkgs.buildPythonPackage rec {
   '';
 
   propagatedBuildInputs = with py.pkgs;
-    [ halo networkx pydantic tabulate tqdm viv-utils vivisect ]
-    ++ viv-utils.optional-dependencies.flirt;
+    [
+      halo
+      networkx
+      pydantic
+      tabulate
+      tqdm
+      viv-utils
+      vivisect
+    ] ++ viv-utils.optional-dependencies.flirt;
 
-  nativeCheckInputs = with py.pkgs; [ pytest-sugar pytestCheckHook pyyaml ];
+  nativeCheckInputs = with py.pkgs; [
+    pytest-sugar
+    pytestCheckHook
+    pyyaml
+  ];
 
   postInstall = ''
     mkdir -p $out/share/flare-floss/

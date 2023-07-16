@@ -19,7 +19,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-BUYEeC5zli++OxVFgECJGqJkbDwglLppSxgo+4AqOb0=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

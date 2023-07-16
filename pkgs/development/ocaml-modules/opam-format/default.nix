@@ -20,7 +20,10 @@ buildDunePackage rec {
   configureFlags = [ "--disable-checks" ];
 
   nativeBuildInputs = [ unzip ];
-  propagatedBuildInputs = [ opam-core opam-file-format ];
+  propagatedBuildInputs = [
+    opam-core
+    opam-file-format
+  ];
 
   meta = opam-core.meta // {
     description = "Definition of opam datastructures and its file interface";

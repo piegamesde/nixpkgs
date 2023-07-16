@@ -23,15 +23,29 @@ mkDerivation rec {
     hash = "sha256-QaOaQ7PELdHR7K6obfMMr/agYf7MHWb2CFmyo8qXYQk=";
   };
 
-  nativeBuildInputs = [ extra-cmake-modules kdoctools wrapGAppsHook ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+    wrapGAppsHook
+  ];
 
-  propagatedBuildInputs =
-    [ karchive kconfig kcrash kguiaddons kinit kparts kwindowsystem ];
+  propagatedBuildInputs = [
+    karchive
+    kconfig
+    kcrash
+    kguiaddons
+    kinit
+    kparts
+    kwindowsystem
+  ];
 
   meta = with lib; {
     homepage = "http://www.krusader.org";
     description = "Norton/Total Commander clone for KDE";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ sander turion ];
+    maintainers = with maintainers; [
+      sander
+      turion
+    ];
   };
 }

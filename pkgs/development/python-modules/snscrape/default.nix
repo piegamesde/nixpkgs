@@ -29,8 +29,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ beautifulsoup4 filelock lxml requests ]
-    ++ requests.optional-dependencies.socks
+  propagatedBuildInputs = [
+    beautifulsoup4
+    filelock
+    lxml
+    requests
+  ] ++ requests.optional-dependencies.socks
     ++ lib.optionals (pythonOlder "3.9") [ pytz ];
 
   # There are no tests; make sure the executable works.

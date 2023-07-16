@@ -19,7 +19,10 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Tool for creating Android packages";
     homepage = "https://github.com/rust-windowing/android-ndk-rs";
-    license = with licenses; [ mit asl20 ];
+    license = with licenses; [
+      mit
+      asl20
+    ];
     maintainers = with maintainers; [ nickcao ];
   };
 }

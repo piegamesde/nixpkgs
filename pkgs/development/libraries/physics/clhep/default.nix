@@ -30,7 +30,10 @@ stdenv.mkDerivation rec {
     description =
       "Set of HEP-specific foundation and utility classes such as random generators, physics vectors, geometry and linear algebra";
     homepage = "https://cern.ch/clhep";
-    license = with licenses; [ gpl3Only lgpl3Only ];
+    license = with licenses; [
+      gpl3Only
+      lgpl3Only
+    ];
     maintainers = with maintainers; [ veprbl ];
     platforms = platforms.unix;
   };

@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
   pname = "farstream";
   version = "0.2.9";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url =
@@ -37,13 +40,26 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ libnice gupnp-igd libnice ];
+  buildInputs = [
+    libnice
+    gupnp-igd
+    libnice
+  ];
 
-  nativeBuildInputs =
-    [ pkg-config autoreconfHook gobject-introspection python3 ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+    gobject-introspection
+    python3
+  ];
 
-  propagatedBuildInputs =
-    [ gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-libav ];
+  propagatedBuildInputs = [
+    gstreamer
+    gst-plugins-base
+    gst-plugins-good
+    gst-plugins-bad
+    gst-libav
+  ];
 
   meta = with lib; {
     homepage = "https://www.freedesktop.org/wiki/Software/Farstream";

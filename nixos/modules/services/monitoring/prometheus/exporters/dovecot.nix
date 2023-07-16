@@ -69,7 +69,10 @@ in {
     scopes = mkOption {
       type = types.listOf types.str;
       default = [ "user" ];
-      example = [ "user" "global" ];
+      example = [
+        "user"
+        "global"
+      ];
       description = lib.mdDoc ''
         Stats scopes to query.
       '';

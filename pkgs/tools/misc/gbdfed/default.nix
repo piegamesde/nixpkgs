@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ freetype gtk ];
+  buildInputs = [
+    freetype
+    gtk
+  ];
 
   patches = [ ./Makefile.patch ];
 

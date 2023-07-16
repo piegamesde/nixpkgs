@@ -24,7 +24,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [ ipykernel jedi jupyter-core pexpect ];
+  propagatedBuildInputs = [
+    ipykernel
+    jedi
+    jupyter-core
+    pexpect
+  ];
 
   # Tests hang, so disable
   doCheck = false;

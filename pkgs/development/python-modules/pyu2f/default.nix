@@ -23,7 +23,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [ mock pyfakefs pytest-forked pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pyfakefs
+    pytest-forked
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [
     # API breakage with pyfakefs>=5.0

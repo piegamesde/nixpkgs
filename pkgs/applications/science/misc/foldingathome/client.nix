@@ -25,9 +25,15 @@ let
         "2827f05f1c311ee6c7eca294e4ffb856c81957e8f5bfc3113a0ed27bb463b094";
     };
 
-    nativeBuildInputs = [ autoPatchelfHook dpkg ];
+    nativeBuildInputs = [
+      autoPatchelfHook
+      dpkg
+    ];
 
-    buildInputs = [ gcc-unwrapped.lib zlib ];
+    buildInputs = [
+      gcc-unwrapped.lib
+      zlib
+    ];
 
     unpackPhase = "dpkg-deb -x ${src} ./";
     installPhase = "cp -ar usr $out";
@@ -35,7 +41,11 @@ let
 in buildFHSEnv {
   name = fahclient.name;
 
-  targetPkgs = pkgs': [ fahclient ocl-icd ] ++ extraPkgs;
+  targetPkgs = pkgs':
+    [
+      fahclient
+      ocl-icd
+    ] ++ extraPkgs;
 
   runScript = "/bin/FAHClient";
 

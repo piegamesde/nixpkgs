@@ -20,8 +20,11 @@
 }:
 
 let
-  pythonEnv =
-    python3.pythonForBuild.withPackages (p: with p; [ pyyaml setuptools ]);
+  pythonEnv = python3.pythonForBuild.withPackages (p:
+    with p; [
+      pyyaml
+      setuptools
+    ]);
 in stdenv.mkDerivation rec {
   pname = "lirc";
   version = "0.10.2";
@@ -69,10 +72,23 @@ in stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ autoreconfHook help2man libxslt pythonEnv pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    help2man
+    libxslt
+    pythonEnv
+    pkg-config
+  ];
 
-  buildInputs =
-    [ alsa-lib systemd libusb-compat-0_1 libftdi1 libICE libSM libX11 ];
+  buildInputs = [
+    alsa-lib
+    systemd
+    libusb-compat-0_1
+    libftdi1
+    libICE
+    libSM
+    libX11
+  ];
 
   DEVINPUT_HEADER = "include/linux/input-event-codes.h";
 
@@ -86,7 +102,10 @@ in stdenv.mkDerivation rec {
     "PYTHON=${pythonEnv.interpreter}"
   ];
 
-  installFlags = [ "sysconfdir=$out/etc" "localstatedir=$TMPDIR" ];
+  installFlags = [
+    "sysconfdir=$out/etc"
+    "localstatedir=$TMPDIR"
+  ];
 
   meta = with lib; {
     description = "Allows to receive and send infrared signals";

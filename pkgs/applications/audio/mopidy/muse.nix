@@ -14,7 +14,10 @@ pythonPackages.buildPythonApplication rec {
     sha256 = "0jx9dkgxr07avzz9zskzhqy98zsxkdrf7iid2ax5vygwf8qsx8ks";
   };
 
-  propagatedBuildInputs = [ mopidy pythonPackages.pykka ];
+  propagatedBuildInputs = [
+    mopidy
+    pythonPackages.pykka
+  ];
 
   pythonImportsCheck = [ "mopidy_muse" ];
 

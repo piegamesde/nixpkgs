@@ -32,11 +32,19 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ meson ninja nasm xxd ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    nasm
+    xxd
+  ];
 
   mesonFlags = [ "-Denable_avx512=true" ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
   doCheck = false;
 
   meta = with lib; {
@@ -45,7 +53,10 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Netflix/vmaf";
     changelog = "https://github.com/Netflix/vmaf/raw/v${version}/CHANGELOG.md";
     license = licenses.bsd2Patent;
-    maintainers = [ maintainers.cfsmp3 maintainers.marsam ];
+    maintainers = [
+      maintainers.cfsmp3
+      maintainers.marsam
+    ];
     mainProgram = "vmaf";
     platforms = platforms.unix;
   };

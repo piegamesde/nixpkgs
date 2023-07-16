@@ -25,7 +25,10 @@ buildPythonPackage rec {
   nativeBuildInputs = [ setuptools ];
   propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [ pytestCheckHook hypothesis ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    hypothesis
+  ];
 
   pythonImportsCheck = [ "cmaes" ];
 

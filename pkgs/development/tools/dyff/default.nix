@@ -18,7 +18,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-48IpEBA5EaGZBhrRqAwGcf8xQuP/IlzWPFhh+7bFlPc=";
 
-  subPackages = [ "cmd/dyff" "pkg/dyff" "internal/cmd" ];
+  subPackages = [
+    "cmd/dyff"
+    "pkg/dyff"
+    "internal/cmd"
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -28,8 +32,11 @@ buildGoModule rec {
       --replace "version (development)" ${version}
   '';
 
-  ldflags =
-    [ "-s" "-w" "-X=github.com/homeport/dyff/internal/cmd.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X=github.com/homeport/dyff/internal/cmd.version=${version}"
+  ];
 
   postInstall = ''
     installShellCompletion --cmd dyff \
@@ -50,6 +57,9 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/homeport/dyff";
     license = licenses.mit;
-    maintainers = with maintainers; [ edlimerkaj jceb ];
+    maintainers = with maintainers; [
+      edlimerkaj
+      jceb
+    ];
   };
 }

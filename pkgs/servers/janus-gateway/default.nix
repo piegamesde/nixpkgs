@@ -25,7 +25,10 @@
 
 let
   libwebsockets_janus = libwebsockets.overrideAttrs (_: {
-    configureFlags = [ "-DLWS_MAX_SMP=1" "-DLWS_WITHOUT_EXTENSIONS=0" ];
+    configureFlags = [
+      "-DLWS_MAX_SMP=1"
+      "-DLWS_WITHOUT_EXTENSIONS=0"
+    ];
   });
 
 in stdenv.mkDerivation rec {
@@ -39,7 +42,11 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-2UlIpxixTl16VG6lgcfk+9LXSWn0jV1IfIkCeV/SO5w=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config gengetopt ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    gengetopt
+  ];
 
   buildInputs = [
     glib
@@ -73,7 +80,12 @@ in stdenv.mkDerivation rec {
 
   makeFlagsArray = [ "BORINGSSL_LIBS=-L${lib.getLib boringssl}/lib" ];
 
-  outputs = [ "out" "dev" "doc" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+    "man"
+  ];
 
   postInstall = ''
     moveToOutput share/janus "$doc"

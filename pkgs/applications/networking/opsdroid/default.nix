@@ -62,7 +62,10 @@ python3Packages.buildPythonPackage rec {
   meta = with lib; {
     description = "An open source chat-ops bot framework";
     homepage = "https://opsdroid.dev";
-    maintainers = with maintainers; [ globin willibutz ];
+    maintainers = with maintainers; [
+      globin
+      willibutz
+    ];
     license = licenses.asl20;
     platforms = platforms.unix;
   };

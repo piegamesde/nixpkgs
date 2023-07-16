@@ -24,7 +24,11 @@ python3Packages.buildPythonApplication {
 
   pytestFlagsArray = [ "-r fEs" ];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook beets six ];
+  nativeCheckInputs = with python3Packages; [
+    pytestCheckHook
+    beets
+    six
+  ];
 
   meta = {
     description =

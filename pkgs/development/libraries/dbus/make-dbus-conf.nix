@@ -18,7 +18,10 @@ runCommand "dbus-1" {
   preferLocalBuild = true;
   allowSubstitutes = false;
 
-  nativeBuildInputs = [ libxslt.bin findXMLCatalogs ];
+  nativeBuildInputs = [
+    libxslt.bin
+    findXMLCatalogs
+  ];
 
   buildInputs = [ dbus.out ];
 } ''

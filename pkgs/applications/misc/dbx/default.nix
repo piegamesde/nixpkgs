@@ -45,7 +45,10 @@ python3.pkgs.buildPythonApplication rec {
 
   passthru.optional-dependencies = with python3.pkgs; {
     aws = [ boto3 ];
-    azure = [ azure-storage-blob azure-identity ];
+    azure = [
+      azure-storage-blob
+      azure-identity
+    ];
     gcp = [ google-cloud-storage ];
   };
 

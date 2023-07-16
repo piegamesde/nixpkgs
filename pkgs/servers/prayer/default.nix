@@ -57,7 +57,14 @@ in stdenv.mkDerivation rec {
         --replace buffio.h tidybuffio.h
     '';
 
-  buildInputs = [ openssl db zlib uwimap html-tidy pam ];
+  buildInputs = [
+    openssl
+    db
+    zlib
+    uwimap
+    html-tidy
+    pam
+  ];
   nativeBuildInputs = [ perl ];
 
   NIX_LDFLAGS = "-lpam";

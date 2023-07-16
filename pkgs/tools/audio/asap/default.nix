@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ioEshlPE8eUcLxNkIl0lxnczMNAYRcJN8KGN6OansjY=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   buildInputs = [ SDL ];
 

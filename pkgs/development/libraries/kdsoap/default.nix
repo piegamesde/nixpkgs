@@ -16,7 +16,10 @@ mkDerivation rec {
     sha256 = "sha256-rtV/ayAN33YvXSiY9+kijdBwCIHESRrv5ABvf6X1xic=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [ cmake ];
 
@@ -39,7 +42,11 @@ mkDerivation rec {
       provides the means to create web services without the need for any further
       component such as a dedicated web server.
     '';
-    license = with licenses; [ gpl2 gpl3 lgpl21 ];
+    license = with licenses; [
+      gpl2
+      gpl3
+      lgpl21
+    ];
     maintainers = [ maintainers.ttuegel ];
   };
 }

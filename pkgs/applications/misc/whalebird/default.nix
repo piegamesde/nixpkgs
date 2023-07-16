@@ -36,21 +36,30 @@ stdenv.mkDerivation rec {
   else
     throw "Whalebird is not supported for ${stdenv.system}";
 
-  nativeBuildInputs =
-    [ autoPatchelfHook makeWrapper copyDesktopItems nodePackages.asar ];
-
-  buildInputs = [ alsa-lib gtk3 libdbusmenu libxshmfence mesa nss ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      desktopName = "Whalebird";
-      comment = meta.description;
-      categories = [ "Network" ];
-      exec = "whalebird";
-      icon = "whalebird";
-      name = "whalebird";
-    })
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+    copyDesktopItems
+    nodePackages.asar
   ];
+
+  buildInputs = [
+    alsa-lib
+    gtk3
+    libdbusmenu
+    libxshmfence
+    mesa
+    nss
+  ];
+
+  desktopItems = [ (makeDesktopItem {
+    desktopName = "Whalebird";
+    comment = meta.description;
+    categories = [ "Network" ];
+    exec = "whalebird";
+    icon = "whalebird";
+    name = "whalebird";
+  }) ];
 
   unpackPhase = ''
     mkdir -p opt
@@ -96,7 +105,13 @@ stdenv.mkDerivation rec {
     homepage = "https://whalebird.social";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mit;
-    maintainers = with maintainers; [ wolfangaukang colinsane ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    maintainers = with maintainers; [
+      wolfangaukang
+      colinsane
+    ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
   };
 }

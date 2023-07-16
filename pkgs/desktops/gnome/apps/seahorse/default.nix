@@ -40,14 +40,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-Wx0b+6dPNlgifzyC4pbzMN0PzR70Y2tqIYIo/uXqgy0=";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "gpg-2.4.patch";
-      url =
-        "https://gitlab.gnome.org/GNOME/seahorse/-/commit/9260c74779be3d7a378db0671af862ffa3573d42.patch";
-      hash = "sha256-4QiFgH4jC1ucmA9fFozUQZ3Mat76SgpYkMpRz80RH64=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "gpg-2.4.patch";
+    url =
+      "https://gitlab.gnome.org/GNOME/seahorse/-/commit/9260c74779be3d7a378db0671af862ffa3573d42.patch";
+    hash = "sha256-4QiFgH4jC1ucmA9fFozUQZ3Mat76SgpYkMpRz80RH64=";
+  }) ];
 
   nativeBuildInputs = [
     meson

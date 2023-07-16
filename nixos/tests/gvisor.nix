@@ -20,10 +20,10 @@ import ./make-test-python.nix ({
           networking = {
             dhcpcd.enable = false;
             defaultGateway = "192.168.1.1";
-            interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [{
+            interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
               address = "192.168.1.2";
               prefixLength = 24;
-            }];
+            } ];
           };
         };
     };

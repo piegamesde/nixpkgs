@@ -20,7 +20,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-4/VmF8reY0pz8wswQn3IlTNt6SaVunr2v+hv+oM+G/s=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    libiconv
+    Security
+  ];
 
   meta = with lib; {
     description =

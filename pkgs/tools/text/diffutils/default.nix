@@ -32,7 +32,10 @@ stdenv.mkDerivation rec {
     touch man/diff.1
   '';
 
-  outputs = [ "out" "info" ];
+  outputs = [
+    "out"
+    "info"
+  ];
 
   nativeBuildInputs = [ xz.bin ];
   # If no explicit coreutils is given, use the one from stdenv.

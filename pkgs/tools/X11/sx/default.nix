@@ -21,7 +21,10 @@ stdenvNoCC.mkDerivation rec {
 
   nativeBuildInputs = [ patsh ];
 
-  buildInputs = [ xorg.xauth xorg.xorgserver ];
+  buildInputs = [
+    xorg.xauth
+    xorg.xorgserver
+  ];
 
   postInstall = ''
     patsh -f $out/bin/sx -s ${builtins.storeDir}
@@ -33,6 +36,9 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/earnestly/sx";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ figsoda thiagokokada ];
+    maintainers = with maintainers; [
+      figsoda
+      thiagokokada
+    ];
   };
 }

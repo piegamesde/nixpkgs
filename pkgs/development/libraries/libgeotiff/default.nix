@@ -21,15 +21,27 @@ stdenv.mkDerivation rec {
     hash = "sha256-bE6UAUKiorriTgYrqhxbMAN2NEtmV/8IIfF02RUghSI=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   sourceRoot = "source/libgeotiff";
 
-  configureFlags = [ "--with-jpeg=${libjpeg.dev}" "--with-zlib=${zlib.dev}" ];
+  configureFlags = [
+    "--with-jpeg=${libjpeg.dev}"
+    "--with-zlib=${zlib.dev}"
+  ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ libtiff proj ];
+  buildInputs = [
+    libtiff
+    proj
+  ];
 
   #hardeningDisable = [ "format" ];
 

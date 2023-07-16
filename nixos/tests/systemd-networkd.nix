@@ -34,7 +34,7 @@ let
               ListenPort = 51820;
               FirewallMark = 42;
             };
-            wireguardPeers = [{
+            wireguardPeers = [ {
               wireguardPeerConfig = {
                 Endpoint = "192.168.1.${peerId}:51820";
                 PublicKey = pubk;
@@ -43,7 +43,7 @@ let
                 AllowedIPs = [ "10.0.0.${peerId}/32" ];
                 PersistentKeepalive = 15;
               };
-            }];
+            } ];
           };
         };
         networks = {
@@ -72,7 +72,10 @@ let
           };
           "30-eth1" = {
             matchConfig = { Name = "eth1"; };
-            address = [ "192.168.1.${nodeId}/24" "fe80::${nodeId}/64" ];
+            address = [
+              "192.168.1.${nodeId}/24"
+              "fe80::${nodeId}/64"
+            ];
             routingPolicyRules = [
               {
                 routingPolicyRuleConfig = {

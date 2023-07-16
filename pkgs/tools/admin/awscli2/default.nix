@@ -56,7 +56,11 @@ buildPythonApplication rec {
     urllib3
   ];
 
-  nativeCheckInputs = [ jsonschema mock pytestCheckHook ];
+  nativeCheckInputs = [
+    jsonschema
+    mock
+    pytestCheckHook
+  ];
 
   postInstall = ''
     mkdir -p $out/${python3.sitePackages}/awscli/data
@@ -95,7 +99,10 @@ buildPythonApplication rec {
     python = py; # for aws_shell
     updateScript = nix-update-script {
       # Excludes 1.x versions from the Github tags list
-      extraArgs = [ "--version-regex" "^(2.(.*))" ];
+      extraArgs = [
+        "--version-regex"
+        "^(2.(.*))"
+      ];
     };
     tests.version = testers.testVersion {
       package = awscli2;

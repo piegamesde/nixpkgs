@@ -22,7 +22,13 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-zSq6YBlm6gJXGlF9xZ8gWSTMewdNqrJzwP58a0x8QIU=";
 
-  buildInputs = [ libxkbcommon mesa pango udev libinput ];
+  buildInputs = [
+    libxkbcommon
+    mesa
+    pango
+    udev
+    libinput
+  ];
 
   RUSTC_BOOTSTRAP = 1;
 

@@ -10,7 +10,10 @@ stdenv.mkDerivation rec {
   pname = "cgoban";
   version = "3.5.23";
 
-  nativeBuildInputs = [ adoptopenjdk-jre-bin makeWrapper ];
+  nativeBuildInputs = [
+    adoptopenjdk-jre-bin
+    makeWrapper
+  ];
 
   src = fetchurl {
     url =

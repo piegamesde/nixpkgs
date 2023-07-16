@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-YOicfEUjcxRn/bcX8z1hQIbBDwMWNpy6pFZQrhxALh8=";
   };
 
-  nativeBuildInputs = [ makeWrapper jre ];
+  nativeBuildInputs = [
+    makeWrapper
+    jre
+  ];
 
   installPhase = ''
     mkdir $out

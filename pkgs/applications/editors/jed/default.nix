@@ -22,7 +22,14 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ gpm libXext libXft libXt ncurses5 slang ];
+  buildInputs = [
+    gpm
+    libXext
+    libXft
+    libXt
+    ncurses5
+    slang
+  ];
 
   configureFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
@@ -30,7 +37,11 @@ stdenv.mkDerivation rec {
     "JED_ROOT=${placeholder "out"}/share/jed"
   ];
 
-  makeFlags = [ "jed" "xjed" "rgrep" ];
+  makeFlags = [
+    "jed"
+    "xjed"
+    "rgrep"
+  ];
 
   postPatch = ''
     for i in autoconf/Makefile autoconf/Makefile.in \

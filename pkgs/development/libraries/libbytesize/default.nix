@@ -26,7 +26,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-/TVv/srhbotIkne0G77hgBF4j+74INqVUr8zlKsaoM0=";
   };
 
-  outputs = [ "out" "dev" "devdoc" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+    "man"
+  ];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -39,7 +44,11 @@ stdenv.mkDerivation (finalAttrs: {
     python3
   ];
 
-  buildInputs = [ gmp mpfr pcre2 ];
+  buildInputs = [
+    gmp
+    mpfr
+    pcre2
+  ];
 
   meta = {
     homepage = "https://github.com/storaged-project/libbytesize";

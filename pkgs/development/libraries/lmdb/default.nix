@@ -19,10 +19,17 @@ stdenv.mkDerivation rec {
 
   postUnpack = "sourceRoot=\${sourceRoot}/libraries/liblmdb";
 
-  patches = [ ./hardcoded-compiler.patch ./bin-ext.patch ];
+  patches = [
+    ./hardcoded-compiler.patch
+    ./bin-ext.patch
+  ];
   patchFlags = [ "-p3" ];
 
-  outputs = [ "bin" "out" "dev" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+  ];
 
   buildInputs = lib.optional stdenv.hostPlatform.isWindows windows.pthreads;
 
@@ -66,7 +73,10 @@ stdenv.mkDerivation rec {
       limited to the size of the virtual address space.
     '';
     homepage = "https://symas.com/lmdb/";
-    maintainers = with maintainers; [ jb55 vcunat ];
+    maintainers = with maintainers; [
+      jb55
+      vcunat
+    ];
     license = licenses.openldap;
     platforms = platforms.all;
   };

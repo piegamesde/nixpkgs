@@ -13,7 +13,12 @@ import ./make-test-python.nix ({
     '';
   in {
     name = "agda";
-    meta = with pkgs.lib.maintainers; { maintainers = [ alexarice turion ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        alexarice
+        turion
+      ];
+    };
 
     nodes.machine = {
         pkgs,

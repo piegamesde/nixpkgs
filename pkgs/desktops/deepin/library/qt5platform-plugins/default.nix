@@ -25,10 +25,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-EG5M4rcMK62DX4ywm2IH0lGHC510BnMqcefMlF9pyr8=";
   };
 
-  nativeBuildInputs = [ qmake pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    pkg-config
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ mtdev cairo qtbase qtx11extras xorg.libSM ]
-    ++ lib.optionals waylandSupport [ wayland ];
+  buildInputs = [
+    mtdev
+    cairo
+    qtbase
+    qtx11extras
+    xorg.libSM
+  ] ++ lib.optionals waylandSupport [ wayland ];
 
   qmakeFlags = [
     "INSTALL_PATH=${placeholder "out"}/${qtbase.qtPluginPrefix}/platforms"

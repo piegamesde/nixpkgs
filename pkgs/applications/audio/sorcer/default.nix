@@ -22,8 +22,17 @@ stdenv.mkDerivation rec {
     sha256 = "1x7pi77nal10717l02qpnhrx6d7w5nqrljkn9zx5w7gpb8fpb3vp";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ boost cairomm libsndfile lv2 ntk ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    boost
+    cairomm
+    libsndfile
+    lv2
+    ntk
+  ];
 
   postPatch = ''
     # Fix build with lv2 1.18: https://github.com/brummer10/guitarix/commit/c0334c72

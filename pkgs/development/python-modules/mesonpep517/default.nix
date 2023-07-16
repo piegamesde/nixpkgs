@@ -31,7 +31,10 @@ buildPythonPackage rec {
   #     --replace "'ninja'" "'${ninja}/bin/ninja'"
   # '';
 
-  propagatedNativeBuildInputs = [ meson ninja ];
+  propagatedNativeBuildInputs = [
+    meson
+    ninja
+  ];
 
   meta = {
     description =

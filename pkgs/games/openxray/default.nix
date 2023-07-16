@@ -28,7 +28,10 @@ stdenv.mkDerivation rec {
     sha256 = "07qj1lpp21g4p583gvz5h66y2q71ymbsz4g5nr6dcys0vm7ph88v";
   };
 
-  nativeBuildInputs = [ cmake makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+  ];
 
   buildInputs = [
     glew
@@ -62,6 +65,9 @@ stdenv.mkDerivation rec {
       url = "https://github.com/OpenXRay/xray-16/blob/${version}/License.txt";
     };
     maintainers = with maintainers; [ OPNA2608 ];
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
   };
 }

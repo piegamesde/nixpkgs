@@ -11,7 +11,10 @@ import ./make-test-python.nix ({
       bridge = {
         services.robustirc-bridge = {
           enable = true;
-          extraFlags = [ "-listen localhost:6667" "-network example.com" ];
+          extraFlags = [
+            "-listen localhost:6667"
+            "-network example.com"
+          ];
         };
       };
     };

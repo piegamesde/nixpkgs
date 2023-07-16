@@ -6,5 +6,8 @@
 
 qtModule {
   pname = "qtremoteobjects";
-  qtInputs = [ qtbase qtdeclarative ];
+  qtInputs = [
+    qtbase
+    qtdeclarative
+  ];
 }

@@ -34,10 +34,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ aiohttp yarl ];
+  propagatedBuildInputs = [
+    aiohttp
+    yarl
+  ];
 
-  nativeCheckInputs =
-    [ aresponses pytest-asyncio pytest-freezer pytestCheckHook ];
+  nativeCheckInputs = [
+    aresponses
+    pytest-asyncio
+    pytest-freezer
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "easyenergy" ];
 

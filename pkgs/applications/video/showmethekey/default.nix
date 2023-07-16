@@ -23,9 +23,20 @@ stdenv.mkDerivation rec {
     hash = "sha256-iWZjOhugGD7GikcIKaJimfLrTDaGQeYgmp17N03Meb8=";
   };
 
-  nativeBuildInputs = [ meson ninja json-glib pkg-config wrapGAppsHook4 ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    json-glib
+    pkg-config
+    wrapGAppsHook4
+  ];
 
-  buildInputs = [ gtk4 libevdev libinput libxkbcommon ];
+  buildInputs = [
+    gtk4
+    libevdev
+    libinput
+    libxkbcommon
+  ];
 
   meta = with lib; {
     homepage = "https://showmethekey.alynx.one/";

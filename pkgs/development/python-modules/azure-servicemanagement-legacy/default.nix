@@ -16,7 +16,10 @@ buildPythonPackage rec {
     sha256 = "1kcibw17qm8c02y28xabm3k1zrawi6g4q8kzc751l5l3vagqnf2x";
   };
 
-  propagatedBuildInputs = [ azure-common requests ];
+  propagatedBuildInputs = [
+    azure-common
+    requests
+  ];
 
   pythonNamespaces = [ "azure" ];
   # has no tests
@@ -28,6 +31,9 @@ buildPythonPackage rec {
       "This is the Microsoft Azure Service Management Legacy Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ olcai maxwilson ];
+    maintainers = with maintainers; [
+      olcai
+      maxwilson
+    ];
   };
 }

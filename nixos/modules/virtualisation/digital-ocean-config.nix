@@ -36,7 +36,7 @@ with lib; {
     cfg = config.virtualisation.digitalOcean;
     hostName = config.networking.hostName;
     doMetadataFile = "/run/do-metadata/v1.json";
-  in mkMerge [{
+  in mkMerge [ {
     fileSystems."/" = {
       device = "/dev/disk/by-label/nixos";
       autoResize = true;
@@ -44,9 +44,16 @@ with lib; {
     };
     boot = {
       growPartition = true;
-      kernelParams = [ "console=ttyS0" "panic=1" "boot.panic_on_fail" ];
+      kernelParams = [
+        "console=ttyS0"
+        "panic=1"
+        "boot.panic_on_fail"
+      ];
       initrd.kernelModules = [ "virtio_scsi" ];
-      kernelModules = [ "virtio_pci" "virtio_net" ];
+      kernelModules = [
+        "virtio_pci"
+        "virtio_net"
+      ];
       loader = {
         grub.device = "/dev/vda";
         timeout = 0;
@@ -101,7 +108,10 @@ with lib; {
     # There is no specific route for this, so we use jq to get
     # it from the One Big JSON metadata blob
     systemd.services.digitalocean-set-root-password = mkIf cfg.setRootPassword {
-      path = [ pkgs.shadow pkgs.jq ];
+      path = [
+        pkgs.shadow
+        pkgs.jq
+      ];
       description = "Set root password provided by Digitalocean";
       wantedBy = [ "multi-user.target" ];
       script = ''
@@ -123,7 +133,10 @@ with lib; {
     # the NixOS configuration. The cached metadata file isn't used here
     # because the hostname is a mutable part of the droplet.
     systemd.services.digitalocean-set-hostname = mkIf (hostName == "") {
-      path = [ pkgs.curl pkgs.nettools ];
+      path = [
+        pkgs.curl
+        pkgs.nettools
+      ];
       description = "Set hostname provided by Digitalocean";
       wantedBy = [ "network.target" ];
       script = ''
@@ -171,7 +184,10 @@ with lib; {
       description =
         "Run the kernel RNG entropy seeding script from the Digital Ocean vendor data";
       wantedBy = [ "network.target" ];
-      path = [ pkgs.jq pkgs.mpack ];
+      path = [
+        pkgs.jq
+        pkgs.mpack
+      ];
       script = ''
         set -eo pipefail
         TEMPDIR=$(mktemp -d)
@@ -188,7 +204,10 @@ with lib; {
       serviceConfig = { Type = "oneshot"; };
     };
 
-  }];
-  meta.maintainers = with maintainers; [ arianvp eamsden ];
+  } ];
+  meta.maintainers = with maintainers; [
+    arianvp
+    eamsden
+  ];
 }
 

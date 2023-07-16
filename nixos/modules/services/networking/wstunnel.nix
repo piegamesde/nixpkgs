@@ -182,7 +182,7 @@ let
             "Local hosts and ports to listen on, plus the hosts and ports on remote to forward traffic to. Setting a local port to a value less than 1024 will additionally give the process the required CAP_NET_BIND_SERVICE capability.";
           type = types.listOf (types.submodule localRemoteSubmodule);
           default = [ ];
-          example = [{
+          example = [ {
             local = {
               host = "127.0.0.1";
               port = 8080;
@@ -191,7 +191,7 @@ let
               host = "127.0.0.1";
               port = 8080;
             };
-          }];
+          } ];
         };
 
         dynamicToRemote = mkOption {
@@ -300,8 +300,14 @@ let
     name = "wstunnel-server-${name}";
     value = {
       description = "wstunnel server - ${name}";
-      requires = [ "network.target" "network-online.target" ];
-      after = [ "network.target" "network-online.target" ];
+      requires = [
+        "network.target"
+        "network-online.target"
+      ];
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
       wantedBy = optional serverCfg.autoStart "multi-user.target";
 
       serviceConfig =
@@ -370,8 +376,14 @@ let
     name = "wstunnel-client-${name}";
     value = {
       description = "wstunnel client - ${name}";
-      requires = [ "network.target" "network-online.target" ];
-      after = [ "network.target" "network-online.target" ];
+      requires = [
+        "network.target"
+        "network-online.target"
+      ];
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
       wantedBy = optional clientCfg.autoStart "multi-user.target";
 
       serviceConfig = {
@@ -430,8 +442,8 @@ let
         AmbientCapabilities =
           (optionals (clientCfg.soMark != null) [ "CAP_NET_ADMIN" ])
           ++ (optionals ((clientCfg.dynamicToRemote.port or 1024) < 1024
-            || (any (x: x.local.port < 1024) clientCfg.localToRemote))
-            [ "CAP_NET_BIND_SERVICE" ]);
+            || (any (x: x.local.port < 1024)
+              clientCfg.localToRemote)) [ "CAP_NET_BIND_SERVICE" ]);
         NoNewPrivileges = true;
         RestrictNamespaces = "uts ipc pid user cgroup";
         ProtectSystem = "strict";

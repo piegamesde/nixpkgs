@@ -36,19 +36,26 @@ in stdenv.mkDerivation rec {
   configureFlags = (if withUtils then [
     "--with-localedir=${placeholder "lib"}/share/locale"
     "--with-udevdir=${placeholder "out"}/lib/udev"
-  ] else
-    [ "--disable-v4l-utils" ]);
+  ] else [ "--disable-v4l-utils" ]);
 
   postFixup = ''
     # Create symlink for V4l1 compatibility
     ln -s "$dev/include/libv4l1-videodev.h" "$dev/include/videodev.h"
   '';
 
-  nativeBuildInputs = [ pkg-config perl ] ++ lib.optional withQt wrapQtAppsHook;
+  nativeBuildInputs = [
+    pkg-config
+    perl
+  ] ++ lib.optional withQt wrapQtAppsHook;
 
   buildInputs = [ udev ]
     ++ lib.optional (!stdenv.hostPlatform.isGnu) argp-standalone
-    ++ lib.optionals withQt [ alsa-lib libX11 qtbase libGLU ];
+    ++ lib.optionals withQt [
+      alsa-lib
+      libX11
+      qtbase
+      libGLU
+    ];
 
   propagatedBuildInputs = [ libjpeg ];
 
@@ -64,7 +71,10 @@ in stdenv.mkDerivation rec {
     homepage = "https://linuxtv.org/projects.php";
     changelog =
       "https://git.linuxtv.org/v4l-utils.git/plain/ChangeLog?h=v4l-utils-${version}";
-    license = with licenses; [ lgpl21Plus gpl2Plus ];
+    license = with licenses; [
+      lgpl21Plus
+      gpl2Plus
+    ];
     maintainers = with maintainers; [ codyopel ];
     platforms = platforms.linux;
   };

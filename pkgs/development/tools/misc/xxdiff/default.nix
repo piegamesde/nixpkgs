@@ -20,7 +20,12 @@ mkDerivation rec {
     sha256 = "0gbvxrkwkbvag3298j89smszghpr8ilxxfb0cvsknfqdf15b296w";
   };
 
-  nativeBuildInputs = [ bison docutils flex qmake ];
+  nativeBuildInputs = [
+    bison
+    docutils
+    flex
+    qmake
+  ];
 
   buildInputs = [ qtbase ];
 
@@ -52,7 +57,10 @@ mkDerivation rec {
     description = "Graphical file and directories comparator and merge tool";
     homepage = "http://furius.ca/xxdiff/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ pSub raskin ];
+    maintainers = with maintainers; [
+      pSub
+      raskin
+    ];
     platforms = platforms.linux;
   };
 }

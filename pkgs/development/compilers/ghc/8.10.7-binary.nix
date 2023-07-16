@@ -237,12 +237,10 @@ let
     targetPackages.stdenv.cc
     targetPackages.stdenv.cc.bintools
     coreutils # for cat
-  ] ++ lib.optionals useLLVM [
-    (lib.getBin llvmPackages.llvm)
-  ]
-  # On darwin, we need unwrapped bintools as well (for otool)
-    ++ lib.optionals (stdenv.targetPlatform.linker == "cctools")
-    [ targetPackages.stdenv.cc.bintools.bintools ];
+  ] ++ lib.optionals useLLVM [ (lib.getBin llvmPackages.llvm) ]
+    # On darwin, we need unwrapped bintools as well (for otool)
+    ++ lib.optionals (stdenv.targetPlatform.linker
+      == "cctools") [ targetPackages.stdenv.cc.bintools.bintools ];
 
 in stdenv.mkDerivation rec {
   inherit version;
@@ -363,11 +361,10 @@ in stdenv.mkDerivation rec {
     lib.optionalString stdenv.targetPlatform.isAarch32 "LD=ld.gold";
 
   configurePlatforms = [ ];
-  configureFlags = [
-    "--with-gmp-includes=${lib.getDev gmp}/include"
+  configureFlags = [ "--with-gmp-includes=${lib.getDev gmp}/include"
     # Note `--with-gmp-libraries` does nothing for GHC bindists:
     # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/6124
-  ] ++ lib.optional stdenv.isDarwin "--with-gcc=${./gcc-clang-wrapper.sh}"
+    ] ++ lib.optional stdenv.isDarwin "--with-gcc=${./gcc-clang-wrapper.sh}"
     # From: https://github.com/NixOS/nixpkgs/pull/43369/commits
     ++ lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override";
 
@@ -509,6 +506,9 @@ in stdenv.mkDerivation rec {
     # `pkgsMusl`.
     platforms = builtins.attrNames ghcBinDists.${distSetName};
     maintainers = with lib.maintainers;
-      [ prusnak domenkozar ] ++ lib.teams.haskell.members;
+      [
+        prusnak
+        domenkozar
+      ] ++ lib.teams.haskell.members;
   };
 }

@@ -22,7 +22,10 @@ let
 
       doDist = false;
 
-      ldflags = [ "-s" "-w" ];
+      ldflags = [
+        "-s"
+        "-w"
+      ];
 
       inherit modRoot vendorSha256;
 
@@ -47,7 +50,10 @@ let
   };
 in symlinkJoin {
   name = "bird-lg-${bird-lg-frontend.version}";
-  paths = [ bird-lg-frontend bird-lg-proxy ];
+  paths = [
+    bird-lg-frontend
+    bird-lg-proxy
+  ];
 } // {
   inherit (bird-lg-frontend) version meta;
 }

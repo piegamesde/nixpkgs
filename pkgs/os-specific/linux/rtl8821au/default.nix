@@ -18,9 +18,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wx7xQBCfLu3UWB7ghp8dZ7OB2MFd5i8X0/ygyvW2K50=";
   };
 
-  nativeBuildInputs = [ bc nukeReferences ] ++ kernel.moduleBuildDependencies;
+  nativeBuildInputs = [
+    bc
+    nukeReferences
+  ] ++ kernel.moduleBuildDependencies;
 
-  hardeningDisable = [ "pic" "format" ];
+  hardeningDisable = [
+    "pic"
+    "format"
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
 
@@ -33,8 +39,8 @@ stdenv.mkDerivation rec {
       "y"
     else
       "n"))
-  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-    [ "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ];
+  ] ++ lib.optionals (stdenv.hostPlatform
+    != stdenv.buildPlatform) [ "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ];
 
   prePatch = ''
     substituteInPlace ./Makefile \

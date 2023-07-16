@@ -55,7 +55,16 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ gjs glib gtk3 gtk4 gcr_4 libadwaita mutter pango ];
+  buildInputs = [
+    gjs
+    glib
+    gtk3
+    gtk4
+    gcr_4
+    libadwaita
+    mutter
+    pango
+  ];
 
   mesonFlags = [
     "-Dcontrol-center-keybindings-dir=${

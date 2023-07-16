@@ -20,8 +20,15 @@ stdenv.mkDerivation rec {
     sha256 = "0a52jw6rm7lr5nbyksiia0rn7sasyb5cjqcb95z1wxm2yprgi6lm";
   };
 
-  nativeBuildInputs = [ pkg-config intltool ];
-  buildInputs = [ glib polkit cups ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+  ];
+  buildInputs = [
+    glib
+    polkit
+    cups
+  ];
 
   patches = [
     # Don't use etc/dbus-1/system.d

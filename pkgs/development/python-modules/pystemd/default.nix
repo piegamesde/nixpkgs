@@ -23,7 +23,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  nativeCheckInputs = [ pytest mock ];
+  nativeCheckInputs = [
+    pytest
+    mock
+  ];
 
   checkPhase = "pytest tests";
 

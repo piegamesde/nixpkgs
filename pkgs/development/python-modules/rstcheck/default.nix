@@ -30,12 +30,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [ docutils rstcheck-core types-docutils typing-extensions pydantic typer ]
-    ++ lib.optionals (pythonOlder "3.8") [
-      typing-extensions
-      importlib-metadata
-    ] ++ typer.optional-dependencies.all;
+  propagatedBuildInputs = [
+    docutils
+    rstcheck-core
+    types-docutils
+    typing-extensions
+    pydantic
+    typer
+  ] ++ lib.optionals (pythonOlder "3.8") [
+    typing-extensions
+    importlib-metadata
+  ] ++ typer.optional-dependencies.all;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -17,7 +17,12 @@ buildPythonPackage {
 
   nativeCheckInputs = [ unittestCheckHook ];
 
-  unittestFlagsArray = [ "-s" "$src/test" "-p" "'*test.py'" ];
+  unittestFlagsArray = [
+    "-s"
+    "$src/test"
+    "-p"
+    "'*test.py'"
+  ];
 
   passthru = {
     withPlugins = plugins:

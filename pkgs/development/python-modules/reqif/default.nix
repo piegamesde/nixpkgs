@@ -31,7 +31,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [ beautifulsoup4 lxml jinja2 ];
+  propagatedBuildInputs = [
+    beautifulsoup4
+    lxml
+    jinja2
+  ];
 
   pythonImportsCheck = [ "reqif" ];
 

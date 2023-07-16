@@ -15,7 +15,12 @@
 
   buildInputs = [ atdgen ];
 
-  propagatedBuildInputs = [ junit re pastel rely ];
+  propagatedBuildInputs = [
+    junit
+    re
+    pastel
+    rely
+  ];
 
   meta = {
     description = "A tool providing JUnit Reporter for Rely Testing Framework";

@@ -20,7 +20,10 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-Gm3X6/g5JQJEl7wRvWcO4j5XpROhtfRJ72LNaUeZRGc=";
   };
 
-  buildInputs = [ ncurses openssl ] ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [
+    ncurses
+    openssl
+  ] ++ lib.optional stdenv.isDarwin Security;
 
   nativeBuildInputs = [ pkg-config ];
 

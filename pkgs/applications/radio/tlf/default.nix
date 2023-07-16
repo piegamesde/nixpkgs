@@ -38,10 +38,24 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook autoconf automake pkg-config perl ];
-  buildInputs = [ glib ncurses5 hamlib xmlrpc_c ];
+  nativeBuildInputs = [
+    autoreconfHook
+    autoconf
+    automake
+    pkg-config
+    perl
+  ];
+  buildInputs = [
+    glib
+    ncurses5
+    hamlib
+    xmlrpc_c
+  ];
 
-  configureFlags = [ "--enable-hamlib" "--enable-fldigi-xmlrpc" ];
+  configureFlags = [
+    "--enable-hamlib"
+    "--enable-fldigi-xmlrpc"
+  ];
 
   postInstall = ''
     mkdir -p $out/lib

@@ -16,7 +16,18 @@
 mkDerivation {
   pname = "ktextwidgets";
   nativeBuildInputs = [ extra-cmake-modules ];
-  buildInputs =
-    [ kcompletion kconfig kconfigwidgets kiconthemes kservice kwindowsystem ];
-  propagatedBuildInputs = [ ki18n qtbase qttools sonnet ];
+  buildInputs = [
+    kcompletion
+    kconfig
+    kconfigwidgets
+    kiconthemes
+    kservice
+    kwindowsystem
+  ];
+  propagatedBuildInputs = [
+    ki18n
+    qtbase
+    qttools
+    sonnet
+  ];
 }

@@ -24,7 +24,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ cpio rsync ];
+  buildInputs = [
+    cpio
+    rsync
+  ];
 
   unpackPhase = ''
     ${xar}/bin/xar -xf $src

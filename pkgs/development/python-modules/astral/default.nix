@@ -35,7 +35,10 @@ buildPythonPackage rec {
   propagatedBuildInputs =
     lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
 
-  nativeCheckInputs = [ freezegun pytestCheckHook ];
+  nativeCheckInputs = [
+    freezegun
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     changelog = "https://github.com/sffjunkie/astral/releases/tag/${version}";

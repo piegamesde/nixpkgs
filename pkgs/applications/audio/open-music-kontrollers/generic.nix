@@ -35,9 +35,19 @@ stdenv.mkDerivation {
     url = url;
     sha256 = sha256;
   };
-  nativeBuildInputs = [ pkg-config meson ninja ];
-  buildInputs = [ lv2 sord libX11 libXext glew lv2lint ]
-    ++ additionalBuildInputs;
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+  ];
+  buildInputs = [
+    lv2
+    sord
+    libX11
+    libXext
+    glew
+    lv2lint
+  ] ++ additionalBuildInputs;
 
   meta = with lib; {
     broken = stdenv.isDarwin;

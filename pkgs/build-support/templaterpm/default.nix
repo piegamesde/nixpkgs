@@ -12,7 +12,11 @@ stdenv.mkDerivation {
   version = "0.1";
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ python toposort rpm ];
+  buildInputs = [
+    python
+    toposort
+    rpm
+  ];
 
   dontUnpack = true;
 

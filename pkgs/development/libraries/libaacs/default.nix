@@ -25,9 +25,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qIqg6+TJinf3rv/ZKrPvZKxUjGuCLoJIqLkmclvqCjk=";
   };
 
-  buildInputs = [ libgcrypt libgpg-error ];
+  buildInputs = [
+    libgcrypt
+    libgpg-error
+  ];
 
-  nativeBuildInputs = [ bison flex ];
+  nativeBuildInputs = [
+    bison
+    flex
+  ];
 
   meta = with lib; {
     homepage = "https://www.videolan.org/developers/libaacs.html";

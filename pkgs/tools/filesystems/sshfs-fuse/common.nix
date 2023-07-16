@@ -36,9 +36,21 @@ in stdenv.mkDerivation rec {
 
   inherit patches;
 
-  nativeBuildInputs = [ meson pkg-config ninja docutils makeWrapper ];
-  buildInputs = [ fuse glib ];
-  nativeCheckInputs = [ which python3Packages.pytest ];
+  nativeBuildInputs = [
+    meson
+    pkg-config
+    ninja
+    docutils
+    makeWrapper
+  ];
+  buildInputs = [
+    fuse
+    glib
+  ];
+  nativeCheckInputs = [
+    which
+    python3Packages.pytest
+  ];
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString (stdenv.hostPlatform.system == "i686-linux")

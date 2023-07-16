@@ -35,9 +35,7 @@ in stdenv.mkDerivation {
   src =
     fetchzip srcs."${stdenv.targetPlatform.system}-${device}" or unavailable;
 
-  nativeBuildInputs = if stdenv.isDarwin then
-    [ fixDarwinDylibNames ]
-  else
+  nativeBuildInputs = if stdenv.isDarwin then [ fixDarwinDylibNames ] else
     [ patchelf ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
 
   dontBuild = true;
@@ -93,7 +91,10 @@ in stdenv.mkDerivation {
     done
   '';
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   passthru.tests.cmake = callPackage ./test { inherit cudaSupport; };
 

@@ -10,7 +10,12 @@ import ./make-test-python.nix ({
   }: {
     name = "jenkins";
     meta = with pkgs.lib.maintainers; {
-      maintainers = [ bjornfor coconnor domenkozar eelco ];
+      maintainers = [
+        bjornfor
+        coconnor
+        domenkozar
+        eelco
+      ];
     };
 
     nodes = {
@@ -26,11 +31,11 @@ import ./make-test-python.nix ({
                 {
                   job = {
                     name = "job-1";
-                    builders = [{
+                    builders = [ {
                       shell = ''
                         echo "Running job-1"
                       '';
-                    }];
+                    } ];
                   };
                 }
 
@@ -44,11 +49,11 @@ import ./make-test-python.nix ({
                 {
                   job = {
                     name = "folder-1/job-2";
-                    builders = [{
+                    builders = [ {
                       shell = ''
                         echo "Running job-2"
                       '';
-                    }];
+                    } ];
                   };
                 }
               ];

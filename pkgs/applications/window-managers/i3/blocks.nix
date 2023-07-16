@@ -30,7 +30,10 @@ stdenv.mkDerivation {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   meta = {
     description = "A flexible scheduler for your i3bar blocks";

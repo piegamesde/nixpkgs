@@ -32,7 +32,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wamow0UozX5ecKbXWOgsWCerInL4J0gK0+Muf+eoO9k=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    makeWrapper
+  ];
 
   buildInputs = [
     libmicrohttpd
@@ -55,7 +59,13 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     wrapProgram "$out/bin/headlines" \
-      --prefix PATH : "${lib.makeBinPath [ xdg-utils youtube-dl ffmpeg ]}" \
+      --prefix PATH : "${
+        lib.makeBinPath [
+          xdg-utils
+          youtube-dl
+          ffmpeg
+        ]
+      }" \
       --prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0"
   '';
 

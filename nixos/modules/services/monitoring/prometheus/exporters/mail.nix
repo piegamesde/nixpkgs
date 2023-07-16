@@ -180,12 +180,10 @@ in {
       EnvironmentFile =
         mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
       RuntimeDirectory = "prometheus-mail-exporter";
-      ExecStartPre = [
-        "${pkgs.writeShellScript "subst-secrets-mail-exporter" ''
-          umask 0077
-          ${pkgs.envsubst}/bin/envsubst -i ${configFile} -o ''${RUNTIME_DIRECTORY}/mail-exporter.json
-        ''}"
-      ];
+      ExecStartPre = [ "${pkgs.writeShellScript "subst-secrets-mail-exporter" ''
+        umask 0077
+        ${pkgs.envsubst}/bin/envsubst -i ${configFile} -o ''${RUNTIME_DIRECTORY}/mail-exporter.json
+      ''}" ];
       ExecStart = ''
         ${pkgs.prometheus-mail-exporter}/bin/mailexporter \
           --web.listen-address ${cfg.listenAddress}:${toString cfg.port} \

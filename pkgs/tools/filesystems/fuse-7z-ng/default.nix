@@ -30,7 +30,12 @@ stdenv.mkDerivation rec {
     ./zero-init-fuse-operations.patch
   ];
 
-  nativeBuildInputs = [ pkg-config makeWrapper autoconf automake ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+    autoconf
+    automake
+  ];
   buildInputs = [ fuse ];
 
   preConfigure = "./autogen.sh";

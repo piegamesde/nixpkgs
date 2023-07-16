@@ -41,8 +41,12 @@ in stdenv.mkDerivation (finalAttrs:
       sha256 = desktopYarnHash;
     };
 
-    nativeBuildInputs = [ yarn fixup_yarn_lock nodejs makeWrapper ]
-      ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ];
+    nativeBuildInputs = [
+      yarn
+      fixup_yarn_lock
+      nodejs
+      makeWrapper
+    ] ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ];
 
     inherit seshat;
 
@@ -119,7 +123,11 @@ in stdenv.mkDerivation (finalAttrs:
       desktopName = "Element";
       genericName = "Matrix Client";
       comment = finalAttrs.meta.description;
-      categories = [ "Network" "InstantMessaging" "Chat" ];
+      categories = [
+        "Network"
+        "InstantMessaging"
+        "Chat"
+      ];
       startupWMClass = "element";
       mimeTypes = [ "x-scheme-handler/element" ];
     };

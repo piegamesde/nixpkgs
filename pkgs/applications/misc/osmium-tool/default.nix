@@ -25,9 +25,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xV/1LFby0L/o648XEQQ9gS9/eHssWhMIG7R1E8bfIDU=";
   };
 
-  nativeBuildInputs = [ cmake installShellFiles pandoc ];
+  nativeBuildInputs = [
+    cmake
+    installShellFiles
+    pandoc
+  ];
 
-  buildInputs = [ boost bzip2 expat libosmium lz4 protozero zlib ];
+  buildInputs = [
+    boost
+    bzip2
+    expat
+    libosmium
+    lz4
+    protozero
+    zlib
+  ];
 
   doCheck = true;
 
@@ -41,7 +53,11 @@ stdenv.mkDerivation rec {
     homepage = "https://osmcode.org/osmium-tool/";
     changelog =
       "https://github.com/osmcode/osmium-tool/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ gpl3Plus mit bsd3 ];
+    license = with licenses; [
+      gpl3Plus
+      mit
+      bsd3
+    ];
     maintainers = with maintainers; [ das-g ];
   };
 }

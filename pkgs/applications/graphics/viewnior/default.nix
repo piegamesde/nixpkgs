@@ -29,11 +29,25 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LTahMmcAqgqviUxR624kTozJGTniAAGWKo1ZqXjoG5M=";
   };
 
-  nativeBuildInputs =
-    [ meson ninja pkg-config desktop-file-utils intltool gettext ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    desktop-file-utils
+    intltool
+    gettext
+  ];
 
-  buildInputs =
-    [ gtk2 libpng exiv2 lcms shared-mime-info glib gdk-pixbuf perl ];
+  buildInputs = [
+    gtk2
+    libpng
+    exiv2
+    lcms
+    shared-mime-info
+    glib
+    gdk-pixbuf
+    perl
+  ];
 
   meta = with lib; {
     description = "Fast and simple image viewer";
@@ -46,7 +60,10 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl3;
     homepage = "http://siyanpanayotov.com/project/viewnior/";
-    maintainers = with maintainers; [ smironov artturin ];
+    maintainers = with maintainers; [
+      smironov
+      artturin
+    ];
     platforms = platforms.gnu ++ platforms.linux;
   };
 }

@@ -11,7 +11,10 @@ stdenv.mkDerivation rec {
   pname = "gtest";
   version = "1.12.1";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "google";
@@ -22,7 +25,10 @@ stdenv.mkDerivation rec {
 
   patches = [ ./fix-cmake-config-includedir.patch ];
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
   cmakeFlags = [ "-DBUILD_SHARED_LIBS=${if static then "OFF" else "ON"}" ]
     ++ lib.optionals

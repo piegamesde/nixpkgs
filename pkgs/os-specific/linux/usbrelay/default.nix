@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ hidapi ];
 
-  makeFlags = [ "DIR_VERSION=${version}" "PREFIX=${placeholder "out"}" ];
+  makeFlags = [
+    "DIR_VERSION=${version}"
+    "PREFIX=${placeholder "out"}"
+  ];
 
   postInstall = ''
     installManPage usbrelay.1

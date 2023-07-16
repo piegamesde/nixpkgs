@@ -24,7 +24,11 @@ stdenv.mkDerivation {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ makeWrapper ocaml perl ];
+  nativeBuildInputs = [
+    makeWrapper
+    ocaml
+    perl
+  ];
   installPhase = ''
     mkdir -p $out/bin
     cp -p pdfsandwich $out/bin

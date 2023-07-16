@@ -12,7 +12,10 @@ buildPythonPackage {
 
   sourceRoot = notmuch.pythonSourceRoot;
 
-  buildInputs = [ python notmuch ];
+  buildInputs = [
+    python
+    notmuch
+  ];
 
   postPatch = ''
     sed -i -e '/CDLL/s@"libnotmuch\.@"${notmuch}/lib/libnotmuch.@' \

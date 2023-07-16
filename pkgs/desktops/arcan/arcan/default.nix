@@ -68,8 +68,11 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-7H3fVSsW5VANLqwhykY+Q53fPjz65utaGksh/OpZnJM=";
   };
 
-  nativeBuildInputs = [ cmake makeWrapper pkg-config ]
-    ++ lib.optionals buildManPages [ ruby ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    pkg-config
+  ] ++ lib.optionals buildManPages [ ruby ];
 
   buildInputs = [
     SDL2
@@ -184,7 +187,11 @@ in stdenv.mkDerivation (finalAttrs: {
       e.g. game development, real-time streaming video, monitoring and
       surveillance, up to and including desktop compositors and window managers.
     '';
-    license = with licenses; [ bsd3 gpl2Plus lgpl2Plus ];
+    license = with licenses; [
+      bsd3
+      gpl2Plus
+      lgpl2Plus
+    ];
     maintainers = with maintainers; [ AndersonTorres ];
     platforms = platforms.unix;
   };

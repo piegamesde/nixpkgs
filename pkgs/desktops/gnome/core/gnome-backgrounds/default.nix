@@ -25,7 +25,10 @@ stdenv.mkDerivation rec {
     ./stable-dir.patch
   ];
 
-  nativeBuildInputs = [ meson ninja ];
+  nativeBuildInputs = [
+    meson
+    ninja
+  ];
 
   passthru = {
     updateScript = gnome.updateScript {

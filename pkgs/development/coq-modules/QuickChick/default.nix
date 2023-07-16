@@ -15,45 +15,79 @@ in (mkCoqDerivation {
   inherit version;
   defaultVersion = with lib;
     with versions;
-    lib.switch [ coq.coq-version ssreflect.version ] [
+    lib.switch [
+      coq.coq-version
+      ssreflect.version
+    ] [
       {
-        cases = [ (range "8.13" "8.16") pred.true ];
+        cases = [
+          (range "8.13" "8.16")
+          pred.true
+        ];
         out = "1.6.4";
       }
       {
-        cases = [ "8.13" pred.true ];
+        cases = [
+          "8.13"
+          pred.true
+        ];
         out = "1.5.0";
       }
       {
-        cases = [ "8.12" pred.true ];
+        cases = [
+          "8.12"
+          pred.true
+        ];
         out = "1.4.0";
       }
       {
-        cases = [ "8.11" pred.true ];
+        cases = [
+          "8.11"
+          pred.true
+        ];
         out = "1.3.2";
       }
       {
-        cases = [ "8.10" pred.true ];
+        cases = [
+          "8.10"
+          pred.true
+        ];
         out = "1.2.1";
       }
       {
-        cases = [ "8.9" pred.true ];
+        cases = [
+          "8.9"
+          pred.true
+        ];
         out = "1.1.0";
       }
       {
-        cases = [ "8.8" pred.true ];
+        cases = [
+          "8.8"
+          pred.true
+        ];
         out = "20190311";
       }
       {
-        cases = [ "8.7" isLe "1.8" ];
+        cases = [
+          "8.7"
+          isLe
+          "1.8"
+        ];
         out = "1.0.0";
       }
       {
-        cases = [ "8.6" pred.true ];
+        cases = [
+          "8.6"
+          pred.true
+        ];
         out = "20171102";
       }
       {
-        cases = [ "8.5" pred.true ];
+        cases = [
+          "8.5"
+          pred.true
+        ];
         out = "20170512";
       }
     ] null;
@@ -89,8 +123,10 @@ in (mkCoqDerivation {
 
   mlPlugin = true;
   nativeBuildInputs = lib.optional recent coq.ocamlPackages.ocamlbuild;
-  propagatedBuildInputs = [ ssreflect ]
-    ++ lib.optionals recent [ coq-ext-lib simple-io ];
+  propagatedBuildInputs = [ ssreflect ] ++ lib.optionals recent [
+    coq-ext-lib
+    simple-io
+  ];
   extraInstallFlags = [ "-f Makefile.coq" ];
 
   enableParallelBuilding = false;
@@ -105,6 +141,9 @@ in (mkCoqDerivation {
   in {
     nativeBuildInputs = o.nativeBuildInputs
       ++ lib.optional after_1_6 coq.ocamlPackages.cppo;
-    propagatedBuildInputs = o.propagatedBuildInputs
-      ++ lib.optionals after_1_6 (with coq.ocamlPackages; [ findlib zarith ]);
+    propagatedBuildInputs = o.propagatedBuildInputs ++ lib.optionals after_1_6
+      (with coq.ocamlPackages; [
+        findlib
+        zarith
+      ]);
   })

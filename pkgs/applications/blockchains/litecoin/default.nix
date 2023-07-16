@@ -34,7 +34,10 @@ mkDerivation rec {
     sha256 = "sha256-TuDc47TZOEQA5Lr4DQkEhnO/Szp9h71xPjaBL3jFWuM=";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
   buildInputs = [
     openssl
     db48
@@ -47,8 +50,11 @@ mkDerivation rec {
     protobuf
     util-linux
     libevent
-  ] ++ lib.optionals stdenv.isDarwin [ AppKit ]
-    ++ lib.optionals withGui [ qtbase qttools qrencode ];
+  ] ++ lib.optionals stdenv.isDarwin [ AppKit ] ++ lib.optionals withGui [
+    qtbase
+    qttools
+    qrencode
+  ];
 
   configureFlags = [ "--with-boost-libdir=${boost.out}/lib" ]
     ++ lib.optionals withGui [

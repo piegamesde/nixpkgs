@@ -23,8 +23,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+u0Go+QU56mmV1G+m+sDOhi3QaWveZILS9fWv8THoWc=";
   };
 
-  nativeBuildInputs = [ cmake bison flex ];
-  buildInputs = [ libedit gmpxx ] ++ lib.optional enableReadline readline;
+  nativeBuildInputs = [
+    cmake
+    bison
+    flex
+  ];
+  buildInputs = [
+    libedit
+    gmpxx
+  ] ++ lib.optional enableReadline readline;
 
   preConfigure = ''
     substituteInPlace test/CMakeLists.txt \

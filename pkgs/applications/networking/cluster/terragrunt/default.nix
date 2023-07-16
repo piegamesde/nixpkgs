@@ -19,7 +19,11 @@ buildGoModule rec {
 
   doCheck = false;
 
-  ldflags = [ "-s" "-w" "-X main.VERSION=v${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.VERSION=v${version}"
+  ];
 
   doInstallCheck = true;
 

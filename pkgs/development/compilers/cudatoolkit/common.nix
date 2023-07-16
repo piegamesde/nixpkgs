@@ -67,7 +67,11 @@ backendStdenv.mkDerivation rec {
   else
     fetchurl { inherit (args) url sha256; };
 
-  outputs = [ "out" "lib" "doc" ];
+  outputs = [
+    "out"
+    "lib"
+    "doc"
+  ];
 
   nativeBuildInputs = [
     perl
@@ -76,10 +80,10 @@ backendStdenv.mkDerivation rec {
     addOpenGLRunpath
     autoPatchelfHook
     autoAddOpenGLRunpathHook
-  ] ++ lib.optionals (lib.versionOlder version "11")
-    [ libsForQt5.wrapQtAppsHook ]
-    ++ lib.optionals (lib.versionAtLeast version "11.8")
-    [ qt6Packages.wrapQtAppsHook ];
+  ] ++ lib.optionals
+    (lib.versionOlder version "11") [ libsForQt5.wrapQtAppsHook ]
+    ++ lib.optionals
+    (lib.versionAtLeast version "11.8") [ qt6Packages.wrapQtAppsHook ];
   buildInputs = lib.optionals (lib.versionOlder version "11") [
     libsForQt5.qt5.qtwebengine
     freeglut

@@ -24,8 +24,19 @@ stdenv.mkDerivation rec {
     leaveDotGit = true;
   };
 
-  nativeBuildInputs = [ pkg-config git gettext ];
-  buildInputs = [ libmowgli pcre libidn libxcrypt cracklib openssl ];
+  nativeBuildInputs = [
+    pkg-config
+    git
+    gettext
+  ];
+  buildInputs = [
+    libmowgli
+    pcre
+    libidn
+    libxcrypt
+    cracklib
+    openssl
+  ];
 
   configureFlags = [
     "--with-pcre"

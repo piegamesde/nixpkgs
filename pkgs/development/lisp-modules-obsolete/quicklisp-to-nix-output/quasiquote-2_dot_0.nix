@@ -10,7 +10,10 @@ args@{
 
   description = "Writing macros that write macros. Effortless.";
 
-  deps = [ args."fiveam" args."iterate" ];
+  deps = [
+    args."fiveam"
+    args."iterate"
+  ];
 
   src = fetchurl {
     url =

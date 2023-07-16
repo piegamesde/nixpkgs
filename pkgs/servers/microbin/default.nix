@@ -23,6 +23,9 @@ rustPlatform.buildRustPackage rec {
     changelog =
       "https://github.com/szabodanika/microbin/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dit7ya figsoda ];
+    maintainers = with maintainers; [
+      dit7ya
+      figsoda
+    ];
   };
 }

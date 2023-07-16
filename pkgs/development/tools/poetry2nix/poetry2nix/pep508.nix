@@ -65,7 +65,10 @@ let
       mapfn = expr:
         (if (builtins.match "^ ?$" expr != null) then
           null # Filter empty
-        else if (builtins.elem expr [ "and" "or" ]) then {
+        else if (builtins.elem expr [
+          "and"
+          "or"
+        ]) then {
           type = "bool";
           value = expr;
         } else {
@@ -77,8 +80,7 @@ let
     in builtins.foldl' (acc: v:
       acc ++ (if builtins.typeOf v == "string" then
         parse v
-      else
-        [ (parseExpressions v) ])) [ ] exprs;
+      else [ (parseExpressions v) ])) [ ] exprs;
 
   # Transform individual expressions to structured expressions
   # This function also performs variable substitution, replacing environment markers with their explicit values
@@ -121,7 +123,10 @@ let
         else
           value;
       processVar = value:
-        builtins.foldl' (acc: v: v acc) value [ stripStr substituteVar ];
+        builtins.foldl' (acc: v: v acc) value [
+          stripStr
+          substituteVar
+        ];
     in if builtins.typeOf exprs == "set" then
       (if exprs.type == "expr" then
         (let
@@ -140,7 +145,10 @@ let
           value = {
             # HACK: We don't know extra at eval time, so we assume the expression is always true
             op = if m0 == "extra" then "true" else builtins.elemAt m 1;
-            values = [ m0 m2 ];
+            values = [
+              m0
+              m2
+            ];
           };
         })
       else

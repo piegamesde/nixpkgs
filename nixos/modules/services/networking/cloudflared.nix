@@ -129,7 +129,11 @@ let
     };
 
     proxyType = mkOption {
-      type = with types; nullOr (enum [ "" "socks" ]);
+      type = with types;
+        nullOr (enum [
+          ""
+          "socks"
+        ]);
       default = null;
       example = "";
       description = lib.mdDoc ''
@@ -276,8 +280,12 @@ in {
 
     systemd.services = mapAttrs' (name: tunnel:
       let
-        filterConfig = lib.attrsets.filterAttrsRecursive
-          (_: v: !builtins.elem v [ null [ ] { } ]);
+        filterConfig = lib.attrsets.filterAttrsRecursive (_: v:
+          !builtins.elem v [
+            null
+            [ ]
+            { }
+          ]);
 
         filterIngressSet = filterAttrs (_: v: builtins.typeOf v == "set");
         filterIngressStr = filterAttrs (_: v: builtins.typeOf v == "string");
@@ -295,13 +303,19 @@ in {
             (attrNames ingressesSet)) ++ (map (key: {
               hostname = key;
               service = getAttr key ingressesStr;
-            }) (attrNames ingressesStr)) ++ [{ service = tunnel.default; }];
+            }) (attrNames ingressesStr)) ++ [ { service = tunnel.default; } ];
         };
         mkConfigFile =
           pkgs.writeText "cloudflared.yml" (builtins.toJSON fullConfig);
       in nameValuePair "cloudflared-tunnel-${name}" ({
-        after = [ "network.target" "network-online.target" ];
-        wants = [ "network.target" "network-online.target" ];
+        after = [
+          "network.target"
+          "network-online.target"
+        ];
+        wants = [
+          "network.target"
+          "network-online.target"
+        ];
         wantedBy = [ "multi-user.target" ];
         serviceConfig = {
           User = cfg.user;

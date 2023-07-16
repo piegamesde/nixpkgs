@@ -18,31 +18,51 @@ let
   isProtected = x: hasPrefix "/root" x || hasPrefix "/home" x;
 in {
   imports = [
-    (mkRenamedOptionModule [ "services" "iodined" "enable" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "iodined"
+      "enable"
+    ] [
       "services"
       "iodine"
       "server"
       "enable"
     ])
-    (mkRenamedOptionModule [ "services" "iodined" "domain" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "iodined"
+      "domain"
+    ] [
       "services"
       "iodine"
       "server"
       "domain"
     ])
-    (mkRenamedOptionModule [ "services" "iodined" "ip" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "iodined"
+      "ip"
+    ] [
       "services"
       "iodine"
       "server"
       "ip"
     ])
-    (mkRenamedOptionModule [ "services" "iodined" "extraConfig" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "iodined"
+      "extraConfig"
+    ] [
       "services"
       "iodine"
       "server"
       "extraConfig"
     ])
-    (mkRemovedOptionModule [ "services" "iodined" "client" ] "")
+    (mkRemovedOptionModule [
+      "services"
+      "iodined"
+      "client"
+    ] "")
   ];
 
   ### configuration

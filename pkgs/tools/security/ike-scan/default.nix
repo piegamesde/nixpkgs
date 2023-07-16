@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-mbfg8p3y4aKoXpmLuF9GXAMPEqV5CsvetwGCRDJ9UNY=";
   };
 
-  nativeBuildInputs = [ autoreconfHook openssl ];
+  nativeBuildInputs = [
+    autoreconfHook
+    openssl
+  ];
 
   configureFlags = [ "--with-openssl=${openssl.dev}" ];
 

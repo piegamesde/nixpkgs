@@ -20,13 +20,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ go-md2man ];
   makeFlags = [ "PREFIX=$(out)" ];
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://github.com/bbonev/yascreen/commit/a30b8fce66a3db9f1194fede30a48424ed3d696b.patch";
-      sha256 = "sha256-Bnaf3OVMlqyYMdGsJ6fF3oYsWT01FcjuRzxi6xfbnZg=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://github.com/bbonev/yascreen/commit/a30b8fce66a3db9f1194fede30a48424ed3d696b.patch";
+    sha256 = "sha256-Bnaf3OVMlqyYMdGsJ6fF3oYsWT01FcjuRzxi6xfbnZg=";
+  }) ];
 
   meta = with lib; {
     homepage = "https://github.com/bbonev/yascreen";

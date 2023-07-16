@@ -22,7 +22,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-sAFsG+EPSmvPDFR9R0fZ5f+y/PXVpTJlMzL61vwf4SY=";
 
-  nativeBuildInputs = [ installShellFiles pkg-config ];
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+  ];
 
   buildInputs = [ bzip2 ] ++ lib.optional stdenv.isDarwin Security;
 

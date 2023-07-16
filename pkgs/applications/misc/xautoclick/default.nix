@@ -28,11 +28,22 @@ stdenv.mkDerivation rec {
     sha256 = "GN3zI5LQnVmRC0KWffzUTHKrxcqnstiL55hopwTTwpE=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ libevdev xorg.libXtst ]
-    ++ lib.optionals gtkSupport [ gtk3 pcre glib wrapGAppsHook ]
-    ++ lib.optionals fltkSupport [ fltk ]
-    ++ lib.optionals qtSupport [ qt5.qtbase qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    libevdev
+    xorg.libXtst
+  ] ++ lib.optionals gtkSupport [
+    gtk3
+    pcre
+    glib
+    wrapGAppsHook
+  ] ++ lib.optionals fltkSupport [ fltk ] ++ lib.optionals qtSupport [
+    qt5.qtbase
+    qt5.wrapQtAppsHook
+  ];
 
   meta = with lib; {
     description =

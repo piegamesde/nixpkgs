@@ -48,7 +48,10 @@ stdenv.mkDerivation rec {
       binaryNativeCode # includes golang toolchain binaries
     ];
     license = licenses.asl20;
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
     maintainers = with maintainers; [ lufia ];
   };
 }

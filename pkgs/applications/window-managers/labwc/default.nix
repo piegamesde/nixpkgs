@@ -35,7 +35,14 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-yZ1tXx7AA9pFc5C6c/J3B03/TfXw1PsAunNNiee3BGU=";
   };
 
-  nativeBuildInputs = [ gettext meson ninja pkg-config scdoc wayland-scanner ];
+  nativeBuildInputs = [
+    gettext
+    meson
+    ninja
+    pkg-config
+    scdoc
+    wayland-scanner
+  ];
 
   buildInputs = [
     cairo

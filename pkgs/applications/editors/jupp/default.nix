@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
 
   preConfigure = "chmod +x ./configure";
 
-  buildInputs = [ gpm ncurses ];
+  buildInputs = [
+    gpm
+    ncurses
+  ];
 
   configureFlags = [
     "--enable-curses"

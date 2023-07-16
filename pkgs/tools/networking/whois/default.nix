@@ -20,8 +20,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5SmybO8aZgimjCps8huSU6h1sKskSSENK2VCWt3ltgA=";
   };
 
-  nativeBuildInputs = [ perl gettext pkg-config ];
-  buildInputs = [ libidn2 libiconv ];
+  nativeBuildInputs = [
+    perl
+    gettext
+    pkg-config
+  ];
+  buildInputs = [
+    libidn2
+    libiconv
+  ];
 
   preConfigure = ''
     for i in Makefile po/Makefile; do

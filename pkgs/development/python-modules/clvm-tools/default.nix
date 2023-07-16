@@ -23,7 +23,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ clvm clvm-tools-rs ];
+  propagatedBuildInputs = [
+    clvm
+    clvm-tools-rs
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

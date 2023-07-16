@@ -19,7 +19,12 @@ in {
       "kubernetes"
       "controllerManager"
       "address"
-    ] [ "services" "kubernetes" "controllerManager" "bindAddress" ])
+    ] [
+      "services"
+      "kubernetes"
+      "controllerManager"
+      "bindAddress"
+    ])
     (mkRemovedOptionModule [
       "services"
       "kubernetes"

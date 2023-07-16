@@ -21,7 +21,14 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ six ];
-  buildInputs = [ eventlet gevent nose mock coverage pkgs.openjdk8 ];
+  buildInputs = [
+    eventlet
+    gevent
+    nose
+    mock
+    coverage
+    pkgs.openjdk8
+  ];
 
   # not really needed
   preBuild = ''

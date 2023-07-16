@@ -55,9 +55,14 @@ in mkDerivation {
     "-full";
   inherit (baseLib) version src;
 
-  nativeBuildInputs = [ python3Packages.wrapPython wrapGAppsHook ];
-  buildInputs = [ qtbase ] ++ optionals gstreamerSupport
-    ([ qtmultimedia.bin gst_all_1.gstreamer ] ++ gstPlugins gst_all_1);
+  nativeBuildInputs = [
+    python3Packages.wrapPython
+    wrapGAppsHook
+  ];
+  buildInputs = [ qtbase ] ++ optionals gstreamerSupport ([
+    qtmultimedia.bin
+    gst_all_1.gstreamer
+  ] ++ gstPlugins gst_all_1);
   propagatedBuildInputs = optional pdfSupport mupdf
     ++ optional presentationSupport libreoffice-unwrapped;
   pythonPath = [ baseLib ] ++ optional vlcSupport python3Packages.python-vlc;
@@ -80,10 +85,14 @@ in mkDerivation {
     "LD_LIBRARY_PATH"
     "JAVA_HOME"
   ];
-  makeWrapperArgs = [ "\${gappsWrapperArgs[@]}" "\${qtWrapperArgs[@]}" ]
-    ++ optionals presentationSupport
-    ([ "--prefix PATH : ${libreoffice-unwrapped}/bin" ]
-      ++ map wrapSetVar [ "URE_BOOTSTRAP" "UNO_PATH" ]);
+  makeWrapperArgs = [
+    "\${gappsWrapperArgs[@]}"
+    "\${qtWrapperArgs[@]}"
+  ] ++ optionals presentationSupport
+    ([ "--prefix PATH : ${libreoffice-unwrapped}/bin" ] ++ map wrapSetVar [
+      "URE_BOOTSTRAP"
+      "UNO_PATH"
+    ]);
 
   installPhase = ''
     install -D openlp.py $out/bin/openlp

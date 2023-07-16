@@ -32,9 +32,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ igraph igraph-c ];
+  propagatedBuildInputs = [
+    igraph
+    igraph-c
+  ];
 
-  checkInputs = [ ddt unittestCheckHook ];
+  checkInputs = [
+    ddt
+    unittestCheckHook
+  ];
 
   pythonImportsCheck = [ "leidenalg" ];
 

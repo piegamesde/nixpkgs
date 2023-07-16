@@ -67,7 +67,11 @@ let
       };
       version = "0.24.1";
       pname = "cffi";
-      lispLibs = with super; [ alexandria babel trivial-features ];
+      lispLibs = with super; [
+        alexandria
+        babel
+        trivial-features
+      ];
       javaLibs = optionals isJVM [ jna ];
     };
 
@@ -90,7 +94,10 @@ let
         sha256 = "0ykx2s9lqfl74p1px0ik3l2izd1fc9jd1b4ra68s5x34rvjy0hza";
       };
       systems = [ "cl-unicode" ];
-      lispLibs = with super; [ cl-ppcre flexi-streams ];
+      lispLibs = with super; [
+        cl-ppcre
+        flexi-streams
+      ];
     };
 
     jzon = build-asdf-system {
@@ -154,7 +161,10 @@ let
         flexi-streams
         parachute
       ];
-      systems = [ "tar-file" "tar-file/test" ];
+      systems = [
+        "tar-file"
+        "tar-file/test"
+      ];
     };
 
     cl-tar = build-asdf-system {
@@ -217,7 +227,10 @@ let
           "https://github.com/facts-db/cl-lessp/archive/632217602b85b679e8d420654a0aa39e798ca3b5.tar.gz";
         sha256 = "09z1vwzjm7hlb529jl3hcjnfd11gh128lmdg51im7ar4jv4746iw";
       };
-      lispLibs = [ self.lessp self.rollback ] ++ [ super.local-time ];
+      lispLibs = [
+        self.lessp
+        self.rollback
+      ] ++ [ super.local-time ];
     };
 
     cl-fuse = build-with-compile-into-pwd {
@@ -229,7 +242,10 @@ let
     cl-containers = build-asdf-system {
       inherit (super.cl-containers) pname version src;
       lispLibs = super.cl-containers.lispLibs ++ [ super.moptilities ];
-      systems = [ "cl-containers" "cl-containers/with-moptilities" ];
+      systems = [
+        "cl-containers"
+        "cl-containers/with-moptilities"
+      ];
     };
 
     swank = build-with-compile-into-pwd {
@@ -272,8 +288,12 @@ let
       inherit (super.nyxt) pname;
       version = "2.2.4";
 
-      lispLibs = super.nyxt.lispLibs
-        ++ (with super; [ cl-cffi-gtk cl-webkit2 mk-string-metrics cl-css ]);
+      lispLibs = super.nyxt.lispLibs ++ (with super; [
+        cl-cffi-gtk
+        cl-webkit2
+        mk-string-metrics
+        cl-css
+      ]);
 
       src = pkgs.fetchzip {
         url = "https://github.com/atlas-engineer/nyxt/archive/2.2.4.tar.gz";
@@ -365,8 +385,15 @@ let
       };
 
       buildInputs = [ pkgs.qt4 ];
-      nativeBuildInputs = [ pkgs.smokegen pkgs.smokeqt ];
-      nativeLibs = [ pkgs.qt4 pkgs.smokegen pkgs.smokeqt ];
+      nativeBuildInputs = [
+        pkgs.smokegen
+        pkgs.smokeqt
+      ];
+      nativeLibs = [
+        pkgs.qt4
+        pkgs.smokegen
+        pkgs.smokeqt
+      ];
 
       systems = [ "qt" ];
 
@@ -485,9 +512,14 @@ let
         hash = "sha256-++qydw6db4O3m+DAjutVPN8IuePOxseo9vhWEvwiR6E=";
       };
       lispLibs = with super;
-        [ cl-gobject-introspection-wrapper ]
-        ++ [ self.cl-glib self.cl-glib_dot_gio ];
-      nativeBuildInputs = [ pkgs.gobject-introspection pkgs.gtk4 ];
+        [ cl-gobject-introspection-wrapper ] ++ [
+          self.cl-glib
+          self.cl-glib_dot_gio
+        ];
+      nativeBuildInputs = [
+        pkgs.gobject-introspection
+        pkgs.gtk4
+      ];
       nativeLibs = [ pkgs.gtk4 ];
     };
 
@@ -556,7 +588,11 @@ let
         rev = "2f0df62f59fbede0addd8d72cf286f4007818a3e";
         hash = "sha256-+jeOuXtCFZwMvF0XvlRaqTNHIAAFKMx6y1pz6u8Wxug=";
       };
-      systems = [ "duckdb" "duckdb/test" "duckdb/benchmark" ];
+      systems = [
+        "duckdb"
+        "duckdb/test"
+        "duckdb/benchmark"
+      ];
       lispLibs = with super; [
         bordeaux-threads
         cffi-libffi
@@ -571,7 +607,10 @@ let
         str
         uuid
       ];
-      nativeLibs = with pkgs; [ duckdb libffi ];
+      nativeLibs = with pkgs; [
+        duckdb
+        libffi
+      ];
     };
 
     polyclot = build-asdf-system {
@@ -583,8 +622,15 @@ let
           "e678b3c3e002f53b446780406c9ed13f8451309d22a1dc50ced4dbeedf08a1ec";
         sha256 = "sha256-J08bU9HSVbzEivYtQsyIYPZJTrugj+jJSa4LglS0Olg=";
       };
-      systems = [ "eu.turtleware.polyclot" "eu.turtleware.polyclot/demo" ];
-      lispLibs = with super; [ clim mcclim mcclim-layouts ];
+      systems = [
+        "eu.turtleware.polyclot"
+        "eu.turtleware.polyclot/demo"
+      ];
+      lispLibs = with super; [
+        clim
+        mcclim
+        mcclim-layouts
+      ];
     };
 
     kons-9 = build-asdf-system rec {
@@ -596,7 +642,10 @@ let
         rev = "95ad44fac0566f445c4b7bd040339dcff75ee992";
         sha256 = "19rl7372j9f1cv2kl55r8vyf4dhcz4way4hkjgysbxzrb1psp17n";
       };
-      systems = [ "kons-9" "kons-9/testsuite" ];
+      systems = [
+        "kons-9"
+        "kons-9/testsuite"
+      ];
       lispLibs = with super; [
         closer-mop
         trivial-main-thread

@@ -26,9 +26,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [ arrow six ];
+  propagatedBuildInputs = [
+    arrow
+    six
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook hypothesis ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    hypothesis
+  ];
 
   disabledTests = [ "test_prostrate" ];
 

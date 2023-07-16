@@ -42,7 +42,10 @@ buildPythonPackage rec {
       --replace "starlette==" "starlette>="
   '';
 
-  propagatedBuildInputs = [ starlette pydantic ];
+  propagatedBuildInputs = [
+    starlette
+    pydantic
+  ];
 
   nativeCheckInputs = [
     aiosqlite

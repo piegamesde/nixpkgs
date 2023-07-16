@@ -34,7 +34,12 @@ stdenv.mkDerivation rec {
     sha256 = "TwRjyoDzCUA4WzCcHmkCWIxx2XFQxlQOg083Tk0nrPc=";
   };
 
-  nativeBuildInputs = [ gettext itstool pkg-config libxml2 ];
+  nativeBuildInputs = [
+    gettext
+    itstool
+    pkg-config
+    libxml2
+  ];
 
   buildInputs = [
     gnome-panel

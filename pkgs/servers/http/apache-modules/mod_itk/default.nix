@@ -19,7 +19,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ mod_ca apr aprutil apacheHttpd ];
+  buildInputs = [
+    mod_ca
+    apr
+    aprutil
+    apacheHttpd
+  ];
 
   installPhase = ''
     runHook preInstall

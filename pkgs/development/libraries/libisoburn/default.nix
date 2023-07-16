@@ -19,7 +19,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LYmEbUOIDxf6WRxTs76kL/uANijk5jDGgPwskYT3kTI=";
   };
 
-  buildInputs = [ attr zlib libburn libisofs ];
+  buildInputs = [
+    attr
+    zlib
+    libburn
+    libisofs
+  ];
   propagatedBuildInputs = [ acl ];
 
   meta = with lib; {

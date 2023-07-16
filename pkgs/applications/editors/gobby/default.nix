@@ -34,9 +34,22 @@ in stdenv.mkDerivation rec {
     sha256 = "06cbc2y4xkw89jaa0ayhgh7fxr5p2nv3jjs8h2xcbbbgwaw08lk0";
   };
 
-  nativeBuildInputs =
-    [ autoconf automake pkg-config intltool itstool yelp-tools wrapGAppsHook ];
-  buildInputs = [ gtkmm3 gsasl gtksourceview3 libxmlxx libinf ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    pkg-config
+    intltool
+    itstool
+    yelp-tools
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    gtkmm3
+    gsasl
+    gtksourceview3
+    libxmlxx
+    libinf
+  ];
 
   preConfigure = "./autogen.sh";
 

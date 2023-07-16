@@ -29,11 +29,21 @@ in lib.checkListOfEnum "${pname}: theme variants" [
   "teal"
   "grey"
   "all"
-] themeVariants lib.checkListOfEnum
-"${pname}: color variants" [ "standard" "light" "dark" ] colorVariants
-lib.checkListOfEnum "${pname}: size variants" [ "standard" "compact" ]
-sizeVariants lib.checkListOfEnum
-"${pname}: tweaks" [ "solid" "float" "round" "blur" "noborder" "square" ] tweaks
+] themeVariants lib.checkListOfEnum "${pname}: color variants" [
+  "standard"
+  "light"
+  "dark"
+] colorVariants lib.checkListOfEnum "${pname}: size variants" [
+  "standard"
+  "compact"
+] sizeVariants lib.checkListOfEnum "${pname}: tweaks" [
+  "solid"
+  "float"
+  "round"
+  "blur"
+  "noborder"
+  "square"
+] tweaks
 
 stdenvNoCC.mkDerivation rec {
   inherit pname;
@@ -46,7 +56,10 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-lGT6MIpc7cdAznZlbSJJ7aBzZPHucyfR8ZNMdJI0LP8=";
   };
 
-  nativeBuildInputs = [ jdupes sassc ];
+  nativeBuildInputs = [
+    jdupes
+    sassc
+  ];
 
   buildInputs = [ gnome-themes-extra ];
 

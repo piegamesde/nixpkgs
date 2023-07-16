@@ -29,9 +29,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [ pytestCheckHook xorgserver ];
-  checkInputs =
-    [ pytest-asyncio qtile-unwrapped pulseaudio keyring requests stravalib ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    xorgserver
+  ];
+  checkInputs = [
+    pytest-asyncio
+    qtile-unwrapped
+    pulseaudio
+    keyring
+    requests
+    stravalib
+  ];
   disabledTests = [
     # AttributeError: 'ImgMask' object has no attribute '_default_size'. Did you mean: 'default_size'?
     # cairocffi.pixbuf.ImageLoadingError: Pixbuf error: Unrecognized image file format

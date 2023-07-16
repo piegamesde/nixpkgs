@@ -41,7 +41,10 @@ let
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
   pythonEnv = python3.withPackages (ps:
     with ps;
-    [ pillow ] ++ lib.optionals doCheck [ pygobject3 python-dbusmock ]);
+    [ pillow ] ++ lib.optionals doCheck [
+      pygobject3
+      python-dbusmock
+    ]);
 
 in stdenv.mkDerivation rec {
   pname = "mir";
@@ -132,11 +135,18 @@ in stdenv.mkDerivation rec {
     xorg.libXcursor
     xorg.xorgproto
     xwayland
-  ] ++ lib.optionals doCheck [ gtest umockdev wlcs ];
+  ] ++ lib.optionals doCheck [
+    gtest
+    umockdev
+    wlcs
+  ];
 
   nativeCheckInputs = [ dbus ];
 
-  buildFlags = [ "all" "doc" ];
+  buildFlags = [
+    "all"
+    "doc"
+  ];
 
   cmakeFlags = [
     "-DMIR_PLATFORM='gbm-kms;x11;eglstream-kms;wayland'"
@@ -158,7 +168,11 @@ in stdenv.mkDerivation rec {
     export XDG_RUNTIME_DIR=/tmp
   '';
 
-  outputs = [ "out" "dev" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ];
 
   passthru = {
     updateScript = gitUpdater { rev-prefix = "v"; };
@@ -177,7 +191,10 @@ in stdenv.mkDerivation rec {
       "A display server and Wayland compositor developed by Canonical";
     homepage = "https://mir-server.io";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ onny OPNA2608 ];
+    maintainers = with maintainers; [
+      onny
+      OPNA2608
+    ];
     platforms = platforms.linux;
   };
 }

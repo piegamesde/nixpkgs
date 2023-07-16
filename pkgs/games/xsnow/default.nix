@@ -19,7 +19,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ gtk3-x11 libxml2 libXt libXpm ];
+  buildInputs = [
+    gtk3-x11
+    libxml2
+    libXt
+    libXpm
+  ];
 
   makeFlags = [ "gamesdir=$(out)/bin" ];
 

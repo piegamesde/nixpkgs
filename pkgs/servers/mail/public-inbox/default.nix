@@ -90,7 +90,11 @@ in buildPerlPackage rec {
     sha256 = "sha256-laJOOCk5NecIGWesv4D30cLGfijQHVkeo55eNqNKzew=";
   };
 
-  outputs = [ "out" "devdoc" "sa_config" ];
+  outputs = [
+    "out"
+    "devdoc"
+    "sa_config"
+  ];
 
   postConfigure = ''
     substituteInPlace Makefile --replace 'TEST_FILES = t/*.t' \
@@ -123,9 +127,15 @@ in buildPerlPackage rec {
   ];
 
   doCheck = !stdenv.isDarwin;
-  nativeCheckInputs =
-    [ MailIMAPClient curl git openssl pkg-config sqlite xapian ]
-    ++ lib.optionals stdenv.isLinux [ LinuxInotify2 ];
+  nativeCheckInputs = [
+    MailIMAPClient
+    curl
+    git
+    openssl
+    pkg-config
+    sqlite
+    xapian
+  ] ++ lib.optionals stdenv.isLinux [ LinuxInotify2 ];
   preCheck = ''
     perl certs/create-certs.perl
     export TEST_LEI_ERR_LOUD=1
@@ -154,7 +164,10 @@ in buildPerlPackage rec {
   meta = with lib; {
     homepage = "https://public-inbox.org/";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ julm qyliss ];
+    maintainers = with maintainers; [
+      julm
+      qyliss
+    ];
     platforms = platforms.all;
   };
 }

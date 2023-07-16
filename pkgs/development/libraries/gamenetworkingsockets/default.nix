@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
     sha256 = "12741wmpvy7mcvqqmjg4a7ph75rwliwgclhk4imjijqf2qkvsphd";
   };
 
-  nativeBuildInputs = [ cmake ninja go ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    go
+  ];
 
   cmakeFlags = [ "-G Ninja" ];
 

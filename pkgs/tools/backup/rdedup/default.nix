@@ -25,9 +25,16 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-I6d3IyPBcUsrvlzF7W0hFM4hcXi4wWro9bCeP4eArHI=";
 
-  nativeBuildInputs = [ pkg-config llvmPackages.libclang clang ];
-  buildInputs = [ openssl libsodium xz ]
-    ++ (lib.optional stdenv.isDarwin Security);
+  nativeBuildInputs = [
+    pkg-config
+    llvmPackages.libclang
+    clang
+  ];
+  buildInputs = [
+    openssl
+    libsodium
+    xz
+  ] ++ (lib.optional stdenv.isDarwin Security);
 
   configurePhase = ''
     export LIBCLANG_PATH="${llvmPackages.libclang.lib}/lib"

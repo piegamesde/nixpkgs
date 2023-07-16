@@ -23,8 +23,14 @@ stdenv.mkDerivation rec {
 
   patches = [ ./Fix-to-string.agda-to-compile-with-Agda-2.6.1.patch ];
 
-  nativeBuildInputs = [ alex happy ];
-  buildInputs = [ Agda (ghcWithPackages (ps: [ ps.ieee ])) ];
+  nativeBuildInputs = [
+    alex
+    happy
+  ];
+  buildInputs = [
+    Agda
+    (ghcWithPackages (ps: [ ps.ieee ]))
+  ];
 
   LANG = "en_US.UTF-8";
   LOCALE_ARCHIVE = lib.optionalString (stdenv.buildPlatform.libc == "glibc")
@@ -48,7 +54,10 @@ stdenv.mkDerivation rec {
       "An interactive theorem-prover and dependently typed programming language, based on extrinsic (aka Curry-style) type theory";
     homepage = "https://cedille.github.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ marsam mpickering ];
+    maintainers = with maintainers; [
+      marsam
+      mpickering
+    ];
     platforms = platforms.unix;
 
     # Broken due to Agda update.  See

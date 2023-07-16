@@ -20,9 +20,15 @@ stdenv.mkDerivation rec {
     sha256 = "vKtY6ZEkyK2K+BzJCSo30f9MpERpPlUnarFIlvJ1Giw=";
   };
 
-  nativeBuildInputs = [ meson ninja ];
+  nativeBuildInputs = [
+    meson
+    ninja
+  ];
 
-  buildInputs = [ boost libbacktrace ];
+  buildInputs = [
+    boost
+    libbacktrace
+  ];
 
   passthru = { updateScript = unstableGitUpdater { }; };
 

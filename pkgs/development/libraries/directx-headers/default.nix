@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-lPYXAMFSyU3FopWdE6dDRWD6sVKcjxDVsTbgej/T2sk=";
   };
 
-  nativeBuildInputs = [ meson ninja ];
+  nativeBuildInputs = [
+    meson
+    ninja
+  ];
 
   # tests require WSL2
   mesonFlags = [ "-Dbuild-test=false" ];

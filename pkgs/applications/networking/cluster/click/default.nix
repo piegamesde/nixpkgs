@@ -27,6 +27,9 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/databricks/click";
     license = [ licenses.asl20 ];
     maintainers = [ maintainers.mbode ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
   };
 }

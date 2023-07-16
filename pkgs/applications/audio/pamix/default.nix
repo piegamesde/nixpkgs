@@ -40,8 +40,14 @@ stdenv.mkDerivation rec {
     substituteInPlace CMakeLists.txt --replace "/etc" "$out/etc/xdg"
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ libpulseaudio ncurses ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    libpulseaudio
+    ncurses
+  ];
 
   meta = with lib; {
     description = "Pulseaudio terminal mixer";

@@ -21,7 +21,12 @@ buildPythonPackage rec {
     hash = "sha256-01hoZbDssbJ10NA72gOtlzjZMGjsUBUoVDVM35uAOLU=";
   };
 
-  propagatedBuildInputs = [ python-dateutil requests six sseclient-py ];
+  propagatedBuildInputs = [
+    python-dateutil
+    requests
+    six
+    sseclient-py
+  ];
 
   # Module has no tests
   doCheck = false;

@@ -42,10 +42,24 @@ in stdenv.mkDerivation {
     sha256 = "0n3vrkswvi6rib9zv2pzi18h3j5wm7flmgkgaikcm6q7iw4l2c7x";
   };
 
-  nativeBuildInputs = [ python2 gnOld ninja ];
+  nativeBuildInputs = [
+    python2
+    gnOld
+    ninja
+  ];
 
-  buildInputs =
-    [ fontconfig expat icu58 libglvnd libjpeg libpng libwebp zlib mesa libX11 ];
+  buildInputs = [
+    fontconfig
+    expat
+    icu58
+    libglvnd
+    libjpeg
+    libpng
+    libwebp
+    zlib
+    mesa
+    libX11
+  ];
 
   preConfigure = with depSrcs; ''
     mkdir -p third_party/externals

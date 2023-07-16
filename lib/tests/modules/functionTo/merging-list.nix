@@ -18,5 +18,8 @@ in {
     };
   };
 
-  config.fun = lib.mkMerge [ (input: [ input.a ]) (input: [ input.b ]) ];
+  config.fun = lib.mkMerge [
+    (input: [ input.a ])
+    (input: [ input.b ])
+  ];
 }

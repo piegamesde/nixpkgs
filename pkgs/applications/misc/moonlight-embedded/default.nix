@@ -34,9 +34,16 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
-  nativeBuildInputs = [ cmake perl pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    perl
+    pkg-config
+  ];
   buildInputs = [
     alsa-lib
     libevdev

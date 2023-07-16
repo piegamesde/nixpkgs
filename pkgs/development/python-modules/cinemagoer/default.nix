@@ -15,7 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-uUq/6Uijv6krBNCa5ftBWG/uYLs/5pLyDONLvBoxjYo=";
   };
 
-  propagatedBuildInputs = [ lxml sqlalchemy ];
+  propagatedBuildInputs = [
+    lxml
+    sqlalchemy
+  ];
 
   # Tests require networking, and https://github.com/cinemagoer/cinemagoer/issues/240
   doCheck = false;

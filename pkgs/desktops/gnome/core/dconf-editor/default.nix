@@ -52,7 +52,12 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [ glib gtk3 libhandy dconf ];
+  buildInputs = [
+    glib
+    gtk3
+    libhandy
+    dconf
+  ];
 
   postPatch = ''
     chmod +x meson_post_install.py

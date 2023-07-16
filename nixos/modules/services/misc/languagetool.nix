@@ -70,7 +70,10 @@ in {
         Group = "languagetool";
         CapabilityBoundingSet = [ "" ];
         RestrictNamespaces = [ "" ];
-        SystemCallFilter = [ "@system-service" "~ @privileged" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~ @privileged"
+        ];
         ProtectHome = "yes";
         ExecStart = ''
           ${pkgs.languagetool}/bin/languagetool-http-server \

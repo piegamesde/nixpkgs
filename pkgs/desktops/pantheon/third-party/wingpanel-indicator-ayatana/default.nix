@@ -33,9 +33,19 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ meson ninja pkg-config vala ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    vala
+  ];
 
-  buildInputs = [ gtk3 libindicator-gtk3 pantheon.granite pantheon.wingpanel ];
+  buildInputs = [
+    gtk3
+    libindicator-gtk3
+    pantheon.granite
+    pantheon.wingpanel
+  ];
 
   passthru = {
     updateScript = unstableGitUpdater {

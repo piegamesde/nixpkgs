@@ -68,11 +68,15 @@ let
             ]));
 
         inherit (cfg.hbase."${name}") environment;
-        script = concatStringsSep " "
-          ([ "hbase --config /etc/hadoop-conf/" "${toLower name} start" ]
-            ++ cfg.hbase."${name}".extraFlags
-            ++ map (x: "--${toLower x} ${toString cfg.hbase.${name}.${x}}")
-            (filter (x: hasAttr x cfg.hbase.${name}) [ "port" "infoPort" ]));
+        script = concatStringsSep " " ([
+          "hbase --config /etc/hadoop-conf/"
+          "${toLower name} start"
+        ] ++ cfg.hbase."${name}".extraFlags
+          ++ map (x: "--${toLower x} ${toString cfg.hbase.${name}.${x}}")
+          (filter (x: hasAttr x cfg.hbase.${name}) [
+            "port"
+            "infoPort"
+          ]));
 
         serviceConfig = {
           User = "hbase";
@@ -214,9 +218,21 @@ in {
       };
     })
   ] ++ (mapAttrsToList hbaseRoleConfig {
-    master = [ 16000 16010 ];
-    regionServer = [ 16020 16030 ];
-    thrift = with cfg.hbase.thrift; [ port infoPort ];
-    rest = with cfg.hbase.rest; [ port infoPort ];
+    master = [
+      16000
+      16010
+    ];
+    regionServer = [
+      16020
+      16030
+    ];
+    thrift = with cfg.hbase.thrift; [
+      port
+      infoPort
+    ];
+    rest = with cfg.hbase.rest; [
+      port
+      infoPort
+    ];
   }));
 }

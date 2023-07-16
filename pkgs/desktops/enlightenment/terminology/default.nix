@@ -21,7 +21,12 @@ stdenv.mkDerivation rec {
     sha256 = "FqN/7Ne71j7J3j7GwK8zHO531t/ag4obFXPW8phHTaU=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config python3 ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    python3
+  ];
 
   buildInputs = [ efl ];
 
@@ -39,6 +44,9 @@ stdenv.mkDerivation rec {
     license = licenses.bsd2;
     platforms = platforms.linux;
     maintainers = with maintainers;
-      [ matejc ftrvxmtrx ] ++ teams.enlightenment.members;
+      [
+        matejc
+        ftrvxmtrx
+      ] ++ teams.enlightenment.members;
   };
 }

@@ -26,7 +26,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jlF9Lr/NG+Fsy/bB7aLb7xOLqel8GueJK5luo9rsDME=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    makeWrapper
+  ];
 
   buildInputs = [
     dleyna-core

@@ -30,7 +30,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-MJybc2yAchU6qMqkoRz45QdhR7bj/UFk2nyxcBivsHI=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config vala ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    vala
+  ];
 
   buildInputs = [
     appstream

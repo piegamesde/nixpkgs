@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fPQX/Iz+dc3nF3xMPt0bek4JC2XSHe4aC4O0tZwLf6Y=";
   };
 
-  nativeBuildInputs = [ installShellFiles makeWrapper ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+  ];
 
   postPatch = ''
     grep -rl '/usr/local/lynis' ./ | xargs sed -i "s@/usr/local/lynis@$out/share/lynis@g"

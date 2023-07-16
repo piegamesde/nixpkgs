@@ -53,8 +53,10 @@ stdenv.mkDerivation rec {
 
   buildFlags = [
     # interpreter binary
-    (lib.flatten
-      (if enableSingeli then [ "o3n-singeli" "f='-mavx2'" ] else [ "o3" ]))
+    (lib.flatten (if enableSingeli then [
+      "o3n-singeli"
+      "f='-mavx2'"
+    ] else [ "o3" ]))
   ] ++ lib.optionals enableLibcbqn [
     # embeddable interpreter as a shared lib
     "shared-o3"
@@ -73,7 +75,10 @@ stdenv.mkDerivation rec {
     cp -r ${singeli-submodule}/dev/* build/singeliLocal/
   '';
 
-  outputs = [ "out" ] ++ lib.optionals enableLibcbqn [ "lib" "dev" ];
+  outputs = [ "out" ] ++ lib.optionals enableLibcbqn [
+    "lib"
+    "dev"
+  ];
 
   installPhase = ''
     runHook preInstall

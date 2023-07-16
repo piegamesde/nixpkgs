@@ -14,9 +14,17 @@
 
 let pname = "matcha-gtk-theme";
 
-in lib.checkListOfEnum "${pname}: color variants" [ "standard" "light" "dark" ]
-colorVariants lib.checkListOfEnum
-"${pname}: theme variants" [ "aliz" "azul" "sea" "pueril" "all" ] themeVariants
+in lib.checkListOfEnum "${pname}: color variants" [
+  "standard"
+  "light"
+  "dark"
+] colorVariants lib.checkListOfEnum "${pname}: theme variants" [
+  "aliz"
+  "azul"
+  "sea"
+  "pueril"
+  "all"
+] themeVariants
 
 stdenvNoCC.mkDerivation rec {
   inherit pname;
@@ -31,7 +39,10 @@ stdenvNoCC.mkDerivation rec {
 
   nativeBuildInputs = [ jdupes ];
 
-  buildInputs = [ gdk-pixbuf librsvg ];
+  buildInputs = [
+    gdk-pixbuf
+    librsvg
+  ];
 
   propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 

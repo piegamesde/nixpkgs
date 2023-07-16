@@ -51,8 +51,15 @@ let
         cd ${name}
       '';
 
-      nativeBuildInputs =
-        [ autoconf automake libtool autoreconfHook pkg-config texinfo gettext ];
+      nativeBuildInputs = [
+        autoconf
+        automake
+        libtool
+        autoreconfHook
+        pkg-config
+        texinfo
+        gettext
+      ];
 
       buildInputs = [ gawk ] ++ extraBuildInputs;
       propagatedBuildInputs = lib.optional is_extension gawkextlib;
@@ -136,7 +143,10 @@ let
     mpfr = buildExtension {
       inherit gawkextlib;
       name = "mpfr";
-      extraBuildInputs = [ gmp mpfr ];
+      extraBuildInputs = [
+        gmp
+        mpfr
+      ];
     };
     nl_langinfo = buildExtension {
       inherit gawkextlib;
@@ -163,7 +173,10 @@ let
     xml = buildExtension {
       inherit gawkextlib;
       name = "xml";
-      extraBuildInputs = [ expat libiconv ];
+      extraBuildInputs = [
+        expat
+        libiconv
+      ];
     };
   };
 in recurseIntoAttrs (libs // {

@@ -45,7 +45,12 @@ in stdenv.mkDerivation {
     mkdir -pv $out/bin
     cp -a netbeans $out
     makeWrapper $out/netbeans/bin/netbeans $out/bin/netbeans \
-      --prefix PATH : ${lib.makeBinPath [ jdk which ]} \
+      --prefix PATH : ${
+        lib.makeBinPath [
+          jdk
+          which
+        ]
+      } \
       --prefix JAVA_HOME : ${jdk.home} \
       --add-flags "--jdkhome ${jdk.home} \
       -J-Dawt.useSystemAAFontSettings=on -J-Dswing.aatext=true"
@@ -68,8 +73,15 @@ in stdenv.mkDerivation {
     ln -s ${desktopItem}/share/applications/* $out/share/applications
   '';
 
-  nativeBuildInputs = [ makeWrapper unzip ];
-  buildInputs = [ perl libicns imagemagick ];
+  nativeBuildInputs = [
+    makeWrapper
+    unzip
+  ];
+  buildInputs = [
+    perl
+    libicns
+    imagemagick
+  ];
 
   meta = {
     description =
@@ -80,7 +92,10 @@ in stdenv.mkDerivation {
       binaryBytecode
       binaryNativeCode
     ];
-    maintainers = with lib.maintainers; [ sander rszibele ];
+    maintainers = with lib.maintainers; [
+      sander
+      rszibele
+    ];
     platforms = lib.platforms.unix;
   };
 }

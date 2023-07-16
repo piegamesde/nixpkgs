@@ -38,8 +38,11 @@ in rustPlatform.buildRustPackage {
   # Default features include mini dashboard which downloads something from the internet.
   buildNoDefaultFeatures = true;
 
-  buildInputs =
-    lib.optionals stdenv.isDarwin [ Security DiskArbitration Foundation ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    Security
+    DiskArbitration
+    Foundation
+  ];
 
   passthru.tests = { meilisearch = nixosTests.meilisearch; };
 
@@ -53,6 +56,10 @@ in rustPlatform.buildRustPackage {
       "https://github.com/meilisearch/meilisearch/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ happysalada ];
-    platforms = [ "aarch64-darwin" "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "aarch64-darwin"
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
   };
 }

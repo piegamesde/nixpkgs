@@ -100,8 +100,16 @@ in stdenv.mkDerivation {
 
   vmBuild = "linux64x64";
 
-  nativeBuildInputs =
-    [ autoconf automake autoreconfHook clang dos2unix file perl pkg-config ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    autoreconfHook
+    clang
+    dos2unix
+    file
+    perl
+    pkg-config
+  ];
   buildInputs = [
     alsa-lib
     coreutils
@@ -204,7 +212,10 @@ in stdenv.mkDerivation {
   ];
   configureScript = "./mvm";
 
-  installTargets = [ "install" "install-image" ];
+  installTargets = [
+    "install"
+    "install-image"
+  ];
 
   postInstall = ''
     rm "$out/squeak"
@@ -216,7 +227,10 @@ in stdenv.mkDerivation {
   meta = with lib; {
     description = "Squeak virtual machine";
     homepage = "https://opensmalltalk.org/";
-    license = with licenses; [ asl20 mit ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
     maintainers = with lib.maintainers; [ ehmry ];
     platforms = [ "x86_64-linux" ];
   };

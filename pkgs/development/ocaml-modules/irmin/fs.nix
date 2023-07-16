@@ -17,9 +17,18 @@ buildDunePackage rec {
   inherit (irmin) version src strictDeps;
   duneVersion = "3";
 
-  propagatedBuildInputs = [ irmin astring logs lwt ];
+  propagatedBuildInputs = [
+    irmin
+    astring
+    logs
+    lwt
+  ];
 
-  checkInputs = [ alcotest irmin-test irmin-watcher ];
+  checkInputs = [
+    alcotest
+    irmin-test
+    irmin-watcher
+  ];
 
   doCheck = true;
 

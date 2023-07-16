@@ -18,8 +18,12 @@ buildPythonPackage rec {
     hash = "sha256-GrmVK97M+iojevPLVTuLmfQRLxvrHtr9DRHymJvLYHE=";
   };
 
-  propagatedBuildInputs =
-    [ msrestazure azure-common azure-mgmt-core azure-mgmt-datalake-nspkg ];
+  propagatedBuildInputs = [
+    msrestazure
+    azure-common
+    azure-mgmt-core
+    azure-mgmt-datalake-nspkg
+  ];
 
   pythonNamespaces = [ "azure.mgmt.datalake" ];
 
@@ -31,6 +35,9 @@ buildPythonPackage rec {
       "This is the Microsoft Azure Data Lake Store Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer maxwilson ];
+    maintainers = with maintainers; [
+      jonringer
+      maxwilson
+    ];
   };
 }

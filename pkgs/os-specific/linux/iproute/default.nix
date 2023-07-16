@@ -44,7 +44,10 @@ stdenv.mkDerivation rec {
     sed -e '/ARPDDIR/d' -i Makefile
   '';
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   makeFlags = [
     "PREFIX=$(out)"
@@ -62,8 +65,17 @@ stdenv.mkDerivation rec {
   installFlags = [ "CONFDIR=$(out)/etc/iproute2" ];
 
   depsBuildBuild = [ buildPackages.stdenv.cc ]; # netem requires $HOSTCC
-  nativeBuildInputs = [ bison flex pkg-config ];
-  buildInputs = [ db iptables libelf libmnl ];
+  nativeBuildInputs = [
+    bison
+    flex
+    pkg-config
+  ];
+  buildInputs = [
+    db
+    iptables
+    libelf
+    libmnl
+  ];
 
   enableParallelBuilding = true;
 
@@ -79,6 +91,11 @@ stdenv.mkDerivation rec {
       "A collection of utilities for controlling TCP/IP networking and traffic control in Linux";
     platforms = platforms.linux;
     license = licenses.gpl2;
-    maintainers = with maintainers; [ primeos eelco fpletz globin ];
+    maintainers = with maintainers; [
+      primeos
+      eelco
+      fpletz
+      globin
+    ];
   };
 }

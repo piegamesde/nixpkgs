@@ -35,7 +35,12 @@ stdenv.mkDerivation rec {
       --replace "/usr/bin" "$out/bin"
   '';
 
-  nativeBuildInputs = [ cmake pkg-config qttools wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qttools
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     qtbase
@@ -47,7 +52,11 @@ stdenv.mkDerivation rec {
     qtwebengine
     libvlc
     gtest
-  ] ++ (with gst_all_1; [ gstreamer gst-plugins-base gst-plugins-good ]);
+  ] ++ (with gst_all_1; [
+    gstreamer
+    gst-plugins-base
+    gst-plugins-good
+  ]);
 
   strictDeps = true;
 

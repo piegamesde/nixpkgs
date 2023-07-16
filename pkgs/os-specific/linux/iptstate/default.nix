@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-iW3wYCiFRWomMfeV1jT8ITEeUF+MkQNI5jEoYPIJeVU=";
   };
 
-  buildInputs = [ libnetfilter_conntrack ncurses ];
+  buildInputs = [
+    libnetfilter_conntrack
+    ncurses
+  ];
 
   meta = with lib; {
     description = "Conntrack top like tool";

@@ -25,7 +25,10 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ cmake ] ++ lib.optionals stdenv.isDarwin [ makeWrapper ]
     ++ lib.optionals stdenv.isLinux [ shared-mime-info ];
 
-  buildInputs = [ wxGTK32 boost ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs = [
+    wxGTK32
+    boost
+  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   preConfigure = ''
     sed -i 's/FATAL_ERROR/WARNING/' cmake/revision-git*.cmake
@@ -42,7 +45,10 @@ stdenv.mkDerivation {
     description = "RAD tool for wxWidgets GUI design";
     homepage = "https://github.com/wxFormBuilder/wxFormBuilder";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ matthuszagh wegank ];
+    maintainers = with maintainers; [
+      matthuszagh
+      wegank
+    ];
     platforms = platforms.unix;
   };
 }

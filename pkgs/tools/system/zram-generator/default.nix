@@ -37,7 +37,10 @@ rustPlatform.buildRustPackage rec {
       --replace 'Command::new("modprobe")' 'Command::new("${kmod}/bin/modprobe")'
   '';
 
-  nativeBuildInputs = [ pkg-config ronn ];
+  nativeBuildInputs = [
+    pkg-config
+    ronn
+  ];
 
   buildInputs = [ systemd ];
 

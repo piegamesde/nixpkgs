@@ -33,7 +33,10 @@ stdenv.mkDerivation rec {
   version = "0.42.3";
 
   # TODO: split out lib
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${

@@ -18,6 +18,9 @@ bundlerEnv {
     homepage = "https://github.com/remiprev/teamocil";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ zachcoyle nicknovitski ];
+    maintainers = with maintainers; [
+      zachcoyle
+      nicknovitski
+    ];
   };
 }

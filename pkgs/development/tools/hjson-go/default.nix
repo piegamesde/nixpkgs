@@ -17,7 +17,10 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "Utility to convert JSON to and from HJSON";

@@ -31,11 +31,20 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-w" "-Wno-error" ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    "-w"
+    "-Wno-error"
+  ];
 
-  cmakeFlags = [ "-DCMAKE_INSTALL_BINDIR=bin" "-DCMAKE_BUILD_TYPE=Release" ];
+  cmakeFlags = [
+    "-DCMAKE_INSTALL_BINDIR=bin"
+    "-DCMAKE_BUILD_TYPE=Release"
+  ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     rtmidi

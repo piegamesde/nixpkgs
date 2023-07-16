@@ -20,7 +20,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  buildInputs = [ libxcrypt ncurses ];
+  buildInputs = [
+    libxcrypt
+    ncurses
+  ];
 
   passthru.shellPath = "/bin/tcsh";
 

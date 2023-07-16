@@ -39,10 +39,25 @@ stdenv.mkDerivation rec {
     substituteInPlace gfs2/edit/gfs2hex.c --replace 'printw(title);' 'printw("%s",title);'
   '';
 
-  outputs = [ "bin" "doc" "out" "man" ];
+  outputs = [
+    "bin"
+    "doc"
+    "out"
+    "man"
+  ];
 
-  nativeBuildInputs = [ autoreconfHook bison flex pkg-config ];
-  buildInputs = [ bzip2 ncurses util-linux zlib ];
+  nativeBuildInputs = [
+    autoreconfHook
+    bison
+    flex
+    pkg-config
+  ];
+  buildInputs = [
+    bzip2
+    ncurses
+    util-linux
+    zlib
+  ];
 
   nativeCheckInputs = [ check ];
   doCheck = true;
@@ -54,7 +69,10 @@ stdenv.mkDerivation rec {
     description =
       "Tools for creating, checking and working with gfs2 filesystems";
     maintainers = with maintainers; [ qyliss ];
-    license = [ licenses.gpl2Plus licenses.lgpl2Plus ];
+    license = [
+      licenses.gpl2Plus
+      licenses.lgpl2Plus
+    ];
     platforms = platforms.linux;
   };
 }

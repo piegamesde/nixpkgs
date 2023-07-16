@@ -285,7 +285,10 @@ in stdenv.mkDerivation (rec {
     homepage = "https://v2.onivim.io/";
     inherit license;
     maintainers = with maintainers; [ gardspirito ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
   };
 })
 

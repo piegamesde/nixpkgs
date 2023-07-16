@@ -18,14 +18,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-m2qXTXLGgAyU9y6GEk4Hp/7Al57IPRSqImJatIcwswQ=";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "CVE-2023-0358.patch";
-      url =
-        "https://github.com/gpac/gpac/commit/9971fb125cf91cefd081a080c417b90bbe4a467b.patch";
-      sha256 = "sha256-0PDQXahbJCOo1JJAC0T0N1u2mqmwAkdm87wXMJnBicM=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "CVE-2023-0358.patch";
+    url =
+      "https://github.com/gpac/gpac/commit/9971fb125cf91cefd081a080c417b90bbe4a467b.patch";
+    sha256 = "sha256-0PDQXahbJCOo1JJAC0T0N1u2mqmwAkdm87wXMJnBicM=";
+  }) ];
 
   # this is the bare minimum configuration, as I'm only interested in MP4Box
   # For most other functionality, this should probably be extended
@@ -52,7 +50,10 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://gpac.wp.imt.fr";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ bluescreen303 mgdelacroix ];
+    maintainers = with maintainers; [
+      bluescreen303
+      mgdelacroix
+    ];
     platforms = platforms.linux;
   };
 }

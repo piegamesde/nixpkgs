@@ -37,8 +37,15 @@ in stdenv.mkDerivation {
 
   src = speech-denoiser-src;
 
-  nativeBuildInputs = [ pkg-config meson ninja ];
-  buildInputs = [ lv2 rnnoise-nu ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+  ];
+  buildInputs = [
+    lv2
+    rnnoise-nu
+  ];
 
   mesonFlags = [ "--prefix=${placeholder "out"}/lib/lv2" ];
 

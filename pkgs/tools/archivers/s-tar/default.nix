@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
   preConfigure = "rm configure";
   preBuild = "sed 's_/bin/__g' -i RULES/*";
   makeFlags = [ "GMAKE_NOWARN=true" ];
-  installFlags = [ "DESTDIR=$(out)" "INS_BASE=/" ];
+  installFlags = [
+    "DESTDIR=$(out)"
+    "INS_BASE=/"
+  ];
   postInstall = ''
     find $out/bin -type l -delete
     rm -r $out/etc $out/include $out/sbin

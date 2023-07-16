@@ -24,7 +24,10 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ installShellFiles ];
-  buildInputs = [ libpulseaudio nas ];
+  buildInputs = [
+    libpulseaudio
+    nas
+  ];
 
   postInstall = ''
     installShellCompletion --bash --name gbsplay contrib/gbsplay.bashcompletion
@@ -33,7 +36,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Gameboy sound player";
     license = licenses.gpl1Plus;
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
     maintainers = with maintainers; [ ];
   };
 }

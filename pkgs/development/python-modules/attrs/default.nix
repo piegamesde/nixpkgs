@@ -20,7 +20,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  outputs = [ "out" "testout" ];
+  outputs = [
+    "out"
+    "testout"
+  ];
 
   postInstall = ''
     # Install tests as the tests output.

@@ -25,7 +25,7 @@ import ../make-test-python.nix ({
                 # don't use this in production, always use some form of verification
                 enable_registration_without_verification = true;
 
-                listeners = [{
+                listeners = [ {
                   # The default but tls=false
                   bind_addresses = [ "0.0.0.0" ];
                   port = 8008;
@@ -41,7 +41,7 @@ import ../make-test-python.nix ({
                   ];
                   tls = false;
                   type = "http";
-                }];
+                } ];
               };
             };
 
@@ -102,8 +102,8 @@ import ../make-test-python.nix ({
           pkgs,
           ...
         }: {
-          environment.systemPackages = [
-            (pkgs.writers.writePython3Bin "do_test" {
+          environment.systemPackages =
+            [ (pkgs.writers.writePython3Bin "do_test" {
               libraries = [ pkgs.python3Packages.matrix-nio ];
               flakeIgnore = [
                 # We don't live in the dark ages anymore.
@@ -196,8 +196,7 @@ import ../make-test-python.nix ({
 
               if __name__ == "__main__":
                   asyncio.run(run(sys.argv[1]))
-            '')
-          ];
+            '') ];
         };
     };
 

@@ -15,7 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-NNnTcSX+K8zU+sj1QBd13h7aEXN9VqltJMNWCuhgZ6I=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook hypothesis ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    hypothesis
+  ];
 
   pythonImportsCheck = [ "hs_dbus_signature" ];
 

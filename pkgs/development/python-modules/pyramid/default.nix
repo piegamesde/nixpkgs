@@ -42,7 +42,10 @@ buildPythonPackage rec {
     zope_interface
   ];
 
-  nativeCheckInputs = [ webtest zope_component ];
+  nativeCheckInputs = [
+    webtest
+    zope_component
+  ];
 
   pythonImportsCheck = [ "pyramid" ];
 

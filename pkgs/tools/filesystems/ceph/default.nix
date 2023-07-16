@@ -138,7 +138,10 @@ let
     "none";
 
   cryptoLibsMap = {
-    nss = [ optNss optNspr ];
+    nss = [
+      optNss
+      optNspr
+    ];
     cryptopp = [ optCryptopp ];
     none = [ ];
   };
@@ -147,9 +150,23 @@ let
     with lib; {
       homepage = "https://ceph.io/en/";
       inherit description;
-      license = with licenses; [ lgpl21 gpl2 bsd3 mit publicDomain ];
-      maintainers = with maintainers; [ adev ak johanot krav ];
-      platforms = [ "x86_64-linux" "aarch64-linux" ];
+      license = with licenses; [
+        lgpl21
+        gpl2
+        bsd3
+        mit
+        publicDomain
+      ];
+      maintainers = with maintainers; [
+        adev
+        ak
+        johanot
+        krav
+      ];
+      platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
     };
 
   ceph-common = with python.pkgs;
@@ -183,8 +200,10 @@ let
         };
         nativeCheckInputs = oldAttrs.nativeCheckInputs
           ++ (with super; [ pytest-xdist ]);
-        disabledTestPaths = (oldAttrs.disabledTestPaths or [ ])
-          ++ [ "test/aaa_profiling" "test/ext/mypy" ];
+        disabledTestPaths = (oldAttrs.disabledTestPaths or [ ]) ++ [
+          "test/aaa_profiling"
+          "test/ext/mypy"
+        ];
       });
     };
   };
@@ -307,7 +326,12 @@ in rec {
       rdma-core
       udev
       util-linux
-    ] ++ lib.optionals hasRadosgw [ optCurl optExpat optFuse optLibedit ];
+    ] ++ lib.optionals hasRadosgw [
+      optCurl
+      optExpat
+      optFuse
+      optLibedit
+    ];
 
     pythonPath = [
       ceph-python-env
@@ -362,7 +386,13 @@ in rec {
       test -f $out/bin/ceph-volume
     '';
 
-    outputs = [ "out" "lib" "dev" "doc" "man" ];
+    outputs = [
+      "out"
+      "lib"
+      "dev"
+      "doc"
+      "man"
+    ];
 
     doCheck = false; # uses pip to install things from the internet
 

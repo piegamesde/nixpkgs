@@ -20,7 +20,12 @@ stdenv.mkDerivation rec {
     sha256 = "k/MpTUP9IvmWLM9r0X/2Tq54psoGP+bB6bxY0A8046g=";
   };
 
-  nativeBuildInputs = [ gettext itstool libxml2 yelp-tools ];
+  nativeBuildInputs = [
+    gettext
+    itstool
+    libxml2
+    yelp-tools
+  ];
 
   enableParallelBuilding = true;
 

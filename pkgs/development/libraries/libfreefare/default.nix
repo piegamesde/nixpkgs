@@ -21,9 +21,18 @@ stdenv.mkDerivation {
     sha256 = "0r5wfvwgf35lb1v65wavnwz2wlfyfdims6a9xpslf4lsm4a1v8xz";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ libnfc openssl ]
-    ++ lib.optionals stdenv.isDarwin [ libobjc IOKit Security ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    libnfc
+    openssl
+  ] ++ lib.optionals stdenv.isDarwin [
+    libobjc
+    IOKit
+    Security
+  ];
 
   meta = with lib; {
     description =

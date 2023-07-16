@@ -29,8 +29,14 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ openssl gtest ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    openssl
+    gtest
+  ];
 
   meta = with lib; {
     description = "Computational geometry and spatial indexing on the sphere";

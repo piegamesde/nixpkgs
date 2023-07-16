@@ -69,7 +69,12 @@ buildPythonPackage rec {
     sympy
   ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-xdist matplotlib gcc ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-xdist
+    matplotlib
+    gcc
+  ];
 
   # I've had to disable the following tests since they fail while using nix-build, but they do pass
   # outside the build. They mostly related to the usage of MPI in a sandboxed environment.

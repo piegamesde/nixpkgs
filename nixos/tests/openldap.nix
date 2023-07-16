@@ -65,7 +65,10 @@ import ./make-test-python.nix ({
 
         services.openldap = {
           enable = true;
-          urlList = [ "ldapi:///" "ldap://" ];
+          urlList = [
+            "ldapi:///"
+            "ldap://"
+          ];
           settings = {
             children = {
               "cn=schema".includes = [
@@ -85,7 +88,10 @@ import ./make-test-python.nix ({
               "olcDatabase={1}mdb" = {
                 # This tests string, base64 and path values, as well as lists of string values
                 attrs = {
-                  objectClass = [ "olcDatabaseConfig" "olcMdbConfig" ];
+                  objectClass = [
+                    "olcDatabaseConfig"
+                    "olcMdbConfig"
+                  ];
                   olcDatabase = "{1}mdb";
                   olcDbDirectory = "/var/lib/openldap/db";
                   olcSuffix = "dc=example";

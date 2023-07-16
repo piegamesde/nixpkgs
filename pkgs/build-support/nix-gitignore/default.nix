@@ -22,8 +22,14 @@ in rec {
       let
         relPath = lib.removePrefix ((toString root) + "/") name;
         matches = pair: (match (head pair) relPath) != null;
-        matched = map (pair: [ (matches pair) (last pair) ]) patterns;
-      in last (last ([[ true true ]] ++ (filter head matched))));
+        matched = map (pair: [
+          (matches pair)
+          (last pair)
+        ]) patterns;
+      in last (last ([ [
+        true
+        true
+      ] ] ++ (filter head matched))));
 
   # string -> [[regex bool]]
   gitignoreToPatterns = gitignore:
@@ -34,10 +40,19 @@ in rec {
       # ignore -> [ignore bool]
       computeNegation = l:
         let split = match "^(!?)(.*)" l;
-        in [ (elemAt split 1) (head split == "!") ];
+        in [
+          (elemAt split 1)
+          (head split == "!")
+        ];
 
       # regex -> regex
-      handleHashesBangs = replaceStrings [ "\\#" "\\!" ] [ "#" "!" ];
+      handleHashesBangs = replaceStrings [
+        "\\#"
+        "\\!"
+      ] [
+        "#"
+        "!"
+      ];
 
       # ignore -> regex
       substWildcards = let
@@ -52,9 +67,17 @@ in rec {
         in str: recurse str;
         chars = s: filter (c: c != "" && !isList c) (splitString s);
         escape = s: map (c: "\\" + c) (chars s);
-      in replaceStrings
-      ((chars special) ++ (escape escs) ++ [ "**/" "**" "*" "?" ])
-      ((escape special) ++ (escape escs) ++ [ "(.*/)?" ".*" "[^/]*" "[^/]" ]);
+      in replaceStrings ((chars special) ++ (escape escs) ++ [
+        "**/"
+        "**"
+        "*"
+        "?"
+      ]) ((escape special) ++ (escape escs) ++ [
+        "(.*/)?"
+        ".*"
+        "[^/]*"
+        "[^/]"
+      ]);
 
       # (regex -> regex) -> regex -> regex
       mapAroundCharclass = f: r: # rl = regex or list
@@ -78,7 +101,10 @@ in rec {
         in if split != null then (elemAt split 0) + "($|/.*)" else l;
 
       # (regex -> regex) -> [regex, bool] -> [regex, bool]
-      mapPat = f: l: [ (f (head l)) (last l) ];
+      mapPat = f: l: [
+        (f (head l))
+        (last l)
+      ];
     in map (l: # `l' for "line"
       mapPat (l:
         handleSlashSuffix (handleSlashPrefix

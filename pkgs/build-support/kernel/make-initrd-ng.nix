@@ -107,8 +107,10 @@ runCommand name ({
       ${object}
       ${if symlink == null then "" else symlink}'') contents + "\n";
 
-  nativeBuildInputs = [ makeInitrdNGTool cpio ]
-    ++ lib.optional makeUInitrd ubootTools ++ lib.optional strip binutils;
+  nativeBuildInputs = [
+    makeInitrdNGTool
+    cpio
+  ] ++ lib.optional makeUInitrd ubootTools ++ lib.optional strip binutils;
 
   STRIP = if strip then "${pkgsBuildHost.binutils.targetPrefix}strip" else null;
 }) ''

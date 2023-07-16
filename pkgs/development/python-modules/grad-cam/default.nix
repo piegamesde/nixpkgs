@@ -29,8 +29,16 @@ buildPythonPackage rec {
     substituteInPlace requirements.txt --replace "opencv-python" "opencv"
   '';
 
-  propagatedBuildInputs =
-    [ matplotlib numpy opencv4 pillow scikit-learn torchvision ttach tqdm ];
+  propagatedBuildInputs = [
+    matplotlib
+    numpy
+    opencv4
+    pillow
+    scikit-learn
+    torchvision
+    ttach
+    tqdm
+  ];
 
   # Let the user bring their own instance (as with torchmetrics)
   buildInputs = [ torch ];

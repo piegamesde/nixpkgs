@@ -55,7 +55,11 @@ in {
         setuid = true;
         setgid = true;
       };
-    }) [ "at" "atq" "atrm" ]);
+    }) [
+      "at"
+      "atq"
+      "atrm"
+    ]);
 
     environment.systemPackages = [ at ];
 

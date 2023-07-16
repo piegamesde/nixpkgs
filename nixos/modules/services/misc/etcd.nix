@@ -71,7 +71,10 @@ in {
       description =
         lib.mdDoc "Etcd initial cluster configuration for bootstrapping.";
       default = "new";
-      type = types.enum [ "new" "existing" ];
+      type = types.enum [
+        "new"
+        "existing"
+      ];
     };
 
     initialClusterToken = mkOption {

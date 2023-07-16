@@ -17,9 +17,15 @@ buildPythonPackage rec {
     sha256 = "5a6188fe2666c484a12159c18be97a1977a71d632ef5bb867ef15f54af39cc4e";
   };
 
-  propagatedBuildInputs = [ orderedmultidict six ];
+  propagatedBuildInputs = [
+    orderedmultidict
+    six
+  ];
 
-  nativeCheckInputs = [ flake8 pytestCheckHook ];
+  nativeCheckInputs = [
+    flake8
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "furl" ];
 

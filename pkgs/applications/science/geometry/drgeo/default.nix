@@ -24,8 +24,18 @@ stdenv.mkDerivation rec {
   };
   patches = [ ./struct.patch ];
 
-  nativeBuildInputs = [ pkg-config intltool ];
-  buildInputs = [ libglade gtk2 guile libxml2 perl libtool ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+  ];
+  buildInputs = [
+    libglade
+    gtk2
+    guile
+    libxml2
+    perl
+    libtool
+  ];
 
   prebuild = ''
     cp drgeo.desktop.in drgeo.desktop

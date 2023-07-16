@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-07GzT9j27KmrTQ7naIdlIz7HB9knHpjH4mQhlwUKucU=";
   };
 
-  propagatedBuildInputs = [ requests pyopenssl ];
+  propagatedBuildInputs = [
+    requests
+    pyopenssl
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

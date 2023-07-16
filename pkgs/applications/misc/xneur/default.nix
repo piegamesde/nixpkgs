@@ -27,7 +27,12 @@ stdenv.mkDerivation {
     sha256 = "1lg3qpi9pkx9f5xvfc8yf39wwc98f769yb7i2438vqn66kla1xpr";
   };
 
-  nativeBuildInputs = [ autoreconfHook intltool pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoreconfHook
+    intltool
+    pkg-config
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     enchant

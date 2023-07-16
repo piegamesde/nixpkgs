@@ -18,7 +18,10 @@ buildOctavePackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  propagatedBuildInputs = [ dolfin ffc ];
+  propagatedBuildInputs = [
+    dolfin
+    ffc
+  ];
 
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/fem-fenics/index.html";

@@ -15,13 +15,14 @@ let
   pulseaudioEnabled = config.hardware.pulseaudio.enable;
 
 in {
-  imports = [
-    (mkRenamedOptionModule [ "sound" "enableMediaKeys" ] [
-      "sound"
-      "mediaKeys"
-      "enable"
-    ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "sound"
+    "enableMediaKeys"
+  ] [
+    "sound"
+    "mediaKeys"
+    "enable"
+  ]) ];
 
   ###### interface
 
@@ -132,7 +133,10 @@ in {
         # "Lower Volume" media key
         {
           keys = [ 114 ];
-          events = [ "key" "rep" ];
+          events = [
+            "key"
+            "rep"
+          ];
           command =
             "${alsa-utils}/bin/amixer -q set Master ${config.sound.mediaKeys.volumeStep}- unmute";
         }
@@ -140,7 +144,10 @@ in {
         # "Raise Volume" media key
         {
           keys = [ 115 ];
-          events = [ "key" "rep" ];
+          events = [
+            "key"
+            "rep"
+          ];
           command =
             "${alsa-utils}/bin/amixer -q set Master ${config.sound.mediaKeys.volumeStep}+ unmute";
         }

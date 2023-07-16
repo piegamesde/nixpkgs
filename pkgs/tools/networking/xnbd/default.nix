@@ -21,9 +21,15 @@ stdenv.mkDerivation rec {
 
   patches = [ ./0001-Fix-build-for-glibc-2.28.patch ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ glib jansson ];
+  buildInputs = [
+    glib
+    jansson
+  ];
 
   # do not build docs, it is slow and it fails on Hydra
   prePatch = ''

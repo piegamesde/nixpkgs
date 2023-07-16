@@ -16,9 +16,15 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-1dzpS5Hov+48BYOkPicVk1duaNM5ueXNr7UKg6aPoZA=";
   };
 
-  pythonRelaxDeps = [ "packaging" "python-gnupg" ];
+  pythonRelaxDeps = [
+    "packaging"
+    "python-gnupg"
+  ];
 
-  nativeBuildInputs = with python3.pkgs; [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = with python3.pkgs; [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     defusedxml

@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
   version = "1.15.1";
   pname = "librepo";
 
-  outputs = [ "out" "dev" "py" ];
+  outputs = [
+    "out"
+    "dev"
+    "py"
+  ];
 
   src = fetchFromGitHub {
     owner = "rpm-software-management";
@@ -27,12 +31,28 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XVjVu+UTIDbrKHmfJ2zZBLp/h0cLCZFxv/XZ0Iy8VPI=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ python libxml2 glib openssl curl check gpgme zchunk ];
+  buildInputs = [
+    python
+    libxml2
+    glib
+    openssl
+    curl
+    check
+    gpgme
+    zchunk
+  ];
 
   # librepo/fastestmirror.h includes curl/curl.h, and pkg-config specfile refers to others in here
-  propagatedBuildInputs = [ curl gpgme libxml2 ];
+  propagatedBuildInputs = [
+    curl
+    gpgme
+    libxml2
+  ];
 
   cmakeFlags = [ "-DPYTHON_DESIRED=${lib.substring 0 1 python.pythonVersion}" ];
 

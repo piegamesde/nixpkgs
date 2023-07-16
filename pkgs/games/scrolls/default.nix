@@ -28,8 +28,14 @@ stdenv.mkDerivation {
     sha256 = "ead1fd14988aa07041fedfa7f845c756cd5077a5a402d85bfb749cb669ececec";
   };
 
-  libPath =
-    lib.makeLibraryPath [ gcc libGLU libX11 libXext libXcursor libpulseaudio ];
+  libPath = lib.makeLibraryPath [
+    gcc
+    libGLU
+    libX11
+    libXext
+    libXcursor
+    libpulseaudio
+  ];
 
   installPhase = ''
     mkdir -p "$out/opt/Scrolls"

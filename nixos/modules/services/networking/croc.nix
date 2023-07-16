@@ -13,7 +13,13 @@ in {
     enable = lib.mkEnableOption (lib.mdDoc "croc relay");
     ports = lib.mkOption {
       type = with types; listOf port;
-      default = [ 9009 9010 9011 9012 9013 ];
+      default = [
+        9009
+        9010
+        9011
+        9012
+        9013
+      ];
       description = lib.mdDoc "Ports of the relay.";
     };
     pass = lib.mkOption {
@@ -61,7 +67,10 @@ in {
         ProtectProc = "invisible";
         ProtectSystem = "strict";
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
@@ -94,5 +103,8 @@ in {
     networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall cfg.ports;
   };
 
-  meta.maintainers = with lib.maintainers; [ hax404 julm ];
+  meta.maintainers = with lib.maintainers; [
+    hax404
+    julm
+  ];
 }

@@ -20,7 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-lW55ub1VjuCLYgDAWtLHZGW344YMDAU3aGCJKFwyARM=";
   };
 
-  propagatedBuildInputs = [ coverage six ];
+  propagatedBuildInputs = [
+    coverage
+    six
+  ];
 
   checkPhase = ''
     ${python.interpreter} -m unittest

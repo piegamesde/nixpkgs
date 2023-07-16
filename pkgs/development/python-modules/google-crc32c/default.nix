@@ -25,7 +25,10 @@ buildPythonPackage rec {
   LDFLAGS = "-L${crc32c}/lib";
   CFLAGS = "-I${crc32c}/include";
 
-  nativeCheckInputs = [ pytestCheckHook crc32c ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    crc32c
+  ];
 
   pythonImportsCheck = [ "google_crc32c" ];
 
@@ -34,6 +37,9 @@ buildPythonPackage rec {
     description =
       "Wrapper the google/crc32c hardware-based implementation of the CRC32C hashing algorithm";
     license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ freezeboy SuperSandro2000 ];
+    maintainers = with maintainers; [
+      freezeboy
+      SuperSandro2000
+    ];
   };
 }

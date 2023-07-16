@@ -40,13 +40,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-zaAAEFBumfHU4hGzAOmLvBu3X4J7LAlmexqixHtVPr8=";
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://gitlab.com/sequoia-pgp/sequoia/-/commit/4dc6e624c2394936dc447f18aedb4a4810bb2ddb.patch";
-      hash = "sha256-T6hh7U1gvKvyn/OCuJBvLM7TG1VFnpvpAiWS72m3P6I=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://gitlab.com/sequoia-pgp/sequoia/-/commit/4dc6e624c2394936dc447f18aedb4a4810bb2ddb.patch";
+    hash = "sha256-T6hh7U1gvKvyn/OCuJBvLM7TG1VFnpvpAiWS72m3P6I=";
+  }) ];
 
   nativeBuildInputs = [
     pkg-config
@@ -64,9 +62,14 @@ rustPlatform.buildRustPackage rec {
     pythonPackages.pytest-runner
   ];
 
-  buildInputs = [ openssl sqlite nettle ]
-    ++ lib.optionals pythonSupport [ pythonPackages.python pythonPackages.cffi ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs = [
+    openssl
+    sqlite
+    nettle
+  ] ++ lib.optionals pythonSupport [
+    pythonPackages.python
+    pythonPackages.cffi
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"
@@ -104,7 +107,10 @@ rustPlatform.buildRustPackage rec {
     description = "A cool new OpenPGP implementation";
     homepage = "https://sequoia-pgp.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ minijackson doronbehar ];
+    maintainers = with maintainers; [
+      minijackson
+      doronbehar
+    ];
     mainProgram = "sq";
   };
 }

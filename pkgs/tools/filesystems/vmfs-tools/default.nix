@@ -21,9 +21,17 @@ stdenv.mkDerivation rec {
     sha256 = "14y412ww5hxk336ils62s3fwykfh6mx1j0iiaa5cwc615pi6qvi4";
   };
 
-  nativeBuildInputs = [ asciidoc docbook_xsl libxslt pkg-config ];
+  nativeBuildInputs = [
+    asciidoc
+    docbook_xsl
+    libxslt
+    pkg-config
+  ];
 
-  buildInputs = [ fuse libuuid ];
+  buildInputs = [
+    fuse
+    libuuid
+  ];
 
   enableParallelBuilding = true;
 

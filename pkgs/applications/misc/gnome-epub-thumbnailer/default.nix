@@ -25,9 +25,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-S7Ah++RCgNuY3xTBH6XkMgsWe4GpG9e6WGvqDE+il1I=";
   };
 
-  nativeBuildInputs = [ wrapGAppsNoGuiHook meson ninja pkg-config ];
+  nativeBuildInputs = [
+    wrapGAppsNoGuiHook
+    meson
+    ninja
+    pkg-config
+  ];
 
-  buildInputs = [ gdk-pixbuf glib libarchive librsvg libxml2 ];
+  buildInputs = [
+    gdk-pixbuf
+    glib
+    libarchive
+    librsvg
+    libxml2
+  ];
 
   passthru = {
     updateScript =

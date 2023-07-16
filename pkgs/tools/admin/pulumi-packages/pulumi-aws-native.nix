@@ -29,6 +29,9 @@ mkPulumiPackage rec {
     description = "Native AWS Pulumi Provider";
     homepage = "https://github.com/pulumi/pulumi-aws-native";
     license = licenses.asl20;
-    maintainers = with maintainers; [ veehaitch trundle ];
+    maintainers = with maintainers; [
+      veehaitch
+      trundle
+    ];
   };
 }

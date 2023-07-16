@@ -26,9 +26,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-UpAVyDXCe07ZwjD307t6G9f/Nny4QYXxGxft1KsiYYg=";
   };
 
-  nativeBuildInputs = [ cmake arpa2cm doxygen graphviz pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    arpa2cm
+    doxygen
+    graphviz
+    pkg-config
+  ];
 
-  propagatedBuildInputs = [ 0.0 fsprogs lmdb openssl ragel ];
+  propagatedBuildInputs = [
+    0.0
+    fsprogs
+    lmdb
+    openssl
+    ragel
+  ];
 
   # the project uses single argument `printf` throughout the program
   hardeningDisable = [ "format" ];
@@ -44,7 +56,12 @@ stdenv.mkDerivation rec {
       liberate users.
     '';
     homepage = "https://gitlab.com/arpa2/arpa2common";
-    license = with lib.licenses; [ bsd2 cc-by-sa-40 cc0 isc ];
+    license = with lib.licenses; [
+      bsd2
+      cc-by-sa-40
+      cc0
+      isc
+    ];
     maintainers = with lib.maintainers; [ fufexan ];
     platforms = lib.platforms.linux;
   };

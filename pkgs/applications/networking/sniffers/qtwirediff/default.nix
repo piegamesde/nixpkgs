@@ -20,7 +20,10 @@ stdenv.mkDerivation {
     hash = "sha256-QS4PslSHe2qhxayF7IHvtFASgd4A7vVtSY8tFQ6dqXM=";
   };
 
-  nativeBuildInputs = [ qmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    wrapQtAppsHook
+  ];
 
   buildInputs = [ qtbase ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
 

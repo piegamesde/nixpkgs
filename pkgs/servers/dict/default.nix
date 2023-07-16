@@ -19,17 +19,27 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5PGmfRaJTYSUVp19yUQsFcw4wBHyuWMcfxzGInZlKhs=";
   };
 
-  buildInputs = [ libmaa zlib ];
+  buildInputs = [
+    libmaa
+    zlib
+  ];
 
-  nativeBuildInputs = [ bison flex libtool which ];
+  nativeBuildInputs = [
+    bison
+    flex
+    libtool
+    which
+  ];
 
   # In earlier versions, parallel building was not supported but it's OK with 1.13
   enableParallelBuilding = true;
 
   patchPhase = "patch -p0 < ${./buildfix.diff}";
 
-  configureFlags =
-    [ "--datadir=/run/current-system/sw/share/dictd" "--sysconfdir=/etc" ];
+  configureFlags = [
+    "--datadir=/run/current-system/sw/share/dictd"
+    "--sysconfdir=/etc"
+  ];
 
   postInstall = ''
     install -Dm444 -t $out/share/doc/${pname} NEWS README

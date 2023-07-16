@@ -27,9 +27,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ async-timeout pyserial-asyncio ];
+  propagatedBuildInputs = [
+    async-timeout
+    pyserial-asyncio
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "elkm1_lib" ];
 

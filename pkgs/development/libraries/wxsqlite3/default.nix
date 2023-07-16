@@ -24,8 +24,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [ sqlite wxGTK ]
-    ++ lib.optionals (stdenv.isDarwin) [ Cocoa setfile rez derez ];
+  buildInputs = [
+    sqlite
+    wxGTK
+  ] ++ lib.optionals (stdenv.isDarwin) [
+    Cocoa
+    setfile
+    rez
+    derez
+  ];
 
   meta = with lib; {
     homepage = "https://utelle.github.io/wxsqlite3/";
@@ -33,6 +40,9 @@ stdenv.mkDerivation rec {
       "A C++ wrapper around the public domain SQLite 3.x for wxWidgets";
     platforms = platforms.unix;
     maintainers = with maintainers; [ vrthra ];
-    license = with licenses; [ lgpl3Plus gpl3Plus ];
+    license = with licenses; [
+      lgpl3Plus
+      gpl3Plus
+    ];
   };
 }

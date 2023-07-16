@@ -47,17 +47,18 @@ else
       sha256 = hashes."${version}";
     };
 
-    patches = [
-      (substituteAll {
-        src = ./fix-paths.patch;
-        dot_merlin_reader = "${dot-merlin-reader}/bin/dot-merlin-reader";
-        dune = "${dune_3}/bin/dune";
-      })
-    ];
+    patches = [ (substituteAll {
+      src = ./fix-paths.patch;
+      dot_merlin_reader = "${dot-merlin-reader}/bin/dot-merlin-reader";
+      dune = "${dune_3}/bin/dune";
+    }) ];
 
     strictDeps = true;
 
-    nativeBuildInputs = [ menhir jq ];
+    nativeBuildInputs = [
+      menhir
+      jq
+    ];
     buildInputs = [
       dot-merlin-reader
       yojson
@@ -79,6 +80,9 @@ else
         "An editor-independent tool to ease the development of programs in OCaml";
       homepage = "https://github.com/ocaml/merlin";
       license = licenses.mit;
-      maintainers = [ maintainers.vbgl maintainers.sternenseemann ];
+      maintainers = [
+        maintainers.vbgl
+        maintainers.sternenseemann
+      ];
     };
   }

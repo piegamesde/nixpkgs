@@ -20,9 +20,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-KbuJLS2BWua9DnhLv2KtsQObin0PQwXQwEdgi3lSAPk=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ fuse usbmuxd libimobiledevice ];
+  buildInputs = [
+    fuse
+    usbmuxd
+    libimobiledevice
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/libimobiledevice/ifuse";

@@ -70,13 +70,11 @@ let
     };
     authorizedPasswords = map (p: { password = p; }) cfg.authorizedPasswords;
     interfaces = {
-      ETHInterface = if (cfg.ETHInterface.bind != "") then
-        [ (parseModules cfg.ETHInterface) ]
-      else
+      ETHInterface = if (cfg.ETHInterface.bind != "") then [ (parseModules
+        cfg.ETHInterface) ] else
         [ ];
-      UDPInterface = if (cfg.UDPInterface.bind != "") then
-        [ (parseModules cfg.UDPInterface) ]
-      else
+      UDPInterface = if (cfg.UDPInterface.bind != "") then [ (parseModules
+        cfg.UDPInterface) ] else
         [ ];
     };
 
@@ -92,10 +90,10 @@ let
       };
     };
 
-    security = [{
+    security = [ {
       exemptAngel = 1;
       setuser = "nobody";
-    }];
+    } ];
 
   } cfg.extraConfig);
 
@@ -255,7 +253,10 @@ in {
     systemd.services.cjdns = {
       description =
         "cjdns: routing engine designed for security, scalability, speed and ease of use";
-      wantedBy = [ "multi-user.target" "sleep.target" ];
+      wantedBy = [
+        "multi-user.target"
+        "sleep.target"
+      ];
       after = [ "network-online.target" ];
       bindsTo = [ "network-online.target" ];
 

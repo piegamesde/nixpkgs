@@ -9,7 +9,10 @@ with lib;
 
 let cfg = config.services.cachix-watch-store;
 in {
-  meta.maintainers = [ lib.maintainers.jfroche lib.maintainers.domenkozar ];
+  meta.maintainers = [
+    lib.maintainers.jfroche
+    lib.maintainers.domenkozar
+  ];
 
   options.services.cachix-watch-store = {
     enable =
@@ -83,14 +86,17 @@ in {
       script = let
         command = [ "${cfg.package}/bin/cachix" ]
           ++ (lib.optional cfg.verbose "--verbose")
-          ++ (lib.optionals (cfg.host != null) [ "--host" cfg.host ])
-          ++ [ "watch-store" ]
+          ++ (lib.optionals (cfg.host != null) [
+            "--host"
+            cfg.host
+          ]) ++ [ "watch-store" ]
           ++ (lib.optionals (cfg.compressionLevel != null) [
             "--compression-level"
             (toString cfg.compressionLevel)
-          ])
-          ++ (lib.optionals (cfg.jobs != null) [ "--jobs" (toString cfg.jobs) ])
-          ++ [ cfg.cacheName ];
+          ]) ++ (lib.optionals (cfg.jobs != null) [
+            "--jobs"
+            (toString cfg.jobs)
+          ]) ++ [ cfg.cacheName ];
       in ''
         export CACHIX_AUTH_TOKEN="$(<"$CREDENTIALS_DIRECTORY/cachix-token")"
         ${lib.escapeShellArgs command}

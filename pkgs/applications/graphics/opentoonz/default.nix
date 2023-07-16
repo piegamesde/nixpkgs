@@ -32,7 +32,11 @@ in stdenv.mkDerivation rec {
   pname = "opentoonz";
   version = source.versions.opentoonz;
 
-  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     boost

@@ -29,7 +29,13 @@ stdenv.mkDerivation rec {
   postInstall = ''
     substituteInPlace ${PREFIX}/update-systemd-resolved \
       --subst-var-by PATH ${
-        lib.makeBinPath [ coreutils iproute2 runtimeShell systemd util-linux ]
+        lib.makeBinPath [
+          coreutils
+          iproute2
+          runtimeShell
+          systemd
+          util-linux
+        ]
       }
   '';
 

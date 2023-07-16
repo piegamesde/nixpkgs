@@ -27,7 +27,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ typing-extensions ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   postPatch = ''
     # Upstream doesn't set a version for their GitHub releases

@@ -26,9 +26,18 @@ buildPythonPackage rec {
     hash = "sha256-BGG5SQfVxhp6ID2Ob+afm75cInVixSPD5012K4HwthU=";
   };
 
-  propagatedBuildInputs = [ aiohttp inflection pyjwt python-dateutil ];
+  propagatedBuildInputs = [
+    aiohttp
+    inflection
+    pyjwt
+    python-dateutil
+  ];
 
-  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    aresponses
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

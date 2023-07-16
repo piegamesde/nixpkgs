@@ -26,7 +26,11 @@ in buildRustPackage {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ fontconfig freetype bindgenHook ];
+  buildInputs = [
+    fontconfig
+    freetype
+    bindgenHook
+  ];
 
   LIBCLANG_PATH = "${libclang.lib}/lib";
 

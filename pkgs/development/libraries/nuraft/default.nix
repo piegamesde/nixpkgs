@@ -21,7 +21,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ boost172 asio openssl zlib ];
+  buildInputs = [
+    boost172
+    asio
+    openssl
+    zlib
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/eBay/NuRaft";

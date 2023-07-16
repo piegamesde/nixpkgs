@@ -16,7 +16,10 @@ import ./make-test-python.nix ({
         services.xandikos.enable = true;
       };
       xandikos_proxy = {
-        networking.firewall.allowedTCPPorts = [ 80 8080 ];
+        networking.firewall.allowedTCPPorts = [
+          80
+          8080
+        ];
         services.xandikos.enable = true;
         services.xandikos.address = "localhost";
         services.xandikos.port = 8080;

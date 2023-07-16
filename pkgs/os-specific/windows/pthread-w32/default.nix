@@ -14,7 +14,10 @@ stdenv.mkDerivation {
     sha256 = "1s8iny7g06z289ahdj0kzaxj0cd3wvjbd8j3bh9xlg7g444lhy9w";
   };
 
-  makeFlags = [ "CROSS=${stdenv.cc.targetPrefix}" "GC-static" ];
+  makeFlags = [
+    "CROSS=${stdenv.cc.targetPrefix}"
+    "GC-static"
+  ];
 
   installPhase = ''
     runHook preInstall

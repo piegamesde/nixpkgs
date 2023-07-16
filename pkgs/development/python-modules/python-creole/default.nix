@@ -47,7 +47,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "creole" ];
 
-  nativeCheckInputs = [ pytestCheckHook readme_renderer textile ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    readme_renderer
+    textile
+  ];
 
   preCheck = ''
     export PATH=$out/bin:$PATH

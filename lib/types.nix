@@ -471,10 +471,10 @@ let
               imap1 (m: def':
                 (mergeDefinitions
                   (loc ++ [ "[definition ${toString n}-entry ${toString m}]" ])
-                  elemType [{
+                  elemType [ {
                     inherit (def) file;
                     value = def';
-                  }]).optionalValue) def.value) defs)));
+                  } ]).optionalValue) def.value) defs)));
           emptyValue = { value = [ ]; };
           getSubOptions = prefix: elemType.getSubOptions (prefix ++ [ "*" ]);
           getSubModules = elemType.getSubModules;
@@ -741,7 +741,7 @@ let
 
           base = evalModules {
             inherit specialArgs;
-            modules = [{
+            modules = [ {
               # This is a work-around for the fact that some sub-modules,
               # such as the one included in an attribute set, expects an "args"
               # attribute to be given to the sub-module. As the option
@@ -758,7 +758,7 @@ let
               # would be used, and use of `<` and `>` would break the XML document.
               # It shouldn't cause an issue since this is cosmetic for the manual.
               _module.args.name = lib.mkOptionDefault "‹name›";
-            }] ++ modules;
+            } ] ++ modules;
           };
 
           freeformType = base._module.freeformType;
@@ -774,7 +774,8 @@ let
           check = x: isAttrs x || isFunction x || path.check x;
           merge = loc: defs:
             (base.extendModules {
-              modules = [{ _module.args.name = last loc; }] ++ allModules defs;
+              modules = [ { _module.args.name = last loc; } ]
+                ++ allModules defs;
               prefix = loc;
             }).config;
           emptyValue = { value = { }; };
@@ -899,7 +900,12 @@ let
               functor.type mt1 mt2
             else
               null;
-          functor = (defaultFunctor name) // { wrapped = [ t1 t2 ]; };
+          functor = (defaultFunctor name) // {
+            wrapped = [
+              t1
+              t2
+            ];
+          };
           nestedTypes.left = t1;
           nestedTypes.right = t2;
         };

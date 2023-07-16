@@ -21,7 +21,10 @@ buildDunePackage rec {
     sha256 = "02pzi3lb57ysrdsba743s3vmnapjbxgq8ynlzpxbbs6cn1jj6ch9";
   };
 
-  propagatedBuildInputs = [ gnuplot iso8601 ];
+  propagatedBuildInputs = [
+    gnuplot
+    iso8601
+  ];
 
   meta = with lib; {
     inherit (src.meta) homepage;

@@ -68,7 +68,11 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     bzip2
@@ -160,7 +164,13 @@ stdenv.mkDerivation rec {
 
     updateScript = writeShellScript "dolphin-update-script" ''
       set -eou pipefail
-      export PATH=${lib.makeBinPath [ curl jq common-updater-scripts ]}
+      export PATH=${
+        lib.makeBinPath [
+          curl
+          jq
+          common-updater-scripts
+        ]
+      }
 
       json="$(curl -s https://dolphin-emu.org/update/latest/beta)"
       version="$(jq -r '.shortrev' <<< "$json")"
@@ -177,7 +187,12 @@ stdenv.mkDerivation rec {
     branch = "master";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ MP2E ashkitten xfix ivar ];
+    maintainers = with maintainers; [
+      MP2E
+      ashkitten
+      xfix
+      ivar
+    ];
     # Requires both LLVM and SDK bump
     broken = stdenv.isDarwin && stdenv.isx86_64;
   };

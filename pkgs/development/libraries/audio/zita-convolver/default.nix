@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
     sed -e "s@ldconfig@@" -i Makefile
   '';
 
-  makeFlags = [ "PREFIX=$(out)" "SUFFIX=" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "SUFFIX="
+  ];
 
   postInstall = ''
     # create lib link for building apps

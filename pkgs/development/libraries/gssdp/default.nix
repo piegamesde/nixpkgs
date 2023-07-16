@@ -19,8 +19,10 @@ stdenv.mkDerivation rec {
   pname = "gssdp";
   version = "1.4.1";
 
-  outputs = [ "out" "dev" ]
-    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/gssdp/${
@@ -29,8 +31,15 @@ stdenv.mkDerivation rec {
     sha256 = "VySWVDV9PVGxQDFRaaJMBnHeeqUsb3XIxcmr1Ao1JSk=";
   };
 
-  nativeBuildInputs =
-    [ meson ninja pkg-config gobject-introspection vala gi-docgen python3 ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gobject-introspection
+    vala
+    gi-docgen
+    python3
+  ];
 
   buildInputs = [ libsoup ];
 

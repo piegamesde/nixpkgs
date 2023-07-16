@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DHMAT_GIT_VERSION=OFF" ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ blas lapack ];
+  buildInputs = [
+    blas
+    lapack
+  ];
 
   enableParallelBuilding = true;
 

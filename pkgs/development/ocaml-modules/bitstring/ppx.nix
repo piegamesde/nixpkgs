@@ -17,7 +17,10 @@ else
 
     duneVersion = "3";
 
-    buildInputs = [ bitstring ppxlib ];
+    buildInputs = [
+      bitstring
+      ppxlib
+    ];
 
     doCheck = lib.versionAtLeast ocaml.version "4.08";
     checkInputs = [ ounit ];

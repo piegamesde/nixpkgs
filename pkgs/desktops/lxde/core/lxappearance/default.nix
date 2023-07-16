@@ -21,9 +21,16 @@ stdenv.mkDerivation rec {
     sha256 = "0f4bjaamfxxdr9civvy55pa6vv9dx1hjs522gjbbgx7yp1cdh8kj";
   };
 
-  nativeBuildInputs = [ pkg-config intltool wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ libX11 (if withGtk3 then gtk3 else gtk2) ];
+  buildInputs = [
+    libX11
+    (if withGtk3 then gtk3 else gtk2)
+  ];
 
   patches = [ ./lxappearance-0.6.3-xdg.system.data.dirs.patch ];
 

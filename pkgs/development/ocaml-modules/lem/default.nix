@@ -25,8 +25,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-ZQgcuIVRkJS0KtpzjbO4OPHGg6B0TadWA6XpRir30y8=";
   };
 
-  nativeBuildInputs = [ makeWrapper ocamlbuild findlib ocaml ];
-  propagatedBuildInputs = [ zarith num ];
+  nativeBuildInputs = [
+    makeWrapper
+    ocamlbuild
+    findlib
+    ocaml
+  ];
+  propagatedBuildInputs = [
+    zarith
+    num
+  ];
 
   installFlags = [ "INSTALL_DIR=$(out)" ];
 
@@ -40,7 +48,10 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/rems-project/lem";
     description = "A tool for lightweight executable mathematics";
     maintainers = with maintainers; [ genericnerdyusername ];
-    license = with licenses; [ bsd3 gpl2 ];
+    license = with licenses; [
+      bsd3
+      gpl2
+    ];
     platforms = ocaml.meta.platforms;
   };
 }

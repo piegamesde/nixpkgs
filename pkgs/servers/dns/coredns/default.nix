@@ -21,7 +21,10 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   postPatch = ''
     substituteInPlace test/file_cname_proxy_test.go \
@@ -43,6 +46,10 @@ buildGoModule rec {
     homepage = "https://coredns.io";
     description = "A DNS server that runs middleware";
     license = licenses.asl20;
-    maintainers = with maintainers; [ rushmorem rtreffer deltaevo ];
+    maintainers = with maintainers; [
+      rushmorem
+      rtreffer
+      deltaevo
+    ];
   };
 }

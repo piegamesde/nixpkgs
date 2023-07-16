@@ -57,7 +57,10 @@ buildPythonPackage rec {
     yamlordereddictloader
   ];
 
-  nativeCheckInputs = [ mock nose ];
+  nativeCheckInputs = [
+    mock
+    nose
+  ];
 
   checkPhase = ''
     nosetests -v -a unit --exclude=test_sw_put_ftp

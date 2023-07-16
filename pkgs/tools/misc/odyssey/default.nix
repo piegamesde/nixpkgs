@@ -30,9 +30,15 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ openssl postgresql zstd ];
-  cmakeFlags =
-    [ "-DPQ_LIBRARY=${postgresql.lib}/lib" "-DBUILD_COMPRESSION=ON" ];
+  buildInputs = [
+    openssl
+    postgresql
+    zstd
+  ];
+  cmakeFlags = [
+    "-DPQ_LIBRARY=${postgresql.lib}/lib"
+    "-DBUILD_COMPRESSION=ON"
+  ];
 
   installPhase = ''
     install -Dm755 -t $out/bin sources/odyssey

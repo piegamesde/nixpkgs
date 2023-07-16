@@ -25,9 +25,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ click jinja2 terminaltables ];
+  propagatedBuildInputs = [
+    click
+    jinja2
+    terminaltables
+  ];
 
-  nativeCheckInputs = [ mock nose ];
+  nativeCheckInputs = [
+    mock
+    nose
+  ];
 
   checkPhase = ''
     runHook preCheck

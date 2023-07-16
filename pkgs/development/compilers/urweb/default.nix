@@ -22,7 +22,14 @@ stdenv.mkDerivation rec {
     sha256 = "0qh6wcxfk5kf735i5gqwnkdirnnmqhnnpkfz96gz144dgz2i0c5c";
   };
 
-  buildInputs = [ openssl mlton libmysqlclient postgresql sqlite icu ];
+  buildInputs = [
+    openssl
+    mlton
+    libmysqlclient
+    postgresql
+    sqlite
+    icu
+  ];
 
   prePatch = ''
     sed -e 's@/usr/bin/file@${file}/bin/file@g' -i configure
@@ -57,6 +64,9 @@ stdenv.mkDerivation rec {
     homepage = "http://www.impredicative.com/ur/";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    maintainers = [ lib.maintainers.thoughtpolice lib.maintainers.sheganinans ];
+    maintainers = [
+      lib.maintainers.thoughtpolice
+      lib.maintainers.sheganinans
+    ];
   };
 }

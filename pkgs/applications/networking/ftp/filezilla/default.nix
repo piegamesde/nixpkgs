@@ -29,10 +29,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-TgtcD3n0+LykuiHnE7qXuG1bRcRyPeZ7nBDSO/QXo38=";
   };
 
-  configureFlags =
-    [ "--disable-manualupdatecheck" "--disable-autoupdatecheck" ];
+  configureFlags = [
+    "--disable-manualupdatecheck"
+    "--disable-autoupdatecheck"
+  ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     dbus

@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-O+I7BNQ5moV/ZcbbuP/IFoi0LO0WsGHBbSfgPmFu1Ec=";
   };
 
-  propagatedBuildInputs = [ torch torchvision ];
+  propagatedBuildInputs = [
+    torch
+    torchvision
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

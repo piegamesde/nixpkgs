@@ -25,7 +25,10 @@ stdenv.mkDerivation rec {
     sha256 = "14460zhacxhswnzb36qfpd1f2wbk10qvksvm6wyq5hpvdgnw7ymv";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   patches = [
     (fetchpatch {
@@ -59,13 +62,11 @@ stdenv.mkDerivation rec {
   # optimize.diff is taken from https://projects.archlinux.org/svntogit/packages.git/tree/trunk/optimize.diff?h=packages/libmad
   # It is included here in order to fix a build failure in Clang
   # But it may be useful to fix other, currently unknown problems as well
-    ++ lib.optionals stdenv.cc.isClang [
-      (fetchpatch {
-        url =
-          "https://github.com/KaOSx/main/raw/1270b8080f37fb6cca562829a521991800b0a497/libmad/optimize.diff";
-        sha256 = "0hcxzz9ql1fizyqbsgdchdwi7bvchfr72172j43hpyj53p0yabc6";
-      })
-    ];
+    ++ lib.optionals stdenv.cc.isClang [ (fetchpatch {
+      url =
+        "https://github.com/KaOSx/main/raw/1270b8080f37fb6cca562829a521991800b0a497/libmad/optimize.diff";
+      sha256 = "0hcxzz9ql1fizyqbsgdchdwi7bvchfr72172j43hpyj53p0yabc6";
+    }) ];
 
   # The -fforce-mem flag has been removed in GCC 4.3.
   postPatch = ''

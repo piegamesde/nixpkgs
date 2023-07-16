@@ -17,13 +17,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-HwWlMRhpB/sa/JRyAZF7LZzkXCCyuxB+gtDAfHt7e6k=";
   };
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://github.com/trailofbits/pe-parse/commit/eecdb3d36eb44e306398a2e66e85490f9bdcc74c.patch";
-      hash = "sha256-pd6D/JMctiQqJxnJU9Nm/GDVf4/CaIGeXx1UfdcCupo=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://github.com/trailofbits/pe-parse/commit/eecdb3d36eb44e306398a2e66e85490f9bdcc74c.patch";
+    hash = "sha256-pd6D/JMctiQqJxnJU9Nm/GDVf4/CaIGeXx1UfdcCupo=";
+  }) ];
 
   nativeBuildInputs = [ cmake ];
 

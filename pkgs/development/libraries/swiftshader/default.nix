@@ -20,8 +20,16 @@ stdenv.mkDerivation rec {
     sha256 = "1gz2zflfacxf34s78djddf93brn9kyxj4byc4p2ip1pin43lh2lg";
   };
 
-  nativeBuildInputs = [ cmake python3 jq ];
-  buildInputs = [ libX11 libXext zlib ];
+  nativeBuildInputs = [
+    cmake
+    python3
+    jq
+  ];
+  buildInputs = [
+    libX11
+    libXext
+    zlib
+  ];
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Needed with GCC 12
@@ -73,7 +81,12 @@ stdenv.mkDerivation rec {
     license = licenses.asl20;
     # Should be possible to support Darwin by changing the install phase with
     # 's/Linux/Darwin/' and 's/so/dylib/' or something similar.
-    platforms = [ "i686-linux" "x86_64-linux" "armv7l-linux" "mipsel-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+      "armv7l-linux"
+      "mipsel-linux"
+    ];
     maintainers = with maintainers; [ expipiplus1 ];
   };
 }

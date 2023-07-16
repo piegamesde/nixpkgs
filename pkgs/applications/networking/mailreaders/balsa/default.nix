@@ -32,8 +32,12 @@ stdenv.mkDerivation rec {
     sha256 = "1hcgmjka2x2igdrmvzlfs12mv892kv4vzv5iy90kvcqxa625kymy";
   };
 
-  nativeBuildInputs =
-    [ pkg-config intltool gobject-introspection wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+    gobject-introspection
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     glib

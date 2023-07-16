@@ -29,7 +29,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-Tq1sOXDD9X+h6J/i18xIO6b+K9GwhwFSHgs6/WZ98pE=";
   };
 
-  outputs = [ "out" "doc" "man" ];
+  outputs = [
+    "out"
+    "doc"
+    "man"
+  ];
 
   postPatch = ''
     substituteInPlace ulogd.8 --replace "/usr/share/doc" "$doc/share/doc"

@@ -66,15 +66,28 @@ in mkDerivation {
     })
   ];
 
-  buildInputs = [ boost logLib doxygen mpir gmp libpcap icu ]
-    ++ (if lib.versionAtLeast gnuradio.versionAttr.major "3.9" then
-      with python.pkgs; [ pybind11 numpy ]
-    else [
-      swig
-      thrift
-      python.pkgs.thrift
-    ]);
-  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [
+    boost
+    logLib
+    doxygen
+    mpir
+    gmp
+    libpcap
+    icu
+  ] ++ (if lib.versionAtLeast gnuradio.versionAttr.major "3.9" then
+    with python.pkgs; [
+      pybind11
+      numpy
+    ]
+  else [
+    swig
+    thrift
+    python.pkgs.thrift
+  ]);
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   meta = with lib; {
     description =

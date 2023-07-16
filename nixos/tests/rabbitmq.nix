@@ -11,7 +11,12 @@ import ./make-test-python.nix ({
       "hOjWzSEn2Z7cHzKOcf6i183O2NdjurSuoMDIIv01";
   in {
     name = "rabbitmq";
-    meta = with pkgs.lib.maintainers; { maintainers = [ eelco offline ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        eelco
+        offline
+      ];
+    };
 
     nodes.machine = {
       services.rabbitmq = {

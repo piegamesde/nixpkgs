@@ -18,7 +18,10 @@ stdenv.mkDerivation (rec {
 
   buildInputs = [ ponyc ];
 
-  installFlags = [ "prefix=${placeholder "out"}" "install" ];
+  installFlags = [
+    "prefix=${placeholder "out"}"
+    "install"
+  ];
 
   meta = with lib; {
     description = "Corral is a dependency management tool for ponylang (ponyc)";
@@ -27,6 +30,9 @@ stdenv.mkDerivation (rec {
       "https://github.com/ponylang/corral/blob/${version}/CHANGELOG.md";
     license = licenses.bsd2;
     maintainers = with maintainers; [ redvers ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
   };
 })

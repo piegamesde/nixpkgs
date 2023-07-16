@@ -17,7 +17,10 @@ in {
     enable = mkEnableOption (lib.mdDoc "support for Intel IPU6/MIPI cameras");
 
     platform = mkOption {
-      type = types.enum [ "ipu6" "ipu6ep" ];
+      type = types.enum [
+        "ipu6"
+        "ipu6ep"
+      ];
       description = lib.mdDoc ''
         Choose the version for your hardware platform.
 
@@ -29,8 +32,8 @@ in {
 
   config = mkIf cfg.enable {
 
-    boot.extraModulePackages = with config.boot.kernelPackages;
-      [ ipu6-drivers ];
+    boot.extraModulePackages =
+      with config.boot.kernelPackages; [ ipu6-drivers ];
 
     hardware.firmware = with pkgs;
       [ ] ++ optional (cfg.platform == "ipu6") ipu6-camera-bin

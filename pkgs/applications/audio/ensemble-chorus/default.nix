@@ -26,10 +26,21 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs =
-    [ fltk alsa-lib freetype libXrandr libXinerama libXcursor lv2 libjack2 ];
+  buildInputs = [
+    fltk
+    alsa-lib
+    freetype
+    libXrandr
+    libXinerama
+    libXcursor
+    lv2
+    libjack2
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/jpcima/ensemble-chorus";

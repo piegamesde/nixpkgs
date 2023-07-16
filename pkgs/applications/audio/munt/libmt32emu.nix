@@ -16,14 +16,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XGds9lDfSiY0D8RhYG4TGyjYEVvVYuAfNSv9+VxiJEs=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [ cmake ];
 
   dontFixCmake = true;
 
-  cmakeFlags =
-    [ "-Dmunt_WITH_MT32EMU_SMF2WAV=OFF" "-Dmunt_WITH_MT32EMU_QT=OFF" ];
+  cmakeFlags = [
+    "-Dmunt_WITH_MT32EMU_SMF2WAV=OFF"
+    "-Dmunt_WITH_MT32EMU_QT=OFF"
+  ];
 
   postFixup = ''
     substituteInPlace "$dev"/lib/pkgconfig/mt32emu.pc \

@@ -15,7 +15,11 @@ buildGoModule rec {
     hash = "sha256-Qo0Bct2Eys6RHv17j1owUDVPoL+OcMJRpO8LP8P/cPw=";
   };
 
-  ldflags = [ "-w" "-s" "-X main.Version=${version}" ];
+  ldflags = [
+    "-w"
+    "-s"
+    "-X main.Version=${version}"
+  ];
 
   preCheck = ''
     # Tries to connect to smallstep.com

@@ -21,7 +21,10 @@ stdenv.mkDerivation {
   src =
     fetch "libcxxabi" "1l4idd8npbkm168d26kqn529yv3npsd8f2dm8a7iwyknj7iyivw8";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   postUnpack = ''
     unpackFile ${libcxx.src}
@@ -38,7 +41,10 @@ stdenv.mkDerivation {
 
   patches = [ ./gnu-install-dirs.patch ];
 
-  nativeBuildInputs = [ cmake python3 ];
+  nativeBuildInputs = [
+    cmake
+    python3
+  ];
   buildInputs = lib.optional withLibunwind libunwind;
 
   cmakeFlags = lib.optionals standalone [
@@ -88,7 +94,10 @@ stdenv.mkDerivation {
     '';
     # "All of the code in libc++abi is dual licensed under the MIT license and
     # the UIUC License (a BSD-like license)":
-    license = with lib.licenses; [ mit ncsa ];
+    license = with lib.licenses; [
+      mit
+      ncsa
+    ];
     maintainers = llvm_meta.maintainers ++ [ lib.maintainers.vlstill ];
   };
 }

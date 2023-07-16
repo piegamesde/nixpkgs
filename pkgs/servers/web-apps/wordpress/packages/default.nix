@@ -31,7 +31,11 @@ let
           version,
           ...
         }@args:
-        assert lib.any (x: x == type) [ "plugin" "theme" "language" ];
+        assert lib.any (x: x == type) [
+          "plugin"
+          "theme"
+          "language"
+        ];
         stdenvNoCC.mkDerivation ({
           pname = "wordpress-${type}-${pname}";
           version = filterWPString version;
@@ -47,7 +51,10 @@ let
 
           passthru = { wpName = pname; } // (args.passthru or { });
         } // lib.optionalAttrs (type == "language") {
-          nativeBuildInputs = [ gettext wp-cli ];
+          nativeBuildInputs = [
+            gettext
+            wp-cli
+          ];
           dontBuild = false;
           buildPhase = ''
             runHook preBuild
@@ -60,7 +67,12 @@ let
 
             runHook postBuild
           '';
-        } // removeAttrs args [ "type" "pname" "version" "passthru" ])) { };
+        } // removeAttrs args [
+          "type"
+          "pname"
+          "version"
+          "passthru"
+        ])) { };
 
       # Create a derivation from the official wordpress.org packages.
       # This takes the type, the pname and the data generated from the go tool.
@@ -101,7 +113,26 @@ let
         "|"
         "*"
         "	"
-      ] [ "_" "." "." "" "" "" "" "" "" "" "" "" "" "" "" "-" "" "" ];
+      ] [
+        "_"
+        "."
+        "."
+        ""
+        ""
+        ""
+        ""
+        ""
+        ""
+        ""
+        ""
+        ""
+        ""
+        ""
+        ""
+        "-"
+        ""
+        ""
+      ];
 
       # Fetch a package from the official wordpress.org SVN.
       # The data supplied is the data straight from the go tool.

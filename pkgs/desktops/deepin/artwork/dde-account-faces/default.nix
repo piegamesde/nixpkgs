@@ -20,7 +20,10 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "Account faces of deepin desktop environment";
     homepage = "https://github.com/linuxdeepin/dde-account-faces";
-    license = with licenses; [ gpl3Plus cc0 ];
+    license = with licenses; [
+      gpl3Plus
+      cc0
+    ];
     platforms = platforms.linux;
     maintainers = teams.deepin.members;
   };

@@ -54,19 +54,27 @@ buildPythonPackage rec {
     hash = "sha256-ZjzrxFCdfl0RNRiGX+J093+VQ0xdV7w4btWNZc7thsc=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./4.2-ctypes.patch;
-      libgdk = "${gtk3.out}/lib/libgdk-3.so";
-      libpangocairo = "${pango}/lib/libpangocairo-1.0.so";
-      libcairo = "${cairo}/lib/libcairo.so";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./4.2-ctypes.patch;
+    libgdk = "${gtk3.out}/lib/libgdk-3.so";
+    libpangocairo = "${pango}/lib/libpangocairo-1.0.so";
+    libcairo = "${cairo}/lib/libcairo.so";
+  }) ];
 
-  nativeBuildInputs = [ attrdict pkg-config setuptools SDL sip which wxGTK ]
-    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = [
+    attrdict
+    pkg-config
+    setuptools
+    SDL
+    sip
+    which
+    wxGTK
+  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
-  buildInputs = [ wxGTK SDL ] ++ lib.optionals stdenv.isLinux [
+  buildInputs = [
+    wxGTK
+    SDL
+  ] ++ lib.optionals stdenv.isLinux [
     gst_all_1.gst-plugins-base
     gst_all_1.gstreamer
     libGL
@@ -81,7 +89,11 @@ buildPythonPackage rec {
     xorgproto
   ];
 
-  propagatedBuildInputs = [ numpy pillow six ];
+  propagatedBuildInputs = [
+    numpy
+    pillow
+    six
+  ];
 
   buildPhase = ''
     runHook preBuild

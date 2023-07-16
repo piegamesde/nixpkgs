@@ -18,7 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-pU/B4xcUQrPI9cCApeId+Ae8T6rXeQzGK33bBZ6wqUs=";
   };
 
-  propagatedBuildInputs = [ requests lxml pandas ];
+  propagatedBuildInputs = [
+    requests
+    lxml
+    pandas
+  ];
 
   doCheck = false;
   pythonImportsCheck = [ "pytrends" ];

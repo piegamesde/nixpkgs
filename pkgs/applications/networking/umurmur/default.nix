@@ -20,14 +20,21 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ openssl protobufc libconfig ];
+  buildInputs = [
+    openssl
+    protobufc
+    libconfig
+  ];
 
   # https://github.com/umurmur/umurmur/issues/176
   postPatch = ''
     sed -i '/CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON);/d' src/ssli_openssl.c
   '';
 
-  configureFlags = [ "--with-ssl=openssl" "--enable-shmapi" ];
+  configureFlags = [
+    "--with-ssl=openssl"
+    "--enable-shmapi"
+  ];
 
   meta = with lib; {
     description = "Minimalistic Murmur (Mumble server)";

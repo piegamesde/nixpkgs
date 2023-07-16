@@ -18,7 +18,12 @@ buildPythonPackage rec {
     sha256 = "b6438f2195ecb9f6e8279b58971e02bc51814599b5d5383366eef91d867422ee";
   };
 
-  propagatedBuildInputs = [ lxml networkx python-dateutil rdflib ];
+  propagatedBuildInputs = [
+    lxml
+    networkx
+    python-dateutil
+    rdflib
+  ];
 
   nativeCheckInputs = [ pydot ];
 

@@ -21,9 +21,13 @@ let
   enableIwd = cfg.wifi.backend == "iwd";
 in {
 
-  imports = [
-    (mkRenamedOptionModule [ "networking" "connman" ] [ "services" "connman" ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "networking"
+    "connman"
+  ] [
+    "services"
+    "connman"
+  ]) ];
 
   ###### interface
 
@@ -57,7 +61,13 @@ in {
 
       networkInterfaceBlacklist = mkOption {
         type = with types; listOf str;
-        default = [ "vmnet" "vboxnet" "virbr" "ifb" "ve" ];
+        default = [
+          "vmnet"
+          "vboxnet"
+          "virbr"
+          "ifb"
+          "ve"
+        ];
         description = lib.mdDoc ''
           Default blacklisted interfaces, this includes NixOS containers interfaces (ve).
         '';
@@ -65,7 +75,10 @@ in {
 
       wifi = {
         backend = mkOption {
-          type = types.enum [ "wpa_supplicant" "iwd" ];
+          type = types.enum [
+            "wpa_supplicant"
+            "iwd"
+          ];
           default = "wpa_supplicant";
           description = lib.mdDoc ''
             Specify the Wi-Fi backend used.

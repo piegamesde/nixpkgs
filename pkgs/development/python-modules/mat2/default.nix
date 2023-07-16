@@ -51,12 +51,10 @@ buildPythonPackage rec {
     ./executable-name.patch
     # hardcode path to mat2 executable
     ./tests.patch
-  ] ++ lib.optionals (stdenv.hostPlatform.isLinux) [
-    (substituteAll {
-      src = ./bubblewrap-path.patch;
-      bwrap = "${bubblewrap}/bin/bwrap";
-    })
-  ];
+  ] ++ lib.optionals (stdenv.hostPlatform.isLinux) [ (substituteAll {
+    src = ./bubblewrap-path.patch;
+    bwrap = "${bubblewrap}/bin/bwrap";
+  }) ];
 
   postPatch = ''
     rm pyproject.toml
@@ -65,11 +63,22 @@ buildPythonPackage rec {
       --replace "@mat2svg@" "$out/share/icons/hicolor/scalable/apps/mat2.svg"
   '';
 
-  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
+  nativeBuildInputs = [
+    gobject-introspection
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ gdk-pixbuf librsvg poppler_gi ];
+  buildInputs = [
+    gdk-pixbuf
+    librsvg
+    poppler_gi
+  ];
 
-  propagatedBuildInputs = [ mutagen pygobject3 pycairo ];
+  propagatedBuildInputs = [
+    mutagen
+    pygobject3
+    pycairo
+  ];
 
   postInstall = ''
     install -Dm 444 data/mat2.svg -t "$out/share/icons/hicolor/scalable/apps"

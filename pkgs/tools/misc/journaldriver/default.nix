@@ -21,7 +21,10 @@ rustPlatform.buildRustPackage rec {
     rev = "4e191353228197ce548d63cb9955e53661244f9c";
   };
 
-  buildInputs = [ openssl systemd ];
+  buildInputs = [
+    openssl
+    systemd
+  ];
   nativeBuildInputs = [ pkg-config ];
 
   meta = with lib; {

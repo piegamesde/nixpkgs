@@ -18,7 +18,11 @@ buildPythonPackage rec {
     sha256 = "J/ymUCFhl7EviHMEYSUCTky0ULRT8aL4gNCGxrbqJi0=";
   };
 
-  propagatedBuildInputs = [ setuptools pip wheel ];
+  propagatedBuildInputs = [
+    setuptools
+    pip
+    wheel
+  ];
 
   doCheck = false; # Missing package & BLOCKED on "zc.recipe.egg"
 

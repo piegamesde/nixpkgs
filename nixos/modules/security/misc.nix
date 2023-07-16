@@ -9,13 +9,15 @@ with lib;
 {
   meta = { maintainers = [ maintainers.joachifm ]; };
 
-  imports = [
-    (lib.mkRenamedOptionModule [
-      "security"
-      "virtualization"
-      "flushL1DataCache"
-    ] [ "security" "virtualisation" "flushL1DataCache" ])
-  ];
+  imports = [ (lib.mkRenamedOptionModule [
+    "security"
+    "virtualization"
+    "flushL1DataCache"
+  ] [
+    "security"
+    "virtualisation"
+    "flushL1DataCache"
+  ]) ];
 
   options = {
     security.allowUserNamespaces = mkOption {
@@ -87,7 +89,11 @@ with lib;
     };
 
     security.virtualisation.flushL1DataCache = mkOption {
-      type = types.nullOr (types.enum [ "never" "cond" "always" ]);
+      type = types.nullOr (types.enum [
+        "never"
+        "cond"
+        "always"
+      ]);
       default = null;
       description = lib.mdDoc ''
         Whether the hypervisor should flush the L1 data cache before
@@ -113,12 +119,12 @@ with lib;
       # at any time.
       boot.kernel.sysctl."user.max_user_namespaces" = 0;
 
-      assertions = [{
+      assertions = [ {
         assertion = config.nix.settings.sandbox
           -> config.security.allowUserNamespaces;
         message =
           "`nix.settings.sandbox = true` conflicts with `!security.allowUserNamespaces`.";
-      }];
+      } ];
     })
 
     (mkIf config.security.unprivilegedUsernsClone {
@@ -141,9 +147,8 @@ with lib;
     })
 
     (mkIf (config.security.virtualisation.flushL1DataCache != null) {
-      boot.kernelParams = [
-        "kvm-intel.vmentry_l1d_flush=${config.security.virtualisation.flushL1DataCache}"
-      ];
+      boot.kernelParams =
+        [ "kvm-intel.vmentry_l1d_flush=${config.security.virtualisation.flushL1DataCache}" ];
     })
   ];
 }

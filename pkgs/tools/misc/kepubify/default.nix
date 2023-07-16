@@ -17,7 +17,11 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-QOMLwDDvrDQAaK4M4QhBFTGD1CzblkDoA3ZqtCoRHtQ=";
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   excludedPackages = [ "kobotest" ];
 

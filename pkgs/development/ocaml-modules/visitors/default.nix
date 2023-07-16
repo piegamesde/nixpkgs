@@ -23,7 +23,11 @@ buildDunePackage rec {
     sha256 = "1p75x5yqwbwv8yb2gz15rfl3znipy59r45d1f4vcjdghhjws6q2a";
   };
 
-  propagatedBuildInputs = [ ppxlib ppx_deriving result ];
+  propagatedBuildInputs = [
+    ppxlib
+    ppx_deriving
+    result
+  ];
 
   meta = with lib; {
     homepage = "https://gitlab.inria.fr/fpottier/visitors";

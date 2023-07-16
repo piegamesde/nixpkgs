@@ -21,7 +21,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ apfel applgrid lhapdf root5 ];
+  buildInputs = [
+    apfel
+    applgrid
+    lhapdf
+    root5
+  ];
 
   enableParallelBuilding = true;
 

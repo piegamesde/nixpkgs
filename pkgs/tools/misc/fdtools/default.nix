@@ -22,7 +22,13 @@ in stdenv.mkDerivation {
   };
 
   patches = [ ./new-skalibs.patch ];
-  outputs = [ "bin" "lib" "dev" "doc" "out" ];
+  outputs = [
+    "bin"
+    "lib"
+    "dev"
+    "doc"
+    "out"
+  ];
 
   buildInputs = [
     # temporary, until fdtools catches up to skalibs
@@ -71,7 +77,11 @@ in stdenv.mkDerivation {
           "compile/**/*"
           "package/{build,check,compile,elsewhere,install,install_commands,own,run,sharing,upgrade,upgrade_version,url_src,url_src_latest,versions}"
         ];
-        docFiles = [ "package/INSTALL" "package/LICENSE" "package/README" ];
+        docFiles = [
+          "package/INSTALL"
+          "package/LICENSE"
+          "package/README"
+        ];
       }
     } $docdir
 

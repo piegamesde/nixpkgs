@@ -86,7 +86,12 @@ in stdenv.mkDerivation rec {
 
     cp -r . "$sharedir"
   '';
-  buildInputs = [ clang mono which xdg-user-dirs ];
+  buildInputs = [
+    clang
+    mono
+    which
+    xdg-user-dirs
+  ];
 
   meta = {
     description =

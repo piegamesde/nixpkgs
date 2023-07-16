@@ -30,7 +30,11 @@ buildOctavePackage rec {
     sed -i -E 's#[^[:graph:]]error \(# error \(\"%s\", #g' src/*.cpp
   '';
 
-  nativeBuildInputs = [ automake autoconf autoconf-archive ];
+  nativeBuildInputs = [
+    automake
+    autoconf
+    autoconf-archive
+  ];
 
   requiredOctavePackages = [ parallel ];
 

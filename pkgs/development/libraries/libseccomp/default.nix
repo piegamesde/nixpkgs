@@ -19,7 +19,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2CkCQAQFzwBoV07z3B/l9ZJiB1Q7oa5vjnoVdjUdy9s=";
   };
 
-  outputs = [ "out" "lib" "dev" "man" "pythonsrc" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "man"
+    "pythonsrc"
+  ];
 
   nativeBuildInputs = [ gperf ];
   buildInputs = [ getopt ];
@@ -28,7 +34,10 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  nativeCheckInputs = [ util-linuxMinimal which ];
+  nativeCheckInputs = [
+    util-linuxMinimal
+    which
+  ];
   doCheck = true;
 
   # Hack to ensure that patchelf --shrink-rpath get rids of a $TMPDIR reference.

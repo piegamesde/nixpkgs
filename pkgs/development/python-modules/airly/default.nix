@@ -21,14 +21,20 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [ aioresponses aiounittest pytestCheckHook ];
+  nativeCheckInputs = [
+    aioresponses
+    aiounittest
+    pytestCheckHook
+  ];
 
   preCheck = ''
     cd tests
   '';
 
-  disabledTests =
-    [ "InstallationsLoaderTestCase" "MeasurementsSessionTestCase" ];
+  disabledTests = [
+    "InstallationsLoaderTestCase"
+    "MeasurementsSessionTestCase"
+  ];
 
   pythonImportsCheck = [ "airly" ];
 

@@ -23,9 +23,17 @@ stdenv.mkDerivation rec {
     sha256 = "0ima0aa5j296xn4y0d1zj6vcdrdpnihqdidj7bncxzgbnli1vazs";
   };
 
-  nativeBuildInputs = [ meson ninja sassc gtk3 ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    sassc
+    gtk3
+  ];
 
-  buildInputs = [ gdk-pixbuf librsvg ];
+  buildInputs = [
+    gdk-pixbuf
+    librsvg
+  ];
 
   propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 

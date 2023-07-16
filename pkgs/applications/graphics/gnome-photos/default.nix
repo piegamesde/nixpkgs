@@ -38,7 +38,10 @@ stdenv.mkDerivation rec {
   pname = "gnome-photos";
   version = "44.0";
 
-  outputs = [ "out" "installedTests" ];
+  outputs = [
+    "out"
+    "installedTests"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -59,7 +62,12 @@ stdenv.mkDerivation rec {
     meson
     ninja
     pkg-config
-    (python3.withPackages (pkgs: with pkgs; [ dogtail pygobject3 pyatspi ]))
+    (python3.withPackages (pkgs:
+      with pkgs; [
+        dogtail
+        pygobject3
+        pyatspi
+      ]))
     wrapGAppsHook
   ];
 

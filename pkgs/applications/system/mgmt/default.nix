@@ -34,12 +34,25 @@ buildGoModule rec {
     make lang funcgen
   '';
 
-  buildInputs = [ augeas libvirt libxml2 ];
+  buildInputs = [
+    augeas
+    libvirt
+    libxml2
+  ];
 
-  nativeBuildInputs = [ gotools nex pkg-config ragel ];
+  nativeBuildInputs = [
+    gotools
+    nex
+    pkg-config
+    ragel
+  ];
 
-  ldflags =
-    [ "-s" "-w" "-X main.program=${pname}" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.program=${pname}"
+    "-X main.version=${version}"
+  ];
 
   subPackages = [ "." ];
 

@@ -31,8 +31,18 @@ let
     '';
 in {
   imports = [
-    (mkRenamedOptionModule [ "services" "codimd" ] [ "services" "hedgedoc" ])
-    (mkRenamedOptionModule [ "services" "hedgedoc" "configuration" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "codimd"
+    ] [
+      "services"
+      "hedgedoc"
+    ])
+    (mkRenamedOptionModule [
+      "services"
+      "hedgedoc"
+      "configuration"
+    ] [
       "services"
       "hedgedoc"
       "settings"
@@ -103,7 +113,10 @@ in {
         allowOrigin = mkOption {
           type = types.listOf types.str;
           default = [ ];
-          example = [ "localhost" "hedgedoc.org" ];
+          example = [
+            "localhost"
+            "hedgedoc.org"
+          ];
           description = lib.mdDoc ''
             List of domains to whitelist.
           '';
@@ -218,8 +231,13 @@ in {
           '';
         };
         defaultPermission = mkOption {
-          type =
-            types.enum [ "freely" "editable" "limited" "locked" "private" ];
+          type = types.enum [
+            "freely"
+            "editable"
+            "limited"
+            "locked"
+            "private"
+          ];
           default = "editable";
           description = lib.mdDoc ''
             Default permissions for notes.
@@ -441,7 +459,12 @@ in {
           '';
         };
         imageUploadType = mkOption {
-          type = types.enum [ "imgur" "s3" "minio" "filesystem" ];
+          type = types.enum [
+            "imgur"
+            "s3"
+            "minio"
+            "filesystem"
+          ];
           default = "filesystem";
           description = lib.mdDoc ''
             Specify where to upload images.
@@ -739,7 +762,10 @@ in {
                 '';
               };
               scope = mkOption {
-                type = types.enum [ "api" "read_user" ];
+                type = types.enum [
+                  "api"
+                  "read_user"
+                ];
                 default = "api";
                 description = lib.mdDoc ''
                   GitLab API requested scope.
@@ -873,7 +899,10 @@ in {
               searchAttributes = mkOption {
                 type = types.nullOr (types.listOf types.str);
                 default = null;
-                example = [ "displayName" "mail" ];
+                example = [
+                  "displayName"
+                  "mail"
+                ];
                 description = lib.mdDoc ''
                   LDAP attributes to search with.
                 '';
@@ -950,7 +979,10 @@ in {
               externalGroups = mkOption {
                 type = types.listOf types.str;
                 default = [ ];
-                example = [ "Temporary-staff" "External-users" ];
+                example = [
+                  "Temporary-staff"
+                  "External-users"
+                ];
                 description = lib.mdDoc ''
                   Excluded group names.
                 '';
@@ -1057,11 +1089,11 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = cfg.settings.db == { }
         -> (cfg.settings.dbURL != "" && cfg.settings.dbURL != null);
       message = "Database configuration for HedgeDoc missing.";
-    }];
+    } ];
     users.groups.${name} = { };
     users.users.${name} = {
       description = "HedgeDoc service user";
@@ -1084,7 +1116,10 @@ in {
       '';
       serviceConfig = {
         WorkingDirectory = cfg.workDir;
-        StateDirectory = [ cfg.workDir cfg.settings.uploadsPath ];
+        StateDirectory = [
+          cfg.workDir
+          cfg.settings.uploadsPath
+        ];
         ExecStart = "${cfg.package}/bin/hedgedoc";
         EnvironmentFile =
           mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];

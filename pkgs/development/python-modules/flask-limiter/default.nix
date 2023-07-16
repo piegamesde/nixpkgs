@@ -42,10 +42,23 @@ buildPythonPackage rec {
     sed -i "/import flask_restful/d" tests/test_views.py
   '';
 
-  propagatedBuildInputs = [ flask limits ordered-set rich typing-extensions ];
+  propagatedBuildInputs = [
+    flask
+    limits
+    ordered-set
+    rich
+    typing-extensions
+  ];
 
-  nativeCheckInputs =
-    [ asgiref pytest-mock pytestCheckHook hiro redis pymemcache pymongo ];
+  nativeCheckInputs = [
+    asgiref
+    pytest-mock
+    pytestCheckHook
+    hiro
+    redis
+    pymemcache
+    pymongo
+  ];
 
   disabledTests = [
     # flask-restful is unmaintained and breaks regularly

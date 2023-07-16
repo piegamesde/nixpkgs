@@ -35,9 +35,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XCgYWOX7QSdANG6DqYk0yZZqnvZGDl3GaF9KtYRmpJ0=";
   };
 
-  nativeBuildInputs = [ which pkg-config makeWrapper qrencode hostapd ];
+  nativeBuildInputs = [
+    which
+    pkg-config
+    makeWrapper
+    qrencode
+    hostapd
+  ];
 
-  buildInputs = [ glib gtk3 ];
+  buildInputs = [
+    glib
+    gtk3
+  ];
 
   outputs = [ "out" ];
 

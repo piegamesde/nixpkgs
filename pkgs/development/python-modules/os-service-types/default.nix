@@ -22,7 +22,10 @@ buildPythonPackage rec {
     rm test-requirements.txt
   '';
 
-  propagatedBuildInputs = [ pbr six ];
+  propagatedBuildInputs = [
+    pbr
+    six
+  ];
 
   # check in passthru.tests.pytest to escape infinite recursion with other oslo components
   doCheck = false;

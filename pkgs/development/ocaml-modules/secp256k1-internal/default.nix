@@ -23,11 +23,18 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.08";
   duneVersion = "3";
 
-  propagatedBuildInputs = [ gmp cstruct bigstring ];
+  propagatedBuildInputs = [
+    gmp
+    cstruct
+    bigstring
+  ];
 
   buildInputs = [ dune-configurator ];
 
-  checkInputs = [ alcotest hex ];
+  checkInputs = [
+    alcotest
+    hex
+  ];
 
   doCheck = true;
 

@@ -29,7 +29,15 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/fontpreview \
-      --prefix PATH : ${lib.makeBinPath [ xdotool fzf imagemagick sxiv getopt ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          xdotool
+          fzf
+          imagemagick
+          sxiv
+          getopt
+        ]
+      }
   '';
 
   meta = with lib; {

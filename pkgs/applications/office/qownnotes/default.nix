@@ -27,11 +27,19 @@ in stdenv.mkDerivation {
     hash = "sha256-W1bu3isEe1j7XTj+deLNk6Ncssy2UKG+eF36fe1FFWs=";
   };
 
-  nativeBuildInputs = [ qmake qttools wrapQtAppsHook ]
-    ++ lib.optionals stdenv.isDarwin [ makeWrapper ];
+  nativeBuildInputs = [
+    qmake
+    qttools
+    wrapQtAppsHook
+  ] ++ lib.optionals stdenv.isDarwin [ makeWrapper ];
 
-  buildInputs = [ qtbase qtdeclarative qtsvg qtwebsockets qt5compat ]
-    ++ lib.optionals stdenv.isLinux [ qtwayland ];
+  buildInputs = [
+    qtbase
+    qtdeclarative
+    qtsvg
+    qtwebsockets
+    qt5compat
+  ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
 
   postInstall =
     # Create a lowercase symlink for Linux
@@ -52,7 +60,10 @@ in stdenv.mkDerivation {
     changelog = "https://www.qownnotes.org/changelog.html";
     downloadPage = "https://github.com/pbek/QOwnNotes/releases/tag/v${version}";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ pbek totoroot ];
+    maintainers = with maintainers; [
+      pbek
+      totoroot
+    ];
     platforms = platforms.unix;
   };
 }

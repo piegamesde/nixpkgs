@@ -65,7 +65,11 @@ in import ./make-test-python.nix {
             smtp.sendmail('root@localhost', 'alice@localhost', 'Subject: Test SMTPS\n\nTest data.')
             smtp.quit()
         '';
-      in [ sendTestMail sendTestMailStarttls sendTestMailSmtps ];
+      in [
+        sendTestMail
+        sendTestMailStarttls
+        sendTestMailSmtps
+      ];
     };
 
   testScript = ''

@@ -18,7 +18,10 @@ let
   cfg = config.networking.wireless;
   opt = options.networking.wireless;
 
-  wpa3Protocols = [ "SAE" "FT-SAE" ];
+  wpa3Protocols = [
+    "SAE"
+    "FT-SAE"
+  ];
   hasMixedWPA = opts:
     let
       hasWPA3 = !mutuallyExclusive opts.authProtocols wpa3Protocols;
@@ -184,7 +187,10 @@ in {
       interfaces = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "wlan0" "wlan1" ];
+        example = [
+          "wlan0"
+          "wlan1"
+        ];
         description = lib.mdDoc ''
           The interfaces {command}`wpa_supplicant` will use. If empty, it will
           automatically use all wireless interfaces.
@@ -503,10 +509,15 @@ in {
 
   config = mkIf cfg.enable {
     assertions = flip mapAttrsToList cfg.networks (name: cfg: {
-      assertion = with cfg; count (x: x != null) [ psk pskRaw auth ] <= 1;
+      assertion = with cfg;
+        count (x: x != null) [
+          psk
+          pskRaw
+          auth
+        ] <= 1;
       message = ''
         options networking.wireless."${name}".{psk,pskRaw,auth} are mutually exclusive'';
-    }) ++ [{
+    }) ++ [ {
       assertion = length cfg.interfaces > 1 -> !cfg.dbusControlled;
       message = let
         daemon = if config.networking.networkmanager.enable then
@@ -524,7 +535,7 @@ in {
         You don't need to change `networking.wireless.interfaces` when using ${daemon}:
         in this case the interfaces will be configured automatically for you.
       '';
-    }];
+    } ];
 
     hardware.wirelessRegulatoryDatabase = true;
 
@@ -552,5 +563,8 @@ in {
     '';
   };
 
-  meta.maintainers = with lib.maintainers; [ globin rnhmjoj ];
+  meta.maintainers = with lib.maintainers; [
+    globin
+    rnhmjoj
+  ];
 }

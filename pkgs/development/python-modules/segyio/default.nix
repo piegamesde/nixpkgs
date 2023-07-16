@@ -41,12 +41,20 @@ stdenv.mkDerivation rec {
     hash = "sha256-L3u5BHS5tARS2aIiQbumADkuzw1Aw4Yuav8H8tRNYNg=";
   };
 
-  nativeBuildInputs = [ cmake ninja python scikit-build ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    python
+    scikit-build
+  ];
 
   doCheck = true;
   # I'm not modifying the checkPhase nor adding a pytestCheckHook because the pytest is called
   # within the cmake test phase
-  nativeCheckInputs = [ pytest numpy ];
+  nativeCheckInputs = [
+    pytest
+    numpy
+  ];
 
   meta = with lib; {
     description = "Fast Python library for SEGY files";

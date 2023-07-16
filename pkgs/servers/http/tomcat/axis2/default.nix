@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ unzip ];
-  buildInputs = [ apacheAnt jdk ];
+  buildInputs = [
+    apacheAnt
+    jdk
+  ];
   builder = ./builder.sh;
 
   meta = {

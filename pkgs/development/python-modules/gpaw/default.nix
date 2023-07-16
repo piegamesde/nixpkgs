@@ -86,9 +86,20 @@ in buildPythonPackage rec {
 
   nativeBuildInputs = [ which ];
 
-  buildInputs = [ blas scalapack libxc libvdwxc ];
+  buildInputs = [
+    blas
+    scalapack
+    libxc
+    libvdwxc
+  ];
 
-  propagatedBuildInputs = [ ase scipy numpy mpi pyyaml ];
+  propagatedBuildInputs = [
+    ase
+    scipy
+    numpy
+    mpi
+    pyyaml
+  ];
 
   patches = [ ./SetupPath.patch ];
 

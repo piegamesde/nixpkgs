@@ -91,8 +91,14 @@ in stdenv.mkDerivation rec {
     )
   '';
 
-  nativeBuildInputs =
-    [ makeWrapper unzip autoconf automake libtool_1_5 pkg-config ];
+  nativeBuildInputs = [
+    makeWrapper
+    unzip
+    autoconf
+    automake
+    libtool_1_5
+    pkg-config
+  ];
 
   inherit buildInputs;
 

@@ -91,6 +91,9 @@ in buildVscodeMarketplaceExtension {
     description =
       "Use any remote machine with a SSH server as your development environment.";
     license = lib.licenses.unfree;
-    maintainers = [ lib.maintainers.SuperSandro2000 lib.maintainers.tbenst ];
+    maintainers = [
+      lib.maintainers.SuperSandro2000
+      lib.maintainers.tbenst
+    ];
   };
 }

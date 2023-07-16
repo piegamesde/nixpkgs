@@ -21,7 +21,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ rich ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-mock
+  ];
 
   disabledTests = [
     # console output order is racy

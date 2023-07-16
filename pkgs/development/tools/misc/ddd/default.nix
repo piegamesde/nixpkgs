@@ -15,7 +15,12 @@ stdenv.mkDerivation rec {
     url = "mirror://gnu/${pname}/${pname}-${version}.tar.gz";
     sha256 = "0p5nx387857w3v2jbgvps2p6mlm0chajcdw5sfrddcglsxkwvmis";
   };
-  buildInputs = [ motif ncurses libX11 libXt ];
+  buildInputs = [
+    motif
+    ncurses
+    libX11
+    libXt
+  ];
   configureFlags = [ "--with-x" ];
 
   patches = [

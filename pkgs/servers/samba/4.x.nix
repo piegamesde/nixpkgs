@@ -73,7 +73,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-lcnBa2VKiM+u/ZWAUt1XPi+F7N8RTk7Owxh1N6CU2Rk=";
   };
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
   patches = [
     ./4.x-no-persistent-install.patch
@@ -119,17 +123,27 @@ stdenv.mkDerivation rec {
     libtasn1
     tdb
     libxcrypt
-  ] ++ optionals stdenv.isLinux [ liburing systemd ]
-    ++ optionals stdenv.isDarwin [ libiconv ]
-    ++ optionals enableLDAP [ openldap.dev python3Packages.markdown ]
-    ++ optionals (!enableLDAP && stdenv.isLinux) [ ldb talloc tevent ]
-    ++ optional (enablePrinting && stdenv.isLinux) cups
-    ++ optional enableMDNS avahi
-    ++ optionals enableDomainController [ gpgme lmdb python3Packages.dnspython ]
-    ++ optional enableRegedit ncurses
+  ] ++ optionals stdenv.isLinux [
+    liburing
+    systemd
+  ] ++ optionals stdenv.isDarwin [ libiconv ] ++ optionals enableLDAP [
+    openldap.dev
+    python3Packages.markdown
+  ] ++ optionals (!enableLDAP && stdenv.isLinux) [
+    ldb
+    talloc
+    tevent
+  ] ++ optional (enablePrinting && stdenv.isLinux) cups
+    ++ optional enableMDNS avahi ++ optionals enableDomainController [
+      gpgme
+      lmdb
+      python3Packages.dnspython
+    ] ++ optional enableRegedit ncurses
     ++ optional (enableCephFS && stdenv.isLinux) (lib.getDev ceph)
-    ++ optionals (enableGlusterFS && stdenv.isLinux) [ glusterfs libuuid ]
-    ++ optional enableAcl acl ++ optional enableLibunwind libunwind
+    ++ optionals (enableGlusterFS && stdenv.isLinux) [
+      glusterfs
+      libuuid
+    ] ++ optional enableAcl acl ++ optional enableLibunwind libunwind
     ++ optional enablePam pam;
 
   postPatch = ''
@@ -155,15 +169,16 @@ stdenv.mkDerivation rec {
     "--localstatedir=/var"
     "--disable-rpath"
   ] ++ optional (!enableDomainController) "--without-ad-dc"
-    ++ optionals (!enableLDAP) [ "--without-ldap" "--without-ads" ]
-    ++ optionals (!enableLDAP && stdenv.isLinux) [
-      "--bundled-libraries=!ldb,!pyldb-util!talloc,!pytalloc-util,!tevent,!tdb,!pytdb"
-    ] ++ optional enableLibunwind "--with-libunwind"
+    ++ optionals (!enableLDAP) [
+      "--without-ldap"
+      "--without-ads"
+    ] ++ optionals (!enableLDAP
+      && stdenv.isLinux) [ "--bundled-libraries=!ldb,!pyldb-util!talloc,!pytalloc-util,!tevent,!tdb,!pytdb" ]
+    ++ optional enableLibunwind "--with-libunwind"
     ++ optional enableProfiling "--with-profiling-data"
     ++ optional (!enableAcl) "--without-acl-support"
-    ++ optional (!enablePam) "--without-pam"
-    ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-    [ "--bundled-libraries=!asn1_compile,!compile_et" ]
+    ++ optional (!enablePam) "--without-pam" ++ optionals (stdenv.hostPlatform
+      != stdenv.buildPlatform) [ "--bundled-libraries=!asn1_compile,!compile_et" ]
     ++ optionals stdenv.isAarch32 [
       # https://bugs.gentoo.org/683148
       "--jobs 1"
@@ -174,7 +189,10 @@ stdenv.mkDerivation rec {
   # module, which works correctly in all cases.
   PYTHON_CONFIG = "/invalid";
 
-  pythonPath = [ python3Packages.dnspython tdb ];
+  pythonPath = [
+    python3Packages.dnspython
+    tdb
+  ];
 
   preBuild = ''
     export MAKEFLAGS="-j $NIX_BUILD_CORES"
@@ -223,9 +241,8 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  disallowedReferences = lib.optionals
-    (buildPackages.python3Packages.python != python3Packages.python)
-    [ buildPackages.python3Packages.python ];
+  disallowedReferences = lib.optionals (buildPackages.python3Packages.python
+    != python3Packages.python) [ buildPackages.python3Packages.python ];
 
   passthru = { tests.samba = nixosTests.samba; };
 

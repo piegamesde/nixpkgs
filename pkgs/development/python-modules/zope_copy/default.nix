@@ -21,9 +21,16 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ zope_interface ];
 
   doCheck = !isPy27; # namespace conflicts
-  nativeCheckInputs = [ unittestCheckHook zope_location zope_schema ];
+  nativeCheckInputs = [
+    unittestCheckHook
+    zope_location
+    zope_schema
+  ];
 
-  unittestFlagsArray = [ "-s" "src/zope/copy" ];
+  unittestFlagsArray = [
+    "-s"
+    "src/zope/copy"
+  ];
 
   meta = { maintainers = with lib.maintainers; [ domenkozar ]; };
 }

@@ -47,15 +47,26 @@ stdenv.mkDerivation rec {
     pkg-config
     python3
     wrapGAppsHook4
-  ] ++ (with rustPlatform; [ cargoSetupHook rust.cargo rust.rustc ]);
+  ] ++ (with rustPlatform; [
+    cargoSetupHook
+    rust.cargo
+    rust.rustc
+  ]);
 
-  buildInputs = [ glib gtk4 libadwaita ];
+  buildInputs = [
+    glib
+    gtk4
+    libadwaita
+  ];
 
   meta = {
     description = "Fast and secure file transfer";
     homepage = "https://apps.gnome.org/app/app.drey.Warp";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ dotlambda foo-dogsquared ];
+    maintainers = with lib.maintainers; [
+      dotlambda
+      foo-dogsquared
+    ];
     platforms = lib.platforms.linux;
   };
 }

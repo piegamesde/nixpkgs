@@ -34,10 +34,15 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-0OcSdCN8vWUgTgFdgNtiI0OfHmfa/WD9IoaJUl+llqI=";
   };
 
-  nativeBuildInputs = [ makeWrapper icoutils ]
-    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = [
+    makeWrapper
+    icoutils
+  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
-  buildInputs = [ stdenv.cc.cc.lib pam ];
+  buildInputs = [
+    stdenv.cc.cc.lib
+    pam
+  ];
 
   dontStrip = true;
 
@@ -68,10 +73,17 @@ in stdenv.mkDerivation rec {
     description =
       "A software reverse engineering (SRE) suite of tools developed by NSA's Research Directorate in support of the Cybersecurity mission";
     homepage = "https://github.com/NationalSecurityAgency/ghidra";
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.asl20;
-    maintainers = with maintainers; [ ck3d govanify mic92 ];
+    maintainers = with maintainers; [
+      ck3d
+      govanify
+      mic92
+    ];
   };
 
 }

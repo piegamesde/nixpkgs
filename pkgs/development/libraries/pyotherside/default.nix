@@ -22,7 +22,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ qmake ];
-  buildInputs = [ python3 qtbase qtquickcontrols qtsvg ncurses ];
+  buildInputs = [
+    python3
+    qtbase
+    qtquickcontrols
+    qtsvg
+    ncurses
+  ];
 
   dontWrapQtApps = true;
 

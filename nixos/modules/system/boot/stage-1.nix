@@ -397,7 +397,7 @@ let
         object = pkgs.kmod-debian-aliases;
         symlink = "/etc/modprobe.d/debian.conf";
       }
-    ] ++ lib.optionals config.services.multipath.enable [{
+    ] ++ lib.optionals config.services.multipath.enable [ {
       object = pkgs.runCommand "multipath.conf" {
         src = config.environment.etc."multipath.conf".text;
         preferLocalBuild = true;
@@ -408,7 +408,7 @@ let
           --replace ${config.services.multipath.package}/lib ${extraUtils}/lib
       '';
       symlink = "/etc/multipath.conf";
-    }] ++ (lib.mapAttrsToList (symlink: options: {
+    } ] ++ (lib.mapAttrsToList (symlink: options: {
       inherit symlink;
       object = options.source;
     }) config.boot.initrd.extraFiles);
@@ -747,13 +747,15 @@ in {
     boot.initrd.supportedFilesystems = map (fs: fs.fsType) fileSystems;
   };
 
-  imports = [
-    (mkRenamedOptionModule [ "boot" "initrd" "mdadmConf" ] [
-      "boot"
-      "initrd"
-      "services"
-      "swraid"
-      "mdadmConf"
-    ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "boot"
+    "initrd"
+    "mdadmConf"
+  ] [
+    "boot"
+    "initrd"
+    "services"
+    "swraid"
+    "mdadmConf"
+  ]) ];
 }

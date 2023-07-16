@@ -34,7 +34,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+QP4xXhP+MNqnhMUtMdtKrcuJ0M2BXWu3mbxXzj5ybc=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     apacheHttpd

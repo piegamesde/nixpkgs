@@ -24,9 +24,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-t5EnM4WaDbOTPM+rJW+hQxBgNErnnZEN9lZvxTKoDhA=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config gettext libtool ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    gettext
+    libtool
+  ];
 
-  buildInputs = [ libexif libgphoto2 libjpeg popt readline ];
+  buildInputs = [
+    libexif
+    libgphoto2
+    libjpeg
+    popt
+    readline
+  ];
 
   meta = with lib; {
     description = "A ready to use set of digital camera software applications";

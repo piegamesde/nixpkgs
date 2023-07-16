@@ -11,7 +11,10 @@ rustPlatform.buildRustPackage rec {
   pname = "dua";
   version = "2.19.2";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv Foundation ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    libiconv
+    Foundation
+  ];
 
   src = fetchFromGitHub {
     owner = "Byron";

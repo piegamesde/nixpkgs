@@ -31,7 +31,12 @@ let
 
     nativeBuildInputs = [ pandoc ];
 
-    outputs = [ "bin" "man" "doc" "out" ];
+    outputs = [
+      "bin"
+      "man"
+      "doc"
+      "out"
+    ];
 
     buildPhase = ''
       pandoc -s -f markdown-smart -t man shellcheck.1.md -o shellcheck.1
@@ -51,6 +56,13 @@ let
   };
 
 in overrideMeta shellcheck (old: {
-  maintainers = with lib.maintainers; [ Profpatsch zowoq ];
-  outputsToInstall = [ "bin" "man" "doc" ];
+  maintainers = with lib.maintainers; [
+    Profpatsch
+    zowoq
+  ];
+  outputsToInstall = [
+    "bin"
+    "man"
+    "doc"
+  ];
 })

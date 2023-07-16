@@ -22,7 +22,10 @@ stdenv.mkDerivation (finalAttrs: {
     sed '1i#include <cstring>' -i src/rocm_smi{,_gpu_metrics}.cc # since gcc12 probably
   '';
 
-  nativeBuildInputs = [ cmake wrapPython ];
+  nativeBuildInputs = [
+    cmake
+    wrapPython
+  ];
 
   patches = [ ./cmake.patch ];
 

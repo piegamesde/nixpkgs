@@ -22,7 +22,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ plum-py ];
 
-  nativeCheckInputs = [ pytestCheckHook baseline ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    baseline
+  ];
 
   pythonImportsCheck = [ "exif" ];
 

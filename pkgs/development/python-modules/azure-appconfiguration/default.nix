@@ -16,7 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-fzZyT6j3K90FClJawf3o0F2TSMSu5pVqZvP8yJwTdBc=";
   };
 
-  propagatedBuildInputs = [ azure-core msrest ];
+  propagatedBuildInputs = [
+    azure-core
+    msrest
+  ];
 
   pythonImportsCheck = [ "azure.appconfiguration" ];
 

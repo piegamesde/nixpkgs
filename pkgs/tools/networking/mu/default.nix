@@ -43,11 +43,24 @@ stdenv.mkDerivation rec {
           "emacs --batch --eval '(setq large-file-warning-threshold nil)' -f batch-native-compile {} || true"
   '';
 
-  buildInputs = [ emacs glib gmime3 texinfo xapian ];
+  buildInputs = [
+    emacs
+    glib
+    gmime3
+    texinfo
+    xapian
+  ];
 
-  mesonFlags = [ "-Dguile=disabled" "-Dreadline=disabled" ];
+  mesonFlags = [
+    "-Dguile=disabled"
+    "-Dreadline=disabled"
+  ];
 
-  nativeBuildInputs = [ pkg-config meson ninja ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+  ];
 
   doCheck = true;
 
@@ -57,7 +70,11 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     homepage = "https://www.djcbsoftware.nl/code/mu/";
     changelog = "https://github.com/djcb/mu/releases/tag/v${version}";
-    maintainers = with maintainers; [ antono chvp peterhoeg ];
+    maintainers = with maintainers; [
+      antono
+      chvp
+      peterhoeg
+    ];
     platforms = platforms.unix;
   };
 }

@@ -29,7 +29,11 @@ stdenv.mkDerivation rec {
 
     for fn in plow{del,down,list,mod,probe,up}; do
       wrapProgram "$out/bin/$fn" --prefix PATH : "${
-        lib.makeBinPath [ curl recode spidermonkey_102 ]
+        lib.makeBinPath [
+          curl
+          recode
+          spidermonkey_102
+        ]
       }"
     done
   '';
@@ -39,7 +43,10 @@ stdenv.mkDerivation rec {
       A command-line download/upload tool for popular file sharing websites
     '';
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ aforemny jfrankenau ];
+    maintainers = with lib.maintainers; [
+      aforemny
+      jfrankenau
+    ];
     platforms = lib.platforms.linux;
   };
 }

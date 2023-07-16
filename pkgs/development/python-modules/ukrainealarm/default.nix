@@ -39,7 +39,10 @@ in buildPythonPackage {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [ "ukrainealarm" "ukrainealarm.client" ];
+  pythonImportsCheck = [
+    "ukrainealarm"
+    "ukrainealarm.client"
+  ];
 
   meta = with lib; {
     changelog =

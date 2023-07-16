@@ -49,16 +49,38 @@ in stdenv.mkDerivation rec {
 
   makeFlags = [ "prefix=$(out) USE_SYSTEM_LIBS=yes" ];
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ freetype harfbuzz openjpeg jbig2dec libjpeg freeglut libGLU ]
-    ++ lib.optionals enableX11 [ libX11 libXext libXi libXrandr ]
-    ++ lib.optionals enableCurl [ curl openssl ] ++ lib.optionals enableGL
-    (if stdenv.isDarwin then
-      with darwin.apple_sdk.frameworks; [ GLUT OpenGL ]
-    else [
-      freeglut
-      libGLU
-    ]);
-  outputs = [ "bin" "dev" "out" "man" "doc" ];
+  buildInputs = [
+    freetype
+    harfbuzz
+    openjpeg
+    jbig2dec
+    libjpeg
+    freeglut
+    libGLU
+  ] ++ lib.optionals enableX11 [
+    libX11
+    libXext
+    libXi
+    libXrandr
+  ] ++ lib.optionals enableCurl [
+    curl
+    openssl
+  ] ++ lib.optionals enableGL (if stdenv.isDarwin then
+    with darwin.apple_sdk.frameworks; [
+      GLUT
+      OpenGL
+    ]
+  else [
+    freeglut
+    libGLU
+  ]);
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "man"
+    "doc"
+  ];
 
   preConfigure = ''
     # Don't remove mujs because upstream version is incompatible
@@ -101,7 +123,10 @@ in stdenv.mkDerivation rec {
     description =
       "Lightweight PDF, XPS, and E-book viewer and toolkit written in portable C";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ vrthra fpletz ];
+    maintainers = with maintainers; [
+      vrthra
+      fpletz
+    ];
     platforms = platforms.unix;
     knownVulnerabilities = [
       "CVE-2020-26519: denial of service when parsing JBIG2"

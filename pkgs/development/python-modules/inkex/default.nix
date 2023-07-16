@@ -37,16 +37,30 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [ cssselect lxml numpy packaging pillow pygobject3 pyserial scour ];
+  propagatedBuildInputs = [
+    cssselect
+    lxml
+    numpy
+    packaging
+    pillow
+    pygobject3
+    pyserial
+    scour
+  ];
 
   pythonImportsCheck = [ "inkex" ];
 
-  nativeCheckInputs = [ gobject-introspection pytestCheckHook ];
+  nativeCheckInputs = [
+    gobject-introspection
+    pytestCheckHook
+  ];
 
   checkInputs = [ gtk3 ];
 
-  disabledTests = [ "test_extract_multiple" "test_lookup_and" ];
+  disabledTests = [
+    "test_extract_multiple"
+    "test_lookup_and"
+  ];
 
   disabledTestPaths = [
     # Fatal Python error: Segmentation fault

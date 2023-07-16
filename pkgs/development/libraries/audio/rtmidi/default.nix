@@ -44,11 +44,17 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = lib.optional alsaSupport alsa-lib
-    ++ lib.optional jackSupport jack
-    ++ lib.optionals coremidiSupport [ CoreMIDI CoreAudio CoreServices ];
+    ++ lib.optional jackSupport jack ++ lib.optionals coremidiSupport [
+      CoreMIDI
+      CoreAudio
+      CoreServices
+    ];
 
   cmakeFlags = [
     "-DRTMIDI_API_ALSA=${if alsaSupport then "ON" else "OFF"}"

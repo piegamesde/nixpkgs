@@ -22,8 +22,15 @@ buildPythonPackage rec {
     rm $sourceRoot/src/smf.c
   '';
 
-  nativeBuildInputs = [ pkg-config pytest cython ];
-  buildInputs = [ libsmf glib ];
+  nativeBuildInputs = [
+    pkg-config
+    pytest
+    cython
+  ];
+  buildInputs = [
+    libsmf
+    glib
+  ];
 
   meta = with lib; {
     homepage = "https://das.nasophon.de/pysmf/";

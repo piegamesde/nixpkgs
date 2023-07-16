@@ -26,9 +26,17 @@ stdenv.mkDerivation {
     substituteInPlace Makefile --replace 'rsync -a --exclude=".*"' 'cp -r'
   '';
 
-  nativeBuildInputs = [ xxd pkg-config imagemagick wrapGAppsHook ];
+  nativeBuildInputs = [
+    xxd
+    pkg-config
+    imagemagick
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ gtk3 jansson ];
+  buildInputs = [
+    gtk3
+    jansson
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

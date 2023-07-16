@@ -822,7 +822,10 @@
     version = "2.5.9";
   };
   nokogiri = {
-    dependencies = [ "mini_portile2" "racc" ];
+    dependencies = [
+      "mini_portile2"
+      "racc"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

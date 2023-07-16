@@ -47,7 +47,13 @@ buildPythonPackage rec {
     tabulate
   ];
 
-  nativeCheckInputs = [ mock postgresql pytest-mock pytestCheckHook git ];
+  nativeCheckInputs = [
+    mock
+    postgresql
+    pytest-mock
+    pytestCheckHook
+    git
+  ];
 
   disabledTests = [
     # uses pytest.approx which is not supported in a boolean context in pytest7

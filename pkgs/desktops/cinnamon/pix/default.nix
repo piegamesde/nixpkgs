@@ -54,8 +54,17 @@ stdenv.mkDerivation rec {
     yelp-tools
   ];
 
-  buildInputs =
-    [ glib gtk3 xapp libsecret webkitgtk libwebp librsvg json-glib clutter ];
+  buildInputs = [
+    glib
+    gtk3
+    xapp
+    libsecret
+    webkitgtk
+    libwebp
+    librsvg
+    json-glib
+    clutter
+  ];
 
   meta = with lib; {
     description = "A generic image viewer from Linux Mint";

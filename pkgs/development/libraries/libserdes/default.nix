@@ -23,11 +23,21 @@ stdenv.mkDerivation rec {
     sha256 = "194ras18xw5fcnjgg1isnb24ydx9040ndciniwcbdb7w7wd901gc";
   };
 
-  outputs = [ "dev" "out" ];
+  outputs = [
+    "dev"
+    "out"
+  ];
 
   nativeBuildInputs = [ perl ];
 
-  buildInputs = [ boost rdkafka jansson curl avro-c avro-cpp ];
+  buildInputs = [
+    boost
+    rdkafka
+    jansson
+    curl
+    avro-c
+    avro-cpp
+  ];
 
   makeFlags = [ "GEN_PKG_CONFIG=y" ];
 

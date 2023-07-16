@@ -28,7 +28,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ httpx ];
 
-  nativeCheckInputs = [ pytest-asyncio pytest-httpx pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-httpx
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "luftdaten" ];
 
@@ -36,6 +40,9 @@ buildPythonPackage rec {
     description = "Python API for interacting with luftdaten.info";
     homepage = "https://github.com/home-assistant-ecosystem/python-luftdaten";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda fab ];
+    maintainers = with maintainers; [
+      dotlambda
+      fab
+    ];
   };
 }

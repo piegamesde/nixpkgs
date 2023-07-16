@@ -20,7 +20,12 @@ mkDerivation rec {
     hash = "sha256-3xnv1dcyeX3Kl5EH2Tlf6nXobLG1zXsFmYstnvmSAXA=";
   };
 
-  buildInputs = [ olm openssl qtmultimedia qtkeychain ];
+  buildInputs = [
+    olm
+    openssl
+    qtmultimedia
+    qtkeychain
+  ];
 
   nativeBuildInputs = [ cmake ];
 

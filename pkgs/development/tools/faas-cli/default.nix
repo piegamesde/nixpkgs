@@ -44,7 +44,10 @@ in buildGoModule rec {
     }"
   ];
 
-  nativeBuildInputs = [ makeWrapper installShellFiles ];
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+  ];
 
   postInstall = ''
     wrapProgram "$out/bin/faas-cli" \
@@ -65,6 +68,9 @@ in buildGoModule rec {
     description = "Official CLI for OpenFaaS ";
     homepage = "https://github.com/openfaas/faas-cli";
     license = licenses.mit;
-    maintainers = with maintainers; [ welteki techknowlogick ];
+    maintainers = with maintainers; [
+      welteki
+      techknowlogick
+    ];
   };
 }

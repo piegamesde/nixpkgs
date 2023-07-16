@@ -146,7 +146,11 @@ in {
 
       backend = {
         service = mkOption {
-          type = types.enum [ "null" "files" "sql" ];
+          type = types.enum [
+            "null"
+            "files"
+            "sql"
+          ];
           default = "null";
           description = lib.mdDoc "Service to use to store sms data.";
         };
@@ -180,7 +184,12 @@ in {
 
         sql = {
           driver = mkOption {
-            type = types.enum [ "native_mysql" "native_pgsql" "odbc" "dbi" ];
+            type = types.enum [
+              "native_mysql"
+              "native_pgsql"
+              "odbc"
+              "dbi"
+            ];
             description = lib.mdDoc "DB driver to use";
           };
 
@@ -237,8 +246,8 @@ in {
       wantedBy = [ "multi-user.target" ];
 
       wants = with cfg.backend;
-        [ ] ++ optionals (service == "sql" && sql.driver == "native_pgsql")
-        [ "postgresql.service" ];
+        [ ] ++ optionals (service == "sql" && sql.driver
+          == "native_pgsql") [ "postgresql.service" ];
 
       preStart = with cfg.backend;
 

@@ -29,16 +29,27 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-AmTAl7N+2zYRUgmnuP+S+m0n6nUIihcB5kisWoPPlTQ=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      gkbd_keyboard_display = "${libgnomekbd}/bin/gkbd-keyboard-display";
-    })
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    gkbd_keyboard_display = "${libgnomekbd}/bin/gkbd-keyboard-display";
+  }) ];
+
+  nativeBuildInputs = [
+    meson
+    ninja
+    libxml2
+    pkg-config
+    vala
   ];
 
-  nativeBuildInputs = [ meson ninja libxml2 pkg-config vala ];
-
-  buildInputs = [ granite gtk3 ibus libgee wingpanel xorg.xkeyboardconfig ];
+  buildInputs = [
+    granite
+    gtk3
+    ibus
+    libgee
+    wingpanel
+    xorg.xkeyboardconfig
+  ];
 
   passthru = { updateScript = nix-update-script { }; };
 

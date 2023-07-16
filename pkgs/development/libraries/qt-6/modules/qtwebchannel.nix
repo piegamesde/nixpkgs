@@ -8,6 +8,10 @@
 
 qtModule {
   pname = "qtwebchannel";
-  qtInputs = [ qtbase qtdeclarative qtwebsockets ];
+  qtInputs = [
+    qtbase
+    qtdeclarative
+    qtwebsockets
+  ];
   buildInputs = [ openssl ];
 }

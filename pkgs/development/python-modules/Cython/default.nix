@@ -12,11 +12,9 @@
 }:
 
 let
-  excludedTests = [
-    "reimport_from_subinterpreter"
-  ]
-  # cython's testsuite is not working very well with libc++
-  # We are however optimistic about things outside of testsuite still working
+  excludedTests = [ "reimport_from_subinterpreter" ]
+    # cython's testsuite is not working very well with libc++
+    # We are however optimistic about things outside of testsuite still working
     ++ lib.optionals (stdenv.cc.isClang or false) [
       "cpdef_extern_func"
       "libcpp_algo"
@@ -42,7 +40,11 @@ in buildPythonPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  nativeCheckInputs = [ gdb numpy ncurses ];
+  nativeCheckInputs = [
+    gdb
+    numpy
+    ncurses
+  ];
 
   LC_ALL = "en_US.UTF-8";
 

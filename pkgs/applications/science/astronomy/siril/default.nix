@@ -39,7 +39,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-KFCA3fUMVFHmh1BdKed5/dkq0EeYcmoWec97WX9ZHUc=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config git criterion wrapGAppsHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    git
+    criterion
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     gtk3

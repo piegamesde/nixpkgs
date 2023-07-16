@@ -33,13 +33,28 @@ stdenv.mkDerivation rec {
     ./0001-Fix-RPC-compilation-when-using-libtirpc-rather-than-.patch
   ];
 
-  nativeBuildInputs = [ pkg-config gperf rpcsvc-proto ];
+  nativeBuildInputs = [
+    pkg-config
+    gperf
+    rpcsvc-proto
+  ];
 
   env.NIX_CFLAGS_COMPILE = toString [ "-I${libtirpc.dev}/include/tirpc" ];
   NIX_LDFLAGS = [ "-ltirpc" ];
 
-  buildInputs =
-    [ zlib bzip2 lzo libgcrypt gdbm db tdb gnutls libuuid guile libtirpc ];
+  buildInputs = [
+    zlib
+    bzip2
+    lzo
+    libgcrypt
+    gdbm
+    db
+    tdb
+    gnutls
+    libuuid
+    guile
+    libtirpc
+  ];
 
   doCheck = false;
 

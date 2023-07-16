@@ -36,9 +36,23 @@ stdenv.mkDerivation rec {
     ./fix-metadata-path.patch
   ];
 
-  nativeBuildInputs = [ meson ninja pkg-config python3 vala wrapGAppsHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    python3
+    vala
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ appstream granite gtk3 libgee libhandy glib ];
+  buildInputs = [
+    appstream
+    granite
+    gtk3
+    libgee
+    libhandy
+    glib
+  ];
 
   postPatch = ''
     chmod +x meson/post_install.py

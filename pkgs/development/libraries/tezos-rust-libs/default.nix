@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-SuCqDZDXmWdGI/GN+3nYcUk66jnW5FQQaeTB76/rvaw=";
   };
 
-  nativeBuildInputs = [ llvmPackages_12.llvm cargo ];
+  nativeBuildInputs = [
+    llvmPackages_12.llvm
+    cargo
+  ];
   propagatedBuildDeps = [ llvmPackages_12.libllvm ];
 
   buildPhase = ''

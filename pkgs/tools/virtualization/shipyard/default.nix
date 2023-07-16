@@ -16,7 +16,11 @@ buildGoModule rec {
   };
   vendorHash = "sha256-aE58XYgEWdPtq+DZKtn8Jbw2YIiiJSPutmVEOsG7urk=";
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   # Tests require a large variety of tools and resources to run including
   # Kubernetes, Docker, and GCC.

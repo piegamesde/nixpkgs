@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-R5sj8AN7UT9OIeUPNrdTIUQvtEitXp1A32l/Z2qRS94=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qt5.wrapQtAppsHook
+  ];
 
   buildInputs = [ imagemagick ];
 

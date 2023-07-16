@@ -28,9 +28,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ ifaddr requests urllib3 lxml ];
+  propagatedBuildInputs = [
+    ifaddr
+    requests
+    urllib3
+    lxml
+  ];
 
-  nativeCheckInputs = [ pytest-vcr pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-vcr
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pywemo" ];
 

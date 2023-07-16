@@ -22,9 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-+akhbpduXjJG39ESrXrVXKkVYGtguEp1esdpvUBP9wQ=";
   };
 
-  propagatedBuildInputs = [ twisted zope_interface ];
+  propagatedBuildInputs = [
+    twisted
+    zope_interface
+  ];
 
-  nativeCheckInputs = [ mock pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # No real value

@@ -250,9 +250,8 @@ in {
             ];
             unpackCmd = "cp $curSrc $(basename $curSrc)";
             sourceRoot = ".";
-            patches = [
-              ./fish_completion-generator.patch
-            ]; # to prevent collisions of identical completion files
+            patches =
+              [ ./fish_completion-generator.patch ]; # to prevent collisions of identical completion files
             dontBuild = true;
             installPhase = ''
               mkdir -p $out
@@ -294,7 +293,10 @@ in {
       { systemPackages = [ pkgs.fish ]; }
 
       {
-        shells = [ "/run/current-system/sw/bin/fish" "${pkgs.fish}/bin/fish" ];
+        shells = [
+          "/run/current-system/sw/bin/fish"
+          "${pkgs.fish}/bin/fish"
+        ];
       }
     ];
 

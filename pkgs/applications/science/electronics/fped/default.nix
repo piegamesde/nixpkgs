@@ -34,7 +34,14 @@ stdenv.mkDerivation {
     "RGBDEF=${netpbm.out}/share/netpbm/misc/rgb.txt"
   ];
 
-  nativeBuildInputs = [ flex bison pkg-config imagemagick fig2dev netpbm ];
+  nativeBuildInputs = [
+    flex
+    bison
+    pkg-config
+    imagemagick
+    fig2dev
+    netpbm
+  ];
 
   buildInputs = [ gtk2 ];
 

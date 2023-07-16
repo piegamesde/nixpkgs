@@ -19,7 +19,10 @@ python3Packages.buildPythonApplication rec {
   # No tests included
   doCheck = false;
 
-  propagatedBuildInputs = with python3Packages; [ pyusb elevate ];
+  propagatedBuildInputs = with python3Packages; [
+    pyusb
+    elevate
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/rodgomesc/avell-unofficial-control-center";

@@ -19,7 +19,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-4bJKDEZlO0DzEzTQ7m+SQuzhe+wKmL6wLueqgSz/46s=";
 
-  nativeBuildInputs = [ installShellFiles makeWrapper ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+  ];
 
   postInstall = ''
     # make xdg-open overrideable at runtime

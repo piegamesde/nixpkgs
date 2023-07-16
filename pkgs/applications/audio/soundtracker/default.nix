@@ -44,10 +44,18 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
 
-  buildInputs = [ gtk2 SDL jack2 audiofile goocanvas ]
-    ++ lib.optional stdenv.isLinux alsa-lib;
+  buildInputs = [
+    gtk2
+    SDL
+    jack2
+    audiofile
+    goocanvas
+  ] ++ lib.optional stdenv.isLinux alsa-lib;
 
   meta = with lib; {
     description =

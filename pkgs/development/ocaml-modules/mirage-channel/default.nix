@@ -23,10 +23,18 @@ buildDunePackage rec {
     hash = "sha256-sBdoUdTd9ZeNcHK0IBGBeOYDDqULM7EYX+Pz2f2nIQA=";
   };
 
-  propagatedBuildInputs = [ cstruct logs lwt mirage-flow ];
+  propagatedBuildInputs = [
+    cstruct
+    logs
+    lwt
+    mirage-flow
+  ];
 
   doCheck = true;
-  checkInputs = [ alcotest mirage-flow-combinators ];
+  checkInputs = [
+    alcotest
+    mirage-flow-combinators
+  ];
 
   meta = {
     description = "Buffered channels for MirageOS FLOW types";

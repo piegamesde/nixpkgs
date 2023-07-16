@@ -26,7 +26,11 @@ stdenv.mkDerivation rec {
     sha256 = "MP1ubwCjggD24uiYrX+nl4drsGDx0DQd0vc5MnnhTAc=";
   };
 
-  nativeBuildInputs = [ pkg-config gettext wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     gtk3
@@ -47,7 +51,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "File manager for the MATE desktop";
     homepage = "https://mate-desktop.org";
-    license = with licenses; [ gpl2Plus lgpl2Plus ];
+    license = with licenses; [
+      gpl2Plus
+      lgpl2Plus
+    ];
     platforms = platforms.unix;
     maintainers = teams.mate.members;
   };

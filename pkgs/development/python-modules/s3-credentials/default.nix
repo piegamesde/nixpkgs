@@ -26,9 +26,18 @@ buildPythonPackage rec {
     hash = "sha256-YSsm5SMfDRqJ53XnBjMgaWWHjA6IXnmEBvxme4uiOPw=";
   };
 
-  propagatedBuildInputs = [ boto3 click click-default-group ];
+  propagatedBuildInputs = [
+    boto3
+    click
+    click-default-group
+  ];
 
-  nativeCheckInputs = [ hypothesis moto pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    hypothesis
+    moto
+    pytest-mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "s3_credentials" ];
 

@@ -117,7 +117,10 @@ in {
           trusted_third_party_id_servers = lib.mkOption {
             type = lib.types.listOf lib.types.str;
             example = [ "matrix.org" ];
-            default = [ "matrix.org" "vector.im" ];
+            default = [
+              "matrix.org"
+              "vector.im"
+            ];
             description = lib.mdDoc ''
               Lists of domains that the server will trust as identity
               servers to verify third party identifiers such as phone
@@ -276,7 +279,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = cfg.httpsPort != null
         -> (cfg.tlsCert != null && cfg.tlsKey != null);
       message = ''
@@ -284,7 +287,7 @@ in {
 
         nix-shell -p dendrite --command "generate-keys --tls-cert server.crt --tls-key server.key"
       '';
-    }];
+    } ];
 
     systemd.services.dendrite = {
       description = "Dendrite Matrix homeserver";
@@ -301,22 +304,22 @@ in {
         EnvironmentFile =
           lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
         LoadCredential = cfg.loadCredential;
-        ExecStartPre = [''
+        ExecStartPre = [ ''
           ${pkgs.envsubst}/bin/envsubst \
             -i ${configurationYaml} \
             -o /run/dendrite/dendrite.yaml
-        ''];
+        '' ];
         ExecStart = lib.strings.concatStringsSep " " ([
           "${pkgs.dendrite}/bin/dendrite"
           "--config /run/dendrite/dendrite.yaml"
-        ] ++ lib.optionals (cfg.httpPort != null)
-          [ "--http-bind-address :${builtins.toString cfg.httpPort}" ]
-          ++ lib.optionals (cfg.httpsPort != null) [
+        ] ++ lib.optionals (cfg.httpPort != null) [ "--http-bind-address :${
+            builtins.toString cfg.httpPort
+          }" ] ++ lib.optionals (cfg.httpsPort != null) [
             "--https-bind-address :${builtins.toString cfg.httpsPort}"
             "--tls-cert ${cfg.tlsCert}"
             "--tls-key ${cfg.tlsKey}"
-          ] ++ lib.optionals cfg.openRegistration
-          [ "--really-enable-open-registration" ]);
+          ] ++ lib.optionals
+          cfg.openRegistration [ "--really-enable-open-registration" ]);
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         Restart = "on-failure";
       };

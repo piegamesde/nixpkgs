@@ -58,14 +58,20 @@ import ./make-test-python.nix ({
   in {
     name = "xmonad";
     meta = with pkgs.lib.maintainers; {
-      maintainers = [ nequissimus ivanbrennan ];
+      maintainers = [
+        nequissimus
+        ivanbrennan
+      ];
     };
 
     nodes.machine = {
         pkgs,
         ...
       }: {
-        imports = [ ./common/x11.nix ./common/user-account.nix ];
+        imports = [
+          ./common/x11.nix
+          ./common/user-account.nix
+        ];
         test-support.displayManager.auto.user = "alice";
         services.xserver.displayManager.defaultSession = "none+xmonad";
         services.xserver.windowManager.xmonad = {
@@ -73,8 +79,7 @@ import ./make-test-python.nix ({
           enableConfiguredRecompile = true;
           enableContribAndExtras = true;
           extraPackages = with pkgs.haskellPackages;
-            haskellPackages:
-            [ xmobar ];
+            haskellPackages: [ xmobar ];
           config = mkConfig "oldXMonad" oldKeys;
         };
       };

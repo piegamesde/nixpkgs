@@ -13,7 +13,12 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ async_kernel async_unix caqti core_kernel ];
+  propagatedBuildInputs = [
+    async_kernel
+    async_unix
+    caqti
+    core_kernel
+  ];
 
   meta = caqti.meta // { description = "Async support for Caqti"; };
 }

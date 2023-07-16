@@ -22,8 +22,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-L39Prxs39Ku3jrQO/tOi2qGREFl7+W18WXTCcgoDkXU=";
   };
 
-  nativeBuildInputs = [ perl makeWrapper ];
-  buildInputs = [ perl bash ];
+  nativeBuildInputs = [
+    perl
+    makeWrapper
+  ];
+  buildInputs = [
+    perl
+    bash
+  ];
   strictDeps = true;
 
   postPatch = ''
@@ -31,7 +37,10 @@ stdenv.mkDerivation rec {
     substituteInPlace configure --replace '/etc/bash_completion.d' '/share/bash-completion/completions'
   '';
 
-  configureFlags = [ "--shell=${bash}/bin/bash" "--prefix=/" ];
+  configureFlags = [
+    "--shell=${bash}/bin/bash"
+    "--prefix=/"
+  ];
   configurePlatforms = [ ];
 
   dontBuild = true;
@@ -41,7 +50,11 @@ stdenv.mkDerivation rec {
   postInstall = ''
     for f in lesspipe.sh lesscomplete; do
       wrapProgram "$out/bin/$f" --prefix-each PATH : "${
-        lib.makeBinPath [ file gnused procps ]
+        lib.makeBinPath [
+          file
+          gnused
+          procps
+        ]
       }"
     done
   '';

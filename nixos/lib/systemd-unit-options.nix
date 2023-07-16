@@ -67,7 +67,10 @@ in rec {
 
     overrideStrategy = mkOption {
       default = "asDropinIfExists";
-      type = types.enum [ "asDropinIfExists" "asDropin" ];
+      type = types.enum [
+        "asDropinIfExists"
+        "asDropin"
+      ];
       description = lib.mdDoc ''
         Defines how unit configuration is provided for systemd:
 
@@ -307,7 +310,12 @@ in rec {
 
         environment = mkOption {
           default = { };
-          type = with types; attrsOf (nullOr (oneOf [ str path package ]));
+          type = with types;
+            attrsOf (nullOr (oneOf [
+              str
+              path
+              package
+            ]));
           example = {
             PATH = "/foo/bar/bin";
             LANG = "nl_NL.UTF-8";
@@ -318,7 +326,11 @@ in rec {
 
         path = mkOption {
           default = [ ];
-          type = with types; listOf (oneOf [ package str ]);
+          type = with types;
+            listOf (oneOf [
+              package
+              str
+            ]);
           description = lib.mdDoc ''
             Packages added to the service's {env}`PATH`
             environment variable.  Both the {file}`bin`
@@ -439,7 +451,10 @@ in rec {
     };
 
   stage2ServiceOptions = {
-    imports = [ stage2CommonUnitOptions serviceOptions ];
+    imports = [
+      stage2CommonUnitOptions
+      serviceOptions
+    ];
 
     options = {
       restartIfChanged = mkOption {
@@ -499,7 +514,10 @@ in rec {
   };
 
   stage1ServiceOptions = {
-    imports = [ stage1CommonUnitOptions serviceOptions ];
+    imports = [
+      stage1CommonUnitOptions
+      serviceOptions
+    ];
   };
 
   socketOptions = {
@@ -508,7 +526,10 @@ in rec {
       listenStreams = mkOption {
         default = [ ];
         type = types.listOf types.str;
-        example = [ "0.0.0.0:993" "/run/my-socket" ];
+        example = [
+          "0.0.0.0:993"
+          "/run/my-socket"
+        ];
         description = lib.mdDoc ''
           For each item in this list, a `ListenStream`
           option in the `[Socket]` section will be created.
@@ -518,7 +539,10 @@ in rec {
       listenDatagrams = mkOption {
         default = [ ];
         type = types.listOf types.str;
-        example = [ "0.0.0.0:993" "/run/my-socket" ];
+        example = [
+          "0.0.0.0:993"
+          "/run/my-socket"
+        ];
         description = lib.mdDoc ''
           For each item in this list, a `ListenDatagram`
           option in the `[Socket]` section will be created.
@@ -540,11 +564,17 @@ in rec {
   };
 
   stage2SocketOptions = {
-    imports = [ stage2CommonUnitOptions socketOptions ];
+    imports = [
+      stage2CommonUnitOptions
+      socketOptions
+    ];
   };
 
   stage1SocketOptions = {
-    imports = [ stage1CommonUnitOptions socketOptions ];
+    imports = [
+      stage1CommonUnitOptions
+      socketOptions
+    ];
   };
 
   timerOptions = {
@@ -568,9 +598,19 @@ in rec {
     };
   };
 
-  stage2TimerOptions = { imports = [ stage2CommonUnitOptions timerOptions ]; };
+  stage2TimerOptions = {
+    imports = [
+      stage2CommonUnitOptions
+      timerOptions
+    ];
+  };
 
-  stage1TimerOptions = { imports = [ stage1CommonUnitOptions timerOptions ]; };
+  stage1TimerOptions = {
+    imports = [
+      stage1CommonUnitOptions
+      timerOptions
+    ];
+  };
 
   pathOptions = {
     options = {
@@ -592,9 +632,19 @@ in rec {
     };
   };
 
-  stage2PathOptions = { imports = [ stage2CommonUnitOptions pathOptions ]; };
+  stage2PathOptions = {
+    imports = [
+      stage2CommonUnitOptions
+      pathOptions
+    ];
+  };
 
-  stage1PathOptions = { imports = [ stage1CommonUnitOptions pathOptions ]; };
+  stage1PathOptions = {
+    imports = [
+      stage1CommonUnitOptions
+      pathOptions
+    ];
+  };
 
   mountOptions = {
     options = {
@@ -643,9 +693,19 @@ in rec {
     };
   };
 
-  stage2MountOptions = { imports = [ stage2CommonUnitOptions mountOptions ]; };
+  stage2MountOptions = {
+    imports = [
+      stage2CommonUnitOptions
+      mountOptions
+    ];
+  };
 
-  stage1MountOptions = { imports = [ stage1CommonUnitOptions mountOptions ]; };
+  stage1MountOptions = {
+    imports = [
+      stage1CommonUnitOptions
+      mountOptions
+    ];
+  };
 
   automountOptions = {
     options = {
@@ -674,11 +734,17 @@ in rec {
   };
 
   stage2AutomountOptions = {
-    imports = [ stage2CommonUnitOptions automountOptions ];
+    imports = [
+      stage2CommonUnitOptions
+      automountOptions
+    ];
   };
 
   stage1AutomountOptions = {
-    imports = [ stage1CommonUnitOptions automountOptions ];
+    imports = [
+      stage1CommonUnitOptions
+      automountOptions
+    ];
   };
 
   sliceOptions = {
@@ -698,8 +764,18 @@ in rec {
     };
   };
 
-  stage2SliceOptions = { imports = [ stage2CommonUnitOptions sliceOptions ]; };
+  stage2SliceOptions = {
+    imports = [
+      stage2CommonUnitOptions
+      sliceOptions
+    ];
+  };
 
-  stage1SliceOptions = { imports = [ stage1CommonUnitOptions sliceOptions ]; };
+  stage1SliceOptions = {
+    imports = [
+      stage1CommonUnitOptions
+      sliceOptions
+    ];
+  };
 
 }

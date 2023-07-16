@@ -28,9 +28,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-X4jf7+QFjoev1K6ywxN0n9MYUv7xI1/su+hHeesG02Y=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  propagatedBuildInputs = [ glib gtk3 pulseaudio ];
+  propagatedBuildInputs = [
+    glib
+    gtk3
+    pulseaudio
+  ];
 
   buildInputs = [
     gdk-pixbuf
@@ -41,7 +48,14 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  nativeBuildInputs = [ meson ninja python3 wrapGAppsHook intltool pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    python3
+    wrapGAppsHook
+    intltool
+    pkg-config
+  ];
 
   postPatch = ''
     chmod +x install-scripts/meson_install_schemas.py # patchShebangs requires executable file
@@ -61,7 +75,10 @@ stdenv.mkDerivation rec {
       gtk-doc.
     '';
 
-    license = [ licenses.gpl2 licenses.lgpl2 ];
+    license = [
+      licenses.gpl2
+      licenses.lgpl2
+    ];
     platforms = platforms.linux;
     maintainers = teams.cinnamon.members;
   };

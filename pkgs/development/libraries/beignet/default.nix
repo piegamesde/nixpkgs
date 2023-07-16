@@ -52,7 +52,11 @@ stdenv.mkDerivation rec {
     libGL
   ];
 
-  nativeBuildInputs = [ cmake pkg-config python3 ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    python3
+  ];
 
   passthru.utests = stdenv.mkDerivation {
     pname = "beignet-utests";
@@ -62,7 +66,12 @@ stdenv.mkDerivation rec {
       cd utests
     '';
 
-    nativeBuildInputs = [ cmake python3 pkg-config makeWrapper ];
+    nativeBuildInputs = [
+      cmake
+      python3
+      pkg-config
+      makeWrapper
+    ];
 
     buildInputs = [ ocl-icd ];
 
@@ -95,7 +104,10 @@ stdenv.mkDerivation rec {
       It supports the Intel OpenCL runtime library and compiler.
     '';
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ artuuge zimbatm ];
+    maintainers = with maintainers; [
+      artuuge
+      zimbatm
+    ];
     platforms = platforms.linux;
     # Requires libdrm_intel
     badPlatforms = [ "aarch64-linux" ];

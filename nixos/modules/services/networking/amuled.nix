@@ -56,17 +56,17 @@ in {
 
   config = mkIf cfg.enable {
 
-    users.users = mkIf (cfg.user == null) [{
+    users.users = mkIf (cfg.user == null) [ {
       name = "amule";
       description = "AMule daemon";
       group = "amule";
       uid = config.ids.uids.amule;
-    }];
+    } ];
 
-    users.groups = mkIf (cfg.user == null) [{
+    users.groups = mkIf (cfg.user == null) [ {
       name = "amule";
       gid = config.ids.gids.amule;
-    }];
+    } ];
 
     systemd.services.amuled = {
       description = "AMule daemon";

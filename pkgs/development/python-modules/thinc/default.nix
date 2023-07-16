@@ -62,7 +62,11 @@ buildPythonPackage rec {
     wasabi
   ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
-  nativeCheckInputs = [ hypothesis mock pytestCheckHook ];
+  nativeCheckInputs = [
+    hypothesis
+    mock
+    pytestCheckHook
+  ];
 
   # Add native extensions.
   preCheck = ''

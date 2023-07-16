@@ -45,9 +45,16 @@ buildPythonPackage rec {
     hash = "sha256-v0fIhf3P5Xjdn5/ryRNj0Q2YHAisMqi5RTmJQabaUO0=";
   };
 
-  nativeBuildInputs = [ setuptools-scm scikit-build cmake ];
+  nativeBuildInputs = [
+    setuptools-scm
+    scikit-build
+    cmake
+  ];
 
-  buildInputs = [ antlr4_9.runtime.cpp libxml2.dev ];
+  buildInputs = [
+    antlr4_9.runtime.cpp
+    libxml2.dev
+  ];
 
   patches = [
     # Don't try to install cmake and ninja using pip

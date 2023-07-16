@@ -43,8 +43,12 @@ in stdenv.mkDerivation {
     hash = "sha256-PROb6d5ixO7lk/7wsjh2vkPkPgAvd6x+orQOY078IAs=";
   };
 
-  buildInputs = [ flac libmad libvorbis mpg123 ]
-    ++ lib.singleton (if pulseSupport then libpulseaudio else alsa-lib)
+  buildInputs = [
+    flac
+    libmad
+    libvorbis
+    mpg123
+  ] ++ lib.singleton (if pulseSupport then libpulseaudio else alsa-lib)
     ++ optional faad2Support faad2 ++ optional ffmpegSupport ffmpeg
     ++ optional opusSupport opusfile ++ optional resampleSupport soxr
     ++ optional sslSupport openssl;
@@ -58,9 +62,12 @@ in stdenv.mkDerivation {
 
   EXECUTABLE = binName;
 
-  OPTS = [ "-DLINKALL" "-DGPIO" ] ++ optional dsdSupport "-DDSD"
-    ++ optional (!faad2Support) "-DNO_FAAD" ++ optional ffmpegSupport "-DFFMPEG"
-    ++ optional opusSupport "-DOPUS" ++ optional pulseSupport "-DPULSEAUDIO"
+  OPTS = [
+    "-DLINKALL"
+    "-DGPIO"
+  ] ++ optional dsdSupport "-DDSD" ++ optional (!faad2Support) "-DNO_FAAD"
+    ++ optional ffmpegSupport "-DFFMPEG" ++ optional opusSupport "-DOPUS"
+    ++ optional pulseSupport "-DPULSEAUDIO"
     ++ optional resampleSupport "-DRESAMPLE" ++ optional sslSupport "-DUSE_SSL";
 
   installPhase = ''

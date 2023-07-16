@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
   };
 
   dontBuild = true;
-  installFlags = [ "PREFIX=$(out)" "MANPREFIX=$(out)/share" ];
+  installFlags = [
+    "PREFIX=$(out)"
+    "MANPREFIX=$(out)/share"
+  ];
 
   preInstall = ''
     mkdir -p $out/{bin,share}

@@ -25,8 +25,20 @@ stdenv.mkDerivation rec {
     sha256 = "1qpmbdlyhfbrdsq4vkb6cb3b8mh27fpizb71q4a21ala56g08yms";
   };
 
-  nativeBuildInputs = [ cmake pkg-config zip ];
-  buildInputs = [ SDL2 SDL2_image libGLU libGL physfs boost zlib ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    zip
+  ];
+  buildInputs = [
+    SDL2
+    SDL2_image
+    libGLU
+    libGL
+    physfs
+    boost
+    zlib
+  ];
 
   preConfigure = ''
     sed -e '1i#include <iostream>' -i src/NetworkMessage.cpp

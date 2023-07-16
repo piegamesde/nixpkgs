@@ -22,7 +22,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-mock poetry ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-mock
+    poetry
+  ];
 
   preCheck = ''
     export HOME=$TMPDIR

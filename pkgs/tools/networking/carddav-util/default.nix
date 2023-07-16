@@ -19,7 +19,11 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  propagatedBuildInputs = with python3Packages; [ requests vobject lxml ];
+  propagatedBuildInputs = with python3Packages; [
+    requests
+    vobject
+    lxml
+  ];
 
   strictDeps = true;
 

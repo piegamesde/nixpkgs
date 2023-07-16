@@ -29,13 +29,21 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "12l7z8dhl917iy9h02sxmpclnhkdjryn08r8i4sr8l3lrlm4mk5r";
   };
 
-  nativeBuildInputs = [ vala pkg-config intltool gobject-introspection ];
+  nativeBuildInputs = [
+    vala
+    pkg-config
+    intltool
+    gobject-introspection
+  ];
 
-  buildInputs = [ glib dbus-glib json-glib ]
-    ++ lib.optional (gtkVersion != null) {
-      "2" = gtk2;
-      "3" = gtk3;
-    }.${gtkVersion} or (throw "unknown GTK version ${gtkVersion}");
+  buildInputs = [
+    glib
+    dbus-glib
+    json-glib
+  ] ++ lib.optional (gtkVersion != null) {
+    "2" = gtk2;
+    "3" = gtk3;
+  }.${gtkVersion} or (throw "unknown GTK version ${gtkVersion}");
 
   postPatch = ''
     for f in {configure,ltmain.sh,m4/libtool.m4}; do
@@ -72,9 +80,15 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Library for passing menu structures across DBus";
     homepage = "https://launchpad.net/dbusmenu";
-    license = with licenses; [ gpl3 lgpl21 lgpl3 ];
-    pkgConfigModules = [ "dbusmenu-glib-0.4" "dbusmenu-jsonloader-0.4" ]
-      ++ lib.optional (gtkVersion == "3") "dbusmenu-gtk${gtkVersion}-0.4";
+    license = with licenses; [
+      gpl3
+      lgpl21
+      lgpl3
+    ];
+    pkgConfigModules = [
+      "dbusmenu-glib-0.4"
+      "dbusmenu-jsonloader-0.4"
+    ] ++ lib.optional (gtkVersion == "3") "dbusmenu-gtk${gtkVersion}-0.4";
     platforms = platforms.linux;
     maintainers = [ maintainers.msteen ];
   };

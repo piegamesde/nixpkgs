@@ -27,7 +27,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dS+Fc0iQz7GIlGaR556Ur/EQh3Uzhqm9uBW42IuEqoE=";
   };
 
-  nativeBuildInputs = [ qmake pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    pkg-config
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     qtbase
@@ -41,7 +45,10 @@ stdenv.mkDerivation rec {
     soapysdr-with-plugins
   ];
 
-  qmakeFlags = [ "SUWIDGETS_PREFIX=${suwidgets}" "SigDigger.pro" ];
+  qmakeFlags = [
+    "SUWIDGETS_PREFIX=${suwidgets}"
+    "SigDigger.pro"
+  ];
 
   meta = with lib; {
     description =
@@ -49,6 +56,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/BatchDrake/SigDigger";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ polygon oxapentane ];
+    maintainers = with maintainers; [
+      polygon
+      oxapentane
+    ];
   };
 }

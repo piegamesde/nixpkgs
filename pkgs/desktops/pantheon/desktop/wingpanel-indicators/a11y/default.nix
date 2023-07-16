@@ -25,9 +25,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-iS+xTCjbRZfaUiOtHbQ+/SaajfWWAlC9XiZbIGZPO9I=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config python3 vala ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    python3
+    vala
+  ];
 
-  buildInputs = [ granite gtk3 libgee wingpanel ];
+  buildInputs = [
+    granite
+    gtk3
+    libgee
+    wingpanel
+  ];
 
   postPatch = ''
     chmod +x meson/post_install.py

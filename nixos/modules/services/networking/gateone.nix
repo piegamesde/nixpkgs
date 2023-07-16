@@ -40,7 +40,13 @@ in {
 
     systemd.services.gateone = with pkgs; {
       description = "GateOne web-based terminal";
-      path = [ pythonPackages.gateone nix openssh procps coreutils ];
+      path = [
+        pythonPackages.gateone
+        nix
+        openssh
+        procps
+        coreutils
+      ];
       preStart = ''
         if [ ! -d ${cfg.settingsDir} ] ; then
           mkdir -m 0750 -p ${cfg.settingsDir}

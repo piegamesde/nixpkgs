@@ -44,7 +44,11 @@ buildPythonPackage rec {
   setupPyGlobalFlags =
     [ ''--cmake-options="-DSPDLOG_SYS_DEP=ON;-DFMT_SYS_DEP=ON"'' ];
 
-  propagatedBuildInputs = [ numpy scikit-learn scipy ];
+  propagatedBuildInputs = [
+    numpy
+    scikit-learn
+    scipy
+  ];
 
   # Python build script uses CMake, but we don't want CMake to do the
   # configuration.

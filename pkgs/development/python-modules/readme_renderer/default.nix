@@ -24,9 +24,17 @@ buildPythonPackage rec {
     hash = "sha256-zWUxht/HMFVlbwkPIn9csioEbX9xqEHfowX1XJpRMnM=";
   };
 
-  propagatedBuildInputs = [ bleach cmarkgfm docutils pygments ];
+  propagatedBuildInputs = [
+    bleach
+    cmarkgfm
+    docutils
+    pygments
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

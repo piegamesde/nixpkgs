@@ -46,7 +46,12 @@ stdenv.mkDerivation rec {
     wayland
   ];
 
-  nativeBuildInputs = [ autoPatchelfHook dpkg makeWrapper wrapQtAppsHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    dpkg
+    makeWrapper
+    wrapQtAppsHook
+  ];
 
   unpackPhase = ''
     dpkg-deb --fsys-tarfile $src | tar -x --no-same-permissions --no-same-owner

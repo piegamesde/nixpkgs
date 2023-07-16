@@ -9,7 +9,10 @@ args@{
   description =
     "Various ASDF extensions such as attached test and documentation system, explicit development support, etc.";
 
-  deps = [ args."asdf" args."uiop" ];
+  deps = [
+    args."asdf"
+    args."uiop"
+  ];
 
   src = fetchurl {
     url =

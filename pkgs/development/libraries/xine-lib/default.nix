@@ -46,7 +46,11 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoconf pkg-config perl ];
+  nativeBuildInputs = [
+    autoconf
+    pkg-config
+    perl
+  ];
   buildInputs = [
     aalib
     alsa-lib
@@ -67,7 +71,13 @@ stdenv.mkDerivation rec {
     speex
     vcdimager
     zlib
-  ] ++ (with xorg; [ libX11 libXext libXinerama libXv libxcb ]);
+  ] ++ (with xorg; [
+    libX11
+    libXext
+    libXinerama
+    libXv
+    libxcb
+  ]);
 
   enableParallelBuilding = true;
 
@@ -77,7 +87,10 @@ stdenv.mkDerivation rec {
     homepage = "https://xine.sourceforge.net/";
     description =
       "A high-performance, portable and reusable multimedia playback engine";
-    license = with licenses; [ gpl2Plus lgpl2Plus ];
+    license = with licenses; [
+      gpl2Plus
+      lgpl2Plus
+    ];
     maintainers = with maintainers; [ AndersonTorres ];
     platforms = platforms.linux;
   };

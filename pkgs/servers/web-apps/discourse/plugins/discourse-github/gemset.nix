@@ -11,7 +11,10 @@
     version = "2.8.4";
   };
   faraday = {
-    dependencies = [ "faraday-net_http" "ruby2_keywords" ];
+    dependencies = [
+      "faraday-net_http"
+      "ruby2_keywords"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -32,7 +35,10 @@
     version = "3.0.2";
   };
   octokit = {
-    dependencies = [ "faraday" "sawyer" ];
+    dependencies = [
+      "faraday"
+      "sawyer"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -63,7 +69,10 @@
     version = "0.0.5";
   };
   sawyer = {
-    dependencies = [ "addressable" "faraday" ];
+    dependencies = [
+      "addressable"
+      "faraday"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

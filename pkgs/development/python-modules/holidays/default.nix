@@ -24,8 +24,12 @@ buildPythonPackage rec {
     hash = "sha256-acV/m4orkOEbON7C4ThGvaQtTMpp4c8FNesC7UepJFc=";
   };
 
-  propagatedBuildInputs =
-    [ convertdate python-dateutil hijri-converter korean-lunar-calendar ];
+  propagatedBuildInputs = [
+    convertdate
+    python-dateutil
+    hijri-converter
+    korean-lunar-calendar
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

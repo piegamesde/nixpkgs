@@ -20,7 +20,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-nlKzVQeLg3/nBIkD7QoBUWC93m9BiJrybf13Y/ns9gA=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    Security
+    libiconv
+  ];
 
   passthru.tests = { inherit (nixosTests) doh-proxy-rust; };
 

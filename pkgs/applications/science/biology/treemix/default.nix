@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
     sha256 = "1nd3rzsdgk47r8b8k43mdfvaagln533sm08s1jr0dz8km8nlym7y";
   };
 
-  buildInputs = [ zlib gsl boost ];
+  buildInputs = [
+    zlib
+    gsl
+    boost
+  ];
 
   meta = with lib; {
     description =

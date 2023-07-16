@@ -41,12 +41,21 @@ let
 
     patchFlags = [ "-p4" ];
 
-    nativeBuildInputs = [ pkg-config wrapGAppsHook ];
+    nativeBuildInputs = [
+      pkg-config
+      wrapGAppsHook
+    ];
 
-    buildInputs = [ glib gtk3 libsecret ];
+    buildInputs = [
+      glib
+      gtk3
+      libsecret
+    ];
 
-    nativeCheckInputs =
-      [ dbus (gnome.gnome-keyring.override { useWrappedDaemon = false; }) ];
+    nativeCheckInputs = [
+      dbus
+      (gnome.gnome-keyring.override { useWrappedDaemon = false; })
+    ];
 
     checkFlags = [ "--skip=password::password::tests::test" ];
 
@@ -81,7 +90,12 @@ in buildNpmPackage' {
 
   ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
-  nativeBuildInputs = [ jq makeWrapper moreutils python3 ];
+  nativeBuildInputs = [
+    jq
+    makeWrapper
+    moreutils
+    python3
+  ];
 
   preBuild = ''
     jq 'del(.scripts.postinstall)' apps/desktop/package.json | sponge apps/desktop/package.json
@@ -130,7 +144,10 @@ in buildNpmPackage' {
     inherit description;
     homepage = "https://bitwarden.com";
     license = lib.licenses.gpl3;
-    maintainers = with maintainers; [ amarshall kiwi ];
+    maintainers = with maintainers; [
+      amarshall
+      kiwi
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

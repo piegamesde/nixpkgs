@@ -45,7 +45,10 @@ stdenv.mkDerivation (finalAttrs: {
 
       testCompile = runCommand "dart-test-compile" {
         nativeBuildInputs = [ finalAttrs.finalPackage ]
-          ++ lib.optionals stdenv.isDarwin [ darwin.cctools darwin.sigtool ];
+          ++ lib.optionals stdenv.isDarwin [
+            darwin.cctools
+            darwin.sigtool
+          ];
       } ''
         HELLO_MESSAGE="Hello, world!"
         echo "void main() => print('$HELLO_MESSAGE');" > hello.dart

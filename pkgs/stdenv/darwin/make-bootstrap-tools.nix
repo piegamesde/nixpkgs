@@ -41,7 +41,10 @@ in rec {
   build = stdenv.mkDerivation {
     name = "stdenv-bootstrap-tools";
 
-    nativeBuildInputs = [ nukeReferences dumpnar ];
+    nativeBuildInputs = [
+      nukeReferences
+      dumpnar
+    ];
 
     buildCommand = ''
       mkdir -p $out/bin $out/lib $out/lib/system $out/lib/darwin

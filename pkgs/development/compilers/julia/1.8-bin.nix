@@ -105,9 +105,17 @@ in stdenv.mkDerivation rec {
     homepage = "https://julialang.org";
     # Bundled and linked with various GPL code, although Julia itself is MIT.
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ raskin nickcao wegank ];
-    platforms =
-      [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    maintainers = with lib.maintainers; [
+      raskin
+      nickcao
+      wegank
+    ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
     mainProgram = "julia";
   };
 }

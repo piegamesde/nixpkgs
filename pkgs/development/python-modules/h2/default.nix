@@ -32,16 +32,25 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ hpack hyperframe ];
+  propagatedBuildInputs = [
+    hpack
+    hyperframe
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook hypothesis ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    hypothesis
+  ];
 
   disabledTests = [
     # timing sensitive
     "test_changing_max_frame_size"
   ];
 
-  pythonImportsCheck = [ "h2.connection" "h2.config" ];
+  pythonImportsCheck = [
+    "h2.connection"
+    "h2.config"
+  ];
 
   meta = with lib; {
     description = "HTTP/2 State-Machine based protocol implementation";

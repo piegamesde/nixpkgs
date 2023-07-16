@@ -19,7 +19,12 @@ stdenv.mkDerivation rec {
   pname = "ntfs3g";
   version = "2022.10.3";
 
-  outputs = [ "out" "dev" "man" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+    "doc"
+  ];
 
   src = fetchFromGitHub {
     owner = "tuxera";
@@ -28,12 +33,24 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-nuFTsGkm3zmSzpwmhyY7Ke0VZfZU0jHOzEWaLBbglQk=";
   };
 
-  buildInputs = [ gettext libuuid ] ++ lib.optionals crypto [ gnutls libgcrypt ]
-    ++ lib.optionals stdenv.isDarwin [ macfuse-stubs DiskArbitration ];
+  buildInputs = [
+    gettext
+    libuuid
+  ] ++ lib.optionals crypto [
+    gnutls
+    libgcrypt
+  ] ++ lib.optionals stdenv.isDarwin [
+    macfuse-stubs
+    DiskArbitration
+  ];
 
   # Note: libgcrypt is listed here non-optionally because its m4 macros are
   # being used in ntfs-3g's configure.ac.
-  nativeBuildInputs = [ autoreconfHook libgcrypt pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    libgcrypt
+    pkg-config
+  ];
 
   patches = [
     # https://github.com/tuxera/ntfs-3g/pull/39
@@ -51,8 +68,8 @@ stdenv.mkDerivation rec {
     "--enable-extras"
     "--with-mount-helper=${mount}/bin/mount"
     "--with-umount-helper=${mount}/bin/umount"
-  ] ++ lib.optionals stdenv.isLinux
-    [ "--with-modprobe-helper=${kmod}/bin/modprobe" ];
+  ] ++ lib.optionals
+    stdenv.isLinux [ "--with-modprobe-helper=${kmod}/bin/modprobe" ];
 
   postInstall = ''
     # Prefer ntfs-3g over the ntfs driver in the kernel.

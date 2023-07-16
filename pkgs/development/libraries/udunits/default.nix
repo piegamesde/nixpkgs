@@ -21,7 +21,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-+HW21+r65OroCxMK2/B5fe7zHs4hD4xyoJK2bhdJGyQ=";
   };
 
-  nativeBuildInputs = [ autoreconfHook texinfo bison flex file ];
+  nativeBuildInputs = [
+    autoreconfHook
+    texinfo
+    bison
+    flex
+    file
+  ];
   buildInputs = [ expat ];
 
   meta = with lib; {
@@ -37,7 +43,10 @@ stdenv.mkDerivation rec {
       converting values.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ AndersonTorres pSub ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      pSub
+    ];
     platforms = platforms.all;
     mainProgram = "udunits2";
   };

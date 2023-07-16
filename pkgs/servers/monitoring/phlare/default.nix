@@ -31,7 +31,10 @@ buildGoModule rec {
     "-X ${prefix}.BuildDate=1980-01-01T00:00:00Z"
   ];
 
-  subPackages = [ "cmd/phlare" "cmd/profilecli" ];
+  subPackages = [
+    "cmd/phlare"
+    "cmd/profilecli"
+  ];
 
   meta = with lib; {
     description =

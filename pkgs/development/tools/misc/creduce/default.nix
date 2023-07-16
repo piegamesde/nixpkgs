@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
     sha256 = "2xwPEjln8k1iCwQM69UwAb89zwPkAPeFVqL/LhH+oGM=";
   };
 
-  nativeBuildInputs = [ cmake makeWrapper llvm.dev ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    llvm.dev
+  ];
   buildInputs = [
     # Ensure stdenv's CC is on PATH before clang-unwrapped
     stdenv.cc

@@ -74,7 +74,10 @@ in {
       description = "CPU Frequency Setup";
       after = [ "systemd-modules-load.service" ];
       wantedBy = [ "multi-user.target" ];
-      path = [ cpupower pkgs.kmod ];
+      path = [
+        cpupower
+        pkgs.kmod
+      ];
       unitConfig.ConditionVirtualization = false;
       serviceConfig = {
         Type = "oneshot";

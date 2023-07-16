@@ -20,7 +20,11 @@ in stdenv.mkDerivation rec {
     sha256 = "0rrqfa5z103ws89vi8kfvbks1cfs74ix6n1wb6vs582vnmhwhswm";
   };
 
-  buildInputs = [ 0.0 fsprogs installShellFiles ];
+  buildInputs = [
+    0.0
+    fsprogs
+    installShellFiles
+  ];
 
   installPhase = ''
     mkdir -p $out/bin $out/share/zerofree

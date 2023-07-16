@@ -24,8 +24,17 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-ynYAWF570S6MpD1WXbUC3cu+chL3+AhsMHr15l+LYVg=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ zlib bzip2 xz zstd openssl ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    zlib
+    bzip2
+    xz
+    zstd
+    openssl
+  ];
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=${
@@ -60,7 +69,10 @@ stdenv.mkDerivation (finalAttrs: {
       "Fork of the popular zip manipulation library found in the zlib distribution";
     homepage = "https://github.com/zlib-ng/minizip-ng";
     license = licenses.zlib;
-    maintainers = with maintainers; [ gebner ris ];
+    maintainers = with maintainers; [
+      gebner
+      ris
+    ];
     platforms = platforms.unix;
   };
 })

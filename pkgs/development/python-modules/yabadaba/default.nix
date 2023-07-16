@@ -28,8 +28,16 @@ buildPythonPackage rec {
     hash = "sha256-PXmkRbCFag2WAtodwgb3kX+hRDZdCKKi/YwAMSQePxQ=";
   };
 
-  propagatedBuildInputs =
-    [ cdcs datamodeldict ipython lxml numpy pandas pymongo tqdm ];
+  propagatedBuildInputs = [
+    cdcs
+    datamodeldict
+    ipython
+    lxml
+    numpy
+    pandas
+    pymongo
+    tqdm
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

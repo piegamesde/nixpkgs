@@ -73,7 +73,10 @@ let
         buildFlags = [ "--with-pg-config=${postgresql}/bin/pg_config" ];
       };
       rszr = attrs: {
-        buildInputs = [ imlib2 imlib2.dev ];
+        buildInputs = [
+          imlib2
+          imlib2.dev
+        ];
         buildFlags = [ "--without-imlib2-config" ];
       };
       mini_racer = attrs: {
@@ -98,8 +101,15 @@ let
 in stdenv.mkDerivation {
   inherit pname version src;
 
-  buildInputs =
-    [ rubyEnv rubyEnv.wrappedRuby rubyEnv.bundler yarn nodejs procps cacert ];
+  buildInputs = [
+    rubyEnv
+    rubyEnv.wrappedRuby
+    rubyEnv.bundler
+    yarn
+    nodejs
+    procps
+    cacert
+  ];
 
   RAILS_ENV = "production";
 
@@ -119,8 +129,11 @@ in stdenv.mkDerivation {
 
   passthru = {
     inherit rubyEnv yarnEnv;
-    updateScript =
-      [ "${callPackage ./update.nix { }}/bin/update.sh" pname (toString ./.) ];
+    updateScript = [
+      "${callPackage ./update.nix { }}/bin/update.sh"
+      pname
+      (toString ./.)
+    ];
   };
 
   meta = with lib; {
@@ -129,6 +142,10 @@ in stdenv.mkDerivation {
     homepage = "https://zammad.org";
     license = licenses.agpl3Plus;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ n0emis garbas taeer ];
+    maintainers = with maintainers; [
+      n0emis
+      garbas
+      taeer
+    ];
   };
 }

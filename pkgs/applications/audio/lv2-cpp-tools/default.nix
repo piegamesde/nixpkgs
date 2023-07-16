@@ -25,7 +25,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ lv2 gtkmm2 boost ];
+  buildInputs = [
+    lv2
+    gtkmm2
+    boost
+  ];
 
   meta = with lib; {
     homepage = "http://ll-plugins.nongnu.org/hacking.html";

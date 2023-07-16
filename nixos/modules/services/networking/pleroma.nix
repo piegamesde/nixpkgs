@@ -104,7 +104,10 @@ in {
 
     systemd.services.pleroma = {
       description = "Pleroma social network";
-      after = [ "network-online.target" "postgresql.service" ];
+      after = [
+        "network-online.target"
+        "postgresql.service"
+      ];
       wantedBy = [ "multi-user.target" ];
       restartTriggers = [ config.environment.etc."/pleroma/config.exs".source ];
       environment.RELEASE_COOKIE = "/var/lib/pleroma/.cookie";

@@ -6,7 +6,11 @@ import ./make-test-python.nix ({
   }: {
     name = "docker-registry";
     meta = with pkgs.lib.maintainers; {
-      maintainers = [ globin ma27 ironpinguin ];
+      maintainers = [
+        globin
+        ma27
+        ironpinguin
+      ];
     };
 
     nodes = {

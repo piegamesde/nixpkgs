@@ -16,7 +16,10 @@ buildNimPackage rec {
     rev = "5b1307cb1f4c85bb72ff781d810fb8c0148b1183";
     hash = "sha256-gjMCB9kpWVi9Qv73/jhoAYw857OmQpry//bDQCtyJo0=";
   };
-  buildInputs = [ stew tempfile ];
+  buildInputs = [
+    stew
+    tempfile
+  ];
   propagatedBuildInputs = [ rocksdb ];
   doCheck = false;
   meta = with lib;

@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "1lj2f13pbaajcy4v3744bz46rghhw5sv4dwwfnzhsllbj5gnjsv2";
   };
 
-  buildInputs = lib.optionals withGraphics [ libX11 libXt ];
+  buildInputs = lib.optionals withGraphics [
+    libX11
+    libXt
+  ];
 
   configurePhase = let
     target = if withGraphics then "X-Configure" else "Configure";
@@ -44,7 +47,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A very high level general-purpose programming language";
-    maintainers = with maintainers; [ vrthra yurrriq ];
+    maintainers = with maintainers; [
+      vrthra
+      yurrriq
+    ];
     platforms = with platforms;
       linux ++ darwin ++ freebsd ++ netbsd ++ openbsd ++ cygwin ++ illumos;
     license = licenses.publicDomain;

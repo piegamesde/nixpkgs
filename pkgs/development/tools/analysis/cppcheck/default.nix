@@ -33,7 +33,10 @@ stdenv.mkDerivation rec {
     which
     python3
   ];
-  buildInputs = [ pcre (python3.withPackages (ps: [ ps.pygments ])) ];
+  buildInputs = [
+    pcre
+    (python3.withPackages (ps: [ ps.pygments ]))
+  ];
 
   makeFlags = [
     "PREFIX=$(out)"
@@ -42,7 +45,10 @@ stdenv.mkDerivation rec {
     "HAVE_RULES=yes"
   ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   enableParallelBuilding = true;
 

@@ -30,7 +30,11 @@ stdenv.mkDerivation rec {
   pname = "folks";
   version = "0.15.6";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -57,7 +61,11 @@ stdenv.mkDerivation rec {
     readline
   ] ++ lib.optionals telepathySupport [ telepathy-glib ];
 
-  propagatedBuildInputs = [ glib libgee sqlite ];
+  propagatedBuildInputs = [
+    glib
+    libgee
+    sqlite
+  ];
 
   nativeCheckInputs = [
     dbus

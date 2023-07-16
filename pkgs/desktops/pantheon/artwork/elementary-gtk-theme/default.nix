@@ -32,7 +32,13 @@ stdenvNoCC.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ gettext meson ninja python3 sassc ];
+  nativeBuildInputs = [
+    gettext
+    meson
+    ninja
+    python3
+    sassc
+  ];
 
   postPatch = ''
     chmod +x meson/install-to-dir.py

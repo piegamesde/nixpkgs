@@ -31,10 +31,18 @@ stdenv.mkDerivation rec {
       --replace "/usr/local" $out
   '';
 
-  nativeBuildInputs = [ bison flex which ];
+  nativeBuildInputs = [
+    bison
+    flex
+    which
+  ];
 
-  buildInputs = [ alsa-lib libsndfile qt4 qscintilla-qt4 ]
-    ++ lib.optional (audioBackend == "pulse") libpulseaudio
+  buildInputs = [
+    alsa-lib
+    libsndfile
+    qt4
+    qscintilla-qt4
+  ] ++ lib.optional (audioBackend == "pulse") libpulseaudio
     ++ lib.optional (audioBackend == "jack") libjack2;
 
   buildFlags = [ "linux-${audioBackend}" ];

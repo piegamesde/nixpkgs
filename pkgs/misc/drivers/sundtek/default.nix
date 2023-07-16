@@ -8,7 +8,10 @@ with lib;
 
 let
   version = "2016-01-26";
-  rpath = makeLibraryPath [ "$out/lib" "$out/bin" ];
+  rpath = makeLibraryPath [
+    "$out/lib"
+    "$out/bin"
+  ];
   platform = with stdenv;
     if isx86_64 then
       "64bit"

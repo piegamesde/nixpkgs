@@ -24,7 +24,12 @@
 }@attrs:
 
 stdenvNoCC.mkDerivation (attrs // {
-  nativeBuildInputs = [ elixir hex cacert git ];
+  nativeBuildInputs = [
+    elixir
+    hex
+    cacert
+    git
+  ];
 
   MIX_ENV = mixEnv;
   MIX_DEBUG = if debug then 1 else 0;

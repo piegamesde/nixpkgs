@@ -30,7 +30,12 @@ in stdenv.mkDerivation rec {
     sha256 = "qYGz8/IFS1ouZYhRo8BqJGCtBKmopkXgr+Bjpj/bsH4=";
   };
 
-  buildInputs = [ xz lzo zlib zstd ] ++ lib.optionals lz4Support [ lz4 ];
+  buildInputs = [
+    xz
+    lzo
+    zlib
+    zstd
+  ] ++ lib.optionals lz4Support [ lz4 ];
 
   patches = [ patch ];
   patchFlags = [ "-p0" ];
