@@ -30,7 +30,9 @@ let
         url = "https://forge.ocamlcore.org/frs/download.php/1156/rope-0.5.tar.gz";
         sha256 = "05fr2f5ch2rqhyaj06rv5218sbg99p1m9pq5sklk04hpslxig21f";
         nativeBuildInputs = [ ocamlbuild ];
-        extra = { createFindlibDestdir = true; };
+        extra = {
+          createFindlibDestdir = true;
+        };
       }
   ;
 in

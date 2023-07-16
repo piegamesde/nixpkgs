@@ -50,7 +50,9 @@ in
               util-linux
               profile-sync-daemon
             ];
-            unitConfig = { RequiresMountsFor = [ "/home/" ]; };
+            unitConfig = {
+              RequiresMountsFor = [ "/home/" ];
+            };
             serviceConfig = {
               Type = "oneshot";
               RemainAfterExit = "yes";
@@ -88,7 +90,9 @@ in
             "psd.service"
           ];
 
-          timerConfig = { OnUnitActiveSec = "${cfg.resyncTimer}"; };
+          timerConfig = {
+            OnUnitActiveSec = "${cfg.resyncTimer}";
+          };
         };
       };
     };

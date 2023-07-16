@@ -39,7 +39,9 @@ import ../make-test-python.nix (
             uid = 1080;
             group = "testgroup";
           };
-          groups.testgroup = { gid = 1080; };
+          groups.testgroup = {
+            gid = 1080;
+          };
         };
       }
     ;

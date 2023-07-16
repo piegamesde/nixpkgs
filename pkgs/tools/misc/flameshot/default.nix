@@ -20,7 +20,9 @@ mkDerivation rec {
     sha256 = "sha256-omyMN8d+g1uYsEw41KmpJCwOmVWLokEfbW19vIvG79w=";
   };
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   nativeBuildInputs = [
     cmake

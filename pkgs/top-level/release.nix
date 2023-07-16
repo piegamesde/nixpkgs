@@ -202,7 +202,11 @@ let
         if hasSuffix "-linux" system then
           let
             bootstrap = import ../stdenv/linux/make-bootstrap-tools.nix {
-              pkgs = import ../.. { localSystem = { inherit system; }; };
+              pkgs = import ../.. {
+                localSystem = {
+                  inherit system;
+                };
+              };
             };
           in
           {
@@ -211,7 +215,9 @@ let
         else if hasSuffix "-darwin" system then
           let
             bootstrap = import ../stdenv/darwin/make-bootstrap-tools.nix {
-              localSystem = { inherit system; };
+              localSystem = {
+                inherit system;
+              };
             };
           in
           {

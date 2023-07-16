@@ -17,7 +17,9 @@ let
   ;
 in
 {
-  meta = { maintainers = with maintainers; [ minijackson ]; };
+  meta = {
+    maintainers = with maintainers; [ minijackson ];
+  };
 
   options.xdg.portal.wlr = {
     enable = mkEnableOption (

@@ -106,7 +106,9 @@ in
       package = mkDefault pkgs.mariadb;
       ensureUsers = [ {
         name = "engelsystem";
-        ensurePermissions = { "engelsystem.*" = "ALL PRIVILEGES"; };
+        ensurePermissions = {
+          "engelsystem.*" = "ALL PRIVILEGES";
+        };
       } ];
       ensureDatabases = [ "engelsystem" ];
     };
@@ -161,7 +163,9 @@ in
 
     systemd.services."engelsystem-init" = {
       wantedBy = [ "multi-user.target" ];
-      serviceConfig = { Type = "oneshot"; };
+      serviceConfig = {
+        Type = "oneshot";
+      };
       script =
         let
           genConfigScript = pkgs.writeScript "engelsystem-gen-config.sh" (

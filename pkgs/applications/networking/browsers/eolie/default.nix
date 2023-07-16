@@ -81,7 +81,9 @@ python3.pkgs.buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   strictDeps = false;
 

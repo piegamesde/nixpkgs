@@ -92,7 +92,9 @@ stdenv.mkDerivation rec {
     rm -r $out/nix
   '';
 
-  passthru.tests = { inherit (nixosTests) pacemaker; };
+  passthru.tests = {
+    inherit (nixosTests) pacemaker;
+  };
 
   meta = with lib; {
     homepage = "https://clusterlabs.org/pacemaker/";

@@ -15,7 +15,9 @@ in
 
 {
 
-  meta = { maintainers = with maintainers; [ danbst ]; };
+  meta = {
+    maintainers = with maintainers; [ danbst ];
+  };
 
   ###### interface
 

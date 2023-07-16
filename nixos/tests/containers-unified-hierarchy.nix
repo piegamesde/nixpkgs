@@ -6,7 +6,9 @@ import ./make-test-python.nix (
   }:
   {
     name = "containers-unified-hierarchy";
-    meta = { maintainers = with lib.maintainers; [ farnoy ]; };
+    meta = {
+      maintainers = with lib.maintainers; [ farnoy ];
+    };
 
     nodes.machine =
       {

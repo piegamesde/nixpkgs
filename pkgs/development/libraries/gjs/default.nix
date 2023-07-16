@@ -145,7 +145,9 @@ stdenv.mkDerivation rec {
   separateDebugInfo = stdenv.isLinux;
 
   passthru = {
-    tests = { installed-tests = nixosTests.installed-tests.gjs; };
+    tests = {
+      installed-tests = nixosTests.installed-tests.gjs;
+    };
 
     updateScript = gnome.updateScript {
       packageName = "gjs";

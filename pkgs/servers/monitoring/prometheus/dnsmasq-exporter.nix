@@ -20,7 +20,9 @@ buildGoModule rec {
 
   doCheck = false;
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) dnsmasq; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) dnsmasq;
+  };
 
   meta = with lib; {
     inherit (src.meta) homepage;

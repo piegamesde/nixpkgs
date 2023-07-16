@@ -519,7 +519,9 @@ in
           flashbackWms
       ;
 
-      security.pam.services.gnome-flashback = { enableGnomeKeyring = true; };
+      security.pam.services.gnome-flashback = {
+        enableGnomeKeyring = true;
+      };
 
       systemd.packages =
         with pkgs.gnome;

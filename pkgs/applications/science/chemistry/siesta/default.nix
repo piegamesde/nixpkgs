@@ -25,7 +25,9 @@ stdenv.mkDerivation rec {
     substituteInPlace Src/siesta_init.F --replace '/bin/rm' 'rm'
   '';
 
-  passthru = { inherit mpi; };
+  passthru = {
+    inherit mpi;
+  };
 
   nativeBuildInputs = [ gfortran ];
 

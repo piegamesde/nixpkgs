@@ -751,7 +751,9 @@ in
           }
       ;
 
-      syncthing-resume = { wantedBy = [ "suspend.target" ]; };
+      syncthing-resume = {
+        wantedBy = [ "suspend.target" ];
+      };
     };
   };
 }

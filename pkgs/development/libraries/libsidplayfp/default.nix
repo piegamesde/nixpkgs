@@ -73,7 +73,9 @@ stdenv.mkDerivation rec {
     mv docs/html $doc/share/doc/libsidplayfp/
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "A library to play Commodore 64 music derived from libsidplay2";

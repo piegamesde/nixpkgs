@@ -36,7 +36,9 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    services.xserver = { exportConfiguration = true; };
+    services.xserver = {
+      exportConfiguration = true;
+    };
 
     # Other displayManagers log to /dev/null because they're services and put
     # Xorg's stdout in the journal

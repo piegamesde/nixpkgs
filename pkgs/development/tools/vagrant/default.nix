@@ -122,7 +122,9 @@ buildRubyGem rec {
       $out/lib/ruby/gems/*/gems/vagrant-*/plugins/provisioners/salt/bootstrap-salt.sh
   '';
 
-  passthru = { inherit ruby deps; };
+  passthru = {
+    inherit ruby deps;
+  };
 
   meta = with lib; {
     description = "A tool for building complete development environments";

@@ -409,7 +409,9 @@ in
     systemd.timers.moodle-cron = {
       description = "Moodle cron timer";
       wantedBy = [ "timers.target" ];
-      timerConfig = { OnCalendar = "minutely"; };
+      timerConfig = {
+        OnCalendar = "minutely";
+      };
     };
 
     systemd.services.httpd.after =

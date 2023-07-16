@@ -52,7 +52,9 @@ buildPythonPackage (rec {
     psutil
   ];
 
-  passthru.tests = { smoke-test = nixosTests.buildbot; };
+  passthru.tests = {
+    smoke-test = nixosTests.buildbot;
+  };
 
   meta = with lib; {
     homepage = "https://buildbot.net/";

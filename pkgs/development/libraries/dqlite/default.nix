@@ -43,7 +43,9 @@ stdenv.mkDerivation rec {
     "out"
   ];
 
-  passthru.tests = { inherit lxd; };
+  passthru.tests = {
+    inherit lxd;
+  };
 
   meta = with lib; {
     description = ''

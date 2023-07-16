@@ -40,7 +40,9 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  passthru.tests = { inherit (nixosTests) sslh; };
+  passthru.tests = {
+    inherit (nixosTests) sslh;
+  };
 
   meta = with lib; {
     description = "Applicative Protocol Multiplexer (e.g. share SSH and HTTPS on the same port)";

@@ -64,7 +64,9 @@ import ./make-test-python.nix (
             verify_hostnames = true;
           };
           enablePam = true;
-          unixSettings = { pam_allowed_login_groups = [ "shell" ]; };
+          unixSettings = {
+            pam_allowed_login_groups = [ "shell" ];
+          };
         };
 
         networking.hosts."${nodes.server.networking.primaryIPAddress}" = [

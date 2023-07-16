@@ -27,8 +27,12 @@ let
       ...
     }:
     {
-      x86_64-apple-darwin = { double = "darwin-x86_64"; };
-      x86_64-unknown-linux-gnu = { double = "linux-x86_64"; };
+      x86_64-apple-darwin = {
+        double = "darwin-x86_64";
+      };
+      x86_64-unknown-linux-gnu = {
+        double = "linux-x86_64";
+      };
       i686-unknown-linux-android = {
         triple = "i686-linux-android";
         arch = "x86";

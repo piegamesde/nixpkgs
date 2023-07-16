@@ -57,7 +57,9 @@ python3.pkgs.buildPythonApplication rec {
   # to avoid running gtk-update-icon-cache, update-desktop-database and glib-compile-schemas
   DESTDIR = "/";
 
-  passthru = { updateScript = gitUpdater { rev-prefix = "v"; }; };
+  passthru = {
+    updateScript = gitUpdater { rev-prefix = "v"; };
+  };
 
   meta = with lib; {
     homepage = "https://github.com/MightyCreak/diffuse";

@@ -118,7 +118,9 @@ in
       uid = config.ids.uids.mxisd;
     };
 
-    users.groups.mxisd = { gid = config.ids.gids.mxisd; };
+    users.groups.mxisd = {
+      gid = config.ids.gids.mxisd;
+    };
 
     systemd.services.mxisd = {
       description = "a federated identity server for the matrix ecosystem";

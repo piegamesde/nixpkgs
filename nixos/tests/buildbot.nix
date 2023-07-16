@@ -84,7 +84,9 @@ import ./make-test-python.nix
               git
               openssh
             ];
-            environment = { HOME = "/root"; };
+            environment = {
+              HOME = "/root";
+            };
             preStart = ''
               git config --global user.name 'Nobody Fakeuser'
               git config --global user.email 'nobody\@fakerepo.com'

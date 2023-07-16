@@ -37,7 +37,11 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru = { tests = { dockerTools = nixosTests.docker-tools; }; };
+  passthru = {
+    tests = {
+      dockerTools = nixosTests.docker-tools;
+    };
+  };
 
   meta.platforms = go.meta.platforms;
 }

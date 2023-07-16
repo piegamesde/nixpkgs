@@ -6,7 +6,9 @@ import ./make-test-python.nix (
   }:
   {
     name = "turbovnc-headless-server";
-    meta = { maintainers = with lib.maintainers; [ nh2 ]; };
+    meta = {
+      maintainers = with lib.maintainers; [ nh2 ];
+    };
 
     nodes.machine =
       {

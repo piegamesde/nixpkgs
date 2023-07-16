@@ -114,6 +114,8 @@ stdenv.mkDerivation (
       runHook postInstall
     '';
 
-    meta = { inherit (mod) description homepage; };
+    meta = {
+      inherit (mod) description homepage;
+    };
   }
 )

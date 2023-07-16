@@ -28,7 +28,9 @@ import ../../../../nixos/tests/make-test-python.nix (
         "-device usb-host,vendorid=0x16c0,productid=0x05df"
       ];
       services.usbrelayd.enable = true;
-      systemd.services.usbrelayd = { after = [ "mosquitto.service" ]; };
+      systemd.services.usbrelayd = {
+        after = [ "mosquitto.service" ];
+      };
       services.mosquitto = {
         enable = true;
         listeners = [ {

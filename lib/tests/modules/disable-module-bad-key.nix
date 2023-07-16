@@ -11,7 +11,9 @@ let
       ...
     }:
     {
-      config = { enable = true; };
+      config = {
+        enable = true;
+      };
     }
   ;
 in

@@ -67,7 +67,9 @@ import ../../make-test-python.nix (
           ];
         };
 
-        security = { pki.certificateFiles = [ "${cert pkgs}/cert.pem" ]; };
+        security = {
+          pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
+        };
 
         services.nginx = {
           enable = true;
@@ -78,7 +80,9 @@ import ../../make-test-python.nix (
             enableACME = pkgs.lib.mkForce false;
             sslCertificate = "${cert pkgs}/cert.pem";
             sslCertificateKey = "${cert pkgs}/key.pem";
-            locations."/" = { tryFiles = "$uri @proxy"; };
+            locations."/" = {
+              tryFiles = "$uri @proxy";
+            };
             locations."@proxy" = {
               proxyPass = "http://192.168.2.201:55001";
               proxyWebsockets = true;
@@ -165,7 +169,9 @@ import ../../make-test-python.nix (
             extraHosts = hosts;
           };
 
-          security = { pki.certificateFiles = [ "${cert pkgs}/cert.pem" ]; };
+          security = {
+            pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
+          };
         }
       ;
     };

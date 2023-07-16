@@ -29,7 +29,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
+  passthru = {
+    updateScript = gnome.updateScript { packageName = pname; };
+  };
 
   meta = with lib; {
     description = "User and system administration help for the GNOME desktop";

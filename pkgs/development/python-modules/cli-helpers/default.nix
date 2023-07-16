@@ -34,7 +34,9 @@ buildPythonPackage rec {
     ++ tabulate.optional-dependencies.widechars
   ;
 
-  passthru.optional-dependencies = { styles = [ pygments ]; };
+  passthru.optional-dependencies = {
+    styles = [ pygments ];
+  };
 
   nativeCheckInputs =
     [

@@ -15,7 +15,9 @@ rustPlatform.buildRustPackage rec {
   };
   cargoHash = "sha256-kw56tbe5zvWY5bI//dUqR1Rlumz8kOG4HeXiyEyL0I0=";
 
-  passthru.tests = { envfs = nixosTests.envfs; };
+  passthru.tests = {
+    envfs = nixosTests.envfs;
+  };
 
   postInstall = ''
     ln -s envfs $out/bin/mount.envfs

@@ -24,7 +24,9 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [ oniguruma ];
 
-  env = { RUSTONIG_SYSTEM_LIBONIG = true; };
+  env = {
+    RUSTONIG_SYSTEM_LIBONIG = true;
+  };
 
   meta = with lib; {
     description = "Puts bad Linux applications in a box with only their files";

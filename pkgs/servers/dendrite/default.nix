@@ -50,7 +50,9 @@ buildGoModule rec {
     rm roomserver/internal/input/input_test.go
   '';
 
-  passthru.tests = { inherit (nixosTests) dendrite; };
+  passthru.tests = {
+    inherit (nixosTests) dendrite;
+  };
 
   meta = with lib; {
     homepage = "https://matrix-org.github.io/dendrite";

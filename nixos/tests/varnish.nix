@@ -23,7 +23,9 @@ import ./make-test-python.nix (
           ...
         }:
         {
-          services.nix-serve = { enable = true; };
+          services.nix-serve = {
+            enable = true;
+          };
 
           services.varnish = {
             inherit package;

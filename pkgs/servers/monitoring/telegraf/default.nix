@@ -29,7 +29,9 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  passthru.tests = { inherit (nixosTests) telegraf; };
+  passthru.tests = {
+    inherit (nixosTests) telegraf;
+  };
 
   meta = with lib; {
     description = "The plugin-driven server agent for collecting & reporting metrics";

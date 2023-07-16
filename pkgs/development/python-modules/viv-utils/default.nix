@@ -40,7 +40,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  passthru = { optional-dependencies = { flirt = [ python-flirt ]; }; };
+  passthru = {
+    optional-dependencies = {
+      flirt = [ python-flirt ];
+    };
+  };
 
   meta = with lib; {
     description = "Utilities for working with vivisect";

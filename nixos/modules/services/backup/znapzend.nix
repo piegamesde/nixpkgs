@@ -276,7 +276,9 @@ let
         };
       };
 
-      config = { dataset = mkDefault name; };
+      config = {
+        dataset = mkDefault name;
+      };
     }
   );
 

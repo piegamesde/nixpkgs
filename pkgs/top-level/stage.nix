@@ -258,7 +258,9 @@ let
                 "localSystem"
               else
                 "crossSystem"
-            } = { parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed; };
+            } = {
+              parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
+            };
           }
         else
           throw "Musl libc only supports 64-bit Linux systems."

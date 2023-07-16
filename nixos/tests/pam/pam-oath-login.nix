@@ -28,7 +28,9 @@ import ../make-test-python.nix (
         ...
       }:
       {
-        security.pam.oath = { enable = true; };
+        security.pam.oath = {
+          enable = true;
+        };
 
         users.users.alice = {
           isNormalUser = true;

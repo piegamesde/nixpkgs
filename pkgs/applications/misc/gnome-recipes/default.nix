@@ -64,7 +64,9 @@ stdenv.mkDerivation rec {
     patchShebangs meson_post_install.py
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Recipe management application for GNOME";

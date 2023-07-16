@@ -51,7 +51,9 @@ stdenv.mkDerivation rec {
   ;
 
   passthru = {
-    tests = { inherit pipewire; };
+    tests = {
+      inherit pipewire;
+    };
     updateScript = gitUpdater {
       # No nicer place to find latest release.
       url = "https://gitlab.com/lv2/lv2.git";

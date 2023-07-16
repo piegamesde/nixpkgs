@@ -31,7 +31,9 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "sphinx_book_theme" ];
 
-  passthru.tests = { inherit jupyter-book; };
+  passthru.tests = {
+    inherit jupyter-book;
+  };
 
   meta = with lib; {
     description = "A clean book theme for scientific explanations and documentation with Sphinx";

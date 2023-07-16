@@ -33,7 +33,9 @@ buildGoModule rec {
     $out/bin/tfk8s --version | grep ${tag} > /dev/null
   '';
 
-  passthru.tests = { sample1 = callPackage ./tests/sample1 { }; };
+  passthru.tests = {
+    sample1 = callPackage ./tests/sample1 { };
+  };
 
   meta = with lib; {
     description = "An utility to convert Kubernetes YAML manifests to Terraform's HCL format";

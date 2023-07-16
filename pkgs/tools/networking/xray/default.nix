@@ -62,7 +62,9 @@ buildGoModule rec {
       --suffix XRAY_LOCATION_ASSET : $assetsDrv/share/v2ray
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = {
     description = "A platform for building proxies to bypass network restrictions. A replacement for v2ray-core, with XTLS support and fully compatible configuration";

@@ -37,5 +37,7 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
   };
 
-  passthru = { shellPath = "/bin/mrsh"; };
+  passthru = {
+    shellPath = "/bin/mrsh";
+  };
 }

@@ -23,7 +23,9 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  passthru = { updateScript = ./update.sh; };
+  passthru = {
+    updateScript = ./update.sh;
+  };
 
   meta = with lib; {
     homepage = "https://www.gnu.org/software/mtools/";

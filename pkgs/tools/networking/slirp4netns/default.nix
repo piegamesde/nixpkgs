@@ -37,7 +37,9 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
   strictDeps = true;
 
-  passthru.tests = { inherit (nixosTests) podman; };
+  passthru.tests = {
+    inherit (nixosTests) podman;
+  };
 
   meta = with lib; {
     homepage = "https://github.com/rootless-containers/slirp4netns";

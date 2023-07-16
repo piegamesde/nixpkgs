@@ -20,7 +20,11 @@ import ../make-test-python.nix (
 
         users = {
           mutableUsers = false;
-          users = { user = { isNormalUser = true; }; };
+          users = {
+            user = {
+              isNormalUser = true;
+            };
+          };
         };
       }
     ;

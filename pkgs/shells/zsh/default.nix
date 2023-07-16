@@ -158,5 +158,7 @@ stdenv.mkDerivation {
     platforms = lib.platforms.unix;
   };
 
-  passthru = { shellPath = "/bin/zsh"; };
+  passthru = {
+    shellPath = "/bin/zsh";
+  };
 }

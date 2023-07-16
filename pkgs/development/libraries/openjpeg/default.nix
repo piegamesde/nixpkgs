@@ -97,7 +97,9 @@ stdenv.mkDerivation rec {
 
   passthru = {
     incDir = "openjpeg-${lib.versions.majorMinor version}";
-    tests = { inherit poppler; };
+    tests = {
+      inherit poppler;
+    };
   };
 
   meta = with lib; {

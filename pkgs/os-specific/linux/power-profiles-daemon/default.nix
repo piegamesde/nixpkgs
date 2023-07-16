@@ -129,7 +129,11 @@ stdenv.mkDerivation rec {
     wrapPythonProgramsIn "$out/bin" "$pythonPath"
   '';
 
-  passthru = { tests = { nixos = nixosTests.power-profiles-daemon; }; };
+  passthru = {
+    tests = {
+      nixos = nixosTests.power-profiles-daemon;
+    };
+  };
 
   meta = with lib; {
     homepage = "https://gitlab.freedesktop.org/hadess/power-profiles-daemon";

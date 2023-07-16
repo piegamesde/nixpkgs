@@ -24,7 +24,9 @@ stdenv.mkDerivation rec {
   stripDebugList = [ "bin" ];
   dontPatchELF = true;
 
-  passthru = { incdir = "/avr/include"; };
+  passthru = {
+    incdir = "/avr/include";
+  };
 
   meta = with lib; {
     description = "a C runtime library for AVR microcontrollers";

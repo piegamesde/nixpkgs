@@ -1522,7 +1522,9 @@ lib.composeManyExtensions [
 
           passthru = {
             config = {
-              directories = { basedirlist = "."; };
+              directories = {
+                basedirlist = ".";
+              };
               libs = {
                 system_freetype = true;
                 system_qhull = true;
@@ -1708,7 +1710,9 @@ lib.composeManyExtensions [
             name = "mpi.cfg";
             text =
               (lib.generators.toINI { } {
-                mpi = { mpicc = "${pkgs.mpi.outPath}/bin/mpicc"; };
+                mpi = {
+                  mpicc = "${pkgs.mpi.outPath}/bin/mpicc";
+                };
               });
           };
         in

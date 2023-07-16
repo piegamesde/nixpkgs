@@ -215,7 +215,9 @@ stdenv.mkDerivation rec {
 
   setupHook = ./setup-hook.sh;
 
-  passthru = { inherit openglSupport; };
+  passthru = {
+    inherit openglSupport;
+  };
 
   meta = with lib; {
     description = "A cross-platform multimedia library";

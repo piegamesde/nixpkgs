@@ -187,7 +187,9 @@ stdenv.mkDerivation {
 
   doCheck = false;
 
-  passthru = { inherit cudaPackages cudaSupport; };
+  passthru = {
+    inherit cudaPackages cudaSupport;
+  };
 
   meta = with lib; {
     description = "Matrix Algebra on GPU and Multicore Architectures";

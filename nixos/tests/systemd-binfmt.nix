@@ -66,7 +66,9 @@ in
 
   preserveArgvZero = makeTest {
     name = "systemd-binfmt-preserve-argv0";
-    nodes.machine = { boot.binfmt.emulatedSystems = [ "aarch64-linux" ]; };
+    nodes.machine = {
+      boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+    };
     testScript =
       let
         testAarch64 = expectArgv0 pkgs.pkgsCross.aarch64-multiplatform;
@@ -80,7 +82,9 @@ in
 
   ldPreload = makeTest {
     name = "systemd-binfmt-ld-preload";
-    nodes.machine = { boot.binfmt.emulatedSystems = [ "aarch64-linux" ]; };
+    nodes.machine = {
+      boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+    };
     testScript =
       let
         helloAarch64 = pkgs.pkgsCross.aarch64-multiplatform.hello;

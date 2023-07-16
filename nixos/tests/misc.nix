@@ -62,7 +62,9 @@ import ./make-test-python.nix (
           isNormalUser = true;
           group = "wheel";
         };
-        users.users.alice = { isNormalUser = true; };
+        users.users.alice = {
+          isNormalUser = true;
+        };
         security.sudo = {
           enable = true;
           wheelNeedsPassword = false;

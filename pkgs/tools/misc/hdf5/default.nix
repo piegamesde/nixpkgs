@@ -124,7 +124,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.tests = { inherit (python3.pkgs) h5py; };
+  passthru.tests = {
+    inherit (python3.pkgs) h5py;
+  };
 
   meta = with lib; {
     description = "Data model, library, and file format for storing and managing data";

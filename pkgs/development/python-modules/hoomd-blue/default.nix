@@ -29,7 +29,9 @@ stdenv.mkDerivation rec {
     sha256 = "0in49f1dvah33nl5n2qqbssfynb31pw1ds07j8ziryk9w252j1al";
   };
 
-  passthru = { inherit components mpi; };
+  passthru = {
+    inherit components mpi;
+  };
 
   nativeBuildInputs = [
     cmake

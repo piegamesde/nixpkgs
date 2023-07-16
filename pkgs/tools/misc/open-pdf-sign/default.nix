@@ -26,7 +26,9 @@ stdenv.mkDerivation rec {
       --add-flags "-jar $out/lib/open-pdf-sign.jar"
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Digitally sign PDF files from your commandline";

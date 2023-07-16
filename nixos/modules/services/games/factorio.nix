@@ -171,7 +171,9 @@ in
       extraSettings = mkOption {
         type = types.attrs;
         default = { };
-        example = { admins = [ "username" ]; };
+        example = {
+          admins = [ "username" ];
+        };
         description = lib.mdDoc ''
           Extra game configuration that will go into server-settings.json
         '';

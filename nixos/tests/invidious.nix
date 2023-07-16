@@ -16,7 +16,9 @@ import ./make-test-python.nix (
         ...
       }:
       {
-        services.invidious = { enable = true; };
+        services.invidious = {
+          enable = true;
+        };
 
         specialisation = {
           nginx.configuration = {

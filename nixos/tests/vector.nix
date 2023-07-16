@@ -30,7 +30,9 @@ with pkgs.lib;
                 type = "file";
                 inputs = [ "journald" ];
                 path = "/var/lib/vector/logs.log";
-                encoding = { codec = "json"; };
+                encoding = {
+                  codec = "json";
+                };
               };
             };
           };

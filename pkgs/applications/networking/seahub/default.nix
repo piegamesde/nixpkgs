@@ -80,7 +80,9 @@ python.pkgs.buildPythonApplication rec {
   passthru = {
     inherit python;
     pythonPath = python.pkgs.makePythonPath propagatedBuildInputs;
-    tests = { inherit (nixosTests) seafile; };
+    tests = {
+      inherit (nixosTests) seafile;
+    };
   };
 
   meta = with lib; {

@@ -42,7 +42,9 @@ stdenv.mkDerivation rec {
     find . -name Makefile.in -exec sed -i -r 's#^pkgdatadir\s*=.+$#pkgdatadir = ${dataDir}#' {} \;
   '';
 
-  passthru = { inherit dataDir; };
+  passthru = {
+    inherit dataDir;
+  };
 
   meta = with lib; {
     description = "An API for GeoIP/Geolocation databases";

@@ -65,7 +65,9 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    tests = { inherit (nixosTests) mjolnir; };
+    tests = {
+      inherit (nixosTests) mjolnir;
+    };
     updateScript = ./update.sh;
   };
 

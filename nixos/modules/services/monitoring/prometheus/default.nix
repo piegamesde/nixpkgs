@@ -69,7 +69,9 @@ let
     scrape_configs = filterValidPrometheus cfg.scrapeConfigs;
     remote_write = filterValidPrometheus cfg.remoteWrite;
     remote_read = filterValidPrometheus cfg.remoteRead;
-    alerting = { inherit (cfg) alertmanagers; };
+    alerting = {
+      inherit (cfg) alertmanagers;
+    };
   };
 
   prometheusYml =

@@ -24,7 +24,9 @@ let
         idle_conn_timeout = "0s";
         insecure_skip_verify = false;
       };
-      trace = { enable = false; };
+      trace = {
+        enable = false;
+      };
     };
   };
 in
@@ -50,7 +52,9 @@ import ./make-test-python.nix {
               job_name = "prometheus";
               static_configs = [ {
                 targets = [ "127.0.0.1:${toString queryPort}" ];
-                labels = { instance = "localhost"; };
+                labels = {
+                  instance = "localhost";
+                };
               } ];
             }
             {
@@ -69,7 +73,9 @@ import ./make-test-python.nix {
                     expr: count(up{job="prometheus"})
           '' ];
           globalConfig = {
-            external_labels = { some_label = "required by thanos"; };
+            external_labels = {
+              some_label = "required by thanos";
+            };
           };
           extraFlags = [
             # Required by thanos
@@ -192,7 +198,9 @@ import ./make-test-python.nix {
       }:
       {
         # Minio requires at least 1GiB of free disk space to run.
-        virtualisation = { diskSize = 2 * 1024; };
+        virtualisation = {
+          diskSize = 2 * 1024;
+        };
         networking.firewall.allowedTCPPorts = [ minioPort ];
 
         services.minio = {

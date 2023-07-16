@@ -34,7 +34,9 @@ import ./make-test-python.nix (
             builtins.map
               (impl: {
                 name = impl;
-                value = { enable = useImpl == impl; };
+                value = {
+                  enable = useImpl == impl;
+                };
               })
               manImplementations
           );

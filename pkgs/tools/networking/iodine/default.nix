@@ -26,7 +26,9 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "prefix=\${out}" ];
 
-  passthru.tests = { inherit (nixosTests) iodine; };
+  passthru.tests = {
+    inherit (nixosTests) iodine;
+  };
 
   meta = {
     homepage = "http://code.kryo.se/iodine/";

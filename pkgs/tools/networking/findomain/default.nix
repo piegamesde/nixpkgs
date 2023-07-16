@@ -37,7 +37,9 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
-  env = { OPENSSL_NO_VENDOR = true; };
+  env = {
+    OPENSSL_NO_VENDOR = true;
+  };
 
   postInstall = ''
     installManPage findomain.1

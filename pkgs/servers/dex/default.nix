@@ -31,7 +31,9 @@ buildGoModule rec {
     cp -r $src/web $out/share/web
   '';
 
-  passthru.tests = { inherit (nixosTests) dex-oidc; };
+  passthru.tests = {
+    inherit (nixosTests) dex-oidc;
+  };
 
   meta = with lib; {
     description = "OpenID Connect and OAuth2 identity provider with pluggable connectors";

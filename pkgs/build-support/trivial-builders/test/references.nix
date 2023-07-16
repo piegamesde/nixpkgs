@@ -60,5 +60,7 @@ testers.nixosTest {
       ${./references-test.sh} 2>/dev/console
     """)
   '';
-  meta = { maintainers = with lib.maintainers; [ roberth ]; };
+  meta = {
+    maintainers = with lib.maintainers; [ roberth ];
+  };
 }

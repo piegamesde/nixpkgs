@@ -67,7 +67,9 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   passthru = {
-    tests = { installed-tests = nixosTests.installed-tests.libxmlb; };
+    tests = {
+      installed-tests = nixosTests.installed-tests.libxmlb;
+    };
   };
 
   meta = with lib; {

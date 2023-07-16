@@ -68,7 +68,9 @@ in
                   The static host map defines a set of hosts with fixed IP addresses on the internet (or any network).
                   A host can have multiple fixed IP addresses defined here, and nebula will try each when establishing a tunnel.
                 '';
-                example = { "192.168.100.1" = [ "100.64.22.11:4242" ]; };
+                example = {
+                  "192.168.100.1" = [ "100.64.22.11:4242" ];
+                };
               };
 
               isLighthouse = mkOption {

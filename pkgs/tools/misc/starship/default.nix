@@ -55,7 +55,9 @@ rustPlatform.buildRustPackage rec {
     HOME=$TMPDIR
   '';
 
-  passthru.tests = { inherit (nixosTests) starship; };
+  passthru.tests = {
+    inherit (nixosTests) starship;
+  };
 
   meta = with lib; {
     description = "A minimal, blazing fast, and extremely customizable prompt for any shell";

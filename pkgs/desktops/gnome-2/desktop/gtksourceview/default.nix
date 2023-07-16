@@ -84,6 +84,8 @@ stdenv.mkDerivation (
         finalAttrs.finalPackage
     ;
 
-    meta = { pkgConfigModules = [ "gtksourceview-2.0" ]; };
+    meta = {
+      pkgConfigModules = [ "gtksourceview-2.0" ];
+    };
   }
 )

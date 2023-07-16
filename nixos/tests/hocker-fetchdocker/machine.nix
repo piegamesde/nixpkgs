@@ -24,6 +24,8 @@
       ${pkgs.hello-world-container}/compositeImage.sh | ${pkgs.docker}/bin/docker load
     '';
 
-    serviceConfig = { Type = "oneshot"; };
+    serviceConfig = {
+      Type = "oneshot";
+    };
   };
 }

@@ -72,7 +72,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-K4P+A2u/Hbina4b3GP8T3wmPoQxiv88GuB4KZOb2+cA=";
   };
 
-  passthru.tests = { inherit (nixosTests) ejabberd; };
+  passthru.tests = {
+    inherit (nixosTests) ejabberd;
+  };
 
   deps = stdenv.mkDerivation {
     pname = "ejabberd-deps";

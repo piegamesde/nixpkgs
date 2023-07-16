@@ -228,7 +228,9 @@ in
           name = "coredns";
           namespace = "kube-system";
         };
-        data = { Corefile = cfg.corefile; };
+        data = {
+          Corefile = cfg.corefile;
+        };
       };
 
       coredns-deploy = {
@@ -246,13 +248,23 @@ in
         };
         spec = {
           replicas = cfg.replicas;
-          selector = { matchLabels = { k8s-app = "kube-dns"; }; };
+          selector = {
+            matchLabels = {
+              k8s-app = "kube-dns";
+            };
+          };
           strategy = {
-            rollingUpdate = { maxUnavailable = 1; };
+            rollingUpdate = {
+              maxUnavailable = 1;
+            };
             type = "RollingUpdate";
           };
           template = {
-            metadata = { labels = { k8s-app = "kube-dns"; }; };
+            metadata = {
+              labels = {
+                k8s-app = "kube-dns";
+              };
+            };
             spec = {
               containers = [ {
                 args = [
@@ -291,7 +303,9 @@ in
                   }
                 ];
                 resources = {
-                  limits = { memory = "170Mi"; };
+                  limits = {
+                    memory = "170Mi";
+                  };
                   requests = {
                     cpu = "100m";
                     memory = "70Mi";
@@ -299,7 +313,9 @@ in
                 };
                 securityContext = {
                   allowPrivilegeEscalation = false;
-                  capabilities = { drop = [ "all" ]; };
+                  capabilities = {
+                    drop = [ "all" ];
+                  };
                   readOnlyRootFilesystem = true;
                 };
                 volumeMounts = [ {
@@ -309,7 +325,9 @@ in
                 } ];
               } ];
               dnsPolicy = "Default";
-              nodeSelector = { "beta.kubernetes.io/os" = "linux"; };
+              nodeSelector = {
+                "beta.kubernetes.io/os" = "linux";
+              };
               serviceAccountName = "coredns";
               tolerations = [
                 {
@@ -369,7 +387,9 @@ in
               protocol = "TCP";
             }
           ];
-          selector = { k8s-app = "kube-dns"; };
+          selector = {
+            k8s-app = "kube-dns";
+          };
         };
       };
     };

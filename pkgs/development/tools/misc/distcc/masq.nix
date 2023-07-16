@@ -44,5 +44,7 @@ stdenv.mkDerivation {
     fi
   '';
 
-  meta = { platforms = lib.platforms.linux; };
+  meta = {
+    platforms = lib.platforms.linux;
+  };
 }

@@ -18,7 +18,9 @@ luarocks.overrideAttrs (
 
     patches = [ ];
 
-    passthru = { updateScript = unstableGitUpdater { }; };
+    passthru = {
+      updateScript = unstableGitUpdater { };
+    };
 
     meta = old.meta // { mainProgram = "luarocks"; };
   }

@@ -59,7 +59,9 @@ beamPackages.mixRelease {
   stripDebug = false;
 
   passthru = {
-    tests = { inherit (nixosTests) plausible; };
+    tests = {
+      inherit (nixosTests) plausible;
+    };
     updateScript = ./update.sh;
   };
 

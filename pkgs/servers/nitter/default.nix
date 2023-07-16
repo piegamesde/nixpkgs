@@ -75,5 +75,7 @@ nimPackages.buildNimPackage rec {
     mainProgram = "nitter";
   };
 
-  passthru.tests = { inherit (nixosTests) nitter; };
+  passthru.tests = {
+    inherit (nixosTests) nitter;
+  };
 }

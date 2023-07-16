@@ -48,7 +48,9 @@ stdenv.mkDerivation rec {
     wingpanel-indicator-power # settings schema
   ];
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Switchboard Power Plug";

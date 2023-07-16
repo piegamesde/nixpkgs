@@ -19,7 +19,9 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  passthru.tests = { smoke-test = nixosTests.acme; };
+  passthru.tests = {
+    smoke-test = nixosTests.acme;
+  };
 
   meta = {
     # ca/ca.go:374:67: 9223372038 (untyped int constant) overflows uint

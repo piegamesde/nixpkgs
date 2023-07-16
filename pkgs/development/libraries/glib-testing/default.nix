@@ -54,7 +54,9 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    tests = { installedTests = nixosTests.installed-tests.glib-testing; };
+    tests = {
+      installedTests = nixosTests.installed-tests.glib-testing;
+    };
   };
 
   meta = with lib; {

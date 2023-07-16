@@ -22,7 +22,9 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optionals stdenv.isDarwin [ Security ];
 
-  passthru.tests = { inherit (nixosTests) libreddit; };
+  passthru.tests = {
+    inherit (nixosTests) libreddit;
+  };
 
   meta = with lib; {
     description = "Private front-end for Reddit";

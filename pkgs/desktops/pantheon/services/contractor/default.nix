@@ -46,7 +46,9 @@ stdenv.mkDerivation rec {
       placeholder "out"
     }/share/dbus-1/services";
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "A desktop-wide extension service used by elementary OS";

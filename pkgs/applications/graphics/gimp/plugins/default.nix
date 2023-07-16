@@ -156,7 +156,9 @@ lib.makeScope pkgs.newScope (
 
       hardeningDisable = [ "format" ];
 
-      env = { NIX_LDFLAGS = "-lm"; };
+      env = {
+        NIX_LDFLAGS = "-lm";
+      };
 
       meta = with lib; {
         description = "The GIMP Animation Package";
@@ -252,7 +254,9 @@ lib.makeScope pkgs.newScope (
         sha256 = "1jwc8bhhm21xhrgw56nzbma6fwg59gc8anlmyns7jdiw83y0zx3j";
       };
 
-      meta = { broken = !gimp.python2Support; };
+      meta = {
+        broken = !gimp.python2Support;
+      };
     };
 
     texturize = pluginDerivation {

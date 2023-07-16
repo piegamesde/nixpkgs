@@ -61,7 +61,9 @@ let
           hostname = xmppConfig.hostName;
           domain = xmppConfig.domain;
           username = xmppConfig.userName;
-          password = { __hocon_envvar = toVarName name; };
+          password = {
+            __hocon_envvar = toVarName name;
+          };
           muc_jids = xmppConfig.mucJids;
           muc_nickname = xmppConfig.mucNickname;
           disable_certificate_verification =

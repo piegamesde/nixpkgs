@@ -37,7 +37,9 @@ python3.pkgs.buildPythonApplication rec {
     waitress
   ];
 
-  passthru.tests = { inherit (nixosTests) radicale; };
+  passthru.tests = {
+    inherit (nixosTests) radicale;
+  };
 
   meta = with lib; {
     homepage = "https://radicale.org/v3.html";

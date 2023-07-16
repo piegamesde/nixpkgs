@@ -111,7 +111,9 @@ in
               valid-lifetime = 4000;
               renew-timer = 1000;
               rebind-timer = 2000;
-              interfaces-config = { interfaces = [ "eth0" ]; };
+              interfaces-config = {
+                interfaces = [ "eth0" ];
+              };
               lease-database = {
                 type = "memfile";
                 persist = true;
@@ -166,7 +168,9 @@ in
               renew-timer = 1000;
               rebind-timer = 2000;
               preferred-lifetime = 3000;
-              interfaces-config = { interfaces = [ "eth0" ]; };
+              interfaces-config = {
+                interfaces = [ "eth0" ];
+              };
               lease-database = {
                 type = "memfile";
                 persist = true;
@@ -223,8 +227,12 @@ in
               ncr-protocol = "UDP";
               ncr-format = "JSON";
               tsig-keys = [ ];
-              forward-ddns = { ddns-domains = [ ]; };
-              reverse-ddns = { ddns-domains = [ ]; };
+              forward-ddns = {
+                ddns-domains = [ ];
+              };
+              reverse-ddns = {
+                ddns-domains = [ ];
+              };
             };
             description = lib.mdDoc ''
               Kea DHCP-DDNS configuration as an attribute set, see <https://kea.readthedocs.io/en/kea-${package.version}/arm/ddns.html>.

@@ -475,7 +475,9 @@
       name = "block-stream-0.0.7.tgz";
       sha1 = "9088ab5ae1e861f4d81b176b4a8046080703deed";
     };
-    deps = { "inherits-2.0.1" = self.by-version."inherits"."2.0.1"; };
+    deps = {
+      "inherits-2.0.1" = self.by-version."inherits"."2.0.1";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -537,7 +539,9 @@
       name = "boom-0.4.2.tgz";
       sha1 = "7a636e9ded4efcefb19cef4947a3c67dfaee911b";
     };
-    deps = { "hoek-0.9.1" = self.by-version."hoek"."0.9.1"; };
+    deps = {
+      "hoek-0.9.1" = self.by-version."hoek"."0.9.1";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -553,7 +557,9 @@
       name = "boom-2.7.1.tgz";
       sha1 = "fb165c348d337977c61d4363c21e9e1abf526705";
     };
-    deps = { "hoek-2.13.0" = self.by-version."hoek"."2.13.0"; };
+    deps = {
+      "hoek-2.13.0" = self.by-version."hoek"."2.13.0";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -741,7 +747,9 @@
       name = "cli-color-0.1.7.tgz";
       sha1 = "adc3200fa471cc211b0da7f566b71e98b9d67347";
     };
-    deps = { "es5-ext-0.8.2" = self.by-version."es5-ext"."0.8.2"; };
+    deps = {
+      "es5-ext-0.8.2" = self.by-version."es5-ext"."0.8.2";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -878,7 +886,9 @@
       name = "compressible-2.0.2.tgz";
       sha1 = "d0474a6ba6590a43d39c2ce9a6cfbb6479be76a5";
     };
-    deps = { "mime-db-1.9.1" = self.by-version."mime-db"."1.9.1"; };
+    deps = {
+      "mime-db-1.9.1" = self.by-version."mime-db"."1.9.1";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -1070,7 +1080,9 @@
       name = "cryptiles-0.2.2.tgz";
       sha1 = "ed91ff1f17ad13d3748288594f8a48a0d26f325c";
     };
-    deps = { "boom-0.4.2" = self.by-version."boom"."0.4.2"; };
+    deps = {
+      "boom-0.4.2" = self.by-version."boom"."0.4.2";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -1086,7 +1098,9 @@
       name = "cryptiles-2.0.4.tgz";
       sha1 = "09ea1775b9e1c7de7e60a99d42ab6f08ce1a1285";
     };
-    deps = { "boom-2.7.1" = self.by-version."boom"."2.7.1"; };
+    deps = {
+      "boom-2.7.1" = self.by-version."boom"."2.7.1";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -1134,7 +1148,9 @@
       name = "debug-2.0.0.tgz";
       sha1 = "89bd9df6732b51256bc6705342bba02ed12131ef";
     };
-    deps = { "ms-0.6.2" = self.by-version."ms"."0.6.2"; };
+    deps = {
+      "ms-0.6.2" = self.by-version."ms"."0.6.2";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -1166,7 +1182,9 @@
       name = "debug-2.1.3.tgz";
       sha1 = "ce8ab1b5ee8fbee2bfa3b633cab93d366b63418e";
     };
-    deps = { "ms-0.7.0" = self.by-version."ms"."0.7.0"; };
+    deps = {
+      "ms-0.7.0" = self.by-version."ms"."0.7.0";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -1182,7 +1200,9 @@
       name = "debug-2.2.0.tgz";
       sha1 = "f87057e995b1a1f6ae6a4960664137bc56f039da";
     };
-    deps = { "ms-0.7.1" = self.by-version."ms"."0.7.1"; };
+    deps = {
+      "ms-0.7.1" = self.by-version."ms"."0.7.1";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -1198,7 +1218,9 @@
       name = "deep-eql-0.1.3.tgz";
       sha1 = "ef558acab8de25206cd713906d74e56930eb69f2";
     };
-    deps = { "type-detect-0.1.1" = self.by-version."type-detect"."0.1.1"; };
+    deps = {
+      "type-detect-0.1.1" = self.by-version."type-detect"."0.1.1";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -1311,7 +1333,9 @@
       name = "difflib-0.2.4.tgz";
       sha1 = "b5e30361a6db023176d562892db85940a718f47e";
     };
-    deps = { "heap-0.2.6" = self.by-version."heap"."0.2.6"; };
+    deps = {
+      "heap-0.2.6" = self.by-version."heap"."0.2.6";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -1327,7 +1351,9 @@
       name = "dreamopt-0.6.0.tgz";
       sha1 = "d813ccdac8d39d8ad526775514a13dda664d6b4b";
     };
-    deps = { "wordwrap-1.0.0" = self.by-version."wordwrap"."1.0.0"; };
+    deps = {
+      "wordwrap-1.0.0" = self.by-version."wordwrap"."1.0.0";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -1545,7 +1571,9 @@
       name = "etag-1.5.1.tgz";
       sha1 = "54c50de04ee42695562925ac566588291be7e9ea";
     };
-    deps = { "crc-3.2.1" = self.by-version."crc"."3.2.1"; };
+    deps = {
+      "crc-3.2.1" = self.by-version."crc"."3.2.1";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -1819,7 +1847,9 @@
       name = "formatio-1.1.1.tgz";
       sha1 = "5ed3ccd636551097383465d996199100e86161e9";
     };
-    deps = { "samsam-1.1.2" = self.by-version."samsam"."1.1.2"; };
+    deps = {
+      "samsam-1.1.2" = self.by-version."samsam"."1.1.2";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -1835,7 +1865,9 @@
       name = "formatio-1.0.2.tgz";
       sha1 = "e7991ca144ff7d8cff07bb9ac86a9b79c6ba47ef";
     };
-    deps = { "samsam-1.1.2" = self.by-version."samsam"."1.1.2"; };
+    deps = {
+      "samsam-1.1.2" = self.by-version."samsam"."1.1.2";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -2003,7 +2035,9 @@
       name = "generate-object-property-1.1.1.tgz";
       sha1 = "8fda6b4cb69b34a189a6cebee7c4c268af47cc93";
     };
-    deps = { "is-property-1.0.2" = self.by-version."is-property"."1.0.2"; };
+    deps = {
+      "is-property-1.0.2" = self.by-version."is-property"."1.0.2";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -2195,7 +2229,9 @@
       name = "handlebars-1.3.0.tgz";
       sha1 = "9e9b130a93e389491322d975cf3ec1818c37ce34";
     };
-    deps = { "optimist-0.3.7" = self.by-version."optimist"."0.3.7"; };
+    deps = {
+      "optimist-0.3.7" = self.by-version."optimist"."0.3.7";
+    };
     optionalDependencies = {
       "uglify-js-2.3.6" = self.by-version."uglify-js"."2.3.6";
     };
@@ -2234,7 +2270,9 @@
       name = "has-ansi-0.1.0.tgz";
       sha1 = "84f265aae8c0e6a88a12d7022894b7568894c62e";
     };
-    deps = { "ansi-regex-0.2.1" = self.by-version."ansi-regex"."0.2.1"; };
+    deps = {
+      "ansi-regex-0.2.1" = self.by-version."ansi-regex"."0.2.1";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -2620,7 +2658,9 @@
       name = "jayschema-0.3.1.tgz";
       sha1 = "76f4769f9b172ef7d5dcde4875b49cb736179b58";
     };
-    deps = { "when-3.4.6" = self.by-version."when"."3.4.6"; };
+    deps = {
+      "when-3.4.6" = self.by-version."when"."3.4.6";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -2870,7 +2910,9 @@
       name = "lodash._createpadding-3.6.0.tgz";
       sha1 = "c466850dd1a05e6bfec54fd0cf0db28b68332d5e";
     };
-    deps = { "lodash.repeat-3.0.0" = self.by-version."lodash.repeat"."3.0.0"; };
+    deps = {
+      "lodash.repeat-3.0.0" = self.by-version."lodash.repeat"."3.0.0";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -3195,7 +3237,9 @@
       name = "mime-types-2.0.11.tgz";
       sha1 = "bf3449042799d877c815c29929d1e74760e72007";
     };
-    deps = { "mime-db-1.9.1" = self.by-version."mime-db"."1.9.1"; };
+    deps = {
+      "mime-db-1.9.1" = self.by-version."mime-db"."1.9.1";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -3354,7 +3398,9 @@
       name = "mkdirp-0.5.1.tgz";
       sha1 = "30057438eac6cf7f8c4767f38648d6697d75c903";
     };
-    deps = { "minimist-0.0.8" = self.by-version."minimist"."0.0.8"; };
+    deps = {
+      "minimist-0.0.8" = self.by-version."minimist"."0.0.8";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -3370,7 +3416,9 @@
       name = "mkdirp-0.5.0.tgz";
       sha1 = "1d73076a6df986cd9344e15e71fcc05a4c9abf12";
     };
-    deps = { "minimist-0.0.8" = self.by-version."minimist"."0.0.8"; };
+    deps = {
+      "minimist-0.0.8" = self.by-version."minimist"."0.0.8";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -3617,7 +3665,9 @@
       name = "nopt-3.0.1.tgz";
       sha1 = "bce5c42446a3291f47622a370abbf158fbbacbfd";
     };
-    deps = { "abbrev-1.0.5" = self.by-version."abbrev"."1.0.5"; };
+    deps = {
+      "abbrev-1.0.5" = self.by-version."abbrev"."1.0.5";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -3686,7 +3736,9 @@
       name = "on-finished-2.2.1.tgz";
       sha1 = "5c85c1cc36299f78029653f667f27b6b99ebc029";
     };
-    deps = { "ee-first-1.1.0" = self.by-version."ee-first"."1.1.0"; };
+    deps = {
+      "ee-first-1.1.0" = self.by-version."ee-first"."1.1.0";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -3719,7 +3771,9 @@
       name = "once-1.3.2.tgz";
       sha1 = "d8feeca93b039ec1dcdee7741c92bdac5e28081b";
     };
-    deps = { "wrappy-1.0.1" = self.by-version."wrappy"."1.0.1"; };
+    deps = {
+      "wrappy-1.0.1" = self.by-version."wrappy"."1.0.1";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -3770,7 +3824,9 @@
       name = "optimist-0.3.7.tgz";
       sha1 = "c90941ad59e4273328923074d2cf2e7cbc6ec0d9";
     };
-    deps = { "wordwrap-0.0.3" = self.by-version."wordwrap"."0.0.3"; };
+    deps = {
+      "wordwrap-0.0.3" = self.by-version."wordwrap"."0.0.3";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -4197,7 +4253,9 @@
       name = "rimraf-2.3.3.tgz";
       sha1 = "d0073d8b3010611e8f3ad377b08e9a3c18b98f06";
     };
-    deps = { "glob-4.5.3" = self.by-version."glob"."4.5.3"; };
+    deps = {
+      "glob-4.5.3" = self.by-version."glob"."4.5.3";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -4451,7 +4509,9 @@
       name = "sntp-0.2.4.tgz";
       sha1 = "fb885f18b0f3aad189f824862536bceeec750900";
     };
-    deps = { "hoek-0.9.1" = self.by-version."hoek"."0.9.1"; };
+    deps = {
+      "hoek-0.9.1" = self.by-version."hoek"."0.9.1";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -4467,7 +4527,9 @@
       name = "sntp-1.0.9.tgz";
       sha1 = "6541184cc90aeea6c6e7b35e2659082443c66198";
     };
-    deps = { "hoek-2.13.0" = self.by-version."hoek"."2.13.0"; };
+    deps = {
+      "hoek-2.13.0" = self.by-version."hoek"."2.13.0";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -4483,7 +4545,9 @@
       name = "source-map-0.1.43.tgz";
       sha1 = "c24bc146ca517c1471f5dacbe2571b2b7f9e3346";
     };
-    deps = { "amdefine-0.1.0" = self.by-version."amdefine"."0.1.0"; };
+    deps = {
+      "amdefine-0.1.0" = self.by-version."amdefine"."0.1.0";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -4585,7 +4649,9 @@
       name = "strip-ansi-0.3.0.tgz";
       sha1 = "25f48ea22ca79187f3174a4db8759347bb126220";
     };
-    deps = { "ansi-regex-0.2.1" = self.by-version."ansi-regex"."0.2.1"; };
+    deps = {
+      "ansi-regex-0.2.1" = self.by-version."ansi-regex"."0.2.1";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -4601,7 +4667,9 @@
       name = "strip-ansi-2.0.1.tgz";
       sha1 = "df62c1aa94ed2f114e1d0f21fd1d50482b79a60e";
     };
-    deps = { "ansi-regex-1.1.1" = self.by-version."ansi-regex"."1.1.1"; };
+    deps = {
+      "ansi-regex-1.1.1" = self.by-version."ansi-regex"."1.1.1";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -4797,7 +4865,9 @@
       name = "tildify-1.0.0.tgz";
       sha1 = "2a021db5e8fbde0a8f8b4df37adaa8fb1d39d7dd";
     };
-    deps = { "user-home-1.1.1" = self.by-version."user-home"."1.1.1"; };
+    deps = {
+      "user-home-1.1.1" = self.by-version."user-home"."1.1.1";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
@@ -5017,7 +5087,9 @@
       name = "util-0.10.3.tgz";
       sha1 = "7afb1afe50805246489e3db7fe0ed379336ac0f9";
     };
-    deps = { "inherits-2.0.1" = self.by-version."inherits"."2.0.1"; };
+    deps = {
+      "inherits-2.0.1" = self.by-version."inherits"."2.0.1";
+    };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];

@@ -49,7 +49,9 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru = { updateScript = unstableGitUpdater { }; };
+  passthru = {
+    updateScript = unstableGitUpdater { };
+  };
 
   meta = with lib; {
     description = "A simple X-Window (X11R6) programming API in C";

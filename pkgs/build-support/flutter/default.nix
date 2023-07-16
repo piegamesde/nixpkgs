@@ -146,7 +146,9 @@ let
         ${postFixup}
       '';
 
-      passthru = { inherit (deps) depsListFile; };
+      passthru = {
+        inherit (deps) depsListFile;
+      };
     }
   );
 

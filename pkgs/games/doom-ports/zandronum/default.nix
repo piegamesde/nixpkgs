@@ -118,7 +118,9 @@ stdenv.mkDerivation rec {
       $out/lib/zandronum/zandronum
   '';
 
-  passthru = { inherit fmod sqlite; };
+  passthru = {
+    inherit fmod sqlite;
+  };
 
   meta = with lib; {
     homepage = "https://zandronum.com/";

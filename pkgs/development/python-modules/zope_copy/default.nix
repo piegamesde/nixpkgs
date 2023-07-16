@@ -32,5 +32,7 @@ buildPythonPackage rec {
     "src/zope/copy"
   ];
 
-  meta = { maintainers = with lib.maintainers; [ domenkozar ]; };
+  meta = {
+    maintainers = with lib.maintainers; [ domenkozar ];
+  };
 }

@@ -29,7 +29,9 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  passthru.tests = { inherit fcft tmux arrow-cpp; };
+  passthru.tests = {
+    inherit fcft tmux arrow-cpp;
+  };
 
   meta = with lib; {
     description = "A clean C library for processing UTF-8 Unicode data";

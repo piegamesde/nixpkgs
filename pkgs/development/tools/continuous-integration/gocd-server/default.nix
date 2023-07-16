@@ -33,7 +33,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ unzip ];
 
-  passthru.tests = { inherit (nixosTests) gocd-server; };
+  passthru.tests = {
+    inherit (nixosTests) gocd-server;
+  };
 
   buildCommand = "\n    unzip $src -d $out\n    mv $out/go-server-${version} $out/go-server\n    mkdir -p $out/go-server/conf\n  ";
 }

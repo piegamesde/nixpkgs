@@ -347,7 +347,9 @@ in
       inherit group;
     };
 
-    users.groups.${group} = { gid = config.ids.gids.zabbix; };
+    users.groups.${group} = {
+      gid = config.ids.gids.zabbix;
+    };
 
     security.wrappers = {
       fping = {

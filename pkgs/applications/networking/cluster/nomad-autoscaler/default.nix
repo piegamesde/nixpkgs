@@ -90,7 +90,9 @@ let
       }
     '';
 
-    passthru = { inherit plugins withPlugins; };
+    passthru = {
+      inherit plugins withPlugins;
+    };
 
     meta = with lib; {
       description = "Autoscaling daemon for Nomad";

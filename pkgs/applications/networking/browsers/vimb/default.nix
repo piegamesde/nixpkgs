@@ -34,7 +34,9 @@ stdenv.mkDerivation rec {
     gsettings-desktop-schemas
   ];
 
-  passthru = { inherit gtk3; };
+  passthru = {
+    inherit gtk3;
+  };
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 

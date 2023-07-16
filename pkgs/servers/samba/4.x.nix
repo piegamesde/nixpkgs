@@ -275,7 +275,9 @@ stdenv.mkDerivation rec {
       [ buildPackages.python3Packages.python ]
   ;
 
-  passthru = { tests.samba = nixosTests.samba; };
+  passthru = {
+    tests.samba = nixosTests.samba;
+  };
 
   meta = with lib; {
     homepage = "https://www.samba.org";

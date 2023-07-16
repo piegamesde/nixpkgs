@@ -45,7 +45,9 @@
         isNormalUser = true;
         extraGroups = [ config.services.kubo.group ];
       };
-      users.users.bob = { isNormalUser = true; };
+      users.users.bob = {
+        isNormalUser = true;
+      };
     }
   ;
 

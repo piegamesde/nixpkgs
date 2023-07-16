@@ -157,7 +157,9 @@ in
           description = "PostgreSQL server user";
         };
 
-        groups.postgres = { gid = config.ids.gids.postgres; };
+        groups.postgres = {
+          gid = config.ids.gids.postgres;
+        };
       };
 
       assertions = concatLists (

@@ -32,7 +32,11 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  passthru = { tests = { inherit (nixosTests) minecraft-server; }; };
+  passthru = {
+    tests = {
+      inherit (nixosTests) minecraft-server;
+    };
+  };
 
   meta = with lib; {
     description = "A drop-in replacement for Minecraft Paper servers";

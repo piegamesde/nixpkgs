@@ -127,7 +127,9 @@ in
       createHome = true;
     };
 
-    users.groups.teamspeak = { gid = config.ids.gids.teamspeak; };
+    users.groups.teamspeak = {
+      gid = config.ids.gids.teamspeak;
+    };
 
     systemd.tmpfiles.rules = [ "d '${cfg.logPath}' - ${user} ${group} - -" ];
 

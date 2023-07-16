@@ -69,7 +69,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.tests = { inherit (nixosTests) dnsdist; };
+  passthru.tests = {
+    inherit (nixosTests) dnsdist;
+  };
 
   meta = with lib; {
     description = "DNS Loadbalancer";

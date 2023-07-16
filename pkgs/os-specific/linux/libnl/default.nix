@@ -56,7 +56,9 @@ stdenv.mkDerivation rec {
     mv "pythonlib/" "$py"
   '';
 
-  passthru = { inherit pythonSupport; };
+  passthru = {
+    inherit pythonSupport;
+  };
 
   meta = with lib; {
     homepage = "http://www.infradead.org/~tgr/libnl/";

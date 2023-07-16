@@ -109,7 +109,9 @@ in
           root = location;
 
           locations = {
-            "/streams/v1/" = { index = "index.json"; };
+            "/streams/v1/" = {
+              index = "index.json";
+            };
 
             # Serve json files with content type header application/json
             "~ .json$" = {
@@ -131,7 +133,9 @@ in
             };
 
             # Deny access to document root and the images folder
-            "~ ^/(images/)?$" = { return = "403"; };
+            "~ ^/(images/)?$" = {
+              return = "403";
+            };
           };
         };
       };

@@ -546,7 +546,11 @@ rec {
       ...
     }:
     {
-      config = { automountConfig = { Where = config.where; }; };
+      config = {
+        automountConfig = {
+          Where = config.where;
+        };
+      };
     }
   ;
 

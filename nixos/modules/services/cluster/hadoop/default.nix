@@ -222,7 +222,9 @@ with lib; {
   };
 
   config = mkIf cfg.gatewayRole.enable {
-    users.groups.hadoop = { gid = config.ids.gids.hadoop; };
+    users.groups.hadoop = {
+      gid = config.ids.gids.hadoop;
+    };
     environment = {
       systemPackages = [ cfg.package ];
       etc."hadoop-conf".source =

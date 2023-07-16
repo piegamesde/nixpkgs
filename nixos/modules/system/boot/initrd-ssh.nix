@@ -303,7 +303,9 @@ in
           uid = 1;
           group = "sshd";
         };
-        groups.sshd = { gid = 1; };
+        groups.sshd = {
+          gid = 1;
+        };
 
         contents."/etc/ssh/authorized_keys.d/root".text =
           concatStringsSep "\n"

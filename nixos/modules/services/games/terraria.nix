@@ -173,7 +173,9 @@ in
       uid = config.ids.uids.terraria;
     };
 
-    users.groups.terraria = { gid = config.ids.gids.terraria; };
+    users.groups.terraria = {
+      gid = config.ids.gids.terraria;
+    };
 
     systemd.services.terraria = {
       description = "Terraria Server Service";

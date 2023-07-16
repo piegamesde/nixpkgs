@@ -68,7 +68,9 @@ in
     ./network-socket.nix
   ];
 
-  meta = { maintainers = lib.teams.podman.members; };
+  meta = {
+    maintainers = lib.teams.podman.members;
+  };
 
   options.virtualisation.podman = {
 
@@ -190,7 +192,9 @@ in
               driver = "bridge";
               id = "0000000000000000000000000000000000000000000000000000000000000000";
               internal = false;
-              ipam_options = { driver = "host-local"; };
+              ipam_options = {
+                driver = "host-local";
+              };
               ipv6_enabled = false;
               name = "podman";
               network_interface = "podman0";

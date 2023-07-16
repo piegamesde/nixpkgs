@@ -71,7 +71,9 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs = with rustPlatform; [ cargoCheckHook ];
 
-  passthru.tests = { python = python3.pkgs.deltachat; };
+  passthru.tests = {
+    python = python3.pkgs.deltachat;
+  };
 
   meta = with lib; {
     description = "Delta Chat Rust Core library";

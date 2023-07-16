@@ -9,9 +9,13 @@ args@{
   }:
   {
     name = "garage-basic";
-    meta = { maintainers = with pkgs.lib.maintainers; [ raitobezarius ]; };
+    meta = {
+      maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
+    };
 
-    nodes = { single_node = mkNode { replicationMode = "none"; }; };
+    nodes = {
+      single_node = mkNode { replicationMode = "none"; };
+    };
 
     testScript = ''
       from typing import List

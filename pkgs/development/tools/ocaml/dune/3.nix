@@ -43,7 +43,9 @@ else
       "LIBDIR=$(OCAMLFIND_DESTDIR)"
     ];
 
-    passthru.tests = { inherit ocaml-lsp; };
+    passthru.tests = {
+      inherit ocaml-lsp;
+    };
 
     meta = {
       homepage = "https://dune.build/";

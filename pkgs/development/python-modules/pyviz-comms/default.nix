@@ -22,7 +22,9 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pyviz_comms" ];
 
-  passthru.tests = { inherit panel; };
+  passthru.tests = {
+    inherit panel;
+  };
 
   meta = with lib; {
     description = "Launch jobs, organize the output, and dissect the results";

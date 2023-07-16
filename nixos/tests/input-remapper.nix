@@ -6,7 +6,9 @@ import ./make-test-python.nix (
 
   {
     name = "input-remapper";
-    meta = { maintainers = with pkgs.lib.maintainers; [ LunNova ]; };
+    meta = {
+      maintainers = with pkgs.lib.maintainers; [ LunNova ];
+    };
 
     nodes.machine =
       {

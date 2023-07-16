@@ -29,7 +29,9 @@ buildPythonPackage rec {
     sed -i '/--mypy/d' pytest.ini
   '';
 
-  passthru.optional-dependencies = { loguru = [ loguru ]; };
+  passthru.optional-dependencies = {
+    loguru = [ loguru ];
+  };
 
   nativeCheckInputs =
     [

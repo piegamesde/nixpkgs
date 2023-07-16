@@ -51,7 +51,9 @@ stdenv.mkDerivation rec {
     libarchive
   ];
 
-  passthru = { inherit gtk3; };
+  passthru = {
+    inherit gtk3;
+  };
 
   meta = with lib; {
     description = "Lightweight WebKitGTK web browser";

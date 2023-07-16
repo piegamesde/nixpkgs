@@ -243,7 +243,9 @@ stdenv.mkDerivation {
     GITLAB_SHELL_VERSION = data.passthru.GITLAB_SHELL_VERSION;
     GITLAB_WORKHORSE_VERSION = data.passthru.GITLAB_WORKHORSE_VERSION;
     gitlabEnv.FOSS_ONLY = lib.boolToString (!gitlabEnterprise);
-    tests = { nixos-test-passes = nixosTests.gitlab; };
+    tests = {
+      nixos-test-passes = nixosTests.gitlab;
+    };
   };
 
   meta =

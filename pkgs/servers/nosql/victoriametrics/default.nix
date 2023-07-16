@@ -43,7 +43,9 @@ buildGoModule rec {
     export ldflags=''${ldflags//=${version}/=}
   '';
 
-  passthru.tests = { inherit (nixosTests) victoriametrics; };
+  passthru.tests = {
+    inherit (nixosTests) victoriametrics;
+  };
 
   meta = with lib; {
     homepage = "https://victoriametrics.com/";

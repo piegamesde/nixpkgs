@@ -41,5 +41,7 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.coconnor ];
     platforms = platforms.linux ++ platforms.darwin;
   };
-  passthru.tests = { smoke-tests = nixosTests.memcached; };
+  passthru.tests = {
+    smoke-tests = nixosTests.memcached;
+  };
 }

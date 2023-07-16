@@ -47,7 +47,9 @@ buildPythonPackage rec {
   # check in passthru.tests.pytest to escape infinite recursion with flax
   doCheck = false;
 
-  passthru.tests = { pytest = callPackage ./tests.nix { }; };
+  passthru.tests = {
+    pytest = callPackage ./tests.nix { };
+  };
 
   meta = with lib; {
     description = "Gradient processing and optimization library for JAX";

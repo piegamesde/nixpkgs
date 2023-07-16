@@ -39,7 +39,9 @@ buildGoModule rec {
       --prefix LD_LIBRARY_PATH : "${lib.getLib systemd}/lib"
   '';
 
-  passthru.tests = { inherit (nixosTests) loki; };
+  passthru.tests = {
+    inherit (nixosTests) loki;
+  };
 
   ldflags =
     let

@@ -58,7 +58,9 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "cliff" ];
 
-  passthru.tests = { pytest = callPackage ./tests.nix { }; };
+  passthru.tests = {
+    pytest = callPackage ./tests.nix { };
+  };
 
   meta = with lib; {
     description = "Command Line Interface Formulation Framework";

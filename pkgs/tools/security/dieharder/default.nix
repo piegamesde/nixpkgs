@@ -29,7 +29,9 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ gsl ];
 
-  passthru = { tests.version = testers.testVersion { package = dieharder; }; };
+  passthru = {
+    tests.version = testers.testVersion { package = dieharder; };
+  };
 
   meta = with lib; {
     description = "A Random Number Generator test suite";

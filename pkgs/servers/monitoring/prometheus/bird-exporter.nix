@@ -18,7 +18,9 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-jBwaneVv1a8iIqnhDbQOnvaJdnXgO8P90Iv51IfGaM0=";
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) bird; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) bird;
+  };
 
   meta = with lib; {
     description = "Prometheus exporter for the bird routing daemon";

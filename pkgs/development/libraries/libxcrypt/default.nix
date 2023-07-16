@@ -41,7 +41,9 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   passthru = {
-    tests = { inherit (nixosTests) login shadow; };
+    tests = {
+      inherit (nixosTests) login shadow;
+    };
     enabledCryptSchemeIds = [
       # https://github.com/besser82/libxcrypt/blob/v4.4.33/lib/hashes.conf
       "y" # yescrypt

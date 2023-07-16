@@ -11,7 +11,9 @@ let
 
   inherit (import ./common.nix { inherit system; }) baseConfig;
 
-  hydraPkgs = { inherit (pkgs) hydra_unstable; };
+  hydraPkgs = {
+    inherit (pkgs) hydra_unstable;
+  };
 
   makeHydraTest =
     with pkgs.lib;
@@ -33,7 +35,9 @@ let
         }:
         {
           imports = [ baseConfig ];
-          services.hydra = { inherit package; };
+          services.hydra = {
+            inherit package;
+          };
         }
       ;
 

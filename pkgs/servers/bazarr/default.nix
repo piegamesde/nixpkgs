@@ -64,7 +64,9 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests = { smoke-test = nixosTests.bazarr; };
+  passthru.tests = {
+    smoke-test = nixosTests.bazarr;
+  };
 
   meta = with lib; {
     description = "Subtitle manager for Sonarr and Radarr";

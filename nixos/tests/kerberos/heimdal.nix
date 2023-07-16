@@ -28,7 +28,9 @@ import ../make-test-python.nix (
         krb5 = {
           enable = true;
           kerberos = pkgs.heimdal;
-          libdefaults = { default_realm = "FOO.BAR"; };
+          libdefaults = {
+            default_realm = "FOO.BAR";
+          };
           realms = {
             "FOO.BAR" = {
               admin_server = "machine";

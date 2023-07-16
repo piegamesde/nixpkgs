@@ -65,7 +65,9 @@ stdenv.mkDerivation rec {
 
   passthru = {
     updateScript = gnome.updateScript { packageName = pname; };
-    tests = { installed-tests = nixosTests.installed-tests.geocode-glib; };
+    tests = {
+      installed-tests = nixosTests.installed-tests.geocode-glib;
+    };
   };
 
   meta = with lib; {

@@ -26,7 +26,9 @@ rustPlatform.buildRustPackage rec {
 
   nativeCheckInputs = [ which ];
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "A dotfile manager and templater written in rust 🦀";

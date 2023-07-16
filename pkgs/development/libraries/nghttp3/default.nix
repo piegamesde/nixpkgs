@@ -36,7 +36,9 @@ stdenv.mkDerivation rec {
   doCheck = true;
   enableParallelBuilding = true;
 
-  passthru.tests = { inherit curlHTTP3; };
+  passthru.tests = {
+    inherit curlHTTP3;
+  };
 
   meta = with lib; {
     homepage = "https://github.com/ngtcp2/nghttp3";

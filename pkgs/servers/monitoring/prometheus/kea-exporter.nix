@@ -26,7 +26,9 @@ python3Packages.buildPythonApplication rec {
     $out/bin/kea-exporter --version | grep -q ${version}
   '';
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) kea; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) kea;
+  };
 
   meta = with lib; {
     description = "Export Kea Metrics in the Prometheus Exposition Format";

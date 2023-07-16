@@ -54,7 +54,9 @@ stdenv.mkDerivation {
     rm -rv djbdns-man;
   '';
 
-  passthru.tests = { tinydns = nixosTests.tinydns; };
+  passthru.tests = {
+    tinydns = nixosTests.tinydns;
+  };
 
   meta = with lib; {
     description = "A collection of Domain Name System tools";

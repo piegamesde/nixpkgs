@@ -22,9 +22,13 @@ let
     // optionalAttrs (cfg.tags != null) {
       tags = concatStringsSep ", " cfg.tags;
     } // optionalAttrs (cfg.enableLiveProcessCollection) {
-      process_config = { enabled = "true"; };
+      process_config = {
+        enabled = "true";
+      };
     } // optionalAttrs (cfg.enableTraceAgent) {
-      apm_config = { enabled = true; };
+      apm_config = {
+        enabled = true;
+      };
     } // cfg.extraConfig;
 
   # Generate Datadog configuration files for each configured checks.

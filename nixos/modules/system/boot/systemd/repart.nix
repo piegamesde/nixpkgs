@@ -71,7 +71,9 @@ in
         ;
         default = { };
         example = {
-          "10-root" = { Type = "root"; };
+          "10-root" = {
+            Type = "root";
+          };
           "20-home" = {
             Type = "home";
             SizeMinBytes = "512M";

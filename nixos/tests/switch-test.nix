@@ -508,7 +508,9 @@ import ./make-test-python.nix (
         }
       ;
 
-      other = { users.mutableUsers = true; };
+      other = {
+        users.mutableUsers = true;
+      };
     };
 
     testScript =

@@ -155,7 +155,9 @@ stdenv.mkDerivation rec {
 
   setupHook = ./setup-hook.sh;
 
-  passthru = { inherit withPlugins allPlugins; };
+  passthru = {
+    inherit withPlugins allPlugins;
+  };
 
   meta = with lib; {
     description = "Open RTL synthesis framework and tools";

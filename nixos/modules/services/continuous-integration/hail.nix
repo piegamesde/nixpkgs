@@ -56,7 +56,9 @@ in
       wants = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
       path = with pkgs; [ nix ];
-      environment = { HOME = "/var/lib/empty"; };
+      environment = {
+        HOME = "/var/lib/empty";
+      };
       serviceConfig = {
         ExecStart =
           "${cfg.package}/bin/hail --profile ${cfg.profile} --job-uri ${cfg.hydraJobUri}"

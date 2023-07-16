@@ -19,6 +19,10 @@
       visible = true;
     })
   ];
-  options = { c.d.e = lib.mkOption { }; };
-  config = { a.b = 1234; };
+  options = {
+    c.d.e = lib.mkOption { };
+  };
+  config = {
+    a.b = 1234;
+  };
 }

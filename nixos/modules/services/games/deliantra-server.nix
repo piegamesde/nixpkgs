@@ -94,7 +94,9 @@ in
           ''';
         }
       '';
-      default = { motd = ""; };
+      default = {
+        motd = "";
+      };
     };
   };
 

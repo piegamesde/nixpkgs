@@ -71,7 +71,9 @@ import ./make-test-python.nix (
   in
   {
     name = "cassandra-${testPackage.version}";
-    meta = { maintainers = with lib.maintainers; [ johnazoidberg ]; };
+    meta = {
+      maintainers = with lib.maintainers; [ johnazoidberg ];
+    };
 
     nodes = {
       cass0 = nodeCfg "192.168.1.1" { };
@@ -161,6 +163,8 @@ import ./make-test-python.nix (
       ''
     ;
 
-    passthru = { inherit testPackage; };
+    passthru = {
+      inherit testPackage;
+    };
   }
 )

@@ -13,7 +13,9 @@ import ./make-test-python.nix (
       }:
       {
         environment.systemPackages = with pkgs; [ dbus ];
-        services.packagekit = { enable = true; };
+        services.packagekit = {
+          enable = true;
+        };
       }
     ;
 

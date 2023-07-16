@@ -42,7 +42,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  passthru.optional-dependencies = { google = [ google-cloud-translate ]; };
+  passthru.optional-dependencies = {
+    google = [ google-cloud-translate ];
+  };
 
   checkPhase = ''
     ${python.interpreter} testmanage.py test

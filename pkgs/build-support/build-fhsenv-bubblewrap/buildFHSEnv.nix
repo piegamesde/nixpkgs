@@ -250,7 +250,11 @@ let
   '';
 in
 runCommandLocal "${name}-fhs"
-  { passthru = { inherit args multiPaths targetPaths; }; }
+  {
+    passthru = {
+      inherit args multiPaths targetPaths;
+    };
+  }
   ''
     mkdir -p $out
     cd $out

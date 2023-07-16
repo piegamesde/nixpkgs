@@ -32,7 +32,9 @@ import ./make-test-python.nix (
     name = "couchdb";
     meta = with pkgs.lib.maintainers; { maintainers = [ ]; };
 
-    nodes = { couchdb3 = makeNode pkgs.couchdb3 testuser testpass; };
+    nodes = {
+      couchdb3 = makeNode pkgs.couchdb3 testuser testpass;
+    };
 
     testScript =
       let

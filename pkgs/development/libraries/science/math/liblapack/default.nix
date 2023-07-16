@@ -49,7 +49,9 @@ stdenv.mkDerivation (
           "-DTEST_FORTRAN_COMPILER=OFF"
     ;
 
-    passthru = { inherit blas64; };
+    passthru = {
+      inherit blas64;
+    };
 
     postInstall =
       let

@@ -18,7 +18,9 @@ let
 in
 
 {
-  meta = { maintainers = with maintainers; [ arobyn ]; };
+  meta = {
+    maintainers = with maintainers; [ arobyn ];
+  };
 
   options = {
     services.dante = {

@@ -12,7 +12,9 @@
 stdenv.mkDerivation rec {
   version = "6";
   pname = "muchsync";
-  passthru = { inherit version; };
+  passthru = {
+    inherit version;
+  };
   src = fetchurl {
     url = "http://www.muchsync.org/src/${pname}-${version}.tar.gz";
     sha256 = "Cz3jtNiF7bn4h6B9y8i1luf+8gOMYeaCz6VaE/pM6eg=";

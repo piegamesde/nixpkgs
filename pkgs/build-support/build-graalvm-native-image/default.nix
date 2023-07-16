@@ -75,7 +75,9 @@ stdenv.mkDerivation (
 
     disallowedReferences = [ graalvmDrv ];
 
-    passthru = { inherit graalvmDrv; };
+    passthru = {
+      inherit graalvmDrv;
+    };
 
     meta = {
       # default to graalvm's platforms

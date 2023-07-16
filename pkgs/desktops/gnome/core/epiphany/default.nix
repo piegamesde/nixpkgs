@@ -95,7 +95,9 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withPantheon [ "-Dgranite=enabled" ]
   ;
 
-  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
+  passthru = {
+    updateScript = gnome.updateScript { packageName = pname; };
+  };
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Epiphany";

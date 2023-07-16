@@ -72,5 +72,7 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
   };
 
-  passthru = { withSSL = true; };
+  passthru = {
+    withSSL = true;
+  };
 }

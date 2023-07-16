@@ -37,7 +37,9 @@ in
         type = types.attrs;
         apply = recursiveUpdate default;
         default = {
-          database = { filename = "${dataDir}/discord.db"; };
+          database = {
+            filename = "${dataDir}/discord.db";
+          };
 
           # empty values necessary for registration file generation
           # actual values defined in environmentFile

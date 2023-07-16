@@ -48,7 +48,9 @@ buildPythonPackage rec {
   # Pip wants pytest, but tests are not distributed
   doCheck = false;
 
-  passthru.tests = { inherit pip-tools; };
+  passthru.tests = {
+    inherit pip-tools;
+  };
 
   meta = {
     description = "The PyPA recommended tool for installing Python packages";

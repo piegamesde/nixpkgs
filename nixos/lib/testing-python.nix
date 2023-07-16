@@ -45,7 +45,11 @@ pkgs.lib.throwIf (args ? specialArgs)
       }
     ;
 
-    extraTestModule = { config = { hostPkgs = pkgs; }; };
+    extraTestModule = {
+      config = {
+        hostPkgs = pkgs;
+      };
+    };
 
     # Make a full-blown test (legacy)
     # For an official public interface to the tests, see

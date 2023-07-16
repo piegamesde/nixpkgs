@@ -141,7 +141,9 @@ stdenv.mkDerivation {
       $out/bin/$binaryName
   '';
 
-  passthru = { inherit libXNVCtrl; };
+  passthru = {
+    inherit libXNVCtrl;
+  };
 
   meta = with lib; {
     homepage = "https://www.nvidia.com/object/unix.html";

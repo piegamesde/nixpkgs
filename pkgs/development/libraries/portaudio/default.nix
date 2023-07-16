@@ -82,5 +82,7 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
   };
 
-  passthru = { api_version = 19; };
+  passthru = {
+    api_version = 19;
+  };
 }

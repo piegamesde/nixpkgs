@@ -20,7 +20,9 @@ buildGoPackage rec {
 
   goDeps = ./dovecot-exporter-deps.nix;
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) dovecot; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) dovecot;
+  };
 
   meta = with lib; {
     inherit (src.meta) homepage;

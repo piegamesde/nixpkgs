@@ -788,7 +788,11 @@ in
 
       virtualHosts = mkOption {
         type = with types; attrsOf (submodule (import ./vhost-options.nix));
-        default = { localhost = { documentRoot = "${pkg}/htdocs"; }; };
+        default = {
+          localhost = {
+            documentRoot = "${pkg}/htdocs";
+          };
+        };
         defaultText = literalExpression ''
           {
             localhost = {

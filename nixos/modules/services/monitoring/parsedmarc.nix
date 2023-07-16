@@ -501,7 +501,9 @@ in
           user = cfg.provision.localMail.recipientName;
           password = "${pkgs.writeText "imap-password" "@imap-password@"}";
         };
-        mailbox = { watch = true; };
+        mailbox = {
+          watch = true;
+        };
       })
     ];
 

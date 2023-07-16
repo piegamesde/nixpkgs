@@ -75,7 +75,9 @@ stdenv.mkDerivation rec {
       $out/lib/dri/iHD_drv_video.so
   '';
 
-  passthru.tests = { inherit (pkgsi686Linux) intel-media-driver; };
+  passthru.tests = {
+    inherit (pkgsi686Linux) intel-media-driver;
+  };
 
   meta = with lib; {
     description = "Intel Media Driver for VAAPI — Broadwell+ iGPUs";

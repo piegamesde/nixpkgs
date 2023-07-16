@@ -76,7 +76,9 @@ buildPythonPackage rec {
 
   enableParallelBuilding = true;
 
-  passthru = { qt = qt4; };
+  passthru = {
+    qt = qt4;
+  };
 
   meta = with lib; {
     description = "Python bindings for Qt";

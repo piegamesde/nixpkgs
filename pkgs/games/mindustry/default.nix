@@ -243,7 +243,9 @@ stdenv.mkDerivation rec {
     ''
   ;
 
-  passthru.tests = { nixosTest = nixosTests.mindustry; };
+  passthru.tests = {
+    nixosTest = nixosTests.mindustry;
+  };
 
   meta = with lib; {
     homepage = "https://mindustrygame.github.io/";

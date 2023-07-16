@@ -85,7 +85,9 @@ stdenv.mkDerivation (
 
     enableParallelBuilding = true;
 
-    passthru = { inherit core libretroCore; };
+    passthru = {
+      inherit core libretroCore;
+    };
 
     meta =
       with lib;

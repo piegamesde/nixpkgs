@@ -1189,7 +1189,9 @@ in
                   Defines the address and other parameters of the upstream servers.
                 '';
                 default = { };
-                example = { "127.0.0.1:8000" = { }; };
+                example = {
+                  "127.0.0.1:8000" = { };
+                };
               };
               extraConfig = mkOption {
                 type = types.lines;
@@ -1219,7 +1221,9 @@ in
         type = types.attrsOf (
           types.submodule (import ./vhost-options.nix { inherit config lib; })
         );
-        default = { localhost = { }; };
+        default = {
+          localhost = { };
+        };
         example = literalExpression ''
           {
             "hydra.example.com" = {

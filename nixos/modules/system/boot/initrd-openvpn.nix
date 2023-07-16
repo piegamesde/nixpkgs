@@ -73,7 +73,9 @@ in
       "${pkgs.glibc}/lib/libnss_dns.so.2"
     ];
 
-    boot.initrd.secrets = { "/etc/initrd.ovpn" = cfg.configuration; };
+    boot.initrd.secrets = {
+      "/etc/initrd.ovpn" = cfg.configuration;
+    };
 
     # openvpn --version would exit with 1 instead of 0
     boot.initrd.extraUtilsCommandsTest =

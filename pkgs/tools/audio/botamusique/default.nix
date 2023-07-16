@@ -172,7 +172,9 @@ stdenv.mkDerivation rec {
       --output ${toString ./node-packages.nix}
   '';
 
-  passthru.tests = { inherit (nixosTests) botamusique; };
+  passthru.tests = {
+    inherit (nixosTests) botamusique;
+  };
 
   meta = with lib; {
     description = "Bot to play youtube / soundcloud / radio / local music on Mumble";

@@ -133,7 +133,9 @@ stdenv.mkDerivation rec {
 
   UWSGI_INCLUDES = lib.optionalString withCap "${libcap.dev}/include";
 
-  passthru = { inherit python2 python3; };
+  passthru = {
+    inherit python2 python3;
+  };
 
   postPatch = ''
     for f in uwsgiconfig.py plugins/*/uwsgiplugin.py; do

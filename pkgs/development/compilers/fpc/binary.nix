@@ -51,5 +51,7 @@ stdenv.mkDerivation rec {
       throw "Not supported on ${stdenv.hostPlatform}."
   ;
 
-  meta = { description = "Free Pascal Compiler from a binary distribution"; };
+  meta = {
+    description = "Free Pascal Compiler from a binary distribution";
+  };
 }

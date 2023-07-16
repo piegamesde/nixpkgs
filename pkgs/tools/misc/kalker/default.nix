@@ -18,7 +18,9 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-Pj3rcjEbUt+pnmbOZlv2JIvUhVdeiXYDKc5FED6qO7E=";
   };
 
-  cargoLock = { lockFile = ./Cargo.lock; };
+  cargoLock = {
+    lockFile = ./Cargo.lock;
+  };
 
   buildInputs = [
     gmp

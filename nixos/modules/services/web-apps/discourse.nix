@@ -1208,7 +1208,9 @@ in
       ${config.services.nginx.user}.extraGroups = [ "discourse" ];
     });
 
-    users.groups = { discourse = { }; };
+    users.groups = {
+      discourse = { };
+    };
 
     environment.systemPackages = [ cfg.package.rake ];
   };

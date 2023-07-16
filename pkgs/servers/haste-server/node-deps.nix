@@ -1550,7 +1550,9 @@ let
       sources."yocto-queue-0.1.0"
     ];
     buildInputs = globalBuildInputs;
-    meta = { description = "Private Pastebin Server"; };
+    meta = {
+      description = "Private Pastebin Server";
+    };
     production = false;
     bypassCache = true;
     reconstructLock = true;

@@ -123,5 +123,7 @@ in
     };
   };
 
-  meta = { maintainers = with lib.maintainers; [ zimbatm ]; };
+  meta = {
+    maintainers = with lib.maintainers; [ zimbatm ];
+  };
 }

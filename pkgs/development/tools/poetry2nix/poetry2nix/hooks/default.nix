@@ -82,7 +82,9 @@ in
           (
             {
               name = "pip-build-hook.sh";
-              substitutions = { inherit pythonInterpreter pythonSitePackages; };
+              substitutions = {
+                inherit pythonInterpreter pythonSitePackages;
+              };
             } // (makeSetupHookArgs [
               pip
               wheel

@@ -47,7 +47,9 @@ in
           {
             name = "dotnet-build-hook";
             propagatedBuildInputs = [ dotnet-sdk ];
-            substitutions = { inherit buildType runtimeId; };
+            substitutions = {
+              inherit buildType runtimeId;
+            };
           }
           ./dotnet-build-hook.sh
       )
@@ -92,7 +94,9 @@ in
           {
             name = "dotnet-install-hook";
             propagatedBuildInputs = [ dotnet-sdk ];
-            substitutions = { inherit buildType runtimeId; };
+            substitutions = {
+              inherit buildType runtimeId;
+            };
           }
           ./dotnet-install-hook.sh
       )

@@ -649,9 +649,13 @@ in
         ${cfg.virtualHost} = {
           root = "${cfg.root}/www";
 
-          locations."/" = { index = "index.php"; };
+          locations."/" = {
+            index = "index.php";
+          };
 
-          locations."^~ /feed-icons" = { root = "${cfg.root}"; };
+          locations."^~ /feed-icons" = {
+            root = "${cfg.root}";
+          };
 
           locations."~ \\.php$" = {
             extraConfig = ''
@@ -789,7 +793,9 @@ in
       ensureDatabases = [ cfg.database.name ];
       ensureUsers = [ {
         name = cfg.user;
-        ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
+        ensurePermissions = {
+          "${cfg.database.name}.*" = "ALL PRIVILEGES";
+        };
       } ];
     };
 

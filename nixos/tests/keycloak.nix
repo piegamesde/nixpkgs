@@ -38,7 +38,9 @@ let
 
             services.keycloak = {
               enable = true;
-              settings = { hostname = certs.domain; };
+              settings = {
+                hostname = certs.domain;
+              };
               inherit initialAdminPassword;
               sslCertificate = "${certs.${certs.domain}.cert}";
               sslCertificateKey = "${certs.${certs.domain}.key}";

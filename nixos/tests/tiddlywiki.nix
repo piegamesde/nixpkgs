@@ -5,7 +5,9 @@ import ./make-test-python.nix (
   {
     name = "tiddlywiki";
     nodes = {
-      default = { services.tiddlywiki.enable = true; };
+      default = {
+        services.tiddlywiki.enable = true;
+      };
       configured = {
         boot.postBootCommands = ''
           echo "username,password

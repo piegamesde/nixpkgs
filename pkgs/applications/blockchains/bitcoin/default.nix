@@ -110,7 +110,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.tests = { smoke-test = nixosTests.bitcoind; };
+  passthru.tests = {
+    smoke-test = nixosTests.bitcoind;
+  };
 
   meta = with lib; {
     description = "Peer-to-peer electronic cash system";

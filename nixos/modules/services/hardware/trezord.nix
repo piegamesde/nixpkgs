@@ -13,7 +13,9 @@ in
 
   ### docs
 
-  meta = { doc = ./trezord.md; };
+  meta = {
+    doc = ./trezord.md;
+  };
 
   ### interface
 

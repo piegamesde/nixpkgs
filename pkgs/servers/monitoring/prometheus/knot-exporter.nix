@@ -33,7 +33,9 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) knot; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) knot;
+  };
 
   meta = with lib; {
     homepage = "https://github.com/ghedo/knot_exporter";

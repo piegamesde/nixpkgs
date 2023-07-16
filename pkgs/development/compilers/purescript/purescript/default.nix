@@ -63,7 +63,9 @@ stdenv.mkDerivation rec {
 
   passthru = {
     updateScript = ./update.sh;
-    tests = { minimal-module = pkgs.callPackage ./test-minimal-module { }; };
+    tests = {
+      minimal-module = pkgs.callPackage ./test-minimal-module { };
+    };
   };
 
   meta = with lib; {

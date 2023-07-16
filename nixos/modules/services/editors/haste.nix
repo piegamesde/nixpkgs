@@ -64,7 +64,9 @@ in
 
         storage = mkDefault { type = "file"; };
 
-        documents = { about = mkDefault "${pkg}/share/haste-server/about.md"; };
+        documents = {
+          about = mkDefault "${pkg}/share/haste-server/about.md";
+        };
       };
     };
 

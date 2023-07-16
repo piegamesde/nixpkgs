@@ -22,7 +22,11 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ];
 
-  passthru = { tests = { inherit nix; }; };
+  passthru = {
+    tests = {
+      inherit nix;
+    };
+  };
 
   meta = with lib; {
     description = "Create books from MarkDown";

@@ -56,7 +56,9 @@ stdenv.mkDerivation {
     done
   '';
 
-  passthru = { inherit ipuVersion; };
+  passthru = {
+    inherit ipuVersion;
+  };
 
   meta =
     let

@@ -34,6 +34,8 @@ in
 
   config = mkIf cfg.defaultEditor {
     environment.systemPackages = [ cfg.package ];
-    environment.variables = { EDITOR = mkOverride 900 "vim"; };
+    environment.variables = {
+      EDITOR = mkOverride 900 "vim";
+    };
   };
 }

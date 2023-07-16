@@ -189,7 +189,9 @@ pythonPackages.buildPythonApplication rec {
     google-api-python-client
   ];
 
-  passthru.tests = { inherit (nixosTests) pgadmin4; };
+  passthru.tests = {
+    inherit (nixosTests) pgadmin4;
+  };
 
   nativeCheckInputs = [
     postgresqlTestHook

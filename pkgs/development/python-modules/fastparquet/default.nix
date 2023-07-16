@@ -60,7 +60,9 @@ buildPythonPackage rec {
     packaging
   ];
 
-  passthru.optional-dependencies = { lzo = [ python-lzo ]; };
+  passthru.optional-dependencies = {
+    lzo = [ python-lzo ];
+  };
 
   nativeCheckInputs = [ pytestCheckHook ];
 

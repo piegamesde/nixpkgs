@@ -109,7 +109,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru = { inherit sslSupport bdbSupport ldapSupport; };
+  passthru = {
+    inherit sslSupport bdbSupport ldapSupport;
+  };
 
   meta = with lib; {
     homepage = "https://apr.apache.org/";

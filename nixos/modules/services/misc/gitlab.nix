@@ -1354,7 +1354,9 @@ in
         chown ${cfg.user}:${cfg.group} ${cfg.registry.certFile}
       '';
 
-      unitConfig = { ConditionPathExists = "!${cfg.registry.certFile}"; };
+      unitConfig = {
+        ConditionPathExists = "!${cfg.registry.certFile}";
+      };
     };
 
     # Ensure Docker Registry launches after the certificate generation job

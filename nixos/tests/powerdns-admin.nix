@@ -77,7 +77,9 @@ let
           ensureDatabases = [ "powerdnsadmin" ];
           ensureUsers = [ {
             name = "powerdnsadmin";
-            ensurePermissions = { "powerdnsadmin.*" = "ALL PRIVILEGES"; };
+            ensurePermissions = {
+              "powerdnsadmin.*" = "ALL PRIVILEGES";
+            };
           } ];
         };
       };

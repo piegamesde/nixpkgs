@@ -21,7 +21,9 @@ stdenv.mkDerivation {
     cp $src $out/share/colorize_nicks.py
   '';
 
-  passthru = { scripts = [ "colorize_nicks.py" ]; };
+  passthru = {
+    scripts = [ "colorize_nicks.py" ];
+  };
 
   meta = with lib; {
     inherit (weechat.meta) platforms;

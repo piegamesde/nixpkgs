@@ -16,7 +16,9 @@ stdenv.mkDerivation rec {
     echo "${rocm-opencl-runtime}/lib/libamdocl64.so" > $out/etc/OpenCL/vendors/amdocl64.icd
   '';
 
-  passthru.impureTests = { rocm-opencl = callPackage ./test.nix { }; };
+  passthru.impureTests = {
+    rocm-opencl = callPackage ./test.nix { };
+  };
 
   meta = with lib; {
     description = "OpenCL ICD definition for AMD GPUs using the ROCm stack";

@@ -96,7 +96,9 @@ rustPlatform.buildRustPackage rec {
     ''
   ;
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     homepage = "https://newsboat.org/";

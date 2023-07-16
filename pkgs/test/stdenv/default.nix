@@ -17,7 +17,9 @@ let
   bootStdenv =
     stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv;
   pkgsStructured = import pkgs.path {
-    config = { structuredAttrsByDefault = true; };
+    config = {
+      structuredAttrsByDefault = true;
+    };
     inherit (stdenv.hostPlatform) system;
   };
   bootStdenvStructuredAttrsByDefault =
@@ -68,7 +70,9 @@ let
     stdenv'.mkDerivation (
       {
         inherit name;
-        env = { string = "testing-string"; };
+        env = {
+          string = "testing-string";
+        };
 
         passAsFile = [ "buildCommand" ];
         buildCommand = ''
@@ -91,7 +95,9 @@ let
     stdenv'.mkDerivation (
       {
         inherit name;
-        env = { string = "testing-string"; };
+        env = {
+          string = "testing-string";
+        };
 
         passAsFile =
           [ "buildCommand" ]
@@ -200,7 +206,9 @@ in
   test-structured-env-attrset = testEnvAttrset {
     name = "test-structured-env-attrset";
     stdenv' = bootStdenv;
-    extraAttrs = { __structuredAttrs = true; };
+    extraAttrs = {
+      __structuredAttrs = true;
+    };
   };
 
   test-cc-wrapper-substitutions = ccWrapperSubstitutionsTest {
@@ -330,8 +338,12 @@ in
           ]
           [ "baz" ]
         ];
-        EXAMPLE_ATTRS = { foo = "bar"; };
-        EXAMPLE_NESTED_ATTRS = { foo.bar = "baz"; };
+        EXAMPLE_ATTRS = {
+          foo = "bar";
+        };
+        EXAMPLE_NESTED_ATTRS = {
+          foo.bar = "baz";
+        };
 
         inherit goldenSh;
         inherit goldenJson;

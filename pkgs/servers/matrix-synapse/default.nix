@@ -119,7 +119,9 @@ buildPythonApplication rec {
     runHook postCheck
   '';
 
-  passthru.tests = { inherit (nixosTests) matrix-synapse; };
+  passthru.tests = {
+    inherit (nixosTests) matrix-synapse;
+  };
   passthru.plugins = plugins;
   passthru.tools = tools;
   passthru.python = python3;

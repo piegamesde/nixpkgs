@@ -68,7 +68,9 @@ stdenv.mkDerivation (
       mv Lagrange.app $out/Applications
     '';
 
-    passthru = { updateScript = nix-update-script { }; };
+    passthru = {
+      updateScript = nix-update-script { };
+    };
 
     meta = with lib; {
       description = "A Beautiful Gemini Client";

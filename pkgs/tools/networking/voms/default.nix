@@ -29,7 +29,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-FG4fHO2lsQ3t/ZaKT9xY+xqdQHfdtzi5ULtxLhdPnss=";
   };
 
-  passthru = { inherit externalEtc; };
+  passthru = {
+    inherit externalEtc;
+  };
 
   nativeBuildInputs = [
     autoreconfHook

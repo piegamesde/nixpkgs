@@ -105,7 +105,9 @@ in
       isSystemUser = true;
     };
 
-    users.groups.supybot = { gid = config.ids.gids.supybot; };
+    users.groups.supybot = {
+      gid = config.ids.gids.supybot;
+    };
 
     systemd.services.supybot = {
       description = "Supybot, an IRC bot";

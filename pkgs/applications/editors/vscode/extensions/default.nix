@@ -94,7 +94,9 @@ let
           version = "0.10.0";
           sha256 = "sha256-DmyYE7RHOX/RrbIPYCq/x0l081SzmyBAd7yHSUOPkOA=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       adpyke.codesnap = buildVscodeMarketplaceExtension {
@@ -104,7 +106,9 @@ let
           version = "1.3.4";
           sha256 = "sha256-dR6qODSTK377OJpmUqG9R85l1sf9fvJJACjrYhSRWgQ=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       alanz.vscode-hie-server = buildVscodeMarketplaceExtension {
@@ -114,7 +118,9 @@ let
           version = "0.0.27"; # see the note above
           sha256 = "1mz0h5zd295i73hbji9ivla8hx02i4yhqcv6l4r23w3f07ql3i8h";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       alefragnani.bookmarks = buildVscodeMarketplaceExtension {
@@ -124,7 +130,9 @@ let
           version = "13.3.1";
           sha256 = "sha256-CZSFprI8HMQvc8P9ZH+m0j9J6kqmSJM1/Ik24ghif2A=";
         };
-        meta = { license = lib.licenses.gpl3; };
+        meta = {
+          license = lib.licenses.gpl3;
+        };
       };
 
       alefragnani.project-manager = buildVscodeMarketplaceExtension {
@@ -134,7 +142,9 @@ let
           version = "12.7.0";
           sha256 = "sha256-rBMwvm7qUI6zBrXdYntQlY8WvH2fDBhEuQ1pHDl9fQg=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       alexdima.copy-relative-path = buildVscodeMarketplaceExtension {
@@ -144,7 +154,9 @@ let
           version = "0.0.2";
           sha256 = "06g601n9d6wyyiz659w60phgm011gn9jj5fy0gf5wpi2bljk3vcn";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       alygin.vscode-tlaplus = buildVscodeMarketplaceExtension {
@@ -154,7 +166,9 @@ let
           version = "1.5.4";
           sha256 = "0mf98244z6wzb0vj6qdm3idgr2sr5086x7ss2khaxlrziif395dx";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       angular.ng-template = buildVscodeMarketplaceExtension {
@@ -181,7 +195,9 @@ let
           version = "0.2.6";
           sha256 = "sha256-R8eHLuebfgHaKtHPKBaaYybotluuH9WrUBpgyuIVOxc=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       antfu.slidev = buildVscodeMarketplaceExtension {
@@ -191,7 +207,9 @@ let
           version = "0.4.1";
           sha256 = "sha256-MNQMOT9LaEVZqelvikBTpUPTsSIA2z5qvLxw51aJw1w=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       antyos.openscad = buildVscodeMarketplaceExtension {
@@ -252,7 +270,9 @@ let
           version = "3.1.2";
           sha256 = "1cjvc99x1q5w3i2vnbxrsl5a1dr9gb3s6s9lnwn6mq5db6iz1nlm";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       arrterian.nix-env-selector = buildVscodeMarketplaceExtension {
@@ -262,7 +282,9 @@ let
           version = "1.0.9";
           sha256 = "sha256-TkxqWZ8X+PAonzeXQ+sI9WI+XlqUHll7YyM7N9uErk0=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       asciidoctor.asciidoctor-vscode = buildVscodeMarketplaceExtension {
@@ -282,7 +304,9 @@ let
                       "get('asciidoctorpdf_command', '${asciidoctor}/bin/asciidoctor-pdf')"
         '';
 
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       astro-build.astro-vscode = buildVscodeMarketplaceExtension {
@@ -309,7 +333,9 @@ let
           version = "0.0.97";
           sha256 = "sha256-rNGW8WB3jBSjThiB0j4/ORKMRAaxFiMiBfaa+dbGu/w=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       attilabuti.brainfuck-syntax = buildVscodeMarketplaceExtension {
@@ -367,7 +393,9 @@ let
           cd "$out/$installPrefix"
           jq '.contributes.configuration.properties."nixpkgs-fmt.path".default = "${nixpkgs-fmt}/bin/nixpkgs-fmt"' package.json | sponge package.json
         '';
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       baccata.scaladex-search = buildVscodeMarketplaceExtension {
@@ -377,7 +405,9 @@ let
           version = "0.3.3";
           sha256 = "sha256-+793uA+cSBHV6t4wAM4j4GeWggLJTl2GENkn8RFIwr0=";
         };
-        meta = { license = lib.licenses.asl20; };
+        meta = {
+          license = lib.licenses.asl20;
+        };
       };
 
       badochov.ocaml-formatter = buildVscodeMarketplaceExtension {
@@ -403,7 +433,9 @@ let
           version = "1.0.1";
           sha256 = "0zd0n9f5z1f0ckzfjr38xw2zzmcxg1gjrava7yahg5cvdcw6l35b";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       benfradet.vscode-unison = buildVscodeMarketplaceExtension {
@@ -413,7 +445,9 @@ let
           version = "0.4.0";
           sha256 = "sha256-IDM9v+LWckf20xnRTj+ThAFSzVxxDVQaJkwO37UIIhs=";
         };
-        meta = { license = lib.licenses.asl20; };
+        meta = {
+          license = lib.licenses.asl20;
+        };
       };
 
       betterthantomorrow.calva = buildVscodeMarketplaceExtension {
@@ -431,7 +465,9 @@ let
           cd "$out/$installPrefix"
           jq '.contributes.configuration[0].properties."calva.clojureLspPath".default = "${clojure-lsp}/bin/clojure-lsp"' package.json | sponge package.json
         '';
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       bierner.emojisense = buildVscodeMarketplaceExtension {
@@ -441,7 +477,9 @@ let
           version = "0.9.1";
           sha256 = "sha256-bfhImi2qMHWkgKqkoStS0NtbXTfj6GpcLkI0PSMjuvg=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       bierner.markdown-checkbox = buildVscodeMarketplaceExtension {
@@ -451,7 +489,9 @@ let
           version = "0.4.0";
           sha256 = "sha256-AoPcdN/67WOzarnF+GIx/nans38Jan8Z5D0StBWIbkk=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       bierner.markdown-emoji = buildVscodeMarketplaceExtension {
@@ -461,7 +501,9 @@ let
           version = "0.3.0";
           sha256 = "sha256-rw8/HeDA8kQuiPVDpeOGw1Mscd6vn4utw1Qznsd8lVI=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       bierner.markdown-mermaid = buildVscodeMarketplaceExtension {
@@ -471,7 +513,9 @@ let
           version = "1.17.7";
           sha256 = "sha256-WKe7XxBeYyzmjf/gnPH+5xNOHNhMPAKjtLorYyvT76U=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       bmalehorn.vscode-fish = buildVscodeMarketplaceExtension {
@@ -506,7 +550,9 @@ let
           version = "0.2.11";
           sha256 = "sha256-yPVhhsAUZxnlhj58fXkk+yhxop2q7YJ6X4W9dXGKJfo=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       bradlc.vscode-tailwindcss = buildVscodeMarketplaceExtension {
@@ -516,7 +562,9 @@ let
           version = "0.9.9";
           sha256 = "sha256-QyB6DtKe9KH2UizLZQfP4YlHz2yF8H9Ehj+M+OdIYe4=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       brettm12345.nixfmt-vscode = buildVscodeMarketplaceExtension {
@@ -526,7 +574,9 @@ let
           version = "0.0.1";
           sha256 = "07w35c69vk1l6vipnq3qfack36qcszqxn8j3v332bl0w6m02aa7k";
         };
-        meta = { license = lib.licenses.mpl20; };
+        meta = {
+          license = lib.licenses.mpl20;
+        };
       };
 
       bungcip.better-toml = buildVscodeMarketplaceExtension {
@@ -603,7 +653,9 @@ let
           version = "0.1.0";
           sha256 = "0q089jnzqzhjfnv0vlb5kf747s3mgz64r7q3zscl66zb2pz5q4zd";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       codezombiech.gitignore = buildVscodeMarketplaceExtension {
@@ -613,7 +665,9 @@ let
           version = "0.9.0";
           sha256 = "sha256-IHoF+c8Rsi6WnXoCX7x3wKyuMwLh14nbL9sNVJHogHM=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       colejcummins.llvm-syntax-highlighting = buildVscodeMarketplaceExtension {
@@ -863,7 +917,9 @@ let
           version = "0.0.4";
           sha256 = "0sa04srhqmngmw71slnrapi2xay0arj42j4gkan8i11n7bfi1xpf";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       dhall.vscode-dhall-lsp-server = buildVscodeMarketplaceExtension {
@@ -873,7 +929,9 @@ let
           version = "0.0.4";
           sha256 = "1zin7s827bpf9yvzpxpr5n6mv0b5rhh3civsqzmj52mdq365d2js";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       disneystreaming.smithy = buildVscodeMarketplaceExtension {
@@ -883,7 +941,9 @@ let
           version = "0.0.8";
           sha256 = "sha256-BQPiSxiPPjdNPtIJI8L+558DVKxngPAI9sscpcJSJUI=";
         };
-        meta = { license = lib.licenses.asl20; };
+        meta = {
+          license = lib.licenses.asl20;
+        };
       };
 
       divyanshuagrawal.competitive-programming-helper =
@@ -1003,7 +1063,9 @@ let
           version = "0.0.123";
           sha256 = "sha256-Fq0KgW5N6urj8hMUs6Spidy47jwIkpkmBUlpXMVnq7s=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       eg2.vscode-npm-script = buildVscodeMarketplaceExtension {
@@ -1013,7 +1075,9 @@ let
           version = "0.3.29";
           sha256 = "sha256-k6DtmhYBj7mg8SUU3pg+ezRzWvhiECqYQVj9LDhhV4I=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       elixir-lsp.vscode-elixir-ls = buildVscodeMarketplaceExtension {
@@ -1057,7 +1121,9 @@ let
           version = "2.1.92";
           sha256 = "sha256-cywFx33oTQZxFUxL9qCpV12pV2tP0ujR4osCdtSOOTc=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       equinusocio.vsc-material-theme = buildVscodeMarketplaceExtension {
@@ -1186,7 +1252,9 @@ let
           version = "0.5.14";
           sha256 = "sha256-XYYHS2QTy8WYjtUYYWsIESzmH4dRQLlXQpJq78BolMw=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       formulahendry.auto-rename-tag = buildVscodeMarketplaceExtension {
@@ -1196,7 +1264,9 @@ let
           version = "0.1.10";
           sha256 = "sha256-uXqWebxnDwaUVLFG6MUh4bZ7jw5d2rTHRm5NoR2n0Vs=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       formulahendry.code-runner = buildVscodeMarketplaceExtension {
@@ -1206,7 +1276,9 @@ let
           version = "0.12.0";
           sha256 = "sha256-Q2gcuclG7NLR81HjKj/0RF0jM5Eqe2vZMbpoabp/osg=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       foxundermoon.shell-format = buildVscodeMarketplaceExtension {
@@ -1295,7 +1367,9 @@ let
           version = "1.14.1";
           sha256 = "sha256-oiAn/tW4jfccsY8zH6L7UzldeM7sV9tllSvgZD8c9aY=";
         };
-        meta = { license = lib.licenses.unfree; };
+        meta = {
+          license = lib.licenses.unfree;
+        };
       };
 
       github.copilot = buildVscodeMarketplaceExtension {
@@ -1358,7 +1432,9 @@ let
           version = "0.60.0";
           sha256 = "sha256-VAoKNRYrzUXUQSDAX8NM17aknCUxMRsTRd5adQu+w/s=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       gitlab.gitlab-workflow = buildVscodeMarketplaceExtension {
@@ -1384,7 +1460,9 @@ let
           version = "0.38.0";
           sha256 = "sha256-wOWouVz4mE4BzmgQOLQyVWsMadMqeUkFWHnruxStU0Q=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       grapecity.gc-excelviewer = buildVscodeMarketplaceExtension {
@@ -1410,7 +1488,9 @@ let
           version = "0.8.6";
           sha256 = "sha256-iQWDYdz/TG8pxPEq9RirNtY4kwhpK+gO0It6OTdrM+0=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       gruntfuggly.todo-tree = buildVscodeMarketplaceExtension {
@@ -1420,7 +1500,9 @@ let
           version = "0.0.224";
           sha256 = "sha256-ObFmzAaOlbtWC31JRYR/1y+JK1h22SVDPPRWWqPzrQs=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       hashicorp.terraform = callPackage ./hashicorp.terraform { };
@@ -1432,7 +1514,9 @@ let
           version = "2.2.2";
           sha256 = "sha256-zWdIVdz+kZg7KZQ7LeBCB4aB9wg8dUbkWfzGlM0Fq7Q=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       hookyqr.beautify = buildVscodeMarketplaceExtension {
@@ -1442,7 +1526,9 @@ let
           version = "1.5.0";
           sha256 = "1c0kfavdwgwham92xrh0gnyxkrl9qlkpv39l1yhrldn8vd10fj5i";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       humao.rest-client = buildVscodeMarketplaceExtension {
@@ -1452,7 +1538,9 @@ let
           version = "0.25.1";
           sha256 = "sha256-DSzZ9wGB0IVK8gYOzLLbT03WX3xSmR/IUVZkDzcczKc=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       ibm.output-colorizer = buildVscodeMarketplaceExtension {
@@ -1462,7 +1550,9 @@ let
           version = "0.1.2";
           sha256 = "0i9kpnlk3naycc7k8gmcxas3s06d67wxr3nnyv5hxmsnsx5sfvb7";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       iciclesoft.workspacesort = buildVscodeMarketplaceExtension {
@@ -1489,7 +1579,9 @@ let
           version = "1.0.4";
           sha256 = "sha256-KIKROyfkosBS1Resgl+s3VENVg4ibaeIgKjermXESoA=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       ionide.ionide-fsharp = buildVscodeMarketplaceExtension {
@@ -1614,7 +1706,9 @@ let
           version = "1.5.2";
           sha256 = "sha256-Ii2e65BJU+Vw3i8917dgZtGsiSn6qConu8SJ+IqF82U=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       johnpapa.vscode-peacock = buildVscodeMarketplaceExtension {
@@ -1624,7 +1718,9 @@ let
           version = "4.2.2";
           sha256 = "1z9crpz025ha9hgc9mxxg3vyrsfpf9d16zm1vrf4q592j9156d2m";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       justusadam.language-haskell = buildVscodeMarketplaceExtension {
@@ -1634,7 +1730,9 @@ let
           version = "3.6.0";
           sha256 = "sha256-rZXRzPmu7IYmyRWANtpJp3wp0r/RwB7eGHEJa7hBvoQ=";
         };
-        meta = { license = lib.licenses.bsd3; };
+        meta = {
+          license = lib.licenses.bsd3;
+        };
       };
 
       kahole.magit = buildVscodeMarketplaceExtension {
@@ -1644,7 +1742,9 @@ let
           version = "0.6.40";
           sha256 = "sha256-AwkjfKBlAl6hTRN1nE6UuUuDXMJUXXDK2+3YzUp9drc=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       kalebpace.balena-vscode = buildVscodeMarketplaceExtension {
@@ -1702,7 +1802,9 @@ let
           version = "0.11.1";
           sha256 = "1h82b1jz86k2qznprng5066afinkrd7j3738a56idqr3vvvqnbsm";
         };
-        meta = { license = lib.licenses.asl20; };
+        meta = {
+          license = lib.licenses.asl20;
+        };
       };
 
       kddejong.vscode-cfn-lint =
@@ -1745,7 +1847,9 @@ let
           version = "0.0.2";
           sha256 = "sha256-ffPZd717Y2OF4d9MWE6zKwcsGWS90ZJvhWkqP831tVM=";
         };
-        meta = { license = lib.licenses.asl20; };
+        meta = {
+          license = lib.licenses.asl20;
+        };
       };
 
       llvm-org.lldb-vscode = llvmPackages_8.lldb;
@@ -1774,7 +1878,9 @@ let
           version = "2.8.1";
           sha256 = "sha256-oDW7ijcObfOP7ZNggSHX0aiI5FkoJ/iQD92bRV0eWVQ=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       lucperkins.vrl-vscode = buildVscodeMarketplaceExtension {
@@ -1813,7 +1919,9 @@ let
           version = "2.5.0";
           sha256 = "sha256-I8UevZs04tUj/jaHrU7LiMF40ElMqtniU1h/9LNLdac=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       matangover.mypy = buildVscodeMarketplaceExtension {
@@ -1883,7 +1991,9 @@ let
           version = "3.6.0";
           sha256 = "sha256-bvxMnT6oSjflAwWQZkNnEoEsVlVg86T0TMYi8tNsbdQ=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       mhutchie.git-graph = buildVscodeMarketplaceExtension {
@@ -1893,7 +2003,9 @@ let
           version = "1.30.0";
           sha256 = "sha256-sHeaMMr5hmQ0kAFZxxMiRk6f0mfjkg2XMnA4Gf+DHwA=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       mikestead.dotenv = buildVscodeMarketplaceExtension {
@@ -1903,7 +2015,9 @@ let
           version = "1.0.1";
           sha256 = "sha256-dieCzNOIcZiTGu4Mv5zYlG7jLhaEsJR05qbzzzQ7RWc=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       mishkinf.goto-next-previous-member = buildVscodeMarketplaceExtension {
@@ -1913,7 +2027,9 @@ let
           version = "0.0.6";
           sha256 = "07rpnbkb51835gflf4fpr0v7fhj8hgbhsgcz2wpag8wdzdxc3025";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       mkhl.direnv = buildVscodeMarketplaceExtension {
@@ -1938,7 +2054,9 @@ let
           version = "1.24.0";
           sha256 = "sha256-zZ34KQrRPqVbfGdpYACuLMiMj4ZIWSnJIPac1yXD87k=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       ms-ceintl =
@@ -1957,7 +2075,9 @@ let
               version = "1.3.11";
               sha256 = "sha256-I2ud9d4VtgiiIT0MeoaMThgjLYtSuftFVZHVJTMlJ8s=";
             };
-            meta = { license = lib.licenses.mit; };
+            meta = {
+              license = lib.licenses.mit;
+            };
           }
       ;
 
@@ -2008,7 +2128,9 @@ let
           version = "1.1.0";
           sha256 = "sha256-krDtR+ZJiJf1Kxcu5mdXOaSAiJb2bXC1H0XWWviWeMQ=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       ms-toolsai.jupyter-renderers = buildVscodeMarketplaceExtension {
@@ -2018,7 +2140,9 @@ let
           version = "1.0.15";
           sha256 = "sha256-JR6PunvRRTsSqjSGGAn/1t1B+Ia6X0MgqahehcuSNYA=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       ms-toolsai.vscode-jupyter-cell-tags = buildVscodeMarketplaceExtension {
@@ -2028,7 +2152,9 @@ let
           version = "0.1.8";
           sha256 = "sha256-0oPyptnUWL1h/H13SdR+FdgGzVwEpTaK9SCE7BvI/5M=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       ms-toolsai.vscode-jupyter-slideshow = buildVscodeMarketplaceExtension {
@@ -2038,7 +2164,9 @@ let
           version = "0.1.5";
           sha256 = "1p6r5vkzvwvxif3wxqi9599vplabzig27fzzz0bx9z0awfglzyi7";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       ms-vscode.anycode = buildVscodeMarketplaceExtension {
@@ -2048,7 +2176,9 @@ let
           version = "0.0.70";
           sha256 = "sha256-POxgwvKF4A+DxKVIOte4I8REhAbO1U9Gu6r/S41/MmA=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       ms-vscode.cmake-tools = buildVscodeMarketplaceExtension {
@@ -2070,7 +2200,9 @@ let
           version = "1.9.11";
           sha256 = "sha256-w1R8z7Q/JRAsqJ1mgcvlHJ6tywfgKtS6A6zOY2p01io=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       ms-vscode.makefile-tools = buildVscodeMarketplaceExtension {
@@ -2080,7 +2212,9 @@ let
           version = "0.6.0";
           sha256 = "07zagq5ib9hd3w67yk2g728vypr4qazw0g9dyd5bax21shnmppa9";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       ms-vscode.powershell = buildVscodeMarketplaceExtension {
@@ -2129,7 +2263,9 @@ let
           version = "1.14.2";
           sha256 = "sha256-6nIfEPbau5Dy1DGJ0oQ5L2EGn2NDhpd8jSdYujtOU68=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       mvllow.rose-pine = buildVscodeMarketplaceExtension {
@@ -2139,7 +2275,9 @@ let
           version = "2.7.1";
           sha256 = "sha256-QQIkuJAI4apDt8rfhXvMg9bNtGTFeMaEkN/Se12zGpc=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       naumovs.color-highlight = buildVscodeMarketplaceExtension {
@@ -2245,7 +2383,9 @@ let
           version = "0.37.3";
           sha256 = "sha256-3hi1LOZto5AYaomB9ihkAt4j/mhkCDJ8Jqa16piwHIQ=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       oderwat.indent-rainbow = buildVscodeMarketplaceExtension {
@@ -2303,7 +2443,9 @@ let
           version = "4.25.0";
           sha256 = "sha256-/lD3i7ZdF/XOi7RduS3HIYHFXhkoW2+PJW249gQxcyk=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       pkief.material-product-icons = buildVscodeMarketplaceExtension {
@@ -2313,7 +2455,9 @@ let
           version = "1.5.0";
           sha256 = "sha256-gKU21OS2ZFyzCQVQ1fa3qlahLBAcJaHDEcz7xof3P4A=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       prisma.prisma = buildVscodeMarketplaceExtension {
@@ -2375,7 +2519,9 @@ let
           version = "1.12.0";
           sha256 = "sha256-r/me14KonxnQeensIYyWU4dQrhomc8h2ntYoiZ+Y7jE=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       richie5um2.snake-trail = buildVscodeMarketplaceExtension {
@@ -2385,7 +2531,9 @@ let
           version = "0.6.0";
           sha256 = "0wkpq9f48hplrgabb0v1ij6fc4sb8h4a93dagw4biprhnnm3qx49";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       rioj7.commandonallfiles = buildVscodeMarketplaceExtension {
@@ -2395,7 +2543,9 @@ let
           version = "0.3.2";
           sha256 = "sha256-777jdBpWJ66ASeeETWevWF4mIAj4RWviNSTxzvqwl0U=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       ritwickdey.liveserver = buildVscodeMarketplaceExtension {
@@ -2405,7 +2555,9 @@ let
           version = "5.7.9";
           sha256 = "sha256-w0CYSEOdltwMFzm5ZhOxSrxqQ1y4+gLfB8L+EFFgzDc=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       roman.ayu-next = buildVscodeMarketplaceExtension {
@@ -2415,7 +2567,9 @@ let
           version = "1.2.15";
           sha256 = "sha256-gGEjb9BrvFmKhAxRUmN3YWx7VZqlUp6w7m4r46DPn50=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       rubbersheep.gi = buildVscodeMarketplaceExtension {
@@ -2425,7 +2579,9 @@ let
           version = "0.2.11";
           sha256 = "0j9k6wm959sziky7fh55awspzidxrrxsdbpz1d79s5lr5r19rs6j";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       rubymaniac.vscode-paste-and-indent = buildVscodeMarketplaceExtension {
@@ -2435,7 +2591,9 @@ let
           version = "0.0.8";
           sha256 = "0fqwcvwq37ndms6vky8jjv0zliy6fpfkh8d9raq8hkinfxq6klgl";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       rust-lang.rust-analyzer = callPackage ./rust-lang.rust-analyzer { };
@@ -2447,7 +2605,9 @@ let
           version = "1.4.3";
           sha256 = "0x3lkvna4dagr7s99yykji3x517cxk5kp7ydmqa6jb4bzzsv1s6h";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       sanaajani.taskrunnercode = buildVscodeMarketplaceExtension {
@@ -2477,7 +2637,9 @@ let
           version = "0.5.6";
           sha256 = "sha256-eizIPazqEb27aQ+o9nTD1O58zbjkHYHNhGjK0uJgnwA=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       scalameta.metals = buildVscodeMarketplaceExtension {
@@ -2487,7 +2649,9 @@ let
           version = "1.22.3";
           sha256 = "sha256-iLLWobQv5CEjJwCdDNdWYQ1ehOiYyNi940b4QmNZFoQ=";
         };
-        meta = { license = lib.licenses.asl20; };
+        meta = {
+          license = lib.licenses.asl20;
+        };
       };
 
       serayuzgur.crates = buildVscodeMarketplaceExtension {
@@ -2497,7 +2661,9 @@ let
           version = "0.5.10";
           sha256 = "1dbhd6xbawbnf9p090lpmn8i5gg1f7y8xk2whc9zhg4432kdv3vd";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       shardulm94.trailing-spaces = buildVscodeMarketplaceExtension {
@@ -2540,7 +2706,9 @@ let
           version = "3.2.1";
           sha256 = "14d68rcnjx4a20r0ps9g2aycv5myyhks5lpfz0syr2rxr4kd1vh6";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       skellock.just = buildVscodeMarketplaceExtension {
@@ -2567,7 +2735,9 @@ let
           version = "0.2.1";
           sha256 = "0y1ivymn81ranmir25zk83kdjpjwcqpnc9r3jwfykjd9x0jib2hl";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       slevesque.vscode-multiclip = buildVscodeMarketplaceExtension {
@@ -2577,7 +2747,9 @@ let
           version = "0.1.5";
           sha256 = "1cg8dqj7f10fj9i0g6mi3jbyk61rs6rvg9aq28575rr52yfjc9f9";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       sonarsource.sonarlint-vscode = buildVscodeMarketplaceExtension {
@@ -2597,7 +2769,9 @@ let
           version = "0.9.3";
           sha256 = "1kvsj085w1xax6fg0kvsj1cizqh86i0pkzpwi0sbfvmcq21i6ghn";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       stefanjarina.vscode-eex-snippets = buildVscodeMarketplaceExtension {
@@ -2729,7 +2903,9 @@ let
           version = "3.6.43";
           sha256 = "sha256-/onQybGMBscD6Rj4PWafetuag1J1cgHTw5NHri082cs=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       takayama.vscode-qq = buildVscodeMarketplaceExtension {
@@ -2739,7 +2915,9 @@ let
           version = "1.4.2";
           sha256 = "sha256-koeiFXUFI/i8EGCRDTym62m7JER18J9MKZpbAozr0Ng=";
         };
-        meta = { license = lib.licenses.mpl20; };
+        meta = {
+          license = lib.licenses.mpl20;
+        };
       };
 
       tamasfe.even-better-toml = buildVscodeMarketplaceExtension {
@@ -2749,7 +2927,9 @@ let
           version = "0.19.0";
           sha256 = "sha256-MqSQarNThbEf1wHDTf1yA46JMhWJN46b08c7tV6+1nU=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       theangryepicbanana.language-pascal = buildVscodeMarketplaceExtension {
@@ -2788,7 +2968,9 @@ let
           version = "0.2.6";
           sha256 = "sha256-s0UMY0DzEufEF+pizYeH4MKYOiiJ6z05gYHvfpaS4zA=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       timonwong.shellcheck = buildVscodeMarketplaceExtension {
@@ -2806,7 +2988,9 @@ let
           cd "$out/$installPrefix"
           jq '.contributes.configuration.properties."shellcheck.executablePath".default = "${shellcheck}/bin/shellcheck"' package.json | sponge package.json
         '';
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       tobiasalthoff.atom-material-theme = buildVscodeMarketplaceExtension {
@@ -2816,7 +3000,9 @@ let
           version = "1.10.9";
           sha256 = "sha256-EdU0FMkaQpwhOpPRC+HGIxcrt7kSN+l4+mSgIwogB/I=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       tomoki1207.pdf = buildVscodeMarketplaceExtension {
@@ -2855,7 +3041,9 @@ let
           version = "0.0.17";
           sha256 = "11hzjd0gxkq37689rrr2aszxng5l9fwpgs9nnglq3zhfa1msyn08";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       tyriar.sort-lines = buildVscodeMarketplaceExtension {
@@ -2865,7 +3053,9 @@ let
           version = "1.9.1";
           sha256 = "0dds99j6awdxb0ipm15g543a5b6f0hr00q9rz961n0zkyawgdlcb";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       usernamehw.errorlens = buildVscodeMarketplaceExtension {
@@ -2943,7 +3133,9 @@ let
           version = "0.11.0";
           sha256 = "sha256-PxngjprSpWtD2ZDZfh+gOnZ+fVk5rvgGdZFxqbE21CY=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       vscjava.vscode-gradle = buildVscodeMarketplaceExtension rec {
@@ -2971,7 +3163,9 @@ let
           version = "0.49.2023032407";
           sha256 = "sha256-ZxJ6BM3rt98HPSyL0hDiyCGIBS7YtF/OuzlTvw7Bp1w=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       vscjava.vscode-java-dependency = buildVscodeMarketplaceExtension {
@@ -2981,7 +3175,9 @@ let
           version = "0.21.2023032400";
           sha256 = "sha256-lG04Yu8exMcMvupqasUrbZS4CkSggQeJKtkm9iyKL5U=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       vscjava.vscode-java-test = buildVscodeMarketplaceExtension {
@@ -2991,7 +3187,9 @@ let
           version = "0.38.2023032402";
           sha256 = "sha256-4WKsw+iuONaGQRMNN2TGd3zIYonHgOzvNleVhCyYFes=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       vscjava.vscode-maven = buildVscodeMarketplaceExtension {
@@ -3001,7 +3199,9 @@ let
           version = "0.41.2023032403";
           sha256 = "sha256-VeN4q6pEaLPQVYleLCDkDCv2Gr8QdHVPjpwSuo3mBuE=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       vscjava.vscode-spring-initializr = buildVscodeMarketplaceExtension {
@@ -3011,7 +3211,9 @@ let
           version = "0.11.2023031603";
           sha256 = "sha256-MSyVLSjaiH+FaeGn/5Y+IWRJmNpAx3UPGpY4VmsiCD8=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       vscode-icons-team.vscode-icons = buildVscodeMarketplaceExtension {
@@ -3037,7 +3239,9 @@ let
           version = "1.25.2";
           sha256 = "sha256-hy2Ks6oRc9io6vfgql9aFGjUiRzBCS4mGdDO3NqIFEg=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       vspacecode.vspacecode = buildVscodeMarketplaceExtension {
@@ -3047,7 +3251,9 @@ let
           version = "0.10.14";
           sha256 = "sha256-iTFwm/P2wzbNahozyLbdfokcSDHFzLrzVDHI/g2aFm0=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       vspacecode.whichkey = buildVscodeMarketplaceExtension {
@@ -3057,7 +3263,9 @@ let
           version = "0.11.3";
           sha256 = "sha256-PnaOwOIcSo1Eff1wOtQPhoHYvrHDGTcsRy9mQfdBPX4=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       waderyan.gitblame = buildVscodeMarketplaceExtension {
@@ -3085,7 +3293,9 @@ let
           version = "0.0.8";
           sha256 = "1ln9gly5bb7nvbziilnay4q448h9npdh7sd9xy277122h0qawkci";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       wingrunr21.vscode-ruby = buildVscodeMarketplaceExtension {
@@ -3106,7 +3316,9 @@ let
           version = "3.3.0";
           sha256 = "0wl8vl8n0avd6nbfmis0lnlqlyh4yp3cca6kvjzgw5xxdc5bl38r";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       xadillax.viml = buildVscodeMarketplaceExtension {
@@ -3116,7 +3328,9 @@ let
           version = "2.1.2";
           sha256 = "sha256-n91Rj1Rpp7j7gndkt0bV+jT1nRMv7+coVoSL5c7Ii3A=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       xaver.clang-format = buildVscodeMarketplaceExtension {
@@ -3139,7 +3353,9 @@ let
           version = "1.8.1";
           sha256 = "1mfmnbdv76nvwg4xs3rgsqbxk8hw9zr1b61har9c3pbk9r4cay7v";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       yzhang.markdown-all-in-one = buildVscodeMarketplaceExtension {
@@ -3149,7 +3365,9 @@ let
           version = "3.5.1";
           sha256 = "sha256-ZyvkRp0QTjoMEXRGHzp3udGngYcU9EkTCvx8o2CEaBE=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       zhuangtongfa.material-theme = buildVscodeMarketplaceExtension {
@@ -3159,7 +3377,9 @@ let
           version = "3.15.8";
           sha256 = "sha256-PwWGs9KRfV3qpYbgdiw8FYvnkaJQ2VW2H6p6+umk7eg=";
         };
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
 
       zhwu95.riscv = buildVscodeMarketplaceExtension {
@@ -3193,7 +3413,9 @@ let
           cd "$out/$installPrefix"
           jq '.contributes.configuration.properties.protoc.properties.path.default = "${protobuf}/bin/protoc"' package.json | sponge package.json
         '';
-        meta = { license = lib.licenses.mit; };
+        meta = {
+          license = lib.licenses.mit;
+        };
       };
     }
   ;

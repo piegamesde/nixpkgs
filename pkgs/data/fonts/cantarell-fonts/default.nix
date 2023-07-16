@@ -45,7 +45,9 @@ stdenv.mkDerivation rec {
   outputHashMode = "recursive";
   outputHash = "XeqHVdTQ7PTzxkjwfzS/BTR7+k/M69sfUKdRXGOTmZE=";
 
-  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
+  passthru = {
+    updateScript = gnome.updateScript { packageName = pname; };
+  };
 
   meta = {
     description = "Default typeface used in the user interface of GNOME since version 3.0";

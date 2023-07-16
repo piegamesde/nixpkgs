@@ -31,7 +31,9 @@ buildPythonPackage rec {
     django
   ];
 
-  passthru.optional-dependencies = { daphne = [ daphne ]; };
+  passthru.optional-dependencies = {
+    daphne = [ daphne ];
+  };
 
   nativeCheckInputs =
     [

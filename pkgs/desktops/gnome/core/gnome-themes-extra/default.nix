@@ -28,7 +28,9 @@ stdenv.mkDerivation rec {
     sha256 = "06aqg9asq2vqi9wr29bs4v8z2bf4manhbhfghf4nvw01y2zs0jvw";
   };
 
-  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
+  passthru = {
+    updateScript = gnome.updateScript { packageName = pname; };
+  };
 
   nativeBuildInputs = [
     pkg-config

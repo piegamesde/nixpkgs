@@ -48,7 +48,9 @@ buildPythonPackage rec {
   # Checks moved to 'passthru.tests' to workaround slowness
   doCheck = false;
 
-  passthru.tests = { tests = callPackage ./tests.nix { }; };
+  passthru.tests = {
+    tests = callPackage ./tests.nix { };
+  };
 
   pythonImportsCheck = [ "openstack" ];
 

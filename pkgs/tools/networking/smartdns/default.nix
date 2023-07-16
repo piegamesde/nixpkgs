@@ -30,7 +30,9 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "SYSCONFDIR=${placeholder "out"}/etc" ];
 
-  passthru.tests = { version = testers.testVersion { package = smartdns; }; };
+  passthru.tests = {
+    version = testers.testVersion { package = smartdns; };
+  };
 
   meta = with lib; {
     description = "A local DNS server to obtain the fastest website IP for the best Internet experience";

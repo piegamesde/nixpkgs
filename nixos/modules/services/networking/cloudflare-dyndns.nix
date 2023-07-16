@@ -74,7 +74,9 @@ in
       wantedBy = [ "multi-user.target" ];
       startAt = "*:0/5";
 
-      environment = { CLOUDFLARE_DOMAINS = toString cfg.domains; };
+      environment = {
+        CLOUDFLARE_DOMAINS = toString cfg.domains;
+      };
 
       serviceConfig = {
         Type = "simple";

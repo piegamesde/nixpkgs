@@ -48,7 +48,9 @@ python3.pkgs.buildPythonApplication rec {
 
   doCheck = true;
 
-  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
+  passthru = {
+    updateScript = gnome.updateScript { packageName = pname; };
+  };
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Yelp/Tools";

@@ -75,7 +75,9 @@ let
     '';
   };
 
-  passthru = { updateScript = ./update-desktop.sh; };
+  passthru = {
+    updateScript = ./update-desktop.sh;
+  };
 
   meta = with lib; {
     homepage = "https://octant.dev/";

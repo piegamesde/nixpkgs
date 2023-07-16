@@ -21,7 +21,9 @@ buildGoModule rec {
   subPackages = [ "." ];
 
   passthru = {
-    tests = { local-relay = callPackage ./test-local-relay.nix { }; };
+    tests = {
+      local-relay = callPackage ./test-local-relay.nix { };
+    };
   };
   meta = with lib; {
     description = "Easily and securely send things from one computer to another";

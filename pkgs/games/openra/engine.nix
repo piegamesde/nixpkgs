@@ -64,6 +64,8 @@ stdenv.mkDerivation (
       )}
     '';
 
-    meta = { inherit (engine) description homepage; };
+    meta = {
+      inherit (engine) description homepage;
+    };
   }
 )

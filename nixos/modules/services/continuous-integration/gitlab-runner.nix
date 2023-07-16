@@ -383,7 +383,9 @@ in
             environmentVariables = mkOption {
               type = types.attrsOf types.str;
               default = { };
-              example = { NAME = "value"; };
+              example = {
+                NAME = "value";
+              };
               description = lib.mdDoc ''
                 Custom environment variables injected to build environment.
                 For secrets you can use {option}`registrationConfigFile`

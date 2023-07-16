@@ -12,7 +12,9 @@
 
 mkDerivation {
   pname = "kcontacts";
-  meta = { license = [ lib.licenses.lgpl21 ]; };
+  meta = {
+    license = [ lib.licenses.lgpl21 ];
+  };
   propagatedBuildInputs = [ isocodes ];
   nativeBuildInputs = [ extra-cmake-modules ];
   buildInputs = [

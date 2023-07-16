@@ -10,7 +10,11 @@ let
   fpm = config.services.phpfpm.pools.${poolName};
   poolName = "icingaweb2";
 
-  defaultConfig = { global = { module_path = "${pkgs.icingaweb2}/modules"; }; };
+  defaultConfig = {
+    global = {
+      module_path = "${pkgs.icingaweb2}/modules";
+    };
+  };
 in
 {
   meta.maintainers = with maintainers; [ das_j ];

@@ -252,7 +252,9 @@ stdenv.mkDerivation rec {
     rm -r $out/bin/conf.py
   '';
 
-  passthru.tests = { glusterfs = nixosTests.glusterfs; };
+  passthru.tests = {
+    glusterfs = nixosTests.glusterfs;
+  };
 
   meta = with lib; {
     description = "Distributed storage system";

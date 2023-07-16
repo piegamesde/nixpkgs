@@ -27,7 +27,9 @@ import ./make-test-python.nix (
         boot.initrd.availableKernelModules = [ "tpm_tis" ];
 
         environment.systemPackages = with pkgs; [ cryptsetup ];
-        boot.initrd.systemd = { enable = true; };
+        boot.initrd.systemd = {
+          enable = true;
+        };
 
         specialisation.boot-luks.configuration = {
           boot.initrd.luks.devices = lib.mkVMOverride {

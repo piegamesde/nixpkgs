@@ -68,7 +68,9 @@ buildGoModule rec {
     cp -r $src/static/css/ $out/share/
   '';
 
-  passthru.tests = { smoke-test = nixosTests.blockbook-frontend; };
+  passthru.tests = {
+    smoke-test = nixosTests.blockbook-frontend;
+  };
 
   meta = with lib; {
     description = "Trezor address/account balance backend";

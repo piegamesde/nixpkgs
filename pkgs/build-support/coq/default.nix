@@ -88,7 +88,9 @@ let
       (
         {
           inherit release releaseRev;
-          location = { inherit domain owner repo; };
+          location = {
+            inherit domain owner repo;
+          };
         } // optionalAttrs (args ? fetcher) { inherit fetcher; }
       )
   ;
@@ -186,7 +188,9 @@ stdenv.mkDerivation (
           } // (switch domain
             [ {
               case = pred.union isGitHubDomain isGitLabDomain;
-              out = { homepage = "https://${domain}/${owner}/${repo}"; };
+              out = {
+                homepage = "https://${domain}/${owner}/${repo}";
+              };
             } ]
             { }
           ) // optionalAttrs (fetched.broken or false) {

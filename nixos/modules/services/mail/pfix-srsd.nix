@@ -44,7 +44,9 @@ with lib;
   ###### implementation
 
   config = mkIf config.services.pfix-srsd.enable {
-    environment = { systemPackages = [ pkgs.pfixtools ]; };
+    environment = {
+      systemPackages = [ pkgs.pfixtools ];
+    };
 
     systemd.services.pfix-srsd = {
       description = "Postfix sender rewriting scheme daemon";

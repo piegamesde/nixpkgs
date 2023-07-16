@@ -65,7 +65,9 @@ stdenv.mkDerivation rec {
     rm -r $out/share/applications
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Default settings and configuration files for elementary";

@@ -23,7 +23,9 @@ mkCoqDerivation {
       ]
       null
   ;
-  displayVersion = { paramcoq = "..."; };
+  displayVersion = {
+    paramcoq = "...";
+  };
   release."1.1.3+coq8.17".sha256 = "sha256-m8QGGuwj1lHzDprf4LHgAuzwfoblxtDIHunHBdpmiuM=";
   release."1.1.3+coq8.16".sha256 = "sha256-K7/8hXH6DwiW7Gw41sgQF8UDAO3c32xBGWQQapzG8Mo=";
   release."1.1.3+coq8.15".sha256 = "0sl7ihznwz05d2x2v78w1zd4q55c1sgy06vxasbcls4v2pkw53hl";

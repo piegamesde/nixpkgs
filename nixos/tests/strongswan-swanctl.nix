@@ -89,8 +89,12 @@ import ./make-test-python.nix (
               connections = {
                 rw = {
                   local_addrs = [ moonIp ];
-                  local.main = { auth = "psk"; };
-                  remote.main = { auth = "psk"; };
+                  local.main = {
+                    auth = "psk";
+                  };
+                  remote.main = {
+                    auth = "psk";
+                  };
                   children = {
                     net = {
                       local_ts = [ vlan0 ];

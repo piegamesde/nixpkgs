@@ -50,7 +50,9 @@ stdenv.mkDerivation rec {
     udisks
   ];
 
-  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
+  passthru = {
+    updateScript = gnome.updateScript { packageName = pname; };
+  };
 
   meta = with lib; {
     description = "Tool for writing an ISO file to multiple USB devices at once";

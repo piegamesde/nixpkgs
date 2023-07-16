@@ -64,7 +64,9 @@ stdenv.mkDerivation rec {
     ++ lib.optionals useQt6 [ "-DUSE_QT6=true" ]
   ;
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "QPlatformTheme for a better Qt application inclusion in GNOME";

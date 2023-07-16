@@ -28,7 +28,9 @@ in
       description = "Novacom WebOS daemon";
       wantedBy = [ "multi-user.target" ];
 
-      serviceConfig = { ExecStart = "${pkgs.webos.novacomd}/sbin/novacomd"; };
+      serviceConfig = {
+        ExecStart = "${pkgs.webos.novacomd}/sbin/novacomd";
+      };
     };
   };
 

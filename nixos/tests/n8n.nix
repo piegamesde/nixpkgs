@@ -22,7 +22,9 @@ import ./make-test-python.nix (
         ...
       }:
       {
-        services.n8n = { enable = true; };
+        services.n8n = {
+          enable = true;
+        };
       }
     ;
 

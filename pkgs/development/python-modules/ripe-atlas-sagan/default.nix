@@ -30,7 +30,9 @@ buildPythonPackage rec {
     pytz
   ];
 
-  passthru.optional-dependencies = { fast = [ ujson ]; };
+  passthru.optional-dependencies = {
+    fast = [ ujson ];
+  };
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -204,9 +204,15 @@ in
   config = mkIf cfg.enable {
 
     environment.etc = {
-      "dysnomia/containers" = { source = containersDir; };
-      "dysnomia/components" = { source = componentsDir; };
-      "dysnomia/properties" = { source = properties; };
+      "dysnomia/containers" = {
+        source = containersDir;
+      };
+      "dysnomia/components" = {
+        source = componentsDir;
+      };
+      "dysnomia/properties" = {
+        source = properties;
+      };
     };
 
     environment.variables = {
@@ -298,7 +304,9 @@ in
           } // lib.optionalAttrs (config.services.tomcat.axis2.enable) {
             axis2-webservice = { };
           } // lib.optionalAttrs (config.services.ejabberd.enable) {
-            ejabberd-dump = { ejabberdUser = config.services.ejabberd.user; };
+            ejabberd-dump = {
+              ejabberdUser = config.services.ejabberd.user;
+            };
           } // lib.optionalAttrs (config.services.mysql.enable) {
             mysql-database = {
               mysqlPort = config.services.mysql.port;
@@ -312,7 +320,9 @@ in
                 postgresqlUsername = "postgres";
               };
           } // lib.optionalAttrs (config.services.tomcat.enable) {
-            tomcat-webapplication = { tomcatPort = 8080; };
+            tomcat-webapplication = {
+              tomcatPort = 8080;
+            };
           } // lib.optionalAttrs (config.services.mongodb.enable) {
             mongo-database = { };
           } // lib.optionalAttrs (config.services.influxdb.enable) {

@@ -44,7 +44,9 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru = { isClang = true; };
+  passthru = {
+    isClang = true;
+  };
 
   meta = with lib; {
     description = "Accelerate Complex C++ Applications on Heterogeneous Compute Systems using Open Standards";

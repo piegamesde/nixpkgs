@@ -51,7 +51,9 @@ python3Packages.buildPythonApplication rec {
 
   configureFlags = [ "--disable-scrollkeeper" ];
 
-  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
+  passthru = {
+    updateScript = gnome.updateScript { packageName = pname; };
+  };
 
   meta = with lib; {
     description = "Collection of documentation utilities for the GNOME project";

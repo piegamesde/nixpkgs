@@ -25,7 +25,9 @@ stdenv.mkDerivation rec {
     "BINDIR=$(out)/bin"
   ];
 
-  passthru = { inherit apacheHttpd; };
+  passthru = {
+    inherit apacheHttpd;
+  };
 
   buildInputs =
     [

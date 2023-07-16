@@ -30,7 +30,9 @@ buildPythonPackage rec {
     cssutils
   ];
 
-  passthru.optional-dependencies = { transcript = [ nltk ]; };
+  passthru.optional-dependencies = {
+    transcript = [ nltk ];
+  };
 
   nativeCheckInputs = [
     pytest-lazy-fixture

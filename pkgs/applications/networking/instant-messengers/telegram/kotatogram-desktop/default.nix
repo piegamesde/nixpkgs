@@ -229,7 +229,9 @@ stdenv.mkDerivation rec {
     remove-references-to -t ${tg_owt.dev} $out/bin/$binName
   '';
 
-  passthru = { inherit tg_owt; };
+  passthru = {
+    inherit tg_owt;
+  };
 
   meta = with lib; {
     description = "Kotatogram – experimental Telegram Desktop fork";

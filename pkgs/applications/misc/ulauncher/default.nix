@@ -113,7 +113,9 @@ python3Packages.buildPythonApplication rec {
     )
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "A fast application launcher for Linux, written in Python, using GTK";

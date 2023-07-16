@@ -30,7 +30,9 @@ stdenv.mkDerivation rec {
     libbacktrace
   ];
 
-  passthru = { updateScript = unstableGitUpdater { }; };
+  passthru = {
+    updateScript = unstableGitUpdater { };
+  };
 
   meta = with lib; {
     description = "Implementation of libSegFault.so with Boost.stracktrace";

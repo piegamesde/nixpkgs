@@ -284,7 +284,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         ;
         RENAME = "-D";
 
-        passthru.tests = { netbsd-install = self.install; };
+        passthru.tests = {
+          netbsd-install = self.install;
+        };
 
         patches = [
           ./compat-cxx-safe-header.patch

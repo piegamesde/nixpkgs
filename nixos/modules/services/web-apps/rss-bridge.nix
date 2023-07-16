@@ -113,7 +113,9 @@ in
         ${cfg.virtualHost} = {
           root = "${pkgs.rss-bridge}";
 
-          locations."/" = { tryFiles = "$uri /index.php$is_args$args"; };
+          locations."/" = {
+            tryFiles = "$uri /index.php$is_args$args";
+          };
 
           locations."~ ^/index.php(/|$)" = {
             extraConfig = ''

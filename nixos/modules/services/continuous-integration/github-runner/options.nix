@@ -153,7 +153,9 @@ with lib;
     description = lib.mdDoc ''
       Extra environment variables to set for the runner, as an attrset.
     '';
-    example = { GIT_CONFIG = "/path/to/git/config"; };
+    example = {
+      GIT_CONFIG = "/path/to/git/config";
+    };
     default = { };
   };
 

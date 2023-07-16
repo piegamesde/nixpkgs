@@ -663,7 +663,9 @@ with self;
       patience_diff
       ocaml_pcre
     ];
-    meta = { description = "File Diff using the Patience Diff algorithm"; };
+    meta = {
+      description = "File Diff using the Patience Diff algorithm";
+    };
   };
 
   patience_diff = janePackage {

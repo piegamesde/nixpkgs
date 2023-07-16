@@ -100,7 +100,9 @@ in
     };
 
     users.groups = optionalAttrs (cfg.group == "calibre-server") {
-      calibre-server = { gid = config.ids.gids.calibre-server; };
+      calibre-server = {
+        gid = config.ids.gids.calibre-server;
+      };
     };
   };
 }

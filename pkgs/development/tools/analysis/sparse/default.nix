@@ -40,7 +40,9 @@ stdenv.mkDerivation rec {
   doCheck = true;
   buildFlags = [ "GCC_BASE:=${GCC_BASE}" ];
 
-  passthru.tests = { simple-execution = callPackage ./tests.nix { }; };
+  passthru.tests = {
+    simple-execution = callPackage ./tests.nix { };
+  };
 
   meta = with lib; {
     description = "Semantic parser for C";

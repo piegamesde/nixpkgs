@@ -150,7 +150,9 @@ stdenv.mkDerivation rec {
     rm -rf "$out"/include "$out"/lib
   '';
 
-  passthru = { inherit skia; };
+  passthru = {
+    inherit skia;
+  };
 
   meta = with lib; {
     homepage = "https://www.aseprite.org/";

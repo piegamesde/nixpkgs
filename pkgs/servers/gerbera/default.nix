@@ -162,7 +162,9 @@ stdenv.mkDerivation rec {
     )
   ;
 
-  passthru.tests = { inherit (nixosTests) mediatomb; };
+  passthru.tests = {
+    inherit (nixosTests) mediatomb;
+  };
 
   meta = with lib; {
     homepage = "https://docs.gerbera.io/";

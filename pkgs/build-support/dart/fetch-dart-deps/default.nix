@@ -202,7 +202,9 @@ let
       # Updates to the hook script should not change vendor hashes, and it won't
       # work at all anyway due to https://github.com/NixOS/nix/issues/6660.
       name = "${name}-dart-deps-setup-hook";
-      substitutions = { inherit deps; };
+      substitutions = {
+        inherit deps;
+      };
       propagatedBuildInputs = [
         dart
         git

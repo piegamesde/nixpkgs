@@ -7,5 +7,7 @@
 makeInstalledTest {
   tested = pkgs.libsForQt5.appstream-qt;
 
-  testConfig = { appstream.enable = true; };
+  testConfig = {
+    appstream.enable = true;
+  };
 }

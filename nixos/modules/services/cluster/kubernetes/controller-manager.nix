@@ -211,7 +211,9 @@ in
         User = "kubernetes";
         Group = "kubernetes";
       };
-      unitConfig = { StartLimitIntervalSec = 0; };
+      unitConfig = {
+        StartLimitIntervalSec = 0;
+      };
       path = top.path;
     };
 

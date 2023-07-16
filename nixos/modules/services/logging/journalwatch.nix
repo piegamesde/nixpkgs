@@ -279,5 +279,7 @@ in
     };
   };
 
-  meta = { maintainers = with lib.maintainers; [ florianjacob ]; };
+  meta = {
+    maintainers = with lib.maintainers; [ florianjacob ];
+  };
 }

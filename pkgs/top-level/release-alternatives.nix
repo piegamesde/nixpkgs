@@ -175,7 +175,9 @@ in
           [ "mkl64" ] ++ lib.optional system.is64bit "openblas"
         );
         pkgs = pkgsFun {
-          config = { inherit allowUnfree; };
+          config = {
+            inherit allowUnfree;
+          };
           system = system';
           overlays = [
             (self: super: {

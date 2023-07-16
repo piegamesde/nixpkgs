@@ -20,5 +20,7 @@ stdenv.mkDerivation rec {
     ln -s $out/lib/libgnurx{.dll.a,.a}
   '';
 
-  meta = { platforms = lib.platforms.windows; };
+  meta = {
+    platforms = lib.platforms.windows;
+  };
 }

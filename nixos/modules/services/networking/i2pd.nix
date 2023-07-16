@@ -819,7 +819,9 @@ in
                     ;
                   };
                 } // commonTunOpts name;
-                config = { name = mkDefault name; };
+                config = {
+                  name = mkDefault name;
+                };
               }
             )
           )
@@ -858,7 +860,9 @@ in
                     ;
                   };
                 } // commonTunOpts name;
-                config = { name = mkDefault name; };
+                config = {
+                  name = mkDefault name;
+                };
               }
             )
           )

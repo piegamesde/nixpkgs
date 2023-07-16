@@ -81,7 +81,9 @@ python3.pkgs.buildPythonApplication rec {
     )
   '';
 
-  passthru = { updateScript = nix-update-script { attrPath = "komikku"; }; };
+  passthru = {
+    updateScript = nix-update-script { attrPath = "komikku"; };
+  };
 
   meta = with lib; {
     description = "Manga reader for GNOME";

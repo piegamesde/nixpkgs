@@ -20,7 +20,9 @@ bundlerApp {
   ];
 
   passthru.updateScript = bundlerUpdateScript "schleuder";
-  passthru.tests = { inherit (nixosTests) schleuder; };
+  passthru.tests = {
+    inherit (nixosTests) schleuder;
+  };
 
   meta = with lib; {
     description = "Schleuder is an encrypting mailing list manager with remailing-capabilities";

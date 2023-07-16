@@ -75,7 +75,9 @@ stdenv.mkDerivation rec {
       placeholder "out"
     }/lib/systemd/system";
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     homepage = "https://github.com/JoseExposito/touchegg";

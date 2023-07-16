@@ -665,7 +665,9 @@ in
       sources."send-0.1.0"
     ];
     buildInputs = globalBuildInputs;
-    meta = { description = "Sinatra inspired web development framework"; };
+    meta = {
+      description = "Sinatra inspired web development framework";
+    };
     production = true;
     bypassCache = true;
     reconstructLock = true;

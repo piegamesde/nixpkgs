@@ -24,7 +24,9 @@ import ./make-test-python.nix (
   }:
   {
     name = "containers-restart_networking";
-    meta = { maintainers = with lib.maintainers; [ kampfschlaefer ]; };
+    meta = {
+      maintainers = with lib.maintainers; [ kampfschlaefer ];
+    };
 
     nodes = {
       client =

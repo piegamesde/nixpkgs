@@ -471,7 +471,9 @@ in
           '';
           WorkingDirectory = top.dataDir;
         };
-        unitConfig = { StartLimitIntervalSec = 0; };
+        unitConfig = {
+          StartLimitIntervalSec = 0;
+        };
       };
 
       # Allways include cni plugins
@@ -499,7 +501,9 @@ in
         kubeletClient = mkCert {
           name = "kubelet-client";
           CN = "system:node:${top.kubelet.hostname}";
-          fields = { O = "system:nodes"; };
+          fields = {
+            O = "system:nodes";
+          };
           action = "systemctl restart kubelet.service";
         };
       };

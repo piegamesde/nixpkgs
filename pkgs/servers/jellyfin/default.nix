@@ -51,7 +51,9 @@ buildDotnetModule rec {
     )
   '';
 
-  passthru.tests = { smoke-test = nixosTests.jellyfin; };
+  passthru.tests = {
+    smoke-test = nixosTests.jellyfin;
+  };
 
   passthru.updateScript = ./update.sh;
 

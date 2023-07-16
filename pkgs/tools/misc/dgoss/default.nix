@@ -36,7 +36,9 @@ resholve.mkDerivation rec {
         coreutils
         which
       ];
-      keep = { "$CONTAINER_RUNTIME" = true; };
+      keep = {
+        "$CONTAINER_RUNTIME" = true;
+      };
     };
   };
 

@@ -9,7 +9,9 @@ import ./make-test-python.nix (
       crypto = {
         cipher = "aes-128-ctr";
         ciphertext = "ad8341d8ef225650403fd366c955f41095e438dd966a3c84b3d406818c1e366c";
-        cipherparams = { iv = "2a09f7a72fd6dff7c43150ff437e6ac2"; };
+        cipherparams = {
+          iv = "2a09f7a72fd6dff7c43150ff437e6ac2";
+        };
         kdf = "scrypt";
         kdfparams = {
           dklen = 32;

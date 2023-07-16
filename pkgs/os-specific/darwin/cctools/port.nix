@@ -210,7 +210,9 @@ stdenv.mkDerivation {
     popd
   '';
 
-  passthru = { inherit targetPrefix; };
+  passthru = {
+    inherit targetPrefix;
+  };
 
   meta = {
     broken = !stdenv.targetPlatform.isDarwin; # Only supports darwin targets

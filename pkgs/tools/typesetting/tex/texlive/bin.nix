@@ -270,7 +270,9 @@ rec {
     ;
 
     setupHook = ./setup-hook.sh; # TODO: maybe texmf-nix -> texmf (and all references)
-    passthru = { inherit version buildInputs; };
+    passthru = {
+      inherit version buildInputs;
+    };
 
     meta = with lib; {
       description = "Basic binaries for TeX Live";

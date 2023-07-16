@@ -28,7 +28,9 @@ import ./make-test-python.nix (
             ensureDatabases = [ "sogo" ];
             ensureUsers = [ {
               name = "sogo";
-              ensurePermissions = { "sogo.*" = "ALL PRIVILEGES"; };
+              ensurePermissions = {
+                "sogo.*" = "ALL PRIVILEGES";
+              };
             } ];
           };
 

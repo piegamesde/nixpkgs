@@ -9,7 +9,9 @@
 }:
 
 let
-  env = { nativeBuildInputs = [ makeBinaryWrapper ]; };
+  env = {
+    nativeBuildInputs = [ makeBinaryWrapper ];
+  };
   envCheck = runCommandCC "envcheck" env ''
     cc -Wall -Werror -Wpedantic -o $out ${./envcheck.c}
   '';

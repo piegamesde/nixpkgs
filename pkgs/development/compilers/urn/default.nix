@@ -72,5 +72,7 @@ stdenv.mkDerivation {
     platforms = platforms.all;
   };
 
-  passthru = { inherit urn-rt; };
+  passthru = {
+    inherit urn-rt;
+  };
 }

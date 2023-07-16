@@ -205,7 +205,9 @@ in
     };
 
     users.groups = mkIf (cfg.group == "plex") {
-      plex = { gid = config.ids.gids.plex; };
+      plex = {
+        gid = config.ids.gids.plex;
+      };
     };
   };
 }

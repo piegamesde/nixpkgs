@@ -44,7 +44,9 @@ buildPythonPackage rec {
 
   doInstallCheck = false;
 
-  passthru.tests = { pytest = callPackage ./tests.nix { }; };
+  passthru.tests = {
+    pytest = callPackage ./tests.nix { };
+  };
 
   meta = with lib; {
     description = "Core testing clients for the Sanic web framework";

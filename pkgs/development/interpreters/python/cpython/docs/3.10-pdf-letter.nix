@@ -18,5 +18,7 @@ stdenv.mkDerivation {
     mkdir -p $out/share/doc/python310
     cp -R ./ $out/share/doc/python310/pdf-letter
   '';
-  meta = { maintainers = [ ]; };
+  meta = {
+    maintainers = [ ];
+  };
 }

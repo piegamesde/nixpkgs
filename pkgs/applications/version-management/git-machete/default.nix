@@ -40,7 +40,9 @@ buildPythonApplication rec {
     test "$($out/bin/git-machete version)" = "git-machete version ${version}"
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     homepage = "https://github.com/VirtusLab/git-machete";

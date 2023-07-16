@@ -30,7 +30,9 @@ stdenv.mkDerivation rec {
     (mkFlag parallelSupport "USE_OPENMP")
   ];
 
-  passthru = { inherit parallelSupport; };
+  passthru = {
+    inherit parallelSupport;
+  };
 
   meta = with lib; {
     description = "An implementation of the C++ standard template library STL for external memory (out-of-core) computations";

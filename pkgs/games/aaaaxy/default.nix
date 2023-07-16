@@ -83,7 +83,9 @@ buildGoModule rec {
     install -Dm644 'assets/demos/benchmark.dem' -t "$testing_infra/assets/demos/"
   '';
 
-  passthru.tests = { aaaaxy = nixosTests.aaaaxy; };
+  passthru.tests = {
+    aaaaxy = nixosTests.aaaaxy;
+  };
 
   strictDeps = true;
 

@@ -152,7 +152,9 @@ in
           "Type of backend to use and specific configurations for that backend."
       ;
       type = types.attrs;
-      default = { Type = "vxlan"; };
+      default = {
+        Type = "vxlan";
+      };
     };
   };
 

@@ -30,5 +30,7 @@ rustPlatform.buildRustPackage rec {
     maintainers = [ maintainers.marsam ];
   };
 
-  passthru = { shellPath = "/bin/nsh"; };
+  passthru = {
+    shellPath = "/bin/nsh";
+  };
 }

@@ -119,7 +119,9 @@ let
     config.Entrypoint = [ "/bin/sh" ];
   };
 
-  base = { name = "rbac"; };
+  base = {
+    name = "rbac";
+  };
 
   singlenode = base // {
     test = ''

@@ -6,6 +6,8 @@
 makeSetupHook
   {
     name = "postgresql-test-hook";
-    passthru.tests = { simple = callPackage ./test.nix { }; };
+    passthru.tests = {
+      simple = callPackage ./test.nix { };
+    };
   }
   ./postgresql-test-hook.sh

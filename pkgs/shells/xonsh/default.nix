@@ -110,5 +110,7 @@ python3Packages.buildPythonApplication rec {
     ];
   };
 
-  passthru = { shellPath = "/bin/xonsh"; };
+  passthru = {
+    shellPath = "/bin/xonsh";
+  };
 }

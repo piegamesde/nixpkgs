@@ -47,7 +47,9 @@ mkDerivation rec {
     ++ lib.optional stdenv.isDarwin "--enable-mac"
   ;
 
-  passthru = { mozillaPlugin = "/lib/mozilla/plugins"; };
+  passthru = {
+    mozillaPlugin = "/lib/mozilla/plugins";
+  };
 
   meta = with lib; {
     broken = stdenv.isDarwin;

@@ -151,7 +151,9 @@ in
       services.gnome.at-spi2-core.enable = true;
 
       # Fix lockscreen
-      security.pam.services = { cinnamon-screensaver = { }; };
+      security.pam.services = {
+        cinnamon-screensaver = { };
+      };
 
       environment.systemPackages =
         with pkgs.cinnamon // pkgs;

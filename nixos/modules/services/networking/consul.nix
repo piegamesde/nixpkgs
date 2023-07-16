@@ -14,7 +14,9 @@ let
 
   configOptions = {
     data_dir = dataDir;
-    ui_config = { enabled = cfg.webUi; };
+    ui_config = {
+      enabled = cfg.webUi;
+    };
   } // cfg.extraConfig;
 
   configFiles =

@@ -31,7 +31,9 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) unbound; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) unbound;
+  };
 
   meta = with lib; {
     description = "Prometheus exporter for Unbound DNS resolver";

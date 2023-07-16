@@ -172,7 +172,9 @@ stdenv.mkDerivation rec {
 
   setupHook = ./setup-hook.sh;
 
-  passthru = { inherit openglSupport; };
+  passthru = {
+    inherit openglSupport;
+  };
 
   enableParallelBuilding = true;
 

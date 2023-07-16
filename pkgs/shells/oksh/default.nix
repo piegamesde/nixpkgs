@@ -35,5 +35,7 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
   };
 
-  passthru = { shellPath = "/bin/oksh"; };
+  passthru = {
+    shellPath = "/bin/oksh";
+  };
 }

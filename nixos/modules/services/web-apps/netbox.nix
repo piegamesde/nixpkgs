@@ -264,7 +264,9 @@ in
       ensureDatabases = [ "netbox" ];
       ensureUsers = [ {
         name = "netbox";
-        ensurePermissions = { "DATABASE netbox" = "ALL PRIVILEGES"; };
+        ensurePermissions = {
+          "DATABASE netbox" = "ALL PRIVILEGES";
+        };
       } ];
     };
 
@@ -295,7 +297,9 @@ in
           description = "NetBox migrations";
           wantedBy = [ "netbox.target" ];
 
-          environment = { PYTHONPATH = pkg.pythonPath; };
+          environment = {
+            PYTHONPATH = pkg.pythonPath;
+          };
 
           serviceConfig = defaultServiceConfig // {
             Type = "oneshot";
@@ -316,7 +320,9 @@ in
             ${pkg}/bin/netbox remove_stale_contenttypes --no-input
           '';
 
-          environment = { PYTHONPATH = pkg.pythonPath; };
+          environment = {
+            PYTHONPATH = pkg.pythonPath;
+          };
 
           serviceConfig = defaultServiceConfig // {
             ExecStart = ''
@@ -332,7 +338,9 @@ in
           wantedBy = [ "netbox.target" ];
           after = [ "netbox.service" ];
 
-          environment = { PYTHONPATH = pkg.pythonPath; };
+          environment = {
+            PYTHONPATH = pkg.pythonPath;
+          };
 
           serviceConfig = defaultServiceConfig // {
             ExecStart = ''
@@ -345,7 +353,9 @@ in
           description = "NetBox housekeeping job";
           after = [ "netbox.service" ];
 
-          environment = { PYTHONPATH = pkg.pythonPath; };
+          environment = {
+            PYTHONPATH = pkg.pythonPath;
+          };
 
           serviceConfig = defaultServiceConfig // {
             Type = "oneshot";
@@ -361,7 +371,9 @@ in
       description = "Run NetBox housekeeping job";
       wantedBy = [ "timers.target" ];
 
-      timerConfig = { OnCalendar = "daily"; };
+      timerConfig = {
+        OnCalendar = "daily";
+      };
     };
 
     users.users.netbox = {

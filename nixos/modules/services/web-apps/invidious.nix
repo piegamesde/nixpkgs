@@ -146,7 +146,9 @@ let
       requires = [ "postgresql.service" ];
       after = [ "postgresql.service" ];
 
-      serviceConfig = { User = "invidious"; };
+      serviceConfig = {
+        User = "invidious";
+      };
     };
   };
 

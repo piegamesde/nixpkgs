@@ -279,7 +279,11 @@ let
             passAsFile = [ "lockFileContents" ];
           }
         else
-          { passthru = { inherit lockFile; }; }
+          {
+            passthru = {
+              inherit lockFile;
+            };
+          }
       )
       ''
             mkdir -p $out/.cargo

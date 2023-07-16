@@ -28,7 +28,9 @@ in
           "Extra Environment variables to pass to the conduit server."
       ;
       default = { };
-      example = { RUST_BACKTRACE = "yes"; };
+      example = {
+        RUST_BACKTRACE = "yes";
+      };
     };
 
     package = mkOption {

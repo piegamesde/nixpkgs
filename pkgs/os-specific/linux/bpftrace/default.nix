@@ -72,7 +72,9 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  passthru.tests = { bpf = nixosTests.bpf; };
+  passthru.tests = {
+    bpf = nixosTests.bpf;
+  };
 
   meta = with lib; {
     description = "High-level tracing language for Linux eBPF";

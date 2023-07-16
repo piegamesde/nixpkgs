@@ -35,7 +35,9 @@ buildPythonPackage rec {
     sigtools
   ];
 
-  passthru.optional-dependencies = { datetime = [ python-dateutil ]; };
+  passthru.optional-dependencies = {
+    datetime = [ python-dateutil ];
+  };
 
   nativeCheckInputs = [
     pytestCheckHook

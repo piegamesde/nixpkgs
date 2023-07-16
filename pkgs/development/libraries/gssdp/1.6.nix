@@ -82,7 +82,9 @@ stdenv.mkDerivation rec {
       packageName = pname;
     };
 
-    tests = { inherit gssdp-tools; };
+    tests = {
+      inherit gssdp-tools;
+    };
   };
 
   meta = with lib; {

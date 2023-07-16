@@ -42,7 +42,9 @@ stdenv.mkDerivation rec {
     cp -r rel/couchdb/* $out
   '';
 
-  passthru.tests = { inherit (nixosTests) couchdb; };
+  passthru.tests = {
+    inherit (nixosTests) couchdb;
+  };
 
   meta = with lib; {
     description = "A database that uses JSON for documents, JavaScript for MapReduce queries, and regular HTTP for an API";

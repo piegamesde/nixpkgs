@@ -292,7 +292,9 @@ stdenv.mkDerivation (
     passthru = {
       inherit pkgArches;
       inherit (src) updateScript;
-      tests = { inherit (nixosTests) wine; };
+      tests = {
+        inherit (nixosTests) wine;
+      };
     };
     meta = {
       inherit version;

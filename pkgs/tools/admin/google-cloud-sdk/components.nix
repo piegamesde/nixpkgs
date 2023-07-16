@@ -219,9 +219,13 @@ let
         ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
       ;
       buildInputs = [ libxcrypt-legacy ];
-      passthru = { dependencies = filterForSystem dependencies; };
+      passthru = {
+        dependencies = filterForSystem dependencies;
+      };
       passAsFile = [ "snapshot" ];
-      meta = { inherit description platforms; };
+      meta = {
+        inherit description platforms;
+      };
     }
   ;
 in

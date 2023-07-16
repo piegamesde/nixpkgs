@@ -15,7 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "09rhnl6zikmdyb960im55jck0rdy5z9nlg3akx68ixn7khf3j8wb";
   };
 
-  meta = { platforms = lib.platforms.windows; };
+  meta = {
+    platforms = lib.platforms.windows;
+  };
 
   dontStrip = true;
 }

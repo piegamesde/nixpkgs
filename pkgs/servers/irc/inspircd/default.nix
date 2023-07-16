@@ -212,7 +212,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.tests = { nixos-test = nixosTests.inspircd; };
+  passthru.tests = {
+    nixos-test = nixosTests.inspircd;
+  };
 
   meta = {
     description = "A modular C++ IRC server";

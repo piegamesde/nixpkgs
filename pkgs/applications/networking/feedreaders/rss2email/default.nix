@@ -59,5 +59,7 @@ buildPythonApplication rec {
       ekleog
     ];
   };
-  passthru.tests = { smoke-test = nixosTests.rss2email; };
+  passthru.tests = {
+    smoke-test = nixosTests.rss2email;
+  };
 }

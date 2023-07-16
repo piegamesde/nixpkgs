@@ -542,7 +542,9 @@ in
       group = cfg.group;
     };
 
-    users.groups.${cfg.group} = { gid = config.ids.gids.rspamd; };
+    users.groups.${cfg.group} = {
+      gid = config.ids.gids.rspamd;
+    };
 
     environment.etc.rspamd.source = rspamdDir;
 

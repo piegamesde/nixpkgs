@@ -157,7 +157,9 @@ stdenv.mkDerivation rec {
   nativeCheckInputs = [ gtest ];
 
   # for debugging
-  passthru = { squashfuse = appimagekit_squashfuse; };
+  passthru = {
+    squashfuse = appimagekit_squashfuse;
+  };
 
   meta = with lib; {
     description = "A tool to package desktop applications as AppImages";

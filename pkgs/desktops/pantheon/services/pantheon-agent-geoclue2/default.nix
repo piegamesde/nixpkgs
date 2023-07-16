@@ -48,7 +48,9 @@ stdenv.mkDerivation rec {
     ${glib.dev}/bin/glib-compile-schemas $out/share/glib-2.0/schemas
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Pantheon Geoclue2 Agent";

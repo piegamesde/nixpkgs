@@ -34,5 +34,7 @@ stdenv.mkDerivation {
     sed -e "s/iso-/ISO/" -e "s/.gml//" -i docbook.cat
   '';
 
-  meta = { platforms = lib.platforms.unix; };
+  meta = {
+    platforms = lib.platforms.unix;
+  };
 }

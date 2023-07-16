@@ -33,7 +33,9 @@ import ./make-test-python.nix (
           '';
           ensureUsers = [ {
             name = "postgres";
-            ensurePermissions = { "DATABASE \"postgres\"" = "ALL PRIVILEGES"; };
+            ensurePermissions = {
+              "DATABASE \"postgres\"" = "ALL PRIVILEGES";
+            };
           } ];
         };
 

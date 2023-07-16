@@ -23,7 +23,9 @@ stdenv.mkDerivation rec {
     cp -a redacted/*.ttf $out/share/fonts/truetype/redacted-elementary
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Font for concealing text";

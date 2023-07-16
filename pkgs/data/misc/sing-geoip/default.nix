@@ -59,7 +59,9 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru = { inherit generator; };
+  passthru = {
+    inherit generator;
+  };
 
   meta = generator.meta // { inherit (clash-geoip.meta) license; };
 }

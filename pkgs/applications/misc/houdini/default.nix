@@ -50,7 +50,9 @@ buildFHSEnv rec {
     )
   ;
 
-  passthru = { inherit unwrapped; };
+  passthru = {
+    inherit unwrapped;
+  };
 
   extraInstallCommands =
     let

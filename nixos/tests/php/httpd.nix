@@ -26,7 +26,9 @@ import ../make-test-python.nix (
             in
             {
               documentRoot = "${testdir}/web";
-              locations."/" = { index = "index.php index.html"; };
+              locations."/" = {
+                index = "index.php index.html";
+              };
             }
           ;
           phpPackage = php;

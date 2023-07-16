@@ -47,7 +47,9 @@ let
       {
         inherit name;
 
-        nodes = { "${name}" = machine; };
+        nodes = {
+          "${name}" = machine;
+        };
 
         meta = with pkgs.lib.maintainers; {
           maintainers = [

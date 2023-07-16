@@ -83,7 +83,9 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests = { inherit (nixosTests) moodle; };
+  passthru.tests = {
+    inherit (nixosTests) moodle;
+  };
 
   meta = with lib; {
     description = "Free and open-source learning management system (LMS) written in PHP";

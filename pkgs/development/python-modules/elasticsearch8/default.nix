@@ -25,7 +25,9 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  passthru.optional-dependencies = { async = [ aiohttp ]; };
+  passthru.optional-dependencies = {
+    async = [ aiohttp ];
+  };
 
   # Check is disabled because running them destroy the content of the local cluster!
   # https://github.com/elasticsearch/elasticsearch-py/tree/main/test_elasticsearch

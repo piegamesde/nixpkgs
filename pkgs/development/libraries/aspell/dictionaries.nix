@@ -981,7 +981,9 @@ rec {
     '';
     installPhase = "aspell-install en-computers";
 
-    meta = { homepage = "https://mrsatterly.com/spelling.html"; };
+    meta = {
+      homepage = "https://mrsatterly.com/spelling.html";
+    };
   };
 
   en-science = buildTxtDict {

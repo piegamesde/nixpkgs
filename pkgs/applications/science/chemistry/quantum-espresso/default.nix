@@ -21,7 +21,9 @@ stdenv.mkDerivation rec {
     sha256 = "1mkfmw0fq1dabplzdn6v1abhw0ds55gzlvbx3a9brv493whk21yp";
   };
 
-  passthru = { inherit mpi; };
+  passthru = {
+    inherit mpi;
+  };
 
   preConfigure = ''
     patchShebangs configure

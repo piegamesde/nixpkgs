@@ -81,7 +81,9 @@ stdenv.mkDerivation rec {
       --replace "public const OptionEntry[] app_options" "private const OptionEntry[] app_options"
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "The podcast client for the modern free desktop";

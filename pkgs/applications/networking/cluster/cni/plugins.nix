@@ -44,7 +44,9 @@ buildGoModule rec {
     "plugins/meta/vrf"
   ];
 
-  passthru.tests = { inherit (nixosTests) cri-o; };
+  passthru.tests = {
+    inherit (nixosTests) cri-o;
+  };
 
   meta = with lib; {
     description = "Some standard networking plugins, maintained by the CNI team";

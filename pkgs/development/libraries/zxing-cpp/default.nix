@@ -39,7 +39,9 @@ stdenv.mkDerivation rec {
       --replace '$'{prefix}/@CMAKE_INSTALL_INCLUDEDIR@ @CMAKE_INSTALL_FULL_INCLUDEDIR@
   '';
 
-  passthru.tests = { inherit (python3.pkgs) zxing_cpp; };
+  passthru.tests = {
+    inherit (python3.pkgs) zxing_cpp;
+  };
 
   meta = with lib; {
     homepage = "https://github.com/nu-book/zxing-cpp";

@@ -59,7 +59,9 @@ stdenv.mkDerivation rec {
     echo ${version} > $out/bin/VERSION
   '';
 
-  passthru.tests = { gitolite = nixosTests.gitolite; };
+  passthru.tests = {
+    gitolite = nixosTests.gitolite;
+  };
 
   meta = with lib; {
     description = "Finely-grained git repository hosting";

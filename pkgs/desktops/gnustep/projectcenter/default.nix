@@ -35,5 +35,7 @@ gsmakeDerivation {
     gorm
   ];
 
-  meta = { description = "GNUstep's integrated development environment"; };
+  meta = {
+    description = "GNUstep's integrated development environment";
+  };
 }

@@ -18,7 +18,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-ZQKQY7budLH6eAusLMwSF5cLJ6QdiXLJc29xJk+XBxI=";
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) bind; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) bind;
+  };
 
   meta = with lib; {
     description = "Prometheus exporter for bind9 server";

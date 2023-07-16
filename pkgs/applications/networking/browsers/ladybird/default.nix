@@ -60,7 +60,9 @@ stdenv.mkDerivation {
     install_name_tool -add_rpath $out/lib $out/bin/ladybird
   '';
 
-  passthru.tests = { nixosTest = nixosTests.ladybird; };
+  passthru.tests = {
+    nixosTest = nixosTests.ladybird;
+  };
 
   meta = with lib; {
     description = "A browser using the SerenityOS LibWeb engine with a Qt GUI";

@@ -78,7 +78,9 @@ let
                     paths = [ "/var/lib/filebeat/test" ];
                   };
 
-                  settings = { logging.level = "info"; };
+                  settings = {
+                    logging.level = "info";
+                  };
                 };
 
                 metricbeat = {
@@ -105,7 +107,9 @@ let
                     core.metrics = [ "percentages" ];
                   };
                   settings = {
-                    output.elasticsearch = { hosts = [ "127.0.0.1:9200" ]; };
+                    output.elasticsearch = {
+                      hosts = [ "127.0.0.1:9200" ];
+                    };
                   };
                 };
 

@@ -82,7 +82,9 @@ let
 in
 
 {
-  meta = { maintainers = [ maintainers.joachifm ]; };
+  meta = {
+    maintainers = [ maintainers.joachifm ];
+  };
 
   options = {
     environment.memoryAllocator.provider = mkOption {

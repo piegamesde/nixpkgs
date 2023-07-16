@@ -55,7 +55,9 @@ stdenv.mkDerivation rec {
     export PKG_CONFIG="$(command -v "$PKG_CONFIG")"
   '';
 
-  passthru = { inherit compressionSupport sslSupport; };
+  passthru = {
+    inherit compressionSupport sslSupport;
+  };
 
   meta = with lib; {
     description = "An HTTP and WebDAV client library";

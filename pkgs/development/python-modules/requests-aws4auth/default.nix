@@ -29,7 +29,9 @@ buildPythonPackage rec {
     six
   ];
 
-  passthru.optional-dependencies = { httpx = [ httpx ]; };
+  passthru.optional-dependencies = {
+    httpx = [ httpx ];
+  };
 
   nativeCheckInputs =
     [ pytestCheckHook ] ++ passthru.optional-dependencies.httpx;

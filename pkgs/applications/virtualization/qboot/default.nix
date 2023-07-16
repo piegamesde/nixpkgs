@@ -33,7 +33,9 @@ stdenv.mkDerivation {
     "pic"
   ];
 
-  passthru.tests = { qboot = nixosTests.qboot; };
+  passthru.tests = {
+    qboot = nixosTests.qboot;
+  };
 
   meta = {
     description = "A simple x86 firmware for booting Linux";

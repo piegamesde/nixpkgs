@@ -66,7 +66,9 @@ stdenv.mkDerivation rec {
       --replace 'webkit2gtk-4.0' 'webkit2gtk-4.1'
   '';
 
-  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
+  passthru = {
+    updateScript = gnome.updateScript { packageName = pname; };
+  };
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Glade";

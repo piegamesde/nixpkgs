@@ -478,7 +478,9 @@ lib.makeOverridable
         ;
         outputDev = if buildTests then [ "out" ] else [ "lib" ];
 
-        meta = { mainProgram = crateName; };
+        meta = {
+          mainProgram = crateName;
+        };
       } // extraDerivationAttrs
     )
   )

@@ -33,7 +33,9 @@ rustPlatform.buildRustPackage rec {
     runHook postInstallCheck
   '';
 
-  passthru.tests = { inherit (nixosTests) agate; };
+  passthru.tests = {
+    inherit (nixosTests) agate;
+  };
 
   meta = with lib; {
     homepage = "https://github.com/mbrubeck/agate";

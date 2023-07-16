@@ -89,7 +89,9 @@ symlinkJoin {
 
   inherit meta version;
 
-  passthru = { inherit etcdserver etcdutl etcdctl; };
+  passthru = {
+    inherit etcdserver etcdutl etcdctl;
+  };
 
   paths = [
     etcdserver

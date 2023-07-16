@@ -20,7 +20,9 @@ buildGoModule rec {
 
   doCheck = false;
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) mikrotik; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) mikrotik;
+  };
 
   meta = with lib; {
     inherit (src.meta) homepage;

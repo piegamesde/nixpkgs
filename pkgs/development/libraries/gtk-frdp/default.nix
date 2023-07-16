@@ -39,7 +39,9 @@ stdenv.mkDerivation rec {
     freerdp
   ];
 
-  passthru = { updateScript = unstableGitUpdater { }; };
+  passthru = {
+    updateScript = unstableGitUpdater { };
+  };
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals stdenv.isDarwin [

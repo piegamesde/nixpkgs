@@ -35,7 +35,9 @@ in
             storage_path = "/var/lib/qdrant/storage";
             snapshots_path = "/var/lib/qdrant/snapshots";
           };
-          hsnw_index = { on_disk = true; };
+          hsnw_index = {
+            on_disk = true;
+          };
           service = {
             host = "127.0.0.1";
             http_port = 6333;

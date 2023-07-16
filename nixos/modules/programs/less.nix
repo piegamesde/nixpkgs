@@ -84,14 +84,20 @@ in
       lineEditingKeys = mkOption {
         type = types.attrsOf types.str;
         default = { };
-        example = { e = "abort"; };
+        example = {
+          e = "abort";
+        };
         description = lib.mdDoc "Defines new line-editing keys.";
       };
 
       envVariables = mkOption {
         type = types.attrsOf types.str;
-        default = { LESS = "-R"; };
-        example = { LESS = "--quit-if-one-screen"; };
+        default = {
+          LESS = "-R";
+        };
+        example = {
+          LESS = "--quit-if-one-screen";
+        };
         description = lib.mdDoc "Defines environment variables.";
       };
 

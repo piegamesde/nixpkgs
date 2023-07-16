@@ -140,7 +140,9 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    services.geoipupdate.settings = { LockFile = "/run/geoipupdate/.lock"; };
+    services.geoipupdate.settings = {
+      LockFile = "/run/geoipupdate/.lock";
+    };
 
     systemd.services.geoipupdate-create-db-dir = {
       serviceConfig.Type = "oneshot";

@@ -47,7 +47,9 @@ in
           )
         ;
         default = { };
-        example = { apply_nice = false; };
+        example = {
+          apply_nice = false;
+        };
         description = lib.mdDoc ''
           See <https://github.com/Nefelim4ag/Ananicy/blob/master/ananicy.d/ananicy.conf>
         '';
@@ -123,9 +125,13 @@ in
       # https://gitlab.com/ananicy-cpp/ananicy-cpp/#cgroups applies to both ananicy and -cpp
       enableUnifiedCgroupHierarchy = mkDefault false;
       packages = [ cfg.package ];
-      services."${servicename}" = { wantedBy = [ "default.target" ]; };
+      services."${servicename}" = {
+        wantedBy = [ "default.target" ];
+      };
     };
   };
 
-  meta = { maintainers = with maintainers; [ artturin ]; };
+  meta = {
+    maintainers = with maintainers; [ artturin ];
+  };
 }

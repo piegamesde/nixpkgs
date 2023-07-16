@@ -652,7 +652,9 @@ final: prev: {
           ./thelounge-packages-path.patch
         }
       '';
-      passthru.tests = { inherit (nixosTests) thelounge; };
+      passthru.tests = {
+        inherit (nixosTests) thelounge;
+      };
       meta =
         oldAttrs.meta // { maintainers = with lib.maintainers; [ winter ]; };
     }

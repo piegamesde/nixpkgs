@@ -187,7 +187,9 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = lib.optionalString stdenv.cc.isGNU "-lgcc_s";
 
-  passthru.tests = { inherit (nixosTests) strongswan-swanctl; };
+  passthru.tests = {
+    inherit (nixosTests) strongswan-swanctl;
+  };
 
   meta = with lib; {
     description = "OpenSource IPsec-based VPN Solution";

@@ -163,7 +163,9 @@ buildGoModule rec {
   # Post "https://api.black.riseup.net/3/cert": dial tcp: lookup api.black.riseup.net on [::1]:53: read udp [::1]:56553->[::1]:53: read: connection refused
   doCheck = false;
 
-  passthru = { inherit bitmask-root; };
+  passthru = {
+    inherit bitmask-root;
+  };
 
   meta = {
     description = "Generic VPN client by LEAP";

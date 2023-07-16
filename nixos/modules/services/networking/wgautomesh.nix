@@ -160,7 +160,9 @@ in
 
     systemd.services.wgautomesh = {
       path = [ pkgs.wireguard-tools ];
-      environment = { RUST_LOG = "wgautomesh=${cfg.logLevel}"; };
+      environment = {
+        RUST_LOG = "wgautomesh=${cfg.logLevel}";
+      };
       description = "wgautomesh";
       serviceConfig = {
         Type = "simple";

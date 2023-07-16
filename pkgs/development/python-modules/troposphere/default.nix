@@ -32,7 +32,9 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ awacs ];
 
-  passthru.optional-dependencies = { policy = [ awacs ]; };
+  passthru.optional-dependencies = {
+    policy = [ awacs ];
+  };
 
   checkPhase = ''
     ${python.interpreter} -m unittest discover

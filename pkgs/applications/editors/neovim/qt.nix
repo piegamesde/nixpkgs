@@ -37,7 +37,9 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  passthru = { inherit unwrapped; };
+  passthru = {
+    inherit unwrapped;
+  };
 
   inherit (unwrapped) meta;
 }

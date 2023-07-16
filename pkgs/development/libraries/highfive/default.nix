@@ -31,7 +31,9 @@ stdenv.mkDerivation rec {
     hdf5
   ];
 
-  passthru = { inherit mpiSupport mpi; };
+  passthru = {
+    inherit mpiSupport mpi;
+  };
 
   cmakeFlags =
     [

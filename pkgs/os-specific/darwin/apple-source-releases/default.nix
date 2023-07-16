@@ -121,13 +121,27 @@ let
       Libc = "825.40.1";
       IOUSBFamily = "630.4.5";
     };
-    "osx-10.8.4" = { IOUSBFamily = "560.4.2"; };
-    "osx-10.7.4" = { Libm = "2026"; };
-    "osx-10.6.2" = { CarbonHeaders = "18.1"; };
-    "osx-10.5.8" = { adv_cmds = "119"; };
-    "dev-tools-7.0" = { bootstrap_cmds = "93"; };
-    "dev-tools-5.1" = { bootstrap_cmds = "86"; };
-    "dev-tools-3.2.6" = { bsdmake = "24"; };
+    "osx-10.8.4" = {
+      IOUSBFamily = "560.4.2";
+    };
+    "osx-10.7.4" = {
+      Libm = "2026";
+    };
+    "osx-10.6.2" = {
+      CarbonHeaders = "18.1";
+    };
+    "osx-10.5.8" = {
+      adv_cmds = "119";
+    };
+    "dev-tools-7.0" = {
+      bootstrap_cmds = "93";
+    };
+    "dev-tools-5.1" = {
+      bootstrap_cmds = "86";
+    };
+    "dev-tools-3.2.6" = {
+      bsdmake = "24";
+    };
   };
 
   fetchApple' =

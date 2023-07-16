@@ -136,7 +136,11 @@ in
         name = "pantheon-greeter";
       };
 
-      greeters = { gtk = { enable = mkDefault false; }; };
+      greeters = {
+        gtk = {
+          enable = mkDefault false;
+        };
+      };
     };
   };
 }

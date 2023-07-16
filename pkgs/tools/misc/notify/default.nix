@@ -24,7 +24,9 @@ buildGoModule rec {
   # Test files are not part of the release tarball
   doCheck = false;
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Notify allows sending the output from any tool to Slack, Discord and Telegram";

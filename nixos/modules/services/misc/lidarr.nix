@@ -87,7 +87,9 @@ in
     };
 
     users.groups = mkIf (cfg.group == "lidarr") {
-      lidarr = { gid = config.ids.gids.lidarr; };
+      lidarr = {
+        gid = config.ids.gids.lidarr;
+      };
     };
   };
 }

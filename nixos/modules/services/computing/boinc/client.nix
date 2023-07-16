@@ -117,5 +117,7 @@ in
     };
   };
 
-  meta = { maintainers = with lib.maintainers; [ kierdavis ]; };
+  meta = {
+    maintainers = with lib.maintainers; [ kierdavis ];
+  };
 }

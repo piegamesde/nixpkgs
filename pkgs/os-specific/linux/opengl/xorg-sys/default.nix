@@ -26,5 +26,7 @@ stdenv.mkDerivation {
     stdenv.cc.cc
   ];
 
-  meta = { platforms = lib.platforms.linux; };
+  meta = {
+    platforms = lib.platforms.linux;
+  };
 }

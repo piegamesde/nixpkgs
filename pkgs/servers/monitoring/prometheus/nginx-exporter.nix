@@ -24,7 +24,9 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) nginx; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) nginx;
+  };
 
   meta = with lib; {
     description = "NGINX Prometheus Exporter for NGINX and NGINX Plus";

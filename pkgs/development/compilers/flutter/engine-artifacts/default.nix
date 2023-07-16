@@ -17,7 +17,9 @@ let
 
   artifacts = {
     common = {
-      flutter_patched_sdk = { archive = "flutter_patched_sdk.zip"; };
+      flutter_patched_sdk = {
+        archive = "flutter_patched_sdk.zip";
+      };
       flutter_patched_sdk_product = {
         archive = "flutter_patched_sdk_product.zip";
       };

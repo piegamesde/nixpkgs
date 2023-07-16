@@ -145,7 +145,9 @@ crystal.buildCrystalPackage rec {
 
   passthru = {
     inherit lsquic;
-    tests = { inherit (nixosTests) invidious; };
+    tests = {
+      inherit (nixosTests) invidious;
+    };
     updateScript = ./update.sh;
   };
 

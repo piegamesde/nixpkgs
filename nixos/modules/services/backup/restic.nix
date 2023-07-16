@@ -176,7 +176,9 @@ in
 
             timerConfig = mkOption {
               type = types.attrsOf unitOption;
-              default = { OnCalendar = "daily"; };
+              default = {
+                OnCalendar = "daily";
+              };
               description = lib.mdDoc ''
                 When to run the backup. See {manpage}`systemd.timer(5)` for details.
               '';

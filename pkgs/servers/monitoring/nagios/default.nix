@@ -45,7 +45,9 @@ stdenv.mkDerivation rec {
     sed -i 's@/bin/@@g' $out/etc/objects/commands.cfg
   '';
 
-  passthru.tests = { inherit (nixosTests) nagios; };
+  passthru.tests = {
+    inherit (nixosTests) nagios;
+  };
 
   meta = {
     description = "A host, service and network monitoring program";

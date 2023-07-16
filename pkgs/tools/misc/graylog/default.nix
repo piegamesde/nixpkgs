@@ -26,7 +26,9 @@ stdenv.mkDerivation rec {
     "${openjdk11_headless}"
   ];
 
-  passthru.tests = { inherit (nixosTests) graylog; };
+  passthru.tests = {
+    inherit (nixosTests) graylog;
+  };
 
   installPhase = ''
     mkdir -p $out

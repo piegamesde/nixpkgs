@@ -73,7 +73,9 @@ in
         );
       };
 
-      jack = { enable = mkEnableOption (lib.mdDoc "JACK audio emulation"); };
+      jack = {
+        enable = mkEnableOption (lib.mdDoc "JACK audio emulation");
+      };
 
       pulse = {
         enable = mkEnableOption (lib.mdDoc "PulseAudio server emulation");

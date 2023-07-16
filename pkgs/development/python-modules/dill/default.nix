@@ -30,7 +30,9 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  passthru.tests = { inherit apache-beam datasets; };
+  passthru.tests = {
+    inherit apache-beam datasets;
+  };
 
   pythonImportsCheck = [ "dill" ];
 

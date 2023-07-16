@@ -71,7 +71,9 @@ let
     ];
   };
 
-  passthru = { inherit sources; };
+  passthru = {
+    inherit sources;
+  };
 
   fhsEnvAnki = buildFHSEnv (
     appimageTools.defaultFhsEnvArgs // {

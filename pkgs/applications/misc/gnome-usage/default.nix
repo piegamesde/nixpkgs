@@ -56,7 +56,9 @@ stdenv.mkDerivation rec {
     patchShebangs build-aux/meson/postinstall.sh
   '';
 
-  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
+  passthru = {
+    updateScript = gnome.updateScript { packageName = pname; };
+  };
 
   meta = with lib; {
     description = "A nice way to view information about use of system resources, like memory and disk space";

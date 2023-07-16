@@ -68,7 +68,9 @@ let
       p11-kit
     ];
 
-    passthru = { inherit wrap wrapWithBuildEnv; };
+    passthru = {
+      inherit wrap wrapWithBuildEnv;
+    };
 
     preConfigure = ''
       cd build

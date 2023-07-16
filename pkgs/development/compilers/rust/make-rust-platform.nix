@@ -15,7 +15,9 @@
 }:
 
 rec {
-  rust = { inherit rustc cargo; };
+  rust = {
+    inherit rustc cargo;
+  };
 
   fetchCargoTarball =
     buildPackages.callPackage ../../../build-support/rust/fetch-cargo-tarball

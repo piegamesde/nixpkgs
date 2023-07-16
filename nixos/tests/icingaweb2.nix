@@ -32,10 +32,16 @@ import ./make-test-python.nix (
             };
 
             generalConfig = {
-              global = { module_path = "${pkgs.icingaweb2}/modules"; };
+              global = {
+                module_path = "${pkgs.icingaweb2}/modules";
+              };
             };
 
-            authentications = { icingaweb = { backend = "external"; }; };
+            authentications = {
+              icingaweb = {
+                backend = "external";
+              };
+            };
 
             groupBackends = {
               icingaweb = {

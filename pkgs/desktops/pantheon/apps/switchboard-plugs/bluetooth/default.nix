@@ -53,7 +53,9 @@ stdenv.mkDerivation rec {
     wingpanel-indicator-bluetooth # settings schema
   ];
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Switchboard Bluetooth Plug";

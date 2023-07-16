@@ -14,7 +14,9 @@ import ./make-test-python.nix (
       {
         services.geth."mainnet" = {
           enable = true;
-          http = { enable = true; };
+          http = {
+            enable = true;
+          };
         };
         services.geth."testnet" = {
           enable = true;

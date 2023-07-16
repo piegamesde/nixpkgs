@@ -164,7 +164,9 @@ in
     systemd.services.graylog = {
       description = "Graylog Server";
       wantedBy = [ "multi-user.target" ];
-      environment = { GRAYLOG_CONF = "${confFile}"; };
+      environment = {
+        GRAYLOG_CONF = "${confFile}";
+      };
       path = [
         pkgs.which
         pkgs.procps

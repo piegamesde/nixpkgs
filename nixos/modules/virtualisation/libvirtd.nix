@@ -465,7 +465,9 @@ in
       restartIfChanged = false;
     };
 
-    systemd.services.virtchd = { path = [ pkgs.cloud-hypervisor ]; };
+    systemd.services.virtchd = {
+      path = [ pkgs.cloud-hypervisor ];
+    };
 
     systemd.services.libvirt-guests = {
       wantedBy = [ "multi-user.target" ];

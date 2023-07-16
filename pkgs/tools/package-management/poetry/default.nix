@@ -64,7 +64,9 @@ let
             rm $out/nix-support/propagated-build-inputs
           '';
 
-          passthru = rec { inherit plugins withPlugins python; };
+          passthru = rec {
+            inherit plugins withPlugins python;
+          };
         }
       )
     )

@@ -22,7 +22,9 @@ import ./make-test-python.nix (
           ...
         }:
         {
-          services.zookeeper = { enable = true; };
+          services.zookeeper = {
+            enable = true;
+          };
 
           networking.firewall.allowedTCPPorts = [ 2181 ];
         }

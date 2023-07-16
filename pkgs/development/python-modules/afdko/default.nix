@@ -115,7 +115,9 @@ buildPythonPackage rec {
     ++ lib.optionals (stdenv.hostPlatform.isi686) [ "test_type1mm_inputs" ]
   ;
 
-  passthru.tests = { fullTestsuite = afdko.override { runAllTests = true; }; };
+  passthru.tests = {
+    fullTestsuite = afdko.override { runAllTests = true; };
+  };
 
   meta = with lib; {
     changelog = "https://github.com/adobe-type-tools/afdko/blob/${version}/NEWS.md";

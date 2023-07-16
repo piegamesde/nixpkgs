@@ -21,7 +21,9 @@ let
 in
 
 {
-  meta = { maintainers = teams.enlightenment.members; };
+  meta = {
+    maintainers = teams.enlightenment.members;
+  };
 
   imports = [
     (mkRenamedOptionModule

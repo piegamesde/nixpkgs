@@ -30,5 +30,7 @@ gsmakeDerivation rec {
     libXft
     libXmu
   ];
-  meta = { description = "A generic backend for GNUstep"; };
+  meta = {
+    description = "A generic backend for GNUstep";
+  };
 }

@@ -19,7 +19,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-bRStmz2sJnhCKpvoQfc/ZP9B2ZdNHYNEHd+wZErdS1Y=";
 
-  passthru = { tests.version = testers.testVersion { package = fsrx; }; };
+  passthru = {
+    tests.version = testers.testVersion { package = fsrx; };
+  };
 
   meta = with lib; {
     description = "A flow state reader in the terminal";

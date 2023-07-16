@@ -35,7 +35,9 @@ buildGoModule rec {
       --prefix LD_LIBRARY_PATH : "${lib.getLib systemd}/lib"
   '';
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) postfix; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) postfix;
+  };
 
   meta = with lib; {
     inherit (src.meta) homepage;

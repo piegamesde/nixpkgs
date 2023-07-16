@@ -30,7 +30,9 @@ stdenvNoCC.mkDerivation rec {
     patchShebangs gtk/src/adw-gtk3-dark/gtk-3.0/install-dark-theme.sh
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "The theme from libadwaita ported to GTK-3";

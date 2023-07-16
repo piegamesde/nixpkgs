@@ -98,7 +98,9 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    tests = { installed-tests = nixosTests.installed-tests.appstream; };
+    tests = {
+      installed-tests = nixosTests.installed-tests.appstream;
+    };
   };
 
   meta = with lib; {

@@ -26,7 +26,9 @@
     # Some text editors.
     (pkgs.vim.customize {
       name = "vim";
-      vimrcConfig.packages.default = { start = [ pkgs.vimPlugins.vim-nix ]; };
+      vimrcConfig.packages.default = {
+        start = [ pkgs.vimPlugins.vim-nix ];
+      };
       vimrcConfig.customRC = "syntax on";
     })
 

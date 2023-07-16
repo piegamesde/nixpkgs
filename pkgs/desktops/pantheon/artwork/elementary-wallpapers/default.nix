@@ -32,7 +32,9 @@ stdenv.mkDerivation rec {
     patchShebangs meson/symlink.py
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Collection of wallpapers for elementary";

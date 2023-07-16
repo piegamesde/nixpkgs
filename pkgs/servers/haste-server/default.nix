@@ -54,7 +54,9 @@ stdenv.mkDerivation rec {
   ;
 
   passthru = {
-    tests = { inherit (nixosTests) haste-server; };
+    tests = {
+      inherit (nixosTests) haste-server;
+    };
     updateScript = ./update.sh;
   };
 

@@ -467,7 +467,9 @@ in
     };
   };
 
-  meta = { maintainers = with lib.maintainers; [ Luflosi ]; };
+  meta = {
+    maintainers = with lib.maintainers; [ Luflosi ];
+  };
 
   imports = [
     (mkRenamedOptionModule

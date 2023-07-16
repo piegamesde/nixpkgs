@@ -30,7 +30,9 @@ buildGoModule rec {
         "mimir-([0-9.]+)"
       ];
     };
-    tests = { inherit (nixosTests) mimir; };
+    tests = {
+      inherit (nixosTests) mimir;
+    };
   };
 
   ldflags =

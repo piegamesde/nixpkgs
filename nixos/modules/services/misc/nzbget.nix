@@ -94,7 +94,9 @@ in
           <https://github.com/nzbget/nzbget/blob/master/nzbget.conf>
           for details on supported values.
         '';
-        example = { MainDir = "/data"; };
+        example = {
+          MainDir = "/data";
+        };
       };
     };
   };
@@ -154,7 +156,9 @@ in
     };
 
     users.groups = mkIf (cfg.group == "nzbget") {
-      nzbget = { gid = config.ids.gids.nzbget; };
+      nzbget = {
+        gid = config.ids.gids.nzbget;
+      };
     };
   };
 }

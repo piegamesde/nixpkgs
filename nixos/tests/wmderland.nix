@@ -27,7 +27,9 @@ import ./make-test-python.nix (
         systemd.services.setupWmderlandConfig = {
           wantedBy = [ "multi-user.target" ];
           before = [ "multi-user.target" ];
-          environment = { HOME = "/home/alice"; };
+          environment = {
+            HOME = "/home/alice";
+          };
           unitConfig = {
             type = "oneshot";
             RemainAfterExit = true;

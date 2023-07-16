@@ -197,7 +197,9 @@ in
             debug = true;
             media_root = "/path/to/media";
           };
-          allowed_hosts = { allowed_host2 = "localhost"; };
+          allowed_hosts = {
+            allowed_host2 = "localhost";
+          };
         };
       };
 
@@ -239,7 +241,9 @@ in
         Restart = "always";
         WorkingDirectory = cfg.dataDir;
       };
-      environment = { ETEBASE_EASY_CONFIG_PATH = configIni; };
+      environment = {
+        ETEBASE_EASY_CONFIG_PATH = configIni;
+      };
       preStart = ''
         # Auto-migrate on first run or if the package has changed
         versionFile="${cfg.dataDir}/src-version"

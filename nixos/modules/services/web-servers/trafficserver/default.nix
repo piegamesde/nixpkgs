@@ -178,7 +178,9 @@ in
         valueType
       ;
       default = { };
-      example = { proxy.config.proxy_name = "my_server"; };
+      example = {
+        proxy.config.proxy_name = "my_server";
+      };
       description = lib.mdDoc ''
         List of configurable variables used by Traffic Server.
 

@@ -85,7 +85,9 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
   doCheck = true;
 
-  passthru.tests = { nixos = nixosTests.powerdns; };
+  passthru.tests = {
+    nixos = nixosTests.powerdns;
+  };
 
   meta = with lib; {
     description = "Authoritative DNS server";

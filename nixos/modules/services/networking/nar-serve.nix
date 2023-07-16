@@ -10,7 +10,9 @@ let
   cfg = config.services.nar-serve;
 in
 {
-  meta = { maintainers = [ maintainers.rizary ]; };
+  meta = {
+    maintainers = [ maintainers.rizary ];
+  };
   options = {
     services.nar-serve = {
       enable = mkEnableOption (lib.mdDoc "Serve NAR file contents via HTTP");

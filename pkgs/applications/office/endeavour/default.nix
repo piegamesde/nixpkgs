@@ -57,7 +57,9 @@ stdenv.mkDerivation rec {
     libical
   ];
 
-  passthru = { updateScript = gitUpdater { }; };
+  passthru = {
+    updateScript = gitUpdater { };
+  };
 
   meta = with lib; {
     description = "Personal task manager for GNOME";

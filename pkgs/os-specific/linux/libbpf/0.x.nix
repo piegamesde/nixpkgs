@@ -36,7 +36,9 @@ stdenv.mkDerivation rec {
     "-C src"
   ];
 
-  passthru.tests = { bpf = nixosTests.bpf; };
+  passthru.tests = {
+    bpf = nixosTests.bpf;
+  };
 
   postInstall = ''
     # install linux's libbpf-compatible linux/btf.h

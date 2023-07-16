@@ -119,7 +119,9 @@ in
         "nss-user-lookup.target"
       ];
 
-      environment = { LD_LIBRARY_PATH = nssModulesPath; };
+      environment = {
+        LD_LIBRARY_PATH = nssModulesPath;
+      };
 
       restartTriggers = lib.optionals (!cfg.enableNsncd) (
         [

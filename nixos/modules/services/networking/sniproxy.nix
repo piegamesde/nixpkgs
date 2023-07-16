@@ -94,7 +94,9 @@ in
     };
 
     users.groups = mkIf (cfg.group == "sniproxy") {
-      sniproxy = { gid = config.ids.gids.sniproxy; };
+      sniproxy = {
+        gid = config.ids.gids.sniproxy;
+      };
     };
   };
 }

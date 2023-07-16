@@ -66,7 +66,9 @@ in
           {
             name = "cargo-check-hook.sh";
             propagatedBuildInputs = [ cargo ];
-            substitutions = { inherit rustTargetPlatformSpec; };
+            substitutions = {
+              inherit rustTargetPlatformSpec;
+            };
           }
           ./cargo-check-hook.sh
       )
@@ -81,7 +83,9 @@ in
           {
             name = "cargo-install-hook.sh";
             propagatedBuildInputs = [ ];
-            substitutions = { inherit shortTarget; };
+            substitutions = {
+              inherit shortTarget;
+            };
           }
           ./cargo-install-hook.sh
       )
@@ -99,7 +103,9 @@ in
               cargo
               cargo-nextest
             ];
-            substitutions = { inherit rustTargetPlatformSpec; };
+            substitutions = {
+              inherit rustTargetPlatformSpec;
+            };
           }
           ./cargo-nextest-hook.sh
       )

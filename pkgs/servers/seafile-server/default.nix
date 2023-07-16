@@ -70,7 +70,9 @@ stdenv.mkDerivation rec {
     cp -r scripts/sql $out/share/seafile
   '';
 
-  passthru.tests = { inherit (nixosTests) seafile; };
+  passthru.tests = {
+    inherit (nixosTests) seafile;
+  };
 
   meta = with lib; {
     description = "File syncing and sharing software with file encryption and group sharing, emphasis on reliability and high performance";

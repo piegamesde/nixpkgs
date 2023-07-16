@@ -199,7 +199,9 @@ let
               (
                 e: ret:
                 ret // {
-                  "${e.extid}" = { installation_mode = "allowed"; };
+                  "${e.extid}" = {
+                    installation_mode = "allowed";
+                  };
                 }
               )
               { }
@@ -212,7 +214,9 @@ let
             ;
           };
         } // lib.optionalAttrs smartcardSupport {
-          SecurityDevices = { "OpenSC PKCS#11 Module" = "opensc-pkcs11.so"; };
+          SecurityDevices = {
+            "OpenSC PKCS#11 Module" = "opensc-pkcs11.so";
+          };
         } // extraPolicies;
       };
 
@@ -495,7 +499,9 @@ let
       ;
       gtk_modules = map (x: x + x.gtkModule) gtk_modules;
 
-      passthru = { unwrapped = browser; };
+      passthru = {
+        unwrapped = browser;
+      };
 
       disallowedRequisites = [ stdenv.cc ];
 

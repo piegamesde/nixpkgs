@@ -37,7 +37,9 @@ let
 
     nativeBuildInputs = [ makeWrapper ];
 
-    passthru = { inherit wrap wrapWithBuildEnv; };
+    passthru = {
+      inherit wrap wrapWithBuildEnv;
+    };
 
     preConfigure = ''
       makeFlags="$makeFlags prefix=$out"

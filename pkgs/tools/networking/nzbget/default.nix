@@ -38,7 +38,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.tests = { inherit (nixosTests) nzbget; };
+  passthru.tests = {
+    inherit (nixosTests) nzbget;
+  };
 
   meta = with lib; {
     homepage = "https://nzbget.net";

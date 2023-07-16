@@ -148,7 +148,9 @@ python.pkgs.pythonPackages.buildPythonPackage rec {
 
     updateScript = ./update.sh;
 
-    tests = { inherit (nixosTests) tandoor-recipes; };
+    tests = {
+      inherit (nixosTests) tandoor-recipes;
+    };
   };
 
   meta = common.meta // {

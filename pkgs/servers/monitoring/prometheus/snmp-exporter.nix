@@ -23,7 +23,9 @@ buildGoModule rec {
 
   doCheck = true;
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) snmp; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) snmp;
+  };
 
   meta = with lib; {
     description = "SNMP Exporter for Prometheus";

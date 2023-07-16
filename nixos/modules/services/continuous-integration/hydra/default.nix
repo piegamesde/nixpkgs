@@ -248,7 +248,9 @@ in
 
   config = mkIf cfg.enable {
 
-    users.groups.hydra = { gid = config.ids.gids.hydra; };
+    users.groups.hydra = {
+      gid = config.ids.gids.hydra;
+    };
 
     users.users.hydra = {
       description = "Hydra";

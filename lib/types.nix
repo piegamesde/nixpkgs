@@ -557,7 +557,9 @@ let
         description = "attribute set";
         check = isAttrs;
         merge = loc: foldl' (res: def: res // def.value) { };
-        emptyValue = { value = { }; };
+        emptyValue = {
+          value = { };
+        };
       };
 
       # A package is a top-level store path (/nix/store/hash-name). This includes:
@@ -639,7 +641,9 @@ let
               )
             )
           ;
-          emptyValue = { value = [ ]; };
+          emptyValue = {
+            value = [ ];
+          };
           getSubOptions = prefix: elemType.getSubOptions (prefix ++ [ "*" ]);
           getSubModules = elemType.getSubModules;
           substSubModules = m: listOf (elemType.substSubModules m);
@@ -699,7 +703,9 @@ let
               )
             )
           ;
-          emptyValue = { value = { }; };
+          emptyValue = {
+            value = { };
+          };
           getSubOptions =
             prefix: elemType.getSubOptions (prefix ++ [ "<name>" ]);
           getSubModules = elemType.getSubModules;
@@ -752,7 +758,9 @@ let
                   defs
               )
           ;
-          emptyValue = { value = { }; };
+          emptyValue = {
+            value = { };
+          };
           getSubOptions =
             prefix: elemType.getSubOptions (prefix ++ [ "<name>" ]);
           getSubModules = elemType.getSubModules;
@@ -839,7 +847,9 @@ let
             else
               elemType.merge loc defs
           ;
-          emptyValue = { value = null; };
+          emptyValue = {
+            value = null;
+          };
           getSubOptions = elemType.getSubOptions;
           getSubModules = elemType.getSubModules;
           substSubModules = m: nullOr (elemType.substSubModules m);
@@ -927,7 +937,9 @@ let
             m: deferredModuleWith (attrs // { staticModules = m; });
           functor = defaultFunctor "deferredModuleWith" // {
             type = types.deferredModuleWith;
-            payload = { inherit staticModules; };
+            payload = {
+              inherit staticModules;
+            };
             binOp =
               lhs: rhs: {
                 staticModules = lhs.staticModules ++ rhs.staticModules;
@@ -1055,7 +1067,9 @@ let
               prefix = loc;
             }).config
           ;
-          emptyValue = { value = { }; };
+          emptyValue = {
+            value = { };
+          };
           getSubOptions =
             prefix:
             (base.extendModules { inherit prefix; }).options

@@ -8,7 +8,9 @@ import ./make-test-python.nix (
   in
   {
     name = "opentabletdriver";
-    meta = { maintainers = with pkgs.lib.maintainers; [ thiagokokada ]; };
+    meta = {
+      maintainers = with pkgs.lib.maintainers; [ thiagokokada ];
+    };
 
     nodes.machine =
       {

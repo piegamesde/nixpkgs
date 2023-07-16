@@ -21,7 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-ucSC5aTvpnlAVQcT0afVecnoN3hIZKtzUhEQ6Qg0jQM=";
   };
 
-  passthru.optional-dependencies = { with-fonttools = [ fonttools ]; };
+  passthru.optional-dependencies = {
+    with-fonttools = [ fonttools ];
+  };
 
   nativeCheckInputs = [ pytestCheckHook ];
 

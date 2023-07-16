@@ -209,7 +209,9 @@ stdenv.mkDerivation rec {
 
   passthru = {
     inherit goBootstrap skopeoTest;
-    tests = { skopeo = testers.testVersion { package = skopeoTest; }; };
+    tests = {
+      skopeo = testers.testVersion { package = skopeoTest; };
+    };
   };
 
   meta = with lib; {

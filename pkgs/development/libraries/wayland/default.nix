@@ -123,7 +123,9 @@ stdenv.mkDerivation rec {
     EOF
   '';
 
-  passthru = { inherit withLibraries; };
+  passthru = {
+    inherit withLibraries;
+  };
 
   meta = with lib; {
     description = "Core Wayland window system code and protocol";

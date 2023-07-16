@@ -89,7 +89,9 @@ python3.pkgs.buildPythonApplication rec {
     wrapPythonProgramsIn "$out/${python3.sitePackages}/cambalache/priv/merengue" "$out $pythonPath"
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/jpu/cambalache";

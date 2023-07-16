@@ -150,7 +150,9 @@ pkgs.recurseIntoAttrs (rec {
 
   nvim_with_ftplugin = neovim.override {
     extraName = "-with-ftplugin";
-    configure.packages.plugins = { start = [ texFtplugin ]; };
+    configure.packages.plugins = {
+      start = [ texFtplugin ];
+    };
   };
 
   # regression test that ftplugin files from plugins are loaded before the ftplugin
@@ -190,7 +192,9 @@ pkgs.recurseIntoAttrs (rec {
 
   nvim_with_gitsigns_plugin = neovim.override {
     extraName = "-with-gitsigns-plugin";
-    configure.packages.plugins = { start = [ vimPlugins.gitsigns-nvim ]; };
+    configure.packages.plugins = {
+      start = [ vimPlugins.gitsigns-nvim ];
+    };
   };
   checkHelpLuaPackages = runTest nvim_with_gitsigns_plugin ''
     export HOME=$TMPDIR

@@ -90,7 +90,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.tests = { nginx-modsecurity = nixosTests.nginx-modsecurity; };
+  passthru.tests = {
+    nginx-modsecurity = nixosTests.nginx-modsecurity;
+  };
 
   meta = with lib; {
     homepage = "https://github.com/SpiderLabs/ModSecurity";

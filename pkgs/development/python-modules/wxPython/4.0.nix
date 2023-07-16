@@ -98,7 +98,9 @@ buildPythonPackage rec {
     ${python.pythonForBuild.interpreter} setup.py install --skip-build --prefix=$out
   '';
 
-  passthru = { wxWidgets = wxGTK; };
+  passthru = {
+    wxWidgets = wxGTK;
+  };
 
   meta = {
     description = "Cross platform GUI toolkit for Python, Phoenix version";

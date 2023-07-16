@@ -41,7 +41,9 @@ stdenv.mkDerivation rec {
 
   doCheck = !stdenv.isDarwin;
 
-  passthru.tests = { test = nixosTests.nbd; };
+  passthru.tests = {
+    test = nixosTests.nbd;
+  };
 
   meta = {
     homepage = "https://nbd.sourceforge.io/";

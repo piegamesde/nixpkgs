@@ -260,7 +260,9 @@ in
     };
 
     users.groups = optionalAttrs (cfg.user == defaultUser) {
-      ${defaultUser} = { members = [ defaultUser ]; };
+      ${defaultUser} = {
+        members = [ defaultUser ];
+      };
     };
   };
 }

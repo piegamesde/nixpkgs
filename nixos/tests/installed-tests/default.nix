@@ -42,7 +42,9 @@ let
         rec {
           name = tested.name;
 
-          meta = { maintainers = tested.meta.maintainers or [ ]; };
+          meta = {
+            maintainers = tested.meta.maintainers or [ ];
+          };
 
           nodes.machine =
             {

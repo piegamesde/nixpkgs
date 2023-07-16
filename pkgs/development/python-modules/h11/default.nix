@@ -24,7 +24,9 @@ buildPythonPackage rec {
   # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;
 
-  passthru.tests = { inherit httpcore httpx wsproto; };
+  passthru.tests = {
+    inherit httpcore httpx wsproto;
+  };
 
   meta = with lib; {
     description = "Pure-Python, bring-your-own-I/O implementation of HTTP/1.1";

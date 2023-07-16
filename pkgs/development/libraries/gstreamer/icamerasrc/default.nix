@@ -47,7 +47,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru = { inherit (ipu6-camera-hal) ipuVersion; };
+  passthru = {
+    inherit (ipu6-camera-hal) ipuVersion;
+  };
 
   meta = with lib; {
     description = "GStreamer Plugin for MIPI camera support through the IPU6/IPU6EP/IPU6SE on Intel Tigerlake/Alderlake/Jasperlake platforms";

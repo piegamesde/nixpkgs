@@ -55,7 +55,9 @@ stdenv.mkDerivation {
     mv $OCAMLFIND_DESTDIR/llvm/stublibs $OCAMLFIND_DESTDIR/stublibs
   '';
 
-  passthru = { inherit libllvm; };
+  passthru = {
+    inherit libllvm;
+  };
 
   meta = {
     inherit (libllvm.meta) license homepage;

@@ -142,7 +142,9 @@ in
 {
   justThePackage = makeTest {
     name = "atop-justThePackage";
-    nodes.machine = { environment.systemPackages = [ pkgs.atop ]; };
+    nodes.machine = {
+      environment.systemPackages = [ pkgs.atop ];
+    };
     testScript =
       with assertions;
       builtins.concatStringsSep "\n" [
@@ -159,7 +161,11 @@ in
   };
   defaults = makeTest {
     name = "atop-defaults";
-    nodes.machine = { programs.atop = { enable = true; }; };
+    nodes.machine = {
+      programs.atop = {
+        enable = true;
+      };
+    };
     testScript =
       with assertions;
       builtins.concatStringsSep "\n" [

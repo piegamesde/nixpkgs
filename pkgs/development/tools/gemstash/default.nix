@@ -12,7 +12,9 @@ bundlerApp rec {
 
   passthru = {
     updateScript = bundlerUpdateScript pname;
-    tests = { inherit (nixosTests) gemstash; };
+    tests = {
+      inherit (nixosTests) gemstash;
+    };
   };
 
   meta = with lib; {

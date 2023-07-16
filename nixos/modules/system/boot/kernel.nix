@@ -342,7 +342,9 @@ in
     })
 
     (mkIf config.boot.kernel.enable {
-      system.build = { inherit kernel; };
+      system.build = {
+        inherit kernel;
+      };
 
       system.modulesTree = [ kernel ] ++ config.boot.extraModulePackages;
 

@@ -273,7 +273,9 @@ in
         done
       '';
 
-      serviceConfig = { User = cfg.user; };
+      serviceConfig = {
+        User = cfg.user;
+      };
     };
   };
 }

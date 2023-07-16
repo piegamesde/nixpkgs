@@ -42,7 +42,9 @@ buildPythonPackage rec {
     voluptuous
   ];
 
-  passthru.optional-dependencies = { mqtt-client = [ paho-mqtt ]; };
+  passthru.optional-dependencies = {
+    mqtt-client = [ paho-mqtt ];
+  };
 
   nativeCheckInputs = [
     pytest-sugar

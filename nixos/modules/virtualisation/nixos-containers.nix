@@ -354,7 +354,9 @@ let
         };
       };
 
-      config = { mountPoint = mkDefault name; };
+      config = {
+        mountPoint = mkDefault name;
+      };
     }
   ;
 

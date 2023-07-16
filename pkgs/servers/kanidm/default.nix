@@ -81,7 +81,9 @@ rustPlatform.buildRustPackage rec {
     mv $out/lib/libpam_kanidm.so $out/lib/pam_kanidm.so
   '';
 
-  passthru.tests = { inherit (nixosTests) kanidm; };
+  passthru.tests = {
+    inherit (nixosTests) kanidm;
+  };
 
   meta = with lib; {
     description = "A simple, secure and fast identity management platform";

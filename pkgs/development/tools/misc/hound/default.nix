@@ -37,7 +37,9 @@ buildGoModule rec {
     }
   '';
 
-  passthru.tests = { inherit (nixosTests) hound; };
+  passthru.tests = {
+    inherit (nixosTests) hound;
+  };
 
   meta = with lib; {
     description = "Lightning fast code searching made easy";

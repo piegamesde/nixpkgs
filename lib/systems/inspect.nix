@@ -23,7 +23,9 @@ rec {
     # `lib.attrsets.matchAttrs`, which requires a match on *all* attributes of
     # the product.
 
-    isi686 = { cpu = cpuTypes.i686; };
+    isi686 = {
+      cpu = cpuTypes.i686;
+    };
     isx86_32 = {
       cpu = {
         family = "x86";
@@ -36,7 +38,11 @@ rec {
         bits = 64;
       };
     };
-    isPower = { cpu = { family = "power"; }; };
+    isPower = {
+      cpu = {
+        family = "power";
+      };
+    };
     isPower64 = {
       cpu = {
         family = "power";
@@ -47,16 +53,26 @@ rec {
     # so it sometimes causes issues in certain packages that makes the wrong
     # assumption on the used ABI.
     isAbiElfv2 = [
-      { abi = { abi = "elfv2"; }; }
       {
-        abi = { name = "musl"; };
+        abi = {
+          abi = "elfv2";
+        };
+      }
+      {
+        abi = {
+          name = "musl";
+        };
         cpu = {
           family = "power";
           bits = 64;
         };
       }
     ];
-    isx86 = { cpu = { family = "x86"; }; };
+    isx86 = {
+      cpu = {
+        family = "x86";
+      };
+    };
     isAarch32 = {
       cpu = {
         family = "arm";
@@ -71,7 +87,9 @@ rec {
             ...
           }:
           {
-            cpu = { inherit arch; };
+            cpu = {
+              inherit arch;
+            };
           }
         )
         (
@@ -86,9 +104,21 @@ rec {
         bits = 64;
       };
     };
-    isAarch = { cpu = { family = "arm"; }; };
-    isMicroBlaze = { cpu = { family = "microblaze"; }; };
-    isMips = { cpu = { family = "mips"; }; };
+    isAarch = {
+      cpu = {
+        family = "arm";
+      };
+    };
+    isMicroBlaze = {
+      cpu = {
+        family = "microblaze";
+      };
+    };
+    isMips = {
+      cpu = {
+        family = "mips";
+      };
+    };
     isMips32 = {
       cpu = {
         family = "mips";
@@ -106,17 +136,29 @@ rec {
         family = "mips";
         bits = 64;
       };
-      abi = { abi = "n32"; };
+      abi = {
+        abi = "n32";
+      };
     };
     isMips64n64 = {
       cpu = {
         family = "mips";
         bits = 64;
       };
-      abi = { abi = "64"; };
+      abi = {
+        abi = "64";
+      };
     };
-    isMmix = { cpu = { family = "mmix"; }; };
-    isRiscV = { cpu = { family = "riscv"; }; };
+    isMmix = {
+      cpu = {
+        family = "mmix";
+      };
+    };
+    isRiscV = {
+      cpu = {
+        family = "riscv";
+      };
+    };
     isRiscV32 = {
       cpu = {
         family = "riscv";
@@ -129,16 +171,56 @@ rec {
         bits = 64;
       };
     };
-    isRx = { cpu = { family = "rx"; }; };
-    isSparc = { cpu = { family = "sparc"; }; };
-    isWasm = { cpu = { family = "wasm"; }; };
-    isMsp430 = { cpu = { family = "msp430"; }; };
-    isVc4 = { cpu = { family = "vc4"; }; };
-    isAvr = { cpu = { family = "avr"; }; };
-    isAlpha = { cpu = { family = "alpha"; }; };
-    isOr1k = { cpu = { family = "or1k"; }; };
-    isM68k = { cpu = { family = "m68k"; }; };
-    isS390 = { cpu = { family = "s390"; }; };
+    isRx = {
+      cpu = {
+        family = "rx";
+      };
+    };
+    isSparc = {
+      cpu = {
+        family = "sparc";
+      };
+    };
+    isWasm = {
+      cpu = {
+        family = "wasm";
+      };
+    };
+    isMsp430 = {
+      cpu = {
+        family = "msp430";
+      };
+    };
+    isVc4 = {
+      cpu = {
+        family = "vc4";
+      };
+    };
+    isAvr = {
+      cpu = {
+        family = "avr";
+      };
+    };
+    isAlpha = {
+      cpu = {
+        family = "alpha";
+      };
+    };
+    isOr1k = {
+      cpu = {
+        family = "or1k";
+      };
+    };
+    isM68k = {
+      cpu = {
+        family = "m68k";
+      };
+    };
+    isS390 = {
+      cpu = {
+        family = "s390";
+      };
+    };
     isS390x = {
       cpu = {
         family = "s390";
@@ -151,23 +233,57 @@ rec {
         bits = 64;
       };
     };
-    isJavaScript = { cpu = cpuTypes.javascript; };
-
-    is32bit = { cpu = { bits = 32; }; };
-    is64bit = { cpu = { bits = 64; }; };
-    isILP32 = map (a: { abi = { abi = a; }; }) [
-      "n32"
-      "ilp32"
-      "x32"
-    ];
-    isBigEndian = { cpu = { significantByte = significantBytes.bigEndian; }; };
-    isLittleEndian = {
-      cpu = { significantByte = significantBytes.littleEndian; };
+    isJavaScript = {
+      cpu = cpuTypes.javascript;
     };
 
-    isBSD = { kernel = { families = { inherit (kernelFamilies) bsd; }; }; };
+    is32bit = {
+      cpu = {
+        bits = 32;
+      };
+    };
+    is64bit = {
+      cpu = {
+        bits = 64;
+      };
+    };
+    isILP32 =
+      map
+        (a: {
+          abi = {
+            abi = a;
+          };
+        })
+        [
+          "n32"
+          "ilp32"
+          "x32"
+        ]
+    ;
+    isBigEndian = {
+      cpu = {
+        significantByte = significantBytes.bigEndian;
+      };
+    };
+    isLittleEndian = {
+      cpu = {
+        significantByte = significantBytes.littleEndian;
+      };
+    };
+
+    isBSD = {
+      kernel = {
+        families = {
+          inherit (kernelFamilies) bsd;
+        };
+      };
+    };
     isDarwin = {
-      kernel = { families = { inherit (kernelFamilies) darwin; }; };
+      kernel = {
+        families = {
+          inherit (kernelFamilies) darwin;
+        };
+      };
     };
     isUnix = [
       isBSD
@@ -178,14 +294,32 @@ rec {
       isRedox
     ];
 
-    isMacOS = { kernel = kernels.macos; };
-    isiOS = { kernel = kernels.ios; };
-    isLinux = { kernel = kernels.linux; };
-    isSunOS = { kernel = kernels.solaris; };
-    isFreeBSD = { kernel = { name = "freebsd"; }; };
-    isNetBSD = { kernel = kernels.netbsd; };
-    isOpenBSD = { kernel = kernels.openbsd; };
-    isWindows = { kernel = kernels.windows; };
+    isMacOS = {
+      kernel = kernels.macos;
+    };
+    isiOS = {
+      kernel = kernels.ios;
+    };
+    isLinux = {
+      kernel = kernels.linux;
+    };
+    isSunOS = {
+      kernel = kernels.solaris;
+    };
+    isFreeBSD = {
+      kernel = {
+        name = "freebsd";
+      };
+    };
+    isNetBSD = {
+      kernel = kernels.netbsd;
+    };
+    isOpenBSD = {
+      kernel = kernels.openbsd;
+    };
+    isWindows = {
+      kernel = kernels.windows;
+    };
     isCygwin = {
       kernel = kernels.windows;
       abi = abis.cygnus;
@@ -194,11 +328,21 @@ rec {
       kernel = kernels.windows;
       abi = abis.gnu;
     };
-    isWasi = { kernel = kernels.wasi; };
-    isRedox = { kernel = kernels.redox; };
-    isGhcjs = { kernel = kernels.ghcjs; };
-    isGenode = { kernel = kernels.genode; };
-    isNone = { kernel = kernels.none; };
+    isWasi = {
+      kernel = kernels.wasi;
+    };
+    isRedox = {
+      kernel = kernels.redox;
+    };
+    isGhcjs = {
+      kernel = kernels.ghcjs;
+    };
+    isGenode = {
+      kernel = kernels.genode;
+    };
+    isNone = {
+      kernel = kernels.none;
+    };
 
     isAndroid = [
       { abi = abis.android; }
@@ -253,8 +397,16 @@ rec {
           version = "8";
         };
       }
-      { cpu = { family = "riscv"; }; }
-      { cpu = { family = "x86"; }; }
+      {
+        cpu = {
+          family = "riscv";
+        };
+      }
+      {
+        cpu = {
+          family = "x86";
+        };
+      }
     ];
   };
 
@@ -274,6 +426,8 @@ rec {
   # apply only to the `parsed` field.
 
   platformPatterns = mapAttrs (_: p: { parsed = { }; } // p) {
-    isStatic = { isStatic = true; };
+    isStatic = {
+      isStatic = true;
+    };
   };
 }

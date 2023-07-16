@@ -114,7 +114,9 @@ stdenv.mkDerivation rec {
     rm "$out/share/lighttpd/doc/config/vhosts.d/Makefile"*
   '';
 
-  passthru.tests = { inherit (nixosTests) lighttpd; };
+  passthru.tests = {
+    inherit (nixosTests) lighttpd;
+  };
 
   meta = with lib; {
     description = "Lightweight high-performance web server";

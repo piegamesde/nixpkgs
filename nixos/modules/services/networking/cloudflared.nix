@@ -280,7 +280,11 @@ in
       example = {
         "00000000-0000-0000-0000-000000000000" = {
           credentialsFile = "/tmp/test";
-          ingress = { "*.domain1.com" = { service = "http://localhost:80"; }; };
+          ingress = {
+            "*.domain1.com" = {
+              service = "http://localhost:80";
+            };
+          };
           default = "http_status:404";
         };
       };

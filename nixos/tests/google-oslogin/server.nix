@@ -12,7 +12,9 @@ in
     description = "Mock Google metadata service";
     serviceConfig.Type = "simple";
     serviceConfig.ExecStart = "${pkgs.python3}/bin/python ${./server.py}";
-    environment = { SNAKEOIL_PUBLIC_KEY = snakeOilPublicKey; };
+    environment = {
+      SNAKEOIL_PUBLIC_KEY = snakeOilPublicKey;
+    };
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
   };

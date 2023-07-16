@@ -79,5 +79,7 @@ in
     ;
   };
 
-  meta = { maintainers = with maintainers; [ jojosch ]; };
+  meta = {
+    maintainers = with maintainers; [ jojosch ];
+  };
 }

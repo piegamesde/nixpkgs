@@ -143,7 +143,9 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  passthru = { inherit cudaSupport cudatoolkit; };
+  passthru = {
+    inherit cudaSupport cudatoolkit;
+  };
 
   meta = with lib; {
     homepage = "https://www.open-mpi.org/";

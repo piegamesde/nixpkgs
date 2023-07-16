@@ -63,7 +63,9 @@ let
 in
 stdenv.mkDerivation {
   name = "test-patch-shebangs";
-  passthru = { inherit (tests) bad-shebang ignores-nix-store split-string; };
+  passthru = {
+    inherit (tests) bad-shebang ignores-nix-store split-string;
+  };
   buildCommand = ''
     validate() {
       local name=$1

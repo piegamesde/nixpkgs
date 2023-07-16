@@ -86,5 +86,7 @@ in
     };
   };
 
-  config = { services.xserver.displayManager.session = cfg.session; };
+  config = {
+    services.xserver.displayManager.session = cfg.session;
+  };
 }

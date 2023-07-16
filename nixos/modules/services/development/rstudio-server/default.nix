@@ -109,7 +109,9 @@ in
         description = "rstudio-server";
         group = "rstudio-server";
       };
-      groups.rstudio-server = { gid = config.ids.gids.rstudio-server; };
+      groups.rstudio-server = {
+        gid = config.ids.gids.rstudio-server;
+      };
     };
   };
 }

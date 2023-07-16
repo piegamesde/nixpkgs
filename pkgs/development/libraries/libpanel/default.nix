@@ -54,7 +54,9 @@ stdenv.mkDerivation rec {
     moveToOutput "share/doc" "$devdoc"
   '';
 
-  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
+  passthru = {
+    updateScript = gnome.updateScript { packageName = pname; };
+  };
 
   meta = with lib; {
     description = "Dock/panel library for GTK 4";

@@ -30,7 +30,9 @@ buildGoPackage rec {
     install -Dm755 bin/* bin/functional/cmd/* -t $out/bin
   '';
 
-  passthru.tests = { inherit (nixosTests) etcd etcd-cluster; };
+  passthru.tests = {
+    inherit (nixosTests) etcd etcd-cluster;
+  };
 
   meta = with lib; {
     description = "Distributed reliable key-value store for the most critical data of a distributed system";

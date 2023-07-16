@@ -51,7 +51,9 @@ buildGoModule {
     runHook postInstallCheck
   '';
 
-  passthru = { inherit shellPath; };
+  passthru = {
+    inherit shellPath;
+  };
 
   meta = {
     homepage = "https://elv.sh/";

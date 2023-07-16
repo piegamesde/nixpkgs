@@ -19,7 +19,9 @@ import ./make-test-python.nix (
           jq
         ];
 
-        services.haste-server = { enable = true; };
+        services.haste-server = {
+          enable = true;
+        };
       }
     ;
 

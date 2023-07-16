@@ -29,7 +29,9 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   passthru = {
-    tests = { inherit (nixosTests) cloudlog; };
+    tests = {
+      inherit (nixosTests) cloudlog;
+    };
     updateScript = nix-update-script { };
   };
 

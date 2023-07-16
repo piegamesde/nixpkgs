@@ -296,7 +296,9 @@ in
             }
           )
         ;
-        default = { default = { }; };
+        default = {
+          default = { };
+        };
         description = lib.mdDoc ''
           The definition for an input source.
         '';
@@ -365,5 +367,7 @@ in
     ;
   };
 
-  meta = { maintainers = with maintainers; [ tobim ]; };
+  meta = {
+    maintainers = with maintainers; [ tobim ];
+  };
 }

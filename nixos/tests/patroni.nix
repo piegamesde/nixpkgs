@@ -70,9 +70,15 @@ import ./make-test-python.nix (
               use_pg_rewind = true;
               use_slots = true;
               authentication = {
-                replication = { username = "replicator"; };
-                superuser = { username = "postgres"; };
-                rewind = { username = "rewind"; };
+                replication = {
+                  username = "replicator";
+                };
+                superuser = {
+                  username = "postgres";
+                };
+                rewind = {
+                  username = "rewind";
+                };
               };
               parameters = {
                 listen_addresses = "${ip}";
@@ -87,7 +93,9 @@ import ./make-test-python.nix (
               ];
             };
 
-            etcd3 = { host = "192.168.1.4:2379"; };
+            etcd3 = {
+              host = "192.168.1.4:2379";
+            };
           };
 
           environmentFiles = {

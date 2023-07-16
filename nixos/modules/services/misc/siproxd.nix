@@ -176,7 +176,9 @@ in
 
   config = mkIf cfg.enable {
 
-    users.users.siproxyd = { uid = config.ids.uids.siproxd; };
+    users.users.siproxyd = {
+      uid = config.ids.uids.siproxd;
+    };
 
     systemd.services.siproxd = {
       description = "SIP proxy/masquerading daemon";

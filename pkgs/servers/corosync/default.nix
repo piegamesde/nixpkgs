@@ -91,7 +91,9 @@ stdenv.mkDerivation rec {
       --prefix PATH ":" "$out/sbin:${libqb}/sbin"
   '';
 
-  passthru.tests = { inherit (nixosTests) pacemaker; };
+  passthru.tests = {
+    inherit (nixosTests) pacemaker;
+  };
 
   meta = {
     homepage = "http://corosync.org/";

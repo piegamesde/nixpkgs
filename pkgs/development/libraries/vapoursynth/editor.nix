@@ -43,7 +43,9 @@ let
       done
     '';
 
-    passthru = { inherit withPlugins; };
+    passthru = {
+      inherit withPlugins;
+    };
 
     meta = with lib; {
       description = "Cross-platform editor for VapourSynth scripts";

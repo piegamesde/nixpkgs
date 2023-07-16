@@ -21,7 +21,9 @@ let
         pkgsModule
         ../etc/etc.nix
       ];
-      environment.etc."passwd" = { text = passwdText; };
+      environment.etc."passwd" = {
+        text = passwdText;
+      };
       environment.etc."hosts" = {
         text = hostsText;
         mode = "0751";

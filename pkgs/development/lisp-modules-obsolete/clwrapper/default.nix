@@ -53,7 +53,9 @@ stdenv.mkDerivation {
 
   ASDF_OUTPUT_TRANSLATIONS = "${builtins.storeDir}/:${builtins.storeDir}";
 
-  passthru = { inherit lisp; };
+  passthru = {
+    inherit lisp;
+  };
 
   meta = {
     description = "Script used to wrap Common Lisp implementations";

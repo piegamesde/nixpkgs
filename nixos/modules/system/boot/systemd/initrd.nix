@@ -199,7 +199,9 @@ in
         )
       ;
       default = { };
-      example = { SYSTEMD_LOG_LEVEL = "debug"; };
+      example = {
+        SYSTEMD_LOG_LEVEL = "debug";
+      };
       description = lib.mdDoc ''
         Environment variables of PID 1. These variables are
         *not* passed to started units.
@@ -402,7 +404,9 @@ in
   };
 
   config = mkIf (config.boot.initrd.enable && cfg.enable) {
-    system.build = { inherit initialRamdisk; };
+    system.build = {
+      inherit initialRamdisk;
+    };
 
     boot.initrd.availableKernelModules =
       [

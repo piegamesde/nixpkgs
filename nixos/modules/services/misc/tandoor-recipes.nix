@@ -71,7 +71,9 @@ in
         See [the example dot-env file](https://raw.githubusercontent.com/vabene1111/recipes/master/.env.template)
         for available options.
       '';
-      example = { ENABLE_SIGNUP = "1"; };
+      example = {
+        ENABLE_SIGNUP = "1";
+      };
     };
 
     package = mkOption {

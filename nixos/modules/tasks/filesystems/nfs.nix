@@ -80,7 +80,9 @@ in
             Nobody-User = "nobody";
             Nobody-Group = "nogroup";
           };
-          Translation = { Method = "nsswitch"; };
+          Translation = {
+            Method = "nsswitch";
+          };
         };
 
         system.fsPackages = [ pkgs.nfs-utils ];
@@ -97,7 +99,9 @@ in
           "request-key.conf".source = requestKeyConfFile;
         };
 
-        systemd.services.nfs-blkmap = { restartTriggers = [ nfsConfFile ]; };
+        systemd.services.nfs-blkmap = {
+          restartTriggers = [ nfsConfFile ];
+        };
 
         systemd.targets.nfs-client = {
           wantedBy = [
@@ -106,7 +110,9 @@ in
           ];
         };
 
-        systemd.services.nfs-idmapd = { restartTriggers = [ idmapdConfFile ]; };
+        systemd.services.nfs-idmapd = {
+          restartTriggers = [ idmapdConfFile ];
+        };
 
         systemd.services.nfs-mountd = {
           restartTriggers = [ nfsConfFile ];

@@ -131,6 +131,8 @@ stdenv.mkDerivation rec {
 
   passthru = {
     shellPath = "/bin/nologin";
-    tests = { inherit (nixosTests) shadow; };
+    tests = {
+      inherit (nixosTests) shadow;
+    };
   };
 }

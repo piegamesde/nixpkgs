@@ -74,5 +74,7 @@ stdenv.mkDerivation rec {
     license = licenses.asl20;
   };
 
-  passthru.tests = { inherit emscripten; };
+  passthru.tests = {
+    inherit emscripten;
+  };
 }

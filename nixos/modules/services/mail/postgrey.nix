@@ -234,7 +234,11 @@ in
           group = "postgrey";
         };
       };
-      groups = { postgrey = { gid = config.ids.gids.postgrey; }; };
+      groups = {
+        postgrey = {
+          gid = config.ids.gids.postgrey;
+        };
+      };
     };
 
     systemd.services.postgrey =

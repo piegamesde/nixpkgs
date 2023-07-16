@@ -30,7 +30,9 @@ buildPythonPackage rec {
     webencodings
   ];
 
-  passthru.optional-dependencies = { css = [ tinycss2 ]; };
+  passthru.optional-dependencies = {
+    css = [ tinycss2 ];
+  };
 
   nativeCheckInputs = [ pytestCheckHook ];
 

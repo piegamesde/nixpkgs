@@ -123,7 +123,9 @@ in
     xml = mk "dialplans/mod_dialplan_xml" [ ];
   };
 
-  directories = { ldap = mk "directories/mod_ldap" [ ]; };
+  directories = {
+    ldap = mk "directories/mod_ldap" [ ];
+  };
 
   endpoints = {
     alsa = mk "endpoints/mod_alsa" [ ];

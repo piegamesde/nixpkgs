@@ -29,7 +29,9 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
   strictDeps = true;
 
-  passthru.tests = { inherit (nixosTests) podman; };
+  passthru.tests = {
+    inherit (nixosTests) podman;
+  };
 
   meta = with lib; {
     description = "FUSE implementation for overlayfs";

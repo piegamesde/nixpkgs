@@ -59,7 +59,13 @@ in
 mapAliases ({
   # Added 2018-07-16 preserve, reason: forceSystem should not be used directly in Nixpkgs.
   forceSystem =
-    system: _: (import self.path { localSystem = { inherit system; }; });
+    system: _:
+    (import self.path {
+      localSystem = {
+        inherit system;
+      };
+    })
+  ;
 
   _0x0 =
     throw
@@ -4471,7 +4477,9 @@ mapAliases ({
   ### V ###
 
   v4l_utils = v4l-utils; # Added 2019-08-07
-  vamp = { vampSDK = vamp-plugin-sdk; }; # Added 2020-03-26
+  vamp = {
+    vampSDK = vamp-plugin-sdk;
+  }; # Added 2020-03-26
   vapor =
     throw
       "vapor was removed because it was unmaintained and upstream service no longer exists"

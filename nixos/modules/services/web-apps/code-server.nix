@@ -42,7 +42,9 @@ in
             "Additional environment variables to passed to code-server."
         ;
         default = { };
-        example = { PKG_CONFIG_PATH = "/run/current-system/sw/lib/pkgconfig"; };
+        example = {
+          PKG_CONFIG_PATH = "/run/current-system/sw/lib/pkgconfig";
+        };
       };
 
       extraArguments = mkOption {

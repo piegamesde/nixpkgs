@@ -14,7 +14,9 @@ let
   allPkgs = import ../default.nix {
     system = stdenv.hostPlatform.system;
     localSystem = stdenv.hostPlatform.system;
-    config = { allowUnsupportedSystem = true; };
+    config = {
+      allowUnsupportedSystem = true;
+    };
     overlays = [ ];
   };
 in

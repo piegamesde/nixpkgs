@@ -65,7 +65,9 @@ stdenvNoCC.mkDerivation rec {
     )
   '';
 
-  passthru = { updateScript = ./update.sh; };
+  passthru = {
+    updateScript = ./update.sh;
+  };
 
   meta = with lib; {
     description = "Convenience script to run a virtualized X-Server";

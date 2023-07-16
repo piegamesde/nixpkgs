@@ -564,7 +564,9 @@ rec {
     runCommand "${baseNameOf name}.tar.gz"
       {
         inherit (stream) imageName;
-        passthru = { inherit (stream) imageTag; };
+        passthru = {
+          inherit (stream) imageTag;
+        };
         nativeBuildInputs = [ pigz ];
       }
       "${stream} | pigz -nTR > $out"
@@ -1410,7 +1412,9 @@ rec {
     runCommand "${drv.name}-env.tar.gz"
       {
         inherit (stream) imageName;
-        passthru = { inherit (stream) imageTag; };
+        passthru = {
+          inherit (stream) imageTag;
+        };
         nativeBuildInputs = [ pigz ];
       }
       "${stream} | pigz -nTR > $out"

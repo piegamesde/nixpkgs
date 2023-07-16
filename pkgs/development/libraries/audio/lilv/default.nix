@@ -43,7 +43,9 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ lv2 ];
   dontAddWafCrossFlags = true;
 
-  passthru.tests = { inherit pipewire; };
+  passthru.tests = {
+    inherit pipewire;
+  };
 
   meta = with lib; {
     homepage = "http://drobilla.net/software/lilv";

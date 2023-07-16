@@ -76,7 +76,9 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
+  passthru = {
+    updateScript = gnome.updateScript { packageName = pname; };
+  };
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/GNOME/gnome-tour";

@@ -21,7 +21,9 @@ stdenv.mkDerivation rec {
       libxslt
     ];
 
-  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
+  passthru = {
+    updateScript = gnome.updateScript { packageName = pname; };
+  };
 
   meta = with lib; {
     description = "Mobile broadband service provider database";

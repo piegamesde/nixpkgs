@@ -12,7 +12,9 @@ let
   toml = pkgs.formats.toml { };
 in
 {
-  meta = { maintainers = [ ] ++ lib.teams.podman.members; };
+  meta = {
+    maintainers = [ ] ++ lib.teams.podman.members;
+  };
 
   options.virtualisation.containers = {
 

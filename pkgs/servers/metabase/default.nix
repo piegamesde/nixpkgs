@@ -38,5 +38,7 @@ stdenv.mkDerivation rec {
       mmahut
     ];
   };
-  passthru.tests = { inherit (nixosTests) metabase; };
+  passthru.tests = {
+    inherit (nixosTests) metabase;
+  };
 }

@@ -179,7 +179,9 @@ in
         # TODO: Patch notebook so we can explicitly pass in a shell
         path = [ pkgs.bash ]; # needed for sh in cell magic to work
 
-        environment = { JUPYTER_PATH = toString kernels; };
+        environment = {
+          JUPYTER_PATH = toString kernels;
+        };
 
         serviceConfig = {
           Restart = "always";

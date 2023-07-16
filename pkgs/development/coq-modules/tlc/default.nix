@@ -9,7 +9,9 @@
   pname = "tlc";
   owner = "charguer";
   inherit version;
-  displayVersion = { tlc = false; };
+  displayVersion = {
+    tlc = false;
+  };
   defaultVersion =
     with lib.versions;
     lib.switch coq.coq-version

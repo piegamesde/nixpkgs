@@ -267,5 +267,7 @@ in
     };
   };
 
-  meta = { maintainers = with maintainers; [ xlambein ]; };
+  meta = {
+    maintainers = with maintainers; [ xlambein ];
+  };
 }

@@ -6,7 +6,9 @@ import ./make-test-python.nix (
   {
     name = "chrony-ptp";
 
-    meta = { maintainers = with lib.maintainers; [ gkleen ]; };
+    meta = {
+      maintainers = with lib.maintainers; [ gkleen ];
+    };
 
     nodes = {
       qemuGuest =

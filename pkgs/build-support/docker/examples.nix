@@ -62,7 +62,9 @@ rec {
     config = {
       Cmd = [ "/bin/redis-server" ];
       WorkingDir = "/data";
-      Volumes = { "/data" = { }; };
+      Volumes = {
+        "/data" = { };
+      };
     };
   };
 
@@ -113,7 +115,9 @@ rec {
           "-c"
           nginxConf
         ];
-        ExposedPorts = { "${nginxPort}/tcp" = { }; };
+        ExposedPorts = {
+          "${nginxPort}/tcp" = { };
+        };
       };
     }
   ;
@@ -611,7 +615,9 @@ rec {
         symlink
       ];
     } // {
-      passthru = { inherit symlink; };
+      passthru = {
+        inherit symlink;
+      };
     }
   ;
 

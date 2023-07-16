@@ -39,17 +39,25 @@ in
           https://raw.githubusercontent.com/ergochat/ergo/master/default.yaml
         '';
         default = {
-          network = { name = "testnetwork"; };
+          network = {
+            name = "testnetwork";
+          };
           server = {
             name = "example.com";
-            listeners = { ":6667" = { }; };
+            listeners = {
+              ":6667" = { };
+            };
             casemapping = "permissive";
             enforce-utf = true;
             lookup-hostnames = false;
-            ip-cloaking = { enabled = false; };
+            ip-cloaking = {
+              enabled = false;
+            };
             forward-confirm-hostnames = false;
             check-ident = false;
-            relaymsg = { enabled = false; };
+            relaymsg = {
+              enabled = false;
+            };
             max-sendq = "1M";
             ip-limits = {
               count = false;
@@ -83,7 +91,9 @@ in
           };
           channels = {
             default-modes = "+ntC";
-            registration = { enabled = true; };
+            registration = {
+              enabled = true;
+            };
           };
           limits = {
             nicklen = 32;

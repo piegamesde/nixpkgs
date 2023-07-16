@@ -32,7 +32,9 @@ stdenv.mkDerivation rec {
       ./add-lapacke.diff
     ];
 
-  passthru = { inherit blas64; };
+  passthru = {
+    inherit blas64;
+  };
 
   nativeBuildInputs = [
     gfortran

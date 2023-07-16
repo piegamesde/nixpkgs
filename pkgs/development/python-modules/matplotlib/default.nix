@@ -175,7 +175,9 @@ buildPythonPackage rec {
   ;
 
   passthru.config = {
-    directories = { basedirlist = "."; };
+    directories = {
+      basedirlist = ".";
+    };
     libs = {
       system_freetype = true;
       system_qhull = true;

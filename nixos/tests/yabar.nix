@@ -20,7 +20,9 @@ import ./make-test-python.nix (
       test-support.displayManager.auto.user = "bob";
 
       programs.yabar.enable = true;
-      programs.yabar.bars = { top.indicators.date.exec = "YABAR_DATE"; };
+      programs.yabar.bars = {
+        top.indicators.date.exec = "YABAR_DATE";
+      };
     };
 
     testScript = ''

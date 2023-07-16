@@ -131,7 +131,9 @@ stdenv.mkDerivation rec {
     moveToOutput "share/doc" "$devdoc"
   '';
 
-  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
+  passthru = {
+    updateScript = gnome.updateScript { packageName = pname; };
+  };
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Evince";

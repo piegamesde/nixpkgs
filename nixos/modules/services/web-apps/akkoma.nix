@@ -45,7 +45,9 @@ let
     description = "secret value";
     descriptionClass = "noun";
     check = isSecret;
-    nestedTypes = { _secret = absolutePath; };
+    nestedTypes = {
+      _secret = absolutePath;
+    };
   };
 
   ipAddress =
@@ -739,7 +741,9 @@ in
         cookie = mkOption {
           type = types.nullOr secret;
           default = null;
-          example = { _secret = "/var/lib/secrets/akkoma/releaseCookie"; };
+          example = {
+            _secret = "/var/lib/secrets/akkoma/releaseCookie";
+          };
           description = mdDoc ''
             Erlang release cookie.
 
@@ -883,7 +887,9 @@ in
 
                 secret_key_base = mkOption {
                   type = secret;
-                  default = { _secret = "/var/lib/secrets/akkoma/key-base"; };
+                  default = {
+                    _secret = "/var/lib/secrets/akkoma/key-base";
+                  };
                   description = mdDoc ''
                     Secret key used as a base to generate further secrets for encrypting and
                     signing data.
@@ -1018,7 +1024,9 @@ in
             ":joken" = {
               ":default_signer" = mkOption {
                 type = secret;
-                default = { _secret = "/var/lib/secrets/akkoma/jwt-signer"; };
+                default = {
+                  _secret = "/var/lib/secrets/akkoma/jwt-signer";
+                };
                 description = mdDoc ''
                   JWT signing secret.
 

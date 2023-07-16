@@ -20,7 +20,9 @@ stdenv.mkDerivation {
     cp $src $out/share/zncplayback.py
   '';
 
-  passthru = { scripts = [ "zncplayback.py" ]; };
+  passthru = {
+    scripts = [ "zncplayback.py" ];
+  };
 
   meta = with lib; {
     description = "Add support for the ZNC Playback module";

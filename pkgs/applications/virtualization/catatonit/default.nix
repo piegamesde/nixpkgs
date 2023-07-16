@@ -44,7 +44,9 @@ stdenv.mkDerivation rec {
     readelf -d $out/bin/catatonit | grep 'There is no dynamic section in this file.'
   '';
 
-  passthru.tests = { inherit (nixosTests) podman; };
+  passthru.tests = {
+    inherit (nixosTests) podman;
+  };
 
   meta = with lib; {
     description = "A container init that is so simple it's effectively brain-dead";

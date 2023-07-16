@@ -47,7 +47,9 @@ buildGoModule rec {
 
   proxyVendor = true;
 
-  passthru.tests = { inherit (nixosTests) alps; };
+  passthru.tests = {
+    inherit (nixosTests) alps;
+  };
 
   meta = with lib; {
     description = "A simple and extensible webmail.";

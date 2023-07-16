@@ -231,8 +231,12 @@ in
     wintypes = mkOption {
       type = types.attrs;
       default = {
-        popup_menu = { opacity = cfg.menuOpacity; };
-        dropdown_menu = { opacity = cfg.menuOpacity; };
+        popup_menu = {
+          opacity = cfg.menuOpacity;
+        };
+        dropdown_menu = {
+          opacity = cfg.menuOpacity;
+        };
       };
       defaultText = literalExpression ''
         {

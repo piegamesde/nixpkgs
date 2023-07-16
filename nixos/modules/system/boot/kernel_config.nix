@@ -153,5 +153,7 @@ in
     };
   };
 
-  config = { intermediateNixConfig = generateNixKConf config.settings; };
+  config = {
+    intermediateNixConfig = generateNixKConf config.settings;
+  };
 }

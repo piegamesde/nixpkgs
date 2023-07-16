@@ -7,7 +7,9 @@ let
   bobIp6 = "202:a483:73a4:9f2d:a559:4a19:bc9:8458";
   bobPrefix = "302:a483:73a4:9f2d";
   bobConfig = {
-    InterfacePeers = { eth1 = [ "tcp://192.168.1.200:12345" ]; };
+    InterfacePeers = {
+      eth1 = [ "tcp://192.168.1.200:12345" ];
+    };
     MulticastInterfaces = [ {
       Regex = ".*";
       Beacon = true;

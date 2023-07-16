@@ -86,5 +86,7 @@ in
     };
   };
 
-  meta = { maintainers = with maintainers; [ kira-bruneau ]; };
+  meta = {
+    maintainers = with maintainers; [ kira-bruneau ];
+  };
 }

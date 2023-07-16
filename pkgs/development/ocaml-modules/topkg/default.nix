@@ -65,7 +65,9 @@ stdenv.mkDerivation rec {
   createFindlibDestdir = true;
   installPhase = "${opaline}/bin/opaline -prefix $out -libdir $OCAMLFIND_DESTDIR";
 
-  passthru = { inherit run; };
+  passthru = {
+    inherit run;
+  };
 
   meta = {
     homepage = "https://erratique.ch/software/topkg";

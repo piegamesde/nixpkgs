@@ -52,7 +52,9 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "A simple, fast, no-nonsense to-do (task) list designed for elementary OS";

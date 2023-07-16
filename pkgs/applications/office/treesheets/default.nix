@@ -44,7 +44,9 @@ stdenv.mkDerivation rec {
       --chdir $out/share/treesheets
   '';
 
-  passthru = { updateScript = unstableGitUpdater { }; };
+  passthru = {
+    updateScript = unstableGitUpdater { };
+  };
 
   meta = with lib; {
     description = "Free Form Data Organizer";

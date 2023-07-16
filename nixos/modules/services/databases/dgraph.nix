@@ -119,7 +119,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.dgraph.settings = { badger.compression = mkDefault "zstd:3"; };
+    services.dgraph.settings = {
+      badger.compression = mkDefault "zstd:3";
+    };
 
     systemd.services.dgraph-zero = {
       description = "Dgraph native GraphQL database with a graph backend. Zero controls node clustering";

@@ -16,7 +16,9 @@ import ./make-test-python.nix (
         ...
       }:
       {
-        services.fluidd = { enable = true; };
+        services.fluidd = {
+          enable = true;
+        };
       }
     ;
 

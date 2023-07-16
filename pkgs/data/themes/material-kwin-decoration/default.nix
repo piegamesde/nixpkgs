@@ -50,7 +50,9 @@ mkDerivation rec {
     kwayland
   ];
 
-  passthru = { updateScript = unstableGitUpdater { }; };
+  passthru = {
+    updateScript = unstableGitUpdater { };
+  };
 
   meta = with lib; {
     description = "Material-ish window decoration theme for KWin";

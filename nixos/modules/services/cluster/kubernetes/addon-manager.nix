@@ -94,7 +94,9 @@ in
         Restart = "on-failure";
         RestartSec = 10;
       };
-      unitConfig = { StartLimitIntervalSec = 0; };
+      unitConfig = {
+        StartLimitIntervalSec = 0;
+      };
     };
 
     services.kubernetes.addonManager.bootstrapAddons = mkIf isRBACEnabled (
@@ -107,7 +109,9 @@ in
         kube-addon-manager-r = {
           apiVersion = "rbac.authorization.k8s.io/v1";
           kind = "Role";
-          metadata = { inherit name namespace; };
+          metadata = {
+            inherit name namespace;
+          };
           rules = [ {
             apiGroups = [ "*" ];
             resources = [ "*" ];
@@ -118,7 +122,9 @@ in
         kube-addon-manager-rb = {
           apiVersion = "rbac.authorization.k8s.io/v1";
           kind = "RoleBinding";
-          metadata = { inherit name namespace; };
+          metadata = {
+            inherit name namespace;
+          };
           roleRef = {
             apiGroup = "rbac.authorization.k8s.io";
             kind = "Role";
@@ -134,7 +140,9 @@ in
         kube-addon-manager-cluster-lister-cr = {
           apiVersion = "rbac.authorization.k8s.io/v1";
           kind = "ClusterRole";
-          metadata = { name = "${name}:cluster-lister"; };
+          metadata = {
+            name = "${name}:cluster-lister";
+          };
           rules = [ {
             apiGroups = [ "*" ];
             resources = [ "*" ];
@@ -145,7 +153,9 @@ in
         kube-addon-manager-cluster-lister-crb = {
           apiVersion = "rbac.authorization.k8s.io/v1";
           kind = "ClusterRoleBinding";
-          metadata = { name = "${name}:cluster-lister"; };
+          metadata = {
+            name = "${name}:cluster-lister";
+          };
           roleRef = {
             apiGroup = "rbac.authorization.k8s.io";
             kind = "ClusterRole";

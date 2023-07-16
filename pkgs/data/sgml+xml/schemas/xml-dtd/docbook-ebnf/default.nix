@@ -24,5 +24,7 @@ stdenv.mkDerivation rec {
     cp -p $catalog $(stripHash $catalog)
   '';
 
-  meta = { platforms = lib.platforms.unix; };
+  meta = {
+    platforms = lib.platforms.unix;
+  };
 }

@@ -16,7 +16,9 @@ let
 in
 
 {
-  meta = { maintainers = teams.gnome.members; };
+  meta = {
+    maintainers = teams.gnome.members;
+  };
 
   imports = [
     # Added 2021-05-07

@@ -24,7 +24,9 @@ in
       group = "openvpn";
     };
 
-    users.groups.openvpn = { gid = config.ids.gids.openvpn; };
+    users.groups.openvpn = {
+      gid = config.ids.gids.openvpn;
+    };
 
     environment.systemPackages = with pkgs; [ openvpn3 ];
   };

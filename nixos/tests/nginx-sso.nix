@@ -5,7 +5,9 @@ import ./make-test-python.nix (
   }:
   {
     name = "nginx-sso";
-    meta = { maintainers = with pkgs.lib.maintainers; [ delroth ]; };
+    meta = {
+      maintainers = with pkgs.lib.maintainers; [ delroth ];
+    };
 
     nodes.machine = {
       services.nginx.sso = {
@@ -16,7 +18,9 @@ import ./make-test-python.nix (
             port = 8080;
           };
 
-          providers.token.tokens = { myuser = "MyToken"; };
+          providers.token.tokens = {
+            myuser = "MyToken";
+          };
 
           acl = {
             rule_sets = [ {

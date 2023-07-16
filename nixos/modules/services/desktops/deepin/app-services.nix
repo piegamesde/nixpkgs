@@ -9,7 +9,9 @@ with lib;
 
 {
 
-  meta = { maintainers = teams.deepin.members; };
+  meta = {
+    maintainers = teams.deepin.members;
+  };
 
   ###### interface
 

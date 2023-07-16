@@ -85,7 +85,9 @@ let
       {
         url = "${protocol}://${domain}/api/v4/projects/${escapedSlug}/repository/archive.tar.gz?sha=${escapedRev}";
 
-        passthru = { inherit gitRepoUrl; };
+        passthru = {
+          inherit gitRepoUrl;
+        };
       }
   ) // passthruAttrs // {
     inherit name;

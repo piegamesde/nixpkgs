@@ -99,7 +99,9 @@ stdenv.mkDerivation rec {
       ];
       startupNotify = true;
       startupWMClass = "Pale moon";
-      extraConfig = { X-MultipleArgs = "false"; };
+      extraConfig = {
+        X-MultipleArgs = "false";
+      };
       actions = {
         "NewTab" = {
           name = "Open new tab";

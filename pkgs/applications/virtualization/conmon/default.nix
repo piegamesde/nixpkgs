@@ -46,7 +46,9 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
   strictDeps = true;
 
-  passthru.tests = { inherit (nixosTests) cri-o podman; };
+  passthru.tests = {
+    inherit (nixosTests) cri-o podman;
+  };
 
   meta = with lib; {
     changelog = "https://github.com/containers/conmon/releases/tag/${src.rev}";

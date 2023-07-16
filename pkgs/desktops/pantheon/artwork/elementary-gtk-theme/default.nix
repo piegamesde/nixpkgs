@@ -45,7 +45,9 @@ stdenvNoCC.mkDerivation rec {
     patchShebangs meson/install-to-dir.py
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "GTK theme designed to be smooth, attractive, fast, and usable";

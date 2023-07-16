@@ -127,7 +127,9 @@ in
     networking.dhcpcd.denyInterfaces = [ cfg.interfaceName ];
 
     systemd.network.networks."50-tailscale" = mkIf isNetworkd {
-      matchConfig = { Name = cfg.interfaceName; };
+      matchConfig = {
+        Name = cfg.interfaceName;
+      };
       linkConfig = {
         Unmanaged = true;
         ActivationPolicy = "manual";

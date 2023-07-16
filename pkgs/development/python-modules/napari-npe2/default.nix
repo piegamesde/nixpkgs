@@ -53,7 +53,9 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "npe2" ];
 
-  passthru.tests = { inherit napari; };
+  passthru.tests = {
+    inherit napari;
+  };
 
   meta = with lib; {
     description = "Plugin system for napari (the image visualizer)";

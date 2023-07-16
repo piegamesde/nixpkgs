@@ -175,7 +175,9 @@ in
     systemd.services.statsd = {
       description = "Statsd Server";
       wantedBy = [ "multi-user.target" ];
-      environment = { NODE_PATH = "${deps}/lib/node_modules"; };
+      environment = {
+        NODE_PATH = "${deps}/lib/node_modules";
+      };
       serviceConfig = {
         ExecStart = "${pkgs.statsd}/bin/statsd ${configFile}";
         User = "statsd";

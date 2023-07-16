@@ -25,7 +25,9 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests = { single-node-smoke-test = nixosTests.jitsi-meet; };
+  passthru.tests = {
+    single-node-smoke-test = nixosTests.jitsi-meet;
+  };
 
   passthru.updateScript = ./update.sh;
 

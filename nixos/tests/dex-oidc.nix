@@ -54,7 +54,9 @@ import ./make-test-python.nix (
           ensureDatabases = [ "dex" ];
           ensureUsers = [ {
             name = "dex";
-            ensurePermissions = { "DATABASE dex" = "ALL PRIVILEGES"; };
+            ensurePermissions = {
+              "DATABASE dex" = "ALL PRIVILEGES";
+            };
           } ];
         };
       }

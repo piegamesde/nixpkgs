@@ -67,7 +67,9 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs = [ dejagnu ];
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "A foreign function call interface library";

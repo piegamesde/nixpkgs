@@ -386,7 +386,9 @@ stdenv.mkDerivation rec {
 
   passthru = {
     qemu-system-i386 = "bin/qemu-system-i386";
-    tests = { qemu-tests = qemu.override { doCheck = true; }; };
+    tests = {
+      qemu-tests = qemu.override { doCheck = true; };
+    };
   };
 
   # Builds in ~3h with 2 cores, and ~20m with a big-parallel builder.

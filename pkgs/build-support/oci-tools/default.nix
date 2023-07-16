@@ -87,7 +87,9 @@
       config = writeText "config.json" (
         builtins.toJSON {
           ociVersion = "1.0.0";
-          platform = { inherit os arch; };
+          platform = {
+            inherit os arch;
+          };
 
           linux = {
             namespaces = map (type: { inherit type; }) [

@@ -60,7 +60,9 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "eth_keys" ];
 
-  passthru.optional-dependencies = { coincurve = [ coincurve ]; };
+  passthru.optional-dependencies = {
+    coincurve = [ coincurve ];
+  };
 
   meta = with lib; {
     description = "Common API for Ethereum key operations";

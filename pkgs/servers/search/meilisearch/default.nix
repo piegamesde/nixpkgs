@@ -44,7 +44,9 @@ rustPlatform.buildRustPackage {
     Foundation
   ];
 
-  passthru.tests = { meilisearch = nixosTests.meilisearch; };
+  passthru.tests = {
+    meilisearch = nixosTests.meilisearch;
+  };
 
   # Tests will try to compile with mini-dashboard features which downloads something from the internet.
   doCheck = false;

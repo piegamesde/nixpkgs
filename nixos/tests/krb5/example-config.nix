@@ -19,7 +19,9 @@ import ../make-test-python.nix (
         krb5 = {
           enable = true;
           kerberos = pkgs.krb5;
-          libdefaults = { default_realm = "ATHENA.MIT.EDU"; };
+          libdefaults = {
+            default_realm = "ATHENA.MIT.EDU";
+          };
           realms = {
             "ATHENA.MIT.EDU" = {
               admin_server = "athena.mit.edu";
@@ -34,8 +36,12 @@ import ../make-test-python.nix (
             ".example.com" = "EXAMPLE.COM";
           };
           capaths = {
-            "ATHENA.MIT.EDU" = { "EXAMPLE.COM" = "."; };
-            "EXAMPLE.COM" = { "ATHENA.MIT.EDU" = "."; };
+            "ATHENA.MIT.EDU" = {
+              "EXAMPLE.COM" = ".";
+            };
+            "EXAMPLE.COM" = {
+              "ATHENA.MIT.EDU" = ".";
+            };
           };
           appdefaults = {
             pam = {
@@ -47,7 +53,11 @@ import ../make-test-python.nix (
               initial_timeout = 1;
             };
           };
-          plugins = { ccselect = { disable = "k5identity"; }; };
+          plugins = {
+            ccselect = {
+              disable = "k5identity";
+            };
+          };
           extraConfig = ''
             [logging]
               kdc          = SYSLOG:NOTICE

@@ -14,7 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-S06OQfDmDyutls21HxyQ016ku3FTTsDOP8Di67d9f+k=";
   };
 
-  passthru = { inherit python; };
+  passthru = {
+    inherit python;
+  };
 
   # Non-standard test suite. Needs custom checkPhase.
   # Needs LLVM's `FileCheck` and `not`: `$out/bin/lit tests`

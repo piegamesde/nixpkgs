@@ -68,7 +68,9 @@ stdenv.mkDerivation rec {
 
   inherit monoDLLFixer;
 
-  passthru = { gtk = gtk2; };
+  passthru = {
+    gtk = gtk2;
+  };
 
   meta = with lib; {
     description = "Graphical User Interface Toolkit for mono and .Net";

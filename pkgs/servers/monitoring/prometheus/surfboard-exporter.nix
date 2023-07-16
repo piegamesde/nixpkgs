@@ -18,7 +18,9 @@ buildGoPackage rec {
     sha256 = "11qms26648nwlwslnaflinxcr5rnp55s908rm1qpnbz0jnxf5ipw";
   };
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) surfboard; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) surfboard;
+  };
 
   meta = with lib; {
     description = "Arris Surfboard signal metrics exporter";

@@ -26,7 +26,9 @@ import ./make-test-python.nix (
           enable = true;
           configFile = "/etc/test.blank";
           testnet = true;
-          rpc = { port = 18332; };
+          rpc = {
+            port = 18332;
+          };
           extraCmdlineOptions = [
             "-rpcuser=rpc"
             "-rpcpassword=rpc"

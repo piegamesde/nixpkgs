@@ -18,7 +18,9 @@ buildPythonPackage rec {
     sha256 = "0yl4qdwp3in170ks98qnldqz3r2iyzil5g1775ccg98qkh95s724";
   };
 
-  passthru.optional-dependencies = { ZiX = [ uncompyle6 ]; };
+  passthru.optional-dependencies = {
+    ZiX = [ uncompyle6 ];
+  };
 
   pythonImportsCheck = [ "unrpa" ];
 

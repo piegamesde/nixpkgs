@@ -37,7 +37,9 @@ stdenv.mkDerivation rec {
 
   passthru = {
     updateScript = nix-update-script { };
-    tests = { inherit ninja php spamassassin; };
+    tests = {
+      inherit ninja php spamassassin;
+    };
   };
 
   meta = with lib; {

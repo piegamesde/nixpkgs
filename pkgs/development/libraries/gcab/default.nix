@@ -75,7 +75,9 @@ stdenv.mkDerivation rec {
       versionPolicy = "none";
     };
 
-    tests = { installedTests = nixosTests.installed-tests.gcab; };
+    tests = {
+      installedTests = nixosTests.installed-tests.gcab;
+    };
   };
 
   meta = with lib; {

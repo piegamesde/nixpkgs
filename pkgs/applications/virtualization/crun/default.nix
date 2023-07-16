@@ -81,7 +81,9 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  passthru.tests = { inherit (nixosTests) podman; };
+  passthru.tests = {
+    inherit (nixosTests) podman;
+  };
 
   meta = with lib; {
     changelog = "https://github.com/containers/crun/releases/tag/${version}";

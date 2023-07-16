@@ -25,5 +25,7 @@ stdenv.mkDerivation rec {
     cp -v ${./CMakeLists.txt} CMakeLists.txt
   '';
 
-  meta = { platforms = lib.platforms.unix; };
+  meta = {
+    platforms = lib.platforms.unix;
+  };
 }

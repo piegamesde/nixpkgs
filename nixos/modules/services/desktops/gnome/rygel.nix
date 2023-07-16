@@ -9,7 +9,9 @@
 with lib;
 
 {
-  meta = { maintainers = teams.gnome.members; };
+  meta = {
+    maintainers = teams.gnome.members;
+  };
 
   imports =
     [

@@ -51,7 +51,9 @@ stdenv.mkDerivation rec {
        --replace "DESTINATION \"\''${QT_PLUGINS_DIR}/styles" "DESTINATION \"$qtPluginPrefix/styles"
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "A style to bend Qt applications to look like they belong into GNOME Shell";

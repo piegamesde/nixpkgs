@@ -79,7 +79,9 @@ stdenv.mkDerivation rec {
     patchShebangs build-aux/meson/post_install.py
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "A window & compositing manager based on mutter and designed by elementary for use with Pantheon";

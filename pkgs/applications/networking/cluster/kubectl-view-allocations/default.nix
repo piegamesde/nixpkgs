@@ -22,7 +22,9 @@ rustPlatform.buildRustPackage rec {
     cp ${./Cargo.lock} Cargo.lock
   '';
 
-  cargoLock = { lockFile = ./Cargo.lock; };
+  cargoLock = {
+    lockFile = ./Cargo.lock;
+  };
 
   nativeBuildInputs = [ perl ];
   buildInputs = lib.optionals stdenv.isDarwin [ Security ];

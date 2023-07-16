@@ -88,7 +88,9 @@ in
           map
             (dev: {
               name = dev.encrypted.label;
-              value = { device = dev.encrypted.blkDev; };
+              value = {
+                device = dev.encrypted.blkDev;
+              };
             })
             keylessEncDevs
         );

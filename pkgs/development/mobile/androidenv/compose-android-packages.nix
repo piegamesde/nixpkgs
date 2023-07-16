@@ -210,7 +210,9 @@ rec {
         {
           inherit os buildInputs meta;
           packages = [ package ];
-          patchesInstructions = { "${package.name}" = patchInstructions; };
+          patchesInstructions = {
+            "${package.name}" = patchInstructions;
+          };
         } // extraParams
       )
     );

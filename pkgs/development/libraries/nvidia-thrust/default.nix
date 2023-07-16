@@ -105,7 +105,9 @@ stdenv.mkDerivation {
     ++ map (sm: "THRUST_ENABLE_COMPUTE_${sm}") cudaCapabilities
   ;
 
-  passthru = { inherit cudaSupport cudaPackages cudaJoined; };
+  passthru = {
+    inherit cudaSupport cudaPackages cudaJoined;
+  };
 
   meta = with lib; {
     description = "A high-level C++ parallel algorithms library that builds on top of CUDA, TBB, OpenMP, etc";

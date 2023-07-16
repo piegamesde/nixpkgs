@@ -18,7 +18,9 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-aMpJaxyBBfpsRJTxAO05926tQSt8qQoDDzLFbX4qwWc=";
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) json; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) json;
+  };
 
   meta = with lib; {
     description = "A prometheus exporter which scrapes remote JSON by JSONPath";

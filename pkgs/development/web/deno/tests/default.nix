@@ -57,8 +57,12 @@ in
     file = "basic.ts";
     expected = "2";
   };
-  import-json = { expected = "hello from JSON"; };
-  import-ts = { expected = "hello from ts"; };
+  import-json = {
+    expected = "hello from JSON";
+  };
+  import-ts = {
+    expected = "hello from ts";
+  };
   read-file = {
     args = "--allow-read";
     expected = "hello from a file";

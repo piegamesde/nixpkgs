@@ -5,14 +5,24 @@
 let
   inherit (lib) mkOption types;
 
-  moduleWithoutKey = { config = { raw = "pear"; }; };
+  moduleWithoutKey = {
+    config = {
+      raw = "pear";
+    };
+  };
 
   moduleWithKey = {
     key = __curPos.file + "#moduleWithKey";
-    config = { raw = "pear"; };
+    config = {
+      raw = "pear";
+    };
   };
 
-  decl = { options = { raw = mkOption { type = types.lines; }; }; };
+  decl = {
+    options = {
+      raw = mkOption { type = types.lines; };
+    };
+  };
 in
 {
   options = {

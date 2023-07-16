@@ -44,7 +44,9 @@ stdenv.mkDerivation rec {
     libgee
   ];
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Track each task's time in a simple inobtrusive way";

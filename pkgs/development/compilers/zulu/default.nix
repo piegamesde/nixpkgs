@@ -126,7 +126,9 @@ stdenv.mkDerivation {
       patchelf --add-needed libfontconfig.so {} \;
   '';
 
-  passthru = { home = zulu; };
+  passthru = {
+    home = zulu;
+  };
 
   meta = with lib; {
     homepage = "https://www.azul.com/products/zulu/";

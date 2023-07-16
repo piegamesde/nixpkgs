@@ -8,7 +8,11 @@ import ./make-test-python.nix (
     name = "xpadneo";
     meta.maintainers = with lib.maintainers; [ kira-bruneau ];
 
-    nodes = { machine = { config.hardware.xpadneo.enable = true; }; };
+    nodes = {
+      machine = {
+        config.hardware.xpadneo.enable = true;
+      };
+    };
 
     # This is just a sanity check to make sure the module was
     # loaded. We'd have to find some way to mock an xbox controller if

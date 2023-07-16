@@ -185,7 +185,9 @@ stdenv.mkDerivation rec {
   installTargets = [ "install-nokeys" ];
   installFlags = [ "sysconfdir=\${out}/etc/ssh" ];
 
-  passthru.tests = { borgbackup-integration = nixosTests.borgbackup; };
+  passthru.tests = {
+    borgbackup-integration = nixosTests.borgbackup;
+  };
 
   meta =
     with lib;

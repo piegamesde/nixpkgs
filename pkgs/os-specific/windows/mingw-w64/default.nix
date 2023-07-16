@@ -52,5 +52,7 @@ stdenv.mkDerivation {
     "fortify"
   ];
 
-  meta = { platforms = lib.platforms.windows; };
+  meta = {
+    platforms = lib.platforms.windows;
+  };
 }

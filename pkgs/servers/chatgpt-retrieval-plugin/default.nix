@@ -57,7 +57,9 @@ python3Packages.buildPythonApplication {
     docx2txt
   ];
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     homepage = "https://github.com/openai/chatgpt-retrieval-plugin";

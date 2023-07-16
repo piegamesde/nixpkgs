@@ -76,7 +76,9 @@ in
         after = [ "network-online.target" ];
         wantedBy = [ "multi-user.target" ];
         description = "gmediarender server daemon";
-        environment = { XDG_CACHE_HOME = "%t/gmediarender"; };
+        environment = {
+          XDG_CACHE_HOME = "%t/gmediarender";
+        };
         serviceConfig = {
           DynamicUser = true;
           User = "gmediarender";

@@ -29,7 +29,9 @@ buildGoModule rec {
 
   doCheck = false; # needs internet connection
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) domain; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) domain;
+  };
 
   meta = with lib; {
     homepage = "https://github.com/caarlos0/domain_exporter";

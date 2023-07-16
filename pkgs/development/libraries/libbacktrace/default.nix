@@ -42,7 +42,9 @@ stdenv.mkDerivation {
 
   doCheck = stdenv.isLinux;
 
-  passthru = { updateScript = unstableGitUpdater { }; };
+  passthru = {
+    updateScript = unstableGitUpdater { };
+  };
 
   meta = with lib; {
     description = "A C library that may be linked into a C/C++ program to produce symbolic backtraces";

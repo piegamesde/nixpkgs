@@ -95,7 +95,9 @@ with lib; {
           done
           chmod 600 $RUNTIME_DIRECTORY/v1.json
         '';
-        environment = { DO_DELAY_ATTEMPTS_MAX = "10"; };
+        environment = {
+          DO_DELAY_ATTEMPTS_MAX = "10";
+        };
         serviceConfig = {
           Type = "oneshot";
           RemainAfterExit = true;
@@ -136,7 +138,9 @@ with lib; {
               After = [ "digitalocean-metadata.service" ];
               Requires = [ "digitalocean-metadata.service" ];
             };
-            serviceConfig = { Type = "oneshot"; };
+            serviceConfig = {
+              Type = "oneshot";
+            };
           }
       ;
 
@@ -163,7 +167,9 @@ with lib; {
           After = [ "digitalocean-metadata.service" ];
           Wants = [ "digitalocean-metadata.service" ];
         };
-        serviceConfig = { Type = "oneshot"; };
+        serviceConfig = {
+          Type = "oneshot";
+        };
       };
 
       # Fetch the ssh keys for root from Digital Ocean
@@ -211,7 +217,9 @@ with lib; {
           After = [ "digitalocean-metadata.service" ];
           Requires = [ "digitalocean-metadata.service" ];
         };
-        serviceConfig = { Type = "oneshot"; };
+        serviceConfig = {
+          Type = "oneshot";
+        };
       };
     } ]
   ;

@@ -132,7 +132,9 @@ in
       home = stateDir;
     };
 
-    users.groups.${clamavGroup} = { gid = config.ids.gids.clamav; };
+    users.groups.${clamavGroup} = {
+      gid = config.ids.gids.clamav;
+    };
 
     services.clamav.daemon.settings = {
       DatabaseDirectory = stateDir;

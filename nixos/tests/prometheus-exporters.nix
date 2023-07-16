@@ -67,8 +67,12 @@ let
 
   exporterTests = {
     apcupsd = {
-      exporterConfig = { enable = true; };
-      metricProvider = { services.apcupsd.enable = true; };
+      exporterConfig = {
+        enable = true;
+      };
+      metricProvider = {
+        services.apcupsd.enable = true;
+      };
       exporterTest = ''
         wait_for_unit("apcupsd.service")
         wait_for_open_port(3551)
@@ -94,7 +98,9 @@ let
     };
 
     bind = {
-      exporterConfig = { enable = true; };
+      exporterConfig = {
+        enable = true;
+      };
       metricProvider = {
         services.bind.enable = true;
         services.bind.extraConfig = ''
@@ -113,7 +119,9 @@ let
     };
 
     bird = {
-      exporterConfig = { enable = true; };
+      exporterConfig = {
+        enable = true;
+      };
       metricProvider = {
         services.bird2.enable = true;
         services.bird2.config = ''
@@ -219,7 +227,9 @@ let
         enable = true;
         leasesPath = "/var/lib/dnsmasq/dnsmasq.leases";
       };
-      metricProvider = { services.dnsmasq.enable = true; };
+      metricProvider = {
+        services.dnsmasq.enable = true;
+      };
       exporterTest = ''
         wait_for_unit("prometheus-dnsmasq-exporter.service")
         wait_for_open_port(9153)
@@ -231,7 +241,9 @@ let
     # just perform basic sanity check that the exporter is running and returns
     # a failure.
     domain = {
-      exporterConfig = { enable = true; };
+      exporterConfig = {
+        enable = true;
+      };
       exporterTest = ''
         wait_for_unit("prometheus-domain-exporter.service")
         wait_for_open_port(9222)
@@ -248,7 +260,9 @@ let
         socketPath = "/var/run/dovecot2/old-stats";
         user = "root"; # <- don't use user root in production
       };
-      metricProvider = { services.dovecot2.enable = true; };
+      metricProvider = {
+        services.dovecot2.enable = true;
+      };
       exporterTest = ''
         wait_for_unit("prometheus-dovecot-exporter.service")
         wait_for_open_port(9166)
@@ -273,7 +287,9 @@ let
 
     fritzbox = {
       # TODO add proper test case
-      exporterConfig = { enable = true; };
+      exporterConfig = {
+        enable = true;
+      };
       exporterTest = ''
         wait_for_unit("prometheus-fritzbox-exporter.service")
         wait_for_open_port(9133)
@@ -305,7 +321,9 @@ let
     };
 
     ipmi = {
-      exporterConfig = { enable = true; };
+      exporterConfig = {
+        enable = true;
+      };
       exporterTest = ''
         wait_for_unit("prometheus-ipmi-exporter.service")
         wait_for_open_port(9290)
@@ -316,7 +334,9 @@ let
     };
 
     jitsi = {
-      exporterConfig = { enable = true; };
+      exporterConfig = {
+        enable = true;
+      };
       metricProvider = {
         systemd.services.prometheus-jitsi-exporter.after = [
           "jitsi-videobridge2.service"
@@ -425,7 +445,9 @@ let
     ;
 
     knot = {
-      exporterConfig = { enable = true; };
+      exporterConfig = {
+        enable = true;
+      };
       metricProvider = {
         services.knot = {
           enable = true;
@@ -481,7 +503,9 @@ let
       # A hardware device is required to properly test this exporter, so just
       # perform a couple of basic sanity checks that the exporter is running
       # and requires a target, but cannot reach a specified target.
-      exporterConfig = { enable = true; };
+      exporterConfig = {
+        enable = true;
+      };
       exporterTest = ''
         wait_for_unit("prometheus-keylight-exporter.service")
         wait_for_open_port(9288)
@@ -715,7 +739,9 @@ let
     };
 
     nginx = {
-      exporterConfig = { enable = true; };
+      exporterConfig = {
+        enable = true;
+      };
       metricProvider = {
         services.nginx = {
           enable = true;
@@ -739,7 +765,9 @@ let
           namespaces = [
             {
               name = "filelogger";
-              source = { files = [ "/var/log/nginx/filelogger.access.log" ]; };
+              source = {
+                files = [ "/var/log/nginx/filelogger.access.log" ];
+              };
             }
             {
               name = "syslogger";
@@ -791,7 +819,9 @@ let
     };
 
     node = {
-      exporterConfig = { enable = true; };
+      exporterConfig = {
+        enable = true;
+      };
       exporterTest = ''
         wait_for_unit("prometheus-node-exporter.service")
         wait_for_open_port(9100)
@@ -890,8 +920,12 @@ let
     };
 
     postfix = {
-      exporterConfig = { enable = true; };
-      metricProvider = { services.postfix.enable = true; };
+      exporterConfig = {
+        enable = true;
+      };
+      metricProvider = {
+        services.postfix.enable = true;
+      };
       exporterTest = ''
         wait_for_unit("prometheus-postfix-exporter.service")
         wait_for_file("/var/lib/postfix/queue/public/showq")
@@ -911,7 +945,9 @@ let
         enable = true;
         runAsLocalSuperUser = true;
       };
-      metricProvider = { services.postgresql.enable = true; };
+      metricProvider = {
+        services.postgresql.enable = true;
+      };
       exporterTest = ''
         wait_for_unit("prometheus-postgres-exporter.service")
         wait_for_open_port(9187)
@@ -997,7 +1033,9 @@ let
     };
 
     redis = {
-      exporterConfig = { enable = true; };
+      exporterConfig = {
+        enable = true;
+      };
       metricProvider.services.redis.servers."".enable = true;
       exporterTest = ''
         wait_for_unit("redis.service")
@@ -1009,8 +1047,12 @@ let
     };
 
     rspamd = {
-      exporterConfig = { enable = true; };
-      metricProvider = { services.rspamd.enable = true; };
+      exporterConfig = {
+        enable = true;
+      };
+      metricProvider = {
+        services.rspamd.enable = true;
+      };
       exporterTest = ''
         wait_for_unit("rspamd.service")
         wait_for_unit("prometheus-rspamd-exporter.service")
@@ -1023,7 +1065,9 @@ let
     };
 
     rtl_433 = {
-      exporterConfig = { enable = true; };
+      exporterConfig = {
+        enable = true;
+      };
       metricProvider = {
         # Mock rtl_433 binary to return a dummy metric stream.
         nixpkgs.overlays = [
@@ -1181,7 +1225,9 @@ let
     };
 
     statsd = {
-      exporterConfig = { enable = true; };
+      exporterConfig = {
+        enable = true;
+      };
       exporterTest = ''
         wait_for_unit("prometheus-statsd-exporter.service")
         wait_for_open_port(9102)
@@ -1246,7 +1292,9 @@ let
     };
 
     tor = {
-      exporterConfig = { enable = true; };
+      exporterConfig = {
+        enable = true;
+      };
       metricProvider = {
         # Note: this does not connect the test environment to the Tor network.
         # Client, relay, bridge or exit connectivity are disabled by default.
@@ -1297,7 +1345,9 @@ let
     };
 
     v2ray = {
-      exporterConfig = { enable = true; };
+      exporterConfig = {
+        enable = true;
+      };
 
       metricProvider = {
         systemd.services.prometheus-nginx-exporter.after = [ "v2ray.service" ];
@@ -1319,7 +1369,9 @@ let
                 listen = "127.0.0.1";
                 port = 54321;
                 protocol = "dokodemo-door";
-                settings = { address = "127.0.0.1"; };
+                settings = {
+                  address = "127.0.0.1";
+                };
                 tag = "api";
               }
             ];
@@ -1420,7 +1472,9 @@ let
     ;
 
     zfs = {
-      exporterConfig = { enable = true; };
+      exporterConfig = {
+        enable = true;
+      };
       metricProvider = {
         boot.supportedFilesystems = [ "zfs" ];
         networking.hostId = "7327ded7";

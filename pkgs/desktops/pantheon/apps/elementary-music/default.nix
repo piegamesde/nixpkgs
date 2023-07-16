@@ -69,7 +69,9 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Music player and library designed for elementary OS";

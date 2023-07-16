@@ -684,7 +684,9 @@ in
                 You can for example specify which SSH key to use.
               '';
               default = { };
-              example = { BORG_RSH = "ssh -i /path/to/key"; };
+              example = {
+                BORG_RSH = "ssh -i /path/to/key";
+              };
             };
 
             preHook = mkOption {

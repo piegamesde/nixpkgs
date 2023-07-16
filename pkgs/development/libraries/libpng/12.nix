@@ -24,7 +24,9 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ zlib ];
 
-  passthru = { inherit zlib; };
+  passthru = {
+    inherit zlib;
+  };
 
   configureFlags = [ "--enable-static" ];
 

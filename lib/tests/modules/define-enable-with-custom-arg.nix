@@ -5,5 +5,7 @@
 }:
 
 {
-  config = { enable = custom; };
+  config = {
+    enable = custom;
+  };
 }

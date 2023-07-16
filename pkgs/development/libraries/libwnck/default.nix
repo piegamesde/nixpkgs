@@ -81,7 +81,9 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [ "-Dgtk_doc=true" ];
 
-  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
+  passthru = {
+    updateScript = gnome.updateScript { packageName = pname; };
+  };
 
   meta = with lib; {
     description = "Library to manage X windows and workspaces (via pagers, tasklists, etc.)";

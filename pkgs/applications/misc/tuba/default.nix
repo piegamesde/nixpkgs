@@ -67,7 +67,9 @@ stdenv.mkDerivation rec {
     )
   ;
 
-  passthru = { updateScript = nix-update-script { attrPath = "tuba"; }; };
+  passthru = {
+    updateScript = nix-update-script { attrPath = "tuba"; };
+  };
 
   meta = with lib; {
     description = "Browse the Fediverse";

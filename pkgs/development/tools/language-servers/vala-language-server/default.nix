@@ -26,7 +26,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Vl5DjKBdpk03aPD+0xGoTwD9Slg1rREorqZGX5o10cY=";
   };
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   nativeBuildInputs =
     [

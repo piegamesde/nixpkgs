@@ -115,10 +115,14 @@ in
         upstreams = {
           # /etc/nginx/includes/http-common.conf
           onlyoffice-docservice = {
-            servers = { "localhost:${toString cfg.port}" = { }; };
+            servers = {
+              "localhost:${toString cfg.port}" = { };
+            };
           };
           onlyoffice-example = lib.mkIf cfg.enableExampleServer {
-            servers = { "localhost:${toString cfg.examplePort}" = { }; };
+            servers = {
+              "localhost:${toString cfg.examplePort}" = { };
+            };
           };
         };
 
@@ -220,7 +224,9 @@ in
         ensureDatabases = [ "onlyoffice" ];
         ensureUsers = [ {
           name = "onlyoffice";
-          ensurePermissions = { "DATABASE \"onlyoffice\"" = "ALL PRIVILEGES"; };
+          ensurePermissions = {
+            "DATABASE \"onlyoffice\"" = "ALL PRIVILEGES";
+          };
         } ];
       };
     };

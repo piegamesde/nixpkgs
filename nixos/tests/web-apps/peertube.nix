@@ -84,7 +84,9 @@ import ../make-test-python.nix (
             localDomain = "peertube.local";
             enableWebHttps = false;
 
-            secrets = { secretsFile = "/etc/peertube/secrets-peertube"; };
+            secrets = {
+              secretsFile = "/etc/peertube/secrets-peertube";
+            };
 
             database = {
               host = "192.168.2.10";
@@ -100,8 +102,12 @@ import ../make-test-python.nix (
             };
 
             settings = {
-              listen = { hostname = "0.0.0.0"; };
-              instance = { name = "PeerTube Test Server"; };
+              listen = {
+                hostname = "0.0.0.0";
+              };
+              instance = {
+                name = "PeerTube Test Server";
+              };
             };
           };
         }

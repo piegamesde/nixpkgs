@@ -72,7 +72,9 @@ stdenv.mkDerivation rec {
       --replace gtk-update-icon-cache gtk4-update-icon-cache
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Native Spotify client for the GNOME desktop";

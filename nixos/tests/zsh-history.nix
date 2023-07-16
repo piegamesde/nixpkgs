@@ -12,7 +12,9 @@ import ./make-test-python.nix (
         ...
       }:
       {
-        programs = { zsh.enable = true; };
+        programs = {
+          zsh.enable = true;
+        };
         environment.systemPackages = [ pkgs.zsh-history ];
         programs.zsh.interactiveShellInit = ''
           source ${pkgs.zsh-history.out}/share/zsh/init.zsh

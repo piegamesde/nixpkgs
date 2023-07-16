@@ -16,7 +16,9 @@ let
     stdenv.mkDerivation {
       pname = "xapian";
       inherit version;
-      passthru = { inherit version; };
+      passthru = {
+        inherit version;
+      };
 
       src = fetchurl {
         url = "https://oligarchy.co.uk/xapian/${version}/xapian-core-${version}.tar.xz";
@@ -50,7 +52,9 @@ let
           --replace "#define HAVE___EXP10 1" "#undef HAVE___EXP10"
       '';
 
-      passthru.tests = { inherit mu; };
+      passthru.tests = {
+        inherit mu;
+      };
 
       meta = with lib; {
         description = "Search engine library";

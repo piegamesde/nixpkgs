@@ -166,7 +166,9 @@ in
         description = lib.mdDoc ''
           These options will create the `<FileSystem>` sections of config file.
         '';
-        default = { orangefs = { }; };
+        default = {
+          orangefs = { };
+        };
         example = literalExpression ''
           {
             fs1 = {

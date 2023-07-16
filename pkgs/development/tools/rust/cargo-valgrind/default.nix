@@ -20,7 +20,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-9/kIIZDIsOhUvRT3TyXN5PGFUB+a8m2yXmzBbsPUK28=";
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   nativeBuildInputs = [ makeWrapper ];
 

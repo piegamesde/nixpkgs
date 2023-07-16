@@ -19,7 +19,9 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-b05N5TXsRHD8h3q+ckxaVizq+A7VqkDWOSb0LOMGCHM=";
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) nextcloud; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) nextcloud;
+  };
 
   meta = with lib; {
     description = "Prometheus exporter for Nextcloud servers";

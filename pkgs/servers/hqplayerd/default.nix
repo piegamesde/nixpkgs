@@ -110,7 +110,9 @@ stdenv.mkDerivation rec {
     $out/bin/hqplayerd --version
   '';
 
-  passthru = { rygel = rygel-hqplayerd; };
+  passthru = {
+    rygel = rygel-hqplayerd;
+  };
 
   meta = with lib; {
     homepage = "https://www.signalyst.com/custom.html";

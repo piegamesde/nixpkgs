@@ -165,7 +165,9 @@ in
       createHome = true;
     };
 
-    users.groups.namecoin = { gid = config.ids.gids.namecoin; };
+    users.groups.namecoin = {
+      gid = config.ids.gids.namecoin;
+    };
 
     systemd.services.namecoind = {
       description = "Namecoind daemon";

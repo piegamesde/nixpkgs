@@ -79,7 +79,11 @@ builtins.concatLists [
   )
   (
     let
-      gemSet = { test = { platforms = [ ]; }; };
+      gemSet = {
+        test = {
+          platforms = [ ];
+        };
+      };
     in
     test.run "Filter matches empty platforms list" gemSet (
       set:

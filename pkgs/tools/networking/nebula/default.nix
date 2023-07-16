@@ -25,7 +25,9 @@ buildGoModule rec {
 
   ldflags = [ "-X main.Build=${version}" ];
 
-  passthru.tests = { inherit (nixosTests) nebula; };
+  passthru.tests = {
+    inherit (nixosTests) nebula;
+  };
 
   meta = with lib; {
     description = "A scalable overlay networking tool with a focus on performance, simplicity and security";

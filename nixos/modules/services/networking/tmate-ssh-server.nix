@@ -73,7 +73,9 @@ in
       cfg.port
     ];
 
-    services.tmate-ssh-server = { advertisedPort = mkDefault cfg.port; };
+    services.tmate-ssh-server = {
+      advertisedPort = mkDefault cfg.port;
+    };
 
     environment.systemPackages =
       let
@@ -128,5 +130,7 @@ in
     };
   };
 
-  meta = { maintainers = with maintainers; [ jlesquembre ]; };
+  meta = {
+    maintainers = with maintainers; [ jlesquembre ];
+  };
 }

@@ -44,7 +44,9 @@ stdenv.mkDerivation rec {
   ac_cv_path_MONODOCER = "no";
   installFlagsArray = [ "GAPIXMLDIR=/tmp/gapixml" ];
 
-  passthru = { inherit webkitgtk; };
+  passthru = {
+    inherit webkitgtk;
+  };
 
   meta = {
     description = "C# bindings for WebKit 2 with GTK+ 3";

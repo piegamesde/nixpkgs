@@ -148,7 +148,9 @@ in
           in
           valueType
         ;
-        default = { type = "normal"; };
+        default = {
+          type = "normal";
+        };
         example = literalExpression ''
           {
             type = "emperor";

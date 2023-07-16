@@ -8,7 +8,9 @@
 mkCoqDerivation {
   pname = "bignums";
   owner = "coq";
-  displayVersion = { bignums = ""; };
+  displayVersion = {
+    bignums = "";
+  };
   inherit version;
   defaultVersion =
     if lib.versions.isGe "8.6" coq.coq-version then
@@ -34,5 +36,7 @@ mkCoqDerivation {
 
   mlPlugin = true;
 
-  meta = { license = lib.licenses.lgpl2; };
+  meta = {
+    license = lib.licenses.lgpl2;
+  };
 }

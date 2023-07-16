@@ -681,7 +681,9 @@ in
 
   # zfs on / with swap
   zfsroot = makeInstallerTest "zfs-root" {
-    extraInstallerConfig = { boot.supportedFilesystems = [ "zfs" ]; };
+    extraInstallerConfig = {
+      boot.supportedFilesystems = [ "zfs" ];
+    };
 
     extraConfig = ''
       boot.supportedFilesystems = [ "zfs" ];

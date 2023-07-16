@@ -76,7 +76,9 @@ in
       home = stateDir;
     };
 
-    users.groups.${prayerGroup} = { gid = config.ids.gids.prayer; };
+    users.groups.${prayerGroup} = {
+      gid = config.ids.gids.prayer;
+    };
 
     systemd.services.prayer = {
       wantedBy = [ "multi-user.target" ];

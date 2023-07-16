@@ -37,7 +37,9 @@ buildPythonPackage rec {
     ++ lib.optionals (pythonOlder "3.11") [ tomli ]
   ;
 
-  passthru.optional-dependencies = { click = [ click ]; };
+  passthru.optional-dependencies = {
+    click = [ click ];
+  };
 
   checkInputs =
     [

@@ -26,7 +26,9 @@ python3.pkgs.buildPythonApplication rec {
     openssh
   ];
 
-  passthru.tests = { inherit (nixosTests) xxh; };
+  passthru.tests = {
+    inherit (nixosTests) xxh;
+  };
 
   meta = with lib; {
     description = "Bring your favorite shell wherever you go through SSH";

@@ -37,7 +37,9 @@ let
               timescaledb
               promscale_extension
             ];
-            settings = { shared_preload_libraries = "timescaledb, promscale"; };
+            settings = {
+              shared_preload_libraries = "timescaledb, promscale";
+            };
           };
           environment.systemPackages = with pkgs; [ promscale ];
         }

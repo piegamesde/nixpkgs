@@ -12,7 +12,9 @@ import ./make-test-python.nix (
         ...
       }:
       {
-        services.zigbee2mqtt = { enable = true; };
+        services.zigbee2mqtt = {
+          enable = true;
+        };
 
         systemd.services.zigbee2mqtt.serviceConfig.DevicePolicy =
           lib.mkForce

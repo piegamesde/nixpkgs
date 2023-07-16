@@ -264,7 +264,9 @@ in
                   profile = "default";
                   auth_key_file = certmgrAPITokenPath;
                 };
-                certificate = { path = cert.cert; };
+                certificate = {
+                  path = cert.cert;
+                };
                 private_key = cert.privateKeyOptions;
                 request = {
                   hosts = [ cert.CN ] ++ cert.hosts;

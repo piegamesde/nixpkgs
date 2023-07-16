@@ -462,9 +462,13 @@ in
         pkgs.media-player-info
       ];
 
-      services.xserver.displayManager.sddm = { theme = mkDefault "breeze"; };
+      services.xserver.displayManager.sddm = {
+        theme = mkDefault "breeze";
+      };
 
-      security.pam.services.kde = { allowNullPassword = true; };
+      security.pam.services.kde = {
+        allowNullPassword = true;
+      };
 
       security.pam.services.login.enableKwallet = true;
 

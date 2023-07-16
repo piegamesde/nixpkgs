@@ -23,5 +23,7 @@ buildGoModule rec {
     license = licenses.mit;
   };
 
-  passthru = { shellPath = "/bin/oh"; };
+  passthru = {
+    shellPath = "/bin/oh";
+  };
 }

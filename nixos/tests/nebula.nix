@@ -83,7 +83,9 @@ import ./make-test-python.nix (
           } ];
 
           services.nebula.networks.smoke = {
-            staticHostMap = { "10.0.100.1" = [ "192.168.1.1:4242" ]; };
+            staticHostMap = {
+              "10.0.100.1" = [ "192.168.1.1:4242" ];
+            };
             isLighthouse = false;
             lighthouses = [ "10.0.100.1" ];
             relays = [ "10.0.100.1" ];
@@ -114,7 +116,9 @@ import ./make-test-python.nix (
           } ];
 
           services.nebula.networks.smoke = {
-            staticHostMap = { "10.0.100.1" = [ "192.168.1.1:4242" ]; };
+            staticHostMap = {
+              "10.0.100.1" = [ "192.168.1.1:4242" ];
+            };
             isLighthouse = false;
             lighthouses = [ "10.0.100.1" ];
             relays = [ "10.0.100.1" ];
@@ -146,7 +150,9 @@ import ./make-test-python.nix (
 
           services.nebula.networks.smoke = {
             enable = true;
-            staticHostMap = { "10.0.100.1" = [ "192.168.1.1:4242" ]; };
+            staticHostMap = {
+              "10.0.100.1" = [ "192.168.1.1:4242" ];
+            };
             isLighthouse = false;
             lighthouses = [ "10.0.100.1" ];
             relays = [ "10.0.100.1" ];
@@ -178,7 +184,9 @@ import ./make-test-python.nix (
 
           services.nebula.networks.smoke = {
             enable = false;
-            staticHostMap = { "10.0.100.1" = [ "192.168.1.1:4242" ]; };
+            staticHostMap = {
+              "10.0.100.1" = [ "192.168.1.1:4242" ];
+            };
             isLighthouse = false;
             lighthouses = [ "10.0.100.1" ];
             relays = [ "10.0.100.1" ];

@@ -113,7 +113,9 @@ let
       "skimage.segmentation"
     ];
 
-    passthru.tests = { all-tests = self.override { doCheck = true; }; };
+    passthru.tests = {
+      all-tests = self.override { doCheck = true; };
+    };
 
     meta = {
       description = "Image processing routines for SciPy";

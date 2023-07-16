@@ -103,7 +103,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru = { inherit lisp-compiler; };
+  passthru = {
+    inherit lisp-compiler;
+  };
 
   meta = with lib; {
     description = "Computer algebra system";

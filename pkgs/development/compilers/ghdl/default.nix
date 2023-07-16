@@ -63,7 +63,9 @@ stdenv.mkDerivation rec {
     # run with either of
     # nix-build -A ghdl-mcode.passthru.tests
     # nix-build -A ghdl-llvm.passthru.tests
-    tests = { simple = callPackage ./test-simple.nix { inherit backend; }; };
+    tests = {
+      simple = callPackage ./test-simple.nix { inherit backend; };
+    };
   };
 
   meta = with lib; {

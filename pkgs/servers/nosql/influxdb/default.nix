@@ -97,7 +97,9 @@ buildGoModule rec {
 
   excludedPackages = "test";
 
-  passthru.tests = { inherit (nixosTests) influxdb; };
+  passthru.tests = {
+    inherit (nixosTests) influxdb;
+  };
 
   meta = with lib; {
     description = "An open-source distributed time series database";

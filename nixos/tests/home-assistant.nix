@@ -23,7 +23,9 @@ import ./make-test-python.nix (
           ensureDatabases = [ "hass" ];
           ensureUsers = [ {
             name = "hass";
-            ensurePermissions = { "DATABASE hass" = "ALL PRIVILEGES"; };
+            ensurePermissions = {
+              "DATABASE hass" = "ALL PRIVILEGES";
+            };
           } ];
         };
 
@@ -90,7 +92,9 @@ import ./make-test-python.nix (
             };
 
             # https://www.home-assistant.io/integrations/logger/
-            logger = { default = "info"; };
+            logger = {
+              default = "info";
+            };
           };
 
           # configure the sample lovelace dashboard

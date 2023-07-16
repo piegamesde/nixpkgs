@@ -101,8 +101,12 @@ in
     };
 
     security.pam.services = {
-      chsh = { rootOK = true; };
-      chfn = { rootOK = true; };
+      chsh = {
+        rootOK = true;
+      };
+      chfn = {
+        rootOK = true;
+      };
       su = {
         rootOK = true;
         forwardXAuth = true;
@@ -112,20 +116,36 @@ in
       # Note: useradd, groupadd etc. aren't setuid root, so it
       # doesn't really matter what the PAM config says as long as it
       # lets root in.
-      useradd = { rootOK = true; };
-      usermod = { rootOK = true; };
-      userdel = { rootOK = true; };
-      groupadd = { rootOK = true; };
-      groupmod = { rootOK = true; };
-      groupmems = { rootOK = true; };
-      groupdel = { rootOK = true; };
+      useradd = {
+        rootOK = true;
+      };
+      usermod = {
+        rootOK = true;
+      };
+      userdel = {
+        rootOK = true;
+      };
+      groupadd = {
+        rootOK = true;
+      };
+      groupmod = {
+        rootOK = true;
+      };
+      groupmems = {
+        rootOK = true;
+      };
+      groupdel = {
+        rootOK = true;
+      };
       login = {
         startSession = true;
         allowNullPassword = true;
         showMotd = true;
         updateWtmp = true;
       };
-      chpasswd = { rootOK = true; };
+      chpasswd = {
+        rootOK = true;
+      };
     };
 
     security.wrappers = {

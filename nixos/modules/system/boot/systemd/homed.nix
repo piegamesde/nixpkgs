@@ -40,7 +40,9 @@ in
         wantedBy = [ "multi-user.target" ];
       };
 
-      systemd-homed-activate = { wantedBy = [ "systemd-homed.service" ]; };
+      systemd-homed-activate = {
+        wantedBy = [ "systemd-homed.service" ];
+      };
     };
   };
 }

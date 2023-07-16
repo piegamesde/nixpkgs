@@ -14,31 +14,45 @@ let
       [
         {
           case = "8.11";
-          out = { version = "1.11.4"; };
+          out = {
+            version = "1.11.4";
+          };
         }
         {
           case = "8.12";
-          out = { version = "1.12.0"; };
+          out = {
+            version = "1.12.0";
+          };
         }
         {
           case = "8.13";
-          out = { version = "1.13.7"; };
+          out = {
+            version = "1.13.7";
+          };
         }
         {
           case = "8.14";
-          out = { version = "1.13.7"; };
+          out = {
+            version = "1.13.7";
+          };
         }
         {
           case = "8.15";
-          out = { version = "1.15.0"; };
+          out = {
+            version = "1.15.0";
+          };
         }
         {
           case = "8.16";
-          out = { version = "1.16.5"; };
+          out = {
+            version = "1.16.5";
+          };
         }
         {
           case = "8.17";
-          out = { version = "1.16.5"; };
+          out = {
+            version = "1.16.5";
+          };
         }
       ]
       { }

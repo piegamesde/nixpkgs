@@ -401,7 +401,9 @@ in
       ensureDatabases = [ cfg.database.name ];
       ensureUsers = [ {
         name = cfg.database.user;
-        ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
+        ensurePermissions = {
+          "${cfg.database.name}.*" = "ALL PRIVILEGES";
+        };
       } ];
     };
 

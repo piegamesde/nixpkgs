@@ -18,7 +18,9 @@ let
     state = "/run/containerd";
     oom_score = 0;
 
-    grpc = { address = "/run/containerd/containerd.sock"; };
+    grpc = {
+      address = "/run/containerd/containerd.sock";
+    };
 
     plugins."io.containerd.grpc.v1.cri" = {
       sandbox_image = "pause:latest";
