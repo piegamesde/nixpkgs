@@ -38,7 +38,8 @@ let
     ''
   ) deps;
 in
-(lib.concatStrings cmds) + ''
+(lib.concatStrings cmds)
++ ''
   mkdir -p .elm/${ver}/packages;
   cp ${registryDat} .elm/${ver}/packages/registry.dat;
   chmod -R +w .elm

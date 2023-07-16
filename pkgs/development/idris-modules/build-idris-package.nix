@@ -24,7 +24,8 @@
 }@attrs:
 let
   allIdrisDeps =
-    idrisDeps ++ lib.optional (!noPrelude) prelude
+    idrisDeps
+    ++ lib.optional (!noPrelude) prelude
     ++ lib.optional (!noBase) base
     ;
   idris-with-packages = with-packages allIdrisDeps;
@@ -50,7 +51,8 @@ stdenv.mkDerivation ({
     [
       idris-with-packages
       gmp
-    ] ++ extraBuildInputs
+    ]
+    ++ extraBuildInputs
     ;
   propagatedBuildInputs = allIdrisDeps;
 

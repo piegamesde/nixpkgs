@@ -28,7 +28,8 @@ buildDunePackage rec {
     [
       cairo
       dune-configurator
-    ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ ApplicationServices ]
     ;
 
   doCheck =

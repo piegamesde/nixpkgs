@@ -51,7 +51,8 @@ buildPythonApplication rec {
       dbus-python
       pyxdg
       python-olm
-    ] ++ matrix-nio.optional-dependencies.e2e
+    ]
+    ++ matrix-nio.optional-dependencies.e2e
     ;
 
   meta = with lib; {

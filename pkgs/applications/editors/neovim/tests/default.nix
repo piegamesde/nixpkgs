@@ -85,7 +85,8 @@ let
       vimrcGeneric="$out/patched.vim"
       mkdir $out
       ${pkgs.perl}/bin/perl -pe "s|\Q$NIX_STORE\E/[a-z0-9]{32}-|$NIX_STORE/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-|g" < "$vimrc" > "$vimrcGeneric"
-    '' + buildCommand)
+    ''
+      + buildCommand)
     ;
 
 in

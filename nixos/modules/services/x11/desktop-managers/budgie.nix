@@ -159,7 +159,8 @@ in
 
         # Update user directories.
         xdg-user-dirs
-      ] ++ (utils.removePackagesByName [
+      ]
+      ++ (utils.removePackagesByName [
         cinnamon.nemo
         mate.eom
         mate.pluma
@@ -177,7 +178,8 @@ in
 
         # Default settings.
         nixos-gsettings-overrides
-      ] config.environment.budgie.excludePackages) ++ cfg.sessionPath;
+      ] config.environment.budgie.excludePackages)
+      ++ cfg.sessionPath;
 
       # Fonts.
     fonts.fonts = mkDefault [

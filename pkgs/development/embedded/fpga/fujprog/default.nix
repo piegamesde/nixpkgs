@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
     [
       libftdi1
       libusb-compat-0_1
-    ] ++ lib.optionals stdenv.isDarwin [ IOKit ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ IOKit ]
     ;
 
   meta = with lib; {

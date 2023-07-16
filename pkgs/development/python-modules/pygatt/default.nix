@@ -38,7 +38,8 @@ buildPythonPackage rec {
     [
       mock
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.GATTTOOL
+    ]
+    ++ passthru.optional-dependencies.GATTTOOL
     ;
 
   postPatch = ''

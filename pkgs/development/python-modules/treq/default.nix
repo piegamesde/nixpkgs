@@ -22,7 +22,8 @@ buildPythonPackage rec {
       requests
       incremental
       twisted
-    ] ++ twisted.optional-dependencies.tls
+    ]
+    ++ twisted.optional-dependencies.tls
     ;
 
   nativeCheckInputs = [

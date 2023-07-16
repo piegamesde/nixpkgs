@@ -57,7 +57,8 @@ stdenv.mkDerivation rec {
       fontconfig
       pixman
       tllist
-    ] ++ lib.optionals (withShapingTypes != [ ]) [ harfbuzz ]
+    ]
+    ++ lib.optionals (withShapingTypes != [ ]) [ harfbuzz ]
     ++ lib.optionals (builtins.elem "run" withShapingTypes) [ utf8proc ]
     ;
   nativeCheckInputs = [ check ];

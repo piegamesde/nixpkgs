@@ -85,10 +85,12 @@ stdenv.mkDerivation {
       sqlite
       zlib
       stdenv.cc.cc.libgcc or null
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       tcl-8_5
       tk-8_5
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       tcl-8_6
       tk-8_6
     ]
@@ -123,7 +125,8 @@ stdenv.mkDerivation {
         -exec patchelf \
           --replace-needed libtinfow.so.6 libncursesw.so.6 \
           --replace-needed libgdbm.so.4 libgdbm_compat.so.4 {} \;
-    '' + lib.optionalString (stdenv.isDarwin) ''
+    ''
+    + lib.optionalString (stdenv.isDarwin) ''
       install_name_tool \
         -change \
           @rpath/lib${executable}-c.dylib \
@@ -156,7 +159,8 @@ stdenv.mkDerivation {
           "ssl"
           "sys"
           "curses"
-        ] ++ lib.optionals (!isPy3k) [ "Tkinter" ]
+        ]
+        ++ lib.optionals (!isPy3k) [ "Tkinter" ]
         ++ lib.optionals isPy3k [ "tkinter" ]
         ;
       imports = lib.concatMapStringsSep "; " (x: "import ${x}") modules;

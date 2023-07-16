@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
     [
       getopt
       gnused
-    ] ++ lib.optional (!stdenv.isDarwin) libcap
+    ]
+    ++ lib.optional (!stdenv.isDarwin) libcap
     ;
 
   postUnpack = ''

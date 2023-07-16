@@ -56,7 +56,8 @@ stdenv.mkDerivation rec {
       openssl
       xercesc
       file
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libXext
       libXi
       libXt
@@ -64,14 +65,16 @@ stdenv.mkDerivation rec {
       libuuid
       libyubikey
       yubikey-personalization
-    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ;
 
   cmakeFlags =
     [
       "-DNO_GTEST=ON"
       "-DCMAKE_CXX_FLAGS=-I${yubikey-personalization}/include/ykpers-1"
-    ] ++ lib.optionals stdenv.isDarwin [ "-DNO_YUBI=ON" ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ "-DNO_YUBI=ON" ]
     ;
 
   postPatch =
@@ -92,7 +95,8 @@ stdenv.mkDerivation rec {
       for f in $(grep -Rl /usr/bin/ .) ; do
         substituteInPlace $f --replace /usr/bin/ ""
       done
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace src/ui/cli/CMakeLists.txt --replace "uuid" ""
     ''
     ;

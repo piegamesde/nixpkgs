@@ -45,7 +45,8 @@ let
         ln -s ../googletest third_party/gmock/gtest
         ln -s ../gmock third_party/googletest/googlemock
         ln -s $(pwd)/third_party/googletest third_party/googletest/googletest
-      '' + lib.optionalString stdenv.isDarwin ''
+      ''
+      + lib.optionalString stdenv.isDarwin ''
         substituteInPlace src/google/protobuf/testing/googletest.cc \
           --replace 'tmpnam(b)' '"'$TMPDIR'/foo"'
       ''
@@ -60,9 +61,10 @@ let
             "https://github.com/protocolbuffers/protobuf/commit/a7324f88e92bc16b57f3683403b6c993bf68070b.patch";
           sha256 = "sha256-SmwaUjOjjZulg/wgNmR/F5b8rhYA2wkKAjHIOxjcQdQ=";
         })
-      ] ++ lib.optionals stdenv.hostPlatform.isStatic [
-        ./static-executables-have-no-rpath.patch
       ]
+      ++ lib.optionals stdenv.hostPlatform.isStatic [
+          ./static-executables-have-no-rpath.patch
+        ]
       ;
 
     nativeBuildInputs =
@@ -70,7 +72,8 @@ let
         protobufVersion =
           "${lib.versions.major version}_${lib.versions.minor version}";
       in
-      [ cmake ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      [ cmake ]
+      ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
         # protoc of the same version must be available for build. For non-cross builds, it's able to
         # re-use the executable generated as part of the build
         buildPackages."protobuf${protobufVersion}"
@@ -88,13 +91,13 @@ let
     cmakeFlags =
       [ "-Dprotobuf_ABSL_PROVIDER=package" ]
       ++ lib.optionals (!stdenv.targetPlatform.isStatic) [
-        "-Dprotobuf_BUILD_SHARED_LIBS=ON"
-      ]
-      # Tests fail to build on 32-bit platforms; fixed in 3.22
-      # https://github.com/protocolbuffers/protobuf/issues/10418
+          "-Dprotobuf_BUILD_SHARED_LIBS=ON"
+        ]
+        # Tests fail to build on 32-bit platforms; fixed in 3.22
+        # https://github.com/protocolbuffers/protobuf/issues/10418
       ++ lib.optional
-      (stdenv.targetPlatform.is32bit && lib.versionOlder version "3.22")
-      "-Dprotobuf_BUILD_TESTS=OFF"
+        (stdenv.targetPlatform.is32bit && lib.versionOlder version "3.22")
+        "-Dprotobuf_BUILD_TESTS=OFF"
       ;
 
       # unfortunately the shared libraries have yet to been patched by nix, thus tests will fail

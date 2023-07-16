@@ -79,7 +79,8 @@ stdenv.mkDerivation rec {
       nettle
       fontconfig
       libffi
-    ] ++ lib.optionals xorgSupport [
+    ]
+    ++ lib.optionals xorgSupport [
       libxkbcommon
       libXi
       libXScrnSaver
@@ -88,14 +89,17 @@ stdenv.mkDerivation rec {
       libXpresent
       libXext
       libXrandr
-    ] ++ lib.optionals waylandSupport [
+    ]
+    ++ lib.optionals waylandSupport [
       libxkbcommon
       wayland
       wayland-protocols
-    ] ++ lib.optionals pipewireSupport [
+    ]
+    ++ lib.optionals pipewireSupport [
       pipewire
       libsamplerate
-    ] ++ lib.optionals pulseSupport [
+    ]
+    ++ lib.optionals pulseSupport [
       pulseaudio
       libsamplerate
     ]

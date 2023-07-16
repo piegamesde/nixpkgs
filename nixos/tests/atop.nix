@@ -50,7 +50,8 @@ let
     wrapper =
       present:
       if present then
-        path "atop" "/run/wrappers/bin/atop" + ''
+        path "atop" "/run/wrappers/bin/atop"
+        + ''
           with subtest("Wrapper should be setuid root"):
               stat = machine.succeed("stat --printf '%a %u' /run/wrappers/bin/atop")
               assert stat == "4511 0", f"Wrapper stat is {stat}, expected '4511 0'"
@@ -61,7 +62,8 @@ let
     atopService =
       present:
       if present then
-        unit "atop.service" "active" + ''
+        unit "atop.service" "active"
+        + ''
           with subtest("atop.service should write some data to /var/log/atop"):
 
               def has_data_files(last: bool) -> bool:
@@ -89,7 +91,8 @@ let
     atopacctService =
       present:
       if present then
-        unit "atopacct.service" "active" + ''
+        unit "atopacct.service" "active"
+        + ''
           with subtest("atopacct.service should enable process accounting"):
               machine.wait_until_succeeds("test -f /run/pacct_source")
 
@@ -113,7 +116,8 @@ let
     netatop =
       present:
       if present then
-        unit "netatop.service" "active" + ''
+        unit "netatop.service" "active"
+        + ''
           with subtest("The netatop kernel module should be loaded"):
               out = machine.succeed("modprobe -n -v netatop")
               assert out == "", f"Module should be loaded already, but modprobe would have done {out}."
@@ -130,7 +134,8 @@ let
         (unit "atopgpu.service" "active")
         + (path "atopgpud" "/run/current-system/sw/bin/atopgpud")
       else
-        (unit "atopgpu.service" "inactive") + ''
+        (unit "atopgpu.service" "inactive")
+        + ''
           with subtest("atopgpud should not be present"):
               machine.fail("type -p atopgpud")
         ''

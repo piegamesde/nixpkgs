@@ -65,7 +65,9 @@ stdenv.mkDerivation rec {
       lmdb
       mailcap
       sqlite
-    ] ++ lib.optional enableZstd zstd ++ lib.optional enableLua lua
+    ]
+    ++ lib.optional enableZstd zstd
+    ++ lib.optional enableLua lua
     ;
 
   nativeBuildInputs = [
@@ -117,7 +119,9 @@ stdenv.mkDerivation rec {
       # https://github.com/neomutt/neomutt/pull/2367
       "--disable-include-path-in-cflags"
       "--zlib"
-    ] ++ lib.optional enableZstd "--zstd" ++ lib.optional enableLua "--lua"
+    ]
+    ++ lib.optional enableZstd "--zstd"
+    ++ lib.optional enableLua "--lua"
     ++ lib.optional enableMixmaster "--mixmaster"
     ;
 
@@ -128,7 +132,7 @@ stdenv.mkDerivation rec {
     # https://github.com/neomutt/neomutt-contrib
     # Contains vim-keys, keybindings presets and more.
     + lib.optionalString withContrib
-    "${lib.getExe lndir} ${passthru.contrib} $out/share/doc/neomutt"
+      "${lib.getExe lndir} ${passthru.contrib} $out/share/doc/neomutt"
     ;
 
   doCheck = true;

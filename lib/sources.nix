@@ -50,16 +50,28 @@ let
     in
     !(
       # Filter out version control software files/directories
-      (baseName == ".git" || type == "directory"
-        && (baseName == ".svn" || baseName == "CVS" || baseName == ".hg")) ||
-      # Filter out editor backup / swap files.
-      lib.hasSuffix "~" baseName || match "^\\.sw[a-z]$" baseName != null
-      || match "^\\..*\\.sw[a-z]$" baseName != null ||
-
-      # Filter out generates files.
-      lib.hasSuffix ".o" baseName || lib.hasSuffix ".so" baseName ||
-      # Filter out nix-build result symlinks
-      (type == "symlink" && lib.hasPrefix "result" baseName) ||
+      (baseName == ".git"
+        || type == "directory"
+          && (baseName == ".svn" || baseName == "CVS" || baseName == ".hg"))
+      ||
+      # Filter out sockets and other types of files we can't have in the store.
+      lib.hasSuffix "~" baseName
+      ||
+      # Filter out sockets and other types of files we can't have in the store.
+        match "^\\.sw[a-z]$" baseName != null
+      ||
+      # Filter out sockets and other types of files we can't have in the store.
+        match "^\\..*\\.sw[a-z]$" baseName != null
+      ||
+      # Filter out sockets and other types of files we can't have in the store.
+      lib.hasSuffix ".o" baseName
+      ||
+      # Filter out sockets and other types of files we can't have in the store.
+      lib.hasSuffix ".so" baseName
+      ||
+      # Filter out sockets and other types of files we can't have in the store.
+      (type == "symlink" && lib.hasPrefix "result" baseName)
+      ||
       # Filter out sockets and other types of files we can't have in the store.
       (type == "unknown"))
     ;

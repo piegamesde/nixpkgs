@@ -80,7 +80,8 @@ let
       "systemd-tmpfiles-setup.service"
       "timers.target"
       "umount.target"
-    ] ++ cfg.additionalUpstreamUnits
+    ]
+    ++ cfg.additionalUpstreamUnits
     ;
 
   upstreamWants = [ "sysinit.target.wants" ];
@@ -386,8 +387,9 @@ in
         "autofs4"
         # systemd-cryptenroll
         "tpm-tis"
-      ] ++ lib.optional (pkgs.stdenv.hostPlatform.system != "riscv64-linux")
-      "tpm-crb"
+      ]
+      ++ lib.optional (pkgs.stdenv.hostPlatform.system != "riscv64-linux")
+        "tpm-crb"
       ;
 
     boot.initrd.systemd = {
@@ -397,7 +399,8 @@ in
           pkgs.coreutils
           cfg.package.kmod
           cfg.package
-        ] ++ config.system.fsPackages
+        ]
+        ++ config.system.fsPackages
         ;
       extraBin = {
         less = "${pkgs.less}/bin/less";
@@ -490,7 +493,8 @@ in
 
           # so NSS can look up usernames
           "${pkgs.glibc}/lib/libnss_files.so.2"
-        ] ++ optionals cfg.package.withCryptsetup [
+        ]
+        ++ optionals cfg.package.withCryptsetup [
           # tpm2 support
           "${cfg.package}/lib/cryptsetup/libcryptsetup-token-systemd-tpm2.so"
           pkgs.tpm2-tss
@@ -498,7 +502,8 @@ in
           # fido2 support
           "${cfg.package}/lib/cryptsetup/libcryptsetup-token-systemd-fido2.so"
           "${pkgs.libfido2}/lib/libfido2.so.1"
-        ] ++ jobScripts
+        ]
+        ++ jobScripts
         ;
 
       targets.initrd.aliases = [ "default.target" ];

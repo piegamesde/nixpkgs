@@ -45,7 +45,7 @@ buildPythonApplication rec {
     ]
     # Graphviz support
     ++ lib.optional enableGraphviz graphviz
-    # Ghostscript support
+      # Ghostscript support
     ++ lib.optional enableGhostscript ghostscript
     ;
 

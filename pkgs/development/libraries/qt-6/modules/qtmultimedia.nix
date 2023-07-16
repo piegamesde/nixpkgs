@@ -34,7 +34,8 @@ qtModule {
     [
       libunwind
       orc
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libpulseaudio
       elfutils
       alsa-lib
@@ -48,7 +49,8 @@ qtModule {
       gst-plugins-good
       gst-libav
       gst-vaapi
-    ] ++ lib.optionals stdenv.isDarwin [ VideoToolbox ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ VideoToolbox ]
     ;
 
   env.NIX_CFLAGS_COMPILE =

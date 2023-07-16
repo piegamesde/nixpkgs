@@ -51,13 +51,15 @@ buildPythonPackage rec {
       # To avoid this issue, debugpy should be installed using python.withPackages:
       # python.withPackages (ps: with ps; [ debugpy ])
       ./fix-test-pythonpath.patch
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       # Hard code GDB path (used to attach to process)
       (substituteAll {
         src = ./hardcode-gdb.patch;
         inherit gdb;
       })
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # Hard code LLDB path (used to attach to process)
       (substituteAll {
         src = ./hardcode-lldb.patch;

@@ -39,7 +39,8 @@ buildPythonPackage rec {
       djangorestframework-simplejwt
       responses
       unittest-xml-reporting
-    ] ++ passthru.optional-dependencies.with_social
+    ]
+    ++ passthru.optional-dependencies.with_social
     ;
 
   preCheck = ''

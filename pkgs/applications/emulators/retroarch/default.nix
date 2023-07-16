@@ -71,7 +71,8 @@ stdenv.mkDerivation rec {
     [
       pkg-config
       wrapQtAppsHook
-    ] ++ lib.optional withWayland wayland
+    ]
+    ++ lib.optional withWayland wayland
     ++ lib.optional (runtimeLibs != [ ]) makeWrapper
     ;
 
@@ -89,8 +90,10 @@ stdenv.mkDerivation rec {
       SDL2
       spirv-tools
       zlib
-    ] ++ lib.optional enableNvidiaCgToolkit nvidia_cg_toolkit
-    ++ lib.optional withVulkan vulkan-loader ++ lib.optional withWayland wayland
+    ]
+    ++ lib.optional enableNvidiaCgToolkit nvidia_cg_toolkit
+    ++ lib.optional withVulkan vulkan-loader
+    ++ lib.optional withWayland wayland
     ++ lib.optionals stdenv.isLinux [
       alsa-lib
       dbus
@@ -116,13 +119,16 @@ stdenv.mkDerivation rec {
       "--enable-systemmbedtls"
       "--disable-builtinzlib"
       "--disable-builtinflac"
-    ] ++ lib.optionals withAssets [
+    ]
+    ++ lib.optionals withAssets [
       "--disable-update_assets"
       "--with-assets_dir=${retroarch-assets}/share"
-    ] ++ lib.optionals withCoreInfo [
+    ]
+    ++ lib.optionals withCoreInfo [
       "--disable-update_core_info"
       "--with-core_info_dir=${libretro-core-info}/share"
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       "--enable-dbus"
       "--enable-egl"
       "--enable-kms"
@@ -133,7 +139,8 @@ stdenv.mkDerivation rec {
     lib.optionalString (runtimeLibs != [ ]) ''
       wrapProgram $out/bin/retroarch \
         --prefix LD_LIBRARY_PATH ':' ${lib.makeLibraryPath runtimeLibs}
-    '' + lib.optionalString enableNvidiaCgToolkit ''
+    ''
+    + lib.optionalString enableNvidiaCgToolkit ''
       wrapProgram $out/bin/retroarch-cg2glsl \
         --prefix PATH ':' ${lib.makeBinPath [ nvidia_cg_toolkit ]}
     ''
@@ -154,7 +161,8 @@ stdenv.mkDerivation rec {
     changelog =
       "https://github.com/libretro/RetroArch/blob/v${version}/CHANGES.md";
     maintainers = with maintainers;
-      teams.libretro.members ++ [
+      teams.libretro.members
+      ++ [
         matthewbauer
         kolbycrouch
       ];

@@ -38,9 +38,11 @@ stdenv.mkDerivation rec {
   buildPhase =
     ''
       runHook preBuild
-    '' + lib.optionalString (confFile != null) ''
+    ''
+    + lib.optionalString (confFile != null) ''
       install -m 0600 ${confFile} conf/keycloak.conf
-    '' + ''
+    ''
+    + ''
       install_plugin() {
         if [ -d "$1" ]; then
           find "$1" -type f \( -iname \*.ear -o -iname \*.jar \) -exec install -m 0500 "{}" "providers/" \;
@@ -50,7 +52,8 @@ stdenv.mkDerivation rec {
       }
       ${lib.concatMapStringsSep "\n"
       (pl: "install_plugin ${lib.escapeShellArg pl}") plugins}
-    '' + ''
+    ''
+    + ''
       patchShebangs bin/kc.sh
       export KC_HOME_DIR=$(pwd)
       export KC_CONF_DIR=$(pwd)/conf

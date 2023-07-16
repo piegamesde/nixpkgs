@@ -102,7 +102,8 @@ let
           [
             equations
             coq.ocamlPackages.zarith
-          ] ++ metacoq-deps
+          ]
+          ++ metacoq-deps
           ;
 
         patchPhase = ''
@@ -117,14 +118,17 @@ let
         '';
 
         configurePhase =
-          optionalString (package == "all") pkgallMake + ''
+          optionalString (package == "all") pkgallMake
+          + ''
             touch ${pkgpath}/metacoq-config
-          '' + optionalString (elem package [
+          ''
+          + optionalString (elem package [
             "safechecker"
             "erasure"
           ]) ''
             echo  "-I ${template-coq}/lib/coq/${coq.coq-version}/user-contrib/MetaCoq/Template/" > ${pkgpath}/metacoq-config
-          '' + optionalString (package == "single") ''
+          ''
+          + optionalString (package == "single") ''
             ./configure.sh local
           ''
           ;
@@ -143,9 +147,10 @@ let
       })).overrideAttrs (o:
         let
           requiresOcamlStdlibShims =
-            versionAtLeast o.version "1.0-8.16" || (o.version == "dev"
-              && (versionAtLeast coq.coq-version "8.16" || coq.coq-version
-                == "dev"))
+            versionAtLeast o.version "1.0-8.16"
+            || (o.version == "dev"
+              && (versionAtLeast coq.coq-version "8.16"
+                || coq.coq-version == "dev"))
             ;
         in
         {

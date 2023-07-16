@@ -41,7 +41,8 @@ stdenv.mkDerivation {
       inkscape
       imagemagick
       optipng
-    ] ++ optionals withCrashReporter [ wrapQtAppsHook ]
+    ]
+    ++ optionals withCrashReporter [ wrapQtAppsHook ]
     ;
 
   buildInputs =
@@ -54,10 +55,12 @@ stdenv.mkDerivation {
       libGLU
       SDL2
       libepoxy
-    ] ++ optionals withCrashReporter [
+    ]
+    ++ optionals withCrashReporter [
       qtbase
       curl
-    ] ++ optionals stdenv.isLinux [ gdb ]
+    ]
+    ++ optionals stdenv.isLinux [ gdb ]
     ;
 
   cmakeFlags = [
@@ -73,7 +76,8 @@ stdenv.mkDerivation {
       ln -sf \
         ${dejavu_fonts}/share/fonts/truetype/DejaVuSansMono.ttf \
         $out/share/games/arx/misc/dejavusansmono.ttf
-    '' + optionalString withCrashReporter ''
+    ''
+    + optionalString withCrashReporter ''
       wrapQtApp "$out/libexec/arxcrashreporter"
     ''
     ;

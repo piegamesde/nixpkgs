@@ -138,7 +138,7 @@ let
             flags =
               filter (name: config.${name} == true) isolateFlags
               ++ optional (config.SessionGroup != null)
-              "SessionGroup=${toString config.SessionGroup}"
+                "SessionGroup=${toString config.SessionGroup}"
               ;
           };
         }))
@@ -180,7 +180,8 @@ let
           "UseIPv4Cache"
           "UseIPv6Cache"
           "WorldWritable"
-        ] ++ isolateFlags
+        ]
+        ++ isolateFlags
         ;
     in
     with types;
@@ -209,7 +210,7 @@ let
               flags =
                 filter (name: config.${name} == true) flags
                 ++ optional (config.SessionGroup != null)
-                "SessionGroup=${toString config.SessionGroup}"
+                  "SessionGroup=${toString config.SessionGroup}"
                 ;
             };
         }))
@@ -290,7 +291,8 @@ let
       else
         "0")
     else if v ? "unix" && v.unix != null then
-      "unix:" + v.unix
+      "unix:"
+      + v.unix
       + optionalString (v ? "flags") (" " + concatStringsSep " " v.flags)
     else if v ? "port" && v.port != null then
       optionalString (v ? "addr" && v.addr != null) "${v.addr}:"
@@ -320,17 +322,19 @@ let
           "DirPolicy"
           "ExitPolicy"
           "SocksPolicy"
-        ] && v != [ ]
+        ]
+        && v != [ ]
       then
         concatStringsSep "," v
       else
         v) (lib.filterAttrs (k: v: !(v == null || v == "")) settings))
     ;
-  torrc = pkgs.writeText "torrc" (genTorrc cfg.settings + concatStrings
-    (mapAttrsToList (name: onion:
+  torrc = pkgs.writeText "torrc" (genTorrc cfg.settings
+    + concatStrings (mapAttrsToList (name: onion:
       ''
         HiddenServiceDir ${onion.path}
-      '' + genTorrc onion.settings) cfg.relay.onionServices));
+      ''
+      + genTorrc onion.settings) cfg.relay.onionServices));
 in
 {
   imports = [
@@ -937,11 +941,13 @@ in
                 path = mkDefault ((if config.secretKey == null then
                   stateDir
                 else
-                  runDir) + "/onion/${name}");
+                  runDir)
+                  + "/onion/${name}");
                 settings.HiddenServiceVersion = config.version;
                 settings.HiddenServiceAuthorizeClient =
                   if config.authorizeClient != null then
-                    config.authorizeClient.authType + " "
+                    config.authorizeClient.authType
+                    + " "
                     + concatStringsSep "," config.authorizeClient.clientNames
                   else
                     null
@@ -1345,31 +1351,33 @@ in
     warnings =
       optional (cfg.settings.BridgeRelay
         && flatten (mapAttrsToList (n: o: o.map) cfg.relay.onionServices)
-        != [ ]) ''
-          Running Tor hidden services on a public relay makes the
-          presence of hidden services visible through simple statistical
-          analysis of publicly available data.
-          See https://trac.torproject.org/projects/tor/ticket/8742
+          != [ ]) ''
+            Running Tor hidden services on a public relay makes the
+            presence of hidden services visible through simple statistical
+            analysis of publicly available data.
+            See https://trac.torproject.org/projects/tor/ticket/8742
 
-          You can safely ignore this warning if you don't intend to
-          actually hide your hidden services. In either case, you can
-          always create a container/VM with a separate Tor daemon instance.
-        '' ++ flatten (mapAttrsToList (n: o:
-          optionals (o.settings.HiddenServiceVersion == 2) [
+            You can safely ignore this warning if you don't intend to
+            actually hide your hidden services. In either case, you can
+            always create a container/VM with a separate Tor daemon instance.
+          ''
+      ++ flatten (mapAttrsToList (n: o:
+        optionals (o.settings.HiddenServiceVersion == 2) [
             (optional (o.settings.HiddenServiceExportCircuitID != null) ''
               HiddenServiceExportCircuitID is used in the HiddenService: ${n}
               but this option is only for v3 hidden services.
             '')
-          ] ++ optionals (o.settings.HiddenServiceVersion != 2) [
-            (optional (o.settings.HiddenServiceAuthorizeClient != null) ''
-              HiddenServiceAuthorizeClient is used in the HiddenService: ${n}
-              but this option is only for v2 hidden services.
-            '')
-            (optional (o.settings.RendPostPeriod != null) ''
-              RendPostPeriod is used in the HiddenService: ${n}
-              but this option is only for v2 hidden services.
-            '')
-          ]) cfg.relay.onionServices)
+          ]
+        ++ optionals (o.settings.HiddenServiceVersion != 2) [
+          (optional (o.settings.HiddenServiceAuthorizeClient != null) ''
+            HiddenServiceAuthorizeClient is used in the HiddenService: ${n}
+            but this option is only for v2 hidden services.
+          '')
+          (optional (o.settings.RendPostPeriod != null) ''
+            RendPostPeriod is used in the HiddenService: ${n}
+            but this option is only for v2 hidden services.
+          '')
+        ]) cfg.relay.onionServices)
       ;
 
     users.groups.tor.gid = config.ids.gids.tor;
@@ -1469,44 +1477,52 @@ in
         ExecStartPre = [
           "${cfg.package}/bin/tor -f ${torrc} --verify-config"
           # DOC: Appendix G of https://spec.torproject.org/rend-spec-v3
-          ("+" + pkgs.writeShellScript "ExecStartPre" (concatStringsSep "\n"
-            (flatten ([ "set -eu" ] ++ mapAttrsToList (name: onion:
-              optional (onion.authorizedClients != [ ]) ''
-                rm -rf ${escapeShellArg onion.path}/authorized_clients
-                install -d -o tor -g tor -m 0700 ${escapeShellArg onion.path} ${
-                  escapeShellArg onion.path
-                }/authorized_clients
-              '' ++ imap0 (i: pubKey: ''
-                echo ${pubKey} |
-                install -o tor -g tor -m 0400 /dev/stdin ${
-                  escapeShellArg onion.path
-                }/authorized_clients/${toString i}.auth
-              '') onion.authorizedClients
-              ++ optional (onion.secretKey != null) ''
-                install -d -o tor -g tor -m 0700 ${escapeShellArg onion.path}
-                key="$(cut -f1 -d: ${escapeShellArg onion.secretKey} | head -1)"
-                case "$key" in
-                 ("== ed25519v"*"-secret")
-                  install -o tor -g tor -m 0400 ${
-                    escapeShellArg onion.secretKey
-                  } ${escapeShellArg onion.path}/hs_ed25519_secret_key;;
-                 (*) echo >&2 "NixOS does not (yet) support secret key type for onion: ${name}"; exit 1;;
-                esac
-              '') cfg.relay.onionServices ++ mapAttrsToList (name: onion:
-                imap0 (i: prvKeyPath:
-                  let
-                    hostname = removeSuffix ".onion" name;
-                  in
+          ("+"
+            + pkgs.writeShellScript "ExecStartPre" (concatStringsSep "\n"
+              (flatten ([ "set -eu" ]
+                ++ mapAttrsToList (name: onion:
+                  optional (onion.authorizedClients != [ ]) ''
+                    rm -rf ${escapeShellArg onion.path}/authorized_clients
+                    install -d -o tor -g tor -m 0700 ${
+                      escapeShellArg onion.path
+                    } ${escapeShellArg onion.path}/authorized_clients
                   ''
-                    printf "%s:" ${escapeShellArg hostname} | cat - ${
-                      escapeShellArg prvKeyPath
-                    } |
-                    install -o tor -g tor -m 0700 /dev/stdin \
-                     ${runDir}/ClientOnionAuthDir/${escapeShellArg hostname}.${
-                       toString i
-                     }.auth_private
-                  ''
-                ) onion.clientAuthorizations) cfg.client.onionServices))))
+                  ++ imap0 (i: pubKey: ''
+                    echo ${pubKey} |
+                    install -o tor -g tor -m 0400 /dev/stdin ${
+                      escapeShellArg onion.path
+                    }/authorized_clients/${toString i}.auth
+                  '') onion.authorizedClients
+                  ++ optional (onion.secretKey != null) ''
+                    install -d -o tor -g tor -m 0700 ${
+                      escapeShellArg onion.path
+                    }
+                    key="$(cut -f1 -d: ${
+                      escapeShellArg onion.secretKey
+                    } | head -1)"
+                    case "$key" in
+                     ("== ed25519v"*"-secret")
+                      install -o tor -g tor -m 0400 ${
+                        escapeShellArg onion.secretKey
+                      } ${escapeShellArg onion.path}/hs_ed25519_secret_key;;
+                     (*) echo >&2 "NixOS does not (yet) support secret key type for onion: ${name}"; exit 1;;
+                    esac
+                  '') cfg.relay.onionServices
+                ++ mapAttrsToList (name: onion:
+                  imap0 (i: prvKeyPath:
+                    let
+                      hostname = removeSuffix ".onion" name;
+                    in
+                    ''
+                      printf "%s:" ${escapeShellArg hostname} | cat - ${
+                        escapeShellArg prvKeyPath
+                      } |
+                      install -o tor -g tor -m 0700 /dev/stdin \
+                       ${runDir}/ClientOnionAuthDir/${
+                         escapeShellArg hostname
+                       }.${toString i}.auth_private
+                    ''
+                  ) onion.clientAuthorizations) cfg.client.onionServices))))
         ];
         ExecStart = "${cfg.package}/bin/tor -f ${torrc}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
@@ -1529,7 +1545,8 @@ in
           [
             "tor"
             "tor/onion"
-          ] ++ flatten (mapAttrsToList (name: onion:
+          ]
+          ++ flatten (mapAttrsToList (name: onion:
             optional (onion.secretKey == null) "tor/onion/${name}")
             cfg.relay.onionServices)
           ;
@@ -1544,7 +1561,8 @@ in
           [
             storeDir
             "/etc"
-          ] ++ optionals config.services.resolved.enable [
+          ]
+          ++ optionals config.services.resolved.enable [
             "/run/systemd/resolve/stub-resolv.conf"
             "/run/systemd/resolve/resolv.conf"
           ]

@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
       libmysqlclient
       netcdf
       pdal
-    ] ++ (with python3Packages; [
+    ]
+    ++ (with python3Packages; [
       python-dateutil
       numpy
       wxPython_4_2
@@ -77,7 +78,8 @@ stdenv.mkDerivation rec {
       wxGTK32
       proj-datumgrid
       zstd
-    ] ++ lib.optionals stdenv.isDarwin [ libiconv ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv ]
     ;
 
   strictDeps = true;
@@ -111,7 +113,8 @@ stdenv.mkDerivation rec {
       "--with-zstd"
       "--with-fftw"
       "--with-pthread"
-    ] ++ lib.optionals stdenv.isLinux [ "--with-pdal" ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ "--with-pdal" ]
     ++ lib.optionals stdenv.isDarwin [
       "--without-cairo"
       "--without-freetype"

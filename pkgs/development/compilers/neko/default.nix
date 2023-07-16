@@ -60,7 +60,9 @@ stdenv.mkDerivation rec {
       mbedtls_2
       openssl
       libpthreadstubs
-    ] ++ lib.optional stdenv.isLinux gtk2 ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optional stdenv.isLinux gtk2
+    ++ lib.optionals stdenv.isDarwin [
       pkgs.darwin.apple_sdk.frameworks.Security
       pkgs.darwin.apple_sdk.frameworks.Carbon
     ]

@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ zlib ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    [ zlib ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
       libX11
       libXrandr
       libXinerama
@@ -58,7 +59,8 @@ stdenv.mkDerivation rec {
       alsa-lib
       fontconfig
       libGLU
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
       AVFoundation
       Carbon
       Cocoa

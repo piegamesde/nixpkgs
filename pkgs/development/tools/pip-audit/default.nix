@@ -48,7 +48,8 @@ buildPythonApplication rec {
       pip-requirements-parser
       rich
       toml
-    ] ++ cachecontrol.optional-dependencies.filecache
+    ]
+    ++ cachecontrol.optional-dependencies.filecache
     ;
 
   nativeCheckInputs = [

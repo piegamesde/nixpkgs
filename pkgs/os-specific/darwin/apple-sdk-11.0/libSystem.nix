@@ -60,7 +60,8 @@ stdenvNoCC.mkDerivation {
       "vfs"
       "voucher"
       "xlocale"
-    ] ++ [
+    ]
+    ++ [
       "arm"
       "xpc"
       "arm64"

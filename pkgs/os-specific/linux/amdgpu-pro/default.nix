@@ -171,7 +171,8 @@ stdenv.mkDerivation rec {
       # short name to allow replacement below
       ln -s lib/dri $out/dri
 
-    '' + optionalString (stdenv.is64bit) ''
+    ''
+    + optionalString (stdenv.is64bit) ''
       mkdir -p $out/etc
       pushd etc
       cp -r modprobe.d udev amd $out/etc
@@ -181,7 +182,8 @@ stdenv.mkDerivation rec {
       cp -r opt/amdgpu/lib/xorg $out/lib/xorg
       cp -r opt/amdgpu-pro/lib/xorg/* $out/lib/xorg
       cp -r opt/amdgpu/share $out/opt/amdgpu/share
-    '' + ''
+    ''
+    + ''
 
       mkdir -p $vulkan/share/vulkan/icd.d
       install opt/amdgpu-pro/etc/vulkan/icd.d/amd_icd${bitness}.json $vulkan/share/vulkan/icd.d
@@ -207,22 +209,23 @@ stdenv.mkDerivation rec {
         # we replace a different path on 32-bit because it's the only one long
         # enough to fit the target path :(
         expr2='s:/usr/lib/i386-linux-gnu/dri[\0\:]:/run/opengl-driver-32/dri\0\0\0:g'
-      '') + ''
-        perl -pi -e "$expr1" \
-          $out/opt/amdgpu/lib/libEGL.so.1.0.0 \
-          $out/opt/amdgpu/lib/libgbm.so.1.0.0 \
-          $out/opt/amdgpu/lib/libGL.so.1.2.0
+      '')
+    + ''
+      perl -pi -e "$expr1" \
+        $out/opt/amdgpu/lib/libEGL.so.1.0.0 \
+        $out/opt/amdgpu/lib/libgbm.so.1.0.0 \
+        $out/opt/amdgpu/lib/libGL.so.1.2.0
 
-        perl -pi -e "$expr2" \
-          $out/opt/amdgpu-pro/lib/libEGL.so.1 \
-          $out/opt/amdgpu-pro/lib/libGL.so.1.2 \
-          $out/opt/amdgpu-pro/lib/libGLX_amd.so.0
+      perl -pi -e "$expr2" \
+        $out/opt/amdgpu-pro/lib/libEGL.so.1 \
+        $out/opt/amdgpu-pro/lib/libGL.so.1.2 \
+        $out/opt/amdgpu-pro/lib/libGLX_amd.so.0
 
-        find $out -type f -exec perl -pi -e 's:/opt/amdgpu-pro/:/run/amdgpu-pro/:g' {} \;
-        find $out -type f -exec perl -pi -e 's:/opt/amdgpu/:/run/amdgpu/:g' {} \;
+      find $out -type f -exec perl -pi -e 's:/opt/amdgpu-pro/:/run/amdgpu-pro/:g' {} \;
+      find $out -type f -exec perl -pi -e 's:/opt/amdgpu/:/run/amdgpu/:g' {} \;
 
-        substituteInPlace $vulkan/share/vulkan/icd.d/*.json --replace /opt/amdgpu-pro/lib/${libArch} "$out/opt/amdgpu-pro/lib"
-      ''
+      substituteInPlace $vulkan/share/vulkan/icd.d/*.json --replace /opt/amdgpu-pro/lib/${libArch} "$out/opt/amdgpu-pro/lib"
+    ''
     ;
 
     # doing this in post because shrinking breaks things that dynamically load

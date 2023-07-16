@@ -23,15 +23,17 @@ stdenv.mkDerivation rec {
       openssl
       boost
       gmp
-    ] ++ lib.optional stdenv.hostPlatform.isLinux procps
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux procps
     ;
 
   cmakeFlags =
     lib.optionals stdenv.hostPlatform.isDarwin [ "-DWITH_PROCPS=OFF" ]
     ++ lib.optionals
-    (stdenv.hostPlatform.isDarwin || !stdenv.hostPlatform.isx86) [
-      "-DWITH_SUPERCOP=OFF"
-    ] ++ lib.optionals (!stdenv.hostPlatform.isx86) [ "-DCURVE=ALT_BN128" ]
+      (stdenv.hostPlatform.isDarwin || !stdenv.hostPlatform.isx86) [
+        "-DWITH_SUPERCOP=OFF"
+      ]
+    ++ lib.optionals (!stdenv.hostPlatform.isx86) [ "-DCURVE=ALT_BN128" ]
     ;
 
   src = fetchFromGitHub {

@@ -86,7 +86,8 @@ let
       libX11
       xorgproto
       zlib
-    ]) ++ extraLibraries
+    ])
+    ++ extraLibraries
     ;
 
     # Tools used by the Flutter SDK to compile applications.
@@ -119,7 +120,8 @@ in
 } ''
   for path in ${
     builtins.concatStringsSep " " (builtins.foldl' (paths: pkg:
-      paths ++ (map (directory: "'${pkg}/${directory}/pkgconfig'") [
+      paths
+      ++ (map (directory: "'${pkg}/${directory}/pkgconfig'") [
         "lib"
         "share"
       ])) [ ] pkgConfigPackages)

@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
       cmake
       pkg-config
       wrapGAppsHook
-    ] ++ lib.optionals stdenv.isDarwin [ makeWrapper ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ makeWrapper ]
     ;
 
   buildInputs =
@@ -63,7 +64,8 @@ stdenv.mkDerivation rec {
       libsigcxx
       lensfun
       librsvg
-    ] ++ lib.optionals stdenv.isLinux [ libcanberra-gtk3 ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ libcanberra-gtk3 ]
     ++ lib.optionals stdenv.isDarwin [ gtk-mac-integration ]
     ;
 
@@ -71,9 +73,10 @@ stdenv.mkDerivation rec {
     [
       "-DPROC_TARGET_NUMBER=2"
       ''-DCACHE_NAME_SUFFIX=""''
-    ] ++ lib.optionals stdenv.isDarwin [
-      "-DCMAKE_OSX_DEPLOYMENT_TARGET=${stdenv.hostPlatform.darwinMinVersion}"
     ]
+    ++ lib.optionals stdenv.isDarwin [
+        "-DCMAKE_OSX_DEPLOYMENT_TARGET=${stdenv.hostPlatform.darwinMinVersion}"
+      ]
     ;
 
   CMAKE_CXX_FLAGS = toString [

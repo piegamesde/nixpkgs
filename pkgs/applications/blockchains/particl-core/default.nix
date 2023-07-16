@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
     [
       "--disable-bench"
       "--with-boost-libdir=${boost.out}/lib"
-    ] ++ lib.optionals (!doCheck) [ "--enable-tests=no" ]
+    ]
+    ++ lib.optionals (!doCheck) [ "--enable-tests=no" ]
     ;
 
     # Always check during Hydra builds

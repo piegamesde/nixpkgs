@@ -31,7 +31,8 @@ stdenv.mkDerivation {
     [
       Foundation
       XCTest
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       CryptoKit
       LocalAuthentication
     ]

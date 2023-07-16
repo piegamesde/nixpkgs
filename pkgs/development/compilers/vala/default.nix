@@ -96,8 +96,9 @@ let
           libxslt
         ]
         ++ lib.optional (stdenv.isDarwin && (lib.versionAtLeast version "0.38"))
-        expat ++ lib.optional disableGraphviz
-        autoreconfHook # if we changed our ./configure script, need to reconfigure
+          expat
+        ++ lib.optional disableGraphviz
+          autoreconfHook # if we changed our ./configure script, need to reconfigure
         ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ vala ]
         ++ extraNativeBuildInputs
         ;
@@ -107,8 +108,10 @@ let
           glib
           libiconv
           libintl
-        ] ++ lib.optional (lib.versionAtLeast version "0.38" && withGraphviz)
-        graphviz ++ extraBuildInputs
+        ]
+        ++ lib.optional (lib.versionAtLeast version "0.38" && withGraphviz)
+          graphviz
+        ++ extraBuildInputs
         ;
 
       enableParallelBuilding = true;
@@ -141,7 +144,8 @@ let
             antono
             jtojnar
             maxeaubrey
-          ] ++ teams.pantheon.members;
+          ]
+          ++ teams.pantheon.members;
       };
     }
   );

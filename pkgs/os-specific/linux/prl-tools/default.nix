@@ -65,7 +65,8 @@ stdenv.mkDerivation rec {
       p7zip
       perl
       undmg
-    ] ++ kernel.moduleBuildDependencies
+    ]
+    ++ kernel.moduleBuildDependencies
     ;
 
   buildInputs = [

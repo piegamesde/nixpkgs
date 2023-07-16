@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
   ];
 
   makeFlags =
-    kernel.makeFlags ++ [
+    kernel.makeFlags
+    ++ [
       "KVER=${kernel.modDirVersion}"
       "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     ]

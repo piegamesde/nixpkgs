@@ -34,9 +34,10 @@ stdenv.mkDerivation rec {
   cmakeDir = "../fizz";
 
   cmakeFlags =
-    [ "-Wno-dev" ] ++ lib.optionals stdenv.isDarwin [
-      "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
-    ]
+    [ "-Wno-dev" ]
+    ++ lib.optionals stdenv.isDarwin [
+        "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
+      ]
     ;
 
   NIX_LDFLAGS = "-lz";

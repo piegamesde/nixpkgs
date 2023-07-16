@@ -95,7 +95,8 @@ stdenv.mkDerivation rec {
       pkg-config
       autoconf
       zlib
-    ] ++ lib.optional cupsSupport cups
+    ]
+    ++ lib.optional cupsSupport cups
     ;
 
   buildInputs =
@@ -115,12 +116,14 @@ stdenv.mkDerivation rec {
       lcms2
       bash
       openjpeg
-    ] ++ lib.optionals x11Support [
+    ]
+    ++ lib.optionals x11Support [
       xorg.libICE
       xorg.libX11
       xorg.libXext
       xorg.libXt
-    ] ++ lib.optional cupsSupport cups
+    ]
+    ++ lib.optional cupsSupport cups
     ;
 
   preConfigure = ''
@@ -141,10 +144,12 @@ stdenv.mkDerivation rec {
     [
       "--with-system-libtiff"
       "--without-tesseract"
-    ] ++ lib.optionals dynamicDrivers [
+    ]
+    ++ lib.optionals dynamicDrivers [
       "--enable-dynamic"
       "--disable-hidden-visibility"
-    ] ++ lib.optional x11Support [ "--with-x" ]
+    ]
+    ++ lib.optional x11Support [ "--with-x" ]
     ++ lib.optionals cupsSupport [ "--enable-cups" ]
     ;
 
@@ -162,7 +167,8 @@ stdenv.mkDerivation rec {
       cp -r Resource "$out/share/ghostscript/${version}"
 
       ln -s "${fonts}" "$out/share/ghostscript/fonts"
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       for file in $out/lib/*.dylib* ; do
         install_name_tool -id "$file" $file
       done

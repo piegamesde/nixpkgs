@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
     [
       cmake
       pkg-config
-    ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) grpc
+    ]
+    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) grpc
     ;
   propagatedBuildInputs = [
     c-ares
@@ -61,7 +62,8 @@ stdenv.mkDerivation rec {
     [
       openssl
       protobuf
-    ] ++ lib.optionals stdenv.isLinux [ libnsl ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ libnsl ]
     ;
 
   cmakeFlags =
@@ -74,9 +76,10 @@ stdenv.mkDerivation rec {
       "-DgRPC_ABSL_PROVIDER=package"
       "-DBUILD_SHARED_LIBS=ON"
       "-DCMAKE_CXX_STANDARD=${passthru.cxxStandard}"
-    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      "-D_gRPC_PROTOBUF_PROTOC_EXECUTABLE=${buildPackages.protobuf}/bin/protoc"
     ]
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+        "-D_gRPC_PROTOBUF_PROTOC_EXECUTABLE=${buildPackages.protobuf}/bin/protoc"
+      ]
     ;
 
     # CMake creates a build directory by default, this conflicts with the

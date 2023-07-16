@@ -70,21 +70,29 @@ stdenv.mkDerivation rec {
       jemalloc
       libuv
       zlib
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       CoreFoundation
       IOKit
       libossp_uuid
-    ] ++ lib.optionals (!stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [
       libcap
       libuuid
-    ] ++ lib.optionals withCups [ cups ] ++ lib.optionals withDBengine [ lz4 ]
-    ++ lib.optionals withIpmi [ freeipmi ] ++ lib.optionals withNetfilter [
+    ]
+    ++ lib.optionals withCups [ cups ]
+    ++ lib.optionals withDBengine [ lz4 ]
+    ++ lib.optionals withIpmi [ freeipmi ]
+    ++ lib.optionals withNetfilter [
       libmnl
       libnetfilter_acct
-    ] ++ lib.optionals withCloud [ json_c ] ++ lib.optionals withConnPubSub [
+    ]
+    ++ lib.optionals withCloud [ json_c ]
+    ++ lib.optionals withConnPubSub [
       google-cloud-cpp
       grpc
-    ] ++ lib.optionals withConnPrometheus [ snappy ]
+    ]
+    ++ lib.optionals withConnPrometheus [ snappy ]
     ++ lib.optionals (withCloud || withConnPrometheus) [ protobuf ]
     ++ lib.optionals withSsl [ openssl ]
     ;
@@ -124,7 +132,8 @@ stdenv.mkDerivation rec {
     ''
       ln -s ${netdata-go-plugins}/lib/netdata/conf.d/* $out/lib/netdata/conf.d
       ln -s ${netdata-go-plugins}/bin/godplugin $out/libexec/netdata/plugins.d/go.d.plugin
-    '' + lib.optionalString (!stdenv.isDarwin) ''
+    ''
+    + lib.optionalString (!stdenv.isDarwin) ''
       # rename this plugin so netdata will look for setuid wrapper
       mv $out/libexec/netdata/plugins.d/apps.plugin \
          $out/libexec/netdata/plugins.d/apps.plugin.org
@@ -152,7 +161,8 @@ stdenv.mkDerivation rec {
       "--sysconfdir=/etc"
       "--disable-ebpf"
       "--with-jemalloc=${jemalloc}"
-    ] ++ lib.optionals (!withDBengine) [ "--disable-dbengine" ]
+    ]
+    ++ lib.optionals (!withDBengine) [ "--disable-dbengine" ]
     ++ lib.optionals (!withCloud) [ "--disable-cloud" ]
     ;
 

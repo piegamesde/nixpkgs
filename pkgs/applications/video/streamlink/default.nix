@@ -36,7 +36,8 @@ python3Packages.buildPythonApplication rec {
       websocket-client
       urllib3
       certifi
-    ]) ++ [ ffmpeg ]
+    ])
+    ++ [ ffmpeg ]
     ;
 
   meta = with lib; {

@@ -22,7 +22,8 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-powJrbVVBWtIg0CV7ZdhaVIQA+VhEPtPCts7f8Sl1VY=";
 
   buildInputs =
-    [ libxcb ] ++ lib.optionals stdenv.isDarwin [
+    [ libxcb ]
+    ++ lib.optionals stdenv.isDarwin [
       Security
       AppKit
     ]

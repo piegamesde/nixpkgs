@@ -120,9 +120,10 @@ in
           # Deliantra doesn't come with a motd file, but respects it if present
           # in /etc.
           (optionalString (name != "motd")
-            (fileContents "${cfg.package}/etc/deliantra-server/${name}")) + ''
+            (fileContents "${cfg.package}/etc/deliantra-server/${name}"))
+          + ''
 
-              ${value}''
+            ${value}''
           ;
       }) ({
         motd = "";

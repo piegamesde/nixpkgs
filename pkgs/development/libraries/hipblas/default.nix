@@ -22,7 +22,8 @@ stdenv.mkDerivation (finalAttrs: {
   version = "5.4.3";
 
   outputs =
-    [ "out" ] ++ lib.optionals buildTests [ "test" ]
+    [ "out" ]
+    ++ lib.optionals buildTests [ "test" ]
     ++ lib.optionals buildBenchmarks [ "benchmark" ]
     ++ lib.optionals buildSamples [ "sample" ]
     ;
@@ -45,7 +46,8 @@ stdenv.mkDerivation (finalAttrs: {
     [
       rocblas
       rocsolver
-    ] ++ lib.optionals buildTests [ gtest ]
+    ]
+    ++ lib.optionals buildTests [ gtest ]
     ++ lib.optionals (buildTests || buildBenchmarks) [ lapack-reference ]
     ;
 
@@ -58,7 +60,8 @@ stdenv.mkDerivation (finalAttrs: {
       "-DCMAKE_INSTALL_BINDIR=bin"
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    ] ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
+    ]
+    ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
     ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ]
     ++ lib.optionals buildSamples [ "-DBUILD_CLIENTS_SAMPLES=ON" ]
     ;
@@ -67,13 +70,16 @@ stdenv.mkDerivation (finalAttrs: {
     lib.optionalString buildTests ''
       mkdir -p $test/bin
       mv $out/bin/hipblas-test $test/bin
-    '' + lib.optionalString buildBenchmarks ''
+    ''
+    + lib.optionalString buildBenchmarks ''
       mkdir -p $benchmark/bin
       mv $out/bin/hipblas-bench $benchmark/bin
-    '' + lib.optionalString buildSamples ''
+    ''
+    + lib.optionalString buildSamples ''
       mkdir -p $sample/bin
       mv $out/bin/example-* $sample/bin
-    '' + lib.optionalString (buildTests || buildBenchmarks || buildSamples) ''
+    ''
+    + lib.optionalString (buildTests || buildBenchmarks || buildSamples) ''
       rmdir $out/bin
     ''
     ;
@@ -93,7 +99,9 @@ stdenv.mkDerivation (finalAttrs: {
       # Fixed in develop branch by using C++17 and related refactor
     broken =
       versions.minor finalAttrs.version != versions.minor hip.version
-      || buildTests || buildBenchmarks || buildSamples
+      || buildTests
+      || buildBenchmarks
+      || buildSamples
       ;
   };
 })

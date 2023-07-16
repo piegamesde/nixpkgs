@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
     [
       openssl
       libxcrypt
-    ] ++ optional (luaSupport) lua
+    ]
+    ++ optional (luaSupport) lua
     ;
   nativeBuildInputs = [
     bmake
@@ -56,7 +57,8 @@ stdenv.mkDerivation rec {
 
       # unpackaged dependency: https://man.netbsd.org/blocklist.3
       "-DNO_BLOCKLIST_SUPPORT"
-    ] ++ optional (!userSupport) "-DNO_USER_SUPPORT"
+    ]
+    ++ optional (!userSupport) "-DNO_USER_SUPPORT"
     ++ optional (!dirIndexSupport) "-DNO_DIRINDEX_SUPPORT"
     ++ optional (!dynamicContentSupport) "-DNO_DYNAMIC_CONTENT"
     ++ optional (!luaSupport) "-DNO_LUA_SUPPORT"
@@ -66,8 +68,10 @@ stdenv.mkDerivation rec {
     ;
 
   _LDADD =
-    [ "-lm" ] ++ optional (stdenv.hostPlatform.libc != "libSystem") "-lcrypt"
-    ++ optional (luaSupport) "-llua" ++ optionals (sslSupport) [
+    [ "-lm" ]
+    ++ optional (stdenv.hostPlatform.libc != "libSystem") "-lcrypt"
+    ++ optional (luaSupport) "-llua"
+    ++ optionals (sslSupport) [
       "-lssl"
       "-lcrypto"
     ]

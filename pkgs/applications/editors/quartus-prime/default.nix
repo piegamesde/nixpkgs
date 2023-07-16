@@ -92,7 +92,8 @@ buildFHSEnvChroot rec {
           "sta"
           "stp"
           "tan"
-        ]) ++ [ "quartus/bin/quartus" ]
+        ])
+        ++ [ "quartus/bin/quartus" ]
         ;
 
       qsysExecutables = map (c: "quartus/sopc_builder/bin/qsys-${c}") [

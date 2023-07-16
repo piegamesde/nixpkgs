@@ -120,7 +120,8 @@ qtModule {
       which
       gn
       nodejs
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       clang_14
       bootstrap_cmds
       cctools
@@ -171,7 +172,8 @@ qtModule {
         --replace "QLibraryInfo::path(QLibraryInfo::DataPath)" "\"$out\"" \
         --replace "QLibraryInfo::path(QLibraryInfo::TranslationsPath)" "\"$out/translations\"" \
         --replace "QLibraryInfo::path(QLibraryInfo::LibraryExecutablesPath)" "\"$out/libexec\""
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       sed -i -e '/lib_loader.*Load/s!"\(libudev\.so\)!"${
         lib.getLib systemd
       }/lib/\1!' \
@@ -179,7 +181,8 @@ qtModule {
 
       sed -i -e '/libpci_loader.*Load/s!"\(libpci\.so\)!"${pciutils}/lib/\1!' \
         src/3rdparty/chromium/gpu/config/gpu_info_collector_linux.cc
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace configure.cmake \
         --replace "AppleClang" "Clang"
       substituteInPlace cmake/Functions.cmake \
@@ -208,13 +211,16 @@ qtModule {
       # "-DQT_FEATURE_webengine_native_spellchecker=ON"
       "-DQT_FEATURE_webengine_sanitizer=ON"
       "-DQT_FEATURE_webengine_kerberos=ON"
-    ] ++ lib.optionals stdenv.isLinux [
-      "-DQT_FEATURE_webengine_webrtc_pipewire=ON"
-    ] ++ lib.optionals enableProprietaryCodecs [
-      "-DQT_FEATURE_webengine_proprietary_codecs=ON"
-    ] ++ lib.optionals stdenv.isDarwin [
-      "-DCMAKE_OSX_DEPLOYMENT_TARGET=${stdenv.targetPlatform.darwinSdkVersion}"
     ]
+    ++ lib.optionals stdenv.isLinux [
+        "-DQT_FEATURE_webengine_webrtc_pipewire=ON"
+      ]
+    ++ lib.optionals enableProprietaryCodecs [
+        "-DQT_FEATURE_webengine_proprietary_codecs=ON"
+      ]
+    ++ lib.optionals stdenv.isDarwin [
+        "-DCMAKE_OSX_DEPLOYMENT_TARGET=${stdenv.targetPlatform.darwinSdkVersion}"
+      ]
     ;
 
   propagatedBuildInputs =
@@ -245,7 +251,8 @@ qtModule {
 
       libevent
       ffmpeg_4
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       dbus
       zlib
       minizip
@@ -285,7 +292,8 @@ qtModule {
 
       libkrb5
       mesa
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       AGL
       AVFoundation
       Accelerate
@@ -312,7 +320,8 @@ qtModule {
     ;
 
   buildInputs =
-    [ cups ] ++ lib.optionals stdenv.isDarwin [
+    [ cups ]
+    ++ lib.optionals stdenv.isDarwin [
       libpm
       sandbox
     ]

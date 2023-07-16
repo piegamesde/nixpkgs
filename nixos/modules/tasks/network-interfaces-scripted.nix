@@ -16,10 +16,11 @@ let
 
   slaves =
     concatMap (i: i.interfaces) (attrValues cfg.bonds)
-    ++ concatMap (i: i.interfaces) (attrValues cfg.bridges) ++ concatMap (i:
+    ++ concatMap (i: i.interfaces) (attrValues cfg.bridges)
+    ++ concatMap (i:
       attrNames
       (filterAttrs (_: config: config.type != "internal") i.interfaces))
-    (attrValues cfg.vswitches)
+      (attrValues cfg.vswitches)
     ++ concatMap (i: [ i.interface ]) (attrValues cfg.macvlans)
     ++ concatMap (i: [ i.interface ]) (attrValues cfg.vlans)
     ;
@@ -107,9 +108,12 @@ let
           # trust udev when not in a container
           if
             (hasAttr dev (filterAttrs (k: v: v.virtual) cfg.interfaces))
-            || (hasAttr dev cfg.bridges) || (hasAttr dev cfg.bonds)
-            || (hasAttr dev cfg.macvlans) || (hasAttr dev cfg.sits)
-            || (hasAttr dev cfg.vlans) || (hasAttr dev cfg.vswitches)
+            || (hasAttr dev cfg.bridges)
+            || (hasAttr dev cfg.bonds)
+            || (hasAttr dev cfg.macvlans)
+            || (hasAttr dev cfg.sits)
+            || (hasAttr dev cfg.vlans)
+            || (hasAttr dev cfg.vswitches)
           then
             [ "${dev}-netdev.service" ]
           else
@@ -119,12 +123,14 @@ let
 
         hasDefaultGatewaySet =
           (cfg.defaultGateway != null && cfg.defaultGateway.address != "")
-          || (cfg.enableIPv6 && cfg.defaultGateway6 != null
+          || (cfg.enableIPv6
+            && cfg.defaultGateway6 != null
             && cfg.defaultGateway6.address != "")
           ;
 
         needNetworkSetup =
-          cfg.resolvconf.enable || cfg.defaultGateway != null
+          cfg.resolvconf.enable
+          || cfg.defaultGateway != null
           || cfg.defaultGateway6 != null
           ;
 
@@ -366,7 +372,8 @@ let
             partOf =
               [ "network-setup.service" ] ++ optional v.rstp "mstpd.service";
             after =
-              [ "network-pre.target" ] ++ deps
+              [ "network-pre.target" ]
+              ++ deps
               ++ optional v.rstp "mstpd.service"
               ++ map (i: "network-addresses-${i}.service") v.interfaces
               ;
@@ -472,7 +479,8 @@ let
               [
                 "network-setup.service"
                 (subsystemDevice n)
-              ] ++ internalConfigs
+              ]
+              ++ internalConfigs
               ;
               # before = [ "network-setup.service" ];
               # should work without internalConfigs dependencies because address/link configuration depends
@@ -488,7 +496,8 @@ let
               [
                 "network-pre.target"
                 "ovs-vswitchd.service"
-              ] ++ deps
+              ]
+              ++ deps
               ; # start switch after physical interfaces and vswitch daemon
             wants =
               deps; # if one or more interface fails, the switch should continue to run
@@ -511,7 +520,7 @@ let
                 concatStrings (mapAttrsToList (name: config:
                   " -- add-port ${n} ${name}"
                   + optionalString (config.vlan != null)
-                  " tag=${toString config.vlan}") v.interfaces)
+                    " tag=${toString config.vlan}") v.interfaces)
               } \
                 ${
                   concatStrings (mapAttrsToList (name: config:
@@ -559,7 +568,8 @@ let
             bindsTo = deps;
             partOf = [ "network-setup.service" ];
             after =
-              [ "network-pre.target" ] ++ deps
+              [ "network-pre.target" ]
+              ++ deps
               ++ map (i: "network-addresses-${i}.service") v.interfaces
               ;
             before = [ "network-setup.service" ];

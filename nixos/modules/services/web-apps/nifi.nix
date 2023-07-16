@@ -273,7 +273,8 @@ in
               -e '/nifi.security.truststorePasswd/s|^#\+||'
           ''}
           ${lib.optionalString ((cfg.enableHTTPS == true)
-            && (cfg.proxyHost != null) && (cfg.proxyPort != null)) ''
+            && (cfg.proxyHost != null)
+            && (cfg.proxyPort != null)) ''
               sed -i /var/lib/nifi/conf/nifi.properties \
                 -e 's|nifi.web.proxy.host=.*|nifi.web.proxy.host=${cfg.proxyHost}:${
                   (toString cfg.proxyPort)

@@ -79,11 +79,14 @@ stdenv.mkDerivation rec {
   postInstall =
     ''
       sed -i $out/lib/libshi{sa,shi}.la \
-    '' + optionalString (optLibidn != null) ''
+    ''
+    + optionalString (optLibidn != null) ''
       -e 's,\(-lidn\),-L${optLibidn.out}/lib \1,' \
-    '' + optionalString (optGnutls != null) ''
+    ''
+    + optionalString (optGnutls != null) ''
       -e 's,\(-lgnutls\),-L${optGnutls.out}/lib \1,' \
-    '' + ''
+    ''
+    + ''
       -e 's,\(-lgcrypt\),-L${libgcrypt.out}/lib \1,' \
       -e 's,\(-lgpg-error\),-L${libgpg-error.out}/lib \1,' \
       -e 's,\(-ltasn1\),-L${libtasn1.out}/lib \1,'

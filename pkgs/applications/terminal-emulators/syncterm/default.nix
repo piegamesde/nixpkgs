@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
 
       "-Wno-unused-result"
       "-Wformat-overflow=0"
-    ] ++ (lib.optionals stdenv.isLinux [
+    ]
+    ++ (lib.optionals stdenv.isLinux [
         "-DUSE_ALSA_SOUND" # Don't use OSS for beeps.
       ])
     ;
@@ -49,7 +50,8 @@ stdenv.mkDerivation rec {
     [
       ncurses
       SDL2
-    ] ++ (lib.optional stdenv.isLinux alsa-lib)
+    ]
+    ++ (lib.optional stdenv.isLinux alsa-lib)
     ;
   runtimeDependencies = [
     ncurses

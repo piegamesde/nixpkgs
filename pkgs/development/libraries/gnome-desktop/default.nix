@@ -73,7 +73,8 @@ stdenv.mkDerivation rec {
       gtk3
       gtk4
       glib
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       bubblewrap
       wayland
       libseccomp
@@ -87,7 +88,8 @@ stdenv.mkDerivation rec {
     [
       "-Dgtk_doc=true"
       "-Ddesktop_docs=false"
-    ] ++ lib.optionals (!stdenv.isLinux) [
+    ]
+    ++ lib.optionals (!stdenv.isLinux) [
       "-Dsystemd=disabled"
       "-Dudev=disabled"
     ]

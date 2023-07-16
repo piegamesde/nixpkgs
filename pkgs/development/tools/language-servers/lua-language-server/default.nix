@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
       sed -i /filewatch/d 3rd/bee.lua/test/test.lua
 
       pushd 3rd/luamake
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # This package uses the program clang for C and C++ files. The language
       # is selected via the command line argument -std, but this do not work
       # in combination with the nixpkgs clang wrapper. Therefor we have to

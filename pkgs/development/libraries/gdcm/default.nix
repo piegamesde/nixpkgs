@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_BINDIR=bin"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    ] ++ lib.optionals enableVTK [ "-DGDCM_USE_VTK=ON" ]
+    ]
+    ++ lib.optionals enableVTK [ "-DGDCM_USE_VTK=ON" ]
     ++ lib.optionals enablePython [
       "-DGDCM_WRAP_PYTHON:BOOL=ON"
       "-DGDCM_INSTALL_PYTHONMODULE_DIR=${
@@ -45,11 +46,13 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   buildInputs =
-    lib.optionals enableVTK [ vtk ] ++ lib.optionals stdenv.isDarwin [
+    lib.optionals enableVTK [ vtk ]
+    ++ lib.optionals stdenv.isDarwin [
       ApplicationServices
       Cocoa
       libiconv
-    ] ++ lib.optionals enablePython [
+    ]
+    ++ lib.optionals enablePython [
       swig
       python
     ]

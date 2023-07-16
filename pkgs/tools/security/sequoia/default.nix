@@ -58,7 +58,8 @@ rustPlatform.buildRustPackage rec {
       llvmPackages_12.clang
       ensureNewerSourcesForZipFilesHook
       capnproto
-    ] ++ lib.optionals pythonSupport [ pythonPackages.setuptools ]
+    ]
+    ++ lib.optionals pythonSupport [ pythonPackages.setuptools ]
     ;
 
   nativeCheckInputs = lib.optionals pythonSupport [
@@ -71,10 +72,12 @@ rustPlatform.buildRustPackage rec {
       openssl
       sqlite
       nettle
-    ] ++ lib.optionals pythonSupport [
+    ]
+    ++ lib.optionals pythonSupport [
       pythonPackages.python
       pythonPackages.cffi
-    ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
     ;
 
   makeFlags = [
@@ -97,7 +100,8 @@ rustPlatform.buildRustPackage rec {
   preInstall =
     lib.optionalString pythonSupport ''
       export installFlags="PYTHONPATH=$PYTHONPATH:$out/${pythonPackages.python.sitePackages}"
-    '' + lib.optionalString (!pythonSupport) ''
+    ''
+    + lib.optionalString (!pythonSupport) ''
       export makeFlags="PYTHON=disable"
     ''
     ;

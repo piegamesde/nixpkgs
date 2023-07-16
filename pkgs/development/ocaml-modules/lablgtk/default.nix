@@ -69,7 +69,8 @@ stdenv.mkDerivation {
       gtk2
       libgnomecanvas
       gtksourceview
-    ] ++ param.buildInputs or [ ]
+    ]
+    ++ param.buildInputs or [ ]
     ;
 
   configureFlags = [

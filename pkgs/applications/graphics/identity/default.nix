@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
       ninja
       pkg-config
       wrapGAppsHook4
-    ] ++ (with rustPlatform; [
+    ]
+    ++ (with rustPlatform; [
       cargoSetupHook
       rust.cargo
       rust.rustc

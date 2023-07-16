@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
       py3
       unzip
       which
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       darwin.cctools
       darwin.autoSignDarwinBinariesHook
     ]

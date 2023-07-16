@@ -126,7 +126,8 @@ let
                 src = ./tzdata.patch;
                 inherit tzdata;
               })
-            ] ++ lib.optionals (lib.versionOlder version "1.2.0") [
+            ]
+            ++ lib.optionals (lib.versionOlder version "1.2.0") [
               # add support for DWARF5 debuginfo, fixes builds on recent compilers
               # the PR is 8 commits from 2019, so just fetch the whole thing
               # and hope it doesn't change
@@ -179,7 +180,8 @@ let
               substituteInPlace spec/std/socket/udp_socket_spec.cr \
                 --replace 'it "joins and transmits to multicast groups"' 'pending "joins and transmits to multicast groups"'
 
-            '' + lib.optionalString (stdenv.isDarwin
+            ''
+            + lib.optionalString (stdenv.isDarwin
               && lib.versionAtLeast version "1.3.0"
               && lib.versionOlder version "1.7.0") ''
                 # See https://github.com/NixOS/nixpkgs/pull/195606#issuecomment-1356491277
@@ -216,7 +218,9 @@ let
               zlib
               libxml2
               openssl
-            ] ++ extraBuildInputs ++ lib.optionals stdenv.isDarwin [ libiconv ]
+            ]
+            ++ extraBuildInputs
+            ++ lib.optionals stdenv.isDarwin [ libiconv ]
             ;
 
           makeFlags = [
@@ -229,7 +233,8 @@ let
           FLAGS =
             [
               "--single-module" # needed for deterministic builds
-            ] ++ lib.optionals (lib.versionAtLeast version "1.3.0"
+            ]
+            ++ lib.optionals (lib.versionAtLeast version "1.3.0"
               && lib.versionOlder version "1.6.1") [
                 # ffi is only used by the interpreter and its spec are broken on < 1.6.1
                 "-Dwithout_ffi"

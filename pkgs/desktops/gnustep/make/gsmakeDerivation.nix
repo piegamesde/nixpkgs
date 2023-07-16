@@ -15,7 +15,8 @@ stdenv.mkDerivation (args // {
       makeWrapper
       make
       which
-    ] ++ nativeBuildInputs
+    ]
+    ++ nativeBuildInputs
     ;
 
   builder = ./builder.sh;

@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
   postPatch =
     ''
       patchShebangs gdisk_test.sh
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace Makefile.mac --replace \
         "-mmacosx-version-min=10.4" "-mmacosx-version-min=10.6"
       substituteInPlace Makefile.mac --replace \

@@ -135,9 +135,11 @@ let
     [
       ocaml
       findlib
-    ] ++ optional (coqAtLeast "8.14") dune_2;
+    ]
+    ++ optional (coqAtLeast "8.14") dune_2;
   ocamlPropagatedBuildInputs =
-    [ ] ++ optional (!coqAtLeast "8.10") ocamlPackages.camlp5
+    [ ]
+    ++ optional (!coqAtLeast "8.10") ocamlPackages.camlp5
     ++ optional (!coqAtLeast "8.13") ocamlPackages.num
     ++ optional (coqAtLeast "8.13") ocamlPackages.zarith
     ;
@@ -204,13 +206,15 @@ let
     };
 
     nativeBuildInputs =
-      [ pkg-config ] ++ ocamlNativeBuildInputs
+      [ pkg-config ]
+      ++ ocamlNativeBuildInputs
       ++ optional buildIde copyDesktopItems
       ++ optional (buildIde && coqAtLeast "8.10") wrapGAppsHook
       ++ optional (!coqAtLeast "8.6") gnumake42
       ;
     buildInputs =
-      [ ncurses ] ++ optionals buildIde (if coqAtLeast "8.10" then
+      [ ncurses ]
+      ++ optionals buildIde (if coqAtLeast "8.10" then
         [
           ocamlPackages.lablgtk3-sourceview3
           glib
@@ -260,7 +264,8 @@ let
       [
         "revision"
         "coq"
-      ] ++ optional buildIde "coqide"
+      ]
+      ++ optional buildIde "coqide"
       ++ optional (!coqAtLeast "8.14") "bin/votour"
       ;
     enableParallelBuilding = true;
@@ -288,11 +293,14 @@ let
       in
       optionalString (!coqAtLeast "8.17") ''
         cp bin/votour $out/bin/
-      '' + ''
+      ''
+      + ''
         ln -s $out/lib/coq${suffix} $OCAMLFIND_DESTDIR/coq${suffix}
-      '' + optionalString (coqAtLeast "8.14") ''
+      ''
+      + optionalString (coqAtLeast "8.14") ''
         ln -s $out/lib/coqide-server $OCAMLFIND_DESTDIR/coqide-server
-      '' + optionalString buildIde ''
+      ''
+      + optionalString buildIde ''
         mkdir -p "$out/share/pixmaps"
         ln -s "$out/share/coq/coq.png" "$out/share/pixmaps/"
       ''

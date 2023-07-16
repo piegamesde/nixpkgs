@@ -164,13 +164,15 @@ stdenv.mkDerivation rec {
       vulkan-loader
       wayland
       pipewire
-    ] ++ lib.optional proprietaryCodecs vivaldi-ffmpeg-codecs
+    ]
+    ++ lib.optional proprietaryCodecs vivaldi-ffmpeg-codecs
     ++ lib.optional pulseSupport libpulseaudio
     ;
 
   libPath =
-    lib.makeLibraryPath buildInputs + lib.optionalString (stdenv.is64bit)
-    (":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs)
+    lib.makeLibraryPath buildInputs
+    + lib.optionalString (stdenv.is64bit)
+      (":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs)
     + ":$out/opt/${vivaldiName}/lib"
     ;
 
@@ -188,9 +190,11 @@ stdenv.mkDerivation rec {
       for f in libGLESv2.so libqt5_shim.so ; do
         patchelf --set-rpath "${libPath}" opt/${vivaldiName}/$f
       done
-    '' + lib.optionalString proprietaryCodecs ''
+    ''
+    + lib.optionalString proprietaryCodecs ''
       ln -s ${vivaldi-ffmpeg-codecs}/lib/libffmpeg.so opt/${vivaldiName}/libffmpeg.so.''${version%\.*\.*}
-    '' + ''
+    ''
+    + ''
       echo "Finished patching Vivaldi binaries"
       runHook postBuild
     ''
@@ -229,9 +233,11 @@ stdenv.mkDerivation rec {
           lib.optionalString enableWidevine
           "--suffix LD_LIBRARY_PATH : ${libPath}"
         }
-    '' + lib.optionalString enableWidevine ''
+    ''
+    + lib.optionalString enableWidevine ''
       ln -sf ${widevine-cdm}/share/google/chrome/WidevineCdm $out/opt/${vivaldiName}/WidevineCdm
-    '' + ''
+    ''
+    + ''
       runHook postInstall
     ''
     ;

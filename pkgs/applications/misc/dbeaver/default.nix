@@ -55,7 +55,8 @@
       libXrender
       libXtst
       zlib
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       webkitgtk_4_1
       glib-networking
     ]

@@ -64,7 +64,8 @@ buildPythonPackage rec {
       requests
       scp
       xmltodict
-    ] ++ lib.optional windowsSupport pywinrm
+    ]
+    ++ lib.optional windowsSupport pywinrm
     ;
 
   postInstall = ''

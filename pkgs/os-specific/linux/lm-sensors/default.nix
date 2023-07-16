@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
     [
       bash
       perl
-    ] ++ lib.optional sensord rrdtool
+    ]
+    ++ lib.optional sensord rrdtool
     ;
 
   makeFlags =
@@ -50,7 +51,8 @@ stdenv.mkDerivation rec {
       "PREFIX=${placeholder "out"}"
       "CC=${stdenv.cc.targetPrefix}cc"
       "AR=${stdenv.cc.targetPrefix}ar"
-    ] ++ lib.optional sensord "PROG_EXTRA=sensord"
+    ]
+    ++ lib.optional sensord "PROG_EXTRA=sensord"
     ;
 
   installFlags = [ "ETCDIR=${placeholder "out"}/etc" ];

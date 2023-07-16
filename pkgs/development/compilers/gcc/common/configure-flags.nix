@@ -82,7 +82,8 @@ let
           targetPackages.stdenv.cc.bintools
       }/bin/${targetPlatform.config}-as"
       "--with-ld=${targetPackages.stdenv.cc.bintools}/bin/${targetPlatform.config}-ld"
-    ] ++ (if crossStageStatic then
+    ]
+    ++ (if crossStageStatic then
       [
         "--disable-libssp"
         "--disable-nls"
@@ -94,7 +95,8 @@ let
         "--disable-libatomic" # requires libc
         "--disable-decimal-float" # requires libc
         "--disable-libmpx" # requires libc
-      ] ++ lib.optionals crossMingw [
+      ]
+      ++ lib.optionals crossMingw [
         "--with-headers=${lib.getDev libcCross}/include"
         "--with-gcc"
         "--with-gnu-as"
@@ -106,7 +108,8 @@ let
         "--disable-nls"
         # To keep ABI compatibility with upstream mingw-w64
         "--enable-fully-dynamic-string"
-      ] ++ lib.optionals (crossMingw && targetPlatform.isx86_32) [
+      ]
+      ++ lib.optionals (crossMingw && targetPlatform.isx86_32) [
         # See Note [Windows Exception Handling]
         "--enable-sjlj-exceptions"
         "--with-dwarf2"
@@ -130,14 +133,15 @@ let
             "single"
         }"
         "--enable-nls"
-      ] ++ lib.optionals
-      (targetPlatform.libc == "uclibc" || targetPlatform.libc == "musl") [
-        # libsanitizer requires netrom/netrom.h which is not
-        # available in uclibc.
-        "--disable-libsanitizer"
-      ] ++ lib.optional
-      (targetPlatform.libc == "newlib" || targetPlatform.libc == "newlib-nano")
-      "--with-newlib"
+      ]
+      ++ lib.optionals
+        (targetPlatform.libc == "uclibc" || targetPlatform.libc == "musl") [
+          # libsanitizer requires netrom/netrom.h which is not
+          # available in uclibc.
+          "--disable-libsanitizer"
+        ]
+      ++ lib.optional (targetPlatform.libc == "newlib"
+        || targetPlatform.libc == "newlib-nano") "--with-newlib"
       ++ lib.optional (targetPlatform.libc == "avrlibc") "--with-avrlibc")
     ;
 
@@ -149,7 +153,8 @@ let
       "--with-mpfr-include=${mpfr.dev}/include"
       "--with-mpfr-lib=${mpfr.out}/lib"
       "--with-mpc=${libmpc}"
-    ] ++ lib.optionals (!crossStageStatic) [
+    ]
+    ++ lib.optionals (!crossStageStatic) [
       (if libcCross == null then
         "--with-native-system-header-dir=${lib.getDev stdenv.cc.libc}/include"
       else
@@ -198,14 +203,19 @@ let
       "--enable-static"
       "--enable-languages=${
         lib.concatStringsSep "," (lib.optional langC "c"
-          ++ lib.optional langCC "c++" ++ lib.optional langD "d"
-          ++ lib.optional langFortran "fortran" ++ lib.optional langJava "java"
-          ++ lib.optional langAda "ada" ++ lib.optional langGo "go"
-          ++ lib.optional langObjC "objc" ++ lib.optional langObjCpp "obj-c++"
+          ++ lib.optional langCC "c++"
+          ++ lib.optional langD "d"
+          ++ lib.optional langFortran "fortran"
+          ++ lib.optional langJava "java"
+          ++ lib.optional langAda "ada"
+          ++ lib.optional langGo "go"
+          ++ lib.optional langObjC "objc"
+          ++ lib.optional langObjCpp "obj-c++"
           ++ lib.optionals crossDarwin [
             "objc"
             "obj-c++"
-          ] ++ lib.optional langJit "jit")
+          ]
+          ++ lib.optional langJit "jit")
       }"
     ]
 
@@ -216,22 +226,22 @@ let
       ]
     else
       [ "--disable-multilib" ])
-    ++ lib.optional (!enableShared) "--disable-shared" ++ lib.singleton
-    (lib.enableFeature enablePlugin "plugin")
+    ++ lib.optional (!enableShared) "--disable-shared"
+    ++ lib.singleton (lib.enableFeature enablePlugin "plugin")
     # Libcc1 is the GCC cc1 plugin for the GDB debugger which is only used by gdb
     ++ lib.optional disableGdbPlugin "--disable-libcc1"
 
-    # Support -m32 on powerpc64le/be
+      # Support -m32 on powerpc64le/be
     ++ lib.optional (targetPlatform.system == "powerpc64le-linux")
-    "--enable-targets=powerpcle-linux"
+      "--enable-targets=powerpcle-linux"
     ++ lib.optional (targetPlatform.system == "powerpc64-linux")
-    "--enable-targets=powerpc-linux"
+      "--enable-targets=powerpc-linux"
 
-    # Fix "unknown long double size, cannot define BFP_FMT"
+      # Fix "unknown long double size, cannot define BFP_FMT"
     ++ lib.optional (targetPlatform.isPower && targetPlatform.isMusl)
-    "--disable-decimal-float"
+      "--disable-decimal-float"
 
-    # Optional features
+      # Optional features
     ++ lib.optional (isl != null) "--with-isl=${isl}"
     ++ lib.optionals (lib.versionOlder version "5" && cloog != null) [
       "--with-cloog=${cloog}"
@@ -253,21 +263,23 @@ let
       # <http://mail.openjdk.java.net/pipermail/distro-pkg-dev/2010-April/008888.html>.
       "--enable-java-home"
       "--with-java-home=\${prefix}/lib/jvm/jre"
-    ] ++ lib.optional javaAwtGtk "--enable-java-awt=gtk"
+    ]
+    ++ lib.optional javaAwtGtk "--enable-java-awt=gtk"
     ++ lib.optional (langJava && javaAntlr != null)
-    "--with-antlr-jar=${javaAntlr}"
+      "--with-antlr-jar=${javaAntlr}"
 
     ++ import ../common/platform-flags.nix {
       inherit (stdenv) targetPlatform;
       inherit lib;
-    } ++ lib.optionals (targetPlatform != hostPlatform) crossConfigureFlags
+    }
+    ++ lib.optionals (targetPlatform != hostPlatform) crossConfigureFlags
     ++ lib.optional disableBootstrap' "--disable-bootstrap"
 
-    # Platform-specific flags
+      # Platform-specific flags
     ++ lib.optional (targetPlatform == hostPlatform && targetPlatform.isx86_32)
-    "--with-arch=${stdenv.hostPlatform.parsed.cpu.name}"
+      "--with-arch=${stdenv.hostPlatform.parsed.cpu.name}"
     ++ lib.optional targetPlatform.isNetBSD
-    "--disable-libssp" # Provided by libc.
+      "--disable-libssp" # Provided by libc.
     ++ lib.optionals hostPlatform.isSunOS [
       "--enable-long-long"
       "--enable-libssp"
@@ -277,15 +289,18 @@ let
       # On Illumos/Solaris GNU as is preferred
       "--with-gnu-as"
       "--without-gnu-ld"
-    ] ++ lib.optional (targetPlatform.libc == "musl")
+    ]
+    ++ lib.optional (targetPlatform.libc == "musl")
     # musl at least, disable: https://git.buildroot.net/buildroot/commit/?id=873d4019f7fb00f6a80592224236b3ba7d657865
-    "--disable-libmpx" ++ lib.optionals
-    (targetPlatform == hostPlatform && targetPlatform.libc == "musl") [
-      "--disable-libsanitizer"
-      "--disable-symvers"
-      "libat_cv_have_ifunc=no"
-      "--disable-gnu-indirect-function"
-    ] ++ lib.optionals langJit [ "--enable-host-shared" ]
+      "--disable-libmpx"
+    ++ lib.optionals
+      (targetPlatform == hostPlatform && targetPlatform.libc == "musl") [
+        "--disable-libsanitizer"
+        "--disable-symvers"
+        "libat_cv_have_ifunc=no"
+        "--disable-gnu-indirect-function"
+      ]
+    ++ lib.optionals langJit [ "--enable-host-shared" ]
     ++ lib.optionals (langD) [ "--with-target-system-zlib=yes" ]
     ;
 

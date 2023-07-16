@@ -82,7 +82,8 @@ stdenv.mkDerivation rec {
   '';
 
   buildInputs =
-    yices.buildInputs ++ [
+    yices.buildInputs
+    ++ [
       fontconfig
       libX11 # tcltk
       tcl

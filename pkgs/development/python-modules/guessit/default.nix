@@ -29,7 +29,8 @@ buildPythonPackage rec {
       rebulk
       babelfish
       python-dateutil
-    ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
     ;
 
   nativeCheckInputs = [

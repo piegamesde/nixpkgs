@@ -342,8 +342,8 @@ in
       }
       {
         assertion =
-          cfg.components.imagemagick -> cfg.components.minimagick_font_path
-          != ""
+          cfg.components.imagemagick
+          -> cfg.components.minimagick_font_path != ""
           ;
         message =
           "services.redmine.components.minimagick_font_path must be configured with a path to a font file if services.redmine.components.imagemagick is set to true.";
@@ -423,7 +423,8 @@ in
 
     systemd.services.redmine = {
       after =
-        [ "network.target" ] ++ optional mysqlLocal "mysql.service"
+        [ "network.target" ]
+        ++ optional mysqlLocal "mysql.service"
         ++ optional pgsqlLocal "postgresql.service"
         ;
       wantedBy = [ "multi-user.target" ];
@@ -432,9 +433,11 @@ in
       environment.REDMINE_LANG = "en";
       environment.SCHEMA = "${cfg.stateDir}/cache/schema.db";
       path = with pkgs;
-        [ ] ++ optional cfg.components.subversion subversion
+        [ ]
+        ++ optional cfg.components.subversion subversion
         ++ optional cfg.components.mercurial mercurial
-        ++ optional cfg.components.git git ++ optional cfg.components.cvs cvs
+        ++ optional cfg.components.git git
+        ++ optional cfg.components.cvs cvs
         ++ optional cfg.components.breezy breezy
         ++ optional cfg.components.imagemagick imagemagick
         ++ optional cfg.components.ghostscript ghostscript;

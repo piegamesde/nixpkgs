@@ -124,12 +124,15 @@ stdenv.mkDerivation rec {
         else
           "OFF"
       }"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       "-DXQuartzGL_INCLUDE_DIR=${libGL.dev}/include"
       "-DXQuartzGL_gl_LIBRARY=${libGL}/lib/libGL.dylib"
-    ] ++ lib.optionals (enableMultiThreading && enablePython) [
-      "-DGEANT4_BUILD_TLS_MODEL=global-dynamic"
-    ] ++ lib.optionals enableInventor [
+    ]
+    ++ lib.optionals (enableMultiThreading && enablePython) [
+        "-DGEANT4_BUILD_TLS_MODEL=global-dynamic"
+      ]
+    ++ lib.optionals enableInventor [
       "-DINVENTOR_INCLUDE_DIR=${coin3d}/include"
       "-DINVENTOR_LIBRARY_RELEASE=${coin3d}/lib/libCoin.so"
     ]
@@ -145,12 +148,14 @@ stdenv.mkDerivation rec {
       libGLU
       libXext
       libXmu
-    ] ++ lib.optionals enableInventor [
+    ]
+    ++ lib.optionals enableInventor [
       libXpm
       coin3d
       soxt
       motif
-    ] ++ lib.optionals enablePython [
+    ]
+    ++ lib.optionals enablePython [
       boost_python
       python3
     ]
@@ -163,14 +168,17 @@ stdenv.mkDerivation rec {
       xercesc
       zlib
       libGL
-    ] ++ lib.optionals enableXM [ motif ] ++ lib.optionals enableQt [ qtbase ]
+    ]
+    ++ lib.optionals enableXM [ motif ]
+    ++ lib.optionals enableQt [ qtbase ]
     ;
 
   postFixup =
     ''
       # Don't try to export invalid environment variables.
       sed -i 's/export G4\([A-Z]*\)DATA/#export G4\1DATA/' "$out"/bin/geant4.sh
-    '' + lib.optionalString enableQt ''
+    ''
+    + lib.optionalString enableQt ''
       wrapQtAppsHook
     ''
     ;

@@ -68,12 +68,14 @@ stdenv.mkDerivation rec {
       makeWrapper
       pkg-config
       qemu
-    ] ++ (with perlPackages; [
+    ]
+    ++ (with perlPackages; [
       perl
       libintl-perl
       GetoptLong
       ModuleBuild
-    ]) ++ (with ocamlPackages; [
+    ])
+    ++ (with ocamlPackages; [
       ocaml
       findlib
     ])
@@ -103,12 +105,14 @@ stdenv.mkDerivation rec {
       libapparmor
       perlPackages.ModuleBuild
       libtirpc
-    ] ++ (with ocamlPackages; [
+    ]
+    ++ (with ocamlPackages; [
       ocamlbuild
       ocaml_libvirt
       gettext-stub
       ounit
-    ]) ++ lib.optional javaSupport jdk
+    ])
+    ++ lib.optional javaSupport jdk
     ;
 
   prePatch = ''
@@ -129,7 +133,8 @@ stdenv.mkDerivation rec {
       "--disable-daemon"
       "--with-distro=NixOS"
       "--with-guestfs-path=${placeholder "out"}/lib/guestfs"
-    ] ++ lib.optionals (!javaSupport) [ "--without-java" ]
+    ]
+    ++ lib.optionals (!javaSupport) [ "--without-java" ]
     ;
   patches = [ ./libguestfs-syms.patch ];
 

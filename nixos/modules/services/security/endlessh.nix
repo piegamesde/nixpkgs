@@ -66,7 +66,8 @@ in
             concatStringsSep " " ([
               "${pkgs.endlessh}/bin/endlessh"
               "-p ${toString port}"
-            ] ++ extraOptions);
+            ]
+              ++ extraOptions);
           DynamicUser = true;
           RootDirectory = rootDirectory;
           BindReadOnlyPaths = [ builtins.storeDir ];

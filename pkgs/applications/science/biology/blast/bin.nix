@@ -45,7 +45,8 @@ stdenv.mkDerivation {
     [
       python3
       perl
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       zlib
       bzip2
       glib

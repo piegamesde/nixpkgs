@@ -47,7 +47,8 @@ stdenv.mkDerivation rec {
       libxml2
       openconnect
       networkmanager
-    ] ++ lib.optionals withGnome [
+    ]
+    ++ lib.optionals withGnome [
       gtk3
       libnma
       libnma-gtk4

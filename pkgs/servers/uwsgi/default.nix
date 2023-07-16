@@ -75,7 +75,8 @@ let
           php-embed.extensions.session
           php-embed.extensions.session.dev
           php-embed.unwrapped.dev
-        ] ++ php-embed.unwrapped.buildInputs
+        ]
+        ++ php-embed.unwrapped.buildInputs
         ;
     })
   ];
@@ -121,11 +122,15 @@ stdenv.mkDerivation rec {
       jansson
       pcre
       libxcrypt
-    ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+    ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       expat
       zlib
-    ] ++ lib.optional withPAM pam ++ lib.optional withSystemd systemd
-    ++ lib.optional withCap libcap ++ lib.concatMap (x: x.inputs) needed
+    ]
+    ++ lib.optional withPAM pam
+    ++ lib.optional withSystemd systemd
+    ++ lib.optional withCap libcap
+    ++ lib.concatMap (x: x.inputs) needed
     ;
 
   basePlugins = lib.concatStringsSep ","

@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
       libzip
       glfw
       libpng
-    ] ++ (with xorg; [
+    ]
+    ++ (with xorg; [
       libXrandr
       libXinerama
       libXcursor

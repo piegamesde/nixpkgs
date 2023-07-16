@@ -64,7 +64,8 @@ stdenv.mkDerivation rec {
       python
       lua
       sqlite
-    ] ++ lib.optional stdenv.cc.isClang llvmPackages.openmp
+    ]
+    ++ lib.optional stdenv.cc.isClang llvmPackages.openmp
     ++ lib.optional stdenv.isLinux libcap
     ;
 
@@ -77,7 +78,8 @@ stdenv.mkDerivation rec {
       bzip2
       libarchive
       libbfd
-    ] ++ lib.optional stdenv.isLinux elfutils
+    ]
+    ++ lib.optional stdenv.isLinux elfutils
     ;
 
   env.NIX_CFLAGS_COMPILE =
@@ -93,7 +95,8 @@ stdenv.mkDerivation rec {
       "--enable-zstd"
       "--localstatedir=/var"
       "--sharedstatedir=/com"
-    ] ++ lib.optional stdenv.isLinux "--with-cap"
+    ]
+    ++ lib.optional stdenv.isLinux "--with-cap"
     ;
 
   postPatch = ''

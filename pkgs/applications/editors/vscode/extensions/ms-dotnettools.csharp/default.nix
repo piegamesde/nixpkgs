@@ -57,7 +57,9 @@ let
           "https://github.com/OmniSharp/omnisharp-vscode/releases/download/v${version}/csharp-${version}-darwin-arm64.vsix";
         sha256 = "08406xz2raal8f10bmnkz1mwdfprsbkjxzc01v0i4sax1hr2a2yl";
         binaries =
-          darwinAarch64DebuggerBins ++ darwinX86DebuggerBins ++ omniSharpBins
+          darwinAarch64DebuggerBins
+          ++ darwinX86DebuggerBins
+          ++ omniSharpBins
           ++ razorBins
           ;
       };
@@ -128,10 +130,11 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
           "$elf"
       }
 
-    '' + (lib.concatStringsSep "\n" (map (bin: ''
+    ''
+    + (lib.concatStringsSep "\n" (map (bin: ''
       chmod +x "${bin}"
-    '') vsixInfo.binaries)) + lib.optionalString stdenv.isLinux
-    (lib.concatStringsSep "\n" (map (bin: ''
+    '') vsixInfo.binaries))
+    + lib.optionalString stdenv.isLinux (lib.concatStringsSep "\n" (map (bin: ''
       patchelf_common "${bin}"
     '') vsixInfo.binaries))
     ;

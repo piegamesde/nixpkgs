@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
     ''
       substituteInPlace src/signon.c \
         --replace "/usr/bin/xdg-open" "${xdg-utils}/bin/xdg-open"
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace meson.build \
         --replace "-Werror=format-truncation=0" "" \
         --replace "-Wno-stringop-overflow" ""
@@ -57,14 +58,16 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = toString ([
     # Needed with GCC 12
     "-Wno-error=address"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "-Wno-sometimes-uninitialized"
-    "-Wno-tautological-pointer-compare"
-  ] ++ lib.optionals stdenv.isLinux [
-    "-Wno-array-bounds"
-    "-Wno-free-nonheap-object"
-    "-Wno-stringop-truncation"
-  ]);
+  ]
+    ++ lib.optionals stdenv.isDarwin [
+      "-Wno-sometimes-uninitialized"
+      "-Wno-tautological-pointer-compare"
+    ]
+    ++ lib.optionals stdenv.isLinux [
+      "-Wno-array-bounds"
+      "-Wno-free-nonheap-object"
+      "-Wno-stringop-truncation"
+    ]);
 
   passthru = { updateScript = nix-update-script { }; };
 

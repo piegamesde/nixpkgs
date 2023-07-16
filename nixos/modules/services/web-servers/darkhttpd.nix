@@ -14,7 +14,9 @@ let
     cfg.rootDir
     "--port ${toString cfg.port}"
     "--addr ${cfg.address}"
-  ] ++ cfg.extraArgs ++ optional cfg.hideServerId "--no-server-id"
+  ]
+    ++ cfg.extraArgs
+    ++ optional cfg.hideServerId "--no-server-id"
     ++ optional config.networking.enableIPv6 "--ipv6");
 
 in

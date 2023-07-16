@@ -46,7 +46,8 @@ buildPythonPackage rec {
       pytestCheckHook
       which
       yosys
-    ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
+    ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
     ;
 
   pythonImportsCheck = [ "edalize" ];

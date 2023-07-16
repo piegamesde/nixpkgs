@@ -161,7 +161,8 @@ in
                 [
                   "boot"
                   cfg.kernel
-                ] ++ optional (cfg.initrd != "") cfg.initrd
+                ]
+                ++ optional (cfg.initrd != "") cfg.initrd
                 ++ optionals (cfg.cmdLine != "") [
                   "--cmdline"
                   cfg.cmdLine

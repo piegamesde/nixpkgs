@@ -81,7 +81,8 @@ python3.pkgs.buildPythonApplication rec {
     pkg-config
   ];
   checkInputs =
-    [ zlib ] ++ lib.optionals stdenv.isDarwin [
+    [ zlib ]
+    ++ lib.optionals stdenv.isDarwin [
       Foundation
       OpenGL
       AppKit

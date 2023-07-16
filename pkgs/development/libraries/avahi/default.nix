@@ -70,11 +70,14 @@ stdenv.mkDerivation rec {
       expat
       libiconv
       libevent
-    ] ++ (with perlPackages; [
+    ]
+    ++ (with perlPackages; [
       perl
       XMLParser
-    ]) ++ lib.optionals stdenv.isFreeBSD [ libpcap ]
-    ++ lib.optionals gtk3Support [ gtk3 ] ++ lib.optionals qt5Support [ qt5 ]
+    ])
+    ++ lib.optionals stdenv.isFreeBSD [ libpcap ]
+    ++ lib.optionals gtk3Support [ gtk3 ]
+    ++ lib.optionals qt5Support [ qt5 ]
     ;
 
   propagatedBuildInputs = lib.optionals withPython (with python.pkgs; [
@@ -104,7 +107,8 @@ stdenv.mkDerivation rec {
       }"
       # A systemd unit is provided by the avahi-daemon NixOS module
       "--with-systemdsystemunitdir=no"
-    ] ++ lib.optionals withLibdnssdCompat [ "--enable-compat-libdns_sd" ]
+    ]
+    ++ lib.optionals withLibdnssdCompat [ "--enable-compat-libdns_sd" ]
     ++ lib.optionals stdenv.isDarwin [
       # autoipd won't build on darwin
       "--disable-autoipd"

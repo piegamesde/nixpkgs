@@ -61,8 +61,12 @@
   buildPackages,
 }:
 
-assert langJava -> zip != null && unzip != null && zlib != null && boehmgc
-  != null && perl != null; # for `--enable-java-home'
+assert langJava
+  -> zip != null
+    && unzip != null
+    && zlib != null
+    && boehmgc != null
+    && perl != null; # for `--enable-java-home'
 
 # We enable the isl cloog backend.
 assert cloog != null -> isl != null;
@@ -94,7 +98,8 @@ let
     ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
     ++ optional noSysDirs ../no-sys-dirs.patch
     ++ optional langFortran ../gfortran-driving.patch
-    ++ optional hostPlatform.isDarwin ../gfortran-darwin-NXConstStr.patch ++ [
+    ++ optional hostPlatform.isDarwin ../gfortran-darwin-NXConstStr.patch
+    ++ [
       (fetchpatch {
         name = "libc_name_p.diff"; # needed to build with gcc6
         url =
@@ -102,7 +107,8 @@ let
         sha256 = "01jd7pdarh54ki498g6sz64ijl9a1l5f9v8q2696aaxalvh2vwzl";
         excludes = [ "gcc/cp/ChangeLog" ];
       })
-    ] ++ [ # glibc-2.26
+    ]
+    ++ [ # glibc-2.26
       ../struct-ucontext-4.8.patch
       ../sigsegv-not-declared.patch
       ../res_state-not-declared.patch
@@ -240,10 +246,13 @@ let
 
   # We need all these X libraries when building AWT with GTK.
 in
-assert x11Support -> (filter (x: x == null) ([
-  gtk2
-  libart_lgpl
-] ++ xlibs)) == [ ];
+assert x11Support
+  -> (filter (x: x == null) ([
+    gtk2
+    libart_lgpl
+  ]
+    ++ xlibs))
+    == [ ];
 
 stdenv.mkDerivation ({
   pname = "${crossNameAddon}${name}";
@@ -377,16 +386,21 @@ stdenv.mkDerivation ({
     # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
 
   CPATH = optionals (targetPlatform == hostPlatform)
-    (makeSearchPathOutput "dev" "include" ([ ] ++ optional (zlib != null) zlib
-      ++ optional langJava boehmgc ++ optionals javaAwtGtk xlibs
+    (makeSearchPathOutput "dev" "include" ([ ]
+      ++ optional (zlib != null) zlib
+      ++ optional langJava boehmgc
+      ++ optionals javaAwtGtk xlibs
       ++ optionals javaAwtGtk [
         gmp
         mpfr
       ]));
 
   LIBRARY_PATH = optionals (targetPlatform == hostPlatform) (makeLibraryPath
-    ([ ] ++ optional (zlib != null) zlib ++ optional langJava boehmgc
-      ++ optionals javaAwtGtk xlibs ++ optionals javaAwtGtk [
+    ([ ]
+      ++ optional (zlib != null) zlib
+      ++ optional langJava boehmgc
+      ++ optionals javaAwtGtk xlibs
+      ++ optionals javaAwtGtk [
         gmp
         mpfr
       ]));
@@ -421,8 +435,9 @@ stdenv.mkDerivation ({
   };
 }
 
-  // optionalAttrs (targetPlatform != hostPlatform && targetPlatform.libc
-    == "msvcrt" && crossStageStatic) {
+  // optionalAttrs (targetPlatform != hostPlatform
+    && targetPlatform.libc == "msvcrt"
+    && crossStageStatic) {
       makeFlags = [
         "all-gcc"
         "all-target-libgcc"

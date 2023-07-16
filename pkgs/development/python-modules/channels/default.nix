@@ -39,7 +39,8 @@ buildPythonPackage rec {
       pytest-asyncio
       pytest-django
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.daphne
+    ]
+    ++ passthru.optional-dependencies.daphne
     ;
 
   pythonImportsCheck = [ "channels" ];

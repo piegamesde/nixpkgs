@@ -72,7 +72,8 @@ buildPythonPackage rec {
       echo "nameserver 127.0.0.1" > resolv.conf
       export NIX_REDIRECTS=/etc/protocols=${iana-etc}/etc/protocols:/etc/resolv.conf=$(realpath resolv.conf)
       export LD_PRELOAD=${libredirect}/lib/libredirect.so
-    '') + ''
+    '')
+    + ''
       # increase tolerance for time-based test
       substituteInPlace tests/unit/io/utils.py --replace 'delta=.15' 'delta=.3'
     ''

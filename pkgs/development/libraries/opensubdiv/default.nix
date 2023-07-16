@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
       xorg.libXcursor
       xorg.libXinerama
       xorg.libXi
-    ] ++ lib.optional (openclSupport && !stdenv.isDarwin) ocl-icd
+    ]
+    ++ lib.optional (openclSupport && !stdenv.isDarwin) ocl-icd
     ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
       OpenCL
       Cocoa
@@ -62,7 +63,8 @@ stdenv.mkDerivation rec {
       IOKit
       AppKit
       AGL
-    ]) ++ lib.optional cudaSupport cudatoolkit
+    ])
+    ++ lib.optional cudaSupport cudatoolkit
     ;
 
   cmakeFlags =
@@ -71,13 +73,16 @@ stdenv.mkDerivation rec {
       "-DNO_REGRESSION=1"
       "-DNO_EXAMPLES=1"
       "-DNO_METAL=1" # don’t have metal in apple sdk
-    ] ++ lib.optionals (!stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [
       "-DGLEW_INCLUDE_DIR=${glew.dev}/include"
       "-DGLEW_LIBRARY=${glew.dev}/lib"
-    ] ++ lib.optionals cudaSupport [
+    ]
+    ++ lib.optionals cudaSupport [
       "-DOSD_CUDA_NVCC_FLAGS=--gpu-architecture=${cudaArch}"
       "-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/cc"
-    ] ++ lib.optionals (!openclSupport) [ "-DNO_OPENCL=1" ]
+    ]
+    ++ lib.optionals (!openclSupport) [ "-DNO_OPENCL=1" ]
     ;
 
   postInstall = "rm $out/lib/*.a";

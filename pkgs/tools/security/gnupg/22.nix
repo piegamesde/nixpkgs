@@ -52,7 +52,8 @@ stdenv.mkDerivation rec {
       libiconv
       libksba
       npth
-    ] ++ lib.optionals (!enableMinimal) [
+    ]
+    ++ lib.optionals (!enableMinimal) [
       adns
       bzip2
       gnutls
@@ -77,7 +78,8 @@ stdenv.mkDerivation rec {
       # Fix broken SOURCE_DATE_EPOCH usage - remove on the next upstream update
       sed -i 's/$SOURCE_DATE_EPOCH/''${SOURCE_DATE_EPOCH}/' doc/Makefile.am
       sed -i 's/$SOURCE_DATE_EPOCH/''${SOURCE_DATE_EPOCH}/' doc/Makefile.in
-    '' + lib.optionalString (stdenv.isLinux && withPcsc) ''
+    ''
+    + lib.optionalString (stdenv.isLinux && withPcsc) ''
       sed -i 's,"libpcsclite\.so[^"]*","${
         lib.getLib pcsclite
       }/lib/libpcsclite.so",g' scd/scdaemon.c
@@ -91,8 +93,9 @@ stdenv.mkDerivation rec {
       "--with-libassuan-prefix=${libassuan.dev}"
       "--with-ksba-prefix=${libksba.dev}"
       "--with-npth-prefix=${npth}"
-    ] ++ lib.optional guiSupport
-    "--with-pinentry-pgm=${pinentry}/${pinentry.binaryPath or "bin/pinentry"}"
+    ]
+    ++ lib.optional guiSupport
+      "--with-pinentry-pgm=${pinentry}/${pinentry.binaryPath or "bin/pinentry"}"
     ++ lib.optional stdenv.isDarwin "--disable-ccid-driver"
     ;
 

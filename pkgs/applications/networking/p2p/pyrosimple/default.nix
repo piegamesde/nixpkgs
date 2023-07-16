@@ -48,7 +48,8 @@ let
       python-box
       tomli
       tomli-w
-    ] ++ lib.optional withInotify inotify
+    ]
+    ++ lib.optional withInotify inotify
     ;
 
 in

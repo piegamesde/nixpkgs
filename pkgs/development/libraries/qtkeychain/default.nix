@@ -35,10 +35,12 @@ stdenv.mkDerivation rec {
     ;
 
   buildInputs =
-    lib.optionals (!stdenv.isDarwin) [ libsecret ] ++ [
+    lib.optionals (!stdenv.isDarwin) [ libsecret ]
+    ++ [
       qtbase
       qttools
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       CoreFoundation
       Security
     ]

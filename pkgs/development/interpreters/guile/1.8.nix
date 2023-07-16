@@ -36,13 +36,13 @@ stdenv.mkDerivation rec {
     # Guile needs patching to preset results for the configure tests about
     # pthreads, which work only in native builds.
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-    "--with-threads=no"
+      "--with-threads=no"
     ;
 
   depsBuildBuild =
     [ buildPackages.stdenv.cc ]
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-    pkgsBuildBuild.guile_1_8
+      pkgsBuildBuild.guile_1_8
     ;
   nativeBuildInputs = [
     makeWrapper

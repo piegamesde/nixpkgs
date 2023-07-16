@@ -35,7 +35,8 @@ stdenv.mkDerivation (finalAttrs: {
       }"
       "-DJSON_FastTests=ON"
       "-DJSON_MultipleHeaders=ON"
-    ] ++ lib.optional finalAttrs.doCheck "-DJSON_TestDataDirectory=${testData}"
+    ]
+    ++ lib.optional finalAttrs.doCheck "-DJSON_TestDataDirectory=${testData}"
     ;
 
   doCheck =

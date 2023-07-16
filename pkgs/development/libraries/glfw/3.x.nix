@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ libGL ];
 
   nativeBuildInputs =
-    [ cmake ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
+    [ cmake ]
+    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
     ++ lib.optional waylandSupport extra-cmake-modules
     ;
 
@@ -56,18 +57,21 @@ stdenv.mkDerivation rec {
         libXcursor
         libXi
         libXext
-      ] ++ lib.optionals stdenv.isDarwin [
+      ]
+      ++ lib.optionals stdenv.isDarwin [
         Cocoa
         Kernel
       ]
     ;
 
   cmakeFlags =
-    [ "-DBUILD_SHARED_LIBS=ON" ] ++ lib.optionals (!stdenv.isDarwin) [
-      "-DCMAKE_C_FLAGS=-D_GLFW_GLX_LIBRARY='\"${
-        lib.getLib libGL
-      }/lib/libGL.so.1\"'"
-    ] ++ lib.optionals waylandSupport [
+    [ "-DBUILD_SHARED_LIBS=ON" ]
+    ++ lib.optionals (!stdenv.isDarwin) [
+        "-DCMAKE_C_FLAGS=-D_GLFW_GLX_LIBRARY='\"${
+          lib.getLib libGL
+        }/lib/libGL.so.1\"'"
+      ]
+    ++ lib.optionals waylandSupport [
       "-DGLFW_USE_WAYLAND=ON"
       "-DCMAKE_C_FLAGS=-D_GLFW_EGL_LIBRARY='\"${
         lib.getLib libGL

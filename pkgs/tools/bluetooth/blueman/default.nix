@@ -55,7 +55,9 @@ stdenv.mkDerivation rec {
       gnome.adwaita-icon-theme
       iproute2
       networkmanager
-    ] ++ pythonPath ++ lib.optional withPulseAudio libpulseaudio
+    ]
+    ++ pythonPath
+    ++ lib.optional withPulseAudio libpulseaudio
     ;
 
   postPatch = lib.optionalString withPulseAudio ''

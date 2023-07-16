@@ -78,7 +78,9 @@ rec {
       "M"
       "G"
       "T"
-    ] ++ digits) && all (num: elem num digits) nums
+    ]
+      ++ digits)
+    && all (num: elem num digits) nums
     ;
 
   assertByteFormat =
@@ -91,8 +93,9 @@ rec {
 
   isMacAddress =
     s:
-    stringLength s == 17 && flip all (splitString ":" s)
-    (bytes: all (byte: elem byte hexChars) (stringToCharacters bytes))
+    stringLength s == 17
+    && flip all (splitString ":" s)
+      (bytes: all (byte: elem byte hexChars) (stringToCharacters bytes))
     ;
 
   assertMacAddress =
@@ -489,7 +492,8 @@ rec {
     name: def: {
       inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
       text =
-        commonUnitText def + ''
+        commonUnitText def
+        + ''
           [Service]
           ${let
             env = cfg.globalEnvironment // def.environment;
@@ -531,7 +535,8 @@ rec {
     name: def: {
       inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
       text =
-        commonUnitText def + ''
+        commonUnitText def
+        + ''
           [Socket]
           ${attrsToSection def.socketConfig}
           ${concatStringsSep "\n"
@@ -547,7 +552,8 @@ rec {
     name: def: {
       inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
       text =
-        commonUnitText def + ''
+        commonUnitText def
+        + ''
           [Timer]
           ${attrsToSection def.timerConfig}
         ''
@@ -559,7 +565,8 @@ rec {
     name: def: {
       inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
       text =
-        commonUnitText def + ''
+        commonUnitText def
+        + ''
           [Path]
           ${attrsToSection def.pathConfig}
         ''
@@ -571,7 +578,8 @@ rec {
     name: def: {
       inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
       text =
-        commonUnitText def + ''
+        commonUnitText def
+        + ''
           [Mount]
           ${attrsToSection def.mountConfig}
         ''
@@ -583,7 +591,8 @@ rec {
     name: def: {
       inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
       text =
-        commonUnitText def + ''
+        commonUnitText def
+        + ''
           [Automount]
           ${attrsToSection def.automountConfig}
         ''
@@ -595,7 +604,8 @@ rec {
     name: def: {
       inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
       text =
-        commonUnitText def + ''
+        commonUnitText def
+        + ''
           [Slice]
           ${attrsToSection def.sliceConfig}
         ''

@@ -50,10 +50,12 @@ else
         uchar
         result
         gg
-      ] ++ optionals pdfBackend [
+      ]
+      ++ optionals pdfBackend [
         uutf
         otfm
-      ] ++ optionals htmlcBackend [
+      ]
+      ++ optionals htmlcBackend [
         js_of_ocaml
         js_of_ocaml-ppx
       ]
@@ -62,7 +64,8 @@ else
     strictDeps = true;
 
     buildPhase =
-      topkg.buildPhase + " --with-uutf ${lib.boolToString pdfBackend}"
+      topkg.buildPhase
+      + " --with-uutf ${lib.boolToString pdfBackend}"
       + " --with-otfm ${lib.boolToString pdfBackend}"
       + " --with-js_of_ocaml ${lib.boolToString htmlcBackend}"
       + " --with-cairo2 false"

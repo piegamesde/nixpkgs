@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
       lhapdf
       root5
       zlib
-    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ;
 
   patches = [ ./bad_code.patch ];
@@ -37,7 +38,8 @@ stdenv.mkDerivation rec {
     ''
       substituteInPlace src/Makefile.in \
         --replace "-L\$(subst /libgfortran.a, ,\$(FRTLIB) )" "-L${gfortran.cc.lib}/lib"
-    '' + (lib.optionalString stdenv.isDarwin ''
+    ''
+    + (lib.optionalString stdenv.isDarwin ''
       substituteInPlace src/Makefile.in \
         --replace "gfortran -print-file-name=libgfortran.a" "gfortran -print-file-name=libgfortran.dylib"
     '')

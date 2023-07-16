@@ -94,7 +94,8 @@ stdenv.mkDerivation rec {
     ''
       wrapProgram $out/bin/picom-trans \
         --prefix PATH : ${lib.makeBinPath [ xwininfo ]}
-    '' + lib.optionalString withDebug ''
+    ''
+    + lib.optionalString withDebug ''
       cp -r ../src $out/
     ''
     ;

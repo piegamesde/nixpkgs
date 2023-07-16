@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
       python3
       eigen
       python3Packages.apycula
-    ] ++ (lib.optional enableGui qtbase)
+    ]
+    ++ (lib.optional enableGui qtbase)
     ++ (lib.optional stdenv.cc.isClang llvmPackages.openmp)
     ;
 
@@ -70,7 +71,8 @@ stdenv.mkDerivation rec {
       "-DUSE_OPENMP=ON"
       # warning: high RAM usage
       "-DSERIALIZE_CHIPDBS=OFF"
-    ] ++ (lib.optional enableGui "-DBUILD_GUI=ON")
+    ]
+    ++ (lib.optional enableGui "-DBUILD_GUI=ON")
     ++ (lib.optional (enableGui && stdenv.isDarwin)
       "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks")
     ;

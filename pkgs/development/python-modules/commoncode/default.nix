@@ -48,7 +48,8 @@ buildPythonPackage rec {
       requests
       saneyaml
       text-unidecode
-    ] ++ lib.optionals (pythonOlder "3.7") [ typing ]
+    ]
+    ++ lib.optionals (pythonOlder "3.7") [ typing ]
     ;
 
   nativeCheckInputs = [
@@ -65,7 +66,8 @@ buildPythonPackage rec {
       "test_resource_iter_can_walk_non_utf8_path_from_unicode_path"
       "test_walk_can_walk_non_utf8_path_from_unicode_path"
       "test_resource_iter_can_walk_non_utf8_path_from_unicode_path_with_dirs"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # expected result is tailored towards the quirks of upstream's
       # CI environment on darwin
       "test_searchable_paths"

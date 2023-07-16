@@ -74,7 +74,8 @@ let
         dir = "libfreerdp/crypto/test";
         file = "Test_x509_cert_info.c";
       }
-    ] ++ lib.optionals stdenv.isDarwin [ {
+    ]
+    ++ lib.optionals stdenv.isDarwin [ {
       dir = "winpr/libwinpr/sysinfo/test";
       file = "TestGetComputerName.c";
     } ]
@@ -110,10 +111,12 @@ stdenv.mkDerivation rec {
 
       substituteInPlace "libfreerdp/freerdp.pc.in" \
         --replace "Requires:" "Requires: @WINPR_PKG_CONFIG_FILENAME@"
-    '' + lib.optionalString (pcsclite != null) ''
+    ''
+    + lib.optionalString (pcsclite != null) ''
       substituteInPlace "winpr/libwinpr/smartcard/smartcard_pcsc.c" \
         --replace "libpcsclite.so" "${lib.getLib pcsclite}/lib/libpcsclite.so"
-    '' + lib.optionalString nocaps ''
+    ''
+    + lib.optionalString nocaps ''
       substituteInPlace "libfreerdp/locale/keyboard_xkbfile.c" \
         --replace "RDP_SCANCODE_CAPSLOCK" "RDP_SCANCODE_LCONTROL"
     ''
@@ -152,17 +155,20 @@ stdenv.mkDerivation rec {
       pcre2
       pcsclite
       zlib
-    ] ++ optionals stdenv.isLinux [
+    ]
+    ++ optionals stdenv.isLinux [
       alsa-lib
       systemd
       wayland
-    ] ++ optionals stdenv.isDarwin [
+    ]
+    ++ optionals stdenv.isDarwin [
       AudioToolbox
       AVFoundation
       Carbon
       Cocoa
       CoreMedia
-    ] ++ optionals withUnfree [ faac ]
+    ]
+    ++ optionals withUnfree [ faac ]
     ;
 
   nativeBuildInputs = [
@@ -182,7 +188,8 @@ stdenv.mkDerivation rec {
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DDOCBOOKXSL_DIR=${docbook-xsl-nons}/xml/xsl/docbook"
       "-DWAYLAND_SCANNER=${buildPackages.wayland-scanner}/bin/wayland-scanner"
-    ] ++ lib.mapAttrsToList (k: v: "-D${k}=${cmFlag v}") {
+    ]
+    ++ lib.mapAttrsToList (k: v: "-D${k}=${cmFlag v}") {
       BUILD_TESTING = false; # false is recommended by upstream
       WITH_CAIRO = (cairo != null);
       WITH_CUPS = (cups != null);

@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
       libXcursor
       libXrandr
       libXinerama
-    ] ++ lib.optional alsaSupport alsa-lib
+    ]
+    ++ lib.optional alsaSupport alsa-lib
     ++ lib.optional pulseSupport libpulseaudio
     ;
   propagatedBuildInputs = [
@@ -68,7 +69,8 @@ stdenv.mkDerivation rec {
       "-DUSE_EXTERNAL_GLFW=ON"
       "-DBUILD_EXAMPLES=OFF"
       "-DCUSTOMIZE_BUILD=1"
-    ] ++ lib.optional includeEverything "-DINCLUDE_EVERYTHING=ON"
+    ]
+    ++ lib.optional includeEverything "-DINCLUDE_EVERYTHING=ON"
     ++ lib.optional sharedLib "-DBUILD_SHARED_LIBS=ON"
     ;
 

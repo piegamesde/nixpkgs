@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
       nlopt
       boost
       tbb
-    ] ++ lib.optional (!stdenv.isDarwin) ipopt
+    ]
+    ++ lib.optional (!stdenv.isDarwin) ipopt
     ;
 
   cmakeFlags =
@@ -45,10 +46,12 @@ stdenv.mkDerivation rec {
       "-DPAGMO_WITH_EIGEN3=yes"
       "-DPAGMO_WITH_NLOPT=yes"
       "-DNLOPT_LIBRARY=${nlopt}/lib/libnlopt${stdenv.hostPlatform.extensions.sharedLibrary}"
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       "-DPAGMO_WITH_IPOPT=yes"
       "-DCMAKE_CXX_FLAGS='-fuse-ld=gold'"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # FIXME: fails ipopt test with Invalid_Option on darwin, so disable.
       "-DPAGMO_WITH_IPOPT=no"
       "-DLLVM_USE_LINKER=gold"

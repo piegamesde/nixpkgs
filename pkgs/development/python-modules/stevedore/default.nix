@@ -24,7 +24,8 @@ buildPythonPackage rec {
       pbr
       setuptools
       six
-    ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
     ;
 
   doCheck = false;

@@ -22,7 +22,8 @@
 
 let
   drivers = lib.concatStringsSep "," ([ "hash_drv" ]
-    ++ lib.optional withMySQL "mysql_drv" ++ lib.optional withPgSQL "pgsql_drv"
+    ++ lib.optional withMySQL "mysql_drv"
+    ++ lib.optional withPgSQL "pgsql_drv"
     ++ lib.optional withSQLite "sqlite3_drv"
     ++ lib.optional withDB "libdb4_drv");
   maintenancePath = lib.makeBinPath [
@@ -50,10 +51,13 @@ stdenv.mkDerivation rec {
     ];
 
   buildInputs =
-    [ perlPackages.perl ] ++ lib.optionals withMySQL [
+    [ perlPackages.perl ]
+    ++ lib.optionals withMySQL [
       zlib
       mariadb-connector-c.out
-    ] ++ lib.optional withPgSQL postgresql ++ lib.optional withSQLite sqlite
+    ]
+    ++ lib.optional withPgSQL postgresql
+    ++ lib.optional withSQLite sqlite
     ++ lib.optional withDB db
     ;
   nativeBuildInputs = [ makeWrapper ];
@@ -80,10 +84,12 @@ stdenv.mkDerivation rec {
       "--enable-preferences-extension"
       "--enable-long-usernames"
       "--enable-external-lookup"
-    ] ++ lib.optionals withMySQL [
+    ]
+    ++ lib.optionals withMySQL [
       "--with-mysql-includes=${mariadb-connector-c.dev}/include/mysql"
       "--with-mysql-libraries=${mariadb-connector-c.out}/lib/mysql"
-    ] ++ lib.optional withPgSQL "--with-pgsql-libraries=${postgresql.lib}/lib"
+    ]
+    ++ lib.optional withPgSQL "--with-pgsql-libraries=${postgresql.lib}/lib"
     ;
 
     # Workaround build failure on -fno-common toolchains like upstream

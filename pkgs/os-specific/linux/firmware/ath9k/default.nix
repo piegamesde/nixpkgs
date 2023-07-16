@@ -123,7 +123,8 @@ stdenv.mkDerivation (finalAttrs: {
           echo 'MPC_SUM = "sha256-7VqBXP6lJdx3jfDLN0aLnBtVSq8w2TKLFDHKcFt0AP8=";'
           echo 'GMP_SUM = "sha256-H1iKrMxBu5rtlG+f44Uhwm2LKQ0APF34B/ZWkPKq3sk=";'
           echo 'BINUTILS_SUM = "sha256-KrLlsD4IbRLGKV+DGtrUaz4UEKOiNJM6Lo+sZssuehk=";'
-        '' + ''
+        ''
+        + ''
           echo '}'
           exit
         ''

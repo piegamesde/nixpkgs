@@ -71,7 +71,8 @@ gnuradio3_8.pkgs.mkDerivation rec {
       libsndfile
       cppzmq
       gnuradio3_8.qwt
-    ] ++ lib.optionals (gnuradio3_8.hasFeature "gr-ctrlport") [
+    ]
+    ++ lib.optionals (gnuradio3_8.hasFeature "gr-ctrlport") [
       thrift
       gnuradio3_8.unwrapped.python.pkgs.thrift
     ]

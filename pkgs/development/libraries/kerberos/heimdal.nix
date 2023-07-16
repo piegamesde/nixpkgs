@@ -51,17 +51,20 @@ stdenv.mkDerivation rec {
       bison
       flex
       texinfo
-    ] ++ (with perlPackages; [ JSON ])
+    ]
+    ++ (with perlPackages; [ JSON ])
     ;
   buildInputs =
-    lib.optionals (stdenv.isLinux) [ libcap_ng ] ++ [
+    lib.optionals (stdenv.isLinux) [ libcap_ng ]
+    ++ [
       db
       sqlite
       openssl
       libedit
       openldap
       pam
-    ] ++ lib.optionals (stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (stdenv.isDarwin) [
       CoreFoundation
       Security
       SystemConfiguration
@@ -85,7 +88,8 @@ stdenv.mkDerivation rec {
       "--with-berkeley-db"
       "--with-berkeley-db-include=${db.dev}/include"
       "--with-openldap=${openldap.dev}"
-    ] ++ lib.optionals (stdenv.isLinux) [ "--with-capng" ]
+    ]
+    ++ lib.optionals (stdenv.isLinux) [ "--with-capng" ]
     ;
 
   postUnpack = ''

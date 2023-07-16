@@ -84,22 +84,26 @@ let
   patches =
     optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
     ++ optional noSysDirs ../gcc-12-no-sys-dirs.patch
-    ++ optional noSysDirs ../no-sys-dirs-riscv.patch ++ [
+    ++ optional noSysDirs ../no-sys-dirs-riscv.patch
+    ++ [
       ../gnat-cflags-11.patch
       ../gcc-12-gfortran-driving.patch
       ../ppc-musl.patch
     ]
     # We only apply this patch when building a native toolchain for aarch64-darwin, as it breaks building
     # a foreign one: https://github.com/iains/gcc-12-branch/issues/18
-    ++ optional (stdenv.isDarwin && stdenv.isAarch64 && buildPlatform
-      == hostPlatform && hostPlatform == targetPlatform) (fetchpatch {
+    ++ optional (stdenv.isDarwin
+      && stdenv.isAarch64
+      && buildPlatform == hostPlatform
+      && hostPlatform == targetPlatform) (fetchpatch {
         name = "gcc-12-darwin-aarch64-support.patch";
         url =
           "https://github.com/Homebrew/formula-patches/raw/1d184289/gcc/gcc-12.2.0-arm.diff";
         sha256 = "sha256-omclLslGi/2yCV4pNBMaIpPDMW3tcz/RXdupbNbeOHA=";
-      }) ++ optional langD ../libphobos.patch
+      })
+    ++ optional langD ../libphobos.patch
 
-    # backport fixes to build gccgo with musl libc
+      # backport fixes to build gccgo with musl libc
     ++ optionals (langGo && stdenv.hostPlatform.isMusl) [
       (fetchpatch {
         excludes = [ "gcc/go/gofrontend/MERGE" ];
@@ -146,16 +150,17 @@ let
 
     # Fix detection of bootstrap compiler Ada support (cctools as) on Nix Darwin
     ++ optional (stdenv.isDarwin && langAda)
-    ../ada-cctools-as-detection-configure.patch
+      ../ada-cctools-as-detection-configure.patch
 
-    # Use absolute path in GNAT dylib install names on Darwin
+      # Use absolute path in GNAT dylib install names on Darwin
     ++ optional (stdenv.isDarwin && langAda)
-    ../gnat-darwin-dylib-install-name.patch
+      ../gnat-darwin-dylib-install-name.patch
 
-    # Obtain latest patch with ../update-mcfgthread-patches.sh
-    ++ optional
-    (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
-    ./Added-mcf-thread-model-support-from-mcfgthread.patch
+      # Obtain latest patch with ../update-mcfgthread-patches.sh
+    ++ optional (!crossStageStatic
+      && targetPlatform.isMinGW
+      && threadsCross.model == "mcf")
+      ./Added-mcf-thread-model-support-from-mcfgthread.patch
     ;
 
     # Cross-gcc settings (build == host != target)
@@ -254,7 +259,8 @@ lib.pipe (stdenv.mkDerivation ({
       "out"
       "man"
       "info"
-    ] ++ lib.optional (!langJit) "lib"
+    ]
+    ++ lib.optional (!langJit) "lib"
     ;
   setOutputFlags = false;
   NIX_NO_SELF_RPATH = true;
@@ -284,7 +290,8 @@ lib.pipe (stdenv.mkDerivation ({
 
       substituteInPlace libgfortran/configure \
         --replace "-install_name \\\$rpath/\\\$soname" "-install_name ''${!outputLib}/lib/\\\$soname"
-    '' + (lib.optionalString
+    ''
+    + (lib.optionalString
       (targetPlatform != hostPlatform || stdenv.cc.libc != null)
       # On NixOS, use the right path to the dynamic linker instead of
       # `/lib/ld*.so'.
@@ -306,15 +313,17 @@ lib.pipe (stdenv.mkDerivation ({
                         -e 's|define[[:blank:]]*\([UCG]\+\)LIBC_DYNAMIC_LINKER\([0-9]*\)[[:blank:]]"\([^\"]\+\)"$|define \1LIBC_DYNAMIC_LINKER\2 "${libc.out}\3"|g' \
                         -e 's|define[[:blank:]]*MUSL_DYNAMIC_LINKER\([0-9]*\)[[:blank:]]"\([^\"]\+\)"$|define MUSL_DYNAMIC_LINKER\1 "${libc.out}\2"|g'
                   done
-      '' + lib.optionalString (targetPlatform.libc == "musl") ''
-        sed -i gcc/config/linux.h -e '1i#undef LOCAL_INCLUDE_DIR'
-      '')
-      )) + lib.optionalString targetPlatform.isAvr ''
-        makeFlagsArray+=(
-           '-s' # workaround for hitting hydra log limit
-           'LIMITS_H_TEST=false'
-        )
       ''
+        + lib.optionalString (targetPlatform.libc == "musl") ''
+          sed -i gcc/config/linux.h -e '1i#undef LOCAL_INCLUDE_DIR'
+        '')
+      ))
+    + lib.optionalString targetPlatform.isAvr ''
+      makeFlagsArray+=(
+         '-s' # workaround for hitting hydra log limit
+         'LIMITS_H_TEST=false'
+      )
+    ''
     ;
 
   inherit noSysDirs staticCompiler crossStageStatic libcCross crossMingw;
@@ -330,7 +339,8 @@ lib.pipe (stdenv.mkDerivation ({
   NIX_LDFLAGS = lib.optionalString hostPlatform.isSunOS "-lm";
 
   preConfigure =
-    (callFile ../common/pre-configure.nix { }) + ''
+    (callFile ../common/pre-configure.nix { })
+    + ''
       ln -sf ${libxcrypt}/include/crypt.h libsanitizer/sanitizer_common/crypt.h
     ''
     ;
@@ -357,8 +367,9 @@ lib.pipe (stdenv.mkDerivation ({
     assert profiledCompiler -> !disableBootstrap;
     let
       target =
-        lib.optionalString (profiledCompiler) "profiled" + lib.optionalString
-        (targetPlatform == hostPlatform && hostPlatform == buildPlatform
+        lib.optionalString (profiledCompiler) "profiled"
+        + lib.optionalString (targetPlatform == hostPlatform
+          && hostPlatform == buildPlatform
           && !disableBootstrap) "bootstrap"
         ;
     in
@@ -430,8 +441,9 @@ lib.pipe (stdenv.mkDerivation ({
   };
 }
 
-  // optionalAttrs (targetPlatform != hostPlatform && targetPlatform.libc
-    == "msvcrt" && crossStageStatic) {
+  // optionalAttrs (targetPlatform != hostPlatform
+    && targetPlatform.libc == "msvcrt"
+    && crossStageStatic) {
       makeFlags = [
         "all-gcc"
         "all-target-libgcc"

@@ -55,7 +55,8 @@ stdenv.mkDerivation rec {
       "SBINDIR=$(out)/sbin"
       "DOCDIR=$(TMPDIR)/share/doc/${pname}" # Don't install docs
       "HDRDIR=$(dev)/include/iproute2"
-    ] ++ lib.optionals stdenv.hostPlatform.isStatic [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isStatic [
       "SHARED_LIBS=n"
       # all build .so plugins:
       "TC_CONFIG_NO_XT=y"

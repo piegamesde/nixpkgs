@@ -88,10 +88,11 @@
   meta ? { }
 }:
 
-assert wxSupport -> (if stdenv.isDarwin then
-  wxGTK != null
-else
-  libGL != null && libGLU != null && wxGTK != null && xorg != null);
+assert wxSupport
+  -> (if stdenv.isDarwin then
+    wxGTK != null
+  else
+    libGL != null && libGLU != null && wxGTK != null && xorg != null);
 
 assert odbcSupport -> unixODBC != null;
 assert javacSupport -> openjdk11 != null;
@@ -111,8 +112,10 @@ stdenv.mkDerivation ({
   # - not have to pass pnames as argument
   # - have a separate pname for erlang (main module)
   name =
-    "${baseName}" + optionalString javacSupport "_javac"
-    + optionalString odbcSupport "_odbc" + "-${version}"
+    "${baseName}"
+    + optionalString javacSupport "_javac"
+    + optionalString odbcSupport "_odbc"
+    + "-${version}"
     ;
 
   inherit src version;
@@ -130,8 +133,11 @@ stdenv.mkDerivation ({
     [
       ncurses
       opensslPackage
-    ] ++ optionals wxSupport wxPackages2 ++ optionals odbcSupport odbcPackages
-    ++ optionals javacSupport javacPackages ++ optional systemdSupport systemd
+    ]
+    ++ optionals wxSupport wxPackages2
+    ++ optionals odbcSupport odbcPackages
+    ++ optionals javacSupport javacPackages
+    ++ optional systemdSupport systemd
     ++ optionals stdenv.isDarwin (with pkgs.darwin.apple_sdk.frameworks; [
       AGL
       Carbon
@@ -156,7 +162,8 @@ stdenv.mkDerivation ({
   '';
 
   configureFlags =
-    [ "--with-ssl=${lib.getOutput "out" opensslPackage}" ] ++ [
+    [ "--with-ssl=${lib.getOutput "out" opensslPackage}" ]
+    ++ [
       "--with-ssl-incl=${lib.getDev opensslPackage}"
     ] # This flag was introduced in R24
     ++ optional enableThreads "--enable-threads"
@@ -166,9 +173,9 @@ stdenv.mkDerivation ({
     ++ optional javacSupport "--with-javac"
     ++ optional odbcSupport "--with-odbc=${unixODBC}"
     ++ optional wxSupport "--enable-wx"
-    ++ optional systemdSupport "--enable-systemd" ++ optional stdenv.isDarwin
-    "--enable-darwin-64bit"
-    # make[3]: *** [yecc.beam] Segmentation fault: 11
+    ++ optional systemdSupport "--enable-systemd"
+    ++ optional stdenv.isDarwin "--enable-darwin-64bit"
+      # make[3]: *** [yecc.beam] Segmentation fault: 11
     ++ optional (stdenv.isDarwin && stdenv.isx86_64) "--disable-jit"
     ++ configureFlags
     ;

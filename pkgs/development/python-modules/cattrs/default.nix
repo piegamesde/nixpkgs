@@ -36,7 +36,8 @@ buildPythonPackage rec {
   nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs =
-    [ attrs ] ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ]
+    [ attrs ]
+    ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ]
     ++ lib.optionals (pythonOlder "3.7") [ typing-extensions ]
     ;
 

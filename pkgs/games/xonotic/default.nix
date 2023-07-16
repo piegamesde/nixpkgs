@@ -98,7 +98,8 @@ let
         libvorbis
         curl
         gmp
-      ] ++ lib.optionals withGLX [
+      ]
+      ++ lib.optionals withGLX [
         libX11.dev
         libGLU.dev
         libGL.dev
@@ -106,7 +107,8 @@ let
         libXext.dev
         libXxf86vm.dev
         alsa-lib.dev
-      ] ++ lib.optionals withSDL [ SDL2.dev ]
+      ]
+      ++ lib.optionals withSDL [ SDL2.dev ]
       ;
 
     sourceRoot = "Xonotic/source/darkplaces";
@@ -125,11 +127,14 @@ let
     buildPhase =
       (lib.optionalString withDedicated ''
         make -j $NIX_BUILD_CORES sv-${target}
-      '' + lib.optionalString withGLX ''
-        make -j $NIX_BUILD_CORES cl-${target}
-      '' + lib.optionalString withSDL ''
-        make -j $NIX_BUILD_CORES sdl-${target}
-      '') + ''
+      ''
+        + lib.optionalString withGLX ''
+          make -j $NIX_BUILD_CORES cl-${target}
+        ''
+        + lib.optionalString withSDL ''
+          make -j $NIX_BUILD_CORES sdl-${target}
+        '')
+      + ''
         pushd ../d0_blind_id
         make -j $NIX_BUILD_CORES
         popd
@@ -144,13 +149,17 @@ let
           install -Dm644 ../../misc/logos/xonotic_icon.svg \
             $out/share/icons/hicolor/$size/xonotic.svg
         done
-      '' + lib.optionalString withDedicated ''
-        install -Dm755 darkplaces-dedicated "$out/bin/xonotic-dedicated"
-      '' + lib.optionalString withGLX ''
-        install -Dm755 darkplaces-glx "$out/bin/xonotic-glx"
-      '' + lib.optionalString withSDL ''
-        install -Dm755 darkplaces-sdl "$out/bin/xonotic-sdl"
-      '') + ''
+      ''
+        + lib.optionalString withDedicated ''
+          install -Dm755 darkplaces-dedicated "$out/bin/xonotic-dedicated"
+        ''
+        + lib.optionalString withGLX ''
+          install -Dm755 darkplaces-glx "$out/bin/xonotic-glx"
+        ''
+        + lib.optionalString withSDL ''
+          install -Dm755 darkplaces-sdl "$out/bin/xonotic-sdl"
+        '')
+      + ''
         pushd ../d0_blind_id
         make install
         popd
@@ -162,7 +171,8 @@ let
     postFixup =
       lib.optionalString withDedicated ''
         patchelf --add-needed ${curl.out}/lib/libcurl.so $out/bin/xonotic-dedicated
-      '' + lib.optionalString withGLX ''
+      ''
+      + lib.optionalString withGLX ''
         patchelf \
             --add-needed ${curl.out}/lib/libcurl.so \
             --add-needed ${libvorbis}/lib/libvorbisfile.so \
@@ -173,7 +183,8 @@ let
             --add-needed ${libpng}/lib/libpng.so \
             --add-needed ${libtheora}/lib/libtheora.so \
             $out/bin/xonotic-glx
-      '' + lib.optionalString withSDL ''
+      ''
+      + lib.optionalString withSDL ''
         patchelf \
             --add-needed ${curl.out}/lib/libcurl.so \
             --add-needed ${libvorbis}/lib/libvorbisfile.so \
@@ -214,21 +225,26 @@ rec {
     };
   } (''
     mkdir -p $out/bin
-  '' + lib.optionalString withDedicated ''
-    ln -s ${xonotic-unwrapped}/bin/xonotic-dedicated $out/bin/
-  '' + lib.optionalString withGLX ''
-    ln -s ${xonotic-unwrapped}/bin/xonotic-glx $out/bin/xonotic-glx
-    ln -s $out/bin/xonotic-glx $out/bin/xonotic
-  '' + lib.optionalString withSDL ''
-    ln -s ${xonotic-unwrapped}/bin/xonotic-sdl $out/bin/xonotic-sdl
-    ln -sf $out/bin/xonotic-sdl $out/bin/xonotic
-  '' + lib.optionalString (withSDL || withGLX) ''
-    mkdir -p $out/share
-    ln -s ${xonotic-unwrapped}/share/icons $out/share/icons
-    copyDesktopItems
-  '' + ''
-    for binary in $out/bin/xonotic-*; do
-      wrapProgram $binary --add-flags "-basedir ${xonotic-data}" --prefix LD_LIBRARY_PATH : "${xonotic-unwrapped}/lib"
-    done
-  '');
+  ''
+    + lib.optionalString withDedicated ''
+      ln -s ${xonotic-unwrapped}/bin/xonotic-dedicated $out/bin/
+    ''
+    + lib.optionalString withGLX ''
+      ln -s ${xonotic-unwrapped}/bin/xonotic-glx $out/bin/xonotic-glx
+      ln -s $out/bin/xonotic-glx $out/bin/xonotic
+    ''
+    + lib.optionalString withSDL ''
+      ln -s ${xonotic-unwrapped}/bin/xonotic-sdl $out/bin/xonotic-sdl
+      ln -sf $out/bin/xonotic-sdl $out/bin/xonotic
+    ''
+    + lib.optionalString (withSDL || withGLX) ''
+      mkdir -p $out/share
+      ln -s ${xonotic-unwrapped}/share/icons $out/share/icons
+      copyDesktopItems
+    ''
+    + ''
+      for binary in $out/bin/xonotic-*; do
+        wrapProgram $binary --add-flags "-basedir ${xonotic-data}" --prefix LD_LIBRARY_PATH : "${xonotic-unwrapped}/lib"
+      done
+    '');
 }

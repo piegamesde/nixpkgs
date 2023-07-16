@@ -37,10 +37,12 @@ stdenv.mkDerivation rec {
     [
       gettext
       libuuid
-    ] ++ lib.optionals crypto [
+    ]
+    ++ lib.optionals crypto [
       gnutls
       libgcrypt
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       macfuse-stubs
       DiskArbitration
     ]
@@ -76,9 +78,10 @@ stdenv.mkDerivation rec {
       "--enable-extras"
       "--with-mount-helper=${mount}/bin/mount"
       "--with-umount-helper=${mount}/bin/umount"
-    ] ++ lib.optionals stdenv.isLinux [
-      "--with-modprobe-helper=${kmod}/bin/modprobe"
     ]
+    ++ lib.optionals stdenv.isLinux [
+        "--with-modprobe-helper=${kmod}/bin/modprobe"
+      ]
     ;
 
   postInstall = ''

@@ -71,13 +71,14 @@ let
         # http://mirrors.ctan.org/systems/doc/kpathsea/kpathsea.pdf for more
         # details
         sed -i '/^#define ST_NLINK_TRICK/d' texk/kpathsea/config.h
-      '' +
+      ''
+      +
       # when cross compiling, we must use himktables from PATH
       # (i.e. from buildPackages.texlive.bin.core.dev)
       lib.optionalString
-      (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-        sed -i 's|\./himktables|himktables|' texk/web2c/Makefile.in
-      ''
+        (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+          sed -i 's|\./himktables|himktables|' texk/web2c/Makefile.in
+        ''
       ;
 
     configureFlags =
@@ -88,7 +89,8 @@ let
         "--enable-shared" # "--enable-cxx-runtime-hack" # static runtime
         "--enable-tex-synctex"
         "-C" # use configure cache to speed up
-      ] ++ withSystemLibs [
+      ]
+      ++ withSystemLibs [
         # see "from TL tree" vs. "Using installed"  in configure output
         "zziplib"
         "mpfr"
@@ -173,8 +175,9 @@ rec { # un-indented
     configureFlags =
       common.configureFlags
       ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-        "BUILDCC=${buildPackages.stdenv.cc.targetPrefix}cc"
-      ] ++ [ "--without-x" ] # disable xdvik and xpdfopen
+          "BUILDCC=${buildPackages.stdenv.cc.targetPrefix}cc"
+        ]
+      ++ [ "--without-x" ] # disable xdvik and xpdfopen
       ++ map (what: "--disable-${what}") [
         "chktex"
         "dvisvgm"
@@ -215,15 +218,16 @@ rec { # un-indented
       */
       ''
         PATH="$out/bin:$PATH" sh ../texk/texlive/linked_scripts/texlive-extra/texlinks.sh --cnffile "$out/share/texmf-dist/web2c/fmtutil.cnf" --unlink "$out/bin"
-      '' + # a few texmf-dist files are useful; take the rest from pkgs
       ''
+      + ''
         mv "$out/share/texmf-dist/web2c/texmf.cnf" .
         rm -r "$out/share/texmf-dist"
         mkdir -p "$out"/share/texmf-dist/{web2c,scripts/texlive/TeXLive}
         mv ./texmf.cnf "$out/share/texmf-dist/web2c/"
         cp ../texk/tests/TeXLive/*.pm "$out/share/texmf-dist/scripts/texlive/TeXLive/"
         cp ../texk/texlive/linked_scripts/scripts.lst "$out/share/texmf-dist/scripts/texlive/"
-      '' + (let
+      ''
+      + (let
         extraScripts = ''
           tex4ht/ht.sh
           tex4ht/htcontext.sh
@@ -243,19 +247,19 @@ rec { # un-indented
         echo -e 'texmf_scripts="$texmf_scripts\n${extraScripts}"' \
           >> "$out/share/texmf-dist/scripts/texlive/scripts.lst"
       ''
-      ) + # doc location identical with individual TeX pkgs
-      ''
+      )
+      + ''
         mkdir -p "$doc/doc"
         mv "$out"/share/{man,info} "$doc"/doc
       ''
-      + # remove manpages for utils that live in texlive.texlive-scripts to avoid a conflict in buildEnv
-      ''
+      + ''
         (cd "$doc"/doc/man/man1; rm {fmtutil-sys.1,fmtutil.1,mktexfmt.1,mktexmf.1,mktexpk.1,mktextfm.1,texhash.1,updmap-sys.1,updmap.1})
-      '' + # install himktables in separate output for use in cross compilation
       ''
+      + ''
         mkdir -p $dev/bin
         cp texk/web2c/.libs/himktables $dev/bin/himktables
-      '' + cleanBrokenLinks
+      ''
+      + cleanBrokenLinks
       ;
 
     setupHook =
@@ -301,7 +305,8 @@ rec { # un-indented
 
     inherit (core) nativeBuildInputs depsBuildBuild;
     buildInputs =
-      core.buildInputs ++ [
+      core.buildInputs
+      ++ [
         core
         cairo
         harfbuzz
@@ -312,29 +317,32 @@ rec { # un-indented
       ;
 
     configureFlags =
-      common.configureFlags ++ withSystemLibs [
+      common.configureFlags
+      ++ withSystemLibs [
         "kpathsea"
         "ptexenc"
         "cairo"
         "harfbuzz"
         "icu"
         "graphite2"
-      ] ++ map (prog: "--disable-${prog}") # don't build things we already have
-      ([
-        "tex"
-        "ptex"
-        "eptex"
-        "uptex"
-        "euptex"
-        "aleph"
-        "pdftex"
-        "web-progs"
-        "synctex"
-      ] ++ lib.optionals (!withLuaJIT) [
-        "luajittex"
-        "luajithbtex"
-        "mfluajit"
-      ])
+      ]
+      ++ map (prog: "--disable-${prog}") # don't build things we already have
+        ([
+          "tex"
+          "ptex"
+          "eptex"
+          "uptex"
+          "euptex"
+          "aleph"
+          "pdftex"
+          "web-progs"
+          "synctex"
+        ]
+          ++ lib.optionals (!withLuaJIT) [
+            "luajittex"
+            "luajithbtex"
+            "mfluajit"
+          ])
       ;
 
     configureScript = ":";
@@ -347,9 +355,10 @@ rec { # un-indented
       lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
       # without this, the native builds attempt to use the binary
       # ${target-triple}-gcc, but we need to use the wrapper script.
-      ''
-        export BUILDCC=${buildPackages.stdenv.cc}/bin/cc
-      '' + ''
+        ''
+          export BUILDCC=${buildPackages.stdenv.cc}/bin/cc
+        ''
+      + ''
         mkdir ./WorkDir && cd ./WorkDir
         for path in libs/{pplib,teckit,lua53${luajit}} texk/web2c; do
           (
@@ -358,17 +367,19 @@ rec { # un-indented
             else
               extraConfig=""
             fi
-      '' + lib.optionalString
-      (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-      # results of the tests performed by the configure scripts are
-      # toolchain-dependent, so native components and cross components cannot use
-      # the same cached test results.
-      # Disable the caching for components with native subcomponents.
       ''
-        if [[ "$path" =~ "libs/luajit" ]] || [[ "$path" =~ "texk/web2c" ]]; then
-          extraConfig="$extraConfig --cache-file=/dev/null"
-        fi
-      '' + ''
+      + lib.optionalString
+        (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+        # results of the tests performed by the configure scripts are
+        # toolchain-dependent, so native components and cross components cannot use
+        # the same cached test results.
+        # Disable the caching for components with native subcomponents.
+        ''
+          if [[ "$path" =~ "libs/luajit" ]] || [[ "$path" =~ "texk/web2c" ]]; then
+            extraConfig="$extraConfig --cache-file=/dev/null"
+          fi
+        ''
+      + ''
             mkdir -p "$path" && cd "$path"
             "../../../$path/configure" $configureFlags $extraConfig
 
@@ -411,7 +422,8 @@ rec { # un-indented
         mv "$out/bin"/{luatex,texlua,texluac} "$luatex/bin/"
         mv "$out/bin"/luahbtex "$luahbtex/bin/"
         mv "$out/bin"/xetex "$xetex/bin/"
-      '' + lib.optionalString withLuaJIT ''
+      ''
+      + lib.optionalString withLuaJIT ''
         mv "$out/bin"/mfluajit{,-nowin} "$mflua/bin/"
         mv "$out/bin"/{luajittex,luajithbtex,texluajit,texluajitc} "$luajittex/bin/"
       ''
@@ -487,7 +499,8 @@ rec { # un-indented
     '';
 
     configureFlags =
-      common.configureFlags ++ [
+      common.configureFlags
+      ++ [
         "--with-system-kpathsea"
         "--with-gs=yes"
         "--disable-debug"
@@ -533,7 +546,8 @@ rec { # un-indented
         install -D ./scripts/latexindent/latexindent.pl "$out"/bin/latexindent
         mkdir -p "$out"/${perl.libPrefix}
         cp -r ./scripts/latexindent/LatexIndent "$out"/${perl.libPrefix}/
-      '' + lib.optionalString stdenv.isDarwin ''
+      ''
+      + lib.optionalString stdenv.isDarwin ''
         shortenPerlShebang "$out"/bin/latexindent
       ''
       ;
@@ -621,7 +635,8 @@ rec { # un-indented
     preConfigure = "cd texk/bibtex-x";
 
     configureFlags =
-      common.configureFlags ++ [
+      common.configureFlags
+      ++ [
         "--with-system-kpathsea"
         "--with-system-icu"
       ]
@@ -642,7 +657,8 @@ rec { # un-indented
         core # kpathsea
         freetype
         ghostscript
-      ] ++ (with xorg; [
+      ]
+      ++ (with xorg; [
         libX11
         libXaw
         libXi
@@ -657,7 +673,8 @@ rec { # un-indented
     preConfigure = "cd texk/xdvik";
 
     configureFlags =
-      common.configureFlags ++ [
+      common.configureFlags
+      ++ [
         "--with-system-kpathsea"
         "--with-system-libgs"
       ]

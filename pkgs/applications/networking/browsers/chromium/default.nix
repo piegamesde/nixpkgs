@@ -290,11 +290,13 @@ stdenv.mkDerivation {
       # Make generated desktop shortcuts have a valid executable name.
       export CHROME_WRAPPER='chromium'
 
-    '' + lib.optionalString (libPath != "") ''
+    ''
+    + lib.optionalString (libPath != "") ''
       # To avoid loading .so files from cwd, LD_LIBRARY_PATH here must not
       # contain an empty section before or after a colon.
       export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH\''${LD_LIBRARY_PATH:+:}${libPath}"
-    '' + ''
+    ''
+    + ''
 
       # libredirect causes chromium to deadlock on startup
       export LD_PRELOAD="\$(echo -n "\$LD_PRELOAD" | ${coreutils}/bin/tr ':' '\n' | ${gnugrep}/bin/grep -v /lib/libredirect\\\\.so$ | ${coreutils}/bin/tr '\n' ':')"

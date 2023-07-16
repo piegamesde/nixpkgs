@@ -64,7 +64,8 @@ stdenv.mkDerivation {
       qtwayland
       qtmultimedia
       qttools
-    ] ++ lib.optional stdenv.isDarwin CoreFoundation
+    ]
+    ++ lib.optional stdenv.isDarwin CoreFoundation
     ;
 
   meta = with lib; {

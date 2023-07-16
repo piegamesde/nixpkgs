@@ -51,7 +51,8 @@ stdenv.mkDerivation rec {
       glib
       openssl
       nss
-    ] ++ lib.optionals withGnome [
+    ]
+    ++ lib.optionals withGnome [
       gtk3
       gtk4
       libsecret

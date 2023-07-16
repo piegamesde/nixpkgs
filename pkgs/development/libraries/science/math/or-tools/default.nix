@@ -66,7 +66,8 @@ stdenv.mkDerivation rec {
       "-DUSE_GLPK=ON"
       "-DUSE_SCIP=OFF"
       "-DPython3_EXECUTABLE=${python.pythonForBuild.interpreter}"
-    ] ++ lib.optionals stdenv.isDarwin [ "-DCMAKE_MACOSX_RPATH=OFF" ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ "-DCMAKE_MACOSX_RPATH=OFF" ]
     ;
   nativeBuildInputs =
     [
@@ -76,7 +77,8 @@ stdenv.mkDerivation rec {
       python.pythonForBuild
       swig4
       unzip
-    ] ++ (with python.pythonForBuild.pkgs; [
+    ]
+    ++ (with python.pythonForBuild.pkgs; [
       pip
       mypy-protobuf
     ])

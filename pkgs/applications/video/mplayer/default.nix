@@ -145,25 +145,40 @@ stdenv.mkDerivation rec {
     [
       freetype
       ffmpeg_4
-    ] ++ optional aalibSupport aalib ++ optional fontconfigSupport fontconfig
-    ++ optional fribidiSupport fribidi ++ optionals x11Support [
+    ]
+    ++ optional aalibSupport aalib
+    ++ optional fontconfigSupport fontconfig
+    ++ optional fribidiSupport fribidi
+    ++ optionals x11Support [
       libX11
       libXext
       libGLU
       libGL
-    ] ++ optional alsaSupport alsa-lib ++ optional xvSupport libXv
-    ++ optional theoraSupport libtheora ++ optional cacaSupport libcaca
-    ++ optional xineramaSupport libXinerama ++ optional dvdnavSupport libdvdnav
-    ++ optional dvdreadSupport libdvdread ++ optional bluraySupport libbluray
-    ++ optional cddaSupport cdparanoia ++ optional jackaudioSupport libjack2
+    ]
+    ++ optional alsaSupport alsa-lib
+    ++ optional xvSupport libXv
+    ++ optional theoraSupport libtheora
+    ++ optional cacaSupport libcaca
+    ++ optional xineramaSupport libXinerama
+    ++ optional dvdnavSupport libdvdnav
+    ++ optional dvdreadSupport libdvdread
+    ++ optional bluraySupport libbluray
+    ++ optional cddaSupport cdparanoia
+    ++ optional jackaudioSupport libjack2
     ++ optionals amrSupport [
       amrnb
       amrwb
-    ] ++ optional x264Support x264 ++ optional pulseSupport libpulseaudio
-    ++ optional screenSaverSupport libXScrnSaver ++ optional lameSupport lame
-    ++ optional vdpauSupport libvdpau ++ optional speexSupport speex
-    ++ optional libpngSupport libpng ++ optional libjpegSupport libjpeg
-    ++ optional bs2bSupport libbs2b ++ optional v4lSupport libv4l
+    ]
+    ++ optional x264Support x264
+    ++ optional pulseSupport libpulseaudio
+    ++ optional screenSaverSupport libXScrnSaver
+    ++ optional lameSupport lame
+    ++ optional vdpauSupport libvdpau
+    ++ optional speexSupport speex
+    ++ optional libpngSupport libpng
+    ++ optional libjpegSupport libjpeg
+    ++ optional bs2bSupport libbs2b
+    ++ optional v4lSupport libv4l
     ++ (with darwin.apple_sdk.frameworks;
       optionals stdenv.isDarwin [
         Cocoa
@@ -257,13 +272,15 @@ stdenv.mkDerivation rec {
       "--yasm=${buildPackages.yasm}/bin/yasm"
       # Note, the `target` vs `host` confusion is intensional.
       "--target=${stdenv.hostPlatform.config}"
-    ] ++ optional (useUnfreeCodecs && codecs != null && !crossBuild)
-    "--codecsdir=${codecs}"
+    ]
+    ++ optional (useUnfreeCodecs && codecs != null && !crossBuild)
+      "--codecsdir=${codecs}"
     ++ optional (stdenv.hostPlatform.isx86 && !crossBuild)
-    "--enable-runtime-cpudetection"
+      "--enable-runtime-cpudetection"
     ++ optional fribidiSupport "--enable-fribidi"
     ++ optional stdenv.isLinux "--enable-vidix"
-    ++ optional stdenv.isLinux "--enable-fbdev" ++ optionals (crossBuild) [
+    ++ optional stdenv.isLinux "--enable-fbdev"
+    ++ optionals (crossBuild) [
       "--enable-cross-compile"
       "--disable-vidix-pcidb"
       "--with-vidix-drivers=no"
@@ -287,10 +304,13 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = with lib;
     toString (optional fontconfigSupport "-lfontconfig"
-      ++ optional fribidiSupport "-lfribidi" ++ optionals x11Support [
+      ++ optional fribidiSupport "-lfribidi"
+      ++ optionals x11Support [
         "-lX11"
         "-lXext"
-      ] ++ optional x264Support "-lx264" ++ [ "-lfreetype" ]);
+      ]
+      ++ optional x264Support "-lx264"
+      ++ [ "-lfreetype" ]);
 
   installTargets = [ "install" ] ++ lib.optional x11Support "install-gui";
 

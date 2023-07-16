@@ -58,7 +58,8 @@ mkDerivation {
       qtx11extras
       kcrash
       libkrb5
-    ] ++ lib.lists.optionals stdenv.isLinux [
+    ]
+    ++ lib.lists.optionals stdenv.isLinux [
       acl
       attr # both are needed for ACL support
       util-linux # provides libmount
@@ -77,7 +78,8 @@ mkDerivation {
       qtbase
       qttools
       solid
-    ] ++ lib.optionals stdenv.isLinux [ kded ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ kded ]
     ;
   outputs = [
     "out"

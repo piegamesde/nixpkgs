@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
     [
       pkg-config
       scdoc
-    ] ++ lib.optionals luaSupport [
+    ]
+    ++ lib.optionals luaSupport [
       lua
       lua.pkgs.lua-zlib
     ]
@@ -35,7 +36,8 @@ stdenv.mkDerivation rec {
     [
       openssl
       zlib
-    ] ++ lib.optional luaSupport lua
+    ]
+    ++ lib.optional luaSupport lua
     ;
   strictDeps = true;
 

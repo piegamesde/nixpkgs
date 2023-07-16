@@ -28,7 +28,8 @@ ocamlPackages.buildDunePackage rec {
   nativeBuildInputs = [ pkg-config ];
 
   buildInputs =
-    [ libdrm ] ++ (with ocamlPackages; [
+    [ libdrm ]
+    ++ (with ocamlPackages; [
       dune-configurator
       ppx_cstruct
       wayland

@@ -41,7 +41,8 @@ buildPythonPackage rec {
     [
       z3
       astroid
-    ] ++ z3.requiredPythonModules
+    ]
+    ++ z3.requiredPythonModules
     ;
 
   nativeCheckInputs = [

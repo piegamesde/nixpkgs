@@ -391,9 +391,11 @@ in
           else
             # After an unclean shutdown this file may exist which will cause the config command to attempt to talk to the daemon. This will hang forever if systemd is holding our sockets open.
             rm -vf "$IPFS_PATH/api"
-        '' + optionalString cfg.autoMigrate ''
+        ''
+        + optionalString cfg.autoMigrate ''
           ${pkgs.kubo-migrator}/bin/fs-repo-migrations -to '${cfg.package.repoVersion}' -y
-        '' + ''
+        ''
+        + ''
           fi
           ipfs --offline config show |
             ${pkgs.jq}/bin/jq -s '.[0].Pinning as $Pinning | .[0].Identity as $Identity | .[1] + {$Identity,$Pinning}' - '${configFile}' |
@@ -452,7 +454,8 @@ in
           [
             ""
             "%t/ipfs.sock"
-          ] ++ (multiaddrsToListenStreams cfg.settings.Addresses.API)
+          ]
+          ++ (multiaddrsToListenStreams cfg.settings.Addresses.API)
           ;
         SocketMode = "0660";
         SocketUser = cfg.user;

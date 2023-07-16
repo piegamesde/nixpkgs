@@ -15,10 +15,11 @@
   cmake,
   enableFMA ? stdenv.hostPlatform.fmaSupport,
   enableFortran ? true,
-  enableSSE ? (!enableFortran) && stdenv.hostPlatform.isx86_64
+  enableSSE ? (!enableFortran)
+    && stdenv.hostPlatform.isx86_64
 
-    # Maximum angular momentum of basis functions
-    # 7 is required for def2/J auxiliary basis on 3d metals upwards
+      # Maximum angular momentum of basis functions
+      # 7 is required for def2/J auxiliary basis on 3d metals upwards
   ,
   maxAm ? 7
 
@@ -91,24 +92,24 @@ assert (eri3Deriv >= 0 && eri3Deriv <= 4);
 # Ensure valid arguments for generated angular momenta in ERI derivatives are used.
 assert (builtins.length eriAm == eriDeriv + 1
   && builtins.foldl' (a: b: a && b) true
-  (builtins.map (a: a <= maxAm && a >= 0) eriAm));
+    (builtins.map (a: a <= maxAm && a >= 0) eriAm));
 assert (builtins.length eri3Am == eriDeriv + 1
   && builtins.foldl' (a: b: a && b) true
-  (builtins.map (a: a <= maxAm && a >= 0) eri3Am));
+    (builtins.map (a: a <= maxAm && a >= 0) eri3Am));
 assert (builtins.length eri2Am == eriDeriv + 1
   && builtins.foldl' (a: b: a && b) true
-  (builtins.map (a: a <= maxAm && a >= 0) eri2Am));
+    (builtins.map (a: a <= maxAm && a >= 0) eri2Am));
 
 # Ensure valid arguments for generated angular momenta in optimised ERI derivatives are used.
 assert (builtins.length eriOptAm == eriDeriv + 1
   && builtins.foldl' (a: b: a && b) true
-  (builtins.map (a: a <= maxAm && a >= 0) eriOptAm));
+    (builtins.map (a: a <= maxAm && a >= 0) eriOptAm));
 assert (builtins.length eri3OptAm == eriDeriv + 1
   && builtins.foldl' (a: b: a && b) true
-  (builtins.map (a: a <= maxAm && a >= 0) eri3OptAm));
+    (builtins.map (a: a <= maxAm && a >= 0) eri3OptAm));
 assert (builtins.length eri2OptAm == eriDeriv + 1
   && builtins.foldl' (a: b: a && b) true
-  (builtins.map (a: a <= maxAm && a >= 0) eri2OptAm));
+    (builtins.map (a: a <= maxAm && a >= 0) eri2OptAm));
 
 # Ensure a valid derivative order for one-electron integrals
 assert (oneBodyDerivOrd >= 0 && oneBodyDerivOrd <= 4);
@@ -182,7 +183,8 @@ let
         python3
         perl
         gmpxx
-      ] ++ lib.optional enableFortran gfortran
+      ]
+      ++ lib.optional enableFortran gfortran
       ;
 
     buildInputs = [
@@ -214,15 +216,17 @@ let
         "--with-cartgauss-ordering=${cartGaussOrd}"
         "--with-shgauss-ordering=${shGaussOrd}"
         "--with-shell-set=${shellSet}"
-      ] ++ optional enableFMA "--enable-fma"
+      ]
+      ++ optional enableFMA "--enable-fma"
       ++ optional (eriDeriv > 0) "--enable-eri=${builtins.toString eriDeriv}"
       ++ optional (eri2Deriv > 0) "--enable-eri2=${builtins.toString eri2Deriv}"
       ++ optional (eri3Deriv > 0) "--enable-eri3=${builtins.toString eri3Deriv}"
       ++ lists.optionals enableOneBody [
         "--enable-1body=${builtins.toString oneBodyDerivOrd}"
         "--enable-1body-property-derivs"
-      ] ++ optional (multipoleOrd > 0)
-      "--with-multipole-max-order=${builtins.toString multipoleOrd}"
+      ]
+      ++ optional (multipoleOrd > 0)
+        "--with-multipole-max-order=${builtins.toString multipoleOrd}"
       ++ optional enableGeneric "--enable-generic"
       ++ optional enableContracted "--enable-contracted-ints"
       ++ optional eri3PureSh "--enable-eri3-pure-sh"
@@ -253,7 +257,8 @@ let
       [
         python3
         cmake
-      ] ++ lib.optional enableFortran gfortran
+      ]
+      ++ lib.optional enableFortran gfortran
       ;
 
     buildInputs = [
@@ -268,7 +273,7 @@ let
       [ "-DLIBINT2_SHGAUSS_ORDERING=${shGaussOrd}" ]
       ++ lib.optional enableFortran "-DENABLE_FORTRAN=ON"
       ++ lib.optional enableSSE
-      "-DLIBINT2_REALTYPE=libint2::simd::VectorSSEDouble"
+        "-DLIBINT2_REALTYPE=libint2::simd::VectorSSEDouble"
       ;
 
       # Can only build in the source-tree. A lot of preprocessing magic fails otherwise.

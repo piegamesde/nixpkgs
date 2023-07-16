@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
       cp -r usr/local/lib/* $out/lib/
       cp -r usr/share $out/
       cp Resources/locale/en_US.UTF-8/* $out/share/doc/pantum/
-    '' + lib.optionalString enablePtqpdf ''
+    ''
+    + lib.optionalString enablePtqpdf ''
       cp -r opt/pantum/* $out/
       ln -s $out/lib/libqpdf.so* $out/lib/libqpdf.so
       ln -s $out/lib/libqpdf.so $out/lib/libqpdf.so.21

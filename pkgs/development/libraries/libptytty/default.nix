@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   cmakeFlags =
     lib.optional isStatic "-DBUILD_SHARED_LIBS=OFF"
     ++ lib.optional (isCross || isStatic) "-DTTY_GID_SUPPORT=OFF"
-    # Musl lacks UTMP/WTMP built-in support
+      # Musl lacks UTMP/WTMP built-in support
     ++ lib.optionals isMusl [
       "-DUTMP_SUPPORT=OFF"
       "-DWTMP_SUPPORT=OFF"

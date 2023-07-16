@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
       libvorbis
       libmad
       vulkan-loader
-    ] ++ lib.optional stdenv.isDarwin moltenvk
+    ]
+    ++ lib.optional stdenv.isDarwin moltenvk
     ;
 
   buildFlags = [ "DO_USERDIRS=1" ];

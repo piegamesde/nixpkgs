@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
     [
       libX11
       libXt
-    ] ++ lib.optionals withJpegSupport [ libjpeg ]
+    ]
+    ++ lib.optionals withJpegSupport [ libjpeg ]
     ++ lib.optionals withPngSupport [ libpng ]
     ++ lib.optionals withTiffSupport [ libtiff ]
     ;

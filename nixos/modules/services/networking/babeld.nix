@@ -39,9 +39,11 @@ let
   configFile = with cfg;
     pkgs.writeText "babeld.conf" (''
       skip-kernel-setup true
-    '' + (optionalString (cfg.interfaceDefaults != null) ''
-      default ${paramsString cfg.interfaceDefaults}
-    '') + (concatMapStrings interfaceConfig (attrNames cfg.interfaces))
+    ''
+      + (optionalString (cfg.interfaceDefaults != null) ''
+        default ${paramsString cfg.interfaceDefaults}
+      '')
+      + (concatMapStrings interfaceConfig (attrNames cfg.interfaces))
       + extraConfig);
 
 in

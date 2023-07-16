@@ -41,7 +41,8 @@ buildPythonPackage rec {
   };
 
   buildInputs =
-    [ cython ] ++ lib.optionals stdenv.isDarwin [
+    [ cython ]
+    ++ lib.optionals stdenv.isDarwin [
       Accelerate
       CoreFoundation
       CoreGraphics
@@ -63,7 +64,8 @@ buildPythonPackage rec {
       srsly
       tqdm
       wasabi
-    ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
     ;
 
   nativeCheckInputs = [

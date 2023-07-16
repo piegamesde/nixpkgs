@@ -62,7 +62,9 @@ stdenv.mkDerivation rec {
       gettext
       pkg-config
       texinfo
-    ] ++ lib.optionals (!isCross) [ help2man ] ++ lib.optionals guiSupport [
+    ]
+    ++ lib.optionals (!isCross) [ help2man ]
+    ++ lib.optionals guiSupport [
       makeWrapper
       tcl.tclPackageHook
     ]
@@ -72,11 +74,14 @@ stdenv.mkDerivation rec {
     [
       boehmgc
       readline
-    ] ++ lib.optionals guiSupport [
+    ]
+    ++ lib.optionals guiSupport [
       tcl
       tcllib
       tk
-    ] ++ lib.optional miSupport json_c ++ lib.optional nbdSupport libnbd
+    ]
+    ++ lib.optional miSupport json_c
+    ++ lib.optional nbdSupport libnbd
     ++ lib.optional textStylingSupport gettext
     ++ lib.optional (!isCross) dejagnu
     ;
@@ -86,7 +91,8 @@ stdenv.mkDerivation rec {
       # libpoke depends on $datadir/poke, so we specify the datadir in
       # $lib, and later move anything else it doesn't depend on to $out
       "--datadir=${placeholder "lib"}/share"
-    ] ++ lib.optionals guiSupport [
+    ]
+    ++ lib.optionals guiSupport [
       "--enable-gui"
       "--with-tcl=${tcl}/lib"
       "--with-tk=${tk}/lib"

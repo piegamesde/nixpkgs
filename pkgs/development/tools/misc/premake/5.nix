@@ -20,7 +20,8 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs =
-    [ libuuid ] ++ lib.optionals stdenv.isDarwin [
+    [ libuuid ]
+    ++ lib.optionals stdenv.isDarwin [
       Foundation
       readline
     ]
@@ -31,7 +32,8 @@ stdenv.mkDerivation rec {
     ''
       substituteInPlace contrib/curl/premake5.lua \
         --replace "ca = nil" "ca = '${cacert}/etc/ssl/certs/ca-bundle.crt'"
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace premake5.lua \
         --replace -mmacosx-version-min=10.4 -mmacosx-version-min=10.5
     ''

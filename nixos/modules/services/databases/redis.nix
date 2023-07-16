@@ -666,7 +666,8 @@ in
               redisName name
             }/redis.conf ${escapeShellArgs conf.extraParams}";
           ExecStartPre =
-            "+" + pkgs.writeShellScript "${redisName name}-prep-conf" (let
+            "+"
+            + pkgs.writeShellScript "${redisName name}-prep-conf" (let
               redisConfVar = "/var/lib/${redisName name}/redis.conf";
               redisConfRun = "/run/${redisName name}/nixos.conf";
               redisConfStore = redisConfig conf.settings;
@@ -722,7 +723,8 @@ in
             optionals (conf.port != 0) [
               "AF_INET"
               "AF_INET6"
-            ] ++ optional (conf.unixSocket != null) "AF_UNIX"
+            ]
+            ++ optional (conf.unixSocket != null) "AF_UNIX"
             ;
           RestrictNamespaces = true;
           LockPersonality = true;

@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   buildInputs =
-    [ sqlite ] ++ lib.optional httpSupport curl
+    [ sqlite ]
+    ++ lib.optional httpSupport curl
     ++ lib.optional linenoiseSupport linenoise
     ;
 
@@ -61,7 +62,8 @@ stdenv.mkDerivation rec {
         else
           "ON"
       }"
-    ] ++ lib.optionals enableLTO [ # TODO: LTO with LLVM
+    ]
+    ++ lib.optionals enableLTO [ # TODO: LTO with LLVM
       "-DCMAKE_AR=${stdenv.cc.cc}/bin/gcc-ar"
       "-DCMAKE_RANLIB=${stdenv.cc.cc}/bin/gcc-ranlib"
     ]
@@ -91,7 +93,8 @@ stdenv.mkDerivation rec {
       cp -r /build/source/src/include $out/include
       mkdir -p $out/lib
       cp /build/source/build/src/libdictu_api* $out/lib
-    '' + lib.optionalString cliSupport ''
+    ''
+    + lib.optionalString cliSupport ''
       install -Dm755 /build/source/dictu $out/bin/dictu
     ''
     ;

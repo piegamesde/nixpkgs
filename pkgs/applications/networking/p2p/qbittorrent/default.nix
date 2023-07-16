@@ -45,7 +45,8 @@ mkDerivation rec {
       qtbase
       qttools
       qtsvg
-    ] ++ lib.optional guiSupport dbus # D(esktop)-Bus depends on GUI support
+    ]
+    ++ lib.optional guiSupport dbus # D(esktop)-Bus depends on GUI support
     ++ lib.optional trackerSearch python3
     ;
 
@@ -56,7 +57,8 @@ mkDerivation rec {
     [
       "--with-boost-libdir=${boost.out}/lib"
       "--with-boost=${boost.dev}"
-    ] ++ lib.optionals (!guiSupport) [
+    ]
+    ++ lib.optionals (!guiSupport) [
       "--disable-gui"
       "--enable-systemd"
     ] # Also place qbittorrent-nox systemd service files

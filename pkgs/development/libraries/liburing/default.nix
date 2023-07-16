@@ -62,7 +62,8 @@ stdenv.mkDerivation rec {
       mkdir -p $bin/bin
       cp ./examples/io_uring-cp examples/io_uring-test $bin/bin
       cp ./examples/link-cp $bin/bin/io_uring-link-cp
-    '' + lib.optionalString stdenv.hostPlatform.isGnu ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isGnu ''
       cp ./examples/ucontext-cp $bin/bin/io_uring-ucontext-cp
     ''
     ;

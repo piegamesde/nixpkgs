@@ -47,10 +47,12 @@ stdenv.mkDerivation rec {
       cmake
       perl
       pkg-config
-    ] ++ (with rustPlatform; [
+    ]
+    ++ (with rustPlatform; [
       cargoSetupHook
       rust.cargo
-    ]) ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
+    ])
+    ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
     ;
 
   buildInputs =
@@ -58,7 +60,8 @@ stdenv.mkDerivation rec {
       openssl
       sqlcipher
       sqlite
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       CoreFoundation
       Security
       SystemConfiguration

@@ -74,7 +74,8 @@ buildPythonPackage rec {
              -e "s/.*testGlade.*//" \
              -e "s/.*(glade.*//" \
              tests/test_api.py
-    '' + ''
+    ''
+    + ''
       sed -i -e "s/sys.path.insert(0, os.path.join(buildDir, 'gtk'))//" \
              -e "s/sys.path.insert(0, buildDir)//" \
              tests/common.py

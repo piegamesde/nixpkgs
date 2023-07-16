@@ -95,7 +95,8 @@ stdenv.mkDerivation (finalAttrs: {
   doCheck = true;
 
   postInstall =
-    glib.flattenInclude + ''
+    glib.flattenInclude
+    + ''
       substituteInPlace $dev/bin/freetype-config \
         --replace ${buildPackages.pkg-config} ${pkgsHostHost.pkg-config}
 

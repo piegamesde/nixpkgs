@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
       libxkbcommon
       wayland
       wayland-protocols
-    ] ++ lib.optionals withGtkLayerShell [ gtk-layer-shell ]
+    ]
+    ++ lib.optionals withGtkLayerShell [ gtk-layer-shell ]
     ;
 
   postPatch = ''

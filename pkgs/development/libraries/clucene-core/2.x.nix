@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
       "-DBUILD_CONTRIBS=ON"
       "-DBUILD_CONTRIBS_LIB=ON"
       "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"
-    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    ]
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "-D_CL_HAVE_GCC_ATOMIC_FUNCTIONS=0"
       "-D_CL_HAVE_NAMESPACES_EXITCODE=0"
       "-D_CL_HAVE_NAMESPACES_EXITCODE__TRYRUN_OUTPUT="
@@ -54,7 +55,8 @@ stdenv.mkDerivation rec {
       # required for darwin and linux-musl
       ./pthread-include.patch
 
-    ] ++ lib.optionals stdenv.isDarwin [ ./fix-darwin.patch ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ ./fix-darwin.patch ]
     ;
 
     # fails with "Unable to find executable:

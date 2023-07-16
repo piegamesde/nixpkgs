@@ -39,7 +39,8 @@ buildPythonPackage rec {
       hypothesis
       pyasn1
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.coincurve
+    ]
+    ++ passthru.optional-dependencies.coincurve
     ++ lib.optional (!isPyPy) eth-hash.optional-dependencies.pysha3
     ++ lib.optional isPyPy eth-hash.optional-dependencies.pycryptodome
     ;

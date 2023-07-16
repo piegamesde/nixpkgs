@@ -122,15 +122,17 @@ stdenv.mkDerivation rec {
       xorg.xcbutilwm
       libxkbcommon
       xcbutilxrm
-    ] ++ lib.optional gtk3Support gtk3
+    ]
+    ++ lib.optional gtk3Support gtk3
     ;
 
   cmakeFlags =
     [
       #"-DGENERATE_MANPAGES=ON"
       "-DOVERRIDE_VERSION=${version}"
-    ] ++ lib.optional lua.pkgs.isLuaJIT
-    "-DLUA_LIBRARY=${lua}/lib/libluajit-5.1.so"
+    ]
+    ++ lib.optional lua.pkgs.isLuaJIT
+      "-DLUA_LIBRARY=${lua}/lib/libluajit-5.1.so"
     ;
 
   GI_TYPELIB_PATH = "${pango.out}/lib/girepository-1.0";

@@ -82,7 +82,8 @@ let
       #"stemmer"  -- not nice to package yet (no versioning, no makefile, no shared libs).
       #"valgrind" -- mongodb only requires valgrind.h, which is vendored in the source.
       #"wiredtiger"
-    ] ++ optionals stdenv.isLinux [ "tcmalloc" ]
+    ]
+    ++ optionals stdenv.isLinux [ "tcmalloc" ]
     ;
   inherit (lib) systems subtractLists;
 
@@ -112,7 +113,8 @@ stdenv.mkDerivation rec {
       sasl
       snappy
       zlib
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Security
       CoreFoundation
       cctools
@@ -129,25 +131,30 @@ stdenv.mkDerivation rec {
       # fix environment variable reading
       substituteInPlace SConstruct \
           --replace "env = Environment(" "env = Environment(ENV = os.environ,"
-    '' + lib.optionalString (versionAtLeast version "4.4") ''
+    ''
+    + lib.optionalString (versionAtLeast version "4.4") ''
       # Fix debug gcc 11 and clang 12 builds on Fedora
       # https://github.com/mongodb/mongo/commit/e78b2bf6eaa0c43bd76dbb841add167b443d2bb0.patch
       substituteInPlace src/mongo/db/query/plan_summary_stats.h --replace '#include <string>' '#include <optional>
       #include <string>'
       substituteInPlace src/mongo/db/exec/plan_stats.h --replace '#include <string>' '#include <optional>
       #include <string>'
-    '' + lib.optionalString (versionOlder version "5.0") ''
+    ''
+    + lib.optionalString (versionOlder version "5.0") ''
       # remove -march overriding, we know better.
       sed -i 's/env.Append.*-march=.*$/pass/' SConstruct
-    '' + lib.optionalString (stdenv.isDarwin && versionOlder version "6.0") ''
+    ''
+    + lib.optionalString (stdenv.isDarwin && versionOlder version "6.0") ''
       substituteInPlace src/third_party/mozjs-${variants.mozjsVersion}/extract/js/src/jsmath.cpp --replace '${variants.mozjsReplace}' 0
-    '' + lib.optionalString (stdenv.isDarwin && versionOlder version "3.6") ''
+    ''
+    + lib.optionalString (stdenv.isDarwin && versionOlder version "3.6") ''
       substituteInPlace src/third_party/s2/s1angle.cc --replace drem remainder
       substituteInPlace src/third_party/s2/s1interval.cc --replace drem remainder
       substituteInPlace src/third_party/s2/s2cap.cc --replace drem remainder
       substituteInPlace src/third_party/s2/s2latlng.cc --replace drem remainder
       substituteInPlace src/third_party/s2/s2latlngrect.cc --replace drem remainder
-    '' + lib.optionalString stdenv.isi686 ''
+    ''
+    + lib.optionalString stdenv.isi686 ''
 
       # don't fail by default on i686
       substituteInPlace src/mongo/db/storage/storage_options.h \
@@ -168,7 +175,8 @@ stdenv.mkDerivation rec {
       "--use-sasl-client"
       "--disable-warnings-as-errors"
       "VARIANT_DIR=nixos" # Needed so we don't produce argument lists that are too long for gcc / ld
-    ] ++ lib.optionals (versionAtLeast version "4.4") [ "--link-model=static" ]
+    ]
+    ++ lib.optionals (versionAtLeast version "4.4") [ "--link-model=static" ]
     ++ map (lib: "--use-system-${lib}") system-libraries
     ;
 
@@ -176,7 +184,8 @@ stdenv.mkDerivation rec {
     ''
       sconsFlags+=" CC=$CC"
       sconsFlags+=" CXX=$CXX"
-    '' + optionalString stdenv.isAarch64 ''
+    ''
+    + optionalString stdenv.isAarch64 ''
       sconsFlags+=" CCFLAGS='-march=armv8-a+crc'"
     ''
     ;

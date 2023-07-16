@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     [
       cmake
       libxslt # manpage
-    ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) html-tidy
+    ]
+    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) html-tidy
     ;
 
   cmakeFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [

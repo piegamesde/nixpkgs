@@ -14,13 +14,16 @@ let
     [
       "--login-program"
       "${cfg.loginProgram}"
-    ] ++ optionals (cfg.autologinUser != null) [
+    ]
+    ++ optionals (cfg.autologinUser != null) [
       "--autologin"
       cfg.autologinUser
-    ] ++ optionals (cfg.loginOptions != null) [
+    ]
+    ++ optionals (cfg.loginOptions != null) [
       "--login-options"
       cfg.loginOptions
-    ] ++ cfg.extraArgs
+    ]
+    ++ cfg.extraArgs
     ;
 
   gettyCmd =

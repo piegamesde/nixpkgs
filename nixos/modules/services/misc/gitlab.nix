@@ -1590,7 +1590,8 @@ in
           "redis-gitlab.service"
           "gitlab-config.service"
           "gitlab-db-config.service"
-        ] ++ optional (cfg.databaseHost == "") "postgresql.service"
+        ]
+        ++ optional (cfg.databaseHost == "") "postgresql.service"
         ;
       wantedBy = [ "gitlab.target" ];
       partOf = [ "gitlab.target" ];
@@ -1778,7 +1779,8 @@ in
           rm "${cfg.statePath}/config/gitlab-workhorse.json"
         '';
         ExecStart =
-          "${cfg.packages.gitlab-workhorse}/bin/workhorse " + "-listenUmask 0 "
+          "${cfg.packages.gitlab-workhorse}/bin/workhorse "
+          + "-listenUmask 0 "
           + "-listenNetwork unix "
           + "-listenAddr /run/gitlab/gitlab-workhorse.socket "
           + "-authSocket ${gitlabSocket} "
@@ -1827,7 +1829,8 @@ in
           "redis-gitlab.service"
           "gitlab-config.service"
           "gitlab-db-config.service"
-        ] ++ optional (cfg.databaseHost == "") "postgresql.service"
+        ]
+        ++ optional (cfg.databaseHost == "") "postgresql.service"
         ;
       wantedBy = [ "gitlab.target" ];
       partOf = [ "gitlab.target" ];

@@ -40,7 +40,8 @@ buildPythonPackage {
     [
       rustPlatform.cargoSetupHook
       setuptools-rust
-    ] ++ (with rustPlatform; [
+    ]
+    ++ (with rustPlatform; [
       rust.cargo
       rust.rustc
     ])

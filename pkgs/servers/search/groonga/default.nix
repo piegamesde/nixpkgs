@@ -42,7 +42,9 @@ stdenv.mkDerivation rec {
       libedit
       openssl
       libxcrypt
-    ] ++ optional lz4Support lz4 ++ optional zlibSupport zlib
+    ]
+    ++ optional lz4Support lz4
+    ++ optional zlibSupport zlib
     ++ optionals suggestSupport [
       zeromq
       libevent

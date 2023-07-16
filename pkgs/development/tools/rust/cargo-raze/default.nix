@@ -30,7 +30,8 @@ rustPlatform.buildRustPackage rec {
       libgit2
       openssl
       curl
-    ] ++ lib.optional stdenv.isDarwin Security
+    ]
+    ++ lib.optional stdenv.isDarwin Security
     ;
 
   meta = with lib; {

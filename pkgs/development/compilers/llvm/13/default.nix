@@ -66,9 +66,14 @@ let
 
       # See llvm/cmake/config-ix.cmake.
     platforms =
-      lib.platforms.aarch64 ++ lib.platforms.arm ++ lib.platforms.mips
-      ++ lib.platforms.power ++ lib.platforms.riscv ++ lib.platforms.s390x
-      ++ lib.platforms.wasi ++ lib.platforms.x86
+      lib.platforms.aarch64
+      ++ lib.platforms.arm
+      ++ lib.platforms.mips
+      ++ lib.platforms.power
+      ++ lib.platforms.riscv
+      ++ lib.platforms.s390x
+      ++ lib.platforms.wasi
+      ++ lib.platforms.x86
       ;
   };
 
@@ -97,7 +102,8 @@ let
         ;
       mkExtraBuildCommands =
         cc:
-        mkExtraBuildCommands0 cc + ''
+        mkExtraBuildCommands0 cc
+        + ''
           ln -s "${targetLlvmLibraries.compiler-rt.out}/lib" "$rsrc/lib"
           ln -s "${targetLlvmLibraries.compiler-rt.out}/share" "$rsrc/share"
         ''
@@ -206,22 +212,27 @@ let
           [
             libcxx.cxxabi
             targetLlvmLibraries.compiler-rt
-          ] ++ lib.optionals (!stdenv.targetPlatform.isWasm) [
-            targetLlvmLibraries.libunwind
           ]
+          ++ lib.optionals (!stdenv.targetPlatform.isWasm) [
+              targetLlvmLibraries.libunwind
+            ]
           ;
         extraBuildCommands =
           ''
             echo "-rtlib=compiler-rt -Wno-unused-command-line-argument" >> $out/nix-support/cc-cflags
             echo "-B${targetLlvmLibraries.compiler-rt}/lib" >> $out/nix-support/cc-cflags
-          '' + lib.optionalString (!stdenv.targetPlatform.isWasm) ''
+          ''
+          + lib.optionalString (!stdenv.targetPlatform.isWasm) ''
             echo "--unwindlib=libunwind" >> $out/nix-support/cc-cflags
-          '' + lib.optionalString (!stdenv.targetPlatform.isWasm
+          ''
+          + lib.optionalString (!stdenv.targetPlatform.isWasm
             && stdenv.targetPlatform.useLLVM or false) ''
               echo "-lunwind" >> $out/nix-support/cc-ldflags
-            '' + lib.optionalString stdenv.targetPlatform.isWasm ''
-              echo "-fno-exceptions" >> $out/nix-support/cc-cflags
-            '' + mkExtraBuildCommands cc
+            ''
+          + lib.optionalString stdenv.targetPlatform.isWasm ''
+            echo "-fno-exceptions" >> $out/nix-support/cc-cflags
+          ''
+          + mkExtraBuildCommands cc
           ;
       };
 
@@ -235,7 +246,8 @@ let
             echo "-rtlib=compiler-rt" >> $out/nix-support/cc-cflags
             echo "-B${targetLlvmLibraries.compiler-rt}/lib" >> $out/nix-support/cc-cflags
             echo "-nostdlib++" >> $out/nix-support/cc-cflags
-          '' + mkExtraBuildCommands cc
+          ''
+          + mkExtraBuildCommands cc
           ;
       };
 
@@ -248,7 +260,8 @@ let
           ''
             echo "-rtlib=compiler-rt" >> $out/nix-support/cc-cflags
             echo "-B${targetLlvmLibraries.compiler-rt}/lib" >> $out/nix-support/cc-cflags
-          '' + mkExtraBuildCommands cc
+          ''
+          + mkExtraBuildCommands cc
           ;
       };
 
@@ -260,7 +273,8 @@ let
         extraBuildCommands =
           ''
             echo "-nostartfiles" >> $out/nix-support/cc-cflags
-          '' + mkExtraBuildCommands0 cc
+          ''
+          + mkExtraBuildCommands0 cc
           ;
       };
 

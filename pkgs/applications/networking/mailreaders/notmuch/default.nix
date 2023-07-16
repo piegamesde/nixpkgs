@@ -42,7 +42,9 @@ stdenv.mkDerivation rec {
       pythonPackages.sphinx # (optional) documentation -> doc/INSTALL
       texinfo # (optional) documentation -> doc/INSTALL
       pythonPackages.cffi
-    ] ++ lib.optional withEmacs emacs ++ lib.optional withRuby ruby
+    ]
+    ++ lib.optional withEmacs emacs
+    ++ lib.optional withRuby ruby
     ;
 
   buildInputs =
@@ -54,7 +56,8 @@ stdenv.mkDerivation rec {
       zlib # dependencies described in INSTALL
       perl
       pythonPackages.python
-    ] ++ lib.optional withRuby ruby
+    ]
+    ++ lib.optional withRuby ruby
     ;
 
   postPatch =
@@ -67,7 +70,8 @@ stdenv.mkDerivation rec {
       # do not override CFLAGS of the Makefile created by mkmf
       substituteInPlace bindings/Makefile.local \
         --replace 'CFLAGS="$(CFLAGS) -pipe -fno-plt -fPIC"' ""
-    '' + lib.optionalString withEmacs ''
+    ''
+    + lib.optionalString withEmacs ''
       substituteInPlace emacs/notmuch-emacs-mua \
         --replace 'EMACS:-emacs' 'EMACS:-${emacs}/bin/emacs' \
         --replace 'EMACSCLIENT:-emacsclient' 'EMACSCLIENT:-${emacs}/bin/emacsclient'
@@ -81,8 +85,10 @@ stdenv.mkDerivation rec {
         placeholder "out"
       }/share/bash-completion/completions"
       "--infodir=${placeholder "info"}/share/info"
-    ] ++ lib.optional (!withEmacs) "--without-emacs" ++ lib.optional withEmacs
-    "--emacslispdir=${placeholder "emacs"}/share/emacs/site-lisp"
+    ]
+    ++ lib.optional (!withEmacs) "--without-emacs"
+    ++ lib.optional withEmacs
+      "--emacslispdir=${placeholder "emacs"}/share/emacs/site-lisp"
     ++ lib.optional (!withRuby) "--without-ruby"
     ;
 
@@ -103,7 +109,9 @@ stdenv.mkDerivation rec {
       "man"
       "info"
       "bindingconfig"
-    ] ++ lib.optional withEmacs "emacs" ++ lib.optional withRuby "ruby"
+    ]
+    ++ lib.optional withEmacs "emacs"
+    ++ lib.optional withRuby "ruby"
     ;
 
   preCheck =
@@ -143,7 +151,8 @@ stdenv.mkDerivation rec {
   postInstall =
     lib.optionalString withEmacs ''
       moveToOutput bin/notmuch-emacs-mua $emacs
-    '' + lib.optionalString withRuby ''
+    ''
+    + lib.optionalString withRuby ''
       make -C bindings/ruby install \
         vendordir=$ruby/lib/ruby \
         SHELL=$SHELL \

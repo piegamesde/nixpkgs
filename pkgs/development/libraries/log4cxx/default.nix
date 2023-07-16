@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
       }' src/examples/cpp/console.cpp \
          src/main/cpp/inputstreamreader.cpp \
          src/main/cpp/socketoutputstream.cpp
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       sed -i 's/namespace std { class locale; }/#include <locale>/' src/main/include/log4cxx/helpers/simpledateformat.h
       sed -i 's/\(#include <cctype>\)/\1\n#include <cstdlib>/' src/main/cpp/stringhelper.cpp
     ''

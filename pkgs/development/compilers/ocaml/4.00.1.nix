@@ -40,13 +40,15 @@ stdenv.mkDerivation rec {
 
   prefixKey = "-prefix ";
   configureFlags =
-    [ "-no-tk" ] ++ optionals useX11 [
+    [ "-no-tk" ]
+    ++ optionals useX11 [
       "-x11lib"
       libX11
     ]
     ;
   buildFlags =
-    [ "world" ] ++ optionals useNativeCompilers [
+    [ "world" ]
+    ++ optionals useNativeCompilers [
       "bootstrap"
       "world.opt"
     ]

@@ -56,7 +56,8 @@ stdenv.mkDerivation rec {
     [
       "PREFIX=${placeholder "out"}"
       "SONAME_Darwin=-Wl,-install_name,${placeholder "out"}/lib/libkrunfw.dylib"
-    ] ++ lib.optional sevVariant "SEV=1"
+    ]
+    ++ lib.optional sevVariant "SEV=1"
     ;
 
   enableParallelBuilding = true;

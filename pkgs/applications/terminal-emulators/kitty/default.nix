@@ -65,7 +65,8 @@ buildPythonApplication rec {
       lcms2
       librsync
       openssl.dev
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Cocoa
       Kernel
       UniformTypeIdentifiers
@@ -73,7 +74,8 @@ buildPythonApplication rec {
       libpng
       python3
       zlib
-    ] ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [ Libsystem ]
+    ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [ Libsystem ]
     ++ lib.optionals stdenv.isLinux [
       fontconfig
       libunistring
@@ -103,7 +105,8 @@ buildPythonApplication rec {
       sphinxext-opengraph
       sphinx-inline-tabs
       go
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       imagemagick
       libicns # For the png2icns tool.
     ]

@@ -129,7 +129,7 @@ with lib; {
         ExecStart =
           "${pkgs.hydron}/bin/hydron serve"
           + optionalString (cfg.listenAddress != null)
-          " -a ${cfg.listenAddress}"
+            " -a ${cfg.listenAddress}"
           ;
       };
     };
@@ -143,8 +143,10 @@ with lib; {
         Group = "hydron";
         ExecStart =
           "${pkgs.hydron}/bin/hydron import "
-          + optionalString cfg.fetchTags "-f " + (escapeShellArg cfg.dataDir)
-          + "/images " + (escapeShellArgs cfg.importPaths)
+          + optionalString cfg.fetchTags "-f "
+          + (escapeShellArg cfg.dataDir)
+          + "/images "
+          + (escapeShellArgs cfg.importPaths)
           ;
       };
     };

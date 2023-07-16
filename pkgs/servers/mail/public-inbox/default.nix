@@ -137,7 +137,8 @@ buildPerlPackage rec {
       pkg-config
       sqlite
       xapian
-    ] ++ lib.optionals stdenv.isLinux [ LinuxInotify2 ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ LinuxInotify2 ]
     ;
   preCheck = ''
     perl certs/create-certs.perl

@@ -30,7 +30,8 @@ rustPlatform.buildRustPackage rec {
       openssl
       libsodium
       xxHash
-    ] ++ (lib.optionals gitImportSupport [ libgit2 ])
+    ]
+    ++ (lib.optionals gitImportSupport [ libgit2 ])
     ++ (lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
       CoreServices
       Security

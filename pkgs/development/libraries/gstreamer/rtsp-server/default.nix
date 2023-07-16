@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
       gobject-introspection
       pkg-config
       python3
-    ] ++ lib.optionals enableDocumentation [ hotdoc ]
+    ]
+    ++ lib.optionals enableDocumentation [ hotdoc ]
     ;
 
   buildInputs = [

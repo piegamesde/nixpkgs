@@ -459,9 +459,11 @@ let
         descriptionClass = "noun";
         check =
           x:
-          str.check x && builtins.match ''
+          str.check x
+          && builtins.match ''
             [ 	
-            ]*'' x == null
+            ]*'' x
+            == null
           ;
         inherit (str) merge;
       };
@@ -854,7 +856,8 @@ let
           merge =
             loc: defs: {
               imports =
-                staticModules ++ map (def:
+                staticModules
+                ++ map (def:
                   lib.setDefaultModuleLocation
                   "${def.file}, via option ${showOption loc}" def.value) defs
                 ;
@@ -958,7 +961,8 @@ let
                 # would be used, and use of `<` and `>` would break the XML document.
                 # It shouldn't cause an issue since this is cosmetic for the manual.
                 _module.args.name = lib.mkOptionDefault "‹name›";
-              } ] ++ modules
+              } ]
+              ++ modules
               ;
           };
 
@@ -1114,8 +1118,9 @@ let
               (class: class == "noun" || class == "conjunction") t1
             } or ${
               optionDescriptionPhrase (class:
-                class == "noun" || class == "conjunction" || class
-                == "composite") t2
+                class == "noun"
+                || class == "conjunction"
+                || class == "composite") t2
             }";
           descriptionClass = "conjunction";
           check = x: t1.check x || t2.check x;

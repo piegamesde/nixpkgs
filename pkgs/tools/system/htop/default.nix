@@ -31,11 +31,13 @@ stdenv.mkDerivation rec {
     [ autoreconfHook ] ++ lib.optional stdenv.isLinux pkg-config;
 
   buildInputs =
-    [ ncurses ] ++ lib.optional stdenv.isDarwin IOKit
+    [ ncurses ]
+    ++ lib.optional stdenv.isDarwin IOKit
     ++ lib.optionals stdenv.isLinux [
       libcap
       libnl
-    ] ++ lib.optional sensorsSupport lm_sensors
+    ]
+    ++ lib.optional sensorsSupport lm_sensors
     ++ lib.optional systemdSupport systemd
     ;
 
@@ -43,11 +45,13 @@ stdenv.mkDerivation rec {
     [
       "--enable-unicode"
       "--sysconfdir=/etc"
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       "--enable-affinity"
       "--enable-capabilities"
       "--enable-delayacct"
-    ] ++ lib.optional sensorsSupport "--with-sensors"
+    ]
+    ++ lib.optional sensorsSupport "--with-sensors"
     ;
 
   postFixup =

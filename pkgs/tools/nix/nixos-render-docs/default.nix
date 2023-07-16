@@ -36,7 +36,8 @@ python.pkgs.buildPythonApplication rec {
   src = lib.cleanSourceWith {
     filter =
       name: type:
-      lib.cleanSourceFilter name type && !(type == "directory"
+      lib.cleanSourceFilter name type
+      && !(type == "directory"
         && builtins.elem (baseNameOf name) [
           ".pytest_cache"
           ".mypy_cache"

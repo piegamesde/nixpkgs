@@ -170,7 +170,8 @@ let
           "pulse"
           "jack"
           "smbclient"
-        ] ++ lib.optionals (!stdenv.isLinux) [
+        ]
+        ++ lib.optionals (!stdenv.isLinux) [
           "alsa"
           "pipewire"
           "io_uring"
@@ -228,7 +229,8 @@ let
           #
           #    Run-time dependency GTest found: YES 1.10.0
           gtest
-        ] ++ concatAttrVals features_ featureDependencies
+        ]
+        ++ concatAttrVals features_ featureDependencies
         ++ lib.optionals stdenv.isDarwin [
           AudioToolbox
           AudioUnit
@@ -240,7 +242,8 @@ let
           meson
           ninja
           pkg-config
-        ] ++ concatAttrVals features_ nativeFeatureDependencies
+        ]
+        ++ concatAttrVals features_ nativeFeatureDependencies
         ;
 
       depsBuildBuild = [ buildPackages.stdenv.cc ];
@@ -265,7 +268,8 @@ let
         [
           "out"
           "doc"
-        ] ++ lib.optional (builtins.elem "documentation" features_) "man"
+        ]
+        ++ lib.optional (builtins.elem "documentation" features_) "man"
         ;
 
       CXXFLAGS = lib.optionals stdenv.isDarwin [
@@ -277,11 +281,13 @@ let
           "-Dtest=true"
           "-Dmanpages=true"
           "-Dhtml_manual=true"
-        ] ++ map (x: "-D${x}=enabled") features_ ++ map (x: "-D${x}=disabled")
-        (lib.subtractLists features_ knownFeatures)
+        ]
+        ++ map (x: "-D${x}=enabled") features_
+        ++ map (x: "-D${x}=disabled")
+          (lib.subtractLists features_ knownFeatures)
         ++ lib.optional (builtins.elem "zeroconf" features_) "-Dzeroconf=avahi"
         ++ lib.optional (builtins.elem "systemd" features_)
-        "-Dsystemd_system_unit_dir=etc/systemd/system"
+          "-Dsystemd_system_unit_dir=etc/systemd/system"
         ;
 
       passthru.tests.nixos = nixosTests.mpd;
@@ -336,12 +342,14 @@ in
         "sqlite"
         "soundcloud"
         "qobuz"
-      ] ++ lib.optionals stdenv.isLinux [
+      ]
+      ++ lib.optionals stdenv.isLinux [
         "alsa"
         "systemd"
         "syslog"
         "io_uring"
-      ] ++ lib.optionals (!stdenv.isDarwin) [
+      ]
+      ++ lib.optionals (!stdenv.isDarwin) [
         "mad"
         "jack"
       ]

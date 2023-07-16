@@ -83,7 +83,8 @@ python.pkgs.buildPythonApplication rec {
       glibcLocales
       perl
       xvfb-run
-    ] ++ (with python.pkgs; [
+    ]
+    ++ (with python.pkgs; [
       mysqlclient
       psycopg2
     ])

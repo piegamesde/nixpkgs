@@ -67,7 +67,8 @@ stdenv.mkDerivation rec {
     ''
       substituteInPlace src/common/env.c \
           --replace "/bin/echo" "${coreutils}/bin/echo"
-    '' + (lib.optionalString enableX11 ''
+    ''
+    + (lib.optionalString enableX11 ''
       substituteInPlace src/common/x11_util.c \
           --replace '"/usr/bin/xauth"' '"${xorg.xauth}/bin/xauth"'
     '')
@@ -107,7 +108,8 @@ stdenv.mkDerivation rec {
       dbus
       libbpf
       http-parser
-    ] ++ lib.optionals enableX11 [ xorg.xauth ]
+    ]
+    ++ lib.optionals enableX11 [ xorg.xauth ]
     ++ lib.optionals enableGtk2 [ gtk2 ]
     ;
 
@@ -125,7 +127,8 @@ stdenv.mkDerivation rec {
       "--sysconfdir=/etc/slurm"
       "--with-pmix=${pmix}"
       "--with-bpf=${libbpf}"
-    ] ++ (optional enableGtk2 "--disable-gtktest")
+    ]
+    ++ (optional enableGtk2 "--disable-gtktest")
     ++ (optional (!enableX11) "--disable-x11");
 
   preConfigure = ''

@@ -90,7 +90,9 @@ stdenv.mkDerivation {
         ;
       copy =
         arch: version:
-        (copy_qxl arch version) + (copy_usbdk arch) + (copy_vdagent arch)
+        (copy_qxl arch version)
+        + (copy_usbdk arch)
+        + (copy_vdagent arch)
         + (copy_vioserial arch)
         ;
     in

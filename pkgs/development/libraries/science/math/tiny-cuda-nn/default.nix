@@ -27,7 +27,8 @@ let
       [
         cuda_cudart # cuda_runtime.h
         cuda_nvcc
-      ] ++ cuda-common-redist;
+      ]
+      ++ cuda-common-redist;
   };
 
   cuda-redist = symlinkJoin {
@@ -55,7 +56,8 @@ stdenv.mkDerivation (finalAttrs: {
       cuda-native-redist
       ninja
       which
-    ] ++ lists.optionals pythonSupport (with python3Packages; [
+    ]
+    ++ lists.optionals pythonSupport (with python3Packages; [
       pip
       setuptools
       wheel
@@ -63,7 +65,8 @@ stdenv.mkDerivation (finalAttrs: {
     ;
 
   buildInputs =
-    [ cuda-redist ] ++ lib.optionals pythonSupport (with python3Packages; [
+    [ cuda-redist ]
+    ++ lib.optionals pythonSupport (with python3Packages; [
       pybind11
       python
     ])
@@ -124,7 +127,7 @@ stdenv.mkDerivation (finalAttrs: {
     + strings.optionalString (!pythonSupport) ''
       cp libtiny-cuda-nn.a $out/lib/
     ''
-    # Installing the python bindings requires building the wheel and installing it
+      # Installing the python bindings requires building the wheel and installing it
     + strings.optionalString pythonSupport ''
       python -m pip install \
         --no-build-isolation \
@@ -135,7 +138,8 @@ stdenv.mkDerivation (finalAttrs: {
         --prefix="$out" \
         --verbose \
         ./*.whl
-    '' + ''
+    ''
+    + ''
       runHook postInstall
     ''
     ;

@@ -139,7 +139,8 @@ in
 
             action = mkOption {
               type = addCheck str (x:
-                cfg.svcManager == "command" || elem x [
+                cfg.svcManager == "command"
+                || elem x [
                   "restart"
                   "reload"
                   "nop"

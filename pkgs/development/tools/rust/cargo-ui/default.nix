@@ -30,7 +30,8 @@ rustPlatform.buildRustPackage rec {
     [
       libgit2_1_5
       openssl
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       expat
       fontconfig
       libGL
@@ -39,7 +40,8 @@ rustPlatform.buildRustPackage rec {
       xorg.libXi
       xorg.libXrandr
       xorg.libxcb
-    ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ]
     ;
 
   postFixup = lib.optionalString stdenv.isLinux ''

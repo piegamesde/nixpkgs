@@ -236,7 +236,8 @@ in
             description = "package with provided sessions";
             check =
               p:
-              assertMsg (package.check p && p ? providedSessions
+              assertMsg (package.check p
+                && p ? providedSessions
                 && p.providedSessions != [ ]
                 && all isString p.providedSessions) ''
                   Package, '${p.name}', did not specify any session names, as strings, in
@@ -313,15 +314,16 @@ in
             description = "session name";
             check =
               d:
-              assertMsg (d != null -> (str.check d
-                && elem d cfg.displayManager.sessionData.sessionNames)) ''
-                  Default graphical session, '${d}', not found.
-                  Valid names for 'services.xserver.displayManager.defaultSession' are:
-                    ${
-                      concatStringsSep "\n  "
-                      cfg.displayManager.sessionData.sessionNames
-                    }
-                ''
+              assertMsg (d != null
+                -> (str.check d
+                  && elem d cfg.displayManager.sessionData.sessionNames)) ''
+                    Default graphical session, '${d}', not found.
+                    Valid names for 'services.xserver.displayManager.defaultSession' are:
+                      ${
+                        concatStringsSep "\n  "
+                        cfg.displayManager.sessionData.sessionNames
+                      }
+                  ''
               ;
           };
         default =
@@ -443,9 +445,10 @@ in
       }
       {
         assertion =
-          cfg.desktopManager.default != null || cfg.windowManager.default
-          != null -> cfg.displayManager.defaultSession
-          == defaultSessionFromLegacyOptions
+          cfg.desktopManager.default != null
+            || cfg.windowManager.default != null
+          -> cfg.displayManager.defaultSession
+            == defaultSessionFromLegacyOptions
           ;
         message =
           "You cannot use both services.xserver.displayManager.defaultSession option and legacy options (services.xserver.desktopManager.default and services.xserver.windowManager.default).";

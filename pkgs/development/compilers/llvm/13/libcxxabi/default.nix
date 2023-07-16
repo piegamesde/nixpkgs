@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
   postUnpack =
     lib.optionalString stdenv.isDarwin ''
       export TRIPLE=x86_64-apple-darwin
-    '' + lib.optionalString stdenv.hostPlatform.isWasm ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isWasm ''
       patch -p1 -d llvm -i ${./wasm.patch}
     ''
     ;
@@ -45,11 +46,13 @@ stdenv.mkDerivation rec {
     [ "-DLIBCXXABI_LIBCXX_INCLUDES=${cxx-headers}/include/c++/v1" ]
     ++ lib.optionals standalone [ "-DLLVM_ENABLE_LIBCXX=ON" ]
     ++ lib.optionals (standalone && withLibunwind) [
-      "-DLIBCXXABI_USE_LLVM_UNWINDER=ON"
-    ] ++ lib.optionals stdenv.hostPlatform.isWasm [
+        "-DLIBCXXABI_USE_LLVM_UNWINDER=ON"
+      ]
+    ++ lib.optionals stdenv.hostPlatform.isWasm [
       "-DLIBCXXABI_ENABLE_THREADS=OFF"
       "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
-    ] ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ]
+    ]
+    ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ]
     ;
 
   preInstall = lib.optionalString stdenv.isDarwin ''

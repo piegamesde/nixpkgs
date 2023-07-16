@@ -78,7 +78,8 @@ mkDerivation rec {
     [
       cmake
       qttools
-    ] ++ lib.optionals enablePsiMedia [ pkg-config ]
+    ]
+    ++ lib.optionals enablePsiMedia [ pkg-config ]
     ;
 
   buildInputs =
@@ -98,10 +99,12 @@ mkDerivation rec {
       libgpg-error
       libsignal-protocol-c
       usrsctp
-    ] ++ lib.optionals voiceMessagesSupport [
+    ]
+    ++ lib.optionals voiceMessagesSupport [
       gst_all_1.gst-plugins-base
       gst_all_1.gst-plugins-good
-    ] ++ lib.optionals (chatType == "webkit") [ qtwebkit ]
+    ]
+    ++ lib.optionals (chatType == "webkit") [ qtwebkit ]
     ++ lib.optionals (chatType == "webengine") [ qtwebengine ]
     ;
 

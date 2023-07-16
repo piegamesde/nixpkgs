@@ -36,7 +36,8 @@ buildPythonPackage rec {
       gym-notices
       typing-extensions
       farama-notifications
-    ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
+    ]
+    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
     ;
 
   pythonImportsCheck = [ "gymnasium" ];

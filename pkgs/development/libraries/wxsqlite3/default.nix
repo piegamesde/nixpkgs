@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
     [
       sqlite
       wxGTK
-    ] ++ lib.optionals (stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (stdenv.isDarwin) [
       Cocoa
       setfile
       rez

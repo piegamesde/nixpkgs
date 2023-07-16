@@ -361,14 +361,17 @@ in
             exceptions {
             ${concatStringsSep "\n" (map (e: "  ${e}") cfg.exceptions)}
             }
-          '' + ''
+          ''
+          + ''
             assignments {
-          '' + (concatStringsSep "\n" (map
+          ''
+          + (concatStringsSep "\n" (map
             (name: schedulerProfileToString name cfg.assignments.${name} "  ")
-            (attrNames cfg.assignments))) + ''
+            (attrNames cfg.assignments)))
+          + ''
 
-              }
-            ''
+            }
+          ''
           ;
       }
     ];

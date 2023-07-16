@@ -36,10 +36,11 @@ let
 
   hookFiles =
     mapAttrsToList
-    (name: hook: hookFormat.generate "webhook-${name}.json" [ hook ]) cfg.hooks
+      (name: hook: hookFormat.generate "webhook-${name}.json" [ hook ])
+      cfg.hooks
     ++ mapAttrsToList
-    (name: hook: pkgs.writeText "webhook-${name}.json.tmpl" "[${hook}]")
-    cfg.hooksTemplated
+      (name: hook: pkgs.writeText "webhook-${name}.json.tmpl" "[${hook}]")
+      cfg.hooksTemplated
     ;
 
 in
@@ -226,11 +227,14 @@ in
               (toString cfg.port)
               "-urlprefix"
               cfg.urlPrefix
-            ] ++ concatMap (hook: [
+            ]
+            ++ concatMap (hook: [
               "-hooks"
               hook
-            ]) hookFiles ++ optional cfg.enableTemplates "-template"
-            ++ optional cfg.verbose "-verbose" ++ cfg.extraArgs
+            ]) hookFiles
+            ++ optional cfg.enableTemplates "-template"
+            ++ optional cfg.verbose "-verbose"
+            ++ cfg.extraArgs
             ;
         in
         ''

@@ -38,11 +38,12 @@ let
       else
         ''
           LDFLAGS="-fPIC -shared"
-        '') + ''
-          CFLAGS="-fPIC -I."
-          $CC $CFLAGS -c sha1.c -o sha1.o
-          $LD $LDFLAGS sha1.o -o libsha1.so
-        ''
+        '')
+      + ''
+        CFLAGS="-fPIC -I."
+        $CC $CFLAGS -c sha1.c -o sha1.o
+        $LD $LDFLAGS sha1.o -o libsha1.so
+      ''
       ;
 
     installPhase = ''
@@ -87,7 +88,8 @@ stdenv.mkDerivation (finalAttrs: rec {
       vampire
       eprover-ho
       nettools
-    ] ++ lib.optionals (!stdenv.isDarwin) [ java ]
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [ java ]
     ;
 
   sourceRoot = "${dirname}${lib.optionalString stdenv.isDarwin ".app"}";
@@ -134,10 +136,12 @@ stdenv.mkDerivation (finalAttrs: rec {
         ISABELLE_JDK_HOME=${java}
       EOF
 
-    '' + lib.optionalString stdenv.hostPlatform.isx86 ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isx86 ''
       rm contrib/naproche-*/x86*/Naproche-SAD
       ln -s ${naproche}/bin/Naproche-SAD contrib/naproche-*/x86*/
-    '' + ''
+    ''
+    + ''
 
       echo ISABELLE_LINE_EDITOR=${rlwrap}/bin/rlwrap >>etc/settings
 
@@ -162,10 +166,12 @@ stdenv.mkDerivation (finalAttrs: rec {
         --replace '"$ML_HOME/" ^ (if ML_System.platform_is_windows then "sha1.dll" else "libsha1.so")' '"${sha1}/lib/libsha1.so"'
 
       rm -r heaps
-    '' + lib.optionalString (stdenv.hostPlatform.system == "x86_64-darwin") ''
+    ''
+    + lib.optionalString (stdenv.hostPlatform.system == "x86_64-darwin") ''
       substituteInPlace lib/scripts/isabelle-platform \
         --replace 'ISABELLE_APPLE_PLATFORM64=arm64-darwin' ""
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       arch=${
         if stdenv.hostPlatform.system == "x86_64-linux" then
           "x86_64-linux"
@@ -292,7 +298,8 @@ stdenv.mkDerivation (finalAttrs: rec {
           export HOME=$TMP
           bin/isabelle install $out/bin
           patchShebangs $out/bin
-        '' + lib.concatMapStringsSep "\n" (c: ''
+        ''
+        + lib.concatMapStringsSep "\n" (c: ''
           echo contrib/${c.pname}-${c.version} >> ${base}/etc/components
         '') components
         ;

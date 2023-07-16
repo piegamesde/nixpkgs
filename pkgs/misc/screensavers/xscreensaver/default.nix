@@ -67,7 +67,8 @@ stdenv.mkDerivation (finalAttrs: {
       perlPackages.LWPProtocolHttps
       perlPackages.MozillaCA
       perlPackages.perl
-    ] ++ lib.optional withSystemd systemd
+    ]
+    ++ lib.optional withSystemd systemd
     ;
 
   preConfigure = ''
@@ -97,7 +98,8 @@ stdenv.mkDerivation (finalAttrs: {
           }" \
           --prefix PERL5LIB ':' $PERL5LIB
       done
-    '' + lib.optionalString forceInstallAllHacks ''
+    ''
+    + lib.optionalString forceInstallAllHacks ''
       make -j$NIX_BUILD_CORES -C hacks/glx dnalogo
       cat hacks/Makefile.in \
         | grep -E '([a-z0-9]+):[[:space:]]*\1[.]o' | cut -d : -f 1 | xargs make -j$NIX_BUILD_CORES -C hacks

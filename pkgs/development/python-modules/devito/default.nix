@@ -68,7 +68,8 @@ buildPythonPackage rec {
       pyrevolve
       scipy
       sympy
-    ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ]
+    ]
+    ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ]
     ;
 
   nativeCheckInputs = [

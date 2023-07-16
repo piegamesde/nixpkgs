@@ -42,13 +42,16 @@ stdenv.mkDerivation rec {
     ''
       mkdir -p $out/{include,lib}
       mkdir -p $out/lib/pkgconfig
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       mv ./out/libui.so.0 $out/lib/
       ln -s $out/lib/libui.so.0 $out/lib/libui.so
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       mv ./out/libui.A.dylib $out/lib/
       ln -s $out/lib/libui.A.dylib $out/lib/libui.dylib
-    '' + ''
+    ''
+    + ''
       cp $src/ui.h $out/include
       cp $src/ui_${backend}.h $out/include
 

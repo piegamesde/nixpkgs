@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
     [
       freetype
       SDL
-    ] ++ lib.optionals stdenv.isLinux [ libX11 ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ libX11 ]
     ;
 
   postPatch = ''
@@ -46,7 +47,8 @@ stdenv.mkDerivation rec {
     [
       (lib.strings.enableFeature stdenv.isLinux "platform")
       "--enable-examples=no"
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       "--x-includes=${lib.getDev libX11}/include"
       "--x-libraries=${lib.getLib libX11}/lib"
     ]

@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
     [
       libGL
       libGLU
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       alsa-lib
       libX11
       libXext
@@ -52,7 +53,8 @@ stdenv.mkDerivation rec {
     (if stdenv.isDarwin then
       [ "nox" ]
     else
-      [ "all" ]) ++ [ "CC=${stdenv.cc.targetPrefix}cc" ]
+      [ "all" ])
+    ++ [ "CC=${stdenv.cc.targetPrefix}cc" ]
     ;
 
   postBuild = ''

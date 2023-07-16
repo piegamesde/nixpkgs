@@ -34,7 +34,8 @@ buildPythonPackage rec {
 
     # gcc <10 is not supported, LLVM on darwin is just fine
   nativeBuildInputs =
-    [ cmake ] ++ lib.optionals (!stdenv.isDarwin && stdenv.isAarch64) [
+    [ cmake ]
+    ++ lib.optionals (!stdenv.isDarwin && stdenv.isAarch64) [
       gcc10
       perl
     ]

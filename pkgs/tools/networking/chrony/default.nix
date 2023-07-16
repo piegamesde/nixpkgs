@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
       nss
       readline
       texinfo
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libcap
       libseccomp
       pps-tools
@@ -50,7 +51,8 @@ stdenv.mkDerivation rec {
       "--enable-ntp-signd"
       "--sbindir=$(out)/bin"
       "--chronyrundir=/run/chrony"
-    ] ++ lib.optional stdenv.isLinux "--enable-scfilter"
+    ]
+    ++ lib.optional stdenv.isLinux "--enable-scfilter"
     ;
 
   patches =

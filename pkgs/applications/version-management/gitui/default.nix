@@ -27,7 +27,8 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ pkg-config ];
 
   buildInputs =
-    [ openssl ] ++ lib.optional stdenv.isLinux xclip
+    [ openssl ]
+    ++ lib.optional stdenv.isLinux xclip
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security

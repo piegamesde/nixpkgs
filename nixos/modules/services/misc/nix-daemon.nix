@@ -193,7 +193,8 @@ in
         "nix"
         "daemonNiceLevel"
       ] "Consider nix.daemonCPUSchedPolicy instead.")
-    ] ++ mapAttrsToList (oldConf: newConf:
+    ]
+    ++ mapAttrsToList (oldConf: newConf:
       mkRenamedOptionModuleWith {
         sinceRelease = 2205;
         from = [
@@ -565,8 +566,10 @@ in
               type = "path";
               path = config.flake.outPath;
             } // filterAttrs (n: _:
-              n == "lastModified" || n == "rev" || n == "revCount" || n
-              == "narHash") config.flake));
+              n == "lastModified"
+              || n == "rev"
+              || n == "revCount"
+              || n == "narHash") config.flake));
           };
         }
         ));
@@ -799,8 +802,9 @@ in
       [
         nixPackage
         pkgs.nix-info
-      ] ++ optional (config.programs.bash.enableCompletion)
-      pkgs.nix-bash-completions
+      ]
+      ++ optional (config.programs.bash.enableCompletion)
+        pkgs.nix-bash-completions
       ;
 
     environment.etc."nix/nix.conf".source = nixConf;
@@ -849,11 +853,13 @@ in
           else
             (concatStringsSep "," machine.mandatoryFeatures)
           )
-        ] ++ optional (isNixAtLeast "2.4pre")
-          (if machine.publicHostKey != null then
-            machine.publicHostKey
-          else
-            "-"))) + "\n") cfg.buildMachines;
+        ]
+          ++ optional (isNixAtLeast "2.4pre")
+            (if machine.publicHostKey != null then
+              machine.publicHostKey
+            else
+              "-")))
+        + "\n") cfg.buildMachines;
     };
 
     assertions =
@@ -867,7 +873,9 @@ in
             At least one system type (via <varname>system</varname> or
               <varname>systems</varname>) must be set for every build machine.
               Invalid machine specifications:
-          '' + "      " + (concatStringsSep "\n      "
+          ''
+          + "      "
+          + (concatStringsSep "\n      "
             (map (m: m.hostName) (filter (badMachine) cfg.buildMachines)))
           ;
       } ]
@@ -891,7 +899,8 @@ in
           nixPackage
           pkgs.util-linux
           config.programs.ssh.package
-        ] ++ optionals cfg.distributedBuilds [ pkgs.gzip ]
+        ]
+        ++ optionals cfg.distributedBuilds [ pkgs.gzip ]
         ;
 
       environment = cfg.envVars // {
@@ -991,11 +1000,12 @@ in
           "benchmark"
           "big-parallel"
           "kvm"
-        ] ++ optionals (pkgs.stdenv.hostPlatform ? gcc.arch) (
-          # a builder can run code for `gcc.arch` and inferior architectures
-          [ "gccarch-${pkgs.stdenv.hostPlatform.gcc.arch}" ]
-          ++ map (x: "gccarch-${x}")
-          (systems.architectures.inferiors.${pkgs.stdenv.hostPlatform.gcc.arch} or [ ])))
+        ]
+          ++ optionals (pkgs.stdenv.hostPlatform ? gcc.arch) (
+            # a builder can run code for `gcc.arch` and inferior architectures
+            [ "gccarch-${pkgs.stdenv.hostPlatform.gcc.arch}" ]
+            ++ map (x: "gccarch-${x}")
+              (systems.architectures.inferiors.${pkgs.stdenv.hostPlatform.gcc.arch} or [ ])))
           ;
       }
 

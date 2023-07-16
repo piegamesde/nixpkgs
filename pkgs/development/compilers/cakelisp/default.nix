@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
           --replace '"/usr/bin/g++"' '"${gcc}/bin/g++"'
       substituteInPlace src/ModuleManager.cpp \
           --replace '"/usr/bin/g++"' '"${gcc}/bin/g++"'
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace Build.sh --replace '--export-dynamic' '-export_dynamic'
       substituteInPlace runtime/HotReloading.cake --replace '--export-dynamic' '-export_dynamic'
       substituteInPlace Bootstrap.cake --replace '--export-dynamic' '-export_dynamic'

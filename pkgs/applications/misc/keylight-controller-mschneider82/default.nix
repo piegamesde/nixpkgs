@@ -27,7 +27,8 @@ buildGoModule rec {
     [
       libGL
       nssmdns
-    ] ++ (with xorg; [
+    ]
+    ++ (with xorg; [
       libX11
       libX11.dev
       libXcursor

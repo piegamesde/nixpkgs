@@ -52,15 +52,16 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = false;
 
   patches =
-    [ ./0001-Fix-cross-compilation-by-looking-for-ar.patch ] ++ lib.optionals
-    (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9") [
-      # https://trac.macports.org/ticket/59783
-      (fetchpatch {
-        url =
-          "https://raw.githubusercontent.com/openembedded/openembedded-core/ce265cf467f1c3e5ba2edbfbef2170df1a727a52/meta/recipes-extended/groff/files/0001-Include-config.h.patch";
-        sha256 = "1b0mg31xkpxkzlx696nr08rcc7ndpaxdplvysy0hw5099c4n1wyf";
-      })
-    ]
+    [ ./0001-Fix-cross-compilation-by-looking-for-ar.patch ]
+    ++ lib.optionals
+      (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9") [
+        # https://trac.macports.org/ticket/59783
+        (fetchpatch {
+          url =
+            "https://raw.githubusercontent.com/openembedded/openembedded-core/ce265cf467f1c3e5ba2edbfbef2170df1a727a52/meta/recipes-extended/groff/files/0001-Include-config.h.patch";
+          sha256 = "1b0mg31xkpxkzlx696nr08rcc7ndpaxdplvysy0hw5099c4n1wyf";
+        })
+      ]
     ;
 
   postPatch =
@@ -68,7 +69,8 @@ stdenv.mkDerivation rec {
       # BASH_PROG gets replaced with a path to the build bash which doesn't get automatically patched by patchShebangs
       substituteInPlace contrib/gdiffmk/gdiffmk.sh \
         --replace "@BASH_PROG@" "/bin/sh"
-    '' + lib.optionalString enableHtml ''
+    ''
+    + lib.optionalString enableHtml ''
       substituteInPlace src/preproc/html/pre-html.cpp \
         --replace "psselect" "${psutils}/bin/psselect" \
         --replace "pnmcut" "${lib.getBin netpbm}/bin/pnmcut" \
@@ -99,23 +101,26 @@ stdenv.mkDerivation rec {
     ]
     # Required due to the patch that changes .ypp files.
     ++ lib.optional
-    (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9") bison
+      (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9") bison
     ;
   buildInputs =
     [
       perl
       bash
-    ] ++ lib.optionals enableGhostscript [
+    ]
+    ++ lib.optionals enableGhostscript [
       ghostscript
       gawk
       libX11
       libXaw
       libXt
       libXmu
-    ] ++ lib.optionals enableHtml [
+    ]
+    ++ lib.optionals enableHtml [
       psutils
       netpbm
-    ] ++ lib.optionals enableIconv [ iconv ]
+    ]
+    ++ lib.optionals enableIconv [ iconv ]
     ++ lib.optionals enableLibuchardet [ libuchardet ]
     ;
 
@@ -129,9 +134,10 @@ stdenv.mkDerivation rec {
       "--with-gs=${lib.getBin ghostscript}/bin/gs"
       "--with-awk=${lib.getBin gawk}/bin/gawk"
       "--with-appresdir=${placeholder "out"}/lib/X11/app-defaults"
-    ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-      "gl_cv_func_signbit=yes"
     ]
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+        "gl_cv_func_signbit=yes"
+      ]
     ;
 
   makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [

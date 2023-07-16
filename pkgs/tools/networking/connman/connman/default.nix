@@ -95,10 +95,12 @@ stdenv.mkDerivation rec {
       libmnl
       gnutls
       readline
-    ] ++ optionals (enableOpenconnect) [ openconnect ]
+    ]
+    ++ optionals (enableOpenconnect) [ openconnect ]
     ++ optionals (firewallType == "iptables") [ iptables ]
     ++ optionals (firewallType == "nftables") [ libnftnl ]
-    ++ optionals (enablePolkit) [ polkit ] ++ optionals (enablePptp) [
+    ++ optionals (enablePolkit) [ polkit ]
+    ++ optionals (enablePptp) [
       pptp
       ppp
     ]
@@ -131,16 +133,17 @@ stdenv.mkDerivation rec {
       # for building and running tests
       # "--enable-tests" # installs the tests, we don't want that
       "--enable-tools"
-    ] ++ optionals (!enableLoopback) [ "--disable-loopback" ]
+    ]
+    ++ optionals (!enableLoopback) [ "--disable-loopback" ]
     ++ optionals (!enableEthernet) [ "--disable-ethernet" ]
     ++ optionals (!enableWireguard) [ "--disable-wireguard" ]
     ++ optionals (!enableGadget) [ "--disable-gadget" ]
     ++ optionals (!enableWifi) [
-      "--disable-wifi"
-    ]
-    # enable IWD support for wifi as it doesn't require any new dependencies
-    # and it's easier for the NixOS module to use only one connman package when
-    # IWD is requested
+        "--disable-wifi"
+      ]
+      # enable IWD support for wifi as it doesn't require any new dependencies
+      # and it's easier for the NixOS module to use only one connman package when
+      # IWD is requested
     ++ optionals (enableWifi) [ "--enable-iwd" ]
     ++ optionals (!enableBluetooth) [ "--disable-bluetooth" ]
     ++ optionals (!enableOfono) [ "--disable-ofono" ]
@@ -155,17 +158,21 @@ stdenv.mkDerivation rec {
     ++ optionals (enableOpenconnect) [
       "--enable-openconnect=builtin"
       "--with-openconnect=${openconnect}/sbin/openconnect"
-    ] ++ optionals (enableOpenvpn) [
+    ]
+    ++ optionals (enableOpenvpn) [
       "--enable-openvpn=builtin"
       "--with-openvpn=${openvpn}/sbin/openvpn"
-    ] ++ optionals (enableVpnc) [
+    ]
+    ++ optionals (enableVpnc) [
       "--enable-vpnc=builtin"
       "--with-vpnc=${vpnc}/sbin/vpnc"
-    ] ++ optionals (enablePolkit) [ "--enable-polkit" ]
+    ]
+    ++ optionals (enablePolkit) [ "--enable-polkit" ]
     ++ optionals (enablePptp) [
       "--enable-pptp"
       "--with-pptp=${pptp}/sbin/pptp"
-    ] ++ optionals (!enableWireguard) [ "--disable-wireguard" ]
+    ]
+    ++ optionals (!enableWireguard) [ "--disable-wireguard" ]
     ++ optionals (enableNetworkManager) [ "--enable-nmcompat" ]
     ++ optionals (enableHh2serialGps) [ "--enable-hh2serial-gps" ]
     ++ optionals (enableL2tp) [ "--enable-l2tp" ]

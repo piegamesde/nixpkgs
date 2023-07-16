@@ -31,7 +31,8 @@ buildPythonPackage rec {
       dnspython
       greenlet
       six
-    ] ++ lib.optionals (pythonOlder "3.5") [ monotonic ]
+    ]
+    ++ lib.optionals (pythonOlder "3.5") [ monotonic ]
     ;
 
   nativeCheckInputs = [

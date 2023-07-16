@@ -74,7 +74,8 @@ stdenv.mkDerivation rec {
       "-DKEEPASSXC_BUILD_TYPE=Release"
       "-DWITH_GUI_TESTS=ON"
       "-DWITH_XC_UPDATECHECK=OFF"
-    ] ++ (lib.optional (!withKeePassX11) "-DWITH_XC_X11=OFF")
+    ]
+    ++ (lib.optional (!withKeePassX11) "-DWITH_XC_X11=OFF")
     ++ (lib.optional (withKeePassFDOSecrets && stdenv.isLinux)
       "-DWITH_XC_FDOSECRETS=ON")
     ++ (lib.optional (withKeePassYubiKey && stdenv.isLinux)
@@ -114,7 +115,8 @@ stdenv.mkDerivation rec {
   preFixup =
     ''
       qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       wrapQtApp "$out/Applications/KeePassXC.app/Contents/MacOS/KeePassXC"
     ''
     ;

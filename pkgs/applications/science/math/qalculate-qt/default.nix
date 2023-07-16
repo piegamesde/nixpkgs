@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
       qtbase
       qttools
       qtsvg
-    ] ++ lib.optionals stdenv.isLinux [ qtwayland ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ qtwayland ]
     ;
 
   postPatch = ''

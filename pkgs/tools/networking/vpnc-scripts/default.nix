@@ -33,11 +33,13 @@ stdenv.mkDerivation {
     ''
       substituteInPlace $out/bin/vpnc-script \
         --replace "which" "type -P"
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       substituteInPlace $out/bin/vpnc-script \
         --replace "/sbin/resolvconf" "${openresolv}/bin/resolvconf" \
         --replace "/usr/bin/resolvectl" "${systemd}/bin/resolvectl"
-    '' + ''
+    ''
+    + ''
       wrapProgram $out/bin/vpnc-script \
         --prefix PATH : "${
           lib.makeBinPath ([
@@ -45,10 +47,11 @@ stdenv.mkDerivation {
             gawk
             coreutils
             gnugrep
-          ] ++ lib.optionals stdenv.isLinux [
-            openresolv
-            iproute2
-          ])
+          ]
+            ++ lib.optionals stdenv.isLinux [
+              openresolv
+              iproute2
+            ])
         }"
     ''
     ;

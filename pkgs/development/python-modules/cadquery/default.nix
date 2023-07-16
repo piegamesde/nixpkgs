@@ -50,7 +50,8 @@ let
         libGL
         libGLU
         libX11
-      ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+      ]
+      ++ lib.optionals stdenv.isDarwin [ Cocoa ]
       ;
 
     propagatedBuildInputs = [ six ];

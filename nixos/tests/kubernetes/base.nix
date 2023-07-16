@@ -95,7 +95,8 @@ let
       testScript =
         ''
           start_all()
-        '' + test
+        ''
+        + test
         ;
     }
     ;

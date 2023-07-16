@@ -55,7 +55,8 @@ stdenv.mkDerivation {
       # Avoid a glibc >= 2.25 deprecation warning that gets fatal via -Werror.
       sed 1i'#include <sys/sysmacros.h>' \
         -i Libraries/xcassets/Headers/xcassets/Slot/SystemVersion.h
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # Apple Open Sourced LZFSE, but not libcompression, and it isn't
       # part of an impure framework we can add
       substituteInPlace Libraries/libcar/Sources/Rendition.cpp \
@@ -83,7 +84,8 @@ stdenv.mkDerivation {
       zlib
       libxml2
       libpng
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       CoreServices
       CoreGraphics
       ImageIO

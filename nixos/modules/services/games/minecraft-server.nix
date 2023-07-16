@@ -32,8 +32,9 @@ let
 
   serverPropertiesFile = pkgs.writeText "server.properties" (''
     # server.properties managed by NixOS configuration
-  '' + concatStringsSep "\n"
-    (mapAttrsToList (n: v: "${n}=${cfgToString v}") cfg.serverProperties));
+  ''
+    + concatStringsSep "\n"
+      (mapAttrsToList (n: v: "${n}=${cfgToString v}") cfg.serverProperties));
 
   stopScript = pkgs.writeShellScript "minecraft-server-stop" ''
     echo stop > ${config.systemd.sockets.minecraft-server.socketConfig.ListenFIFO}
@@ -273,7 +274,8 @@ in
       preStart =
         ''
           ln -sf ${eulaFile} eula.txt
-        '' + (if cfg.declarative then
+        ''
+        + (if cfg.declarative then
           ''
 
             if [ -e .declarative ]; then
@@ -309,7 +311,8 @@ in
       {
         allowedUDPPorts = [ serverPort ];
         allowedTCPPorts =
-          [ serverPort ] ++ optional (queryPort != null) queryPort
+          [ serverPort ]
+          ++ optional (queryPort != null) queryPort
           ++ optional (rconPort != null) rconPort
           ;
       }

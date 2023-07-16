@@ -31,7 +31,8 @@ let
         pkg-config
         swig
         perl
-      ] ++ lib.optional stdenv.isDarwin gcc
+      ]
+      ++ lib.optional stdenv.isDarwin gcc
       ;
 
     buildInputs = [
@@ -47,7 +48,8 @@ let
           --replace "shell pkg-config" "shell $PKG_CONFIG"
         substituteInPlace makefile \
           --replace 'gzip' 'gzip -n'
-      '' + lib.optionalString stdenv.cc.isClang ''
+      ''
+      + lib.optionalString stdenv.cc.isClang ''
         substituteInPlace src/makefile \
             --replace 'CXX=g++' 'CXX=clang++'
       ''

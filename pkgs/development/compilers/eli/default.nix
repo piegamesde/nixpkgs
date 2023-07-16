@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
     [
       ncurses
       fontconfig
-    ] ++ (with xorg; [
+    ]
+    ++ (with xorg; [
       libX11.dev
       libXt.dev
       libXaw.dev

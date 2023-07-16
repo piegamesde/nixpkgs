@@ -39,11 +39,12 @@
     "solana-test-validator"
     "solana-tokens"
     "solana-watchtower"
-  ] ++ [
-    # XXX: Ensure `solana-genesis` is built LAST!
-    # See https://github.com/solana-labs/solana/issues/5826
-    "solana-genesis"
   ]
+    ++ [
+      # XXX: Ensure `solana-genesis` is built LAST!
+      # See https://github.com/solana-labs/solana/issues/5826
+      "solana-genesis"
+    ]
 }:
 let
   pinData = lib.importJSON ./pin.json;
@@ -84,7 +85,8 @@ rustPlatform.buildRustPackage rec {
       zlib
       libclang
       hidapi
-    ] ++ (lib.optionals stdenv.isLinux [ udev ])
+    ]
+    ++ (lib.optionals stdenv.isLinux [ udev ])
     ;
   strictDeps = true;
 

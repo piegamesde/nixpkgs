@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
     [
       "out"
       "dev"
-    ] ++ lib.optional withDocs "devdoc"
+    ]
+    ++ lib.optional withDocs "devdoc"
     ;
 
   src = fetchurl {
@@ -53,7 +54,8 @@ stdenv.mkDerivation rec {
       gettext
       vala
       gobject-introspection
-    ] ++ lib.optionals withIntrospection [ gobject-introspection ]
+    ]
+    ++ lib.optionals withIntrospection [ gobject-introspection ]
     ++ lib.optionals withDocs [
       gtk-doc
       docbook-xsl-nons
@@ -64,7 +66,8 @@ stdenv.mkDerivation rec {
     [
       libvirt
       libxml2
-    ] ++ lib.optionals stdenv.isLinux [ libcap_ng ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ libcap_ng ]
     ;
 
   strictDeps = true;

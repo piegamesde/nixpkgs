@@ -43,7 +43,8 @@ let
           [
             "network-online.target"
             "time-sync.target"
-          ] ++ optional (daemonType == "osd") "ceph-mon.target"
+          ]
+          ++ optional (daemonType == "osd") "ceph-mon.target"
           ;
         wants = [
           "network-online.target"
@@ -461,7 +462,8 @@ in
     systemd.services =
       let
         services =
-          [ ] ++ optional cfg.mon.enable (makeServices "mon" cfg.mon.daemons)
+          [ ]
+          ++ optional cfg.mon.enable (makeServices "mon" cfg.mon.daemons)
           ++ optional cfg.mds.enable (makeServices "mds" cfg.mds.daemons)
           ++ optional cfg.osd.enable (makeServices "osd" cfg.osd.daemons)
           ++ optional cfg.rgw.enable (makeServices "rgw" cfg.rgw.daemons)
@@ -481,7 +483,8 @@ in
               wantedBy = [ "multi-user.target" ];
               unitConfig.StopWhenUnneeded = true;
             };
-          } ] ++ optional cfg.mon.enable (makeTarget "mon")
+          } ]
+          ++ optional cfg.mon.enable (makeTarget "mon")
           ++ optional cfg.mds.enable (makeTarget "mds")
           ++ optional cfg.osd.enable (makeTarget "osd")
           ++ optional cfg.rgw.enable (makeTarget "rgw")
@@ -496,7 +499,8 @@ in
         "d /etc/ceph - ceph ceph - -"
         "d /run/ceph 0770 ceph ceph -"
         "d /var/lib/ceph - ceph ceph - -"
-      ] ++ optionals cfg.mgr.enable [ "d /var/lib/ceph/mgr - ceph ceph - -" ]
+      ]
+      ++ optionals cfg.mgr.enable [ "d /var/lib/ceph/mgr - ceph ceph - -" ]
       ++ optionals cfg.mon.enable [ "d /var/lib/ceph/mon - ceph ceph - -" ]
       ++ optionals cfg.osd.enable [ "d /var/lib/ceph/osd - ceph ceph - -" ]
       ;

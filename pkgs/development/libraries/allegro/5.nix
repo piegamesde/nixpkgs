@@ -71,7 +71,8 @@ stdenv.mkDerivation rec {
       libopus
       gtk3
       pcre
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libXext
       xorgproto
       libX11

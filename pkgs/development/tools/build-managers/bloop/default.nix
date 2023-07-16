@@ -58,7 +58,8 @@ stdenv.mkDerivation rec {
     [
       installShellFiles
       makeWrapper
-    ] ++ lib.optional stdenv.isLinux autoPatchelfHook
+    ]
+    ++ lib.optional stdenv.isLinux autoPatchelfHook
     ;
   buildInputs = [
     stdenv.cc.cc.lib

@@ -48,7 +48,9 @@ stdenv.mkDerivation (finalAttrs: {
       postgresql
       libosmium
       protozero
-    ] ++ lib.optional withLuaJIT luajit ++ lib.optional (!withLuaJIT) lua
+    ]
+    ++ lib.optional withLuaJIT luajit
+    ++ lib.optional (!withLuaJIT) lua
     ;
 
   cmakeFlags =
@@ -56,7 +58,8 @@ stdenv.mkDerivation (finalAttrs: {
       "-DEXTERNAL_LIBOSMIUM=ON"
       "-DEXTERNAL_PROTOZERO=ON"
       "-DEXTERNAL_FMT=ON"
-    ] ++ lib.optional withLuaJIT "-DWITH_LUAJIT:BOOL=ON"
+    ]
+    ++ lib.optional withLuaJIT "-DWITH_LUAJIT:BOOL=ON"
     ;
 
   passthru.tests.version =

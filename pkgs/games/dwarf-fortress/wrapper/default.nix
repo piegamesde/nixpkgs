@@ -49,12 +49,15 @@ let
 
       # These are in inverse order for first packages to override the next ones.
     paths =
-      extraPackages ++ lib.optional (theme != null) ptheme
+      extraPackages
+      ++ lib.optional (theme != null) ptheme
       ++ lib.optional enableDFHack dfhack_
-      ++ lib.optional enableSoundSense soundSense ++ lib.optionals enableTWBT [
+      ++ lib.optional enableSoundSense soundSense
+      ++ lib.optionals enableTWBT [
         twbt.lib
         twbt.art
-      ] ++ [ dwarf-fortress ]
+      ]
+      ++ [ dwarf-fortress ]
       ;
 
     ignoreCollisions = true;
@@ -110,31 +113,34 @@ let
           exit 1
         fi
       }
-    '' + forEach settings_ (file: kv:
-      ''
-        file=data/init/${lib.escapeShellArg file}.txt
-        cp ${baseEnv}/"$file" "$out/$file"
-      '' + forEach kv (k: v:
-        lib.optionalString (v != null) ''
-          export k=${lib.escapeShellArg k} v=${lib.escapeShellArg (toTxt v)}
-          edit_setting
-        '')) + lib.optionalString enableDFHack ''
-          mkdir -p $out/hack
+    ''
+      + forEach settings_ (file: kv:
+        ''
+          file=data/init/${lib.escapeShellArg file}.txt
+          cp ${baseEnv}/"$file" "$out/$file"
+        ''
+        + forEach kv (k: v:
+          lib.optionalString (v != null) ''
+            export k=${lib.escapeShellArg k} v=${lib.escapeShellArg (toTxt v)}
+            edit_setting
+          ''))
+      + lib.optionalString enableDFHack ''
+        mkdir -p $out/hack
 
-          # Patch the MD5
-          orig_md5=$(< "${dwarf-fortress}/hash.md5.orig")
-          patched_md5=$(< "${dwarf-fortress}/hash.md5")
-          input_file="${dfhack_}/hack/symbols.xml"
-          output_file="$out/hack/symbols.xml"
+        # Patch the MD5
+        orig_md5=$(< "${dwarf-fortress}/hash.md5.orig")
+        patched_md5=$(< "${dwarf-fortress}/hash.md5")
+        input_file="${dfhack_}/hack/symbols.xml"
+        output_file="$out/hack/symbols.xml"
 
-          echo "[DFHack Wrapper] Fixing Dwarf Fortress MD5:"
-          echo "  Input:   $input_file"
-          echo "  Search:  $orig_md5"
-          echo "  Output:  $output_file"
-          echo "  Replace: $patched_md5"
+        echo "[DFHack Wrapper] Fixing Dwarf Fortress MD5:"
+        echo "  Input:   $input_file"
+        echo "  Search:  $orig_md5"
+        echo "  Output:  $output_file"
+        echo "  Replace: $patched_md5"
 
-          substitute "$input_file" "$output_file" --replace "$orig_md5" "$patched_md5"
-        '');
+        substitute "$input_file" "$output_file" --replace "$orig_md5" "$patched_md5"
+      '');
 
     # This is a separate environment because the config files to modify may come
     # from any of the paths in baseEnv.
@@ -194,12 +200,14 @@ stdenv.mkDerivation {
         --subst-var-by stdenv_shell ${stdenv.shell} \
         --subst-var dfInit
       chmod 755 $out/bin/dwarf-fortress
-    '' + lib.optionalString enableDFHack ''
+    ''
+    + lib.optionalString enableDFHack ''
       substitute $runDFHack $out/bin/dfhack \
         --subst-var-by stdenv_shell ${stdenv.shell} \
         --subst-var dfInit
       chmod 755 $out/bin/dfhack
-    '' + lib.optionalString enableSoundSense ''
+    ''
+    + lib.optionalString enableSoundSense ''
       substitute $runSoundSense $out/bin/soundsense \
         --subst-var-by stdenv_shell ${stdenv.shell} \
         --subst-var-by jre ${jdk.jre} \

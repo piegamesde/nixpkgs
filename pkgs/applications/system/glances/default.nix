@@ -60,7 +60,8 @@ buildPythonApplication rec {
       pysnmp
       setuptools
       py-cpuinfo
-    ] ++ lib.optional stdenv.isLinux hddtemp
+    ]
+    ++ lib.optional stdenv.isLinux hddtemp
     ;
 
   meta = with lib; {

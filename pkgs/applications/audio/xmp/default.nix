@@ -20,7 +20,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs =
-    [ libxmp ] ++ lib.optionals stdenv.isLinux [ alsa-lib ]
+    [ libxmp ]
+    ++ lib.optionals stdenv.isLinux [ alsa-lib ]
     ++ lib.optionals stdenv.isDarwin [
       AudioUnit
       CoreAudio

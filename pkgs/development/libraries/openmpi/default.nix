@@ -32,9 +32,10 @@
 
     # Enable libfabric support (necessary for Omnipath networks) on x86_64 linux
   ,
-  fabricSupport ? stdenv.isLinux && stdenv.isx86_64
+  fabricSupport ? stdenv.isLinux
+    && stdenv.isx86_64
 
-    # Enable Fortran support
+      # Enable Fortran support
   ,
   fortranSupport ? true
 }:
@@ -73,15 +74,19 @@ stdenv.mkDerivation rec {
   '';
 
   buildInputs =
-    [ zlib ] ++ lib.optionals stdenv.isLinux [
+    [ zlib ]
+    ++ lib.optionals stdenv.isLinux [
       libnl
       numactl
       pmix
       ucx
-    ] ++ lib.optionals cudaSupport [ cudatoolkit ] ++ [
+    ]
+    ++ lib.optionals cudaSupport [ cudatoolkit ]
+    ++ [
       libevent
       hwloc
-    ] ++ lib.optional (stdenv.isLinux || stdenv.isFreeBSD) rdma-core
+    ]
+    ++ lib.optional (stdenv.isLinux || stdenv.isFreeBSD) rdma-core
     ++ lib.optionals fabricSupport [
       libpsm2
       libfabric
@@ -98,15 +103,17 @@ stdenv.mkDerivation rec {
       "--with-pmix=${pmix}"
       "--with-pmix-libdir=${pmix}/lib"
       "--enable-mpi-cxx"
-    ] ++ lib.optional enableSGE "--with-sge" ++ lib.optional enablePrefix
-    "--enable-mpirun-prefix-by-default"
-    # TODO: add UCX support, which is recommended to use with cuda for the most robust OpenMPI build
-    # https://github.com/openucx/ucx
-    # https://www.open-mpi.org/faq/?category=buildcuda
+    ]
+    ++ lib.optional enableSGE "--with-sge"
+    ++ lib.optional enablePrefix "--enable-mpirun-prefix-by-default"
+      # TODO: add UCX support, which is recommended to use with cuda for the most robust OpenMPI build
+      # https://github.com/openucx/ucx
+      # https://www.open-mpi.org/faq/?category=buildcuda
     ++ lib.optionals cudaSupport [
       "--with-cuda=${cudatoolkit_joined}"
       "--enable-dlopen"
-    ] ++ lib.optionals fabricSupport [
+    ]
+    ++ lib.optionals fabricSupport [
       "--with-psm2=${libpsm2}"
       "--with-libfabric=${libfabric}"
     ]
@@ -131,7 +138,8 @@ stdenv.mkDerivation rec {
 
       sed -i 's:compiler=.*:compiler=${targetPackages.stdenv.cc}/bin/${targetPackages.stdenv.cc.targetPrefix}c++:' \
          $out/share/openmpi/mpic++-wrapper-data.txt
-    '' + lib.optionalString fortranSupport ''
+    ''
+    + lib.optionalString fortranSupport ''
 
       sed -i 's:compiler=.*:compiler=${gfortran}/bin/${gfortran.targetPrefix}gfortran:'  \
          $out/share/openmpi/mpifort-wrapper-data.txt

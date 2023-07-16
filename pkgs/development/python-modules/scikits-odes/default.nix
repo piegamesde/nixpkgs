@@ -35,7 +35,8 @@ buildPythonPackage rec {
       numpy
       sundials
       scipy
-    ] ++ lib.optionals (!isPy3k) [ enum34 ]
+    ]
+    ++ lib.optionals (!isPy3k) [ enum34 ]
     ;
 
   doCheck = true;

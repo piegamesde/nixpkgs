@@ -112,41 +112,43 @@ let
                   "--limit ${toString service.limit}"
                   "--request-concurrency ${toString service.requestConcurrency}"
                   "--maximum-timeout ${toString service.maximumTimeout}"
-                ] ++ service.registrationFlags
+                ]
+                  ++ service.registrationFlags
                   ++ optional (service.buildsDir != null)
-                  "--builds-dir ${service.buildsDir}"
+                    "--builds-dir ${service.buildsDir}"
                   ++ optional (service.cloneUrl != null)
-                  "--clone-url ${service.cloneUrl}"
+                    "--clone-url ${service.cloneUrl}"
                   ++ optional (service.preCloneScript != null)
-                  "--pre-clone-script ${service.preCloneScript}"
+                    "--pre-clone-script ${service.preCloneScript}"
                   ++ optional (service.preBuildScript != null)
-                  "--pre-build-script ${service.preBuildScript}"
+                    "--pre-build-script ${service.preBuildScript}"
                   ++ optional (service.postBuildScript != null)
-                  "--post-build-script ${service.postBuildScript}"
+                    "--post-build-script ${service.postBuildScript}"
                   ++ optional (service.tagList != [ ])
-                  "--tag-list ${concatStringsSep "," service.tagList}"
+                    "--tag-list ${concatStringsSep "," service.tagList}"
                   ++ optional service.runUntagged "--run-untagged"
                   ++ optional service.protected "--access-level ref_protected"
                   ++ optional service.debugTraceDisabled
-                  "--debug-trace-disabled"
+                    "--debug-trace-disabled"
                   ++ map (e: "--env ${escapeShellArg e}")
-                  (mapAttrsToList (name: value: "${name}=${value}")
-                    service.environmentVariables)
+                    (mapAttrsToList (name: value: "${name}=${value}")
+                      service.environmentVariables)
                   ++ optionals (hasPrefix "docker" service.executor)
-                  (assert (assertMsg (service.dockerImage != null)
-                    "dockerImage option is required for ${service.executor} executor (${name})");
-                    [ "--docker-image ${service.dockerImage}" ]
-                    ++ optional service.dockerDisableCache
-                    "--docker-disable-cache"
-                    ++ optional service.dockerPrivileged "--docker-privileged"
-                    ++ map (v: "--docker-volumes ${escapeShellArg v}")
-                    service.dockerVolumes
-                    ++ map (v: "--docker-extra-hosts ${escapeShellArg v}")
-                    service.dockerExtraHosts
-                    ++ map (v: "--docker-allowed-images ${escapeShellArg v}")
-                    service.dockerAllowedImages
-                    ++ map (v: "--docker-allowed-services ${escapeShellArg v}")
-                    service.dockerAllowedServices)))
+                    (assert (assertMsg (service.dockerImage != null)
+                      "dockerImage option is required for ${service.executor} executor (${name})");
+                      [ "--docker-image ${service.dockerImage}" ]
+                      ++ optional service.dockerDisableCache
+                        "--docker-disable-cache"
+                      ++ optional service.dockerPrivileged "--docker-privileged"
+                      ++ map (v: "--docker-volumes ${escapeShellArg v}")
+                        service.dockerVolumes
+                      ++ map (v: "--docker-extra-hosts ${escapeShellArg v}")
+                        service.dockerExtraHosts
+                      ++ map (v: "--docker-allowed-images ${escapeShellArg v}")
+                        service.dockerAllowedImages
+                      ++ map
+                        (v: "--docker-allowed-services ${escapeShellArg v}")
+                        service.dockerAllowedServices)))
               } && sleep 1 || exit 1
             fi
           '') hashedServices)}
@@ -587,7 +589,8 @@ in
           remarshal
           util-linux
           cfg.package
-        ] ++ cfg.extraPackages;
+        ]
+        ++ cfg.extraPackages;
       reloadIfChanged = true;
       serviceConfig = {
         # Set `DynamicUser` under `systemd.services.gitlab-runner.serviceConfig`

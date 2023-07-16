@@ -24,7 +24,8 @@ buildGoModule rec {
   preCheck =
     ''
       ln -s $GOPATH/bin/otel-cli .
-    '' + lib.optionalString (!stdenv.isDarwin) ''
+    ''
+    + lib.optionalString (!stdenv.isDarwin) ''
       substituteInPlace main_test.go \
         --replace 'const minimumPath = `/bin:/usr/bin`' 'const minimumPath = `${
           lib.makeBinPath [ getent ]

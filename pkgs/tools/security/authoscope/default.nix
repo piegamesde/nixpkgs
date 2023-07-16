@@ -34,7 +34,8 @@ rustPlatform.buildRustPackage rec {
       libcap
       zlib
       openssl
-    ] ++ lib.optional stdenv.isDarwin Security
+    ]
+    ++ lib.optional stdenv.isDarwin Security
     ;
 
   postInstall = ''

@@ -52,7 +52,8 @@ stdenv.mkDerivation rec {
       bzip2
       libzip
       zstd
-    ] ++ lib.optional szipSupport szip
+    ]
+    ++ lib.optional szipSupport szip
     ;
 
   passthru = { inherit mpiSupport mpi; };
@@ -64,7 +65,8 @@ stdenv.mkDerivation rec {
       "--enable-shared"
       "--disable-dap-remote-tests"
       "--with-plugin-dir=${placeholder "out"}/lib/hdf5-plugins"
-    ] ++ (lib.optionals mpiSupport [
+    ]
+    ++ (lib.optionals mpiSupport [
       "--enable-parallel-tests"
       "CC=${mpi}/bin/mpicc"
     ])

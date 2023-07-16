@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
       python3Packages.python
       xfce.xfce4-panel
       xfce.xfconf
-    ] ++ pythonPath
+    ]
+    ++ pythonPath
     ;
 
   postPatch = ''

@@ -25,7 +25,8 @@ buildPythonPackage rec {
       cloudpickle
       numpy
       gym-notices
-    ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
+    ]
+    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
     ;
 
     # The test needs MuJoCo that is not free library.

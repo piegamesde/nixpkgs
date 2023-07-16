@@ -66,7 +66,8 @@ stdenv.mkDerivation rec {
       mkdir -p $out
       cp -ar opt $out/opt
       # delete unnecessary files for the current architecture
-    '' + lib.concatMapStrings (arch: ''
+    ''
+    + lib.concatMapStrings (arch: ''
       echo Deleting files for ${arch}
       rm -r "$out/opt/brother/Printers/HLL2375DW/lpd/${arch}"
     '') (builtins.filter (arch: arch != stdenv.hostPlatform.linuxArch) arches)

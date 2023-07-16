@@ -123,7 +123,9 @@ let
     ;
 
 in
-assert vp8DecoderSupport || vp8EncoderSupport || vp9DecoderSupport
+assert vp8DecoderSupport
+  || vp8EncoderSupport
+  || vp9DecoderSupport
   || vp9EncoderSupport;
 assert internalStatsSupport && (vp9DecoderSupport || vp9EncoderSupport)
   -> postprocSupport;
@@ -238,8 +240,8 @@ stdenv.mkDerivation rec {
         "coefficient-range-checking")
       (enableFeature (vp9HighbitdepthSupport && is64bit) "vp9-highbitdepth")
       (enableFeature (experimentalSpatialSvcSupport
-        || experimentalFpMbStatsSupport || experimentalEmulateHardwareSupport)
-        "experimental")
+        || experimentalFpMbStatsSupport
+        || experimentalEmulateHardwareSupport) "experimental")
     ]
     ++ optionals (stdenv.isBSD || stdenv.hostPlatform != stdenv.buildPlatform) [
       "--force-target=${stdenv.hostPlatform.parsed.cpu.name}-${kernel}-gcc"
@@ -256,7 +258,8 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ ] ++ optionals unitTestsSupport [
+    [ ]
+    ++ optionals unitTestsSupport [
       coreutils
       curl
     ]

@@ -99,7 +99,8 @@ buildFHSEnv rec {
       hover
       pkg-config
       roboto
-    ] ++ libs
+    ]
+    ++ libs
     ;
 
   runScript = "hover";

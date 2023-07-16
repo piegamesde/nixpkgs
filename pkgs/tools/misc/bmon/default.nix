@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
     [
       ncurses
       libconfuse
-    ] ++ lib.optional stdenv.isLinux libnl
+    ]
+    ++ lib.optional stdenv.isLinux libnl
     ;
 
   preConfigure = ''

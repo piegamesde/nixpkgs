@@ -79,12 +79,14 @@ stdenv.mkDerivation rec {
       exiv2
       libgsf
       rpm
-    ] ++ lib.optionals gstreamerSupport
-    ([ gst_all_1.gstreamer ] ++ gstPlugins gst_all_1)
+    ]
+    ++ lib.optionals gstreamerSupport
+      ([ gst_all_1.gstreamer ] ++ gstPlugins gst_all_1)
     ++ lib.optionals gtkSupport [
       glib
       gtk3
-    ] ++ lib.optionals videoSupport [
+    ]
+    ++ lib.optionals videoSupport [
       ffmpeg_4
       libmpeg2
     ]

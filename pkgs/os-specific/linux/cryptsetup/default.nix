@@ -63,7 +63,8 @@ stdenv.mkDerivation rec {
       "--enable-cryptsetup-reencrypt"
       "--with-crypto_backend=openssl"
       "--disable-ssh-token"
-    ] ++ lib.optionals (!rebuildMan) [ "--disable-asciidoc" ]
+    ]
+    ++ lib.optionals (!rebuildMan) [ "--disable-asciidoc" ]
     ++ lib.optionals stdenv.hostPlatform.isStatic [
       "--disable-external-tokens"
       # We have to override this even though we're removing token

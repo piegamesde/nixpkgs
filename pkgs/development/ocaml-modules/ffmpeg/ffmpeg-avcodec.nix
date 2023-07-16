@@ -22,7 +22,8 @@ buildDunePackage {
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs =
-    [ dune-configurator ] ++ lib.optionals stdenv.isDarwin [
+    [ dune-configurator ]
+    ++ lib.optionals stdenv.isDarwin [
       AudioToolbox
       VideoToolbox
     ]

@@ -62,7 +62,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   nativeBuildInputs =
-    finalAttrs.setupHooks ++ [
+    finalAttrs.setupHooks
+    ++ [
       perl
       pkg-config
       gettext
@@ -74,7 +75,8 @@ stdenv.mkDerivation (finalAttrs: {
     [
       ./patches/2.0-immodules.cache.patch
       ./patches/gtk2-theme-paths.patch
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       ./patches/2.0-gnome_bugzilla_557780_306776_freeciv_darwin.patch
       ./patches/2.0-darwin-x11.patch
     ]
@@ -87,15 +89,18 @@ stdenv.mkDerivation (finalAttrs: {
       pango
       gdk-pixbuf
       atk
-    ] ++ lib.optionals (stdenv.isLinux || stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (stdenv.isLinux || stdenv.isDarwin) [
       libXrandr
       libXrender
       libXcomposite
       libXi
       libXcursor
-    ] ++ lib.optionals stdenv.isDarwin [ libXdamage ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ libXdamage ]
     ++ lib.optional xineramaSupport libXinerama
-    ++ lib.optionals cupsSupport [ cups ] ++ lib.optionals stdenv.isDarwin [
+    ++ lib.optionals cupsSupport [ cups ]
+    ++ lib.optionals stdenv.isDarwin [
       AppKit
       Cocoa
     ];
@@ -117,11 +122,13 @@ stdenv.mkDerivation (finalAttrs: {
       "--sysconfdir=/etc"
       "--with-gdktarget=${gdktarget}"
       "--with-xinput=yes"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       "--disable-glibtest"
       "--disable-introspection"
       "--disable-visibility"
-    ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+    ]
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       "ac_cv_path_GTK_UPDATE_ICON_CACHE=${buildPackages.gtk2}/bin/gtk-update-icon-cache"
       "ac_cv_path_GDK_PIXBUF_CSOURCE=${buildPackages.gdk-pixbuf.dev}/bin/gdk-pixbuf-csource"
     ]
@@ -159,7 +166,8 @@ stdenv.mkDerivation (finalAttrs: {
       [
         "gdk-2.0"
         "gtk+-2.0"
-      ] ++ lib.optionals (gdktarget == "x11") [
+      ]
+      ++ lib.optionals (gdktarget == "x11") [
         "gdk-x11-2.0"
         "gtk+-x11-2.0"
       ]

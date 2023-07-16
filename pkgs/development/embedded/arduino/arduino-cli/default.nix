@@ -64,7 +64,8 @@ let
         "-w"
         "-X github.com/arduino/arduino-cli/version.versionString=${version}"
         "-X github.com/arduino/arduino-cli/version.commit=unknown"
-      ] ++ lib.optionals stdenv.isLinux [ "-extldflags '-static'" ]
+      ]
+      ++ lib.optionals stdenv.isLinux [ "-extldflags '-static'" ]
       ;
 
     postInstall = ''

@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
       coreutils
       libxml2
       zlib
-    ] ++ (with llvmPackages; [
+    ]
+    ++ (with llvmPackages; [
       libclang
       lld
       llvm

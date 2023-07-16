@@ -50,7 +50,8 @@ python.pkgs.buildPythonApplication rec {
     [
       gobject-introspection
       wrapGAppsHook
-    ] ++ (with python.pkgs; [
+    ]
+    ++ (with python.pkgs; [
       poetry-core
       pythonRelaxDepsHook
     ])
@@ -75,7 +76,8 @@ python.pkgs.buildPythonApplication rec {
     [
       gtk3
       pango
-    ] ++ lib.optional notifySupport libnotify
+    ]
+    ++ lib.optional notifySupport libnotify
     ++ lib.optional networkSupport networkmanager
     ;
 
@@ -92,8 +94,10 @@ python.pkgs.buildPythonApplication rec {
       python-dateutil
       requests
       semver
-    ] ++ lib.optional chromecastSupport pychromecast
-    ++ lib.optional keyringSupport keyring ++ lib.optional serverSupport bottle;
+    ]
+    ++ lib.optional chromecastSupport pychromecast
+    ++ lib.optional keyringSupport keyring
+    ++ lib.optional serverSupport bottle;
 
   nativeCheckInputs = with python.pkgs; [ pytest ];
 

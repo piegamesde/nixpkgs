@@ -160,7 +160,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         makeFlags =
           [
             "STRIP=-s" # flag to install, not command
-          ] ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "MK_WERROR=no"
+          ]
+          ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "MK_WERROR=no"
           ;
 
           # amd64 not x86_64 for this on unlike NetBSD
@@ -257,10 +258,11 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
 
       # Wrap NetBSD's install
     boot-install = buildPackages.writeShellScriptBin "boot-install"
-      (install-wrapper + ''
+      (install-wrapper
+        + ''
 
-        ${buildPackages.netbsd.install}/bin/xinstall "''${args[@]}"
-      '');
+          ${buildPackages.netbsd.install}/bin/xinstall "''${args[@]}"
+        '');
 
     compat = mkDerivation rec {
       pname = "compat";
@@ -271,10 +273,12 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
           "lib/libc/stdlib" # getopt
           "lib/libc/gen" # getcap
           "lib/libc/locale" # rpmatch
-        ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+        ]
+        ++ lib.optionals stdenv.hostPlatform.isLinux [
           "lib/libc/string" # strlcpy
           "lib/libutil"
-        ] ++ [
+        ]
+        ++ [
           "contrib/libc-pwcache"
           "contrib/libc-vis"
           "sys/libkern"
@@ -312,7 +316,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
           "sys/sys/elf_common.h"
           "sys/sys/elf_generic.h"
           "sys/${mkBsdArch stdenv}/include"
-        ] ++ lib.optionals stdenv.hostPlatform.isx86 [ "sys/x86/include" ] ++ [
+        ]
+        ++ lib.optionals stdenv.hostPlatform.isx86 [ "sys/x86/include" ]
+        ++ [
 
           "sys/sys/queue.h"
           "sys/sys/md5.h"
@@ -349,7 +355,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
           cp ../../sys/${mkBsdArch stdenv}/include/elf.h ../../sys/sys/${
             mkBsdArch stdenv
           }
-        '' + lib.optionalString stdenv.hostPlatform.isx86 ''
+        ''
+        + lib.optionalString stdenv.hostPlatform.isx86 ''
           cp ../../sys/x86/include/elf.h ../../sys/x86
         ''
         ;
@@ -388,9 +395,11 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         ''
           mkdir -p $out/{0,1}-include
           cp --no-preserve=mode -r cross-build/include/common/* $out/0-include
-        '' + lib.optionalString stdenv.hostPlatform.isLinux ''
+        ''
+        + lib.optionalString stdenv.hostPlatform.isLinux ''
           cp --no-preserve=mode -r cross-build/include/linux/* $out/1-include
-        '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+        ''
+        + lib.optionalString stdenv.hostPlatform.isDarwin ''
           cp --no-preserve=mode -r cross-build/include/darwin/* $out/1-include
         ''
         ;
@@ -417,8 +426,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         [
           "STRIP=-s" # flag to install, not command
           "MK_WERROR=no"
-        ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
-        "INSTALL=boot-install"
+        ]
+        ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
+          "INSTALL=boot-install"
         ;
       buildInputs = with self; compatIfNeeded;
     };
@@ -427,10 +437,11 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
       # install’s -D option. No alternative seems to exist in BSD install.
     install =
       let
-        binstall = writeShellScript "binstall" (install-wrapper + ''
+        binstall = writeShellScript "binstall" (install-wrapper
+          + ''
 
-          @out@/bin/xinstall "''${args[@]}"
-        '');
+            @out@/bin/xinstall "''${args[@]}"
+          '');
       in
       mkDerivation {
         path = "usr.bin/xinstall";
@@ -448,7 +459,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         ];
         skipIncludesPhase = true;
         buildInputs = with self;
-          compatIfNeeded ++ [
+          compatIfNeeded
+          ++ [
             libmd
             libnetbsd
           ];
@@ -457,8 +469,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
             "STRIP=-s" # flag to install, not command
             "MK_WERROR=no"
             "TESTSDIR=${builtins.placeholder "test"}"
-          ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
-          "INSTALL=boot-install"
+          ]
+          ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
+            "INSTALL=boot-install"
           ;
         postInstall = ''
           install -D -m 0550 ${binstall} $out/bin/binstall
@@ -551,7 +564,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
           # make needs this to pick up our sys make files
           export NIX_CFLAGS_COMPILE+=" -D_PATH_DEFSYSPATH=\"$out/share/mk\""
 
-        '' + lib.optionalString stdenv.isDarwin ''
+        ''
+        + lib.optionalString stdenv.isDarwin ''
           substituteInPlace $BSDSRCDIR/share/mk/bsd.sys.mk \
             --replace '-Wl,--fatal-warnings' "" \
             --replace '-Wl,--warn-shared-textrel' ""
@@ -681,7 +695,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         file2c
       ];
       buildInputs = with self;
-        compatIfNeeded ++ [
+        compatIfNeeded
+        ++ [
           libnv
           libsbuf
         ];
@@ -946,7 +961,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         # flex byacc file2c
       ];
       buildInputs = with self;
-        compatIfNeeded ++ [
+        compatIfNeeded
+        ++ [
           libelf
           libdwarf
           zlib

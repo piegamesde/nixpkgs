@@ -63,7 +63,8 @@ stdenv.mkDerivation rec {
       libwebp
       libtiff
       libavif
-    ] ++ lib.optional withXorg libXpm
+    ]
+    ++ lib.optional withXorg libXpm
     ;
 
   outputs = [

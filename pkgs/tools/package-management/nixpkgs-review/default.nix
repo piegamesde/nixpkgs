@@ -32,7 +32,8 @@ python3.pkgs.buildPythonApplication rec {
         [
           nix
           git
-        ] ++ lib.optional withSandboxSupport bubblewrap
+        ]
+        ++ lib.optional withSandboxSupport bubblewrap
         ++ lib.optional withNom nix-output-monitor
         ;
     in

@@ -45,7 +45,8 @@ appleDerivation {
     "-DAHZV1=64 "
     "-DAU_SESSION_FLAG_HAS_TTY=0x4000"
     "-DAU_SESSION_FLAG_HAS_AUTHENTICATED=0x4000"
-  ] ++ lib.optional (!stdenv.isLinux) " -D__FreeBSD__ ");
+  ]
+    ++ lib.optional (!stdenv.isLinux) " -D__FreeBSD__ ");
 
   patchPhase =
     ''
@@ -53,7 +54,8 @@ appleDerivation {
         --replace bsm/audit_session.h bsm/audit.h
       substituteInPlace login.tproj/login_audit.c \
         --replace bsm/audit_session.h bsm/audit.h
-    '' + lib.optionalString stdenv.isAarch64 ''
+    ''
+    + lib.optionalString stdenv.isAarch64 ''
       substituteInPlace sysctl.tproj/sysctl.c \
         --replace "GPROF_STATE" "0"
       substituteInPlace login.tproj/login.c \

@@ -77,14 +77,17 @@ stdenv.mkDerivation rec {
       cmake
       # Perl is only for the documentation
       perl
-    ] ++ lib.optionals enableJava [ openjdk ]
+    ]
+    ++ lib.optionals enableJava [ openjdk ]
     ;
   buildInputs =
-    [ ] ++ lib.optionals enableGui [
+    [ ]
+    ++ lib.optionals enableGui [
       qtbase
       wrapQtAppsHook
       qtwebengine
-    ] ++ lib.optionals enableJupyter [
+    ]
+    ++ lib.optionals enableJupyter [
       boost
       jsoncpp
       openssl

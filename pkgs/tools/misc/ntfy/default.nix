@@ -52,10 +52,12 @@ python.pkgs.buildPythonApplication rec {
       ruamel-yaml
       appdirs
       ntfy-webpush
-    ] ++ (lib.optionals withXmpp [
-      sleekxmpp
-      dnspython
-    ]) ++ (lib.optionals withMatrix [ matrix-client ])
+    ]
+      ++ (lib.optionals withXmpp [
+        sleekxmpp
+        dnspython
+      ])
+      ++ (lib.optionals withMatrix [ matrix-client ])
       ++ (lib.optionals withSlack [ slack-sdk ])
       ++ (lib.optionals withEmoji [ emoji ])
       ++ (lib.optionals withPid [ psutil ])

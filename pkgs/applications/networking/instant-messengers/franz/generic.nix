@@ -66,7 +66,8 @@ stdenv.mkDerivation (rec {
     dpkg
   ];
   buildInputs =
-    extraBuildInputs ++ (with xorg; [
+    extraBuildInputs
+    ++ (with xorg; [
       libXi
       libXcursor
       libXdamage
@@ -78,7 +79,8 @@ stdenv.mkDerivation (rec {
       libX11
       libXtst
       libXScrnSaver
-    ]) ++ [
+    ])
+    ++ [
       mesa # libgbm
       gtk3
       atk

@@ -90,7 +90,8 @@ stdenv.mkDerivation rec {
     [
       tcl
       tk
-    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ;
 
   configureFlags = [

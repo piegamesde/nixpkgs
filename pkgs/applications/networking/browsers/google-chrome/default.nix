@@ -171,8 +171,10 @@ let
       libxkbcommon
       pipewire
       wayland
-    ] ++ lib.optional pulseSupport libpulseaudio
-    ++ lib.optional libvaSupport libva ++ [
+    ]
+    ++ lib.optional pulseSupport libpulseaudio
+    ++ lib.optional libvaSupport libva
+    ++ [
       gtk3
       gtk4
     ]

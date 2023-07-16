@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
       "--with-milter=${libmilter}"
       "ac_cv_func_malloc_0_nonnull=yes"
       "ac_cv_func_realloc_0_nonnull=yes"
-    ] ++ lib.optional stdenv.isDarwin "--with-unbound=${unbound}"
+    ]
+    ++ lib.optional stdenv.isDarwin "--with-unbound=${unbound}"
     ;
 
   nativeBuildInputs = [
@@ -43,7 +44,8 @@ stdenv.mkDerivation rec {
       openssl
       libmilter
       perl
-    ] ++ lib.optional stdenv.isDarwin unbound
+    ]
+    ++ lib.optional stdenv.isDarwin unbound
     ;
 
   postInstall = ''

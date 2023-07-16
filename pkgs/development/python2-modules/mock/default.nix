@@ -23,7 +23,8 @@ buildPythonPackage rec {
     [
       six
       pbr
-    ] ++ lib.optionals isPy27 [ funcsigs ]
+    ]
+    ++ lib.optionals isPy27 [ funcsigs ]
     ;
 
     # On PyPy for Python 2.7 in particular, Mock's tests have a known failure.

@@ -26,14 +26,16 @@ stdenv.mkDerivation rec {
     [ qmake ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
   buildInputs =
-    [ glew ] ++ lib.optionals stdenv.isLinux [
+    [ glew ]
+    ++ lib.optionals stdenv.isLinux [
       libGLU
       libGL
       freeglut
       libXmu
       libXext
       libX11
-    ] ++ lib.optional stdenv.isDarwin GLUT
+    ]
+    ++ lib.optional stdenv.isDarwin GLUT
     ;
 
   doCheck = false;
@@ -48,7 +50,8 @@ stdenv.mkDerivation rec {
   postInstall =
     ''
       install -D license.txt "$out/share/doc/opencsg/license.txt"
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       mkdir -p $out/Applications
       mv $out/bin/*.app $out/Applications
       rmdir $out/bin || true

@@ -1734,9 +1734,12 @@ rec {
                 target,
                 features,
               }:
-              ((target."os" == "dragonfly") || (target."os" == "freebsd")
-                || (target."os" == "illumos") || (target."os" == "netbsd")
-                || (target."os" == "openbsd") || (target."os" == "solaris"))
+              ((target."os" == "dragonfly")
+                || (target."os" == "freebsd")
+                || (target."os" == "illumos")
+                || (target."os" == "netbsd")
+                || (target."os" == "openbsd")
+                || (target."os" == "solaris"))
               ;
             features = [ "std" ];
           }
@@ -1749,9 +1752,11 @@ rec {
                 target,
                 features,
               }:
-              ((target."arch" == "x86") || (target."arch" == "x86_64")
+              ((target."arch" == "x86")
+                || (target."arch" == "x86_64")
                 || (((target."arch" == "aarch64") || (target."arch" == "arm"))
-                  && ((target."os" == "android") || (target."os" == "fuchsia")
+                  && ((target."os" == "android")
+                    || (target."os" == "fuchsia")
                     || (target."os" == "linux"))))
               ;
           }
@@ -1768,8 +1773,10 @@ rec {
                 target,
                 features,
               }:
-              ((target."arch" == "wasm32") && (target."vendor" == "unknown")
-                && (target."os" == "unknown") && (target."env" == ""))
+              ((target."arch" == "wasm32")
+                && (target."vendor" == "unknown")
+                && (target."os" == "unknown")
+                && (target."env" == ""))
               ;
             features = [
               "Crypto"
@@ -4205,12 +4212,16 @@ rec {
       in
       !(
         # Filter out git
-        baseName == ".gitignore" || (type == "directory" && baseName == ".git")
+        baseName == ".gitignore"
+        || (type == "directory" && baseName == ".git")
 
         # Filter out build results
-        || (type == "directory" && (baseName == "target" || baseName == "_site"
-          || baseName == ".sass-cache" || baseName == ".jekyll-metadata"
-          || baseName == "build-artifacts"))
+        || (type == "directory"
+          && (baseName == "target"
+            || baseName == "_site"
+            || baseName == ".sass-cache"
+            || baseName == ".jekyll-metadata"
+            || baseName == "build-artifacts"))
 
         # Filter out nix-build result symlinks
         || (type == "symlink" && lib.hasPrefix "result" baseName)
@@ -4220,13 +4231,16 @@ rec {
           && (baseName == ".idea" || baseName == ".vscode"))
         || lib.hasSuffix ".iml" baseName
 
-        # Filter out nix build files
-        || baseName == "Cargo.nix"
+          # Filter out nix build files
+        || baseName
+          == "Cargo.nix"
 
-        # Filter out editor backup / swap files.
-        || lib.hasSuffix "~" baseName || builtins.match "^\\.sw[a-z]$$" baseName
-        != null || builtins.match "^\\..*\\.sw[a-z]$$" baseName != null
-        || lib.hasSuffix ".tmp" baseName || lib.hasSuffix ".bak" baseName
+            # Filter out editor backup / swap files.
+        || lib.hasSuffix "~" baseName
+        || builtins.match "^\\.sw[a-z]$$" baseName != null
+        || builtins.match "^\\..*\\.sw[a-z]$$" baseName != null
+        || lib.hasSuffix ".tmp" baseName
+        || lib.hasSuffix ".bak" baseName
         || baseName == "tests.nix")
       ;
 
@@ -4464,7 +4478,8 @@ rec {
             dependenciesWithRenames = lib.filter (d: d ? "rename")
               (filterEnabledDependenciesForThis
                 ((crateConfig.buildDependencies or [ ])
-                  ++ (crateConfig.dependencies or [ ]) ++ devDependencies));
+                  ++ (crateConfig.dependencies or [ ])
+                  ++ devDependencies));
               # Crate renames have the form:
               #
               # {
@@ -4623,8 +4638,10 @@ rec {
           (lib.filterAttrs (n: v: (v ? "crate2nix") && !(v ? "cargo")) combined)
           ;
         differentFeatures = lib.filterAttrs (n: v:
-          (v ? "crate2nix") && (v ? "cargo") && (v.crate2nix.features or [ ])
-          != (v."cargo".resolved_default_features or [ ])) combined;
+          (v ? "crate2nix")
+          && (v ? "cargo")
+          && (v.crate2nix.features or [ ])
+            != (v."cargo".resolved_default_features or [ ])) combined;
       in
       builtins.toJSON { inherit onlyInCargo onlyInCrate2Nix differentFeatures; }
       ;
@@ -4716,7 +4733,7 @@ rec {
         cacheWithDependencies = resolveDependencies cacheWithSelf "dep"
           (crateConfig.dependencies or [ ]
             ++ lib.optionals (runTests && packageId == rootPackageId)
-            (crateConfig.devDependencies or [ ]));
+              (crateConfig.devDependencies or [ ]));
         cacheWithAll = resolveDependencies cacheWithDependencies "build"
           (crateConfig.buildDependencies or [ ]);
       in
@@ -4738,7 +4755,8 @@ rec {
         let
           targetFunc = dep.target or (features: true);
         in
-        targetFunc { inherit features target; } && (!(dep.optional or false)
+        targetFunc { inherit features target; }
+        && (!(dep.optional or false)
           || builtins.any (doesFeatureEnableDependency dep) features)
       ) dependencies
       ;

@@ -57,7 +57,8 @@ stdenv.mkDerivation rec {
       diffutils
       bash-completion
       help2man
-    ] ++ (with perlPackages; [
+    ]
+    ++ (with perlPackages; [
       perl
       CryptSSLeay
       LWP

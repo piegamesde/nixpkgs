@@ -212,7 +212,8 @@ in
       };
 
       path =
-        [ pkgs.kmod ] ++ optional (cfg.storageDriver == "zfs") pkgs.zfs
+        [ pkgs.kmod ]
+        ++ optional (cfg.storageDriver == "zfs") pkgs.zfs
         ++ optional cfg.enableNvidia pkgs.nvidia-docker
         ;
     };

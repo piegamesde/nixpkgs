@@ -62,7 +62,8 @@ let
 
         # wxScintilla is not used on macOS
       prePatch =
-        super.prePatch + ''
+        super.prePatch
+        + ''
           substituteInPlace src/CMakeLists.txt \
             --replace "scintilla" ""
         ''

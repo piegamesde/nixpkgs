@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
       bison
       pkg-config
       which
-    ] ++ lib.optionals pythonSupport [
+    ]
+    ++ lib.optionals pythonSupport [
       python
       swig
     ]

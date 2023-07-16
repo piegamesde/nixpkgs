@@ -43,7 +43,8 @@ let
   configFile = pkgs.writeText "kresd.conf" (""
     + concatMapStrings (mkListen "dns") cfg.listenPlain
     + concatMapStrings (mkListen "tls") cfg.listenTLS
-    + concatMapStrings (mkListen "doh2") cfg.listenDoH + cfg.extraConfig);
+    + concatMapStrings (mkListen "doh2") cfg.listenDoH
+    + cfg.extraConfig);
 in
 {
   meta.maintainers = [

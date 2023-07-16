@@ -66,10 +66,15 @@ import ./versions.nix ({
         openssl
         pcre
         zlib
-      ] ++ optional odbcSupport unixODBC ++ optional jabberSupport iksemel
-      ++ optional ldapSupport openldap ++ optional snmpSupport net-snmp
-      ++ optional sshSupport libssh2 ++ optional mysqlSupport libmysqlclient
-      ++ optional postgresqlSupport postgresql ++ optional ipmiSupport openipmi
+      ]
+      ++ optional odbcSupport unixODBC
+      ++ optional jabberSupport iksemel
+      ++ optional ldapSupport openldap
+      ++ optional snmpSupport net-snmp
+      ++ optional sshSupport libssh2
+      ++ optional mysqlSupport libmysqlclient
+      ++ optional postgresqlSupport postgresql
+      ++ optional ipmiSupport openipmi
       ;
 
     configureFlags =
@@ -83,7 +88,8 @@ import ./versions.nix ({
         "--with-libxml2"
         "--with-openssl=${openssl.dev}"
         "--with-zlib=${zlib}"
-      ] ++ optional odbcSupport "--with-unixodbc"
+      ]
+      ++ optional odbcSupport "--with-unixodbc"
       ++ optional jabberSupport "--with-jabber"
       ++ optional ldapSupport "--with-ldap=${openldap.dev}"
       ++ optional snmpSupport "--with-net-snmp"
@@ -108,10 +114,12 @@ import ./versions.nix ({
       ''
         mkdir -p $out/share/zabbix/database/
         cp -r include $out/
-      '' + optionalString mysqlSupport ''
+      ''
+      + optionalString mysqlSupport ''
         mkdir -p $out/share/zabbix/database/mysql
         cp -prvd database/mysql/*.sql $out/share/zabbix/database/mysql/
-      '' + optionalString postgresqlSupport ''
+      ''
+      + optionalString postgresqlSupport ''
         mkdir -p $out/share/zabbix/database/postgresql
         cp -prvd database/postgresql/*.sql $out/share/zabbix/database/postgresql/
       ''

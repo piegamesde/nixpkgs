@@ -35,7 +35,8 @@ stdenv.mkDerivation {
     [
       ./link-against-ncurses.patch
       ./no-arch_only-6.3.patch
-    ] ++ lib.optional stdenv.hostPlatform.useAndroidPrebuilt ./android.patch
+    ]
+    ++ lib.optional stdenv.hostPlatform.useAndroidPrebuilt ./android.patch
     ++ (let
       patch =
         nr: sha256:

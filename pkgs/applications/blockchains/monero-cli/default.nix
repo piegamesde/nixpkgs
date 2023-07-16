@@ -81,11 +81,13 @@ stdenv.mkDerivation rec {
       randomx
       rapidjson
       protobuf
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       IOKit
       CoreData
       PCSC
-    ] ++ lib.optionals trezorSupport [
+    ]
+    ++ lib.optionals trezorSupport [
       libusb1
       protobuf
       python3
@@ -99,7 +101,8 @@ stdenv.mkDerivation rec {
       "-DBUILD_GUI_DEPS=ON"
       "-DReadline_ROOT_DIR=${readline.dev}"
       "-DRandomX_ROOT_DIR=${randomx}"
-    ] ++ lib.optional stdenv.isDarwin "-DBoost_USE_MULTITHREADED=OFF"
+    ]
+    ++ lib.optional stdenv.isDarwin "-DBoost_USE_MULTITHREADED=OFF"
     ;
 
   outputs = [

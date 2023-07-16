@@ -28,7 +28,8 @@ buildPythonPackage rec {
     [
       attrs
       arpeggio
-    ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ]
+    ]
+    ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ]
     ;
 
   nativeCheckInputs = [

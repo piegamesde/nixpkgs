@@ -72,7 +72,8 @@ let
     unpackCmd = "dpkg -x $curSrc .";
 
     buildInputs =
-      atomEnv.packages ++ [
+      atomEnv.packages
+      ++ [
         libuuid
         at-spi2-atk
       ]

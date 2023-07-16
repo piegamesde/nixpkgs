@@ -26,9 +26,10 @@ stdenv.mkDerivation rec {
       "USE_ZLIB=1"
       "USE_OPENSSL=1"
       "PREFIX=$(out)"
-    ] ++ lib.optional (stdenv.cc.cc != null) "SYSROOT_ALT=${stdenv.cc.cc}"
+    ]
+    ++ lib.optional (stdenv.cc.cc != null) "SYSROOT_ALT=${stdenv.cc.cc}"
     ++ lib.optional (stdenv.cc.libc != null)
-    "SYSROOT=${lib.getDev stdenv.cc.libc}"
+      "SYSROOT=${lib.getDev stdenv.cc.libc}"
     ;
   enableParallelBuilding = true;
   meta = {

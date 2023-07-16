@@ -38,7 +38,8 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   nativeCheckInputs =
-    [ rsync ] ++ (with python3.pkgs; [
+    [ rsync ]
+    ++ (with python3.pkgs; [
       boto
       botocore
       flask

@@ -53,7 +53,8 @@ optionalWarning (openidPassword != "WILL_NEVER_BE_SET")
                   "http://localhost:${toString port}/"
       sed -r -i crowd-openidserver-webapp/WEB-INF/classes/crowd.properties \
         -e 's,application.password\s+password,application.password ${openidPassword},'
-    '' + lib.optionalString (proxyUrl != null) ''
+    ''
+    + lib.optionalString (proxyUrl != null) ''
       sed -i crowd-openidserver-webapp/WEB-INF/classes/crowd.properties \
         -e 's,http://localhost:${
           toString port

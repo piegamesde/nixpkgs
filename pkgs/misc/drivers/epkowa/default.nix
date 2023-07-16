@@ -445,7 +445,8 @@ stdenv.mkDerivation rec {
       # iscan-registry is a shell script requiring getopt
       wrapProgram $out/bin/iscan-registry --prefix PATH : ${getopt}/bin
       registry=$out/bin/iscan-registry;
-    '' + lib.concatStrings (lib.mapAttrsToList (name: value: ''
+    ''
+    + lib.concatStrings (lib.mapAttrsToList (name: value: ''
       plugin=${value};
       ${value.passthru.registrationCommand}
     '') plugins)
@@ -456,8 +457,9 @@ stdenv.mkDerivation rec {
       ''
         Includes gui-less iscan (aka. Image Scan! for Linux).
         Supported hardware: at least :
-      '' + lib.concatStringsSep ", "
-      (lib.mapAttrsToList (name: value: value.passthru.hw) plugins)
+      ''
+      + lib.concatStringsSep ", "
+        (lib.mapAttrsToList (name: value: value.passthru.hw) plugins)
       ;
     maintainers = with lib.maintainers; [
       symphorien

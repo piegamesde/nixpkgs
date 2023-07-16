@@ -49,12 +49,14 @@ in
     [
       openssl
       zstd
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       zlib
       libiconv
       Libsystem
       Security
-    ] ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [ xorg.libX11 ]
+    ]
+    ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [ xorg.libX11 ]
     ++ lib.optionals (withDefaultFeatures && stdenv.isDarwin) [
       AppKit
       nghttp2

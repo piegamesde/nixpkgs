@@ -28,10 +28,15 @@ rec {
         value = ps.${name};
         indentation = replicate indent " ";
       in
-      indentation + (if isAttrs value then
+      indentation
+      + (if isAttrs value then
         ''
           ${name} {
-        '' + mkConf (indent + 2) value + "\n" + indentation + "}"
+        ''
+        + mkConf (indent + 2) value
+        + "\n"
+        + indentation
+        + "}"
       else
         "${name} = ${value}")
     ) (attrNames ps)

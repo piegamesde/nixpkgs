@@ -19,7 +19,8 @@ mkDerivation {
   ];
 
   buildInputs =
-    appstream.buildInputs ++ [
+    appstream.buildInputs
+    ++ [
       appstream
       qtbase
     ]

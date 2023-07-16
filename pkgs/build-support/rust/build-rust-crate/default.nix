@@ -326,11 +326,14 @@ lib.makeOverridable (
         stdenv.cc
         cargo
         jq
-      ] ++ lib.optionals stdenv.buildPlatform.isDarwin [ libiconv ]
-      ++ (crate.nativeBuildInputs or [ ]) ++ nativeBuildInputs_
+      ]
+      ++ lib.optionals stdenv.buildPlatform.isDarwin [ libiconv ]
+      ++ (crate.nativeBuildInputs or [ ])
+      ++ nativeBuildInputs_
       ;
     buildInputs =
-      lib.optionals stdenv.isDarwin [ libiconv ] ++ (crate.buildInputs or [ ])
+      lib.optionals stdenv.isDarwin [ libiconv ]
+      ++ (crate.buildInputs or [ ])
       ++ buildInputs_
       ;
     dependencies = map lib.getLib dependencies_;
@@ -340,7 +343,7 @@ lib.makeOverridable (
       (dependencies ++ lib.concatMap (dep: dep.completeDeps) dependencies);
     completeBuildDeps = lib.unique (buildDependencies
       ++ lib.concatMap (dep: dep.completeBuildDeps ++ dep.completeDeps)
-      buildDependencies);
+        buildDependencies);
 
       # Create a list of features that are enabled by the crate itself and
       # through the features argument of buildRustCrate. Exclude features
@@ -365,9 +368,14 @@ lib.makeOverridable (
       let
         depsMetadata = lib.foldl' (str: dep: str + dep.metadata) ""
           (dependencies ++ buildDependencies);
-        hashedMetadata = builtins.hashString "sha256" (crateName + "-"
-          + crateVersion + "___" + toString (mkRustcFeatureArgs crateFeatures)
-          + "___" + depsMetadata + "___"
+        hashedMetadata = builtins.hashString "sha256" (crateName
+          + "-"
+          + crateVersion
+          + "___"
+          + toString (mkRustcFeatureArgs crateFeatures)
+          + "___"
+          + depsMetadata
+          + "___"
           + rustAttrs.toRustTarget stdenv.hostPlatform);
       in
       lib.substring 0 10 hashedMetadata
@@ -410,7 +418,8 @@ lib.makeOverridable (
       ;
     extraRustcOptsForBuildRs =
       lib.optionals (crate ? extraRustcOptsForBuildRs)
-      crate.extraRustcOptsForBuildRs ++ extraRustcOptsForBuildRs_
+        crate.extraRustcOptsForBuildRs
+      ++ extraRustcOptsForBuildRs_
       ++ (lib.optional (edition != null) "--edition ${edition}")
       ;
 

@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
           "https://src.fedoraproject.org/rpms/giflib/raw/2e9917bf13df114354163f0c0211eccc00943596/f/CVE-2022-28506.patch";
         sha256 = "sha256-TBemEXkuox8FdS9RvjnWcTWPaHRo4crcwSR9czrUwBY=";
       })
-    ] ++ lib.optional stdenv.hostPlatform.isDarwin (fetchpatch {
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin (fetchpatch {
       # https://sourceforge.net/p/giflib/bugs/133/
       name = "darwin-soname.patch";
       url =

@@ -48,9 +48,10 @@ stdenv.mkDerivation {
         stripLen = 1;
       })
       ./gnu-install-dirs.patch
-    ] ++ lib.optionals stdenv.hostPlatform.isMusl [
-      ../../libcxx-0001-musl-hacks.patch
     ]
+    ++ lib.optionals stdenv.hostPlatform.isMusl [
+        ../../libcxx-0001-musl-hacks.patch
+      ]
     ;
 
     # Prevent errors like "error: 'foo' is unavailable: introduced in macOS yy.zz"
@@ -67,7 +68,8 @@ stdenv.mkDerivation {
     [
       cmake
       python3
-    ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
+    ]
+    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
     ;
 
   buildInputs = [ cxxabi ];
@@ -75,25 +77,28 @@ stdenv.mkDerivation {
   cmakeFlags =
     [ "-DLIBCXX_CXX_ABI=${cxxabi.pname}" ]
     ++ lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi)
-    "-DLIBCXX_HAS_MUSL_LIBC=1"
+      "-DLIBCXX_HAS_MUSL_LIBC=1"
     ++ lib.optional (stdenv.hostPlatform.useLLVM or false)
-    "-DLIBCXX_USE_COMPILER_RT=ON" ++ lib.optionals stdenv.hostPlatform.isWasm [
+      "-DLIBCXX_USE_COMPILER_RT=ON"
+    ++ lib.optionals stdenv.hostPlatform.isWasm [
       "-DLIBCXX_ENABLE_THREADS=OFF"
       "-DLIBCXX_ENABLE_FILESYSTEM=OFF"
       "-DLIBCXX_ENABLE_EXCEPTIONS=OFF"
-    ] ++ lib.optional (!enableShared) "-DLIBCXX_ENABLE_SHARED=OFF"
+    ]
+    ++ lib.optional (!enableShared) "-DLIBCXX_ENABLE_SHARED=OFF"
 
-    # TODO: this is a bit of a hack to cross compile to Apple Silicon.  libcxx
-    # starting with 11 enables CMAKE_BUILD_WITH_INSTALL_NAME_DIR which requires
-    # platform setup for rpaths. In cmake, this is enabled when macos is newer
-    # than 10.5. However CMAKE_SYSTEM_VERSION is set to empty (TODO: why?)
-    # which prevents the conditional configuration, and configure fails.  The
-    # value here corresponds to `uname -r`. If stdenv.hostPlatform.release is
-    # not null, then this property will be set via mkDerivation (TODO: how can
-    # we set this?).
+      # TODO: this is a bit of a hack to cross compile to Apple Silicon.  libcxx
+      # starting with 11 enables CMAKE_BUILD_WITH_INSTALL_NAME_DIR which requires
+      # platform setup for rpaths. In cmake, this is enabled when macos is newer
+      # than 10.5. However CMAKE_SYSTEM_VERSION is set to empty (TODO: why?)
+      # which prevents the conditional configuration, and configure fails.  The
+      # value here corresponds to `uname -r`. If stdenv.hostPlatform.release is
+      # not null, then this property will be set via mkDerivation (TODO: how can
+      # we set this?).
     ++ lib.optional (stdenv.hostPlatform.isDarwin
-      && stdenv.hostPlatform.isAarch64 && stdenv.hostPlatform
-      != stdenv.buildPlatform) "-DCMAKE_SYSTEM_VERSION=20.1.0"
+      && stdenv.hostPlatform.isAarch64
+      && stdenv.hostPlatform != stdenv.buildPlatform)
+      "-DCMAKE_SYSTEM_VERSION=20.1.0"
     ;
 
   preInstall = lib.optionalString (stdenv.isDarwin) ''

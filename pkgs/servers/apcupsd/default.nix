@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
     [
       util-linux
       man
-    ] ++ lib.optional enableCgiScripts gd
+    ]
+    ++ lib.optional enableCgiScripts gd
     ;
 
   prePatch = ''

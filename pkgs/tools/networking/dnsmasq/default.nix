@@ -17,7 +17,8 @@ let
   copts = lib.concatStringsSep " " ([
     "-DHAVE_IDN"
     "-DHAVE_DNSSEC"
-  ] ++ lib.optionals dbusSupport [ "-DHAVE_DBUS" ]
+  ]
+    ++ lib.optionals dbusSupport [ "-DHAVE_DBUS" ]
     ++ lib.optionals stdenv.isLinux [ "-DHAVE_CONNTRACK" ]);
 in
 stdenv.mkDerivation rec {
@@ -56,17 +57,20 @@ stdenv.mkDerivation rec {
   postInstall =
     ''
       install -Dm644 trust-anchors.conf $out/share/dnsmasq/trust-anchors.conf
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       install -Dm644 contrib/MacOSX-launchd/uk.org.thekelleys.dnsmasq.plist \
         $out/Library/LaunchDaemons/uk.org.thekelleys.dnsmasq.plist
       substituteInPlace $out/Library/LaunchDaemons/uk.org.thekelleys.dnsmasq.plist \
         --replace "/usr/local/sbin" "$out/bin"
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       install -Dm755 contrib/lease-tools/dhcp_lease_time $out/bin/dhcp_lease_time
       install -Dm755 contrib/lease-tools/dhcp_release $out/bin/dhcp_release
       install -Dm755 contrib/lease-tools/dhcp_release6 $out/bin/dhcp_release6
 
-    '' + lib.optionalString dbusSupport ''
+    ''
+    + lib.optionalString dbusSupport ''
       install -Dm644 dbus/dnsmasq.conf $out/share/dbus-1/system.d/dnsmasq.conf
       mkdir -p $out/share/dbus-1/system-services
       cat <<END > $out/share/dbus-1/system-services/uk.org.thekelleys.dnsmasq.service
@@ -84,7 +88,8 @@ stdenv.mkDerivation rec {
     [
       nettle
       libidn
-    ] ++ lib.optionals dbusSupport [ dbus ]
+    ]
+    ++ lib.optionals dbusSupport [ dbus ]
     ++ lib.optionals stdenv.isLinux [ libnetfilter_conntrack ]
     ;
 

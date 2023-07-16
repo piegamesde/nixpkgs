@@ -45,11 +45,12 @@ stdenv.mkDerivation rec {
       substituteInPlace rpcgen/rpc_main.c \
         --replace 'CPP = "cpp"' \
                   'CPP = "${targetPackages.stdenv.cc.targetPrefix}cpp"'
-    '' + lib.optionalString
-    (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-      substituteInPlace rpcsvc/Makefile.am \
-        --replace '$(top_builddir)/rpcgen/rpcgen' '${buildPackages.rpcsvc-proto}/bin/rpcgen'
     ''
+    + lib.optionalString
+      (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+        substituteInPlace rpcsvc/Makefile.am \
+          --replace '$(top_builddir)/rpcgen/rpcgen' '${buildPackages.rpcsvc-proto}/bin/rpcgen'
+      ''
     ;
 
   meta = with lib; {

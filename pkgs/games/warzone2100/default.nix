@@ -76,7 +76,8 @@ stdenv.mkDerivation rec {
       freetype
       harfbuzz
       sqlite
-    ] ++ lib.optionals (!stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [
       vulkan-headers
       vulkan-loader
     ]
@@ -112,7 +113,8 @@ stdenv.mkDerivation rec {
       #
       # Alternatively, we could have set CMAKE_INSTALL_BINDIR to "bin".
       "-DCMAKE_INSTALL_DATAROOTDIR=${placeholder "out"}/share"
-    ] ++ lib.optional stdenv.isDarwin "-P../configure_mac.cmake"
+    ]
+    ++ lib.optional stdenv.isDarwin "-P../configure_mac.cmake"
     ;
 
   postInstall = lib.optionalString withVideos ''

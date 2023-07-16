@@ -19,7 +19,8 @@ let
   jamenv =
     ''
       unset AR
-    '' + (if stdenv.isDarwin then
+    ''
+    + (if stdenv.isDarwin then
       ''
         export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${
           lib.getDev SDL
@@ -53,7 +54,8 @@ stdenv.mkDerivation rec {
     [
       jam
       pkg-config
-    ] ++ lib.optional stdenv.isDarwin cctools
+    ]
+    ++ lib.optional stdenv.isDarwin cctools
     ;
 
   buildInputs =
@@ -62,7 +64,8 @@ stdenv.mkDerivation rec {
       SDL_mixer
       SDL_sound
       gtk2
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       smpeg
       libvorbis
     ]
@@ -84,7 +87,8 @@ stdenv.mkDerivation rec {
         src = ./darwin.sh;
       })
     else
-      jamenv + ''
+      jamenv
+      + ''
         jam -j$NIX_BUILD_CORES install
         mkdir -p "$out/bin"
         ln -s ../libexec/gargoyle/gargoyle "$out/bin"

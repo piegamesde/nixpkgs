@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
       dbus
       perlPackages.perl
       pcsclite
-    ] ++ lib.optional stdenv.isLinux systemd
+    ]
+    ++ lib.optional stdenv.isLinux systemd
     ;
 
   nativeBuildInputs = [

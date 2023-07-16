@@ -20,7 +20,8 @@ stdenv.mkDerivation {
     coreutils
     findutils
     gnugrep
-  ] ++ (lib.optionals stdenv.isDarwin [ darwin.DarwinTools ]));
+  ]
+    ++ (lib.optionals stdenv.isDarwin [ darwin.DarwinTools ]));
   is_darwin =
     if stdenv.isDarwin then
       "yes"

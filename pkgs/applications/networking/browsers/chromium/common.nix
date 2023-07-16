@@ -268,10 +268,13 @@ let
         curl
         libepoxy
         libffi
-      ] ++ lib.optional systemdSupport systemd ++ lib.optionals cupsSupport [
+      ]
+      ++ lib.optional systemdSupport systemd
+      ++ lib.optionals cupsSupport [
         libgcrypt
         cups
-      ] ++ lib.optional pulseSupport libpulseaudio
+      ]
+      ++ lib.optional pulseSupport libpulseaudio
       ;
 
     patches = [
@@ -335,12 +338,14 @@ let
         sed -i -e 's@"\(#!\)\?.*xdg-@"\1${xdg-utils}/bin/xdg-@' \
           chrome/browser/shell_integration_linux.cc
 
-      '' + lib.optionalString systemdSupport ''
+      ''
+      + lib.optionalString systemdSupport ''
         sed -i -e '/lib_loader.*Load/s!"\(libudev\.so\)!"${
           lib.getLib systemd
         }/lib/\1!' \
           device/udev_linux/udev?_loader.cc
-      '' + ''
+      ''
+      + ''
         sed -i -e '/libpci_loader.*Load/s!"\(libpci\.so\)!"${pciutils}/lib/\1!' \
           gpu/config/gpu_info_collector_linux.cc
 
@@ -359,10 +364,12 @@ let
         # Allow building against system libraries in official builds
         sed -i 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' tools/generate_shim_headers/generate_shim_headers.py
 
-      '' + lib.optionalString stdenv.isAarch64 ''
+      ''
+      + lib.optionalString stdenv.isAarch64 ''
         substituteInPlace build/toolchain/linux/BUILD.gn \
           --replace 'toolprefix = "aarch64-linux-gnu-"' 'toolprefix = ""'
-      '' + lib.optionalString ungoogled ''
+      ''
+      + lib.optionalString ungoogled ''
         ${ungoogler}/utils/prune_binaries.py . ${ungoogler}/pruning.list || echo "some errors"
         ${ungoogler}/utils/patches.py . ${ungoogler}/patches
         ${ungoogler}/utils/domain_substitution.py apply -r ${ungoogler}/domain_regex.list -f ${ungoogler}/domain_substitution.list -c ./ungoogled-domsubcache.tar.gz .

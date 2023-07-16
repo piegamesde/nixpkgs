@@ -82,7 +82,8 @@ stdenv.mkDerivation rec {
       xorg.libXcursor
       xz
       zlib
-    ] ++ lib.optionals withAI [
+    ]
+    ++ lib.optionals withAI [
       python3
       jdk
     ]

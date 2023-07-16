@@ -66,7 +66,7 @@ stdenv.mkDerivation (rec {
     ++ lib.optional (stdenv.targetPlatform.isDarwin
       && !stdenv.targetPlatform.isAarch64
       && (lib.versionOlder darwin.apple_sdk.sdk.version "11.0"))
-    ./cpu_subtype_arm64e_replacement.patch
+      ./cpu_subtype_arm64e_replacement.patch
     ;
 
   outputs = [
@@ -85,7 +85,8 @@ stdenv.mkDerivation (rec {
       lit
       makeWrapper
       lua5_3
-    ] ++ lib.optionals enableManpages [
+    ]
+    ++ lib.optionals enableManpages [
       python3.pkgs.sphinx
       python3.pkgs.recommonmark
     ]
@@ -98,7 +99,8 @@ stdenv.mkDerivation (rec {
       libedit
       libxml2
       libllvm
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       libobjc
       xpc
       Foundation
@@ -114,12 +116,12 @@ stdenv.mkDerivation (rec {
     # See here for context:
     # https://github.com/NixOS/nixpkgs/pull/194634#issuecomment-1272129132
     ++ lib.optional
-    (stdenv.targetPlatform.isDarwin && !stdenv.targetPlatform.isAarch64)
-    (runCommand "bsm-audit-session-header" { } ''
-      install -Dm444 \
-        "${lib.getDev darwin.apple_sdk.sdk}/include/bsm/audit_session.h" \
-        "$out/include/bsm/audit_session.h"
-    '')
+      (stdenv.targetPlatform.isDarwin && !stdenv.targetPlatform.isAarch64)
+      (runCommand "bsm-audit-session-header" { } ''
+        install -Dm444 \
+          "${lib.getDev darwin.apple_sdk.sdk}/include/bsm/audit_session.h" \
+          "$out/include/bsm/audit_session.h"
+      '')
     ;
 
   hardeningDisable = [ "format" ];
@@ -135,10 +137,12 @@ stdenv.mkDerivation (rec {
       "-DLLVM_ENABLE_RTTI=OFF"
       "-DClang_DIR=${libclang.dev}/lib/cmake"
       "-DLLVM_EXTERNAL_LIT=${lit}/bin/lit"
-    ] ++ lib.optionals stdenv.isDarwin [ "-DLLDB_USE_SYSTEM_DEBUGSERVER=ON" ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ "-DLLDB_USE_SYSTEM_DEBUGSERVER=ON" ]
     ++ lib.optionals (!stdenv.isDarwin) [
-      "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
-    ] ++ lib.optionals enableManpages [
+        "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
+      ]
+    ++ lib.optionals enableManpages [
       "-DLLVM_ENABLE_SPHINX=ON"
       "-DSPHINX_OUTPUT_MAN=ON"
       "-DSPHINX_OUTPUT_HTML=OFF"
@@ -149,7 +153,8 @@ stdenv.mkDerivation (rec {
       #
       # so, we just ignore the resulting errors
       "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
-    ] ++ lib.optionals doCheck [
+    ]
+    ++ lib.optionals doCheck [
       "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
       "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
     ]

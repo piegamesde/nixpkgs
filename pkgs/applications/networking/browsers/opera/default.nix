@@ -120,7 +120,8 @@ stdenv.mkDerivation rec {
       # "Illegal instruction (core dumped)"
       gtk3
       gtk4
-    ] ++ lib.optionals proprietaryCodecs [ vivaldi-ffmpeg-codecs ]
+    ]
+    ++ lib.optionals proprietaryCodecs [ vivaldi-ffmpeg-codecs ]
     ;
 
   dontWrapQtApps = true;

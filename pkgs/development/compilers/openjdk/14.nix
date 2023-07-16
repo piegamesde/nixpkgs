@@ -96,7 +96,8 @@ let
         libXrandr
         fontconfig
         openjdk-bootstrap
-      ] ++ lib.optionals (!headless && enableGnome2) [
+      ]
+      ++ lib.optionals (!headless && enableGnome2) [
         gtk3
         gnome_vfs
         GConf
@@ -119,9 +120,10 @@ let
             "https://src.fedoraproject.org/rpms/java-openjdk/raw/06c001c7d87f2e9fe4fedeef2d993bcd5d7afa2a/f/rh1673833-remove_removal_of_wformat_during_test_compilation.patch";
           sha256 = "082lmc30x64x583vqq00c8y0wqih3y4r0mp1c4bqq36l22qv6b6r";
         })
-      ] ++ lib.optionals (!headless && enableGnome2) [
-        ./swing-use-gtk-jdk13.patch
       ]
+      ++ lib.optionals (!headless && enableGnome2) [
+          ./swing-use-gtk-jdk13.patch
+        ]
       ;
 
     prePatch = ''
@@ -151,10 +153,11 @@ let
         "--with-zlib=system"
         "--with-lcms=system"
         "--with-stdc++lib=dynamic"
-      ] ++ lib.optional stdenv.isx86_64 "--with-jvm-features=zgc"
+      ]
+      ++ lib.optional stdenv.isx86_64 "--with-jvm-features=zgc"
       ++ lib.optional headless "--enable-headless-only"
       ++ lib.optional (!headless && enableJavaFX)
-      "--with-import-modules=${openjfx}"
+        "--with-import-modules=${openjfx}"
       ;
 
     separateDebugInfo = true;
@@ -167,12 +170,13 @@ let
       "-lXinerama"
       "-lXrandr"
       "-lmagic"
-    ] ++ lib.optionals (!headless && enableGnome2) [
-      "-lgtk-3"
-      "-lgio-2.0"
-      "-lgnomevfs-2"
-      "-lgconf-2"
-    ]);
+    ]
+      ++ lib.optionals (!headless && enableGnome2) [
+        "-lgtk-3"
+        "-lgio-2.0"
+        "-lgnomevfs-2"
+        "-lgconf-2"
+      ]);
 
       # -j flag is explicitly rejected by the build system:
       #     Error: 'make -jN' is not supported, use 'make JOBS=N'

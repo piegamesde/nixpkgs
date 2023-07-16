@@ -26,14 +26,16 @@ in
     # This is true so far for pandoc-types and warp.
     # For details see: https://github.com/NixOS/nixpkgs/issues/34376
   postInstall =
-    drv.postInstall or "" + ''
+    drv.postInstall or ""
+    + ''
       remove-references-to \
         -t ${haskellPackages.pandoc-types} \
         $out/bin/pandoc
       remove-references-to \
         -t ${haskellPackages.warp} \
         $out/bin/pandoc
-    '' + lib.optionalString (stdenv.buildPlatform == stdenv.hostPlatform) ''
+    ''
+    + lib.optionalString (stdenv.buildPlatform == stdenv.hostPlatform) ''
       mkdir -p $out/share/bash-completion/completions
       $out/bin/pandoc --bash-completion > $out/share/bash-completion/completions/pandoc
     ''

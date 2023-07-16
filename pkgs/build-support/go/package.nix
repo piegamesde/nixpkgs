@@ -145,35 +145,40 @@ let
         mkdir -p "go/src/$(dirname "$goPackagePath")"
         mv "$sourceRoot" "go/src/$goPackagePath"
 
-      '' + lib.optionalString deleteVendor ''
-        if [ ! -d "go/src/$goPackagePath/vendor" ]; then
-          echo "vendor folder does not exist, 'deleteVendor' is not needed"
-          exit 10
-        else
-          rm -rf "go/src/$goPackagePath/vendor"
-        fi
-      '' + lib.optionalString (goDeps != null) ''
-        if [ -d "go/src/$goPackagePath/vendor" ]; then
-          echo "vendor folder exists, 'goDeps' is not needed"
-          exit 10
-        fi
-      '' + lib.flip lib.concatMapStrings goPath ({
-          src,
-          goPackagePath,
-        }: ''
-          mkdir goPath
-          (cd goPath; unpackFile "${src}")
-          mkdir -p "go/src/$(dirname "${goPackagePath}")"
-          chmod -R u+w goPath/*
-          mv goPath/* "go/src/${goPackagePath}"
-          rmdir goPath
+      ''
+        + lib.optionalString deleteVendor ''
+          if [ ! -d "go/src/$goPackagePath/vendor" ]; then
+            echo "vendor folder does not exist, 'deleteVendor' is not needed"
+            exit 10
+          else
+            rm -rf "go/src/$goPackagePath/vendor"
+          fi
+        ''
+        + lib.optionalString (goDeps != null) ''
+          if [ -d "go/src/$goPackagePath/vendor" ]; then
+            echo "vendor folder exists, 'goDeps' is not needed"
+            exit 10
+          fi
+        ''
+        + lib.flip lib.concatMapStrings goPath ({
+            src,
+            goPackagePath,
+          }: ''
+            mkdir goPath
+            (cd goPath; unpackFile "${src}")
+            mkdir -p "go/src/$(dirname "${goPackagePath}")"
+            chmod -R u+w goPath/*
+            mv goPath/* "go/src/${goPackagePath}"
+            rmdir goPath
 
-        '') + (lib.optionalString (extraSrcPaths != [ ]) ''
+          '')
+        + (lib.optionalString (extraSrcPaths != [ ]) ''
           ${rsync}/bin/rsync -a ${
             lib.concatMapStringsSep " " (p: "${p}/src") extraSrcPaths
           } go
 
-        '') + ''
+        '')
+        + ''
           export GOPATH=$NIX_BUILD_TOP/go:$GOPATH
           export GOCACHE=$TMPDIR/go-cache
 
@@ -275,20 +280,22 @@ let
           echo "Building subPackage $pkg"
           buildGoDir install "$pkg"
         done
-      '' + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
-        # normalize cross-compiled builds w.r.t. native builds
-        (
-          dir=$NIX_BUILD_TOP/go/bin/${go.GOOS}_${go.GOARCH}
-          if [[ -n "$(shopt -s nullglob; echo $dir/*)" ]]; then
-            mv $dir/* $dir/..
-          fi
-          if [[ -d $dir ]]; then
-            rmdir $dir
-          fi
-        )
-      '' + ''
-        runHook postBuild
-      '');
+      ''
+        + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+          # normalize cross-compiled builds w.r.t. native builds
+          (
+            dir=$NIX_BUILD_TOP/go/bin/${go.GOOS}_${go.GOARCH}
+            if [[ -n "$(shopt -s nullglob; echo $dir/*)" ]]; then
+              mv $dir/* $dir/..
+            fi
+            if [[ -d $dir ]]; then
+              rmdir $dir
+            fi
+          )
+        ''
+        + ''
+          runHook postBuild
+        '');
 
     doCheck = args.doCheck or false;
     checkPhase =
@@ -320,15 +327,18 @@ let
     shellHook =
       ''
         d=$(mktemp -d "--suffix=-$name")
-      '' + toString (map (dep: ''
+      ''
+      + toString (map (dep: ''
         mkdir -p "$d/src/$(dirname "${dep.goPackagePath}")"
         ln -s "${dep.src}" "$d/src/${dep.goPackagePath}"
-      '') goPath) + ''
+      '') goPath)
+      + ''
         export GOPATH=${
           lib.concatStringsSep ":"
           ([ "$d" ] ++ [ "$GOPATH" ] ++ [ "$PWD" ] ++ extraSrcPaths)
         }
-      '' + shellHook
+      ''
+      + shellHook
       ;
 
     disallowedReferences =

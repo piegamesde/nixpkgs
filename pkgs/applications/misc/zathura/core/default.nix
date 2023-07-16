@@ -76,7 +76,8 @@ stdenv.mkDerivation (finalAttrs: {
       librsvg
       check
       texlive.bin.core
-    ] ++ lib.optional stdenv.isLinux libseccomp
+    ]
+    ++ lib.optional stdenv.isLinux libseccomp
     ++ lib.optional stdenv.isDarwin gtk-mac-integration
     ;
 

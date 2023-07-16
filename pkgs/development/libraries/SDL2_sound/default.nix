@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
       libmikmod
       libvorbis
       timidity
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       AudioToolbox
       CoreAudio
     ]

@@ -144,7 +144,9 @@ in
           "${cfg.package}/sbin/connmand"
           "--config=${configFile}"
           "--nodaemon"
-        ] ++ optional enableIwd "--wifi=iwd_agent" ++ cfg.extraFlags);
+        ]
+          ++ optional enableIwd "--wifi=iwd_agent"
+          ++ cfg.extraFlags);
         StandardOutput = "null";
       };
     };

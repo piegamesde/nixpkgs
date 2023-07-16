@@ -49,7 +49,8 @@ buildPythonPackage rec {
   preBuild =
     ''
       export RAPIDFUZZ_BUILD_EXTENSION=1
-    '' + lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
+    ''
+    + lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
       export CMAKE_ARGS="-DCMAKE_CXX_COMPILER_AR=$AR -DCMAKE_CXX_COMPILER_RANLIB=$RANLIB"
     ''
     ;

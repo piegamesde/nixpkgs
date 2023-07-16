@@ -52,12 +52,13 @@ buildPythonPackage rec {
       ./executable-name.patch
       # hardcode path to mat2 executable
       ./tests.patch
-    ] ++ lib.optionals (stdenv.hostPlatform.isLinux) [
-      (substituteAll {
-        src = ./bubblewrap-path.patch;
-        bwrap = "${bubblewrap}/bin/bwrap";
-      })
     ]
+    ++ lib.optionals (stdenv.hostPlatform.isLinux) [
+        (substituteAll {
+          src = ./bubblewrap-path.patch;
+          bwrap = "${bubblewrap}/bin/bwrap";
+        })
+      ]
     ;
 
   postPatch = ''
@@ -88,7 +89,8 @@ buildPythonPackage rec {
     ''
       install -Dm 444 data/mat2.svg -t "$out/share/icons/hicolor/scalable/apps"
       install -Dm 444 doc/mat2.1 -t "$out/share/man/man1"
-    '' + lib.optionalString dolphinIntegration ''
+    ''
+    + lib.optionalString dolphinIntegration ''
       install -Dm 444 dolphin/mat2.desktop -t "$out/share/kservices5/ServiceMenus"
     ''
     ;

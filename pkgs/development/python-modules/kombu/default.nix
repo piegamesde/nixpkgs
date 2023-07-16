@@ -35,7 +35,8 @@ buildPythonPackage rec {
     [
       amqp
       vine
-    ] ++ lib.optionals (pythonOlder "3.8") [
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [
       cached-property
       importlib-metadata
     ]

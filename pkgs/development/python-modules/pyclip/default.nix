@@ -29,7 +29,8 @@ buildPythonPackage rec {
   '';
 
   nativeCheckInputs =
-    [ pytest ] ++ lib.optionals stdenv.isLinux [
+    [ pytest ]
+    ++ lib.optionals stdenv.isLinux [
       xclip
       xvfb-run
     ]

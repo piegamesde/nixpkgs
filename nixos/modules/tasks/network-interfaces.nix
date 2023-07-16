@@ -26,7 +26,8 @@ let
 
   slaves =
     concatMap (i: i.interfaces) (attrValues cfg.bonds)
-    ++ concatMap (i: i.interfaces) (attrValues cfg.bridges) ++ concatMap (i:
+    ++ concatMap (i: i.interfaces) (attrValues cfg.bridges)
+    ++ concatMap (i:
       attrNames (filterAttrs (name: config:
         !(config.type == "internal" || hasAttr name cfg.interfaces))
         i.interfaces)) (attrValues cfg.vswitches)
@@ -91,10 +92,12 @@ let
 
         prefixLength = mkOption {
           type = types.addCheck types.int (n:
-            n >= 0 && n <= (if v == 4 then
-              32
-            else
-              128));
+            n >= 0
+            && n
+              <= (if v == 4 then
+                32
+              else
+                128));
           description = lib.mdDoc ''
             Subnet mask of the interface, specified as the number of
             bits in the prefix (`${
@@ -119,10 +122,12 @@ let
 
         prefixLength = mkOption {
           type = types.addCheck types.int (n:
-            n >= 0 && n <= (if v == 4 then
-              32
-            else
-              128));
+            n >= 0
+            && n
+              <= (if v == 4 then
+                32
+              else
+                128));
           description = lib.mdDoc ''
             Subnet mask of the network, specified as the number of
             bits in the prefix (`${
@@ -1567,23 +1572,27 @@ in
         message = ''
           The name of networking.interfaces."${i.name}" is too long, it needs to be less than 16 characters.
         '';
-      })) ++ (forEach slaveIfs (i: {
+      }))
+      ++ (forEach slaveIfs (i: {
         assertion = i.ipv4.addresses == [ ] && i.ipv6.addresses == [ ];
         message = ''
           The networking.interfaces."${i.name}" must not have any defined ips when it is a slave.
         '';
-      })) ++ (forEach interfaces (i: {
+      }))
+      ++ (forEach interfaces (i: {
         assertion = i.tempAddress != "disabled" -> cfg.enableIPv6;
         message = ''
           Temporary addresses are only needed when IPv6 is enabled.
         '';
-      })) ++ (forEach interfaces (i: {
+      }))
+      ++ (forEach interfaces (i: {
         assertion =
           (i.virtual && i.virtualType == "tun") -> i.macAddress == null;
         message = ''
           Setting a MAC Address for tun device ${i.name} isn't supported.
         '';
-      })) ++ [ {
+      }))
+      ++ [ {
         assertion =
           cfg.hostId == null
           || (stringLength cfg.hostId == 8 && isHexString cfg.hostId)
@@ -1593,8 +1602,11 @@ in
       ;
 
     boot.kernelModules =
-      [ ] ++ optional hasVirtuals "tun" ++ optional hasSits "sit"
-      ++ optional hasGres "gre" ++ optional hasBonds "bonding"
+      [ ]
+      ++ optional hasVirtuals "tun"
+      ++ optional hasSits "sit"
+      ++ optional hasGres "gre"
+      ++ optional hasBonds "bonding"
       ++ optional hasFous "fou"
       ;
 
@@ -1681,10 +1693,12 @@ in
         pkgs.iproute2
         pkgs.iputils
         pkgs.nettools
-      ] ++ optionals config.networking.wireless.enable [
+      ]
+      ++ optionals config.networking.wireless.enable [
         pkgs.wirelesstools # FIXME: obsolete?
         pkgs.iw
-      ] ++ bridgeStp
+      ]
+      ++ bridgeStp
       ;
 
       # The network-interfaces target is kept for backwards compatibility.
@@ -1749,7 +1763,8 @@ in
             ''
           ) (filter (i: i.tempAddress != cfg.tempAddresses) interfaces);
         })
-      ] ++ lib.optional (cfg.wlanInterfaces != { }) (pkgs.writeTextFile {
+      ]
+      ++ lib.optional (cfg.wlanInterfaces != { }) (pkgs.writeTextFile {
         name = "99-zzz-40-wlanInterfaces.rules";
         destination = "/etc/udev/rules.d/99-zzz-40-wlanInterfaces.rules";
         text =
@@ -1772,9 +1787,9 @@ in
               device: interfaces:
               if hasAttr device interfaces then
                 mapAttrsToList (n: v: v // { _iName = n; })
-                (filterAttrs (n: _: n == device) interfaces)
+                  (filterAttrs (n: _: n == device) interfaces)
                 ++ mapAttrsToList (n: v: v // { _iName = n; })
-                (filterAttrs (n: _: n != device) interfaces)
+                  (filterAttrs (n: _: n != device) interfaces)
               else
                 mapAttrsToList (n: v: v // { _iName = n; }) interfaces
               ;

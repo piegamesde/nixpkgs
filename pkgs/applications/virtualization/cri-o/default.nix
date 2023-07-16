@@ -45,7 +45,8 @@ buildGoModule rec {
       libseccomp
       libselinux
       lvm2
-    ] ++ lib.optionals (glibc != null) [
+    ]
+    ++ lib.optionals (glibc != null) [
       glibc
       glibc.static
     ]

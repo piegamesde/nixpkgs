@@ -62,7 +62,8 @@ stdenv.mkDerivation rec {
       openssl.dev
       zlib
       python3
-    ] ++ lib.optionals mod kernel.moduleBuildDependencies
+    ]
+    ++ lib.optionals mod kernel.moduleBuildDependencies
     ;
 
   propagatedBuildInputs = [
@@ -76,7 +77,8 @@ stdenv.mkDerivation rec {
   postPatch =
     ''
       patchShebangs config/arm buildtools
-    '' + lib.optionalString mod ''
+    ''
+    + lib.optionalString mod ''
       # kernel_install_dir is hardcoded to `/lib/modules`; patch that.
       sed -i "s,kernel_install_dir *= *['\"].*,kernel_install_dir = '$kmod/lib/modules/${kernel.modDirVersion}'," kernel/linux/meson.build
     ''
@@ -91,10 +93,11 @@ stdenv.mkDerivation rec {
     # kni kernel driver is currently not compatble with 5.11
     ++ lib.optional (mod && kernel.kernelOlder "5.11") "-Ddisable_drivers=kni"
     ++ lib.optional (!shared) "-Ddefault_library=static"
-    ++ lib.optional (machine != null) "-Dmachine=${machine}" ++ lib.optional mod
-    "-Dkernel_dir=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    ++ lib.optional (machine != null) "-Dmachine=${machine}"
+    ++ lib.optional mod
+      "-Dkernel_dir=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     ++ lib.optional (withExamples != [ ])
-    "-Dexamples=${builtins.concatStringsSep "," withExamples}"
+      "-Dexamples=${builtins.concatStringsSep "," withExamples}"
     ;
 
   postInstall =
@@ -105,7 +108,8 @@ stdenv.mkDerivation rec {
 
       wrapProgram $out/bin/dpdk-devbind.py \
         --prefix PATH : "${lib.makeBinPath [ pciutils ]}"
-    '' + lib.optionalString (withExamples != [ ]) ''
+    ''
+    + lib.optionalString (withExamples != [ ]) ''
       mkdir -p $examples/bin
       find examples -type f -executable -exec install {} $examples/bin \;
     ''
@@ -115,7 +119,8 @@ stdenv.mkDerivation rec {
     [
       "out"
       "doc"
-    ] ++ lib.optional mod "kmod"
+    ]
+    ++ lib.optional mod "kmod"
     ++ lib.optional (withExamples != [ ]) "examples"
     ;
 

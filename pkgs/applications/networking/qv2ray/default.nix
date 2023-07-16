@@ -76,7 +76,8 @@ mkDerivation rec {
       qttools
       curl
       # The default clang_7 will result in reproducible ICE.
-    ] ++ lib.optional (stdenv.isDarwin) clang_8
+    ]
+    ++ lib.optional (stdenv.isDarwin) clang_8
     ;
 
   meta = with lib; {

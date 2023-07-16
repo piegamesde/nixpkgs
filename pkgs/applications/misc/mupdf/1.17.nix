@@ -60,15 +60,18 @@ stdenv.mkDerivation rec {
       libjpeg
       freeglut
       libGLU
-    ] ++ lib.optionals enableX11 [
+    ]
+    ++ lib.optionals enableX11 [
       libX11
       libXext
       libXi
       libXrandr
-    ] ++ lib.optionals enableCurl [
+    ]
+    ++ lib.optionals enableCurl [
       curl
       openssl
-    ] ++ lib.optionals enableGL (if stdenv.isDarwin then
+    ]
+    ++ lib.optionals enableGL (if stdenv.isDarwin then
       with darwin.apple_sdk.frameworks; [
         GLUT
         OpenGL

@@ -75,7 +75,8 @@ stdenv.mkDerivation {
       cp -v tinyxml.pc $out/lib/pkgconfig/
 
       cp -v docs/* $out/share/doc/tinyxml/
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       install_name_tool -id $out/lib/libtinyxml.dylib $out/lib/libtinyxml.dylib
     ''
     ;

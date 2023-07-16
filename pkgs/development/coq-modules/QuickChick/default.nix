@@ -127,7 +127,8 @@ in
   mlPlugin = true;
   nativeBuildInputs = lib.optional recent coq.ocamlPackages.ocamlbuild;
   propagatedBuildInputs =
-    [ ssreflect ] ++ lib.optionals recent [
+    [ ssreflect ]
+    ++ lib.optionals recent [
       coq-ext-lib
       simple-io
     ]
@@ -149,8 +150,8 @@ in
     nativeBuildInputs =
       o.nativeBuildInputs ++ lib.optional after_1_6 coq.ocamlPackages.cppo;
     propagatedBuildInputs =
-      o.propagatedBuildInputs ++ lib.optionals after_1_6
-      (with coq.ocamlPackages; [
+      o.propagatedBuildInputs
+      ++ lib.optionals after_1_6 (with coq.ocamlPackages; [
         findlib
         zarith
       ])

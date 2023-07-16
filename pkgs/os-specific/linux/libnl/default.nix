@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
       "dev"
       "out"
       "man"
-    ] ++ lib.optional pythonSupport "py"
+    ]
+    ++ lib.optional pythonSupport "py"
     ;
 
   enableParallelBuilding = true;
@@ -41,7 +42,8 @@ stdenv.mkDerivation rec {
       flex
       pkg-config
       file
-    ] ++ lib.optional pythonSupport swig
+    ]
+    ++ lib.optional pythonSupport swig
     ;
 
   postBuild = lib.optionalString (pythonSupport) ''

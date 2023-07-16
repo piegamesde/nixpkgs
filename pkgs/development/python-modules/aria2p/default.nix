@@ -63,7 +63,8 @@ buildPythonPackage rec {
       pytestCheckHook
       responses
       uvicorn
-    ] ++ passthru.optional-dependencies.tui
+    ]
+    ++ passthru.optional-dependencies.tui
     ;
 
   disabledTests = [

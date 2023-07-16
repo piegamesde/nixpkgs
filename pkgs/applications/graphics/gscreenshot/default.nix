@@ -40,18 +40,21 @@ python3Packages.buildPythonApplication rec {
       gobject-introspection
       gtk3
       xdg-utils
-    ] ++ lib.optionals waylandSupport [
+    ]
+    ++ lib.optionals waylandSupport [
       # wayland deps
       grim
       slurp
       wl-clipboard
-    ] ++ lib.optionals x11Support [
+    ]
+    ++ lib.optionals x11Support [
       # X11 deps
       scrot
       slop
       xclip
       python3Packages.xlib
-    ] ++ (with python3Packages; [
+    ]
+    ++ (with python3Packages; [
       pillow
       pygobject3
       setuptools

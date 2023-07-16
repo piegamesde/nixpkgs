@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
       xorg.libXinerama
       xorg.libXrandr
       python3Packages.python
-    ] ++ lib.optionals enableXfcePanelApplet [
+    ]
+    ++ lib.optionals enableXfcePanelApplet [
       gtk3
       xfce.libxfce4util
       xfce.xfce4-panel

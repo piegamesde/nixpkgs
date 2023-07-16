@@ -97,7 +97,8 @@ stdenv.mkDerivation rec {
       qtserialbus
       qtvirtualkeyboard
       qtmultimedia
-    ] ++ (with xorg; [
+    ]
+    ++ (with xorg; [
       libX11
       libXdamage
       xrandr

@@ -22,6 +22,7 @@ buildNodejs {
     [
       ./disable-darwin-v8-system-instrumentation.patch
       ./bypass-darwin-xcrun-node16.patch
-    ] ++ npmPatches
+    ]
+    ++ npmPatches
     ;
 }

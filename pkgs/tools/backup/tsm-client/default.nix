@@ -176,7 +176,8 @@ let
     acl
     gnugrep
     procps
-  ] ++ lib.optional enableGui jdk8);
+  ]
+    ++ lib.optional enableGui jdk8);
 
 in
 buildEnv {

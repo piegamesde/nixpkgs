@@ -90,11 +90,13 @@ stdenv.mkDerivation rec {
       pango
       pciutils
       (wlroots.override { inherit enableXWayland hidpiXWayland nvidiaPatches; })
-    ] ++ lib.optionals enableXWayland [
+    ]
+    ++ lib.optionals enableXWayland [
       libxcb
       xcbutilwm
       xwayland
-    ] ++ lib.optionals withSystemd [ systemd ]
+    ]
+    ++ lib.optionals withSystemd [ systemd ]
     ;
 
   mesonBuildType =

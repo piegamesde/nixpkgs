@@ -12,7 +12,8 @@
 let
   sqitch = perlPackages.AppSqitch;
   modules = with perlPackages;
-    [ ] ++ lib.optional mysqlSupport DBDmysql
+    [ ]
+    ++ lib.optional mysqlSupport DBDmysql
     ++ lib.optional postgresqlSupport DBDPg
     ++ lib.optional templateToolkitSupport TemplateToolkit;
 
@@ -37,7 +38,8 @@ stdenv.mkDerivation {
           ln -s ${sqitch}/$d $out/$d
         fi
       done
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       shortenPerlShebang $out/bin/sqitch
     ''
     ;

@@ -26,7 +26,8 @@ buildGoModule rec {
     [
       "containers_image_openpgp"
       "remote"
-    ] ++ lib.optional stdenv.isDarwin "darwin"
+    ]
+    ++ lib.optional stdenv.isDarwin "darwin"
     ;
 
   ldflags = [

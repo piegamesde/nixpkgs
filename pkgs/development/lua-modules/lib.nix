@@ -147,7 +147,8 @@ rec {
           name = "current";
           root = "${placeholder "out"}";
           rocks_dir = "current";
-        } ] ++ rocksTrees);
+        } ]
+          ++ rocksTrees);
     } // lib.optionalAttrs lua.pkgs.isLuaJIT {
       # Luajit provides some additional functionality built-in; this exposes
       # that to luarock's dependency system

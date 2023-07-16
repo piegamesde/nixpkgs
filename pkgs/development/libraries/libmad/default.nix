@@ -64,12 +64,12 @@ stdenv.mkDerivation rec {
     # It is included here in order to fix a build failure in Clang
     # But it may be useful to fix other, currently unknown problems as well
     ++ lib.optionals stdenv.cc.isClang [
-      (fetchpatch {
-        url =
-          "https://github.com/KaOSx/main/raw/1270b8080f37fb6cca562829a521991800b0a497/libmad/optimize.diff";
-        sha256 = "0hcxzz9ql1fizyqbsgdchdwi7bvchfr72172j43hpyj53p0yabc6";
-      })
-    ]
+        (fetchpatch {
+          url =
+            "https://github.com/KaOSx/main/raw/1270b8080f37fb6cca562829a521991800b0a497/libmad/optimize.diff";
+          sha256 = "0hcxzz9ql1fizyqbsgdchdwi7bvchfr72172j43hpyj53p0yabc6";
+        })
+      ]
     ;
 
     # The -fforce-mem flag has been removed in GCC 4.3.

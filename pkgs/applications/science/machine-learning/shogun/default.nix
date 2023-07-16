@@ -115,7 +115,8 @@ stdenv.mkDerivation rec {
       # Fix compile errors with Eigen 3.4
       ./eigen-3.4.patch
 
-    ] ++ lib.optional (!withSvmLight) ./svmlight-scrubber.patch
+    ]
+    ++ lib.optional (!withSvmLight) ./svmlight-scrubber.patch
     ;
 
   nativeBuildInputs =
@@ -123,7 +124,8 @@ stdenv.mkDerivation rec {
       cmake
       swig
       ctags
-    ] ++ (with python3Packages; [
+    ]
+    ++ (with python3Packages; [
       python
       jinja2
       ply
@@ -149,10 +151,12 @@ stdenv.mkDerivation rec {
       nlopt
       lp_solve
       colpack
-    ] ++ lib.optionals pythonSupport (with python3Packages; [
+    ]
+    ++ lib.optionals pythonSupport (with python3Packages; [
       python
       numpy
-    ]) ++ lib.optional opencvSupport opencv
+    ])
+    ++ lib.optional opencvSupport opencv
     ;
 
   cmakeFlags =
@@ -203,7 +207,8 @@ stdenv.mkDerivation rec {
       sed -i -e 's/#if USE_SVMLIGHT/#ifdef USE_SVMLIGHT/' src/interfaces/swig/Machine.i
       sed -i -e 's@// USE_SVMLIGHT@//USE_SVMLIGHT@' src/interfaces/swig/Transfer.i
       sed -i -e 's@/\* USE_SVMLIGHT \*/@//USE_SVMLIGHT@' src/interfaces/swig/Transfer_includes.i
-    '' + lib.optionalString (!withSvmLight) ''
+    ''
+    + lib.optionalString (!withSvmLight) ''
       # Run SVMlight scrubber
       patchShebangs scripts/light-scrubber.sh
       echo "removing SVMlight code"

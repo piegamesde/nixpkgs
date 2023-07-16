@@ -56,7 +56,8 @@ stdenv.mkDerivation rec {
       libpcap
       qt5.qtbase
       qt5.qttools
-    ] ++ lib.optional stdenv.isLinux alsa-lib
+    ]
+    ++ lib.optional stdenv.isLinux alsa-lib
     ++ lib.optional enableVncRenderer libvncserver
     ;
 
@@ -75,7 +76,8 @@ stdenv.mkDerivation rec {
       libPath = lib.makeLibraryPath ([
         libpcap
         fluidsynth
-      ] ++ lib.optional unfreeEnableDiscord discord-gamesdk);
+      ]
+        ++ lib.optional unfreeEnableDiscord discord-gamesdk);
       libPathVar =
         if stdenv.isDarwin then
           "DYLD_LIBRARY_PATH"

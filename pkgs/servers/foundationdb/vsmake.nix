@@ -97,7 +97,8 @@ let
             --replace 'exit 1' '#exit 1'
 
           patchShebangs .
-        '' + lib.optionalString (lib.versionAtLeast version "6.0") ''
+        ''
+        + lib.optionalString (lib.versionAtLeast version "6.0") ''
           substituteInPlace ./Makefile \
             --replace 'TLS_LIBS +=' '#TLS_LIBS +=' \
             --replace 'LDFLAGS :=' 'LDFLAGS := -ltls -lssl -lcrypto'
@@ -116,13 +117,14 @@ let
         # Don't compile FDBLibTLS if we don't need it in 6.0 or later;
         # it gets statically linked in
         ++ lib.optionals (lib.versionOlder version "6.0") [
-          "fdb_c"
-        ]
-        # Needed environment overrides
+            "fdb_c"
+          ]
+          # Needed environment overrides
         ++ [
           "KVRELEASE=1"
           "NOSTRIP=1"
-        ] ++ lib.optionals officialRelease [ "RELEASE=true" ]
+        ]
+        ++ lib.optionals officialRelease [ "RELEASE=true" ]
         ;
 
         # on 6.0 and later, we can specify all this information manually
@@ -136,10 +138,12 @@ let
         ''
           mkdir -vp $out/{bin,libexec/plugins} $lib/{lib,share/java} $dev/include/foundationdb
 
-        '' + lib.optionalString (lib.versionOlder version "6.0") ''
+        ''
+        + lib.optionalString (lib.versionOlder version "6.0") ''
           # we only copy the TLS library on < 6.0, since it's compiled-in otherwise
           cp -v ./lib/libFDBLibTLS.so $out/libexec/plugins/FDBLibTLS.so
-        '' + ''
+        ''
+        + ''
 
           # C API
           cp -v ./lib/libfdb_c.so                           $lib/lib

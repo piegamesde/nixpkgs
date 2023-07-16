@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
     [
       ncurses
       libvorbis
-    ] ++ lib.optional stdenv.isDarwin SDL
+    ]
+    ++ lib.optional stdenv.isDarwin SDL
     ;
 
   env.NIX_CFLAGS_COMPILE = toString ([ "-Wno-narrowing" ]

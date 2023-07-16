@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
   buildInputs =
     lib.optional alsaSupport alsa-lib
     ++ lib.optional pulseaudioSupport libpulseaudio
-    ++ lib.optional jackSupport jack ++ lib.optional coreaudioSupport CoreAudio
+    ++ lib.optional jackSupport jack
+    ++ lib.optional coreaudioSupport CoreAudio
     ;
 
   cmakeFlags = [

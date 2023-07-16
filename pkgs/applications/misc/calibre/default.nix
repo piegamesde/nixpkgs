@@ -57,7 +57,8 @@ stdenv.mkDerivation (finalAttrs: {
           "https://raw.githubusercontent.com/debian-calibre/calibre/debian/${finalAttrs.version}-1/debian/patches/0007-Hardening-Qt-code.patch";
         hash = "sha256-9P1kGrQbWAWDzu5EUiQr7TiCPHRWUA8hxPpEvFpK20k=";
       })
-    ] ++ lib.optional (!unrarSupport) ./dont_build_unrar_plugin.patch
+    ]
+    ++ lib.optional (!unrarSupport) ./dont_build_unrar_plugin.patch
     ;
 
   prePatch = ''
@@ -99,7 +100,8 @@ stdenv.mkDerivation (finalAttrs: {
       qtwayland
       sqlite
       xdg-utils
-    ] ++ (with python3Packages;
+    ]
+    ++ (with python3Packages;
       [
         (apsw.overrideAttrs
           (oldAttrs: { setupPyBuildFlags = [ "--enable=load_extension" ]; }))
@@ -131,13 +133,15 @@ stdenv.mkDerivation (finalAttrs: {
         pycryptodome
         # the following are distributed with calibre, but we use upstream instead
         odfpy
-      ] ++ lib.optionals (lib.lists.any (p: p == stdenv.hostPlatform.system)
+      ]
+      ++ lib.optionals (lib.lists.any (p: p == stdenv.hostPlatform.system)
         pyqt6-webengine.meta.platforms) [
           # much of calibre's functionality is usable without a web
           # browser, so we enable building on platforms which qtwebengine
           # does not support by simply omitting qtwebengine.
           pyqt6-webengine
-        ] ++ lib.optional (unrarSupport) unrardll)
+        ]
+      ++ lib.optional (unrarSupport) unrardll)
     ;
 
   installPhase = ''

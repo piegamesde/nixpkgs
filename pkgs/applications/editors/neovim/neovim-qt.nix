@@ -32,7 +32,8 @@ mkDerivation rec {
       neovim.unwrapped # only used to generate help tags at build time
       qtbase
       qtsvg
-    ] ++ (with python3Packages; [
+    ]
+    ++ (with python3Packages; [
       jinja2
       python
       msgpack

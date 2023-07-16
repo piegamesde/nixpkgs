@@ -47,13 +47,17 @@ stdenv.mkDerivation rec {
     [
       libcdada
       libpcap
-    ] ++ lib.optional withJansson jansson
-    ++ lib.optional withNflog libnetfilter_log ++ lib.optional withSQLite sqlite
-    ++ lib.optional withPgSQL postgresql ++ lib.optionals withMysql [
+    ]
+    ++ lib.optional withJansson jansson
+    ++ lib.optional withNflog libnetfilter_log
+    ++ lib.optional withSQLite sqlite
+    ++ lib.optional withPgSQL postgresql
+    ++ lib.optionals withMysql [
       libmysqlclient
       zlib
       numactl
-    ] ++ lib.optional gnutlsSupport gnutls
+    ]
+    ++ lib.optional gnutlsSupport gnutls
     ;
 
   MYSQL_CONFIG =

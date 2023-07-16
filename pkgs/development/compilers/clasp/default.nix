@@ -67,7 +67,8 @@ llvmPackages_15.stdenv.mkDerivation {
       boost
       libunwind
       ninja
-    ]) ++ (with llvmPackages_15; [
+    ])
+    ++ (with llvmPackages_15; [
       llvm
       libclang
     ])

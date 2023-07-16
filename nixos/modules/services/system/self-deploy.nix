@@ -165,7 +165,8 @@ in
           gnutar
           gzip
           nix
-        ] ++ lib.optionals (cfg.switchCommand == "boot") [ systemd ];
+        ]
+        ++ lib.optionals (cfg.switchCommand == "boot") [ systemd ];
 
       script = ''
         if [ ! -e ${repositoryDirectory} ]; then

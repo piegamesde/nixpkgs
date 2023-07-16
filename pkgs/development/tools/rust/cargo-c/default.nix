@@ -34,7 +34,8 @@ rustPlatform.buildRustPackage rec {
     [
       openssl
       curl
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       CoreFoundation
       libiconv
       Security

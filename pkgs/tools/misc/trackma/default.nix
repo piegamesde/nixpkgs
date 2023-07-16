@@ -39,10 +39,12 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   nativeBuildInputs =
-    [ copyDesktopItems ] ++ lib.optionals withGTK [
+    [ copyDesktopItems ]
+    ++ lib.optionals withGTK [
       wrapGAppsHook
       gobject-introspection
-    ] ++ lib.optionals withQT [ qt5.wrapQtAppsHook ]
+    ]
+    ++ lib.optionals withQT [ qt5.wrapQtAppsHook ]
     ;
 
   buildInputs = lib.optionals withGTK [
@@ -51,13 +53,16 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   propagatedBuildInputs = with python3.pkgs;
-    ([ urllib3 ] ++ lib.optionals withQT [ pyqt5 ]
-      ++ lib.optionals withGTK [ pycairo ] ++ lib.optionals withCurses [ urwid ]
+    ([ urllib3 ]
+      ++ lib.optionals withQT [ pyqt5 ]
+      ++ lib.optionals withGTK [ pycairo ]
+      ++ lib.optionals withCurses [ urwid ]
       ++ lib.optionals stdenv.isLinux [
         dbus-python
         pygobject3
         pyinotify
-      ] ++ lib.optionals (withGTK || withQT) [ pillow ]);
+      ]
+      ++ lib.optionals (withGTK || withQT) [ pillow ]);
 
   dontWrapQtApps = true;
   dontWrapGApps = true;
@@ -69,12 +74,13 @@ python3.pkgs.buildPythonApplication rec {
 
   desktopItems =
     lib.optional withQT
-    (mkDesktopItem "trackma-qt" "Trackma (Qt)" "Trackma Updater (Qt-frontend)"
-      false) ++ lib.optional withGTK
-    (mkDesktopItem "trackma-gtk" "Trackma (GTK)"
-      "Trackma Updater (Gtk-frontend)" false) ++ lib.optional withCurses
-    (mkDesktopItem "trackma-curses" "Trackma (ncurses)"
-      "Trackma Updater (ncurses frontend)" true)
+      (mkDesktopItem "trackma-qt" "Trackma (Qt)" "Trackma Updater (Qt-frontend)"
+        false)
+    ++ lib.optional withGTK (mkDesktopItem "trackma-gtk" "Trackma (GTK)"
+      "Trackma Updater (Gtk-frontend)" false)
+    ++ lib.optional withCurses
+      (mkDesktopItem "trackma-curses" "Trackma (ncurses)"
+        "Trackma Updater (ncurses frontend)" true)
     ;
 
   postInstall = ''

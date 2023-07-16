@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
   strictDeps = true;
   buildInputs = lib.optional withReadline readline;
   configureFlags =
-    [ "--datarootdir=${placeholder "out"}" ] ++ lib.optionals withReadline [
+    [ "--datarootdir=${placeholder "out"}" ]
+    ++ lib.optionals withReadline [
       "--with-readline"
       "--readline=${readline-all}"
     ]

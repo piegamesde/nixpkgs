@@ -30,9 +30,10 @@ stdenv.mkDerivation rec {
         lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
         "-native"
       }"
-    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      "-DLLVM_TABLEGEN_EXE=${buildLlvmTools.llvm}/bin/llvm-tblgen"
     ]
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+        "-DLLVM_TABLEGEN_EXE=${buildLlvmTools.llvm}/bin/llvm-tblgen"
+      ]
     ;
 
     # Musl's default stack size is too small for lld to be able to link Firefox.

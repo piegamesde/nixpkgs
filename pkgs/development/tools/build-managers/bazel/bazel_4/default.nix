@@ -296,7 +296,8 @@ stdenv.mkDerivation rec {
       # disable suspend detection during a build inside Nix as this is
       # not available inside the darwin sandbox
       ../bazel_darwin_sandbox.patch
-    ] ++ lib.optional enableNixHacks ../nix-hacks.patch
+    ]
+    ++ lib.optional enableNixHacks ../nix-hacks.patch
     ;
 
     # Additional tests that check bazel’s functionality. Execute
@@ -368,7 +369,8 @@ stdenv.mkDerivation rec {
             # see PosixFileMTime::IsUntampered in src/main/cpp/util
             # What the hell bazel.
             ${lr}/bin/lr -0 -U ${be.install_dir} | ${xe}/bin/xe -N0 -0 touch --date="9 years 6 months" {}
-          '') + ''
+          '')
+          + ''
             # Note https://github.com/bazelbuild/bazel/issues/5763#issuecomment-456374609
             # about why to create a subdir for the workspace.
             cp -r ${workspaceDir} wd && chmod u+w wd && cd wd
@@ -641,7 +643,8 @@ stdenv.mkDerivation rec {
       which
       zip
       python3.pkgs.absl-py # Needed to build fish completion
-    ] ++ lib.optionals (stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (stdenv.isDarwin) [
       cctools
       libcxx
       CoreFoundation
@@ -777,7 +780,8 @@ stdenv.mkDerivation rec {
       # stored non-contiguously in the binary due to gcc optimisations, which leads
       # Nix to miss the hash when scanning for dependencies
       echo "${bazelRC}" >> $out/nix-support/depends
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       echo "${cctools}" >> $out/nix-support/depends
     ''
     ;

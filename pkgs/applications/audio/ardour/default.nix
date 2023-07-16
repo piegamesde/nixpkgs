@@ -151,7 +151,8 @@ stdenv.mkDerivation rec {
       suil
       taglib
       vamp-plugin-sdk
-    ] ++ lib.optionals videoSupport [
+    ]
+    ++ lib.optionals videoSupport [
       harvid
       xjadeo
     ]
@@ -191,7 +192,8 @@ stdenv.mkDerivation rec {
       cp -rp "${bundledContent}"/* "$out/share/ardour${
         lib.versions.major version
       }/media"
-    '' + lib.optionalString videoSupport ''
+    ''
+    + lib.optionalString videoSupport ''
       # `harvid` and `xjadeo` must be accessible in `PATH` for video to work.
       wrapProgram "$out/bin/ardour${lib.versions.major version}" \
         --prefix PATH : "${

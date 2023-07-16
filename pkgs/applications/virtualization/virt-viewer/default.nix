@@ -79,11 +79,14 @@ stdenv.mkDerivation rec {
       libvirt-glib
       libxml2
       vte
-    ] ++ optionals ovirtSupport [ libgovirt ] ++ optionals spiceSupport ([
+    ]
+    ++ optionals ovirtSupport [ libgovirt ]
+    ++ optionals spiceSupport ([
       gdbm
       spice-gtk
       spice-protocol
-    ] ++ optionals stdenv.isLinux [ libcap ])
+    ]
+      ++ optionals stdenv.isLinux [ libcap ])
     ;
 
     # Required for USB redirection PolicyKit rules file

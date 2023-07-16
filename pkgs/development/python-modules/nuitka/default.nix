@@ -33,7 +33,8 @@ buildPythonPackage rec {
   postPatch =
     ''
       patchShebangs tests/run-tests
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       substituteInPlace nuitka/plugins/standard/ImplicitImports.py --replace 'locateDLL("uuid")' '"${
         lib.getLib pkgs.util-linux
       }/lib/libuuid.so"'

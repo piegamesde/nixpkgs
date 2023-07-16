@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs =
-    [ libusb1 ] ++ lib.optional stdenv.isLinux libraw1394
+    [ libusb1 ]
+    ++ lib.optional stdenv.isLinux libraw1394
     ++ lib.optional stdenv.isDarwin CoreServices
     ;
 

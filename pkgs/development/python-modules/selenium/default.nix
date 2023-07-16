@@ -42,7 +42,8 @@ buildPythonPackage rec {
       trio
       trio-websocket
       urllib3
-    ] ++ urllib3.optional-dependencies.socks
+    ]
+    ++ urllib3.optional-dependencies.socks
     ;
 
   nativeCheckInputs = [ pytestCheckHook ];

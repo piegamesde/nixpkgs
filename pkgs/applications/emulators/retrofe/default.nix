@@ -45,7 +45,8 @@ stdenv.mkDerivation {
       SDL2_ttf
       sqlite
       zlib
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       gst-libav
       gst-plugins-base
       gst-plugins-good

@@ -35,11 +35,12 @@ stdenv.mkDerivation {
     (if stdenv.hostPlatform.system == "i686-linux" then
       [ mps ]
     else
-      [ boehmgc ]) ++ [
-        opendylan-bootstrap
-        boehmgc
-        perl
-      ]
+      [ boehmgc ])
+    ++ [
+      opendylan-bootstrap
+      boehmgc
+      perl
+    ]
     ;
 
   preConfigure =

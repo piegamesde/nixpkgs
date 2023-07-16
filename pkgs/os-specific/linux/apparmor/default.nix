@@ -118,11 +118,13 @@ let
         ncurses
         which
         perl
-      ] ++ lib.optional withPython python
+      ]
+      ++ lib.optional withPython python
       ;
 
     buildInputs =
-      [ libxcrypt ] ++ lib.optional withPerl perl
+      [ libxcrypt ]
+      ++ lib.optional withPerl perl
       ++ lib.optional withPython python
       ;
 
@@ -130,7 +132,8 @@ let
     dontDisableStatic = true;
 
     prePatch =
-      prePatchCommon + ''
+      prePatchCommon
+      + ''
         substituteInPlace ./libraries/libapparmor/swig/perl/Makefile.am --replace install_vendor install_site
       ''
       ;
@@ -181,11 +184,11 @@ let
     ];
 
     prePatch =
-      prePatchCommon +
-      # Do not build vim file
-      lib.optionalString stdenv.hostPlatform.isMusl ''
+      prePatchCommon
+      + lib.optionalString stdenv.hostPlatform.isMusl ''
         sed -i ./utils/Makefile -e "/\<vim\>/d"
-      '' + ''
+      ''
+      + ''
         for file in utils/apparmor/easyprof.py utils/apparmor/aa.py utils/logprof.conf; do
           substituteInPlace $file --replace "/sbin/apparmor_parser" "${apparmor-parser}/bin/apparmor_parser"
         done
@@ -274,7 +277,8 @@ let
     buildInputs = [ libapparmor ];
 
     prePatch =
-      prePatchCommon + ''
+      prePatchCommon
+      + ''
         ## techdoc.pdf still doesn't build ...
         substituteInPlace ./parser/Makefile \
           --replace "/usr/bin/bison" "${bison}/bin/bison" \

@@ -31,7 +31,8 @@ buildPythonPackage rec {
     [
       attrs
       fonttools
-    ] ++ fonttools.optional-dependencies.ufo
+    ]
+    ++ fonttools.optional-dependencies.ufo
     ;
 
   passthru.optional-dependencies = {

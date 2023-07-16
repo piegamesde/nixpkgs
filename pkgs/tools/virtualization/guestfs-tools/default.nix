@@ -48,13 +48,15 @@ stdenv.mkDerivation rec {
       makeWrapper
       pkg-config
       qemu
-    ] ++ (with perlPackages; [
+    ]
+    ++ (with perlPackages; [
       GetoptLong
       libintl-perl
       ModuleBuild
       perl
       Po4a
-    ]) ++ (with ocamlPackages; [
+    ])
+    ++ (with ocamlPackages; [
       findlib
       gettext-stub
       ocaml

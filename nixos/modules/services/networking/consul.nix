@@ -21,7 +21,8 @@ let
     [
       "/etc/consul.json"
       "/etc/consul-addrs.json"
-    ] ++ cfg.extraConfigFiles
+    ]
+    ++ cfg.extraConfigFiles
     ;
 
   devices = attrValues (filterAttrs (_: i: i != null) cfg.interface);
@@ -208,7 +209,7 @@ in
         restartTriggers =
           [ config.environment.etc."consul.json".source ]
           ++ mapAttrsToList (_: d: d.source)
-          (filterAttrs (n: _: hasPrefix "consul.d/" n) config.environment.etc)
+            (filterAttrs (n: _: hasPrefix "consul.d/" n) config.environment.etc)
           ;
 
         serviceConfig = {
@@ -271,13 +272,15 @@ in
             }
             echo "{" > /etc/consul-addrs.json
             delim=" "
-          '' + concatStrings (flip mapAttrsToList cfg.interface (name: i:
+          ''
+          + concatStrings (flip mapAttrsToList cfg.interface (name: i:
             optionalString (i != null) ''
               echo "$delim \"${name}_addr\": \"$(getAddr "${i}")\"" >> /etc/consul-addrs.json
               delim=","
-            '')) + ''
-              echo "}" >> /etc/consul-addrs.json
-            ''
+            ''))
+          + ''
+            echo "}" >> /etc/consul-addrs.json
+          ''
           ;
       };
     }

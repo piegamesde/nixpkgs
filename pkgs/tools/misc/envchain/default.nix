@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     [
       libsecret
       readline
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       libedit
       ncurses
       Security

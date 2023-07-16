@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
       "bin"
       "out"
       "dev"
-    ] ++ lib.optional withIntrospection "devdoc"
+    ]
+    ++ lib.optional withIntrospection "devdoc"
     ;
 
   src = fetchurl {
@@ -53,7 +54,8 @@ stdenv.mkDerivation rec {
       glib # for glib-mkenum
       pkg-config
       python3
-    ] ++ lib.optionals withIntrospection [
+    ]
+    ++ lib.optionals withIntrospection [
       gi-docgen
       gobject-introspection
     ]
@@ -63,7 +65,8 @@ stdenv.mkDerivation rec {
     [
       fribidi
       libthai
-    ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+    ]
+    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
       ApplicationServices
       Carbon
       CoreGraphics
@@ -77,7 +80,8 @@ stdenv.mkDerivation rec {
       glib
       libintl
       harfbuzz
-    ] ++ lib.optionals x11Support [ libXft ]
+    ]
+    ++ lib.optionals x11Support [ libXft ]
     ;
 
   mesonFlags = [

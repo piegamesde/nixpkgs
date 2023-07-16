@@ -42,10 +42,12 @@ stdenv.mkDerivation rec {
     [
       cmake
       pkg-config
-    ] ++ optionals docSupport [
+    ]
+    ++ optionals docSupport [
       doxygen
       graphviz
-    ] ++ optionals pythonSupport [ swig ]
+    ]
+    ++ optionals pythonSupport [ swig ]
     ;
 
   buildInputs = [ libconfuse ] ++ optionals cppSupport [ boost ];
@@ -57,7 +59,8 @@ stdenv.mkDerivation rec {
       "-DLINK_PYTHON_LIBRARY=${onOff pythonSupport}"
       "-DPYTHON_BINDINGS=${onOff pythonSupport}"
       "-DDOCUMENTATION=${onOff docSupport}"
-    ] ++ lib.optionals pythonSupport [
+    ]
+    ++ lib.optionals pythonSupport [
       "-DPYTHON_EXECUTABLE=${python3.pythonForBuild.interpreter}"
       "-DPYTHON_LIBRARY=${python3}/lib/libpython${python3.pythonVersion}${stdenv.hostPlatform.extensions.sharedLibrary}"
     ]
@@ -69,7 +72,8 @@ stdenv.mkDerivation rec {
     ''
       mkdir -p "$out/etc/udev/rules.d/"
       cp ../packages/99-libftdi.rules "$out/etc/udev/rules.d/"
-    '' + optionalString docSupport ''
+    ''
+    + optionalString docSupport ''
       cp -r doc/man "$out/share/"
       cp -r doc/html "$out/share/doc/libftdi1/"
     ''

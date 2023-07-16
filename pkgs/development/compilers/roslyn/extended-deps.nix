@@ -4,7 +4,8 @@
 {
   fetchNuGet,
 }:
-(import ./deps.nix { inherit fetchNuGet; }) ++ [
+(import ./deps.nix { inherit fetchNuGet; })
+++ [
   (fetchNuGet rec {
     pname = "Microsoft.DotNet.Arcade.Sdk";
     version = "7.0.0-beta.22171.2";

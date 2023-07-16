@@ -78,7 +78,8 @@ stdenv.mkDerivation rec {
       pkg-config
       perl
       autoreconfHook # patches applied
-    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    ]
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       # autogen needs a build autogen when cross-compiling
       buildPackages.buildPackages.autogen
       buildPackages.texinfo
@@ -104,7 +105,8 @@ stdenv.mkDerivation rec {
       # If you are curious about the number 78, it has been cargo-culted from
       # Debian: https://salsa.debian.org/debian/autogen/-/blob/master/debian/rules#L21
       "--enable-timeout=78"
-    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    ]
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       # the configure check for regcomp wants to run a host program
       "libopts_cv_with_libregex=yes"
       #"MAKEINFO=${buildPackages.texinfo}/bin/makeinfo"
@@ -126,7 +128,8 @@ stdenv.mkDerivation rec {
         sed -e "s|$lib/lib|/no-such-autogen-lib-path|" -i $f
       done
 
-    '' + lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
+    ''
+    + lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
       # remove build directory (/build/**, or /tmp/nix-build-**) from RPATHs
       for f in "$bin"/bin/*; do
         local nrp="$(patchelf --print-rpath "$f" | sed -E 's@(:|^)'$NIX_BUILD_TOP'[^:]*:@\1@g')"

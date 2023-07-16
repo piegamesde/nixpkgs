@@ -309,7 +309,8 @@ rec {
 
       checkUnmatched =
         if
-          config._module.check && config._module.freeformType == null
+          config._module.check
+          && config._module.freeformType == null
           && merged.unmatchedDefns != [ ]
         then
           let
@@ -461,7 +462,8 @@ rec {
                   disabled = module.disabledModules;
                 } ]
               else
-                [ ]) ++ collectedImports.disabled
+                [ ])
+              ++ collectedImports.disabled
               ;
           }
         ) initialModules)
@@ -886,8 +888,11 @@ rec {
         bothHave = k: opt.options ? ${k} && res ? ${k};
       in
       if
-        bothHave "default" || bothHave "example" || bothHave "description"
-        || bothHave "apply" || (bothHave "type" && (!typesMergeable))
+        bothHave "default"
+        || bothHave "example"
+        || bothHave "description"
+        || bothHave "apply"
+        || (bothHave "type" && (!typesMergeable))
       then
         throw "The option `${
           showOption loc
@@ -927,7 +932,8 @@ rec {
         (optional (opt ? default) {
           file = head opt.declarations;
           value = mkOptionDefault opt.default;
-        }) ++ defs
+        })
+        ++ defs
         ;
 
         # Handle properties, check types, and merge everything together.

@@ -33,7 +33,8 @@ rustPlatform.buildRustPackage rec {
       llvmPackages.llvm
       libffi
       libxml2
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       CoreFoundation
       SystemConfiguration
       Security
@@ -52,7 +53,8 @@ rustPlatform.buildRustPackage rec {
       "static-artifact-create"
       "wasmer-artifact-load"
       "static-artifact-load"
-    ] ++ lib.optional withLLVM "llvm"
+    ]
+    ++ lib.optional withLLVM "llvm"
     ++ lib.optional withSinglepass "singlepass"
     ;
 

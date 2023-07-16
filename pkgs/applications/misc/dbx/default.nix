@@ -41,7 +41,8 @@ python3.pkgs.buildPythonApplication rec {
       tenacity
       typer
       watchdog
-    ] ++ typer.optional-dependencies.all;
+    ]
+    ++ typer.optional-dependencies.all;
 
   passthru.optional-dependencies = with python3.pkgs; {
     aws = [ boto3 ];
@@ -53,7 +54,8 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   nativeCheckInputs =
-    [ git ] ++ (with python3.pkgs; [
+    [ git ]
+    ++ (with python3.pkgs; [
       pytest-asyncio
       pytest-mock
       pytest-timeout

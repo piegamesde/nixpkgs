@@ -53,11 +53,13 @@ let
       inherit version pname;
 
       buildInputs =
-        buildInputs ++ [
+        buildInputs
+        ++ [
           erlang
           rebar3
           openssl
-        ] ++ beamDeps
+        ]
+        ++ beamDeps
         ;
 
         # ensure we strip any native binaries (eg. NIFs, ports)

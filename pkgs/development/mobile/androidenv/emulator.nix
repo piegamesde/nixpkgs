@@ -30,7 +30,8 @@ deployAndroidPackage {
       nss
       nspr
       alsa-lib
-    ]) ++ (with pkgs.xorg; [
+    ])
+    ++ (with pkgs.xorg; [
       libX11
       libXext
       libXdamage

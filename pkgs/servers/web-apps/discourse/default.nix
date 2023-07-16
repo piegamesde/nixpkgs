@@ -121,7 +121,8 @@ let
           runHook preInstall
           mkdir -p $out
           cp -r * $out/
-        '' + lib.optionalString (bundlerEnvArgs != { }) (if preserveGemsDir then
+        ''
+        + lib.optionalString (bundlerEnvArgs != { }) (if preserveGemsDir then
           ''
             cp -r ${rubyEnv}/lib/ruby/gems/* $out/gems/
           ''
@@ -133,7 +134,8 @@ let
               rm -r $out/gems
             fi
             ln -sf ${rubyEnv}/lib/ruby/gems $out/gems
-          '' + ''
+          ''
+          + ''
             runHook postInstall
           '')
         ;
@@ -236,7 +238,8 @@ let
     };
 
     nativeBuildInputs =
-      runtimeDeps ++ [
+      runtimeDeps
+      ++ [
         postgresql
         redis
         nodePackages.uglify-js

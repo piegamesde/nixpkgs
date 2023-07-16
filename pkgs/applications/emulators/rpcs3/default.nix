@@ -116,9 +116,11 @@ gcc12Stdenv.mkDerivation {
       pugixml
       faudio
       flatbuffers
-    ] ++ lib.optional sdl2Support SDL2
+    ]
+    ++ lib.optional sdl2Support SDL2
     ++ lib.optional pulseaudioSupport libpulseaudio
-    ++ lib.optional alsaSupport alsa-lib ++ lib.optional waylandSupport wayland
+    ++ lib.optional alsaSupport alsa-lib
+    ++ lib.optional waylandSupport wayland
     ;
 
   postInstall = ''

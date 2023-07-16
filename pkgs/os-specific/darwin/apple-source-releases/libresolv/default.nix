@@ -59,7 +59,8 @@ else
         cp nameser.h       $out/include
         ln -s ../nameser.h $out/include/arpa
         cp resolv.h        $out/include
-      '' + lib.optionalString (!headersOnly) ''
+      ''
+      + lib.optionalString (!headersOnly) ''
 
         cp libresolv.9.dylib $out/lib
         ln -s libresolv.9.dylib $out/lib/libresolv.dylib

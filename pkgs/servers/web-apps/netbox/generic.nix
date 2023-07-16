@@ -94,7 +94,8 @@ py.pkgs.buildPythonApplication rec {
       svgwrite
       tablib
       jsonschema
-    ] ++ extraBuildInputs;
+    ]
+    ++ extraBuildInputs;
 
   buildInputs = with py.pkgs; [
     mkdocs-material

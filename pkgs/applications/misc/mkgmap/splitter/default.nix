@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
       cp ${osmpbf} lib/compile/${osmpbf.name}
       cp ${protobuf} lib/compile/${protobuf.name}
       cp ${xpp3} lib/compile/${xpp3.name}
-    '' + lib.optionalString doCheck ''
+    ''
+    + lib.optionalString doCheck ''
       mkdir -p lib/test
       cp ${junit} lib/test/${junit.name}
       cp ${hamcrest-core} lib/test/${hamcrest-core.name}

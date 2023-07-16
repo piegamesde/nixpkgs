@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
     lib.optionals (!pythonSupport) [
       example-robot-data
       pinocchio
-    ] ++ lib.optionals pythonSupport [
+    ]
+    ++ lib.optionals pythonSupport [
       python3Packages.example-robot-data
       python3Packages.pinocchio
     ]

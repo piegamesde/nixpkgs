@@ -29,7 +29,8 @@ stdenv.mkDerivation (finalAttrs: {
       fsprogs
       perl
       pkg-config
-    ] ++ (with ocamlPackages; [
+    ]
+    ++ (with ocamlPackages; [
       findlib
       ocaml
     ])

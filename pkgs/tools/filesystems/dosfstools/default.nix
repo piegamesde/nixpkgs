@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
     [
       autoreconfHook
       pkg-config
-    ] ++ lib.optional stdenv.isDarwin libiconv
+    ]
+    ++ lib.optional stdenv.isDarwin libiconv
     ;
 
     # configure.ac:75: error: required file './config.rpath' not found

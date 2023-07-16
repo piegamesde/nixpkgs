@@ -25,7 +25,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs =
-    [ ncurses ] ++ (if stdenv.isDarwin then
+    [ ncurses ]
+    ++ (if stdenv.isDarwin then
       [
         libiconv
         Security

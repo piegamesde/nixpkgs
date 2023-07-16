@@ -52,7 +52,8 @@ let
         ./qtbase.patch.d/0012-qtbase-tbd-frameworks.patch
 
         ./qtbase.patch.d/0014-aarch64-darwin.patch
-      ] ++ [
+      ]
+      ++ [
         ./qtbase.patch.d/0003-qtbase-mkspecs.patch
         ./qtbase.patch.d/0004-qtbase-replace-libdir.patch
         ./qtbase.patch.d/0005-qtbase-cmake.patch
@@ -101,7 +102,8 @@ let
           extraPrefix = "src/3rdparty/";
           hash = "sha256-s4GsGMJTBNWw2gTJuIEP3tqT82AmTsR2mbj59m2p6rM=";
         })
-      ] ++ lib.optionals stdenv.isDarwin [
+      ]
+      ++ lib.optionals stdenv.isDarwin [
         ./qtwebengine-darwin-no-platform-check.patch
         ./qtwebengine-mac-dont-set-dsymutil-path.patch
         ./qtwebengine-darwin-checks.patch
@@ -129,7 +131,8 @@ let
         })
         ./qtwebkit.patch
         ./qtwebkit-icu68.patch
-      ] ++ lib.optionals stdenv.isDarwin [
+      ]
+      ++ lib.optionals stdenv.isDarwin [
         ./qtwebkit-darwin-no-readline.patch
         ./qtwebkit-darwin-no-qos-classes.patch
       ]
@@ -307,7 +310,8 @@ let
         qtx11extras
         qtxmlpatterns
         qtlottie
-      ] ++ lib.optional (!stdenv.isDarwin) qtwayland
+      ]
+        ++ lib.optional (!stdenv.isDarwin) qtwayland
         ++ lib.optional (stdenv.isDarwin) qtmacextras);
 
       qmake = makeSetupHook {
@@ -325,7 +329,8 @@ let
           [
             self.qtbase.dev
             buildPackages.makeBinaryWrapper
-          ] ++ lib.optional stdenv.isLinux self.qtwayland.dev
+          ]
+          ++ lib.optional stdenv.isLinux self.qtwayland.dev
           ;
       } ../hooks/wrap-qt-apps-hook.sh;
     } // lib.optionalAttrs config.allowAliases {

@@ -19,7 +19,8 @@ let
       "Pleroma.Emails.Mailer"
       "adapter"
       "value"
-    ] null ex) == "Swoosh.Adapters.SMTP"
+    ] null ex)
+    == "Swoosh.Adapters.SMTP"
     ;
 
   isAbsolutePath = v: isString v && substring 0 1 v == "/";
@@ -1123,7 +1124,8 @@ in
             coreutils
             gawk
             gnused
-          ] ++ cfg.extraPackages;
+          ]
+          ++ cfg.extraPackages;
       in
       {
         description = "Akkoma social network";

@@ -58,7 +58,8 @@ buildPythonPackage rec {
       parameterized
       pytest-timeout
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.serial
+    ]
+    ++ passthru.optional-dependencies.serial
     ;
 
   disabledTestPaths =
@@ -75,7 +76,8 @@ buildPythonPackage rec {
       # pytest.approx is not supported in a boolean context (since pytest7)
       "test_pack_unpack"
       "test_receive"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # timing sensitive
       "test_general"
       "test_gap"

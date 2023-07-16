@@ -54,12 +54,18 @@ stdenv.mkDerivation rec {
     [
       gtk2
       fftw
-    ] ++ optional openglSupport gnome2.gtkglext
-    ++ optional openexrSupport openexr ++ optional libXmuSupport xorg.libXmu
-    ++ optional fitsSupport cfitsio ++ optional libpngSupport libpng
-    ++ optional libxsltSupport libxslt ++ optional libxml2Support libxml2
-    ++ optional libwebpSupport libwebp ++ optional zlibSupport zlib
-    ++ optional libuniqueSupport libunique ++ optional libzipSupport libzip;
+    ]
+    ++ optional openglSupport gnome2.gtkglext
+    ++ optional openexrSupport openexr
+    ++ optional libXmuSupport xorg.libXmu
+    ++ optional fitsSupport cfitsio
+    ++ optional libpngSupport libpng
+    ++ optional libxsltSupport libxslt
+    ++ optional libxml2Support libxml2
+    ++ optional libwebpSupport libwebp
+    ++ optional zlibSupport zlib
+    ++ optional libuniqueSupport libunique
+    ++ optional libzipSupport libzip;
 
   propagatedBuildInputs = with lib;
     optionals pythonSupport [

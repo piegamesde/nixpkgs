@@ -56,7 +56,9 @@ stdenv.mkDerivation rec {
       hwloc
       blas
       lapack
-    ] ++ lib.optional enableMpi mpi ++ lib.optional enableCuda cudatoolkit
+    ]
+    ++ lib.optional enableMpi mpi
+    ++ lib.optional enableCuda cudatoolkit
     ;
 
   propagatedBuildInputs = lib.optional enableMpi mpi;
@@ -67,19 +69,22 @@ stdenv.mkDerivation rec {
       "-DGMX_SIMD:STRING=${SIMD cpuAcceleration}"
       "-DGMX_OPENMP:BOOL=TRUE"
       "-DBUILD_SHARED_LIBS=ON"
-    ] ++ (if singlePrec then
+    ]
+    ++ (if singlePrec then
       [ "-DGMX_DOUBLE=OFF" ]
     else
       [
         "-DGMX_DOUBLE=ON"
         "-DGMX_DEFAULT_SUFFIX=OFF"
-      ]) ++ (if enableMpi then
-        [
-          "-DGMX_MPI:BOOL=TRUE"
-          "-DGMX_THREAD_MPI:BOOL=FALSE"
-        ]
-      else
-        [ "-DGMX_MPI:BOOL=FALSE" ]) ++ lib.optional enableCuda "-DGMX_GPU=CUDA"
+      ])
+    ++ (if enableMpi then
+      [
+        "-DGMX_MPI:BOOL=TRUE"
+        "-DGMX_THREAD_MPI:BOOL=FALSE"
+      ]
+    else
+      [ "-DGMX_MPI:BOOL=FALSE" ])
+    ++ lib.optional enableCuda "-DGMX_GPU=CUDA"
     ;
 
   postFixup = ''

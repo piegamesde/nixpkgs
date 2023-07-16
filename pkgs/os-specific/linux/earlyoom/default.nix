@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
   installPhase =
     ''
       install -D earlyoom $out/bin/earlyoom
-    '' + lib.optionalString withManpage ''
+    ''
+    + lib.optionalString withManpage ''
       installManPage earlyoom.1
     ''
     ;

@@ -83,7 +83,8 @@ python3.pkgs.buildPythonApplication rec {
       gettext
       gobject-introspection
       wrapGAppsHook
-    ] ++ (with python3.pkgs; [
+    ]
+    ++ (with python3.pkgs; [
       sphinxHook
       sphinx-rtd-theme
     ])
@@ -103,12 +104,14 @@ python3.pkgs.buildPythonApplication rec {
       libmodplug
       libsoup
       webkitgtk
-    ] ++ lib.optionals (withXineBackend) [ xine-lib ]
+    ]
+    ++ lib.optionals (withXineBackend) [ xine-lib ]
     ++ lib.optionals (withGstreamerBackend) (with gst_all_1;
       [
         gst-plugins-base
         gstreamer
-      ] ++ lib.optionals (withGstPlugins) [
+      ]
+      ++ lib.optionals (withGstPlugins) [
         gst-libav
         gst-plugins-bad
         gst-plugins-good
@@ -123,7 +126,8 @@ python3.pkgs.buildPythonApplication rec {
       mutagen
       pycairo
       pygobject3
-    ] ++ lib.optionals withDbusPython [ dbus-python ]
+    ]
+    ++ lib.optionals withDbusPython [ dbus-python ]
     ++ lib.optionals withPypresence [ pypresence ]
     ++ lib.optionals withPyInotify [ pyinotify ]
     ++ lib.optionals withMusicBrainzNgs [ musicbrainzngs ]
@@ -139,7 +143,8 @@ python3.pkgs.buildPythonApplication rec {
       glibcLocales
       hicolor-icon-theme
       xvfb-run
-    ] ++ (with python3.pkgs; [
+    ]
+    ++ (with python3.pkgs; [
       polib
       pytest
       pytest-xdist
@@ -157,9 +162,10 @@ python3.pkgs.buildPythonApplication rec {
       # build failure on Arch Linux
       # https://github.com/NixOS/nixpkgs/pull/77796#issuecomment-575841355
       "--ignore=tests/test_operon.py"
-    ] ++ lib.optionals (withXineBackend || !withGstPlugins) [
-      "--ignore=tests/plugin/test_replaygain.py"
     ]
+    ++ lib.optionals (withXineBackend || !withGstPlugins) [
+        "--ignore=tests/plugin/test_replaygain.py"
+      ]
     ;
 
   preCheck = ''

@@ -153,7 +153,8 @@ let
               hasHyphens = attrs.hasHyphens or false;
               tlDeps = map (n: tl.${n}) (attrs.deps or [ ]);
             })
-        ] ++ lib.optional (attrs.sha512 ? doc) (mkPkgV "doc")
+        ]
+        ++ lib.optional (attrs.sha512 ? doc) (mkPkgV "doc")
         ++ lib.optional (attrs.sha512 ? source) (mkPkgV "source")
         ++ lib.optional (bin ? ${pname}) (bin.${pname} // { tlType = "bin"; })
         ;
@@ -184,7 +185,8 @@ let
         toString texliveYear
       }/tlnet-final"
       "ftp://tug.org/texlive/historic/${toString texliveYear}/tlnet-final"
-    ] ++ [
+    ]
+    ++ [
       # daily snapshots hosted by one of the texlive release managers;
       # used for non-final snapshots and as fallback for final snapshots that have not reached yet the historic mirrors
       # please note that this server is not meant for large scale deployment and should be avoided on release branches
@@ -254,7 +256,8 @@ let
       tar -xf "$src" \
       --strip-components="$stripPrefix" \
       -C "$out" --anchored --exclude=tlpkg --keep-old-files
-    '' + postUnpack)
+    ''
+      + postUnpack)
     ;
 
     # combine a set of TL packages into a single TL meta-package
@@ -296,9 +299,9 @@ let
 
   assertions =
     lib.assertMsg (tlpdbVersion.year == version.texliveYear)
-    "TeX Live year in texlive does not match tlpdb.nix, refusing to evaluate"
+      "TeX Live year in texlive does not match tlpdb.nix, refusing to evaluate"
     && lib.assertMsg (tlpdbVersion.frozen == version.final)
-    "TeX Live final status in texlive does not match tlpdb.nix, refusing to evaluate"
+      "TeX Live final status in texlive does not match tlpdb.nix, refusing to evaluate"
     ;
 
 in

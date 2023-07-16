@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
     [
       eigen
       makeWrapper
-    ] ++ lib.optional withGui qt5.wrapQtAppsHook
+    ]
+    ++ lib.optional withGui qt5.wrapQtAppsHook
     ;
 
   buildInputs =
@@ -47,7 +48,8 @@ stdenv.mkDerivation rec {
       libtiff
       libpng
       zlib
-    ] ++ lib.optionals withGui [
+    ]
+    ++ lib.optionals withGui [
       libGL
       libGLU
       libX11

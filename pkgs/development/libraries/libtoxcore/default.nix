@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
       "-DBUILD_NTOX=ON"
       "-DDHT_BOOTSTRAP=ON"
       "-DBOOTSTRAP_DAEMON=ON"
-    ] ++ lib.optional buildToxAV "-DMUST_BUILD_TOXAV=ON"
+    ]
+    ++ lib.optional buildToxAV "-DMUST_BUILD_TOXAV=ON"
     ;
 
   buildInputs =
@@ -42,7 +43,8 @@ stdenv.mkDerivation rec {
       msgpack
       ncurses
       libconfig
-    ] ++ lib.optionals buildToxAV [
+    ]
+    ++ lib.optionals buildToxAV [
       libopus
       libvpx
     ]

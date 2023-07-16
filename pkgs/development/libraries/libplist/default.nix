@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
       "bin"
       "dev"
       "out"
-    ] ++ lib.optional enablePython "py"
+    ]
+    ++ lib.optional enablePython "py"
     ;
 
   src = fetchFromGitHub {

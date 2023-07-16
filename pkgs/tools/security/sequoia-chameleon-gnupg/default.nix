@@ -31,7 +31,8 @@ rustPlatform.buildRustPackage rec {
     [
       nettle
       openssl
-    ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
     ;
 
     # gpgconf: error creating socket directory

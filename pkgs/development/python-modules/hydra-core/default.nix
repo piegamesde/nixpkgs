@@ -51,7 +51,8 @@ buildPythonPackage rec {
       antlr4-python3-runtime
       omegaconf
       packaging
-    ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
     ;
 
   nativeCheckInputs = [ pytestCheckHook ];

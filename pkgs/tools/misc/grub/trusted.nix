@@ -79,7 +79,8 @@ stdenv.mkDerivation rec {
       freetype
       gettext
       lvm2
-    ] ++ lib.optional doCheck qemu
+    ]
+    ++ lib.optional doCheck qemu
     ;
 
   hardeningDisable = [

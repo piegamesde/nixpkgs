@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
       "out"
       "dev"
       "man"
-    ] ++ lib.optional (!static) "lib"
+    ]
+    ++ lib.optional (!static) "lib"
     ;
   separateDebugInfo = true;
   makeFlags =
@@ -51,14 +52,16 @@ stdenv.mkDerivation rec {
       "AR=${ar}"
       "RANLIB=${ranlib}"
       "static"
-    ] ++ lib.optional (!static) "shared"
+    ]
+    ++ lib.optional (!static) "shared"
     ;
   postInstall =
     ''
       mkdir -p $dev/lib $out/bin
       mv $out/lib/libcdb.a $dev/lib
       rmdir $out/lib
-    '' + (if static then
+    ''
+    + (if static then
       ''
         cp cdb $out/bin/cdb
       ''

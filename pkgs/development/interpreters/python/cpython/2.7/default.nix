@@ -144,9 +144,11 @@ let
       # * https://github.com/python/cpython/commit/e6b247c8e524
       ../3.7/no-win64-workaround.patch
 
-    ] ++ lib.optionals (x11Support && stdenv.isDarwin) [
-      ./use-correct-tcl-tk-on-darwin.patch
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals (x11Support && stdenv.isDarwin) [
+        ./use-correct-tcl-tk-on-darwin.patch
+      ]
+    ++ lib.optionals stdenv.isLinux [
 
       # Disable the use of ldconfig in ctypes.util.find_library (since
       # ldconfig doesn't work on NixOS), and don't use
@@ -158,7 +160,8 @@ let
       # Fix ctypes.util.find_library with gcc10.
       ./find_library-gcc10.patch
 
-    ] ++ lib.optionals stdenv.hostPlatform.isCygwin [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isCygwin [
       ./2.5.2-ctypes-util-find_library.patch
       ./2.5.2-tkinter-x11.patch
       ./2.6.2-ssl-threads.patch
@@ -169,7 +172,8 @@ let
       ./2.7.3-dylib.patch
       ./2.7.3-getpath-exe-extension.patch
       ./2.7.3-no-libm.patch
-    ] ++ lib.optionals hasDistutilsCxxPatch [
+    ]
+    ++ lib.optionals hasDistutilsCxxPatch [
 
       # Patch from http://bugs.python.org/issue1222585 adapted to work with
       # `patch -p1' and with a last hunk removed
@@ -177,9 +181,10 @@ let
       # only works for GCC and Apple Clang. This makes distutils to call C++
       # compiler when needed.
       ./python-2.7-distutils-C++.patch
-    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      ./cross-compile.patch
     ]
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+        ./cross-compile.patch
+      ]
     ;
 
   preConfigure =
@@ -188,11 +193,13 @@ let
       for i in /usr /sw /opt /pkg; do
         substituteInPlace ./setup.py --replace $i /no-such-path
       done
-    '' + lib.optionalString (stdenv ? cc && stdenv.cc.libc != null) ''
+    ''
+    + lib.optionalString (stdenv ? cc && stdenv.cc.libc != null) ''
       for i in Lib/plat-*/regen; do
         substituteInPlace $i --replace /usr/include/ ${stdenv.cc.libc}/include/
       done
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace configure --replace '`/usr/bin/arch`' '"i386"'
       substituteInPlace Lib/multiprocessing/__init__.py \
         --replace 'os.popen(comm)' 'os.popen("${coreutils}/bin/nproc")'
@@ -201,14 +208,17 @@ let
 
   configureFlags =
     lib.optionals enableOptimizations [ "--enable-optimizations" ]
-    ++ lib.optionals (!static) [ "--enable-shared" ] ++ [
+    ++ lib.optionals (!static) [ "--enable-shared" ]
+    ++ [
       "--with-threads"
       "--with-system-ffi"
       "--with-system-expat"
       "--enable-unicode=ucs${toString ucsEncoding}"
-    ] ++ lib.optionals stdenv.hostPlatform.isCygwin [
-      "ac_cv_func_bind_textdomain_codeset=yes"
-    ] ++ lib.optionals stdenv.isDarwin [ "--disable-toolbox-glue" ]
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isCygwin [
+        "ac_cv_func_bind_textdomain_codeset=yes"
+      ]
+    ++ lib.optionals stdenv.isDarwin [ "--disable-toolbox-glue" ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "PYTHON_FOR_BUILD=${lib.getBin buildPackages.python}/bin/python"
       "ac_cv_buggy_getaddrinfo=no"
@@ -240,7 +250,8 @@ let
 
   strictDeps = true;
   buildInputs =
-    lib.optional (stdenv ? cc && stdenv.cc.libc != null) stdenv.cc.libc ++ [
+    lib.optional (stdenv ? cc && stdenv.cc.libc != null) stdenv.cc.libc
+    ++ [
       bzip2
       openssl
       zlib
@@ -251,11 +262,13 @@ let
       ncurses
       sqlite
       readline
-    ] ++ lib.optionals x11Support [
+    ]
+    ++ lib.optionals x11Support [
       tcl
       tk
       libX11
-    ] ++ lib.optional (stdenv.isDarwin && configd != null) configd
+    ]
+    ++ lib.optional (stdenv.isDarwin && configd != null) configd
     ;
   nativeBuildInputs =
     [ autoreconfHook ]
@@ -294,8 +307,9 @@ stdenv.mkDerivation ({
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString (stdenv.targetPlatform.system == "x86_64-darwin")
-    "-msse2" + lib.optionalString stdenv.hostPlatform.isMusl
-    " -DTHREAD_STACK_SIZE=0x100000"
+      "-msse2"
+    + lib.optionalString stdenv.hostPlatform.isMusl
+      " -DTHREAD_STACK_SIZE=0x100000"
     ;
   DETERMINISTIC_BUILD = 1;
 
@@ -328,18 +342,21 @@ stdenv.mkDerivation ({
       # Determinism: Windows installers were not deterministic.
       # We're also not interested in building Windows installers.
       find "$out" -name 'wininst*.exe' | xargs -r rm -f
-    '' + lib.optionalString stripBytecode ''
+    ''
+    + lib.optionalString stripBytecode ''
       # Determinism: deterministic bytecode
       # First we delete all old bytecode.
       find $out -name "*.pyc" -delete
-    '' + lib.optionalString rebuildBytecode ''
+    ''
+    + lib.optionalString rebuildBytecode ''
       # We build 3 levels of optimized bytecode. Note the default level, without optimizations,
       # is not reproducible yet. https://bugs.python.org/issue29708
       # Not creating bytecode will result in a large performance loss however, so we do build it.
       find $out -name "*.py" | ${pythonForBuildInterpreter} -m compileall -q -f -x "lib2to3" -i -
       find $out -name "*.py" | ${pythonForBuildInterpreter} -O  -m compileall -q -f -x "lib2to3" -i -
       find $out -name "*.py" | ${pythonForBuildInterpreter} -OO -m compileall -q -f -x "lib2to3" -i -
-    '' + lib.optionalString stdenv.hostPlatform.isCygwin ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isCygwin ''
       cp libpython2.7.dll.a $out/lib
     ''
     ;
@@ -350,14 +367,18 @@ stdenv.mkDerivation ({
     ''
       # Include a sitecustomize.py file. Note it causes an error when it's in postInstall with 2.7.
       cp ${../../sitecustomize.py} $out/${sitePackages}/sitecustomize.py
-    '' + lib.optionalString strip2to3 ''
+    ''
+    + lib.optionalString strip2to3 ''
       rm -R $out/bin/2to3 $out/lib/python*/lib2to3
-    '' + lib.optionalString stripConfig ''
+    ''
+    + lib.optionalString stripConfig ''
       rm -R $out/bin/python*-config $out/lib/python*/config*
-    '' + lib.optionalString stripIdlelib ''
+    ''
+    + lib.optionalString stripIdlelib ''
       # Strip IDLE
       rm -R $out/bin/idle* $out/lib/python*/idlelib
-    '' + lib.optionalString stripTests ''
+    ''
+    + lib.optionalString stripTests ''
       # Strip tests
       rm -R $out/lib/python*/test $out/lib/python*/**/test{,s}
     ''

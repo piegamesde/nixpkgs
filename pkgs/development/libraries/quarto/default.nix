@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
           [
             jupyter
             ipython
-          ] ++ (extraPythonPackages ps))
+          ]
+          ++ (extraPythonPackages ps))
       }/bin/python3
   '';
 

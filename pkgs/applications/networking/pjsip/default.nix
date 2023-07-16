@@ -51,7 +51,9 @@ stdenv.mkDerivation (finalAttrs: {
     [
       openssl
       libsamplerate
-    ] ++ lib.optional stdenv.isLinux alsa-lib ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optional stdenv.isLinux alsa-lib
+    ++ lib.optionals stdenv.isDarwin [
       AppKit
       CoreFoundation
       Security
@@ -79,11 +81,13 @@ stdenv.mkDerivation (finalAttrs: {
       cp pjsip-apps/bin/pjsua-* $out/bin/pjsua
       mkdir -p $out/share/${finalAttrs.pname}-${finalAttrs.version}/samples
       cp pjsip-apps/bin/samples/*/* $out/share/${finalAttrs.pname}-${finalAttrs.version}/samples
-    '' + lib.optionalString pythonSupport ''
+    ''
+    + lib.optionalString pythonSupport ''
       (cd pjsip-apps/src/swig/python && \
         python setup.py install --prefix=$py
       )
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # On MacOS relative paths are used to refer to libraries. All libraries use
       # a relative path like ../lib/*.dylib or ../../lib/*.dylib. We need to
       # rewrite these to use absolute ones.

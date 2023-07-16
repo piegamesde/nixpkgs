@@ -110,14 +110,17 @@ stdenv.mkDerivation {
       libossp_uuid
       libxcrypt
       zlib
-    ] ++ lib.optionals (withGui && !stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (withGui && !stdenv.isDarwin) [
       libXpm
       libX11
       libXext
       libXft
       libXinerama
       libjpeg
-    ] ++ extraLibraries ++ lib.optional stdenv.isDarwin Security
+    ]
+    ++ extraLibraries
+    ++ lib.optional stdenv.isDarwin Security
     ;
 
   hardeningDisable = [ "format" ];

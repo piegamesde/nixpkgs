@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
     [
       "out"
       "dev"
-    ] ++ lib.optionals withDocs [ "man" ]
+    ]
+    ++ lib.optionals withDocs [ "man" ]
     ;
 
   src = fetchFromGitLab {
@@ -50,7 +51,8 @@ stdenv.mkDerivation rec {
       ninja
       pkg-config
       python3
-    ] ++ lib.optionals withDocs [ help2man ]
+    ]
+    ++ lib.optionals withDocs [ help2man ]
     ++ lib.optionals withIntrospection [ gobject-introspection ]
     ;
 

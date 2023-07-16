@@ -54,10 +54,14 @@ stdenv.mkDerivation rec {
       icu
       jemalloc
       libsodium
-    ] ++ lib.optional withHyperscan hyperscan ++ lib.optionals withBlas [
+    ]
+    ++ lib.optional withHyperscan hyperscan
+    ++ lib.optionals withBlas [
       blas
       lapack
-    ] ++ lib.optional withLuaJIT luajit ++ lib.optional (!withLuaJIT) lua
+    ]
+    ++ lib.optional withLuaJIT luajit
+    ++ lib.optional (!withLuaJIT) lua
     ;
 
   cmakeFlags =
@@ -70,7 +74,8 @@ stdenv.mkDerivation rec {
       "-DLOGDIR=/var/log/rspamd"
       "-DLOCAL_CONFDIR=/etc/rspamd"
       "-DENABLE_JEMALLOC=ON"
-    ] ++ lib.optional withHyperscan "-DENABLE_HYPERSCAN=ON"
+    ]
+    ++ lib.optional withHyperscan "-DENABLE_HYPERSCAN=ON"
     ++ lib.optional (!withLuaJIT) "-DENABLE_LUAJIT=OFF"
     ;
 

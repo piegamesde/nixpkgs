@@ -34,7 +34,8 @@ stdenv.mkDerivation {
   preConfigure =
     ''
       substituteInPlace configure --replace HAVE_LCG=yes HAVE_LCG=no
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace configure --replace LIB_SUFFIX=\"so\" LIB_SUFFIX=\"dylib\"
     ''
     ;

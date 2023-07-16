@@ -34,7 +34,9 @@ buildPythonPackage rec {
       mako
       numpy
       funcsigs
-    ] ++ lib.optional withCuda pycuda ++ lib.optional withOpenCL pyopencl
+    ]
+    ++ lib.optional withCuda pycuda
+    ++ lib.optional withOpenCL pyopencl
     ;
 
   checkPhase = ''

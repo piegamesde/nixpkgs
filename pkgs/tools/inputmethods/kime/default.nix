@@ -115,10 +115,13 @@ stdenv.mkDerivation rec {
     lib.optionals withIndicator [
       dbus
       libdbusmenu
-    ] ++ lib.optionals withXim [
+    ]
+    ++ lib.optionals withXim [
       xorg.libxcb
       cairo
-    ] ++ lib.optionals withGtk3 [ gtk3 ] ++ lib.optionals withGtk4 [ gtk4 ]
+    ]
+    ++ lib.optionals withGtk3 [ gtk3 ]
+    ++ lib.optionals withGtk4 [ gtk4 ]
     ++ lib.optionals withQt5 [ qt5.qtbase ]
     ++ lib.optionals withQt6 [ qt6.qtbase ]
     ;

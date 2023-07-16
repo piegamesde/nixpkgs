@@ -130,7 +130,8 @@ in
               "VBoxNetDHCP"
               "VBoxNetNAT"
               "VBoxVolInfo"
-            ] ++ (lib.optionals (!cfg.headless) [
+            ]
+            ++ (lib.optionals (!cfg.headless) [
               "VBoxSDL"
               "VirtualBoxVM"
             ])

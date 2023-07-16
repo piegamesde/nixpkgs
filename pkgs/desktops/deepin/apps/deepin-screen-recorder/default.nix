@@ -73,7 +73,8 @@ stdenv.mkDerivation rec {
       portaudio
       kwayland
       udev
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       gstreamer
       gst-plugins-base
       gst-plugins-good

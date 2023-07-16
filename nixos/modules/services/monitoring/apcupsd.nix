@@ -72,7 +72,8 @@ let
       rm "$out/apcupsd.conf"
       # Set the SCRIPTDIR= line in apccontrol to the dir we're creating now
       sed -i -e "s|^SCRIPTDIR=.*|SCRIPTDIR=$out|" "$out/apccontrol"
-    '' + concatStringsSep "\n" (map eventToShellCmds eventList)
+    ''
+      + concatStringsSep "\n" (map eventToShellCmds eventList)
 
     );
 

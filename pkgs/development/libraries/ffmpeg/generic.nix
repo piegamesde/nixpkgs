@@ -23,19 +23,21 @@
     # GUI applications. To be used for purposes that don't generally need such
     # components and i.e. only depend on libav
   ,
-  withHeadlessDeps ? ffmpegVariant == "headless" || withSmallDeps
+  withHeadlessDeps ? ffmpegVariant == "headless"
+    || withSmallDeps
 
-    # Dependencies a user might customarily expect from a regular ffmpeg build.
-    # /All/ packages that depend on ffmpeg and some of its feaures should depend
-    # on the small variant. Small means the minimal set of features that satisfies
-    # all dependants in Nixpkgs
+      # Dependencies a user might customarily expect from a regular ffmpeg build.
+      # /All/ packages that depend on ffmpeg and some of its feaures should depend
+      # on the small variant. Small means the minimal set of features that satisfies
+      # all dependants in Nixpkgs
   ,
-  withSmallDeps ? ffmpegVariant == "small" || withFullDeps
+  withSmallDeps ? ffmpegVariant == "small"
+    || withFullDeps
 
-    # Everything enabled; only guarded behind platform exclusivity or brokeness.
-    # If you need to depend on ffmpeg-full because ffmpeg is missing some feature
-    # your package needs, you should enable that feature in regular ffmpeg
-    # instead.
+      # Everything enabled; only guarded behind platform exclusivity or brokeness.
+      # If you need to depend on ffmpeg-full because ffmpeg is missing some feature
+      # your package needs, you should enable that feature in regular ffmpeg
+      # instead.
   ,
   withFullDeps ? ffmpegVariant == "full"
 
@@ -49,8 +51,9 @@
   ,
   withAom ? withFullDeps # AV1 reference encoder
   ,
-  withAss ? withHeadlessDeps && stdenv.hostPlatform
-    == stdenv.buildPlatform # (Advanced) SubStation Alpha subtitle rendering
+  withAss ? withHeadlessDeps
+    && stdenv.hostPlatform
+      == stdenv.buildPlatform # (Advanced) SubStation Alpha subtitle rendering
   ,
   withBluray ? withFullDeps # BluRay reading
   ,
@@ -62,15 +65,15 @@
   withCelt ? withFullDeps # CELT decoder
   ,
   withCrystalhd ? withFullDeps,
-  withCuda ? withFullDeps
-    && (with stdenv; (!isDarwin && !hostPlatform.isAarch)),
+  withCuda ?
+    withFullDeps && (with stdenv; (!isDarwin && !hostPlatform.isAarch)),
   withCudaLLVM ? withFullDeps,
   withDav1d ? withHeadlessDeps # AV1 decoder (focused on speed and correctness)
   ,
   withDc1394 ? withFullDeps && !stdenv.isDarwin # IIDC-1394 grabbing (ieee 1394)
   ,
-  withDrm ? withHeadlessDeps
-    && (with stdenv; isLinux || isFreeBSD) # libdrm support
+  withDrm ?
+    withHeadlessDeps && (with stdenv; isLinux || isFreeBSD) # libdrm support
   ,
   withFdkAac ? withFullDeps && withUnfree # Fraunhofer FDK AAC de/encoder
   ,
@@ -94,13 +97,14 @@
   ,
   withLadspa ? withFullDeps # LADSPA audio filtering
   ,
-  withLibplacebo ? withFullDeps
-    && !stdenv.isDarwin # libplacebo video processing library
+  withLibplacebo ?
+    withFullDeps && !stdenv.isDarwin # libplacebo video processing library
   ,
   withLzma ? withHeadlessDeps # xz-utils
   ,
-  withMfx ? withFullDeps && (with stdenv.targetPlatform;
-    isLinux && !isAarch) # Hardware acceleration via intel-media-sdk/libmfx
+  withMfx ? withFullDeps
+    && (with stdenv.targetPlatform;
+      isLinux && !isAarch) # Hardware acceleration via intel-media-sdk/libmfx
   ,
   withModplug ? withFullDeps && !stdenv.isDarwin # ModPlug support
   ,
@@ -108,10 +112,14 @@
   ,
   withMysofa ? withFullDeps # HRTF support via SOFAlizer
   ,
-  withNvdec ? withHeadlessDeps && !stdenv.isDarwin && stdenv.hostPlatform
-    == stdenv.buildPlatform && !stdenv.isAarch32,
-  withNvenc ? withHeadlessDeps && !stdenv.isDarwin && stdenv.hostPlatform
-    == stdenv.buildPlatform && !stdenv.isAarch32,
+  withNvdec ? withHeadlessDeps
+    && !stdenv.isDarwin
+    && stdenv.hostPlatform == stdenv.buildPlatform
+    && !stdenv.isAarch32,
+  withNvenc ? withHeadlessDeps
+    && !stdenv.isDarwin
+    && stdenv.hostPlatform == stdenv.buildPlatform
+    && !stdenv.isAarch32,
   withOgg ? withHeadlessDeps # Ogg container used by vorbis & theora
   ,
   withOpenal ? withFullDeps # OpenAL 1.1 capture support
@@ -163,15 +171,16 @@
   ,
   withVidStab ? withFullDeps # Video stabilization
   ,
-  withVmaf ? withFullDeps && withGPLv3
+  withVmaf ? withFullDeps
+    && withGPLv3
     && !stdenv.isAarch64 # Netflix's VMAF (Video Multi-Method Assessment Fusion)
   ,
   withVoAmrwbenc ? withFullDeps # AMR-WB encoder
   ,
   withVorbis ? withHeadlessDeps # Vorbis de/encoding, native encoder exists
   ,
-  withVpx ? withHeadlessDeps && stdenv.buildPlatform
-    == stdenv.hostPlatform # VP8 & VP9 de/encoding
+  withVpx ? withHeadlessDeps
+    && stdenv.buildPlatform == stdenv.hostPlatform # VP8 & VP9 de/encoding
   ,
   withVulkan ? withFullDeps && !stdenv.isDarwin,
   withWebp ? withFullDeps # WebP encoder
@@ -241,8 +250,11 @@
   ,
   buildQtFaststart ? withFullDeps # Build qt-faststart executable
   ,
-  withBin ? buildFfmpeg || buildFfplay || buildFfprobe || buildQtFaststart
-    # *  Library options
+  withBin ? buildFfmpeg
+    || buildFfplay
+    || buildFfprobe
+    || buildQtFaststart
+      # *  Library options
   ,
   buildAvcodec ? withHeadlessDeps # Build avcodec library
   ,
@@ -254,8 +266,8 @@
     # Deprecated but depended upon by some packages.
     # https://github.com/NixOS/nixpkgs/pull/211834#issuecomment-1417435991)
   ,
-  buildAvresample ? withHeadlessDeps
-    && lib.versionOlder version "5" # Build avresample library
+  buildAvresample ?
+    withHeadlessDeps && lib.versionOlder version "5" # Build avresample library
   ,
   buildAvutil ? withHeadlessDeps # Build avutil library
   ,
@@ -265,9 +277,15 @@
   ,
   buildSwscale ? withHeadlessDeps # Build swscale library
   ,
-  withLib ? buildAvcodec || buildAvdevice || buildAvfilter || buildAvformat
-    || buildAvutil || buildPostproc || buildSwresample || buildSwscale
-    # *  Documentation options
+  withLib ? buildAvcodec
+    || buildAvdevice
+    || buildAvfilter
+    || buildAvformat
+    || buildAvutil
+    || buildPostproc
+    || buildSwresample
+    || buildSwscale
+      # *  Documentation options
   ,
   withDocumentation ? withHtmlDoc || withManPages || withPodDoc || withTxtDoc,
   withHtmlDoc ? withHeadlessDeps # HTML documentation pages
@@ -280,9 +298,10 @@
     # Whether a "doc" output will be produced. Note that withManPages does not produce
     # a "doc" output because its files go to "man".
   ,
-  withDoc ? withDocumentation && (withHtmlDoc || withPodDoc || withTxtDoc)
+  withDoc ? withDocumentation
+    && (withHtmlDoc || withPodDoc || withTxtDoc)
 
-  # *  Developer options
+    # *  Developer options
   ,
   withDebug ? false,
   withOptimisations ? true,
@@ -416,22 +435,29 @@ assert withUnfree -> withGPL && withGPLv3;
 # *  Build dependencies
 assert withPixelutils -> buildAvutil;
 # *  Program dependencies
-assert buildFfmpeg -> buildAvcodec && buildAvfilter && buildAvformat
-  && (buildSwresample || buildAvresample);
-assert buildFfplay -> buildAvcodec && buildAvformat && buildSwscale
-  && (buildSwresample || buildAvresample);
+assert buildFfmpeg
+  -> buildAvcodec
+    && buildAvfilter
+    && buildAvformat
+    && (buildSwresample || buildAvresample);
+assert buildFfplay
+  -> buildAvcodec
+    && buildAvformat
+    && buildSwscale
+    && (buildSwresample || buildAvresample);
 assert buildFfprobe -> buildAvcodec && buildAvformat;
 # *  Library dependencies
 assert buildAvcodec -> buildAvutil; # configure flag since 0.6
-assert buildAvdevice -> buildAvformat && buildAvcodec
-  && buildAvutil; # configure flag since 0.6
+assert buildAvdevice
+  -> buildAvformat && buildAvcodec && buildAvutil; # configure flag since 0.6
 assert buildAvformat -> buildAvcodec && buildAvutil; # configure flag since 0.6
 assert buildPostproc -> buildAvutil;
 assert buildSwscale -> buildAvutil;
 
 stdenv.mkDerivation (finalAttrs: {
   pname =
-    "ffmpeg" + (if ffmpegVariant == "small" then
+    "ffmpeg"
+    + (if ffmpegVariant == "small" then
       ""
     else
       "-${ffmpegVariant}")
@@ -447,20 +473,22 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch =
     ''
       patchShebangs .
-    '' + lib.optionalString withFrei0r ''
+    ''
+    + lib.optionalString withFrei0r ''
       substituteInPlace libavfilter/vf_frei0r.c \
         --replace /usr/local/lib/frei0r-1 ${frei0r}/lib/frei0r-1
       substituteInPlace doc/filters.texi \
         --replace /usr/local/lib/frei0r-1 ${frei0r}/lib/frei0r-1
-    '' + lib.optionalString withVulkan ''
+    ''
+    + lib.optionalString withVulkan ''
       # FIXME: horrible hack, remove for next release
       substituteInPlace libavutil/hwcontext_vulkan.c \
         --replace VK_EXT_VIDEO_DECODE VK_KHR_VIDEO_DECODE
     ''
     ;
 
-  patches = map (patch: fetchpatch patch) (extraPatches ++ (lib.optional
-    (lib.versionAtLeast version "6"
+  patches = map (patch: fetchpatch patch) (extraPatches
+    ++ (lib.optional (lib.versionAtLeast version "6"
       && lib.versionOlder version "6.1") { # this can be removed post 6.1
         name = "fix_aacps_tablegen";
         url =
@@ -513,33 +541,41 @@ stdenv.mkDerivation (finalAttrs: {
       (enableFeature buildFfmpeg "ffmpeg")
       (enableFeature buildFfplay "ffplay")
       (enableFeature buildFfprobe "ffprobe")
-    ] ++ optionals withBin [ "--bindir=${placeholder "bin"}/bin" ] ++ [
+    ]
+    ++ optionals withBin [ "--bindir=${placeholder "bin"}/bin" ]
+    ++ [
       # *  Library flags
       (enableFeature buildAvcodec "avcodec")
       (enableFeature buildAvdevice "avdevice")
       (enableFeature buildAvfilter "avfilter")
       (enableFeature buildAvformat "avformat")
-    ] ++ optionals (lib.versionOlder version "5") [
+    ]
+    ++ optionals (lib.versionOlder version "5") [
       # Ffmpeg > 4 doesn't know about the flag anymore
       (enableFeature buildAvresample "avresample")
-    ] ++ [
+    ]
+    ++ [
       (enableFeature buildAvutil "avutil")
       (enableFeature (buildPostproc && withGPL) "postproc")
       (enableFeature buildSwresample "swresample")
       (enableFeature buildSwscale "swscale")
-    ] ++ optionals withLib [
+    ]
+    ++ optionals withLib [
       "--libdir=${placeholder "lib"}/lib"
       "--incdir=${placeholder "dev"}/include"
-    ] ++ [
+    ]
+    ++ [
       # *  Documentation flags
       (enableFeature withDocumentation "doc")
       (enableFeature withHtmlDoc "htmlpages")
       (enableFeature withManPages "manpages")
-    ] ++ optionals withManPages [ "--mandir=${placeholder "man"}/share/man" ]
+    ]
+    ++ optionals withManPages [ "--mandir=${placeholder "man"}/share/man" ]
     ++ [
       (enableFeature withPodDoc "podpages")
       (enableFeature withTxtDoc "txtpages")
-    ] ++ optionals withDoc [ "--docdir=${placeholder "doc"}/share/doc/ffmpeg" ]
+    ]
+    ++ optionals withDoc [ "--docdir=${placeholder "doc"}/share/doc/ffmpeg" ]
     ++ [
       # *  External libraries
       (enableFeature withAlsa "alsa")
@@ -626,11 +662,13 @@ stdenv.mkDerivation (finalAttrs: {
       (enableFeature withOptimisations "optimizations")
       (enableFeature withExtraWarnings "extra-warnings")
       (enableFeature withStripping "stripping")
-    ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    ]
+    ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "--cross-prefix=${stdenv.cc.targetPrefix}"
       "--enable-cross-compile"
       "--host-cc=${buildPackages.stdenv.cc}/bin/cc"
-    ] ++ optionals stdenv.cc.isClang [
+    ]
+    ++ optionals stdenv.cc.isClang [
       "--cc=clang"
       "--cxx=clang++"
     ]
@@ -663,69 +701,108 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs =
     optionals withFullDeps [ libdc1394 ]
     ++ optionals (withFullDeps && !stdenv.isDarwin) [
-      libraw1394
-    ] # TODO where does this belong to
+        libraw1394
+      ] # TODO where does this belong to
     ++ optionals (withNvdec || withNvenc) [
-      (if (lib.versionAtLeast version "6") then
-        nv-codec-headers-11
-      else
-        nv-codec-headers)
-    ] ++ optionals withAlsa [ alsa-lib ] ++ optionals withAom [ libaom ]
-    ++ optionals withAss [ libass ] ++ optionals withBluray [ libbluray ]
-    ++ optionals withBs2b [ libbs2b ] ++ optionals withBzlib [ bzip2 ]
-    ++ optionals withCaca [ libcaca ] ++ optionals withCelt [ celt ]
-    ++ optionals withCudaLLVM [ clang ] ++ optionals withDav1d [ dav1d ]
-    ++ optionals withDrm [ libdrm ] ++ optionals withFdkAac [ fdk_aac ]
+        (if (lib.versionAtLeast version "6") then
+          nv-codec-headers-11
+        else
+          nv-codec-headers)
+      ]
+    ++ optionals withAlsa [ alsa-lib ]
+    ++ optionals withAom [ libaom ]
+    ++ optionals withAss [ libass ]
+    ++ optionals withBluray [ libbluray ]
+    ++ optionals withBs2b [ libbs2b ]
+    ++ optionals withBzlib [ bzip2 ]
+    ++ optionals withCaca [ libcaca ]
+    ++ optionals withCelt [ celt ]
+    ++ optionals withCudaLLVM [ clang ]
+    ++ optionals withDav1d [ dav1d ]
+    ++ optionals withDrm [ libdrm ]
+    ++ optionals withFdkAac [ fdk_aac ]
     ++ optionals withFontconfig [ fontconfig ]
-    ++ optionals withFreetype [ freetype ] ++ optionals withFrei0r [ frei0r ]
-    ++ optionals withFribidi [ fribidi ] ++ optionals withGlslang [ glslang ]
-    ++ optionals withGme [ game-music-emu ] ++ optionals withGnutls [ gnutls ]
-    ++ optionals withGsm [ gsm ] ++ optionals withIconv [
-      libiconv
-    ] # On Linux this should be in libc, do we really need it?
-    ++ optionals withJack [ libjack2 ] ++ optionals withLadspa [ ladspaH ]
+    ++ optionals withFreetype [ freetype ]
+    ++ optionals withFrei0r [ frei0r ]
+    ++ optionals withFribidi [ fribidi ]
+    ++ optionals withGlslang [ glslang ]
+    ++ optionals withGme [ game-music-emu ]
+    ++ optionals withGnutls [ gnutls ]
+    ++ optionals withGsm [ gsm ]
+    ++ optionals withIconv [
+        libiconv
+      ] # On Linux this should be in libc, do we really need it?
+    ++ optionals withJack [ libjack2 ]
+    ++ optionals withLadspa [ ladspaH ]
     ++ optionals withLibplacebo [
       libplacebo
       vulkan-headers
-    ] ++ optionals withLzma [ xz ] ++ optionals withMfx [ intel-media-sdk ]
-    ++ optionals withModplug [ libmodplug ] ++ optionals withMp3lame [ lame ]
-    ++ optionals withMysofa [ libmysofa ] ++ optionals withOgg [ libogg ]
-    ++ optionals withOpenal [ openal ] ++ optionals withOpencl [
+    ]
+    ++ optionals withLzma [ xz ]
+    ++ optionals withMfx [ intel-media-sdk ]
+    ++ optionals withModplug [ libmodplug ]
+    ++ optionals withMp3lame [ lame ]
+    ++ optionals withMysofa [ libmysofa ]
+    ++ optionals withOgg [ libogg ]
+    ++ optionals withOpenal [ openal ]
+    ++ optionals withOpencl [
       ocl-icd
       opencl-headers
-    ] ++ optionals withOpencoreAmrnb [ opencore-amr ] ++ optionals withOpengl [
+    ]
+    ++ optionals withOpencoreAmrnb [ opencore-amr ]
+    ++ optionals withOpengl [
       libGL
       libGLU
-    ] ++ optionals withOpenh264 [ openh264 ]
+    ]
+    ++ optionals withOpenh264 [ openh264 ]
     ++ optionals withOpenjpeg [ openjpeg ]
-    ++ optionals withOpenmpt [ libopenmpt ] ++ optionals withOpus [ libopus ]
-    ++ optionals withPulse [ libpulseaudio ] ++ optionals withRav1e [ rav1e ]
-    ++ optionals withRtmp [ rtmpdump ] ++ optionals withSamba [ samba ]
-    ++ optionals withSdl2 [ SDL2 ] ++ optionals withSoxr [ soxr ]
-    ++ optionals withSpeex [ speex ] ++ optionals withSrt [ srt ]
-    ++ optionals withSsh [ libssh ] ++ optionals withSvg [ librsvg ]
-    ++ optionals withSvtav1 [ svt-av1 ] ++ optionals withTheora [ libtheora ]
+    ++ optionals withOpenmpt [ libopenmpt ]
+    ++ optionals withOpus [ libopus ]
+    ++ optionals withPulse [ libpulseaudio ]
+    ++ optionals withRav1e [ rav1e ]
+    ++ optionals withRtmp [ rtmpdump ]
+    ++ optionals withSamba [ samba ]
+    ++ optionals withSdl2 [ SDL2 ]
+    ++ optionals withSoxr [ soxr ]
+    ++ optionals withSpeex [ speex ]
+    ++ optionals withSrt [ srt ]
+    ++ optionals withSsh [ libssh ]
+    ++ optionals withSvg [ librsvg ]
+    ++ optionals withSvtav1 [ svt-av1 ]
+    ++ optionals withTheora [ libtheora ]
     ++ optionals withVaapi [
-      (if withSmallDeps then
-        libva
-      else
-        libva-minimal)
-    ] ++ optionals withVdpau [ libvdpau ] ++ optionals withVidStab [ vid-stab ]
+        (if withSmallDeps then
+          libva
+        else
+          libva-minimal)
+      ]
+    ++ optionals withVdpau [ libvdpau ]
+    ++ optionals withVidStab [ vid-stab ]
     ++ optionals withVmaf [ libvmaf ]
     ++ optionals withVoAmrwbenc [ vo-amrwbenc ]
-    ++ optionals withVorbis [ libvorbis ] ++ optionals withVpx [ libvpx ]
-    ++ optionals withV4l2 [ libv4l ] ++ optionals withVulkan [
+    ++ optionals withVorbis [ libvorbis ]
+    ++ optionals withVpx [ libvpx ]
+    ++ optionals withV4l2 [ libv4l ]
+    ++ optionals withVulkan [
       vulkan-headers
       vulkan-loader
-    ] ++ optionals withWebp [ libwebp ] ++ optionals withX264 [ x264 ]
-    ++ optionals withX265 [ x265 ] ++ optionals withXavs [ xavs ]
-    ++ optionals withXcb [ libxcb ] ++ optionals withXlib [
+    ]
+    ++ optionals withWebp [ libwebp ]
+    ++ optionals withX264 [ x264 ]
+    ++ optionals withX265 [ x265 ]
+    ++ optionals withXavs [ xavs ]
+    ++ optionals withXcb [ libxcb ]
+    ++ optionals withXlib [
       libX11
       libXv
       libXext
-    ] ++ optionals withXml2 [ libxml2 ] ++ optionals withXvid [ xvidcore ]
-    ++ optionals withZimg [ zimg ] ++ optionals withZlib [ zlib ]
-    ++ optionals withZmq [ zeromq4 ] ++ optionals stdenv.isDarwin [
+    ]
+    ++ optionals withXml2 [ libxml2 ]
+    ++ optionals withXvid [ xvidcore ]
+    ++ optionals withZimg [ zimg ]
+    ++ optionals withZlib [ zlib ]
+    ++ optionals withZmq [ zeromq4 ]
+    ++ optionals stdenv.isDarwin [
       # TODO fine-grained flags
       AVFoundation
       Cocoa
@@ -756,7 +833,8 @@ stdenv.mkDerivation (finalAttrs: {
           "LD_LIBRARY_PATH"
         ;
       libsToLink =
-        [ ] ++ optional buildAvcodec "libavcodec"
+        [ ]
+        ++ optional buildAvcodec "libavcodec"
         ++ optional buildAvdevice "libavdevice"
         ++ optional buildAvfilter "libavfilter"
         ++ optional buildAvformat "libavformat"
@@ -776,12 +854,15 @@ stdenv.mkDerivation (finalAttrs: {
 
   outputs =
     optionals withBin [
-      "bin"
-    ] # The first output is the one that gets symlinked by default!
+        "bin"
+      ] # The first output is the one that gets symlinked by default!
     ++ optionals withLib [
       "lib"
       "dev"
-    ] ++ optionals withDoc [ "doc" ] ++ optionals withManPages [ "man" ] ++ [
+    ]
+    ++ optionals withDoc [ "doc" ]
+    ++ optionals withManPages [ "man" ]
+    ++ [
       "data"
       "out"
     ] # We need an "out" output because we get an error otherwise. It's just an empty dir.
@@ -815,7 +896,9 @@ stdenv.mkDerivation (finalAttrs: {
       a corporation.
     '';
     license = with licenses;
-      [ lgpl21Plus ] ++ optional withGPL gpl2Plus ++ optional withGPLv3 gpl3Plus
+      [ lgpl21Plus ]
+      ++ optional withGPL gpl2Plus
+      ++ optional withGPLv3 gpl3Plus
       ++ optional withUnfree unfreeRedistributable;
     pkgConfigModules = [ "libavutil" ];
     platforms = platforms.all;

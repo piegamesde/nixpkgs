@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
     [
       SDL2
       libao
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       alsa-lib
       gtk3
       gtksourceview3
@@ -51,7 +52,8 @@ stdenv.mkDerivation rec {
       libpulseaudio
       openal
       udev
-    ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+    ]
+    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
       Carbon
       Cocoa
       OpenAL
@@ -86,7 +88,8 @@ stdenv.mkDerivation rec {
     ''
       runHook preInstall
 
-    '' + (if stdenv.isDarwin then
+    ''
+    + (if stdenv.isDarwin then
       ''
         mkdir ${placeholder "out"}
         mv higan/out/higan.app ${placeholder "out"}/
@@ -119,43 +122,44 @@ stdenv.mkDerivation rec {
         install icarus/resource/icarus.png ${
           placeholder "out"
         }/share/pixmaps/icarus-icon.png
-      '') + ''
-        install -d ${placeholder "out"}/share/higan
-        cp -rd extras/ higan/System/ ${placeholder "out"}/share/higan/
+      '')
+    + ''
+      install -d ${placeholder "out"}/share/higan
+      cp -rd extras/ higan/System/ ${placeholder "out"}/share/higan/
 
-        install -d ${placeholder "out"}/share/icarus
-        cp -rd icarus/Database icarus/Firmware ${
-          placeholder "out"
-        }/share/icarus/
-      '' + (
-        # A dirty workaround, suggested by @cpages:
-        # we create a first-run script to populate
-        # $HOME with all the stuff needed at runtime
-        let
-          dest =
-            if stdenv.isDarwin then
-              "\\$HOME/Library/Application Support/higan"
-            else
-              "\\$HOME/higan"
-            ;
-        in
-        ''
-          mkdir -p ${placeholder "out"}/bin
-          cat <<EOF > ${placeholder "out"}/bin/higan-init.sh
-          #!${runtimeShell}
-
-          cp --recursive --update ${
-            placeholder "out"
-          }/share/higan/System/ "${dest}"/
-
-          EOF
-
-          chmod +x ${placeholder "out"}/bin/higan-init.sh
-        ''
-      ) + ''
-
-        runHook postInstall
+      install -d ${placeholder "out"}/share/icarus
+      cp -rd icarus/Database icarus/Firmware ${placeholder "out"}/share/icarus/
+    ''
+    + (
+      # A dirty workaround, suggested by @cpages:
+      # we create a first-run script to populate
+      # $HOME with all the stuff needed at runtime
+      let
+        dest =
+          if stdenv.isDarwin then
+            "\\$HOME/Library/Application Support/higan"
+          else
+            "\\$HOME/higan"
+          ;
+      in
       ''
+        mkdir -p ${placeholder "out"}/bin
+        cat <<EOF > ${placeholder "out"}/bin/higan-init.sh
+        #!${runtimeShell}
+
+        cp --recursive --update ${
+          placeholder "out"
+        }/share/higan/System/ "${dest}"/
+
+        EOF
+
+        chmod +x ${placeholder "out"}/bin/higan-init.sh
+      ''
+    )
+    + ''
+
+      runHook postInstall
+    ''
     ;
 
   meta = with lib; {

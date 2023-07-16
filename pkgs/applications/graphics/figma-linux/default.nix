@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
       nspr
       nss
       pango
-    ] ++ (with pkgs.xorg; [
+    ]
+    ++ (with pkgs.xorg; [
       libX11
       libXcomposite
       libXdamage

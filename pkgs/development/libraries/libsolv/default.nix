@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
       "-DENABLE_ZSTD_COMPRESSION=true"
       "-DENABLE_ZCHUNK_COMPRESSION=true"
       "-DWITH_SYSTEM_ZCHUNK=true"
-    ] ++ lib.optionals withRpm [
+    ]
+    ++ lib.optionals withRpm [
       "-DENABLE_PUBKEY=true"
       "-DENABLE_RPMDB=true"
       "-DENABLE_RPMDB_BYRPMHEADER=true"
@@ -57,7 +58,8 @@ stdenv.mkDerivation rec {
       zstd
       expat
       db
-    ] ++ lib.optional withRpm rpm
+    ]
+    ++ lib.optional withRpm rpm
     ;
 
   meta = with lib; {

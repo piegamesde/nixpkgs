@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
       perl
       libassuan
       libgcrypt
-    ] ++ lib.optional doCheck ([
+    ]
+    ++ lib.optional doCheck ([
       gnupg
       opensshUnsafe
       which
@@ -63,10 +64,11 @@ stdenv.mkDerivation rec {
       hexdump
       procps
       lockfileProgs
-    ] ++ (with perlPackages; [
-      CryptOpenSSLRSA
-      CryptOpenSSLBignum
-    ]))
+    ]
+      ++ (with perlPackages; [
+        CryptOpenSSLRSA
+        CryptOpenSSLBignum
+      ]))
     ;
 
   makeFlags = [
@@ -94,12 +96,14 @@ stdenv.mkDerivation rec {
     let
       wrapperArgs =
         runtimeDeps:
-        "--prefix PERL5LIB : " + (with perlPackages;
+        "--prefix PERL5LIB : "
+        + (with perlPackages;
           makePerlPath [ # Optional (only required for keytrans)
             CryptOpenSSLRSA
             CryptOpenSSLBignum
-          ]) + lib.optionalString (builtins.length runtimeDeps > 0)
-        " --prefix PATH : ${lib.makeBinPath runtimeDeps}"
+          ])
+        + lib.optionalString (builtins.length runtimeDeps > 0)
+          " --prefix PATH : ${lib.makeBinPath runtimeDeps}"
         ;
       wrapMonkeysphere =
         runtimeDeps: program: ''
@@ -114,10 +118,12 @@ stdenv.mkDerivation rec {
     wrapPrograms [ gnupg ] [
       "monkeysphere-authentication"
       "monkeysphere-host"
-    ] + wrapPrograms [
+    ]
+    + wrapPrograms [
       gnupg
       lockfileProgs
-    ] [ "monkeysphere" ] + ''
+    ] [ "monkeysphere" ]
+    + ''
       # These 4 programs depend on the program name ($0):
       for program in openpgp2pem openpgp2spki openpgp2ssh pem2openpgp; do
         rm $out/bin/$program

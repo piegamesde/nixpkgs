@@ -73,7 +73,8 @@ in
           openssl
           zlib
           curl
-        ] ++ lib.optionals stdenv.isDarwin [
+        ]
+        ++ lib.optionals stdenv.isDarwin [
           CoreFoundation
           Security
         ]
@@ -114,13 +115,14 @@ in
   evdev-sys =
     attrs: {
       nativeBuildInputs =
-        [ pkg-config ] ++ lib.optionals
-        (stdenv.buildPlatform.config != stdenv.hostPlatform.config) [
-          python3
-          autoconf
-          automake
-          libtool
-        ]
+        [ pkg-config ]
+        ++ lib.optionals
+          (stdenv.buildPlatform.config != stdenv.hostPlatform.config) [
+            python3
+            autoconf
+            automake
+            libtool
+          ]
         ;
       buildInputs = [ libevdev ];
 

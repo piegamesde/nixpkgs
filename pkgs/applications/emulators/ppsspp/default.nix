@@ -32,7 +32,8 @@ in
 assert forceWayland -> !enableQt;
 stdenv.mkDerivation (finalAttrs: {
   pname =
-    "ppsspp" + lib.optionalString enableQt "-qt"
+    "ppsspp"
+    + lib.optionalString enableQt "-qt"
     + lib.optionalString (!enableQt) "-sdl"
     + lib.optionalString forceWayland "-wayland"
     ;
@@ -58,7 +59,8 @@ stdenv.mkDerivation (finalAttrs: {
       makeWrapper
       pkg-config
       python3
-    ] ++ lib.optional enableQt wrapQtAppsHook
+    ]
+    ++ lib.optional enableQt wrapQtAppsHook
     ;
 
   buildInputs =
@@ -69,10 +71,12 @@ stdenv.mkDerivation (finalAttrs: {
       libzip
       snappy
       zlib
-    ] ++ lib.optionals enableQt [
+    ]
+    ++ lib.optionals enableQt [
       qtbase
       qtmultimedia
-    ] ++ lib.optional enableVulkan vulkan-loader
+    ]
+    ++ lib.optional enableVulkan vulkan-loader
     ++ lib.optionals vulkanWayland [
       wayland
       libffi
@@ -126,7 +130,8 @@ stdenv.mkDerivation (finalAttrs: {
       runHook preInstall
 
       mkdir -p $out/share/{applications,ppsspp}
-    '' + (if enableQt then
+    ''
+    + (if enableQt then
       ''
         install -Dm555 PPSSPPQt $out/bin/ppsspp
         wrapProgram $out/bin/ppsspp \
@@ -142,13 +147,16 @@ stdenv.mkDerivation (finalAttrs: {
             else
               "x11"
           } \
-      '') + lib.optionalString enableVulkan ''
-        --prefix LD_LIBRARY_PATH : ${vulkanPath} \
-      '' + "\n" + ''
-        mv assets $out/share/ppsspp
+      '')
+    + lib.optionalString enableVulkan ''
+      --prefix LD_LIBRARY_PATH : ${vulkanPath} \
+    ''
+    + "\n"
+    + ''
+      mv assets $out/share/ppsspp
 
-        runHook postInstall
-      ''
+      runHook postInstall
+    ''
     ;
 
   meta = {
@@ -158,7 +166,8 @@ stdenv.mkDerivation (finalAttrs: {
       + (if enableQt then
         "Qt"
       else
-        "SDL + headless") + ")"
+        "SDL + headless")
+      + ")"
       ;
     license = lib.licenses.gpl2Plus;
     maintainers = [ lib.maintainers.AndersonTorres ];

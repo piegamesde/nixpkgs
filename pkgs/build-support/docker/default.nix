@@ -995,7 +995,8 @@ rec {
         paths = contentsList;
         inherit extraCommands fakeRootCommands;
         nativeBuildInputs =
-          [ fakeroot ] ++ optionals enableFakechroot [
+          [ fakeroot ]
+          ++ optionals enableFakechroot [
             fakechroot
             # for chroot
             coreutils

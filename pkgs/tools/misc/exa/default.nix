@@ -40,7 +40,8 @@ rustPlatform.buildRustPackage rec {
     pandoc
   ];
   buildInputs =
-    [ zlib ] ++ lib.optionals stdenv.isDarwin [
+    [ zlib ]
+    ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security
     ]

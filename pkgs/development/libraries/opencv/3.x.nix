@@ -116,7 +116,8 @@ let
         repo = "opencv_3rdparty";
         rev = "32e315a5b106a7b89dbed51c28f8120a48b368b4";
         sha256 = "19w9f0r16072s59diqxsr5q6nmwyz9gnxjs49nglzhd66p3ddbkp";
-      } + "/ippicv"
+      }
+      + "/ippicv"
       ;
     files =
       let
@@ -190,7 +191,8 @@ let
     with lib;
     ''
       mkdir -p "${extra.dst}"
-    '' + concatStrings (mapAttrsToList (name: md5: ''
+    ''
+    + concatStrings (mapAttrsToList (name: md5: ''
       ln -s "${extra.src}/${name}" "${extra.dst}/${md5}-${name}"
     '') extra.files)
     ;
@@ -251,31 +253,43 @@ stdenv.mkDerivation {
       glog
       boost
       gflags
-    ] ++ lib.optional useSystemProtobuf protobuf
+    ]
+    ++ lib.optional useSystemProtobuf protobuf
     ++ lib.optional enablePython pythonPackages.python
-    ++ lib.optional enableGtk2 gtk2 ++ lib.optional enableGtk3 gtk3
-    ++ lib.optional enableVtk vtk_8 ++ lib.optional enableJPEG libjpeg
-    ++ lib.optional enablePNG libpng ++ lib.optional enableTIFF libtiff
-    ++ lib.optional enableWebP libwebp ++ lib.optionals enableEXR [
+    ++ lib.optional enableGtk2 gtk2
+    ++ lib.optional enableGtk3 gtk3
+    ++ lib.optional enableVtk vtk_8
+    ++ lib.optional enableJPEG libjpeg
+    ++ lib.optional enablePNG libpng
+    ++ lib.optional enableTIFF libtiff
+    ++ lib.optional enableWebP libwebp
+    ++ lib.optionals enableEXR [
       openexr
       ilmbase
-    ] ++ lib.optional enableFfmpeg ffmpeg
+    ]
+    ++ lib.optional enableFfmpeg ffmpeg
     ++ lib.optionals (enableFfmpeg && stdenv.isDarwin) [
       VideoDecodeAcceleration
       bzip2
-    ] ++ lib.optionals enableGStreamer (with gst_all_1; [
+    ]
+    ++ lib.optionals enableGStreamer (with gst_all_1; [
       gstreamer
       gst-plugins-base
-    ]) ++ lib.optional enableOvis ogre ++ lib.optional enableGPhoto2 libgphoto2
-    ++ lib.optional enableDC1394 libdc1394 ++ lib.optional enableEigen eigen
+    ])
+    ++ lib.optional enableOvis ogre
+    ++ lib.optional enableGPhoto2 libgphoto2
+    ++ lib.optional enableDC1394 libdc1394
+    ++ lib.optional enableEigen eigen
     ++ lib.optional enableOpenblas openblas
-    # There is seemingly no compile-time flag for Tesseract.  It's
-    # simply enabled automatically if contrib is built, and it detects
-    # tesseract & leptonica.
+      # There is seemingly no compile-time flag for Tesseract.  It's
+      # simply enabled automatically if contrib is built, and it detects
+      # tesseract & leptonica.
     ++ lib.optionals enableTesseract [
       tesseract
       leptonica
-    ] ++ lib.optional enableTbb tbb ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optional enableTbb tbb
+    ++ lib.optionals stdenv.isDarwin [
       bzip2
       AVFoundation
       Cocoa
@@ -283,7 +297,8 @@ stdenv.mkDerivation {
       CoreMedia
       MediaToolbox
       Accelerate
-    ] ++ lib.optionals enableDocs [
+    ]
+    ++ lib.optionals enableDocs [
       doxygen
       graphviz-nox
     ]
@@ -324,16 +339,19 @@ stdenv.mkDerivation {
       (opencvFlag "CUDA" enableCuda)
       (opencvFlag "CUBLAS" enableCuda)
       (opencvFlag "TBB" enableTbb)
-    ] ++ lib.optionals enableCuda [
+    ]
+    ++ lib.optionals enableCuda [
       "-DCUDA_FAST_MATH=ON"
       "-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/cc"
       "-DCUDA_NVCC_FLAGS=--expt-relaxed-constexpr"
       "-DCUDA_ARCH_BIN=${lib.concatStringsSep ";" cudaCapabilities}"
       "-DCUDA_ARCH_PTX=${lib.last cudaCapabilities}"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       "-DWITH_OPENCL=OFF"
       "-DWITH_LAPACK=OFF"
-    ] ++ lib.optionals enablePython [ "-DOPENCV_SKIP_PYTHON_LOADER=ON" ]
+    ]
+    ++ lib.optionals enablePython [ "-DOPENCV_SKIP_PYTHON_LOADER=ON" ]
     ++ lib.optionals enableEigen [
       # Autodetection broken by https://github.com/opencv/opencv/pull/13337
       "-DEIGEN_INCLUDE_PATH=${eigen}/include/eigen3"

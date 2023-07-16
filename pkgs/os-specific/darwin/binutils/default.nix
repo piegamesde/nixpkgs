@@ -87,25 +87,25 @@ stdenv.mkDerivation {
       makeWrapper "${clang-unwrapped}/bin/clang" "$out/bin/${targetPrefix}as" \
         --add-flags "-x assembler -integrated-as -c"
     ''
-    # x86-64 Darwin gnat-bootstrap emits assembly
-    # with MOVQ as the mnemonic for quadword interunit moves
-    # such as `movq %rbp, %xmm0`.
-    # The clang integrated assembler recognises this as valid,
-    # but unfortunately the cctools-port GNU assembler does not;
-    # it instead uses MOVD as the mnemonic.
-    # The assembly that a GCC build emits is determined at build time
-    # and cannot be changed afterwards.
-    #
-    # To build GNAT on x86-64 Darwin, therefore,
-    # we need both the clang _and_ the cctools-port assemblers to be available:
-    # the former to build at least the stage1 compiler,
-    # and the latter at least to be detectable
-    # as the target for the final compiler.
-    #
-    # We choose to match the Aarch64 case above,
-    # wrapping the clang integrated assembler as `as`.
-    # It then seems sensible to wrap the cctools GNU assembler as `gas`.
-    #
+      # x86-64 Darwin gnat-bootstrap emits assembly
+      # with MOVQ as the mnemonic for quadword interunit moves
+      # such as `movq %rbp, %xmm0`.
+      # The clang integrated assembler recognises this as valid,
+      # but unfortunately the cctools-port GNU assembler does not;
+      # it instead uses MOVD as the mnemonic.
+      # The assembly that a GCC build emits is determined at build time
+      # and cannot be changed afterwards.
+      #
+      # To build GNAT on x86-64 Darwin, therefore,
+      # we need both the clang _and_ the cctools-port assemblers to be available:
+      # the former to build at least the stage1 compiler,
+      # and the latter at least to be detectable
+      # as the target for the final compiler.
+      #
+      # We choose to match the Aarch64 case above,
+      # wrapping the clang integrated assembler as `as`.
+      # It then seems sensible to wrap the cctools GNU assembler as `gas`.
+      #
     + lib.optionalString (stdenv.isx86_64 && dualAs) ''
       mv $out/bin/${targetPrefix}as $out/bin/${targetPrefix}gas
       makeWrapper "${clang-unwrapped}/bin/clang" "$out/bin/${targetPrefix}as" \

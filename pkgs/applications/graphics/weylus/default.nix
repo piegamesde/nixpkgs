@@ -40,12 +40,14 @@ rustPlatform.buildRustPackage rec {
     [
       ffmpeg
       x264
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       ApplicationServices
       Carbon
       Cocoa
       VideoToolbox
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       dbus
       libva
       gst_all_1.gst-plugins-base
@@ -71,7 +73,8 @@ rustPlatform.buildRustPackage rec {
       git
       nodePackages.typescript
       makeWrapper
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       pkg-config
       autoconf
       libtool

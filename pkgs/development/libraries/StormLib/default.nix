@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
       bzip2
       libtomcrypt
       zlib
-    ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Carbon ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Carbon ]
     ;
 
   meta = with lib; {

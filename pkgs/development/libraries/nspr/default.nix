@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
   preConfigure =
     ''
       cd nspr
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace configure --replace '@executable_path/' "$out/lib/"
       substituteInPlace configure.in --replace '@executable_path/' "$out/lib/"
     ''
@@ -40,7 +41,8 @@ stdenv.mkDerivation rec {
     [
       "--enable-optimize"
       "--disable-debug"
-    ] ++ lib.optional stdenv.is64bit "--enable-64bit"
+    ]
+    ++ lib.optional stdenv.is64bit "--enable-64bit"
     ;
 
   postInstall = ''

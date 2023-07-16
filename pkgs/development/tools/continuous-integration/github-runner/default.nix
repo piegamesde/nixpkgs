@@ -72,10 +72,11 @@ buildDotnetModule rec {
     [
       git
       which
-    ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-      autoSignDarwinBinariesHook
     ]
+    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+        autoSignDarwinBinariesHook
+      ]
     ;
 
   buildInputs = [ stdenv.cc.cc.lib ];
@@ -119,40 +120,44 @@ buildDotnetModule rec {
         "UseExternalsRuntimeTrimmedPackage"
         "UseExternalsTrimmedPackage"
         "ValidateHash"
-      ] ++ map (x:
-        "GitHub.Runner.Common.Tests.Worker.ActionManagerL0.PrepareActions_${x}") [
-          "CompositeActionWithActionfile_CompositeContainerNested"
-          "CompositeActionWithActionfile_CompositePrestepNested"
-          "CompositeActionWithActionfile_MaxLimit"
-          "CompositeActionWithActionfile_Node"
-          "DownloadActionFromGraph"
-          "NotPullOrBuildImagesMultipleTimes"
-          "RepositoryActionWithActionYamlFile_DockerHubImage"
-          "RepositoryActionWithActionfileAndDockerfile"
-          "RepositoryActionWithActionfile_DockerHubImage"
-          "RepositoryActionWithActionfile_Dockerfile"
-          "RepositoryActionWithActionfile_DockerfileRelativePath"
-          "RepositoryActionWithActionfile_Node"
-          "RepositoryActionWithDockerfile"
-          "RepositoryActionWithDockerfileInRelativePath"
-          "RepositoryActionWithDockerfilePrepareActions_Repository"
-          "RepositoryActionWithInvalidWrapperActionfile_Node"
-          "RepositoryActionWithWrapperActionfile_PreSteps"
-        ]
+      ]
+    ++ map (x:
+      "GitHub.Runner.Common.Tests.Worker.ActionManagerL0.PrepareActions_${x}") [
+        "CompositeActionWithActionfile_CompositeContainerNested"
+        "CompositeActionWithActionfile_CompositePrestepNested"
+        "CompositeActionWithActionfile_MaxLimit"
+        "CompositeActionWithActionfile_Node"
+        "DownloadActionFromGraph"
+        "NotPullOrBuildImagesMultipleTimes"
+        "RepositoryActionWithActionYamlFile_DockerHubImage"
+        "RepositoryActionWithActionfileAndDockerfile"
+        "RepositoryActionWithActionfile_DockerHubImage"
+        "RepositoryActionWithActionfile_Dockerfile"
+        "RepositoryActionWithActionfile_DockerfileRelativePath"
+        "RepositoryActionWithActionfile_Node"
+        "RepositoryActionWithDockerfile"
+        "RepositoryActionWithDockerfileInRelativePath"
+        "RepositoryActionWithDockerfilePrepareActions_Repository"
+        "RepositoryActionWithInvalidWrapperActionfile_Node"
+        "RepositoryActionWithWrapperActionfile_PreSteps"
+      ]
     ++ map (x: "GitHub.Runner.Common.Tests.DotnetsdkDownloadScriptL0.${x}") [
       "EnsureDotnetsdkBashDownloadScriptUpToDate"
       "EnsureDotnetsdkPowershellDownloadScriptUpToDate"
-    ] ++ [
+    ]
+    ++ [
       "GitHub.Runner.Common.Tests.Listener.RunnerL0.TestRunOnceHandleUpdateMessage"
     ]
     # Tests for trimmed runner packages which aim at reducing the update size. Not relevant for Nix.
     ++ map (x: "GitHub.Runner.Common.Tests.PackagesTrimL0.${x}") [
       "RunnerLayoutParts_CheckExternalsHash"
       "RunnerLayoutParts_CheckDotnetRuntimeHash"
-    ] ++ lib.optionals (stdenv.hostPlatform.system == "aarch64-linux") [
+    ]
+    ++ lib.optionals (stdenv.hostPlatform.system == "aarch64-linux") [
       # "JavaScript Actions in Alpine containers are only supported on x64 Linux runners. Detected Linux Arm64"
       "GitHub.Runner.Common.Tests.Worker.StepHostL0.DetermineNodeRuntimeVersionInAlpineContainerAsync"
-    ] ++ lib.optionals DOTNET_SYSTEM_GLOBALIZATION_INVARIANT [
+    ]
+    ++ lib.optionals DOTNET_SYSTEM_GLOBALIZATION_INVARIANT [
       "GitHub.Runner.Common.Tests.ProcessExtensionL0.SuccessReadProcessEnv"
       "GitHub.Runner.Common.Tests.Util.StringUtilL0.FormatUsesInvariantCulture"
       "GitHub.Runner.Common.Tests.Worker.VariablesL0.Constructor_SetsOrdinalIgnoreCaseComparer"
@@ -184,12 +189,14 @@ buildDotnetModule rec {
 
       substituteInPlace $out/lib/github-runner/config.sh \
         --replace './bin/Runner.Listener' "$out/bin/Runner.Listener"
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       substituteInPlace $out/lib/github-runner/config.sh \
         --replace 'command -v ldd' 'command -v ${glibc.bin}/bin/ldd' \
         --replace 'ldd ./bin' '${glibc.bin}/bin/ldd ${dotnet-runtime}/shared/Microsoft.NETCore.App/${dotnet-runtime.version}/' \
         --replace '/sbin/ldconfig' '${glibc.bin}/bin/ldconfig'
-    '' + ''
+    ''
+    + ''
       # Remove uneeded copy for run-helper template
       substituteInPlace $out/lib/github-runner/run.sh --replace 'cp -f "$DIR"/run-helper.sh.template "$DIR"/run-helper.sh' ' '
       substituteInPlace $out/lib/github-runner/run-helper.sh --replace '"$DIR"/bin/' '"$DIR"/'
@@ -209,14 +216,16 @@ buildDotnetModule rec {
       install -D src/Misc/layoutbin/hashFiles/index.js $out/lib/github-runner/hashFiles/index.js
       mkdir -p $out/lib/github-runner/checkScripts
       install src/Misc/layoutbin/checkScripts/* $out/lib/github-runner/checkScripts/
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       # Wrap explicitly to, e.g., prevent extra entries for LD_LIBRARY_PATH
       makeWrapperArgs=()
 
       # We don't wrap with libicu
       substituteInPlace $out/lib/github-runner/config.sh \
         --replace '$LDCONFIG_COMMAND -NXv ''${libpath//:/ }' 'echo libicu'
-    '' + ''
+    ''
+    + ''
       # XXX: Using the corresponding Nix argument does not work as expected:
       #      https://github.com/NixOS/nixpkgs/issues/218449
       # Common wrapper args for `executables`

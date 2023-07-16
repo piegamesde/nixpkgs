@@ -141,10 +141,11 @@ stdenv.mkDerivation rec {
       gettext
       gstreamer # for gst-tester-1.0
       gobject-introspection
-    ] ++ lib.optionals enableDocumentation [ hotdoc ]
-    ++ lib.optionals stdenv.isLinux [
-      wayland # for wayland-scanner
     ]
+    ++ lib.optionals enableDocumentation [ hotdoc ]
+    ++ lib.optionals stdenv.isLinux [
+        wayland # for wayland-scanner
+      ]
     ;
 
   buildInputs =
@@ -202,17 +203,22 @@ stdenv.mkDerivation rec {
       vo-aacenc
       libfreeaptx
       zxing-cpp
-    ] ++ lib.optionals enableZbar [ zbar ] ++ lib.optionals faacSupport [ faac ]
+    ]
+    ++ lib.optionals enableZbar [ zbar ]
+    ++ lib.optionals faacSupport [ faac ]
     ++ lib.optionals enableGplPlugins [
       libmpeg2
       mjpegtools
       faad2
       x265
-    ] ++ lib.optionals bluezSupport [ bluez ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals bluezSupport [ bluez ]
+    ++ lib.optionals stdenv.isLinux [
       libva # vaapi requires libva -> libdrm -> libpciaccess, which is Linux-only in nixpkgs
       wayland
       wayland-protocols
-    ] ++ lib.optionals (!stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [
       # wildmidi requires apple's OpenAL
       # TODO: package apple's OpenAL, fix wildmidi, include on Darwin
       wildmidi
@@ -238,7 +244,8 @@ stdenv.mkDerivation rec {
       serd
       sord
       sratom
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # For unknown reasons the order is important, e.g. if
       # VideoToolbox is last, we get:
       #     fatal error: 'VideoToolbox/VideoToolbox.h' file not found
@@ -310,11 +317,13 @@ stdenv.mkDerivation rec {
           "disabled"
       }"
       (lib.mesonEnable "doc" enableDocumentation)
-    ] ++ lib.optionals (!stdenv.isLinux) [
+    ]
+    ++ lib.optionals (!stdenv.isLinux) [
       "-Ddoc=disabled" # needs gstcuda to be enabled which is Linux-only
       "-Dnvcodec=disabled" # Linux-only
       "-Dva=disabled" # see comment on `libva` in `buildInputs`
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       "-Dchromaprint=disabled"
       "-Ddirectfb=disabled"
       "-Dflite=disabled"
@@ -329,17 +338,21 @@ stdenv.mkDerivation rec {
       "-Dladspa=disabled" # requires lrdf
       "-Dwebrtc=disabled" # requires libnice, which as of writing doesn't work on Darwin in nixpkgs
       "-Dwildmidi=disabled" # see dependencies above
-    ] ++ lib.optionals (!stdenv.isLinux || !stdenv.isx86_64) [
-      "-Dqsv=disabled" # Linux (and Windows) x86 only
-    ] ++ lib.optionals (!gst-plugins-base.glEnabled) [ "-Dgl=disabled" ]
+    ]
+    ++ lib.optionals (!stdenv.isLinux || !stdenv.isx86_64) [
+        "-Dqsv=disabled" # Linux (and Windows) x86 only
+      ]
+    ++ lib.optionals (!gst-plugins-base.glEnabled) [ "-Dgl=disabled" ]
     ++ lib.optionals (!gst-plugins-base.waylandEnabled) [
       "-Dgtk3=disabled" # Wayland-based GTK sink
       "-Dwayland=disabled"
-    ] ++ lib.optionals (!gst-plugins-base.glEnabled) [
+    ]
+    ++ lib.optionals (!gst-plugins-base.glEnabled) [
       # `applemedia/videotexturecache.h` requires `gst/gl/gl.h`,
       # but its meson build system does not declare the dependency.
       "-Dapplemedia=disabled"
-    ] ++ (if enableGplPlugins then
+    ]
+    ++ (if enableGplPlugins then
       [ "-Dgpl=enabled" ]
     else
       [

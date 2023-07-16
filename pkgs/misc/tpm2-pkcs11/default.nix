@@ -80,13 +80,14 @@ stdenv.mkDerivation rec {
     # explicitly include the tpm2-abrmd shared libraries.
   preFixup =
     let
-      rpath = lib.makeLibraryPath ((lib.optional abrmdSupport tpm2-abrmd) ++ [
-        tpm2-tss
-        sqlite
-        openssl
-        glibc
-        libyaml
-      ]);
+      rpath = lib.makeLibraryPath ((lib.optional abrmdSupport tpm2-abrmd)
+        ++ [
+          tpm2-tss
+          sqlite
+          openssl
+          glibc
+          libyaml
+        ]);
     in
     ''
       patchelf \

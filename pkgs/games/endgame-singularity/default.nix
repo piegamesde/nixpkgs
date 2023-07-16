@@ -19,7 +19,8 @@ python3.pkgs.buildPythonApplication rec {
         rev = "v${version}";
         sha256 = "0ndrnxwii8lag6vrjpwpf5n36hhv223bb46d431l9gsigbizv0hl";
       })
-    ] ++ lib.optional enableDefaultMusicPack (fetchurl {
+    ]
+    ++ lib.optional enableDefaultMusicPack (fetchurl {
       url =
         "http://www.emhsoft.com/singularity/endgame-singularity-music-007.zip";
       sha256 = "0vf2qaf66jh56728pq1zbnw50yckjz6pf6c6qw6dl7vk60kkqnpb";

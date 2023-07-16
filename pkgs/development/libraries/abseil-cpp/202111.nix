@@ -27,9 +27,10 @@ stdenv.mkDerivation rec {
         else
           "ON"
       }"
-    ] ++ lib.optionals (cxxStandard != null) [
-      "-DCMAKE_CXX_STANDARD=${cxxStandard}"
     ]
+    ++ lib.optionals (cxxStandard != null) [
+        "-DCMAKE_CXX_STANDARD=${cxxStandard}"
+      ]
     ;
 
   nativeBuildInputs = [ cmake ];

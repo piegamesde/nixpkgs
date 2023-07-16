@@ -23,7 +23,8 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-cPdFRBU8B4C2el9N069QooiJdpopns8RJEyavemYdUc=";
 
   buildInputs =
-    [ openssl ] ++ lib.optionals stdenv.isDarwin [
+    [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [
       libgit2
       Security
     ]

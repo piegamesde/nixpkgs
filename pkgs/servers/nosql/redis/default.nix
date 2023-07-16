@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config ];
 
   buildInputs =
-    [ lua ] ++ lib.optional withSystemd systemd
+    [ lua ]
+    ++ lib.optional withSystemd systemd
     ++ lib.optionals tlsSupport [ openssl ]
     ;
     # More cross-compiling fixes.
@@ -53,7 +54,8 @@ stdenv.mkDerivation rec {
       "AR=${stdenv.cc.targetPrefix}ar"
       "RANLIB=${stdenv.cc.targetPrefix}ranlib"
       "MALLOC=libc"
-    ] ++ lib.optionals withSystemd [ "USE_SYSTEMD=yes" ]
+    ]
+    ++ lib.optionals withSystemd [ "USE_SYSTEMD=yes" ]
     ++ lib.optionals tlsSupport [ "BUILD_TLS=yes" ]
     ;
 
@@ -71,7 +73,8 @@ stdenv.mkDerivation rec {
       which
       tcl
       ps
-    ] ++ lib.optionals stdenv.hostPlatform.isStatic [ getconf ]
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isStatic [ getconf ]
     ;
   checkPhase = ''
     runHook preCheck

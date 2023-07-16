@@ -38,7 +38,8 @@ let
     # from an attribute name, which may not be a valid bash identifier.
   toVarName =
     s:
-    "XMPP_PASSWORD_" + stringAsChars (c:
+    "XMPP_PASSWORD_"
+    + stringAsChars (c:
       if builtins.match "[A-Za-z0-9]" c != null then
         c
       else
@@ -266,7 +267,8 @@ in
         script =
           (concatStrings (mapAttrsToList (name: xmppConfig: ''
             export ${toVarName name}=$(cat ${xmppConfig.passwordFile})
-          '') cfg.xmppConfigs)) + ''
+          '') cfg.xmppConfigs))
+          + ''
             ${pkgs.jitsi-videobridge}/bin/jitsi-videobridge --apis=${
               if (cfg.apis == [ ]) then
                 "none"

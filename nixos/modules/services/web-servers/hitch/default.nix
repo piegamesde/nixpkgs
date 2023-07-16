@@ -97,7 +97,8 @@ with lib; {
       preStart =
         ''
           ${pkgs.hitch}/sbin/hitch -t --config ${hitchConfig}
-        '' + (optionalString cfg.ocsp-stapling.enabled ''
+        ''
+        + (optionalString cfg.ocsp-stapling.enabled ''
           mkdir -p ${ocspDir}
           chown -R hitch:hitch ${ocspDir}
         '')

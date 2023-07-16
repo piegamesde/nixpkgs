@@ -78,11 +78,14 @@ stdenv.mkDerivation rec {
       libjpeg
       libtiff
       libxml2
-    ] ++ lib.optionals withSpiro [ libspiro ] ++ lib.optionals withGUI [
+    ]
+    ++ lib.optionals withSpiro [ libspiro ]
+    ++ lib.optionals withGUI [
       gtk3
       cairo
       pango
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Carbon
       Cocoa
     ]

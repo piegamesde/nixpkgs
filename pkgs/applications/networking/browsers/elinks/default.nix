@@ -22,8 +22,8 @@
   guile ? null,
   enablePython ? false,
   python ? null,
-  enablePerl ? (!stdenv.isDarwin)
-    && (stdenv.hostPlatform == stdenv.buildPlatform),
+  enablePerl ?
+    (!stdenv.isDarwin) && (stdenv.hostPlatform == stdenv.buildPlatform),
   perl ? null
     # re-add javascript support when upstream supports modern spidermonkey
 }:
@@ -56,8 +56,11 @@ stdenv.mkDerivation rec {
       tre
       expat
       libev
-    ] ++ lib.optional stdenv.isLinux gpm ++ lib.optional enableGuile guile
-    ++ lib.optional enablePython python ++ lib.optional enablePerl perl
+    ]
+    ++ lib.optional stdenv.isLinux gpm
+    ++ lib.optional enableGuile guile
+    ++ lib.optional enablePython python
+    ++ lib.optional enablePerl perl
     ;
 
   nativeBuildInputs = [
@@ -80,7 +83,8 @@ stdenv.mkDerivation rec {
       "--with-lzma"
       "--with-libev"
       "--with-terminfo"
-    ] ++ lib.optional enableGuile "--with-guile"
+    ]
+    ++ lib.optional enableGuile "--with-guile"
     ++ lib.optional enablePython "--with-python"
     ++ lib.optional enablePerl "--with-perl"
     ;

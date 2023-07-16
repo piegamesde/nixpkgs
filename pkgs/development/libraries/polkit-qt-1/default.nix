@@ -32,7 +32,8 @@ mkDerivation rec {
       glib
       pcre
       polkit
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libselinux
       libsepol
       util-linux

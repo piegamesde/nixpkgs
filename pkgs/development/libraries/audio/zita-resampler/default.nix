@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
       cd source
       substituteInPlace Makefile \
         --replace 'ldconfig' ""
-    '' + lib.optionalString (!stdenv.targetPlatform.isx86_64) ''
+    ''
+    + lib.optionalString (!stdenv.targetPlatform.isx86_64) ''
       substituteInPlace Makefile \
         --replace '-DENABLE_SSE2' ""
     ''

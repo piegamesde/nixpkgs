@@ -52,7 +52,8 @@ buildDunePackage rec {
     [
       astring
       result
-    ] ++ param.extraBuildInputs
+    ]
+    ++ param.extraBuildInputs
     ;
 
   meta = {

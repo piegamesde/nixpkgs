@@ -50,7 +50,8 @@ buildPythonPackage rec {
     [
       # # .so files link to this
       glib
-    ] ++ lib.optionals stdenv.isDarwin [ ncurses ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ ncurses ]
     ;
 
   propagatedBuildInputs = [

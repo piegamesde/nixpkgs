@@ -41,7 +41,8 @@ buildPythonPackage rec {
     [
       click
       h11
-    ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
     ;
 
   passthru.optional-dependencies.standard = [

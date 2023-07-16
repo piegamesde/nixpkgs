@@ -28,7 +28,8 @@ rustPlatform.buildRustPackage rec {
       libgit2
       openssl
       zlib
-    ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
     ;
 
   meta = with lib; {

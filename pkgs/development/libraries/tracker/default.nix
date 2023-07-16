@@ -64,7 +64,8 @@ stdenv.mkDerivation rec {
       gi-docgen
       graphviz
       (python3.pythonForBuild.withPackages (p: [ p.pygobject3 ]))
-    ] ++ lib.optionals withIntrospection [
+    ]
+    ++ lib.optionals withIntrospection [
       gobject-introspection
       vala
     ]
@@ -82,7 +83,8 @@ stdenv.mkDerivation rec {
       json-glib
       libstemmer
       dbus
-    ] ++ lib.optionals stdenv.isLinux [ systemd ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ systemd ]
     ;
 
   nativeCheckInputs = [ dbus ];
@@ -93,7 +95,8 @@ stdenv.mkDerivation rec {
       (lib.mesonEnable "introspection" withIntrospection)
       (lib.mesonEnable "vapi" withIntrospection)
       (lib.mesonBool "test_utils" withIntrospection)
-    ] ++ (let
+    ]
+    ++ (let
       # https://gitlab.gnome.org/GNOME/tracker/-/blob/master/meson.build#L159
       crossFile = writeText "cross-file.conf" ''
         [properties]
@@ -104,13 +107,14 @@ stdenv.mkDerivation rec {
       '';
     in
     [ "--cross-file=${crossFile}" ]
-    ) ++ lib.optionals (!stdenv.isLinux) [ "-Dsystemd_user_services=false" ]
+    )
+    ++ lib.optionals (!stdenv.isLinux) [ "-Dsystemd_user_services=false" ]
     ;
 
   doCheck =
     # https://gitlab.gnome.org/GNOME/tracker/-/issues/397
     !stdenv.isAarch64
-    # https://gitlab.gnome.org/GNOME/tracker/-/issues/398
+      # https://gitlab.gnome.org/GNOME/tracker/-/issues/398
     && !stdenv.is32bit
     ;
 

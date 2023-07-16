@@ -30,7 +30,8 @@ rustPlatform.buildRustPackage rec {
       # gracefully exit while doing work.
       # See: https://github.com/rustwasm/wasm-pack/issues/650
       libressl
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       curl
       Security
     ]

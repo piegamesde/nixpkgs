@@ -44,14 +44,17 @@ stdenv.mkDerivation rec {
       "-DSYSTEM_XPDFRC=/etc/xpdfrc"
       "-DA4_PAPER=ON"
       "-DOPI_SUPPORT=ON"
-    ] ++ lib.optional (!enablePrinting) "-DXPDFWIDGET_PRINTING=OFF"
+    ]
+    ++ lib.optional (!enablePrinting) "-DXPDFWIDGET_PRINTING=OFF"
     ;
 
   buildInputs =
     [
       zlib
       libpng
-    ] ++ lib.optional enableGUI qtbase ++ lib.optional enablePrinting cups
+    ]
+    ++ lib.optional enableGUI qtbase
+    ++ lib.optional enablePrinting cups
     ++ lib.optional enablePDFtoPPM freetype
     ;
 

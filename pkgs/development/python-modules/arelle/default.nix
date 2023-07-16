@@ -47,14 +47,16 @@ buildPythonPackage rec {
       isodate
       numpy
       openpyxl
-    ] ++ lib.optionals gui [ tkinter ]
+    ]
+    ++ lib.optionals gui [ tkinter ]
     ;
 
     # arelle-gui is useless without gui dependencies, so delete it when !gui.
   postInstall =
     lib.optionalString (!gui) ''
       find $out/bin -name "*arelle-gui*" -delete
-    '' +
+    ''
+    +
     # By default, not the entirety of the src dir is copied. This means we don't
     # copy the `images` dir, which is needed for the gui version.
     lib.optionalString (gui) ''
@@ -79,7 +81,8 @@ buildPythonPackage rec {
       ''
         An open source facility for XBRL, the eXtensible Business Reporting
         Language supporting various standards, exposed through a Python or
-        REST API'' + lib.optionalString gui " and a graphical user interface"
+        REST API''
+      + lib.optionalString gui " and a graphical user interface"
       ;
     homepage = "http://arelle.org/";
     license = licenses.asl20;

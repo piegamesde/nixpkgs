@@ -59,25 +59,28 @@ stdenv.mkDerivation rec {
       zlib
       sqlite
       ncurses
-    ] ++ (with python3.pkgs; [ pyyaml ]) ++ lib.optionals tileMode [
+    ]
+    ++ (with python3.pkgs; [ pyyaml ])
+    ++ lib.optionals tileMode [
       libpng
       SDL2
       SDL2_image
       freetype
       libGLU
       libGL
-    ] ++ lib.optional enableSound SDL2_mixer ++ (lib.optionals stdenv.isDarwin
-      (assert (lib.assertMsg (darwin != null)
-        "Must have darwin frameworks available for darwin builds");
-        with darwin.apple_sdk.frameworks; [
-          AppKit
-          AudioUnit
-          CoreAudio
-          ForceFeedback
-          Carbon
-          IOKit
-          OpenGL
-        ]))
+    ]
+    ++ lib.optional enableSound SDL2_mixer
+    ++ (lib.optionals stdenv.isDarwin (assert (lib.assertMsg (darwin != null)
+      "Must have darwin frameworks available for darwin builds");
+      with darwin.apple_sdk.frameworks; [
+        AppKit
+        AudioUnit
+        CoreAudio
+        ForceFeedback
+        Carbon
+        IOKit
+        OpenGL
+      ]))
     ;
 
   preBuild = ''
@@ -100,7 +103,9 @@ stdenv.mkDerivation rec {
       "SAVEDIR=~/.crawl"
       "sqlite=${sqlite.dev}"
       "DATADIR=${placeholder "out"}"
-    ] ++ lib.optional tileMode "TILES=y" ++ lib.optional enableSound "SOUND=y"
+    ]
+    ++ lib.optional tileMode "TILES=y"
+    ++ lib.optional enableSound "SOUND=y"
     ;
 
   postInstall = ''

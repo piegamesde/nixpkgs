@@ -112,7 +112,8 @@ stdenv.mkDerivation rec {
       requests
       send2trash
       setproctitle
-    ] ++ lib.optional withDiscordRPC pypresence
+    ]
+    ++ lib.optional withDiscordRPC pypresence
     ++ lib.optional stdenv.isLinux pulsectl;
 
   makeWrapperArgs = [

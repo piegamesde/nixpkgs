@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
       glew
       ncurses
       c-ares
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Carbon
       CoreServices
     ]

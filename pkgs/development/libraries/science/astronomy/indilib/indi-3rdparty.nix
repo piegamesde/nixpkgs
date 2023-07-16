@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
       libdc1394
       ffmpeg
       fftw
-    ] ++ lib.optionals withFirmware [ firmware ]
+    ]
+    ++ lib.optionals withFirmware [ firmware ]
     ;
 
   postPatch = ''
@@ -77,7 +78,8 @@ stdenv.mkDerivation rec {
       "-DWITH_PENTAX=off"
       "-DWITH_ATIK=off"
       "-DWITH_SX=off"
-    ] ++ lib.optionals (!withFirmware) [
+    ]
+    ++ lib.optionals (!withFirmware) [
       "-DWITH_APOGEE=off"
       "-DWITH_DSI=off"
       "-DWITH_QHY=off"

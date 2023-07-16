@@ -88,7 +88,8 @@ stdenv.mkDerivation {
           ''
         }
       done
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       for f in $out/lib/*.dylib; do
           otool -L $f
       done

@@ -50,9 +50,10 @@ stdenv.mkDerivation rec {
       # See https://github.com/ghdl/ghdl/pull/2058
       "--disable-werror"
       "--enable-synth"
-    ] ++ lib.optionals (backend == "llvm") [
-      "--with-llvm-config=${llvm.dev}/bin/llvm-config"
     ]
+    ++ lib.optionals (backend == "llvm") [
+        "--with-llvm-config=${llvm.dev}/bin/llvm-config"
+      ]
     ;
 
   hardeningDisable = [ "format" ];

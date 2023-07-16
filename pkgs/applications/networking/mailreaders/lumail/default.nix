@@ -88,7 +88,9 @@ stdenv.mkDerivation {
     ''
       mkdir -p $out/bin || true
       install -m755 ${binaryName} $out/bin/
-    '' + globalConfig + ''
+    ''
+    + globalConfig
+    + ''
       wrapProgram $out/bin/${binaryName} \
           --prefix LUA_PATH : "${luaPath}" \
           --prefix LUA_CPATH : "${luaCPath}"

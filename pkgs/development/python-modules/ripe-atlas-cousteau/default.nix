@@ -36,7 +36,8 @@ buildPythonPackage rec {
       requests
       python-socketio
       websocket-client
-    ] ++ python-socketio.optional-dependencies.client
+    ]
+    ++ python-socketio.optional-dependencies.client
     ;
 
   nativeCheckInputs = [

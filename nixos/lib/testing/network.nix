@@ -70,7 +70,8 @@ let
           optionalString (config.networking.primaryIPAddress != "")
           ("${config.networking.primaryIPAddress} "
             + optionalString (config.networking.domain != null)
-            "${config.networking.hostName}.${config.networking.domain} " + ''
+              "${config.networking.hostName}.${config.networking.domain} "
+            + ''
               ${config.networking.hostName}
             '')
         );

@@ -157,10 +157,12 @@ let
     gr-dtv = { cmakeEnableFlag = "GR_DTV"; };
     gr-audio = {
       runtime =
-        [ ] ++ lib.optionals stdenv.isLinux [
+        [ ]
+        ++ lib.optionals stdenv.isLinux [
           alsa-lib
           libjack2
-        ] ++ lib.optionals stdenv.isDarwin [ CoreAudio ]
+        ]
+        ++ lib.optionals stdenv.isDarwin [ CoreAudio ]
         ;
       cmakeEnableFlag = "GR_AUDIO";
     };
@@ -281,7 +283,7 @@ stdenv.mkDerivation {
 
   postInstall =
     shared.postInstall
-    # This is the only python reference worth removing, if needed.
+      # This is the only python reference worth removing, if needed.
     + lib.optionalString (!hasFeature "python-support") ''
       ${removeReferencesTo}/bin/remove-references-to -t ${python} $out/lib/cmake/gnuradio/GnuradioConfig.cmake
       ${removeReferencesTo}/bin/remove-references-to -t ${python} $(readlink -f $out/lib/libgnuradio-runtime${stdenv.hostPlatform.extensions.sharedLibrary})

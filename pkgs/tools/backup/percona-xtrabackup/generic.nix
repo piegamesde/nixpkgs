@@ -69,7 +69,8 @@ stdenv.mkDerivation rec {
       valgrind
       xxd
       zlib
-    ] ++ (with perlPackages; [
+    ]
+    ++ (with perlPackages; [
       perl
       DBI
       DBDmysql
@@ -99,7 +100,8 @@ stdenv.mkDerivation rec {
     ''
       wrapProgram "$out"/bin/xtrabackup --prefix PERL5LIB : $PERL5LIB
       rm -r "$out"/lib/plugin/debug
-    '' + extraPostInstall
+    ''
+    + extraPostInstall
     ;
 
   meta = with lib; {

@@ -38,7 +38,8 @@ final: prev: {
         libsecret
         final.node-gyp-build
         final.node-pre-gyp
-      ] ++ lib.optionals stdenv.isDarwin [
+      ]
+      ++ lib.optionals stdenv.isDarwin [
         darwin.apple_sdk.frameworks.AppKit
         darwin.apple_sdk.frameworks.Security
       ];
@@ -53,7 +54,8 @@ final: prev: {
         glib
         libsecret
         pkg-config
-      ] ++ lib.optionals stdenv.isDarwin [
+      ]
+      ++ lib.optionals stdenv.isDarwin [
         AppKit
         Security
       ];
@@ -178,12 +180,13 @@ final: prev: {
   expo-cli = prev."expo-cli".override (oldAttrs: {
     # The traveling-fastlane-darwin optional dependency aborts build on Linux.
     dependencies = builtins.filter (d:
-      d.packageName != "@expo/traveling-fastlane-${
-        if stdenv.isLinux then
-          "darwin"
-        else
-          "linux"
-      }") oldAttrs.dependencies;
+      d.packageName
+      != "@expo/traveling-fastlane-${
+          if stdenv.isLinux then
+            "darwin"
+          else
+            "linux"
+        }") oldAttrs.dependencies;
   });
 
   fast-cli = prev.fast-cli.override {
@@ -247,7 +250,8 @@ final: prev: {
       export npm_config_zmq_external=true
     '';
     buildInputs =
-      oldAttrs.buildInputs ++ [
+      oldAttrs.buildInputs
+      ++ [
         final.node-gyp-build
         pkgs.zeromq
       ]
@@ -256,7 +260,8 @@ final: prev: {
 
   insect = prev.insect.override (oldAttrs: {
     nativeBuildInputs =
-      oldAttrs.nativeBuildInputs or [ ] ++ [
+      oldAttrs.nativeBuildInputs or [ ]
+      ++ [
         pkgs.psc-package
         final.pulp
       ]
@@ -281,7 +286,8 @@ final: prev: {
         pixman
         cairo
         pango
-      ] ++ lib.optionals stdenv.isDarwin [
+      ]
+      ++ lib.optionals stdenv.isDarwin [
         darwin.apple_sdk.frameworks.AppKit
         darwin.apple_sdk.frameworks.Security
       ];

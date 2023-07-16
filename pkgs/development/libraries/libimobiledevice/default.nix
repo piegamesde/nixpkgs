@@ -47,7 +47,8 @@ stdenv.mkDerivation rec {
       libtasn1
       libusbmuxd
       libimobiledevice-glue
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       SystemConfiguration
       CoreFoundation
     ]

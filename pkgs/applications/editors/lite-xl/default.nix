@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
       pcre2
       reproc
       SDL2
-    ] ++ lib.optionals stdenv.isDarwin [ Foundation ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Foundation ]
     ;
 
   meta = with lib; {

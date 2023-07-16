@@ -21,7 +21,8 @@ import ./make-test-python.nix ({
           sqlite3-to-mysql
           # create one coherent python environment
           (python3.withPackages (ps:
-            sqlite3-to-mysql.propagatedBuildInputs ++ [
+            sqlite3-to-mysql.propagatedBuildInputs
+            ++ [
               python3Packages.pytest
               python3Packages.pytest-mock
               python3Packages.pytest-timeout

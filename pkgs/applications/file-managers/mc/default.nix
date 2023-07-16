@@ -44,9 +44,9 @@ stdenv.mkDerivation rec {
     # The preFixup hook rewrites the binary, which invaliates the code
     # signature. Add the fixup hook to sign the output.
     ++ lib.optionals
-    (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) [
-      autoSignDarwinBinariesHook
-    ]
+      (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) [
+        autoSignDarwinBinariesHook
+      ]
     ;
 
   buildInputs =
@@ -59,7 +59,8 @@ stdenv.mkDerivation rec {
       openssl
       slang
       zip
-    ] ++ lib.optionals x11Support [ libX11 ]
+    ]
+    ++ lib.optionals x11Support [ libX11 ]
     ++ lib.optionals (!stdenv.isDarwin) [
       0.0
       fsprogs

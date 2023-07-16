@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
   configureFlags =
     [
       "--enable-def-interp=${stdenv.shell}" # 183
-    ] ++ lib.optionals historySupport [ "--with-history" ]
+    ]
+    ++ lib.optionals historySupport [ "--with-history" ]
     ++ lib.optionals readlineSupport [ "--with-edit=readline" ]
     ;
 

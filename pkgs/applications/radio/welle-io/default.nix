@@ -68,7 +68,8 @@ mkDerivation rec {
       [
         "x86_64-linux"
         "i686-linux"
-      ] ++ platforms.darwin
+      ]
+      ++ platforms.darwin
       ;
   };
 }

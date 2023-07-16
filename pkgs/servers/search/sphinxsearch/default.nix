@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
     [
       "--program-prefix=sphinxsearch-"
       "--enable-id64"
-    ] ++ lib.optionals (!enableMysql) [ "--without-mysql" ]
+    ]
+    ++ lib.optionals (!enableMysql) [ "--without-mysql" ]
     ;
 
   nativeBuildInputs = [ pkg-config ];

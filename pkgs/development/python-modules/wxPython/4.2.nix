@@ -72,14 +72,16 @@ buildPythonPackage rec {
       sip
       which
       wxGTK
-    ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
     ;
 
   buildInputs =
     [
       wxGTK
       SDL
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       gst_all_1.gst-plugins-base
       gst_all_1.gstreamer
       libGL

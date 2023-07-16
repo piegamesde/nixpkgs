@@ -80,7 +80,8 @@ let
         alsa-lib
         ncurses5
         stdenv.cc.cc
-      ] ++ (with xorg; [
+      ]
+      ++ (with xorg; [
         libX11
         libXcursor
         libXext

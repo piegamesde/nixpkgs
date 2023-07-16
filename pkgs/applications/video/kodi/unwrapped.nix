@@ -177,7 +177,8 @@ let
         p11-kit
         zlib
         libva
-      ] ++ lib.optional vdpauSupport libvdpau
+      ]
+      ++ lib.optional vdpauSupport libvdpau
       ;
     nativeBuildInputs = [
       cmake
@@ -211,7 +212,8 @@ let
   };
 
   kodi_platforms =
-    lib.optional gbmSupport "gbm" ++ lib.optional waylandSupport "wayland"
+    lib.optional gbmSupport "gbm"
+    ++ lib.optional waylandSupport "wayland"
     ++ lib.optional x11Support "x11"
     ;
 
@@ -301,7 +303,8 @@ stdenv.mkDerivation {
       rapidjson
       lirc
       mesa # for libEGL
-    ] ++ lib.optionals x11Support [
+    ]
+    ++ lib.optionals x11Support [
       libX11
       xorgproto
       libXt
@@ -312,18 +315,24 @@ stdenv.mkDerivation {
       libXrandr.dev
       libXtst
       libXfixes
-    ] ++ lib.optional dbusSupport dbus ++ lib.optional joystickSupport cwiid
-    ++ lib.optional nfsSupport libnfs ++ lib.optional pulseSupport libpulseaudio
-    ++ lib.optional rtmpSupport rtmpdump ++ lib.optional sambaSupport samba
+    ]
+    ++ lib.optional dbusSupport dbus
+    ++ lib.optional joystickSupport cwiid
+    ++ lib.optional nfsSupport libnfs
+    ++ lib.optional pulseSupport libpulseaudio
+    ++ lib.optional rtmpSupport rtmpdump
+    ++ lib.optional sambaSupport samba
     ++ lib.optional udevSupport udev
     ++ lib.optional usbSupport libusb-compat-0_1
-    ++ lib.optional vdpauSupport libvdpau ++ lib.optionals waylandSupport [
+    ++ lib.optional vdpauSupport libvdpau
+    ++ lib.optionals waylandSupport [
       wayland
       waylandpp.dev
       wayland-protocols
       # Not sure why ".dev" is needed here, but CMake doesn't find libxkbcommon otherwise
       libxkbcommon.dev
-    ] ++ lib.optionals gbmSupport [
+    ]
+    ++ lib.optionals gbmSupport [
       libxkbcommon.dev
       mesa.dev
       libinput.dev
@@ -352,7 +361,8 @@ stdenv.mkDerivation {
       libpng
       libjpeg
       lzo
-    ] ++ lib.optionals waylandSupport [
+    ]
+    ++ lib.optionals waylandSupport [
       wayland-protocols
       waylandpp.bin
     ]
@@ -386,9 +396,10 @@ stdenv.mkDerivation {
       # whitelisted directories). This adds the entire nix store to the Kodi
       # webserver whitelist to avoid this problem.
       "-DKODI_WEBSERVER_EXTRA_WHITELIST=${builtins.storeDir}"
-    ] ++ lib.optionals waylandSupport [
-      "-DWAYLANDPP_SCANNER=${buildPackages.waylandpp}/bin/wayland-scanner++"
     ]
+    ++ lib.optionals waylandSupport [
+        "-DWAYLANDPP_SCANNER=${buildPackages.waylandpp}/bin/wayland-scanner++"
+      ]
     ;
 
     # 14 tests fail but the biggest issue is that every test takes 30 seconds -
@@ -400,7 +411,8 @@ stdenv.mkDerivation {
       cmakeFlagsArray+=("-DCORE_PLATFORM_NAME=${
         lib.concatStringsSep " " kodi_platforms
       }")
-    '' + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+    ''
+    + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
       # Need these tools on the build system when cross compiling,
       # hacky, but have found no other way.
       CXX=$CXX_FOR_BUILD LD=ld make -C tools/depends/native/JsonSchemaBuilder
@@ -424,7 +436,8 @@ stdenv.mkDerivation {
           lib.makeBinPath ([
             python3Packages.python
             glxinfo
-          ] ++ lib.optional x11Support xdpyinfo
+          ]
+            ++ lib.optional x11Support xdpyinfo
             ++ lib.optional sambaSupport samba)
         }" \
         --prefix LD_LIBRARY_PATH ":" "${
@@ -436,7 +449,8 @@ stdenv.mkDerivation {
             libcec
             libcec_platform
             libass
-          ] ++ lib.optional nfsSupport libnfs
+          ]
+            ++ lib.optional nfsSupport libnfs
             ++ lib.optional rtmpSupport rtmpdump)
         }"
     done

@@ -34,7 +34,8 @@ stdenv.mkDerivation {
     [
       libbladeRF
       soapysdr
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       libobjc
       IOKit
       Security

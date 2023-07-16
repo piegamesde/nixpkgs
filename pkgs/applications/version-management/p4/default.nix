@@ -79,13 +79,16 @@ stdenv.mkDerivation rec {
       "-sMALLOC_OVERRIDE=no"
       "-sSSLINCDIR=${lib.getDev opensslStatic}/include"
       "-sSSLLIBDIR=${lib.getLib opensslStatic}/lib"
-    ] ++ lib.optionals stdenv.cc.isClang [
+    ]
+    ++ lib.optionals stdenv.cc.isClang [
       "-sOSCOMP=clang"
       "-sCLANGVER=${stdenv.cc.cc.version}"
-    ] ++ lib.optionals stdenv.cc.isGNU [
+    ]
+    ++ lib.optionals stdenv.cc.isGNU [
       "-sOSCOMP=gcc"
       "-sGCCVER=${stdenv.cc.cc.version}"
-    ] ++ lib.optionals stdenv.isLinux [ "-sOSVER=26" ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ "-sOSVER=26" ]
     ++ lib.optionals stdenv.isDarwin [
       "-sOSVER=1013"
       "-sMACOSX_SDK=${emptyDirectory}"
@@ -101,18 +104,19 @@ stdenv.mkDerivation rec {
   "C++FLAGS" =
     # Avoid a compilation error that only occurs for 4-byte longs.
     lib.optionals stdenv.isi686 [
-      "-Wno-narrowing"
-    ]
-    # See the "Header dependency changes" section of
-    # https://www.gnu.org/software/gcc/gcc-11/porting_to.html for more
-    # information on why we need to include these.
-    ++ lib.optionals (stdenv.cc.isClang || (stdenv.cc.isGNU
-      && lib.versionAtLeast stdenv.cc.cc.version "11.0.0")) [
-        "-include"
-        "limits"
-        "-include"
-        "thread"
+        "-Wno-narrowing"
       ]
+      # See the "Header dependency changes" section of
+      # https://www.gnu.org/software/gcc/gcc-11/porting_to.html for more
+      # information on why we need to include these.
+    ++ lib.optionals (stdenv.cc.isClang
+      || (stdenv.cc.isGNU
+        && lib.versionAtLeast stdenv.cc.cc.version "11.0.0")) [
+          "-include"
+          "limits"
+          "-include"
+          "thread"
+        ]
     ;
 
   buildPhase = ''

@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
       libxml2
       icu
       lzfse
-    ] ++ lib.optionals stdenv.isDarwin [ libiconv ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv ]
     ;
 
   CXXFLAGS = [

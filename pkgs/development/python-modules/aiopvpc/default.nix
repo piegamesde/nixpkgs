@@ -38,7 +38,8 @@ buildPythonPackage rec {
     [
       aiohttp
       async-timeout
-    ] ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ]
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ]
     ;
 
   nativeCheckInputs = [

@@ -73,7 +73,8 @@ python3.pkgs.buildPythonApplication rec {
       libadwaita
       gsettings-desktop-schemas
       tracker
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       gstreamer
       gst-plugins-base
       gst-plugins-good

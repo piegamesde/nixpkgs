@@ -115,7 +115,8 @@ let
       hash = "sha256-zQ4W+QNCEmbVzN3t97g7nldUrvS596fwbOnkyALwVFs=";
     };
     patches =
-      old.patches or [ ] ++ [
+      old.patches or [ ]
+      ++ [
         "${src}/contrib/ffmpeg/A01-qsv-libavfilter-qsvvpp-change-the-output-frame-s-width-a.patch"
         "${src}/contrib/ffmpeg/A02-qsv-configure-ensure-enable-libmfx-uses-libmfx-1.x.patch"
         "${src}/contrib/ffmpeg/A03-qsv-configure-fix-the-check-for-MFX_CODEC_VP9.patch"
@@ -181,7 +182,8 @@ let
         sed -e 's/^[[:space:]]*\(meson\|ninja\|nasm\)[[:space:]]*= ToolProbe.*$//g' \
             -e '/    ## Additional library and tool checks/,/    ## MinGW specific library and tool checks/d' \
             -i make/configure.py
-      '' + optionalString stdenv.isDarwin ''
+      ''
+      + optionalString stdenv.isDarwin ''
         # Use the Nix-provided libxml2 instead of the patched version available on
         # the Handbrake website.
         substituteInPlace libhb/module.defs \
@@ -191,7 +193,8 @@ let
         # which it isn't in the Nix context. (The actual build goes fine without
         # xcodebuild.)
         sed -e '/xcodebuild = ToolProbe/s/abort=.\+)/abort=False)/' -i make/configure.py
-      '' + optionalString stdenv.isLinux ''
+      ''
+      + optionalString stdenv.isLinux ''
         # Use the Nix-provided libxml2 instead of the system-provided one.
         substituteInPlace libhb/module.defs \
           --replace /usr/include/libxml2 ${libxml2.dev}/include/libxml2
@@ -206,7 +209,8 @@ let
         m4
         pkg-config
         python3
-      ] ++ optionals useGtk [
+      ]
+      ++ optionals useGtk [
         intltool
         wrapGAppsHook
       ]
@@ -243,7 +247,9 @@ let
         x265
         xz
         zimg
-      ] ++ optional (!stdenv.isDarwin) numactl ++ optionals useGtk [
+      ]
+      ++ optional (!stdenv.isDarwin) numactl
+      ++ optionals useGtk [
         dbus-glib
         glib
         gst_all_1.gst-plugins-base
@@ -254,7 +260,9 @@ let
         libgudev
         libnotify
         udev
-      ] ++ optional useFdk fdk_aac ++ optionals stdenv.isDarwin [
+      ]
+      ++ optional useFdk fdk_aac
+      ++ optionals stdenv.isDarwin [
         AudioToolbox
         Foundation
         libobjc
@@ -270,7 +278,8 @@ let
         "--disable-df-fetch"
         "--disable-df-verify"
         "--disable-gtk-update-checks"
-      ] ++ optional (!useGtk) "--disable-gtk"
+      ]
+      ++ optional (!useGtk) "--disable-gtk"
       ++ optional useFdk "--enable-fdk-aac"
       ++ optional stdenv.isDarwin "--disable-xcode"
       ++ optional stdenv.hostPlatform.isx86 "--harden"

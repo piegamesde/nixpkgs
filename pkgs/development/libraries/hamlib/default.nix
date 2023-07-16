@@ -36,8 +36,10 @@ stdenv.mkDerivation rec {
       swig
       pkg-config
       libtool
-    ] ++ lib.optionals pythonBindings [ python3 ]
-    ++ lib.optionals tclBindings [ tcl ] ++ lib.optionals perlBindings [ perl ]
+    ]
+    ++ lib.optionals pythonBindings [ python3 ]
+    ++ lib.optionals tclBindings [ tcl ]
+    ++ lib.optionals perlBindings [ perl ]
     ;
 
   buildInputs =
@@ -46,10 +48,12 @@ stdenv.mkDerivation rec {
       libxml2
       libusb-compat-0_1
       boost
-    ] ++ lib.optionals pythonBindings [
+    ]
+    ++ lib.optionals pythonBindings [
       python3
       ncurses
-    ] ++ lib.optionals tclBindings [ tcl ]
+    ]
+    ++ lib.optionals tclBindings [ tcl ]
     ;
 
   configureFlags =
@@ -58,7 +62,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals tclBindings [
       "--with-tcl-binding"
       "--with-tcl=${tcl}/lib/"
-    ] ++ lib.optionals pythonBindings [ "--with-python-binding" ]
+    ]
+    ++ lib.optionals pythonBindings [ "--with-python-binding" ]
     ;
 
   meta = with lib; {

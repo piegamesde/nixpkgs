@@ -151,14 +151,15 @@ let
       # Including it then would cause needless mass rebuilds.
       #
       # TODO(@Ericson2314): Make [ "build" "host" ] always the default / resolve #87909
-      configurePlatforms ? lib.optionals (stdenv.hostPlatform
-        != stdenv.buildPlatform || config.configurePlatformsByDefault) [
-          "build"
-          "host"
-        ]
+      configurePlatforms ? lib.optionals
+        (stdenv.hostPlatform != stdenv.buildPlatform
+          || config.configurePlatformsByDefault) [
+            "build"
+            "host"
+          ]
 
-        # TODO(@Ericson2314): Make unconditional / resolve #33599
-        # Check phase
+          # TODO(@Ericson2314): Make unconditional / resolve #33599
+          # Check phase
       ,
       doCheck ? config.doCheckByDefault or false
 
@@ -206,8 +207,8 @@ let
         (!attrs ? outputHash) # Fixed-output drvs can't be content addressed too
         && config.contentAddressedByDefault
 
-        # Experimental.  For simple packages mostly just works,
-        # but for anything complex, be prepared to debug if enabling.
+          # Experimental.  For simple packages mostly just works,
+          # but for anything complex, be prepared to debug if enabling.
       ,
       __structuredAttrs ? config.structuredAttrsByDefault or false
 
@@ -241,10 +242,15 @@ let
         ;
 
       noNonNativeDeps =
-        builtins.length (depsBuildTarget ++ depsBuildTargetPropagated
-          ++ depsHostHost ++ depsHostHostPropagated ++ buildInputs
-          ++ propagatedBuildInputs ++ depsTargetTarget
-          ++ depsTargetTargetPropagated) == 0
+        builtins.length (depsBuildTarget
+          ++ depsBuildTargetPropagated
+          ++ depsHostHost
+          ++ depsHostHostPropagated
+          ++ buildInputs
+          ++ propagatedBuildInputs
+          ++ depsTargetTarget
+          ++ depsTargetTargetPropagated)
+        == 0
         ;
       dontAddHostSuffix =
         attrs ? outputHash && !noNonNativeDeps || !stdenv.hasCC;
@@ -279,7 +285,8 @@ let
             lib.remove "fortify3" supportedHardeningFlags;
         in
         if
-          stdenv.hostPlatform.isMusl &&
+          stdenv.hostPlatform.isMusl
+          &&
           # Except when:
           #    - static aarch64, where compilation works, but produces segfaulting dynamically linked binaries.
           #    - static armv7l, where compilation fails.
@@ -305,8 +312,10 @@ let
         positions: name: deps:
         lib.flip lib.imap1 deps (index: dep:
           if
-            lib.isDerivation dep || dep == null || builtins.typeOf dep
-            == "string" || builtins.typeOf dep == "path"
+            lib.isDerivation dep
+            || dep == null
+            || builtins.typeOf dep == "string"
+            || builtins.typeOf dep == "path"
           then
             dep
           else if lib.isList dep then
@@ -333,14 +342,16 @@ let
         doCheck = doCheck';
         doInstallCheck = doInstallCheck';
         buildInputs' =
-          buildInputs ++ lib.optionals doCheck checkInputs
+          buildInputs
+          ++ lib.optionals doCheck checkInputs
           ++ lib.optionals doInstallCheck installCheckInputs
           ;
         nativeBuildInputs' =
-          nativeBuildInputs ++ lib.optional separateDebugInfo'
-          ../../build-support/setup-hooks/separate-debug-info.sh
+          nativeBuildInputs
+          ++ lib.optional separateDebugInfo'
+            ../../build-support/setup-hooks/separate-debug-info.sh
           ++ lib.optional stdenv.hostPlatform.isWindows
-          ../../build-support/setup-hooks/win-dll-link.sh
+            ../../build-support/setup-hooks/win-dll-link.sh
           ++ lib.optionals doCheck nativeCheckInputs
           ++ lib.optionals doInstallCheck nativeInstallCheckInputs
           ;
@@ -348,7 +359,9 @@ let
         outputs = outputs';
 
         references =
-          nativeBuildInputs ++ buildInputs ++ propagatedNativeBuildInputs
+          nativeBuildInputs
+          ++ buildInputs
+          ++ propagatedNativeBuildInputs
           ++ propagatedBuildInputs
           ;
 
@@ -401,7 +414,8 @@ let
 
         computedSandboxProfile =
           lib.concatMap (input: input.__propagatedSandboxProfile or [ ])
-          (stdenv.extraNativeBuildInputs ++ stdenv.extraBuildInputs
+          (stdenv.extraNativeBuildInputs
+            ++ stdenv.extraBuildInputs
             ++ lib.concatLists dependencies);
 
         computedPropagatedSandboxProfile =
@@ -410,7 +424,8 @@ let
 
         computedImpureHostDeps = lib.unique
           (lib.concatMap (input: input.__propagatedImpureHostDeps or [ ])
-            (stdenv.extraNativeBuildInputs ++ stdenv.extraBuildInputs
+            (stdenv.extraNativeBuildInputs
+              ++ stdenv.extraBuildInputs
               ++ lib.concatLists dependencies));
 
         computedPropagatedImpureHostDeps = lib.unique
@@ -433,7 +448,8 @@ let
           "__propagatedImpureHostDeps"
           "sandboxProfile"
           "propagatedSandboxProfile"
-        ] ++ lib.optional (__structuredAttrs || envIsExportable) "env"))
+        ]
+          ++ lib.optional (__structuredAttrs || envIsExportable) "env"))
           // (lib.optionalAttrs
             (attrs ? name || (attrs ? pname && attrs ? version)) {
               name =
@@ -443,9 +459,9 @@ let
                   # suffix. But we have some weird ones with run-time deps that are
                   # just used for their side-affects. Those might as well since the
                   # hash can't be the same. See #32986.
-                  hostSuffix = lib.optionalString (stdenv.hostPlatform
-                    != stdenv.buildPlatform && !dontAddHostSuffix)
-                    "-${stdenv.hostPlatform.config}";
+                  hostSuffix = lib.optionalString
+                    (stdenv.hostPlatform != stdenv.buildPlatform
+                      && !dontAddHostSuffix) "-${stdenv.hostPlatform.config}";
 
                     # Disambiguate statically built packages. This was originally
                     # introduce as a means to prevent nix-env to get confused between
@@ -523,12 +539,13 @@ let
                     pos.file or "unknown file"
                   }" [ ]
                 else
-                  configureFlags) ++ optional (elem "build" configurePlatforms)
-                "--build=${stdenv.buildPlatform.config}"
+                  configureFlags)
+                ++ optional (elem "build" configurePlatforms)
+                  "--build=${stdenv.buildPlatform.config}"
                 ++ optional (elem "host" configurePlatforms)
-                "--host=${stdenv.hostPlatform.config}"
+                  "--host=${stdenv.hostPlatform.config}"
                 ++ optional (elem "target" configurePlatforms)
-                "--target=${stdenv.targetPlatform.config}"
+                  "--target=${stdenv.targetPlatform.config}"
                 ;
 
               cmakeFlags =
@@ -555,29 +572,35 @@ let
                         (lib.optional (!stdenv.hostPlatform.isRedox)
                           stdenv.hostPlatform.uname.system)
                       }"
-                    ] ++ lib.optionals
-                    (stdenv.hostPlatform.uname.processor != null) [
-                      "-DCMAKE_SYSTEM_PROCESSOR=${stdenv.hostPlatform.uname.processor}"
-                    ] ++ lib.optionals
-                    (stdenv.hostPlatform.uname.release != null) [
-                      "-DCMAKE_SYSTEM_VERSION=${stdenv.hostPlatform.uname.release}"
-                    ] ++ lib.optionals (stdenv.hostPlatform.isDarwin) [
-                      "-DCMAKE_OSX_ARCHITECTURES=${stdenv.hostPlatform.darwinArch}"
-                    ] ++ lib.optionals
-                    (stdenv.buildPlatform.uname.system != null) [
-                      "-DCMAKE_HOST_SYSTEM_NAME=${stdenv.buildPlatform.uname.system}"
-                    ] ++ lib.optionals
-                    (stdenv.buildPlatform.uname.processor != null) [
-                      "-DCMAKE_HOST_SYSTEM_PROCESSOR=${stdenv.buildPlatform.uname.processor}"
-                    ] ++ lib.optionals
-                    (stdenv.buildPlatform.uname.release != null) [
-                      "-DCMAKE_HOST_SYSTEM_VERSION=${stdenv.buildPlatform.uname.release}"
                     ]
+                    ++ lib.optionals
+                      (stdenv.hostPlatform.uname.processor != null) [
+                        "-DCMAKE_SYSTEM_PROCESSOR=${stdenv.hostPlatform.uname.processor}"
+                      ]
+                    ++ lib.optionals
+                      (stdenv.hostPlatform.uname.release != null) [
+                        "-DCMAKE_SYSTEM_VERSION=${stdenv.hostPlatform.uname.release}"
+                      ]
+                    ++ lib.optionals (stdenv.hostPlatform.isDarwin) [
+                        "-DCMAKE_OSX_ARCHITECTURES=${stdenv.hostPlatform.darwinArch}"
+                      ]
+                    ++ lib.optionals
+                      (stdenv.buildPlatform.uname.system != null) [
+                        "-DCMAKE_HOST_SYSTEM_NAME=${stdenv.buildPlatform.uname.system}"
+                      ]
+                    ++ lib.optionals
+                      (stdenv.buildPlatform.uname.processor != null) [
+                        "-DCMAKE_HOST_SYSTEM_PROCESSOR=${stdenv.buildPlatform.uname.processor}"
+                      ]
+                    ++ lib.optionals
+                      (stdenv.buildPlatform.uname.release != null) [
+                        "-DCMAKE_HOST_SYSTEM_VERSION=${stdenv.buildPlatform.uname.release}"
+                      ]
                     ;
                 in
                 explicitFlags
                 ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-                crossFlags
+                  crossFlags
                 ;
 
               mesonFlags =
@@ -655,8 +678,9 @@ let
               inherit enableParallelBuilding;
               enableParallelChecking = attrs.enableParallelChecking or true;
               enableParallelInstalling = attrs.enableParallelInstalling or true;
-            } // lib.optionalAttrs (hardeningDisable != [ ] || hardeningEnable
-              != [ ] || stdenv.hostPlatform.isMusl) {
+            } // lib.optionalAttrs (hardeningDisable != [ ]
+              || hardeningEnable != [ ]
+              || stdenv.hostPlatform.isMusl) {
                 NIX_HARDENING_ENABLE = enabledHardeningOptions;
               } // lib.optionalAttrs
           (stdenv.hostPlatform.isx86_64 && stdenv.hostPlatform ? gcc.arch) {
@@ -672,8 +696,10 @@ let
             __sandboxProfile =
               let
                 profiles =
-                  [ stdenv.extraSandboxProfile ] ++ computedSandboxProfile
-                  ++ computedPropagatedSandboxProfile ++ [
+                  [ stdenv.extraSandboxProfile ]
+                  ++ computedSandboxProfile
+                  ++ computedPropagatedSandboxProfile
+                  ++ [
                     propagatedSandboxProfile
                     sandboxProfile
                   ]
@@ -687,9 +713,12 @@ let
               (computedPropagatedSandboxProfile ++ [ propagatedSandboxProfile ])
               ;
             __impureHostDeps =
-              computedImpureHostDeps ++ computedPropagatedImpureHostDeps
-              ++ __propagatedImpureHostDeps ++ __impureHostDeps
-              ++ stdenv.__extraImpureHostDeps ++ [
+              computedImpureHostDeps
+              ++ computedPropagatedImpureHostDeps
+              ++ __propagatedImpureHostDeps
+              ++ __impureHostDeps
+              ++ stdenv.__extraImpureHostDeps
+              ++ [
                 "/dev/zero"
                 "/dev/random"
                 "/dev/urandom"
@@ -748,7 +777,9 @@ let
               lib.concatStringsSep ", " overlappingNames
             }";
           lib.mapAttrs (n: v:
-            assert lib.assertMsg (lib.isString v || lib.isBool v || lib.isInt v
+            assert lib.assertMsg (lib.isString v
+              || lib.isBool v
+              || lib.isInt v
               || lib.isDerivation v)
               "The ‘env’ attribute set can only contain derivation, string, boolean or integer attributes. The ‘${n}’ attribute is of type ${
                 builtins.typeOf v

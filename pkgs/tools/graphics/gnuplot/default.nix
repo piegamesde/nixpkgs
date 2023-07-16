@@ -57,7 +57,8 @@ else
         makeWrapper
         pkg-config
         texinfo
-      ] ++ lib.optional withQt qttools
+      ]
+      ++ lib.optional withQt qttools
       ;
 
     buildInputs =
@@ -68,18 +69,22 @@ else
         pango
         readline
         zlib
-      ] ++ lib.optional withTeXLive
-      (texlive.combine { inherit (texlive) scheme-small; })
-      ++ lib.optional withLua lua ++ lib.optional withCaca libcaca
+      ]
+      ++ lib.optional withTeXLive
+        (texlive.combine { inherit (texlive) scheme-small; })
+      ++ lib.optional withLua lua
+      ++ lib.optional withCaca libcaca
       ++ lib.optionals withX [
         libX11
         libXpm
         libXt
         libXaw
-      ] ++ lib.optionals withQt [
+      ]
+      ++ lib.optionals withQt [
         qtbase
         qtsvg
-      ] ++ lib.optional withWxGTK wxGTK32
+      ]
+      ++ lib.optional withWxGTK wxGTK32
       ++ lib.optional (withWxGTK && stdenv.isDarwin) Cocoa
       ;
 
@@ -102,7 +107,8 @@ else
           "--with-aquaterm"
         else
           "--without-aquaterm")
-      ] ++ lib.optional withCaca "--with-caca"
+      ]
+      ++ lib.optional withCaca "--with-caca"
       ;
 
     CXXFLAGS = lib.optionalString (stdenv.isDarwin && withQt) "-std=c++11";

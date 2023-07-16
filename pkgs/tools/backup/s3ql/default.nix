@@ -18,7 +18,8 @@ python3Packages.buildPythonApplication rec {
   };
 
   nativeCheckInputs =
-    [ which ] ++ (with python3Packages; [
+    [ which ]
+    ++ (with python3Packages; [
       cython
       pytest
       pytest-trio

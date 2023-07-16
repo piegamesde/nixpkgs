@@ -34,7 +34,8 @@ let
         cloudpickle
         importlib-metadata
         toml
-      ] ++ lib.optional stdenv.isLinux pyinotify
+      ]
+      ++ lib.optional stdenv.isLinux pyinotify
       ++ lib.optional stdenv.isDarwin macfsevents
       ;
 

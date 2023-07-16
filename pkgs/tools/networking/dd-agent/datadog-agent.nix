@@ -70,7 +70,9 @@ buildGo118Module rec {
       "process"
       "log"
       "secrets"
-    ] ++ lib.optionals withSystemd [ "systemd" ] ++ extraTags
+    ]
+    ++ lib.optionals withSystemd [ "systemd" ]
+    ++ extraTags
     ;
 
   ldflags = [
@@ -110,10 +112,11 @@ buildGo118Module rec {
         --set PYTHONPATH "$out/${python.sitePackages}"''
     + lib.optionalString withSystemd ''
       \
-           --prefix LD_LIBRARY_PATH : '' + lib.makeLibraryPath [
-        (lib.getLib systemd)
-        rtloader
-      ]
+           --prefix LD_LIBRARY_PATH : ''
+    + lib.makeLibraryPath [
+      (lib.getLib systemd)
+      rtloader
+    ]
     ;
 
   meta = with lib; {

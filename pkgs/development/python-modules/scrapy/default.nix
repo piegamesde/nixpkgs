@@ -114,7 +114,8 @@ buildPythonPackage rec {
       "test_peek_one_element"
       "test_peek_lifo"
       "test_callback_kwargs"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       "test_xmliter_encoding"
       "test_download"
       "test_reactor_default_twisted_reactor_select"

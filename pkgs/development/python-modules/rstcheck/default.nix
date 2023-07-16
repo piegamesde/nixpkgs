@@ -38,10 +38,12 @@ buildPythonPackage rec {
       typing-extensions
       pydantic
       typer
-    ] ++ lib.optionals (pythonOlder "3.8") [
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [
       typing-extensions
       importlib-metadata
-    ] ++ typer.optional-dependencies.all
+    ]
+    ++ typer.optional-dependencies.all
     ;
 
   nativeCheckInputs = [ pytestCheckHook ];

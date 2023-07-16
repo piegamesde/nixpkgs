@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
     [
       tokyocabinet
       ncurses
-    ] ++ lib.optionals enableCairo [
+    ]
+    ++ lib.optionals enableCairo [
       cairo
       pango
     ]

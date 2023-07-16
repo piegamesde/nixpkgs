@@ -65,7 +65,8 @@ mkDerivation {
       qtquickcontrols
       qtquickcontrols2
       qtgraphicaleffects
-    ] ++ lib.optionals (stdenv.isLinux) [ qtwayland ]
+    ]
+    ++ lib.optionals (stdenv.isLinux) [ qtwayland ]
     ;
 
   qmakeFlags = [

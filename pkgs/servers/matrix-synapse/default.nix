@@ -45,7 +45,8 @@ buildPythonApplication rec {
       poetry-core
       rustPlatform.cargoSetupHook
       setuptools-rust
-    ] ++ (with rustPlatform.rust; [
+    ]
+    ++ (with rustPlatform.rust; [
       cargo
       rustc
     ])
@@ -89,7 +90,9 @@ buildPythonApplication rec {
       twisted
       typing-extensions
       unpaddedbase64
-    ] ++ lib.optional enableSystemd systemd ++ lib.optionals enableRedis [
+    ]
+    ++ lib.optional enableSystemd systemd
+    ++ lib.optionals enableRedis [
       hiredis
       txredisapi
     ]

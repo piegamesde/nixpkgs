@@ -36,21 +36,24 @@ let
 
   platformConfigurations =
     lib.optionals stdenv.hostPlatform.isAarch [
-      (configurationArm { inherit pkgs haskellLib; })
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      (configurationDarwin { inherit pkgs haskellLib; })
-    ]
+        (configurationArm { inherit pkgs haskellLib; })
+      ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        (configurationDarwin { inherit pkgs haskellLib; })
+      ]
     ;
 
   extensions = lib.composeManyExtensions ([
     nonHackagePackages
     (configurationNix { inherit pkgs haskellLib; })
     (configurationCommon { inherit pkgs haskellLib; })
-  ] ++ platformConfigurations ++ [
-    compilerConfig
-    packageSetConfig
-    overrides
-  ]);
+  ]
+    ++ platformConfigurations
+    ++ [
+      compilerConfig
+      packageSetConfig
+      overrides
+    ]);
 
   extensible-self = makeExtensible (extends extensions haskellPackages);
 

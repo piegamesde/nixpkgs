@@ -58,13 +58,16 @@ stdenv.mkDerivation rec {
       qtbase
       qtmultimedia
       qttools
-    ] ++ lib.optionals stdenv.isLinux [ qtwayland ] ++ lib.optionals useMupdf [
+    ]
+    ++ lib.optionals stdenv.isLinux [ qtwayland ]
+    ++ lib.optionals useMupdf [
       freetype
       gumbo
       jbig2dec
       mupdf
       openjpeg
-    ] ++ lib.optionals usePoppler [ poppler ]
+    ]
+    ++ lib.optionals usePoppler [ poppler ]
     ;
 
   cmakeFlags = [

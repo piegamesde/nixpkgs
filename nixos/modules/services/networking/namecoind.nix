@@ -34,18 +34,20 @@ let
     }
     ${listToConf "addnode" cfg.extraNodes}
     ${listToConf "connect" cfg.trustedNodes}
-  '' + optionalString useRPC ''
-    rpcbind=${cfg.rpc.address}
-    rpcport=${toString cfg.rpc.port}
-    rpcuser=${cfg.rpc.user}
-    rpcpassword=${cfg.rpc.password}
-    ${listToConf "rpcallowip" cfg.rpc.allowFrom}
-  '' + optionalString useSSL ''
-    rpcssl=1
-    rpcsslcertificatechainfile=${cfg.rpc.certificate}
-    rpcsslprivatekeyfile=${cfg.rpc.key}
-    rpcsslciphers=TLSv1.2+HIGH:TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!3DES:@STRENGTH
-  '');
+  ''
+    + optionalString useRPC ''
+      rpcbind=${cfg.rpc.address}
+      rpcport=${toString cfg.rpc.port}
+      rpcuser=${cfg.rpc.user}
+      rpcpassword=${cfg.rpc.password}
+      ${listToConf "rpcallowip" cfg.rpc.allowFrom}
+    ''
+    + optionalString useSSL ''
+      rpcssl=1
+      rpcsslcertificatechainfile=${cfg.rpc.certificate}
+      rpcsslprivatekeyfile=${cfg.rpc.key}
+      rpcsslciphers=TLSv1.2+HIGH:TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!3DES:@STRENGTH
+    '');
 
 in
 {

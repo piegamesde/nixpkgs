@@ -31,7 +31,9 @@ stdenv.mkDerivation rec {
       gnutls
       libotr
       python3
-    ] ++ lib.optional enableLibPurple pidgin ++ lib.optional enablePam pam
+    ]
+    ++ lib.optional enableLibPurple pidgin
+    ++ lib.optional enablePam pam
     ;
 
   propagatedBuildInputs = [ glib ];
@@ -41,7 +43,8 @@ stdenv.mkDerivation rec {
       "--otr=1"
       "--ssl=gnutls"
       "--pidfile=/var/lib/bitlbee/bitlbee.pid"
-    ] ++ lib.optional enableLibPurple "--purple=1"
+    ]
+    ++ lib.optional enableLibPurple "--purple=1"
     ++ lib.optional enablePam "--pam=1"
     ;
 

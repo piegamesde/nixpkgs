@@ -53,8 +53,9 @@ stdenv.mkDerivation rec {
       "--sbindir=\${bin}/bin"
       "--datadir=\${doc}/share"
       "--mandir=\${man}/share/man"
-    ] ++ lib.optional (!onigurumaSupport) "--with-oniguruma=no"
-    # jq is linked to libjq:
+    ]
+    ++ lib.optional (!onigurumaSupport) "--with-oniguruma=no"
+      # jq is linked to libjq:
     ++ lib.optional (!stdenv.isDarwin) "LDFLAGS=-Wl,-rpath,\\\${libdir}"
     ;
 

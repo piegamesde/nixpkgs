@@ -124,7 +124,8 @@ stdenv.mkDerivation (fBuildAttrs // {
     nativeBuildInputs = fFetchAttrs.nativeBuildInputs or [ ] ++ [ bazel ];
 
     preHook =
-      fFetchAttrs.preHook or "" + ''
+      fFetchAttrs.preHook or ""
+      + ''
         export bazelOut="$(echo ''${NIX_BUILD_TOP}/output | sed -e 's,//,/,g')"
         export bazelUserRoot="$(echo ''${NIX_BUILD_TOP}/tmp | sed -e 's,//,/,g')"
         export HOME="$NIX_BUILD_TOP"
@@ -197,18 +198,20 @@ stdenv.mkDerivation (fBuildAttrs // {
           new_target="$(readlink "$symlink" | sed "s,$NIX_BUILD_TOP,NIX_BUILD_TOP,")"
           rm "$symlink"
           ln -sf "$new_target" "$symlink"
-      '' + lib.optionalString stdenv.isDarwin ''
-        # on linux symlink permissions cannot be modified, so we modify those on darwin to match the linux ones
-        ${chmodder}/bin/chmodder "$symlink"
-      '' + ''
-        done
+      ''
+        + lib.optionalString stdenv.isDarwin ''
+          # on linux symlink permissions cannot be modified, so we modify those on darwin to match the linux ones
+          ${chmodder}/bin/chmodder "$symlink"
+        ''
+        + ''
+          done
 
-        echo '${bazel.name}' > $bazelOut/external/.nix-bazel-version
+          echo '${bazel.name}' > $bazelOut/external/.nix-bazel-version
 
-        (cd $bazelOut/ && tar czf $out --sort=name --mtime='@1' --owner=0 --group=0 --numeric-owner external/)
+          (cd $bazelOut/ && tar czf $out --sort=name --mtime='@1' --owner=0 --group=0 --numeric-owner external/)
 
-        runHook postInstall
-      '');
+          runHook postInstall
+        '');
 
     dontFixup = true;
     allowedRequisites = [ ];
@@ -223,7 +226,8 @@ stdenv.mkDerivation (fBuildAttrs // {
     ;
 
   preHook =
-    fBuildAttrs.preHook or "" + ''
+    fBuildAttrs.preHook or ""
+    + ''
       export bazelOut="$NIX_BUILD_TOP/output"
       export bazelUserRoot="$NIX_BUILD_TOP/tmp"
       export HOME="$NIX_BUILD_TOP"
@@ -249,7 +253,8 @@ stdenv.mkDerivation (fBuildAttrs // {
           ln -sf $(readlink "$symlink" | sed "s,NIX_BUILD_TOP,$NIX_BUILD_TOP,") "$symlink"
         fi
       done
-    '' + fBuildAttrs.preConfigure or ""
+    ''
+    + fBuildAttrs.preConfigure or ""
     ;
 
   buildPhase =

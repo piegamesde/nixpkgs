@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
       url =
         "https://raw.githubusercontent.com/Homebrew/homebrew/bfd4a0a4626b61c2511fdf573bcbbc6bbe86340e/Library/Formula/libmemcached.rb";
       sha256 = "1gjf3vd7hiyzxjvlg2zfc3y2j0lyr6nhbws4xb5dmin3csyp8qb8";
-    }) ++ lib.optional stdenv.hostPlatform.isMusl ./musl-fixes.patch
+    })
+    ++ lib.optional stdenv.hostPlatform.isMusl ./musl-fixes.patch
     ;
 
   buildInputs = [ libevent ];

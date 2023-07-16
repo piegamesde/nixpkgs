@@ -143,7 +143,8 @@ in
 
         END
         cat "$out/gitolite.rc.default" >>"$out/gitolite.rc"
-      '' + optionalString (cfg.extraGitoliteRc != "") ''
+      ''
+      + optionalString (cfg.extraGitoliteRc != "") ''
         echo -n ${
           escapeShellArg ''
 
@@ -244,9 +245,13 @@ in
              ( [[ -f "$GITOLITE_RC" ]] && diff -q "$GITOLITE_RC" "$GITOLITE_RC_DEFAULT" >/dev/null ) ||
              ( [[ -L "$GITOLITE_RC" ]] && [[ "$(readlink "$GITOLITE_RC")" =~ ^/nix/store/ ]] )
           then
-        '' + rcSetupScriptIfDefaultFileOrStoreSymlink + ''
+        ''
+        + rcSetupScriptIfDefaultFileOrStoreSymlink
+        + ''
           else
-        '' + rcSetupScriptIfCustomFile + ''
+        ''
+        + rcSetupScriptIfCustomFile
+        + ''
           fi
 
           if [ ! -d repositories ]; then
@@ -265,7 +270,8 @@ in
       [
         pkgs.gitolite
         pkgs.git
-      ] ++ optional cfg.enableGitAnnex pkgs.git-annex
+      ]
+      ++ optional cfg.enableGitAnnex pkgs.git-annex
       ;
   }
   );

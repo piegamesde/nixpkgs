@@ -75,7 +75,8 @@ stdenv.mkDerivation rec {
         gnugrep
         gnused
         gawk
-      ] ++ optional useNetworkManager networkmanager
+      ]
+        ++ optional useNetworkManager networkmanager
         ++ optional useWifiDependencies hostapd
         ++ optional useWifiDependencies iw
         ++ optional (useWifiDependencies && useWirelessTools) wirelesstools

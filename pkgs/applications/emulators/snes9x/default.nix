@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
     [
       pkg-config
       python3
-    ] ++ lib.optionals withGtk [
+    ]
+    ++ lib.optionals withGtk [
       cmake
       ninja
       wrapGAppsHook
@@ -67,11 +68,13 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isLinux [
       alsa-lib
       pulseaudio
-    ] ++ lib.optionals (!withGtk) [
+    ]
+    ++ lib.optionals (!withGtk) [
       libpng
       libXext
       libXinerama
-    ] ++ lib.optionals withGtk [
+    ]
+    ++ lib.optionals withGtk [
       gtkmm3
       libepoxy
       libselinux

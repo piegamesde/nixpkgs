@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libusb1' ] ++ lib.optionals withGUI [ gtk3 ];
   nativeBuildInputs =
-    [ cmake ] ++ lib.optionals withGUI [
+    [ cmake ]
+    ++ lib.optionals withGUI [
       pkg-config
       wrapGAppsHook
     ]

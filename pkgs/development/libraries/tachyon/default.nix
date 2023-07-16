@@ -26,10 +26,12 @@ stdenv.mkDerivation rec {
   preBuild =
     ''
       cd unix
-    '' + lib.optionalString withJpegSupport ''
+    ''
+    + lib.optionalString withJpegSupport ''
       export USEJPEG=" -DUSEJPEG"
       export JPEGLIB=" -ljpeg"
-    '' + lib.optionalString withPngSupport ''
+    ''
+    + lib.optionalString withPngSupport ''
       export USEPNG=" -DUSEPNG"
       export PNGLIB=" -lpng -lz"
     ''

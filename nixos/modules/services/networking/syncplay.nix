@@ -14,10 +14,12 @@ let
     [
       "--port"
       cfg.port
-    ] ++ optionals (cfg.salt != null) [
+    ]
+    ++ optionals (cfg.salt != null) [
       "--salt"
       cfg.salt
-    ] ++ optionals (cfg.certDir != null) [
+    ]
+    ++ optionals (cfg.certDir != null) [
       "--tls"
       cfg.certDir
     ]

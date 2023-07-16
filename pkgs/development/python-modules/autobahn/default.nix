@@ -89,7 +89,8 @@ buildPythonPackage rec {
       mock
       pytest-asyncio
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.scram
+    ]
+    ++ passthru.optional-dependencies.scram
     ++ passthru.optional-dependencies.serialization
     ++ passthru.optional-dependencies.xbr
     ;
@@ -105,8 +106,15 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = rec {
     all =
-      accelerate ++ compress ++ encryption ++ nvx ++ serialization ++ scram
-      ++ twisted ++ ui ++ xbr
+      accelerate
+      ++ compress
+      ++ encryption
+      ++ nvx
+      ++ serialization
+      ++ scram
+      ++ twisted
+      ++ ui
+      ++ xbr
       ;
     accelerate =
       [ # wsaccel

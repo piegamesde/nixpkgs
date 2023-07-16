@@ -37,8 +37,9 @@ buildPythonPackage rec {
     (with cudaPackages; [
       cudatoolkit.lib
       cudatoolkit.out
-    ]) ++ lib.optionals openclSupport
-    ([ clblas ] ++ lib.optional (!stdenv.isDarwin) ocl-icd));
+    ])
+    ++ lib.optionals openclSupport
+      ([ clblas ] ++ lib.optional (!stdenv.isDarwin) ocl-icd));
 
   preBuild = ''
     make -j$NIX_BUILD_CORES
@@ -52,14 +53,16 @@ buildPythonPackage rec {
   postFixup =
     ''
       rm $out/lib/libgpuarray-static.a
-    '' + lib.optionalString (!stdenv.isDarwin) ''
+    ''
+    + lib.optionalString (!stdenv.isDarwin) ''
       function fixRunPath {
         p=$(patchelf --print-rpath $1)
         patchelf --set-rpath "$p:$libraryPath" $1
       }
 
       fixRunPath $out/lib/libgpuarray.so
-    '' + lib.optionalString cudaSupport ''
+    ''
+    + lib.optionalString cudaSupport ''
       addOpenGLRunpath $out/lib/libgpuarray.so
     ''
     ;

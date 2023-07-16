@@ -97,11 +97,14 @@ in
               ++ optional cfg.systemd.enable (if cfg.systemd.slice != null then
                 "--systemd.slice ${cfg.systemd.slice}"
               else
-                "--systemd.unit ${cfg.systemd.unit}") ++ optional
-              (cfg.systemd.enable && (cfg.systemd.journalPath != null))
-              "--systemd.journal_path ${escapeShellArg cfg.systemd.journalPath}"
+                "--systemd.unit ${cfg.systemd.unit}")
+              ++ optional
+                (cfg.systemd.enable && (cfg.systemd.journalPath != null))
+                "--systemd.journal_path ${
+                  escapeShellArg cfg.systemd.journalPath
+                }"
               ++ optional (!cfg.systemd.enable)
-              "--postfix.logfile_path ${escapeShellArg cfg.logfilePath}")
+                "--postfix.logfile_path ${escapeShellArg cfg.logfilePath}")
           }
       '';
     };

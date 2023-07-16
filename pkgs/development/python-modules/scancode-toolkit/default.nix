@@ -125,7 +125,8 @@ buildPythonPackage rec {
       typecode-libmagic
       urlpy
       xmltodict
-    ] ++ lib.optionals (pythonOlder "3.9") [ zipp ]
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [ zipp ]
     ++ lib.optionals (pythonOlder "3.7") [ typing ]
     ;
 

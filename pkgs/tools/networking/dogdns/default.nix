@@ -34,7 +34,8 @@ rustPlatform.buildRustPackage rec {
       installShellFiles
       just
       pandoc
-    ] ++ lib.optionals stdenv.isLinux [ pkg-config ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ pkg-config ]
     ;
   buildInputs =
     lib.optionals stdenv.isLinux [ openssl ]

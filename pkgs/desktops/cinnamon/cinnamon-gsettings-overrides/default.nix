@@ -41,7 +41,8 @@ let
       cinnamon-common
       gnome.gnome-terminal
       gtk3
-    ] ++ extraGSettingsOverridePackages
+    ]
+    ++ extraGSettingsOverridePackages
     ;
 
   gsettingsOverrides = ''

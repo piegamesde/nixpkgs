@@ -131,7 +131,8 @@ stdenv.mkDerivation rec {
       suil
       taglib
       vamp-plugin-sdk
-    ] ++ lib.optionals videoSupport [
+    ]
+    ++ lib.optionals videoSupport [
       harvid
       xjadeo
     ]
@@ -173,7 +174,8 @@ stdenv.mkDerivation rec {
           "$out/share/icons/hicolor/''${size}x''${size}/apps/ardour6.png"
       done
       install -vDm 644 "ardour.1"* -t "$out/share/man/man1"
-    '' + lib.optionalString videoSupport ''
+    ''
+    + lib.optionalString videoSupport ''
       # `harvid` and `xjadeo` must be accessible in `PATH` for video to work.
       wrapProgram "$out/bin/ardour6" \
         --prefix PATH : "${

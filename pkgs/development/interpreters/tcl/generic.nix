@@ -37,7 +37,8 @@ let
         # Don't install tzdata because NixOS already has a more up-to-date copy.
         "--with-tzdata=no"
         "tcl_cv_strtod_unbroken=ok"
-      ] ++ lib.optional stdenv.is64bit "--enable-64bit"
+      ]
+      ++ lib.optional stdenv.is64bit "--enable-64bit"
       ;
 
     enableParallelBuilding = true;

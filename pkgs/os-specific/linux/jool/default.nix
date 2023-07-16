@@ -31,7 +31,8 @@ stdenv.mkDerivation {
   '';
 
   makeFlags =
-    kernel.makeFlags ++ [
+    kernel.makeFlags
+    ++ [
       "-C src/mod"
       "INSTALL_MOD_PATH=${placeholder "out"}"
     ]

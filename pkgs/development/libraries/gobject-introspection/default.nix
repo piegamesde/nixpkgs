@@ -68,7 +68,8 @@ stdenv.mkDerivation (finalAttrs: {
         src = ./absolute_shlib_path.patch;
         inherit nixStoreDir;
       })
-    ] ++ lib.optionals x11Support [
+    ]
+    ++ lib.optionals x11Support [
       # Hardcode the cairo shared library path in the Cairo gir shipped with this package.
       # https://github.com/NixOS/nixpkgs/issues/34080
       (substituteAll {
@@ -94,9 +95,10 @@ stdenv.mkDerivation (finalAttrs: {
       (buildPackages.python3.withPackages pythonModules)
       finalAttrs.setupHook # move .gir files
       # can't use canExecute, we need prebuilt when cross
-    ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-      gobject-introspection-unwrapped
     ]
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+        gobject-introspection-unwrapped
+      ]
     ;
 
   buildInputs = [ (python3.withPackages pythonModules) ];
@@ -117,7 +119,8 @@ stdenv.mkDerivation (finalAttrs: {
       "-Dgtk_doc=${
         lib.boolToString (stdenv.hostPlatform == stdenv.buildPlatform)
       }"
-    ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+    ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       "-Dgi_cross_ldd_wrapper=${
         substituteAll {
           name = "g-ir-scanner-lddwrapper";
@@ -129,9 +132,10 @@ stdenv.mkDerivation (finalAttrs: {
       }"
       "-Dgi_cross_binary_wrapper=${stdenv.hostPlatform.emulator buildPackages}"
       # can't use canExecute, we need prebuilt when cross
-    ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-      "-Dgi_cross_use_prebuilt_gi=true"
     ]
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+        "-Dgi_cross_use_prebuilt_gi=true"
+      ]
     ;
 
   doCheck =
@@ -181,7 +185,8 @@ stdenv.mkDerivation (finalAttrs: {
       "A middleware layer between C libraries and language bindings";
     homepage = "https://gi.readthedocs.io/";
     maintainers =
-      teams.gnome.members ++ (with maintainers; [
+      teams.gnome.members
+      ++ (with maintainers; [
         lovek323
         artturin
       ])

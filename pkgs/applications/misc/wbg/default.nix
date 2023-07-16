@@ -43,7 +43,9 @@ stdenv.mkDerivation rec {
       tllist
       wayland
       wayland-protocols
-    ] ++ lib.optional enablePNG libpng ++ lib.optional enableJPEG libjpeg
+    ]
+    ++ lib.optional enablePNG libpng
+    ++ lib.optional enableJPEG libjpeg
     ;
 
   mesonBuildType = "release";

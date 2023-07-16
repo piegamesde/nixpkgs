@@ -36,7 +36,8 @@ stdenv.mkDerivation {
       glib
       expat
       libmicrohttpd
-    ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
     ;
 
   meta = {

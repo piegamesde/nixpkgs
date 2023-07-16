@@ -59,7 +59,8 @@ let
           "shared_chunks_allocated"
           "spam_count"
           "total_learns"
-        ]) ++ [ {
+        ])
+        ++ [ {
           name = "rspamd_statfiles";
           type = "object";
           path = "{.statfiles[*]}";

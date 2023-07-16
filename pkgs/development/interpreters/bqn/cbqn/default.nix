@@ -65,7 +65,8 @@ stdenv.mkDerivation rec {
         ]
       else
         [ "o3" ]))
-    ] ++ lib.optionals enableLibcbqn [
+    ]
+    ++ lib.optionals enableLibcbqn [
       # embeddable interpreter as a shared lib
       "shared-o3"
     ]
@@ -75,22 +76,26 @@ stdenv.mkDerivation rec {
     ''
       # Purity: avoids git downloading bytecode files
       mkdir -p build/bytecodeLocal/gen
-    '' + (if genBytecode then
+    ''
+    + (if genBytecode then
       ''
         ${bqn-path} ./build/genRuntime ${mbqn-source} build/bytecodeLocal/
       ''
     else
       ''
         cp -r ${cbqn-bytecode-submodule}/dev/* build/bytecodeLocal/gen/
-      '') + lib.optionalString enableReplxx ''
-        cp -r ${replxx-submodule}/dev/* build/replxxLocal/
-      '' + lib.optionalString enableSingeli ''
-        cp -r ${singeli-submodule}/dev/* build/singeliLocal/
-      ''
+      '')
+    + lib.optionalString enableReplxx ''
+      cp -r ${replxx-submodule}/dev/* build/replxxLocal/
+    ''
+    + lib.optionalString enableSingeli ''
+      cp -r ${singeli-submodule}/dev/* build/singeliLocal/
+    ''
     ;
 
   outputs =
-    [ "out" ] ++ lib.optionals enableLibcbqn [
+    [ "out" ]
+    ++ lib.optionals enableLibcbqn [
       "lib"
       "dev"
     ]
@@ -105,10 +110,12 @@ stdenv.mkDerivation rec {
       # note guard condition for case-insensitive filesystems
       [ -e $out/bin/bqn ] || ln -s $out/bin/BQN $out/bin/bqn
       [ -e $out/bin/cbqn ] || ln -s $out/bin/BQN $out/bin/cbqn
-    '' + lib.optionalString enableLibcbqn ''
+    ''
+    + lib.optionalString enableLibcbqn ''
       install -Dm644 include/bqnffi.h -t "$dev/include"
       install -Dm755 libcbqn${stdenv.hostPlatform.extensions.sharedLibrary} -t "$lib/lib"
-    '' + ''
+    ''
+    + ''
       runHook postInstall
     ''
     ;

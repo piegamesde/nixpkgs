@@ -334,10 +334,12 @@ rec {
     # Generate the NixOS manpages.
   manpages = runCommand "nixos-manpages" {
     nativeBuildInputs =
-      [ buildPackages.installShellFiles ] ++ lib.optionals allowDocBook [
+      [ buildPackages.installShellFiles ]
+      ++ lib.optionals allowDocBook [
         buildPackages.libxml2.bin
         buildPackages.libxslt.bin
-      ] ++ lib.optionals (!allowDocBook) [ buildPackages.nixos-render-docs ]
+      ]
+      ++ lib.optionals (!allowDocBook) [ buildPackages.nixos-render-docs ]
       ;
     allowedReferences = [ "out" ];
   } ''

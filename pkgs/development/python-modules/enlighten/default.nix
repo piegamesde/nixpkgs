@@ -37,7 +37,8 @@ buildPythonPackage rec {
       # AssertionError: Invalid format specifier (deprecated since prefixed 0.4.0)
       "test_floats_prefixed"
       "test_subcounter_prefixed"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # https://github.com/Rockhopper-Technologies/enlighten/issues/44
       "test_autorefresh"
     ]

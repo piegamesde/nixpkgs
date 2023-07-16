@@ -101,7 +101,8 @@ stdenv.mkDerivation rec {
         else
           "ON"
       }"
-    ] ++ lib.optionals static [
+    ]
+    ++ lib.optionals static [
       "-DWITH_STATIC_LIB:BOOL=ON"
       "-DOPENSSL_USE_STATIC_LIBS=ON"
     ]
@@ -111,7 +112,8 @@ stdenv.mkDerivation rec {
     [
       "PythonTestSSLSocket"
       "PythonThriftTNonblockingServer"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # Tests that hang up in the Darwin sandbox
       "SecurityTest"
       "SecurityFromBufferTest"

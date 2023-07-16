@@ -40,7 +40,8 @@ buildGoModule rec {
       rm pkg/login/client_login_test.go
       rm pkg/git/editor_test.go
       rm pkg/rpcservice/sample_create_test.go
-    '' + lib.optionalString (
+    ''
+    + lib.optionalString (
       # delete plugin tests on all platforms but exact matches
       # https://github.com/stripe/stripe-cli/issues/850
       !lib.lists.any

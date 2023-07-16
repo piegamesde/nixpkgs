@@ -72,8 +72,9 @@ buildPythonPackage rec {
       pytestCheckHook
       responses
       urllib3
-    ] ++ passthru.optional-dependencies.aiohttp
-    # `cryptography` is still required on `aarch64-darwin` for `tests/crypt/*`
+    ]
+    ++ passthru.optional-dependencies.aiohttp
+      # `cryptography` is still required on `aarch64-darwin` for `tests/crypt/*`
     ++ (if (stdenv.isDarwin && stdenv.isAarch64) then
       [ cryptography ]
     else

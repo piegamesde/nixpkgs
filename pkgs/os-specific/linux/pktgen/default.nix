@@ -51,7 +51,8 @@ stdenv.mkDerivation rec {
       lua5_3
       numactl
       which
-    ] ++ lib.optionals withGtk [ gtk2 ]
+    ]
+    ++ lib.optionals withGtk [ gtk2 ]
     ;
 
   RTE_SDK = dpdk;

@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
       substituteInPlace CMakeLists.txt \
         --replace '\$'{exec_prefix}/'$'{CMAKE_INSTALL_LIBDIR} '$'{CMAKE_INSTALL_FULL_LIBDIR} \
         --replace '\$'{prefix}/'$'{CMAKE_INSTALL_INCLUDEDIR} '$'{CMAKE_INSTALL_FULL_INCLUDEDIR}
-    '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
       # Expects SDL2.framework in specific location, which we don't have
       # Change where SDL2 headers are searched for to match what we do have
       substituteInPlace RecastDemo/CMakeLists.txt \

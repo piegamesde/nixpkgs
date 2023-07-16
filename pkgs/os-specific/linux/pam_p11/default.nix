@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
       pam
       libp11.passthru.openssl
       libp11
-    ] ++ lib.optionals stdenv.isDarwin [ libintl ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ libintl ]
     ;
 
   meta = with lib; {

@@ -26,11 +26,12 @@ let
 
   mkParamDef =
     type: default: description:
-    mkParam type (description + ''
+    mkParam type (description
+      + ''
 
-      Defaults to `${toString default}` in Thanos
-      when set to `null`.
-    '')
+        Defaults to `${toString default}` in Thanos
+        when set to `null`.
+      '')
     ;
 
   mkParam =
@@ -95,7 +96,8 @@ let
 
   thanos =
     cmd:
-    "${cfg.package}/bin/thanos ${cmd}" + (let
+    "${cfg.package}/bin/thanos ${cmd}"
+    + (let
       args = cfg.${cmd}.arguments;
     in
     optionalString (length args != 0)

@@ -68,7 +68,8 @@ stdenv.mkDerivation rec {
     [
       "-Dgtk_doc=true"
       "-Dvapi=true"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # mremap does not exist on darwin
       "-Dmmap-buffer-backend=false"
     ]

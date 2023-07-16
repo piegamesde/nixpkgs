@@ -160,7 +160,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
               ^__BEGIN_DECLS" $COMPONENT_PATH | xargs -0r grep -FLZ nbtool_config.h |
                   xargs -0tr sed -i '0,/^#/s//#include <nbtool_config.h>\n\0/'
               set -e
-            '' + attrs.postPatch or ""
+            ''
+            + attrs.postPatch or ""
             ;
         })
     );
@@ -243,7 +244,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
         ;
 
       nativeBuildInputs = with buildPackages.netbsd;
-        commonDeps ++ [
+        commonDeps
+        ++ [
           bsdSetupHook
           netbsdSetupHook
           makeMinimal
@@ -256,7 +258,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
         # temporarily use gnuinstall for bootstrapping
         # bsdinstall will be built later
       makeFlags =
-        defaultMakeFlags ++ [
+        defaultMakeFlags
+        ++ [
           "INSTALL=${buildPackages.coreutils}/bin/install"
           "DATADIR=$(out)/share"
           # Can't sort object files yet
@@ -264,7 +267,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
           "TSORT=cat"
           # Can't process man pages yet
           "MKSHARE=no"
-        ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        ]
+        ++ lib.optionals stdenv.hostPlatform.isDarwin [
           # GNU objcopy produces broken .a libs which won't link into dependers.
           # Makefiles only invoke `$OBJCOPY -x/-X`, so cctools strip works here.
           "OBJCOPY=${buildPackages.darwin.cctools}/bin/strip"
@@ -311,10 +315,12 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
           # Collapse includes slightly to fix dangling reference
           install -D $BSDSRCDIR/common/include/rpc/types.h $out/include/rpc/types.h
           sed -i '1s;^;#include "nbtool_config.h"\n;' $out/include/rpc/types.h
-        '' + lib.optionalString stdenv.isDarwin ''
+        ''
+        + lib.optionalString stdenv.isDarwin ''
           mkdir -p $out/include/ssp
           touch $out/include/ssp/ssp.h
-        '' + ''
+        ''
+        + ''
           mkdir -p $out/lib/pkgconfig
           substitute ${
             ./libbsd-overlay.pc
@@ -334,7 +340,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
             "0zawhw51klaigqqwkx0lzrx3mim2jywrc24cm7c66qsf1im9awgd")
           (fetchNetBSD "common/include/rpc/types.h" "9.2"
             "0n2df12mlc3cbc48jxq35yzl1y7ghgpykvy7jnfh898rdhac7m9a")
-        ] ++ libutil.extraPaths ++ _mainLibcExtraPaths;
+        ]
+        ++ libutil.extraPaths
+        ++ _mainLibcExtraPaths;
     }
     );
 
@@ -368,9 +376,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
         skipIncludesPhase = true;
         buildInputs = with self;
           compatIfNeeded
-          # fts header is needed. glibc already has this header, but musl doesn't,
-          # so make sure pkgsMusl.netbsd.install still builds in case you want to
-          # remove it!
+            # fts header is needed. glibc already has this header, but musl doesn't,
+            # so make sure pkgsMusl.netbsd.install still builds in case you want to
+            # remove it!
           ++ [ fts ];
         installPhase = ''
           runHook preInstall
@@ -538,7 +546,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
              --replace '_INSTRANLIB=''${empty(PRESERVE):?-a "''${RANLIB} -t":}' '_INSTRANLIB='
            substituteInPlace $BSDSRCDIR/share/mk/bsd.kinc.mk \
              --replace /bin/rm rm
-        '' + lib.optionalString stdenv.isDarwin ''
+        ''
+        + lib.optionalString stdenv.isDarwin ''
           substituteInPlace $BSDSRCDIR/share/mk/bsd.sys.mk \
             --replace '-Wl,--fatal-warnings' "" \
             --replace '-Wl,--warn-shared-textrel' ""
@@ -916,7 +925,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
           "-D__scanflike(a,b)="
           "-D__va_list=va_list"
           "-D__warn_references(a,b)="
-        ] ++ lib.optional stdenv.isDarwin "-D__strong_alias(a,b)="
+        ]
+        ++ lib.optional stdenv.isDarwin "-D__strong_alias(a,b)="
         ;
       propagatedBuildInputs = with self; compatIfNeeded;
       MKDOC = "no"; # missing vfontedpr
@@ -1081,7 +1091,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
       SHLINKINSTALLDIR = "/usr/libexec";
       USE_FORT = "yes";
       makeFlags =
-        defaultMakeFlags ++ [
+        defaultMakeFlags
+        ++ [
           "BINDIR=$(out)/libexec"
           "CLIBOBJ=${self.libc}/lib"
         ]
@@ -1110,7 +1121,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
       USE_FORT = "yes";
       MKPROFILE = "no";
       extraPaths = with self;
-        _mainLibcExtraPaths ++ [
+        _mainLibcExtraPaths
+        ++ [
           (fetchNetBSD "external/bsd/jemalloc" "9.2"
             "0cq704swa0h2yxv4gc79z2lwxibk9k7pxh3q5qfs7axx3jx3n8kb")
         ];
@@ -1216,7 +1228,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
         substituteInPlace $COMPONENT_PATH/man0/Makefile --replace "ps2pdf" "echo noop "
       '';
       makeFlags =
-        defaultMakeFlags ++ [
+        defaultMakeFlags
+        ++ [
           "FILESDIR=$(out)/share"
           "MKRUMP=no" # would require to have additional path sys/rump/share/man
         ]

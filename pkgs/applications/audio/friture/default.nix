@@ -21,7 +21,8 @@ python3Packages.buildPythonApplication rec {
       numpy
       cython
       scipy
-    ]) ++ [ wrapQtAppsHook ]
+    ])
+    ++ [ wrapQtAppsHook ]
     ;
 
   propagatedBuildInputs = with python3Packages; [

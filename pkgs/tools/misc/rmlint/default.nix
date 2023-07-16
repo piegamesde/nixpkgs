@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
       pkg-config
       sphinx
       scons
-    ] ++ lib.optionals withGui [
+    ]
+    ++ lib.optionals withGui [
       makeWrapper
       wrapGAppsHook
     ]
@@ -57,7 +58,8 @@ stdenv.mkDerivation rec {
       json-glib
       libelf
       util-linux
-    ] ++ lib.optionals withGui [
+    ]
+    ++ lib.optionals withGui [
       cairo
       gobject-introspection
       gtksourceview3

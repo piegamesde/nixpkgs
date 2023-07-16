@@ -65,7 +65,8 @@ let
       # optional:
       libmicrohttpd # HTTP admin api
       libsodium # ext-auth support
-    ] ++ optional withSystemd systemd
+    ]
+    ++ optional withSystemd systemd
     ;
 
   kisDeps = [ qtx11extras ];
@@ -93,8 +94,10 @@ mkDerivation rec {
   nativeBuildInputs = [ extra-cmake-modules ];
 
   buildInputs =
-    [ karchive ] ++ optionals buildClient clientDeps
-    ++ optionals buildServer serverDeps ++ optionals enableKisTablet kisDeps
+    [ karchive ]
+    ++ optionals buildClient clientDeps
+    ++ optionals buildServer serverDeps
+    ++ optionals enableKisTablet kisDeps
     ;
 
   cmakeFlags = [

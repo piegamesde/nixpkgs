@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
     [
       libpthreadstubs
       libpciaccess
-    ] ++ lib.optional withValgrind valgrind-light
+    ]
+    ++ lib.optional withValgrind valgrind-light
     ;
 
   mesonFlags =
@@ -46,7 +47,8 @@ stdenv.mkDerivation rec {
       "-Dcairo-tests=disabled"
       (lib.mesonEnable "omap" stdenv.hostPlatform.isLinux)
       (lib.mesonEnable "valgrind" withValgrind)
-    ] ++ lib.optionals stdenv.hostPlatform.isAarch [ "-Dtegra=enabled" ]
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isAarch [ "-Dtegra=enabled" ]
     ++ lib.optionals (!stdenv.hostPlatform.isLinux) [ "-Detnaviv=disabled" ]
     ;
 

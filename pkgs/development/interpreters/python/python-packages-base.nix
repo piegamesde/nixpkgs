@@ -87,7 +87,8 @@ let
     let
       modules = lib.filter hasPythonModule drvs;
     in
-    lib.unique ([ python ] ++ modules
+    lib.unique ([ python ]
+      ++ modules
       ++ lib.concatLists (lib.catAttrs "requiredPythonModules" modules))
     ;
 

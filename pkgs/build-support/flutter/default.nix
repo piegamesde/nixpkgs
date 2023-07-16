@@ -53,7 +53,8 @@ let
           deps
           flutter
           jq
-        ] ++ nativeBuildInputs
+        ]
+        ++ nativeBuildInputs
         ;
 
       preUnpack = ''

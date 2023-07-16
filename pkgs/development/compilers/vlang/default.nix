@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
       glfw
       freetype
       openssl
-    ] ++ lib.optional stdenv.hostPlatform.isUnix upx
+    ]
+    ++ lib.optional stdenv.hostPlatform.isUnix upx
     ;
 
   nativeBuildInputs = [ makeWrapper ];
@@ -60,7 +61,8 @@ stdenv.mkDerivation rec {
   preInstall =
     ''
       mv cmd/tools/vcreate_test.v $HOME/vcreate_test.v
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       mv cmd/tools/vtest.v $HOME/vtest.v
     ''
     ;
@@ -89,7 +91,8 @@ stdenv.mkDerivation rec {
   postInstall =
     ''
       cp $HOME/vcreate_test.v $out/lib/cmd/tools/vcreate_test.v
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       cp $HOME/vtest.v $out/lib/cmd/tools/vtest.v
     ''
     ;

@@ -50,10 +50,12 @@ stdenv.mkDerivation rec {
       readline
       libtool # libltdl
       boost
-    ] ++ lib.optionals withPython [
+    ]
+    ++ lib.optionals withPython [
       python3
       python3.pkgs.cython
-    ] ++ lib.optional withMpi mpi
+    ]
+    ++ lib.optional withMpi mpi
     ++ lib.optional stdenv.isDarwin llvmPackages.openmp
     ;
 

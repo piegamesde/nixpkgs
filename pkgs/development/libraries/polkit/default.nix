@@ -85,13 +85,15 @@ stdenv.mkDerivation rec {
       libxslt
       docbook-xsl-nons
       docbook_xml_dtd_412
-    ] ++ lib.optionals withIntrospection [
+    ]
+    ++ lib.optionals withIntrospection [
       gobject-introspection
       gtk-doc
-    ] ++ lib.optionals (withIntrospection
-      && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-      mesonEmulatorHook
     ]
+    ++ lib.optionals (withIntrospection
+      && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+        mesonEmulatorHook
+      ]
     ;
 
   buildInputs =
@@ -100,7 +102,8 @@ stdenv.mkDerivation rec {
       pam
       dbus
       duktape
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       # On Linux, fall back to elogind when systemd support is off.
       (if useSystemd then
         systemdMinimal
@@ -136,14 +139,15 @@ stdenv.mkDerivation rec {
       "-Dtests=${lib.boolToString doCheck}"
       "-Dgtk_doc=${lib.boolToString withIntrospection}"
       "-Dman=true"
-    ] ++ lib.optionals stdenv.isLinux [
-      "-Dsession_tracking=${
-        if useSystemd then
-          "libsystemd-login"
-        else
-          "libelogind"
-      }"
     ]
+    ++ lib.optionals stdenv.isLinux [
+        "-Dsession_tracking=${
+          if useSystemd then
+            "libsystemd-login"
+          else
+            "libelogind"
+        }"
+      ]
     ;
 
     # HACK: We want to install policy files files to $out/share but polkit

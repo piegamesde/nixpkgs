@@ -62,15 +62,17 @@ let
         [
           perl
           elf-header
-        ] ++ lib.optionals stdenvNoCC.hostPlatform.isAndroid [
+        ]
+        ++ lib.optionals stdenvNoCC.hostPlatform.isAndroid [
           bison
           flex
           rsync
-        ] ++ lib.optionals
-        (stdenvNoCC.buildPlatform.isDarwin && stdenvNoCC.hostPlatform.isMips) [
-          darwin-endian-h
-          darwin-byteswap-h
         ]
+        ++ lib.optionals (stdenvNoCC.buildPlatform.isDarwin
+          && stdenvNoCC.hostPlatform.isMips) [
+            darwin-endian-h
+            darwin-byteswap-h
+          ]
         ;
 
       extraIncludeDirs = lib.optionals
@@ -99,7 +101,8 @@ let
       buildPhase =
         lib.optionalString (!stdenvNoCC.buildPlatform.isDarwin) ''
           make mrproper $makeFlags
-        '' + (if stdenvNoCC.hostPlatform.isAndroid then
+        ''
+        + (if stdenvNoCC.hostPlatform.isAndroid then
           ''
             make defconfig
             make headers_install

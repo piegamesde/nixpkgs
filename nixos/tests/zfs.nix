@@ -202,7 +202,8 @@ let
                   "systemctl start forcepool.mount",
                   "mount | grep forcepool",
               )
-        '' + extraTest
+        ''
+        + extraTest
         ;
 
     }

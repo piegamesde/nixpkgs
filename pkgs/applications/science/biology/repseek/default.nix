@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
       substituteInPlace Makefile \
         --replace "INSTALLDIR = \$\$HOME/bin" "INSTALLDIR = $out/bin/" \
         --replace "CC= gcc" "CC = $CC"
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       substituteInPlace Makefile --replace "MACHINE = MACOSX" "MACHINE = LINUX"
     ''
     ;

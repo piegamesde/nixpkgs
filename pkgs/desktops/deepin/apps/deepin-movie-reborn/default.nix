@@ -123,7 +123,8 @@ stdenv.mkDerivation rec {
       mpv
       gtest
       libpulseaudio
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       gstreamer
       gst-plugins-base
     ])

@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    lib.optionals stdenv.isDarwin [ CoreServices ] ++ (with ocamlPackages;
+    lib.optionals stdenv.isDarwin [ CoreServices ]
+    ++ (with ocamlPackages;
       [
         core_kernel
         dtoa
@@ -52,7 +53,8 @@ stdenv.mkDerivation rec {
         sedlex
         visitors
         wtf8
-      ] ++ lib.optionals stdenv.isLinux [ inotify ])
+      ]
+      ++ lib.optionals stdenv.isLinux [ inotify ])
     ;
 
   meta = with lib; {

@@ -34,7 +34,8 @@ let
     [
       p7zip
       lrzip
-    ] ++ lib.optional unfreeEnableUnrar unrar
+    ]
+    ++ lib.optional unfreeEnableUnrar unrar
     ;
 
 in
@@ -55,7 +56,8 @@ mkDerivation {
     [
       libarchive
       libzip
-    ] ++ extraTools
+    ]
+    ++ extraTools
     ;
 
   propagatedBuildInputs = [
@@ -89,7 +91,8 @@ mkDerivation {
       [
         gpl2
         lgpl3
-      ] ++ optional unfreeEnableUnrar unfree;
+      ]
+      ++ optional unfreeEnableUnrar unfree;
     maintainers = [ maintainers.ttuegel ];
   };
 }

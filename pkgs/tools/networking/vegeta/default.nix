@@ -25,7 +25,8 @@ buildGoModule rec {
       Version = version;
       Commit = rev;
       Date = "1970-01-01T00:00:00Z";
-    }) ++ [
+    })
+    ++ [
       "-s"
       "-w"
       "-extldflags '-static'"

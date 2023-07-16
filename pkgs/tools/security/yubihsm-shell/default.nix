@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
       libedit
       curl
       openssl
-    ] ++ lib.optionals stdenv.isLinux [ pcsclite ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ pcsclite ]
     ++ lib.optionals stdenv.isDarwin [
       darwin.apple_sdk.frameworks.PCSC
       libiconv

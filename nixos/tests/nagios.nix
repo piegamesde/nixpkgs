@@ -29,7 +29,8 @@ import ./make-test-python.nix ({
               "templates"
               "timeperiods"
               "commands"
-            ]) ++ [
+            ])
+            ++ [
               (pkgs.writeText "objects.cfg" ''
                 # notifications are written to /tmp/notifications
                 define command {

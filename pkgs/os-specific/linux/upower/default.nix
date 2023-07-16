@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
     [
       "out"
       "dev"
-    ] ++ lib.optionals withDocs [ "devdoc" ]
+    ]
+    ++ lib.optionals withDocs [ "devdoc" ]
     ;
 
   src = fetchFromGitLab {
@@ -75,7 +76,8 @@ stdenv.mkDerivation rec {
       systemd
       # Duplicate from nativeCheckInputs until https://github.com/NixOS/nixpkgs/issues/161570 is solved
       umockdev
-    ] ++ lib.optionals useIMobileDevice [ libimobiledevice ]
+    ]
+    ++ lib.optionals useIMobileDevice [ libimobiledevice ]
     ;
 
   nativeCheckInputs = [

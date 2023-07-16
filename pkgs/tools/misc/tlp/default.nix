@@ -74,7 +74,8 @@ stdenv.mkDerivation rec {
     [
       "install-tlp"
       "install-man"
-    ] ++ lib.optionals enableRDW [
+    ]
+    ++ lib.optionals enableRDW [
       "install-rdw"
       "install-man-rdw"
     ]
@@ -105,9 +106,11 @@ stdenv.mkDerivation rec {
         smartmontools
         systemd
         util-linux
-      ] ++ lib.optional enableRDW networkmanager ++ lib.optional
-        (lib.meta.availableOn stdenv.hostPlatform x86_energy_perf_policy)
-        x86_energy_perf_policy);
+      ]
+        ++ lib.optional enableRDW networkmanager
+        ++ lib.optional
+          (lib.meta.availableOn stdenv.hostPlatform x86_energy_perf_policy)
+          x86_energy_perf_policy);
     in
     ''
       fixup_perl=(

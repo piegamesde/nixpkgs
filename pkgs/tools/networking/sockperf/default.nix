@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags =
-    [ "--enable-doc" ] ++ lib.optional enableTest "--enable-test"
+    [ "--enable-doc" ]
+    ++ lib.optional enableTest "--enable-test"
     ++ lib.optional enableTool "--enable-tool"
     ;
 

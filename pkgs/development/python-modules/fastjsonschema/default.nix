@@ -32,9 +32,10 @@ buildPythonPackage rec {
       # these tests require network access
       "remote ref"
       "definitions"
-    ] ++ lib.optionals stdenv.isDarwin [
-      "test_compile_to_code_custom_format" # cannot import temporary module created during test
     ]
+    ++ lib.optionals stdenv.isDarwin [
+        "test_compile_to_code_custom_format" # cannot import temporary module created during test
+      ]
     ;
 
   pythonImportsCheck = [ "fastjsonschema" ];

@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
       cp -a * "$out/share/gams"
 
       cp ${licenseFile} $out/share/gams/gamslice.txt
-    '' + lib.optionalString (optgamsFile != null) ''
+    ''
+    + lib.optionalString (optgamsFile != null) ''
       cp ${optgamsFile} $out/share/gams/optgams.def
       ln -s $out/share/gams/optgams.def $out/bin/optgams.def
     ''

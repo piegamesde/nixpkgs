@@ -34,7 +34,8 @@ let
       TermReadLineGnu
       TextParsewords
       UnicodeLineBreak
-    ] ++ lib.optionals withGtk3 [ FileShareDir ]);
+    ]
+    ++ lib.optionals withGtk3 [ FileShareDir ]);
 in
 buildPerlModule rec {
   pname = "pipe-viewer";
@@ -81,7 +82,8 @@ buildPerlModule rec {
             yt-dlp
           ]
         }"
-    '' + lib.optionalString withGtk3 ''
+    ''
+    + lib.optionalString withGtk3 ''
       # make xdg-open overrideable at runtime
       wrapProgram "$out/bin/gtk-pipe-viewer" ''${gappsWrapperArgs[@]} \
         --prefix PATH : "${

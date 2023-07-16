@@ -39,7 +39,8 @@ let
         else
           optionalString preserveArgvZero "P"
           + optionalString (openBinary && !matchCredentials) "O"
-          + optionalString matchCredentials "C" + optionalString fixBinary "F"
+          + optionalString matchCredentials "C"
+          + optionalString fixBinary "F"
         ;
     in
     ":${name}:${type}:${offset'}:${magicOrExtension}:${mask'}:${interpreter}:${flags}"
@@ -435,7 +436,8 @@ in
             lib.any (system: (ruleFor system).wrapInterpreterInShell)
             cfg.emulatedSystems;
         in
-        [ "/run/binfmt" ] ++ lib.optional hasWrappedRule "${pkgs.bash}"
+        [ "/run/binfmt" ]
+        ++ lib.optional hasWrappedRule "${pkgs.bash}"
         ++ (map (system: (ruleFor system).interpreterSandboxPath)
           cfg.emulatedSystems)
         ;

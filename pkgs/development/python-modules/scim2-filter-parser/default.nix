@@ -38,7 +38,8 @@ buildPythonPackage rec {
     [
       mock
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.django-query
+    ]
+    ++ passthru.optional-dependencies.django-query
     ;
 
   meta = with lib; {

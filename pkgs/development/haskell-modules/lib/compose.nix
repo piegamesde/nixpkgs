@@ -367,7 +367,8 @@ rec {
     isLibrary = false;
     doHaddock = false;
     postFixup =
-      drv.postFixup or "" + ''
+      drv.postFixup or ""
+      + ''
 
         # Remove every directory which could have links to other store paths.
         rm -rf $out/lib $out/nix-support $out/share/doc
@@ -565,7 +566,8 @@ rec {
     exeName:
     overrideCabal (drv: {
       postInstall =
-        (drv.postInstall or "") + ''
+        (drv.postInstall or "")
+        + ''
           bashCompDir="''${!outputBin}/share/bash-completion/completions"
           zshCompDir="''${!outputBin}/share/zsh/vendor-completions"
           fishCompDir="''${!outputBin}/share/fish/vendor_completions.d"

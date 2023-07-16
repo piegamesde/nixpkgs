@@ -73,10 +73,12 @@ stdenv.mkDerivation rec {
       bison
       flex
       cmake
-    ] ++ lib.optionals enableDocumentation [
+    ]
+    ++ lib.optionals enableDocumentation [
       doxygen
       graphviz
-    ] ++ lib.optionals enableBPF [
+    ]
+    ++ lib.optionals enableBPF [
       libllvm
       libbpf
     ]

@@ -51,10 +51,12 @@ buildDunePackage {
       stdio
       uuseg
       uutf
-    ] ++ lib.optionals (lib.versionAtLeast version "0.20.0") [
+    ]
+    ++ lib.optionals (lib.versionAtLeast version "0.20.0") [
       ocaml-version
       either
-    ] ++ (if lib.versionAtLeast version "0.24.0" then
+    ]
+    ++ (if lib.versionAtLeast version "0.24.0" then
       [ (odoc-parser.override { version = "2.0.0"; }) ]
     else if lib.versionAtLeast version "0.20.1" then
       [ (odoc-parser.override { version = "1.0.1"; }) ]

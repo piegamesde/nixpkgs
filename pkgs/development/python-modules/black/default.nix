@@ -50,7 +50,8 @@ buildPythonPackage rec {
       packaging
       pathspec
       platformdirs
-    ] ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
     ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ]
     ;
 
@@ -72,7 +73,8 @@ buildPythonPackage rec {
     [
       pytestCheckHook
       parameterized
-    ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
+    ]
+    ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
     ;
 
   preCheck =
@@ -82,7 +84,8 @@ buildPythonPackage rec {
       # The top directory /build matches black's DEFAULT_EXCLUDE regex.
       # Make /build the project root for black tests to avoid excluding files.
       touch ../.git
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # Work around https://github.com/psf/black/issues/2105
       export TMPDIR="/tmp"
     ''
@@ -92,7 +95,8 @@ buildPythonPackage rec {
     [
       # requires network access
       "test_gen_check_output"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # fails on darwin
       "test_expression_diff"
       # Fail on Hydra, see https://github.com/NixOS/nixpkgs/pull/130785

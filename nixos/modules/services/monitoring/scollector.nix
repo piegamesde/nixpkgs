@@ -15,7 +15,8 @@ let
     ${lib.concatStringsSep "\n" (lib.mapAttrsToList (frequency: binaries:
       ''
         mkdir -p $out/${frequency}
-      '' + (lib.concatStringsSep "\n"
+      ''
+      + (lib.concatStringsSep "\n"
         (map (path: "ln -s ${path} $out/${frequency}/$(basename ${path})")
           binaries))) cfg.collectors)}
   '';

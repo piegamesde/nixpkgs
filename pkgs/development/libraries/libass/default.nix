@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
       freetype
       fribidi
       harfbuzz
-    ] ++ lib.optional fontconfigSupport fontconfig
+    ]
+    ++ lib.optional fontconfigSupport fontconfig
     ++ lib.optional stdenv.isDarwin libiconv
     ;
 

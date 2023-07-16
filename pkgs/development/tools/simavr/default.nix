@@ -47,7 +47,8 @@ stdenv.mkDerivation rec {
       which
       pkg-config
       avrgcc
-    ] ++ lib.optional stdenv.isDarwin setupHookDarwin
+    ]
+    ++ lib.optional stdenv.isDarwin setupHookDarwin
     ;
   buildInputs =
     [
@@ -55,7 +56,8 @@ stdenv.mkDerivation rec {
       freeglut
       libGLU
       libGL
-    ] ++ lib.optional stdenv.isDarwin GLUT
+    ]
+    ++ lib.optional stdenv.isDarwin GLUT
     ;
 
     # Hack to avoid TMPDIR in RPATHs.

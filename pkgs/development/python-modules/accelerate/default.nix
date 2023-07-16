@@ -58,7 +58,8 @@ buildPythonPackage rec {
       # known failure with Torch>2.0; see https://github.com/huggingface/accelerate/pull/1339:
       # (remove for next release)
       "test_gradient_sync_cpu_multi"
-    ] ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [
+    ]
+    ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [
       # usual aarch64-linux RuntimeError: DataLoader worker (pid(s) <...>) exited unexpectedly
       "CheckpointTest"
     ]

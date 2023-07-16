@@ -91,14 +91,13 @@ let
             "/etc"
             "/run/systemd"
             "${config.i18n.glibcLocales}"
-          ] ++ mapAttrsToList (name: inbox: inbox.description) cfg.inboxes ++
-          # Without confinement the whole Nix store
-          # is made available to the service
-          optionals
-          (!config.systemd.services."public-inbox-${srv}".confinement.enable) [
-            "${pkgs.dash}/bin/dash:/bin/sh"
-            builtins.storeDir
           ]
+          ++ mapAttrsToList (name: inbox: inbox.description) cfg.inboxes
+          ++ optionals
+            (!config.systemd.services."public-inbox-${srv}".confinement.enable) [
+              "${pkgs.dash}/bin/dash:/bin/sh"
+              builtins.storeDir
+            ]
           ;
           # The following options are only for optimizing:
           # systemd-analyze security public-inbox-'*'
@@ -119,7 +118,8 @@ let
           #ProtectSystem = "strict";
         RemoveIPC = true;
         RestrictAddressFamilies =
-          [ "AF_UNIX" ] ++ optionals needNetwork [
+          [ "AF_UNIX" ]
+          ++ optionals needNetwork [
             "AF_INET"
             "AF_INET6"
           ]
@@ -523,11 +523,13 @@ in
             requires = [ "public-inbox-init.service" ];
             serviceConfig = {
               ExecStart = escapeShellArgs
-                ([ "${cfg.package}/bin/public-inbox-imapd" ] ++ cfg.imap.args
+                ([ "${cfg.package}/bin/public-inbox-imapd" ]
+                  ++ cfg.imap.args
                   ++ optionals (cfg.imap.cert != null) [
                     "--cert"
                     cfg.imap.cert
-                  ] ++ optionals (cfg.imap.key != null) [
+                  ]
+                  ++ optionals (cfg.imap.key != null) [
                     "--key"
                     cfg.imap.key
                   ]);
@@ -546,10 +548,9 @@ in
             requires = [ "public-inbox-init.service" ];
             serviceConfig = {
               ExecStart = escapeShellArgs
-                ([ "${cfg.package}/bin/public-inbox-httpd" ] ++ cfg.http.args ++
-                  # See https://public-inbox.org/public-inbox.git/tree/examples/public-inbox.psgi
-                  # for upstream's example.
-                  [
+                ([ "${cfg.package}/bin/public-inbox-httpd" ]
+                  ++ cfg.http.args
+                  ++ [
                     (pkgs.writeText "public-inbox.psgi" ''
                       #!${cfg.package.fullperl} -w
                       use strict;
@@ -593,11 +594,13 @@ in
             requires = [ "public-inbox-init.service" ];
             serviceConfig = {
               ExecStart = escapeShellArgs
-                ([ "${cfg.package}/bin/public-inbox-nntpd" ] ++ cfg.nntp.args
+                ([ "${cfg.package}/bin/public-inbox-nntpd" ]
+                  ++ cfg.nntp.args
                   ++ optionals (cfg.nntp.cert != null) [
                     "--cert"
                     cfg.nntp.cert
-                  ] ++ optionals (cfg.nntp.key != null) [
+                  ]
+                  ++ optionals (cfg.nntp.key != null) [
                     "--key"
                     cfg.nntp.key
                   ]);
@@ -615,7 +618,7 @@ in
               requires =
                 [ "public-inbox-init.service" ]
                 ++ optional (cfg.settings.publicinboxwatch.spamcheck == "spamc")
-                "spamassassin.service"
+                  "spamassassin.service"
                 ;
               wantedBy = [ "multi-user.target" ];
               serviceConfig = {
@@ -641,12 +644,14 @@ in
                 ''
                   set -ux
                   install -D -p ${PI_CONFIG} ${stateDir}/.public-inbox/config
-                '' + optionalString useSpamAssassin ''
+                ''
+                + optionalString useSpamAssassin ''
                   install -m 0700 -o spamd -d ${stateDir}/.spamassassin
                   ${optionalString (cfg.spamAssassinRules != null) ''
                     ln -sf ${cfg.spamAssassinRules} ${stateDir}/.spamassassin/user_prefs
                   ''}
-                '' + concatStrings (mapAttrsToList (name: inbox: ''
+                ''
+                + concatStrings (mapAttrsToList (name: inbox: ''
                   if [ ! -e ${stateDir}/inboxes/${escapeShellArg name} ]; then
                     # public-inbox-init creates an inbox and adds it to a config file.
                     # It tries to atomically write the config file by creating
@@ -662,7 +667,8 @@ in
                           name
                           "${stateDir}/inboxes/${name}"
                           inbox.url
-                        ] ++ inbox.address)
+                        ]
+                          ++ inbox.address)
                       }
 
                     rm -rf $conf_dir
@@ -679,7 +685,8 @@ in
                     # so just needs to be set for all.git.
                     ${pkgs.git}/bin/git config core.sharedRepository 0640
                   fi
-                '') cfg.inboxes) + ''
+                '') cfg.inboxes)
+                + ''
                   shopt -s nullglob
                   for inbox in ${stateDir}/inboxes/*/; do
                     # This should be idempotent, but only do it for new

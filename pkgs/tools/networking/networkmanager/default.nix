@@ -191,9 +191,10 @@ stdenv.mkDerivation rec {
       docbook_xml_dtd_42
       docbook_xml_dtd_43
       pythonForDocs
-    ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-      mesonEmulatorHook
     ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+        mesonEmulatorHook
+      ]
     ;
 
   doCheck = false; # requires /sys, the net
@@ -239,7 +240,8 @@ stdenv.mkDerivation rec {
     changelog =
       "https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/raw/${version}/NEWS";
     maintainers =
-      teams.freedesktop.members ++ (with maintainers; [
+      teams.freedesktop.members
+      ++ (with maintainers; [
         domenkozar
         obadz
         maxeaubrey

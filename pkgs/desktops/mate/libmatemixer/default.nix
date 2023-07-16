@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ glib ] ++ lib.optional alsaSupport alsa-lib
+    [ glib ]
+    ++ lib.optional alsaSupport alsa-lib
     ++ lib.optional pulseaudioSupport libpulseaudio
     ;
 

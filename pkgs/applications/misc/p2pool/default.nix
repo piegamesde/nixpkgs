@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
       hwloc
       openssl
       curl
-    ] ++ lib.optionals stdenv.isDarwin [ Foundation ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Foundation ]
     ;
 
   cmakeFlags = [ "-DWITH_LTO=OFF" ];

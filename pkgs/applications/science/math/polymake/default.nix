@@ -57,7 +57,8 @@ stdenv.mkDerivation rec {
       lrs
       nauty
       openjdk
-    ] ++ (with perlPackages; [
+    ]
+    ++ (with perlPackages; [
       JSON
       TermReadLineGnu
       TermReadKey

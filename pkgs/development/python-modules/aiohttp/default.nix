@@ -73,10 +73,12 @@ buildPythonPackage rec {
       aiodns
       brotli
       faust-cchardet
-    ] ++ lib.optionals (pythonOlder "3.8") [
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [
       asynctest
       typing-extensions
-    ] ++ lib.optionals (pythonOlder "3.7") [ idna-ssl ]
+    ]
+    ++ lib.optionals (pythonOlder "3.7") [ idna-ssl ]
     ;
 
   nativeCheckInputs =
@@ -88,7 +90,8 @@ buildPythonPackage rec {
       pytest-xdist
       pytestCheckHook
       re-assert
-    ] ++ lib.optionals (!(stdenv.isDarwin && stdenv.isAarch64)) [
+    ]
+    ++ lib.optionals (!(stdenv.isDarwin && stdenv.isAarch64)) [
       # Optional test dependency. Depends indirectly on pyopenssl, which is
       # broken on aarch64-darwin.
       trustme
@@ -105,7 +108,8 @@ buildPythonPackage rec {
       "test_async_with_session"
       "test_session_close_awaitable"
       "test_close_run_until_complete_not_deprecated"
-    ] ++ lib.optionals stdenv.is32bit [ "test_cookiejar" ]
+    ]
+    ++ lib.optionals stdenv.is32bit [ "test_cookiejar" ]
     ++ lib.optionals stdenv.isDarwin [
       "test_addresses" # https://github.com/aio-libs/aiohttp/issues/3572, remove >= v4.0.0
       "test_close"
@@ -123,7 +127,8 @@ buildPythonPackage rec {
   preCheck =
     ''
       cd tests
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # Work around "OSError: AF_UNIX path too long"
       export TMPDIR="/tmp"
     ''

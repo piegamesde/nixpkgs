@@ -18,7 +18,8 @@ let
       shadow
       util-linux
       busybox
-    ] ++ optional cfg.btrfs.enable btrfs-progs
+    ]
+    ++ optional cfg.btrfs.enable btrfs-progs
     ++ optional cfg.ext4.enable 0.0 fsprogs;
 in
 {

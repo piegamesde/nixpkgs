@@ -71,7 +71,8 @@ stdenv.mkDerivation rec {
     [
       "out"
       "dev"
-    ] ++ lib.optionals x11Support [ "devdoc" ]
+    ]
+    ++ lib.optionals x11Support [ "devdoc" ]
     ;
   outputBin = "dev";
 
@@ -108,7 +109,9 @@ stdenv.mkDerivation rec {
       sassc
       gi-docgen
       libxml2 # for xmllint
-    ] ++ lib.optionals waylandSupport [ wayland-scanner ] ++ setupHooks
+    ]
+    ++ lib.optionals waylandSupport [ wayland-scanner ]
+    ++ setupHooks
     ;
 
   buildInputs =
@@ -119,12 +122,15 @@ stdenv.mkDerivation rec {
       libjpeg
       (libepoxy.override { inherit x11Support; })
       isocodes
-    ] ++ lib.optionals vulkanSupport [ vulkan-headers ] ++ [
+    ]
+    ++ lib.optionals vulkanSupport [ vulkan-headers ]
+    ++ [
       gst_all_1.gst-plugins-base
       gst_all_1.gst-plugins-bad
       fribidi
       harfbuzz
-    ] ++ (with xorg; [
+    ]
+    ++ (with xorg; [
       libICE
       libSM
       libXcursor
@@ -132,13 +138,15 @@ stdenv.mkDerivation rec {
       libXi
       libXrandr
       libXrender
-    ]) ++ lib.optionals stdenv.isDarwin [ AppKit ]
+    ])
+    ++ lib.optionals stdenv.isDarwin [ AppKit ]
     ++ lib.optionals trackerSupport [ tracker ]
     ++ lib.optionals waylandSupport [
       libGL
       wayland
       wayland-protocols
-    ] ++ lib.optionals xineramaSupport [ xorg.libXinerama ]
+    ]
+    ++ lib.optionals xineramaSupport [ xorg.libXinerama ]
     ++ lib.optionals cupsSupport [ cups ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ++ lib.optionals stdenv.hostPlatform.isMusl [ libexecinfo ]
@@ -153,8 +161,10 @@ stdenv.mkDerivation rec {
       glib
       graphene
       pango
-    ] ++ lib.optionals waylandSupport [ wayland ]
-    ++ lib.optionals vulkanSupport [ vulkan-loader ] ++ [
+    ]
+    ++ lib.optionals waylandSupport [ wayland ]
+    ++ lib.optionals vulkanSupport [ vulkan-loader ]
+    ++ [
       # Required for GSettings schemas at runtime.
       # Will be picked up by wrapGAppsHook.
       gsettings-desktop-schemas
@@ -173,11 +183,13 @@ stdenv.mkDerivation rec {
           "disabled"
       }"
       "-Dbroadway-backend=${lib.boolToString broadwaySupport}"
-    ] ++ lib.optionals vulkanSupport [ "-Dvulkan=enabled" ]
+    ]
+    ++ lib.optionals vulkanSupport [ "-Dvulkan=enabled" ]
     ++ lib.optionals (!cupsSupport) [ "-Dprint-cups=disabled" ]
     ++ lib.optionals (stdenv.isDarwin && !stdenv.isAarch64) [
-      "-Dmedia-gstreamer=disabled" # requires gstreamer-gl
-    ] ++ lib.optionals (!x11Support) [ "-Dx11-backend=false" ]
+        "-Dmedia-gstreamer=disabled" # requires gstreamer-gl
+      ]
+    ++ lib.optionals (!x11Support) [ "-Dx11-backend=false" ]
     ;
 
   doCheck = false; # needs X11
@@ -215,7 +227,8 @@ stdenv.mkDerivation rec {
   postInstall =
     ''
       PATH="$OLD_PATH"
-    '' + lib.optionalString (!stdenv.isDarwin) ''
+    ''
+    + lib.optionalString (!stdenv.isDarwin) ''
       # The updater is needed for nixos env and it's tiny.
       moveToOutput bin/gtk4-update-icon-cache "$out"
       # Launcher
@@ -225,7 +238,8 @@ stdenv.mkDerivation rec {
       for f in $dev/bin/gtk4-encode-symbolic-svg; do
         wrapProgram $f --prefix XDG_DATA_DIRS : "${shared-mime-info}/share"
       done
-    '' + lib.optionalString broadwaySupport ''
+    ''
+    + lib.optionalString broadwaySupport ''
       # Broadway daemon
       moveToOutput bin/gtk4-broadwayd "$out"
     ''
@@ -240,7 +254,8 @@ stdenv.mkDerivation rec {
         wrapProgram $dev/bin/$program \
           --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH:$out/share/gsettings-schemas/${pname}-${version}"
       done
-    '' + lib.optionalString x11Support ''
+    ''
+    + lib.optionalString x11Support ''
       # Cannot be in postInstall, otherwise _multioutDocs hook in preFixup will move right back.
       moveToOutput "share/doc" "$devdoc"
     ''

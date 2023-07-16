@@ -58,10 +58,11 @@ stdenv.mkDerivation rec {
     # Needed with GCC 12
     "-Wno-error=format-truncation"
     "-Wno-error=maybe-uninitialized"
-  ] ++ lib.optionals stdenv.cc.isClang [
-    "-Wno-error=unused-private-field"
-    "-faligned-allocation"
-  ]);
+  ]
+    ++ lib.optionals stdenv.cc.isClang [
+      "-Wno-error=unused-private-field"
+      "-faligned-allocation"
+    ]);
 
   cmakeFlags =
     [
@@ -93,7 +94,8 @@ stdenv.mkDerivation rec {
         else
           "YES"
       }"
-    ] ++ lib.optional (!enableShared) "-DROCKSDB_BUILD_SHARED=0"
+    ]
+    ++ lib.optional (!enableShared) "-DROCKSDB_BUILD_SHARED=0"
     ;
 
     # otherwise "cc1: error: -Wformat-security ignored without -Wformat [-Werror=format-security]"
@@ -103,9 +105,11 @@ stdenv.mkDerivation rec {
     ''
       mkdir -p $tools/bin
       cp tools/{ldb,sst_dump}${stdenv.hostPlatform.extensions.executable} $tools/bin/
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       ls -1 $tools/bin/* | xargs -I{} install_name_tool -change "@rpath/librocksdb.7.dylib" $out/lib/librocksdb.dylib {}
-    '' + lib.optionalString (stdenv.isLinux && enableShared) ''
+    ''
+    + lib.optionalString (stdenv.isLinux && enableShared) ''
       ls -1 $tools/bin/* | xargs -I{} patchelf --set-rpath $out/lib:${stdenv.cc.cc.lib}/lib {}
     ''
     ;

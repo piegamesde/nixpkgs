@@ -47,7 +47,8 @@ let
       xorg.libXrandr
       xorg.libXxf86vm
       xorg.libxcb
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libxkbcommon
       wayland
     ]
@@ -76,7 +77,8 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    rpathLibs ++ lib.optionals stdenv.isDarwin [
+    rpathLibs
+    ++ lib.optionals stdenv.isDarwin [
       AppKit
       CoreGraphics
       CoreServices
@@ -120,23 +122,24 @@ rustPlatform.buildRustPackage rec {
         patchelf --set-rpath "${
           lib.makeLibraryPath rpathLibs
         }" $out/bin/alacritty
-      '') + ''
+      '')
+    + ''
 
-        installShellCompletion --zsh extra/completions/_alacritty
-        installShellCompletion --bash extra/completions/alacritty.bash
-        installShellCompletion --fish extra/completions/alacritty.fish
+      installShellCompletion --zsh extra/completions/_alacritty
+      installShellCompletion --bash extra/completions/alacritty.bash
+      installShellCompletion --fish extra/completions/alacritty.fish
 
-        install -dm 755 "$out/share/man/man1"
-        gzip -c extra/alacritty.man > "$out/share/man/man1/alacritty.1.gz"
-        gzip -c extra/alacritty-msg.man > "$out/share/man/man1/alacritty-msg.1.gz"
+      install -dm 755 "$out/share/man/man1"
+      gzip -c extra/alacritty.man > "$out/share/man/man1/alacritty.1.gz"
+      gzip -c extra/alacritty-msg.man > "$out/share/man/man1/alacritty-msg.1.gz"
 
-        install -Dm 644 alacritty.yml $out/share/doc/alacritty.yml
+      install -Dm 644 alacritty.yml $out/share/doc/alacritty.yml
 
-        install -dm 755 "$terminfo/share/terminfo/a/"
-        tic -xe alacritty,alacritty-direct -o "$terminfo/share/terminfo" extra/alacritty.info
-        mkdir -p $out/nix-support
-        echo "$terminfo" >> $out/nix-support/propagated-user-env-packages
-      ''
+      install -dm 755 "$terminfo/share/terminfo/a/"
+      tic -xe alacritty,alacritty-direct -o "$terminfo/share/terminfo" extra/alacritty.info
+      mkdir -p $out/nix-support
+      echo "$terminfo" >> $out/nix-support/propagated-user-env-packages
+    ''
     ;
 
   dontPatchELF = true;

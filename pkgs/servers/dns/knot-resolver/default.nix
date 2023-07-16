@@ -104,10 +104,12 @@ let # un-indented, over the whole file
         libuv
         gnutls
         lmdb
-      ] ++ optionals stdenv.isLinux [ # lib
+      ]
+      ++ optionals stdenv.isLinux [ # lib
         systemd
         libcap_ng
-      ] ++ [
+      ]
+      ++ [
         jemalloc
         nghttp2
       ]
@@ -121,18 +123,20 @@ let # un-indented, over the whole file
         "-Dinstall_kresd_conf=disabled" # not really useful; examples are inside share/doc/
         "-Dmalloc=jemalloc"
         "--default-library=static" # not used by anyone
-      ] ++ optional doInstallCheck "-Dunit_tests=enabled"
+      ]
+      ++ optional doInstallCheck "-Dunit_tests=enabled"
       ++ optional doInstallCheck "-Dconfig_tests=enabled"
       ++ optional stdenv.isLinux
-      "-Dsystemd_files=enabled" # used by NixOS service
-      #"-Dextra_tests=enabled" # not suitable as in-distro tests; many deps, too.
+        "-Dsystemd_files=enabled" # used by NixOS service
+        #"-Dextra_tests=enabled" # not suitable as in-distro tests; many deps, too.
       ;
 
     postInstall =
       ''
         rm "$out"/lib/libkres.a
         rm "$out"/lib/knot-resolver/upgrade-4-to-5.lua # not meaningful on NixOS
-      '' + optionalString stdenv.targetPlatform.isLinux ''
+      ''
+      + optionalString stdenv.targetPlatform.isLinux ''
         rm -r "$out"/lib/sysusers.d/ # ATM more likely to harm than help
       ''
       ;

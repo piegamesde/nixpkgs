@@ -45,13 +45,16 @@ pythonPackages.callPackage ({
           ("^.*(" + builtins.concatStringsSep "|" supportedExtensions + ")");
         matchesVersion =
           fname:
-          builtins.match ("^.*" + builtins.replaceStrings [
-            "."
-            "+"
-          ] [
-            "\\."
-            "\\+"
-          ] version + ".*$") fname != null
+          builtins.match ("^.*"
+            + builtins.replaceStrings [
+              "."
+              "+"
+            ] [
+              "\\."
+              "\\+"
+            ] version
+            + ".*$") fname
+          != null
           ;
         hasSupportedExtension =
           fname: builtins.match supportedRegex fname != null;
@@ -62,7 +65,8 @@ pythonPackages.callPackage ({
           ;
       in
       builtins.filter (f:
-        matchesVersion f.file && hasSupportedExtension f.file
+        matchesVersion f.file
+        && hasSupportedExtension f.file
         && isCompatibleEgg f.file) files
       ;
     toPath = s: pwd + "/${s}";
@@ -71,7 +75,8 @@ pythonPackages.callPackage ({
     isGit = isSource && source.type == "git";
     isUrl = isSource && source.type == "url";
     isWheelUrl =
-      isSource && source.type == "url"
+      isSource
+      && source.type == "url"
       && lib.strings.hasSuffix ".whl" source.url
       ;
     isDirectory = isSource && source.type == "directory";
@@ -106,7 +111,8 @@ pythonPackages.callPackage ({
           (if preferWheel' then
             binaryDist ++ sourceDist
           else
-            sourceDist ++ binaryDist) ++ eggs
+            sourceDist ++ binaryDist)
+          ++ eggs
           ;
         lockFileEntry =
           (if lib.length entries > 0 then
@@ -168,14 +174,17 @@ pythonPackages.callPackage ({
     dontStrip = format == "wheel";
 
     nativeBuildInputs =
-      [ hooks.poetry2nixFixupHook ] ++ lib.optional (!pythonPackages.isPy27)
-      hooks.poetry2nixPythonRequiresPatchHook
+      [ hooks.poetry2nixFixupHook ]
+      ++ lib.optional (!pythonPackages.isPy27)
+        hooks.poetry2nixPythonRequiresPatchHook
       ++ lib.optional (isLocked && (getManyLinuxDeps fileInfo.name).str != null)
-      autoPatchelfHook ++ lib.optionals (format == "wheel") [
+        autoPatchelfHook
+      ++ lib.optionals (format == "wheel") [
         hooks.wheelUnpackHook
         pythonPackages.pipInstallHook
         pythonPackages.setuptools
-      ] ++ lib.optionals (format == "pyproject") [
+      ]
+      ++ lib.optionals (format == "pyproject") [
         hooks.removePathDependenciesHook
         hooks.removeGitDependenciesHook
         hooks.pipBuildHook
@@ -186,7 +195,7 @@ pythonPackages.callPackage ({
       (lib.optional (isLocked) (getManyLinuxDeps fileInfo.name).pkg
         ++ lib.optional isDirectory buildSystemPkgs
         ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-        pythonPackages.setuptools);
+          pythonPackages.setuptools);
 
     propagatedBuildInputs =
       let

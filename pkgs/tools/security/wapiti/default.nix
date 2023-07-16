@@ -38,8 +38,9 @@ python3.pkgs.buildPythonApplication rec {
       sqlalchemy
       tld
       yaswfp
-    ] ++ httpx.optional-dependencies.brotli ++ httpx.optional-dependencies.socks
-    ;
+    ]
+    ++ httpx.optional-dependencies.brotli
+    ++ httpx.optional-dependencies.socks;
 
   nativeCheckInputs = with python3.pkgs; [
     respx

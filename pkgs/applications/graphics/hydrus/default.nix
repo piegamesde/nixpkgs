@@ -112,7 +112,8 @@ python3Packages.buildPythonPackage rec {
       mkdir -p $out/bin
       install -m0755 server.py $out/bin/hydrus-server
       install -m0755 client.py $out/bin/hydrus-client
-    '' + lib.optionalString enableSwftools ''
+    ''
+    + lib.optionalString enableSwftools ''
       mkdir -p $out/${python3Packages.python.sitePackages}/bin
       # swfrender seems to have to be called sfwrender_linux
       # not sure if it can be loaded through PATH, but this is simpler

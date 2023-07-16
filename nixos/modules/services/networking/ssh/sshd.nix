@@ -678,8 +678,12 @@ in
           serviceConfig = {
             ExecStart =
               (optionalString cfg.startWhenNeeded "-")
-              + "${cfgc.package}/bin/sshd "
-              + (optionalString cfg.startWhenNeeded "-i ") + "-D "
+              + # don't detach into a daemon process
+              "${cfgc.package}/bin/sshd "
+              + # don't detach into a daemon process
+              (optionalString cfg.startWhenNeeded "-i ")
+              + # don't detach into a daemon process
+              "-D "
               + # don't detach into a daemon process
               "-f /etc/ssh/sshd_config"
               ;
@@ -812,7 +816,8 @@ in
             true
           ;
         message = "cannot enable X11 forwarding without setting xauth location";
-      } ] ++ forEach cfg.listenAddresses ({
+      } ]
+      ++ forEach cfg.listenAddresses ({
           addr,
           ...
         }: {

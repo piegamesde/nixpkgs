@@ -48,7 +48,9 @@ stdenv.mkDerivation (finalAttrs: {
       guile-reader
       imagemagick
       ploticus
-    ] ++ optional enableEmacs emacs ++ optional enableLout lout
+    ]
+    ++ optional enableEmacs emacs
+    ++ optional enableLout lout
     ++ optional enableTex tex
     ;
 

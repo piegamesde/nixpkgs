@@ -53,20 +53,24 @@ buildPythonPackage rec {
     lib.optionals (!isPyPy) [
       cffi
       pkg-config
-    ] ++ [
+    ]
+    ++ [
       rustPlatform.cargoSetupHook
       setuptools-rust
-    ] ++ (with rustPlatform; [
+    ]
+    ++ (with rustPlatform; [
       rust.cargo
       rust.rustc
     ])
     ;
 
   buildInputs =
-    [ openssl ] ++ lib.optionals stdenv.isDarwin [
+    [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [
       Security
       libiconv
-    ] ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ]
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ]
     ;
 
   propagatedBuildInputs = lib.optionals (!isPyPy) [ cffi ];

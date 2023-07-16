@@ -22,7 +22,8 @@ let
           system.extraDependencies = with pkgs; [ stdenv ];
         }
       ];
-    }).config.system.build.openstackImage + "/nixos.qcow2"
+    }).config.system.build.openstackImage
+    + "/nixos.qcow2"
     ;
 
   sshKeys = import ./ssh-keys.nix pkgs;

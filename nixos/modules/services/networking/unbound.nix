@@ -39,7 +39,8 @@ let
     ;
 
   confNoServer = concatStringsSep "\n" ((mapAttrsToList (toConf "")
-    (builtins.removeAttrs cfg.settings [ "server" ])) ++ [ "" ]);
+    (builtins.removeAttrs cfg.settings [ "server" ]))
+    ++ [ "" ]);
   confServer = concatStringsSep "\n" (mapAttrsToList (toConf "  ")
     (builtins.removeAttrs cfg.settings.server [ "define-tag" ]));
 

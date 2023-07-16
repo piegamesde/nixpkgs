@@ -59,7 +59,8 @@ stdenv.mkDerivation rec {
     [
       autoreconfHook
       pkg-config
-    ] ++ (with python3.pkgs; [
+    ]
+    ++ (with python3.pkgs; [
       sphinxHook
       sphinx-rtd-theme
     ])

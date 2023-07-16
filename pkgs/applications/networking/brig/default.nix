@@ -26,7 +26,8 @@ buildGoModule rec {
     [
       "-s"
       "-w"
-    ] ++ (with lib;
+    ]
+    ++ (with lib;
       mapAttrsToList (n: v: "-X github.com/sahib/brig/version.${n}=${v}")
       (with versions; {
         Major = major version;

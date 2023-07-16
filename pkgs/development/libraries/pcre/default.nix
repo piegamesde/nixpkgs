@@ -16,7 +16,8 @@ assert lib.elem variant [
 
 stdenv.mkDerivation rec {
   pname =
-    "pcre" + lib.optionalString (variant == "cpp") "-cpp"
+    "pcre"
+    + lib.optionalString (variant == "cpp") "-cpp"
     + lib.optionalString (variant != "cpp" && variant != null) variant
     ;
   version = "8.45";
@@ -38,11 +39,13 @@ stdenv.mkDerivation rec {
     # Disable jit on Apple Silicon, https://github.com/zherczeg/sljit/issues/51
   configureFlags =
     lib.optional
-    (!(stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64))
-    "--enable-jit=auto" ++ [
+      (!(stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64))
+      "--enable-jit=auto"
+    ++ [
       "--enable-unicode-properties"
       "--disable-cpp"
-    ] ++ lib.optional (variant != null) "--enable-${variant}"
+    ]
+    ++ lib.optional (variant != null) "--enable-${variant}"
     ;
 
     # https://bugs.exim.org/show_bug.cgi?id=2173
@@ -53,8 +56,8 @@ stdenv.mkDerivation rec {
   '';
 
   doCheck =
-    !(with stdenv.hostPlatform; isCygwin || isFreeBSD) && stdenv.hostPlatform
-    == stdenv.buildPlatform
+    !(with stdenv.hostPlatform; isCygwin || isFreeBSD)
+    && stdenv.hostPlatform == stdenv.buildPlatform
     ;
     # XXX: test failure on Cygwin
     # we are running out of stack on both freeBSDs on Hydra
@@ -62,7 +65,8 @@ stdenv.mkDerivation rec {
   postFixup =
     ''
       moveToOutput bin/pcre-config "$dev"
-    '' + lib.optionalString (variant != null) ''
+    ''
+    + lib.optionalString (variant != null) ''
       ln -sf -t "$out/lib/" '${pcre.out}'/lib/libpcre{,posix}.{so.*.*.*,*dylib,*a}
     ''
     ;

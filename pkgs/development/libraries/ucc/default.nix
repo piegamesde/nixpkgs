@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ ucx ] ++ lib.optional enableCuda cudatoolkit;
 
   configureFlags =
-    [ ] ++ lib.optional enableSse41 "--with-sse41"
+    [ ]
+    ++ lib.optional enableSse41 "--with-sse41"
     ++ lib.optional enableSse42 "--with-sse42"
     ++ lib.optional enableAvx "--with-avx"
     ++ lib.optional enableCuda "--with-cuda=${cudatoolkit}"

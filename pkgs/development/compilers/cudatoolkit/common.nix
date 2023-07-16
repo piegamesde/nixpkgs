@@ -83,18 +83,21 @@ backendStdenv.mkDerivation rec {
       addOpenGLRunpath
       autoPatchelfHook
       autoAddOpenGLRunpathHook
-    ] ++ lib.optionals (lib.versionOlder version "11") [
-      libsForQt5.wrapQtAppsHook
-    ] ++ lib.optionals (lib.versionAtLeast version "11.8") [
-      qt6Packages.wrapQtAppsHook
     ]
+    ++ lib.optionals (lib.versionOlder version "11") [
+        libsForQt5.wrapQtAppsHook
+      ]
+    ++ lib.optionals (lib.versionAtLeast version "11.8") [
+        qt6Packages.wrapQtAppsHook
+      ]
     ;
   buildInputs =
     lib.optionals (lib.versionOlder version "11") [
       libsForQt5.qt5.qtwebengine
       freeglut
       libGLU
-    ] ++ [
+    ]
+    ++ [
       # To get $GDK_PIXBUF_MODULE_FILE via setup-hook
       gdk-pixbuf
 
@@ -130,7 +133,8 @@ backendStdenv.mkDerivation rec {
       unixODBC
       alsa-lib
       wayland
-    ] ++ lib.optionals (lib.versionAtLeast version "11.8") [
+    ]
+    ++ lib.optionals (lib.versionAtLeast version "11.8") [
       (lib.getLib libtiff)
       qt6Packages.qtwayland
       rdma-core
@@ -267,17 +271,8 @@ backendStdenv.mkDerivation rec {
 
       # Fix builds with newer glibc version
       sed -i "1 i#define _BITS_FLOATN_H" "$out/include/host_defines.h"
-    '' +
-    # Point NVCC at a compatible compiler
-    # FIXME: redist cuda_nvcc copy-pastes this code
-    # Refer to comments in the overrides for cuda_nvcc for explanation
-    # CUDA_TOOLKIT_ROOT_DIR is legacy,
-    # Cf. https://cmake.org/cmake/help/latest/module/FindCUDA.html#input-variables
-    # NOTE: We unconditionally set -Xfatbin=-compress-all, which reduces the size of the compiled
-    #   binaries. If binaries grow over 2GB, they will fail to link. This is a problem for us, as
-    #   the default set of CUDA capabilities we build can regularly cause this to occur (for
-    #   example, with Magma).
     ''
+    + ''
       mkdir -p $out/nix-support
       cat <<EOF >> $out/nix-support/setup-hook
       cmakeFlags+=' -DCUDA_TOOLKIT_ROOT_DIR=$out'
@@ -305,10 +300,12 @@ backendStdenv.mkDerivation rec {
       # nvprof do not find any program to profile if LD_LIBRARY_PATH is not set
       wrapProgram $out/bin/nvprof \
         --prefix LD_LIBRARY_PATH : $out/lib
-    '' + lib.optionalString (lib.versionOlder version "8.0") ''
+    ''
+    + lib.optionalString (lib.versionOlder version "8.0") ''
       # Hack to fix building against recent Glibc/GCC.
       echo "NIX_CFLAGS_COMPILE+=' -D_FORCE_INLINES'" >> $out/nix-support/setup-hook
-    '' + ''
+    ''
+    + ''
       runHook postInstall
     ''
     ;

@@ -72,7 +72,8 @@ stdenv.mkDerivation rec {
       atk
       stdenv.cc
       gdk-pixbuf
-    ] ++ lib.optionals withQt [
+    ]
+    ++ lib.optionals withQt [
       libqt5pas
       qtbase
     ]
@@ -114,10 +115,11 @@ stdenv.mkDerivation rec {
     "-lglib-2.0"
     "-lgtk-x11-2.0"
     "-lpango-1.0"
-  ] ++ lib.optionals withQt [
-    "-L${lib.getLib libqt5pas}/lib"
-    "-lQt5Pas"
-  ]);
+  ]
+    ++ lib.optionals withQt [
+      "-L${lib.getLib libqt5pas}/lib"
+      "-lQt5Pas"
+    ]);
 
   preBuild = ''
     mkdir -p $out/share "$out/lazarus"

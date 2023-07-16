@@ -27,11 +27,14 @@
   ...
 }@args:
 
-assert release -> certificateFile != null && certificatePassword != null
-  && provisioningProfile != null && signMethod != null && codeSignIdentity
-  != null;
-assert enableWirelessDistribution -> installURL != null && bundleId != null
-  && appVersion != null;
+assert release
+  -> certificateFile != null
+    && certificatePassword != null
+    && provisioningProfile != null
+    && signMethod != null
+    && codeSignIdentity != null;
+assert enableWirelessDistribution
+  -> installURL != null && bundleId != null && appVersion != null;
 
 let
   # Set some default values here
@@ -88,7 +91,8 @@ let
     "installURL"
     "bundleId"
     "version"
-  ] ++ builtins.attrNames xcodewrapperFormalArgs);
+  ]
+    ++ builtins.attrNames xcodewrapperFormalArgs);
 in
 stdenv.mkDerivation ({
   name = lib.replaceStrings [ " " ] [ "" ] name

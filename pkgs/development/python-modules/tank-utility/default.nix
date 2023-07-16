@@ -36,7 +36,8 @@ buildPythonPackage rec {
       requests
       urllib3
       setuptools
-    ] ++ urllib3.optional-dependencies.secure
+    ]
+    ++ urllib3.optional-dependencies.secure
     ;
 
   nativeCheckInputs = [

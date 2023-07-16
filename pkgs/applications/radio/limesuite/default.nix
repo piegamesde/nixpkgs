@@ -40,7 +40,9 @@ stdenv.mkDerivation rec {
       gnuplot
       libusb1
       soapysdr
-    ] ++ lib.optionals stdenv.isDarwin [ GLUT ] ++ lib.optionals withGui [
+    ]
+    ++ lib.optionals stdenv.isDarwin [ GLUT ]
+    ++ lib.optionals withGui [
       fltk
       libX11
       mesa_glu

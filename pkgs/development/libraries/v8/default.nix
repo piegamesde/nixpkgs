@@ -159,7 +159,8 @@ stdenv.mkDerivation rec {
       ninja
       pkg-config
       python3
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       xcbuild
       llvmPackages.llvm
       python3.pkgs.setuptools

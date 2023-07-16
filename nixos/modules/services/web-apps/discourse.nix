@@ -30,8 +30,9 @@ let
     cfg.database.createLocally && cfg.database.host == null;
 
   tlsEnabled =
-    cfg.enableACME || cfg.sslCertificate != null || cfg.sslCertificateKey
-    != null
+    cfg.enableACME
+    || cfg.sslCertificate != null
+    || cfg.sslCertificateKey != null
     ;
 in
 {
@@ -563,7 +564,8 @@ in
       }
       {
         assertion =
-          cfg.database.ignorePostgresqlVersion || (databaseActuallyCreateLocally
+          cfg.database.ignorePostgresqlVersion
+          || (databaseActuallyCreateLocally
             -> upstreamPostgresqlVersion == postgresqlVersion)
           ;
         message =
@@ -759,7 +761,8 @@ in
         ]
         ;
       path =
-        cfg.package.runtimeDeps ++ [
+        cfg.package.runtimeDeps
+        ++ [
           postgresqlPackage
           pkgs.replace-secret
           cfg.package.rake
@@ -927,7 +930,8 @@ in
               }: {
                 proxyPass = "http://discourse";
                 extraConfig =
-                  extraConfig + ''
+                  extraConfig
+                  + ''
                     proxy_set_header X-Request-Start "t=''${msec}";
                   ''
                   ;
@@ -958,7 +962,8 @@ in
             "~ ^/uploads/short-url/" = proxy { };
             "~ ^/secure-media-uploads/" = proxy { };
             "~* (fonts|assets|plugins|uploads)/.*.(eot|ttf|woff|woff2|ico|otf)$".extraConfig =
-              cache_1y + ''
+              cache_1y
+              + ''
                 add_header Access-Control-Allow-Origin *;
               ''
               ;
@@ -970,7 +975,8 @@ in
             };
             "~ ^/javascripts/".extraConfig = cache_1d;
             "~ ^/assets/(?<asset_path>.+)$".extraConfig =
-              cache_1y + ''
+              cache_1y
+              + ''
                 # asset pipeline enables this
                 brotli_static on;
                 gzip_static on;
@@ -980,7 +986,8 @@ in
             "~ /images/emoji/".extraConfig = cache_1y;
             "~ ^/uploads/" = proxy {
               extraConfig =
-                cache_1y + ''
+                cache_1y
+                + ''
                   proxy_set_header X-Sendfile-Type X-Accel-Redirect;
                   proxy_set_header X-Accel-Mapping ${cfg.package}/share/discourse/public/=/downloads/;
 

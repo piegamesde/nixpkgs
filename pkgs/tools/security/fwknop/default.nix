@@ -45,10 +45,12 @@ stdenv.mkDerivation rec {
     [
       libpcap
       texinfo
-    ] ++ lib.optionals gnupgSupport [
+    ]
+    ++ lib.optionals gnupgSupport [
       gnupg
       gpgme.dev
-    ] ++ lib.optionals wgetSupport [ wget ]
+    ]
+    ++ lib.optionals wgetSupport [ wget ]
     ;
 
   configureFlags =
@@ -59,7 +61,8 @@ stdenv.mkDerivation rec {
       (lib.enableFeature buildServer "server")
       (lib.enableFeature buildClient "client")
       (lib.withFeatureAs wgetSupport "wget" "${wget}/bin/wget")
-    ] ++ lib.optionalString gnupgSupport [
+    ]
+    ++ lib.optionalString gnupgSupport [
       "--with-gpgme"
       "--with-gpgme-prefix=${gpgme.dev}"
       "--with-gpg=${gnupg}"

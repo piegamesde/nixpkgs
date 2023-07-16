@@ -43,7 +43,8 @@ buildPythonPackage rec {
       django
       django-phonenumber-field
       requests
-    ] ++ django-phonenumber-field.optional-dependencies.phonenumbers
+    ]
+    ++ django-phonenumber-field.optional-dependencies.phonenumbers
     ;
 
     # require internet connection

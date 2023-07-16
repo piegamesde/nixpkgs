@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
       python3
       re2c
       installShellFiles
-    ] ++ lib.optionals buildDocs [
+    ]
+    ++ lib.optionals buildDocs [
       asciidoc
       docbook_xml_dtd_45
       docbook_xsl
@@ -70,11 +71,13 @@ stdenv.mkDerivation rec {
       python configure.py
 
       source rebuild_args
-    '' + lib.optionalString buildDocs ''
+    ''
+    + lib.optionalString buildDocs ''
       # "./ninja -vn manual" output copied here to support cross compilation.
       asciidoc -b docbook -d book -o build/manual.xml doc/manual.asciidoc
       xsltproc --nonet doc/docbook.xsl build/manual.xml > doc/manual.html
-    '' + ''
+    ''
+    + ''
 
       runHook postBuild
     ''
@@ -88,9 +91,11 @@ stdenv.mkDerivation rec {
       installShellCompletion --name ninja \
         --bash misc/bash-completion \
         --zsh misc/zsh-completion
-    '' + lib.optionalString buildDocs ''
+    ''
+    + lib.optionalString buildDocs ''
       install -Dm444 -t $out/share/doc/ninja doc/manual.asciidoc doc/manual.html
-    '' + ''
+    ''
+    + ''
 
       runHook postInstall
     ''

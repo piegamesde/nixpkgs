@@ -247,8 +247,9 @@ in
           });
 
           path =
-            [ cfg.package ] ++ optional cfg.database.postgres.setup
-            config.services.postgresql.package
+            [ cfg.package ]
+            ++ optional cfg.database.postgres.setup
+              config.services.postgresql.package
             ;
           script = ''
             export CONFIG_DIR=$CREDENTIALS_DIRECTORY
@@ -277,9 +278,10 @@ in
                 "ADMIN_USER_PWD:${cfg.adminUser.passwordFile}"
                 "SECRET_KEY_BASE:${cfg.server.secretKeybaseFile}"
                 "RELEASE_COOKIE:${cfg.releaseCookiePath}"
-              ] ++ lib.optionals (cfg.mail.smtp.passwordFile != null) [
-                "SMTP_USER_PWD:${cfg.mail.smtp.passwordFile}"
               ]
+              ++ lib.optionals (cfg.mail.smtp.passwordFile != null) [
+                  "SMTP_USER_PWD:${cfg.mail.smtp.passwordFile}"
+                ]
               ;
           };
         };

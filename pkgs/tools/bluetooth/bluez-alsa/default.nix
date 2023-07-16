@@ -50,7 +50,8 @@ stdenv.mkDerivation rec {
       readline
       libbsd
       ncurses
-    ] ++ lib.optional aacSupport fdk_aac
+    ]
+    ++ lib.optional aacSupport fdk_aac
     ;
 
   configureFlags =
@@ -59,7 +60,8 @@ stdenv.mkDerivation rec {
       "--with-dbusconfdir=${placeholder "out"}/share/dbus-1/system.d"
       "--enable-rfcomm"
       "--enable-hcitop"
-    ] ++ lib.optional aacSupport "--enable-aac"
+    ]
+    ++ lib.optional aacSupport "--enable-aac"
     ;
 
   meta = with lib; {

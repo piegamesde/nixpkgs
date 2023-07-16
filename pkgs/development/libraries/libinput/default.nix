@@ -71,7 +71,8 @@ stdenv.mkDerivation rec {
       pkg-config
       meson
       ninja
-    ] ++ lib.optionals documentationSupport [
+    ]
+    ++ lib.optionals documentationSupport [
       doxygen
       graphviz
       sphinx-build
@@ -90,7 +91,8 @@ stdenv.mkDerivation rec {
           pyyaml
           setuptools
         ]))
-    ] ++ lib.optionals eventGUISupport [
+    ]
+    ++ lib.optionals eventGUISupport [
       # GUI event viewer
       cairo
       glib

@@ -36,7 +36,8 @@ buildPythonPackage rec {
       pkg-config
       rustfmt
       setuptools-rust
-    ] ++ (with rustPlatform; [
+    ]
+    ++ (with rustPlatform; [
       cargoSetupHook
       rust.cargo
       rust.rustc

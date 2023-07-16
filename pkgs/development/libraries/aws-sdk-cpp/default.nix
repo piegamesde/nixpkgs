@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
       rm tests/aws-cpp-sdk-core-tests/aws/auth/AWSAuthSignerTest.cpp
       # TestRandomURLMultiThreaded fails
       rm tests/aws-cpp-sdk-core-tests/http/HttpClientTest.cpp
-    '' + lib.optionalString stdenv.isi686 ''
+    ''
+    + lib.optionalString stdenv.isi686 ''
       # EPSILON is exceeded
       rm tests/aws-cpp-sdk-core-tests/aws/client/AdaptiveRetryStrategyTest.cpp
     ''
@@ -77,7 +78,8 @@ stdenv.mkDerivation rec {
       curl
       openssl
       zlib
-    ] ++ lib.optionals (stdenv.isDarwin
+    ]
+    ++ lib.optionals (stdenv.isDarwin
       && ((builtins.elem "text-to-speech" apis) || (builtins.elem "*" apis))) [
         CoreAudio
         AudioToolbox
@@ -97,8 +99,9 @@ stdenv.mkDerivation rec {
       "-DCURL_HAS_H2=1"
       "-DCURL_HAS_TLS_PROXY=1"
       "-DTARGET_ARCH=${host_os}"
-    ] ++ lib.optional (apis != [ "*" ])
-    "-DBUILD_ONLY=${lib.concatStringsSep ";" apis}"
+    ]
+    ++ lib.optional (apis != [ "*" ])
+      "-DBUILD_ONLY=${lib.concatStringsSep ";" apis}"
     ;
 
   env.NIX_CFLAGS_COMPILE = toString [

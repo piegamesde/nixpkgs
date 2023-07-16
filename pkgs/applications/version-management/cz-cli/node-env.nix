@@ -123,13 +123,15 @@ let
     lib.optionalString (dependencies != [ ]) (''
       mkdir -p node_modules
       cd node_modules
-    '' + (lib.concatMapStrings (dependency: ''
-      if [ ! -e "${dependency.name}" ]; then
-          ${composePackage dependency}
-      fi
-    '') dependencies) + ''
-      cd ..
-    '')
+    ''
+      + (lib.concatMapStrings (dependency: ''
+        if [ ! -e "${dependency.name}" ]; then
+            ${composePackage dependency}
+        fi
+      '') dependencies)
+      + ''
+        cd ..
+      '')
     ;
 
     # Recursively composes the dependencies of a package
@@ -498,8 +500,10 @@ let
           tarWrapper
           python
           nodejs
-        ] ++ lib.optional (stdenv.isLinux) utillinux
-        ++ lib.optional (stdenv.isDarwin) libtool ++ buildInputs
+        ]
+        ++ lib.optional (stdenv.isLinux) utillinux
+        ++ lib.optional (stdenv.isDarwin) libtool
+        ++ buildInputs
         ;
 
       inherit nodejs;
@@ -597,8 +601,10 @@ let
           tarWrapper
           python
           nodejs
-        ] ++ lib.optional (stdenv.isLinux) utillinux
-        ++ lib.optional (stdenv.isDarwin) libtool ++ buildInputs
+        ]
+        ++ lib.optional (stdenv.isLinux) utillinux
+        ++ lib.optional (stdenv.isDarwin) libtool
+        ++ buildInputs
         ;
 
       inherit
@@ -682,7 +688,9 @@ let
         [
           python
           nodejs
-        ] ++ lib.optional (stdenv.isLinux) utillinux ++ buildInputs
+        ]
+        ++ lib.optional (stdenv.isLinux) utillinux
+        ++ buildInputs
         ;
       buildCommand = ''
         mkdir -p $out/bin

@@ -45,7 +45,8 @@ buildGoModule rec {
   ];
 
   buildInputs =
-    [ gpgme ] ++ lib.optionals stdenv.isLinux [
+    [ gpgme ]
+    ++ lib.optionals stdenv.isLinux [
       lvm2
       btrfs-progs
     ]
@@ -65,10 +66,12 @@ buildGoModule rec {
         placeholder "out"
       } make install-binary install-completions install-docs
       install ${passthru.policy}/default-policy.json -Dt $out/etc/containers
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       wrapProgram $out/bin/skopeo \
         --prefix PATH : ${lib.makeBinPath [ fuse-overlayfs ]}
-    '' + ''
+    ''
+    + ''
       runHook postInstall
     ''
     ;
@@ -92,7 +95,8 @@ buildGoModule rec {
       [
         lewo
         developer-guy
-      ] ++ teams.podman.members;
+      ]
+      ++ teams.podman.members;
     license = licenses.asl20;
   };
 }

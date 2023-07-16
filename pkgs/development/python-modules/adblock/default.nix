@@ -54,14 +54,16 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs =
-    [ pkg-config ] ++ (with rustPlatform; [
+    [ pkg-config ]
+    ++ (with rustPlatform; [
       cargoSetupHook
       maturinBuildHook
     ])
     ;
 
   buildInputs =
-    [ openssl ] ++ lib.optionals stdenv.isDarwin [
+    [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [
       libiconv
       CoreFoundation
       Security

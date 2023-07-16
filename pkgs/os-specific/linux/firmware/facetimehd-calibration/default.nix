@@ -70,7 +70,8 @@ stdenvNoCC.mkDerivation {
       unrar x AppleCamera64.exe AppleCamera.sys
 
       mkdir -p $out/lib/firmware/facetimehd
-    '' + lib.concatMapStrings ({
+    ''
+    + lib.concatMapStrings ({
         file,
         offset,
         size,

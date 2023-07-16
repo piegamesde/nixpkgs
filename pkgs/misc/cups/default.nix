@@ -65,13 +65,15 @@ stdenv.mkDerivation rec {
       libusb1
       gnutls
       libpaper
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       avahi
       pam
       dbus
       acl
-    ] ++ lib.optional enableSystemd systemd ++ lib.optionals stdenv.isDarwin
-    (with darwin; [
+    ]
+    ++ lib.optional enableSystemd systemd
+    ++ lib.optionals stdenv.isDarwin (with darwin; [
       configd
       apple_sdk.frameworks.ApplicationServices
     ])
@@ -89,11 +91,13 @@ stdenv.mkDerivation rec {
       "--sysconfdir=/etc"
       "--enable-raw-printing"
       "--enable-threads"
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       "--enable-dbus"
       "--enable-pam"
       "--with-dbusdir=${placeholder "out"}/share/dbus-1"
-    ] ++ lib.optional (libusb1 != null) "--enable-libusb"
+    ]
+    ++ lib.optional (libusb1 != null) "--enable-libusb"
     ++ lib.optional (gnutls != null) "--enable-ssl"
     ++ lib.optional (avahi != null) "--enable-avahi"
     ++ lib.optional (libpaper != null) "--enable-libpaper"
@@ -167,7 +171,8 @@ stdenv.mkDerivation rec {
       for f in "$out"/lib/systemd/system/*; do
         substituteInPlace "$f" --replace "$lib/$libexec" "$out/$libexec"
       done
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       # Use xdg-open when on Linux
       substituteInPlace "$out"/share/applications/cups.desktop \
         --replace "Exec=htmlview" "Exec=xdg-open"

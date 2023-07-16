@@ -59,7 +59,8 @@ buildPythonPackage rec {
       [
         matejc
         ftrvxmtrx
-      ] ++ teams.enlightenment.members;
+      ]
+      ++ teams.enlightenment.members;
     broken = true;
   };
 }

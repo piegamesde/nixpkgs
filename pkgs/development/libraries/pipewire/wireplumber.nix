@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
     [
       "out"
       "dev"
-    ] ++ lib.optional enableDocs "doc"
+    ]
+    ++ lib.optional enableDocs "doc"
     ;
 
   src = fetchFromGitLab {
@@ -50,7 +51,8 @@ stdenv.mkDerivation rec {
       meson
       pkg-config
       ninja
-    ] ++ lib.optionals enableDocs [ graphviz ]
+    ]
+    ++ lib.optionals enableDocs [ graphviz ]
     ++ lib.optionals enableGI [ gobject-introspection ]
     ++ lib.optionals (enableDocs || enableGI) [
       doxygen
@@ -60,7 +62,8 @@ stdenv.mkDerivation rec {
           sphinx
           sphinx-rtd-theme
           breathe
-        ] ++ lib.optionals enableGI [ lxml ]))
+        ]
+        ++ lib.optionals enableGI [ lxml ]))
     ]
     ;
 

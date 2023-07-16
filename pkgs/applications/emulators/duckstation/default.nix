@@ -43,7 +43,8 @@ stdenv.mkDerivation {
       pkg-config
       qttools
       wrapQtAppsHook
-    ] ++ lib.optionals enableWayland [ extra-cmake-modules ]
+    ]
+    ++ lib.optionals enableWayland [ extra-cmake-modules ]
     ;
 
   buildInputs =
@@ -56,7 +57,8 @@ stdenv.mkDerivation {
       qtbase
       qtsvg
       vulkan-loader
-    ] ++ lib.optionals enableWayland [
+    ]
+    ++ lib.optionals enableWayland [
       qtwayland
       wayland
     ]

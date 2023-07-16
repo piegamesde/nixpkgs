@@ -112,7 +112,8 @@ rec {
       autoreconfHook
     ];
     buildInputs =
-      taler-exchange.buildInputs ++ [
+      taler-exchange.buildInputs
+      ++ [
         qrencode
         taler-exchange
         # for ltdl.h

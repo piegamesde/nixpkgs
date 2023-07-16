@@ -93,7 +93,8 @@ let
           libxml2
           pcre2
           libargon2
-        ] ++ lib.optional stdenv.isLinux systemd
+        ]
+        ++ lib.optional stdenv.isLinux systemd
         ;
     }
   ];
@@ -116,7 +117,8 @@ stdenv.mkDerivation rec {
     [
       "out"
       "man"
-    ] ++ map (p: p.name) enabledPlugins
+    ]
+    ++ map (p: p.name) enabledPlugins
     ;
 
   cmakeFlags = with lib;
@@ -129,10 +131,13 @@ stdenv.mkDerivation rec {
         else
           "OFF"
       }"
-    ] ++ optionals stdenv.isDarwin [
-      "-DICONV_LIBRARY=${libiconv}/lib/libiconv.dylib"
-    ] ++ map (p:
-      "-D${p.cmakeFlag}=" + (if p.enabled then
+    ]
+    ++ optionals stdenv.isDarwin [
+        "-DICONV_LIBRARY=${libiconv}/lib/libiconv.dylib"
+      ]
+    ++ map (p:
+      "-D${p.cmakeFlag}="
+      + (if p.enabled then
         "ON"
       else
         "OFF")) plugins;
@@ -142,7 +147,8 @@ stdenv.mkDerivation rec {
       cmake
       pkg-config
       asciidoctor
-    ] ++ lib.optional enableTests cpputest
+    ]
+    ++ lib.optional enableTests cpputest
     ;
   buildInputs = with lib;
     [
@@ -154,14 +160,17 @@ stdenv.mkDerivation rec {
       zlib
       curl
       libgcrypt
-    ] ++ optionals stdenv.isDarwin [
+    ]
+    ++ optionals stdenv.isDarwin [
       libobjc
       libresolv
-    ] ++ concatMap (p: p.buildInputs) enabledPlugins ++ extraBuildInputs;
+    ]
+    ++ concatMap (p: p.buildInputs) enabledPlugins
+    ++ extraBuildInputs;
 
   env.NIX_CFLAGS_COMPILE =
     "-I${python}/include/${python.libPrefix}"
-    # Fix '_res_9_init: undefined symbol' error
+      # Fix '_res_9_init: undefined symbol' error
     + (lib.optionalString stdenv.isDarwin "-DBIND_8_COMPAT=1 -lresolv")
     ;
 

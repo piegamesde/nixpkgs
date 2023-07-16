@@ -29,7 +29,8 @@ buildPythonPackage rec {
       mako
       python-dateutil
       sqlalchemy
-    ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
     ;
 

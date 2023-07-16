@@ -22,7 +22,8 @@ let
     version = "unstable-2023-01-16";
 
     outputs =
-      [ "out" ] ++ lib.optionals buildTests [ "test" ]
+      [ "out" ]
+      ++ lib.optionals buildTests [ "test" ]
       ++ lib.optionals buildExamples [ "example" ]
       ;
 
@@ -47,12 +48,14 @@ let
       [
         "-DCMAKE_C_COMPILER=hipcc"
         "-DCMAKE_CXX_COMPILER=hipcc"
-      ] ++ lib.optionals (gpuTargets != [ ]) [
+      ]
+      ++ lib.optionals (gpuTargets != [ ]) [
         "-DGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
         "-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
-      ] ++ lib.optionals buildTests [
-        "-DGOOGLETEST_DIR=${gtest.src}" # Custom linker names
       ]
+      ++ lib.optionals buildTests [
+          "-DGOOGLETEST_DIR=${gtest.src}" # Custom linker names
+        ]
       ;
 
       # No flags to build selectively it seems...
@@ -60,7 +63,8 @@ let
       lib.optionalString (!buildTests) ''
         substituteInPlace CMakeLists.txt \
           --replace "add_subdirectory(test)" ""
-      '' + lib.optionalString (!buildExamples) ''
+      ''
+      + lib.optionalString (!buildExamples) ''
         substituteInPlace CMakeLists.txt \
           --replace "add_subdirectory(example)" ""
       ''
@@ -70,7 +74,8 @@ let
       lib.optionalString buildTests ''
         mkdir -p $test/bin
         mv $out/bin/test_* $test/bin
-      '' + lib.optionalString buildExamples ''
+      ''
+      + lib.optionalString buildExamples ''
         mkdir -p $example/bin
         mv $out/bin/example_* $example/bin
       ''
@@ -107,11 +112,14 @@ stdenv.mkDerivation {
       mkdir -p $out/bin
       cp -as ${ckProfiler} $out/bin/ckProfiler
       cp -an ${ck}/* $out
-    '' + lib.optionalString buildTests ''
+    ''
+    + lib.optionalString buildTests ''
       cp -a ${ck.test} $test
-    '' + lib.optionalString buildExamples ''
+    ''
+    + lib.optionalString buildExamples ''
       cp -a ${ck.example} $example
-    '' + ''
+    ''
+    + ''
       runHook postInstall
     ''
     ;

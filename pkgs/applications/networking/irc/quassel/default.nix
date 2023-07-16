@@ -50,10 +50,12 @@ assert !buildClient -> !withKDE; # KDE is used by the client only
 let
   edf =
     flag: feature: [
-      ("-D" + feature + (if flag then
-        "=ON"
-      else
-        "=OFF"))
+      ("-D"
+        + feature
+        + (if flag then
+          "=ON"
+        else
+          "=OFF"))
     ]
     ;
 
@@ -84,13 +86,16 @@ else
         qtbase
         boost
         zlib
-      ] ++ lib.optionals buildCore [
+      ]
+      ++ lib.optionals buildCore [
         qtscript
         qca-qt5
-      ] ++ lib.optionals buildClient [
+      ]
+      ++ lib.optionals buildClient [
         libdbusmenu
         phonon
-      ] ++ lib.optionals (buildClient && withKDE) [
+      ]
+      ++ lib.optionals (buildClient && withKDE) [
         extra-cmake-modules
         kconfigwidgets
         kcoreaddons
@@ -106,8 +111,11 @@ else
       [
         "-DEMBED_DATA=OFF"
         "-DUSE_QT5=ON"
-      ] ++ edf static "STATIC" ++ edf monolithic "WANT_MONO"
-      ++ edf enableDaemon "WANT_CORE" ++ edf client "WANT_QTCLIENT"
+      ]
+      ++ edf static "STATIC"
+      ++ edf monolithic "WANT_MONO"
+      ++ edf enableDaemon "WANT_CORE"
+      ++ edf client "WANT_QTCLIENT"
       ++ edf withKDE "WITH_KDE"
       ;
 
@@ -116,7 +124,8 @@ else
     postFixup =
       lib.optionalString enableDaemon ''
         wrapProgram "$out/bin/quasselcore" --suffix PATH : "${qtbase.bin}/bin"
-      '' + lib.optionalString buildClient ''
+      ''
+      + lib.optionalString buildClient ''
         wrapQtApp "$out/bin/quassel${lib.optionalString client "client"}" \
           --prefix GIO_EXTRA_MODULES : "${dconf}/lib/gio/modules"
       ''

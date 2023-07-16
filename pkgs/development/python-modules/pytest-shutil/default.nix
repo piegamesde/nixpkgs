@@ -56,7 +56,8 @@ buildPythonPackage rec {
   ];
 
   disabledTests =
-    [ "test_pretty_formatter" ] ++ lib.optionals isPyPy [
+    [ "test_pretty_formatter" ]
+    ++ lib.optionals isPyPy [
       "test_run"
       "test_run_integration"
     ]

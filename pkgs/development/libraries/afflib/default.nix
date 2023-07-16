@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
       expat
       openssl
       python3
-    ] ++ lib.optionals (with stdenv; isLinux || isDarwin) [ fuse ]
+    ]
+    ++ lib.optionals (with stdenv; isLinux || isDarwin) [ fuse ]
     ++ lib.optionals stdenv.isDarwin [ libiconv ]
     ;
 

@@ -72,7 +72,8 @@ stdenv.mkDerivation ({
         }
         .${stdenv.hostPlatform.parsed.cpu.name} or stdenv.hostPlatform.parsed.cpu.name
       }"
-    ] ++ (args.makeFlags or [ ])
+    ]
+    ++ (args.makeFlags or [ ])
     ;
 
   installPhase = ''

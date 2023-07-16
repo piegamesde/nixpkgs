@@ -30,14 +30,17 @@ stdenv.mkDerivation rec {
       which
       libtool
       pkg-config
-    ] ++ lib.optional withTLS gnutls ++ lib.optionals withDocs [
+    ]
+    ++ lib.optional withTLS gnutls
+    ++ lib.optionals withDocs [
       doxygen
       asciidoc
     ]
     ;
   preConfigure = "./autogen.sh";
   configureFlags =
-    [ "--disable-shared" ] ++ lib.optional (!withDocs) "--disable-documentation"
+    [ "--disable-shared" ]
+    ++ lib.optional (!withDocs) "--disable-documentation"
     ++ lib.optional withTLS "--enable-dtls"
     ;
   meta = with lib; {

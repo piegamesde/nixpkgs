@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    lib.optional alsaSupport alsa-lib ++ lib.optional dbusSupport dbus
+    lib.optional alsaSupport alsa-lib
+    ++ lib.optional dbusSupport dbus
     ++ lib.optional pipewireSupport pipewire
     ++ lib.optional pulseSupport libpulseaudio
     ++ lib.optionals stdenv.isDarwin [
@@ -64,7 +65,8 @@ stdenv.mkDerivation rec {
       # Automatically links dependencies without having to rely on dlopen, thus
       # removes the need for NIX_LDFLAGS.
       "-DALSOFT_DLOPEN=OFF"
-    ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
       # https://github.com/NixOS/nixpkgs/issues/183774
       "-DOSS_INCLUDE_DIR=${stdenv.cc.libc}/include"
     ]

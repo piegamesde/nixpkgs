@@ -49,7 +49,8 @@ stdenv.mkDerivation {
   ];
 
   nativeBuildInputs =
-    [ pkg-config ] ++ lib.optionals stdenv.isLinux [ wrapGAppsHook ]
+    [ pkg-config ]
+    ++ lib.optionals stdenv.isLinux [ wrapGAppsHook ]
     ++ lib.optionals stdenv.isDarwin [
       libicns
       makeWrapper
@@ -60,7 +61,8 @@ stdenv.mkDerivation {
     [
       SDL2
       libao
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libX11
       libXv
       udev
@@ -69,7 +71,8 @@ stdenv.mkDerivation {
       alsa-lib
       openal
       libpulseaudio
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Cocoa
       OpenAL
     ]
@@ -82,7 +85,8 @@ stdenv.mkDerivation {
       "-C"
       "bsnes"
       "prefix=$(out)"
-    ] ++ lib.optionals stdenv.isLinux [ "hiro=gtk3" ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ "hiro=gtk3" ]
     ++ lib.optionals stdenv.isDarwin [ "hiro=cocoa" ]
     ;
 

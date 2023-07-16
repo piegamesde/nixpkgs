@@ -36,16 +36,19 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs =
-    [ the-foundation ] ++ lib.optionals (!enableTUI) [
+    [ the-foundation ]
+    ++ lib.optionals (!enableTUI) [
       fribidi
       harfbuzz
       libwebp
       mpg123
       SDL2
-    ] ++ lib.optionals enableTUI [
+    ]
+    ++ lib.optionals enableTUI [
       ncurses
       sealcurses
-    ] ++ lib.optional stdenv.isDarwin AppKit
+    ]
+    ++ lib.optional stdenv.isDarwin AppKit
     ;
 
   cmakeFlags = lib.optionals enableTUI [

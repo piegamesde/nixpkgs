@@ -336,8 +336,8 @@ in
 
         {
           assertion =
-            offloadCfg.enableOffloadCmd -> offloadCfg.enable
-            || reverseSyncCfg.enable
+            offloadCfg.enableOffloadCmd
+            -> offloadCfg.enable || reverseSyncCfg.enable
             ;
           message = ''
             Offload command requires offloading or reverse prime sync to be enabled.
@@ -346,8 +346,9 @@ in
 
         {
           assertion =
-            primeEnabled -> pCfg.nvidiaBusId != ""
-            && (pCfg.intelBusId != "" || pCfg.amdgpuBusId != "")
+            primeEnabled
+            -> pCfg.nvidiaBusId != ""
+              && (pCfg.intelBusId != "" || pCfg.amdgpuBusId != "")
             ;
           message = ''
             When NVIDIA PRIME is enabled, the GPU bus IDs must configured.
@@ -436,7 +437,8 @@ in
             ${optionalString (syncCfg.enable && igpuDriver != "amdgpu")
             ''Option "AccelMethod" "none"''}
           '';
-        } ++ singleton {
+        }
+        ++ singleton {
           name = "nvidia";
           modules = [ nvidia_x11.bin ];
           display = !offloadCfg.enable;
@@ -448,9 +450,11 @@ in
           screenSection =
             ''
               Option "RandRRotation" "on"
-            '' + optionalString syncCfg.enable ''
+            ''
+            + optionalString syncCfg.enable ''
               Option "AllowEmptyInitialConfiguration"
-            '' + optionalString cfg.forceFullCompositionPipeline ''
+            ''
+            + optionalString cfg.forceFullCompositionPipeline ''
               Option         "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
               Option         "AllowIndirectGLXProtocol" "off"
               Option         "TripleBuffer" "on"
@@ -462,9 +466,11 @@ in
       services.xserver.serverLayoutSection =
         optionalString syncCfg.enable ''
           Inactive "Device-${igpuDriver}[0]"
-        '' + optionalString reverseSyncCfg.enable ''
+        ''
+        + optionalString reverseSyncCfg.enable ''
           Inactive "Device-nvidia[0]"
-        '' + optionalString offloadCfg.enable ''
+        ''
+        + optionalString offloadCfg.enable ''
           Option "AllowNVIDIAGPUScreens"
         ''
         ;
@@ -518,14 +524,14 @@ in
         ++ optionals cfg.nvidiaSettings [ nvidia_x11.settings ]
         ++ optionals nvidiaPersistencedEnabled [ nvidia_x11.persistenced ]
         ++ optionals offloadCfg.enableOffloadCmd [
-          (pkgs.writeShellScriptBin "nvidia-offload" ''
-            export __NV_PRIME_RENDER_OFFLOAD=1
-            export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-            export __GLX_VENDOR_LIBRARY_NAME=nvidia
-            export __VK_LAYER_NV_optimus=NVIDIA_only
-            exec "$@"
-          '')
-        ]
+            (pkgs.writeShellScriptBin "nvidia-offload" ''
+              export __NV_PRIME_RENDER_OFFLOAD=1
+              export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+              export __GLX_VENDOR_LIBRARY_NAME=nvidia
+              export __VK_LAYER_NV_optimus=NVIDIA_only
+              exec "$@"
+            '')
+          ]
         ;
 
       systemd.packages = optional cfg.powerManagement.enable nvidia_x11.out;
@@ -589,10 +595,10 @@ in
 
       systemd.tmpfiles.rules =
         optional config.virtualisation.docker.enableNvidia
-        "L+ /run/nvidia-docker/bin - - - - ${nvidia_x11.bin}/origBin"
+          "L+ /run/nvidia-docker/bin - - - - ${nvidia_x11.bin}/origBin"
         ++ optional (nvidia_x11.persistenced != null
           && config.virtualisation.docker.enableNvidia)
-        "L+ /run/nvidia-docker/extras/bin/nvidia-persistenced - - - - ${nvidia_x11.persistenced}/origBin/nvidia-persistenced"
+          "L+ /run/nvidia-docker/extras/bin/nvidia-persistenced - - - - ${nvidia_x11.persistenced}/origBin/nvidia-persistenced"
         ;
 
       boot.extraModulePackages =
@@ -605,7 +611,8 @@ in
 
         # nvidia-uvm is required by CUDA applications.
       boot.kernelModules =
-        [ "nvidia-uvm" ] ++ optionals config.services.xserver.enable [
+        [ "nvidia-uvm" ]
+        ++ optionals config.services.xserver.enable [
           "nvidia"
           "nvidia_modeset"
           "nvidia_drm"
@@ -615,12 +622,13 @@ in
         # If requested enable modesetting via kernel parameter.
       boot.kernelParams =
         optional (offloadCfg.enable || cfg.modesetting.enable)
-        "nvidia-drm.modeset=1" ++ optional cfg.powerManagement.enable
-        "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+          "nvidia-drm.modeset=1"
+        ++ optional cfg.powerManagement.enable
+          "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
         ++ optional cfg.open "nvidia.NVreg_OpenRmEnableUnsupportedGpus=1"
         ++ optional
-        (config.boot.kernelPackages.kernel.kernelAtLeast "6.2" && !ibtSupport)
-        "ibt=off"
+          (config.boot.kernelPackages.kernel.kernelAtLeast "6.2" && !ibtSupport)
+          "ibt=off"
         ;
 
       services.udev.extraRules =
@@ -631,7 +639,8 @@ in
           KERNEL=="nvidia_modeset", RUN+="${pkgs.runtimeShell} -c 'mknod -m 666 /dev/nvidia-modeset c $$(grep nvidia-frontend /proc/devices | cut -d \  -f 1) 254'"
           KERNEL=="nvidia_uvm", RUN+="${pkgs.runtimeShell} -c 'mknod -m 666 /dev/nvidia-uvm c $$(grep nvidia-uvm /proc/devices | cut -d \  -f 1) 0'"
           KERNEL=="nvidia_uvm", RUN+="${pkgs.runtimeShell} -c 'mknod -m 666 /dev/nvidia-uvm-tools c $$(grep nvidia-uvm /proc/devices | cut -d \  -f 1) 1'"
-        '' + optionalString cfg.powerManagement.finegrained (optionalString
+        ''
+        + optionalString cfg.powerManagement.finegrained (optionalString
           (versionOlder config.boot.kernelPackages.kernel.version "5.5") ''
             # Remove NVIDIA USB xHCI Host Controller devices, if present
             ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{remove}="1"
@@ -641,7 +650,8 @@ in
 
             # Remove NVIDIA Audio devices, if present
             ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{remove}="1"
-          '' + ''
+          ''
+          + ''
             # Enable runtime PM for NVIDIA VGA/3D controller devices on driver bind
             ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="auto"
             ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TEST=="power/control", ATTR{power/control}="auto"

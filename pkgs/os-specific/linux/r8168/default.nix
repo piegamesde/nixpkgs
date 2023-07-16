@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
     # any kernel but the current.
     # based on the ArchLinux pkgbuild: https://git.archlinux.org/svntogit/community.git/tree/trunk/PKGBUILD?h=packages/r8168
   makeFlags =
-    kernel.makeFlags ++ [
+    kernel.makeFlags
+    ++ [
       "-C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
       "M=$(PWD)/src"
       "modules"

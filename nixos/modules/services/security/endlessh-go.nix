@@ -100,11 +100,13 @@ in
               "-logtostderr"
               "-host=${listenAddress}"
               "-port=${toString port}"
-            ] ++ optionals prometheus.enable [
-              "-enable_prometheus"
-              "-prometheus_host=${prometheus.listenAddress}"
-              "-prometheus_port=${toString prometheus.port}"
-            ] ++ extraOptions);
+            ]
+              ++ optionals prometheus.enable [
+                "-enable_prometheus"
+                "-prometheus_host=${prometheus.listenAddress}"
+                "-prometheus_port=${toString prometheus.port}"
+              ]
+              ++ extraOptions);
           DynamicUser = true;
           RootDirectory = rootDirectory;
           BindReadOnlyPaths = [ builtins.storeDir ];

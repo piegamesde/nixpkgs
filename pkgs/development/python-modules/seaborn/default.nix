@@ -47,7 +47,8 @@ buildPythonPackage rec {
 
       # requires internet connection
       "test_load_dataset_string_error"
-    ] ++ lib.optionals (!stdenv.hostPlatform.isx86) [
+    ]
+    ++ lib.optionals (!stdenv.hostPlatform.isx86) [
       # overly strict float tolerances
       "TestDendrogram"
     ]

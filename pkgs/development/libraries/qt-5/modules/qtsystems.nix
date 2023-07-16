@@ -18,7 +18,8 @@ qtModule {
     [
       "out"
       "dev"
-    ] ++ lib.optionals stdenv.hostPlatform.isLinux [ "bin" ]
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [ "bin" ]
     ;
 
   qtInputs = [ qtbase ];
@@ -36,7 +37,8 @@ qtModule {
   ];
 
   qmakeFlags =
-    [ "CONFIG+=git_build" ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    [ "CONFIG+=git_build" ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
       "CONFIG+=ofono"
       "CONFIG+=udisks"
       "CONFIG+=upower"

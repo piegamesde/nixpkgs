@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
     [
       # Built separately, see python3Packages.btrfsutil
       "--disable-python"
-    ] ++ lib.optionals stdenv.hostPlatform.isMusl [ "--disable-backtrace" ]
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isMusl [ "--disable-backtrace" ]
     ++ lib.optionals (!udevSupport) [ "--disable-libudev" ]
     ;
 

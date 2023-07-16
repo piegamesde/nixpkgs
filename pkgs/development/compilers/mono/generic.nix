@@ -63,7 +63,8 @@ stdenv.mkDerivation rec {
       python3
       autoconf
       libtool
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Foundation
       libobjc
     ]
@@ -74,7 +75,8 @@ stdenv.mkDerivation rec {
       "--x-includes=${libX11.dev}/include"
       "--x-libraries=${libX11.out}/lib"
       "--with-libgdiplus=${libgdiplus}/lib/libgdiplus.so"
-    ] ++ lib.optionals withLLVM [
+    ]
+    ++ lib.optionals withLLVM [
       "--enable-llvm"
       "--with-llvm=${llvm}"
     ]
@@ -97,7 +99,8 @@ stdenv.mkDerivation rec {
     ''
       makeFlagsArray=(INSTALL=`type -tp install`)
       substituteInPlace mcs/class/corlib/System/Environment.cs --replace /usr/share "$out/share"
-    '' + lib.optionalString withLLVM ''
+    ''
+    + lib.optionalString withLLVM ''
       substituteInPlace mono/mini/aot-compiler.c --replace "llvm_path = g_strdup (\"\")" "llvm_path = g_strdup (\"${llvm}/bin/\")"
     ''
     ;
@@ -131,7 +134,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     # Per nixpkgs#151720 the build failures for aarch64-darwin are fixed since 6.12.0.129
     broken =
-      stdenv.isDarwin && stdenv.isAarch64
+      stdenv.isDarwin
+      && stdenv.isAarch64
       && lib.versionOlder version "6.12.0.129"
       ;
     homepage = "https://mono-project.com/";

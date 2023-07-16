@@ -49,7 +49,8 @@ buildPythonPackage rec {
       pytest-httpbin
       pytest-trio
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.http2
+    ]
+    ++ passthru.optional-dependencies.http2
     ++ passthru.optional-dependencies.socks
     ;
 

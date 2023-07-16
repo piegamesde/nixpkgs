@@ -102,7 +102,8 @@ mkDerivation rec {
       vtk
       xercesc
       zlib
-    ] ++ lib.optionals spaceNavSupport [
+    ]
+    ++ lib.optionals spaceNavSupport [
       libspnav
       qtx11extras
     ]

@@ -27,7 +27,8 @@ let
       keyFile
       "-s"
       cfg.selector
-    ] ++ optionals (cfg.configFile != null) [
+    ]
+    ++ optionals (cfg.configFile != null) [
       "-x"
       cfg.configFile
     ]

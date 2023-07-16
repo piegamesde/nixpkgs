@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
       gfortran.cc.lib
       lhapdf
       yoda
-    ] ++ lib.optional withPython python
+    ]
+    ++ lib.optional withPython python
     ++ lib.optional (withPython && python.isPy3k) ncurses
     ;
 

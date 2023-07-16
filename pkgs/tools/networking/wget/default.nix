@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
     ''
       patchShebangs doc
 
-    '' + lib.optionalString doCheck ''
+    ''
+    + lib.optionalString doCheck ''
       # Work around lack of DNS resolution in chroots.
       for i in "tests/"*.pm "tests/"*.px
       do
@@ -57,11 +58,14 @@ stdenv.mkDerivation rec {
       zlib
       pcre
       libuuid
-    ] ++ lib.optionals doCheck [
+    ]
+    ++ lib.optionals doCheck [
       perlPackages.IOSocketSSL
       perlPackages.LWP
       python3
-    ] ++ lib.optional withOpenssl openssl ++ lib.optional withLibpsl libpsl
+    ]
+    ++ lib.optional withOpenssl openssl
+    ++ lib.optional withLibpsl libpsl
     ++ lib.optional stdenv.isDarwin perlPackages.perl
     ;
 

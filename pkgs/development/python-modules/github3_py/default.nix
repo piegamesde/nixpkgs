@@ -30,7 +30,8 @@ buildPythonPackage rec {
       uritemplate
       python-dateutil
       pyjwt
-    ] ++ pyjwt.optional-dependencies.crypto
+    ]
+    ++ pyjwt.optional-dependencies.crypto
     ;
 
   nativeCheckInputs = [

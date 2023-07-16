@@ -98,9 +98,11 @@ stdenv.mkDerivation rec {
       libX11
       gdbm
       db
-    ] ++ lib.optionals isPy3k [ xz ]
+    ]
+    ++ lib.optionals isPy3k [ xz ]
     ++ lib.optionals (stdenv ? cc && stdenv.cc.libc != null) [ stdenv.cc.libc ]
-    ++ lib.optionals zlibSupport [ zlib ] ++ lib.optionals stdenv.isDarwin [
+    ++ lib.optionals zlibSupport [ zlib ]
+    ++ lib.optionals stdenv.isDarwin [
       libunwind
       Security
     ]
@@ -192,7 +194,8 @@ stdenv.mkDerivation rec {
   preFixup =
     lib.optionalString (stdenv.isDarwin) ''
       install_name_tool -change @rpath/lib${executable}-c.dylib $out/lib/lib${executable}-c.dylib $out/bin/${executable}
-    '' + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
+    ''
+    + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
       mkdir -p $out/${executable}-c/pypy/bin
       mv $out/bin/${executable} $out/${executable}-c/pypy/bin/${executable}
       ln -s $out/${executable}-c/pypy/bin/${executable} $out/bin/${executable}
@@ -212,12 +215,14 @@ stdenv.mkDerivation rec {
           "test_shutil"
           # disable socket because it has two actual network tests that fail
           "test_socket"
-        ] ++ lib.optionals (!isPy3k) [
+        ]
+        ++ lib.optionals (!isPy3k) [
           # disable test_urllib2net, test_urllib2_localnet, and test_urllibnet because they require networking (example.com)
           "test_urllib2net"
           "test_urllibnet"
           "test_urllib2_localnet"
-        ] ++ lib.optionals isPy3k [
+        ]
+        ++ lib.optionals isPy3k [
           # disable asyncio due to https://github.com/NixOS/nix/issues/1238
           "test_asyncio"
           # disable os due to https://github.com/NixOS/nixpkgs/issues/10496
@@ -251,7 +256,9 @@ stdenv.mkDerivation rec {
         [
           "curses"
           "sqlite3"
-        ] ++ lib.optionals (!isPy3k) [ "Tkinter" ] ++ lib.optionals isPy3k [
+        ]
+        ++ lib.optionals (!isPy3k) [ "Tkinter" ]
+        ++ lib.optionals isPy3k [
           "tkinter"
           "lzma"
         ]

@@ -26,14 +26,16 @@ buildPythonPackage rec {
     [
       flit-core
       setuptools-scm
-    ] ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
     ;
 
   propagatedBuildInputs =
     [
       flit-core
       setuptools-scm
-    ] ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
     ;
 
   pythonImportsCheck = [ "flit_scm" ];

@@ -27,7 +27,8 @@ let
         [
           "-s"
           "-w"
-        ] ++ extraLdflags
+        ]
+        ++ extraLdflags
         ;
     } // args)
     ;

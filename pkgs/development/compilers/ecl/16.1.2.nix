@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
       gmp
       mpfr
       gcc
-    ] ++ lib.optionals useBoehmgc [
+    ]
+    ++ lib.optionals useBoehmgc [
       # replaces ecl's own gc which other packages can depend on, thus propagated
       boehmgc
     ]
@@ -55,7 +56,8 @@ stdenv.mkDerivation rec {
       "--with-gmp-libdir=${lib.getLib gmp}/lib"
       # -incdir, -libdir doesn't seem to be supported for libffi
       "--with-libffi-prefix=${lib.getDev libffi}"
-    ] ++ lib.optional (!noUnicode) "--enable-unicode"
+    ]
+    ++ lib.optional (!noUnicode) "--enable-unicode"
     ;
 
   patches = [
@@ -104,7 +106,8 @@ stdenv.mkDerivation rec {
       --prefix NIX_LDFLAGS_BEFORE_${gcc.bintools.suffixSalt} ' ' "-L${
         lib.getLib boehmgc
       }/lib" \
-    '' + ''
+    ''
+    + ''
       --prefix NIX_LDFLAGS_BEFORE_${gcc.bintools.suffixSalt} ' ' "-L${
         lib.getLib libffi
       }/lib"

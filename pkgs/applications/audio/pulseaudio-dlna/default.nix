@@ -47,9 +47,13 @@ python3Packages.buildPythonApplication {
       lxml
       setuptools
       zeroconf
-    ] ++ lib.optional mp3Support lame ++ lib.optional opusSupport opusTools
-    ++ lib.optional faacSupport faac ++ lib.optional flacSupport flac
-    ++ lib.optional soxSupport sox ++ lib.optional vorbisSupport vorbis-tools;
+    ]
+    ++ lib.optional mp3Support lame
+    ++ lib.optional opusSupport opusTools
+    ++ lib.optional faacSupport faac
+    ++ lib.optional flacSupport flac
+    ++ lib.optional soxSupport sox
+    ++ lib.optional vorbisSupport vorbis-tools;
 
     # pulseaudio-dlna shells out to pactl to configure sinks and sources.
     # As pactl might not be in $PATH, add --suffix it (so pactl configured by the

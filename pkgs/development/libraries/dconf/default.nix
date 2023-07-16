@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
       "out"
       "lib"
       "dev"
-    ] ++ lib.optional (!isCross) "devdoc"
+    ]
+    ++ lib.optional (!isCross) "devdoc"
     ;
 
   src = fetchurl {
@@ -49,7 +50,8 @@ stdenv.mkDerivation rec {
       glib
       docbook-xsl-nons
       docbook_xml_dtd_42
-    ] ++ lib.optional (!isCross) gtk-doc
+    ]
+    ++ lib.optional (!isCross) gtk-doc
     ;
 
   buildInputs =
@@ -57,7 +59,8 @@ stdenv.mkDerivation rec {
       glib
       bash-completion
       dbus
-    ] ++ lib.optional (!isCross) vala
+    ]
+    ++ lib.optional (!isCross) vala
     ;
     # Vala cross compilation is broken. For now, build dconf without vapi when cross-compiling.
 
@@ -67,7 +70,8 @@ stdenv.mkDerivation rec {
       "-Dgtk_doc=${
         lib.boolToString (!isCross)
       }" # gtk-doc does do some gobject introspection, which doesn't yet cross-compile.
-    ] ++ lib.optional isCross "-Dvapi=false"
+    ]
+    ++ lib.optional isCross "-Dvapi=false"
     ;
 
   nativeCheckInputs = [

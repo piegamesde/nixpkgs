@@ -48,7 +48,8 @@ buildPythonPackage rec {
       pyyaml
       rlp
       wasm
-    ] ++ lib.optionals (stdenv.isLinux) [
+    ]
+    ++ lib.optionals (stdenv.isLinux) [
       capstone
       pyelftools
       unicorn
@@ -72,7 +73,8 @@ buildPythonPackage rec {
     [
       "tests/ethereum" # Enable when solc works again
       "tests/ethereum_bench"
-    ] ++ lib.optionals (!stdenv.isLinux) [
+    ]
+    ++ lib.optionals (!stdenv.isLinux) [
       "tests/native"
       "tests/other/test_locking.py"
       "tests/other/test_state_introspection.py"

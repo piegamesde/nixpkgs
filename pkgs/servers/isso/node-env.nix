@@ -490,8 +490,10 @@ let
           tarWrapper
           python
           nodejs
-        ] ++ lib.optional (stdenv.isLinux) utillinux
-        ++ lib.optional (stdenv.isDarwin) libtool ++ buildInputs
+        ]
+        ++ lib.optional (stdenv.isLinux) utillinux
+        ++ lib.optional (stdenv.isDarwin) libtool
+        ++ buildInputs
         ;
 
       inherit nodejs;
@@ -587,8 +589,10 @@ let
           tarWrapper
           python
           nodejs
-        ] ++ lib.optional (stdenv.isLinux) utillinux
-        ++ lib.optional (stdenv.isDarwin) libtool ++ buildInputs
+        ]
+        ++ lib.optional (stdenv.isLinux) utillinux
+        ++ lib.optional (stdenv.isDarwin) libtool
+        ++ buildInputs
         ;
 
       inherit
@@ -670,7 +674,9 @@ let
         [
           python
           nodejs
-        ] ++ lib.optional (stdenv.isLinux) utillinux ++ buildInputs
+        ]
+        ++ lib.optional (stdenv.isLinux) utillinux
+        ++ buildInputs
         ;
       buildCommand = ''
         mkdir -p $out/bin

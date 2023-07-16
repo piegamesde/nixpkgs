@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
       libxkbcommon
       libdecor
       glslang
-    ] ++ lib.optional (mesa ? osmesa) mesa.osmesa
+    ]
+    ++ lib.optional (mesa ? osmesa) mesa.osmesa
     ;
   nativeBuildInputs = [
     meson

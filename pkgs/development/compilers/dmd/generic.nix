@@ -98,7 +98,8 @@ stdenv.mkDerivation rec {
         extraPrefix = "dmd/";
         sha256 = "sha256-N21mAPfaTo+zGCip4njejasraV5IsWVqlGR5eOdFZZE=";
       })
-    ] ++ lib.optionals (lib.versionOlder version "2.092.2") [
+    ]
+    ++ lib.optionals (lib.versionOlder version "2.092.2") [
       # Fixes C++ tests that compiled on older C++ but not on the current one
       (fetchpatch {
         url =
@@ -144,16 +145,19 @@ stdenv.mkDerivation rec {
       # and off again. It just isn't worth it to patch all the historical versions
       # of it, so just remove it until the most recent change.
       rm dmd/test/compilable/ddocYear.d
-    '' + lib.optionalString (lib.versionAtLeast version "2.089.0"
+    ''
+    + lib.optionalString (lib.versionAtLeast version "2.089.0"
       && lib.versionOlder version "2.092.2") ''
         rm dmd/test/dshell/test6952.d
-      '' + lib.optionalString (lib.versionAtLeast version "2.092.2") ''
-        substituteInPlace dmd/test/dshell/test6952.d --replace "/usr/bin/env bash" "${bash}/bin/bash"
       ''
+    + lib.optionalString (lib.versionAtLeast version "2.092.2") ''
+      substituteInPlace dmd/test/dshell/test6952.d --replace "/usr/bin/env bash" "${bash}/bin/bash"
+    ''
 
     + lib.optionalString stdenv.isLinux ''
       substituteInPlace phobos/std/socket.d --replace "assert(ih.addrList[0] == 0x7F_00_00_01);" ""
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace phobos/std/socket.d --replace "foreach (name; names)" "names = []; foreach (name; names)"
     ''
     ;
@@ -163,14 +167,16 @@ stdenv.mkDerivation rec {
       makeWrapper
       which
       installShellFiles
-    ] ++ lib.optionals (lib.versionOlder version "2.088.0") [ git ]
+    ]
+    ++ lib.optionals (lib.versionOlder version "2.088.0") [ git ]
     ;
 
   buildInputs =
     [
       curl
       tzdata
-    ] ++ lib.optionals stdenv.isDarwin [ Foundation ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Foundation ]
     ;
 
   nativeCheckInputs =

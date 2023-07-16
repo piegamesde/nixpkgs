@@ -28,7 +28,8 @@ buildPythonPackage rec {
       scipy
       tables
       pandas
-    ] ++ lib.optionals isPy27 [ configparser ]
+    ]
+    ++ lib.optionals isPy27 [ configparser ]
     ;
 
   meta = {

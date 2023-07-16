@@ -101,7 +101,8 @@ stdenv.mkDerivation rec {
       zlib
       bzip2
       cpio
-    ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ ApplicationServices ]
     ;
   hardeningDisable = [ "format" ];
 

@@ -72,7 +72,8 @@ stdenv.mkDerivation rec {
       cmake
       pkg-config
       makeWrapper
-    ] ++ lib.optional withQT wrapQtAppsHook
+    ]
+    ++ lib.optional withQT wrapQtAppsHook
     ;
   buildInputs =
     [
@@ -88,14 +89,21 @@ stdenv.mkDerivation rec {
       alsa-lib
       libXext
       libGLU
-    ] ++ lib.optional withX264 x264 ++ lib.optional withX265 x265
-    ++ lib.optional withXvid xvidcore ++ lib.optional withLAME lame
-    ++ lib.optional withFAAC faac ++ lib.optional withVorbis libvorbis
-    ++ lib.optional withPulse libpulseaudio ++ lib.optional withFAAD faad2
-    ++ lib.optional withOpus libopus ++ lib.optionals withQT [
+    ]
+    ++ lib.optional withX264 x264
+    ++ lib.optional withX265 x265
+    ++ lib.optional withXvid xvidcore
+    ++ lib.optional withLAME lame
+    ++ lib.optional withFAAC faac
+    ++ lib.optional withVorbis libvorbis
+    ++ lib.optional withPulse libpulseaudio
+    ++ lib.optional withFAAD faad2
+    ++ lib.optional withOpus libopus
+    ++ lib.optionals withQT [
       qttools
       qtbase
-    ] ++ lib.optional withVPX libvpx
+    ]
+    ++ lib.optional withVPX libvpx
     ;
 
   buildCommand =

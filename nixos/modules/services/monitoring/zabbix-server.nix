@@ -353,21 +353,24 @@ in
           if test -e "${runtimeDir}/db-created"; then
             mv "${runtimeDir}/db-created" "${stateDir}/"
           fi
-        '' + optionalString pgsqlLocal ''
+        ''
+        + optionalString pgsqlLocal ''
           if ! test -e "${stateDir}/db-created"; then
             cat ${cfg.package}/share/zabbix/database/postgresql/schema.sql | ${pgsql.package}/bin/psql ${cfg.database.name}
             cat ${cfg.package}/share/zabbix/database/postgresql/images.sql | ${pgsql.package}/bin/psql ${cfg.database.name}
             cat ${cfg.package}/share/zabbix/database/postgresql/data.sql | ${pgsql.package}/bin/psql ${cfg.database.name}
             touch "${stateDir}/db-created"
           fi
-        '' + optionalString mysqlLocal ''
+        ''
+        + optionalString mysqlLocal ''
           if ! test -e "${stateDir}/db-created"; then
             cat ${cfg.package}/share/zabbix/database/mysql/schema.sql | ${mysql.package}/bin/mysql ${cfg.database.name}
             cat ${cfg.package}/share/zabbix/database/mysql/images.sql | ${mysql.package}/bin/mysql ${cfg.database.name}
             cat ${cfg.package}/share/zabbix/database/mysql/data.sql | ${mysql.package}/bin/mysql ${cfg.database.name}
             touch "${stateDir}/db-created"
           fi
-        '' + optionalString (cfg.database.passwordFile != null) ''
+        ''
+        + optionalString (cfg.database.passwordFile != null) ''
           # create a copy of the supplied password file in a format zabbix can consume
           touch ${passwordFile}
           chmod 0600 ${passwordFile}
@@ -393,7 +396,7 @@ in
     systemd.services.httpd.after =
       optional (config.services.zabbixWeb.enable && mysqlLocal) "mysql.service"
       ++ optional (config.services.zabbixWeb.enable && pgsqlLocal)
-      "postgresql.service"
+        "postgresql.service"
       ;
 
   };

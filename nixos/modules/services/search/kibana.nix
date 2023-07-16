@@ -209,7 +209,8 @@ in
       environment = { BABEL_CACHE_PATH = "${cfg.dataDir}/.babelcache.json"; };
       serviceConfig = {
         ExecStart =
-          "${cfg.package}/bin/kibana" + " --config ${cfgFile}"
+          "${cfg.package}/bin/kibana"
+          + " --config ${cfgFile}"
           + " --path.data ${cfg.dataDir}"
           ;
         User = "kibana";

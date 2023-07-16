@@ -92,7 +92,8 @@ stdenv.mkDerivation rec {
       pkg-config
       autoPatchelfHook
       makeWrapper
-    ] ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ]
+    ]
+    ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ]
     ;
 
   buildInputs =
@@ -125,7 +126,8 @@ stdenv.mkDerivation rec {
       amf-headers
       svt-av1
       libappindicator
-    ] ++ lib.optionals cudaSupport [ cudaPackages.cudatoolkit ]
+    ]
+    ++ lib.optionals cudaSupport [ cudaPackages.cudatoolkit ]
     ;
 
   runtimeDependencies = [

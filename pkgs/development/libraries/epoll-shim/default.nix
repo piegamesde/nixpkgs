@@ -32,7 +32,9 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/jiixyj/epoll-shim";
     license = licenses.mit;
     platforms =
-      platforms.darwin ++ platforms.freebsd ++ platforms.netbsd
+      platforms.darwin
+      ++ platforms.freebsd
+      ++ platforms.netbsd
       ++ platforms.openbsd
       ;
     maintainers = with maintainers; [ wegank ];

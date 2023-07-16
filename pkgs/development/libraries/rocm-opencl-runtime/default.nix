@@ -70,7 +70,8 @@ stdenv.mkDerivation (finalAttrs: {
       [
         acowley
         lovesegfault
-      ] ++ teams.rocm.members;
+      ]
+      ++ teams.rocm.members;
     platforms = platforms.linux;
     broken =
       versions.minor finalAttrs.version != versions.minor stdenv.cc.version;

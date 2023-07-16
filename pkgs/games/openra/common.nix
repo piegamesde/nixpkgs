@@ -26,7 +26,8 @@ let
   path = makeBinPath ([
     mono
     python3
-  ] ++ optional (zenity != null) zenity);
+  ]
+    ++ optional (zenity != null) zenity);
   rpath = makeLibraryPath [
     lua
     freetype
@@ -80,7 +81,8 @@ in
         SmartIrc4net
         StyleCopMSBuild
         StyleCopPlusMSBuild
-      ] ++ [ libGL ];
+      ]
+      ++ [ libGL ];
 
       # TODO: Test if this is correct.
     nativeBuildInputs = [

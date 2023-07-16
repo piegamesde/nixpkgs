@@ -42,7 +42,8 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ openssl ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    [ openssl ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
       Security
       libiconv
     ]

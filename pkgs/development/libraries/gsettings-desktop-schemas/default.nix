@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
       meson
       ninja
       pkg-config
-    ] ++ lib.optionals withIntrospection [ gobject-introspection ]
+    ]
+    ++ lib.optionals withIntrospection [ gobject-introspection ]
     ;
 
   mesonFlags = [ (lib.mesonBool "introspection" withIntrospection) ];

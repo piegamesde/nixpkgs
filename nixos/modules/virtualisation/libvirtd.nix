@@ -422,7 +422,8 @@ in
         configFile
         "--timeout"
         "120" # from ${libvirt}/var/lib/sysconfig/libvirtd
-      ] ++ cfg.extraOptions);
+      ]
+        ++ cfg.extraOptions);
 
       path =
         [ cfg.qemu.package ] # libvirtd requires qemu-img to manage disk images

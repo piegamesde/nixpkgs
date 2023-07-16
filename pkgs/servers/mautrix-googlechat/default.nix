@@ -56,7 +56,8 @@ python3.pkgs.buildPythonApplication rec {
       python-magic
       protobuf3
       mautrix
-    ] ++ lib.optionals enableE2be passthru.optional-dependencies.e2be
+    ]
+    ++ lib.optionals enableE2be passthru.optional-dependencies.e2be
     ++ lib.optionals enableMetrics passthru.optional-dependencies.metrics
     ++ lib.optionals enableSqlite passthru.optional-dependencies.sqlite;
 

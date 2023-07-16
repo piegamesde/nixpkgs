@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
       apr
       aprutil
       libxml2
-    ] ++ optional luaSupport lua5
+    ]
+    ++ optional luaSupport lua5
     ;
 
   configureFlags = [

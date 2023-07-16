@@ -157,7 +157,8 @@ buildBazelPackage rec {
       "--tool_java_runtime_version=local_jdk"
 
       "--define=wasm=${wasmRuntime}"
-    ] ++ (lib.optionals stdenv.isAarch64 [
+    ]
+    ++ (lib.optionals stdenv.isAarch64 [
       # external/com_github_google_tcmalloc/tcmalloc/internal/percpu_tcmalloc.h:611:9: error: expected ':' or '::' before '[' token
       #   611 |       : [end_ptr] "=&r"(end_ptr), [cpu_id] "=&r"(cpu_id),
       #       |         ^

@@ -45,7 +45,7 @@ builder rec {
   depsBuildBuild =
     [ buildPackages.stdenv.cc ]
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-    pkgsBuildBuild.guile_2_0
+      pkgsBuildBuild.guile_2_0
     ;
 
   nativeBuildInputs = [
@@ -88,7 +88,8 @@ builder rec {
           "https://git.savannah.gnu.org/cgit/guile.git/patch/?id=2fbde7f02adb8c6585e9baf6e293ee49cd23d4c4";
         sha256 = "0p6c1lmw1iniq03z7x5m65kg3lq543kgvdb4nrxsaxjqf3zhl77v";
       })
-    ] ++ (lib.optional (coverageAnalysis != null) ./gcov-file-name.patch)
+    ]
+    ++ (lib.optional (coverageAnalysis != null) ./gcov-file-name.patch)
     ++ lib.optionals stdenv.isDarwin [
       ./filter-mkostemp-darwin.patch
       (fetchpatch {
@@ -107,7 +108,8 @@ builder rec {
     "-lgcc_s";
 
   configureFlags =
-    [ "--with-libreadline-prefix" ] ++ lib.optionals stdenv.isSunOS [
+    [ "--with-libreadline-prefix" ]
+    ++ lib.optionals stdenv.isSunOS [
       # Make sure the right <gmp.h> is found, and not the incompatible
       # /usr/include/mp.h from OpenSolaris. See
       # <https://lists.gnu.org/archive/html/hydra-users/2012-08/msg00000.html>

@@ -57,7 +57,8 @@ stdenv.mkDerivation rec {
       poppler
       portaudio
       zlib
-    ] ++ lib.optional withLua lua
+    ]
+    ++ lib.optional withLua lua
     ;
 
   buildFlags = [ "translations" ];

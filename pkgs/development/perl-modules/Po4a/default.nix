@@ -67,7 +67,8 @@ buildPerlPackage rec {
     ]
     ;
   propagatedBuildInputs =
-    lib.optional (!stdenv.hostPlatform.isMusl) TextWrapI18N ++ [
+    lib.optional (!stdenv.hostPlatform.isMusl) TextWrapI18N
+    ++ [
       LocaleGettext
       SGMLSpm
       UnicodeLineBreak

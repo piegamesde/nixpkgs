@@ -62,7 +62,8 @@ stdenv.mkDerivation rec {
       wxGTK
       xz
       zstd
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Carbon
       Cocoa
       IOKit

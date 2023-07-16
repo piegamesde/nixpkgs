@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
       xclip
       notify-osd
       enchant
-    ] ++ gstBuildInputs
+    ]
+    ++ gstBuildInputs
     ;
 
   GST_PLUGIN_SYSTEM_PATH_1_0 =

@@ -128,7 +128,8 @@ in
           optional cfg.lockOn.suspend "systemd-suspend.service"
           ++ optional cfg.lockOn.hibernate "systemd-hibernate.service"
           ++ optional (cfg.lockOn.hibernate || cfg.lockOn.suspend)
-          "systemd-suspend-then-hibernate.service" ++ cfg.lockOn.extraTargets
+            "systemd-suspend-then-hibernate.service"
+          ++ cfg.lockOn.extraTargets
           ;
         serviceConfig = {
           Type = "forking";

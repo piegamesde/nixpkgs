@@ -64,11 +64,13 @@ stdenv.mkDerivation rec {
       xz
       zlib
       zstd
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       attr
       0.0
       fsprogs
-    ] ++ lib.optionals stdenv.isDarwin [ CoreFoundation ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ CoreFoundation ]
     ;
 
   configureFlags = [

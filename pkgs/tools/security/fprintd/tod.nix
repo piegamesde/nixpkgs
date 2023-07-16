@@ -19,7 +19,8 @@
   };
 
   patches =
-    oldAttrs.patches or [ ] ++ [
+    oldAttrs.patches or [ ]
+    ++ [
       (fetchpatch {
         name = "use-more-idiomatic-correct-embedded-shell-scripting";
         url =
@@ -42,7 +43,8 @@
     ;
 
   postPatch =
-    oldAttrs.postPatch or "" + ''
+    oldAttrs.postPatch or ""
+    + ''
       # part of "remove-pointless-copying-of-files-into-build-directory" but git-apply doesn't handle renaming
       mv src/device.xml src/net.reactivated.Fprint.Device.xml
       mv src/manager.xml src/net.reactivated.Fprint.Manager.xml

@@ -75,7 +75,8 @@ buildNpmPackage rec {
       makeWrapper
       pkg-config
       python3
-    ] ++ lib.optionals stdenv.isLinux [ copyDesktopItems ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ copyDesktopItems ]
     ;
 
   buildInputs =

@@ -57,7 +57,8 @@ buildDotnetModule rec {
       gtk3
       openssl
       xinput
-    ] ++ (with xorg; [
+    ]
+    ++ (with xorg; [
       libICE
       libSM
       libX11

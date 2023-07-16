@@ -141,8 +141,9 @@ rec {
   replay-node-cli = stdenv.mkDerivation {
     pname = "replay-node-cli";
     version =
-      "0.1.7-" + builtins.head
-      (builtins.match ".*/linux-node-(.*)" metadata.replay-node.url)
+      "0.1.7-"
+      + builtins.head
+        (builtins.match ".*/linux-node-(.*)" metadata.replay-node.url)
       ;
     src = fetchFromGitHub {
       owner = "RecordReplay";

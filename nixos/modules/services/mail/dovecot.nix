@@ -129,11 +129,14 @@ let
     ''
       mailbox "${mailbox.name}" {
         auto = ${toString mailbox.auto}
-    '' + optionalString (mailbox.autoexpunge != null) ''
+    ''
+    + optionalString (mailbox.autoexpunge != null) ''
       autoexpunge = ${mailbox.autoexpunge}
-    '' + optionalString (mailbox.specialUse != null) ''
+    ''
+    + optionalString (mailbox.specialUse != null) ''
       special_use = \${toString mailbox.specialUse}
-    '' + "}"
+    ''
+    + "}"
     ;
 
   mailboxes =
@@ -433,7 +436,8 @@ in
       params.dovecot2 = { };
     };
     services.dovecot2.protocols =
-      optional cfg.enableImap "imap" ++ optional cfg.enablePop3 "pop3"
+      optional cfg.enableImap "imap"
+      ++ optional cfg.enablePop3 "pop3"
       ++ optional cfg.enableLmtp "lmtp"
       ;
 
@@ -498,7 +502,8 @@ in
       preStart =
         ''
           rm -rf ${stateDir}/sieve
-        '' + optionalString (cfg.sieveScripts != { }) ''
+        ''
+        + optionalString (cfg.sieveScripts != { }) ''
           mkdir -p ${stateDir}/sieve
           ${concatStringsSep "\n" (mapAttrsToList (to: from: ''
             if [ -d '${from}' ]; then

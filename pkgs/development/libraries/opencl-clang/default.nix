@@ -17,7 +17,8 @@ let
     component: pkg:
     pkg.overrideAttrs (oldAttrs: {
       postPatch =
-        oldAttrs.postPatch or "" + ''
+        oldAttrs.postPatch or ""
+        + ''
           for p in ${passthru.patchesOut}/${component}/*; do
             patch -p1 -i "$p"
           done

@@ -208,7 +208,8 @@ stdenv.mkDerivation (finalAttrs: {
       libcbor
       libqmi
       xz # for liblzma
-    ] ++ lib.optionals haveDell [ libsmbios ]
+    ]
+    ++ lib.optionals haveDell [ libsmbios ]
     ++ lib.optionals haveFlashrom [ flashrom ]
     ;
 
@@ -232,10 +233,12 @@ stdenv.mkDerivation (finalAttrs: {
 
       # We do not want to place the daemon into lib (cyclic reference)
       "--libexecdir=${placeholder "out"}/libexec"
-    ] ++ lib.optionals (!haveDell) [
+    ]
+    ++ lib.optionals (!haveDell) [
       "-Dplugin_dell=disabled"
       "-Dplugin_synaptics_mst=disabled"
-    ] ++ lib.optionals (!haveRedfish) [ "-Dplugin_redfish=disabled" ]
+    ]
+    ++ lib.optionals (!haveRedfish) [ "-Dplugin_redfish=disabled" ]
     ++ lib.optionals (!haveFlashrom) [ "-Dplugin_flashrom=disabled" ]
     ++ lib.optionals (!haveMSR) [ "-Dplugin_msr=disabled" ]
     ;
@@ -356,7 +359,8 @@ stdenv.mkDerivation (finalAttrs: {
         "pki/fwupd-metadata/GPG-KEY-Linux-Vendor-Firmware-Service"
         "pki/fwupd-metadata/LVFS-CA.pem"
         "grub.d/35_fwupd"
-      ] ++ lib.optionals haveDell [ "fwupd/remotes.d/dell-esrt.conf" ]
+      ]
+      ++ lib.optionals haveDell [ "fwupd/remotes.d/dell-esrt.conf" ]
       ++ lib.optionals haveRedfish [ "fwupd/redfish.conf" ]
       ++ lib.optionals haveMSR [ "fwupd/msr.conf" ]
       ++ lib.optionals isx86 [ "fwupd/thunderbolt.conf" ]

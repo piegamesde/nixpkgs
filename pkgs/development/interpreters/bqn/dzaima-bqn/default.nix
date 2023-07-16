@@ -34,11 +34,13 @@ stdenv.mkDerivation rec {
       runHook preBuild
 
       ./build8
-    '' + lib.optionalString buildNativeImage ''
+    ''
+    + lib.optionalString buildNativeImage ''
       native-image --report-unsupported-elements-at-runtime \
         -H:CLibraryPath=${lib.getLib jdk}/lib -J-Dfile.encoding=UTF-8 \
         -jar BQN.jar dbqn
-    '' + ''
+    ''
+    + ''
       runHook postBuild
     ''
     ;
@@ -49,7 +51,8 @@ stdenv.mkDerivation rec {
 
       mkdir -p $out/bin
 
-    '' + (if buildNativeImage then
+    ''
+    + (if buildNativeImage then
       ''
         mv dbqn $out/bin
       ''
@@ -60,11 +63,12 @@ stdenv.mkDerivation rec {
 
         makeWrapper "${lib.getBin jdk}/bin/java" "$out/bin/dbqn" \
           --add-flags "-jar $out/share/${pname}/BQN.jar"
-      '') + ''
-        ln -s $out/bin/dbqn $out/bin/bqn
+      '')
+    + ''
+      ln -s $out/bin/dbqn $out/bin/bqn
 
-        runHook postInstall
-      ''
+      runHook postInstall
+    ''
     ;
 
   meta = with lib; {

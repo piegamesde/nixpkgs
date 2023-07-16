@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
       "--with-netcdf=${netcdf}"
       "--with-hdf5=${hdf5}"
       "--with-eccodes=${eccodes}"
-    ] ++ lib.optional enable_cdi_lib "--enable-cdi-lib"
+    ]
+    ++ lib.optional enable_cdi_lib "--enable-cdi-lib"
     ++ lib.optional enable_all_static "--enable-all-static"
     ++ lib.optional enable_cxx "--enable-cxx"
     ;

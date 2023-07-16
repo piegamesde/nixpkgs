@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
     [
       pkg-config
       scdoc
-    ] ++ lib.optionals waylandSupport [ wayland-scanner ]
+    ]
+    ++ lib.optionals waylandSupport [ wayland-scanner ]
     ;
 
   buildInputs = with lib;
@@ -47,10 +48,13 @@ stdenv.mkDerivation rec {
       harfbuzz
       libxkbcommon
       pango
-    ] ++ optional ncursesSupport ncurses ++ optionals waylandSupport [
+    ]
+    ++ optional ncursesSupport ncurses
+    ++ optionals waylandSupport [
       wayland
       wayland-protocols
-    ] ++ optionals x11Support [
+    ]
+    ++ optionals x11Support [
       xorg.libX11
       xorg.libXinerama
       xorg.libXft
@@ -62,8 +66,10 @@ stdenv.mkDerivation rec {
   makeFlags = [ "PREFIX=$(out)" ];
 
   buildFlags =
-    [ "clients" ] ++ lib.optional ncursesSupport "curses"
-    ++ lib.optional waylandSupport "wayland" ++ lib.optional x11Support "x11"
+    [ "clients" ]
+    ++ lib.optional ncursesSupport "curses"
+    ++ lib.optional waylandSupport "wayland"
+    ++ lib.optional x11Support "x11"
     ;
 
   meta = with lib; {

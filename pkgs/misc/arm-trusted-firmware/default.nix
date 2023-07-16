@@ -76,7 +76,8 @@ let
           # `warning: /build/source/build/rk3399/release/bl31/bl31.elf has a LOAD segment with RWX permissions`
           # See also: https://developer.trustedfirmware.org/T996
           "LDFLAGS=-no-warn-rwx-segments"
-        ] ++ (lib.optional (platform != null) "PLAT=${platform}")
+        ]
+        ++ (lib.optional (platform != null) "PLAT=${platform}")
         ++ extraMakeFlags
         ;
 
@@ -101,9 +102,10 @@ let
           description =
             "A reference implementation of secure world software for ARMv8-A";
           license =
-            [ licenses.bsd3 ] ++ lib.optionals (!deleteHDCPBlobBeforeBuild) [
-              licenses.unfreeRedistributable
-            ]
+            [ licenses.bsd3 ]
+            ++ lib.optionals (!deleteHDCPBlobBeforeBuild) [
+                licenses.unfreeRedistributable
+              ]
             ;
           maintainers = with maintainers; [ lopsided98 ];
         } // extraMeta;

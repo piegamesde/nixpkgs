@@ -81,7 +81,8 @@ buildPythonPackage rec {
       pytest-xdist
       scipy
       zarr
-    ] ++ lib.optionals (!arrow-cpp.meta.broken) [ # support is sparse on aarch64
+    ]
+    ++ lib.optionals (!arrow-cpp.meta.broken) [ # support is sparse on aarch64
       fastparquet
       pyarrow
     ]
@@ -117,7 +118,8 @@ buildPythonPackage rec {
       "test_auto_blocksize_csv"
       # AttributeError: 'str' object has no attribute 'decode'
       "test_read_dir_nometa"
-    ] ++ [
+    ]
+    ++ [
       "test_chunksize_files"
       # TypeError: 'ArrowStringArray' with dtype string does not support reduction 'min'
       "test_set_index_string"

@@ -87,7 +87,8 @@ buildPythonPackage rec {
       pytest-aiohttp
       requests-mock
       pytestCheckHook
-    ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
+    ]
+    ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
     ;
 
   disabledTestPaths =

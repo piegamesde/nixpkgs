@@ -51,7 +51,8 @@ mkDerivation rec {
       # Detection script is broken
       "-DQGLVIEWER_INCLUDE_DIR=${libqglviewer}/include/QGLViewer"
       "-DG2O_BUILD_EXAMPLES=OFF"
-    ] ++ lib.optionals stdenv.isx86_64 [
+    ]
+    ++ lib.optionals stdenv.isx86_64 [
       "-DDO_SSE_AUTODETECT=OFF"
       "-DDISABLE_SSE3=${
         if stdenv.hostPlatform.sse3Support then

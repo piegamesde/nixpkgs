@@ -33,13 +33,15 @@ let
     ;
 
   cmdlineArgs =
-    cfg.extraFlags ++ [
+    cfg.extraFlags
+    ++ [
       "--config.file /tmp/alert-manager-substituted.yaml"
       "--web.listen-address ${cfg.listenAddress}:${toString cfg.port}"
       "--log.level ${cfg.logLevel}"
       "--storage.path /var/lib/alertmanager"
       (toString (map (peer: "--cluster.peer ${peer}:9094") cfg.clusterPeers))
-    ] ++ (optional (cfg.webExternalUrl != null)
+    ]
+    ++ (optional (cfg.webExternalUrl != null)
       "--web.external-url ${cfg.webExternalUrl}")
     ++ (optional (cfg.logFormat != null) "--log.format ${cfg.logFormat}")
     ;
@@ -222,7 +224,7 @@ in
           ExecStart =
             "${cfg.package}/bin/alertmanager"
             + optionalString (length cmdlineArgs != 0)
-            (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs)
+              (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs)
             ;
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         };

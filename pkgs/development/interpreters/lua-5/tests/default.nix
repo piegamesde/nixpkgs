@@ -20,7 +20,9 @@ let
       meta.platforms = lua.meta.platforms;
     }) (''
       source ${./assert.sh}
-    '' + command + "touch $out")
+    ''
+      + command
+      + "touch $out")
     ;
 
   wrappedHello = hello.overrideAttrs (oa: {

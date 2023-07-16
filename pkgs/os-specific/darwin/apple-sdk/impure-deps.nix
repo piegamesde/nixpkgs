@@ -69,7 +69,8 @@ rec {
       "/usr/lib/libcmph.dylib"
       "/usr/lib/libiconv.2.dylib"
       "/usr/lib/libxslt.1.dylib"
-    ] ++ Foundation
+    ]
+    ++ Foundation
     ;
   IOSurface = [ "/System/Library/Frameworks/IOSurface.framework" ];
   CoreGraphics = [
@@ -85,7 +86,8 @@ rec {
       "/System/Library/Frameworks/ApplicationServices.framework"
       "/usr/lib/libcups.2.dylib"
       "/usr/lib/libresolv.9.dylib"
-    ] ++ AudioToolbox
+    ]
+    ++ AudioToolbox
     ;
   OpenGL = [ "/System/Library/Frameworks/OpenGL.framework" ];
   CoreVideo = [ "/System/Library/Frameworks/CoreVideo.framework" ];
@@ -194,7 +196,8 @@ rec {
   OpenCL = [ "/System/Library/Frameworks/OpenCL.framework" ];
   CoreWLAN = [ "/System/Library/Frameworks/CoreWLAN.framework" ];
   IOBluetooth =
-    [ "/System/Library/Frameworks/IOBluetooth.framework" ] ++ AudioUnit
+    [ "/System/Library/Frameworks/IOBluetooth.framework" ]
+    ++ AudioUnit
     ++ CoreBluetooth
     ;
   CoreBluetooth = [ "/System/Library/Frameworks/CoreBluetooth.framework" ];

@@ -21,6 +21,7 @@
     [
       libsecret
       jsoncpp
-    ] ++ buildInputs
+    ]
+    ++ buildInputs
     ;
 }

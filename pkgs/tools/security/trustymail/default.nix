@@ -29,7 +29,8 @@ python3.pkgs.buildPythonApplication rec {
       pydns
       pyspf
       requests
-    ] ++ publicsuffixlist.optional-dependencies.update;
+    ]
+    ++ publicsuffixlist.optional-dependencies.update;
 
   nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
 

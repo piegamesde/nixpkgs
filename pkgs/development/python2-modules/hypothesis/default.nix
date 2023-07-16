@@ -39,7 +39,8 @@ buildPythonPackage rec {
       attrs
       coverage
       sortedcontainers
-    ] ++ lib.optional (!isPy3k) enum34
+    ]
+    ++ lib.optional (!isPy3k) enum34
     ;
 
   nativeCheckInputs = [

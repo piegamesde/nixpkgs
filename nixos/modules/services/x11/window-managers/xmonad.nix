@@ -13,7 +13,8 @@ let
   ghcWithPackages = cfg.haskellPackages.ghcWithPackages;
   packages =
     self:
-    cfg.extraPackages self ++ optionals cfg.enableContribAndExtras [
+    cfg.extraPackages self
+    ++ optionals cfg.enableContribAndExtras [
       self.xmonad-contrib
       self.xmonad-extras
     ]
@@ -36,11 +37,13 @@ let
     (''
       install -D ${xmonadEnv}/share/man/man1/xmonad.1.gz $out/share/man/man1/xmonad.1.gz
       makeWrapper ${configured}/bin/xmonad $out/bin/xmonad \
-    '' + optionalString cfg.enableConfiguredRecompile ''
-      --set XMONAD_GHC "${xmonadEnv}/bin/ghc" \
-    '' + ''
-      --set XMONAD_XMESSAGE "${pkgs.xorg.xmessage}/bin/xmessage"
-    '')
+    ''
+      + optionalString cfg.enableConfiguredRecompile ''
+        --set XMONAD_GHC "${xmonadEnv}/bin/ghc" \
+      ''
+      + ''
+        --set XMONAD_XMESSAGE "${pkgs.xorg.xmessage}/bin/xmessage"
+      '')
     ;
 
   xmonad =

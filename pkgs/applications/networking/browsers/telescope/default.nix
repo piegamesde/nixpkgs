@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
       libevent
       libressl
       ncurses
-    ] ++ lib.optional stdenv.isDarwin memstreamHook
+    ]
+    ++ lib.optional stdenv.isDarwin memstreamHook
     ;
 
   configureFlags = [

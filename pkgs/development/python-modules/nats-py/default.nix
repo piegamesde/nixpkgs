@@ -48,7 +48,8 @@ buildPythonPackage rec {
       "test_fetch_n"
       "test_subscribe_no_echo"
       "test_stream_management"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       "test_subscribe_iterate_next_msg"
       "test_buf_size_force_flush_timeout"
     ]

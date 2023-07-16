@@ -123,23 +123,27 @@ in
         ''
           umask 077
           mkdir -p ${configsDir}
-        '' + (optionalString (cfg.apiKeyFile != null) ''
+        ''
+        + (optionalString (cfg.apiKeyFile != null) ''
           cp --no-preserve=all "${cfg.apiKeyFile}" ${runDir}/longview.key
-        '') + (optionalString (cfg.apacheStatusUrl != "") ''
+        '')
+        + (optionalString (cfg.apacheStatusUrl != "") ''
           cat > ${configsDir}/Apache.conf <<EOF
           location ${cfg.apacheStatusUrl}?auto
           EOF
-        '') + (optionalString
+        '')
+        + (optionalString
           (cfg.mysqlUser != "" && cfg.mysqlPasswordFile != null) ''
             cat > ${configsDir}/MySQL.conf <<EOF
             username ${cfg.mysqlUser}
             password `head -n1 "${cfg.mysqlPasswordFile}"`
             EOF
-          '') + (optionalString (cfg.nginxStatusUrl != "") ''
-            cat > ${configsDir}/Nginx.conf <<EOF
-            location ${cfg.nginxStatusUrl}
-            EOF
           '')
+        + (optionalString (cfg.nginxStatusUrl != "") ''
+          cat > ${configsDir}/Nginx.conf <<EOF
+          location ${cfg.nginxStatusUrl}
+          EOF
+        '')
         ;
     };
 

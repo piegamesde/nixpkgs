@@ -34,21 +34,24 @@ openvpn.overrideAttrs (oldAttrs:
     buildInputs = oldAttrs.buildInputs or [ ] ++ [ iproute2 ];
 
     configureFlags =
-      oldAttrs.configureFlags or [ ] ++ [
+      oldAttrs.configureFlags or [ ]
+      ++ [
         "--enable-iproute2"
         "IPROUTE=${iproute2}/sbin/ip"
       ]
       ;
 
     nativeBuildInputs =
-      oldAttrs.nativeBuildInputs or [ ] ++ [
+      oldAttrs.nativeBuildInputs or [ ]
+      ++ [
         autoconf
         automake
       ]
       ;
 
     patches =
-      oldAttrs.patches or [ ] ++ [
+      oldAttrs.patches or [ ]
+      ++ [
         # look at compare to find the relevant commits
         # https://github.com/OpenVPN/openvpn/compare/release/2.5...mullvad:mullvad-patches
         # used openvpn version is the latest tag ending with -mullvad

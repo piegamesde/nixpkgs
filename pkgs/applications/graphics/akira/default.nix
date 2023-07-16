@@ -74,7 +74,8 @@ stdenv.mkDerivation rec {
       [
         Br1ght0ne
         neonfuz
-      ] ++ teams.pantheon.members;
+      ]
+      ++ teams.pantheon.members;
     platforms = platforms.linux;
     mainProgram = "com.github.akiraux.akira";
   };

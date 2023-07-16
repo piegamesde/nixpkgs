@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
     [
       libxml2
       nettle
-    ] ++ lib.optional withGTK3 gtk3
+    ]
+    ++ lib.optional withGTK3 gtk3
     ;
 
   meta = with lib; {

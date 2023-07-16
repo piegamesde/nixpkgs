@@ -54,7 +54,8 @@ stdenv.mkDerivation {
       python
       libiconv
       ncurses
-    ] ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ]
     ;
 
   preConfigure = "./autotool.sh";

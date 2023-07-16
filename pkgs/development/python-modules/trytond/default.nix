@@ -56,7 +56,8 @@ buildPythonPackage rec {
       weasyprint
       gevent
       pillow
-    ] ++ relatorio.optional-dependencies.fodt
+    ]
+    ++ relatorio.optional-dependencies.fodt
     ++ passlib.optional-dependencies.bcrypt
     ++ passlib.optional-dependencies.argon2
     ++ lib.optional withPostgresql psycopg2

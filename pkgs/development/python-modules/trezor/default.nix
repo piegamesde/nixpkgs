@@ -52,7 +52,8 @@ buildPythonPackage rec {
       shamir-mnemonic
       simple-rlp
       typing-extensions
-    ] ++ lib.optionals stdenv.isLinux [ trezor-udev-rules ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ trezor-udev-rules ]
     ;
 
   nativeCheckInputs = [ pytestCheckHook ];

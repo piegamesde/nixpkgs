@@ -30,7 +30,8 @@ stdenv.mkDerivation (finalAttrs: {
     [
       rtl-sdr
       soapysdr
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       libobjc
       IOKit
       Security

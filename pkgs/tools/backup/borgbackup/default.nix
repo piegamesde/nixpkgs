@@ -66,7 +66,8 @@ python3.pkgs.buildPythonApplication rec {
       xxHash
       zstd
       openssl
-    ] ++ lib.optionals stdenv.isLinux [ acl ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ acl ]
     ;
 
   propagatedBuildInputs = with python3.pkgs; [

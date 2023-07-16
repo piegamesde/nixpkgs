@@ -28,7 +28,8 @@ buildGoModule rec {
     [
       gobject-introspection
       vips
-    ] ++ lib.optionals stdenv.isDarwin [ libunwind ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ libunwind ]
     ;
 
   preBuild = ''

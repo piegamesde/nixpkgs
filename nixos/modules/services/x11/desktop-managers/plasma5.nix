@@ -342,32 +342,35 @@ in
             (lib.getBin qttools) # Expose qdbus in PATH
           ];
         in
-        requiredPackages ++ utils.removePackagesByName optionalPackages
-        config.environment.plasma5.excludePackages
+        requiredPackages
+        ++ utils.removePackagesByName optionalPackages
+          config.environment.plasma5.excludePackages
 
-        # Phonon audio backend
+          # Phonon audio backend
         ++ lib.optional (cfg.phononBackend == "gstreamer")
-        libsForQt5.phonon-backend-gstreamer
+          libsForQt5.phonon-backend-gstreamer
         ++ lib.optional (cfg.phononBackend == "vlc")
-        libsForQt5.phonon-backend-vlc
+          libsForQt5.phonon-backend-vlc
 
-        # Optional hardware support features
+          # Optional hardware support features
         ++ lib.optionals config.hardware.bluetooth.enable [
           bluedevil
           bluez-qt
           pkgs.openobex
           pkgs.obexftp
-        ] ++ lib.optional config.networking.networkmanager.enable plasma-nm
+        ]
+        ++ lib.optional config.networking.networkmanager.enable plasma-nm
         ++ lib.optional config.hardware.pulseaudio.enable plasma-pa
         ++ lib.optional config.services.pipewire.pulse.enable plasma-pa
         ++ lib.optional config.powerManagement.enable powerdevil
         ++ lib.optional config.services.colord.enable pkgs.colord-kde
         ++ lib.optional config.services.hardware.bolt.enable
-        pkgs.plasma5Packages.plasma-thunderbolt
+          pkgs.plasma5Packages.plasma-thunderbolt
         ++ lib.optionals config.services.samba.enable [
           kdenetwork-filesharing
           pkgs.samba
-        ] ++ lib.optional config.services.xserver.wacom.enable pkgs.wacomtablet
+        ]
+        ++ lib.optional config.services.xserver.wacom.enable pkgs.wacomtablet
         ++ lib.optional config.services.flatpak.enable flatpak-kcm
         ;
 
@@ -517,8 +520,9 @@ in
             print-manager
           ];
         in
-        requiredPackages ++ utils.removePackagesByName optionalPackages
-        config.environment.plasma5.excludePackages
+        requiredPackages
+        ++ utils.removePackagesByName optionalPackages
+          config.environment.plasma5.excludePackages
         ;
 
       systemd.user.services = {
@@ -572,26 +576,27 @@ in
           plasma-nano
           pkgs.maliit-framework
           pkgs.maliit-keyboard
-        ] ++ lib.optionals (cfg.mobile.installRecommendedSoftware)
-        (with libsForQt5.plasmaMobileGear; [
-          # Additional software made for Plasma Mobile.
-          alligator
-          angelfish
-          audiotube
-          calindori
-          kalk
-          kasts
-          kclock
-          keysmith
-          koko
-          krecorder
-          ktrip
-          kweather
-          plasma-dialer
-          plasma-phonebook
-          plasma-settings
-          spacebar
-        ]);
+        ]
+        ++ lib.optionals (cfg.mobile.installRecommendedSoftware)
+          (with libsForQt5.plasmaMobileGear; [
+            # Additional software made for Plasma Mobile.
+            alligator
+            angelfish
+            audiotube
+            calindori
+            kalk
+            kasts
+            kclock
+            keysmith
+            koko
+            krecorder
+            ktrip
+            kweather
+            plasma-dialer
+            plasma-phonebook
+            plasma-settings
+            spacebar
+          ]);
 
         # The following services are needed or the UI is broken.
       hardware.bluetooth.enable = true;

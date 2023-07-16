@@ -30,7 +30,8 @@ mkDerivation rec {
     [
       "-DBUILD_EXAMPLES=false"
       "-DBUILD_TESTS=false"
-    ] ++ lib.optionals withGstreamer [ "-DWITH_GSTREAMER=ON" ]
+    ]
+    ++ lib.optionals withGstreamer [ "-DWITH_GSTREAMER=ON" ]
     ;
 
   meta = with lib; {

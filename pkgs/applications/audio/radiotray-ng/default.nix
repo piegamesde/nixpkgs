@@ -89,7 +89,9 @@ stdenv.mkDerivation rec {
       libxdg_basedir
       lsb-release
       wxGTK
-    ] ++ gstInputs ++ pythonInputs
+    ]
+    ++ gstInputs
+    ++ pythonInputs
     ;
 
   patches = [ ./no-dl-googletest.patch ];

@@ -64,7 +64,8 @@ rec {
       b' = normalise b;
 
     in
-    hasPrefix a'.mountPoint b'.device || hasPrefix a'.mountPoint b'.mountPoint
+    hasPrefix a'.mountPoint b'.device
+    || hasPrefix a'.mountPoint b'.mountPoint
     || any (hasPrefix a'.mountPoint) b'.depends
     ;
 
@@ -261,18 +262,22 @@ rec {
       inherit_errexit_enabled=0
       shopt -pq inherit_errexit && inherit_errexit_enabled=1
       shopt -s inherit_errexit
-    '' + concatStringsSep "\n" (imap1 (index: name: ''
+    ''
+    + concatStringsSep "\n" (imap1 (index: name: ''
       secret${toString index}=$(<'${secrets.${name}}')
       export secret${toString index}
-    '') (attrNames secrets)) + "\n" + "${pkgs.jq}/bin/jq >'${output}' "
+    '') (attrNames secrets))
+    + "\n"
+    + "${pkgs.jq}/bin/jq >'${output}' "
     + lib.escapeShellArg (concatStringsSep " | "
       (imap1 (index: name: "${name} = $ENV.secret${toString index}")
-        (attrNames secrets))) + ''
-           <<'EOF'
-          ${builtins.toJSON set}
-          EOF
-          (( ! $inherit_errexit_enabled )) && shopt -u inherit_errexit
-        ''
+        (attrNames secrets)))
+    + ''
+       <<'EOF'
+      ${builtins.toJSON set}
+      EOF
+      (( ! $inherit_errexit_enabled )) && shopt -u inherit_errexit
+    ''
     ;
 
     /* Remove packages of packagesToRemove from packages, based on their names.

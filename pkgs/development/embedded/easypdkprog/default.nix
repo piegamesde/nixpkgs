@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
   installPhase =
     ''
       install -Dm755 -t $out/bin easypdkprog
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       install -Dm644 -t $out/etc/udev/rules.d Linux_udevrules/70-stm32vcp.rules
     ''
     ;

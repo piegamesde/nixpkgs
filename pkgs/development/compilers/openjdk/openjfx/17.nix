@@ -67,7 +67,8 @@ let
       config = writeText "gradle.properties" (''
         CONF = Release
         JDK_HOME = ${openjdk17_headless.home}
-      '' + args.gradleProperties or "");
+      ''
+        + args.gradleProperties or "");
 
       buildPhase = ''
         runHook preBuild

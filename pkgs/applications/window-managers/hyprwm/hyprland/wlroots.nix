@@ -52,17 +52,21 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
   };
 
   pname =
-    old.pname + "-hyprland" + (if hidpiXWayland then
+    old.pname
+    + "-hyprland"
+    + (if hidpiXWayland then
       "-hidpi"
     else
-      "") + (if nvidiaPatches then
-        "-nvidia"
-      else
-        "")
+      "")
+    + (if nvidiaPatches then
+      "-nvidia"
+    else
+      "")
     ;
 
   patches =
-    (old.patches or [ ]) ++ (lib.optionals (enableXWayland && hidpiXWayland) [
+    (old.patches or [ ])
+    ++ (lib.optionals (enableXWayland && hidpiXWayland) [
       "${hyprland.src}/nix/wlroots-hidpi.patch"
       (fetchpatch {
         url =
@@ -70,7 +74,8 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
         sha256 = "sha256-jvfkAMh3gzkfuoRhB4E9T5X1Hu62wgUjj4tZkJm0mrI=";
         revert = true;
       })
-    ]) ++ (lib.optionals nvidiaPatches [
+    ])
+    ++ (lib.optionals nvidiaPatches [
         (fetchpatch {
           url =
             "https://aur.archlinux.org/cgit/aur.git/plain/0001-nvidia-format-workaround.patch?h=hyprland-nvidia-screenshare-git&id=2830d3017d7cdd240379b4cc7e5dd6a49cf3399a";
@@ -80,7 +85,8 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
     ;
 
   postPatch =
-    (old.postPatch or "") + (if nvidiaPatches then
+    (old.postPatch or "")
+    + (if nvidiaPatches then
       ''
         substituteInPlace render/gles2/renderer.c --replace "glFlush();" "glFinish();"
       ''
@@ -89,7 +95,8 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
     ;
 
   buildInputs =
-    old.buildInputs ++ [
+    old.buildInputs
+    ++ [
       hwdata
       libdisplay-info-new
       libliftoff-new
@@ -98,7 +105,8 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
 })).override {
   xwayland = xwayland.overrideAttrs (old: {
     patches =
-      (old.patches or [ ]) ++ (lib.optionals hidpiXWayland [
+      (old.patches or [ ])
+      ++ (lib.optionals hidpiXWayland [
         "${hyprland.src}/nix/xwayland-vsync.patch"
         "${hyprland.src}/nix/xwayland-hidpi.patch"
       ])

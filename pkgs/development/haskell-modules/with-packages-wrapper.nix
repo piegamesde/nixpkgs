@@ -101,7 +101,8 @@ else
     # as a dedicated drv attribute, like `compiler-name`
     name = ghc.name + "-with-packages";
     paths =
-      paths ++ [ ghc ]
+      paths
+      ++ [ ghc ]
       ++ lib.optionals installDocumentation [ (lib.getOutput "doc" ghc) ]
       ;
     nativeBuildInputs = [ makeWrapper ];
@@ -153,7 +154,9 @@ else
             --set "NIX_${ghcCommandCaps}_LIBDIR" "${libDir}"
         fi
 
-      '' + (lib.optionalString (stdenv.targetPlatform.isDarwin && !isGhcjs
+      ''
+      + (lib.optionalString (stdenv.targetPlatform.isDarwin
+        && !isGhcjs
         && !stdenv.targetPlatform.isiOS) ''
           # Work around a linker limit in macOS Sierra (see generic-builder.nix):
           local packageConfDir="${packageCfgDir}";
@@ -175,27 +178,29 @@ else
             sed "N;s,dynamic-library-dirs:\s*.*,dynamic-library-dirs: $dynamicLinksDir," $f-tmp > $f
             rm $f-tmp
           done
-        '') + ''
-          ${lib.optionalString hasLibraries ''
-            # GHC 8.10 changes.
-            # Instead of replacing package.cache[.lock] with the new file,
-            # ghc-pkg is now trying to open the file.  These file are symlink
-            # to another nix derivation, so they are not writable.  Removing
-            # them allow the correct behavior of ghc-pkg recache
-            # See: https://github.com/NixOS/nixpkgs/issues/79441
-            rm ${packageCfgDir}/package.cache.lock
-            rm ${packageCfgDir}/package.cache
+        '')
+      + ''
+        ${lib.optionalString hasLibraries ''
+          # GHC 8.10 changes.
+          # Instead of replacing package.cache[.lock] with the new file,
+          # ghc-pkg is now trying to open the file.  These file are symlink
+          # to another nix derivation, so they are not writable.  Removing
+          # them allow the correct behavior of ghc-pkg recache
+          # See: https://github.com/NixOS/nixpkgs/issues/79441
+          rm ${packageCfgDir}/package.cache.lock
+          rm ${packageCfgDir}/package.cache
 
-            $out/bin/${ghcCommand}-pkg recache
-          ''}
-          ${ # ghcjs will read the ghc_libdir file when resolving plugins.
-          lib.optionalString (isGhcjs && ghcLibdir != null) ''
-            mkdir -p "${libDir}"
-            rm -f "${libDir}/ghc_libdir"
-            printf '%s' '${ghcLibdir}' > "${libDir}/ghc_libdir"
-          ''}
-          $out/bin/${ghcCommand}-pkg check
-        '' + postBuild
+          $out/bin/${ghcCommand}-pkg recache
+        ''}
+        ${ # ghcjs will read the ghc_libdir file when resolving plugins.
+        lib.optionalString (isGhcjs && ghcLibdir != null) ''
+          mkdir -p "${libDir}"
+          rm -f "${libDir}/ghc_libdir"
+          printf '%s' '${ghcLibdir}' > "${libDir}/ghc_libdir"
+        ''}
+        $out/bin/${ghcCommand}-pkg check
+      ''
+      + postBuild
       ;
     preferLocalBuild = true;
     passthru = {

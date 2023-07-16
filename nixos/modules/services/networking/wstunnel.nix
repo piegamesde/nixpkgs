@@ -574,7 +574,8 @@ in
         message = ''
           Options services.wstunnel.servers."${name}".useACMEHost and services.wstunnel.servers."${name}".{tlsCertificate, tlsKey} are mutually exclusive.
         '';
-      }) cfg.servers) ++ (mapAttrsToList (name: serverCfg: {
+      }) cfg.servers)
+      ++ (mapAttrsToList (name: serverCfg: {
         assertion =
           !((serverCfg.tlsCertificate != null || serverCfg.tlsKey != null)
             && !(serverCfg.tlsCertificate != null && serverCfg.tlsKey != null))
@@ -582,7 +583,8 @@ in
         message = ''
           services.wstunnel.servers."${name}".tlsCertificate and services.wstunnel.servers."${name}".tlsKey need to be set together.
         '';
-      }) cfg.servers) ++ (mapAttrsToList (name: clientCfg: {
+      }) cfg.servers)
+      ++ (mapAttrsToList (name: clientCfg: {
         assertion =
           !(clientCfg.localToRemote == [ ] && clientCfg.dynamicToRemote == null)
           ;

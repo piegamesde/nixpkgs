@@ -279,7 +279,9 @@ in
               ''
                 <Host name="${virtualHost.name}" appBase="virtualhosts/${virtualHost.name}/webapps"
                       unpackWARs="true" autoDeploy="true" xmlValidation="false" xmlNamespaceAware="false">
-              '' + concatStrings (innerElementsForVirtualHost virtualHost) + ''
+              ''
+              + concatStrings (innerElementsForVirtualHost virtualHost)
+              + ''
                 </Host>
               ''
               ;
@@ -287,7 +289,8 @@ in
               virtualHost:
               (map (alias: ''
                 <Alias>${alias}</Alias>
-              '') virtualHost.aliases) ++ (optional cfg.logPerVirtualHost ''
+              '') virtualHost.aliases)
+              ++ (optional cfg.logPerVirtualHost ''
                 <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs/${virtualHost.name}"
                        prefix="${virtualHost.name}_access_log." pattern="combined" resolveHosts="false"/>
               '')
@@ -453,7 +456,8 @@ in
             "JAVA_HOME='${cfg.jdk}'"
             "JAVA_OPTS='${builtins.toString cfg.javaOpts}'"
             "CATALINA_OPTS='${builtins.toString cfg.catalinaOpts}'"
-          ] ++ cfg.extraEnvironment
+          ]
+          ++ cfg.extraEnvironment
           ;
         ExecStart = "${tomcat}/bin/startup.sh";
         ExecStop = "${tomcat}/bin/shutdown.sh";

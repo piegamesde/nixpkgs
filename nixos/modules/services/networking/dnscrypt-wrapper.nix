@@ -124,7 +124,8 @@ let
           libsodium
           openssl.dev
           ldns
-        ] ++ optional stdenv.isLinux systemd
+        ]
+        ++ optional stdenv.isLinux systemd
         ;
 
       postInstall = ''

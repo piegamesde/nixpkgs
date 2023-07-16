@@ -60,7 +60,9 @@ stdenv.mkDerivation rec {
       llvmMerged
       ncurses
       libxml2
-    ] ++ lib.optionals enableCUDA [ cuda ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals enableCUDA [ cuda ]
+    ++ lib.optionals stdenv.isDarwin [
       libobjc
       Cocoa
       Foundation
@@ -73,7 +75,8 @@ stdenv.mkDerivation rec {
       "-DTERRA_VERSION=${version}"
       "-DTERRA_LUA=luajit"
       "-DCLANG_RESOURCE_DIR=${llvmMerged}/lib/clang/${clangVersion}"
-    ] ++ lib.optional enableCUDA "-DTERRA_ENABLE_CUDA=ON"
+    ]
+    ++ lib.optional enableCUDA "-DTERRA_ENABLE_CUDA=ON"
     ;
 
   doCheck = true;

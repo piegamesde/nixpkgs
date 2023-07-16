@@ -32,7 +32,8 @@ buildDunePackage rec {
       cstruct
       mirage-crypto
       mirage-crypto-rng
-    ] ++ lib.optionals withFreestanding [ ocaml-freestanding ]
+    ]
+    ++ lib.optionals withFreestanding [ ocaml-freestanding ]
     ;
 
   strictDeps = true;

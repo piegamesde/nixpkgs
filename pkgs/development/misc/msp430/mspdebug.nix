@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional (enableMspds && stdenv.isLinux) autoPatchelfHook
     ;
   buildInputs =
-    [ libusb-compat-0_1 ] ++ lib.optional stdenv.isDarwin hidapi
+    [ libusb-compat-0_1 ]
+    ++ lib.optional stdenv.isDarwin hidapi
     ++ lib.optional enableReadline readline
     ;
 

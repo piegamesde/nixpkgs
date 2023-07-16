@@ -26,7 +26,8 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ pkg-config ];
 
   buildInputs =
-    lib.optionals stdenv.isLinux [ dbus ] ++ lib.optionals stdenv.isDarwin [
+    lib.optionals stdenv.isLinux [ dbus ]
+    ++ lib.optionals stdenv.isDarwin [
       Security
       libiconv
     ]

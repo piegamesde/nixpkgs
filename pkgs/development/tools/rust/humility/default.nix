@@ -22,7 +22,8 @@ rustPlatform.buildRustPackage rec {
     [
       libusb1
       libftdi
-    ] ++ lib.optionals stdenv.isDarwin [ AppKit ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ AppKit ]
     ;
 
   src = fetchFromGitHub {

@@ -31,7 +31,7 @@ let
     in
     nodesList
     ++ lib.optional (lib.length nodesList == 1 && !lib.elem "machine" nodesList)
-    "machine"
+      "machine"
     ;
 
     # TODO: This is an implementation error and needs fixing

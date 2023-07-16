@@ -59,7 +59,8 @@ buildPythonPackage rec {
       "test_subscribe_manual_resubscribe"
       "test_subscribe_renew"
       "test_unsubscribe"
-    ] ++ lib.optionals stdenv.isDarwin [ "test_deferred_callback_url" ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ "test_deferred_callback_url" ]
     ;
 
   disabledTestPaths =

@@ -151,22 +151,28 @@ in
     filterDoubles (matchAttrs {
       kernel = parse.kernels.linux;
       abi = parse.abis.gnu;
-    }) ++ filterDoubles (matchAttrs {
+    })
+    ++ filterDoubles (matchAttrs {
       kernel = parse.kernels.linux;
       abi = parse.abis.gnueabi;
-    }) ++ filterDoubles (matchAttrs {
+    })
+    ++ filterDoubles (matchAttrs {
       kernel = parse.kernels.linux;
       abi = parse.abis.gnueabihf;
-    }) ++ filterDoubles (matchAttrs {
+    })
+    ++ filterDoubles (matchAttrs {
       kernel = parse.kernels.linux;
       abi = parse.abis.gnuabin32;
-    }) ++ filterDoubles (matchAttrs {
+    })
+    ++ filterDoubles (matchAttrs {
       kernel = parse.kernels.linux;
       abi = parse.abis.gnuabi64;
-    }) ++ filterDoubles (matchAttrs {
+    })
+    ++ filterDoubles (matchAttrs {
       kernel = parse.kernels.linux;
       abi = parse.abis.gnuabielfv1;
-    }) ++ filterDoubles (matchAttrs {
+    })
+    ++ filterDoubles (matchAttrs {
       kernel = parse.kernels.linux;
       abi = parse.abis.gnuabielfv2;
     })

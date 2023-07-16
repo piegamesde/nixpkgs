@@ -117,12 +117,13 @@ rec {
         name = (head x);
 
       in
-      ((checkFlag attrSet name) -> (foldr lib.and true (map (y:
-        let
-          val = (getValue attrSet argList y);
-        in
-        (val != null) && (val != false)
-      ) (tail x))))
+      ((checkFlag attrSet name)
+        -> (foldr lib.and true (map (y:
+          let
+            val = (getValue attrSet argList y);
+          in
+          (val != null) && (val != false)
+        ) (tail x))))
     ) condList))
     ;
 
@@ -167,7 +168,8 @@ rec {
         x = head inputList;
         isX = y: (compare (getter y) (getter x));
         newOutputList =
-          outputList ++ (if any isX outputList then
+          outputList
+          ++ (if any isX outputList then
             [ ]
           else
             [ x ])
@@ -242,7 +244,8 @@ rec {
         innerClosePropagation acc' (uniqList {
           inputList =
             (maybeAttrNullable "propagatedBuildInputs" [ ] y)
-            ++ (maybeAttrNullable "propagatedNativeBuildInputs" [ ] y) ++ ys
+            ++ (maybeAttrNullable "propagatedNativeBuildInputs" [ ] y)
+            ++ ys
             ;
           acc = acc';
         })

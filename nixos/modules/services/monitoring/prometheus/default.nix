@@ -11,8 +11,8 @@ let
   yaml = pkgs.formats.yaml { };
   cfg = config.services.prometheus;
   checkConfigEnabled =
-    (lib.isBool cfg.checkConfig && cfg.checkConfig) || cfg.checkConfig
-    == "syntax-only"
+    (lib.isBool cfg.checkConfig && cfg.checkConfig)
+    || cfg.checkConfig == "syntax-only"
     ;
 
   workingDir = "/var/lib/" + cfg.stateDir;
@@ -58,7 +58,8 @@ let
     # This becomes the main config file for Prometheus
   promConfig = {
     global = filterValidPrometheus cfg.globalConfig;
-    rule_files = map (promtoolCheck "check rules" "rules") (cfg.ruleFiles ++ [
+    rule_files = map (promtoolCheck "check rules" "rules") (cfg.ruleFiles
+      ++ [
         (pkgs.writeText "prometheus.rules" (concatStringsSep "\n" cfg.rules))
       ]);
     scrape_configs = filterValidPrometheus cfg.scrapeConfigs;
@@ -82,7 +83,8 @@ let
     ;
 
   cmdlineArgs =
-    cfg.extraFlags ++ [
+    cfg.extraFlags
+    ++ [
       "--storage.tsdb.path=${workingDir}/data/"
       "--config.file=${
         if cfg.enableReload then
@@ -94,12 +96,13 @@ let
       "--alertmanager.notification-queue-capacity=${
         toString cfg.alertmanagerNotificationQueueCapacity
       }"
-    ] ++ optional (cfg.webExternalUrl != null)
-    "--web.external-url=${cfg.webExternalUrl}"
+    ]
+    ++ optional (cfg.webExternalUrl != null)
+      "--web.external-url=${cfg.webExternalUrl}"
     ++ optional (cfg.retentionTime != null)
-    "--storage.tsdb.retention.time=${cfg.retentionTime}"
+      "--storage.tsdb.retention.time=${cfg.retentionTime}"
     ++ optional (cfg.webConfigFile != null)
-    "--web.config.file=${cfg.webConfigFile}"
+      "--web.config.file=${cfg.webConfigFile}"
     ;
 
   filterValidPrometheus =
@@ -128,11 +131,12 @@ let
 
   mkDefOpt =
     type: defaultStr: description:
-    mkOpt type (description + ''
+    mkOpt type (description
+      + ''
 
-      Defaults to ````${defaultStr}```` in prometheus
-      when set to `null`.
-    '')
+        Defaults to ````${defaultStr}```` in prometheus
+        when set to `null`.
+      '')
     ;
 
   mkOpt =
@@ -1880,7 +1884,7 @@ in
         ExecStart =
           "${cfg.package}/bin/prometheus"
           + optionalString (length cmdlineArgs != 0)
-          (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs)
+            (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs)
           ;
         ExecReload = mkIf cfg.enableReload "+${reload}/bin/reload-prometheus";
         User = "prometheus";

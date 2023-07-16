@@ -32,10 +32,11 @@ let
   workspaceDir = runLocal "our_workspace" { } (''
     cp -r ${bazel-examples}/cpp-tutorial/stage3 $out
     find $out -type d -exec chmod 755 {} \;
-  '' + (lib.optionalString stdenv.isDarwin ''
-    mkdir $out/tools
-    cp ${toolsBazel} $out/tools/bazel
-  ''));
+  ''
+    + (lib.optionalString stdenv.isDarwin ''
+      mkdir $out/tools
+      cp ${toolsBazel} $out/tools/bazel
+    ''));
 
   testBazel = bazelTest {
     name = "bazel-test-cpp";
@@ -49,7 +50,8 @@ let
           --curses=no \
           --sandbox_debug \
           //... \
-      '' + lib.optionalString (stdenv.isDarwin) ''
+      ''
+      + lib.optionalString (stdenv.isDarwin) ''
         --cxxopt=-x --cxxopt=c++ --host_cxxopt=-x --host_cxxopt=c++ \
         --linkopt=-stdlib=libc++ --host_linkopt=-stdlib=libc++ \
       ''

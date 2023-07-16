@@ -63,10 +63,12 @@ stdenv.mkDerivation rec {
       readline
       zlib
       fuse
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       systemd
       voms
-    ] ++ lib.optionals enableTests [ cppunit ]
+    ]
+    ++ lib.optionals enableTests [ cppunit ]
     ;
 
   preConfigure = ''
@@ -85,7 +87,8 @@ stdenv.mkDerivation rec {
       install -m 644 -t "$out/etc/xrootd/client.plugins.d" ../packaging/common/client-plugin.conf.example
       mkdir -p "$out/etc/logrotate.d"
       install -m 644 -T ../packaging/common/xrootd.logrotate "$out/etc/logrotate.d/xrootd"
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       mkdir -p "$out/lib/systemd/system"
       install -m 644 -t "$out/lib/systemd/system" ../packaging/common/*.service ../packaging/common/*.socket
     ''

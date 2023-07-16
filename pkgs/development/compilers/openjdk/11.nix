@@ -99,7 +99,8 @@ let
         libXrandr
         fontconfig
         openjdk-bootstrap
-      ] ++ lib.optionals (!headless && enableGnome2) [
+      ]
+      ++ lib.optionals (!headless && enableGnome2) [
         gtk3
         gnome_vfs
         GConf
@@ -123,9 +124,10 @@ let
             "https://github.com/openjdk/jdk/commit/9341d135b855cc208d48e47d30cd90aafa354c36.patch";
           hash = "sha256-Qcm3ZmGCOYLZcskNjj7DYR85R4v07vYvvavrVOYL8vg=";
         })
-      ] ++ lib.optionals (!headless && enableGnome2) [
-        ./swing-use-gtk-jdk10.patch
       ]
+      ++ lib.optionals (!headless && enableGnome2) [
+          ./swing-use-gtk-jdk10.patch
+        ]
       ;
 
     preConfigure = ''
@@ -148,10 +150,11 @@ let
         "--with-lcms=system"
         "--with-stdc++lib=dynamic"
         "--disable-warnings-as-errors"
-      ] ++ lib.optional stdenv.isx86_64 "--with-jvm-features=zgc"
+      ]
+      ++ lib.optional stdenv.isx86_64 "--with-jvm-features=zgc"
       ++ lib.optional headless "--enable-headless-only"
       ++ lib.optional (!headless && enableJavaFX)
-      "--with-import-modules=${openjfx}"
+        "--with-import-modules=${openjfx}"
       ;
 
     separateDebugInfo = true;
@@ -167,12 +170,13 @@ let
       "-lXinerama"
       "-lXrandr"
       "-lmagic"
-    ] ++ lib.optionals (!headless && enableGnome2) [
-      "-lgtk-3"
-      "-lgio-2.0"
-      "-lgnomevfs-2"
-      "-lgconf-2"
-    ]);
+    ]
+      ++ lib.optionals (!headless && enableGnome2) [
+        "-lgtk-3"
+        "-lgio-2.0"
+        "-lgnomevfs-2"
+        "-lgconf-2"
+      ]);
 
       # -j flag is explicitly rejected by the build system:
       #     Error: 'make -jN' is not supported, use 'make JOBS=N'

@@ -49,7 +49,8 @@ python3.pkgs.buildPythonApplication rec {
       git
       mercurial
       patch
-    ] ++ (with python3.pkgs; [
+    ]
+    ++ (with python3.pkgs; [
       callee
       immutabledict
       hg-evolve

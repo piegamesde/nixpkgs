@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
       curl
       gdk-pixbuf
       libnotify
-    ] ++ lib.optionals (!stdenv.isAarch32) [
+    ]
+    ++ lib.optionals (!stdenv.isAarch32) [
       openal
       libopus
       libvpx

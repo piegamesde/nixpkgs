@@ -61,7 +61,8 @@ stdenv.mkDerivation rec {
           "OFF"
       }"
       "-DTARGET_ARCHITECTURE=generic"
-    ] ++ lib.optional enableShared "-DOpenMVG_BUILD_SHARED=ON"
+    ]
+    ++ lib.optional enableShared "-DOpenMVG_BUILD_SHARED=ON"
     ;
 
   cmakeDir = "./src";

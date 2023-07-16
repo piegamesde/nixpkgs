@@ -13,7 +13,8 @@ let
     lib.mkRemovedOptionModule ([
       "services"
       "k3s"
-    ] ++ config) instruction
+    ]
+      ++ config) instruction
     ;
 in
 {
@@ -152,8 +153,8 @@ in
       }
       {
         assertion =
-          cfg.role == "agent" -> cfg.configPath != null || cfg.tokenFile != null
-          || cfg.token != ""
+          cfg.role == "agent"
+          -> cfg.configPath != null || cfg.tokenFile != null || cfg.token != ""
           ;
         message =
           "token or tokenFile or configPath (with 'token' or 'token-file' keys) should be set if role is 'agent'";

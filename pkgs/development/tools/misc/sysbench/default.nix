@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
     [
       libmysqlclient
       luajit
-    ] ++ lib.optionals stdenv.isLinux [ libaio ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ libaio ]
     ;
 
   src = fetchFromGitHub {

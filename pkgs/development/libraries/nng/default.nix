@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
     [
       cmake
       ninja
-    ] ++ lib.optionals mbedtlsSupport [ mbedtls ]
+    ]
+    ++ lib.optionals mbedtlsSupport [ mbedtls ]
     ;
 
   buildInputs = lib.optionals mbedtlsSupport [ mbedtls ];
@@ -32,7 +33,8 @@ stdenv.mkDerivation rec {
     [
       "-G Ninja"
       "-DNNG_ENABLE_TLS=ON"
-    ] ++ lib.optionals mbedtlsSupport [ "-DMBEDTLS_ROOT_DIR=${mbedtls}" ]
+    ]
+    ++ lib.optionals mbedtlsSupport [ "-DMBEDTLS_ROOT_DIR=${mbedtls}" ]
     ;
 
   meta = with lib; {

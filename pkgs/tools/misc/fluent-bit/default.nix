@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
       openssl
       libyaml
       postgresql
-    ] ++ lib.optionals stdenv.isLinux [ systemd ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ systemd ]
     ;
 
   cmakeFlags = [

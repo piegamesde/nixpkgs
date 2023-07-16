@@ -67,7 +67,8 @@ mkDerivation rec {
       microsoft_gsl
       range-v3
       yaml-cpp
-    ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.libs.utmp ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.libs.utmp ]
     ;
 
   preConfigure = ''

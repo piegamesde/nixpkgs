@@ -56,7 +56,8 @@ let
 
       buildInputs = buildInputs ++ [ ];
       nativeBuildInputs =
-        nativeBuildInputs ++ [
+        nativeBuildInputs
+        ++ [
           elixir
           hex
         ]

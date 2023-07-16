@@ -49,7 +49,8 @@ let
         enableCabalFlag
       else
         disableCabalFlag) "dynamic")
-    ] ++ optionals (!dynamic) [ justStaticExecutables ])
+    ]
+      ++ optionals (!dynamic) [ justStaticExecutables ])
     ;
   targets =
     version:

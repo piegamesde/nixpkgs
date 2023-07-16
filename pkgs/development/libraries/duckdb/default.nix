@@ -47,7 +47,8 @@ stdenv.mkDerivation rec {
     ninja
   ];
   buildInputs =
-    [ openssl ] ++ lib.optionals withJdbc [ openjdk11 ]
+    [ openssl ]
+    ++ lib.optionals withJdbc [ openjdk11 ]
     ++ lib.optionals withOdbc [ unixODBC ]
     ;
 
@@ -68,7 +69,8 @@ stdenv.mkDerivation rec {
       "-DBUILD_TPCE=ON"
       "-DBUILD_ODBC_DRIVER=${enableFeature withOdbc}"
       "-DJDBC_DRIVER=${enableFeature withJdbc}"
-    ] ++ lib.optionals doInstallCheck [
+    ]
+    ++ lib.optionals doInstallCheck [
       # development settings
       "-DBUILD_UNITTESTS=ON"
     ]
@@ -79,7 +81,8 @@ stdenv.mkDerivation rec {
   preInstallCheck =
     ''
       export HOME="$(mktemp -d)"
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       export DYLD_LIBRARY_PATH="$out/lib''${DYLD_LIBRARY_PATH:+:}''${DYLD_LIBRARY_PATH}"
     ''
     ;
@@ -110,7 +113,8 @@ stdenv.mkDerivation rec {
           "[!hide]"
           # this test apparently never terminates
           "test/sql/copy/csv/auto/test_csv_auto.test"
-        ] ++ lib.optionals stdenv.isAarch64 [
+        ]
+        ++ lib.optionals stdenv.isAarch64 [
           "test/sql/aggregate/aggregates/test_kurtosis.test"
           "test/sql/aggregate/aggregates/test_skewness.test"
           "test/sql/function/list/aggregates/skewness.test"

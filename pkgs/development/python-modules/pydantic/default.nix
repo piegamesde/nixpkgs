@@ -17,7 +17,8 @@
   # dependencies for building documentation.
   # docs fail to build in Darwin sandbox: https://github.com/samuelcolvin/pydantic/issues/4245
   ,
-  withDocs ? (stdenv.hostPlatform == stdenv.buildPlatform && !stdenv.isDarwin
+  withDocs ? (stdenv.hostPlatform == stdenv.buildPlatform
+    && !stdenv.isDarwin
     && pythonAtLeast "3.10"),
   ansi2html,
   markdown-include,
@@ -55,7 +56,8 @@ buildPythonPackage rec {
   buildInputs = lib.optionals (pythonOlder "3.9") [ libxcrypt ];
 
   nativeBuildInputs =
-    [ cython ] ++ lib.optionals withDocs [
+    [ cython ]
+    ++ lib.optionals withDocs [
       # dependencies for building documentation
       autoflake
       ansi2html
@@ -86,7 +88,8 @@ buildPythonPackage rec {
     [
       pytest-mock
       pytestCheckHook
-    ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
+    ]
+    ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
     ;
 
   pytestFlagsArray = [

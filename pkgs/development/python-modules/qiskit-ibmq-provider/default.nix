@@ -63,7 +63,8 @@ buildPythonPackage rec {
       requests_ntlm
       websocket-client
       websockets
-    ] ++ lib.optionals withVisualization visualizationPackages
+    ]
+    ++ lib.optionals withVisualization visualizationPackages
     ;
 
   postPatch = ''
@@ -79,7 +80,8 @@ buildPythonPackage rec {
       pproxy
       qiskit-aer
       vcrpy
-    ] ++ lib.optionals (!withVisualization) visualizationPackages
+    ]
+    ++ lib.optionals (!withVisualization) visualizationPackages
     ;
 
   pythonImportsCheck = [ "qiskit.providers.ibmq" ];

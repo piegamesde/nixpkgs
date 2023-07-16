@@ -35,7 +35,8 @@ buildPythonPackage rec {
       pyzmq
       tornado
       traitlets
-    ] ++ lib.optional isPyPy py
+    ]
+    ++ lib.optional isPyPy py
     ;
 
     # Circular dependency with ipykernel

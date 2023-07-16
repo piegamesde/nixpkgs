@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
     [
       libX11
       gdb
-    ] ++ lib.optional freetypeSupport freetype
+    ]
+    ++ lib.optional freetypeSupport freetype
     ;
 
   patches = [ ./build-use-optional-freetype-with-pkg-config.patch ];

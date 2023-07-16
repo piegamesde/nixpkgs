@@ -43,7 +43,9 @@ else
         cmdliner
         lwt
         topkg
-      ] ++ lib.optional fmtSupport fmt ++ lib.optional jsooSupport js_of_ocaml
+      ]
+      ++ lib.optional fmtSupport fmt
+      ++ lib.optional jsooSupport js_of_ocaml
       ;
     propagatedBuildInputs = [ result ];
 

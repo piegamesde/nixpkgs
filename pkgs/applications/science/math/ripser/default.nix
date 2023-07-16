@@ -40,13 +40,14 @@ stdenv.mkDerivation {
       "-std=c++11"
       "-O3"
       "-D NDEBUG"
-    ] ++ optional useCoefficients "-D USE_COEFFICIENTS"
+    ]
+    ++ optional useCoefficients "-D USE_COEFFICIENTS"
     ++ optional indicateProgress "-D INDICATE_PROGRESS"
     ++ optional useGoogleHashmap "-D USE_GOOGLE_HASHMAP"
     ++ optional (fileFormat == "lowerTriangularCsv")
-    "-D FILE_FORMAT_LOWER_TRIANGULAR_CSV"
+      "-D FILE_FORMAT_LOWER_TRIANGULAR_CSV"
     ++ optional (fileFormat == "upperTriangularCsv")
-    "-D FILE_FORMAT_UPPER_TRIANGULAR_CSV"
+      "-D FILE_FORMAT_UPPER_TRIANGULAR_CSV"
     ++ optional (fileFormat == "dipha") "-D FILE_FORMAT_DIPHA"
     ;
 

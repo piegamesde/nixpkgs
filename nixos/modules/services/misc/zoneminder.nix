@@ -315,7 +315,8 @@ in
               enabled,
               all,
             }:
-            enabled ++ [
+            enabled
+            ++ [
               all.apcu
               all.sysvsem
             ]);
@@ -363,7 +364,8 @@ in
             install -dm775 -o ${user} -g ${group} ${cfg.storageDir}/{${
               lib.concatStringsSep "," libDirs
             }}
-          '' + lib.optionalString cfg.database.createLocally ''
+          ''
+          + lib.optionalString cfg.database.createLocally ''
             if ! test -e "/var/lib/${dirName}/db-created"; then
               ${config.services.mysql.package}/bin/mysql < ${pkg}/share/zoneminder/db/zm_create.sql
               touch "/var/lib/${dirName}/db-created"

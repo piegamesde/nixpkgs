@@ -151,7 +151,8 @@ python3Packages.buildPythonApplication {
       sitepackages=$out/lib/${python3Packages.python.libPrefix}/site-packages
       chmod +w $sitepackages
       cp -r ${isl} $sitepackages/edenscm-isl
-    '' + lib.optionalString (!enableMinimal) ''
+    ''
+    + lib.optionalString (!enableMinimal) ''
       chmod +w $sitepackages/edenscm-isl/run-isl
       substituteInPlace $sitepackages/edenscm-isl/run-isl \
         --replace 'NODE=node' 'NODE=${nodejs}/bin/node'
@@ -167,7 +168,8 @@ python3Packages.buildPythonApplication {
     [
       curl
       pkg-config
-    ] ++ (with rustPlatform; [
+    ]
+    ++ (with rustPlatform; [
       myCargoSetupHook
       rust.cargo
       rust.rustc
@@ -175,7 +177,8 @@ python3Packages.buildPythonApplication {
     ;
 
   buildInputs =
-    [ openssl ] ++ lib.optionals stdenv.isDarwin [
+    [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [
       curl
       libiconv
       CoreFoundation

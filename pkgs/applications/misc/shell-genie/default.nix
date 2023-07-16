@@ -27,7 +27,8 @@ buildPythonPackage rec {
       rich
       shellingham
       typer
-    ] ++ typer.optional-dependencies.all
+    ]
+    ++ typer.optional-dependencies.all
     ;
 
     # No tests available

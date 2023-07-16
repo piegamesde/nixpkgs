@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
     python3Packages.wrapPython
   ];
   buildInputs =
-    [ mpi ] ++ (with python3Packages; [
+    [ mpi ]
+    ++ (with python3Packages; [
       python
       numpy
       matplotlib

@@ -48,7 +48,8 @@ stdenv.mkDerivation {
   '';
 
   configureFlags =
-    [ "--enable-pthread=-pthread" ] ++ lib.optional debugEnable "--enable-debug"
+    [ "--enable-pthread=-pthread" ]
+    ++ lib.optional debugEnable "--enable-debug"
     ++ lib.optional mpiSupport "--enable-mpi"
     ;
 

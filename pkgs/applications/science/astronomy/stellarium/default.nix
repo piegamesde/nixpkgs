@@ -61,7 +61,8 @@ stdenv.mkDerivation rec {
       qxlsx
       indilib
       libnova
-    ] ++ lib.optionals stdenv.isLinux [ qtwayland ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ qtwayland ]
     ;
 
   preConfigure = lib.optionalString stdenv.isDarwin ''

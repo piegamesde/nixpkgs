@@ -87,7 +87,8 @@ stdenv.mkDerivation rec {
       polkit
       sassc
       upower
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       gstreamer
       gst-plugins-base
     ])

@@ -119,12 +119,17 @@ buildPythonPackage rec {
     in
     lib.optionalString enableTk ''
       sed -i '/self.tcl_tk_cache = None/s|None|${tcl_tk_cache}|' setupext.py
-    '' + lib.optionalString (stdenv.isLinux && interactive) ''
+    ''
+    +
+    # bring our own system libraries
+    # https://github.com/matplotlib/matplotlib/blob/main/doc/devel/dependencies.rst#c-libraries
+    lib.optionalString (stdenv.isLinux && interactive) ''
       # fix paths to libraries in dlopen calls (headless detection)
       substituteInPlace src/_c_internal_utils.c \
         --replace libX11.so.6 ${libX11}/lib/libX11.so.6 \
         --replace libwayland-client.so.0 ${wayland}/lib/libwayland-client.so.0
-    '' +
+    ''
+    +
     # bring our own system libraries
     # https://github.com/matplotlib/matplotlib/blob/main/doc/devel/dependencies.rst#c-libraries
     ''
@@ -145,16 +150,19 @@ buildPythonPackage rec {
       ffmpeg-headless
       freetype
       qhull
-    ] ++ lib.optionals enableGhostscript [ ghostscript ]
+    ]
+    ++ lib.optionals enableGhostscript [ ghostscript ]
     ++ lib.optionals enableGtk3 [
       cairo
       gobject-introspection
       gtk3
-    ] ++ lib.optionals enableTk [
+    ]
+    ++ lib.optionals enableTk [
       libX11
       tcl
       tk
-    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ;
 
     # clang-11: error: argument unused during compilation: '-fno-strict-overflow' [-Werror,-Wunused-command-line-argument]
@@ -172,11 +180,13 @@ buildPythonPackage rec {
       pillow
       pyparsing
       python-dateutil
-    ] ++ lib.optionals (pythonOlder "3.10") [ importlib-resources ]
+    ]
+    ++ lib.optionals (pythonOlder "3.10") [ importlib-resources ]
     ++ lib.optionals enableGtk3 [
       pycairo
       pygobject3
-    ] ++ lib.optionals enableQt [ pyqt5 ]
+    ]
+    ++ lib.optionals enableQt [ pyqt5 ]
     ++ lib.optionals enableWebagg [ tornado ]
     ++ lib.optionals enableNbagg [ ipykernel ]
     ++ lib.optionals enableTk [ tkinter ]

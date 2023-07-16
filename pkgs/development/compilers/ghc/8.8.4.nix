@@ -27,7 +27,8 @@
   libffi ? null
 
   ,
-  useLLVM ? !(stdenv.targetPlatform.isx86 || stdenv.targetPlatform.isPower
+  useLLVM ? !(stdenv.targetPlatform.isx86
+    || stdenv.targetPlatform.isPower
     || stdenv.targetPlatform.isSparc), # LLVM is conceptually a run-time-only depedendency, but for
   # non-x86, we need LLVM to bootstrap later stages, so it becomes a
   # build-time dependency too.
@@ -41,16 +42,17 @@
   gmp
 
   , # If enabled, use -fPIC when compiling static libs.
-  enableRelocatedStaticLibs ? stdenv.targetPlatform != stdenv.hostPlatform
+  enableRelocatedStaticLibs ? stdenv.targetPlatform
+    != stdenv.hostPlatform
 
-    # aarch64 outputs otherwise exceed 2GB limit
+      # aarch64 outputs otherwise exceed 2GB limit
   ,
   enableProfiledLibs ? !stdenv.targetPlatform.isAarch64
 
   , # Whether to build dynamic libs for the standard library (on the target
   # platform). Static libs are always built.
-  enableShared ? !stdenv.targetPlatform.isWindows
-    && !stdenv.targetPlatform.useiOSPrebuilt
+  enableShared ?
+    !stdenv.targetPlatform.isWindows && !stdenv.targetPlatform.useiOSPrebuilt
 
   , # Whether to build terminfo.
   enableTerminfo ? !stdenv.targetPlatform.isWindows
@@ -113,18 +115,8 @@ let
           "NO"
       }
       BUILD_SPHINX_PDF = NO
-    '' +
-    # Note [HADDOCK_DOCS]:
-    # Unfortunately currently `HADDOCK_DOCS` controls both whether the `haddock`
-    # program is built (which we generally always want to have a complete GHC install)
-    # and whether it is run on the GHC sources to generate hyperlinked source code
-    # (which is impossible for cross-compilation); see:
-    # https://gitlab.haskell.org/ghc/ghc/-/issues/20077
-    # This implies that currently a cross-compiled GHC will never have a `haddock`
-    # program, so it can never generate haddocks for any packages.
-    # If this is solved in the future, we'd like to unconditionally
-    # build the haddock program (removing the `enableHaddockProgram` option).
     ''
+    + ''
       HADDOCK_DOCS = ${
         if enableHaddockProgram then
           "YES"
@@ -161,19 +153,23 @@ let
           "YES"
       }
       CrossCompilePrefix = ${targetPrefix}
-    '' + lib.optionalString dontStrip ''
+    ''
+    + lib.optionalString dontStrip ''
       STRIP_CMD = :
-    '' + lib.optionalString (!enableProfiledLibs) ''
+    ''
+    + lib.optionalString (!enableProfiledLibs) ''
       GhcLibWays = "v dyn"
-    '' + lib.optionalString enableRelocatedStaticLibs ''
+    ''
+    + lib.optionalString enableRelocatedStaticLibs ''
       GhcLibHcOpts += -fPIC
       GhcRtsHcOpts += -fPIC
-    '' + lib.optionalString targetPlatform.useAndroidPrebuilt ''
+    ''
+    + lib.optionalString targetPlatform.useAndroidPrebuilt ''
       EXTRA_CC_OPTS += -std=gnu99
     ''
-    # While split sections are now enabled by default in ghc 8.8 for windows,
-    # they seem to lead to `too many sections` errors when building base for
-    # profiling.
+      # While split sections are now enabled by default in ghc 8.8 for windows,
+      # they seem to lead to `too many sections` errors when building base for
+      # profiling.
     + lib.optionalString targetPlatform.isWindows ''
       SplitSections = NO
     ''
@@ -182,10 +178,11 @@ let
     # Splicer will pull out correct variations
   libDeps =
     platform:
-    lib.optional enableTerminfo ncurses ++ [ libffi ]
+    lib.optional enableTerminfo ncurses
+    ++ [ libffi ]
     ++ lib.optional (!enableIntegerSimple) gmp
     ++ lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows)
-    libiconv
+      libiconv
     ;
 
     # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
@@ -201,7 +198,8 @@ let
     # But we cannot avoid BFD when using musl libc due to https://sourceware.org/bugzilla/show_bug.cgi?id=23856
     # see #84670 and #49071 for more background.
   useLdGold =
-    targetPlatform.linker == "gold" || (targetPlatform.linker == "bfd"
+    targetPlatform.linker == "gold"
+    || (targetPlatform.linker == "bfd"
       && (targetCC.bintools.bintools.hasGold or false)
       && !targetPlatform.isMusl)
     ;
@@ -218,8 +216,8 @@ let
 in
 assert targetCC == pkgsHostTarget.targetPackages.stdenv.cc;
 assert buildTargetLlvmPackages.llvm == llvmPackages.llvm;
-assert stdenv.targetPlatform.isDarwin -> buildTargetLlvmPackages.clang
-  == llvmPackages.clang;
+assert stdenv.targetPlatform.isDarwin
+  -> buildTargetLlvmPackages.clang == llvmPackages.clang;
 
 stdenv.mkDerivation (rec {
   version = "8.8.4";
@@ -278,7 +276,8 @@ stdenv.mkDerivation (rec {
     lib.optionalString (stdenv.isAarch64 || stdenv.hostPlatform.isMusl) ''
       find . -name \*\.cabal\* -exec sed -i -e 's/\(base.*\)4.14/\14.16/' {} \; \
         -exec sed -i -e 's/\(prim.*\)0.6/\10.8/' {} \;
-    '' + ''
+    ''
+    + ''
       for env in $(env | grep '^TARGET_' | sed -E 's|\+?=.*||'); do
         export "''${env#TARGET_}=''${!env}"
       done
@@ -296,23 +295,30 @@ stdenv.mkDerivation (rec {
       export RANLIB="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}ranlib"
       export READELF="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}readelf"
       export STRIP="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}strip"
-    '' + lib.optionalString useLLVM ''
+    ''
+    + lib.optionalString useLLVM ''
       export LLC="${lib.getBin buildTargetLlvmPackages.llvm}/bin/llc"
       export OPT="${lib.getBin buildTargetLlvmPackages.llvm}/bin/opt"
-    '' + lib.optionalString (useLLVM && stdenv.targetPlatform.isDarwin) ''
+    ''
+    + lib.optionalString (useLLVM && stdenv.targetPlatform.isDarwin) ''
       # LLVM backend on Darwin needs clang: https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/codegens.html#llvm-code-generator-fllvm
       export CLANG="${buildTargetLlvmPackages.clang}/bin/${buildTargetLlvmPackages.clang.targetPrefix}clang"
-    '' + ''
+    ''
+    + ''
 
       echo -n "${buildMK dontStrip}" > mk/build.mk
       sed -i -e 's|-isysroot /Developer/SDKs/MacOSX10.5.sdk||' configure
-    '' + lib.optionalString (!stdenv.isDarwin) ''
+    ''
+    + lib.optionalString (!stdenv.isDarwin) ''
       export NIX_LDFLAGS+=" -rpath $out/lib/ghc-${version}"
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       export NIX_LDFLAGS+=" -no_dtrace_dof"
-    '' + lib.optionalString targetPlatform.useAndroidPrebuilt ''
+    ''
+    + lib.optionalString targetPlatform.useAndroidPrebuilt ''
       sed -i -e '5i ,("armv7a-unknown-linux-androideabi", ("e-m:e-p:32:32-i64:64-v128:64:128-a:0:32-n32-S64", "cortex-a8", ""))' llvm-targets
-    '' + lib.optionalString targetPlatform.isMusl ''
+    ''
+    + lib.optionalString targetPlatform.isMusl ''
       echo "patching llvm-targets for musl targets..."
       echo "Cloning these existing '*-linux-gnu*' targets:"
       grep linux-gnu llvm-targets | sed 's/^/  /'
@@ -336,7 +342,8 @@ stdenv.mkDerivation (rec {
     [
       "build"
       "host"
-    ] ++ lib.optional (targetPlatform != hostPlatform) "target"
+    ]
+    ++ lib.optional (targetPlatform != hostPlatform) "target"
     ;
 
     # `--with` flags for libraries needed for RTS linker
@@ -345,7 +352,8 @@ stdenv.mkDerivation (rec {
       "--datadir=$doc/share/doc/ghc"
       "--with-curses-includes=${ncurses.dev}/include"
       "--with-curses-libraries=${ncurses.out}/lib"
-    ] ++ lib.optionals (libffi != null) [
+    ]
+    ++ lib.optionals (libffi != null) [
       "--with-system-libffi"
       "--with-ffi-includes=${targetPackages.libffi.dev}/include"
       "--with-ffi-libraries=${targetPackages.libffi.out}/lib"
@@ -353,19 +361,24 @@ stdenv.mkDerivation (rec {
     ++ lib.optionals (targetPlatform == hostPlatform && !enableIntegerSimple) [
       "--with-gmp-includes=${targetPackages.gmp.dev}/include"
       "--with-gmp-libraries=${targetPackages.gmp.out}/lib"
-    ] ++ lib.optionals (targetPlatform == hostPlatform && hostPlatform.libc
-      != "glibc" && !targetPlatform.isWindows) [
+    ]
+    ++ lib.optionals (targetPlatform == hostPlatform
+      && hostPlatform.libc != "glibc"
+      && !targetPlatform.isWindows) [
         "--with-iconv-includes=${libiconv}/include"
         "--with-iconv-libraries=${libiconv}/lib"
-      ] ++ lib.optionals (targetPlatform != hostPlatform) [
-      "--enable-bootstrap-with-devel-snapshot"
-    ] ++ lib.optionals useLdGold [
+      ]
+    ++ lib.optionals (targetPlatform != hostPlatform) [
+        "--enable-bootstrap-with-devel-snapshot"
+      ]
+    ++ lib.optionals useLdGold [
       "CFLAGS=-fuse-ld=gold"
       "CONF_GCC_LINKER_OPTS_STAGE1=-fuse-ld=gold"
       "CONF_GCC_LINKER_OPTS_STAGE2=-fuse-ld=gold"
-    ] ++ lib.optionals (disableLargeAddressSpace) [
-      "--disable-large-address-space"
     ]
+    ++ lib.optionals (disableLargeAddressSpace) [
+        "--disable-large-address-space"
+      ]
     ;
 
     # Make sure we never relax`$PATH` and hooks support for compatibility.
@@ -385,7 +398,8 @@ stdenv.mkDerivation (rec {
       bootPkgs.alex
       bootPkgs.happy
       bootPkgs.hscolour
-    ] ++ lib.optionals enableDocs [ sphinx ]
+    ]
+    ++ lib.optionals enableDocs [ sphinx ]
     ;
 
     # For building runtime libs
@@ -395,7 +409,8 @@ stdenv.mkDerivation (rec {
     [
       perl
       bash
-    ] ++ (libDeps hostPlatform)
+    ]
+    ++ (libDeps hostPlatform)
     ;
 
   depsTargetTarget = map lib.getDev (libDeps targetPlatform);
@@ -456,7 +471,8 @@ stdenv.mkDerivation (rec {
       # with differing platforms available for each of them; See HACK comment in
       # 8.10.2-binary.nix for an explanation of the musl special casing.
     platforms =
-      [ "x86_64-linux" ] ++ lib.optionals (!hostPlatform.isMusl) [
+      [ "x86_64-linux" ]
+      ++ lib.optionals (!hostPlatform.isMusl) [
         "i686-linux"
         "aarch64-linux"
         "x86_64-darwin"

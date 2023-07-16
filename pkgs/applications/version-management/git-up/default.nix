@@ -15,7 +15,8 @@ pythonPackages.buildPythonApplication rec {
 
     # git should be on path for tool to work correctly
   propagatedBuildInputs =
-    [ git ] ++ (with pythonPackages; [
+    [ git ]
+    ++ (with pythonPackages; [
       click
       colorama
       docopt

@@ -42,7 +42,8 @@ let
       ;
 
     configureFlags =
-      [ (lib.enableFeature cxx "cxx") ] ++ lib.optionals stdenv.isDarwin [
+      [ (lib.enableFeature cxx "cxx") ]
+      ++ lib.optionals stdenv.isDarwin [
         "ac_cv_build=x86_64-apple-darwin13.4.0"
         "ac_cv_host=x86_64-apple-darwin13.4.0"
       ]

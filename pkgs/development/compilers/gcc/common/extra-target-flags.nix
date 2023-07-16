@@ -22,12 +22,13 @@ in
         lib.optionals (targetPlatform != hostPlatform && dep != null && !langD)
         ([ "-O2 -idirafter ${lib.getDev dep}${dep.incdir or "/include"}" ]
           ++ lib.optionals (!crossStageStatic) [
-            "-B${lib.getLib dep}${dep.libdir or "/lib"}"
-          ])
+              "-B${lib.getLib dep}${dep.libdir or "/lib"}"
+            ])
         ;
     in
-    mkFlags libcCross langD ++ lib.optionals (!crossStageStatic)
-    (mkFlags (threadsCross.package or null) langD)
+    mkFlags libcCross langD
+    ++ lib.optionals (!crossStageStatic)
+      (mkFlags (threadsCross.package or null) langD)
     ;
 
   EXTRA_LDFLAGS_FOR_TARGET =
@@ -45,7 +46,8 @@ in
             ]))
         ;
     in
-    mkFlags libcCross ++ lib.optionals (!crossStageStatic)
-    (mkFlags (threadsCross.package or null))
+    mkFlags libcCross
+    ++ lib.optionals (!crossStageStatic)
+      (mkFlags (threadsCross.package or null))
     ;
 }

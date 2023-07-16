@@ -18,7 +18,8 @@ let
         "priority"
         "enable"
         "global"
-      ] || v == null
+      ]
+      || v == null
     then
       null
     else if builtins.elem n [ "frequency" ] then

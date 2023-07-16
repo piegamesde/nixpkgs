@@ -30,8 +30,9 @@
   experimental ? false # true means to always use the latest branch
 }:
 
-assert releaseType == "alpha" || releaseType == "headless" || releaseType
-  == "demo";
+assert releaseType == "alpha"
+  || releaseType == "headless"
+  || releaseType == "demo";
 
 let
 
@@ -259,7 +260,8 @@ let
       ];
 
       installPhase =
-        base.installPhase + ''
+        base.installPhase
+        + ''
           wrapProgram $out/bin/factorio                                \
             --prefix LD_LIBRARY_PATH : /run/opengl-driver/lib:$libPath \
             --run "$out/share/factorio/update-config.sh"               \
@@ -306,7 +308,8 @@ let
     alpha = demo // {
 
       installPhase =
-        demo.installPhase + ''
+        demo.installPhase
+        + ''
           cp -a doc-html $out/share/factorio
         ''
         ;

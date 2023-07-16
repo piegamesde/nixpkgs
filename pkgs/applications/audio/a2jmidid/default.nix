@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
       alsa-lib
       dbus
       libjack2
-    ] ++ (with python3Packages; [
+    ]
+    ++ (with python3Packages; [
       python
       dbus-python
     ])

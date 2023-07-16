@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
   };
 
   cmakeFlags =
-    [ "-DWITH_PROCPS=Off" ] ++ lib.optionals stdenv.isAarch64 [
+    [ "-DWITH_PROCPS=Off" ]
+    ++ lib.optionals stdenv.isAarch64 [
       "-DCURVE=ALT_BN128"
       "-DUSE_ASM=OFF"
     ]

@@ -255,7 +255,8 @@ in
           if cfg.webserver == "apache" then
             "${
               if
-                cfg.httpd.virtualHost.addSSL || cfg.httpd.virtualHost.forceSSL
+                cfg.httpd.virtualHost.addSSL
+                || cfg.httpd.virtualHost.forceSSL
                 || cfg.httpd.virtualHost.onlySSL
               then
                 "https"
@@ -609,7 +610,8 @@ in
                 DirectoryIndex index.php
                 AllowOverride All
               </Directory>
-            '' + optionalString (cfg.uploadsDir != null) ''
+            ''
+            + optionalString (cfg.uploadsDir != null) ''
               Alias "/images" "${cfg.uploadsDir}"
               <Directory "${cfg.uploadsDir}">
                 Require all granted
@@ -624,7 +626,8 @@ in
       [
         "d '${stateDir}' 0750 ${user} ${group} - -"
         "d '${cacheDir}' 0750 ${user} ${group} - -"
-      ] ++ optionals (cfg.uploadsDir != null) [
+      ]
+      ++ optionals (cfg.uploadsDir != null) [
         "d '${cfg.uploadsDir}' 0750 ${user} ${group} - -"
         "Z '${cfg.uploadsDir}' 0750 ${user} ${group} - -"
       ]
@@ -635,9 +638,10 @@ in
       before = [ "phpfpm-mediawiki.service" ];
       after =
         optional (cfg.database.type == "mysql" && cfg.database.createLocally)
-        "mysql.service" ++ optional
-        (cfg.database.type == "postgres" && cfg.database.createLocally)
-        "postgresql.service"
+          "mysql.service"
+        ++ optional
+          (cfg.database.type == "postgres" && cfg.database.createLocally)
+          "postgresql.service"
         ;
       script = ''
         if ! test -e "${stateDir}/secret.key"; then
@@ -678,9 +682,11 @@ in
     };
 
     systemd.services.httpd.after =
-      optional (cfg.webserver == "apache" && cfg.database.createLocally
-        && cfg.database.type == "mysql") "mysql.service" ++ optional
-      (cfg.webserver == "apache" && cfg.database.createLocally
+      optional (cfg.webserver == "apache"
+        && cfg.database.createLocally
+        && cfg.database.type == "mysql") "mysql.service"
+      ++ optional (cfg.webserver == "apache"
+        && cfg.database.createLocally
         && cfg.database.type == "postgres") "postgresql.service"
       ;
 

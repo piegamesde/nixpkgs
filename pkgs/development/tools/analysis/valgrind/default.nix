@@ -69,7 +69,8 @@ stdenv.mkDerivation rec {
     [
       gdb
       perl
-    ] ++ lib.optionals (stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (stdenv.isDarwin) [
       bootstrap_cmds
       xnu
     ]
@@ -88,7 +89,8 @@ stdenv.mkDerivation rec {
     lib.optionalString stdenv.isFreeBSD ''
       substituteInPlace configure --replace '`uname -r`' \
           ${toString stdenv.hostPlatform.parsed.kernel.version}.0
-    '' + lib.optionalString stdenv.isDarwin (let
+    ''
+    + lib.optionalString stdenv.isDarwin (let
       OSRELEASE = ''
         $(awk -F '"' '/#define OSRELEASE/{ print $2 }' \
         <${xnu}/Library/Frameworks/Kernel.framework/Headers/libkern/version.h)'';
@@ -118,7 +120,7 @@ stdenv.mkDerivation rec {
   configureFlags =
     lib.optional stdenv.hostPlatform.isx86_64 "--enable-only64bit"
     ++ lib.optional stdenv.hostPlatform.isDarwin
-    "--with-xcodedir=${xnu}/include"
+      "--with-xcodedir=${xnu}/include"
     ;
 
   doCheck = true;

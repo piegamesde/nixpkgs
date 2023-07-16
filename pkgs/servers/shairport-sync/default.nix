@@ -57,9 +57,13 @@ stdenv.mkDerivation rec {
       avahi
       popt
       libconfig
-    ] ++ optional enableLibdaemon libdaemon ++ optional enableAlsa alsa-lib
-    ++ optional enablePulse libpulseaudio ++ optional enablePipewire pipewire
-    ++ optional enableJack libjack2 ++ optional enableSoxr soxr
+    ]
+    ++ optional enableLibdaemon libdaemon
+    ++ optional enableAlsa alsa-lib
+    ++ optional enablePulse libpulseaudio
+    ++ optional enablePipewire pipewire
+    ++ optional enableJack libjack2
+    ++ optional enableSoxr soxr
     ++ optionals enableAirplay2 [
       libplist
       libsodium
@@ -67,7 +71,8 @@ stdenv.mkDerivation rec {
       libuuid
       ffmpeg
       unixtools.xxd
-    ] ++ optional stdenv.isLinux glib;
+    ]
+    ++ optional stdenv.isLinux glib;
 
   postPatch = ''
     sed -i -e 's/G_BUS_TYPE_SYSTEM/G_BUS_TYPE_SESSION/g' dbus-service.c
@@ -83,10 +88,14 @@ stdenv.mkDerivation rec {
       "--with-ssl=openssl"
       "--with-stdout"
       "--with-avahi"
-    ] ++ optional enablePulse "--with-pa" ++ optional enablePipewire "--with-pw"
-    ++ optional enableAlsa "--with-alsa" ++ optional enableJack "--with-jack"
+    ]
+    ++ optional enablePulse "--with-pa"
+    ++ optional enablePipewire "--with-pw"
+    ++ optional enableAlsa "--with-alsa"
+    ++ optional enableJack "--with-jack"
     ++ optional enableStdout "--with-stdout"
-    ++ optional enablePipe "--with-pipe" ++ optional enableSoxr "--with-soxr"
+    ++ optional enablePipe "--with-pipe"
+    ++ optional enableSoxr "--with-soxr"
     ++ optional enableDbus "--with-dbus-interface"
     ++ optional enableMetadata "--with-metadata"
     ++ optional enableMpris "--with-mpris-interface"

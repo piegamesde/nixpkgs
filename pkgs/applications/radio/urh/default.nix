@@ -33,7 +33,8 @@ python3Packages.buildPythonApplication rec {
       limesuite
       libiio
       libbladeRF
-    ] ++ lib.optional USRPSupport uhd
+    ]
+    ++ lib.optional USRPSupport uhd
     ;
 
   propagatedBuildInputs = with python3Packages; [

@@ -15,7 +15,8 @@ let
     "--pidfile /run/AdGuardHome/AdGuardHome.pid"
     "--work-dir /var/lib/AdGuardHome/"
     "--config /var/lib/AdGuardHome/AdGuardHome.yaml"
-  ] ++ cfg.extraArgs);
+  ]
+    ++ cfg.extraArgs);
 
   configFile = pkgs.writeTextFile {
     name = "AdGuardHome.yaml";
@@ -38,7 +39,8 @@ in
         sinceRelease = 2211;
         from = cfgPath ++ [ "host" ];
         to =
-          cfgPath ++ [
+          cfgPath
+          ++ [
             "settings"
             "bind_host"
           ]
@@ -48,7 +50,8 @@ in
         sinceRelease = 2211;
         from = cfgPath ++ [ "port" ];
         to =
-          cfgPath ++ [
+          cfgPath
+          ++ [
             "settings"
             "bind_port"
           ]
@@ -138,23 +141,28 @@ in
     assertions = [
       {
         assertion =
-          cfg.settings != null -> cfg.mutableSettings || (hasAttrByPath [
-            "dns"
-            "bind_host"
-          ] cfg.settings) || (hasAttrByPath [
-            "dns"
-            "bind_hosts"
-          ] cfg.settings)
+          cfg.settings != null
+          -> cfg.mutableSettings
+            || (hasAttrByPath [
+              "dns"
+              "bind_host"
+            ] cfg.settings)
+            || (hasAttrByPath [
+              "dns"
+              "bind_hosts"
+            ] cfg.settings)
           ;
         message =
           "AdGuard setting dns.bind_host or dns.bind_hosts needs to be configured for a minimal working configuration";
       }
       {
         assertion =
-          cfg.settings != null -> cfg.mutableSettings || hasAttrByPath [
-            "dns"
-            "bootstrap_dns"
-          ] cfg.settings
+          cfg.settings != null
+          -> cfg.mutableSettings
+            || hasAttrByPath [
+              "dns"
+              "bootstrap_dns"
+            ] cfg.settings
           ;
         message =
           "AdGuard setting dns.bootstrap_dns needs to be configured for a minimal working configuration";

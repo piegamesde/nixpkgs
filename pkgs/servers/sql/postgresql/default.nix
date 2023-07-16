@@ -26,9 +26,10 @@ let
       enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
         && !stdenv.hostPlatform.isStatic,
       gssSupport ? with stdenv.hostPlatform;
-        !isWindows && !isStatic
+        !isWindows
+        && !isStatic
 
-        # for postgresql.pkgs
+          # for postgresql.pkgs
       ,
       this,
       self,
@@ -101,7 +102,8 @@ let
           openssl
           libxml2
           icu
-        ] ++ lib.optionals (olderThan "13") [ libxcrypt ]
+        ]
+        ++ lib.optionals (olderThan "13") [ libxcrypt ]
         ++ lib.optionals jitSupport [ llvmPackages.llvm ]
         ++ lib.optionals lz4Enabled [ lz4 ]
         ++ lib.optionals zstdEnabled [ zstd ]
@@ -114,7 +116,8 @@ let
         [
           makeWrapper
           pkg-config
-        ] ++ lib.optionals jitSupport [
+        ]
+        ++ lib.optionals jitSupport [
           llvmPackages.llvm.dev
           nukeReferences
           patchelf
@@ -146,7 +149,8 @@ let
             "--with-uuid=e2fs"
           else
             "--with-ossp-uuid")
-        ] ++ lib.optionals lz4Enabled [ "--with-lz4" ]
+        ]
+        ++ lib.optionals lz4Enabled [ "--with-lz4" ]
         ++ lib.optionals zstdEnabled [ "--with-zstd" ]
         ++ lib.optionals gssSupport [ "--with-gssapi" ]
         ++ lib.optionals stdenv'.hostPlatform.isRiscV [ "--disable-spinlocks" ]
@@ -160,12 +164,13 @@ let
           ./patches/hardcode-pgxs-path.patch
           ./patches/specify_pkglibdir_at_runtime.patch
           ./patches/findstring.patch
-        ] ++ lib.optionals stdenv'.isLinux [
-          (if atLeast "13" then
-            ./patches/socketdir-in-run-13.patch
-          else
-            ./patches/socketdir-in-run.patch)
         ]
+        ++ lib.optionals stdenv'.isLinux [
+            (if atLeast "13" then
+              ./patches/socketdir-in-run-13.patch
+            else
+              ./patches/socketdir-in-run.patch)
+          ]
         ;
 
       installTargets = [ "install-world" ];
@@ -176,7 +181,8 @@ let
         ''
           # Hardcode the path to pgxs so pg_config returns the path in $out
           substituteInPlace "src/common/config_info.c" --replace HARDCODED_PGXS_PATH "$out/lib"
-        '' + lib.optionalString jitSupport ''
+        ''
+        + lib.optionalString jitSupport ''
           # Force lookup of jit stuff in $out instead of $lib
           substituteInPlace src/backend/jit/jit.c --replace pkglib_path \"$out/lib\"
           substituteInPlace src/backend/jit/llvm/llvmjit.c --replace pkglib_path \"$out/lib\"
@@ -204,7 +210,8 @@ let
               fi
             done
           fi
-        '' + lib.optionalString jitSupport ''
+        ''
+        + lib.optionalString jitSupport ''
           # Move the bitcode and libllvmjit.so library out of $lib; otherwise, every client that
           # depends on libpq.so will also have libLLVM.so in its closure too, bloating it
           moveToOutput "lib/bitcode" "$out"
@@ -360,7 +367,8 @@ let
     buildEnv {
       name = "postgresql-and-plugins-${postgresql.version}";
       paths =
-        f pkgs ++ [
+        f pkgs
+        ++ [
           postgresql
           postgresql.lib
           postgresql.man # in case user installs this into environment

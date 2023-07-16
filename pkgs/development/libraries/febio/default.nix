@@ -66,7 +66,8 @@ stdenv.mkDerivation rec {
       mpi
       python3
       python3.pkgs.numpy
-    ] ++ lib.optional mklSupport mkl
+    ]
+    ++ lib.optional mklSupport mkl
     ;
 
   meta = {

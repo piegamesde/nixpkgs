@@ -85,7 +85,8 @@ in
         [
           "PORT=${toString cfg.port}"
           ''"FLAGS=--tun ${lib.escapeShellArg cfg.interfaceName}"''
-        ] ++ (lib.optionals (cfg.permitCertUid != null) [
+        ]
+        ++ (lib.optionals (cfg.permitCertUid != null) [
             "TS_PERMIT_CERT_UID=${cfg.permitCertUid}"
           ])
         ;

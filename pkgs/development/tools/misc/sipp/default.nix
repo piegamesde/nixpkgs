@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
       ncurses
       libpcap
       openssl
-    ] ++ lib.optional (stdenv.isLinux) lksctp-tools
+    ]
+    ++ lib.optional (stdenv.isLinux) lksctp-tools
     ;
 
   meta = with lib; {

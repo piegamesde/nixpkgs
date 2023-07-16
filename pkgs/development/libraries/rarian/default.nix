@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
     [
       libxml2
       libxslt
-    ] ++ (with perlPackages; [
+    ]
+    ++ (with perlPackages; [
       perl
       XMLParser
     ])

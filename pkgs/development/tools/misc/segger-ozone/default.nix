@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
       libXfixes
       libXrandr
       libXrender
-    ] + ":${stdenv.cc.cc.lib}/lib64"
+    ]
+    + ":${stdenv.cc.cc.lib}/lib64"
     ;
 
   installPhase = ''

@@ -38,13 +38,15 @@ stdenv.mkDerivation rec {
       gdal
       json_c
       protobufc
-    ] ++ lib.optional stdenv.isDarwin libiconv
+    ]
+    ++ lib.optional stdenv.isDarwin libiconv
     ;
   nativeBuildInputs =
     [
       perl
       pkg-config
-    ] ++ lib.optional postgresql.jitSupport postgresql.llvm
+    ]
+    ++ lib.optional postgresql.jitSupport postgresql.llvm
     ;
   dontDisableStatic = true;
 

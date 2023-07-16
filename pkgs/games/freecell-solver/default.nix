@@ -29,8 +29,10 @@ stdenv.mkDerivation rec {
       cmake
       perl
       pkg-config
-    ] ++ (with perlPackages;
-      TaskFreecellSolverTesting.buildInputs ++ [
+    ]
+    ++ (with perlPackages;
+      TaskFreecellSolverTesting.buildInputs
+      ++ [
         GamesSolitaireVerify
         StringShellQuote
         TaskFreecellSolverTesting

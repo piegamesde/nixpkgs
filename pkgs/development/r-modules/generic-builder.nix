@@ -21,13 +21,16 @@
 
 stdenv.mkDerivation ({
   buildInputs =
-    buildInputs ++ [
+    buildInputs
+    ++ [
       R
       gettext
-    ] ++ lib.optionals requireX [
+    ]
+    ++ lib.optionals requireX [
       util-linux
       xvfb-run
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Cocoa
       Foundation
       gfortran

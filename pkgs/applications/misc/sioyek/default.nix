@@ -37,7 +37,8 @@ stdenv.mkDerivation (finalAttrs: {
       openjpeg
       qt3d
       qtbase
-    ] ++ lib.optionals stdenv.isDarwin [ freetype ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ freetype ]
     ;
 
   nativeBuildInputs = [

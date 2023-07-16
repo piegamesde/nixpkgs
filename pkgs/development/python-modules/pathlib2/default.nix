@@ -20,7 +20,8 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs =
-    [ six ] ++ lib.optionals (pythonOlder "3.5") [
+    [ six ]
+    ++ lib.optionals (pythonOlder "3.5") [
       scandir
       typing
     ]

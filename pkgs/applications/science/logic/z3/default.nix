@@ -40,8 +40,10 @@ let
       strictDeps = true;
 
       nativeBuildInputs =
-        [ python ] ++ optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
-        ++ optional javaBindings jdk ++ optionals ocamlBindings [
+        [ python ]
+        ++ optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
+        ++ optional javaBindings jdk
+        ++ optionals ocamlBindings [
           ocaml
           findlib
         ]
@@ -58,9 +60,13 @@ let
       configurePhase =
         concatStringsSep " " ([
             "${python.pythonForBuild.interpreter} scripts/mk_make.py --prefix=$out"
-          ] ++ optional javaBindings "--java" ++ optional ocamlBindings "--ml"
+          ]
+          ++ optional javaBindings "--java"
+          ++ optional ocamlBindings "--ml"
           ++ optional pythonBindings
-          "--python --pypkgdir=$out/${python.sitePackages}") + "\n" + "cd build"
+            "--python --pypkgdir=$out/${python.sitePackages}")
+        + "\n"
+        + "cd build"
         ;
 
       doCheck = true;
@@ -74,11 +80,13 @@ let
           mkdir -p $dev $lib
           mv $out/lib $lib/lib
           mv $out/include $dev/include
-        '' + optionalString pythonBindings ''
+        ''
+        + optionalString pythonBindings ''
           mkdir -p $python/lib
           mv $lib/lib/python* $python/lib/
           ln -sf $lib/lib/libz3${stdenv.hostPlatform.extensions.sharedLibrary} $python/${python.sitePackages}/z3/lib/libz3${stdenv.hostPlatform.extensions.sharedLibrary}
-        '' + optionalString javaBindings ''
+        ''
+        + optionalString javaBindings ''
           mkdir -p $java/share/java
           mv com.microsoft.z3.jar $java/share/java
           moveToOutput "lib/libz3java.${stdenv.hostPlatform.extensions.sharedLibrary}" "$java"
@@ -91,7 +99,9 @@ let
           "lib"
           "dev"
           "python"
-        ] ++ optional javaBindings "java" ++ optional ocamlBindings "ocaml"
+        ]
+        ++ optional javaBindings "java"
+        ++ optional ocamlBindings "ocaml"
         ;
 
       meta = with lib; {

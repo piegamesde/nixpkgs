@@ -63,7 +63,8 @@ stdenv.mkDerivation rec {
       openssl
       swig
       zlib
-    ] ++ lib.optionals stdenv.isDarwin [ gettext ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ gettext ]
     ;
 
   postPatch = ''

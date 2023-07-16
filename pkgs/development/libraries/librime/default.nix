@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
       yaml-cpp
       gtest
       capnproto
-    ] ++ plugins
+    ]
+    ++ plugins
     ; # for propagated build inputs
 
   preConfigure = copyPlugins;

@@ -37,14 +37,17 @@ stdenv.mkDerivation rec {
       libcap
       freetype
       perl
-    ] ++ lib.optional enableSystemd systemd ++ lib.optional enableBidi fribidi
+    ]
+    ++ lib.optional enableSystemd systemd
+    ++ lib.optional enableBidi fribidi
     ;
 
   buildFlags =
     [
       "vdr"
       "i18n"
-    ] ++ lib.optional enableSystemd "SDNOTIFY=1"
+    ]
+    ++ lib.optional enableSystemd "SDNOTIFY=1"
     ++ lib.optional enableBidi "BIDI=1"
     ;
 

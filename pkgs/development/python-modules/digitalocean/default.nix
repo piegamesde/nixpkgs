@@ -34,7 +34,8 @@ buildPythonPackage rec {
       pytest
       pytestCheckHook
       responses
-    ] ++ lib.optionals (!isPy3k) [ mock ]
+    ]
+    ++ lib.optionals (!isPy3k) [ mock ]
     ;
 
   preCheck = ''

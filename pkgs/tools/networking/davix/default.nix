@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
       libxml2
       boost
       curl
-    ] ++ lib.optional stdenv.isDarwin Security
+    ]
+    ++ lib.optional stdenv.isDarwin Security
     ++ lib.optional (!stdenv.isDarwin) libuuid
     ++ lib.optional (enableThirdPartyCopy) gsoap
     ;

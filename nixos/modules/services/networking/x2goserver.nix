@@ -122,7 +122,8 @@ in
         "d /var/lib/x2go/db - x2go x2go - -"
         "d /var/lib/x2go/conf - x2go x2go - -"
         "d /run/x2go 0755 x2go x2go - -"
-      ] ++
+      ]
+      ++
       # x2goclient sends SSH commands with preset PATH set to
       # "/usr/local/bin;/usr/bin;/bin". Since we cannot filter arbitrary ssh
       # commands, we have to make the following executables available.
@@ -159,7 +160,12 @@ in
         "x2goterminate-session"
         "x2goumount-session"
         "x2goversion"
-      ] ++ [
+      ]
+      ++
+      # x2goclient sends SSH commands with preset PATH set to
+      # "/usr/local/bin;/usr/bin;/bin". Since we cannot filter arbitrary ssh
+      # commands, we have to make the following executables available.
+      [
         "L+ /usr/local/bin/awk - - - - ${gawk}/bin/awk"
         "L+ /usr/local/bin/chmod - - - - ${coreutils}/bin/chmod"
         "L+ /usr/local/bin/cp - - - - ${coreutils}/bin/cp"

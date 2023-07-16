@@ -44,7 +44,8 @@ let
   python = python3.withPackages (pkgs: with pkgs; [ pygobject3 ]);
   sphinx-build = python3.pkgs.sphinx.overrideAttrs (super: {
     postFixup =
-      super.postFixup or "" + ''
+      super.postFixup or ""
+      + ''
         # Do not propagate Python
         rm $out/nix-support/propagated-build-inputs
       ''

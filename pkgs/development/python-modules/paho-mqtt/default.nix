@@ -24,7 +24,8 @@ buildPythonPackage rec {
     [
       pytestCheckHook
       six
-    ] ++ lib.optionals (!isPy3k) [ mock ]
+    ]
+    ++ lib.optionals (!isPy3k) [ mock ]
     ;
 
   doCheck = !stdenv.isDarwin;

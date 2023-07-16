@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
     ''
       sed -e s,/bin/ln,ln,g -i src/Makefile
       sed -e 's,^CXXFLAGS=-O2,CXXFLAGS=-O2 -D PATH_ESPEAK_DATA=\\\"$(DATADIR)\\\",' -i src/Makefile
-    '' + (lib.optionalString (portaudio.api_version == 19) ''
+    ''
+    + (lib.optionalString (portaudio.api_version == 19) ''
       cp src/portaudio19.h src/portaudio.h
     '')
     ;

@@ -41,7 +41,8 @@ mkDerivation rec {
       gsl
       libsndfile
       lzo
-    ] ++ lib.optionals withOpenCL [
+    ]
+    ++ lib.optionals withOpenCL [
       opencl-clhpp
       ocl-icd
     ]

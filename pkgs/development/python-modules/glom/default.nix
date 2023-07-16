@@ -48,7 +48,8 @@ buildPythonPackage rec {
     [
       # Test is outdated (was made for PyYAML 3.x)
       "test_main_yaml_target"
-    ] ++ lib.optionals (pythonAtLeast "3.11") [
+    ]
+    ++ lib.optionals (pythonAtLeast "3.11") [
       "test_regular_error_stack"
       "test_long_target_repr"
     ]

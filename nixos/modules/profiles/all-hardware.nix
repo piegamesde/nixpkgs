@@ -98,7 +98,8 @@ in
       "mptspi"
       "vmxnet3"
       "vsock"
-    ] ++ lib.optional platform.isx86 "vmw_balloon"
+    ]
+    ++ lib.optional platform.isx86 "vmw_balloon"
     ++ lib.optionals (pkgs.stdenv.isi686 || pkgs.stdenv.isx86_64) [
       "vmw_vmci"
       "vmwgfx"
@@ -106,7 +107,8 @@ in
 
       # Hyper-V support.
       "hv_storvsc"
-    ] ++ lib.optionals pkgs.stdenv.hostPlatform.isAarch [
+    ]
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isAarch [
       # Most of the following falls into two categories:
       #  - early KMS / early display
       #  - early storage (e.g. USB) support
@@ -126,7 +128,8 @@ in
       # Broadcom
 
       "vc4"
-    ] ++ lib.optionals pkgs.stdenv.isAarch64 [
+    ]
+    ++ lib.optionals pkgs.stdenv.isAarch64 [
       # Most of the following falls into two categories:
       #  - early KMS / early display
       #  - early storage (e.g. USB) support

@@ -29,11 +29,12 @@ rustPlatform.buildRustPackage rec {
     [ installShellFiles ] ++ lib.optional stdenv.isLinux pkg-config;
 
   buildInputs =
-    lib.optional withSixel libsixel ++ lib.optionals stdenv.isLinux
-    (with xorg; [
+    lib.optional withSixel libsixel
+    ++ lib.optionals stdenv.isLinux (with xorg; [
       libX11
       libXrandr
-    ]) ++ lib.optional stdenv.isDarwin AppKit
+    ])
+    ++ lib.optional stdenv.isDarwin AppKit
     ;
 
   buildNoDefaultFeatures = !withSki;

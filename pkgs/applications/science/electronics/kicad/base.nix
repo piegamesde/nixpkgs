@@ -102,11 +102,13 @@ stdenv.mkDerivation rec {
     [
       "-DKICAD_USE_EGL=ON"
       "-DOCC_INCLUDE_DIR=${opencascade-occt}/include/opencascade"
-    ] ++ optionals (stable) [
+    ]
+    ++ optionals (stable) [
       # https://gitlab.com/kicad/code/kicad/-/issues/12491
       # should be resolved in the next release
       "-DCMAKE_CTEST_ARGUMENTS='--exclude-regex;qa_eeschema'"
-    ] ++ optional (stable && !withNgspice) "-DKICAD_SPICE=OFF"
+    ]
+    ++ optional (stable && !withNgspice) "-DKICAD_SPICE=OFF"
     ++ optionals (!withScripting) [ "-DKICAD_SCRIPTING_WXPYTHON=OFF" ]
     ++ optionals (withI18n) [ "-DKICAD_BUILD_I18N=ON" ]
     ++ optionals (!doInstallCheck) [ "-DKICAD_BUILD_QA_TESTS=OFF" ]
@@ -114,7 +116,8 @@ stdenv.mkDerivation rec {
       "-DCMAKE_BUILD_TYPE=Debug"
       "-DKICAD_STDLIB_DEBUG=ON"
       "-DKICAD_USE_VALGRIND=ON"
-    ] ++ optionals (sanitizeAddress) [ "-DKICAD_SANITIZE_ADDRESS=ON" ]
+    ]
+    ++ optionals (sanitizeAddress) [ "-DKICAD_SANITIZE_ADDRESS=ON" ]
     ++ optionals (sanitizeThreads) [ "-DKICAD_SANITIZE_THREADS=ON" ]
     ;
 
@@ -165,7 +168,9 @@ stdenv.mkDerivation rec {
       unixODBC
       libdeflate
       opencascade-occt
-    ] ++ optional (withScripting) wxPython ++ optional (withNgspice) libngspice
+    ]
+    ++ optional (withScripting) wxPython
+    ++ optional (withNgspice) libngspice
     ++ optional (debug) valgrind
     ;
 

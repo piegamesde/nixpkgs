@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
         else
           "OFF"
       }"
-    ] ++ lib.optionals stdenv.hostPlatform.isx86_64 [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isx86_64 [
       "-DLD80BITS=ON"
       "-DNOALIGN=ON"
     ]

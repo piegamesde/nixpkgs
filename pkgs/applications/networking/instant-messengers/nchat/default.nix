@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
       readline
       sqlite
       zlib
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       AppKit
       Cocoa
       Foundation

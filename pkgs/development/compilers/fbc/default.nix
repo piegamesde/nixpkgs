@@ -70,7 +70,8 @@ stdenv.mkDerivation rec {
     [
       ncurses
       libffi
-    ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
       gpm
       libGL
       libX11

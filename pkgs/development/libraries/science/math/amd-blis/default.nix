@@ -58,7 +58,8 @@ stdenv.mkDerivation rec {
     [
       "--enable-cblas"
       "--blas-int-size=${blasIntSize}"
-    ] ++ lib.optionals withOpenMP [ "--enable-threading=openmp" ]
+    ]
+    ++ lib.optionals withOpenMP [ "--enable-threading=openmp" ]
     ++ [ withArchitecture ]
     ;
 

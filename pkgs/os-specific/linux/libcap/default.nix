@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
       "lib"
       "man"
       "doc"
-    ] ++ lib.optional usePam "pam"
+    ]
+    ++ lib.optional usePam "pam"
     ;
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
@@ -50,7 +51,8 @@ stdenv.mkDerivation rec {
       "BUILD_CC=$(CC_FOR_BUILD)"
       "CC:=$(CC)"
       "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-    ] ++ lib.optional isStatic "SHARED=no"
+    ]
+    ++ lib.optional isStatic "SHARED=no"
     ;
 
   postPatch = ''
@@ -75,7 +77,8 @@ stdenv.mkDerivation rec {
       ${lib.optionalString (!isStatic) ''rm "$lib"/lib/*.a''}
       mkdir -p "$doc/share/doc/${pname}-${version}"
       cp License "$doc/share/doc/${pname}-${version}/"
-    '' + lib.optionalString usePam ''
+    ''
+    + lib.optionalString usePam ''
       mkdir -p "$pam/lib/security"
       mv "$lib"/lib/security "$pam/lib"
     ''

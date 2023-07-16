@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
     [
       cmake
       pkg-config
-    ] ++ lib.optionals stdenv.isDarwin [ makeWrapper ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ makeWrapper ]
     ;
 
   buildInputs =
@@ -62,7 +63,8 @@ stdenv.mkDerivation rec {
       wxsqlite3
       fluidsynth
       fontconfig
-    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ;
 
   preConfigure = ''

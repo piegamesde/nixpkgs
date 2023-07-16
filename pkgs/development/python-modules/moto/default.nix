@@ -125,7 +125,8 @@ buildPythonPackage rec {
 
       # Blocks test execution
       "--deselect=tests/test_utilities/test_threaded_server.py::TestThreadedMotoServer::test_load_data_from_inmemory_client"
-    ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+    ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       "--deselect=tests/test_utilities/test_threaded_server.py::test_threaded_moto_server__different_port"
       "--deselect=tests/test_utilities/test_threaded_server.py::TestThreadedMotoServer::test_server_can_handle_multiple_services"
       "--deselect=tests/test_utilities/test_threaded_server.py::TestThreadedMotoServer::test_server_is_reachable"

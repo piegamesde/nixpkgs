@@ -22,7 +22,8 @@ python3.pkgs.buildPythonApplication rec {
       markdown
       python-frontmatter
       typer
-    ] ++ typer.optional-dependencies.all;
+    ]
+    ++ typer.optional-dependencies.all;
 
   postPatch = ''
     substituteInPlace pyproject.toml \

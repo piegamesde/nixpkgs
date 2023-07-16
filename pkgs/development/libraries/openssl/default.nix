@@ -51,24 +51,26 @@ let
       postPatch =
         ''
           patchShebangs Configure
-        '' + lib.optionalString (lib.versionOlder version "1.1.1") ''
+        ''
+        + lib.optionalString (lib.versionOlder version "1.1.1") ''
           patchShebangs test/*
           for a in test/t* ; do
             substituteInPlace "$a" \
               --replace /bin/rm rm
           done
         ''
-        # config is a configure script which is not installed.
+          # config is a configure script which is not installed.
         + lib.optionalString (lib.versionAtLeast version "1.1.1") ''
           substituteInPlace config --replace '/usr/bin/env' '${buildPackages.coreutils}/bin/env'
-        '' + lib.optionalString
-        (lib.versionAtLeast version "1.1.1" && stdenv.hostPlatform.isMusl) ''
-          substituteInPlace crypto/async/arch/async_posix.h \
-            --replace '!defined(__ANDROID__) && !defined(__OpenBSD__)' \
-                      '!defined(__ANDROID__) && !defined(__OpenBSD__) && 0'
         ''
-        # Move ENGINESDIR into OPENSSLDIR for static builds, in order to move
-        # it to the separate etc output.
+        + lib.optionalString
+          (lib.versionAtLeast version "1.1.1" && stdenv.hostPlatform.isMusl) ''
+            substituteInPlace crypto/async/arch/async_posix.h \
+              --replace '!defined(__ANDROID__) && !defined(__OpenBSD__)' \
+                        '!defined(__ANDROID__) && !defined(__OpenBSD__) && 0'
+          ''
+          # Move ENGINESDIR into OPENSSLDIR for static builds, in order to move
+          # it to the separate etc output.
         + lib.optionalString static ''
           substituteInPlace Configurations/unix-Makefile.tmpl \
             --replace 'ENGINESDIR=$(libdir)/engines-{- $sover_dirname -}' \
@@ -82,22 +84,25 @@ let
           "dev"
           "out"
           "man"
-        ] ++ lib.optional withDocs "doc"
-        # Separate output for the runtime dependencies of the static build.
-        # Specifically, move OPENSSLDIR into this output, as its path will be
-        # compiled into 'libcrypto.a'. This makes it a runtime dependency of
-        # any package that statically links openssl, so we want to keep that
-        # output minimal.
+        ]
+        ++ lib.optional withDocs "doc"
+          # Separate output for the runtime dependencies of the static build.
+          # Specifically, move OPENSSLDIR into this output, as its path will be
+          # compiled into 'libcrypto.a'. This makes it a runtime dependency of
+          # any package that statically links openssl, so we want to keep that
+          # output minimal.
         ++ lib.optional static "etc"
         ;
       setOutputFlags = false;
       separateDebugInfo =
-        !stdenv.hostPlatform.isDarwin && !(stdenv.hostPlatform.useLLVM or false)
+        !stdenv.hostPlatform.isDarwin
+        && !(stdenv.hostPlatform.useLLVM or false)
         && stdenv.cc.isGNU
         ;
 
       nativeBuildInputs =
-        lib.optional (!stdenv.hostPlatform.isWindows) makeWrapper ++ [ perl ]
+        lib.optional (!stdenv.hostPlatform.isWindows) makeWrapper
+        ++ [ perl ]
         ++ lib.optionals static [ removeReferencesTo ]
         ;
       buildInputs =
@@ -125,8 +130,10 @@ let
           if stdenv.hostPlatform.isx86_64 then
             "./Configure BSD-x86_64"
           else if stdenv.hostPlatform.isx86_32 then
-            "./Configure BSD-x86" + lib.optionalString
-            (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") "-elf"
+            "./Configure BSD-x86"
+            + lib.optionalString
+              (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf")
+              "-elf"
           else
             "./Configure BSD-generic${
               toString stdenv.hostPlatform.parsed.cpu.bits
@@ -168,27 +175,31 @@ let
           # to the path to make it appear absolute before variable expansion,
           # else the 'prefix' would be prepended to it.
             "--openssldir=/.$(etc)/etc/ssl")
-        ] ++ lib.optionals withCryptodev [
+        ]
+        ++ lib.optionals withCryptodev [
           "-DHAVE_CRYPTODEV"
           "-DUSE_CRYPTODEV_DIGESTS"
-        ] ++ lib.optional enableSSL2 "enable-ssl2" ++ lib.optional enableSSL3
-        "enable-ssl3"
-        # We select KTLS here instead of the configure-time detection (which we patch out).
-        # KTLS should work on FreeBSD 13+ as well, so we could enable it if someone tests it.
+        ]
+        ++ lib.optional enableSSL2 "enable-ssl2"
+        ++ lib.optional enableSSL3 "enable-ssl3"
+          # We select KTLS here instead of the configure-time detection (which we patch out).
+          # KTLS should work on FreeBSD 13+ as well, so we could enable it if someone tests it.
         ++ lib.optional (lib.versionAtLeast version "3.0.0" && enableKTLS)
-        "enable-ktls" ++ lib.optional
-        (lib.versionAtLeast version "1.1.1" && stdenv.hostPlatform.isAarch64)
-        "no-afalgeng"
-        # OpenSSL needs a specific `no-shared` configure flag.
-        # See https://wiki.openssl.org/index.php/Compilation_and_Installation#Configure_Options
-        # for a comprehensive list of configuration options.
+          "enable-ktls"
+        ++ lib.optional
+          (lib.versionAtLeast version "1.1.1" && stdenv.hostPlatform.isAarch64)
+          "no-afalgeng"
+          # OpenSSL needs a specific `no-shared` configure flag.
+          # See https://wiki.openssl.org/index.php/Compilation_and_Installation#Configure_Options
+          # for a comprehensive list of configuration options.
         ++ lib.optional (lib.versionAtLeast version "1.1.1" && static)
-        "no-shared"
+          "no-shared"
         ++ lib.optional (lib.versionAtLeast version "3.0.0" && static)
-        "no-module"
-        # This introduces a reference to the CTLOG_FILE which is undesired when
-        # trying to build binaries statically.
-        ++ lib.optional static "no-ct" ++ lib.optional withZlib "zlib"
+          "no-module"
+          # This introduces a reference to the CTLOG_FILE which is undesired when
+          # trying to build binaries statically.
+        ++ lib.optional static "no-ct"
+        ++ lib.optional withZlib "zlib"
         ;
 
       makeFlags = [
@@ -218,20 +229,23 @@ let
 
             # 'etc' is a separate output on static builds only.
             etc=$out
-          '') + ''
-            mkdir -p $bin
-            mv $out/bin $bin/bin
+          '')
+        + ''
+          mkdir -p $bin
+          mv $out/bin $bin/bin
 
-          '' + lib.optionalString (!stdenv.hostPlatform.isWindows)
-          # makeWrapper is broken for windows cross (https://github.com/NixOS/nixpkgs/issues/120726)
         ''
-          # c_rehash is a legacy perl script with the same functionality
-          # as `openssl rehash`
-          # this wrapper script is created to maintain backwards compatibility without
-          # depending on perl
-          makeWrapper $bin/bin/openssl $bin/bin/c_rehash \
-            --add-flags "rehash"
-        '' + ''
+        + lib.optionalString (!stdenv.hostPlatform.isWindows)
+        # makeWrapper is broken for windows cross (https://github.com/NixOS/nixpkgs/issues/120726)
+          ''
+            # c_rehash is a legacy perl script with the same functionality
+            # as `openssl rehash`
+            # this wrapper script is created to maintain backwards compatibility without
+            # depending on perl
+            makeWrapper $bin/bin/openssl $bin/bin/c_rehash \
+              --add-flags "rehash"
+          ''
+        + ''
 
           mkdir $dev
           mv $out/include $dev/

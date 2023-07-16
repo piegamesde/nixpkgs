@@ -32,7 +32,8 @@ mkDerivation {
       qtgraphicaleffects
       qtmultimedia
       qtquickcontrols2
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       gst-plugins-bad
       gst-plugins-base
       gst-plugins-good

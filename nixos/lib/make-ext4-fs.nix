@@ -38,7 +38,8 @@ pkgs.stdenv.mkDerivation {
       libfaketime
       perl
       fakeroot
-    ] ++ lib.optional compressImage zstd
+    ]
+    ++ lib.optional compressImage zstd
     ;
 
   buildCommand = ''

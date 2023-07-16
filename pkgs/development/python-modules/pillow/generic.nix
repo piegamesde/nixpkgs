@@ -37,7 +37,8 @@ buildPythonPackage rec {
       "test_roundtrip"
       "test_basic"
       "test_custom_metadata"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # Disable darwin tests which require executables: `iconutil` and `screencapture`
       "test_grab"
       "test_grabclipboard"
@@ -68,7 +69,8 @@ buildPythonPackage rec {
       libxcrypt
       tcl
       lcms2
-    ] ++ lib.optionals (lib.versionAtLeast version "7.1.0") [ libxcb ]
+    ]
+    ++ lib.optionals (lib.versionAtLeast version "7.1.0") [ libxcb ]
     ++ lib.optionals (isPyPy) [
       tk
       libX11
@@ -104,10 +106,12 @@ buildPythonPackage rec {
               s|self\.disable_platform_guessing = None|self.disable_platform_guessing = True|g ;'
       export LDFLAGS="$LDFLAGS -L${libwebp}/lib"
       export CFLAGS="$CFLAGS -I${libwebp}/include"
-    '' + lib.optionalString (lib.versionAtLeast version "7.1.0") ''
+    ''
+    + lib.optionalString (lib.versionAtLeast version "7.1.0") ''
       export LDFLAGS="$LDFLAGS -L${libxcb}/lib"
       export CFLAGS="$CFLAGS -I${libxcb.dev}/include"
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # Remove impurities
       substituteInPlace setup.py \
         --replace '"/Library/Frameworks",' "" \

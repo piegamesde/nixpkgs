@@ -47,7 +47,8 @@ buildPythonApplication rec {
       six
       tabulate
       tzlocal
-    ] ++ lib.optional withU2F python-u2flib-host
+    ]
+    ++ lib.optional withU2F python-u2flib-host
     ;
 
   nativeCheckInputs = [

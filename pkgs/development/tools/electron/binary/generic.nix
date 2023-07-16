@@ -40,7 +40,8 @@ let
         "x86_64-linux"
         "armv7l-linux"
         "aarch64-linux"
-      ] ++ optionals (versionAtLeast version "11.0.0") [ "aarch64-darwin" ]
+      ]
+      ++ optionals (versionAtLeast version "11.0.0") [ "aarch64-darwin" ]
       ++ optionals (versionOlder version "19.0.0") [ "i686-linux" ]
       ;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
@@ -97,10 +98,12 @@ let
       at-spi2-core
       libappindicator-gtk3
       wayland
-    ] ++ optionals (versionAtLeast version "9.0.0") [
-      libdrm
-      mesa
-    ] ++ optionals (versionOlder version "10.0.0") [ libXScrnSaver ]
+    ]
+      ++ optionals (versionAtLeast version "9.0.0") [
+        libdrm
+        mesa
+      ]
+      ++ optionals (versionOlder version "10.0.0") [ libXScrnSaver ]
       ++ optionals (versionAtLeast version "11.0.0") [ libxkbcommon ]
       ++ optionals (versionAtLeast version "12.0.0") [ libxshmfence ]
       ++ optionals (versionAtLeast version "17.0.0") [ libglvnd ]);

@@ -68,7 +68,8 @@ stdenv.mkDerivation rec {
       keyutils
       libkrb5
       tcp_wrappers
-    ] ++ lib.optional enablePython python3
+    ]
+    ++ lib.optional enablePython python3
     ;
 
   enableParallelBuilding = true;
@@ -145,7 +146,8 @@ stdenv.mkDerivation rec {
         -e "s,/sbin/modprobe,${kmod}/bin/modprobe,g" \
         -e "s,/usr/sbin,$out/bin,g" \
         $out/etc/systemd/system/*
-    '' + lib.optionalString (!enablePython) ''
+    ''
+    + lib.optionalString (!enablePython) ''
       # Remove all scripts that require python (currently mountstats and nfsiostat)
       grep -l /usr/bin/python $out/bin/* | xargs -I {} rm -v {}
     ''

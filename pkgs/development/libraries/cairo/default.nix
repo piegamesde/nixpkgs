@@ -24,8 +24,8 @@
   ,
   libGLSupported ?
     lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
-  glSupport ? x11Support
-    && config.cairo.gl or (libGLSupported && stdenv.isLinux),
+  glSupport ?
+    x11Support && config.cairo.gl or (libGLSupported && stdenv.isLinux),
   libGL # libGLU libGL is no longer a big dependency
   ,
   pdfSupport ? true,
@@ -125,7 +125,8 @@ stdenv.mkDerivation (finalAttrs:
       [
         libiconv
         libintl
-      ] ++ optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+      ]
+      ++ optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
         CoreGraphics
         CoreText
         ApplicationServices
@@ -141,17 +142,22 @@ stdenv.mkDerivation (finalAttrs:
         pixman
         zlib
         libpng
-      ] ++ optionals x11Support [
+      ]
+      ++ optionals x11Support [
         libXext
         libXrender
-      ] ++ optionals xcbSupport [
+      ]
+      ++ optionals xcbSupport [
         libxcb
         xcbutil
-      ] ++ optional gobjectSupport glib ++ optional glSupport libGL
+      ]
+      ++ optional gobjectSupport glib
+      ++ optional glSupport libGL
       ; # TODO: maybe liblzo but what would it be for here?
 
     configureFlags =
-      [ "--enable-tee" ] ++ (if stdenv.isDarwin then
+      [ "--enable-tee" ]
+      ++ (if stdenv.isDarwin then
         [
           "--disable-dependency-tracking"
           "--enable-quartz"
@@ -160,7 +166,8 @@ stdenv.mkDerivation (finalAttrs:
           "--enable-ft"
         ]
       else
-        (optional xcbSupport "--enable-xcb" ++ optional glSupport "--enable-gl"
+        (optional xcbSupport "--enable-xcb"
+          ++ optional glSupport "--enable-gl"
           ++ optional pdfSupport "--enable-pdf"))
       ++ optional (!x11Support) "--disable-xlib"
       ;
@@ -173,7 +180,8 @@ stdenv.mkDerivation (finalAttrs:
                    cat "$i" | sed -es/-ldl//g > t
                    mv t "$i"
                  done
-      '' + ''
+      ''
+      + ''
         # Work around broken `Requires.private' that prevents Freetype
         # `-I' flags to be propagated.
         sed -i "src/cairo.pc.in" \
@@ -214,7 +222,8 @@ stdenv.mkDerivation (finalAttrs:
         [
           "cairo-ps"
           "cairo-svg"
-        ] ++ lib.optional gobjectSupport "cairo-gobject"
+        ]
+        ++ lib.optional gobjectSupport "cairo-gobject"
         ++ lib.optional pdfSupport "cairo-pdf"
         ;
       platforms = platforms.all;

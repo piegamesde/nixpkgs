@@ -44,10 +44,12 @@ mkDerivation rec {
       portaudio
       qtbase
       qtmultimedia
-    ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
       alsa-lib
       libpulseaudio
-    ] ++ lib.optional withJack libjack2
+    ]
+    ++ lib.optional withJack libjack2
     ;
 
   dontFixCmake = true;

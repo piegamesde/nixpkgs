@@ -50,7 +50,8 @@ else
       [
         SDL2
         ctypes
-      ] ++ lib.optionals stdenv.isDarwin [
+      ]
+      ++ lib.optionals stdenv.isDarwin [
         AudioToolbox
         Cocoa
         CoreAudio

@@ -28,10 +28,13 @@ let
     (flip (concatMapStringsSep "\n") knownHosts (h:
       assert h.hostNames != [ ];
       optionalString h.certAuthority "@cert-authority "
-      + concatStringsSep "," h.hostNames + " " + (if h.publicKey != null then
+      + concatStringsSep "," h.hostNames
+      + " "
+      + (if h.publicKey != null then
         h.publicKey
       else
-        readFile h.publicKeyFile))) + "\n"
+        readFile h.publicKeyFile)))
+    + "\n"
     ;
 
   knownHostsFiles =
@@ -321,7 +324,8 @@ in
       [ {
         assertion = cfg.forwardX11 -> cfg.setXAuthLocation;
         message = "cannot enable X11 forwarding without setting XAuth location";
-      } ] ++ flip mapAttrsToList cfg.knownHosts (name: data: {
+      } ]
+      ++ flip mapAttrsToList cfg.knownHosts (name: data: {
         assertion =
           (data.publicKey == null && data.publicKeyFile != null)
           || (data.publicKey != null && data.publicKeyFile == null)
@@ -384,9 +388,10 @@ in
         ExecStart =
           "${cfg.package}/bin/ssh-agent "
           + optionalString (cfg.agentTimeout != null)
-          ("-t ${cfg.agentTimeout} ")
+            ("-t ${cfg.agentTimeout} ")
           + optionalString (cfg.agentPKCS11Whitelist != null)
-          ("-P ${cfg.agentPKCS11Whitelist} ") + "-a %t/ssh-agent"
+            ("-P ${cfg.agentPKCS11Whitelist} ")
+          + "-a %t/ssh-agent"
           ;
         StandardOutput = "null";
         Type = "forking";

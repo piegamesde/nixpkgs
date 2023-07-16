@@ -101,7 +101,8 @@ let
           "-DCMAKE_INSTALL_MANDIR=share/man"
           "-DCMAKE_INSTALL_LOCALEDIR=share/locale"
 
-        ] ++ optionals buildServer [ "-DENABLE_PROMETHEUS=1" ]
+        ]
+        ++ optionals buildServer [ "-DENABLE_PROMETHEUS=1" ]
         ++ optionals withTouchSupport [ "-DENABLE_TOUCH=TRUE" ]
         ;
 
@@ -128,13 +129,15 @@ let
           ncurses
           gmp
           libspatialindex
-        ] ++ optionals stdenv.isDarwin [
+        ]
+        ++ optionals stdenv.isDarwin [
           libiconv
           OpenGL
           OpenAL
           Carbon
           Cocoa
-        ] ++ optionals buildClient [
+        ]
+        ++ optionals buildClient [
           libpng
           libjpeg
           libGLU
@@ -142,7 +145,8 @@ let
           libogg
           libvorbis
           xorg.libX11
-        ] ++ optionals buildServer [
+        ]
+        ++ optionals buildServer [
           leveldb
           postgresql
           hiredis
@@ -153,7 +157,8 @@ let
       postPatch =
         ''
           substituteInPlace src/filesys.cpp --replace "/bin/rm" "${coreutils}/bin/rm"
-        '' + lib.optionalString stdenv.isDarwin ''
+        ''
+        + lib.optionalString stdenv.isDarwin ''
           sed -i '/pagezero_size/d;/fixup_bundle/d' src/CMakeLists.txt
         ''
         ;
@@ -163,7 +168,8 @@ let
           mkdir -pv $out/share/minetest/games/minetest_game/
           cp -rv ${sources.data}/* $out/share/minetest/games/minetest_game/
           patchShebangs $out
-        '' + lib.optionalString stdenv.isDarwin ''
+        ''
+        + lib.optionalString stdenv.isDarwin ''
           mkdir -p $out/Applications
           mv $out/minetest.app $out/Applications
         ''

@@ -67,15 +67,16 @@ runCommand "Toolchains" { } (''
   ln -s ${buildPackages.gperf}/bin/gperf $toolchain/bin/gperf
   ln -s ${buildPackages.indent}/bin/indent $toolchain/bin/indent
   ln -s ${buildPackages.ctags}/bin/ctags $toolchain/bin/ctags
-'' + optionalString stdenv.isDarwin ''
-  for bin in ${getBin buildPackages.darwin.cctools}/bin/*; do
-    if ! [ -e "$toolchain/bin/$(basename $bin)" ]; then
-      ln -s $bin $toolchain/bin
-    fi
-  done
+''
+  + optionalString stdenv.isDarwin ''
+    for bin in ${getBin buildPackages.darwin.cctools}/bin/*; do
+      if ! [ -e "$toolchain/bin/$(basename $bin)" ]; then
+        ln -s $bin $toolchain/bin
+      fi
+    done
 
-  ln -s ${buildPackages.darwin.bootstrap_cmds}/bin/mig $toolchain/bin
-  mkdir -p $toolchain/libexec
-  ln -s ${buildPackages.darwin.bootstrap_cmds}/libexec/migcom $toolchain/libexec
-  ln -s ${mkdep-darwin-src} $toolchain/bin/mkdep
-'')
+    ln -s ${buildPackages.darwin.bootstrap_cmds}/bin/mig $toolchain/bin
+    mkdir -p $toolchain/libexec
+    ln -s ${buildPackages.darwin.bootstrap_cmds}/libexec/migcom $toolchain/libexec
+    ln -s ${mkdep-darwin-src} $toolchain/bin/mkdep
+  '')

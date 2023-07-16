@@ -90,7 +90,8 @@ stdenv.mkDerivation {
       usrsctp
       libvpx
       abseil-cpp
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libX11
       libXtst
       libXcomposite
@@ -104,7 +105,8 @@ stdenv.mkDerivation {
       mesa
       libdrm
       libGL
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Cocoa
       AppKit
       IOKit

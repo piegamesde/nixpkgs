@@ -59,7 +59,8 @@ let
       icu
       curl
       openssl_1_1
-    ] ++ (if stdenv.isLinux then
+    ]
+    ++ (if stdenv.isLinux then
       [
         pam
         lttng-ust
@@ -101,12 +102,15 @@ stdenv.mkDerivation rec {
       chmod a+x $pslibs/pwsh
 
       ls $pslibs
-    '' + lib.optionalString (!stdenv.isDarwin && !stdenv.isAarch64) ''
+    ''
+    + lib.optionalString (!stdenv.isDarwin && !stdenv.isAarch64) ''
       patchelf --replace-needed libcrypto${ext}.1.0.0 libcrypto${ext}.1.1 $pslibs/libmi.so
       patchelf --replace-needed libssl${ext}.1.0.0 libssl${ext}.1.1 $pslibs/libmi.so
-    '' + lib.optionalString (!stdenv.isDarwin) ''
+    ''
+    + lib.optionalString (!stdenv.isDarwin) ''
       patchelf --replace-needed liblttng-ust${ext}.0 liblttng-ust${ext}.1 $pslibs/libcoreclrtraceptprovider.so
-    '' + ''
+    ''
+    + ''
 
       mkdir -p $out/bin
 

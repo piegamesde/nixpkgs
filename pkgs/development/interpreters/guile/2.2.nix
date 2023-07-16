@@ -45,7 +45,7 @@ builder rec {
   depsBuildBuild =
     [ buildPackages.stdenv.cc ]
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-    pkgsBuildBuild.guile_2_2
+      pkgsBuildBuild.guile_2_2
     ;
   nativeBuildInputs = [
     makeWrapper
@@ -81,7 +81,8 @@ builder rec {
     [
       # Read the header of the patch to more info
       ./eai_system.patch
-    ] ++ lib.optional (coverageAnalysis != null) ./gcov-file-name.patch
+    ]
+    ++ lib.optional (coverageAnalysis != null) ./gcov-file-name.patch
     ++ lib.optional stdenv.isDarwin (fetchpatch {
       url =
         "https://gitlab.gnome.org/GNOME/gtk-osx/raw/52898977f165777ad9ef169f7d4818f2d4c9b731/patches/guile-clocktime.patch";

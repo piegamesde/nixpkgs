@@ -74,7 +74,8 @@ python3.pkgs.buildPythonApplication rec {
       typing-extensions
       voluptuous
       zc_lockfile
-    ] ++ lib.optionals enableGoogle [ dvc-gs ]
+    ]
+    ++ lib.optionals enableGoogle [ dvc-gs ]
     ++ lib.optionals enableAWS [ dvc-s3 ]
     ++ lib.optionals enableAzure [ dvc-azure ]
     ++ lib.optionals enableSSH [ dvc-ssh ]

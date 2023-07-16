@@ -331,7 +331,8 @@ in
             "--files-from ${filesFromTmpFile}"
           ;
         pruneCmd = optionals (builtins.length backup.pruneOpts > 0) [
-          (resticCmd + " forget --prune "
+          (resticCmd
+            + " forget --prune "
             + (concatStringsSep " " backup.pruneOpts))
           (resticCmd + " check " + (concatStringsSep " " backup.checkOpts))
         ];
@@ -375,7 +376,8 @@ in
                 "${resticCmd} backup ${
                   concatStringsSep " " (backup.extraBackupArgs ++ excludeFlags)
                 } ${backupPaths}"
-              ]) ++ pruneCmd
+              ])
+            ++ pruneCmd
             ;
           User = backup.user;
           RuntimeDirectory = "restic-backups-${name}";
@@ -385,7 +387,8 @@ in
         } // optionalAttrs (backup.environmentFile != null) {
           EnvironmentFile = backup.environmentFile;
         };
-      } // optionalAttrs (backup.initialize || backup.dynamicFilesFrom != null
+      } // optionalAttrs (backup.initialize
+        || backup.dynamicFilesFrom != null
         || backup.backupPrepareCommand != null) {
           preStart = ''
             ${optionalString (backup.backupPrepareCommand != null) ''

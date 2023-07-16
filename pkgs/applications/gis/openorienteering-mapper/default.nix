@@ -69,7 +69,8 @@ mkDerivation rec {
       # See https://github.com/NixOS/nixpkgs/issues/85306
       "-DLICENSING_PROVIDER:BOOL=OFF"
       "-DMapper_MANUAL_QTHELP:BOOL=OFF"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # FindGDAL is broken and always finds /Library/Framework unless this is
       # specified
       "-DGDAL_INCLUDE_DIR=${gdal}/include"

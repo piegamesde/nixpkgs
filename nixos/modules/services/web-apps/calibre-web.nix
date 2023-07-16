@@ -138,10 +138,11 @@ in
               "0"
           }"
           "config_reverse_proxy_login_header_name = '${cfg.options.reverseProxyAuth.header}'"
-        ] ++ optional (cfg.options.calibreLibrary != null)
-          "config_calibre_dir = '${cfg.options.calibreLibrary}'"
+        ]
+          ++ optional (cfg.options.calibreLibrary != null)
+            "config_calibre_dir = '${cfg.options.calibreLibrary}'"
           ++ optional cfg.options.enableBookConversion
-          "config_converterpath = '${pkgs.calibre}/bin/ebook-convert'");
+            "config_converterpath = '${pkgs.calibre}/bin/ebook-convert'");
       in
       {
         description =
@@ -159,9 +160,10 @@ in
             __RUN_MIGRATIONS_AND_EXIT=1 ${calibreWebCmd}
 
             ${pkgs.sqlite}/bin/sqlite3 ${appDb} "update settings set ${settings}"
-          '' + optionalString (cfg.options.calibreLibrary != null) ''
-            test -f "${cfg.options.calibreLibrary}/metadata.db" || { echo "Invalid Calibre library"; exit 1; }
-          '');
+          ''
+            + optionalString (cfg.options.calibreLibrary != null) ''
+              test -f "${cfg.options.calibreLibrary}/metadata.db" || { echo "Invalid Calibre library"; exit 1; }
+            '');
 
           ExecStart = "${calibreWebCmd} -i ${cfg.listen.ip}";
           Restart = "on-failure";

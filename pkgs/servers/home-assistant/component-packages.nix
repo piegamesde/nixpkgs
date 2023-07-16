@@ -108,7 +108,8 @@
         adb-shell
         androidtv
         pure-python-adb
-      ] ++ adb-shell.optional-dependencies.async
+      ]
+      ++ adb-shell.optional-dependencies.async
       ++ androidtv.optional-dependencies.async
       ++ pure-python-adb.optional-dependencies.async
       ;
@@ -2846,7 +2847,8 @@
         sqlalchemy
         wakeonlan
         zeroconf
-      ] ++ samsungctl.optional-dependencies.websocket
+      ]
+      ++ samsungctl.optional-dependencies.websocket
       ++ samsungtvws.optional-dependencies.async
       ++ samsungtvws.optional-dependencies.encrypted
       ;

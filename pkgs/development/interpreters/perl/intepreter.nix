@@ -60,7 +60,8 @@ stdenv.mkDerivation (rec {
       "out"
       "man"
       "devdoc"
-    ] ++ lib.optional crossCompiling "mini"
+    ]
+    ++ lib.optional crossCompiling "mini"
     ;
   setOutputFlags = false;
 
@@ -85,11 +86,13 @@ stdenv.mkDerivation (rec {
 
       # Enable TLS/SSL verification in HTTP::Tiny by default
       ./http-tiny-verify-ssl-by-default.patch
-    ] ++ lib.optional stdenv.isSunOS ./ld-shared.patch
+    ]
+    ++ lib.optional stdenv.isSunOS ./ld-shared.patch
     ++ lib.optionals stdenv.isDarwin [
       ./cpp-precomp.patch
       ./sw_vers.patch
-    ] ++ lib.optional crossCompiling ./MakeMaker-cross.patch
+    ]
+    ++ lib.optional crossCompiling ./MakeMaker-cross.patch
     ;
 
     # This is not done for native builds because pwd may need to come from
@@ -105,7 +108,8 @@ stdenv.mkDerivation (rec {
       ''
         substituteInPlace dist/PathTools/Cwd.pm \
           --replace "/bin/pwd" "$(type -P pwd)"
-      '') +
+      '')
+    +
     # Perl's build system uses the src variable, and its value may end up in
     # the output in some cases (when cross-compiling)
     ''
@@ -129,17 +133,22 @@ stdenv.mkDerivation (rec {
       [
         "-de"
         "-Dcc=cc"
-      ]) ++ [
-        "-Uinstallusrbinperl"
-        "-Dinstallstyle=lib/perl5"
-      ] ++ lib.optional (!crossCompiling) "-Duseshrplib" ++ [
-        "-Dlocincpth=${libcInc}/include"
-        "-Dloclibpth=${libcLib}/lib"
-      ] ++ lib.optionals
-    ((builtins.match "5\\.[0-9]*[13579]\\..+" version) != null) [
-      "-Dusedevel"
-      "-Uversiononly"
-    ] ++ lib.optional stdenv.isSunOS "-Dcc=gcc"
+      ])
+    ++ [
+      "-Uinstallusrbinperl"
+      "-Dinstallstyle=lib/perl5"
+    ]
+    ++ lib.optional (!crossCompiling) "-Duseshrplib"
+    ++ [
+      "-Dlocincpth=${libcInc}/include"
+      "-Dloclibpth=${libcLib}/lib"
+    ]
+    ++ lib.optionals
+      ((builtins.match "5\\.[0-9]*[13579]\\..+" version) != null) [
+        "-Dusedevel"
+        "-Uversiononly"
+      ]
+    ++ lib.optional stdenv.isSunOS "-Dcc=gcc"
     ++ lib.optional enableThreading "-Dusethreads"
     ++ lib.optional (!enableCrypt) "-A clear:d_crypt_r"
     ++ lib.optional stdenv.hostPlatform.isStatic "--all-static"
@@ -190,9 +199,11 @@ stdenv.mkDerivation (rec {
       OLD_ZLIB     = False
       GZIP_OS_CODE = AUTO_DETECT
       EOF
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace hints/darwin.sh --replace "env MACOSX_DEPLOYMENT_TARGET=10.3" ""
-    '' + lib.optionalString (!enableThreading) ''
+    ''
+    + lib.optionalString (!enableThreading) ''
       # We need to do this because the bootstrap doesn't have a static libpthread
       sed -i 's,\(libswanted.*\)pthread,\1,g' Configure
     ''
@@ -256,7 +267,8 @@ stdenv.mkDerivation (rec {
         }" /no-such-path \
         --replace "${stdenv.cc}" /no-such-path \
         --replace "$man" /no-such-path
-    '' + lib.optionalString crossCompiling ''
+    ''
+    + lib.optionalString crossCompiling ''
       mkdir -p $mini/lib/perl5/cross_perl/${version}
       for dir in cnf/{stub,cpan}; do
         cp -r $dir/* $mini/lib/perl5/cross_perl/${version}

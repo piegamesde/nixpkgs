@@ -67,7 +67,8 @@ stdenv.mkDerivation {
   createFindlibDestdir = true;
 
   postPatch =
-    param.postPatchInit + ''
+    param.postPatchInit
+    + ''
       substituteInPlace Makefile \
         --subst-var-by ZLIB_LIBDIR "${zlib.out}/lib" \
         --subst-var-by ZLIB_INCLUDE "${zlib.dev}/include"

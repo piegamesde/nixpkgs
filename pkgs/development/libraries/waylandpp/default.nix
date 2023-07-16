@@ -29,8 +29,8 @@ stdenv.mkDerivation rec {
   cmakeFlags =
     [ "-DCMAKE_INSTALL_DATADIR=${placeholder "dev"}" ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      "-DWAYLAND_SCANNERPP=${buildPackages.waylandpp}/bin/wayland-scanner++"
-    ]
+        "-DWAYLAND_SCANNERPP=${buildPackages.waylandpp}/bin/wayland-scanner++"
+      ]
     ;
 
     # Complains about not being able to find the fontconfig config file otherwise
@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
     [
       cmake
       pkg-config
-    ] ++ lib.optionals docSupport [
+    ]
+    ++ lib.optionals docSupport [
       doxygen
       graphviz
     ]
@@ -59,7 +60,8 @@ stdenv.mkDerivation rec {
       "dev"
       "lib"
       "out"
-    ] ++ lib.optionals docSupport [
+    ]
+    ++ lib.optionals docSupport [
       "doc"
       "devman"
     ]

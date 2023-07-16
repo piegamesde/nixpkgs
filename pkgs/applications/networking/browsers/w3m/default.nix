@@ -83,9 +83,11 @@ stdenv.mkDerivation rec {
       ncurses
       boehmgc
       zlib
-    ] ++ lib.optional sslSupport openssl
+    ]
+    ++ lib.optional sslSupport openssl
     ++ lib.optional mouseSupport gpm-ncurses
-    ++ lib.optional graphicsSupport imlib2 ++ lib.optional x11Support libX11
+    ++ lib.optional graphicsSupport imlib2
+    ++ lib.optional x11Support libX11
     ;
 
   postInstall = lib.optionalString graphicsSupport ''
@@ -98,10 +100,12 @@ stdenv.mkDerivation rec {
     [
       "--with-ssl=${openssl.dev}"
       "--with-gc=${boehmgc.dev}"
-    ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-      "ac_cv_func_setpgrp_void=yes"
-    ] ++ lib.optional graphicsSupport
-    "--enable-image=${lib.optionalString x11Support "x11,"}fb"
+    ]
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+        "ac_cv_func_setpgrp_void=yes"
+      ]
+    ++ lib.optional graphicsSupport
+      "--enable-image=${lib.optionalString x11Support "x11,"}fb"
     ++ lib.optional (graphicsSupport && !x11Support) "--without-x"
     ;
 

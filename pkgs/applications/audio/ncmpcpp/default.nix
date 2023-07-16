@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   configureFlags =
-    [ "BOOST_LIB_SUFFIX=" ] ++ lib.optional outputsSupport "--enable-outputs"
+    [ "BOOST_LIB_SUFFIX=" ]
+    ++ lib.optional outputsSupport "--enable-outputs"
     ++ lib.optional visualizerSupport "--enable-visualizer --with-fftw"
     ++ lib.optional clockSupport "--enable-clock"
     ++ lib.optional taglibSupport "--with-taglib"
@@ -53,7 +54,8 @@ stdenv.mkDerivation rec {
       libiconv
       icu
       curl
-    ] ++ lib.optional visualizerSupport fftw
+    ]
+    ++ lib.optional visualizerSupport fftw
     ++ lib.optional taglibSupport taglib
     ;
 

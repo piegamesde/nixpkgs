@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
   buildInputs =
-    [ vulkan-headers ] ++ lib.optionals (!stdenv.isDarwin) [
+    [ vulkan-headers ]
+    ++ lib.optionals (!stdenv.isDarwin) [
       libX11
       libxcb
       libXrandr
@@ -43,9 +44,9 @@ stdenv.mkDerivation rec {
     [ "-DCMAKE_INSTALL_INCLUDEDIR=${vulkan-headers}/include" ]
     ++ lib.optional stdenv.isDarwin "-DSYSCONFDIR=${moltenvk}/share"
     ++ lib.optional stdenv.isLinux
-    "-DSYSCONFDIR=${addOpenGLRunpath.driverLink}/share"
+      "-DSYSCONFDIR=${addOpenGLRunpath.driverLink}/share"
     ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-    "-DUSE_GAS=OFF"
+      "-DUSE_GAS=OFF"
     ;
 
   outputs = [

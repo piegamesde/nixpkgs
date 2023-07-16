@@ -96,7 +96,8 @@ stdenv.mkDerivation {
           nss
           pango
           systemd
-        ] + ":${stdenv.cc.cc.lib}/lib64"
+        ]
+        + ":${stdenv.cc.cc.lib}/lib64"
         ;
     in
     ''
@@ -110,11 +111,13 @@ stdenv.mkDerivation {
       substituteInPlace $out/share/applications/${pname}.desktop \
         --replace 'Exec=/opt/1Password/${pname}' 'Exec=${pname}'
 
-    '' + (lib.optionalString (polkitPolicyOwners != [ ]) ''
+    ''
+    + (lib.optionalString (polkitPolicyOwners != [ ]) ''
       # Polkit file
         mkdir -p $out/share/polkit-1/actions
         substitute com.1password.1Password.policy.tpl $out/share/polkit-1/actions/com.1password.1Password.policy --replace "\''${POLICY_OWNERS}" "${policyOwners}"
-    '') + ''
+    '')
+    + ''
 
       # Icons
       cp -a resources/icons $out/share

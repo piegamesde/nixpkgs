@@ -120,7 +120,8 @@ buildPythonPackage rec {
       sqlglot
       toolz
       typing-extensions
-    ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
     ++ pooch.optional-dependencies.progress
     ++ pooch.optional-dependencies.xxhash
     ;

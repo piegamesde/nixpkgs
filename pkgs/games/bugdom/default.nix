@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
   '';
 
   buildInputs =
-    [ SDL2 ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    [ SDL2 ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
       IOKit
       Foundation
     ]
@@ -52,7 +53,8 @@ stdenv.mkDerivation rec {
     ''
       runHook preInstall
 
-    '' + (if stdenv.hostPlatform.isDarwin then
+    ''
+    + (if stdenv.hostPlatform.isDarwin then
       ''
         mkdir -p $out/{bin,Applications}
         mv {,$out/Applications/}Bugdom.app
@@ -66,10 +68,11 @@ stdenv.mkDerivation rec {
         wrapProgram $out/bin/Bugdom --run "cd $out/share/bugdom"
         install -Dm644 $src/packaging/bugdom.desktop $out/share/applications/bugdom.desktop
         install -Dm644 $src/packaging/bugdom-desktopicon.png $out/share/pixmaps/bugdom-desktopicon.png
-      '') + ''
+      '')
+    + ''
 
-        runHook postInstall
-      ''
+      runHook postInstall
+    ''
     ;
 
   meta = with lib; {

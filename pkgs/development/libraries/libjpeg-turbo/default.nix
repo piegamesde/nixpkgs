@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
   patches =
     [ ./0001-Compile-transupp.c-as-part-of-the-library.patch ]
     ++ lib.optional (stdenv.hostPlatform.libc or null == "msvcrt")
-    ./mingw-boolean.patch
+      ./mingw-boolean.patch
     ;
 
   outputs = [
@@ -69,7 +69,8 @@ stdenv.mkDerivation rec {
     [
       cmake
       nasm
-    ] ++ lib.optionals enableJava [ openjdk ]
+    ]
+    ++ lib.optionals enableJava [ openjdk ]
     ;
 
   cmakeFlags =
@@ -86,7 +87,8 @@ stdenv.mkDerivation rec {
         else
           "0"
       }"
-    ] ++ lib.optionals enableJava [ "-DWITH_JAVA=1" ]
+    ]
+    ++ lib.optionals enableJava [ "-DWITH_JAVA=1" ]
     ++ lib.optionals enableJpeg7 [ "-DWITH_JPEG7=1" ]
     ++ lib.optionals enableJpeg8 [ "-DWITH_JPEG8=1" ]
     ++ lib.optionals stdenv.hostPlatform.isRiscV [

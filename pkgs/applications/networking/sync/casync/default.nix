@@ -38,7 +38,8 @@ stdenv.mkDerivation {
       curl
       xz
       zstd
-    ] ++ lib.optionals (fuseSupport) [ fuse ]
+    ]
+    ++ lib.optionals (fuseSupport) [ fuse ]
     ++ lib.optionals (selinuxSupport) [ libselinux ]
     ++ lib.optionals (udevSupport) [ udev ]
     ;

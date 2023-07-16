@@ -47,7 +47,8 @@ stdenv.mkDerivation rec {
       # S-expression output for why3pp
       ppx_deriving
       ppx_sexp_conv
-    ] ++
+    ]
+    ++
     # Coq Support
     (with coqPackages; [
       coq

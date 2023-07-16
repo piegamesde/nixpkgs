@@ -44,7 +44,8 @@ buildPythonPackage rec {
     lib.optionals (pythonAtLeast "3.11") [
       # https://github.com/maxmind/GeoIP2-python/pull/136
       "TestAsyncClient"
-    ] ++ lib.optionals (pythonAtLeast "3.10") [ "test_request" ]
+    ]
+    ++ lib.optionals (pythonAtLeast "3.10") [ "test_request" ]
     ;
 
   meta = with lib; {

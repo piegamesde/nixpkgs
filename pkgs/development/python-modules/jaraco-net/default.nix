@@ -68,7 +68,8 @@ buildPythonPackage rec {
       python-dateutil
       pathvalidate
       jsonpickle
-    ] ++ lib.optionals stdenv.isDarwin [ ifconfig-parser ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ ifconfig-parser ]
     ;
 
   pythonImportsCheck = [ "jaraco.net" ];

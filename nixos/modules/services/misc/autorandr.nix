@@ -29,10 +29,11 @@ let
       merge = mergeOneOption;
       getSubOptions =
         prefix:
-        elemType.getSubOptions (prefix ++ [
-          "*"
-          "*"
-        ])
+        elemType.getSubOptions (prefix
+          ++ [
+            "*"
+            "*"
+          ])
         ;
       getSubModules = elemType.getSubModules;
       substSubModules = mod: matrixOf n m (elemType.substSubModules mod);
@@ -261,11 +262,11 @@ let
         ++ optional (config.transform != null) ("transform "
           + concatMapStringsSep "," toString (flatten config.transform))
         ++ optional (config.scale != null)
-        ((if config.scale.method == "factor" then
-          "scale"
-        else
-          "scale-from")
-          + " ${toString config.scale.x}x${toString config.scale.y}"))
+          ((if config.scale.method == "factor" then
+            "scale"
+          else
+            "scale-from")
+            + " ${toString config.scale.x}x${toString config.scale.y}"))
     else
       ''
         output ${name}

@@ -54,7 +54,8 @@ buildPythonPackage rec {
       requests-toolbelt
       setuptools
       rich
-    ] ++ requests.optional-dependencies.socks
+    ]
+    ++ requests.optional-dependencies.socks
     ;
 
   nativeCheckInputs = [
@@ -106,7 +107,8 @@ buildPythonPackage rec {
       "test_valid_xml"
       "test_xml_format_options"
       "test_xml_xhtm"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # flaky
       "test_daemon_runner"
     ]

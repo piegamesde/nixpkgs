@@ -41,7 +41,8 @@ buildGoModule rec {
     [
       installShellFiles
       makeWrapper
-    ] ++ lib.optionals stdenv.isDarwin [ darwin.DarwinTools ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.DarwinTools ]
     ;
 
   vendorHash = "sha256-bEgC7j8WvCgrJ2Ahye4mfWVEmo6Y/OO64mDIJXvtaiE=";

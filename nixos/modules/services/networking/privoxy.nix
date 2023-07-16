@@ -59,7 +59,8 @@ let
     # hardcode confdir here.
     [ ''
       confdir ${pkgs.privoxy}/etc
-    '' ] ++ mapAttrsToList serialise cfg.settings));
+    '' ]
+    ++ mapAttrsToList serialise cfg.settings));
 
   inspectAction = pkgs.writeText "inspect-all-https.action" ''
     # Enable HTTPS inspection for all requests
@@ -170,8 +171,9 @@ in
             # other actions/filters installed by Privoxy or the user.
           apply =
             x:
-            x ++ optional (cfg.userActions != "")
-            (toString (pkgs.writeText "user.actions" cfg.userActions))
+            x
+            ++ optional (cfg.userActions != "")
+              (toString (pkgs.writeText "user.actions" cfg.userActions))
             ;
           default = [
             "match-all.action"
@@ -188,8 +190,9 @@ in
           default = [ "default.filter" ];
           apply =
             x:
-            x ++ optional (cfg.userFilters != "")
-            (toString (pkgs.writeText "user.filter" cfg.userFilters))
+            x
+            ++ optional (cfg.userFilters != "")
+              (toString (pkgs.writeText "user.filter" cfg.userFilters))
             ;
           description = lib.mdDoc ''
             List of paths to Privoxy filter files. These paths may either be
@@ -285,7 +288,8 @@ in
         [
           "match-all.action"
           "default.action"
-        ] ++ optional cfg.inspectHttps (toString inspectAction)
+        ]
+        ++ optional cfg.inspectHttps (toString inspectAction)
         ;
     } // (optionalAttrs cfg.enableTor {
       forward-socks5 = "/ 127.0.0.1:9063 .";

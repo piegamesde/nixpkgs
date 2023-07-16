@@ -63,10 +63,12 @@ buildGoModule {
       for bin in $(ls $out/bin); do
         wrapProgram $out/bin/$bin \
           --suffix GOPATH : $out \
-    '' + lib.optionalString withAndroidPkgs ''
+    ''
+    + lib.optionalString withAndroidPkgs ''
       --prefix PATH : "${androidPkgs.androidsdk}/bin" \
       --set-default ANDROID_HOME "${androidPkgs.androidsdk}/libexec/android-sdk" \
-    '' + ''
+    ''
+    + ''
           --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ zlib ]}"
       done
     ''

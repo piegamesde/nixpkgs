@@ -93,16 +93,17 @@ stdenv.mkDerivation rec {
     [
       "CC=${stdenv.cc.targetPrefix}cc"
       "CXX=${stdenv.cc.targetPrefix}c++"
-    ] ++ lib.optionals useUasm [
-      "MY_ASM=uasm"
     ]
-    # We need at minimum 10.13 here because of utimensat, however since
-    # we need a bump anyway, let's set the same minimum version as the one in
-    # aarch64-darwin so we don't need additional changes for it
+    ++ lib.optionals useUasm [
+        "MY_ASM=uasm"
+      ]
+      # We need at minimum 10.13 here because of utimensat, however since
+      # we need a bump anyway, let's set the same minimum version as the one in
+      # aarch64-darwin so we don't need additional changes for it
     ++ lib.optionals stdenv.isDarwin [
-      "MACOSX_DEPLOYMENT_TARGET=10.16"
-    ]
-    # it's the compression code with the restriction, see DOC/License.txt
+        "MACOSX_DEPLOYMENT_TARGET=10.16"
+      ]
+      # it's the compression code with the restriction, see DOC/License.txt
     ++ lib.optionals (!enableUnfree) [ "DISABLE_RAR_COMPRESS=true" ]
     ++ lib.optionals (stdenv.hostPlatform.isMinGW) [
       "IS_MINGW=1"
@@ -142,7 +143,8 @@ stdenv.mkDerivation rec {
       [
         lgpl2Plus # and
         bsd3
-      ] ++
+      ]
+      ++
       # and CPP/7zip/Compress/Rar* are unfree with the unRAR license restriction
       # the unRAR compression code is disabled by default
       lib.optionals enableUnfree [ unfree ];

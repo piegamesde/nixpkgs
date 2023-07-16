@@ -45,7 +45,8 @@ python3Packages.buildPythonApplication rec {
     ''
       installShellCompletion --cmd borgmatic \
         --bash <($out/bin/borgmatic --bash-completion)
-    '' + lib.optionalString enableSystemd ''
+    ''
+    + lib.optionalString enableSystemd ''
       mkdir -p $out/lib/systemd/system
       cp sample/systemd/borgmatic.timer $out/lib/systemd/system/
       # there is another "sleep", so choose the one with the space after it

@@ -14,7 +14,8 @@ let
     libclang = clang.cc.lib;
     meta = rust-bindgen-unwrapped.meta // {
       longDescription =
-        rust-bindgen-unwrapped.meta.longDescription + ''
+        rust-bindgen-unwrapped.meta.longDescription
+        + ''
           This version of bindgen is wrapped with the required compiler flags
           required to find the c and c++ standard libary, as well as the libraries
           specified in the buildInputs of your derivation.

@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
           DBI
           DBDSQLite
         ]))
-    ] ++ lib.optionals (!stdenv.isAarch64) [ dmidecode ]
+    ]
+    ++ lib.optionals (!stdenv.isAarch64) [ dmidecode ]
     ;
 
   configureFlags =
@@ -58,7 +59,8 @@ stdenv.mkDerivation rec {
       "--enable-memory-failure"
       "--enable-memory-ce-pfa"
       "--enable-amp-ns-decode"
-    ] ++ lib.optionals (stdenv.isAarch64) [ "--enable-arm" ]
+    ]
+    ++ lib.optionals (stdenv.isAarch64) [ "--enable-arm" ]
     ;
 
     # The installation attempts to create the following directories:
@@ -103,7 +105,8 @@ stdenv.mkDerivation rec {
       # Fix dmidecode and modprobe paths
       substituteInPlace $out/bin/ras-mc-ctl \
         --replace 'find_prog ("modprobe")  or exit (1)' '"${kmod}/bin/modprobe"'
-    '' + lib.optionalString (!stdenv.isAarch64) ''
+    ''
+    + lib.optionalString (!stdenv.isAarch64) ''
       substituteInPlace $out/bin/ras-mc-ctl \
         --replace 'find_prog ("dmidecode")' '"${dmidecode}/bin/dmidecode"'
     ''

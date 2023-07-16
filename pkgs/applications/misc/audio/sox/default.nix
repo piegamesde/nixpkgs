@@ -58,7 +58,8 @@ stdenv.mkDerivation rec {
     [
       autoreconfHook
       autoconf-archive
-    ] ++ lib.optionals enableOpusfile [
+    ]
+    ++ lib.optionals enableOpusfile [
       # configure.ac uses pkg-config only to locate libopusfile
       pkg-config
     ]
@@ -68,16 +69,23 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     lib.optional (enableAlsa && stdenv.isLinux) alsa-lib
-    ++ lib.optional enableLibao libao ++ lib.optional enableLame lame
-    ++ lib.optional enableLibmad libmad ++ lib.optionals enableLibogg [
+    ++ lib.optional enableLibao libao
+    ++ lib.optional enableLame lame
+    ++ lib.optional enableLibmad libmad
+    ++ lib.optionals enableLibogg [
       libogg
       libvorbis
-    ] ++ lib.optional enableOpusfile opusfile ++ lib.optional enableFLAC flac
-    ++ lib.optional enablePNG libpng ++ lib.optional enableLibsndfile libsndfile
-    ++ lib.optional enableWavpack wavpack ++ lib.optionals enableAMR [
+    ]
+    ++ lib.optional enableOpusfile opusfile
+    ++ lib.optional enableFLAC flac
+    ++ lib.optional enablePNG libpng
+    ++ lib.optional enableLibsndfile libsndfile
+    ++ lib.optional enableWavpack wavpack
+    ++ lib.optionals enableAMR [
       amrnb
       amrwb
-    ] ++ lib.optional enableLibpulseaudio libpulseaudio
+    ]
+    ++ lib.optional enableLibpulseaudio libpulseaudio
     ++ lib.optional stdenv.isDarwin CoreAudio
     ;
 

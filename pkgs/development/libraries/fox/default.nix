@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
       libXext
       libXrandr
       libXft
-    ] ++ lib.optional stdenv.isDarwin CoreServices
+    ]
+    ++ lib.optional stdenv.isDarwin CoreServices
     ;
 
   doCheck = true;

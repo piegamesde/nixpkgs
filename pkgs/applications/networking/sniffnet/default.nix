@@ -33,7 +33,8 @@ rustPlatform.buildRustPackage rec {
     [
       libpcap
       openssl
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       alsa-lib
       expat
       fontconfig
@@ -42,7 +43,8 @@ rustPlatform.buildRustPackage rec {
       xorg.libXcursor
       xorg.libXi
       xorg.libXrandr
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       darwin.apple_sdk.frameworks.AppKit
       rustPlatform.bindgenHook
     ]

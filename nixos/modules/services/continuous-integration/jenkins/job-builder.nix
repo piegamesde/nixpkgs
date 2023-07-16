@@ -260,7 +260,8 @@ in
               jobdir="${jenkinsCfg.home}/$jenkinsjobname"
               rm -rf "$jobdir"
           done
-        '' + (optionalString (cfg.accessUser != "") reloadScript)
+        ''
+        + (optionalString (cfg.accessUser != "") reloadScript)
         ;
       serviceConfig = {
         Type = "oneshot";

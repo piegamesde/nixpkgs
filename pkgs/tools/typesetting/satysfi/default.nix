@@ -71,7 +71,8 @@ ocamlPackages.buildDunePackage rec {
       camlpdf
       otfm
       yojson-with-position
-    ] ++ (with ocamlPackages; [
+    ]
+    ++ (with ocamlPackages; [
       menhirLib
       batteries
       camlimages

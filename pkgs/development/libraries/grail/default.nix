@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
     [
       python3
       frame
-    ] ++ lib.optionals enableX11 [
+    ]
+    ++ lib.optionals enableX11 [
       xorg.libX11
       xorg.libXtst
       xorg.libXext

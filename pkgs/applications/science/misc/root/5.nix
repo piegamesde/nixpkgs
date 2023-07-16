@@ -49,14 +49,16 @@ stdenv.mkDerivation rec {
       gsl
       xxHash
       libxcrypt
-    ] ++ lib.optionals (!stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [
       libX11
       libXpm
       libXft
       libXext
       libGLU
       libGL
-    ] ++ lib.optionals (stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (stdenv.isDarwin) [
       Cocoa
       OpenGL
     ]
@@ -131,7 +133,8 @@ stdenv.mkDerivation rec {
     + ''
       substituteInPlace cint/cint/src/loadfile.cxx\
         --replace 'env = "cint";' 'env = "'`pwd`'/cint";'
-    '' + lib.optionalString noSplash ''
+    ''
+    + lib.optionalString noSplash ''
       substituteInPlace rootx/src/rootx.cxx --replace "gNoLogo = false" "gNoLogo = true"
     ''
     ;
@@ -171,8 +174,9 @@ stdenv.mkDerivation rec {
       "-Dssl=OFF"
       "-Dxml=ON"
       "-Dxrootd=OFF"
-    ] ++ lib.optional stdenv.isDarwin
-    "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"
+    ]
+    ++ lib.optional stdenv.isDarwin
+      "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"
     ;
 
   setupHook = ./setup-hook.sh;

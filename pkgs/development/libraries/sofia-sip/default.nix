@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
     [
       glib
       openssl
-    ] ++ lib.optional stdenv.isDarwin SystemConfiguration
+    ]
+    ++ lib.optional stdenv.isDarwin SystemConfiguration
     ;
   nativeBuildInputs = [
     autoreconfHook

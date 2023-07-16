@@ -106,7 +106,8 @@ stdenv.mkDerivation rec {
       # To provide ciptool, sdptool, and rfcomm (unmaintained)
       # superseded by new D-Bus APIs
       "--enable-deprecated"
-    ] ++ lib.optional withExperimental "--enable-experimental"
+    ]
+    ++ lib.optional withExperimental "--enable-experimental"
     ;
 
     # Work around `make install' trying to create /var/lib/bluetooth.
@@ -133,7 +134,8 @@ stdenv.mkDerivation rec {
       done
       popd
       wrapPythonProgramsIn $test/test "$test/test ${toString pythonPath}"
-    '' + ''
+    ''
+    + ''
       # for bluez4 compatibility for NixOS
       mkdir $out/sbin
       ln -s ../libexec/bluetooth/bluetoothd $out/sbin/bluetoothd

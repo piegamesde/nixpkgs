@@ -154,11 +154,13 @@ let
         arpack'
         libwebp
         gl2ps
-      ] ++ lib.optionals enableQt [
+      ]
+      ++ lib.optionals enableQt [
         qtbase
         qtsvg
         qscintilla
-      ] ++ lib.optionals (ghostscript != null) [ ghostscript ]
+      ]
+      ++ lib.optionals (ghostscript != null) [ ghostscript ]
       ++ lib.optionals (hdf5 != null) [ hdf5 ]
       ++ lib.optionals (glpk != null) [ glpk ]
       ++ lib.optionals (suitesparse != null) [ suitesparse' ]
@@ -170,7 +172,8 @@ let
         libGL
         libGLU
         libX11
-      ] ++ lib.optionals stdenv.isDarwin [
+      ]
+      ++ lib.optionals stdenv.isDarwin [
         libiconv
         darwin.apple_sdk.frameworks.Accelerate
         darwin.apple_sdk.frameworks.Cocoa
@@ -184,7 +187,8 @@ let
         fftw
         fftwSinglePrec
         texinfo
-      ] ++ lib.optionals (sundials != null) [ sundials ]
+      ]
+      ++ lib.optionals (sundials != null) [ sundials ]
       ++ lib.optionals enableQt [
         qtscript
         qttools
@@ -209,7 +213,8 @@ let
           "--enable-64"
         else
           "--disable-64")
-      ] ++ lib.optionals stdenv.isDarwin [ "--enable-link-all-dependencies" ]
+      ]
+      ++ lib.optionals stdenv.isDarwin [ "--enable-link-all-dependencies" ]
       ++ lib.optionals enableReadline [ "--enable-readline" ]
       ++ lib.optionals stdenv.isDarwin [ "--with-x=no" ]
       ++ lib.optionals enableQt [ "--with-qt=5" ]

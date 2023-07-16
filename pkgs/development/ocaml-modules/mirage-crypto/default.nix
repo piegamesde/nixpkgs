@@ -33,7 +33,8 @@ buildDunePackage rec {
     [
       cstruct
       eqaf
-    ] ++ lib.optionals withFreestanding [ ocaml-freestanding ]
+    ]
+    ++ lib.optionals withFreestanding [ ocaml-freestanding ]
     ;
 
   meta = with lib; {

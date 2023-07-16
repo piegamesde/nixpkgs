@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
           "https://github.com/abseil/abseil-cpp/commit/5bfa70c75e621c5d5ec095c8c4c0c050dcb2957e.patch";
         sha256 = "0nhjxqfxpi2pkfinnqvd5m4npf9l1kg39mjx9l3087ajhadaywl5";
       })
-    ] ++ lib.optionals stdenv.hostPlatform.isLoongArch64 [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLoongArch64 [
       # https://github.com/abseil/abseil-cpp/pull/1110
       (fetchpatch {
         url =
@@ -46,9 +47,10 @@ stdenv.mkDerivation rec {
         else
           "ON"
       }"
-    ] ++ lib.optionals (cxxStandard != null) [
-      "-DCMAKE_CXX_STANDARD=${cxxStandard}"
     ]
+    ++ lib.optionals (cxxStandard != null) [
+        "-DCMAKE_CXX_STANDARD=${cxxStandard}"
+      ]
     ;
 
   nativeBuildInputs = [ cmake ];

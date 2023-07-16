@@ -64,12 +64,14 @@ stdenv.mkDerivation rec {
       #postgresql
       #libpqxx
       #mosquitto
-    ] ++ lib.optional stdenv.isLinux wayland-protocols
+    ]
+    ++ lib.optional stdenv.isLinux wayland-protocols
     ++ lib.optionals stdenv.isDarwin [
       Carbon
       CoreServices
       OpenCL
-    ] ++ lib.optional (!stdenv.isDarwin) opencl-headers
+    ]
+    ++ lib.optional (!stdenv.isDarwin) opencl-headers
     ;
 
   cmakeFlags =
@@ -83,7 +85,8 @@ stdenv.mkDerivation rec {
       "-DGAMES=OFF"
       "-DMAPVIEW=OFF"
       "-DAIDEBUG=OFF"
-    ] ++ lib.optional stdenv.isDarwin "-DCORESERVICES_LIB=${CoreServices}"
+    ]
+    ++ lib.optional stdenv.isDarwin "-DCORESERVICES_LIB=${CoreServices}"
     ;
 
     # Set the data directory for each executable. We cannot set it at build time

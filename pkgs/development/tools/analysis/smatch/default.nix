@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
     [
       sqlite
       openssl
-    ] ++ lib.optionals buildllvmsparse [ libllvm ]
+    ]
+    ++ lib.optionals buildllvmsparse [ libllvm ]
     ++ lib.optionals buildc2xml [ libxml2.dev ]
     ;
 

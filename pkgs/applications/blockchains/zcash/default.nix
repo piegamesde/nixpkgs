@@ -64,7 +64,8 @@ rustPlatform.buildRustPackage.override { inherit stdenv; } rec {
       tl-expected
       utf8cpp
       zeromq
-    ] ++ lib.optionals stdenv.isDarwin [ Security ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Security ]
     ;
 
     # Use the stdenv default phases (./configure; make) instead of the

@@ -149,12 +149,13 @@ in
       }
       {
         assertion =
-          cfg.settings != null -> foldl (a: b: a && b) true (mapAttrsToList
-            (mcu: _:
-              mcu != null -> (hasAttrByPath [
-                "${mcu}"
-                "serial"
-              ] cfg.settings)) cfg.firmwares)
+          cfg.settings != null
+          -> foldl (a: b: a && b) true (mapAttrsToList (mcu: _:
+            mcu != null
+            -> (hasAttrByPath [
+              "${mcu}"
+              "serial"
+            ] cfg.settings)) cfg.firmwares)
           ;
         message =
           "Option services.klipper.settings.$mcu.serial must be set when settings.klipper.firmware.$mcu is specified";
@@ -183,8 +184,9 @@ in
     systemd.services.klipper =
       let
         klippyArgs =
-          "--input-tty=${cfg.inputTTY}" + optionalString (cfg.apiSocket != null)
-          " --api-server=${cfg.apiSocket}"
+          "--input-tty=${cfg.inputTTY}"
+          + optionalString (cfg.apiSocket != null)
+            " --api-server=${cfg.apiSocket}"
           ;
         printerConfigPath =
           if cfg.mutableConfig then

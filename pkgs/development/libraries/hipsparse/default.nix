@@ -21,7 +21,8 @@ stdenv.mkDerivation (finalAttrs: {
   version = "5.4.4";
 
   outputs =
-    [ "out" ] ++ lib.optionals buildTests [ "test" ]
+    [ "out" ]
+    ++ lib.optionals buildTests [ "test" ]
     ++ lib.optionals buildSamples [ "sample" ]
     ;
 
@@ -43,7 +44,8 @@ stdenv.mkDerivation (finalAttrs: {
     [
       rocsparse
       git
-    ] ++ lib.optionals buildTests [ gtest ]
+    ]
+    ++ lib.optionals buildTests [ gtest ]
     ++ lib.optionals (buildTests || buildSamples) [ openmp ]
     ;
 
@@ -62,7 +64,8 @@ stdenv.mkDerivation (finalAttrs: {
       "-DCMAKE_INSTALL_BINDIR=bin"
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    ] ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
+    ]
+    ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
     ;
 
     # We have to manually generate the matrices
@@ -71,7 +74,8 @@ stdenv.mkDerivation (finalAttrs: {
     ''
       substituteInPlace clients/common/utility.cpp \
         --replace "#ifdef __cpp_lib_filesystem" " #if true"
-    '' + lib.optionalString buildTests ''
+    ''
+    + lib.optionalString buildTests ''
       mkdir -p matrices
 
       ln -s ${rocsparse.passthru.matrices.matrix-01}/*.mtx matrices
@@ -117,14 +121,16 @@ stdenv.mkDerivation (finalAttrs: {
       mv $out/bin/hipsparse-test $test/bin
       mv /build/source/matrices $test
       rmdir $out/bin
-    '' + lib.optionalString buildSamples ''
+    ''
+    + lib.optionalString buildSamples ''
       mkdir -p $sample/bin
       mv clients/staging/example_* $sample/bin
       patchelf --set-rpath $out/lib:${
-        lib.makeLibraryPath (finalAttrs.buildInputs ++ [
-          hip
-          gfortran.cc
-        ])
+        lib.makeLibraryPath (finalAttrs.buildInputs
+          ++ [
+            hip
+            gfortran.cc
+          ])
       } $sample/bin/example_*
     ''
     ;

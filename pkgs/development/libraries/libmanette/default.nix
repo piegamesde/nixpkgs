@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
     [
       "out"
       "dev"
-    ] ++ lib.optional withIntrospection "devdoc"
+    ]
+    ++ lib.optional withIntrospection "devdoc"
     ;
 
   src = fetchurl {
@@ -44,23 +45,26 @@ stdenv.mkDerivation rec {
       ninja
       pkg-config
       glib
-    ] ++ lib.optionals withIntrospection [
+    ]
+    ++ lib.optionals withIntrospection [
       vala
       gobject-introspection
       gtk-doc
       docbook-xsl-nons
       docbook_xml_dtd_43
-    ] ++ lib.optionals (withIntrospection
-      && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-      mesonEmulatorHook
     ]
+    ++ lib.optionals (withIntrospection
+      && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+        mesonEmulatorHook
+      ]
     ;
 
   buildInputs =
     [
       glib
       libevdev
-    ] ++ lib.optionals withIntrospection [ libgudev ]
+    ]
+    ++ lib.optionals withIntrospection [ libgudev ]
     ;
 
   mesonFlags = [

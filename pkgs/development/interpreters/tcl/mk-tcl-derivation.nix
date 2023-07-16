@@ -54,7 +54,8 @@ let
 
       buildInputs = buildInputs ++ [ tcl.tclPackageHook ];
       nativeBuildInputs =
-        nativeBuildInputs ++ [
+        nativeBuildInputs
+        ++ [
           makeWrapper
           tcl
         ]

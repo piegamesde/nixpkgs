@@ -76,9 +76,14 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname =
-    "git" + lib.optionalString svnSupport "-with-svn" + lib.optionalString
-    (!svnSupport && !guiSupport && !sendEmailSupport && !withManual
-      && !pythonSupport && !withpcre2) "-minimal"
+    "git"
+    + lib.optionalString svnSupport "-with-svn"
+    + lib.optionalString (!svnSupport
+      && !guiSupport
+      && !sendEmailSupport
+      && !withManual
+      && !pythonSupport
+      && !withpcre2) "-minimal"
     ;
   inherit version;
 
@@ -100,7 +105,8 @@ stdenv.mkDerivation (finalAttrs: {
       ./git-sh-i18n.patch
       ./git-send-email-honor-PATH.patch
       ./installCheck-path.patch
-    ] ++ lib.optionals withSsh [ ./ssh-path.patch ]
+    ]
+    ++ lib.optionals withSsh [ ./ssh-path.patch ]
     ;
 
   postPatch =
@@ -111,7 +117,8 @@ stdenv.mkDerivation (finalAttrs: {
 
       # ensure we are using the correct shell when executing the test scripts
       patchShebangs t/*.sh
-    '' + lib.optionalString withSsh ''
+    ''
+    + lib.optionalString withSsh ''
       for x in connect.c git-gui/lib/remote_add.tcl ; do
         substituteInPlace "$x" \
           --subst-var-by ssh "${openssh}/bin/ssh"
@@ -125,7 +132,8 @@ stdenv.mkDerivation (finalAttrs: {
       perlPackages.perl
       makeWrapper
       pkg-config
-    ] ++ lib.optionals withManual [
+    ]
+    ++ lib.optionals withManual [
       asciidoc
       texinfo
       xmlto
@@ -144,14 +152,18 @@ stdenv.mkDerivation (finalAttrs: {
       cpio
       libiconv
       bash
-    ] ++ lib.optionals perlSupport [ perlPackages.perl ]
+    ]
+    ++ lib.optionals perlSupport [ perlPackages.perl ]
     ++ lib.optionals guiSupport [
       tcl
       tk
-    ] ++ lib.optionals withpcre2 [ pcre2 ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals withpcre2 [ pcre2 ]
+    ++ lib.optionals stdenv.isDarwin [
       Security
       CoreServices
-    ] ++ lib.optionals withLibsecret [
+    ]
+    ++ lib.optionals withLibsecret [
       glib
       libsecret
     ]
@@ -160,7 +172,8 @@ stdenv.mkDerivation (finalAttrs: {
     # required to support pthread_cancel()
   NIX_LDFLAGS =
     lib.optionalString (stdenv.cc.isGNU && stdenv.hostPlatform.libc == "glibc")
-    "-lgcc_s" + lib.optionalString (stdenv.isFreeBSD) "-lthr"
+      "-lgcc_s"
+    + lib.optionalString (stdenv.isFreeBSD) "-lthr"
     ;
 
   configureFlags =
@@ -183,31 +196,37 @@ stdenv.mkDerivation (finalAttrs: {
     # Git does not allow setting a shell separately for building and run-time.
     # Therefore lets leave it at the default /bin/sh when cross-compiling
     ++ lib.optional (stdenv.buildPlatform == stdenv.hostPlatform)
-    "SHELL_PATH=${stdenv.shell}" ++ (if perlSupport then
+      "SHELL_PATH=${stdenv.shell}"
+    ++ (if perlSupport then
       [ "PERL_PATH=${perlPackages.perl}/bin/perl" ]
     else
-      [ "NO_PERL=1" ]) ++ (if pythonSupport then
-        [ "PYTHON_PATH=${python3}/bin/python" ]
-      else
-        [ "NO_PYTHON=1" ]) ++ lib.optionals stdenv.isSunOS [
-          "INSTALL=install"
-          "NO_INET_NTOP="
-          "NO_INET_PTON="
-        ] ++ (if stdenv.isDarwin then
-          [ "NO_APPLE_COMMON_CRYPTO=1" ]
-        else
-          [ "sysconfdir=/etc" ]) ++ lib.optionals stdenv.hostPlatform.isMusl [
-            "NO_SYS_POLL_H=1"
-            "NO_GETTEXT=YesPlease"
-          ] ++ lib.optional withpcre2 "USE_LIBPCRE2=1"
+      [ "NO_PERL=1" ])
+    ++ (if pythonSupport then
+      [ "PYTHON_PATH=${python3}/bin/python" ]
+    else
+      [ "NO_PYTHON=1" ])
+    ++ lib.optionals stdenv.isSunOS [
+      "INSTALL=install"
+      "NO_INET_NTOP="
+      "NO_INET_PTON="
+    ]
+    ++ (if stdenv.isDarwin then
+      [ "NO_APPLE_COMMON_CRYPTO=1" ]
+    else
+      [ "sysconfdir=/etc" ])
+    ++ lib.optionals stdenv.hostPlatform.isMusl [
+      "NO_SYS_POLL_H=1"
+      "NO_GETTEXT=YesPlease"
+    ]
+    ++ lib.optional withpcre2 "USE_LIBPCRE2=1"
     ++ lib.optional (!nlsSupport) "NO_GETTEXT=1"
-    # git-gui refuses to start with the version of tk distributed with
-    # macOS Catalina. We can prevent git from building the .app bundle
-    # by specifying an invalid tk framework. The postInstall step will
-    # then ensure that git-gui uses tcl/tk from nixpkgs, which is an
-    # acceptable version.
-    #
-    # See https://github.com/Homebrew/homebrew-core/commit/dfa3ccf1e7d3901e371b5140b935839ba9d8b706
+      # git-gui refuses to start with the version of tk distributed with
+      # macOS Catalina. We can prevent git from building the .app bundle
+      # by specifying an invalid tk framework. The postInstall step will
+      # then ensure that git-gui uses tcl/tk from nixpkgs, which is an
+      # acceptable version.
+      #
+      # See https://github.com/Homebrew/homebrew-core/commit/dfa3ccf1e7d3901e371b5140b935839ba9d8b706
     ++ lib.optional stdenv.isDarwin "TKFRAMEWORK=/nonexistent"
     ;
 
@@ -219,11 +238,14 @@ stdenv.mkDerivation (finalAttrs: {
   postBuild =
     ''
       make -C contrib/subtree
-    '' + (lib.optionalString perlSupport ''
+    ''
+    + (lib.optionalString perlSupport ''
       make -C contrib/diff-highlight
-    '') + (lib.optionalString osxkeychainSupport ''
+    '')
+    + (lib.optionalString osxkeychainSupport ''
       make -C contrib/credential/osxkeychain
-    '') + (lib.optionalString withLibsecret ''
+    '')
+    + (lib.optionalString withLibsecret ''
       make -C contrib/credential/libsecret
     '')
     ;
@@ -240,7 +262,8 @@ stdenv.mkDerivation (finalAttrs: {
       mkdir -p $out/bin
       ln -s $out/share/git/contrib/credential/osxkeychain/git-credential-osxkeychain $out/bin/
       rm -f $PWD/contrib/credential/osxkeychain/git-credential-osxkeychain.o
-    '') + (lib.optionalString withLibsecret ''
+    '')
+    + (lib.optionalString withLibsecret ''
       mkdir -p $out/bin
       ln -s $out/share/git/contrib/credential/libsecret/git-credential-libsecret $out/bin/
       rm -f $PWD/contrib/credential/libsecret/git-credential-libsecret.o
@@ -307,7 +330,8 @@ stdenv.mkDerivation (finalAttrs: {
       # HTTP(s) transports for pushing
       ln -s $out/libexec/git-core/git-http-backend $out/bin/git-http-backend
       ln -s $out/share/git/contrib/git-jump/git-jump $out/bin/git-jump
-    '' + lib.optionalString perlSupport ''
+    ''
+    + lib.optionalString perlSupport ''
       # wrap perl commands
       makeWrapper "$out/share/git/contrib/credential/netrc/git-credential-netrc.perl" $out/bin/git-credential-netrc \
                   --set PERL5LIB   "$out/${perlPackages.perl.libPrefix}:${
@@ -390,14 +414,15 @@ stdenv.mkDerivation (finalAttrs: {
         for prog in bin/gitk libexec/git-core/git-gui; do
           notSupported "$out/$prog"
         done
-      '') + lib.optionalString osxkeychainSupport ''
-        # enable git-credential-osxkeychain on darwin if desired (default)
-        mkdir -p $out/etc
-        cat > $out/etc/gitconfig << EOF
-        [credential]
-          helper = osxkeychain
-        EOF
-      ''
+      '')
+    + lib.optionalString osxkeychainSupport ''
+      # enable git-credential-osxkeychain on darwin if desired (default)
+      mkdir -p $out/etc
+      cat > $out/etc/gitconfig << EOF
+      [credential]
+        helper = osxkeychain
+      EOF
+    ''
     ;
 
     ## InstallCheck
@@ -471,7 +496,8 @@ stdenv.mkDerivation (finalAttrs: {
         # not check for the Perl prerequisite.
         disable_test t5150-request-pull
       ''}
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # XXX: Some tests added in 2.24.0 fail.
       # Please try to re-enable on the next release.
       disable_test t7816-grep-binary-pattern
@@ -482,9 +508,11 @@ stdenv.mkDerivation (finalAttrs: {
       disable_test t9902-completion
       # not ok 1 - populate workdir (with 2.33.1 on x86_64-darwin)
       disable_test t5003-archive-zip
-    '' + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
+    ''
+    + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
       disable_test t7527-builtin-fsmonitor
-    '' + lib.optionalString stdenv.hostPlatform.isMusl ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isMusl ''
       # Test fails (as of 2.17.0, musl 1.1.19)
       disable_test t3900-i18n-commit
       # Fails largely due to assumptions about BOM

@@ -9,7 +9,8 @@ in
   echo ${lib.escapeShellArg output}
 '').overrideAttrs (old: {
   checkPhase =
-    old.checkPhase or "" + ''
+    old.checkPhase or ""
+    + ''
       expected=${lib.escapeShellArg output}
       got=$("$target")
       if [[ "$got" != "$expected" ]]; then

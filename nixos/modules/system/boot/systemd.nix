@@ -40,11 +40,13 @@ let
       "nss-lookup.target"
       "nss-user-lookup.target"
       "time-sync.target"
-    ] ++ optionals cfg.package.withCryptsetup [
+    ]
+    ++ optionals cfg.package.withCryptsetup [
       "cryptsetup.target"
       "cryptsetup-pre.target"
       "remote-cryptsetup.target"
-    ] ++ [
+    ]
+    ++ [
       "sigpwr.target"
       "timers.target"
       "paths.target"
@@ -59,7 +61,8 @@ let
       "systemd-udevd-kernel.socket"
       "systemd-udevd.service"
       "systemd-udev-settle.service"
-    ] ++ (optional (!config.boot.isContainer) "systemd-udev-trigger.service")
+    ]
+    ++ (optional (!config.boot.isContainer) "systemd-udev-trigger.service")
     ++ [
       # hwdb.bin is managed by NixOS
       # "systemd-hwdb-update.service"
@@ -99,7 +102,9 @@ let
       "dev-hugepages.mount"
       "dev-mqueue.mount"
       "sys-fs-fuse-connections.mount"
-    ] ++ (optional (!config.boot.isContainer) "sys-kernel-config.mount") ++ [
+    ]
+    ++ (optional (!config.boot.isContainer) "sys-kernel-config.mount")
+    ++ [
       "sys-kernel-debug.mount"
 
       # Maintaining state across reboots.
@@ -131,7 +136,9 @@ let
       "final.target"
       "kexec.target"
       "systemd-kexec.service"
-    ] ++ lib.optional cfg.package.withUtmp "systemd-update-utmp.service" ++ [
+    ]
+    ++ lib.optional cfg.package.withUtmp "systemd-update-utmp.service"
+    ++ [
 
       # Password entry.
       "systemd-ask-password-console.path"
@@ -141,32 +148,40 @@ let
 
       # Slices / containers.
       "slices.target"
-    ] ++ optionals cfg.package.withImportd [ "systemd-importd.service" ]
+    ]
+    ++ optionals cfg.package.withImportd [ "systemd-importd.service" ]
     ++ optionals cfg.package.withMachined [
       "machine.slice"
       "machines.target"
       "systemd-machined.service"
-    ] ++ [
+    ]
+    ++ [
       "systemd-nspawn@.service"
 
       # Misc.
       "systemd-sysctl.service"
-    ] ++ optionals cfg.package.withTimedated [
+    ]
+    ++ optionals cfg.package.withTimedated [
       "dbus-org.freedesktop.timedate1.service"
       "systemd-timedated.service"
-    ] ++ optionals cfg.package.withLocaled [
+    ]
+    ++ optionals cfg.package.withLocaled [
       "dbus-org.freedesktop.locale1.service"
       "systemd-localed.service"
-    ] ++ optionals cfg.package.withHostnamed [
+    ]
+    ++ optionals cfg.package.withHostnamed [
       "dbus-org.freedesktop.hostname1.service"
       "systemd-hostnamed.service"
-    ] ++ optionals cfg.package.withPortabled [
+    ]
+    ++ optionals cfg.package.withPortabled [
       "dbus-org.freedesktop.portable1.service"
       "systemd-portabled.service"
-    ] ++ [
+    ]
+    ++ [
       "systemd-exit.service"
       "systemd-update-done.service"
-    ] ++ cfg.additionalUpstreamSystemUnits
+    ]
+    ++ cfg.additionalUpstreamSystemUnits
     ;
 
   upstreamSystemWants = [

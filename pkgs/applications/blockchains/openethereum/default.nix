@@ -42,7 +42,8 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ openssl ] ++ lib.optionals stdenv.isLinux [ systemd ]
+    [ openssl ]
+    ++ lib.optionals stdenv.isLinux [ systemd ]
     ++ lib.optionals stdenv.isDarwin [ darwin.Security ]
     ;
 

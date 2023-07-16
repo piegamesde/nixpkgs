@@ -51,8 +51,9 @@ let
   # XXX: Gnulib's `test-select' fails on FreeBSD:
   # https://hydra.nixos.org/build/2962084/nixlog/1/raw .
   doCheck =
-    !stdenv.isFreeBSD && !stdenv.isDarwin && stdenv.buildPlatform
-    == stdenv.hostPlatform
+    !stdenv.isFreeBSD
+    && !stdenv.isDarwin
+    && stdenv.buildPlatform == stdenv.hostPlatform
     ;
 
   inherit (stdenv.hostPlatform) isDarwin;
@@ -94,7 +95,8 @@ stdenv.mkDerivation rec {
       sed '2iexit 77' -i tests/{pkgconfig,fastopen}.sh
       sed '/^void doit(void)/,/^{/ s/{/{ exit(77);/' -i tests/{trust-store,psk-file}.c
       sed 's:/usr/lib64/pkcs11/ /usr/lib/pkcs11/ /usr/lib/x86_64-linux-gnu/pkcs11/:`pkg-config --variable=p11_module_path p11-kit-1`:' -i tests/p11-kit-trust.sh
-    '' + lib.optionalString stdenv.hostPlatform.isMusl ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isMusl ''
       # See https://gitlab.com/gnutls/gnutls/-/issues/945
          sed '2iecho "certtool tests skipped in musl build"\nexit 0' -i tests/cert-tests/certtool.sh
     ''
@@ -105,7 +107,8 @@ stdenv.mkDerivation rec {
     lib.optionals withP11-kit [
       "--with-default-trust-store-file=/etc/ssl/certs/ca-certificates.crt"
       "--with-default-trust-store-pkcs11=pkcs11:"
-    ] ++ [
+    ]
+    ++ [
       "--disable-dependency-tracking"
       "--enable-fast-install"
       "--with-unbound-root-key-file=${dns-root-data}/root.key"
@@ -128,7 +131,8 @@ stdenv.mkDerivation rec {
       unbound
       gettext
       libiconv
-    ] ++ lib.optional (withP11-kit) p11-kit
+    ]
+    ++ lib.optional (withP11-kit) p11-kit
     ++ lib.optional (tpmSupport && stdenv.isLinux) trousers
     ;
 
@@ -136,7 +140,8 @@ stdenv.mkDerivation rec {
     [
       perl
       pkg-config
-    ] ++ lib.optionals doCheck [
+    ]
+    ++ lib.optionals doCheck [
       which
       nettools
       util-linux
@@ -168,7 +173,8 @@ stdenv.mkDerivation rec {
           -e 's,-L${gmp.dev}/lib,-L${gmp.out}/lib,' \
           -e 's,-lgmp,-L${gmp.out}/lib -lgmp,' \
           -i $out/lib/*.la "$dev/lib/pkgconfig/gnutls.pc"
-    '' + ''
+    ''
+    + ''
       # It seems only useful for static linking but basically noone does that.
       substituteInPlace "$out/lib/libgnutls.la" \
         --replace "-lunistring" ""

@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
       "PREFIX=${placeholder "out"}"
       "PROFILE=release"
       "INSTALLDIR_MAN=${placeholder "out"}/share/man/man1"
-    ] ++ lib.optionals (prefix != null) [ "PROG_PREFIX=${prefix}" ]
+    ]
+    ++ lib.optionals (prefix != null) [ "PROG_PREFIX=${prefix}" ]
     ++ lib.optionals buildMulticallBinary [ "MULTICALL=y" ]
     ;
 

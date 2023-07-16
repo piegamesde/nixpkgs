@@ -97,7 +97,8 @@ stdenv.mkDerivation rec {
       gsettings-desktop-schemas
       gtk3
       ncurses
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       libiconv
       CoreFoundation
     ]
@@ -137,10 +138,12 @@ stdenv.mkDerivation rec {
       mkdir src/build
       cd src/build
 
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       gappsWrapperArgs+=("--prefix"   "LD_LIBRARY_PATH" ":" ${libPath})
       gappsWrapperArgs+=("--set"      "LOCALE_ARCHIVE" "${glibcLocales}/lib/locale/locale-archive")
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       gappsWrapperArgs+=("--prefix" "DYLD_LIBRARY_PATH" ":" ${libPath})
     ''
     ;
@@ -169,7 +172,8 @@ stdenv.mkDerivation rec {
     [
       "--enable-${shared}"
       "--enable-lt=${libtool}/bin/libtool"
-    ] ++ lib.optionals disableDocs [ "--disable-docs" ]
+    ]
+    ++ lib.optionals disableDocs [ "--disable-docs" ]
     ++ lib.optionals stdenv.isDarwin [ "--enable-xonx" ]
     ;
 

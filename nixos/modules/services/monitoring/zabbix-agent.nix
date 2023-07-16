@@ -183,7 +183,8 @@ in
         [
           bash
           "/run/wrappers"
-        ] ++ cfg.extraPackages;
+        ]
+        ++ cfg.extraPackages;
 
       serviceConfig = {
         ExecStart =

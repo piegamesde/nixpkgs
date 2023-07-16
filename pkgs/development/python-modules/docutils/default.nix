@@ -24,7 +24,8 @@ buildPythonPackage rec {
     # It's done here conditionally to prevent mass-rebuilds.
   checkPhase =
     lib.optionalString stdenv.isDarwin
-    ''LANG="en_US.UTF-8" LC_ALL="en_US.UTF-8" '' + ''
+      ''LANG="en_US.UTF-8" LC_ALL="en_US.UTF-8" ''
+    + ''
       ${python.interpreter} test/alltests.py
     ''
     ;

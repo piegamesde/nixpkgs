@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    lib.optional withEmscripten emscripten ++ lib.optional withCurl curl
+    lib.optional withEmscripten emscripten
+    ++ lib.optional withCurl curl
     ++ lib.optional withNcurses ncurses
     ;
 

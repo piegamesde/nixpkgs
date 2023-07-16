@@ -31,7 +31,8 @@ let
   '';
 
   configFileLogin =
-    configFilePam + ''
+    configFilePam
+    + ''
       motd=${boolToStr cfg.motd}
       accept_env_factor=${boolToStr cfg.acceptEnvFactor}
     ''

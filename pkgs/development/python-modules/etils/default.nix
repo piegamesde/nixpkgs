@@ -48,14 +48,17 @@ buildPythonPackage rec {
     eapp =
       [
         absl-py # FIXME package simple-parsing
-      ] ++ epy
+      ]
+      ++ epy
       ;
     ecolab =
       [
         jupyter
         numpy
         mediapy
-      ] ++ enp ++ epy
+      ]
+      ++ enp
+      ++ epy
       ;
     edc = epy;
     enp = [ numpy ] ++ epy;
@@ -64,22 +67,34 @@ buildPythonPackage rec {
         importlib-resources
         typing-extensions
         zipp
-      ] ++ epy
+      ]
+      ++ epy
       ;
     epy = [ typing-extensions ];
     etqdm =
       [
         absl-py
         tqdm
-      ] ++ epy
+      ]
+      ++ epy
       ;
     etree = array-types ++ epy ++ enp ++ etqdm;
     etree-dm = [ dm-tree ] ++ etree;
     etree-jax = [ jax ] ++ etree;
     etree-tf = [ tensorflow ] ++ etree;
     all =
-      array-types ++ eapp ++ ecolab ++ edc ++ enp ++ epath ++ epy ++ etqdm
-      ++ etree ++ etree-dm ++ etree-jax ++ etree-tf
+      array-types
+      ++ eapp
+      ++ ecolab
+      ++ edc
+      ++ enp
+      ++ epath
+      ++ epy
+      ++ etqdm
+      ++ etree
+      ++ etree-dm
+      ++ etree-jax
+      ++ etree-tf
       ;
   };
 
@@ -93,7 +108,8 @@ buildPythonPackage rec {
       pytest-xdist
       pytestCheckHook
       yapf
-    ] ++ passthru.optional-dependencies.all
+    ]
+    ++ passthru.optional-dependencies.all
     ;
 
   disabledTests = [

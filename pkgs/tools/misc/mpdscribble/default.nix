@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
       curl
       boost
       libgcrypt
-    ] ++ lib.optional stdenv.isLinux systemd
+    ]
+    ++ lib.optional stdenv.isLinux systemd
     ;
 
   meta = with lib; {

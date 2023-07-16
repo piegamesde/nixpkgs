@@ -222,7 +222,8 @@ import ./make-test-python.nix ({
             gitlab.succeed(
                 "echo \"Authorization: Bearer $(curl -X POST -H 'Content-Type: application/json' -d @${auth} http://gitlab/oauth/token | ${pkgs.jq}/bin/jq -r '.access_token')\" >/tmp/headers"
             )
-          '' + optionalString doSetup ''
+          ''
+          + optionalString doSetup ''
             with subtest("Create user Alice"):
                 gitlab.succeed(
                     """[ "$(curl -o /dev/null -w '%{http_code}' -X POST -H 'Content-Type: application/json' -H @/tmp/headers -d @${createUserAlice} http://gitlab/api/v4/users)" = "201" ]"""
@@ -401,7 +402,8 @@ import ./make-test-python.nix ({
                         -H @/tmp/headers-alice -d @${closeIssue} http://gitlab/api/v4/projects/${aliceProjectId}/issues/1)" = "200" ]
                     """
                 )
-          '' + ''
+          ''
+          + ''
             with subtest("Download archive.tar.gz"):
                 gitlab.succeed(
                     """
@@ -445,7 +447,10 @@ import ./make-test-python.nix ({
       in
       ''
         gitlab.start()
-      '' + waitForServices + test true + ''
+      ''
+      + waitForServices
+      + test true
+      + ''
         gitlab.systemctl("start gitlab-backup.service")
         gitlab.wait_for_unit("gitlab-backup.service")
         gitlab.wait_for_file("${nodes.gitlab.config.services.gitlab.statePath}/backup/dump_gitlab_backup.tar")
@@ -461,7 +466,9 @@ import ./make-test-python.nix ({
             "sudo -u gitlab -H gitlab-rake gitlab:backup:restore RAILS_ENV=production BACKUP=dump force=yes"
         )
         gitlab.systemctl("start gitlab.target")
-      '' + waitForServices + test false
+      ''
+      + waitForServices
+      + test false
       ;
   }
 )

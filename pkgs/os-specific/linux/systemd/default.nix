@@ -108,13 +108,13 @@
     lib.versionAtLeast buildPackages.llvmPackages.clang.version "10.0"
     && (stdenv.hostPlatform.isAarch
       -> lib.versionAtLeast stdenv.hostPlatform.parsed.cpu.version
-      "6") # assumes hard floats
+        "6") # assumes hard floats
     && !stdenv.hostPlatform.isMips64 # see https://github.com/NixOS/nixpkgs/pull/194149#issuecomment-1266642211
-    # buildPackages.targetPackages.llvmPackages is the same as llvmPackages,
-    # but we do it this way to avoid taking llvmPackages as an input, and
-    # risking making it too easy to ignore the above comment about llvmPackages.
+      # buildPackages.targetPackages.llvmPackages is the same as llvmPackages,
+      # but we do it this way to avoid taking llvmPackages as an input, and
+      # risking making it too easy to ignore the above comment about llvmPackages.
     && lib.meta.availableOn stdenv.hostPlatform
-    buildPackages.targetPackages.llvmPackages.compiler-rt,
+      buildPackages.targetPackages.llvmPackages.compiler-rt,
   withLibidn2 ? true,
   withLocaled ? true,
   withLogind ? true,
@@ -209,7 +209,8 @@ stdenv.mkDerivation (finalAttrs: {
       ./0017-inherit-systemd-environment-when-calling-generators.patch
       ./0018-core-don-t-taint-on-unmerged-usr.patch
       ./0019-tpm2_context_init-fix-driver-name-checking.patch
-    ] ++ lib.optional stdenv.hostPlatform.isMusl (let
+    ]
+    ++ lib.optional stdenv.hostPlatform.isMusl (let
       oe-core = fetchzip {
         url =
           "https://git.openembedded.org/openembedded-core/snapshot/openembedded-core-f34f6ab04b443608497b73668365819343d0c2fe.tar.gz";
@@ -264,13 +265,15 @@ stdenv.mkDerivation (finalAttrs: {
         --replace \
         "run_command(cc.cmd_array(), '-print-prog-name=objcopy', check: true).stdout().strip()" \
         "'${stdenv.cc.bintools.targetPrefix}objcopy'"
-    '' + lib.optionalString withLibBPF ''
+    ''
+    + lib.optionalString withLibBPF ''
       substituteInPlace meson.build \
         --replace "find_program('clang'" "find_program('${stdenv.cc.targetPrefix}clang'"
       # BPF does not work with stack protector
       substituteInPlace src/core/bpf/meson.build \
         --replace "clang_flags = [" "clang_flags = [ '-fno-stack-protector',"
-    '' + (let
+    ''
+    + (let
       # The following patches references to dynamic libraries to ensure that
       # all the features that are implemented via dlopen(3) are available (or
       # explicitly deactivated) by pointing dlopen to the absolute store path
@@ -494,7 +497,8 @@ stdenv.mkDerivation (finalAttrs: {
           lxml
           jinja2
         ]))
-    ] ++ lib.optionals withLibBPF [
+    ]
+    ++ lib.optionals withLibBPF [
       bpftools
       buildPackages.llvmPackages.clang
       buildPackages.llvmPackages.libllvm
@@ -513,27 +517,36 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optionals wantGcrypt [
       libgcrypt
       libgpg-error
-    ] ++ lib.optional withTests glib ++ lib.optional withAcl acl
-    ++ lib.optional withApparmor libapparmor ++ lib.optional withAudit audit
+    ]
+    ++ lib.optional withTests glib
+    ++ lib.optional withAcl acl
+    ++ lib.optional withApparmor libapparmor
+    ++ lib.optional withAudit audit
     ++ lib.optional wantCurl (lib.getDev curl)
     ++ lib.optionals withCompression [
       bzip2
       lz4
       xz
       zstd
-    ] ++ lib.optional withCoredump elfutils
+    ]
+    ++ lib.optional withCoredump elfutils
     ++ lib.optional withCryptsetup (lib.getDev cryptsetup.dev)
-    ++ lib.optional withEfi gnu-efi ++ lib.optional withKexectools kexec-tools
-    ++ lib.optional withKmod kmod ++ lib.optional withLibidn2 libidn2
+    ++ lib.optional withEfi gnu-efi
+    ++ lib.optional withKexectools kexec-tools
+    ++ lib.optional withKmod kmod
+    ++ lib.optional withLibidn2 libidn2
     ++ lib.optional withLibseccomp libseccomp
-    ++ lib.optional withNetworkd iptables ++ lib.optional withPam pam
-    ++ lib.optional withPCRE2 pcre2 ++ lib.optional withSelinux libselinux
+    ++ lib.optional withNetworkd iptables
+    ++ lib.optional withPam pam
+    ++ lib.optional withPCRE2 pcre2
+    ++ lib.optional withSelinux libselinux
     ++ lib.optional withRemote libmicrohttpd
     ++ lib.optionals (withHomed || withCryptsetup) [ p11-kit ]
     ++ lib.optionals (withHomed || withCryptsetup) [ libfido2 ]
-    ++ lib.optionals withLibBPF [ libbpf ] ++ lib.optional withTpm2Tss tpm2-tss
+    ++ lib.optionals withLibBPF [ libbpf ]
+    ++ lib.optional withTpm2Tss tpm2-tss
     ++ lib.optional withUkify
-    (python3Packages.python.withPackages (ps: with ps; [ pefile ]))
+      (python3Packages.python.withPackages (ps: with ps; [ pefile ]))
     ;
 
     #dontAddPrefix = true;
@@ -634,24 +647,29 @@ stdenv.mkDerivation (finalAttrs: {
       "-Dgnu-efi=${lib.boolToString withEfi}"
 
       "-Dukify=${lib.boolToString withUkify}"
-    ] ++ lib.optionals withEfi [
+    ]
+    ++ lib.optionals withEfi [
       "-Defi-libdir=${toString gnu-efi}/lib"
       "-Defi-includedir=${toString gnu-efi}/include/efi"
-    ] ++ lib.optionals (withShellCompletions == false) [
+    ]
+    ++ lib.optionals (withShellCompletions == false) [
       "-Dbashcompletiondir=no"
       "-Dzshcompletiondir=no"
-    ] ++ lib.optionals (!withNss) [
+    ]
+    ++ lib.optionals (!withNss) [
       "-Dnss-myhostname=false"
       "-Dnss-mymachines=false"
       "-Dnss-resolve=false"
       "-Dnss-systemd=false"
-    ] ++ lib.optionals withLibBPF [ "-Dbpf-framework=true" ]
+    ]
+    ++ lib.optionals withLibBPF [ "-Dbpf-framework=true" ]
     ++ lib.optionals withTpm2Tss [ "-Dtpm2=true" ]
     ++ lib.optionals (!withUtmp) [ "-Dutmp=false" ]
     ++ lib.optionals stdenv.hostPlatform.isMusl [
       "-Dgshadow=false"
       "-Didn=false"
-    ] ++ lib.optionals withKmod [
+    ]
+    ++ lib.optionals withKmod [
       "-Dkmod=true"
       "-Dkmod-path=${kmod}/bin/kmod"
     ]
@@ -712,7 +730,8 @@ stdenv.mkDerivation (finalAttrs: {
             replacement = "$out/lib/systemd/systemd-fsck";
             where = [ "man/systemd-fsck@.service.xml" ];
           }
-        ] ++ lib.optionals withImportd [
+        ]
+        ++ lib.optionals withImportd [
           {
             search = ''"gpg"'';
             replacement = ''\"${gnupg}/bin/gpg\"'';
@@ -738,7 +757,8 @@ stdenv.mkDerivation (finalAttrs: {
               "src/import/pull-tar.c"
             ];
           }
-        ] ++ lib.optionals withKmod [ {
+        ]
+        ++ lib.optionals withKmod [ {
           search = "/sbin/modprobe";
           replacement = "${lib.getBin kmod}/sbin/modprobe";
           where = [ "units/modprobe@.service" ];
@@ -765,10 +785,11 @@ stdenv.mkDerivation (finalAttrs: {
           ignore ? [ ]
         }:
         let
-          ignore' = lib.concatStringsSep "|" (ignore ++ [
-            "^test"
-            "NEWS"
-          ]);
+          ignore' = lib.concatStringsSep "|" (ignore
+            ++ [
+              "^test"
+              "NEWS"
+            ]);
         in
         ''
           set +e
@@ -823,7 +844,8 @@ stdenv.mkDerivation (finalAttrs: {
     "-USYSTEMD_BINARY_PATH"
     ''-DSYSTEMD_BINARY_PATH="/run/current-system/systemd/lib/systemd/systemd"''
 
-  ] ++ lib.optionals stdenv.hostPlatform.isMusl [ "-D__UAPI_DEF_ETHHDR=0" ]);
+  ]
+    ++ lib.optionals stdenv.hostPlatform.isMusl [ "-D__UAPI_DEF_ETHHDR=0" ]);
 
   doCheck = false; # fails a bunch of tests
 
@@ -849,9 +871,11 @@ stdenv.mkDerivation (finalAttrs: {
 
       # "kernel-install" shouldn't be used on NixOS.
       find $out -name "*kernel-install*" -exec rm {} \;
-    '' + lib.optionalString (!withDocumentation) ''
+    ''
+    + lib.optionalString (!withDocumentation) ''
       rm -rf $out/share/doc
-    '' + lib.optionalString withKmod ''
+    ''
+    + lib.optionalString withKmod ''
       mv $out/lib/modules-load.d $out/example
     ''
     ;
@@ -874,7 +898,8 @@ stdenv.mkDerivation (finalAttrs: {
           placeholder "out"
         }/lib/cryptsetup
       done
-    '' + lib.optionalString withEfi ''
+    ''
+    + lib.optionalString withEfi ''
       mv $out/dont-strip-me $out/lib/systemd/boot/efi
     ''
     ;

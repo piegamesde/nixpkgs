@@ -85,10 +85,12 @@ stdenv.mkDerivation {
       xz.bin
       bash
       libintl
-    ] ++ optionals stdenv.isSunOS [
+    ]
+    ++ optionals stdenv.isSunOS [
       libiconv
       gawk
-    ] ++ optional interactive ncurses
+    ]
+    ++ optional interactive ncurses
     ;
 
   configureFlags =

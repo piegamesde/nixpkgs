@@ -103,7 +103,8 @@ lib.makeOverridable ({
         libelf
         # module makefiles often run uname commands to find out the kernel version
         (buildPackages.deterministic-uname.override { inherit modDirVersion; })
-      ] ++ optional (lib.versionAtLeast version "5.13") zstd
+      ]
+      ++ optional (lib.versionAtLeast version "5.13") zstd
       ;
 
     config =
@@ -160,35 +161,38 @@ lib.makeOverridable ({
         mpfr
         zstd
         python3Minimal
-      ] ++ optional (kernelConf.target == "uImage") buildPackages.ubootTools
+      ]
+      ++ optional (kernelConf.target == "uImage") buildPackages.ubootTools
       ++ optional (lib.versionOlder version "5.8") libelf
       ++ optionals (lib.versionAtLeast version "4.16") [
         bison
         flex
-      ] ++ optionals (lib.versionAtLeast version "5.2") [
+      ]
+      ++ optionals (lib.versionAtLeast version "5.2") [
         cpio
         pahole
         zlib
-      ] ++ optional (lib.versionAtLeast version "5.8") elfutils
+      ]
+      ++ optional (lib.versionAtLeast version "5.8") elfutils
       ;
 
     patches =
       map (p: p.patch) kernelPatches
-      # Required for deterministic builds along with some postPatch magic.
+        # Required for deterministic builds along with some postPatch magic.
       ++ optional (lib.versionOlder version "5.19")
-      ./randstruct-provide-seed.patch
+        ./randstruct-provide-seed.patch
       ++ optional (lib.versionAtLeast version "5.19")
-      ./randstruct-provide-seed-5.19.patch
-      # Linux 5.12 marked certain PowerPC-only symbols as GPL, which breaks
-      # OpenZFS; this was fixed in Linux 5.19 so we backport the fix
-      # https://github.com/openzfs/zfs/pull/13367
+        ./randstruct-provide-seed-5.19.patch
+        # Linux 5.12 marked certain PowerPC-only symbols as GPL, which breaks
+        # OpenZFS; this was fixed in Linux 5.19 so we backport the fix
+        # https://github.com/openzfs/zfs/pull/13367
       ++ optional (lib.versionAtLeast version "5.12"
-        && lib.versionOlder version "5.19" && stdenv.hostPlatform.isPower)
-      (fetchpatch {
-        url =
-          "https://git.kernel.org/pub/scm/linux/kernel/git/powerpc/linux.git/patch/?id=d9e5c3e9e75162f845880535957b7fd0b4637d23";
-        hash = "sha256-bBOyJcP6jUvozFJU0SPTOf3cmnTQ6ZZ4PlHjiniHXLU=";
-      })
+        && lib.versionOlder version "5.19"
+        && stdenv.hostPlatform.isPower) (fetchpatch {
+          url =
+            "https://git.kernel.org/pub/scm/linux/kernel/git/powerpc/linux.git/patch/?id=d9e5c3e9e75162f845880535957b7fd0b4637d23";
+          hash = "sha256-bBOyJcP6jUvozFJU0SPTOf3cmnTQ6ZZ4PlHjiniHXLU=";
+        })
       ;
 
     preUnpack = ''
@@ -292,9 +296,12 @@ lib.makeOverridable ({
         "HOSTCC=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc"
         "HOSTLD=${buildPackages.stdenv.cc.bintools}/bin/${buildPackages.stdenv.cc.targetPrefix}ld"
         "ARCH=${stdenv.hostPlatform.linuxArch}"
-      ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-        "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-      ] ++ (kernelConf.makeFlags or [ ]) ++ extraMakeFlags
+      ]
+      ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+          "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
+        ]
+      ++ (kernelConf.makeFlags or [ ])
+      ++ extraMakeFlags
       ;
 
     karch = stdenv.hostPlatform.linuxArch;
@@ -308,12 +315,14 @@ lib.makeOverridable ({
         # replicated here to apply to older versions.
         # Makes __FILE__ relative to the build directory.
         "KCPPFLAGS=-fmacro-prefix-map=$(sourceRoot)/="
-      ] ++ extraMakeFlags
+      ]
+      ++ extraMakeFlags
       ;
 
     installFlags =
       [ "INSTALL_PATH=$(out)" ]
-      ++ (optional isModular "INSTALL_MOD_PATH=$(out)") ++ optionals buildDTBs [
+      ++ (optional isModular "INSTALL_MOD_PATH=$(out)")
+      ++ optionals buildDTBs [
         "dtbs_install"
         "INSTALL_DTBS_PATH=$(out)/dtbs"
       ]
@@ -492,11 +501,13 @@ lib.makeOverridable ({
 
     meta = {
       description =
-        "The Linux kernel" + (if kernelPatches == [ ] then
+        "The Linux kernel"
+        + (if kernelPatches == [ ] then
           ""
         else
           " (with patches: "
-          + lib.concatStringsSep ", " (map (x: x.name) kernelPatches) + ")")
+          + lib.concatStringsSep ", " (map (x: x.name) kernelPatches)
+          + ")")
         ;
       license = lib.licenses.gpl2Only;
       homepage = "https://www.kernel.org/";

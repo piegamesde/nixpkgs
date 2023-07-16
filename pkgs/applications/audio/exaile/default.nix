@@ -52,29 +52,34 @@ stdenv.mkDerivation rec {
       gobject-introspection
       makeWrapper
       wrapGAppsHook
-    ] ++ lib.optionals documentationSupport [
+    ]
+    ++ lib.optionals documentationSupport [
       help2man
       python3.pkgs.sphinx
       python3.pkgs.sphinx-rtd-theme
-    ] ++ lib.optional translationSupport gettext
+    ]
+    ++ lib.optional translationSupport gettext
     ;
 
   buildInputs =
     [
       iconTheme
       gtk3
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       gstreamer
       gst-plugins-base
       gst-plugins-good
-    ]) ++ (with python3.pkgs; [
+    ])
+    ++ (with python3.pkgs; [
       bsddb3
       dbus-python
       mutagen
       pygobject3
       pycairo
       gst-python
-    ]) ++ lib.optional deviceDetectionSupport udisks
+    ])
+    ++ lib.optional deviceDetectionSupport udisks
     ++ lib.optional notificationSupport libnotify
     ++ lib.optional scalableIconSupport librsvg
     ++ lib.optional bpmCounterSupport gst_all_1.gst-plugins-bad

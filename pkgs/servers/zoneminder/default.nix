@@ -177,7 +177,8 @@ stdenv.mkDerivation rec {
       x264
       zlib
       util-linuxMinimal # for libmount
-    ] ++ (with perlPackages; [
+    ]
+    ++ (with perlPackages; [
       # build-time dependencies
       DateManip
       DBI

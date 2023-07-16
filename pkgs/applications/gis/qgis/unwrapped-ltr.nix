@@ -116,7 +116,9 @@ mkDerivation rec {
       qt3d
       pdal
       zstd
-    ] ++ lib.optional withGrass grass ++ lib.optional withWebKit qtwebkit
+    ]
+    ++ lib.optional withGrass grass
+    ++ lib.optional withWebKit qtwebkit
     ++ pythonBuildInputs
     ;
 
@@ -142,7 +144,8 @@ mkDerivation rec {
     [
       "-DWITH_3D=True"
       "-DWITH_PDAL=TRUE"
-    ] ++ lib.optional (!withWebKit) "-DWITH_QTWEBKIT=OFF"
+    ]
+    ++ lib.optional (!withWebKit) "-DWITH_QTWEBKIT=OFF"
     ++ lib.optional withGrass (let
       gmajor = lib.versions.major grass.version;
       gminor = lib.versions.minor grass.version;

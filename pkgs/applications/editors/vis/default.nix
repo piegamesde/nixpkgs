@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
       libtermkey
       luaEnv
       tre
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       acl
       libselinux
     ]

@@ -51,7 +51,8 @@ buildPythonPackage rec {
       configobj
       traits
       traitsui
-    ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
     ;
 
   nativeCheckInputs = [

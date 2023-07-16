@@ -35,7 +35,9 @@ stdenv.mkDerivation rec {
       hdf5
       libjpeg
       libpng
-    ] ++ optional hdf5.mpiSupport hdf5.mpi ++ optional (hdf4 != null) hdf4
+    ]
+    ++ optional hdf5.mpiSupport hdf5.mpi
+    ++ optional (hdf4 != null) hdf4
     ++ optional (libmatheval != null) libmatheval;
 
   meta = with lib; {

@@ -61,7 +61,8 @@ let
         configFile
         cgroupConfig
         plugStackConfig
-      ] ++ cfg.extraConfigPaths
+      ]
+      ++ cfg.extraConfigPaths
       ;
   };
 
@@ -362,7 +363,9 @@ in
       };
 
     in
-    mkIf (cfg.enableStools || cfg.client.enable || cfg.server.enable
+    mkIf (cfg.enableStools
+      || cfg.client.enable
+      || cfg.server.enable
       || cfg.dbdserver.enable) {
 
         environment.systemPackages = [ wrappedSlurm ];
@@ -383,7 +386,8 @@ in
             [
               wrappedSlurm
               coreutils
-            ] ++ lib.optional cfg.enableSrunX11 slurm-spank-x11;
+            ]
+            ++ lib.optional cfg.enableSrunX11 slurm-spank-x11;
 
           wantedBy = [ "multi-user.target" ];
           after = [
@@ -417,7 +421,8 @@ in
               wrappedSlurm
               munge
               coreutils
-            ] ++ lib.optional cfg.enableSrunX11 slurm-spank-x11;
+            ]
+            ++ lib.optional cfg.enableSrunX11 slurm-spank-x11;
 
           wantedBy = [ "multi-user.target" ];
           after = [

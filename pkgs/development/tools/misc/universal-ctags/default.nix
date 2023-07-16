@@ -42,7 +42,8 @@ stdenv.mkDerivation (finalAttrs: {
       pcre2
       libxml2
       jansson
-    ] ++ lib.optional stdenv.isDarwin libiconv
+    ]
+    ++ lib.optional stdenv.isDarwin libiconv
     ++ lib.optional stdenv.isLinux libseccomp
     ;
 

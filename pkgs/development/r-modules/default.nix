@@ -1258,7 +1258,8 @@ let
         cargoRoot = "src/myrustlib";
 
         nativeBuildInputs =
-          attrs.nativeBuildInputs ++ [
+          attrs.nativeBuildInputs
+          ++ [
             pkgs.rustPlatform.cargoSetupHook
             pkgs.cargo
             pkgs.rustc
@@ -1572,7 +1573,8 @@ let
               bzip2
               icu
               which
-            ] ++ attrs.buildInputs
+            ]
+            ++ attrs.buildInputs
             ;
           postInstall = ''
             install -d $out/bin $out/share/man/man1
@@ -1688,7 +1690,8 @@ let
         in
         old.Rhdf5lib.overrideAttrs (attrs: {
           propagatedBuildInputs =
-            attrs.propagatedBuildInputs ++ [
+            attrs.propagatedBuildInputs
+            ++ [
               hdf5.dev
               pkgs.libaec
             ]

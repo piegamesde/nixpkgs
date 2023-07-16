@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   buildInputs =
-    [ vtk_9 ] ++ lib.optionals stdenv.isDarwin [
+    [ vtk_9 ]
+    ++ lib.optionals stdenv.isDarwin [
       Cocoa
       OpenGL
     ]

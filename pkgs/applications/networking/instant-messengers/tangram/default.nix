@@ -60,7 +60,8 @@ stdenv.mkDerivation rec {
       gtk4
       libadwaita
       webkitgtk_6_0
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       gstreamer
       gst-libav
       gst-plugins-base

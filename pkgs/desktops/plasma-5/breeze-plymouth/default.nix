@@ -38,7 +38,8 @@ assert lib.asserts.assertOneOf "bottomColor" bottomColor validColors;
 mkDerivation {
   pname = "breeze-plymouth";
   nativeBuildInputs =
-    [ extra-cmake-modules ] ++ lib.optionals (logoFile != null) [
+    [ extra-cmake-modules ]
+    ++ lib.optionals (logoFile != null) [
       imagemagick
       netpbm
       perl
@@ -47,18 +48,20 @@ mkDerivation {
   buildInputs = [ plymouth ];
   patches = [ ./install-paths.patch ];
   cmakeFlags =
-    [ ] ++ lib.optional (osName != null) "-DDISTRO_NAME=${osName}"
+    [ ]
+    ++ lib.optional (osName != null) "-DDISTRO_NAME=${osName}"
     ++ lib.optional (osVersion != null) "-DDISTRO_VERSION=${osVersion}"
     ++ lib.optional (logoName != null) "-DDISTRO_LOGO=${logoName}"
     ++ lib.optional (topColor != null) "-DBACKGROUND_TOP_COLOR=${topColor}"
     ++ lib.optional (bottomColor != null)
-    "-DBACKGROUND_BOTTOM_COLOR=${bottomColor}"
+      "-DBACKGROUND_BOTTOM_COLOR=${bottomColor}"
     ;
 
   postPatch =
     ''
       substituteInPlace cmake/FindPlymouth.cmake --subst-var out
-    '' + lib.optionalString (logoFile != null) ''
+    ''
+    + lib.optionalString (logoFile != null) ''
       cp ${logoFile} breeze/images/${resolvedLogoName}.logo.png
 
       # conversion for 16bit taken from the breeze-plymouth readme

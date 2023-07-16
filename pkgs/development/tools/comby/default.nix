@@ -49,7 +49,8 @@ let
           ocamlPackages.ppx_deriving_yojson
           ocamlPackages.ppx_sexp_conv
           ocamlPackages.ppx_sexp_message
-        ] ++ extraBuildInputs
+        ]
+        ++ extraBuildInputs
         ;
 
       nativeCheckInputs = [ cacert ];
@@ -105,7 +106,8 @@ mkCombyPackage {
       ocamlPackages.dune-configurator
       combyKernel
       combySemantic
-    ] ++ (if !stdenv.isAarch32 && !stdenv.isAarch64 then
+    ]
+    ++ (if !stdenv.isAarch32 && !stdenv.isAarch64 then
       [ ocamlPackages.hack_parallel ]
     else
       [ ])

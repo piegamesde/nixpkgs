@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
       libticables2
       xz
       bzip2
-    ] ++ lib.optionals stdenv.isLinux [ acl ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ acl ]
     ++ lib.optionals stdenv.isDarwin [ libobjc ]
     ;
 

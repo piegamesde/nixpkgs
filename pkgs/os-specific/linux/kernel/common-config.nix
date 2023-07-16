@@ -29,7 +29,8 @@ let
   flattenKConf = nested: mapAttrs (_: head) (zipAttrs (attrValues nested));
 
   whenPlatformHasEBPFJit = mkIf (stdenv.hostPlatform.isAarch32
-    || stdenv.hostPlatform.isAarch64 || stdenv.hostPlatform.isx86_64
+    || stdenv.hostPlatform.isAarch64
+    || stdenv.hostPlatform.isx86_64
     || (stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit)
     || (stdenv.hostPlatform.isMips && stdenv.hostPlatform.is64bit));
 

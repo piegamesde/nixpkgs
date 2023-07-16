@@ -64,7 +64,8 @@ stdenv.mkDerivation rec {
       openssl
       range-v3
       spdlog
-    ] ++ lib.optional stdenv.cc.isClang llvmPackages.openmp
+    ]
+    ++ lib.optional stdenv.cc.isClang llvmPackages.openmp
     ;
 
     #nativeCheckInputs = [ gtest ];

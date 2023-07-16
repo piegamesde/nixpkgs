@@ -40,7 +40,8 @@ perlPackages.buildPerlPackage rec {
       librsvg
       sane-backends
       sane-frontends
-    ] ++ (with perlPackages; [
+    ]
+    ++ (with perlPackages; [
       Gtk3
       Gtk3ImageView
       Gtk3SimpleList
@@ -125,7 +126,8 @@ perlPackages.buildPerlPackage rec {
       xvfb-run
       file
       tesseract # tests are expecting tesseract 3.x precisely
-    ] ++ (with perlPackages; [ TestPod ])
+    ]
+    ++ (with perlPackages; [ TestPod ])
     ;
 
   checkPhase = ''

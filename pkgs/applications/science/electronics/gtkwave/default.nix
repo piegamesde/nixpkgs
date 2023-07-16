@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
       tcl
       tk
       xz
-    ] ++ lib.optional stdenv.isDarwin gtk-mac-integration
+    ]
+    ++ lib.optional stdenv.isDarwin gtk-mac-integration
     ;
 
     # fix compilation under Darwin

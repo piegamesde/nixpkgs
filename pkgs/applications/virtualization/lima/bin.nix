@@ -64,7 +64,8 @@ stdenvNoCC.mkDerivation {
     [
       makeBinaryWrapper
       installShellFiles
-    ] ++ lib.optionals stdenvNoCC.isLinux [ autoPatchelfHook ]
+    ]
+    ++ lib.optionals stdenvNoCC.isLinux [ autoPatchelfHook ]
     ;
 
   installPhase = ''

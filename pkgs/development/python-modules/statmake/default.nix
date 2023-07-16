@@ -38,7 +38,8 @@ buildPythonPackage rec {
       fonttools
       # required by fonttools[ufo]
       fs
-    ] ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ]
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
     ;
 

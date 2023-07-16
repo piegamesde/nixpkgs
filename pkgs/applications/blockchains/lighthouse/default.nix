@@ -73,7 +73,8 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ sqlite ] ++ lib.optionals stdenv.isDarwin [
+    [ sqlite ]
+    ++ lib.optionals stdenv.isDarwin [
       CoreFoundation
       Security
       SystemConfiguration
@@ -121,7 +122,8 @@ rustPlatform.buildRustPackage rec {
       "--skip service::tests::tests::test_dht_persistence"
       "--skip time::test::test_reinsertion_updates_timeout"
 
-    ] ++ lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [
       "--skip subnet_service::tests::sync_committee_service::same_subscription_with_lower_until_epoch"
       "--skip subnet_service::tests::sync_committee_service::subscribe_and_unsubscribe"
     ]

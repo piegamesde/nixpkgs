@@ -208,7 +208,8 @@ in
               [
                 "network-pre.target"
                 "systemd-sysctl.service"
-              ] ++ lib.optionals (service != "zebra") [ "zebra.service" ]
+              ]
+              ++ lib.optionals (service != "zebra") [ "zebra.service" ]
               ;
             bindsTo = lib.optionals (service != "zebra") [ "zebra.service" ];
             wants = [ "network.target" ];
@@ -235,9 +236,10 @@ in
               ExecStart =
                 "${pkgs.frr}/libexec/frr/${daemon} -f /etc/frr/${service}.conf"
                 + optionalString (scfg.vtyListenAddress != "")
-                " -A ${scfg.vtyListenAddress}"
+                  " -A ${scfg.vtyListenAddress}"
                 + optionalString (scfg.vtyListenPort != null)
-                " -P ${toString scfg.vtyListenPort}" + " "
+                  " -P ${toString scfg.vtyListenPort}"
+                + " "
                 + (concatStringsSep " " scfg.extraOptions)
                 ;
               ExecReload =

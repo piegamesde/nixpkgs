@@ -19,7 +19,8 @@ let
   };
 
 in
-lib.init bootStages ++ [
+lib.init bootStages
+++ [
 
   # Regular native packages
   (somePrevStage:
@@ -67,8 +68,8 @@ lib.init bootStages ++ [
         extraBuildInputs =
           [ ] # Old ones run on wrong platform
           ++ lib.optionals hostPlatform.isDarwin [
-            buildPackages.targetPackages.darwin.apple_sdk.frameworks.CoreFoundation
-          ]
+              buildPackages.targetPackages.darwin.apple_sdk.frameworks.CoreFoundation
+            ]
           ;
         allowedRequisites = null;
 
@@ -98,15 +99,19 @@ lib.init bootStages ++ [
         extraNativeBuildInputs =
           old.extraNativeBuildInputs
           ++ lib.optionals (hostPlatform.isLinux && !buildPlatform.isLinux) [
-            buildPackages.patchelf
-          ] ++ lib.optional (let
+              buildPackages.patchelf
+            ]
+          ++ lib.optional (let
             f =
               p:
-              !p.isx86 || builtins.elem p.libc [
+              !p.isx86
+              || builtins.elem p.libc [
                 "musl"
                 "wasilibc"
                 "relibc"
-              ] || p.isiOS || p.isGenode
+              ]
+              || p.isiOS
+              || p.isGenode
               ;
           in
           f hostPlatform && !(f buildPlatform)

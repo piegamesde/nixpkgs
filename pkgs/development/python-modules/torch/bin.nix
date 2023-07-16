@@ -76,7 +76,8 @@ buildPythonPackage {
       jinja2
       networkx
       filelock
-    ] ++ lib.optionals stdenv.isx86_64 [ openai-triton ]
+    ]
+    ++ lib.optionals stdenv.isx86_64 [ openai-triton ]
     ;
 
   postInstall = ''

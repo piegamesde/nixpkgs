@@ -109,7 +109,8 @@ buildPythonApplication rec {
   ];
 
   pytestFlagsArray =
-    [ "tests" ] ++ (map (e: "--deselect tests/${e}") [
+    [ "tests" ]
+    ++ (map (e: "--deselect tests/${e}") [
       "commands/pkg/test_exec.py::test_pkg_specified"
       "commands/pkg/test_exec.py::test_unrecognized_options"
       "commands/test_ci.py::test_ci_boards"

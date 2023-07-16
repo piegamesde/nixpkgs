@@ -60,11 +60,13 @@ stdenv.mkDerivation rec {
       "out"
       "dev"
       "lib"
-    ] ++ lib.optionals (enablePython) [ "python" ]
+    ]
+    ++ lib.optionals (enablePython) [ "python" ]
     ;
 
   nativeBuildInputs =
-    [ pkg-config ] ++ lib.optionals (enableApp) [ installShellFiles ]
+    [ pkg-config ]
+    ++ lib.optionals (enableApp) [ installShellFiles ]
     ++ lib.optionals (enablePython) [ python3Packages.cython ]
     ;
 
@@ -74,7 +76,8 @@ stdenv.mkDerivation rec {
       libev
       openssl
       zlib
-    ] ++ lib.optionals (enableAsioLib) [ boost ]
+    ]
+    ++ lib.optionals (enableAsioLib) [ boost ]
     ++ lib.optionals (enableGetAssets) [ libxml2 ]
     ++ lib.optionals (enableHpack) [ jansson ]
     ++ lib.optionals (enableJemalloc) [ jemalloc ]
@@ -91,10 +94,12 @@ stdenv.mkDerivation rec {
     [
       "--disable-examples"
       (lib.enableFeature enableApp "app")
-    ] ++ lib.optionals (enableAsioLib) [
+    ]
+    ++ lib.optionals (enableAsioLib) [
       "--enable-asio-lib"
       "--with-boost-libdir=${boost}/lib"
-    ] ++ lib.optionals (enablePython) [
+    ]
+    ++ lib.optionals (enablePython) [
       "--enable-python-bindings"
       "--with-cython=${python3Packages.cython}/bin/cython"
     ]
@@ -120,7 +125,8 @@ stdenv.mkDerivation rec {
       mkdir -p $python/${python3Packages.python.sitePackages}
       mv $out/${python3Packages.python.sitePackages}/* $python/${python3Packages.python.sitePackages}
       rm -r $out/lib
-    '' + lib.optionalString (enableApp) ''
+    ''
+    + lib.optionalString (enableApp) ''
       installShellCompletion --bash doc/bash_completion/{h2load,nghttp,nghttpd,nghttpx}
     ''
     ;

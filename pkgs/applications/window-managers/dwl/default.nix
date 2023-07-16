@@ -50,7 +50,8 @@ stdenv.mkDerivation (finalAttrs: {
       wayland
       wayland-protocols
       wlroots
-    ] ++ lib.optionals enableXWayland [
+    ]
+    ++ lib.optionals enableXWayland [
       libX11
       xcbutilwm
       xwayland

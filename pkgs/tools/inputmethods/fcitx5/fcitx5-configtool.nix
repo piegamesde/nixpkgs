@@ -49,7 +49,8 @@ mkDerivation rec {
       xkeyboardconfig
       libxkbfile
       libXdmcp
-    ] ++ lib.optionals kcmSupport [
+    ]
+    ++ lib.optionals kcmSupport [
       kdeclarative
       kwidgetsaddons
       plasma5Packages.kiconthemes

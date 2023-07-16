@@ -63,7 +63,8 @@ let
               done
             fi
           done
-        '' + postBuild
+        ''
+        + postBuild
         ;
 
       inherit (python) meta;

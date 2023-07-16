@@ -62,10 +62,11 @@ let
     cp ${pythonLib} $out/python/lib.py
     cp ${pythonBin} $out/python/bin.py
     cp ${pythonBUILD} $out/python/BUILD.bazel
-  '' + (lib.optionalString stdenv.isDarwin ''
-    mkdir $out/tools
-    cp ${toolsBazel} $out/tools/bazel
-  ''));
+  ''
+    + (lib.optionalString stdenv.isDarwin ''
+      mkdir $out/tools
+      cp ${toolsBazel} $out/tools/bazel
+    ''));
 
   testBazel = bazelTest {
     name = "bazel-test-builtin-rules";

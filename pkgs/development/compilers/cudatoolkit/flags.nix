@@ -174,37 +174,38 @@ assert (formatCapabilities {
     "7.5"
     "8.6"
   ];
-}) == {
-  cudaCapabilities = [
-    "7.5"
-    "8.6"
-  ];
-  enableForwardCompat = true;
+})
+  == {
+    cudaCapabilities = [
+      "7.5"
+      "8.6"
+    ];
+    enableForwardCompat = true;
 
-  archNames = [
-    "Turing"
-    "Ampere"
-  ];
-  realArches = [
-    "sm_75"
-    "sm_86"
-  ];
-  virtualArches = [
-    "compute_75"
-    "compute_86"
-  ];
-  arches = [
-    "sm_75"
-    "sm_86"
-    "compute_86"
-  ];
+    archNames = [
+      "Turing"
+      "Ampere"
+    ];
+    realArches = [
+      "sm_75"
+      "sm_86"
+    ];
+    virtualArches = [
+      "compute_75"
+      "compute_86"
+    ];
+    arches = [
+      "sm_75"
+      "sm_86"
+      "compute_86"
+    ];
 
-  gencode = [
-    "-gencode=arch=compute_75,code=sm_75"
-    "-gencode=arch=compute_86,code=sm_86"
-    "-gencode=arch=compute_86,code=compute_86"
-  ];
-};
+    gencode = [
+      "-gencode=arch=compute_75,code=sm_75"
+      "-gencode=arch=compute_86,code=sm_86"
+      "-gencode=arch=compute_86,code=compute_86"
+    ];
+  };
 {
   # formatCapabilities :: { cudaCapabilities: List Capability, cudaForwardCompat: Boolean } ->  { ... }
   inherit

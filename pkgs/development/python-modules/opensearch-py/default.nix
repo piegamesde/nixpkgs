@@ -38,7 +38,8 @@ buildPythonPackage rec {
       pytest-asyncio
       pytestCheckHook
       pyyaml
-    ] ++ passthru.optional-dependencies.async
+    ]
+    ++ passthru.optional-dependencies.async
     ;
 
   disabledTestPaths = [

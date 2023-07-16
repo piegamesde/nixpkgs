@@ -56,7 +56,8 @@ stdenvNoCC.mkDerivation rec {
             kmod
             pciutils
             (placeholder "out")
-          ] ++ lib.optionals stdenvNoCC.isAarch64 [ libraspberrypi ])
+          ]
+            ++ lib.optionals stdenvNoCC.isAarch64 [ libraspberrypi ])
         }"
     done
   '';

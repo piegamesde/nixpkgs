@@ -568,7 +568,9 @@ in
                                 assertions = [ {
                                   assertion =
                                     (builtins.compareVersions kernelVersion
-                                      "5.8" <= 0) -> config.privateNetwork
+                                      "5.8"
+                                      <= 0)
+                                    -> config.privateNetwork
                                     -> stringLength name <= 11
                                     ;
                                   message = ''
@@ -897,7 +899,8 @@ in
           containerConfig = cfg // (if cfg.enableTun then
             {
               allowedDevices =
-                cfg.allowedDevices ++ [ {
+                cfg.allowedDevices
+                ++ [ {
                   node = "/dev/net/tun";
                   modifier = "rw";
                 } ]
@@ -943,7 +946,10 @@ in
       let
         mkPortStr =
           p:
-          p.protocol + ":" + (toString p.hostPort) + ":"
+          p.protocol
+          + ":"
+          + (toString p.hostPort)
+          + ":"
           + (if p.containerPort == null then
             toString p.hostPort
           else
@@ -985,7 +991,7 @@ in
             EXTRA_NSPAWN_FLAGS="${
               mkBindFlags cfg.bindMounts
               + optionalString (cfg.extraFlags != [ ])
-              (" " + concatStringsSep " " cfg.extraFlags)
+                (" " + concatStringsSep " " cfg.extraFlags)
             }"
           '';
         }) config.containers

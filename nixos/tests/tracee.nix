@@ -24,7 +24,8 @@ import ./make-test-python.nix ({
             (tracee.overrideAttrs (oa: {
               pname = oa.pname + "-integration";
               postPatch =
-                oa.postPatch or "" + ''
+                oa.postPatch or ""
+                + ''
                   # prepare tester.sh (which will be embedded in the test binary)
                   patchShebangs tests/integration/tester.sh
 

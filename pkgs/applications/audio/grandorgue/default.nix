@@ -52,10 +52,12 @@ stdenv.mkDerivation rec {
       zlib
       wavpack
       wxGTK32
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       alsa-lib
       udev
-    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ++ lib.optional jackaudioSupport libjack2
     ;
 
@@ -65,7 +67,8 @@ stdenv.mkDerivation rec {
       "-DRTMIDI_USE_JACK=OFF"
       "-DGO_USE_JACK=OFF"
       "-DINSTALL_DEPEND=OFF"
-    ] ++ lib.optional (!includeDemo) "-DINSTALL_DEMO=OFF"
+    ]
+    ++ lib.optional (!includeDemo) "-DINSTALL_DEMO=OFF"
     ;
 
   env.NIX_CFLAGS_COMPILE =

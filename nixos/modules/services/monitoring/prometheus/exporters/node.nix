@@ -54,11 +54,13 @@ in
       '';
       RestrictAddressFamilies =
         optionals (collectorIsEnabled "logind" || collectorIsEnabled "systemd")
-        [
-          # needs access to dbus via unix sockets (logind/systemd)
-          "AF_UNIX"
-        ] ++ optionals (collectorIsEnabled "network_route"
-          || collectorIsEnabled "wifi" || !collectorIsDisabled "netdev") [
+          [
+            # needs access to dbus via unix sockets (logind/systemd)
+            "AF_UNIX"
+          ]
+        ++ optionals (collectorIsEnabled "network_route"
+          || collectorIsEnabled "wifi"
+          || !collectorIsDisabled "netdev") [
             # needs netlink sockets for wireless collector
             "AF_NETLINK"
           ]

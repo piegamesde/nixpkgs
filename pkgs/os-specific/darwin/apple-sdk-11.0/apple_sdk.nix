@@ -41,10 +41,11 @@ let
         lib.concatLists ((lib.mapAttrsToList (from: to: [
           "-p"
           "${from}:${to}"
-        ]) prefix) ++ (lib.mapAttrsToList (from: to: [
-          "-c"
-          "${from}:${to}"
-        ]) const))
+        ]) prefix)
+          ++ (lib.mapAttrsToList (from: to: [
+            "-c"
+            "${from}:${to}"
+          ]) const))
         ;
 
       rewrites =
@@ -311,7 +312,8 @@ rec {
 
           CoreVideo = lib.overrideDerivation super.CoreVideo (drv: {
             installPhase =
-              drv.installPhase + ''
+              drv.installPhase
+              + ''
                 # When used as a module, complains about a missing import for
                 # Darwin.C.stdint. Apparently fixed in later SDKs.
                 awk -i inplace '/CFBase.h/ { print "#include <stdint.h>" } { print }' \
@@ -322,7 +324,8 @@ rec {
 
           System = lib.overrideDerivation super.System (drv: {
             installPhase =
-              drv.installPhase + ''
+              drv.installPhase
+              + ''
                 # Contrarily to the other frameworks, System framework's TBD file
                 # is a symlink pointing to ${MacOSX-SDK}/usr/lib/libSystem.B.tbd.
                 # This produces an error when installing the framework as:

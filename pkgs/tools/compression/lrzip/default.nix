@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
     [
       autoreconfHook
       perl
-    ] ++ lib.optionals isx86 [ nasm ]
+    ]
+    ++ lib.optionals isx86 [ nasm ]
     ;
 
   buildInputs = [

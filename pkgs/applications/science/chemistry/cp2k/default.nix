@@ -64,7 +64,8 @@ stdenv.mkDerivation rec {
       lapack
       plumed
       zlib
-    ] ++ lib.optional enableElpa elpa
+    ]
+    ++ lib.optional enableElpa elpa
     ;
 
   propagatedBuildInputs = [ mpi ];

@@ -69,10 +69,11 @@ let
       };
 
       patches =
-        [ ] ++ optional (vpxSupport && hasPrefix "0.8." version)
-        ./vpxenc-0.8.17-libvpx-1.5.patch
+        [ ]
+        ++ optional (vpxSupport && hasPrefix "0.8." version)
+          ./vpxenc-0.8.17-libvpx-1.5.patch
         ++ optional (vpxSupport && hasPrefix "12." version)
-        ./vpx-12.3-libvpx-1.8.patch
+          ./vpx-12.3-libvpx-1.8.patch
         ;
 
       postPatch = ''
@@ -108,7 +109,8 @@ let
           (enableFeature vaapiSupport "vaapi")
           (enableFeature vdpauSupport "vdpau")
           (enableFeature freetypeSupport "libfreetype")
-        ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+        ]
+        ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
           "--cross-prefix=${stdenv.cc.targetPrefix}"
           "--enable-cross-compile"
         ]
@@ -126,12 +128,18 @@ let
           bzip2
           SDL
           bash
-        ] ++ [ perl ] # for install-man target
-        ++ optional mp3Support lame ++ optional speexSupport speex
-        ++ optional theoraSupport libtheora ++ optional vorbisSupport libvorbis
-        ++ optional vpxSupport libvpx ++ optional x264Support x264
-        ++ optional xvidSupport xvidcore ++ optional faacSupport faac
-        ++ optional vaapiSupport libva ++ optional vdpauSupport libvdpau
+        ]
+        ++ [ perl ] # for install-man target
+        ++ optional mp3Support lame
+        ++ optional speexSupport speex
+        ++ optional theoraSupport libtheora
+        ++ optional vorbisSupport libvorbis
+        ++ optional vpxSupport libvpx
+        ++ optional x264Support x264
+        ++ optional xvidSupport xvidcore
+        ++ optional faacSupport faac
+        ++ optional vaapiSupport libva
+        ++ optional vdpauSupport libvdpau
         ++ optional freetypeSupport freetype
         ;
 
@@ -182,7 +190,8 @@ let
           ++ lib.optionals (lib.versionOlder version "12.3") [
             "CVE-2018-5684"
             "CVE-2018-5766"
-          ] ++ lib.optionals (lib.versionOlder version "12.4") [
+          ]
+          ++ lib.optionals (lib.versionOlder version "12.4") [
             "CVE-2019-9717"
             "CVE-2019-9720"
           ]

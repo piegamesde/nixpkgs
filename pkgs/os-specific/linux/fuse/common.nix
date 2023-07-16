@@ -38,12 +38,13 @@ stdenv.mkDerivation rec {
 
   patches =
     lib.optional
-    (!isFuse3 && (stdenv.isAarch64 || stdenv.hostPlatform.isLoongArch64))
-    (fetchpatch {
-      url =
-        "https://github.com/libfuse/libfuse/commit/914871b20a901e3e1e981c92bc42b1c93b7ab81b.patch";
-      sha256 = "1w4j6f1awjrycycpvmlv0x5v9gprllh4dnbjxl4dyl2jgbkaw6pa";
-    }) ++ (if isFuse3 then
+      (!isFuse3 && (stdenv.isAarch64 || stdenv.hostPlatform.isLoongArch64))
+      (fetchpatch {
+        url =
+          "https://github.com/libfuse/libfuse/commit/914871b20a901e3e1e981c92bc42b1c93b7ab81b.patch";
+        sha256 = "1w4j6f1awjrycycpvmlv0x5v9gprllh4dnbjxl4dyl2jgbkaw6pa";
+      })
+    ++ (if isFuse3 then
       [
         ./fuse3-install.patch
         ./fuse3-Do-not-set-FUSERMOUNT_DIR.patch
@@ -92,7 +93,8 @@ stdenv.mkDerivation rec {
       export NIX_CFLAGS_COMPILE="-DFUSERMOUNT_DIR=\"/run/wrappers/bin\""
 
       substituteInPlace lib/mount_util.c --replace "/bin/" "${util-linux}/bin/"
-    '' + (if isFuse3 then
+    ''
+    + (if isFuse3 then
       ''
         # The configure phase will delete these files (temporary workaround for
         # ./fuse3-install_man.patch)
@@ -108,7 +110,8 @@ stdenv.mkDerivation rec {
     ;
 
   nativeCheckInputs =
-    [ which ] ++ (with python3Packages; [
+    [ which ]
+    ++ (with python3Packages; [
       python
       pytest
     ])
@@ -123,7 +126,8 @@ stdenv.mkDerivation rec {
   postFixup =
     ''
       cd $out
-    '' + (if isFuse3 then
+    ''
+    + (if isFuse3 then
       ''
         install -D -m444 etc/fuse.conf $common/etc/fuse.conf
         install -D -m444 etc/udev/rules.d/99-fuse3.rules $common/etc/udev/rules.d/99-fuse.rules

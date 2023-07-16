@@ -21,7 +21,8 @@ in
     programs.bash.interactiveShellInit =
       optionalString cfg.fuzzyCompletion ''
         source ${pkgs.fzf}/share/fzf/completion.bash
-      '' + optionalString cfg.keybindings ''
+      ''
+      + optionalString cfg.keybindings ''
         source ${pkgs.fzf}/share/fzf/key-bindings.bash
       ''
       ;
@@ -29,7 +30,8 @@ in
     programs.zsh.interactiveShellInit =
       optionalString cfg.fuzzyCompletion ''
         source ${pkgs.fzf}/share/fzf/completion.zsh
-      '' + optionalString cfg.keybindings ''
+      ''
+      + optionalString cfg.keybindings ''
         source ${pkgs.fzf}/share/fzf/key-bindings.zsh
       ''
       ;

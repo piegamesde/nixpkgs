@@ -37,7 +37,8 @@ let
         inherit name;
 
         postFixup =
-          previousAttrs.postFixup + ''
+          previousAttrs.postFixup
+          + ''
             declare -p wrapperName
             echo "env.wrapperName = $wrapperName"
             [[ $wrapperName == "CC_WRAPPER" ]] || (echo "'\$wrapperName' was not 'CC_WRAPPER'" && false)

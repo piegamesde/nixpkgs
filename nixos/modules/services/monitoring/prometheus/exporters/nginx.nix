@@ -59,7 +59,8 @@ in
           ${concatStringsSep " \\\n  " cfg.extraFlags}
       '';
     };
-  } ] ++ [
+  } ]
+    ++ [
       (mkIf config.services.nginx.enable {
         after = [ "nginx.service" ];
         requires = [ "nginx.service" ];

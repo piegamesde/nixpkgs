@@ -58,7 +58,8 @@ stdenv.mkDerivation rec {
       dpkg-deb -x $src $out
 
       # delete unnecessary files for the current architecture
-    '' + lib.concatMapStrings (arch: ''
+    ''
+    + lib.concatMapStrings (arch: ''
       echo Deleting files for ${arch}
       rm -r "$out/opt/brother/Printers/MFCL2750DW/lpd/${arch}"
     '') (builtins.filter (arch: arch != stdenv.hostPlatform.linuxArch) arches)

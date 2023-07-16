@@ -28,7 +28,8 @@ buildPythonPackage rec {
       google-api-core
       libcst
       proto-plus
-    ] ++ google-api-core.optional-dependencies.grpc
+    ]
+    ++ google-api-core.optional-dependencies.grpc
     ;
 
   nativeCheckInputs = [

@@ -26,7 +26,8 @@ let
     util-linux
   ];
   binDeps =
-    guestDeps ++ [
+    guestDeps
+    ++ [
       wget
       file
       qemu-utils

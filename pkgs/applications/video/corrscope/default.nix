@@ -25,7 +25,8 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
   pythonRelaxDeps = [ "attrs" ];
 
   nativeBuildInputs =
-    [ wrapQtAppsHook ] ++ (with python3Packages; [
+    [ wrapQtAppsHook ]
+    ++ (with python3Packages; [
       poetry-core
       pythonRelaxDepsHook
     ])

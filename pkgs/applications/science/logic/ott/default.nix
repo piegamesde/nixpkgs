@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
     [
       pkg-config
       opaline
-    ] ++ (with ocamlPackages; [
+    ]
+    ++ (with ocamlPackages; [
       findlib
       ocaml
     ])

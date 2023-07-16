@@ -52,7 +52,8 @@ stdenv.mkDerivation rec {
         patchelf --set-interpreter ${dynamic-linker} $out/bin/$e
         patchelf --set-rpath ${gmp}/lib $out/bin/$e
       done
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       install_name_tool -change \
         /opt/local/lib/libgmp.10.dylib \
         ${gmp}/lib/libgmp.10.dylib \

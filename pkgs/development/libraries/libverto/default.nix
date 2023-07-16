@@ -32,7 +32,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs =
-    optional glibSupport glib ++ optional libevSupport libev
+    optional glibSupport glib
+    ++ optional libevSupport libev
     ++ optional libeventSupport libevent
     ;
 

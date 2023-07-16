@@ -97,7 +97,8 @@ python3Packages.buildPythonApplication rec {
       twisted
       zfec
       zope_interface
-    ] ++ twisted.optional-dependencies.tls
+    ]
+    ++ twisted.optional-dependencies.tls
     ++ twisted.optional-dependencies.conch;
 
   nativeCheckInputs = with python3Packages; [

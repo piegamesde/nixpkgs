@@ -30,7 +30,8 @@ rustPlatform.buildRustPackage rec {
       bzip2
       xz
       zstd
-    ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
     ;
 
   buildNoDefaultFeatures = true;

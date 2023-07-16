@@ -65,7 +65,8 @@ stdenv.mkDerivation rec {
       ncurses
       openjpeg
       openssl
-    ] ++ lib.optionals imageSupport [ imlib2 ]
+    ]
+    ++ lib.optionals imageSupport [ imlib2 ]
     ;
 
   configurePhase = ''

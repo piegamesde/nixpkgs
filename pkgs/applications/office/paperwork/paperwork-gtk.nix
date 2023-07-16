@@ -98,7 +98,8 @@ python3Packages.buildPythonApplication rec {
       (lib.getBin gettext)
       which
       gdk-pixbuf # for the setup hook
-    ] ++ documentation_deps
+    ]
+    ++ documentation_deps
     ;
 
   buildInputs = [

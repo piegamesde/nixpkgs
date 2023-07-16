@@ -33,7 +33,8 @@ rustPlatform.buildRustPackage rec {
       openssl
       zlib
       zstd
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       curl
       darwin.apple_sdk.frameworks.Security
     ]

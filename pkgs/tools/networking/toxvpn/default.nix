@@ -28,7 +28,8 @@ stdenv.mkDerivation {
       nlohmann_json
       libsodium
       zeromq
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libcap
       systemd
     ]

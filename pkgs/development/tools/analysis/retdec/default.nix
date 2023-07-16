@@ -215,7 +215,8 @@ stdenv.mkDerivation rec {
   ];
 
   postPatch =
-    (lib.concatMapStrings patchDep external_deps) + ''
+    (lib.concatMapStrings patchDep external_deps)
+    + ''
       # install retdec-support
       echo "Checking version of retdec-support"
       expected_version="$( sed -n -e "s|^version = '\(.*\)'$|\1|p" 'cmake/install-share.py' )"

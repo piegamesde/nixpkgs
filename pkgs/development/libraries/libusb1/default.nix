@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
     autoreconfHook
   ];
   propagatedBuildInputs =
-    lib.optional enableUdev udev ++ lib.optionals stdenv.isDarwin [
+    lib.optional enableUdev udev
+    ++ lib.optionals stdenv.isDarwin [
       libobjc
       IOKit
       Security

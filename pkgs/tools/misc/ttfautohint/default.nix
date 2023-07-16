@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
       freetype
       harfbuzz
       libiconv
-    ] ++ lib.optional enableGUI qtbase
+    ]
+    ++ lib.optional enableGUI qtbase
     ;
 
   configureFlags = [

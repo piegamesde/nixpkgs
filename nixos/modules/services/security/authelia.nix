@@ -424,7 +424,8 @@ in
       assertions = lib.flatten (lib.flip lib.mapAttrsToList cfg.instances
         (name: instance: [ {
           assertion =
-            instance.secrets.manual || (instance.secrets.jwtSecretFile != null
+            instance.secrets.manual
+            || (instance.secrets.jwtSecretFile != null
               && instance.secrets.storageEncryptionKeyFile != null)
             ;
           message = ''

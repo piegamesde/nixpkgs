@@ -206,7 +206,8 @@ buildPythonPackage rec {
       typing-extensions
       unicodecsv
       werkzeug
-    ] ++ lib.optionals (pythonOlder "3.9") [ importlib-metadata ]
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [ importlib-metadata ]
     ++ providerDependencies
     ;
 
@@ -228,7 +229,8 @@ buildPythonPackage rec {
         --replace "colorlog>=4.0.2, <5.0" "colorlog" \
         --replace "flask-appbuilder==4.1.4" "flask-appbuilder>=4.1.3" \
         --replace "pathspec~=0.9.0" "pathspec"
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # Fix failing test on Hydra
       substituteInPlace airflow/utils/db.py \
         --replace "/tmp/sqlite_default.db" "$TMPDIR/sqlite_default.db"

@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
       libjack2
       liblo
       libxml2
-    ] ++ (with perlPackages; [
+    ]
+    ++ (with perlPackages; [
       perl
       XMLParser
     ])

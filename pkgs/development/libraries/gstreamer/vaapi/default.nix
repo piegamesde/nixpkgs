@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
       python3
       bzip2
       wayland
-    ] ++ lib.optionals enableDocumentation [ hotdoc ]
+    ]
+    ++ lib.optionals enableDocumentation [ hotdoc ]
     ;
 
   buildInputs = [

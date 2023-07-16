@@ -60,7 +60,9 @@ stdenv.mkDerivation rec {
     [
       libjpeg
       zlib
-    ] ++ lib.optional javaSupport jdk ++ lib.optional szipSupport szip
+    ]
+    ++ lib.optional javaSupport jdk
+    ++ lib.optional szipSupport szip
     ++ lib.optional uselibtirpc libtirpc
     ;
 
@@ -70,7 +72,8 @@ stdenv.mkDerivation rec {
       substituteInPlace config/cmake/FindXDR.cmake \
         --replace 'find_path(XDR_INCLUDE_DIR NAMES rpc/types.h PATHS "/usr/include" "/usr/include/tirpc")' \
                   'find_path(XDR_INCLUDE_DIR NAMES rpc/types.h PATH_SUFFIXES include/tirpc)'
-    '' + lib.optionalString szipSupport ''
+    ''
+    + lib.optionalString szipSupport ''
       export SZIP_INSTALL=${szip}
     ''
     ;
@@ -86,10 +89,12 @@ stdenv.mkDerivation rec {
       "-DHDF4_ENABLE_Z_LIB_SUPPORT=ON"
       "-DHDF4_BUILD_FORTRAN=OFF"
       "-DJPEG_DIR=${libjpeg}"
-    ] ++ lib.optionals javaSupport [
+    ]
+    ++ lib.optionals javaSupport [
       "-DHDF4_BUILD_JAVA=ON"
       "-DJAVA_HOME=${jdk}"
-    ] ++ lib.optionals szipSupport [
+    ]
+    ++ lib.optionals szipSupport [
       "-DHDF4_ENABLE_SZIP_ENCODING=ON"
       "-DHDF4_ENABLE_SZIP_SUPPORT=ON"
     ]

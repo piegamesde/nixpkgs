@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
       openssl
       ncurses
       libxcrypt
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       libiconv
       tcl
     ]

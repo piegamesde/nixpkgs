@@ -62,7 +62,9 @@ mkDerivation rec {
       qtwebengine
       qtwebsockets
       readline
-    ] ++ lib.optional (!stdenv.isDarwin) alsa-lib ++ lib.optional useSCEL emacs
+    ]
+    ++ lib.optional (!stdenv.isDarwin) alsa-lib
+    ++ lib.optional useSCEL emacs
     ;
 
   hardeningDisable = [ "stackprotector" ];

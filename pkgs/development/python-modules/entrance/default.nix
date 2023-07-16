@@ -53,7 +53,8 @@ buildPythonPackage rec {
     [
       pyyaml
       sanic
-    ] ++ opts.extraBuildInputs
+    ]
+    ++ opts.extraBuildInputs
     ;
 
   prePatch = opts.prePatch;

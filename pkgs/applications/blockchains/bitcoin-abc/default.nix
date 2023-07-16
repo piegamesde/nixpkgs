@@ -52,7 +52,8 @@ mkDerivation rec {
       protobuf
       libevent
       sqlite
-    ] ++ lib.optionals withGui [
+    ]
+    ++ lib.optionals withGui [
       qtbase
       qttools
       qrencode

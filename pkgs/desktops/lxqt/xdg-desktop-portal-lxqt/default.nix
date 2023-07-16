@@ -30,7 +30,8 @@ mkDerivation rec {
       libfm-qt
       lxqt-qtplugin
       qtx11extras
-    ] ++ extraQtStyles
+    ]
+    ++ extraQtStyles
     ;
 
   passthru.updateScript = gitUpdater { };

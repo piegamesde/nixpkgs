@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
     ''
       substituteInPlace Makefile --replace "/usr" "$out"
       substituteInPlace Makefile --replace "mhash; ./configure" "mhash; ./configure --prefix=$out"
-    '' + lib.optionalString stdenv.cc.isClang ''
+    ''
+    + lib.optionalString stdenv.cc.isClang ''
       substituteInPlace Makefile --replace "-lgomp" "-lomp"
     ''
     ;

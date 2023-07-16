@@ -39,7 +39,8 @@ buildPythonPackage rec {
     [
       six
       protobuf
-    ] ++ lib.optionals (isPy27) [
+    ]
+    ++ lib.optionals (isPy27) [
       enum34
       futures
     ]
@@ -51,7 +52,8 @@ buildPythonPackage rec {
       if [ -z "$enableParallelBuilding" ]; then
         GRPC_PYTHON_BUILD_EXT_COMPILER_JOBS=1
       fi
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       unset AR
     ''
     ;

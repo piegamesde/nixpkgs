@@ -58,7 +58,8 @@ buildPythonApplication rec {
       paramiko
       distro
       python-dotenv
-    ] ++ lib.optional (pythonOlder "3.4") enum34
+    ]
+    ++ lib.optional (pythonOlder "3.4") enum34
     ++ lib.optional (pythonOlder "3.2") functools32
     ;
 

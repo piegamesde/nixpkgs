@@ -135,8 +135,8 @@ in
           ExecStart =
             "${cfg.package}/bin/yarn --config ${hadoopConf} "
             + " resourcemanager ${
-               escapeShellArgs cfg.yarn.resourcemanager.extraFlags
-             }"
+                 escapeShellArgs cfg.yarn.resourcemanager.extraFlags
+               }"
             ;
           Restart = "always";
         };

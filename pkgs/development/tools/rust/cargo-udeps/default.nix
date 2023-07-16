@@ -28,7 +28,8 @@ rustPlatform.buildRustPackage rec {
 
     # TODO figure out how to use provided curl instead of compiling curl from curl-sys
   buildInputs =
-    [ openssl ] ++ lib.optionals stdenv.isDarwin [
+    [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [
       CoreServices
       Security
       libiconv

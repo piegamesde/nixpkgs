@@ -90,11 +90,13 @@ let
       util-linux
       ccze
       systemd
-    ] ++ lib.optionals supportWpaWps [
+    ]
+    ++ lib.optionals supportWpaWps [
       bully
       pixiewps
       reaverwps-t6x
-    ] ++ lib.optionals supportHashCracking [
+    ]
+    ++ lib.optionals supportHashCracking [
       asleap
       crunch
       hashcat
@@ -102,7 +104,8 @@ let
       hcxtools
       john
       wireshark-cli
-    ] ++ lib.optionals supportEvilTwin [
+    ]
+    ++ lib.optionals supportEvilTwin [
       bettercap
       dhcp
       dnsmasq
@@ -113,7 +116,8 @@ let
       mdk4
       nftables
       apparmor-bin-utils
-    ] ++ lib.optionals supportX11 [
+    ]
+    ++ lib.optionals supportX11 [
       xterm
       xorg.xset
       xorg.xdpyinfo

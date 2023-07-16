@@ -62,7 +62,8 @@ disabledIf (pythonAtLeast "3.11") (stdenv.mkDerivation rec {
       qtsensors
       qtsvg
       qt3d
-    ]) ++ (with python.pkgs; [ setuptools ])
+    ])
+    ++ (with python.pkgs; [ setuptools ])
     ++ (lib.optionals (python.pythonOlder "3.9") [
       # see similar issue: 202262
       # libxcrypt is required for crypt.h for building older python modules

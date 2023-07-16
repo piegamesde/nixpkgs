@@ -19,7 +19,8 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs =
-    [ packaging ] ++ lib.optional (stdenv.isLinux) pyxdg
+    [ packaging ]
+    ++ lib.optional (stdenv.isLinux) pyxdg
     ++ lib.optional (pythonOlder "3.8") importlib-metadata
     ;
 

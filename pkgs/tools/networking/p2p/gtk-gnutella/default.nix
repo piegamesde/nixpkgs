@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
       libbfd
       libxml2
       zlib
-    ] ++ lib.optionals (enableGui) [ gtk2 ]
+    ]
+    ++ lib.optionals (enableGui) [ gtk2 ]
     ;
 
   configureScript = "./build.sh";
@@ -50,7 +51,8 @@ stdenv.mkDerivation rec {
       "--configure-only"
       # See https://sourceforge.net/p/gtk-gnutella/bugs/555/
       "--disable-malloc"
-    ] ++ lib.optionals (!enableGui) [ "--topless" ]
+    ]
+    ++ lib.optionals (!enableGui) [ "--topless" ]
     ;
 
   enableParallelBuilding = true;

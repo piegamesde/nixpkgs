@@ -44,7 +44,8 @@ stdenv.mkDerivation (finalAttrs: {
   version = "5.4.3";
 
   outputs =
-    [ "out" ] ++ lib.optionals buildDocs [ "doc" ]
+    [ "out" ]
+    ++ lib.optionals buildDocs [ "doc" ]
     ++ lib.optionals (buildTests || buildBenchmarks) [ "test" ]
     ++ lib.optionals buildBenchmarks [ "benchmark" ]
     ++ lib.optionals buildSamples [ "sample" ]
@@ -68,10 +69,12 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs =
-    [ openmp ] ++ lib.optionals (buildTests || buildBenchmarks) [
+    [ openmp ]
+    ++ lib.optionals (buildTests || buildBenchmarks) [
       gtest
       rocblas
-    ] ++ lib.optionals buildDocs [
+    ]
+    ++ lib.optionals buildDocs [
       latex
       doxygen
       sphinx
@@ -102,9 +105,10 @@ stdenv.mkDerivation (finalAttrs: {
       "-DCMAKE_INSTALL_BINDIR=bin"
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    ] ++ lib.optionals (gpuTargets != [ ]) [
-      "-DGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
     ]
+    ++ lib.optionals (gpuTargets != [ ]) [
+        "-DGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
+      ]
     ++ lib.optionals buildExtendedTests [ "-DROCWMMA_BUILD_EXTENDED_TESTS=ON" ]
     ++ lib.optionals buildBenchmarks [
       "-DROCWMMA_BUILD_BENCHMARK_TESTS=ON"
@@ -127,18 +131,22 @@ stdenv.mkDerivation (finalAttrs: {
     lib.optionalString buildDocs ''
       mv ../docs/source/_build/html $out/share/doc/rocwmma
       mv ../docs/source/_build/latex/rocWMMA.pdf $out/share/doc/rocwmma
-    '' + lib.optionalString (buildTests || buildBenchmarks) ''
+    ''
+    + lib.optionalString (buildTests || buildBenchmarks) ''
       mkdir -p $test/bin
       mv $out/bin/{*_test,*-validate} $test/bin
-    '' + lib.optionalString buildBenchmarks ''
+    ''
+    + lib.optionalString buildBenchmarks ''
       mkdir -p $benchmark/bin
       mv $out/bin/*-bench $benchmark/bin
-    '' + lib.optionalString buildSamples ''
+    ''
+    + lib.optionalString buildSamples ''
       mkdir -p $sample/bin
       mv $out/bin/sgemmv $sample/bin
       mv $out/bin/simple_gemm $sample/bin
       mv $out/bin/simple_dlrm $sample/bin
-    '' + lib.optionalString (buildTests || buildBenchmarks || buildSamples) ''
+    ''
+    + lib.optionalString (buildTests || buildBenchmarks || buildSamples) ''
       rm -rf $out/bin
     ''
     ;

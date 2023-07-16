@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
   cmakeDir = "../wangle";
 
   cmakeFlags =
-    [ "-Wno-dev" ] ++ lib.optionals stdenv.isDarwin [
+    [ "-Wno-dev" ]
+    ++ lib.optionals stdenv.isDarwin [
       "-DBUILD_TESTS=off" # Tests fail on Darwin due to missing utimensat
       "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
     ]

@@ -71,7 +71,8 @@ stdenv.mkDerivation rec {
           "https://salsa.debian.org/science-team/giac/-/raw/08cb807ef41f5216b712928886ebf74f69d5ddf6/debian/patches/increase-pari-size.patch";
         sha256 = "sha256-764P0IJ7ndURap7hotOmYJK0wAhYdqMbQNOnhJxVNt0=";
       })
-    ] ++ lib.optionals (!enableGUI) [
+    ]
+    ++ lib.optionals (!enableGUI) [
       # when enableGui is false, giac is compiled without fltk. That
       # means some outputs differ in the make check. Patch around this:
       (fetchpatch {
@@ -129,12 +130,14 @@ stdenv.mkDerivation rec {
       (lib.getLib gfortran.cc)
       lapack
       blas
-    ] ++ lib.optionals enableGUI [
+    ]
+    ++ lib.optionals enableGUI [
       libGL
       libGLU
       fltk
       xorg.libX11
-    ] ++ lib.optional enableMicroPy python3
+    ]
+    ++ lib.optional enableMicroPy python3
     ;
 
     # xcas Phys and Turtle menus are broken with split outputs
@@ -164,10 +167,12 @@ stdenv.mkDerivation rec {
       "--enable-ao"
       "--enable-ecm"
       "--enable-glpk"
-    ] ++ lib.optionals enableGUI [
+    ]
+    ++ lib.optionals enableGUI [
       "--enable-gui"
       "--with-x"
-    ] ++ lib.optionals (!enableGUI) [ "--disable-fltk" ]
+    ]
+    ++ lib.optionals (!enableGUI) [ "--disable-fltk" ]
     ++ lib.optionals (!enableMicroPy) [ "--disable-micropy" ]
     ;
 
@@ -188,7 +193,8 @@ stdenv.mkDerivation rec {
         mv "$out/share/giac/doc" "$doc/share/giac"
         mv "$out/share/giac/examples" "$doc/share/giac"
       fi
-    '' + lib.optionalString (!enableGUI) ''
+    ''
+    + lib.optionalString (!enableGUI) ''
       for i in pixmaps application-registry applications icons; do
         rm -r "$out/share/$i";
       done;

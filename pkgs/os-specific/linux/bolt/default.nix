@@ -59,7 +59,8 @@ stdenv.mkDerivation rec {
       ninja
       pkg-config
       glib
-    ] ++ lib.optional (!doCheck) python3
+    ]
+    ++ lib.optional (!doCheck) python3
     ;
 
   buildInputs = [

@@ -126,8 +126,10 @@ let
           externalDeps' =
             lib.filter (dep: !lib.isDerivation dep) self.externalDeps;
         in
-        [ lua.pkgs.luarocks ] ++ buildInputs ++ lib.optionals self.doCheck
-        ([ luarocksCheckHook ] ++ self.nativeCheckInputs)
+        [ lua.pkgs.luarocks ]
+        ++ buildInputs
+        ++ lib.optionals self.doCheck
+          ([ luarocksCheckHook ] ++ self.nativeCheckInputs)
         ++ (map (d: d.dep) externalDeps')
         ;
 
@@ -143,7 +145,8 @@ let
       luarocks_content =
         let
           externalDepsGenerated = lib.filter (drv: !drv ? luaModule)
-            (self.nativeBuildInputs ++ self.propagatedBuildInputs
+            (self.nativeBuildInputs
+              ++ self.propagatedBuildInputs
               ++ self.buildInputs);
           generatedConfig = luaLib.generateLuarocksConfig {
             externalDeps =
@@ -172,14 +175,17 @@ let
           EOF
           export LUAROCKS_CONFIG="$PWD/${luarocks_config}";
           cat "$LUAROCKS_CONFIG"
-        '' + lib.optionalString (self.rockspecFilename == null) ''
+        ''
+        + lib.optionalString (self.rockspecFilename == null) ''
           rockspecFilename="${self.generatedRockspecFilename}"
-        '' + lib.optionalString (self.knownRockspec != null) ''
+        ''
+        + lib.optionalString (self.knownRockspec != null) ''
           # prevents the following type of error:
           # Inconsistency between rockspec filename (42fm1b3d7iv6fcbhgm9674as3jh6y2sh-luv-1.22.0-1.rockspec) and its contents (luv-1.22.0-1.rockspec)
           rockspecFilename="$TMP/$(stripHash ${self.knownRockspec})"
           cp ${self.knownRockspec} "$rockspecFilename"
-        '' + ''
+        ''
+        + ''
           runHook postConfigure
         ''
         ;
@@ -200,7 +206,8 @@ let
       postFixup =
         lib.optionalString (!dontWrapLuaPrograms) ''
           wrapLuaPrograms
-        '' + attrs.postFixup or ""
+        ''
+        + attrs.postFixup or ""
         ;
 
       installPhase = ''

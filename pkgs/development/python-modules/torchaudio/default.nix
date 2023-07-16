@@ -33,7 +33,8 @@ buildPythonPackage rec {
       cmake
       pkg-config
       ninja
-    ] ++ lib.optionals cudaSupport [ cudaPackages.cudatoolkit ]
+    ]
+    ++ lib.optionals cudaSupport [ cudaPackages.cudatoolkit ]
     ;
   buildInputs =
     [ pybind11 ] ++ lib.optionals cudaSupport [ cudaPackages.cudnn ];

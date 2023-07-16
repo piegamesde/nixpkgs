@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
       glslang
       vulkan-headers
       vulkan-loader
-    ] ++ lib.optionals (!stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [
       libffi
       libX11
       libXau
@@ -50,7 +51,8 @@ stdenv.mkDerivation rec {
       libXrandr
       wayland
       wayland-protocols
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       moltenvk
       moltenvk.dev
       AppKit
@@ -91,7 +93,8 @@ stdenv.mkDerivation rec {
       "-DPKG_CONFIG_EXECUTABLE=${pkg-config}/bin/pkg-config"
       # Hide dev warnings that are useless for packaging
       "-Wno-dev"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       "-DMOLTENVK_REPO_ROOT=${moltenvk}/share/vulkan/icd.d"
       "-DIBTOOL=/usr/bin/ibtool"
     ]

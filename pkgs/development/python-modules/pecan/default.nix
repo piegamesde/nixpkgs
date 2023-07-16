@@ -47,7 +47,8 @@ buildPythonPackage rec {
     [
       "--pyargs pecan"
       # tests fail with sqlalchemy 2.0
-    ] ++ lib.optionals (lib.versionAtLeast sqlalchemy.version "2.0") [
+    ]
+    ++ lib.optionals (lib.versionAtLeast sqlalchemy.version "2.0") [
       # The 'sqlalchemy.orm.mapper()' function is removed as of SQLAlchemy
       # 2.0.  Use the 'sqlalchemy.orm.registry.map_imperatively()` method
       # of the ``sqlalchemy.orm.registry`` class to perform classical

@@ -6,7 +6,8 @@
 
 libgit2.overrideAttrs (oldAttrs: {
   cmakeFlags =
-    oldAttrs.cmakeFlags ++ [
+    oldAttrs.cmakeFlags
+    ++ [
       "-DBUILD_CLAR=OFF"
       "-DBUILD_SHARED_LIBS=OFF"
       "-DREGEX_BACKEND=builtin"

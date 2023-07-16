@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
   postPatch =
     lib.optionalString stdenv.hostPlatform.isMusl ''
       substituteInPlace dialects/linux/dlsof.h --replace "defined(__UCLIBC__)" 1
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       sed -i 's|lcurses|lncurses|g' Configure
     ''
     ;

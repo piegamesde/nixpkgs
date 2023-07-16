@@ -40,11 +40,13 @@ stdenv.mkDerivation rec {
       liquid-dsp
       soapysdr-with-plugins
       wxGTK32
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libpulseaudio
       libGL
       libX11
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Cocoa
       WebKit
     ]

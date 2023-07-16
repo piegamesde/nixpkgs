@@ -21,7 +21,8 @@ stdenv.mkDerivation {
   ];
 
   patches =
-    binutils-unwrapped_2_38.patches ++ [
+    binutils-unwrapped_2_38.patches
+    ++ [
       ./build-components-separately.patch
       (fetchpatch {
         url =
@@ -53,7 +54,8 @@ stdenv.mkDerivation {
     [
       libiberty
       zlib
-    ] ++ lib.optionals stdenv.isDarwin [ libintl ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ libintl ]
     ;
 
   configurePlatforms = [
@@ -66,7 +68,8 @@ stdenv.mkDerivation {
       "--enable-64-bit-bfd"
       "--enable-install-libbfd"
       "--with-system-zlib"
-    ] ++ lib.optional (!stdenv.hostPlatform.isStatic) "--enable-shared"
+    ]
+    ++ lib.optional (!stdenv.hostPlatform.isStatic) "--enable-shared"
     ;
 
   enableParallelBuilding = true;

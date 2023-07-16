@@ -108,7 +108,8 @@ stdenv.mkDerivation rec {
       libphonenumber
       boost
       protobuf
-    ] ++ lib.optionals stdenv.isLinux [ libaccounts-glib ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ libaccounts-glib ]
     ++ lib.optionals stdenv.isDarwin [ libiconv ]
     ++ lib.optionals withGtk3 [ gtk3 ]
     ++ lib.optionals (withGtk3 && enableOAuth2) [ webkitgtk_4_1 ]

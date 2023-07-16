@@ -58,10 +58,12 @@ buildPythonPackage rec {
       squashfsTools
       xz
       pycrypto
-    ] ++ lib.optionals visualizationSupport [
+    ]
+    ++ lib.optionals visualizationSupport [
       matplotlib
       pyqtgraph
-    ] ++ lib.optionals (!stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [
       cramfsprogs
       cramfsswap
       sasquatch

@@ -29,7 +29,8 @@ buildPythonPackage rec {
     [
       ipython
       decorator
-    ] ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
     ;
 
   nativeCheckInputs = [ unittestCheckHook ];

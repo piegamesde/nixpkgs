@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
   postPatch =
     ''
       sed -ie '/sys\/sysctl.h/d' source/Irrlicht/COSOperator.cpp
-    '' + lib.optionalString stdenv.isAarch64 ''
+    ''
+    + lib.optionalString stdenv.isAarch64 ''
       substituteInPlace source/Irrlicht/Makefile \
         --replace "-DIRRLICHT_EXPORTS=1" "-DIRRLICHT_EXPORTS=1 -DPNG_ARM_NEON_OPT=0"
     ''
@@ -51,7 +52,8 @@ stdenv.mkDerivation rec {
       libXrandr
       libX11
       libXxf86vm
-    ] ++ lib.optional stdenv.isAarch64 zlib
+    ]
+    ++ lib.optional stdenv.isAarch64 zlib
     ;
 
   meta = {

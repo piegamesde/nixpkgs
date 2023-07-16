@@ -51,7 +51,8 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ libdrm ] ++ lib.optionals (!minimal) [
+    [ libdrm ]
+    ++ lib.optionals (!minimal) [
       libva-minimal
       libX11
       libXext

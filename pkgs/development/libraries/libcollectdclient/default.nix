@@ -9,7 +9,8 @@ collectd.overrideAttrs (oldAttrs: {
   buildInputs = [ ];
 
   configureFlags =
-    (oldAttrs.configureFlags or [ ]) ++ [
+    (oldAttrs.configureFlags or [ ])
+    ++ [
       "--disable-daemon"
       "--disable-all-plugins"
     ]

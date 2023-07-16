@@ -47,7 +47,8 @@ stdenv.mkDerivation rec {
       perl
       readline
       tex
-    ] ++ lib.optionals withThread [ libpthreadstubs ]
+    ]
+    ++ lib.optionals withThread [ libpthreadstubs ]
     ;
 
   configureScript = "./Configure";
@@ -55,7 +56,8 @@ stdenv.mkDerivation rec {
     [
       "--with-gmp=${lib.getDev gmp}"
       "--with-readline=${lib.getDev readline}"
-    ] ++ lib.optional withThread "--mt=pthread"
+    ]
+    ++ lib.optional withThread "--mt=pthread"
     ;
 
   preConfigure = ''

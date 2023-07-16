@@ -35,7 +35,8 @@ let
       "--indexer-addr=${address}:${toString port}"
       "--indexer-max-neighbors=${toString maxNeighbors}"
       "--leech-max-n=${toString maxLeeches}"
-    ] ++ extraOptions);
+    ]
+      ++ extraOptions);
 
   webArgs = with cfg.web;
     escapeShellArgs ([
@@ -45,7 +46,8 @@ let
       else
         "--no-auth")
       "--addr=${address}:${toString port}"
-    ] ++ extraOptions);
+    ]
+      ++ extraOptions);
 
 in
 {

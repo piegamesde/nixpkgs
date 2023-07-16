@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
       libsodium
       libuecc
       openssl
-    ] ++ lib.optionals (stdenv.isLinux) [ libmnl ]
+    ]
+    ++ lib.optionals (stdenv.isLinux) [ libmnl ]
     ;
 
     # some options are only available on x86

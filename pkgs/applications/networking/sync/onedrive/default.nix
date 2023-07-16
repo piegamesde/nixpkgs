@@ -36,11 +36,13 @@ stdenv.mkDerivation rec {
       curl
       sqlite
       libnotify
-    ] ++ lib.optional withSystemd systemd
+    ]
+    ++ lib.optional withSystemd systemd
     ;
 
   configureFlags =
-    [ "--enable-notifications" ] ++ lib.optionals withSystemd [
+    [ "--enable-notifications" ]
+    ++ lib.optionals withSystemd [
       "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
       "--with-systemduserunitdir=${placeholder "out"}/lib/systemd/user"
     ]

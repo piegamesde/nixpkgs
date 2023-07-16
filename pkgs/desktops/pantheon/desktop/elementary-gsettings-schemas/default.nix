@@ -27,7 +27,8 @@ let
       gsettings-desktop-schemas
       gtk3
       mutter
-    ] ++ extraGSettingsOverridePackages
+    ]
+    ++ extraGSettingsOverridePackages
     ;
 
   # TODO: Having https://github.com/NixOS/nixpkgs/issues/54150 would supersede this

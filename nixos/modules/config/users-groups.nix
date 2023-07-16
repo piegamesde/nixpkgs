@@ -70,8 +70,9 @@ let
           type = types.passwdEntry types.str;
           apply =
             x:
-            assert (builtins.stringLength x < 32 || abort
-              "Username '${x}' is longer than 31 characters which is not allowed!");
+            assert (builtins.stringLength x < 32
+              || abort
+                "Username '${x}' is longer than 31 characters which is not allowed!");
             x
             ;
           description = lib.mdDoc ''
@@ -133,8 +134,9 @@ let
           type = types.str;
           apply =
             x:
-            assert (builtins.stringLength x < 32 || abort
-              "Group name '${x}' is longer than 31 characters which is not allowed!");
+            assert (builtins.stringLength x < 32
+              || abort
+                "Group name '${x}' is longer than 31 characters which is not allowed!");
             x
             ;
           default = "";
@@ -372,9 +374,11 @@ let
         (mkIf (!cfg.mutableUsers && config.initialHashedPassword != null) {
           hashedPassword = mkDefault config.initialHashedPassword;
         })
-        (mkIf (config.isNormalUser && config.subUidRanges == [ ]
-          && config.subGidRanges
-          == [ ]) { autoSubUidGidRange = mkDefault true; })
+        (mkIf (config.isNormalUser
+          && config.subUidRanges == [ ]
+          && config.subGidRanges == [ ]) {
+            autoSubUidGidRange = mkDefault true;
+          })
       ];
 
     }
@@ -886,14 +890,18 @@ in
             # The check does not apply when users.disableLoginPossibilityAssertion
             # The check does not apply when users.mutableUsers
             assertion =
-              !cfg.mutableUsers -> !cfg.allowNoPasswordLogin -> any id
-              (mapAttrsToList (name: cfg:
-                (name == "root" || cfg.group == "wheel"
+              !cfg.mutableUsers
+              -> !cfg.allowNoPasswordLogin
+              -> any id (mapAttrsToList (name: cfg:
+                (name == "root"
+                  || cfg.group == "wheel"
                   || elem "wheel" cfg.extraGroups)
-                && (allowsLogin cfg.hashedPassword || cfg.password != null
-                  || cfg.passwordFile != null || cfg.openssh.authorizedKeys.keys
-                  != [ ] || cfg.openssh.authorizedKeys.keyFiles != [ ]))
-                cfg.users ++ [ config.security.googleOsLogin.enable ])
+                && (allowsLogin cfg.hashedPassword
+                  || cfg.password != null
+                  || cfg.passwordFile != null
+                  || cfg.openssh.authorizedKeys.keys != [ ]
+                  || cfg.openssh.authorizedKeys.keyFiles != [ ])) cfg.users
+                ++ [ config.security.googleOsLogin.enable ])
               ;
             message = ''
               Neither the root account nor any wheel user has a password or SSH authorized key.
@@ -903,7 +911,8 @@ in
               manually running passwd root to set the root password.
             '';
           }
-        ] ++ flatten (flip mapAttrsToList cfg.users (name: user:
+        ]
+        ++ flatten (flip mapAttrsToList cfg.users (name: user:
           [
             {
               assertion =
@@ -939,7 +948,8 @@ in
                 users.groups.${user.name} = {};
               '';
             }
-          ] ++ (map (shell: {
+          ]
+          ++ (map (shell: {
             assertion =
               (user.shell == pkgs.${shell})
               -> (config.programs.${shell}.enable == true)
@@ -980,8 +990,8 @@ in
             mcf = "^${sep}${scheme}${sep}${content}$";
           in
           if
-            (allowsLogin user.hashedPassword && user.hashedPassword
-              != "" # login without password
+            (allowsLogin user.hashedPassword
+              && user.hashedPassword != "" # login without password
               && builtins.match mcf user.hashedPassword == null)
           then
             ''

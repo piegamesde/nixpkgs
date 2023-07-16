@@ -28,13 +28,15 @@ stdenv.mkDerivation {
     [
       "CFLAGS=-Wno-error"
       "sqlar"
-    ] ++ lib.optional withFuse "sqlarfs"
+    ]
+    ++ lib.optional withFuse "sqlarfs"
     ;
 
   installPhase =
     ''
       install -D -t $out/bin sqlar
-    '' + lib.optionalString withFuse ''
+    ''
+    + lib.optionalString withFuse ''
       install -D -t $out/bin sqlarfs
     ''
     ;

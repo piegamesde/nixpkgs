@@ -171,7 +171,8 @@ let
   systemWithBuildDeps = system.overrideAttrs (o: {
     systemBuildClosure = pkgs.closureInfo { rootPaths = [ system.drvPath ]; };
     buildCommand =
-      o.buildCommand + ''
+      o.buildCommand
+      + ''
         ln -sn $systemBuildClosure $out/build-closure
       ''
       ;
@@ -403,7 +404,8 @@ in
           import ../../../lib/from-env.nix "NIXOS_CONFIG" <nixos-config>
         }' \
                     "$out/configuration.nix"
-      '' + optionalString (config.system.forbiddenDependenciesRegex != "") ''
+      ''
+      + optionalString (config.system.forbiddenDependenciesRegex != "") ''
         if [[ $forbiddenDependenciesRegex != "" && -n $closureInfo ]]; then
           if forbiddenPaths="$(grep -E -- "$forbiddenDependenciesRegex" $closureInfo/store-paths)"; then
             echo -e "System closure $out contains the following disallowed paths:\n$forbiddenPaths"

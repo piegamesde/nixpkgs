@@ -14,10 +14,13 @@
   gsaslSupport ? false,
   gsasl,
   gssSupport ? with stdenv.hostPlatform;
-    (!isWindows &&
-      # disable gss becuase of: undefined reference to `k5_bcmp'
-      # a very sad story re static: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=439039
-      !isStatic &&
+    (!isWindows
+      &&
+      # the "mig" tool does not configure its compiler correctly. This could be
+      # fixed in mig, but losing gss support on cross compilation to darwin is
+      # not worth the effort.
+      !isStatic
+      &&
       # the "mig" tool does not configure its compiler correctly. This could be
       # fixed in mig, but losing gss support on cross compilation to darwin is
       # not worth the effort.
@@ -72,7 +75,8 @@ assert !((lib.count (x: x) [
   opensslSupport
   wolfsslSupport
   rustlsSupport
-]) > 1);
+])
+  > 1);
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "curl";
@@ -110,17 +114,26 @@ stdenv.mkDerivation (finalAttrs: {
     # "-lz -lssl", which aren't necessary direct build inputs of
     # applications that use Curl.
   propagatedBuildInputs = with lib;
-    optional brotliSupport brotli ++ optional c-aresSupport c-aresMinimal
-    ++ optional gnutlsSupport gnutls ++ optional gsaslSupport gsasl
-    ++ optional gssSupport libkrb5 ++ optional http2Support nghttp2
+    optional brotliSupport brotli
+    ++ optional c-aresSupport c-aresMinimal
+    ++ optional gnutlsSupport gnutls
+    ++ optional gsaslSupport gsasl
+    ++ optional gssSupport libkrb5
+    ++ optional http2Support nghttp2
     ++ optionals http3Support [
       nghttp3
       ngtcp2
-    ] ++ optional idnSupport libidn2 ++ optional ldapSupport openldap
-    ++ optional opensslSupport openssl ++ optional pslSupport libpsl
-    ++ optional rtmpSupport rtmpdump ++ optional scpSupport libssh2
-    ++ optional wolfsslSupport wolfssl ++ optional rustlsSupport rustls-ffi
-    ++ optional zlibSupport zlib ++ optional zstdSupport zstd;
+    ]
+    ++ optional idnSupport libidn2
+    ++ optional ldapSupport openldap
+    ++ optional opensslSupport openssl
+    ++ optional pslSupport libpsl
+    ++ optional rtmpSupport rtmpdump
+    ++ optional scpSupport libssh2
+    ++ optional wolfsslSupport wolfssl
+    ++ optional rustlsSupport rustls-ffi
+    ++ optional zlibSupport zlib
+    ++ optional zstdSupport zstd;
 
     # for the second line see https://curl.haxx.se/mail/tracker-2014-03/0087.html
   preConfigure = ''
@@ -148,22 +161,25 @@ stdenv.mkDerivation (finalAttrs: {
       (lib.withFeatureAs opensslSupport "openssl" (lib.getDev openssl))
       (lib.withFeatureAs scpSupport "libssh2" (lib.getDev libssh2))
       (lib.withFeatureAs wolfsslSupport "wolfssl" (lib.getDev wolfssl))
-    ] ++ lib.optional gssSupport "--with-gssapi=${lib.getDev libkrb5}"
-    # For the 'urandom', maybe it should be a cross-system option
+    ]
+    ++ lib.optional gssSupport "--with-gssapi=${lib.getDev libkrb5}"
+      # For the 'urandom', maybe it should be a cross-system option
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-    "--with-random=/dev/urandom"
+      "--with-random=/dev/urandom"
     ++ lib.optionals stdenv.hostPlatform.isWindows [
       "--disable-shared"
       "--enable-static"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # Disable default CA bundle, use NIX_SSL_CERT_FILE or fallback to nss-cacert from the default profile.
       # Without this curl might detect /etc/ssl/cert.pem at build time on macOS, causing curl to ignore NIX_SSL_CERT_FILE.
       "--without-ca-bundle"
       "--without-ca-path"
-    ] ++ lib.optionals
-    (!gnutlsSupport && !opensslSupport && !wolfsslSupport && !rustlsSupport) [
-      "--without-ssl"
     ]
+    ++ lib.optionals
+      (!gnutlsSupport && !opensslSupport && !wolfsslSupport && !rustlsSupport) [
+        "--without-ssl"
+      ]
     ;
 
   CXX = "${stdenv.cc.targetPrefix}c++";
@@ -176,11 +192,13 @@ stdenv.mkDerivation (finalAttrs: {
   preCheck =
     ''
       patchShebangs tests/
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # bad interaction with sandbox if enabled?
       rm tests/data/test1453
       rm tests/data/test1086
-    '' + lib.optionalString stdenv.hostPlatform.isMusl ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isMusl ''
       # different resolving behaviour?
       rm tests/data/test1592
     ''
@@ -192,11 +210,13 @@ stdenv.mkDerivation (finalAttrs: {
 
       # Install completions
       make -C scripts install
-    '' + lib.optionalString scpSupport ''
+    ''
+    + lib.optionalString scpSupport ''
       sed '/^dependency_libs/s|${lib.getDev libssh2}|${
         lib.getLib libssh2
       }|' -i "$out"/lib/*.la
-    '' + lib.optionalString gnutlsSupport ''
+    ''
+    + lib.optionalString gnutlsSupport ''
       ln $out/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libcurl-gnutls${stdenv.hostPlatform.extensions.sharedLibrary}
       ln $out/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libcurl-gnutls${stdenv.hostPlatform.extensions.sharedLibrary}.4
       ln $out/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libcurl-gnutls${stdenv.hostPlatform.extensions.sharedLibrary}.4.4.0

@@ -57,7 +57,8 @@ stdenv.mkDerivation rec {
     ];
 
   nativeCheckInputs =
-    [ valgrind ] ++ (with python3.pkgs; [
+    [ valgrind ]
+    ++ (with python3.pkgs; [
       libevdev
       pytest
       pyudev

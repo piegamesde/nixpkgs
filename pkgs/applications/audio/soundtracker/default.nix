@@ -58,7 +58,8 @@ stdenv.mkDerivation rec {
       jack2
       audiofile
       goocanvas
-    ] ++ lib.optional stdenv.isLinux alsa-lib
+    ]
+    ++ lib.optional stdenv.isLinux alsa-lib
     ;
 
   meta = with lib; {

@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
       makeWrapper
       installShellFiles
       removeReferencesTo
-    ] ++ (with ocamlPackages; [
+    ]
+    ++ (with ocamlPackages; [
       ocaml
       findlib
       ocamlbuild

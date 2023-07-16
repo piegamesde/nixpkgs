@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     [
       "out"
       "dev"
-    ] ++ lib.optionals usePython [ "py" ]
+    ]
+    ++ lib.optionals usePython [ "py" ]
     ;
 
   buildInputs =
@@ -40,7 +41,9 @@ stdenv.mkDerivation rec {
       mpfr
       libedit
       gnused
-    ] ++ lib.optionals gpgmeSupport [ gpgme ] ++ (if usePython then
+    ]
+    ++ lib.optionals gpgmeSupport [ gpgme ]
+    ++ (if usePython then
       [
         python3
         (boost.override {

@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
       zlib
       openssl
       libuuid
-    ] ++ lib.optionals stdenv.isDarwin [ bzip2 ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ bzip2 ]
     ;
 
   meta = {

@@ -64,7 +64,8 @@ stdenv.mkDerivation {
       python3Packages.pytest
       udev
       valgrind
-    ] ++ lib.optional fuseSupport fuse3
+    ]
+    ++ lib.optional fuseSupport fuse3
     ;
 
   doCheck = false; # needs bcachefs module loaded on builder

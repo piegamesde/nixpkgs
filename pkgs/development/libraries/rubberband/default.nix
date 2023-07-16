@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
       fftw
       vamp-plugin-sdk
       ladspaH
-    ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+    ]
+    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
       Accelerate
       CoreGraphics
       CoreVideo

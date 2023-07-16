@@ -38,7 +38,8 @@ python3.pkgs.buildPythonApplication rec {
     [
       gtk3
       librsvg
-    ] ++ (with xorg; [
+    ]
+    ++ (with xorg; [
       libX11
       libXxf86vm
       libXext

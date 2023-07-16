@@ -52,7 +52,8 @@ let
     };
     patches = [ ];
     cmakeFlags =
-      (old.cmakeFlags or [ ]) ++ [
+      (old.cmakeFlags or [ ])
+      ++ [
         "-DUSE_DOUBLE_PRECISION=ON"
         "-DBULLET2_MULTITHREADING=ON"
       ]
@@ -81,7 +82,8 @@ mkDerivation rec {
   postPatch =
     ''
       sed '1i#include <memory>' -i components/myguiplatform/myguidatamanager.cpp # gcc12
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # Don't fix Darwin app bundle
       sed -i '/fixup_bundle/d' CMakeLists.txt
     ''
@@ -109,7 +111,8 @@ mkDerivation rec {
       unshield
       lz4
       recastnavigation
-    ] ++ lib.optionals stdenv.isDarwin [ VideoDecodeAcceleration ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ VideoDecodeAcceleration ]
     ;
 
   cmakeFlags =
@@ -117,7 +120,8 @@ mkDerivation rec {
       # as of 0.46, openmw is broken with GLVND
       "-DOpenGL_GL_PREFERENCE=LEGACY"
       "-DOPENMW_USE_SYSTEM_RECASTNAVIGATION=1"
-    ] ++ lib.optionals stdenv.isDarwin [ "-DOPENMW_OSX_DEPLOYMENT=ON" ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ "-DOPENMW_OSX_DEPLOYMENT=ON" ]
     ;
 
   meta = with lib; {

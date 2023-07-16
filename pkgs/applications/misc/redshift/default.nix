@@ -97,7 +97,8 @@ let
             else
               "no"
           }"
-        ] ++ lib.optionals (pname == "gammastep") [
+        ]
+        ++ lib.optionals (pname == "gammastep") [
           "--with-systemduserunitdir=${placeholder "out"}/share/systemd/user/"
           "--enable-apparmor"
         ]
@@ -108,14 +109,17 @@ let
           gobject-introspection
           gtk3
           python
-        ] ++ lib.optional withRandr libxcb ++ lib.optional withGeoclue geoclue
+        ]
+        ++ lib.optional withRandr libxcb
+        ++ lib.optional withGeoclue geoclue
         ++ lib.optional withDrm libdrm
         ++ lib.optional withQuartz ApplicationServices
         ++ lib.optionals withCoreLocation [
           CoreLocation
           Foundation
           Cocoa
-        ] ++ lib.optional withAppIndicator (if (pname != "gammastep") then
+        ]
+        ++ lib.optional withAppIndicator (if (pname != "gammastep") then
           libappindicator
         else
           libayatana-appindicator)

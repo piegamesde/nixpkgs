@@ -51,8 +51,10 @@ stdenv.mkDerivation rec {
       aixlog
       popl
       soxr
-    ] ++ lib.optional pulseaudioSupport libpulseaudio
-    ++ lib.optional stdenv.isLinux alsa-lib ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optional pulseaudioSupport libpulseaudio
+    ++ lib.optional stdenv.isLinux alsa-lib
+    ++ lib.optionals stdenv.isDarwin [
       IOKit
       AudioToolbox
     ]

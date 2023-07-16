@@ -93,7 +93,8 @@ let
       xorg.libXtst
       xorg.libXScrnSaver
       xorg.libxcb
-    ] + ":${stdenv.cc.cc.lib}/lib64"
+    ]
+    + ":${stdenv.cc.cc.lib}/lib64"
     ;
 
   src =

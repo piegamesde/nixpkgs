@@ -132,7 +132,8 @@ in
 
     networking.firewall = mkIf cfg.openFirewall {
       allowedTCPPorts =
-        [ cfg.fileTransferPort ] ++ optionals (cfg.openFirewallServerQuery) [
+        [ cfg.fileTransferPort ]
+        ++ optionals (cfg.openFirewallServerQuery) [
           cfg.queryPort
           (cfg.queryPort + 11)
         ]

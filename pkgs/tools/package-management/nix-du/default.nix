@@ -35,7 +35,8 @@ rustPlatform.buildRustPackage rec {
       boost
       nix
       nlohmann_json
-    ] ++ lib.optionals stdenv.isDarwin [ Security ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Security ]
     ;
 
   nativeBuildInputs = [

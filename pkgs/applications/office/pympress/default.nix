@@ -29,7 +29,8 @@ python3Packages.buildPythonApplication rec {
     [
       gtk3
       poppler_gi
-    ] ++ lib.optional withGstreamer libcanberra-gtk3
+    ]
+    ++ lib.optional withGstreamer libcanberra-gtk3
     ;
 
   propagatedBuildInputs = with python3Packages;
@@ -38,7 +39,8 @@ python3Packages.buildPythonApplication rec {
       pygobject3
       setuptools
       watchdog
-    ] ++ lib.optional withVLC python-vlc;
+    ]
+    ++ lib.optional withVLC python-vlc;
 
   doCheck = false; # there are no tests
 

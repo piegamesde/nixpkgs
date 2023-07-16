@@ -93,13 +93,14 @@ let
   compress = lib.optionalString (format == "qcow2-compressed") "-c";
 
   filenameSuffix =
-    "." + {
+    "."
+    + {
       qcow2 = "qcow2";
       vdi = "vdi";
       vpc = "vhd";
       raw = "img";
     }
-    .${formatOpt} or formatOpt
+      .${formatOpt} or formatOpt
     ;
   bootFilename = "nixos.boot${filenameSuffix}";
   rootFilename = "nixos.root${filenameSuffix}";
@@ -278,7 +279,8 @@ let
         "9pnet_virtio"
         "virtio_pci"
         "virtio_blk"
-      ] ++ (pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos")
+      ]
+      ++ (pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos")
       ;
     kernel = modulesTree;
   }).runInLinuxVM (pkgs.runCommand name {

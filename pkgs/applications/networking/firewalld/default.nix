@@ -27,7 +27,8 @@ let
       dbus-python
       nftables
       pygobject3
-    ] ++ lib.optionals withGui [
+    ]
+    ++ lib.optionals withGui [
       pyqt5
       pyqt5_sip
     ]);
@@ -54,7 +55,8 @@ stdenv.mkDerivation rec {
         substituteInPlace $file \
           --replace "/usr/bin/" "$out/bin/"
       done
-    '' + lib.optionalString withGui ''
+    ''
+    + lib.optionalString withGui ''
       substituteInPlace src/firewall-applet.in \
         --replace "/usr/bin/nm-connection-editor" "${networkmanagerapplet}/bin/nm-conenction-editor"
     ''
@@ -72,7 +74,8 @@ stdenv.mkDerivation rec {
       pkg-config
       python3
       python3.pkgs.wrapPython
-    ] ++ lib.optionals withGui [
+    ]
+    ++ lib.optionals withGui [
       gobject-introspection
       wrapGAppsNoGuiHook
     ]
@@ -82,7 +85,8 @@ stdenv.mkDerivation rec {
     [
       bash
       glib
-    ] ++ lib.optionals withGui [
+    ]
+    ++ lib.optionals withGui [
       gtk3
       libnotify
       pythonPath

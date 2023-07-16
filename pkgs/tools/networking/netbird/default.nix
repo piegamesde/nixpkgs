@@ -53,7 +53,8 @@ buildGoModule rec {
       libX11
       libXcursor
       libXxf86vm
-    ] ++ lib.optionals (stdenv.isDarwin && ui) [
+    ]
+    ++ lib.optionals (stdenv.isDarwin && ui) [
       Cocoa
       IOKit
       Kernel
@@ -86,21 +87,23 @@ buildGoModule rec {
     lib.concatStringsSep "\n" (lib.mapAttrsToList (module: binary:
       ''
         mv $out/bin/${lib.last (lib.splitString "/" module)} $out/bin/${binary}
-      '' + lib.optionalString (!ui) ''
+      ''
+      + lib.optionalString (!ui) ''
         installShellCompletion --cmd ${binary} \
           --bash <($out/bin/${binary} completion bash) \
           --fish <($out/bin/${binary} completion fish) \
           --zsh <($out/bin/${binary} completion zsh)
-      '') modules) + lib.optionalString (stdenv.isLinux && ui) ''
-        mkdir -p $out/share/pixmaps
-        cp $src/client/ui/disconnected.png $out/share/pixmaps/netbird.png
+      '') modules)
+    + lib.optionalString (stdenv.isLinux && ui) ''
+      mkdir -p $out/share/pixmaps
+      cp $src/client/ui/disconnected.png $out/share/pixmaps/netbird.png
 
-        mkdir -p $out/share/applications
-        cp $src/client/ui/netbird.desktop $out/share/applications/netbird.desktop
+      mkdir -p $out/share/applications
+      cp $src/client/ui/netbird.desktop $out/share/applications/netbird.desktop
 
-        substituteInPlace $out/share/applications/netbird.desktop \
-          --replace "Exec=/usr/bin/netbird-ui" "Exec=$out/bin/netbird-ui"
-      ''
+      substituteInPlace $out/share/applications/netbird.desktop \
+        --replace "Exec=/usr/bin/netbird-ui" "Exec=$out/bin/netbird-ui"
+    ''
     ;
 
   passthru = {

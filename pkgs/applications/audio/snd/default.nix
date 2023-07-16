@@ -28,11 +28,13 @@ stdenv.mkDerivation rec {
       fftw
       gsl
       motif
-    ] ++ lib.optionals stdenv.isLinux [ alsa-lib ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ alsa-lib ]
     ++ lib.optionals stdenv.isDarwin [
       CoreServices
       CoreMIDI
-    ] ++ (with xorg; [
+    ]
+    ++ (with xorg; [
       libXext
       libXft
       libXpm

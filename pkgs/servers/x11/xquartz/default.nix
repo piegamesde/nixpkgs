@@ -84,15 +84,18 @@ let
       liberation_ttf
       xorg.fontmiscmisc
       xorg.fontcursormisc
-    ] ++ lib.optionals unfreeFonts [
+    ]
+    ++ lib.optionals unfreeFonts [
       xorg.fontbhlucidatypewriter100dpi
       xorg.fontbhlucidatypewriter75dpi
       xorg.fontbh100dpi
-    ] ++ extraFontDirs
+    ]
+    ++ extraFontDirs
     ;
   fontsConf = makeFontsConf {
     fontDirectories =
-      fontDirs ++ [
+      fontDirs
+      ++ [
         "/Library/Fonts"
         "~/Library/Fonts"
       ]

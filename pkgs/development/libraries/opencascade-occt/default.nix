@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
       libXext
       libXmu
       libXi
-    ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Cocoa
+    ]
+    ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Cocoa
     ;
 
   meta = with lib; {

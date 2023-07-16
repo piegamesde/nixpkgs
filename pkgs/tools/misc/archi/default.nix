@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
     [
       makeWrapper
       wrapGAppsHook
-    ] ++ lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook
     ;
 
   installPhase =

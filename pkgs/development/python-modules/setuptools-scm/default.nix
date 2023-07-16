@@ -32,7 +32,8 @@ buildPythonPackage rec {
       packaging
       setuptools
       typing-extensions
-    ] ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
     ;
 
   pythonImportsCheck = [ "setuptools_scm" ];

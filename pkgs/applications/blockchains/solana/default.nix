@@ -36,11 +36,12 @@
     "solana-watchtower"
     "cargo-test-sbf"
     "cargo-build-sbf"
-  ] ++ [
-    # XXX: Ensure `solana-genesis` is built LAST!
-    # See https://github.com/solana-labs/solana/issues/5826
-    "solana-genesis"
   ]
+    ++ [
+      # XXX: Ensure `solana-genesis` is built LAST!
+      # See https://github.com/solana-labs/solana/issues/5826
+      "solana-genesis"
+    ]
 }:
 let
   version = "1.14.17";
@@ -80,7 +81,8 @@ rustPlatform.buildRustPackage rec {
     [
       openssl
       rustPlatform.bindgenHook
-    ] ++ lib.optionals stdenv.isLinux [ udev ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ udev ]
     ++ lib.optionals stdenv.isDarwin [
       libcxx
       IOKit

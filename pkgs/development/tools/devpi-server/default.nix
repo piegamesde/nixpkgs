@@ -63,7 +63,8 @@ buildPythonApplication rec {
       setuptools
       strictyaml
       waitress
-    ] ++ passlib.optional-dependencies.argon2
+    ]
+    ++ passlib.optional-dependencies.argon2
     ;
 
   nativeCheckInputs = [

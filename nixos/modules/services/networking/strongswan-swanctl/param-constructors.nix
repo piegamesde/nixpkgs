@@ -62,11 +62,12 @@ rec {
     if strongswanDefault == null then
       mdDoc description
     else
-      mdDoc (description + ''
+      mdDoc (description
+        + ''
 
 
-        StrongSwan default: ````${builtins.toJSON strongswanDefault}````
-      '')
+          StrongSwan default: ````${builtins.toJSON strongswanDefault}````
+        '')
     ;
 
   single = f: name: value: { ${name} = f value; };

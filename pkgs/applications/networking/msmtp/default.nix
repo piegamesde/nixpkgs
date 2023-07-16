@@ -51,7 +51,8 @@ let
       [
         "--sysconfdir=/etc"
         "--with-libgsasl"
-      ] ++ optionals stdenv.isDarwin [ "--with-macosx-keyring" ]
+      ]
+      ++ optionals stdenv.isDarwin [ "--with-macosx-keyring" ]
       ;
 
     buildInputs =
@@ -59,7 +60,8 @@ let
         gnutls
         gsasl
         libidn2
-      ] ++ optionals stdenv.isDarwin [ Security ]
+      ]
+      ++ optionals stdenv.isDarwin [ Security ]
       ++ optionals withKeyring [ libsecret ]
       ;
 
@@ -123,15 +125,17 @@ let
             gnugrep
             netcat-gnu
             which
-          ] ++ optionals withSystemd [ systemd ]
+          ]
+          ++ optionals withSystemd [ systemd ]
           ;
         execer =
           [
             "cannot:${getBin binaries}/bin/msmtp"
             "cannot:${getBin netcat-gnu}/bin/nc"
-          ] ++ optionals withSystemd [
-            "cannot:${getBin systemd}/bin/systemd-cat"
           ]
+          ++ optionals withSystemd [
+              "cannot:${getBin systemd}/bin/systemd-cat"
+            ]
           ;
         fix."$MSMTP" = [ "msmtp" ];
         fake.external =

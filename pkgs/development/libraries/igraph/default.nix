@@ -21,7 +21,8 @@
   xmlto,
 }:
 
-assert (blas.isILP64 == lapack.isILP64 && blas.isILP64 == arpack.isILP64
+assert (blas.isILP64 == lapack.isILP64
+  && blas.isILP64 == arpack.isILP64
   && !blas.isILP64);
 
 stdenv.mkDerivation rec {
@@ -67,7 +68,8 @@ stdenv.mkDerivation rec {
       lapack
       libxml2
       plfit
-    ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ]
+    ]
+    ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ]
     ;
 
   cmakeFlags = [

@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
       "out"
       "lib"
       "dev"
-    ] ++ lib.optional enableManpages "man"
+    ]
+    ++ lib.optional enableManpages "man"
     ;
 
   src = fetchgit {
@@ -39,7 +40,8 @@ stdenv.mkDerivation rec {
     [
       "DESTDIR=$(out)"
       "PREFIX="
-    ] ++ lib.optional enableShared "USE_SHARED_LIB=1"
+    ]
+    ++ lib.optional enableShared "USE_SHARED_LIB=1"
     ;
 
   doCheck = true;

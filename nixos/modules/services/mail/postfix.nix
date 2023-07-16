@@ -38,7 +38,8 @@ let
         if isList value then
           mkList value
         else
-          " " + (if value == true then
+          " "
+          + (if value == true then
             "yes"
           else if value == false then
             "no"
@@ -47,7 +48,8 @@ let
         ;
       mkEntry = name: value: "${escape name} =${mkVal value}";
     in
-    concatStringsSep "\n" (mapAttrsToList mkEntry cfg.config) + "\n"
+    concatStringsSep "\n" (mapAttrsToList mkEntry cfg.config)
+    + "\n"
     + cfg.extraConfig
     ;
 
@@ -198,8 +200,9 @@ let
               wakeupDefined = options.wakeup.isDefined;
               wakeupUCDefined = options.wakeupUnusedComponent.isDefined;
               finalValue =
-                toString config.wakeup + optionalString
-                (wakeupUCDefined && !config.wakeupUnusedComponent) "?"
+                toString config.wakeup
+                + optionalString
+                  (wakeupUCDefined && !config.wakeupUnusedComponent) "?"
                 ;
             in
             if wakeupDefined then
@@ -267,7 +270,8 @@ let
             [
               labels
               labelDefaults
-            ] ++ (map (l: init l ++ [ "" ]) masterCf)
+            ]
+            ++ (map (l: init l ++ [ "" ]) masterCf)
             ;
         in
         foldr foldLine (genList (const 0) (length labels)) lines
@@ -303,7 +307,10 @@ let
         ;
 
     in
-    formattedLabels + "\n" + concatMapStringsSep "\n" formatLine masterCf + "\n"
+    formattedLabels
+    + "\n"
+    + concatMapStringsSep "\n" formatLine masterCf
+    + "\n"
     + cfg.extraMasterConf
     ;
 
@@ -340,9 +347,11 @@ let
     in
     optionalString (cfg.postmasterAlias != "") ''
       postmaster${separator} ${cfg.postmasterAlias}
-    '' + optionalString (cfg.rootAlias != "") ''
+    ''
+    + optionalString (cfg.rootAlias != "") ''
       root${separator} ${cfg.rootAlias}
-    '' + cfg.extraAliases
+    ''
+    + cfg.extraAliases
     ;
 
   aliasesFile = pkgs.writeText "postfix-aliases" aliases;

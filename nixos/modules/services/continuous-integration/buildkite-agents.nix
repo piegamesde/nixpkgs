@@ -288,7 +288,8 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       path =
-        cfg.runtimePackages ++ [
+        cfg.runtimePackages
+        ++ [
           cfg.package
           pkgs.coreutils
         ]
@@ -316,7 +317,8 @@ in
         optionalString (cfg.privateSshKeyPath != null) ''
           mkdir -m 0700 -p "${sshDir}"
           install -m600 "${toString cfg.privateSshKeyPath}" "${sshDir}/id_rsa"
-        '' + ''
+        ''
+        + ''
           cat > "${cfg.dataDir}/buildkite-agent.cfg" <<EOF
           token="$(cat ${toString cfg.tokenPath})"
           name="${cfg.name}"

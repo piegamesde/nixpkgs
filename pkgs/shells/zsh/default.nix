@@ -47,7 +47,8 @@ stdenv.mkDerivation {
       groff
       texinfo
       pcre
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       util-linux
       yodl
     ]
@@ -66,7 +67,8 @@ stdenv.mkDerivation {
       "--enable-pcre"
       "--enable-zshenv=${placeholder "out"}/etc/zshenv"
       "--disable-site-fndir"
-    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform
+    ]
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform
       && !stdenv.hostPlatform.isStatic) [
         # Also see: https://github.com/buildroot/buildroot/commit/2f32e668aa880c2d4a2cce6c789b7ca7ed6221ba
         "zsh_cv_shared_environ=yes"

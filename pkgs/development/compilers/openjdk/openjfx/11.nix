@@ -72,7 +72,8 @@ let
       config = writeText "gradle.properties" (''
         CONF = Release
         JDK_HOME = ${openjdk11-bootstrap.home}
-      '' + args.gradleProperties or "");
+      ''
+        + args.gradleProperties or "");
 
       buildPhase = ''
         runHook preBuild

@@ -31,7 +31,8 @@ rustPlatform.buildRustPackage rec {
     [
       dbus
       openssl
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       AppKit
       Cocoa
       Foundation

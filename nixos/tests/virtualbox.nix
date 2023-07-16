@@ -203,7 +203,8 @@ let
         "--uartmode1 client /run/virtualbox-log-${name}.sock"
         "--memory 768"
         "--audio none"
-      ] ++ (attrs.vmFlags or [ ]));
+      ]
+        ++ (attrs.vmFlags or [ ]));
 
       controllerFlags = mkFlags [
         "--name SATA"
@@ -415,7 +416,8 @@ let
             [
               ./common/user-account.nix
               ./common/x11.nix
-            ] ++ vmConfigs
+            ]
+            ++ vmConfigs
             ;
           virtualisation.memorySize = 2048;
           virtualisation.qemu.options = [

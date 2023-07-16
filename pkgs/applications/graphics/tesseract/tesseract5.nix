@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
       icu
       pango
       opencl-headers
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Accelerate
       CoreGraphics
       CoreVideo

@@ -32,7 +32,8 @@ buildPythonPackage rec {
     [
       # test failure reported upstream: https://github.com/adrienverge/yamllint/issues/373
       "test_find_files_recursively"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # locale tests are broken on BSDs; see https://github.com/adrienverge/yamllint/issues/307
       "test_locale_accents"
       "test_locale_case"

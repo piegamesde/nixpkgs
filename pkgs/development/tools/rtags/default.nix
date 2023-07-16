@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
       llvmPackages.libclang
       openssl
       emacs
-    ] ++ lib.optionals stdenv.cc.isGNU [ llvmPackages.clang-unwrapped ]
+    ]
+    ++ lib.optionals stdenv.cc.isGNU [ llvmPackages.clang-unwrapped ]
     ++ lib.optionals stdenv.isDarwin [
       apple_sdk.libs.xpc
       apple_sdk.frameworks.CoreServices

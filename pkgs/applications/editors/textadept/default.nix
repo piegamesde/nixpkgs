@@ -39,11 +39,12 @@ stdenv.mkDerivation rec {
   preConfigure =
     lib.concatStringsSep "\n" (lib.mapAttrsToList
       (name: params: "ln -s ${fetchurl params} $PWD/src/${name}")
-      (import ./deps.nix)) + ''
+      (import ./deps.nix))
+    + ''
 
-        cd src
-        make deps
-      ''
+      cd src
+      make deps
+    ''
     ;
 
   postBuild = ''

@@ -48,7 +48,8 @@ stdenv.mkDerivation {
       libXext
       glew
       lv2lint
-    ] ++ additionalBuildInputs
+    ]
+    ++ additionalBuildInputs
     ;
 
   meta = with lib; {

@@ -42,7 +42,8 @@ rustPlatform.buildRustPackage rec {
       libssh2
       libgit2
       libzip
-    ] ++ lib.optional stdenv.isDarwin Security
+    ]
+    ++ lib.optional stdenv.isDarwin Security
     ;
 
   COMPLETION_OUT = "out";

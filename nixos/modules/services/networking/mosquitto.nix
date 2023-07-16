@@ -122,17 +122,20 @@ let
       assertion =
         builtins.match ''
           [^:
-          ]+'' n != null
+          ]+'' n
+        != null
         ;
       message = "Invalid user name ${n} in ${prefix}";
-    }) users ++ mapAttrsToList (n: u: {
+    }) users
+    ++ mapAttrsToList (n: u: {
       assertion =
         count (s: s != null) [
           u.password
           u.passwordFile
           u.hashedPassword
           u.hashedPasswordFile
-        ] <= 1
+        ]
+        <= 1
         ;
       message =
         "Cannot set more than one password option for user ${n} in ${prefix}";
@@ -145,10 +148,11 @@ let
       makeLines =
         store: file:
         mapAttrsToList
-        (n: u: "addLine ${escapeShellArg n} ${escapeShellArg u.${store}}")
-        (filterAttrs (_: u: u.${store} != null) users) ++ mapAttrsToList
-        (n: u: "addFile ${escapeShellArg n} ${escapeShellArg "${u.${file}}"}")
-        (filterAttrs (_: u: u.${file} != null) users)
+          (n: u: "addLine ${escapeShellArg n} ${escapeShellArg u.${store}}")
+          (filterAttrs (_: u: u.${store} != null) users)
+        ++ mapAttrsToList
+          (n: u: "addFile ${escapeShellArg n} ${escapeShellArg "${u.${file}}"}")
+          (filterAttrs (_: u: u.${file} != null) users)
         ;
       plainLines = makeLines "password" "passwordFile";
       hashedLines = makeLines "hashedPassword" "hashedPasswordFile";
@@ -173,9 +177,12 @@ let
         fi
         echo "$1:$(cat "$2")" >> "$file"
       }
-    '' + concatStringsSep "\n" (plainLines ++ optional (plainLines != [ ]) ''
-      ${cfg.package}/bin/mosquitto_passwd -U "$file"
-    '' ++ hashedLines))
+    ''
+      + concatStringsSep "\n" (plainLines
+        ++ optional (plainLines != [ ]) ''
+          ${cfg.package}/bin/mosquitto_passwd -U "$file"
+        ''
+        ++ hashedLines))
     ;
 
   makeACLFile =
@@ -231,7 +238,8 @@ let
     [
       "auth_plugin ${plugin.plugin}"
       "auth_plugin_deny_special_chars ${optionToString plugin.denySpecialChars}"
-    ] ++ formatFreeform { prefix = "auth_opt_"; } plugin.options
+    ]
+    ++ formatFreeform { prefix = "auth_opt_"; } plugin.options
     ;
 
   freeformListenerKeys = {
@@ -346,7 +354,7 @@ let
     assertKeysValid "${prefix}.settings" freeformListenerKeys listener.settings
     ++ userAsserts prefix listener.users
     ++ imap0 (i: v: authAsserts "${prefix}.authPlugins.${toString i}" v)
-    listener.authPlugins
+      listener.authPlugins
     ;
 
   formatListener =
@@ -354,8 +362,9 @@ let
     [
       "listener ${toString listener.port} ${toString listener.address}"
       "acl_file ${makeACLFile idx listener.users listener.acl}"
-    ] ++ optional (!listener.omitPasswordAuth)
-    "password_file ${cfg.dataDir}/passwd-${toString idx}"
+    ]
+    ++ optional (!listener.omitPasswordAuth)
+      "password_file ${cfg.dataDir}/passwd-${toString idx}"
     ++ formatFreeform { } listener.settings
     ++ concatMap formatAuthPlugin listener.authPlugins
     ;
@@ -462,7 +471,8 @@ let
         concatMapStringsSep " " (a: "${a.address}:${toString a.port}")
         bridge.addresses
       }"
-    ] ++ map (t: "topic ${t}") bridge.topics
+    ]
+    ++ map (t: "topic ${t}") bridge.topics
     ++ formatFreeform { } bridge.settings
     ;
 
@@ -609,11 +619,13 @@ let
     [
       "per_listener_settings true"
       "persistence ${optionToString cfg.persistence}"
-    ] ++ map (d:
+    ]
+    ++ map (d:
       if path.check d then
         "log_dest file ${d}"
       else
-        "log_dest ${d}") cfg.logDest ++ map (t: "log_type ${t}") cfg.logType
+        "log_dest ${d}") cfg.logDest
+    ++ map (t: "log_type ${t}") cfg.logType
     ++ formatFreeform { } cfg.settings
     ++ concatLists (imap0 formatListener cfg.listeners)
     ++ concatLists (mapAttrsToList formatBridge cfg.bridges)
@@ -674,7 +686,8 @@ in
           [
             cfg.dataDir
             "/tmp" # mosquitto_passwd creates files in /tmp before moving them
-          ] ++ filter path.check cfg.logDest
+          ]
+          ++ filter path.check cfg.logDest
           ;
         ReadOnlyPaths = map (p: "${p}") (cfg.includeDirs
           ++ filter (v: v != null) (flatten [

@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
   preConfigure =
     lib.optionalString stdenv.isAarch32 ''
       configureFlagsArray=("CFLAGS=-DJB_SP=8 -DJB_PC=9")
-    '' + lib.optionalString (stdenv.hostPlatform.libc == "glibc") ''
+    ''
+    + lib.optionalString (stdenv.hostPlatform.libc == "glibc") ''
       configureFlagsArray+=("ac_cv_check_sjlj=ssjlj")
     ''
     ;

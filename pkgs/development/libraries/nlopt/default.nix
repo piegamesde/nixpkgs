@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
       "--without-guile"
       "--without-python"
       "--without-matlab"
-    ] ++ lib.optionals (octave != null) [
+    ]
+    ++ lib.optionals (octave != null) [
       "--with-octave"
       "M_INSTALL_DIR=$(out)/${octave.sitePath}/m"
       "OCT_INSTALL_DIR=$(out)/${octave.sitePath}/oct"

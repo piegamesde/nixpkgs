@@ -80,7 +80,8 @@ stdenv.mkDerivation rec {
       libpng
       ois
       zziplib
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       freeglut
       libGL
       libGLU
@@ -94,10 +95,12 @@ stdenv.mkDerivation rec {
       libXt
       libXxf86vm
       xorgproto
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       AGL
       Cocoa
-    ] ++ lib.optionals withNvidiaCg [ nvidia_cg_toolkit ]
+    ]
+    ++ lib.optionals withNvidiaCg [ nvidia_cg_toolkit ]
     ;
 
   cmakeFlags =

@@ -47,7 +47,8 @@ buildGoModule rec {
       cd ..
       installManPage o.1
       mv $out/bin/{orbiton,o}
-    '' + lib.optionalString withGui ''
+    ''
+    + lib.optionalString withGui ''
       make install-gui PREFIX=$out
       wrapProgram $out/bin/og --prefix PATH : $out/bin
     ''

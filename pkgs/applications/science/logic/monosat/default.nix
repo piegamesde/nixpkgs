@@ -115,9 +115,15 @@ let
         # After patching src, move to where the actually relevant source is. This could just be made
         # the sourceRoot if it weren't for the patch.
       postPatch =
-        commonPostPatch + ''
+        commonPostPatch
+        +
+        # The relative paths here don't make sense for our Nix build
+        # TODO: do we want to just reference the core monosat library rather than copying the
+        # shared lib? The current setup.py copies the .dylib/.so...
+        ''
           cd src/monosat/api/python
-        '' +
+        ''
+        +
         # The relative paths here don't make sense for our Nix build
         # TODO: do we want to just reference the core monosat library rather than copying the
         # shared lib? The current setup.py copies the .dylib/.so...

@@ -114,12 +114,14 @@ let
       (args.buildInputs or [ ]) ++ lib.optionals stdenv.isDarwin [ Security ];
 
     nativeBuildInputs =
-      (args.nativeBuildInputs or [ ]) ++ [
+      (args.nativeBuildInputs or [ ])
+      ++ [
         cargo-pgx
         postgresql
         pkg-config
         rustPlatform.bindgenHook
-      ] ++ lib.optionals useFakeRustfmt [ fakeRustfmt ]
+      ]
+      ++ lib.optionals useFakeRustfmt [ fakeRustfmt ]
       ;
 
     buildPhase = ''

@@ -95,7 +95,8 @@ stdenv.mkDerivation {
       docbook_xml_dtd_43
       yasm
       glslang
-    ] ++ optional (!headless) wrapQtAppsHook
+    ]
+    ++ optional (!headless) wrapQtAppsHook
     ;
 
     # Wrap manually because we wrap just a small number of executables.
@@ -125,17 +126,22 @@ stdenv.mkDerivation {
       libpng
       libopus
       python3
-    ] ++ optional javaBindings jdk ++ optional pythonBindings
-    python3 # Python is needed even when not building bindings
-    ++ optional pulseSupport libpulseaudio ++ optionals headless [
+    ]
+    ++ optional javaBindings jdk
+    ++ optional pythonBindings
+      python3 # Python is needed even when not building bindings
+    ++ optional pulseSupport libpulseaudio
+    ++ optionals headless [
       libXrandr
       libGL
-    ] ++ optionals (!headless) [
+    ]
+    ++ optionals (!headless) [
       qtbase
       qtx11extras
       libXinerama
       SDL
-    ] ++ optionals enableWebService [
+    ]
+    ++ optionals enableWebService [
       gsoap
       zlib
     ]
@@ -180,7 +186,8 @@ stdenv.mkDerivation {
   '';
 
   patches =
-    optional enableHardening ./hardened.patch ++ [
+    optional enableHardening ./hardened.patch
+    ++ [
       ./extra_symbols.patch
     ]
     # When hardening is enabled, we cannot use wrapQtApp to ensure that VirtualBoxVM sees
@@ -194,7 +201,8 @@ stdenv.mkDerivation {
       src = ./qt-env-vars.patch;
       qtPluginPath =
         "${qtbase.bin}/${qtbase.qtPluginPrefix}:${qtsvg.bin}/${qtbase.qtPluginPrefix}:${qtwayland.bin}/${qtbase.qtPluginPrefix}";
-    }) ++ [
+    })
+    ++ [
       ./qt-dependency-paths.patch
       # https://github.com/NixOS/nixpkgs/issues/123851
       ./fix-audio-driver-loading.patch
@@ -205,7 +213,8 @@ stdenv.mkDerivation {
     ''
       sed -i -e 's|/sbin/ifconfig|${nettools}/bin/ifconfig|' \
         src/VBox/HostDrivers/adpctl/VBoxNetAdpCtl.cpp
-    '' + optionalString headless ''
+    ''
+    + optionalString headless ''
       # Fix compile error in version 6.1.6
       substituteInPlace src/VBox/HostServices/SharedClipboard/VBoxSharedClipboardSvc-x11-stubs.cpp \
         --replace PSHCLFORMATDATA PSHCLFORMATS
@@ -331,8 +340,8 @@ stdenv.mkDerivation {
     optionalString (!headless) ''
       wrapQtApp $out/bin/VirtualBox
     ''
-    # If hardening is disabled, wrap the VirtualBoxVM binary instead of patching
-    # the source code (see postPatch).
+      # If hardening is disabled, wrap the VirtualBoxVM binary instead of patching
+      # the source code (see postPatch).
     + optionalString (!headless && !enableHardening) ''
       wrapQtApp $out/libexec/virtualbox/VirtualBoxVM
     ''

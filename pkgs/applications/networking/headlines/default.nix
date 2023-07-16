@@ -50,7 +50,8 @@ stdenv.mkDerivation rec {
       libadwaita
       gtkmm4
       libsecret
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       gstreamer
       gst-libav
       gst-plugins-base

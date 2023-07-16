@@ -40,7 +40,8 @@ stdenv.mkDerivation {
     [
       cmake
       ninja
-    ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
     ;
   buildInputs = with python.pkgs;
     with llvmPackages;
@@ -49,11 +50,13 @@ stdenv.mkDerivation {
       boost
       libllvm.all
       libclang.all
-    ] ++ [
+    ]
+    ++ [
       jedi
       jedi-language-server
       pybind11
-    ] ++ lib.optional stdenv.isDarwin Cocoa;
+    ]
+    ++ lib.optional stdenv.isDarwin Cocoa;
 
   buildPhase = ''
     export EXTRA_CMAKE_ARGS="-DPATH_TO_LLVM_ROOT=${llvmPackages.libllvm} -DUSE_SYSTEM_ABSEIL=true"
@@ -92,19 +95,23 @@ stdenv.mkDerivation {
       mkdir -p $out/lib/ycmd/third_party
       cp -r third_party/* $out/lib/ycmd/third_party/
 
-    '' + lib.optionalString withGocode ''
+    ''
+    + lib.optionalString withGocode ''
       TARGET=$out/lib/ycmd/third_party/gocode
       mkdir -p $TARGET
       ln -sf ${gocode}/bin/gocode $TARGET
-    '' + lib.optionalString withGodef ''
+    ''
+    + lib.optionalString withGodef ''
       TARGET=$out/lib/ycmd/third_party/godef
       mkdir -p $TARGET
       ln -sf ${godef}/bin/godef $TARGET
-    '' + lib.optionalString withGotools ''
+    ''
+    + lib.optionalString withGotools ''
       TARGET=$out/lib/ycmd/third_party/go/src/golang.org/x/tools/cmd/gopls
       mkdir -p $TARGET
       ln -sf ${gotools}/bin/gopls $TARGET
-    '' + lib.optionalString withTypescript ''
+    ''
+    + lib.optionalString withTypescript ''
       TARGET=$out/lib/ycmd/third_party/tsserver
       ln -sf ${nodePackages.typescript} $TARGET
     ''

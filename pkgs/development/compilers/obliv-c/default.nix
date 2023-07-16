@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   nativeBuildInputs =
-    [ perl ] ++ (with ocamlPackages; [
+    [ perl ]
+    ++ (with ocamlPackages; [
       ocaml
       findlib
       ocamlbuild

@@ -88,7 +88,8 @@ stdenv.mkDerivation {
       libjpeg
       libpng
       zlib
-    ] ++ lib.optional withX libX11
+    ]
+    ++ lib.optional withX libX11
     ;
 
   preConfigure =
@@ -96,7 +97,8 @@ stdenv.mkDerivation {
       rm -rf {libjpeg,libpng,libungif,zlib}/
       substituteInPlace Makefile.in \
         --replace "include .depend" ""
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace Makefile.in \
         --replace "-soname," "-install_name,$out/lib/"
     ''

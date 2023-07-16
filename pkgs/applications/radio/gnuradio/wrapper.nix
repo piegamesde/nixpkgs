@@ -46,7 +46,8 @@ let
   # We don't check if `python-support` feature is on, as it's unlikely someone
   # may wish to wrap GR without python support.
   pythonPkgs =
-    extraPythonPackages ++ [
+    extraPythonPackages
+    ++ [
       (unwrapped.python.pkgs.toPythonModule unwrapped)
     ]
     # Add the extraPackages as python modules as well
@@ -86,66 +87,70 @@ let
         "PATH"
         ":"
         "${lib.getBin glib}/bin"
-      ] ++ lib.optionals (unwrapped.hasFeature "gnuradio-companion") [
-        "--set"
-        "GDK_PIXBUF_MODULE_FILE"
-        "${librsvg}/${gdk-pixbuf.moduleDir}.cache"
-        "--prefix"
-        "GIO_EXTRA_MODULES"
-        ":"
-        "${lib.getLib dconf}/lib/gio/modules"
-        "--prefix"
-        "XDG_DATA_DIRS"
-        ":"
-        "${unwrapped.gtk}/share"
-        "--prefix"
-        "XDG_DATA_DIRS"
-        ":"
-        "${unwrapped.gtk}/share/gsettings-schemas/${unwrapped.gtk.name}"
-        "--prefix"
-        "GI_TYPELIB_PATH"
-        ":"
-        "${lib.makeSearchPath "lib/girepository-1.0" [
-          unwrapped.gtk
-          gsettings-desktop-schemas
-          atk
-          # From some reason, if .out is not used, .bin is used, and we want
-          # what's in `.out`.
-          pango.out
-          gdk-pixbuf
-          json-glib
-          harfbuzz
-          librsvg
-          gobject-introspection
-          at-spi2-core
-        ]}"
-      ] ++ lib.optionals (extraPackages != [ ]) [
-        "--prefix"
-        "GRC_BLOCKS_PATH"
-        ":"
-        "${lib.makeSearchPath "share/gnuradio/grc/blocks" extraPackages}"
-      ] ++ lib.optionals (unwrapped.hasFeature "gr-qtgui")
-      # 3.7 builds with qt4
-    (if lib.versionAtLeast unwrapped.versionAttr.major "3.8" then
-      [
-        "--prefix"
-        "QT_PLUGIN_PATH"
-        ":"
-        "${lib.makeSearchPath unwrapped.qt.qtbase.qtPluginPrefix
-        (builtins.map lib.getBin ([ unwrapped.qt.qtbase ]
-          ++ lib.optionals stdenv.isLinux [ unwrapped.qt.qtwayland ]))}"
-        "--prefix"
-        "QML2_IMPORT_PATH"
-        ":"
-        "${lib.makeSearchPath unwrapped.qt.qtbase.qtQmlPrefix
-        (builtins.map lib.getBin ([ unwrapped.qt.qtbase ]
-          ++ lib.optionals stdenv.isLinux [ unwrapped.qt.qtwayland ]))}"
       ]
-    else
-    # Add here qt4 related environment for 3.7?
-      [
+    ++ lib.optionals (unwrapped.hasFeature "gnuradio-companion") [
+      "--set"
+      "GDK_PIXBUF_MODULE_FILE"
+      "${librsvg}/${gdk-pixbuf.moduleDir}.cache"
+      "--prefix"
+      "GIO_EXTRA_MODULES"
+      ":"
+      "${lib.getLib dconf}/lib/gio/modules"
+      "--prefix"
+      "XDG_DATA_DIRS"
+      ":"
+      "${unwrapped.gtk}/share"
+      "--prefix"
+      "XDG_DATA_DIRS"
+      ":"
+      "${unwrapped.gtk}/share/gsettings-schemas/${unwrapped.gtk.name}"
+      "--prefix"
+      "GI_TYPELIB_PATH"
+      ":"
+      "${lib.makeSearchPath "lib/girepository-1.0" [
+        unwrapped.gtk
+        gsettings-desktop-schemas
+        atk
+        # From some reason, if .out is not used, .bin is used, and we want
+        # what's in `.out`.
+        pango.out
+        gdk-pixbuf
+        json-glib
+        harfbuzz
+        librsvg
+        gobject-introspection
+        at-spi2-core
+      ]}"
+    ]
+    ++ lib.optionals (extraPackages != [ ]) [
+      "--prefix"
+      "GRC_BLOCKS_PATH"
+      ":"
+      "${lib.makeSearchPath "share/gnuradio/grc/blocks" extraPackages}"
+    ]
+    ++ lib.optionals (unwrapped.hasFeature "gr-qtgui")
+    # 3.7 builds with qt4
+      (if lib.versionAtLeast unwrapped.versionAttr.major "3.8" then
+        [
+          "--prefix"
+          "QT_PLUGIN_PATH"
+          ":"
+          "${lib.makeSearchPath unwrapped.qt.qtbase.qtPluginPrefix
+          (builtins.map lib.getBin ([ unwrapped.qt.qtbase ]
+            ++ lib.optionals stdenv.isLinux [ unwrapped.qt.qtwayland ]))}"
+          "--prefix"
+          "QML2_IMPORT_PATH"
+          ":"
+          "${lib.makeSearchPath unwrapped.qt.qtbase.qtQmlPrefix
+          (builtins.map lib.getBin ([ unwrapped.qt.qtbase ]
+            ++ lib.optionals stdenv.isLinux [ unwrapped.qt.qtwayland ]))}"
+        ]
+      else
+      # Add here qt4 related environment for 3.7?
+        [
 
-      ]) ++ extraMakeWrapperArgs);
+        ])
+    ++ extraMakeWrapperArgs);
 
   packages = import ../../../top-level/gnuradio-packages.nix {
     inherit lib stdenv newScope;

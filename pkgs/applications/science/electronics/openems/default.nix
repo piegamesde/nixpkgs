@@ -44,7 +44,9 @@ stdenv.mkDerivation {
       zlib
       csxcad
       (octave.override { inherit hdf5; })
-    ] ++ lib.optionals withQcsxcad [ qcsxcad ] ++ lib.optionals withMPI [ mpi ]
+    ]
+    ++ lib.optionals withQcsxcad [ qcsxcad ]
+    ++ lib.optionals withMPI [ mpi ]
     ++ lib.optionals withHyp2mat [ hyp2mat ]
     ;
 

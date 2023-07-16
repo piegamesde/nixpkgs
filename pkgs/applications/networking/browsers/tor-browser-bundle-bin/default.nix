@@ -91,7 +91,8 @@ let
       stdenv.cc.cc
       stdenv.cc.libc
       zlib
-    ] ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
+    ]
+    ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
     ++ lib.optionals mediaSupport [ ffmpeg ]
     ;
 

@@ -56,7 +56,8 @@ stdenv.mkDerivation (finalAttrs: {
     [
       "out"
       "dev"
-    ] ++ lib.optional splitStaticOutput "static"
+    ]
+    ++ lib.optional splitStaticOutput "static"
     ;
   setOutputFlags = false;
   outputDoc = "dev"; # single tiny man3 page
@@ -99,16 +100,16 @@ stdenv.mkDerivation (finalAttrs: {
     lib.optionalString splitStaticOutput ''
       moveToOutput lib/libz.a "$static"
     ''
-    # jww (2015-01-06): Sometimes this library install as a .so, even on
-    # Darwin; others time it installs as a .dylib.  I haven't yet figured out
-    # what causes this difference.
+      # jww (2015-01-06): Sometimes this library install as a .so, even on
+      # Darwin; others time it installs as a .dylib.  I haven't yet figured out
+      # what causes this difference.
     + lib.optionalString stdenv.hostPlatform.isDarwin ''
       for file in $out/lib/*.so* $out/lib/*.dylib* ; do
         ${stdenv.cc.bintools.targetPrefix}install_name_tool -id "$file" $file
       done
     ''
-    # Non-typical naming confuses libtool which then refuses to use zlib's DLL
-    # in some cases, e.g. when compiling libpng.
+      # Non-typical naming confuses libtool which then refuses to use zlib's DLL
+      # in some cases, e.g. when compiling libpng.
     + lib.optionalString (stdenv.hostPlatform.libc == "msvcrt" && shared) ''
       ln -s zlib1.dll $out/bin/libz.dll
     ''
@@ -138,7 +139,8 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optionals (stdenv.hostPlatform.libc == "msvcrt") [
       "-f"
       "win32/Makefile.gcc"
-    ] ++ lib.optionals shared [
+    ]
+    ++ lib.optionals shared [
       # Note that as of writing (zlib 1.2.11), this flag only has an effect
       # for Windows as it is specific to `win32/Makefile.gcc`.
       "SHARED_MODE=1"

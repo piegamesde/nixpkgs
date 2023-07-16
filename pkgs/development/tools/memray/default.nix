@@ -25,7 +25,8 @@ python3.pkgs.buildPythonApplication rec {
     [
       libunwind
       lz4
-    ] ++ (with python3.pkgs; [ cython ])
+    ]
+    ++ (with python3.pkgs; [ cython ])
     ;
 
   propagatedBuildInputs = with python3.pkgs; [
@@ -37,7 +38,8 @@ python3.pkgs.buildPythonApplication rec {
     [
       ipython
       pytestCheckHook
-    ] ++ lib.optionals (pythonOlder "3.11") [ greenlet ];
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [ greenlet ];
 
   pythonImportsCheck = [ "memray" ];
 

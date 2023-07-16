@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
     [
       fftw
       fftwFloat
-    ] ++ lib.optional enablePython pythonPackages.python
+    ]
+    ++ lib.optional enablePython pythonPackages.python
     ++ lib.optional stdenv.isDarwin llvmPackages.openmp
     ;
 

@@ -92,11 +92,13 @@ stdenv.mkDerivation rec {
     libtool
   ];
   buildInputs =
-    [ ] ++ lib.optionals openglSupport [
+    [ ]
+    ++ lib.optionals openglSupport [
       freeglut
       libGL
       libGLU
-    ] ++ lib.optionals pngSupport [ libpng ]
+    ]
+    ++ lib.optionals pngSupport [ libpng ]
     ++ lib.optionals jpegSupport [ libjpeg ]
     ++ lib.optionals tiffSupport [ libtiff ]
     ++ lib.optionals gifSupport [ giflib ]

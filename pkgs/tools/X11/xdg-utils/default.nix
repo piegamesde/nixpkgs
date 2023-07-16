@@ -77,7 +77,8 @@ stdenv.mkDerivation rec {
   postInstall =
     lib.optionalString mimiSupport ''
       cp ${mimisrc}/xdg-open $out/bin/xdg-open
-    '' + ''
+    ''
+    + ''
       sed  '2s#.#\
       sed()   { ${gnused}/bin/sed     "$@"; }\
       grep()  { ${gnugrep}/bin/grep   "$@"; }\

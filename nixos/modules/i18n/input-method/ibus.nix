@@ -14,7 +14,8 @@ let
     name = "ibus-engine";
     check =
       x:
-      (lib.types.package.check x) && (attrByPath [
+      (lib.types.package.check x)
+      && (attrByPath [
         "meta"
         "isIbusEngine"
       ] false x)

@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
       portaudio
       libsndfile
       flac
-    ] ++ lib.optional usePulseAudio libpulseaudio
+    ]
+    ++ lib.optional usePulseAudio libpulseaudio
     ;
 
   configureFlags = lib.optional (!usePulseAudio) "--without-pulseaudio";

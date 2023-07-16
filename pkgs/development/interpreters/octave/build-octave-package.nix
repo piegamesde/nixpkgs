@@ -75,7 +75,8 @@ let
     [
       octave
       writeRequiredOctavePackagesHook
-    ] ++ nativeBuildInputs
+    ]
+    ++ nativeBuildInputs
     ;
 
   passthru' = {

@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
       cmake
       copyDesktopItems
       pkg-config
-    ] ++ lib.optionals stdenv.isDarwin [ makeWrapper ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ makeWrapper ]
     ;
   buildInputs = [
     zlib
@@ -50,7 +51,8 @@ stdenv.mkDerivation rec {
   postInstall =
     lib.optionalString stdenv.isLinux ''
       mv "$out/games" "$out/bin"
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       mkdir -p $out/{Applications,bin}
       cp -R ecwolf.app $out/Applications
       makeWrapper $out/{Applications/ecwolf.app/Contents/MacOS,bin}/ecwolf

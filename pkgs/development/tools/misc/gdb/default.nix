@@ -67,7 +67,8 @@ stdenv.mkDerivation rec {
     lib.optionalString stdenv.isDarwin ''
       substituteInPlace gdb/darwin-nat.c \
         --replace '#include "bfd/mach-o.h"' '#include "mach-o.h"'
-    '' + lib.optionalString stdenv.hostPlatform.isMusl ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isMusl ''
       substituteInPlace sim/erc32/erc32.c  --replace sys/fcntl.h fcntl.h
       substituteInPlace sim/erc32/interf.c  --replace sys/fcntl.h fcntl.h
       substituteInPlace sim/erc32/sis.c  --replace sys/fcntl.h fcntl.h
@@ -99,9 +100,11 @@ stdenv.mkDerivation rec {
       zstd
       guile
       sourceHighlight
-    ] ++ lib.optional pythonSupport python3 ++ lib.optional doCheck dejagnu
+    ]
+    ++ lib.optional pythonSupport python3
+    ++ lib.optional doCheck dejagnu
     ++ lib.optional enableDebuginfod
-    (elfutils.override { enableDebuginfod = true; })
+      (elfutils.override { enableDebuginfod = true; })
     ;
 
   propagatedNativeBuildInputs = [ setupDebugInfoDirs ];
@@ -145,7 +148,9 @@ stdenv.mkDerivation rec {
       "--program-prefix=${targetPrefix}"
 
       "--disable-werror"
-    ] ++ lib.optional (!hostCpuOnly) "--enable-targets=all" ++ [
+    ]
+    ++ lib.optional (!hostCpuOnly) "--enable-targets=all"
+    ++ [
       "--enable-64-bit-bfd"
       "--disable-install-libbfd"
       "--disable-shared"
@@ -161,7 +166,8 @@ stdenv.mkDerivation rec {
       "--with-expat"
       "--with-libexpat-prefix=${expat.dev}"
       "--with-auto-load-safe-path=${builtins.concatStringsSep ":" safePaths}"
-    ] ++ lib.optional (!pythonSupport) "--without-python"
+    ]
+    ++ lib.optional (!pythonSupport) "--without-python"
     ++ lib.optional stdenv.hostPlatform.isMusl "--disable-nls"
     ++ lib.optional stdenv.hostPlatform.isStatic "--disable-inprocess-agent"
     ++ lib.optional enableDebuginfod "--with-debuginfod=yes";

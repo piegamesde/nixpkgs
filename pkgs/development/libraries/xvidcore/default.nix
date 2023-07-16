@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
     ''
       # Configure script is not in the root of the source directory
       cd build/generic
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # Undocumented darwin hack
       substituteInPlace configure --replace "-no-cpp-precomp" ""
     ''
@@ -29,8 +30,8 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [ ]
-    # Undocumented darwin hack (assembly is probably disabled due to an
-    # issue with nasm, however yasm is now used)
+      # Undocumented darwin hack (assembly is probably disabled due to an
+      # issue with nasm, however yasm is now used)
     ++ lib.optional stdenv.isDarwin "--enable-macosx_module --disable-assembly"
     ;
 
@@ -38,7 +39,7 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ ]
-    # Undocumented darwin hack
+      # Undocumented darwin hack
     ++ lib.optionals stdenv.isDarwin [
       autoconf
       automake

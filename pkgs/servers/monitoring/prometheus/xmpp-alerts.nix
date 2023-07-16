@@ -37,7 +37,8 @@ python3Packages.buildPythonApplication rec {
   '';
 
   propagatedBuildInputs =
-    [ prometheus-alertmanager ] ++ (with python3Packages; [
+    [ prometheus-alertmanager ]
+    ++ (with python3Packages; [
       aiohttp
       aiohttp-openmetrics
       beautifulsoup4

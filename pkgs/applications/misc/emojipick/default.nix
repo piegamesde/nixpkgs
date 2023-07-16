@@ -66,7 +66,8 @@ stdenvNoCC.mkDerivation {
       python3
       xclip
       libnotify
-    ] ++ (if emojipick-use-rofi then
+    ]
+    ++ (if emojipick-use-rofi then
       [ rofi ]
     else
       [ dmenu ])

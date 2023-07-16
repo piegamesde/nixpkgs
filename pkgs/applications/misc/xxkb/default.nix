@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
       libXt
       libXext
       libXpm
-    ] ++ lib.optionals svgSupport [
+    ]
+    ++ lib.optionals svgSupport [
       librsvg
       glib
       gdk-pixbuf

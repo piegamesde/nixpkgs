@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
       pkg-config
       which
       zip
-    ] ++ lib.optionals stdenv.isDarwin [ libicns ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ libicns ]
     ;
 
   buildInputs =
@@ -43,13 +44,16 @@ stdenv.mkDerivation rec {
       jansson
       libunistring
       wxGTK32
-    ] ++ (with lua53Packages; [
+    ]
+    ++ (with lua53Packages; [
       lua
       busted
-    ]) ++ (with perlPackages; [
+    ])
+    ++ (with perlPackages; [
       perl
       TemplateToolkit
-    ]) ++ lib.optionals stdenv.isLinux [ gtk3 ]
+    ])
+    ++ lib.optionals stdenv.isLinux [ gtk3 ]
     ++ lib.optionals stdenv.isDarwin [
       Carbon
       Cocoa

@@ -84,23 +84,26 @@
 
 let
   inherit (stdenv) isDarwin isLinux isx86_64;
-  binPath = lib.makeBinPath ([ dnsmasq ] ++ lib.optionals isLinux [
-    bridge-utils
-    dmidecode
-    dnsmasq
-    iproute2
-    iptables
-    kmod
-    lvm2
-    numactl
-    numad
-    openssh
-    pmutils
-    systemd
-  ] ++ lib.optionals enableIscsi [
-    libiscsi
-    openiscsi
-  ] ++ lib.optionals enableZfs [ zfs ]);
+  binPath = lib.makeBinPath ([ dnsmasq ]
+    ++ lib.optionals isLinux [
+      bridge-utils
+      dmidecode
+      dnsmasq
+      iproute2
+      iptables
+      kmod
+      lvm2
+      numactl
+      numad
+      openssh
+      pmutils
+      systemd
+    ]
+    ++ lib.optionals enableIscsi [
+      libiscsi
+      openiscsi
+    ]
+    ++ lib.optionals enableZfs [ zfs ]);
 
 in
 assert enableXen -> isLinux && isx86_64;
@@ -127,12 +130,12 @@ stdenv.mkDerivation rec {
   patches =
     [ ./0001-meson-patch-in-an-install-prefix-for-building-on-nix.patch ]
     ++ lib.optionals enableZfs [
-      (substituteAll {
-        src = ./0002-substitute-zfs-and-zpool-commands.patch;
-        zfs = "${zfs}/bin/zfs";
-        zpool = "${zfs}/bin/zpool";
-      })
-    ]
+        (substituteAll {
+          src = ./0002-substitute-zfs-and-zpool-commands.patch;
+          zfs = "${zfs}/bin/zfs";
+          zpool = "${zfs}/bin/zpool";
+        })
+      ]
     ;
 
     # remove some broken tests
@@ -152,18 +155,21 @@ stdenv.mkDerivation rec {
 
       substituteInPlace meson.build \
         --replace "'dbus-daemon'," "'${lib.getBin dbus}/bin/dbus-daemon',"
-    '' + lib.optionalString isLinux ''
+    ''
+    + lib.optionalString isLinux ''
       sed -i 's,define PARTED "parted",define PARTED "${parted}/bin/parted",' \
         src/storage/storage_backend_disk.c \
         src/storage/storage_util.c
-    '' + lib.optionalString isDarwin ''
+    ''
+    + lib.optionalString isDarwin ''
       sed -i '/qemucapabilitiestest/d' tests/meson.build
       sed -i '/vircryptotest/d' tests/meson.build
       sed -i '/domaincapstest/d' tests/meson.build
       sed -i '/qemufirmwaretest/d' tests/meson.build
       sed -i '/qemuvhostusertest/d' tests/meson.build
       sed -i '/qemuxml2xmltest/d' tests/meson.build
-    '' + lib.optionalString (isDarwin && isx86_64) ''
+    ''
+    + lib.optionalString (isDarwin && isx86_64) ''
       sed -i '/qemucaps2xmltest/d' tests/meson.build
       sed -i '/qemuhotplugtest/d' tests/meson.build
       sed -i '/virnetdaemontest/d' tests/meson.build
@@ -184,8 +190,9 @@ stdenv.mkDerivation rec {
       pkg-config
       perl
       perlPackages.XMLXPath
-    ] ++ lib.optional (!isDarwin) rpcsvc-proto
-    # NOTE: needed for rpcgen
+    ]
+    ++ lib.optional (!isDarwin) rpcsvc-proto
+      # NOTE: needed for rpcgen
     ++ lib.optional isDarwin darwin.developer_cmds
     ;
 
@@ -205,7 +212,8 @@ stdenv.mkDerivation rec {
       readline
       xhtml1
       yajl
-    ] ++ lib.optionals isLinux [
+    ]
+    ++ lib.optionals isLinux [
       acl
       attr
       audit
@@ -221,17 +229,21 @@ stdenv.mkDerivation rec {
       parted
       systemd
       util-linux
-    ] ++ lib.optionals isDarwin [
+    ]
+    ++ lib.optionals isDarwin [
       AppKit
       Carbon
       gmp
       libiconv
-    ] ++ lib.optionals enableCeph [ ceph ]
+    ]
+    ++ lib.optionals enableCeph [ ceph ]
     ++ lib.optionals enableGlusterfs [ glusterfs ]
     ++ lib.optionals enableIscsi [
       libiscsi
       openiscsi
-    ] ++ lib.optionals enableXen [ xen ] ++ lib.optionals enableZfs [ zfs ]
+    ]
+    ++ lib.optionals enableXen [ xen ]
+    ++ lib.optionals enableZfs [ zfs ]
     ;
 
   preConfigure =
@@ -268,7 +280,8 @@ stdenv.mkDerivation rec {
         }/bin/pkttyagent"'
 
       patchShebangs .
-    '' + (lib.concatStringsSep "\n" (lib.mapAttrsToList patchBuilder overrides))
+    ''
+    + (lib.concatStringsSep "\n" (lib.mapAttrsToList patchBuilder overrides))
     ;
 
   mesonAutoFeatures = "disabled";
@@ -375,7 +388,8 @@ stdenv.mkDerivation rec {
       # Added in nixpkgs:
       gettext() { "${gettext}/bin/gettext" "$@"; }
       '
-    '' + lib.optionalString isLinux ''
+    ''
+    + lib.optionalString isLinux ''
       for f in $out/lib/systemd/system/*.service ; do
         substituteInPlace $f --replace /bin/kill ${coreutils}/bin/kill
       done

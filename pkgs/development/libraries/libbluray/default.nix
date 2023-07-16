@@ -37,12 +37,15 @@ stdenv.mkDerivation rec {
     [
       pkg-config
       autoreconfHook
-    ] ++ lib.optionals withJava [ ant ]
+    ]
+    ++ lib.optionals withJava [ ant ]
     ;
 
   buildInputs =
-    [ fontconfig ] ++ lib.optional withJava jdk
-    ++ lib.optional withMetadata libxml2 ++ lib.optional withFonts freetype
+    [ fontconfig ]
+    ++ lib.optional withJava jdk
+    ++ lib.optional withMetadata libxml2
+    ++ lib.optional withFonts freetype
     ++ lib.optional stdenv.isDarwin DiskArbitration
     ;
 

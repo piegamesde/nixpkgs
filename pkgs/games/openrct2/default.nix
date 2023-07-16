@@ -144,7 +144,8 @@ stdenv.mkDerivation {
     + (versionCheck "OPENMSX" openmsx-version)
     + (versionCheck "OPENSFX" opensfx-version)
     + (versionCheck "TITLE_SEQUENCE" title-sequences-version)
-    ) +
+    )
+    +
 
     # Fixup FS rights for the cmake setup-hook in the OPENMSX subsystem
     ''

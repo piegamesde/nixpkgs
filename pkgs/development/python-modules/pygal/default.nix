@@ -31,7 +31,8 @@ buildPythonPackage rec {
     [
       pyquery
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.png
+    ]
+    ++ passthru.optional-dependencies.png
     ;
 
   preCheck = ''

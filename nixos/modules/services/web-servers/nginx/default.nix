@@ -399,7 +399,8 @@ let
             inherit addr;
             port = cfg.defaultSSLListenPort;
             ssl = true;
-          }) addrs) ++ optionals (!onlySSL) (map (addr: {
+          }) addrs)
+          ++ optionals (!onlySSL) (map (addr: {
             inherit addr;
             port = cfg.defaultHTTPListenPort;
             ssl = false;
@@ -436,13 +437,16 @@ let
                 param: !(any (p: p == param) inCompatibleParameters);
             in
             filter isCompatibleParameter extraParameters
-            )) + ";")) + "\n\n            listen ${addr}:${toString port} "
+            ))
+            + ";"))
+        + "\n\n            listen ${addr}:${toString port} "
         + optionalString (ssl && vhost.http2) "http2 "
         + optionalString ssl "ssl "
         + optionalString vhost.default "default_server "
         + optionalString vhost.reuseport "reuseport "
         + optionalString (extraParameters != [ ])
-        (concatStringsSep " " extraParameters) + ";"
+          (concatStringsSep " " extraParameters)
+        + ";"
         ;
 
       redirectListen = filter (x: !x.ssl) defaultListen;
@@ -1291,7 +1295,8 @@ in
               (onlySSL || enableSSL)
               forceSSL
               rejectSSL
-            ] <= 1) (attrValues virtualHosts);
+            ]
+            <= 1) (attrValues virtualHosts);
           message = ''
             Options services.nginx.service.virtualHosts.<name>.addSSL,
             services.nginx.virtualHosts.<name>.onlySSL,
@@ -1341,7 +1346,8 @@ in
             which can be achieved by setting `services.nginx.package = pkgs.nginxQuic;`.
           '';
         }
-      ] ++ map (name:
+      ]
+      ++ map (name:
         mkCertOwnershipAssertion {
           inherit (cfg) group user;
           cert = config.security.acme.certs.${name};
@@ -1363,7 +1369,7 @@ in
       after =
         [ "network.target" ]
         ++ map (certName: "acme-selfsigned-${certName}.service")
-        dependentCertNames
+          dependentCertNames
         ;
         # Nginx needs to be started in order to be able to request certificates
         # (it's hosting the acme challenge after all)
@@ -1432,7 +1438,8 @@ in
         LockPersonality = true;
         MemoryDenyWriteExecute =
           !((builtins.any (mod: (mod.allowMemoryWriteExecute or false))
-            cfg.package.modules) || (cfg.package == pkgs.openresty))
+            cfg.package.modules)
+            || (cfg.package == pkgs.openresty))
           ;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
@@ -1443,7 +1450,8 @@ in
         SystemCallFilter =
           [
             "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @setuid"
-          ] ++ optionals ((cfg.package != pkgs.tengine)
+          ]
+          ++ optionals ((cfg.package != pkgs.tengine)
             && (cfg.package != pkgs.openresty)
             && (!lib.any (mod: (mod.disableIPC or false))
               cfg.package.modules)) [ "~@ipc" ]

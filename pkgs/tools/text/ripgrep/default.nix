@@ -28,7 +28,8 @@ rustPlatform.buildRustPackage rec {
     [
       asciidoctor
       installShellFiles
-    ] ++ lib.optional withPCRE2 pkg-config
+    ]
+    ++ lib.optional withPCRE2 pkg-config
     ;
   buildInputs =
     lib.optional withPCRE2 pcre2 ++ lib.optional stdenv.isDarwin Security;
@@ -49,7 +50,8 @@ rustPlatform.buildRustPackage rec {
       echo "abc\nbcd\ncde" > "$file"
       $out/bin/rg -N 'bcd' "$file"
       $out/bin/rg -N 'cd' "$file"
-    '' + lib.optionalString withPCRE2 ''
+    ''
+    + lib.optionalString withPCRE2 ''
       echo '(a(aa)aa)' | $out/bin/rg -P '\((a*|(?R))*\)'
     ''
     ;

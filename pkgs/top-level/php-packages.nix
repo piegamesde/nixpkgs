@@ -419,9 +419,10 @@ lib.makeScope pkgs.newScope (self:
               "LDAP_DIR=${openldap.dev}"
               "LDAP_INCDIR=${openldap.dev}/include"
               "LDAP_LIBDIR=${openldap.out}/lib"
-            ] ++ lib.optionals stdenv.isLinux [
-              "--with-ldap-sasl=${cyrus_sasl.dev}"
             ]
+            ++ lib.optionals stdenv.isLinux [
+                "--with-ldap-sasl=${cyrus_sasl.dev}"
+              ]
             ;
           doCheck = false;
         }

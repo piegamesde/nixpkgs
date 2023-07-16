@@ -47,7 +47,8 @@ stdenv.mkDerivation ({
     [
       ocaml
       findlib
-    ] ++ param.nativeBuildInputs
+    ]
+    ++ param.nativeBuildInputs
     ;
   buildInputs = [ benchmark ];
 

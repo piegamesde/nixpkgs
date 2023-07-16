@@ -64,7 +64,8 @@ stdenv.mkDerivation rec {
       autoPatchelfHook
       copyDesktopItems
       unrpa
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
       makeWrapper
       undmg
     ]
@@ -75,10 +76,12 @@ stdenv.mkDerivation rec {
       freetype
       SDL_compat
       zlib
-    ] ++ lib.optionals devendorImageLibs [
+    ]
+    ++ lib.optionals devendorImageLibs [
       libjpeg
       libpng12
-    ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
       libX11
       libXext
       libXi
@@ -142,7 +145,8 @@ stdenv.mkDerivation rec {
       exec \$RENPY_GDB ${libDir}/'Katawa Shoujo' \$RENPY_PYARGS -EO ${dataDir}/'Katawa Shoujo'.py "\$@"
       EOF
 
-    '' + (if stdenv.hostPlatform.isDarwin then
+    ''
+    + (if stdenv.hostPlatform.isDarwin then
       ''
         # No autoPatchelfHook on Darwin
         wrapProgram ${bin} \
@@ -153,31 +157,34 @@ stdenv.mkDerivation rec {
         # Extract icon for xdg desktop file
         unrpa ${dataDir}/game/data.rpa
         install -Dm644 ui/icon.png $out/share/icons/hicolor/512x512/apps/katawa-shoujo.png
-      '') + ''
+      '')
+    + ''
 
-        # Delete binaries for wrong arch, autoPatchelfHook gets confused by them & less to keep in the store
-        find "$(dirname ${libDir})" -mindepth 1 -maxdepth 1 \
-          -not -name 'python*' -not -name ${arch} \
-          -exec rm -r {} \;
+      # Delete binaries for wrong arch, autoPatchelfHook gets confused by them & less to keep in the store
+      find "$(dirname ${libDir})" -mindepth 1 -maxdepth 1 \
+        -not -name 'python*' -not -name ${arch} \
+        -exec rm -r {} \;
 
-        # Replace some bundled libs so Nixpkgs' versions are used
-        rm ${libDir}/libz*
-        rm ${libDir}/libfreetype*
-        rm ${libDir}/libSDL-1.2*
-      '' + lib.optionalString devendorImageLibs ''
-        rm ${libDir}/libjpeg*
-        rm ${libDir}/libpng12*
-      '' + ''
+      # Replace some bundled libs so Nixpkgs' versions are used
+      rm ${libDir}/libz*
+      rm ${libDir}/libfreetype*
+      rm ${libDir}/libSDL-1.2*
+    ''
+    + lib.optionalString devendorImageLibs ''
+      rm ${libDir}/libjpeg*
+      rm ${libDir}/libpng12*
+    ''
+    + ''
 
-        mkdir -p $out/share/{doc,licenses}/katawa-shoujo
-        mv ${dataDir}/'Game Manual'.pdf $out/share/doc/katawa-shoujo/
-        mv ${dataDir}/LICENSE.txt $out/share/licenses/katawa-shoujo/
+      mkdir -p $out/share/{doc,licenses}/katawa-shoujo
+      mv ${dataDir}/'Game Manual'.pdf $out/share/doc/katawa-shoujo/
+      mv ${dataDir}/LICENSE.txt $out/share/licenses/katawa-shoujo/
 
-        mkdir -p $out/bin
-        ln -s ${bin} $out/bin/katawa-shoujo
+      mkdir -p $out/bin
+      ln -s ${bin} $out/bin/katawa-shoujo
 
-        runHook postInstall
-      ''
+      runHook postInstall
+    ''
     ;
 
   meta = with lib; {

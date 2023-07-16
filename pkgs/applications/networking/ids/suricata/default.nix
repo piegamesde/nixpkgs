@@ -55,7 +55,8 @@ stdenv.mkDerivation rec {
       llvm
       makeWrapper
       pkg-config
-    ] ++ lib.optionals rustSupport [
+    ]
+    ++ lib.optionals rustSupport [
       rustc
       cargo
     ]
@@ -83,7 +84,9 @@ stdenv.mkDerivation rec {
       pcre
       python
       zlib
-    ] ++ lib.optional hyperscanSupport hyperscan ++ lib.optionals redisSupport [
+    ]
+    ++ lib.optional hyperscanSupport hyperscan
+    ++ lib.optionals redisSupport [
       redis
       hiredis
     ]
@@ -122,10 +125,12 @@ stdenv.mkDerivation rec {
       "--sysconfdir=/etc"
       "--with-libnet-includes=${libnet}/include"
       "--with-libnet-libraries=${libnet}/lib"
-    ] ++ lib.optionals hyperscanSupport [
+    ]
+    ++ lib.optionals hyperscanSupport [
       "--with-libhs-includes=${hyperscan.dev}/include/hs"
       "--with-libhs-libraries=${hyperscan}/lib"
-    ] ++ lib.optional redisSupport "--enable-hiredis"
+    ]
+    ++ lib.optional redisSupport "--enable-hiredis"
     ++ lib.optionals rustSupport [
       "--enable-rust"
       "--enable-rust-experimental"

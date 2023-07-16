@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
       gnutls
       nettle
       libxcrypt
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       libiconv
       ApplicationServices
     ]

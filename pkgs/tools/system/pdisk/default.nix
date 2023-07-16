@@ -51,7 +51,8 @@ stdenv.mkDerivation rec {
     ''
       substituteInPlace makefile \
         --replace 'cc' '${stdenv.cc.targetPrefix}cc'
-    '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
       substituteInPlace makefile \
         --replace '-lbsd' '-framework CoreFoundation -framework IOKit'
     ''

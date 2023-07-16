@@ -72,8 +72,9 @@ let
   ];
 
 in
-assert withPlugin -> builtins.elem hplipArch pluginArches
-  || throw "HPLIP plugin not supported on ${stdenv.hostPlatform.system}";
+assert withPlugin
+  -> builtins.elem hplipArch pluginArches
+    || throw "HPLIP plugin not supported on ${stdenv.hostPlatform.system}";
 
 python3Packages.buildPythonApplication {
   inherit pname version src;
@@ -99,7 +100,8 @@ python3Packages.buildPythonApplication {
       pkg-config
       removeReferencesTo
       autoreconfHook
-    ] ++ lib.optional withQt5 qt5.wrapQtAppsHook
+    ]
+    ++ lib.optional withQt5 qt5.wrapQtAppsHook
     ;
 
   pythonPath = with python3Packages;
@@ -112,7 +114,8 @@ python3Packages.buildPythonApplication {
       sip_4
       dbus-python
       distro
-    ] ++ lib.optionals withQt5 [
+    ]
+    ++ lib.optionals withQt5 [
       pyqt5
       pyqt5_sip
       enum-compat
@@ -188,7 +191,8 @@ python3Packages.buildPythonApplication {
       # https://bugs.launchpad.net/hplip/+bug/1788706
       # https://bugs.launchpad.net/hplip/+bug/1787289
       "--disable-imageProcessor-build"
-    ] ++ lib.optional withStaticPPDInstall "--enable-cups-ppd-install"
+    ]
+    ++ lib.optional withStaticPPDInstall "--enable-cups-ppd-install"
     ++ lib.optional withQt5 "--enable-qt5"
     ;
 
@@ -233,7 +237,8 @@ python3Packages.buildPythonApplication {
         ln -s $out/share/hplip/data/images/$resolution/hp_logo.png \
           $out/share/icons/hicolor/$resolution/apps/hp_logo.png
       done
-    '' + lib.optionalString withPlugin ''
+    ''
+    + lib.optionalString withPlugin ''
       sh ${plugin} --noexec --keep
       cd plugin_tmp
 
@@ -309,7 +314,8 @@ python3Packages.buildPythonApplication {
         --replace {,${util-linux}/bin/}logger \
         --replace {/usr,$out}/bin
       remove-references-to -t ${stdenv.cc.cc} $(readlink -f $out/lib/*.so)
-    '' + lib.optionalString withQt5 ''
+    ''
+    + lib.optionalString withQt5 ''
       for f in $out/bin/hp-*;do
         wrapQtApp $f
       done

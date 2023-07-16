@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
     [
       "--exec-prefix=$(out)"
       "--man-prefix=$(out)/share/man"
-    ] ++ lib.optionals enableHO [ "--enable-ho" ]
+    ]
+    ++ lib.optionals enableHO [ "--enable-ho" ]
     ;
 
   meta = with lib; {

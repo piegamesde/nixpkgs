@@ -35,14 +35,18 @@ let
     "-DUSE_CYRUS_SASL"
     "-I${cyrus_sasl.dev}/include/sasl"
     "-DHAS_DB_BYPASS_MAKEDEFS_CHECK"
-  ] ++ lib.optional withPgSQL "-DHAS_PGSQL" ++ lib.optionals withMySQL [
-    "-DHAS_MYSQL"
-    "-I${libmysqlclient.dev}/include/mysql"
-    "-L${libmysqlclient}/lib/mysql"
-  ] ++ lib.optional withSQLite "-DHAS_SQLITE" ++ lib.optionals withLDAP [
-    "-DHAS_LDAP"
-    "-DUSE_LDAP_SASL"
-  ]);
+  ]
+    ++ lib.optional withPgSQL "-DHAS_PGSQL"
+    ++ lib.optionals withMySQL [
+      "-DHAS_MYSQL"
+      "-I${libmysqlclient.dev}/include/mysql"
+      "-L${libmysqlclient}/lib/mysql"
+    ]
+    ++ lib.optional withSQLite "-DHAS_SQLITE"
+    ++ lib.optionals withLDAP [
+      "-DHAS_LDAP"
+      "-DUSE_LDAP_SASL"
+    ]);
   auxlibs = lib.concatStringsSep " " ([
     "-ldb"
     "-lnsl"
@@ -50,8 +54,11 @@ let
     "-lsasl2"
     "-lcrypto"
     "-lssl"
-  ] ++ lib.optional withPgSQL "-lpq" ++ lib.optional withMySQL "-lmysqlclient"
-    ++ lib.optional withSQLite "-lsqlite3" ++ lib.optional withLDAP "-lldap");
+  ]
+    ++ lib.optional withPgSQL "-lpq"
+    ++ lib.optional withMySQL "-lmysqlclient"
+    ++ lib.optional withSQLite "-lsqlite3"
+    ++ lib.optional withLDAP "-lldap");
 
 in
 stdenv.mkDerivation rec {
@@ -76,8 +83,10 @@ stdenv.mkDerivation rec {
       icu
       libnsl
       pcre2
-    ] ++ lib.optional withPgSQL postgresql
-    ++ lib.optional withMySQL libmysqlclient ++ lib.optional withSQLite sqlite
+    ]
+    ++ lib.optional withPgSQL postgresql
+    ++ lib.optional withMySQL libmysqlclient
+    ++ lib.optional withSQLite sqlite
     ++ lib.optional withLDAP openldap
     ;
 
@@ -101,7 +110,8 @@ stdenv.mkDerivation rec {
   postPatch =
     lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
       sed -e 's!bin/postconf!${buildPackages.postfix}/bin/postconf!' -i postfix-install
-    '' + ''
+    ''
+    + ''
       sed -e '/^PATH=/d' -i postfix-install
       sed -e "s|@PACKAGE@|$out|" -i conf/post-install
 

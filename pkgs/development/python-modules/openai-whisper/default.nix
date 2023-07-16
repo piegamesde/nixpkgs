@@ -57,7 +57,9 @@ buildPythonPackage rec {
       numba
       scipy
       tiktoken
-    ] ++ lib.optionals (!cudaSupport) [ torch ] ++ lib.optionals (cudaSupport) [
+    ]
+    ++ lib.optionals (!cudaSupport) [ torch ]
+    ++ lib.optionals (cudaSupport) [
       openai-triton
       torchWithCuda
     ]

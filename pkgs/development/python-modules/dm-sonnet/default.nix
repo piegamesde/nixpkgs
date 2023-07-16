@@ -35,7 +35,8 @@ buildPythonPackage rec {
       numpy
       tabulate
       wrapt
-    ] ++ etils.optional-dependencies.epath
+    ]
+    ++ etils.optional-dependencies.epath
     ;
 
   passthru.optional-dependencies = { tensorflow = [ tensorflow ]; };

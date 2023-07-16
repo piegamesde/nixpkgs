@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
   postUnpack =
     lib.optionalString stdenv.isDarwin ''
       export TRIPLE=x86_64-apple-darwin
-    '' + lib.optionalString stdenv.hostPlatform.isWasm ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isWasm ''
       patch -p1 -d llvm -i ${./wasm.patch}
     ''
     ;
@@ -57,10 +58,12 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.hostPlatform.useLLVM or false) [
       "-DLLVM_ENABLE_LIBCXX=ON"
       "-DLIBCXXABI_USE_LLVM_UNWINDER=ON"
-    ] ++ lib.optionals stdenv.hostPlatform.isWasm [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isWasm [
       "-DLIBCXXABI_ENABLE_THREADS=OFF"
       "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
-    ] ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ]
+    ]
+    ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ]
     ;
 
   installPhase =
@@ -95,7 +98,8 @@ stdenv.mkDerivation rec {
         install -d -m 755 $out/include $out/lib
         install -m 644 lib/libc++abi.a $out/lib
         install -m 644 ../include/cxxabi.h $out/include
-      '' + lib.optionalString enableShared ''
+      ''
+      + lib.optionalString enableShared ''
         install -m 644 lib/libc++abi.so.1.0 $out/lib
         ln -s libc++abi.so.1.0 $out/lib/libc++abi.so
         ln -s libc++abi.so.1.0 $out/lib/libc++abi.so.1

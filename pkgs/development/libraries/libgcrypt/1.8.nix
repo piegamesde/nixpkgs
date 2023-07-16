@@ -43,10 +43,10 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   configureFlags =
-    [ "--with-libgpg-error-prefix=${libgpg-error.dev}" ] ++ lib.optional
-    (stdenv.hostPlatform.isMusl
+    [ "--with-libgpg-error-prefix=${libgpg-error.dev}" ]
+    ++ lib.optional (stdenv.hostPlatform.isMusl
       || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64))
-    "--disable-asm"
+      "--disable-asm"
     ; # for darwin see https://dev.gnupg.org/T5157
 
     # Necessary to generate correct assembly when compiling for aarch32 on
@@ -66,7 +66,8 @@ stdenv.mkDerivation rec {
   postFixup =
     ''
       sed -i 's,#include <gpg-error.h>,#include "${libgpg-error.dev}/include/gpg-error.h",g' "$dev/include/gcrypt.h"
-    '' + lib.optionalString enableCapabilities ''
+    ''
+    + lib.optionalString enableCapabilities ''
       sed -i 's,\(-lcap\),-L${libcap.lib}/lib \1,' $out/lib/libgcrypt.la
     ''
     ;

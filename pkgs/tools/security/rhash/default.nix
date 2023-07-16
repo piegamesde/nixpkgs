@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
     [
       "install"
       "install-lib-headers"
-    ] ++ lib.optionals (!enableStatic) [ "install-lib-so-link" ]
+    ]
+    ++ lib.optionals (!enableStatic) [ "install-lib-so-link" ]
     ;
 
   meta = with lib; {

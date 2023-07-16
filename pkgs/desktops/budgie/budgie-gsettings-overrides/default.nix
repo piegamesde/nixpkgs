@@ -60,7 +60,8 @@ let
       budgie-desktop-view
       gsettings-desktop-schemas
       gnome.mutter
-    ] ++ extraGSettingsOverridePackages
+    ]
+    ++ extraGSettingsOverridePackages
     ;
 
 in

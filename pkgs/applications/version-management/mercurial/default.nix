@@ -64,7 +64,8 @@ let
       ;
 
     propagatedBuildInputs =
-      lib.optional re2Support fb-re2 ++ lib.optional gitSupport pygit2
+      lib.optional re2Support fb-re2
+      ++ lib.optional gitSupport pygit2
       ++ lib.optional highlightSupport pygments
       ;
     nativeBuildInputs =
@@ -72,7 +73,8 @@ let
         makeWrapper
         gettext
         installShellFiles
-      ] ++ lib.optionals rustSupport (with rustPlatform; [
+      ]
+      ++ lib.optionals rustSupport (with rustPlatform; [
         cargoSetupHook
         rust.cargo
         rust.rustc
@@ -95,7 +97,8 @@ let
         WRAP_TK=" --set TK_LIBRARY ${tk}/lib/${tk.libPrefix}
                   --set HG $out/bin/hg
                   --prefix PATH : ${tk}/bin "
-      '') + ''
+      '')
+      + ''
         for i in $(cd $out/bin && ls); do
           wrapProgram $out/bin/$i \
             $WRAP_TK
@@ -177,8 +180,8 @@ let
 
         # Don't run tests if not-Linux or if cross-compiling.
       meta.broken =
-        !stdenv.hostPlatform.isLinux || stdenv.buildPlatform
-        != stdenv.hostPlatform
+        !stdenv.hostPlatform.isLinux
+        || stdenv.buildPlatform != stdenv.hostPlatform
         ;
     } ''
       addToSearchPathWithCustomDelimiter : PYTHONPATH "${mercurial}/${python.sitePackages}"

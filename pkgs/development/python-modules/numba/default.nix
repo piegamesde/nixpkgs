@@ -57,7 +57,8 @@ buildPythonPackage rec {
       numpy
       llvmlite
       setuptools
-    ] ++ lib.optionals (pythonOlder "3.9") [ importlib-metadata ]
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [ importlib-metadata ]
     ++ lib.optionals cudaSupport [
       cudatoolkit
       cudatoolkit.lib
@@ -76,13 +77,14 @@ buildPythonPackage rec {
       })
       # Backport numpy 1.24 support from https://github.com/numba/numba/pull/8691
       ./numpy-1.24.patch
-    ] ++ lib.optionals cudaSupport [
-      (substituteAll {
-        src = ./cuda_path.patch;
-        cuda_toolkit_path = cudatoolkit;
-        cuda_toolkit_lib_path = cudatoolkit.lib;
-      })
     ]
+    ++ lib.optionals cudaSupport [
+        (substituteAll {
+          src = ./cuda_path.patch;
+          cuda_toolkit_path = cudatoolkit;
+          cuda_toolkit_lib_path = cudatoolkit.lib;
+        })
+      ]
     ;
 
   postFixup = lib.optionalString cudaSupport ''

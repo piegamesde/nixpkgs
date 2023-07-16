@@ -104,7 +104,8 @@ stdenv.mkDerivation rec {
       udev
       util-linux
       zstd
-    ] ++ (with xorg; [
+    ]
+    ++ (with xorg; [
       libXdmcp
       libXtst
     ])

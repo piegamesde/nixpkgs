@@ -26,7 +26,8 @@ buildPythonApplication rec {
       rm -r ${path}
       # link submodule
       ln -s ${submodule}/ ${path}
-    '') common.submodules)) + ''
+    '') common.submodules))
+    + ''
       cd cli
     ''
     ;
@@ -69,7 +70,8 @@ buildPythonApplication rec {
     [
       git
       pytestCheckHook
-    ] ++ (with pythonPackages; [
+    ]
+    ++ (with pythonPackages; [
       pytest-snapshot
       pytest-mock
       pytest-freezegun

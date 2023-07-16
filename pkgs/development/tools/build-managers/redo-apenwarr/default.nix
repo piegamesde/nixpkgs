@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
 
       patchShebangs minimal/do
 
-    '' + lib.optionalString doCheck ''
+    ''
+    + lib.optionalString doCheck ''
       unset CC CXX
 
       substituteInPlace minimal/do.test \

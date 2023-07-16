@@ -107,11 +107,14 @@ in
               "${cfg.contentDir}"
               "--certs"
               "${cfg.certificatesDir}"
-            ] ++ addresses ++ (optionals (cfg.hostnames != [ ]) hostnames)
+            ]
+              ++ addresses
+              ++ (optionals (cfg.hostnames != [ ]) hostnames)
               ++ (optionals (cfg.language != null) [
                 "--lang"
                 cfg.language
-              ]) ++ (optionals cfg.onlyTls_1_3 [ "--only-tls13" ])
+              ])
+              ++ (optionals cfg.onlyTls_1_3 [ "--only-tls13" ])
               ++ (optionals (cfg.extraArgs != [ ]) cfg.extraArgs))
           }
         ''

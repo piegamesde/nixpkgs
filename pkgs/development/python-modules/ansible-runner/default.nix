@@ -70,7 +70,8 @@ buildPythonPackage rec {
       "test_large_stdout_blob"
       # Failed: DID NOT RAISE <class 'RuntimeError'>
       "test_validate_pattern"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # test_process_isolation_settings is currently broken on Darwin Catalina
       # https://github.com/ansible/ansible-runner/issues/413
       "process_isolation_settings"
@@ -82,7 +83,8 @@ buildPythonPackage rec {
       # These tests unset PATH and then run executables like `bash` (see https://github.com/ansible/ansible-runner/pull/918)
       "test/integration/test_runner.py"
       "test/unit/test_runner.py"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # Integration tests on Darwin are not regularly passing in ansible-runner's own CI
       "test/integration"
       # These tests write to `/tmp` which is not writable on Darwin

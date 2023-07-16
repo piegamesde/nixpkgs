@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
       freetype
       libglvnd
       webkitgtk
-    ] ++ runtimeDependencies
+    ]
+    ++ runtimeDependencies
     ;
 
   runtimeDependencies = map lib.getLib [

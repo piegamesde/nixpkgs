@@ -35,7 +35,8 @@ stdenv.mkDerivation (args // {
     [
       autoreconfHook
       re2c
-    ] ++ nativeBuildInputs
+    ]
+    ++ nativeBuildInputs
     ;
   buildInputs = [ php ] ++ peclDeps ++ buildInputs;
 

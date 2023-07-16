@@ -28,7 +28,8 @@ let
   sites = builtins.attrNames mirrors;
 
   impureEnvVars =
-    lib.fetchers.proxyImpureEnvVars ++ [
+    lib.fetchers.proxyImpureEnvVars
+    ++ [
       # This variable allows the user to pass additional options to curl
       "NIX_CURL_FLAGS"
 
@@ -39,7 +40,8 @@ let
       # This variable allows overriding the timeout for connecting to
       # the hashed mirrors.
       "NIX_CONNECT_TIMEOUT"
-    ] ++ (map (site: "NIX_MIRRORS_${site}") sites)
+    ]
+    ++ (map (site: "NIX_MIRRORS_${site}") sites)
     ;
 
 in
@@ -206,9 +208,10 @@ else
 
     SSL_CERT_FILE =
       if
-        (hash_.outputHash == "" || hash_.outputHash == lib.fakeSha256
-          || hash_.outputHash == lib.fakeSha512 || hash_.outputHash
-          == lib.fakeHash)
+        (hash_.outputHash == ""
+          || hash_.outputHash == lib.fakeSha256
+          || hash_.outputHash == lib.fakeSha512
+          || hash_.outputHash == lib.fakeHash)
       then
         "${cacert}/etc/ssl/certs/ca-bundle.crt"
       else

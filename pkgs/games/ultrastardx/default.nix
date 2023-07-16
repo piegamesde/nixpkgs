@@ -64,7 +64,8 @@ stdenv.mkDerivation rec {
     [
       fpc
       libpng
-    ] ++ sharedLibs
+    ]
+    ++ sharedLibs
     ;
 
   postPatch = ''

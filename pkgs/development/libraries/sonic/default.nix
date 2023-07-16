@@ -29,7 +29,8 @@ stdenv.mkDerivation {
   postInstall =
     ''
       installManPage sonic.1
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       install_name_tool -id $out/lib/libsonic.so.0.3.0 $out/lib/libsonic.so.0.3.0
     ''
     ;

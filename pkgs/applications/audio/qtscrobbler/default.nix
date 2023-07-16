@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ qmake4Hook ] ++ lib.optionals withMtp [
+    [ qmake4Hook ]
+    ++ lib.optionals withMtp [
       pkg-config
       which
     ]

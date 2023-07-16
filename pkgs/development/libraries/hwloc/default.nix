@@ -38,10 +38,12 @@ stdenv.mkDerivation rec {
     [
       expat
       ncurses
-    ] ++ lib.optionals x11Support [
+    ]
+    ++ lib.optionals x11Support [
       cairo
       libX11
-    ] ++ lib.optionals stdenv.isLinux [ numactl ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ numactl ]
     ++ lib.optional enableCuda cudaPackages.cudatoolkit
     ;
 

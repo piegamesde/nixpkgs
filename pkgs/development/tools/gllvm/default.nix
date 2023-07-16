@@ -23,7 +23,8 @@ buildGoModule rec {
     [
       clang
       llvm
-    ] ++ lib.optionals stdenv.isDarwin [ getconf ];
+    ]
+    ++ lib.optionals stdenv.isDarwin [ getconf ];
 
   meta = with lib; {
     homepage = "https://github.com/SRI-CSL/gllvm";

@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
     [
       itk
       vtk
-    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ;
 
   cmakeFlags = [

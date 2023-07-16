@@ -153,10 +153,12 @@ stdenv.mkDerivation rec {
         -lc \
         -B $out/lib \
         -Wl,-dynamic-linker=$(ls $out/lib/ld-*)
-    '' + lib.optionalString (arch != null) ''
+    ''
+    + lib.optionalString (arch != null) ''
       # Create 'libc.musl-$arch' symlink
       ln -rs $out/lib/libc.so $out/lib/libc.musl-${arch}.so.1
-    '' + lib.optionalString useBSDCompatHeaders ''
+    ''
+    + lib.optionalString useBSDCompatHeaders ''
       install -D ${queue_h} $dev/include/sys/queue.h
       install -D ${cdefs_h} $dev/include/sys/cdefs.h
       install -D ${tree_h} $dev/include/sys/tree.h

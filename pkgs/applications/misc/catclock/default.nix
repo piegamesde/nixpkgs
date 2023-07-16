@@ -37,7 +37,8 @@ stdenv.mkDerivation {
       xorg.libX11
       xorg.libXext
       xorg.libXt
-    ] ++ lib.optionals withAudioTracking [
+    ]
+    ++ lib.optionals withAudioTracking [
       libpulseaudio
       aubio
     ]

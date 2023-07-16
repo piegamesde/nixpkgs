@@ -47,14 +47,17 @@ buildPythonPackage rec {
       SDL2_image
       SDL2_ttf
       SDL2_mixer
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       mesa
       mtdev
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       ApplicationServices
       AVFoundation
       libcxx
-    ] ++ lib.optionals withGstreamer (with gst_all_1; [
+    ]
+    ++ lib.optionals withGstreamer (with gst_all_1; [
       # NOTE: The degree to which gstreamer actually works is unclear
       gstreamer
       gst-plugins-base

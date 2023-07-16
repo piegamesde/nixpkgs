@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
       vtk_8
       gl2ps
       tbb
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       OpenCL
       Cocoa
     ]
@@ -61,7 +62,8 @@ stdenv.mkDerivation rec {
       "-DOCE_WITH_VTK=ON"
       "-DOCE_WITH_GL2PS=ON"
       "-DOCE_MULTITHREAD_LIBRARY=TBB"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       "-DOCE_OSX_USE_COCOA=ON"
       "-DOCE_WITH_OPENCL=ON"
     ]

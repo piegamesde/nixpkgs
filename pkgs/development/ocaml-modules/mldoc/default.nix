@@ -19,7 +19,8 @@
 let
   angstrom' = angstrom.overrideAttrs (attrs: {
     patches =
-      attrs.patches or [ ] ++ [
+      attrs.patches or [ ]
+      ++ [
         # mldoc requires Angstrom to expose `unsafe_lookahead`
         (fetchpatch {
           url =

@@ -26,7 +26,8 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [ bluez ];
 
   makeFlags =
-    kernel.makeFlags ++ [
+    kernel.makeFlags
+    ++ [
       "-C"
       "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
       "M=$(sourceRoot)"

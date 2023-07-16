@@ -34,7 +34,8 @@ buildPythonPackage rec {
     [
       jaconv
       deprecated
-    ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
     ;
 
   nativeCheckInputs = [

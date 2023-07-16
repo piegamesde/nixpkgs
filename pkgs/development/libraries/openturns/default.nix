@@ -66,12 +66,14 @@ stdenv.mkDerivation rec {
       primesieve
       pagmo2
       ipopt
-    ] ++ lib.optionals enablePython [
+    ]
+    ++ lib.optionals enablePython [
       python3Packages.python
       python3Packages.matplotlib
       python3Packages.psutil
       python3Packages.dill
-    ] ++ lib.optional stdenv.isDarwin Accelerate
+    ]
+    ++ lib.optional stdenv.isDarwin Accelerate
     ;
 
   cmakeFlags = [

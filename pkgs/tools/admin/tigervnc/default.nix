@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
 
       cp unix/xserver21.1.1.patch unix/xserver211.patch
       source_top="$(pwd)"
-    '' + ''
+    ''
+    + ''
       # On Mac, do not build a .dmg, instead copy the .app to the source dir
       gawk -i inplace 'BEGIN { del=0 } /hdiutil/ { del=2 } del<=0 { print } /$VERSION.dmg/ { del -= 1 }' release/makemacapp.in
       echo "mv \"\$APPROOT\" \"\$SRCDIR/\"" >> release/makemacapp.in
@@ -98,7 +99,8 @@ stdenv.mkDerivation rec {
           --with-xkb-output=$out/share/X11/xkb/compiled
       make TIGERVNC_SRC=$src TIGERVNC_BUILDDIR=`pwd`/../.. -j$NIX_BUILD_CORES
       popd
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       make dmg
     ''
     ;
@@ -119,7 +121,8 @@ stdenv.mkDerivation rec {
             xauth
           ])
         }
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       mkdir -p $out/Applications
       mv 'TigerVNC Viewer ${version}.app' $out/Applications/
       rm $out/bin/vncviewer
@@ -136,7 +139,8 @@ stdenv.mkDerivation rec {
       libjpeg_turbo
       pixman
       gawk
-    ] ++ lib.optionals stdenv.isLinux (with xorg;
+    ]
+    ++ lib.optionals stdenv.isLinux (with xorg;
       [
         nettle
         pam
@@ -155,21 +159,24 @@ stdenv.mkDerivation rec {
         libXfont2
         libpciaccess
         libGLU
-      ] ++ xorg.xorgserver.buildInputs)
+      ]
+      ++ xorg.xorgserver.buildInputs)
     ;
 
   nativeBuildInputs =
     [
       cmake
       gettext
-    ] ++ lib.optionals stdenv.isLinux (with xorg;
+    ]
+    ++ lib.optionals stdenv.isLinux (with xorg;
       [
         fontutil
         libtool
         makeWrapper
         utilmacros
         zlib
-      ] ++ xorg.xorgserver.nativeBuildInputs)
+      ]
+      ++ xorg.xorgserver.nativeBuildInputs)
     ;
 
   propagatedBuildInputs =

@@ -72,8 +72,9 @@ stdenv.mkDerivation rec {
       qttools
       re2
       spdlog
-    ] ++ lib.optional stdenv.isDarwin qtmacextras ++ lib.optionals voipSupport
-    (with gst_all_1; [
+    ]
+    ++ lib.optional stdenv.isDarwin qtmacextras
+    ++ lib.optionals voipSupport (with gst_all_1; [
       gstreamer
       gst-plugins-base
       (gst-plugins-good.override { qt5Support = true; })

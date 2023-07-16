@@ -10,7 +10,8 @@ in
 
   libcufile = prev.libcufile.overrideAttrs (oldAttrs: {
     buildInputs =
-      oldAttrs.buildInputs ++ [
+      oldAttrs.buildInputs
+      ++ [
         prev.libcublas
         pkgs.numactl
         pkgs.rdma-core
@@ -46,7 +47,8 @@ in
       #   for us, as the default set of CUDA capabilities we build can regularly cause this to
       #   occur (for example, with Magma).
       postInstall =
-        (oldAttrs.postInstall or "") + ''
+        (oldAttrs.postInstall or "")
+        + ''
           mkdir -p $out/nix-support
           cat <<EOF >> $out/nix-support/setup-hook
           cmakeFlags+=' -DCUDA_HOST_COMPILER=${cc}/bin'
@@ -98,13 +100,15 @@ in
 
   nsight_systems = prev.nsight_systems.overrideAttrs (oldAttrs: {
     nativeBuildInputs =
-      oldAttrs.nativeBuildInputs ++ [
+      oldAttrs.nativeBuildInputs
+      ++ [
         pkgs.addOpenGLRunpath
         pkgs.qt5.wrapQtAppsHook
       ]
       ;
     buildInputs =
-      oldAttrs.buildInputs ++ [
+      oldAttrs.buildInputs
+      ++ [
         pkgs.alsa-lib
         pkgs.e2fsprogs
         pkgs.nss

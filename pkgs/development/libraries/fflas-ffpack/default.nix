@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     [
       autoreconfHook
       pkg-config
-    ] ++ lib.optionals doCheck nativeCheckInputs
+    ]
+    ++ lib.optionals doCheck nativeCheckInputs
     ;
 
   buildInputs = [
@@ -44,7 +45,8 @@ stdenv.mkDerivation rec {
     [
       "--with-blas-libs=-lcblas"
       "--with-lapack-libs=-llapacke"
-    ] ++ lib.optionals stdenv.isx86_64 [
+    ]
+    ++ lib.optionals stdenv.isx86_64 [
       # disable SIMD instructions (which are enabled *when available* by default)
       # for now we need to be careful to disable *all* relevant versions of an instruction set explicitly (https://github.com/linbox-team/fflas-ffpack/issues/284)
       "--${

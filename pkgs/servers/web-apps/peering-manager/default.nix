@@ -74,7 +74,8 @@ py.pkgs.buildPythonApplication rec {
       pyyaml
       requests
       tzdata
-    ] ++ plugins py.pkgs;
+    ]
+    ++ plugins py.pkgs;
 
   buildPhase = ''
     runHook preBuild

@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
       pkg-config
       cmake
       python3
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
       # TODO: could be replaced by setting CMAKE_INSTALL_NAME_DIR?
       fixDarwinDylibNames
     ]

@@ -44,7 +44,8 @@ with self;
     let
       modules = lib.filter hasPerlModule drvs;
     in
-    lib.unique ([ perl ] ++ modules
+    lib.unique ([ perl ]
+      ++ modules
       ++ lib.concatLists (lib.catAttrs "requiredPerlModules" modules))
     ;
 
@@ -1208,7 +1209,8 @@ with self;
         PDFAPI2
         StringInterpolateNamed
         TextLayout
-      ] ++ lib.optionals (!stdenv.isDarwin) [ Wx ]
+      ]
+      ++ lib.optionals (!stdenv.isDarwin) [ Wx ]
       ;
     nativeBuildInputs = lib.optional stdenv.isDarwin shortenPerlShebang;
     postInstall = lib.optionalString stdenv.isDarwin ''
@@ -17801,7 +17803,8 @@ with self;
     preBuild =
       ''
         patchShebangs bin/
-      '' + lib.optionalString stdenv.isDarwin ''
+      ''
+      + lib.optionalString stdenv.isDarwin ''
         for file in bin/*; do
           shortenPerlShebang "$file"
         done
@@ -25786,7 +25789,8 @@ with self;
     preCheck =
       ''
         rm t/35_log.t
-      '' + lib.optionalString stdenv.isDarwin ''
+      ''
+      + lib.optionalString stdenv.isDarwin ''
         rm t/30_connect.t
         rm t/45_class.t
       ''
@@ -26536,7 +26540,8 @@ with self;
         TestDeep
         TestException
         TestWarn
-      ] ++ (with pkgs; [
+      ]
+      ++ (with pkgs; [
         gsl
         freeglut
         xorg.libXmu
@@ -31429,9 +31434,10 @@ with self;
         pkgs.tcl
         pkgs.tix
         pkgs.tk
-      ] ++ lib.optionals stdenv.isDarwin [
-        darwin.apple_sdk.frameworks.CoreServices
       ]
+      ++ lib.optionals stdenv.isDarwin [
+          darwin.apple_sdk.frameworks.CoreServices
+        ]
       ;
     makeMakerFlags = lib.optionals stdenv.isLinux [
       "--tclsh=${pkgs.tcl}/bin/tclsh"
@@ -31467,7 +31473,8 @@ with self;
         mkdir -p $out/lib/perl5/site_perl
         mv $out/lib/perl5/Tcl $out/lib/perl5/site_perl/
         mv $out/lib/perl5/auto $out/lib/perl5/site_perl/
-      '' + lib.optionalString stdenv.isDarwin ''
+      ''
+      + lib.optionalString stdenv.isDarwin ''
         mv $out/lib/perl5/darwin-thread-multi-2level $out/lib/perl5/site_perl/
       ''
       ;
@@ -37272,7 +37279,8 @@ with self;
       [
         AlienBuild
         AlienLibxml2
-      ] ++ lib.optionals stdenv.isDarwin (with pkgs; [
+      ]
+      ++ lib.optionals stdenv.isDarwin (with pkgs; [
         libiconv
         zlib
       ])
@@ -37372,7 +37380,8 @@ with self;
     postPatch =
       lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
         substituteInPlace Expat/Makefile.PL --replace 'use English;' '#'
-      '' + lib.optionalString stdenv.isCygwin ''
+      ''
+      + lib.optionalString stdenv.isCygwin ''
         sed -i"" -e "s@my \$compiler = File::Spec->catfile(\$path, \$cc\[0\]) \. \$Config{_exe};@my \$compiler = File::Spec->catfile(\$path, \$cc\[0\]) \. (\$^O eq 'cygwin' ? \"\" : \$Config{_exe});@" inc/Devel/CheckLib.pm
       ''
       ;

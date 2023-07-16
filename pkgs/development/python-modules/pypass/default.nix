@@ -54,7 +54,8 @@ buildPythonPackage rec {
       click
       colorama
       pexpect
-    ] ++ lib.optional (pythonOlder "3.4") enum34
+    ]
+    ++ lib.optional (pythonOlder "3.4") enum34
     ;
 
   nativeCheckInputs = [ nose ];

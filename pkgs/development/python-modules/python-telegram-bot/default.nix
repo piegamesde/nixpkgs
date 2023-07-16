@@ -40,7 +40,9 @@ buildPythonPackage rec {
       cryptography
       httpx
       pytz
-    ] ++ httpx.optional-dependencies.socks ++ httpx.optional-dependencies.http2
+    ]
+    ++ httpx.optional-dependencies.socks
+    ++ httpx.optional-dependencies.http2
     ;
 
   nativeCheckInputs = [

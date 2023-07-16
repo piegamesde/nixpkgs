@@ -32,7 +32,8 @@ assert monolithic || (!monolithic && (enableDaemon || client || httpServer));
 
 stdenv.mkDerivation rec {
   pname =
-    "amule" + lib.optionalString httpServer "-web"
+    "amule"
+    + lib.optionalString httpServer "-web"
     + lib.optionalString enableDaemon "-daemon"
     + lib.optionalString client "-gui"
     ;
@@ -68,7 +69,9 @@ stdenv.mkDerivation rec {
       cryptopp.dev
       libupnp
       boost
-    ] ++ lib.optional httpServer libpng ++ lib.optional client libX11
+    ]
+    ++ lib.optional httpServer libpng
+    ++ lib.optional client libX11
     ;
 
   cmakeFlags = [

@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     [
       "out"
       "dev"
-    ] ++ lib.optional withIntrospection "devdoc"
+    ]
+    ++ lib.optional withIntrospection "devdoc"
     ;
 
   src = fetchurl {
@@ -56,7 +57,8 @@ stdenv.mkDerivation rec {
       libintl
       vala
       glib
-    ] ++ lib.optionals withIntrospection [
+    ]
+    ++ lib.optionals withIntrospection [
       gi-docgen
       gobject-introspection
     ]

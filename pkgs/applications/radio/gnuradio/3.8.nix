@@ -145,10 +145,12 @@ let
     gr-dtv = { cmakeEnableFlag = "GR_DTV"; };
     gr-audio = {
       runtime =
-        [ ] ++ lib.optionals stdenv.isLinux [
+        [ ]
+        ++ lib.optionals stdenv.isLinux [
           alsa-lib
           libjack2
-        ] ++ lib.optionals stdenv.isDarwin [ CoreAudio ]
+        ]
+        ++ lib.optionals stdenv.isDarwin [ CoreAudio ]
         ;
       cmakeEnableFlag = "GR_AUDIO";
     };
@@ -259,13 +261,13 @@ stdenv.mkDerivation {
     // lib.optionalAttrs (hasFeature "gr-qtgui") { inherit (libsForQt5) qwt; };
   cmakeFlags =
     shared.cmakeFlags
-    # From some reason, if these are not set, libcodec2 and gsm are not
-    # detected properly. The issue is reported upstream:
-    # https://github.com/gnuradio/gnuradio/issues/4278
-    # The above issue was fixed for GR3.9 without a backporting patch.
-    #
-    # NOTE: qradiolink needs libcodec2 to be detected in
-    # order to build, see https://github.com/qradiolink/qradiolink/issues/67
+      # From some reason, if these are not set, libcodec2 and gsm are not
+      # detected properly. The issue is reported upstream:
+      # https://github.com/gnuradio/gnuradio/issues/4278
+      # The above issue was fixed for GR3.9 without a backporting patch.
+      #
+      # NOTE: qradiolink needs libcodec2 to be detected in
+      # order to build, see https://github.com/qradiolink/qradiolink/issues/67
     ++ lib.optionals (hasFeature "gr-vocoder") [
       "-DLIBCODEC2_FOUND=TRUE"
       "-DLIBCODEC2_LIBRARIES=${codec2}/lib/libcodec2${stdenv.hostPlatform.extensions.sharedLibrary}"
@@ -274,15 +276,16 @@ stdenv.mkDerivation {
       "-DLIBGSM_FOUND=TRUE"
       "-DLIBGSM_LIBRARIES=${gsm}/lib/libgsm${stdenv.hostPlatform.extensions.sharedLibrary}"
       "-DLIBGSM_INCLUDE_DIRS=${gsm}/include/gsm"
-    ] ++ lib.optionals (hasFeature "volk" && volk != null) [
-      "-DENABLE_INTERNAL_VOLK=OFF"
     ]
+    ++ lib.optionals (hasFeature "volk" && volk != null) [
+        "-DENABLE_INTERNAL_VOLK=OFF"
+      ]
     ;
 
   postInstall =
     shared.postInstall
-    # This is the only python reference worth removing, if needed (3.7 doesn't
-    # set that reference).
+      # This is the only python reference worth removing, if needed (3.7 doesn't
+      # set that reference).
     + lib.optionalString (!hasFeature "python-support") ''
       ${removeReferencesTo}/bin/remove-references-to -t ${python} $out/lib/cmake/gnuradio/GnuradioConfig.cmake
     ''

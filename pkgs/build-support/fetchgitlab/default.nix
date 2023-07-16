@@ -20,10 +20,11 @@
 }@args:
 
 let
-  slug = lib.concatStringsSep "/" ((lib.optional (group != null) group) ++ [
-    owner
-    repo
-  ]);
+  slug = lib.concatStringsSep "/" ((lib.optional (group != null) group)
+    ++ [
+      owner
+      repo
+    ]);
   escapedSlug = lib.replaceStrings [
     "."
     "/"

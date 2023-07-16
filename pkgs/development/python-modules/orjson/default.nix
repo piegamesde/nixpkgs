@@ -36,7 +36,8 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs =
-    [ cffi ] ++ (with rustPlatform; [
+    [ cffi ]
+    ++ (with rustPlatform; [
       cargoSetupHook
       maturinBuildHook
     ])

@@ -47,7 +47,8 @@ let
     buildAndTestSubdir = "lib/srv/desktop/rdp/rdpclient";
 
     buildInputs =
-      [ openssl ] ++ lib.optionals stdenv.isDarwin [
+      [ openssl ]
+      ++ lib.optionals stdenv.isDarwin [
         CoreFoundation
         Security
       ]
@@ -120,14 +121,16 @@ buildGoModule rec {
     [
       "libfido2"
       "webassets_embed"
-    ] ++ lib.optional withRdpClient "desktop_access_rdp"
+    ]
+    ++ lib.optional withRdpClient "desktop_access_rdp"
     ;
 
   buildInputs =
     [
       openssl
       libfido2
-    ] ++ lib.optionals (stdenv.isDarwin && withRdpClient) [
+    ]
+    ++ lib.optionals (stdenv.isDarwin && withRdpClient) [
       CoreFoundation
       Security
       AppKit
@@ -156,7 +159,8 @@ buildGoModule rec {
   preBuild =
     ''
       cp -r ${webassets} webassets
-    '' + lib.optionalString withRdpClient ''
+    ''
+    + lib.optionalString withRdpClient ''
       ln -s ${rdpClient}/lib/* lib/
       ln -s ${rdpClient}/include/* lib/srv/desktop/rdp/rdpclient/
     ''

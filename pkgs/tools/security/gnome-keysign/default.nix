@@ -44,7 +44,8 @@ python3.pkgs.buildPythonApplication rec {
     [
       wrapGAppsHook
       gobject-introspection
-    ] ++ (with python3.pkgs; [
+    ]
+    ++ (with python3.pkgs; [
       babel
       babelgladeextractor
     ])

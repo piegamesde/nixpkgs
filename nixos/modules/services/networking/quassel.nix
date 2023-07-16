@@ -138,9 +138,10 @@ in
           "--listen=${concatStringsSep "," cfg.interfaces}"
           "--port=${toString cfg.portNumber}"
           "--configdir=${cfg.dataDir}"
-        ] ++ optional cfg.requireSSL "--require-ssl"
+        ]
+          ++ optional cfg.requireSSL "--require-ssl"
           ++ optional (cfg.certificateFile != null)
-          "--ssl-cert=${cfg.certificateFile}");
+            "--ssl-cert=${cfg.certificateFile}");
         User = user;
       };
     };

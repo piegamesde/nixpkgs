@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
       ncurses
       rtl-sdr
       hackrf
-    ] ++ lib.optional stdenv.isLinux limesuite
+    ]
+    ++ lib.optional stdenv.isLinux limesuite
     ;
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang

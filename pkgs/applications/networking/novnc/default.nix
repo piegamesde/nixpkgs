@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
         src = ./websockify.patch;
         inherit websockify;
       })
-    ] ++ [ ./fix-paths.patch ];
+    ]
+    ++ [ ./fix-paths.patch ];
 
   postPatch = ''
     substituteAllInPlace utils/novnc_proxy

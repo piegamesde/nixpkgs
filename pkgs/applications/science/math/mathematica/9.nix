@@ -32,8 +32,8 @@
 let
   platform =
     if
-      stdenv.hostPlatform.system == "i686-linux" || stdenv.hostPlatform.system
-      == "x86_64-linux"
+      stdenv.hostPlatform.system == "i686-linux"
+      || stdenv.hostPlatform.system == "x86_64-linux"
     then
       "Linux"
     else
@@ -59,7 +59,8 @@ stdenv.mkDerivation rec {
       opencv2
       openssl
       unixODBC
-    ] ++ (with xorg; [
+    ]
+    ++ (with xorg; [
       libX11
       libXext
       libXtst
@@ -73,7 +74,7 @@ stdenv.mkDerivation rec {
   ldpath =
     lib.makeLibraryPath buildInputs
     + lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux")
-    (":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs)
+      (":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs)
     ;
 
   phases = "unpackPhase installPhase fixupPhase";

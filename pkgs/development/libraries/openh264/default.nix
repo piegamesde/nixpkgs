@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
     [
       "PREFIX=${placeholder "out"}"
       "ARCH=${stdenv.hostPlatform.linuxArch}"
-    ] ++ lib.optional stdenv.hostPlatform.isWindows "OS=mingw_nt"
+    ]
+    ++ lib.optional stdenv.hostPlatform.isWindows "OS=mingw_nt"
     ;
 
   enableParallelBuilding = true;

@@ -72,7 +72,8 @@ python.pkgs.buildPythonApplication rec {
       (python.pkgs.toPythonModule (radicale3.override { python3 = python; }))
       requests
       types-setuptools
-    ] ++ requests.optional-dependencies.socks;
+    ]
+    ++ requests.optional-dependencies.socks;
 
   doCheck = false;
 

@@ -50,7 +50,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ makeWrapper ] ++ lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook
+    [ makeWrapper ]
+    ++ lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook
     ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
     ;
 

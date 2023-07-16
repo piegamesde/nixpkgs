@@ -213,7 +213,8 @@ in
               (pkgs.writeShellScript "vdirsyncer-discover-yes" ''
                 set -e
                 yes | ${cfg.package}/bin/vdirsyncer discover
-              '')) ++ [ "${cfg.package}/bin/vdirsyncer sync" ]
+              ''))
+            ++ [ "${cfg.package}/bin/vdirsyncer sync" ]
             ;
         }
       ])) (filterAttrs (name: cfg': cfg'.enable) cfg.jobs);

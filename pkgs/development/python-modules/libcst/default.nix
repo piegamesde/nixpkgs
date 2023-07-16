@@ -52,7 +52,8 @@ buildPythonPackage rec {
       setuptools-rust
       setuptools-scm
       rustPlatform.cargoSetupHook
-    ] ++ (with rustPlatform; [
+    ]
+    ++ (with rustPlatform; [
       rust.cargo
       rust.rustc
     ])

@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
       curl
       openssl
       icu
-    ] ++ lib.optional (!stdenv.isDarwin) jemalloc
+    ]
+    ++ lib.optional (!stdenv.isDarwin) jemalloc
     ++ lib.optional stdenv.isDarwin libtool
     ;
 

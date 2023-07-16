@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
       "-DQt_Ver=5"
       "-DNOT_FIRST=On"
       "-DOpenGL_GL_PREFERENCE=GLVND"
-    ] ++ lib.optional sshSupport "-DUSE_SSH=On"
+    ]
+    ++ lib.optional sshSupport "-DUSE_SSH=On"
     ++ lib.optional tetgenSupport "-DUSE_TETGEN=On"
     ++ lib.optional ffmpegSupport "-DUSE_FFMPEG=On"
     ++ lib.optional dicomSupport "-DUSE_DICOM=On"
@@ -66,8 +67,11 @@ stdenv.mkDerivation rec {
       libGLU
       openssl
       libssh
-    ] ++ lib.optional sshSupport openssl ++ lib.optional tetgenSupport tetgen
-    ++ lib.optional ffmpegSupport ffmpeg_4 ++ lib.optional dicomSupport dcmtk
+    ]
+    ++ lib.optional sshSupport openssl
+    ++ lib.optional tetgenSupport tetgen
+    ++ lib.optional ffmpegSupport ffmpeg_4
+    ++ lib.optional dicomSupport dcmtk
     ;
 
   meta = with lib; {

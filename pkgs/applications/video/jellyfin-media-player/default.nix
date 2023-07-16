@@ -58,7 +58,8 @@ mkDerivation rec {
       qtwebchannel
       qtwebengine
       qtx11extras
-    ] ++ lib.optionals stdenv.isLinux [ qtwayland ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ qtwayland ]
     ++ lib.optionals stdenv.isDarwin [
       Cocoa
       CoreAudio
@@ -79,7 +80,8 @@ mkDerivation rec {
       "-DCMAKE_BUILD_TYPE=Release"
       "-DQTROOT=${qtbase}"
       "-GNinja"
-    ] ++ lib.optionals (!withDbus) [ "-DLINUX_X11POWER=ON" ]
+    ]
+    ++ lib.optionals (!withDbus) [ "-DLINUX_X11POWER=ON" ]
     ;
 
   preConfigure = ''

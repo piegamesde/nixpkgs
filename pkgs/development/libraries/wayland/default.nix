@@ -13,8 +13,8 @@
   withTests ? stdenv.isLinux,
   libffi,
   epoll-shim,
-  withDocumentation ? withLibraries && stdenv.hostPlatform
-    == stdenv.buildPlatform,
+  withDocumentation ?
+    withLibraries && stdenv.hostPlatform == stdenv.buildPlatform,
   graphviz-nox,
   doxygen,
   libxslt,
@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
   postPatch =
     lib.optionalString withDocumentation ''
       patchShebangs doc/doxygen/gen-doxygen.py
-    '' + lib.optionalString stdenv.hostPlatform.isStatic ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isStatic ''
       # delete line containing os-wrappers-test, disables
       # the building of os-wrappers-test
       sed -i '/os-wrappers-test/d' tests/meson.build
@@ -61,7 +62,8 @@ stdenv.mkDerivation rec {
       "out"
       "bin"
       "dev"
-    ] ++ lib.optionals withDocumentation [
+    ]
+    ++ lib.optionals withDocumentation [
       "doc"
       "man"
     ]
@@ -81,7 +83,8 @@ stdenv.mkDerivation rec {
       meson
       pkg-config
       ninja
-    ] ++ lib.optionals isCross [ wayland-scanner ]
+    ]
+    ++ lib.optionals isCross [ wayland-scanner ]
     ++ lib.optionals withDocumentation [
       (graphviz-nox.override { pango = null; }) # To avoid an infinite recursion
       doxygen
@@ -97,10 +100,12 @@ stdenv.mkDerivation rec {
     [
       expat
       libxml2
-    ] ++ lib.optionals withLibraries [ libffi ]
+    ]
+    ++ lib.optionals withLibraries [ libffi ]
     ++ lib.optionals (withLibraries && !stdenv.hostPlatform.isLinux) [
-      epoll-shim
-    ] ++ lib.optionals withDocumentation [
+        epoll-shim
+      ]
+    ++ lib.optionals withDocumentation [
       docbook_xsl
       docbook_xml_dtd_45
       docbook_xml_dtd_42

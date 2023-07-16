@@ -79,11 +79,13 @@ let
     lib.mkRenamedOptionModule ([
       "services"
       "epgstation"
-    ] ++ config) ([
-      "services"
-      "epgstation"
-      "settings"
-    ] ++ config)
+    ]
+      ++ config) ([
+        "services"
+        "epgstation"
+        "settings"
+      ]
+        ++ config)
     ;
 
   removeOption =
@@ -91,7 +93,8 @@ let
     lib.mkRemovedOptionModule ([
       "services"
       "epgstation"
-    ] ++ config) instruction
+    ]
+      ++ config) instruction
     ;
 in
 {

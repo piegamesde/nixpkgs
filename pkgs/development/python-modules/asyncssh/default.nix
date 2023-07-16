@@ -52,7 +52,8 @@ buildPythonPackage rec {
       openssh
       openssl
       pytestCheckHook
-    ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
+    ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
     ;
 
   patches =

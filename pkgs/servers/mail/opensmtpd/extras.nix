@@ -70,24 +70,30 @@ stdenv.mkDerivation rec {
       "--with-scheduler-ram"
       "--with-scheduler-stub"
 
-    ] ++ lib.optionals enableLua [
+    ]
+    ++ lib.optionals enableLua [
       "--with-lua=${pkg-config}"
       "--with-filter-lua"
 
-    ] ++ lib.optionals enablePerl [
+    ]
+    ++ lib.optionals enablePerl [
       "--with-perl=${perl}"
       "--with-filter-perl"
 
-    ] ++ lib.optionals enableMysql [
-      "--with-table-mysql"
+    ]
+    ++ lib.optionals enableMysql [
+        "--with-table-mysql"
 
-    ] ++ lib.optionals enablePostgres [
-      "--with-table-postgres"
+      ]
+    ++ lib.optionals enablePostgres [
+        "--with-table-postgres"
 
-    ] ++ lib.optionals enableSqlite [
-      "--with-table-sqlite"
+      ]
+    ++ lib.optionals enableSqlite [
+        "--with-table-sqlite"
 
-    ] ++ lib.optionals enableRedis [ "--with-table-redis" ]
+      ]
+    ++ lib.optionals enableRedis [ "--with-table-redis" ]
     ;
 
   env.NIX_CFLAGS_COMPILE =

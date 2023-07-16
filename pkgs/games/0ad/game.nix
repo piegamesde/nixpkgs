@@ -97,7 +97,8 @@ stdenv.mkDerivation rec {
       libsodium
       fmt
       freetype
-    ] ++ lib.optional withEditor wxGTK
+    ]
+    ++ lib.optional withEditor wxGTK
     ;
 
   env.NIX_CFLAGS_COMPILE = toString [

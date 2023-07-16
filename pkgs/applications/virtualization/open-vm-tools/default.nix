@@ -82,7 +82,8 @@ stdenv.mkDerivation rec {
       udev
       xercesc
       xmlsec
-    ] ++ lib.optionals withX [
+    ]
+    ++ lib.optionals withX [
       gdk-pixbuf-xlib
       gtk3
       gtkmm3
@@ -128,7 +129,8 @@ stdenv.mkDerivation rec {
       "--without-kernel-modules"
       "--with-udev-rules-dir=${placeholder "out"}/lib/udev/rules.d"
       "--with-fuse=fuse3"
-    ] ++ lib.optional (!withX) "--without-x"
+    ]
+    ++ lib.optional (!withX) "--without-x"
     ;
 
   enableParallelBuilding = true;

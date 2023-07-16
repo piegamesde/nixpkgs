@@ -93,7 +93,8 @@ let
           [
             cmake
             pkg-config
-          ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
+          ]
+          ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
           ++ lib.optional (!stdenv.hostPlatform.isDarwin) makeWrapper
           ;
 
@@ -102,31 +103,36 @@ let
             libiconv
             ncurses
             zlib
-          ] ++ lib.optionals stdenv.hostPlatform.isLinux ([
+          ]
+          ++ lib.optionals stdenv.hostPlatform.isLinux ([
             libkrb5
             systemd
-          ] ++ (if (lib.versionOlder version "10.6") then
-            [ libaio ]
-          else
-            [ liburing ])) ++ lib.optionals stdenv.hostPlatform.isDarwin [
-              CoreServices
-              cctools
-              perl
-              libedit
-            ] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ jemalloc ]
+          ]
+            ++ (if (lib.versionOlder version "10.6") then
+              [ libaio ]
+            else
+              [ liburing ]))
+          ++ lib.optionals stdenv.hostPlatform.isDarwin [
+            CoreServices
+            cctools
+            perl
+            libedit
+          ]
+          ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ jemalloc ]
           ++ (if (lib.versionOlder version "10.5") then
             [ pcre ]
           else
-            [ pcre2 ]) ++ (if (lib.versionOlder version "10.5") then
-              [
-                openssl_1_1
-                (curl.override { openssl = openssl_1_1; })
-              ]
-            else
-              [
-                openssl
-                curl
-              ])
+            [ pcre2 ])
+          ++ (if (lib.versionOlder version "10.5") then
+            [
+              openssl_1_1
+              (curl.override { openssl = openssl_1_1; })
+            ]
+          else
+            [
+              openssl
+              curl
+            ])
           ;
 
         prePatch = ''
@@ -140,8 +146,8 @@ let
           # Fixes a build issue as documented on
           # https://jira.mariadb.org/browse/MDEV-26769?focusedCommentId=206073&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-206073
           ++ lib.optional
-          (!stdenv.hostPlatform.isLinux && lib.versionAtLeast version "10.6")
-          ./patch/macos-MDEV-26769-regression-fix.patch
+            (!stdenv.hostPlatform.isLinux && lib.versionAtLeast version "10.6")
+            ./patch/macos-MDEV-26769-regression-fix.patch
           ;
 
         cmakeFlags =
@@ -175,17 +181,21 @@ let
             "-DWITH_SAFEMALLOC=OFF"
             "-DWITH_UNIT_TESTS=OFF"
             "-DEMBEDDED_LIBRARY=OFF"
-          ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+          ]
+          ++ lib.optionals stdenv.hostPlatform.isDarwin [
             # On Darwin without sandbox, CMake will find the system java and attempt to build with java support, but
             # then it will fail during the actual build. Let's just disable the flag explicitly until someone decides
             # to pass in java explicitly.
             "-DCONNECT_WITH_JDBC=OFF"
             "-DCURSES_LIBRARY=${ncurses.out}/lib/libncurses.dylib"
-          ] ++ lib.optionals
-          (stdenv.hostPlatform.isDarwin && lib.versionAtLeast version "10.6") [
-            # workaround for https://jira.mariadb.org/browse/MDEV-29925
-            "-Dhave_C__Wl___as_needed="
-          ] ++ lib.optionals isCross [
+          ]
+          ++ lib.optionals
+            (stdenv.hostPlatform.isDarwin && lib.versionAtLeast version "10.6")
+            [
+              # workaround for https://jira.mariadb.org/browse/MDEV-29925
+              "-Dhave_C__Wl___as_needed="
+            ]
+          ++ lib.optionals isCross [
             # revisit this if nixpkgs supports any architecture whose stack grows upwards
             "-DSTACK_DIRECTION=-1"
             "-DCMAKE_CROSSCOMPILING_EMULATOR=${
@@ -249,7 +259,8 @@ let
         patches = common.patches ++ [ ./patch/cmake-plugin-includedir.patch ];
 
         cmakeFlags =
-          common.cmakeFlags ++ [
+          common.cmakeFlags
+          ++ [
             "-DPLUGIN_AUTH_PAM=NO"
             "-DWITHOUT_SERVER=ON"
             "-DWITH_WSREP=OFF"
@@ -258,7 +269,8 @@ let
           ;
 
         postInstall =
-          common.postInstall + ''
+          common.postInstall
+          + ''
             rm "$out"/bin/{mariadb-test,mysqltest}
             libmysqlclient_path=$(readlink -f $out/lib/libmysqlclient${libExt})
             rm "$out"/lib/{libmariadb${libExt},libmysqlclient${libExt},libmysqlclient_r${libExt}}
@@ -272,7 +284,8 @@ let
         pname = "mariadb-server";
 
         nativeBuildInputs =
-          common.nativeBuildInputs ++ [
+          common.nativeBuildInputs
+          ++ [
             bison
             boost.dev
             flex
@@ -280,7 +293,8 @@ let
           ;
 
         buildInputs =
-          common.buildInputs ++ [
+          common.buildInputs
+          ++ [
             bzip2
             lz4
             lzo
@@ -291,7 +305,8 @@ let
             judy
             libevent
             libxml2
-          ] ++ lib.optional withNuma numactl
+          ]
+          ++ lib.optional withNuma numactl
           ++ lib.optionals stdenv.hostPlatform.isLinux [ linux-pam ]
           ++ lib.optional (!stdenv.hostPlatform.isDarwin) mytopEnv
           ++ lib.optionals withStorageMroonga [
@@ -311,7 +326,8 @@ let
         '';
 
         cmakeFlags =
-          common.cmakeFlags ++ [
+          common.cmakeFlags
+          ++ [
             "-DMYSQL_DATADIR=/var/lib/mysql"
             "-DENABLED_LOCAL_INFILE=OFF"
             "-DWITH_READLINE=ON"
@@ -328,14 +344,17 @@ let
             "-DWITHOUT_EXAMPLE=1"
             "-DWITHOUT_FEDERATED=1"
             "-DWITHOUT_TOKUDB=1"
-          ] ++ lib.optionals withNuma [ "-DWITH_NUMA=ON" ]
+          ]
+          ++ lib.optionals withNuma [ "-DWITH_NUMA=ON" ]
           ++ lib.optionals (!withStorageMroonga) [ "-DWITHOUT_MROONGA=1" ]
           ++ lib.optionals (!withStorageRocks) [ "-DWITHOUT_ROCKSDB=1" ]
           ++ lib.optionals (!stdenv.hostPlatform.isDarwin && withStorageRocks) [
-            "-DWITH_ROCKSDB_JEMALLOC=ON"
-          ] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
-            "-DWITH_JEMALLOC=yes"
-          ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+              "-DWITH_ROCKSDB_JEMALLOC=ON"
+            ]
+          ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
+              "-DWITH_JEMALLOC=yes"
+            ]
+          ++ lib.optionals stdenv.hostPlatform.isDarwin [
             "-DPLUGIN_AUTH_PAM=NO"
             "-DPLUGIN_AUTH_PAM_V1=NO"
             "-DWITHOUT_OQGRAPH=1"
@@ -348,13 +367,16 @@ let
         '';
 
         postInstall =
-          common.postInstall + ''
+          common.postInstall
+          + ''
             rm -r "$out"/share/aclocal
             chmod +x "$out"/bin/wsrep_sst_common
             rm -f "$out"/bin/{mariadb-client-test,mariadb-test,mysql_client_test,mysqltest}
-          '' + lib.optionalString withStorageMroonga ''
+          ''
+          + lib.optionalString withStorageMroonga ''
             mv "$out"/share/{groonga,groonga-normalizer-mysql} "$out"/share/doc/mysql
-          '' + lib.optionalString (!stdenv.hostPlatform.isDarwin
+          ''
+          + lib.optionalString (!stdenv.hostPlatform.isDarwin
             && lib.versionAtLeast common.version "10.4") ''
               mv "$out"/OFF/suite/plugins/pam/pam_mariadb_mtr.so "$out"/share/pam/lib/security
               mv "$out"/OFF/suite/plugins/pam/mariadb_mtr "$out"/share/pam/etc/security

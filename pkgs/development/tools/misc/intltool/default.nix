@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
     XMLParser
   ];
   propagatedBuildInputs =
-    [ gettext ] ++ (with perlPackages; [
+    [ gettext ]
+    ++ (with perlPackages; [
       perl
       XMLParser
     ])

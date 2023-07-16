@@ -68,14 +68,16 @@ stdenv.mkDerivation rec {
       libuv
       libwebsockets'
       openssl
-    ] ++ lib.optional withSystemd systemd
+    ]
+    ++ lib.optional withSystemd systemd
     ;
 
   cmakeFlags =
     [
       "-DWITH_THREADING=ON"
       "-DWITH_WEBSOCKETS=ON"
-    ] ++ lib.optional withSystemd "-DWITH_SYSTEMD=ON"
+    ]
+    ++ lib.optional withSystemd "-DWITH_SYSTEMD=ON"
     ;
 
   meta = with lib; {

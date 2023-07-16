@@ -70,7 +70,8 @@ stdenv.mkDerivation rec {
     [
       autoPatchelfHook
       python3Packages.wrapPython
-    ] ++ lib.optionals withQtGui [ qt5.wrapQtAppsHook ]
+    ]
+    ++ lib.optionals withQtGui [ qt5.wrapQtAppsHook ]
     ;
 
   buildInputs =
@@ -102,7 +103,8 @@ stdenv.mkDerivation rec {
 
 
       install -Dm444 usr/share/doc/kyodialog/copyright $out/share/doc/${pname}/copyright
-    '' + lib.optionalString withQtGui ''
+    ''
+    + lib.optionalString withQtGui ''
       install -D usr/bin/kyoPPDWrite_H $out/bin/kyoPPDWrite_H
       install -D usr/bin/kyodialog${kyodialog_version} $out/bin/kyodialog
 

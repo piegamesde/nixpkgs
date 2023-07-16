@@ -59,7 +59,8 @@ buildPythonPackage rec {
       "test_pca"
       # flaky
       "test_distributed_classifier_loss_and_miner"
-    ] ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [
+    ]
+    ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [
       # RuntimeError: DataLoader worker (pid(s) <...>) exited unexpectedly
       "test_global_embedding_space_tester"
       "test_with_same_parent_label_tester"

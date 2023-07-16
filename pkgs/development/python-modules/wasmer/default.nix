@@ -45,7 +45,8 @@ let
         (with rustPlatform; [
           cargoSetupHook
           maturinBuildHook
-        ]) ++ extraNativeBuildInputs
+        ])
+        ++ extraNativeBuildInputs
         ;
 
       postPatch = ''

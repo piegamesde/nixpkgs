@@ -130,7 +130,8 @@ stdenv.mkDerivation rec {
       # ''custom_toolchain="//build/toolchain/linux/unbundle:default"''
       ''host_toolchain="//build/toolchain/linux/unbundle:default"''
       ''v8_snapshot_toolchain="//build/toolchain/linux/unbundle:default"''
-    ] ++ lib.optional stdenv.cc.isClang ''clang_base_path="${stdenv.cc}"''
+    ]
+    ++ lib.optional stdenv.cc.isClang ''clang_base_path="${stdenv.cc}"''
     ;
 
   env.NIX_CFLAGS_COMPILE = "-O2";
@@ -142,7 +143,8 @@ stdenv.mkDerivation rec {
       ninja
       pkg-config
       python39
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       xcbuild
       darwin.DarwinTools
       python39.pkgs.setuptools

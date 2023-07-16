@@ -38,7 +38,7 @@ let
     ++ concatMap (i:
       attrNames
       (filterAttrs (_: config: config.type != "internal") i.interfaces))
-    (attrValues cfg.vswitches)
+      (attrValues cfg.vswitches)
     ;
 
   domains = cfg.search ++ (optional (cfg.domain != null) cfg.domain);
@@ -46,11 +46,12 @@ let
     override:
     let
       gateway =
-        optional
-        (cfg.defaultGateway != null && (cfg.defaultGateway.address or "") != "")
-        cfg.defaultGateway.address ++ optional (cfg.defaultGateway6 != null
+        optional (cfg.defaultGateway != null
+          && (cfg.defaultGateway.address or "") != "")
+          cfg.defaultGateway.address
+        ++ optional (cfg.defaultGateway6 != null
           && (cfg.defaultGateway6.address or "") != "")
-        cfg.defaultGateway6.address
+          cfg.defaultGateway6.address
         ;
       makeGateway =
         gateway: {
@@ -213,13 +214,14 @@ in
           }
           {
             assertion =
-              cfg.defaultGateway6 == null || cfg.defaultGateway6.interface
-              == null
+              cfg.defaultGateway6 == null
+              || cfg.defaultGateway6.interface == null
               ;
             message =
               "networking.defaultGateway6.interface is not supported by networkd.";
           }
-        ] ++ flip mapAttrsToList cfg.bridges (n:
+        ]
+        ++ flip mapAttrsToList cfg.bridges (n:
           {
             rstp,
             ...
@@ -227,15 +229,16 @@ in
             assertion = !rstp;
             message =
               "networking.bridges.${n}.rstp is not supported by networkd.";
-          }) ++ flip mapAttrsToList cfg.fooOverUDP (n:
-            {
-              local,
-              ...
-            }: {
-              assertion = local == null;
-              message =
-                "networking.fooOverUDP.${n}.local is not supported by networkd.";
-            })
+          })
+        ++ flip mapAttrsToList cfg.fooOverUDP (n:
+          {
+            local,
+            ...
+          }: {
+            assertion = local == null;
+            message =
+              "networking.fooOverUDP.${n}.local is not supported by networkd.";
+          })
         ;
 
       networking.dhcpcd.enable = mkDefault false;
@@ -504,7 +507,8 @@ in
                 [
                   "network-pre.target"
                   "ovs-vswitchd.service"
-                ] ++ deps
+                ]
+                ++ deps
                 ;
               wants =
                 deps; # if one or more interface fails, the switch should continue to run
@@ -527,7 +531,7 @@ in
                   concatStrings (mapAttrsToList (name: config:
                     " -- add-port ${n} ${name}"
                     + optionalString (config.vlan != null)
-                    " tag=${toString config.vlan}") v.interfaces)
+                      " tag=${toString config.vlan}") v.interfaces)
                 } \
                   ${
                     concatStrings (mapAttrsToList (name: config:

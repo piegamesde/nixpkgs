@@ -39,7 +39,8 @@ rustPlatform.buildRustPackage rec {
       openssl
       dbus
       libgpg-error
-    ] ++ lib.optionals stdenv.isDarwin [ Security ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Security ]
     ;
 
   meta = with lib; {

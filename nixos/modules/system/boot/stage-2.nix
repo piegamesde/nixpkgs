@@ -28,7 +28,8 @@ let
     path = lib.makeBinPath ([
       pkgs.coreutils
       pkgs.util-linux
-    ] ++ lib.optional useHostResolvConf pkgs.openresolv);
+    ]
+      ++ lib.optional useHostResolvConf pkgs.openresolv);
     postBootCommands = pkgs.writeText "local-cmds" ''
       ${config.boot.postBootCommands}
       ${config.powerManagement.powerUpCommands}

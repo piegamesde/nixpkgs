@@ -146,7 +146,8 @@ stdenv.mkDerivation rec {
       "--disable-nextaf_check"
       "--disable-carbon_check"
       "--disable-gtktest"
-    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    ]
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "vim_cv_toupper_broken=no"
       "--with-tlib=ncurses"
       "vim_cv_terminfo=yes"
@@ -156,21 +157,25 @@ stdenv.mkDerivation rec {
       "vim_cv_getcwd_broken=no"
       "vim_cv_stat_ignores_slash=yes"
       "vim_cv_memmove_handles_overlap=yes"
-    ] ++ lib.optional (guiSupport == "gtk2" || guiSupport == "gtk3")
-    "--enable-gui=${guiSupport}" ++ lib.optional stdenv.isDarwin
-    (if darwinSupport then
+    ]
+    ++ lib.optional (guiSupport == "gtk2" || guiSupport == "gtk3")
+      "--enable-gui=${guiSupport}"
+    ++ lib.optional stdenv.isDarwin (if darwinSupport then
       "--enable-darwin"
     else
-      "--disable-darwin") ++ lib.optionals luaSupport [
-        "--with-lua-prefix=${lua}"
-        "--enable-luainterp"
-      ] ++ lib.optionals lua.pkgs.isLuaJIT [ "--with-luajit" ]
+      "--disable-darwin")
+    ++ lib.optionals luaSupport [
+      "--with-lua-prefix=${lua}"
+      "--enable-luainterp"
+    ]
+    ++ lib.optionals lua.pkgs.isLuaJIT [ "--with-luajit" ]
     ++ lib.optionals pythonSupport [
       "--enable-python3interp=yes"
       "--with-python3-config-dir=${python3}/lib"
       # Disables Python 2
       "--disable-pythoninterp"
-    ] ++ lib.optional nlsSupport "--enable-nls"
+    ]
+    ++ lib.optional nlsSupport "--enable-nls"
     ++ lib.optional perlSupport "--enable-perlinterp"
     ++ lib.optional rubySupport "--enable-rubyinterp"
     ++ lib.optional tclSupport "--enable-tclinterp"
@@ -181,8 +186,10 @@ stdenv.mkDerivation rec {
     ;
 
   nativeBuildInputs =
-    [ pkg-config ] ++ lib.optional wrapPythonDrv makeWrapper
-    ++ lib.optional nlsSupport gettext ++ lib.optional perlSupport perl
+    [ pkg-config ]
+    ++ lib.optional wrapPythonDrv makeWrapper
+    ++ lib.optional nlsSupport gettext
+    ++ lib.optional perlSupport perl
     ++ lib.optional (guiSupport == "gtk3") wrapGAppsHook
     ;
 
@@ -202,7 +209,8 @@ stdenv.mkDerivation rec {
       libXaw
       libXau
       libXmu
-    ] ++ lib.optional (guiSupport == "gtk2") gtk2-x11
+    ]
+    ++ lib.optional (guiSupport == "gtk2") gtk2-x11
     ++ lib.optional (guiSupport == "gtk3") gtk3-x11
     ++ lib.optionals darwinSupport [
       CoreServices
@@ -210,15 +218,19 @@ stdenv.mkDerivation rec {
       Cocoa
       Foundation
       libobjc
-    ] ++ lib.optional luaSupport lua ++ lib.optional pythonSupport python3
-    ++ lib.optional tclSupport tcl ++ lib.optional rubySupport ruby
+    ]
+    ++ lib.optional luaSupport lua
+    ++ lib.optional pythonSupport python3
+    ++ lib.optional tclSupport tcl
+    ++ lib.optional rubySupport ruby
     ;
 
     # error: '__declspec' attributes are not enabled; use '-fdeclspec' or '-fms-extensions' to enable support for __declspec attributes
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-fdeclspec";
 
   preConfigure =
-    "" + lib.optionalString ftNixSupport ''
+    ""
+    + lib.optionalString ftNixSupport ''
       cp ${vimPlugins.vim-nix.src}/ftplugin/nix.vim runtime/ftplugin/nix.vim
       cp ${vimPlugins.vim-nix.src}/indent/nix.vim runtime/indent/nix.vim
       cp ${vimPlugins.vim-nix.src}/syntax/nix.vim runtime/syntax/nix.vim
@@ -232,7 +244,8 @@ stdenv.mkDerivation rec {
   postInstall =
     ''
       ln -s $out/bin/vim $out/bin/vi
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       ln -sfn '${nixosRuntimepath}' "$out"/share/vim/vimrc
     ''
     ;

@@ -36,8 +36,11 @@ stdenv.mkDerivation rec {
       libiconv
       zlib
       popt
-    ] ++ lib.optional enableACLs acl ++ lib.optional enableZstd zstd
-    ++ lib.optional enableLZ4 lz4 ++ lib.optional enableOpenSSL openssl
+    ]
+    ++ lib.optional enableACLs acl
+    ++ lib.optional enableZstd zstd
+    ++ lib.optional enableLZ4 lz4
+    ++ lib.optional enableOpenSSL openssl
     ++ lib.optional enableXXHash xxHash
     ;
 
@@ -48,11 +51,12 @@ stdenv.mkDerivation rec {
       # disable the included zlib explicitly as it otherwise still compiles and
       # links them even.
       "--with-included-zlib=no"
-    ] ++ lib.optionals
-    (stdenv.hostPlatform.isMusl && stdenv.hostPlatform.isx86_64) [
-      # fix `multiversioning needs 'ifunc' which is not supported on this target` error
-      "--disable-roll-simd"
     ]
+    ++ lib.optionals
+      (stdenv.hostPlatform.isMusl && stdenv.hostPlatform.isx86_64) [
+        # fix `multiversioning needs 'ifunc' which is not supported on this target` error
+        "--disable-roll-simd"
+      ]
     ;
 
   enableParallelBuilding = true;

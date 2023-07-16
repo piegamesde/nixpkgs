@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
       ncurses
       libmpdclient
       boost
-    ] ++ lib.optional pcreSupport pcre
+    ]
+    ++ lib.optional pcreSupport pcre
     ;
   nativeBuildInputs = [
     meson
@@ -46,7 +47,8 @@ stdenv.mkDerivation rec {
     [
       "-Dlirc=disabled"
       "-Ddocumentation=disabled"
-    ] ++ lib.optional (!pcreSupport) "-Dregex=disabled"
+    ]
+    ++ lib.optional (!pcreSupport) "-Dregex=disabled"
     ;
 
   meta = with lib; {

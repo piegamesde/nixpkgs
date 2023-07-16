@@ -82,16 +82,16 @@ rec {
     ++ lib.optionals (hasFeature "gr-audio") [ "share/gnuradio/examples/audio" ]
     ++ lib.optionals (hasFeature "gr-uhd") [ "share/gnuradio/examples/uhd" ]
     ++ lib.optionals (hasFeature "gr-qtgui") [
-      "share/gnuradio/examples/qt-gui"
-    ]
+        "share/gnuradio/examples/qt-gui"
+      ]
     ;
   postInstall =
     ""
-    # Gcc references
+      # Gcc references
     + lib.optionalString (hasFeature "gnuradio-runtime") ''
       ${removeReferencesTo}/bin/remove-references-to -t ${stdenv.cc} $(readlink -f $out/lib/libgnuradio-runtime${stdenv.hostPlatform.extensions.sharedLibrary})
     ''
-    # Clang references in InstalledDir
+      # Clang references in InstalledDir
     + lib.optionalString (hasFeature "gnuradio-runtime" && stdenv.isDarwin) ''
       ${removeReferencesTo}/bin/remove-references-to -t ${stdenv.cc.cc} $(readlink -f $out/lib/libgnuradio-runtime${stdenv.hostPlatform.extensions.sharedLibrary})
     ''

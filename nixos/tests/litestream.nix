@@ -22,7 +22,8 @@ import ./make-test-python.nix ({
           };
         };
         systemd.services.grafana.serviceConfig.ExecStartPost =
-          "+" + pkgs.writeShellScript "grant-grafana-permissions" ''
+          "+"
+          + pkgs.writeShellScript "grant-grafana-permissions" ''
             timeout=10
 
             while [ ! -f /var/lib/grafana/data/grafana.db ];

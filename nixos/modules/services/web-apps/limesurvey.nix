@@ -236,11 +236,11 @@ in
         db = {
           connectionString =
             "${cfg.database.type}:dbname=${cfg.database.name};host=${
-              if pgsqlLocal then
-                cfg.database.socket
-              else
-                cfg.database.host
-            };port=${toString cfg.database.port}"
+                if pgsqlLocal then
+                  cfg.database.socket
+                else
+                  cfg.database.host
+              };port=${toString cfg.database.port}"
             + optionalString mysqlLocal ";socket=${cfg.database.socket}"
             ;
           username = cfg.database.user;
@@ -259,7 +259,8 @@ in
         uploaddir = "${stateDir}/upload";
         encryptionnonce = cfg.encryptionNonce;
         encryptionsecretboxkey = cfg.encryptionKey;
-        force_ssl = mkIf (cfg.virtualHost.addSSL || cfg.virtualHost.forceSSL
+        force_ssl = mkIf (cfg.virtualHost.addSSL
+          || cfg.virtualHost.forceSSL
           || cfg.virtualHost.onlySSL) "on";
         config.defaultlang = "en";
       };

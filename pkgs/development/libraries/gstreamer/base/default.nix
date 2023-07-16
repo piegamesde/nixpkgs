@@ -80,7 +80,8 @@ stdenv.mkDerivation (finalAttrs: {
       glib
       gstreamer
       gobject-introspection
-    ] ++ lib.optionals enableDocumentation [ hotdoc ]
+    ]
+    ++ lib.optionals enableDocumentation [ hotdoc ]
     ++ lib.optionals enableWayland [ wayland ]
     ;
 
@@ -98,16 +99,20 @@ stdenv.mkDerivation (finalAttrs: {
       tremor
       libGL
       pango
-    ] ++ lib.optionals (!stdenv.isDarwin) [ libvisual ]
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [ libvisual ]
     ++ lib.optionals stdenv.isDarwin [ OpenGL ]
-    ++ lib.optionals enableAlsa [ alsa-lib ] ++ lib.optionals enableX11 [
+    ++ lib.optionals enableAlsa [ alsa-lib ]
+    ++ lib.optionals enableX11 [
       libXext
       libXi
       libXv
-    ] ++ lib.optionals enableWayland [
+    ]
+    ++ lib.optionals enableWayland [
       wayland
       wayland-protocols
-    ] ++ lib.optional enableCocoa Cocoa
+    ]
+    ++ lib.optional enableCocoa Cocoa
     ++ lib.optional enableCdparanoia cdparanoia
     ;
 
@@ -123,10 +128,12 @@ stdenv.mkDerivation (finalAttrs: {
           ++ lib.optional enableCocoa "cocoa")
       }"
       (lib.mesonEnable "doc" enableDocumentation)
-    ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-      "-Dtests=disabled"
-    ] ++ lib.optional (!enableX11) "-Dx11=disabled"
-    # TODO How to disable Wayland?
+    ]
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+        "-Dtests=disabled"
+      ]
+    ++ lib.optional (!enableX11) "-Dx11=disabled"
+      # TODO How to disable Wayland?
     ++ lib.optional (!enableGl) "-Dgl=disabled"
     ++ lib.optional (!enableAlsa) "-Dalsa=disabled"
     ++ lib.optional (!enableCdparanoia) "-Dcdparanoia=disabled"

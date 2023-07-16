@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
       glib
       libvirt
       json_c
-    ] ++ (lib.optional xenSupport xen)
+    ]
+    ++ (lib.optional xenSupport xen)
     ;
   nativeBuildInputs = [
     autoreconfHook

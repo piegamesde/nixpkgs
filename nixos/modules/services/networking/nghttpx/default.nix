@@ -50,7 +50,8 @@ let
       sections = builtins.filter (e: "" != e) ([
         host
         patterns
-      ] ++ params);
+      ]
+        ++ params);
       formattedSections = lib.concatStringsSep ";" sections;
     in
     "backend=${formattedSections}"

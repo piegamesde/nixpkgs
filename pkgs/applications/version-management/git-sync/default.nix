@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
       git
       gnugrep
       gnused
-    ] ++ lib.optionals stdenv.isLinux [ inotify-tools ]);
+    ]
+      ++ lib.optionals stdenv.isLinux [ inotify-tools ]);
 
   postFixup = ''
     wrap_path="${wrapperPath}":$out/bin

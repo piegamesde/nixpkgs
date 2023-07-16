@@ -46,7 +46,8 @@ buildPythonPackage rec {
     [
       idna
       sniffio
-    ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
     ;
 
     # trustme uses pyopenssl
@@ -62,7 +63,8 @@ buildPythonPackage rec {
       trio
       trustme
       uvloop
-    ] ++ lib.optionals (pythonOlder "3.8") [ mock ]
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [ mock ]
     ;
 
   pytestFlagsArray = [
@@ -87,7 +89,8 @@ buildPythonPackage rec {
     [
       # lots of DNS lookups
       "tests/test_sockets.py"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # darwin sandboxing limitations
       "tests/streams/test_tls.py"
     ]

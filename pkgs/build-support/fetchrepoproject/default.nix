@@ -42,7 +42,8 @@ let
       "--depth=1"
       (optionalString createMirror "--mirror")
       (optionalString useArchive "--archive")
-    ] ++ extraRepoInitFlags
+    ]
+    ++ extraRepoInitFlags
     ;
 
   local_manifests = copyPathsToStore localManifests;
@@ -61,7 +62,8 @@ stdenvNoCC.mkDerivation {
   enableParallelBuilding = true;
 
   impureEnvVars =
-    fetchers.proxyImpureEnvVars ++ [
+    fetchers.proxyImpureEnvVars
+    ++ [
       "GIT_PROXY_COMMAND"
       "SOCKS_SERVER"
     ]

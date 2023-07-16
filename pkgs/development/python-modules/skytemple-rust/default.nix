@@ -32,7 +32,8 @@ buildPythonPackage rec {
     Foundation
   ];
   nativeBuildInputs =
-    [ setuptools-rust ] ++ (with rustPlatform; [
+    [ setuptools-rust ]
+    ++ (with rustPlatform; [
       cargoSetupHook
       rust.cargo
       rust.rustc

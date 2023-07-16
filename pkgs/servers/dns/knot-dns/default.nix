@@ -76,13 +76,15 @@ stdenv.mkDerivation rec {
       libmaxminddb # optional for geoip module (it's tiny)
       # without sphinx &al. for developer documentation
       # TODO: add dnstap support?
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libcap_ng
       systemd
       xdp-tools
       libbpf
       libmnl # XDP support (it's Linux kernel API)
-    ] ++ lib.optional stdenv.isDarwin zlib
+    ]
+    ++ lib.optional stdenv.isDarwin zlib
     ; # perhaps due to gnutls
 
   enableParallelBuilding = true;

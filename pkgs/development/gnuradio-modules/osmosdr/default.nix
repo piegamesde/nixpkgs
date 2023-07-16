@@ -70,15 +70,18 @@ mkDerivation {
       libbladeRF
       rtl-sdr
       soapysdr-with-plugins
-    ] ++ lib.optionals (gnuradio.hasFeature "gr-blocks") [ libsndfile ]
+    ]
+    ++ lib.optionals (gnuradio.hasFeature "gr-blocks") [ libsndfile ]
     ++ lib.optionals (gnuradio.hasFeature "gr-uhd") [ uhd ]
     ++ lib.optionals (gnuradio.hasFeature "gr-ctrlport") [
       thrift
       python.pkgs.thrift
-    ] ++ lib.optionals (gnuradio.hasFeature "python-support") [
+    ]
+    ++ lib.optionals (gnuradio.hasFeature "python-support") [
       python.pkgs.numpy
       python.pkgs.pybind11
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       darwin.apple_sdk.frameworks.IOKit
       darwin.apple_sdk.frameworks.Security
     ]
@@ -94,7 +97,8 @@ mkDerivation {
       cmake
       pkg-config
       swig
-    ] ++ lib.optionals (gnuradio.hasFeature "python-support") [
+    ]
+    ++ lib.optionals (gnuradio.hasFeature "python-support") [
       (if (gnuradio.versionAttr.major == "3.7") then
         python.pkgs.cheetah
       else

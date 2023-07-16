@@ -50,7 +50,8 @@ buildPythonPackage rec {
     [
       pylev
       pastel
-    ] ++ lib.optionals (pythonAtLeast "3.6") [ crashtest ]
+    ]
+    ++ lib.optionals (pythonAtLeast "3.6") [ crashtest ]
     ++ lib.optionals isPy27 [
       typing
       enum34

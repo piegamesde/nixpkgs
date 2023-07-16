@@ -57,7 +57,8 @@ rec {
           #
           # We have a mix of otf and ttf fonts
           local out_font=$out/share/fonts/noto
-        '' + (if _variants == [ ] then
+        ''
+        + (if _variants == [ ] then
           ''
             for folder in $(ls -d fonts/*/); do
               if [[ -d "$folder"unhinted/variable-ttf ]]; then

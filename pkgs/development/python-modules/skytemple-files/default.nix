@@ -58,7 +58,8 @@ buildPythonPackage rec {
       tilequant
       pyyaml
       pmdsky-debug-py
-    ] ++ lib.optionals (pythonOlder "3.9") [ typing-extensions ]
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [ typing-extensions ]
     ;
 
   passthru.optional-dependencies = {
@@ -68,7 +69,8 @@ buildPythonPackage rec {
         gql
         graphql-core
         lru-dict
-      ] ++ gql.optional-dependencies.aiohttp
+      ]
+      ++ gql.optional-dependencies.aiohttp
       ;
   };
 
@@ -77,7 +79,8 @@ buildPythonPackage rec {
       pytestCheckHook
       parameterized
       xmldiff
-    ] ++ passthru.optional-dependencies.spritecollab
+    ]
+    ++ passthru.optional-dependencies.spritecollab
     ;
   pytestFlagsArray = "test/";
   disabledTestPaths = [

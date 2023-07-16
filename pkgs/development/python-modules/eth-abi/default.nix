@@ -41,7 +41,8 @@ buildPythonPackage rec {
     [
       hypothesis
       pytestCheckHook
-    ] ++ eth-hash.optional-dependencies.pycryptodome
+    ]
+    ++ eth-hash.optional-dependencies.pycryptodome
     ;
 
   disabledTests = [

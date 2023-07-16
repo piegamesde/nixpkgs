@@ -34,7 +34,8 @@ buildGoModule rec {
 
       substituteInPlace test/readme_test.go \
         --replace "TestReadme" "SkipReadme"
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # loopback interface is lo0 on macos
       sed -E -i 's/\blo\b/lo0/' plugin/bind/setup_test.go
     ''

@@ -43,8 +43,11 @@ stdenv.mkDerivation rec {
       nspr
       libqb
       systemd.dev
-    ] ++ optional enableDbus dbus ++ optional enableInfiniBandRdma rdma-core
-    ++ optional enableMonitoring libstatgrab ++ optional enableSnmp net-snmp
+    ]
+    ++ optional enableDbus dbus
+    ++ optional enableInfiniBandRdma rdma-core
+    ++ optional enableMonitoring libstatgrab
+    ++ optional enableSnmp net-snmp
     ;
 
   configureFlags =
@@ -56,7 +59,8 @@ stdenv.mkDerivation rec {
       "--enable-qdevices"
       # allows Type=notify in the systemd service
       "--enable-systemd"
-    ] ++ optional enableDbus "--enable-dbus"
+    ]
+    ++ optional enableDbus "--enable-dbus"
     ++ optional enableInfiniBandRdma "--enable-rdma"
     ++ optional enableMonitoring "--enable-monitoring"
     ++ optional enableSnmp "--enable-snmp"

@@ -37,7 +37,8 @@ buildPythonPackage rec {
       pyqtwebengine
       proxy_tools
       six
-    ] ++ lib.optionals (pythonOlder "3.7") [ importlib-resources ]
+    ]
+    ++ lib.optionals (pythonOlder "3.7") [ importlib-resources ]
     ;
 
   nativeCheckInputs = [

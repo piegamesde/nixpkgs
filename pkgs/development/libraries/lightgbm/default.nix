@@ -55,15 +55,18 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ cmake ] ++ lib.optionals stdenv.isDarwin [ llvmPackages.openmp ]
+    [ cmake ]
+    ++ lib.optionals stdenv.isDarwin [ llvmPackages.openmp ]
     ++ lib.optionals openclSupport [
       opencl-headers
       ocl-icd
       boost
-    ] ++ lib.optionals mpiSupport [ openmpi ]
+    ]
+    ++ lib.optionals mpiSupport [ openmpi ]
     ++ lib.optionals hdfsSupport [ hadoop ]
     ++ lib.optionals (hdfsSupport || javaWrapper) [ openjdk ]
-    ++ lib.optionals javaWrapper [ swig ] ++ lib.optionals rLibrary [ R ]
+    ++ lib.optionals javaWrapper [ swig ]
+    ++ lib.optionals rLibrary [ R ]
     ;
 
   buildInputs = [ gtest ] ++ lib.optional cudaSupport cudaPackages.cudatoolkit;
@@ -98,13 +101,15 @@ stdenv.mkDerivation rec {
     ++ lib.optionals cudaSupport [
       "-DUSE_CUDA=1"
       "-DCMAKE_CXX_COMPILER=${cudaPackages.cudatoolkit.cc}/bin/cc"
-    ] ++ lib.optionals openclSupport [ "-DUSE_GPU=ON" ]
+    ]
+    ++ lib.optionals openclSupport [ "-DUSE_GPU=ON" ]
     ++ lib.optionals mpiSupport [ "-DUSE_MPI=ON" ]
     ++ lib.optionals hdfsSupport [
       "-DUSE_HDFS=ON"
       "-DHDFS_LIB=${hadoop}/lib/hadoop-3.3.1/lib/native/libhdfs.so"
       "-DHDFS_INCLUDE_DIR=${hadoop}/lib/hadoop-3.3.1/include"
-    ] ++ lib.optionals javaWrapper [ "-DUSE_SWIG=ON" ]
+    ]
+    ++ lib.optionals javaWrapper [ "-DUSE_SWIG=ON" ]
     ++ lib.optionals rLibrary [ "-D__BUILD_FOR_R=ON" ]
     ;
 
@@ -121,35 +126,43 @@ stdenv.mkDerivation rec {
   installPhase =
     ''
       runHook preInstall
-    '' + lib.optionalString (!rLibrary) ''
+    ''
+    + lib.optionalString (!rLibrary) ''
       mkdir -p $out
       mkdir -p $out/lib
       mkdir -p $out/bin
       cp -r ../include $out
       install -Dm755 ../lib_lightgbm.so $out/lib/lib_lightgbm.so
       install -Dm755 ../lightgbm $out/bin/lightgbm
-    '' + lib.optionalString javaWrapper ''
+    ''
+    + lib.optionalString javaWrapper ''
       cp -r java $out
       cp -r com $out
       cp -r lightgbmlib.jar $out
-    '' + "" + lib.optionalString javaWrapper ''
+    ''
+    + ""
+    + lib.optionalString javaWrapper ''
       cp -r java $out
       cp -r com $out
       cp -r lightgbmlib.jar $out
-    '' + lib.optionalString rLibrary ''
+    ''
+    + lib.optionalString rLibrary ''
       mkdir $out
       mkdir $out/tmp
       mkdir $out/library
       mkdir $out/library/lightgbm
-    '' + lib.optionalString (rLibrary && (!openclSupport)) ''
+    ''
+    + lib.optionalString (rLibrary && (!openclSupport)) ''
       Rscript build_r.R
       rm -rf $out/tmp
-    '' + lib.optionalString (rLibrary && openclSupport) ''
+    ''
+    + lib.optionalString (rLibrary && openclSupport) ''
       Rscript build_r.R --use-gpu \
         --opencl-library=${ocl-icd}/lib/libOpenCL.so \
         --boost-librarydir=${boost}
       rm -rf $out/tmp
-    '' + ''
+    ''
+    + ''
       runHook postInstall
     ''
     ;

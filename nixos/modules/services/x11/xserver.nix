@@ -33,7 +33,8 @@ let
   };
 
   fontsForXServer =
-    config.fonts.fonts ++
+    config.fonts.fonts
+    ++
     # We don't want these fonts in fonts.conf, because then modern,
     # fontconfig-based applications will get horrible bitmapped
     # Helvetica fonts.  It's better to get a substitution (like Nimbus
@@ -127,7 +128,8 @@ let
               ${current.config.monitorConfig}
             EndSection
           '';
-        } ++ previous
+        }
+        ++ previous
         ;
       monitors = reverseList (foldl mkMonitor [ ] xrandrHeads);
     in
@@ -715,8 +717,11 @@ in
       let
         dmConf = cfg.displayManager;
         default =
-          !(dmConf.gdm.enable || dmConf.sddm.enable || dmConf.xpra.enable
-            || dmConf.sx.enable || dmConf.startx.enable
+          !(dmConf.gdm.enable
+            || dmConf.sddm.enable
+            || dmConf.xpra.enable
+            || dmConf.sx.enable
+            || dmConf.startx.enable
             || config.services.greetd.enable)
           ;
       in
@@ -728,7 +733,9 @@ in
       let
         dmConf = cfg.displayManager;
         noDmUsed =
-          !(dmConf.gdm.enable || dmConf.sddm.enable || dmConf.xpra.enable
+          !(dmConf.gdm.enable
+            || dmConf.sddm.enable
+            || dmConf.xpra.enable
             || dmConf.lightdm.enable)
           ;
       in
@@ -882,21 +889,23 @@ in
         "-config ${configFile}"
         "-xkbdir"
         "${cfg.xkbDir}"
-      ] ++ optional (cfg.display != null) ":${toString cfg.display}"
+      ]
+      ++ optional (cfg.display != null) ":${toString cfg.display}"
       ++ optional (cfg.tty != null) "vt${toString cfg.tty}"
       ++ optional (cfg.dpi != null) "-dpi ${toString cfg.dpi}"
       ++ optional (cfg.logFile != null) "-logfile ${toString cfg.logFile}"
       ++ optional (cfg.verbose != null) "-verbose ${toString cfg.verbose}"
       ++ optional (!cfg.enableTCP) "-nolisten tcp"
       ++ optional (cfg.autoRepeatDelay != null)
-      "-ardelay ${toString cfg.autoRepeatDelay}"
+        "-ardelay ${toString cfg.autoRepeatDelay}"
       ++ optional (cfg.autoRepeatInterval != null)
-      "-arinterval ${toString cfg.autoRepeatInterval}"
+        "-arinterval ${toString cfg.autoRepeatInterval}"
       ++ optional cfg.terminateOnReset "-terminate"
       ;
 
     services.xserver.modules =
-      concatLists (catAttrs "modules" cfg.drivers) ++ [
+      concatLists (catAttrs "modules" cfg.drivers)
+      ++ [
         xorg.xorgserver.out
         xorg.xf86inputevdev.out
       ]
@@ -987,37 +996,38 @@ in
             }
 
             ${
-              optionalString (driver.name != "virtualbox" && (cfg.resolutions
-                != [ ] || cfg.extraDisplaySettings != "" || cfg.virtualScreen
-                != null)) (let
-                  f =
-                    depth: ''
-                      SubSection "Display"
-                        Depth ${toString depth}
-                        ${
-                          optionalString (cfg.resolutions != [ ]) "Modes ${
-                            concatMapStrings
-                            (res: ''"${toString res.x}x${toString res.y}"'')
-                            cfg.resolutions
-                          }"
-                        }
-                      ${indent cfg.extraDisplaySettings}
-                        ${
-                          optionalString (cfg.virtualScreen != null)
-                          "Virtual ${toString cfg.virtualScreen.x} ${
-                            toString cfg.virtualScreen.y
-                          }"
-                        }
-                      EndSubSection
-                    ''
-                    ;
-                in
-                concatMapStrings f [
-                  8
-                  16
-                  24
-                ]
-                )
+              optionalString (driver.name != "virtualbox"
+                && (cfg.resolutions != [ ]
+                  || cfg.extraDisplaySettings != ""
+                  || cfg.virtualScreen != null)) (let
+                    f =
+                      depth: ''
+                        SubSection "Display"
+                          Depth ${toString depth}
+                          ${
+                            optionalString (cfg.resolutions != [ ]) "Modes ${
+                              concatMapStrings
+                              (res: ''"${toString res.x}x${toString res.y}"'')
+                              cfg.resolutions
+                            }"
+                          }
+                        ${indent cfg.extraDisplaySettings}
+                          ${
+                            optionalString (cfg.virtualScreen != null)
+                            "Virtual ${toString cfg.virtualScreen.x} ${
+                              toString cfg.virtualScreen.y
+                            }"
+                          }
+                        EndSubSection
+                      ''
+                      ;
+                  in
+                  concatMapStrings f [
+                    8
+                    16
+                    24
+                  ]
+                  )
             }
 
           EndSection

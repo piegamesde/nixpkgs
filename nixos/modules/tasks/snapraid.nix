@@ -139,9 +139,12 @@ in
             concatStringsSep "\n" (map prependData
               ((mapAttrsToList (name: value: name + " " + value)) dataDisks)
               ++ zipListsWith (a: b: a + b)
-              ([ "parity " ] ++ map (i: toString i + "-parity ") (range 2 6))
-              parityFiles ++ map prependContent contentFiles
-              ++ map prependExclude exclude) + "\n" + extraConfig
+                ([ "parity " ] ++ map (i: toString i + "-parity ") (range 2 6))
+                parityFiles
+              ++ map prependContent contentFiles
+              ++ map prependExclude exclude)
+            + "\n"
+            + extraConfig
             ;
         };
       };

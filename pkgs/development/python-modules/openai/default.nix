@@ -41,7 +41,8 @@ buildPythonPackage rec {
       aiohttp
       requests
       tqdm
-    ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
     ++ lib.optionals withOptionalDependencies (builtins.attrValues {
       inherit (passthru.optional-dependencies) embeddings wandb;
     })
@@ -60,7 +61,8 @@ buildPythonPackage rec {
         plotly
         scikit-learn
         tenacity
-      ] ++ passthru.optional-dependencies.datalib
+      ]
+      ++ passthru.optional-dependencies.datalib
       ;
     wandb = [ wandb ] ++ passthru.optional-dependencies.datalib;
   };

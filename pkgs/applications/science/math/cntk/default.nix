@@ -90,7 +90,9 @@ stdenv.mkDerivation rec {
       boost
       protobuf
       mpi
-    ] ++ lib.optional cudaSupport cudatoolkit ++ lib.optional cudnnSupport cudnn
+    ]
+    ++ lib.optional cudaSupport cudatoolkit
+    ++ lib.optional cudnnSupport cudnn
     ;
 
   configureFlags =
@@ -109,12 +111,14 @@ stdenv.mkDerivation rec {
       }"
       # FIXME
       "--asgd=no"
-    ] ++ lib.optionals cudaSupport [
+    ]
+    ++ lib.optionals cudaSupport [
       "--with-cuda=${cudatoolkit}"
       "--with-gdk-include=${cudatoolkit}/include"
       "--with-gdk-nvml-lib=${nvidia_x11}/lib"
       "--with-cub=${cub}"
-    ] ++ lib.optional onebitSGDSupport "--1bitsgd=yes"
+    ]
+    ++ lib.optional onebitSGDSupport "--1bitsgd=yes"
     ;
 
   configurePhase = ''

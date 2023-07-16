@@ -19,8 +19,8 @@
   libXext,
   libICE,
   libXrandr,
-  pulseaudioSupport ? config.pulseaudio or stdenv.isLinux
-    && !stdenv.hostPlatform.isAndroid,
+  pulseaudioSupport ?
+    config.pulseaudio or stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
   libpulseaudio,
   OpenGL,
   GLUT,
@@ -36,17 +36,21 @@
 
 let
   extraPropagatedBuildInputs =
-    [ ] ++ lib.optionals x11Support [
+    [ ]
+    ++ lib.optionals x11Support [
       libXext
       libICE
       libXrandr
-    ] ++ lib.optionals (openglSupport && stdenv.isLinux) [
+    ]
+    ++ lib.optionals (openglSupport && stdenv.isLinux) [
       libGL
       libGLU
-    ] ++ lib.optionals (openglSupport && stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (openglSupport && stdenv.isDarwin) [
       OpenGL
       GLUT
-    ] ++ lib.optional alsaSupport alsa-lib
+    ]
+    ++ lib.optional alsaSupport alsa-lib
     ++ lib.optional pulseaudioSupport libpulseaudio
     ++ lib.optional stdenv.isDarwin Cocoa
     ;
@@ -76,7 +80,8 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ libiconv ] ++ extraPropagatedBuildInputs;
 
   buildInputs =
-    [ ] ++ lib.optional (!stdenv.hostPlatform.isMinGW && alsaSupport) audiofile
+    [ ]
+    ++ lib.optional (!stdenv.hostPlatform.isMinGW && alsaSupport) audiofile
     ++ lib.optionals stdenv.isDarwin [
       AudioUnit
       CoreAudio
@@ -97,7 +102,8 @@ stdenv.mkDerivation rec {
       #   SDL_X11_SYM(int,_XData32,(Display *dpy,register long *data,unsigned len),(dpy,data,len),return)
       #
       # Please try revert the change that introduced this comment when updating SDL.
-    ] ++ lib.optional stdenv.isDarwin "--disable-x11-shared"
+    ]
+    ++ lib.optional stdenv.isDarwin "--disable-x11-shared"
     ++ lib.optional (!x11Support) "--without-x"
     ++ lib.optional alsaSupport "--with-alsa-prefix=${alsa-lib.out}/lib"
     ;

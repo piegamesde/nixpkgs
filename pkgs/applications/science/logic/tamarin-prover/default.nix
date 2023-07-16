@@ -66,7 +66,8 @@ let
         (with haskellPackages; [
           attoparsec
           HUnit
-        ]) ++ [ tamarin-prover-utils ]
+        ])
+        ++ [ tamarin-prover-utils ]
         ;
     });
 
@@ -80,7 +81,8 @@ let
           aeson-pretty
           parallel
           uniplate
-        ]) ++ [
+        ])
+        ++ [
           tamarin-prover-utils
           tamarin-prover-term
         ]
@@ -125,9 +127,11 @@ mkDerivation (common "tamarin-prover" src // {
   postInstall =
     ''
       wrapProgram $out/bin/tamarin-prover \
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       --set LOCALE_ARCHIVE "${glibcLocales}/lib/locale/locale-archive" \
-    '' + ''
+    ''
+    + ''
         --prefix PATH : ${
           lib.makeBinPath [
             which
@@ -165,7 +169,8 @@ mkDerivation (common "tamarin-prover" src // {
       warp
       yesod-core
       yesod-static
-    ]) ++ [
+    ])
+    ++ [
       tamarin-prover-utils
       tamarin-prover-sapic
       tamarin-prover-term

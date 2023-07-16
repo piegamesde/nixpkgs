@@ -82,7 +82,8 @@ stdenv.mkDerivation (finalAttrs: {
         "3" = libindicator-gtk3;
       }
       .${gtkVersion} or throwBadGtkVersion
-    ] ++ lib.optionals monoSupport [
+    ]
+    ++ lib.optionals monoSupport [
       mono
       {
         "2" = gtk-sharp-2_0;

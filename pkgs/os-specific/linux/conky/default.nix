@@ -68,8 +68,13 @@
   libxml2 ? null
 }:
 
-assert docsSupport -> docbook2x != null && libxslt != null && man != null
-  && less != null && docbook_xsl != null && docbook_xml_dtd_44 != null;
+assert docsSupport
+  -> docbook2x != null
+    && libxslt != null
+    && man != null
+    && less != null
+    && docbook_xsl != null
+    && docbook_xml_dtd_44 != null;
 
 assert ncursesSupport -> ncurses != null;
 
@@ -107,7 +112,8 @@ stdenv.mkDerivation rec {
     ''
       sed -i -e '/include.*CheckIncludeFile)/i include(CheckIncludeFiles)' \
         cmake/ConkyPlatformChecks.cmake
-    '' + optionalString docsSupport ''
+    ''
+    + optionalString docsSupport ''
       # Drop examples, since they contain non-ASCII characters that break docbook2x :(
       sed -i 's/ Example: .*$//' doc/config_settings.xml
 
@@ -127,35 +133,47 @@ stdenv.mkDerivation rec {
     [
       glib
       libXinerama
-    ] ++ optionals docsSupport [
+    ]
+    ++ optionals docsSupport [
       docbook2x
       docbook_xsl
       docbook_xml_dtd_44
       libxslt
       man
       less
-    ] ++ optional ncursesSupport ncurses ++ optionals x11Support [
+    ]
+    ++ optional ncursesSupport ncurses
+    ++ optionals x11Support [
       freetype
       xorg.libICE
       xorg.libX11
       xorg.libXext
       xorg.libXft
       xorg.libSM
-    ] ++ optional xdamageSupport libXdamage ++ optional imlib2Support imlib2
-    ++ optional luaSupport lua ++ optionals luaImlib2Support [
+    ]
+    ++ optional xdamageSupport libXdamage
+    ++ optional imlib2Support imlib2
+    ++ optional luaSupport lua
+    ++ optionals luaImlib2Support [
       toluapp
       imlib2
-    ] ++ optionals luaCairoSupport [
+    ]
+    ++ optionals luaCairoSupport [
       toluapp
       cairo
-    ] ++ optional wirelessSupport wirelesstools ++ optional curlSupport curl
-    ++ optional rssSupport libxml2 ++ optional weatherXoapSupport libxml2
-    ++ optional nvidiaSupport libXNVCtrl ++ optional pulseSupport libpulseaudio
+    ]
+    ++ optional wirelessSupport wirelesstools
+    ++ optional curlSupport curl
+    ++ optional rssSupport libxml2
+    ++ optional weatherXoapSupport libxml2
+    ++ optional nvidiaSupport libXNVCtrl
+    ++ optional pulseSupport libpulseaudio
     ++ optional journalSupport systemd
     ;
 
   cmakeFlags =
-    [ ] ++ optional docsSupport "-DMAINTAINER_MODE=ON"
+    [ ]
+    ++ optional docsSupport "-DMAINTAINER_MODE=ON"
     ++ optional curlSupport "-DBUILD_CURL=ON"
     ++ optional (!ibmSupport) "-DBUILD_IBM=OFF"
     ++ optional imlib2Support "-DBUILD_IMLIB2=ON"

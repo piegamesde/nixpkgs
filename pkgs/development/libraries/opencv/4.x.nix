@@ -128,7 +128,8 @@ let
         repo = "opencv_3rdparty";
         rev = "a56b6ac6f030c312b2dce17430eef13aed9af274";
         sha256 = "1msbkc3zixx61rcg6a04i1bcfhw1phgsrh93glq1n80hgsk3nbjq";
-      } + "/ippicv"
+      }
+      + "/ippicv"
       ;
     files =
       let
@@ -230,7 +231,8 @@ let
     with lib;
     ''
       mkdir -p "${extra.dst}"
-    '' + concatStrings (flip mapAttrsToList extra.files (name: md5: ''
+    ''
+    + concatStrings (flip mapAttrsToList extra.files (name: md5: ''
       ln -s "${extra.src}/${name}" "${extra.dst}/${md5}-${name}"
     ''))
     ;
@@ -264,13 +266,16 @@ let
     [
       cuda_cccl # <thrust/*>
       libnpp # npp.h
-    ] ++ lib.optionals enableCublas [
-      libcublas # cublas_v2.h
-    ] ++ lib.optionals enableCudnn [
-      cudnn # cudnn.h
-    ] ++ lib.optionals enableCufft [
-      libcufft # cufft.h
-    ];
+    ]
+    ++ lib.optionals enableCublas [
+        libcublas # cublas_v2.h
+      ]
+    ++ lib.optionals enableCudnn [
+        cudnn # cudnn.h
+      ]
+    ++ lib.optionals enableCufft [
+        libcufft # cufft.h
+      ];
 
   cuda-native-redist = symlinkJoin {
     name = "cuda-native-redist-${cudaVersion}";
@@ -278,7 +283,8 @@ let
       [
         cuda_cudart # cuda_runtime.h
         cuda_nvcc
-      ] ++ cuda-common-redist;
+      ]
+      ++ cuda-common-redist;
   };
 
   cuda-redist = symlinkJoin {
@@ -337,33 +343,45 @@ stdenv.mkDerivation {
       boost
       gflags
       protobuf
-    ] ++ lib.optional enablePython pythonPackages.python
+    ]
+    ++ lib.optional enablePython pythonPackages.python
     ++ lib.optional (stdenv.buildPlatform == stdenv.hostPlatform) hdf5
-    ++ lib.optional enableGtk2 gtk2 ++ lib.optional enableGtk3 gtk3
-    ++ lib.optional enableVtk vtk ++ lib.optional enableJPEG libjpeg
-    ++ lib.optional enablePNG libpng ++ lib.optional enableTIFF libtiff
-    ++ lib.optional enableWebP libwebp ++ lib.optionals enableEXR [
+    ++ lib.optional enableGtk2 gtk2
+    ++ lib.optional enableGtk3 gtk3
+    ++ lib.optional enableVtk vtk
+    ++ lib.optional enableJPEG libjpeg
+    ++ lib.optional enablePNG libpng
+    ++ lib.optional enableTIFF libtiff
+    ++ lib.optional enableWebP libwebp
+    ++ lib.optionals enableEXR [
       openexr
       ilmbase
-    ] ++ lib.optional enableJPEG2000 openjpeg
+    ]
+    ++ lib.optional enableJPEG2000 openjpeg
     ++ lib.optional enableFfmpeg ffmpeg
     ++ lib.optionals (enableFfmpeg && stdenv.isDarwin) [
       VideoDecodeAcceleration
       bzip2
-    ] ++ lib.optionals enableGStreamer (with gst_all_1; [
+    ]
+    ++ lib.optionals enableGStreamer (with gst_all_1; [
       gstreamer
       gst-plugins-base
       gst-plugins-good
-    ]) ++ lib.optional enableOvis ogre ++ lib.optional enableGPhoto2 libgphoto2
-    ++ lib.optional enableDC1394 libdc1394 ++ lib.optional enableEigen eigen
+    ])
+    ++ lib.optional enableOvis ogre
+    ++ lib.optional enableGPhoto2 libgphoto2
+    ++ lib.optional enableDC1394 libdc1394
+    ++ lib.optional enableEigen eigen
     ++ lib.optional enableBlas blas.provider
-    # There is seemingly no compile-time flag for Tesseract.  It's
-    # simply enabled automatically if contrib is built, and it detects
-    # tesseract & leptonica.
+      # There is seemingly no compile-time flag for Tesseract.  It's
+      # simply enabled automatically if contrib is built, and it detects
+      # tesseract & leptonica.
     ++ lib.optionals enableTesseract [
       tesseract
       leptonica
-    ] ++ lib.optional enableTbb tbb ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optional enableTbb tbb
+    ++ lib.optionals stdenv.isDarwin [
       bzip2
       AVFoundation
       Cocoa
@@ -371,10 +389,12 @@ stdenv.mkDerivation {
       CoreMedia
       MediaToolbox
       Accelerate
-    ] ++ lib.optionals enableDocs [
+    ]
+    ++ lib.optionals enableDocs [
       doxygen
       graphviz-nox
-    ] ++ lib.optionals enableCuda [ cuda-redist ]
+    ]
+    ++ lib.optionals enableCuda [ cuda-redist ]
     ;
 
   propagatedBuildInputs =
@@ -387,11 +407,13 @@ stdenv.mkDerivation {
       cmake
       pkg-config
       unzip
-    ] ++ lib.optionals enablePython [
+    ]
+    ++ lib.optionals enablePython [
       pythonPackages.pip
       pythonPackages.wheel
       pythonPackages.setuptools
-    ] ++ lib.optionals enableCuda [ cuda-native-redist ]
+    ]
+    ++ lib.optionals enableCuda [ cuda-native-redist ]
     ;
 
   env.NIX_CFLAGS_COMPILE =
@@ -435,12 +457,15 @@ stdenv.mkDerivation {
 
       # LTO options
       (opencvFlag "ENABLE_LTO" enableLto)
-      (opencvFlag "ENABLE_THIN_LTO" (enableLto && (
-        # Only clang supports thin LTO, so we must either be using clang through the stdenv,
-        stdenv.cc.isClang ||
-        # or through the backend stdenv.
-        (enableCuda && backendStdenv.cc.isClang))))
-    ] ++ lib.optionals enableCuda [
+      (opencvFlag "ENABLE_THIN_LTO" (enableLto
+        && (
+          # Only clang supports thin LTO, so we must either be using clang through the stdenv,
+          stdenv.cc.isClang
+          ||
+          # or through the backend stdenv.
+          (enableCuda && backendStdenv.cc.isClang))))
+    ]
+    ++ lib.optionals enableCuda [
       "-DCUDA_FAST_MATH=ON"
       # We need to set the C and C++ host compilers for CUDA to the same compiler.
       "-DCMAKE_C_COMPILER=${backendStdenv.cc}/bin/cc"
@@ -455,12 +480,15 @@ stdenv.mkDerivation {
       "-DCUDA_ARCH_PTX=${lib.last cudaCapabilities}"
 
       "-DNVIDIA_OPTICAL_FLOW_2_0_HEADERS_PATH=${nvidia-optical-flow-sdk}"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       "-DWITH_OPENCL=OFF"
       "-DWITH_LAPACK=OFF"
-    ] ++ lib.optionals (!stdenv.isDarwin) [
-      "-DOPENCL_LIBRARY=${ocl-icd}/lib/libOpenCL.so"
-    ] ++ lib.optionals enablePython [ "-DOPENCV_SKIP_PYTHON_LOADER=ON" ]
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [
+        "-DOPENCL_LIBRARY=${ocl-icd}/lib/libOpenCL.so"
+      ]
+    ++ lib.optionals enablePython [ "-DOPENCV_SKIP_PYTHON_LOADER=ON" ]
     ;
 
   postBuild = lib.optionalString enableDocs ''
@@ -471,7 +499,8 @@ stdenv.mkDerivation {
     lib.optionalString (runAccuracyTests || runPerformanceTests) ''
       mkdir $package_tests
       cp -R $src/samples $package_tests/
-    '' + lib.optionalString runAccuracyTests ''
+    ''
+    + lib.optionalString runAccuracyTests ''
       mv ./bin/*test* $package_tests/ 
     ''
     + lib.optionalString runPerformanceTests "mv ./bin/*perf* $package_tests/"

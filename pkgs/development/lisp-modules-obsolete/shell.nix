@@ -41,7 +41,8 @@ let
         postgresql
         sqlite
         webkitgtk
-      ] + ":${libmysqlclient}/lib/mysql"
+      ]
+      + ":${libmysqlclient}/lib/mysql"
       ;
   };
 in

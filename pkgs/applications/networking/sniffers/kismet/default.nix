@@ -66,26 +66,30 @@ stdenv.mkDerivation rec {
       protobufc
       sqlite
       zlib
-    ] ++ lib.optionals withNetworkManager [
+    ]
+    ++ lib.optionals withNetworkManager [
       networkmanager
       glib
-    ] ++ lib.optionals withSensors [ lm_sensors ]
+    ]
+    ++ lib.optionals withSensors [ lm_sensors ]
     ;
 
   propagatedBuildInputs =
-    [ ] ++ lib.optionals withPython [
-      (python3.withPackages (ps: [
-        ps.numpy
-        ps.protobuf
-        ps.pyserial
-        ps.setuptools
-        ps.websockets
-      ]))
-    ]
+    [ ]
+    ++ lib.optionals withPython [
+        (python3.withPackages (ps: [
+          ps.numpy
+          ps.protobuf
+          ps.pyserial
+          ps.setuptools
+          ps.websockets
+        ]))
+      ]
     ;
 
   configureFlags =
-    [ ] ++ lib.optionals (!withNetworkManager) [ "--disable-libnm" ]
+    [ ]
+    ++ lib.optionals (!withNetworkManager) [ "--disable-libnm" ]
     ++ lib.optionals (!withPython) [ "--disable-python-tools" ]
     ++ lib.optionals (!withSensors) [ "--disable-lmsensors" ]
     ;

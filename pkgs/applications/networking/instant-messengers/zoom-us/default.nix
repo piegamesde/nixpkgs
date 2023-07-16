@@ -116,7 +116,8 @@ let
     udev
     zlib
     libkrb5
-  ] ++ lib.optional (pulseaudioSupport) libpulseaudio);
+  ]
+    ++ lib.optional (pulseaudioSupport) libpulseaudio);
 
 in
 stdenv.mkDerivation rec {
@@ -132,7 +133,8 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs =
-    [ makeWrapper ] ++ lib.optionals stdenv.isDarwin [
+    [ makeWrapper ]
+    ++ lib.optionals stdenv.isDarwin [
       xar
       cpio
     ]

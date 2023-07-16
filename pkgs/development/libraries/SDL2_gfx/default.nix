@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
         "--enable-mmx"
       else
         "--disable-mmx")
-    ] ++ lib.optional stdenv.isDarwin "--disable-sdltest"
+    ]
+    ++ lib.optional stdenv.isDarwin "--disable-sdltest"
     ;
 
   meta = with lib; {

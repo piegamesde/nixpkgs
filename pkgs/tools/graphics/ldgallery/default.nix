@@ -25,7 +25,8 @@ justStaticExecutables (overrideCabal (oldAttrs: {
   pname = "ldgallery"; # bundled viewer + compiler
 
   buildTools =
-    (oldAttrs.buildTools or [ ]) ++ [
+    (oldAttrs.buildTools or [ ])
+    ++ [
       makeWrapper
       pandoc
     ]

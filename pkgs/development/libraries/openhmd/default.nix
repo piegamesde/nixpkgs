@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ hidapi ] ++ lib.optionals withExamples [
+    [ hidapi ]
+    ++ lib.optionals withExamples [
       SDL2
       glew
       libGL

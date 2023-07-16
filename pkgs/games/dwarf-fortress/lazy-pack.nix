@@ -59,7 +59,8 @@ buildEnv {
           enableSound
           ;
       })
-    ] ++ lib.optional enableDwarfTherapist dwarf-therapist
+    ]
+    ++ lib.optional enableDwarfTherapist dwarf-therapist
     ++ lib.optional enableLegendsBrowser legends-browser
     ;
 

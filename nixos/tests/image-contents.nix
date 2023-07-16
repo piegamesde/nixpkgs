@@ -43,7 +43,8 @@ let
           target = "/testDir";
         }
       ];
-    }) + "/nixos.qcow2"
+    })
+    + "/nixos.qcow2"
     ;
 
 in

@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
         else
           "ON"
       }"
-    ] ++ lib.optional static "-DCMAKE_SKIP_RPATH:BOOL=TRUE"
+    ]
+    ++ lib.optional static "-DCMAKE_SKIP_RPATH:BOOL=TRUE"
     ;
 
   propagatedBuildInputs = [ brotli ];

@@ -25,7 +25,8 @@ buildPythonPackage rec {
     [
       setuptools
       simpy
-    ] ++ lib.optional enableVisualization tkinter
+    ]
+    ++ lib.optional enableVisualization tkinter
     ;
 
     # No test cases are included, thus unittest tries to run the examples, which

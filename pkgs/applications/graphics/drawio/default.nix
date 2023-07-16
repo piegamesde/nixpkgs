@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
       makeWrapper
       nodejs
       yarn
-    ] ++ lib.optional stdenv.isDarwin desktopToDarwinBundle
+    ]
+    ++ lib.optional stdenv.isDarwin desktopToDarwinBundle
     ;
 
   ELECTRON_SKIP_BINARY_DOWNLOAD = true;

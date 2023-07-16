@@ -44,7 +44,8 @@ buildPythonPackage rec {
       mock
       pycryptodome
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.async
+    ]
+    ++ passthru.optional-dependencies.async
     ++ passthru.optional-dependencies.usb
     ;
 

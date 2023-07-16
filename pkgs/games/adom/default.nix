@@ -19,7 +19,8 @@ let
   inherit (xorg) libXext libX11;
 
   lpath =
-    "${stdenv.cc.cc.lib}/lib64:" + lib.makeLibraryPath [
+    "${stdenv.cc.cc.lib}/lib64:"
+    + lib.makeLibraryPath [
       zlib
       libmad
       libpng12

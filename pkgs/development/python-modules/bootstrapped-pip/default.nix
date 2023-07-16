@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
   postPatch =
     ''
       mkdir -p $out/bin
-    '' + (pip.postPatch or "")
+    ''
+    + (pip.postPatch or "")
     ; # `pip` does not necessarily have a `postPatch` field.
 
   nativeBuildInputs = [
@@ -53,7 +54,8 @@ stdenv.mkDerivation rec {
   installPhase =
     lib.optionalString (!stdenv.hostPlatform.isWindows) ''
       export SETUPTOOLS_INSTALL_WINDOWS_SPECIFIC_FILES=0
-    '' + ''
+    ''
+    + ''
       # Give folders a known name
       mv pip* pip
       mv setuptools* setuptools

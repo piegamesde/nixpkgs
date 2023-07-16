@@ -29,7 +29,8 @@ rustPlatform.buildRustPackage rec {
     [
       libiconv
       openssl
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Security
       SystemConfiguration
     ]

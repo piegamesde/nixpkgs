@@ -63,20 +63,24 @@ stdenv.mkDerivation (finalAttrs: {
       glib
       bash-completion
       gobject-introspection
-    ] ++ lib.optionals stdenv.isLinux [
-      libcap # for setcap binary
-    ] ++ lib.optionals enableDocumentation [ hotdoc ]
+    ]
+    ++ lib.optionals stdenv.isLinux [
+        libcap # for setcap binary
+      ]
+    ++ lib.optionals enableDocumentation [ hotdoc ]
     ;
 
   buildInputs =
     [
       bash-completion
       gobject-introspection
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libcap
       libunwind
       elfutils
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Cocoa
       CoreServices
     ]
@@ -89,7 +93,8 @@ stdenv.mkDerivation (finalAttrs: {
       "-Ddbghelp=disabled" # not needed as we already provide libunwind and libdw, and dbghelp is a fallback to those
       "-Dexamples=disabled" # requires many dependencies and probably not useful for our users
       (lib.mesonEnable "doc" enableDocumentation)
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # darwin.libunwind doesn't have pkg-config definitions so meson doesn't detect it.
       "-Dlibunwind=disabled"
       "-Dlibdw=disabled"

@@ -16,8 +16,19 @@ let
 in
 with lib.systems.doubles;
 lib.runTests {
-  testall = mseteq all (linux ++ darwin ++ freebsd ++ openbsd ++ netbsd
-    ++ illumos ++ wasi ++ windows ++ embedded ++ mmix ++ js ++ genode ++ redox);
+  testall = mseteq all (linux
+    ++ darwin
+    ++ freebsd
+    ++ openbsd
+    ++ netbsd
+    ++ illumos
+    ++ wasi
+    ++ windows
+    ++ embedded
+    ++ mmix
+    ++ js
+    ++ genode
+    ++ redox);
 
   testarm = mseteq arm [
     "armv5tel-linux"
@@ -165,6 +176,12 @@ lib.runTests {
     "i686-windows"
     "x86_64-windows"
   ];
-  testunix = mseteq unix (linux ++ darwin ++ freebsd ++ openbsd ++ netbsd
-    ++ illumos ++ cygwin ++ redox);
+  testunix = mseteq unix (linux
+    ++ darwin
+    ++ freebsd
+    ++ openbsd
+    ++ netbsd
+    ++ illumos
+    ++ cygwin
+    ++ redox);
 }

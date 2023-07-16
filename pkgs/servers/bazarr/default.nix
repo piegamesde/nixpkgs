@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
         ps.gevent
         ps.gevent-websocket
       ]))
-    ] ++ runtimeProgDeps
+    ]
+    ++ runtimeProgDeps
     ;
 
   installPhase = ''

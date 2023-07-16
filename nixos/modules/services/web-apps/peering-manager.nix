@@ -37,10 +37,12 @@ let
 
         with open("${cfg.secretKeyFile}", "r") as file:
           SECRET_KEY = file.readline()
-      '' + lib.optionalString (cfg.peeringdbApiKeyFile != null) ''
+      ''
+      + lib.optionalString (cfg.peeringdbApiKeyFile != null) ''
         with open("${cfg.peeringdbApiKeyFile}", "r") as file:
           PEERINGDB_API_KEY = file.readline()
-      '' + ''
+      ''
+      + ''
 
         ${cfg.extraConfig}
       ''
@@ -50,7 +52,8 @@ let
     postInstall =
       ''
         ln -s ${configFile} $out/opt/peering-manager/peering_manager/configuration.py
-      '' + optionalString cfg.enableLdap ''
+      ''
+      + optionalString cfg.enableLdap ''
         ln -s ${cfg.ldapConfigPath} $out/opt/peering-manager/peering_manager/ldap_config.py
       ''
       ;

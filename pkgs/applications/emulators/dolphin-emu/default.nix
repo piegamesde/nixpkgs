@@ -99,7 +99,8 @@ stdenv.mkDerivation rec {
       soundtouch
       xxHash
       xz
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       alsa-lib
       bluez
       libevdev
@@ -108,7 +109,8 @@ stdenv.mkDerivation rec {
       mgba # Derivation doesn't support Darwin
       udev
       vulkan-loader
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       CoreBluetooth
       ForceFeedback
       IOBluetooth
@@ -126,7 +128,8 @@ stdenv.mkDerivation rec {
       "-DDOLPHIN_WC_REVISION=${src.rev}"
       "-DDOLPHIN_WC_DESCRIBE=${version}"
       "-DDOLPHIN_WC_BRANCH=master"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       "-DOSX_USE_DEFAULT_SEARCH_PATH=True"
       "-DUSE_BUNDLED_MOLTENVK=OFF"
       # Bundles the application folder into a standalone executable, so we cannot devendor libraries
@@ -154,7 +157,8 @@ stdenv.mkDerivation rec {
   postInstall =
     lib.optionalString stdenv.hostPlatform.isLinux ''
       install -D $src/Data/51-usb-device.rules $out/etc/udev/rules.d/51-usb-device.rules
-    '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
       # Only gets installed automatically if the standalone executable is used
       mkdir -p $out/Applications
       cp -r ./Binaries/Dolphin.app $out/Applications

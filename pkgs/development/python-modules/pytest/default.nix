@@ -47,7 +47,8 @@ buildPythonPackage rec {
       pluggy
       py
       tomli
-    ] ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ]
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ]
     ;
 
   postInstall = ''

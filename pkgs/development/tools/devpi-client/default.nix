@@ -42,7 +42,8 @@ python3.pkgs.buildPythonApplication rec {
     [
       devpi-server
       git
-    ] ++ (with python3.pkgs; [
+    ]
+    ++ (with python3.pkgs; [
       mercurial
       mock
       pypitoken

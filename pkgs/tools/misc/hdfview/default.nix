@@ -69,7 +69,8 @@ stdenv.mkDerivation rec {
   installPhase =
     ''
       runHook preInstall
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       mkdir -p $out/bin $out/lib
       cp -a build/dist/HDFView/bin/HDFView $out/bin/
       cp -a build/dist/HDFView/lib/app $out/lib/
@@ -78,10 +79,12 @@ stdenv.mkDerivation rec {
 
       mkdir -p $out/share/applications $out/share/icons/hicolor/32x32/apps
       cp src/HDFView.png $out/share/icons/hicolor/32x32/apps/
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       mkdir -p $out/Applications
       cp -a build/dist/HDFView.app $out/Applications/
-    '' + ''
+    ''
+    + ''
       runHook postInstall
     ''
     ;

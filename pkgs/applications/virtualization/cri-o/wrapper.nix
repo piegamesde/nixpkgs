@@ -24,7 +24,8 @@ let
     conmon
     util-linux
     iptables
-  ] ++ extraPackages);
+  ]
+    ++ extraPackages);
 
 in
 runCommand cri-o-unwrapped.name {

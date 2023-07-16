@@ -162,7 +162,8 @@ stdenv.mkDerivation (rec {
       expat
       icu58
       libpng
-    ] ++ (with xorg; [
+    ]
+    ++ (with xorg; [
       libX11
       libXext
       libXi

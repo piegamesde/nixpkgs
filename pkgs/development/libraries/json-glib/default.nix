@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
       "out"
       "dev"
       "installedTests"
-    ] ++ lib.optional withIntrospection "devdoc"
+    ]
+    ++ lib.optional withIntrospection "devdoc"
     ;
 
   src = fetchurl {
@@ -55,7 +56,8 @@ stdenv.mkDerivation rec {
       gettext
       glib
       libxslt
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ fixDarwinDylibNames ]
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ fixDarwinDylibNames ]
     ++ lib.optionals withIntrospection [
       gobject-introspection
       gi-docgen

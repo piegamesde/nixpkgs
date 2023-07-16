@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
     [
       autoreconfHook
       pkg-config
-    ] ++ lib.optional doCheck cmocka
+    ]
+    ++ lib.optional doCheck cmocka
     ;
   buildInputs = [
     acl

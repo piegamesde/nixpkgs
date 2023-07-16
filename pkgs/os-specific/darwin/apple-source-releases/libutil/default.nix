@@ -29,9 +29,11 @@ else
     installPhase =
       ''
         mkdir -p $out/include
-      '' + lib.optionalString headersOnly ''
+      ''
+      + lib.optionalString headersOnly ''
         cp *.h $out/include
-      '' + lib.optionalString (!headersOnly) ''
+      ''
+      + lib.optionalString (!headersOnly) ''
         mkdir -p $out/lib $out/include
 
         cp Products/Release/*.dylib $out/lib

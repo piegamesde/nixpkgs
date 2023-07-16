@@ -65,7 +65,8 @@ buildPythonPackage rec {
       patiencediff
       pyyaml
       urllib3
-    ] ++ passthru.optional-dependencies.launchpad
+    ]
+    ++ passthru.optional-dependencies.launchpad
     ++ passthru.optional-dependencies.fastimport
     ;
 

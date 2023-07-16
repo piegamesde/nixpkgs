@@ -56,7 +56,8 @@
           lib{,32,64}/gcc/${stdenv.targetPlatform.config}/*/*.{a,o,so*}
         )
         popd
-    '' + lib.optionalString (!langJit) ''
+    ''
+    + lib.optionalString (!langJit) ''
       ${ # keep indentation
       ""}
         pushd $lib
@@ -68,7 +69,8 @@
         )
         popd
 
-    '' + ''
+    ''
+    + ''
         eval "$oldOpts"
 
         stripDebugList="$stripDebugList ''${outHostFiles[*]} ''${libHostFiles[*]}"

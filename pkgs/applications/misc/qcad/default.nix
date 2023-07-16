@@ -60,7 +60,8 @@ mkDerivation rec {
       qtscript
       qtsvg
       qtxmlpatterns
-    ] ++ lib.optionals stdenv.isDarwin [ qtmacextras ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ qtmacextras ]
     ;
 
   qmakeFlags = [
@@ -71,22 +72,26 @@ mkDerivation rec {
 
   qtWrapperArgs =
     lib.optionals stdenv.isLinux [
-      "--prefix LD_LIBRARY_PATH : ${placeholder "out"}/lib"
-    ] ++ lib.optionals stdenv.isDarwin [
-      "--prefix DYLD_LIBRARY_PATH : ${placeholder "out"}/lib"
-    ]
+        "--prefix LD_LIBRARY_PATH : ${placeholder "out"}/lib"
+      ]
+    ++ lib.optionals stdenv.isDarwin [
+        "--prefix DYLD_LIBRARY_PATH : ${placeholder "out"}/lib"
+      ]
     ;
 
   installPhase =
     ''
       runHook preInstall
 
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       install -Dm555 release/qcad-bin $out/bin/qcad
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       install -Dm555 release/QCAD.app/Contents/MacOS/QCAD $out/bin/qcad
       mkdir -p $out/lib
-    '' + ''
+    ''
+    + ''
       install -Dm555 -t $out/lib release/libspatialindexnavel${stdenv.hostPlatform.extensions.sharedLibrary}
       install -Dm555 -t $out/lib release/libqcadcore${stdenv.hostPlatform.extensions.sharedLibrary}
       install -Dm555 -t $out/lib release/libqcadentity${stdenv.hostPlatform.extensions.sharedLibrary}

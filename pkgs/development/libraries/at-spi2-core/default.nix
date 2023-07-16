@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
       ninja
       pkg-config
       makeWrapper
-    ] ++ lib.optionals withIntrospection [ gobject-introspection ]
+    ]
+    ++ lib.optionals withIntrospection [ gobject-introspection ]
     ;
 
   buildInputs =
@@ -58,7 +59,8 @@ stdenv.mkDerivation rec {
       libXi
       # libXext is a transitive dependency of libXi
       libXext
-    ] ++ lib.optionals (lib.meta.availableOn stdenv.hostPlatform systemd) [
+    ]
+    ++ lib.optionals (lib.meta.availableOn stdenv.hostPlatform systemd) [
       # libsystemd is a needed for dbus-broker support
       systemd
     ]
@@ -81,7 +83,8 @@ stdenv.mkDerivation rec {
       # including the entire dbus closure in libraries linked with
       # the at-spi2-core libraries.
       "-Ddbus_daemon=/run/current-system/sw/bin/dbus-daemon"
-    ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
       # Same as the above, but for dbus-broker
       "-Ddbus_broker=/run/current-system/sw/bin/dbus-broker-launch"
     ]

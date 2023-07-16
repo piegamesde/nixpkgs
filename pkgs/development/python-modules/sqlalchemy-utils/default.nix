@@ -84,7 +84,8 @@ buildPythonPackage rec {
       python-dateutil
       pymysql
       pyodbc
-    ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
+    ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
     ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ]
     ;
 

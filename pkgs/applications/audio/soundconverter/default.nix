@@ -76,7 +76,8 @@ python3Packages.buildPythonApplication rec {
       }
       # FIXME: Fails due to weird Gio.file_parse_name() behavior.
       sed -i '49 a\    @unittest.skip("Gio.file_parse_name issues")' tests/testcases/names.py
-    '' + lib.optionalString (!faacSupport) ''
+    ''
+    + lib.optionalString (!faacSupport) ''
       substituteInPlace tests/testcases/integration.py --replace \
         "for encoder in ['fdkaacenc', 'faac', 'avenc_aac']:" \
         "for encoder in ['fdkaacenc', 'avenc_aac']:"

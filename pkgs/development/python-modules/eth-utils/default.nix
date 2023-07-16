@@ -28,14 +28,17 @@ buildPythonPackage rec {
     [
       eth-hash
       eth-typing
-    ] ++ lib.optional (!isPyPy) cytoolz ++ lib.optional isPyPy toolz
+    ]
+    ++ lib.optional (!isPyPy) cytoolz
+    ++ lib.optional isPyPy toolz
     ;
 
   nativeCheckInputs =
     [
       hypothesis
       pytestCheckHook
-    ] ++ eth-hash.optional-dependencies.pycryptodome
+    ]
+    ++ eth-hash.optional-dependencies.pycryptodome
     ;
 
   pythonImportsCheck = [ "eth_utils" ];

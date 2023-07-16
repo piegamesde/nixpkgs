@@ -286,8 +286,8 @@ buildPythonPackage rec {
         (lib.intersperse "0" (lib.splitString "." hip.version))
       })"
     ''
-    # error: no member named 'aligned_alloc' in the global namespace; did you mean simply 'aligned_alloc'
-    # This lib overrided aligned_alloc hence the error message. Tltr: his function is linkable but not in header.
+      # error: no member named 'aligned_alloc' in the global namespace; did you mean simply 'aligned_alloc'
+      # This lib overrided aligned_alloc hence the error message. Tltr: his function is linkable but not in header.
     + lib.optionalString (stdenv.isDarwin
       && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "11.0") ''
         substituteInPlace third_party/pocketfft/pocketfft_hdronly.h --replace '#if __cplusplus >= 201703L
@@ -300,9 +300,11 @@ buildPythonPackage rec {
     lib.optionalString cudaSupport ''
       export TORCH_CUDA_ARCH_LIST="${gpuTargetString}"
       export CC=${cudatoolkit.cc}/bin/gcc CXX=${cudatoolkit.cc}/bin/g++
-    '' + lib.optionalString (cudaSupport && cudnn != null) ''
+    ''
+    + lib.optionalString (cudaSupport && cudnn != null) ''
       export CUDNN_INCLUDE_DIR=${cudnn}/include
-    '' + lib.optionalString rocmSupport ''
+    ''
+    + lib.optionalString rocmSupport ''
       export ROCM_PATH=${rocmtoolkit_joined}
       export ROCM_SOURCE_DIR=${rocmtoolkit_joined}
       export PYTORCH_ROCM_ARCH="${gpuTargetString}"
@@ -375,17 +377,17 @@ buildPythonPackage rec {
       # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105593
       # See also: Fails to compile with GCC 12.1.0 https://github.com/pytorch/pytorch/issues/77939
       ++ lib.optionals
-      (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12.0.0") [
-        "-Wno-error=maybe-uninitialized"
-        "-Wno-error=uninitialized"
-      ]
-      # Since pytorch 2.0:
-      # gcc-12.2.0/include/c++/12.2.0/bits/new_allocator.h:158:33: error: ‘void operator delete(void*, std::size_t)’
-      # ... called on pointer ‘<unknown>’ with nonzero offset [1, 9223372036854775800] [-Werror=free-nonheap-object]
+        (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12.0.0") [
+          "-Wno-error=maybe-uninitialized"
+          "-Wno-error=uninitialized"
+        ]
+        # Since pytorch 2.0:
+        # gcc-12.2.0/include/c++/12.2.0/bits/new_allocator.h:158:33: error: ‘void operator delete(void*, std::size_t)’
+        # ... called on pointer ‘<unknown>’ with nonzero offset [1, 9223372036854775800] [-Werror=free-nonheap-object]
       ++ lib.optionals
-      (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version == "12") [
-        "-Wno-error=free-nonheap-object"
-      ]));
+        (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version == "12") [
+          "-Wno-error=free-nonheap-object"
+        ]));
 
   nativeBuildInputs =
     [
@@ -396,7 +398,8 @@ buildPythonPackage rec {
       pybind11
       pythonRelaxDepsHook
       removeReferencesTo
-    ] ++ lib.optionals cudaSupport [ cudatoolkit_joined ]
+    ]
+    ++ lib.optionals cudaSupport [ cudatoolkit_joined ]
     ++ lib.optionals rocmSupport [ rocmtoolkit_joined ]
     ;
 
@@ -405,13 +408,15 @@ buildPythonPackage rec {
       blas
       blas.provider
       pybind11
-    ] ++ lib.optionals stdenv.isLinux [
-      linuxHeaders_5_19
-    ] # TMP: avoid "flexible array member" errors for now
+    ]
+    ++ lib.optionals stdenv.isLinux [
+        linuxHeaders_5_19
+      ] # TMP: avoid "flexible array member" errors for now
     ++ lib.optionals cudaSupport [
       cudnn
       nccl
-    ] ++ lib.optionals rocmSupport [ openmp ]
+    ]
+    ++ lib.optionals rocmSupport [ openmp ]
     ++ lib.optionals (cudaSupport || rocmSupport) [ magma ]
     ++ lib.optionals stdenv.isLinux [ numactl ]
     ++ lib.optionals stdenv.isDarwin [
@@ -441,14 +446,16 @@ buildPythonPackage rec {
       future
       tensorboard
       protobuf
-    ] ++ lib.optionals MPISupport [ mpi ] ++ lib.optionals rocmSupport [
-      rocmtoolkit_joined
     ]
-    # rocm build requires openai-triton;
-    # openai-triton currently requires cuda_nvcc,
-    # so not including it in the cpu-only build;
-    # torch.compile relies on openai-triton,
-    # so we include it for the cuda build as well
+    ++ lib.optionals MPISupport [ mpi ]
+    ++ lib.optionals rocmSupport [
+        rocmtoolkit_joined
+      ]
+      # rocm build requires openai-triton;
+      # openai-triton currently requires cuda_nvcc,
+      # so not including it in the cpu-only build;
+      # torch.compile relies on openai-triton,
+      # so we include it for the cuda build as well
     ++ lib.optionals (rocmSupport || cudaSupport) [ openai-triton ]
     ;
 
@@ -508,7 +515,8 @@ buildPythonPackage rec {
       mkdir $lib
       mv $out/${python.sitePackages}/torch/lib $lib/lib
       ln -s $lib/lib $out/${python.sitePackages}/torch/lib
-    '' + lib.optionalString rocmSupport ''
+    ''
+    + lib.optionalString rocmSupport ''
       substituteInPlace $dev/share/cmake/Tensorpipe/TensorpipeTargets-release.cmake \
         --replace "\''${_IMPORT_PREFIX}/lib64" "$lib/lib"
 

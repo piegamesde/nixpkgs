@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
     [
       gtk3
       libgee
-    ] ++ (with pantheon; [
+    ]
+    ++ (with pantheon; [
       elementary-files # settings schemas
       elementary-terminal # settings schemas
       granite

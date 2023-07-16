@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
     [
       perl
       glibc
-    ] ++ (with perlPackages; [
+    ]
+    ++ (with perlPackages; [
       LWP
       LWPProtocolHttps
       MozillaCA

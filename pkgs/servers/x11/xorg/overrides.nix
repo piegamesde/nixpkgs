@@ -136,7 +136,8 @@ self: super:
       [
         "--enable-xkb"
         "--enable-xinput"
-      ] ++ lib.optional stdenv.hostPlatform.isStatic "--disable-shared"
+      ]
+      ++ lib.optional stdenv.hostPlatform.isStatic "--disable-shared"
       ;
     outputs = [
       "out"
@@ -156,8 +157,8 @@ self: super:
     depsBuildBuild =
       [ buildPackages.stdenv.cc ]
       ++ lib.optionals stdenv.hostPlatform.isStatic [
-        (xorg.buildPackages.stdenv.cc.libc.static or null)
-      ]
+          (xorg.buildPackages.stdenv.cc.libc.static or null)
+        ]
       ;
     preConfigure = ''
       sed 's,^as_dummy.*,as_dummy="\$PATH",' -i configure
@@ -233,7 +234,7 @@ self: super:
     configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
     preConfigure =
       attrs.preConfigure or ""
-      # missing transitive dependencies
+        # missing transitive dependencies
       + lib.optionalString stdenv.hostPlatform.isStatic ''
         export NIX_CFLAGS_LINK="$NIX_CFLAGS_LINK -lXau -lXdmcp"
       ''
@@ -245,13 +246,13 @@ self: super:
     buildInputs = attrs.buildInputs ++ [ libxcrypt ];
     configureFlags =
       attrs.configureFlags or [ ]
-      ++ [ "ac_cv_path_RAWCPP=${stdenv.cc.targetPrefix}cpp" ] ++ lib.optionals
-      (stdenv.buildPlatform != stdenv.hostPlatform)
+      ++ [ "ac_cv_path_RAWCPP=${stdenv.cc.targetPrefix}cpp" ]
+      ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
       # checking for /dev/urandom... configure: error: cannot check for file existence when cross compiling
-      [
-        "ac_cv_file__dev_urandom=true"
-        "ac_cv_file__dev_random=true"
-      ]
+        [
+          "ac_cv_file__dev_urandom=true"
+          "ac_cv_file__dev_random=true"
+        ]
       ;
   });
 
@@ -335,7 +336,8 @@ self: super:
       "dev"
     ];
     propagatedBuildInputs =
-      attrs.propagatedBuildInputs or [ ] ++ [
+      attrs.propagatedBuildInputs or [ ]
+      ++ [
         xorg.libXrender
         freetype
         fontconfig
@@ -360,7 +362,8 @@ self: super:
       "doc"
     ];
     propagatedBuildInputs =
-      attrs.propagatedBuildInputs or [ ] ++ [
+      attrs.propagatedBuildInputs or [ ]
+      ++ [
         xorg.xorgproto
         xorg.libXau
       ]
@@ -383,15 +386,17 @@ self: super:
       "doc"
     ];
     propagatedBuildInputs =
-      attrs.propagatedBuildInputs or [ ] ++ [
+      attrs.propagatedBuildInputs or [ ]
+      ++ [
         xorg.libXfixes
         xorg.libXext
       ]
       ;
     configureFlags =
       lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-        "xorg_cv_malloc0_returns_null=no"
-      ] ++ lib.optional stdenv.hostPlatform.isStatic "--disable-shared"
+          "xorg_cv_malloc0_returns_null=no"
+        ]
+      ++ lib.optional stdenv.hostPlatform.isStatic "--disable-shared"
       ;
   });
 
@@ -497,7 +502,8 @@ self: super:
 
   libXpresent = super.libXpresent.overrideAttrs (attrs: {
     buildInputs = with xorg;
-      attrs.buildInputs ++ [
+      attrs.buildInputs
+      ++ [
         libXext
         libXfixes
         libXrandr
@@ -548,7 +554,8 @@ self: super:
   utilmacros = super.utilmacros.overrideAttrs
     (attrs: { # not needed for releases, we propagate the needed tools
       propagatedBuildInputs =
-        attrs.propagatedBuildInputs or [ ] ++ [
+        attrs.propagatedBuildInputs or [ ]
+        ++ [
           automake
           autoconf
           libtool
@@ -558,7 +565,8 @@ self: super:
 
   x11perf = super.x11perf.overrideAttrs (attrs: {
     buildInputs =
-      attrs.buildInputs ++ [
+      attrs.buildInputs
+      ++ [
         freetype
         fontconfig
       ]
@@ -763,7 +771,8 @@ self: super:
 
   xf86videovmware = super.xf86videovmware.overrideAttrs (attrs: {
     buildInputs =
-      attrs.buildInputs ++ [
+      attrs.buildInputs
+      ++ [
         mesa
         mesa.driversdev
         llvm
@@ -805,7 +814,8 @@ self: super:
   xkeyboardconfig = super.xkeyboardconfig.overrideAttrs (attrs: {
     prePatch = "patchShebangs rules/merge.py";
     nativeBuildInputs =
-      attrs.nativeBuildInputs ++ [
+      attrs.nativeBuildInputs
+      ++ [
         intltool
         libxslt
       ]
@@ -920,7 +930,8 @@ self: super:
     buildInputs = [ ];
     propagatedBuildInputs = [ ];
     nativeBuildInputs =
-      attrs.nativeBuildInputs ++ [
+      attrs.nativeBuildInputs
+      ++ [
         meson
         ninja
       ]
@@ -957,7 +968,8 @@ self: super:
       attrs // (let
         version = lib.getVersion attrs;
         commonBuildInputs =
-          attrs.buildInputs ++ [
+          attrs.buildInputs
+          ++ [
             xtrans
             libxcvt
           ]
@@ -980,7 +992,8 @@ self: super:
           # and the second to get Xvfb, Xnest, etc.
         darwinOtherX = xorgserver.overrideAttrs (oldAttrs: {
           configureFlags =
-            oldAttrs.configureFlags ++ [
+            oldAttrs.configureFlags
+            ++ [
               "--disable-xquartz"
               "--enable-xorg"
               "--enable-xvfb"
@@ -1014,13 +1027,15 @@ self: super:
               ./dont-create-logdir-during-build.patch
             ];
           buildInputs =
-            commonBuildInputs ++ [
+            commonBuildInputs
+            ++ [
               libdrm
               mesa
             ]
             ;
           propagatedBuildInputs =
-            attrs.propagatedBuildInputs or [ ] ++ [ libpciaccess ]
+            attrs.propagatedBuildInputs or [ ]
+            ++ [ libpciaccess ]
             ++ commonPropagatedBuildInputs
             ++ lib.optionals stdenv.isLinux [ udev ]
             ;
@@ -1041,7 +1056,8 @@ self: super:
               "--with-log-dir=/var/log"
               "--enable-glamor"
               "--with-os-name=Nix" # r13y, embeds the build machine's kernel version otherwise
-            ] ++ lib.optionals stdenv.hostPlatform.isMusl [ "--disable-tls" ]
+            ]
+            ++ lib.optionals stdenv.hostPlatform.isMusl [ "--disable-tls" ]
             ;
 
           env.NIX_CFLAGS_COMPILE = toString [
@@ -1063,7 +1079,8 @@ self: super:
       else
         {
           nativeBuildInputs =
-            attrs.nativeBuildInputs ++ [
+            attrs.nativeBuildInputs
+            ++ [
               autoreconfHook
               bootstrap_cmds
               xorg.utilmacros
@@ -1071,7 +1088,8 @@ self: super:
             ]
             ;
           buildInputs =
-            commonBuildInputs ++ [
+            commonBuildInputs
+            ++ [
               bootstrap_cmds
               automake
               autoconf
@@ -1081,7 +1099,8 @@ self: super:
             ]
             ;
           propagatedBuildInputs =
-            commonPropagatedBuildInputs ++ [
+            commonPropagatedBuildInputs
+            ++ [
               libAppleWM
               xorgproto
             ]
@@ -1174,7 +1193,8 @@ self: super:
 
   twm = super.twm.overrideAttrs (attrs: {
     nativeBuildInputs =
-      attrs.nativeBuildInputs ++ [
+      attrs.nativeBuildInputs
+      ++ [
         bison
         flex
       ]
@@ -1185,7 +1205,7 @@ self: super:
     doCheck = false; # fails
     preConfigure =
       attrs.preConfigure or ""
-      # missing transitive dependencies
+        # missing transitive dependencies
       + lib.optionalString stdenv.hostPlatform.isStatic ''
         export NIX_CFLAGS_LINK="$NIX_CFLAGS_LINK -lxcb -lXau -lXdmcp"
       ''
@@ -1232,7 +1252,8 @@ self: super:
       substituteInPlace Makefile.in --replace "PROGCPPDEFS =" "PROGCPPDEFS = -Dlinux=linux -Dunix=unix"
     '';
     propagatedBuildInputs =
-      attrs.propagatedBuildInputs or [ ] ++ [ xorg.xauth ]
+      attrs.propagatedBuildInputs or [ ]
+      ++ [ xorg.xauth ]
       ++ lib.optionals isDarwin [
         xorg.libX11
         xorg.xorgproto
@@ -1257,7 +1278,8 @@ self: super:
       sha256 = "sha256-nqT9VZDb2kAC72ot9UCdwEkM1uuP9NriJePulzrdZlM=";
     };
     buildInputs =
-      attrs.buildInputs ++ [
+      attrs.buildInputs
+      ++ [
         xorg.libXScrnSaver
         xorg.libXv
         xorg.pixman

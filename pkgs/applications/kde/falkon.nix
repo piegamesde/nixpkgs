@@ -45,7 +45,8 @@ mkDerivation rec {
       kpurpose
       karchive
       kio
-    ] ++ lib.optionals stdenv.isLinux [ qtwayland ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ qtwayland ]
     ;
 
   nativeBuildInputs = [

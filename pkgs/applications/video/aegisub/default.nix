@@ -115,14 +115,17 @@ stdenv.mkDerivation rec {
       pcre
       wxGTK
       zlib
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       CoreText
       CoreFoundation
       AppKit
       Carbon
       IOKit
       Cocoa
-    ] ++ optional alsaSupport alsa-lib ++ optional openalSupport openal
+    ]
+    ++ optional alsaSupport alsa-lib
+    ++ optional openalSupport openal
     ++ optional portaudioSupport portaudio
     ++ optional pulseaudioSupport libpulseaudio
     ++ optional spellcheckSupport hunspell

@@ -30,7 +30,8 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [ makeWrapper ];
 
   buildInputs =
-    [ util-linux ] ++ lib.optionals enableReadline [
+    [ util-linux ]
+    ++ lib.optionals enableReadline [
       ncurses
       readline
     ]
@@ -48,7 +49,8 @@ stdenv.mkDerivation (finalAttrs: {
 
       # Handle LDFLAGS defaults in calc
       "DEFAULT_LIB_INSTALL_PATH=$(out)/lib"
-    ] ++ lib.optionals enableReadline [
+    ]
+    ++ lib.optionals enableReadline [
       "READLINE_LIB=-lreadline"
       "USE_READLINE=-DUSE_READLINE"
     ]

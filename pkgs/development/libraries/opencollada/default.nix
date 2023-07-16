@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
   patchPhase =
     ''
       patch -p1 < ${./pcre.patch}
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace GeneratedSaxParser/src/GeneratedSaxParserUtils.cpp \
         --replace math.h cmath
     ''

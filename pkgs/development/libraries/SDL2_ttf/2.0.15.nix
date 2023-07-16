@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
       SDL2
       freetype
       libGL
-    ] ++ lib.optional stdenv.isDarwin darwin.libobjc
+    ]
+    ++ lib.optional stdenv.isDarwin darwin.libobjc
     ;
 
   meta = with lib; {

@@ -81,10 +81,11 @@ buildRubyGem rec {
   postInstall =
     let
       pathAdditions = lib.makeSearchPath "bin" (map (x: lib.getBin x)
-        ([ libarchive ] ++ lib.optionals withLibvirt [
-          libguestfs
-          qemu
-        ]));
+        ([ libarchive ]
+          ++ lib.optionals withLibvirt [
+            libguestfs
+            qemu
+          ]));
     in
     ''
       wrapProgram "$out/bin/vagrant" \
@@ -96,7 +97,8 @@ buildRubyGem rec {
 
       mkdir -p $out/share/bash-completion/completions/
       cp -av contrib/bash/completion.sh $out/share/bash-completion/completions/vagrant
-    '' + lib.optionalString withLibvirt ''
+    ''
+    + lib.optionalString withLibvirt ''
       substitute ${
         ./vagrant-libvirt.json.in
       } $out/vagrant-plugins/plugins.d/vagrant-libvirt.json \

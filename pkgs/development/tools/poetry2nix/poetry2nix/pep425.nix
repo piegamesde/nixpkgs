@@ -95,7 +95,8 @@ let
     let
       isCompat =
         m:
-        builtins.elem m.tag tags && m.major == major
+        builtins.elem m.tag tags
+        && m.major == major
         && builtins.compareVersions minor m.minor >= 0
         ;
       parseMarker =
@@ -128,11 +129,14 @@ let
         (builtins.filter (x: hasSuffix ".whl" x.file) files);
       isPyAbiCompatible =
         pyabi: x:
-        x == "none" || hasPrefix pyabi x || hasPrefix x pyabi || (
+        x == "none"
+        || hasPrefix pyabi x
+        || hasPrefix x pyabi
+        || (
           # The CPython stable ABI is abi3 as in the shared library suffix.
           python.passthru.implementation == "cpython"
-          && builtins.elemAt (lib.splitString "." python.version) 0 == "3" && x
-          == "abi3")
+          && builtins.elemAt (lib.splitString "." python.version) 0 == "3"
+          && x == "abi3")
         ;
       withPython =
         ver: abi: x:
@@ -146,14 +150,16 @@ let
           # See PEP 600 for details.
             (p:
               builtins.match "any|manylinux(1|2010|2014)_${
-                escapeRegex targetMachine
-              }|manylinux_[0-9]+_[0-9]+_${escapeRegex targetMachine}" p != null)
+                  escapeRegex targetMachine
+                }|manylinux_[0-9]+_[0-9]+_${escapeRegex targetMachine}" p
+              != null)
           else
             (p: p == "any")
         else if stdenv.isDarwin then
           if stdenv.targetPlatform.isAarch64 then
             (p:
-              p == "any" || (hasInfix "macosx" p
+              p == "any"
+              || (hasInfix "macosx" p
                 && lib.lists.any (e: hasSuffix e p) [
                   "arm64"
                   "aarch64"

@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
     [
       libedit
       gmpxx
-    ] ++ lib.optional enableReadline readline
+    ]
+    ++ lib.optional enableReadline readline
     ;
 
   preConfigure = ''

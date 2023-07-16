@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
     [
       tecla
       libusb1
-    ] ++ lib.optionals stdenv.isLinux [ udev ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ udev ]
     ++ lib.optionals stdenv.isDarwin [ ncurses ]
     ;
 
@@ -63,7 +64,8 @@ stdenv.mkDerivation rec {
   '';
 
   cmakeFlags =
-    [ "-DBUILD_DOCUMENTATION=ON" ] ++ lib.optionals stdenv.isLinux [
+    [ "-DBUILD_DOCUMENTATION=ON" ]
+    ++ lib.optionals stdenv.isLinux [
       "-DUDEV_RULES_PATH=etc/udev/rules.d"
       "-DINSTALL_UDEV_RULES=ON"
       "-DBLADERF_GROUP=bladerf"

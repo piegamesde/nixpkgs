@@ -55,7 +55,8 @@ let
         # ARM optimization flags via /proc/cpuinfo (and is also
         # broken on multicore CPUs). Avoid this impurity.
         "--build=${stdenv.buildPlatform.config}"
-      ] ++ optional (cxx && stdenv.isDarwin) "CPPFLAGS=-fexceptions"
+      ]
+      ++ optional (cxx && stdenv.isDarwin) "CPPFLAGS=-fexceptions"
       ++ optional (stdenv.isDarwin && stdenv.is64bit) "ABI=64"
       ;
 

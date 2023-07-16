@@ -106,11 +106,14 @@ let
       [
         cuda_cudart # cuda_runtime.h
         cuda_nvcc
-      ] ++ lists.optionals (strings.versionOlder cudaVersion "11.8") [
-        cuda_nvprof # <cuda_profiler_api.h>
-      ] ++ lists.optionals (strings.versionAtLeast cudaVersion "11.8") [
-        cuda_profiler_api # <cuda_profiler_api.h>
-      ] ++ cuda-common-redist;
+      ]
+      ++ lists.optionals (strings.versionOlder cudaVersion "11.8") [
+          cuda_nvprof # <cuda_profiler_api.h>
+        ]
+      ++ lists.optionals (strings.versionAtLeast cudaVersion "11.8") [
+          cuda_profiler_api # <cuda_profiler_api.h>
+        ]
+      ++ cuda-common-redist;
   };
 
     # Run-time dependencies
@@ -138,7 +141,8 @@ stdenv.mkDerivation {
       cmake
       ninja
       gfortran
-    ] ++ lists.optionals cudaSupport [ cuda-native-redist ]
+    ]
+    ++ lists.optionals cudaSupport [ cuda-native-redist ]
     ;
 
   buildInputs =
@@ -146,7 +150,8 @@ stdenv.mkDerivation {
       libpthreadstubs
       lapack
       blas
-    ] ++ lists.optionals cudaSupport [ cuda-redist ]
+    ]
+    ++ lists.optionals cudaSupport [ cuda-redist ]
     ++ lists.optionals rocmSupport [
       hip
       hipblas
@@ -156,13 +161,15 @@ stdenv.mkDerivation {
     ;
 
   cmakeFlags =
-    [ "-DGPU_TARGET=${gpuTargetString}" ] ++ lists.optionals cudaSupport [
+    [ "-DGPU_TARGET=${gpuTargetString}" ]
+    ++ lists.optionals cudaSupport [
       "-DCMAKE_CUDA_ARCHITECTURES=${cudaArchitecturesString}"
       "-DMIN_ARCH=${minArch}" # Disarms magma's asserts
       "-DCMAKE_C_COMPILER=${backendStdenv.cc}/bin/cc"
       "-DCMAKE_CXX_COMPILER=${backendStdenv.cc}/bin/c++"
       "-DMAGMA_ENABLE_CUDA=ON"
-    ] ++ lists.optionals rocmSupport [
+    ]
+    ++ lists.optionals rocmSupport [
       "-DCMAKE_C_COMPILER=${hip}/bin/hipcc"
       "-DCMAKE_CXX_COMPILER=${hip}/bin/hipcc"
       "-DMAGMA_ENABLE_HIP=ON"
@@ -188,8 +195,8 @@ stdenv.mkDerivation {
       ];
       # CUDA and ROCm are mutually exclusive
     broken =
-      cudaSupport && rocmSupport || cudaSupport
-      && strings.versionOlder cudaVersion "9"
+      cudaSupport && rocmSupport
+      || cudaSupport && strings.versionOlder cudaVersion "9"
       ;
   };
 }

@@ -23,7 +23,8 @@ stdenv.mkDerivation {
       libfaketime
       xorg.fonttosfnt
       xorg.mkfontscale
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       perl
       kbd
     ]
@@ -39,7 +40,8 @@ stdenv.mkDerivation {
       # convert bdf font to otb
       faketime -f "1970-01-01 00:00:01" \
       fonttosfnt -v -o u_vga16.otb u_vga16.bdf
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       # convert font to compressed psf
       ./bdf2psf.pl -s UniCyrX.sfm u_vga16.bdf \
         | psfaddtable - UniCyrX.sfm - \
@@ -57,7 +59,8 @@ stdenv.mkDerivation {
       install -m 644 -D *.bdf -t "$bdf/share/fonts"
       mkfontdir "$bdf/share/fonts"
 
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       # install psf (for linux virtual terminal)
       install -m 644 -D *.psf.gz -t "$out/share/consolefonts"
     ''

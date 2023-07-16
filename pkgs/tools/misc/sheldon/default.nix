@@ -22,7 +22,8 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-uRcaHuDLQm6OYqt01kLbW/mfZnL4HaDabaweaw1EOfs=";
 
   buildInputs =
-    [ openssl ] ++ lib.optionals stdenv.isDarwin [
+    [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [
       Security
       curl
     ]

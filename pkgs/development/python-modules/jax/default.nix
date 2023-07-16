@@ -59,7 +59,8 @@ buildPythonPackage rec {
       opt-einsum
       scipy
       typing-extensions
-    ] ++ etils.optional-dependencies.epath
+    ]
+    ++ etils.optional-dependencies.epath
     ;
 
   nativeCheckInputs = [
@@ -92,7 +93,8 @@ buildPythonPackage rec {
       "testKde3"
       "testKde5"
       "testKde6"
-    ] ++ lib.optionals usingMKL [
+    ]
+    ++ lib.optionals usingMKL [
       # See
       #  * https://github.com/google/jax/issues/9705
       #  * https://discourse.nixos.org/t/getting-different-results-for-the-same-build-on-two-equally-configured-machines/17921
@@ -100,7 +102,8 @@ buildPythonPackage rec {
       "test_custom_linear_solve_cholesky"
       "test_custom_root_with_aux"
       "testEigvalsGrad_shape"
-    ] ++ lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [
       # See https://github.com/google/jax/issues/14793.
       "test_for_loop_fixpoint_correctly_identifies_loop_varying_residuals_unrolled_for_loop"
       "testQdwhWithRandomMatrix3"

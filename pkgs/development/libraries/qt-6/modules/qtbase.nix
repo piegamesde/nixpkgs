@@ -136,7 +136,8 @@ stdenv.mkDerivation rec {
       unixODBCDrivers.psql
       unixODBCDrivers.sqlite
       unixODBCDrivers.mariadb
-    ] ++ lib.optionals systemdSupport [ systemd ]
+    ]
+    ++ lib.optionals systemdSupport [ systemd ]
     ++ lib.optionals stdenv.isLinux [
       util-linux
       mtdev
@@ -170,7 +171,8 @@ stdenv.mkDerivation rec {
       xorg.libXtst
       xorg.xcbutilcursor
       libepoxy
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       AGL
       AVFoundation
       AppKit
@@ -179,15 +181,19 @@ stdenv.mkDerivation rec {
       EventKit
       GSS
       MetalKit
-    ] ++ lib.optional libGLSupported libGL
+    ]
+    ++ lib.optional libGLSupported libGL
     ;
 
   buildInputs =
-    [ at-spi2-core ] ++ lib.optionals (!stdenv.isDarwin) [ libinput ]
+    [ at-spi2-core ]
+    ++ lib.optionals (!stdenv.isDarwin) [ libinput ]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
       AppKit
       CoreBluetooth
-    ] ++ lib.optional withGtk3 gtk3 ++ lib.optional developerBuild gdb
+    ]
+    ++ lib.optional withGtk3 gtk3
+    ++ lib.optional developerBuild gdb
     ++ lib.optional (cups != null) cups
     ++ lib.optional (libmysqlclient != null) libmysqlclient
     ++ lib.optional (postgresql != null) postgresql
@@ -205,7 +211,8 @@ stdenv.mkDerivation rec {
       cmake
       xmlstarlet
       ninja
-    ] ++ lib.optionals stdenv.isDarwin [ moveBuildTree ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ moveBuildTree ]
     ;
 
   propagatedNativeBuildInputs = [ lndir ];
@@ -222,7 +229,8 @@ stdenv.mkDerivation rec {
   postPatch =
     ''
       substituteInPlace src/corelib/CMakeLists.txt --replace /bin/ls ${coreutils}/bin/ls
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace cmake/QtAutoDetect.cmake --replace "/usr/bin/xcrun" "${xcbuild}/bin/xcrun"
     ''
     ;
@@ -245,7 +253,8 @@ stdenv.mkDerivation rec {
       "-DQT_FEATURE_libproxy=ON"
       "-DQT_FEATURE_system_sqlite=ON"
       "-DQT_FEATURE_openssl_linked=ON"
-    ] ++ lib.optionals (!stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [
       "-DQT_FEATURE_sctp=ON"
       "-DQT_FEATURE_journald=${
         if systemdSupport then
@@ -254,7 +263,8 @@ stdenv.mkDerivation rec {
           "OFF"
       }"
       "-DQT_FEATURE_vulkan=ON"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # error: 'path' is unavailable: introduced in macOS 10.15
       "-DQT_FEATURE_cxx17_filesystem=OFF"
     ]

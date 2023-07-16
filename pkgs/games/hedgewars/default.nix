@@ -73,7 +73,8 @@ stdenv.mkDerivation rec {
       freeglut
       physfs
       qtbase
-    ] ++ lib.optional withServer ghc
+    ]
+    ++ lib.optional withServer ghc
     ;
 
   cmakeFlags = [

@@ -97,9 +97,10 @@ stdenv.mkDerivation rec {
       pango
       poppler
       texlive.bin.core # kpathsea for DVI support
-    ] ++ lib.optionals withLibsecret [ libsecret ]
-    ++ lib.optionals supportXPS [ libgxps ] ++ lib.optionals supportMultimedia
-    (with gst_all_1; [
+    ]
+    ++ lib.optionals withLibsecret [ libsecret ]
+    ++ lib.optionals supportXPS [ libgxps ]
+    ++ lib.optionals supportMultimedia (with gst_all_1; [
       gstreamer
       gst-plugins-base
       gst-plugins-good
@@ -113,7 +114,8 @@ stdenv.mkDerivation rec {
     [
       "-Dnautilus=false"
       "-Dps=enabled"
-    ] ++ lib.optionals (!withLibsecret) [ "-Dkeyring=disabled" ]
+    ]
+    ++ lib.optionals (!withLibsecret) [ "-Dkeyring=disabled" ]
     ++ lib.optionals (!supportMultimedia) [ "-Dmultimedia=disabled" ]
     ;
 

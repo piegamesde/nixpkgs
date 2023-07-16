@@ -69,7 +69,8 @@ stdenv.mkDerivation rec {
       libopus
       libogg
       jansson
-    ] ++ lib.optional postgresqlSupport postgresql
+    ]
+    ++ lib.optional postgresqlSupport postgresql
     ;
 
   preConfigure = ''

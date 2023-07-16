@@ -47,7 +47,8 @@ stdenv.mkDerivation rec {
   separateDebugInfo = stdenv.isLinux;
 
   buildInputs =
-    [ zlib ] ++ lib.optionals interactive [
+    [ zlib ]
+    ++ lib.optionals interactive [
       readline
       ncurses
     ]
@@ -77,10 +78,11 @@ stdenv.mkDerivation rec {
     "-DSQLITE_SECURE_DELETE"
     "-DSQLITE_MAX_VARIABLE_NUMBER=250000"
     "-DSQLITE_MAX_EXPR_DEPTH=10000"
-  ] ++ lib.optionals enableDeserialize [
-    # Can be removed in v3.36+, as this will become the default
-    "-DSQLITE_ENABLE_DESERIALIZE"
-  ]);
+  ]
+    ++ lib.optionals enableDeserialize [
+      # Can be removed in v3.36+, as this will become the default
+      "-DSQLITE_ENABLE_DESERIALIZE"
+    ]);
 
     # Test for features which may not be available at compile time
   preBuild = ''

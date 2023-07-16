@@ -82,7 +82,8 @@ stdenv.mkDerivation rec {
       polkit
       polkit_gnome
       pulseaudio
-    ] ++ (with xorg; [
+    ]
+    ++ (with xorg; [
       libxcb
       libxkbfile
       libX11

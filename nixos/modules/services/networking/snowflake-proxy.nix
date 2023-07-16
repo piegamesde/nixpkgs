@@ -51,12 +51,13 @@ in
       wantedBy = [ "network-online.target" ];
       serviceConfig = {
         ExecStart =
-          "${pkgs.snowflake}/bin/proxy " + concatStringsSep " "
-          (optional (cfg.broker != null) "-broker ${cfg.broker}"
-            ++ optional (cfg.capacity != null)
-            "-capacity ${builtins.toString cfg.capacity}"
-            ++ optional (cfg.relay != null) "-relay ${cfg.relay}"
-            ++ optional (cfg.stun != null) "-stun ${cfg.stun}")
+          "${pkgs.snowflake}/bin/proxy "
+          + concatStringsSep " "
+            (optional (cfg.broker != null) "-broker ${cfg.broker}"
+              ++ optional (cfg.capacity != null)
+                "-capacity ${builtins.toString cfg.capacity}"
+              ++ optional (cfg.relay != null) "-relay ${cfg.relay}"
+              ++ optional (cfg.stun != null) "-stun ${cfg.stun}")
           ;
 
           # Security Hardening

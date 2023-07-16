@@ -50,7 +50,8 @@ stdenv.mkDerivation rec {
       perl
       python-dateutil
       setuptools
-    ] ++ pythonPaths
+    ]
+    ++ pythonPaths
     ;
   nativeBuildInputs = [
     gitMinimal

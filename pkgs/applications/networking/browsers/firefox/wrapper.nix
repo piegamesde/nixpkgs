@@ -93,16 +93,17 @@ let
       smartcardSupport = cfg.smartcardSupport or false;
 
       nativeMessagingHosts =
-        [ ] ++ lib.optional (cfg.enableBrowserpass or false)
-        (lib.getBin browserpass)
+        [ ]
+        ++ lib.optional (cfg.enableBrowserpass or false)
+          (lib.getBin browserpass)
         ++ lib.optional (cfg.enableBukubrow or false) bukubrow
         ++ lib.optional (cfg.enableEUWebID or false) web-eid-app
         ++ lib.optional (cfg.enableTridactylNative or false) tridactyl-native
         ++ lib.optional (cfg.enableGnomeExtensions or false)
-        gnome-browser-connector
+          gnome-browser-connector
         ++ lib.optional (cfg.enableUgetIntegrator or false) uget-integrator
         ++ lib.optional (cfg.enablePlasmaBrowserIntegration or false)
-        plasma5Packages.plasma-browser-integration
+          plasma5Packages.plasma-browser-integration
         ++ lib.optional (cfg.enableFXCastBridge or false) fx_cast_bridge
         ++ extraNativeMessagingHosts
         ;
@@ -115,9 +116,11 @@ let
           xorg.libXScrnSaver
           cups
           pciutils
-        ] ++ lib.optional pipewireSupport pipewire
+        ]
+        ++ lib.optional pipewireSupport pipewire
         ++ lib.optional ffmpegSupport ffmpeg_5
-        ++ lib.optional gssSupport libkrb5 ++ lib.optional useGlvnd libglvnd
+        ++ lib.optional gssSupport libkrb5
+        ++ lib.optional useGlvnd libglvnd
         ++ lib.optionals (cfg.enableQuakeLive or false) (with xorg; [
           stdenv.cc
           libX11
@@ -127,8 +130,10 @@ let
           libXt
           alsa-lib
           zlib
-        ]) ++ lib.optional (config.pulseaudio or true) libpulseaudio
-        ++ lib.optional alsaSupport alsa-lib ++ lib.optional sndioSupport sndio
+        ])
+        ++ lib.optional (config.pulseaudio or true) libpulseaudio
+        ++ lib.optional alsaSupport alsa-lib
+        ++ lib.optional sndioSupport sndio
         ++ lib.optional jackSupport libjack2
         ++ lib.optional smartcardSupport opensc
         ++ lib.optional (cfg.speechSynthesisSupport or false) speechd
@@ -153,8 +158,8 @@ let
         ;
 
       requiresSigning =
-        browser ? MOZ_REQUIRE_SIGNING -> toString browser.MOZ_REQUIRE_SIGNING
-        != ""
+        browser ? MOZ_REQUIRE_SIGNING
+        -> toString browser.MOZ_REQUIRE_SIGNING != ""
         ;
 
         # Check that every extension has a unqiue .name attribute
@@ -471,7 +476,8 @@ let
       preferLocalBuild = true;
 
       libs =
-        lib.makeLibraryPath libs + ":"
+        lib.makeLibraryPath libs
+        + ":"
         + lib.makeSearchPathOutput "lib" "lib64" libs
         ;
       gtk_modules = map (x: x + x.gtkModule) gtk_modules;

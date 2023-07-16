@@ -139,8 +139,8 @@ stdenv.mkDerivation (finalAttrs: {
       --subst-var-by libraryPath ${
         lib.makeSearchPath "lib/mangohud" ([ (placeholder "out") ]
           ++ lib.optionals (stdenv.hostPlatform.system == "x86_64-linux") [
-            mangohud32
-          ])
+              mangohud32
+            ])
       } \
       --subst-var-by dataDir ${placeholder "out"}/share
 
@@ -161,7 +161,8 @@ stdenv.mkDerivation (finalAttrs: {
         else
           "disabled"
       }"
-    ] ++ lib.optionals gamescopeSupport [
+    ]
+    ++ lib.optionals gamescopeSupport [
       "-Dmangoapp=true"
       "-Dmangoapp_layer=true"
       "-Dmangohudctl=true"
@@ -189,7 +190,8 @@ stdenv.mkDerivation (finalAttrs: {
       dbus
       nlohmann_json
       spdlog
-    ] ++ lib.optionals gamescopeSupport [
+    ]
+    ++ lib.optionals gamescopeSupport [
       glew
       glfw
       xorg.libXrandr

@@ -37,7 +37,8 @@ rustPlatform.buildRustPackage rec {
       openssl
       dbus
       sqlite
-    ] ++ lib.optional withNotmuch notmuch
+    ]
+    ++ lib.optional withNotmuch notmuch
     ;
 
   nativeCheckInputs = [ file ];
@@ -51,7 +52,8 @@ rustPlatform.buildRustPackage rec {
       mkdir -p $out/share/man/man5
       gzip < docs/meli.conf.5 > $out/share/man/man5/meli.conf.5.gz
       gzip < docs/meli-themes.5 > $out/share/man/man5/meli-themes.5.gz
-    '' + lib.optionalString withNotmuch ''
+    ''
+    + lib.optionalString withNotmuch ''
       # Fixes this runtime error when meli is started with notmuch configured:
       # $ meli
       # libnotmuch5 was not found in your system. Make sure it is installed and

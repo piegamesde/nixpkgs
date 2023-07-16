@@ -100,7 +100,8 @@ in
           install -Dm644 "$mf" "$mandir/$(basename "$mf")"
         done
 
-      '' + lib.optionalString (stdenv.isLinux) ''
+      ''
+      + lib.optionalString (stdenv.isLinux) ''
         mkdir -p $out/lib/systemd/{system,user}
 
         substitute etc/linux-systemd/system/syncthing-resume.service \

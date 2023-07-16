@@ -43,7 +43,8 @@ rustPlatform.buildRustPackage rec {
     [
       openssl
       libgit2
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       IOKit
       CoreFoundation
       Security

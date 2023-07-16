@@ -160,10 +160,12 @@ let
         ];
 
         propagatedBuildInputs =
-          intra-deps ++ optionals (elem package [
+          intra-deps
+          ++ optionals (elem package [
             "classical"
             "single"
-          ]) classical-deps ++ optionals (elem package [
+          ]) classical-deps
+          ++ optionals (elem package [
             "analysis"
             "single"
           ]) analysis-deps
@@ -184,16 +186,20 @@ let
       });
         # split packages didn't exist before 0.6, so bulding nothing in that case
       patched-derivation1 = derivation.overrideAttrs (o:
-        optionalAttrs (o.pname != null && o.pname != "mathcomp-analysis"
-          && o.version != null && o.version != "dev"
+        optionalAttrs (o.pname != null
+          && o.pname != "mathcomp-analysis"
+          && o.version != null
+          && o.version != "dev"
           && versions.isLt "0.6" o.version) {
             preBuild = "";
             buildPhase = "echo doing nothing";
             installPhase = "echo doing nothing";
           });
       patched-derivation2 = patched-derivation1.overrideAttrs (o:
-        optionalAttrs (o.pname != null && o.pname == "mathcomp-analysis"
-          && o.version != null && o.version != "dev"
+        optionalAttrs (o.pname != null
+          && o.pname == "mathcomp-analysis"
+          && o.version != null
+          && o.version != "dev"
           && versions.isLt "0.6" o.version) { preBuild = ""; });
       patched-derivation = patched-derivation2.overrideAttrs (o:
         optionalAttrs (o.version != null

@@ -70,16 +70,22 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ zlib ] ++ lib.optional enableGtk2 gtk2 ++ lib.optional enableJPEG libjpeg
-    ++ lib.optional enablePNG libpng ++ lib.optional enableTIFF libtiff
+    [ zlib ]
+    ++ lib.optional enableGtk2 gtk2
+    ++ lib.optional enableJPEG libjpeg
+    ++ lib.optional enablePNG libpng
+    ++ lib.optional enableTIFF libtiff
     ++ lib.optionals enableEXR [
       openexr
       ilmbase
-    ] ++ lib.optional enableFfmpeg ffmpeg ++ lib.optionals enableGStreamer
-    (with gst_all_1; [
+    ]
+    ++ lib.optional enableFfmpeg ffmpeg
+    ++ lib.optionals enableGStreamer (with gst_all_1; [
       gstreamer
       gst-plugins-base
-    ]) ++ lib.optional enableEigen eigen ++ lib.optionals stdenv.isDarwin [
+    ])
+    ++ lib.optional enableEigen eigen
+    ++ lib.optionals stdenv.isDarwin [
       AVFoundation
       Cocoa
       QTKit
@@ -103,7 +109,8 @@ stdenv.mkDerivation rec {
       (opencvFlag "PNG" enablePNG)
       (opencvFlag "OPENEXR" enableEXR)
       (opencvFlag "GSTREAMER" enableGStreamer)
-    ] ++ lib.optional (!enableUnfree) "-DBUILD_opencv_nonfree=OFF"
+    ]
+    ++ lib.optional (!enableUnfree) "-DBUILD_opencv_nonfree=OFF"
     ;
 
   hardeningDisable = [

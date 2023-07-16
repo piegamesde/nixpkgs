@@ -34,9 +34,10 @@ stdenv.mkDerivation {
   ];
 
   patches =
-    [ ./gnu-install-dirs.patch ] ++ lib.optionals stdenv.hostPlatform.isMusl [
-      ../../libcxx-0001-musl-hacks.patch
-    ]
+    [ ./gnu-install-dirs.patch ]
+    ++ lib.optionals stdenv.hostPlatform.isMusl [
+        ../../libcxx-0001-musl-hacks.patch
+      ]
     ;
 
     # Prevent errors like "error: 'foo' is unavailable: introduced in macOS yy.zz"
@@ -53,12 +54,14 @@ stdenv.mkDerivation {
     ''
       # Get headers from the cxxabi source so we can see private headers not installed by the cxxabi package
       cmakeFlagsArray=($cmakeFlagsArray -DLIBCXX_CXX_ABI_INCLUDE_PATHS="$LIBCXXABI_INCLUDE_DIR")
-    '' + lib.optionalString stdenv.hostPlatform.isMusl ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isMusl ''
       patchShebangs utils/cat_files.py
     ''
     ;
   nativeBuildInputs =
-    [ cmake ] ++ lib.optional stdenv.hostPlatform.isMusl python3
+    [ cmake ]
+    ++ lib.optional stdenv.hostPlatform.isMusl python3
     ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
     ;
 
@@ -68,9 +71,10 @@ stdenv.mkDerivation {
     [
       "-DLIBCXX_LIBCPPABI_VERSION=2"
       "-DLIBCXX_CXX_ABI=${cxxabi.pname}"
-    ] ++ lib.optional stdenv.hostPlatform.isMusl "-DLIBCXX_HAS_MUSL_LIBC=1"
+    ]
+    ++ lib.optional stdenv.hostPlatform.isMusl "-DLIBCXX_HAS_MUSL_LIBC=1"
     ++ lib.optional (cxxabi.pname == "libcxxabi")
-    "-DLIBCXX_LIBCXXABI_LIB_PATH=${cxxabi}/lib"
+      "-DLIBCXX_LIBCXXABI_LIB_PATH=${cxxabi}/lib"
     ;
 
   preInstall = lib.optionalString (stdenv.isDarwin) ''

@@ -118,7 +118,8 @@ lib.makeOverridable mkDerivation (rec {
           0.0
           fsprogs
           libnotify
-        ] ++ extraLdPath)
+        ]
+          ++ extraLdPath)
       }" \
       ${lib.concatStringsSep " " extraWrapperArgs} \
       --set-default JDK_HOME "$jdk" \

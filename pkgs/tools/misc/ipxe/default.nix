@@ -50,7 +50,8 @@ stdenv.mkDerivation rec {
       perl
       xorriso
       xz
-    ] ++ lib.optional stdenv.hostPlatform.isx86 syslinux
+    ]
+    ++ lib.optional stdenv.hostPlatform.isx86 syslinux
     ;
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
@@ -80,7 +81,8 @@ stdenv.mkDerivation rec {
       "ECHO_E_BIN_ECHO=echo"
       "ECHO_E_BIN_ECHO_E=echo" # No /bin/echo here.
       "CROSS=${stdenv.cc.targetPrefix}"
-    ] ++ lib.optional (embedScript != null) "EMBED=${embedScript}"
+    ]
+    ++ lib.optional (embedScript != null) "EMBED=${embedScript}"
     ;
 
   enabledOptions =
@@ -89,7 +91,8 @@ stdenv.mkDerivation rec {
       "IMAGE_TRUST_CMD"
       "DOWNLOAD_PROTO_HTTP"
       "DOWNLOAD_PROTO_HTTPS"
-    ] ++ additionalOptions
+    ]
+    ++ additionalOptions
     ;
 
   configurePhase =
@@ -99,9 +102,11 @@ stdenv.mkDerivation rec {
         lib.escapeShellArgs enabledOptions
       }; do echo "#define $opt" >> src/config/general.h; done
       substituteInPlace src/Makefile.housekeeping --replace '/bin/echo' echo
-    '' + lib.optionalString stdenv.hostPlatform.isx86 ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isx86 ''
       substituteInPlace src/util/genfsimg --replace /usr/lib/syslinux ${syslinux}/share/syslinux
-    '' + ''
+    ''
+    + ''
       runHook postConfigure
     ''
     ;

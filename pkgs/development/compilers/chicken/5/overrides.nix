@@ -29,9 +29,10 @@ in
   allegro = addToBuildInputsWithPkgConfig ([
     pkgs.allegro5
     pkgs.libglvnd
-  ] ++ lib.optionals stdenv.isDarwin [
-      pkgs.darwin.apple_sdk.frameworks.OpenGL
-    ]);
+  ]
+    ++ lib.optionals stdenv.isDarwin [
+        pkgs.darwin.apple_sdk.frameworks.OpenGL
+      ]);
   breadline = addToBuildInputs pkgs.readline;
   blas = addToBuildInputsWithPkgConfig pkgs.blas;
   blosc = addToBuildInputs pkgs.c-blosc;
@@ -72,9 +73,10 @@ in
   opencl = addToBuildInputs ([
     pkgs.opencl-headers
     pkgs.ocl-icd
-  ] ++ lib.optionals stdenv.isDarwin [
-      pkgs.darwin.apple_sdk.frameworks.OpenCL
-    ]);
+  ]
+    ++ lib.optionals stdenv.isDarwin [
+        pkgs.darwin.apple_sdk.frameworks.OpenCL
+      ]);
   opengl =
     old:
     # csc: invalid option `-framework OpenGL'

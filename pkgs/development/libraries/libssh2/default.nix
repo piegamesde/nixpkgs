@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
     [
       openssl
       zlib
-    ] ++ lib.optional stdenv.hostPlatform.isMinGW windows.mingw_w64
+    ]
+    ++ lib.optional stdenv.hostPlatform.isMinGW windows.mingw_w64
     ;
 
   meta = with lib; {

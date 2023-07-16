@@ -34,8 +34,8 @@
   gnome,
   gsettings-desktop-schemas,
   sassc,
-  trackerSupport ? stdenv.isLinux
-    && (stdenv.buildPlatform == stdenv.hostPlatform),
+  trackerSupport ?
+    stdenv.isLinux && (stdenv.buildPlatform == stdenv.hostPlatform),
   tracker,
   x11Support ? stdenv.isLinux,
   waylandSupport ? stdenv.isLinux,
@@ -70,7 +70,8 @@ stdenv.mkDerivation (finalAttrs: {
     [
       "out"
       "dev"
-    ] ++ lib.optional withIntrospection "devdoc"
+    ]
+    ++ lib.optional withIntrospection "devdoc"
     ;
   outputBin = "dev";
 
@@ -96,7 +97,8 @@ stdenv.mkDerivation (finalAttrs: {
     [
       ./patches/3.0-immodules.cache.patch
       ./patches/3.0-Xft-setting-fallback-compute-DPI-properly.patch
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # X11 module requires <gio/gdesktopappinfo.h> which is not installed on Darwin
       # let’s drop that dependency in similar way to how other parts of the library do it
       # e.g. https://gitlab.gnome.org/GNOME/gtk/blob/3.24.4/gtk/gtk-launch.c#L31-33
@@ -116,17 +118,21 @@ stdenv.mkDerivation (finalAttrs: {
       python3
       sassc
       gdk-pixbuf
-    ] ++ finalAttrs.setupHooks ++ lib.optionals withIntrospection [
+    ]
+    ++ finalAttrs.setupHooks
+    ++ lib.optionals withIntrospection [
       gobject-introspection
       docbook_xml_dtd_43
       docbook-xsl-nons
       gtk-doc
       # For xmllint
       libxml2
-    ] ++ lib.optionals (withIntrospection
+    ]
+    ++ lib.optionals (withIntrospection
       && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-      mesonEmulatorHook
-    ] ++ lib.optionals waylandSupport [ wayland-scanner ]
+        mesonEmulatorHook
+      ]
+    ++ lib.optionals waylandSupport [ wayland-scanner ]
     ;
 
   buildInputs =
@@ -134,7 +140,8 @@ stdenv.mkDerivation (finalAttrs: {
       libxkbcommon
       (libepoxy.override { inherit x11Support; })
       isocodes
-    ] ++ lib.optionals stdenv.isDarwin [ AppKit ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ AppKit ]
     ++ lib.optionals trackerSupport [ tracker ]
     ;
     #TODO: colord?
@@ -159,15 +166,18 @@ stdenv.mkDerivation (finalAttrs: {
       libXrandr
       libXrender
       pango
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # explicitly propagated, always needed
       Cocoa
       QuartzCore
-    ] ++ lib.optionals waylandSupport [
+    ]
+    ++ lib.optionals waylandSupport [
       libGL
       wayland
       wayland-protocols
-    ] ++ lib.optionals xineramaSupport [ libXinerama ]
+    ]
+    ++ lib.optionals xineramaSupport [ libXinerama ]
     ++ lib.optionals cupsSupport [ cups ];
 
   mesonFlags = [
@@ -221,7 +231,8 @@ stdenv.mkDerivation (finalAttrs: {
       for f in $dev/bin/gtk-encode-symbolic-svg; do
         wrapProgram $f --prefix XDG_DATA_DIRS : "${shared-mime-info}/share"
       done
-    '' + lib.optionalString (stdenv.buildPlatform == stdenv.hostPlatform) ''
+    ''
+    + lib.optionalString (stdenv.buildPlatform == stdenv.hostPlatform) ''
       GTK_PATH="''${out:?}/lib/gtk-3.0/3.0.0/immodules/" ''${dev:?}/bin/gtk-query-immodules-3.0 > "''${out:?}/lib/gtk-3.0/3.0.0/immodules.cache"
     ''
     ;
@@ -235,7 +246,8 @@ stdenv.mkDerivation (finalAttrs: {
         wrapProgram $dev/bin/$program \
           --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH:$out/share/gsettings-schemas/${finalAttrs.pname}-${finalAttrs.version}"
       done
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # a comment created a cycle between outputs
       sed '/^# ModulesPath =/d' -i "$out"/lib/gtk-*/*/immodules.cache
     ''
@@ -270,7 +282,8 @@ stdenv.mkDerivation (finalAttrs: {
       [
         "gdk-3.0"
         "gtk+-3.0"
-      ] ++ lib.optionals x11Support [
+      ]
+      ++ lib.optionals x11Support [
         "gdk-x11-3.0"
         "gtk+-x11-3.0"
       ]

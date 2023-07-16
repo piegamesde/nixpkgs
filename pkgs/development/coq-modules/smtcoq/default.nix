@@ -46,7 +46,8 @@ mkCoqDerivation {
       cvc4
       veriT'
       zchaff
-    ] ++ (with coq.ocamlPackages; [
+    ]
+    ++ (with coq.ocamlPackages; [
       num
       zarith
     ])

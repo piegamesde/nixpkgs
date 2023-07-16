@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
       pkg-config
       autoreconfHook
       util-linux
-    ] ++ lib.optionals withGui [
+    ]
+    ++ lib.optionals withGui [
       wrapQtAppsHook
       qttools
     ]
@@ -59,11 +60,14 @@ stdenv.mkDerivation rec {
       boost
       zlib
       libevent
-    ] ++ lib.optionals withGui [
+    ]
+    ++ lib.optionals withGui [
       qtbase
       qrencode
-    ] ++ lib.optionals withUpnp [ miniupnpc ]
-    ++ lib.optionals withWallet [ db5 ] ++ lib.optionals withZmq [ zeromq ]
+    ]
+    ++ lib.optionals withUpnp [ miniupnpc ]
+    ++ lib.optionals withWallet [ db5 ]
+    ++ lib.optionals withZmq [ zeromq ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ;
 
@@ -71,7 +75,8 @@ stdenv.mkDerivation rec {
     [
       "--with-incompatible-bdb"
       "--with-boost-libdir=${boost.out}/lib"
-    ] ++ lib.optionals (!withGui) [ "--with-gui=no" ]
+    ]
+    ++ lib.optionals (!withGui) [ "--with-gui=no" ]
     ++ lib.optionals (!withUpnp) [ "--without-miniupnpc" ]
     ++ lib.optionals (!withUtils) [ "--without-utils" ]
     ++ lib.optionals (!withWallet) [ "--disable-wallet" ]

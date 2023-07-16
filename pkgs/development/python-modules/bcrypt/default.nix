@@ -44,7 +44,8 @@ buildPythonPackage rec {
     [
       setuptools
       setuptools-rust
-    ] ++ (with rustPlatform; [
+    ]
+    ++ (with rustPlatform; [
       cargoSetupHook
       rust.cargo
       rust.rustc

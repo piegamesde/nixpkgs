@@ -67,7 +67,8 @@ rec {
     } // (removeAttrs args ([
       "pname"
       "version"
-    ] ++ (builtins.attrNames (builtins.functionArgs wrapAppImage)))))
+    ]
+      ++ (builtins.attrNames (builtins.functionArgs wrapAppImage)))))
     ;
 
   wrapType2 =

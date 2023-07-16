@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
     [
       libX11
       imlib2
-    ] ++ lib.optionals enableXinerama [ libXinerama ]
+    ]
+    ++ lib.optionals enableXinerama [ libXinerama ]
     ;
 
   buildFlags = [

@@ -41,7 +41,8 @@ let
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
   pythonEnv = python3.withPackages (ps:
     with ps;
-    [ pillow ] ++ lib.optionals doCheck [
+    [ pillow ]
+    ++ lib.optionals doCheck [
       pygobject3
       python-dbusmock
     ]);
@@ -137,7 +138,8 @@ stdenv.mkDerivation rec {
       xorg.libXcursor
       xorg.xorgproto
       xwayland
-    ] ++ lib.optionals doCheck [
+    ]
+    ++ lib.optionals doCheck [
       gtest
       umockdev
       wlcs

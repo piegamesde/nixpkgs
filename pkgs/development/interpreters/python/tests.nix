@@ -157,7 +157,8 @@ let
         let
           pkgs_ = pkgs.extend (final: prev: {
             pythonPackagesExtensions =
-              prev.pythonPackagesExtensions ++ [
+              prev.pythonPackagesExtensions
+              ++ [
                 (python-final: python-prev: { foo = python-prev.setuptools; })
               ]
               ;
@@ -185,7 +186,8 @@ let
             sha256 = "02qzaf6gwsqbcs69pix1fnjxzgnngwzvrsy65h1d521g750mjvvp";
           };
           nativeBuildInputs =
-            [ autoPatchelfHook ] ++ (with python.pkgs; [
+            [ autoPatchelfHook ]
+            ++ (with python.pkgs; [
               condaUnpackHook
               condaInstallHook
             ])

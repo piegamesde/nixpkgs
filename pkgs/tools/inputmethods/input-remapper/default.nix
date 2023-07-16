@@ -54,7 +54,8 @@ in
       # fix FHS paths
       substituteInPlace inputremapper/configs/data.py \
         --replace "/usr/share/input-remapper"  "$out/usr/share/input-remapper"
-    '' + lib.optionalString withDebugLogLevel ''
+    ''
+    + lib.optionalString withDebugLogLevel ''
       # if debugging
       substituteInPlace inputremapper/logger.py --replace "logger.setLevel(logging.INFO)"  "logger.setLevel(logging.DEBUG)"
     ''
@@ -90,7 +91,8 @@ in
       lib.makeBinPath ([
         dbus
         procps
-      ] ++ maybeXmodmap)
+      ]
+        ++ maybeXmodmap)
     }:$PATH \
       USER="$(id -u -n)" \
       DBUS_SYSTEM_BUS_ADDRESS=unix:path=/build/system_bus_socket \
@@ -115,7 +117,8 @@ in
       glib
       gobject-introspection
       pygobject3
-    ] ++ maybeXmodmap
+    ]
+    ++ maybeXmodmap
     ;
 
   propagatedBuildInputs = [
@@ -164,7 +167,8 @@ in
   # See https://discourse.nixos.org/t/avoid-rec-expresions-in-nixpkgs/8293/7 for more
   # discussion
   postPatch =
-    prev.postPatch or "" + ''
+    prev.postPatch or ""
+    + ''
       # set revision for --version output
       echo "COMMIT_HASH = '${final.src.rev}'" > inputremapper/commit_hash.py
     ''

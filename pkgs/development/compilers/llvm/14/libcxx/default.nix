@@ -51,9 +51,10 @@ stdenv.mkDerivation rec {
   outputs = [ "out" ] ++ lib.optional (!headersOnly) "dev";
 
   patches =
-    [ ./gnu-install-dirs.patch ] ++ lib.optionals stdenv.hostPlatform.isMusl [
-      ../../libcxx-0001-musl-hacks.patch
-    ]
+    [ ./gnu-install-dirs.patch ]
+    ++ lib.optionals stdenv.hostPlatform.isMusl [
+        ../../libcxx-0001-musl-hacks.patch
+      ]
     ;
 
   preConfigure = lib.optionalString stdenv.hostPlatform.isMusl ''
@@ -64,7 +65,8 @@ stdenv.mkDerivation rec {
     [
       cmake
       python3
-    ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
+    ]
+    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
     ;
 
   buildInputs = lib.optionals (!headersOnly) [ cxxabi ];
@@ -72,13 +74,15 @@ stdenv.mkDerivation rec {
   cmakeFlags =
     [ "-DLIBCXX_CXX_ABI=${cxxabi.pname}" ]
     ++ lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi)
-    "-DLIBCXX_HAS_MUSL_LIBC=1"
+      "-DLIBCXX_HAS_MUSL_LIBC=1"
     ++ lib.optional (stdenv.hostPlatform.useLLVM or false)
-    "-DLIBCXX_USE_COMPILER_RT=ON" ++ lib.optionals stdenv.hostPlatform.isWasm [
+      "-DLIBCXX_USE_COMPILER_RT=ON"
+    ++ lib.optionals stdenv.hostPlatform.isWasm [
       "-DLIBCXX_ENABLE_THREADS=OFF"
       "-DLIBCXX_ENABLE_FILESYSTEM=OFF"
       "-DLIBCXX_ENABLE_EXCEPTIONS=OFF"
-    ] ++ lib.optional (!enableShared) "-DLIBCXX_ENABLE_SHARED=OFF"
+    ]
+    ++ lib.optional (!enableShared) "-DLIBCXX_ENABLE_SHARED=OFF"
     ;
 
   buildFlags = lib.optional headersOnly "generate-cxx-headers";

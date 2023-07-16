@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
       glib
       libseccomp
       systemd
-    ] ++ lib.optionals (!stdenv.hostPlatform.isMusl) [
+    ]
+    ++ lib.optionals (!stdenv.hostPlatform.isMusl) [
       glibc
       glibc.static
     ]

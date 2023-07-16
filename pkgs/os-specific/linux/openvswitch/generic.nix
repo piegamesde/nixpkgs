@@ -79,7 +79,8 @@ stdenv.mkDerivation rec {
       "--localstatedir=/var"
       "--sharedstatedir=/var"
       "--sbindir=$(out)/bin"
-    ] ++ (lib.optionals (_kernel != null) [ "--with-linux" ])
+    ]
+    ++ (lib.optionals (_kernel != null) [ "--with-linux" ])
     ;
 
     # Leave /var out of this!
@@ -102,7 +103,8 @@ stdenv.mkDerivation rec {
   '';
 
   nativeCheckInputs =
-    [ iproute2 ] ++ (with python3.pkgs; [
+    [ iproute2 ]
+    ++ (with python3.pkgs; [
       netaddr
       pyparsing
       pytest

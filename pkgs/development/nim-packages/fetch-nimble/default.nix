@@ -31,7 +31,8 @@ makeOverridable (
     outputHashAlgo = null;
     outputHashMode = "recursive";
     impureEnvVars =
-      lib.fetchers.proxyImpureEnvVars ++ [
+      lib.fetchers.proxyImpureEnvVars
+      ++ [
         "GIT_PROXY_COMMAND"
         "SOCKS_SERVER"
       ]

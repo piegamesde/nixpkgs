@@ -52,7 +52,8 @@ stdenv.mkDerivation rec {
       gdl
       gnome.adwaita-icon-theme
       gnome.anjuta
-    ] ++ (with perlPackages; [
+    ]
+    ++ (with perlPackages; [
       perl
       XMLParser
     ])

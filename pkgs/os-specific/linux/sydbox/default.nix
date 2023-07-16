@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
       "dev"
       "man"
       "doc"
-    ] ++ lib.optional installTests "installedTests"
+    ]
+    ++ lib.optional installTests "installedTests"
     ;
 
   src = fetchurl {
@@ -47,7 +48,8 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ libseccomp ] ++ lib.optional debugBuild libunwind
+    [ libseccomp ]
+    ++ lib.optional debugBuild libunwind
     ++ lib.optionals installTests [
       gnumake
       python3
@@ -59,10 +61,12 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   configureFlags =
-    [ ] ++ lib.optionals installTests [
+    [ ]
+    ++ lib.optionals installTests [
       "--enable-installed-tests"
       "--libexecdir=${placeholder "installedTests"}/libexec"
-    ] ++ lib.optional debugBuild "--enable-debug"
+    ]
+    ++ lib.optional debugBuild "--enable-debug"
     ;
 
   makeFlags = [ "SYD_INCLUDEDIR=${stdenv.cc.libc.dev}/include" ];

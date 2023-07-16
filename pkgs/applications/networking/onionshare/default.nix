@@ -106,7 +106,8 @@ rec {
     disabledTests =
       [
         "test_get_tor_paths_linux" # expects /usr instead of /nix/store
-      ] ++ lib.optionals stdenv.isDarwin [
+      ]
+      ++ lib.optionals stdenv.isDarwin [
         # on darwin (and only on darwin) onionshare attempts to discover
         # user's *real* homedir via /etc/passwd, making it more painful
         # to fake

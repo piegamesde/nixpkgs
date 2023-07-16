@@ -51,7 +51,8 @@ stdenv.mkDerivation rec {
     [
       "out"
       "info"
-    ] ++ lib.optional (!interactive) "man"
+    ]
+    ++ lib.optional (!interactive) "man"
     ;
 
     # no-pma fix
@@ -59,7 +60,8 @@ stdenv.mkDerivation rec {
     [ autoreconfHook ] ++ lib.optional (doCheck && stdenv.isLinux) glibcLocales;
 
   buildInputs =
-    lib.optional withSigsegv libsigsegv ++ lib.optional interactive readline
+    lib.optional withSigsegv libsigsegv
+    ++ lib.optional interactive readline
     ++ lib.optional stdenv.isDarwin locale
     ;
 

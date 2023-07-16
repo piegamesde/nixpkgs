@@ -65,7 +65,8 @@ stdenv.mkDerivation {
       libjpeg
       libpng
       zlib
-    ] ++ lib.optional stdenv.isDarwin libiconv
+    ]
+    ++ lib.optional stdenv.isDarwin libiconv
     ;
 
   meta = with lib; {

@@ -126,7 +126,8 @@ writeTextFile rec {
         ]
       }'
       export SAGE_ROOT='${sagelib.src}'
-    '' +
+    ''
+    +
     # TODO: is using pythonEnv instead of @sage-local@ here a good
     # idea? there is a test in src/sage/env.py that checks if the values
     # SAGE_ROOT and SAGE_LOCAL set here match the ones set in env.py.

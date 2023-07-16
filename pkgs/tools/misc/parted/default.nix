@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
   '';
 
   buildInputs =
-    [ libuuid ] ++ lib.optional (readline != null) readline
+    [ libuuid ]
+    ++ lib.optional (readline != null) readline
     ++ lib.optional (gettext != null) gettext
     ++ lib.optional (lvm2 != null) lvm2
     ;

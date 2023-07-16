@@ -18,7 +18,8 @@ let
         # This only allows to enable the toggle, vkBasalt won't work if not installed with environment.systemPackages (or nix-env)
         # See https://github.com/bottlesdevs/Bottles/issues/2401
         vkbasalt
-      ] ++ extraPkgs pkgs
+      ]
+      ++ extraPkgs pkgs
       ;
 
     multiPkgs =
@@ -99,7 +100,9 @@ let
         libgpg-error
         p11-kit
         zlib # Freetype
-      ] ++ xorgDeps pkgs ++ extraLibraries pkgs
+      ]
+      ++ xorgDeps pkgs
+      ++ extraLibraries pkgs
       ;
 
     profile = ''

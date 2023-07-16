@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
     [
       wxGTK32
       gtk3
-    ] ++ lib.optionals contribPlugins [
+    ]
+    ++ lib.optionals contribPlugins [
       hunspell
       gamin
       boost
@@ -167,9 +168,11 @@ stdenv.mkDerivation rec {
     "substituteInPlace libtool --replace ldconfig ${stdenv.cc.libc.bin}/bin/ldconfig"
     ;
   configureFlags =
-    [ "--enable-pch=no" ] ++ lib.optionals contribPlugins [
-      ("--with-contrib-plugins" + lib.optionalString stdenv.isDarwin
-        "=all,-FileManager,-NassiShneiderman")
+    [ "--enable-pch=no" ]
+    ++ lib.optionals contribPlugins [
+      ("--with-contrib-plugins"
+        + lib.optionalString stdenv.isDarwin
+          "=all,-FileManager,-NassiShneiderman")
       "--with-boost-libdir=${boost}/lib"
     ]
     ;

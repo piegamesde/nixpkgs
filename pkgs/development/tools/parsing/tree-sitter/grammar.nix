@@ -41,7 +41,8 @@ stdenv.mkDerivation ({
   configurePhase =
     lib.optionalString generate ''
       tree-sitter generate
-    '' + lib.optionalString (location != null) ''
+    ''
+    + lib.optionalString (location != null) ''
       cd ${location}
     ''
     ;

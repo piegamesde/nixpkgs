@@ -35,7 +35,9 @@ import ./make-test-python.nix ({
   in
   {
     name =
-      "nat" + (lib.optionalString nftables "Nftables") + (if withFirewall then
+      "nat"
+      + (lib.optionalString nftables "Nftables")
+      + (if withFirewall then
         "WithFirewall"
       else
         "Standalone")

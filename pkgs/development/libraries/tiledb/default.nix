@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
       cmake
       python3
       doxygen
-    ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
     ;
 
   nativeCheckInputs = [ gtest ];

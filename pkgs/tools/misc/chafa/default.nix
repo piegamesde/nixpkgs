@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
     [
       glib
       imagemagick
-    ] ++ lib.optional stdenv.isDarwin Foundation
+    ]
+    ++ lib.optional stdenv.isDarwin Foundation
     ;
 
   patches = [ ./xmlcatalog_patch.patch ];

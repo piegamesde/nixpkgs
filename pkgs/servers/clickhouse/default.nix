@@ -85,7 +85,8 @@ stdenv.mkDerivation rec {
       unixODBC
       xxHash
       zstd
-    ] ++ lib.optional stdenv.hostPlatform.isx86 libcpuid
+    ]
+    ++ lib.optional stdenv.hostPlatform.isx86 libcpuid
     ;
 
   postPatch = ''

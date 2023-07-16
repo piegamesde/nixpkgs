@@ -77,7 +77,8 @@ stdenv.mkDerivation rec {
       perl
       gnused
       coreutils
-    ] ++ lib.optionals withLatex [ texlive.combined.scheme-medium ]
+    ]
+    ++ lib.optionals withLatex [ texlive.combined.scheme-medium ]
     ;
 
   meta = with lib; {

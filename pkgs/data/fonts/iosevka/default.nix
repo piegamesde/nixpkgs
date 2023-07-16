@@ -79,7 +79,8 @@ buildNpmPackage rec {
     [
       remarshal
       ttfautohint-nox
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # libtool
       darwin.cctools
     ]
@@ -94,7 +95,8 @@ buildNpmPackage rec {
 
   inherit extraParameters;
   passAsFile =
-    [ "extraParameters" ] ++ lib.optionals (!(builtins.isString privateBuildPlan
+    [ "extraParameters" ]
+    ++ lib.optionals (!(builtins.isString privateBuildPlan
       && lib.hasPrefix builtins.storeDir privateBuildPlan)) [ "buildPlan" ]
     ;
 

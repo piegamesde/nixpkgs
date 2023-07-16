@@ -42,13 +42,15 @@ stdenv.mkDerivation rec {
     [
       glfw
       ffmpeg-full
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libX11
       libXrandr
       libXinerama
       libXcursor
       gtk3
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       AppKit
       Carbon
       Cocoa

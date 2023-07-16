@@ -28,7 +28,8 @@ stdenv.mkDerivation {
     [
       wxGTK32
       SDL2
-    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ;
 
   meta = with lib; {

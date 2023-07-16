@@ -69,7 +69,8 @@ stdenv.mkDerivation rec {
       pkg-config
       wrapGAppsHook
       python3.pkgs.wrapPython
-    ] ++ pythonPath
+    ]
+    ++ pythonPath
     ;
 
   buildInputs = [

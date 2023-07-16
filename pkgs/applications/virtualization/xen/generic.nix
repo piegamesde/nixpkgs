@@ -174,7 +174,8 @@ stdenv.mkDerivation (rec {
       pandoc
 
       # Others
-    ] ++ (concatMap (x: x.buildInputs or [ ]) (attrValues config.xenfiles))
+    ]
+    ++ (concatMap (x: x.buildInputs or [ ]) (attrValues config.xenfiles))
     ++ (config.buildInputs or [ ])
     ;
 
@@ -289,7 +290,8 @@ stdenv.mkDerivation (rec {
     [
       "PREFIX=$(out) CONFIG_DIR=/etc"
       "XEN_SCRIPT_DIR=/etc/xen/scripts"
-    ] ++ (config.makeFlags or [ ])
+    ]
+    ++ (config.makeFlags or [ ])
     ;
 
   preBuild = ''
@@ -338,14 +340,16 @@ stdenv.mkDerivation (rec {
     description =
       "Xen hypervisor and related components"
       + optionalString (args ? meta && args.meta ? description)
-      " (${args.meta.description})"
+        " (${args.meta.description})"
       ;
     longDescription =
-      (args.meta.longDescription or "") + ''
+      (args.meta.longDescription or "")
+      + ''
 
         Includes:
-      '' + withXenfiles
-      (name: x: "* ${name}: ${x.meta.description or "(No description)"}.")
+      ''
+      + withXenfiles
+        (name: x: "* ${name}: ${x.meta.description or "(No description)"}.")
       ;
     platforms = [ "x86_64-linux" ];
     maintainers = [ ];
@@ -363,9 +367,10 @@ stdenv.mkDerivation (rec {
         # Affects 4.15 - 4.17
         "CVE-2022-42331"
         # https://xenbits.xen.org/docs/unstable/support-matrix.html
-      ] ++ lib.optionals (lib.versionOlder version "4.15") [
-        "This version of Xen has reached its end of life. See https://xenbits.xen.org/docs/unstable/support-matrix.html"
       ]
+      ++ lib.optionals (lib.versionOlder version "4.15") [
+          "This version of Xen has reached its end of life. See https://xenbits.xen.org/docs/unstable/support-matrix.html"
+        ]
       ;
   } // (config.meta or { });
 } // removeAttrs config [

@@ -44,7 +44,8 @@ let
         additionalBackends
         cups-filters
         pkgs.ghostscript
-      ] ++ cfg.drivers
+      ]
+      ++ cfg.drivers
       ;
     pathsToLink = [
       "/lib"
@@ -130,7 +131,9 @@ let
         cupsdFile
         (writeConf "client.conf" cfg.clientConf)
         (writeConf "snmp.conf" cfg.snmpConf)
-      ] ++ optional avahiEnabled browsedFile ++ cfg.drivers
+      ]
+      ++ optional avahiEnabled browsedFile
+      ++ cfg.drivers
       ;
     pathsToLink = [ "/etc/cups" ];
     ignoreCollisions = true;
@@ -400,9 +403,10 @@ in
         [
           ""
           "/run/cups/cups.sock"
-        ] ++ map (x:
+        ]
+        ++ map (x:
           replaceStrings [ "localhost" ] [ "127.0.0.1" ] (removePrefix "*:" x))
-        cfg.listenAddresses
+          cfg.listenAddresses
         ;
     };
 
@@ -416,7 +420,8 @@ in
       preStart =
         lib.optionalString cfg.stateless ''
           rm -rf /var/cache/cups /var/lib/cups /var/spool/cups
-        '' + ''
+        ''
+        + ''
           mkdir -m 0700 -p /var/cache/cups
           mkdir -m 0700 -p /var/spool/cups
           mkdir -m 0755 -p ${cfg.tempDir}

@@ -88,7 +88,8 @@ stdenv.mkDerivation rec {
     [
       cmake
       pkg-config
-    ] ++ lib.optionals withDocs [
+    ]
+    ++ lib.optionals withDocs [
       doxygen
       graphviz
     ]
@@ -98,10 +99,12 @@ stdenv.mkDerivation rec {
     lib.optionals stdenv.hostPlatform.isDarwin [
       ApplicationServices
       Carbon
-    ] ++ lib.optionals (withGL && !stdenv.hostPlatform.isDarwin) [
+    ]
+    ++ lib.optionals (withGL && !stdenv.hostPlatform.isDarwin) [
       libGL
       libGLU
-    ] ++ lib.optionals (withExamples && withGL) [ glew ]
+    ]
+    ++ lib.optionals (withExamples && withGL) [ glew ]
     ;
 
   propagatedBuildInputs =
@@ -109,7 +112,8 @@ stdenv.mkDerivation rec {
       zlib
       libjpeg
       libpng
-    ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
       freetype
       fontconfig
       libX11
@@ -119,9 +123,11 @@ stdenv.mkDerivation rec {
       libXcursor
       libXft
       libXrender
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ]
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ]
     ++ lib.optionals (withGL && stdenv.hostPlatform.isDarwin) [ OpenGL ]
-    ++ lib.optionals withCairo [ cairo ] ++ lib.optionals withPango [ pango ]
+    ++ lib.optionals withCairo [ cairo ]
+    ++ lib.optionals withPango [ pango ]
     ;
 
   cmakeFlags = [
@@ -179,7 +185,8 @@ stdenv.mkDerivation rec {
     lib.optionalString withExamples ''
       mkdir -p $bin/bin
       mv bin/{test,examples}/* $bin/bin/
-    '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
       mkdir -p $out/Library/Frameworks
       mv $out{,/Library/Frameworks}/FLTK.framework
 

@@ -56,10 +56,12 @@ stdenv.mkDerivation rec {
       gettext
       sqlite
       libiconv
-    ] ++ lib.optionals dbiSupport [
+    ]
+    ++ lib.optionals dbiSupport [
       libdbi
       libdbiDrivers
-    ] ++ lib.optionals postgresSupport [ postgresql ]
+    ]
+    ++ lib.optionals postgresSupport [ postgresql ]
     ;
 
   meta = with lib; {

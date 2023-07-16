@@ -94,7 +94,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description =
-      "Stub bindings using " + (if stdenv.hostPlatform.isDarwin then
+      "Stub bindings using "
+      + (if stdenv.hostPlatform.isDarwin then
         "mesa"
       else
         "libglvnd")

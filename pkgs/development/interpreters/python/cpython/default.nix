@@ -75,8 +75,8 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-assert x11Support -> tcl != null && tk != null && xorgproto != null && libX11
-  != null;
+assert x11Support
+  -> tcl != null && tk != null && xorgproto != null && libX11 != null;
 
 assert bluezSupport -> bluez != null;
 
@@ -152,11 +152,13 @@ let
       autoreconfHook
       pkg-config
       autoconf-archive # needed for AX_CHECK_COMPILE_FLAG
-    ] ++ [ nukeReferences ]
+    ]
+    ++ [ nukeReferences ]
     ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       buildPackages.stdenv.cc
       pythonForBuild
-    ] ++ optionals (stdenv.cc.isClang
+    ]
+    ++ optionals (stdenv.cc.isClang
       && (!stdenv.hostPlatform.useAndroidPrebuilt or false)
       && (enableLTO || enableOptimizations)) [ stdenv.cc.cc.libllvm.out ]
     ;
@@ -174,15 +176,18 @@ let
       readline
       ncurses
       openssl'
-    ] ++ optionals x11Support [
-      tcl
-      tk
-      libX11
-      xorgproto
-    ] ++ optionals (bluezSupport && stdenv.isLinux) [ bluez ]
+    ]
+      ++ optionals x11Support [
+        tcl
+        tk
+        libX11
+        xorgproto
+      ]
+      ++ optionals (bluezSupport && stdenv.isLinux) [ bluez ]
       ++ optionals stdenv.isDarwin [ configd ])
 
-    ++ optionals enableFramework [ Cocoa ] ++ optionals tzdataSupport [ tzdata ]
+    ++ optionals enableFramework [ Cocoa ]
+    ++ optionals tzdataSupport [ tzdata ]
     ; # `zoneinfo` module
 
   hasDistutilsCxxPatch = !(stdenv.cc.isGNU or false);
@@ -309,7 +314,8 @@ stdenv.mkDerivation {
   prePatch =
     optionalString stdenv.isDarwin ''
       substituteInPlace configure --replace '`/usr/bin/arch`' '"i386"'
-    '' + optionalString (pythonOlder "3.9" && stdenv.isDarwin && x11Support) ''
+    ''
+    + optionalString (pythonOlder "3.9" && stdenv.isDarwin && x11Support) ''
       # Broken on >= 3.9; replaced with ./3.9/darwin-tcl-tk.patch
       substituteInPlace setup.py --replace /Library/Frameworks /no-such-path
     ''
@@ -319,7 +325,8 @@ stdenv.mkDerivation {
     optionals (version == "3.10.9") [
       # https://github.com/python/cpython/issues/100160
       ./3.10/asyncio-deprecation.patch
-    ] ++ optionals (version == "3.11.1") [
+    ]
+    ++ optionals (version == "3.11.1") [
       # https://github.com/python/cpython/issues/100160
       (fetchpatch {
         name = "asyncio-deprecation-3.11.patch";
@@ -329,7 +336,8 @@ stdenv.mkDerivation {
         excludes = [ "Misc/NEWS.d/*" ];
         hash = "sha256-PmkXf2D9trtW1gXZilRIWgdg2Y47JfELq1z4DuG3wJY=";
       })
-    ] ++ [
+    ]
+    ++ [
       # Disable the use of ldconfig in ctypes.util.find_library (since
       # ldconfig doesn't work on NixOS), and don't use
       # ctypes.util.find_library during the loading of the uuid module
@@ -340,18 +348,22 @@ stdenv.mkDerivation {
       # owner-writable, so venvs can be recreated without permission
       # errors.
       ./virtualenv-permissions.patch
-    ] ++ optionals mimetypesSupport [
+    ]
+    ++ optionals mimetypesSupport [
       # Make the mimetypes module refer to the right file
       ./mimetypes.patch
-    ] ++ optionals (pythonAtLeast "3.7" && pythonOlder "3.11") [
+    ]
+    ++ optionals (pythonAtLeast "3.7" && pythonOlder "3.11") [
       # Fix darwin build https://bugs.python.org/issue34027
       ./3.7/darwin-libutil.patch
-    ] ++ optionals (pythonAtLeast "3.11") [ ./3.11/darwin-libutil.patch ]
+    ]
+    ++ optionals (pythonAtLeast "3.11") [ ./3.11/darwin-libutil.patch ]
     ++ optionals (pythonAtLeast "3.9" && pythonOlder "3.11" && stdenv.isDarwin)
-    [
-      # Stop checking for TCL/TK in global macOS locations
-      ./3.9/darwin-tcl-tk.patch
-    ] ++ optionals (isPy3k && hasDistutilsCxxPatch && pythonOlder "3.12") [
+      [
+        # Stop checking for TCL/TK in global macOS locations
+        ./3.9/darwin-tcl-tk.patch
+      ]
+    ++ optionals (isPy3k && hasDistutilsCxxPatch && pythonOlder "3.12") [
       # Fix for http://bugs.python.org/issue1222585
       # Upstream distutils is calling C compiler to compile C++ code, which
       # only works for GCC and Apple Clang. This makes distutils to call C++
@@ -366,12 +378,14 @@ stdenv.mkDerivation {
             "https://bugs.python.org/file48016/python-3.x-distutils-C++.patch";
           sha256 = "1h18lnpx539h5lfxyk379dxwr8m2raigcjixkf133l4xy3f4bzi2";
         })
-    ] ++ optionals (pythonOlder "3.12") [
+    ]
+    ++ optionals (pythonOlder "3.12") [
       # LDSHARED now uses $CC instead of gcc. Fixes cross-compilation of extension modules.
       ./3.8/0001-On-all-posix-systems-not-just-Darwin-set-LDSHARED-if.patch
       # Use sysconfigdata to find headers. Fixes cross-compilation of extension modules.
       ./3.7/fix-finding-headers-when-cross-compiling.patch
-    ] ++ optionals stdenv.hostPlatform.isLoongArch64 [
+    ]
+    ++ optionals stdenv.hostPlatform.isLoongArch64 [
       # https://github.com/python/cpython/issues/90656
       ./loongarch-support.patch
     ]
@@ -381,10 +395,12 @@ stdenv.mkDerivation {
     ''
       substituteInPlace Lib/subprocess.py \
         --replace "'/bin/sh'" "'${bash}/bin/sh'"
-    '' + optionalString mimetypesSupport ''
+    ''
+    + optionalString mimetypesSupport ''
       substituteInPlace Lib/mimetypes.py \
         --replace "@mime-types@" "${mailcap}"
-    '' + optionalString (x11Support && (tix != null)) ''
+    ''
+    + optionalString (x11Support && (tix != null)) ''
       substituteInPlace "Lib/tkinter/tix.py" --replace "os.environ.get('TIX_LIBRARY')" "os.environ.get('TIX_LIBRARY') or '${tix}/lib'"
     ''
     ;
@@ -409,20 +425,26 @@ stdenv.mkDerivation {
       "--without-ensurepip"
       "--with-system-expat"
       "--with-system-ffi"
-    ] ++ optionals (!static && !enableFramework) [ "--enable-shared" ]
+    ]
+    ++ optionals (!static && !enableFramework) [ "--enable-shared" ]
     ++ optionals enableFramework [
-      "--enable-framework=${placeholder "out"}/Library/Frameworks"
-    ] ++ optionals enableOptimizations [ "--enable-optimizations" ]
-    ++ optionals enableLTO [ "--with-lto" ] ++ optionals (pythonOlder "3.7") [
+        "--enable-framework=${placeholder "out"}/Library/Frameworks"
+      ]
+    ++ optionals enableOptimizations [ "--enable-optimizations" ]
+    ++ optionals enableLTO [ "--with-lto" ]
+    ++ optionals (pythonOlder "3.7") [
       # This is unconditionally true starting in CPython 3.7.
       "--with-threads"
-    ] ++ optionals (sqlite != null && isPy3k) [
-      "--enable-loadable-sqlite-extensions"
-    ] ++ optionals (openssl' != null) [ "--with-openssl=${openssl'.dev}" ]
+    ]
+    ++ optionals (sqlite != null && isPy3k) [
+        "--enable-loadable-sqlite-extensions"
+      ]
+    ++ optionals (openssl' != null) [ "--with-openssl=${openssl'.dev}" ]
     ++ optionals (libxcrypt != null) [
       "CFLAGS=-I${libxcrypt}/include"
       "LIBS=-L${libxcrypt}/lib"
-    ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    ]
+    ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "ac_cv_buggy_getaddrinfo=no"
       # Assume little-endian IEEE 754 floating point when cross compiling
       "ac_cv_little_endian_double=yes"
@@ -443,14 +465,17 @@ stdenv.mkDerivation {
       "ac_cv_computed_gotos=yes"
       "ac_cv_file__dev_ptmx=yes"
       "ac_cv_file__dev_ptc=yes"
-    ] ++ optionals
-    (stdenv.hostPlatform != stdenv.buildPlatform && pythonAtLeast "3.11") [
-      "--with-build-python=${pythonForBuildInterpreter}"
-    ] ++ optionals stdenv.hostPlatform.isLinux [
+    ]
+    ++ optionals
+      (stdenv.hostPlatform != stdenv.buildPlatform && pythonAtLeast "3.11") [
+        "--with-build-python=${pythonForBuildInterpreter}"
+      ]
+    ++ optionals stdenv.hostPlatform.isLinux [
       # Never even try to use lchmod on linux,
       # don't rely on detecting glibc-isms.
       "ac_cv_func_lchmod=no"
-    ] ++ optionals tzdataSupport [ "--with-tzpath=${tzdata}/share/zoneinfo" ]
+    ]
+    ++ optionals tzdataSupport [ "--with-tzpath=${tzdata}/share/zoneinfo" ]
     ++ optional static "LDFLAGS=-static"
     ;
 
@@ -459,7 +484,17 @@ stdenv.mkDerivation {
       for i in /usr /sw /opt /pkg; do	# improve purity
         substituteInPlace ./setup.py --replace $i /no-such-path
       done
-    '' + optionalString stdenv.isDarwin ''
+    ''
+    +
+
+    # enableNoSemanticInterposition essentially sets that CFLAG -fno-semantic-interposition
+    # which changes how symbols are looked up. This essentially means we can't override
+    # libpython symbols via LD_PRELOAD anymore. This is common enough as every build
+    # that uses --enable-optimizations has the same "issue".
+    #
+    # The Fedora wiki has a good article about their journey towards enabling this flag:
+    # https://fedoraproject.org/wiki/Changes/PythonNoSemanticInterpositionSpeedup
+    optionalString stdenv.isDarwin ''
       # Override the auto-detection in setup.py, which assumes a universal build
       export PYTHON_DECIMAL_WITH_MACHINE=${
         if stdenv.isAarch64 then
@@ -467,13 +502,34 @@ stdenv.mkDerivation {
         else
           "x64"
       }
-    '' + optionalString (isPy3k && pythonOlder "3.7") ''
+    ''
+    +
+
+    # enableNoSemanticInterposition essentially sets that CFLAG -fno-semantic-interposition
+    # which changes how symbols are looked up. This essentially means we can't override
+    # libpython symbols via LD_PRELOAD anymore. This is common enough as every build
+    # that uses --enable-optimizations has the same "issue".
+    #
+    # The Fedora wiki has a good article about their journey towards enabling this flag:
+    # https://fedoraproject.org/wiki/Changes/PythonNoSemanticInterpositionSpeedup
+    optionalString (isPy3k && pythonOlder "3.7") ''
       # Determinism: The interpreter is patched to write null timestamps when compiling Python files
       #   so Python doesn't try to update the bytecode when seeing frozen timestamps in Nix's store.
       export DETERMINISTIC_BUILD=1;
-    '' + optionalString stdenv.hostPlatform.isMusl ''
+    ''
+    +
+
+    # enableNoSemanticInterposition essentially sets that CFLAG -fno-semantic-interposition
+    # which changes how symbols are looked up. This essentially means we can't override
+    # libpython symbols via LD_PRELOAD anymore. This is common enough as every build
+    # that uses --enable-optimizations has the same "issue".
+    #
+    # The Fedora wiki has a good article about their journey towards enabling this flag:
+    # https://fedoraproject.org/wiki/Changes/PythonNoSemanticInterpositionSpeedup
+    optionalString stdenv.hostPlatform.isMusl ''
       export NIX_CFLAGS_COMPILE+=" -DTHREAD_STACK_SIZE=0x100000"
-    '' +
+    ''
+    +
 
     # enableNoSemanticInterposition essentially sets that CFLAG -fno-semantic-interposition
     # which changes how symbols are looked up. This essentially means we can't override
@@ -495,13 +551,15 @@ stdenv.mkDerivation {
       keep-references = concatMapStringsSep " " (val: "-e ${val}") ([
         (placeholder "out")
         libxcrypt
-      ] ++ optionals tzdataSupport [ tzdata ]);
+      ]
+        ++ optionals tzdataSupport [ tzdata ]);
     in
     lib.optionalString enableFramework ''
       for dir in include lib share; do
         ln -s $out/Library/Frameworks/Python.framework/Versions/Current/$dir $out/$dir
       done
-    '' + ''
+    ''
+    + ''
       # needed for some packages, especially packages that backport functionality
       # to 2.x from 3.x
       for item in $out/lib/${libPrefix}/test/*; do
@@ -544,25 +602,32 @@ stdenv.mkDerivation {
       # This allows build Python to import host Python's sysconfigdata
       mkdir -p "$out/${sitePackages}"
       ln -s "$out/lib/${libPrefix}/"_sysconfigdata*.py "$out/${sitePackages}/"
-    '' + optionalString stripConfig ''
+    ''
+    + optionalString stripConfig ''
       rm -R $out/bin/python*-config $out/lib/python*/config-*
-    '' + optionalString stripIdlelib ''
+    ''
+    + optionalString stripIdlelib ''
       # Strip IDLE (and turtledemo, which uses it)
       rm -R $out/bin/idle* $out/lib/python*/{idlelib,turtledemo}
-    '' + optionalString stripTkinter ''
+    ''
+    + optionalString stripTkinter ''
       rm -R $out/lib/python*/tkinter
-    '' + optionalString stripTests ''
+    ''
+    + optionalString stripTests ''
       # Strip tests
       rm -R $out/lib/python*/test $out/lib/python*/**/test{,s}
-    '' + optionalString includeSiteCustomize ''
+    ''
+    + optionalString includeSiteCustomize ''
       # Include a sitecustomize.py file
       cp ${../sitecustomize.py} $out/${sitePackages}/sitecustomize.py
 
-    '' + optionalString stripBytecode ''
+    ''
+    + optionalString stripBytecode ''
       # Determinism: deterministic bytecode
       # First we delete all old bytecode.
       find $out -type d -name __pycache__ -print0 | xargs -0 -I {} rm -rf "{}"
-    '' + optionalString rebuildBytecode ''
+    ''
+    + optionalString rebuildBytecode ''
       # Python 3.7 implements PEP 552, introducing support for deterministic bytecode.
       # compileall uses the therein introduced checked-hash method by default when
       # `SOURCE_DATE_EPOCH` is set.
@@ -573,7 +638,8 @@ stdenv.mkDerivation {
       find $out -name "*.py" | ${pythonForBuildInterpreter} -m compileall -q -f -x "lib2to3" -i -
       find $out -name "*.py" | ${pythonForBuildInterpreter} -O  -m compileall -q -f -x "lib2to3" -i -
       find $out -name "*.py" | ${pythonForBuildInterpreter} -OO -m compileall -q -f -x "lib2to3" -i -
-    '' + ''
+    ''
+    + ''
       # *strip* shebang from libpython gdb script - it should be dual-syntax and
       # interpretable by whatever python the gdb in question is using, which may
       # not even match the major version of this python. doing this after the
@@ -600,8 +666,9 @@ stdenv.mkDerivation {
     # explicitly specify in our configure flags above.
   disallowedReferences =
     lib.optionals (openssl' != null && !static && !enableFramework) [
-      openssl'.dev
-    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+        openssl'.dev
+      ]
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       # Ensure we don't have references to build-time packages.
       # These typically end up in shebangs.
       pythonForBuild

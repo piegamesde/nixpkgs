@@ -61,9 +61,11 @@ let
         "&&" = cond1: cond2: cond1 && cond2;
       };
       splitRe =
-        "(" + (builtins.concatStringsSep "|"
+        "("
+        + (builtins.concatStringsSep "|"
           (builtins.map (x: lib.replaceStrings [ "|" ] [ "\\|" ] x)
-            (lib.attrNames operators))) + ")"
+            (lib.attrNames operators)))
+        + ")"
         ;
     in
     expr:
@@ -287,8 +289,9 @@ let
         ;
     in
     lib.optionals
-    (builtins.pathExists path && builtins.toString path != "/" && !isGitRoot)
-    (findGitIgnores parent) ++ gitIgnores
+      (builtins.pathExists path && builtins.toString path != "/" && !isGitRoot)
+      (findGitIgnores parent)
+    ++ gitIgnores
     ;
 
     /* Provides a source filtering mechanism that:

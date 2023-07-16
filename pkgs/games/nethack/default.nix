@@ -67,11 +67,13 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs =
-    [ ncurses ] ++ lib.optionals x11Mode [
+    [ ncurses ]
+    ++ lib.optionals x11Mode [
       libXaw
       libXext
       libXpm
-    ] ++ lib.optionals qtMode [
+    ]
+    ++ lib.optionals qtMode [
       gzip
       qt5.qtbase.bin
       qt5.qtmultimedia.bin
@@ -82,10 +84,12 @@ stdenv.mkDerivation rec {
     [
       flex
       bison
-    ] ++ lib.optionals x11Mode [
+    ]
+    ++ lib.optionals x11Mode [
       mkfontdir
       bdftopcf
-    ] ++ lib.optionals qtMode [
+    ]
+    ++ lib.optionals qtMode [
       pkg-config
       mkfontdir
       qt5.qtbase.dev

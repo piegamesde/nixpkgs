@@ -188,7 +188,8 @@ in
           + (lib.optionalString cfg.persistentKeys "$(cat ${keysPath})")
           + " | ${pkgs.jq}/bin/jq -s add | ${binYggdrasil} -normaliseconf -useconf"
         else
-          "${binYggdrasil} -genconf") + " > /run/yggdrasil/yggdrasil.conf"}
+          "${binYggdrasil} -genconf")
+        + " > /run/yggdrasil/yggdrasil.conf"}
 
         # start yggdrasil
         ${binYggdrasil} -useconffile /run/yggdrasil/yggdrasil.conf

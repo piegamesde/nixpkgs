@@ -46,14 +46,17 @@ stdenv.mkDerivation rec {
       bison
       pkg-config
       python
-    ] ++ lib.optional python.isPy3k python.pkgs.setuptools
+    ]
+    ++ lib.optional python.isPy3k python.pkgs.setuptools
     ;
 
   buildInputs =
     [
       libxml2
       libusb1
-    ] ++ lib.optional avahiSupport avahi ++ lib.optional stdenv.isLinux libaio
+    ]
+    ++ lib.optional avahiSupport avahi
+    ++ lib.optional stdenv.isLinux libaio
     ++ lib.optionals stdenv.isDarwin [
       CFNetwork
       CoreServices
@@ -69,7 +72,8 @@ stdenv.mkDerivation rec {
       # the linux-like directory structure is used for proper output splitting
       "-DOSX_PACKAGE=off"
       "-DOSX_FRAMEWORK=off"
-    ] ++ lib.optionals (!avahiSupport) [ "-DHAVE_DNS_SD=OFF" ]
+    ]
+    ++ lib.optionals (!avahiSupport) [ "-DHAVE_DNS_SD=OFF" ]
     ;
 
   postPatch = ''

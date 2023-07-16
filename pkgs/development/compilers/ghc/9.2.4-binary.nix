@@ -232,13 +232,14 @@ let
       targetPackages.stdenv.cc
       targetPackages.stdenv.cc.bintools
       coreutils # for cat
-    ] ++ lib.optionals useLLVM [
-      (lib.getBin llvmPackages.llvm)
     ]
-    # On darwin, we need unwrapped bintools as well (for otool)
+    ++ lib.optionals useLLVM [
+        (lib.getBin llvmPackages.llvm)
+      ]
+      # On darwin, we need unwrapped bintools as well (for otool)
     ++ lib.optionals (stdenv.targetPlatform.linker == "cctools") [
-      targetPackages.stdenv.cc.bintools.bintools
-    ]
+        targetPackages.stdenv.cc.bintools.bintools
+      ]
     ;
 
 in
@@ -264,37 +265,39 @@ stdenv.mkDerivation rec {
     # Note the `*` glob because some GHCs have a suffix when unpacked, e.g.
     # the musl bindist has dir `ghc-VERSION-x86_64-unknown-linux/`.
     # As a result, don't shell-quote this glob when splicing the string.
-    (let
-      buildExeGlob =
-        ''ghc-${version}*/"${binDistUsed.exePathForLibraryCheck}"'';
-    in
-    lib.concatStringsSep "\n" [
-      (''
-        echo "Checking that ghc binary exists in bindist at ${buildExeGlob}"
-        if ! test -e ${buildExeGlob}; then
-          echo >&2 "GHC binary ${binDistUsed.exePathForLibraryCheck} could not be found in the bindist build directory (at ${buildExeGlob}) for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
-        fi
-      '')
-      (lib.concatMapStringsSep "\n" ({
-          fileToCheckFor,
-          nixPackage,
-        }:
-        lib.optionalString (fileToCheckFor != null) ''
-          echo "Checking bindist for ${fileToCheckFor} to ensure that is still used"
-          if ! readelf -d ${buildExeGlob} | grep "${fileToCheckFor}"; then
-            echo >&2 "File ${fileToCheckFor} could not be found in ${binDistUsed.exePathForLibraryCheck} for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
+      (let
+        buildExeGlob =
+          ''ghc-${version}*/"${binDistUsed.exePathForLibraryCheck}"'';
+      in
+      lib.concatStringsSep "\n" [
+        (''
+          echo "Checking that ghc binary exists in bindist at ${buildExeGlob}"
+          if ! test -e ${buildExeGlob}; then
+            echo >&2 "GHC binary ${binDistUsed.exePathForLibraryCheck} could not be found in the bindist build directory (at ${buildExeGlob}) for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
           fi
+        '')
+        (lib.concatMapStringsSep "\n" ({
+            fileToCheckFor,
+            nixPackage,
+          }:
+          lib.optionalString (fileToCheckFor != null) ''
+            echo "Checking bindist for ${fileToCheckFor} to ensure that is still used"
+            if ! readelf -d ${buildExeGlob} | grep "${fileToCheckFor}"; then
+              echo >&2 "File ${fileToCheckFor} could not be found in ${binDistUsed.exePathForLibraryCheck} for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
+            fi
 
-          echo "Checking that the nix package ${nixPackage} contains ${fileToCheckFor}"
-          if ! test -e "${lib.getLib nixPackage}/lib/${fileToCheckFor}"; then
-            echo >&2 "Nix package ${nixPackage} did not contain ${fileToCheckFor} for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
-          fi
-        '') binDistUsed.archSpecificLibraries)
-    ]
-    )
-    # GHC has dtrace probes, which causes ld to try to open /usr/lib/libdtrace.dylib
-    # during linking
-    + lib.optionalString stdenv.isDarwin ''
+            echo "Checking that the nix package ${nixPackage} contains ${fileToCheckFor}"
+            if ! test -e "${lib.getLib nixPackage}/lib/${fileToCheckFor}"; then
+              echo >&2 "Nix package ${nixPackage} did not contain ${fileToCheckFor} for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
+            fi
+          '') binDistUsed.archSpecificLibraries)
+      ]
+      )
+      # GHC has dtrace probes, which causes ld to try to open /usr/lib/libdtrace.dylib
+      # during linking
+    +
+    # Rename needed libraries and binaries, fix interpreter
+    lib.optionalString stdenv.isDarwin ''
       export NIX_LDFLAGS+=" -no_dtrace_dof"
       # not enough room in the object files for the full path to libiconv :(
       for exe in $(find . -type f -executable); do
@@ -302,14 +305,15 @@ stdenv.mkDerivation rec {
         ln -fs ${libiconv}/lib/libiconv.dylib $(dirname $exe)/libiconv.dylib
         install_name_tool -change /usr/lib/libiconv.2.dylib @executable_path/libiconv.dylib -change /usr/local/lib/gcc/6/libgcc_s.1.dylib ${gcc.cc.lib}/lib/libgcc_s.1.dylib $exe
       done
-    '' +
-
-    # Some scripts used during the build need to have their shebangs patched
+    ''
+    +
+    # Rename needed libraries and binaries, fix interpreter
     ''
       patchShebangs ghc-${version}/utils/
       patchShebangs ghc-${version}/configure
-    '' +
-    # We have to patch the GMP paths for the integer-gmp package.
+    ''
+    +
+    # Rename needed libraries and binaries, fix interpreter
     ''
       find . -name ghc-bignum.buildinfo \
           -exec sed -i "s@extra-lib-dirs: @extra-lib-dirs: ${
@@ -321,7 +325,10 @@ stdenv.mkDerivation rec {
           -exec sed -e '/^[a-z-]*library-dirs/a \    ${
             lib.getLib gmpUsed
           }/lib' -i {} \;
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    +
+    # Rename needed libraries and binaries, fix interpreter
+    lib.optionalString stdenv.isDarwin ''
       # we need to modify the package db directly for hadrian bindists
       # (all darwin bindists are hadrian-based for 9.2.2)
       find . -name 'base*.conf' \
@@ -336,14 +343,15 @@ stdenv.mkDerivation rec {
                       lib.getDev libffi
                     }/include@' \
                     -i {} \;
-    '' +
-    # aarch64 does HAVE_NUMA so -lnuma requires it in library-dirs in rts/package.conf.in
-    # FFI_LIB_DIR is a good indication of places it must be needed.
+    ''
+    +
+    # Rename needed libraries and binaries, fix interpreter
     lib.optionalString
-    (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64) ''
-      find . -name package.conf.in \
-          -exec sed -i "s@FFI_LIB_DIR@FFI_LIB_DIR ${numactl.out}/lib@g" {} \;
-    '' +
+      (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64) ''
+        find . -name package.conf.in \
+            -exec sed -i "s@FFI_LIB_DIR@FFI_LIB_DIR ${numactl.out}/lib@g" {} \;
+      ''
+    +
     # Rename needed libraries and binaries, fix interpreter
     lib.optionalString stdenv.isLinux ''
       find . -type f -executable -exec patchelf \
@@ -361,8 +369,9 @@ stdenv.mkDerivation rec {
       "--with-gmp-includes=${lib.getDev gmpUsed}/include"
       # Note `--with-gmp-libraries` does nothing for GHC bindists:
       # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/6124
-    ] ++ lib.optional stdenv.isDarwin "--with-gcc=${./gcc-clang-wrapper.sh}"
-    # From: https://github.com/NixOS/nixpkgs/pull/43369/commits
+    ]
+    ++ lib.optional stdenv.isDarwin "--with-gcc=${./gcc-clang-wrapper.sh}"
+      # From: https://github.com/NixOS/nixpkgs/pull/43369/commits
     ++ lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override"
     ;
 
@@ -432,31 +441,33 @@ stdenv.mkDerivation rec {
             patchelf --set-rpath "${libPath}:$(patchelf --print-rpath $p)" $p
           fi
         done
-      '') + lib.optionalString stdenv.isDarwin ''
-        # not enough room in the object files for the full path to libiconv :(
-        for exe in $(find "$out" -type f -executable); do
-          isScript $exe && continue
-          ln -fs ${libiconv}/lib/libiconv.dylib $(dirname $exe)/libiconv.dylib
-          install_name_tool -change /usr/lib/libiconv.2.dylib @executable_path/libiconv.dylib -change /usr/local/lib/gcc/6/libgcc_s.1.dylib ${gcc.cc.lib}/lib/libgcc_s.1.dylib $exe
-        done
+      '')
+    + lib.optionalString stdenv.isDarwin ''
+      # not enough room in the object files for the full path to libiconv :(
+      for exe in $(find "$out" -type f -executable); do
+        isScript $exe && continue
+        ln -fs ${libiconv}/lib/libiconv.dylib $(dirname $exe)/libiconv.dylib
+        install_name_tool -change /usr/lib/libiconv.2.dylib @executable_path/libiconv.dylib -change /usr/local/lib/gcc/6/libgcc_s.1.dylib ${gcc.cc.lib}/lib/libgcc_s.1.dylib $exe
+      done
 
-        for file in $(find "$out" -name setup-config); do
-          substituteInPlace $file --replace /usr/bin/ranlib "$(type -P ranlib)"
-        done
-      '' + lib.optionalString minimal ''
-        # Remove profiling files
-        find $out -type f -name '*.p_o' -delete
-        find $out -type f -name '*.p_hi' -delete
-        find $out -type f -name '*_p.a' -delete
-        # `-f` because e.g. musl bindist does not have this file.
-        rm -f $out/lib/ghc-*/bin/ghc-iserv-prof
-        # Hydra will redistribute this derivation, so we have to keep the docs for
-        # legal reasons (retaining the legal notices etc)
-        # As a last resort we could unpack the docs separately and symlink them in.
-        # They're in $out/share/{doc,man}.
-      ''
-    # Recache package db which needs to happen for Hadrian bindists
-    # where we modify the package db before installing
+      for file in $(find "$out" -name setup-config); do
+        substituteInPlace $file --replace /usr/bin/ranlib "$(type -P ranlib)"
+      done
+    ''
+    + lib.optionalString minimal ''
+      # Remove profiling files
+      find $out -type f -name '*.p_o' -delete
+      find $out -type f -name '*.p_hi' -delete
+      find $out -type f -name '*_p.a' -delete
+      # `-f` because e.g. musl bindist does not have this file.
+      rm -f $out/lib/ghc-*/bin/ghc-iserv-prof
+      # Hydra will redistribute this derivation, so we have to keep the docs for
+      # legal reasons (retaining the legal notices etc)
+      # As a last resort we could unpack the docs separately and symlink them in.
+      # They're in $out/share/{doc,man}.
+    ''
+      # Recache package db which needs to happen for Hadrian bindists
+      # where we modify the package db before installing
     + ''
       "$out/bin/ghc-pkg" --package-db="$out/lib/"ghc-*/package.conf.d recache
     ''

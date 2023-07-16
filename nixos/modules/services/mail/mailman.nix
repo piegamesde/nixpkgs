@@ -31,7 +31,8 @@ let
       [
         "localhost"
         "127.0.0.1"
-      ] ++ cfg.webHosts
+      ]
+      ++ cfg.webHosts
       ;
     COMPRESS_OFFLINE = true;
     STATIC_ROOT = "/var/lib/mailman-web-static";
@@ -435,7 +436,8 @@ in
           services.mailman.serve.enable requires there to be at least one entry
           in services.mailman.webHosts.
         '';
-      } ] ++ (lib.optionals cfg.enablePostfix [
+      } ]
+      ++ (lib.optionals cfg.enablePostfix [
         {
           assertion = postfix.enable;
           message = ''
@@ -699,7 +701,8 @@ in
           [
             "mailman-uwsgi.socket"
             "mailman-web-setup.service"
-          ] ++ optional withPostgresql "postgresql.service"
+          ]
+          ++ optional withPostgresql "postgresql.service"
           ;
         restartTriggers = [
             config.environment.etc."mailman3/settings.py".source

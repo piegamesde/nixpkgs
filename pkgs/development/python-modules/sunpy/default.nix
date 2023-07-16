@@ -90,7 +90,8 @@ buildPythonPackage rec {
       pytest-astropy
       pytest-mock
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.asdf
+    ]
+    ++ passthru.optional-dependencies.asdf
     ++ passthru.optional-dependencies.database
     ++ passthru.optional-dependencies.image
     ++ passthru.optional-dependencies.net

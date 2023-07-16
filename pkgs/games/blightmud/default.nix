@@ -34,7 +34,8 @@ rustPlatform.buildRustPackage rec {
     [
       alsa-lib
       openssl
-    ] ++ lib.optionals withTTS [ speechd ]
+    ]
+    ++ lib.optionals withTTS [ speechd ]
     ;
 
   checkFlags =

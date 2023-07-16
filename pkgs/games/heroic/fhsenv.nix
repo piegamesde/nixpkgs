@@ -31,7 +31,8 @@ buildFHSEnv {
       which
       xorg.xrandr
       zstd
-    ] ++ extraPkgs pkgs
+    ]
+    ++ extraPkgs pkgs
     ;
 
   multiPkgs =
@@ -128,7 +129,9 @@ buildFHSEnv {
       vulkan-loader
       wayland
       zlib
-    ] ++ xorgDeps pkgs ++ extraLibraries pkgs
+    ]
+    ++ xorgDeps pkgs
+    ++ extraLibraries pkgs
     ;
 
   extraInstallCommands = ''

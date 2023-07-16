@@ -52,7 +52,8 @@ buildPythonPackage rec {
     # see https://github.com/NixOS/nixpkgs/pull/186612#issuecomment-1214635456.
     + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
       minimum-macos-version = "11.0"
-    '' + ''
+    ''
+    + ''
       EOF
     ''
     ;
@@ -86,7 +87,8 @@ buildPythonPackage rec {
       qtsvg
       qtdeclarative
       qtwebchannel
-    ] ++ lib.optional withConnectivity qtconnectivity
+    ]
+    ++ lib.optional withConnectivity qtconnectivity
     ++ lib.optional withMultimedia qtmultimedia
     ++ lib.optional withWebKit qtwebkit
     ++ lib.optional withWebSockets qtwebsockets
@@ -99,7 +101,8 @@ buildPythonPackage rec {
       qtsvg
       qtdeclarative
       pyqt-builder
-    ] ++ lib.optional withConnectivity qtconnectivity
+    ]
+    ++ lib.optional withConnectivity qtconnectivity
     ++ lib.optional withWebKit qtwebkit
     ++ lib.optional withWebSockets qtwebsockets
     ++ lib.optional withLocation qtlocation;
@@ -128,7 +131,8 @@ buildPythonPackage rec {
       "PyQt5.QtQml"
       "PyQt5.QtWidgets"
       "PyQt5.QtGui"
-    ] ++ lib.optional withWebSockets "PyQt5.QtWebSockets"
+    ]
+    ++ lib.optional withWebSockets "PyQt5.QtWebSockets"
     ++ lib.optional withWebKit "PyQt5.QtWebKit"
     ++ lib.optional withMultimedia "PyQt5.QtMultimedia"
     ++ lib.optional withConnectivity "PyQt5.QtBluetooth"

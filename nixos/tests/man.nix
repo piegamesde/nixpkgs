@@ -79,7 +79,8 @@ import ./make-test-python.nix ({
 
           return False
 
-      '' + lib.concatMapStrings (machine: ''
+      ''
+      + lib.concatMapStrings (machine: ''
         with subtest("Test direct man page lookups in ${machine}"):
           # man works
           ${machine}.succeed("man man > /dev/null")

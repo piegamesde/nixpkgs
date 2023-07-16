@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
       "out"
       "doc"
       "devdoc"
-    ] ++ lib.optional pythonSupport "py"
+    ]
+    ++ lib.optional pythonSupport "py"
     ;
   outputMan = "bin";
 
@@ -50,12 +51,14 @@ stdenv.mkDerivation rec {
     [
       libxml2.dev
       libxcrypt
-    ] ++ lib.optionals stdenv.isDarwin [ gettext ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ gettext ]
     ++ lib.optionals pythonSupport [
       libxml2.py
       python
       ncurses
-    ] ++ lib.optionals cryptoSupport [ libgcrypt ]
+    ]
+    ++ lib.optionals cryptoSupport [ libgcrypt ]
     ;
 
   propagatedBuildInputs = [ findXMLCatalogs ];
@@ -68,14 +71,16 @@ stdenv.mkDerivation rec {
       (lib.withFeature pythonSupport "python")
       (lib.optionalString pythonSupport
         "PYTHON=${python.pythonForBuild.interpreter}")
-    ] ++ lib.optionals (!cryptoSupport) [ "--without-crypto" ]
+    ]
+    ++ lib.optionals (!cryptoSupport) [ "--without-crypto" ]
     ;
 
   postFixup =
     ''
       moveToOutput bin/xslt-config "$dev"
       moveToOutput lib/xsltConf.sh "$dev"
-    '' + lib.optionalString pythonSupport ''
+    ''
+    + lib.optionalString pythonSupport ''
       mkdir -p $py/nix-support
       echo ${libxml2.py} >> $py/nix-support/propagated-build-inputs
       moveToOutput ${python.sitePackages} "$py"

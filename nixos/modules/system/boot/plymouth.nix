@@ -49,7 +49,8 @@ let
       [
         plymouth
         plymouthLogos
-      ] ++ cfg.themePackages
+      ]
+      ++ cfg.themePackages
       ;
   };
 

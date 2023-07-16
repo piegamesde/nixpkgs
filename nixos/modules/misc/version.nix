@@ -41,7 +41,7 @@ let
   attrsToText =
     attrs:
     concatStringsSep "\n"
-    (mapAttrsToList (n: v: "${n}=${escapeIfNeccessary (toString v)}") attrs)
+      (mapAttrsToList (n: v: "${n}=${escapeIfNeccessary (toString v)}") attrs)
     + "\n"
     ;
 

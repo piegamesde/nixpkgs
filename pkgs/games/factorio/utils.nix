@@ -22,7 +22,8 @@ with lib; {
             # NB: there will only ever be a single zip file in each mod derivation's output dir
             ln -s $modDrv/*.zip $out
           done
-        '' + (lib.optionalString (modsDatFile != null) ''
+        ''
+        + (lib.optionalString (modsDatFile != null) ''
           cp ${modsDatFile} $out/mod-settings.dat
         '')
         ;
@@ -54,7 +55,8 @@ with lib; {
         removeSuffix ".zip" (head (splitString "?" src.name)));
 
       deps =
-        deps ++ optionals allOptionalMods optionalDeps
+        deps
+        ++ optionals allOptionalMods optionalDeps
         ++ optionals allRecommendedMods recommendedDeps
         ;
 

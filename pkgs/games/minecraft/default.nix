@@ -72,20 +72,21 @@ let
     stdenv.cc.cc
     zlib
     libuuid
-  ] ++ (with xorg; [
-    libX11
-    libxcb
-    libXcomposite
-    libXcursor
-    libXdamage
-    libXext
-    libXfixes
-    libXi
-    libXrandr
-    libXrender
-    libXtst
-    libXScrnSaver
-  ]));
+  ]
+    ++ (with xorg; [
+      libX11
+      libxcb
+      libXcomposite
+      libXcursor
+      libXdamage
+      libXext
+      libXfixes
+      libXi
+      libXrandr
+      libXrender
+      libXtst
+      libXScrnSaver
+    ]));
 in
 stdenv.mkDerivation rec {
   pname = "minecraft-launcher";

@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
   postPatch =
     ''
       patchShebangs src/*.py
-    '' + optionalString stdenv.isDarwin ''
+    ''
+    + optionalString stdenv.isDarwin ''
       substituteInPlace src/dispatch_common.h --replace "PLATFORM_HAS_GLX 0" "PLATFORM_HAS_GLX 1"
     ''
     ;
@@ -56,7 +57,8 @@ stdenv.mkDerivation rec {
     lib.optionals x11Support [
       libGL
       libX11
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Carbon
       OpenGL
     ]
@@ -87,7 +89,8 @@ stdenv.mkDerivation rec {
     lib.optionalString stdenv.isDarwin ''
       substituteInPlace ../test/meson.build \
         --replace "[ 'cgl_epoxy_api', [ 'cgl_epoxy_api.c' ] ]," ""
-    '' + lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
+    ''
+    + lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
       substituteInPlace ../test/meson.build \
         --replace "[ 'cgl_core', [ 'cgl_core.c' ] ]," ""
     ''

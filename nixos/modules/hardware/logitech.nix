@@ -82,7 +82,8 @@ in
 
   config = lib.mkIf (cfg.wireless.enable || cfg.lcd.enable) {
     environment.systemPackages =
-      [ ] ++ lib.optional cfg.wireless.enable pkgs.ltunify
+      [ ]
+      ++ lib.optional cfg.wireless.enable pkgs.ltunify
       ++ lib.optional cfg.wireless.enableGraphical pkgs.solaar
       ;
 
@@ -91,17 +92,19 @@ in
       # out into a dedicated derivation
 
       packages =
-        [ ] ++ lib.optional cfg.wireless.enable pkgs.logitech-udev-rules
+        [ ]
+        ++ lib.optional cfg.wireless.enable pkgs.logitech-udev-rules
         ++ lib.optional cfg.lcd.enable pkgs.g15daemon
         ;
 
       extraRules =
         ''
           # nixos: hardware.logitech.lcd
-        '' + lib.concatMapStringsSep "\n" (dev:
+        ''
+        + lib.concatMapStringsSep "\n" (dev:
           ''
             ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="${vendor}", ATTRS{idProduct}=="${dev}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="${daemon}.service"'')
-        cfg.lcd.devices
+          cfg.lcd.devices
         ;
     };
 

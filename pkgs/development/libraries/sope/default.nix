@@ -44,11 +44,13 @@ gnustep.stdenv.mkDerivation rec {
       gnustep.base
       libxml2
       openssl
-    ] ++ lib.optional (openldap != null) openldap
+    ]
+    ++ lib.optional (openldap != null) openldap
     ++ lib.optionals (mariadb != null) [
       libmysqlclient
       mariadb
-    ] ++ lib.optional (postgresql != null) postgresql
+    ]
+    ++ lib.optional (postgresql != null) postgresql
     ;
 
     # Configure directories where files are installed to. Everything is automatically
@@ -69,7 +71,8 @@ gnustep.stdenv.mkDerivation rec {
       "--disable-debug"
       "--enable-xml"
       "--with-ssl=ssl"
-    ] ++ lib.optional (openldap != null) "--enable-openldap"
+    ]
+    ++ lib.optional (openldap != null) "--enable-openldap"
     ++ lib.optional (mariadb != null) "--enable-mysql"
     ++ lib.optional (postgresql != null) "--enable-postgresql"
     ;

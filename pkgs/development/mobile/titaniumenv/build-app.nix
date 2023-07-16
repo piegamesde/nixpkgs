@@ -36,11 +36,15 @@
   ...
 }@args:
 
-assert (release && target == "android") -> androidKeyStore != null
-  && androidKeyAlias != null && androidKeyStorePassword != null;
-assert (release && target == "iphone") -> iosMobileProvisioningProfile != null
-  && iosCertificateName != null && iosCertificate != null
-  && iosCertificatePassword != null;
+assert (release && target == "android")
+  -> androidKeyStore != null
+    && androidKeyAlias != null
+    && androidKeyStorePassword != null;
+assert (release && target == "iphone")
+  -> iosMobileProvisioningProfile != null
+    && iosCertificateName != null
+    && iosCertificate != null
+    && iosCertificatePassword != null;
 assert enableWirelessDistribution -> installURL != null;
 
 let

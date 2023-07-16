@@ -53,11 +53,13 @@ stdenv.mkDerivation rec {
       libXxf86vm
       libXi
       libX11
-    ] ++ (with python3Packages; [
+    ]
+    ++ (with python3Packages; [
       python
       setuptools
       wrapPython
-    ]) ++ lib.optional stdenv.isDarwin Cocoa
+    ])
+    ++ lib.optional stdenv.isDarwin Cocoa
     ;
   pythonPath = with python3Packages; [
     pyyaml

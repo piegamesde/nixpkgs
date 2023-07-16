@@ -76,7 +76,8 @@ let
   legacyModules =
     lib.optional (evalConfigArgs ? extraArgs) {
       config = { _module.args = extraArgs; };
-    } ++ lib.optional (evalConfigArgs ? check) {
+    }
+    ++ lib.optional (evalConfigArgs ? check) {
       config = { _module.check = lib.mkDefault check; };
     }
     ;
@@ -98,7 +99,9 @@ let
   noUserModules = evalModulesMinimal ({
     inherit prefix specialArgs;
     modules =
-      baseModules ++ extraModules ++ [
+      baseModules
+      ++ extraModules
+      ++ [
         pkgsModule
         modulesModule
       ]

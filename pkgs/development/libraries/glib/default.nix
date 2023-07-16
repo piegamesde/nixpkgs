@@ -91,7 +91,8 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optionals stdenv.hostPlatform.isMusl [
       ./quark_init_on_demand.patch
       ./gobject_init_on_demand.patch
-    ] ++ [
+    ]
+    ++ [
       ./glib-appinfo-watch.patch
       ./schema-override-variable.patch
 
@@ -142,20 +143,24 @@ stdenv.mkDerivation (finalAttrs: {
       libelf
       finalAttrs.setupHook
       pcre2
-    ] ++ lib.optionals (!stdenv.hostPlatform.isWindows) [
+    ]
+    ++ lib.optionals (!stdenv.hostPlatform.isWindows) [
       bash
       gnum4 # install glib-gettextize and m4 macros for other apps to use
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libselinux
       util-linuxMinimal # for libmount
-    ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+    ]
+    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
       AppKit
       Carbon
       Cocoa
       CoreFoundation
       CoreServices
       Foundation
-    ]) ++ lib.optionals buildDocs [
+    ])
+    ++ lib.optionals buildDocs [
       # Note: this needs to be both in buildInputs and nativeBuildInputs. The
       # Meson gtkdoc module uses find_program to look it up (-> build dep), but
       # glib's own Meson configuration uses the host pkg-config to find its
@@ -181,7 +186,8 @@ stdenv.mkDerivation (finalAttrs: {
       gettext
       libxslt
       docbook_xsl
-    ] ++ lib.optionals buildDocs [
+    ]
+    ++ lib.optionals buildDocs [
       gtk-doc
       docbook_xml_dtd_45
       libxml2
@@ -202,9 +208,11 @@ stdenv.mkDerivation (finalAttrs: {
       "-Dgtk_doc=${lib.boolToString buildDocs}"
       "-Dnls=enabled"
       "-Ddevbindir=${placeholder "dev"}/bin"
-    ] ++ lib.optionals (!stdenv.isDarwin) [
-      "-Dman=true" # broken on Darwin
-    ] ++ lib.optionals stdenv.isFreeBSD [
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [
+        "-Dman=true" # broken on Darwin
+      ]
+    ++ lib.optionals stdenv.isFreeBSD [
       "-Db_lundef=false"
       "-Dxattr=false"
     ]
@@ -237,7 +245,8 @@ stdenv.mkDerivation (finalAttrs: {
       sed -e '/\/appinfo\/associations/d' -i gio/tests/appinfo.c
       # Needed because of libtool wrappers
       sed -e '/g_subprocess_launcher_set_environ (launcher, envp);/a g_subprocess_launcher_setenv (launcher, "PATH", g_getenv("PATH"), TRUE);' -i gio/tests/gsubprocess.c
-    '' + lib.optionalString stdenv.hostPlatform.isWindows ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isWindows ''
       substituteInPlace gio/win32/meson.build \
         --replace "libintl, " ""
     ''
@@ -264,7 +273,8 @@ stdenv.mkDerivation (finalAttrs: {
       for i in $dev/bin/*; do
         moveToOutput "share/bash-completion/completions/''${i##*/}" "$dev"
       done
-    '' + lib.optionalString (!buildDocs) ''
+    ''
+    + lib.optionalString (!buildDocs) ''
       cp -r ${buildPackages.glib.devdoc} $devdoc
     ''
     ;
@@ -339,7 +349,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://wiki.gnome.org/Projects/GLib";
     license = licenses.lgpl21Plus;
     maintainers =
-      teams.gnome.members ++ (with maintainers; [
+      teams.gnome.members
+      ++ (with maintainers; [
         lovek323
         raskin
       ])

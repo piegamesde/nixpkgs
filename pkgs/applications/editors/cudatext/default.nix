@@ -64,17 +64,20 @@ stdenv.mkDerivation rec {
     [
       lazarus
       fpc
-    ] ++ lib.optional (widgetset == "qt5") qt5.wrapQtAppsHook
+    ]
+    ++ lib.optional (widgetset == "qt5") qt5.wrapQtAppsHook
     ;
 
   buildInputs =
-    [ libX11 ] ++ lib.optionals (lib.hasPrefix "gtk" widgetset) [
+    [ libX11 ]
+    ++ lib.optionals (lib.hasPrefix "gtk" widgetset) [
       pango
       cairo
       glib
       atk
       gdk-pixbuf
-    ] ++ lib.optional (widgetset == "gtk2") gtk2
+    ]
+    ++ lib.optional (widgetset == "gtk2") gtk2
     ++ lib.optional (widgetset == "gtk3") gtk3
     ++ lib.optional (widgetset == "qt5") libqt5pas
     ;
@@ -84,7 +87,8 @@ stdenv.mkDerivation rec {
   buildPhase =
     lib.concatStringsSep "\n" (lib.mapAttrsToList (name: dep: ''
       cp -r ${dep} ${name}
-    '') deps) + ''
+    '') deps)
+    + ''
       # See https://wiki.freepascal.org/CudaText#How_to_compile_CudaText
       substituteInPlace ATSynEdit/atsynedit/atsynedit_package.lpk \
         --replace GTK2_IME_CODE _GTK2_IME_CODE
@@ -113,7 +117,8 @@ stdenv.mkDerivation rec {
 
       install -Dm644 setup/debfiles/cudatext-512.png -t $out/share/pixmaps
       install -Dm644 setup/debfiles/cudatext.desktop -t $out/share/applications
-    '' + lib.concatMapStringsSep "\n" (lexer: ''
+    ''
+    + lib.concatMapStringsSep "\n" (lexer: ''
       if [ -d "CudaText-lexers/${lexer}" ]; then
         install -Dm644 CudaText-lexers/${lexer}/*.{cuda-lexmap,lcf} $out/share/cudatext/data/lexlib
       else

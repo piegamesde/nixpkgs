@@ -51,7 +51,8 @@ buildPythonPackage rec {
       atomicwrites
       wcwidth
       packaging
-    ] ++ lib.optionals (!isPy3k) [ funcsigs ]
+    ]
+    ++ lib.optionals (!isPy3k) [ funcsigs ]
     ++ lib.optionals (pythonOlder "3.6") [ pathlib2 ]
     ;
 

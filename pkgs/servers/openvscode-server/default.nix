@@ -118,10 +118,12 @@ stdenv.mkDerivation rec {
     moreutils
   ];
   buildInputs =
-    lib.optionals (!stdenv.isDarwin) [ libsecret ] ++ (with xorg; [
+    lib.optionals (!stdenv.isDarwin) [ libsecret ]
+    ++ (with xorg; [
       libX11
       libxkbfile
-    ]) ++ lib.optionals stdenv.isDarwin [
+    ])
+    ++ lib.optionals stdenv.isDarwin [
       AppKit
       Cocoa
       Security
@@ -183,7 +185,8 @@ stdenv.mkDerivation rec {
       find -path "*@vscode/ripgrep" -type d \
         -execdir mkdir -p {}/bin \; \
         -execdir ln -s ${ripgrep}/bin/rg {}/bin/rg \;
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # use prebuilt binary for @parcel/watcher, which requires macOS SDK 10.13+
       # (see issue #101229)
       pushd ./remote/node_modules/@parcel/watcher
@@ -191,7 +194,8 @@ stdenv.mkDerivation rec {
       mv ./prebuilds/darwin-x64/node.napi.glibc.node ./build/Release/watcher.node
       jq "del(.scripts) | .gypfile = false" ./package.json | sponge ./package.json
       popd
-    '' + ''
+    ''
+    + ''
       export NODE_OPTIONS=--openssl-legacy-provider
 
       # rebuild binaries, we use npm here, as yarn does not provide an alternative

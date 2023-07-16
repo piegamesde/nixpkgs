@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs =
-    [ which ] ++ (with perlPackages; [
+    [ which ]
+    ++ (with perlPackages; [
       JSON
       perl
     ])

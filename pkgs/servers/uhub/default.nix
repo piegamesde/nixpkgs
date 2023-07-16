@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
     [
       sqlite
       systemd
-    ] ++ lib.optional tlsSupport openssl
+    ]
+    ++ lib.optional tlsSupport openssl
     ;
 
   postPatch = ''

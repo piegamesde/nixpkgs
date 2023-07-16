@@ -17,7 +17,8 @@ let
               mkdir -p $out
               ln -s ${config.environment.usrbinenv} $out/env
               ln -s ${config.environment.binsh} $out/sh
-            '' + cfg.extraFallbackPathCommands)
+            ''
+              + cfg.extraFallbackPathCommands)
           }"
         ];
     };

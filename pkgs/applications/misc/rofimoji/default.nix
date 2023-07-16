@@ -41,10 +41,12 @@ buildPythonApplication rec {
     [
       configargparse
       rofi
-    ] ++ optionals waylandSupport [
+    ]
+    ++ optionals waylandSupport [
       wl-clipboard
       wtype
-    ] ++ optionals x11Support [
+    ]
+    ++ optionals x11Support [
       xdotool
       xsel
     ];

@@ -208,7 +208,8 @@ in
               ip rule  add fwmark 0x2 lookup 100
               ip route add local 0.0.0.0/0 dev lo table 100
 
-            '' + optionalString config.networking.enableIPv6 ''
+            ''
+            + optionalString config.networking.enableIPv6 ''
               ${concatMapStringsSep "\n" ({
                   table,
                   command,
@@ -236,7 +237,8 @@ in
 
               ip rule  del fwmark 0x2 lookup 100
               ip route del local 0.0.0.0/0 dev lo table 100
-            '' + optionalString config.networking.enableIPv6 ''
+            ''
+            + optionalString config.networking.enableIPv6 ''
               ${concatMapStringsSep "\n" ({
                   table,
                   command,

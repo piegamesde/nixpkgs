@@ -60,7 +60,8 @@ buildPythonPackage rec {
       "test_misc_good_WKS_text"
       # fails if IPv6 isn't available
       "test_resolver_override"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # Tests that run inconsistently on darwin systems
       # 9 tests fail with: BlockingIOError: [Errno 35] Resource temporarily unavailable
       "testQueryUDP"

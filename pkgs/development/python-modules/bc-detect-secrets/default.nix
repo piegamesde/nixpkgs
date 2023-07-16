@@ -45,7 +45,8 @@ buildPythonPackage rec {
       pkgs.gitMinimal
       pytestCheckHook
       responses
-    ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
+    ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
     ;
 
   preCheck = ''

@@ -25,7 +25,8 @@ stdenv.mkDerivation (finalAttrs: {
     [
       curl
       openssl
-    ] ++ lib.optional stdenv.isDarwin Security
+    ]
+    ++ lib.optional stdenv.isDarwin Security
     ;
 
   cmakeFlags = [

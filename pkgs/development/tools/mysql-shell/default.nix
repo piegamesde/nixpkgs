@@ -76,7 +76,8 @@ stdenv.mkDerivation rec {
       git
       bison
       makeWrapper
-    ] ++ lib.optionals (!stdenv.isDarwin) [ rpcsvc-proto ]
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [ rpcsvc-proto ]
     ++ lib.optionals stdenv.isDarwin [
       cctools
       developer_cmds
@@ -105,7 +106,9 @@ stdenv.mkDerivation rec {
       openldap
       python3
       antlr.runtime.cpp
-    ] ++ pythonDeps ++ lib.optionals stdenv.isLinux [ libtirpc ]
+    ]
+    ++ pythonDeps
+    ++ lib.optionals stdenv.isLinux [ libtirpc ]
     ++ lib.optionals stdenv.isDarwin [ CoreServices ]
     ;
 

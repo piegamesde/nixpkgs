@@ -18,8 +18,10 @@
   zlib,
   buildLlvmTools,
   debugVersion ? false,
-  doCheck ? stdenv.isLinux && (!stdenv.isx86_32)
-    && (!stdenv.hostPlatform.isMusl) && (!stdenv.hostPlatform.isRiscV)
+  doCheck ? stdenv.isLinux
+    && (!stdenv.isx86_32)
+    && (!stdenv.hostPlatform.isMusl)
+    && (!stdenv.hostPlatform.isRiscV)
     && (stdenv.hostPlatform == stdenv.buildPlatform),
   enableManpages ? false,
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic
@@ -82,7 +84,8 @@ stdenv.mkDerivation (rec {
       unpackFile $src
       mv llvm-${release_version}* llvm
       sourceRoot=$PWD/llvm
-    '' + optionalString enablePolly ''
+    ''
+    + optionalString enablePolly ''
       unpackFile $polly_src
       mv polly-* $sourceRoot/tools/polly
     ''
@@ -99,7 +102,8 @@ stdenv.mkDerivation (rec {
     [
       cmake
       python
-    ] ++ optionals enableManpages [
+    ]
+    ++ optionals enableManpages [
       python3.pkgs.sphinx
       python3.pkgs.recommonmark
     ]
@@ -109,7 +113,8 @@ stdenv.mkDerivation (rec {
     [
       libxml2
       libffi
-    ] ++ optional enablePFM libpfm
+    ]
+    ++ optional enablePFM libpfm
     ; # exegesis
 
   propagatedBuildInputs = [
@@ -156,7 +161,8 @@ stdenv.mkDerivation (rec {
         sha256 = "1kckghvsngs51mqm82asy0s9vr19h8aqbw43a0w44mccqw6bzrwf";
         stripLen = 1;
       })
-    ] ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch
+    ]
+    ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch
     ;
 
   postPatch =
@@ -164,19 +170,22 @@ stdenv.mkDerivation (rec {
       substituteInPlace cmake/modules/AddLLVM.cmake \
         --replace 'set(_install_name_dir INSTALL_NAME_DIR "@rpath")' "set(_install_name_dir)" \
         --replace 'set(_install_rpath "@loader_path/../''${CMAKE_INSTALL_LIBDIR}''${LLVM_LIBDIR_SUFFIX}" ''${extra_libdir})' ""
-    '' + ''
+    ''
+    + ''
       # FileSystem permissions tests fail with various special bits
       substituteInPlace unittests/Support/CMakeLists.txt \
         --replace "Path.cpp" ""
       rm unittests/Support/Path.cpp
-    '' + optionalString stdenv.hostPlatform.isMusl ''
+    ''
+    + optionalString stdenv.hostPlatform.isMusl ''
       patch -p1 -i ${../../TLI-musl.patch}
       substituteInPlace unittests/Support/CMakeLists.txt \
         --replace "add_subdirectory(DynamicLibrary)" ""
       rm unittests/Support/DynamicLibrary/DynamicLibraryTest.cpp
       # valgrind unhappy with musl or glibc, but fails w/musl only
       rm test/CodeGen/AArch64/wineh4.mir
-    '' + optionalString stdenv.hostPlatform.isAarch32 ''
+    ''
+    + optionalString stdenv.hostPlatform.isAarch32 ''
       # skip failing X86 test cases on 32-bit ARM
       rm test/DebugInfo/X86/convert-debugloc.ll
       rm test/DebugInfo/X86/convert-inlined.ll
@@ -184,12 +193,15 @@ stdenv.mkDerivation (rec {
       rm test/tools/dsymutil/X86/op-convert.test
       rm test/tools/gold/X86/split-dwarf.ll
       rm test/tools/llvm-readobj/ELF/dependent-libraries.test
-    '' + optionalString (stdenv.hostPlatform.system == "armv6l-linux") ''
+    ''
+    + optionalString (stdenv.hostPlatform.system == "armv6l-linux") ''
       # Seems to require certain floating point hardware (NEON?)
       rm test/ExecutionEngine/frem.ll
-    '' + ''
+    ''
+    + ''
       patchShebangs test/BugPoint/compile-custom.ll.py
-    '' + ''
+    ''
+    + ''
       # Tweak tests to ignore namespace part of type to support
       # gcc-12: https://gcc.gnu.org/PR103598.
       # The change below mangles strings like:
@@ -248,10 +260,12 @@ stdenv.mkDerivation (rec {
         [
           "-DLLVM_INSTALL_CMAKE_DIR=${placeholder "dev"}/lib/cmake/llvm/"
           "-DLLVM_ENABLE_RTTI=ON"
-        ] ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ]
+        ]
+        ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ]
         ;
     in
-    flagsForLlvmConfig ++ [
+    flagsForLlvmConfig
+    ++ [
       "-DCMAKE_BUILD_TYPE=${
         if debugVersion then
           "Debug"
@@ -269,7 +283,8 @@ stdenv.mkDerivation (rec {
       "-DLLVM_HOST_TRIPLE=${stdenv.hostPlatform.config}"
       "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.hostPlatform.config}"
       "-DLLVM_ENABLE_DUMP=ON"
-    ] ++ optionals stdenv.hostPlatform.isStatic [
+    ]
+    ++ optionals stdenv.hostPlatform.isStatic [
       # Disables building of shared libs, -fPIC is still injected by cc-wrapper
       "-DLLVM_ENABLE_PIC=OFF"
       "-DLLVM_BUILD_STATIC=ON"
@@ -279,18 +294,22 @@ stdenv.mkDerivation (rec {
       "-DLLVM_ENABLE_LIBXML2=OFF"
       # This is a Shared Library not tied to LLVM_ENABLE_PIC
       "-DLLVM_TOOL_REMARKS_SHLIB_BUILD=OFF"
-    ] ++ optionals enableManpages [
+    ]
+    ++ optionals enableManpages [
       "-DLLVM_BUILD_DOCS=ON"
       "-DLLVM_ENABLE_SPHINX=ON"
       "-DSPHINX_OUTPUT_MAN=ON"
       "-DSPHINX_OUTPUT_HTML=OFF"
       "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
-    ] ++ optionals (enableGoldPlugin) [
-      "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include"
-    ] ++ optionals isDarwin [
+    ]
+    ++ optionals (enableGoldPlugin) [
+        "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include"
+      ]
+    ++ optionals isDarwin [
       "-DLLVM_ENABLE_LIBCXX=ON"
       "-DCAN_TARGET_i386=false"
-    ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    ]
+    ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "-DCMAKE_CROSSCOMPILING=True"
       "-DLLVM_TABLEGEN=${buildLlvmTools.llvm}/bin/llvm-tblgen"
       (let
@@ -313,8 +332,8 @@ stdenv.mkDerivation (rec {
           "-DCMAKE_INSTALL_LIBEXECDIR=${placeholder "lib"}/libexec"
         ];
       in
-      "-DCROSS_TOOLCHAIN_FLAGS_NATIVE:list=" + lib.concatStringsSep ";"
-      (lib.concatLists [
+      "-DCROSS_TOOLCHAIN_FLAGS_NATIVE:list="
+      + lib.concatStringsSep ";" (lib.concatLists [
         flagsForLlvmConfig
         nativeToolchainFlags
         nativeInstallFlags
@@ -346,10 +365,12 @@ stdenv.mkDerivation (rec {
         --replace "$out/bin/llvm-config" "$dev/bin/llvm-config"
       substituteInPlace "$dev/lib/cmake/llvm/LLVMConfig.cmake" \
         --replace 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}")' 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}'"$lib"'")'
-    '' + optionalString (stdenv.isDarwin && enableSharedLibraries) ''
+    ''
+    + optionalString (stdenv.isDarwin && enableSharedLibraries) ''
       ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${shortVersion}.dylib
       ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${release_version}.dylib
-    '' + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+    ''
+    + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
       cp NATIVE/bin/llvm-config $dev/bin/llvm-config-native
     ''
     ;

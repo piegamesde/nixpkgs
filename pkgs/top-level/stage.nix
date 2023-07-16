@@ -330,7 +330,9 @@ let
     otherPackageSets
     aliases
     configOverrides
-  ] ++ overlays ++ [ stdenvOverrides ]);
+  ]
+    ++ overlays
+    ++ [ stdenvOverrides ]);
 
   # Return the complete set of packages.
 in

@@ -63,12 +63,13 @@ python.pkgs.buildPythonPackage rec {
       prometheus-client
       # sqlite
       aiosqlite
-    ] ++ lib.optionals withE2BE [
-      # e2be
-      python-olm
-      pycryptodome
-      unpaddedbase64
-    ]);
+    ]
+      ++ lib.optionals withE2BE [
+        # e2be
+        python-olm
+        pycryptodome
+        unpaddedbase64
+      ]);
 
     # has no tests
   doCheck = false;

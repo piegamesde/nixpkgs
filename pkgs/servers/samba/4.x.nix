@@ -102,9 +102,10 @@ stdenv.mkDerivation rec {
       docbook_xml_dtd_45
       cmocka
       rpcsvc-proto
-    ] ++ optionals stdenv.isLinux [ buildPackages.stdenv.cc ]
+    ]
+    ++ optionals stdenv.isLinux [ buildPackages.stdenv.cc ]
     ++ optional (stdenv.buildPlatform != stdenv.hostPlatform)
-    samba # asn1_compile/compile_et
+      samba # asn1_compile/compile_et
     ++ optionals stdenv.isDarwin [ fixDarwinDylibNames ]
     ;
 
@@ -126,27 +127,36 @@ stdenv.mkDerivation rec {
       libtasn1
       tdb
       libxcrypt
-    ] ++ optionals stdenv.isLinux [
+    ]
+    ++ optionals stdenv.isLinux [
       liburing
       systemd
-    ] ++ optionals stdenv.isDarwin [ libiconv ] ++ optionals enableLDAP [
+    ]
+    ++ optionals stdenv.isDarwin [ libiconv ]
+    ++ optionals enableLDAP [
       openldap.dev
       python3Packages.markdown
-    ] ++ optionals (!enableLDAP && stdenv.isLinux) [
+    ]
+    ++ optionals (!enableLDAP && stdenv.isLinux) [
       ldb
       talloc
       tevent
-    ] ++ optional (enablePrinting && stdenv.isLinux) cups
-    ++ optional enableMDNS avahi ++ optionals enableDomainController [
+    ]
+    ++ optional (enablePrinting && stdenv.isLinux) cups
+    ++ optional enableMDNS avahi
+    ++ optionals enableDomainController [
       gpgme
       lmdb
       python3Packages.dnspython
-    ] ++ optional enableRegedit ncurses
+    ]
+    ++ optional enableRegedit ncurses
     ++ optional (enableCephFS && stdenv.isLinux) (lib.getDev ceph)
     ++ optionals (enableGlusterFS && stdenv.isLinux) [
       glusterfs
       libuuid
-    ] ++ optional enableAcl acl ++ optional enableLibunwind libunwind
+    ]
+    ++ optional enableAcl acl
+    ++ optional enableLibunwind libunwind
     ++ optional enablePam pam
     ;
 
@@ -173,19 +183,23 @@ stdenv.mkDerivation rec {
       "--sysconfdir=/etc"
       "--localstatedir=/var"
       "--disable-rpath"
-    ] ++ optional (!enableDomainController) "--without-ad-dc"
+    ]
+    ++ optional (!enableDomainController) "--without-ad-dc"
     ++ optionals (!enableLDAP) [
       "--without-ldap"
       "--without-ads"
-    ] ++ optionals (!enableLDAP && stdenv.isLinux) [
-      "--bundled-libraries=!ldb,!pyldb-util!talloc,!pytalloc-util,!tevent,!tdb,!pytdb"
-    ] ++ optional enableLibunwind "--with-libunwind"
+    ]
+    ++ optionals (!enableLDAP && stdenv.isLinux) [
+        "--bundled-libraries=!ldb,!pyldb-util!talloc,!pytalloc-util,!tevent,!tdb,!pytdb"
+      ]
+    ++ optional enableLibunwind "--with-libunwind"
     ++ optional enableProfiling "--with-profiling-data"
     ++ optional (!enableAcl) "--without-acl-support"
     ++ optional (!enablePam) "--without-pam"
     ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      "--bundled-libraries=!asn1_compile,!compile_et"
-    ] ++ optionals stdenv.isAarch32 [
+        "--bundled-libraries=!asn1_compile,!compile_et"
+      ]
+    ++ optionals stdenv.isAarch32 [
       # https://bugs.gentoo.org/683148
       "--jobs 1"
     ]
@@ -221,18 +235,21 @@ stdenv.mkDerivation rec {
       read -r -d "" SCRIPT << EOF || true
       [ -z "\$SAMBA_LIBS" ] && exit 1;
       BIN='{}';
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       OLD_LIBS="\$(patchelf --print-rpath "\$BIN" 2>/dev/null | tr ':' '\n')";
       ALL_LIBS="\$(echo -e "\$SAMBA_LIBS\n\$OLD_LIBS" | sort | uniq | tr '\n' ':')";
       patchelf --set-rpath "\$ALL_LIBS" "\$BIN" 2>/dev/null || exit $?;
       patchelf --shrink-rpath "\$BIN";
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       install_name_tool -id \$BIN \$BIN
       for old_rpath in \$(otool -L \$BIN | grep /private/tmp/ | awk '{print \$1}'); do
         new_rpath=\$(find \$SAMBA_LIBS -name \$(basename \$old_rpath) | head -n 1)
         install_name_tool -change \$old_rpath \$new_rpath \$BIN
       done
-    '' + ''
+    ''
+    + ''
       EOF
       find $out -type f -regex '.*\${stdenv.hostPlatform.extensions.sharedLibrary}\(\..*\)?' -exec $SHELL -c "$SCRIPT" \;
       find $out/bin -type f -exec $SHELL -c "$SCRIPT" \;

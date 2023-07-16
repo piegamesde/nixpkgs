@@ -48,28 +48,29 @@ stdenv.mkDerivation {
   inherit version;
 
   src =
-    assert !acceptLicense -> throw ''
-      Use of the "SEGGER JLink Software and Documentation pack" requires the
-      acceptance of the following licenses:
+    assert !acceptLicense
+      -> throw ''
+        Use of the "SEGGER JLink Software and Documentation pack" requires the
+        acceptance of the following licenses:
 
-        - SEGGER Downloads Terms of Use [1]
-        - SEGGER Software Licensing [2]
+          - SEGGER Downloads Terms of Use [1]
+          - SEGGER Software Licensing [2]
 
-      You can express acceptance by setting acceptLicense to true in your
-      configuration. Note that this is not a free license so it requires allowing
-      unfree licenses as well.
+        You can express acceptance by setting acceptLicense to true in your
+        configuration. Note that this is not a free license so it requires allowing
+        unfree licenses as well.
 
-      configuration.nix:
-        nixpkgs.config.allowUnfree = true;
-        nixpkgs.config.segger-jlink.acceptLicense = true;
+        configuration.nix:
+          nixpkgs.config.allowUnfree = true;
+          nixpkgs.config.segger-jlink.acceptLicense = true;
 
-      config.nix:
-        allowUnfree = true;
-        segger-jlink.acceptLicense = true;
+        config.nix:
+          allowUnfree = true;
+          segger-jlink.acceptLicense = true;
 
-      [1]: ${url}
-      [2]: https://www.segger.com/purchase/licensing/
-    '';
+        [1]: ${url}
+        [2]: https://www.segger.com/purchase/licensing/
+      '';
     fetchurl {
       inherit url;
       inherit (platform) sha256;

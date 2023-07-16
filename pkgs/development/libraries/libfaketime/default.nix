@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
           "https://github.com/wolfcw/libfaketime/commit/e0e6b79568d36a8fd2b3c41f7214769221182128.patch";
         sha256 = "sha256-KwwP76v0DXNW73p/YBvwUOPdKMAcVdbQSKexD/uFOYo=";
       })
-    ] ++ (lib.optionals stdenv.cc.isClang [
+    ]
+    ++ (lib.optionals stdenv.cc.isClang [
       # https://github.com/wolfcw/libfaketime/issues/277
       ./0001-Remove-unsupported-clang-flags.patch
     ])

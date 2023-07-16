@@ -82,7 +82,8 @@ python3Packages.buildPythonApplication rec {
     [
       glibcLocales
       git
-    ] ++ (with python3Packages; [
+    ]
+    ++ (with python3Packages; [
       pyte
       pytestCheckHook
       pytest-mock

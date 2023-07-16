@@ -36,8 +36,9 @@ let
       # https://sourceware.org/glibc/wiki/Release/2.26#Removal_of_.27xlocale.h.27
     postPatch =
       if
-        (stdenv.hostPlatform.libc == "glibc" || stdenv.hostPlatform.libc
-          == "musl") && lib.versionOlder version "62.1"
+        (stdenv.hostPlatform.libc == "glibc"
+          || stdenv.hostPlatform.libc == "musl")
+        && lib.versionOlder version "62.1"
       then
         "substituteInPlace i18n/digitlst.cpp --replace '<xlocale.h>' '<locale.h>'"
       else
@@ -52,7 +53,8 @@ let
 
         # $(includedir) is different from $(prefix)/include due to multiple outputs
         sed -i -e 's|^\(CPPFLAGS = .*\) -I\$(prefix)/include|\1 -I$(includedir)|' config/Makefile.inc.in
-      '' + lib.optionalString stdenv.isAarch32 ''
+      ''
+      + lib.optionalString stdenv.isAarch32 ''
         # From https://archlinuxarm.org/packages/armv7h/icu/files/icudata-stdlibs.patch
         sed -e 's/LDFLAGSICUDT=-nodefaultlibs -nostdlib/LDFLAGSICUDT=/' -i config/mh-linux
       ''
@@ -62,7 +64,7 @@ let
       [ "--disable-debug" ]
       ++ lib.optional (stdenv.isFreeBSD || stdenv.isDarwin) "--enable-rpath"
       ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-      "--with-cross-build=${nativeBuildRoot}"
+        "--with-cross-build=${nativeBuildRoot}"
       ;
 
     enableParallelBuilding = true;
@@ -98,7 +100,8 @@ let
     postInstall =
       lib.optionalString stdenv.isDarwin ''
         sed -i 's/INSTALL_CMD=.*install/INSTALL_CMD=install/' $out/lib/icu/${version}/pkgdata.inc
-      '' + (let
+      ''
+      + (let
         replacements = [
           {
             from = "\${prefix}/include";
@@ -131,7 +134,8 @@ let
     name = pname + "-build-root-" + version;
 
     preConfigure =
-      baseAttrs.preConfigure + ''
+      baseAttrs.preConfigure
+      + ''
         mkdir build
         cd build
         configureScript=../configure

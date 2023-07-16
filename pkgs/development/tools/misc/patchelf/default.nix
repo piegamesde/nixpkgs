@@ -27,9 +27,10 @@ stdenv.mkDerivation rec {
 
     # fails 8 out of 24 tests, problems when loading libc.so.6
   doCheck =
-    stdenv.name == "stdenv-linux"
-    # test scripts require unprefixed bintools binaries
-    # https://github.com/NixOS/patchelf/issues/417
+    stdenv.name
+      == "stdenv-linux"
+        # test scripts require unprefixed bintools binaries
+        # https://github.com/NixOS/patchelf/issues/417
     && stdenv.cc.targetPrefix == ""
     ;
 

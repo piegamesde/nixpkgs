@@ -89,7 +89,8 @@ stdenv.mkDerivation rec {
       dpkt
       scapy
       lxml
-    ]) ++ # For pcap2john.py
+    ])
+    ++ # For pcap2john.py
     (with perlPackages; [
       DigestMD4
       DigestSHA1

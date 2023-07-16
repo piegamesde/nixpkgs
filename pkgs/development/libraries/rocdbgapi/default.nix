@@ -57,7 +57,8 @@ stdenv.mkDerivation (finalAttrs: {
       cmake
       rocm-cmake
       git
-    ] ++ lib.optionals buildDocs [
+    ]
+    ++ lib.optionals buildDocs [
       latex
       doxygen
       graphviz
@@ -82,7 +83,8 @@ stdenv.mkDerivation (finalAttrs: {
 
       substituteInPlace $out/lib/cmake/amd-dbgapi/amd-dbgapi-targets.cmake \
         --replace "/build/source/build" "$out"
-    '' + lib.optionalString buildDocs ''
+    ''
+    + lib.optionalString buildDocs ''
       mv $out/share/html/amd-dbgapi $doc/share/doc/amd-dbgapi/html
       rmdir $out/share/html
     ''

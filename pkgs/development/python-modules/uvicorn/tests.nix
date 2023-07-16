@@ -38,7 +38,8 @@ buildPythonPackage rec {
       # strictly optional dependencies
       watchgod
       wsproto
-    ] ++ uvicorn.optional-dependencies.standard
+    ]
+    ++ uvicorn.optional-dependencies.standard
     ;
 
   doCheck = !stdenv.isDarwin;

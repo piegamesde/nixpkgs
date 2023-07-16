@@ -27,7 +27,8 @@ buildPythonPackage rec {
     [
       blessed
       cwcwidth
-    ] ++ lib.optionals (pythonOlder "3.8") [ backports-cached-property ]
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [ backports-cached-property ]
     ;
 
   nativeCheckInputs = [

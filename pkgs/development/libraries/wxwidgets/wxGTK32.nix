@@ -74,14 +74,16 @@ stdenv.mkDerivation rec {
       libjpeg_turbo
       zlib
       pcre2
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       gtk3
       libSM
       libXinerama
       libXtst
       libXxf86vm
       xorgproto
-    ] ++ lib.optional withMesa libGLU
+    ]
+    ++ lib.optional withMesa libGLU
     ++ lib.optional (withWebKit && stdenv.isLinux) webkitgtk
     ++ lib.optional (withWebKit && stdenv.isDarwin) WebKit
     ++ lib.optionals stdenv.isDarwin [
@@ -114,11 +116,14 @@ stdenv.mkDerivation rec {
         "--enable-compat30"
       else
         "--disable-compat30")
-    ] ++ lib.optional unicode "--enable-unicode"
-    ++ lib.optional withMesa "--with-opengl" ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optional unicode "--enable-unicode"
+    ++ lib.optional withMesa "--with-opengl"
+    ++ lib.optionals stdenv.isDarwin [
       "--with-osx_cocoa"
       "--with-libiconv"
-    ] ++ lib.optionals withWebKit [
+    ]
+    ++ lib.optionals withWebKit [
       "--enable-webview"
       "--enable-webviewwebkit"
     ]
@@ -130,7 +135,8 @@ stdenv.mkDerivation rec {
     ''
       cp -r ${catch}/* 3rdparty/catch/
       cp -r ${nanosvg}/* 3rdparty/nanosvg/
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace configure \
         --replace 'ac_cv_prog_SETFILE="/Developer/Tools/SetFile"' 'ac_cv_prog_SETFILE="${setfile}/bin/SetFile"'
       substituteInPlace configure \

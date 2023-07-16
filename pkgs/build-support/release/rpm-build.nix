@@ -16,7 +16,9 @@ vmTools.buildRPM (
 
   {
     name =
-      name + "-" + diskImage.name
+      name
+      + "-"
+      + diskImage.name
       + (lib.optionalString (src ? version) "-${src.version}")
       ;
 

@@ -73,7 +73,8 @@ buildPythonPackage rec {
           "https://github.com/mweinelt/twisted/commit/e69e652de671aac0abf5c7e6c662fc5172758c5a.patch";
         hash = "sha256-LmvKUTViZoY/TPBmSlx4S9FbJNZfB5cxzn/YcciDmoI=";
       })
-    ] ++ lib.optionals (pythonAtLeast "3.11") [
+    ]
+    ++ lib.optionals (pythonAtLeast "3.11") [
       (fetchpatch {
         url = "https://github.com/twisted/twisted/pull/11734.diff";
         excludes = [ ".github/workflows/*" ];
@@ -126,7 +127,8 @@ buildPythonPackage rec {
       # not packaged
       substituteInPlace src/twisted/test/test_failure.py \
         --replace "from cython_test_exception_raiser import raiser  # type: ignore[import]" "raiser = None"
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       echo 'PTYProcessTestsBuilder_EPollReactorTests.test_openFileDescriptors.skip = "invalid syntax"'>> src/twisted/internet/test/test_process.py
       echo 'PTYProcessTestsBuilder_PollReactorTests.test_openFileDescriptors.skip = "invalid syntax"'>> src/twisted/internet/test/test_process.py
       echo 'UNIXTestsBuilder_EPollReactorTests.test_sendFileDescriptorTriggersPauseProducing.skip = "sendFileDescriptor producer was not paused"'>> src/twisted/internet/test/test_unix.py
@@ -136,7 +138,8 @@ buildPythonPackage rec {
       # twisted.python.runtime.platform.supportsINotify() == False
       substituteInPlace src/twisted/python/_inotify.py --replace \
         "ctypes.util.find_library(\"c\")" "'${stdenv.cc.libc}/lib/libc.so.6'"
-    '' + lib.optionalString (stdenv.isAarch64 && stdenv.isDarwin) ''
+    ''
+    + lib.optionalString (stdenv.isAarch64 && stdenv.isDarwin) ''
       echo 'AbortConnectionTests_AsyncioSelectorReactorTests.test_fullWriteBufferAfterByteExchange.skip = "Timeout after 120 seconds"' >> src/twisted/internet/test/test_tcp.py
       echo 'AbortConnectionTests_AsyncioSelectorReactorTests.test_resumeProducingAbort.skip = "Timeout after 120 seconds"' >> src/twisted/internet/test/test_tcp.py
 
@@ -162,10 +165,11 @@ buildPythonPackage rec {
       # "hypothesis" indirectly depends on twisted to build its documentation.
       (hypothesis.override { enableDocumentation = false; })
       pyhamcrest
-    ] ++ passthru.optional-dependencies.conch
-    # not supported on aarch64-darwin: https://github.com/pyca/pyopenssl/issues/873
+    ]
+    ++ passthru.optional-dependencies.conch
+      # not supported on aarch64-darwin: https://github.com/pyca/pyopenssl/issues/873
     ++ lib.optionals (!(stdenv.isDarwin && stdenv.isAarch64))
-    passthru.optional-dependencies.tls
+      passthru.optional-dependencies.tls
     ;
 
   checkPhase = ''

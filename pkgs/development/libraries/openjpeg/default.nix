@@ -86,10 +86,12 @@ stdenv.mkDerivation rec {
       libtiff
       zlib
       lcms2
-    ] ++ lib.optionals jpipServerSupport [
+    ]
+    ++ lib.optionals jpipServerSupport [
       curl
       fcgi
-    ] ++ lib.optional (jpipLibSupport) jdk
+    ]
+    ++ lib.optional (jpipLibSupport) jdk
     ;
 
   doCheck =

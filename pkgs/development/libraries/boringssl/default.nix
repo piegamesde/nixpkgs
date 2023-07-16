@@ -32,7 +32,8 @@ buildGoModule {
   preBuild =
     ''
       cmakeConfigurePhase
-    '' + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+    ''
+    + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
       export GOARCH=$(go env GOHOSTARCH)
     ''
     ;

@@ -63,12 +63,14 @@ stdenv.mkDerivation rec {
       xxHash
       xz
       zstd
-    ] ++ lib.optionals withDocs [
+    ]
+    ++ lib.optionals withDocs [
       docbook_xml_dtd_45
       doxygen
       perlPackages.Po4a
       w3m
-    ] ++ lib.optionals withNLS [ gettext ]
+    ]
+    ++ lib.optionals withNLS [ gettext ]
     ;
 
   cmakeFlags = [

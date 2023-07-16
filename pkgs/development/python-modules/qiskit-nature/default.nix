@@ -44,7 +44,8 @@ buildPythonPackage rec {
       retworkx
       scikit-learn
       scipy
-    ] ++ lib.optional withPyscf pyscf
+    ]
+    ++ lib.optional withPyscf pyscf
     ;
 
   nativeCheckInputs = [

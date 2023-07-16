@@ -20,7 +20,8 @@ let
           p = lib.removePrefix "p" tail;
           isPosInt =
             num:
-            0 == lib.stringLength (lib.replaceStrings [
+            0
+            == lib.stringLength (lib.replaceStrings [
               "0"
               "1"
               "2"
@@ -84,7 +85,8 @@ let
         # Implements the builtins.toString interface.
       __toString =
         self:
-        self.majMinTiny + (if self.patchLevel != null then
+        self.majMinTiny
+        + (if self.patchLevel != null then
           "-p${self.patchLevel}"
         else
           lib.optionalString (self.tail != "") "-${self.tail}")

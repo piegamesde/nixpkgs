@@ -178,7 +178,8 @@ let
           zpoolCmd = "${cfgZfs.package}/sbin/zpool";
           awkCmd = "${pkgs.gawk}/bin/awk";
           inherit cfgZfs;
-        }) + ''
+        })
+        + ''
           poolImported "${pool}" && exit
           echo -n "importing ZFS pool \"${pool}\"..."
           # Loop across the import until it succeeds, because the devices needed may not be discovered yet.
@@ -596,8 +597,8 @@ in
         }
         {
           assertion =
-            cfgZfs.allowHibernation -> !cfgZfs.forceImportRoot
-            && !cfgZfs.forceImportAll
+            cfgZfs.allowHibernation
+            -> !cfgZfs.forceImportRoot && !cfgZfs.forceImportAll
             ;
           message =
             "boot.zfs.allowHibernation while force importing is enabled will cause data corruption";
@@ -633,14 +634,16 @@ in
         '';
         postDeviceCommands = concatStringsSep "\n" ([ ''
           ZFS_FORCE="${optionalString cfgZfs.forceImportRoot "-f"}"
-        '' ] ++ [
+        '' ]
+          ++ [
             (importLib {
               # See comments at importLib definition.
               zpoolCmd = "zpool";
               awkCmd = "awk";
               inherit cfgZfs;
             })
-          ] ++ (map (pool: ''
+          ]
+          ++ (map (pool: ''
             echo -n "importing root ZFS pool \"${pool}\"..."
             # Loop across the import until it succeeds, because the devices needed may not be discovered yet.
             if ! poolImported "${pool}"; then
@@ -773,7 +776,8 @@ in
 
         in
         listToAttrs (map createImportService' dataPools
-          ++ map createSyncService allPools ++ map createZfsService [
+          ++ map createSyncService allPools
+          ++ map createZfsService [
             "zfs-mount"
             "zfs-share"
             "zfs-zed"

@@ -113,7 +113,8 @@ stdenv.mkDerivation rec {
       xcb-util-cursor
       pcre
       mount
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
       Cocoa
       WebKit
       CoreServices

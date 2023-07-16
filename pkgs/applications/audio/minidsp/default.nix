@@ -25,7 +25,8 @@ rustPlatform.buildRustPackage rec {
   cargoBuildFlags = [ "-p minidsp -p minidsp-daemon" ];
 
   buildInputs =
-    lib.optionals stdenv.isLinux [ libusb1 ] ++ lib.optionals stdenv.isDarwin [
+    lib.optionals stdenv.isLinux [ libusb1 ]
+    ++ lib.optionals stdenv.isDarwin [
       AppKit
       IOKit
     ]

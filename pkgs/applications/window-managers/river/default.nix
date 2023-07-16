@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
       libevdev
       libinput
       libGL
-    ] ++ lib.optional xwaylandSupport libX11
+    ]
+    ++ lib.optional xwaylandSupport libX11
     ;
 
   dontConfigure = true;

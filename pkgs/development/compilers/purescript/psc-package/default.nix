@@ -52,14 +52,17 @@ stdenv.mkDerivation rec {
 
       install -D -m555 -T psc-package $PSC_PACKAGE
       chmod u+w $PSC_PACKAGE
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       install_name_tool \
         -change /usr/lib/libSystem.B.dylib ${darwin.Libsystem}/lib/libSystem.B.dylib \
         -change /usr/lib/libiconv.2.dylib ${libiconv}/libiconv.2.dylib \
         $PSC_PACKAGE
-    '' + lib.optionalString (!stdenv.isDarwin) ''
+    ''
+    + lib.optionalString (!stdenv.isDarwin) ''
       patchelf --interpreter ${dynamic-linker} --set-rpath ${libPath} $PSC_PACKAGE
-    '' + ''
+    ''
+    + ''
       chmod u-w $PSC_PACKAGE
 
       installShellCompletion --cmd psc-package \

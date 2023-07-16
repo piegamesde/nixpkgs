@@ -93,11 +93,13 @@ stdenv.mkDerivation rec {
       "-DMYSQL_LIBRARY=${lib.getLib libmysqlclient}/lib/${
         lib.optionalString (libmysqlclient.pname != "mysql") "mysql/"
       }libmysqlclient${stdenv.hostPlatform.extensions.sharedLibrary}"
-    ] ++ lib.optionals (!stdenv.isDarwin) [
-      "-DCMAKE_SKIP_BUILD_RPATH=ON" # without, libgdal.so can't find libmariadb.so
-    ] ++ lib.optionals stdenv.isDarwin [
-      "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"
     ]
+    ++ lib.optionals (!stdenv.isDarwin) [
+        "-DCMAKE_SKIP_BUILD_RPATH=ON" # without, libgdal.so can't find libmariadb.so
+      ]
+    ++ lib.optionals stdenv.isDarwin [
+        "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"
+      ]
     ;
 
   buildInputs =
@@ -149,12 +151,14 @@ stdenv.mkDerivation rec {
       zstd
       python3
       python3.pkgs.numpy
-    ] ++ lib.optionals (!stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [
       # tests for formats enabled by these packages fail on macos
       arrow-cpp
       openexr
       xercesc
-    ] ++ lib.optional stdenv.isDarwin libiconv
+    ]
+    ++ lib.optional stdenv.isDarwin libiconv
     ;
 
   postInstall = ''
@@ -195,15 +199,18 @@ stdenv.mkDerivation rec {
       " test_sentinel2_zipped"
       # tries to call unwrapped executable
       "test_SetPROJAuxDbPaths"
-    ] ++ lib.optionals (!stdenv.isx86_64) [
+    ]
+    ++ lib.optionals (!stdenv.isx86_64) [
       # likely precision-related expecting x87 behaviour
       "test_jp2openjpeg_22"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # flaky on macos
       "test_rda_download_queue"
-    ] ++ lib.optionals (lib.versionOlder proj.version "8") [
-      "test_ogr_parquet_write_crs_without_id_in_datum_ensemble_members"
     ]
+    ++ lib.optionals (lib.versionOlder proj.version "8") [
+        "test_ogr_parquet_write_crs_without_id_in_datum_ensemble_members"
+      ]
     ;
   postCheck = ''
     popd # ../autotest

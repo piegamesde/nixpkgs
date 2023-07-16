@@ -37,7 +37,8 @@ rustPlatform.buildRustPackage rec {
       xorg.libXcursor
       xorg.libXi
       xorg.libXrandr
-    ] ++ lib.optionals stdenv.isDarwin [ AppKit ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ AppKit ]
     ;
 
   postFixup = lib.optionalString stdenv.isLinux ''

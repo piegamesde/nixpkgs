@@ -26,8 +26,11 @@ let
       instance = f (mapAttrs (n: _: abort "evaluating ${n} for `meta` failed")
         (functionArgs f));
     in
-    cfg.nixos.options.splitBuild && builtins.isPath m && isFunction f
-    && instance ? options && instance.meta.buildDocsInSandbox or true
+    cfg.nixos.options.splitBuild
+    && builtins.isPath m
+    && isFunction f
+    && instance ? options
+    && instance.meta.buildDocsInSandbox or true
     ;
 
   docModules =
@@ -86,7 +89,8 @@ let
     baseOptionsJSON =
       let
         filter = builtins.filterSource (n: t:
-          cleanSourceFilter n t && (t == "directory" -> baseNameOf n != "tests")
+          cleanSourceFilter n t
+          && (t == "directory" -> baseNameOf n != "tests")
           && (t == "file" -> hasSuffix ".nix" n));
       in
       pkgs.runCommand "lazy-options.json" {
@@ -415,7 +419,8 @@ in
       '';
 
       environment.systemPackages =
-        [ ] ++ optional cfg.man.enable manual.manpages
+        [ ]
+        ++ optional cfg.man.enable manual.manpages
         ++ optionals cfg.doc.enable [
           manual.manualHTML
           nixos-help

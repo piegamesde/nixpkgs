@@ -49,7 +49,8 @@ buildPythonApplication rec {
       librsvg
       pango
       webkitgtk
-    ] ++ lib.optionals withIndicator [ libappindicator-gtk3 ]
+    ]
+    ++ lib.optionals withIndicator [ libappindicator-gtk3 ]
     ;
 
   postInstall = ''

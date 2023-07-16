@@ -52,7 +52,8 @@ stdenv.mkDerivation rec {
         path:
         ''
           p; g; s,\<PLUGINDIR\>,"${path}",g;
-        '' + lib.optionalString (isRelative path) ''
+        ''
+        + lib.optionalString (isRelative path) ''
           s/AddPath(\(.*\));/AddRelPath(\1, GWEN_PathManager_RelModeHome);/g
         ''
         ;

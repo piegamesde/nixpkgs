@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
       ninja
       cmake
       pkg-config
-    ] ++ lib.optional withGui wrapGAppsHook
+    ]
+    ++ lib.optional withGui wrapGAppsHook
     ;
 
   buildInputs =
@@ -48,7 +49,8 @@ stdenv.mkDerivation rec {
       readline
       lua
       bash-completion
-    ] ++ lib.optionals withGui [
+    ]
+    ++ lib.optionals withGui [
       glib
       gtk4
       gtksourceview5

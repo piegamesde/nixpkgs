@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
     [
       autoreconfHook
       pkg-config
-    ] ++ lib.optional stdenv.isDarwin xcbuild
+    ]
+    ++ lib.optional stdenv.isDarwin xcbuild
     ;
   buildInputs =
     if stdenv.isDarwin then

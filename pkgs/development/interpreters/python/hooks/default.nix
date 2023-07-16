@@ -149,7 +149,8 @@ in
           "-q"
           "-f"
           "-i -"
-        ] ++ lib.optionals isPy3k [ "-j $NIX_BUILD_CORES" ]);
+        ]
+          ++ lib.optionals isPy3k [ "-j $NIX_BUILD_CORES" ]);
         bytecodeName =
           if isPy3k then
             "__pycache__"

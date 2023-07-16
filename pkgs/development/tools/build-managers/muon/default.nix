@@ -33,7 +33,8 @@ stdenv.mkDerivation (finalAttrs: {
     [
       pkgconf
       samurai
-    ] ++ lib.optionals buildDocs [
+    ]
+    ++ lib.optionals buildDocs [
       (python3.withPackages (ps: [ ps.pyyaml ]))
       scdoc
     ]
@@ -75,7 +76,8 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch =
     ''
       patchShebangs bootstrap.sh
-    '' + lib.optionalString buildDocs ''
+    ''
+    + lib.optionalString buildDocs ''
       patchShebangs subprojects/meson-docs/docs/genrefman.py
     ''
     ;

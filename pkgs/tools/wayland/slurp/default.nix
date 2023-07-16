@@ -33,7 +33,8 @@ stdenv.mkDerivation (finalAttrs: {
       ninja
       pkg-config
       wayland-scanner
-    ] ++ lib.optional buildDocs scdoc
+    ]
+    ++ lib.optional buildDocs scdoc
     ;
 
   buildInputs = [

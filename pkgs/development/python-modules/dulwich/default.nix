@@ -52,7 +52,8 @@ buildPythonPackage rec {
       git
       glibcLocales
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.fastimport
+    ]
+    ++ passthru.optional-dependencies.fastimport
     ++ passthru.optional-dependencies.pgp
     ++ passthru.optional-dependencies.paramiko
     ;

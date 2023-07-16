@@ -48,7 +48,8 @@ buildPythonPackage rec {
     [
       pytestCheckHook
       requests
-    ] ++ passthru.optional-dependencies.watchdog
+    ]
+    ++ passthru.optional-dependencies.watchdog
     ++ passthru.optional-dependencies.aiohttp
     ;
 

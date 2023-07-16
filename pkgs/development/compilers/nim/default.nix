@@ -123,7 +123,8 @@ in
         pcre
         readline
         sqlite
-      ] ++ lib.optional stdenv.isDarwin Security
+      ]
+      ++ lib.optional stdenv.isDarwin Security
       ;
 
     patches =
@@ -133,7 +134,8 @@ in
 
         ./nixbuild.patch
         # Load libraries at runtime by absolute path
-      ] ++ lib.optional (!stdenv.hostPlatform.isWindows) ./toLocation.patch
+      ]
+      ++ lib.optional (!stdenv.hostPlatform.isWindows) ./toLocation.patch
       ;
 
     configurePhase = ''

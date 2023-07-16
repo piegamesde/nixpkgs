@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
       cp ${fastutil} lib/compile/${fastutil.name}
       cp ${osmpbf} lib/compile/${osmpbf.name}
       cp ${protobuf} lib/compile/${protobuf.name}
-    '' + lib.optionalString doCheck ''
+    ''
+    + lib.optionalString doCheck ''
       mkdir -p lib/test
       cp ${fastutil} lib/test/${fastutil.name}
       cp ${osmpbf} lib/test/${osmpbf.name}
@@ -75,7 +76,8 @@ stdenv.mkDerivation rec {
       cp -r dist/lib/ $out/share/java/mkgmap/
       makeWrapper ${jre}/bin/java $out/bin/mkgmap \
         --add-flags "-jar $out/share/java/mkgmap/mkgmap.jar"
-    '' + lib.optionalString withExamples ''
+    ''
+    + lib.optionalString withExamples ''
       mkdir -p $out/share/mkgmap
       cp -r dist/examples $out/share/mkgmap/
     ''

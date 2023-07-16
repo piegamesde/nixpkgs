@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
       uhd
       boost
       soapysdr
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       libobjc
       IOKit
       Security

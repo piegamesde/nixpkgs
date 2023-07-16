@@ -46,7 +46,8 @@ python3Packages.buildPythonApplication rec {
         bzip2
         xz
         lzip
-      ] ++ lib.optional (unzipSupport) unzip
+      ]
+        ++ lib.optional (unzipSupport) unzip
         ++ lib.optional (unrarSupport) unrar);
     in
     ''

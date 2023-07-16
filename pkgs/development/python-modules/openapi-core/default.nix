@@ -76,7 +76,8 @@ buildPythonPackage rec {
       pytestCheckHook
       responses
       webob
-    ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
+    ]
+    ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
     ;
 
   disabledTestPaths =

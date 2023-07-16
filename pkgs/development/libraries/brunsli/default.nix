@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
   postPatch =
     ''
       rm -r third_party
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       rm -r build
     ''
     ;

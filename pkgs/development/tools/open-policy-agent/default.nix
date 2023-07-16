@@ -50,7 +50,8 @@ buildGoModule rec {
           lib.optionalString stdenv.isDarwin "-e wasm"
         }
       }
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # remove tests that have "too many open files"/"no space left on device" issues on darwin in hydra
       rm server/server_test.go
     ''

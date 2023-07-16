@@ -59,17 +59,19 @@ buildPythonPackage {
     # lots of collections with dedicated requirements.txt and pyproject.toml files,
     # add the dependencies for the collections you need conditionally and install
     # ansible using overrides to enable the collections you need.
-  ] ++ lib.optionals (withJunos) [
-    # ansible_collections/junipernetworks/junos/requirements.txt
-    jxmlease
-    ncclient
-    paramiko
-    scp
-    xmltodict
-  ] ++ lib.optionals (withNetbox) [
-    # ansible_collections/netbox/netbox/pyproject.toml
-    pynetbox
-  ]);
+  ]
+    ++ lib.optionals (withJunos) [
+      # ansible_collections/junipernetworks/junos/requirements.txt
+      jxmlease
+      ncclient
+      paramiko
+      scp
+      xmltodict
+    ]
+    ++ lib.optionals (withNetbox) [
+      # ansible_collections/netbox/netbox/pyproject.toml
+      pynetbox
+    ]);
 
     # don't try and fail to strip 48000+ non strippable files, it takes >5 minutes!
   dontStrip = true;

@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
       symfpu
       gmp
       zlib
-    ] ++ lib.optional withLingeling lingeling
+    ]
+    ++ lib.optional withLingeling lingeling
     ;
 
   cmakeFlags =
@@ -56,7 +57,8 @@ stdenv.mkDerivation rec {
       "-DBtor2Tools_LIBRARIES=${
         lib.getLib btor2tools
       }/lib/libbtor2parser${stdenv.hostPlatform.extensions.sharedLibrary}"
-    ] ++ lib.optional doCheck "-DTESTING=YES"
+    ]
+    ++ lib.optional doCheck "-DTESTING=YES"
     ;
 
   nativeCheckInputs = [

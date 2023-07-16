@@ -79,7 +79,8 @@ stdenv.mkDerivation {
     [
       autoPatchelfHook
       makeWrapper
-    ] ++ lib.optional cudaSupport addOpenGLRunpath
+    ]
+    ++ lib.optional cudaSupport addOpenGLRunpath
     ;
 
   buildInputs =
@@ -113,7 +114,8 @@ stdenv.mkDerivation {
       xcbutilimage
       xcbutilkeysyms
       xkeyboard_config
-    ] ++ (with xorg; [
+    ]
+    ++ (with xorg; [
       libICE
       libSM
       libX11
@@ -130,7 +132,8 @@ stdenv.mkDerivation {
       libXrender
       libXtst
       libxcb
-    ]) ++ lib.optional cudaSupport cudaEnv
+    ])
+    ++ lib.optional cudaSupport cudaEnv
     ;
 
   wrapProgramFlags =
@@ -148,7 +151,8 @@ stdenv.mkDerivation {
       "--set QT_XKB_CONFIG_ROOT ${xkeyboard_config}/share/X11/xkb"
       # wayland isn't supported
       "--set QT_QPA_PLATFORM xcb"
-    ] ++ lib.optionals cudaSupport [
+    ]
+    ++ lib.optionals cudaSupport [
       "--set CUDA_PATH ${cudaEnv}"
       "--set NVIDIA_DRIVER_LIBRARY_PATH ${addOpenGLRunpath.driverLink}/lib/libnvidia-tls.so"
       "--set CUDA_LIBRARY_PATH ${addOpenGLRunpath.driverLink}/lib/libcuda.so"

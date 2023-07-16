@@ -275,9 +275,10 @@ rec {
               in
               throw ("updateManyAttrsByPath: Path '${
                   showAttrPath updatePath
-                }' needs to " + "be updated, but path '${
-                  showAttrPath (take prefixLength updatePath)
-                }' "
+                }' needs to "
+                + "be updated, but path '${
+                    showAttrPath (take prefixLength updatePath)
+                  }' "
                 + "of the given value is not an attribute set, so we can't "
                 + "update an attribute inside of it.")
             ;

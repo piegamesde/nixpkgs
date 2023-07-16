@@ -111,7 +111,8 @@ let
       ...
     }@args:
     (filterAttrs (k: v:
-      v != null && !(elem k [
+      v != null
+      && !(elem k [
         "type"
         "query"
       ])) args) // {
@@ -288,7 +289,8 @@ in
       thinkfan.environment.THINKFAN_ARGS = escapeShellArgs ([
         "-c"
         configFile
-      ] ++ cfg.extraArgs);
+      ]
+        ++ cfg.extraArgs);
 
         # must be added manually, see issue #81138
       thinkfan.wantedBy = [ "multi-user.target" ];

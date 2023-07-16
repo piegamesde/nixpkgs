@@ -292,12 +292,13 @@ in
 
     warnings =
       lib.optional
-      (cfg.frontend.enable && builtins.isString cfg.frontend.extraArgs) ''
-        Passing strings to `services.bird-lg.frontend.extraOptions' is deprecated. Please pass a list of strings instead.
-      '' ++ lib.optional
-      (cfg.proxy.enable && builtins.isString cfg.proxy.extraArgs) ''
-        Passing strings to `services.bird-lg.proxy.extraOptions' is deprecated. Please pass a list of strings instead.
-      ''
+        (cfg.frontend.enable && builtins.isString cfg.frontend.extraArgs) ''
+          Passing strings to `services.bird-lg.frontend.extraOptions' is deprecated. Please pass a list of strings instead.
+        ''
+      ++ lib.optional
+        (cfg.proxy.enable && builtins.isString cfg.proxy.extraArgs) ''
+          Passing strings to `services.bird-lg.proxy.extraOptions' is deprecated. Please pass a list of strings instead.
+        ''
       ;
 
     systemd.services = {

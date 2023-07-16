@@ -230,9 +230,11 @@ in
           always_populate_raw_post_data = -1
           # https://bbs.archlinux.org/viewtopic.php?pid=1745214#p1745214
           session.save_path = ${stateDir}/session
-        '' + optionalString (config.time.timeZone != null) ''
+        ''
+        + optionalString (config.time.timeZone != null) ''
           date.timezone = "${config.time.timeZone}"
-        '' + optionalString (cfg.database.type == "oracle") ''
+        ''
+        + optionalString (cfg.database.type == "oracle") ''
           extension=${pkgs.phpPackages.oci8}/lib/php/extensions/oci8.so
         ''
         ;

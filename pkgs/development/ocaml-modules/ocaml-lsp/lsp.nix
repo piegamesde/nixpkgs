@@ -101,7 +101,8 @@ buildDunePackage rec {
       csexp
       jsonrpc
       uutf
-    ] ++ lib.optional (lib.versionOlder version "1.7.0") stdlib-shims
+    ]
+    ++ lib.optional (lib.versionOlder version "1.7.0") stdlib-shims
     ;
 
   meta =

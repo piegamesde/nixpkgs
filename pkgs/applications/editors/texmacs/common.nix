@@ -44,13 +44,16 @@
     else
       lib.optionalString extraFonts ''
         gunzip < ${extraFontsSrc} | (cd TeXmacs && tar xvf -)
-      '') + (lib.optionalString chineseFonts ''
-        gunzip < ${chineseFontsSrc} | (cd TeXmacs && tar xvf -)
-      '') + (lib.optionalString japaneseFonts ''
-        gunzip < ${japaneseFontsSrc} | (cd TeXmacs && tar xvf -)
-      '') + (lib.optionalString koreanFonts ''
-        gunzip < ${koreanFontsSrc} | (cd TeXmacs && tar xvf -)
       '')
+    + (lib.optionalString chineseFonts ''
+      gunzip < ${chineseFontsSrc} | (cd TeXmacs && tar xvf -)
+    '')
+    + (lib.optionalString japaneseFonts ''
+      gunzip < ${japaneseFontsSrc} | (cd TeXmacs && tar xvf -)
+    '')
+    + (lib.optionalString koreanFonts ''
+      gunzip < ${koreanFontsSrc} | (cd TeXmacs && tar xvf -)
+    '')
     ;
 
   meta = {

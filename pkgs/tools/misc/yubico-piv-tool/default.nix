@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
     [
       openssl
       check
-    ] ++ (if withApplePCSC then
+    ]
+    ++ (if withApplePCSC then
       [ PCSC ]
     else
       [ pcsclite ])

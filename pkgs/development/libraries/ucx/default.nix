@@ -66,7 +66,9 @@ stdenv.mkDerivation rec {
       perl
       rdma-core
       zlib
-    ] ++ lib.optional enableCuda cudatoolkit ++ lib.optionals enableRocm [
+    ]
+    ++ lib.optional enableCuda cudatoolkit
+    ++ lib.optionals enableRocm [
       rocm-core
       rocm-runtime
       rocm-device-libs
@@ -81,7 +83,8 @@ stdenv.mkDerivation rec {
       "--with-rc"
       "--with-dm"
       "--with-verbs=${rdma-core}"
-    ] ++ lib.optional enableCuda "--with-cuda=${cudatoolkit'}"
+    ]
+    ++ lib.optional enableCuda "--with-cuda=${cudatoolkit'}"
     ++ lib.optional enableRocm "--with-rocm=${rocm}"
     ;
 

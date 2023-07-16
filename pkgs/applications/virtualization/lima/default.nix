@@ -27,7 +27,8 @@ buildGoModule rec {
     [
       makeWrapper
       installShellFiles
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       xcbuild.xcrun
       sigtool
     ]

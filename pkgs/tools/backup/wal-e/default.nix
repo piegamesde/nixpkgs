@@ -28,7 +28,8 @@ python3Packages.buildPythonApplication rec {
       boto
       gevent
       google-cloud-storage
-    ]) ++ [
+    ])
+    ++ [
       postgresql
       lzop
       pv

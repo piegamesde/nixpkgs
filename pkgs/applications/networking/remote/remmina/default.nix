@@ -94,7 +94,8 @@ stdenv.mkDerivation rec {
       webkitgtk_4_1
       harfbuzz
       python3
-    ] ++ lib.optionals withLibsecret [ libsecret ]
+    ]
+    ++ lib.optionals withLibsecret [ libsecret ]
     ++ lib.optionals withKf5Wallet [ libsForQt5.kwallet ]
     ++ lib.optionals withVte [ vte ]
     ;

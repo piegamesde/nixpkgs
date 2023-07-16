@@ -34,7 +34,9 @@ stdenv.mkDerivation rec {
     [
       jq
       curl
-    ] ++ lib.optional screenshots maim ++ lib.optional video capture
+    ]
+    ++ lib.optional screenshots maim
+    ++ lib.optional video capture
     ++ lib.optional clipboard xclip
     ;
 

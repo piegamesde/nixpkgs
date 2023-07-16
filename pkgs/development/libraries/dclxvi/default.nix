@@ -21,7 +21,8 @@ stdenv.mkDerivation {
     ''
       substituteInPlace Makefile \
         --replace "gcc" "cc"
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace Makefile \
         --replace "-soname=libdclxvipairing.so" "-install_name,libdclxvipairing.so"
     ''

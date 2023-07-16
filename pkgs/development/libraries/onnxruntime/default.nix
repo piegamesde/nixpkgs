@@ -58,7 +58,8 @@ stdenv.mkDerivation rec {
       pkg-config
       python3Packages.python
       gtest
-    ] ++ lib.optionals pythonSupport (with python3Packages; [
+    ]
+    ++ lib.optionals pythonSupport (with python3Packages; [
       setuptools
       wheel
       pip
@@ -75,7 +76,8 @@ stdenv.mkDerivation rec {
       boost
       oneDNN
       protobuf
-    ] ++ lib.optionals pythonSupport [
+    ]
+    ++ lib.optionals pythonSupport [
       nsync
       python3Packages.numpy
       python3Packages.pybind11
@@ -89,7 +91,8 @@ stdenv.mkDerivation rec {
     [
       "out"
       "dev"
-    ] ++ lib.optionals pythonSupport [ "dist" ]
+    ]
+    ++ lib.optionals pythonSupport [ "dist" ]
     ;
 
   enableParallelBuilding = true;
@@ -107,7 +110,8 @@ stdenv.mkDerivation rec {
       "-Deigen_SOURCE_PATH=${eigen.src}"
       "-DFETCHCONTENT_SOURCE_DIR_ABSEIL_CPP=${abseil-cpp_202111.src}"
       "-Donnxruntime_USE_DNNL=YES"
-    ] ++ lib.optionals pythonSupport [ "-Donnxruntime_ENABLE_PYTHON=ON" ]
+    ]
+    ++ lib.optionals pythonSupport [ "-Donnxruntime_ENABLE_PYTHON=ON" ]
     ;
 
   doCheck = true;

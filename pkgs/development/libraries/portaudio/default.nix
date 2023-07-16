@@ -62,10 +62,12 @@ stdenv.mkDerivation rec {
   installPhase =
     ''
       make install
-    '' + lib.optionalString (!stdenv.isDarwin) ''
+    ''
+    + lib.optionalString (!stdenv.isDarwin) ''
       # fixup .pc file to find alsa library
       sed -i "s|-lasound|-L${alsa-lib.out}/lib -lasound|" "$out/lib/pkgconfig/"*.pc
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       cp include/pa_mac_core.h $out/include/pa_mac_core.h
     ''
     ;

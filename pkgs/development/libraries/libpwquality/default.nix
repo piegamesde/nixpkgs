@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
       "dev"
       "lib"
       "man"
-    ] ++ lib.optionals enablePython [ "py" ]
+    ]
+    ++ lib.optionals enablePython [ "py" ]
     ;
 
   src = fetchFromGitHub {
@@ -44,7 +45,8 @@ stdenv.mkDerivation rec {
     [
       autoreconfHook
       perl
-    ] ++ lib.optionals enablePython [ python ]
+    ]
+    ++ lib.optionals enablePython [ python ]
     ;
   buildInputs = [ cracklib ] ++ lib.optionals enablePAM [ pam ];
 

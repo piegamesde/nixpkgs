@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
       "out"
       "dev"
       "lib"
-    ] ++ lib.optional withDevdoc "devdoc"
+    ]
+    ++ lib.optional withDevdoc "devdoc"
     ;
 
   strictDeps = true;
@@ -62,7 +63,8 @@ stdenv.mkDerivation rec {
       pkg-config
 
       docbook_xml_dtd_42 # for the man pages
-    ] ++ lib.optionals withDevdoc [
+    ]
+    ++ lib.optionals withDevdoc [
       docbook_xml_dtd_43
       gtk-doc
     ]
@@ -87,7 +89,8 @@ stdenv.mkDerivation rec {
       "--with-zstd"
       "--with-modulesdirs=${modulesDirs}"
       (lib.enableFeature withDevdoc "gtk-doc")
-    ] ++ lib.optional withStatic "--enable-static"
+    ]
+    ++ lib.optional withStatic "--enable-static"
     ;
 
   patches =

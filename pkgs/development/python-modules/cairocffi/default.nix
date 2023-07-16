@@ -65,7 +65,8 @@ buildPythonPackage rec {
     [
       cairo
       cffi
-    ] ++ lib.optional withXcffib xcffib
+    ]
+    ++ lib.optional withXcffib xcffib
     ;
 
     # pytestCheckHook does not work

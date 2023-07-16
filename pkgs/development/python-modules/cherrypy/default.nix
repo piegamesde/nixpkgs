@@ -82,7 +82,8 @@ buildPythonPackage rec {
       "test_basic_request"
       "test_3_Redirect"
       "test_4_File_deletion"
-    ] ++ lib.optionals stdenv.isDarwin [ "test_block" ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ "test_block" ]
     ;
 
   disabledTestPaths =

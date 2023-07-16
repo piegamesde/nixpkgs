@@ -60,7 +60,8 @@ buildPythonPackage rec {
       fi
       substituteInPlace "scapy/libs/winpcapy.py" \
           --replace "@libpcap_file@" "$libpcap_file"
-    '' + lib.optionalString withManufDb ''
+    ''
+    + lib.optionalString withManufDb ''
       substituteInPlace scapy/data.py --replace "/opt/wireshark" "${wireshark}"
     ''
     ;
@@ -69,10 +70,12 @@ buildPythonPackage rec {
     [
       pycrypto
       ecdsa
-    ] ++ lib.optionals withOptionalDeps [
+    ]
+    ++ lib.optionals withOptionalDeps [
       tcpdump
       ipython
-    ] ++ lib.optional withCryptography cryptography
+    ]
+    ++ lib.optional withCryptography cryptography
     ++ lib.optional withVoipSupport sox
     ++ lib.optional withPlottingSupport matplotlib
     ++ lib.optionals withGraphicsSupport [

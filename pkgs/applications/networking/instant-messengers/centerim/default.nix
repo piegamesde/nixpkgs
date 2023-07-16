@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
       curl
       ncurses
       libjpeg
-    ] ++ lib.optional withGpg gpgme
+    ]
+    ++ lib.optional withGpg gpgme
     ;
 
   preConfigure = ''

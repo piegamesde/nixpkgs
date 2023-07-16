@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
       cmake
       pkg-config
       help2man
-    ] ++ lib.optional enableGui wrapQtAppsHook
+    ]
+    ++ lib.optional enableGui wrapQtAppsHook
     ;
 
   buildInputs =
@@ -50,7 +51,8 @@ stdenv.mkDerivation rec {
       liboauth
       rhash
       tinyxml-2
-    ] ++ lib.optionals enableGui [
+    ]
+    ++ lib.optionals enableGui [
       qtbase
       qtwebengine
     ]

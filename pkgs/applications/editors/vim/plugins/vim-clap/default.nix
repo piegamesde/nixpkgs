@@ -47,7 +47,8 @@ let
       [
         libgit2
         zlib
-      ] ++ lib.optionals stdenv.isDarwin [
+      ]
+      ++ lib.optionals stdenv.isDarwin [
         darwin.apple_sdk.frameworks.CoreFoundation
         darwin.apple_sdk.frameworks.Security
       ]

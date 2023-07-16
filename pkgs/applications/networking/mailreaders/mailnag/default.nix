@@ -48,7 +48,8 @@ python3Packages.buildPythonApplication rec {
       gst_all_1.gst-plugins-bad
       gobject-introspection
       libsecret
-    ] ++ pluginsDeps
+    ]
+    ++ pluginsDeps
     ;
 
   nativeBuildInputs = [

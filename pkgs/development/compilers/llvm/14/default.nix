@@ -65,9 +65,15 @@ let
 
       # See llvm/cmake/config-ix.cmake.
     platforms =
-      lib.platforms.aarch64 ++ lib.platforms.arm ++ lib.platforms.m68k
-      ++ lib.platforms.mips ++ lib.platforms.power ++ lib.platforms.riscv
-      ++ lib.platforms.s390x ++ lib.platforms.wasi ++ lib.platforms.x86
+      lib.platforms.aarch64
+      ++ lib.platforms.arm
+      ++ lib.platforms.m68k
+      ++ lib.platforms.mips
+      ++ lib.platforms.power
+      ++ lib.platforms.riscv
+      ++ lib.platforms.s390x
+      ++ lib.platforms.wasi
+      ++ lib.platforms.x86
       ;
   };
 
@@ -95,7 +101,8 @@ let
         ;
       mkExtraBuildCommands =
         cc:
-        mkExtraBuildCommands0 cc + ''
+        mkExtraBuildCommands0 cc
+        + ''
           ln -s "${targetLlvmLibraries.compiler-rt.out}/lib" "$rsrc/lib"
           ln -s "${targetLlvmLibraries.compiler-rt.out}/share" "$rsrc/share"
         ''
@@ -204,9 +211,10 @@ let
           [
             libcxx.cxxabi
             targetLlvmLibraries.compiler-rt
-          ] ++ lib.optionals (!stdenv.targetPlatform.isWasm) [
-            targetLlvmLibraries.libunwind
           ]
+          ++ lib.optionals (!stdenv.targetPlatform.isWasm) [
+              targetLlvmLibraries.libunwind
+            ]
           ;
         extraBuildCommands = mkExtraBuildCommands cc;
         nixSupport.cc-cflags =
@@ -214,8 +222,10 @@ let
             "-rtlib=compiler-rt"
             "-Wno-unused-command-line-argument"
             "-B${targetLlvmLibraries.compiler-rt}/lib"
-          ] ++ lib.optional (!stdenv.targetPlatform.isWasm)
-          "--unwindlib=libunwind" ++ lib.optional (!stdenv.targetPlatform.isWasm
+          ]
+          ++ lib.optional (!stdenv.targetPlatform.isWasm)
+            "--unwindlib=libunwind"
+          ++ lib.optional (!stdenv.targetPlatform.isWasm
             && stdenv.targetPlatform.useLLVM or false) "-lunwind"
           ++ lib.optional stdenv.targetPlatform.isWasm "-fno-exceptions"
           ;

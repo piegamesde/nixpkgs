@@ -59,7 +59,8 @@ stdenv.mkDerivation rec {
       # if switching to cmake then a similar substitution has to be done
       substituteInPlace src/core/Makefile.am \
         --replace '`date -u "+%Y-%m-%d %H:%M"`' "`date -u \"+%Y-%m-%d %H:%M\" --date="@''${SOURCE_DATE_EPOCH}"`"
-    '' + lib.optionalString stdenv.hostPlatform.isMusl ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isMusl ''
       # Specifically patch out two drivers that have build errors with musl libc,
       # while leaving the rest of the default selection enabled
       substituteInPlace configure.in \
@@ -82,7 +83,9 @@ stdenv.mkDerivation rec {
       freetype
       giflib
       libpng
-    ] ++ lib.optional enableSDL SDL ++ lib.optionals enableX11 (with xorg; [
+    ]
+    ++ lib.optional enableSDL SDL
+    ++ lib.optionals enableX11 (with xorg; [
       xorgproto
       libX11
       libXext
@@ -102,7 +105,8 @@ stdenv.mkDerivation rec {
       "--enable-mmx"
       "--enable-sse"
       "--with-software"
-    ] ++ lib.optional (!stdenv.hostPlatform.isMusl) "--with-smooth-scaling"
+    ]
+    ++ lib.optional (!stdenv.hostPlatform.isMusl) "--with-smooth-scaling"
     ++ lib.optional enableX11 "--enable-x11"
     ;
 

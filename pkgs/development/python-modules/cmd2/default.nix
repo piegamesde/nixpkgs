@@ -38,7 +38,8 @@ buildPythonPackage rec {
       colorama
       pyperclip
       wcwidth
-    ] ++ lib.optionals (pythonOlder "3.8") [
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [
       typing-extensions
       importlib-metadata
     ]
@@ -59,7 +60,8 @@ buildPythonPackage rec {
   postPatch =
     ''
       sed -i "/--cov/d" setup.cfg
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # Fake the impure dependencies pbpaste and pbcopy
       mkdir bin
       echo '#!${stdenv.shell}' > bin/pbpaste

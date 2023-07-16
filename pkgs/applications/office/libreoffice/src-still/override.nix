@@ -6,7 +6,8 @@
 }:
 attrs: {
   postConfigure =
-    attrs.postConfigure + ''
+    attrs.postConfigure
+    + ''
       sed -e '/CPPUNIT_TEST(Import_Export_Import);/d' -i './sw/qa/inc/swmodeltestbase.hxx'
       sed -e '/CPPUNIT_ASSERT(!bRTL);/d' -i './vcl/qa/cppunit/text.cxx'
 

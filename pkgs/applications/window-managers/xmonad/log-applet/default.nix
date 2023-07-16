@@ -16,7 +16,8 @@
   xfce4-panel,
 }:
 
-assert desktopSupport == "gnomeflashback" || desktopSupport == "mate"
+assert desktopSupport == "gnomeflashback"
+  || desktopSupport == "mate"
   || desktopSupport == "xfce4";
 
 stdenv.mkDerivation rec {
@@ -36,13 +37,16 @@ stdenv.mkDerivation rec {
       glib
       dbus-glib
       xorg.xcbutilwm
-    ] ++ lib.optionals (desktopSupport == "gnomeflashback") [
+    ]
+    ++ lib.optionals (desktopSupport == "gnomeflashback") [
       gtk3
       gnome.gnome-panel
-    ] ++ lib.optionals (desktopSupport == "mate") [
+    ]
+    ++ lib.optionals (desktopSupport == "mate") [
       gtk3
       mate.mate-panel
-    ] ++ lib.optionals (desktopSupport == "xfce4") [
+    ]
+    ++ lib.optionals (desktopSupport == "xfce4") [
       gtk2
       libxfce4util
       xfce4-panel

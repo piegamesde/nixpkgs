@@ -87,7 +87,8 @@ stdenv.mkDerivation rec {
       luajit
       openexr
       suitesparse
-    ] ++ lib.optionals stdenv.isDarwin [ OpenCL ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ OpenCL ]
     ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ]
     ;
 

@@ -57,7 +57,8 @@ stdenv.mkDerivation rec {
       "ac_cv_o_nonblock_inherited=no"
       "apr_cv_pthreads_lib=-lpthread"
       "CC_FOR_BUILD=${buildPackages.stdenv.cc}/bin/cc"
-    ] ++ lib.optionals (stdenv.hostPlatform.system == "i686-cygwin") [
+    ]
+    ++ lib.optionals (stdenv.hostPlatform.system == "i686-cygwin") [
       # Including the Windows headers breaks unistd.h.
       # Based on ftp://sourceware.org/pub/cygwin/release/libapr1/libapr1-1.3.8-2-src.tar.bz2
       "ac_cv_header_windows_h=no"

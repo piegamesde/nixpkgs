@@ -67,7 +67,8 @@ let
         else
           echo "failed to generate binlore for $drv (none of ${drv}/{bin,lib,libexec} exist)"
         fi
-      '' +
+      ''
+      +
       /* Override lore for some packages. Unsure, but for now:
          1. start with the ~name (pname-version)
          2. remove characters from the end until we find a match

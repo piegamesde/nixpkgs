@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     [
       opentracing-cpp
       protobuf
-    ] ++ lib.optionals enableGrpc [
+    ]
+    ++ lib.optionals enableGrpc [
       grpc
       openssl
     ]

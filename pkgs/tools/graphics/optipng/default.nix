@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
     [
       "--with-system-zlib"
       "--with-system-libpng"
-    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    ]
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       #"-prefix=$out"
     ]
     ;

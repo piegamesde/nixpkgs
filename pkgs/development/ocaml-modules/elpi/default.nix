@@ -65,25 +65,28 @@ buildDunePackage rec {
 
     # atdgen is both a library and executable
   nativeBuildInputs =
-    [ perl ] ++ [
+    [ perl ]
+    ++ [
       (if lib.versionAtLeast version "1.15" || version == "dev" then
         menhir
       else
         camlp5)
-    ] ++ lib.optional (lib.versionAtLeast version "1.16" || version == "dev")
-    atdgen
+    ]
+    ++ lib.optional (lib.versionAtLeast version "1.16" || version == "dev")
+      atdgen
     ;
   buildInputs =
     [ ncurses ]
     ++ lib.optional (lib.versionAtLeast version "1.16" || version == "dev")
-    atdgen
+      atdgen
     ;
 
   propagatedBuildInputs =
     [
       re
       stdlib-shims
-    ] ++ (if lib.versionAtLeast version "1.15" || version == "dev" then
+    ]
+    ++ (if lib.versionAtLeast version "1.15" || version == "dev" then
       [ menhirLib ]
     else
       [ camlp5 ])

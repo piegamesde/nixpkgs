@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
       libelf
       libftdi1
       readline
-    ] ++ lib.optionals docSupport [
+    ]
+    ++ lib.optionals docSupport [
       texLive
       texinfo
       texi2html

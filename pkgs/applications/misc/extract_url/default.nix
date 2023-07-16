@@ -13,7 +13,8 @@ let
     [
       perlPackages.MIMETools
       perlPackages.HTMLParser
-    ] ++ lib.optional cursesSupport perlPackages.CursesUI
+    ]
+    ++ lib.optional cursesSupport perlPackages.CursesUI
     ++ lib.optional uriFindSupport perlPackages.URIFind
     ;
 

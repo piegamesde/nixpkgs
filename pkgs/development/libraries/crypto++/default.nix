@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   buildFlags =
-    lib.optional enableStatic "static" ++ lib.optional enableShared "shared"
+    lib.optional enableStatic "static"
+    ++ lib.optional enableShared "shared"
     ++ [ "libcryptopp.pc" ]
     ;
 

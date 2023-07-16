@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
       zsh
       coreutils
       procps
-    ] ++ optional stdenv.isLinux inetutils
+    ]
+    ++ optional stdenv.isLinux inetutils
     ;
 
   buildPhase = ''

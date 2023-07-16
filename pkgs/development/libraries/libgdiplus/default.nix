@@ -58,7 +58,8 @@ stdenv.mkDerivation rec {
       libpng
       libXrender
       libexif
-    ] ++ lib.optional stdenv.isDarwin Carbon
+    ]
+    ++ lib.optional stdenv.isDarwin Carbon
     ;
 
   postInstall = lib.optionalString stdenv.isDarwin ''

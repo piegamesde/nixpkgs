@@ -52,7 +52,8 @@ buildPythonApplication rec {
       pytestCheckHook
       pytest-xdist
       vcrpy
-    ] ++ passthru.optional-dependencies.full
+    ]
+    ++ passthru.optional-dependencies.full
     ;
 
   disabledTestPaths = [

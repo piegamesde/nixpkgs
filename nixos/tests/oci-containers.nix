@@ -20,7 +20,8 @@ let
             adisbladis
             benley
             mkaito
-          ] ++ lib.teams.serokell.members;
+          ]
+          ++ lib.teams.serokell.members;
       };
 
       nodes = {

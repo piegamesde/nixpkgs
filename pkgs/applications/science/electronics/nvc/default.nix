@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
       libffi
       llvm
       zlib
-    ] ++ lib.optionals stdenv.isLinux [ elfutils ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ elfutils ]
     ++ lib.optionals (!stdenv.isLinux) [ libelf ]
     ;
 

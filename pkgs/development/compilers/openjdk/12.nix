@@ -97,7 +97,8 @@ let
         libXrandr
         fontconfig
         openjdk-bootstrap
-      ] ++ lib.optionals (!headless && enableGnome2) [
+      ]
+      ++ lib.optionals (!headless && enableGnome2) [
         gtk3
         gnome_vfs
         GConf
@@ -126,9 +127,10 @@ let
             "https://github.com/openjdk/panama-foreign/commit/af5c725b8109ce83fc04ef0f8bf6aaf0b50c0441.patch";
           sha256 = "0ja84kih5wkjn58pml53s59qnavb1z92dc88cbgw7vcyqwc1gs0h";
         })
-      ] ++ lib.optionals (!headless && enableGnome2) [
-        ./swing-use-gtk-jdk10.patch
       ]
+      ++ lib.optionals (!headless && enableGnome2) [
+          ./swing-use-gtk-jdk10.patch
+        ]
       ;
 
     prePatch = ''
@@ -150,10 +152,11 @@ let
         "--with-zlib=system"
         "--with-lcms=system"
         "--with-stdc++lib=dynamic"
-      ] ++ lib.optional stdenv.isx86_64 "--with-jvm-features=zgc"
+      ]
+      ++ lib.optional stdenv.isx86_64 "--with-jvm-features=zgc"
       ++ lib.optional headless "--enable-headless-only"
       ++ lib.optional (!headless && enableJavaFX)
-      "--with-import-modules=${openjfx}"
+        "--with-import-modules=${openjfx}"
       ;
 
     separateDebugInfo = true;
@@ -167,7 +170,8 @@ let
         "-lXinerama"
         "-lXrandr"
         "-lmagic"
-      ] ++ lib.optionals (!headless && enableGnome2) [
+      ]
+      ++ lib.optionals (!headless && enableGnome2) [
         "-lgtk-3"
         "-lgio-2.0"
         "-lgnomevfs-2"

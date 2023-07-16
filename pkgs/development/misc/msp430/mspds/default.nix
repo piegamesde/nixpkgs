@@ -44,7 +44,8 @@ stdenv.mkDerivation {
     ''
       rm ThirdParty/src/pugixml.cpp
       rm ThirdParty/include/pugi{config,xml}.hpp
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       makeFlagsArray+=(OUTNAME="-install_name ")
     ''
     ;
@@ -60,7 +61,8 @@ stdenv.mkDerivation {
       boost
       hidapi
       pugixml
-    ] ++ lib.optional stdenv.isLinux libusb1
+    ]
+    ++ lib.optional stdenv.isLinux libusb1
     ;
 
   meta = with lib; {

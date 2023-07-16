@@ -61,7 +61,8 @@ buildPythonPackage rec {
       python-crfsuite
       dateparser
       networkx
-    ] ++ (map (lang:
+    ]
+    ++ (map (lang:
       callPackage ./language-pack.nix { inherit lang version format src; })
       langPkgs)
     ;

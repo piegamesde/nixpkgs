@@ -24,7 +24,8 @@
   buildLlvmTools,
   debugVersion ? false,
   doCheck ? (!stdenv.isx86_32 # TODO: why
-  ) && (!stdenv.hostPlatform.isMusl)
+  )
+    && (!stdenv.hostPlatform.isMusl)
     && (stdenv.hostPlatform == stdenv.buildPlatform),
   enableManpages ? false,
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic,
@@ -83,10 +84,11 @@ stdenv.mkDerivation (rec {
     cp -r ${monorepoSrc}/cmake "$out"
     cp -r ${monorepoSrc}/${pname} "$out"
     cp -r ${monorepoSrc}/third-party "$out"
-  '' + lib.optionalString enablePolly ''
-    chmod u+w "$out/${pname}/tools"
-    cp -r ${monorepoSrc}/polly "$out/${pname}/tools"
-  '');
+  ''
+    + lib.optionalString enablePolly ''
+      chmod u+w "$out/${pname}/tools"
+      cp -r ${monorepoSrc}/polly "$out/${pname}/tools"
+    '');
 
   sourceRoot = "${src.name}/${pname}";
 
@@ -102,7 +104,8 @@ stdenv.mkDerivation (rec {
       cmake
       ninja
       python
-    ] ++ optionals enableManpages [
+    ]
+    ++ optionals enableManpages [
       python3.pkgs.sphinx
       python3.pkgs.recommonmark
     ]
@@ -112,7 +115,8 @@ stdenv.mkDerivation (rec {
     [
       libxml2
       libffi
-    ] ++ optional enablePFM libpfm
+    ]
+    ++ optional enablePFM libpfm
     ; # exegesis
 
   propagatedBuildInputs = [
@@ -166,7 +170,8 @@ stdenv.mkDerivation (rec {
       # It's not clear to me why this isn't an issue for LLVM developers running
       # on macOS (nothing about this _seems_ nix specific)..
       ./lit-shell-script-runner-set-dyld-library-path.patch
-    ] ++ lib.optionals enablePolly [
+    ]
+    ++ lib.optionals enablePolly [
       ./gnu-install-dirs-polly.patch
 
       # Just like the `llvm-lit-cfg` patch, but for `polly`.
@@ -189,7 +194,8 @@ stdenv.mkDerivation (rec {
         --replace '/usr/bin/sw_vers' "${
           (builtins.toString darwin.DarwinTools) + "/bin/sw_vers"
         }"
-    '' + optionalString (stdenv.isDarwin && stdenv.hostPlatform.isx86) ''
+    ''
+    + optionalString (stdenv.isDarwin && stdenv.hostPlatform.isx86) ''
       # This test tries to call the intrinsics `@llvm.roundeven.f32` and
       # `@llvm.roundeven.f64` which seem to (incorrectly?) lower to `roundevenf`
       # and `roundeven` on x86_64 macOS.
@@ -238,7 +244,8 @@ stdenv.mkDerivation (rec {
       # This test fails with a `dysmutil` crash; have not yet dug into what's
       # going on here (TODO(@rrbutani)).
       rm test/tools/dsymutil/ARM/obfuscated.test
-    '' + ''
+    ''
+    + ''
       # FileSystem permissions tests fail with various special bits
       substituteInPlace unittests/Support/CMakeLists.txt \
         --replace "Path.cpp" ""
@@ -247,14 +254,16 @@ stdenv.mkDerivation (rec {
         --replace "PassBuilderCallbacksTest.cpp" ""
       rm unittests/IR/PassBuilderCallbacksTest.cpp
       rm test/tools/llvm-objcopy/ELF/mirror-permissions-unix.test
-    '' + optionalString stdenv.hostPlatform.isMusl ''
+    ''
+    + optionalString stdenv.hostPlatform.isMusl ''
       patch -p1 -i ${../../TLI-musl.patch}
       substituteInPlace unittests/Support/CMakeLists.txt \
         --replace "add_subdirectory(DynamicLibrary)" ""
       rm unittests/Support/DynamicLibrary/DynamicLibraryTest.cpp
       # valgrind unhappy with musl or glibc, but fails w/musl only
       rm test/CodeGen/AArch64/wineh4.mir
-    '' + optionalString stdenv.hostPlatform.isAarch32 ''
+    ''
+    + optionalString stdenv.hostPlatform.isAarch32 ''
       # skip failing X86 test cases on 32-bit ARM
       rm test/DebugInfo/X86/convert-debugloc.ll
       rm test/DebugInfo/X86/convert-inlined.ll
@@ -263,10 +272,12 @@ stdenv.mkDerivation (rec {
       rm test/tools/gold/X86/split-dwarf.ll
       rm test/tools/llvm-dwarfdump/X86/prettyprint_types.s
       rm test/tools/llvm-dwarfdump/X86/simplified-template-names.s
-    '' + optionalString (stdenv.hostPlatform.system == "armv6l-linux") ''
+    ''
+    + optionalString (stdenv.hostPlatform.system == "armv6l-linux") ''
       # Seems to require certain floating point hardware (NEON?)
       rm test/ExecutionEngine/frem.ll
-    '' + ''
+    ''
+    + ''
       patchShebangs test/BugPoint/compile-custom.ll.py
     ''
     ;
@@ -330,10 +341,12 @@ stdenv.mkDerivation (rec {
         [
           "-DLLVM_INSTALL_PACKAGE_DIR=${placeholder "dev"}/lib/cmake/llvm"
           "-DLLVM_ENABLE_RTTI=ON"
-        ] ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ]
+        ]
+        ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ]
         ;
     in
-    flagsForLlvmConfig ++ [
+    flagsForLlvmConfig
+    ++ [
       "-DCMAKE_BUILD_TYPE=${
         if debugVersion then
           "Debug"
@@ -351,7 +364,8 @@ stdenv.mkDerivation (rec {
       "-DLLVM_HOST_TRIPLE=${stdenv.hostPlatform.config}"
       "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.hostPlatform.config}"
       "-DLLVM_ENABLE_DUMP=ON"
-    ] ++ optionals stdenv.hostPlatform.isStatic [
+    ]
+    ++ optionals stdenv.hostPlatform.isStatic [
       # Disables building of shared libs, -fPIC is still injected by cc-wrapper
       "-DLLVM_ENABLE_PIC=OFF"
       "-DLLVM_BUILD_STATIC=ON"
@@ -360,18 +374,22 @@ stdenv.mkDerivation (rec {
       # file and doesn't link zlib as well.
       # https://github.com/ClangBuiltLinux/tc-build/issues/150#issuecomment-845418812
       "-DLLVM_ENABLE_LIBXML2=OFF"
-    ] ++ optionals enableManpages [
+    ]
+    ++ optionals enableManpages [
       "-DLLVM_BUILD_DOCS=ON"
       "-DLLVM_ENABLE_SPHINX=ON"
       "-DSPHINX_OUTPUT_MAN=ON"
       "-DSPHINX_OUTPUT_HTML=OFF"
       "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
-    ] ++ optionals (enableGoldPlugin) [
-      "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include"
-    ] ++ optionals isDarwin [
+    ]
+    ++ optionals (enableGoldPlugin) [
+        "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include"
+      ]
+    ++ optionals isDarwin [
       "-DLLVM_ENABLE_LIBCXX=ON"
       "-DCAN_TARGET_i386=false"
-    ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    ]
+    ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "-DCMAKE_CROSSCOMPILING=True"
       "-DLLVM_TABLEGEN=${buildLlvmTools.llvm}/bin/llvm-tblgen"
       (let
@@ -394,8 +412,8 @@ stdenv.mkDerivation (rec {
           "-DCMAKE_INSTALL_LIBEXECDIR=${placeholder "lib"}/libexec"
         ];
       in
-      "-DCROSS_TOOLCHAIN_FLAGS_NATIVE:list=" + lib.concatStringsSep ";"
-      (lib.concatLists [
+      "-DCROSS_TOOLCHAIN_FLAGS_NATIVE:list="
+      + lib.concatStringsSep ";" (lib.concatLists [
         flagsForLlvmConfig
         nativeToolchainFlags
         nativeInstallFlags
@@ -419,10 +437,12 @@ stdenv.mkDerivation (rec {
         --replace "$out/bin/llvm-config" "$dev/bin/llvm-config"
       substituteInPlace "$dev/lib/cmake/llvm/LLVMConfig.cmake" \
         --replace 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}")' 'set(LLVM_BINARY_DIR "'"$lib"'")'
-    '' + optionalString (stdenv.isDarwin && enableSharedLibraries) ''
+    ''
+    + optionalString (stdenv.isDarwin && enableSharedLibraries) ''
       ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${shortVersion}.dylib
       ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${release_version}.dylib
-    '' + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+    ''
+    + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
       cp NATIVE/bin/llvm-config $dev/bin/llvm-config-native
     ''
     ;

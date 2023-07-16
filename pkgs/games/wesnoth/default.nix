@@ -56,7 +56,8 @@ stdenv.mkDerivation rec {
       pcre
       openssl
       icu
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Cocoa
       Foundation
     ]

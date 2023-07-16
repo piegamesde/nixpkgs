@@ -59,12 +59,14 @@ stdenv.mkDerivation rec {
         SDL2
       else
         SDL)
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Cocoa
       CoreAudio
       IOKit
       OpenGL
-    ] ++ lib.optionals (stdenv.isDarwin && useSDL2) [ CoreFoundation ]
+    ]
+    ++ lib.optionals (stdenv.isDarwin && useSDL2) [ CoreFoundation ]
     ;
 
   buildFlags =
@@ -81,7 +83,8 @@ stdenv.mkDerivation rec {
       "USE_CODEC_XMP=1"
       "MP3LIB=mad"
       "VORBISLIB=vorbis"
-    ] ++ lib.optionals useSDL2 [
+    ]
+    ++ lib.optionals useSDL2 [
       "SDL_CONFIG=sdl2-config"
       "USE_SDL2=1"
     ]

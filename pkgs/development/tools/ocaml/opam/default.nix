@@ -111,7 +111,8 @@ stdenv.mkDerivation {
     [
       ncurses
       getconf
-    ] ++ lib.optionals stdenv.isLinux [ bubblewrap ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ bubblewrap ]
     ++ lib.optionals stdenv.isDarwin [ Foundation ]
     ;
 

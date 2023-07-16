@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ qtbase ] ++ lib.optionals stdenv.isLinux [ xorg.libxcb ]
+    [ qtbase ]
+    ++ lib.optionals stdenv.isLinux [ xorg.libxcb ]
     ++ lib.optionals (!useQt6) [ qt5.qtx11extras ]
     ++ lib.optionals useQt6 [ qtwayland ]
     ;

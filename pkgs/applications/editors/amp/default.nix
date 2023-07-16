@@ -36,7 +36,8 @@ rustPlatform.buildRustPackage rec {
       openssl
       xorg.libxcb
       libgit2
-    ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+    ]
+    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
       curl
       Security
       AppKit

@@ -31,7 +31,9 @@ stdenv.mkDerivation rec {
       zlib
       bzip2
       coin-utils
-    ] ++ lib.optional withGurobi gurobi ++ lib.optional withCplex cplex
+    ]
+    ++ lib.optional withGurobi gurobi
+    ++ lib.optional withCplex cplex
     ;
   nativeBuildInputs = [
     gfortran
@@ -41,7 +43,8 @@ stdenv.mkDerivation rec {
     lib.optionals withGurobi [
       "--with-gurobi-incdir=${gurobi}/include"
       "--with-gurobi-lib=-lgurobi${gurobi.libSuffix}"
-    ] ++ lib.optionals withCplex [
+    ]
+    ++ lib.optionals withCplex [
       "--with-cplex-incdir=${cplex}/cplex/include/ilcplex"
       "--with-cplex-lib=-lcplex${cplex.libSuffix}"
     ]

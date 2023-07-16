@@ -38,7 +38,8 @@ rustPlatform.buildRustPackage rec {
       fontconfig
       harfbuzz
       openssl
-    ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+    ]
+    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
       ApplicationServices
       Cocoa
       Foundation
@@ -51,7 +52,8 @@ rustPlatform.buildRustPackage rec {
     ''
       wrapProgram $out/bin/tectonic \
         --prefix PATH : "${lib.getBin biber}/bin"
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       substituteInPlace dist/appimage/tectonic.desktop \
         --replace Exec=tectonic Exec=$out/bin/tectonic
       install -D dist/appimage/tectonic.desktop -t $out/share/applications/

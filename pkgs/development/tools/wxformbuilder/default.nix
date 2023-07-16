@@ -23,7 +23,8 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs =
-    [ cmake ] ++ lib.optionals stdenv.isDarwin [ makeWrapper ]
+    [ cmake ]
+    ++ lib.optionals stdenv.isDarwin [ makeWrapper ]
     ++ lib.optionals stdenv.isLinux [ shared-mime-info ]
     ;
 
@@ -31,7 +32,8 @@ stdenv.mkDerivation {
     [
       wxGTK32
       boost
-    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ;
 
   preConfigure = ''

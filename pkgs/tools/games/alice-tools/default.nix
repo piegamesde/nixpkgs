@@ -59,7 +59,8 @@ stdenv.mkDerivation (finalAttrs: {
       pkg-config
       bison
       flex
-    ] ++ lib.optionals withGUI [ wrapQtAppsHook ]
+    ]
+    ++ lib.optionals withGUI [ wrapQtAppsHook ]
     ;
 
   buildInputs =
@@ -69,7 +70,8 @@ stdenv.mkDerivation (finalAttrs: {
       libjpeg
       libwebp
       zlib
-    ] ++ lib.optionals withGUI [ qtbase ]
+    ]
+    ++ lib.optionals withGUI [ qtbase ]
     ;
 
   dontWrapQtApps = true;
@@ -80,10 +82,12 @@ stdenv.mkDerivation (finalAttrs: {
       runHook preInstall
 
       install -Dm755 src/alice $out/bin/alice
-    '' + lib.optionalString withGUI ''
+    ''
+    + lib.optionalString withGUI ''
       install -Dm755 src/galice $out/bin/galice
       wrapQtApp $out/bin/galice
-    '' + ''
+    ''
+    + ''
 
       runHook postInstall
     ''

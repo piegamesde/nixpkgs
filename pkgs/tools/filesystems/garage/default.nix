@@ -69,7 +69,8 @@ let
         [
           "k2v"
           "kubernetes-discovery"
-        ] ++ (lib.optionals (lib.versionAtLeast version "0.8") [
+        ]
+        ++ (lib.optionals (lib.versionAtLeast version "0.8") [
           "bundled-libs"
           "sled"
           "lmdb"

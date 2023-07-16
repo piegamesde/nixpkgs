@@ -46,7 +46,8 @@ buildNpmPackage rec {
       giflib
       cairo
       pango
-    ] ++ lib.optionals stdenv.isDarwin [ CoreText ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ CoreText ]
     ;
 
   postInstall = ''

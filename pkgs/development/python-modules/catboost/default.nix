@@ -41,7 +41,8 @@ buildPythonPackage rec {
       scipy
       plotly
       six
-    ] ++ lib.optionals withCuda [ cudatoolkit ]
+    ]
+    ++ lib.optionals withCuda [ cudatoolkit ]
     ;
 
   patches = [ ./nix-support.patch ];

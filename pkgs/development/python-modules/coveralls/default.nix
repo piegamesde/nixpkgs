@@ -51,7 +51,8 @@ buildPythonPackage rec {
       coverage
       docopt
       requests
-    ] ++ lib.optional (!isPy3k) urllib3
+    ]
+    ++ lib.optional (!isPy3k) urllib3
     ;
 
   meta = {

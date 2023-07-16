@@ -81,7 +81,8 @@ stdenv.mkDerivation (finalAttrs: {
       cmake
       makeWrapper
       pkg-config
-    ] ++ lib.optionals buildManPages [ ruby ]
+    ]
+    ++ lib.optionals buildManPages [ ruby ]
     ;
 
   buildInputs = [
@@ -145,19 +146,24 @@ stdenv.mkDerivation (finalAttrs: {
     in
     ''
       pushd $sourceRoot/external/git/
-    '' + (lib.optionalString useStaticOpenAL ''
+    ''
+    + (lib.optionalString useStaticOpenAL ''
       cp -a ${letoram-openal-src}/ openal
       chmod --recursive 744 openal
-    '') + (lib.optionalString useStaticFreetype ''
+    '')
+    + (lib.optionalString useStaticFreetype ''
       cp -a ${freetype-src}/ freetype
       chmod --recursive 744 freetype
-    '') + (lib.optionalString useStaticLibuvc ''
+    '')
+    + (lib.optionalString useStaticLibuvc ''
       cp -a ${libuvc-src}/ libuvc
       chmod --recursive 744 libuvc
-    '') + (lib.optionalString useBuiltinLua ''
+    '')
+    + (lib.optionalString useBuiltinLua ''
       cp -a ${luajit-src}/ luajit
       chmod --recursive 744 luajit
-    '') + ''
+    '')
+    + ''
       popd
     ''
     ;

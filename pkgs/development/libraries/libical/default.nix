@@ -49,14 +49,16 @@ stdenv.mkDerivation rec {
       ninja
       perl
       pkg-config
-    ] ++ lib.optionals withIntrospection [
+    ]
+    ++ lib.optionals withIntrospection [
       gobject-introspection
       vala
       # Docs building fails:
       # https://github.com/NixOS/nixpkgs/pull/67204
       # previously with https://github.com/NixOS/nixpkgs/pull/61657#issuecomment-495579489
       # gtk-doc docbook_xsl docbook_xml_dtd_43 # for docs
-    ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
     ;
   nativeInstallCheckInputs =
     [
@@ -85,11 +87,12 @@ stdenv.mkDerivation rec {
         else
           "False"
       }"
-    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      "-DIMPORT_ICAL_GLIB_SRC_GENERATOR=${
-        lib.getDev pkgsBuildBuild.libical
-      }/lib/cmake/LibIcal/IcalGlibSrcGenerator.cmake"
     ]
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+        "-DIMPORT_ICAL_GLIB_SRC_GENERATOR=${
+          lib.getDev pkgsBuildBuild.libical
+        }/lib/cmake/LibIcal/IcalGlibSrcGenerator.cmake"
+      ]
     ;
 
   patches =

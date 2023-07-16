@@ -67,12 +67,12 @@ let
           ip = addr;
           port = 443;
           ssl = true;
-        }) hostOpts.listenAddresses) ++ optionals (!hostOpts.onlySSL) (map
-          (addr: {
-            ip = addr;
-            port = 80;
-            ssl = false;
-          }) hostOpts.listenAddresses)
+        }) hostOpts.listenAddresses)
+      ++ optionals (!hostOpts.onlySSL) (map (addr: {
+        ip = addr;
+        port = 80;
+        ssl = false;
+      }) hostOpts.listenAddresses)
     ;
 
   listenInfo = unique (concatMap mkListenInfo vhosts);
@@ -97,21 +97,28 @@ let
       "slotmem_shm"
       "socache_shmcb"
       "mpm_${cfg.mpm}"
-    ] ++ (if cfg.mpm == "prefork" then
+    ]
+    ++ (if cfg.mpm == "prefork" then
       [ "cgi" ]
     else
-      [ "cgid" ]) ++ optional enableHttp2 "http2" ++ optional enableSSL "ssl"
-    ++ optional enableUserDir "userdir" ++ optional cfg.enableMellon {
+      [ "cgid" ])
+    ++ optional enableHttp2 "http2"
+    ++ optional enableSSL "ssl"
+    ++ optional enableUserDir "userdir"
+    ++ optional cfg.enableMellon {
       name = "auth_mellon";
       path =
         "${pkgs.apacheHttpdPackages.mod_auth_mellon}/modules/mod_auth_mellon.so";
-    } ++ optional cfg.enablePHP {
+    }
+    ++ optional cfg.enablePHP {
       name = phpModuleName;
       path = "${php}/modules/lib${phpModuleName}.so";
-    } ++ optional cfg.enablePerl {
+    }
+    ++ optional cfg.enablePerl {
       name = "perl";
       path = "${mod_perl}/modules/mod_perl.so";
-    } ++ cfg.extraModules
+    }
+    ++ cfg.extraModules
     ;
 
   loggingConf =
@@ -269,7 +276,8 @@ let
               mkVHostCommonConf hostOpts
           }
       </VirtualHost>
-    '' + optionalString (listenSSL != [ ]) ''
+    ''
+    + optionalString (listenSSL != [ ]) ''
       <VirtualHost ${
         concatMapStringsSep " " (listen: "${listen.ip}:${toString listen.port}")
         listenSSL
@@ -849,7 +857,8 @@ in
         {
           assertion = all (hostOpts:
             with hostOpts;
-            !(addSSL && onlySSL) && !(forceSSL && onlySSL)
+            !(addSSL && onlySSL)
+            && !(forceSSL && onlySSL)
             && !(addSSL && forceSSL)) vhosts;
           message = ''
             Options `services.httpd.virtualHosts.<name>.addSSL`,
@@ -873,7 +882,8 @@ in
             ensure the php has zts support by settings `services.httpd.phpPackage = php.override { ztsSupport = true; }`
           '';
         }
-      ] ++ map (name:
+      ]
+      ++ map (name:
         mkCertOwnershipAssertion {
           inherit (cfg) group user;
           cert = config.security.acme.certs.${name};
@@ -958,7 +968,8 @@ in
       ''
         ; Don't advertise PHP
         expose_php = off
-      '' + optionalString (config.time.timeZone != null) ''
+      ''
+      + optionalString (config.time.timeZone != null) ''
 
         ; Apparently PHP doesn't use $TZ.
         date.timezone = "${config.time.timeZone}"
@@ -1027,7 +1038,7 @@ in
       after =
         [ "network.target" ]
         ++ map (certName: "acme-selfsigned-${certName}.service")
-        dependentCertNames
+          dependentCertNames
         ;
       before = map (certName: "acme-${certName}.service") dependentCertNames;
       restartTriggers = [ cfg.configFile ];

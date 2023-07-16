@@ -103,14 +103,16 @@ let
       [
         unzip
         makeWrapper
-      ] ++ lib.optional stdenv.isLinux autoPatchelfHook
+      ]
+      ++ lib.optional stdenv.isLinux autoPatchelfHook
       ;
 
     propagatedBuildInputs =
       [
         setJavaClassPath
         zlib
-      ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Foundation
+      ]
+      ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Foundation
       ;
 
     buildInputs = lib.optionals stdenv.isLinux [
@@ -136,7 +138,8 @@ let
         cat > $out/nix-support/setup-hook << EOF
           if [ -z "\''${JAVA_HOME-}" ]; then export JAVA_HOME=$out; fi
         EOF
-      '' + concatProducts "postInstall"
+      ''
+      + concatProducts "postInstall"
       ;
 
     preFixup =
@@ -144,7 +147,8 @@ let
         for bin in $(find "$out/bin" -executable -type f); do
           wrapProgram "$bin" --prefix LD_LIBRARY_PATH : "${runtimeLibraryPath}"
         done
-      '' + concatProducts "preFixup"
+      ''
+      + concatProducts "preFixup"
       ;
     postFixup = concatProducts "postFixup";
 

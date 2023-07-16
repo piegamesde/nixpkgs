@@ -12,10 +12,12 @@ let
     [
       "--team"
       "${toString cfg.team}"
-    ] ++ lib.optionals (cfg.user != null) [
+    ]
+    ++ lib.optionals (cfg.user != null) [
       "--user"
       cfg.user
-    ] ++ cfg.extraArgs
+    ]
+    ++ cfg.extraArgs
     ;
 in
 {

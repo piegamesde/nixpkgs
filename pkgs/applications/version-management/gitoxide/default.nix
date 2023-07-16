@@ -30,7 +30,8 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
   buildInputs =
-    [ curl ] ++ (if stdenv.isDarwin then
+    [ curl ]
+    ++ (if stdenv.isDarwin then
       [
         libiconv
         Security

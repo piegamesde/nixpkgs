@@ -25,7 +25,8 @@ stdenv.mkDerivation (finalAttrs: {
     [
       bash
       python3
-    ] ++ (with emacs.pkgs; [
+    ]
+    ++ (with emacs.pkgs; [
       ansi
       dash
       ecukes

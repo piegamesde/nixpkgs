@@ -31,7 +31,8 @@ buildPythonPackage rec {
       diff-match-patch
       django
       tablib
-    ] ++ (with tablib.optional-dependencies; html ++ ods ++ xls ++ xlsx ++ yaml)
+    ]
+    ++ (with tablib.optional-dependencies; html ++ ods ++ xls ++ xlsx ++ yaml)
     ;
 
   nativeCheckInputs = [

@@ -49,7 +49,8 @@ mkDerivation rec {
       libGLU
       glew
       qtbase
-    ] ++ lib.optionals cudaSupport [ cudatoolkit ]
+    ]
+    ++ lib.optionals cudaSupport [ cudatoolkit ]
     ;
 
   nativeBuildInputs =

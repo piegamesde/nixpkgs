@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ openssl ] ++ lib.optional stdenv.isLinux libuuid
+    [ openssl ]
+    ++ lib.optional stdenv.isLinux libuuid
     ++ lib.optional stdenv.isDarwin libossp_uuid
     ;
 

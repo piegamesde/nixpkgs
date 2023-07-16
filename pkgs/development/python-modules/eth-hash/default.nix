@@ -22,7 +22,8 @@ buildPythonPackage rec {
   };
 
   nativeCheckInputs =
-    [ pytest ] ++ passthru.optional-dependencies.pycryptodome
+    [ pytest ]
+    ++ passthru.optional-dependencies.pycryptodome
     ++ passthru.optional-dependencies.pysha3
     ;
 

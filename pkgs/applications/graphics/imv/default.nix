@@ -97,7 +97,8 @@ stdenv.mkDerivation rec {
       "-Dwindows=${withWindowSystem'}"
       "-Dtest=enabled"
       "-Dman=enabled"
-    ] ++ backendFlags
+    ]
+    ++ backendFlags
     ;
 
   nativeBuildInputs = [
@@ -116,7 +117,8 @@ stdenv.mkDerivation rec {
       libxkbcommon
       pango
       inih
-    ] ++ windowSystems."${withWindowSystem'}"
+    ]
+    ++ windowSystems."${withWindowSystem'}"
     ++ builtins.map (b: backends."${b}") withBackends
     ;
 

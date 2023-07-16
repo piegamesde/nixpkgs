@@ -60,9 +60,12 @@ let
     [
       boost
       protobuf
-    ] ++ lib.optional python3Support python3
-    ++ lib.optional snappySupport snappy.dev ++ lib.optional zlibSupport zlib
-    ++ lib.optional zstdSupport zstd ++ lib.optional log4cxxSupport log4cxx
+    ]
+    ++ lib.optional python3Support python3
+    ++ lib.optional snappySupport snappy.dev
+    ++ lib.optional zlibSupport zlib
+    ++ lib.optional zstdSupport zstd
+    ++ lib.optional log4cxxSupport log4cxx
     ;
 
 in
@@ -84,7 +87,9 @@ stdenv.mkDerivation rec {
       cmake
       pkg-config
       clangTools
-    ] ++ defaultOptionals ++ lib.optional gtestSupport gtest.dev
+    ]
+    ++ defaultOptionals
+    ++ lib.optional gtestSupport gtest.dev
     ;
 
   buildInputs =
@@ -92,7 +97,8 @@ stdenv.mkDerivation rec {
       jsoncpp
       openssl
       curl
-    ] ++ defaultOptionals
+    ]
+    ++ defaultOptionals
     ;
 
     # Needed for GCC on Linux

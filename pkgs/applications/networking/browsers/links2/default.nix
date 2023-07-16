@@ -46,11 +46,14 @@ stdenv.mkDerivation rec {
       xz
       bzip2
       zlib
-    ] ++ optionals stdenv.isLinux [ gpm ] ++ optionals enableX11 [
+    ]
+    ++ optionals stdenv.isLinux [ gpm ]
+    ++ optionals enableX11 [
       libX11
       libXau
       libXt
-    ] ++ optionals enableDirectFB [ directfb ];
+    ]
+    ++ optionals enableDirectFB [ directfb ];
 
   nativeBuildInputs = [
     pkg-config
@@ -58,8 +61,10 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags =
-    [ "--with-ssl" ] ++ lib.optional (enableX11 || enableFB || enableDirectFB)
-    "--enable-graphics" ++ lib.optional enableX11 "--with-x"
+    [ "--with-ssl" ]
+    ++ lib.optional (enableX11 || enableFB || enableDirectFB)
+      "--enable-graphics"
+    ++ lib.optional enableX11 "--with-x"
     ++ lib.optional enableFB "--with-fb"
     ++ lib.optional enableDirectFB "--with-directfb"
     ;

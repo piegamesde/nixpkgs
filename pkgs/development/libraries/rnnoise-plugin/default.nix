@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
       pcre
       xorg.libX11
       xorg.libXrandr
-    ] ++ lib.optionals stdenv.isLinux [ webkitgtk ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ webkitgtk ]
     ++ lib.optionals stdenv.isDarwin [
       WebKit
       MetalKit

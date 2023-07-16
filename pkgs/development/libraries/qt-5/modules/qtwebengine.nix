@@ -112,7 +112,8 @@ qtModule {
       which
       gn
       nodejs
-    ] ++ lib.optional stdenv.isDarwin xcbuild
+    ]
+    ++ lib.optional stdenv.isDarwin xcbuild
     ;
   doCheck = true;
   outputs = [
@@ -151,7 +152,7 @@ qtModule {
       substituteInPlace ./src/3rdparty/chromium/build/toolchain/mac/BUILD.gn \
         --replace 'prefix = rebase_path("$clang_base_path/bin/", root_build_dir)' 'prefix = "$clang_base_path/bin/"'
     ''
-    # Patch library paths in Qt sources
+      # Patch library paths in Qt sources
     + ''
       sed -i \
         -e "s,QLibraryInfo::location(QLibraryInfo::DataPath),QLatin1String(\"$out\"),g" \
@@ -168,7 +169,8 @@ qtModule {
 
       sed -i -e '/libpci_loader.*Load/s!"\(libpci\.so\)!"${pciutils}/lib/\1!' \
         src/3rdparty/chromium/gpu/config/gpu_info_collector_linux.cc
-    '' + lib.optionalString stdenv.isDarwin (''
+    ''
+    + lib.optionalString stdenv.isDarwin (''
       substituteInPlace src/buildtools/config/mac_osx.pri \
         --replace 'QMAKE_CLANG_DIR = "/usr"' 'QMAKE_CLANG_DIR = "${stdenv.cc}"'
 
@@ -187,17 +189,20 @@ qtModule {
       # ld: fatal warning(s) induced error (-fatal_warnings)
       substituteInPlace src/3rdparty/chromium/build/config/compiler/BUILD.gn \
         --replace "-Wl,-fatal_warnings" ""
-    '') + postPatch
+    '')
+    + postPatch
     ;
 
   env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isGNU [
     # with gcc8, -Wclass-memaccess became part of -Wall and this exceeds the logging limit
     "-Wno-class-memaccess"
-  ] ++ lib.optionals (stdenv.hostPlatform.gcc.arch or "" == "sandybridge") [
-    # it fails when compiled with -march=sandybridge https://github.com/NixOS/nixpkgs/pull/59148#discussion_r276696940
-    # TODO: investigate and fix properly
-    "-march=westmere"
-  ] ++ lib.optionals stdenv.cc.isClang [ "-Wno-elaborated-enum-base" ]);
+  ]
+    ++ lib.optionals (stdenv.hostPlatform.gcc.arch or "" == "sandybridge") [
+      # it fails when compiled with -march=sandybridge https://github.com/NixOS/nixpkgs/pull/59148#discussion_r276696940
+      # TODO: investigate and fix properly
+      "-march=westmere"
+    ]
+    ++ lib.optionals stdenv.cc.isClang [ "-Wno-elaborated-enum-base" ]);
 
   preConfigure = ''
     export NINJAFLAGS=-j$NIX_BUILD_CORES
@@ -211,7 +216,8 @@ qtModule {
     [
       "--"
       "-system-ffmpeg"
-    ] ++ lib.optional pipewireSupport "-webengine-webrtc-pipewire"
+    ]
+    ++ lib.optional pipewireSupport "-webengine-webrtc-pipewire"
     ++ lib.optional enableProprietaryCodecs "-proprietary-codecs"
     ;
 
@@ -236,7 +242,8 @@ qtModule {
 
       libevent
       ffmpeg_4
-    ] ++ lib.optionals (!stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [
       dbus
       zlib
       minizip
@@ -267,7 +274,8 @@ qtModule {
       libdrm
       xorg.libxkbfile
 
-    ] ++ lib.optionals pipewireSupport [
+    ]
+    ++ lib.optionals pipewireSupport [
       # Pipewire
       pipewire_0_2
     ]
@@ -336,7 +344,8 @@ qtModule {
       Prefix = ..
       EOF
 
-    '' + ''
+    ''
+    + ''
       # Fix for out-of-sync QtWebEngine and Qt releases (since 5.15.3)
       sed 's/${
         lib.head (lib.splitString "-" version)
@@ -358,7 +367,11 @@ qtModule {
       (map (double: lib.systems.elaborate { system = double; }))
       (lib.lists.filter (parsedPlatform:
         with parsedPlatform;
-        isUnix && (isx86_32 || isx86_64 || isAarch32 || isAarch64
+        isUnix
+        && (isx86_32
+          || isx86_64
+          || isAarch32
+          || isAarch64
           || (isMips && isLittleEndian))))
       (map (plat: plat.system))
     ];

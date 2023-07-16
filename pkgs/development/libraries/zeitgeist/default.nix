@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
       "lib"
       "dev"
       "man"
-    ] ++ lib.optional pythonSupport "py"
+    ]
+    ++ lib.optional pythonSupport "py"
     ;
 
   src = fetchFromGitLab {

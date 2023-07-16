@@ -166,9 +166,9 @@ let
         ${
           concatStringsSep " \\\n" ([ "-f qcow2" ]
             ++ optional (cfg.useBootLoader && cfg.useDefaultFilesystems)
-            "-F qcow2 -b ${systemImage}/nixos.qcow2"
+              "-F qcow2 -b ${systemImage}/nixos.qcow2"
             ++ optional (!(cfg.useBootLoader && cfg.useDefaultFilesystems))
-            "-o size=${toString config.virtualisation.diskSize}M"
+              "-o size=${toString config.virtualisation.diskSize}M"
             ++ [ ''"$NIX_DISK_IMAGE"'' ])
         }
         echo "Virtualisation disk image created."
@@ -915,7 +915,8 @@ in
       }
     ]));
 
-    warnings = optional (cfg.writableStore && cfg.useNixStoreImage
+    warnings = optional (cfg.writableStore
+      && cfg.useNixStoreImage
       && opt.writableStore.highestPrio > lib.modules.defaultOverridePriority) ''
         You have enabled ${opt.useNixStoreImage} = true,
         without setting ${opt.writableStore} = false.
@@ -1039,8 +1040,8 @@ in
           else
             "'guestfwd=${proto}:${guest.address}:${toString guest.port}-"
             + "cmd:${pkgs.netcat}/bin/nc ${host.address} ${
-              toString host.port
-            }',");
+                toString host.port
+              }',");
         restrictNetworkOption =
           lib.optionalString cfg.restrictNetwork "restrict=on,";
       in
@@ -1146,7 +1147,8 @@ in
                 "trans=virtio"
                 "version=9p2000.L"
                 "msize=${toString cfg.msize}"
-              ] ++ lib.optional (tag == "nix-store") "cache=loose"
+              ]
+              ++ lib.optional (tag == "nix-store") "cache=loose"
               ;
           }
           ;
@@ -1291,10 +1293,12 @@ in
         (isYes "NET_CORE")
         (isYes "INET")
         (isYes "NETWORK_FILESYSTEMS")
-      ] ++ optionals (!cfg.graphics) [
+      ]
+      ++ optionals (!cfg.graphics) [
         (isYes "SERIAL_8250_CONSOLE")
         (isYes "SERIAL_8250")
-      ] ++ optionals (cfg.writableStore) [ (isEnabled "OVERLAY_FS") ];
+      ]
+      ++ optionals (cfg.writableStore) [ (isEnabled "OVERLAY_FS") ];
 
   };
 

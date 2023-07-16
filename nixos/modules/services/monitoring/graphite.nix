@@ -26,9 +26,11 @@ let
 
   graphiteLocalSettings = pkgs.writeText "graphite_local_settings.py" (''
     STATIC_ROOT = '${staticDir}'
-  '' + optionalString (config.time.timeZone != null) ''
-    TIME_ZONE = '${config.time.timeZone}'
-  '' + cfg.web.extraConfig);
+  ''
+    + optionalString (config.time.timeZone != null) ''
+      TIME_ZONE = '${config.time.timeZone}'
+    ''
+    + cfg.web.extraConfig);
 
   seyrenConfig = {
     SEYREN_URL = cfg.seyren.seyrenUrl;
@@ -381,7 +383,8 @@ in
         ;
     })
 
-    (mkIf (cfg.carbon.enableCache || cfg.carbon.enableAggregator
+    (mkIf (cfg.carbon.enableCache
+      || cfg.carbon.enableAggregator
       || cfg.carbon.enableRelay) {
         environment.systemPackages = [ pkgs.python3Packages.carbon ];
       })
@@ -474,8 +477,11 @@ in
       services.mongodb.enable = mkDefault true;
     })
 
-    (mkIf (cfg.carbon.enableCache || cfg.carbon.enableAggregator
-      || cfg.carbon.enableRelay || cfg.web.enable || cfg.seyren.enable) {
+    (mkIf (cfg.carbon.enableCache
+      || cfg.carbon.enableAggregator
+      || cfg.carbon.enableRelay
+      || cfg.web.enable
+      || cfg.seyren.enable) {
         users.users.graphite = {
           uid = config.ids.uids.graphite;
           group = "graphite";

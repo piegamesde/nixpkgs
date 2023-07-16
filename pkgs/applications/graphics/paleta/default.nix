@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
       wrapGAppsHook4
       appstream-glib
       desktop-file-utils
-    ] ++ (with rustPlatform; [
+    ]
+    ++ (with rustPlatform; [
       cargoSetupHook
       rust.cargo
       rust.rustc

@@ -15,7 +15,8 @@ let
     "-smtp-bind-addr :${toString cfg.smtpPort}"
     "-ui-bind-addr :${toString cfg.uiPort}"
     "-storage ${cfg.storage}"
-  ] ++ lib.optional (cfg.storage == "maildir") "-maildir-path $STATE_DIRECTORY"
+  ]
+    ++ lib.optional (cfg.storage == "maildir") "-maildir-path $STATE_DIRECTORY"
     ++ cfg.extraArgs);
 
 in

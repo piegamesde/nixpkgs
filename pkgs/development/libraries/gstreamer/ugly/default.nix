@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
       gettext
       pkg-config
       python3
-    ] ++ lib.optionals enableDocumentation [ hotdoc ]
+    ]
+    ++ lib.optionals enableDocumentation [ hotdoc ]
     ;
 
   buildInputs =
@@ -58,14 +59,16 @@ stdenv.mkDerivation rec {
       orc
       libintl
       opencore-amr
-    ] ++ lib.optionals enableGplPlugins [
+    ]
+    ++ lib.optionals enableGplPlugins [
       a52dec
       libcdio
       libdvdread
       libmad
       libmpeg2
       x264
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       IOKit
       CoreFoundation
       DiskArbitration
@@ -76,7 +79,8 @@ stdenv.mkDerivation rec {
     [
       "-Dsidplay=disabled" # sidplay / sidplay/player.h isn't packaged in nixpkgs as of writing
       (lib.mesonEnable "doc" enableDocumentation)
-    ] ++ (if enableGplPlugins then
+    ]
+    ++ (if enableGplPlugins then
       [ "-Dgpl=enabled" ]
     else
       [

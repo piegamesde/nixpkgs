@@ -50,7 +50,8 @@ in
     "abstractions/audio" =
       ''
         include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/audio"
-      '' + lib.concatMapStringsSep "\n" etcRule [
+      ''
+      + lib.concatMapStringsSep "\n" etcRule [
         "asound.conf"
         "esound/esd.conf"
         "libao.conf"
@@ -87,7 +88,8 @@ in
         include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/authentication"
         # Defined in security.pam
         include <abstractions/pam>
-      '' + lib.concatMapStringsSep "\n" etcRule [
+      ''
+      + lib.concatMapStringsSep "\n" etcRule [
         "nologin"
         "securetty"
         {
@@ -120,7 +122,8 @@ in
         @{PROC}/mounts
 
         # system-wide bash configuration
-      '' + lib.concatMapStringsSep "\n" etcRule [
+      ''
+      + lib.concatMapStringsSep "\n" etcRule [
         "profile.dos"
         "profile"
         "profile.d"
@@ -179,7 +182,8 @@ in
       ''
         include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/gnome"
         include <abstractions/fonts>
-      '' + lib.concatMapStringsSep "\n" etcRule [
+      ''
+      + lib.concatMapStringsSep "\n" etcRule [
         {
           path = "gnome";
           trail = "/gtkrc*";
@@ -228,7 +232,8 @@ in
     "abstractions/kde" =
       ''
         include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/kde"
-      '' + lib.concatMapStringsSep "\n" etcRule [
+      ''
+      + lib.concatMapStringsSep "\n" etcRule [
         {
           path = "qt3";
           trail = "/kstylerc";
@@ -260,7 +265,8 @@ in
     "abstractions/kerberosclient" =
       ''
         include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/kerberosclient"
-      '' + lib.concatMapStringsSep "\n" etcRule [
+      ''
+      + lib.concatMapStringsSep "\n" etcRule [
         {
           path = "krb5.keytab";
           mode = "rk";
@@ -281,7 +287,8 @@ in
     "abstractions/ldapclient" =
       ''
         include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/ldapclient"
-      '' + lib.concatMapStringsSep "\n" etcRule [
+      ''
+      + lib.concatMapStringsSep "\n" etcRule [
         "ldap.conf"
         "ldap.secret"
         {
@@ -315,7 +322,8 @@ in
         # NIS, NIS+, LDAP, hesiod, wins, etc. Allow them all here.
         mr ${getLib pkgs.nss}/lib/libnss_*.so*,
         mr ${getLib pkgs.nss}/lib64/libnss_*.so*,
-      '' + lib.concatMapStringsSep "\n" etcRule [
+      ''
+      + lib.concatMapStringsSep "\n" etcRule [
         "group"
         "host.conf"
         "hosts"
@@ -376,7 +384,8 @@ in
     "abstractions/p11-kit" =
       ''
         include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/p11-kit"
-      '' + lib.concatMapStringsSep "\n" etcRule [
+      ''
+      + lib.concatMapStringsSep "\n" etcRule [
         {
           path = "pkcs11";
           trail = "/";
@@ -405,7 +414,8 @@ in
     "abstractions/php" =
       ''
         include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/php"
-      '' + lib.concatMapStringsSep "\n" etcRule [
+      ''
+      + lib.concatMapStringsSep "\n" etcRule [
         {
           path = "php";
           trail = "/**/";
@@ -435,7 +445,8 @@ in
     "abstractions/postfix-common" =
       ''
         include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/postfix-common"
-      '' + lib.concatMapStringsSep "\n" etcRule [
+      ''
+      + lib.concatMapStringsSep "\n" etcRule [
         "mailname"
         {
           path = "postfix";
@@ -451,7 +462,8 @@ in
     "abstractions/qt5" =
       ''
         include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/qt5"
-      '' + lib.concatMapStringsSep "\n" etcRule [
+      ''
+      + lib.concatMapStringsSep "\n" etcRule [
         {
           path = "xdg";
           trail = "/QtProject/qtlogging.ini";
@@ -479,7 +491,8 @@ in
         r /var/lib/acme/*/chain.pem,
         r /var/lib/acme/*/fullchain.pem,
 
-      '' + lib.concatMapStringsSep "\n" etcRule [
+      ''
+      + lib.concatMapStringsSep "\n" etcRule [
         "ssl/certs/ca-certificates.crt"
         "ssl/certs/ca-bundle.crt"
         "pki/tls/certs/ca-bundle.crt"

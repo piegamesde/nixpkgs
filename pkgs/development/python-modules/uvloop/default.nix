@@ -32,7 +32,8 @@ buildPythonPackage rec {
   nativeBuildInputs = [ cython ];
 
   buildInputs =
-    [ libuv ] ++ lib.optionals stdenv.isDarwin [
+    [ libuv ]
+    ++ lib.optionals stdenv.isDarwin [
       CoreServices
       ApplicationServices
     ]
@@ -44,7 +45,8 @@ buildPythonPackage rec {
       pytest-forked
       pytestCheckHook
       psutil
-    ] ++ lib.optionals (pythonOlder "3.11") [ aiohttp ]
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [ aiohttp ]
     ;
 
   LIBUV_CONFIGURE_HOST = stdenv.hostPlatform.config;
@@ -70,10 +72,12 @@ buildPythonPackage rec {
       # AssertionError: b'' != b'out\n'
       "--deselect=tests/test_process.py::Test_UV_Process::test_process_streams_redirect"
       "--deselect=tests/test_process.py::Test_AIO_Process::test_process_streams_redirect"
-    ] ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
+    ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
       # Segmentation fault
       "--deselect=tests/test_fs_event.py::Test_UV_FS_EVENT_RENAME::test_fs_event_rename"
-    ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+    ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       # Broken: https://github.com/NixOS/nixpkgs/issues/160904
       "--deselect=tests/test_context.py::Test_UV_Context::test_create_ssl_server_manual_connection_lost"
       # Segmentation fault
@@ -92,7 +96,8 @@ buildPythonPackage rec {
       # Work around "OSError: AF_UNIX path too long"
       # https://github.com/MagicStack/uvloop/issues/463
       export TMPDIR="/tmp"
-    '' + ''
+    ''
+    + ''
       # pyopenssl is not well supported by upstream
       # https://github.com/NixOS/nixpkgs/issues/175875
       substituteInPlace tests/test_tcp.py \

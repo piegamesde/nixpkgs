@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
     ''
       substituteInPlace $out/lib/systemd/system/wg-quick@.service \
         --replace /usr/bin $out/bin
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       for f in $out/bin/*; do
         # Which firewall and resolvconf implementations to use should be determined by the
         # environment, we provide the "default" ones as fallback.

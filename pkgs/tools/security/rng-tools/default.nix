@@ -49,16 +49,19 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ openssl ] ++ lib.optionals stdenv.hostPlatform.isMusl [ argp-standalone ]
+    [ openssl ]
+    ++ lib.optionals stdenv.hostPlatform.isMusl [ argp-standalone ]
     ++ lib.optionals withJitterEntropy [ jitterentropy ]
     ++ lib.optionals withNistBeacon [
       curl
       jansson
       libxml2
-    ] ++ lib.optionals withPkcs11 [
+    ]
+    ++ lib.optionals withPkcs11 [
       libp11
       libp11.passthru.openssl
-    ] ++ lib.optionals withRtlsdr [ rtl-sdr ]
+    ]
+    ++ lib.optionals withRtlsdr [ rtl-sdr ]
     ;
 
   enableParallelBuilding = true;
@@ -66,9 +69,10 @@ stdenv.mkDerivation rec {
   makeFlags =
     [
       "AR:=$(AR)" # For cross-compilation
-    ] ++ lib.optionals withPkcs11 [
-      "PKCS11_ENGINE=${opensc}/lib/opensc-pkcs11.so" # Overrides configure script paths
     ]
+    ++ lib.optionals withPkcs11 [
+        "PKCS11_ENGINE=${opensc}/lib/opensc-pkcs11.so" # Overrides configure script paths
+      ]
     ;
 
   doCheck = true;

@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
   '';
 
   makeFlags =
-    kernel.makeFlags ++ [
+    kernel.makeFlags
+    ++ [
       "DEPMOD=echo"
       "INSTALL_MOD_PATH=$(out)"
       "KERNELRELEASE=${kernel.modDirVersion}"

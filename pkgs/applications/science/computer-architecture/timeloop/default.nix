@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
       yaml-cpp
       ncurses
       accelergy
-    ] ++ lib.optionals stdenv.isLinux [ gpm ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ gpm ]
     ;
 
   preConfigure = ''
@@ -54,7 +55,8 @@ stdenv.mkDerivation rec {
       substituteInPlace ./SConstruct \
         --replace "env.Replace(AR = \"gcc-ar\")" "" \
         --replace "env.Replace(RANLIB = \"gcc-ranlib\")" ""
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # prevent clang from dying on errors that gcc is fine with
       substituteInPlace ./src/SConscript --replace "-Werror" "-Wno-inconsistent-missing-override"
 

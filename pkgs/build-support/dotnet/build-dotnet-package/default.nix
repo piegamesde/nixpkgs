@@ -37,7 +37,8 @@ let
         makeWrapper
         dotnetbuildhelpers
         mono
-      ] ++ nativeBuildInputs
+      ]
+      ++ nativeBuildInputs
       ;
 
     configurePhase = ''

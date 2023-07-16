@@ -25,7 +25,8 @@ python3.pkgs.buildPythonApplication rec {
       requests
       youtube-dl
       ytmusicapi
-    ] ++ [ mopidy ];
+    ]
+    ++ [ mopidy ];
 
   nativeCheckInputs = with python3.pkgs; [
     vcrpy

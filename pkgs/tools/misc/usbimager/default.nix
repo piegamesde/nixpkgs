@@ -33,7 +33,9 @@ stdenv.mkDerivation rec {
     lib.optionals withUdisks [
       udisks
       glib
-    ] ++ lib.optional (!withLibui) libX11 ++ lib.optional withLibui gtk3
+    ]
+    ++ lib.optional (!withLibui) libX11
+    ++ lib.optional withLibui gtk3
     ;
     # libui is bundled with the source of usbimager as a compiled static libary
 
@@ -47,7 +49,8 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
 
   makeFlags =
-    [ "PREFIX=$(out)" ] ++ lib.optional withLibui "USE_LIBUI=yes"
+    [ "PREFIX=$(out)" ]
+    ++ lib.optional withLibui "USE_LIBUI=yes"
     ++ lib.optional withUdisks "USE_UDISKS2=yes"
     ;
 

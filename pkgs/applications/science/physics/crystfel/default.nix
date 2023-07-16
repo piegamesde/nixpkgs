@@ -233,7 +233,8 @@ stdenv.mkDerivation rec {
       doxygen
       opencl-headers
       makeWrapper
-    ] ++ lib.optionals withGui [ wrapGAppsHook ]
+    ]
+    ++ lib.optionals withGui [ wrapGAppsHook ]
     ;
   buildInputs =
     [
@@ -249,13 +250,16 @@ stdenv.mkDerivation rec {
       mosflm
       pinkIndexer
       xgandalf
-    ] ++ lib.optionals withGui [
+    ]
+    ++ lib.optionals withGui [
       gtk3
       gdk-pixbuf
-    ] ++ lib.optionals stdenv.isDarwin [ argp-standalone ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ argp-standalone ]
     ++ lib.optionals (stdenv.isDarwin && !stdenv.isAarch64) [
-      memorymappingHook
-    ] ++ lib.optionals withBitshuffle [ hdf5-external-filter-plugins ]
+        memorymappingHook
+      ]
+    ++ lib.optionals withBitshuffle [ hdf5-external-filter-plugins ]
     ;
 
   patches = [

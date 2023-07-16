@@ -39,7 +39,8 @@ let
       [
         cuda_cudart # cuda_runtime.h
         cuda_nvcc
-      ] ++ cuda-common-redist;
+      ]
+      ++ cuda-common-redist;
   };
 
   cuda-redist = symlinkJoin {
@@ -65,7 +66,8 @@ buildPythonPackage rec {
   preConfigure =
     ''
       export MMCV_WITH_OPS=1
-    '' + lib.optionalString cudaSupport ''
+    ''
+    + lib.optionalString cudaSupport ''
       export CC=${backendStdenv.cc}/bin/cc
       export CXX=${backendStdenv.cc}/bin/c++
       export TORCH_CUDA_ARCH_LIST="${lib.concatStringsSep ";" cudaCapabilities}"
@@ -100,7 +102,8 @@ buildPythonPackage rec {
     [
       ninja
       which
-    ] ++ lib.optionals cudaSupport [ cuda-native-redist ]
+    ]
+    ++ lib.optionals cudaSupport [ cuda-native-redist ]
     ;
 
   buildInputs = [ torch ] ++ lib.optionals cudaSupport [ cuda-redist ];

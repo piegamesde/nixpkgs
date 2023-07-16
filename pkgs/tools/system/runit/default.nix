@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
     lib.optionals static [
       stdenv.cc.libc
       stdenv.cc.libc.static
-    ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.libs.utmp
+    ]
+    ++ lib.optional stdenv.isDarwin darwin.apple_sdk.libs.utmp
     ;
 
   postPatch =
@@ -42,7 +43,8 @@ stdenv.mkDerivation rec {
       # usernamespace sandbox of nix seems to conflict with runit's assumptions
       # about unix users. Therefor skip the check
       sed -i '/.\/chkshsgr/d' src/Makefile
-    '' + lib.optionalString (!static) ''
+    ''
+    + lib.optionalString (!static) ''
       sed -i 's,-static,,g' src/Makefile
     ''
     ;

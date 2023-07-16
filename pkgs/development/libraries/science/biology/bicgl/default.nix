@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
       libminc
       bicpl
       mesa_glu
-    ] ++ lib.optionals stdenv.isDarwin [ GLUT ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ GLUT ]
     ++ lib.optionals stdenv.isLinux [ freeglut ]
     ;
 

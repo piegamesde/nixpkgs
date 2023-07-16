@@ -124,17 +124,18 @@ in
       "initrd"
       "network"
       "ssh"
-    ] ++ [ opt ]) ''
-      The initrd SSH functionality now uses OpenSSH rather than Dropbear.
+    ]
+      ++ [ opt ]) ''
+        The initrd SSH functionality now uses OpenSSH rather than Dropbear.
 
-      If you want to keep your existing initrd SSH host keys, convert them with
-        $ dropbearconvert dropbear openssh dropbear_host_$type_key ssh_host_$type_key
-      and then set options.boot.initrd.network.ssh.hostKeys.
-    '') [
-      "hostRSAKey"
-      "hostDSSKey"
-      "hostECDSAKey"
-    ];
+        If you want to keep your existing initrd SSH host keys, convert them with
+          $ dropbearconvert dropbear openssh dropbear_host_$type_key ssh_host_$type_key
+        and then set options.boot.initrd.network.ssh.hostKeys.
+      '') [
+        "hostRSAKey"
+        "hostDSSKey"
+        "hostECDSAKey"
+      ];
 
   config =
     let

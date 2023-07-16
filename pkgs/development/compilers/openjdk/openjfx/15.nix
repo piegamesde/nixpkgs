@@ -63,7 +63,8 @@ let
       config = writeText "gradle.properties" (''
         CONF = Release
         JDK_HOME = ${openjdk11_headless.home}
-      '' + args.gradleProperties or "");
+      ''
+        + args.gradleProperties or "");
 
       env.NIX_CFLAGS_COMPILE = toString [
         #avoids errors about deprecation of GTypeDebugFlags, GTimeVal, etc.

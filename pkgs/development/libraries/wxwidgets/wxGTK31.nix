@@ -56,14 +56,16 @@ stdenv.mkDerivation rec {
     [
       gst_all_1.gst-plugins-base
       gst_all_1.gstreamer
-    ] ++ lib.optionals (!stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [
       gtk3
       libSM
       libXinerama
       libXtst
       libXxf86vm
       xorgproto
-    ] ++ lib.optional withMesa libGLU
+    ]
+    ++ lib.optional withMesa libGLU
     ++ lib.optional (withWebKit && !stdenv.isDarwin) webkitgtk
     ++ lib.optional (withWebKit && stdenv.isDarwin) WebKit
     ++ lib.optionals stdenv.isDarwin [
@@ -94,12 +96,15 @@ stdenv.mkDerivation rec {
         "--enable-compat30"
       else
         "--disable-compat30")
-    ] ++ lib.optional (!withEGL) "--disable-glcanvasegl"
+    ]
+    ++ lib.optional (!withEGL) "--disable-glcanvasegl"
     ++ lib.optional unicode "--enable-unicode"
-    ++ lib.optional withMesa "--with-opengl" ++ lib.optionals stdenv.isDarwin [
+    ++ lib.optional withMesa "--with-opengl"
+    ++ lib.optionals stdenv.isDarwin [
       "--with-osx_cocoa"
       "--with-libiconv"
-    ] ++ lib.optionals withWebKit [
+    ]
+    ++ lib.optionals withWebKit [
       "--enable-webview"
       "--enable-webviewwebkit"
     ]
@@ -115,7 +120,8 @@ stdenv.mkDerivation rec {
         'SEARCH_LIB=' 'DUMMY_SEARCH_LIB='
       substituteInPlace configure --replace \
         /usr /no-such-path
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace configure --replace \
         'ac_cv_prog_SETFILE="/Developer/Tools/SetFile"' \
         'ac_cv_prog_SETFILE="${setfile}/bin/SetFile"'

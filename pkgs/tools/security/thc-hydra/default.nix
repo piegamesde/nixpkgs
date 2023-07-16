@@ -62,7 +62,8 @@ stdenv.mkDerivation rec {
       libssh
       libmysqlclient
       postgresql
-    ] ++ lib.optional withGUI gtk2
+    ]
+    ++ lib.optional withGUI gtk2
     ;
 
   enableParallelBuilding = true;

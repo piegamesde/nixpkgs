@@ -38,7 +38,8 @@ buildGoModule rec {
       xorg.libXext
       xorg.libXxf86vm
       libglvnd
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Carbon
       Cocoa
       Kernel

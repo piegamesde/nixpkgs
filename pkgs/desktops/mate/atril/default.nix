@@ -56,14 +56,16 @@ stdenv.mkDerivation rec {
       mate.mate-desktop
       hicolor-icon-theme
       texlive.bin.core # for synctex, used by the pdf back-end
-    ] ++ lib.optionals enableDjvu [ djvulibre ]
+    ]
+    ++ lib.optionals enableDjvu [ djvulibre ]
     ++ lib.optionals enableEpub [ webkitgtk ]
     ++ lib.optionals enablePostScript [ libspectre ]
     ++ lib.optionals enableXps [ libgxps ]
     ;
 
   configureFlags =
-    [ ] ++ lib.optionals (enableDjvu) [ "--enable-djvu" ]
+    [ ]
+    ++ lib.optionals (enableDjvu) [ "--enable-djvu" ]
     ++ lib.optionals (enableEpub) [ "--enable-epub" ]
     ++ lib.optionals (enablePostScript) [ "--enable-ps" ]
     ++ lib.optionals (enableXps) [ "--enable-xps" ]

@@ -62,7 +62,8 @@ stdenv.mkDerivation rec {
           # Assertion failed in test/test-tcp-bind-error.c on line 99: r == UV_EADDRINUSE
           "tcp_bind6_error_addrinuse"
           "tcp_bind_error_addrinuse_listen"
-        ] ++ lib.optionals stdenv.isDarwin [
+        ]
+        ++ lib.optionals stdenv.isDarwin [
           # Sometimes: timeout (no output), failed uv_listen. Someone
           # should report these failures to libuv team. There tests should
           # be much more robust.
@@ -114,7 +115,8 @@ stdenv.mkDerivation rec {
           "fs_event_watch_file_exact_path"
           "process_priority"
           "udp_create_early_bad_bind"
-        ] ++ lib.optionals stdenv.isAarch32 [
+        ]
+        ++ lib.optionals stdenv.isAarch32 [
           # I observe this test failing with some regularity on ARMv7:
           # https://github.com/libuv/libuv/issues/1871
           "shutdown_close_pipe"

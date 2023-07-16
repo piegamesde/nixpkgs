@@ -69,7 +69,7 @@
 
 assert cargoVendorDir == null && cargoLock == null
   -> !(args ? cargoSha256 && args.cargoSha256 != null)
-  && !(args ? cargoHash && args.cargoHash != null)
+    && !(args ? cargoHash && args.cargoHash != null)
   -> throw "cargoSha256, cargoHash, cargoVendorDir, or cargoLock must be set";
 assert buildType == "release" || buildType == "debug";
 
@@ -148,11 +148,13 @@ stdenv.mkDerivation ((removeAttrs args [
   patchRegistryDeps = ./patch-registry-deps;
 
   nativeBuildInputs =
-    nativeBuildInputs ++ lib.optionals auditable [
-      (buildPackages.cargo-auditable-cargo-wrapper.override {
-        inherit cargo cargo-auditable;
-      })
-    ] ++ [
+    nativeBuildInputs
+    ++ lib.optionals auditable [
+        (buildPackages.cargo-auditable-cargo-wrapper.override {
+          inherit cargo cargo-auditable;
+        })
+      ]
+    ++ [
       cargoBuildHook
       (if useNextest then
         cargoNextestHook
@@ -165,7 +167,8 @@ stdenv.mkDerivation ((removeAttrs args [
     ;
 
   buildInputs =
-    buildInputs ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ]
+    buildInputs
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ]
     ++ lib.optionals stdenv.hostPlatform.isMinGW [ windows.pthreads ]
     ;
 
@@ -183,7 +186,8 @@ stdenv.mkDerivation ((removeAttrs args [
       eval "$cargoDepsHook"
 
       export RUST_LOG=${logLevel}
-    '' + (args.postUnpack or "")
+    ''
+    + (args.postUnpack or "")
     ;
 
   configurePhase =
@@ -199,7 +203,8 @@ stdenv.mkDerivation ((removeAttrs args [
   meta = {
     # default to Rust's platforms
     platforms =
-      rustc.meta.platforms ++ [
+      rustc.meta.platforms
+      ++ [
         # Platforms without host tools from
         # https://doc.rust-lang.org/nightly/rustc/platform-support.html
         "armv7a-darwin"

@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
     # config is a configure script which is not installed.
     + ''
       substituteInPlace config --replace '/usr/bin/env' '${buildPackages.coreutils}/bin/env'
-    '' + lib.optionalString stdenv.hostPlatform.isMusl ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isMusl ''
       substituteInPlace crypto/async/arch/async_posix.h \
         --replace '!defined(__ANDROID__) && !defined(__OpenBSD__)' \
                   '!defined(__ANDROID__) && !defined(__OpenBSD__) && 0'
@@ -62,7 +63,8 @@ stdenv.mkDerivation rec {
   ];
   setOutputFlags = false;
   separateDebugInfo =
-    !stdenv.hostPlatform.isDarwin && !(stdenv.hostPlatform.useLLVM or false)
+    !stdenv.hostPlatform.isDarwin
+    && !(stdenv.hostPlatform.useLLVM or false)
     && stdenv.cc.isGNU
     ;
 
@@ -101,8 +103,9 @@ stdenv.mkDerivation rec {
     else if stdenv.hostPlatform.isBSD && stdenv.hostPlatform.isx86_64 then
       "./Configure BSD-x86_64"
     else if stdenv.hostPlatform.isBSD && stdenv.hostPlatform.isx86_32 then
-      "./Configure BSD-x86" + lib.optionalString
-      (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") "-elf"
+      "./Configure BSD-x86"
+      + lib.optionalString
+        (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") "-elf"
     else if stdenv.hostPlatform.isBSD then
       "./Configure BSD-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
     else if stdenv.hostPlatform.isMinGW then
@@ -125,21 +128,24 @@ stdenv.mkDerivation rec {
       "shared" # "shared" builds both shared and static libraries
       "--libdir=lib"
       "--openssldir=etc/ssl"
-    ] ++ lib.optionals withCryptodev [
+    ]
+    ++ lib.optionals withCryptodev [
       "-DHAVE_CRYPTODEV"
       "-DUSE_CRYPTODEV_DIGESTS"
-    ] ++ lib.optional enableSSL2 "enable-ssl2" ++ lib.optional enableSSL3
-    "enable-ssl3"
-    # We select KTLS here instead of the configure-time detection (which we patch out).
-    # KTLS should work on FreeBSD 13+ as well, so we could enable it if someone tests it.
+    ]
+    ++ lib.optional enableSSL2 "enable-ssl2"
+    ++ lib.optional enableSSL3 "enable-ssl3"
+      # We select KTLS here instead of the configure-time detection (which we patch out).
+      # KTLS should work on FreeBSD 13+ as well, so we could enable it if someone tests it.
     ++ lib.optional (stdenv.isLinux && lib.versionAtLeast version "3.0.0")
-    "enable-ktls" ++ lib.optional stdenv.hostPlatform.isAarch64 "no-afalgeng"
-    # OpenSSL needs a specific `no-shared` configure flag.
-    # See https://wiki.openssl.org/index.php/Compilation_and_Installation#Configure_Options
-    # for a comprehensive list of configuration options.
+      "enable-ktls"
+    ++ lib.optional stdenv.hostPlatform.isAarch64 "no-afalgeng"
+      # OpenSSL needs a specific `no-shared` configure flag.
+      # See https://wiki.openssl.org/index.php/Compilation_and_Installation#Configure_Options
+      # for a comprehensive list of configuration options.
     ++ lib.optional static "no-shared"
-    # This introduces a reference to the CTLOG_FILE which is undesired when
-    # trying to build binaries statically.
+      # This introduces a reference to the CTLOG_FILE which is undesired when
+      # trying to build binaries statically.
     ++ lib.optional static "no-ct"
     ;
 
@@ -167,23 +173,24 @@ stdenv.mkDerivation rec {
         if [ -n "$(echo $out/lib/*.so $out/lib/*.dylib $out/lib/*.dll)" ]; then
             rm "$out/lib/"*.a
         fi
-      '') + ''
-        mkdir -p $bin
-        mv $out/bin $bin/bin
+      '')
+    + ''
+      mkdir -p $bin
+      mv $out/bin $bin/bin
 
-        # c_rehash is a legacy perl script with the same functionality
-        # as `openssl rehash`
-        # this wrapper script is created to maintain backwards compatibility without
-        # depending on perl
-        makeWrapper $bin/bin/openssl $bin/bin/c_rehash \
-          --add-flags "rehash"
+      # c_rehash is a legacy perl script with the same functionality
+      # as `openssl rehash`
+      # this wrapper script is created to maintain backwards compatibility without
+      # depending on perl
+      makeWrapper $bin/bin/openssl $bin/bin/c_rehash \
+        --add-flags "rehash"
 
-        mkdir $dev
-        mv $out/include $dev/
-        # remove dependency on Perl at runtime
-        rm -r $out/etc/ssl/misc
-        rmdir $out/etc/ssl/{certs,private}
-      ''
+      mkdir $dev
+      mv $out/include $dev/
+      # remove dependency on Perl at runtime
+      rm -r $out/etc/ssl/misc
+      rmdir $out/etc/ssl/{certs,private}
+    ''
     ;
 
   postFixup = lib.optionalString (!stdenv.hostPlatform.isWindows) ''

@@ -16,9 +16,10 @@ let
     ++ opt "web.external-url" cfg.web.external-url
     ++ opt "web.route-prefix" cfg.web.route-prefix
     ++ optional cfg.persistMetrics
-    ''--persistence.file="/var/lib/${cfg.stateDir}/metrics"''
+      ''--persistence.file="/var/lib/${cfg.stateDir}/metrics"''
     ++ opt "persistence.interval" cfg.persistence.interval
-    ++ opt "log.level" cfg.log.level ++ opt "log.format" cfg.log.format
+    ++ opt "log.level" cfg.log.level
+    ++ opt "log.format" cfg.log.format
     ++ cfg.extraFlags
     ;
 
@@ -171,7 +172,7 @@ in
         ExecStart =
           "${cfg.package}/bin/pushgateway"
           + optionalString (length cmdlineArgs != 0)
-          (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs)
+            (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs)
           ;
         StateDirectory =
           if cfg.persistMetrics then

@@ -158,20 +158,21 @@ in
               cd "${cfg.workingDirectory}"
             ''
           else
-            "") + ''
-              KEYS="''${KEYS:-./keys}"
-              ${hostPkgs.coreutils}/bin/mkdir --parent "''${KEYS}"
-              PRIVATE_KEY="''${KEYS}/${user}_${keyType}"
-              PUBLIC_KEY="''${PRIVATE_KEY}.pub"
-              if [ ! -e "''${PRIVATE_KEY}" ] || [ ! -e "''${PUBLIC_KEY}" ]; then
-                  ${hostPkgs.coreutils}/bin/rm --force -- "''${PRIVATE_KEY}" "''${PUBLIC_KEY}"
-                  ${hostPkgs.openssh}/bin/ssh-keygen -q -f "''${PRIVATE_KEY}" -t ${keyType} -N "" -C 'builder@localhost'
-              fi
-              if ! ${hostPkgs.diffutils}/bin/cmp "''${PUBLIC_KEY}" ${publicKey}; then
-                (set -x; sudo --reset-timestamp ${installCredentials} "''${KEYS}")
-              fi
-              KEYS="$(${hostPkgs.nix}/bin/nix-store --add "$KEYS")" ${config.system.build.vm}/bin/run-nixos-vm
-            '');
+            "")
+          + ''
+            KEYS="''${KEYS:-./keys}"
+            ${hostPkgs.coreutils}/bin/mkdir --parent "''${KEYS}"
+            PRIVATE_KEY="''${KEYS}/${user}_${keyType}"
+            PUBLIC_KEY="''${PRIVATE_KEY}.pub"
+            if [ ! -e "''${PRIVATE_KEY}" ] || [ ! -e "''${PUBLIC_KEY}" ]; then
+                ${hostPkgs.coreutils}/bin/rm --force -- "''${PRIVATE_KEY}" "''${PUBLIC_KEY}"
+                ${hostPkgs.openssh}/bin/ssh-keygen -q -f "''${PRIVATE_KEY}" -t ${keyType} -N "" -C 'builder@localhost'
+            fi
+            if ! ${hostPkgs.diffutils}/bin/cmp "''${PUBLIC_KEY}" ${publicKey}; then
+              (set -x; sudo --reset-timestamp ${installCredentials} "''${KEYS}")
+            fi
+            KEYS="$(${hostPkgs.nix}/bin/nix-store --add "$KEYS")" ${config.system.build.vm}/bin/run-nixos-vm
+          '');
 
       in
       script.overrideAttrs (old: {

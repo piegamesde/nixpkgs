@@ -25,7 +25,8 @@ with pkgs.lib;
             ln -s ${pkgs.writeText "userData" userData} $out/1.0/user-data
             echo "${hostname}" > $out/1.0/meta-data/hostname
             echo "(unknown)" > $out/1.0/meta-data/ami-manifest-path
-          '' + optionalString (sshPublicKey != null) ''
+          ''
+          + optionalString (sshPublicKey != null) ''
             mkdir -p $out/1.0/meta-data/public-keys/0
             ln -s ${
               pkgs.writeText "sshPublicKey" sshPublicKey
@@ -81,7 +82,9 @@ with pkgs.lib;
 
           machine = create_machine({"startCommand": start_command})
           try:
-        '' + indentLines script + ''
+        ''
+        + indentLines script
+        + ''
           finally:
             machine.shutdown()
         ''

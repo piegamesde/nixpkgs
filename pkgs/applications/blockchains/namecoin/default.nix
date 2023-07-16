@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
       db4
       miniupnpc
       eject
-    ] ++ lib.optionals withGui [
+    ]
+    ++ lib.optionals withGui [
       qt4
       protobuf
       qrencode

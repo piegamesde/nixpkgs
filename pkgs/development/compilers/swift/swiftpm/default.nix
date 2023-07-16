@@ -68,7 +68,8 @@ let
 
     # Tools invoked by swiftpm at run-time.
   runtimeDeps =
-    [ git ] ++ lib.optionals stdenv.isDarwin [
+    [ git ]
+    ++ lib.optionals stdenv.isDarwin [
       xcbuild.xcrun
       # vtool is used to determine a minimum deployment target. This is part of
       # cctools, but adding that as a build input puts an unwrapped linker in
@@ -85,17 +86,20 @@ let
     attrs:
     stdenv.mkDerivation (attrs // {
       nativeBuildInputs =
-        (attrs.nativeBuildInputs or [ ]) ++ [
+        (attrs.nativeBuildInputs or [ ])
+        ++ [
           cmake
           ninja
           swift
-        ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
+        ]
+        ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
         ;
 
       buildInputs = (attrs.buildInputs or [ ]) ++ [ Foundation ];
 
       postPatch =
-        (attrs.postPatch or "") + lib.optionalString stdenv.isDarwin ''
+        (attrs.postPatch or "")
+        + lib.optionalString stdenv.isDarwin ''
           # On Darwin only, Swift uses arm64 as cpu arch.
           if [ -e cmake/modules/SwiftSupport.cmake ]; then
             substituteInPlace cmake/modules/SwiftSupport.cmake \
@@ -105,7 +109,8 @@ let
         ;
 
       preConfigure =
-        (attrs.preConfigure or "") + ''
+        (attrs.preConfigure or "")
+        + ''
           # Builds often don't set a target, and our default minimum macOS deployment
           # target on x86_64-darwin is too low. Harmless on non-Darwin.
           export MACOSX_DEPLOYMENT_TARGET=10.15.4
@@ -113,7 +118,8 @@ let
         ;
 
       postInstall =
-        (attrs.postInstall or "") + lib.optionalString stdenv.isDarwin ''
+        (attrs.postInstall or "")
+        + lib.optionalString stdenv.isDarwin ''
           # The install name of libraries is incorrectly set to lib/ (via our
           # CMake setup hook) instead of lib/swift/. This'd be easily fixed by
           # fixDarwinDylibNames, but some builds create libraries that reference
@@ -130,7 +136,8 @@ let
         ;
 
       cmakeFlags =
-        (attrs.cmakeFlags or [ ]) ++ [
+        (attrs.cmakeFlags or [ ])
+        ++ [
           # Some builds link to libraries within the same build. Make sure these
           # create references to $out. None of our builds run their own products,
           # so we don't have to account for that scenario.
@@ -168,7 +175,8 @@ let
     src = generated.sources.swift-system;
 
     postInstall =
-      cmakeGlue.SwiftSystem + lib.optionalString (!stdenv.isDarwin) ''
+      cmakeGlue.SwiftSystem
+      + lib.optionalString (!stdenv.isDarwin) ''
         # The cmake rules apparently only use the Darwin install convention.
         # Fix up the installation so the module can be found on non-Darwin.
         mkdir -p $out/${swiftStaticModuleSubdir}
@@ -189,7 +197,8 @@ let
     '';
 
     postInstall =
-      cmakeGlue.SwiftCollections + lib.optionalString (!stdenv.isDarwin) ''
+      cmakeGlue.SwiftCollections
+      + lib.optionalString (!stdenv.isDarwin) ''
         # The cmake rules apparently only use the Darwin install convention.
         # Fix up the installation so the module can be found on non-Darwin.
         mkdir -p $out/${swiftStaticModuleSubdir}
@@ -208,7 +217,8 @@ let
     ];
 
     postInstall =
-      cmakeGlue.TSC + ''
+      cmakeGlue.TSC
+      + ''
         # Swift modules are not installed.
         mkdir -p $out/${swiftModuleSubdir}
         cp swift/*.swift{module,doc} $out/${swiftModuleSubdir}/
@@ -238,7 +248,8 @@ let
     ];
 
     postInstall =
-      cmakeGlue.ArgumentParser + lib.optionalString stdenv.isLinux ''
+      cmakeGlue.ArgumentParser
+      + lib.optionalString stdenv.isLinux ''
         # Fix rpath so ArgumentParserToolInfo can be found.
         patchelf --add-rpath "$out/lib/swift/${swiftOs}" \
           $out/lib/swift/${swiftOs}/libArgumentParser.so
@@ -287,7 +298,8 @@ let
     cmakeFlags = [ "-DLLBUILD_SUPPORT_BINDINGS=Swift" ];
 
     postInstall =
-      cmakeGlue.LLBuild + ''
+      cmakeGlue.LLBuild
+      + ''
         # Install module map.
         cp ../products/libllbuild/include/module.modulemap $out/include
 
@@ -311,7 +323,8 @@ let
     ];
 
     postInstall =
-      cmakeGlue.SwiftDriver + ''
+      cmakeGlue.SwiftDriver
+      + ''
         # Swift modules are not installed.
         mkdir -p $out/${swiftModuleSubdir}
         cp swift/*.swift{module,doc} $out/${swiftModuleSubdir}/
@@ -329,7 +342,8 @@ let
     '';
 
     postInstall =
-      cmakeGlue.SwiftCrypto + ''
+      cmakeGlue.SwiftCrypto
+      + ''
         # Static libs are not installed.
         cp lib/*.a $out/lib/
 
@@ -368,7 +382,8 @@ stdenv.mkDerivation (commonAttrs // {
   pname = "swiftpm";
 
   nativeBuildInputs =
-    commonAttrs.nativeBuildInputs ++ [
+    commonAttrs.nativeBuildInputs
+    ++ [
       swift
       swiftpm-bootstrap
     ]
@@ -378,14 +393,16 @@ stdenv.mkDerivation (commonAttrs // {
       ncursesInput
       sqlite
       XCTest
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       CryptoKit
       LocalAuthentication
     ]
     ;
 
   configurePhase =
-    generated.configure + ''
+    generated.configure
+    + ''
       # Functionality provided by Xcode XCTest, but not available in
       # swift-corelibs-xctest.
       swiftpmMakeMutable swift-tools-support-core

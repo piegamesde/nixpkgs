@@ -9,7 +9,8 @@ let
     } { } { };
   hasChecksum =
     value:
-    lib.isAttrs value && lib.hasAttrByPath [
+    lib.isAttrs value
+    && lib.hasAttrByPath [
       "src"
       "outputHash"
     ] value

@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
       hidapi
       libftdi1
       libusb1
-    ] ++ lib.optional stdenv.isLinux libgpiod
+    ]
+    ++ lib.optional stdenv.isLinux libgpiod
     ;
 
   configureFlags =
@@ -44,7 +45,8 @@ stdenv.mkDerivation rec {
       (lib.enableFeature enableFtdi "ftdi")
       (lib.enableFeature stdenv.isLinux "linuxgpiod")
       (lib.enableFeature stdenv.isLinux "sysfsgpio")
-    ] ++ map (hardware: "--enable-${hardware}") extraHardwareSupport
+    ]
+    ++ map (hardware: "--enable-${hardware}") extraHardwareSupport
     ;
 
   enableParallelBuilding = true;

@@ -52,7 +52,8 @@ buildPythonPackage rec {
       python-multipart
       pyyaml
       httpx
-    ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ]
+    ]
+    ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ]
     ++ lib.optionals stdenv.isDarwin [ ApplicationServices ]
     ;
 

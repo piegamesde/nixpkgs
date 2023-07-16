@@ -65,7 +65,8 @@ stdenv.mkDerivation rec {
       pango
       libsecret
       openssh
-    ] ++ lib.optionals stdenv.isLinux [ systemd ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ systemd ]
     ;
 
   propagatedBuildInputs = [
@@ -81,7 +82,8 @@ stdenv.mkDerivation rec {
       # We are still using ssh-agent from gnome-keyring.
       # https://github.com/NixOS/nixpkgs/issues/140824
       "-Dssh_agent=false"
-    ] ++ lib.optionals (!stdenv.isLinux) [ "-Dsystemd=disabled" ]
+    ]
+    ++ lib.optionals (!stdenv.isLinux) [ "-Dsystemd=disabled" ]
     ;
 
   doCheck = false; # fails 21 out of 603 tests, needs dbus daemon
