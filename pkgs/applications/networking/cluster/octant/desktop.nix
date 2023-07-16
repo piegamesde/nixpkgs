@@ -17,7 +17,8 @@ let
     {
       x86_64-linux = "AppImage";
       x86_64-darwin = "dmg";
-    }.${system} or (throw "Unsupported system: ${system}");
+    }
+    .${system} or (throw "Unsupported system: ${system}");
 
   src = fetchurl {
     url =
@@ -26,7 +27,8 @@ let
       {
         x86_64-linux = "sha256-K4z6SVCiuqy3xkWMWpm8KM7iYVXyKcnERljMG3NEFMw=";
         x86_64-darwin = "sha256-WYra0yw/aPW/wUGrlIn5ud3kjFTkekYEi2LWZcYO5Nw=";
-      }.${system};
+      }
+      .${system};
   };
 
   linux = appimageTools.wrapType2 {

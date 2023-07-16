@@ -18,7 +18,8 @@ let
       aarch64-linux = "linux-arm64";
       aarch64-darwin = "darwin-arm64";
       armv7l-linux = "linux-armhf";
-    }.${system} or throwSystem;
+    }
+    .${system} or throwSystem;
 
   archive_fmt =
     if stdenv.isDarwin then
@@ -34,7 +35,8 @@ let
       aarch64-linux = "14pvsrpl7rsjvni7n2ch7wmvgpj9n8mwla7s7mlmi7wv46ykpk2a";
       aarch64-darwin = "1x5bw928yp4fb57bc3qff46w7020zlyp1mfpm7vakjfaqnfwzzzn";
       armv7l-linux = "0xliai5c3dd6qbgb9agvmn18n230zh4qxx3jjmaqn2851d6sx5xz";
-    }.${system} or throwSystem;
+    }
+    .${system} or throwSystem;
 
   sourceRoot =
     if stdenv.isDarwin then

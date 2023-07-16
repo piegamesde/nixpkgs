@@ -26841,13 +26841,13 @@ with pkgs;
 
   perlcritic = perlPackages.PerlCritic;
 
-  sqitchMysql = (callPackage ../development/tools/misc/sqitch {
-    mysqlSupport = true;
-  }).overrideAttrs (_: { pname = "sqitch-mysql"; });
+  sqitchMysql =
+    (callPackage ../development/tools/misc/sqitch { mysqlSupport = true; })
+    .overrideAttrs (_: { pname = "sqitch-mysql"; });
 
-  sqitchPg = (callPackage ../development/tools/misc/sqitch {
-    postgresqlSupport = true;
-  }).overrideAttrs (_: { pname = "sqitch-pg"; });
+  sqitchPg =
+    (callPackage ../development/tools/misc/sqitch { postgresqlSupport = true; })
+    .overrideAttrs (_: { pname = "sqitch-pg"; });
 
     ### DEVELOPMENT / R MODULES
 
@@ -37852,8 +37852,8 @@ with pkgs;
     wayfireApplications-unwrapped.withPlugins (plugins: [ plugins.wf-shell ]);
   inherit (wayfireApplications) wayfire wcm;
   wayfireApplications-unwrapped = recurseIntoAttrs
-    ((callPackage ../applications/window-managers/wayfire/applications.nix
-      { }).extend (_: _: { wlroots = wlroots_0_16; }));
+    ((callPackage ../applications/window-managers/wayfire/applications.nix { })
+      .extend (_: _: { wlroots = wlroots_0_16; }));
   wayfirePlugins = recurseIntoAttrs
     (callPackage ../applications/window-managers/wayfire/plugins.nix {
       inherit (wayfireApplications-unwrapped) wayfire;
@@ -41681,8 +41681,8 @@ with pkgs;
   cups-bjnp = callPackage ../misc/cups/drivers/cups-bjnp { };
 
   dcp9020cdwlpr =
-    (pkgsi686Linux.callPackage ../misc/cups/drivers/brother/dcp9020cdw
-      { }).driver;
+    (pkgsi686Linux.callPackage ../misc/cups/drivers/brother/dcp9020cdw { })
+    .driver;
 
   dcp9020cdw-cupswrapper =
     (callPackage ../misc/cups/drivers/brother/dcp9020cdw { }).cupswrapper;

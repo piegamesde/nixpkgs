@@ -804,7 +804,8 @@ rec {
         kernel = elemAt l 2;
         abi = elemAt l 3;
       };
-    }.${toString (length l)} or (throw
+    }
+    .${toString (length l)} or (throw
       "system string has invalid number of hyphen-separated components")
     ;
 

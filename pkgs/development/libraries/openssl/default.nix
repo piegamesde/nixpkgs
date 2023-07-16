@@ -116,7 +116,8 @@ let
           x86_64-linux = "./Configure linux-x86_64";
           x86_64-solaris = "./Configure solaris64-x86_64-gcc";
           riscv64-linux = "./Configure linux64-riscv64";
-        }.${stdenv.hostPlatform.system} or (if
+        }
+        .${stdenv.hostPlatform.system} or (if
           stdenv.hostPlatform == stdenv.buildPlatform
         then
           "./config"

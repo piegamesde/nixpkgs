@@ -157,21 +157,19 @@ let
           sphinx-rtd-theme = null;
         }).overridePythonAttrs
           (old: (dropDevOutput old) // { format = "setuptools"; });
-        beautifulsoup4 = (super.beautifulsoup4.override {
-          sphinxHook = null;
-        }).overridePythonAttrs dropDevOutput;
-        pydash = (super.pydash.override {
-          sphinx-rtd-theme = null;
-        }).overridePythonAttrs (old: rec {
-          version = "5.1.0";
-          src = self.fetchPypi {
-            inherit (old) pname;
-            inherit version;
-            hash = "sha256-GysFCsG64EnNB/WSCxT6u+UmOPSF2a2h6xFanuv/aDU=";
-          };
-          format = "setuptools";
-          doCheck = false;
-        });
+        beautifulsoup4 = (super.beautifulsoup4.override { sphinxHook = null; })
+          .overridePythonAttrs dropDevOutput;
+        pydash = (super.pydash.override { sphinx-rtd-theme = null; })
+          .overridePythonAttrs (old: rec {
+            version = "5.1.0";
+            src = self.fetchPypi {
+              inherit (old) pname;
+              inherit version;
+              hash = "sha256-GysFCsG64EnNB/WSCxT6u+UmOPSF2a2h6xFanuv/aDU=";
+            };
+            format = "setuptools";
+            doCheck = false;
+          });
       }
       ;
   };

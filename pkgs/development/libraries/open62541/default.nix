@@ -34,7 +34,8 @@ let
   encryptionBackend =
     {
       inherit openssl mbedtls;
-    }."${withEncryption}" or (throw
+    }
+    ."${withEncryption}" or (throw
       "Unsupported encryption backend: ${withEncryption}");
 
 in

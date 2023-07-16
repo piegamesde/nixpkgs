@@ -27,13 +27,15 @@ let
     {
       x86_64-darwin = "3.30.4506";
       x86_64-linux = "3.30.3018";
-    }.${system} or throwSystem;
+    }
+    .${system} or throwSystem;
 
   hash =
     {
       x86_64-darwin = "sha256-+htDeNIuucB4qzNBNYoSUH1DbfgouZS08G5hxPtIuzY=";
       x86_64-linux = "sha256-46WjFA+E9M7RfTOM/Xoho+9ooToSgQiZaMlcZ3lJvBQ=";
-    }.${system} or throwSystem;
+    }
+    .${system} or throwSystem;
 
   meta = with lib; {
     description = "A modern, secure messenger for everyone";

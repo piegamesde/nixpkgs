@@ -219,7 +219,8 @@ let
       "11.6" = "8.4.0";
       "11.7" = "8.5.3";
       "11.8" = "8.5.3";
-    }.${cudaVersion} or "8.4.0";
+    }
+    .${cudaVersion} or "8.4.0";
 
 in
 tensorRTPackages

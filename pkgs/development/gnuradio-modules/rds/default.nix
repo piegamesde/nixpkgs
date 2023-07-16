@@ -21,7 +21,8 @@ let
       "3.7" = "1.1.0";
       "3.8" = "3.8.0";
       "3.9" = null;
-    }.${gnuradio.versionAttr.major};
+    }
+    .${gnuradio.versionAttr.major};
   src = fetchFromGitHub {
     owner = "bastibl";
     repo = "gr-rds";
@@ -31,7 +32,8 @@ let
         "3.7" = "0jkzchvw0ivcxsjhi1h0mf7k13araxf5m4wi5v9xdgqxvipjzqfy";
         "3.8" = "+yKLJu2bo7I2jkAiOdjvdhZwxFz9NFgTmzcLthH9Y5o=";
         "3.9" = null;
-      }.${gnuradio.versionAttr.major};
+      }
+      .${gnuradio.versionAttr.major};
   };
 in
 mkDerivation {

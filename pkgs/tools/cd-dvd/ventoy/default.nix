@@ -52,7 +52,8 @@ let
       i686-linux = "i386";
       aarch64-linux = "aarch64";
       mipsel-linux = "mips64el";
-    }.${stdenv.hostPlatform.system} or (throw
+    }
+    .${stdenv.hostPlatform.system} or (throw
       "Unsupported platform ${stdenv.hostPlatform.system}");
 in
 stdenv.mkDerivation (finalAttrs: {

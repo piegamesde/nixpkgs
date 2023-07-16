@@ -16,7 +16,8 @@ let
         capitalized = systemTag;
         fontFile = "JoyPixels-SBIX.ttf";
       };
-    }.${kernel.name} or rec {
+    }
+    .${kernel.name} or rec {
       systemTag = "nixos";
       capitalized = "NixOS";
       fontFile = "joypixels-android.ttf";
@@ -74,7 +75,8 @@ stdenv.mkDerivation rec {
       sha256 =
         {
           darwin = "0qcmb2vn2nykyikzgnlma627zhks7ksy1vkgvpcmqwyxq4bd38d7";
-        }.${kernel.name} or "17gjaz7353zyprmds64p01qivy2r8pwf88nvvhi57idas2qd604n";
+        }
+        .${kernel.name} or "17gjaz7353zyprmds64p01qivy2r8pwf88nvvhi57idas2qd604n";
     }
     ;
 

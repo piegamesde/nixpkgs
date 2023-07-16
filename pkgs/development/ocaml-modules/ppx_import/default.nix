@@ -22,7 +22,8 @@ let
       "1.10.0" = {
         sha256 = "sha256-MA8sf0F7Ch1wJDL8E8470ukKx7KieWyjWJnJQsqBVW8=";
       };
-    }."${version}";
+    }
+    ."${version}";
 
 in
 lib.throwIfNot (lib.versionAtLeast ppxlib.version "0.24.0")

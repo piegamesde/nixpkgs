@@ -15,7 +15,8 @@ let
       x86_64-darwin = "darwin_amd64";
       aarch64-linux = "linux_arm64";
       aarch64-darwin = "darwin_arm64";
-    }.${system} or throwSystem;
+    }
+    .${system} or throwSystem;
 
   archive_fmt = "tar.gz";
 
@@ -25,7 +26,8 @@ let
       x86_64-darwin = "0bgjx54c00v0nb88rzdv09g92yw9qsf2fxd8565g6fsw591va1pa";
       aarch64-linux = "0z07aikjhk9055apbvyaxdp8cgjl291fqgwgfbp9y3826q7s0riq";
       aarch64-darwin = "0garlx458jy6dpqbfd0y2p7xj9hagm815cflybbbxf5yz2v9da01";
-    }.${system} or throwSystem;
+    }
+    .${system} or throwSystem;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "infisical";

@@ -56,7 +56,8 @@ let
         arch = "64";
         sha256 = "sha256-QaIj+SOQGR6teUIdLB3D5klRlYrna1MoE3c6UXYEoB4=";
       };
-    }.${stdenv.hostPlatform.system} or (throw
+    }
+    .${stdenv.hostPlatform.system} or (throw
       "Unsupported system: ${stdenv.hostPlatform.system}");
 
 in

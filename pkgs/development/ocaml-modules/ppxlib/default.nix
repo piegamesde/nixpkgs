@@ -70,7 +70,8 @@ let
         sha256 = "sha256-2Hrl+aCBIGMIypZICbUKZq646D0lSAHouWdUSLYM83c=";
         min_version = "4.07";
       };
-    }."${version}";
+    }
+    ."${version}";
 
 in
 if

@@ -209,7 +209,8 @@ lib.composeManyExtensions [
             {
               "4.0.0" = "sha256-HvfRLyUhlXVuvxWrtSDKx3rMKJbjvuiMcDY6g+pYFS0=";
               "4.0.1" = "sha256-lDWX69YENZFMu7pyBmavUZaalGvFqbHSHfkwkzmDQaY=";
-            }.${version} or (lib.warn
+            }
+            .${version} or (lib.warn
               "Unknown bcrypt version: '${version}'. Please update getCargoHash."
               lib.fakeHash)
             ;
@@ -388,7 +389,8 @@ lib.composeManyExtensions [
               "39.0.2" = "sha256-Admz48/GS2t8diz611Ciin1HKQEyMDEwHxTpJ5tZ1ZA=";
               "40.0.0" = "sha256-/TBANavYria9YrBpMgjtFyqg5feBcloETcYJ8fdBgkI=";
               "40.0.1" = "sha256-gFfDTc2QWBWHBCycVH1dYlCsWQMVcRZfOBIau+njtDU=";
-            }.${version} or (lib.warn
+            }
+            .${version} or (lib.warn
               "Unknown cryptography version: '${version}'. Please update getCargoHash."
               lib.fakeHash)
             ;
@@ -748,7 +750,8 @@ lib.composeManyExtensions [
               "0.2.6" = "sha256-l9W9+KDg/43mc0toEz1n1pqw+oQdiHdAxGlS+KLIGhw=";
               "0.3.0" = "sha256-icBjtW8fZjT3mLo43nKWdirMz6GZIy/RghEO95pHJEU=";
               "0.3.1" = "sha256-EKK+RxkJ//fY43EjvN1Fry7mn2ZLIaNlTyKPJRxyKZs=";
-            }.${version}
+            }
+            .${version}
             ;
           sha256 = getRepoHash super.granian.version;
         in
@@ -1652,7 +1655,8 @@ lib.composeManyExtensions [
               "3.8.6" = "sha256-8T//q6nQoZhh8oJWDCeQf3gYRew58dXAaxkYELY4CJM=";
               "3.8.7" = "sha256-JBO8nl0sC+XIn17vI7hC8+nA1HYI9jfvZrl9nCE3k1s=";
               "3.8.8" = "sha256-AK4HtqPKg2O2FeLHCbY9o+N1BV4QFMNaHVE1NaFYHa4=";
-            }.${version} or (lib.warn
+            }
+            .${version} or (lib.warn
               "Unknown orjson version: '${version}'. Please update getCargoHash."
               lib.fakeHash)
             ;
@@ -2761,7 +2765,8 @@ lib.composeManyExtensions [
               "0.12" = "16788a0d8n1bb705f0k3dvav2fmbbl6pcikwpgarl1l3fcfff8kl";
               "0.11" = "0vx56h9wfxj7x3aq7jign4rnlfm7x9nhjwmsv8p22acbzbs10dgv";
               "0.10" = "0ypdy9sq4211djqh4ni5ap9l7whq9hw0vhsxjfl3a0a4czlldxqp";
-            }.${version}
+            }
+            .${version}
             ;
           sha256 = getRepoHash super.watchfiles.version;
         in
@@ -2816,8 +2821,8 @@ lib.composeManyExtensions [
           buildInputs = (old.buildInputs or [ ]) ++ [ self.translate-toolkit ];
         });
 
-      wheel =
-        ((pkgs.python3.pkgs.override { python = self.python; }).wheel.override {
+      wheel = ((pkgs.python3.pkgs.override { python = self.python; })
+        .wheel.override {
           inherit (self) buildPythonPackage bootstrapped-pip setuptools;
         }).overrideAttrs
         (old: { inherit (super.wheel) pname name version src; });

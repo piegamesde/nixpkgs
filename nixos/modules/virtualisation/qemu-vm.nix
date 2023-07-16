@@ -330,7 +330,8 @@ let
         # As it will look like `rootDevice = lib.mkDefault null;` after
         # all "computations".
       "custom" = null;
-    }.${bootConfiguration};
+    }
+    .${bootConfiguration};
 
 in
 {

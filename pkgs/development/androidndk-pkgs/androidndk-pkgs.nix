@@ -45,7 +45,8 @@ let
         arch = "arm64";
         triple = "aarch64-linux-android";
       };
-    }.${config} or (throw
+    }
+    .${config} or (throw
       "Android NDK doesn't support ${config}, as far as we know")
     ;
 

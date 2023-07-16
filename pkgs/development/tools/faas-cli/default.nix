@@ -19,7 +19,8 @@ let
       "aarch64" = "arm64";
       "armv7l" = "armhf";
       "armv6l" = "armhf";
-    }.${cpuName} or cpuName
+    }
+    .${cpuName} or cpuName
     ;
 in
 buildGoModule rec {

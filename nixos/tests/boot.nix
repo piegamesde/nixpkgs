@@ -104,7 +104,8 @@ let
     {
       x86_64-linux = "${pkgs.OVMF.fd}/FV/OVMF.fd";
       aarch64-linux = "${pkgs.OVMF.fd}/FV/QEMU_EFI.fd";
-    }.${pkgs.stdenv.hostPlatform.system};
+    }
+    .${pkgs.stdenv.hostPlatform.system};
 in
 {
   uefiCdrom = makeBootTest "uefi-cdrom" {

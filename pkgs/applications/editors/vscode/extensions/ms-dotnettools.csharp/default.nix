@@ -61,7 +61,8 @@ let
           ++ razorBins
           ;
       };
-    }.${system} or (throw "Unsupported system: ${system}")
+    }
+    .${system} or (throw "Unsupported system: ${system}")
     ;
 in
 vscode-utils.buildVscodeMarketplaceExtension rec {

@@ -23,7 +23,8 @@ let
         jdkVersion = "19.0.1";
         sha256 = "0g8i371h5fv686xhiff0431sgvdk80lbp2lkz86jpfdv9lgg0qnk";
       };
-    }."${stdenv.hostPlatform.system}";
+    }
+    ."${stdenv.hostPlatform.system}";
 
   jce-policies = fetchurl {
     # Ugh, unversioned URLs... I hope this doesn't change often enough to cause pain before we move to a Darwin source build of OpenJDK!

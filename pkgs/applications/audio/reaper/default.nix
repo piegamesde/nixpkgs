@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
       {
         x86_64-linux = "sha256-Bpsc09y5R/zyVXiDAqRF6n09qKOrBTLjk84z+noeko0=";
         aarch64-linux = "sha256-jbyXXeVtFmt7xoIWd4YKFu4AUM6W9LzeIiGoGyaO2lU=";
-      }.${stdenv.hostPlatform.system};
+      }
+      .${stdenv.hostPlatform.system};
   };
 
   nativeBuildInputs = [

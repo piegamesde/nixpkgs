@@ -22,9 +22,8 @@
 }:
 
 let
-  openscenegraph_openmw =
-    (openscenegraph.override { colladaSupport = true; }).overrideDerivation
-    (self: {
+  openscenegraph_openmw = (openscenegraph.override { colladaSupport = true; })
+    .overrideDerivation (self: {
       src = fetchFromGitHub {
         owner = "OpenMW";
         repo = "osg";

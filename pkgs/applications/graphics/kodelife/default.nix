@@ -51,7 +51,8 @@ stdenv.mkDerivation rec {
       aarch64-linux = "linux-arm64";
       armv7l-linux = "linux-armhf";
       x86_64-linux = "linux-x86_64";
-    }.${stdenv.hostPlatform.system} or (throw
+    }
+    .${stdenv.hostPlatform.system} or (throw
       "Unsupported system: ${stdenv.hostPlatform.system}");
 
   src = fetchurl {
@@ -61,7 +62,8 @@ stdenv.mkDerivation rec {
         aarch64-linux = "sha256-FHE87B34QSc7rcKHE3wkZq1VzcZeKWh68rlIIMDRmm8=";
         armv7l-linux = "sha256-OqomlL7IFHyQQULbdbf5I0dRXdy3lDHY4ej2P1OZgzo=";
         x86_64-linux = "sha256-QNcWMVZ4bTXPLFEtD35hP2LbuNntvF2e9Wk2knt4TBY=";
-      }.${stdenv.hostPlatform.system} or (throw
+      }
+      .${stdenv.hostPlatform.system} or (throw
         "Unsupported system: ${stdenv.hostPlatform.system}");
   };
 

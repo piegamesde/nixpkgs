@@ -52,7 +52,8 @@ let
       "4.13" = v6_6;
       "4.14" = v6_6;
       "5.0" = v6_6;
-    }.${ocaml.meta.branch}
+    }
+    .${ocaml.meta.branch}
     ;
 
 in

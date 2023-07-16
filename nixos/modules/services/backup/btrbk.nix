@@ -42,7 +42,8 @@ let
         target = 1; # Contains: options.
         subvolume = 2; # Contains: options, target.
         volume = 3; # Contains: options, target, subvolume.
-      }.${name} or (throw "Unknow section '${name}'")
+      }
+      .${name} or (throw "Unknow section '${name}'")
     ;
 
   genConfig' = set: concatStringsSep "\n" (genConfig set);
@@ -297,7 +298,8 @@ in
               "idle" = 3;
               "best-effort" = 2;
               "realtime" = 1;
-            }.${cfg.ioSchedulingClass};
+            }
+            .${cfg.ioSchedulingClass};
           sudo_doas_flag = "--${sudo_doas}";
         in
         ''

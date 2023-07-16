@@ -87,7 +87,8 @@ let
           musleabihf = lib.systems.parse.abis.musleabihf;
           muslabin32 = lib.systems.parse.abis.muslabin32;
           muslabi64 = lib.systems.parse.abis.muslabi64;
-        }.${parsed.abi.name} or lib.systems.parse.abis.musl;
+        }
+        .${parsed.abi.name} or lib.systems.parse.abis.musl;
     })
     ;
 

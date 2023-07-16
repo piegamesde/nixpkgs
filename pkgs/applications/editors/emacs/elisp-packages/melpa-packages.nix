@@ -320,9 +320,8 @@ let
         });
 
           # Build same version as Haskell package
-        hindent =
-          (externalSrc super.hindent pkgs.haskellPackages.hindent).overrideAttrs
-          (attrs: { packageRequires = [ self.haskell-mode ]; });
+        hindent = (externalSrc super.hindent pkgs.haskellPackages.hindent)
+          .overrideAttrs (attrs: { packageRequires = [ self.haskell-mode ]; });
 
         irony = super.irony.overrideAttrs (old: {
           cmakeFlags =

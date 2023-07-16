@@ -76,7 +76,8 @@ let
           #appletvsimulator
           #watchos
           #watchsimulator
-      }.${targetPlatform.darwinPlatform} or (throw
+      }
+      .${targetPlatform.darwinPlatform} or (throw
         "Cannot build Swift for target Darwin platform '${targetPlatform.darwinPlatform}'")
     else
       targetPlatform.parsed.kernel.name
@@ -452,7 +453,8 @@ stdenv.mkDerivation {
           {
             "x86_64" = "X86";
             "aarch64" = "AArch64";
-          }.${targetPlatform.parsed.cpu.name}
+          }
+          .${targetPlatform.parsed.cpu.name}
         }
       "
       buildProject llvm llvm-project/llvm
@@ -600,7 +602,8 @@ stdenv.mkDerivation {
                 #TVOS_SIMULATOR
                 #WATCHOS
                 #WATCHOS_SIMULATOR
-            }.${targetPlatform.darwinPlatform}
+            }
+            .${targetPlatform.darwinPlatform}
           }
 
           -DLLVM_DIR=$SWIFT_BUILD_ROOT/llvm/lib/cmake/llvm

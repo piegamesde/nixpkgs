@@ -93,7 +93,8 @@ in
             {
               PostgreSQL = "/run/postgresql";
               MySQL = "localhost";
-            }.${cfg.database.type};
+            }
+            .${cfg.database.type};
           defaultText = literalExpression ''
             {
               PostgreSQL = "/run/postgresql";
@@ -190,7 +191,8 @@ in
           {
             PostgreSQL = "postgresql";
             MySQL = "mysql2";
-          }.${cfg.database.type};
+          }
+          .${cfg.database.type};
         database = cfg.database.name;
         pool = 50;
         timeout = 5000;

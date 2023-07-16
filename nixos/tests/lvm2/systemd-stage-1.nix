@@ -20,7 +20,8 @@ let
         machine.succeed("vgcreate test_vg /dev/vdb")
         machine.succeed("lvcreate --type vdo -n test_lv -L 6G -V 12G test_vg/vdo_pool_lv")
       '';
-    }.${flavour};
+    }
+    .${flavour};
 
   extraConfig =
     {
@@ -44,7 +45,8 @@ let
           dmeventd.enable = true;
         };
       };
-    }.${flavour};
+    }
+    .${flavour};
 
   extraCheck =
     {
@@ -59,7 +61,8 @@ let
       vdo = ''
         "test_lv" in machine.succeed("lvs --select segtype=vdo")
       '';
-    }.${flavour};
+    }
+    .${flavour};
 
 in
 import ../make-test-python.nix ({

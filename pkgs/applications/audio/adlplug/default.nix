@@ -49,7 +49,8 @@ let
     {
       ADL = "OPL3";
       OPN = "OPN2";
-    }.${type};
+    }
+    .${type};
   mainProgram = "${type}plug";
 in
 stdenv.mkDerivation rec {

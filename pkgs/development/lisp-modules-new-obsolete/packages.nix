@@ -33,8 +33,9 @@ let
   build-with-compile-into-pwd =
     args:
     let
-      build = (build-asdf-system
-        (args // { version = args.version + "-build"; })).overrideAttrs (o: {
+      build =
+        (build-asdf-system (args // { version = args.version + "-build"; }))
+        .overrideAttrs (o: {
           buildPhase = with builtins; ''
             mkdir __fasls
             export LD_LIBRARY_PATH=${

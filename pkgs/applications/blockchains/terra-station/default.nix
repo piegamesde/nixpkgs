@@ -18,7 +18,8 @@ let
   sha256 =
     {
       "x86_64-linux" = "139nlr191bsinx6ixpi2glcr03lsnzq7b0438h3245napsnjpx6p";
-    }."${system}" or throwSystem;
+    }
+    ."${system}" or throwSystem;
 
   arch = { "x86_64-linux" = "amd64"; }."${system}" or throwSystem;
 

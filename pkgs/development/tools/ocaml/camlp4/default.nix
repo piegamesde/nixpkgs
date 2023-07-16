@@ -66,7 +66,8 @@ else
           version = "4.14+1";
           sha256 = "sha256-cPN3GioZT/Zt6uzbjGUPEGVJcPQdsAnCkU/AQoPfvuo=";
         };
-      }.${ocaml.meta.branch};
+      }
+      .${ocaml.meta.branch};
 
   in
   stdenv.mkDerivation rec {

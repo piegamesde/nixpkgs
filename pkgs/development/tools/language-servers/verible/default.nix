@@ -55,7 +55,8 @@ buildBazelPackage rec {
       {
         aarch64-linux = "sha256-BrJyFeq3BB4sHIXMMxRIaYV+VJAfTs2bvK7pnw6faBY=";
         x86_64-linux = "sha256-G6tqHWeQBi2Ph3IDFNu2sp+UU2BO93+lcyJ+kvpuRJo=";
-      }.${system} or (throw "No hash for system: ${system}");
+      }
+      .${system} or (throw "No hash for system: ${system}");
   };
 
   nativeBuildInputs = [

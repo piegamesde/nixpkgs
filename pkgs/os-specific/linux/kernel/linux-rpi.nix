@@ -37,7 +37,8 @@ lib.overrideDerivation (buildLinux (args // {
           "bcm2709_defconfig"
         ;
       "4" = "bcm2711_defconfig";
-    }.${toString rpiVersion};
+    }
+    .${toString rpiVersion};
 
   features = { efiBootStub = false; } // (args.features or { });
 

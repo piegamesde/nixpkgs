@@ -169,7 +169,8 @@ let
       Broken = "NIXPKGS_ALLOW_BROKEN";
       UnsupportedSystem = "NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM";
       NonSource = "NIXPKGS_ALLOW_NONSOURCE";
-    }.${allow_attr}
+    }
+    .${allow_attr}
     ;
   remediation_phrase =
     allow_attr:
@@ -178,7 +179,8 @@ let
       Broken = "broken packages";
       UnsupportedSystem = "packages that are unsupported for this system";
       NonSource = "packages not built from source";
-    }.${allow_attr}
+    }
+    .${allow_attr}
     ;
   remediate_predicate =
     predicateConfigAttr: attrs: ''
@@ -657,7 +659,8 @@ let
             inherit (validity) reason errormsg;
           };
           yes = true;
-        }.${validity.valid};
+        }
+        .${validity.valid};
 
     }
     ;

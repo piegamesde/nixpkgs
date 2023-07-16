@@ -181,7 +181,8 @@ let
         znver1 = versionAtLeast ccVersion "6.0";
         znver2 = versionAtLeast ccVersion "9.0";
         znver3 = versionAtLeast ccVersion "11.0";
-      }.${arch} or true
+      }
+      .${arch} or true
     else if isClang then
       { # Intel
         cannonlake = versionAtLeast ccVersion "5.0";
@@ -191,7 +192,8 @@ let
           # AMD
         znver1 = versionAtLeast ccVersion "4.0";
         znver2 = versionAtLeast ccVersion "9.0";
-      }.${arch} or true
+      }
+      .${arch} or true
     else
       false
     ;

@@ -25,7 +25,8 @@ let
           press = 1;
           hold = 2;
           release = 0;
-        }.${event}
+        }
+        .${event}
       } ${cmd}") cfg.bindings}
     ${cfg.extraConfig}
   '';

@@ -55,7 +55,8 @@ stdenv.mkDerivation rec {
         url = "${base}/v${version}/ArmCord_${version}_arm64.deb";
         sha256 = "sha256-4yqe4eIO4AxsZNYCn99KTBqjQURB+G+gpT0Q17pcEvU=";
       };
-    }.${stdenv.hostPlatform.system} or (throw
+    }
+    .${stdenv.hostPlatform.system} or (throw
       "Unsupported system: ${stdenv.hostPlatform.system}")
     ;
 

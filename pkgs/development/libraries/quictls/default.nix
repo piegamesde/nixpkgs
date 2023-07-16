@@ -93,7 +93,8 @@ stdenv.mkDerivation rec {
         else
           throw "unsupported ABI for ${stdenv.hostPlatform.system}"
         ;
-    }.${stdenv.hostPlatform.system} or (if
+    }
+    .${stdenv.hostPlatform.system} or (if
       stdenv.hostPlatform == stdenv.buildPlatform
     then
       "./config"

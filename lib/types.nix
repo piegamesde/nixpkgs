@@ -298,7 +298,8 @@ let
                   }) defs)
                   ;
                   # Otherwise fall back to only allowing all equal definitions
-              }.${commonType} or mergeEqualOption;
+              }
+              .${commonType} or mergeEqualOption;
           in
           mergeFunction loc defs
           ;
@@ -652,8 +653,8 @@ let
             loc: defs:
             mapAttrs (n: v: v.value) (filterAttrs (n: v: v ? value)
               (zipAttrsWith (name: defs:
-                (mergeDefinitions (loc ++ [ name ]) elemType
-                  defs).optionalValue)
+                (mergeDefinitions (loc ++ [ name ]) elemType defs)
+                .optionalValue)
               # Push down position info.
                 (map (def:
                   mapAttrs (n: v: {

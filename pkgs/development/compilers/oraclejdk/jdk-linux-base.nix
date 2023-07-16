@@ -47,7 +47,8 @@ let
       x86_64-linux = "amd64";
       armv7l-linux = "arm";
       aarch64-linux = "aarch64";
-    }.${stdenv.hostPlatform.system} or (throw
+    }
+    .${stdenv.hostPlatform.system} or (throw
       "unsupported system ${stdenv.hostPlatform.system}");
 
   jce =
@@ -88,7 +89,8 @@ let
             x86_64-linux = "linux-x64";
             armv7l-linux = "linux-arm32-vfp-hflt";
             aarch64-linux = "linux-aarch64";
-          }.${stdenv.hostPlatform.system} or (throw
+          }
+          .${stdenv.hostPlatform.system} or (throw
             "unsupported system ${stdenv.hostPlatform.system}");
       in
       requireFile {

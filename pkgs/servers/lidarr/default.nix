@@ -26,14 +26,16 @@ let
       x86_64-linux = "x64";
       aarch64-linux = "arm64";
       x86_64-darwin = "x64";
-    }."${stdenv.hostPlatform.system}" or (throw
+    }
+    ."${stdenv.hostPlatform.system}" or (throw
       "Unsupported system: ${stdenv.hostPlatform.system}");
   hash =
     {
       x64-linux_hash = "sha256-JGv4SXONVncRdWqtqvKnBWJXnp16AWLyFvULTWPmAgc=";
       arm64-linux_hash = "sha256-irZLQfeGAkM6mb6EXC2tuslyw7QYBZg/aRb0Lx7CJFA=";
       x64-osx_hash = "sha256-UcPZXf0BzoqlTmOSn1gDEvSZHijyB2nAb6HBj9R1D9Q=";
-    }."${arch}-${os}_hash";
+    }
+    ."${arch}-${os}_hash";
 in
 stdenv.mkDerivation rec {
   pname = "lidarr";

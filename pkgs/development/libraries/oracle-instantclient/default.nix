@@ -34,14 +34,16 @@ let
       x86_64-linux = "21.9.0.0.0";
       aarch64-linux = "19.10.0.0.0";
       x86_64-darwin = "19.8.0.0.0";
-    }.${stdenv.hostPlatform.system} or throwSystem;
+    }
+    .${stdenv.hostPlatform.system} or throwSystem;
 
   directory =
     {
       x86_64-linux = "219000";
       aarch64-linux = "191000";
       x86_64-darwin = "198000";
-    }.${stdenv.hostPlatform.system} or throwSystem;
+    }
+    .${stdenv.hostPlatform.system} or throwSystem;
 
     # hashes per component and architecture
   hashes =
@@ -67,7 +69,8 @@ let
         tools = "sha256-1xFFGZapFq9ogGQ6ePSv4PrXl5qOAgRZWAp4mJ5uxdU=";
         odbc = "sha256-S6+5P4daK/+nXwoHmOkj4DIkHtwdzO5GOkCCI612bRY=";
       };
-    }.${stdenv.hostPlatform.system} or throwSystem;
+    }
+    .${stdenv.hostPlatform.system} or throwSystem;
 
     # rels per component and architecture, optional
   rels = { }.${stdenv.hostPlatform.system} or { };
@@ -78,14 +81,16 @@ let
       x86_64-linux = "linux.x64";
       aarch64-linux = "linux.arm64";
       x86_64-darwin = "macos.x64";
-    }.${stdenv.hostPlatform.system} or throwSystem;
+    }
+    .${stdenv.hostPlatform.system} or throwSystem;
 
   shortArch =
     {
       x86_64-linux = "linux";
       aarch64-linux = "linux";
       x86_64-darwin = "mac";
-    }.${stdenv.hostPlatform.system} or throwSystem;
+    }
+    .${stdenv.hostPlatform.system} or throwSystem;
 
     # calculate the filename of a single zip file
   srcFilename =

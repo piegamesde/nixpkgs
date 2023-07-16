@@ -84,7 +84,8 @@ let
       vdi = "vdi";
       vpc = "vhd";
       raw = "img";
-    }.${formatOpt} or formatOpt
+    }
+    .${formatOpt} or formatOpt
     ;
   rootFilename = "nixos.root${filenameSuffix}";
 

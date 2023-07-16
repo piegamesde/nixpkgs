@@ -54,7 +54,8 @@ stdenv.mkDerivation (finalAttrs: {
     ] ++ lib.optional (gtkVersion != null) {
       "2" = gtk2;
       "3" = gtk3;
-    }.${gtkVersion} or (throw "unknown GTK version ${gtkVersion}")
+    }
+    .${gtkVersion} or (throw "unknown GTK version ${gtkVersion}")
     ;
 
   postPatch = ''

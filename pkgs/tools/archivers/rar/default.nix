@@ -33,7 +33,8 @@ let
           "https://www.rarlab.com/rar/rarmacos-x64-${downloadVersion}.tar.gz";
         hash = "sha256-UN3gmEuIpCXwmw3/l+KdarAYLy1DxGoPAOB2bfJTGbw=";
       };
-    }.${stdenv.system} or (throw "Unsupported system: ${stdenv.system}");
+    }
+    .${stdenv.system} or (throw "Unsupported system: ${stdenv.system}");
   manSrc = fetchurl {
     url =
       "https://aur.archlinux.org/cgit/aur.git/plain/rar.1?h=rar&id=8e39a12e88d8a3b168c496c44c18d443c876dd10";

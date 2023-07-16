@@ -37,7 +37,8 @@ let
         hash = "sha256-8fMBJp6igH+Md5jE4LMubDmC4GLt4A+bZG/Xcz2LAJQ=";
         upstreamTriplet = "x86_64-pc-linux-gnu";
       };
-    }.${stdenv.hostPlatform.system} or throwUnsupportedSystem;
+    }
+      .${stdenv.hostPlatform.system} or throwUnsupportedSystem;
     "12" = {
       gccVersion = "12.1.0";
       alireRevision = "2";
@@ -50,7 +51,8 @@ let
         hash = "sha256-EPDPOOjWJnJsUM7GGxj20/PXumjfLoMIEFX1EDtvWVY=";
         upstreamTriplet = "x86_64-pc-linux-gnu";
       };
-    }.${stdenv.hostPlatform.system} or throwUnsupportedSystem;
+    }
+      .${stdenv.hostPlatform.system} or throwUnsupportedSystem;
   };
 
 in

@@ -12,7 +12,8 @@ let
     {
       x86_64-linux = "x86_64";
       aarch64-linux = "aarch64";
-    }."${stdenv.hostPlatform.system}" or (throw
+    }
+    ."${stdenv.hostPlatform.system}" or (throw
       "Unsupported system: ${stdenv.hostPlatform.system}");
 
   baseurl =

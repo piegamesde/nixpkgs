@@ -24,7 +24,8 @@ let
       "armv6l" = "armv6l";
       "armv7l" = "armv6l";
       "powerpc64le" = "ppc64le";
-    }.${platform.parsed.cpu.name} or (throw
+    }
+    .${platform.parsed.cpu.name} or (throw
       "Unsupported CPU ${platform.parsed.cpu.name}")
     ;
 

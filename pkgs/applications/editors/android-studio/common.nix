@@ -252,7 +252,8 @@ runCommand drvName {
         beta = [ alapshin ];
         canary = [ alapshin ];
         dev = canary;
-      }."${channel}";
+      }
+      ."${channel}";
     mainProgram = pname;
   };
 } ''

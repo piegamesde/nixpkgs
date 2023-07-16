@@ -19,7 +19,8 @@ let
     {
       x86_64-linux = "AppImage";
       x86_64-darwin = "dmg";
-    }.${system} or throwSystem;
+    }
+    .${system} or throwSystem;
 
   src = fetchurl {
     url =
@@ -28,7 +29,8 @@ let
       {
         x86_64-linux = "sha256-KEEPPtWxaY6+Nu/CE+AVAnaVZ30zmASWiIYaJt4a+3E=";
         x86_64-darwin = "sha256-8Rkj1pV6tJygznbfELnAhzhh7ImnTm9dxCxCjYlWdnU=";
-      }.${system} or throwSystem;
+      }
+      .${system} or throwSystem;
   };
 
   appimageContents = appimageTools.extractType2 { inherit name src; };

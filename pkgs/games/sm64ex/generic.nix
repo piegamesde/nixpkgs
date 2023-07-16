@@ -35,7 +35,8 @@
           "c792e5ebcba34c8d98c0c44cf29747c8ee67e7b907fcc77887f9ff2523f80572";
         "jp" =
           "9cf7a80db321b07a8d461fe536c02c87b7412433953891cdec9191bfad2db317";
-      }.${region};
+      }
+      .${region};
   }
 }:
 

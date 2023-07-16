@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
         sha256 =
           "4ec23ff4b457323ae778e871a0f1abcc1848ea105af17850b57f7dcaddcfd96d";
       };
-    }."${system}" or (throw "Unsupported system: ${system}");
+    }
+    ."${system}" or (throw "Unsupported system: ${system}");
 
   unpackPhase = ''
     ar x $src

@@ -65,7 +65,8 @@ stdenv.mkDerivation {
         {
           ipu6 = "Tiger Lake";
           ipu6ep = "Alder Lake";
-        }.${ipuVersion};
+        }
+        .${ipuVersion};
     in
     with lib; {
       description =
