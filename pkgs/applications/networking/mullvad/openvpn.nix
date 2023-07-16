@@ -8,7 +8,8 @@
   automake,
 }:
 
-openvpn.overrideAttrs (oldAttrs:
+openvpn.overrideAttrs (
+  oldAttrs:
   let
     fetchMullvadPatch =
       {

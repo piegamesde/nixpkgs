@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -57,4 +58,5 @@ import ./make-test-python.nix ({
         machine.succeed("grep '${testMessage}' /tmp/current-log")
       ''
       ;
-  })
+  }
+)

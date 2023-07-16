@@ -37,17 +37,19 @@
 let
   # do not add qemu to this wrapper, store paths get written to the podman vm config and break when GCed
 
-  binPath = lib.makeBinPath (lib.optionals stdenv.isLinux [
-    runc
-    crun
-    conmon
-    slirp4netns
-    fuse-overlayfs
-    util-linux
-    iptables
-    iproute2
-  ]
-    ++ extraPackages);
+  binPath = lib.makeBinPath (
+    lib.optionals stdenv.isLinux [
+      runc
+      crun
+      conmon
+      slirp4netns
+      fuse-overlayfs
+      util-linux
+      iptables
+      iproute2
+    ]
+    ++ extraPackages
+  );
 
   helpersBin = symlinkJoin {
     name = "podman-helper-binary-wrapper";

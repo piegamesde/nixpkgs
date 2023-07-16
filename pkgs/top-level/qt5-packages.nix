@@ -10,7 +10,8 @@
   qt5,
 }:
 
-(lib.makeScope pkgs.newScope (self:
+(lib.makeScope pkgs.newScope (
+  self:
 
   let
     libsForQt5 = self;
@@ -74,8 +75,9 @@
       ;
 
   in
-  (kdeFrameworks // plasmaMobileGear // plasma5 // plasma5.thirdParty // kdeGear
-    // mauiPackages // qt5 // {
+  (
+    kdeFrameworks // plasmaMobileGear // plasma5 // plasma5.thirdParty
+    // kdeGear // mauiPackages // qt5 // {
 
       inherit
         kdeFrameworks
@@ -292,5 +294,6 @@
         callPackage ../os-specific/linux/xp-pen-drivers/g430 { };
 
       yuview = callPackage ../applications/video/yuview { };
-    })
+    }
+  )
 ))

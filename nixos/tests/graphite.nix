@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -39,4 +40,5 @@ import ./make-test-python.nix ({
           "curl 'http://localhost:8080/metrics/find/?query=foo&format=treejson' --silent | grep foo >&2"
       )
     '';
-  })
+  }
+)

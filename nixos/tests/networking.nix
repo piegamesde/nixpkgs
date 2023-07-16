@@ -39,7 +39,8 @@ let
         useNetworkd = networkd;
         firewall.checkReversePath = true;
         firewall.allowedUDPPorts = [ 547 ];
-        interfaces = mkOverride 0 (listToAttrs (forEach vlanIfs (n:
+        interfaces = mkOverride 0 (listToAttrs (forEach vlanIfs (
+          n:
           nameValuePair "eth${toString n}" {
             ipv4.addresses = [ {
               address = "192.168.${toString n}.1";
@@ -49,7 +50,8 @@ let
               address = "fd00:1234:5678:${toString n}::1";
               prefixLength = 64;
             } ];
-          })));
+          }
+        )));
       };
       services.dhcpd4 = {
         enable = true;
@@ -1328,19 +1330,21 @@ let
             useNetworkd = networkd;
             useDHCP = false;
           };
-        } // (if networkd then
-          {
-            systemd.network.links."10-custom_name" = {
-              matchConfig.MACAddress = "52:54:00:12:01:01";
-              linkConfig.Name = "custom_name";
-            };
-          }
-        else
-          {
-            boot.initrd.services.udev.rules = ''
-              SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="52:54:00:12:01:01", KERNEL=="eth*", NAME="custom_name"
-            '';
-          })
+        } // (
+          if networkd then
+            {
+              systemd.network.links."10-custom_name" = {
+                matchConfig.MACAddress = "52:54:00:12:01:01";
+                linkConfig.Name = "custom_name";
+              };
+            }
+          else
+            {
+              boot.initrd.services.udev.rules = ''
+                SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="52:54:00:12:01:01", KERNEL=="eth*", NAME="custom_name"
+              '';
+            }
+        )
         ;
       testScript = ''
         machine.succeed("udevadm settle")
@@ -1410,13 +1414,17 @@ let
   };
 
 in
-mapAttrs (const (attrs:
-  makeTest (attrs // {
-    name =
-      "${attrs.name}-Networking-${
-        if networkd then
-          "Networkd"
-        else
-          "Scripted"
-      }";
-  }))) testCases
+mapAttrs (const (
+  attrs:
+  makeTest (
+    attrs // {
+      name =
+        "${attrs.name}-Networking-${
+          if networkd then
+            "Networkd"
+          else
+            "Scripted"
+        }";
+    }
+  )
+)) testCases

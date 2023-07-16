@@ -57,17 +57,19 @@ stdenvNoCC.mkDerivation {
       rm -r ofl/adobeblank
       dest=$out/share/fonts/truetype
     ''
-    + (if fonts == [ ] then
-      ''
-        find . -name '*.ttf' -exec install -m 444 -Dt $dest '{}' +
-      ''
-    else
-      ''
-        for font in $fonts; do
-          find . -name "$font-*.ttf" -exec install -m 444 -Dt $dest '{}' +
-          find . -name "$font[*.ttf" -exec install -m 444 -Dt $dest '{}' +
-        done
-      '')
+    + (
+      if fonts == [ ] then
+        ''
+          find . -name '*.ttf' -exec install -m 444 -Dt $dest '{}' +
+        ''
+      else
+        ''
+          for font in $fonts; do
+            find . -name "$font-*.ttf" -exec install -m 444 -Dt $dest '{}' +
+            find . -name "$font[*.ttf" -exec install -m 444 -Dt $dest '{}' +
+          done
+        ''
+    )
     ;
 
   meta = with lib; {

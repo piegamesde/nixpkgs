@@ -323,7 +323,8 @@ in
       serviceConfig = {
         # Use "+" because credentialsFile may not be accessible to User= or Group=.
         ExecStartPre = [
-            ("+"
+            (
+              "+"
               + pkgs.writeShellScript "transmission-prestart" ''
                 set -eu${
                   lib.optionalString (cfg.settings.message-level >= 3) "x"
@@ -331,7 +332,8 @@ in
                 ${pkgs.jq}/bin/jq --slurp add ${settingsFile} '${cfg.credentialsFile}' |
                 install -D -m 600 -o '${cfg.user}' -g '${cfg.group}' /dev/stdin \
                  '${cfg.home}/${settingsDir}/settings.json'
-              '')
+              ''
+            )
           ];
         ExecStart =
           "${cfg.package}/bin/transmission-daemon -f -g ${cfg.home}/${settingsDir} ${
@@ -365,8 +367,10 @@ in
           ]
           ++ optional cfg.settings.incomplete-dir-enabled
             cfg.settings.incomplete-dir
-          ++ optional (cfg.settings.watch-dir-enabled
-            && cfg.settings.trash-original-torrent-files) cfg.settings.watch-dir
+          ++ optional (
+            cfg.settings.watch-dir-enabled
+            && cfg.settings.trash-original-torrent-files
+          ) cfg.settings.watch-dir
           ;
         BindReadOnlyPaths =
           [
@@ -376,12 +380,14 @@ in
             "/etc"
             "/run"
           ]
-          ++ optional (cfg.settings.script-torrent-done-enabled
-            && cfg.settings.script-torrent-done-filename != null)
-            cfg.settings.script-torrent-done-filename
-          ++ optional (cfg.settings.watch-dir-enabled
-            && !cfg.settings.trash-original-torrent-files)
-            cfg.settings.watch-dir
+          ++ optional (
+            cfg.settings.script-torrent-done-enabled
+            && cfg.settings.script-torrent-done-filename != null
+          ) cfg.settings.script-torrent-done-filename
+          ++ optional (
+            cfg.settings.watch-dir-enabled
+            && !cfg.settings.trash-original-torrent-files
+          ) cfg.settings.watch-dir
           ;
         StateDirectory = [
           "transmission"
@@ -465,22 +471,24 @@ in
     });
 
     networking.firewall = mkMerge [
-      (mkIf cfg.openPeerPorts (if cfg.settings.peer-port-random-on-start then
-        {
-          allowedTCPPortRanges = [ {
-            from = cfg.settings.peer-port-random-low;
-            to = cfg.settings.peer-port-random-high;
-          } ];
-          allowedUDPPortRanges = [ {
-            from = cfg.settings.peer-port-random-low;
-            to = cfg.settings.peer-port-random-high;
-          } ];
-        }
-      else
-        {
-          allowedTCPPorts = [ cfg.settings.peer-port ];
-          allowedUDPPorts = [ cfg.settings.peer-port ];
-        }))
+      (mkIf cfg.openPeerPorts (
+        if cfg.settings.peer-port-random-on-start then
+          {
+            allowedTCPPortRanges = [ {
+              from = cfg.settings.peer-port-random-low;
+              to = cfg.settings.peer-port-random-high;
+            } ];
+            allowedUDPPortRanges = [ {
+              from = cfg.settings.peer-port-random-low;
+              to = cfg.settings.peer-port-random-high;
+            } ];
+          }
+        else
+          {
+            allowedTCPPorts = [ cfg.settings.peer-port ];
+            allowedUDPPorts = [ cfg.settings.peer-port ];
+          }
+      ))
       (mkIf cfg.openRPCPort { allowedTCPPorts = [ cfg.settings.rpc-port ]; })
     ];
 
@@ -547,14 +555,16 @@ in
         }
       }
 
-      ${optionalString (cfg.settings.script-torrent-done-enabled
-        && cfg.settings.script-torrent-done-filename != null) ''
-          # Stack transmission_directories profile on top of
-          # any existing profile for script-torrent-done-filename
-          # FIXME: to be tested as I'm not sure it works well with NoNewPrivileges=
-          # https://gitlab.com/apparmor/apparmor/-/wikis/AppArmorStacking#seccomp-and-no_new_privs
-          px ${cfg.settings.script-torrent-done-filename} -> &@{dirs},
-        ''}
+      ${optionalString (
+        cfg.settings.script-torrent-done-enabled
+        && cfg.settings.script-torrent-done-filename != null
+      ) ''
+        # Stack transmission_directories profile on top of
+        # any existing profile for script-torrent-done-filename
+        # FIXME: to be tested as I'm not sure it works well with NoNewPrivileges=
+        # https://gitlab.com/apparmor/apparmor/-/wikis/AppArmorStacking#seccomp-and-no_new_privs
+        px ${cfg.settings.script-torrent-done-filename} -> &@{dirs},
+      ''}
     '';
   };
 

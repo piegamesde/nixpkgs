@@ -26,11 +26,13 @@ let
     sha256 = "sha256-UQ4PwO4D1kw7JOMf6xSaRBfT822KwrvWBPDmaQjkRVQ=";
   };
 
-  pythonEnv = python3.withPackages (ps:
+  pythonEnv = python3.withPackages (
+    ps:
     with ps; [
       fonttools
       nototools
-    ]);
+    ]
+  );
 
 in
 stdenv.mkDerivation rec {

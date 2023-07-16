@@ -293,12 +293,13 @@ let
         ''}
       '';
 
-      script = concatStringsSep " \\\n  " ([
-        "exec ${cfg.backend} run"
-        "--rm"
-        "--name=${escapedName}"
-        "--log-driver=${container.log-driver}"
-      ]
+      script = concatStringsSep " \\\n  " (
+        [
+          "exec ${cfg.backend} run"
+          "--rm"
+          "--name=${escapedName}"
+          "--log-driver=${container.log-driver}"
+        ]
         ++ optional (container.entrypoint != null)
           "--entrypoint=${escapeShellArg container.entrypoint}"
         ++ lib.optionals (cfg.backend == "podman") [
@@ -319,7 +320,8 @@ let
           "-w ${escapeShellArg container.workdir}"
         ++ map escapeShellArg container.extraOptions
         ++ [ container.image ]
-        ++ map escapeShellArg container.cmd);
+        ++ map escapeShellArg container.cmd
+      );
 
       preStop =
         if cfg.backend == "podman" then
@@ -370,11 +372,12 @@ in
         "oci-containers"
       ] (oldcfg: {
         backend = "docker";
-        containers = lib.mapAttrs (n: v:
-          builtins.removeAttrs
-          (v // { extraOptions = v.extraDockerOptions or [ ]; }) [
-            "extraDockerOptions"
-          ]) oldcfg.docker-containers;
+        containers = lib.mapAttrs (
+          n: v:
+          builtins.removeAttrs (
+            v // { extraOptions = v.extraDockerOptions or [ ]; }
+          ) [ "extraDockerOptions" ]
+        ) oldcfg.docker-containers;
       }))
     ];
 

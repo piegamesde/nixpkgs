@@ -32,22 +32,26 @@ let
 
   addEntangled =
     origOverrideAttrs: f:
-    origOverrideAttrs (lib.composeExtensions f (self: super: {
-      passthru = super.passthru // {
-        entangled = super.passthru.entangled.overrideAttrs f;
-        overrideAttrs = addEntangled self.overrideAttrs;
-      };
-    }))
+    origOverrideAttrs (lib.composeExtensions f (
+      self: super: {
+        passthru = super.passthru // {
+          entangled = super.passthru.entangled.overrideAttrs f;
+          overrideAttrs = addEntangled self.overrideAttrs;
+        };
+      }
+    ))
     ;
 
   entangle =
     pkg1: pkg2:
-    pkg1.overrideAttrs (self: super: {
-      passthru = super.passthru // {
-        entangled = pkg2;
-        overrideAttrs = addEntangled self.overrideAttrs;
-      };
-    })
+    pkg1.overrideAttrs (
+      self: super: {
+        passthru = super.passthru // {
+          entangled = pkg2;
+          overrideAttrs = addEntangled self.overrideAttrs;
+        };
+      }
+    )
     ;
 
   example = entangle pkgs.hello pkgs.figlet;
@@ -55,8 +59,9 @@ let
   overrides1 =
     example.overrideAttrs (_: super: { pname = "a-better-${super.pname}"; });
 
-  repeatedOverrides = overrides1.overrideAttrs
-    (_: super: { pname = "${super.pname}-with-blackjack"; });
+  repeatedOverrides = overrides1.overrideAttrs (
+    _: super: { pname = "${super.pname}-with-blackjack"; }
+  );
 
 in
 stdenvNoCC.mkDerivation {
@@ -66,10 +71,11 @@ stdenvNoCC.mkDerivation {
     ''
       touch $out
     ''
-    + lib.concatMapStringsSep "\n" (t:
+    + lib.concatMapStringsSep "\n" (
+      t:
       "([[ ${lib.boolToString t.expr} == ${
         lib.boolToString t.expected
-      } ]] && echo '${t.name} success') || (echo '${t.name} fail' && exit 1)")
-      tests
+      } ]] && echo '${t.name} success') || (echo '${t.name} fail' && exit 1)"
+    ) tests
     ;
 }

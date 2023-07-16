@@ -42,10 +42,12 @@
   features ? "huge" # One of tiny, small, normal, big or huge
   ,
   wrapPythonDrv ? false,
-  guiSupport ? config.vim.gui or (if stdenv.isDarwin then
-    "gtk2"
-  else
-    "gtk3"),
+  guiSupport ? config.vim.gui or (
+    if stdenv.isDarwin then
+      "gtk2"
+    else
+      "gtk3"
+  ),
   luaSupport ? config.vim.lua or true,
   perlSupport ? config.vim.perl or false # Perl interpreter
   ,
@@ -160,10 +162,12 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (guiSupport == "gtk2" || guiSupport == "gtk3")
       "--enable-gui=${guiSupport}"
-    ++ lib.optional stdenv.isDarwin (if darwinSupport then
-      "--enable-darwin"
-    else
-      "--disable-darwin")
+    ++ lib.optional stdenv.isDarwin (
+      if darwinSupport then
+        "--enable-darwin"
+      else
+        "--disable-darwin"
+    )
     ++ lib.optionals luaSupport [
       "--with-lua-prefix=${lua}"
       "--enable-luainterp"

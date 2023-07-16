@@ -62,13 +62,15 @@ let
           ''--cmd "lua ${providerLuaRc}"''
           # (lib.intersperse "|" hostProviderViml)
         ]
-        ++ lib.optionals (packpathDirs.myNeovimPackages.start != [ ]
-          || packpathDirs.myNeovimPackages.opt != [ ]) [
-            "--add-flags"
-            ''--cmd "set packpath^=${vimUtils.packDir packpathDirs}"''
-            "--add-flags"
-            ''--cmd "set rtp^=${vimUtils.packDir packpathDirs}"''
-          ]
+        ++ lib.optionals (
+          packpathDirs.myNeovimPackages.start != [ ]
+          || packpathDirs.myNeovimPackages.opt != [ ]
+        ) [
+          "--add-flags"
+          ''--cmd "set packpath^=${vimUtils.packDir packpathDirs}"''
+          "--add-flags"
+          ''--cmd "set rtp^=${vimUtils.packDir packpathDirs}"''
+        ]
         ;
 
       providerLuaRc = neovimUtils.generateProviderRc args;
@@ -126,48 +128,49 @@ let
         + lib.optionalString viAlias ''
           ln -s $out/bin/nvim $out/bin/vi
         ''
-        + lib.optionalString (manifestRc != null) (let
-          manifestWrapperArgs =
-            [
-              "${neovim}/bin/nvim"
-              "${placeholder "out"}/bin/nvim-wrapper"
-            ]
-            ++ commonWrapperArgs
-            ;
-        in
-        ''
-          echo "Generating remote plugin manifest"
-          export NVIM_RPLUGIN_MANIFEST=$out/rplugin.vim
-          makeWrapper ${
-            lib.escapeShellArgs manifestWrapperArgs
-          } ${wrapperArgsStr}
+        + lib.optionalString (manifestRc != null) (
+          let
+            manifestWrapperArgs =
+              [
+                "${neovim}/bin/nvim"
+                "${placeholder "out"}/bin/nvim-wrapper"
+              ]
+              ++ commonWrapperArgs
+              ;
+          in
+          ''
+            echo "Generating remote plugin manifest"
+            export NVIM_RPLUGIN_MANIFEST=$out/rplugin.vim
+            makeWrapper ${
+              lib.escapeShellArgs manifestWrapperArgs
+            } ${wrapperArgsStr}
 
-          # Some plugins assume that the home directory is accessible for
-          # initializing caches, temporary files, etc. Even if the plugin isn't
-          # actively used, it may throw an error as soon as Neovim is launched
-          # (e.g., inside an autoload script), causing manifest generation to
-          # fail. Therefore, let's create a fake home directory before generating
-          # the manifest, just to satisfy the needs of these plugins.
-          #
-          # See https://github.com/Yggdroot/LeaderF/blob/v1.21/autoload/lfMru.vim#L10
-          # for an example of this behavior.
-          export HOME="$(mktemp -d)"
-          # Launch neovim with a vimrc file containing only the generated plugin
-          # code. Pass various flags to disable temp file generation
-          # (swap/viminfo) and redirect errors to stderr.
-          # Only display the log on error since it will contain a few normally
-          # irrelevant messages.
-          if ! $out/bin/nvim-wrapper \
-            -u ${writeText "manifest.vim" manifestRc} \
-            -i NONE -n \
-            -V1rplugins.log \
-            +UpdateRemotePlugins +quit! > outfile 2>&1; then
-            cat outfile
-            echo -e "\nGenerating rplugin.vim failed!"
-            exit 1
-          fi
-          rm "${placeholder "out"}/bin/nvim-wrapper"
-        ''
+            # Some plugins assume that the home directory is accessible for
+            # initializing caches, temporary files, etc. Even if the plugin isn't
+            # actively used, it may throw an error as soon as Neovim is launched
+            # (e.g., inside an autoload script), causing manifest generation to
+            # fail. Therefore, let's create a fake home directory before generating
+            # the manifest, just to satisfy the needs of these plugins.
+            #
+            # See https://github.com/Yggdroot/LeaderF/blob/v1.21/autoload/lfMru.vim#L10
+            # for an example of this behavior.
+            export HOME="$(mktemp -d)"
+            # Launch neovim with a vimrc file containing only the generated plugin
+            # code. Pass various flags to disable temp file generation
+            # (swap/viminfo) and redirect errors to stderr.
+            # Only display the log on error since it will contain a few normally
+            # irrelevant messages.
+            if ! $out/bin/nvim-wrapper \
+              -u ${writeText "manifest.vim" manifestRc} \
+              -i NONE -n \
+              -V1rplugins.log \
+              +UpdateRemotePlugins +quit! > outfile 2>&1; then
+              cat outfile
+              echo -e "\nGenerating rplugin.vim failed!"
+              exit 1
+            fi
+            rm "${placeholder "out"}/bin/nvim-wrapper"
+          ''
         )
         + ''
           rm $out/bin/nvim

@@ -77,7 +77,8 @@ rec {
   luarocks-nix =
     callPackage ../development/tools/misc/luarocks/luarocks-nix.nix { };
 
-  lua-resty-core = callPackage ({
+  lua-resty-core = callPackage (
+    {
       fetchFromGitHub,
     }:
     buildLuaPackage rec {
@@ -99,9 +100,11 @@ rec {
         license = licenses.bsd3;
         maintainers = with maintainers; [ SuperSandro2000 ];
       };
-    }) { };
+    }
+  ) { };
 
-  lua-resty-lrucache = callPackage ({
+  lua-resty-lrucache = callPackage (
+    {
       fetchFromGitHub,
     }:
     buildLuaPackage rec {
@@ -121,9 +124,11 @@ rec {
         license = licenses.bsd3;
         maintainers = with maintainers; [ SuperSandro2000 ];
       };
-    }) { };
+    }
+  ) { };
 
-  luxio = callPackage ({
+  luxio = callPackage (
+    {
       fetchurl,
       which,
       pkg-config,
@@ -164,14 +169,16 @@ rec {
         maintainers = with maintainers; [ richardipsum ];
         platforms = platforms.unix;
       };
-    }) { };
+    }
+  ) { };
 
   nfd = callPackage ../development/lua-modules/nfd {
     inherit (pkgs.gnome) zenity;
     inherit (pkgs.darwin.apple_sdk.frameworks) AppKit;
   };
 
-  vicious = callPackage ({
+  vicious = callPackage (
+    {
       fetchFromGitHub,
     }:
     stdenv.mkDerivation rec {
@@ -205,5 +212,6 @@ rec {
         ];
         platforms = platforms.linux;
       };
-    }) { };
+    }
+  ) { };
 }

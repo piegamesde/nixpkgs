@@ -17,7 +17,8 @@ let
     update = "Update";
   };
 
-  skipTestsCommand = builtins.foldl' (acc: goFileName:
+  skipTestsCommand = builtins.foldl' (
+    acc: goFileName:
     let
       testName = builtins.getAttr goFileName skipTests;
     in

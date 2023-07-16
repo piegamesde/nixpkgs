@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -20,7 +21,8 @@ import ./make-test-python.nix ({
         environment.systemPackages = with pkgs; [
           sqlite3-to-mysql
           # create one coherent python environment
-          (python3.withPackages (ps:
+          (python3.withPackages (
+            ps:
             sqlite3-to-mysql.propagatedBuildInputs
             ++ [
               python3Packages.pytest
@@ -29,7 +31,8 @@ import ./make-test-python.nix ({
               python3Packages.factory_boy
               python3Packages.docker # only needed so import does not fail
               sqlite3-to-mysql
-            ]))
+            ]
+          ))
         ];
         services.mysql = {
           package = pkgs.mariadb;
@@ -69,4 +72,5 @@ import ./make-test-python.nix ({
             && pytest -v --no-docker -k \"not test_invalid_database_name and not test_invalid_database_user and not test_version\""
       )
     '';
-  })
+  }
+)

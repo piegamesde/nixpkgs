@@ -57,14 +57,16 @@ stdenv.mkDerivation rec {
     openssl
     sqlite
     libyaml
-    (python3.withPackages (ps:
+    (python3.withPackages (
+      ps:
       with ps; [
         packaging
         pyyaml
         cryptography
         pyasn1-modules
         tpm2-pytss
-      ]))
+      ]
+    ))
   ];
 
   outputs = [
@@ -80,14 +82,16 @@ stdenv.mkDerivation rec {
     # explicitly include the tpm2-abrmd shared libraries.
   preFixup =
     let
-      rpath = lib.makeLibraryPath ((lib.optional abrmdSupport tpm2-abrmd)
+      rpath = lib.makeLibraryPath (
+        (lib.optional abrmdSupport tpm2-abrmd)
         ++ [
           tpm2-tss
           sqlite
           openssl
           glibc
           libyaml
-        ]);
+        ]
+      );
     in
     ''
       patchelf \

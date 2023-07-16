@@ -125,29 +125,33 @@ let
         gfxpayloadBios
         ;
       path = with pkgs;
-        makeBinPath ([
-          coreutils
-          gnused
-          gnugrep
-          findutils
-          diffutils
-          btrfs-progs
-          util-linux
-          mdadm
-        ]
+        makeBinPath (
+          [
+            coreutils
+            gnused
+            gnugrep
+            findutils
+            diffutils
+            btrfs-progs
+            util-linux
+            mdadm
+          ]
           ++ optional (cfg.efiSupport && (cfg.version == 2)) efibootmgr
           ++ optionals cfg.useOSProber [
             busybox
             os-prober
-          ]);
+          ]
+        );
       font =
         if cfg.font == null then
           ""
         else
-          (if lib.last (lib.splitString "." cfg.font) == "pf2" then
-            cfg.font
-          else
-            "${convertedFont}")
+          (
+            if lib.last (lib.splitString "." cfg.font) == "pf2" then
+              cfg.font
+            else
+              "${convertedFont}"
+          )
         ;
     })
     ;
@@ -158,14 +162,15 @@ let
 
   convertedFont =
     (pkgs.runCommand "grub-font-converted.pf2" { }
-      (builtins.concatStringsSep " " ([
-        "${realGrub}/bin/grub-mkfont"
-        cfg.font
-        "--output"
-        "$out"
-      ]
-        ++ (optional (cfg.fontSize != null)
-          "--size ${toString cfg.fontSize}"))));
+      (builtins.concatStringsSep " " (
+        [
+          "${realGrub}/bin/grub-mkfont"
+          cfg.font
+          "--output"
+          "$out"
+        ]
+        ++ (optional (cfg.fontSize != null) "--size ${toString cfg.fontSize}")
+      )));
 
   defaultSplash =
     pkgs.nixos-artwork.wallpapers.simple-dark-gray-bootloader.gnomeFilePath;
@@ -824,15 +829,17 @@ in
   config = mkMerge [
 
     {
-      boot.loader.grub.splashImage = mkDefault (if cfg.version == 1 then
-        pkgs.fetchurl {
-          url =
-            "http://www.gnome-look.org/CONTENT/content-files/36909-soft-tux.xpm.gz";
-          sha256 = "14kqdx2lfqvh40h6fjjzqgff1mwk74dmbjvmqphi6azzra7z8d59";
-        }
-        # GRUB 1.97 doesn't support gzipped XPMs.
-      else
-        defaultSplash);
+      boot.loader.grub.splashImage = mkDefault (
+        if cfg.version == 1 then
+          pkgs.fetchurl {
+            url =
+              "http://www.gnome-look.org/CONTENT/content-files/36909-soft-tux.xpm.gz";
+            sha256 = "14kqdx2lfqvh40h6fjjzqgff1mwk74dmbjvmqphi6azzra7z8d59";
+          }
+          # GRUB 1.97 doesn't support gzipped XPMs.
+        else
+          defaultSplash
+      );
     }
 
     (mkIf (cfg.splashImage == defaultSplash) {
@@ -865,7 +872,8 @@ in
             btrfsprogs = pkgs.btrfs-progs;
             inherit (config.system.nixos) distroName;
           };
-          perl = pkgs.perl.withPackages (p:
+          perl = pkgs.perl.withPackages (
+            p:
             with p; [
               FileSlurp
               FileCopyRecursive
@@ -874,18 +882,21 @@ in
               XMLSAXBase
               ListCompare
               JSON
-            ]);
+            ]
+          );
         in
-        pkgs.writeScript "install-grub.sh" (''
-          #!${pkgs.runtimeShell}
-          set -e
-          ${optionalString cfg.enableCryptodisk
-          "export GRUB_ENABLE_CRYPTODISK=y"}
-        ''
+        pkgs.writeScript "install-grub.sh" (
+          ''
+            #!${pkgs.runtimeShell}
+            set -e
+            ${optionalString cfg.enableCryptodisk
+            "export GRUB_ENABLE_CRYPTODISK=y"}
+          ''
           + flip concatMapStrings cfg.mirroredBoots (args: ''
             ${perl}/bin/perl ${install-grub-pl} ${grubConfig args} $@
           '')
-          + cfg.extraInstallCommands)
+          + cfg.extraInstallCommands
+        )
         ;
 
       system.build.grub = grub;
@@ -896,10 +907,11 @@ in
 
       environment.systemPackages = optional (grub != null) grub;
 
-      boot.loader.grub.extraPrepareConfig = concatStrings (mapAttrsToList
-        (n: v: ''
+      boot.loader.grub.extraPrepareConfig = concatStrings (mapAttrsToList (
+        n: v: ''
           ${pkgs.coreutils}/bin/cp -pf "${v}" "@bootPath@/${n}"
-        '') config.boot.loader.grub.extraFiles);
+        ''
+      ) config.boot.loader.grub.extraFiles);
 
       assertions =
         [
@@ -917,11 +929,13 @@ in
           {
             assertion =
               cfg.efiSupport
-              || all (c: c < 2) (mapAttrsToList (n: c:
+              || all (c: c < 2) (mapAttrsToList (
+                n: c:
                 if n == "nodev" then
                   0
                 else
-                  c) bootDeviceCounters)
+                  c
+              ) bootDeviceCounters)
               ;
             message = "You cannot have duplicated devices in mirroredBoots";
           }
@@ -959,7 +973,8 @@ in
               "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn off boot.loader.efi.canTouchEfiVariables";
           }
         ]
-        ++ flip concatMap cfg.mirroredBoots (args:
+        ++ flip concatMap cfg.mirroredBoots (
+          args:
           [
             {
               assertion = args.devices != [ ];
@@ -985,7 +1000,8 @@ in
             assertion = device == "nodev" || hasPrefix "/" device;
             message =
               "GRUB devices must be absolute paths, not ${device} in ${args.path}";
-          }))
+          })
+        )
         ;
     })
 

@@ -179,92 +179,132 @@ stdenv.mkDerivation rec {
     ++ optional libjpegSupport libjpeg
     ++ optional bs2bSupport libbs2b
     ++ optional v4lSupport libv4l
-    ++ (with darwin.apple_sdk.frameworks;
+    ++ (
+      with darwin.apple_sdk.frameworks;
       optionals stdenv.isDarwin [
         Cocoa
         OpenGL
-      ]);
+      ]
+    );
 
   configurePlatforms = [ ];
   configureFlags = with lib;
     [
       "--enable-freetype"
-      (if fontconfigSupport then
-        "--enable-fontconfig"
-      else
-        "--disable-fontconfig")
-      (if x11Support then
-        "--enable-x11 --enable-gl"
-      else
-        "--disable-x11 --disable-gl")
-      (if xineramaSupport then
-        "--enable-xinerama"
-      else
-        "--disable-xinerama")
-      (if xvSupport then
-        "--enable-xv"
-      else
-        "--disable-xv")
-      (if alsaSupport then
-        "--enable-alsa"
-      else
-        "--disable-alsa")
-      (if screenSaverSupport then
-        "--enable-xss"
-      else
-        "--disable-xss")
-      (if vdpauSupport then
-        "--enable-vdpau"
-      else
-        "--disable-vdpau")
-      (if cddaSupport then
-        "--enable-cdparanoia"
-      else
-        "--disable-cdparanoia")
-      (if dvdnavSupport then
-        "--enable-dvdnav"
-      else
-        "--disable-dvdnav")
-      (if bluraySupport then
-        "--enable-bluray"
-      else
-        "--disable-bluray")
-      (if amrSupport then
-        "--enable-libopencore_amrnb"
-      else
-        "--disable-libopencore_amrnb")
-      (if cacaSupport then
-        "--enable-caca"
-      else
-        "--disable-caca")
-      (if lameSupport then
-        "--enable-mp3lame --disable-mp3lame-lavc"
-      else
-        "--disable-mp3lame --enable-mp3lame-lavc")
-      (if speexSupport then
-        "--enable-speex"
-      else
-        "--disable-speex")
-      (if theoraSupport then
-        "--enable-theora"
-      else
-        "--disable-theora")
-      (if x264Support then
-        "--enable-x264 --disable-x264-lavc"
-      else
-        "--disable-x264 --enable-x264-lavc")
-      (if jackaudioSupport then
-        ""
-      else
-        "--disable-jack")
-      (if pulseSupport then
-        "--enable-pulse"
-      else
-        "--disable-pulse")
-      (if v4lSupport then
-        "--enable-v4l2 --enable-tv-v4l2"
-      else
-        "--disable-v4l2 --disable-tv-v4l2")
+      (
+        if fontconfigSupport then
+          "--enable-fontconfig"
+        else
+          "--disable-fontconfig"
+      )
+      (
+        if x11Support then
+          "--enable-x11 --enable-gl"
+        else
+          "--disable-x11 --disable-gl"
+      )
+      (
+        if xineramaSupport then
+          "--enable-xinerama"
+        else
+          "--disable-xinerama"
+      )
+      (
+        if xvSupport then
+          "--enable-xv"
+        else
+          "--disable-xv"
+      )
+      (
+        if alsaSupport then
+          "--enable-alsa"
+        else
+          "--disable-alsa"
+      )
+      (
+        if screenSaverSupport then
+          "--enable-xss"
+        else
+          "--disable-xss"
+      )
+      (
+        if vdpauSupport then
+          "--enable-vdpau"
+        else
+          "--disable-vdpau"
+      )
+      (
+        if cddaSupport then
+          "--enable-cdparanoia"
+        else
+          "--disable-cdparanoia"
+      )
+      (
+        if dvdnavSupport then
+          "--enable-dvdnav"
+        else
+          "--disable-dvdnav"
+      )
+      (
+        if bluraySupport then
+          "--enable-bluray"
+        else
+          "--disable-bluray"
+      )
+      (
+        if amrSupport then
+          "--enable-libopencore_amrnb"
+        else
+          "--disable-libopencore_amrnb"
+      )
+      (
+        if cacaSupport then
+          "--enable-caca"
+        else
+          "--disable-caca"
+      )
+      (
+        if lameSupport then
+          "--enable-mp3lame --disable-mp3lame-lavc"
+        else
+          "--disable-mp3lame --enable-mp3lame-lavc"
+      )
+      (
+        if speexSupport then
+          "--enable-speex"
+        else
+          "--disable-speex"
+      )
+      (
+        if theoraSupport then
+          "--enable-theora"
+        else
+          "--disable-theora"
+      )
+      (
+        if x264Support then
+          "--enable-x264 --disable-x264-lavc"
+        else
+          "--disable-x264 --enable-x264-lavc"
+      )
+      (
+        if jackaudioSupport then
+          ""
+        else
+          "--disable-jack"
+      )
+      (
+        if pulseSupport then
+          "--enable-pulse"
+        else
+          "--disable-pulse"
+      )
+      (
+        if v4lSupport then
+          "--enable-v4l2 --enable-tv-v4l2"
+        else
+          "--disable-v4l2 --disable-tv-v4l2"
+      )
       "--disable-xanim"
       "--disable-xvid --disable-xvid-lavc"
       "--disable-ossaudio"
@@ -303,14 +343,16 @@ stdenv.mkDerivation rec {
   '';
 
   NIX_LDFLAGS = with lib;
-    toString (optional fontconfigSupport "-lfontconfig"
+    toString (
+      optional fontconfigSupport "-lfontconfig"
       ++ optional fribidiSupport "-lfribidi"
       ++ optionals x11Support [
         "-lX11"
         "-lXext"
       ]
       ++ optional x264Support "-lx264"
-      ++ [ "-lfreetype" ]);
+      ++ [ "-lfreetype" ]
+    );
 
   installTargets = [ "install" ] ++ lib.optional x11Support "install-gui";
 

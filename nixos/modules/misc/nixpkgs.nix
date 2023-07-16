@@ -386,31 +386,33 @@ in
     _module.args = { pkgs = finalPkgs.__splicedPackages; };
 
     assertions = [
-      (let
-        nixosExpectedSystem =
-          if config.nixpkgs.crossSystem != null then
-            config.nixpkgs.crossSystem.system or (lib.systems.parse.doubleFromSystem
-              (lib.systems.parse.mkSystemFromString
-                config.nixpkgs.crossSystem.config))
-          else
-            config.nixpkgs.localSystem.system or (lib.systems.parse.doubleFromSystem
-              (lib.systems.parse.mkSystemFromString
-                config.nixpkgs.localSystem.config))
-          ;
-        nixosOption =
-          if config.nixpkgs.crossSystem != null then
-            "nixpkgs.crossSystem"
-          else
-            "nixpkgs.localSystem"
-          ;
-        pkgsSystem = finalPkgs.stdenv.targetPlatform.system;
-      in
-      {
-        assertion =
-          constructedByMe -> !hasPlatform -> nixosExpectedSystem == pkgsSystem;
-        message =
-          "The NixOS nixpkgs.pkgs option was set to a Nixpkgs invocation that compiles to target system ${pkgsSystem} but NixOS was configured for system ${nixosExpectedSystem} via NixOS option ${nixosOption}. The NixOS system settings must match the Nixpkgs target system.";
-      }
+      (
+        let
+          nixosExpectedSystem =
+            if config.nixpkgs.crossSystem != null then
+              config.nixpkgs.crossSystem.system or (lib.systems.parse.doubleFromSystem
+                (lib.systems.parse.mkSystemFromString
+                  config.nixpkgs.crossSystem.config))
+            else
+              config.nixpkgs.localSystem.system or (lib.systems.parse.doubleFromSystem
+                (lib.systems.parse.mkSystemFromString
+                  config.nixpkgs.localSystem.config))
+            ;
+          nixosOption =
+            if config.nixpkgs.crossSystem != null then
+              "nixpkgs.crossSystem"
+            else
+              "nixpkgs.localSystem"
+            ;
+          pkgsSystem = finalPkgs.stdenv.targetPlatform.system;
+        in
+        {
+          assertion =
+            constructedByMe -> !hasPlatform -> nixosExpectedSystem == pkgsSystem
+            ;
+          message =
+            "The NixOS nixpkgs.pkgs option was set to a Nixpkgs invocation that compiles to target system ${pkgsSystem} but NixOS was configured for system ${nixosExpectedSystem} via NixOS option ${nixosOption}. The NixOS system settings must match the Nixpkgs target system.";
+        }
       )
       {
         assertion =

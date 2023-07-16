@@ -91,14 +91,16 @@ let
   extras = {
     # GPLv2 compatible
     argon2 = [
-        (libargon2 // {
-          meta = libargon2.meta // {
-            # use libargon2 as CC0 since ASL20 is GPLv2-incompatible
-            # updating this here is important that meta.license is accurate
-            # libargon2 is licensed under either ASL20 or CC0.
-            license = lib.licenses.cc0;
-          };
-        })
+        (
+          libargon2 // {
+            meta = libargon2.meta // {
+              # use libargon2 as CC0 since ASL20 is GPLv2-incompatible
+              # updating this here is important that meta.license is accurate
+              # libargon2 is licensed under either ASL20 or CC0.
+              license = lib.licenses.cc0;
+            };
+          }
+        )
       ];
     ldap = [ openldap ];
     mysql = [ libmysqlclient ];
@@ -121,9 +123,9 @@ let
   };
 
     # buildInputs necessary for the enabled extraModules
-  extraInputs = lib.concatMap
-    (m: extras."${m}" or (builtins.throw "Unknown extra module ${m}"))
-    extraModules;
+  extraInputs = lib.concatMap (
+    m: extras."${m}" or (builtins.throw "Unknown extra module ${m}")
+  ) extraModules;
 
     # if true, we can't provide a binary version of this
     # package without violating the GPL 2

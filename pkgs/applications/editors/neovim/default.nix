@@ -32,8 +32,10 @@
 }:
 
 let
-  neovimLuaEnv = lua.withPackages (ps:
-    (with ps;
+  neovimLuaEnv = lua.withPackages (
+    ps:
+    (
+      with ps;
       [
         lpeg
         luabitop
@@ -47,7 +49,9 @@ let
         luafilesystem
         penlight
         inspect
-      ]));
+      ]
+    )
+  );
   codegenLua =
     if lua.pkgs.isLuaJIT then
       let
@@ -64,11 +68,13 @@ let
       lua
     ;
 
-  pyEnv = python3.withPackages (ps:
+  pyEnv = python3.withPackages (
+    ps:
     with ps; [
       pynvim
       msgpack
-    ]);
+    ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "neovim-unwrapped";
@@ -175,16 +181,18 @@ stdenv.mkDerivation rec {
     + ''
       mkdir -p $out/lib/nvim/parser
     ''
-    + lib.concatStrings (lib.mapAttrsToList (language: src: ''
-      ln -s \
-        ${
-          tree-sitter.buildGrammar {
-            inherit language src;
-            version = "neovim-${version}";
-          }
-        }/parser \
-        $out/lib/nvim/parser/${language}.so
-    '') treesitter-parsers)
+    + lib.concatStrings (lib.mapAttrsToList (
+      language: src: ''
+        ln -s \
+          ${
+            tree-sitter.buildGrammar {
+              inherit language src;
+              version = "neovim-${version}";
+            }
+          }/parser \
+          $out/lib/nvim/parser/${language}.so
+      ''
+    ) treesitter-parsers)
     ;
 
   shellHook = ''

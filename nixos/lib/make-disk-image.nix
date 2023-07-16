@@ -189,10 +189,12 @@
     # When fsType = ext4, this is the root Filesystem Unique Identifier.
     # TODO: support other filesystems someday.
   ,
-  rootFSUID ? (if fsType == "ext4" then
-    rootGPUID
-  else
-    null)
+  rootFSUID ? (
+    if fsType == "ext4" then
+      rootGPUID
+    else
+      null
+  )
 
   , # Whether a nix channel based on the current source tree should be
   # made available inside the image. Useful for interactive use of nix
@@ -216,19 +218,22 @@ assert (lib.assertMsg (fsType == "ext4" && deterministic -> rootFSUID != null)
 # We use -E offset=X below, which is only supported by e2fsprogs
 assert (lib.assertMsg (partitionTableType != "none" -> fsType == "ext4")
   "to produce a partition table, we need to use -E offset flag which is support only for fsType = ext4");
-assert (lib.assertMsg (touchEFIVars
+assert (lib.assertMsg (
+  touchEFIVars
   -> partitionTableType == "hybrid"
     || partitionTableType == "efi"
-    || partitionTableType == "legacy+gpt")
+    || partitionTableType == "legacy+gpt"
+)
   "EFI variables can be used only with a partition table of type: hybrid, efi or legacy+gpt.");
 # If only Nix store image, then: contents must be empty, configFile must be unset, and we should no install bootloader.
-assert (lib.assertMsg
-  (onlyNixStore -> contents == [ ] && configFile == null && !installBootLoader)
+assert (lib.assertMsg (
+  onlyNixStore -> contents == [ ] && configFile == null && !installBootLoader
+)
   "In a only Nix store image, the contents must be empty, no configuration must be provided and no bootloader should be installed.");
 # Either both or none of {user,group} need to be set
-assert (lib.assertMsg (lib.all
-  (attrs: ((attrs.user or null) == null) == ((attrs.group or null) == null))
-  contents)
+assert (lib.assertMsg (lib.all (
+  attrs: ((attrs.user or null) == null) == ((attrs.group or null) == null)
+) contents)
   "Contents of the disk image should set none of {user, group} or both at the same time.");
 
 with lib;
@@ -344,20 +349,22 @@ let
   '';
 
   binPath = with pkgs;
-    makeBinPath ([
-      rsync
-      util-linux
-      parted
-      0.0
-      fsprogs
-      lkl
-      config.system.build.nixos-install
-      config.system.build.nixos-enter
-      nix
-      systemdMinimal
-    ]
+    makeBinPath (
+      [
+        rsync
+        util-linux
+        parted
+        0.0
+        fsprogs
+        lkl
+        config.system.build.nixos-install
+        config.system.build.nixos-enter
+        nix
+        systemdMinimal
+      ]
       ++ lib.optional deterministic gptfdisk
-      ++ stdenv.initialPath);
+      ++ stdenv.initialPath
+    );
 
     # I'm preserving the line below because I'm going to search for it across nixpkgs to consolidate
     # image building logic. The comment right below this now appears in 4 different places in nixpkgs :)
@@ -598,11 +605,13 @@ let
       dosfstools
     ];
     postVM = moveOrConvertImage + postVM;
-    QEMU_OPTS = concatStringsSep " " (lib.optional useEFIBoot
-      "-drive if=pflash,format=raw,unit=0,readonly=on,file=${efiFirmware}"
+    QEMU_OPTS = concatStringsSep " " (
+      lib.optional useEFIBoot
+        "-drive if=pflash,format=raw,unit=0,readonly=on,file=${efiFirmware}"
       ++ lib.optionals touchEFIVars [
           "-drive if=pflash,format=raw,unit=1,file=$efiVars"
-        ]);
+        ]
+    );
     inherit memSize;
   } ''
     export PATH=${binPath}:$PATH
@@ -632,8 +641,9 @@ let
 
     # Create the ESP and mount it. Unlike e2fsprogs, mkfs.vfat doesn't support an
     # '-E offset=X' option, so we can't do this outside the VM.
-    ${optionalString
-    (partitionTableType == "efi" || partitionTableType == "hybrid") ''
+    ${optionalString (
+      partitionTableType == "efi" || partitionTableType == "hybrid"
+    ) ''
       mkdir -p /mnt/boot
       mkfs.vfat -n ESP /dev/vda1
       mount /dev/vda1 /mnt/boot

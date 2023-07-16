@@ -160,7 +160,8 @@ let
   };
 
 in
-lib.makeScope pkgs.newScope (self:
+lib.makeScope pkgs.newScope (
+  self:
   with self;
   {
     inherit
@@ -200,7 +201,8 @@ lib.makeScope pkgs.newScope (self:
           maintainers = [ maintainers.turbomack ];
         };
     };
-  } // (hs810Pkgs self).elmPkgs // (hs92Pkgs self).elmPkgs // (with elmLib;
+  } // (hs810Pkgs self).elmPkgs // (hs92Pkgs self).elmPkgs // (
+    with elmLib;
     with (hs810Pkgs self).elmPkgs; {
       elm-verify-examples =
         patchBinwrap [ elmi-to-json ] nodePkgs.elm-verify-examples // {
@@ -221,7 +223,9 @@ lib.makeScope pkgs.newScope (self:
         patched.override (old: {
           # Symlink Elm instrument binary
           preRebuild =
-            (old.preRebuild or "")
+            (
+              old.preRebuild or ""
+            )
             + ''
               # Noop custom installation script
               sed 's/\"install\".*/\"install\":\"echo no-op\"/g' --in-place package.json
@@ -233,7 +237,9 @@ lib.makeScope pkgs.newScope (self:
             ''
             ;
           postInstall =
-            (old.postInstall or "")
+            (
+              old.postInstall or ""
+            )
             + ''
               mkdir -p unpacked_bin
               ln -sf ${elm-instrument}/bin/elm-instrument unpacked_bin/elm-instrument
@@ -283,7 +289,9 @@ lib.makeScope pkgs.newScope (self:
 
       elm-spa = nodePkgs."elm-spa".overrideAttrs (old: {
         nativeBuildInputs =
-          (old.nativeBuildInputs or [ ])
+          (
+            old.nativeBuildInputs or [ ]
+          )
           ++ [
             makeWrapper
             old.nodejs.pkgs.node-gyp-build
@@ -312,7 +320,9 @@ lib.makeScope pkgs.newScope (self:
 
       elm-pages = nodePkgs."elm-pages".overrideAttrs (old: {
         nativeBuildInputs =
-          (old.nativeBuildInputs or [ ])
+          (
+            old.nativeBuildInputs or [ ]
+          )
           ++ [
             makeWrapper
             old.nodejs.pkgs.node-gyp-build
@@ -365,4 +375,6 @@ lib.makeScope pkgs.newScope (self:
         elm-analyse
         elm-git-install
         ;
-    }))
+    }
+  )
+)

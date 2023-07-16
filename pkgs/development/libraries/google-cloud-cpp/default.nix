@@ -95,14 +95,16 @@ stdenv.mkDerivation rec {
       ldLibraryPathName =
         "${lib.optionalString stdenv.isDarwin "DY"}LD_LIBRARY_PATH";
     in
-    lib.optionalString doInstallCheck (lib.optionalString (!staticOnly) ''
-      export ${ldLibraryPathName}=${
-        lib.concatStringsSep ":" additionalLibraryPaths
-      }
-    ''
+    lib.optionalString doInstallCheck (
+      lib.optionalString (!staticOnly) ''
+        export ${ldLibraryPathName}=${
+          lib.concatStringsSep ":" additionalLibraryPaths
+        }
+      ''
       + ''
         export GTEST_FILTER="-${lib.concatStringsSep ":" excludedTests.cases}"
-      '')
+      ''
+    )
     ;
 
   installCheckPhase = lib.optionalString doInstallCheck ''

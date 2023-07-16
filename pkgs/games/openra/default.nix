@@ -25,12 +25,14 @@ let
     let
       f = import ./common.nix;
     in
-    f (builtins.intersectAttrs (functionArgs f) pkgs // {
-      lua = pkgs.lua5_1;
-        # It is not necessary to run the game, but it is nicer to be given an error dialog in the case of failure,
-        # rather than having to look to the logs why it is not starting.
-      inherit (pkgs.gnome) zenity;
-    })
+    f (
+      builtins.intersectAttrs (functionArgs f) pkgs // {
+        lua = pkgs.lua5_1;
+          # It is not necessary to run the game, but it is nicer to be given an error dialog in the case of failure,
+          # rather than having to look to the logs why it is not starting.
+        inherit (pkgs.gnome) zenity;
+      }
+    )
     ;
 
     /* Building a set of engines or mods requires some dependencies as well,
@@ -54,13 +56,15 @@ let
     ;
   buildOpenRASet =
     f: args:
-    pkgs.recurseIntoAttrs (mapAttrs callWithName (f ({
-      inherit (pkgs) fetchFromGitHub;
-      postFetch = ''
-        sed -i 's/curl/curl --insecure/g' $out/thirdparty/{fetch-thirdparty-deps,noget}.sh
-        $out/thirdparty/fetch-thirdparty-deps.sh
-      '';
-    } // args)))
+    pkgs.recurseIntoAttrs (mapAttrs callWithName (f (
+      {
+        inherit (pkgs) fetchFromGitHub;
+        postFetch = ''
+          sed -i 's/curl/curl --insecure/g' $out/thirdparty/{fetch-thirdparty-deps,noget}.sh
+          $out/thirdparty/fetch-thirdparty-deps.sh
+        '';
+      } // args
+    )))
     ;
 
 in
@@ -80,8 +84,9 @@ pkgs.recurseIntoAttrs rec {
     let
       builder =
         name:
-        pkgs.callPackage ./engine.nix
-        (common // { engine = engine // { inherit name; }; })
+        pkgs.callPackage ./engine.nix (
+          common // { engine = engine // { inherit name; }; }
+        )
         ;
     in
     if name == null then
@@ -102,7 +107,8 @@ pkgs.recurseIntoAttrs rec {
       engine,
       assetsError ? ""
     }@mod:
-    ({
+    (
+      {
         version,
         mods ? [ ],
         src,
@@ -110,10 +116,12 @@ pkgs.recurseIntoAttrs rec {
       let
         builder =
           name:
-          pkgs.callPackage ./mod.nix (common // {
-            mod = mod // { inherit name assetsError; };
-            engine = engine // { inherit mods; };
-          })
+          pkgs.callPackage ./mod.nix (
+            common // {
+              mod = mod // { inherit name assetsError; };
+              engine = engine // { inherit mods; };
+            }
+          )
           ;
       in
       if name == null then

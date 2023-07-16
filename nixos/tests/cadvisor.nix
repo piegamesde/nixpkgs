@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -42,4 +43,5 @@ import ./make-test-python.nix ({
       influxdb.wait_for_unit("cadvisor.service")
       influxdb.succeed("curl -f http://localhost:8080/containers/")
     '';
-  })
+  }
+)

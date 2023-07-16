@@ -42,7 +42,8 @@ let
     }
     ;
 
-  libpicoipp = callPackage ({
+  libpicoipp = callPackage (
+    {
       stdenv,
       lib,
       fetchurl,
@@ -72,7 +73,8 @@ let
           sourceProvenance = with sourceTypes; [ binaryNativeCode ];
           description = "library for picotech oscilloscope software";
         };
-    }) { };
+    }
+  ) { };
 
     # If we don't have a platform available, put a dummy version here, so at
     # least evaluation succeeds.
@@ -135,15 +137,17 @@ stdenv.mkDerivation rec {
   scopeLibs = lib.attrVals (map (x: "lib${x}") scopes) scopePkgs;
   MONO_PATH =
     "${gtk-sharp-3_0}/lib/mono/gtk-sharp-3.0:"
-    + (lib.makeLibraryPath ([
-      glib
-      gtk3-x11
-      gtk-sharp-3_0
-      libusb1
-      zlib
-      libpicoipp
-    ]
-      ++ scopeLibs))
+    + (lib.makeLibraryPath (
+      [
+        glib
+        gtk3-x11
+        gtk-sharp-3_0
+        libusb1
+        zlib
+        libpicoipp
+      ]
+      ++ scopeLibs
+    ))
     ;
 
   installPhase = ''

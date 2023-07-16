@@ -26,11 +26,13 @@ let
       moduleData.supportedWhenPlatformAttrsEqual)
     ;
 
-  modulePkgs = flip mapAttrs modules (_moduleName: moduleData:
+  modulePkgs = flip mapAttrs modules (
+    _moduleName: moduleData:
     if moduleData ? attrPath && isSupported moduleData then
       getAttrFromPath moduleData.attrPath pkgs
     else
-      null);
+      null
+  );
 
 in
 modulePkgs

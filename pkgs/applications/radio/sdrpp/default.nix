@@ -114,40 +114,42 @@ stdenv.mkDerivation rec {
     ++ lib.optional m17_decoder codec2
     ;
 
-  cmakeFlags = lib.mapAttrsToList (k: v:
+  cmakeFlags = lib.mapAttrsToList (
+    k: v:
     "-D${k}=${
       if v then
         "ON"
       else
         "OFF"
-    }") {
-      OPT_BUILD_AIRSPY_SOURCE = airspy_source;
-      OPT_BUILD_AIRSPYHF_SOURCE = airspyhf_source;
-      OPT_BUILD_BLADERF_SOURCE = bladerf_source;
-      OPT_BUILD_FILE_SOURCE = file_source;
-      OPT_BUILD_HACKRF_SOURCE = hackrf_source;
-      OPT_BUILD_LIMESDR_SOURCE = limesdr_source;
-      OPT_BUILD_SDDC_SOURCE = sddc_source;
-      OPT_BUILD_RTL_SDR_SOURCE = rtl_sdr_source;
-      OPT_BUILD_RTL_TCP_SOURCE = rtl_tcp_source;
-      OPT_BUILD_SDRPLAY_SOURCE = sdrplay_source;
-      OPT_BUILD_SOAPY_SOURCE = soapy_source;
-      OPT_BUILD_SPYSERVER_SOURCE = spyserver_source;
-      OPT_BUILD_PLUTOSDR_SOURCE = plutosdr_source;
-      OPT_BUILD_AUDIO_SINK = audio_sink;
-      OPT_BUILD_PORTAUDIO_SINK = portaudio_sink;
-      OPT_BUILD_NETWORK_SINK = network_sink;
-      OPT_BUILD_NEW_PORTAUDIO_SINK = portaudio_sink;
-      OPT_BUILD_FALCON9_DECODER = falcon9_decoder;
-      OPT_BUILD_M17_DECODER = m17_decoder;
-      OPT_BUILD_METEOR_DEMODULATOR = meteor_demodulator;
-      OPT_BUILD_RADIO = radio;
-      OPT_BUILD_WEATHER_SAT_DECODER = weather_sat_decoder;
-      OPT_BUILD_DISCORD_PRESENCE = discord_presence;
-      OPT_BUILD_FREQUENCY_MANAGER = frequency_manager;
-      OPT_BUILD_RECORDER = recorder;
-      OPT_BUILD_RIGCTL_SERVER = rigctl_server;
-    };
+    }"
+  ) {
+    OPT_BUILD_AIRSPY_SOURCE = airspy_source;
+    OPT_BUILD_AIRSPYHF_SOURCE = airspyhf_source;
+    OPT_BUILD_BLADERF_SOURCE = bladerf_source;
+    OPT_BUILD_FILE_SOURCE = file_source;
+    OPT_BUILD_HACKRF_SOURCE = hackrf_source;
+    OPT_BUILD_LIMESDR_SOURCE = limesdr_source;
+    OPT_BUILD_SDDC_SOURCE = sddc_source;
+    OPT_BUILD_RTL_SDR_SOURCE = rtl_sdr_source;
+    OPT_BUILD_RTL_TCP_SOURCE = rtl_tcp_source;
+    OPT_BUILD_SDRPLAY_SOURCE = sdrplay_source;
+    OPT_BUILD_SOAPY_SOURCE = soapy_source;
+    OPT_BUILD_SPYSERVER_SOURCE = spyserver_source;
+    OPT_BUILD_PLUTOSDR_SOURCE = plutosdr_source;
+    OPT_BUILD_AUDIO_SINK = audio_sink;
+    OPT_BUILD_PORTAUDIO_SINK = portaudio_sink;
+    OPT_BUILD_NETWORK_SINK = network_sink;
+    OPT_BUILD_NEW_PORTAUDIO_SINK = portaudio_sink;
+    OPT_BUILD_FALCON9_DECODER = falcon9_decoder;
+    OPT_BUILD_M17_DECODER = m17_decoder;
+    OPT_BUILD_METEOR_DEMODULATOR = meteor_demodulator;
+    OPT_BUILD_RADIO = radio;
+    OPT_BUILD_WEATHER_SAT_DECODER = weather_sat_decoder;
+    OPT_BUILD_DISCORD_PRESENCE = discord_presence;
+    OPT_BUILD_FREQUENCY_MANAGER = frequency_manager;
+    OPT_BUILD_RECORDER = recorder;
+    OPT_BUILD_RIGCTL_SERVER = rigctl_server;
+  };
 
   env.NIX_CFLAGS_COMPILE = "-fpermissive";
 

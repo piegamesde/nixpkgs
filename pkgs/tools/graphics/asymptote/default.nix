@@ -63,10 +63,12 @@ stdenv.mkDerivation rec {
       curl
       texLive
     ]
-    ++ (with python3Packages; [
-      python
-      pyqt5
-    ])
+    ++ (
+      with python3Packages; [
+        python
+        pyqt5
+      ]
+    )
     ;
 
   propagatedBuildInputs =
@@ -77,11 +79,13 @@ stdenv.mkDerivation rec {
       libGL
       mesa.osmesa
     ]
-    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-      OpenGL
-      GLUT
-      Cocoa
-    ])
+    ++ lib.optionals stdenv.isDarwin (
+      with darwin.apple_sdk.frameworks; [
+        OpenGL
+        GLUT
+        Cocoa
+      ]
+    )
     ;
 
   preConfigure = ''

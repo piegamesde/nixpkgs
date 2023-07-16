@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -54,4 +55,5 @@ import ./make-test-python.nix ({
       result = machine.succeed("curl -fsS localhost:3000")
       assert result, "HTTP response from localhost:3000 must not be empty!"
     '';
-  })
+  }
+)

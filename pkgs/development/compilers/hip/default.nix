@@ -186,7 +186,9 @@ stdenv.mkDerivation (finalAttrs: {
       "1010"
       "1012"
       "1030"
-    ] (target: "gfx${target}");
+    ] (
+      target: "gfx${target}"
+    );
 
     updateScript = rocmUpdateScript {
       name = finalAttrs.pname;

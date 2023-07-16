@@ -36,10 +36,12 @@ let
 
   optFlag =
     w:
-    (if w then
-      "1"
-    else
-      "0")
+    (
+      if w then
+        "1"
+      else
+        "0"
+    )
     ;
 in
 stdenv.mkDerivation rec {

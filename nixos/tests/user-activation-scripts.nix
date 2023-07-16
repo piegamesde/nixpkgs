@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }: {
@@ -33,4 +34,5 @@ import ./make-test-python.nix ({
       machine.succeed("/run/current-system/bin/switch-to-configuration test")
       verify_user_activation_run_count(2)
     '';
-  })
+  }
+)

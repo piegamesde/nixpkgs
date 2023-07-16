@@ -57,19 +57,23 @@ stdenv.mkDerivation (finalAttrs: {
       ninja
       which
     ]
-    ++ lists.optionals pythonSupport (with python3Packages; [
-      pip
-      setuptools
-      wheel
-    ])
+    ++ lists.optionals pythonSupport (
+      with python3Packages; [
+        pip
+        setuptools
+        wheel
+      ]
+    )
     ;
 
   buildInputs =
     [ cuda-redist ]
-    ++ lib.optionals pythonSupport (with python3Packages; [
-      pybind11
-      python
-    ])
+    ++ lib.optionals pythonSupport (
+      with python3Packages; [
+        pybind11
+        python
+      ]
+    )
     ;
 
   propagatedBuildInputs =

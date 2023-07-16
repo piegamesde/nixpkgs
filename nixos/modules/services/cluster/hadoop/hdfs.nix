@@ -89,9 +89,10 @@ let
 
           services.hadoop.gatewayRole.enable = true;
 
-          networking.firewall.allowedTCPPorts = mkIf
-            ((builtins.hasAttr "openFirewall" serviceOptions)
-              && serviceOptions.openFirewall) allowedTCPPorts;
+          networking.firewall.allowedTCPPorts = mkIf (
+            (builtins.hasAttr "openFirewall" serviceOptions)
+            && serviceOptions.openFirewall
+          ) allowedTCPPorts;
         }
         extraConfig
       ]))

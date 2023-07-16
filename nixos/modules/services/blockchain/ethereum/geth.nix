@@ -208,7 +208,8 @@ in
     environment.systemPackages =
       flatten (mapAttrsToList (gethName: cfg: [ cfg.package ]) eachGeth);
 
-    systemd.services = mapAttrs' (gethName: cfg:
+    systemd.services = mapAttrs' (
+      gethName: cfg:
       let
         stateDir =
           "goethereum/${gethName}/${

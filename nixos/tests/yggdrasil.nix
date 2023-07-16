@@ -25,7 +25,8 @@ let
   danIp6 = bobPrefix + "::2";
 
 in
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -182,4 +183,5 @@ import ./make-test-python.nix ({
       carol.succeed("curl --fail -g http://[${aliceIp6}]")
       carol.succeed("curl --fail -g http://[${danIp6}]")
     '';
-  })
+  }
+)

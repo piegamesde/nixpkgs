@@ -53,10 +53,13 @@ let
     # Additional /etc/hosts entries for peers with an associated hostname
   cjdnsExtraHosts = pkgs.runCommand "cjdns-hosts" { } ''
     exec >$out
-    ${concatStringsSep "\n" (mapAttrsToList (k: v:
+    ${concatStringsSep "\n" (mapAttrsToList (
+      k: v:
       optionalString (v.hostname != "")
-      "echo $(${pkgs.cjdns}/bin/publictoip6 ${v.publicKey}) ${v.hostname}")
-      (cfg.ETHInterface.connectTo // cfg.UDPInterface.connectTo))}
+      "echo $(${pkgs.cjdns}/bin/publictoip6 ${v.publicKey}) ${v.hostname}"
+    ) (
+      cfg.ETHInterface.connectTo // cfg.UDPInterface.connectTo
+    ))}
   '';
 
   parseModules =
@@ -299,19 +302,21 @@ in
         ;
 
       script =
-        (if cfg.confFile != null then
-          "${pkg}/bin/cjdroute < ${cfg.confFile}"
-        else
-          ''
-            source /etc/cjdns.keys
-            (cat <<'EOF'
-            ${cjdrouteConf}
-            EOF
-            ) | sed \
-                -e "s/@CJDNS_ADMIN_PASSWORD@/$CJDNS_ADMIN_PASSWORD/g" \
-                -e "s/@CJDNS_PRIVATE_KEY@/$CJDNS_PRIVATE_KEY/g" \
-                | ${pkg}/bin/cjdroute
-          '');
+        (
+          if cfg.confFile != null then
+            "${pkg}/bin/cjdroute < ${cfg.confFile}"
+          else
+            ''
+              source /etc/cjdns.keys
+              (cat <<'EOF'
+              ${cjdrouteConf}
+              EOF
+              ) | sed \
+                  -e "s/@CJDNS_ADMIN_PASSWORD@/$CJDNS_ADMIN_PASSWORD/g" \
+                  -e "s/@CJDNS_PRIVATE_KEY@/$CJDNS_PRIVATE_KEY/g" \
+                  | ${pkg}/bin/cjdroute
+            ''
+        );
 
       startLimitIntervalSec = 0;
       serviceConfig = {
@@ -332,9 +337,11 @@ in
     assertions = [
       {
         assertion =
-          (cfg.ETHInterface.bind != ""
+          (
+            cfg.ETHInterface.bind != ""
             || cfg.UDPInterface.bind != ""
-            || cfg.confFile != null);
+            || cfg.confFile != null
+          );
         message =
           "Neither cjdns.ETHInterface.bind nor cjdns.UDPInterface.bind defined.";
       }

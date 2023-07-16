@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -28,4 +29,5 @@ import ./make-test-python.nix ({
       machine.sleep(15)
       machine.screenshot("screen")
     '';
-  })
+  }
+)

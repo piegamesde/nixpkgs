@@ -10,7 +10,8 @@ let
     ;
 
 in
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: rec {
@@ -132,4 +133,5 @@ import ./make-test-python.nix ({
               raise Exception('logrotate-checkconf.service was not failed')
 
     '';
-  })
+  }
+)

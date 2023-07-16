@@ -26,21 +26,26 @@ let
       args = cfg.settings.database.args;
     in
     usePostgresql
-    && (!(args ? host)
+    && (
+      !(
+        args ? host
+      )
       || (elem args.host [
         "localhost"
         "127.0.0.1"
         "::1"
-      ]))
+      ])
+    )
     ;
 
   registerNewMatrixUser =
     let
       isIpv6 = x: lib.length (lib.splitString ":" x) > 1;
-      listener = lib.findFirst (listener:
+      listener = lib.findFirst (
+        listener:
         lib.any (resource: lib.any (name: name == "client") resource.names)
-        listener.resources) (lib.last cfg.settings.listeners)
-        cfg.settings.listeners;
+        listener.resources
+      ) (lib.last cfg.settings.listeners) cfg.settings.listeners;
         # FIXME: Handle cases with missing client listener properly,
         # don't rely on lib.last, this will not work.
 
@@ -57,8 +62,9 @@ let
       exec ${cfg.package}/bin/register_new_matrix_user \
         $@ \
         ${
-          lib.concatMapStringsSep " " (x: "-c ${x}")
-          ([ configFile ] ++ cfg.extraConfigFiles)
+          lib.concatMapStringsSep " " (x: "-c ${x}") (
+            [ configFile ] ++ cfg.extraConfigFiles
+          )
         } \
         "${listenerProtocol}://${
           if (isIpv6 bindAddress) then
@@ -1036,17 +1042,20 @@ in
         Group = "matrix-synapse";
         WorkingDirectory = cfg.dataDir;
         ExecStartPre = [
-            ("+"
+            (
+              "+"
               + (pkgs.writeShellScript "matrix-synapse-fix-permissions" ''
                 chown matrix-synapse:matrix-synapse ${cfg.settings.signing_key_path}
                 chmod 0600 ${cfg.settings.signing_key_path}
-              ''))
+              '')
+            )
           ];
         ExecStart = ''
           ${cfg.package}/bin/synapse_homeserver \
             ${
-              concatMapStringsSep "\n  " (x: "--config-path ${x} \\")
-              ([ configFile ] ++ cfg.extraConfigFiles)
+              concatMapStringsSep "\n  " (x: "--config-path ${x} \\") (
+                [ configFile ] ++ cfg.extraConfigFiles
+              )
             }
             --keys-directory ${cfg.dataDir}
         '';

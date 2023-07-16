@@ -277,10 +277,12 @@ in
         ;
       after =
         [ "network.target" ]
-        ++ (if cfg.database.host == null then
-          [ ]
-        else
-          [ "postgresql.service" ])
+        ++ (
+          if cfg.database.host == null then
+            [ ]
+          else
+            [ "postgresql.service" ]
+        )
         ;
 
       script = ''

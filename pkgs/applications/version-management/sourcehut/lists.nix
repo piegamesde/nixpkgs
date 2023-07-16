@@ -24,12 +24,14 @@ buildPythonPackage rec {
     sha256 = "sha256-Qb70oOazZfmHpC5r0oMYCFdvfAeKbq3mQA8+M56YYnY=";
   };
 
-  listssrht-api = buildGoModule ({
-    inherit src version;
-    pname = "listssrht-api";
-    modRoot = "api";
-    vendorSha256 = "sha256-xnmMkRSokbhWD+kz0XQ9AinYdm6/50FRBISURPvlzD0=";
-  } // import ./fix-gqlgen-trimpath.nix { inherit unzip; });
+  listssrht-api = buildGoModule (
+    {
+      inherit src version;
+      pname = "listssrht-api";
+      modRoot = "api";
+      vendorSha256 = "sha256-xnmMkRSokbhWD+kz0XQ9AinYdm6/50FRBISURPvlzD0=";
+    } // import ./fix-gqlgen-trimpath.nix { inherit unzip; }
+  );
 
   postPatch = ''
     substituteInPlace Makefile \

@@ -40,7 +40,9 @@ import ./make-test-python.nix {
           systemd.services."${serviceName}@" = {
             description = "Confined Test Service ${toString num}";
             confinement = (config.confinement or { }) // { enable = true; };
-            serviceConfig = (config.serviceConfig or { }) // {
+            serviceConfig = (
+              config.serviceConfig or { }
+            ) // {
               ExecStart = testServer;
               StandardInput = "socket";
             };
@@ -49,10 +51,12 @@ import ./make-test-python.nix {
             "serviceConfig"
           ];
 
-          __testSteps = lib.mkOrder num (''
-            machine.succeed("echo ${toString num} > /teststep")
-          ''
-            + testScript);
+          __testSteps = lib.mkOrder num (
+            ''
+              machine.succeed("echo ${toString num} > /teststep")
+            ''
+            + testScript
+          );
         }
         ;
 
@@ -98,22 +102,23 @@ import ./make-test-python.nix {
                 machine.fail("chroot-exec touch /bin/test")
           '';
         }
-        (let
-          symlink = pkgs.runCommand "symlink" {
-            target = pkgs.writeText "symlink-target" ''
-              got me
+        (
+          let
+            symlink = pkgs.runCommand "symlink" {
+              target = pkgs.writeText "symlink-target" ''
+                got me
+              '';
+            } ''ln -s "$target" "$out"'';
+          in
+          {
+            config.confinement.packages = lib.singleton symlink;
+            testScript = ''
+              with subtest("check if symlinks are properly bind-mounted"):
+                  machine.fail("chroot-exec test -e /etc")
+                  text = machine.succeed('chroot-exec cat ${symlink}').strip()
+                  assert_eq(text, "got me")
             '';
-          } ''ln -s "$target" "$out"'';
-        in
-        {
-          config.confinement.packages = lib.singleton symlink;
-          testScript = ''
-            with subtest("check if symlinks are properly bind-mounted"):
-                machine.fail("chroot-exec test -e /etc")
-                text = machine.succeed('chroot-exec cat ${symlink}').strip()
-                assert_eq(text, "got me")
-          '';
-        }
+          }
         )
         {
           config.serviceConfig.User = "chroot-testuser";

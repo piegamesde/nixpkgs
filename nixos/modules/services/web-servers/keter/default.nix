@@ -93,80 +93,84 @@ in
 
   };
 
-  config = lib.mkIf cfg.enable (let
-    incoming = "${cfg.keterRoot}/incoming";
+  config = lib.mkIf cfg.enable (
+    let
+      incoming = "${cfg.keterRoot}/incoming";
 
-    globalKeterConfigFile = pkgs.writeTextFile {
-      name = "keter-config.yml";
-      text =
-        (lib.generators.toYAML { }
-          (cfg.globalKeterConfig // { root = cfg.keterRoot; }));
-    };
-
-      # If things are expected to change often, put it in the bundle!
-    bundle = pkgs.callPackage ./bundle.nix (cfg.bundle // {
-      keterExecutable = executable;
-      keterDomain = cfg.bundle.domain;
-    });
-
-      # This indirection is required to ensure the nix path
-      # gets copied over to the target machine in remote deployments.
-      # Furthermore, it's important that we use exec to
-      # run the binary otherwise we get process leakage due to this
-      # being executed on every change.
-    executable = pkgs.writeShellScript "bundle-wrapper" ''
-      set -e
-      ${cfg.bundle.secretScript}
-      set -xe
-      ${cfg.bundle.publicScript}
-      exec ${cfg.bundle.executable}
-    '';
-
-  in
-  {
-    systemd.services.keter = {
-      description = "keter app loader";
-      script = ''
-        set -xe
-        mkdir -p ${incoming}
-        { tail -F ${cfg.keterRoot}/log/keter/current.log -n 0 & ${cfg.keterPackage}/bin/keter ${globalKeterConfigFile}; }
-      '';
-      wantedBy = [
-        "multi-user.target"
-        "nginx.service"
-      ];
-
-      serviceConfig = {
-        Restart = "always";
-        RestartSec = "10s";
+      globalKeterConfigFile = pkgs.writeTextFile {
+        name = "keter-config.yml";
+        text =
+          (lib.generators.toYAML { } (
+            cfg.globalKeterConfig // { root = cfg.keterRoot; }
+          ));
       };
 
-      after = [
-        "network.target"
-        "local-fs.target"
-        "postgresql.service"
-      ];
-    };
+        # If things are expected to change often, put it in the bundle!
+      bundle = pkgs.callPackage ./bundle.nix (
+        cfg.bundle // {
+          keterExecutable = executable;
+          keterDomain = cfg.bundle.domain;
+        }
+      );
 
-      # On deploy this will load our app, by moving it into the incoming dir
-      # If the bundle content changes, this will run again.
-      # Because the bundle content contains the nix path to the executable,
-      # we inherit nix based cache busting.
-    systemd.services.load-keter-bundle = {
-      description = "load keter bundle into incoming folder";
-      after = [ "keter.service" ];
-      wantedBy = [ "multi-user.target" ];
-        # we can't override keter bundles because it'll stop the previous app
-        # https://github.com/snoyberg/keter#deploying
-      script = ''
+        # This indirection is required to ensure the nix path
+        # gets copied over to the target machine in remote deployments.
+        # Furthermore, it's important that we use exec to
+        # run the binary otherwise we get process leakage due to this
+        # being executed on every change.
+      executable = pkgs.writeShellScript "bundle-wrapper" ''
+        set -e
+        ${cfg.bundle.secretScript}
         set -xe
-        cp ${bundle}/bundle.tar.gz.keter ${incoming}/${cfg.bundle.appName}.keter
+        ${cfg.bundle.publicScript}
+        exec ${cfg.bundle.executable}
       '';
-      path = [
-        executable
-        cfg.bundle.executable
-      ]; # this is a hack to get the executable copied over to the machine.
-    };
-  }
+
+    in
+    {
+      systemd.services.keter = {
+        description = "keter app loader";
+        script = ''
+          set -xe
+          mkdir -p ${incoming}
+          { tail -F ${cfg.keterRoot}/log/keter/current.log -n 0 & ${cfg.keterPackage}/bin/keter ${globalKeterConfigFile}; }
+        '';
+        wantedBy = [
+          "multi-user.target"
+          "nginx.service"
+        ];
+
+        serviceConfig = {
+          Restart = "always";
+          RestartSec = "10s";
+        };
+
+        after = [
+          "network.target"
+          "local-fs.target"
+          "postgresql.service"
+        ];
+      };
+
+        # On deploy this will load our app, by moving it into the incoming dir
+        # If the bundle content changes, this will run again.
+        # Because the bundle content contains the nix path to the executable,
+        # we inherit nix based cache busting.
+      systemd.services.load-keter-bundle = {
+        description = "load keter bundle into incoming folder";
+        after = [ "keter.service" ];
+        wantedBy = [ "multi-user.target" ];
+          # we can't override keter bundles because it'll stop the previous app
+          # https://github.com/snoyberg/keter#deploying
+        script = ''
+          set -xe
+          cp ${bundle}/bundle.tar.gz.keter ${incoming}/${cfg.bundle.appName}.keter
+        '';
+        path = [
+          executable
+          cfg.bundle.executable
+        ]; # this is a hack to get the executable copied over to the machine.
+      };
+    }
   );
 }

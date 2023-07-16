@@ -48,7 +48,8 @@
     license = licenses.mit;
     platforms = platforms.unix;
   };
-}).overrideAttrs (o:
+}).overrideAttrs (
+  o:
   let
     inherit (o) version;
   in

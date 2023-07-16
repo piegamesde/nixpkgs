@@ -39,12 +39,14 @@ stdenv.mkDerivation rec {
       gtk3
       libgee
     ]
-    ++ (with pantheon; [
-      elementary-files # settings schemas
-      elementary-terminal # settings schemas
-      granite
-      switchboard
-    ])
+    ++ (
+      with pantheon; [
+        elementary-files # settings schemas
+        elementary-terminal # settings schemas
+        granite
+        switchboard
+      ]
+    )
     ;
 
   postPatch = ''

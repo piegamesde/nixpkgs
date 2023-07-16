@@ -62,17 +62,21 @@ let
     cpphs = overrideCabal (drv: {
       isLibrary = false;
       postFixup = "rm -rf $out/lib $out/share $out/nix-support";
-    }) (self.cpphs.overrideScope (self: super: {
-      mkDerivation =
-        drv:
-        super.mkDerivation (drv // {
-          enableSharedExecutables = false;
-          enableSharedLibraries = false;
-          doHaddock = false;
-          useCpphs = false;
-        })
-        ;
-    }));
+    }) (self.cpphs.overrideScope (
+      self: super: {
+        mkDerivation =
+          drv:
+          super.mkDerivation (
+            drv // {
+              enableSharedExecutables = false;
+              enableSharedLibraries = false;
+              doHaddock = false;
+              useCpphs = false;
+            }
+          )
+          ;
+      }
+    ));
   };
 
   mkDerivation = makeOverridable mkDerivationImpl;
@@ -482,7 +486,9 @@ package-set { inherit pkgs lib callPackage; } self // {
         # for the "shellFor" environment (ensuring that any test/benchmark
         # dependencies for "foo" will be available within the nix-shell).
       ,
-      genericBuilderArgsModifier ? (args: args)
+      genericBuilderArgsModifier ? (
+        args: args
+      )
 
       # Extra dependencies, in the form of cabal2nix build attributes.
       #
@@ -588,8 +594,9 @@ package-set { inherit pkgs lib callPackage; } self // {
         #
         # See the Note in `zipperCombinedPkgs` for what gets filtered out from
         # each of these dependency lists.
-      packageInputs = pkgs.lib.zipAttrsWith (_name: zipperCombinedPkgs)
-        (cabalDepsForSelected ++ [ (extraDependencies self) ]);
+      packageInputs = pkgs.lib.zipAttrsWith (_name: zipperCombinedPkgs) (
+        cabalDepsForSelected ++ [ (extraDependencies self) ]
+      );
 
         # A attribute set to pass to `haskellPackages.mkDerivation`.
         #
@@ -640,12 +647,14 @@ package-set { inherit pkgs lib callPackage; } self // {
       ];
 
     in
-    pkgWithCombinedDepsDevDrv.overrideAttrs (old:
+    pkgWithCombinedDepsDevDrv.overrideAttrs (
+      old:
       mkDerivationArgs // {
         nativeBuildInputs =
           old.nativeBuildInputs ++ mkDerivationArgs.nativeBuildInputs or [ ];
         buildInputs = old.buildInputs ++ mkDerivationArgs.buildInputs or [ ];
-      })
+      }
+    )
     ;
 
   ghc = ghc // {
@@ -718,7 +727,8 @@ package-set { inherit pkgs lib callPackage; } self // {
 
         Type: [str] -> drv -> drv
     */
-  generateOptparseApplicativeCompletions = self.callPackage ({
+  generateOptparseApplicativeCompletions = self.callPackage (
+    {
       stdenv,
     }:
 
@@ -727,6 +737,7 @@ package-set { inherit pkgs lib callPackage; } self // {
     if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
       lib.foldr haskellLib.__generateOptparseApplicativeCompletion pkg commands
     else
-      pkg) { };
+      pkg
+  ) { };
 
 }

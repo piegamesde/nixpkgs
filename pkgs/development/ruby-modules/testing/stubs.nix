@@ -14,11 +14,13 @@ let
     derivation {
       inherit name;
       text =
-        (builtins.toJSON (lib.filterAttrs (n: v:
+        (builtins.toJSON (lib.filterAttrs (
+          n: v:
           builtins.any (x: x == n) [
             "name"
             "system"
-          ]) argSet));
+          ]
+        ) argSet));
       builder = stdenv.shell;
       args = [
         "-c"

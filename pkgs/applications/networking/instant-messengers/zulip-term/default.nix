@@ -36,11 +36,13 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeCheckInputs =
     [ glibcLocales ]
-    ++ (with python3.pkgs; [
-      pytestCheckHook
-      pytest-cov
-      pytest-mock
-    ])
+    ++ (
+      with python3.pkgs; [
+        pytestCheckHook
+        pytest-cov
+        pytest-mock
+      ]
+    )
     ;
 
   makeWrapperArgs = [

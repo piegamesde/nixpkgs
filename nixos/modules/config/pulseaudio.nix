@@ -33,8 +33,10 @@ let
   enable32BitAlsaPlugins =
     cfg.support32Bit
     && stdenv.isx86_64
-    && (pkgs.pkgsi686Linux.alsa-lib != null
-      && pkgs.pkgsi686Linux.libpulseaudio != null)
+    && (
+      pkgs.pkgsi686Linux.alsa-lib != null
+      && pkgs.pkgsi686Linux.libpulseaudio != null
+    )
     ;
 
   myConfigFile =
@@ -54,8 +56,9 @@ let
         .include ${cfg.configFile}
         ${addModuleIf cfg.zeroconf.publish.enable "module-zeroconf-publish"}
         ${addModuleIf cfg.zeroconf.discovery.enable "module-zeroconf-discover"}
-        ${addModuleIf cfg.tcp.enable (concatStringsSep " "
-          ([ "module-native-protocol-tcp" ] ++ allAnon ++ ipAnon))}
+        ${addModuleIf cfg.tcp.enable (concatStringsSep " " (
+          [ "module-native-protocol-tcp" ] ++ allAnon ++ ipAnon
+        ))}
         ${addModuleIf config.services.jack.jackd.enable "module-jack-sink"}
         ${addModuleIf config.services.jack.jackd.enable "module-jack-source"}
         ${cfg.extraConfig}
@@ -294,9 +297,13 @@ in
           overriddenModules =
             builtins.map (drv: drv.override { pulseaudio = overriddenPackage; })
             cfg.extraModules;
-          modulePaths = builtins.map (drv: "${drv}/lib/pulseaudio/modules")
+          modulePaths = builtins.map (
+            drv: "${drv}/lib/pulseaudio/modules"
+          )
           # User-provided extra modules take precedence
-            (overriddenModules ++ [ overriddenPackage ]);
+            (
+              overriddenModules ++ [ overriddenPackage ]
+            );
         in
         lib.concatStringsSep ":" modulePaths
         ;

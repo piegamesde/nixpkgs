@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -22,4 +23,5 @@ import ./make-test-python.nix ({
       machine.succeed("headscale namespaces create test")
       machine.succeed("headscale preauthkeys -n test create")
     '';
-  })
+  }
+)

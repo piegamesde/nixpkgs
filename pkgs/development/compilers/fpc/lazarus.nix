@@ -101,25 +101,27 @@ stdenv.mkDerivation rec {
       "gtk2"
     ;
 
-  NIX_LDFLAGS = lib.concatStringsSep " " ([
-    "-L${stdenv.cc.cc.lib}/lib"
-    "-lX11"
-    "-lXext"
-    "-lXi"
-    "-latk-1.0"
-    "-lc"
-    "-lcairo"
-    "-lgcc_s"
-    "-lgdk-x11-2.0"
-    "-lgdk_pixbuf-2.0"
-    "-lglib-2.0"
-    "-lgtk-x11-2.0"
-    "-lpango-1.0"
-  ]
+  NIX_LDFLAGS = lib.concatStringsSep " " (
+    [
+      "-L${stdenv.cc.cc.lib}/lib"
+      "-lX11"
+      "-lXext"
+      "-lXi"
+      "-latk-1.0"
+      "-lc"
+      "-lcairo"
+      "-lgcc_s"
+      "-lgdk-x11-2.0"
+      "-lgdk_pixbuf-2.0"
+      "-lglib-2.0"
+      "-lgtk-x11-2.0"
+      "-lpango-1.0"
+    ]
     ++ lib.optionals withQt [
       "-L${lib.getLib libqt5pas}/lib"
       "-lQt5Pas"
-    ]);
+    ]
+  );
 
   preBuild = ''
     mkdir -p $out/share "$out/lazarus"

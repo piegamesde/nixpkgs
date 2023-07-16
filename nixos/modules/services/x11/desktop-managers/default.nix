@@ -93,7 +93,8 @@ in
           scripts before forwarding the value to the
           `displayManager`.
         '';
-        apply = map (d:
+        apply = map (
+          d:
           d // {
             manage = "desktop";
             start =
@@ -108,7 +109,8 @@ in
                 fi
               ''
               ;
-          });
+          }
+        );
       };
 
       default = mkOption {

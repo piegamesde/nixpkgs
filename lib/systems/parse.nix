@@ -28,9 +28,11 @@ let
 
   setTypes =
     type:
-    mapAttrs (name: value:
+    mapAttrs (
+      name: value:
       assert type.check value;
-      setType type.name ({ inherit name; } // value))
+      setType type.name ({ inherit name; } // value)
+    )
     ;
 
 in
@@ -71,10 +73,12 @@ rec {
     check =
       x:
       types.bitWidth.check x.bits
-      && (if 8 < x.bits then
-        types.significantByte.check x.significantByte
-      else
-        !(x ? significantByte))
+      && (
+        if 8 < x.bits then
+          types.significantByte.check x.significantByte
+        else
+          !(x ? significantByte)
+      )
       ;
   };
 
@@ -382,10 +386,18 @@ rec {
   gnuNetBSDDefaultExecFormat =
     cpu:
     if
-      (cpu.family == "arm" && cpu.bits == 32)
-      || (cpu.family == "sparc" && cpu.bits == 32)
-      || (cpu.family == "m68k" && cpu.bits == 32)
-      || (cpu.family == "x86" && cpu.bits == 32)
+      (
+        cpu.family == "arm" && cpu.bits == 32
+      )
+      || (
+        cpu.family == "sparc" && cpu.bits == 32
+      )
+      || (
+        cpu.family == "m68k" && cpu.bits == 32
+      )
+      || (
+        cpu.family == "x86" && cpu.bits == 32
+      )
     then
       execFormats.aout
     else
@@ -415,48 +427,72 @@ rec {
       # x86
       (b == i386 && isCompatible a i486)
       (b == i486 && isCompatible a i586)
-      (b == i586 && isCompatible a i686)
+      (
+        b == i586 && isCompatible a i686
+      )
 
       # XXX: Not true in some cases. Like in WSL mode.
-      (b == i686 && isCompatible a x86_64)
+      (
+        b == i686 && isCompatible a x86_64
+      )
 
       # ARMv4
-      (b == arm && isCompatible a armv5tel)
+      (
+        b == arm && isCompatible a armv5tel
+      )
 
       # ARMv5
-      (b == armv5tel && isCompatible a armv6l)
+      (
+        b == armv5tel && isCompatible a armv6l
+      )
 
       # ARMv6
       (b == armv6l && isCompatible a armv6m)
-      (b == armv6m && isCompatible a armv7l)
+      (
+        b == armv6m && isCompatible a armv7l
+      )
 
       # ARMv7
       (b == armv7l && isCompatible a armv7a)
       (b == armv7l && isCompatible a armv7r)
-      (b == armv7l && isCompatible a armv7m)
+      (
+        b == armv7l && isCompatible a armv7m
+      )
 
       # ARMv8
       (b == aarch64 && a == armv8a)
       (b == armv8a && isCompatible a aarch64)
       (b == armv8r && isCompatible a armv8a)
-      (b == armv8m && isCompatible a armv8a)
+      (
+        b == armv8m && isCompatible a armv8a
+      )
 
       # PowerPC
       (b == powerpc && isCompatible a powerpc64)
-      (b == powerpcle && isCompatible a powerpc64le)
+      (
+        b == powerpcle && isCompatible a powerpc64le
+      )
 
       # MIPS
       (b == mips && isCompatible a mips64)
-      (b == mipsel && isCompatible a mips64el)
+      (
+        b == mipsel && isCompatible a mips64el
+      )
 
       # RISCV
-      (b == riscv32 && isCompatible a riscv64)
+      (
+        b == riscv32 && isCompatible a riscv64
+      )
 
       # SPARC
-      (b == sparc && isCompatible a sparc64)
+      (
+        b == sparc && isCompatible a sparc64
+      )
 
       # WASM
-      (b == wasm32 && isCompatible a wasm64)
+      (
+        b == wasm32 && isCompatible a wasm64
+      )
 
       # identity
       (b == a)
@@ -904,9 +940,10 @@ rec {
     }@sys:
     assert isSystem sys;
     let
-      optExecFormat = lib.optionalString (kernel.name == "netbsd"
-        && gnuNetBSDDefaultExecFormat cpu != kernel.execFormat)
-        kernel.execFormat.name;
+      optExecFormat = lib.optionalString (
+        kernel.name == "netbsd"
+        && gnuNetBSDDefaultExecFormat cpu != kernel.execFormat
+      ) kernel.execFormat.name;
       optAbi = lib.optionalString (abi != abis.unknown) "-${abi.name}";
     in
     "${cpu.name}-${vendor.name}-${kernelName kernel}${optExecFormat}${optAbi}"

@@ -192,11 +192,13 @@ stdenv.mkDerivation (finalAttrs: {
       mkdir -p $test/bin
       mv bin/test_* $test/bin
       patchelf --set-rpath $out/lib:${
-        lib.makeLibraryPath (finalAttrs.buildInputs
+        lib.makeLibraryPath (
+          finalAttrs.buildInputs
           ++ [
             hip
             rocm-comgr
-          ])
+          ]
+        )
       } $test/bin/*
     ''
     + lib.optionalString fetchKDBs ''

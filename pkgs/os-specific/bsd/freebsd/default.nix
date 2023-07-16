@@ -90,8 +90,8 @@ let
   '';
 
 in
-makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
-(self:
+makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
+  self:
   let
     inherit (self) mkDerivation;
   in
@@ -110,7 +110,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
     compatIfNeeded =
       lib.optional (!stdenvNoCC.hostPlatform.isFreeBSD) self.compat;
 
-    mkDerivation = lib.makeOverridable (attrs:
+    mkDerivation = lib.makeOverridable (
+      attrs:
       let
         stdenv' =
           if attrs.noCC or false then
@@ -119,71 +120,74 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
             stdenv
           ;
       in
-      stdenv'.mkDerivation (rec {
-        pname = "${attrs.pname or (baseNameOf attrs.path)}-freebsd";
-        inherit version;
-        src = runCommand "${pname}-filtered-src" {
-          nativeBuildInputs = [ rsync ];
-        } ''
-          for p in ${
-            lib.concatStringsSep " " ([ attrs.path ] ++ attrs.extraPaths or [ ])
-          }; do
-            set -x
-            path="$out/$p"
-            mkdir -p "$(dirname "$path")"
-            src_path="${freebsdSrc}/$p"
-            if [[ -d "$src_path" ]]; then src_path+=/; fi
-            rsync --chmod="+w" -r "$src_path" "$path"
-            set +x
-          done
-        '';
+      stdenv'.mkDerivation (
+        rec {
+          pname = "${attrs.pname or (baseNameOf attrs.path)}-freebsd";
+          inherit version;
+          src = runCommand "${pname}-filtered-src" {
+            nativeBuildInputs = [ rsync ];
+          } ''
+            for p in ${
+              lib.concatStringsSep " " (
+                [ attrs.path ] ++ attrs.extraPaths or [ ]
+              )
+            }; do
+              set -x
+              path="$out/$p"
+              mkdir -p "$(dirname "$path")"
+              src_path="${freebsdSrc}/$p"
+              if [[ -d "$src_path" ]]; then src_path+=/; fi
+              rsync --chmod="+w" -r "$src_path" "$path"
+              set +x
+            done
+          '';
 
-        extraPaths = [ ];
+          extraPaths = [ ];
 
-        nativeBuildInputs = with buildPackages.freebsd; [
-          bsdSetupHook
-          freebsdSetupHook
-          makeMinimal
-          install
-          tsort
-          lorder
-          mandoc
-          groff # statHook
-        ];
-        buildInputs = with self; compatIfNeeded;
+          nativeBuildInputs = with buildPackages.freebsd; [
+            bsdSetupHook
+            freebsdSetupHook
+            makeMinimal
+            install
+            tsort
+            lorder
+            mandoc
+            groff # statHook
+          ];
+          buildInputs = with self; compatIfNeeded;
 
-        HOST_SH = stdenv'.shell;
+          HOST_SH = stdenv'.shell;
 
-          # Since STRIP below is the flag
-        STRIPBIN = "${stdenv.cc.bintools.targetPrefix}strip";
+            # Since STRIP below is the flag
+          STRIPBIN = "${stdenv.cc.bintools.targetPrefix}strip";
 
-        makeFlags =
-          [
-            "STRIP=-s" # flag to install, not command
-          ]
-          ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "MK_WERROR=no"
-          ;
+          makeFlags =
+            [
+              "STRIP=-s" # flag to install, not command
+            ]
+            ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "MK_WERROR=no"
+            ;
 
-          # amd64 not x86_64 for this on unlike NetBSD
-        MACHINE_ARCH = mkBsdArch stdenv';
+            # amd64 not x86_64 for this on unlike NetBSD
+          MACHINE_ARCH = mkBsdArch stdenv';
 
-        MACHINE = mkBsdArch stdenv';
+          MACHINE = mkBsdArch stdenv';
 
-        MACHINE_CPUARCH = MACHINE_ARCH;
+          MACHINE_CPUARCH = MACHINE_ARCH;
 
-        COMPONENT_PATH = attrs.path or null;
+          COMPONENT_PATH = attrs.path or null;
 
-        strictDeps = true;
+          strictDeps = true;
 
-        meta = with lib; {
-          maintainers = with maintainers; [ ericson2314 ];
-          platforms = platforms.unix;
-          license = licenses.bsd2;
-        };
-      } // lib.optionalAttrs stdenv'.hasCC {
-        # TODO should CC wrapper set this?
-        CPP = "${stdenv'.cc.targetPrefix}cpp";
-      } // lib.optionalAttrs stdenv'.isDarwin { MKRELRO = "no"; }
+          meta = with lib; {
+            maintainers = with maintainers; [ ericson2314 ];
+            platforms = platforms.unix;
+            license = licenses.bsd2;
+          };
+        } // lib.optionalAttrs stdenv'.hasCC {
+          # TODO should CC wrapper set this?
+          CPP = "${stdenv'.cc.targetPrefix}cpp";
+        } // lib.optionalAttrs stdenv'.isDarwin { MKRELRO = "no"; }
         // lib.optionalAttrs (stdenv'.cc.isClang or false) {
           HAVE_LLVM = lib.versions.major (lib.getVersion stdenv'.cc.cc);
         } // lib.optionalAttrs (stdenv'.cc.isGNU or false) {
@@ -192,7 +196,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         // lib.optionalAttrs (attrs.headersOnly or false) {
           installPhase = "includesPhase";
           dontBuild = true;
-        } // attrs)
+        } // attrs
+      )
     );
 
       ##
@@ -257,12 +262,13 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
     };
 
       # Wrap NetBSD's install
-    boot-install = buildPackages.writeShellScriptBin "boot-install"
-      (install-wrapper
-        + ''
+    boot-install = buildPackages.writeShellScriptBin "boot-install" (
+      install-wrapper
+      + ''
 
-          ${buildPackages.netbsd.install}/bin/xinstall "''${args[@]}"
-        '');
+        ${buildPackages.netbsd.install}/bin/xinstall "''${args[@]}"
+      ''
+    );
 
     compat = mkDerivation rec {
       pname = "compat";
@@ -413,10 +419,12 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         makeMinimal
         mandoc
         groff
-        (if stdenv.hostPlatform == stdenv.buildPlatform then
-          boot-install
-        else
-          install)
+        (
+          if stdenv.hostPlatform == stdenv.buildPlatform then
+            boot-install
+          else
+            install
+        )
       ];
       patches = lib.optionals (!stdenv.hostPlatform.isFreeBSD) [
           ./libnetbsd-do-install.patch
@@ -437,11 +445,13 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
       # install’s -D option. No alternative seems to exist in BSD install.
     install =
       let
-        binstall = writeShellScript "binstall" (install-wrapper
+        binstall = writeShellScript "binstall" (
+          install-wrapper
           + ''
 
             @out@/bin/xinstall "''${args[@]}"
-          '');
+          ''
+        );
       in
       mkDerivation {
         path = "usr.bin/xinstall";
@@ -452,10 +462,12 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
           makeMinimal
           mandoc
           groff
-          (if stdenv.hostPlatform == stdenv.buildPlatform then
-            boot-install
-          else
-            install)
+          (
+            if stdenv.hostPlatform == stdenv.buildPlatform then
+              boot-install
+            else
+              install
+          )
         ];
         skipIncludesPhase = true;
         buildInputs = with self;
@@ -979,77 +991,78 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
       isExecutable = true;
     };
 
-    sys = mkDerivation (let
-      cfg = "MINIMAL";
-    in
-    rec {
-      path = "sys";
+    sys = mkDerivation (
+      let
+        cfg = "MINIMAL";
+      in
+      rec {
+        path = "sys";
 
-      nativeBuildInputs = with buildPackages.freebsd; [
-        bsdSetupHook
-        freebsdSetupHook
-        makeMinimal
-        install
-        mandoc
-        groff
+        nativeBuildInputs = with buildPackages.freebsd; [
+          bsdSetupHook
+          freebsdSetupHook
+          makeMinimal
+          install
+          mandoc
+          groff
 
-        config
-        rpcgen
-        file2c
-        gawk
-        uudecode
-        xargs-j
-        #ctfconvert
-      ];
+          config
+          rpcgen
+          file2c
+          gawk
+          uudecode
+          xargs-j
+          #ctfconvert
+        ];
 
-      patches = [
-        ./sys-gnu-date.patch
-        ./sys-no-explicit-intrinsics-dep.patch
-      ];
+        patches = [
+          ./sys-gnu-date.patch
+          ./sys-no-explicit-intrinsics-dep.patch
+        ];
 
-        # --dynamic-linker /red/herring is used when building the kernel.
-      NIX_ENFORCE_PURITY = 0;
+          # --dynamic-linker /red/herring is used when building the kernel.
+        NIX_ENFORCE_PURITY = 0;
 
-      AWK = "${buildPackages.gawk}/bin/awk";
+        AWK = "${buildPackages.gawk}/bin/awk";
 
-      CWARNEXTRA =
-        "-Wno-error=shift-negative-value -Wno-address-of-packed-member";
+        CWARNEXTRA =
+          "-Wno-error=shift-negative-value -Wno-address-of-packed-member";
 
-      MK_CTF = "no";
+        MK_CTF = "no";
 
-      KODIR = "${builtins.placeholder "out"}/kernel";
-      KMODDIR = "${builtins.placeholder "out"}/kernel";
-      DTBDIR = "${builtins.placeholder "out"}/dbt";
+        KODIR = "${builtins.placeholder "out"}/kernel";
+        KMODDIR = "${builtins.placeholder "out"}/kernel";
+        DTBDIR = "${builtins.placeholder "out"}/dbt";
 
-      KERN_DEBUGDIR = "${builtins.placeholder "out"}/debug";
-      KERN_DEBUGDIR_KODIR = "${KERN_DEBUGDIR}/kernel";
-      KERN_DEBUGDIR_KMODDIR = "${KERN_DEBUGDIR}/kernel";
+        KERN_DEBUGDIR = "${builtins.placeholder "out"}/debug";
+        KERN_DEBUGDIR_KODIR = "${KERN_DEBUGDIR}/kernel";
+        KERN_DEBUGDIR_KMODDIR = "${KERN_DEBUGDIR}/kernel";
 
-      skipIncludesPhase = true;
+        skipIncludesPhase = true;
 
-      configurePhase = ''
-        runHook preConfigure
+        configurePhase = ''
+          runHook preConfigure
 
-        for f in conf/kmod.mk contrib/dev/acpica/acpica_prep.sh; do
-          substituteInPlace "$f" --replace 'xargs -J' 'xargs-j '
-        done
+          for f in conf/kmod.mk contrib/dev/acpica/acpica_prep.sh; do
+            substituteInPlace "$f" --replace 'xargs -J' 'xargs-j '
+          done
 
-        for f in conf/*.mk; do
-          substituteInPlace "$f" --replace 'KERN_DEBUGDIR}''${' 'KERN_DEBUGDIR_'
-        done
+          for f in conf/*.mk; do
+            substituteInPlace "$f" --replace 'KERN_DEBUGDIR}''${' 'KERN_DEBUGDIR_'
+          done
 
-        cd ${mkBsdArch stdenv}/conf
-        sed -i ${cfg} \
-          -e 's/WITH_CTF=1/WITH_CTF=0/' \
-          -e '/KDTRACE/d'
-        config ${cfg}
+          cd ${mkBsdArch stdenv}/conf
+          sed -i ${cfg} \
+            -e 's/WITH_CTF=1/WITH_CTF=0/' \
+            -e '/KDTRACE/d'
+          config ${cfg}
 
-        runHook postConfigure
-      '';
-      preBuild = ''
-        cd ../compile/${cfg}
-      '';
-    }
+          runHook postConfigure
+        '';
+        preBuild = ''
+          cd ../compile/${cfg}
+        '';
+      }
     );
 
   }

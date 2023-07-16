@@ -118,27 +118,29 @@ rec {
     stripDebugFlags="-S" # the Darwin "strip" command does something odd with "-p"
   '';
 
-  bootstrapTools = derivation ({
-    inherit system;
+  bootstrapTools = derivation (
+    {
+      inherit system;
 
-    name = "bootstrap-tools";
-    builder =
-      bootstrapFiles.sh; # Not a filename! Attribute 'sh' on bootstrapFiles
-    args =
-      if localSystem.isAarch64 then
-        [ ./unpack-bootstrap-tools-aarch64.sh ]
-      else
-        [ ./unpack-bootstrap-tools.sh ]
-      ;
+      name = "bootstrap-tools";
+      builder =
+        bootstrapFiles.sh; # Not a filename! Attribute 'sh' on bootstrapFiles
+      args =
+        if localSystem.isAarch64 then
+          [ ./unpack-bootstrap-tools-aarch64.sh ]
+        else
+          [ ./unpack-bootstrap-tools.sh ]
+        ;
 
-    inherit (bootstrapFiles) mkdir bzip2 cpio tarball;
+      inherit (bootstrapFiles) mkdir bzip2 cpio tarball;
 
-    __impureHostDeps = commonImpureHostDeps;
-  } // lib.optionalAttrs config.contentAddressedByDefault {
-    __contentAddressed = true;
-    outputHashAlgo = "sha256";
-    outputHashMode = "recursive";
-  });
+      __impureHostDeps = commonImpureHostDeps;
+    } // lib.optionalAttrs config.contentAddressedByDefault {
+      __contentAddressed = true;
+      outputHashAlgo = "sha256";
+      outputHashMode = "recursive";
+    }
+  );
 
   stageFun =
     step: last:
@@ -174,22 +176,23 @@ rec {
 
       mkCC =
         overrides:
-        import ../../build-support/cc-wrapper (let
-          args = {
-            inherit lib shell;
-            inherit (last) stdenvNoCC;
+        import ../../build-support/cc-wrapper (
+          let
+            args = {
+              inherit lib shell;
+              inherit (last) stdenvNoCC;
 
-            nativeTools = false;
-            nativeLibc = false;
-            inherit buildPackages libcxx;
-            inherit (last.pkgs) coreutils gnugrep;
-            bintools = last.pkgs.darwin.binutils;
-            libc = last.pkgs.darwin.Libsystem;
-            isClang = true;
-            cc = last.pkgs."${finalLlvmPackages}".clang-unwrapped;
-          };
-        in
-        args // (overrides args)
+              nativeTools = false;
+              nativeLibc = false;
+              inherit buildPackages libcxx;
+              inherit (last.pkgs) coreutils gnugrep;
+              bintools = last.pkgs.darwin.binutils;
+              libc = last.pkgs.darwin.Libsystem;
+              isClang = true;
+              cc = last.pkgs."${finalLlvmPackages}".clang-unwrapped;
+            };
+          in
+          args // (overrides args)
         )
         ;
 
@@ -197,7 +200,8 @@ rec {
         if last == null then
           "/dev/null"
         else
-          mkCC ({
+          mkCC (
+            {
               cc,
               ...
             }: {
@@ -206,14 +210,16 @@ rec {
                 last.pkgs."${finalLlvmPackages}".compiler-rt
               ];
               extraBuildCommands = mkExtraBuildCommands cc;
-            })
+            }
+          )
         ;
 
       ccNoLibcxx =
         if last == null then
           "/dev/null"
         else
-          mkCC ({
+          mkCC (
+            {
               cc,
               ...
             }: {
@@ -229,7 +235,8 @@ rec {
                 ''
                 + mkExtraBuildCommands cc
                 ;
-            })
+            }
+          )
         ;
 
       thisStdenv = import ../generic {
@@ -340,7 +347,8 @@ rec {
           ln -s ${bootstrapFiles.cpio} $out/bin/cpio
         '';
 
-        darwin = super.darwin.overrideScope (selfDarwin: superDarwin:
+        darwin = super.darwin.overrideScope (
+          selfDarwin: superDarwin:
           {
             darwin-stubs = superDarwin.darwin-stubs.override {
               inherit (self) stdenvNoCC fetchurl;
@@ -426,7 +434,8 @@ rec {
                 ln -s ${bootstrapTools}/include-Libsystem $out/include
               '';
             };
-          });
+          }
+        );
 
         "${finalLlvmPackages}" = {
           clang-unwrapped = stdenv.mkDerivation {
@@ -496,33 +505,38 @@ rec {
 
           ninja = super.ninja.override { buildDocs = false; };
 
-          "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (let
-            tools = super."${finalLlvmPackages}".tools.extend
-              (_: _: { inherit (pkgs."${finalLlvmPackages}") clang-unwrapped; })
-              ;
-            libraries = super."${finalLlvmPackages}".libraries.extend (_: _: {
-              inherit (pkgs."${finalLlvmPackages}")
-                compiler-rt
-                libcxx
-                libcxxabi
-                ;
-            });
-          in
-          { inherit tools libraries; } // tools // libraries
+          "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (
+            let
+              tools = super."${finalLlvmPackages}".tools.extend (
+                _: _: { inherit (pkgs."${finalLlvmPackages}") clang-unwrapped; }
+              );
+              libraries = super."${finalLlvmPackages}".libraries.extend (
+                _: _: {
+                  inherit (pkgs."${finalLlvmPackages}")
+                    compiler-rt
+                    libcxx
+                    libcxxabi
+                    ;
+                }
+              );
+            in
+            { inherit tools libraries; } // tools // libraries
           );
 
-          darwin = super.darwin.overrideScope (selfDarwin: _: {
-            inherit (darwin) rewrite-tbd binutils-unwrapped;
+          darwin = super.darwin.overrideScope (
+            selfDarwin: _: {
+              inherit (darwin) rewrite-tbd binutils-unwrapped;
 
-            signingUtils =
-              darwin.signingUtils.override { inherit (selfDarwin) sigtool; };
+              signingUtils =
+                darwin.signingUtils.override { inherit (selfDarwin) sigtool; };
 
-            binutils = darwin.binutils.override {
-              coreutils = self.coreutils;
-              libc = selfDarwin.Libsystem;
-              inherit (selfDarwin) postLinkSignHook signingUtils;
-            };
-          });
+              binutils = darwin.binutils.override {
+                coreutils = self.coreutils;
+                libc = selfDarwin.Libsystem;
+                inherit (selfDarwin) postLinkSignHook signingUtils;
+              };
+            }
+          );
         }
         ;
     in
@@ -537,22 +551,28 @@ rec {
 
       allowedRequisites =
         [ bootstrapTools ]
-        ++ (with pkgs; [
-          coreutils
-          gnugrep
-        ])
-        ++ (with pkgs."${finalLlvmPackages}"; [
-          libcxx
-          libcxxabi
-          compiler-rt
-          clang-unwrapped
-        ])
-        ++ (with pkgs.darwin;
+        ++ (
+          with pkgs; [
+            coreutils
+            gnugrep
+          ]
+        )
+        ++ (
+          with pkgs."${finalLlvmPackages}"; [
+            libcxx
+            libcxxabi
+            compiler-rt
+            clang-unwrapped
+          ]
+        )
+        ++ (
+          with pkgs.darwin;
           [
             Libsystem
             CF
           ]
-          ++ lib.optional useAppleSDKLibs objc4)
+          ++ lib.optional useAppleSDKLibs objc4
+        )
         ;
 
       overrides = persistent;
@@ -615,54 +635,60 @@ rec {
             libiconv
             ;
 
-          "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (let
-            tools = super."${finalLlvmPackages}".tools.extend
-              (_: _: { inherit (pkgs."${finalLlvmPackages}") clang-unwrapped; })
-              ;
-            libraries = super."${finalLlvmPackages}".libraries.extend
-              (_: libSuper: {
-                inherit (pkgs."${finalLlvmPackages}") compiler-rt;
-                libcxx = libSuper.libcxx.override {
-                  stdenv = overrideCC self.stdenv self.ccNoLibcxx;
-                };
-                libcxxabi = libSuper.libcxxabi.override ({
-                  stdenv = overrideCC self.stdenv self.ccNoLibcxx;
-                } // lib.optionalAttrs
-                  (builtins.any (v: finalLlvmVersion == v) [
-                    7
-                    11
-                    12
-                    13
-                  ]) {
-                    # TODO: the bootstrapping of llvm packages isn't consistent.
-                    # `standalone` may be redundant if darwin behaves like useLLVM (or
-                    # has useLLVM = true).
-                    standalone = true;
-                  });
-              });
-          in
-          { inherit tools libraries; } // tools // libraries
+          "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (
+            let
+              tools = super."${finalLlvmPackages}".tools.extend (
+                _: _: { inherit (pkgs."${finalLlvmPackages}") clang-unwrapped; }
+              );
+              libraries = super."${finalLlvmPackages}".libraries.extend (
+                _: libSuper: {
+                  inherit (pkgs."${finalLlvmPackages}") compiler-rt;
+                  libcxx = libSuper.libcxx.override {
+                    stdenv = overrideCC self.stdenv self.ccNoLibcxx;
+                  };
+                  libcxxabi = libSuper.libcxxabi.override (
+                    {
+                      stdenv = overrideCC self.stdenv self.ccNoLibcxx;
+                    } // lib.optionalAttrs
+                    (builtins.any (v: finalLlvmVersion == v) [
+                      7
+                      11
+                      12
+                      13
+                    ]) {
+                      # TODO: the bootstrapping of llvm packages isn't consistent.
+                      # `standalone` may be redundant if darwin behaves like useLLVM (or
+                      # has useLLVM = true).
+                      standalone = true;
+                    }
+                  );
+                }
+              );
+            in
+            { inherit tools libraries; } // tools // libraries
           );
 
-          darwin = super.darwin.overrideScope (_: _: {
-            inherit (darwin)
-              binutils
-              dyld
-              Libsystem
-              xnu
-              configd
-              ICU
-              libdispatch
-              libclosure
-              launchd
-              CF
-              objc4
-              darwin-stubs
-              sigtool
-              postLinkSignHook
-              signingUtils
-              ;
-          });
+          darwin = super.darwin.overrideScope (
+            _: _: {
+              inherit (darwin)
+                binutils
+                dyld
+                Libsystem
+                xnu
+                configd
+                ICU
+                libdispatch
+                libclosure
+                launchd
+                CF
+                objc4
+                darwin-stubs
+                sigtool
+                postLinkSignHook
+                signingUtils
+                ;
+            }
+          );
         }
         ;
     in
@@ -678,7 +704,8 @@ rec {
 
       allowedRequisites =
         [ bootstrapTools ]
-        ++ (with pkgs;
+        ++ (
+          with pkgs;
           [
             xz.bin
             xz.out
@@ -696,14 +723,18 @@ rec {
             brotli.lib
             file
           ]
-          ++ lib.optional haveKRB5 libkrb5)
-        ++ (with pkgs."${finalLlvmPackages}"; [
-          libcxx
-          libcxxabi
-          compiler-rt
-          clang-unwrapped
-        ])
-        ++ (with pkgs.darwin;
+          ++ lib.optional haveKRB5 libkrb5
+        )
+        ++ (
+          with pkgs."${finalLlvmPackages}"; [
+            libcxx
+            libcxxabi
+            compiler-rt
+            clang-unwrapped
+          ]
+        )
+        ++ (
+          with pkgs.darwin;
           [
             dyld
             Libsystem
@@ -711,7 +742,8 @@ rec {
             ICU
             locale
           ]
-          ++ lib.optional useAppleSDKLibs objc4)
+          ++ lib.optional useAppleSDKLibs objc4
+        )
         ;
 
       overrides = persistent;
@@ -768,29 +800,34 @@ rec {
             # Avoid pulling in a full python and its extra dependencies for the llvm/clang builds.
           libxml2 = super.libxml2.override { pythonSupport = false; };
 
-          "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (let
-            libraries = super."${finalLlvmPackages}".libraries.extend (_: _: {
-              inherit (pkgs."${finalLlvmPackages}") libcxx libcxxabi;
-            });
-          in
-          { inherit libraries; } // libraries
+          "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (
+            let
+              libraries = super."${finalLlvmPackages}".libraries.extend (
+                _: _: {
+                  inherit (pkgs."${finalLlvmPackages}") libcxx libcxxabi;
+                }
+              );
+            in
+            { inherit libraries; } // libraries
           );
 
-          darwin = super.darwin.overrideScope (_: _: {
-            inherit (darwin)
-              dyld
-              Libsystem
-              xnu
-              configd
-              libdispatch
-              libclosure
-              launchd
-              libiconv
-              locale
-              darwin-stubs
-              sigtool
-              ;
-          });
+          darwin = super.darwin.overrideScope (
+            _: _: {
+              inherit (darwin)
+                dyld
+                Libsystem
+                xnu
+                configd
+                libdispatch
+                libclosure
+                launchd
+                libiconv
+                locale
+                darwin-stubs
+                sigtool
+                ;
+            }
+          );
         }
         ;
     in
@@ -816,7 +853,8 @@ rec {
 
       allowedRequisites =
         [ bootstrapTools ]
-        ++ (with pkgs;
+        ++ (
+          with pkgs;
           [
             xz.bin
             xz.out
@@ -835,23 +873,28 @@ rec {
             brotli.lib
             file
           ]
-          ++ lib.optional haveKRB5 libkrb5)
-        ++ (with pkgs."${finalLlvmPackages}"; [
-          libcxx
-          libcxx.dev
-          libcxxabi
-          libcxxabi.dev
-          compiler-rt
-          clang-unwrapped
-        ])
-        ++ (with pkgs.darwin;
+          ++ lib.optional haveKRB5 libkrb5
+        )
+        ++ (
+          with pkgs."${finalLlvmPackages}"; [
+            libcxx
+            libcxx.dev
+            libcxxabi
+            libcxxabi.dev
+            compiler-rt
+            clang-unwrapped
+          ]
+        )
+        ++ (
+          with pkgs.darwin;
           [
             dyld
             ICU
             Libsystem
             locale
           ]
-          ++ lib.optional useAppleSDKLibs objc4)
+          ++ lib.optional useAppleSDKLibs objc4
+        )
         ;
 
       overrides = persistent;
@@ -896,48 +939,54 @@ rec {
             configureFlags = drv.configureFlags ++ [ "--disable-curses" ];
           });
 
-          "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (let
-            tools = super."${finalLlvmPackages}".tools.extend (llvmSelf: _: {
-              clang-unwrapped-all-outputs =
-                pkgs."${finalLlvmPackages}".clang-unwrapped-all-outputs.override {
-                  llvm = llvmSelf.llvm;
-                };
-              libllvm = pkgs."${finalLlvmPackages}".libllvm.override {
-                inherit libxml2;
-              };
-            });
-            libraries = super."${finalLlvmPackages}".libraries.extend
-              (llvmSelf: _: {
-                inherit (pkgs."${finalLlvmPackages}")
-                  libcxx
-                  libcxxabi
-                  compiler-rt
-                  ;
-              });
-          in
-          { inherit tools libraries; } // tools // libraries
+          "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (
+            let
+              tools = super."${finalLlvmPackages}".tools.extend (
+                llvmSelf: _: {
+                  clang-unwrapped-all-outputs =
+                    pkgs."${finalLlvmPackages}".clang-unwrapped-all-outputs.override {
+                      llvm = llvmSelf.llvm;
+                    };
+                  libllvm = pkgs."${finalLlvmPackages}".libllvm.override {
+                    inherit libxml2;
+                  };
+                }
+              );
+              libraries = super."${finalLlvmPackages}".libraries.extend (
+                llvmSelf: _: {
+                  inherit (pkgs."${finalLlvmPackages}")
+                    libcxx
+                    libcxxabi
+                    compiler-rt
+                    ;
+                }
+              );
+            in
+            { inherit tools libraries; } // tools // libraries
           );
 
-          darwin = super.darwin.overrideScope (_: superDarwin: {
-            inherit (darwin)
-              dyld
-              Libsystem
-              libiconv
-              locale
-              darwin-stubs
-              ;
+          darwin = super.darwin.overrideScope (
+            _: superDarwin: {
+              inherit (darwin)
+                dyld
+                Libsystem
+                libiconv
+                locale
+                darwin-stubs
+                ;
 
-              # See useAppleSDKLibs in darwin-packages.nix
-            CF =
-              if useAppleSDKLibs then
-                super.darwin.CF
-              else
-                superDarwin.CF.override {
-                  inherit libxml2;
-                  python3 = prevStage.python3;
-                }
-              ;
-          });
+                # See useAppleSDKLibs in darwin-packages.nix
+              CF =
+                if useAppleSDKLibs then
+                  super.darwin.CF
+                else
+                  superDarwin.CF.override {
+                    inherit libxml2;
+                    python3 = prevStage.python3;
+                  }
+                ;
+            }
+          );
         }
         ;
     in
@@ -990,32 +1039,39 @@ rec {
             pbzx
             ;
 
-          darwin = super.darwin.overrideScope (_: _:
+          darwin = super.darwin.overrideScope (
+            _: _:
             {
               inherit (darwin) dyld ICU Libsystem Csu libiconv rewrite-tbd;
             }
             // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
               inherit (darwin) binutils binutils-unwrapped cctools;
-            });
+            }
+          );
         } // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
           inherit
             llvm
             ;
 
             # Need to get rid of these when cross-compiling.
-          "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (let
-            tools = super."${finalLlvmPackages}".tools.extend (_: super: {
-              inherit (pkgs."${finalLlvmPackages}") llvm clang-unwrapped;
-            });
-            libraries = super."${finalLlvmPackages}".libraries.extend (_: _: {
-              inherit (pkgs."${finalLlvmPackages}")
-                compiler-rt
-                libcxx
-                libcxxabi
-                ;
-            });
-          in
-          { inherit tools libraries; } // tools // libraries
+          "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (
+            let
+              tools = super."${finalLlvmPackages}".tools.extend (
+                _: super: {
+                  inherit (pkgs."${finalLlvmPackages}") llvm clang-unwrapped;
+                }
+              );
+              libraries = super."${finalLlvmPackages}".libraries.extend (
+                _: _: {
+                  inherit (pkgs."${finalLlvmPackages}")
+                    compiler-rt
+                    libcxx
+                    libcxxabi
+                    ;
+                }
+              );
+            in
+            { inherit tools libraries; } // tools // libraries
           );
 
           inherit binutils binutils-unwrapped;
@@ -1066,7 +1122,8 @@ rec {
       };
 
       allowedRequisites =
-        (with pkgs;
+        (
+          with pkgs;
           [
             xz.out
             xz.bin
@@ -1113,21 +1170,25 @@ rec {
           ++ lib.optionals localSystem.isAarch64 [
             pkgs.updateAutotoolsGnuConfigScriptsHook
             pkgs.gnu-config
-          ])
-        ++ (with pkgs."${finalLlvmPackages}"; [
-          libcxx
-          libcxx.dev
-          libcxxabi
-          libcxxabi.dev
-          llvm
-          llvm.lib
-          compiler-rt
-          compiler-rt.dev
-          clang-unwrapped
-          libclang.dev
-          libclang.lib
-        ])
-        ++ (with pkgs.darwin;
+          ]
+        )
+        ++ (
+          with pkgs."${finalLlvmPackages}"; [
+            libcxx
+            libcxx.dev
+            libcxxabi
+            libcxxabi.dev
+            llvm
+            llvm.lib
+            compiler-rt
+            compiler-rt.dev
+            clang-unwrapped
+            libclang.dev
+            libclang.lib
+          ]
+        )
+        ++ (
+          with pkgs.darwin;
           [
             dyld
             Libsystem
@@ -1143,20 +1204,25 @@ rec {
             postLinkSignHook
             sigtool
             signingUtils
-          ])
+          ]
+        )
         ;
 
-      overrides = lib.composeExtensions persistent (self: super:
+      overrides = lib.composeExtensions persistent (
+        self: super:
         {
-          darwin = super.darwin.overrideScope (_: superDarwin: {
-            inherit (prevStage.darwin) CF darwin-stubs;
-            xnu = superDarwin.xnu.override { inherit (prevStage) python3; };
-          });
+          darwin = super.darwin.overrideScope (
+            _: superDarwin: {
+              inherit (prevStage.darwin) CF darwin-stubs;
+              xnu = superDarwin.xnu.override { inherit (prevStage) python3; };
+            }
+          );
         } // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
           clang = cc;
           llvmPackages = super.llvmPackages // { clang = cc; };
           inherit cc;
-        });
+        }
+      );
     }
     ;
 

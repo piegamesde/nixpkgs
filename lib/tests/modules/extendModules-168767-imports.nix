@@ -9,7 +9,8 @@ with lib; {
     {
       options.sub = mkOption {
         default = { };
-        type = types.submodule ({
+        type = types.submodule (
+          {
             config,
             extendModules,
             ...
@@ -25,7 +26,8 @@ with lib; {
                 type
                 ;
             };
-          });
+          }
+        );
       };
     }
 

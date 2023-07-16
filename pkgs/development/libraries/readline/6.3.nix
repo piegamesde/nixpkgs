@@ -27,7 +27,9 @@ stdenv.mkDerivation {
 
   patchFlags = [ "-p0" ];
 
-  configureFlags = lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+  configureFlags = lib.optional (
+    stdenv.hostPlatform != stdenv.buildPlatform
+  )
   # This test requires running host code
     "bash_cv_wcwidth_broken=no";
 
@@ -37,16 +39,17 @@ stdenv.mkDerivation {
       ./no-arch_only-6.3.patch
     ]
     ++ lib.optional stdenv.hostPlatform.useAndroidPrebuilt ./android.patch
-    ++ (let
-      patch =
-        nr: sha256:
-        fetchurl {
-          url = "mirror://gnu/readline/readline-6.3-patches/readline63-${nr}";
-          inherit sha256;
-        }
-        ;
-    in
-    import ./readline-6.3-patches.nix patch
+    ++ (
+      let
+        patch =
+          nr: sha256:
+          fetchurl {
+            url = "mirror://gnu/readline/readline-6.3-patches/readline63-${nr}";
+            inherit sha256;
+          }
+          ;
+      in
+      import ./readline-6.3-patches.nix patch
     )
     ;
 

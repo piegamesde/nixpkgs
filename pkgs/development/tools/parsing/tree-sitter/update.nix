@@ -442,17 +442,16 @@ let
      ${
        forEachParallel "repos-to-fetch" (writeShellScript "fetch-repo" ''
          ${updateImpl} fetch-repo "$1"
-       '') (lib.mapAttrsToList (nixRepoAttrName: attrs:
-         attrs // {
-           inherit nixRepoAttrName outputDir;
-         }) allGrammars)
+       '') (lib.mapAttrsToList (
+         nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName outputDir; }
+       ) allGrammars)
      }
      ${updateImpl} print-all-grammars-nix-file "$(< ${
        jsonFile "all-grammars.json" {
          allGrammars =
-           (lib.mapAttrsToList
-             (nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName; })
-             allGrammars);
+           (lib.mapAttrsToList (
+             nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName; }
+           ) allGrammars);
          inherit outputDir;
        }
      })"

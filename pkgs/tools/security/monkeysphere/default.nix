@@ -55,20 +55,24 @@ stdenv.mkDerivation rec {
       libassuan
       libgcrypt
     ]
-    ++ lib.optional doCheck ([
-      gnupg
-      opensshUnsafe
-      which
-      socat
-      cpio
-      hexdump
-      procps
-      lockfileProgs
-    ]
-      ++ (with perlPackages; [
-        CryptOpenSSLRSA
-        CryptOpenSSLBignum
-      ]))
+    ++ lib.optional doCheck (
+      [
+        gnupg
+        opensshUnsafe
+        which
+        socat
+        cpio
+        hexdump
+        procps
+        lockfileProgs
+      ]
+      ++ (
+        with perlPackages; [
+          CryptOpenSSLRSA
+          CryptOpenSSLBignum
+        ]
+      )
+    )
     ;
 
   makeFlags = [
@@ -97,11 +101,13 @@ stdenv.mkDerivation rec {
       wrapperArgs =
         runtimeDeps:
         "--prefix PERL5LIB : "
-        + (with perlPackages;
+        + (
+          with perlPackages;
           makePerlPath [ # Optional (only required for keytrans)
             CryptOpenSSLRSA
             CryptOpenSSLBignum
-          ])
+          ]
+        )
         + lib.optionalString (builtins.length runtimeDeps > 0)
           " --prefix PATH : ${lib.makeBinPath runtimeDeps}"
         ;

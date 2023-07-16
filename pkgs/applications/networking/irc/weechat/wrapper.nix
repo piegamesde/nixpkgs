@@ -42,14 +42,16 @@ let
             '';
             withPackages =
               pkgsFun:
-              (python // {
-                extraEnv = ''
-                  ${python.extraEnv}
-                  export PYTHONHOME="${
-                    python3Packages.python.withPackages pkgsFun
-                  }"
-                '';
-              })
+              (
+                python // {
+                  extraEnv = ''
+                    ${python.extraEnv}
+                    export PYTHONHOME="${
+                      python3Packages.python.withPackages pkgsFun
+                    }"
+                  '';
+                }
+              )
               ;
           };
           perl = (simplePlugin "perl") // {
@@ -58,14 +60,16 @@ let
             '';
             withPackages =
               pkgsFun:
-              (perl // {
-                extraEnv = ''
-                  ${perl.extraEnv}
-                  export PERL5LIB=${
-                    perlPackages.makeFullPerlPath (pkgsFun perlPackages)
-                  }
-                '';
-              })
+              (
+                perl // {
+                  extraEnv = ''
+                    ${perl.extraEnv}
+                    export PERL5LIB=${
+                      perlPackages.makeFullPerlPath (pkgsFun perlPackages)
+                    }
+                  '';
+                }
+              )
               ;
           };
           tcl = simplePlugin "tcl";
@@ -95,13 +99,15 @@ let
 
           mkScript =
             drv:
-            lib.forEach drv.scripts
-            (script: "/script load ${drv}/share/${script}")
+            lib.forEach drv.scripts (
+              script: "/script load ${drv}/share/${script}"
+            )
             ;
 
           scripts = builtins.concatStringsSep ";"
-            (lib.foldl (scripts: drv: scripts ++ mkScript drv) [ ]
-              (config.scripts or [ ]));
+            (lib.foldl (scripts: drv: scripts ++ mkScript drv) [ ] (
+              config.scripts or [ ]
+            ));
         in
         "${scripts};${init}"
         ;
@@ -111,8 +117,9 @@ let
         (writeScriptBin bin ''
           #!${runtimeShell}
           export WEECHAT_EXTRA_LIBDIR=${pluginsDir}
-          ${lib.concatMapStringsSep "\n"
-          (p: lib.optionalString (p ? extraEnv) p.extraEnv) plugins}
+          ${lib.concatMapStringsSep "\n" (
+            p: lib.optionalString (p ? extraEnv) p.extraEnv
+          ) plugins}
           exec ${weechat}/bin/${bin} "$@" --run-command ${
             lib.escapeShellArg init
           }

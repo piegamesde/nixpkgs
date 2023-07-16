@@ -87,10 +87,12 @@ mkDerivation {
     ]
     ;
   cmakeFlags = [
-      (if (gnuradio.hasFeature "python-support") then
-        "-DENABLE_PYTHON=ON"
-      else
-        "-DENABLE_PYTHON=OFF")
+      (
+        if (gnuradio.hasFeature "python-support") then
+          "-DENABLE_PYTHON=ON"
+        else
+          "-DENABLE_PYTHON=OFF"
+      )
     ];
   nativeBuildInputs =
     [
@@ -99,10 +101,12 @@ mkDerivation {
       swig
     ]
     ++ lib.optionals (gnuradio.hasFeature "python-support") [
-      (if (gnuradio.versionAttr.major == "3.7") then
-        python.pkgs.cheetah
-      else
-        python.pkgs.mako)
+      (
+        if (gnuradio.versionAttr.major == "3.7") then
+          python.pkgs.cheetah
+        else
+          python.pkgs.mako
+      )
       python
     ]
     ;

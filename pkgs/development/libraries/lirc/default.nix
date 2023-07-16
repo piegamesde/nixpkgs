@@ -20,11 +20,13 @@
 }:
 
 let
-  pythonEnv = python3.pythonForBuild.withPackages (p:
+  pythonEnv = python3.pythonForBuild.withPackages (
+    p:
     with p; [
       pyyaml
       setuptools
-    ]);
+    ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "lirc";

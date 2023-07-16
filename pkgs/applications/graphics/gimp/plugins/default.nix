@@ -20,7 +20,8 @@ let
     ;
 
 in
-lib.makeScope pkgs.newScope (self:
+lib.makeScope pkgs.newScope (
+  self:
 
   let
     # Use GIMP from the scope.
@@ -31,48 +32,54 @@ lib.makeScope pkgs.newScope (self:
       let
         name = attrs.name or "${attrs.pname}-${attrs.version}";
       in
-      stdenv.mkDerivation ({
-        prePhases = "extraLib";
-        extraLib = ''
-          installScripts(){
-            mkdir -p $out/${gimp.targetScriptDir}/${name};
-            for p in "$@"; do cp "$p" -r $out/${gimp.targetScriptDir}/${name}; done
-          }
-          installPlugin() {
-            # The base name of the first argument is the plug-in name and the main executable.
-            # GIMP only allows a single plug-in per directory:
-            # https://gitlab.gnome.org/GNOME/gimp/-/commit/efae55a73e98389e38fa0e59ebebcda0abe3ee96
-            pluginDir=$out/${gimp.targetPluginDir}/$(basename "$1")
-            install -Dt "$pluginDir" "$@"
-          }
-        '';
-      } // attrs // {
-        name = "${gimp.pname}-plugin-${name}";
-        buildInputs =
-          [
-            gimp
-            gimp.gtk
-            glib
-          ]
-          ++ (attrs.buildInputs or [ ])
-          ;
+      stdenv.mkDerivation (
+        {
+          prePhases = "extraLib";
+          extraLib = ''
+            installScripts(){
+              mkdir -p $out/${gimp.targetScriptDir}/${name};
+              for p in "$@"; do cp "$p" -r $out/${gimp.targetScriptDir}/${name}; done
+            }
+            installPlugin() {
+              # The base name of the first argument is the plug-in name and the main executable.
+              # GIMP only allows a single plug-in per directory:
+              # https://gitlab.gnome.org/GNOME/gimp/-/commit/efae55a73e98389e38fa0e59ebebcda0abe3ee96
+              pluginDir=$out/${gimp.targetPluginDir}/$(basename "$1")
+              install -Dt "$pluginDir" "$@"
+            }
+          '';
+        } // attrs // {
+          name = "${gimp.pname}-plugin-${name}";
+          buildInputs =
+            [
+              gimp
+              gimp.gtk
+              glib
+            ]
+            ++ (
+              attrs.buildInputs or [ ]
+            )
+            ;
 
-        nativeBuildInputs =
-          [
-            pkg-config
-            intltool
-          ]
-          ++ (attrs.nativeBuildInputs or [ ])
-          ;
+          nativeBuildInputs =
+            [
+              pkg-config
+              intltool
+            ]
+            ++ (
+              attrs.nativeBuildInputs or [ ]
+            )
+            ;
 
-          # Override installation paths.
-        env = {
-          PKG_CONFIG_GIMP_2_0_GIMPLIBDIR =
-            "${placeholder "out"}/${gimp.targetLibDir}";
-          PKG_CONFIG_GIMP_2_0_GIMPDATADIR =
-            "${placeholder "out"}/${gimp.targetDataDir}";
-        } // attrs.env or { };
-      })
+            # Override installation paths.
+          env = {
+            PKG_CONFIG_GIMP_2_0_GIMPLIBDIR =
+              "${placeholder "out"}/${gimp.targetLibDir}";
+            PKG_CONFIG_GIMP_2_0_GIMPDATADIR =
+              "${placeholder "out"}/${gimp.targetDataDir}";
+          } // attrs.env or { };
+        }
+      )
       ;
 
     scriptDerivation =
@@ -80,15 +87,17 @@ lib.makeScope pkgs.newScope (self:
         src,
         ...
       }@attrs:
-      pluginDerivation ({
-        prePhases = "extraLib";
-        dontUnpack = true;
-        installPhase = ''
-          runHook preInstall
-          installScripts ${src}
-          runHook postInstall
-        '';
-      } // attrs)
+      pluginDerivation (
+        {
+          prePhases = "extraLib";
+          dontUnpack = true;
+          installPhase = ''
+            runHook preInstall
+            installScripts ${src}
+            runHook postInstall
+          '';
+        } // attrs
+      )
       ;
   in
   {

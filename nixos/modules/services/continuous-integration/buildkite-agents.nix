@@ -21,10 +21,12 @@ let
         default = null;
         description = lib.mdDoc description;
         type = types.nullOr types.lines;
-      } // (if example == null then
-        { }
-      else
-        { inherit example; });
+      } // (
+        if example == null then
+          { }
+        else
+          { inherit example; }
+      );
     }
     ;
   mkHookOptions = hooks: listToAttrs (map mkHookOption hooks);
@@ -268,93 +270,100 @@ in
     '';
   };
 
-  config.users.users = mapAgents (name: cfg: {
-    "buildkite-agent-${name}" = {
-      name = "buildkite-agent-${name}";
-      home = cfg.dataDir;
-      createHome = true;
-      description = "Buildkite agent user";
-      extraGroups = [ "keys" ];
-      isSystemUser = true;
-      group = "buildkite-agent-${name}";
-    };
-  });
+  config.users.users = mapAgents (
+    name: cfg: {
+      "buildkite-agent-${name}" = {
+        name = "buildkite-agent-${name}";
+        home = cfg.dataDir;
+        createHome = true;
+        description = "Buildkite agent user";
+        extraGroups = [ "keys" ];
+        isSystemUser = true;
+        group = "buildkite-agent-${name}";
+      };
+    }
+  );
   config.users.groups =
     mapAgents (name: cfg: { "buildkite-agent-${name}" = { }; });
 
-  config.systemd.services = mapAgents (name: cfg: {
-    "buildkite-agent-${name}" = {
-      description = "Buildkite Agent";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      path =
-        cfg.runtimePackages
-        ++ [
-          cfg.package
-          pkgs.coreutils
-        ]
-        ;
-      environment = config.networking.proxy.envVars // {
-        HOME = cfg.dataDir;
-        NIX_REMOTE = "daemon";
+  config.systemd.services = mapAgents (
+    name: cfg: {
+      "buildkite-agent-${name}" = {
+        description = "Buildkite Agent";
+        wantedBy = [ "multi-user.target" ];
+        after = [ "network.target" ];
+        path =
+          cfg.runtimePackages
+          ++ [
+            cfg.package
+            pkgs.coreutils
+          ]
+          ;
+        environment = config.networking.proxy.envVars // {
+          HOME = cfg.dataDir;
+          NIX_REMOTE = "daemon";
+        };
+
+          ## NB: maximum care is taken so that secrets (ssh keys and the CI token)
+          ##     don't end up in the Nix store.
+        preStart =
+          let
+            sshDir = "${cfg.dataDir}/.ssh";
+            tagStr =
+              name: value:
+              if lib.isList value then
+                lib.concatStringsSep ","
+                (builtins.map (v: "${name}=${v}") value)
+              else
+                "${name}=${value}"
+              ;
+            tagsStr =
+              lib.concatStringsSep "," (lib.mapAttrsToList tagStr cfg.tags);
+          in
+          optionalString (cfg.privateSshKeyPath != null) ''
+            mkdir -m 0700 -p "${sshDir}"
+            install -m600 "${toString cfg.privateSshKeyPath}" "${sshDir}/id_rsa"
+          ''
+          + ''
+            cat > "${cfg.dataDir}/buildkite-agent.cfg" <<EOF
+            token="$(cat ${toString cfg.tokenPath})"
+            name="${cfg.name}"
+            shell="${cfg.shell}"
+            tags="${tagsStr}"
+            build-path="${cfg.dataDir}/builds"
+            hooks-path="${cfg.hooksPath}"
+            ${cfg.extraConfig}
+            EOF
+          ''
+          ;
+
+        serviceConfig = {
+          ExecStart =
+            "${cfg.package}/bin/buildkite-agent start --config ${cfg.dataDir}/buildkite-agent.cfg";
+          User = "buildkite-agent-${name}";
+          RestartSec = 5;
+          Restart = "on-failure";
+          TimeoutSec = 10;
+            # set a long timeout to give buildkite-agent a chance to finish current builds
+          TimeoutStopSec = "2 min";
+          KillMode = "mixed";
+        };
       };
+    }
+  );
 
-        ## NB: maximum care is taken so that secrets (ssh keys and the CI token)
-        ##     don't end up in the Nix store.
-      preStart =
-        let
-          sshDir = "${cfg.dataDir}/.ssh";
-          tagStr =
-            name: value:
-            if lib.isList value then
-              lib.concatStringsSep "," (builtins.map (v: "${name}=${v}") value)
-            else
-              "${name}=${value}"
-            ;
-          tagsStr =
-            lib.concatStringsSep "," (lib.mapAttrsToList tagStr cfg.tags);
-        in
-        optionalString (cfg.privateSshKeyPath != null) ''
-          mkdir -m 0700 -p "${sshDir}"
-          install -m600 "${toString cfg.privateSshKeyPath}" "${sshDir}/id_rsa"
-        ''
-        + ''
-          cat > "${cfg.dataDir}/buildkite-agent.cfg" <<EOF
-          token="$(cat ${toString cfg.tokenPath})"
-          name="${cfg.name}"
-          shell="${cfg.shell}"
-          tags="${tagsStr}"
-          build-path="${cfg.dataDir}/builds"
-          hooks-path="${cfg.hooksPath}"
-          ${cfg.extraConfig}
-          EOF
-        ''
+  config.assertions = mapAgents (
+    name: cfg: [ {
+      assertion =
+        cfg.hooksPath == (hooksDir cfg)
+        || all (v: v == null) (attrValues cfg.hooks)
         ;
-
-      serviceConfig = {
-        ExecStart =
-          "${cfg.package}/bin/buildkite-agent start --config ${cfg.dataDir}/buildkite-agent.cfg";
-        User = "buildkite-agent-${name}";
-        RestartSec = 5;
-        Restart = "on-failure";
-        TimeoutSec = 10;
-          # set a long timeout to give buildkite-agent a chance to finish current builds
-        TimeoutStopSec = "2 min";
-        KillMode = "mixed";
-      };
-    };
-  });
-
-  config.assertions = mapAgents (name: cfg: [ {
-    assertion =
-      cfg.hooksPath == (hooksDir cfg)
-      || all (v: v == null) (attrValues cfg.hooks)
-      ;
-    message = ''
-      Options `services.buildkite-agents.${name}.hooksPath' and
-      `services.buildkite-agents.${name}.hooks.<name>' are mutually exclusive.
-    '';
-  } ]);
+      message = ''
+        Options `services.buildkite-agents.${name}.hooksPath' and
+        `services.buildkite-agents.${name}.hooks.<name>' are mutually exclusive.
+      '';
+    } ]
+  );
 
   imports = [
       (mkRemovedOptionModule [

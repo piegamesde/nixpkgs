@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -41,4 +42,5 @@ import ./make-test-python.nix ({
               "curl -sSf http:/nodered:1880/ | grep title"
           )
     '';
-  })
+  }
+)

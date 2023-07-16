@@ -60,7 +60,9 @@ stdenv.mkDerivation rec {
       sqlite
       ncurses
     ]
-    ++ (with python3.pkgs; [ pyyaml ])
+    ++ (
+      with python3.pkgs; [ pyyaml ]
+    )
     ++ lib.optionals tileMode [
       libpng
       SDL2
@@ -70,8 +72,9 @@ stdenv.mkDerivation rec {
       libGL
     ]
     ++ lib.optional enableSound SDL2_mixer
-    ++ (lib.optionals stdenv.isDarwin (assert (lib.assertMsg (darwin != null)
-      "Must have darwin frameworks available for darwin builds");
+    ++ (lib.optionals stdenv.isDarwin (
+      assert (lib.assertMsg (darwin != null)
+        "Must have darwin frameworks available for darwin builds");
       with darwin.apple_sdk.frameworks; [
         AppKit
         AudioUnit
@@ -80,7 +83,8 @@ stdenv.mkDerivation rec {
         Carbon
         IOKit
         OpenGL
-      ]))
+      ]
+    ))
     ;
 
   preBuild = ''

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -35,4 +36,5 @@ import ./make-test-python.nix ({
       machine.succeed("ip addr show >&2")
       machine.succeed("ip route show >&2")
     '';
-  })
+  }
+)

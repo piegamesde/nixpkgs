@@ -11,29 +11,31 @@
 }:
 let
   cfg = config.boot.bootspec;
-  children = lib.mapAttrs
-    (childName: childConfig: childConfig.configuration.system.build.toplevel)
-    config.specialisation;
+  children = lib.mapAttrs (
+    childName: childConfig: childConfig.configuration.system.build.toplevel
+  ) config.specialisation;
   schemas = {
     v1 = rec {
       filename = "boot.json";
       json = pkgs.writeText filename (builtins.toJSON
         # Merge extensions first to not let them shadow NixOS bootspec data.
-        (cfg.extensions // {
-          "org.nixos.bootspec.v1" = {
-            system = config.boot.kernelPackages.stdenv.hostPlatform.system;
-            kernel =
-              "${config.boot.kernelPackages.kernel}/${config.system.boot.loader.kernelFile}";
-            kernelParams = config.boot.kernelParams;
-            label =
-              "${config.system.nixos.distroName} ${config.system.nixos.codeName} ${config.system.nixos.label} (Linux ${config.boot.kernelPackages.kernel.modDirVersion})";
-          } // lib.optionalAttrs config.boot.initrd.enable {
-            initrd =
-              "${config.system.build.initialRamdisk}/${config.system.boot.loader.initrdFile}";
-            initrdSecrets =
-              "${config.system.build.initialRamdiskSecretAppender}/bin/append-initrd-secrets";
-          };
-        }));
+        (
+          cfg.extensions // {
+            "org.nixos.bootspec.v1" = {
+              system = config.boot.kernelPackages.stdenv.hostPlatform.system;
+              kernel =
+                "${config.boot.kernelPackages.kernel}/${config.system.boot.loader.kernelFile}";
+              kernelParams = config.boot.kernelParams;
+              label =
+                "${config.system.nixos.distroName} ${config.system.nixos.codeName} ${config.system.nixos.label} (Linux ${config.boot.kernelPackages.kernel.modDirVersion})";
+            } // lib.optionalAttrs config.boot.initrd.enable {
+              initrd =
+                "${config.system.build.initialRamdisk}/${config.system.boot.loader.initrdFile}";
+              initrdSecrets =
+                "${config.system.build.initialRamdiskSecretAppender}/bin/append-initrd-secrets";
+            };
+          }
+        ));
 
       generator =
         let
@@ -67,12 +69,14 @@ let
           specialisationInjector =
             let
               specialisationLoader =
-                (lib.mapAttrsToList (childName: childToplevel:
+                (lib.mapAttrsToList (
+                  childName: childToplevel:
                   lib.escapeShellArgs [
                     "--slurpfile"
                     childName
                     "${childToplevel}/${filename}"
-                  ]) children);
+                  ]
+                ) children);
             in
             lib.escapeShellArgs [
               "${pkgs.jq}/bin/jq"

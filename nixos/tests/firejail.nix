@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -90,5 +91,6 @@ import ./make-test-python.nix ({
           "sudo -u alice firejail --private-tmp --output=/tmp/foo 'bash -c $(id>/tmp/vuln2;echo id)' && cat /tmp/vuln2"
       )
     '';
-  })
+  }
+)
 

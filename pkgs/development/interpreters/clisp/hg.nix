@@ -40,12 +40,14 @@
 }:
 
 assert x11Support
-  -> (libX11 != null
+  -> (
+    libX11 != null
     && libXau != null
     && libXt != null
     && libXpm != null
     && xorgproto != null
-    && libXext != null);
+    && libXext != null
+  );
 
 stdenv.mkDerivation rec {
   version = "2.50pre20171114";
@@ -112,9 +114,11 @@ stdenv.mkDerivation rec {
     cd builddir
   '';
 
-  postInstall = lib.optionalString (withModules != [ ]) (''
-    ./clisp-link add "$out"/lib/clisp*/base "$(dirname "$out"/lib/clisp*/base)"/full''
-    + lib.concatMapStrings (x: " " + x) withModules);
+  postInstall = lib.optionalString (withModules != [ ]) (
+    ''
+      ./clisp-link add "$out"/lib/clisp*/base "$(dirname "$out"/lib/clisp*/base)"/full''
+    + lib.concatMapStrings (x: " " + x) withModules
+  );
 
   env.NIX_CFLAGS_COMPILE =
     "-O0 ${lib.optionalString (!stdenv.is64bit) "-falign-functions=4"}";

@@ -2,7 +2,8 @@ args@{
   mkNode,
   ...
 }:
-(import ../make-test-python.nix ({
+(import ../make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -133,4 +134,5 @@ args@{
         for node in nodes:
            test_bucket_over_http(get_machine(node))
     '';
-  })) args
+  }
+)) args

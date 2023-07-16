@@ -9,8 +9,9 @@ rec {
 
   sourceTarball =
     args:
-    import ./source-tarball.nix
-    ({ inherit stdenv autoconf automake libtool; } // args)
+    import ./source-tarball.nix (
+      { inherit stdenv autoconf automake libtool; } // args
+    )
     ;
 
   makeSourceTarball = sourceTarball; # compatibility
@@ -24,34 +25,41 @@ rec {
 
   coverageAnalysis =
     args:
-    nixBuild ({
-      inherit lcov enableGCOVInstrumentation makeGCOVReport;
-      doCoverageAnalysis = true;
-    } // args)
+    nixBuild (
+      {
+        inherit lcov enableGCOVInstrumentation makeGCOVReport;
+        doCoverageAnalysis = true;
+      } // args
+    )
     ;
 
   clangAnalysis =
     args:
-    nixBuild ({
-      inherit clang-analyzer;
-      doClangAnalysis = true;
-    } // args)
+    nixBuild (
+      {
+        inherit clang-analyzer;
+        doClangAnalysis = true;
+      } // args
+    )
     ;
 
   coverityAnalysis =
     args:
-    nixBuild ({
-      inherit cov-build xz;
-      doCoverityAnalysis = true;
-    } // args)
+    nixBuild (
+      {
+        inherit cov-build xz;
+        doCoverityAnalysis = true;
+      } // args
+    )
     ;
 
   rpmBuild = args: import ./rpm-build.nix ({ inherit lib vmTools; } // args);
 
   debBuild =
     args:
-    import ./debian-build.nix
-    ({ inherit lib stdenv vmTools checkinstall; } // args)
+    import ./debian-build.nix (
+      { inherit lib stdenv vmTools checkinstall; } // args
+    )
     ;
 
   aggregate =
@@ -103,40 +111,42 @@ rec {
       isNixOS ? true,
       ...
     }@args:
-    stdenv.mkDerivation ({
-      preferLocalBuild = true;
-      _hydraAggregate = true;
+    stdenv.mkDerivation (
+      {
+        preferLocalBuild = true;
+        _hydraAggregate = true;
 
-      phases = [
-        "unpackPhase"
-        "patchPhase"
-        "installPhase"
-      ];
+        phases = [
+          "unpackPhase"
+          "patchPhase"
+          "installPhase"
+        ];
 
-      patchPhase = lib.optionalString isNixOS ''
-        touch .update-on-nixos-rebuild
-      '';
+        patchPhase = lib.optionalString isNixOS ''
+          touch .update-on-nixos-rebuild
+        '';
 
-      installPhase = ''
-        mkdir -p $out/{tarballs,nix-support}
+        installPhase = ''
+          mkdir -p $out/{tarballs,nix-support}
 
-        tar cJf "$out/tarballs/nixexprs.tar.xz" \
-          --owner=0 --group=0 --mtime="1970-01-01 00:00:00 UTC" \
-          --transform='s!^\.!${name}!' .
+          tar cJf "$out/tarballs/nixexprs.tar.xz" \
+            --owner=0 --group=0 --mtime="1970-01-01 00:00:00 UTC" \
+            --transform='s!^\.!${name}!' .
 
-        echo "channel - $out/tarballs/nixexprs.tar.xz" > "$out/nix-support/hydra-build-products"
-        echo $constituents > "$out/nix-support/hydra-aggregate-constituents"
+          echo "channel - $out/tarballs/nixexprs.tar.xz" > "$out/nix-support/hydra-build-products"
+          echo $constituents > "$out/nix-support/hydra-aggregate-constituents"
 
-        # Propagate build failures.
-        for i in $constituents; do
-          if [ -e "$i/nix-support/failed" ]; then
-            touch "$out/nix-support/failed"
-          fi
-        done
-      '';
+          # Propagate build failures.
+          for i in $constituents; do
+            if [ -e "$i/nix-support/failed" ]; then
+              touch "$out/nix-support/failed"
+            fi
+          done
+        '';
 
-      meta = meta // { isHydraChannel = true; };
-    } // removeAttrs args [ "meta" ])
+        meta = meta // { isHydraChannel = true; };
+      } // removeAttrs args [ "meta" ]
+    )
     ;
 
 }

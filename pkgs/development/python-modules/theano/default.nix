@@ -48,8 +48,9 @@ let
     else
       throw "Unknown C++ compiler"
     ;
-  cxx_compiler = wrapped cxx_compiler_name "\\$HOME/.theano"
-    (lib.optional cudaSupport libgpuarray_ ++ lib.optional cudnnSupport cudnn);
+  cxx_compiler = wrapped cxx_compiler_name "\\$HOME/.theano" (
+    lib.optional cudaSupport libgpuarray_ ++ lib.optional cudnnSupport cudnn
+  );
 
     # We need to be careful with overriding Python packages within the package set
     # as this can lead to collisions!

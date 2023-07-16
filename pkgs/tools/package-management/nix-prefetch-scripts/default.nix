@@ -30,11 +30,13 @@ let
         install -vD ${src} $out/bin/$name;
         wrapProgram $out/bin/$name \
           --prefix PATH : ${
-            lib.makeBinPath (deps
+            lib.makeBinPath (
+              deps
               ++ [
                 gnused
                 nix
-              ])
+              ]
+            )
           } \
           --set HOME /homeless-shelter
       '';

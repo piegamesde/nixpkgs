@@ -100,8 +100,10 @@ self: super: {
   protolude = doJailbreak super.protolude;
 
     # https://github.com/fpco/inline-c/pull/131
-  inline-c-cpp = (if isDarwin then
-    appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ]
-  else
-    x: x) super.inline-c-cpp;
+  inline-c-cpp = (
+    if isDarwin then
+      appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ]
+    else
+      x: x
+  ) super.inline-c-cpp;
 }

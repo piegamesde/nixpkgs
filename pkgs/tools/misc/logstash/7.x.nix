@@ -92,11 +92,12 @@ let
         basvandijk
       ];
     };
-    passthru.tests = lib.optionalAttrs (config.allowUnfree && enableUnfree)
-      (assert this.drvPath
+    passthru.tests = lib.optionalAttrs (config.allowUnfree && enableUnfree) (
+      assert this.drvPath
         == nixosTests.elk.unfree.ELK-7.elkPackages.logstash.drvPath; {
           elk = nixosTests.elk.unfree.ELK-7;
-        });
+        }
+    );
   };
 in
 this

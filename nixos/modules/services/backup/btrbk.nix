@@ -155,9 +155,11 @@ in
               settings = mkOption {
                 type =
                   let
-                    t = types.attrsOf (types.either types.str (t // {
-                      description = "instances of this type recursively";
-                    }));
+                    t = types.attrsOf (types.either types.str (
+                      t // {
+                        description = "instances of this type recursively";
+                      }
+                    ));
                   in
                   t
                   ;
@@ -290,7 +292,8 @@ in
       createHome = true;
       shell = "${pkgs.bash}/bin/bash";
       group = "btrbk";
-      openssh.authorizedKeys.keys = map (v:
+      openssh.authorizedKeys.keys = map (
+        v:
         let
           options = concatMapStringsSep " " (x: "--" + x) v.roles;
           ioniceClass =
@@ -317,42 +320,49 @@ in
       "d /var/lib/btrbk/.ssh 0700 btrbk btrbk"
       "f /var/lib/btrbk/.ssh/config 0700 btrbk btrbk - StrictHostKeyChecking=accept-new"
     ];
-    environment.etc = mapAttrs' (name: instance: {
-      name = "btrbk/${name}.conf";
-      value.source = mkConfigFile name instance.settings;
-    }) cfg.instances;
-    systemd.services = mapAttrs' (name: _: {
-      name = "btrbk-${name}";
-      value = {
-        description = "Takes BTRFS snapshots and maintains retention policies.";
-        unitConfig.Documentation = "man:btrbk(1)";
-        path = [ "/run/wrappers" ] ++ cfg.extraPackages;
-        serviceConfig = {
-          User = "btrbk";
-          Group = "btrbk";
-          Type = "oneshot";
-          ExecStart = "${pkgs.btrbk}/bin/btrbk -c /etc/btrbk/${name}.conf run";
-          Nice = cfg.niceness;
-          IOSchedulingClass = cfg.ioSchedulingClass;
-          StateDirectory = "btrbk";
+    environment.etc = mapAttrs' (
+      name: instance: {
+        name = "btrbk/${name}.conf";
+        value.source = mkConfigFile name instance.settings;
+      }
+    ) cfg.instances;
+    systemd.services = mapAttrs' (
+      name: _: {
+        name = "btrbk-${name}";
+        value = {
+          description =
+            "Takes BTRFS snapshots and maintains retention policies.";
+          unitConfig.Documentation = "man:btrbk(1)";
+          path = [ "/run/wrappers" ] ++ cfg.extraPackages;
+          serviceConfig = {
+            User = "btrbk";
+            Group = "btrbk";
+            Type = "oneshot";
+            ExecStart =
+              "${pkgs.btrbk}/bin/btrbk -c /etc/btrbk/${name}.conf run";
+            Nice = cfg.niceness;
+            IOSchedulingClass = cfg.ioSchedulingClass;
+            StateDirectory = "btrbk";
+          };
         };
-      };
-    }) cfg.instances;
+      }
+    ) cfg.instances;
 
-    systemd.timers = mapAttrs' (name: instance: {
-      name = "btrbk-${name}";
-      value = {
-        description =
-          "Timer to take BTRFS snapshots and maintain retention policies.";
-        wantedBy = [ "timers.target" ];
-        timerConfig = {
-          OnCalendar = instance.onCalendar;
-          AccuracySec = "10min";
-          Persistent = true;
+    systemd.timers = mapAttrs' (
+      name: instance: {
+        name = "btrbk-${name}";
+        value = {
+          description =
+            "Timer to take BTRFS snapshots and maintain retention policies.";
+          wantedBy = [ "timers.target" ];
+          timerConfig = {
+            OnCalendar = instance.onCalendar;
+            AccuracySec = "10min";
+            Persistent = true;
+          };
         };
-      };
-    }) (filterAttrs (name: instance: instance.onCalendar != null) cfg.instances)
-      ;
+      }
+    ) (filterAttrs (name: instance: instance.onCalendar != null) cfg.instances);
   };
 
 }

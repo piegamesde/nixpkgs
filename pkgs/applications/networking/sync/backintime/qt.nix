@@ -5,11 +5,13 @@
 }:
 
 let
-  python' = python3.withPackages (ps:
+  python' = python3.withPackages (
+    ps:
     with ps; [
       pyqt5
       backintime-common
-    ]);
+    ]
+  );
 in
 mkDerivation {
   inherit (backintime-common)

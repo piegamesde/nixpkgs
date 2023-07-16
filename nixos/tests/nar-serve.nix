@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -50,4 +51,5 @@ import ./make-test-python.nix ({
           "curl -o hello -f http://localhost:8383/nix/store/{}/bin/hello".format(drvHash)
       )
     '';
-  })
+  }
+)

@@ -3,7 +3,8 @@
 }:
 
 {
-  test-bash = callPackage ({
+  test-bash = callPackage (
+    {
       lib,
       runCommandLocal,
       bash,
@@ -140,9 +141,11 @@
 
       # Create a dummy output
       touch "$out"
-    '') { };
+    ''
+  ) { };
 
-  test-csh = callPackage ({
+  test-csh = callPackage (
+    {
       lib,
       runCommandLocal,
       gnused,
@@ -217,9 +220,11 @@
 
       # Create a dummy output
       touch "$out"
-    '') { };
+    ''
+  ) { };
 
-  test-fish = callPackage ({
+  test-fish = callPackage (
+    {
       lib,
       runCommandLocal,
       fish,
@@ -301,9 +306,11 @@
 
       # Create a dummy output
       touch "$out"
-    '') { };
+    ''
+  ) { };
 
-  test-posix = callPackage ({
+  test-posix = callPackage (
+    {
       lib,
       runCommandLocal,
       bash,
@@ -450,5 +457,6 @@
 
       # Create a dummy output
       touch "$out"
-    '') { };
+    ''
+  ) { };
 }

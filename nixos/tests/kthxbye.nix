@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -90,4 +91,5 @@ import ./make-test-python.nix ({
         server.systemctl("status kthxbye.service")
         server.succeed("amtool --alertmanager.url 'http://localhost:9093' silence | grep 'ACK'")
     '';
-  })
+  }
+)

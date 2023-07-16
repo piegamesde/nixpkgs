@@ -11,11 +11,13 @@ let
   cfg = config.services.wstunnel;
   attrsToArgs =
     attrs:
-    utils.escapeSystemdExecArgs (mapAttrsToList (name: value:
+    utils.escapeSystemdExecArgs (mapAttrsToList (
+      name: value:
       if value == true then
         "--${name}"
       else
-        "--${name}=${value}") attrs)
+        "--${name}=${value}"
+    ) attrs)
     ;
   hostPortSubmodule = {
     options = {
@@ -491,10 +493,10 @@ let
           PrivateTmp = true;
           AmbientCapabilities =
             (optionals (clientCfg.soMark != null) [ "CAP_NET_ADMIN" ])
-            ++ (optionals ((clientCfg.dynamicToRemote.port or 1024) < 1024
-              || (any (x: x.local.port < 1024) clientCfg.localToRemote)) [
-                "CAP_NET_BIND_SERVICE"
-              ])
+            ++ (optionals (
+              (clientCfg.dynamicToRemote.port or 1024) < 1024
+              || (any (x: x.local.port < 1024) clientCfg.localToRemote)
+            ) [ "CAP_NET_BIND_SERVICE" ])
             ;
           NoNewPrivileges = true;
           RestrictNamespaces = "uts ipc pid user cgroup";
@@ -566,32 +568,51 @@ in
         (filterAttrs (n: v: v.enable) cfg.clients));
 
     assertions =
-      (mapAttrsToList (name: serverCfg: {
-        assertion =
-          !(serverCfg.useACMEHost != null
-            && (serverCfg.tlsCertificate != null || serverCfg.tlsKey != null))
-          ;
-        message = ''
-          Options services.wstunnel.servers."${name}".useACMEHost and services.wstunnel.servers."${name}".{tlsCertificate, tlsKey} are mutually exclusive.
-        '';
-      }) cfg.servers)
-      ++ (mapAttrsToList (name: serverCfg: {
-        assertion =
-          !((serverCfg.tlsCertificate != null || serverCfg.tlsKey != null)
-            && !(serverCfg.tlsCertificate != null && serverCfg.tlsKey != null))
-          ;
-        message = ''
-          services.wstunnel.servers."${name}".tlsCertificate and services.wstunnel.servers."${name}".tlsKey need to be set together.
-        '';
-      }) cfg.servers)
-      ++ (mapAttrsToList (name: clientCfg: {
-        assertion =
-          !(clientCfg.localToRemote == [ ] && clientCfg.dynamicToRemote == null)
-          ;
-        message = ''
-          Either one of services.wstunnel.clients."${name}".localToRemote or services.wstunnel.clients."${name}".dynamicToRemote must be set.
-        '';
-      }) cfg.clients)
+      (mapAttrsToList (
+        name: serverCfg: {
+          assertion =
+            !(
+              serverCfg.useACMEHost != null
+              && (
+                serverCfg.tlsCertificate != null || serverCfg.tlsKey != null
+              )
+            )
+            ;
+          message = ''
+            Options services.wstunnel.servers."${name}".useACMEHost and services.wstunnel.servers."${name}".{tlsCertificate, tlsKey} are mutually exclusive.
+          '';
+        }
+      ) cfg.servers)
+      ++ (mapAttrsToList (
+        name: serverCfg: {
+          assertion =
+            !(
+              (
+                serverCfg.tlsCertificate != null || serverCfg.tlsKey != null
+              )
+              && !(
+                serverCfg.tlsCertificate != null && serverCfg.tlsKey != null
+              )
+            )
+            ;
+          message = ''
+            services.wstunnel.servers."${name}".tlsCertificate and services.wstunnel.servers."${name}".tlsKey need to be set together.
+          '';
+        }
+      ) cfg.servers)
+      ++ (mapAttrsToList (
+        name: clientCfg: {
+          assertion =
+            !(
+              clientCfg.localToRemote == [ ]
+              && clientCfg.dynamicToRemote == null
+            )
+            ;
+          message = ''
+            Either one of services.wstunnel.clients."${name}".localToRemote or services.wstunnel.clients."${name}".dynamicToRemote must be set.
+          '';
+        }
+      ) cfg.clients)
       ;
   };
 

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -55,4 +56,5 @@ import ./make-test-python.nix ({
           output = machine.execute("systemd-analyze security botamusique.service")[1]
           machine.log(output)
     '';
-  })
+  }
+)

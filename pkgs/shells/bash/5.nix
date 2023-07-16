@@ -20,11 +20,13 @@
 }:
 
 let
-  upstreamPatches = import ./bash-5.2-patches.nix (nr: sha256:
+  upstreamPatches = import ./bash-5.2-patches.nix (
+    nr: sha256:
     fetchurl {
       url = "mirror://gnu/bash/bash-5.2-patches/bash52-${nr}";
       inherit sha256;
-    });
+    }
+  );
 in
 stdenv.mkDerivation rec {
   name =
@@ -90,10 +92,12 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [
-      (if interactive then
-        "--with-installed-readline"
-      else
-        "--disable-readline")
+      (
+        if interactive then
+          "--with-installed-readline"
+        else
+          "--disable-readline"
+      )
     ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "bash_cv_job_control_missing=nomissing"

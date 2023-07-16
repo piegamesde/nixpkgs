@@ -37,11 +37,13 @@ let
 
   toCommandsString =
     commands:
-    concatStringsSep ", " (map (command:
+    concatStringsSep ", " (map (
+      command:
       if (isString command) then
         command
       else
-        "${toCommandOptionsString command.options}${command.command}") commands)
+        "${toCommandOptionsString command.options}${command.command}"
+    ) commands)
     ;
 
 in
@@ -229,13 +231,15 @@ in
       commands = [ {
         command = "ALL";
         options =
-          (if cfg.wheelNeedsPassword then
-            [ "SETENV" ]
-          else
-            [
-              "NOPASSWD"
-              "SETENV"
-            ]);
+          (
+            if cfg.wheelNeedsPassword then
+              [ "SETENV" ]
+            else
+              [
+                "NOPASSWD"
+                "SETENV"
+              ]
+          );
       } ];
     } ];
 
@@ -250,20 +254,26 @@ in
       root        ALL=(ALL:ALL) SETENV: ALL
 
       # extraRules
-      ${concatStringsSep "\n" (lists.flatten (map (rule:
+      ${concatStringsSep "\n" (lists.flatten (map (
+        rule:
         if (length rule.commands != 0) then
           [
-            (map (user:
+            (map (
+              user:
               "${toUserString user}	${rule.host}=(${rule.runAs})	${
                 toCommandsString rule.commands
-              }") rule.users)
-            (map (group:
+              }"
+            ) rule.users)
+            (map (
+              group:
               "${toGroupString group}	${rule.host}=(${rule.runAs})	${
                 toCommandsString rule.commands
-              }") rule.groups)
+              }"
+            ) rule.groups)
           ]
         else
-          [ ]) cfg.extraRules))}
+          [ ]
+      ) cfg.extraRules))}
 
       ${cfg.extraConfig}
     '';

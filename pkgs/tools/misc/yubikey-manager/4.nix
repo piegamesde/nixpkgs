@@ -42,15 +42,17 @@ python3Packages.buildPythonPackage rec {
     [ installShellFiles ] ++ (with python3Packages; [ poetry-core ]);
 
   propagatedBuildInputs = with python3Packages;
-    ([
-      click
-      cryptography
-      pyscard
-      pyusb
-      six
-      fido2
-    ]
-      ++ lib.optionals pyOpenSSLSupport [ pyopenssl ])
+    (
+      [
+        click
+        cryptography
+        pyscard
+        pyusb
+        six
+        fido2
+      ]
+      ++ lib.optionals pyOpenSSLSupport [ pyopenssl ]
+    )
     ++ [
       libu2f-host
       libusb1

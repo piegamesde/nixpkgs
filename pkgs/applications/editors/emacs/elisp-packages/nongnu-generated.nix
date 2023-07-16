@@ -1,7 +1,8 @@
 {
   callPackage,
 }: {
-  afternoon-theme = callPackage ({
+  afternoon-theme = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -20,8 +21,10 @@
         homepage = "https://elpa.gnu.org/packages/afternoon-theme.html";
         license = lib.licenses.free;
       };
-    }) { };
-  alect-themes = callPackage ({
+    }
+  ) { };
+  alect-themes = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -40,8 +43,10 @@
         homepage = "https://elpa.gnu.org/packages/alect-themes.html";
         license = lib.licenses.free;
       };
-    }) { };
-  ample-theme = callPackage ({
+    }
+  ) { };
+  ample-theme = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -59,8 +64,10 @@
         homepage = "https://elpa.gnu.org/packages/ample-theme.html";
         license = lib.licenses.free;
       };
-    }) { };
-  annotate = callPackage ({
+    }
+  ) { };
+  annotate = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -78,8 +85,10 @@
         homepage = "https://elpa.gnu.org/packages/annotate.html";
         license = lib.licenses.free;
       };
-    }) { };
-  anti-zenburn-theme = callPackage ({
+    }
+  ) { };
+  anti-zenburn-theme = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -97,8 +106,10 @@
         homepage = "https://elpa.gnu.org/packages/anti-zenburn-theme.html";
         license = lib.licenses.free;
       };
-    }) { };
-  anzu = callPackage ({
+    }
+  ) { };
+  anzu = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -117,8 +128,10 @@
         homepage = "https://elpa.gnu.org/packages/anzu.html";
         license = lib.licenses.free;
       };
-    }) { };
-  apache-mode = callPackage ({
+    }
+  ) { };
+  apache-mode = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -136,8 +149,10 @@
         homepage = "https://elpa.gnu.org/packages/apache-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  apropospriate-theme = callPackage ({
+    }
+  ) { };
+  apropospriate-theme = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -155,8 +170,10 @@
         homepage = "https://elpa.gnu.org/packages/apropospriate-theme.html";
         license = lib.licenses.free;
       };
-    }) { };
-  arduino-mode = callPackage ({
+    }
+  ) { };
+  arduino-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -179,8 +196,10 @@
         homepage = "https://elpa.gnu.org/packages/arduino-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  auto-dim-other-buffers = callPackage ({
+    }
+  ) { };
+  auto-dim-other-buffers = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -198,8 +217,10 @@
         homepage = "https://elpa.gnu.org/packages/auto-dim-other-buffers.html";
         license = lib.licenses.free;
       };
-    }) { };
-  autothemer = callPackage ({
+    }
+  ) { };
+  autothemer = callPackage (
+    {
       dash,
       elpaBuild,
       emacs,
@@ -222,8 +243,10 @@
         homepage = "https://elpa.gnu.org/packages/autothemer.html";
         license = lib.licenses.free;
       };
-    }) { };
-  bash-completion = callPackage ({
+    }
+  ) { };
+  bash-completion = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -242,8 +265,10 @@
         homepage = "https://elpa.gnu.org/packages/bash-completion.html";
         license = lib.licenses.free;
       };
-    }) { };
-  better-jumper = callPackage ({
+    }
+  ) { };
+  better-jumper = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -262,8 +287,10 @@
         homepage = "https://elpa.gnu.org/packages/better-jumper.html";
         license = lib.licenses.free;
       };
-    }) { };
-  bind-map = callPackage ({
+    }
+  ) { };
+  bind-map = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -282,8 +309,10 @@
         homepage = "https://elpa.gnu.org/packages/bind-map.html";
         license = lib.licenses.free;
       };
-    }) { };
-  bison-mode = callPackage ({
+    }
+  ) { };
+  bison-mode = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -301,8 +330,10 @@
         homepage = "https://elpa.gnu.org/packages/bison-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  blow = callPackage ({
+    }
+  ) { };
+  blow = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -321,8 +352,10 @@
         homepage = "https://elpa.gnu.org/packages/blow.html";
         license = lib.licenses.free;
       };
-    }) { };
-  boxquote = callPackage ({
+    }
+  ) { };
+  boxquote = callPackage (
+    {
       cl-lib ? null,
       elpaBuild,
       fetchurl,
@@ -341,8 +374,10 @@
         homepage = "https://elpa.gnu.org/packages/boxquote.html";
         license = lib.licenses.free;
       };
-    }) { };
-  buttercup = callPackage ({
+    }
+  ) { };
+  buttercup = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -361,8 +396,10 @@
         homepage = "https://elpa.gnu.org/packages/buttercup.html";
         license = lib.licenses.free;
       };
-    }) { };
-  camera = callPackage ({
+    }
+  ) { };
+  camera = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -381,8 +418,10 @@
         homepage = "https://elpa.gnu.org/packages/camera.html";
         license = lib.licenses.free;
       };
-    }) { };
-  caml = callPackage ({
+    }
+  ) { };
+  caml = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -401,8 +440,10 @@
         homepage = "https://elpa.gnu.org/packages/caml.html";
         license = lib.licenses.free;
       };
-    }) { };
-  cdlatex = callPackage ({
+    }
+  ) { };
+  cdlatex = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -420,8 +461,10 @@
         homepage = "https://elpa.gnu.org/packages/cdlatex.html";
         license = lib.licenses.free;
       };
-    }) { };
-  cider = callPackage ({
+    }
+  ) { };
+  cider = callPackage (
+    {
       clojure-mode,
       elpaBuild,
       emacs,
@@ -454,8 +497,10 @@
         homepage = "https://elpa.gnu.org/packages/cider.html";
         license = lib.licenses.free;
       };
-    }) { };
-  clojure-mode = callPackage ({
+    }
+  ) { };
+  clojure-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -474,8 +519,10 @@
         homepage = "https://elpa.gnu.org/packages/clojure-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  coffee-mode = callPackage ({
+    }
+  ) { };
+  coffee-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -494,8 +541,10 @@
         homepage = "https://elpa.gnu.org/packages/coffee-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  color-theme-tangotango = callPackage ({
+    }
+  ) { };
+  color-theme-tangotango = callPackage (
+    {
       color-theme,
       elpaBuild,
       fetchurl,
@@ -514,8 +563,10 @@
         homepage = "https://elpa.gnu.org/packages/color-theme-tangotango.html";
         license = lib.licenses.free;
       };
-    }) { };
-  corfu-terminal = callPackage ({
+    }
+  ) { };
+  corfu-terminal = callPackage (
+    {
       corfu,
       elpaBuild,
       emacs,
@@ -540,8 +591,10 @@
         homepage = "https://elpa.gnu.org/packages/corfu-terminal.html";
         license = lib.licenses.free;
       };
-    }) { };
-  crux = callPackage ({
+    }
+  ) { };
+  crux = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -560,8 +613,10 @@
         homepage = "https://elpa.gnu.org/packages/crux.html";
         license = lib.licenses.free;
       };
-    }) { };
-  cyberpunk-theme = callPackage ({
+    }
+  ) { };
+  cyberpunk-theme = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -579,8 +634,10 @@
         homepage = "https://elpa.gnu.org/packages/cyberpunk-theme.html";
         license = lib.licenses.free;
       };
-    }) { };
-  cycle-at-point = callPackage ({
+    }
+  ) { };
+  cycle-at-point = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -603,8 +660,10 @@
         homepage = "https://elpa.gnu.org/packages/cycle-at-point.html";
         license = lib.licenses.free;
       };
-    }) { };
-  d-mode = callPackage ({
+    }
+  ) { };
+  d-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -623,8 +682,10 @@
         homepage = "https://elpa.gnu.org/packages/d-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  dart-mode = callPackage ({
+    }
+  ) { };
+  dart-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -643,8 +704,10 @@
         homepage = "https://elpa.gnu.org/packages/dart-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  denote-refs = callPackage ({
+    }
+  ) { };
+  denote-refs = callPackage (
+    {
       denote,
       elpaBuild,
       emacs,
@@ -667,8 +730,10 @@
         homepage = "https://elpa.gnu.org/packages/denote-refs.html";
         license = lib.licenses.free;
       };
-    }) { };
-  devhelp = callPackage ({
+    }
+  ) { };
+  devhelp = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -687,8 +752,10 @@
         homepage = "https://elpa.gnu.org/packages/devhelp.html";
         license = lib.licenses.free;
       };
-    }) { };
-  diff-ansi = callPackage ({
+    }
+  ) { };
+  diff-ansi = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -707,8 +774,10 @@
         homepage = "https://elpa.gnu.org/packages/diff-ansi.html";
         license = lib.licenses.free;
       };
-    }) { };
-  doc-show-inline = callPackage ({
+    }
+  ) { };
+  doc-show-inline = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -727,8 +796,10 @@
         homepage = "https://elpa.gnu.org/packages/doc-show-inline.html";
         license = lib.licenses.free;
       };
-    }) { };
-  dockerfile-mode = callPackage ({
+    }
+  ) { };
+  dockerfile-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -747,8 +818,10 @@
         homepage = "https://elpa.gnu.org/packages/dockerfile-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  dracula-theme = callPackage ({
+    }
+  ) { };
+  dracula-theme = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -767,8 +840,10 @@
         homepage = "https://elpa.gnu.org/packages/dracula-theme.html";
         license = lib.licenses.free;
       };
-    }) { };
-  drupal-mode = callPackage ({
+    }
+  ) { };
+  drupal-mode = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -787,8 +862,10 @@
         homepage = "https://elpa.gnu.org/packages/drupal-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  eat = callPackage ({
+    }
+  ) { };
+  eat = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -807,8 +884,10 @@
         homepage = "https://elpa.gnu.org/packages/eat.html";
         license = lib.licenses.free;
       };
-    }) { };
-  edit-indirect = callPackage ({
+    }
+  ) { };
+  edit-indirect = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -827,8 +906,10 @@
         homepage = "https://elpa.gnu.org/packages/edit-indirect.html";
         license = lib.licenses.free;
       };
-    }) { };
-  editorconfig = callPackage ({
+    }
+  ) { };
+  editorconfig = callPackage (
+    {
       cl-lib ? null,
       elpaBuild,
       emacs,
@@ -853,8 +934,10 @@
         homepage = "https://elpa.gnu.org/packages/editorconfig.html";
         license = lib.licenses.free;
       };
-    }) { };
-  elixir-mode = callPackage ({
+    }
+  ) { };
+  elixir-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -873,8 +956,10 @@
         homepage = "https://elpa.gnu.org/packages/elixir-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  elpher = callPackage ({
+    }
+  ) { };
+  elpher = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -893,8 +978,10 @@
         homepage = "https://elpa.gnu.org/packages/elpher.html";
         license = lib.licenses.free;
       };
-    }) { };
-  engine-mode = callPackage ({
+    }
+  ) { };
+  engine-mode = callPackage (
+    {
       cl-lib ? null,
       elpaBuild,
       fetchurl,
@@ -913,8 +1000,10 @@
         homepage = "https://elpa.gnu.org/packages/engine-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  evil = callPackage ({
+    }
+  ) { };
+  evil = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -932,8 +1021,10 @@
         homepage = "https://elpa.gnu.org/packages/evil.html";
         license = lib.licenses.free;
       };
-    }) { };
-  evil-anzu = callPackage ({
+    }
+  ) { };
+  evil-anzu = callPackage (
+    {
       anzu,
       elpaBuild,
       evil,
@@ -956,8 +1047,10 @@
         homepage = "https://elpa.gnu.org/packages/evil-anzu.html";
         license = lib.licenses.free;
       };
-    }) { };
-  evil-args = callPackage ({
+    }
+  ) { };
+  evil-args = callPackage (
+    {
       elpaBuild,
       evil,
       fetchurl,
@@ -976,8 +1069,10 @@
         homepage = "https://elpa.gnu.org/packages/evil-args.html";
         license = lib.licenses.free;
       };
-    }) { };
-  evil-exchange = callPackage ({
+    }
+  ) { };
+  evil-exchange = callPackage (
+    {
       cl-lib ? null,
       elpaBuild,
       evil,
@@ -1000,8 +1095,10 @@
         homepage = "https://elpa.gnu.org/packages/evil-exchange.html";
         license = lib.licenses.free;
       };
-    }) { };
-  evil-goggles = callPackage ({
+    }
+  ) { };
+  evil-goggles = callPackage (
+    {
       elpaBuild,
       emacs,
       evil,
@@ -1024,8 +1121,10 @@
         homepage = "https://elpa.gnu.org/packages/evil-goggles.html";
         license = lib.licenses.free;
       };
-    }) { };
-  evil-iedit-state = callPackage ({
+    }
+  ) { };
+  evil-iedit-state = callPackage (
+    {
       elpaBuild,
       evil,
       fetchurl,
@@ -1048,8 +1147,10 @@
         homepage = "https://elpa.gnu.org/packages/evil-iedit-state.html";
         license = lib.licenses.free;
       };
-    }) { };
-  evil-indent-plus = callPackage ({
+    }
+  ) { };
+  evil-indent-plus = callPackage (
+    {
       cl-lib ? null,
       elpaBuild,
       evil,
@@ -1072,8 +1173,10 @@
         homepage = "https://elpa.gnu.org/packages/evil-indent-plus.html";
         license = lib.licenses.free;
       };
-    }) { };
-  evil-lisp-state = callPackage ({
+    }
+  ) { };
+  evil-lisp-state = callPackage (
+    {
       bind-map,
       elpaBuild,
       evil,
@@ -1098,8 +1201,10 @@
         homepage = "https://elpa.gnu.org/packages/evil-lisp-state.html";
         license = lib.licenses.free;
       };
-    }) { };
-  evil-matchit = callPackage ({
+    }
+  ) { };
+  evil-matchit = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1118,8 +1223,10 @@
         homepage = "https://elpa.gnu.org/packages/evil-matchit.html";
         license = lib.licenses.free;
       };
-    }) { };
-  evil-nerd-commenter = callPackage ({
+    }
+  ) { };
+  evil-nerd-commenter = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1138,8 +1245,10 @@
         homepage = "https://elpa.gnu.org/packages/evil-nerd-commenter.html";
         license = lib.licenses.free;
       };
-    }) { };
-  evil-numbers = callPackage ({
+    }
+  ) { };
+  evil-numbers = callPackage (
+    {
       elpaBuild,
       emacs,
       evil,
@@ -1162,8 +1271,10 @@
         homepage = "https://elpa.gnu.org/packages/evil-numbers.html";
         license = lib.licenses.free;
       };
-    }) { };
-  evil-visualstar = callPackage ({
+    }
+  ) { };
+  evil-visualstar = callPackage (
+    {
       elpaBuild,
       evil,
       fetchurl,
@@ -1182,8 +1293,10 @@
         homepage = "https://elpa.gnu.org/packages/evil-visualstar.html";
         license = lib.licenses.free;
       };
-    }) { };
-  flx = callPackage ({
+    }
+  ) { };
+  flx = callPackage (
+    {
       cl-lib ? null,
       elpaBuild,
       fetchurl,
@@ -1202,8 +1315,10 @@
         homepage = "https://elpa.gnu.org/packages/flx.html";
         license = lib.licenses.free;
       };
-    }) { };
-  flx-ido = callPackage ({
+    }
+  ) { };
+  flx-ido = callPackage (
+    {
       cl-lib ? null,
       elpaBuild,
       fetchurl,
@@ -1226,8 +1341,10 @@
         homepage = "https://elpa.gnu.org/packages/flx-ido.html";
         license = lib.licenses.free;
       };
-    }) { };
-  flymake-kondor = callPackage ({
+    }
+  ) { };
+  flymake-kondor = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1246,8 +1363,10 @@
         homepage = "https://elpa.gnu.org/packages/flymake-kondor.html";
         license = lib.licenses.free;
       };
-    }) { };
-  flymake-popon = callPackage ({
+    }
+  ) { };
+  flymake-popon = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1274,8 +1393,10 @@
         homepage = "https://elpa.gnu.org/packages/flymake-popon.html";
         license = lib.licenses.free;
       };
-    }) { };
-  focus = callPackage ({
+    }
+  ) { };
+  focus = callPackage (
+    {
       cl-lib ? null,
       elpaBuild,
       emacs,
@@ -1298,8 +1419,10 @@
         homepage = "https://elpa.gnu.org/packages/focus.html";
         license = lib.licenses.free;
       };
-    }) { };
-  forth-mode = callPackage ({
+    }
+  ) { };
+  forth-mode = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -1317,8 +1440,10 @@
         homepage = "https://elpa.gnu.org/packages/forth-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  free-keys = callPackage ({
+    }
+  ) { };
+  free-keys = callPackage (
+    {
       cl-lib ? null,
       elpaBuild,
       fetchurl,
@@ -1337,8 +1462,10 @@
         homepage = "https://elpa.gnu.org/packages/free-keys.html";
         license = lib.licenses.free;
       };
-    }) { };
-  gc-buffers = callPackage ({
+    }
+  ) { };
+  gc-buffers = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1357,8 +1484,10 @@
         homepage = "https://elpa.gnu.org/packages/gc-buffers.html";
         license = lib.licenses.free;
       };
-    }) { };
-  geiser = callPackage ({
+    }
+  ) { };
+  geiser = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1381,8 +1510,10 @@
         homepage = "https://elpa.gnu.org/packages/geiser.html";
         license = lib.licenses.free;
       };
-    }) { };
-  geiser-chez = callPackage ({
+    }
+  ) { };
+  geiser-chez = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1405,8 +1536,10 @@
         homepage = "https://elpa.gnu.org/packages/geiser-chez.html";
         license = lib.licenses.free;
       };
-    }) { };
-  geiser-chibi = callPackage ({
+    }
+  ) { };
+  geiser-chibi = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1429,8 +1562,10 @@
         homepage = "https://elpa.gnu.org/packages/geiser-chibi.html";
         license = lib.licenses.free;
       };
-    }) { };
-  geiser-chicken = callPackage ({
+    }
+  ) { };
+  geiser-chicken = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1453,8 +1588,10 @@
         homepage = "https://elpa.gnu.org/packages/geiser-chicken.html";
         license = lib.licenses.free;
       };
-    }) { };
-  geiser-gambit = callPackage ({
+    }
+  ) { };
+  geiser-gambit = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1477,8 +1614,10 @@
         homepage = "https://elpa.gnu.org/packages/geiser-gambit.html";
         license = lib.licenses.free;
       };
-    }) { };
-  geiser-gauche = callPackage ({
+    }
+  ) { };
+  geiser-gauche = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1501,8 +1640,10 @@
         homepage = "https://elpa.gnu.org/packages/geiser-gauche.html";
         license = lib.licenses.free;
       };
-    }) { };
-  geiser-guile = callPackage ({
+    }
+  ) { };
+  geiser-guile = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1527,8 +1668,10 @@
         homepage = "https://elpa.gnu.org/packages/geiser-guile.html";
         license = lib.licenses.free;
       };
-    }) { };
-  geiser-kawa = callPackage ({
+    }
+  ) { };
+  geiser-kawa = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1551,8 +1694,10 @@
         homepage = "https://elpa.gnu.org/packages/geiser-kawa.html";
         license = lib.licenses.free;
       };
-    }) { };
-  geiser-mit = callPackage ({
+    }
+  ) { };
+  geiser-mit = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1575,8 +1720,10 @@
         homepage = "https://elpa.gnu.org/packages/geiser-mit.html";
         license = lib.licenses.free;
       };
-    }) { };
-  geiser-racket = callPackage ({
+    }
+  ) { };
+  geiser-racket = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1599,8 +1746,10 @@
         homepage = "https://elpa.gnu.org/packages/geiser-racket.html";
         license = lib.licenses.free;
       };
-    }) { };
-  geiser-stklos = callPackage ({
+    }
+  ) { };
+  geiser-stklos = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1623,8 +1772,10 @@
         homepage = "https://elpa.gnu.org/packages/geiser-stklos.html";
         license = lib.licenses.free;
       };
-    }) { };
-  git-commit = callPackage ({
+    }
+  ) { };
+  git-commit = callPackage (
+    {
       dash,
       elpaBuild,
       emacs,
@@ -1651,8 +1802,10 @@
         homepage = "https://elpa.gnu.org/packages/git-commit.html";
         license = lib.licenses.free;
       };
-    }) { };
-  git-modes = callPackage ({
+    }
+  ) { };
+  git-modes = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1671,8 +1824,10 @@
         homepage = "https://elpa.gnu.org/packages/git-modes.html";
         license = lib.licenses.free;
       };
-    }) { };
-  gnu-apl-mode = callPackage ({
+    }
+  ) { };
+  gnu-apl-mode = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -1690,8 +1845,10 @@
         homepage = "https://elpa.gnu.org/packages/gnu-apl-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  gnu-indent = callPackage ({
+    }
+  ) { };
+  gnu-indent = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1710,8 +1867,10 @@
         homepage = "https://elpa.gnu.org/packages/gnu-indent.html";
         license = lib.licenses.free;
       };
-    }) { };
-  gnuplot = callPackage ({
+    }
+  ) { };
+  gnuplot = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1730,8 +1889,10 @@
         homepage = "https://elpa.gnu.org/packages/gnuplot.html";
         license = lib.licenses.free;
       };
-    }) { };
-  go-mode = callPackage ({
+    }
+  ) { };
+  go-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1750,8 +1911,10 @@
         homepage = "https://elpa.gnu.org/packages/go-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  gotham-theme = callPackage ({
+    }
+  ) { };
+  gotham-theme = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1770,8 +1933,10 @@
         homepage = "https://elpa.gnu.org/packages/gotham-theme.html";
         license = lib.licenses.free;
       };
-    }) { };
-  goto-chg = callPackage ({
+    }
+  ) { };
+  goto-chg = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1790,8 +1955,10 @@
         homepage = "https://elpa.gnu.org/packages/goto-chg.html";
         license = lib.licenses.free;
       };
-    }) { };
-  graphql-mode = callPackage ({
+    }
+  ) { };
+  graphql-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1810,8 +1977,10 @@
         homepage = "https://elpa.gnu.org/packages/graphql-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  gruber-darker-theme = callPackage ({
+    }
+  ) { };
+  gruber-darker-theme = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -1829,8 +1998,10 @@
         homepage = "https://elpa.gnu.org/packages/gruber-darker-theme.html";
         license = lib.licenses.free;
       };
-    }) { };
-  gruvbox-theme = callPackage ({
+    }
+  ) { };
+  gruvbox-theme = callPackage (
+    {
       autothemer,
       elpaBuild,
       fetchurl,
@@ -1849,8 +2020,10 @@
         homepage = "https://elpa.gnu.org/packages/gruvbox-theme.html";
         license = lib.licenses.free;
       };
-    }) { };
-  guru-mode = callPackage ({
+    }
+  ) { };
+  guru-mode = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -1868,8 +2041,10 @@
         homepage = "https://elpa.gnu.org/packages/guru-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  haml-mode = callPackage ({
+    }
+  ) { };
+  haml-mode = callPackage (
+    {
       cl-lib ? null,
       elpaBuild,
       emacs,
@@ -1892,8 +2067,10 @@
         homepage = "https://elpa.gnu.org/packages/haml-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  haskell-mode = callPackage ({
+    }
+  ) { };
+  haskell-mode = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -1911,8 +2088,10 @@
         homepage = "https://elpa.gnu.org/packages/haskell-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  haskell-tng-mode = callPackage ({
+    }
+  ) { };
+  haskell-tng-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -1935,8 +2114,10 @@
         homepage = "https://elpa.gnu.org/packages/haskell-tng-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  helm = callPackage ({
+    }
+  ) { };
+  helm = callPackage (
+    {
       elpaBuild,
       fetchurl,
       helm-core,
@@ -1959,8 +2140,10 @@
         homepage = "https://elpa.gnu.org/packages/helm.html";
         license = lib.licenses.free;
       };
-    }) { };
-  helm-core = callPackage ({
+    }
+  ) { };
+  helm-core = callPackage (
+    {
       async,
       elpaBuild,
       emacs,
@@ -1983,8 +2166,10 @@
         homepage = "https://elpa.gnu.org/packages/helm-core.html";
         license = lib.licenses.free;
       };
-    }) { };
-  highlight-parentheses = callPackage ({
+    }
+  ) { };
+  highlight-parentheses = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2003,8 +2188,10 @@
         homepage = "https://elpa.gnu.org/packages/highlight-parentheses.html";
         license = lib.licenses.free;
       };
-    }) { };
-  hl-block-mode = callPackage ({
+    }
+  ) { };
+  hl-block-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2023,8 +2210,10 @@
         homepage = "https://elpa.gnu.org/packages/hl-block-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  hl-column = callPackage ({
+    }
+  ) { };
+  hl-column = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2043,8 +2232,10 @@
         homepage = "https://elpa.gnu.org/packages/hl-column.html";
         license = lib.licenses.free;
       };
-    }) { };
-  htmlize = callPackage ({
+    }
+  ) { };
+  htmlize = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -2062,8 +2253,10 @@
         homepage = "https://elpa.gnu.org/packages/htmlize.html";
         license = lib.licenses.free;
       };
-    }) { };
-  idle-highlight-mode = callPackage ({
+    }
+  ) { };
+  idle-highlight-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2082,8 +2275,10 @@
         homepage = "https://elpa.gnu.org/packages/idle-highlight-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  idris-mode = callPackage ({
+    }
+  ) { };
+  idris-mode = callPackage (
+    {
       cl-lib ? null,
       elpaBuild,
       emacs,
@@ -2108,8 +2303,10 @@
         homepage = "https://elpa.gnu.org/packages/idris-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  iedit = callPackage ({
+    }
+  ) { };
+  iedit = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -2127,8 +2324,10 @@
         homepage = "https://elpa.gnu.org/packages/iedit.html";
         license = lib.licenses.free;
       };
-    }) { };
-  inf-clojure = callPackage ({
+    }
+  ) { };
+  inf-clojure = callPackage (
+    {
       clojure-mode,
       elpaBuild,
       emacs,
@@ -2151,8 +2350,10 @@
         homepage = "https://elpa.gnu.org/packages/inf-clojure.html";
         license = lib.licenses.free;
       };
-    }) { };
-  inf-ruby = callPackage ({
+    }
+  ) { };
+  inf-ruby = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2171,8 +2372,10 @@
         homepage = "https://elpa.gnu.org/packages/inf-ruby.html";
         license = lib.licenses.free;
       };
-    }) { };
-  inkpot-theme = callPackage ({
+    }
+  ) { };
+  inkpot-theme = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2191,8 +2394,10 @@
         homepage = "https://elpa.gnu.org/packages/inkpot-theme.html";
         license = lib.licenses.free;
       };
-    }) { };
-  iwindow = callPackage ({
+    }
+  ) { };
+  iwindow = callPackage (
+    {
       compat,
       elpaBuild,
       emacs,
@@ -2217,8 +2422,10 @@
         homepage = "https://elpa.gnu.org/packages/iwindow.html";
         license = lib.licenses.free;
       };
-    }) { };
-  j-mode = callPackage ({
+    }
+  ) { };
+  j-mode = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -2236,8 +2443,10 @@
         homepage = "https://elpa.gnu.org/packages/j-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  jade-mode = callPackage ({
+    }
+  ) { };
+  jade-mode = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -2255,8 +2464,10 @@
         homepage = "https://elpa.gnu.org/packages/jade-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  jinja2-mode = callPackage ({
+    }
+  ) { };
+  jinja2-mode = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -2274,8 +2485,10 @@
         homepage = "https://elpa.gnu.org/packages/jinja2-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  julia-mode = callPackage ({
+    }
+  ) { };
+  julia-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2294,8 +2507,10 @@
         homepage = "https://elpa.gnu.org/packages/julia-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  keycast = callPackage ({
+    }
+  ) { };
+  keycast = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2314,8 +2529,10 @@
         homepage = "https://elpa.gnu.org/packages/keycast.html";
         license = lib.licenses.free;
       };
-    }) { };
-  kotlin-mode = callPackage ({
+    }
+  ) { };
+  kotlin-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2334,8 +2551,10 @@
         homepage = "https://elpa.gnu.org/packages/kotlin-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  lorem-ipsum = callPackage ({
+    }
+  ) { };
+  lorem-ipsum = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -2353,8 +2572,10 @@
         homepage = "https://elpa.gnu.org/packages/lorem-ipsum.html";
         license = lib.licenses.free;
       };
-    }) { };
-  lua-mode = callPackage ({
+    }
+  ) { };
+  lua-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2373,8 +2594,10 @@
         homepage = "https://elpa.gnu.org/packages/lua-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  macrostep = callPackage ({
+    }
+  ) { };
+  macrostep = callPackage (
+    {
       cl-lib ? null,
       elpaBuild,
       fetchurl,
@@ -2393,8 +2616,10 @@
         homepage = "https://elpa.gnu.org/packages/macrostep.html";
         license = lib.licenses.free;
       };
-    }) { };
-  magit = callPackage ({
+    }
+  ) { };
+  magit = callPackage (
+    {
       dash,
       elpaBuild,
       emacs,
@@ -2425,8 +2650,10 @@
         homepage = "https://elpa.gnu.org/packages/magit.html";
         license = lib.licenses.free;
       };
-    }) { };
-  magit-section = callPackage ({
+    }
+  ) { };
+  magit-section = callPackage (
+    {
       dash,
       elpaBuild,
       emacs,
@@ -2449,8 +2676,10 @@
         homepage = "https://elpa.gnu.org/packages/magit-section.html";
         license = lib.licenses.free;
       };
-    }) { };
-  markdown-mode = callPackage ({
+    }
+  ) { };
+  markdown-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2469,8 +2698,10 @@
         homepage = "https://elpa.gnu.org/packages/markdown-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  material-theme = callPackage ({
+    }
+  ) { };
+  material-theme = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2489,8 +2720,10 @@
         homepage = "https://elpa.gnu.org/packages/material-theme.html";
         license = lib.licenses.free;
       };
-    }) { };
-  mentor = callPackage ({
+    }
+  ) { };
+  mentor = callPackage (
+    {
       async,
       elpaBuild,
       emacs,
@@ -2519,8 +2752,10 @@
         homepage = "https://elpa.gnu.org/packages/mentor.html";
         license = lib.licenses.free;
       };
-    }) { };
-  meow = callPackage ({
+    }
+  ) { };
+  meow = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2539,8 +2774,10 @@
         homepage = "https://elpa.gnu.org/packages/meow.html";
         license = lib.licenses.free;
       };
-    }) { };
-  minibar = callPackage ({
+    }
+  ) { };
+  minibar = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2559,8 +2796,10 @@
         homepage = "https://elpa.gnu.org/packages/minibar.html";
         license = lib.licenses.free;
       };
-    }) { };
-  moe-theme = callPackage ({
+    }
+  ) { };
+  moe-theme = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -2578,8 +2817,10 @@
         homepage = "https://elpa.gnu.org/packages/moe-theme.html";
         license = lib.licenses.free;
       };
-    }) { };
-  monokai-theme = callPackage ({
+    }
+  ) { };
+  monokai-theme = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -2597,8 +2838,10 @@
         homepage = "https://elpa.gnu.org/packages/monokai-theme.html";
         license = lib.licenses.free;
       };
-    }) { };
-  mpv = callPackage ({
+    }
+  ) { };
+  mpv = callPackage (
+    {
       cl-lib ? null,
       elpaBuild,
       emacs,
@@ -2625,8 +2868,10 @@
         homepage = "https://elpa.gnu.org/packages/mpv.html";
         license = lib.licenses.free;
       };
-    }) { };
-  multiple-cursors = callPackage ({
+    }
+  ) { };
+  multiple-cursors = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -2644,8 +2889,10 @@
         homepage = "https://elpa.gnu.org/packages/multiple-cursors.html";
         license = lib.licenses.free;
       };
-    }) { };
-  nasm-mode = callPackage ({
+    }
+  ) { };
+  nasm-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2664,8 +2911,10 @@
         homepage = "https://elpa.gnu.org/packages/nasm-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  nginx-mode = callPackage ({
+    }
+  ) { };
+  nginx-mode = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -2683,8 +2932,10 @@
         homepage = "https://elpa.gnu.org/packages/nginx-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  nix-mode = callPackage ({
+    }
+  ) { };
+  nix-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2709,8 +2960,10 @@
         homepage = "https://elpa.gnu.org/packages/nix-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  oblivion-theme = callPackage ({
+    }
+  ) { };
+  oblivion-theme = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2729,8 +2982,10 @@
         homepage = "https://elpa.gnu.org/packages/oblivion-theme.html";
         license = lib.licenses.free;
       };
-    }) { };
-  org-auto-tangle = callPackage ({
+    }
+  ) { };
+  org-auto-tangle = callPackage (
+    {
       async,
       elpaBuild,
       emacs,
@@ -2753,8 +3008,10 @@
         homepage = "https://elpa.gnu.org/packages/org-auto-tangle.html";
         license = lib.licenses.free;
       };
-    }) { };
-  org-contrib = callPackage ({
+    }
+  ) { };
+  org-contrib = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2777,8 +3034,10 @@
         homepage = "https://elpa.gnu.org/packages/org-contrib.html";
         license = lib.licenses.free;
       };
-    }) { };
-  org-drill = callPackage ({
+    }
+  ) { };
+  org-drill = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2805,8 +3064,10 @@
         homepage = "https://elpa.gnu.org/packages/org-drill.html";
         license = lib.licenses.free;
       };
-    }) { };
-  org-journal = callPackage ({
+    }
+  ) { };
+  org-journal = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2829,8 +3090,10 @@
         homepage = "https://elpa.gnu.org/packages/org-journal.html";
         license = lib.licenses.free;
       };
-    }) { };
-  org-mime = callPackage ({
+    }
+  ) { };
+  org-mime = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2849,8 +3112,10 @@
         homepage = "https://elpa.gnu.org/packages/org-mime.html";
         license = lib.licenses.free;
       };
-    }) { };
-  org-present = callPackage ({
+    }
+  ) { };
+  org-present = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -2869,8 +3134,10 @@
         homepage = "https://elpa.gnu.org/packages/org-present.html";
         license = lib.licenses.free;
       };
-    }) { };
-  org-superstar = callPackage ({
+    }
+  ) { };
+  org-superstar = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2893,8 +3160,10 @@
         homepage = "https://elpa.gnu.org/packages/org-superstar.html";
         license = lib.licenses.free;
       };
-    }) { };
-  org-tree-slide = callPackage ({
+    }
+  ) { };
+  org-tree-slide = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2913,8 +3182,10 @@
         homepage = "https://elpa.gnu.org/packages/org-tree-slide.html";
         license = lib.licenses.free;
       };
-    }) { };
-  orgit = callPackage ({
+    }
+  ) { };
+  orgit = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -2939,8 +3210,10 @@
         homepage = "https://elpa.gnu.org/packages/orgit.html";
         license = lib.licenses.free;
       };
-    }) { };
-  pacmacs = callPackage ({
+    }
+  ) { };
+  pacmacs = callPackage (
+    {
       dash,
       elpaBuild,
       emacs,
@@ -2963,8 +3236,10 @@
         homepage = "https://elpa.gnu.org/packages/pacmacs.html";
         license = lib.licenses.free;
       };
-    }) { };
-  paredit = callPackage ({
+    }
+  ) { };
+  paredit = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -2982,8 +3257,10 @@
         homepage = "https://elpa.gnu.org/packages/paredit.html";
         license = lib.licenses.free;
       };
-    }) { };
-  parseclj = callPackage ({
+    }
+  ) { };
+  parseclj = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3002,8 +3279,10 @@
         homepage = "https://elpa.gnu.org/packages/parseclj.html";
         license = lib.licenses.free;
       };
-    }) { };
-  parseedn = callPackage ({
+    }
+  ) { };
+  parseedn = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3028,8 +3307,10 @@
         homepage = "https://elpa.gnu.org/packages/parseedn.html";
         license = lib.licenses.free;
       };
-    }) { };
-  pcmpl-args = callPackage ({
+    }
+  ) { };
+  pcmpl-args = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3048,8 +3329,10 @@
         homepage = "https://elpa.gnu.org/packages/pcmpl-args.html";
         license = lib.licenses.free;
       };
-    }) { };
-  pcre2el = callPackage ({
+    }
+  ) { };
+  pcre2el = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3068,8 +3351,10 @@
         homepage = "https://elpa.gnu.org/packages/pcre2el.html";
         license = lib.licenses.free;
       };
-    }) { };
-  pdf-tools = callPackage ({
+    }
+  ) { };
+  pdf-tools = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3094,8 +3379,10 @@
         homepage = "https://elpa.gnu.org/packages/pdf-tools.html";
         license = lib.licenses.free;
       };
-    }) { };
-  php-mode = callPackage ({
+    }
+  ) { };
+  php-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3114,8 +3401,10 @@
         homepage = "https://elpa.gnu.org/packages/php-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  popon = callPackage ({
+    }
+  ) { };
+  popon = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3134,8 +3423,10 @@
         homepage = "https://elpa.gnu.org/packages/popon.html";
         license = lib.licenses.free;
       };
-    }) { };
-  popup = callPackage ({
+    }
+  ) { };
+  popup = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3154,8 +3445,10 @@
         homepage = "https://elpa.gnu.org/packages/popup.html";
         license = lib.licenses.free;
       };
-    }) { };
-  projectile = callPackage ({
+    }
+  ) { };
+  projectile = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3174,8 +3467,10 @@
         homepage = "https://elpa.gnu.org/packages/projectile.html";
         license = lib.licenses.free;
       };
-    }) { };
-  proof-general = callPackage ({
+    }
+  ) { };
+  proof-general = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3194,8 +3489,10 @@
         homepage = "https://elpa.gnu.org/packages/proof-general.html";
         license = lib.licenses.free;
       };
-    }) { };
-  prop-menu = callPackage ({
+    }
+  ) { };
+  prop-menu = callPackage (
+    {
       cl-lib ? null,
       elpaBuild,
       emacs,
@@ -3218,8 +3515,10 @@
         homepage = "https://elpa.gnu.org/packages/prop-menu.html";
         license = lib.licenses.free;
       };
-    }) { };
-  racket-mode = callPackage ({
+    }
+  ) { };
+  racket-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3239,8 +3538,10 @@
         homepage = "https://elpa.gnu.org/packages/racket-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  rainbow-delimiters = callPackage ({
+    }
+  ) { };
+  rainbow-delimiters = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -3258,8 +3559,10 @@
         homepage = "https://elpa.gnu.org/packages/rainbow-delimiters.html";
         license = lib.licenses.free;
       };
-    }) { };
-  raku-mode = callPackage ({
+    }
+  ) { };
+  raku-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3278,8 +3581,10 @@
         homepage = "https://elpa.gnu.org/packages/raku-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  recomplete = callPackage ({
+    }
+  ) { };
+  recomplete = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3298,8 +3603,10 @@
         homepage = "https://elpa.gnu.org/packages/recomplete.html";
         license = lib.licenses.free;
       };
-    }) { };
-  request = callPackage ({
+    }
+  ) { };
+  request = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3318,8 +3625,10 @@
         homepage = "https://elpa.gnu.org/packages/request.html";
         license = lib.licenses.free;
       };
-    }) { };
-  rfc-mode = callPackage ({
+    }
+  ) { };
+  rfc-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3338,8 +3647,10 @@
         homepage = "https://elpa.gnu.org/packages/rfc-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  rubocop = callPackage ({
+    }
+  ) { };
+  rubocop = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3358,8 +3669,10 @@
         homepage = "https://elpa.gnu.org/packages/rubocop.html";
         license = lib.licenses.free;
       };
-    }) { };
-  rust-mode = callPackage ({
+    }
+  ) { };
+  rust-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3378,8 +3691,10 @@
         homepage = "https://elpa.gnu.org/packages/rust-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  sass-mode = callPackage ({
+    }
+  ) { };
+  sass-mode = callPackage (
+    {
       cl-lib ? null,
       elpaBuild,
       fetchurl,
@@ -3402,8 +3717,10 @@
         homepage = "https://elpa.gnu.org/packages/sass-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  scad-mode = callPackage ({
+    }
+  ) { };
+  scad-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3422,8 +3739,10 @@
         homepage = "https://elpa.gnu.org/packages/scad-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  scala-mode = callPackage ({
+    }
+  ) { };
+  scala-mode = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -3441,8 +3760,10 @@
         homepage = "https://elpa.gnu.org/packages/scala-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  scroll-on-drag = callPackage ({
+    }
+  ) { };
+  scroll-on-drag = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3461,8 +3782,10 @@
         homepage = "https://elpa.gnu.org/packages/scroll-on-drag.html";
         license = lib.licenses.free;
       };
-    }) { };
-  scroll-on-jump = callPackage ({
+    }
+  ) { };
+  scroll-on-jump = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3481,8 +3804,10 @@
         homepage = "https://elpa.gnu.org/packages/scroll-on-jump.html";
         license = lib.licenses.free;
       };
-    }) { };
-  sesman = callPackage ({
+    }
+  ) { };
+  sesman = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3501,8 +3826,10 @@
         homepage = "https://elpa.gnu.org/packages/sesman.html";
         license = lib.licenses.free;
       };
-    }) { };
-  shellcop = callPackage ({
+    }
+  ) { };
+  shellcop = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3521,8 +3848,10 @@
         homepage = "https://elpa.gnu.org/packages/shellcop.html";
         license = lib.licenses.free;
       };
-    }) { };
-  slime = callPackage ({
+    }
+  ) { };
+  slime = callPackage (
+    {
       cl-lib ? null,
       elpaBuild,
       fetchurl,
@@ -3545,8 +3874,10 @@
         homepage = "https://elpa.gnu.org/packages/slime.html";
         license = lib.licenses.free;
       };
-    }) { };
-  sly = callPackage ({
+    }
+  ) { };
+  sly = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3565,8 +3896,10 @@
         homepage = "https://elpa.gnu.org/packages/sly.html";
         license = lib.licenses.free;
       };
-    }) { };
-  smartparens = callPackage ({
+    }
+  ) { };
+  smartparens = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -3584,8 +3917,10 @@
         homepage = "https://elpa.gnu.org/packages/smartparens.html";
         license = lib.licenses.free;
       };
-    }) { };
-  solarized-theme = callPackage ({
+    }
+  ) { };
+  solarized-theme = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3604,8 +3939,10 @@
         homepage = "https://elpa.gnu.org/packages/solarized-theme.html";
         license = lib.licenses.free;
       };
-    }) { };
-  spacemacs-theme = callPackage ({
+    }
+  ) { };
+  spacemacs-theme = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3624,8 +3961,10 @@
         homepage = "https://elpa.gnu.org/packages/spacemacs-theme.html";
         license = lib.licenses.free;
       };
-    }) { };
-  spell-fu = callPackage ({
+    }
+  ) { };
+  spell-fu = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3644,8 +3983,10 @@
         homepage = "https://elpa.gnu.org/packages/spell-fu.html";
         license = lib.licenses.free;
       };
-    }) { };
-  sqlite3 = callPackage ({
+    }
+  ) { };
+  sqlite3 = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3664,8 +4005,10 @@
         homepage = "https://elpa.gnu.org/packages/sqlite3.html";
         license = lib.licenses.free;
       };
-    }) { };
-  stylus-mode = callPackage ({
+    }
+  ) { };
+  stylus-mode = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -3683,8 +4026,10 @@
         homepage = "https://elpa.gnu.org/packages/stylus-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  subatomic-theme = callPackage ({
+    }
+  ) { };
+  subatomic-theme = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -3702,8 +4047,10 @@
         homepage = "https://elpa.gnu.org/packages/subatomic-theme.html";
         license = lib.licenses.free;
       };
-    }) { };
-  subed = callPackage ({
+    }
+  ) { };
+  subed = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3722,8 +4069,10 @@
         homepage = "https://elpa.gnu.org/packages/subed.html";
         license = lib.licenses.free;
       };
-    }) { };
-  sweeprolog = callPackage ({
+    }
+  ) { };
+  sweeprolog = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3742,8 +4091,10 @@
         homepage = "https://elpa.gnu.org/packages/sweeprolog.html";
         license = lib.licenses.free;
       };
-    }) { };
-  swift-mode = callPackage ({
+    }
+  ) { };
+  swift-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3766,8 +4117,10 @@
         homepage = "https://elpa.gnu.org/packages/swift-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  swsw = callPackage ({
+    }
+  ) { };
+  swsw = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3786,8 +4139,10 @@
         homepage = "https://elpa.gnu.org/packages/swsw.html";
         license = lib.licenses.free;
       };
-    }) { };
-  symbol-overlay = callPackage ({
+    }
+  ) { };
+  symbol-overlay = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3810,8 +4165,10 @@
         homepage = "https://elpa.gnu.org/packages/symbol-overlay.html";
         license = lib.licenses.free;
       };
-    }) { };
-  systemd = callPackage ({
+    }
+  ) { };
+  systemd = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3830,8 +4187,10 @@
         homepage = "https://elpa.gnu.org/packages/systemd.html";
         license = lib.licenses.free;
       };
-    }) { };
-  tablist = callPackage ({
+    }
+  ) { };
+  tablist = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3850,8 +4209,10 @@
         homepage = "https://elpa.gnu.org/packages/tablist.html";
         license = lib.licenses.free;
       };
-    }) { };
-  tangotango-theme = callPackage ({
+    }
+  ) { };
+  tangotango-theme = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -3869,8 +4230,10 @@
         homepage = "https://elpa.gnu.org/packages/tangotango-theme.html";
         license = lib.licenses.free;
       };
-    }) { };
-  telephone-line = callPackage ({
+    }
+  ) { };
+  telephone-line = callPackage (
+    {
       cl-generic,
       cl-lib ? null,
       elpaBuild,
@@ -3897,8 +4260,10 @@
         homepage = "https://elpa.gnu.org/packages/telephone-line.html";
         license = lib.licenses.free;
       };
-    }) { };
-  testcover-mark-line = callPackage ({
+    }
+  ) { };
+  testcover-mark-line = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3917,8 +4282,10 @@
         homepage = "https://elpa.gnu.org/packages/testcover-mark-line.html";
         license = lib.licenses.free;
       };
-    }) { };
-  textile-mode = callPackage ({
+    }
+  ) { };
+  textile-mode = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -3936,8 +4303,10 @@
         homepage = "https://elpa.gnu.org/packages/textile-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  toc-org = callPackage ({
+    }
+  ) { };
+  toc-org = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -3955,8 +4324,10 @@
         homepage = "https://elpa.gnu.org/packages/toc-org.html";
         license = lib.licenses.free;
       };
-    }) { };
-  treeview = callPackage ({
+    }
+  ) { };
+  treeview = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -3975,8 +4346,10 @@
         homepage = "https://elpa.gnu.org/packages/treeview.html";
         license = lib.licenses.free;
       };
-    }) { };
-  tuareg = callPackage ({
+    }
+  ) { };
+  tuareg = callPackage (
+    {
       caml,
       elpaBuild,
       emacs,
@@ -3999,8 +4372,10 @@
         homepage = "https://elpa.gnu.org/packages/tuareg.html";
         license = lib.licenses.free;
       };
-    }) { };
-  typescript-mode = callPackage ({
+    }
+  ) { };
+  typescript-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -4019,8 +4394,10 @@
         homepage = "https://elpa.gnu.org/packages/typescript-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  ujelly-theme = callPackage ({
+    }
+  ) { };
+  ujelly-theme = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -4038,8 +4415,10 @@
         homepage = "https://elpa.gnu.org/packages/ujelly-theme.html";
         license = lib.licenses.free;
       };
-    }) { };
-  undo-fu = callPackage ({
+    }
+  ) { };
+  undo-fu = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -4058,8 +4437,10 @@
         homepage = "https://elpa.gnu.org/packages/undo-fu.html";
         license = lib.licenses.free;
       };
-    }) { };
-  undo-fu-session = callPackage ({
+    }
+  ) { };
+  undo-fu-session = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -4078,8 +4459,10 @@
         homepage = "https://elpa.gnu.org/packages/undo-fu-session.html";
         license = lib.licenses.free;
       };
-    }) { };
-  vc-fossil = callPackage ({
+    }
+  ) { };
+  vc-fossil = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -4097,8 +4480,10 @@
         homepage = "https://elpa.gnu.org/packages/vc-fossil.html";
         license = lib.licenses.free;
       };
-    }) { };
-  vcomplete = callPackage ({
+    }
+  ) { };
+  vcomplete = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -4117,8 +4502,10 @@
         homepage = "https://elpa.gnu.org/packages/vcomplete.html";
         license = lib.licenses.free;
       };
-    }) { };
-  visual-fill-column = callPackage ({
+    }
+  ) { };
+  visual-fill-column = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -4137,8 +4524,10 @@
         homepage = "https://elpa.gnu.org/packages/visual-fill-column.html";
         license = lib.licenses.free;
       };
-    }) { };
-  web-mode = callPackage ({
+    }
+  ) { };
+  web-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -4157,8 +4546,10 @@
         homepage = "https://elpa.gnu.org/packages/web-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  webpaste = callPackage ({
+    }
+  ) { };
+  webpaste = callPackage (
+    {
       cl-lib ? null,
       elpaBuild,
       emacs,
@@ -4183,8 +4574,10 @@
         homepage = "https://elpa.gnu.org/packages/webpaste.html";
         license = lib.licenses.free;
       };
-    }) { };
-  wgrep = callPackage ({
+    }
+  ) { };
+  wgrep = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -4203,8 +4596,10 @@
         homepage = "https://elpa.gnu.org/packages/wgrep.html";
         license = lib.licenses.free;
       };
-    }) { };
-  why-this = callPackage ({
+    }
+  ) { };
+  why-this = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -4223,8 +4618,10 @@
         homepage = "https://elpa.gnu.org/packages/why-this.html";
         license = lib.licenses.free;
       };
-    }) { };
-  with-editor = callPackage ({
+    }
+  ) { };
+  with-editor = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -4243,8 +4640,10 @@
         homepage = "https://elpa.gnu.org/packages/with-editor.html";
         license = lib.licenses.free;
       };
-    }) { };
-  with-simulated-input = callPackage ({
+    }
+  ) { };
+  with-simulated-input = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -4263,8 +4662,10 @@
         homepage = "https://elpa.gnu.org/packages/with-simulated-input.html";
         license = lib.licenses.free;
       };
-    }) { };
-  workroom = callPackage ({
+    }
+  ) { };
+  workroom = callPackage (
+    {
       compat,
       elpaBuild,
       emacs,
@@ -4289,8 +4690,10 @@
         homepage = "https://elpa.gnu.org/packages/workroom.html";
         license = lib.licenses.free;
       };
-    }) { };
-  writegood-mode = callPackage ({
+    }
+  ) { };
+  writegood-mode = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -4308,8 +4711,10 @@
         homepage = "https://elpa.gnu.org/packages/writegood-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  ws-butler = callPackage ({
+    }
+  ) { };
+  ws-butler = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -4327,8 +4732,10 @@
         homepage = "https://elpa.gnu.org/packages/ws-butler.html";
         license = lib.licenses.free;
       };
-    }) { };
-  xah-fly-keys = callPackage ({
+    }
+  ) { };
+  xah-fly-keys = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -4348,8 +4755,10 @@
         homepage = "https://elpa.gnu.org/packages/xah-fly-keys.html";
         license = lib.licenses.free;
       };
-    }) { };
-  xkcd = callPackage ({
+    }
+  ) { };
+  xkcd = callPackage (
+    {
       elpaBuild,
       fetchurl,
       json ? null,
@@ -4368,8 +4777,10 @@
         homepage = "https://elpa.gnu.org/packages/xkcd.html";
         license = lib.licenses.free;
       };
-    }) { };
-  xml-rpc = callPackage ({
+    }
+  ) { };
+  xml-rpc = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -4387,8 +4798,10 @@
         homepage = "https://elpa.gnu.org/packages/xml-rpc.html";
         license = lib.licenses.free;
       };
-    }) { };
-  yaml-mode = callPackage ({
+    }
+  ) { };
+  yaml-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -4407,8 +4820,10 @@
         homepage = "https://elpa.gnu.org/packages/yaml-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
-  yasnippet-snippets = callPackage ({
+    }
+  ) { };
+  yasnippet-snippets = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -4427,8 +4842,10 @@
         homepage = "https://elpa.gnu.org/packages/yasnippet-snippets.html";
         license = lib.licenses.free;
       };
-    }) { };
-  zenburn-theme = callPackage ({
+    }
+  ) { };
+  zenburn-theme = callPackage (
+    {
       elpaBuild,
       fetchurl,
       lib,
@@ -4446,8 +4863,10 @@
         homepage = "https://elpa.gnu.org/packages/zenburn-theme.html";
         license = lib.licenses.free;
       };
-    }) { };
-  zig-mode = callPackage ({
+    }
+  ) { };
+  zig-mode = callPackage (
+    {
       elpaBuild,
       emacs,
       fetchurl,
@@ -4466,5 +4885,6 @@
         homepage = "https://elpa.gnu.org/packages/zig-mode.html";
         license = lib.licenses.free;
       };
-    }) { };
+    }
+  ) { };
 }

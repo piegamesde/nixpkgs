@@ -49,21 +49,27 @@ let
     if isList tests then
       (concatLists (map (run name under) tests))
     else if isAttrs tests then
-      (concatLists (map (subName:
-        run (name + "." + subName) (if hasAttr subName under then
-          getAttr subName under
-        else
-          "<MISSING!>") (getAttr subName tests)) (attrNames tests)))
+      (concatLists (map (
+        subName:
+        run (name + "." + subName) (
+          if hasAttr subName under then
+            getAttr subName under
+          else
+            "<MISSING!>"
+        ) (getAttr subName tests)
+      ) (attrNames tests)))
     else if isFunction tests then
       let
         res = tests under;
       in
       if isBool res then
         [
-          (prefixName name (if tests under then
-            passed "passed"
-          else
-            failed "failed"))
+          (prefixName name (
+            if tests under then
+              passed "passed"
+            else
+              failed "failed"
+          ))
         ]
       else
         [ (prefixName name res) ]

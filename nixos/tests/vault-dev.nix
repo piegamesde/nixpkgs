@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -43,4 +44,5 @@ import ./make-test-python.nix ({
       status = json.loads(out)
       assert status.get("data", {}).get("data", {}).get("bar") == "baz"
     '';
-  })
+  }
+)

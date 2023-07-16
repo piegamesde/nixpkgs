@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -162,9 +163,10 @@ import ./make-test-python.nix ({
                   http-check expect status 200
                   default-server inter 3s fall 3 rise 2 on-marked-down shutdown-sessions
                   ${
-                    builtins.concatStringsSep "\n" (map (ip:
-                      "server postgresql_${ip}_5432 ${ip}:5432 maxconn 100 check port 8008")
-                      nodesIps)
+                    builtins.concatStringsSep "\n" (map (
+                      ip:
+                      "server postgresql_${ip}_5432 ${ip}:5432 maxconn 100 check port 8008"
+                    ) nodesIps)
                   }
             '';
           };

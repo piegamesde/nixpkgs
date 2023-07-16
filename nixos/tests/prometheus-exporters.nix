@@ -1026,19 +1026,21 @@ let
       metricProvider = {
         # Mock rtl_433 binary to return a dummy metric stream.
         nixpkgs.overlays = [
-            (self: super: {
-              rtl_433 = self.runCommand "rtl_433" { } ''
-                mkdir -p "$out/bin"
-                cat <<EOF > "$out/bin/rtl_433"
-                #!/bin/sh
-                while true; do
-                  printf '{"time" : "2020-04-26 13:37:42", "model" : "zopieux", "id" : 55, "channel" : 3, "temperature_C" : 18.000}\n'
-                  sleep 4
-                done
-                EOF
-                chmod +x "$out/bin/rtl_433"
-              '';
-            })
+            (
+              self: super: {
+                rtl_433 = self.runCommand "rtl_433" { } ''
+                  mkdir -p "$out/bin"
+                  cat <<EOF > "$out/bin/rtl_433"
+                  #!/bin/sh
+                  while true; do
+                    printf '{"time" : "2020-04-26 13:37:42", "model" : "zopieux", "id" : 55, "channel" : 3, "temperature_C" : 18.000}\n'
+                    sleep 4
+                  done
+                  EOF
+                  chmod +x "$out/bin/rtl_433"
+                '';
+              }
+            )
           ];
       };
       exporterTest = ''
@@ -1434,33 +1436,41 @@ let
     };
   };
 in
-mapAttrs (exporter: testConfig:
-  (makeTest (let
-    nodeName = testConfig.nodeName or exporter;
+mapAttrs (
+  exporter: testConfig:
+  (makeTest (
+    let
+      nodeName = testConfig.nodeName or exporter;
 
-  in
-  {
-    name = "prometheus-${exporter}-exporter";
+    in
+    {
+      name = "prometheus-${exporter}-exporter";
 
-    nodes.${nodeName} = mkMerge [
-      { services.prometheus.exporters.${exporter} = testConfig.exporterConfig; }
-      testConfig.metricProvider or { }
-    ];
+      nodes.${nodeName} = mkMerge [
+        {
+          services.prometheus.exporters.${exporter} = testConfig.exporterConfig;
+        }
+        testConfig.metricProvider or { }
+      ];
 
-    testScript = ''
-      ${nodeName}.start()
-      ${concatStringsSep "\n" (map (line:
-        if
-          (builtins.substring 0 1 line == " "
-            || builtins.substring 0 1 line == ")")
-        then
-          line
-        else
-          "${nodeName}.${line}")
-        (splitString "\n" (removeSuffix "\n" testConfig.exporterTest)))}
-      ${nodeName}.shutdown()
-    '';
+      testScript = ''
+        ${nodeName}.start()
+        ${concatStringsSep "\n" (map (
+          line:
+          if
+            (
+              builtins.substring 0 1 line == " "
+              || builtins.substring 0 1 line == ")"
+            )
+          then
+            line
+          else
+            "${nodeName}.${line}"
+        ) (splitString "\n" (removeSuffix "\n" testConfig.exporterTest)))}
+        ${nodeName}.shutdown()
+      '';
 
-    meta = with maintainers; { maintainers = [ willibutz ]; };
-  }
-  ))) exporterTests
+      meta = with maintainers; { maintainers = [ willibutz ]; };
+    }
+  ))
+) exporterTests

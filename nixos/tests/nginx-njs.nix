@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -37,4 +38,5 @@ import ./make-test-python.nix ({
       response = machine.wait_until_succeeds("curl -fvvv -s http://127.0.0.1/")
       assert "Hello world!" == response, f"Expected 'Hello world!', got '{response}'"
     '';
-  })
+  }
+)

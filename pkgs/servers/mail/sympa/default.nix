@@ -10,7 +10,8 @@
 let
   dataDir = "/var/lib/sympa";
   runtimeDir = "/run/sympa";
-  perlEnv = perl.withPackages (p:
+  perlEnv = perl.withPackages (
+    p:
     with p; [
       ArchiveZip
       CGI
@@ -65,7 +66,8 @@ let
       perlldap
       libnet
       SOAPLite
-    ]);
+    ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "sympa";

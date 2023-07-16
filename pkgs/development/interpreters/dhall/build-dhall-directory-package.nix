@@ -8,7 +8,8 @@
 # the `file`
 #
 # This function is used by `dhall-to-nixpkgs` when given a directory
-lib.makePackageOverridable ({ # Arguments passed through to `buildDhallPackage`
+lib.makePackageOverridable (
+  { # Arguments passed through to `buildDhallPackage`
     name,
     dependencies ? [ ],
     source ? false
@@ -21,9 +22,12 @@ lib.makePackageOverridable ({ # Arguments passed through to `buildDhallPackage`
     document ? false
   }:
 
-  buildDhallPackage ({
-    inherit name dependencies source;
+  buildDhallPackage (
+    {
+      inherit name dependencies source;
 
-    code = "${src}/${file}";
+      code = "${src}/${file}";
 
-  } // lib.optionalAttrs document { documentationRoot = "${src}"; }))
+    } // lib.optionalAttrs document { documentationRoot = "${src}"; }
+  )
+)

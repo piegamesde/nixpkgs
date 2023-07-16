@@ -1,6 +1,7 @@
 # In contrast to systemd-networkd-dhcpserver, this test configures
 # the router with a static DHCP lease for the client's MAC address.
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }: {
@@ -87,4 +88,5 @@ import ./make-test-python.nix ({
         client.wait_until_succeeds("ping -c 5 10.0.0.1")
         router.wait_until_succeeds("ping -c 5 10.0.0.10")
     '';
-  })
+  }
+)

@@ -15,23 +15,25 @@
 let
   mkSusDerivation =
     args:
-    stdenvNoCC.mkDerivation (args // {
-      dontBuild = true;
-      darwinDontCodeSign = true;
+    stdenvNoCC.mkDerivation (
+      args // {
+        dontBuild = true;
+        darwinDontCodeSign = true;
 
-      nativeBuildInputs = [
-        cpio
-        pbzx
-      ];
+        nativeBuildInputs = [
+          cpio
+          pbzx
+        ];
 
-      outputs = [ "out" ];
+        outputs = [ "out" ];
 
-      unpackPhase = ''
-        pbzx $src | cpio -idm
-      '';
+        unpackPhase = ''
+          pbzx $src | cpio -idm
+        '';
 
-      passthru = { inherit (args) version; };
-    })
+        passthru = { inherit (args) version; };
+      }
+    )
     ;
 
   MacOSX-SDK = mkSusDerivation {
@@ -137,24 +139,28 @@ let
       inherit (pkgs) rustc cargo;
     };
 
-    callPackage = newScope (lib.optionalAttrs stdenv.isDarwin (stdenvs // rec {
-      inherit (pkgs.darwin.apple_sdk_11_0) xcodebuild rustPlatform;
-      darwin = pkgs.darwin.overrideScope (_: prev: {
-        inherit (prev.darwin.apple_sdk_11_0)
-          IOKit
-          Libsystem
-          LibsystemCross
-          Security
-          configd
-          libcharset
-          libunwind
-          objc4
-          ;
-        apple_sdk = prev.darwin.apple_sdk_11_0;
-        CF = prev.darwin.apple_sdk_11_0.CoreFoundation;
-      });
-      xcbuild = xcodebuild;
-    }));
+    callPackage = newScope (lib.optionalAttrs stdenv.isDarwin (
+      stdenvs // rec {
+        inherit (pkgs.darwin.apple_sdk_11_0) xcodebuild rustPlatform;
+        darwin = pkgs.darwin.overrideScope (
+          _: prev: {
+            inherit (prev.darwin.apple_sdk_11_0)
+              IOKit
+              Libsystem
+              LibsystemCross
+              Security
+              configd
+              libcharset
+              libunwind
+              objc4
+              ;
+            apple_sdk = prev.darwin.apple_sdk_11_0;
+            CF = prev.darwin.apple_sdk_11_0.CoreFoundation;
+          }
+        );
+        xcbuild = xcodebuild;
+      }
+    ));
   };
 in
 packages

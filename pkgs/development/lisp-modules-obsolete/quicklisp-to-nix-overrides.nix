@@ -15,7 +15,9 @@ let
       ((builtins.head l) x) // (multiOverride (builtins.tail l) x)
     ;
   lispName =
-    (clwrapper.lisp.pname or (builtins.parseDrvName clwrapper.lisp.name).name);
+    (
+      clwrapper.lisp.pname or (builtins.parseDrvName clwrapper.lisp.name).name
+    );
   ifLispIn =
     l: f:
     if (pkgs.lib.elem lispName l) then
@@ -83,11 +85,15 @@ in
   iolib =
     x: {
       propagatedBuildInputs =
-        (x.propagatedBuildInputs or [ ])
-        ++ (with pkgs; [
-          libfixposix
-          gcc
-        ])
+        (
+          x.propagatedBuildInputs or [ ]
+        )
+        ++ (
+          with pkgs; [
+            libfixposix
+            gcc
+          ]
+        )
         ;
       overrides =
         y:
@@ -103,10 +109,12 @@ in
     }
     ;
   cxml = skipBuildPhase;
-  wookie = addNativeLibs (with pkgs; [
-    libuv
-    openssl
-  ]);
+  wookie = addNativeLibs (
+    with pkgs; [
+      libuv
+      openssl
+    ]
+  );
   lev = addNativeLibs [ pkgs.libev ];
   cl_plus_ssl =
     x: rec {
@@ -142,7 +150,9 @@ in
         y:
         (x.overrides y) // {
           preConfigure =
-            ((x.overrides y).preConfigure or "")
+            (
+              (x.overrides y).preConfigure or ""
+            )
             + ''
               export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${pkgs.libmysqlclient}/include/mysql"
               export NIX_LDFLAGS="$NIX_LDFLAGS -L${pkgs.libmysqlclient}/lib/mysql"
@@ -157,7 +167,9 @@ in
     ] (x: {
       deps =
         pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath)
-        (x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ]));
+        (
+          x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ])
+        );
       overrides =
         y:
         (x.overrides y) // {
@@ -173,8 +185,9 @@ in
     "clisp"
   ] (x: {
     deps =
-      pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath)
-      (x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ]));
+      pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath) (
+        x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ])
+      );
     overrides =
       y:
       (x.overrides y) // {
@@ -192,7 +205,9 @@ in
         (x.overrides y) // {
           linkedSystems = [ ];
           postInstall =
-            ((x.overrides y).postInstall or "")
+            (
+              (x.overrides y).postInstall or ""
+            )
             + ''
                       export NIX_LISP_ASDF_PATHS="$NIX_LISP_ASDF_PATHS
               $out/lib/common-lisp/query-fs"
@@ -215,7 +230,9 @@ in
         y:
         (x.overrides y) // {
           prePatch =
-            ((x.overrides y).prePatch or "")
+            (
+              (x.overrides y).prePatch or ""
+            )
             + ''
               sed -i 's,libmysqlclient_r,${pkgs.libmysqlclient}/lib/mysql/libmysqlclient_r,' system.lisp
             ''
@@ -243,7 +260,9 @@ in
         y:
         (x.overrides y) // {
           prePatch =
-            ((x.overrides y).preConfigure or "")
+            (
+              (x.overrides y).preConfigure or ""
+            )
             + ''
               sed 's|libsqlite3|${pkgs.sqlite.out}/lib/libsqlite3|' -i sqlite-ffi.lisp
             ''
@@ -296,7 +315,9 @@ in
         y:
         (x.overrides y) // {
           postInstall =
-            ((x.overrides y).postInstall or "")
+            (
+              (x.overrides y).postInstall or ""
+            )
             + ''
               cp -r "${pkgs.asdf}/lib/common-lisp/asdf/uiop/contrib" "$out/lib/common-lisp/uiop"
             ''
@@ -333,10 +354,13 @@ in
     ;
   cl-postgres =
     x: {
-      deps = pkgs.lib.filter
-        (x: x.outPath != quicklisp-to-nix-packages.simple-date.outPath) x.deps;
+      deps = pkgs.lib.filter (
+        x: x.outPath != quicklisp-to-nix-packages.simple-date.outPath
+      ) x.deps;
       parasites =
-        (x.parasites or [ ])
+        (
+          x.parasites or [ ]
+        )
         ++ [
           "simple-date"
           "simple-date/postgres-glue"
@@ -347,15 +371,18 @@ in
     ;
   buildnode =
     x: {
-      deps = pkgs.lib.filter
-        (x: x.name != quicklisp-to-nix-packages.buildnode-xhtml.name) x.deps;
+      deps = pkgs.lib.filter (
+        x: x.name != quicklisp-to-nix-packages.buildnode-xhtml.name
+      ) x.deps;
       parasites = pkgs.lib.filter (x: x != "buildnode-test") x.parasites;
     }
     ;
   postmodern =
     x: {
       asdFilesToKeep =
-        (x.asdFilesToKeep or [ ])
+        (
+          x.asdFilesToKeep or [ ]
+        )
         ++ [
           "postmodern.asd"
           "simple-date.asd"
@@ -365,8 +392,9 @@ in
         (pkgs.lib.filter (x: x != "postmodern/tests") x.parasites)
         ++ [ "simple-date/postgres-glue" ]
         ;
-      deps = pkgs.lib.filter
-        (x: x.name != quicklisp-to-nix-packages.simple-date.name) x.deps;
+      deps = pkgs.lib.filter (
+        x: x.name != quicklisp-to-nix-packages.simple-date.name
+      ) x.deps;
     }
     ;
   s-sql =
@@ -404,12 +432,16 @@ in
   dbi =
     x: {
       parasites = [ ];
-      deps = pkgs.lib.filter (x:
-        (x.name != quicklisp-to-nix-packages.dbd-mysql.name
+      deps = pkgs.lib.filter (
+        x:
+        (
+          x.name != quicklisp-to-nix-packages.dbd-mysql.name
           && x.name != quicklisp-to-nix-packages.dbd-postgres.name
           && x.name != quicklisp-to-nix-packages.dbd-sqlite3.name
           && x.name != quicklisp-to-nix-packages.dbi-test.name
-          && true)) x.deps;
+          && true
+        )
+      ) x.deps;
     }
     ;
   cl-cffi-gtk-glib = addNativeLibs [ pkgs.glib ];
@@ -459,10 +491,12 @@ in
     "ccl"
     "gcl"
   ] (extraLispDeps (with quicklisp-to-nix-packages; [ flexi-streams ]));
-  cl-gobject-introspection = addNativeLibs (with pkgs; [
-    glib
-    gobject-introspection
-  ]);
+  cl-gobject-introspection = addNativeLibs (
+    with pkgs; [
+      glib
+      gobject-introspection
+    ]
+  );
   generic-cl = x: { parasites = [ ]; };
   static-dispatch =
     x: {

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -70,4 +71,5 @@ import ./make-test-python.nix ({
       a.wait_for_file("/var/lib/syncthing/foo/b2a")
       b.wait_for_file("/var/lib/syncthing/foo/a2b")
     '';
-  })
+  }
+)

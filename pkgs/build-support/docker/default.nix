@@ -599,7 +599,9 @@ rec {
     let
       checked = lib.warnIf (contents != null)
         "in docker image ${name}: The contents parameter is deprecated. Change to copyToRoot if the contents are designed to be copied to the root filesystem, such as when you use `buildEnv` or similar between contents and your packages. Use copyToRoot = buildEnv { ... }; or similar if you intend to add packages to /bin."
-        lib.throwIf (contents != null && copyToRoot != null)
+        lib.throwIf (
+          contents != null && copyToRoot != null
+        )
         "in docker image ${name}: You can not specify both contents and copyToRoot."
         ;
 
@@ -916,9 +918,9 @@ rec {
       extraCommands ? "",
       ...
     }:
-    (buildImage (args // {
-      extraCommands = (mkDbExtraCommand copyToRoot) + extraCommands;
-    }))
+    (buildImage (
+      args // { extraCommands = (mkDbExtraCommand copyToRoot) + extraCommands; }
+    ))
     ;
 
     # TODO: add the dependencies of the config json.
@@ -928,9 +930,9 @@ rec {
       extraCommands ? "",
       ...
     }:
-    (buildLayeredImage (args // {
-      extraCommands = (mkDbExtraCommand contents) + extraCommands;
-    }))
+    (buildLayeredImage (
+      args // { extraCommands = (mkDbExtraCommand contents) + extraCommands; }
+    ))
     ;
 
   streamLayeredImage =
@@ -1246,7 +1248,8 @@ rec {
         ;
 
         # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L992-L1004
-      drvEnv = lib.mapAttrs' (name: value:
+      drvEnv = lib.mapAttrs' (
+        name: value:
         let
           str = stringValue value;
         in
@@ -1257,8 +1260,9 @@ rec {
       ) drv.drvAttrs //
         # A mapping from output name to the nix store path where they should end up
         # https://github.com/NixOS/nix/blob/2.8.0/src/libexpr/primops.cc#L1253
-        lib.genAttrs drv.outputs
-        (output: builtins.unsafeDiscardStringContext drv.${output}.outPath);
+        lib.genAttrs drv.outputs (
+          output: builtins.unsafeDiscardStringContext drv.${output}.outPath
+        );
 
         # Environment variables set in the image
       envVars = {

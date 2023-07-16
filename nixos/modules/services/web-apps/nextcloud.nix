@@ -21,21 +21,25 @@ let
         enabled,
         all,
       }:
-      (with all;
-      # disable default openssl extension
+      (
+        with all;
+        # disable default openssl extension
         (lib.filter (e: e.pname != "php-openssl") enabled)
         # use OpenSSL 1.1 for RC4 Nextcloud encryption if user
         # has acknowledged the brokenness of the ciphers (RC4).
         # TODO: remove when https://github.com/nextcloud/server/issues/32003 is fixed.
-        ++ (if cfg.enableBrokenCiphersForSSE then
-          [ cfg.phpPackage.extensions.openssl-legacy ]
-        else
-          [ cfg.phpPackage.extensions.openssl ])
+        ++ (
+          if cfg.enableBrokenCiphersForSSE then
+            [ cfg.phpPackage.extensions.openssl-legacy ]
+          else
+            [ cfg.phpPackage.extensions.openssl ]
+        )
         ++ optional cfg.enableImagemagick imagick
           # Optionally enabled depending on caching settings
         ++ optional cfg.caching.apcu apcu
         ++ optional cfg.caching.redis redis
-        ++ optional cfg.caching.memcached memcached)
+        ++ optional cfg.caching.memcached memcached
+      )
       ++ cfg.phpExtraExtensions all
       ; # Enabled by user
     extraConfig = toKeyValue phpOptions;
@@ -788,26 +792,30 @@ in
 
           For more context, here is the implementing pull request: https://github.com/NixOS/nixpkgs/pull/198470
         '')
-        ++ (optional (cfg.enableBrokenCiphersForSSE
-          && versionAtLeast cfg.package.version "26") ''
-            Nextcloud26 supports RC4 without requiring legacy OpenSSL, so
-            `services.nextcloud.enableBrokenCiphersForSSE` can be set to `false`.
-          '')
+        ++ (optional (
+          cfg.enableBrokenCiphersForSSE
+          && versionAtLeast cfg.package.version "26"
+        ) ''
+          Nextcloud26 supports RC4 without requiring legacy OpenSSL, so
+          `services.nextcloud.enableBrokenCiphersForSSE` can be set to `false`.
+        '')
         ;
 
       services.nextcloud.package = with pkgs;
-        mkDefault (if pkgs ? nextcloud then
-          throw ''
-            The `pkgs.nextcloud`-attribute has been removed. If it's supposed to be the default
-            nextcloud defined in an overlay, please set `services.nextcloud.package` to
-            `pkgs.nextcloud`.
-          ''
-        else if versionOlder stateVersion "22.11" then
-          nextcloud24
-        else if versionOlder stateVersion "23.05" then
-          nextcloud25
-        else
-          nextcloud26);
+        mkDefault (
+          if pkgs ? nextcloud then
+            throw ''
+              The `pkgs.nextcloud`-attribute has been removed. If it's supposed to be the default
+              nextcloud defined in an overlay, please set `services.nextcloud.package` to
+              `pkgs.nextcloud`.
+            ''
+          else if versionOlder stateVersion "22.11" then
+            nextcloud24
+          else if versionOlder stateVersion "23.05" then
+            nextcloud25
+          else
+            nextcloud26
+        );
 
       services.nextcloud.phpPackage =
         if versionOlder cfg.package.version "26" then
@@ -1083,10 +1091,14 @@ in
                     ${installFlags}
               ''
               ;
-            occSetTrustedDomainsCmd = concatStringsSep "\n" (imap0 (i: v: ''
-              ${occ}/bin/nextcloud-occ config:system:set trusted_domains \
-                ${toString i} --value="${toString v}"
-            '') ([ cfg.hostName ] ++ cfg.config.extraTrustedDomains));
+            occSetTrustedDomainsCmd = concatStringsSep "\n" (imap0 (
+              i: v: ''
+                ${occ}/bin/nextcloud-occ config:system:set trusted_domains \
+                  ${toString i} --value="${toString v}"
+              ''
+            ) (
+              [ cfg.hostName ] ++ cfg.config.extraTrustedDomains
+            ));
 
           in
           {

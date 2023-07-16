@@ -33,10 +33,12 @@ stdenv.mkDerivation rec {
     perl
   ];
   buildInputs = [
-      (if stdenv.buildPlatform == stdenv.hostPlatform then
-        llvm
-      else
-        targetLlvm)
+      (
+        if stdenv.buildPlatform == stdenv.hostPlatform then
+          llvm
+        else
+          targetLlvm
+      )
     ];
 
   meta = llvm_meta // {

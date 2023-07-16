@@ -66,19 +66,23 @@ stdenv.mkDerivation rec {
       iconTheme
       gtk3
     ]
-    ++ (with gst_all_1; [
-      gstreamer
-      gst-plugins-base
-      gst-plugins-good
-    ])
-    ++ (with python3.pkgs; [
-      bsddb3
-      dbus-python
-      mutagen
-      pygobject3
-      pycairo
-      gst-python
-    ])
+    ++ (
+      with gst_all_1; [
+        gstreamer
+        gst-plugins-base
+        gst-plugins-good
+      ]
+    )
+    ++ (
+      with python3.pkgs; [
+        bsddb3
+        dbus-python
+        mutagen
+        pygobject3
+        pycairo
+        gst-python
+      ]
+    )
     ++ lib.optional deviceDetectionSupport udisks
     ++ lib.optional notificationSupport libnotify
     ++ lib.optional scalableIconSupport librsvg
@@ -108,8 +112,9 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/exaile \
       --set PYTHONPATH $PYTHONPATH \
       --prefix PATH : ${
-        lib.makeBinPath
-        ([ python3 ] ++ lib.optionals streamripperSupport [ streamripper ])
+        lib.makeBinPath (
+          [ python3 ] ++ lib.optionals streamripperSupport [ streamripper ]
+        )
       }
   '';
 

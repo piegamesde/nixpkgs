@@ -51,7 +51,9 @@ let
   supportDarwin = lib.genAttrs [
     "x86_64"
     "aarch64"
-  ] (arch: builtins.elem "${arch}-darwin" systemsWithAnySupport);
+  ] (
+    arch: builtins.elem "${arch}-darwin" systemsWithAnySupport
+  );
 
   nonPackageJobs = {
     tarball = import ./make-tarball.nix {
@@ -194,7 +196,8 @@ let
     };
 
     stdenvBootstrapTools = with lib;
-      genAttrs systemsWithAnySupport (system:
+      genAttrs systemsWithAnySupport (
+        system:
         if hasSuffix "-linux" system then
           let
             bootstrap = import ../stdenv/linux/make-bootstrap-tools.nix {
@@ -219,15 +222,16 @@ let
               #inherit (bootstrap.test-pkgs) stdenv;
           }
         else
-          abort "No bootstrap implementation for system: ${system}");
+          abort "No bootstrap implementation for system: ${system}"
+      );
   };
 
     # Do not allow attribute collision between jobs inserted in
     # 'nonPackageAttrs' and jobs pulled in from 'pkgs'.
     # Conflicts usually cause silent job drops like in
     #   https://github.com/NixOS/nixpkgs/pull/182058
-  jobs = lib.attrsets.unionOfDisjoint nonPackageJobs (mapTestOn
-    ((packagePlatforms pkgs) // {
+  jobs = lib.attrsets.unionOfDisjoint nonPackageJobs (mapTestOn (
+    (packagePlatforms pkgs) // {
       haskell.compiler = packagePlatforms pkgs.haskell.compiler;
       haskellPackages = packagePlatforms pkgs.haskellPackages;
       idrisPackages = packagePlatforms pkgs.idrisPackages;
@@ -256,7 +260,8 @@ let
       perlPackages = { };
 
       darwin = packagePlatforms pkgs.darwin // { xcode = { }; };
-    }));
+    }
+  ));
 
 in
 jobs

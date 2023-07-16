@@ -36,11 +36,13 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram $out/bin/vhs --prefix PATH : ${
-      lib.makeBinPath (lib.optionals stdenv.isLinux [ chromium ]
+      lib.makeBinPath (
+        lib.optionals stdenv.isLinux [ chromium ]
         ++ [
           ffmpeg
           ttyd
-        ])
+        ]
+      )
     }
     $out/bin/vhs man > vhs.1
     installManPage vhs.1

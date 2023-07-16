@@ -15,30 +15,32 @@ let
   isDefaultPathOption =
     opt: isOption opt && opt.type == types.path && opt.highestPrio >= 1500;
 
-  sslPolicies = mapAttrsToList (name: conf: ''
-    dbms.ssl.policy.${name}.allow_key_generation=${
-      boolToString conf.allowKeyGeneration
-    }
-    dbms.ssl.policy.${name}.base_directory=${conf.baseDirectory}
-    ${optionalString (conf.ciphers != null) ''
-      dbms.ssl.policy.${name}.ciphers=${concatStringsSep "," conf.ciphers}
-    ''}
-    dbms.ssl.policy.${name}.client_auth=${conf.clientAuth}
-    ${if length (splitString "/" conf.privateKey) > 1 then
-      "dbms.ssl.policy.${name}.private_key=${conf.privateKey}"
-    else
-      "dbms.ssl.policy.${name}.private_key=${conf.baseDirectory}/${conf.privateKey}"}
-    ${if length (splitString "/" conf.privateKey) > 1 then
-      "dbms.ssl.policy.${name}.public_certificate=${conf.publicCertificate}"
-    else
-      "dbms.ssl.policy.${name}.public_certificate=${conf.baseDirectory}/${conf.publicCertificate}"}
-    dbms.ssl.policy.${name}.revoked_dir=${conf.revokedDir}
-    dbms.ssl.policy.${name}.tls_versions=${
-      concatStringsSep "," conf.tlsVersions
-    }
-    dbms.ssl.policy.${name}.trust_all=${boolToString conf.trustAll}
-    dbms.ssl.policy.${name}.trusted_dir=${conf.trustedDir}
-  '') cfg.ssl.policies;
+  sslPolicies = mapAttrsToList (
+    name: conf: ''
+      dbms.ssl.policy.${name}.allow_key_generation=${
+        boolToString conf.allowKeyGeneration
+      }
+      dbms.ssl.policy.${name}.base_directory=${conf.baseDirectory}
+      ${optionalString (conf.ciphers != null) ''
+        dbms.ssl.policy.${name}.ciphers=${concatStringsSep "," conf.ciphers}
+      ''}
+      dbms.ssl.policy.${name}.client_auth=${conf.clientAuth}
+      ${if length (splitString "/" conf.privateKey) > 1 then
+        "dbms.ssl.policy.${name}.private_key=${conf.privateKey}"
+      else
+        "dbms.ssl.policy.${name}.private_key=${conf.baseDirectory}/${conf.privateKey}"}
+      ${if length (splitString "/" conf.privateKey) > 1 then
+        "dbms.ssl.policy.${name}.public_certificate=${conf.publicCertificate}"
+      else
+        "dbms.ssl.policy.${name}.public_certificate=${conf.baseDirectory}/${conf.publicCertificate}"}
+      dbms.ssl.policy.${name}.revoked_dir=${conf.revokedDir}
+      dbms.ssl.policy.${name}.tls_versions=${
+        concatStringsSep "," conf.tlsVersions
+      }
+      dbms.ssl.policy.${name}.trust_all=${boolToString conf.trustAll}
+      dbms.ssl.policy.${name}.trusted_dir=${conf.trustedDir}
+    ''
+  ) cfg.ssl.policies;
 
   serverConfig = pkgs.writeText "neo4j.conf" ''
     # General
@@ -488,7 +490,8 @@ in
 
     ssl.policies = mkOption {
       type = with types;
-        attrsOf (submodule ({
+        attrsOf (submodule (
+          {
             name,
             config,
             options,
@@ -651,13 +654,14 @@ in
 
             };
 
-            config.directoriesToCreate = optionals
-              (certDirOpt.highestPrio >= 1500
-                && options.baseDirectory.highestPrio >= 1500)
-              (map (opt: opt.value)
-                (filter isDefaultPathOption (attrValues options)));
+            config.directoriesToCreate = optionals (
+              certDirOpt.highestPrio >= 1500
+              && options.baseDirectory.highestPrio >= 1500
+            ) (map (opt: opt.value)
+              (filter isDefaultPathOption (attrValues options)));
 
-          }));
+          }
+        ));
       default = { };
       description = lib.mdDoc ''
         Defines the SSL policies for use with Neo4j connectors. Each attribute
@@ -732,7 +736,9 @@ in
           #   Create other sub-directories and policy directories that have been left at their default.
           ${concatMapStringsSep "\n" (dir: ''
             mkdir -m 0700 -p ${dir}
-          '') (defaultDirectoriesToCreate ++ policyDirectoriesToCreate)}
+          '') (
+            defaultDirectoriesToCreate ++ policyDirectoriesToCreate
+          )}
 
           # Place the configuration where Neo4j can find it.
           ln -fs ${serverConfig} ${cfg.directories.home}/conf/neo4j.conf

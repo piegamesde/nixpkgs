@@ -10,12 +10,14 @@ runCommand "update-python-libraries" {
   buildInputs = [
     nix
     nix-prefetch-git
-    (python3.withPackages (ps:
+    (python3.withPackages (
+      ps:
       with ps; [
         packaging
         requests
         toolz
-      ]))
+      ]
+    ))
     git
   ];
 } ''

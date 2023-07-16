@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -52,4 +53,5 @@ import ./make-test-python.nix ({
           "curl -H 'X-Scope-OrgID: nixos' http://127.0.0.1:8080/prometheus/api/v1/label/host/values | jq -r '.data[0]' | grep server"
       )
     '';
-  })
+  }
+)

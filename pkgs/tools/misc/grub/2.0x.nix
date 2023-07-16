@@ -599,4 +599,5 @@ in
 
       maintainers = [ maintainers.samueldr ];
     };
-  })
+  }
+)

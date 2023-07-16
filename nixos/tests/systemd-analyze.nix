@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     latestKernel ? false,
     ...
@@ -51,4 +52,5 @@ import ./make-test-python.nix ({
           machine.copy_from_vm("systemd-analyze/", "")
           machine.copy_from_vm("systemd-analyze/systemd-analyze.svg", "")
     '';
-  })
+  }
+)

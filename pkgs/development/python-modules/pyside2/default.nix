@@ -47,23 +47,27 @@ disabledIf (pythonAtLeast "3.11") (stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    (with qt5; [
-      qtbase
-      qtxmlpatterns
-      qtmultimedia
-      qttools
-      qtx11extras
-      qtlocation
-      qtscript
-      qtwebsockets
-      qtwebengine
-      qtwebchannel
-      qtcharts
-      qtsensors
-      qtsvg
-      qt3d
-    ])
-    ++ (with python.pkgs; [ setuptools ])
+    (
+      with qt5; [
+        qtbase
+        qtxmlpatterns
+        qtmultimedia
+        qttools
+        qtx11extras
+        qtlocation
+        qtscript
+        qtwebsockets
+        qtwebengine
+        qtwebchannel
+        qtcharts
+        qtsensors
+        qtsvg
+        qt3d
+      ]
+    )
+    ++ (
+      with python.pkgs; [ setuptools ]
+    )
     ++ (lib.optionals (python.pythonOlder "3.9") [
       # see similar issue: 202262
       # libxcrypt is required for crypt.h for building older python modules

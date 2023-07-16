@@ -131,16 +131,18 @@ stdenv.mkDerivation (
       version = version + versionSuffix;
     };
 
-    meta = (if args ? meta then
-      args.meta
-    else
-      { }) // {
-        description = "Source distribution";
+    meta = (
+      if args ? meta then
+        args.meta
+      else
+        { }
+    ) // {
+      description = "Source distribution";
 
-          # Tarball builds are generally important, so give them a high
-          # default priority.
-        schedulingPriority = 200;
-      };
+        # Tarball builds are generally important, so give them a high
+        # default priority.
+      schedulingPriority = 200;
+    };
   }
 
 )

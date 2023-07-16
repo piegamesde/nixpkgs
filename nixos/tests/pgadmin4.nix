@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -62,4 +63,5 @@ import ./make-test-python.nix ({
         machine.wait_until_succeeds("curl -s localhost:5050")
         machine.wait_until_succeeds("curl -s localhost:5050/browser/ | grep \"<title>pgAdmin 4</title>\" > /dev/null")
     '';
-  })
+  }
+)

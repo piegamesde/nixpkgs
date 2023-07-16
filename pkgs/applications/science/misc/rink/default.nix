@@ -26,13 +26,15 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ pkg-config ];
   buildInputs =
     [ ncurses ]
-    ++ (if stdenv.isDarwin then
-      [
-        libiconv
-        Security
-      ]
-    else
-      [ openssl ])
+    ++ (
+      if stdenv.isDarwin then
+        [
+          libiconv
+          Security
+        ]
+      else
+        [ openssl ]
+    )
     ;
 
     # Some tests fail and/or attempt to use internet servers.

@@ -5,7 +5,8 @@
 }:
 
 let
-  self = lib.makeExtensible (self:
+  self = lib.makeExtensible (
+    self:
     let
       inherit (self) callPackage;
     in
@@ -32,7 +33,8 @@ let
           withHyperkitty ? false,
           withLDAP ? false
         }: {
-          mailmanEnv = self.python3.withPackages (ps:
+          mailmanEnv = self.python3.withPackages (
+            ps:
             [
               mailman
               ps.psycopg2
@@ -41,8 +43,10 @@ let
             ++ lib.optionals withLDAP [
               ps.python-ldap
               ps.django-auth-ldap
-            ]);
-          webEnv = self.python3.withPackages (ps:
+            ]
+          );
+          webEnv = self.python3.withPackages (
+            ps:
             [
               web
               ps.psycopg2
@@ -50,7 +54,8 @@ let
             ++ lib.optionals withLDAP [
               ps.python-ldap
               ps.django-auth-ldap
-            ]);
+            ]
+          );
         }
         ;
     }

@@ -19,7 +19,8 @@
 }:
 
 let
-  pythonEnv = python3.withPackages (pypkgs:
+  pythonEnv = python3.withPackages (
+    pypkgs:
     with pypkgs; [
       injector
       matplotlib
@@ -31,7 +32,8 @@ let
       requests
       rx
       gtk3
-    ]);
+    ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "gwe";

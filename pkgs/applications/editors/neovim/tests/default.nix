@@ -79,14 +79,16 @@ let
     runCommandLocal "test-${neovim-drv.name}" ({
       nativeBuildInputs = [ ];
       meta.platforms = neovim-drv.meta.platforms;
-    }) (''
-      source ${nmt}/bash-lib/assertions.sh
-      vimrc="${writeText "init.vim" neovim-drv.initRc}"
-      vimrcGeneric="$out/patched.vim"
-      mkdir $out
-      ${pkgs.perl}/bin/perl -pe "s|\Q$NIX_STORE\E/[a-z0-9]{32}-|$NIX_STORE/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-|g" < "$vimrc" > "$vimrcGeneric"
-    ''
-      + buildCommand)
+    }) (
+      ''
+        source ${nmt}/bash-lib/assertions.sh
+        vimrc="${writeText "init.vim" neovim-drv.initRc}"
+        vimrcGeneric="$out/patched.vim"
+        mkdir $out
+        ${pkgs.perl}/bin/perl -pe "s|\Q$NIX_STORE\E/[a-z0-9]{32}-|$NIX_STORE/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-|g" < "$vimrc" > "$vimrcGeneric"
+      ''
+      + buildCommand
+    )
     ;
 
 in

@@ -25,14 +25,16 @@ buildPythonPackage rec {
       rdkafka
       requests
     ]
-    ++ (if isPy3k then
-      [ avro3k ]
-    else
-      [
-        enum34
-        avro
-        futures
-      ])
+    ++ (
+      if isPy3k then
+        [ avro3k ]
+      else
+        [
+          enum34
+          avro
+          futures
+        ]
+    )
     ;
 
     # No tests in PyPi Tarball

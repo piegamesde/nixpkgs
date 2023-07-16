@@ -61,9 +61,11 @@ let
     ;
   configGenerator =
     c:
-    concatStrings (flip mapAttrsToList c (key: val: ''
-      ${key}	${configVal val}
-    ''))
+    concatStrings (flip mapAttrsToList c (
+      key: val: ''
+        ${key}	${configVal val}
+      ''
+    ))
     ;
 
   mainConfig = pkgs.writeText "sympa.conf" (configGenerator cfg.settings);
@@ -137,7 +139,8 @@ in
     };
 
     domains = mkOption {
-      type = attrsOf (submodule ({
+      type = attrsOf (submodule (
+        {
           name,
           config,
           ...
@@ -179,7 +182,8 @@ in
                 strings.removeSuffix "/" config.webLocation
               }";
           };
-        }));
+        }
+      ));
 
       description = lib.mdDoc ''
         Email domains handled by this instance. There have
@@ -348,7 +352,8 @@ in
     };
 
     settingsFile = mkOption {
-      type = attrsOf (submodule ({
+      type = attrsOf (submodule (
+        {
           name,
           config,
           ...
@@ -374,7 +379,8 @@ in
 
           config.source = mkIf (config.text != null)
             (mkDefault (pkgs.writeText "sympa-${baseNameOf name}" config.text));
-        }));
+        }
+      ));
       default = { };
       example = literalExpression ''
         {
@@ -393,52 +399,56 @@ in
   config = mkIf cfg.enable {
 
     services.sympa.settings =
-      (mapAttrs (_: v: mkDefault v) {
-        domain =
-          if cfg.mainDomain != null then
-            cfg.mainDomain
-          else
-            head fqdns
-          ;
-        listmaster = concatStringsSep "," cfg.listMasters;
-        lang = cfg.lang;
+      (
+        mapAttrs (_: v: mkDefault v) {
+          domain =
+            if cfg.mainDomain != null then
+              cfg.mainDomain
+            else
+              head fqdns
+            ;
+          listmaster = concatStringsSep "," cfg.listMasters;
+          lang = cfg.lang;
 
-        home = "${dataDir}/list_data";
-        arc_path = "${dataDir}/arc";
-        bounce_path = "${dataDir}/bounce";
+          home = "${dataDir}/list_data";
+          arc_path = "${dataDir}/arc";
+          bounce_path = "${dataDir}/bounce";
 
-        sendmail = "${pkgs.system-sendmail}/bin/sendmail";
+          sendmail = "${pkgs.system-sendmail}/bin/sendmail";
 
-        db_type = cfg.database.type;
-        db_name = cfg.database.name;
-      } // (optionalAttrs (cfg.database.host != null) {
-        db_host = cfg.database.host;
-      }) // (optionalAttrs mysqlLocal {
-        db_host = "localhost"; # use unix domain socket
-      }) // (optionalAttrs pgsqlLocal {
-        db_host = "/run/postgresql"; # use unix domain socket
-      }) // (optionalAttrs (cfg.database.port != null) {
-        db_port = cfg.database.port;
-      }) // (optionalAttrs (cfg.database.user != null) {
-        db_user = cfg.database.user;
-      }) // (optionalAttrs (cfg.mta.type == "postfix") {
-        sendmail_aliases = "${dataDir}/sympa_transport";
-        aliases_program = "${pkgs.postfix}/bin/postmap";
-        aliases_db_type = "hash";
-      }) // (optionalAttrs cfg.web.enable {
-        static_content_path = "${dataDir}/static_content";
-        css_path = "${dataDir}/static_content/css";
-        pictures_path = "${dataDir}/static_content/pictures";
-        mhonarc = "${pkgs.perlPackages.MHonArc}/bin/mhonarc";
-      }));
+          db_type = cfg.database.type;
+          db_name = cfg.database.name;
+        } // (optionalAttrs (cfg.database.host != null) {
+          db_host = cfg.database.host;
+        }) // (optionalAttrs mysqlLocal {
+          db_host = "localhost"; # use unix domain socket
+        }) // (optionalAttrs pgsqlLocal {
+          db_host = "/run/postgresql"; # use unix domain socket
+        }) // (optionalAttrs (cfg.database.port != null) {
+          db_port = cfg.database.port;
+        }) // (optionalAttrs (cfg.database.user != null) {
+          db_user = cfg.database.user;
+        }) // (optionalAttrs (cfg.mta.type == "postfix") {
+          sendmail_aliases = "${dataDir}/sympa_transport";
+          aliases_program = "${pkgs.postfix}/bin/postmap";
+          aliases_db_type = "hash";
+        }) // (optionalAttrs cfg.web.enable {
+          static_content_path = "${dataDir}/static_content";
+          css_path = "${dataDir}/static_content/css";
+          pictures_path = "${dataDir}/static_content/pictures";
+          mhonarc = "${pkgs.perlPackages.MHonArc}/bin/mhonarc";
+        })
+      );
 
     services.sympa.settingsFile = {
       "virtual.sympa" = mkDefault { source = virtual; };
       "transport.sympa" = mkDefault { source = transport; };
       "etc/list_aliases.tt2" = mkDefault { source = listAliases; };
-    } // (flip mapAttrs' cfg.domains (fqdn: domain:
+    } // (flip mapAttrs' cfg.domains (
+      fqdn: domain:
       nameValuePair "etc/${fqdn}/robot.conf"
-      (mkDefault { source = robotConfig fqdn domain; })));
+      (mkDefault { source = robotConfig fqdn domain; })
+    ));
 
     environment = { systemPackages = [ pkg ]; };
 
@@ -491,12 +501,14 @@ in
       #++ (flip mapAttrsToList enabledFiles (k: v:
       #  "L+ ${dataDir}/${k}              -    -       -        - ${v.source}"
       #))
-      ++ (concatLists (flip mapAttrsToList enabledFiles (k: v: [
-        # sympa doesn't handle symlinks well (e.g. fails to create locks)
-        # force-copy instead
-        "R ${dataDir}/${k}              -    -       -        - -"
-        "C ${dataDir}/${k}              0700 ${user}  ${group} - ${v.source}"
-      ])))
+      ++ (concatLists (flip mapAttrsToList enabledFiles (
+        k: v: [
+          # sympa doesn't handle symlinks well (e.g. fails to create locks)
+          # force-copy instead
+          "R ${dataDir}/${k}              -    -       -        - -"
+          "C ${dataDir}/${k}              0700 ${user}  ${group} - ${v.source}"
+        ]
+      )))
       ;
 
     systemd.services.sympa = {
@@ -570,31 +582,34 @@ in
     };
 
     services.nginx.enable = mkIf usingNginx true;
-    services.nginx.virtualHosts = mkIf usingNginx (let
-      vHosts =
-        unique (remove null (mapAttrsToList (_k: v: v.webHost) cfg.domains));
-      hostLocations =
-        host:
-        map (v: v.webLocation)
-        (filter (v: v.webHost == host) (attrValues cfg.domains))
-        ;
-      httpsOpts = optionalAttrs cfg.web.https {
-        forceSSL = mkDefault true;
-        enableACME = mkDefault true;
-      };
-    in
-    genAttrs vHosts (host:
-      {
-        locations = genAttrs (hostLocations host) (loc: {
-          extraConfig = ''
-            include ${config.services.nginx.package}/conf/fastcgi_params;
-
-            fastcgi_pass unix:/run/sympa/wwsympa.socket;
-          '';
-        }) // {
-          "/static-sympa/".alias = "${dataDir}/static_content/";
+    services.nginx.virtualHosts = mkIf usingNginx (
+      let
+        vHosts =
+          unique (remove null (mapAttrsToList (_k: v: v.webHost) cfg.domains));
+        hostLocations =
+          host:
+          map (v: v.webLocation)
+          (filter (v: v.webHost == host) (attrValues cfg.domains))
+          ;
+        httpsOpts = optionalAttrs cfg.web.https {
+          forceSSL = mkDefault true;
+          enableACME = mkDefault true;
         };
-      } // httpsOpts)
+      in
+      genAttrs vHosts (
+        host:
+        {
+          locations = genAttrs (hostLocations host) (loc: {
+            extraConfig = ''
+              include ${config.services.nginx.package}/conf/fastcgi_params;
+
+              fastcgi_pass unix:/run/sympa/wwsympa.socket;
+            '';
+          }) // {
+            "/static-sympa/".alias = "${dataDir}/static_content/";
+          };
+        } // httpsOpts
+      )
     );
 
     services.postfix = mkIf (cfg.mta.type == "postfix") {

@@ -15,12 +15,14 @@ let
     let
       f = import ./common.nix;
     in
-    f (builtins.intersectAttrs (builtins.functionArgs f) pkgs // {
-      lua = pkgs.lua5_1;
-        # It is not necessary to run the game, but it is nicer to be given an error dialog in the case of failure,
-        # rather than having to look to the logs why it is not starting.
-      inherit (pkgs.gnome) zenity;
-    })
+    f (
+      builtins.intersectAttrs (builtins.functionArgs f) pkgs // {
+        lua = pkgs.lua5_1;
+          # It is not necessary to run the game, but it is nicer to be given an error dialog in the case of failure,
+          # rather than having to look to the logs why it is not starting.
+        inherit (pkgs.gnome) zenity;
+      }
+    )
     ;
 
     /* Building a set of engines or mods requires some dependencies as well,
@@ -37,17 +39,21 @@ let
     */
   buildOpenRASet =
     f: args:
-    builtins.mapAttrs (name: value:
+    builtins.mapAttrs (
+      name: value:
       if builtins.isFunction value then
         value name
       else
-        value) (f ({
-          inherit (pkgs) fetchFromGitHub;
-          postFetch = ''
-            sed -i 's/curl/curl --insecure/g' $out/thirdparty/{fetch-thirdparty-deps,noget}.sh
-            $out/thirdparty/fetch-thirdparty-deps.sh
-          '';
-        } // args))
+        value
+    ) (f (
+      {
+        inherit (pkgs) fetchFromGitHub;
+        postFetch = ''
+          sed -i 's/curl/curl --insecure/g' $out/thirdparty/{fetch-thirdparty-deps,noget}.sh
+          $out/thirdparty/fetch-thirdparty-deps.sh
+        '';
+      } // args
+    ))
     ;
 
 in
@@ -68,9 +74,11 @@ rec {
     let
       builder =
         name:
-        pkgs.callPackage ./engine.nix (common // {
-          engine = engine // { inherit name installExperimental; };
-        })
+        pkgs.callPackage ./engine.nix (
+          common // {
+            engine = engine // { inherit name installExperimental; };
+          }
+        )
         ;
     in
     if name == null then
@@ -90,7 +98,8 @@ rec {
       src,
       engine,
     }@mod:
-    ({
+    (
+      {
         version,
         mods ? [ ],
         src,
@@ -98,10 +107,12 @@ rec {
       let
         builder =
           name:
-          pkgs.callPackage ./mod.nix (common // {
-            mod = mod // { inherit name; };
-            engine = engine // { inherit mods; };
-          })
+          pkgs.callPackage ./mod.nix (
+            common // {
+              mod = mod // { inherit name; };
+              engine = engine // { inherit mods; };
+            }
+          )
           ;
       in
       if name == null then

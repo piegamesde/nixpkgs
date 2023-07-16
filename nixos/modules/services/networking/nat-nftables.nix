@@ -80,10 +80,11 @@ let
         # l4proto . dport : addr . port
       toFwdMap =
         forwardPorts:
-        toNftSet (map (fwd:
+        toNftSet (map (
+          fwd:
           with (splitIPPorts fwd.destination);
-          "${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}")
-          forwardPorts)
+          "${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}"
+        ) forwardPorts)
         ;
       fwdMap = toFwdMap fwdPorts;
       fwdRangeMap = toFwdMap fwdPortsRange;
@@ -92,21 +93,27 @@ let
         # daddr . l4proto . dport : addr . port
       toFwdLoopDnatMap =
         forwardPorts:
-        toNftSet (concatMap (fwd:
-          map (loopbackip:
+        toNftSet (concatMap (
+          fwd:
+          map (
+            loopbackip:
             with (splitIPPorts fwd.destination);
             "${loopbackip} . ${fwd.proto} . ${
               toNftRange fwd.sourcePort
-            } : ${IP} . ${ports}") fwd.loopbackIPs) forwardPorts)
+            } : ${IP} . ${ports}"
+          ) fwd.loopbackIPs
+        ) forwardPorts)
         ;
       fwdLoopDnatMap = toFwdLoopDnatMap fwdPorts;
       fwdLoopDnatRangeMap = toFwdLoopDnatMap fwdPortsRange;
 
         # nftables set for port forward loopback snat
         # daddr . l4proto . dport
-      fwdLoopSnatSet = toNftSet (map (fwd:
+      fwdLoopSnatSet = toNftSet (map (
+        fwd:
         with (splitIPPorts fwd.destination);
-        "${IP} . ${fwd.proto} . ${ports}") forwardPorts);
+        "${IP} . ${fwd.proto} . ${ports}"
+      ) forwardPorts);
     in
     ''
       chain pre {

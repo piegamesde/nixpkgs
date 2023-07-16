@@ -19,7 +19,8 @@ let
       parts = builtins.split "([A-Z0-9]+)" name;
       partsToEnvVar =
         parts:
-        foldl' (key: x:
+        foldl' (
+          key: x:
           let
             last = stringLength key - 1;
           in
@@ -49,7 +50,8 @@ let
     # we can only check for values consistently after converting them to their corresponding environment variable name.
   configEnv =
     let
-      configEnv = concatMapAttrs (name: value:
+      configEnv = concatMapAttrs (
+        name: value:
         optionalAttrs (value != null) {
           ${nameToEnvVar name} =
             if isBool value then
@@ -57,20 +59,22 @@ let
             else
               toString value
             ;
-        }) cfg.config;
+        }
+      ) cfg.config;
     in
     {
       DATA_FOLDER = "/var/lib/bitwarden_rs";
-    } // optionalAttrs (!(configEnv ? WEB_VAULT_ENABLED)
-      || configEnv.WEB_VAULT_ENABLED == "true") {
-        WEB_VAULT_FOLDER = "${cfg.webVaultPackage}/share/vaultwarden/vault";
-      } // configEnv
+    } // optionalAttrs (
+      !(configEnv ? WEB_VAULT_ENABLED) || configEnv.WEB_VAULT_ENABLED == "true"
+    ) { WEB_VAULT_FOLDER = "${cfg.webVaultPackage}/share/vaultwarden/vault"; }
+    // configEnv
     ;
 
-  configFile = pkgs.writeText "vaultwarden.env" (concatStrings (mapAttrsToList
-    (name: value: ''
+  configFile = pkgs.writeText "vaultwarden.env" (concatStrings (mapAttrsToList (
+    name: value: ''
       ${name}=${value}
-    '') configEnv));
+    ''
+  ) configEnv));
 
   vaultwarden = cfg.package.override { inherit (cfg) dbBackend; };
 

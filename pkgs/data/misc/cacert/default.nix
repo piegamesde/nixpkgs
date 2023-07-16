@@ -20,19 +20,20 @@
 }:
 
 let
-  blocklist = writeText "cacert-blocklist.txt" (lib.concatStringsSep "\n"
-    (blacklist
-      ++ [
-        # Mozilla does not trust new certificates issued by these CAs after 2022/11/30¹
-        # in their products, but unfortunately we don't have such a fine-grained
-        # solution for most system packages², so we decided to eject these.
-        #
-        # [1] https://groups.google.com/a/mozilla.org/g/dev-security-policy/c/oxX69KFvsm4/m/yLohoVqtCgAJ
-        # [2] https://utcc.utoronto.ca/~cks/space/blog/linux/CARootStoreTrustProblem
-        "TrustCor ECA-1"
-        "TrustCor RootCert CA-1"
-        "TrustCor RootCert CA-2"
-      ]));
+  blocklist = writeText "cacert-blocklist.txt" (lib.concatStringsSep "\n" (
+    blacklist
+    ++ [
+      # Mozilla does not trust new certificates issued by these CAs after 2022/11/30¹
+      # in their products, but unfortunately we don't have such a fine-grained
+      # solution for most system packages², so we decided to eject these.
+      #
+      # [1] https://groups.google.com/a/mozilla.org/g/dev-security-policy/c/oxX69KFvsm4/m/yLohoVqtCgAJ
+      # [2] https://utcc.utoronto.ca/~cks/space/blog/linux/CARootStoreTrustProblem
+      "TrustCor ECA-1"
+      "TrustCor RootCert CA-1"
+      "TrustCor RootCert CA-2"
+    ]
+  ));
   extraCertificatesBundle = writeText "cacert-extra-certificates-bundle.crt"
     (lib.concatStringsSep "\n\n" extraCertificateStrings);
 
@@ -177,20 +178,24 @@ stdenv.mkDerivation rec {
             ${isTrusted}
 
             # Ensure that each certificate is in the main "cacert".
-            ${mapBlacklist (caName: caFingerprint: ''
-              isTrusted "$cacert" "${caName}" "${caFingerprint}" || ({
-                echo "CA fingerprint ${caFingerprint} (${caName}) is missing from the CA bundle. Consider picking a different CA for the blacklist test." >&2
-                exit 1
-              })
-            '')}
+            ${mapBlacklist (
+              caName: caFingerprint: ''
+                isTrusted "$cacert" "${caName}" "${caFingerprint}" || ({
+                  echo "CA fingerprint ${caFingerprint} (${caName}) is missing from the CA bundle. Consider picking a different CA for the blacklist test." >&2
+                  exit 1
+                })
+              ''
+            )}
 
             # Ensure that each certificate is NOT in the "cacertWithExcludes".
-            ${mapBlacklist (caName: caFingerprint: ''
-              isTrusted "$cacertWithExcludes" "${caName}" "${caFingerprint}" && ({
-                echo "CA fingerprint ${caFingerprint} (${caName}) is present in the cacertWithExcludes bundle." >&2
-                exit 1
-              })
-            '')}
+            ${mapBlacklist (
+              caName: caFingerprint: ''
+                isTrusted "$cacertWithExcludes" "${caName}" "${caFingerprint}" && ({
+                  echo "CA fingerprint ${caFingerprint} (${caName}) is present in the cacertWithExcludes bundle." >&2
+                  exit 1
+                })
+              ''
+            )}
 
             touch "$out"
           ''
@@ -243,20 +248,24 @@ stdenv.mkDerivation rec {
             ${isTrusted}
 
             # Ensure that the extra certificate is not in the main "cacert".
-            ${mapExtra (extraName: extraFingerprint: ''
-              isTrusted "$cacert" "${extraName}" "${extraFingerprint}" && ({
-                echo "'extra' CA fingerprint ${extraFingerprint} (${extraName}) is present in the main CA bundle." >&2
-                exit 1
-              })
-            '')}
+            ${mapExtra (
+              extraName: extraFingerprint: ''
+                isTrusted "$cacert" "${extraName}" "${extraFingerprint}" && ({
+                  echo "'extra' CA fingerprint ${extraFingerprint} (${extraName}) is present in the main CA bundle." >&2
+                  exit 1
+                })
+              ''
+            )}
 
             # Ensure that the extra certificates ARE in the "cacertWithExtras".
-            ${mapExtra (extraName: extraFingerprint: ''
-              isTrusted "$cacertWithExtras" "${extraName}" "${extraFingerprint}" || ({
-                echo "CA fingerprint ${extraFingerprint} (${extraName}) is not present in the cacertWithExtras bundle." >&2
-                exit 1
-              })
-            '')}
+            ${mapExtra (
+              extraName: extraFingerprint: ''
+                isTrusted "$cacertWithExtras" "${extraName}" "${extraFingerprint}" || ({
+                  echo "CA fingerprint ${extraFingerprint} (${extraName}) is not present in the cacertWithExtras bundle." >&2
+                  exit 1
+                })
+              ''
+            )}
 
             touch "$out"
           ''

@@ -50,11 +50,15 @@ let
 
   filteredGemset = filterGemset { inherit ruby groups; } importedGemset;
 
-  configuredGemset = lib.flip lib.mapAttrs filteredGemset (name: attrs:
-    applyGemConfigs (attrs // {
-      inherit ruby document;
-      gemName = name;
-    }));
+  configuredGemset = lib.flip lib.mapAttrs filteredGemset (
+    name: attrs:
+    applyGemConfigs (
+      attrs // {
+        inherit ruby document;
+        gemName = name;
+      }
+    )
+  );
 
   hasBundler = builtins.hasAttr "bundler" filteredGemset;
 
@@ -91,8 +95,9 @@ let
       bundledByPath ? false,
       ...
     }:
-    (lib.optionalString bundledByPath
-      (assert gemFiles.gemdir != null; "cp -a ${gemFiles.gemdir}/* $out/") # */
+    (lib.optionalString bundledByPath (
+      assert gemFiles.gemdir != null; "cp -a ${gemFiles.gemdir}/* $out/"
+    ) # */
     )
     ;
 
@@ -123,13 +128,14 @@ let
 
   buildGem =
     name: attrs:
-    (let
-      gemAttrs = composeGemAttrs ruby gems name attrs;
-    in
-    if gemAttrs.type == "path" then
-      pathDerivation (gemAttrs.source // gemAttrs)
-    else
-      buildRubyGem gemAttrs
+    (
+      let
+        gemAttrs = composeGemAttrs ruby gems name attrs;
+      in
+      if gemAttrs.type == "path" then
+        pathDerivation (gemAttrs.source // gemAttrs)
+      else
+        buildRubyGem gemAttrs
     )
     ;
 
@@ -144,10 +150,12 @@ let
     pathsToLink = [ "/lib" ];
 
     postBuild =
-      genStubsScript (defs // args // {
-        inherit confFiles bundler groups;
-        binPaths = envPaths;
-      })
+      genStubsScript (
+        defs // args // {
+          inherit confFiles bundler groups;
+          binPaths = envPaths;
+        }
+      )
       + lib.optionalString (postBuild != null) postBuild
       ;
 

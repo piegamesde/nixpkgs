@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -85,4 +86,5 @@ import ./make-test-python.nix ({
           machine.wait_for_open_port(8000)
           assert "Hello World" in machine.succeed("curl -fv http://machine:8000")
     '';
-  })
+  }
+)

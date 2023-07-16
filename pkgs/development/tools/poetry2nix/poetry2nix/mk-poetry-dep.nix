@@ -22,7 +22,8 @@
   ...
 }:
 
-pythonPackages.callPackage ({
+pythonPackages.callPackage (
+  {
     preferWheel ? preferWheels,
     ...
   }@args:
@@ -42,10 +43,13 @@ pythonPackages.callPackage ({
     fileCandidates =
       let
         supportedRegex =
-          ("^.*(" + builtins.concatStringsSep "|" supportedExtensions + ")");
+          (
+            "^.*(" + builtins.concatStringsSep "|" supportedExtensions + ")"
+          );
         matchesVersion =
           fname:
-          builtins.match ("^.*"
+          builtins.match (
+            "^.*"
             + builtins.replaceStrings [
               "."
               "+"
@@ -53,7 +57,8 @@ pythonPackages.callPackage ({
               "\\."
               "\\+"
             ] version
-            + ".*$") fname
+            + ".*$"
+          ) fname
           != null
           ;
         hasSupportedExtension =
@@ -64,10 +69,12 @@ pythonPackages.callPackage ({
           || lib.strings.hasSuffix "py${python.pythonVersion}.egg" fname
           ;
       in
-      builtins.filter (f:
+      builtins.filter (
+        f:
         matchesVersion f.file
         && hasSupportedExtension f.file
-        && isCompatibleEgg f.file) files
+        && isCompatibleEgg f.file
+      ) files
       ;
     toPath = s: pwd + "/${s}";
     isLocked = lib.length fileCandidates > 0;
@@ -108,17 +115,21 @@ pythonPackages.callPackage ({
           # the `wheel` package cannot be built from a wheel, since that requires the wheel package
           # this causes a circular dependency so we special-case ignore its `preferWheel` attribute value
         entries =
-          (if preferWheel' then
-            binaryDist ++ sourceDist
-          else
-            sourceDist ++ binaryDist)
+          (
+            if preferWheel' then
+              binaryDist ++ sourceDist
+            else
+              sourceDist ++ binaryDist
+          )
           ++ eggs
           ;
         lockFileEntry =
-          (if lib.length entries > 0 then
-            builtins.head entries
-          else
-            throw "Missing suitable source/wheel file entry for ${name}");
+          (
+            if lib.length entries > 0 then
+              builtins.head entries
+            else
+              throw "Missing suitable source/wheel file entry for ${name}"
+          );
         _isEgg = isEgg lockFileEntry;
       in
       rec {
@@ -192,15 +203,18 @@ pythonPackages.callPackage ({
       ;
 
     buildInputs =
-      (lib.optional (isLocked) (getManyLinuxDeps fileInfo.name).pkg
+      (
+        lib.optional (isLocked) (getManyLinuxDeps fileInfo.name).pkg
         ++ lib.optional isDirectory buildSystemPkgs
         ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-          pythonPackages.setuptools);
+          pythonPackages.setuptools
+      );
 
     propagatedBuildInputs =
       let
         compat = isCompatible (poetryLib.getPythonVersion python);
-        deps = lib.filterAttrs (n: v: v) (lib.mapAttrs (n: v:
+        deps = lib.filterAttrs (n: v: v) (lib.mapAttrs (
+          n: v:
           let
             constraints = v.python or "";
             pep508Markers = v.markers or "";
@@ -231,19 +245,22 @@ pythonPackages.callPackage ({
       # Here we can then choose a file based on that info.
     src =
       if isGit then
-        (builtins.fetchGit ({
-          inherit (source) url;
-          submodules = true;
-          rev = source.resolved_reference or source.reference;
-          ref =
-            sourceSpec.branch or (if sourceSpec ? tag then
-              "refs/tags/${sourceSpec.tag}"
-            else
-              "HEAD");
-        } // (lib.optionalAttrs ((sourceSpec ? rev)
-          && (lib.versionAtLeast builtins.nixVersion "2.4")) {
-            allRefs = true;
-          })))
+        (builtins.fetchGit (
+          {
+            inherit (source) url;
+            submodules = true;
+            rev = source.resolved_reference or source.reference;
+            ref =
+              sourceSpec.branch or (
+                if sourceSpec ? tag then
+                  "refs/tags/${sourceSpec.tag}"
+                else
+                  "HEAD"
+              );
+          } // (lib.optionalAttrs (
+            (sourceSpec ? rev) && (lib.versionAtLeast builtins.nixVersion "2.4")
+          ) { allRefs = true; })
+        ))
       else if isWheelUrl then
         builtins.fetchurl {
           inherit (source) url;

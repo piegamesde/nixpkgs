@@ -10,7 +10,8 @@ let
   hashed_sha512crypt =
     "$6$ymzs8WINZ5wGwQcV$VC2S0cQiX8NVukOLymysTPn4v1zJoJp3NGyhnqyv/dAf4NWZsBWYveQcj6gEJr4ZUjRBRjM0Pj1L8TCQ8hUUp0"; # meow
 in
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -182,4 +183,5 @@ import ./make-test-python.nix ({
           assert "leo" in shadow.succeed("cat /tmp/leo")
           shadow.send_chars("logout\n")
     '';
-  })
+  }
+)

@@ -19,11 +19,13 @@ python3Packages.buildPythonApplication rec {
 
   nativeCheckInputs =
     [ which ]
-    ++ (with python3Packages; [
-      cython
-      pytest
-      pytest-trio
-    ])
+    ++ (
+      with python3Packages; [
+        cython
+        pytest
+        pytest-trio
+      ]
+    )
     ;
   propagatedBuildInputs = with python3Packages; [
     sqlite

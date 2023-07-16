@@ -107,39 +107,43 @@ let
       rubyEnv =
         bundlerEnv (bundlerEnvArgs // { inherit name pname version ruby; });
     in
-    stdenv.mkDerivation (builtins.removeAttrs args [ "bundlerEnvArgs" ] // {
-      pluginName =
-        if name != null then
-          name
-        else
-          "${pname}-${version}"
-        ;
-      dontConfigure = true;
-      dontBuild = true;
-      installPhase =
-        ''
-          runHook preInstall
-          mkdir -p $out
-          cp -r * $out/
-        ''
-        + lib.optionalString (bundlerEnvArgs != { }) (if preserveGemsDir then
+    stdenv.mkDerivation (
+      builtins.removeAttrs args [ "bundlerEnvArgs" ] // {
+        pluginName =
+          if name != null then
+            name
+          else
+            "${pname}-${version}"
+          ;
+        dontConfigure = true;
+        dontBuild = true;
+        installPhase =
           ''
-            cp -r ${rubyEnv}/lib/ruby/gems/* $out/gems/
+            runHook preInstall
+            mkdir -p $out
+            cp -r * $out/
           ''
-        else
-          ''
-            if [[ -e $out/gems ]]; then
-              echo "Warning: The repo contains a 'gems' directory which will be removed!"
-              echo "         If you need to preserve it, set 'preserveGemsDir = true'."
-              rm -r $out/gems
-            fi
-            ln -sf ${rubyEnv}/lib/ruby/gems $out/gems
-          ''
-          + ''
-            runHook postInstall
-          '')
-        ;
-    })
+          + lib.optionalString (bundlerEnvArgs != { }) (
+            if preserveGemsDir then
+              ''
+                cp -r ${rubyEnv}/lib/ruby/gems/* $out/gems/
+              ''
+            else
+              ''
+                if [[ -e $out/gems ]]; then
+                  echo "Warning: The repo contains a 'gems' directory which will be removed!"
+                  echo "         If you need to preserve it, set 'preserveGemsDir = true'."
+                  rm -r $out/gems
+                fi
+                ln -sf ${rubyEnv}/lib/ruby/gems $out/gems
+              ''
+              + ''
+                runHook postInstall
+              ''
+          )
+          ;
+      }
+    )
     ;
 
   rake = runCommand "discourse-rake" { nativeBuildInputs = [ makeWrapper ]; } ''
@@ -316,8 +320,9 @@ let
       mkdir $NIX_BUILD_TOP/tmp_home
       export HOME=$NIX_BUILD_TOP/tmp_home
 
-      ${lib.concatMapStringsSep "\n"
-      (p: "ln -sf ${p} plugins/${p.pluginName or ""}") plugins}
+      ${lib.concatMapStringsSep "\n" (
+        p: "ln -sf ${p} plugins/${p.pluginName or ""}"
+      ) plugins}
 
       export RAILS_ENV=production
 
@@ -416,9 +421,9 @@ let
       ln -sf ${assets} $out/share/discourse/public.dist/assets
       rm -r $out/share/discourse/app/assets/javascripts
       ln -sf ${assets.javascripts} $out/share/discourse/app/assets/javascripts
-      ${lib.concatMapStringsSep "\n"
-      (p: "ln -sf ${p} $out/share/discourse/plugins/${p.pluginName or ""}")
-      plugins}
+      ${lib.concatMapStringsSep "\n" (
+        p: "ln -sf ${p} $out/share/discourse/plugins/${p.pluginName or ""}"
+      ) plugins}
 
       runHook postInstall
     '';

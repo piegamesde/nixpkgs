@@ -48,10 +48,12 @@ stdenv.mkDerivation rec {
       python
       pygobject3
     ]
-    ++ (with perlPackages; [
-      perl
-      XMLParser
-    ])
+    ++ (
+      with perlPackages; [
+        perl
+        XMLParser
+      ]
+    )
     ;
 
   enableParallelBuilding = true;

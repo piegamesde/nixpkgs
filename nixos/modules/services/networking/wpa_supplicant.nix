@@ -68,7 +68,8 @@ let
     ;
 
     # Content of wpa_supplicant.conf
-  generatedConfig = concatStringsSep "\n" ((map mkNetwork allNetworks)
+  generatedConfig = concatStringsSep "\n" (
+    (map mkNetwork allNetworks)
     ++ optional cfg.userControlled.enable (concatStringsSep "\n" [
       "ctrl_interface=/run/wpa_supplicant"
       "ctrl_interface_group=${cfg.userControlled.group}"
@@ -76,7 +77,8 @@ let
     ])
     ++ [ "pmf=1" ]
     ++ optional cfg.scanOnLowSignal ''bgscan="simple:30:-70:3600"''
-    ++ optional (cfg.extraConfig != "") cfg.extraConfig);
+    ++ optional (cfg.extraConfig != "") cfg.extraConfig
+  );
 
   configIsGenerated = with cfg;
     networks != { } || extraConfig != "" || userControlled.enable;
@@ -108,10 +110,12 @@ let
       options =
         [
           "ssid=${quote opts.ssid}"
-          (if pskString != null || opts.auth != null then
-            "key_mgmt=${concatStringsSep " " opts.authProtocols}"
-          else
-            "key_mgmt=NONE")
+          (
+            if pskString != null || opts.auth != null then
+              "key_mgmt=${concatStringsSep " " opts.authProtocols}"
+            else
+              "key_mgmt=NONE"
+          )
         ]
         ++ optional opts.hidden "scan_ssid=1"
         ++ optional (pskString != null) "psk=${pskString}"
@@ -161,8 +165,9 @@ let
         (builtins.toString cfg.environmentFile);
 
       script = ''
-        ${optionalString
-        (configIsGenerated && !cfg.allowAuxiliaryImperativeNetworks) ''
+        ${optionalString (
+          configIsGenerated && !cfg.allowAuxiliaryImperativeNetworks
+        ) ''
           if [ -f /etc/wpa_supplicant.conf ]; then
             echo >&2 "<3>/etc/wpa_supplicant.conf present but ignored. Generated ${configFile} is used instead."
           fi
@@ -550,18 +555,20 @@ in
 
   config = mkIf cfg.enable {
     assertions =
-      flip mapAttrsToList cfg.networks (name: cfg: {
-        assertion = with cfg;
-          count (x: x != null) [
-            psk
-            pskRaw
-            auth
-          ]
-          <= 1;
-        message =
-          ''
-            options networking.wireless."${name}".{psk,pskRaw,auth} are mutually exclusive'';
-      })
+      flip mapAttrsToList cfg.networks (
+        name: cfg: {
+          assertion = with cfg;
+            count (x: x != null) [
+              psk
+              pskRaw
+              auth
+            ]
+            <= 1;
+          message =
+            ''
+              options networking.wireless."${name}".{psk,pskRaw,auth} are mutually exclusive'';
+        }
+      )
       ++ [ {
         assertion = length cfg.interfaces > 1 -> !cfg.dbusControlled;
         message =
@@ -603,11 +610,10 @@ in
       ;
 
       # Restart wpa_supplicant after resuming from sleep
-    powerManagement.resumeCommands = concatStringsSep "\n"
-      (optional (cfg.interfaces == [ ])
-        "${systemctl} try-restart wpa_supplicant"
-        ++ map (i: "${systemctl} try-restart wpa_supplicant-${i}")
-          cfg.interfaces);
+    powerManagement.resumeCommands = concatStringsSep "\n" (
+      optional (cfg.interfaces == [ ]) "${systemctl} try-restart wpa_supplicant"
+      ++ map (i: "${systemctl} try-restart wpa_supplicant-${i}") cfg.interfaces
+    );
 
       # Restart wpa_supplicant when a wlan device appears or disappears. This is
       # only needed when an interface hasn't been specified by the user.

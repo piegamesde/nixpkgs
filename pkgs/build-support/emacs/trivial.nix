@@ -10,24 +10,26 @@ with lib;
 
 args:
 
-callPackage ./generic.nix envargs ({
-  buildPhase = ''
-    runHook preBuild
+callPackage ./generic.nix envargs (
+  {
+    buildPhase = ''
+      runHook preBuild
 
-    emacs -L . --batch -f batch-byte-compile *.el
+      emacs -L . --batch -f batch-byte-compile *.el
 
-    runHook postBuild
-  '';
+      runHook postBuild
+    '';
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    LISPDIR=$out/share/emacs/site-lisp
-    install -d $LISPDIR
-    install *.el *.elc $LISPDIR
+      LISPDIR=$out/share/emacs/site-lisp
+      install -d $LISPDIR
+      install *.el *.elc $LISPDIR
 
-    runHook postInstall
-  '';
-}
+      runHook postInstall
+    '';
+  }
 
-  // args)
+  // args
+)

@@ -119,10 +119,12 @@ let
           Foundation
           Cocoa
         ]
-        ++ lib.optional withAppIndicator (if (pname != "gammastep") then
-          libappindicator
-        else
-          libayatana-appindicator)
+        ++ lib.optional withAppIndicator (
+          if (pname != "gammastep") then
+            libappindicator
+          else
+            libayatana-appindicator
+        )
         ;
 
       pythonPath = [

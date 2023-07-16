@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -18,16 +19,18 @@ import ./make-test-python.nix ({
           services.redis.servers."".enable = true;
           services.redis.servers."test".enable = true;
 
-          users.users = listToAttrs (map (suffix:
+          users.users = listToAttrs (map (
+            suffix:
             nameValuePair "member${suffix}" {
               createHome = false;
               description = "A member of the redis${suffix} group";
               isNormalUser = true;
               extraGroups = [ "redis${suffix}" ];
-            }) [
-              ""
-              "-test"
-            ]);
+            }
+          ) [
+            ""
+            "-test"
+          ]);
         }
         ;
     };
@@ -64,4 +67,5 @@ import ./make-test-python.nix ({
         } ping | grep PONG")
       ''
       ;
-  })
+  }
+)

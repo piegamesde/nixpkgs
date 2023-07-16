@@ -57,12 +57,14 @@ mkDerivation rec {
       qtwebsockets
       qtimageformats
     ]
-    ++ (with xorg; [
-      libX11
-      libXScrnSaver
-      libXcursor
-      xkeyboardconfig
-    ])
+    ++ (
+      with xorg; [
+        libX11
+        libXScrnSaver
+        libXcursor
+        xkeyboardconfig
+      ]
+    )
     ;
 
   fontsConf = makeFontsConf { fontDirectories = [ twemoji-color-font ]; };

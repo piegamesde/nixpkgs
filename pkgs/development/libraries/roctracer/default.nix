@@ -93,12 +93,14 @@ stdenv.mkDerivation (finalAttrs: {
       find $out/test -executable -type f -exec mv {} $test/bin \;
       rm $test/bin/{*.sh,*.py}
       patchelf --set-rpath $out/lib:${
-        lib.makeLibraryPath (finalAttrs.buildInputs
+        lib.makeLibraryPath (
+          finalAttrs.buildInputs
           ++ [
             hip
             gcc-unwrapped.lib
             rocm-runtime
-          ])
+          ]
+        )
       } $test/bin/*
       rm -rf $out/test
     ''

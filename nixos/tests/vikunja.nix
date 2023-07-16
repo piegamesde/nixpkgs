@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -71,4 +72,5 @@ import ./make-test-python.nix ({
       vikunjaPostgresql.succeed("curl --fail http://localhost/api/v1/info")
       vikunjaPostgresql.succeed("curl --fail http://localhost")
     '';
-  })
+  }
+)

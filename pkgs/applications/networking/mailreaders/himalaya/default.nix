@@ -38,13 +38,15 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs =
     [ ]
-    ++ (if stdenv.hostPlatform.isDarwin then
-      [
-        Security
-        libiconv
-      ]
-    else
-      [ openssl ])
+    ++ (
+      if stdenv.hostPlatform.isDarwin then
+        [
+          Security
+          libiconv
+        ]
+      else
+        [ openssl ]
+    )
     ++ lib.optional withNotmuchBackend notmuch
     ;
 

@@ -33,19 +33,23 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ mono ];
 
-  runtimeLibs = lib.makeLibraryPath ([
-    gtk2
-    sqlite
-    openal
-    cairo
-    libGLU
-    SDL2
-    freealut
-  ]
-    ++ (with xorg; [
-      libX11
-      libXi
-    ]));
+  runtimeLibs = lib.makeLibraryPath (
+    [
+      gtk2
+      sqlite
+      openal
+      cairo
+      libGLU
+      SDL2
+      freealut
+    ]
+    ++ (
+      with xorg; [
+        libX11
+        libXi
+      ]
+    )
+  );
 
   desktopItems = makeDesktopItem {
     name = "vintagestory";

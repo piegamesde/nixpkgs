@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -124,4 +125,5 @@ import ./make-test-python.nix ({
             webserver.wait_for_open_port(8081)
       ''
       ;
-  })
+  }
+)

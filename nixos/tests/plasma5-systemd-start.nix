@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }:
@@ -51,4 +52,5 @@ import ./make-test-python.nix ({
         assert 'ActiveState=active' in result.split('\n'), 'Systemd service not active'
       ''
       ;
-  })
+  }
+)

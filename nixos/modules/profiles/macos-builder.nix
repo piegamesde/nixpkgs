@@ -152,13 +152,15 @@ in
         script = hostPkgs.writeShellScriptBin "create-builder" (
           # When running as non-interactively as part of a DarwinConfiguration the working directory
           # must be set to a writeable directory.
-          (if cfg.workingDirectory != "." then
-            ''
-              ${hostPkgs.coreutils}/bin/mkdir --parent "${cfg.workingDirectory}"
-              cd "${cfg.workingDirectory}"
-            ''
-          else
-            "")
+          (
+            if cfg.workingDirectory != "." then
+              ''
+                ${hostPkgs.coreutils}/bin/mkdir --parent "${cfg.workingDirectory}"
+                cd "${cfg.workingDirectory}"
+              ''
+            else
+              ""
+          )
           + ''
             KEYS="''${KEYS:-./keys}"
             ${hostPkgs.coreutils}/bin/mkdir --parent "''${KEYS}"
@@ -172,7 +174,8 @@ in
               (set -x; sudo --reset-timestamp ${installCredentials} "''${KEYS}")
             fi
             KEYS="$(${hostPkgs.nix}/bin/nix-store --add "$KEYS")" ${config.system.build.vm}/bin/run-nixos-vm
-          '');
+          ''
+        );
 
       in
       script.overrideAttrs (old: {

@@ -59,13 +59,15 @@ melpaBuild rec {
     # elisp dependencies
   packageRequires = [ pkgs.emacsPackages.markdown-mode ];
   buildInputs = [
-      (pkgs.python3.withPackages (ps:
+      (pkgs.python3.withPackages (
+        ps:
         with ps; [
           openai
           epc
           sexpdata
           six
-        ]))
+        ]
+      ))
     ];
   recipe = pkgs.writeText "recipe" ''
     (mind-wave

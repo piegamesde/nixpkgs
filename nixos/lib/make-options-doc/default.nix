@@ -57,11 +57,13 @@ let
   rawOpts = lib.optionAttrSetToDocList options;
   transformedOpts = map transformOptions rawOpts;
   filteredOpts = lib.filter (opt: opt.visible && !opt.internal) transformedOpts;
-  optionsList = lib.flip map filteredOpts (opt:
+  optionsList = lib.flip map filteredOpts (
+    opt:
     opt
     // lib.optionalAttrs (opt ? relatedPackages && opt.relatedPackages != [ ]) {
       relatedPackages = genRelatedPackages opt.relatedPackages opt.name;
-    });
+    }
+  );
 
     # Generate DocBook documentation for a list of packages. This is
     # what `relatedPackages` option of `mkOption` from

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -39,4 +40,5 @@ import ./make-test-python.nix ({
         client.succeed("su - alice -c ${pkgs.libuiohook.test}/share/uiohook_tests >&2 &")
       ''
       ;
-  })
+  }
+)

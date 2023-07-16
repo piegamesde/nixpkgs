@@ -76,25 +76,31 @@ let
     # Deprecate top level options that are redundant.
   deprecateTopLevelOption =
     config:
-    lib.mkRenamedOptionModule ([
-      "services"
-      "epgstation"
-    ]
-      ++ config) ([
+    lib.mkRenamedOptionModule (
+      [
+        "services"
+        "epgstation"
+      ]
+      ++ config
+    ) (
+      [
         "services"
         "epgstation"
         "settings"
       ]
-        ++ config)
+      ++ config
+    )
     ;
 
   removeOption =
     config: instruction:
-    lib.mkRemovedOptionModule ([
-      "services"
-      "epgstation"
-    ]
-      ++ config) instruction
+    lib.mkRemovedOptionModule (
+      [
+        "services"
+        "epgstation"
+      ]
+      ++ config
+    ) instruction
     ;
 in
 {

@@ -48,9 +48,9 @@ let
 
       configFile = pkgs.writeText "openvpn-config-${name}" ''
         errors-to-stderr
-        ${optionalString
-        (cfg.up != "" || cfg.down != "" || cfg.updateResolvConf)
-        "script-security 2"}
+        ${optionalString (
+          cfg.up != "" || cfg.down != "" || cfg.updateResolvConf
+        ) "script-security 2"}
         ${cfg.config}
         ${optionalString (cfg.up != "" || cfg.updateResolvConf)
         "up ${pkgs.writeShellScript "openvpn-${name}-up" upScript}"}
@@ -247,9 +247,9 @@ in
 
   config = mkIf (cfg.servers != { }) {
 
-    systemd.services = (listToAttrs (mapAttrsFlatten
-      (name: value: nameValuePair "openvpn-${name}" (makeOpenVPNJob value name))
-      cfg.servers)) // restartService;
+    systemd.services = (listToAttrs (mapAttrsFlatten (
+      name: value: nameValuePair "openvpn-${name}" (makeOpenVPNJob value name)
+    ) cfg.servers)) // restartService;
 
     environment.systemPackages = [ openvpn ];
 

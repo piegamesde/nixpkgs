@@ -53,9 +53,11 @@ in
     environment.systemPackages = [ pkgs.imwheel ];
 
     environment.etc."X11/imwheel/imwheelrc".source = pkgs.writeText "imwheelrc"
-      (concatStringsSep "\n\n" (mapAttrsToList (rule: conf: ''
-        "${rule}"
-        ${conf}'') cfg.rules));
+      (concatStringsSep "\n\n" (mapAttrsToList (
+        rule: conf: ''
+          "${rule}"
+          ${conf}''
+      ) cfg.rules));
 
     systemd.user.services.imwheel = {
       description = "imwheel service";
@@ -64,11 +66,13 @@ in
       serviceConfig = {
         ExecStart =
           "${pkgs.imwheel}/bin/imwheel "
-          + escapeShellArgs ([
-            "--detach"
-            "--kill"
-          ]
-            ++ cfg.extraOptions)
+          + escapeShellArgs (
+            [
+              "--detach"
+              "--kill"
+            ]
+            ++ cfg.extraOptions
+          )
           ;
         ExecStop = "${pkgs.procps}/bin/pkill imwheel";
         RestartSec = 3;

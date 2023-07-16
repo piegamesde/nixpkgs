@@ -47,10 +47,12 @@ mkCoqDerivation {
       veriT'
       zchaff
     ]
-    ++ (with coq.ocamlPackages; [
-      num
-      zarith
-    ])
+    ++ (
+      with coq.ocamlPackages; [
+        num
+        zarith
+      ]
+    )
     ;
   mlPlugin = true;
   nativeBuildInputs =

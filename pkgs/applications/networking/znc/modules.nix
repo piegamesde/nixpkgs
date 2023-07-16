@@ -16,15 +16,17 @@ let
         "install -D ${module_name}.so $out/lib/znc/${module_name}.so",
       ...
     }:
-    stdenv.mkDerivation (a // {
-      inherit buildPhase;
-      inherit installPhase;
+    stdenv.mkDerivation (
+      a // {
+        inherit buildPhase;
+        inherit installPhase;
 
-      buildInputs = znc.buildInputs;
+        buildInputs = znc.buildInputs;
 
-      meta = a.meta // { platforms = lib.platforms.unix; };
-      passthru.module_name = module_name;
-    })
+        meta = a.meta // { platforms = lib.platforms.unix; };
+        passthru.module_name = module_name;
+      }
+    )
     ;
 
 in

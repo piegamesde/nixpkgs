@@ -11,7 +11,8 @@ let
   inherit (lib.types) attrsOf coercedTo listOf oneOf str int bool;
   cfg = config.services.smartdns;
 
-  confFile = pkgs.writeText "smartdns.conf" (with generators;
+  confFile = pkgs.writeText "smartdns.conf" (
+    with generators;
     toKeyValue {
       mkKeyValue = mkKeyValueDefault {
         mkValueString =
@@ -27,7 +28,8 @@ let
       } " ";
       listsAsDuplicateKeys =
         true; # Allowing duplications because we need to deal with multiple entries with the same key.
-    } cfg.settings);
+    } cfg.settings
+  );
 in
 {
   options.services.smartdns = {

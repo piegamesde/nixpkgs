@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }: {
@@ -79,4 +80,5 @@ import ./make-test-python.nix ({
       machine.succeed(f"{curl} -X POST -H {authHeader} {baseURL}/proxy/daemon/server/{serverID}/start")
       machine.wait_for_open_port(serverPort)
     '';
-  })
+  }
+)

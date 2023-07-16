@@ -232,9 +232,11 @@ let
     ''
       mkdir -p "${extra.dst}"
     ''
-    + concatStrings (flip mapAttrsToList extra.files (name: md5: ''
-      ln -s "${extra.src}/${name}" "${extra.dst}/${md5}-${name}"
-    ''))
+    + concatStrings (flip mapAttrsToList extra.files (
+      name: md5: ''
+        ln -s "${extra.src}/${name}" "${extra.dst}/${md5}-${name}"
+      ''
+    ))
     ;
   installExtraFile =
     extra: ''
@@ -363,11 +365,13 @@ stdenv.mkDerivation {
       VideoDecodeAcceleration
       bzip2
     ]
-    ++ lib.optionals enableGStreamer (with gst_all_1; [
-      gstreamer
-      gst-plugins-base
-      gst-plugins-good
-    ])
+    ++ lib.optionals enableGStreamer (
+      with gst_all_1; [
+        gstreamer
+        gst-plugins-base
+        gst-plugins-good
+      ]
+    )
     ++ lib.optional enableOvis ogre
     ++ lib.optional enableGPhoto2 libgphoto2
     ++ lib.optional enableDC1394 libdc1394
@@ -457,13 +461,18 @@ stdenv.mkDerivation {
 
       # LTO options
       (opencvFlag "ENABLE_LTO" enableLto)
-      (opencvFlag "ENABLE_THIN_LTO" (enableLto
+      (opencvFlag "ENABLE_THIN_LTO" (
+        enableLto
         && (
           # Only clang supports thin LTO, so we must either be using clang through the stdenv,
           stdenv.cc.isClang
           ||
           # or through the backend stdenv.
-          (enableCuda && backendStdenv.cc.isClang))))
+          (
+            enableCuda && backendStdenv.cc.isClang
+          )
+        )
+      ))
     ]
     ++ lib.optionals enableCuda [
       "-DCUDA_FAST_MATH=ON"

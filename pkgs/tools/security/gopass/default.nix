@@ -39,12 +39,14 @@ buildGoModule rec {
     "-X main.commit=${src.rev}"
   ];
 
-  wrapperPath = lib.makeBinPath ([
-    git
-    gnupg
-    xclip
-  ]
-    ++ lib.optional stdenv.isLinux wl-clipboard);
+  wrapperPath = lib.makeBinPath (
+    [
+      git
+      gnupg
+      xclip
+    ]
+    ++ lib.optional stdenv.isLinux wl-clipboard
+  );
 
   postInstall =
     ''

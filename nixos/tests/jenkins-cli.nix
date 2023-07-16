@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: rec {
@@ -30,4 +31,5 @@ import ./make-test-python.nix ({
           "jenkins-cli -auth admin:$(cat /var/lib/jenkins/secrets/initialAdminPassword)"
       )
     '';
-  })
+  }
+)

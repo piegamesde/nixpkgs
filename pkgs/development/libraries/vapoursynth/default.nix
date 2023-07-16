@@ -43,11 +43,13 @@ stdenv.mkDerivation rec {
     [
       zimg
       libass
-      (python3.withPackages (ps:
+      (python3.withPackages (
+        ps:
         with ps; [
           sphinx
           cython
-        ]))
+        ]
+      ))
     ]
     ++ lib.optionals stdenv.isDarwin [
       libiconv

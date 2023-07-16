@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -52,4 +53,5 @@ import ./make-test-python.nix ({
           printer.succeed("curl -X POST http://localhost:7125/machine/services/stop?service=klipper | grep ok >&2")
           printer.wait_until_succeeds("systemctl --no-pager show klipper.service | grep ActiveState=inactive", timeout=10)
     '';
-  })
+  }
+)

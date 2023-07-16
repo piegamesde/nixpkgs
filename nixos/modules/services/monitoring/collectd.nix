@@ -141,12 +141,14 @@ in
         NotifyLevel "OKAY"
       </Plugin>
 
-      ${concatStrings (mapAttrsToList (plugin: pluginConfig: ''
-        LoadPlugin ${plugin}
-        <Plugin "${plugin}">
-        ${pluginConfig}
-        </Plugin>
-      '') cfg.plugins)}
+      ${concatStrings (mapAttrsToList (
+        plugin: pluginConfig: ''
+          LoadPlugin ${plugin}
+          <Plugin "${plugin}">
+          ${pluginConfig}
+          </Plugin>
+        ''
+      ) cfg.plugins)}
 
       ${concatMapStrings (f: ''
         Include "${f}"

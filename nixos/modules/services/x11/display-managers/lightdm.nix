@@ -222,7 +222,9 @@ in
       {
         assertion =
           !cfg.greeter.enable
-          -> (dmcfg.autoLogin.enable && cfg.autoLogin.timeout == 0)
+          -> (
+            dmcfg.autoLogin.enable && cfg.autoLogin.timeout == 0
+          )
           ;
         message = ''
           LightDM can only run without greeter if automatic login is enabled and the timeout for it
@@ -237,10 +239,11 @@ in
 
       # Set default session in session chooser to a specified values – basically ignore session history.
       # Auto-login is already covered by a config value.
-    services.xserver.displayManager.job.preStart = optionalString
-      (!dmcfg.autoLogin.enable && dmcfg.defaultSession != null) ''
-        ${setSessionScript}/bin/set-session ${dmcfg.defaultSession}
-      '';
+    services.xserver.displayManager.job.preStart = optionalString (
+      !dmcfg.autoLogin.enable && dmcfg.defaultSession != null
+    ) ''
+      ${setSessionScript}/bin/set-session ${dmcfg.defaultSession}
+    '';
 
       # setSessionScript needs session-files in XDG_DATA_DIRS
     services.xserver.displayManager.job.environment.XDG_DATA_DIRS =

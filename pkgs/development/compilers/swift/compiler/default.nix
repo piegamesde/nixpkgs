@@ -123,10 +123,12 @@ let
     "toolchain-tools"
     "toolchain-dev-tools"
     "license"
-    (if stdenv.isDarwin then
-      "sourcekit-xpc-service"
-    else
-      "sourcekit-inproc")
+    (
+      if stdenv.isDarwin then
+        "sourcekit-xpc-service"
+      else
+        "sourcekit-inproc"
+    )
     "swift-remote-mirror"
     "swift-remote-mirror-headers"
   ];

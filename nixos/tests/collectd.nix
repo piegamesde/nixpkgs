@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -43,4 +44,5 @@ import ./make-test-python.nix ({
       machine.succeed(f"cp {file} before")
       machine.wait_until_fails(f"cmp before {file}")
     '';
-  })
+  }
+)

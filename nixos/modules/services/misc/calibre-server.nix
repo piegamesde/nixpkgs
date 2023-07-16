@@ -22,7 +22,8 @@ in
         "services"
         "calibre-server"
         "libraries"
-      ] (config:
+      ] (
+        config:
         let
           libraryDir = getAttrFromPath [
             "services"

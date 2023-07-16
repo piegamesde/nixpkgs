@@ -43,18 +43,22 @@ let
       rm -rf $out/share/mediawiki/skins/*
       rm -rf $out/share/mediawiki/extensions/*
 
-      ${concatStringsSep "\n" (mapAttrsToList (k: v: ''
-        ln -s ${v} $out/share/mediawiki/skins/${k}
-      '') cfg.skins)}
+      ${concatStringsSep "\n" (mapAttrsToList (
+        k: v: ''
+          ln -s ${v} $out/share/mediawiki/skins/${k}
+        ''
+      ) cfg.skins)}
 
-      ${concatStringsSep "\n" (mapAttrsToList (k: v: ''
-        ln -s ${
-          if v != null then
-            v
-          else
-            "$src/share/mediawiki/extensions/${k}"
-        } $out/share/mediawiki/extensions/${k}
-      '') cfg.extensions)}
+      ${concatStringsSep "\n" (mapAttrsToList (
+        k: v: ''
+          ln -s ${
+            if v != null then
+              v
+            else
+              "$src/share/mediawiki/extensions/${k}"
+          } $out/share/mediawiki/extensions/${k}
+        ''
+      ) cfg.extensions)}
     '';
   };
 
@@ -132,8 +136,9 @@ let
       }
 
       ${
-        optionalString
-        (cfg.database.type == "mysql" && cfg.database.tablePrefix != null) ''
+        optionalString (
+          cfg.database.type == "mysql" && cfg.database.tablePrefix != null
+        ) ''
           # MySQL specific settings
           $wgDBprefix = "${cfg.database.tablePrefix}";
         ''
@@ -425,7 +430,9 @@ in
             if (cfg.database.type == "mysql" && cfg.database.createLocally) then
               "/run/mysqld/mysqld.sock"
             else if
-              (cfg.database.type == "postgres" && cfg.database.createLocally)
+              (
+                cfg.database.type == "postgres" && cfg.database.createLocally
+              )
             then
               "/run/postgresql"
             else
@@ -523,7 +530,9 @@ in
       {
         assertion =
           cfg.database.createLocally
-          -> (cfg.database.type == "mysql" || cfg.database.type == "postgres")
+          -> (
+            cfg.database.type == "mysql" || cfg.database.type == "postgres"
+          )
           ;
         message =
           "services.mediawiki.createLocally is currently only supported for database type 'mysql' and 'postgres'";
@@ -578,16 +587,18 @@ in
     services.phpfpm.pools.mediawiki = {
       inherit user group;
       phpEnv.MEDIAWIKI_CONFIG = "${mediawikiConfig}";
-      settings = (if (cfg.webserver == "apache") then
-        {
-          "listen.owner" = config.services.httpd.user;
-          "listen.group" = config.services.httpd.group;
-        }
-      else
-        {
-          "listen.owner" = user;
-          "listen.group" = group;
-        }) // cfg.poolConfig;
+      settings = (
+        if (cfg.webserver == "apache") then
+          {
+            "listen.owner" = config.services.httpd.user;
+            "listen.group" = config.services.httpd.group;
+          }
+        else
+          {
+            "listen.owner" = user;
+            "listen.group" = group;
+          }
+      ) // cfg.poolConfig;
     };
 
     services.httpd = lib.mkIf (cfg.webserver == "apache") {
@@ -639,9 +650,9 @@ in
       after =
         optional (cfg.database.type == "mysql" && cfg.database.createLocally)
           "mysql.service"
-        ++ optional
-          (cfg.database.type == "postgres" && cfg.database.createLocally)
-          "postgresql.service"
+        ++ optional (
+          cfg.database.type == "postgres" && cfg.database.createLocally
+        ) "postgresql.service"
         ;
       script = ''
         if ! test -e "${stateDir}/secret.key"; then
@@ -682,12 +693,16 @@ in
     };
 
     systemd.services.httpd.after =
-      optional (cfg.webserver == "apache"
+      optional (
+        cfg.webserver == "apache"
         && cfg.database.createLocally
-        && cfg.database.type == "mysql") "mysql.service"
-      ++ optional (cfg.webserver == "apache"
+        && cfg.database.type == "mysql"
+      ) "mysql.service"
+      ++ optional (
+        cfg.webserver == "apache"
         && cfg.database.createLocally
-        && cfg.database.type == "postgres") "postgresql.service"
+        && cfg.database.type == "postgres"
+      ) "postgresql.service"
       ;
 
     users.users.${user} = {

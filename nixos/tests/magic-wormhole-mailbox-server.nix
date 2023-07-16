@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -48,4 +49,5 @@ import ./make-test-python.nix ({
       client_bob.succeed("wormhole --relay-url=ws://server:4000/v1 receive -0 --accept-file")
       client_bob.succeed("grep mysecret secretfile")
     '';
-  })
+  }
+)

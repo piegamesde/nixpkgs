@@ -47,32 +47,34 @@ stdenv.mkDerivation (finalAttrs: {
     # sort alphabetically
   configureFlags =
     [ "--host=${stdenv.buildPlatform.config}" ]
-    ++ (if !nanoizeNewlib then
-      [
-        "--disable-newlib-supplied-syscalls"
-        "--disable-nls"
-        "--enable-newlib-io-c99-formats"
-        "--enable-newlib-io-long-long"
-        "--enable-newlib-reent-check-verify"
-        "--enable-newlib-register-fini"
-        "--enable-newlib-retargetable-locking"
-      ]
-    else
-      [
-        "--disable-newlib-fseek-optimization"
-        "--disable-newlib-fvwrite-in-streamio"
-        "--disable-newlib-supplied-syscalls"
-        "--disable-newlib-unbuf-stream-opt"
-        "--disable-newlib-wide-orient"
-        "--disable-nls"
-        "--enable-lite-exit"
-        "--enable-newlib-global-atexit"
-        "--enable-newlib-nano-formatted-io"
-        "--enable-newlib-nano-malloc"
-        "--enable-newlib-reent-check-verify"
-        "--enable-newlib-reent-small"
-        "--enable-newlib-retargetable-locking"
-      ])
+    ++ (
+      if !nanoizeNewlib then
+        [
+          "--disable-newlib-supplied-syscalls"
+          "--disable-nls"
+          "--enable-newlib-io-c99-formats"
+          "--enable-newlib-io-long-long"
+          "--enable-newlib-reent-check-verify"
+          "--enable-newlib-register-fini"
+          "--enable-newlib-retargetable-locking"
+        ]
+      else
+        [
+          "--disable-newlib-fseek-optimization"
+          "--disable-newlib-fvwrite-in-streamio"
+          "--disable-newlib-supplied-syscalls"
+          "--disable-newlib-unbuf-stream-opt"
+          "--disable-newlib-wide-orient"
+          "--disable-nls"
+          "--enable-lite-exit"
+          "--enable-newlib-global-atexit"
+          "--enable-newlib-nano-formatted-io"
+          "--enable-newlib-nano-malloc"
+          "--enable-newlib-reent-check-verify"
+          "--enable-newlib-reent-small"
+          "--enable-newlib-retargetable-locking"
+        ]
+    )
     ;
 
   dontDisableStatic = true;

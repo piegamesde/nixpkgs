@@ -100,30 +100,35 @@ let
     ;
 
   config = runCommand "dwarf-fortress-config" { nativeBuildInputs = [ gawk ]; }
-    (''
-      mkdir -p $out/data/init
+    (
+      ''
+        mkdir -p $out/data/init
 
-      edit_setting() {
-        v=''${v//'&'/'\&'}
-        if ! gawk -i inplace -v RS='\r?\n' '
-          { n += sub("\\[" ENVIRON["k"] ":[^]]*\\]", "[" ENVIRON["k"] ":" ENVIRON["v"] "]"); print }
-          END { exit(!n) }
-        ' "$out/$file"; then
-          echo "error: no setting named '$k' in $file" >&2
-          exit 1
-        fi
-      }
-    ''
-      + forEach settings_ (file: kv:
+        edit_setting() {
+          v=''${v//'&'/'\&'}
+          if ! gawk -i inplace -v RS='\r?\n' '
+            { n += sub("\\[" ENVIRON["k"] ":[^]]*\\]", "[" ENVIRON["k"] ":" ENVIRON["v"] "]"); print }
+            END { exit(!n) }
+          ' "$out/$file"; then
+            echo "error: no setting named '$k' in $file" >&2
+            exit 1
+          fi
+        }
+      ''
+      + forEach settings_ (
+        file: kv:
         ''
           file=data/init/${lib.escapeShellArg file}.txt
           cp ${baseEnv}/"$file" "$out/$file"
         ''
-        + forEach kv (k: v:
+        + forEach kv (
+          k: v:
           lib.optionalString (v != null) ''
             export k=${lib.escapeShellArg k} v=${lib.escapeShellArg (toTxt v)}
             edit_setting
-          ''))
+          ''
+        )
+      )
       + lib.optionalString enableDFHack ''
         mkdir -p $out/hack
 
@@ -140,7 +145,8 @@ let
         echo "  Replace: $patched_md5"
 
         substitute "$input_file" "$output_file" --replace "$orig_md5" "$patched_md5"
-      '');
+      ''
+    );
 
     # This is a separate environment because the config files to modify may come
     # from any of the paths in baseEnv.
@@ -155,11 +161,11 @@ let
 
 in
 lib.throwIf (enableTWBT && !enableDFHack)
-"dwarf-fortress: TWBT requires DFHack to be enabled" lib.throwIf
-(enableStoneSense && !enableDFHack)
-"dwarf-fortress: StoneSense requires DFHack to be enabled" lib.throwIf
-(enableTextMode && enableTWBT)
-"dwarf-fortress: text mode and TWBT are mutually exclusive"
+"dwarf-fortress: TWBT requires DFHack to be enabled" lib.throwIf (
+  enableStoneSense && !enableDFHack
+) "dwarf-fortress: StoneSense requires DFHack to be enabled" lib.throwIf (
+  enableTextMode && enableTWBT
+) "dwarf-fortress: text mode and TWBT are mutually exclusive"
 
 stdenv.mkDerivation {
   pname = "dwarf-fortress";

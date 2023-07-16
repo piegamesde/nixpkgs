@@ -16,17 +16,19 @@
   ...
 }@args:
 
-callPackage ./generic.nix (args // rec {
-  inherit (officeVersion) version edition;
+callPackage ./generic.nix (
+  args // rec {
+    inherit (officeVersion) version edition;
 
-  pname = "freeoffice";
-  suiteName = "FreeOffice";
+    pname = "freeoffice";
+    suiteName = "FreeOffice";
 
-  src = fetchurl {
-    inherit (officeVersion) hash;
-    url =
-      "https://www.softmaker.net/down/softmaker-freeoffice-${edition}-${version}-amd64.tgz";
-  };
+    src = fetchurl {
+      inherit (officeVersion) hash;
+      url =
+        "https://www.softmaker.net/down/softmaker-freeoffice-${edition}-${version}-amd64.tgz";
+    };
 
-  archive = "freeoffice${edition}.tar.lzma";
-})
+    archive = "freeoffice${edition}.tar.lzma";
+  }
+)

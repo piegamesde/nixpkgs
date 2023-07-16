@@ -84,8 +84,12 @@ let
         null
         # simple types
       else if
-        (f.wrapped == null && f'.wrapped == null)
-        && (f.payload == null && f'.payload == null)
+        (
+          f.wrapped == null && f'.wrapped == null
+        )
+        && (
+          f.payload == null && f'.payload == null
+        )
       then
         f.type
         # composed types
@@ -142,8 +146,9 @@ let
         # https://github.com/NixOS/nixpkgs/issues/191124 and
         # https://github.com/NixOS/nixos-search/issues/391 for what happens if you ignore
         # this disclaimer.
-        check ?
-          (x: true), # Merge a list of definitions together into a single value.
+        check ? (
+          x: true
+        ), # Merge a list of definitions together into a single value.
         # This function is called with two arguments: the location of
         # the option in the configuration as a list of strings
         # (e.g. ["boot" "loader "grub" "enable"]), and a list of
@@ -262,15 +267,15 @@ let
 
               # Returns the common type of all definitions, throws an error if they
               # don't have the same type
-            commonType = foldl' (type: def:
+            commonType = foldl' (
+              type: def:
               if getType def.value == type then
                 type
               else
                 throw "The option `${
                   showOption loc
-                }' has conflicting option types in ${
-                  showFiles (getFiles defs)
-                }") (getType (head defs).value) defs;
+                }' has conflicting option types in ${showFiles (getFiles defs)}"
+            ) (getType (head defs).value) defs;
 
             mergeFunction =
               {
@@ -577,7 +582,9 @@ let
           in
           if
             builtins.isPath res
-            || (builtins.isString res && !builtins.hasContext res)
+            || (
+              builtins.isString res && !builtins.hasContext res
+            )
           then
             toDerivation res
           else
@@ -601,21 +608,26 @@ let
           name = "listOf";
           description =
             "list of ${
-              optionDescriptionPhrase
-              (class: class == "noun" || class == "composite") elemType
+              optionDescriptionPhrase (
+                class: class == "noun" || class == "composite"
+              ) elemType
             }";
           descriptionClass = "composite";
           check = isList;
           merge =
             loc: defs:
-            map (x: x.value) (filter (x: x ? value) (concatLists (imap1 (n: def:
-              imap1 (m: def':
-                (mergeDefinitions
-                  (loc ++ [ "[definition ${toString n}-entry ${toString m}]" ])
-                  elemType [ {
-                    inherit (def) file;
-                    value = def';
-                  } ]).optionalValue) def.value) defs)))
+            map (x: x.value) (filter (x: x ? value) (concatLists (imap1 (
+              n: def:
+              imap1 (
+                m: def':
+                (mergeDefinitions (
+                  loc ++ [ "[definition ${toString n}-entry ${toString m}]" ]
+                ) elemType [ {
+                  inherit (def) file;
+                  value = def';
+                } ]).optionalValue
+              ) def.value
+            ) defs)))
             ;
           emptyValue = { value = [ ]; };
           getSubOptions = prefix: elemType.getSubOptions (prefix ++ [ "*" ]);
@@ -646,23 +658,29 @@ let
           name = "attrsOf";
           description =
             "attribute set of ${
-              optionDescriptionPhrase
-              (class: class == "noun" || class == "composite") elemType
+              optionDescriptionPhrase (
+                class: class == "noun" || class == "composite"
+              ) elemType
             }";
           descriptionClass = "composite";
           check = isAttrs;
           merge =
             loc: defs:
             mapAttrs (n: v: v.value) (filterAttrs (n: v: v ? value)
-              (zipAttrsWith (name: defs:
-                (mergeDefinitions (loc ++ [ name ]) elemType defs)
-                .optionalValue)
+              (zipAttrsWith (
+                name: defs:
+                (mergeDefinitions (loc ++ [ name ]) elemType defs).optionalValue
+              )
               # Push down position info.
-                (map (def:
-                  mapAttrs (n: v: {
-                    inherit (def) file;
-                    value = v;
-                  }) def.value) defs)))
+                (map (
+                  def:
+                  mapAttrs (
+                    n: v: {
+                      inherit (def) file;
+                      value = v;
+                    }
+                  ) def.value
+                ) defs)))
             ;
           emptyValue = { value = { }; };
           getSubOptions =
@@ -685,14 +703,16 @@ let
           name = "lazyAttrsOf";
           description =
             "lazy attribute set of ${
-              optionDescriptionPhrase
-              (class: class == "noun" || class == "composite") elemType
+              optionDescriptionPhrase (
+                class: class == "noun" || class == "composite"
+              ) elemType
             }";
           descriptionClass = "composite";
           check = isAttrs;
           merge =
             loc: defs:
-            zipAttrsWith (name: defs:
+            zipAttrsWith (
+              name: defs:
               let
                 merged = mergeDefinitions (loc ++ [ name ]) elemType defs;
                   # mergedValue will trigger an appropriate error when accessed
@@ -700,11 +720,15 @@ let
               merged.optionalValue.value or elemType.emptyValue.value or merged.mergedValue
             )
             # Push down position info.
-            (map (def:
-              mapAttrs (n: v: {
-                inherit (def) file;
-                value = v;
-              }) def.value) defs)
+            (map (
+              def:
+              mapAttrs (
+                n: v: {
+                  inherit (def) file;
+                  value = v;
+                }
+              ) def.value
+            ) defs)
             ;
           emptyValue = { value = { }; };
           getSubOptions =
@@ -771,8 +795,9 @@ let
           name = "nullOr";
           description =
             "null or ${
-              optionDescriptionPhrase
-              (class: class == "noun" || class == "conjunction") elemType
+              optionDescriptionPhrase (
+                class: class == "noun" || class == "conjunction"
+              ) elemType
             }";
           descriptionClass = "conjunction";
           check = x: x == null || elemType.check x;
@@ -807,8 +832,9 @@ let
           name = "functionTo";
           description =
             "function that evaluates to a(n) ${
-              optionDescriptionPhrase
-              (class: class == "noun" || class == "composite") elemType
+              optionDescriptionPhrase (
+                class: class == "noun" || class == "composite"
+              ) elemType
             }";
           descriptionClass = "composite";
           check = isFunction;
@@ -857,9 +883,11 @@ let
             loc: defs: {
               imports =
                 staticModules
-                ++ map (def:
+                ++ map (
+                  def:
                   lib.setDefaultModuleLocation
-                  "${def.file}, via option ${showOption loc}" def.value) defs
+                  "${def.file}, via option ${showOption loc}" def.value
+                ) defs
                 ;
             }
             ;
@@ -895,7 +923,8 @@ let
             let
               # Prepares the type definitions for mergeOptionDecls, which
               # annotates submodules types with file locations
-              optionModules = map ({
+              optionModules = map (
+                {
                   value,
                   file,
                 }: {
@@ -903,7 +932,8 @@ let
                     # There's no way to merge types directly from the module system,
                     # but we can cheat a bit by just declaring an option with the type
                   options = lib.mkOption { type = value; };
-                }) defs;
+                }
+              ) defs;
                 # Merges all the types into a single one, including submodule merging.
                 # This also propagates file information to all submodules
               mergedOption =
@@ -925,7 +955,8 @@ let
 
           allModules =
             defs:
-            map ({
+            map (
+              {
                 value,
                 file,
               }:
@@ -938,7 +969,8 @@ let
                 {
                   _file = file;
                   imports = [ value ];
-                }) defs
+                }
+            ) defs
             ;
 
           base = evalModules {
@@ -1114,13 +1146,16 @@ let
           name = "either";
           description =
             "${
-              optionDescriptionPhrase
-              (class: class == "noun" || class == "conjunction") t1
+              optionDescriptionPhrase (
+                class: class == "noun" || class == "conjunction"
+              ) t1
             } or ${
-              optionDescriptionPhrase (class:
+              optionDescriptionPhrase (
+                class:
                 class == "noun"
                 || class == "conjunction"
-                || class == "composite") t2
+                || class == "composite"
+              ) t2
             }";
           descriptionClass = "conjunction";
           check = x: t1.check x || t2.check x;
@@ -1187,7 +1222,9 @@ let
             } convertible to it";
           check =
             x:
-            (coercedType.check x && finalType.check (coerceFunc x))
+            (
+              coercedType.check x && finalType.check (coerceFunc x)
+            )
             || finalType.check x
             ;
           merge =

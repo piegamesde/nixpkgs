@@ -22,7 +22,8 @@ lib.recurseIntoAttrs {
 
     # Check that the wiring of nixosTest is correct.
     # Correct operation of the NixOS test driver should be asserted elsewhere.
-  nixosTest-example = pkgs-with-overlay.testers.nixosTest ({
+  nixosTest-example = pkgs-with-overlay.testers.nixosTest (
+    {
       lib,
       pkgs,
       figlet,
@@ -44,7 +45,8 @@ lib.recurseIntoAttrs {
       testScript = ''
         machine.succeed("hello | figlet >/dev/console")
       '';
-    });
+    }
+  );
 
   testBuildFailure = lib.recurseIntoAttrs {
     happy = runCommand "testBuildFailure-happy" {

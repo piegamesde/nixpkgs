@@ -869,12 +869,14 @@ in
           else
             [ ]
           ;
-        mucDiscoItems = builtins.foldl' (acc: muc:
+        mucDiscoItems = builtins.foldl' (
+          acc: muc:
           [ {
             url = muc.domain;
             description = "${muc.domain} MUC endpoint";
           } ]
-          ++ acc) [ ] cfg.muc;
+          ++ acc
+        ) [ ] cfg.muc;
         discoItems = cfg.disco_items ++ httpDiscoItems ++ mucDiscoItems;
       in
       ''
@@ -980,12 +982,14 @@ in
               http_upload_path = ${toLua cfg.uploadHttp.httpUploadPath}
         ''}
 
-        ${lib.concatStringsSep "\n" (lib.mapAttrsToList (n: v: ''
-          VirtualHost "${v.domain}"
-            enabled = ${boolToString v.enabled};
-            ${optionalString (v.ssl != null) (createSSLOptsStr v.ssl)}
-            ${v.extraConfig}
-        '') cfg.virtualHosts)}
+        ${lib.concatStringsSep "\n" (lib.mapAttrsToList (
+          n: v: ''
+            VirtualHost "${v.domain}"
+              enabled = ${boolToString v.enabled};
+              ${optionalString (v.ssl != null) (createSSLOptsStr v.ssl)}
+              ${v.extraConfig}
+          ''
+        ) cfg.virtualHosts)}
       ''
       ;
 

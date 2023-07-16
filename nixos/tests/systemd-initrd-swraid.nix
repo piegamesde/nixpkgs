@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -64,4 +65,5 @@ import ./make-test-python.nix ({
       assert "hello" in machine.succeed("cat /test")
       assert "md0" in machine.succeed("cat /proc/mdstat")
     '';
-  })
+  }
+)

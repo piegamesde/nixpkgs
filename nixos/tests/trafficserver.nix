@@ -19,7 +19,8 @@
 #   - bin/traffic_logcat
 #   - bin/traffic_logstats
 #   - bin/tspush
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -91,12 +92,14 @@ import ./make-test-python.nix ({
           ...
         }:
         let
-          python = pkgs.python3.withPackages (ps:
+          python = pkgs.python3.withPackages (
+            ps:
             with ps; [
               httpbin
               gunicorn
               gevent
-            ]);
+            ]
+          );
         in
         {
           systemd.services.httpbin = {
@@ -214,4 +217,5 @@ import ./make-test-python.nix ({
             assert out["total"]["error.total"]["req"] == "0", "unexpected log stat"
       ''
       ;
-  })
+  }
+)

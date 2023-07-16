@@ -11,7 +11,8 @@ let
       ../documentation.nix
       ../version.nix
 
-      ({
+      (
+        {
           lib,
           someArg,
           ...
@@ -21,7 +22,8 @@ let
 
             # TODO test this
           meta.doc = ./test-dummy.chapter.xml;
-        })
+        }
+      )
 
       {
         _module.args = {

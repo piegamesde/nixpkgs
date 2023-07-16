@@ -39,13 +39,15 @@
 
 let
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
-  pythonEnv = python3.withPackages (ps:
+  pythonEnv = python3.withPackages (
+    ps:
     with ps;
     [ pillow ]
     ++ lib.optionals doCheck [
       pygobject3
       python-dbusmock
-    ]);
+    ]
+  );
 
 in
 stdenv.mkDerivation rec {

@@ -9,7 +9,8 @@ let
   iiDir = "/tmp/irc";
 
 in
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -27,7 +28,8 @@ import ./make-test-python.nix ({
           '';
         };
       };
-    } // lib.listToAttrs (builtins.map (client:
+    } // lib.listToAttrs (builtins.map (
+      client:
       lib.nameValuePair client {
         imports = [ ./common/user-account.nix ];
 
@@ -44,7 +46,8 @@ import ./make-test-python.nix ({
             User = "alice";
           };
         };
-      }) clients);
+      }
+    ) clients);
 
     testScript =
       let
@@ -98,4 +101,5 @@ import ./make-test-python.nix ({
       + lib.concatStrings (reduce (lib.zipListsWith (cs: c: cs + c))
         (builtins.map clientScript clients))
       ;
-  })
+  }
+)

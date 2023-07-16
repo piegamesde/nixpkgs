@@ -4,7 +4,8 @@ let
       systemWide ? false,
       fullVersion ? false
     }:
-    import ./make-test-python.nix ({
+    import ./make-test-python.nix (
+      {
         pkgs,
         lib,
         ...

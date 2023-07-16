@@ -32,12 +32,14 @@ stdenv.mkDerivation rec {
       zlib
       ncurses
     ]
-    ++ lib.optionals stdenv.isDarwin ([ Accelerate ]
+    ++ lib.optionals stdenv.isDarwin (
+      [ Accelerate ]
       ++ lib.optionals stdenv.isx86_64 # && isDarwin
         [
           CoreGraphics
           CoreVideo
-        ])
+        ]
+    )
     ;
 
   nativeCheckInputs = [ expect ];
@@ -49,14 +51,16 @@ stdenv.mkDerivation rec {
   ];
 
     # avoid a huge amount of warnings to make failures clearer
-  env.NIX_CFLAGS_COMPILE = toString (map (x: "-Wno-${x}") [
-    "void-pointer-to-int-cast"
-    "format"
-    "implicit-function-declaration"
-    "gnu-variable-sized-type-not-at-end"
-    "unused-result"
-  ]
-    ++ lib.optionals stdenv.isDarwin [ "-fcommon" ]);
+  env.NIX_CFLAGS_COMPILE = toString (
+    map (x: "-Wno-${x}") [
+      "void-pointer-to-int-cast"
+      "format"
+      "implicit-function-declaration"
+      "gnu-variable-sized-type-not-at-end"
+      "unused-result"
+    ]
+    ++ lib.optionals stdenv.isDarwin [ "-fcommon" ]
+  );
 
   patchPhase = ''
     substituteInPlace ./Makefile \

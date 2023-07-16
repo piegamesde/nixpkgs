@@ -507,21 +507,25 @@ in
       };
     };
 
-    systemd.services.xtreemfs-mrc = mkIf cfg.mrc.enable ({
-      description = "XtreemFS-MRC Server";
-      serviceConfig = {
-        User = "xtreemfs";
-        ExecStart = "${startupScript "org.xtreemfs.mrc.MRC" mrcConfig}";
-      };
-    } // systemdOptionalDependencies);
+    systemd.services.xtreemfs-mrc = mkIf cfg.mrc.enable (
+      {
+        description = "XtreemFS-MRC Server";
+        serviceConfig = {
+          User = "xtreemfs";
+          ExecStart = "${startupScript "org.xtreemfs.mrc.MRC" mrcConfig}";
+        };
+      } // systemdOptionalDependencies
+    );
 
-    systemd.services.xtreemfs-osd = mkIf cfg.osd.enable ({
-      description = "XtreemFS-OSD Server";
-      serviceConfig = {
-        User = "xtreemfs";
-        ExecStart = "${startupScript "org.xtreemfs.osd.OSD" osdConfig}";
-      };
-    } // systemdOptionalDependencies);
+    systemd.services.xtreemfs-osd = mkIf cfg.osd.enable (
+      {
+        description = "XtreemFS-OSD Server";
+        serviceConfig = {
+          User = "xtreemfs";
+          ExecStart = "${startupScript "org.xtreemfs.osd.OSD" osdConfig}";
+        };
+      } // systemdOptionalDependencies
+    );
 
   };
 

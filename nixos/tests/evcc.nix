@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -105,4 +106,5 @@ import ./make-test-python.nix ({
           _, output = machine.execute("systemd-analyze security evcc.service | grep -v '✓'")
           machine.log(output)
     '';
-  })
+  }
+)

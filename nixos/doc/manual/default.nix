@@ -62,7 +62,8 @@ let
         opt:
         opt // {
           # Clean up declaration sites to not refer to the NixOS source tree.
-          declarations = map (decl:
+          declarations = map (
+            decl:
             if hasPrefix (toString ../../..) (toString decl) then
               let
                 subpath = removePrefix "/"
@@ -73,7 +74,8 @@ let
                 name = subpath;
               }
             else
-              decl) opt.declarations;
+              decl
+          ) opt.declarations;
         }
         ;
       documentType = "none";

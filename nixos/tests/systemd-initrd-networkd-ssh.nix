@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }: {
@@ -97,4 +98,5 @@ import ./make-test-python.nix ({
       server.wait_for_unit("multi-user.target")
       server.succeed("mount | grep '/dev/mapper/root on /'")
     '';
-  })
+  }
+)

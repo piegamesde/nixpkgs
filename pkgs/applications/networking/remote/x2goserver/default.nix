@@ -53,7 +53,8 @@ let
     '';
   };
 
-  perlEnv = perl.withPackages (p:
+  perlEnv = perl.withPackages (
+    p:
     with p; [
       x2go-perl
       DBI
@@ -64,7 +65,8 @@ let
       ConfigSimple
       Switch
       FileWhich
-    ]);
+    ]
+  );
 
   binaryDeps = [
     perlEnv

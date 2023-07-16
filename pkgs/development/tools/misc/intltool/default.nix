@@ -36,10 +36,12 @@ stdenv.mkDerivation rec {
   ];
   propagatedBuildInputs =
     [ gettext ]
-    ++ (with perlPackages; [
-      perl
-      XMLParser
-    ])
+    ++ (
+      with perlPackages; [
+        perl
+        XMLParser
+      ]
+    )
     ;
 
   postInstall =

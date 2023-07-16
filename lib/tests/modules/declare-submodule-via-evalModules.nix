@@ -18,7 +18,8 @@
   };
 
   config.submodule = lib.mkMerge [
-    ({
+    (
+      {
         lib,
         ...
       }: {
@@ -26,7 +27,8 @@
           type = lib.types.bool;
           default = false;
         };
-      })
+      }
+    )
     {
       inner = true;
       outer = true;

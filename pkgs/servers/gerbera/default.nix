@@ -140,13 +140,15 @@ stdenv.mkDerivation rec {
       # systemd service will be generated alongside the service
       "-DWITH_SYSTEMD=OFF"
     ]
-    ++ map (e:
+    ++ map (
+      e:
       "-DWITH_${e.name}=${
         if e.enable then
           "ON"
         else
           "OFF"
-      }") options
+      }"
+    ) options
     ;
 
   nativeBuildInputs = [

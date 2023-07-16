@@ -20,7 +20,8 @@ rec {
   # [["good/relative/source/file" true] ["bad.tmpfile" false]] -> root -> path
   filterPattern =
     patterns: root:
-    (name: _type:
+    (
+      name: _type:
       let
         relPath = lib.removePrefix ((toString root) + "/") name;
         matches = pair: (match (head pair) relPath) != null;
@@ -29,11 +30,13 @@ rec {
           (last pair)
         ]) patterns;
       in
-      last (last ([ [
-        true
-        true
-      ] ]
-        ++ (filter head matched)))
+      last (last (
+        [ [
+          true
+          true
+        ] ]
+        ++ (filter head matched)
+      ))
     )
     ;
 
@@ -78,10 +81,12 @@ rec {
               recurse =
                 str:
                 [ (substring 0 1 str) ]
-                ++ (if str == "" then
-                  [ ]
-                else
-                  (recurse (substring 1 (stringLength (str)) str)))
+                ++ (
+                  if str == "" then
+                    [ ]
+                  else
+                    (recurse (substring 1 (stringLength (str)) str))
+                )
                 ;
             in
             str: recurse str
@@ -89,21 +94,25 @@ rec {
           chars = s: filter (c: c != "" && !isList c) (splitString s);
           escape = s: map (c: "\\" + c) (chars s);
         in
-        replaceStrings ((chars special)
+        replaceStrings (
+          (chars special)
           ++ (escape escs)
           ++ [
             "**/"
             "**"
             "*"
             "?"
-          ]) ((escape special)
-            ++ (escape escs)
-            ++ [
-              "(.*/)?"
-              ".*"
-              "[^/]*"
-              "[^/]"
-            ])
+          ]
+        ) (
+          (escape special)
+          ++ (escape escs)
+          ++ [
+            "(.*/)?"
+            ".*"
+            "[^/]*"
+            "[^/]"
+          ]
+        )
         ;
 
         # (regex -> regex) -> regex -> regex
@@ -112,11 +121,13 @@ rec {
         let
           slightFix = replaceStrings [ "\\]" ] [ "]" ];
         in
-        concatStringsSep "" (map (rl:
+        concatStringsSep "" (map (
+          rl:
           if isList rl then
             slightFix (elemAt rl 0)
           else
-            f rl) (split "(\\[([^\\\\]|\\\\.)+])" r))
+            f rl
+        ) (split "(\\[([^\\\\]|\\\\.)+])" r))
         ;
 
         # regex -> regex
@@ -133,10 +144,12 @@ rec {
             ;
           hasSlash = mapAroundCharclass findSlash l != l;
         in
-        (if (elemAt split 0) == "/" || hasSlash then
-          "^"
-        else
-          "(^|.*/)")
+        (
+          if (elemAt split 0) == "/" || hasSlash then
+            "^"
+          else
+            "(^|.*/)"
+        )
         + (elemAt split 1)
         ;
 
@@ -160,12 +173,14 @@ rec {
         ]
         ;
     in
-    map (l: # `l' for "line"
-      mapPat (l:
+    map (
+      l: # `l' for "line"
+      mapPat (
+        l:
         handleSlashSuffix (handleSlashPrefix
-          (handleHashesBangs (mapAroundCharclass substWildcards l))))
-      (computeNegation l))
-    (filter (l: !isList l && !isComment l) (split "\n" gitignore))
+          (handleHashesBangs (mapAroundCharclass substWildcards l)))
+      ) (computeNegation l)
+    ) (filter (l: !isList l && !isComment l) (split "\n" gitignore))
     ;
 
   gitignoreFilter =

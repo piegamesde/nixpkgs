@@ -381,18 +381,19 @@ in
           ln -s --force ${cfg.qemu.package}/$helper /run/${dirName}/nix-helpers/
         done
 
-        ${optionalString cfg.qemu.ovmf.enable (let
-          ovmfpackage = pkgs.buildEnv {
-            name = "qemu-ovmf";
-            paths = cfg.qemu.ovmf.packages;
-          };
-        in
-        ''
-          ln -s --force ${ovmfpackage}/FV/AAVMF_CODE.fd /run/${dirName}/nix-ovmf/
-          ln -s --force ${ovmfpackage}/FV/OVMF_CODE.fd /run/${dirName}/nix-ovmf/
-          ln -s --force ${ovmfpackage}/FV/AAVMF_VARS.fd /run/${dirName}/nix-ovmf/
-          ln -s --force ${ovmfpackage}/FV/OVMF_VARS.fd /run/${dirName}/nix-ovmf/
-        ''
+        ${optionalString cfg.qemu.ovmf.enable (
+          let
+            ovmfpackage = pkgs.buildEnv {
+              name = "qemu-ovmf";
+              paths = cfg.qemu.ovmf.packages;
+            };
+          in
+          ''
+            ln -s --force ${ovmfpackage}/FV/AAVMF_CODE.fd /run/${dirName}/nix-ovmf/
+            ln -s --force ${ovmfpackage}/FV/OVMF_CODE.fd /run/${dirName}/nix-ovmf/
+            ln -s --force ${ovmfpackage}/FV/AAVMF_VARS.fd /run/${dirName}/nix-ovmf/
+            ln -s --force ${ovmfpackage}/FV/OVMF_VARS.fd /run/${dirName}/nix-ovmf/
+          ''
         )}
       '';
 
@@ -417,13 +418,15 @@ in
         ++ optional vswitch.enable "ovs-vswitchd.service"
         ;
 
-      environment.LIBVIRTD_ARGS = escapeShellArgs ([
-        "--config"
-        configFile
-        "--timeout"
-        "120" # from ${libvirt}/var/lib/sysconfig/libvirtd
-      ]
-        ++ cfg.extraOptions);
+      environment.LIBVIRTD_ARGS = escapeShellArgs (
+        [
+          "--config"
+          configFile
+          "--timeout"
+          "120" # from ${libvirt}/var/lib/sysconfig/libvirtd
+        ]
+        ++ cfg.extraOptions
+      );
 
       path =
         [ cfg.qemu.package ] # libvirtd requires qemu-img to manage disk images

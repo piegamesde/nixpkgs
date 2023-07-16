@@ -25,14 +25,16 @@ stdenv.mkDerivation {
       ghdl -a --workdir=ghdlwork --ieee=synopsys simple.vhd simple-tb.vhd
       ghdl -e --workdir=ghdlwork --ieee=synopsys -o sim-simple tb
     ''
-    + (if backend == "llvm" then
-      ''
-        ./sim-simple --assert-level=warning > output.txt
-      ''
-    else
-      ''
-        ghdl -r --workdir=ghdlwork --ieee=synopsys tb > output.txt
-      '')
+    + (
+      if backend == "llvm" then
+        ''
+          ./sim-simple --assert-level=warning > output.txt
+        ''
+      else
+        ''
+          ghdl -r --workdir=ghdlwork --ieee=synopsys tb > output.txt
+        ''
+    )
     + ''
       diff output.txt ${./expected-output.txt} && touch $out
     ''

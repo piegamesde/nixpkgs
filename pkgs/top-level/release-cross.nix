@@ -133,8 +133,10 @@ in
             (lib.getAttrFromPath path (pkgsForCross crossSystem system))
             ;
         in
-        assertTrue (f path null system
-          == f ([ "buildPackages" ] ++ path) crossSystem system)
+        assertTrue (
+          f path null system
+          == f ([ "buildPackages" ] ++ path) crossSystem system
+        )
         ;
 
       testEqual = path: systems: forMatchingSystems systems (testEqualOne path);
@@ -159,8 +161,9 @@ in
   crossIphone32 = mapTestOnCross lib.systems.examples.iphone32 darwinCommon;
 
     # Test some cross builds to the Sheevaplug
-  crossSheevaplugLinux = mapTestOnCross lib.systems.examples.sheevaplug
-    (linuxCommon // { ubootSheevaplug = nativePlatforms; });
+  crossSheevaplugLinux = mapTestOnCross lib.systems.examples.sheevaplug (
+    linuxCommon // { ubootSheevaplug = nativePlatforms; }
+  );
 
     # Test some cross builds on 32 bit mingw-w64
   crossMingw32 = mapTestOnCross lib.systems.examples.mingw32 windowsCommon;
@@ -269,8 +272,9 @@ in
         hydraJob' (lib.addMetaAttrs { inherit maintainers; } drv)
         ;
     in
-    lib.mapAttrsRecursiveCond (as: !lib.isDerivation as)
-    (name: mkBootstrapToolsJob)
+    lib.mapAttrsRecursiveCond (as: !lib.isDerivation as) (
+      name: mkBootstrapToolsJob
+    )
     # The `bootstrapTools.${platform}.bootstrapTools` derivation
     # *unpacks* the bootstrap-files using their own `busybox` binary,
     # so it will fail unless buildPlatform.canExecute hostPlatform.

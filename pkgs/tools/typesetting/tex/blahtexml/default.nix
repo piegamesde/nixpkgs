@@ -30,16 +30,18 @@ stdenv.mkDerivation rec {
 
   buildFlags =
     [ "doc" ]
-    ++ (if stdenv.isDarwin then
-      [
-        "blahtex-mac"
-        "blahtexml-mac"
-      ]
-    else
-      [
-        "blahtex-linux"
-        "blahtexml-linux"
-      ])
+    ++ (
+      if stdenv.isDarwin then
+        [
+          "blahtex-mac"
+          "blahtexml-mac"
+        ]
+      else
+        [
+          "blahtex-linux"
+          "blahtexml-linux"
+        ]
+    )
     ;
 
   installPhase = ''

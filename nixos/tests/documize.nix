@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -67,4 +68,5 @@ import ./make-test-python.nix ({
           'test "$(curl -f localhost:3000/api/public/meta | jq ".title" | xargs echo)" = "NixOS"'
       )
     '';
-  })
+  }
+)

@@ -29,7 +29,9 @@ let
       drv:
       drv.overrideAttrs (oldAttrs: {
         # Use passthru in order to prevent rebuilds when possible.
-        passthru = (oldAttrs.passthru or { }) // {
+        passthru = (
+          oldAttrs.passthru or { }
+        ) // {
           kodiAddonFor = kodi;
           requiredKodiAddons = requiredKodiAddons drv.propagatedBuildInputs;
         };

@@ -283,36 +283,38 @@ let
       qtxmlpatterns = callPackage ../modules/qtxmlpatterns.nix { };
 
       env = callPackage ../qt-env.nix { };
-      full = env "qt-full-${qtbase.version}" ([
-        qt3d
-        qtcharts
-        qtconnectivity
-        qtdeclarative
-        qtdoc
-        qtgraphicaleffects
-        qtimageformats
-        qtlocation
-        qtmultimedia
-        qtquickcontrols
-        qtquickcontrols2
-        qtscript
-        qtsensors
-        qtserialport
-        qtsvg
-        qttools
-        qttranslations
-        qtvirtualkeyboard
-        qtwebchannel
-        qtwebengine
-        qtwebkit
-        qtwebsockets
-        qtwebview
-        qtx11extras
-        qtxmlpatterns
-        qtlottie
-      ]
+      full = env "qt-full-${qtbase.version}" (
+        [
+          qt3d
+          qtcharts
+          qtconnectivity
+          qtdeclarative
+          qtdoc
+          qtgraphicaleffects
+          qtimageformats
+          qtlocation
+          qtmultimedia
+          qtquickcontrols
+          qtquickcontrols2
+          qtscript
+          qtsensors
+          qtserialport
+          qtsvg
+          qttools
+          qttranslations
+          qtvirtualkeyboard
+          qtwebchannel
+          qtwebengine
+          qtwebkit
+          qtwebsockets
+          qtwebview
+          qtx11extras
+          qtxmlpatterns
+          qtlottie
+        ]
         ++ lib.optional (!stdenv.isDarwin) qtwayland
-        ++ lib.optional (stdenv.isDarwin) qtmacextras);
+        ++ lib.optional (stdenv.isDarwin) qtmacextras
+      );
 
       qmake = makeSetupHook {
         name = "qmake-hook";

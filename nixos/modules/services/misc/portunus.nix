@@ -261,16 +261,18 @@ in
           PORTUNUS_SLAPD_SCHEMA_DIR = "${cfg.ldap.package}/etc/schema";
         } // (optionalAttrs (cfg.seedPath != null) ({
           PORTUNUS_SEED_PATH = cfg.seedPath;
-        })) // (optionalAttrs cfg.ldap.tls (let
-          acmeDirectory = config.security.acme.certs."${cfg.domain}".directory;
-        in
-        {
-          PORTUNUS_SLAPD_TLS_CA_CERTIFICATE =
-            "/etc/ssl/certs/ca-certificates.crt";
-          PORTUNUS_SLAPD_TLS_CERTIFICATE = "${acmeDirectory}/cert.pem";
-          PORTUNUS_SLAPD_TLS_DOMAIN_NAME = cfg.domain;
-          PORTUNUS_SLAPD_TLS_PRIVATE_KEY = "${acmeDirectory}/key.pem";
-        }
+        })) // (optionalAttrs cfg.ldap.tls (
+          let
+            acmeDirectory =
+              config.security.acme.certs."${cfg.domain}".directory;
+          in
+          {
+            PORTUNUS_SLAPD_TLS_CA_CERTIFICATE =
+              "/etc/ssl/certs/ca-certificates.crt";
+            PORTUNUS_SLAPD_TLS_CERTIFICATE = "${acmeDirectory}/cert.pem";
+            PORTUNUS_SLAPD_TLS_DOMAIN_NAME = cfg.domain;
+            PORTUNUS_SLAPD_TLS_PRIVATE_KEY = "${acmeDirectory}/key.pem";
+          }
         ));
       };
     };

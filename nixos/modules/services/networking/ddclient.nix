@@ -51,19 +51,20 @@ let
 
   preStart = ''
     install --mode=600 --owner=$USER ${configFile} /run/${RuntimeDirectory}/ddclient.conf
-    ${lib.optionalString (cfg.configFile == null)
-    (if (cfg.protocol == "nsupdate") then
-      ''
-        install --mode=600 --owner=$USER ${cfg.passwordFile} /run/${RuntimeDirectory}/ddclient.key
-      ''
-    else if (cfg.passwordFile != null) then
-      ''
-        "${pkgs.replace-secret}/bin/replace-secret" "@password_placeholder@" "${cfg.passwordFile}" "/run/${RuntimeDirectory}/ddclient.conf"
-      ''
-    else
-      ''
-        sed -i '/^password=@password_placeholder@$/d' /run/${RuntimeDirectory}/ddclient.conf
-      '')}
+    ${lib.optionalString (cfg.configFile == null) (
+      if (cfg.protocol == "nsupdate") then
+        ''
+          install --mode=600 --owner=$USER ${cfg.passwordFile} /run/${RuntimeDirectory}/ddclient.key
+        ''
+      else if (cfg.passwordFile != null) then
+        ''
+          "${pkgs.replace-secret}/bin/replace-secret" "@password_placeholder@" "${cfg.passwordFile}" "/run/${RuntimeDirectory}/ddclient.conf"
+        ''
+      else
+        ''
+          sed -i '/^password=@password_placeholder@$/d' /run/${RuntimeDirectory}/ddclient.conf
+        ''
+    )}
   '';
 
 in
@@ -80,7 +81,8 @@ with lib;
       "services"
       "ddclient"
       "domains"
-    ] (config:
+    ] (
+      config:
       let
         value = getAttrFromPath [
           "services"

@@ -21,7 +21,8 @@
 }:
 
 let
-  pythonPath = python3.withPackages (ps:
+  pythonPath = python3.withPackages (
+    ps:
     with ps;
     [
       dbus-python
@@ -31,7 +32,8 @@ let
     ++ lib.optionals withGui [
       pyqt5
       pyqt5_sip
-    ]);
+    ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "firewalld";

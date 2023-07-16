@@ -37,8 +37,9 @@ assert null
 
 let
   # Abuse paths to collapse possible double slashes
-  repoTag0 = builtins.toString
-    (/. + "/${stripScheme registry}/${repository}/${imageName}");
+  repoTag0 = builtins.toString (
+    /. + "/${stripScheme registry}/${repository}/${imageName}"
+  );
   repoTag1 = lib.removePrefix "/" repoTag0;
 
   layers = builtins.map stripNixStore imageLayers;

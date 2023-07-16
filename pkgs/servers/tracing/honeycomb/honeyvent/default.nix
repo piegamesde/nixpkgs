@@ -3,7 +3,8 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-import ./versions.nix ({
+import ./versions.nix (
+  {
     version,
     sha256,
   }:
@@ -26,5 +27,6 @@ import ./versions.nix ({
       license = licenses.asl20;
       maintainers = [ maintainers.iand675 ];
     };
-  })
+  }
+)
 

@@ -32,11 +32,13 @@ rustPlatform.buildRustPackage rec {
       xxHash
     ]
     ++ (lib.optionals gitImportSupport [ libgit2 ])
-    ++ (lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-      CoreServices
-      Security
-      SystemConfiguration
-    ]))
+    ++ (lib.optionals stdenv.isDarwin (
+      with darwin.apple_sdk.frameworks; [
+        CoreServices
+        Security
+        SystemConfiguration
+      ]
+    ))
     ;
 
   buildFeatures = lib.optional gitImportSupport "git";

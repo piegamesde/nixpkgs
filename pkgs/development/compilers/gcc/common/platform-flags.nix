@@ -21,8 +21,10 @@ lib.concatLists [
   (lib.optionals targetPlatform.isPower64
     # musl explicitly rejects 128-bit long double on
     # powerpc64; see musl/arch/powerpc64/bits/float.h
-    (lib.optionals (!targetPlatform.isMusl
-      && (targetPlatform.isLittleEndian
+    (lib.optionals (
+      !targetPlatform.isMusl
+      && (
+        targetPlatform.isLittleEndian
         ||
         # "... --with-long-double-format is only supported if the default cpu is power7 or newer"
         #  https://github.com/NixOS/nixpkgs/pull/170215#issuecomment-1202164709
@@ -31,8 +33,10 @@ lib.concatLists [
           "power8"
           "power9"
           "power1" # 0, 11, etc
-        ]))) [
-          "--with-long-double-128"
-          "--with-long-double-format=${gcc.long-double-format or "ieee"}"
-        ]))
+        ])
+      )
+    ) [
+      "--with-long-double-128"
+      "--with-long-double-format=${gcc.long-double-format or "ieee"}"
+    ]))
 ]

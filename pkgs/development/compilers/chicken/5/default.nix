@@ -29,7 +29,8 @@ let
       bootstrap-chicken = self.chicken.override { bootstrap-chicken = null; };
     };
 
-    chickenEggs = recurseIntoAttrs (mapAttrs (pname:
+    chickenEggs = recurseIntoAttrs (mapAttrs (
+      pname:
       eggData@{
         version,
         synopsis,
@@ -45,12 +46,15 @@ let
           "https://code.call-cc.org/cgi-bin/gitweb.cgi?p=eggs-5-latest.git;a=tree;f=${pname}/${version}";
         meta.description = synopsis;
         meta.license =
-          (licenses // {
-            "bsd-2-clause" = licenses.bsd2;
-            "bsd-3-clause" = licenses.bsd3;
-            "public-domain" = licenses.publicDomain;
-          }).${license} or license;
-      }) (importTOML ./deps.toml));
+          (
+            licenses // {
+              "bsd-2-clause" = licenses.bsd2;
+              "bsd-3-clause" = licenses.bsd3;
+              "public-domain" = licenses.publicDomain;
+            }
+          ).${license} or license;
+      }
+    ) (importTOML ./deps.toml));
 
     egg2nix = callPackage ./egg2nix.nix { };
   };

@@ -10,14 +10,16 @@
 }:
 
 let
-  pythonEnv = python3.withPackages (ps:
+  pythonEnv = python3.withPackages (
+    ps:
     with ps; [
       lxml
       pyusb
       pillow
       pyclipper
       tkinter
-    ]);
+    ]
+  );
 
   udevRule = writeText "k40-whisperer.rules" ''
     SUBSYSTEM=="usb", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="5512", ENV{DEVTYPE}=="usb_device", MODE="0664", GROUP="${udevGroup}"

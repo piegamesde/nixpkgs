@@ -38,7 +38,8 @@ rec {
         defs' = filterOverrides defs;
       in
       if isList (head defs').value then
-        concatMap (def:
+        concatMap (
+          def:
           if builtins.typeOf def.value == "list" then
             def.value
           else
@@ -47,7 +48,8 @@ rec {
               showOption loc
             }, the definitions are a mix of list and non-list ${
               lib.options.showDefs defs'
-            }") defs'
+            }"
+        ) defs'
 
       else
         mergeEqualOption loc defs'

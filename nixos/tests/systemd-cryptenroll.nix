@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -57,5 +58,6 @@ import ./make-test-python.nix ({
           # Wipe TPM2 slot
           machine.succeed("systemd-cryptenroll --wipe-slot=tpm2 /dev/vdb")
     '';
-  })
+  }
+)
 

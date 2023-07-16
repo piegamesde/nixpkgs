@@ -60,8 +60,8 @@ let
               } ];
                 # note that using pkgs.writeText here is generally not a good idea,
                 # as it will store the password in world-readable /nix/store ;)
-              initialScript = pkgs.writeText "mysql-init.sql"
-                (if (!useSocketAuth) then
+              initialScript = pkgs.writeText "mysql-init.sql" (
+                if (!useSocketAuth) then
                   ''
                     CREATE USER 'testuser3'@'localhost' IDENTIFIED BY 'secure';
                     GRANT ALL PRIVILEGES ON testdb3.* TO 'testuser3'@'localhost';
@@ -72,7 +72,8 @@ let
                     DELETE FROM mysql.user WHERE password = ''' AND plugin = ''';
                     DELETE FROM mysql.user WHERE user = ''';
                     FLUSH PRIVILEGES;
-                  '');
+                  ''
+              );
 
               ensureDatabases = [
                 "testdb"
@@ -162,12 +163,14 @@ let
     }
     ;
 in
-lib.mapAttrs (_: package:
+lib.mapAttrs (
+  _: package:
   makeMySQLTest {
     inherit package;
     hasRocksDB = false;
     hasMroonga = false;
     useSocketAuth = false;
-  }) mysqlPackages
+  }
+) mysqlPackages
 // (lib.mapAttrs (_: package: makeMySQLTest { inherit package; })
   mariadbPackages)

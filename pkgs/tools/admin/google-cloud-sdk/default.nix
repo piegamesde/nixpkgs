@@ -21,7 +21,8 @@
 }:
 
 let
-  pythonEnv = python.withPackages (p:
+  pythonEnv = python.withPackages (
+    p:
     with p;
     [
       cffi
@@ -30,7 +31,8 @@ let
       crcmod
       numpy
     ]
-    ++ lib.optional (with-gce) google-compute-engine);
+    ++ lib.optional (with-gce) google-compute-engine
+  );
 
   data = import ./data.nix { };
   sources =

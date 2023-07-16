@@ -23,11 +23,13 @@ assert jpgSupport -> tiffSupport;
 
 let
   inherit (lib) makeBinPath optional optionals optionalString;
-  runtimePath = makeBinPath (optional tiffSupport libraw
+  runtimePath = makeBinPath (
+    optional tiffSupport libraw
     ++ optionals jpgSupport [
       graphicsmagick
       exiftool
-    ]);
+    ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "megapixels";

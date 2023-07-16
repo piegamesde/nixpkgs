@@ -23,22 +23,25 @@ rec {
     #   }''
   mkConf =
     indent: ps:
-    concatMapStringsSep "\n" (name:
+    concatMapStringsSep "\n" (
+      name:
       let
         value = ps.${name};
         indentation = replicate indent " ";
       in
       indentation
-      + (if isAttrs value then
-        ''
-          ${name} {
-        ''
-        + mkConf (indent + 2) value
-        + "\n"
-        + indentation
-        + "}"
-      else
-        "${name} = ${value}")
+      + (
+        if isAttrs value then
+          ''
+            ${name} {
+          ''
+          + mkConf (indent + 2) value
+          + "\n"
+          + indentation
+          + "}"
+        else
+          "${name} = ${value}"
+      )
     ) (attrNames ps)
     ;
 
@@ -54,17 +57,21 @@ rec {
     # set of strings (rendered parameters).
   paramsToRenderedStrings =
     cfg: ps:
-    filterEmptySets ((mapParamsRecursive (path: name: param:
-      let
-        value = attrByPath path null cfg;
-      in
-      optionalAttrs (value != null) (param.render name value)
-    ) ps))
+    filterEmptySets (
+      (mapParamsRecursive (
+        path: name: param:
+        let
+          value = attrByPath path null cfg;
+        in
+        optionalAttrs (value != null) (param.render name value)
+      ) ps)
+    )
     ;
 
   filterEmptySets =
     set:
-    filterAttrs (n: v: (v != null)) (mapAttrs (name: value:
+    filterAttrs (n: v: (v != null)) (mapAttrs (
+      name: value:
       if isAttrs value then
         let
           value' = filterEmptySets value;
@@ -74,7 +81,8 @@ rec {
         else
           value'
       else
-        value) set)
+        value
+    ) set)
     ;
 
     # Recursively map over every parameter in the given attribute set.

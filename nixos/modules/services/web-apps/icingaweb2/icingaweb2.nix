@@ -188,11 +188,13 @@ in
             (mapAttrsToList (name: path: { inherit name path; })
               cfg.libraryPaths));
         };
-        phpPackage = pkgs.php.withExtensions ({
+        phpPackage = pkgs.php.withExtensions (
+          {
             enabled,
             all,
           }:
-          [ all.imagick ] ++ enabled);
+          [ all.imagick ] ++ enabled
+        );
         phpOptions = ''
           date.timezone = "${cfg.timezone}"
         '';
@@ -259,9 +261,9 @@ in
       in
       { }
       # Module packages
-      // (mapAttrs'
-        (k: v: nameValuePair "icingaweb2/enabledModules/${k}" { source = v; })
-        cfg.modulePackages)
+      // (mapAttrs' (
+        k: v: nameValuePair "icingaweb2/enabledModules/${k}" { source = v; }
+      ) cfg.modulePackages)
       # Built-in modules
       // doModule "doc" // doModule "migrate" // doModule "setup"
       // doModule "test" // doModule "translation"

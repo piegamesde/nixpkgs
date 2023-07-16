@@ -43,17 +43,19 @@ let
       ]
     ;
 
-  extensions = lib.composeManyExtensions ([
-    nonHackagePackages
-    (configurationNix { inherit pkgs haskellLib; })
-    (configurationCommon { inherit pkgs haskellLib; })
-  ]
+  extensions = lib.composeManyExtensions (
+    [
+      nonHackagePackages
+      (configurationNix { inherit pkgs haskellLib; })
+      (configurationCommon { inherit pkgs haskellLib; })
+    ]
     ++ platformConfigurations
     ++ [
       compilerConfig
       packageSetConfig
       overrides
-    ]);
+    ]
+  );
 
   extensible-self = makeExtensible (extends extensions haskellPackages);
 

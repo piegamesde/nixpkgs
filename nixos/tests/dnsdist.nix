@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -50,4 +51,5 @@ import ./make-test-python.nix ({
       machine.wait_for_open_port(5353)
       machine.succeed("dig @127.0.0.1 -p 5353 +short -x 192.168.0.1 | grep -qF ns.example.org")
     '';
-  })
+  }
+)

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -29,4 +30,5 @@ import ./make-test-python.nix ({
       machine.wait_for_text(r"(Play|Database|Editor|Mods|Settings|Quit)")
       machine.screenshot("screen")
     '';
-  })
+  }
+)

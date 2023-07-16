@@ -377,22 +377,28 @@ rec {
           else
             lib.optionalString (wrapManual == false && name == "vim")
             "Set `standalone = true` to get the *vim wrappers only."}''
-        lib.warnIf (wrapGui != null)
+        lib.warnIf (
+          wrapGui != null
+        )
         "vim.customize: wrapGui is deprecated: gvim is now automatically included if present"
-        lib.throwIfNot (vimExecutableName == null && gvimExecutableName == null)
+        lib.throwIfNot (
+          vimExecutableName == null && gvimExecutableName == null
+        )
         "vim.customize: (g)vimExecutableName is deprecated: use executableName instead (see source code for examples)"
-        (let
-          vimrc =
-            if vimrcFile != null then
-              vimrcFile
-            else if vimrcConfig != null then
-              mkVimrcFile vimrcConfig
-            else
-              throw
-              "at least one of vimrcConfig and vimrcFile must be specified"
-            ;
-          bin =
-            runCommand "${name}-bin" { nativeBuildInputs = [ makeWrapper ]; } ''
+        (
+          let
+            vimrc =
+              if vimrcFile != null then
+                vimrcFile
+              else if vimrcConfig != null then
+                mkVimrcFile vimrcConfig
+              else
+                throw
+                "at least one of vimrcConfig and vimrcFile must be specified"
+              ;
+            bin = runCommand "${name}-bin" {
+              nativeBuildInputs = [ makeWrapper ];
+            } ''
               vimrc=${lib.escapeShellArg vimrc}
               gvimrc=${
                 lib.optionalString (gvimrcFile != null)
@@ -417,17 +423,17 @@ rec {
                 fi
               done
             '';
-        in
-        if standalone then
-          bin
-        else
-          buildEnv {
-            inherit name;
-            paths = [
-              (lib.lowPrio vim)
-              bin
-            ];
-          }
+          in
+          if standalone then
+            bin
+          else
+            buildEnv {
+              inherit name;
+              paths = [
+                (lib.lowPrio vim)
+                bin
+              ];
+            }
         )
         ;
 
@@ -438,7 +444,8 @@ rec {
 
   vimWithRC = throw "vimWithRC was removed, please use vim.customize instead";
 
-  vimGenDocHook = callPackage ({
+  vimGenDocHook = callPackage (
+    {
       vim,
     }:
     makeSetupHook {
@@ -448,9 +455,11 @@ rec {
         vimBinary = "${vim}/bin/vim";
         inherit rtpPath;
       };
-    } ./vim-gen-doc-hook.sh) { };
+    } ./vim-gen-doc-hook.sh
+  ) { };
 
-  vimCommandCheckHook = callPackage ({
+  vimCommandCheckHook = callPackage (
+    {
       neovim-unwrapped,
     }:
     makeSetupHook {
@@ -460,9 +469,11 @@ rec {
         vimBinary = "${neovim-unwrapped}/bin/nvim";
         inherit rtpPath;
       };
-    } ./vim-command-check-hook.sh) { };
+    } ./vim-command-check-hook.sh
+  ) { };
 
-  neovimRequireCheckHook = callPackage ({
+  neovimRequireCheckHook = callPackage (
+    {
       neovim-unwrapped,
     }:
     makeSetupHook {
@@ -472,7 +483,8 @@ rec {
         nvimBinary = "${neovim-unwrapped}/bin/nvim";
         inherit rtpPath;
       };
-    } ./neovim-require-check-hook.sh) { };
+    } ./neovim-require-check-hook.sh
+  ) { };
 
   inherit
     (import ./build-vim-plugin.nix { inherit lib stdenv rtpPath toVimPlugin; })

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }:
@@ -49,4 +50,5 @@ import ./make-test-python.nix ({
       if not "balanced" in profile:
           raise Exception("Unable to set balanced profile")
     '';
-  })
+  }
+)

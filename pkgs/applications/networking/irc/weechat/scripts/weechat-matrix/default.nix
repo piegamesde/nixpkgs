@@ -17,12 +17,14 @@
 }:
 
 let
-  scriptPython = python.withPackages (ps:
+  scriptPython = python.withPackages (
+    ps:
     with ps; [
       aiohttp
       requests
       python-magic
-    ]);
+    ]
+  );
 
   version = "0.3.0";
 in

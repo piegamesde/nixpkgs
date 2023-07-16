@@ -29,14 +29,16 @@ let
     exec "$BAZEL_REAL" "$@"
   '';
 
-  workspaceDir = runLocal "our_workspace" { } (''
-    cp -r ${bazel-examples}/cpp-tutorial/stage3 $out
-    find $out -type d -exec chmod 755 {} \;
-  ''
+  workspaceDir = runLocal "our_workspace" { } (
+    ''
+      cp -r ${bazel-examples}/cpp-tutorial/stage3 $out
+      find $out -type d -exec chmod 755 {} \;
+    ''
     + (lib.optionalString stdenv.isDarwin ''
       mkdir $out/tools
       cp ${toolsBazel} $out/tools/bazel
-    ''));
+    '')
+  );
 
   testBazel = bazelTest {
     name = "bazel-test-cpp";

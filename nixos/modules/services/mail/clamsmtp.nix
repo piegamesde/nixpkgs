@@ -185,7 +185,8 @@ in
         message = "clamsmtp requires clamav to be enabled";
       } ];
 
-      systemd.services = listToAttrs (imap1 (i: conf:
+      systemd.services = listToAttrs (imap1 (
+        i: conf:
         nameValuePair "clamsmtp-${toString i}" {
           description = "ClamSMTP instance ${toString i}";
           wantedBy = [ "multi-user.target" ];
@@ -195,7 +196,8 @@ in
           serviceConfig.Type = "forking";
           serviceConfig.PrivateTmp = "yes";
           unitConfig.JoinsNamespaceOf = "clamav-daemon.service";
-        }) cfg.instances);
+        }
+      ) cfg.instances);
     }
     ;
 

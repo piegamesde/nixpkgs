@@ -47,7 +47,8 @@ let
     lua.override { inherit packageOverrides; }
     ;
 
-  luaEnv = overrideLua.withPackages (ps:
+  luaEnv = overrideLua.withPackages (
+    ps:
     with ps; [
       luazip
       luafilesystem
@@ -55,7 +56,8 @@ let
       luasql-sqlite3
       lua-yajl
       luautf8
-    ]);
+    ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "mudlet";

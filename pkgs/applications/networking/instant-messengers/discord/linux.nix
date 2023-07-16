@@ -98,49 +98,51 @@ stdenv.mkDerivation rec {
 
   dontWrapGApps = true;
 
-  libPath = lib.makeLibraryPath ([
-    libcxx
-    systemd
-    libpulseaudio
-    libdrm
-    mesa
-    stdenv.cc.cc
-    alsa-lib
-    atk
-    at-spi2-atk
-    at-spi2-core
-    cairo
-    cups
-    dbus
-    expat
-    fontconfig
-    freetype
-    gdk-pixbuf
-    glib
-    gtk3
-    libglvnd
-    libnotify
-    libX11
-    libXcomposite
-    libunity
-    libuuid
-    libXcursor
-    libXdamage
-    libXext
-    libXfixes
-    libXi
-    libXrandr
-    libXrender
-    libXtst
-    nspr
-    libxcb
-    pango
-    libXScrnSaver
-    libappindicator-gtk3
-    libdbusmenu
-    wayland
-  ]
-    ++ lib.optional withTTS speechd);
+  libPath = lib.makeLibraryPath (
+    [
+      libcxx
+      systemd
+      libpulseaudio
+      libdrm
+      mesa
+      stdenv.cc.cc
+      alsa-lib
+      atk
+      at-spi2-atk
+      at-spi2-core
+      cairo
+      cups
+      dbus
+      expat
+      fontconfig
+      freetype
+      gdk-pixbuf
+      glib
+      gtk3
+      libglvnd
+      libnotify
+      libX11
+      libXcomposite
+      libunity
+      libuuid
+      libXcursor
+      libXdamage
+      libXext
+      libXfixes
+      libXi
+      libXrandr
+      libXrender
+      libXtst
+      nspr
+      libxcb
+      pango
+      libXScrnSaver
+      libappindicator-gtk3
+      libdbusmenu
+      wayland
+    ]
+    ++ lib.optional withTTS speechd
+  );
 
   installPhase = ''
     runHook preInstall

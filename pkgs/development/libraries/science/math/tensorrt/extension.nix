@@ -39,10 +39,11 @@ let
         "tensorrt_${toUnderscore version}"
         ;
         # Add all supported builds as attributes
-      allBuilds = mapAttrs' (version: file:
+      allBuilds = mapAttrs' (
+        version: file:
         nameValuePair (computeName version)
-        (buildTensorRTPackage (removeAttrs file [ "fileVersionCuda" ])))
-        supportedVersions;
+        (buildTensorRTPackage (removeAttrs file [ "fileVersionCuda" ]))
+      ) supportedVersions;
         # Set the default attributes, e.g. tensorrt = tensorrt_8_4;
       defaultBuild = {
         "tensorrt" =

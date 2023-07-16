@@ -9,12 +9,20 @@ let
   # Sanitizers are not supported on Darwin.
   # Sanitizer headers aren't available in older libc++ stdenvs due to a bug
   sanitizersWorking =
-    (stdenv.buildPlatform == stdenv.hostPlatform)
+    (
+      stdenv.buildPlatform == stdenv.hostPlatform
+    )
     && !stdenv.isDarwin
     && !stdenv.hostPlatform.isMusl
-    && ((stdenv.cc.isClang
-      && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "5.0.0")
-      || (stdenv.cc.isGNU && stdenv.isLinux))
+    && (
+      (
+        stdenv.cc.isClang
+        && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "5.0.0"
+      )
+      || (
+        stdenv.cc.isGNU && stdenv.isLinux
+      )
+    )
     ;
   staticLibc = lib.optionalString (stdenv.hostPlatform.libc == "glibc")
     "-L ${glibc.static}/lib";
@@ -49,12 +57,14 @@ stdenv.mkDerivation {
       printf "checking whether compiler builds valid static C binaries... " >&2
       $CC ${staticLibc} -static -o cc-static ${./cc-main.c}
       ${emulator} ./cc-static
-      ${lib.optionalString (stdenv.cc.isGNU
-        && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "8.0.0") ''
-          printf "checking whether compiler builds valid static pie C binaries... " >&2
-          $CC ${staticLibc} -static-pie -o cc-static-pie ${./cc-main.c}
-          ${emulator} ./cc-static-pie
-        ''}
+      ${lib.optionalString (
+        stdenv.cc.isGNU
+        && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "8.0.0"
+      ) ''
+        printf "checking whether compiler builds valid static pie C binaries... " >&2
+        $CC ${staticLibc} -static-pie -o cc-static-pie ${./cc-main.c}
+        ${emulator} ./cc-static-pie
+      ''}
     ''}
 
     printf "checking whether compiler uses NIX_CFLAGS_COMPILE... " >&2

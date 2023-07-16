@@ -209,8 +209,8 @@ in
 
   config = mkIf cfg.enable {
 
-    services.deluge.package = mkDefault
-      (if versionAtLeast config.system.stateVersion "20.09" then
+    services.deluge.package = mkDefault (
+      if versionAtLeast config.system.stateVersion "20.09" then
         pkgs.deluge-2_x
       else
       # deluge-1_x is no longer packaged and this will resolve to an error
@@ -220,7 +220,8 @@ in
       # That might be slightly inconvenient but there is no path to
       # downgrade from 2.x to 1.x so NixOS should not automatically perform
       # this state migration.
-        pkgs.deluge-1_x);
+        pkgs.deluge-1_x
+    );
 
       # Provide a default set of `extraPackages`.
     services.deluge.extraPackages = with pkgs; [
@@ -288,14 +289,14 @@ in
     };
 
     networking.firewall = mkMerge [
-      (mkIf (cfg.declarative
-        && cfg.openFirewall
-        && !(cfg.config.random_port or true)) {
-          allowedTCPPortRanges = singleton
-            (listToRange (cfg.config.listen_ports or listenPortsDefault));
-          allowedUDPPortRanges = singleton
-            (listToRange (cfg.config.listen_ports or listenPortsDefault));
-        })
+      (mkIf (
+        cfg.declarative && cfg.openFirewall && !(cfg.config.random_port or true)
+      ) {
+        allowedTCPPortRanges = singleton
+          (listToRange (cfg.config.listen_ports or listenPortsDefault));
+        allowedUDPPortRanges = singleton
+          (listToRange (cfg.config.listen_ports or listenPortsDefault));
+      })
       (mkIf (cfg.web.openFirewall) { allowedTCPPorts = [ cfg.web.port ]; })
     ];
 

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }: {
@@ -62,4 +63,5 @@ import ./make-test-python.nix ({
       with subtest("Machine boots correctly"):
           machine.wait_for_unit("multi-user.target")
     '';
-  })
+  }
+)

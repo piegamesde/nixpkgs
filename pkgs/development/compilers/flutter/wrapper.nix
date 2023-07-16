@@ -67,13 +67,15 @@ let
       # https://discourse.nixos.org/t/handling-transitive-c-dependencies/5942/3
       deps =
         pkg:
-        builtins.filter lib.isDerivation
-        ((pkg.buildInputs or [ ]) ++ (pkg.propagatedBuildInputs or [ ]))
+        builtins.filter lib.isDerivation (
+          (pkg.buildInputs or [ ]) ++ (pkg.propagatedBuildInputs or [ ])
+        )
         ;
       collect =
         pkg:
-        lib.unique
-        ([ pkg ] ++ deps pkg ++ builtins.concatMap collect (deps pkg))
+        lib.unique (
+          [ pkg ] ++ deps pkg ++ builtins.concatMap collect (deps pkg)
+        )
         ;
     in
     builtins.concatMap collect appRuntimeDeps
@@ -101,8 +103,9 @@ let
     # Nix-specific compiler configuration.
   pkgConfigPackages =
     map (lib.getOutput "dev") (appBuildDeps ++ extraPkgConfigPackages);
-  includeFlags = map (pkg: "-isystem ${lib.getOutput "dev" pkg}/include")
-    (appStaticBuildDeps ++ extraIncludes);
+  includeFlags = map (pkg: "-isystem ${lib.getOutput "dev" pkg}/include") (
+    appStaticBuildDeps ++ extraIncludes
+  );
   linkerFlags =
     (map (pkg: "-rpath,${lib.getOutput "lib" pkg}/lib") appRuntimeDeps)
     ++ extraLinkerFlags
@@ -119,12 +122,14 @@ in
   inherit (flutter) meta;
 } ''
   for path in ${
-    builtins.concatStringsSep " " (builtins.foldl' (paths: pkg:
+    builtins.concatStringsSep " " (builtins.foldl' (
+      paths: pkg:
       paths
       ++ (map (directory: "'${pkg}/${directory}/pkgconfig'") [
         "lib"
         "share"
-      ])) [ ] pkgConfigPackages)
+      ])
+    ) [ ] pkgConfigPackages)
   }; do
     addToSearchPath FLUTTER_PKG_CONFIG_PATH "$path"
   done

@@ -48,13 +48,15 @@ stdenv.mkDerivation rec {
         }
       }/bin/R \
       --prefix QUARTO_PYTHON : ${
-        python3.withPackages (ps:
+        python3.withPackages (
+          ps:
           with ps;
           [
             jupyter
             ipython
           ]
-          ++ (extraPythonPackages ps))
+          ++ (extraPythonPackages ps)
+        )
       }/bin/python3
   '';
 

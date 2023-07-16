@@ -78,8 +78,8 @@ let
         ${mkKeyValuePairs cfg.settings}
         ${cfg.extraOptions}
       '';
-      checkPhase = lib.optionalString cfg.checkConfig
-        (if pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform then
+      checkPhase = lib.optionalString cfg.checkConfig (
+        if pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform then
           ''
             echo "Ignoring validation for cross-compilation"
           ''
@@ -105,7 +105,8 @@ let
                   "^error: unknown setting"
               }')
             set -o pipefail
-          '');
+          ''
+      );
     }
     ;
 
@@ -194,7 +195,8 @@ in
         "daemonNiceLevel"
       ] "Consider nix.daemonCPUSchedPolicy instead.")
     ]
-    ++ mapAttrsToList (oldConf: newConf:
+    ++ mapAttrsToList (
+      oldConf: newConf:
       mkRenamedOptionModuleWith {
         sinceRelease = 2205;
         from = [
@@ -206,7 +208,8 @@ in
           "settings"
           newConf
         ];
-      }) legacyConfMappings
+      }
+    ) legacyConfMappings
     ;
 
     ###### interface
@@ -505,73 +508,78 @@ in
       };
 
       registry = mkOption {
-        type = types.attrsOf (types.submodule (let
-          referenceAttrs = with types;
-            attrsOf (oneOf [
-              str
-              int
-              bool
-              path
-              package
-            ]);
-        in
-        {
-          config,
-          name,
-          ...
-        }: {
-          options = {
-            from = mkOption {
-              type = referenceAttrs;
-              example = {
+        type = types.attrsOf (types.submodule (
+          let
+            referenceAttrs = with types;
+              attrsOf (oneOf [
+                str
+                int
+                bool
+                path
+                package
+              ]);
+          in
+          {
+            config,
+            name,
+            ...
+          }: {
+            options = {
+              from = mkOption {
+                type = referenceAttrs;
+                example = {
+                  type = "indirect";
+                  id = "nixpkgs";
+                };
+                description = lib.mdDoc "The flake reference to be rewritten.";
+              };
+              to = mkOption {
+                type = referenceAttrs;
+                example = {
+                  type = "github";
+                  owner = "my-org";
+                  repo = "my-nixpkgs";
+                };
+                description = lib.mdDoc
+                  "The flake reference {option}`from` is rewritten to.";
+              };
+              flake = mkOption {
+                type = types.nullOr types.attrs;
+                default = null;
+                example = literalExpression "nixpkgs";
+                description = lib.mdDoc ''
+                  The flake input {option}`from` is rewritten to.
+                '';
+              };
+              exact = mkOption {
+                type = types.bool;
+                default = true;
+                description = lib.mdDoc ''
+                  Whether the {option}`from` reference needs to match exactly. If set,
+                  a {option}`from` reference like `nixpkgs` does not
+                  match with a reference like `nixpkgs/nixos-20.03`.
+                '';
+              };
+            };
+            config = {
+              from = mkDefault {
                 type = "indirect";
-                id = "nixpkgs";
+                id = name;
               };
-              description = lib.mdDoc "The flake reference to be rewritten.";
+              to = mkIf (config.flake != null) (mkDefault (
+                {
+                  type = "path";
+                  path = config.flake.outPath;
+                } // filterAttrs (
+                  n: _:
+                  n == "lastModified"
+                  || n == "rev"
+                  || n == "revCount"
+                  || n == "narHash"
+                ) config.flake
+              ));
             };
-            to = mkOption {
-              type = referenceAttrs;
-              example = {
-                type = "github";
-                owner = "my-org";
-                repo = "my-nixpkgs";
-              };
-              description =
-                lib.mdDoc "The flake reference {option}`from` is rewritten to.";
-            };
-            flake = mkOption {
-              type = types.nullOr types.attrs;
-              default = null;
-              example = literalExpression "nixpkgs";
-              description = lib.mdDoc ''
-                The flake input {option}`from` is rewritten to.
-              '';
-            };
-            exact = mkOption {
-              type = types.bool;
-              default = true;
-              description = lib.mdDoc ''
-                Whether the {option}`from` reference needs to match exactly. If set,
-                a {option}`from` reference like `nixpkgs` does not
-                match with a reference like `nixpkgs/nixos-20.03`.
-              '';
-            };
-          };
-          config = {
-            from = mkDefault {
-              type = "indirect";
-              id = name;
-            };
-            to = mkIf (config.flake != null) (mkDefault ({
-              type = "path";
-              path = config.flake.outPath;
-            } // filterAttrs (n: _:
-              n == "lastModified"
-              || n == "rev"
-              || n == "revCount"
-              || n == "narHash") config.flake));
-          };
-        }
+          }
         ));
         default = { };
         description = lib.mdDoc ''
@@ -818,48 +826,59 @@ in
       # List of machines for distributed Nix builds in the format
       # expected by build-remote.pl.
     environment.etc."nix/machines" = mkIf (cfg.buildMachines != [ ]) {
-      text = concatMapStrings (machine:
-        (concatStringsSep " " ([
-          "${
-            optionalString (machine.protocol != null) "${machine.protocol}://"
-          }${
-            optionalString (machine.sshUser != null) "${machine.sshUser}@"
-          }${machine.hostName}"
-          (if machine.system != null then
-            machine.system
-          else if machine.systems != [ ] then
-            concatStringsSep "," machine.systems
-          else
-            "-")
-          (if machine.sshKey != null then
-            machine.sshKey
-          else
-            "-")
-          (toString machine.maxJobs)
-          (toString machine.speedFactor)
-          (let
-            res = (machine.supportedFeatures ++ machine.mandatoryFeatures);
-          in
-          if (res == [ ]) then
-            "-"
-          else
-            (concatStringsSep "," res)
-          )
-          (let
-            res = machine.mandatoryFeatures;
-          in
-          if (res == [ ]) then
-            "-"
-          else
-            (concatStringsSep "," machine.mandatoryFeatures)
-          )
-        ]
-          ++ optional (isNixAtLeast "2.4pre")
-            (if machine.publicHostKey != null then
+      text = concatMapStrings (
+        machine:
+        (concatStringsSep " " (
+          [
+            "${
+              optionalString (machine.protocol != null) "${machine.protocol}://"
+            }${
+              optionalString (machine.sshUser != null) "${machine.sshUser}@"
+            }${machine.hostName}"
+            (
+              if machine.system != null then
+                machine.system
+              else if machine.systems != [ ] then
+                concatStringsSep "," machine.systems
+              else
+                "-"
+            )
+            (
+              if machine.sshKey != null then
+                machine.sshKey
+              else
+                "-"
+            )
+            (toString machine.maxJobs)
+            (toString machine.speedFactor)
+            (
+              let
+                res = (machine.supportedFeatures ++ machine.mandatoryFeatures);
+              in
+              if (res == [ ]) then
+                "-"
+              else
+                (concatStringsSep "," res)
+            )
+            (
+              let
+                res = machine.mandatoryFeatures;
+              in
+              if (res == [ ]) then
+                "-"
+              else
+                (concatStringsSep "," machine.mandatoryFeatures)
+            )
+          ]
+          ++ optional (isNixAtLeast "2.4pre") (
+            if machine.publicHostKey != null then
               machine.publicHostKey
             else
-              "-")))
-        + "\n") cfg.buildMachines;
+              "-"
+          )
+        ))
+        + "\n"
+      ) cfg.buildMachines;
     };
 
     assertions =
@@ -962,14 +981,17 @@ in
       fi
     '';
 
-    nix.nrBuildUsers = mkDefault
-      (if cfg.settings.auto-allocate-uids or false then
+    nix.nrBuildUsers = mkDefault (
+      if cfg.settings.auto-allocate-uids or false then
         0
       else
-        max 32 (if cfg.settings.max-jobs == "auto" then
-          0
-        else
-          cfg.settings.max-jobs));
+        max 32 (
+          if cfg.settings.max-jobs == "auto" then
+            0
+          else
+            cfg.settings.max-jobs
+        )
+    );
 
     users.users = nixbldUsers;
 
@@ -995,18 +1017,21 @@ in
           ];
         substituters = mkAfter [ "https://cache.nixos.org/" ];
 
-        system-features = mkDefault ([
-          "nixos-test"
-          "benchmark"
-          "big-parallel"
-          "kvm"
-        ]
+        system-features = mkDefault (
+          [
+            "nixos-test"
+            "benchmark"
+            "big-parallel"
+            "kvm"
+          ]
           ++ optionals (pkgs.stdenv.hostPlatform ? gcc.arch) (
             # a builder can run code for `gcc.arch` and inferior architectures
             [ "gccarch-${pkgs.stdenv.hostPlatform.gcc.arch}" ]
-            ++ map (x: "gccarch-${x}")
-              (systems.architectures.inferiors.${pkgs.stdenv.hostPlatform.gcc.arch} or [ ])))
-          ;
+            ++ map (x: "gccarch-${x}") (
+              systems.architectures.inferiors.${pkgs.stdenv.hostPlatform.gcc.arch} or [ ]
+            )
+          )
+        );
       }
 
       (mkIf (!cfg.distributedBuilds) { builders = null; })

@@ -7,7 +7,8 @@
 
 ver: deps:
 let
-  cmds = lib.mapAttrsToList (name: info:
+  cmds = lib.mapAttrsToList (
+    name: info:
     let
       pkg = stdenv.mkDerivation {
         name = lib.replaceStrings [ "/" ] [ "-" ] name + "-${info.version}";

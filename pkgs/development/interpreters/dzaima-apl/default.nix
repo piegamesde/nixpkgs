@@ -51,18 +51,20 @@ stdenv.mkDerivation rec {
 
       mkdir -p $out/bin
     ''
-    + (if buildNativeImage then
-      ''
-        mv dapl $out/bin
-      ''
-    else
-      ''
-        mkdir -p $out/share/${pname}
-        mv APL.jar $out/share/${pname}/
+    + (
+      if buildNativeImage then
+        ''
+          mv dapl $out/bin
+        ''
+      else
+        ''
+          mkdir -p $out/share/${pname}
+          mv APL.jar $out/share/${pname}/
 
-        makeWrapper "${lib.getBin jdk}/bin/java" "$out/bin/dapl" \
-          --add-flags "-jar $out/share/${pname}/APL.jar"
-      '')
+          makeWrapper "${lib.getBin jdk}/bin/java" "$out/bin/dapl" \
+            --add-flags "-jar $out/share/${pname}/APL.jar"
+        ''
+    )
     + ''
       ln -s $out/bin/dapl $out/bin/apl
 

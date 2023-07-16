@@ -50,17 +50,19 @@ buildPythonPackage rec {
       ncurses
       libintl
     ]
-    ++ (if stdenv.isDarwin then
-      [
-        AudioToolbox
-        Carbon
-        Cocoa
-        CoreFoundation
-        IOKit
-        OpenGL
-      ]
-    else
-      [ gtk3 ])
+    ++ (
+      if stdenv.isDarwin then
+        [
+          AudioToolbox
+          Carbon
+          Cocoa
+          CoreFoundation
+          IOKit
+          OpenGL
+        ]
+      else
+        [ gtk3 ]
+    )
     ;
 
   propagatedBuildInputs = [

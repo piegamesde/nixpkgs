@@ -57,10 +57,12 @@ stdenv.mkDerivation rec {
 
   patches = [
     # Based on http://patch-tracker.debian.org/patch/series/dl/nss/2:3.15.4-1/85_security_load.patch
-    (if (lib.versionOlder version "3.84") then
-      ./85_security_load_3.77+.patch
-    else
-      ./85_security_load_3.85+.patch)
+    (
+      if (lib.versionOlder version "3.84") then
+        ./85_security_load_3.77+.patch
+      else
+        ./85_security_load_3.85+.patch
+    )
     ./fix-cross-compilation.patch
   ];
 
@@ -103,10 +105,12 @@ stdenv.mkDerivation rec {
         else if platform.isAarch64 then
           "arm64"
         else if platform.isPower && platform.is64bit then
-          (if platform.isLittleEndian then
-            "ppc64le"
-          else
-            "ppc64")
+          (
+            if platform.isLittleEndian then
+              "ppc64le"
+            else
+              "ppc64"
+          )
         else
           platform.parsed.cpu.name
         ;
@@ -138,14 +142,16 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-  env.NIX_CFLAGS_COMPILE = toString ([
-    "-Wno-error"
-    ''-DNIX_NSS_LIBDIR="${placeholder "out"}/lib/"''
-  ]
+  env.NIX_CFLAGS_COMPILE = toString (
+    [
+      "-Wno-error"
+      ''-DNIX_NSS_LIBDIR="${placeholder "out"}/lib/"''
+    ]
     ++ lib.optionals stdenv.hostPlatform.is64bit [ "-DNSS_USE_64=1" ]
     ++ lib.optionals stdenv.hostPlatform.isILP32 [
         "-DNS_PTR_LE_32=1" # See RNG_RandomUpdate() in drdbg.c
-      ]);
+      ]
+  );
 
   installPhase = ''
     runHook preInstall
@@ -196,21 +202,25 @@ stdenv.mkDerivation rec {
           "$out"
         ;
     in
-    (lib.optionalString enableFIPS (''
-      for libname in freebl3 nssdbm3 softokn3
-      do libfile="$out/lib/lib$libname${stdenv.hostPlatform.extensions.sharedLibrary}"''
-      + (if stdenv.isDarwin then
-        ''
-          DYLD_LIBRARY_PATH=$out/lib:${nspr.out}/lib \
-        ''
-      else
-        ''
-          LD_LIBRARY_PATH=$out/lib:${nspr.out}/lib \
-        '')
+    (lib.optionalString enableFIPS (
+      ''
+        for libname in freebl3 nssdbm3 softokn3
+        do libfile="$out/lib/lib$libname${stdenv.hostPlatform.extensions.sharedLibrary}"''
+      + (
+        if stdenv.isDarwin then
+          ''
+            DYLD_LIBRARY_PATH=$out/lib:${nspr.out}/lib \
+          ''
+        else
+          ''
+            LD_LIBRARY_PATH=$out/lib:${nspr.out}/lib \
+          ''
+      )
       + ''
             ${nss}/bin/shlibsign -v -i "$libfile"
         done
-      ''))
+      ''
+    ))
     + ''
       moveToOutput bin "$tools"
       moveToOutput bin/nss-config "$dev"

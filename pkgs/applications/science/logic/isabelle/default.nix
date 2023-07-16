@@ -31,14 +31,16 @@ let
     };
 
     buildPhase =
-      (if stdenv.isDarwin then
-        ''
-          LDFLAGS="-dynamic -undefined dynamic_lookup -lSystem"
-        ''
-      else
-        ''
-          LDFLAGS="-fPIC -shared"
-        '')
+      (
+        if stdenv.isDarwin then
+          ''
+            LDFLAGS="-dynamic -undefined dynamic_lookup -lSystem"
+          ''
+        else
+          ''
+            LDFLAGS="-fPIC -shared"
+          ''
+      )
       + ''
         CFLAGS="-fPIC -I."
         $CC $CFLAGS -c sha1.c -o sha1.o

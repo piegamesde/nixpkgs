@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
     boost.out
     boost.dev
   ];
-  env.NIX_CFLAGS_COMPILE = toString ([
+  env.NIX_CFLAGS_COMPILE = toString (
+    [
       "-Wno-narrowing"
     ]
     # Squelch endless stream of warnings on same few things
@@ -33,7 +34,8 @@ stdenv.mkDerivation rec {
       "-Wno-tautological-compare"
       "-Wc++11-compat-deprecated-writable-strings"
       "-Wno-deprecated"
-    ]);
+    ]
+  );
 
   prePatch = ''
     sed -i -e '1i#include <stdint.h>' abc/src/bdd/dsd/dsd.h

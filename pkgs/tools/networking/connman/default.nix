@@ -3,7 +3,8 @@
   pkgs,
 }:
 
-lib.makeScope pkgs.newScope (self:
+lib.makeScope pkgs.newScope (
+  self:
   with self; {
 
     # All the defaults
@@ -50,4 +51,5 @@ lib.makeScope pkgs.newScope (self:
     connman-ncurses = callPackage ./connman-ncurses { };
 
     connman-notify = callPackage ./connman-notify { };
-  })
+  }
+)

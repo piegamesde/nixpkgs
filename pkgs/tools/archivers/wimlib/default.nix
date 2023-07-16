@@ -41,15 +41,17 @@ stdenv.mkDerivation rec {
 
   postInstall =
     let
-      path = lib.makeBinPath ([
-        cabextract
-        mtools
-        ntfs3g
-      ]
+      path = lib.makeBinPath (
+        [
+          cabextract
+          mtools
+          ntfs3g
+        ]
         ++ lib.optionals (!stdenv.isDarwin) [
           cdrkit
           syslinux
-        ]);
+        ]
+      );
     in
     ''
       for prog in $out/bin/*; do

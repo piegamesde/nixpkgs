@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -49,4 +50,5 @@ import ./make-test-python.nix ({
         # Doesn't matter if the numbers reported by `free` are slightly off due to unit conversions.
         machine.succeed("free -h | grep -E 'Swap:\s+2[45][0-9]Mi'")
     '';
-  })
+  }
+)

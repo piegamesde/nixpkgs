@@ -5,7 +5,8 @@
 
 {
 
-  ghcjs = callPackage ({
+  ghcjs = callPackage (
+    {
       mkDerivation,
       aeson,
       alex,
@@ -192,9 +193,11 @@
       ];
       description = "Haskell to JavaScript compiler";
       license = lib.licenses.mit;
-    }) { };
+    }
+  ) { };
 
-  ghcjs-th = callPackage ({
+  ghcjs-th = callPackage (
+    {
       mkDerivation,
       base,
       binary,
@@ -220,9 +223,11 @@
       ];
       homepage = "https://github.com/ghcjs";
       license = lib.licenses.mit;
-    }) { };
+    }
+  ) { };
 
-  ghcjs-prim = callPackage ({
+  ghcjs-prim = callPackage (
+    {
       mkDerivation,
       base,
       ghc-prim,
@@ -238,5 +243,6 @@
       ];
       homepage = "https://github.com/ghcjs";
       license = lib.licenses.mit;
-    }) { };
+    }
+  ) { };
 }

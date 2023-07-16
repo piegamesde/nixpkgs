@@ -454,18 +454,22 @@ let
   uploadDir = ex.":pleroma".":instance".upload_dir;
 
   staticFiles = pkgs.runCommandLocal "akkoma-static" { } ''
-    ${concatStringsSep "\n" (mapAttrsToList (key: val: ''
-      mkdir -p $out/frontends/${escapeShellArg val.name}/
-      ln -s ${escapeShellArg val.package} $out/frontends/${
-        escapeShellArg val.name
-      }/${escapeShellArg val.ref}
-    '') cfg.frontends)}
+    ${concatStringsSep "\n" (mapAttrsToList (
+      key: val: ''
+        mkdir -p $out/frontends/${escapeShellArg val.name}/
+        ln -s ${escapeShellArg val.package} $out/frontends/${
+          escapeShellArg val.name
+        }/${escapeShellArg val.ref}
+      ''
+    ) cfg.frontends)}
 
     ${optionalString (cfg.extraStatic != null) (concatStringsSep "\n"
-      (mapAttrsToList (key: val: ''
-        mkdir -p "$out/$(dirname ${escapeShellArg key})"
-        ln -s ${escapeShellArg val} $out/${escapeShellArg key}
-      '') cfg.extraStatic))}
+      (mapAttrsToList (
+        key: val: ''
+          mkdir -p "$out/$(dirname ${escapeShellArg key})"
+          ln -s ${escapeShellArg val} $out/${escapeShellArg key}
+        ''
+      ) cfg.extraStatic))}
   '';
 in
 {
@@ -904,11 +908,13 @@ in
 
               ":frontends" = mkOption {
                 type = elixirValue;
-                default = mapAttrs (key: val:
+                default = mapAttrs (
+                  key: val:
                   format.lib.mkMap {
                     name = val.name;
                     ref = val.ref;
-                  }) cfg.frontends;
+                  }
+                ) cfg.frontends;
                 defaultText = literalExpression ''
                   lib.mapAttrs (key: val:
                     (pkgs.formats.elixirConf { }).lib.mkMap { name = val.name; ref = val.ref; })
@@ -1169,9 +1175,9 @@ in
                 "/etc/resolv.conf"
               ]
               (mkIf (isStorePath staticDir) (map (dir: "${dir}:${dir}:norbind")
-                (splitString "\n" (readFile
-                  ((pkgs.closureInfo { rootPaths = staticDir; })
-                    + "/store-paths")))))
+                (splitString "\n" (readFile (
+                  (pkgs.closureInfo { rootPaths = staticDir; }) + "/store-paths"
+                )))))
               (mkIf (db ? socket_dir) [
                   "${db.socket_dir}:${db.socket_dir}:norbind"
                 ])

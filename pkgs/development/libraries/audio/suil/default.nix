@@ -36,10 +36,12 @@ stdenv.mkDerivation rec {
       sord
       sratom
     ]
-    ++ lib.optionals withQt5 (with qt5; [
-      qtbase
-      qttools
-    ])
+    ++ lib.optionals withQt5 (
+      with qt5; [
+        qtbase
+        qttools
+      ]
+    )
     ;
 
   dontWrapQtApps = true;

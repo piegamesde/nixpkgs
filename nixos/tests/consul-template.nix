@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     ...
   }: {
     name = "consul-template";
@@ -39,4 +40,5 @@ import ./make-test-python.nix ({
       machine.wait_for_file("/example")
       machine.succeed('grep "example" /example')
     '';
-  })
+  }
+)

@@ -56,7 +56,8 @@
 
       generate =
         name: value:
-        pkgs.callPackage ({
+        pkgs.callPackage (
+          {
             runCommand,
             jq,
           }:
@@ -66,7 +67,8 @@
             passAsFile = [ "value" ];
           } ''
             jq . "$valuePath"> $out
-          '') { }
+          ''
+        ) { }
         ;
 
     }
@@ -77,7 +79,8 @@
 
       generate =
         name: value:
-        pkgs.callPackage ({
+        pkgs.callPackage (
+          {
             runCommand,
             remarshal,
           }:
@@ -87,7 +90,8 @@
             passAsFile = [ "value" ];
           } ''
             json2yaml "$valuePath" "$out"
-          '') { }
+          ''
+        ) { }
         ;
 
       type = with lib.types;
@@ -160,12 +164,16 @@
         let
           transformedValue =
             if listToValue != null then
-              lib.mapAttrs (section:
-                lib.mapAttrs (key: val:
+              lib.mapAttrs (
+                section:
+                lib.mapAttrs (
+                  key: val:
                   if lib.isList val then
                     listToValue val
                   else
-                    val)) value
+                    val
+                )
+              ) value
             else
               value
             ;
@@ -228,11 +236,13 @@
         let
           transformedValue =
             if listToValue != null then
-              lib.mapAttrs (key: val:
+              lib.mapAttrs (
+                key: val:
                 if lib.isList val then
                   listToValue val
                 else
-                  val) value
+                  val
+              ) value
             else
               value
             ;
@@ -290,7 +300,8 @@
 
       generate =
         name: value:
-        pkgs.callPackage ({
+        pkgs.callPackage (
+          {
             runCommand,
             remarshal,
           }:
@@ -300,7 +311,8 @@
             passAsFile = [ "value" ];
           } ''
             json2toml "$valuePath" "$out"
-          '') { }
+          ''
+        ) { }
         ;
 
     }
@@ -583,7 +595,8 @@
         ;
       generate =
         name: value:
-        pkgs.callPackage ({
+        pkgs.callPackage (
+          {
             runCommand,
             python3,
             black,
@@ -610,7 +623,8 @@
             cat "$valuePath"
             python3 "$pythonGenPath" > $out
             black $out
-          '') { }
+          ''
+        ) { }
         ;
     }
     ;

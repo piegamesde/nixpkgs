@@ -69,7 +69,9 @@ self: super:
 
   ghcjs-dom-jsffi = overrideCabal (drv: {
     libraryHaskellDepends =
-      (drv.libraryHaskellDepends or [ ])
+      (
+        drv.libraryHaskellDepends or [ ]
+      )
       ++ [
         self.ghcjs-base
         self.text
@@ -110,7 +112,9 @@ self: super:
 
   reflex-dom = overrideCabal (drv: {
     libraryHaskellDepends = removeLibraryHaskellDepends [ "jsaddle-webkit2gtk" ]
-      (drv.libraryHaskellDepends or [ ]);
+      (
+        drv.libraryHaskellDepends or [ ]
+      );
   }) super.reflex-dom;
 
     # https://github.com/dreixel/syb/issues/21

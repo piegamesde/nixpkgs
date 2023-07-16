@@ -275,13 +275,15 @@ in
             };
             generateCompletions =
               package:
-              pkgs.runCommand "${package.name}_fish-completions" ({
-                inherit package;
-                preferLocalBuild = true;
-                allowSubstitutes = false;
-              } // optionalAttrs (package ? meta.priority) {
-                meta.priority = package.meta.priority;
-              }) ''
+              pkgs.runCommand "${package.name}_fish-completions" (
+                {
+                  inherit package;
+                  preferLocalBuild = true;
+                  allowSubstitutes = false;
+                } // optionalAttrs (package ? meta.priority) {
+                  meta.priority = package.meta.priority;
+                }
+              ) ''
                 mkdir -p $out
                 if [ -d $package/share/man ]; then
                   find $package/share/man -type f | xargs ${pkgs.python3.interpreter} ${patchedGenerator}/create_manpage_completions.py --directory $out >/dev/null

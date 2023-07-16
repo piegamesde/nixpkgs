@@ -24,8 +24,10 @@ let
   };
 
   inherit
-    (archids.${stdenv.hostPlatform.system} or (throw
-      "unsupported system: ${stdenv.hostPlatform.system}"))
+    (
+      archids.${stdenv.hostPlatform.system} or (throw
+        "unsupported system: ${stdenv.hostPlatform.system}")
+    )
     hostarch
     efiPlatform
     ;

@@ -10,14 +10,16 @@
   ...
 }@args:
 
-fetchzip ({
-  inherit name;
-  url = "${url}/+archive/${rev}.tar.gz";
-  stripRoot = false;
-  meta.homepage = url;
-} // removeAttrs args [
-  "url"
-  "rev"
-]) // {
+fetchzip (
+  {
+    inherit name;
+    url = "${url}/+archive/${rev}.tar.gz";
+    stripRoot = false;
+    meta.homepage = url;
+  } // removeAttrs args [
+    "url"
+    "rev"
+  ]
+) // {
   inherit rev;
 }

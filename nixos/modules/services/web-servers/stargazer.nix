@@ -25,15 +25,17 @@ let
 
   '';
   genINI = lib.generators.toINI { };
-  configFile = pkgs.writeText "config.ini" (lib.strings.concatStrings
-    ([ globalSection ]
-      ++ (lib.lists.forEach cfg.routes (section:
-        let
-          name = section.route;
-          params = builtins.removeAttrs section [ "route" ];
-        in
-        genINI { "${name}" = params; } + "\n"
-      ))));
+  configFile = pkgs.writeText "config.ini" (lib.strings.concatStrings (
+    [ globalSection ]
+    ++ (lib.lists.forEach cfg.routes (
+      section:
+      let
+        name = section.route;
+        params = builtins.removeAttrs section [ "route" ];
+      in
+      genINI { "${name}" = params; } + "\n"
+    ))
+  ));
 in
 {
   options.services.stargazer = {
@@ -138,14 +140,16 @@ in
     routes = lib.mkOption {
       type = lib.types.listOf (lib.types.submodule {
         freeformType = with lib.types;
-          attrsOf (nullOr (oneOf [
-            bool
-            int
-            float
-            str
-          ]) // {
-            description = "INI atom (null, bool, int, float or string)";
-          });
+          attrsOf (
+            nullOr (oneOf [
+              bool
+              int
+              float
+              str
+            ]) // {
+              description = "INI atom (null, bool, int, float or string)";
+            }
+          );
         options.route = lib.mkOption {
           type = lib.types.str;
           description = lib.mdDoc "Route section name";

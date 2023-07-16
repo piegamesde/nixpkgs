@@ -16,10 +16,12 @@
   # https://github.com/python/cpython/blob/dfad678d7024ab86d265d84ed45999e031a03691/configure.ac#L534-L562
   ,
   pythonSupport ? enableShared
-    && (stdenv.hostPlatform == stdenv.buildPlatform
+    && (
+      stdenv.hostPlatform == stdenv.buildPlatform
       || stdenv.hostPlatform.isCygwin
       || stdenv.hostPlatform.isLinux
-      || stdenv.hostPlatform.isWasi),
+      || stdenv.hostPlatform.isWasi
+    ),
   icuSupport ? false,
   icu,
   enableShared ?
@@ -94,10 +96,9 @@ let
       ++ lib.optionals (pythonSupport && python ? isPy3 && python.isPy3) [
           ncurses
         ]
-      ++ lib.optionals
-        (stdenv.isDarwin && pythonSupport && python ? isPy2 && python.isPy2) [
-          libintl
-        ]
+      ++ lib.optionals (
+        stdenv.isDarwin && pythonSupport && python ? isPy2 && python.isPy2
+      ) [ libintl ]
       ++ lib.optionals stdenv.isFreeBSD [
         # Libxml2 has an optional dependency on liblzma.  However, on impure
         # platforms, it may end up using that from /usr/lib, and thus lack a
@@ -133,7 +134,9 @@ let
     enableParallelBuilding = true;
 
     doCheck =
-      (stdenv.hostPlatform == stdenv.buildPlatform)
+      (
+        stdenv.hostPlatform == stdenv.buildPlatform
+      )
       && stdenv.hostPlatform.libc != "musl"
       ;
     preCheck = lib.optional stdenv.isDarwin ''

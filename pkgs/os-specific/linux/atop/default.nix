@@ -72,14 +72,16 @@ stdenv.mkDerivation rec {
       # Remove extra files we don't need
       rm -r $out/{var,etc} $out/bin/atop{sar,}-${version}
     ''
-    + (if withAtopgpu then
-      ''
-        wrapPythonPrograms
-      ''
-    else
-      ''
-        rm $out/lib/systemd/system/atopgpu.service $out/bin/atopgpud $out/share/man/man8/atopgpud.8
-      '')
+    + (
+      if withAtopgpu then
+        ''
+          wrapPythonPrograms
+        ''
+      else
+        ''
+          rm $out/lib/systemd/system/atopgpu.service $out/bin/atopgpud $out/share/man/man8/atopgpud.8
+        ''
+    )
     ;
 
   meta = with lib; {

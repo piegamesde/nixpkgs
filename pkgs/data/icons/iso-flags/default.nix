@@ -23,11 +23,13 @@ stdenvNoCC.mkDerivation {
     perl
     inkscape
     librsvg
-    (perl.withPackages (pp:
+    (perl.withPackages (
+      pp:
       with pp; [
         JSON
         XMLLibXML
-      ]))
+      ]
+    ))
   ];
 
   postPatch = ''

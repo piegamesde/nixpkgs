@@ -9,7 +9,8 @@ let
   testPassword = "verySecure";
   testGroup = "netbox-users";
 in
-import ../make-test-python.nix ({
+import ../make-test-python.nix (
+  {
     lib,
     pkgs,
     netbox,
@@ -335,4 +336,5 @@ import ../make-test-python.nix ({
             assert any(group["name"] == "${testGroup}" for group in result["results"][0]["groups"])
       ''
       ;
-  })
+  }
+)

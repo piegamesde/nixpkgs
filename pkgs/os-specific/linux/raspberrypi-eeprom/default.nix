@@ -50,14 +50,16 @@ stdenvNoCC.mkDerivation rec {
           "--set VCMAILBOX ${libraspberrypi}/bin/vcmailbox"
         } \
         --prefix PATH : "${
-          lib.makeBinPath ([
-            binutils-unwrapped
-            findutils
-            kmod
-            pciutils
-            (placeholder "out")
-          ]
-            ++ lib.optionals stdenvNoCC.isAarch64 [ libraspberrypi ])
+          lib.makeBinPath (
+            [
+              binutils-unwrapped
+              findutils
+              kmod
+              pciutils
+              (placeholder "out")
+            ]
+            ++ lib.optionals stdenvNoCC.isAarch64 [ libraspberrypi ]
+          )
         }"
     done
   '';

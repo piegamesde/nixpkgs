@@ -69,10 +69,12 @@ stdenv.mkDerivation rec {
     license = licenses.lgpl21Plus;
     maintainers =
       teams.gnome.members
-      ++ (with maintainers; [
-        lovek323
-        raskin
-      ])
+      ++ (
+        with maintainers; [
+          lovek323
+          raskin
+        ]
+      )
       ;
     platforms = platforms.unix;
   };

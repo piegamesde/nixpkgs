@@ -4,7 +4,8 @@
   pkgs ? import ../.. { inherit system config; },
   systemdStage1 ? false
 }:
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     pkgs,
     ...

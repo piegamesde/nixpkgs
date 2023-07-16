@@ -42,10 +42,12 @@ let
       };
 
       nativeBuildInputs =
-        (with rustPlatform; [
-          cargoSetupHook
-          maturinBuildHook
-        ])
+        (
+          with rustPlatform; [
+            cargoSetupHook
+            maturinBuildHook
+          ]
+        )
         ++ extraNativeBuildInputs
         ;
 

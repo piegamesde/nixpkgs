@@ -46,7 +46,9 @@ let
 
   kernelHasRPFilter =
     ((kernel.config.isEnabled or (x: false)) "IP_NF_MATCH_RPFILTER")
-    || (kernel.features.netfilterRPFilter or false)
+    || (
+      kernel.features.netfilterRPFilter or false
+    )
     ;
 
   helpers = import ./helpers.nix { inherit config lib; };
@@ -157,18 +159,22 @@ let
     ip46tables -A nixos-fw -m conntrack --ctstate ESTABLISHED,RELATED -j nixos-fw-accept
 
     # Accept connections to the allowed TCP ports.
-    ${concatStrings (mapAttrsToList (iface: cfg:
+    ${concatStrings (mapAttrsToList (
+      iface: cfg:
       concatMapStrings (port: ''
         ip46tables -A nixos-fw -p tcp --dport ${
           toString port
         } -j nixos-fw-accept ${
           optionalString (iface != "default") "-i ${iface}"
         }
-      '') cfg.allowedTCPPorts) cfg.allInterfaces)}
+      '') cfg.allowedTCPPorts
+    ) cfg.allInterfaces)}
 
     # Accept connections to the allowed TCP port ranges.
-    ${concatStrings (mapAttrsToList (iface: cfg:
-      concatMapStrings (rangeAttr:
+    ${concatStrings (mapAttrsToList (
+      iface: cfg:
+      concatMapStrings (
+        rangeAttr:
         let
           range = toString rangeAttr.from + ":" + toString rangeAttr.to;
         in
@@ -177,21 +183,26 @@ let
             optionalString (iface != "default") "-i ${iface}"
           }
         ''
-      ) cfg.allowedTCPPortRanges) cfg.allInterfaces)}
+      ) cfg.allowedTCPPortRanges
+    ) cfg.allInterfaces)}
 
     # Accept packets on the allowed UDP ports.
-    ${concatStrings (mapAttrsToList (iface: cfg:
+    ${concatStrings (mapAttrsToList (
+      iface: cfg:
       concatMapStrings (port: ''
         ip46tables -A nixos-fw -p udp --dport ${
           toString port
         } -j nixos-fw-accept ${
           optionalString (iface != "default") "-i ${iface}"
         }
-      '') cfg.allowedUDPPorts) cfg.allInterfaces)}
+      '') cfg.allowedUDPPorts
+    ) cfg.allInterfaces)}
 
     # Accept packets on the allowed UDP port ranges.
-    ${concatStrings (mapAttrsToList (iface: cfg:
-      concatMapStrings (rangeAttr:
+    ${concatStrings (mapAttrsToList (
+      iface: cfg:
+      concatMapStrings (
+        rangeAttr:
         let
           range = toString rangeAttr.from + ":" + toString rangeAttr.to;
         in
@@ -200,7 +211,8 @@ let
             optionalString (iface != "default") "-i ${iface}"
           }
         ''
-      ) cfg.allowedUDPPortRanges) cfg.allInterfaces)}
+      ) cfg.allowedUDPPortRanges
+    ) cfg.allInterfaces)}
 
     # Optionally respond to ICMPv4 pings.
     ${optionalString cfg.allowPing ''

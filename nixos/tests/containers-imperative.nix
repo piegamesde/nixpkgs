@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -191,4 +192,5 @@ import ./make-test-python.nix ({
             machine.succeed("test ! -e /var/lib/nixos-containers/b0rk")
       ''
       ;
-  })
+  }
+)

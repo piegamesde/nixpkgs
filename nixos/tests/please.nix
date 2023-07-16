@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }: {
@@ -65,4 +66,5 @@ import ./make-test-python.nix ({
       with subtest("user5: cannot edit /etc/hosts"):
           machine.fail('su - user5 -c "EDITOR=cat pleaseedit /etc/hosts"')
     '';
-  })
+  }
+)

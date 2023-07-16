@@ -70,21 +70,24 @@ let
       ;
   };
 
-  tools = lib.makeExtensible (tools:
+  tools = lib.makeExtensible (
+    tools:
     let
-      callPackage = newScope (tools // {
-        inherit
-          stdenv
-          cmake
-          libxml2
-          python3
-          isl
-          release_version
-          version
-          fetch
-          buildLlvmTools
-          ;
-      });
+      callPackage = newScope (
+        tools // {
+          inherit
+            stdenv
+            cmake
+            libxml2
+            python3
+            isl
+            release_version
+            version
+            fetch
+            buildLlvmTools
+            ;
+        }
+      );
       mkExtraBuildCommands0 =
         cc: ''
           rsrc="$out/resource-root"
@@ -228,10 +231,12 @@ let
           + lib.optionalString (!stdenv.targetPlatform.isWasm) ''
             echo "--unwindlib=libunwind" >> $out/nix-support/cc-cflags
           ''
-          + lib.optionalString (!stdenv.targetPlatform.isWasm
-            && stdenv.targetPlatform.useLLVM or false) ''
-              echo "-lunwind" >> $out/nix-support/cc-ldflags
-            ''
+          + lib.optionalString (
+            !stdenv.targetPlatform.isWasm
+            && stdenv.targetPlatform.useLLVM or false
+          ) ''
+            echo "-lunwind" >> $out/nix-support/cc-ldflags
+          ''
           + lib.optionalString stdenv.targetPlatform.isWasm ''
             echo "-fno-exceptions" >> $out/nix-support/cc-cflags
           ''
@@ -292,11 +297,23 @@ let
     }
   );
 
-  libraries = lib.makeExtensible (libraries:
+  libraries = lib.makeExtensible (
+    libraries:
     let
-      callPackage = newScope (libraries // buildLlvmTools // {
-        inherit stdenv cmake libxml2 python3 isl release_version version fetch;
-      });
+      callPackage = newScope (
+        libraries // buildLlvmTools // {
+          inherit
+            stdenv
+            cmake
+            libxml2
+            python3
+            isl
+            release_version
+            version
+            fetch
+            ;
+        }
+      );
     in
     {
 
@@ -304,9 +321,15 @@ let
         inherit llvm_meta;
         stdenv =
           if
-            (stdenv.hostPlatform.useLLVM or false)
-            || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
-            || (stdenv.hostPlatform.isRiscV && stdenv.hostPlatform.is32bit)
+            (
+              stdenv.hostPlatform.useLLVM or false
+            )
+            || (
+              stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64
+            )
+            || (
+              stdenv.hostPlatform.isRiscV && stdenv.hostPlatform.is32bit
+            )
           then
             overrideCC stdenv buildLlvmTools.clangNoCompilerRtWithLibc
           else
@@ -318,8 +341,12 @@ let
         inherit llvm_meta;
         stdenv =
           if
-            (stdenv.hostPlatform.useLLVM or false)
-            || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
+            (
+              stdenv.hostPlatform.useLLVM or false
+            )
+            || (
+              stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64
+            )
           then
             overrideCC stdenv buildLlvmTools.clangNoCompilerRt
           else
@@ -331,8 +358,12 @@ let
       compiler-rt =
         if
           stdenv.hostPlatform.isAndroid
-          || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
-          || (stdenv.hostPlatform.libc == "newlib")
+          || (
+            stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64
+          )
+          || (
+            stdenv.hostPlatform.libc == "newlib"
+          )
         then
           libraries.compiler-rt-libc
         else
@@ -347,8 +378,12 @@ let
         inherit llvm_meta;
         stdenv =
           if
-            (stdenv.hostPlatform.useLLVM or false)
-            || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
+            (
+              stdenv.hostPlatform.useLLVM or false
+            )
+            || (
+              stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64
+            )
           then
             overrideCC stdenv buildLlvmTools.clangNoLibcxx
           else
@@ -360,8 +395,12 @@ let
         inherit llvm_meta;
         stdenv =
           if
-            (stdenv.hostPlatform.useLLVM or false)
-            || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
+            (
+              stdenv.hostPlatform.useLLVM or false
+            )
+            || (
+              stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64
+            )
           then
             overrideCC stdenv buildLlvmTools.clangNoLibcxx
           else
@@ -373,8 +412,12 @@ let
         inherit llvm_meta;
         stdenv =
           if
-            (stdenv.hostPlatform.useLLVM or false)
-            || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
+            (
+              stdenv.hostPlatform.useLLVM or false
+            )
+            || (
+              stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64
+            )
           then
             overrideCC stdenv buildLlvmTools.clangNoLibcxx
           else

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -41,4 +42,5 @@ import ./make-test-python.nix ({
       machine.start_job("btrbk-local.service")
       machine.wait_until_succeeds("cat /mnt/btrbk/local/*/bar | grep foo")
     '';
-  })
+  }
+)

@@ -56,10 +56,12 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs =
     [ colord ]
-    ++ (if withGtk4 then
-      [ gtk4 ]
-    else
-      [ gtk3 ])
+    ++ (
+      if withGtk4 then
+        [ gtk4 ]
+      else
+        [ gtk3 ]
+    )
     ;
 
   mesonFlags = [

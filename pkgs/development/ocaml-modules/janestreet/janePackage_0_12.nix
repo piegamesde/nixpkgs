@@ -12,22 +12,24 @@
   ...
 }@args:
 
-buildDunePackage (args // {
-  inherit version;
+buildDunePackage (
+  args // {
+    inherit version;
 
-  duneVersion = "1";
+    duneVersion = "1";
 
-  minimalOCamlVersion = "4.07";
+    minimalOCamlVersion = "4.07";
 
-  src = fetchFromGitHub {
-    owner = "janestreet";
-    repo = pname;
-    rev = "v${version}";
-    sha256 = hash;
-  };
+    src = fetchFromGitHub {
+      owner = "janestreet";
+      repo = pname;
+      rev = "v${version}";
+      sha256 = hash;
+    };
 
-  meta = {
-    license = lib.licenses.mit;
-    homepage = "https://github.com/janestreet/${pname}";
-  } // args.meta;
-})
+    meta = {
+      license = lib.licenses.mit;
+      homepage = "https://github.com/janestreet/${pname}";
+    } // args.meta;
+  }
+)

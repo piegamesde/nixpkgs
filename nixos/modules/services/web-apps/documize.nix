@@ -12,7 +12,8 @@ let
 
   mkParams =
     optional:
-    concatMapStrings (name:
+    concatMapStrings (
+      name:
       let
         predicate = optional -> cfg.${name} != null;
         template = " -${name} '${toString cfg.${name}}'";

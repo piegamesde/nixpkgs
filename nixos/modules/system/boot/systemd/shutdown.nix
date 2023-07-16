@@ -14,9 +14,11 @@ let
       storePaths = map (p: ''
         ${p}
       '') cfg.storePaths;
-      contents = lib.mapAttrsToList (_: v: ''
-        ${v.source}
-        ${v.target}'') (lib.filterAttrs (_: v: v.enable) cfg.contents);
+      contents = lib.mapAttrsToList (
+        _: v: ''
+          ${v.source}
+          ${v.target}''
+      ) (lib.filterAttrs (_: v: v.enable) cfg.contents);
     in
     pkgs.writeText "shutdown-ramfs-contents"
     (lib.concatStringsSep "\n" (storePaths ++ contents))

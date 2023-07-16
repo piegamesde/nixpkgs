@@ -22,7 +22,8 @@
 #        |         Route:   192.0.2.0/24 via 100.64.0.1
 #        +------
 
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -240,4 +241,5 @@ import ./make-test-python.nix ({
         router.log(router.execute("systemd-analyze security tayga.service")[1])
         router.shutdown()
     '';
-  })
+  }
+)

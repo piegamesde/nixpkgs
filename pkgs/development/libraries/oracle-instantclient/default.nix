@@ -112,9 +112,11 @@ let
     ;
 
     # assemble srcs
-  srcs = map (component:
+  srcs = map (
+    component:
     (fetcher (srcFilename component arch version rels.${component} or "")
-      hashes.${component} or "")) components;
+      hashes.${component} or "")
+  ) components;
 
   pname = "oracle-instantclient";
   extLib = stdenv.hostPlatform.extensions.sharedLibrary;

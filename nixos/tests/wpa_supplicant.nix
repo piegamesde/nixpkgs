@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -100,4 +101,5 @@ import ./make-test-python.nix ({
             "wpa_cli -i wlan1 status | grep -q wpa_state=COMPLETED"
           )
     '';
-  })
+  }
+)

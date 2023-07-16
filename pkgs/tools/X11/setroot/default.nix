@@ -40,10 +40,12 @@ stdenv.mkDerivation rec {
     ;
 
   buildFlags = [
-      (if enableXinerama then
-        "xinerama=1"
-      else
-        "xinerama=0")
+      (
+        if enableXinerama then
+          "xinerama=1"
+        else
+          "xinerama=0"
+      )
     ];
 
   installFlags = [ "PREFIX=$(out)" ];

@@ -31,7 +31,8 @@ let
 
   tests =
     ruby:
-    lib.mapAttrs (name: gem:
+    lib.mapAttrs (
+      name: gem:
       let
         test =
           if builtins.isList gemTests.${name} then
@@ -59,9 +60,10 @@ let
 in
 stdenv.mkDerivation {
   name = "test-all-ruby-gems";
-  buildInputs = builtins.foldl' (sum: ruby:
-    sum ++ [ (testWrapper ruby) ] ++ (builtins.attrValues (tests ruby))) [ ]
-    rubyVersions;
+  buildInputs = builtins.foldl' (
+    sum: ruby:
+    sum ++ [ (testWrapper ruby) ] ++ (builtins.attrValues (tests ruby))
+  ) [ ] rubyVersions;
   buildCommand = ''
     touch $out
   '';

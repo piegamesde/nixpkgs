@@ -36,7 +36,8 @@ assert postgresqlSupport -> !mysqlSupport;
 let
   inherit (lib) optional optionalString;
 in
-import ./versions.nix ({
+import ./versions.nix (
+  {
     version,
     sha256,
     ...
@@ -136,4 +137,5 @@ import ./versions.nix ({
       ];
       platforms = platforms.linux;
     };
-  })
+  }
+)

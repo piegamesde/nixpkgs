@@ -1,6 +1,7 @@
 # This test runs docker and checks if simple container starts
 
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -59,4 +60,5 @@ import ./make-test-python.nix ({
       docker.succeed("grep 1 /proc/sys/net/ipv4/conf/all/forwarding")
       docker.succeed("grep 1 /proc/sys/net/ipv4/conf/default/forwarding")
     '';
-  })
+  }
+)

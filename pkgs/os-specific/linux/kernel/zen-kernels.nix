@@ -28,37 +28,43 @@ let
       sha256,
       isLqx,
     }:
-    buildLinux (args // {
-      inherit version;
-      modDirVersion = lib.versions.pad 3 "${version}-${suffix}";
-      isZen = true;
+    buildLinux (
+      args // {
+        inherit version;
+        modDirVersion = lib.versions.pad 3 "${version}-${suffix}";
+        isZen = true;
 
-      src = fetchFromGitHub {
-        owner = "zen-kernel";
-        repo = "zen-kernel";
-        rev = "v${version}-${suffix}";
-        inherit sha256;
-      };
+        src = fetchFromGitHub {
+          owner = "zen-kernel";
+          repo = "zen-kernel";
+          rev = "v${version}-${suffix}";
+          inherit sha256;
+        };
 
-      passthru.updateScript = [
-        ./update-zen.py
-        (if isLqx then
-          "lqx"
-        else
-          "zen")
-      ];
+        passthru.updateScript = [
+          ./update-zen.py
+          (
+            if isLqx then
+              "lqx"
+            else
+              "zen"
+          )
+        ];
 
-      extraMeta = {
-        branch = lib.versions.majorMinor version + "/master";
-        maintainers = with lib.maintainers; [ pedrohlc ];
-        description =
-          "Built using the best configuration and kernel sources for desktop, multimedia, and gaming workloads."
-          + lib.optionalString isLqx
-            " (Same as linux_zen but less aggressive release schedule)"
-          ;
-      };
+        extraMeta = {
+          branch = lib.versions.majorMinor version + "/master";
+          maintainers = with lib.maintainers; [ pedrohlc ];
+          description =
+            "Built using the best configuration and kernel sources for desktop, multimedia, and gaming workloads."
+            + lib.optionalString isLqx
+              " (Same as linux_zen but less aggressive release schedule)"
+            ;
+        };
 
-    } // (args.argsOverride or { }))
+      } // (
+        args.argsOverride or { }
+      )
+    )
     ;
 in
 {

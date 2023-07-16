@@ -10,7 +10,8 @@
   zlib,
 }:
 
-import ./versions.nix ({
+import ./versions.nix (
+  {
     version,
     sha256,
     vendorSha256 ? throw "unsupported version ${version} for zabbix-agent2",
@@ -93,4 +94,5 @@ import ./versions.nix ({
       maintainers = [ maintainers.aanderse ];
       platforms = platforms.linux;
     };
-  })
+  }
+)

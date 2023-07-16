@@ -28,11 +28,13 @@ let
 
   callPackageCase =
     case:
-    callPackage ({
+    callPackage (
+      {
         writeShellScript,
       }:
       writeShellScript "test-trivial-callpackage-overriding-${case}"
-      extglobScript) { }
+      extglobScript
+    ) { }
     ;
 
   binCase =
@@ -78,11 +80,13 @@ let
   mkCase =
     case: outcome: isBin:
     let
-      drv = lib.pipe outcome ([ case ]
+      drv = lib.pipe outcome (
+        [ case ]
         ++ lib.optionals (outcome == "fail") [
           disallowExtglob
           assertFail
-        ]);
+        ]
+      );
     in
     if isBin then
       "${drv}/bin/${drv.name}"

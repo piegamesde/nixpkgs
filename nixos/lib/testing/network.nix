@@ -36,7 +36,8 @@ let
     }:
     let
       interfacesNumbered = zipLists config.virtualisation.vlans (range 1 255);
-      interfaces = forEach interfacesNumbered ({
+      interfaces = forEach interfacesNumbered (
+        {
           fst,
           snd,
         }:
@@ -48,7 +49,8 @@ let
               }";
             prefixLength = 24;
           } ];
-        });
+        }
+      );
 
       networkConfig = {
         networking.hostName = mkDefault config.virtualisation.test.nodeName;
@@ -63,29 +65,33 @@ let
           # interfaces, use the IP address corresponding to
           # the first interface (i.e. the first network in its
           # virtualisation.vlans option).
-        networking.extraHosts = flip concatMapStrings (attrNames nodes) (m':
+        networking.extraHosts = flip concatMapStrings (attrNames nodes) (
+          m':
           let
             config = nodes.${m'};
           in
-          optionalString (config.networking.primaryIPAddress != "")
-          ("${config.networking.primaryIPAddress} "
+          optionalString (config.networking.primaryIPAddress != "") (
+            "${config.networking.primaryIPAddress} "
             + optionalString (config.networking.domain != null)
               "${config.networking.hostName}.${config.networking.domain} "
             + ''
               ${config.networking.hostName}
-            '')
+            ''
+          )
         );
 
         virtualisation.qemu.options =
           let
             qemu-common = import ../qemu-common.nix { inherit lib pkgs; };
           in
-          flip concatMap interfacesNumbered ({
+          flip concatMap interfacesNumbered (
+            {
               fst,
               snd,
             }:
             qemu-common.qemuNICFlags snd fst
-            config.virtualisation.test.nodeNumber)
+            config.virtualisation.test.nodeNumber
+          )
           ;
       };
 
@@ -101,7 +107,8 @@ let
     ;
 
   nodeNumberModule =
-    (regular@{
+    (
+      regular@{
         config,
         name,
         ...
@@ -142,7 +149,8 @@ let
             });
           };
         };
-      });
+      }
+    );
 
 in
 {

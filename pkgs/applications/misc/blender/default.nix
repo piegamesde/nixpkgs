@@ -135,30 +135,32 @@ stdenv.mkDerivation rec {
       openimagedenoise
       embree
     ]
-    ++ (if (!stdenv.isDarwin) then
-      [
-        libXi
-        libX11
-        libXext
-        libXrender
-        libGLU
-        libGL
-        openal
-        libXxf86vm
-        openxr-loader
-        # OpenVDB currently doesn't build on darwin
-        openvdb
-      ]
-    else
-      [
-        llvmPackages.openmp
-        SDL
-        Cocoa
-        CoreGraphics
-        ForceFeedback
-        OpenAL
-        OpenGL
-      ])
+    ++ (
+      if (!stdenv.isDarwin) then
+        [
+          libXi
+          libX11
+          libXext
+          libXrender
+          libGLU
+          libGL
+          openal
+          libXxf86vm
+          openxr-loader
+          # OpenVDB currently doesn't build on darwin
+          openvdb
+        ]
+      else
+        [
+          llvmPackages.openmp
+          SDL
+          Cocoa
+          CoreGraphics
+          ForceFeedback
+          OpenAL
+          OpenGL
+        ]
+    )
     ++ lib.optional jackaudioSupport libjack2
     ++ lib.optional cudaSupport cudaPackages.cudatoolkit
     ++ lib.optional colladaSupport opencollada
@@ -174,24 +176,26 @@ stdenv.mkDerivation rec {
       # allow usage of dynamically linked embree
       rm build_files/cmake/Modules/FindEmbree.cmake
     ''
-    + (if stdenv.isDarwin then
-      ''
-        : > build_files/cmake/platform/platform_apple_xcode.cmake
-        substituteInPlace source/creator/CMakeLists.txt \
-          --replace '${"$"}{LIBDIR}/python' \
-                    '${python}'
-        substituteInPlace build_files/cmake/platform/platform_apple.cmake \
-          --replace '${"$"}{LIBDIR}/python' \
-                    '${python}' \
-          --replace '${"$"}{LIBDIR}/opencollada' \
-                    '${opencollada}' \
-          --replace '${"$"}{PYTHON_LIBPATH}/site-packages/numpy' \
-                    '${python310Packages.numpy}/${python.sitePackages}/numpy'
-      ''
-    else
-      ''
-        substituteInPlace extern/clew/src/clew.c --replace '"libOpenCL.so"' '"${ocl-icd}/lib/libOpenCL.so"'
-      '')
+    + (
+      if stdenv.isDarwin then
+        ''
+          : > build_files/cmake/platform/platform_apple_xcode.cmake
+          substituteInPlace source/creator/CMakeLists.txt \
+            --replace '${"$"}{LIBDIR}/python' \
+                      '${python}'
+          substituteInPlace build_files/cmake/platform/platform_apple.cmake \
+            --replace '${"$"}{LIBDIR}/python' \
+                      '${python}' \
+            --replace '${"$"}{LIBDIR}/opencollada' \
+                      '${opencollada}' \
+            --replace '${"$"}{PYTHON_LIBPATH}/site-packages/numpy' \
+                      '${python310Packages.numpy}/${python.sitePackages}/numpy'
+        ''
+      else
+        ''
+          substituteInPlace extern/clew/src/clew.c --replace '"libOpenCL.so"' '"${ocl-icd}/lib/libOpenCL.so"'
+        ''
+    )
     + (lib.optionalString hipSupport ''
       substituteInPlace extern/hipew/src/hipew.c --replace '"/opt/rocm/hip/lib/libamdhip64.so"' '"${hip}/lib/libamdhip64.so"'
       substituteInPlace extern/hipew/src/hipew.c --replace '"opt/rocm/hip/bin"' '"${hip}/bin"'
@@ -259,10 +263,12 @@ stdenv.mkDerivation rec {
 
   blenderExecutable =
     placeholder "out"
-    + (if stdenv.isDarwin then
-      "/Applications/Blender.app/Contents/MacOS/Blender"
-    else
-      "/bin/blender")
+    + (
+      if stdenv.isDarwin then
+        "/Applications/Blender.app/Contents/MacOS/Blender"
+      else
+        "/bin/blender"
+    )
     ;
   postInstall =
     lib.optionalString stdenv.isDarwin ''

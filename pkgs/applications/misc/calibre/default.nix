@@ -101,7 +101,8 @@ stdenv.mkDerivation (finalAttrs: {
       sqlite
       xdg-utils
     ]
-    ++ (with python3Packages;
+    ++ (
+      with python3Packages;
       [
         (apsw.overrideAttrs
           (oldAttrs: { setupPyBuildFlags = [ "--enable=load_extension" ]; }))
@@ -141,7 +142,8 @@ stdenv.mkDerivation (finalAttrs: {
           # does not support by simply omitting qtwebengine.
           pyqt6-webengine
         ]
-      ++ lib.optional (unrarSupport) unrardll)
+      ++ lib.optional (unrarSupport) unrardll
+    )
     ;
 
   installPhase = ''

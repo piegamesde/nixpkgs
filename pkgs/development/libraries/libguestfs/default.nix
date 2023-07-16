@@ -69,16 +69,20 @@ stdenv.mkDerivation rec {
       pkg-config
       qemu
     ]
-    ++ (with perlPackages; [
-      perl
-      libintl-perl
-      GetoptLong
-      ModuleBuild
-    ])
-    ++ (with ocamlPackages; [
-      ocaml
-      findlib
-    ])
+    ++ (
+      with perlPackages; [
+        perl
+        libintl-perl
+        GetoptLong
+        ModuleBuild
+      ]
+    )
+    ++ (
+      with ocamlPackages; [
+        ocaml
+        findlib
+      ]
+    )
     ;
   buildInputs =
     [
@@ -106,12 +110,14 @@ stdenv.mkDerivation rec {
       perlPackages.ModuleBuild
       libtirpc
     ]
-    ++ (with ocamlPackages; [
-      ocamlbuild
-      ocaml_libvirt
-      gettext-stub
-      ounit
-    ])
+    ++ (
+      with ocamlPackages; [
+        ocamlbuild
+        ocaml_libvirt
+        gettext-stub
+        ounit
+      ]
+    )
     ++ lib.optional javaSupport jdk
     ;
 

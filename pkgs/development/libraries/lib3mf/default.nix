@@ -49,10 +49,12 @@ stdenv.mkDerivation rec {
       gtest
       openssl
     ]
-    ++ (if stdenv.isDarwin then
-      [ libossp_uuid ]
-    else
-      [ libuuid ])
+    ++ (
+      if stdenv.isDarwin then
+        [ libossp_uuid ]
+      else
+        [ libuuid ]
+    )
     ;
 
   postPatch = ''

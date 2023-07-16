@@ -61,8 +61,9 @@ stdenv.mkDerivation rec {
     in
     ''
       runHook preInstall
-      ${lib.concatStringsSep "\n"
-      ((map (copy "amd64" "w10") virtio) ++ (map (copy "x86" "w10") virtio))}
+      ${lib.concatStringsSep "\n" (
+        (map (copy "amd64" "w10") virtio) ++ (map (copy "x86" "w10") virtio)
+      )}
       runHook postInstall
     ''
     ;

@@ -75,10 +75,11 @@ let
       +
       # when cross compiling, we must use himktables from PATH
       # (i.e. from buildPackages.texlive.bin.core.dev)
-      lib.optionalString
-        (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-          sed -i 's|\./himktables|himktables|' texk/web2c/Makefile.in
-        ''
+      lib.optionalString (
+        !stdenv.buildPlatform.canExecute stdenv.hostPlatform
+      ) ''
+        sed -i 's|\./himktables|himktables|' texk/web2c/Makefile.in
+      ''
       ;
 
     configureFlags =
@@ -115,7 +116,9 @@ let
 
     # RISC-V: https://github.com/LuaJIT/LuaJIT/issues/628
   withLuaJIT =
-    !(stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit)
+    !(
+      stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit
+    )
     && !stdenv.hostPlatform.isRiscV
     ;
 in
@@ -227,26 +230,27 @@ rec { # un-indented
         cp ../texk/tests/TeXLive/*.pm "$out/share/texmf-dist/scripts/texlive/TeXLive/"
         cp ../texk/texlive/linked_scripts/scripts.lst "$out/share/texmf-dist/scripts/texlive/"
       ''
-      + (let
-        extraScripts = ''
-          tex4ht/ht.sh
-          tex4ht/htcontext.sh
-          tex4ht/htcopy.pl
-          tex4ht/htlatex.sh
-          tex4ht/htmex.sh
-          tex4ht/htmove.pl
-          tex4ht/httex.sh
-          tex4ht/httexi.sh
-          tex4ht/htxelatex.sh
-          tex4ht/htxetex.sh
-          tex4ht/mk4ht.pl
-          tex4ht/xhlatex.sh
-        '';
-      in
-      ''
-        echo -e 'texmf_scripts="$texmf_scripts\n${extraScripts}"' \
-          >> "$out/share/texmf-dist/scripts/texlive/scripts.lst"
-      ''
+      + (
+        let
+          extraScripts = ''
+            tex4ht/ht.sh
+            tex4ht/htcontext.sh
+            tex4ht/htcopy.pl
+            tex4ht/htlatex.sh
+            tex4ht/htmex.sh
+            tex4ht/htmove.pl
+            tex4ht/httex.sh
+            tex4ht/httexi.sh
+            tex4ht/htxelatex.sh
+            tex4ht/htxetex.sh
+            tex4ht/mk4ht.pl
+            tex4ht/xhlatex.sh
+          '';
+        in
+        ''
+          echo -e 'texmf_scripts="$texmf_scripts\n${extraScripts}"' \
+            >> "$out/share/texmf-dist/scripts/texlive/scripts.lst"
+        ''
       )
       + ''
         mkdir -p "$doc/doc"
@@ -327,22 +331,24 @@ rec { # un-indented
         "graphite2"
       ]
       ++ map (prog: "--disable-${prog}") # don't build things we already have
-        ([
-          "tex"
-          "ptex"
-          "eptex"
-          "uptex"
-          "euptex"
-          "aleph"
-          "pdftex"
-          "web-progs"
-          "synctex"
-        ]
+        (
+          [
+            "tex"
+            "ptex"
+            "eptex"
+            "uptex"
+            "euptex"
+            "aleph"
+            "pdftex"
+            "web-progs"
+            "synctex"
+          ]
           ++ lib.optionals (!withLuaJIT) [
             "luajittex"
             "luajithbtex"
             "mfluajit"
-          ])
+          ]
+        )
       ;
 
     configureScript = ":";
@@ -352,7 +358,9 @@ rec { # un-indented
       let
         luajit = lib.optionalString withLuaJIT ",luajit";
       in
-      lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
+      lib.optionalString (
+        stdenv.hostPlatform != stdenv.buildPlatform
+      )
       # without this, the native builds attempt to use the binary
       # ${target-triple}-gcc, but we need to use the wrapper script.
         ''
@@ -368,12 +376,13 @@ rec { # un-indented
               extraConfig=""
             fi
       ''
-      + lib.optionalString
-        (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-        # results of the tests performed by the configure scripts are
-        # toolchain-dependent, so native components and cross components cannot use
-        # the same cached test results.
-        # Disable the caching for components with native subcomponents.
+      + lib.optionalString (
+        !stdenv.buildPlatform.canExecute stdenv.hostPlatform
+      )
+      # results of the tests performed by the configure scripts are
+      # toolchain-dependent, so native components and cross components cannot use
+      # the same cached test results.
+      # Disable the caching for components with native subcomponents.
         ''
           if [[ "$path" =~ "libs/luajit" ]] || [[ "$path" =~ "texk/web2c" ]]; then
             extraConfig="$extraConfig --cache-file=/dev/null"
@@ -658,16 +667,18 @@ rec { # un-indented
         freetype
         ghostscript
       ]
-      ++ (with xorg; [
-        libX11
-        libXaw
-        libXi
-        libXpm
-        libXmu
-        libXaw
-        libXext
-        libXfixes
-      ])
+      ++ (
+        with xorg; [
+          libX11
+          libXaw
+          libXi
+          libXpm
+          libXmu
+          libXaw
+          libXext
+          libXfixes
+        ]
+      )
       ;
 
     preConfigure = "cd texk/xdvik";
@@ -691,8 +702,9 @@ rec { # un-indented
 
 } # un-indented
 
-// lib.optionalAttrs
-(!clisp.meta.broken) # broken on aarch64 and darwin (#20062)
+// lib.optionalAttrs (
+  !clisp.meta.broken
+) # broken on aarch64 and darwin (#20062)
 {
 
   xindy = stdenv.mkDerivation {

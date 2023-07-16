@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -18,4 +19,5 @@ import ./make-test-python.nix ({
     testScript = ''
       assert "CONFIG_ATH_USER_REGD=y" in machine.succeed("zcat /proc/config.gz")
     '';
-  })
+  }
+)

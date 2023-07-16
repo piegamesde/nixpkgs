@@ -121,7 +121,9 @@ rec {
         x:
         lib.warnIf (evalModulesArgs ? args)
         "The args argument to evalModules is deprecated. Please set config._module.args instead."
-        lib.warnIf (evalModulesArgs ? check)
+        lib.warnIf (
+          evalModulesArgs ? check
+        )
         "The check argument to evalModules is deprecated. Please set config._module.check instead."
         x
         ;
@@ -267,9 +269,11 @@ rec {
 
       merged =
         let
-          collected = collectModules (specialArgs.modulesPath or "")
-            (regularModules ++ [ internalModule ])
-            ({ inherit lib options config specialArgs; } // specialArgs);
+          collected = collectModules (specialArgs.modulesPath or "") (
+            regularModules ++ [ internalModule ]
+          ) (
+            { inherit lib options config specialArgs; } // specialArgs
+          );
         in
         mergeModules prefix (reverseList collected)
         ;
@@ -361,11 +365,13 @@ rec {
           specialArgs ? { },
           prefix ? [ ],
         }:
-        evalModules (evalModulesArgs // {
-          modules = regularModules ++ modules;
-          specialArgs = evalModulesArgs.specialArgs or { } // specialArgs;
-          prefix = extendArgs.prefix or evalModulesArgs.prefix or [ ];
-        })
+        evalModules (
+          evalModulesArgs // {
+            modules = regularModules ++ modules;
+            specialArgs = evalModulesArgs.specialArgs or { } // specialArgs;
+            prefix = extendArgs.prefix or evalModulesArgs.prefix or [ ];
+          }
+        )
         ;
 
       type = lib.types.submoduleWith { inherit modules specialArgs; };
@@ -443,7 +449,8 @@ rec {
             ;
         in
         parentFile: parentKey: initialModules: args:
-        collectResults (imap1 (n: x:
+        collectResults (imap1 (
+          n: x:
           let
             module =
               loadModule args parentFile "${parentKey}:anon-${toString n}" x;
@@ -456,13 +463,15 @@ rec {
             module = module;
             modules = collectedImports.modules;
             disabled =
-              (if module.disabledModules != [ ] then
-                [ {
-                  file = module._file;
-                  disabled = module.disabledModules;
-                } ]
-              else
-                [ ])
+              (
+                if module.disabledModules != [ ] then
+                  [ {
+                    file = module._file;
+                    disabled = module.disabledModules;
+                  } ]
+                else
+                  [ ]
+              )
               ++ collectedImports.disabled
               ;
           }
@@ -510,11 +519,13 @@ rec {
               }` is none of that, but is of type ${builtins.typeOf m}."
             ;
 
-          disabledKeys = concatMap ({
+          disabledKeys = concatMap (
+            {
               file,
               disabled,
             }:
-            map (moduleKey file) disabled) disabled;
+            map (moduleKey file) disabled
+          ) disabled;
           keyFilter = filter (attrs: !elem attrs.key disabledKeys);
         in
         map (attrs: attrs.module) (builtins.genericClosure {
@@ -636,9 +647,12 @@ rec {
         # evaluation of the option.
         context =
           name: ''while evaluating the module argument `${name}' in "${key}":'';
-        extraArgs = builtins.mapAttrs (name: _:
-          builtins.addErrorContext (context name)
-          (args.${name} or config._module.args.${name})) (lib.functionArgs f);
+        extraArgs = builtins.mapAttrs (
+          name: _:
+          builtins.addErrorContext (context name) (
+            args.${name} or config._module.args.${name}
+          )
+        ) (lib.functionArgs f);
 
           # Note: we append in the opposite order such that we can add an error
           # context on the explicit arguments of "args" too. This update
@@ -673,11 +687,13 @@ rec {
     */
   mergeModules =
     prefix: modules:
-    mergeModules' prefix modules (concatMap (m:
+    mergeModules' prefix modules (concatMap (
+      m:
       map (config: {
         file = m._file;
         inherit config;
-      }) (pushDownProperties m.config)) modules)
+      }) (pushDownProperties m.config)
+    ) modules)
     ;
 
   mergeModules' =
@@ -706,53 +722,62 @@ rec {
       */
       byName =
         attr: f: modules:
-        zipAttrsWith (n: concatLists) (map (module:
+        zipAttrsWith (n: concatLists) (map (
+          module:
           let
             subtree = module.${attr};
           in
           if !(builtins.isAttrs subtree) then
-            throw (if attr == "config" then
-              ''
-                You're trying to define a value of type `${
-                  builtins.typeOf subtree
-                }'
-                rather than an attribute set for the option
-                `${builtins.concatStringsSep "." prefix}'!
+            throw (
+              if attr == "config" then
+                ''
+                  You're trying to define a value of type `${
+                    builtins.typeOf subtree
+                  }'
+                  rather than an attribute set for the option
+                  `${builtins.concatStringsSep "." prefix}'!
 
-                This usually happens if `${
-                  builtins.concatStringsSep "." prefix
-                }' has option
-                definitions inside that are not matched. Please check how to properly define
-                this option by e.g. referring to `man 5 configuration.nix'!
-              ''
-            else
-              ''
-                An option declaration for `${
-                  builtins.concatStringsSep "." prefix
-                }' has type
-                `${builtins.typeOf subtree}' rather than an attribute set.
-                Did you mean to define this outside of `options'?
-              '')
+                  This usually happens if `${
+                    builtins.concatStringsSep "." prefix
+                  }' has option
+                  definitions inside that are not matched. Please check how to properly define
+                  this option by e.g. referring to `man 5 configuration.nix'!
+                ''
+              else
+                ''
+                  An option declaration for `${
+                    builtins.concatStringsSep "." prefix
+                  }' has type
+                  `${builtins.typeOf subtree}' rather than an attribute set.
+                  Did you mean to define this outside of `options'?
+                ''
+            )
           else
             mapAttrs (n: f module) subtree
         ) modules)
         ;
         # an attrset 'name' => list of submodules that declare ‘name’.
-      declsByName = byName "options" (module: option: [ {
-        inherit (module) _file;
-        options = option;
-      } ]) options;
+      declsByName = byName "options" (
+        module: option: [ {
+          inherit (module) _file;
+          options = option;
+        } ]
+      ) options;
         # an attrset 'name' => list of submodules that define ‘name’.
-      defnsByName = byName "config" (module: value:
+      defnsByName = byName "config" (
+        module: value:
         map (config: {
           inherit (module) file;
           inherit config;
-        }) (pushDownProperties value)) configs;
+        }) (pushDownProperties value)
+      ) configs;
         # extract the definitions for each loc
-      defnsByName' = byName "config" (module: value: [ {
-        inherit (module) file;
-        inherit value;
-      } ]) configs;
+      defnsByName' = byName "config" (
+        module: value: [ {
+          inherit (module) file;
+          inherit value;
+        } ]
+      ) configs;
 
         # Convert an option tree decl to a submodule option decl
       optionTreeToOption =
@@ -773,7 +798,8 @@ rec {
           }
         ;
 
-      resultsByName = mapAttrs (name: decls:
+      resultsByName = mapAttrs (
+        name: decls:
         # We're descending into attribute ‘name’.
         let
           loc = prefix ++ [ name ];
@@ -849,12 +875,16 @@ rec {
         # we short circuit and avoid evaluating more _options_ than necessary.
           [ ]
         else
-          concatLists (mapAttrsToList (name: defs:
-            map (def:
+          concatLists (mapAttrsToList (
+            name: defs:
+            map (
+              def:
               def // {
                 # Set this so we know when the definition first left unmatched territory
                 prefix = [ name ] ++ (def.prefix or [ ]);
-              }) defs) unmatchedDefnsByName)
+              }
+            ) defs
+          ) unmatchedDefnsByName)
         ;
     }
     ;
@@ -873,7 +903,8 @@ rec {
     */
   mergeOptionDecls =
     loc: opts:
-    foldl' (res: opt:
+    foldl' (
+      res: opt:
       let
         t = res.type;
         t' = opt.options.type;
@@ -892,7 +923,9 @@ rec {
         || bothHave "example"
         || bothHave "description"
         || bothHave "apply"
-        || (bothHave "type" && (!typesMergeable))
+        || (
+          bothHave "type" && (!typesMergeable)
+        )
       then
         throw "The option `${
           showOption loc
@@ -942,10 +975,12 @@ rec {
           let
             # For a better error message, evaluate all readOnly definitions as
             # if they were the only definition.
-            separateDefs = map (def:
+            separateDefs = map (
+              def:
               def // {
                 value = (mergeDefinitions loc opt.type [ def ]).mergedValue;
-              }) defs';
+              }
+            ) defs';
           in
           throw "The option `${
             showOption loc
@@ -994,13 +1029,15 @@ rec {
       defsFinal' =
         let
           # Process mkMerge and mkIf properties.
-          defs' = concatMap (m:
+          defs' = concatMap (
+            m:
             map (value: {
               inherit (m) file;
               inherit value;
             }) (builtins.addErrorContext
               "while evaluating definitions from `${m.file}':"
-              (dischargeProperties m.value))) defs;
+              (dischargeProperties m.value))
+          ) defs;
 
             # Process mkOverride properties.
           defs'' = filterOverrides' defs';
@@ -1148,11 +1185,13 @@ rec {
         ;
     in
     {
-      values = concatMap (def:
+      values = concatMap (
+        def:
         if getPrio def == highestPrio then
           [ (strip def) ]
         else
-          [ ]) defs;
+          [ ]
+      ) defs;
       inherit highestPrio;
     }
     ;
@@ -1177,8 +1216,12 @@ rec {
       defs' = map strip defs;
       compare =
         a: b:
-        (a.priority or defaultOrderPriority)
-        < (b.priority or defaultOrderPriority)
+        (
+          a.priority or defaultOrderPriority
+        )
+        < (
+          b.priority or defaultOrderPriority
+        )
         ;
     in
     sort compare defs'
@@ -1209,12 +1252,14 @@ rec {
 
   mkAssert =
     assertion: message: content:
-    mkIf (if assertion then
-      true
-    else
-      throw ''
+    mkIf (
+      if assertion then
+        true
+      else
+        throw ''
 
-        Failed assertion: ${message}'') content
+          Failed assertion: ${message}''
+    ) content
     ;
 
   mkMerge =
@@ -1440,15 +1485,18 @@ rec {
       options,
       ...
     }: {
-      options = foldl' recursiveUpdate { } (map (path:
+      options = foldl' recursiveUpdate { } (map (
+        path:
         setAttrByPath path (mkOption {
           visible = false;
             # To use the value in mergeFn without triggering errors
           default = "_mkMergedOptionModule";
-        })) from);
+        })
+      ) from);
 
       config = {
-        warnings = filter (x: x != "") (map (f:
+        warnings = filter (x: x != "") (map (
+          f:
           let
             val = getAttrFromPath f config;
             opt = getAttrFromPath f options;
@@ -1566,16 +1614,18 @@ rec {
         ;
     in
     {
-      options = setAttrByPath from (mkOption {
-        inherit visible;
-        description =
-          if markdown then
-            lib.mdDoc "Alias of {option}`${showOption to}`."
-          else
-            "Alias of <option>${showOption to}</option>."
-          ;
-        apply = x: use (toOf config);
-      } // optionalAttrs (toType != null) { type = toType; });
+      options = setAttrByPath from (
+        mkOption {
+          inherit visible;
+          description =
+            if markdown then
+              lib.mdDoc "Alias of {option}`${showOption to}`."
+            else
+              "Alias of <option>${showOption to}</option>."
+            ;
+          apply = x: use (toOf config);
+        } // optionalAttrs (toType != null) { type = toType; }
+      );
       config = mkMerge [
         (optionalAttrs (options ? warnings) {
           warnings = optional (warn && fromOpt.isDefined)
@@ -1583,10 +1633,12 @@ rec {
               showFiles fromOpt.files
             } has been renamed to `${showOption to}'.";
         })
-        (if withPriority then
-          mkAliasAndWrapDefsWithPriority (setAttrByPath to) fromOpt
-        else
-          mkAliasAndWrapDefinitions (setAttrByPath to) fromOpt)
+        (
+          if withPriority then
+            mkAliasAndWrapDefsWithPriority (setAttrByPath to) fromOpt
+          else
+            mkAliasAndWrapDefinitions (setAttrByPath to) fromOpt
+        )
       ];
     }
     ;

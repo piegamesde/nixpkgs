@@ -29,12 +29,14 @@ let
   kernelPackages = config.boot.kernelPackages;
 
   gst =
-    (with pkgs.gst_all_1; [
-      gst-plugins-bad
-      gst-plugins-base
-      gst-plugins-good
-      gstreamer.out
-    ]);
+    (
+      with pkgs.gst_all_1; [
+        gst-plugins-bad
+        gst-plugins-base
+        gst-plugins-good
+        gstreamer.out
+      ]
+    );
 
   instanceOpts =
     {
@@ -167,8 +169,9 @@ in
           };
 
           environment = {
-            GST_PLUGIN_PATH = makeSearchPathOutput "lib" "lib/gstreamer-1.0"
-              (gst ++ instance.extraPackages);
+            GST_PLUGIN_PATH = makeSearchPathOutput "lib" "lib/gstreamer-1.0" (
+              gst ++ instance.extraPackages
+            );
             V4L2_DEVICE_FILE = "/run/v4l2-relayd-${instance.name}/device";
           };
 
@@ -215,9 +218,11 @@ in
 
       mkInstanceServices =
         instances:
-        listToAttrs (map (instance:
+        listToAttrs (map (
+          instance:
           nameValuePair "v4l2-relayd-${escapeSystemdPath instance.name}"
-          (mkInstanceService instance)) instances)
+          (mkInstanceService instance)
+        ) instances)
         ;
 
       enabledInstances =

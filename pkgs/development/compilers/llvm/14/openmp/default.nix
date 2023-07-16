@@ -43,10 +43,12 @@ stdenv.mkDerivation rec {
     lit
   ];
   buildInputs = [
-      (if stdenv.buildPlatform == stdenv.hostPlatform then
-        llvm
-      else
-        targetLlvm)
+      (
+        if stdenv.buildPlatform == stdenv.hostPlatform then
+          llvm
+        else
+          targetLlvm
+      )
     ];
 
     # Unsup:Pass:XFail:Fail

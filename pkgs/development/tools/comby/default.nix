@@ -107,10 +107,12 @@ mkCombyPackage {
       combyKernel
       combySemantic
     ]
-    ++ (if !stdenv.isAarch32 && !stdenv.isAarch64 then
-      [ ocamlPackages.hack_parallel ]
-    else
-      [ ])
+    ++ (
+      if !stdenv.isAarch32 && !stdenv.isAarch64 then
+        [ ocamlPackages.hack_parallel ]
+      else
+        [ ]
+    )
     ;
 
   extraNativeInputs = [

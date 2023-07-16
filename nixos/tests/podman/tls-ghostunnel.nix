@@ -1,5 +1,6 @@
 # This test runs podman as a backend for the Docker CLI.
-import ../make-test-python.nix ({
+import ../make-test-python.nix (
+  {
     pkgs,
     lib,
     ...

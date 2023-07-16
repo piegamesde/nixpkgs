@@ -30,14 +30,16 @@ stdenv.mkDerivation rec {
       perl
       pkg-config
     ]
-    ++ (with perlPackages;
+    ++ (
+      with perlPackages;
       TaskFreecellSolverTesting.buildInputs
       ++ [
         GamesSolitaireVerify
         StringShellQuote
         TaskFreecellSolverTesting
         TemplateToolkit
-      ])
+      ]
+    )
     ;
 
   buildInputs = [

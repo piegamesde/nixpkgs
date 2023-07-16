@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }: {
@@ -30,4 +31,5 @@ import ./make-test-python.nix ({
       qemuGuest.wait_for_unit('multi-user.target')
       qemuGuest.succeed('systemctl is-active chronyd.service')
     '';
-  })
+  }
+)

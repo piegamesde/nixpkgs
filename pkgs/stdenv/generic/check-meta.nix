@@ -17,9 +17,11 @@ let
 
   getName =
     attrs:
-    attrs.name or ("${attrs.pname or "«name-missing»"}-${
+    attrs.name or (
+      "${attrs.pname or "«name-missing»"}-${
         attrs.version or "«version-missing»"
-      }")
+      }"
+    )
     ;
 
   allowUnfree =
@@ -400,7 +402,8 @@ let
         x:
         x == { }
         || ( # Accept {} for tests that are unsupported
-          isDerivation x && x ? meta.timeout)
+          isDerivation x && x ? meta.timeout
+        )
         ;
       merge = lib.options.mergeOneOption;
     });
@@ -583,7 +586,8 @@ let
           }
           # -----
         else
-          { valid = "yes"; })
+          { valid = "yes"; }
+      )
     ;
 
     # The meta attribute is passed in the resulting attribute set,
@@ -624,11 +628,13 @@ let
           hasOutput = out: builtins.elem out outputs;
         in
         [
-          (lib.findFirst hasOutput null ([
-            "bin"
-            "out"
-          ]
-            ++ outputs))
+          (lib.findFirst hasOutput null (
+            [
+              "bin"
+              "out"
+            ]
+            ++ outputs
+          ))
         ]
         ++ lib.optional (hasOutput "man") "man"
         ;
@@ -642,10 +648,12 @@ let
 
       available =
         validity.valid != "no"
-        && (if config.checkMetaRecursively or false then
-          lib.all (d: d.meta.available or true) references
-        else
-          true)
+        && (
+          if config.checkMetaRecursively or false then
+            lib.all (d: d.meta.available or true) references
+          else
+            true
+        )
         ;
     }
     ;

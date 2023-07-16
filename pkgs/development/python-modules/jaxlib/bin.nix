@@ -82,14 +82,18 @@ buildPythonPackage rec {
     # Supporting all of them is a pain, so we focus on 3.10, the current nixpkgs
     # python version.
   disabled =
-    !(pythonVersion == "3.10")
+    !(
+      pythonVersion == "3.10"
+    )
     ;
 
     # See https://discourse.nixos.org/t/ofborg-does-not-respect-meta-platforms/27019/6.
   src =
     if !cudaSupport then
-      (cpuSrcs."${stdenv.hostPlatform.system}" or (throw
-        "jaxlib-bin is not supported on ${stdenv.hostPlatform.system}"))
+      (
+        cpuSrcs."${stdenv.hostPlatform.system}" or (throw
+          "jaxlib-bin is not supported on ${stdenv.hostPlatform.system}")
+      )
     else
       gpuSrc
     ;

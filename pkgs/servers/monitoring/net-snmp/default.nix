@@ -14,12 +14,14 @@
 }:
 let
 
-  perlWithPkgs = perl.withPackages (ps:
+  perlWithPkgs = perl.withPackages (
+    ps:
     with ps; [
       JSON
       TermReadKey
       Tk
-    ]);
+    ]
+  );
 
 in
 stdenv.mkDerivation rec {

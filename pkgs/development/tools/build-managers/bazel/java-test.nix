@@ -31,24 +31,28 @@ let
     exec "$BAZEL_REAL" "$@"
   '';
 
-  workspaceDir = runLocal "our_workspace" { } (''
-    cp -r ${bazel-examples}/java-tutorial $out
-    find $out -type d -exec chmod 755 {} \;
-  ''
+  workspaceDir = runLocal "our_workspace" { } (
+    ''
+      cp -r ${bazel-examples}/java-tutorial $out
+      find $out -type d -exec chmod 755 {} \;
+    ''
     + (lib.optionalString stdenv.isDarwin ''
       mkdir $out/tools
       cp ${toolsBazel} $out/tools/bazel
-    ''));
+    '')
+  );
 
   testBazel = bazelTest {
     name = "bazel-test-java";
     inherit workspaceDir;
     bazelPkg = bazel;
     buildInputs = [
-        (if lib.strings.versionOlder bazel.version "5.0.0" then
-          openjdk8
-        else
-          jdk11_headless)
+        (
+          if lib.strings.versionOlder bazel.version "5.0.0" then
+            openjdk8
+          else
+            jdk11_headless
+        )
       ];
     bazelScript =
       ''

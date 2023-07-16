@@ -13,7 +13,8 @@ let
 
   hookFormat = pkgs.formats.json { };
 
-  hookType = types.submodule ({
+  hookType = types.submodule (
+    {
       name,
       ...
     }: {
@@ -32,15 +33,16 @@ let
             "The command that should be executed when the hook is triggered.";
         };
       };
-    });
+    }
+  );
 
   hookFiles =
-    mapAttrsToList
-      (name: hook: hookFormat.generate "webhook-${name}.json" [ hook ])
-      cfg.hooks
-    ++ mapAttrsToList
-      (name: hook: pkgs.writeText "webhook-${name}.json.tmpl" "[${hook}]")
-      cfg.hooksTemplated
+    mapAttrsToList (
+      name: hook: hookFormat.generate "webhook-${name}.json" [ hook ]
+    ) cfg.hooks
+    ++ mapAttrsToList (
+      name: hook: pkgs.writeText "webhook-${name}.json.tmpl" "[${hook}]"
+    ) cfg.hooksTemplated
     ;
 
 in

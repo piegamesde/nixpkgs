@@ -6,7 +6,8 @@
     default = { };
     type = lib.types.submoduleWith {
       modules = [
-          ({
+          (
+            {
               options,
               ...
             }: {
@@ -14,7 +15,8 @@
 
               options.internalFiles =
                 lib.mkOption { default = options.value.files; };
-            })
+            }
+          )
         ];
     };
   };

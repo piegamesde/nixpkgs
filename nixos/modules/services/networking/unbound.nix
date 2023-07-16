@@ -32,15 +32,18 @@ let
     else if isList v then
       (concatMapStringsSep "\n" (toConf indent n) v)
     else if isAttrs v then
-      (concatStringsSep "\n"
-        ([ "${indent}${n}:" ] ++ (mapAttrsToList (toConf "${indent}  ") v)))
+      (concatStringsSep "\n" (
+        [ "${indent}${n}:" ] ++ (mapAttrsToList (toConf "${indent}  ") v)
+      ))
     else
       throw (traceSeq v "services.unbound.settings: unexpected type")
     ;
 
-  confNoServer = concatStringsSep "\n" ((mapAttrsToList (toConf "")
-    (builtins.removeAttrs cfg.settings [ "server" ]))
-    ++ [ "" ]);
+  confNoServer = concatStringsSep "\n" (
+    (mapAttrsToList (toConf "")
+      (builtins.removeAttrs cfg.settings [ "server" ]))
+    ++ [ "" ]
+  );
   confServer = concatStringsSep "\n" (mapAttrsToList (toConf "  ")
     (builtins.removeAttrs cfg.settings.server [ "define-tag" ]));
 
@@ -213,10 +216,13 @@ in
         pidfile = ''""'';
           # when running under systemd there is no need to daemonize
         do-daemonize = false;
-        interface = mkDefault
-          ([ "127.0.0.1" ] ++ (optional config.networking.enableIPv6 "::1"));
-        access-control = mkDefault ([ "127.0.0.0/8 allow" ]
-          ++ (optional config.networking.enableIPv6 "::1/128 allow"));
+        interface = mkDefault (
+          [ "127.0.0.1" ] ++ (optional config.networking.enableIPv6 "::1")
+        );
+        access-control = mkDefault (
+          [ "127.0.0.0/8 allow" ]
+          ++ (optional config.networking.enableIPv6 "::1/128 allow")
+        );
         auto-trust-anchor-file =
           mkIf cfg.enableRootTrustAnchor rootTrustAnchorFile;
         tls-cert-bundle = mkDefault "/etc/ssl/certs/ca-certificates.crt";
@@ -227,8 +233,9 @@ in
       };
       remote-control = {
         control-enable = mkDefault false;
-        control-interface = mkDefault
-          ([ "127.0.0.1" ] ++ (optional config.networking.enableIPv6 "::1"));
+        control-interface = mkDefault (
+          [ "127.0.0.1" ] ++ (optional config.networking.enableIPv6 "::1")
+        );
         server-key-file = mkDefault "${cfg.stateDir}/unbound_server.key";
         server-cert-file = mkDefault "${cfg.stateDir}/unbound_server.pem";
         control-key-file = mkDefault "${cfg.stateDir}/unbound_control.key";
@@ -365,12 +372,14 @@ in
       "settings"
       "server"
       "access-control"
-    ] (config:
+    ] (
+      config:
       map (value: "${value} allow") (getAttrFromPath [
         "services"
         "unbound"
         "allowedAccess"
-      ] config)))
+      ] config)
+    ))
     (mkRemovedOptionModule [
       "services"
       "unbound"

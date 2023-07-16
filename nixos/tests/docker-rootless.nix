@@ -1,6 +1,7 @@
 # This test runs docker and checks if simple container starts
 
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -54,4 +55,5 @@ import ./make-test-python.nix ({
         machine.succeed("${sudo} docker stop sleeping")
       ''
       ;
-  })
+  }
+)

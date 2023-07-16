@@ -25,13 +25,17 @@
 }:
 
 let
-  ghcWithPackages = ghc.withPackages (g:
-    (with g; [
-      old-time
-      regex-compat
-      syb
-      split
-    ]));
+  ghcWithPackages = ghc.withPackages (
+    g:
+    (
+      with g; [
+        old-time
+        regex-compat
+        syb
+        split
+      ]
+    )
+  );
 
 in
 stdenv.mkDerivation rec {

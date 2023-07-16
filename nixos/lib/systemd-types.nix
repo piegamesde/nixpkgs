@@ -10,14 +10,16 @@ with lib;
 
 rec {
   units = with types;
-    attrsOf (submodule ({
+    attrsOf (submodule (
+      {
         name,
         config,
         ...
       }: {
         options = concreteUnitOptions;
         config = { unit = mkDefault (systemdUtils.lib.makeUnit name config); };
-      }));
+      }
+    ));
 
   services = with types;
     attrsOf (submodule [
@@ -113,7 +115,8 @@ rec {
       automountConfig
     ]);
 
-  initrdContents = types.attrsOf (types.submodule ({
+  initrdContents = types.attrsOf (types.submodule (
+    {
       config,
       options,
       name,
@@ -147,11 +150,13 @@ rec {
       };
 
       config = {
-        source = mkIf (config.text != null) (let
-          name' = "initrd-" + baseNameOf name;
-        in
-        mkDerivedConfig options.text (pkgs.writeText name')
+        source = mkIf (config.text != null) (
+          let
+            name' = "initrd-" + baseNameOf name;
+          in
+          mkDerivedConfig options.text (pkgs.writeText name')
         );
       };
-    }));
+    }
+  ));
 }

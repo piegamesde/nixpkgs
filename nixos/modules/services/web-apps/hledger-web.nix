@@ -111,20 +111,24 @@ in
     systemd.services.hledger-web =
       let
         capabilityString = with cfg.capabilities;
-          concatStringsSep "," ((optional view "view")
+          concatStringsSep "," (
+            (optional view "view")
             ++ (optional add "add")
-            ++ (optional manage "manage"));
+            ++ (optional manage "manage")
+          );
         serverArgs = with cfg;
-          escapeShellArgs ([
-            "--serve"
-            "--host=${host}"
-            "--port=${toString port}"
-            "--capabilities=${capabilityString}"
-            (optionalString (cfg.baseUrl != null) "--base-url=${cfg.baseUrl}")
-            (optionalString (cfg.serveApi) "--serve-api")
-          ]
+          escapeShellArgs (
+            [
+              "--serve"
+              "--host=${host}"
+              "--port=${toString port}"
+              "--capabilities=${capabilityString}"
+              (optionalString (cfg.baseUrl != null) "--base-url=${cfg.baseUrl}")
+              (optionalString (cfg.serveApi) "--serve-api")
+            ]
             ++ (map (f: "--file=${stateDir}/${f}") cfg.journalFiles)
-            ++ extraOptions);
+            ++ extraOptions
+          );
       in
       {
         description = "hledger-web - web-app for the hledger accounting tool.";

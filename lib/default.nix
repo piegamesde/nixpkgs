@@ -6,7 +6,8 @@ let
 
   inherit (import ./fixed-points.nix { inherit lib; }) makeExtensible;
 
-  lib = makeExtensible (self:
+  lib = makeExtensible (
+    self:
     let
       callLibs = file: import file { lib = self; };
     in

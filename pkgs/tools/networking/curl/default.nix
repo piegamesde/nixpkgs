@@ -14,7 +14,8 @@
   gsaslSupport ? false,
   gsasl,
   gssSupport ? with stdenv.hostPlatform;
-    (!isWindows
+    (
+      !isWindows
       &&
       # the "mig" tool does not configure its compiler correctly. This could be
       # fixed in mig, but losing gss support on cross compilation to darwin is
@@ -24,7 +25,10 @@
       # the "mig" tool does not configure its compiler correctly. This could be
       # fixed in mig, but losing gss support on cross compilation to darwin is
       # not worth the effort.
-      !(isDarwin && (stdenv.buildPlatform != stdenv.hostPlatform))),
+      !(
+        isDarwin && (stdenv.buildPlatform != stdenv.hostPlatform)
+      )
+    ),
   libkrb5,
   http2Support ? true,
   nghttp2,
@@ -70,13 +74,15 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-assert !((lib.count (x: x) [
-  gnutlsSupport
-  opensslSupport
-  wolfsslSupport
-  rustlsSupport
-])
-  > 1);
+assert !(
+  (lib.count (x: x) [
+    gnutlsSupport
+    opensslSupport
+    wolfsslSupport
+    rustlsSupport
+  ])
+  > 1
+);
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "curl";
@@ -176,10 +182,9 @@ stdenv.mkDerivation (finalAttrs: {
       "--without-ca-bundle"
       "--without-ca-path"
     ]
-    ++ lib.optionals
-      (!gnutlsSupport && !opensslSupport && !wolfsslSupport && !rustlsSupport) [
-        "--without-ssl"
-      ]
+    ++ lib.optionals (
+      !gnutlsSupport && !opensslSupport && !wolfsslSupport && !rustlsSupport
+    ) [ "--without-ssl" ]
     ;
 
   CXX = "${stdenv.cc.targetPrefix}c++";

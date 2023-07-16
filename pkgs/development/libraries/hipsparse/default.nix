@@ -126,11 +126,13 @@ stdenv.mkDerivation (finalAttrs: {
       mkdir -p $sample/bin
       mv clients/staging/example_* $sample/bin
       patchelf --set-rpath $out/lib:${
-        lib.makeLibraryPath (finalAttrs.buildInputs
+        lib.makeLibraryPath (
+          finalAttrs.buildInputs
           ++ [
             hip
             gfortran.cc
-          ])
+          ]
+        )
       } $sample/bin/example_*
     ''
     ;

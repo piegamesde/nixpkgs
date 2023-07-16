@@ -121,54 +121,56 @@ stdenv.mkDerivation (finalAttrs: {
       libpng
       pcre2
     ]
-    ++ (if stdenv.isDarwin then
-      [
-        # TODO: move to buildInputs, this should not be propagated.
-        AGL
-        AppKit
-        ApplicationServices
-        AVFoundation
-        Carbon
-        Cocoa
-        CoreAudio
-        CoreBluetooth
-        CoreLocation
-        CoreServices
-        DiskArbitration
-        Foundation
-        OpenGL
-        libobjc
-        libiconv
-        MetalKit
-        IOKit
-      ]
-    else
-      [
-        dbus
-        glib
-        udev
+    ++ (
+      if stdenv.isDarwin then
+        [
+          # TODO: move to buildInputs, this should not be propagated.
+          AGL
+          AppKit
+          ApplicationServices
+          AVFoundation
+          Carbon
+          Cocoa
+          CoreAudio
+          CoreBluetooth
+          CoreLocation
+          CoreServices
+          DiskArbitration
+          Foundation
+          OpenGL
+          libobjc
+          libiconv
+          MetalKit
+          IOKit
+        ]
+      else
+        [
+          dbus
+          glib
+          udev
 
-        # Text rendering
-        fontconfig
-        freetype
+          # Text rendering
+          fontconfig
+          freetype
 
-        libdrm
+          libdrm
 
-        # X11 libs
-        libX11
-        libXcomposite
-        libXext
-        libXi
-        libXrender
-        libxcb
-        libxkbcommon
-        xcbutil
-        xcbutilimage
-        xcbutilkeysyms
-        xcbutilrenderutil
-        xcbutilwm
-      ]
-      ++ lib.optional libGLSupported libGL)
+          # X11 libs
+          libX11
+          libXcomposite
+          libXext
+          libXi
+          libXrender
+          libxcb
+          libxkbcommon
+          xcbutil
+          xcbutilimage
+          xcbutilkeysyms
+          xcbutilrenderutil
+          xcbutilwm
+        ]
+        ++ lib.optional libGLSupported libGL
+    )
     ;
 
   buildInputs =
@@ -176,8 +178,9 @@ stdenv.mkDerivation (finalAttrs: {
       python3
       at-spi2-core
     ]
-    ++ lib.optionals (!stdenv.isDarwin)
-      ([ libinput ] ++ lib.optional withGtk3 gtk3)
+    ++ lib.optionals (!stdenv.isDarwin) (
+      [ libinput ] ++ lib.optional withGtk3 gtk3
+    )
     ++ lib.optional developerBuild gdb
     ++ lib.optional (cups != null) cups
     ++ lib.optional (mysqlSupport) libmysqlclient
@@ -241,28 +244,32 @@ stdenv.mkDerivation (finalAttrs: {
 
       patchShebangs ./bin
     ''
-    + (if stdenv.isDarwin then
-      ''
-        sed -i \
-            -e 's|/usr/bin/xcode-select|xcode-select|' \
-            -e 's|/usr/bin/xcrun|xcrun|' \
-            -e 's|/usr/bin/xcodebuild|xcodebuild|' \
-            -e 's|QMAKE_CONF_COMPILER=`getXQMakeConf QMAKE_CXX`|QMAKE_CXX="clang++"\nQMAKE_CONF_COMPILER="clang++"|' \
-            ./configure
-            substituteInPlace ./mkspecs/common/mac.conf \
-                --replace "/System/Library/Frameworks/OpenGL.framework/" "${OpenGL}/Library/Frameworks/OpenGL.framework/" \
-                --replace "/System/Library/Frameworks/AGL.framework/" "${AGL}/Library/Frameworks/AGL.framework/"
-      ''
-    else
-      lib.optionalString libGLSupported ''
-        sed -i mkspecs/common/linux.conf \
-            -e "/^QMAKE_INCDIR_OPENGL/ s|$|${libGL.dev or libGL}/include|" \
-            -e "/^QMAKE_LIBDIR_OPENGL/ s|$|${libGL.out}/lib|"
-      ''
-      + lib.optionalString (stdenv.hostPlatform.isx86_32 && stdenv.cc.isGNU) ''
-        sed -i mkspecs/common/gcc-base-unix.conf \
-            -e "/^QMAKE_LFLAGS_SHLIB/ s/-shared/-shared -static-libgcc/"
-      '')
+    + (
+      if stdenv.isDarwin then
+        ''
+          sed -i \
+              -e 's|/usr/bin/xcode-select|xcode-select|' \
+              -e 's|/usr/bin/xcrun|xcrun|' \
+              -e 's|/usr/bin/xcodebuild|xcodebuild|' \
+              -e 's|QMAKE_CONF_COMPILER=`getXQMakeConf QMAKE_CXX`|QMAKE_CXX="clang++"\nQMAKE_CONF_COMPILER="clang++"|' \
+              ./configure
+              substituteInPlace ./mkspecs/common/mac.conf \
+                  --replace "/System/Library/Frameworks/OpenGL.framework/" "${OpenGL}/Library/Frameworks/OpenGL.framework/" \
+                  --replace "/System/Library/Frameworks/AGL.framework/" "${AGL}/Library/Frameworks/AGL.framework/"
+        ''
+      else
+        lib.optionalString libGLSupported ''
+          sed -i mkspecs/common/linux.conf \
+              -e "/^QMAKE_INCDIR_OPENGL/ s|$|${libGL.dev or libGL}/include|" \
+              -e "/^QMAKE_LIBDIR_OPENGL/ s|$|${libGL.out}/lib|"
+        ''
+        + lib.optionalString (
+          stdenv.hostPlatform.isx86_32 && stdenv.cc.isGNU
+        ) ''
+          sed -i mkspecs/common/gcc-base-unix.conf \
+              -e "/^QMAKE_LFLAGS_SHLIB/ s/-shared/-shared -static-libgcc/"
+        ''
+    )
     ;
 
   qtPluginPrefix = "lib/qt-${qtCompatVersion}/plugins";
@@ -303,12 +310,13 @@ stdenv.mkDerivation (finalAttrs: {
     done
   '';
 
-  env.NIX_CFLAGS_COMPILE = toString ([
-    "-Wno-error=sign-compare" # freetype-2.5.4 changed signedness of some struct fields
-    ''-DNIXPKGS_QTCOMPOSE="${libX11.out}/share/X11/locale"''
-    ''-DLIBRESOLV_SO="${stdenv.cc.libc.out}/lib/libresolv"''
-    ''-DNIXPKGS_LIBXCURSOR="${libXcursor.out}/lib/libXcursor"''
-  ]
+  env.NIX_CFLAGS_COMPILE = toString (
+    [
+      "-Wno-error=sign-compare" # freetype-2.5.4 changed signedness of some struct fields
+      ''-DNIXPKGS_QTCOMPOSE="${libX11.out}/share/X11/locale"''
+      ''-DLIBRESOLV_SO="${stdenv.cc.libc.out}/lib/libresolv"''
+      ''-DNIXPKGS_LIBXCURSOR="${libXcursor.out}/lib/libXcursor"''
+    ]
     ++ lib.optional libGLSupported
       ''-DNIXPKGS_MESA_GL="${libGL.out}/lib/libGL"''
     ++ lib.optional stdenv.isLinux "-DUSE_X11"
@@ -321,7 +329,8 @@ stdenv.mkDerivation (finalAttrs: {
         -DNIXPKGS_QGTK3_XDG_DATA_DIRS="${gtk3}/share/gsettings-schemas/${gtk3.name}"''
       ''-DNIXPKGS_QGTK3_GIO_EXTRA_MODULES="${dconf.lib}/lib/gio/modules"''
     ]
-    ++ lib.optional decryptSslTraffic "-DQT_DECRYPT_SSL_TRAFFIC");
+    ++ lib.optional decryptSslTraffic "-DQT_DECRYPT_SSL_TRAFFIC"
+  );
 
   prefixKey = "-prefix ";
 
@@ -366,22 +375,26 @@ stdenv.mkDerivation (finalAttrs: {
       "-developer-build"
       "-no-warnings-are-errors"
     ]
-    ++ (if (!stdenv.hostPlatform.isx86_64) then
-      [ "-no-sse2" ]
-    else
-      [
-        "-sse2"
-        "${lib.optionalString (!stdenv.hostPlatform.sse3Support) "-no"}-sse3"
-        "${lib.optionalString (!stdenv.hostPlatform.ssse3Support) "-no"}-ssse3"
-        "${
-          lib.optionalString (!stdenv.hostPlatform.sse4_1Support) "-no"
-        }-sse4.1"
-        "${
-          lib.optionalString (!stdenv.hostPlatform.sse4_2Support) "-no"
-        }-sse4.2"
-        "${lib.optionalString (!stdenv.hostPlatform.avxSupport) "-no"}-avx"
-        "${lib.optionalString (!stdenv.hostPlatform.avx2Support) "-no"}-avx2"
-      ])
+    ++ (
+      if (!stdenv.hostPlatform.isx86_64) then
+        [ "-no-sse2" ]
+      else
+        [
+          "-sse2"
+          "${lib.optionalString (!stdenv.hostPlatform.sse3Support) "-no"}-sse3"
+          "${
+            lib.optionalString (!stdenv.hostPlatform.ssse3Support) "-no"
+          }-ssse3"
+          "${
+            lib.optionalString (!stdenv.hostPlatform.sse4_1Support) "-no"
+          }-sse4.1"
+          "${
+            lib.optionalString (!stdenv.hostPlatform.sse4_2Support) "-no"
+          }-sse4.2"
+          "${lib.optionalString (!stdenv.hostPlatform.avxSupport) "-no"}-avx"
+          "${lib.optionalString (!stdenv.hostPlatform.avx2Support) "-no"}-avx2"
+        ]
+    )
     ++ [
       "-no-mips_dsp"
       "-no-mips_dspr2"
@@ -427,52 +440,54 @@ stdenv.mkDerivation (finalAttrs: {
       "-${lib.optionalString (!buildExamples) "no"}make examples"
       "-${lib.optionalString (!buildTests) "no"}make tests"
     ]
-    ++ (if stdenv.isDarwin then
-      [
-        "-no-fontconfig"
-        "-qt-freetype"
-        "-qt-libpng"
-        "-no-framework"
-      ]
-    else
-      [ "-rpath" ]
-      ++ [
-        "-xcb"
-        "-qpa xcb"
-        "-L"
-        "${libX11.out}/lib"
-        "-I"
-        "${libX11.out}/include"
-        "-L"
-        "${libXext.out}/lib"
-        "-I"
-        "${libXext.out}/include"
-        "-L"
-        "${libXrender.out}/lib"
-        "-I"
-        "${libXrender.out}/include"
+    ++ (
+      if stdenv.isDarwin then
+        [
+          "-no-fontconfig"
+          "-qt-freetype"
+          "-qt-libpng"
+          "-no-framework"
+        ]
+      else
+        [ "-rpath" ]
+        ++ [
+          "-xcb"
+          "-qpa xcb"
+          "-L"
+          "${libX11.out}/lib"
+          "-I"
+          "${libX11.out}/include"
+          "-L"
+          "${libXext.out}/lib"
+          "-I"
+          "${libXext.out}/include"
+          "-L"
+          "${libXrender.out}/lib"
+          "-I"
+          "${libXrender.out}/include"
 
-        "-libinput"
+          "-libinput"
 
-        "-${lib.optionalString (cups == null) "no-"}cups"
-        "-dbus-linked"
-        "-glib"
-      ]
-      ++ [ "-system-libpng" ]
-      ++ lib.optional withGtk3 "-gtk"
-      ++ [ "-inotify" ]
-      ++ lib.optionals (cups != null) [
-        "-L"
-        "${cups.lib}/lib"
-        "-I"
-        "${cups.dev}/include"
-      ]
-      ++ lib.optionals (mysqlSupport) [
-        "-L"
-        "${libmysqlclient}/lib"
-        "-I"
-        "${libmysqlclient}/include"
-      ])
+          "-${lib.optionalString (cups == null) "no-"}cups"
+          "-dbus-linked"
+          "-glib"
+        ]
+        ++ [ "-system-libpng" ]
+        ++ lib.optional withGtk3 "-gtk"
+        ++ [ "-inotify" ]
+        ++ lib.optionals (cups != null) [
+          "-L"
+          "${cups.lib}/lib"
+          "-I"
+          "${cups.dev}/include"
+        ]
+        ++ lib.optionals (mysqlSupport) [
+          "-L"
+          "${libmysqlclient}/lib"
+          "-I"
+          "${libmysqlclient}/include"
+        ]
+    )
     ;
 
     # Move selected outputs.

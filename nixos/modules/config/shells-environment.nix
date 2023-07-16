@@ -19,10 +19,11 @@ let
     let
       absoluteVariables = mapAttrs (n: toList) cfg.variables;
 
-      suffixedVariables = flip mapAttrs cfg.profileRelativeEnvVars
-        (envVar: listSuffixes:
-          concatMap (profile: map (suffix: "${profile}${suffix}") listSuffixes)
-          cfg.profiles);
+      suffixedVariables = flip mapAttrs cfg.profileRelativeEnvVars (
+        envVar: listSuffixes:
+        concatMap (profile: map (suffix: "${profile}${suffix}") listSuffixes)
+        cfg.profiles
+      );
 
       allVariables = zipAttrsWith (n: concatLists) [
         absoluteVariables
@@ -60,11 +61,13 @@ in
           str
           path
         ]);
-      apply = mapAttrs (n: v:
+      apply = mapAttrs (
+        n: v:
         if isList v then
           concatStringsSep ":" v
         else
-          "${v}");
+          "${v}"
+      );
     };
 
     environment.profiles = mkOption {

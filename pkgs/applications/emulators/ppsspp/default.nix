@@ -131,23 +131,25 @@ stdenv.mkDerivation (finalAttrs: {
 
       mkdir -p $out/share/{applications,ppsspp}
     ''
-    + (if enableQt then
-      ''
-        install -Dm555 PPSSPPQt $out/bin/ppsspp
-        wrapProgram $out/bin/ppsspp \
-      ''
-    else
-      ''
-        install -Dm555 PPSSPPHeadless $out/bin/ppsspp-headless
-        install -Dm555 PPSSPPSDL $out/share/ppsspp/
-        makeWrapper $out/share/ppsspp/PPSSPPSDL $out/bin/ppsspp \
-          --set SDL_VIDEODRIVER ${
-            if forceWayland then
-              "wayland"
-            else
-              "x11"
-          } \
-      '')
+    + (
+      if enableQt then
+        ''
+          install -Dm555 PPSSPPQt $out/bin/ppsspp
+          wrapProgram $out/bin/ppsspp \
+        ''
+      else
+        ''
+          install -Dm555 PPSSPPHeadless $out/bin/ppsspp-headless
+          install -Dm555 PPSSPPSDL $out/share/ppsspp/
+          makeWrapper $out/share/ppsspp/PPSSPPSDL $out/bin/ppsspp \
+            --set SDL_VIDEODRIVER ${
+              if forceWayland then
+                "wayland"
+              else
+                "x11"
+            } \
+        ''
+    )
     + lib.optionalString enableVulkan ''
       --prefix LD_LIBRARY_PATH : ${vulkanPath} \
     ''
@@ -163,10 +165,12 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.ppsspp.org/";
     description =
       "A HLE Playstation Portable emulator, written in C++ ("
-      + (if enableQt then
-        "Qt"
-      else
-        "SDL + headless")
+      + (
+        if enableQt then
+          "Qt"
+        else
+          "SDL + headless"
+      )
       + ")"
       ;
     license = lib.licenses.gpl2Plus;

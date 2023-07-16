@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -138,4 +139,5 @@ import ./make-test-python.nix ({
             machine.fail("nixos-rebuild boot -c foo")
       ''
       ;
-  })
+  }
+)

@@ -12,12 +12,13 @@ let
   inherit (config.security.acme) certs;
   vhostsConfigs =
     mapAttrsToList (vhostName: vhostConfig: vhostConfig) virtualHosts;
-  acmeEnabledVhosts = filter
-    (vhostConfig: vhostConfig.enableACME || vhostConfig.useACMEHost != null)
-    vhostsConfigs;
+  acmeEnabledVhosts = filter (
+    vhostConfig: vhostConfig.enableACME || vhostConfig.useACMEHost != null
+  ) vhostsConfigs;
   dependentCertNames =
     unique (map (hostOpts: hostOpts.certName) acmeEnabledVhosts);
-  virtualHosts = mapAttrs (vhostName: vhostConfig:
+  virtualHosts = mapAttrs (
+    vhostName: vhostConfig:
     let
       serverName =
         if vhostConfig.serverName != null then
@@ -34,17 +35,18 @@ let
     in
     vhostConfig // {
       inherit serverName certName;
-    } // (optionalAttrs
-      (vhostConfig.enableACME || vhostConfig.useACMEHost != null) {
-        sslCertificate = "${certs.${certName}.directory}/fullchain.pem";
-        sslCertificateKey = "${certs.${certName}.directory}/key.pem";
-        sslTrustedCertificate =
-          if vhostConfig.sslTrustedCertificate != null then
-            vhostConfig.sslTrustedCertificate
-          else
-            "${certs.${certName}.directory}/chain.pem"
-          ;
-      })
+    } // (optionalAttrs (
+      vhostConfig.enableACME || vhostConfig.useACMEHost != null
+    ) {
+      sslCertificate = "${certs.${certName}.directory}/fullchain.pem";
+      sslCertificateKey = "${certs.${certName}.directory}/key.pem";
+      sslTrustedCertificate =
+        if vhostConfig.sslTrustedCertificate != null then
+          vhostConfig.sslTrustedCertificate
+        else
+          "${certs.${certName}.directory}/chain.pem"
+        ;
+    })
   ) cfg.virtualHosts;
   inherit (config.networking)
     enableIPv6
@@ -124,8 +126,8 @@ let
       proxy_set_header        X-Forwarded-Server $host;
     '';
 
-  proxyCachePathConfig = concatStringsSep "\n" (mapAttrsToList
-    (name: proxyCachePath: ''
+  proxyCachePathConfig = concatStringsSep "\n" (mapAttrsToList (
+    name: proxyCachePath: ''
       proxy_cache_path ${
         concatStringsSep " " [
           "/var/cache/nginx/${name}"
@@ -141,19 +143,23 @@ let
           "max_size=${proxyCachePath.maxSize}"
         ]
       };
-    '') (filterAttrs (name: conf: conf.enable) cfg.proxyCachePath));
+    ''
+  ) (filterAttrs (name: conf: conf.enable) cfg.proxyCachePath));
 
-  upstreamConfig = toString (flip mapAttrsToList cfg.upstreams
-    (name: upstream: ''
+  upstreamConfig = toString (flip mapAttrsToList cfg.upstreams (
+    name: upstream: ''
       upstream ${name} {
         ${
-          toString (flip mapAttrsToList upstream.servers (name: server: ''
-            server ${name} ${optionalString server.backup "backup"};
-          ''))
+          toString (flip mapAttrsToList upstream.servers (
+            name: server: ''
+              server ${name} ${optionalString server.backup "backup"};
+            ''
+          ))
         }
         ${upstream.extraConfig}
       }
-    ''));
+    ''
+  ));
 
   commonHttpConfig = ''
     # Load mime types.
@@ -378,7 +384,8 @@ let
 
   execCommand = "${cfg.package}/bin/nginx -c '${configPath}'";
 
-  vhosts = concatStringsSep "\n" (mapAttrsToList (vhostName: vhost:
+  vhosts = concatStringsSep "\n" (mapAttrsToList (
+    vhostName: vhost:
     let
       onlySSL = vhost.onlySSL || vhost.enableSSL;
       hasSSL = onlySSL || vhost.addSSL || vhost.forceSSL;
@@ -423,11 +430,12 @@ let
           ...
         }:
         # UDP listener for QUIC transport protocol.
-        (optionalString (ssl && vhost.quic)
-          ("\n            listen ${addr}:${toString port} quic "
-            + optionalString vhost.default "default_server "
-            + optionalString vhost.reuseport "reuseport "
-            + optionalString (extraParameters != [ ]) (concatStringsSep " " (let
+        (optionalString (ssl && vhost.quic) (
+          "\n            listen ${addr}:${toString port} quic "
+          + optionalString vhost.default "default_server "
+          + optionalString vhost.reuseport "reuseport "
+          + optionalString (extraParameters != [ ]) (concatStringsSep " " (
+            let
               inCompatibleParameters = [
                 "ssl"
                 "proxy_protocol"
@@ -437,8 +445,9 @@ let
                 param: !(any (p: p == param) inCompatibleParameters);
             in
             filter isCompatibleParameter extraParameters
-            ))
-            + ";"))
+          ))
+          + ";"
+        ))
         + "\n\n            listen ${addr}:${toString port} "
         + optionalString (ssl && vhost.http2) "http2 "
         + optionalString ssl "ssl "
@@ -543,7 +552,9 @@ let
         }
 
         ${
-          optionalString (hasSSL && vhost.quic && vhost.http3)
+          optionalString (
+            hasSSL && vhost.quic && vhost.http3
+          )
           # Advertise that HTTP/3 is available
           ''
             add_header Alt-Svc 'h3=":$server_port"; ma=86400';
@@ -563,13 +574,14 @@ let
     concatStringsSep "\n" (map (config: ''
       location ${config.location} {
         ${
-          optionalString
-          (config.proxyPass != null && !cfg.proxyResolveWhileRunning)
-          "proxy_pass ${config.proxyPass};"
+          optionalString (
+            config.proxyPass != null && !cfg.proxyResolveWhileRunning
+          ) "proxy_pass ${config.proxyPass};"
         }
         ${
-          optionalString
-          (config.proxyPass != null && cfg.proxyResolveWhileRunning) ''
+          optionalString (
+            config.proxyPass != null && cfg.proxyResolveWhileRunning
+          ) ''
             set $nix_proxy_target "${config.proxyPass}";
             proxy_pass $nix_proxy_target;
           ''
@@ -584,8 +596,9 @@ let
         ${
           concatStringsSep "\n"
           (mapAttrsToList (n: v: ''fastcgi_param ${n} "${v}";'')
-            (optionalAttrs (config.fastcgiParams != { })
-              (defaultFastcgiParams // config.fastcgiParams)))
+            (optionalAttrs (config.fastcgiParams != { }) (
+              defaultFastcgiParams // config.fastcgiParams
+            )))
         }
         ${optionalString (config.index != null) "index ${config.index};"}
         ${
@@ -597,9 +610,9 @@ let
         ${optionalString (config.return != null) "return ${config.return};"}
         ${config.extraConfig}
         ${
-          optionalString
-          (config.proxyPass != null && config.recommendedProxySettings)
-          "include ${recommendedProxyConfig};"
+          optionalString (
+            config.proxyPass != null && config.recommendedProxySettings
+          ) "include ${recommendedProxyConfig};"
         }
         ${mkBasicAuth "sublocation" config}
       }
@@ -609,26 +622,28 @@ let
 
   mkBasicAuth =
     name: zone:
-    optionalString (zone.basicAuthFile != null || zone.basicAuth != { }) (let
-      auth_file =
-        if zone.basicAuthFile != null then
-          zone.basicAuthFile
-        else
-          mkHtpasswd name zone.basicAuth
-        ;
-    in
-    ''
-      auth_basic secured;
-      auth_basic_user_file ${auth_file};
-    ''
+    optionalString (zone.basicAuthFile != null || zone.basicAuth != { }) (
+      let
+        auth_file =
+          if zone.basicAuthFile != null then
+            zone.basicAuthFile
+          else
+            mkHtpasswd name zone.basicAuth
+          ;
+      in
+      ''
+        auth_basic secured;
+        auth_basic_user_file ${auth_file};
+      ''
     )
     ;
   mkHtpasswd =
     name: authDef:
-    pkgs.writeText "${name}.htpasswd" (concatStringsSep "\n" (mapAttrsToList
-      (user: password: ''
+    pkgs.writeText "${name}.htpasswd" (concatStringsSep "\n" (mapAttrsToList (
+      user: password: ''
         ${user}:{PLAIN}${password}
-      '') authDef))
+      ''
+    ) authDef))
     ;
 
   mkCertOwnershipAssertion =
@@ -1005,7 +1020,8 @@ in
       };
 
       proxyCachePath = mkOption {
-        type = types.attrsOf (types.submodule ({
+        type = types.attrsOf (types.submodule (
+          {
             ...
           }: {
             options = {
@@ -1067,7 +1083,8 @@ in
                 description = lib.mdDoc "Set maximum cache size";
               };
             };
-          }));
+          }
+        ));
         default = { };
         description = lib.mdDoc ''
           Configure a proxy cache path entry.
@@ -1288,7 +1305,8 @@ in
         }
 
         {
-          assertion = all (host:
+          assertion = all (
+            host:
             with host;
             count id [
               addSSL
@@ -1296,7 +1314,8 @@ in
               forceSSL
               rejectSSL
             ]
-            <= 1) (attrValues virtualHosts);
+            <= 1
+          ) (attrValues virtualHosts);
           message = ''
             Options services.nginx.service.virtualHosts.<name>.addSSL,
             services.nginx.virtualHosts.<name>.onlySSL,
@@ -1347,12 +1366,14 @@ in
           '';
         }
       ]
-      ++ map (name:
+      ++ map (
+        name:
         mkCertOwnershipAssertion {
           inherit (cfg) group user;
           cert = config.security.acme.certs.${name};
           groups = config.users.groups;
-        }) dependentCertNames
+        }
+      ) dependentCertNames
       ;
 
     services.nginx.additionalModules =
@@ -1437,9 +1458,13 @@ in
         RestrictNamespaces = true;
         LockPersonality = true;
         MemoryDenyWriteExecute =
-          !((builtins.any (mod: (mod.allowMemoryWriteExecute or false))
-            cfg.package.modules)
-            || (cfg.package == pkgs.openresty))
+          !(
+            (builtins.any (mod: (mod.allowMemoryWriteExecute or false))
+              cfg.package.modules)
+            || (
+              cfg.package == pkgs.openresty
+            )
+          )
           ;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
@@ -1451,10 +1476,17 @@ in
           [
             "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @setuid"
           ]
-          ++ optionals ((cfg.package != pkgs.tengine)
-            && (cfg.package != pkgs.openresty)
-            && (!lib.any (mod: (mod.disableIPC or false))
-              cfg.package.modules)) [ "~@ipc" ]
+          ++ optionals (
+            (
+              cfg.package != pkgs.tengine
+            )
+            && (
+              cfg.package != pkgs.openresty
+            )
+            && (
+              !lib.any (mod: (mod.disableIPC or false)) cfg.package.modules
+            )
+          ) [ "~@ipc" ]
           ;
       };
     };
@@ -1503,7 +1535,8 @@ in
 
     security.acme.certs =
       let
-        acmePairs = map (vhostConfig:
+        acmePairs = map (
+          vhostConfig:
           let
             hasRoot = vhostConfig.acmeRoot != null;
           in
@@ -1512,15 +1545,19 @@ in
               # if acmeRoot is null inherit config.security.acme
               # Since config.security.acme.certs.<cert>.webroot's own default value
               # should take precedence set priority higher than mkOptionDefault
-            webroot = mkOverride (if hasRoot then
-              1000
-            else
-              2000) vhostConfig.acmeRoot;
+            webroot = mkOverride (
+              if hasRoot then
+                1000
+              else
+                2000
+            ) vhostConfig.acmeRoot;
               # Also nudge dnsProvider to null in case it is inherited
-            dnsProvider = mkOverride (if hasRoot then
-              1000
-            else
-              2000) null;
+            dnsProvider = mkOverride (
+              if hasRoot then
+                1000
+              else
+                2000
+            ) null;
             extraDomainNames = vhostConfig.serverAliases;
               # Filter for enableACME-only vhosts. Don't want to create dud certs
           }

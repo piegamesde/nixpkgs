@@ -433,25 +433,29 @@ stdenv.mkDerivation {
     for p in $(ls --ignore=kodi-send $out/bin/) ; do
       wrapProgram $out/bin/$p \
         --prefix PATH ":" "${
-          lib.makeBinPath ([
-            python3Packages.python
-            glxinfo
-          ]
+          lib.makeBinPath (
+            [
+              python3Packages.python
+              glxinfo
+            ]
             ++ lib.optional x11Support xdpyinfo
-            ++ lib.optional sambaSupport samba)
+            ++ lib.optional sambaSupport samba
+          )
         }" \
         --prefix LD_LIBRARY_PATH ":" "${
-          lib.makeLibraryPath ([
-            curl
-            systemd
-            libmad
-            libvdpau
-            libcec
-            libcec_platform
-            libass
-          ]
+          lib.makeLibraryPath (
+            [
+              curl
+              systemd
+              libmad
+              libvdpau
+              libcec
+              libcec_platform
+              libass
+            ]
             ++ lib.optional nfsSupport libnfs
-            ++ lib.optional rtmpSupport rtmpdump)
+            ++ lib.optional rtmpSupport rtmpdump
+          )
         }"
     done
 

@@ -92,17 +92,19 @@ in
         StateDirectory = baseNameOf libDir;
         ExecStartPre =
           "${getBin pykms}/libexec/create_pykms_db.sh ${libDir}/clients.db";
-        ExecStart = lib.concatStringsSep " " ([
-          "${getBin pykms}/bin/server"
-          "--logfile=STDOUT"
-          "--loglevel=${cfg.logLevel}"
-          "--sqlite=${libDir}/clients.db"
-        ]
+        ExecStart = lib.concatStringsSep " " (
+          [
+            "${getBin pykms}/bin/server"
+            "--logfile=STDOUT"
+            "--loglevel=${cfg.logLevel}"
+            "--sqlite=${libDir}/clients.db"
+          ]
           ++ cfg.extraArgs
           ++ [
             cfg.listenAddress
             (toString cfg.port)
-          ]);
+          ]
+        );
         ProtectHome = "tmpfs";
         WorkingDirectory = libDir;
         SyslogIdentifier = "pykms";

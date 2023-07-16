@@ -40,8 +40,8 @@ let
     };
   } ./setup-hook-darwin.sh;
 in
-stdenv.mkDerivation
-((lib.optionalAttrs (buildScript != null) { builder = buildScript; })
+stdenv.mkDerivation (
+  (lib.optionalAttrs (buildScript != null) { builder = buildScript; })
   // (lib.optionalAttrs stdenv.isDarwin {
     postConfigure = ''
       # dynamic fallback, so this shouldn’t cause problems for older versions of macOS and will
@@ -75,12 +75,15 @@ stdenv.mkDerivation
         makeWrapper
         pkg-config
       ]
-      ++ lib.optionals supportFlags.mingwSupport
-        (mingwGccs ++ lib.optional stdenv.isDarwin setupHookDarwin)
+      ++ lib.optionals supportFlags.mingwSupport (
+        mingwGccs ++ lib.optional stdenv.isDarwin setupHookDarwin
+      )
       ;
 
-    buildInputs = toBuildInputs pkgArches (with supportFlags;
-      (pkgs:
+    buildInputs = toBuildInputs pkgArches (
+      with supportFlags;
+      (
+        pkgs:
         [
           pkgs.freetype
           pkgs.perl
@@ -107,20 +110,24 @@ stdenv.mkDerivation
         ++ lib.optional (xineramaSupport && !waylandSupport)
           pkgs.xorg.libXinerama
         ++ lib.optional udevSupport pkgs.udev
-        ++ lib.optional vulkanSupport (if stdenv.isDarwin then
-          moltenvk
-        else
-          pkgs.vulkan-loader)
+        ++ lib.optional vulkanSupport (
+          if stdenv.isDarwin then
+            moltenvk
+          else
+            pkgs.vulkan-loader
+        )
         ++ lib.optional sdlSupport pkgs.SDL2
         ++ lib.optional usbSupport pkgs.libusb1
-        ++ lib.optionals gstreamerSupport (with pkgs.gst_all_1; [
-          gstreamer
-          gst-plugins-base
-          gst-plugins-good
-          gst-plugins-ugly
-          gst-libav
-          (gst-plugins-bad.override { enableZbar = false; })
-        ])
+        ++ lib.optionals gstreamerSupport (
+          with pkgs.gst_all_1; [
+            gstreamer
+            gst-plugins-base
+            gst-plugins-good
+            gst-plugins-ugly
+            gst-libav
+            (gst-plugins-bad.override { enableZbar = false; })
+          ]
+        )
         ++ lib.optionals gtkSupport [
           pkgs.gtk3
           pkgs.glib
@@ -139,8 +146,8 @@ stdenv.mkDerivation
           pkgs.mesa.osmesa
           pkgs.libdrm
         ]
-        ++ lib.optionals stdenv.isDarwin
-          (with pkgs.buildPackages.darwin.apple_sdk.frameworks; [
+        ++ lib.optionals stdenv.isDarwin (
+          with pkgs.buildPackages.darwin.apple_sdk.frameworks; [
             CoreServices
             Foundation
             ForceFeedback
@@ -157,25 +164,32 @@ stdenv.mkDerivation
             OpenCL
             Cocoa
             Carbon
-          ])
-        ++ lib.optionals (stdenv.isLinux && !waylandSupport) (with pkgs.xorg; [
-          libX11
-          libXi
-          libXcursor
-          libXrandr
-          libXrender
-          libXxf86vm
-          libXcomposite
-          libXext
-        ])
-        ++ lib.optionals waylandSupport (with pkgs; [
-          wayland
-          libxkbcommon
-          wayland-protocols
-          wayland.dev
-          libxkbcommon.dev
-          mesa # for libgbm
-        ])));
+          ]
+        )
+        ++ lib.optionals (stdenv.isLinux && !waylandSupport) (
+          with pkgs.xorg; [
+            libX11
+            libXi
+            libXcursor
+            libXrandr
+            libXrender
+            libXxf86vm
+            libXcomposite
+            libXext
+          ]
+        )
+        ++ lib.optionals waylandSupport (
+          with pkgs; [
+            wayland
+            libxkbcommon
+            wayland-protocols
+            wayland.dev
+            libxkbcommon.dev
+            mesa # for libgbm
+          ]
+        )
+      )
+    );
 
     patches =
       [ ]
@@ -201,15 +215,18 @@ stdenv.mkDerivation
       # Wine locates a lot of libraries dynamically through dlopen().  Add
       # them to the RPATH so that the user doesn't have to set them in
       # LD_LIBRARY_PATH.
-    NIX_LDFLAGS = toString (map (path: "-rpath " + path)
-      (map (x: "${lib.getLib x}/lib") ([ stdenv.cc.cc ] ++ buildInputs)
+    NIX_LDFLAGS = toString (map (path: "-rpath " + path) (
+      map (x: "${lib.getLib x}/lib") (
+        [ stdenv.cc.cc ] ++ buildInputs
+      )
       # libpulsecommon.so is linked but not found otherwise
-        ++ lib.optionals supportFlags.pulseaudioSupport
-          (map (x: "${lib.getLib x}/lib/pulseaudio")
-            (toBuildInputs pkgArches (pkgs: [ pkgs.libpulseaudio ])))
-        ++ lib.optionals supportFlags.waylandSupport
-          (map (x: "${lib.getLib x}/share/wayland-protocols")
-            (toBuildInputs pkgArches (pkgs: [ pkgs.wayland-protocols ])))));
+      ++ lib.optionals supportFlags.pulseaudioSupport
+        (map (x: "${lib.getLib x}/lib/pulseaudio")
+          (toBuildInputs pkgArches (pkgs: [ pkgs.libpulseaudio ])))
+      ++ lib.optionals supportFlags.waylandSupport
+        (map (x: "${lib.getLib x}/share/wayland-protocols")
+          (toBuildInputs pkgArches (pkgs: [ pkgs.wayland-protocols ])))
+    ));
 
       # Don't shrink the ELF RPATHs in order to keep the extra RPATH
       # elements specified above.
@@ -226,9 +243,10 @@ stdenv.mkDerivation
       in
       lib.optionalString supportFlags.embedInstallers ''
         mkdir -p $out/share/wine/gecko $out/share/wine/mono/
-        ${lib.strings.concatStringsSep "\n"
-        ((map (links "share/wine/gecko") geckos)
-          ++ (map (links "share/wine/mono") monos))}
+        ${lib.strings.concatStringsSep "\n" (
+          (map (links "share/wine/gecko") geckos)
+          ++ (map (links "share/wine/mono") monos)
+        )}
       ''
       + lib.optionalString supportFlags.gstreamerSupport ''
         # Wrapping Wine is tricky.
@@ -299,4 +317,5 @@ stdenv.mkDerivation
       ];
       inherit mainProgram;
     };
-  })
+  }
+)

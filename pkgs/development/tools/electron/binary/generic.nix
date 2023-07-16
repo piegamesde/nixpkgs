@@ -92,13 +92,14 @@ let
     ;
 
   electronLibPath = with lib;
-    makeLibraryPath ([
-      libuuid
-      at-spi2-atk
-      at-spi2-core
-      libappindicator-gtk3
-      wayland
-    ]
+    makeLibraryPath (
+      [
+        libuuid
+        at-spi2-atk
+        at-spi2-core
+        libappindicator-gtk3
+        wayland
+      ]
       ++ optionals (versionAtLeast version "9.0.0") [
         libdrm
         mesa
@@ -106,7 +107,8 @@ let
       ++ optionals (versionOlder version "10.0.0") [ libXScrnSaver ]
       ++ optionals (versionAtLeast version "11.0.0") [ libxkbcommon ]
       ++ optionals (versionAtLeast version "12.0.0") [ libxshmfence ]
-      ++ optionals (versionAtLeast version "17.0.0") [ libglvnd ]);
+      ++ optionals (versionAtLeast version "17.0.0") [ libglvnd ]
+    );
 
   linux = {
     buildInputs = [
@@ -160,7 +162,11 @@ let
     '';
   };
 in
-stdenv.mkDerivation ((common stdenv.hostPlatform) // (if stdenv.isDarwin then
-  darwin
-else
-  linux))
+stdenv.mkDerivation (
+  (common stdenv.hostPlatform) // (
+    if stdenv.isDarwin then
+      darwin
+    else
+      linux
+  )
+)

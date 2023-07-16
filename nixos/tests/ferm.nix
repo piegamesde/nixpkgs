@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -89,4 +90,5 @@ import ./make-test-python.nix ({
           client.fail("curl --fail -g http://192.168.1.1:8080/status")
           client.fail("curl --fail -g http://[fd00::1]:8080/status")
     '';
-  })
+  }
+)

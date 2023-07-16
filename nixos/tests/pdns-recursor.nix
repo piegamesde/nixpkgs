@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -19,4 +20,5 @@ import ./make-test-python.nix ({
       server.wait_for_open_port(53)
       assert "192.0.2.1" in server.succeed("host example.com localhost")
     '';
-  })
+  }
+)

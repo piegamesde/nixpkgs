@@ -1,5 +1,6 @@
 # Test a minimal HDFS cluster with no HA
-import ../make-test-python.nix ({
+import ../make-test-python.nix (
+  {
     package,
     lib,
     ...
@@ -75,22 +76,24 @@ import ../make-test-python.nix ({
         datanode.wait_for_unit("hdfs-datanode")
         datanode.wait_for_unit("network.target")
       ''
-      + (if versionAtLeast package.version "3" then
-        ''
-          datanode.wait_for_open_port(9864)
-          datanode.wait_for_open_port(9866)
-          datanode.wait_for_open_port(9867)
+      + (
+        if versionAtLeast package.version "3" then
+          ''
+            datanode.wait_for_open_port(9864)
+            datanode.wait_for_open_port(9866)
+            datanode.wait_for_open_port(9867)
 
-          datanode.succeed("curl -f http://datanode:9864")
-        ''
-      else
-        ''
-          datanode.wait_for_open_port(50075)
-          datanode.wait_for_open_port(50010)
-          datanode.wait_for_open_port(50020)
+            datanode.succeed("curl -f http://datanode:9864")
+          ''
+        else
+          ''
+            datanode.wait_for_open_port(50075)
+            datanode.wait_for_open_port(50010)
+            datanode.wait_for_open_port(50020)
 
-          datanode.succeed("curl -f http://datanode:50075")
-        '')
+            datanode.succeed("curl -f http://datanode:50075")
+          ''
+      )
       + ''
         namenode.succeed("curl -f http://namenode:9870")
 
@@ -105,4 +108,5 @@ import ../make-test-python.nix ({
         assert "testfilecontents" in datanode.succeed("curl -f \"http://namenode:14000/webhdfs/v1/testfile?user.name=hdfs&op=OPEN\" 2>&1")
       ''
       ;
-  })
+  }
+)

@@ -36,8 +36,10 @@ let
       # https://sourceware.org/glibc/wiki/Release/2.26#Removal_of_.27xlocale.h.27
     postPatch =
       if
-        (stdenv.hostPlatform.libc == "glibc"
-          || stdenv.hostPlatform.libc == "musl")
+        (
+          stdenv.hostPlatform.libc == "glibc"
+          || stdenv.hostPlatform.libc == "musl"
+        )
         && lib.versionOlder version "62.1"
       then
         "substituteInPlace i18n/digitlst.cpp --replace '<xlocale.h>' '<locale.h>'"
@@ -101,29 +103,30 @@ let
       lib.optionalString stdenv.isDarwin ''
         sed -i 's/INSTALL_CMD=.*install/INSTALL_CMD=install/' $out/lib/icu/${version}/pkgdata.inc
       ''
-      + (let
-        replacements = [
-          {
-            from = "\${prefix}/include";
-            to = "${placeholder "dev"}/include";
-          } # --cppflags-searchpath
-          {
-            from = "\${pkglibdir}/Makefile.inc";
-            to = "${placeholder "dev"}/lib/icu/Makefile.inc";
-          } # --incfile
-          {
-            from = "\${pkglibdir}/pkgdata.inc";
-            to = "${placeholder "dev"}/lib/icu/pkgdata.inc";
-          } # --incpkgdatafile
-        ];
-      in
-      ''
-        substituteInPlace "$dev/bin/icu-config" \
-          ${
-            lib.concatMapStringsSep " " (r: "--replace '${r.from}' '${r.to}'")
-            replacements
-          }
-      ''
+      + (
+        let
+          replacements = [
+            {
+              from = "\${prefix}/include";
+              to = "${placeholder "dev"}/include";
+            } # --cppflags-searchpath
+            {
+              from = "\${pkglibdir}/Makefile.inc";
+              to = "${placeholder "dev"}/lib/icu/Makefile.inc";
+            } # --incfile
+            {
+              from = "\${pkglibdir}/pkgdata.inc";
+              to = "${placeholder "dev"}/lib/icu/pkgdata.inc";
+            } # --incpkgdatafile
+          ];
+        in
+        ''
+          substituteInPlace "$dev/bin/icu-config" \
+            ${
+              lib.concatMapStringsSep " " (r: "--replace '${r.from}' '${r.to}'")
+              replacements
+            }
+        ''
       )
       ;
 
@@ -157,8 +160,10 @@ let
       realAttrs
     ;
 in
-stdenv.mkDerivation (finalAttrs:
+stdenv.mkDerivation (
+  finalAttrs:
   attrs // {
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig finalAttrs.finalPackage;
-  })
+  }
+)

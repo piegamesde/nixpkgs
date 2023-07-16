@@ -8,11 +8,13 @@
 }:
 
 let
-  pythonEnv = python3.withPackages (ps:
+  pythonEnv = python3.withPackages (
+    ps:
     with ps; [
       cheetah3
       lxml
-    ]);
+    ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "sickgear";

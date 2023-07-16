@@ -58,11 +58,13 @@
 }:
 
 let
-  python = python3.withPackages (p:
+  python = python3.withPackages (
+    p:
     with p; [
       pygobject3
       setuptools
-    ]);
+    ]
+  );
 
   isx86 = stdenv.hostPlatform.isx86;
 

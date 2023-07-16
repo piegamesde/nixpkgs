@@ -19,11 +19,12 @@ let
     types
     ;
 
-  bosConfig = pkgs.writeText "BosConfig" (''
-    restrictmode 1
-    restarttime 16 0 0 0 0
-    checkbintime 3 0 5 0 0
-  ''
+  bosConfig = pkgs.writeText "BosConfig" (
+    ''
+      restrictmode 1
+      restarttime 16 0 0 0 0
+      checkbintime 3 0 5 0 0
+    ''
     + (optionalString cfg.roles.database.enable ''
       bnode simple vlserver 1
       parm ${openafsSrv}/libexec/openafs/vlserver ${
@@ -48,31 +49,40 @@ let
       parm ${openafsSrv}/libexec/openafs/dasalvager ${cfg.roles.fileserver.salvagerArgs}
       end
     '')
-    + (optionalString (cfg.roles.database.enable
+    + (optionalString (
+      cfg.roles.database.enable
       && cfg.roles.backup.enable
-      && (!cfg.roles.backup.enableFabs)) ''
-        bnode simple buserver 1
-        parm ${openafsSrv}/libexec/openafs/buserver ${cfg.roles.backup.buserverArgs} ${
-          optionalString useBuCellServDB "-cellservdb /etc/openafs/backup/"
-        }
-        end
-      '')
-    + (optionalString (cfg.roles.database.enable
+      && (
+        !cfg.roles.backup.enableFabs
+      )
+    ) ''
+      bnode simple buserver 1
+      parm ${openafsSrv}/libexec/openafs/buserver ${cfg.roles.backup.buserverArgs} ${
+        optionalString useBuCellServDB "-cellservdb /etc/openafs/backup/"
+      }
+      end
+    '')
+    + (optionalString (
+      cfg.roles.database.enable
       && cfg.roles.backup.enable
-      && cfg.roles.backup.enableFabs) ''
-        bnode simple buserver 1
-        parm ${
-          lib.getBin pkgs.fabs
-        }/bin/fabsys server --config ${fabsConfFile} ${cfg.roles.backup.fabsArgs}
-        end
-      ''));
+      && cfg.roles.backup.enableFabs
+    ) ''
+      bnode simple buserver 1
+      parm ${
+        lib.getBin pkgs.fabs
+      }/bin/fabsys server --config ${fabsConfFile} ${cfg.roles.backup.fabsArgs}
+      end
+    '')
+  );
 
   netInfo =
     if (cfg.advertisedAddresses != [ ]) then
-      pkgs.writeText "NetInfo" ((concatStringsSep ''
+      pkgs.writeText "NetInfo" (
+        (concatStringsSep ''
 
-        f '' cfg.advertisedAddresses)
-        + "\n")
+          f '' cfg.advertisedAddresses)
+        + "\n"
+      )
     else
       null
     ;
@@ -87,17 +97,19 @@ let
 
   udpSizeStr = toString cfg.udpPacketSize;
 
-  fabsConfFile = pkgs.writeText "fabs.yaml" (builtins.toJSON ({
-    afs = {
-      aklog = cfg.package + "/bin/aklog";
-      cell = cfg.cellName;
-      dumpscan = cfg.package + "/bin/afsdump_scan";
-      fs = cfg.package + "/bin/fs";
-      pts = cfg.package + "/bin/pts";
-      vos = cfg.package + "/bin/vos";
-    };
-    k5start.command = (lib.getBin pkgs.kstart) + "/bin/k5start";
-  } // cfg.roles.backup.fabsExtraConfig));
+  fabsConfFile = pkgs.writeText "fabs.yaml" (builtins.toJSON (
+    {
+      afs = {
+        aklog = cfg.package + "/bin/aklog";
+        cell = cfg.cellName;
+        dumpscan = cfg.package + "/bin/afsdump_scan";
+        fs = cfg.package + "/bin/fs";
+        pts = cfg.package + "/bin/pts";
+        vos = cfg.package + "/bin/vos";
+      };
+      k5start.command = (lib.getBin pkgs.kstart) + "/bin/k5start";
+    } // cfg.roles.backup.fabsExtraConfig
+  ));
 
 in
 {

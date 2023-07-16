@@ -21,7 +21,8 @@ let
     {
       # Create a generic WordPress package. Most arguments are just passed
       # to `mkDerivation`. The version is automatically filtered for weird characters.
-      mkWordpressDerivation = self.callPackage ({
+      mkWordpressDerivation = self.callPackage (
+        {
           stdenvNoCC,
           lib,
           filterWPString,
@@ -39,47 +40,51 @@ let
           "theme"
           "language"
         ];
-        stdenvNoCC.mkDerivation ({
-          pname = "wordpress-${type}-${pname}";
-          version = filterWPString version;
+        stdenvNoCC.mkDerivation (
+          {
+            pname = "wordpress-${type}-${pname}";
+            version = filterWPString version;
 
-          dontConfigure = true;
-          dontBuild = true;
+            dontConfigure = true;
+            dontBuild = true;
 
-          installPhase = ''
-            runHook preInstall
-            cp -R ./. $out
-            runHook postInstall
-          '';
+            installPhase = ''
+              runHook preInstall
+              cp -R ./. $out
+              runHook postInstall
+            '';
 
-          passthru = { wpName = pname; } // (args.passthru or { });
-        } // lib.optionalAttrs (type == "language") {
-          nativeBuildInputs = [
-            gettext
-            wp-cli
-          ];
-          dontBuild = false;
-          buildPhase = ''
-            runHook preBuild
+            passthru = { wpName = pname; } // (args.passthru or { });
+          } // lib.optionalAttrs (type == "language") {
+            nativeBuildInputs = [
+              gettext
+              wp-cli
+            ];
+            dontBuild = false;
+            buildPhase = ''
+              runHook preBuild
 
-            find -name '*.po' -print0 | while IFS= read -d "" -r po; do
-              msgfmt -o $(basename "$po" .po).mo "$po"
-            done
-            wp i18n make-json .
-            rm *.po
+              find -name '*.po' -print0 | while IFS= read -d "" -r po; do
+                msgfmt -o $(basename "$po" .po).mo "$po"
+              done
+              wp i18n make-json .
+              rm *.po
 
-            runHook postBuild
-          '';
-        } // removeAttrs args [
-          "type"
-          "pname"
-          "version"
-          "passthru"
-        ])) { };
+              runHook postBuild
+            '';
+          } // removeAttrs args [
+            "type"
+            "pname"
+            "version"
+            "passthru"
+          ]
+        )
+      ) { };
 
         # Create a derivation from the official wordpress.org packages.
         # This takes the type, the pname and the data generated from the go tool.
-      mkOfficialWordpressDerivation = self.callPackage ({
+      mkOfficialWordpressDerivation = self.callPackage (
+        {
           mkWordpressDerivation,
           fetchWordpress,
         }:
@@ -93,7 +98,8 @@ let
           version = data.version;
 
           src = fetchWordpress type data;
-        }) { };
+        }
+      ) { };
 
         # Filter out all characters that might occur in a version string but that that are not allowed
         # in store paths.
@@ -139,7 +145,8 @@ let
 
         # Fetch a package from the official wordpress.org SVN.
         # The data supplied is the data straight from the go tool.
-      fetchWordpress = self.callPackage ({
+      fetchWordpress = self.callPackage (
+        {
           fetchsvn,
         }:
         type: data:
@@ -160,18 +167,27 @@ let
             else
               throw "fetchWordpress: invalid package type ${type}"
             ;
-        }) { };
+        }
+      ) { };
 
-    } // lib.mapAttrs (type: pkgs:
-      lib.makeExtensible (_:
-        lib.mapAttrs (pname: data:
+    } // lib.mapAttrs (
+      type: pkgs:
+      lib.makeExtensible (
+        _:
+        lib.mapAttrs (
+          pname: data:
           self.mkOfficialWordpressDerivation {
             type = lib.removeSuffix "s" type;
             inherit pname data;
-          }) pkgs)) generatedJson
+          }
+        ) pkgs
+      )
+    ) generatedJson
     ;
 
     # This creates an extensible scope.
 in
 lib.recursiveUpdate ((lib.makeExtensible (_: (lib.makeScope newScope packages)))
-  .extend (selfWP: superWP: { })) (callPackage ./thirdparty.nix { })
+  .extend (
+    selfWP: superWP: { }
+  )) (callPackage ./thirdparty.nix { })

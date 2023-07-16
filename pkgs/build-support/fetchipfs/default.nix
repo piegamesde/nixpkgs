@@ -22,7 +22,9 @@
 let
 
   hasHash =
-    (outputHash != "" && outputHashAlgo != "")
+    (
+      outputHash != "" && outputHashAlgo != ""
+    )
     || md5 != ""
     || sha1 != ""
     || sha256 != ""

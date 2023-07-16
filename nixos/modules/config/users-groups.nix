@@ -70,9 +70,11 @@ let
           type = types.passwdEntry types.str;
           apply =
             x:
-            assert (builtins.stringLength x < 32
+            assert (
+              builtins.stringLength x < 32
               || abort
-                "Username '${x}' is longer than 31 characters which is not allowed!");
+                "Username '${x}' is longer than 31 characters which is not allowed!"
+            );
             x
             ;
           description = lib.mdDoc ''
@@ -134,9 +136,11 @@ let
           type = types.str;
           apply =
             x:
-            assert (builtins.stringLength x < 32
+            assert (
+              builtins.stringLength x < 32
               || abort
-                "Group name '${x}' is longer than 31 characters which is not allowed!");
+                "Group name '${x}' is longer than 31 characters which is not allowed!"
+            );
             x
             ;
           default = "";
@@ -374,11 +378,11 @@ let
         (mkIf (!cfg.mutableUsers && config.initialHashedPassword != null) {
           hashedPassword = mkDefault config.initialHashedPassword;
         })
-        (mkIf (config.isNormalUser
+        (mkIf (
+          config.isNormalUser
           && config.subUidRanges == [ ]
-          && config.subGidRanges == [ ]) {
-            autoSubUidGidRange = mkDefault true;
-          })
+          && config.subGidRanges == [ ]
+        ) { autoSubUidGidRange = mkDefault true; })
       ];
 
     }
@@ -467,7 +471,8 @@ let
 
   idsAreUnique =
     set: idAttr:
-    !(foldr (name:
+    !(foldr (
+      name:
       args@{
         dup,
         acc,
@@ -510,27 +515,29 @@ let
 
   spec = pkgs.writeText "users-groups.json" (builtins.toJSON {
     inherit (cfg) mutableUsers;
-    users = mapAttrsToList (_: u: {
-      inherit (u)
-        name
-        uid
-        group
-        description
-        home
-        homeMode
-        createHome
-        isSystemUser
-        password
-        passwordFile
-        hashedPassword
-        autoSubUidGidRange
-        subUidRanges
-        subGidRanges
-        initialPassword
-        initialHashedPassword
-        ;
-      shell = utils.toShellPath u.shell;
-    }) cfg.users;
+    users = mapAttrsToList (
+      _: u: {
+        inherit (u)
+          name
+          uid
+          group
+          description
+          home
+          homeMode
+          createHome
+          isSystemUser
+          password
+          passwordFile
+          hashedPassword
+          autoSubUidGidRange
+          subUidRanges
+          subGidRanges
+          initialPassword
+          initialHashedPassword
+          ;
+        shell = utils.toShellPath u.shell;
+      }
+    ) cfg.users;
     groups = attrValues cfg.groups;
   });
 
@@ -655,7 +662,8 @@ in
         Users to include in initrd.
       '';
       default = { };
-      type = types.attrsOf (types.submodule ({
+      type = types.attrsOf (types.submodule (
+        {
           name,
           ...
         }: {
@@ -677,7 +685,8 @@ in
             defaultText = literalExpression "config.users.users.\${name}.group";
             default = cfg.users.${name}.group;
           };
-        }));
+        }
+      ));
     };
 
     boot.initrd.systemd.groups = mkOption {
@@ -686,7 +695,8 @@ in
         Groups to include in initrd.
       '';
       default = { };
-      type = types.attrsOf (types.submodule ({
+      type = types.attrsOf (types.submodule (
+        {
           name,
           ...
         }: {
@@ -699,7 +709,8 @@ in
             defaultText = literalExpression "config.users.groups.\${name}.gid";
             default = cfg.groups.${name}.gid;
           };
-        }));
+        }
+      ));
     };
   };
 
@@ -798,7 +809,8 @@ in
         # Install all the user shells
       environment.systemPackages = systemShells;
 
-      environment.etc = mapAttrs' (_:
+      environment.etc = mapAttrs' (
+        _:
         {
           packages,
           name,
@@ -811,7 +823,8 @@ in
             inherit (config.environment) pathsToLink extraOutputsToInstall;
             inherit (config.system.path) ignoreCollisions postBuild;
           };
-        }) (filterAttrs (_: u: u.packages != [ ]) cfg.users);
+        }
+      ) (filterAttrs (_: u: u.packages != [ ]) cfg.users);
 
       environment.profiles = [
         "$HOME/.nix-profile"
@@ -822,7 +835,8 @@ in
       boot.initrd.systemd = lib.mkIf config.boot.initrd.systemd.enable {
         contents = {
           "/etc/passwd".text = ''
-            ${lib.concatStringsSep "\n" (lib.mapAttrsToList (n:
+            ${lib.concatStringsSep "\n" (lib.mapAttrsToList (
+              n:
               {
                 uid,
                 group,
@@ -834,11 +848,13 @@ in
             ) config.boot.initrd.systemd.users)}
           '';
           "/etc/group".text = ''
-            ${lib.concatStringsSep "\n" (lib.mapAttrsToList (n:
+            ${lib.concatStringsSep "\n" (lib.mapAttrsToList (
+              n:
               {
                 gid,
               }:
-              "${n}:x:${toString gid}:") config.boot.initrd.systemd.groups)}
+              "${n}:x:${toString gid}:"
+            ) config.boot.initrd.systemd.groups)}
           '';
         };
 
@@ -878,7 +894,9 @@ in
           {
             assertion =
               !cfg.enforceIdUniqueness
-              || (sdInitrdUidsAreUnique && sdInitrdGidsAreUnique)
+              || (
+                sdInitrdUidsAreUnique && sdInitrdGidsAreUnique
+              )
               ;
             message = "systemd initrd UIDs and GIDs must be unique!";
           }
@@ -892,16 +910,24 @@ in
             assertion =
               !cfg.mutableUsers
               -> !cfg.allowNoPasswordLogin
-              -> any id (mapAttrsToList (name: cfg:
-                (name == "root"
-                  || cfg.group == "wheel"
-                  || elem "wheel" cfg.extraGroups)
-                && (allowsLogin cfg.hashedPassword
-                  || cfg.password != null
-                  || cfg.passwordFile != null
-                  || cfg.openssh.authorizedKeys.keys != [ ]
-                  || cfg.openssh.authorizedKeys.keyFiles != [ ])) cfg.users
-                ++ [ config.security.googleOsLogin.enable ])
+              -> any id (
+                mapAttrsToList (
+                  name: cfg:
+                  (
+                    name == "root"
+                    || cfg.group == "wheel"
+                    || elem "wheel" cfg.extraGroups
+                  )
+                  && (
+                    allowsLogin cfg.hashedPassword
+                    || cfg.password != null
+                    || cfg.passwordFile != null
+                    || cfg.openssh.authorizedKeys.keys != [ ]
+                    || cfg.openssh.authorizedKeys.keyFiles != [ ]
+                  )
+                ) cfg.users
+                ++ [ config.security.googleOsLogin.enable ]
+              )
               ;
             message = ''
               Neither the root account nor any wheel user has a password or SSH authorized key.
@@ -912,12 +938,17 @@ in
             '';
           }
         ]
-        ++ flatten (flip mapAttrsToList cfg.users (name: user:
+        ++ flatten (flip mapAttrsToList cfg.users (
+          name: user:
           [
             {
               assertion =
-                (user.hashedPassword != null)
-                -> (builtins.match ".*:.*" user.hashedPassword == null)
+                (
+                  user.hashedPassword != null
+                )
+                -> (
+                  builtins.match ".*:.*" user.hashedPassword == null
+                )
                 ;
               message = ''
                 The password hash of user "${user.name}" contains a ":" character.
@@ -951,8 +982,12 @@ in
           ]
           ++ (map (shell: {
             assertion =
-              (user.shell == pkgs.${shell})
-              -> (config.programs.${shell}.enable == true)
+              (
+                user.shell == pkgs.${shell}
+              )
+              -> (
+                config.programs.${shell}.enable == true
+              )
               ;
             message = ''
               users.users.${user.name}.shell is set to ${shell}, but
@@ -965,42 +1000,45 @@ in
             "fish"
             "xonsh"
             "zsh"
-          ])))
+          ])
+        ))
         ;
 
-      warnings = builtins.filter (x: x != null) (flip mapAttrsToList cfg.users
-        (_: user:
-          # This regex matches a subset of the Modular Crypto Format (MCF)[1]
-          # informal standard. Since this depends largely on the OS or the
-          # specific implementation of crypt(3) we only support the (sane)
-          # schemes implemented by glibc and BSDs. In particular the original
-          # DES hash is excluded since, having no structure, it would validate
-          # common mistakes like typing the plaintext password.
-          #
-          # [1]: https://en.wikipedia.org/wiki/Crypt_(C)
-          let
-            sep = "\\$";
-            base64 = "[a-zA-Z0-9./]+";
-            id = cryptSchemeIdPatternGroup;
-            name = "[a-z0-9-]+";
-            value = "[a-zA-Z0-9/+.-]+";
-            options = "${name}(=${value})?(,${name}=${value})*";
-            scheme = "${id}(${sep}${options})?";
-            content = "${base64}${sep}${base64}(${sep}${base64})?";
-            mcf = "^${sep}${scheme}${sep}${content}$";
-          in
-          if
-            (allowsLogin user.hashedPassword
-              && user.hashedPassword != "" # login without password
-              && builtins.match mcf user.hashedPassword == null)
-          then
-            ''
-              The password hash of user "${user.name}" may be invalid. You must set a
-              valid hash or the user will be locked out of their account. Please
-              check the value of option `users.users."${user.name}".hashedPassword`.''
-          else
-            null
-        ));
+      warnings = builtins.filter (x: x != null) (flip mapAttrsToList cfg.users (
+        _: user:
+        # This regex matches a subset of the Modular Crypto Format (MCF)[1]
+        # informal standard. Since this depends largely on the OS or the
+        # specific implementation of crypt(3) we only support the (sane)
+        # schemes implemented by glibc and BSDs. In particular the original
+        # DES hash is excluded since, having no structure, it would validate
+        # common mistakes like typing the plaintext password.
+        #
+        # [1]: https://en.wikipedia.org/wiki/Crypt_(C)
+        let
+          sep = "\\$";
+          base64 = "[a-zA-Z0-9./]+";
+          id = cryptSchemeIdPatternGroup;
+          name = "[a-z0-9-]+";
+          value = "[a-zA-Z0-9/+.-]+";
+          options = "${name}(=${value})?(,${name}=${value})*";
+          scheme = "${id}(${sep}${options})?";
+          content = "${base64}${sep}${base64}(${sep}${base64})?";
+          mcf = "^${sep}${scheme}${sep}${content}$";
+        in
+        if
+          (
+            allowsLogin user.hashedPassword
+            && user.hashedPassword != "" # login without password
+            && builtins.match mcf user.hashedPassword == null
+          )
+        then
+          ''
+            The password hash of user "${user.name}" may be invalid. You must set a
+            valid hash or the user will be locked out of their account. Please
+            check the value of option `users.users."${user.name}".hashedPassword`.''
+        else
+          null
+      ));
 
     }
     ;

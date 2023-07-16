@@ -4,7 +4,8 @@
 #   3. jenkins service not started on slave node
 #   4. declarative jobs can be added and removed
 
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -142,4 +143,5 @@ import ./make-test-python.nix ({
             assert jobs == [], f"jobs != []: {jobs}"
       ''
       ;
-  })
+  }
+)

@@ -113,14 +113,18 @@ in
 symlinkJoin {
   name = "bottles";
   paths = [
-    (buildFHSEnv (fhsEnv // {
-      name = "bottles";
-      runScript = "bottles";
-    }))
-    (buildFHSEnv (fhsEnv // {
-      name = "bottles-cli";
-      runScript = "bottles-cli";
-    }))
+    (buildFHSEnv (
+      fhsEnv // {
+        name = "bottles";
+        runScript = "bottles";
+      }
+    ))
+    (buildFHSEnv (
+      fhsEnv // {
+        name = "bottles-cli";
+        runScript = "bottles-cli";
+      }
+    ))
   ];
   postBuild = ''
     mkdir -p $out/share

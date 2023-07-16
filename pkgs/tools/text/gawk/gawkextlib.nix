@@ -30,7 +30,8 @@
 }:
 
 let
-  buildExtension = lib.makeOverridable ({
+  buildExtension = lib.makeOverridable (
+    {
       name,
       gawkextlib,
       extraBuildInputs ? [ ],
@@ -188,7 +189,9 @@ let
     };
   };
 in
-recurseIntoAttrs (libs // {
-  inherit gawkextlib buildExtension;
-  full = builtins.attrValues libs;
-})
+recurseIntoAttrs (
+  libs // {
+    inherit gawkextlib buildExtension;
+    full = builtins.attrValues libs;
+  }
+)

@@ -255,7 +255,8 @@ in
           See https://www.kernel.org/doc/html/latest/admin-guide/binfmt-misc.html for more details.
         '';
 
-        type = types.attrsOf (types.submodule ({
+        type = types.attrsOf (types.submodule (
+          {
             config,
             ...
           }: {
@@ -370,7 +371,8 @@ in
                 type = types.nullOr types.path;
               };
             };
-          }));
+          }
+        ));
       };
 
       emulatedSystems = mkOption {
@@ -414,14 +416,19 @@ in
               interpreter
             ;
         in
-        ({
-          preserveArgvZero = mkDefault preserveArgvZero;
+        (
+          {
+            preserveArgvZero = mkDefault preserveArgvZero;
 
-          interpreter = mkDefault interpreterReg;
-          wrapInterpreterInShell = mkDefault (!config.preserveArgvZero);
-          interpreterSandboxPath = mkDefault (dirOf (dirOf config.interpreter));
-        } // (magics.${system} or (throw
-          "Cannot create binfmt registration for system ${system}")))
+            interpreter = mkDefault interpreterReg;
+            wrapInterpreterInShell = mkDefault (!config.preserveArgvZero);
+            interpreterSandboxPath =
+              mkDefault (dirOf (dirOf config.interpreter));
+          } // (
+            magics.${system} or (throw
+              "Cannot create binfmt registration for system ${system}")
+          )
+        )
         ;
     }) cfg.emulatedSystems);
     nix.settings = lib.mkIf (cfg.emulatedSystems != [ ]) {

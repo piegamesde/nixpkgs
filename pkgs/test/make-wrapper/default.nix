@@ -268,4 +268,5 @@ runCommand "make-wrapper-test" {
   + mkTest "VAR=abc test-suffix-contents" "VAR=abc:foo:bar"
     # --prefix-contents works
   + mkTest "VAR=abc test-prefix-contents" "VAR=bar:foo:abc"
-  + "touch $out")
+  + "touch $out"
+)

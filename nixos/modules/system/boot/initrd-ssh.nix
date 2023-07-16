@@ -118,24 +118,28 @@ in
     };
   };
 
-  imports = map (opt:
-    mkRemovedOptionModule ([
-      "boot"
-      "initrd"
-      "network"
-      "ssh"
-    ]
-      ++ [ opt ]) ''
-        The initrd SSH functionality now uses OpenSSH rather than Dropbear.
+  imports = map (
+    opt:
+    mkRemovedOptionModule (
+      [
+        "boot"
+        "initrd"
+        "network"
+        "ssh"
+      ]
+      ++ [ opt ]
+    ) ''
+      The initrd SSH functionality now uses OpenSSH rather than Dropbear.
 
-        If you want to keep your existing initrd SSH host keys, convert them with
-          $ dropbearconvert dropbear openssh dropbear_host_$type_key ssh_host_$type_key
-        and then set options.boot.initrd.network.ssh.hostKeys.
-      '') [
-        "hostRSAKey"
-        "hostDSSKey"
-        "hostECDSAKey"
-      ];
+      If you want to keep your existing initrd SSH host keys, convert them with
+        $ dropbearconvert dropbear openssh dropbear_host_$type_key ssh_host_$type_key
+      and then set options.boot.initrd.network.ssh.hostKeys.
+    ''
+  ) [
+    "hostRSAKey"
+    "hostDSSKey"
+    "hostECDSAKey"
+  ];
 
   config =
     let
@@ -149,8 +153,9 @@ in
           let
             name = builtins.baseNameOf path;
           in
-          builtins.unsafeDiscardStringContext
-          ("/etc/ssh/" + substring 1 (stringLength name) name)
+          builtins.unsafeDiscardStringContext (
+            "/etc/ssh/" + substring 1 (stringLength name) name
+          )
         ;
 
       sshdCfg = config.services.openssh;

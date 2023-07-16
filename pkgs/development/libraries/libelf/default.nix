@@ -61,12 +61,14 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   nativeBuildInputs =
-    (if stdenv.hostPlatform.isFreeBSD then
-      [ freebsd.gencat ]
-    else if stdenv.hostPlatform.isNetBSD then
-      [ netbsd.gencat ]
-    else
-      [ gettext ])
+    (
+      if stdenv.hostPlatform.isFreeBSD then
+        [ freebsd.gencat ]
+      else if stdenv.hostPlatform.isNetBSD then
+        [ netbsd.gencat ]
+      else
+        [ gettext ]
+    )
     # Need to regenerate configure script with newer version in order to pass
     # "mr_cv_target_elf=yes" and determine integer sizes correctly when
     # cross-compiling, but `autoreconfHook` brings in `makeWrapper` which

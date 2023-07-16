@@ -90,17 +90,19 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = escapeShellArgs ([
-          "${getBin cfg.package}/bin/icecc-scheduler"
-          "-p"
-          (toString cfg.port)
-        ]
+        ExecStart = escapeShellArgs (
+          [
+            "${getBin cfg.package}/bin/icecc-scheduler"
+            "-p"
+            (toString cfg.port)
+          ]
           ++ optionals (cfg.netName != null) [
             "-n"
             (toString cfg.netName)
           ]
           ++ optional cfg.persistentClientConnection "-r"
-          ++ cfg.extraArgs);
+          ++ cfg.extraArgs
+        );
 
         DynamicUser = true;
       };

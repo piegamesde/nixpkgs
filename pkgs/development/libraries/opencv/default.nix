@@ -80,10 +80,12 @@ stdenv.mkDerivation rec {
       ilmbase
     ]
     ++ lib.optional enableFfmpeg ffmpeg
-    ++ lib.optionals enableGStreamer (with gst_all_1; [
-      gstreamer
-      gst-plugins-base
-    ])
+    ++ lib.optionals enableGStreamer (
+      with gst_all_1; [
+        gstreamer
+        gst-plugins-base
+      ]
+    )
     ++ lib.optional enableEigen eigen
     ++ lib.optionals stdenv.isDarwin [
       AVFoundation

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     latestKernel ? false,
     ...
@@ -34,4 +35,5 @@ import ./make-test-python.nix ({
       with subtest("perl should not be included"):
           machine.fail("which perl")
     '';
-  })
+  }
+)

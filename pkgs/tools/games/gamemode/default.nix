@@ -53,11 +53,13 @@ stdenv.mkDerivation rec {
   postPatch = ''
     substituteInPlace data/gamemoderun \
       --subst-var-by libraryPath ${
-        lib.makeLibraryPath ([ (placeholder "lib") ]
+        lib.makeLibraryPath (
+          [ (placeholder "lib") ]
           ++ lib.optionals (stdenv.hostPlatform.system == "x86_64-linux") [
             # Support wrapping 32bit applications on a 64bit linux system
             libgamemode32
-          ])
+          ]
+        )
       }
   '';
 

@@ -20,21 +20,22 @@ let
     '') list
     ;
 
-  configFile = pkgs.writeText "namecoin.conf" (''
-    server=1
-    daemon=0
-    txindex=1
-    txprevcache=1
-    walletpath=${cfg.wallet}
-    gen=${
-      if cfg.generate then
-        "1"
-      else
-        "0"
-    }
-    ${listToConf "addnode" cfg.extraNodes}
-    ${listToConf "connect" cfg.trustedNodes}
-  ''
+  configFile = pkgs.writeText "namecoin.conf" (
+    ''
+      server=1
+      daemon=0
+      txindex=1
+      txprevcache=1
+      walletpath=${cfg.wallet}
+      gen=${
+        if cfg.generate then
+          "1"
+        else
+          "0"
+      }
+      ${listToConf "addnode" cfg.extraNodes}
+      ${listToConf "connect" cfg.trustedNodes}
+    ''
     + optionalString useRPC ''
       rpcbind=${cfg.rpc.address}
       rpcport=${toString cfg.rpc.port}
@@ -47,7 +48,8 @@ let
       rpcsslcertificatechainfile=${cfg.rpc.certificate}
       rpcsslprivatekeyfile=${cfg.rpc.key}
       rpcsslciphers=TLSv1.2+HIGH:TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!3DES:@STRENGTH
-    '');
+    ''
+  );
 
 in
 {

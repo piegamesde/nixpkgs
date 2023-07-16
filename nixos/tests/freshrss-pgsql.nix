@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -53,4 +54,5 @@ import ./make-test-python.nix ({
       response = machine.succeed("curl -vvv -s -H 'Host: freshrss' http://127.0.0.1:80/i/")
       assert '<title>Login · FreshRSS</title>' in response, "Login page didn't load successfully"
     '';
-  })
+  }
+)

@@ -55,12 +55,13 @@ stdenv.mkDerivation rec {
       # Without this OpenSSL from nixpkgs is not detected
       ./darwin-non-static-openssl.patch
     ]
-    ++ lib.optionals
-      (stdenv.isDarwin && !(darwin.apple_sdk.frameworks ? UserNotifications)) [
-        # We cannot include UserNotifications because of a build failure in the Apple SDK.
-        # The functions used from it are already implicitly included anyways.
-        ./darwin-no-UserNotifications-includes.patch
-      ]
+    ++ lib.optionals (
+      stdenv.isDarwin && !(darwin.apple_sdk.frameworks ? UserNotifications)
+    ) [
+      # We cannot include UserNotifications because of a build failure in the Apple SDK.
+      # The functions used from it are already implicitly included anyways.
+      ./darwin-no-UserNotifications-includes.patch
+    ]
     ;
 
   postPatch =
@@ -95,10 +96,9 @@ stdenv.mkDerivation rec {
       CoreServices
       ScreenSaver
     ]
-    ++ lib.optionals
-      (stdenv.isDarwin && darwin.apple_sdk.frameworks ? UserNotifications) [
-        darwin.apple_sdk.frameworks.UserNotifications
-      ]
+    ++ lib.optionals (
+      stdenv.isDarwin && darwin.apple_sdk.frameworks ? UserNotifications
+    ) [ darwin.apple_sdk.frameworks.UserNotifications ]
     ++ lib.optionals stdenv.isLinux [
       util-linux
       libselinux

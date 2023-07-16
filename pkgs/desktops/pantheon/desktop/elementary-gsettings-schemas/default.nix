@@ -42,9 +42,9 @@ runCommand "elementary-gsettings-desktop-schemas" {
   mkdir -p "$schema_dir"
   cp -rf "${glib.getSchemaPath gala}"/*.gschema.override "$schema_dir"
 
-  ${concatMapStringsSep "\n"
-  (pkg: ''cp -rf "${glib.getSchemaPath pkg}"/*.xml "$schema_dir"'')
-  gsettingsOverridePackages}
+  ${concatMapStringsSep "\n" (
+    pkg: ''cp -rf "${glib.getSchemaPath pkg}"/*.xml "$schema_dir"''
+  ) gsettingsOverridePackages}
 
   chmod -R a+w "$data_dir"
   cp "${glib.getSchemaPath elementary-default-settings}"/* "$schema_dir"

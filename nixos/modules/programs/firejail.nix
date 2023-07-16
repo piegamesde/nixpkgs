@@ -18,7 +18,8 @@ let
   } ''
     mkdir -p $out/bin
     mkdir -p $out/share/applications
-    ${lib.concatStringsSep "\n" (lib.mapAttrsToList (command: value:
+    ${lib.concatStringsSep "\n" (lib.mapAttrsToList (
+      command: value:
       let
         opts =
           if builtins.isAttrs value then
@@ -31,9 +32,11 @@ let
               extraArgs = [ ];
             }
           ;
-        args = lib.escapeShellArgs (opts.extraArgs
+        args = lib.escapeShellArgs (
+          opts.extraArgs
           ++ (optional (opts.profile != null)
-            "--profile=${toString opts.profile}"));
+            "--profile=${toString opts.profile}")
+        );
       in
       ''
         cat <<_EOF >$out/bin/${command}

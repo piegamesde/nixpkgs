@@ -121,7 +121,8 @@ let
     }
     ;
 in
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -194,4 +195,5 @@ import ./make-test-python.nix ({
       # IPProtocol + InvertRule
       node1.succeed("sudo ip rule | grep 'not from all ipproto tcp lookup 40'")
     '';
-  })
+  }
+)

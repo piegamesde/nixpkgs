@@ -43,12 +43,14 @@ buildPythonPackage rec {
 
   nativeBuildInputs =
     [ ]
-    ++ (with rustPlatform; [
-      cargoSetupHook
-      maturinBuildHook
-      rust.cargo
-      rust.rustc
-    ])
+    ++ (
+      with rustPlatform; [
+        cargoSetupHook
+        maturinBuildHook
+        rust.cargo
+        rust.rustc
+      ]
+    )
     ;
 
   propagatedBuildInputs = [ anyio ];

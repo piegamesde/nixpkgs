@@ -2,7 +2,8 @@ let
   # arbitrary address
   ipAddr = "192.168.42.42";
 in
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -42,4 +43,5 @@ import ./make-test-python.nix ({
       assert "MBATTCHG : 42 Percent" in res, f"expected apcaccess output to contain '{expect_line}' but got '{res}'"
       machine.shutdown()
     '';
-  })
+  }
+)

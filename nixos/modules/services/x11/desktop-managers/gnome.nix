@@ -439,11 +439,13 @@ in
           namesAreUnique = lib.unique wmNames == wmNames;
         in
         assert (assertMsg namesAreUnique "Flashback WM names must be unique.");
-        map (wm:
+        map (
+          wm:
           pkgs.gnome.gnome-flashback.mkSessionForWm {
             inherit (wm) wmName wmLabel wmCommand enableGnomePanel;
             inherit (cfg.flashback) panelModulePackages;
-          }) flashbackWms
+          }
+        ) flashbackWms
         ;
 
       security.pam.services.gnome-flashback = { enableGnomeKeyring = true; };
@@ -616,36 +618,38 @@ in
     # Adapt from https://gitlab.gnome.org/GNOME/gnome-build-meta/blob/gnome-3-38/elements/core/meta-gnome-core-utilities.bst
     (mkIf serviceCfg.core-utilities.enable {
       environment.systemPackages = with pkgs.gnome;
-        utils.removePackagesByName ([
-          baobab
-          cheese
-          eog
-          epiphany
-          pkgs.gnome-text-editor
-          gnome-calculator
-          gnome-calendar
-          gnome-characters
-          gnome-clocks
-          pkgs.gnome-console
-          gnome-contacts
-          gnome-font-viewer
-          gnome-logs
-          gnome-maps
-          gnome-music
-          pkgs.gnome-photos
-          gnome-system-monitor
-          gnome-weather
-          nautilus
-          pkgs.gnome-connections
-          simple-scan
-          totem
-          yelp
-        ]
+        utils.removePackagesByName (
+          [
+            baobab
+            cheese
+            eog
+            epiphany
+            pkgs.gnome-text-editor
+            gnome-calculator
+            gnome-calendar
+            gnome-characters
+            gnome-clocks
+            pkgs.gnome-console
+            gnome-contacts
+            gnome-font-viewer
+            gnome-logs
+            gnome-maps
+            gnome-music
+            pkgs.gnome-photos
+            gnome-system-monitor
+            gnome-weather
+            nautilus
+            pkgs.gnome-connections
+            simple-scan
+            totem
+            yelp
+          ]
           ++ lib.optionals config.services.flatpak.enable [
             # Since PackageKit Nix support is not there yet,
             # only install gnome-software if flatpak is enabled.
             gnome-software
-          ]) config.environment.gnome.excludePackages;
+          ]
+        ) config.environment.gnome.excludePackages;
 
         # Enable default program modules
         # Since some of these have a corresponding package, we only

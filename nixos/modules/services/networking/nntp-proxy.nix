@@ -53,13 +53,15 @@ let
       users = (${
         concatStringsSep ''
           ,
-        '' (mapAttrsToList (username: userConfig: ''
-          {
-              username = "${username}";
-              password = "${userConfig.passwordHash}";
-              max_connections = ${toString userConfig.maxConnections};
-          }
-        '') cfg.users)
+        '' (mapAttrsToList (
+          username: userConfig: ''
+            {
+                username = "${username}";
+                password = "${userConfig.passwordHash}";
+                max_connections = ${toString userConfig.maxConnections};
+            }
+          ''
+        ) cfg.users)
       });
     };
   '';

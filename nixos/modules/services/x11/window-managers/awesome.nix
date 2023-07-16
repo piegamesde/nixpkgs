@@ -12,11 +12,13 @@ let
   cfg = config.services.xserver.windowManager.awesome;
   awesome = cfg.package;
   getLuaPath = lib: dir: "${lib}/${dir}/lua/${awesome.lua.luaversion}";
-  makeSearchPath = lib.concatMapStrings (path:
+  makeSearchPath = lib.concatMapStrings (
+    path:
     " --search "
     + (getLuaPath path "share")
     + " --search "
-    + (getLuaPath path "lib"));
+    + (getLuaPath path "lib")
+  );
 
 in
 {

@@ -10,13 +10,15 @@ with lib;
 let
   cfg = config.services.adguardhome;
 
-  args = concatStringsSep " " ([
-    "--no-check-update"
-    "--pidfile /run/AdGuardHome/AdGuardHome.pid"
-    "--work-dir /var/lib/AdGuardHome/"
-    "--config /var/lib/AdGuardHome/AdGuardHome.yaml"
-  ]
-    ++ cfg.extraArgs);
+  args = concatStringsSep " " (
+    [
+      "--no-check-update"
+      "--pidfile /run/AdGuardHome/AdGuardHome.pid"
+      "--work-dir /var/lib/AdGuardHome/"
+      "--config /var/lib/AdGuardHome/AdGuardHome.yaml"
+    ]
+    ++ cfg.extraArgs
+  );
 
   configFile = pkgs.writeTextFile {
     name = "AdGuardHome.yaml";

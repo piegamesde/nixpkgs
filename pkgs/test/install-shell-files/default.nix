@@ -8,10 +8,12 @@
 let
   runTest =
     name: env: buildCommand:
-    runCommandLocal "install-shell-files--${name}" ({
-      nativeBuildInputs = [ installShellFiles ];
-      meta.platforms = lib.platforms.all;
-    } // env) buildCommand
+    runCommandLocal "install-shell-files--${name}" (
+      {
+        nativeBuildInputs = [ installShellFiles ];
+        meta.platforms = lib.platforms.all;
+      } // env
+    ) buildCommand
     ;
 
 in

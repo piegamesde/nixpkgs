@@ -6,7 +6,8 @@
 
 with pkgs.lib;
 
-foldl (matrix: ver:
+foldl (
+  matrix: ver:
   matrix // {
     "basic${toString ver}" = import ./basic.nix {
       inherit system pkgs;
@@ -31,7 +32,8 @@ foldl (matrix: ver:
         inherit system pkgs;
         nextcloudVersion = ver;
       };
-  }) { } [
-    25
-    26
-  ]
+  }
+) { } [
+  25
+  26
+]

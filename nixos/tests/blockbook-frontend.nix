@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -29,4 +30,5 @@ import ./make-test-python.nix ({
 
       machine.succeed("curl -sSfL http://localhost:9030 | grep 'Blockbook'")
     '';
-  })
+  }
+)

@@ -98,15 +98,18 @@ stdenv.mkDerivation rec {
       "--with-mantype=man"
       "--with-libedit=yes"
       "--disable-strip"
-      (if stdenv.isLinux then
-        "--with-pam"
-      else
-        "--without-pam")
+      (
+        if stdenv.isLinux then
+          "--with-pam"
+        else
+          "--without-pam"
+      )
     ]
     ++ lib.optional (etcDir != null) "--sysconfdir=${etcDir}"
     ++ lib.optional withFIDO "--with-security-key-builtin=yes"
-    ++ lib.optional withKerberos
-      (assert libkrb5 != null; "--with-kerberos5=${libkrb5}")
+    ++ lib.optional withKerberos (
+      assert libkrb5 != null; "--with-kerberos5=${libkrb5}"
+    )
     ++ lib.optional stdenv.isDarwin "--disable-libutil"
     ++ lib.optional (!linkOpenssl) "--without-openssl"
     ++ extraConfigureFlags
@@ -206,11 +209,15 @@ stdenv.mkDerivation rec {
       license = licenses.bsd2;
       platforms = platforms.unix ++ platforms.windows;
       maintainers =
-        (extraMeta.maintainers or [ ])
-        ++ (with maintainers; [
-          eelco
-          aneeshusa
-        ])
+        (
+          extraMeta.maintainers or [ ]
+        )
+        ++ (
+          with maintainers; [
+            eelco
+            aneeshusa
+          ]
+        )
         ;
       mainProgram = "ssh";
     } // extraMeta;

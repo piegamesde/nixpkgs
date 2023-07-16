@@ -31,14 +31,16 @@ stdenv.mkDerivation rec {
     gtk3
     gobject-introspection
     ladspaPlugins
-    (python3.withPackages (ps:
+    (python3.withPackages (
+      ps:
       with ps; [
         mlt
         pygobject3
         dbus-python
         numpy
         pillow
-      ]))
+      ]
+    ))
   ];
 
   nativeBuildInputs = [

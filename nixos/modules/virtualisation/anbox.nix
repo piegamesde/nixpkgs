@@ -23,13 +23,17 @@ let
 
       prefixLength = mkOption {
         default = pref;
-        type = types.addCheck types.int (n:
+        type = types.addCheck types.int (
+          n:
           n >= 0
           && n
-            <= (if v == 4 then
-              32
-            else
-              128));
+            <= (
+              if v == 4 then
+                32
+              else
+                128
+            )
+        );
         description = lib.mdDoc ''
           Subnet mask of the ${name} address, specified as the number of
           bits in the prefix (`${
@@ -117,18 +121,20 @@ in
         wantedBy = [ "multi-user.target" ];
         preStart =
           let
-            initsh = pkgs.writeText "nixos-init" (''
-              #!/system/bin/sh
-              setprop nixos.version ${config.system.nixos.version}
+            initsh = pkgs.writeText "nixos-init" (
+              ''
+                #!/system/bin/sh
+                setprop nixos.version ${config.system.nixos.version}
 
-              # we don't have radio
-              setprop ro.radio.noril yes
-              stop ril-daemon
+                # we don't have radio
+                setprop ro.radio.noril yes
+                stop ril-daemon
 
-              # speed up boot
-              setprop debug.sf.nobootanimation 1
-            ''
-              + cfg.extraInit);
+                # speed up boot
+                setprop debug.sf.nobootanimation 1
+              ''
+              + cfg.extraInit
+            );
             initshloc =
               "${anboxloc}/rootfs-overlay/system/etc/init.goldfish.sh";
           in

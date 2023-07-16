@@ -60,13 +60,15 @@ let
       curl
       openssl_1_1
     ]
-    ++ (if stdenv.isLinux then
-      [
-        pam
-        lttng-ust
-      ]
-    else
-      [ darwin.Libsystem ])
+    ++ (
+      if stdenv.isLinux then
+        [
+          pam
+          lttng-ust
+        ]
+      else
+        [ darwin.Libsystem ]
+    )
     ;
 in
 stdenv.mkDerivation rec {

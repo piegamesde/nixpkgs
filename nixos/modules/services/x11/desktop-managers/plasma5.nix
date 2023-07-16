@@ -559,8 +559,10 @@ in
           # The user interface breaks without pulse
           assertion =
             config.hardware.pulseaudio.enable
-            || (config.services.pipewire.enable
-              && config.services.pipewire.pulse.enable)
+            || (
+              config.services.pipewire.enable
+              && config.services.pipewire.pulse.enable
+            )
             ;
           message = "Plasma Mobile requires pulseaudio.";
         }
@@ -577,8 +579,8 @@ in
           pkgs.maliit-framework
           pkgs.maliit-keyboard
         ]
-        ++ lib.optionals (cfg.mobile.installRecommendedSoftware)
-          (with libsForQt5.plasmaMobileGear; [
+        ++ lib.optionals (cfg.mobile.installRecommendedSoftware) (
+          with libsForQt5.plasmaMobileGear; [
             # Additional software made for Plasma Mobile.
             alligator
             angelfish
@@ -596,7 +598,8 @@ in
             plasma-phonebook
             plasma-settings
             spacebar
-          ]);
+          ]
+        );
 
         # The following services are needed or the UI is broken.
       hardware.bluetooth.enable = true;

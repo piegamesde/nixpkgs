@@ -281,17 +281,18 @@ let
     buildAttrs = {
       outputs = [ "out" ];
 
-      TF_SYSTEM_LIBS = lib.concatStringsSep "," (tf_system_libs
+      TF_SYSTEM_LIBS = lib.concatStringsSep "," (
+        tf_system_libs
         ++ lib.optionals (!stdenv.isDarwin) [
             "nsync" # fails to build on darwin
-          ]);
+          ]
+      );
 
       bazelFlags =
         bazelFlags
-        ++ lib.optionals
-          (stdenv.targetPlatform.isx86_64 && stdenv.targetPlatform.isUnix) [
-            "--config=avx_posix"
-          ]
+        ++ lib.optionals (
+          stdenv.targetPlatform.isx86_64 && stdenv.targetPlatform.isUnix
+        ) [ "--config=avx_posix" ]
         ++ lib.optionals cudaSupport [ "--config=cuda" ]
         ++ lib.optionals mklSupport [ "--config=mkl_open_source_only" ]
         ;
@@ -319,18 +320,20 @@ let
           substituteInPlace ../output/external/rules_cc/cc/private/toolchain/unix_cc_configure.bzl \
             --replace "/usr/bin/libtool" "${cctools}/bin/libtool"
         ''
-        + (if stdenv.cc.isGNU then
-          ''
-            sed -i 's@-lprotobuf@-l:libprotobuf.a@' ../output/external/org_tensorflow/third_party/systemlibs/protobuf.BUILD
-            sed -i 's@-lprotoc@-l:libprotoc.a@' ../output/external/org_tensorflow/third_party/systemlibs/protobuf.BUILD
-          ''
-        else if stdenv.cc.isClang then
-          ''
-            sed -i 's@-lprotobuf@${protobuf}/lib/libprotobuf.a@' ../output/external/org_tensorflow/third_party/systemlibs/protobuf.BUILD
-            sed -i 's@-lprotoc@${protobuf}/lib/libprotoc.a@' ../output/external/org_tensorflow/third_party/systemlibs/protobuf.BUILD
-          ''
-        else
-          throw "Unsupported stdenv.cc: ${stdenv.cc}")
+        + (
+          if stdenv.cc.isGNU then
+            ''
+              sed -i 's@-lprotobuf@-l:libprotobuf.a@' ../output/external/org_tensorflow/third_party/systemlibs/protobuf.BUILD
+              sed -i 's@-lprotoc@-l:libprotoc.a@' ../output/external/org_tensorflow/third_party/systemlibs/protobuf.BUILD
+            ''
+          else if stdenv.cc.isClang then
+            ''
+              sed -i 's@-lprotobuf@${protobuf}/lib/libprotobuf.a@' ../output/external/org_tensorflow/third_party/systemlibs/protobuf.BUILD
+              sed -i 's@-lprotoc@${protobuf}/lib/libprotoc.a@' ../output/external/org_tensorflow/third_party/systemlibs/protobuf.BUILD
+            ''
+          else
+            throw "Unsupported stdenv.cc: ${stdenv.cc}"
+        )
         ;
 
       installPhase = ''

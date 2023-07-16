@@ -89,7 +89,8 @@ let
     # file (.dts) into its compiled variant (.dtbo)
   compileDTS =
     name: f:
-    pkgs.callPackage ({
+    pkgs.callPackage (
+      {
         stdenv,
         dtc,
       }:
@@ -104,14 +105,16 @@ let
           }/lib/modules/${cfg.kernelPackage.modDirVersion}/source/scripts/dtc/include-prefixes -undef -D__DTS__ -x assembler-with-cpp ${f} | \
             dtc -I dts -O dtb -@ -o $out
         '';
-      }) { }
+      }
+    ) { }
     ;
 
     # Fill in `dtboFile` for each overlay if not set already.
     # Existence of one of these is guarded by assertion below
   withDTBOs =
     xs:
-    flip map xs (o:
+    flip map xs (
+      o:
       o // {
         dtboFile =
           if o.dtboFile == null then
@@ -122,7 +125,8 @@ let
           else
             o.dtboFile
           ;
-      })
+      }
+    )
     ;
 
 in

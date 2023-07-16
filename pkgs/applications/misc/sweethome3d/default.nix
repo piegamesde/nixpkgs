@@ -28,12 +28,14 @@ let
 
   installIcons =
     iconName: icons:
-    lib.concatStringsSep "\n" (lib.mapAttrsToList (size: iconFile: ''
-      mkdir -p "$out/share/icons/hicolor/${size}/apps"
-      ln -s -T "${iconFile}" "$out/share/icons/hicolor/${size}/apps/${iconName}.${
-        extensionOf iconFile
-      }"
-    '') icons)
+    lib.concatStringsSep "\n" (lib.mapAttrsToList (
+      size: iconFile: ''
+        mkdir -p "$out/share/icons/hicolor/${size}/apps"
+        ln -s -T "${iconFile}" "$out/share/icons/hicolor/${size}/apps/${iconName}.${
+          extensionOf iconFile
+        }"
+      ''
+    ) icons)
     ;
 
   mkSweetHome3D =

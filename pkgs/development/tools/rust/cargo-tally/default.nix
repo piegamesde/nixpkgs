@@ -17,12 +17,13 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-K77opkbNZWymmWMxekSkdiCqmmwccxEqhRcPnrzHWVQ=";
 
-  buildInputs = lib.optionals stdenv.isDarwin
-    (with darwin.apple_sdk_11_0.frameworks; [
+  buildInputs = lib.optionals stdenv.isDarwin (
+    with darwin.apple_sdk_11_0.frameworks; [
       DiskArbitration
       Foundation
       IOKit
-    ]);
+    ]
+  );
 
   meta = with lib; {
     description =

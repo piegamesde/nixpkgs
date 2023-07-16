@@ -56,14 +56,16 @@ stdenv.mkDerivation rec {
       xorg.libXi
     ]
     ++ lib.optional (openclSupport && !stdenv.isDarwin) ocl-icd
-    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-      OpenCL
-      Cocoa
-      CoreVideo
-      IOKit
-      AppKit
-      AGL
-    ])
+    ++ lib.optionals stdenv.isDarwin (
+      with darwin.apple_sdk.frameworks; [
+        OpenCL
+        Cocoa
+        CoreVideo
+        IOKit
+        AppKit
+        AGL
+      ]
+    )
     ++ lib.optional cudaSupport cudatoolkit
     ;
 

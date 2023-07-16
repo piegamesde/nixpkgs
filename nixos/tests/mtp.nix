@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -126,4 +127,5 @@ import ./make-test-python.nix ({
         client.succeed("${jmtpfs.jmtpfsTest} >&2")
       ''
       ;
-  })
+  }
+)

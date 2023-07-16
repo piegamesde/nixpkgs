@@ -30,7 +30,8 @@ stdenv.mkDerivation {
 
   buildInputs = [
     git
-    (python3Packages.python.withPackages (p:
+    (python3Packages.python.withPackages (
+      p:
       with p;
       [
         setuptools
@@ -40,7 +41,8 @@ stdenv.mkDerivation {
         pyxattr
         pylibacl
         fuse
-      ]))
+      ]
+    ))
   ];
   nativeBuildInputs = [
     pandoc

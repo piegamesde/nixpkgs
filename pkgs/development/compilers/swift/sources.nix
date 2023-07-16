@@ -31,14 +31,16 @@ let
   };
 
     # Create fetch derivations.
-  sources = lib.mapAttrs (repo: hash:
+  sources = lib.mapAttrs (
+    repo: hash:
     fetchFromGitHub {
       owner = "apple";
       inherit repo;
       rev = "swift-${version}-RELEASE";
       name = "${repo}-${version}-src";
       hash = hashes.${repo};
-    }) hashes;
+    }
+  ) hashes;
 
 in
 sources // { inherit version; }

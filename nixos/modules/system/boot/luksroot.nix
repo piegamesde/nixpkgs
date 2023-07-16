@@ -580,9 +580,15 @@ let
       ${dev.preOpenCommands}
 
       ${if
-        (luks.yubikeySupport && (dev.yubikey != null))
-        || (luks.gpgSupport && (dev.gpgCard != null))
-        || (luks.fido2Support && fido2luksCredentials != [ ])
+        (
+          luks.yubikeySupport && (dev.yubikey != null)
+        )
+        || (
+          luks.gpgSupport && (dev.gpgCard != null)
+        )
+        || (
+          luks.fido2Support && fido2luksCredentials != [ ]
+        )
       then
         ''
           open_with_hardware
@@ -619,7 +625,8 @@ let
   postLVM = filterAttrs (n: v: !v.preLVM) luks.devices;
 
   stage1Crypttab = pkgs.writeText "initrd-crypttab" (lib.concatStringsSep "\n"
-    (lib.mapAttrsToList (n: v:
+    (lib.mapAttrsToList (
+      n: v:
       let
         opts =
           v.crypttabExtraOpts
@@ -735,7 +742,8 @@ in
       '';
 
       type = with types;
-        attrsOf (submodule ({
+        attrsOf (submodule (
+          {
             name,
             ...
           }: {
@@ -1063,7 +1071,8 @@ in
                 '';
               };
             };
-          }));
+          }
+        ));
     };
 
     boot.initrd.luks.gpgSupport = mkOption {
@@ -1201,10 +1210,12 @@ in
       ++ luks.cryptoModules
         # workaround until https://marc.info/?l=linux-crypto-vger&m=148783562211457&w=4 is merged
         # remove once 'modprobe --show-depends xts' shows ecb as a dependency
-      ++ (if builtins.elem "xts" luks.cryptoModules then
-        [ "ecb" ]
-      else
-        [ ])
+      ++ (
+        if builtins.elem "xts" luks.cryptoModules then
+          [ "ecb" ]
+        else
+          [ ]
+      )
       ;
 
       # copy the cryptsetup binary and it's dependencies
@@ -1251,12 +1262,14 @@ in
           copy_bin_and_libs ${pkgs.gnupg}/bin/gpg-agent
           copy_bin_and_libs ${pkgs.gnupg}/libexec/scdaemon
 
-          ${concatMapStringsSep "\n" (x:
+          ${concatMapStringsSep "\n" (
+            x:
             optionalString (x.gpgCard != null) ''
               mkdir -p $out/secrets/gpg-keys/${x.device}
               cp -a ${x.gpgCard.encryptedPass} $out/secrets/gpg-keys/${x.device}/cryptkey.gpg
               cp -a ${x.gpgCard.publicKey} $out/secrets/gpg-keys/${x.device}/pubkey.asc
-            '') (attrValues luks.devices)}
+            ''
+          ) (attrValues luks.devices)}
         ''}
       ''
       ;
@@ -1301,16 +1314,18 @@ in
 
     boot.initrd.preFailCommands =
       mkIf (!config.boot.initrd.systemd.enable) postCommands;
-    boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable)
-      (commonFunctions
-        + preCommands
-        + concatStrings (mapAttrsToList openCommand preLVM)
-        + postCommands);
-    boot.initrd.postDeviceCommands = mkIf (!config.boot.initrd.systemd.enable)
-      (commonFunctions
-        + preCommands
-        + concatStrings (mapAttrsToList openCommand postLVM)
-        + postCommands);
+    boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable) (
+      commonFunctions
+      + preCommands
+      + concatStrings (mapAttrsToList openCommand preLVM)
+      + postCommands
+    );
+    boot.initrd.postDeviceCommands = mkIf (!config.boot.initrd.systemd.enable) (
+      commonFunctions
+      + preCommands
+      + concatStrings (mapAttrsToList openCommand postLVM)
+      + postCommands
+    );
 
     environment.systemPackages = [ pkgs.cryptsetup ];
   };

@@ -81,12 +81,14 @@ stdenv.mkDerivation rec {
     git
     libarchive
     pkg-config
-    (python.withPackages (ps:
+    (python.withPackages (
+      ps:
       with ps; [
         cython
         pybind11
         setuptools
-      ]))
+      ]
+    ))
     shellcheck
   ];
 

@@ -25,31 +25,38 @@ let
           "0"
         ;
     in
-    concatStringsSep "\n" (mapAttrsToList (name: config: ''
-      [${name}]
-      type = "ido"
-      resource = "${config.resource}"
-      disabled = "${formatBool config.disabled}"
-    '') cfg.backends)
+    concatStringsSep "\n" (mapAttrsToList (
+      name: config: ''
+        [${name}]
+        type = "ido"
+        resource = "${config.resource}"
+        disabled = "${formatBool config.disabled}"
+      ''
+    ) cfg.backends)
     ;
 
-  transportsIni = concatStringsSep "\n" (mapAttrsToList (name: config: ''
-    [${name}]
-    type = "${config.type}"
-    ${optionalString (config.instance != null)
-    ''instance = "${config.instance}"''}
-    ${optionalString (config.type == "local" || config.type == "remote")
-    ''path = "${config.path}"''}
-    ${optionalString (config.type != "local") ''
-      host = "${config.host}"
-      ${optionalString (config.port != null)
-      ''port = "${toString config.port}"''}
-      user${optionalString (config.type == "api") "name"} = "${config.username}"
-    ''}
-    ${optionalString (config.type == "api") ''password = "${config.password}"''}
-    ${optionalString (config.type == "remote")
-    ''resource = "${config.resource}"''}
-  '') cfg.transports);
+  transportsIni = concatStringsSep "\n" (mapAttrsToList (
+    name: config: ''
+      [${name}]
+      type = "${config.type}"
+      ${optionalString (config.instance != null)
+      ''instance = "${config.instance}"''}
+      ${optionalString (config.type == "local" || config.type == "remote")
+      ''path = "${config.path}"''}
+      ${optionalString (config.type != "local") ''
+        host = "${config.host}"
+        ${optionalString (config.port != null)
+        ''port = "${toString config.port}"''}
+        user${
+          optionalString (config.type == "api") "name"
+        } = "${config.username}"
+      ''}
+      ${optionalString (config.type == "api")
+      ''password = "${config.password}"''}
+      ${optionalString (config.type == "remote")
+      ''resource = "${config.resource}"''}
+    ''
+  ) cfg.transports);
 
 in
 {
@@ -94,7 +101,8 @@ in
     backends = mkOption {
       default = { icinga = { resource = "icinga_ido"; }; };
       description = lib.mdDoc "Monitoring backends to define";
-      type = attrsOf (submodule ({
+      type = attrsOf (submodule (
+        {
           name,
           ...
         }: {
@@ -117,7 +125,8 @@ in
               description = lib.mdDoc "Disable this backend";
             };
           };
-        }));
+        }
+      ));
     };
 
     mutableTransports = mkOption {
@@ -131,7 +140,8 @@ in
     transports = mkOption {
       default = { };
       description = lib.mdDoc "Command transports to define";
-      type = attrsOf (submodule ({
+      type = attrsOf (submodule (
+        {
           name,
           ...
         }: {
@@ -195,7 +205,8 @@ in
                 lib.mdDoc "SSH identity resource for the remote transport";
             };
           };
-        }));
+        }
+      ));
     };
   };
 

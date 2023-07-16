@@ -52,8 +52,9 @@ in
     ]
     ++ optionals (perl != null) [ perl ]
     ++ optionals javaAwtGtk [ pkg-config ]
-    ++ optionals
-      (with stdenv.targetPlatform; isVc4 || isRedox && flex != null) [ flex ]
+    ++ optionals (
+      with stdenv.targetPlatform; isVc4 || isRedox && flex != null
+    ) [ flex ]
     ++ optionals langAda [
         gnat-bootstrap
       ]
@@ -65,16 +66,18 @@ in
     # For building runtime libs
     # same for all gcc's
   depsBuildTarget =
-    (if hostPlatform == buildPlatform then
-      [
-        targetPackages.stdenv.cc.bintools # newly-built gcc will be used
-      ]
-    else
-      assert targetPlatform == hostPlatform;
-      [
-        # build != host == target
-        stdenv.cc
-      ])
+    (
+      if hostPlatform == buildPlatform then
+        [
+          targetPackages.stdenv.cc.bintools # newly-built gcc will be used
+        ]
+      else
+        assert targetPlatform == hostPlatform;
+        [
+          # build != host == target
+          stdenv.cc
+        ]
+    )
     ++ optionals targetPlatform.isLinux [ patchelf ]
     ;
 
@@ -96,17 +99,18 @@ in
       zip
       unzip
     ]
-    ++ optionals javaAwtGtk ([
-      gtk2
-      libart_lgpl
-    ]
-      ++ xlibs)
+    ++ optionals javaAwtGtk (
+      [
+        gtk2
+        libart_lgpl
+      ]
+      ++ xlibs
+    )
     ++ optionals (langGo && stdenv.hostPlatform.isMusl) [ libucontext ]
     ;
 
     # threadsCross.package after gcc6 so i assume its okay for 4.8 and 4.9 too
-  depsTargetTarget = optionals
-    (!crossStageStatic && threadsCross != { } && threadsCross.package != null) [
-      threadsCross.package
-    ];
+  depsTargetTarget = optionals (
+    !crossStageStatic && threadsCross != { } && threadsCross.package != null
+  ) [ threadsCross.package ];
 }

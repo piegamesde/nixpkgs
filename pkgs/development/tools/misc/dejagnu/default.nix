@@ -27,7 +27,9 @@ stdenv.mkDerivation rec {
   configureScript = "../configure";
 
   doCheck =
-    !(with stdenv; isDarwin && isAarch64)
+    !(
+      with stdenv; isDarwin && isAarch64
+    )
     ;
 
     # Note: The test-suite *requires* /dev/pts among the `build-chroot-dirs' of

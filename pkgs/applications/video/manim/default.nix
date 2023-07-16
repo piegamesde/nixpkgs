@@ -25,7 +25,9 @@ let
   # these two combined add up to:
   manim-tinytex = {
     inherit
-      (texlive)
+      (
+        texlive
+      )
 
       # tinytex
       scheme-infraonly

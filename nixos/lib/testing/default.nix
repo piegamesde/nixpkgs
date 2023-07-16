@@ -6,13 +6,15 @@ let
   evalTest = module: lib.evalModules { modules = testModules ++ [ module ]; };
   runTest =
     module:
-    (evalTest ({
+    (evalTest (
+      {
         config,
         ...
       }: {
         imports = [ module ];
         result = config.test;
-      })).config.result
+      }
+    )).config.result
     ;
 
   testModules = [

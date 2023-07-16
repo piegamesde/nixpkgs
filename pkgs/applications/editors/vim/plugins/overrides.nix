@@ -710,7 +710,8 @@ self: super:
     meta.homepage = "https://github.com/WhiteBlackGoose/magma-nvim-goose/";
   };
 
-  markdown-preview-nvim = super.markdown-preview-nvim.overrideAttrs (old:
+  markdown-preview-nvim = super.markdown-preview-nvim.overrideAttrs (
+    old:
     let
       # We only need its dependencies `node-modules`.
       nodeDep =
@@ -826,8 +827,9 @@ self: super:
     vimCommandCheck = "TealBuild";
   });
 
-  nvim-treesitter = super.nvim-treesitter.overrideAttrs
-    (old: callPackage ./nvim-treesitter/overrides.nix { } self super);
+  nvim-treesitter = super.nvim-treesitter.overrideAttrs (
+    old: callPackage ./nvim-treesitter/overrides.nix { } self super
+  );
 
   nvim-ufo = super.nvim-ufo.overrideAttrs
     (old: { dependencies = with self; [ promise-async ]; });
@@ -914,7 +916,8 @@ self: super:
     ];
   });
 
-  sg-nvim = super.sg-nvim.overrideAttrs (old:
+  sg-nvim = super.sg-nvim.overrideAttrs (
+    old:
     let
       sg-nvim-rust = rustPlatform.buildRustPackage {
         pname = "sg-nvim-rust";
@@ -1065,12 +1068,14 @@ self: super:
         buildInputs = [
           gobject-introspection
           glib
-          (python3.withPackages (ps:
+          (python3.withPackages (
+            ps:
             with ps; [
               pygobject3
               pynvim
               dbus-python
-            ]))
+            ]
+          ))
         ];
         preferLocalBuild = true;
         installPhase = ''
@@ -1314,7 +1319,9 @@ self: super:
   vim-colorschemes = super.vim-colorschemes.overrideAttrs (old: {
     src = old.src.overrideAttrs (srcOld: {
       postFetch =
-        (srcOld.postFetch or "")
+        (
+          srcOld.postFetch or ""
+        )
         + lib.optionalString (!stdenv.isDarwin) ''
           rm $out/colors/darkBlue.vim
         ''
@@ -1350,7 +1357,8 @@ self: super:
     # change the go_bin_path to point to a path in the nix store. See the code in
     # fatih/vim-go here
     # https://github.com/fatih/vim-go/blob/155836d47052ea9c9bac81ba3e937f6f22c8e384/autoload/go/path.vim#L154-L159
-  vim-go = super.vim-go.overrideAttrs (old:
+  vim-go = super.vim-go.overrideAttrs (
+    old:
     let
       binPath = lib.makeBinPath [
         # TODO: package commented packages
@@ -1608,67 +1616,68 @@ self: super:
     '';
   });
 
-} // (let
-  nodePackageNames = [
-    "coc-clangd"
-    "coc-cmake"
-    "coc-css"
-    "coc-diagnostic"
-    "coc-docker"
-    "coc-emmet"
-    "coc-eslint"
-    "coc-explorer"
-    "coc-flutter"
-    "coc-git"
-    "coc-go"
-    "coc-haxe"
-    "coc-highlight"
-    "coc-html"
-    "coc-imselect"
-    "coc-java"
-    "coc-jest"
-    "coc-json"
-    "coc-lists"
-    "coc-ltex"
-    "coc-markdownlint"
-    "coc-metals"
-    "coc-pairs"
-    "coc-prettier"
-    "coc-pyright"
-    "coc-python"
-    "coc-r-lsp"
-    "coc-rls"
-    "coc-rust-analyzer"
-    "coc-sh"
-    "coc-smartf"
-    "coc-snippets"
-    "coc-solargraph"
-    "coc-spell-checker"
-    "coc-sqlfluff"
-    "coc-stylelint"
-    "coc-sumneko-lua"
-    "coc-tabnine"
-    "coc-texlab"
-    "coc-toml"
-    "coc-tslint"
-    "coc-tslint-plugin"
-    "coc-tsserver"
-    "coc-ultisnips"
-    "coc-vetur"
-    "coc-vimlsp"
-    "coc-vimtex"
-    "coc-wxml"
-    "coc-yaml"
-    "coc-yank"
-  ];
-  nodePackage2VimPackage =
-    name:
-    buildVimPluginFrom2Nix {
-      pname = name;
-      inherit (nodePackages.${name}) version meta;
-      src = "${nodePackages.${name}}/lib/node_modules/${name}";
-    }
-    ;
-in
-lib.genAttrs nodePackageNames nodePackage2VimPackage
+} // (
+  let
+    nodePackageNames = [
+      "coc-clangd"
+      "coc-cmake"
+      "coc-css"
+      "coc-diagnostic"
+      "coc-docker"
+      "coc-emmet"
+      "coc-eslint"
+      "coc-explorer"
+      "coc-flutter"
+      "coc-git"
+      "coc-go"
+      "coc-haxe"
+      "coc-highlight"
+      "coc-html"
+      "coc-imselect"
+      "coc-java"
+      "coc-jest"
+      "coc-json"
+      "coc-lists"
+      "coc-ltex"
+      "coc-markdownlint"
+      "coc-metals"
+      "coc-pairs"
+      "coc-prettier"
+      "coc-pyright"
+      "coc-python"
+      "coc-r-lsp"
+      "coc-rls"
+      "coc-rust-analyzer"
+      "coc-sh"
+      "coc-smartf"
+      "coc-snippets"
+      "coc-solargraph"
+      "coc-spell-checker"
+      "coc-sqlfluff"
+      "coc-stylelint"
+      "coc-sumneko-lua"
+      "coc-tabnine"
+      "coc-texlab"
+      "coc-toml"
+      "coc-tslint"
+      "coc-tslint-plugin"
+      "coc-tsserver"
+      "coc-ultisnips"
+      "coc-vetur"
+      "coc-vimlsp"
+      "coc-vimtex"
+      "coc-wxml"
+      "coc-yaml"
+      "coc-yank"
+    ];
+    nodePackage2VimPackage =
+      name:
+      buildVimPluginFrom2Nix {
+        pname = name;
+        inherit (nodePackages.${name}) version meta;
+        src = "${nodePackages.${name}}/lib/node_modules/${name}";
+      }
+      ;
+  in
+  lib.genAttrs nodePackageNames nodePackage2VimPackage
 )

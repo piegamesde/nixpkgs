@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -102,4 +103,5 @@ import ./make-test-python.nix ({
       with subtest("Destroying a declarative container should fail"):
           machine.fail("nixos-container destroy webserver")
     '';
-  })
+  }
+)

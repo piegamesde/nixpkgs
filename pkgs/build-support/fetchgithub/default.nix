@@ -24,10 +24,12 @@
 let
 
   position =
-    (if args.meta.description or null != null then
-      builtins.unsafeGetAttrPos "description" args.meta
-    else
-      builtins.unsafeGetAttrPos "rev" args);
+    (
+      if args.meta.description or null != null then
+        builtins.unsafeGetAttrPos "description" args.meta
+      else
+        builtins.unsafeGetAttrPos "rev" args
+    );
   baseUrl = "https://${githubBase}/${owner}/${repo}";
   newMeta = meta // {
     homepage = meta.homepage or baseUrl;
@@ -54,10 +56,14 @@ let
     }_GITHUB_PRIVATE_";
   useFetchGit =
     fetchSubmodules
-    || (leaveDotGit == true)
+    || (
+      leaveDotGit == true
+    )
     || deepClone
     || forceFetchGit
-    || !(sparseCheckout == "" || sparseCheckout == [ ])
+    || !(
+      sparseCheckout == "" || sparseCheckout == [ ]
+    )
     ;
     # We prefer fetchzip in cases we don't need submodules as the hash
     # is more stable in that case.
@@ -87,19 +93,21 @@ let
 
   gitRepoUrl = "${baseUrl}.git";
 
-  fetcherArgs = (if useFetchGit then
-    {
-      inherit rev deepClone fetchSubmodules sparseCheckout;
-      url = gitRepoUrl;
-    } // lib.optionalAttrs (leaveDotGit != null) { inherit leaveDotGit; }
-  else
-    {
-      url = "${baseUrl}/archive/${rev}.tar.gz";
+  fetcherArgs = (
+    if useFetchGit then
+      {
+        inherit rev deepClone fetchSubmodules sparseCheckout;
+        url = gitRepoUrl;
+      } // lib.optionalAttrs (leaveDotGit != null) { inherit leaveDotGit; }
+    else
+      {
+        url = "${baseUrl}/archive/${rev}.tar.gz";
 
-      passthru = { inherit gitRepoUrl; };
-    }) // privateAttrs // passthruAttrs // {
-      inherit name;
-    };
+        passthru = { inherit gitRepoUrl; };
+      }
+  ) // privateAttrs // passthruAttrs // {
+    inherit name;
+  };
 
 in
 fetcher fetcherArgs // {

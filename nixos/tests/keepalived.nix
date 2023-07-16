@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -54,4 +55,5 @@ import ./make-test-python.nix ({
       node1.fail("ip addr show dev eth1 | grep -q 192.168.1.200")
       node1.succeed("ping -c1 192.168.1.200")
     '';
-  })
+  }
+)

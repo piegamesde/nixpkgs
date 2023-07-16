@@ -451,7 +451,8 @@ in
 
   config = {
 
-    warnings = concatLists (mapAttrsToList (name: service:
+    warnings = concatLists (mapAttrsToList (
+      name: service:
       let
         type = service.serviceConfig.Type or "";
         restart = service.serviceConfig.Restart or "no";
@@ -459,8 +460,9 @@ in
           builtins.hasAttr "StartLimitInterval" service.serviceConfig;
       in
       concatLists [
-        (optional (type == "oneshot"
-          && (restart == "always" || restart == "on-success"))
+        (optional (
+          type == "oneshot" && (restart == "always" || restart == "on-success")
+        )
           "Service '${name}.service' with 'Type=oneshot' cannot have 'Restart=always' or 'Restart=on-success'")
         (optional hasDeprecated
           "Service '${name}.service' uses the attribute 'StartLimitInterval' in the Service section, which is deprecated. See https://github.com/NixOS/nixpkgs/issues/45786.")
@@ -511,9 +513,11 @@ in
                 ln -s $hook $out/
               done
             done
-            ${concatStrings (mapAttrsToList (exec: target: ''
-              ln -s ${target} $out/${exec};
-            '') links)}
+            ${concatStrings (mapAttrsToList (
+              exec: target: ''
+                ln -s ${target} $out/${exec};
+              ''
+            ) links)}
           ''
           ;
 
@@ -605,12 +609,14 @@ in
       // mapAttrs' (n: v: nameValuePair "${n}.target" (targetToUnit n v))
       cfg.targets
       // mapAttrs' (n: v: nameValuePair "${n}.timer" (timerToUnit n v))
-      cfg.timers // listToAttrs (map (v:
+      cfg.timers // listToAttrs (map (
+        v:
         let
           n = escapeSystemdPath v.where;
         in
         nameValuePair "${n}.mount" (mountToUnit n v)
-      ) cfg.mounts) // listToAttrs (map (v:
+      ) cfg.mounts) // listToAttrs (map (
+        v:
         let
           n = escapeSystemdPath v.where;
         in
@@ -653,10 +659,12 @@ in
     ];
 
       # Generate timer units for all services that have a ‘startAt’ value.
-    systemd.timers = mapAttrs (name: service: {
-      wantedBy = [ "timers.target" ];
-      timerConfig.OnCalendar = service.startAt;
-    }) (filterAttrs (name: service: service.enable && service.startAt != [ ])
+    systemd.timers = mapAttrs (
+      name: service: {
+        wantedBy = [ "timers.target" ];
+        timerConfig.OnCalendar = service.startAt;
+      }
+    ) (filterAttrs (name: service: service.enable && service.startAt != [ ])
       cfg.services);
 
       # Some overrides to upstream units.

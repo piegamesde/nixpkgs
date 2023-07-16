@@ -34,12 +34,14 @@ stdenv.mkDerivation rec {
       CoreServices
       CoreMIDI
     ]
-    ++ (with xorg; [
-      libXext
-      libXft
-      libXpm
-      libXt
-    ])
+    ++ (
+      with xorg; [
+        libXext
+        libXft
+        libXpm
+        libXt
+      ]
+    )
     ;
 
   configureFlags = [ "--with-motif" ];

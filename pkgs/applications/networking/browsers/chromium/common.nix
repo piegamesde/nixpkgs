@@ -106,12 +106,14 @@
 buildFun:
 
 let
-  python3WithPackages = python3.pythonForBuild.withPackages (ps:
+  python3WithPackages = python3.pythonForBuild.withPackages (
+    ps:
     with ps; [
       ply
       jinja2
       setuptools
-    ]);
+    ]
+  );
   clangFormatPython3 = fetchurl {
     url =
       "https://chromium.googlesource.com/chromium/tools/build/+/e77882e0dde52c2ccf33c5570929b75b4a2a2522/recipes/recipe_modules/chromium/resources/clang-format?format=TEXT";
@@ -376,66 +378,70 @@ let
       ''
       ;
 
-    gnFlags = mkGnFlags ({
-      # Main build and toolchain settings:
-      # Create an official and optimized release build (only official builds
-      # should be distributed to users, as non-official builds are intended for
-      # development and may not be configured appropriately for production,
-      # e.g. unsafe developer builds have developer-friendly features that may
-      # weaken or disable security measures like sandboxing or ASLR):
-      is_official_build = true;
-      disable_fieldtrial_testing_config = true;
-        # Build Chromium using the system toolchain (for Linux distributions):
-      custom_toolchain = "//build/toolchain/linux/unbundle:default";
-      host_toolchain = "//build/toolchain/linux/unbundle:default";
-        # Don't build against a sysroot image downloaded from Cloud Storage:
-      use_sysroot = false;
-        # Because we use a different toolchain / compiler version:
-      treat_warnings_as_errors = false;
-        # We aren't compiling with Chrome's Clang (would enable Chrome-specific
-        # plugins for enforcing coding guidelines, etc.):
-      clang_use_chrome_plugins = false;
-        # Disable symbols (they would negatively affect the performance of the
-        # build since the symbols are large and dealing with them is slow):
-      symbol_level = 0;
-      blink_symbol_level = 0;
+    gnFlags = mkGnFlags (
+      {
+        # Main build and toolchain settings:
+        # Create an official and optimized release build (only official builds
+        # should be distributed to users, as non-official builds are intended for
+        # development and may not be configured appropriately for production,
+        # e.g. unsafe developer builds have developer-friendly features that may
+        # weaken or disable security measures like sandboxing or ASLR):
+        is_official_build = true;
+        disable_fieldtrial_testing_config = true;
+          # Build Chromium using the system toolchain (for Linux distributions):
+        custom_toolchain = "//build/toolchain/linux/unbundle:default";
+        host_toolchain = "//build/toolchain/linux/unbundle:default";
+          # Don't build against a sysroot image downloaded from Cloud Storage:
+        use_sysroot = false;
+          # Because we use a different toolchain / compiler version:
+        treat_warnings_as_errors = false;
+          # We aren't compiling with Chrome's Clang (would enable Chrome-specific
+          # plugins for enforcing coding guidelines, etc.):
+        clang_use_chrome_plugins = false;
+          # Disable symbols (they would negatively affect the performance of the
+          # build since the symbols are large and dealing with them is slow):
+        symbol_level = 0;
+        blink_symbol_level = 0;
 
-        # Google API key, see: https://www.chromium.org/developers/how-tos/api-keys
-        # Note: The API key is for NixOS/nixpkgs use ONLY.
-        # For your own distribution, please get your own set of keys.
-      google_api_key = "AIzaSyDGi15Zwl11UNe6Y-5XW_upsfyw31qwZPI";
+          # Google API key, see: https://www.chromium.org/developers/how-tos/api-keys
+          # Note: The API key is for NixOS/nixpkgs use ONLY.
+          # For your own distribution, please get your own set of keys.
+        google_api_key = "AIzaSyDGi15Zwl11UNe6Y-5XW_upsfyw31qwZPI";
 
-        # Optional features:
-      use_gio = true;
-      use_gnome_keyring = false; # Superseded by libsecret
-      use_cups = cupsSupport;
+          # Optional features:
+        use_gio = true;
+        use_gnome_keyring = false; # Superseded by libsecret
+        use_cups = cupsSupport;
 
-        # Feature overrides:
-        # Native Client support was deprecated in 2020 and support will end in June 2021:
-      enable_nacl = false;
-        # Enabling the Widevine component here doesn't affect whether we can
-        # redistribute the chromium package; the Widevine component is either
-        # added later in the wrapped -wv build or downloaded from Google:
-      enable_widevine = true;
-        # Provides the enable-webrtc-pipewire-capturer flag to support Wayland screen capture:
-      rtc_use_pipewire = true;
-        # Disable PGO because the profile data requires a newer compiler version (LLVM 14 isn't sufficient):
-      chrome_pgo_phase = 0;
-      clang_base_path = "${llvmPackages.clang}";
-      use_qt = false;
-        # To fix the build as we don't provide libffi_pic.a
-        # (ld.lld: error: unable to find library -l:libffi_pic.a):
-      use_system_libffi = true;
-    } // lib.optionalAttrs proprietaryCodecs {
-      # enable support for the H.264 codec
-      proprietary_codecs = true;
-      enable_hangout_services_extension = true;
-      ffmpeg_branding = "Chrome";
-    } // lib.optionalAttrs pulseSupport {
-      use_pulseaudio = true;
-      link_pulseaudio = true;
-    } // lib.optionalAttrs ungoogled (lib.importTOML ./ungoogled-flags.toml)
-      // (extraAttrs.gnFlags or { }));
+          # Feature overrides:
+          # Native Client support was deprecated in 2020 and support will end in June 2021:
+        enable_nacl = false;
+          # Enabling the Widevine component here doesn't affect whether we can
+          # redistribute the chromium package; the Widevine component is either
+          # added later in the wrapped -wv build or downloaded from Google:
+        enable_widevine = true;
+          # Provides the enable-webrtc-pipewire-capturer flag to support Wayland screen capture:
+        rtc_use_pipewire = true;
+          # Disable PGO because the profile data requires a newer compiler version (LLVM 14 isn't sufficient):
+        chrome_pgo_phase = 0;
+        clang_base_path = "${llvmPackages.clang}";
+        use_qt = false;
+          # To fix the build as we don't provide libffi_pic.a
+          # (ld.lld: error: unable to find library -l:libffi_pic.a):
+        use_system_libffi = true;
+      } // lib.optionalAttrs proprietaryCodecs {
+        # enable support for the H.264 codec
+        proprietary_codecs = true;
+        enable_hangout_services_extension = true;
+        ffmpeg_branding = "Chrome";
+      } // lib.optionalAttrs pulseSupport {
+        use_pulseaudio = true;
+        link_pulseaudio = true;
+      } // lib.optionalAttrs ungoogled (lib.importTOML ./ungoogled-flags.toml)
+      // (
+        extraAttrs.gnFlags or { }
+      )
+    );
 
     configurePhase = ''
       runHook preConfigure
@@ -503,10 +509,12 @@ let
 
     # Remove some extraAttrs we supplied to the base attributes already.
 in
-stdenv.mkDerivation (base // removeAttrs extraAttrs [
-  "name"
-  "gnFlags"
-  "buildTargets"
-] // {
-  passthru = base.passthru // (extraAttrs.passthru or { });
-})
+stdenv.mkDerivation (
+  base // removeAttrs extraAttrs [
+    "name"
+    "gnFlags"
+    "buildTargets"
+  ] // {
+    passthru = base.passthru // (extraAttrs.passthru or { });
+  }
+)

@@ -70,10 +70,12 @@ stdenv.mkDerivation rec {
       let
         isNotEmpty =
           x:
-          lib.optionalString (!builtins.elem x [
-            null
-            ""
-          ])
+          lib.optionalString (
+            !builtins.elem x [
+              null
+              ""
+            ]
+          )
           ;
       in
       basePackage.overrideAttrs (prev: {
@@ -87,13 +89,16 @@ stdenv.mkDerivation rec {
         postInstall =
           prev.postInstall or ""
           + ''
-            ${lib.concatMapStringsSep "\n" (tpl:
-              "cp -r ${toString tpl} $out/share/dokuwiki/lib/tpl/${tpl.name}")
-            templates}
-            ${lib.concatMapStringsSep "\n" (plugin:
+            ${lib.concatMapStringsSep "\n" (
+              tpl:
+              "cp -r ${toString tpl} $out/share/dokuwiki/lib/tpl/${tpl.name}"
+            ) templates}
+            ${lib.concatMapStringsSep "\n" (
+              plugin:
               "cp -r ${
                 toString plugin
-              } $out/share/dokuwiki/lib/plugins/${plugin.name}") plugins}
+              } $out/share/dokuwiki/lib/plugins/${plugin.name}"
+            ) plugins}
             ${isNotEmpty localConfig
             "ln -sf ${localConfig} $out/share/dokuwiki/conf/local.php"}
             ${isNotEmpty pluginsConfig

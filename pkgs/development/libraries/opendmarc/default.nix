@@ -43,12 +43,14 @@ stdenv.mkDerivation rec {
   postFixup = ''
     for b in $bin/bin/opendmarc-{expire,import,params,reports}; do
       wrapProgram $b --set PERL5LIB ${
-        perlPackages.makeFullPerlPath (with perlPackages; [
-          Switch
-          DBI
-          DBDmysql
-          HTTPMessage
-        ])
+        perlPackages.makeFullPerlPath (
+          with perlPackages; [
+            Switch
+            DBI
+            DBDmysql
+            HTTPMessage
+          ]
+        )
       }
     done
   '';

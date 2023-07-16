@@ -4,7 +4,8 @@
   pkgs,
 }:
 
-lib.makeScope pkgs.newScope (self:
+lib.makeScope pkgs.newScope (
+  self:
   with self; {
     # Dependencies
 
@@ -55,4 +56,5 @@ lib.makeScope pkgs.newScope (self:
         pipeworld
       ];
     };
-  })
+  }
+)

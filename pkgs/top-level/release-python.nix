@@ -19,16 +19,20 @@ with import ./release-lib.nix { inherit supportedSystems nixpkgsArgs; };
 with lib;
 
 let
-  packagePython = mapAttrs (name: value:
+  packagePython = mapAttrs (
+    name: value:
     let
-      res = builtins.tryEval (if isDerivation value then
-        value.meta.isBuildPythonPackage or [ ]
-      else if
-        value.recurseForDerivations or false || value.recurseForRelease or false
-      then
-        packagePython value
-      else
-        [ ]);
+      res = builtins.tryEval (
+        if isDerivation value then
+          value.meta.isBuildPythonPackage or [ ]
+        else if
+          value.recurseForDerivations or false
+          || value.recurseForRelease or false
+        then
+          packagePython value
+        else
+          [ ]
+      );
     in
     lib.optionals res.success res.value
   );

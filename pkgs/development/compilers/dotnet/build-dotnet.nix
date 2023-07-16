@@ -83,9 +83,10 @@ stdenv.mkDerivation (finalAttrs: rec {
     ++ lib.optional stdenv.isLinux lttng-ust_2_12
     ;
 
-  src = fetchurl (srcs."${stdenv.hostPlatform.system}" or (throw
-    "Missing source (url and hash) for host system: ${stdenv.hostPlatform.system}"))
-    ;
+  src = fetchurl (
+    srcs."${stdenv.hostPlatform.system}" or (throw
+      "Missing source (url and hash) for host system: ${stdenv.hostPlatform.system}")
+  );
 
   sourceRoot = ".";
 

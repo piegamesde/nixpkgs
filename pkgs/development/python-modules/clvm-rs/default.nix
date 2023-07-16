@@ -36,10 +36,12 @@ buildPythonPackage rec {
     [
       perl # used by openssl-sys to configure
     ]
-    ++ (with rustPlatform; [
-      cargoSetupHook
-      maturinBuildHook
-    ])
+    ++ (
+      with rustPlatform; [
+        cargoSetupHook
+        maturinBuildHook
+      ]
+    )
     ;
 
   buildInputs = [ openssl ];

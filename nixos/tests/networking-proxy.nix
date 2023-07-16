@@ -11,7 +11,8 @@ let
 
   };
 in
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -144,4 +145,5 @@ import ./make-test-python.nix ({
           assert "000" in env["ftp_proxy"]
           assert "131415" in env["no_proxy"]
     '';
-  })
+  }
+)

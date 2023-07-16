@@ -17,17 +17,19 @@
   ...
 }@args:
 
-callPackage ./generic.nix (args // rec {
-  inherit (officeVersion) version edition;
+callPackage ./generic.nix (
+  args // rec {
+    inherit (officeVersion) version edition;
 
-  pname = "softmaker-office";
-  suiteName = "SoftMaker Office";
+    pname = "softmaker-office";
+    suiteName = "SoftMaker Office";
 
-  src = fetchurl {
-    inherit (officeVersion) hash;
-    url =
-      "https://www.softmaker.net/down/softmaker-office-${edition}-${version}-amd64.tgz";
-  };
+    src = fetchurl {
+      inherit (officeVersion) hash;
+      url =
+        "https://www.softmaker.net/down/softmaker-office-${edition}-${version}-amd64.tgz";
+    };
 
-  archive = "office${edition}.tar.lzma";
-})
+    archive = "office${edition}.tar.lzma";
+  }
+)

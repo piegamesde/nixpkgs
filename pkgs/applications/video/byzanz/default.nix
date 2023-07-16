@@ -51,15 +51,17 @@ stdenv.mkDerivation {
       xorg.xwininfo
       xorg.libXdamage
     ]
-    ++ (with gst_all_1; [
-      gstreamer
-      gst-plugins-base
-      gst-plugins-bad
-      gst-plugins-good
-      gst-plugins-ugly
-      gst-libav
-      wrapGAppsHook
-    ])
+    ++ (
+      with gst_all_1; [
+        gstreamer
+        gst-plugins-base
+        gst-plugins-bad
+        gst-plugins-good
+        gst-plugins-ugly
+        gst-libav
+        wrapGAppsHook
+      ]
+    )
     ;
 
   meta = with lib; {

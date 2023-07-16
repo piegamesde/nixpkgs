@@ -56,14 +56,16 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableGI [ gobject-introspection ]
     ++ lib.optionals (enableDocs || enableGI) [
       doxygen
-      (python3.pythonForBuild.withPackages (ps:
+      (python3.pythonForBuild.withPackages (
+        ps:
         with ps;
         lib.optionals enableDocs [
           sphinx
           sphinx-rtd-theme
           breathe
         ]
-        ++ lib.optionals enableGI [ lxml ]))
+        ++ lib.optionals enableGI [ lxml ]
+      ))
     ]
     ;
 

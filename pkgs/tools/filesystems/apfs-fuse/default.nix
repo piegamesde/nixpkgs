@@ -31,10 +31,12 @@ stdenv.mkDerivation {
 
   buildInputs =
     [
-      (if stdenv.isDarwin then
-        fuse
-      else
-        fuse3)
+      (
+        if stdenv.isDarwin then
+          fuse
+        else
+          fuse3
+      )
       bzip2
       zlib
     ]

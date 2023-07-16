@@ -1,5 +1,6 @@
 # Some tests to ensure doas is working properly.
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }: {
@@ -142,4 +143,5 @@ import ./make-test-python.nix ({
           if not "test0" in dirs:
              raise Exception(f"user profile TERMINFO_DIRS is not preserved: {dirs}")
     '';
-  })
+  }
+)

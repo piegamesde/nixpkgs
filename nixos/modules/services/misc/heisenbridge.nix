@@ -158,19 +158,22 @@ in
 
       serviceConfig = rec {
         Type = "simple";
-        ExecStart = lib.concatStringsSep " " ([
-          bin
-          (if cfg.debug then
-            "-vvv"
-          else
-            "-v")
-          "--config"
-          registrationFile
-          "--listen-address"
-          (lib.escapeShellArg cfg.address)
-          "--listen-port"
-          (toString cfg.port)
-        ]
+        ExecStart = lib.concatStringsSep " " (
+          [
+            bin
+            (
+              if cfg.debug then
+                "-vvv"
+              else
+                "-v"
+            )
+            "--config"
+            registrationFile
+            "--listen-address"
+            (lib.escapeShellArg cfg.address)
+            "--listen-port"
+            (toString cfg.port)
+          ]
           ++ (lib.optionals (cfg.owner != null) [
             "--owner"
             (lib.escapeShellArg cfg.owner)
@@ -181,7 +184,8 @@ in
             (toString cfg.identd.port)
           ])
           ++ [ (lib.escapeShellArg cfg.homeserver) ]
-          ++ (map (lib.escapeShellArg) cfg.extraArgs));
+          ++ (map (lib.escapeShellArg) cfg.extraArgs)
+        );
 
           # Hardening options
 
@@ -212,9 +216,9 @@ in
 
         CapabilityBoundingSet =
           [ "CAP_CHOWN" ]
-          ++ optional
-            (cfg.port < 1024 || (cfg.identd.enable && cfg.identd.port < 1024))
-            "CAP_NET_BIND_SERVICE"
+          ++ optional (
+            cfg.port < 1024 || (cfg.identd.enable && cfg.identd.port < 1024)
+          ) "CAP_NET_BIND_SERVICE"
           ;
         AmbientCapabilities = CapabilityBoundingSet;
         NoNewPrivileges = true;

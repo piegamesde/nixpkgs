@@ -39,15 +39,18 @@ let
         # Since hard linking directories is not allowed, copying is the next best thing.
 
         # copy additional plugin(s), theme(s) and language(s)
-        ${concatStringsSep "\n" (mapAttrsToList (name: theme:
-          "cp -r ${theme} $out/share/wordpress/wp-content/themes/${name}")
-          cfg.themes)}
-        ${concatStringsSep "\n" (mapAttrsToList (name: plugin:
-          "cp -r ${plugin} $out/share/wordpress/wp-content/plugins/${name}")
-          cfg.plugins)}
-        ${concatMapStringsSep "\n" (language:
-          "cp -r ${language} $out/share/wordpress/wp-content/languages/")
-        cfg.languages}
+        ${concatStringsSep "\n" (mapAttrsToList (
+          name: theme:
+          "cp -r ${theme} $out/share/wordpress/wp-content/themes/${name}"
+        ) cfg.themes)}
+        ${concatStringsSep "\n" (mapAttrsToList (
+          name: plugin:
+          "cp -r ${plugin} $out/share/wordpress/wp-content/plugins/${name}"
+        ) cfg.plugins)}
+        ${concatMapStringsSep "\n" (
+          language:
+          "cp -r ${language} $out/share/wordpress/wp-content/languages/"
+        ) cfg.languages}
       '';
     }
     ;
@@ -196,11 +199,14 @@ let
 
         plugins = mkOption {
           type = with types;
-            coercedTo (listOf path) (l:
+            coercedTo (listOf path) (
+              l:
               warn "setting this option with a list is deprecated" listToAttrs
-              (map (p:
-                nameValuePair (p.name or (throw "${p} does not have a name")) p)
-                l)) (attrsOf path);
+              (map (
+                p:
+                nameValuePair (p.name or (throw "${p} does not have a name")) p
+              ) l)
+            ) (attrsOf path);
           default = { };
           description = lib.mdDoc ''
             Path(s) to respective plugin(s) which are copied from the 'plugins' directory.
@@ -218,11 +224,14 @@ let
 
         themes = mkOption {
           type = with types;
-            coercedTo (listOf path) (l:
+            coercedTo (listOf path) (
+              l:
               warn "setting this option with a list is deprecated" listToAttrs
-              (map (p:
-                nameValuePair (p.name or (throw "${p} does not have a name")) p)
-                l)) (attrsOf path);
+              (map (
+                p:
+                nameValuePair (p.name or (throw "${p} does not have a name")) p
+              ) l)
+            ) (attrsOf path);
           default = {
             inherit (pkgs.wordpressPackages.themes) twentytwentythree;
           };
@@ -465,19 +474,23 @@ in
     {
 
       assertions =
-        (mapAttrsToList (hostName: cfg: {
-          assertion = cfg.database.createLocally -> cfg.database.user == user;
-          message =
-            ''
-              services.wordpress.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned'';
-        }) eachSite)
-        ++ (mapAttrsToList (hostName: cfg: {
-          assertion =
-            cfg.database.createLocally -> cfg.database.passwordFile == null;
-          message =
-            ''
-              services.wordpress.sites."${hostName}".database.passwordFile cannot be specified if services.wordpress.sites."${hostName}".database.createLocally is set to true.'';
-        }) eachSite)
+        (mapAttrsToList (
+          hostName: cfg: {
+            assertion = cfg.database.createLocally -> cfg.database.user == user;
+            message =
+              ''
+                services.wordpress.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned'';
+          }
+        ) eachSite)
+        ++ (mapAttrsToList (
+          hostName: cfg: {
+            assertion =
+              cfg.database.createLocally -> cfg.database.passwordFile == null;
+            message =
+              ''
+                services.wordpress.sites."${hostName}".database.passwordFile cannot be specified if services.wordpress.sites."${hostName}".database.createLocally is set to true.'';
+          }
+        ) eachSite)
         ;
 
       services.mysql =
@@ -486,15 +499,18 @@ in
           package = mkDefault pkgs.mariadb;
           ensureDatabases =
             mapAttrsToList (hostName: cfg: cfg.database.name) eachSite;
-          ensureUsers = mapAttrsToList (hostName: cfg: {
-            name = cfg.database.user;
-            ensurePermissions = {
-              "${cfg.database.name}.*" = "ALL PRIVILEGES";
-            };
-          }) eachSite;
+          ensureUsers = mapAttrsToList (
+            hostName: cfg: {
+              name = cfg.database.user;
+              ensurePermissions = {
+                "${cfg.database.name}.*" = "ALL PRIVILEGES";
+              };
+            }
+          ) eachSite;
         };
 
-      services.phpfpm.pools = mapAttrs' (hostName: cfg:
+      services.phpfpm.pools = mapAttrs' (
+        hostName: cfg:
         (nameValuePair "wordpress-${hostName}" {
           inherit user;
           group = webserver.group;
@@ -502,7 +518,8 @@ in
             "listen.owner" = webserver.user;
             "listen.group" = webserver.group;
           } // cfg.poolConfig;
-        })) eachSite;
+        })
+      ) eachSite;
 
     }
 
@@ -510,7 +527,8 @@ in
       services.httpd = {
         enable = true;
         extraModules = [ "proxy_fcgi" ];
-        virtualHosts = mapAttrs (hostName: cfg:
+        virtualHosts = mapAttrs (
+          hostName: cfg:
           mkMerge [
             cfg.virtualHost
             {
@@ -546,21 +564,25 @@ in
                 </Files>
               '';
             }
-          ]) eachSite;
+          ]
+        ) eachSite;
       };
     })
 
     {
-      systemd.tmpfiles.rules = flatten (mapAttrsToList (hostName: cfg: [
-        "d '${stateDir hostName}' 0750 ${user} ${webserver.group} - -"
-        "d '${cfg.uploadsDir}' 0750 ${user} ${webserver.group} - -"
-        "Z '${cfg.uploadsDir}' 0750 ${user} ${webserver.group} - -"
-        "d '${cfg.fontsDir}' 0750 ${user} ${webserver.group} - -"
-        "Z '${cfg.fontsDir}' 0750 ${user} ${webserver.group} - -"
-      ]) eachSite);
+      systemd.tmpfiles.rules = flatten (mapAttrsToList (
+        hostName: cfg: [
+          "d '${stateDir hostName}' 0750 ${user} ${webserver.group} - -"
+          "d '${cfg.uploadsDir}' 0750 ${user} ${webserver.group} - -"
+          "Z '${cfg.uploadsDir}' 0750 ${user} ${webserver.group} - -"
+          "d '${cfg.fontsDir}' 0750 ${user} ${webserver.group} - -"
+          "Z '${cfg.fontsDir}' 0750 ${user} ${webserver.group} - -"
+        ]
+      ) eachSite);
 
       systemd.services = mkMerge [
-        (mapAttrs' (hostName: cfg:
+        (mapAttrs' (
+          hostName: cfg:
           (nameValuePair "wordpress-init-${hostName}" {
             wantedBy = [ "multi-user.target" ];
             before = [ "phpfpm-wordpress-${hostName}.service" ];
@@ -572,7 +594,8 @@ in
               User = user;
               Group = webserver.group;
             };
-          })) eachSite)
+          })
+        ) eachSite)
 
         (optionalAttrs
           (any (v: v.database.createLocally) (attrValues eachSite)) {
@@ -589,64 +612,67 @@ in
     (mkIf (cfg.webserver == "nginx") {
       services.nginx = {
         enable = true;
-        virtualHosts = mapAttrs (hostName: cfg: {
-          serverName = mkDefault hostName;
-          root = "${pkg hostName cfg}/share/wordpress";
-          extraConfig = ''
-            index index.php;
-          '';
-          locations = {
-            "/" = {
-              priority = 200;
-              extraConfig = ''
-                try_files $uri $uri/ /index.php$is_args$args;
-              '';
+        virtualHosts = mapAttrs (
+          hostName: cfg: {
+            serverName = mkDefault hostName;
+            root = "${pkg hostName cfg}/share/wordpress";
+            extraConfig = ''
+              index index.php;
+            '';
+            locations = {
+              "/" = {
+                priority = 200;
+                extraConfig = ''
+                  try_files $uri $uri/ /index.php$is_args$args;
+                '';
+              };
+              "~ \\.php$" = {
+                priority = 500;
+                extraConfig = ''
+                  fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                  fastcgi_pass unix:${
+                    config.services.phpfpm.pools."wordpress-${hostName}".socket
+                  };
+                  fastcgi_index index.php;
+                  include "${config.services.nginx.package}/conf/fastcgi.conf";
+                  fastcgi_param PATH_INFO $fastcgi_path_info;
+                  fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+                  # Mitigate https://httpoxy.org/ vulnerabilities
+                  fastcgi_param HTTP_PROXY "";
+                  fastcgi_intercept_errors off;
+                  fastcgi_buffer_size 16k;
+                  fastcgi_buffers 4 16k;
+                  fastcgi_connect_timeout 300;
+                  fastcgi_send_timeout 300;
+                  fastcgi_read_timeout 300;
+                '';
+              };
+              "~ /\\." = {
+                priority = 800;
+                extraConfig = "deny all;";
+              };
+              "~* /(?:uploads|files)/.*\\.php$" = {
+                priority = 900;
+                extraConfig = "deny all;";
+              };
+              "~* \\.(js|css|png|jpg|jpeg|gif|ico)$" = {
+                priority = 1000;
+                extraConfig = ''
+                  expires max;
+                  log_not_found off;
+                '';
+              };
             };
-            "~ \\.php$" = {
-              priority = 500;
-              extraConfig = ''
-                fastcgi_split_path_info ^(.+\.php)(/.+)$;
-                fastcgi_pass unix:${
-                  config.services.phpfpm.pools."wordpress-${hostName}".socket
-                };
-                fastcgi_index index.php;
-                include "${config.services.nginx.package}/conf/fastcgi.conf";
-                fastcgi_param PATH_INFO $fastcgi_path_info;
-                fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
-                # Mitigate https://httpoxy.org/ vulnerabilities
-                fastcgi_param HTTP_PROXY "";
-                fastcgi_intercept_errors off;
-                fastcgi_buffer_size 16k;
-                fastcgi_buffers 4 16k;
-                fastcgi_connect_timeout 300;
-                fastcgi_send_timeout 300;
-                fastcgi_read_timeout 300;
-              '';
-            };
-            "~ /\\." = {
-              priority = 800;
-              extraConfig = "deny all;";
-            };
-            "~* /(?:uploads|files)/.*\\.php$" = {
-              priority = 900;
-              extraConfig = "deny all;";
-            };
-            "~* \\.(js|css|png|jpg|jpeg|gif|ico)$" = {
-              priority = 1000;
-              extraConfig = ''
-                expires max;
-                log_not_found off;
-              '';
-            };
-          };
-        }) eachSite;
+          }
+        ) eachSite;
       };
     })
 
     (mkIf (cfg.webserver == "caddy") {
       services.caddy = {
         enable = true;
-        virtualHosts = mapAttrs' (hostName: cfg:
+        virtualHosts = mapAttrs' (
+          hostName: cfg:
           (nameValuePair "http://${hostName}" {
             extraConfig = ''
               root    * /${pkg hostName cfg}/share/wordpress
@@ -666,7 +692,8 @@ in
               }
               rewrite @wp-admin {path}/index.php?{query}
             '';
-          })) eachSite;
+          })
+        ) eachSite;
       };
     })
 

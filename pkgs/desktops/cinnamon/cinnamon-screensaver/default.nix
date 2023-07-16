@@ -62,13 +62,15 @@ stdenv.mkDerivation rec {
     xorg.libX11
     xorg.libXrandr
 
-    (python3.withPackages (pp:
+    (python3.withPackages (
+      pp:
       with pp; [
         pygobject3
         setproctitle
         python3.pkgs.xapp # The scope prefix is required
         pycairo
-      ]))
+      ]
+    ))
     xapp
     xdotool
     pam

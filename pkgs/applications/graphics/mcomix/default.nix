@@ -36,11 +36,13 @@ python3.pkgs.buildPythonApplication rec {
     gobject-introspection
   ];
   propagatedBuildInputs =
-    (with python3.pkgs; [
-      pillow
-      pygobject3
-      pycairo
-    ]);
+    (
+      with python3.pkgs; [
+        pillow
+        pygobject3
+        pycairo
+      ]
+    );
 
     # Tests are broken
   doCheck = false;
@@ -52,12 +54,14 @@ python3.pkgs.buildPythonApplication rec {
     makeWrapperArgs+=(
       "''${gappsWrapperArgs[@]}"
       "--prefix" "PATH" ":" "${
-        lib.makeBinPath ([
-          p7zip
-          lhasa
-          mupdf
-        ]
-          ++ lib.optional (unrarSupport) unrar)
+        lib.makeBinPath (
+          [
+            p7zip
+            lhasa
+            mupdf
+          ]
+          ++ lib.optional (unrarSupport) unrar
+        )
       }"
     )
   '';

@@ -55,10 +55,12 @@ stdenv.mkDerivation rec {
       intltool
       pkg-config
     ]
-    ++ (with perlPackages; [
-      perl
-      XMLParser
-    ])
+    ++ (
+      with perlPackages; [
+        perl
+        XMLParser
+      ]
+    )
     ++ lib.optional monoSupport mono
     ;
 

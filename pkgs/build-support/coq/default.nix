@@ -47,53 +47,61 @@ in
   ...
 }@args:
 let
-  args-to-remove = foldl (flip remove) ([
-    "version"
-    "fetcher"
-    "repo"
-    "owner"
-    "domain"
-    "releaseRev"
-    "displayVersion"
-    "defaultVersion"
-    "useMelquiondRemake"
-    "release"
-    "buildInputs"
-    "nativeBuildInputs"
-    "extraBuildInputs"
-    "extraNativeBuildInputs"
-    "overrideBuildInputs"
-    "overrideNativeBuildInputs"
-    "namePrefix"
-    "meta"
-    "useDuneifVersion"
-    "useDune"
-    "opam-name"
-    "extraInstallFlags"
-    "setCOQBIN"
-    "mlPlugin"
-    "dropAttrs"
-    "dropDerivationAttrs"
-    "keepAttrs"
-  ]
-    ++ dropAttrs) keepAttrs;
+  args-to-remove = foldl (flip remove) (
+    [
+      "version"
+      "fetcher"
+      "repo"
+      "owner"
+      "domain"
+      "releaseRev"
+      "displayVersion"
+      "defaultVersion"
+      "useMelquiondRemake"
+      "release"
+      "buildInputs"
+      "nativeBuildInputs"
+      "extraBuildInputs"
+      "extraNativeBuildInputs"
+      "overrideBuildInputs"
+      "overrideNativeBuildInputs"
+      "namePrefix"
+      "meta"
+      "useDuneifVersion"
+      "useDune"
+      "opam-name"
+      "extraInstallFlags"
+      "setCOQBIN"
+      "mlPlugin"
+      "dropAttrs"
+      "dropDerivationAttrs"
+      "keepAttrs"
+    ]
+    ++ dropAttrs
+  ) keepAttrs;
   fetch = import ../coq/meta-fetch/default.nix { inherit lib stdenv fetchzip; }
-    ({
-      inherit release releaseRev;
-      location = { inherit domain owner repo; };
-    } // optionalAttrs (args ? fetcher) { inherit fetcher; });
-  fetched = fetch (if version != null then
-    version
-  else
-    defaultVersion);
+    (
+      {
+        inherit release releaseRev;
+        location = { inherit domain owner repo; };
+      } // optionalAttrs (args ? fetcher) { inherit fetcher; }
+    );
+  fetched = fetch (
+    if version != null then
+      version
+    else
+      defaultVersion
+  );
   display-pkg =
     n: sep: v:
     let
       d =
-        displayVersion.${n} or (if sep == "" then
-          ".."
-        else
-          true);
+        displayVersion.${n} or (
+          if sep == "" then
+            ".."
+          else
+            true
+        );
     in
     n
     + optionalString (v != "" && v != null) (switch d [
@@ -140,38 +148,47 @@ let
   } ] [ "COQDOCINSTALL=$(out)/share/coq/${coq.coq-version}/user-contrib" ];
 
 in
-stdenv.mkDerivation (removeAttrs ({
+stdenv.mkDerivation (removeAttrs (
+  {
 
-  name = prefix-name + (display-pkg pname "-" fetched.version);
+    name = prefix-name + (display-pkg pname "-" fetched.version);
 
-  inherit (fetched) version src;
+    inherit (fetched) version src;
 
-  nativeBuildInputs =
-    args.overrideNativeBuildInputs or ([ which ]
-      ++ optional useDune coq.ocamlPackages.dune_3
-      ++ optionals (useDune || mlPlugin) [
-        coq.ocamlPackages.ocaml
-        coq.ocamlPackages.findlib
-      ]
-      ++ (args.nativeBuildInputs or [ ])
-      ++ extraNativeBuildInputs);
-  buildInputs =
-    args.overrideBuildInputs or ([ coq ]
-      ++ (args.buildInputs or [ ])
-      ++ extraBuildInputs);
-  inherit enableParallelBuilding;
+    nativeBuildInputs =
+      args.overrideNativeBuildInputs or (
+        [ which ]
+        ++ optional useDune coq.ocamlPackages.dune_3
+        ++ optionals (useDune || mlPlugin) [
+          coq.ocamlPackages.ocaml
+          coq.ocamlPackages.findlib
+        ]
+        ++ (
+          args.nativeBuildInputs or [ ]
+        )
+        ++ extraNativeBuildInputs
+      );
+    buildInputs =
+      args.overrideBuildInputs or (
+        [ coq ] ++ (args.buildInputs or [ ]) ++ extraBuildInputs
+      );
+    inherit enableParallelBuilding;
 
-  meta = ({
-    platforms = coq.meta.platforms;
-  } // (switch domain [ {
-    case = pred.union isGitHubDomain isGitLabDomain;
-    out = { homepage = "https://${domain}/${owner}/${repo}"; };
-  } ] { }) // optionalAttrs (fetched.broken or false) {
-    coqFilter = true;
-    broken = true;
-  }) // (args.meta or { });
+    meta = (
+      {
+        platforms = coq.meta.platforms;
+      } // (switch domain [ {
+        case = pred.union isGitHubDomain isGitLabDomain;
+        out = { homepage = "https://${domain}/${owner}/${repo}"; };
+      } ] { }) // optionalAttrs (fetched.broken or false) {
+        coqFilter = true;
+        broken = true;
+      }
+    ) // (
+      args.meta or { }
+    );
 
-} // (optionalAttrs setCOQBIN { COQBIN = "${coq}/bin/"; })
+  } // (optionalAttrs setCOQBIN { COQBIN = "${coq}/bin/"; })
   // (optionalAttrs (!args ? installPhase && !args ? useMelquiondRemake) {
     installFlags = coqlib-flags ++ docdir-flags ++ extraInstallFlags;
   }) // (optionalAttrs useDune {
@@ -196,4 +213,5 @@ stdenv.mkDerivation (removeAttrs ({
       ];
     buildPhase = "./remake -j$NIX_BUILD_CORES";
     installPhase = "./remake install";
-  }) // (removeAttrs args args-to-remove)) dropDerivationAttrs)
+  }) // (removeAttrs args args-to-remove)
+) dropDerivationAttrs)

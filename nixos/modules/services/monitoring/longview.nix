@@ -132,13 +132,14 @@ in
           location ${cfg.apacheStatusUrl}?auto
           EOF
         '')
-        + (optionalString
-          (cfg.mysqlUser != "" && cfg.mysqlPasswordFile != null) ''
-            cat > ${configsDir}/MySQL.conf <<EOF
-            username ${cfg.mysqlUser}
-            password `head -n1 "${cfg.mysqlPasswordFile}"`
-            EOF
-          '')
+        + (optionalString (
+          cfg.mysqlUser != "" && cfg.mysqlPasswordFile != null
+        ) ''
+          cat > ${configsDir}/MySQL.conf <<EOF
+          username ${cfg.mysqlUser}
+          password `head -n1 "${cfg.mysqlPasswordFile}"`
+          EOF
+        '')
         + (optionalString (cfg.nginxStatusUrl != "") ''
           cat > ${configsDir}/Nginx.conf <<EOF
           location ${cfg.nginxStatusUrl}

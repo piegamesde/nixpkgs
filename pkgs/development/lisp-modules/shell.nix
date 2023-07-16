@@ -3,7 +3,8 @@ let
 in
 pkgs.mkShell {
   nativeBuildInputs = [
-      (pkgs.sbcl.withPackages (ps:
+      (pkgs.sbcl.withPackages (
+        ps:
         with ps; [
           alexandria
           str
@@ -12,6 +13,7 @@ pkgs.mkShell {
           sqlite
           arrow-macros
           jzon
-        ]))
+        ]
+      ))
     ];
 }

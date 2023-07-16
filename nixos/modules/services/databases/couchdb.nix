@@ -11,26 +11,30 @@ with lib;
 let
   cfg = config.services.couchdb;
   opt = options.services.couchdb;
-  configFile = pkgs.writeText "couchdb.ini" (''
-    [couchdb]
-    database_dir = ${cfg.databaseDir}
-    uri_file = ${cfg.uriFile}
-    view_index_dir = ${cfg.viewIndexDir}
-  ''
-    + (optionalString (cfg.adminPass != null) ''
-      [admins]
-      ${cfg.adminUser} = ${cfg.adminPass}
+  configFile = pkgs.writeText "couchdb.ini" (
     ''
+      [couchdb]
+      database_dir = ${cfg.databaseDir}
+      uri_file = ${cfg.uriFile}
+      view_index_dir = ${cfg.viewIndexDir}
+    ''
+    + (
+      optionalString (cfg.adminPass != null) ''
+        [admins]
+        ${cfg.adminUser} = ${cfg.adminPass}
+      ''
       + ''
         [chttpd]
-      '')
+      ''
+    )
     + ''
       port = ${toString cfg.port}
       bind_address = ${cfg.bindAddress}
 
       [log]
       file = ${cfg.logFile}
-    '');
+    ''
+  );
   executable = "${cfg.package}/bin/couchdb";
 
 in

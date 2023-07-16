@@ -37,14 +37,16 @@
   };
 
   postPatch =
-    (if tex == null then
-      ''
-        gunzip < ${fullFontsSrc} | (cd TeXmacs && tar xvf -)
-      ''
-    else
-      lib.optionalString extraFonts ''
-        gunzip < ${extraFontsSrc} | (cd TeXmacs && tar xvf -)
-      '')
+    (
+      if tex == null then
+        ''
+          gunzip < ${fullFontsSrc} | (cd TeXmacs && tar xvf -)
+        ''
+      else
+        lib.optionalString extraFonts ''
+          gunzip < ${extraFontsSrc} | (cd TeXmacs && tar xvf -)
+        ''
+    )
     + (lib.optionalString chineseFonts ''
       gunzip < ${chineseFontsSrc} | (cd TeXmacs && tar xvf -)
     '')

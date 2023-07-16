@@ -277,7 +277,8 @@ in
 {
 
   imports =
-    (map (option:
+    (map (
+      option:
       mkRenamedOptionModule ([
         "services"
         "xserver"
@@ -289,26 +290,27 @@ in
         "libinput"
         "touchpad"
         option
-      ]) [
-        "accelProfile"
-        "accelSpeed"
-        "buttonMapping"
-        "calibrationMatrix"
-        "clickMethod"
-        "leftHanded"
-        "middleEmulation"
-        "naturalScrolling"
-        "scrollButton"
-        "scrollMethod"
-        "horizontalScrolling"
-        "sendEventsMode"
-        "tapping"
-        "tappingButtonMap"
-        "tappingDragLock"
-        "transformationMatrix"
-        "disableWhileTyping"
-        "additionalOptions"
-      ]);
+      ]
+    ) [
+      "accelProfile"
+      "accelSpeed"
+      "buttonMapping"
+      "calibrationMatrix"
+      "clickMethod"
+      "leftHanded"
+      "middleEmulation"
+      "naturalScrolling"
+      "scrollButton"
+      "scrollMethod"
+      "horizontalScrolling"
+      "sendEventsMode"
+      "tapping"
+      "tappingButtonMap"
+      "tappingDragLock"
+      "transformationMatrix"
+      "disableWhileTyping"
+      "additionalOptions"
+    ]);
 
   options = {
 

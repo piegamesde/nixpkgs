@@ -245,11 +245,13 @@ in
         let
           onlyoffice-prestart = pkgs.writeShellScript "onlyoffice-prestart" ''
             PATH=$PATH:${
-              lib.makeBinPath (with pkgs; [
-                jq
-                moreutils
-                config.services.postgresql.package
-              ])
+              lib.makeBinPath (
+                with pkgs; [
+                  jq
+                  moreutils
+                  config.services.postgresql.package
+                ]
+              )
             }
             umask 077
             mkdir -p /run/onlyoffice/config/ /var/lib/onlyoffice/documentserver/sdkjs/{slide/themes,common}/ /var/lib/onlyoffice/documentserver/{fonts,server/FileConverter/bin}/

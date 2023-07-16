@@ -82,7 +82,8 @@ in
 
     systemd.services =
 
-      lib.foldr (s: acc:
+      lib.foldr (
+        s: acc:
         acc // {
           "autossh-${s.name}" =
             let
@@ -117,7 +118,8 @@ in
               };
             }
             ;
-        }) { } cfg.sessions;
+        }
+      ) { } cfg.sessions;
 
     environment.systemPackages = [ pkgs.autossh ];
 

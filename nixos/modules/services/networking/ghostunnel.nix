@@ -196,7 +196,8 @@ let
               ++ optional (config.cacert != null) "cacert:${config.cacert}"
               ;
           };
-          script = concatStringsSep " " ([ "${mainCfg.package}/bin/ghostunnel" ]
+          script = concatStringsSep " " (
+            [ "${mainCfg.package}/bin/ghostunnel" ]
             ++ optional (config.keystore != null)
               "--keystore=$CREDENTIALS_DIRECTORY/keystore"
             ++ optional (config.cert != null)
@@ -216,7 +217,8 @@ let
             ++ map (v: "--allow-uri=${escapeShellArg v}") config.allowURI
             ++ optional config.disableAuthentication "--disable-authentication"
             ++ optional config.unsafeTarget "--unsafe-target"
-            ++ [ config.extraArguments ]);
+            ++ [ config.extraArguments ]
+          );
         };
       };
     }

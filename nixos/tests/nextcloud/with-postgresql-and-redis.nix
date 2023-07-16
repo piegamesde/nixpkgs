@@ -4,7 +4,8 @@ args@{
   ...
 }:
 
-(import ../make-test-python.nix ({
+(import ../make-test-python.nix (
+  {
     pkgs,
     ...
   }:
@@ -58,9 +59,11 @@ args@{
             extraAppsEnable = true;
             extraApps = {
               inherit
-                (pkgs."nextcloud${
+                (
+                  pkgs."nextcloud${
                     lib.versions.major config.services.nextcloud.package.version
-                  }Packages".apps)
+                  }Packages".apps
+                )
                 notify_push
                 ;
             };

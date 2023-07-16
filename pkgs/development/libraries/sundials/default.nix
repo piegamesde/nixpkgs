@@ -34,12 +34,16 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ python ]
-    ++ lib.optionals (lapackSupport)
+    ++ lib.optionals (
+      lapackSupport
+    )
     # Check that the same index size is used for both libraries
-      (assert (blas.isILP64 == lapack.isILP64); [
-        blas
-        lapack
-      ])
+      (
+        assert (blas.isILP64 == lapack.isILP64); [
+          blas
+          lapack
+        ]
+      )
       # KLU support is based on Suitesparse. It is tested upstream according to the
       # section 1.1.4.2 of INSTALL_GUIDE.pdf found in the source tarball.
     ++ lib.optionals (kluSupport) [ suitesparse ]
@@ -64,7 +68,8 @@ stdenv.mkDerivation rec {
         if blas.isILP64 then
           "-DSUNDIALS_INDEX_SIZE=64"
         else
-          "-DSUNDIALS_INDEX_SIZE=32")
+          "-DSUNDIALS_INDEX_SIZE=32"
+      )
     ]
     ;
 

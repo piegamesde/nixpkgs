@@ -205,7 +205,8 @@ with prev; {
     '';
   });
 
-  lmathx = prev.luaLib.overrideLuarocks prev.lmathx (drv:
+  lmathx = prev.luaLib.overrideLuarocks prev.lmathx (
+    drv:
     if luaAtLeast "5.1" && luaOlder "5.2" then
       {
         version = "20120430.51-1";
@@ -242,7 +243,8 @@ with prev; {
           substituteInPlace ''${rockspecFilename} \
             --replace 'lua ~> 5.3' 'lua >= 5.3, < 5.5'
         '';
-      });
+      }
+  );
 
   lmpfrlib = prev.lmpfrlib.overrideAttrs (oa: {
     externalDeps = [
@@ -388,8 +390,9 @@ with prev; {
     } ];
   });
 
-  luasystem = prev.luasystem.overrideAttrs
-    (oa: lib.optionalAttrs stdenv.isLinux { buildInputs = [ glibc.out ]; });
+  luasystem = prev.luasystem.overrideAttrs (
+    oa: lib.optionalAttrs stdenv.isLinux { buildInputs = [ glibc.out ]; }
+  );
 
   luazip = prev.luazip.overrideAttrs
     (oa: { buildInputs = oa.buildInputs ++ [ zziplib ]; });

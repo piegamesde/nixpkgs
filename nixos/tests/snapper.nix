@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     ...
   }: {
     name = "snapper";
@@ -39,4 +40,5 @@ import ./make-test-python.nix ({
       machine.succeed("systemctl --wait start snapper-timeline.service")
       machine.succeed("systemctl --wait start snapper-cleanup.service")
     '';
-  })
+  }
+)

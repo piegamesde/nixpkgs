@@ -25,15 +25,19 @@ let
   knownHosts = attrValues cfg.knownHosts;
 
   knownHostsText =
-    (flip (concatMapStringsSep "\n") knownHosts (h:
+    (flip (concatMapStringsSep "\n") knownHosts (
+      h:
       assert h.hostNames != [ ];
       optionalString h.certAuthority "@cert-authority "
       + concatStringsSep "," h.hostNames
       + " "
-      + (if h.publicKey != null then
-        h.publicKey
-      else
-        readFile h.publicKeyFile)))
+      + (
+        if h.publicKey != null then
+          h.publicKey
+        else
+          readFile h.publicKeyFile
+      )
+    ))
     + "\n"
     ;
 
@@ -164,7 +168,8 @@ in
 
       knownHosts = mkOption {
         default = { };
-        type = types.attrsOf (types.submodule ({
+        type = types.attrsOf (types.submodule (
+          {
             name,
             config,
             options,
@@ -229,7 +234,8 @@ in
                 '';
               };
             };
-          }));
+          }
+        ));
         description = lib.mdDoc ''
           The set of system-wide known SSH hosts. To make simple setups more
           convenient the name of an attribute in this set is used as a host name
@@ -316,23 +322,31 @@ in
 
   config = {
 
-    programs.ssh.setXAuthLocation = mkDefault (config.services.xserver.enable
+    programs.ssh.setXAuthLocation = mkDefault (
+      config.services.xserver.enable
       || config.programs.ssh.forwardX11
-      || config.services.openssh.settings.X11Forwarding);
+      || config.services.openssh.settings.X11Forwarding
+    );
 
     assertions =
       [ {
         assertion = cfg.forwardX11 -> cfg.setXAuthLocation;
         message = "cannot enable X11 forwarding without setting XAuth location";
       } ]
-      ++ flip mapAttrsToList cfg.knownHosts (name: data: {
-        assertion =
-          (data.publicKey == null && data.publicKeyFile != null)
-          || (data.publicKey != null && data.publicKeyFile == null)
-          ;
-        message =
-          "knownHost ${name} must contain either a publicKey or publicKeyFile";
-      })
+      ++ flip mapAttrsToList cfg.knownHosts (
+        name: data: {
+          assertion =
+            (
+              data.publicKey == null && data.publicKeyFile != null
+            )
+            || (
+              data.publicKey != null && data.publicKeyFile == null
+            )
+            ;
+          message =
+            "knownHost ${name} must contain either a publicKey or publicKeyFile";
+        }
+      )
       ;
 
       # SSH configuration. Slight duplication of the sshd_config
@@ -387,10 +401,12 @@ in
         ExecStartPre = "${pkgs.coreutils}/bin/rm -f %t/ssh-agent";
         ExecStart =
           "${cfg.package}/bin/ssh-agent "
-          + optionalString (cfg.agentTimeout != null)
-            ("-t ${cfg.agentTimeout} ")
-          + optionalString (cfg.agentPKCS11Whitelist != null)
-            ("-P ${cfg.agentPKCS11Whitelist} ")
+          + optionalString (cfg.agentTimeout != null) (
+            "-t ${cfg.agentTimeout} "
+          )
+          + optionalString (cfg.agentPKCS11Whitelist != null) (
+            "-P ${cfg.agentPKCS11Whitelist} "
+          )
           + "-a %t/ssh-agent"
           ;
         StandardOutput = "null";

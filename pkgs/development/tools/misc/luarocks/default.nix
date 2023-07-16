@@ -89,11 +89,13 @@ stdenv.mkDerivation (finalAttrs: {
                 --suffix LUA_CPATH ";" "$(echo "$out"/lib/lua/*/)?.so" \
                 --suffix LUA_CPATH ";" "$(echo "$out"/share/lua/*/)?/init.lua" \
                 --suffix PATH : ${
-                  lib.makeBinPath ([ unzip ]
+                  lib.makeBinPath (
+                    [ unzip ]
                     ++ lib.optionals (finalAttrs.pname == "luarocks-nix") [
                       file
                       nix-prefetch-git
-                    ])
+                    ]
+                  )
                 }
           }
       done

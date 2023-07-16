@@ -24,16 +24,18 @@ with lib;
 
     # can be generated with: filter (drv: (builtins.tryEval (drv ? terminfo)).value) (attrValues pkgs)
     environment.systemPackages = mkIf config.environment.enableAllTerminfo
-      (map (x: x.terminfo) (with pkgs; [
-        alacritty
-        foot
-        kitty
-        mtm
-        rxvt-unicode-unwrapped
-        rxvt-unicode-unwrapped-emoji
-        termite
-        wezterm
-      ]));
+      (map (x: x.terminfo) (
+        with pkgs; [
+          alacritty
+          foot
+          kitty
+          mtm
+          rxvt-unicode-unwrapped
+          rxvt-unicode-unwrapped-emoji
+          termite
+          wezterm
+        ]
+      ));
 
     environment.pathsToLink = [ "/share/terminfo" ];
 

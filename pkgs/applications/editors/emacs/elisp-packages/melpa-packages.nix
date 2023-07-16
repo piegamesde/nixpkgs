@@ -42,8 +42,9 @@ let
       pkg.override (args: {
         melpaBuild =
           drv:
-          args.melpaBuild
-          (drv // { meta = (drv.meta or { }) // { broken = true; }; })
+          args.melpaBuild (
+            drv // { meta = (drv.meta or { }) // { broken = true; }; }
+          )
           ;
       })
     else
@@ -56,11 +57,13 @@ let
       pkg.override (args: {
         melpaBuild =
           drv:
-          args.melpaBuild (drv // {
-            inherit (epkg) src version;
+          args.melpaBuild (
+            drv // {
+              inherit (epkg) src version;
 
-            propagatedUserEnvPkgs = [ epkg ];
-          })
+              propagatedUserEnvPkgs = [ epkg ];
+            }
+          )
           ;
       })
     else
@@ -82,7 +85,8 @@ let
       null
     ;
 
-  generateMelpa = lib.makeOverridable ({
+  generateMelpa = lib.makeOverridable (
+    {
       archiveJson ? ./recipes-archive-melpa.json
     }:
     let
@@ -221,7 +225,9 @@ let
           '';
 
           postInstall =
-            (old.postInstall or "")
+            (
+              old.postInstall or ""
+            )
             + "\n"
             + ''
               install -m=755 -D source/sqlite/emacsql-sqlite \
@@ -242,7 +248,9 @@ let
           '';
 
           postInstall =
-            (old.postInstall or "")
+            (
+              old.postInstall or ""
+            )
             + "\n"
             + ''
               install -m=755 -D source/sqlite/emacsql-sqlite \
@@ -309,14 +317,16 @@ let
           preBuild = ''
             make server/epdfinfo
             remove-references-to ${
-              lib.concatStringsSep " " (map (output: "-t " + output) ([
-                pkgs.glib.dev
-                pkgs.libpng.dev
-                pkgs.poppler.dev
-                pkgs.zlib.dev
-                pkgs.cairo.dev
-              ]
-                ++ lib.optional pkgs.stdenv.isLinux pkgs.stdenv.cc.libc.dev))
+              lib.concatStringsSep " " (map (output: "-t " + output) (
+                [
+                  pkgs.glib.dev
+                  pkgs.libpng.dev
+                  pkgs.poppler.dev
+                  pkgs.zlib.dev
+                  pkgs.cairo.dev
+                ]
+                ++ lib.optional pkgs.stdenv.isLinux pkgs.stdenv.cc.libc.dev
+              ))
             } server/epdfinfo
           '';
           recipe = pkgs.writeText "recipe" ''
@@ -369,7 +379,8 @@ let
 
         ivy-rtags = fix-rtags super.ivy-rtags;
 
-        jinx = super.jinx.overrideAttrs (old:
+        jinx = super.jinx.overrideAttrs (
+          old:
           let
             libExt = pkgs.stdenv.targetPlatform.extensions.sharedLibrary;
           in
@@ -387,7 +398,9 @@ let
             '';
 
             postInstall =
-              (old.postInstall or "")
+              (
+                old.postInstall or ""
+              )
               + "\n"
               + ''
                 pushd source
@@ -413,7 +426,9 @@ let
           '';
 
           postInstall =
-            (old.postInstall or "")
+            (
+              old.postInstall or ""
+            )
             + "\n"
             + ''
               pushd source
@@ -442,7 +457,9 @@ let
             popd
           '';
           postInstall =
-            (attrs.postInstall or "")
+            (
+              attrs.postInstall or ""
+            )
             + "\n"
             + ''
               outd=$(echo $out/share/emacs/site-lisp/elpa/libgit-**)
@@ -547,7 +564,9 @@ let
         rime = super.rime.overrideAttrs (old: {
           buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.librime ];
           preBuild =
-            (old.preBuild or "")
+            (
+              old.preBuild or ""
+            )
             + ''
               make lib
               mkdir -p /build/rime-lib
@@ -555,7 +574,9 @@ let
             ''
             ;
           postInstall =
-            (old.postInstall or "")
+            (
+              old.postInstall or ""
+            )
             + ''
               install -m444 -t $out/share/emacs/site-lisp/elpa/rime-* /build/rime-lib/*.so
             ''
@@ -591,7 +612,9 @@ let
           '';
 
           postInstall =
-            (old.postInstall or "")
+            (
+              old.postInstall or ""
+            )
             + "\n"
             + ''
               mkdir -p $out/bin
@@ -623,7 +646,9 @@ let
             (pkgs.zeromq.override { enableDrafts = true; })
           ];
           postInstall =
-            (old.postInstall or "")
+            (
+              old.postInstall or ""
+            )
             + "\n"
             + ''
               mv $EZMQ_LIBDIR/emacs-zmq.* $out/share/emacs/site-lisp/elpa/zmq-*
@@ -726,7 +751,9 @@ let
             # we need the proper out directory to exist, so we do this in the
             # postInstall instead of postBuild
           postInstall =
-            (old.postInstall or "")
+            (
+              old.postInstall or ""
+            )
             + "\n"
             + ''
               pushd source/build >/dev/null
@@ -741,18 +768,20 @@ let
         w3m = super.w3m.override (args: {
           melpaBuild =
             drv:
-            args.melpaBuild (drv // {
-              prePatch =
-                let
-                  w3m = "${lib.getBin pkgs.w3m}/bin/w3m";
-                in
-                ''
-                  substituteInPlace w3m.el \
-                  --replace 'defcustom w3m-command nil' \
-                  'defcustom w3m-command "${w3m}"'
-                ''
-                ;
-            })
+            args.melpaBuild (
+              drv // {
+                prePatch =
+                  let
+                    w3m = "${lib.getBin pkgs.w3m}/bin/w3m";
+                  in
+                  ''
+                    substituteInPlace w3m.el \
+                    --replace 'defcustom w3m-command nil' \
+                    'defcustom w3m-command "${w3m}"'
+                  ''
+                  ;
+              }
+            )
             ;
         });
 
@@ -780,11 +809,13 @@ let
       };
 
     in
-    lib.mapAttrs (n: v:
+    lib.mapAttrs (
+      n: v:
       if lib.hasAttr n overrides then
         overrides.${n}
       else
-        v) super
+        v
+    ) super
   );
 
 in

@@ -29,15 +29,17 @@ let
     hash = "sha256-wMcpdRSRvxYEV163mdTGOemk62gljua89SOtwe6qGXU=";
   };
 
-  metasrht-api = buildGoModule ({
-    inherit src version;
-    pname = "metasrht-api";
-    modRoot = "api";
-    vendorHash = "sha256-ZoDRGmGe9o5pn89gJ60wjSp5Cc0yxRfvdhNnbwAhmSI=";
-  } // import ./fix-gqlgen-trimpath.nix {
-    inherit unzip;
-    gqlgenVersion = "0.17.20";
-  });
+  metasrht-api = buildGoModule (
+    {
+      inherit src version;
+      pname = "metasrht-api";
+      modRoot = "api";
+      vendorHash = "sha256-ZoDRGmGe9o5pn89gJ60wjSp5Cc0yxRfvdhNnbwAhmSI=";
+    } // import ./fix-gqlgen-trimpath.nix {
+      inherit unzip;
+      gqlgenVersion = "0.17.20";
+    }
+  );
 
 in
 buildPythonPackage rec {

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }:
@@ -33,4 +34,5 @@ import ./make-test-python.nix ({
       machine.succeed("curl http://localhost:5050/api/version")
       machine.succeed("curl -X GET http://localhost:5050/api/initial_setup -H  'accept: application/json' | jq -e '.has_any_users == true'")
     '';
-  })
+  }
+)

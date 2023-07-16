@@ -132,13 +132,15 @@ stdenv.mkDerivation rec {
       "CXXFLAGS=-Wno-elaborated-enum-base"
       "--docdir=share/doc/${pname}${version}"
     ]
-    ++ (if useSharedLibraries then
-      [
-        "--no-system-jsoncpp"
-        "--system-libs"
-      ]
-    else
-      [ "--no-system-libs" ]) # FIXME: cleanup
+    ++ (
+      if useSharedLibraries then
+        [
+          "--no-system-jsoncpp"
+          "--system-libs"
+        ]
+      else
+        [ "--no-system-libs" ]
+    ) # FIXME: cleanup
     ++ lib.optional qt5UI "--qt-gui"
     ++ lib.optionals buildDocs [
       "--sphinx-build=${sphinx}/bin/sphinx-build"

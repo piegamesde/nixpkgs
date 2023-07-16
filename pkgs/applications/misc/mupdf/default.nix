@@ -106,16 +106,18 @@ stdenv.mkDerivation rec {
       curl
       openssl
     ]
-    ++ lib.optionals enableGL (if stdenv.isDarwin then
-      with darwin.apple_sdk.frameworks; [
-        GLUT
-        OpenGL
-      ]
-    else
-      [
-        freeglut-mupdf
-        libGLU
-      ])
+    ++ lib.optionals enableGL (
+      if stdenv.isDarwin then
+        with darwin.apple_sdk.frameworks; [
+          GLUT
+          OpenGL
+        ]
+      else
+        [
+          freeglut-mupdf
+          libGLU
+        ]
+    )
     ;
   outputs = [
     "bin"
@@ -186,14 +188,16 @@ stdenv.mkDerivation rec {
       mkdir -p $bin/share/icons/hicolor/48x48/apps
       cp docs/logo/mupdf.png $bin/share/icons/hicolor/48x48/apps
     ''
-    + (if enableGL then
-      ''
-        ln -s "$bin/bin/mupdf-gl" "$bin/bin/mupdf"
-      ''
-    else
-      lib.optionalString (enableX11) ''
-        ln -s "$bin/bin/mupdf-x11" "$bin/bin/mupdf"
-      '')
+    + (
+      if enableGL then
+        ''
+          ln -s "$bin/bin/mupdf-gl" "$bin/bin/mupdf"
+        ''
+      else
+        lib.optionalString (enableX11) ''
+          ln -s "$bin/bin/mupdf-x11" "$bin/bin/mupdf"
+        ''
+    )
     ;
 
   enableParallelBuilding = true;

@@ -100,17 +100,19 @@ stdenv.mkDerivation {
     ++ lib.optional stdenv.targetPlatform.isMips64n64
       # this patch is from debian:
       # https://sources.debian.org/data/main/b/binutils/2.38-3/debian/patches/mips64-default-n64.diff
-      (if stdenv.targetPlatform.isMusl then
-        substitute {
-          src = ./mips64-default-n64.patch;
-          replacements = [
-            "--replace"
-            "gnuabi64"
-            "muslabi64"
-          ];
-        }
-      else
-        ./mips64-default-n64.patch)
+      (
+        if stdenv.targetPlatform.isMusl then
+          substitute {
+            src = ./mips64-default-n64.patch;
+            replacements = [
+              "--replace"
+              "gnuabi64"
+              "muslabi64"
+            ];
+          }
+        else
+          ./mips64-default-n64.patch
+      )
       # On PowerPC, when generating assembly code, GCC generates a `.machine`
       # custom instruction which instructs the assembler to generate code for this
       # machine. However, some GCC versions generate the wrong one, or make it
@@ -229,16 +231,18 @@ stdenv.mkDerivation {
       "--enable-gold"
       "--enable-plugins"
     ]
-    ++ (if enableShared then
-      [
-        "--enable-shared"
-        "--disable-static"
-      ]
-    else
-      [
-        "--disable-shared"
-        "--enable-static"
-      ])
+    ++ (
+      if enableShared then
+        [
+          "--enable-shared"
+          "--disable-static"
+        ]
+      else
+        [
+          "--disable-shared"
+          "--enable-static"
+        ]
+    )
     ;
 
     # Fails

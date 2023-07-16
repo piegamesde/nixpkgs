@@ -21,7 +21,8 @@ let
     ];
   };
 in
-pkgs.lib.listToAttrs (builtins.map ({
+pkgs.lib.listToAttrs (builtins.map (
+  {
     predictable,
     withNetworkd,
     systemdStage1,
@@ -92,4 +93,5 @@ pkgs.lib.listToAttrs (builtins.map ({
         }("ip link show eth0")
       '';
     };
-  }) testCombinations)
+  }
+) testCombinations)

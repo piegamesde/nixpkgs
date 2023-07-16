@@ -182,9 +182,10 @@ let
     xencpu.buildInputs = [ xen ];
   };
 
-  configureFlags = lib.optionals (enabledPlugins != null)
-    ([ "--disable-all-plugins" ]
-      ++ (map (plugin: "--enable-${plugin}") enabledPlugins));
+  configureFlags = lib.optionals (enabledPlugins != null) (
+    [ "--disable-all-plugins" ]
+    ++ (map (plugin: "--enable-${plugin}") enabledPlugins)
+  );
 
   pluginBuildInputs =
     plugin:

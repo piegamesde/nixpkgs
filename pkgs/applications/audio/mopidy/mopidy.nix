@@ -32,7 +32,8 @@ pythonPackages.buildPythonApplication rec {
 
   propagatedBuildInputs =
     [ gobject-introspection ]
-    ++ (with pythonPackages;
+    ++ (
+      with pythonPackages;
       [
         gst-python
         pygobject3
@@ -41,7 +42,8 @@ pythonPackages.buildPythonApplication rec {
         setuptools
         tornado
       ]
-      ++ lib.optional (!stdenv.isDarwin) dbus-python)
+      ++ lib.optional (!stdenv.isDarwin) dbus-python
+    )
     ;
 
   propagatedNativeBuildInputs = [ gobject-introspection ];

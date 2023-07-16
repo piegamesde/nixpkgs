@@ -22,7 +22,9 @@ let
 
   useNcurses6 =
     stdenv.hostPlatform.system == "x86_64-linux"
-    || (with stdenv.hostPlatform; isPower64 && isLittleEndian)
+    || (
+      with stdenv.hostPlatform; isPower64 && isLittleEndian
+    )
     ;
 
   ourNcurses =
@@ -32,11 +34,13 @@ let
       ncurses5
     ;
 
-  libPath = lib.makeLibraryPath ([
-    ourNcurses
-    gmp
-  ]
-    ++ lib.optional (stdenv.hostPlatform.isDarwin) libiconv);
+  libPath = lib.makeLibraryPath (
+    [
+      ourNcurses
+      gmp
+    ]
+    ++ lib.optional (stdenv.hostPlatform.isDarwin) libiconv
+  );
 
   libEnvVar =
     lib.optionalString stdenv.hostPlatform.isDarwin "DY" + "LD_LIBRARY_PATH";
@@ -75,38 +79,41 @@ stdenv.mkDerivation rec {
   pname = "ghc-binary";
 
     # https://downloads.haskell.org/~ghc/8.6.5/
-  src = fetchurl ({
-    i686-linux = {
-      # Don't use the Fedora27 build (as below) because there isn't one!
-      url = "${downloadsUrl}/${version}/ghc-${version}-i386-deb9-linux.tar.xz";
-      sha256 = "1p2h29qghql19ajk755xa0yxkn85slbds8m9n5196ris743vkp8w";
-    };
-    x86_64-linux = {
-      # This is the Fedora build because it links against ncurses6 where the
-      # deb9 one links against ncurses5, see here
-      # https://github.com/NixOS/nixpkgs/issues/85924 for a discussion
-      url =
-        "${downloadsUrl}/${version}/ghc-${version}-x86_64-fedora27-linux.tar.xz";
-      sha256 = "18dlqm5d028fqh6ghzn7pgjspr5smw030jjzl3kq6q1kmwzbay6g";
-    };
-    aarch64-linux = {
-      url =
-        "${downloadsUrl}/${version}/ghc-${version}-aarch64-ubuntu18.04-linux.tar.xz";
-      sha256 = "11n7l2a36i5vxzzp85la2555q4m34l747g0pnmd81cp46y85hlhq";
-    };
-    x86_64-darwin = {
-      url =
-        "${downloadsUrl}/${version}/ghc-${version}-x86_64-apple-darwin.tar.xz";
-      sha256 = "0s9188vhhgf23q3rjarwhbr524z6h2qga5xaaa2pma03sfqvvhfz";
-    };
-    powerpc64le-linux = {
-      url =
-        "https://downloads.haskell.org/~ghc/${version}/ghc-${version}-powerpc64le-fedora29-linux.tar.xz";
-      sha256 = "sha256-tWSsJdPVrCiqDyIKzpBt5DaXb3b6j951tCya584kWs4=";
-    };
-  }
+  src = fetchurl (
+    {
+      i686-linux = {
+        # Don't use the Fedora27 build (as below) because there isn't one!
+        url =
+          "${downloadsUrl}/${version}/ghc-${version}-i386-deb9-linux.tar.xz";
+        sha256 = "1p2h29qghql19ajk755xa0yxkn85slbds8m9n5196ris743vkp8w";
+      };
+      x86_64-linux = {
+        # This is the Fedora build because it links against ncurses6 where the
+        # deb9 one links against ncurses5, see here
+        # https://github.com/NixOS/nixpkgs/issues/85924 for a discussion
+        url =
+          "${downloadsUrl}/${version}/ghc-${version}-x86_64-fedora27-linux.tar.xz";
+        sha256 = "18dlqm5d028fqh6ghzn7pgjspr5smw030jjzl3kq6q1kmwzbay6g";
+      };
+      aarch64-linux = {
+        url =
+          "${downloadsUrl}/${version}/ghc-${version}-aarch64-ubuntu18.04-linux.tar.xz";
+        sha256 = "11n7l2a36i5vxzzp85la2555q4m34l747g0pnmd81cp46y85hlhq";
+      };
+      x86_64-darwin = {
+        url =
+          "${downloadsUrl}/${version}/ghc-${version}-x86_64-apple-darwin.tar.xz";
+        sha256 = "0s9188vhhgf23q3rjarwhbr524z6h2qga5xaaa2pma03sfqvvhfz";
+      };
+      powerpc64le-linux = {
+        url =
+          "https://downloads.haskell.org/~ghc/${version}/ghc-${version}-powerpc64le-fedora29-linux.tar.xz";
+        sha256 = "sha256-tWSsJdPVrCiqDyIKzpBt5DaXb3b6j951tCya584kWs4=";
+      };
+    }
     .${stdenv.hostPlatform.system} or (throw
-      "cannot bootstrap GHC on this platform"));
+      "cannot bootstrap GHC on this platform")
+  );
 
   nativeBuildInputs = [ perl ];
 

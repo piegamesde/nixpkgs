@@ -58,16 +58,17 @@ rustPlatform.buildRustPackage rec {
   ];
 
   env.SODIUM_USE_PKG_CONFIG = 1;
-  env.NIX_CFLAGS_COMPILE = toString ([
-    "-O2"
-    "-Wno-error=array-bounds"
-    "-Wno-error=stringop-overflow"
-    "-Wno-error=stringop-truncation"
-  ]
-    ++ lib.optionals
-      (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11") [
-        "-Wno-error=stringop-overread"
-      ]);
+  env.NIX_CFLAGS_COMPILE = toString (
+    [
+      "-O2"
+      "-Wno-error=array-bounds"
+      "-Wno-error=stringop-overflow"
+      "-Wno-error=stringop-truncation"
+    ]
+    ++ lib.optionals (
+      stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11"
+    ) [ "-Wno-error=stringop-overread" ]
+  );
 
   passthru.tests.basic = nixosTests.cjdns;
 

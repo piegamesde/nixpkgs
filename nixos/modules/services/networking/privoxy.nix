@@ -16,10 +16,12 @@ let
     if isList val then
       concatMapStrings (serialise name) val
     else if isBool val then
-      serialise name (if val then
-        "1"
-      else
-        "0")
+      serialise name (
+        if val then
+          "1"
+        else
+          "0"
+      )
     else
       ''
         ${name} ${toString val}
@@ -60,7 +62,8 @@ let
     [ ''
       confdir ${pkgs.privoxy}/etc
     '' ]
-    ++ mapAttrsToList serialise cfg.settings));
+    ++ mapAttrsToList serialise cfg.settings
+  ));
 
   inspectAction = pkgs.writeText "inspect-all-https.action" ''
     # Enable HTTPS inspection for all requests

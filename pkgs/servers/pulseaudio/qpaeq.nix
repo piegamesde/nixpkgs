@@ -27,11 +27,15 @@ mkDerivation rec {
   inherit (pulseaudio) version src;
 
   buildInputs = [
-      ((python3.withPackages (ps:
-        with ps; [
-          pyqt5
-          dbus-python
-        ])))
+      (
+        (python3.withPackages (
+          ps:
+          with ps; [
+            pyqt5
+            dbus-python
+          ]
+        ))
+      )
     ];
 
   dontBuild = true;

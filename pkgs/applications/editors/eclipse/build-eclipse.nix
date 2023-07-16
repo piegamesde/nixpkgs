@@ -89,13 +89,15 @@ stdenv.mkDerivation rec {
     makeWrapper $out/eclipse/eclipse $out/bin/eclipse \
       --prefix PATH : ${jdk}/bin \
       --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath ([
-          glib
-          gtk
-          libXtst
-          libsecret
-        ]
-          ++ lib.optional (webkitgtk != null) webkitgtk)
+        lib.makeLibraryPath (
+          [
+            glib
+            gtk
+            libXtst
+            libsecret
+          ]
+          ++ lib.optional (webkitgtk != null) webkitgtk
+        )
       } \
       --prefix GIO_EXTRA_MODULES : "${glib-networking}/lib/gio/modules" \
       --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH" \

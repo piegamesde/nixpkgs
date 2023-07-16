@@ -178,7 +178,8 @@ let
     # If not running a fancy desktop environment, the cursor is likely set to
     # the default `cursor.pcf` bitmap font. This is 17px wide, so it's very
     # small and almost invisible on 4K displays.
-  fontcursormisc_hidpi = pkgs.xorg.fontxfree86type1.overrideAttrs (old:
+  fontcursormisc_hidpi = pkgs.xorg.fontxfree86type1.overrideAttrs (
+    old:
     let
       # The scaling constant is 230/96: the scalable `left_ptr` glyph at
       # about 23 points is rendered as 17px, on a 96dpi display.
@@ -349,14 +350,16 @@ in
           "amdgpu-pro"
         ];
           # TODO(@oxij): think how to easily add the rest, like those nvidia things
-        relatedPackages = concatLists (mapAttrsToList (n: v:
+        relatedPackages = concatLists (mapAttrsToList (
+          n: v:
           optional (hasPrefix "xf86video" n) {
             path = [
               "xorg"
               n
             ];
             title = removePrefix "xf86video" n;
-          }) pkgs.xorg);
+          }
+        ) pkgs.xorg);
         description = lib.mdDoc ''
           The names of the video drivers the configuration
           supports. They will be tried in order until one that
@@ -717,12 +720,14 @@ in
       let
         dmConf = cfg.displayManager;
         default =
-          !(dmConf.gdm.enable
+          !(
+            dmConf.gdm.enable
             || dmConf.sddm.enable
             || dmConf.xpra.enable
             || dmConf.sx.enable
             || dmConf.startx.enable
-            || config.services.greetd.enable)
+            || config.services.greetd.enable
+          )
           ;
       in
       mkIf (default) (mkDefault true)
@@ -733,10 +738,12 @@ in
       let
         dmConf = cfg.displayManager;
         noDmUsed =
-          !(dmConf.gdm.enable
+          !(
+            dmConf.gdm.enable
             || dmConf.sddm.enable
             || dmConf.xpra.enable
-            || dmConf.lightdm.enable)
+            || dmConf.lightdm.enable
+          )
           ;
       in
       mkIf (noDmUsed) (mkDefault false)
@@ -748,34 +755,40 @@ in
       mkIf (cfg.videoDriver != null) [ cfg.videoDriver ];
 
       # FIXME: somehow check for unknown driver names.
-    services.xserver.drivers = flip concatMap cfg.videoDrivers (name:
+    services.xserver.drivers = flip concatMap cfg.videoDrivers (
+      name:
       let
-        driver = attrByPath [ name ] (if xorg ? ${"xf86video" + name} then
-          { modules = [ xorg.${"xf86video" + name} ]; }
-        else
-          null) knownVideoDrivers;
+        driver = attrByPath [ name ] (
+          if xorg ? ${"xf86video" + name} then
+            { modules = [ xorg.${"xf86video" + name} ]; }
+          else
+            null
+        ) knownVideoDrivers;
       in
-      optional (driver != null) ({
-        inherit name;
-        modules = [ ];
-        driverName = name;
-        display = true;
-      } // driver)
+      optional (driver != null) (
+        {
+          inherit name;
+          modules = [ ];
+          driverName = name;
+          display = true;
+        } // driver
+      )
     );
 
     assertions = [
-      (let
-        primaryHeads = filter (x: x.primary) cfg.xrandrHeads;
-      in
-      {
-        assertion = length primaryHeads < 2;
-        message =
-          "Only one head is allowed to be primary in "
-          + "‘services.xserver.xrandrHeads’, but there are "
-          + "${toString (length primaryHeads)} heads set to primary: "
-          + concatMapStringsSep ", " (x: x.output) primaryHeads
-          ;
-      }
+      (
+        let
+          primaryHeads = filter (x: x.primary) cfg.xrandrHeads;
+        in
+        {
+          assertion = length primaryHeads < 2;
+          message =
+            "Only one head is allowed to be primary in "
+            + "‘services.xserver.xrandrHeads’, but there are "
+            + "${toString (length primaryHeads)} heads set to primary: "
+            + concatMapStringsSep ", " (x: x.output) primaryHeads
+            ;
+        }
       )
       {
         assertion = cfg.upscaleDefaultCursor -> cfg.dpi != null;
@@ -803,10 +816,11 @@ in
         '';
       }
       # Needed since 1.18; see https://bugs.freedesktop.org/show_bug.cgi?id=89023#c5
-      // (let
-        cfgPath = "/X11/xorg.conf.d/10-evdev.conf";
-      in
-      { ${cfgPath}.source = xorg.xf86inputevdev.out + "/share" + cfgPath; }
+      // (
+        let
+          cfgPath = "/X11/xorg.conf.d/10-evdev.conf";
+        in
+        { ${cfgPath}.source = xorg.xf86inputevdev.out + "/share" + cfgPath; }
       );
 
     environment.systemPackages =
@@ -996,38 +1010,43 @@ in
             }
 
             ${
-              optionalString (driver.name != "virtualbox"
-                && (cfg.resolutions != [ ]
+              optionalString (
+                driver.name != "virtualbox"
+                && (
+                  cfg.resolutions != [ ]
                   || cfg.extraDisplaySettings != ""
-                  || cfg.virtualScreen != null)) (let
-                    f =
-                      depth: ''
-                        SubSection "Display"
-                          Depth ${toString depth}
-                          ${
-                            optionalString (cfg.resolutions != [ ]) "Modes ${
-                              concatMapStrings
-                              (res: ''"${toString res.x}x${toString res.y}"'')
-                              cfg.resolutions
-                            }"
-                          }
-                        ${indent cfg.extraDisplaySettings}
-                          ${
-                            optionalString (cfg.virtualScreen != null)
-                            "Virtual ${toString cfg.virtualScreen.x} ${
-                              toString cfg.virtualScreen.y
-                            }"
-                          }
-                        EndSubSection
-                      ''
-                      ;
-                  in
-                  concatMapStrings f [
-                    8
-                    16
-                    24
-                  ]
-                  )
+                  || cfg.virtualScreen != null
+                )
+              ) (
+                let
+                  f =
+                    depth: ''
+                      SubSection "Display"
+                        Depth ${toString depth}
+                        ${
+                          optionalString (cfg.resolutions != [ ]) "Modes ${
+                            concatMapStrings (
+                              res: ''"${toString res.x}x${toString res.y}"''
+                            ) cfg.resolutions
+                          }"
+                        }
+                      ${indent cfg.extraDisplaySettings}
+                        ${
+                          optionalString (cfg.virtualScreen != null)
+                          "Virtual ${toString cfg.virtualScreen.x} ${
+                            toString cfg.virtualScreen.y
+                          }"
+                        }
+                      EndSubSection
+                    ''
+                    ;
+                in
+                concatMapStrings f [
+                  8
+                  16
+                  24
+                ]
+              )
             }
 
           EndSection
@@ -1041,10 +1060,12 @@ in
 
     fonts.enableDefaultFonts = mkDefault true;
     fonts.fonts = [
-      (if cfg.upscaleDefaultCursor then
-        fontcursormisc_hidpi
-      else
-        pkgs.xorg.fontcursormisc)
+      (
+        if cfg.upscaleDefaultCursor then
+          fontcursormisc_hidpi
+        else
+          pkgs.xorg.fontcursormisc
+      )
       pkgs.xorg.fontmiscmisc
     ];
 

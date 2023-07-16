@@ -6,14 +6,18 @@ let
   libc = pkgs.stdenv.cc.libc;
   patchelf = pkgs.patchelf.overrideAttrs (previousAttrs: {
     NIX_CFLAGS_COMPILE =
-      (previousAttrs.NIX_CFLAGS_COMPILE or [ ])
+      (
+        previousAttrs.NIX_CFLAGS_COMPILE or [ ]
+      )
       ++ [
         "-static-libgcc"
         "-static-libstdc++"
       ]
       ;
     NIX_CFLAGS_LINK =
-      (previousAttrs.NIX_CFLAGS_LINK or [ ])
+      (
+        previousAttrs.NIX_CFLAGS_LINK or [ ]
+      )
       ++ [
         "-static-libgcc"
         "-static-libstdc++"
@@ -82,60 +86,62 @@ with pkgs; rec {
           mkdir -p $out/bin $out/lib $out/libexec
 
         ''
-        + (if (stdenv.hostPlatform.libc == "glibc") then
-          ''
-            # Copy what we need of Glibc.
-            cp -d ${libc.out}/lib/ld*.so* $out/lib
-            cp -d ${libc.out}/lib/libc*.so* $out/lib
-            cp -d ${libc.out}/lib/libc_nonshared.a $out/lib
-            cp -d ${libc.out}/lib/libm*.so* $out/lib
-            cp -d ${libc.out}/lib/libdl*.so* $out/lib
-            cp -d ${libc.out}/lib/librt*.so*  $out/lib
-            cp -d ${libc.out}/lib/libpthread*.so* $out/lib
-          ''
-          + lib.optionalString withLibnsl ''
-            cp -d ${libc.out}/lib/libnsl*.so* $out/lib
-          ''
-          + ''
-            cp -d ${libc.out}/lib/libutil*.so* $out/lib
-            cp -d ${libc.out}/lib/libnss*.so* $out/lib
-            cp -d ${libc.out}/lib/libresolv*.so* $out/lib
-            cp -d ${libc.out}/lib/crt?.o $out/lib
+        + (
+          if (stdenv.hostPlatform.libc == "glibc") then
+            ''
+              # Copy what we need of Glibc.
+              cp -d ${libc.out}/lib/ld*.so* $out/lib
+              cp -d ${libc.out}/lib/libc*.so* $out/lib
+              cp -d ${libc.out}/lib/libc_nonshared.a $out/lib
+              cp -d ${libc.out}/lib/libm*.so* $out/lib
+              cp -d ${libc.out}/lib/libdl*.so* $out/lib
+              cp -d ${libc.out}/lib/librt*.so*  $out/lib
+              cp -d ${libc.out}/lib/libpthread*.so* $out/lib
+            ''
+            + lib.optionalString withLibnsl ''
+              cp -d ${libc.out}/lib/libnsl*.so* $out/lib
+            ''
+            + ''
+              cp -d ${libc.out}/lib/libutil*.so* $out/lib
+              cp -d ${libc.out}/lib/libnss*.so* $out/lib
+              cp -d ${libc.out}/lib/libresolv*.so* $out/lib
+              cp -d ${libc.out}/lib/crt?.o $out/lib
 
-            # Hacky compat with our current unpack-bootstrap-tools.sh
-            ln -s librt.so "$out"/lib/librt-dummy.so
+              # Hacky compat with our current unpack-bootstrap-tools.sh
+              ln -s librt.so "$out"/lib/librt-dummy.so
 
-            cp -rL ${libc.dev}/include $out
-            chmod -R u+w "$out"
+              cp -rL ${libc.dev}/include $out
+              chmod -R u+w "$out"
 
-            # libc can contain linker scripts: find them, copy their deps,
-            # and get rid of absolute paths (nuke-refs would make them useless)
-            local lScripts=$(grep --files-with-matches --max-count=1 'GNU ld script' -R "$out/lib")
-            cp -d -t "$out/lib/" $(cat $lScripts | tr " " "\n" | grep -F '${libc.out}' | sort -u)
-            for f in $lScripts; do
-              substituteInPlace "$f" --replace '${libc.out}/lib/' ""
-            done
+              # libc can contain linker scripts: find them, copy their deps,
+              # and get rid of absolute paths (nuke-refs would make them useless)
+              local lScripts=$(grep --files-with-matches --max-count=1 'GNU ld script' -R "$out/lib")
+              cp -d -t "$out/lib/" $(cat $lScripts | tr " " "\n" | grep -F '${libc.out}' | sort -u)
+              for f in $lScripts; do
+                substituteInPlace "$f" --replace '${libc.out}/lib/' ""
+              done
 
-            # Hopefully we won't need these.
-            rm -rf $out/include/mtd $out/include/rdma $out/include/sound $out/include/video
-            find $out/include -name .install -exec rm {} \;
-            find $out/include -name ..install.cmd -exec rm {} \;
-            mv $out/include $out/include-glibc
-          ''
-        else if (stdenv.hostPlatform.libc == "musl") then
-          ''
-            # Copy what we need from musl
-            cp ${libc.out}/lib/* $out/lib
-            cp -rL ${libc.dev}/include $out
-            chmod -R u+w "$out"
+              # Hopefully we won't need these.
+              rm -rf $out/include/mtd $out/include/rdma $out/include/sound $out/include/video
+              find $out/include -name .install -exec rm {} \;
+              find $out/include -name ..install.cmd -exec rm {} \;
+              mv $out/include $out/include-glibc
+            ''
+          else if (stdenv.hostPlatform.libc == "musl") then
+            ''
+              # Copy what we need from musl
+              cp ${libc.out}/lib/* $out/lib
+              cp -rL ${libc.dev}/include $out
+              chmod -R u+w "$out"
 
-            rm -rf $out/include/mtd $out/include/rdma $out/include/sound $out/include/video
-            find $out/include -name .install -exec rm {} \;
-            find $out/include -name ..install.cmd -exec rm {} \;
-            mv $out/include $out/include-libc
-          ''
-        else
-          throw "unsupported libc for bootstrap tools")
+              rm -rf $out/include/mtd $out/include/rdma $out/include/sound $out/include/video
+              find $out/include -name .install -exec rm {} \;
+              find $out/include -name ..install.cmd -exec rm {} \;
+              mv $out/include $out/include-libc
+            ''
+          else
+            throw "unsupported libc for bootstrap tools"
+        )
         + ''
           # Copy coreutils, bash, etc.
           cp -d ${coreutilsMinimal.out}/bin/* $out/bin

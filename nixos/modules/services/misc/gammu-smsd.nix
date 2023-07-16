@@ -35,21 +35,24 @@ let
       ErrorSMSPath = ${cfg.backend.files.errorSMSPath}
     ''}
 
-    ${optionalString
-    (cfg.backend.service == "sql" && cfg.backend.sql.driver == "sqlite") ''
+    ${optionalString (
+      cfg.backend.service == "sql" && cfg.backend.sql.driver == "sqlite"
+    ) ''
       Driver = ${cfg.backend.sql.driver}
       DBDir = ${cfg.backend.sql.database}
     ''}
 
-    ${optionalString
-    (cfg.backend.service == "sql" && cfg.backend.sql.driver == "native_pgsql")
-    (with cfg.backend; ''
-      Driver = ${sql.driver}
-      ${optionalString (sql.database != null) "Database = ${sql.database}"}
-      ${optionalString (sql.host != null) "Host = ${sql.host}"}
-      ${optionalString (sql.user != null) "User = ${sql.user}"}
-      ${optionalString (sql.password != null) "Password = ${sql.password}"}
-    '')}
+    ${optionalString (
+      cfg.backend.service == "sql" && cfg.backend.sql.driver == "native_pgsql"
+    ) (
+      with cfg.backend; ''
+        Driver = ${sql.driver}
+        ${optionalString (sql.database != null) "Database = ${sql.database}"}
+        ${optionalString (sql.host != null) "Host = ${sql.host}"}
+        ${optionalString (sql.user != null) "User = ${sql.user}"}
+        ${optionalString (sql.password != null) "Password = ${sql.password}"}
+      ''
+    )}
 
     ${cfg.extraConfig.smsd}
   '';
@@ -260,34 +263,37 @@ in
 
       preStart = with cfg.backend;
 
-        optionalString (service == "files") (with files; ''
-          mkdir -m 755 -p ${inboxPath} ${outboxPath} ${sentSMSPath} ${errorSMSPath}
-          chown ${cfg.user} -R ${inboxPath}
-          chown ${cfg.user} -R ${outboxPath}
-          chown ${cfg.user} -R ${sentSMSPath}
-          chown ${cfg.user} -R ${errorSMSPath}
-        '')
+        optionalString (service == "files") (
+          with files; ''
+            mkdir -m 755 -p ${inboxPath} ${outboxPath} ${sentSMSPath} ${errorSMSPath}
+            chown ${cfg.user} -R ${inboxPath}
+            chown ${cfg.user} -R ${outboxPath}
+            chown ${cfg.user} -R ${sentSMSPath}
+            chown ${cfg.user} -R ${errorSMSPath}
+          ''
+        )
         + optionalString (service == "sql" && sql.driver == "sqlite") ''
           cat "${gammuPackage}/${initDBDir}/sqlite.sql" \
           | ${pkgs.sqlite.bin}/bin/sqlite3 ${sql.database}
         ''
-        + (let
-          execPsql =
-            extraArgs:
-            concatStringsSep " " [
-              (optionalString (sql.password != null)
-                "PGPASSWORD=${sql.password}")
-              "${config.services.postgresql.package}/bin/psql"
-              (optionalString (sql.host != null) "-h ${sql.host}")
-              (optionalString (sql.user != null) "-U ${sql.user}")
-              "$extraArgs"
-              "${sql.database}"
-            ]
-            ;
-        in
-        optionalString (service == "sql" && sql.driver == "native_pgsql") ''
-          echo '\i '"${gammuPackage}/${initDBDir}/pgsql.sql" | ${execPsql ""}
-        ''
+        + (
+          let
+            execPsql =
+              extraArgs:
+              concatStringsSep " " [
+                (optionalString (sql.password != null)
+                  "PGPASSWORD=${sql.password}")
+                "${config.services.postgresql.package}/bin/psql"
+                (optionalString (sql.host != null) "-h ${sql.host}")
+                (optionalString (sql.user != null) "-U ${sql.user}")
+                "$extraArgs"
+                "${sql.database}"
+              ]
+              ;
+          in
+          optionalString (service == "sql" && sql.driver == "native_pgsql") ''
+            echo '\i '"${gammuPackage}/${initDBDir}/pgsql.sql" | ${execPsql ""}
+          ''
         );
 
       serviceConfig = {

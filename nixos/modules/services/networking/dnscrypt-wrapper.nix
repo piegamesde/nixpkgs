@@ -48,8 +48,9 @@ let
     cd ${dataDir}
 
     # generate provider keypair (first run only)
-    ${optionalString
-    (cfg.providerKey.public == null || cfg.providerKey.secret == null) ''
+    ${optionalString (
+      cfg.providerKey.public == null || cfg.providerKey.secret == null
+    ) ''
       if [ ! -f ${publicKey} ] || [ ! -f ${secretKey} ]; then
         dnscrypt-wrapper --gen-provider-keypair
       fi
@@ -89,7 +90,8 @@ let
     # This is the fork of the original dnscrypt-proxy maintained by Dyne.org.
     # dnscrypt-proxy2 doesn't provide the `--test` feature that is needed to
     # correctly implement key rotation of dnscrypt-wrapper ephemeral keys.
-  dnscrypt-proxy1 = pkgs.callPackage ({
+  dnscrypt-proxy1 = pkgs.callPackage (
+    {
       stdenv,
       fetchFromGitHub,
       autoreconfHook,
@@ -142,7 +144,8 @@ let
         maintainers = with maintainers; [ rnhmjoj ];
         platforms = platforms.linux;
       };
-    }) { };
+    }
+  ) { };
 
 in
 {
@@ -305,8 +308,12 @@ in
 
     assertions = with cfg; [ {
       assertion =
-        (providerKey.public == null && providerKey.secret == null)
-        || (providerKey.secret != null && providerKey.public != null)
+        (
+          providerKey.public == null && providerKey.secret == null
+        )
+        || (
+          providerKey.secret != null && providerKey.public != null
+        )
         ;
       message = "The secret and public provider key must be set together.";
     } ];

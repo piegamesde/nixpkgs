@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -40,4 +41,5 @@ import ./make-test-python.nix ({
 
       machine.wait_until_succeeds("test -f /tmp/registration-connect")
     '';
-  })
+  }
+)

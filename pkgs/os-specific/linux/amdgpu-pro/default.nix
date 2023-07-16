@@ -193,23 +193,25 @@ stdenv.mkDerivation rec {
     ;
 
   preFixup =
-    (if
-      stdenv.is64bit
-      # this could also be done with LIBGL_DRIVERS_PATH, but it would need to be
-      # set in the user session and for Xorg
-    then
-      ''
-        expr1='s:/opt/amdgpu/lib/x86_64-linux-gnu/dri\0:/run/opengl-driver/lib/dri\0\0\0\0\0\0\0\0\0\0\0:g'
-        expr2='s:/usr/lib/x86_64-linux-gnu/dri[\0\:]:/run/opengl-driver/lib/dri\0\0\0\0:g'
-        perl -pi -e "$expr2" $out/lib/xorg/modules/extensions/libglx.so
-      ''
-    else
-      ''
-        expr1='s:/opt/amdgpu/lib/i386-linux-gnu/dri\0:/run/opengl-driver-32/lib/dri\0\0\0\0\0\0:g'
-        # we replace a different path on 32-bit because it's the only one long
-        # enough to fit the target path :(
-        expr2='s:/usr/lib/i386-linux-gnu/dri[\0\:]:/run/opengl-driver-32/dri\0\0\0:g'
-      '')
+    (
+      if
+        stdenv.is64bit
+        # this could also be done with LIBGL_DRIVERS_PATH, but it would need to be
+        # set in the user session and for Xorg
+      then
+        ''
+          expr1='s:/opt/amdgpu/lib/x86_64-linux-gnu/dri\0:/run/opengl-driver/lib/dri\0\0\0\0\0\0\0\0\0\0\0:g'
+          expr2='s:/usr/lib/x86_64-linux-gnu/dri[\0\:]:/run/opengl-driver/lib/dri\0\0\0\0:g'
+          perl -pi -e "$expr2" $out/lib/xorg/modules/extensions/libglx.so
+        ''
+      else
+        ''
+          expr1='s:/opt/amdgpu/lib/i386-linux-gnu/dri\0:/run/opengl-driver-32/lib/dri\0\0\0\0\0\0:g'
+          # we replace a different path on 32-bit because it's the only one long
+          # enough to fit the target path :(
+          expr2='s:/usr/lib/i386-linux-gnu/dri[\0\:]:/run/opengl-driver-32/dri\0\0\0:g'
+        ''
+    )
     + ''
       perl -pi -e "$expr1" \
         $out/opt/amdgpu/lib/libEGL.so.1.0.0 \

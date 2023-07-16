@@ -59,8 +59,12 @@
     # enableNoSemanticInterposition is a subset of the enableOptimizations flag that doesn't harm reproducibility.
     # clang starts supporting `-fno-sematic-interposition` with version 10
   ,
-  enableNoSemanticInterposition ? (!stdenv.cc.isClang
-    || (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "10"))
+  enableNoSemanticInterposition ? (
+    !stdenv.cc.isClang
+    || (
+      stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "10"
+    )
+  )
   # enableLTO is a subset of the enableOptimizations flag that doesn't harm reproducibility.
   # enabling LTO on 32bit arch causes downstream packages to fail when linking
   # enabling LTO on *-darwin causes python3 to fail when linking.
@@ -158,25 +162,32 @@ let
       buildPackages.stdenv.cc
       pythonForBuild
     ]
-    ++ optionals (stdenv.cc.isClang
-      && (!stdenv.hostPlatform.useAndroidPrebuilt or false)
-      && (enableLTO || enableOptimizations)) [ stdenv.cc.cc.libllvm.out ]
+    ++ optionals (
+      stdenv.cc.isClang
+      && (
+        !stdenv.hostPlatform.useAndroidPrebuilt or false
+      )
+      && (
+        enableLTO || enableOptimizations
+      )
+    ) [ stdenv.cc.cc.libllvm.out ]
     ;
 
   buildInputs =
-    filter (p: p != null) ([
-      zlib
-      bzip2
-      expat
-      xz
-      libffi
-      libxcrypt
-      gdbm
-      sqlite
-      readline
-      ncurses
-      openssl'
-    ]
+    filter (p: p != null) (
+      [
+        zlib
+        bzip2
+        expat
+        xz
+        libffi
+        libxcrypt
+        gdbm
+        sqlite
+        readline
+        ncurses
+        openssl'
+      ]
       ++ optionals x11Support [
         tcl
         tk
@@ -184,7 +195,8 @@ let
         xorgproto
       ]
       ++ optionals (bluezSupport && stdenv.isLinux) [ bluez ]
-      ++ optionals stdenv.isDarwin [ configd ])
+      ++ optionals stdenv.isDarwin [ configd ]
+    )
 
     ++ optionals enableFramework [ Cocoa ]
     ++ optionals tzdataSupport [ tzdata ]
@@ -343,7 +355,9 @@ stdenv.mkDerivation {
       # ctypes.util.find_library during the loading of the uuid module
       # (since it will do a futile invocation of gcc (!) to find
       # libuuid, slowing down program startup a lot).
-      (./. + "/${sourceVersion.major}.${sourceVersion.minor}/no-ldconfig.patch")
+      (
+        ./. + "/${sourceVersion.major}.${sourceVersion.minor}/no-ldconfig.patch"
+      )
       # Make sure that the virtualenv activation scripts are
       # owner-writable, so venvs can be recreated without permission
       # errors.
@@ -368,16 +382,18 @@ stdenv.mkDerivation {
       # Upstream distutils is calling C compiler to compile C++ code, which
       # only works for GCC and Apple Clang. This makes distutils to call C++
       # compiler when needed.
-      (if pythonAtLeast "3.7" && pythonOlder "3.11" then
-        ./3.7/python-3.x-distutils-C++.patch
-      else if pythonAtLeast "3.11" then
-        ./3.11/python-3.x-distutils-C++.patch
-      else
-        fetchpatch {
-          url =
-            "https://bugs.python.org/file48016/python-3.x-distutils-C++.patch";
-          sha256 = "1h18lnpx539h5lfxyk379dxwr8m2raigcjixkf133l4xy3f4bzi2";
-        })
+      (
+        if pythonAtLeast "3.7" && pythonOlder "3.11" then
+          ./3.7/python-3.x-distutils-C++.patch
+        else if pythonAtLeast "3.11" then
+          ./3.11/python-3.x-distutils-C++.patch
+        else
+          fetchpatch {
+            url =
+              "https://bugs.python.org/file48016/python-3.x-distutils-C++.patch";
+            sha256 = "1h18lnpx539h5lfxyk379dxwr8m2raigcjixkf133l4xy3f4bzi2";
+          }
+      )
     ]
     ++ optionals (pythonOlder "3.12") [
       # LDSHARED now uses $CC instead of gcc. Fixes cross-compilation of extension modules.
@@ -411,11 +427,13 @@ stdenv.mkDerivation {
     LDFLAGS = concatStringsSep " " (map (p: "-L${getLib p}/lib") buildInputs);
     LIBS = "${optionalString (!stdenv.isDarwin) "-lcrypt"}";
     NIX_LDFLAGS =
-      lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic) ({
-        "glibc" = "-lgcc_s";
-        "musl" = "-lgcc_eh";
-      }
-        ."${stdenv.hostPlatform.libc}" or "");
+      lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic) (
+        {
+          "glibc" = "-lgcc_s";
+          "musl" = "-lgcc_eh";
+        }
+        ."${stdenv.hostPlatform.libc}" or ""
+      );
       # Determinism: We fix the hashes of str, bytes and datetime objects.
     PYTHONHASHSEED = 0;
   };
@@ -466,10 +484,9 @@ stdenv.mkDerivation {
       "ac_cv_file__dev_ptmx=yes"
       "ac_cv_file__dev_ptc=yes"
     ]
-    ++ optionals
-      (stdenv.hostPlatform != stdenv.buildPlatform && pythonAtLeast "3.11") [
-        "--with-build-python=${pythonForBuildInterpreter}"
-      ]
+    ++ optionals (
+      stdenv.hostPlatform != stdenv.buildPlatform && pythonAtLeast "3.11"
+    ) [ "--with-build-python=${pythonForBuildInterpreter}" ]
     ++ optionals stdenv.hostPlatform.isLinux [
       # Never even try to use lchmod on linux,
       # don't rely on detecting glibc-isms.
@@ -548,11 +565,13 @@ stdenv.mkDerivation {
   postInstall =
     let
       # References *not* to nuke from (sys)config files
-      keep-references = concatMapStringsSep " " (val: "-e ${val}") ([
-        (placeholder "out")
-        libxcrypt
-      ]
-        ++ optionals tzdataSupport [ tzdata ]);
+      keep-references = concatMapStringsSep " " (val: "-e ${val}") (
+        [
+          (placeholder "out")
+          libxcrypt
+        ]
+        ++ optionals tzdataSupport [ tzdata ]
+      );
     in
     lib.optionalString enableFramework ''
       for dir in include lib share; do

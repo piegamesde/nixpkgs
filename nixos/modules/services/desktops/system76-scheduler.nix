@@ -23,10 +23,14 @@ let
 
   withDefaults =
     optionSpecs: defaults:
-    lib.genAttrs (attrNames optionSpecs) (name:
-      mkOption (optionSpecs.${name} // {
-        default = optionSpecs.${name}.default or defaults.${name} or null;
-      }))
+    lib.genAttrs (attrNames optionSpecs) (
+      name:
+      mkOption (
+        optionSpecs.${name} // {
+          default = optionSpecs.${name}.default or defaults.${name} or null;
+        }
+      )
+    )
     ;
 
   latencyProfile = withDefaults {
@@ -126,14 +130,16 @@ let
 
   schedulerProfileToString =
     name: a: indent:
-    concatStringsSep " " ([ "${indent}${name}" ]
+    concatStringsSep " " (
+      [ "${indent}${name}" ]
       ++ (optional (a.nice != null) "nice=${toString a.nice}")
       ++ (optional (a.class != null) "sched=${prioToString a.class a.prio}")
       ++ (optional (a.ioClass != null) "io=${prioToString a.ioClass a.ioPrio}")
       ++ (optional ((builtins.length a.matchers) != 0) (''
         {
         ${concatStringsSep "\n" (map (m: "  ${indent}${m}") a.matchers)}
-        ${indent}}'')))
+        ${indent}}''))
+    )
     ;
 
 in
@@ -311,48 +317,49 @@ in
           ../../../../pkgs/os-specific/linux/system76-scheduler/01-fix-pipewire-paths.kdl;
       })
 
-      (let
-        settings = cfg.settings;
-        cfsp = settings.cfsProfiles;
-        ps = settings.processScheduler;
-      in
-      mkIf (!cfg.useStockConfig) {
-        "system76-scheduler/config.kdl".text = ''
-          version "2.0"
-          autogroup-enabled false
-          cfs-profiles enable=${boolToString cfsp.enable} {
-            ${cfsProfileToString "default"}
-            ${cfsProfileToString "responsive"}
-          }
-          process-scheduler enable=${boolToString ps.enable} {
-            execsnoop ${boolToString ps.useExecsnoop}
-            refresh-rate ${toString ps.refreshInterval}
-            assignments {
-              ${
-                if ps.foregroundBoost.enable then
-                  (schedulerProfileToString "foreground"
-                    ps.foregroundBoost.foreground "    ")
-                else
-                  ""
-              }
-              ${
-                if ps.foregroundBoost.enable then
-                  (schedulerProfileToString "background"
-                    ps.foregroundBoost.background "    ")
-                else
-                  ""
-              }
-              ${
-                if ps.pipewireBoost.enable then
-                  (schedulerProfileToString "pipewire" ps.pipewireBoost.profile
-                    "    ")
-                else
-                  ""
+      (
+        let
+          settings = cfg.settings;
+          cfsp = settings.cfsProfiles;
+          ps = settings.processScheduler;
+        in
+        mkIf (!cfg.useStockConfig) {
+          "system76-scheduler/config.kdl".text = ''
+            version "2.0"
+            autogroup-enabled false
+            cfs-profiles enable=${boolToString cfsp.enable} {
+              ${cfsProfileToString "default"}
+              ${cfsProfileToString "responsive"}
+            }
+            process-scheduler enable=${boolToString ps.enable} {
+              execsnoop ${boolToString ps.useExecsnoop}
+              refresh-rate ${toString ps.refreshInterval}
+              assignments {
+                ${
+                  if ps.foregroundBoost.enable then
+                    (schedulerProfileToString "foreground"
+                      ps.foregroundBoost.foreground "    ")
+                  else
+                    ""
+                }
+                ${
+                  if ps.foregroundBoost.enable then
+                    (schedulerProfileToString "background"
+                      ps.foregroundBoost.background "    ")
+                  else
+                    ""
+                }
+                ${
+                  if ps.pipewireBoost.enable then
+                    (schedulerProfileToString "pipewire"
+                      ps.pipewireBoost.profile "    ")
+                  else
+                    ""
+                }
               }
             }
-          }
-        '';
-      }
+          '';
+        }
       )
 
       {
@@ -365,9 +372,9 @@ in
           + ''
             assignments {
           ''
-          + (concatStringsSep "\n" (map
-            (name: schedulerProfileToString name cfg.assignments.${name} "  ")
-            (attrNames cfg.assignments)))
+          + (concatStringsSep "\n" (map (
+            name: schedulerProfileToString name cfg.assignments.${name} "  "
+          ) (attrNames cfg.assignments)))
           + ''
 
             }

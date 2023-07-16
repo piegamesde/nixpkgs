@@ -11,7 +11,8 @@ let
     }
     ;
 in
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -143,4 +144,5 @@ import ./make-test-python.nix ({
               assert_host(ipv, "a", "root", "address 1.8.7.4$")
               assert_host(ipv, "aaaa", "root", "address acbd::4$")
     '';
-  })
+  }
+)

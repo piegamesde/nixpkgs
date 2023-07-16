@@ -142,17 +142,19 @@ let
       pkgs =
         # tarball of a collection/scheme itself only contains a tlobj file
         [
-          (if (attrs.hasRunfiles or false) then
-            mkPkgV "run"
-            # the fake derivations are used for filtering of hyphenation patterns and formats
-          else
-            {
-              inherit pname version;
-              tlType = "run";
-              hasFormats = attrs.hasFormats or false;
-              hasHyphens = attrs.hasHyphens or false;
-              tlDeps = map (n: tl.${n}) (attrs.deps or [ ]);
-            })
+          (
+            if (attrs.hasRunfiles or false) then
+              mkPkgV "run"
+              # the fake derivations are used for filtering of hyphenation patterns and formats
+            else
+              {
+                inherit pname version;
+                tlType = "run";
+                hasFormats = attrs.hasFormats or false;
+                hasHyphens = attrs.hasHyphens or false;
+                tlDeps = map (n: tl.${n}) (attrs.deps or [ ]);
+              }
+          )
         ]
         ++ lib.optional (attrs.sha512 ? doc) (mkPkgV "doc")
         ++ lib.optional (attrs.sha512 ? source) (mkPkgV "source")
@@ -226,74 +228,85 @@ let
         fixedHashes.${tlName} or null; # be graceful about missing hashes
 
       urls =
-        args.urls or (if args ? url then
-          [ args.url ]
-        else
-          map (up: "${up}/archive/${urlName}.r${toString revision}.tar.xz")
-          (args.urlPrefixes or urlPrefixes));
+        args.urls or (
+          if args ? url then
+            [ args.url ]
+          else
+            map (up: "${up}/archive/${urlName}.r${toString revision}.tar.xz") (
+              args.urlPrefixes or urlPrefixes
+            )
+        );
 
     in
-    runCommand "texlive-${tlName}" ({
-      src = fetchurl { inherit urls sha512; };
-      inherit
-        stripPrefix
-        ;
-        # metadata for texlive.combine
-      passthru = {
-        inherit pname tlType version;
-      } // lib.optionalAttrs (tlType == "run" && args ? deps) {
-        tlDeps = map (n: tl.${n}) args.deps;
-      } // lib.optionalAttrs (tlType == "run") {
-        hasFormats = args.hasFormats or false;
-        hasHyphens = args.hasHyphens or false;
-      };
-    } // lib.optionalAttrs (fixedHash != null) {
-      outputHash = fixedHash;
-      outputHashAlgo = "sha256";
-      outputHashMode = "recursive";
-    }) (''
-      mkdir "$out"
-      tar -xf "$src" \
-      --strip-components="$stripPrefix" \
-      -C "$out" --anchored --exclude=tlpkg --keep-old-files
-    ''
-      + postUnpack)
+    runCommand "texlive-${tlName}" (
+      {
+        src = fetchurl { inherit urls sha512; };
+        inherit
+          stripPrefix
+          ;
+          # metadata for texlive.combine
+        passthru = {
+          inherit pname tlType version;
+        } // lib.optionalAttrs (tlType == "run" && args ? deps) {
+          tlDeps = map (n: tl.${n}) args.deps;
+        } // lib.optionalAttrs (tlType == "run") {
+          hasFormats = args.hasFormats or false;
+          hasHyphens = args.hasHyphens or false;
+        };
+      } // lib.optionalAttrs (fixedHash != null) {
+        outputHash = fixedHash;
+        outputHashAlgo = "sha256";
+        outputHashMode = "recursive";
+      }
+    ) (
+      ''
+        mkdir "$out"
+        tar -xf "$src" \
+        --strip-components="$stripPrefix" \
+        -C "$out" --anchored --exclude=tlpkg --keep-old-files
+      ''
+      + postUnpack
+    )
     ;
 
     # combine a set of TL packages into a single TL meta-package
   combinePkgs =
     pkgList:
-    lib.catAttrs "pkg" (let
-      # a TeX package is an attribute set { pkgs = [ ... ]; ... } where pkgs is a list of derivations
-      # the derivations make up the TeX package and optionally (for backward compatibility) its dependencies
-      tlPkgToSets =
-        {
-          pkgs,
-          ...
-        }:
-        map ({
-            tlType,
-            version ? "",
-            outputName ? "",
+    lib.catAttrs "pkg" (
+      let
+        # a TeX package is an attribute set { pkgs = [ ... ]; ... } where pkgs is a list of derivations
+        # the derivations make up the TeX package and optionally (for backward compatibility) its dependencies
+        tlPkgToSets =
+          {
+            pkgs,
             ...
-          }@pkg: {
-            # outputName required to distinguish among bin.core-big outputs
-            key = "${pkg.pname or pkg.name}.${tlType}-${version}-${outputName}";
-            inherit pkg;
-          }) pkgs
-        ;
-      pkgListToSets = lib.concatMap tlPkgToSets;
-    in
-    builtins.genericClosure {
-      startSet = pkgListToSets pkgList;
-      operator =
-        {
-          pkg,
-          ...
-        }:
-        pkgListToSets (pkg.tlDeps or [ ])
-        ;
-    }
+          }:
+          map (
+            {
+              tlType,
+              version ? "",
+              outputName ? "",
+              ...
+            }@pkg: {
+              # outputName required to distinguish among bin.core-big outputs
+              key =
+                "${pkg.pname or pkg.name}.${tlType}-${version}-${outputName}";
+              inherit pkg;
+            }
+          ) pkgs
+          ;
+        pkgListToSets = lib.concatMap tlPkgToSets;
+      in
+      builtins.genericClosure {
+        startSet = pkgListToSets pkgList;
+        operator =
+          {
+            pkg,
+            ...
+          }:
+          pkgListToSets (pkg.tlDeps or [ ])
+          ;
+      }
     )
     ;
 
@@ -322,7 +335,8 @@ tl // {
     # Pre-defined combined packages for TeX Live schemes,
     # to make nix-env usage more comfortable and build selected on Hydra.
   combined = with lib;
-    recurseIntoAttrs (mapAttrs (pname: attrs:
+    recurseIntoAttrs (mapAttrs (
+      pname: attrs:
       addMetaAttrs rec {
         description = "TeX Live environment for ${pname}";
         platforms = lib.platforms.all;
@@ -335,17 +349,18 @@ tl // {
             "-final"
           else
             ".${year}${month}${day}";
-      })) {
-        inherit (tl)
-          scheme-basic
-          scheme-context
-          scheme-full
-          scheme-gust
-          scheme-infraonly
-          scheme-medium
-          scheme-minimal
-          scheme-small
-          scheme-tetex
-          ;
-      });
+      })
+    ) {
+      inherit (tl)
+        scheme-basic
+        scheme-context
+        scheme-full
+        scheme-gust
+        scheme-infraonly
+        scheme-medium
+        scheme-minimal
+        scheme-small
+        scheme-tetex
+        ;
+    });
 }

@@ -4,7 +4,8 @@ let
   containerIp2 = "192.168.1.254";
 
 in
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -95,4 +96,5 @@ import ./make-test-python.nix ({
           machine2.succeed("ping -n -c 1 ${containerIp1}")
           machine2.succeed("ping -n -c 1 ${containerIp2}")
     '';
-  })
+  }
+)

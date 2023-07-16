@@ -40,7 +40,9 @@ stdenv.mkDerivation rec {
     ''
       mkdir -p $out/bin
     ''
-    + (pip.postPatch or "")
+    + (
+      pip.postPatch or ""
+    )
     ; # `pip` does not necessarily have a `postPatch` field.
 
   nativeBuildInputs = [
@@ -85,8 +87,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Version of pip used for bootstrapping";
-    license = lib.unique
-      (pip.meta.license ++ setuptools.meta.license ++ wheel.meta.license);
+    license = lib.unique (
+      pip.meta.license ++ setuptools.meta.license ++ wheel.meta.license
+    );
     homepage = pip.meta.homepage;
   };
 }

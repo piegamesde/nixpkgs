@@ -13,17 +13,19 @@
 
 let
   runtime_paths =
-    lib.makeBinPath (with pkgsHostHost; [
-      coreutils
-      file
-      findutils
-      gawk
-      gnugrep
-      gnused
-      jdk
-      python3
-      which
-    ])
+    lib.makeBinPath (
+      with pkgsHostHost; [
+        coreutils
+        file
+        findutils
+        gawk
+        gnugrep
+        gnused
+        jdk
+        python3
+        which
+      ]
+    )
     + ":${platform-tools}/platform-tools"
     ;
 in

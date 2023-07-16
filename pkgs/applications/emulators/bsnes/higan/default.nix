@@ -53,12 +53,14 @@ stdenv.mkDerivation rec {
       openal
       udev
     ]
-    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-      Carbon
-      Cocoa
-      OpenAL
-      OpenGL
-    ])
+    ++ lib.optionals stdenv.isDarwin (
+      with darwin.apple_sdk.frameworks; [
+        Carbon
+        Cocoa
+        OpenAL
+        OpenGL
+      ]
+    )
     ;
 
   patches = [
@@ -89,40 +91,42 @@ stdenv.mkDerivation rec {
       runHook preInstall
 
     ''
-    + (if stdenv.isDarwin then
-      ''
-        mkdir ${placeholder "out"}
-        mv higan/out/higan.app ${placeholder "out"}/
-        mv icarus/out/icarus.app ${placeholder "out"}/
-      ''
-    else
-      ''
-        install -d ${placeholder "out"}/bin
-        install higan-ui/out/higan -t ${placeholder "out"}/bin/
-        install icarus/out/icarus -t ${placeholder "out"}/bin/
+    + (
+      if stdenv.isDarwin then
+        ''
+          mkdir ${placeholder "out"}
+          mv higan/out/higan.app ${placeholder "out"}/
+          mv icarus/out/icarus.app ${placeholder "out"}/
+        ''
+      else
+        ''
+          install -d ${placeholder "out"}/bin
+          install higan-ui/out/higan -t ${placeholder "out"}/bin/
+          install icarus/out/icarus -t ${placeholder "out"}/bin/
 
-        install -d ${placeholder "out"}/share/applications
-        install higan-ui/resource/higan.desktop -t ${
-          placeholder "out"
-        }/share/applications/
-        install icarus/resource/icarus.desktop -t ${
-          placeholder "out"
-        }/share/applications/
+          install -d ${placeholder "out"}/share/applications
+          install higan-ui/resource/higan.desktop -t ${
+            placeholder "out"
+          }/share/applications/
+          install icarus/resource/icarus.desktop -t ${
+            placeholder "out"
+          }/share/applications/
 
-        install -d ${placeholder "out"}/share/pixmaps
-        install higan/higan/resource/higan.svg ${
-          placeholder "out"
-        }/share/pixmaps/higan-icon.svg
-        install higan/higan/resource/logo.png ${
-          placeholder "out"
-        }/share/pixmaps/higan-icon.png
-        install icarus/resource/icarus.svg ${
-          placeholder "out"
-        }/share/pixmaps/icarus-icon.svg
-        install icarus/resource/icarus.png ${
-          placeholder "out"
-        }/share/pixmaps/icarus-icon.png
-      '')
+          install -d ${placeholder "out"}/share/pixmaps
+          install higan/higan/resource/higan.svg ${
+            placeholder "out"
+          }/share/pixmaps/higan-icon.svg
+          install higan/higan/resource/logo.png ${
+            placeholder "out"
+          }/share/pixmaps/higan-icon.png
+          install icarus/resource/icarus.svg ${
+            placeholder "out"
+          }/share/pixmaps/icarus-icon.svg
+          install icarus/resource/icarus.png ${
+            placeholder "out"
+          }/share/pixmaps/icarus-icon.png
+        ''
+    )
     + ''
       install -d ${placeholder "out"}/share/higan
       cp -rd extras/ higan/System/ ${placeholder "out"}/share/higan/

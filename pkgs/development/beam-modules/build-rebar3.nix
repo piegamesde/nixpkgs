@@ -45,67 +45,69 @@ let
 
   pkg =
     self:
-    stdenv.mkDerivation (attrs // {
+    stdenv.mkDerivation (
+      attrs // {
 
-      name = "${name}-${version}";
-      inherit version;
+        name = "${name}-${version}";
+        inherit version;
 
-      buildInputs =
-        buildInputs
-        ++ [
-          erlang
-          rebar3
-          openssl
-          libyaml
-        ]
-        ;
-      propagatedBuildInputs = lib.unique beamDeps;
+        buildInputs =
+          buildInputs
+          ++ [
+            erlang
+            rebar3
+            openssl
+            libyaml
+          ]
+          ;
+        propagatedBuildInputs = lib.unique beamDeps;
 
-      inherit
-        src
-        ;
+        inherit
+          src
+          ;
 
-        # stripping does not have any effect on beam files
-        # it is however needed for dependencies with NIFs
-        # false is the default but we keep this for readability
-      dontStrip = false;
+          # stripping does not have any effect on beam files
+          # it is however needed for dependencies with NIFs
+          # false is the default but we keep this for readability
+        dontStrip = false;
 
-      setupHook = writeText "setupHook.sh" ''
-        addToSearchPath ERL_LIBS "$1/lib/erlang/lib/"
-      '';
+        setupHook = writeText "setupHook.sh" ''
+          addToSearchPath ERL_LIBS "$1/lib/erlang/lib/"
+        '';
 
-      postPatch =
-        ''
-          rm -f rebar rebar3
-        ''
-        + postPatch
-        ;
+        postPatch =
+          ''
+            rm -f rebar rebar3
+          ''
+          + postPatch
+          ;
 
-      buildPhase = ''
-        runHook preBuild
-        HOME=. rebar3 bare compile -path ""
-        runHook postBuild
-      '';
+        buildPhase = ''
+          runHook preBuild
+          HOME=. rebar3 bare compile -path ""
+          runHook postBuild
+        '';
 
-      installPhase = ''
-        runHook preInstall
-        mkdir -p "$out/lib/erlang/lib/${name}-${version}"
-        for reldir in src ebin priv include; do
-          [ -d "$reldir" ] || continue
-          # $out/lib/erlang/lib is a convention used in nixpkgs for compiled BEAM packages
-          cp -Hrt "$out/lib/erlang/lib/${name}-${version}" "$reldir"
-        done
-        runHook postInstall
-      '';
+        installPhase = ''
+          runHook preInstall
+          mkdir -p "$out/lib/erlang/lib/${name}-${version}"
+          for reldir in src ebin priv include; do
+            [ -d "$reldir" ] || continue
+            # $out/lib/erlang/lib is a convention used in nixpkgs for compiled BEAM packages
+            cp -Hrt "$out/lib/erlang/lib/${name}-${version}" "$reldir"
+          done
+          runHook postInstall
+        '';
 
-      meta = { inherit (erlang.meta) platforms; } // meta;
+        meta = { inherit (erlang.meta) platforms; } // meta;
 
-      passthru = {
-        packageName = name;
-        env = shell self;
-        inherit beamDeps;
-      };
-    } // customPhases)
+        passthru = {
+          packageName = name;
+          env = shell self;
+          inherit beamDeps;
+        };
+      } // customPhases
+    )
     ;
 in
 lib.fix pkg

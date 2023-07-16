@@ -3,7 +3,8 @@
 #  2. sending a private message to the admin user through the API
 #  3. replying to that message via email.
 
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     package ? pkgs.discourse,

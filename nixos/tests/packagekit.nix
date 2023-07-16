@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -25,4 +26,5 @@ import ./make-test-python.nix ({
       # so now it should be running
       machine.wait_for_unit("packagekit.service")
     '';
-  })
+  }
+)

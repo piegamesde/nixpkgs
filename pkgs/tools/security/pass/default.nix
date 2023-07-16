@@ -122,20 +122,21 @@ stdenv.mkDerivation rec {
     ;
 
   wrapperPath = with lib;
-    makeBinPath ([
-      coreutils
-      findutils
-      getopt
-      git
-      gnugrep
-      gnupg
-      gnused
-      tree
-      which
-      openssh
-      procps
-      qrencode
-    ]
+    makeBinPath (
+      [
+        coreutils
+        findutils
+        getopt
+        git
+        gnugrep
+        gnupg
+        gnused
+        tree
+        which
+        openssh
+        procps
+        qrencode
+      ]
       ++ optional stdenv.isDarwin openssl
       ++ optional x11Support xclip
       ++ optional waylandSupport wl-clipboard
@@ -146,7 +147,8 @@ stdenv.mkDerivation rec {
       ++ optionals (x11Support && dmenuSupport) [
         xdotool
         dmenu
-      ]);
+      ]
+    );
 
   postFixup =
     ''

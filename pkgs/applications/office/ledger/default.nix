@@ -43,16 +43,18 @@ stdenv.mkDerivation rec {
       gnused
     ]
     ++ lib.optionals gpgmeSupport [ gpgme ]
-    ++ (if usePython then
-      [
-        python3
-        (boost.override {
-          enablePython = true;
-          python = python3;
-        })
-      ]
-    else
-      [ boost ])
+    ++ (
+      if usePython then
+        [
+          python3
+          (boost.override {
+            enablePython = true;
+            python = python3;
+          })
+        ]
+      else
+        [ boost ]
+    )
     ;
 
   nativeBuildInputs = [

@@ -66,14 +66,16 @@ stdenv.mkDerivation {
   pname = "corefonts";
   version = "1";
 
-  exes = map ({
+  exes = map (
+    {
       name,
       sha256,
     }:
     fetchurl {
       url = "mirror://sourceforge/corefonts/${name}32.exe";
       inherit sha256;
-    }) fonts;
+    }
+  ) fonts;
 
   nativeBuildInputs = [ cabextract ];
 

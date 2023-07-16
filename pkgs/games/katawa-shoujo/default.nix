@@ -146,18 +146,20 @@ stdenv.mkDerivation rec {
       EOF
 
     ''
-    + (if stdenv.hostPlatform.isDarwin then
-      ''
-        # No autoPatchelfHook on Darwin
-        wrapProgram ${bin} \
-          --prefix DYLD_LIBRARY_PATH : ${lib.makeLibraryPath buildInputs}
-      ''
-    else
-      ''
-        # Extract icon for xdg desktop file
-        unrpa ${dataDir}/game/data.rpa
-        install -Dm644 ui/icon.png $out/share/icons/hicolor/512x512/apps/katawa-shoujo.png
-      '')
+    + (
+      if stdenv.hostPlatform.isDarwin then
+        ''
+          # No autoPatchelfHook on Darwin
+          wrapProgram ${bin} \
+            --prefix DYLD_LIBRARY_PATH : ${lib.makeLibraryPath buildInputs}
+        ''
+      else
+        ''
+          # Extract icon for xdg desktop file
+          unrpa ${dataDir}/game/data.rpa
+          install -Dm644 ui/icon.png $out/share/icons/hicolor/512x512/apps/katawa-shoujo.png
+        ''
+    )
     + ''
 
       # Delete binaries for wrong arch, autoPatchelfHook gets confused by them & less to keep in the store

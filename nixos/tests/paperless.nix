@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }: {
@@ -67,4 +68,5 @@ import ./make-test-python.nix ({
           metadata = json.loads(machine.succeed("curl -u admin:admin -fs localhost:28981/api/documents/2/metadata/"))
           assert "original_checksum" in metadata
     '';
-  })
+  }
+)

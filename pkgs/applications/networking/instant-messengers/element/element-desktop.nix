@@ -26,7 +26,8 @@ let
   keytar = callPackage ./keytar { inherit Security AppKit; };
   seshat = callPackage ./seshat { inherit CoreServices; };
 in
-stdenv.mkDerivation (finalAttrs:
+stdenv.mkDerivation (
+  finalAttrs:
   builtins.removeAttrs pinData [ "hashes" ] // {
     pname = "element-desktop";
     name = "${finalAttrs.pname}-${finalAttrs.version}";
@@ -160,4 +161,5 @@ stdenv.mkDerivation (finalAttrs:
       maintainers = teams.matrix.members;
       inherit (electron.meta) platforms;
     };
-  })
+  }
+)

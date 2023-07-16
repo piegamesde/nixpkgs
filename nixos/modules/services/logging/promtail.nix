@@ -96,10 +96,11 @@ in
 
         SupplementaryGroups =
           lib.optional (allowSystemdJournal) "systemd-journal";
-      } // (optionalAttrs
-        (!pkgs.stdenv.isAarch64) { # FIXME: figure out why this breaks on aarch64
-          SystemCallFilter = "@system-service";
-        });
+      } // (optionalAttrs (
+        !pkgs.stdenv.isAarch64
+      ) { # FIXME: figure out why this breaks on aarch64
+        SystemCallFilter = "@system-service";
+      });
     };
 
     users.groups.promtail = { };

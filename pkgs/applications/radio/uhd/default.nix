@@ -48,7 +48,8 @@ let
     ;
     # Later used in pythonEnv generation. Python + mako are always required for the build itself but not necessary for runtime.
   pythonEnvArg =
-    (ps:
+    (
+      ps:
       with ps;
       [ mako ]
       ++ optionals (enablePythonApi) [
@@ -58,7 +59,8 @@ let
       ++ optionals (enableUtils) [
         requests
         six
-      ]);
+      ]
+    );
 
 in
 stdenv.mkDerivation rec {

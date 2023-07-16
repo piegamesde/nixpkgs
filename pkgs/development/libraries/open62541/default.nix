@@ -91,11 +91,13 @@ stdenv.mkDerivation (finalAttrs: {
       pkg-config
       python3Packages.python
     ]
-    ++ lib.optionals withDoc (with python3Packages; [
-      sphinx
-      sphinx_rtd_theme
-      graphviz-nox
-    ])
+    ++ lib.optionals withDoc (
+      with python3Packages; [
+        sphinx
+        sphinx_rtd_theme
+        graphviz-nox
+      ]
+    )
     ;
 
   buildInputs = lib.optional (withEncryption != false) encryptionBackend;

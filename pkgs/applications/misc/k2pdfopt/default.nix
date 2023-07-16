@@ -116,7 +116,8 @@ stdenv.mkDerivation rec {
           cp ${k2pdfopt_src}/mupdf_mod/pdf-* ./source/pdf/
         '';
       };
-      mupdf_modded = mupdf_1_17.overrideAttrs ({
+      mupdf_modded = mupdf_1_17.overrideAttrs (
+        {
           patches ? [ ],
           ...
         }: {
@@ -127,7 +128,8 @@ stdenv.mkDerivation rec {
           postPatch = ''
             echo "void pdf_install_load_system_font_funcs(fz_context *ctx) {}" >> source/fitz/font.c
           '';
-        });
+        }
+      );
 
       leptonica_patch = mkPatch {
         name = "leptonica";
@@ -137,12 +139,14 @@ stdenv.mkDerivation rec {
         };
         patchCommands = "cp -r ${k2pdfopt_src}/leptonica_mod/. ./src/";
       };
-      leptonica_modded = leptonica.overrideAttrs ({
+      leptonica_modded = leptonica.overrideAttrs (
+        {
           patches ? [ ],
           ...
         }: {
           patches = patches ++ [ leptonica_patch ];
-        });
+        }
+      );
 
       tesseract_patch = mkPatch {
         name = "tesseract";
@@ -163,7 +167,8 @@ stdenv.mkDerivation rec {
         '';
       };
       tesseract_modded = tesseract4.override {
-        tesseractBase = tesseract4.tesseractBase.overrideAttrs ({
+        tesseractBase = tesseract4.tesseractBase.overrideAttrs (
+          {
             patches ? [ ],
             ...
           }: {
@@ -176,7 +181,8 @@ stdenv.mkDerivation rec {
               substituteInPlace src/api/tesseract.h \
                 --replace "#include <leptonica.h>" "//#include <leptonica.h>"
             '';
-          });
+          }
+        );
       };
     in
     [

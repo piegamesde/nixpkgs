@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
     goocanvas2
     gtkspell3
     isocodes
-    (python3.withPackages (ps:
+    (python3.withPackages (
+      ps:
       with ps; [
         pyenchant
         sane
@@ -52,7 +53,8 @@ stdenv.mkDerivation rec {
         reportlab
         odfpy
         pygobject3
-      ]))
+      ]
+    ))
   ];
   patches =
     [

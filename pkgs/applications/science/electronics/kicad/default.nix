@@ -97,7 +97,9 @@ let
     # the appropriate attribute defined in `srcs`.
   srcOverridep =
     attr:
-    (!stable && builtins.hasAttr attr srcs)
+    (
+      !stable && builtins.hasAttr attr srcs
+    )
     ;
 
     # use default source and version (as defined in versions.nix) by
@@ -239,10 +241,12 @@ stdenv.mkDerivation rec {
       '')
 
       # wrap each of the directly usable tools
-      (map (tool:
+      (map (
+        tool:
         "makeWrapper ${base}/${bin}/${tool} $out/bin/${tool} $makeWrapperArgs"
         + optionalString (withScripting)
-          " --set PYTHONPATH \"$program_PYTHONPATH\"") tools)
+          " --set PYTHONPATH \"$program_PYTHONPATH\""
+      ) tools)
 
       # link in the CLI utils
       (map (util: "ln -s ${base}/${bin}/${util} $out/bin/${util}") utils)
@@ -271,10 +275,12 @@ stdenv.mkDerivation rec {
 
   meta = rec {
     description =
-      (if (stable) then
-        "Open Source Electronics Design Automation suite"
-      else
-        "Open Source EDA suite, development build")
+      (
+        if (stable) then
+          "Open Source Electronics Design Automation suite"
+        else
+          "Open Source EDA suite, development build"
+      )
       + (lib.optionalString (!with3d) ", without 3D models")
       ;
     homepage = "https://www.kicad.org/";

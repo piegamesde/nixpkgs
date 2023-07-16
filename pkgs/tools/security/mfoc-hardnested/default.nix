@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ azuwis ];
     platforms = platforms.unix;
     broken =
-      (stdenv.isDarwin
-        && stdenv.isAarch64); # Undefined symbols "_memalign" referenced
+      (
+        stdenv.isDarwin && stdenv.isAarch64
+      ); # Undefined symbols "_memalign" referenced
   };
 }

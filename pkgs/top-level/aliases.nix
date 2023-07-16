@@ -53,9 +53,10 @@ let
 
   mapAliases =
     aliases:
-    lib.mapAttrs (n: alias:
-      removeDistribute (removeRecurseForDerivations (checkInPkgs n alias)))
-    aliases
+    lib.mapAttrs (
+      n: alias:
+      removeDistribute (removeRecurseForDerivations (checkInPkgs n alias))
+    ) aliases
     ;
 
 in
@@ -3450,10 +3451,10 @@ mapAliases ({
     ; # Added 2020-01-20
   xlibs = throw "'xlibs' has been renamed to/replaced by 'xorg'"
     ; # Converted to throw 2022-02-22
-  xow = throw
-    ("Upstream has ended support for 'xow' and the package has been removed"
-      + "from nixpkgs. Users are urged to switch to 'xone'.")
-    ; # Added 2022-08-02
+  xow = throw (
+    "Upstream has ended support for 'xow' and the package has been removed"
+    + "from nixpkgs. Users are urged to switch to 'xone'."
+  ); # Added 2022-08-02
   xpraGtk3 = throw "'xpraGtk3' has been renamed to/replaced by 'xpra'"
     ; # Converted to throw 2022-02-22
   xv = xxv; # Added 2020-02-22

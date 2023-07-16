@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -69,4 +70,5 @@ import ./make-test-python.nix ({
       icingaweb2.wait_for_unit("multi-user.target")
       icingaweb2.succeed("curl -sSf http://icingaweb2/authentication/login")
     '';
-  })
+  }
+)

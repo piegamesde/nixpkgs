@@ -38,16 +38,18 @@ let
   esbuild' = esbuild.override {
     buildGoModule =
       args:
-      buildGoModule (args // rec {
-        version = "0.16.17";
-        src = fetchFromGitHub {
-          owner = "evanw";
-          repo = "esbuild";
-          rev = "v${version}";
-          hash = "sha256-8L8h0FaexNsb3Mj6/ohA37nYLFogo5wXkAhGztGUUsQ=";
-        };
-        vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
-      })
+      buildGoModule (
+        args // rec {
+          version = "0.16.17";
+          src = fetchFromGitHub {
+            owner = "evanw";
+            repo = "esbuild";
+            rev = "v${version}";
+            hash = "sha256-8L8h0FaexNsb3Mj6/ohA37nYLFogo5wXkAhGztGUUsQ=";
+          };
+          vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
+        }
+      )
       ;
   };
 
@@ -139,10 +141,12 @@ stdenv.mkDerivation rec {
   ];
   buildInputs =
     lib.optionals (!stdenv.isDarwin) [ libsecret ]
-    ++ (with xorg; [
-      libX11
-      libxkbfile
-    ])
+    ++ (
+      with xorg; [
+        libX11
+        libxkbfile
+      ]
+    )
     ++ lib.optionals stdenv.isDarwin [
       AppKit
       Cocoa

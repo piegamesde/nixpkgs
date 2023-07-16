@@ -146,10 +146,12 @@ let
         webrtc-audio-processing
         tinycompress
       ]
-      ++ (if enableSystemd then
-        [ systemd ]
-      else
-        [ eudev ])
+      ++ (
+        if enableSystemd then
+          [ systemd ]
+        else
+          [ eudev ]
+      )
       ++ lib.optionals gstreamerSupport [
         gst_all_1.gst-plugins-base
         gst_all_1.gstreamer

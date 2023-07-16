@@ -68,20 +68,22 @@ stdenv.mkDerivation rec {
       libpng
       libtiff
     ]
-    ++ optionals enableQt (if lib.versionOlder majorVersion "9" then
-      [
-        qtbase
-        qtx11extras
-        qttools
-      ]
-    else
-      [
-        (qtEnv "qvtk-qt-env" [
+    ++ optionals enableQt (
+      if lib.versionOlder majorVersion "9" then
+        [
+          qtbase
           qtx11extras
           qttools
-          qtdeclarative
-        ])
-      ])
+        ]
+      else
+        [
+          (qtEnv "qvtk-qt-env" [
+            qtx11extras
+            qttools
+            qtdeclarative
+          ])
+        ]
+    )
     ++ optionals stdenv.isLinux [
       libGLU
       xorgproto

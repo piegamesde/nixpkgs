@@ -75,10 +75,13 @@ let
 
   description = "Set of integrated tools for the R language";
 in
-(if server then
-  stdenv.mkDerivation
-else
-  mkDerivation) (rec {
+(
+  if server then
+    stdenv.mkDerivation
+  else
+    mkDerivation
+) (
+  rec {
     inherit
       pname
       version
@@ -113,19 +116,21 @@ else
         soci
         postgresql
       ]
-      ++ (if server then
-        [
-          sqlite.dev
-          pam
-        ]
-      else
-        [
-          qtbase
-          qtxmlpatterns
-          qtsensors
-          qtwebengine
-          qtwebchannel
-        ])
+      ++ (
+        if server then
+          [
+            sqlite.dev
+            pam
+          ]
+        else
+          [
+            qtbase
+            qtxmlpatterns
+            qtsensors
+            qtwebengine
+            qtwebchannel
+          ]
+      )
       ;
 
     cmakeFlags =
@@ -182,10 +187,13 @@ else
     largeDicts = with lib;
       filter (d: hasInfix "-large-wordlist" d.name) hunspellDictionaries;
     otherDicts = with lib;
-      filter (d:
-        !(hasAttr "dictFileName" d
-          && elem d.dictFileName (map (d: d.dictFileName) largeDicts)))
-      hunspellDictionaries;
+      filter (
+        d:
+        !(
+          hasAttr "dictFileName" d
+          && elem d.dictFileName (map (d: d.dictFileName) largeDicts)
+        )
+      ) hunspellDictionaries;
     dictionaries = largeDicts ++ otherDicts;
 
     preConfigure = ''
@@ -285,4 +293,5 @@ else
           ];
         })
       ];
-  })
+  }
+)

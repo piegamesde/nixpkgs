@@ -17,7 +17,8 @@ let
 
   getRecursivePropagatedBuildInputs =
     pkgs:
-    lib.flatten (map (pkg:
+    lib.flatten (map (
+      pkg:
       let
         cleanPropagatedBuildInputs =
           lib.filter lib.isDerivation pkg.propagatedBuildInputs;
@@ -40,8 +41,9 @@ let
     let
       source = writeText "vapoursynth-nix-plugins.c" ''
         void VSLoadPluginsNix(void (*load)(void *data, const char *path), void *data) {
-        ${lib.concatMapStringsSep ""
-        (path: ''load(data, "${path}/lib/vapoursynth");'') deepPlugins}
+        ${lib.concatMapStringsSep "" (
+          path: ''load(data, "${path}/lib/vapoursynth");''
+        ) deepPlugins}
         }
       '';
     in

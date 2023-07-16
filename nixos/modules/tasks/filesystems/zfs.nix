@@ -614,10 +614,12 @@ in
           lib.optionals (!config.boot.zfs.allowHibernation) [ "nohibernate" ];
 
         extraModulePackages = [
-            (if config.boot.zfs.enableUnstable then
-              config.boot.kernelPackages.zfsUnstable
-            else
-              config.boot.kernelPackages.zfs)
+            (
+              if config.boot.zfs.enableUnstable then
+                config.boot.kernelPackages.zfsUnstable
+              else
+                config.boot.kernelPackages.zfs
+            )
           ];
       };
 
@@ -632,9 +634,10 @@ in
           $out/bin/zfs --help >/dev/null 2>&1
           $out/bin/zpool --help >/dev/null 2>&1
         '';
-        postDeviceCommands = concatStringsSep "\n" ([ ''
-          ZFS_FORCE="${optionalString cfgZfs.forceImportRoot "-f"}"
-        '' ]
+        postDeviceCommands = concatStringsSep "\n" (
+          [ ''
+            ZFS_FORCE="${optionalString cfgZfs.forceImportRoot "-f"}"
+          '' ]
           ++ [
             (importLib {
               # See comments at importLib definition.
@@ -667,18 +670,21 @@ in
                 zfs load-key -- ${escapeShellArg fs}
               '') (filter (x: datasetToPool x == pool)
                 cfgZfs.requestEncryptionCredentials)}
-          '') rootPools));
+          '') rootPools)
+        );
 
           # Systemd in stage 1
         systemd = {
           packages = [ cfgZfs.package ];
-          services = listToAttrs (map (pool:
+          services = listToAttrs (map (
+            pool:
             createImportService {
               inherit pool;
               systemd = config.boot.initrd.systemd.package;
               force = cfgZfs.forceImportRoot;
               prefix = "/sysroot";
-            }) rootPools);
+            }
+          ) rootPools);
           extraBin = {
             # zpool and zfs are already in thanks to fsPackages
             awk = "${pkgs.gawk}/bin/awk";
@@ -775,13 +781,15 @@ in
             ;
 
         in
-        listToAttrs (map createImportService' dataPools
+        listToAttrs (
+          map createImportService' dataPools
           ++ map createSyncService allPools
           ++ map createZfsService [
             "zfs-mount"
             "zfs-share"
             "zfs-zed"
-          ])
+          ]
+        )
         ;
 
       systemd.targets.zfs-import =

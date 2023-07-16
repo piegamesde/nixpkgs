@@ -74,11 +74,13 @@ let
         gettext
         installShellFiles
       ]
-      ++ lib.optionals rustSupport (with rustPlatform; [
-        cargoSetupHook
-        rust.cargo
-        rust.rustc
-      ])
+      ++ lib.optionals rustSupport (
+        with rustPlatform; [
+          cargoSetupHook
+          rust.cargo
+          rust.rustc
+        ]
+      )
       ;
     buildInputs =
       [ docutils ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];

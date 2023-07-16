@@ -136,15 +136,17 @@ in
         Type = "exec";
         DynamicUser = true;
         ProtectHome = "tmpfs";
-        ExecStart = lib.concatStringsSep " " ([
-          (lib.getExe pkgs.https-dns-proxy)
-          "-a ${toString cfg.address}"
-          "-p ${toString cfg.port}"
-          "-l -"
-          providerCfg
-        ]
+        ExecStart = lib.concatStringsSep " " (
+          [
+            (lib.getExe pkgs.https-dns-proxy)
+            "-a ${toString cfg.address}"
+            "-p ${toString cfg.port}"
+            "-l -"
+            providerCfg
+          ]
           ++ lib.optional cfg.preferIPv4 "-4"
-          ++ cfg.extraArgs);
+          ++ cfg.extraArgs
+        );
         Restart = "on-failure";
       };
     };

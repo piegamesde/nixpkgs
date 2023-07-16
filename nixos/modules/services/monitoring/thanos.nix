@@ -26,12 +26,14 @@ let
 
   mkParamDef =
     type: default: description:
-    mkParam type (description
+    mkParam type (
+      description
       + ''
 
         Defaults to `${toString default}` in Thanos
         when set to `null`.
-      '')
+      ''
+    )
     ;
 
   mkParam =
@@ -97,24 +99,26 @@ let
   thanos =
     cmd:
     "${cfg.package}/bin/thanos ${cmd}"
-    + (let
-      args = cfg.${cmd}.arguments;
-    in
-    optionalString (length args != 0)
-    (" \\\n  " + concatStringsSep " \\\n  " args)
+    + (
+      let
+        args = cfg.${cmd}.arguments;
+      in
+      optionalString (length args != 0) (
+        " \\\n  " + concatStringsSep " \\\n  " args
+      )
     )
     ;
 
   argumentsOf =
     cmd:
-    concatLists (collect isList (flip mapParamsRecursive params.${cmd}
-      (path: param:
-        let
-          opt = concatStringsSep "." path;
-          v = getAttrFromPath path cfg.${cmd};
-        in
-        param.toArgs opt v
-      )))
+    concatLists (collect isList (flip mapParamsRecursive params.${cmd} (
+      path: param:
+      let
+        opt = concatStringsSep "." path;
+        v = getAttrFromPath path cfg.${cmd};
+      in
+      param.toArgs opt v
+    )))
     ;
 
   mkArgumentsOption =
@@ -745,17 +749,18 @@ in
     };
 
     query = paramsToOptions params.query // {
-      enable = mkEnableOption (lib.mdDoc
-        ("the Thanos query node exposing PromQL enabled Query API "
-          + "with data retrieved from multiple store nodes"));
+      enable = mkEnableOption (lib.mdDoc (
+        "the Thanos query node exposing PromQL enabled Query API "
+        + "with data retrieved from multiple store nodes"
+      ));
       arguments = mkArgumentsOption "query";
     };
 
     rule = paramsToOptions params.rule // {
-      enable = mkEnableOption (lib.mdDoc
-        ("the Thanos ruler service which evaluates Prometheus rules against"
-          + " given Query nodes, exposing Store API and storing old blocks in bucket"))
-        ;
+      enable = mkEnableOption (lib.mdDoc (
+        "the Thanos ruler service which evaluates Prometheus rules against"
+        + " given Query nodes, exposing Store API and storing old blocks in bucket"
+      ));
       arguments = mkArgumentsOption "rule";
     };
 
@@ -774,10 +779,10 @@ in
     };
 
     receive = paramsToOptions params.receive // {
-      enable = mkEnableOption (lib.mdDoc
-        ("the Thanos receiver which accept Prometheus remote write API requests "
-          + "and write to local tsdb (EXPERIMENTAL, this may change drastically without notice)"))
-        ;
+      enable = mkEnableOption (lib.mdDoc (
+        "the Thanos receiver which accept Prometheus remote write API requests "
+        + "and write to local tsdb (EXPERIMENTAL, this may change drastically without notice)"
+      ));
       arguments = mkArgumentsOption "receive";
     };
   };
@@ -793,8 +798,10 @@ in
         }
         {
           assertion =
-            !(config.services.prometheus.globalConfig.external_labels == null
-              || config.services.prometheus.globalConfig.external_labels == { })
+            !(
+              config.services.prometheus.globalConfig.external_labels == null
+              || config.services.prometheus.globalConfig.external_labels == { }
+            )
             ;
           message =
             "services.thanos.sidecar requires uniquely identifying external labels "

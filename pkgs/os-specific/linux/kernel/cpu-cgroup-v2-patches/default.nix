@@ -1,7 +1,8 @@
 let
   ents = builtins.readDir ./.;
 in
-builtins.listToAttrs (builtins.filter (x: x != null) (map (name:
+builtins.listToAttrs (builtins.filter (x: x != null) (map (
+  name:
   let
     match = builtins.match "(.*)\\.patch" name;
   in

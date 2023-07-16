@@ -16,11 +16,12 @@ let
       boolToString v
     else
       toString v;
-  mergedHwConfig = mapAttrsToList
-    (n: v: ''"${n}": "${(concatStringsSep "," (map convType v))}"'')
-    (foldAttrs (n: a: [ n ] ++ a) [ ] cfg.hardware);
+  mergedHwConfig = mapAttrsToList (
+    n: v: ''"${n}": "${(concatStringsSep "," (map convType v))}"''
+  ) (foldAttrs (n: a: [ n ] ++ a) [ ] cfg.hardware);
   mergedConfig = with builtins;
-    mapAttrsToList (n: v:
+    mapAttrsToList (
+      n: v:
       ''
         "${n}":  ${
           if isBool v then
@@ -32,7 +33,8 @@ let
             ""
           else
             ''"''
-        }'') cfg.config;
+        }''
+    ) cfg.config;
 
   cgminerConfig = pkgs.writeText "cgminer.conf" ''
     {
@@ -50,9 +52,9 @@ let
     ${
       concatStringsSep ''
         ,
-      '' (map
-        (v: ''{"url": "${v.url}", "user": "${v.user}", "pass": "${v.pass}"}'')
-        cfg.pools)
+      '' (map (
+        v: ''{"url": "${v.url}", "user": "${v.user}", "pass": "${v.pass}"}''
+      ) cfg.pools)
     }]
     }
   '';

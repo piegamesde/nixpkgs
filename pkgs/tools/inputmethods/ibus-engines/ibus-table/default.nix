@@ -46,12 +46,14 @@ stdenv.mkDerivation rec {
     dconf
     gtk3
     ibus
-    (python3.withPackages (pypkgs:
+    (python3.withPackages (
+      pypkgs:
       with pypkgs; [
         dbus-python
         pygobject3
         (toPythonModule ibus)
-      ]))
+      ]
+    ))
   ];
 
   nativeBuildInputs = [

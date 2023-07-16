@@ -9,19 +9,21 @@
 }:
 
 let
-  overridePkgs = lib.optionals (!runtimeOnly) (with pkgs; [
-    libgpg-error
-    libpulseaudio
-    alsa-lib
-    openalSoft
-    libva1
-    libvdpau
-    vulkan-loader
-    gcc.cc.lib
-    nss
-    nspr
-    xorg.libxcb
-  ]);
+  overridePkgs = lib.optionals (!runtimeOnly) (
+    with pkgs; [
+      libgpg-error
+      libpulseaudio
+      alsa-lib
+      openalSoft
+      libva1
+      libvdpau
+      vulkan-loader
+      gcc.cc.lib
+      nss
+      nspr
+      xorg.libxcb
+    ]
+  );
 
   allPkgs = overridePkgs ++ [ steam-runtime ];
 

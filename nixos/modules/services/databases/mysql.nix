@@ -329,30 +329,31 @@ in
 
   config = mkIf cfg.enable {
 
-    services.mysql.dataDir = mkDefault
-      (if versionAtLeast config.system.stateVersion "17.09" then
+    services.mysql.dataDir = mkDefault (
+      if versionAtLeast config.system.stateVersion "17.09" then
         "/var/lib/mysql"
       else
-        "/var/mysql");
+        "/var/mysql"
+    );
 
     services.mysql.settings.mysqld = mkMerge [
       {
         datadir = cfg.dataDir;
         port = mkDefault 3306;
       }
-      (mkIf
-        (cfg.replication.role == "master" || cfg.replication.role == "slave") {
-          log-bin = "mysql-bin-${toString cfg.replication.serverId}";
-          log-bin-index =
-            "mysql-bin-${toString cfg.replication.serverId}.index";
-          relay-log = "mysql-relay-bin";
-          server-id = cfg.replication.serverId;
-          binlog-ignore-db = [
-            "information_schema"
-            "performance_schema"
-            "mysql"
-          ];
-        })
+      (mkIf (
+        cfg.replication.role == "master" || cfg.replication.role == "slave"
+      ) {
+        log-bin = "mysql-bin-${toString cfg.replication.serverId}";
+        log-bin-index = "mysql-bin-${toString cfg.replication.serverId}.index";
+        relay-log = "mysql-relay-bin";
+        server-id = cfg.replication.serverId;
+        binlog-ignore-db = [
+          "information_schema"
+          "performance_schema"
+          "mysql"
+        ];
+      })
       (mkIf (!isMariaDB) { plugin-load-add = "auth_socket.so"; })
     ];
 
@@ -538,9 +539,11 @@ in
                 "auth_socket"
             };"
               ${
-                concatStringsSep "\n" (mapAttrsToList (database: permission: ''
-                  echo "GRANT ${permission} ON ${database} TO '${user.name}'@'localhost';"
-                '') user.ensurePermissions)
+                concatStringsSep "\n" (mapAttrsToList (
+                  database: permission: ''
+                    echo "GRANT ${permission} ON ${database} TO '${user.name}'@'localhost';"
+                  ''
+                ) user.ensurePermissions)
               }
             ) | ${cfg.package}/bin/mysql -N
           '') cfg.ensureUsers}

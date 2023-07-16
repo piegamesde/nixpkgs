@@ -37,54 +37,55 @@ let
   };
 
 in
-stdenv.mkDerivation ({
-  name = "emacs-${pname}${optionalString (version != null) "-${version}"}";
+stdenv.mkDerivation (
+  {
+    name = "emacs-${pname}${optionalString (version != null) "-${version}"}";
 
-  unpackCmd = ''
-    case "$curSrc" in
-      *.el)
-        # keep original source filename without the hash
-        local filename=$(basename "$curSrc")
-        filename="''${filename:33}"
-        cp $curSrc $filename
-        chmod +w $filename
-        sourceRoot="."
-        ;;
-      *)
-        _defaultUnpack "$curSrc"
-        ;;
-    esac
-  '';
+    unpackCmd = ''
+      case "$curSrc" in
+        *.el)
+          # keep original source filename without the hash
+          local filename=$(basename "$curSrc")
+          filename="''${filename:33}"
+          cp $curSrc $filename
+          chmod +w $filename
+          sourceRoot="."
+          ;;
+        *)
+          _defaultUnpack "$curSrc"
+          ;;
+      esac
+    '';
 
-  buildInputs =
-    [
-      emacs
-      texinfo
-    ]
-    ++ packageRequires
-    ++ buildInputs
-    ;
-  propagatedBuildInputs = packageRequires;
-  propagatedUserEnvPkgs = packageRequires;
+    buildInputs =
+      [
+        emacs
+        texinfo
+      ]
+      ++ packageRequires
+      ++ buildInputs
+      ;
+    propagatedBuildInputs = packageRequires;
+    propagatedUserEnvPkgs = packageRequires;
 
-  setupHook = writeText "setup-hook.sh" ''
-    source ${./emacs-funcs.sh}
+    setupHook = writeText "setup-hook.sh" ''
+      source ${./emacs-funcs.sh}
 
-    if [[ ! -v emacsHookDone ]]; then
-      emacsHookDone=1
+      if [[ ! -v emacsHookDone ]]; then
+        emacsHookDone=1
 
-      # If this is for a wrapper derivation, emacs and the dependencies are all
-      # run-time dependencies. If this is for precompiling packages into bytecode,
-      # emacs is a compile-time dependency of the package.
-      addEnvHooks "$hostOffset" addEmacsVars
-      addEnvHooks "$targetOffset" addEmacsVars
-    fi
-  '';
+        # If this is for a wrapper derivation, emacs and the dependencies are all
+        # run-time dependencies. If this is for precompiling packages into bytecode,
+        # emacs is a compile-time dependency of the package.
+        addEnvHooks "$hostOffset" addEmacsVars
+        addEnvHooks "$targetOffset" addEmacsVars
+      fi
+    '';
 
-  doCheck = false;
+    doCheck = false;
 
-  meta = defaultMeta // meta;
-}
+    meta = defaultMeta // meta;
+  }
 
   // lib.optionalAttrs (emacs.nativeComp or false) {
 
@@ -112,4 +113,5 @@ stdenv.mkDerivation ({
     "buildInputs"
     "packageRequires"
     "meta"
-  ])
+  ]
+)

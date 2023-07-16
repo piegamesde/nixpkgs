@@ -139,8 +139,9 @@ let
         # TSM option keys are case insensitive;
         # we have to ensure there are no keys that
         # differ only by upper and lower case.
-        type = addCheck (attrsOf (nullOr str))
-          (attrs: checkIUnique (attrNames attrs));
+        type = addCheck (attrsOf (nullOr str)) (
+          attrs: checkIUnique (attrNames attrs)
+        );
         default = { };
         example.compression = "yes";
         example.passwordaccess = null;
@@ -175,22 +176,24 @@ let
       config.name = mkDefault name;
         # Client system-options file directives are explained here:
         # https://www.ibm.com/docs/en/spectrum-protect/8.1.13?topic=commands-processing-options
-      config.extraConfig = mapAttrs (lib.trivial.const mkDefault) ({
-        commmethod = "v6tcpip"; # uses v4 or v6, based on dns lookup result
-        tcpserveraddress = config.server;
-        tcpport = builtins.toString config.port;
-        nodename = config.node;
-        passwordaccess =
-          if config.genPasswd then
-            "generate"
-          else
-            "prompt"
-          ;
-        passworddir = ''"${config.passwdDir}"'';
-      } // optionalAttrs (config.includeExclude != "") {
-        inclexcl =
-          ''"${pkgs.writeText "inclexcl.dsm.sys" config.includeExclude}"'';
-      });
+      config.extraConfig = mapAttrs (lib.trivial.const mkDefault) (
+        {
+          commmethod = "v6tcpip"; # uses v4 or v6, based on dns lookup result
+          tcpserveraddress = config.server;
+          tcpport = builtins.toString config.port;
+          nodename = config.node;
+          passwordaccess =
+            if config.genPasswd then
+              "generate"
+            else
+              "prompt"
+            ;
+          passworddir = ''"${config.passwdDir}"'';
+        } // optionalAttrs (config.includeExclude != "") {
+          inclexcl =
+            ''"${pkgs.writeText "inclexcl.dsm.sys" config.includeExclude}"'';
+        }
+      );
       config.text =
         let
           attrset = filterAttrs (k: v: v != null) config.extraConfig;
@@ -286,7 +289,9 @@ let
     }
     {
       assertion =
-        (cfg.defaultServername != null)
+        (
+          cfg.defaultServername != null
+        )
         -> (hasAttr cfg.defaultServername cfg.servers)
         ;
       message = "TSM defaultServername not found in list of servers";

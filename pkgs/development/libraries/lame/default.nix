@@ -52,10 +52,12 @@ stdenv.mkDerivation rec {
     (lib.enableFeature nasmSupport "nasm")
     (lib.enableFeature cpmlSupport "cpml")
     #(enableFeature efenceSupport "efence")
-    (if sndfileFileIOSupport then
-      "--with-fileio=sndfile"
-    else
-      "--with-fileio=lame")
+    (
+      if sndfileFileIOSupport then
+        "--with-fileio=sndfile"
+      else
+        "--with-fileio=lame"
+    )
     (lib.enableFeature analyzerHooksSupport "analyzer-hooks")
     (lib.enableFeature decoderSupport "decoder")
     (lib.enableFeature frontendSupport "frontend")

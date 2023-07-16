@@ -14,11 +14,13 @@ callPackage ../../../tools/rust/maturin/pyo3-test/generic.nix {
 
   nativeBuildInputs =
     [ setuptools-rust ]
-    ++ (with rustPlatform; [
-      cargoSetupHook
-      rust.cargo
-      rust.rustc
-    ])
+    ++ (
+      with rustPlatform; [
+        cargoSetupHook
+        rust.cargo
+        rust.rustc
+      ]
+    )
     ;
 
   preConfigure = ''

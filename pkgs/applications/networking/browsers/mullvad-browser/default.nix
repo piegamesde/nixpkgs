@@ -54,33 +54,35 @@
 }:
 
 let
-  libPath = lib.makeLibraryPath ([
-    alsa-lib
-    atk
-    cairo
-    dbus
-    dbus-glib
-    fontconfig
-    freetype
-    gdk-pixbuf
-    glib
-    gtk3
-    libxcb
-    libX11
-    libXext
-    libXrender
-    libXt
-    libXtst
-    mesa # for libgbm
-    pango
-    pciutils
-    stdenv.cc.cc
-    stdenv.cc.libc
-    zlib
-  ]
+  libPath = lib.makeLibraryPath (
+    [
+      alsa-lib
+      atk
+      cairo
+      dbus
+      dbus-glib
+      fontconfig
+      freetype
+      gdk-pixbuf
+      glib
+      gtk3
+      libxcb
+      libX11
+      libXext
+      libXrender
+      libXt
+      libXtst
+      mesa # for libgbm
+      pango
+      pciutils
+      stdenv.cc.cc
+      stdenv.cc.libc
+      zlib
+    ]
     ++ lib.optionals libnotifySupport [ libnotify ]
     ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
-    ++ lib.optionals mediaSupport [ ffmpeg ]);
+    ++ lib.optionals mediaSupport [ ffmpeg ]
+  );
 
   tag = "mullvad-browser-102.9.0esr-12.0-2-build1";
   version = "12.0.4";

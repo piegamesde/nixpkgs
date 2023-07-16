@@ -30,11 +30,13 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
     openjdk
-    (python3.withPackages (p:
+    (python3.withPackages (
+      p:
       with p; [
         psutil
         orderedmultidict
-      ]))
+      ]
+    ))
     gtest
     antlr4
   ];

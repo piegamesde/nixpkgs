@@ -18,11 +18,13 @@ let
         })
       ];
   });
-  py3 = python3.withPackages (ps:
+  py3 = python3.withPackages (
+    ps:
     with ps; [
       prettytable
       numpy
-    ]);
+    ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "dduper";

@@ -84,10 +84,12 @@ python3.pkgs.buildPythonApplication rec {
       gobject-introspection
       wrapGAppsHook
     ]
-    ++ (with python3.pkgs; [
-      sphinxHook
-      sphinx-rtd-theme
-    ])
+    ++ (
+      with python3.pkgs; [
+        sphinxHook
+        sphinx-rtd-theme
+      ]
+    )
     ;
 
   buildInputs =
@@ -106,7 +108,8 @@ python3.pkgs.buildPythonApplication rec {
       webkitgtk
     ]
     ++ lib.optionals (withXineBackend) [ xine-lib ]
-    ++ lib.optionals (withGstreamerBackend) (with gst_all_1;
+    ++ lib.optionals (withGstreamerBackend) (
+      with gst_all_1;
       [
         gst-plugins-base
         gstreamer
@@ -116,7 +119,8 @@ python3.pkgs.buildPythonApplication rec {
         gst-plugins-bad
         gst-plugins-good
         gst-plugins-ugly
-      ])
+      ]
+    )
     ;
 
   propagatedBuildInputs = with python3.pkgs;
@@ -144,11 +148,13 @@ python3.pkgs.buildPythonApplication rec {
       hicolor-icon-theme
       xvfb-run
     ]
-    ++ (with python3.pkgs; [
-      polib
-      pytest
-      pytest-xdist
-    ])
+    ++ (
+      with python3.pkgs; [
+        polib
+        pytest
+        pytest-xdist
+      ]
+    )
     ;
 
   pytestFlags =

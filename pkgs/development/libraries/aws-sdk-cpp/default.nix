@@ -79,11 +79,15 @@ stdenv.mkDerivation rec {
       openssl
       zlib
     ]
-    ++ lib.optionals (stdenv.isDarwin
-      && ((builtins.elem "text-to-speech" apis) || (builtins.elem "*" apis))) [
-        CoreAudio
-        AudioToolbox
-      ]
+    ++ lib.optionals (
+      stdenv.isDarwin
+      && (
+        (builtins.elem "text-to-speech" apis) || (builtins.elem "*" apis)
+      )
+    ) [
+      CoreAudio
+      AudioToolbox
+    ]
     ;
 
     # propagation is needed for Security.framework to be available when linking
@@ -137,7 +141,9 @@ stdenv.mkDerivation rec {
       # building ec2 runs out of memory: cc1plus: out of memory allocating 33554372 bytes after a total of 74424320 bytes
     broken =
       stdenv.buildPlatform.is32bit
-      && ((builtins.elem "ec2" apis) || (builtins.elem "*" apis))
+      && (
+        (builtins.elem "ec2" apis) || (builtins.elem "*" apis)
+      )
       ;
   };
 }

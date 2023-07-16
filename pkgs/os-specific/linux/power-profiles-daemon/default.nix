@@ -58,12 +58,14 @@ stdenv.mkDerivation rec {
       wrapGAppsNoGuiHook
       python3.pkgs.wrapPython
       # checkInput but cheked for during the configuring
-      (python3.pythonForBuild.withPackages (ps:
+      (python3.pythonForBuild.withPackages (
+        ps:
         with ps; [
           pygobject3
           dbus-python
           python-dbusmock
-        ]))
+        ]
+      ))
     ]
     ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
         mesonEmulatorHook

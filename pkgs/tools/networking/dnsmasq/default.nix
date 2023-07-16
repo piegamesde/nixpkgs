@@ -14,12 +14,14 @@
 }:
 
 let
-  copts = lib.concatStringsSep " " ([
-    "-DHAVE_IDN"
-    "-DHAVE_DNSSEC"
-  ]
+  copts = lib.concatStringsSep " " (
+    [
+      "-DHAVE_IDN"
+      "-DHAVE_DNSSEC"
+    ]
     ++ lib.optionals dbusSupport [ "-DHAVE_DBUS" ]
-    ++ lib.optionals stdenv.isLinux [ "-DHAVE_CONNTRACK" ]);
+    ++ lib.optionals stdenv.isLinux [ "-DHAVE_CONNTRACK" ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "dnsmasq";

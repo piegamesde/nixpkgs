@@ -33,13 +33,17 @@ buildPythonPackage rec {
 
   configurePhase = "cmakeConfigurePhase";
 
-  libraryPath = lib.makeLibraryPath (lib.optionals cudaSupport
-    (with cudaPackages; [
-      cudatoolkit.lib
-      cudatoolkit.out
-    ])
-    ++ lib.optionals openclSupport
-      ([ clblas ] ++ lib.optional (!stdenv.isDarwin) ocl-icd));
+  libraryPath = lib.makeLibraryPath (
+    lib.optionals cudaSupport (
+      with cudaPackages; [
+        cudatoolkit.lib
+        cudatoolkit.out
+      ]
+    )
+    ++ lib.optionals openclSupport (
+      [ clblas ] ++ lib.optional (!stdenv.isDarwin) ocl-icd
+    )
+  );
 
   preBuild = ''
     make -j$NIX_BUILD_CORES

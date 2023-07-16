@@ -40,11 +40,13 @@ let
     ''
     ;
 
-  configFile = pkgs.writeText "kresd.conf" (""
+  configFile = pkgs.writeText "kresd.conf" (
+    ""
     + concatMapStrings (mkListen "dns") cfg.listenPlain
     + concatMapStrings (mkListen "tls") cfg.listenTLS
     + concatMapStrings (mkListen "doh2") cfg.listenDoH
-    + cfg.extraConfig);
+    + cfg.extraConfig
+  );
 in
 {
   meta.maintainers = [
@@ -60,7 +62,8 @@ in
       "services"
       "kresd"
       "listenPlain"
-    ] (config:
+    ] (
+      config:
       let
         value = getAttrFromPath [
           "services"
@@ -68,11 +71,13 @@ in
           "interfaces"
         ] config;
       in
-      map (iface:
+      map (
+        iface:
         if elem ":" (stringToCharacters iface) then
           "[${iface}]:53"
         else
-          "${iface}:53") # Syntax depends on being IPv6 or IPv4.
+          "${iface}:53"
+      ) # Syntax depends on being IPv6 or IPv4.
       value
     ))
     (mkRemovedOptionModule [

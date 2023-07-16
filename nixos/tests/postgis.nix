@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -34,4 +35,5 @@ import ./make-test-python.nix ({
       master.succeed("sudo -u postgres psql -c 'CREATE EXTENSION postgis;'")
       master.succeed("sudo -u postgres psql -c 'CREATE EXTENSION postgis_topology;'")
     '';
-  })
+  }
+)

@@ -55,8 +55,10 @@ let
       pname ? applicationName,
       version ? lib.getVersion browser,
       desktopName ? # applicationName with first letter capitalized
-        (lib.toUpper (lib.substring 0 1 applicationName)
-          + lib.substring 1 (-1) applicationName),
+        (
+          lib.toUpper (lib.substring 0 1 applicationName)
+          + lib.substring 1 (-1) applicationName
+        ),
       nameSuffix ? "",
       icon ? applicationName,
       wmClass ? applicationName,
@@ -121,16 +123,18 @@ let
         ++ lib.optional ffmpegSupport ffmpeg_5
         ++ lib.optional gssSupport libkrb5
         ++ lib.optional useGlvnd libglvnd
-        ++ lib.optionals (cfg.enableQuakeLive or false) (with xorg; [
-          stdenv.cc
-          libX11
-          libXxf86dga
-          libXxf86vm
-          libXext
-          libXt
-          alsa-lib
-          zlib
-        ])
+        ++ lib.optionals (cfg.enableQuakeLive or false) (
+          with xorg; [
+            stdenv.cc
+            libX11
+            libXxf86dga
+            libXxf86vm
+            libXext
+            libXt
+            alsa-lib
+            zlib
+          ]
+        )
         ++ lib.optional (config.pulseaudio or true) libpulseaudio
         ++ lib.optional alsaSupport alsa-lib
         ++ lib.optional sndioSupport sndio
@@ -171,12 +175,14 @@ let
           throw
           "Nix addons are only supported without signature enforcement (eg. Firefox ESR)"
         else
-          builtins.map (a:
+          builtins.map (
+            a:
             if !(builtins.hasAttr "extid" a) then
               throw
               "nixExtensions has an invalid entry. Missing extid attribute. Please use fetchfirefoxaddon"
             else
-              a) (lib.optionals usesNixExtensions nixExtensions)
+              a
+          ) (lib.optionals usesNixExtensions nixExtensions)
         ;
 
       enterprisePolicies = {
@@ -189,10 +195,12 @@ let
                 "You can't have manual extension mixed with nix extensions";
               installation_mode = "blocked";
             };
-          } // lib.foldr (e: ret:
+          } // lib.foldr (
+            e: ret:
             ret // {
               "${e.extid}" = { installation_mode = "allowed"; };
-            }) { } extensions;
+            }
+          ) { } extensions;
 
           Extensions = {
             Install =
@@ -227,81 +235,85 @@ let
     stdenv.mkDerivation {
       inherit pname version;
 
-      desktopItem = makeDesktopItem ({
-        name = launcherName;
-        exec = "${launcherName} --name ${wmClass} %U";
-        inherit icon;
-        inherit desktopName;
-        startupNotify = true;
-        startupWMClass = wmClass;
-        terminal = false;
-      } // (if libName == "thunderbird" then
+      desktopItem = makeDesktopItem (
         {
-          genericName = "Email Client";
-          comment =
-            "Read and write e-mails or RSS feeds, or manage tasks on calendars.";
-          categories = [
-            "Network"
-            "Chat"
-            "Email"
-            "Feed"
-            "GTK"
-            "News"
-          ];
-          keywords = [
-            "mail"
-            "email"
-            "e-mail"
-            "messages"
-            "rss"
-            "calendar"
-            "address book"
-            "addressbook"
-            "chat"
-          ];
-          mimeTypes = [
-            "message/rfc822"
-            "x-scheme-handler/mailto"
-            "text/calendar"
-            "text/x-vcard"
-          ];
-          actions = {
-            profile-manager-window = {
-              name = "Profile Manager";
-              exec = "${launcherName} --ProfileManager";
-            };
-          };
-        }
-      else
-        {
-          genericName = "Web Browser";
-          categories = [
-            "Network"
-            "WebBrowser"
-          ];
-          mimeTypes = [
-            "text/html"
-            "text/xml"
-            "application/xhtml+xml"
-            "application/vnd.mozilla.xul+xml"
-            "x-scheme-handler/http"
-            "x-scheme-handler/https"
-          ];
-          actions = {
-            new-window = {
-              name = "New Window";
-              exec = "${launcherName} --new-window %U";
-            };
-            new-private-window = {
-              name = "New Private Window";
-              exec = "${launcherName} --private-window %U";
-            };
-            profile-manager-window = {
-              name = "Profile Manager";
-              exec = "${launcherName} --ProfileManager";
-            };
-          };
-        }));
+          name = launcherName;
+          exec = "${launcherName} --name ${wmClass} %U";
+          inherit icon;
+          inherit desktopName;
+          startupNotify = true;
+          startupWMClass = wmClass;
+          terminal = false;
+        } // (
+          if libName == "thunderbird" then
+            {
+              genericName = "Email Client";
+              comment =
+                "Read and write e-mails or RSS feeds, or manage tasks on calendars.";
+              categories = [
+                "Network"
+                "Chat"
+                "Email"
+                "Feed"
+                "GTK"
+                "News"
+              ];
+              keywords = [
+                "mail"
+                "email"
+                "e-mail"
+                "messages"
+                "rss"
+                "calendar"
+                "address book"
+                "addressbook"
+                "chat"
+              ];
+              mimeTypes = [
+                "message/rfc822"
+                "x-scheme-handler/mailto"
+                "text/calendar"
+                "text/x-vcard"
+              ];
+              actions = {
+                profile-manager-window = {
+                  name = "Profile Manager";
+                  exec = "${launcherName} --ProfileManager";
+                };
+              };
+            }
+          else
+            {
+              genericName = "Web Browser";
+              categories = [
+                "Network"
+                "WebBrowser"
+              ];
+              mimeTypes = [
+                "text/html"
+                "text/xml"
+                "application/xhtml+xml"
+                "application/vnd.mozilla.xul+xml"
+                "x-scheme-handler/http"
+                "x-scheme-handler/https"
+              ];
+              actions = {
+                new-window = {
+                  name = "New Window";
+                  exec = "${launcherName} --new-window %U";
+                };
+                new-private-window = {
+                  name = "New Private Window";
+                  exec = "${launcherName} --private-window %U";
+                };
+                profile-manager-window = {
+                  name = "Profile Manager";
+                  exec = "${launcherName} --ProfileManager";
+                };
+              };
+            }
+        )
+      );
 
       nativeBuildInputs = [
         makeWrapper

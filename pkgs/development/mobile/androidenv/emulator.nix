@@ -15,34 +15,38 @@ deployAndroidPackage {
   nativeBuildInputs =
     [ makeWrapper ] ++ lib.optionals (os == "linux") [ autoPatchelfHook ];
   buildInputs =
-    lib.optionals (os == "linux") (with pkgs; [
-      glibc
-      libcxx
-      libGL
-      libpulseaudio
-      libuuid
-      zlib
-      ncurses5
-      stdenv.cc.cc
-      pkgsi686Linux.glibc
-      expat
-      freetype
-      nss
-      nspr
-      alsa-lib
-    ])
-    ++ (with pkgs.xorg; [
-      libX11
-      libXext
-      libXdamage
-      libXfixes
-      libxcb
-      libXcomposite
-      libXcursor
-      libXi
-      libXrender
-      libXtst
-    ])
+    lib.optionals (os == "linux") (
+      with pkgs; [
+        glibc
+        libcxx
+        libGL
+        libpulseaudio
+        libuuid
+        zlib
+        ncurses5
+        stdenv.cc.cc
+        pkgsi686Linux.glibc
+        expat
+        freetype
+        nss
+        nspr
+        alsa-lib
+      ]
+    )
+    ++ (
+      with pkgs.xorg; [
+        libX11
+        libXext
+        libXdamage
+        libXfixes
+        libxcb
+        libXcomposite
+        libXcursor
+        libXi
+        libXrender
+        libXtst
+      ]
+    )
     ;
   patchInstructions = lib.optionalString (os == "linux") ''
     addAutoPatchelfSearchPath $packageBaseDir/lib

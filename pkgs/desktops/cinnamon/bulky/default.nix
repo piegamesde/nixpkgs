@@ -30,12 +30,14 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    (python3.withPackages (p:
+    (python3.withPackages (
+      p:
       with p; [
         pygobject3
         magic
         setproctitle
-      ]))
+      ]
+    ))
     gobject-introspection
     gsettings-desktop-schemas
     gtk3

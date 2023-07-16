@@ -24,10 +24,12 @@ python3Packages.buildPythonApplication rec {
       wrapGAppsHook
       intltool
     ]
-    ++ (with python3Packages; [
-      setuptools
-      distutils_extra
-    ])
+    ++ (
+      with python3Packages; [
+        setuptools
+        distutils_extra
+      ]
+    )
     ;
 
   buildInputs = [

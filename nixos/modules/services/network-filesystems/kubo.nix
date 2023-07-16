@@ -43,12 +43,14 @@ let
     /unix/run/ipfs.sock
   '';
 
-  kuboFlags = utils.escapeSystemdExecArgs (optional cfg.autoMount "--mount"
+  kuboFlags = utils.escapeSystemdExecArgs (
+    optional cfg.autoMount "--mount"
     ++ optional cfg.enableGC "--enable-gc"
     ++ optional (cfg.serviceFdlimit != null) "--manage-fdlimit=false"
     ++ optional (cfg.defaultMode == "offline") "--offline"
     ++ optional (cfg.defaultMode == "norouting") "--routing=none"
-    ++ cfg.extraFlags);
+    ++ cfg.extraFlags
+  );
 
   profile =
     if cfg.localDiscovery then
@@ -324,8 +326,10 @@ in
       }
       {
         assertion =
-          !((builtins.hasAttr "Pinning" cfg.settings)
-            && (builtins.hasAttr "RemoteServices" cfg.settings.Pinning))
+          !(
+            (builtins.hasAttr "Pinning" cfg.settings)
+            && (builtins.hasAttr "RemoteServices" cfg.settings.Pinning)
+          )
           ;
         message = ''
           You can't set services.kubo.settings.Pinning.RemoteServices because the ``config replace`` subcommand used at startup does not work with it.

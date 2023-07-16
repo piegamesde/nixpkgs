@@ -60,9 +60,11 @@ let
   requiredComponents =
     wmName: enableGnomePanel:
     "RequiredComponents=${
-      lib.concatStringsSep ";" ([ wmName ]
+      lib.concatStringsSep ";" (
+        [ wmName ]
         ++ requiredComponentsCommon enableGnomePanel
-        ++ requiredComponentsGsd)
+        ++ requiredComponentsGsd
+      )
     };"
     ;
 
@@ -202,8 +204,9 @@ let
             ];
             buildInputs =
               [ gnome-flashback ]
-              ++ lib.optionals enableGnomePanel
-                ([ gnome-panel ] ++ panelModulePackages)
+              ++ lib.optionals enableGnomePanel (
+                [ gnome-panel ] ++ panelModulePackages
+              )
               ;
 
               # We want to use the wrapGAppsHook mechanism to wrap gnome-session
@@ -224,12 +227,14 @@ let
                 --add-flags "--session=gnome-flashback-${wmName} --builtin" \
                 --set-default XDG_CURRENT_DESKTOP 'GNOME-Flashback:GNOME' \
                 --prefix XDG_DATA_DIRS : '${
-                  lib.makeSearchPath "share" ([
-                    wmApplication
-                    gnomeSession
-                    gnome-flashback
-                  ]
-                    ++ lib.optional enableGnomePanel gnome-panel)
+                  lib.makeSearchPath "share" (
+                    [
+                      wmApplication
+                      gnomeSession
+                      gnome-flashback
+                    ]
+                    ++ lib.optional enableGnomePanel gnome-panel
+                  )
                 }' \
                 "''${gappsWrapperArgs[@]}" \
                 ${

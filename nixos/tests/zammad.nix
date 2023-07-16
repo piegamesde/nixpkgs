@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -71,4 +72,5 @@ import ./make-test-python.nix ({
               "curl -sSfL http://localhost:3000/ | grep '<title>Zammad Helpdesk</title>'"
           )
     '';
-  })
+  }
+)

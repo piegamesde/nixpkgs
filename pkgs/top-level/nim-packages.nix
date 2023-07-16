@@ -8,7 +8,8 @@
   buildPackages,
 }:
 
-lib.makeScope newScope (self:
+lib.makeScope newScope (
+  self:
   let
     callPackage = self.callPackage;
   in

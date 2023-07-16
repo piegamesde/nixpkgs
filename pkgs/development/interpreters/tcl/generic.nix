@@ -66,13 +66,15 @@ let
       inherit release version;
       libPrefix = "tcl${release}";
       libdir = "lib/${libPrefix}";
-      tclPackageHook = callPackage ({
+      tclPackageHook = callPackage (
+        {
           buildPackages,
         }:
         makeSetupHook {
           name = "tcl-package-hook";
           propagatedBuildInputs = [ buildPackages.makeWrapper ];
-        } ./tcl-package-hook.sh) { };
+        } ./tcl-package-hook.sh
+      ) { };
     };
   };
 

@@ -222,8 +222,9 @@ rec {
       executable = true;
       checkPhase =
         ''
-          ${(phraseContextForPWD (phraseInvocation name
-            (partialSolution // { scripts = [ "${placeholder "out"}" ]; })))}
+          ${(phraseContextForPWD (phraseInvocation name (
+            partialSolution // { scripts = [ "${placeholder "out"}" ]; }
+          )))}
         ''
         + lib.optionalString (partialSolution.interpreter != "none") ''
           ${partialSolution.interpreter} -n $out
@@ -239,8 +240,9 @@ rec {
       destination = "/bin/${name}";
       checkPhase =
         ''
-          ${phraseContextForOut (phraseInvocation name
-            (partialSolution // { scripts = [ "bin/${name}" ]; }))}
+          ${phraseContextForOut (phraseInvocation name (
+            partialSolution // { scripts = [ "bin/${name}" ]; }
+          ))}
         ''
         + lib.optionalString (partialSolution.interpreter != "none") ''
           ${partialSolution.interpreter} -n $out/bin/${name}
@@ -268,10 +270,12 @@ rec {
            generate binlore for it).
         */
       unresholved =
-        (stdenv.mkDerivation ((removeAttrs attrs [ "solutions" ]) // {
-          inherit version src;
-          pname = "${pname}-unresholved";
-        }));
+        (stdenv.mkDerivation (
+          (removeAttrs attrs [ "solutions" ]) // {
+            inherit version src;
+            pname = "${pname}-unresholved";
+          }
+        ));
       /* resholve in a separate derivation; some concerns:
          - we aren't keeping many of the user's args, so they
            can't readily set LOGLEVEL and such...

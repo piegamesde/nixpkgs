@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }: {
@@ -71,4 +72,5 @@ import ./make-test-python.nix ({
       node1.wait_until_succeeds(f"ping -c 1 {ip2}")
       node2.wait_until_succeeds(f"ping -c 1 {ip1}")
     '';
-  })
+  }
+)

@@ -145,29 +145,33 @@ let
     exec "$BAZEL_REAL" "$@"
   '';
 
-  workspaceDir = runLocal "our_workspace" { } (''
-    mkdir $out
-    cp ${WORKSPACE} $out/WORKSPACE
-    touch $out/BUILD.bazel
-    cp ${protoSupport} $out/proto-support.bzl
-    mkdir $out/person
-    cp ${personProto} $out/person/person.proto
-    cp ${personBUILD} $out/person/BUILD.bazel
-  ''
+  workspaceDir = runLocal "our_workspace" { } (
+    ''
+      mkdir $out
+      cp ${WORKSPACE} $out/WORKSPACE
+      touch $out/BUILD.bazel
+      cp ${protoSupport} $out/proto-support.bzl
+      mkdir $out/person
+      cp ${personProto} $out/person/person.proto
+      cp ${personBUILD} $out/person/BUILD.bazel
+    ''
     + (lib.optionalString stdenv.isDarwin ''
       mkdir $out/tools
       cp ${toolsBazel} $out/tools/bazel
-    ''));
+    '')
+  );
 
   testBazel = bazelTest {
     name = "bazel-test-protocol-buffers";
     inherit workspaceDir;
     bazelPkg = bazel;
     buildInputs = [
-        (if lib.strings.versionOlder bazel.version "5.0.0" then
-          openjdk8
-        else
-          jdk11_headless)
+        (
+          if lib.strings.versionOlder bazel.version "5.0.0" then
+            openjdk8
+          else
+            jdk11_headless
+        )
       ];
     bazelScript =
       ''

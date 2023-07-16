@@ -4,7 +4,8 @@
   pkgs,
 }:
 
-lib.makeScope pkgs.newScope (self:
+lib.makeScope pkgs.newScope (
+  self:
   with self; {
 
     dockapps-sources = pkgs.fetchgit {
@@ -22,4 +23,5 @@ lib.makeScope pkgs.newScope (self:
     wmsm-app = callPackage ./wmsm-app.nix { };
 
     wmsystemtray = callPackage ./wmsystemtray.nix { };
-  })
+  }
+)

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -21,4 +22,5 @@ import ./make-test-python.nix ({
       start_all()
       machine.wait_for_unit("ergo.service")
     '';
-  })
+  }
+)

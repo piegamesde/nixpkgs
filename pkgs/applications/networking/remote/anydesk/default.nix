@@ -83,22 +83,24 @@ stdenv.mkDerivation rec {
       polkit_gnome
       pulseaudio
     ]
-    ++ (with xorg; [
-      libxcb
-      libxkbfile
-      libX11
-      libXdamage
-      libXext
-      libXfixes
-      libXi
-      libXmu
-      libXrandr
-      libXtst
-      libXt
-      libICE
-      libSM
-      libXrender
-    ])
+    ++ (
+      with xorg; [
+        libxcb
+        libxkbfile
+        libX11
+        libXdamage
+        libXext
+        libXfixes
+        libXi
+        libXmu
+        libXrandr
+        libXtst
+        libXt
+        libICE
+        libSM
+        libXrender
+      ]
+    )
     ;
 
   nativeBuildInputs = [ makeWrapper ];

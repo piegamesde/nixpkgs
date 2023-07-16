@@ -17,12 +17,15 @@ let
     NIFI_LOG_DIR = "/var/log/nifi";
   };
 
-  envFile = pkgs.writeText "nifi.env" (lib.concatMapStrings (s: s + "\n")
-    ((lib.concatLists (lib.mapAttrsToList (name: value:
+  envFile = pkgs.writeText "nifi.env" (lib.concatMapStrings (s: s + "\n") (
+    (lib.concatLists (lib.mapAttrsToList (
+      name: value:
       if value != null then
         [ ''${name}="${toString value}"'' ]
       else
-        [ ]) env))));
+        [ ]
+    ) env))
+  ));
 
   nifiEnv = pkgs.writeShellScriptBin "nifi-env" ''
     set -a
@@ -234,8 +237,9 @@ in
           test -f '/var/lib/nifi/conf/state-management.xml'                 || (cp '${cfg.package}/share/nifi/conf/state-management.xml' '/var/lib/nifi/conf/' && chmod 0640 '/var/lib/nifi/conf/state-management.xml')
           test -f '/var/lib/nifi/conf/zookeeper.properties'                 || (cp '${cfg.package}/share/nifi/conf/zookeeper.properties' '/var/lib/nifi/conf/' && chmod 0640 '/var/lib/nifi/conf/zookeeper.properties')
           test -d '/var/lib/nifi/docs/html'                                 || (mkdir -p /var/lib/nifi/docs && cp -r '${cfg.package}/share/nifi/docs/html' '/var/lib/nifi/docs/html')
-          ${lib.optionalString
-          ((cfg.initUser != null) && (cfg.initPasswordFile != null)) ''
+          ${lib.optionalString (
+            (cfg.initUser != null) && (cfg.initPasswordFile != null)
+          ) ''
             awk -F'[<|>]' '/property name="Username"/ {if ($3!="") f=1} END{exit !f}' /var/lib/nifi/conf/login-identity-providers.xml || ${cfg.package}/bin/nifi.sh set-single-user-credentials ${cfg.initUser} $(cat ${cfg.initPasswordFile})
           ''}
           ${lib.optionalString (cfg.enableHTTPS == false) ''
@@ -272,21 +276,34 @@ in
               -e '/nifi.security.keyPasswd/s|^#\+||' \
               -e '/nifi.security.truststorePasswd/s|^#\+||'
           ''}
-          ${lib.optionalString ((cfg.enableHTTPS == true)
-            && (cfg.proxyHost != null)
-            && (cfg.proxyPort != null)) ''
-              sed -i /var/lib/nifi/conf/nifi.properties \
-                -e 's|nifi.web.proxy.host=.*|nifi.web.proxy.host=${cfg.proxyHost}:${
-                  (toString cfg.proxyPort)
-                }|g'
-            ''}
-          ${lib.optionalString ((cfg.enableHTTPS == false)
-            || (cfg.proxyHost == null) && (cfg.proxyPort == null)) ''
-              sed -i /var/lib/nifi/conf/nifi.properties \
-                -e 's|nifi.web.proxy.host=.*|nifi.web.proxy.host=|g'
-            ''}
-          ${lib.optionalString
-          ((cfg.initJavaHeapSize != null) && (cfg.maxJavaHeapSize != null)) ''
+          ${lib.optionalString (
+            (
+              cfg.enableHTTPS == true
+            )
+            && (
+              cfg.proxyHost != null
+            )
+            && (
+              cfg.proxyPort != null
+            )
+          ) ''
+            sed -i /var/lib/nifi/conf/nifi.properties \
+              -e 's|nifi.web.proxy.host=.*|nifi.web.proxy.host=${cfg.proxyHost}:${
+                (toString cfg.proxyPort)
+              }|g'
+          ''}
+          ${lib.optionalString (
+            (
+              cfg.enableHTTPS == false
+            )
+            || (cfg.proxyHost == null) && (cfg.proxyPort == null)
+          ) ''
+            sed -i /var/lib/nifi/conf/nifi.properties \
+              -e 's|nifi.web.proxy.host=.*|nifi.web.proxy.host=|g'
+          ''}
+          ${lib.optionalString (
+            (cfg.initJavaHeapSize != null) && (cfg.maxJavaHeapSize != null)
+          ) ''
             sed -i /var/lib/nifi/conf/bootstrap.conf \
               -e 's|java.arg.2=.*|java.arg.2=-Xms${
                 (toString cfg.initJavaHeapSize)
@@ -295,8 +312,9 @@ in
                 (toString cfg.maxJavaHeapSize)
               }m|g'
           ''}
-          ${lib.optionalString
-          ((cfg.initJavaHeapSize == null) && (cfg.maxJavaHeapSize == null)) ''
+          ${lib.optionalString (
+            (cfg.initJavaHeapSize == null) && (cfg.maxJavaHeapSize == null)
+          ) ''
             sed -i /var/lib/nifi/conf/bootstrap.conf \
               -e 's|java.arg.2=.*|java.arg.2=-Xms512m|g' \
               -e 's|java.arg.3=.*|java.arg.3=-Xmx512m|g'

@@ -28,8 +28,9 @@ mkXfceDerivation {
     libxfce4ui
     libxfce4util
 
-    (perl.withPackages
-      (ps: with ps; [ URI ])) # for $out/lib/xfce4/exo/exo-compose-mail
+    (perl.withPackages (
+      ps: with ps; [ URI ]
+    )) # for $out/lib/xfce4/exo/exo-compose-mail
   ];
 
     # Workaround https://bugzilla.xfce.org/show_bug.cgi?id=15825

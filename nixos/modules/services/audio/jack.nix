@@ -266,8 +266,10 @@ in
         description = "JACK Audio Connection Kit";
         serviceConfig = {
           User = "jackaudio";
-          SupplementaryGroups = lib.optional (config.hardware.pulseaudio.enable
-            && !config.hardware.pulseaudio.systemWide) "users";
+          SupplementaryGroups = lib.optional (
+            config.hardware.pulseaudio.enable
+            && !config.hardware.pulseaudio.systemWide
+          ) "users";
           ExecStart =
             "${cfg.jackd.package}/bin/jackd ${
               lib.escapeShellArgs cfg.jackd.extraOptions

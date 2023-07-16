@@ -89,12 +89,13 @@ rec {
     # More poor man's memoisation
   pkgsForCross =
     let
-      examplesByConfig = lib.flip lib.mapAttrs' lib.systems.examples
-        (_: crossSystem:
-          nameValuePair crossSystem.config {
-            inherit crossSystem;
-            pkgsFor = mkPkgsFor crossSystem;
-          });
+      examplesByConfig = lib.flip lib.mapAttrs' lib.systems.examples (
+        _: crossSystem:
+        nameValuePair crossSystem.config {
+          inherit crossSystem;
+          pkgsFor = mkPkgsFor crossSystem;
+        }
+      );
       native = mkPkgsFor null;
     in
     crossSystem:
@@ -128,11 +129,13 @@ rec {
         platform: lib.any (lib.meta.platformMatch platform) metaPatterns;
       matchingPlatforms = lib.filter anyMatch supportedPlatforms;
     in
-    map ({
+    map (
+      {
         system,
         ...
       }:
-      system) matchingPlatforms
+      system
+    ) matchingPlatforms
     ;
 
   assertTrue =
@@ -173,8 +176,9 @@ rec {
     */
   testOnCross =
     crossSystem: metaPatterns: f:
-    forMatchingSystems metaPatterns
-    (system: hydraJob' (f (pkgsForCross crossSystem system)))
+    forMatchingSystems metaPatterns (
+      system: hydraJob' (f (pkgsForCross crossSystem system))
+    )
     ;
 
     /* Given a nested set where the leaf nodes are lists of platforms,
@@ -185,9 +189,10 @@ rec {
 
   _mapTestOnHelper =
     f: crossSystem:
-    mapAttrsRecursive (path: metaPatterns:
-      testOnCross crossSystem metaPatterns
-      (pkgs: f (getAttrFromPath path pkgs)))
+    mapAttrsRecursive (
+      path: metaPatterns:
+      testOnCross crossSystem metaPatterns (pkgs: f (getAttrFromPath path pkgs))
+    )
     ;
 
     # Similar to the testOn function, but with an additional 'crossSystem'
@@ -199,17 +204,21 @@ rec {
     /* Recursively map a (nested) set of derivations to an isomorphic
        set of meta.platforms values.
     */
-  packagePlatforms = mapAttrs (name: value:
+  packagePlatforms = mapAttrs (
+    name: value:
     if isDerivation value then
-      value.meta.hydraPlatforms or (lib.subtractLists
-        (value.meta.badPlatforms or [ ])
-        (value.meta.platforms or [ "x86_64-linux" ]))
+      value.meta.hydraPlatforms or (lib.subtractLists (
+        value.meta.badPlatforms or [ ]
+      ) (
+        value.meta.platforms or [ "x86_64-linux" ]
+      ))
     else if
       value.recurseForDerivations or false || value.recurseForRelease or false
     then
       packagePlatforms value
     else
-      [ ]);
+      [ ]
+  );
 
     # Common platform groups on which to test packages.
   inherit (platforms) unix linux darwin cygwin all mesaPlatforms;

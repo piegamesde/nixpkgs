@@ -21,7 +21,8 @@ let
         Creates independent `${flavour}-''${name}.service` systemd units for each instance defined here.
       '';
       type = with types;
-        attrsOf (submodule ({
+        attrsOf (submodule (
+          {
             name,
             ...
           }: {
@@ -105,7 +106,8 @@ let
                   ;
               };
             };
-          }));
+          }
+        ));
     }
     ;
 
@@ -151,14 +153,17 @@ in
     };
   };
 
-  config = mkMerge (map (flavour:
+  config = mkMerge (map (
+    flavour:
     let
       cfg = config.services.${flavour};
     in
     mkIf (cfg.instances != { }) {
-      systemd.services = mapAttrs' (name: instance:
+      systemd.services = mapAttrs' (
+        name: instance:
         nameValuePair "${flavour}-${name}"
-        (createAgentInstance { inherit name instance flavour; })) cfg.instances;
+        (createAgentInstance { inherit name instance flavour; })
+      ) cfg.instances;
     }
   ) [
     "consul-template"

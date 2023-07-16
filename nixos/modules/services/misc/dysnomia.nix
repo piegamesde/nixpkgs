@@ -12,15 +12,17 @@ let
 
   printProperties =
     properties:
-    concatMapStrings (propertyName:
+    concatMapStrings (
+      propertyName:
       let
         property = properties.${propertyName};
       in
       if isList property then
         ''
           ${propertyName}=(${
-            lib.concatMapStrings (elem: ''"${toString elem}" '')
-            (properties.${propertyName})
+            lib.concatMapStrings (elem: ''"${toString elem}" '') (
+              properties.${propertyName}
+            )
           })
         ''
       else
@@ -45,7 +47,8 @@ let
       mkdir -p $out
       cd $out
 
-      ${concatMapStrings (containerName:
+      ${concatMapStrings (
+        containerName:
         let
           containerProperties = cfg.containers.${containerName};
         in
@@ -65,7 +68,8 @@ let
     }: ''
       mkdir ${containerName}
 
-      ${concatMapStrings (componentName:
+      ${concatMapStrings (
+        componentName:
         let
           component = cfg.components.${containerName}.${componentName};
         in
@@ -82,9 +86,9 @@ let
       mkdir -p $out
       cd $out
 
-      ${concatMapStrings
-      (containerName: linkMutableComponents { inherit containerName; })
-      (builtins.attrNames cfg.components)}
+      ${concatMapStrings (
+        containerName: linkMutableComponents { inherit containerName; }
+      ) (builtins.attrNames cfg.components)}
     '';
   };
 
@@ -204,7 +208,8 @@ in
 
     environment.systemPackages = [ cfg.package ];
 
-    dysnomia.package = pkgs.dysnomia.override (origArgs:
+    dysnomia.package = pkgs.dysnomia.override (
+      origArgs:
       dysnomiaFlags // lib.optionalAttrs (cfg.enableLegacyModules) {
         enableLegacy = builtins.trace ''
           WARNING: Dysnomia has been configured to use the legacy 'process' and 'wrapper'
@@ -220,7 +225,8 @@ in
 
           In a future version of Dysnomia (and NixOS) the legacy option will go away!
         '' true;
-      });
+      }
+    );
 
     dysnomia.properties = {
       hostname = config.networking.hostName;
@@ -255,45 +261,47 @@ in
         ;
     };
 
-    dysnomia.containers = lib.recursiveUpdate ({
-      process = { };
-      wrapper = { };
-    } // lib.optionalAttrs (config.services.httpd.enable) {
-      apache-webapplication = {
-        documentRoot =
-          config.services.httpd.virtualHosts.localhost.documentRoot;
-      };
-    } // lib.optionalAttrs (config.services.tomcat.axis2.enable) {
-      axis2-webservice = { };
-    } // lib.optionalAttrs (config.services.ejabberd.enable) {
-      ejabberd-dump = { ejabberdUser = config.services.ejabberd.user; };
-    } // lib.optionalAttrs (config.services.mysql.enable) {
-      mysql-database = {
-        mysqlPort = config.services.mysql.port;
-        mysqlSocket = "/run/mysqld/mysqld.sock";
-      } // lib.optionalAttrs cfg.enableAuthentication {
-        mysqlUsername = "root";
-      };
-    } // lib.optionalAttrs (config.services.postgresql.enable) {
-      postgresql-database = { }
-        // lib.optionalAttrs (cfg.enableAuthentication) {
-          postgresqlUsername = "postgres";
+    dysnomia.containers = lib.recursiveUpdate (
+      {
+        process = { };
+        wrapper = { };
+      } // lib.optionalAttrs (config.services.httpd.enable) {
+        apache-webapplication = {
+          documentRoot =
+            config.services.httpd.virtualHosts.localhost.documentRoot;
         };
-    } // lib.optionalAttrs (config.services.tomcat.enable) {
-      tomcat-webapplication = { tomcatPort = 8080; };
-    } // lib.optionalAttrs (config.services.mongodb.enable) {
-      mongo-database = { };
-    } // lib.optionalAttrs (config.services.influxdb.enable) {
-      influx-database = {
-        influxdbUsername = config.services.influxdb.user;
-        influxdbDataDir = "${config.services.influxdb.dataDir}/data";
-        influxdbMetaDir = "${config.services.influxdb.dataDir}/meta";
-      };
-    } // lib.optionalAttrs (config.services.svnserve.enable) {
-      subversion-repository = {
-        svnBaseDir = config.services.svnserve.svnBaseDir;
-      };
-    }) cfg.extraContainerProperties;
+      } // lib.optionalAttrs (config.services.tomcat.axis2.enable) {
+        axis2-webservice = { };
+      } // lib.optionalAttrs (config.services.ejabberd.enable) {
+        ejabberd-dump = { ejabberdUser = config.services.ejabberd.user; };
+      } // lib.optionalAttrs (config.services.mysql.enable) {
+        mysql-database = {
+          mysqlPort = config.services.mysql.port;
+          mysqlSocket = "/run/mysqld/mysqld.sock";
+        } // lib.optionalAttrs cfg.enableAuthentication {
+          mysqlUsername = "root";
+        };
+      } // lib.optionalAttrs (config.services.postgresql.enable) {
+        postgresql-database = { }
+          // lib.optionalAttrs (cfg.enableAuthentication) {
+            postgresqlUsername = "postgres";
+          };
+      } // lib.optionalAttrs (config.services.tomcat.enable) {
+        tomcat-webapplication = { tomcatPort = 8080; };
+      } // lib.optionalAttrs (config.services.mongodb.enable) {
+        mongo-database = { };
+      } // lib.optionalAttrs (config.services.influxdb.enable) {
+        influx-database = {
+          influxdbUsername = config.services.influxdb.user;
+          influxdbDataDir = "${config.services.influxdb.dataDir}/data";
+          influxdbMetaDir = "${config.services.influxdb.dataDir}/meta";
+        };
+      } // lib.optionalAttrs (config.services.svnserve.enable) {
+        subversion-repository = {
+          svnBaseDir = config.services.svnserve.svnBaseDir;
+        };
+      }
+    ) cfg.extraContainerProperties;
 
     boot.extraSystemdUnitPaths = [ "/etc/systemd-mutable/system" ];
 

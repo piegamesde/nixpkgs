@@ -45,14 +45,16 @@ stdenv.mkDerivation {
 
   buildInputs =
     [ speexdsp ]
-    ++ (if stdenv.isDarwin then
-      [
-        AudioUnit
-        CoreAudio
-        CoreServices
-      ]
-    else
-      backendLibs)
+    ++ (
+      if stdenv.isDarwin then
+        [
+          AudioUnit
+          CoreAudio
+          CoreServices
+        ]
+      else
+        backendLibs
+    )
     ;
 
   cmakeFlags = [

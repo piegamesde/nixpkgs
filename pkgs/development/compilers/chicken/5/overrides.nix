@@ -26,23 +26,25 @@ let
   brokenOnDarwin = old: { meta = old.meta // { broken = stdenv.isDarwin; }; };
 in
 {
-  allegro = addToBuildInputsWithPkgConfig ([
-    pkgs.allegro5
-    pkgs.libglvnd
-  ]
-    ++ lib.optionals stdenv.isDarwin [
-        pkgs.darwin.apple_sdk.frameworks.OpenGL
-      ]);
+  allegro = addToBuildInputsWithPkgConfig (
+    [
+      pkgs.allegro5
+      pkgs.libglvnd
+    ]
+    ++ lib.optionals stdenv.isDarwin [ pkgs.darwin.apple_sdk.frameworks.OpenGL ]
+  );
   breadline = addToBuildInputs pkgs.readline;
   blas = addToBuildInputsWithPkgConfig pkgs.blas;
   blosc = addToBuildInputs pkgs.c-blosc;
   cairo =
     old:
     (addToBuildInputsWithPkgConfig pkgs.cairo old)
-    // (addToPropagatedBuildInputs (with chickenEggs; [
-      srfi-1
-      srfi-13
-    ]) old)
+    // (addToPropagatedBuildInputs (
+      with chickenEggs; [
+        srfi-1
+        srfi-13
+      ]
+    ) old)
     ;
   cmark = addToBuildInputs pkgs.cmark;
   dbus = addToBuildInputsWithPkgConfig pkgs.dbus;
@@ -70,13 +72,13 @@ in
   mdh = addToBuildInputs pkgs.pcre;
   nanomsg = addToBuildInputs pkgs.nanomsg;
   ncurses = addToBuildInputsWithPkgConfig [ pkgs.ncurses ];
-  opencl = addToBuildInputs ([
-    pkgs.opencl-headers
-    pkgs.ocl-icd
-  ]
-    ++ lib.optionals stdenv.isDarwin [
-        pkgs.darwin.apple_sdk.frameworks.OpenCL
-      ]);
+  opencl = addToBuildInputs (
+    [
+      pkgs.opencl-headers
+      pkgs.ocl-icd
+    ]
+    ++ lib.optionals stdenv.isDarwin [ pkgs.darwin.apple_sdk.frameworks.OpenCL ]
+  );
   opengl =
     old:
     # csc: invalid option `-framework OpenGL'

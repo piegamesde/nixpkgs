@@ -15,8 +15,10 @@ let
 
   portsToNftSet =
     ports: portRanges:
-    concatStringsSep ", " (map (x: toString x) ports
-      ++ map (x: "${toString x.from}-${toString x.to}") portRanges)
+    concatStringsSep ", " (
+      map (x: toString x) ports
+      ++ map (x: "${toString x.from}-${toString x.to}") portRanges
+    )
     ;
 
 in
@@ -124,8 +126,9 @@ in
             ''
           }
           ${
-            optionalString
-            (cfg.logRefusedPackets && !cfg.logRefusedUnicastsOnly) ''
+            optionalString (
+              cfg.logRefusedPackets && !cfg.logRefusedUnicastsOnly
+            ) ''
               pkttype broadcast log level info prefix "refused broadcast: "
               pkttype multicast log level info prefix "refused multicast: "
             ''
@@ -148,7 +151,8 @@ in
         chain input-allow {
 
           ${
-            concatStrings (mapAttrsToList (iface: cfg:
+            concatStrings (mapAttrsToList (
+              iface: cfg:
               let
                 ifaceExpr =
                   optionalString (iface != "default") "iifname ${iface}";

@@ -21,7 +21,9 @@ rec {
     let
       tex = pkgs.texlive.combine
         # always include basic stuff you need for LaTeX
-        ({ inherit (pkgs.texlive) scheme-basic; } // texPackages);
+        (
+          { inherit (pkgs.texlive) scheme-basic; } // texPackages
+        );
 
     in
     pkgs.stdenv.mkDerivation {
@@ -142,9 +144,9 @@ rec {
             "${pkgs.stdenv.bash}/bin/bash ${./find-lhs2tex-includes.sh}");
 
         in
-        pkgs.lib.concatMap
-        (x: lib.optionals (builtins.pathExists x) [ { key = x; } ])
-        (map (x: dirOf key + ("/" + x)) deps)
+        pkgs.lib.concatMap (
+          x: lib.optionals (builtins.pathExists x) [ { key = x; } ]
+        ) (map (x: dirOf key + ("/" + x)) deps)
         ;
     }
     ;

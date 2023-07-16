@@ -17,12 +17,14 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-      (perl.withPackages (ps:
+      (perl.withPackages (
+        ps:
         with ps; [
           LWP
           LWPProtocolHttps
           CryptSSLeay
-        ]))
+        ]
+      ))
     ];
 
   installPhase = ''

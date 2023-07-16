@@ -36,14 +36,16 @@ stdenv.mkDerivation rec {
       flex
       zlib
     ]
-    ++ (with perlPackages; [
-      perl
-      ExporterLite
-      FileWhich
-      GetoptTabular
-      RegexpCommon
-      TermReadKey
-    ])
+    ++ (
+      with perlPackages; [
+        perl
+        ExporterLite
+        FileWhich
+        GetoptTabular
+        RegexpCommon
+        TermReadKey
+      ]
+    )
     ;
 
     # On Linux, c-reduce's preferred way to reason about

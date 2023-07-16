@@ -18,11 +18,13 @@ let
 
     before = paths-nixos.conf
 
-    ${concatStringsSep "\n" (attrValues (flip mapAttrs cfg.jails (name: def:
+    ${concatStringsSep "\n" (attrValues (flip mapAttrs cfg.jails (
+      name: def:
       optionalString (def != "") ''
         [${name}]
         ${def}
-      '')))}
+      ''
+    )))}
   '';
 
   pathsConf = pkgs.writeText "paths-nixos.conf" ''
@@ -307,17 +309,18 @@ in
   config = mkIf cfg.enable {
     assertions = [ {
       assertion =
-        (cfg.bantime-increment.formula == null
-          || cfg.bantime-increment.multipliers == null);
+        (
+          cfg.bantime-increment.formula == null
+          || cfg.bantime-increment.multipliers == null
+        );
       message = ''
         Options `services.fail2ban.bantime-increment.formula` and `services.fail2ban.bantime-increment.multipliers` cannot be both specified.
       '';
     } ];
 
-    warnings = mkIf (!config.networking.firewall.enable
-      && !config.networking.nftables.enable) [
-        "fail2ban can not be used without a firewall"
-      ];
+    warnings = mkIf (
+      !config.networking.firewall.enable && !config.networking.nftables.enable
+    ) [ "fail2ban can not be used without a firewall" ];
 
     environment.systemPackages = [ cfg.package ];
 

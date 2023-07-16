@@ -50,9 +50,13 @@ let
     in
     !(
       # Filter out version control software files/directories
-      (baseName == ".git"
+      (
+        baseName == ".git"
         || type == "directory"
-          && (baseName == ".svn" || baseName == "CVS" || baseName == ".hg"))
+          && (
+            baseName == ".svn" || baseName == "CVS" || baseName == ".hg"
+          )
+      )
       ||
       # Filter out sockets and other types of files we can't have in the store.
       lib.hasSuffix "~" baseName
@@ -70,10 +74,15 @@ let
       lib.hasSuffix ".so" baseName
       ||
       # Filter out sockets and other types of files we can't have in the store.
-      (type == "symlink" && lib.hasPrefix "result" baseName)
+      (
+        type == "symlink" && lib.hasPrefix "result" baseName
+      )
       ||
       # Filter out sockets and other types of files we can't have in the store.
-      (type == "unknown"))
+      (
+        type == "unknown"
+      )
+    )
     ;
 
     /* Filters a source tree removing version control files and directories using cleanSourceFilter.
@@ -146,15 +155,17 @@ let
     let
       attrs = toSourceAttributes src;
     in
-    fromSourceAttributes (attrs // {
-      filter =
-        path: type:
-        let
-          r = attrs.filter path type;
-        in
-        builtins.trace "${attrs.name}.filter ${path} = ${boolToString r}" r
-        ;
-    }) // {
+    fromSourceAttributes (
+      attrs // {
+        filter =
+          path: type:
+          let
+            r = attrs.filter path type;
+          in
+          builtins.trace "${attrs.name}.filter ${path} = ${boolToString r}" r
+          ;
+      }
+    ) // {
       satisfiesSubpathInvariant =
         src ? satisfiesSubpathInvariant && src.satisfiesSubpathInvariant;
     }
@@ -177,7 +188,8 @@ let
     in
     lib.cleanSourceWith {
       filter =
-        (path: type:
+        (
+          path: type:
           let
             relPath = lib.removePrefix (toString origSrc + "/") (toString path);
           in

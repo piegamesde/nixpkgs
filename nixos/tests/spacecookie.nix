@@ -7,7 +7,8 @@ let
   '';
   fileName = "file.txt";
 in
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     ...
   }: {
     name = "spacecookie";
@@ -59,4 +60,5 @@ import ./make-test-python.nix ({
       if not (["0", "1"] == dirEntries):
           raise Exception("Unexpected directory response")
     '';
-  })
+  }
+)

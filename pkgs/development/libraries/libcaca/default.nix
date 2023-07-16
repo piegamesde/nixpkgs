@@ -47,10 +47,12 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = [
-      (if x11Support then
-        "--enable-x11"
-      else
-        "--disable-x11")
+      (
+        if x11Support then
+          "--enable-x11"
+        else
+          "--disable-x11"
+      )
     ];
 
   env.NIX_CFLAGS_COMPILE =

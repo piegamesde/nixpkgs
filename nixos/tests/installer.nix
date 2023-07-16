@@ -447,14 +447,15 @@ let
                 perlPackages.XMLLibXML
                 python3Minimal
                 # make-options-doc/default.nix
-                (let
-                  self =
-                    (pkgs.python3Minimal.override {
-                      inherit self;
-                      includeSiteCustomize = true;
-                    });
-                in
-                self.withPackages (p: [ p.mistune ])
+                (
+                  let
+                    self =
+                      (pkgs.python3Minimal.override {
+                        inherit self;
+                        includeSiteCustomize = true;
+                      });
+                  in
+                  self.withPackages (p: [ p.mistune ])
                 )
                 shared-mime-info
                 sudo
@@ -467,14 +468,16 @@ let
                 curl
               ]
               ++ optional (bootLoader == "grub" && grubVersion == 1) pkgs.grub
-              ++ optionals (bootLoader == "grub" && grubVersion == 2) (let
-                zfsSupport = lib.any (x: x == "zfs")
-                  (extraInstallerConfig.boot.supportedFilesystems or [ ]);
-              in
-              [
-                (pkgs.grub2.override { inherit zfsSupport; })
-                (pkgs.grub2_efi.override { inherit zfsSupport; })
-              ]
+              ++ optionals (bootLoader == "grub" && grubVersion == 2) (
+                let
+                  zfsSupport = lib.any (x: x == "zfs") (
+                    extraInstallerConfig.boot.supportedFilesystems or [ ]
+                  );
+                in
+                [
+                  (pkgs.grub2.override { inherit zfsSupport; })
+                  (pkgs.grub2_efi.override { inherit zfsSupport; })
+                ]
               );
 
             nix.settings = {
@@ -597,9 +600,11 @@ let
     # disable zfs so we can support latest kernel if needed
   no-zfs-module = {
     nixpkgs.overlays = [
-        (final: super: {
-          zfs = super.zfs.overrideAttrs (_: { meta.platforms = [ ]; });
-        })
+        (
+          final: super: {
+            zfs = super.zfs.overrideAttrs (_: { meta.platforms = [ ]; });
+          }
+        )
       ];
   };
 in
@@ -612,8 +617,9 @@ in
   simple = makeInstallerTest "simple" simple-test-config;
 
     # Test cloned configurations with the simple grub configuration
-  simpleSpecialised = makeInstallerTest "simpleSpecialised"
-    (simple-test-config // specialisation-test-extraconfig);
+  simpleSpecialised = makeInstallerTest "simpleSpecialised" (
+    simple-test-config // specialisation-test-extraconfig
+  );
 
     # Simple GPT/UEFI configuration using systemd-boot with 3 partitions: ESP, swap & root filesystem
   simpleUefiSystemdBoot = makeInstallerTest "simpleUefiSystemdBoot" {
@@ -641,8 +647,9 @@ in
 
     # Test cloned configurations with the uefi grub configuration
   simpleUefiGrubSpecialisation =
-    makeInstallerTest "simpleUefiGrubSpecialisation"
-    (simple-uefi-grub-config // specialisation-test-extraconfig);
+    makeInstallerTest "simpleUefiGrubSpecialisation" (
+      simple-uefi-grub-config // specialisation-test-extraconfig
+    );
 
     # Same as the previous, but now with a separate /boot partition.
   separateBoot = makeInstallerTest "separateBoot" {

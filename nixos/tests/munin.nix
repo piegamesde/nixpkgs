@@ -1,7 +1,8 @@
 # This test runs basic munin setup with node and cron job running on the same
 # machine.
 
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -51,4 +52,5 @@ import ./make-test-python.nix ({
           one.wait_for_file("/var/lib/munin/one/one-uptime-uptime-g.rrd")
           one.wait_for_file("/var/www/munin/one/index.html")
     '';
-  })
+  }
+)

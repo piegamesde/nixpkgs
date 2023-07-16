@@ -23,11 +23,13 @@ lib.init bootStages
 ++ [
 
   # Regular native packages
-  (somePrevStage:
+  (
+    somePrevStage:
     lib.last bootStages somePrevStage // {
       # It's OK to change the built-time dependencies
       allowCustomOverrides = true;
-    })
+    }
+  )
 
   # Build tool Packages
   (vanillaPackages: {
@@ -44,7 +46,8 @@ lib.init bootStages
   })
 
   # Run Packages
-  (buildPackages:
+  (
+    buildPackages:
     let
       adaptStdenv =
         if crossSystem.isStatic then
@@ -101,20 +104,21 @@ lib.init bootStages
           ++ lib.optionals (hostPlatform.isLinux && !buildPlatform.isLinux) [
               buildPackages.patchelf
             ]
-          ++ lib.optional (let
-            f =
-              p:
-              !p.isx86
-              || builtins.elem p.libc [
-                "musl"
-                "wasilibc"
-                "relibc"
-              ]
-              || p.isiOS
-              || p.isGenode
-              ;
-          in
-          f hostPlatform && !(f buildPlatform)
+          ++ lib.optional (
+            let
+              f =
+                p:
+                !p.isx86
+                || builtins.elem p.libc [
+                  "musl"
+                  "wasilibc"
+                  "relibc"
+                ]
+                || p.isiOS
+                || p.isGenode
+                ;
+            in
+            f hostPlatform && !(f buildPlatform)
           ) buildPackages.updateAutotoolsGnuConfigScriptsHook
           ;
       }));

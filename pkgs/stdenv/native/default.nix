@@ -84,12 +84,14 @@ let
       ../cygwin/all-buildinputs-as-runtimedep.sh
       ../cygwin/wrap-exes-to-find-dlls.sh
     ]
-    ++ (if system == "i686-cygwin" then
-      [ ../cygwin/rebase-i686.sh ]
-    else if system == "x86_64-cygwin" then
-      [ ../cygwin/rebase-x86_64.sh ]
-    else
-      [ ])
+    ++ (
+      if system == "i686-cygwin" then
+        [ ../cygwin/rebase-i686.sh ]
+      else if system == "x86_64-cygwin" then
+        [ ../cygwin/rebase-x86_64.sh ]
+      else
+        [ ]
+    )
     ;
 
     # A function that builds a "native" stdenv (one that uses tools in
@@ -127,12 +129,14 @@ let
 
       extraNativeBuildInputs =
         extraNativeBuildInputs
-        ++ (if system == "i686-cygwin" then
-          extraNativeBuildInputsCygwin
-        else if system == "x86_64-cygwin" then
-          extraNativeBuildInputsCygwin
-        else
-          [ ])
+        ++ (
+          if system == "i686-cygwin" then
+            extraNativeBuildInputsCygwin
+          else if system == "x86_64-cygwin" then
+            extraNativeBuildInputsCygwin
+          else
+            [ ]
+        )
         ;
 
       initialPath = extraPath ++ path;
@@ -146,49 +150,51 @@ let
 in
 [
 
-  ({ }: rec {
-    __raw = true;
+  (
+    { }: rec {
+      __raw = true;
 
-    stdenv = makeStdenv {
-      cc = null;
-      fetchurl = null;
-    };
-    stdenvNoCC = stdenv;
+      stdenv = makeStdenv {
+        cc = null;
+        fetchurl = null;
+      };
+      stdenvNoCC = stdenv;
 
-    cc =
-      let
-        nativePrefix =
-          { # switch
-            i686-solaris = "/usr/gnu";
-            x86_64-solaris = "/opt/local/gcc47";
-          }
-          .${system} or "/usr";
-      in
-      import ../../build-support/cc-wrapper {
-        name = "cc-native";
-        nativeTools = true;
-        nativeLibc = true;
-        inherit lib nativePrefix;
-        bintools = import ../../build-support/bintools-wrapper {
-          name = "bintools";
-          inherit lib stdenvNoCC nativePrefix;
+      cc =
+        let
+          nativePrefix =
+            { # switch
+              i686-solaris = "/usr/gnu";
+              x86_64-solaris = "/opt/local/gcc47";
+            }
+            .${system} or "/usr";
+        in
+        import ../../build-support/cc-wrapper {
+          name = "cc-native";
           nativeTools = true;
           nativeLibc = true;
-        };
-        inherit stdenvNoCC;
-      }
-      ;
-
-    fetchurl = import ../../build-support/fetchurl {
-      inherit
-        lib
-        stdenvNoCC
+          inherit lib nativePrefix;
+          bintools = import ../../build-support/bintools-wrapper {
+            name = "bintools";
+            inherit lib stdenvNoCC nativePrefix;
+            nativeTools = true;
+            nativeLibc = true;
+          };
+          inherit stdenvNoCC;
+        }
         ;
-        # Curl should be in /usr/bin or so.
-      curl = null;
-    };
 
-  })
+      fetchurl = import ../../build-support/fetchurl {
+        inherit
+          lib
+          stdenvNoCC
+          ;
+          # Curl should be in /usr/bin or so.
+        curl = null;
+      };
+
+    }
+  )
 
   # First build a stdenv based only on tools outside the store.
   (prevStage: {

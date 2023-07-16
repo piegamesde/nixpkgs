@@ -68,11 +68,13 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ expat ];
 
   buildInputs =
-    lib.optionals x11Support (with xorg; [
-      libX11
-      libICE
-      libSM
-    ])
+    lib.optionals x11Support (
+      with xorg; [
+        libX11
+        libICE
+        libSM
+      ]
+    )
     ++ lib.optional enableSystemd systemdMinimal
     ++ lib.optionals stdenv.isLinux [
       audit

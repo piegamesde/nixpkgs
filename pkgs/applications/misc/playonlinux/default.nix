@@ -74,12 +74,14 @@ let
     ]
     ;
 
-  python = python3.withPackages (ps:
+  python = python3.withPackages (
+    ps:
     with ps; [
       wxPython_4_2
       setuptools
       natsort
-    ]);
+    ]
+  );
 
 in
 stdenv.mkDerivation {

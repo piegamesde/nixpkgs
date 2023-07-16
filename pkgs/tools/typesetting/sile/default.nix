@@ -19,7 +19,8 @@
 }:
 
 let
-  luaEnv = lua.withPackages (ps:
+  luaEnv = lua.withPackages (
+    ps:
     with ps;
     [
       cassowary
@@ -42,7 +43,8 @@ let
       vstruct
     ]
     ++ lib.optionals (lib.versionOlder lua.luaversion "5.2") [ bit32 ]
-    ++ lib.optionals (lib.versionOlder lua.luaversion "5.3") [ compat53 ]);
+    ++ lib.optionals (lib.versionOlder lua.luaversion "5.3") [ compat53 ]
+  );
 
 in
 stdenv.mkDerivation rec {

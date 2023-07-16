@@ -48,35 +48,40 @@
 lib.throwIf (attrs ? name) ''
   buildPerlPackage: `name` ("${attrs.name}") is deprecated, use `pname` and `version` instead''
 
-(let
-  defaultMeta = {
-    homepage = "https://metacpan.org/dist/${attrs.pname}";
-    inherit (perl.meta) platforms;
-  };
+(
+  let
+    defaultMeta = {
+      homepage = "https://metacpan.org/dist/${attrs.pname}";
+      inherit (perl.meta) platforms;
+    };
 
-  package = stdenv.mkDerivation (attrs // {
-    name = "perl${perl.version}-${attrs.pname}-${attrs.version}";
+    package = stdenv.mkDerivation (
+      attrs // {
+        name = "perl${perl.version}-${attrs.pname}-${attrs.version}";
 
-    builder = ./builder.sh;
+        builder = ./builder.sh;
 
-    buildInputs = buildInputs ++ [ perl ];
-    nativeBuildInputs =
-      nativeBuildInputs
-      ++ (if stdenv.buildPlatform != stdenv.hostPlatform then
-        [ perl.mini ]
-      else
-        [ perl ])
-      ;
+        buildInputs = buildInputs ++ [ perl ];
+        nativeBuildInputs =
+          nativeBuildInputs
+          ++ (
+            if stdenv.buildPlatform != stdenv.hostPlatform then
+              [ perl.mini ]
+            else
+              [ perl ]
+          )
+          ;
 
-    inherit outputs src doCheck checkTarget enableParallelBuilding;
-    env = {
-      inherit PERL_AUTOINSTALL AUTOMATED_TESTING PERL_USE_UNSAFE_INC;
-      fullperl = perl.__spliced.buildHost or perl;
-    } // env;
+        inherit outputs src doCheck checkTarget enableParallelBuilding;
+        env = {
+          inherit PERL_AUTOINSTALL AUTOMATED_TESTING PERL_USE_UNSAFE_INC;
+          fullperl = perl.__spliced.buildHost or perl;
+        } // env;
 
-    meta = defaultMeta // (attrs.meta or { });
-  });
+        meta = defaultMeta // (attrs.meta or { });
+      }
+    );
 
-in
-toPerlModule package
+  in
+  toPerlModule package
 )

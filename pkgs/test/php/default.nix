@@ -47,12 +47,14 @@ in
       $php/bin/php -r 'exit(extension_loaded("imagick") ? 1 : 0);' && ok || nok
 
       phpWithImagick="${
-        php.withExtensions ({
+        php.withExtensions (
+          {
             all,
             ...
           }: [
             all.imagick
-          ])
+          ]
+        )
       }"
       checking "that imagick extension is present when enabled"
       $phpWithImagick/bin/php -r 'exit(extension_loaded("imagick") ? 0 : 1);' && ok || nok
@@ -60,19 +62,21 @@ in
 
   overrideAttrs-preserves-enabled-extensions =
     let
-      customPhp = (php.withExtensions ({
+      customPhp = (php.withExtensions (
+        {
           all,
           ...
         }: [
           all.imagick
-        ])).overrideAttrs (attrs: {
-          postInstall =
-            attrs.postInstall or ""
-            + ''
-              touch "$out/oApee-was-here"
-            ''
-            ;
-        });
+        ]
+      )).overrideAttrs (attrs: {
+        postInstall =
+          attrs.postInstall or ""
+          + ''
+            touch "$out/oApee-was-here"
+          ''
+          ;
+      });
     in
     runTest "php-test-overrideAttrs-preserves-enabled-extensions" ''
       php="${customPhp}"
@@ -93,7 +97,8 @@ in
   unwrapped-overrideAttrs-stacks =
     let
       customPhp = lib.pipe php.unwrapped [
-        (pkg:
+        (
+          pkg:
           pkg.overrideAttrs (attrs: {
             postInstall =
               attrs.postInstall or ""
@@ -101,9 +106,11 @@ in
                 touch "$out/oAs-first"
               ''
               ;
-          }))
+          })
+        )
 
-        (pkg:
+        (
+          pkg:
           pkg.overrideAttrs (attrs: {
             postInstall =
               attrs.postInstall or ""
@@ -111,7 +118,8 @@ in
                 touch "$out/oAs-second"
               ''
               ;
-          }))
+          })
+        )
       ];
     in
     runTest "php-test-unwrapped-overrideAttrs-stacks" ''
@@ -126,7 +134,8 @@ in
   wrapped-overrideAttrs-stacks =
     let
       customPhp = lib.pipe php [
-        (pkg:
+        (
+          pkg:
           pkg.overrideAttrs (attrs: {
             postInstall =
               attrs.postInstall or ""
@@ -134,9 +143,11 @@ in
                 touch "$out/oAs-first"
               ''
               ;
-          }))
+          })
+        )
 
-        (pkg:
+        (
+          pkg:
           pkg.overrideAttrs (attrs: {
             postInstall =
               attrs.postInstall or ""
@@ -144,17 +155,20 @@ in
                 touch "$out/oAs-second"
               ''
               ;
-          }))
+          })
+        )
       ];
     in
     runTest "php-test-wrapped-overrideAttrs-stacks" ''
       checking "if first override remained"
-      ${check
-      (builtins.match ".*oAs-first.*" customPhp.unwrapped.postInstall != null)}
+      ${check (
+        builtins.match ".*oAs-first.*" customPhp.unwrapped.postInstall != null
+      )}
 
       checking "if second override is there"
-      ${check
-      (builtins.match ".*oAs-second.*" customPhp.unwrapped.postInstall != null)}
+      ${check (
+        builtins.match ".*oAs-second.*" customPhp.unwrapped.postInstall != null
+      )}
     ''
     ;
 }

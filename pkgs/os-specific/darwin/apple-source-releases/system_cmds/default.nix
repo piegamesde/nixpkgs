@@ -28,25 +28,27 @@ appleDerivation {
     # env.NIX_CFLAGS_COMPILE = lib.optionalString hostPlatform.isi686 "-D__i386__"
     #                    + lib.optionalString hostPlatform.isx86_64 "-D__x86_64__"
     #                    + lib.optionalString hostPlatform.isAarch32 "-D__arm__";
-  env.NIX_CFLAGS_COMPILE = toString ([
-    "-DDAEMON_UID=1"
-    "-DDAEMON_GID=1"
-    "-DDEFAULT_AT_QUEUE='a'"
-    "-DDEFAULT_BATCH_QUEUE='b'"
-    ''-DPERM_PATH="/usr/lib/cron/"''
-    "-DOPEN_DIRECTORY"
-    "-DNO_DIRECT_RPC"
-    "-DAPPLE_GETCONF_UNDERSCORE"
-    "-DAPPLE_GETCONF_SPEC"
-    "-DUSE_PAM"
-    "-DUSE_BSM_AUDIT"
-    "-D_PW_NAME_LEN=MAXLOGNAME"
-    ''-D_PW_YPTOKEN="__YP!"''
-    "-DAHZV1=64 "
-    "-DAU_SESSION_FLAG_HAS_TTY=0x4000"
-    "-DAU_SESSION_FLAG_HAS_AUTHENTICATED=0x4000"
-  ]
-    ++ lib.optional (!stdenv.isLinux) " -D__FreeBSD__ ");
+  env.NIX_CFLAGS_COMPILE = toString (
+    [
+      "-DDAEMON_UID=1"
+      "-DDAEMON_GID=1"
+      "-DDEFAULT_AT_QUEUE='a'"
+      "-DDEFAULT_BATCH_QUEUE='b'"
+      ''-DPERM_PATH="/usr/lib/cron/"''
+      "-DOPEN_DIRECTORY"
+      "-DNO_DIRECT_RPC"
+      "-DAPPLE_GETCONF_UNDERSCORE"
+      "-DAPPLE_GETCONF_SPEC"
+      "-DUSE_PAM"
+      "-DUSE_BSM_AUDIT"
+      "-D_PW_NAME_LEN=MAXLOGNAME"
+      ''-D_PW_YPTOKEN="__YP!"''
+      "-DAHZV1=64 "
+      "-DAU_SESSION_FLAG_HAS_TTY=0x4000"
+      "-DAU_SESSION_FLAG_HAS_AUTHENTICATED=0x4000"
+    ]
+    ++ lib.optional (!stdenv.isLinux) " -D__FreeBSD__ "
+  );
 
   patchPhase =
     ''

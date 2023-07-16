@@ -76,15 +76,18 @@ in
       serviceConfig = rec {
         ExecStart =
           let
-            args = lib.mapAttrsToList (key: val:
+            args = lib.mapAttrsToList (
+              key: val:
               "-"
               + key
               + "="
-              + lib.concatStringsSep "," (map toString (lib.toList val)))
-              (cfg.settings // {
+              + lib.concatStringsSep "," (map toString (lib.toList val))
+            ) (
+              cfg.settings // {
                 a = cfg.address;
                 p = cfg.port;
-              });
+              }
+            );
           in
           "${pkgs.imaginary}/bin/imaginary ${utils.escapeSystemdExecArgs args}"
           ;

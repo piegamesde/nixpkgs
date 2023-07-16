@@ -31,26 +31,30 @@ let
   getPackages = version: haskell.packages."ghc${version}";
   tunedHls =
     hsPkgs:
-    lib.pipe hsPkgs.haskell-language-server ([
-      (haskell.lib.compose.overrideCabal (old: {
-        enableSharedExecutables = dynamic;
-        ${
-          if !dynamic then
-            "postInstall"
-          else
-            null
-        } = ''
-          ${old.postInstall or ""}
+    lib.pipe hsPkgs.haskell-language-server (
+      [
+        (haskell.lib.compose.overrideCabal (old: {
+          enableSharedExecutables = dynamic;
+          ${
+            if !dynamic then
+              "postInstall"
+            else
+              null
+          } = ''
+            ${old.postInstall or ""}
 
-          remove-references-to -t ${hsPkgs.ghc} $out/bin/haskell-language-server
-        '';
-      }))
-      ((if dynamic then
-        enableCabalFlag
-      else
-        disableCabalFlag) "dynamic")
-    ]
-      ++ optionals (!dynamic) [ justStaticExecutables ])
+            remove-references-to -t ${hsPkgs.ghc} $out/bin/haskell-language-server
+          '';
+        }))
+        ((
+          if dynamic then
+            enableCabalFlag
+          else
+            disableCabalFlag
+        ) "dynamic")
+      ]
+      ++ optionals (!dynamic) [ justStaticExecutables ]
+    )
     ;
   targets =
     version:
@@ -61,10 +65,12 @@ let
     ;
   makeSymlinks =
     version:
-    concatMapStringsSep "\n" (x:
+    concatMapStringsSep "\n" (
+      x:
       "ln -s ${
         tunedHls (getPackages version)
-      }/bin/haskell-language-server $out/bin/${x}") (targets version)
+      }/bin/haskell-language-server $out/bin/${x}"
+    ) (targets version)
     ;
 in
 assert supportedGhcVersions != [ ];

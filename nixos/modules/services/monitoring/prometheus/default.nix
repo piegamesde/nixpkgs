@@ -11,7 +11,9 @@ let
   yaml = pkgs.formats.yaml { };
   cfg = config.services.prometheus;
   checkConfigEnabled =
-    (lib.isBool cfg.checkConfig && cfg.checkConfig)
+    (
+      lib.isBool cfg.checkConfig && cfg.checkConfig
+    )
     || cfg.checkConfig == "syntax-only"
     ;
 
@@ -26,11 +28,13 @@ let
 
   reload = pkgs.writeShellScriptBin "reload-prometheus" ''
     PATH="${
-      makeBinPath (with pkgs; [
-        systemd
-        coreutils
-        gnugrep
-      ])
+      makeBinPath (
+        with pkgs; [
+          systemd
+          coreutils
+          gnugrep
+        ]
+      )
     }"
     cursor=$(journalctl --show-cursor -n0 | grep -oP "cursor: \K.*")
     kill -HUP $MAINPID
@@ -58,10 +62,12 @@ let
     # This becomes the main config file for Prometheus
   promConfig = {
     global = filterValidPrometheus cfg.globalConfig;
-    rule_files = map (promtoolCheck "check rules" "rules") (cfg.ruleFiles
+    rule_files = map (promtoolCheck "check rules" "rules") (
+      cfg.ruleFiles
       ++ [
         (pkgs.writeText "prometheus.rules" (concatStringsSep "\n" cfg.rules))
-      ]);
+      ]
+    );
     scrape_configs = filterValidPrometheus cfg.scrapeConfigs;
     remote_write = filterValidPrometheus cfg.remoteWrite;
     remote_read = filterValidPrometheus cfg.remoteRead;
@@ -110,7 +116,8 @@ let
   filterAttrsListRecursive =
     pred: x:
     if isAttrs x then
-      listToAttrs (concatMap (name:
+      listToAttrs (concatMap (
+        name:
         let
           v = x.${name};
         in
@@ -131,12 +138,14 @@ let
 
   mkDefOpt =
     type: defaultStr: description:
-    mkOpt type (description
+    mkOpt type (
+      description
       + ''
 
         Defaults to ````${defaultStr}```` in prometheus
         when set to `null`.
-      '')
+      ''
+    )
     ;
 
   mkOpt =
@@ -669,45 +678,47 @@ let
 
   mkDockerSdConfigModule =
     extraOptions:
-    mkSdConfigModule ({
-      host = mkOption {
-        type = types.str;
-        description = lib.mdDoc ''
-          Address of the Docker daemon.
-        '';
-      };
-
-      port = mkDefOpt types.int "80" ''
-        The port to scrape metrics from, when `role` is nodes, and for discovered
-        tasks and services that don't have published ports.
-      '';
-
-      filters = mkOpt (types.listOf (types.submodule {
-        options = {
-          name = mkOption {
-            type = types.str;
-            description = lib.mdDoc ''
-              Name of the filter. The available filters are listed in the upstream documentation:
-              Services: <https://docs.docker.com/engine/api/v1.40/#operation/ServiceList>
-              Tasks: <https://docs.docker.com/engine/api/v1.40/#operation/TaskList>
-              Nodes: <https://docs.docker.com/engine/api/v1.40/#operation/NodeList>
-            '';
-          };
-          values = mkOption {
-            type = types.str;
-            description = lib.mdDoc ''
-              Value for the filter.
-            '';
-          };
+    mkSdConfigModule (
+      {
+        host = mkOption {
+          type = types.str;
+          description = lib.mdDoc ''
+            Address of the Docker daemon.
+          '';
         };
-      })) ''
-        Optional filters to limit the discovery process to a subset of available resources.
-      '';
 
-      refresh_interval = mkDefOpt types.str "60s" ''
-        The time after which the containers are refreshed.
-      '';
-    } // extraOptions)
+        port = mkDefOpt types.int "80" ''
+          The port to scrape metrics from, when `role` is nodes, and for discovered
+          tasks and services that don't have published ports.
+        '';
+
+        filters = mkOpt (types.listOf (types.submodule {
+          options = {
+            name = mkOption {
+              type = types.str;
+              description = lib.mdDoc ''
+                Name of the filter. The available filters are listed in the upstream documentation:
+                Services: <https://docs.docker.com/engine/api/v1.40/#operation/ServiceList>
+                Tasks: <https://docs.docker.com/engine/api/v1.40/#operation/TaskList>
+                Nodes: <https://docs.docker.com/engine/api/v1.40/#operation/NodeList>
+              '';
+            };
+            values = mkOption {
+              type = types.str;
+              description = lib.mdDoc ''
+                Value for the filter.
+              '';
+            };
+          };
+        })) ''
+          Optional filters to limit the discovery process to a subset of available resources.
+        '';
+
+        refresh_interval = mkDefOpt types.str "60s" ''
+          The time after which the containers are refreshed.
+        '';
+      } // extraOptions
+    )
     ;
 
   promTypes.docker_sd_config = mkDockerSdConfigModule {
@@ -1851,21 +1862,22 @@ in
 
   config = mkIf cfg.enable {
     assertions = [
-        (let
-          # Match something with dots (an IPv4 address) or something ending in
-          # a square bracket (an IPv6 addresses) followed by a port number.
-          legacy =
-            builtins.match "(.*\\..*|.*]):([[:digit:]]+)" cfg.listenAddress;
-        in
-        {
-          assertion = legacy == null;
-          message = ''
-            Do not specify the port for Prometheus to listen on in the
-            listenAddress option; use the port option instead:
-              services.prometheus.listenAddress = ${builtins.elemAt legacy 0};
-              services.prometheus.port = ${builtins.elemAt legacy 1};
-          '';
-        }
+        (
+          let
+            # Match something with dots (an IPv4 address) or something ending in
+            # a square bracket (an IPv6 addresses) followed by a port number.
+            legacy =
+              builtins.match "(.*\\..*|.*]):([[:digit:]]+)" cfg.listenAddress;
+          in
+          {
+            assertion = legacy == null;
+            message = ''
+              Do not specify the port for Prometheus to listen on in the
+              listenAddress option; use the port option instead:
+                services.prometheus.listenAddress = ${builtins.elemAt legacy 0};
+                services.prometheus.port = ${builtins.elemAt legacy 1};
+            '';
+          }
         )
       ];
 
@@ -1883,8 +1895,9 @@ in
       serviceConfig = {
         ExecStart =
           "${cfg.package}/bin/prometheus"
-          + optionalString (length cmdlineArgs != 0)
-            (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs)
+          + optionalString (length cmdlineArgs != 0) (
+            " \\\n  " + concatStringsSep " \\\n  " cmdlineArgs
+          )
           ;
         ExecReload = mkIf cfg.enableReload "+${reload}/bin/reload-prometheus";
         User = "prometheus";

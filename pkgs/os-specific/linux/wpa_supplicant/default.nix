@@ -99,14 +99,16 @@ stdenv.mkDerivation rec {
       undefine CONFIG_CTRL_IFACE_DBUS_NEW
       undefine CONFIG_CTRL_IFACE_DBUS_INTRO
     ''
-    + (if withReadline then
-      ''
-        CONFIG_READLINE=y
-      ''
-    else
-      ''
-        CONFIG_WPA_CLI_EDIT=y
-      '')
+    + (
+      if withReadline then
+        ''
+          CONFIG_READLINE=y
+        ''
+      else
+        ''
+          CONFIG_WPA_CLI_EDIT=y
+        ''
+    )
     ;
 
   preBuild = ''

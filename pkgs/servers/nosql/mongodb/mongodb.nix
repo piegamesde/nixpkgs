@@ -37,7 +37,8 @@ let
   variants =
     if versionAtLeast version "6.0" then
       rec {
-        python = scons.python.withPackages (ps:
+        python = scons.python.withPackages (
+          ps:
           with ps; [
             pyyaml
             cheetah3
@@ -45,7 +46,8 @@ let
             setuptools
             packaging
             pymongo
-          ]);
+          ]
+        );
 
         scons = sconsPackages.scons_3_1_2;
 
@@ -55,13 +57,15 @@ let
       }
     else
       rec {
-        python = scons.python.withPackages (ps:
+        python = scons.python.withPackages (
+          ps:
           with ps; [
             pyyaml
             cheetah3
             psutil
             setuptools
-          ]);
+          ]
+        );
 
         scons = sconsPackages.scons_3_1_2;
 

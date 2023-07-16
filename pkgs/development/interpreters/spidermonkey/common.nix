@@ -77,11 +77,13 @@ stdenv.mkDerivation (finalAttrs: rec {
       ./always-check-for-pkg-config.patch
       ./allow-system-s-nspr-and-icu-on-bootstrapped-sysroot.patch
     ]
-    ++ lib.optionals (lib.versionAtLeast version "91"
-      && stdenv.hostPlatform.system == "i686-linux") [
-        # Fixes i686 build, https://bugzilla.mozilla.org/show_bug.cgi?id=1729459
-        ./fix-float-i686.patch
-      ]
+    ++ lib.optionals (
+      lib.versionAtLeast version "91"
+      && stdenv.hostPlatform.system == "i686-linux"
+    ) [
+      # Fixes i686 build, https://bugzilla.mozilla.org/show_bug.cgi?id=1729459
+      ./fix-float-i686.patch
+    ]
     ;
 
   nativeBuildInputs =
@@ -91,10 +93,12 @@ stdenv.mkDerivation (finalAttrs: rec {
       perl
       pkg-config
       # 78 requires python up to 3.9
-      (if lib.versionOlder version "91" then
-        python39
-      else
-        python3)
+      (
+        if lib.versionOlder version "91" then
+          python39
+        else
+          python3
+      )
       rustc
       rustc.llvmPackages.llvm # for llvm-objdump
       which
@@ -109,10 +113,12 @@ stdenv.mkDerivation (finalAttrs: rec {
 
   buildInputs =
     [
-      (if lib.versionOlder version "91" then
-        icu67
-      else
-        icu)
+      (
+        if lib.versionOlder version "91" then
+          icu67
+        else
+          icu
+      )
       nspr
       readline
       zlib
@@ -163,8 +169,10 @@ stdenv.mkDerivation (finalAttrs: rec {
 
     # cc-rs insists on using -mabi=lp64 (soft-float) for riscv64,
     # while we have a double-float toolchain
-  env.NIX_CFLAGS_COMPILE = lib.optionalString (with stdenv.hostPlatform;
-    isRiscV && is64bit && lib.versionOlder version "91") "-mabi=lp64d";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString (
+    with stdenv.hostPlatform;
+    isRiscV && is64bit && lib.versionOlder version "91"
+  ) "-mabi=lp64d";
 
   postPatch = lib.optionalString (lib.versionOlder version "102") ''
     # This patch is a manually applied fix of

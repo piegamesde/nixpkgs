@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -65,4 +66,5 @@ import ./make-test-python.nix ({
           hedgedocPostgres.wait_for_open_port(3000)
           hedgedocPostgres.wait_until_succeeds("curl -sSf http://localhost:3000/new")
     '';
-  })
+  }
+)

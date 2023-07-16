@@ -15,9 +15,11 @@ in
     ''
       >${cellName}
     ''
-    + (concatStringsSep "\n" (map (dbm:
+    + (concatStringsSep "\n" (map (
+      dbm:
       optionalString (dbm.ip != "" && dbm.dnsname != "")
-      "${dbm.ip} #${dbm.dnsname}") db))
+      "${dbm.ip} #${dbm.dnsname}"
+    ) db))
     + "\n"
     ;
 

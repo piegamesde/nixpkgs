@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -21,4 +22,5 @@ import ./make-test-python.nix ({
       server.wait_for_open_port(8090)
       server.succeed("curl -Ssf 'http://127.0.0.1:8090/_matrix/identity/api/v1'")
     '';
-  })
+  }
+)

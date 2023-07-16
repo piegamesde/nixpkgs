@@ -28,7 +28,9 @@ let
       database: ${cfg.database.name}
       host: ${
         if
-          (cfg.database.type == "postgresql" && cfg.database.socket != null)
+          (
+            cfg.database.type == "postgresql" && cfg.database.socket != null
+          )
         then
           cfg.database.socket
         else
@@ -38,9 +40,9 @@ let
       username: ${cfg.database.user}
       password: #dbpass#
       ${
-        optionalString
-        (cfg.database.type == "mysql2" && cfg.database.socket != null)
-        "socket: ${cfg.database.socket}"
+        optionalString (
+          cfg.database.type == "mysql2" && cfg.database.socket != null
+        ) "socket: ${cfg.database.socket}"
       }
   '';
 
@@ -52,7 +54,8 @@ let
   unpackPlugin = unpack "plugin";
   unpack =
     id:
-    (name: source:
+    (
+      name: source:
       pkgs.stdenv.mkDerivation {
         name = "redmine-${id}-${name}";
         nativeBuildInputs = [ pkgs.unzip ];
@@ -61,7 +64,8 @@ let
           cd $out
           unpackFile ${source}
         '';
-      })
+      }
+    )
     ;
 
   mysqlLocal = cfg.database.createLocally && cfg.database.type == "mysql2";

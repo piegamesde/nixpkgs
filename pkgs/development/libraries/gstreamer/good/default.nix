@@ -92,10 +92,12 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals enableDocumentation [ hotdoc ]
     ++ lib.optionals qt5Support (with qt5; [ qtbase ])
-    ++ lib.optionals qt6Support (with qt6; [
-      qtbase
-      qttools
-    ])
+    ++ lib.optionals qt6Support (
+      with qt6; [
+        qtbase
+        qttools
+      ]
+    )
     ++ lib.optionals stdenv.isLinux [ wayland-protocols ]
     ;
 
@@ -132,17 +134,21 @@ stdenv.mkDerivation rec {
       # for gtksink
       gtk3
     ]
-    ++ lib.optionals qt5Support (with qt5; [
-      qtbase
-      qtdeclarative
-      qtwayland
-      qtx11extras
-    ])
-    ++ lib.optionals qt6Support (with qt6; [
-      qtbase
-      qtdeclarative
-      qtwayland
-    ])
+    ++ lib.optionals qt5Support (
+      with qt5; [
+        qtbase
+        qtdeclarative
+        qtwayland
+        qtx11extras
+      ]
+    )
+    ++ lib.optionals qt6Support (
+      with qt6; [
+        qtbase
+        qtdeclarative
+        qtwayland
+      ]
+    )
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ++ lib.optionals stdenv.isLinux [
       libv4l

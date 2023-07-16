@@ -69,13 +69,15 @@ let
       version,
       ...
     }:
-    lib.fix (self:
+    lib.fix (
+      self:
       builtins.listToAttrs (builtins.map (component: {
         name = component.id;
         value = componentFromSnapshot self {
           inherit component revision schema_version version;
         };
-      }) components))
+      }) components)
+    )
     ;
 
     # Generate a single component from its snapshot, along with a set of
@@ -122,9 +124,9 @@ let
         if component.platform == { } then
           lib.platforms.all
         else
-          builtins.concatMap
-          (arch: builtins.map (os: toNixPlatform arch os) operating_systems)
-          architectures
+          builtins.concatMap (
+            arch: builtins.map (os: toNixPlatform arch os) operating_systems
+          ) architectures
         ;
       snapshot = snapshotFromComponent attrs;
     }

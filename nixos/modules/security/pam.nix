@@ -484,23 +484,26 @@ let
           # !!! TODO: move the LDAP stuff to the LDAP module, and the
           # Samba stuff to the Samba module.  This requires that the PAM
           # module provides the right hooks.
-        text = mkDefault (''
-          # Account management.
-        ''
+        text = mkDefault (
+          ''
+            # Account management.
+          ''
           + optionalString use_ldap ''
             account sufficient ${pam_ldap}/lib/security/pam_ldap.so
           ''
           + optionalString cfg.mysqlAuth ''
             account sufficient ${pkgs.pam_mysql}/lib/security/pam_mysql.so config_file=/etc/security/pam_mysql.conf
           ''
-          + optionalString
-            (config.services.sssd.enable && cfg.sssdStrictAccess == false) ''
-              account sufficient ${pkgs.sssd}/lib/security/pam_sss.so
-            ''
-          + optionalString
-            (config.services.sssd.enable && cfg.sssdStrictAccess) ''
-              account [default=bad success=ok user_unknown=ignore] ${pkgs.sssd}/lib/security/pam_sss.so
-            ''
+          + optionalString (
+            config.services.sssd.enable && cfg.sssdStrictAccess == false
+          ) ''
+            account sufficient ${pkgs.sssd}/lib/security/pam_sss.so
+          ''
+          + optionalString (
+            config.services.sssd.enable && cfg.sssdStrictAccess
+          ) ''
+            account [default=bad success=ok user_unknown=ignore] ${pkgs.sssd}/lib/security/pam_sss.so
+          ''
           + optionalString config.security.pam.krb5.enable ''
             account sufficient ${pam_krb5}/lib/security/pam_krb5.so
           ''
@@ -531,85 +534,97 @@ let
           + optionalString cfg.mysqlAuth ''
             auth sufficient ${pkgs.pam_mysql}/lib/security/pam_mysql.so config_file=/etc/security/pam_mysql.conf
           ''
-          + optionalString
-            (config.security.pam.enableSSHAgentAuth && cfg.sshAgentAuth) ''
-              auth sufficient ${pkgs.pam_ssh_agent_auth}/libexec/pam_ssh_agent_auth.so file=${
-                lib.concatStringsSep ":"
-                config.services.openssh.authorizedKeysFiles
-              }
-            ''
-          + (let
-            p11 = config.security.pam.p11;
-          in
-          optionalString cfg.p11Auth ''
-            auth ${p11.control} ${pkgs.pam_p11}/lib/security/pam_p11.so ${pkgs.opensc}/lib/opensc-pkcs11.so
+          + optionalString (
+            config.security.pam.enableSSHAgentAuth && cfg.sshAgentAuth
+          ) ''
+            auth sufficient ${pkgs.pam_ssh_agent_auth}/libexec/pam_ssh_agent_auth.so file=${
+              lib.concatStringsSep ":"
+              config.services.openssh.authorizedKeysFiles
+            }
           ''
+          + (
+            let
+              p11 = config.security.pam.p11;
+            in
+            optionalString cfg.p11Auth ''
+              auth ${p11.control} ${pkgs.pam_p11}/lib/security/pam_p11.so ${pkgs.opensc}/lib/opensc-pkcs11.so
+            ''
           )
-          + (let
-            u2f = config.security.pam.u2f;
-          in
-          optionalString cfg.u2fAuth
-          ("auth ${u2f.control} ${pkgs.pam_u2f}/lib/security/pam_u2f.so ${
-              optionalString u2f.debug "debug"
-            } ${
-              optionalString (u2f.authFile != null) "authfile=${u2f.authFile}"
-            } "
-            + ''
-              ${optionalString u2f.interactive "interactive"} ${
-                optionalString u2f.cue "cue"
-              } ${optionalString (u2f.appId != null) "appid=${u2f.appId}"} ${
-                optionalString (u2f.origin != null) "origin=${u2f.origin}"
-              }
-            '')
+          + (
+            let
+              u2f = config.security.pam.u2f;
+            in
+            optionalString cfg.u2fAuth (
+              "auth ${u2f.control} ${pkgs.pam_u2f}/lib/security/pam_u2f.so ${
+                  optionalString u2f.debug "debug"
+                } ${
+                  optionalString (u2f.authFile != null)
+                  "authfile=${u2f.authFile}"
+                } "
+              + ''
+                ${optionalString u2f.interactive "interactive"} ${
+                  optionalString u2f.cue "cue"
+                } ${optionalString (u2f.appId != null) "appid=${u2f.appId}"} ${
+                  optionalString (u2f.origin != null) "origin=${u2f.origin}"
+                }
+              ''
+            )
           )
           + optionalString cfg.usbAuth ''
             auth sufficient ${pkgs.pam_usb}/lib/security/pam_usb.so
           ''
-          + (let
-            ussh = config.security.pam.ussh;
-          in
-          optionalString (config.security.pam.ussh.enable && cfg.usshAuth) ''
-            auth ${ussh.control} ${pkgs.pam_ussh}/lib/security/pam_ussh.so ${
-              optionalString (ussh.caFile != null) "ca_file=${ussh.caFile}"
-            } ${
-              optionalString (ussh.authorizedPrincipals != null)
-              "authorized_principals=${ussh.authorizedPrincipals}"
-            } ${
-              optionalString (ussh.authorizedPrincipalsFile != null)
-              "authorized_principals_file=${ussh.authorizedPrincipalsFile}"
-            } ${optionalString (ussh.group != null) "group=${ussh.group}"}
-          ''
+          + (
+            let
+              ussh = config.security.pam.ussh;
+            in
+            optionalString (config.security.pam.ussh.enable && cfg.usshAuth) ''
+              auth ${ussh.control} ${pkgs.pam_ussh}/lib/security/pam_ussh.so ${
+                optionalString (ussh.caFile != null) "ca_file=${ussh.caFile}"
+              } ${
+                optionalString (ussh.authorizedPrincipals != null)
+                "authorized_principals=${ussh.authorizedPrincipals}"
+              } ${
+                optionalString (ussh.authorizedPrincipalsFile != null)
+                "authorized_principals_file=${ussh.authorizedPrincipalsFile}"
+              } ${optionalString (ussh.group != null) "group=${ussh.group}"}
+            ''
           )
-          + (let
-            oath = config.security.pam.oath;
-          in
-          optionalString cfg.oathAuth ''
-            auth requisite ${pkgs.oath-toolkit}/lib/security/pam_oath.so window=${
-              toString oath.window
-            } usersfile=${toString oath.usersFile} digits=${
-              toString oath.digits
-            }
-          ''
+          + (
+            let
+              oath = config.security.pam.oath;
+            in
+            optionalString cfg.oathAuth ''
+              auth requisite ${pkgs.oath-toolkit}/lib/security/pam_oath.so window=${
+                toString oath.window
+              } usersfile=${toString oath.usersFile} digits=${
+                toString oath.digits
+              }
+            ''
           )
-          + (let
-            yubi = config.security.pam.yubico;
-          in
-          optionalString cfg.yubicoAuth ''
-            auth ${yubi.control} ${pkgs.yubico-pam}/lib/security/pam_yubico.so mode=${
-              toString yubi.mode
-            } ${
-              optionalString (yubi.challengeResponsePath != null)
-              "chalresp_path=${yubi.challengeResponsePath}"
-            } ${
-              optionalString (yubi.mode == "client") "id=${toString yubi.id}"
-            } ${optionalString yubi.debug "debug"}
-          ''
+          + (
+            let
+              yubi = config.security.pam.yubico;
+            in
+            optionalString cfg.yubicoAuth ''
+              auth ${yubi.control} ${pkgs.yubico-pam}/lib/security/pam_yubico.so mode=${
+                toString yubi.mode
+              } ${
+                optionalString (yubi.challengeResponsePath != null)
+                "chalresp_path=${yubi.challengeResponsePath}"
+              } ${
+                optionalString (yubi.mode == "client") "id=${toString yubi.id}"
+              } ${optionalString yubi.debug "debug"}
+            ''
           )
           + optionalString cfg.fprintAuth ''
             auth sufficient ${pkgs.fprintd}/lib/security/pam_fprintd.so
           ''
-          + (optionalString ((cfg.unixAuth || config.services.homed.enable)
-            && (config.security.pam.enableEcryptfs
+          + (optionalString (
+            (
+              cfg.unixAuth || config.services.homed.enable
+            )
+            && (
+              config.security.pam.enableEcryptfs
               || config.security.pam.enableFscrypt
               || cfg.pamMount
               || cfg.enableKwallet
@@ -617,46 +632,49 @@ let
               || cfg.googleAuthenticator.enable
               || cfg.gnupg.enable
               || cfg.failDelay.enable
-              || cfg.duoSecurity.enable))
-            (optionalString config.services.homed.enable ''
+              || cfg.duoSecurity.enable
+            )
+          ) (
+            optionalString config.services.homed.enable ''
               auth optional ${config.systemd.package}/lib/security/pam_systemd_home.so
             ''
-              + optionalString cfg.unixAuth ''
-                auth optional pam_unix.so ${
-                  optionalString cfg.allowNullPassword "nullok"
-                } ${optionalString cfg.nodelay "nodelay"} likeauth
-              ''
-              + optionalString config.security.pam.enableEcryptfs ''
-                auth optional ${pkgs.ecryptfs}/lib/security/pam_ecryptfs.so unwrap
-              ''
-              + optionalString config.security.pam.enableFscrypt ''
-                auth optional ${pkgs.fscrypt-experimental}/lib/security/pam_fscrypt.so
-              ''
-              + optionalString cfg.pamMount ''
-                auth optional ${pkgs.pam_mount}/lib/security/pam_mount.so disable_interactive
-              ''
-              + optionalString cfg.enableKwallet ''
-                auth optional ${pkgs.plasma5Packages.kwallet-pam}/lib/security/pam_kwallet5.so kwalletd=${pkgs.plasma5Packages.kwallet.bin}/bin/kwalletd5
-              ''
-              + optionalString cfg.enableGnomeKeyring ''
-                auth optional ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so
-              ''
-              + optionalString cfg.gnupg.enable ''
-                auth optional ${pkgs.pam_gnupg}/lib/security/pam_gnupg.so ${
-                  optionalString cfg.gnupg.storeOnly " store-only"
-                }
-              ''
-              + optionalString cfg.failDelay.enable ''
-                auth optional ${pkgs.pam}/lib/security/pam_faildelay.so delay=${
-                  toString cfg.failDelay.delay
-                }
-              ''
-              + optionalString cfg.googleAuthenticator.enable ''
-                auth required ${pkgs.google-authenticator}/lib/security/pam_google_authenticator.so no_increment_hotp
-              ''
-              + optionalString cfg.duoSecurity.enable ''
-                auth required ${pkgs.duo-unix}/lib/security/pam_duo.so
-              ''))
+            + optionalString cfg.unixAuth ''
+              auth optional pam_unix.so ${
+                optionalString cfg.allowNullPassword "nullok"
+              } ${optionalString cfg.nodelay "nodelay"} likeauth
+            ''
+            + optionalString config.security.pam.enableEcryptfs ''
+              auth optional ${pkgs.ecryptfs}/lib/security/pam_ecryptfs.so unwrap
+            ''
+            + optionalString config.security.pam.enableFscrypt ''
+              auth optional ${pkgs.fscrypt-experimental}/lib/security/pam_fscrypt.so
+            ''
+            + optionalString cfg.pamMount ''
+              auth optional ${pkgs.pam_mount}/lib/security/pam_mount.so disable_interactive
+            ''
+            + optionalString cfg.enableKwallet ''
+              auth optional ${pkgs.plasma5Packages.kwallet-pam}/lib/security/pam_kwallet5.so kwalletd=${pkgs.plasma5Packages.kwallet.bin}/bin/kwalletd5
+            ''
+            + optionalString cfg.enableGnomeKeyring ''
+              auth optional ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so
+            ''
+            + optionalString cfg.gnupg.enable ''
+              auth optional ${pkgs.pam_gnupg}/lib/security/pam_gnupg.so ${
+                optionalString cfg.gnupg.storeOnly " store-only"
+              }
+            ''
+            + optionalString cfg.failDelay.enable ''
+              auth optional ${pkgs.pam}/lib/security/pam_faildelay.so delay=${
+                toString cfg.failDelay.delay
+              }
+            ''
+            + optionalString cfg.googleAuthenticator.enable ''
+              auth required ${pkgs.google-authenticator}/lib/security/pam_google_authenticator.so no_increment_hotp
+            ''
+            + optionalString cfg.duoSecurity.enable ''
+              auth required ${pkgs.duo-unix}/lib/security/pam_duo.so
+            ''
+          ))
           + optionalString config.services.homed.enable ''
             auth sufficient ${config.systemd.package}/lib/security/pam_systemd_home.so
           ''
@@ -732,13 +750,14 @@ let
                 "required"
             } pam_loginuid.so
           ''
-          + optionalString cfg.ttyAudit.enable (concatStringsSep " \\\n  "
-            ([ "session required ${pkgs.pam}/lib/security/pam_tty_audit.so" ]
-              ++ optional cfg.ttyAudit.openOnly "open_only"
-              ++ optional (cfg.ttyAudit.enablePattern != null)
-                "enable=${cfg.ttyAudit.enablePattern}"
-              ++ optional (cfg.ttyAudit.disablePattern != null)
-                "disable=${cfg.ttyAudit.disablePattern}"))
+          + optionalString cfg.ttyAudit.enable (concatStringsSep " \\\n  " (
+            [ "session required ${pkgs.pam}/lib/security/pam_tty_audit.so" ]
+            ++ optional cfg.ttyAudit.openOnly "open_only"
+            ++ optional (cfg.ttyAudit.enablePattern != null)
+              "enable=${cfg.ttyAudit.enablePattern}"
+            ++ optional (cfg.ttyAudit.disablePattern != null)
+              "disable=${cfg.ttyAudit.disablePattern}"
+          ))
           + optionalString config.services.homed.enable ''
             session required ${config.systemd.package}/lib/security/pam_systemd_home.so
           ''
@@ -788,14 +807,19 @@ let
               makeLimitsConf cfg.limits
             }
           ''
-          + optionalString (cfg.showMotd
-            && (config.users.motd != null || config.users.motdFile != null)) ''
-              session optional ${pkgs.pam}/lib/security/pam_motd.so motd=${motd}
-            ''
-          + optionalString
-            (cfg.enableAppArmor && config.security.apparmor.enable) ''
-              session optional ${pkgs.apparmor-pam}/lib/security/pam_apparmor.so order=user,group,default debug
-            ''
+          + optionalString (
+            cfg.showMotd
+            && (
+              config.users.motd != null || config.users.motdFile != null
+            )
+          ) ''
+            session optional ${pkgs.pam}/lib/security/pam_motd.so motd=${motd}
+          ''
+          + optionalString (
+            cfg.enableAppArmor && config.security.apparmor.enable
+          ) ''
+            session optional ${pkgs.apparmor-pam}/lib/security/pam_apparmor.so order=user,group,default debug
+          ''
           + optionalString (cfg.enableKwallet) ''
             session optional ${pkgs.plasma5Packages.kwallet-pam}/lib/security/pam_kwallet5.so kwalletd=${pkgs.plasma5Packages.kwallet.bin}/bin/kwalletd5
           ''
@@ -809,7 +833,8 @@ let
           ''
           + optionalString (config.virtualisation.lxc.lxcfs.enable) ''
             session optional ${pkgs.lxc}/lib/security/pam_cgfs.so -c all
-          '');
+          ''
+        );
       };
 
     }
@@ -828,18 +853,21 @@ let
     # Create a limits.conf(5) file.
   makeLimitsConf =
     limits:
-    pkgs.writeText "limits.conf" (concatMapStrings ({
+    pkgs.writeText "limits.conf" (concatMapStrings (
+      {
         domain,
         type,
         item,
         value,
       }: ''
         ${domain} ${type} ${item} ${toString value}
-      '') limits)
+      ''
+    ) limits)
     ;
 
   limitsType = with lib.types;
-    listOf (submodule ({
+    listOf (submodule (
+      {
         ...
       }: {
         options = {
@@ -893,7 +921,8 @@ let
             ];
           };
         };
-      }));
+      }
+    ));
 
   motd =
     if config.users.motdFile == null then
@@ -1484,10 +1513,12 @@ in
       + optionalString (isEnabled (cfg: cfg.googleOsLoginAuthentication)) ''
         mr ${pkgs.google-guest-oslogin}/lib/security/pam_oslogin_login.so,
       ''
-      + optionalString (config.security.pam.enableSSHAgentAuth
-        && isEnabled (cfg: cfg.sshAgentAuth)) ''
-          mr ${pkgs.pam_ssh_agent_auth}/libexec/pam_ssh_agent_auth.so,
-        ''
+      + optionalString (
+        config.security.pam.enableSSHAgentAuth
+        && isEnabled (cfg: cfg.sshAgentAuth)
+      ) ''
+        mr ${pkgs.pam_ssh_agent_auth}/libexec/pam_ssh_agent_auth.so,
+      ''
       + optionalString (isEnabled (cfg: cfg.fprintAuth)) ''
         mr ${pkgs.fprintd}/lib/security/pam_fprintd.so,
       ''
@@ -1530,10 +1561,11 @@ in
       + optionalString (isEnabled (cfg: cfg.startSession)) ''
         mr ${config.systemd.package}/lib/security/pam_systemd.so,
       ''
-      + optionalString (isEnabled (cfg: cfg.enableAppArmor)
-        && config.security.apparmor.enable) ''
-          mr ${pkgs.apparmor-pam}/lib/security/pam_apparmor.so,
-        ''
+      + optionalString (
+        isEnabled (cfg: cfg.enableAppArmor) && config.security.apparmor.enable
+      ) ''
+        mr ${pkgs.apparmor-pam}/lib/security/pam_apparmor.so,
+      ''
       + optionalString (isEnabled (cfg: cfg.enableKwallet)) ''
         mr ${pkgs.plasma5Packages.kwallet-pam}/lib/security/pam_kwallet5.so,
       ''

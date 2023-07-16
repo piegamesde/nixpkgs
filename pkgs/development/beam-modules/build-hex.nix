@@ -16,14 +16,16 @@
 let
   pkg =
     self:
-    builder (attrs // {
+    builder (
+      attrs // {
 
-      src = fetchHex {
-        pkg = hexPkg;
-        inherit version;
-        inherit sha256;
-      };
-    })
+        src = fetchHex {
+          pkg = hexPkg;
+          inherit version;
+          inherit sha256;
+        };
+      }
+    )
     ;
 in
 lib.fix pkg

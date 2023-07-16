@@ -59,10 +59,12 @@ stdenv.mkDerivation rec {
       qtbase
       qttools
     ]
-    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-      CoreFoundation
-      Security
-    ])
+    ++ lib.optionals stdenv.isDarwin (
+      with darwin.apple_sdk.frameworks; [
+        CoreFoundation
+        Security
+      ]
+    )
     ;
 
   postInstall =

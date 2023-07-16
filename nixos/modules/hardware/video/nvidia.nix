@@ -348,7 +348,9 @@ in
           assertion =
             primeEnabled
             -> pCfg.nvidiaBusId != ""
-              && (pCfg.intelBusId != "" || pCfg.amdgpuBusId != "")
+              && (
+                pCfg.intelBusId != "" || pCfg.amdgpuBusId != ""
+              )
             ;
           message = ''
             When NVIDIA PRIME is enabled, the GPU bus IDs must configured.
@@ -364,7 +366,9 @@ in
 
         {
           assertion =
-            (reverseSyncCfg.enable && pCfg.amdgpuBusId != "")
+            (
+              reverseSyncCfg.enable && pCfg.amdgpuBusId != ""
+            )
             -> versionAtLeast nvidia_x11.version "470.0"
             ;
           message =
@@ -596,8 +600,10 @@ in
       systemd.tmpfiles.rules =
         optional config.virtualisation.docker.enableNvidia
           "L+ /run/nvidia-docker/bin - - - - ${nvidia_x11.bin}/origBin"
-        ++ optional (nvidia_x11.persistenced != null
-          && config.virtualisation.docker.enableNvidia)
+        ++ optional (
+          nvidia_x11.persistenced != null
+          && config.virtualisation.docker.enableNvidia
+        )
           "L+ /run/nvidia-docker/extras/bin/nvidia-persistenced - - - - ${nvidia_x11.persistenced}/origBin/nvidia-persistenced"
         ;
 
@@ -626,9 +632,9 @@ in
         ++ optional cfg.powerManagement.enable
           "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
         ++ optional cfg.open "nvidia.NVreg_OpenRmEnableUnsupportedGpus=1"
-        ++ optional
-          (config.boot.kernelPackages.kernel.kernelAtLeast "6.2" && !ibtSupport)
-          "ibt=off"
+        ++ optional (
+          config.boot.kernelPackages.kernel.kernelAtLeast "6.2" && !ibtSupport
+        ) "ibt=off"
         ;
 
       services.udev.extraRules =
@@ -640,17 +646,18 @@ in
           KERNEL=="nvidia_uvm", RUN+="${pkgs.runtimeShell} -c 'mknod -m 666 /dev/nvidia-uvm c $$(grep nvidia-uvm /proc/devices | cut -d \  -f 1) 0'"
           KERNEL=="nvidia_uvm", RUN+="${pkgs.runtimeShell} -c 'mknod -m 666 /dev/nvidia-uvm-tools c $$(grep nvidia-uvm /proc/devices | cut -d \  -f 1) 1'"
         ''
-        + optionalString cfg.powerManagement.finegrained (optionalString
-          (versionOlder config.boot.kernelPackages.kernel.version "5.5") ''
-            # Remove NVIDIA USB xHCI Host Controller devices, if present
-            ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{remove}="1"
+        + optionalString cfg.powerManagement.finegrained (
+          optionalString
+            (versionOlder config.boot.kernelPackages.kernel.version "5.5") ''
+              # Remove NVIDIA USB xHCI Host Controller devices, if present
+              ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{remove}="1"
 
-            # Remove NVIDIA USB Type-C UCSI devices, if present
-            ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{remove}="1"
+              # Remove NVIDIA USB Type-C UCSI devices, if present
+              ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{remove}="1"
 
-            # Remove NVIDIA Audio devices, if present
-            ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{remove}="1"
-          ''
+              # Remove NVIDIA Audio devices, if present
+              ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{remove}="1"
+            ''
           + ''
             # Enable runtime PM for NVIDIA VGA/3D controller devices on driver bind
             ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="auto"
@@ -659,7 +666,8 @@ in
             # Disable runtime PM for NVIDIA VGA/3D controller devices on driver unbind
             ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="on"
             ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TEST=="power/control", ATTR{power/control}="on"
-          '')
+          ''
+        )
         ;
 
       boot.extraModprobeConfig = mkIf cfg.powerManagement.finegrained ''

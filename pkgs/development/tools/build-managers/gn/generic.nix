@@ -43,7 +43,8 @@ stdenv.mkDerivation {
     ninja
     python3
   ];
-  buildInputs = lib.optionals stdenv.isDarwin (with darwin;
+  buildInputs = lib.optionals stdenv.isDarwin (
+    with darwin;
     with apple_sdk.frameworks; [
       libobjc
       cctools
@@ -52,7 +53,8 @@ stdenv.mkDerivation {
       ApplicationServices
       Foundation
       AppKit
-    ]);
+    ]
+  );
 
   buildPhase = ''
     python build/gen.py --no-last-commit-position

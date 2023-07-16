@@ -154,11 +154,13 @@ in
       "settings"
       "server"
       "PROTOCOL"
-    ] (config:
+    ] (
+      config:
       if config.services.gitea.enableUnixSocket then
         "http+unix"
       else
-        "http"))
+        "http"
+    ))
 
     (mkRemovedOptionModule [
       "services"

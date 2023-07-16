@@ -19,7 +19,8 @@
   bash,
 }:
 let
-  python = python3.withPackages (p:
+  python = python3.withPackages (
+    p:
     with p; [
       pygobject3
       pyudev
@@ -29,7 +30,8 @@ let
       scipy
       gtk3
       pygobject3
-    ]);
+    ]
+  );
 
   version = "0.7.2";
 in

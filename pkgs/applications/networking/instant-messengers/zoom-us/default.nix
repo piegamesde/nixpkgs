@@ -74,50 +74,52 @@ let
     };
   };
 
-  libs = lib.makeLibraryPath ([
-    # $ LD_LIBRARY_PATH=$NIX_LD_LIBRARY_PATH:$PWD ldd zoom | grep 'not found'
-    alsa-lib
-    atk
-    at-spi2-atk
-    at-spi2-core
-    cairo
-    cups
-    dbus
-    expat
-    libdrm
-    libGL
-    pipewire
-    fontconfig
-    freetype
-    gtk3
-    gdk-pixbuf
-    glib
-    mesa
-    nspr
-    nss
-    pango
-    stdenv.cc.cc
-    wayland
-    xorg.libX11
-    xorg.libxcb
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.libXext
-    libxkbcommon
-    xorg.libXrandr
-    xorg.libXrender
-    xorg.libxshmfence
-    xorg.xcbutilimage
-    xorg.xcbutilkeysyms
-    xorg.xcbutilrenderutil
-    xorg.xcbutilwm
-    xorg.libXfixes
-    xorg.libXtst
-    udev
-    zlib
-    libkrb5
-  ]
-    ++ lib.optional (pulseaudioSupport) libpulseaudio);
+  libs = lib.makeLibraryPath (
+    [
+      # $ LD_LIBRARY_PATH=$NIX_LD_LIBRARY_PATH:$PWD ldd zoom | grep 'not found'
+      alsa-lib
+      atk
+      at-spi2-atk
+      at-spi2-core
+      cairo
+      cups
+      dbus
+      expat
+      libdrm
+      libGL
+      pipewire
+      fontconfig
+      freetype
+      gtk3
+      gdk-pixbuf
+      glib
+      mesa
+      nspr
+      nss
+      pango
+      stdenv.cc.cc
+      wayland
+      xorg.libX11
+      xorg.libxcb
+      xorg.libXcomposite
+      xorg.libXdamage
+      xorg.libXext
+      libxkbcommon
+      xorg.libXrandr
+      xorg.libXrender
+      xorg.libxshmfence
+      xorg.xcbutilimage
+      xorg.xcbutilkeysyms
+      xorg.xcbutilrenderutil
+      xorg.xcbutilwm
+      xorg.libXfixes
+      xorg.libXtst
+      udev
+      zlib
+      libkrb5
+    ]
+    ++ lib.optional (pulseaudioSupport) libpulseaudio
+  );
 
 in
 stdenv.mkDerivation rec {

@@ -7,52 +7,56 @@
   ocamlbuild,
 }:
 
-stdenv.mkDerivation ({
-  version = "0.1";
-  pname = "ocaml${ocaml.version}-seq";
-
-  meta = {
-    license = lib.licenses.lgpl21;
-    maintainers = [ lib.maintainers.vbgl ];
-    homepage = "https://github.com/c-cube/seq";
-    inherit (ocaml.meta) platforms;
-  };
-
-} // (if lib.versionOlder ocaml.version "4.07" then
+stdenv.mkDerivation (
   {
+    version = "0.1";
+    pname = "ocaml${ocaml.version}-seq";
 
-    src = fetchFromGitHub {
-      owner = "c-cube";
-      repo = "seq";
-      rev = "0.1";
-      sha256 = "1cjpsc7q76yfgq9iyvswxgic4kfq2vcqdlmxjdjgd4lx87zvcwrv";
+    meta = {
+      license = lib.licenses.lgpl21;
+      maintainers = [ lib.maintainers.vbgl ];
+      homepage = "https://github.com/c-cube/seq";
+      inherit (ocaml.meta) platforms;
     };
 
-    nativeBuildInputs = [
-      ocaml
-      findlib
-      ocamlbuild
-    ];
-    strictDeps = true;
+  } // (
+    if lib.versionOlder ocaml.version "4.07" then
+      {
 
-    createFindlibDestdir = true;
+        src = fetchFromGitHub {
+          owner = "c-cube";
+          repo = "seq";
+          rev = "0.1";
+          sha256 = "1cjpsc7q76yfgq9iyvswxgic4kfq2vcqdlmxjdjgd4lx87zvcwrv";
+        };
 
-    meta.description =
-      "Compatibility package for OCaml’s standard iterator type starting from 4.07";
+        nativeBuildInputs = [
+          ocaml
+          findlib
+          ocamlbuild
+        ];
+        strictDeps = true;
 
-  }
-else
-  {
+        createFindlibDestdir = true;
 
-    src = ./src-base;
+        meta.description =
+          "Compatibility package for OCaml’s standard iterator type starting from 4.07";
 
-    dontBuild = true;
+      }
+    else
+      {
 
-    installPhase = ''
-      mkdir -p $out/lib/ocaml/${ocaml.version}/site-lib/seq
-      cp META $out/lib/ocaml/${ocaml.version}/site-lib/seq
-    '';
+        src = ./src-base;
 
-    meta.description = "dummy backward-compatibility package for iterators";
+        dontBuild = true;
 
-  }))
+        installPhase = ''
+          mkdir -p $out/lib/ocaml/${ocaml.version}/site-lib/seq
+          cp META $out/lib/ocaml/${ocaml.version}/site-lib/seq
+        '';
+
+        meta.description = "dummy backward-compatibility package for iterators";
+
+      }
+  )
+)

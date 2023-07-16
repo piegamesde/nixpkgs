@@ -29,10 +29,12 @@ buildPythonPackage rec {
       six
       numpy
     ]
-    ++ lib.optional withTreeVisualization (if isPy3k then
-      pyqt5
-    else
-      pyqt4)
+    ++ lib.optional withTreeVisualization (
+      if isPy3k then
+        pyqt5
+      else
+        pyqt4
+    )
     ++ lib.optional withXmlSupport lxml
     ;
 

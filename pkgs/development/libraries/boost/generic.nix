@@ -24,16 +24,25 @@
   enableDebug ? false,
   enableSingleThreaded ? false,
   enableMultiThreaded ? true,
-  enableShared ?
-    !(with stdenv.hostPlatform; isStatic || libc == "msvcrt") # problems for now
+  enableShared ? !(
+    with stdenv.hostPlatform; isStatic || libc == "msvcrt"
+  ) # problems for now
   ,
   enableStatic ? !enableShared,
   enablePython ? false,
   enableNumpy ? false,
   enableIcu ? stdenv.hostPlatform == stdenv.buildPlatform,
-  taggedLayout ? ((enableRelease && enableDebug)
-    || (enableSingleThreaded && enableMultiThreaded)
-    || (enableShared && enableStatic)),
+  taggedLayout ? (
+    (
+      enableRelease && enableDebug
+    )
+    || (
+      enableSingleThreaded && enableMultiThreaded
+    )
+    || (
+      enableShared && enableStatic
+    )
+  ),
   patches ? [ ],
   boostBuildPatches ? [ ],
   useMpi ? false,
@@ -54,22 +63,27 @@ assert enableNumpy -> enablePython;
 
 # Boost <1.69 can't be built on linux with clang >8, because pth was removed
 assert with lib;
-  (stdenv.isLinux
+  (
+    stdenv.isLinux
     && toolset == "clang"
-    && versionAtLeast stdenv.cc.version "8.0.0")
+    && versionAtLeast stdenv.cc.version "8.0.0"
+  )
   -> versionAtLeast version "1.69";
 
 let
 
-  variant = lib.concatStringsSep ","
-    (lib.optional enableRelease "release" ++ lib.optional enableDebug "debug");
+  variant = lib.concatStringsSep "," (
+    lib.optional enableRelease "release" ++ lib.optional enableDebug "debug"
+  );
 
-  threading = lib.concatStringsSep ","
-    (lib.optional enableSingleThreaded "single"
-      ++ lib.optional enableMultiThreaded "multi");
+  threading = lib.concatStringsSep "," (
+    lib.optional enableSingleThreaded "single"
+    ++ lib.optional enableMultiThreaded "multi"
+  );
 
-  link = lib.concatStringsSep ","
-    (lib.optional enableShared "shared" ++ lib.optional enableStatic "static");
+  link = lib.concatStringsSep "," (
+    lib.optional enableShared "shared" ++ lib.optional enableStatic "static"
+  );
 
   runtime-link =
     if enableShared then
@@ -104,69 +118,78 @@ let
   needUserConfig =
     stdenv.hostPlatform != stdenv.buildPlatform
     || useMpi
-    || (stdenv.isDarwin && enableShared)
+    || (
+      stdenv.isDarwin && enableShared
+    )
     ;
 
-  b2Args = lib.concatStringsSep " " ([
-    "--includedir=$dev/include"
-    "--libdir=$out/lib"
-    "-j${jobs}"
-    "--layout=${layout}"
-    "variant=${variant}"
-    "threading=${threading}"
-    "link=${link}"
-    "-sEXPAT_INCLUDE=${expat.dev}/include"
-    "-sEXPAT_LIBPATH=${expat.out}/lib"
+  b2Args = lib.concatStringsSep " " (
+    [
+      "--includedir=$dev/include"
+      "--libdir=$out/lib"
+      "-j${jobs}"
+      "--layout=${layout}"
+      "variant=${variant}"
+      "threading=${threading}"
+      "link=${link}"
+      "-sEXPAT_INCLUDE=${expat.dev}/include"
+      "-sEXPAT_LIBPATH=${expat.out}/lib"
 
-    # TODO: make this unconditional
-  ]
-    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform
+      # TODO: make this unconditional
+    ]
+    ++ lib.optionals (
+      stdenv.hostPlatform != stdenv.buildPlatform
       ||
       # required on mips; see 61d9f201baeef4c4bb91ad8a8f5f89b747e0dfe4
-      (stdenv.hostPlatform.isMips && lib.versionAtLeast version "1.79")) [
-        "address-model=${toString stdenv.hostPlatform.parsed.cpu.bits}"
-        "architecture=${
-          if stdenv.hostPlatform.isMips64 then
-            if lib.versionOlder version "1.78" then
-              "mips1"
-            else
-              "mips"
-          else if stdenv.hostPlatform.parsed.cpu.name == "s390x" then
-            "s390x"
+      (
+        stdenv.hostPlatform.isMips && lib.versionAtLeast version "1.79"
+      )
+    ) [
+      "address-model=${toString stdenv.hostPlatform.parsed.cpu.bits}"
+      "architecture=${
+        if stdenv.hostPlatform.isMips64 then
+          if lib.versionOlder version "1.78" then
+            "mips1"
           else
-            toString stdenv.hostPlatform.parsed.cpu.family
-        }"
-        "binary-format=${
-          toString stdenv.hostPlatform.parsed.kernel.execFormat.name
-        }"
-        "target-os=${toString stdenv.hostPlatform.parsed.kernel.name}"
+            "mips"
+        else if stdenv.hostPlatform.parsed.cpu.name == "s390x" then
+          "s390x"
+        else
+          toString stdenv.hostPlatform.parsed.cpu.family
+      }"
+      "binary-format=${
+        toString stdenv.hostPlatform.parsed.kernel.execFormat.name
+      }"
+      "target-os=${toString stdenv.hostPlatform.parsed.kernel.name}"
 
-        # adapted from table in boost manual
-        # https://www.boost.org/doc/libs/1_66_0/libs/context/doc/html/context/architectures.html
-        "abi=${
-          if stdenv.hostPlatform.parsed.cpu.family == "arm" then
-            "aapcs"
-          else if stdenv.hostPlatform.isWindows then
-            "ms"
-          else if stdenv.hostPlatform.isMips32 then
-            "o32"
-          else if stdenv.hostPlatform.isMips64n64 then
-            "n64"
-          else
-            "sysv"
-        }"
-      ]
+      # adapted from table in boost manual
+      # https://www.boost.org/doc/libs/1_66_0/libs/context/doc/html/context/architectures.html
+      "abi=${
+        if stdenv.hostPlatform.parsed.cpu.family == "arm" then
+          "aapcs"
+        else if stdenv.hostPlatform.isWindows then
+          "ms"
+        else if stdenv.hostPlatform.isMips32 then
+          "o32"
+        else if stdenv.hostPlatform.isMips64n64 then
+          "n64"
+        else
+          "sysv"
+      }"
+    ]
     ++ lib.optional (link != "static") "runtime-link=${runtime-link}"
     ++ lib.optional (variant == "release") "debug-symbols=off"
     ++ lib.optional (toolset != null) "toolset=${toolset}"
     ++ lib.optional (!enablePython) "--without-python"
     ++ lib.optional needUserConfig "--user-config=user-config.jam"
-    ++ lib.optional
-      (stdenv.buildPlatform.isDarwin && stdenv.hostPlatform.isLinux) "pch=off"
+    ++ lib.optional (
+      stdenv.buildPlatform.isDarwin && stdenv.hostPlatform.isLinux
+    ) "pch=off"
     ++ lib.optionals (stdenv.hostPlatform.libc == "msvcrt") [
         "threadapi=win32"
       ]
-    ++ extraB2Args);
+    ++ extraB2Args
+  );
 
 in
 stdenv.mkDerivation {
@@ -180,37 +203,37 @@ stdenv.mkDerivation {
     patches
     ++ lib.optional stdenv.isDarwin ./darwin-no-system-python.patch
       # Fix boost-context segmentation faults on ppc64 due to ABI violation
-    ++ lib.optional
-      (lib.versionAtLeast version "1.61" && lib.versionOlder version "1.71")
-      (fetchpatch {
-        url =
-          "https://github.com/boostorg/context/commit/2354eca9b776a6739112833f64754108cc0d1dc5.patch";
-        sha256 = "067m4bjpmcanqvg28djax9a10avmdwhlpfx6gn73kbqqq70dnz29";
-        stripLen = 1;
-        extraPrefix = "libs/context/";
-      })
-      # Fix compiler warning with GCC >= 8; TODO: patch may apply to older versions
-    ++ lib.optional
-      (lib.versionAtLeast version "1.65" && lib.versionOlder version "1.67")
-      (fetchpatch {
-        url =
-          "https://github.com/boostorg/mpl/commit/f48fd09d021db9a28bd7b8452c175897e1af4485.patch";
-        sha256 = "15d2a636hhsb1xdyp44x25dyqfcaws997vnp9kl1mhzvxjzz7hb0";
-        stripLen = 1;
-      })
-    ++ lib.optional
-      (lib.versionAtLeast version "1.65" && lib.versionOlder version "1.70")
-      (fetchpatch {
-        # support for Mips64n64 appeared in boost-context 1.70; this patch won't apply to pre-1.65 cleanly
-        url =
-          "https://github.com/boostorg/context/commit/e3f744a1862164062d579d1972272d67bdaa9c39.patch";
-        sha256 = "sha256-qjQy1b4jDsIRrI+UYtcguhvChrMbGWO0UlEzEJHYzRI=";
-        stripLen = 1;
-        extraPrefix = "libs/context/";
-      })
-    ++ lib.optional
-      (lib.versionAtLeast version "1.70" && lib.versionOlder version "1.73")
-      ./cmake-paths.patch
+    ++ lib.optional (
+      lib.versionAtLeast version "1.61" && lib.versionOlder version "1.71"
+    ) (fetchpatch {
+      url =
+        "https://github.com/boostorg/context/commit/2354eca9b776a6739112833f64754108cc0d1dc5.patch";
+      sha256 = "067m4bjpmcanqvg28djax9a10avmdwhlpfx6gn73kbqqq70dnz29";
+      stripLen = 1;
+      extraPrefix = "libs/context/";
+    })
+    # Fix compiler warning with GCC >= 8; TODO: patch may apply to older versions
+    ++ lib.optional (
+      lib.versionAtLeast version "1.65" && lib.versionOlder version "1.67"
+    ) (fetchpatch {
+      url =
+        "https://github.com/boostorg/mpl/commit/f48fd09d021db9a28bd7b8452c175897e1af4485.patch";
+      sha256 = "15d2a636hhsb1xdyp44x25dyqfcaws997vnp9kl1mhzvxjzz7hb0";
+      stripLen = 1;
+    })
+    ++ lib.optional (
+      lib.versionAtLeast version "1.65" && lib.versionOlder version "1.70"
+    ) (fetchpatch {
+      # support for Mips64n64 appeared in boost-context 1.70; this patch won't apply to pre-1.65 cleanly
+      url =
+        "https://github.com/boostorg/context/commit/e3f744a1862164062d579d1972272d67bdaa9c39.patch";
+      sha256 = "sha256-qjQy1b4jDsIRrI+UYtcguhvChrMbGWO0UlEzEJHYzRI=";
+      stripLen = 1;
+      extraPrefix = "libs/context/";
+    })
+    ++ lib.optional (
+      lib.versionAtLeast version "1.70" && lib.versionOlder version "1.73"
+    ) ./cmake-paths.patch
     ++ lib.optional (lib.versionAtLeast version "1.73") ./cmake-paths-173.patch
     ++ lib.optional (version == "1.77.0") (fetchpatch {
       url =
@@ -240,7 +263,9 @@ stdenv.mkDerivation {
       stdenv.hostPlatform.isMips64n32
       ||
       # the patch above does not apply cleanly to pre-1.65 boost
-      (stdenv.hostPlatform.isMips64n64 && (versionOlder version "1.65"))
+      (
+        stdenv.hostPlatform.isMips64n64 && (versionOlder version "1.65")
+      )
       ;
   };
 
@@ -333,10 +358,12 @@ stdenv.mkDerivation {
     ]
     ++ lib.optional (toolset != null) "--with-toolset=${toolset}"
     ++ [
-      (if enableIcu then
-        "--with-icu=${icu.dev}"
-      else
-        "--without-icu")
+      (
+        if enableIcu then
+          "--with-icu=${icu.dev}"
+        else
+          "--without-icu"
+      )
     ]
     ;
 

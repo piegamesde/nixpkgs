@@ -32,11 +32,13 @@ in
           type = types.nullOr types.ints.unsigned // {
             merge =
               loc: defs:
-              foldl (a: b:
+              foldl (
+                a: b:
                 if b.value == null then
                   null
                 else
-                  lib.max a b.value) 0 (filterOverrides defs)
+                  lib.max a b.value
+              ) 0 (filterOverrides defs)
               ;
           };
           default = null;
@@ -66,7 +68,8 @@ in
   config = {
 
     environment.etc."sysctl.d/60-nixos.conf".text = concatStrings
-      (mapAttrsToList (n: v:
+      (mapAttrsToList (
+        n: v:
         optionalString (v != null) ''
           ${n}=${
             if v == false then
@@ -74,7 +77,8 @@ in
             else
               toString v
           }
-        '') config.boot.kernel.sysctl);
+        ''
+      ) config.boot.kernel.sysctl);
 
     systemd.services.systemd-sysctl = {
       wantedBy = [ "multi-user.target" ];

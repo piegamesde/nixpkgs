@@ -90,8 +90,9 @@ stdenv.mkDerivation (rec {
       "PONYC_VERSION=${version}"
       "prefix=${placeholder "out"}"
     ]
-    ++ lib.optionals stdenv.isDarwin
-      ([ "bits=64" ] ++ lib.optional (!lto) "lto=no")
+    ++ lib.optionals stdenv.isDarwin (
+      [ "bits=64" ] ++ lib.optional (!lto) "lto=no"
+    )
     ;
 
   env.NIX_CFLAGS_COMPILE = toString [
@@ -103,8 +104,9 @@ stdenv.mkDerivation (rec {
 
   installPhase =
     "make config=release prefix=$out "
-    + lib.optionalString stdenv.isDarwin
-      ("bits=64 " + (lib.optionalString (!lto) "lto=no "))
+    + lib.optionalString stdenv.isDarwin (
+      "bits=64 " + (lib.optionalString (!lto) "lto=no ")
+    )
     + ''
       install
          wrapProgram $out/bin/ponyc \

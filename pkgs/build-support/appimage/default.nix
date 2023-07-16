@@ -51,24 +51,30 @@ rec {
       meta ? { },
       ...
     }:
-    buildFHSEnv (defaultFhsEnvArgs // {
-      inherit name;
+    buildFHSEnv (
+      defaultFhsEnvArgs // {
+        inherit name;
 
-      targetPkgs =
-        pkgs:
-        [ appimage-exec ] ++ defaultFhsEnvArgs.targetPkgs pkgs ++ extraPkgs pkgs
-        ;
+        targetPkgs =
+          pkgs:
+          [ appimage-exec ]
+          ++ defaultFhsEnvArgs.targetPkgs pkgs
+          ++ extraPkgs pkgs
+          ;
 
-      runScript = "appimage-exec.sh -w ${src} --";
+        runScript = "appimage-exec.sh -w ${src} --";
 
-      meta = {
-        sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-      } // meta;
-    } // (removeAttrs args ([
-      "pname"
-      "version"
-    ]
-      ++ (builtins.attrNames (builtins.functionArgs wrapAppImage)))))
+        meta = {
+          sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+        } // meta;
+      } // (removeAttrs args (
+        [
+          "pname"
+          "version"
+        ]
+        ++ (builtins.attrNames (builtins.functionArgs wrapAppImage))
+      ))
+    )
     ;
 
   wrapType2 =
@@ -78,18 +84,20 @@ rec {
       extraPkgs ? pkgs: [ ],
       ...
     }:
-    wrapAppImage (args // {
-      inherit name extraPkgs;
-      src = extract { inherit name src; };
+    wrapAppImage (
+      args // {
+        inherit name extraPkgs;
+        src = extract { inherit name src; };
 
-        # passthru src to make nix-update work
-        # hack to keep the origin position (unsafeGetAttrPos)
-      passthru = lib.pipe args [
-        lib.attrNames
-        (lib.remove "src")
-        (removeAttrs args)
-      ] // args.passthru or { };
-    })
+          # passthru src to make nix-update work
+          # hack to keep the origin position (unsafeGetAttrPos)
+        passthru = lib.pipe args [
+          lib.attrNames
+          (lib.remove "src")
+          (removeAttrs args)
+        ] // args.passthru or { };
+      }
+    )
     ;
 
   defaultFhsEnvArgs = {

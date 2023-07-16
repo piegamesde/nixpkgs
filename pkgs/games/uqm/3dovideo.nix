@@ -19,11 +19,13 @@ let
     + "addons/3dovideo/spins/ship${padded}.aif:89"
     ;
 
-  videoRMP = writeText "3dovideo.rmp" (''
-    slides.ending = 3DOVID:addons/3dovideo/ending/victory.duk
-    slides.intro = 3DOVID:addons/3dovideo/intro/intro.duk
-  ''
-    + lib.concatMapStrings makeSpin (lib.range 0 24));
+  videoRMP = writeText "3dovideo.rmp" (
+    ''
+      slides.ending = 3DOVID:addons/3dovideo/ending/victory.duk
+      slides.intro = 3DOVID:addons/3dovideo/intro/intro.duk
+    ''
+    + lib.concatMapStrings makeSpin (lib.range 0 24)
+  );
 
   helper = with haskellPackages;
     mkDerivation rec {

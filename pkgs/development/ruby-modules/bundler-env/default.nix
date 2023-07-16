@@ -37,10 +37,12 @@ let
     genStubsScript
     ;
 
-  basicEnv = (callPackage ../bundled-common { inherit bundler; }) (args // {
-    inherit pname name;
-    mainGemName = pname;
-  });
+  basicEnv = (callPackage ../bundled-common { inherit bundler; }) (
+    args // {
+      inherit pname name;
+      mainGemName = pname;
+    }
+  );
 
   inherit (basicEnv)
     envPaths

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -48,4 +49,5 @@ import ./make-test-python.nix ({
               "curl -sSf -H 'Authorization: Token MyToken' -H 'X-Application: MyApp' http://localhost:8080/auth"
           )
     '';
-  })
+  }
+)

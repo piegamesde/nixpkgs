@@ -1,5 +1,6 @@
 # This test runs CRI-O and verifies via critest
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -15,4 +16,5 @@ import ./make-test-python.nix ({
           "critest --ginkgo.focus='Runtime info' --runtime-endpoint unix:///var/run/crio/crio.sock"
       )
     '';
-  })
+  }
+)

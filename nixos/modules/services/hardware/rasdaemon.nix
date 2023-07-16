@@ -108,11 +108,13 @@ in
     };
     environment.systemPackages =
       [ pkgs.rasdaemon ]
-      ++ optionals (cfg.testing) (with pkgs.error-inject; [
-        edac-inject
-        mce-inject
-        aer-inject
-      ])
+      ++ optionals (cfg.testing) (
+        with pkgs.error-inject; [
+          edac-inject
+          mce-inject
+          aer-inject
+        ]
+      )
       ;
 
     boot.initrd.kernelModules =

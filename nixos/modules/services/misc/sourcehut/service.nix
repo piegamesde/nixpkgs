@@ -91,7 +91,8 @@ let
             # to reach credentials wherever they are.
             # Note that each systemd service gets its own ${runDir}/config.ini file.
           ExecStartPre = mkBefore [
-              ("+"
+              (
+                "+"
                 + pkgs.writeShellScript "${serviceName}-credentials" ''
                   set -x
                   # Replace values beginning with a '<' by the content of the file whose name is after.
@@ -99,7 +100,8 @@ let
                   ${optionalString (!allowStripe)
                   "gawk '!/^stripe-secret-key=/' |"}
                   install -o ${srvCfg.user} -g root -m 400 /dev/stdin ${runDir}/config.ini
-                '')
+                ''
+              )
             ];
             # The following options are only for optimizing:
             # systemd-analyze security
@@ -253,14 +255,13 @@ in
         };
         groups = {
           "${srvCfg.group}" = { };
-        } // optionalAttrs (cfg.postgresql.enable
-          && hasSuffix "0"
-            (postgresql.settings.unix_socket_permissions or "")) {
-              "postgres".members = [ srvCfg.user ];
-            } // optionalAttrs (cfg.redis.enable
-              && hasSuffix "0" (redis.settings.unixsocketperm or "")) {
-                "redis-sourcehut-${srvsrht}".members = [ srvCfg.user ];
-              };
+        } // optionalAttrs (
+          cfg.postgresql.enable
+          && hasSuffix "0" (postgresql.settings.unix_socket_permissions or "")
+        ) { "postgres".members = [ srvCfg.user ]; } // optionalAttrs (
+          cfg.redis.enable
+          && hasSuffix "0" (redis.settings.unixsocketperm or "")
+        ) { "redis-sourcehut-${srvsrht}".members = [ srvCfg.user ]; };
       };
 
       services.nginx = mkIf cfg.nginx.enable {
@@ -437,7 +438,8 @@ in
           };
         })
 
-        (mapAttrs (timerName: timer:
+        (mapAttrs (
+          timerName: timer:
           (baseService timerName { } (mkMerge [
             {
               description = "sourcehut ${timerName} service";
@@ -451,9 +453,11 @@ in
               };
             }
             (timer.service or { })
-          ]))) extraTimers)
+          ]))
+        ) extraTimers)
 
-        (mapAttrs (serviceName: extraService:
+        (mapAttrs (
+          serviceName: extraService:
           baseService serviceName { } (mkMerge [
             {
               description = "sourcehut ${serviceName} service";
@@ -467,14 +471,17 @@ in
               };
             }
             extraService
-          ])) extraServices)
+          ])
+        ) extraServices)
       ];
 
-      systemd.timers = mapAttrs (timerName: timer: {
-        description = "sourcehut timer for ${timerName}";
-        wantedBy = [ "timers.target" ];
-        inherit (timer) timerConfig;
-      }) extraTimers;
+      systemd.timers = mapAttrs (
+        timerName: timer: {
+          description = "sourcehut timer for ${timerName}";
+          wantedBy = [ "timers.target" ];
+          inherit (timer) timerConfig;
+        }
+      ) extraTimers;
     }
   ]);
 }

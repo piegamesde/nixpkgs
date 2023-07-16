@@ -63,7 +63,9 @@
 }@args:
 let
   rustfmtInNativeBuildInputs = lib.lists.any (dep: lib.getName dep == "rustfmt")
-    (args.nativeBuildInputs or [ ]);
+    (
+      args.nativeBuildInputs or [ ]
+    );
 
 in
 assert lib.asserts.assertMsg ((args.installPhase or "") == "")
@@ -114,7 +116,9 @@ let
       (args.buildInputs or [ ]) ++ lib.optionals stdenv.isDarwin [ Security ];
 
     nativeBuildInputs =
-      (args.nativeBuildInputs or [ ])
+      (
+        args.nativeBuildInputs or [ ]
+      )
       ++ [
         cargo-pgx
         postgresql

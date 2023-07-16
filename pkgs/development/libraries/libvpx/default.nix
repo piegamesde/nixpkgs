@@ -201,18 +201,20 @@ stdenv.mkDerivation rec {
       "--disable-docs"
       "--as=yasm"
       # Limit default decoder max to WHXGA
-      (if sizeLimitSupport then
-        "--size-limit=5120x3200"
-      else
-        null)
+      (
+        if sizeLimitSupport then
+          "--size-limit=5120x3200"
+        else
+          null
+      )
       "--disable-codec-srcs"
       (enableFeature debugLibsSupport "debug-libs")
       (enableFeature isMips "dequant-tokens")
       (enableFeature isMips "dc-recon")
       (enableFeature postprocSupport "postproc")
-      (enableFeature
-        (postprocSupport && (vp9DecoderSupport || vp9EncoderSupport))
-        "vp9-postproc")
+      (enableFeature (
+        postprocSupport && (vp9DecoderSupport || vp9EncoderSupport)
+      ) "vp9-postproc")
       (enableFeature multithreadSupport "multithread")
       (enableFeature internalStatsSupport "internal-stats")
       (enableFeature spatialResamplingSupport "spatial-resampling")
@@ -220,10 +222,12 @@ stdenv.mkDerivation rec {
       (enableFeature ontheflyBitpackingSupport "onthefly-bitpacking")
       (enableFeature errorConcealmentSupport "error-concealment")
       # Shared libraries are only supported on ELF platforms
-      (if isDarwin || isCygwin then
-        "--enable-static --disable-shared"
-      else
-        "--enable-shared")
+      (
+        if isDarwin || isCygwin then
+          "--enable-static --disable-shared"
+        else
+          "--enable-shared"
+      )
       (enableFeature smallSupport "small")
       (enableFeature postprocVisualizerSupport "postproc-visualizer")
       (enableFeature unitTestsSupport "unit-tests")
@@ -233,15 +237,17 @@ stdenv.mkDerivation rec {
       (enableFeature encodePerfTestsSupport "encode-perf-tests")
       (enableFeature multiResEncodingSupport "multi-res-encoding")
       (enableFeature temporalDenoisingSupport "temporal-denoising")
-      (enableFeature
-        (temporalDenoisingSupport && (vp9DecoderSupport || vp9EncoderSupport))
-        "vp9-temporal-denoising")
+      (enableFeature (
+        temporalDenoisingSupport && (vp9DecoderSupport || vp9EncoderSupport)
+      ) "vp9-temporal-denoising")
       (enableFeature coefficientRangeCheckingSupport
         "coefficient-range-checking")
       (enableFeature (vp9HighbitdepthSupport && is64bit) "vp9-highbitdepth")
-      (enableFeature (experimentalSpatialSvcSupport
+      (enableFeature (
+        experimentalSpatialSvcSupport
         || experimentalFpMbStatsSupport
-        || experimentalEmulateHardwareSupport) "experimental")
+        || experimentalEmulateHardwareSupport
+      ) "experimental")
     ]
     ++ optionals (stdenv.isBSD || stdenv.hostPlatform != stdenv.buildPlatform) [
       "--force-target=${stdenv.hostPlatform.parsed.cpu.name}-${kernel}-gcc"

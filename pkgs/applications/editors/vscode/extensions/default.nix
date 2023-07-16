@@ -3396,7 +3396,9 @@ let
 
     # overlays will be applied left to right, overrides should come after aliases.
   overlays = lib.optionals config.allowAliases [
-      (self: super: lib.recursiveUpdate super (aliases super))
+      (
+        self: super: lib.recursiveUpdate super (aliases super)
+      )
     ];
 
   toFix = lib.foldl' (lib.flip lib.extends) baseExtensions overlays;

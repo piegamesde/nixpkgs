@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -22,4 +23,5 @@ import ./make-test-python.nix ({
       res = server.succeed("curl --fail http://localhost/file.txt")
       assert "hello nixos test" in res, f"bad server response: '{res}'"
     '';
-  })
+  }
+)

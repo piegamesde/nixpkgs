@@ -12,7 +12,8 @@
 }:
 
 let
-  pythonEnv = python3.withPackages (ps:
+  pythonEnv = python3.withPackages (
+    ps:
     with ps; [
       chardet
       cheetah3
@@ -24,7 +25,8 @@ let
       puremagic
       guessit
       pysocks
-    ]);
+    ]
+  );
   path = lib.makeBinPath [
     par2cmdline
     unrar

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -77,49 +78,51 @@ import ./make-test-python.nix ({
         pkgs,
         ...
       }:
-      (simpleConfig // {
-        imports = [
-          ../modules/profiles/installation-device.nix
-          ../modules/profiles/base.nix
-        ];
-        virtualisation.memorySize = 1300;
-          # To add the secondary disk:
-        virtualisation.qemu.options = [
-            "-drive index=2,file=${debianImage}/disk-image.qcow2,read-only,if=virtio"
+      (
+        simpleConfig // {
+          imports = [
+            ../modules/profiles/installation-device.nix
+            ../modules/profiles/base.nix
           ];
+          virtualisation.memorySize = 1300;
+            # To add the secondary disk:
+          virtualisation.qemu.options = [
+              "-drive index=2,file=${debianImage}/disk-image.qcow2,read-only,if=virtio"
+            ];
 
-          # The test cannot access the network, so any packages
-          # nixos-rebuild needs must be included in the VM.
-        system.extraDependencies = with pkgs; [
-          brotli
-          brotli.dev
-          brotli.lib
-          desktop-file-utils
-          docbook5
-          docbook_xsl_ns
-          grub2
-          kmod.dev
-          libarchive
-          libarchive.dev
-          libxml2.bin
-          libxslt.bin
-          nixos-artwork.wallpapers.simple-dark-gray-bottom
-          ntp
-          perlPackages.ListCompare
-          perlPackages.XMLLibXML
-          python3Minimal
-          shared-mime-info
-          stdenv
-          sudo
-          texinfo
-          unionfs-fuse
-          xorg.lndir
+            # The test cannot access the network, so any packages
+            # nixos-rebuild needs must be included in the VM.
+          system.extraDependencies = with pkgs; [
+            brotli
+            brotli.dev
+            brotli.lib
+            desktop-file-utils
+            docbook5
+            docbook_xsl_ns
+            grub2
+            kmod.dev
+            libarchive
+            libarchive.dev
+            libxml2.bin
+            libxslt.bin
+            nixos-artwork.wallpapers.simple-dark-gray-bottom
+            ntp
+            perlPackages.ListCompare
+            perlPackages.XMLLibXML
+            python3Minimal
+            shared-mime-info
+            stdenv
+            sudo
+            texinfo
+            unionfs-fuse
+            xorg.lndir
 
-          # add curl so that rather than seeing the test attempt to download
-          # curl's tarball, we see what it's trying to download
-          curl
-        ];
-      })
+            # add curl so that rather than seeing the test attempt to download
+            # curl's tarball, we see what it's trying to download
+            curl
+          ];
+        }
+      )
       ;
 
     testScript = ''

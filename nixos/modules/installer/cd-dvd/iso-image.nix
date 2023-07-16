@@ -175,9 +175,10 @@ let
     APPEND ${toString config.boot.loader.grub.memtest86.params}
   '';
 
-  isolinuxCfg = concatStringsSep "\n" ([ baseIsolinuxCfg ]
-    ++ optional config.boot.loader.grub.memtest86.enable isolinuxMemtest86Entry)
-    ;
+  isolinuxCfg = concatStringsSep "\n" (
+    [ baseIsolinuxCfg ]
+    ++ optional config.boot.loader.grub.memtest86.enable isolinuxMemtest86Entry
+  );
 
   refindBinary =
     if targetArch == "x64" || targetArch == "aa64" then
@@ -734,7 +735,9 @@ in
   config = {
     assertions = [ {
       assertion =
-        !(stringLength config.isoImage.volumeID > 32)
+        !(
+          stringLength config.isoImage.volumeID > 32
+        )
         ;
         # https://wiki.osdev.org/ISO_9660#The_Primary_Volume_Descriptor
         # Volume Identifier can only be 32 bytes
@@ -873,12 +876,14 @@ in
           target = "/EFI/boot/efi-background.png";
         }
       ]
-      ++ optionals (config.boot.loader.grub.memtest86.enable
+      ++ optionals (
+        config.boot.loader.grub.memtest86.enable
         && config.isoImage.makeBiosBootable
-        && canx86BiosBoot) [ {
-          source = "${pkgs.memtest86plus}/memtest.bin";
-          target = "/boot/memtest.bin";
-        } ]
+        && canx86BiosBoot
+      ) [ {
+        source = "${pkgs.memtest86plus}/memtest.bin";
+        target = "/boot/memtest.bin";
+      } ]
       ++ optionals (config.isoImage.grubTheme != null) [ {
         source = config.isoImage.grubTheme;
         target = "/EFI/boot/grub-theme";
@@ -889,25 +894,29 @@ in
 
       # Create the ISO image.
     system.build.isoImage = pkgs.callPackage ../../../lib/make-iso9660-image.nix
-      ({
-        inherit (config.isoImage) isoName compressImage volumeID contents;
-        bootable = config.isoImage.makeBiosBootable && canx86BiosBoot;
-        bootImage = "/isolinux/isolinux.bin";
-        syslinux =
-          if config.isoImage.makeBiosBootable && canx86BiosBoot then
-            pkgs.syslinux
-          else
-            null
-          ;
-      } // optionalAttrs (config.isoImage.makeUsbBootable
-        && config.isoImage.makeBiosBootable
-        && canx86BiosBoot) {
+      (
+        {
+          inherit (config.isoImage) isoName compressImage volumeID contents;
+          bootable = config.isoImage.makeBiosBootable && canx86BiosBoot;
+          bootImage = "/isolinux/isolinux.bin";
+          syslinux =
+            if config.isoImage.makeBiosBootable && canx86BiosBoot then
+              pkgs.syslinux
+            else
+              null
+            ;
+        } // optionalAttrs (
+          config.isoImage.makeUsbBootable
+          && config.isoImage.makeBiosBootable
+          && canx86BiosBoot
+        ) {
           usbBootable = true;
           isohybridMbrImage = "${pkgs.syslinux}/share/syslinux/isohdpfx.bin";
         } // optionalAttrs config.isoImage.makeEfiBootable {
           efiBootable = true;
           efiBootImage = "boot/efi.img";
-        });
+        }
+      );
 
     boot.postBootCommands = ''
       # After booting, register the contents of the Nix store on the

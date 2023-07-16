@@ -113,7 +113,8 @@ in
       # For most files this consists of reading
       # ${deliantra}/etc/deliantra-server/${name} and appending the user setting
       # to it.
-    environment.etc = lib.attrsets.mapAttrs' (name: value:
+    environment.etc = lib.attrsets.mapAttrs' (
+      name: value:
       lib.attrsets.nameValuePair "deliantra-server/${name}" {
         mode = "0644";
         text =
@@ -125,12 +126,15 @@ in
 
             ${value}''
           ;
-      }) ({
+      }
+    ) (
+      {
         motd = "";
         settings = "";
         config = "";
         dm_file = "";
-      } // cfg.configFiles);
+      } // cfg.configFiles
+    );
 
     systemd.services.deliantra-server = {
       description = "Deliantra Server Daemon";

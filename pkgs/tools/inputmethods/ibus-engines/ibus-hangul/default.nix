@@ -41,11 +41,13 @@ stdenv.mkDerivation rec {
     gtk3
     ibus
     libhangul
-    (python3.withPackages (pypkgs:
+    (python3.withPackages (
+      pypkgs:
       with pypkgs; [
         pygobject3
         (toPythonModule ibus)
-      ]))
+      ]
+    ))
   ];
 
   meta = with lib; {

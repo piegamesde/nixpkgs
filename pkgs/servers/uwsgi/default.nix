@@ -133,8 +133,9 @@ stdenv.mkDerivation rec {
     ++ lib.concatMap (x: x.inputs) needed
     ;
 
-  basePlugins = lib.concatStringsSep ","
-    (lib.optional withPAM "pam" ++ lib.optional withSystemd "systemd_logger");
+  basePlugins = lib.concatStringsSep "," (
+    lib.optional withPAM "pam" ++ lib.optional withSystemd "systemd_logger"
+  );
 
   UWSGI_INCLUDES = lib.optionalString withCap "${libcap.dev}/include";
 

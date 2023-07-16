@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }:
@@ -38,4 +39,5 @@ import ./make-test-python.nix ({
           "curl -f http://localhost:1080/messages/1.source"
       )
     '';
-  })
+  }
+)

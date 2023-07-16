@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -32,4 +33,5 @@ import ./make-test-python.nix ({
       # Wait for SIP port to be open
       node0.wait_for_open_port(5060)
     '';
-  })
+  }
+)

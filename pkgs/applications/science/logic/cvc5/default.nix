@@ -41,11 +41,13 @@ stdenv.mkDerivation rec {
     antlr3_4
     boost
     jdk
-    (python3.withPackages (ps:
+    (python3.withPackages (
+      ps:
       with ps; [
         pyparsing
         toml
-      ]))
+      ]
+    ))
   ];
 
   preConfigure = ''

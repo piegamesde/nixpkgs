@@ -38,7 +38,9 @@ let
         license = licenses.unfree;
         platforms = [ "x86_64-linux" ];
         maintainers = with maintainers; [ vidbina ];
-      } // (attrs.meta or { });
+      } // (
+        attrs.meta or { }
+      );
 
     nativeBuildInputs = [
       makeWrapper

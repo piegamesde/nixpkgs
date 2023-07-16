@@ -7,11 +7,13 @@
 }:
 
 let
-  pythonEnv = python3.withPackages (ps:
+  pythonEnv = python3.withPackages (
+    ps:
     with ps; [
       m3u8
       pyqt5_with_qtmultimedia
-    ]);
+    ]
+  );
 in
 mkDerivation {
   pname = "qarte";

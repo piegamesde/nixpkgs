@@ -1,6 +1,7 @@
 # this test creates a simple GNU image with docker tools and sees if it executes
 
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -38,4 +39,5 @@ import ./make-test-python.nix ({
       # drw------- 99 0 0 100 Apr 14 11:36 /nix/store
       docker.succeed("docker run --rm -u 1000:1000 ${pkgs.dockerTools.examples.bash.imageName} bash --version")
     '';
-  })
+  }
+)

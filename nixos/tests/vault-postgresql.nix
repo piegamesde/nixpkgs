@@ -5,7 +5,8 @@
       always covered, availability isn't)
     - the postgres integration works
 */
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -74,4 +75,5 @@ import ./make-test-python.nix ({
       machine.succeed("vault operator init")
       machine.succeed("vault status || test $? -eq 2")
     '';
-  })
+  }
+)

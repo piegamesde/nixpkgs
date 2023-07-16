@@ -20,7 +20,8 @@ let
     ;
 
 in
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -133,4 +134,5 @@ import ./make-test-python.nix ({
 
       bob.succeed("curl --fail -g http://[{}]".format(alice_ip6))
     '';
-  })
+  }
+)

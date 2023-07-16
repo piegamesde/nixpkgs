@@ -62,10 +62,11 @@ let
     transport_file_type: hash
   '';
 
-  mailmanCfg = lib.generators.toINI { } (recursiveUpdate cfg.settings
-    ((optionalAttrs (cfg.restApiPassFile != null) {
+  mailmanCfg = lib.generators.toINI { } (recursiveUpdate cfg.settings (
+    (optionalAttrs (cfg.restApiPassFile != null) {
       webservice.admin_pass = "#NIXOS_MAILMAN_REST_API_PASS_SECRET#";
-    })));
+    })
+  ));
 
   mailmanCfgFile = pkgs.writeText "mailman-raw.cfg" mailmanCfg;
 
@@ -375,38 +376,40 @@ in
         pid_file = "/run/mailman/master.pid";
       };
 
-      mta.configuration = lib.mkDefault (if cfg.enablePostfix then
-        "${postfixMtaConfig}"
-      else
-        throw
-        "When Mailman Postfix integration is disabled, set `services.mailman.settings.mta.configuration` to the path of the config file required to integrate with your MTA.")
-        ;
+      mta.configuration = lib.mkDefault (
+        if cfg.enablePostfix then
+          "${postfixMtaConfig}"
+        else
+          throw
+          "When Mailman Postfix integration is disabled, set `services.mailman.settings.mta.configuration` to the path of the config file required to integrate with your MTA."
+      );
 
       "archiver.hyperkitty" = lib.mkIf cfg.hyperkitty.enable {
         class = "mailman_hyperkitty.Archiver";
         enable = "yes";
         configuration = "/var/lib/mailman/mailman-hyperkitty.cfg";
       };
-    } // (let
-      loggerNames = [
-        "root"
-        "archiver"
-        "bounce"
-        "config"
-        "database"
-        "debug"
-        "error"
-        "fromusenet"
-        "http"
-        "locks"
-        "mischief"
-        "plugins"
-        "runner"
-        "smtp"
-      ];
-      loggerSectionNames = map (n: "logging.${n}") loggerNames;
-    in
-    lib.genAttrs loggerSectionNames (name: { handler = "stderr"; })
+    } // (
+      let
+        loggerNames = [
+          "root"
+          "archiver"
+          "bounce"
+          "config"
+          "database"
+          "debug"
+          "error"
+          "fromusenet"
+          "http"
+          "locks"
+          "mischief"
+          "plugins"
+          "runner"
+          "smtp"
+        ];
+        loggerSectionNames = map (n: "logging.${n}") loggerNames;
+      in
+      lib.genAttrs loggerSectionNames (name: { handler = "stderr"; })
     );
 
     assertions =
@@ -511,9 +514,11 @@ in
             ldap.SCOPE_SUBTREE, "${cfg.ldap.groupSearch.query}")
         AUTH_LDAP_USER_ATTR_MAP = {
           ${
-            concatStrings (flip mapAttrsToList cfg.ldap.attrMap (key: value: ''
-              "${key}": "${value}",
-            ''))
+            concatStrings (flip mapAttrsToList cfg.ldap.attrMap (
+              key: value: ''
+                "${key}": "${value}",
+              ''
+            ))
           }
         }
         ${optionalString (cfg.ldap.superUserGroup != null) ''
@@ -678,48 +683,51 @@ in
         };
       };
 
-      mailman-uwsgi = mkIf cfg.serve.enable (let
-        uwsgiConfig.uwsgi = {
-          type = "normal";
-          plugins = [ "python3" ];
-          home = webEnv;
-          http = "127.0.0.1:18507";
-        } // (if cfg.serve.virtualRoot == "/" then
-          { module = "mailman_web.wsgi:application"; }
-        else
-          {
-            mount = "${cfg.serve.virtualRoot}=mailman_web.wsgi:application";
-            manage-script-name = true;
-          });
-        uwsgiConfigFile =
-          pkgs.writeText "uwsgi-mailman.json" (builtins.toJSON uwsgiConfig);
-      in
-      {
-        wantedBy = [ "multi-user.target" ];
-        after = optional withPostgresql "postgresql.service";
-        requires =
-          [
-            "mailman-uwsgi.socket"
-            "mailman-web-setup.service"
-          ]
-          ++ optional withPostgresql "postgresql.service"
-          ;
-        restartTriggers = [
-            config.environment.etc."mailman3/settings.py".source
-          ];
-        serviceConfig = {
-          # Since the mailman-web settings.py obstinately creates a logs
-          # dir in the cwd, change to the (writable) runtime directory before
-          # starting uwsgi.
-          ExecStart =
-            "${pkgs.coreutils}/bin/env -C $RUNTIME_DIRECTORY ${
-              pkgs.uwsgi.override { plugins = [ "python3" ]; }
-            }/bin/uwsgi --json ${uwsgiConfigFile}";
-          User = cfg.webUser;
-          Group = "mailman";
-          RuntimeDirectory = "mailman-uwsgi";
-        };
-      }
+      mailman-uwsgi = mkIf cfg.serve.enable (
+        let
+          uwsgiConfig.uwsgi = {
+            type = "normal";
+            plugins = [ "python3" ];
+            home = webEnv;
+            http = "127.0.0.1:18507";
+          } // (
+            if cfg.serve.virtualRoot == "/" then
+              { module = "mailman_web.wsgi:application"; }
+            else
+              {
+                mount = "${cfg.serve.virtualRoot}=mailman_web.wsgi:application";
+                manage-script-name = true;
+              }
+          );
+          uwsgiConfigFile =
+            pkgs.writeText "uwsgi-mailman.json" (builtins.toJSON uwsgiConfig);
+        in
+        {
+          wantedBy = [ "multi-user.target" ];
+          after = optional withPostgresql "postgresql.service";
+          requires =
+            [
+              "mailman-uwsgi.socket"
+              "mailman-web-setup.service"
+            ]
+            ++ optional withPostgresql "postgresql.service"
+            ;
+          restartTriggers = [
+              config.environment.etc."mailman3/settings.py".source
+            ];
+          serviceConfig = {
+            # Since the mailman-web settings.py obstinately creates a logs
+            # dir in the cwd, change to the (writable) runtime directory before
+            # starting uwsgi.
+            ExecStart =
+              "${pkgs.coreutils}/bin/env -C $RUNTIME_DIRECTORY ${
+                pkgs.uwsgi.override { plugins = [ "python3" ]; }
+              }/bin/uwsgi --json ${uwsgiConfigFile}";
+            User = cfg.webUser;
+            Group = "mailman";
+            RuntimeDirectory = "mailman-uwsgi";
+          };
+        }
       );
 
       mailman-daily = {
@@ -757,7 +765,8 @@ in
       "daily" = "daily";
       "weekly" = "weekly";
       "yearly" = "yearly";
-    } (name: startAt:
+    } (
+      name: startAt:
       lib.nameValuePair "hyperkitty-${name}" (lib.mkIf cfg.hyperkitty.enable {
         description = "Trigger ${name} Hyperkitty events";
         inherit startAt;
@@ -770,7 +779,8 @@ in
           Group = "mailman";
           WorkingDirectory = "/var/lib/mailman-web";
         };
-      }));
+      })
+    );
   };
 
   meta = {

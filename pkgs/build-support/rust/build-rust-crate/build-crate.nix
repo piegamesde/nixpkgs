@@ -29,10 +29,12 @@
 let
   baseRustcOpts =
     [
-      (if release then
-        "-C opt-level=3"
-      else
-        "-C debuginfo=2")
+      (
+        if release then
+          "-C opt-level=3"
+        else
+          "-C debuginfo=2"
+      )
       "-C codegen-units=${toString codegenUnits}"
       "--remap-path-prefix=$NIX_BUILD_TOP=/"
       (mkRustcDepArgs dependencies crateRenames)
@@ -55,9 +57,9 @@ let
 
     # build the final rustc arguments that can be different between different
     # crates
-  libRustcOpts = lib.concatStringsSep " "
-    (baseRustcOpts ++ [ rustcMeta ] ++ (map (x: "--crate-type ${x}") crateType))
-    ;
+  libRustcOpts = lib.concatStringsSep " " (
+    baseRustcOpts ++ [ rustcMeta ] ++ (map (x: "--crate-type ${x}") crateType)
+  );
 
   binRustcOpts = lib.concatStringsSep " " (baseRustcOpts);
 
@@ -92,44 +94,44 @@ in
 
 
 
-  ${lib.optionalString (lib.length crateBin > 0) (lib.concatMapStringsSep "\n"
-    (bin:
-      let
-        haveRequiredFeature =
-          if
-            bin ? requiredFeatures
-          then
-          # Check that all element in requiredFeatures are also present in crateFeatures
-            lib.intersectLists bin.requiredFeatures crateFeatures
-            == bin.requiredFeatures
-          else
-            true
-          ;
-      in
-      if haveRequiredFeature then
-        ''
-          mkdir -p target/bin
-          BIN_NAME='${bin.name or crateName}'
-          ${if !bin ? path then
-            ''
-              BIN_PATH=""
-              search_for_bin_path "$BIN_NAME"
-            ''
-          else
-            ''
-              BIN_PATH='${bin.path}'
-            ''}
-            ${build_bin} "$BIN_NAME" "$BIN_PATH"
-        ''
-      else
-        ''
-          echo Binary ${
-            bin.name or crateName
-          } not compiled due to not having all of the required features -- ${
-            lib.escapeShellArg (builtins.toJSON bin.requiredFeatures)
-          } -- enabled.
-        ''
-    ) crateBin)}
+  ${lib.optionalString (lib.length crateBin > 0) (lib.concatMapStringsSep "\n" (
+    bin:
+    let
+      haveRequiredFeature =
+        if
+          bin ? requiredFeatures
+        then
+        # Check that all element in requiredFeatures are also present in crateFeatures
+          lib.intersectLists bin.requiredFeatures crateFeatures
+          == bin.requiredFeatures
+        else
+          true
+        ;
+    in
+    if haveRequiredFeature then
+      ''
+        mkdir -p target/bin
+        BIN_NAME='${bin.name or crateName}'
+        ${if !bin ? path then
+          ''
+            BIN_PATH=""
+            search_for_bin_path "$BIN_NAME"
+          ''
+        else
+          ''
+            BIN_PATH='${bin.path}'
+          ''}
+          ${build_bin} "$BIN_NAME" "$BIN_PATH"
+      ''
+    else
+      ''
+        echo Binary ${
+          bin.name or crateName
+        } not compiled due to not having all of the required features -- ${
+          lib.escapeShellArg (builtins.toJSON bin.requiredFeatures)
+        } -- enabled.
+      ''
+  ) crateBin)}
 
   ${lib.optionalString buildTests ''
     # When tests are enabled build all the files in the `tests` directory as

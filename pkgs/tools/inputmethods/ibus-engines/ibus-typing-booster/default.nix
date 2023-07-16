@@ -14,11 +14,13 @@
 
 let
 
-  python = python3.withPackages (ps:
+  python = python3.withPackages (
+    ps:
     with ps; [
       pygobject3
       dbus-python
-    ]);
+    ]
+  );
 
 in
 stdenv.mkDerivation rec {

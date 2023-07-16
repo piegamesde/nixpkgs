@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -62,4 +63,5 @@ import ./make-test-python.nix ({
       parser.feed(machine.succeed('curl -f -X GET http://localhost/index.php?mainmenu=login&username=root'))
       machine.succeed(f'curl -f -X POST http://localhost/index.php?mainmenu=login&token={csrf_token}&username=root&password=hunter2')
     '';
-  })
+  }
+)

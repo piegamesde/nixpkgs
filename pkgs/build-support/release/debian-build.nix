@@ -107,12 +107,14 @@ vmTools.runInLinuxImage (stdenv.mkDerivation (
       eval "$postInstall"
     '';
 
-    meta = (if args ? meta then
-      args.meta
-    else
-      { }) // {
-        description = "Deb package for ${diskImage.fullName}";
-      };
+    meta = (
+      if args ? meta then
+        args.meta
+      else
+        { }
+    ) // {
+      description = "Deb package for ${diskImage.fullName}";
+    };
   }
 
 ))

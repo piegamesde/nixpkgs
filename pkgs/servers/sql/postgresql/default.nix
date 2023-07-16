@@ -145,10 +145,12 @@ let
           "--with-system-tzdata=${tzdata}/share/zoneinfo"
           "--enable-debug"
           (lib.optionalString enableSystemd "--with-systemd")
-          (if stdenv'.isDarwin then
-            "--with-uuid=e2fs"
-          else
-            "--with-ossp-uuid")
+          (
+            if stdenv'.isDarwin then
+              "--with-uuid=e2fs"
+            else
+              "--with-ossp-uuid"
+          )
         ]
         ++ lib.optionals lz4Enabled [ "--with-lz4" ]
         ++ lib.optionals zstdEnabled [ "--with-zstd" ]
@@ -166,10 +168,12 @@ let
           ./patches/findstring.patch
         ]
         ++ lib.optionals stdenv'.isLinux [
-            (if atLeast "13" then
-              ./patches/socketdir-in-run-13.patch
-            else
-              ./patches/socketdir-in-run.patch)
+            (
+              if atLeast "13" then
+                ./patches/socketdir-in-run-13.patch
+              else
+                ./patches/socketdir-in-run.patch
+            )
           ]
         ;
 
@@ -241,11 +245,12 @@ let
         ''
         ;
 
-      postFixup = lib.optionalString
-        (!stdenv'.isDarwin && stdenv'.hostPlatform.libc == "glibc") ''
-          # initdb needs access to "locale" command from glibc.
-          wrapProgram $out/bin/initdb --prefix PATH ":" ${glibc.bin}/bin
-        '';
+      postFixup = lib.optionalString (
+        !stdenv'.isDarwin && stdenv'.hostPlatform.libc == "glibc"
+      ) ''
+        # initdb needs access to "locale" command from glibc.
+        wrapProgram $out/bin/initdb --prefix PATH ":" ${glibc.bin}/bin
+      '';
 
       doCheck =
         !stdenv'.isDarwin
@@ -453,9 +458,11 @@ self:
 let
   packages = mkPackages self;
 in
-packages // self.lib.mapAttrs' (attrName: postgres:
+packages // self.lib.mapAttrs' (
+  attrName: postgres:
   self.lib.nameValuePair "${attrName}_jit" (postgres.override rec {
     jitSupport = true;
     thisAttr = "${attrName}_jit";
     this = self.${thisAttr};
-  })) packages
+  })
+) packages

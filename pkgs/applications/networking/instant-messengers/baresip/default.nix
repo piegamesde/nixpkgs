@@ -66,13 +66,15 @@ stdenv.mkDerivation rec {
       libuuid
       libvpx
     ]
-    ++ (with gst_all_1; [
-      gstreamer
-      gst-libav
-      gst-plugins-base
-      gst-plugins-bad
-      gst-plugins-good
-    ])
+    ++ (
+      with gst_all_1; [
+        gstreamer
+        gst-libav
+        gst-plugins-base
+        gst-plugins-bad
+        gst-plugins-good
+      ]
+    )
     ;
 
   cmakeFlags = [

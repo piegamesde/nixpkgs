@@ -22,7 +22,8 @@
      secret. **DO NOT DO THIS IN A REAL WORLD DEPLOYMENT**.
 */
 
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }:

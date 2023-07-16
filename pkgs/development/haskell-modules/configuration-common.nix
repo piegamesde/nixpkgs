@@ -25,81 +25,88 @@ self: super:
 {
 
   # Make sure that Cabal 3.8.* can be built as-is
-  Cabal_3_8_1_0 = doDistribute (super.Cabal_3_8_1_0.override ({
-    Cabal-syntax = self.Cabal-syntax_3_8_1_0;
-  } // lib.optionalAttrs (lib.versionOlder self.ghc.version "9.2.5") {
-    # Use process core package when possible
-    process = self.process_1_6_17_0;
-  }));
+  Cabal_3_8_1_0 = doDistribute (super.Cabal_3_8_1_0.override (
+    {
+      Cabal-syntax = self.Cabal-syntax_3_8_1_0;
+    } // lib.optionalAttrs (lib.versionOlder self.ghc.version "9.2.5") {
+      # Use process core package when possible
+      process = self.process_1_6_17_0;
+    }
+  ));
 
     # Make sure that Cabal 3.10.* can be built as-is
-  Cabal_3_10_1_0 = doDistribute (super.Cabal_3_10_1_0.override ({
-    Cabal-syntax = self.Cabal-syntax_3_10_1_0;
-  } // lib.optionalAttrs (lib.versionOlder self.ghc.version "9.2.5") {
-    # Use process core package when possible
-    process = self.process_1_6_17_0;
-  }));
+  Cabal_3_10_1_0 = doDistribute (super.Cabal_3_10_1_0.override (
+    {
+      Cabal-syntax = self.Cabal-syntax_3_10_1_0;
+    } // lib.optionalAttrs (lib.versionOlder self.ghc.version "9.2.5") {
+      # Use process core package when possible
+      process = self.process_1_6_17_0;
+    }
+  ));
 
     # cabal-install needs most recent versions of Cabal and Cabal-syntax,
     # so we need to put some extra work for non-latest GHCs
   inherit
-    (let
-      # !!! Use cself/csuper inside for the actual overrides
-      cabalInstallOverlay =
-        cself: csuper:
-        lib.optionalAttrs (lib.versionOlder self.ghc.version "9.6") {
-          Cabal = cself.Cabal_3_10_1_0;
-          Cabal-syntax = cself.Cabal-syntax_3_10_1_0;
-        } // lib.optionalAttrs (lib.versionOlder self.ghc.version "9.4") {
-          # We need at least directory >= 1.3.7.0. Using the latest version
-          # 1.3.8.* is not an option since it causes very annoying dependencies
-          # on newer versions of unix and filepath than GHC 9.2 ships
-          directory = cself.directory_1_3_7_1;
-            # GHC 9.2.5 starts shipping 1.6.16.0 which is required by
-            # cabal-install, but we need to recompile process even if the correct
-            # version is available to prevent inconsistent dependencies:
-            # process depends on directory.
-          process = cself.process_1_6_17_0;
+    (
+      let
+        # !!! Use cself/csuper inside for the actual overrides
+        cabalInstallOverlay =
+          cself: csuper:
+          lib.optionalAttrs (lib.versionOlder self.ghc.version "9.6") {
+            Cabal = cself.Cabal_3_10_1_0;
+            Cabal-syntax = cself.Cabal-syntax_3_10_1_0;
+          } // lib.optionalAttrs (lib.versionOlder self.ghc.version "9.4") {
+            # We need at least directory >= 1.3.7.0. Using the latest version
+            # 1.3.8.* is not an option since it causes very annoying dependencies
+            # on newer versions of unix and filepath than GHC 9.2 ships
+            directory = cself.directory_1_3_7_1;
+              # GHC 9.2.5 starts shipping 1.6.16.0 which is required by
+              # cabal-install, but we need to recompile process even if the correct
+              # version is available to prevent inconsistent dependencies:
+              # process depends on directory.
+            process = cself.process_1_6_17_0;
 
-            # hspec < 2.10 depends on ghc (the library) directly which in turn
-            # depends on directory, causing a dependency conflict which is practically
-            # not solvable short of recompiling GHC. Instead of adding
-            # allowInconsistentDependencies for all reverse dependencies of hspec-core,
-            # just upgrade to an hspec version without the offending dependency.
-          hspec-core = cself.hspec-core_2_11_0;
-          hspec-discover = cself.hspec-discover_2_11_0;
-          hspec = cself.hspec_2_11_0;
+              # hspec < 2.10 depends on ghc (the library) directly which in turn
+              # depends on directory, causing a dependency conflict which is practically
+              # not solvable short of recompiling GHC. Instead of adding
+              # allowInconsistentDependencies for all reverse dependencies of hspec-core,
+              # just upgrade to an hspec version without the offending dependency.
+            hspec-core = cself.hspec-core_2_11_0;
+            hspec-discover = cself.hspec-discover_2_11_0;
+            hspec = cself.hspec_2_11_0;
 
-            # hspec-discover and hspec-core depend on hspec-meta for testing which
-            # we need to avoid since it depends on ghc as well. Since hspec*_2_10*
-            # are overridden to take the versioned attributes as inputs, we need
-            # to make sure to override the versioned attribute with this fix.
-          hspec-discover_2_11_0 = dontCheck csuper.hspec-discover_2_11_0;
+              # hspec-discover and hspec-core depend on hspec-meta for testing which
+              # we need to avoid since it depends on ghc as well. Since hspec*_2_10*
+              # are overridden to take the versioned attributes as inputs, we need
+              # to make sure to override the versioned attribute with this fix.
+            hspec-discover_2_11_0 = dontCheck csuper.hspec-discover_2_11_0;
 
-            # Prevent dependency on doctest which causes an inconsistent dependency
-            # due to depending on ghc which depends on directory etc.
-          vector = dontCheck csuper.vector;
-        }
-        ;
-    in
-    {
-      cabal-install = super.cabal-install.overrideScope cabalInstallOverlay;
-      cabal-install-solver =
-        super.cabal-install-solver.overrideScope cabalInstallOverlay;
+              # Prevent dependency on doctest which causes an inconsistent dependency
+              # due to depending on ghc which depends on directory etc.
+            vector = dontCheck csuper.vector;
+          }
+          ;
+      in
+      {
+        cabal-install = super.cabal-install.overrideScope cabalInstallOverlay;
+        cabal-install-solver =
+          super.cabal-install-solver.overrideScope cabalInstallOverlay;
 
-      guardian = lib.pipe
-        # Needs cabal-install >= 3.8 /as well as/ matching Cabal
-        (super.guardian.overrideScope (self: super:
-          cabalInstallOverlay self super // {
-            # Needs at least path-io 1.8.0 due to canonicalizePath changes
-            path-io = self.path-io_1_8_0;
-          })) [
+        guardian = lib.pipe
+          # Needs cabal-install >= 3.8 /as well as/ matching Cabal
+          (super.guardian.overrideScope (
+            self: super:
+            cabalInstallOverlay self super // {
+              # Needs at least path-io 1.8.0 due to canonicalizePath changes
+              path-io = self.path-io_1_8_0;
+            }
+          )) [
             # Tests need internet access (run stack)
             dontCheck
             # May as well…
             (self.generateOptparseApplicativeCompletions [ "guardian" ])
           ];
-    }
+      }
     )
     cabal-install
     cabal-install-solver
@@ -114,18 +121,20 @@ self: super:
     dontCheck
     (disableCabalFlag
       "stan") # Sorry stan is totally unmaintained and terrible to get to run. It only works on ghc 8.8 or 8.10 anyways …
-  ]).overrideScope (lself: lsuper: {
-    # For most ghc versions, we overrideScope Cabal in the configuration-ghc-???.nix,
-    # because some packages, like ormolu, need a newer Cabal version.
-    # ghc-paths is special because it depends on Cabal for building
-    # its Setup.hs, and therefor declares a Cabal dependency, but does
-    # not actually use it as a build dependency.
-    # That means ghc-paths can just use the ghc included Cabal version,
-    # without causing package-db incoherence and we should do that because
-    # otherwise we have different versions of ghc-paths
-    # around which have the same abi-hash, which can lead to confusions and conflicts.
-    ghc-paths = lsuper.ghc-paths.override { Cabal = null; };
-  });
+  ]).overrideScope (
+    lself: lsuper: {
+      # For most ghc versions, we overrideScope Cabal in the configuration-ghc-???.nix,
+      # because some packages, like ormolu, need a newer Cabal version.
+      # ghc-paths is special because it depends on Cabal for building
+      # its Setup.hs, and therefor declares a Cabal dependency, but does
+      # not actually use it as a build dependency.
+      # That means ghc-paths can just use the ghc included Cabal version,
+      # without causing package-db incoherence and we should do that because
+      # otherwise we have different versions of ghc-paths
+      # around which have the same abi-hash, which can lead to confusions and conflicts.
+      ghc-paths = lsuper.ghc-paths.override { Cabal = null; };
+    }
+  );
 
     # 2023-04-03: https://github.com/haskell/haskell-language-server/issues/3546#issuecomment-1494139751
     # There will probably be a new revision soon.
@@ -239,11 +248,12 @@ self: super:
     # For -fghc-lib see cabal.project in haskell-language-server.
   stylish-haskell =
     if lib.versionAtLeast super.ghc.version "9.2" then
-      enableCabalFlag "ghc-lib"
-      (if lib.versionAtLeast super.ghc.version "9.4" then
-        super.stylish-haskell_0_14_4_0
-      else
-        super.stylish-haskell)
+      enableCabalFlag "ghc-lib" (
+        if lib.versionAtLeast super.ghc.version "9.4" then
+          super.stylish-haskell_0_14_4_0
+        else
+          super.stylish-haskell
+      )
     else
       super.stylish-haskell
     ;
@@ -426,7 +436,9 @@ self: super:
       ]
       ;
     postPatch =
-      (drv.postPatch or "")
+      (
+        drv.postPatch or ""
+      )
       + ''
         substituteInPlace inline-c-cpp.cabal --replace "-optc-std=c++11" ""
       ''
@@ -1019,7 +1031,9 @@ self: super:
     # Remove if a version > 0.1.0.1 ever gets released.
   stunclient = overrideCabal (drv: {
     postPatch =
-      (drv.postPatch or "")
+      (
+        drv.postPatch or ""
+      )
       + ''
         substituteInPlace source/Network/Stun/MappedAddress.hs --replace "import Network.Endian" ""
       ''
@@ -1172,7 +1186,9 @@ self: super:
       ''
         export HOME="$TMPDIR"
       ''
-      + (drv.preCheck or "")
+      + (
+        drv.preCheck or ""
+      )
       ;
     libraryToolDepends =
       drv.libraryToolDepends or [ ] ++ [ pkgs.buildPackages.postgresql ];
@@ -1529,7 +1545,9 @@ self: super:
     # it wants to build a statically linked binary by default
   hledger-flow = overrideCabal (drv: {
     postPatch =
-      (drv.postPatch or "")
+      (
+        drv.postPatch or ""
+      )
       + ''
         substituteInPlace hledger-flow.cabal --replace "-static" ""
       ''
@@ -1671,21 +1689,23 @@ self: super:
         sed -i 's/template-haskell.*2.17/template-haskell/' reflex-dom-core.cabal
       ''
       ;
-  }) ((appendPatches [
-    (fetchpatch {
-      url =
-        "https://github.com/reflex-frp/reflex-dom/commit/1814640a14c6c30b1b2299e74d08fb6fcaadfb94.patch";
-      sha256 = "sha256-QyX2MLd7Tk0M1s0DU0UV3szXs8ngz775i3+KI62Q3B8=";
-      relative = "reflex-dom-core";
-    })
-    (fetchpatch {
-      url =
-        "https://github.com/reflex-frp/reflex-dom/commit/56fa8a484ccfc7d3365d07fea3caa430155dbcac.patch";
-      sha256 = "sha256-IogAYJZac17Bg99ZnnFX/7I44DAnHo2PRBWD0iVHbNA=";
-      relative = "reflex-dom-core";
-    })
-  ] (doDistribute
-    (unmarkBroken (dontCheck (doJailbreak super.reflex-dom-core))))));
+  }) (
+    (appendPatches [
+      (fetchpatch {
+        url =
+          "https://github.com/reflex-frp/reflex-dom/commit/1814640a14c6c30b1b2299e74d08fb6fcaadfb94.patch";
+        sha256 = "sha256-QyX2MLd7Tk0M1s0DU0UV3szXs8ngz775i3+KI62Q3B8=";
+        relative = "reflex-dom-core";
+      })
+      (fetchpatch {
+        url =
+          "https://github.com/reflex-frp/reflex-dom/commit/56fa8a484ccfc7d3365d07fea3caa430155dbcac.patch";
+        sha256 = "sha256-IogAYJZac17Bg99ZnnFX/7I44DAnHo2PRBWD0iVHbNA=";
+        relative = "reflex-dom-core";
+      })
+    ] (doDistribute
+      (unmarkBroken (dontCheck (doJailbreak super.reflex-dom-core)))))
+  );
 
     # Tests disabled because they assume to run in the whole jsaddle repo and not the hackage tarbal of jsaddle-warp.
   jsaddle-warp = dontCheck super.jsaddle-warp;
@@ -2074,14 +2094,18 @@ self: super:
       ''
         export SPACECOOKIE_TEST_BIN=./dist/build/spacecookie/spacecookie
       ''
-      + (old.preCheck or "")
+      + (
+        old.preCheck or ""
+      )
       ;
       # install man pages shipped in the sdist
     postInstall =
       ''
         installManPage docs/man/*
       ''
-      + (old.postInstall or "")
+      + (
+        old.postInstall or ""
+      )
       ;
   }) super.spacecookie;
 
@@ -2297,7 +2321,9 @@ self: super:
         sed -i 's/time.*,/time,/' jsaddle.cabal
         sed -i 's/(!name)/(! name)/' src/Language/Javascript/JSaddle/Object.hs
       ''
-      + (drv.postPatch or "")
+      + (
+        drv.postPatch or ""
+      )
       ;
   }) (doJailbreak super.jsaddle);
 
@@ -2356,15 +2382,17 @@ self: super:
     doJailbreak super.gi-gtk-declarative-app-simple;
 
     # 2023-04-09: haskell-ci needs Cabal-syntax 3.10
-  haskell-ci = super.haskell-ci.overrideScope
-    (self: super: { Cabal-syntax = self.Cabal-syntax_3_10_1_0; });
+  haskell-ci = super.haskell-ci.overrideScope (
+    self: super: { Cabal-syntax = self.Cabal-syntax_3_10_1_0; }
+  );
 
   large-hashable = lib.pipe (super.large-hashable.override {
     # https://github.com/factisresearch/large-hashable/commit/5ec9d2c7233fc4445303564047c992b693e1155c
     utf8-light = null;
   }) [
     # 2022-03-21: use version from git which supports GHC 9.{0,2} and aeson 2.0
-    (assert super.large-hashable.version == "0.1.0.4";
+    (
+      assert super.large-hashable.version == "0.1.0.4";
       overrideSrc {
         version = "unstable-2022-06-10";
         src = pkgs.fetchFromGitHub {
@@ -2373,7 +2401,8 @@ self: super:
           rev = "4d149c828c185bcf05556d1660f79ff1aec7eaa1";
           sha256 = "141349qcw3m93jw95jcha9rsg2y8sn5ca5j59cv8xmci38k2nam0";
         };
-      })
+      }
+    )
     # Provide newly added dependencies
     (overrideCabal (drv: {
       libraryHaskellDepends =
@@ -2675,7 +2704,9 @@ self: super:
         ''
           sed -i 's/import "jsaddle-dom" GHCJS.DOM.Document/import "ghcjs-dom-jsaddle" GHCJS.DOM.Document/' src/GHCJS/DOM/Document.hs
         ''
-        + (old.postPatch or "")
+        + (
+          old.postPatch or ""
+        )
         ;
     }) super.ghcjs-dom
     ;
@@ -2689,8 +2720,9 @@ self: super:
   hasura-ekg-core = doJailbreak super.hasura-ekg-core;
 
     # https://github.com/Synthetica9/nix-linter/issues/65
-  nix-linter = super.nix-linter.overrideScope
-    (self: super: { aeson = self.aeson_1_5_6_0; });
+  nix-linter = super.nix-linter.overrideScope (
+    self: super: { aeson = self.aeson_1_5_6_0; }
+  );
 
     # Test suite doesn't support hspec 2.8
     # https://github.com/zellige/hs-geojson/issues/29
@@ -2783,37 +2815,38 @@ self: super:
   oeis = doJailbreak super.oeis;
 
   inherit
-    (let
-      # We need to build purescript with these dependencies and thus also its reverse
-      # dependencies to avoid version mismatches in their dependency closure.
-      # TODO(@cdepillabout): maybe unify with the spago overlay in configuration-nix.nix?
-      purescriptOverlay =
-        self: super: {
-          # As of 2021-11-08, the latest release of `language-javascript` is 0.7.1.0,
-          # but it has a problem with parsing the `async` keyword.  It doesn't allow
-          # `async` to be used as an object key:
-          # https://github.com/erikd/language-javascript/issues/131
-          language-javascript = self.language-javascript_0_7_0_0;
-        }
-        ;
-    in
-    {
-      purescript =
-        lib.pipe (super.purescript.overrideScope purescriptOverlay) ([
-          # PureScript uses nodejs to run tests, so the tests have been disabled
-          # for now.  If someone is interested in figuring out how to get this
-          # working, it seems like it might be possible.
-          dontCheck
-          # The current version of purescript (0.14.5) has version bounds for LTS-17,
-          # but it compiles cleanly using deps in LTS-18 as well.  This jailbreak can
-          # likely be removed when purescript-0.14.6 is released.
-          doJailbreak
-          # Generate shell completions
-          (self.generateOptparseApplicativeCompletions [ "purs" ])
-        ]);
+    (
+      let
+        # We need to build purescript with these dependencies and thus also its reverse
+        # dependencies to avoid version mismatches in their dependency closure.
+        # TODO(@cdepillabout): maybe unify with the spago overlay in configuration-nix.nix?
+        purescriptOverlay =
+          self: super: {
+            # As of 2021-11-08, the latest release of `language-javascript` is 0.7.1.0,
+            # but it has a problem with parsing the `async` keyword.  It doesn't allow
+            # `async` to be used as an object key:
+            # https://github.com/erikd/language-javascript/issues/131
+            language-javascript = self.language-javascript_0_7_0_0;
+          }
+          ;
+      in
+      {
+        purescript =
+          lib.pipe (super.purescript.overrideScope purescriptOverlay) ([
+            # PureScript uses nodejs to run tests, so the tests have been disabled
+            # for now.  If someone is interested in figuring out how to get this
+            # working, it seems like it might be possible.
+            dontCheck
+            # The current version of purescript (0.14.5) has version bounds for LTS-17,
+            # but it compiles cleanly using deps in LTS-18 as well.  This jailbreak can
+            # likely be removed when purescript-0.14.6 is released.
+            doJailbreak
+            # Generate shell completions
+            (self.generateOptparseApplicativeCompletions [ "purs" ])
+          ]);
 
-      purenix = super.purenix.overrideScope purescriptOverlay;
-    }
+        purenix = super.purenix.overrideScope purescriptOverlay;
+      }
     )
     purescript
     purenix
@@ -2885,9 +2918,11 @@ self: super:
     # multiple bounds too strict
   snaplet-sqlite-simple = doJailbreak super.snaplet-sqlite-simple;
 
-  emanote = super.emanote.overrideScope (lself: lsuper: {
-    commonmark-extensions = lself.commonmark-extensions_0_2_3_2;
-  });
+  emanote = super.emanote.overrideScope (
+    lself: lsuper: {
+      commonmark-extensions = lself.commonmark-extensions_0_2_3_2;
+    }
+  );
 
     # Test files missing from sdist
     # https://github.com/tweag/webauthn/issues/166

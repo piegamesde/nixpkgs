@@ -95,18 +95,20 @@ in
         {
           Restart = "always";
           ExecStart = with cfg;
-            concatStringsSep " " ([
-              "${pkgs.endlessh-go}/bin/endlessh-go"
-              "-logtostderr"
-              "-host=${listenAddress}"
-              "-port=${toString port}"
-            ]
+            concatStringsSep " " (
+              [
+                "${pkgs.endlessh-go}/bin/endlessh-go"
+                "-logtostderr"
+                "-host=${listenAddress}"
+                "-port=${toString port}"
+              ]
               ++ optionals prometheus.enable [
                 "-enable_prometheus"
                 "-prometheus_host=${prometheus.listenAddress}"
                 "-prometheus_port=${toString prometheus.port}"
               ]
-              ++ extraOptions);
+              ++ extraOptions
+            );
           DynamicUser = true;
           RootDirectory = rootDirectory;
           BindReadOnlyPaths = [ builtins.storeDir ];

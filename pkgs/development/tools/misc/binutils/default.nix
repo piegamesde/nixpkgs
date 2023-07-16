@@ -109,17 +109,19 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional stdenv.targetPlatform.isMips64n64
       # this patch is from debian:
       # https://sources.debian.org/data/main/b/binutils/2.38-3/debian/patches/mips64-default-n64.diff
-      (if stdenv.targetPlatform.isMusl then
-        substitute {
-          src = ./mips64-default-n64.patch;
-          replacements = [
-            "--replace"
-            "gnuabi64"
-            "muslabi64"
-          ];
-        }
-      else
-        ./mips64-default-n64.patch)
+      (
+        if stdenv.targetPlatform.isMusl then
+          substitute {
+            src = ./mips64-default-n64.patch;
+            replacements = [
+              "--replace"
+              "gnuabi64"
+              "muslabi64"
+            ];
+          }
+        else
+          ./mips64-default-n64.patch
+      )
       # This patch fixes a bug in 2.40 on MinGW, which breaks DXVK when cross-building from Darwin.
       # See https://sourceware.org/bugzilla/show_bug.cgi?id=30079
     ++ lib.optional stdenv.targetPlatform.isMinGW ./mingw-abort-fix.patch
@@ -265,16 +267,18 @@ stdenv.mkDerivation (finalAttrs: {
       "--enable-gold"
       "--enable-plugins"
     ]
-    ++ (if enableShared then
-      [
-        "--enable-shared"
-        "--disable-static"
-      ]
-    else
-      [
-        "--disable-shared"
-        "--enable-static"
-      ])
+    ++ (
+      if enableShared then
+        [
+          "--enable-shared"
+          "--disable-static"
+        ]
+      else
+        [
+          "--disable-shared"
+          "--enable-static"
+        ]
+    )
     ;
 
     # Fails

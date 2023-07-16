@@ -31,60 +31,63 @@ let
         check ? ""
       }:
       nameOrPath: content:
-      assert lib.or (types.path.check nameOrPath)
-        (builtins.match "([0-9A-Za-z._])[0-9A-Za-z._-]*" nameOrPath != null);
+      assert lib.or (types.path.check nameOrPath) (
+        builtins.match "([0-9A-Za-z._])[0-9A-Za-z._-]*" nameOrPath != null
+      );
       assert lib.or (types.path.check content) (types.str.check content);
       let
         name = last (builtins.split "/" nameOrPath);
 
       in
-      pkgs.runCommandLocal name (if (types.str.check content) then
-        {
-          inherit content interpreter;
-          passAsFile = [ "content" ];
-        }
-      else
-        {
-          inherit interpreter;
-          contentPath = content;
-        }) ''
-          # On darwin a script cannot be used as an interpreter in a shebang but
-          # there doesn't seem to be a limit to the size of shebang and multiple
-          # arguments to the interpreter are allowed.
-          if [[ -n "${
-            toString pkgs.stdenvNoCC.isDarwin
-          }" ]] && isScript $interpreter
+      pkgs.runCommandLocal name (
+        if (types.str.check content) then
+          {
+            inherit content interpreter;
+            passAsFile = [ "content" ];
+          }
+        else
+          {
+            inherit interpreter;
+            contentPath = content;
+          }
+      ) ''
+        # On darwin a script cannot be used as an interpreter in a shebang but
+        # there doesn't seem to be a limit to the size of shebang and multiple
+        # arguments to the interpreter are allowed.
+        if [[ -n "${
+          toString pkgs.stdenvNoCC.isDarwin
+        }" ]] && isScript $interpreter
+        then
+          wrapperInterpreterLine=$(head -1 "$interpreter" | tail -c+3)
+          # Get first word from the line (note: xargs echo remove leading spaces)
+          wrapperInterpreter=$(echo "$wrapperInterpreterLine" | xargs echo | cut -d " " -f1)
+
+          if isScript $wrapperInterpreter
           then
-            wrapperInterpreterLine=$(head -1 "$interpreter" | tail -c+3)
-            # Get first word from the line (note: xargs echo remove leading spaces)
-            wrapperInterpreter=$(echo "$wrapperInterpreterLine" | xargs echo | cut -d " " -f1)
-
-            if isScript $wrapperInterpreter
-            then
-              echo "error: passed interpreter ($interpreter) is a script which has another script ($wrapperInterpreter) as an interpreter, which is not supported."
-              exit 1
-            fi
-
-            # This should work as long as wrapperInterpreter is a shell, which is
-            # the case for programs wrapped with makeWrapper, like
-            # python3.withPackages etc.
-            interpreterLine="$wrapperInterpreterLine $interpreter"
-          else
-            interpreterLine=$interpreter
+            echo "error: passed interpreter ($interpreter) is a script which has another script ($wrapperInterpreter) as an interpreter, which is not supported."
+            exit 1
           fi
 
-          echo "#! $interpreterLine" > $out
-          cat "$contentPath" >> $out
-          ${optionalString (check != "") ''
-            ${check} $out
-          ''}
-          chmod +x $out
-          ${optionalString (types.path.check nameOrPath) ''
-            mv $out tmp
-            mkdir -p $out/$(dirname "${nameOrPath}")
-            mv tmp $out/${nameOrPath}
-          ''}
-        ''
+          # This should work as long as wrapperInterpreter is a shell, which is
+          # the case for programs wrapped with makeWrapper, like
+          # python3.withPackages etc.
+          interpreterLine="$wrapperInterpreterLine $interpreter"
+        else
+          interpreterLine=$interpreter
+        fi
+
+        echo "#! $interpreterLine" > $out
+        cat "$contentPath" >> $out
+        ${optionalString (check != "") ''
+          ${check} $out
+        ''}
+        chmod +x $out
+        ${optionalString (types.path.check nameOrPath) ''
+          mv $out tmp
+          mkdir -p $out/$(dirname "${nameOrPath}")
+          mv tmp $out/${nameOrPath}
+        ''}
+      ''
       ;
 
       # Base implementation for compiled executables.
@@ -98,40 +101,45 @@ let
         strip ? true
       }:
       nameOrPath: content:
-      assert lib.or (types.path.check nameOrPath)
-        (builtins.match "([0-9A-Za-z._])[0-9A-Za-z._-]*" nameOrPath != null);
+      assert lib.or (types.path.check nameOrPath) (
+        builtins.match "([0-9A-Za-z._])[0-9A-Za-z._-]*" nameOrPath != null
+      );
       assert lib.or (types.path.check content) (types.str.check content);
       let
         name = last (builtins.split "/" nameOrPath);
       in
-      pkgs.runCommand name ((if (types.str.check content) then
-        {
-          inherit content;
-          passAsFile = [ "content" ];
-        }
-      else
-        { contentPath = content; }) // lib.optionalAttrs
-        (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) {
+      pkgs.runCommand name (
+        (
+          if (types.str.check content) then
+            {
+              inherit content;
+              passAsFile = [ "content" ];
+            }
+          else
+            { contentPath = content; }
+        ) // lib.optionalAttrs (
+          stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64
+        ) {
           # post-link-hook expects codesign_allocate to be in PATH
           # https://github.com/NixOS/nixpkgs/issues/154203
           # https://github.com/NixOS/nixpkgs/issues/148189
           nativeBuildInputs = [ stdenv.cc.bintools ];
-        }) ''
-          ${compileScript}
-          ${lib.optionalString strip "${
-            lib.getBin buildPackages.bintools-unwrapped
-          }/bin/${buildPackages.bintools-unwrapped.targetPrefix}strip -S $out"}
-          # Sometimes binaries produced for darwin (e. g. by GHC) won't be valid
-          # mach-o executables from the get-go, but need to be corrected somehow
-          # which is done by fixupPhase.
-          ${lib.optionalString pkgs.stdenvNoCC.hostPlatform.isDarwin
-          "fixupPhase"}
-          ${optionalString (types.path.check nameOrPath) ''
-            mv $out tmp
-            mkdir -p $out/$(dirname "${nameOrPath}")
-            mv tmp $out/${nameOrPath}
-          ''}
-        ''
+        }
+      ) ''
+        ${compileScript}
+        ${lib.optionalString strip "${
+          lib.getBin buildPackages.bintools-unwrapped
+        }/bin/${buildPackages.bintools-unwrapped.targetPrefix}strip -S $out"}
+        # Sometimes binaries produced for darwin (e. g. by GHC) won't be valid
+        # mach-o executables from the get-go, but need to be corrected somehow
+        # which is done by fixupPhase.
+        ${lib.optionalString pkgs.stdenvNoCC.hostPlatform.isDarwin "fixupPhase"}
+        ${optionalString (types.path.check nameOrPath) ''
+          mv $out tmp
+          mkdir -p $out/$(dirname "${nameOrPath}")
+          mv tmp $out/${nameOrPath}
+        ''}
+      ''
       ;
 
       # Like writeScript but the first line is a shebang to bash

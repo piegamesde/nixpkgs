@@ -16,10 +16,11 @@ let
     if credentialsFile != null then
       credentialsFile
     else
-      pkgs.writeText "magnetico-credentials" (concatStrings (mapAttrsToList
-        (user: hash: ''
+      pkgs.writeText "magnetico-credentials" (concatStrings (mapAttrsToList (
+        user: hash: ''
           ${user}:${hash}
-        '') cfg.web.credentials));
+        ''
+      ) cfg.web.credentials));
 
     # default options in magneticod/main.go
   dbURI = concatStrings [
@@ -30,24 +31,34 @@ let
   ];
 
   crawlerArgs = with cfg.crawler;
-    escapeShellArgs ([
-      "--database=${dbURI}"
-      "--indexer-addr=${address}:${toString port}"
-      "--indexer-max-neighbors=${toString maxNeighbors}"
-      "--leech-max-n=${toString maxLeeches}"
-    ]
-      ++ extraOptions);
+    escapeShellArgs (
+      [
+        "--database=${dbURI}"
+        "--indexer-addr=${address}:${toString port}"
+        "--indexer-max-neighbors=${toString maxNeighbors}"
+        "--leech-max-n=${toString maxLeeches}"
+      ]
+      ++ extraOptions
+    );
 
   webArgs = with cfg.web;
-    escapeShellArgs ([
-      "--database=${dbURI}"
-      (if (cfg.web.credentialsFile != null || cfg.web.credentials != { }) then
-        "--credentials=${toString credFile}"
-      else
-        "--no-auth")
-      "--addr=${address}:${toString port}"
-    ]
-      ++ extraOptions);
+    escapeShellArgs (
+      [
+        "--database=${dbURI}"
+        (
+          if
+            (
+              cfg.web.credentialsFile != null || cfg.web.credentials != { }
+            )
+          then
+            "--credentials=${toString credFile}"
+          else
+            "--no-auth"
+        )
+        "--addr=${address}:${toString port}"
+      ]
+      ++ extraOptions
+    );
 
 in
 {

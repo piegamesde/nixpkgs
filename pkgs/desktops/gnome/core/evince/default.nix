@@ -100,14 +100,16 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals withLibsecret [ libsecret ]
     ++ lib.optionals supportXPS [ libgxps ]
-    ++ lib.optionals supportMultimedia (with gst_all_1; [
-      gstreamer
-      gst-plugins-base
-      gst-plugins-good
-      gst-plugins-bad
-      gst-plugins-ugly
-      gst-libav
-    ])
+    ++ lib.optionals supportMultimedia (
+      with gst_all_1; [
+        gstreamer
+        gst-plugins-base
+        gst-plugins-good
+        gst-plugins-bad
+        gst-plugins-ugly
+        gst-libav
+      ]
+    )
     ;
 
   mesonFlags =

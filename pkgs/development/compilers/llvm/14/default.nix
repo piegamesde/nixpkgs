@@ -77,20 +77,23 @@ let
       ;
   };
 
-  tools = lib.makeExtensible (tools:
+  tools = lib.makeExtensible (
+    tools:
     let
-      callPackage = newScope (tools // {
-        inherit
-          stdenv
-          cmake
-          libxml2
-          python3
-          release_version
-          version
-          monorepoSrc
-          buildLlvmTools
-          ;
-      });
+      callPackage = newScope (
+        tools // {
+          inherit
+            stdenv
+            cmake
+            libxml2
+            python3
+            release_version
+            version
+            monorepoSrc
+            buildLlvmTools
+            ;
+        }
+      );
       mkExtraBuildCommands0 =
         cc: ''
           rsrc="$out/resource-root"
@@ -225,8 +228,10 @@ let
           ]
           ++ lib.optional (!stdenv.targetPlatform.isWasm)
             "--unwindlib=libunwind"
-          ++ lib.optional (!stdenv.targetPlatform.isWasm
-            && stdenv.targetPlatform.useLLVM or false) "-lunwind"
+          ++ lib.optional (
+            !stdenv.targetPlatform.isWasm
+            && stdenv.targetPlatform.useLLVM or false
+          ) "-lunwind"
           ++ lib.optional stdenv.targetPlatform.isWasm "-fno-exceptions"
           ;
       };
@@ -276,19 +281,22 @@ let
     }
   );
 
-  libraries = lib.makeExtensible (libraries:
+  libraries = lib.makeExtensible (
+    libraries:
     let
-      callPackage = newScope (libraries // buildLlvmTools // {
-        inherit
-          stdenv
-          cmake
-          libxml2
-          python3
-          release_version
-          version
-          monorepoSrc
-          ;
-      });
+      callPackage = newScope (
+        libraries // buildLlvmTools // {
+          inherit
+            stdenv
+            cmake
+            libxml2
+            python3
+            release_version
+            version
+            monorepoSrc
+            ;
+        }
+      );
     in
     {
 

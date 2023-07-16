@@ -29,11 +29,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs =
     [ setuptools-rust ]
-    ++ (with rustPlatform; [
-      cargoSetupHook
-      rust.cargo
-      rust.rustc
-    ])
+    ++ (
+      with rustPlatform; [
+        cargoSetupHook
+        rust.cargo
+        rust.rustc
+      ]
+    )
     ;
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];

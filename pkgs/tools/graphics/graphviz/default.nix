@@ -60,11 +60,13 @@ stdenv.mkDerivation rec {
       pango
       bash
     ]
-    ++ optionals withXorg (with xorg; [
-      libXrender
-      libXaw
-      libXpm
-    ])
+    ++ optionals withXorg (
+      with xorg; [
+        libXrender
+        libXaw
+        libXpm
+      ]
+    )
     ++ optionals stdenv.isDarwin [ ApplicationServices ]
     ;
 

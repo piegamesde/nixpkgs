@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -35,4 +36,5 @@ import ./make-test-python.nix ({
       machine.wait_for_unit("telegraf.service")
       machine.wait_until_succeeds("grep -q example /tmp/metrics.out")
     '';
-  })
+  }
+)

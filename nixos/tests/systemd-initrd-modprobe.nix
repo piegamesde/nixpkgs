@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -23,4 +24,5 @@ import ./make-test-python.nix ({
       max_loop = machine.succeed("cat /sys/module/loop/parameters/max_loop")
       assert int(max_loop) == 42, "Parameter should be respected for initrd kernel modules"
     '';
-  })
+  }
+)

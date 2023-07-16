@@ -56,13 +56,15 @@ let
       pname,
       ...
     }@args:
-    python.pkgs.buildPythonPackage (args // {
-      inherit src version;
-      name = "datadog-integration-${pname}-${version}";
+    python.pkgs.buildPythonPackage (
+      args // {
+        inherit src version;
+        name = "datadog-integration-${pname}-${version}";
 
-      sourceRoot = "source/${args.sourceRoot or pname}";
-      doCheck = false;
-    })
+        sourceRoot = "source/${args.sourceRoot or pname}";
+        doCheck = false;
+      }
+    )
     ;
 
     # Base package depended on by all other integrations.
@@ -110,22 +112,26 @@ let
     network = (ps: [ ps.psutil ]);
     nginx = (ps: [ ]);
     postgres =
-      (ps:
+      (
+        ps:
         with ps; [
           pg8000
           psycopg2
           semver
-        ]);
+        ]
+      );
     process = (ps: [ ps.psutil ]);
   };
 
     # All integrations (default + extra):
   integrations = defaultIntegrations // extraIntegrations;
-  builtIntegrations = mapAttrs (pname: fdeps:
+  builtIntegrations = mapAttrs (
+    pname: fdeps:
     buildIntegration {
       inherit pname;
       propagatedBuildInputs = (fdeps python.pkgs) ++ [ datadog_checks_base ];
-    }) integrations;
+    }
+  ) integrations;
 
 in
 builtIntegrations // {

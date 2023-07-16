@@ -33,11 +33,13 @@ stdenv.mkDerivation rec {
       hwdata
       kmod
       sqlite
-      (perl.withPackages (ps:
+      (perl.withPackages (
+        ps:
         with ps; [
           DBI
           DBDSQLite
-        ]))
+        ]
+      ))
     ]
     ++ lib.optionals (!stdenv.isAarch64) [ dmidecode ]
     ;

@@ -33,7 +33,9 @@ buildGoModule rec {
 
     # TODO investigate why some config tests are failing
   doCheck =
-    !(stdenv.isDarwin && stdenv.isAarch64)
+    !(
+      stdenv.isDarwin && stdenv.isAarch64
+    )
     ;
     # Required to workaround test check error:
   preCheck = "export HOME=$(mktemp -d)";

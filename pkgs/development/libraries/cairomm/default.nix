@@ -37,8 +37,9 @@ stdenv.mkDerivation rec {
       fontconfig
       freetype
     ]
-    ++ lib.optionals stdenv.isDarwin
-      (with darwin.apple_sdk.frameworks; [ ApplicationServices ])
+    ++ lib.optionals stdenv.isDarwin (
+      with darwin.apple_sdk.frameworks; [ ApplicationServices ]
+    )
     ;
 
   propagatedBuildInputs = [

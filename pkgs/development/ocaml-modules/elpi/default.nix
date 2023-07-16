@@ -67,10 +67,12 @@ buildDunePackage rec {
   nativeBuildInputs =
     [ perl ]
     ++ [
-      (if lib.versionAtLeast version "1.15" || version == "dev" then
-        menhir
-      else
-        camlp5)
+      (
+        if lib.versionAtLeast version "1.15" || version == "dev" then
+          menhir
+        else
+          camlp5
+      )
     ]
     ++ lib.optional (lib.versionAtLeast version "1.16" || version == "dev")
       atdgen
@@ -86,20 +88,24 @@ buildDunePackage rec {
       re
       stdlib-shims
     ]
-    ++ (if lib.versionAtLeast version "1.15" || version == "dev" then
-      [ menhirLib ]
-    else
-      [ camlp5 ])
-    ++ (if lib.versionAtLeast version "1.13" || version == "dev" then
-      [
-        ppxlib
-        ppx_deriving
-      ]
-    else
-      [
-        ppxlib_0_15
-        ppx_deriving_0_15
-      ])
+    ++ (
+      if lib.versionAtLeast version "1.15" || version == "dev" then
+        [ menhirLib ]
+      else
+        [ camlp5 ]
+    )
+    ++ (
+      if lib.versionAtLeast version "1.13" || version == "dev" then
+        [
+          ppxlib
+          ppx_deriving
+        ]
+      else
+        [
+          ppxlib_0_15
+          ppx_deriving_0_15
+        ]
+    )
     ;
 
   meta = with lib; {

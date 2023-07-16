@@ -37,7 +37,8 @@ in
         } ];
 
         type = with types;
-          listOf (submodule ({
+          listOf (submodule (
+            {
               ...
             }: {
               options = {
@@ -60,7 +61,8 @@ in
                   description = lib.mdDoc "Target URL";
                 };
               };
-            }));
+            }
+          ));
       };
     };
   };

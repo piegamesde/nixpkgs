@@ -125,11 +125,13 @@ self: super: {
       ];
     in
     addBuildDepends additionalDeps (super.haskell-language-server.overrideScope
-      (lself: lsuper: {
-        # Needed for modern ormolu and fourmolu.
-        # Apply this here and not in common, because other ghc versions offer different Cabal versions.
-        Cabal = lself.Cabal_3_6_3_0;
-      }))
+      (
+        lself: lsuper: {
+          # Needed for modern ormolu and fourmolu.
+          # Apply this here and not in common, because other ghc versions offer different Cabal versions.
+          Cabal = lself.Cabal_3_6_3_0;
+        }
+      ))
     ;
 
     # Needs to use ghc-lib due to incompatible GHC
@@ -137,18 +139,19 @@ self: super: {
 
     # This package is marked as unbuildable on GHC 9.2, so hackage2nix doesn't include any dependencies.
     # See https://github.com/NixOS/nixpkgs/pull/205902 for why we use `self.<package>.scope`
-  hls-haddock-comments-plugin = unmarkBroken (addBuildDepends
-    (with self.hls-haddock-comments-plugin.scope; [
+  hls-haddock-comments-plugin = unmarkBroken (addBuildDepends (
+    with self.hls-haddock-comments-plugin.scope; [
       ghc-exactprint
       ghcide
       hls-plugin-api
       hls-refactor-plugin
       lsp-types
       unordered-containers
-    ]) super.hls-haddock-comments-plugin);
+    ]
+  ) super.hls-haddock-comments-plugin);
 
-  hls-tactics-plugin = unmarkBroken (addBuildDepends
-    (with self.hls-tactics-plugin.scope; [
+  hls-tactics-plugin = unmarkBroken (addBuildDepends (
+    with self.hls-tactics-plugin.scope; [
       aeson
       extra
       fingertree
@@ -170,7 +173,8 @@ self: super: {
       syb
       unagi-chan
       unordered-containers
-    ]) super.hls-tactics-plugin);
+    ]
+  ) super.hls-tactics-plugin);
 
     # The test suite depends on ChasingBottoms, which is broken with ghc-9.0.x.
   unordered-containers = dontCheck super.unordered-containers;
@@ -208,10 +212,12 @@ self: super: {
 
     # We use a GHC patch to support the fix for https://github.com/fpco/inline-c/issues/127
     # which means that the upstream cabal file isn't allowed to add the flag.
-  inline-c-cpp = (if isDarwin then
-    appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ]
-  else
-    x: x) super.inline-c-cpp;
+  inline-c-cpp = (
+    if isDarwin then
+      appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ]
+    else
+      x: x
+  ) super.inline-c-cpp;
 
     # 2022-05-31: weeder 2.3.0 requires GHC 9.2
   weeder = doDistribute self.weeder_2_3_1;

@@ -155,23 +155,26 @@ let
     # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
   gpuArchWarner =
     supported: unsupported:
-    trivial.throwIf (supported == [ ])
-    ("No supported GPU targets specified. Requested GPU targets: "
-      + strings.concatStringsSep ", " unsupported) supported
+    trivial.throwIf (supported == [ ]) (
+      "No supported GPU targets specified. Requested GPU targets: "
+      + strings.concatStringsSep ", " unsupported
+    ) supported
     ;
 
     # Create the gpuTargetString.
-  gpuTargetString = strings.concatStringsSep ";" (if
-    gpuTargets != [ ]
-  then
-  # If gpuTargets is specified, it always takes priority.
-    gpuTargets
-  else if cudaSupport then
-    gpuArchWarner supportedCudaCapabilities unsupportedCudaCapabilities
-  else if rocmSupport then
-    hip.gpuTargets
-  else
-    throw "No GPU targets specified");
+  gpuTargetString = strings.concatStringsSep ";" (
+    if
+      gpuTargets != [ ]
+    then
+    # If gpuTargets is specified, it always takes priority.
+      gpuTargets
+    else if cudaSupport then
+      gpuArchWarner supportedCudaCapabilities unsupportedCudaCapabilities
+    else if rocmSupport then
+      hip.gpuTargets
+    else
+      throw "No GPU targets specified"
+  );
 
   cudatoolkit_joined = symlinkJoin {
     name = "${cudatoolkit.name}-unsplit";
@@ -288,12 +291,14 @@ buildPythonPackage rec {
     ''
       # error: no member named 'aligned_alloc' in the global namespace; did you mean simply 'aligned_alloc'
       # This lib overrided aligned_alloc hence the error message. Tltr: his function is linkable but not in header.
-    + lib.optionalString (stdenv.isDarwin
-      && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "11.0") ''
-        substituteInPlace third_party/pocketfft/pocketfft_hdronly.h --replace '#if __cplusplus >= 201703L
-        inline void *aligned_alloc(size_t align, size_t size)' '#if __cplusplus >= 201703L && 0
-        inline void *aligned_alloc(size_t align, size_t size)'
-      ''
+    + lib.optionalString (
+      stdenv.isDarwin
+      && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "11.0"
+    ) ''
+      substituteInPlace third_party/pocketfft/pocketfft_hdronly.h --replace '#if __cplusplus >= 201703L
+      inline void *aligned_alloc(size_t align, size_t size)' '#if __cplusplus >= 201703L && 0
+      inline void *aligned_alloc(size_t align, size_t size)'
+    ''
     ;
 
   preConfigure =
@@ -369,25 +374,28 @@ buildPythonPackage rec {
     #
     # Also of interest: pytorch ignores CXXFLAGS uses CFLAGS for both C and C++:
     # https://github.com/pytorch/pytorch/blob/v1.11.0/setup.py#L17
-  env.NIX_CFLAGS_COMPILE = toString
-    ((lib.optionals (blas.implementation == "mkl") [
-        "-Wno-error=array-bounds"
-      ]
-      # Suppress gcc regression: avx512 math function raises uninitialized variable warning
-      # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105593
-      # See also: Fails to compile with GCC 12.1.0 https://github.com/pytorch/pytorch/issues/77939
-      ++ lib.optionals
-        (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12.0.0") [
-          "-Wno-error=maybe-uninitialized"
-          "-Wno-error=uninitialized"
+  env.NIX_CFLAGS_COMPILE = toString (
+    (
+      lib.optionals (blas.implementation == "mkl") [
+          "-Wno-error=array-bounds"
         ]
-        # Since pytorch 2.0:
-        # gcc-12.2.0/include/c++/12.2.0/bits/new_allocator.h:158:33: error: ‘void operator delete(void*, std::size_t)’
-        # ... called on pointer ‘<unknown>’ with nonzero offset [1, 9223372036854775800] [-Werror=free-nonheap-object]
-      ++ lib.optionals
-        (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version == "12") [
-          "-Wno-error=free-nonheap-object"
-        ]));
+        # Suppress gcc regression: avx512 math function raises uninitialized variable warning
+        # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105593
+        # See also: Fails to compile with GCC 12.1.0 https://github.com/pytorch/pytorch/issues/77939
+      ++ lib.optionals (
+        stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12.0.0"
+      ) [
+        "-Wno-error=maybe-uninitialized"
+        "-Wno-error=uninitialized"
+      ]
+      # Since pytorch 2.0:
+      # gcc-12.2.0/include/c++/12.2.0/bits/new_allocator.h:158:33: error: ‘void operator delete(void*, std::size_t)’
+      # ... called on pointer ‘<unknown>’ with nonzero offset [1, 9223372036854775800] [-Werror=free-nonheap-object]
+      ++ lib.optionals (
+        stdenv.cc.isGNU && lib.versions.major stdenv.cc.version == "12"
+      ) [ "-Wno-error=free-nonheap-object" ]
+    )
+  );
 
   nativeBuildInputs =
     [

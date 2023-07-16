@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     ...
   }: {
     name = "lldap";
@@ -30,4 +31,5 @@ import ./make-test-python.nix ({
         machine.succeed('ldapsearch -H ldap://localhost:3890 -D uid=admin,ou=people,dc=example,dc=com -b "ou=people,dc=example,dc=com" -w password')
       )
     '';
-  })
+  }
+)

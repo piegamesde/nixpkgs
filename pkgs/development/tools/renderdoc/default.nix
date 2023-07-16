@@ -58,11 +58,13 @@ mkDerivation rec {
       vulkan-loader
       python3
     ]
-    ++ (with python3Packages; [
-      pyside2
-      pyside2-tools
-      shiboken2
-    ])
+    ++ (
+      with python3Packages; [
+        pyside2
+        pyside2-tools
+        shiboken2
+      ]
+    )
     ++ lib.optional waylandSupport wayland
     ;
 

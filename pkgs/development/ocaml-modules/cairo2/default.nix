@@ -33,9 +33,11 @@ buildDunePackage rec {
     ;
 
   doCheck =
-    !(stdenv.isDarwin
-      # https://github.com/Chris00/ocaml-cairo/issues/19
-      || lib.versionAtLeast ocaml.version "4.10")
+    !(
+      stdenv.isDarwin
+        # https://github.com/Chris00/ocaml-cairo/issues/19
+      || lib.versionAtLeast ocaml.version "4.10"
+    )
     ;
 
   meta = with lib; {

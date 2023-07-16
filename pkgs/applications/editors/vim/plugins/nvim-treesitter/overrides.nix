@@ -20,7 +20,8 @@ let
     #   ocaml-interface
     #   tree-sitter-ocaml-interface
     #   tree-sitter-ocaml_interface
-  builtGrammars = generatedGrammars // lib.concatMapAttrs (k: v:
+  builtGrammars = generatedGrammars // lib.concatMapAttrs (
+    k: v:
     let
       replaced = lib.replaceStrings [ "_" ] [ "-" ] k;
     in
@@ -111,7 +112,9 @@ in
   };
 
   meta = with lib;
-    (super.nvim-treesitter.meta or { }) // {
+    (
+      super.nvim-treesitter.meta or { }
+    ) // {
       license = licenses.asl20;
       maintainers = with maintainers; [ figsoda ];
     };

@@ -30,10 +30,12 @@ let
     rockspecVersion = drv.rockspecVersion;
   });
 
-  finalDrv = toVimPlugin (luaDrv.overrideAttrs (oa:
+  finalDrv = toVimPlugin (luaDrv.overrideAttrs (
+    oa:
     attrs // {
       nativeBuildInputs =
         oa.nativeBuildInputs or [ ] ++ [ lua.pkgs.luarocksMoveDataFolder ];
-    }));
+    }
+  ));
 in
 finalDrv

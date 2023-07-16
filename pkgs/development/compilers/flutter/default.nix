@@ -50,23 +50,28 @@ let
         };
       };
     in
-    (mkCustomFlutter args).overrideAttrs (prev: next: {
-      passthru = next.passthru // rec {
-        inherit wrapFlutter mkCustomFlutter mkFlutter;
-        buildFlutterApplication = callPackage ../../../build-support/flutter {
-          # Package a minimal version of Flutter that only uses Linux desktop release artifacts.
-          flutter = wrapFlutter (mkCustomFlutter (args // {
-            includedEngineArtifacts = {
-              common = [ "flutter_patched_sdk_product" ];
-              platform.linux = lib.optionals stdenv.hostPlatform.isLinux
-                (lib.genAttrs ((lib.optional stdenv.hostPlatform.isx86_64 "x64")
-                  ++ (lib.optional stdenv.hostPlatform.isAarch64 "arm64"))
-                  (architecture: [ "release" ]));
-            };
-          }));
+    (mkCustomFlutter args).overrideAttrs (
+      prev: next: {
+        passthru = next.passthru // rec {
+          inherit wrapFlutter mkCustomFlutter mkFlutter;
+          buildFlutterApplication = callPackage ../../../build-support/flutter {
+            # Package a minimal version of Flutter that only uses Linux desktop release artifacts.
+            flutter = wrapFlutter (mkCustomFlutter (
+              args // {
+                includedEngineArtifacts = {
+                  common = [ "flutter_patched_sdk_product" ];
+                  platform.linux = lib.optionals stdenv.hostPlatform.isLinux
+                    (lib.genAttrs (
+                      (lib.optional stdenv.hostPlatform.isx86_64 "x64")
+                      ++ (lib.optional stdenv.hostPlatform.isAarch64 "arm64")
+                    ) (architecture: [ "release" ]));
+                };
+              }
+            ));
+          };
         };
-      };
-    })
+      }
+    )
     ;
 
   flutter2Patches = getPatches ./patches/flutter2;

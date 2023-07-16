@@ -9,7 +9,8 @@ let
   header = "Accept: application/vnd.go.cd.v2+json";
 
 in
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -49,4 +50,5 @@ import ./make-test-python.nix ({
           "curl ${serverUrl} -H '${header}' | ${pkgs.jq}/bin/jq -e ._embedded.agents[0].agent_state | grep Idle"
       )
     '';
-  })
+  }
+)

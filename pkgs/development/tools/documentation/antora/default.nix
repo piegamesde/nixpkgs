@@ -5,7 +5,8 @@
 
 let
   linkNodeDeps =
-    ({
+    (
+      {
         pkg,
         deps,
         name ? ""

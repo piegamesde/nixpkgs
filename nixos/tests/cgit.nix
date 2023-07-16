@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }:
@@ -19,7 +20,8 @@ import ./make-test-python.nix ({
         }: {
           services.cgit."localhost" = {
             enable = true;
-            package = pkgs.cgit.overrideAttrs ({
+            package = pkgs.cgit.overrideAttrs (
+              {
                 postInstall,
                 ...
               }: {
@@ -27,7 +29,8 @@ import ./make-test-python.nix ({
                   ${postInstall}
                   cp ${robotsTxt} "$out/cgit/robots.txt"
                 '';
-              });
+              }
+            );
             nginx.location = "/(c)git/";
             repos = {
               some-repo = {

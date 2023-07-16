@@ -55,12 +55,16 @@
 }:
 
 let
-  pythonEnv = python.withPackages (ps:
+  pythonEnv = python.withPackages (
+    ps:
     lib.optional withManual ps.sphinx
-    ++ lib.optionals pythonSupport (with ps; [
-      pybindgen
-      pygccxml
-    ]));
+    ++ lib.optionals pythonSupport (
+      with ps; [
+        pybindgen
+        pygccxml
+      ]
+    )
+  );
 in
 stdenv.mkDerivation rec {
   pname = "ns-3";
@@ -129,8 +133,10 @@ stdenv.mkDerivation rec {
 
   postBuild = with lib;
     let
-      flags = concatStringsSep ";" (optional enableDoxygen "./waf doxygen"
-        ++ optional withManual "./waf sphinx");
+      flags = concatStringsSep ";" (
+        optional enableDoxygen "./waf doxygen"
+        ++ optional withManual "./waf sphinx"
+      );
     in
     "${flags}"
     ;
@@ -162,8 +168,12 @@ stdenv.mkDerivation rec {
     ];
       # never built on aarch64-darwin since first introduction in nixpkgs
     broken =
-      (stdenv.isDarwin && stdenv.isAarch64)
-      || (stdenv.isLinux && stdenv.isAarch64)
+      (
+        stdenv.isDarwin && stdenv.isAarch64
+      )
+      || (
+        stdenv.isLinux && stdenv.isAarch64
+      )
       ;
   };
 }

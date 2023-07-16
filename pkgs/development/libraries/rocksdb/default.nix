@@ -52,17 +52,19 @@ stdenv.mkDerivation rec {
     "tools"
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isGNU [
-    "-Wno-error=deprecated-copy"
-    "-Wno-error=pessimizing-move"
-    # Needed with GCC 12
-    "-Wno-error=format-truncation"
-    "-Wno-error=maybe-uninitialized"
-  ]
+  env.NIX_CFLAGS_COMPILE = toString (
+    lib.optionals stdenv.cc.isGNU [
+      "-Wno-error=deprecated-copy"
+      "-Wno-error=pessimizing-move"
+      # Needed with GCC 12
+      "-Wno-error=format-truncation"
+      "-Wno-error=maybe-uninitialized"
+    ]
     ++ lib.optionals stdenv.cc.isClang [
       "-Wno-error=unused-private-field"
       "-faligned-allocation"
-    ]);
+    ]
+  );
 
   cmakeFlags =
     [

@@ -73,11 +73,13 @@ stdenv.mkDerivation rec {
     # the runpath, so use a wrapper instead.
   postFixup =
     let
-      libPath = lib.makeLibraryPath ([
-        libpcap
-        fluidsynth
-      ]
-        ++ lib.optional unfreeEnableDiscord discord-gamesdk);
+      libPath = lib.makeLibraryPath (
+        [
+          libpcap
+          fluidsynth
+        ]
+        ++ lib.optional unfreeEnableDiscord discord-gamesdk
+      );
       libPathVar =
         if stdenv.isDarwin then
           "DYLD_LIBRARY_PATH"

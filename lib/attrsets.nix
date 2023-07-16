@@ -246,11 +246,13 @@ rec {
                 let
                   updatePath = (head split.right).path;
                 in
-                throw ("updateManyAttrsByPath: Path '${
-                    showAttrPath updatePath
-                  }' does "
+                throw (
+                  "updateManyAttrsByPath: Path '${
+                      showAttrPath updatePath
+                    }' does "
                   + "not exist in the given value, but the first update to this "
-                  + "path tries to access the existing value.")
+                  + "path tries to access the existing value."
+                )
             else
             # If there are nested modifications, try to apply them to the value
             if
@@ -264,23 +266,25 @@ rec {
             then
             # If we do have a value and it's an attribute set, override it
             # with the nested modifications
-              value // mapAttrs
-              (name: go (prefixLength + 1) (value ? ${name}) value.${name})
-              nested
+              value // mapAttrs (
+                name: go (prefixLength + 1) (value ? ${name}) value.${name}
+              ) nested
             else
             # However if it's not an attribute set, we can't apply the nested
             # modifications, throw an error
               let
                 updatePath = (head split.wrong).path;
               in
-              throw ("updateManyAttrsByPath: Path '${
-                  showAttrPath updatePath
-                }' needs to "
+              throw (
+                "updateManyAttrsByPath: Path '${
+                    showAttrPath updatePath
+                  }' needs to "
                 + "be updated, but path '${
                     showAttrPath (take prefixLength updatePath)
                   }' "
                 + "of the given value is not an attribute set, so we can't "
-                + "update an attribute inside of it.")
+                + "update an attribute inside of it."
+              )
             ;
 
             # We get the final result by applying all the updates on this level
@@ -353,12 +357,16 @@ rec {
          catAttrs :: String -> [AttrSet] -> [Any]
     */
   catAttrs =
-    builtins.catAttrs or (attr: l:
-      concatLists (map (s:
+    builtins.catAttrs or (
+      attr: l:
+      concatLists (map (
+        s:
         if s ? ${attr} then
           [ s.${attr} ]
         else
-          [ ]) l));
+          [ ]
+      ) l)
+    );
 
     /* Filter an attribute set by removing all attributes for which the
        given predicate return false.
@@ -375,7 +383,8 @@ rec {
     pred:
     # The attribute set to filter
     set:
-    listToAttrs (concatMap (name:
+    listToAttrs (concatMap (
+      name:
       let
         v = set.${name};
       in
@@ -401,16 +410,19 @@ rec {
     pred:
     # The attribute set to filter
     set:
-    listToAttrs (concatMap (name:
+    listToAttrs (concatMap (
+      name:
       let
         v = set.${name};
       in
       if pred name v then
         [
-          (nameValuePair name (if isAttrs v then
-            filterAttrsRecursive pred v
-          else
-            v))
+          (nameValuePair name (
+            if isAttrs v then
+              filterAttrsRecursive pred v
+            else
+              v
+          ))
         ]
       else
         [ ]
@@ -491,9 +503,11 @@ rec {
     nul:
     # A list of attribute sets to fold together by key.
     list_of_attrs:
-    foldr (n: a:
+    foldr (
+      n: a:
       foldr (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a
-      (attrNames n)) { } list_of_attrs
+      (attrNames n)
+    ) { } list_of_attrs
     ;
 
     /* Recursively collect sets that verify a given predicate named `pred`
@@ -540,10 +554,14 @@ rec {
   cartesianProductOfSets =
     # Attribute set with attributes that are lists of values
     attrsOfLists:
-    foldl' (listOfAttrs: attrName:
-      concatMap (attrs:
+    foldl' (
+      listOfAttrs: attrName:
+      concatMap (
+        attrs:
         map (listValue: attrs // { ${attrName} = listValue; })
-        attrsOfLists.${attrName}) listOfAttrs) [ { } ] (attrNames attrsOfLists)
+        attrsOfLists.${attrName}
+      ) listOfAttrs
+    ) [ { } ] (attrNames attrsOfLists)
     ;
 
     /* Utility function that creates a `{name, value}` pair as expected by `builtins.listToAttrs`.
@@ -575,11 +593,13 @@ rec {
          mapAttrs :: (String -> Any -> Any) -> AttrSet -> AttrSet
     */
   mapAttrs =
-    builtins.mapAttrs or (f: set:
+    builtins.mapAttrs or (
+      f: set:
       listToAttrs (map (attr: {
         name = attr;
         value = f attr set.${attr};
-      }) (attrNames set)));
+      }) (attrNames set))
+    );
 
     /* Like `mapAttrs`, but allows the name of each attribute to be
        changed in addition to the value.  The applied function should
@@ -810,8 +830,9 @@ rec {
          zipAttrsWith :: (String -> [ Any ] -> Any) -> [ AttrSet ] -> AttrSet
     */
   zipAttrsWith =
-    builtins.zipAttrsWith or (f: sets:
-      zipAttrsWithNames (concatMap attrNames sets) f sets);
+    builtins.zipAttrsWith or (
+      f: sets: zipAttrsWithNames (concatMap attrNames sets) f sets
+    );
 
     /* Merge sets of attributes and combine each attribute value in to a list.
 
@@ -870,7 +891,8 @@ rec {
     let
       f =
         attrPath:
-        zipAttrsWith (n: values:
+        zipAttrsWith (
+          n: values:
           let
             here = attrPath ++ [ n ];
           in
@@ -933,7 +955,8 @@ rec {
     # Attribute set to find patterns in
     attrs:
     assert isAttrs pattern;
-    all id (attrValues (zipAttrsWithNames (attrNames pattern) (n: values:
+    all id (attrValues (zipAttrsWithNames (attrNames pattern) (
+      n: values:
       let
         pat = head values;
         val = elemAt values 1;
@@ -1121,10 +1144,11 @@ rec {
     let
       intersection = builtins.intersectAttrs x y;
       collisions = lib.concatStringsSep " " (builtins.attrNames intersection);
-      mask = builtins.mapAttrs (name: value:
+      mask = builtins.mapAttrs (
+        name: value:
         builtins.throw
-        "unionOfDisjoint: collision on ${name}; complete list: ${collisions}")
-        intersection;
+        "unionOfDisjoint: collision on ${name}; complete list: ${collisions}"
+      ) intersection;
     in
     (x // y) // mask
     ;

@@ -98,7 +98,8 @@ in
         (mapAttrsToList (name: opts: "${name}:${toString opts.id}")
           cfg.projects));
 
-    systemd.services = mapAttrs' (name: opts:
+    systemd.services = mapAttrs' (
+      name: opts:
       nameValuePair "xfs_quota-${name}" {
         description = "Setup xfs_quota for project ${name}";
         script = ''
@@ -110,7 +111,9 @@ in
 
         wantedBy = [ "multi-user.target" ];
         after = [
-            ((replaceStrings [ "/" ] [ "-" ] opts.fileSystem) + ".mount")
+            (
+              (replaceStrings [ "/" ] [ "-" ] opts.fileSystem) + ".mount"
+            )
           ];
 
         restartTriggers = [ config.environment.etc.projects.source ];
@@ -119,7 +122,8 @@ in
           Type = "oneshot";
           RemainAfterExit = true;
         };
-      }) cfg.projects;
+      }
+    ) cfg.projects;
 
   };
 

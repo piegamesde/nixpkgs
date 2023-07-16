@@ -66,12 +66,15 @@ let
     SystemCallArchitectures = "native";
   };
 
-  envFile = pkgs.writeText "peertube.env" (lib.concatMapStrings (s: s + "\n")
-    ((lib.concatLists (lib.mapAttrsToList (name: value:
+  envFile = pkgs.writeText "peertube.env" (lib.concatMapStrings (s: s + "\n") (
+    (lib.concatLists (lib.mapAttrsToList (
+      name: value:
       if value != null then
         [ ''${name}="${toString value}"'' ]
       else
-        [ ]) env))));
+        [ ]
+    ) env))
+  ));
 
   peertubeEnv = pkgs.writeShellScriptBin "peertube-env" ''
     set -a
@@ -349,8 +352,12 @@ in
       }
       {
         assertion =
-          !(cfg.redis.enableUnixSocket
-            && (cfg.redis.host != null || cfg.redis.port != null))
+          !(
+            cfg.redis.enableUnixSocket
+            && (
+              cfg.redis.host != null || cfg.redis.port != null
+            )
+          )
           ;
         message = ''
           <option>services.peertube.redis.createLocally</option> and redis network connection (<option>services.peertube.redis.host</option> or <option>services.peertube.redis.port</option>) enabled. Disable either of them.
@@ -359,7 +366,9 @@ in
       {
         assertion =
           cfg.redis.enableUnixSocket
-          || (cfg.redis.host != null && cfg.redis.port != null)
+          || (
+            cfg.redis.host != null && cfg.redis.port != null
+          )
           ;
         message = ''
           <option>services.peertube.redis.host</option> and <option>services.peertube.redis.port</option> needs to be set if <option>services.peertube.redis.enableUnixSocket</option> is not enabled.
@@ -405,10 +414,12 @@ in
         listen = { port = cfg.listenHttp; };
         webserver = {
           https =
-            (if cfg.enableWebHttps then
-              true
-            else
-              false);
+            (
+              if cfg.enableWebHttps then
+                true
+              else
+                false
+            );
           hostname = "${cfg.localDomain}";
           port = cfg.listenWeb;
         };
@@ -421,10 +432,12 @@ in
         redis = {
           hostname = "${toString cfg.redis.host}";
           port =
-            (if cfg.redis.port == null then
-              ""
-            else
-              cfg.redis.port);
+            (
+              if cfg.redis.port == null then
+                ""
+              else
+                cfg.redis.port
+            );
         };
         storage = {
           tmp = lib.mkDefault "/var/lib/peertube/storage/tmp/";
@@ -541,11 +554,12 @@ in
           secrets:
             peertube: '$(cat ${cfg.secrets.secretsFile})'
         ''}
-        ${lib.optionalString ((!cfg.database.createLocally)
-          && (cfg.database.passwordFile != null)) ''
-            database:
-              password: '$(cat ${cfg.database.passwordFile})'
-          ''}
+        ${lib.optionalString (
+          (!cfg.database.createLocally) && (cfg.database.passwordFile != null)
+        ) ''
+          database:
+            password: '$(cat ${cfg.database.passwordFile})'
+        ''}
         ${lib.optionalString (cfg.redis.passwordFile != null) ''
           redis:
             auth: '$(cat ${cfg.redis.passwordFile})'

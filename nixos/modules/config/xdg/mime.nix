@@ -84,15 +84,17 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.etc."xdg/mimeapps.list" = mkIf (cfg.addedAssociations != { }
+    environment.etc."xdg/mimeapps.list" = mkIf (
+      cfg.addedAssociations != { }
       || cfg.defaultApplications != { }
-      || cfg.removedAssociations != { }) {
-        text = generators.toINI { } {
-          "Added Associations" = cfg.addedAssociations;
-          "Default Applications" = cfg.defaultApplications;
-          "Removed Associations" = cfg.removedAssociations;
-        };
+      || cfg.removedAssociations != { }
+    ) {
+      text = generators.toINI { } {
+        "Added Associations" = cfg.addedAssociations;
+        "Default Applications" = cfg.defaultApplications;
+        "Removed Associations" = cfg.removedAssociations;
       };
+    };
 
     environment.pathsToLink = [ "/share/mime" ];
 

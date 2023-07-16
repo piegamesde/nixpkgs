@@ -185,33 +185,49 @@ let
         passthru = genAttrs packages mathcomp_;
       });
         # split packages didn't exist before 0.6, so bulding nothing in that case
-      patched-derivation1 = derivation.overrideAttrs (o:
-        optionalAttrs (o.pname != null
+      patched-derivation1 = derivation.overrideAttrs (
+        o:
+        optionalAttrs (
+          o.pname != null
           && o.pname != "mathcomp-analysis"
           && o.version != null
           && o.version != "dev"
-          && versions.isLt "0.6" o.version) {
-            preBuild = "";
-            buildPhase = "echo doing nothing";
-            installPhase = "echo doing nothing";
-          });
-      patched-derivation2 = patched-derivation1.overrideAttrs (o:
-        optionalAttrs (o.pname != null
+          && versions.isLt "0.6" o.version
+        ) {
+          preBuild = "";
+          buildPhase = "echo doing nothing";
+          installPhase = "echo doing nothing";
+        }
+      );
+      patched-derivation2 = patched-derivation1.overrideAttrs (
+        o:
+        optionalAttrs (
+          o.pname != null
           && o.pname == "mathcomp-analysis"
           && o.version != null
           && o.version != "dev"
-          && versions.isLt "0.6" o.version) { preBuild = ""; });
-      patched-derivation = patched-derivation2.overrideAttrs (o:
-        optionalAttrs (o.version != null
-          && (o.version == "dev" || versions.isGe "0.3.4" o.version)) {
-            propagatedBuildInputs =
-              o.propagatedBuildInputs ++ [ hierarchy-builder ];
-          });
+          && versions.isLt "0.6" o.version
+        ) { preBuild = ""; }
+      );
+      patched-derivation = patched-derivation2.overrideAttrs (
+        o:
+        optionalAttrs (
+          o.version != null
+          && (
+            o.version == "dev" || versions.isGe "0.3.4" o.version
+          )
+        ) {
+          propagatedBuildInputs =
+            o.propagatedBuildInputs ++ [ hierarchy-builder ];
+        }
+      );
     in
     patched-derivation
     ;
 in
-mathcomp_ (if single then
-  "single"
-else
-  "analysis")
+mathcomp_ (
+  if single then
+    "single"
+  else
+    "analysis"
+)

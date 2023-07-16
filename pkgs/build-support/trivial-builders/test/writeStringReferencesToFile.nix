@@ -12,11 +12,12 @@ let
   stri = x: "${x}";
   sampleText = writeText "sample-text"
     (lib.concatStringsSep "\n" (lib.unique (map stri samplePaths)));
-  stringReferencesText = writeStringReferencesToFile
-    ((lib.concatMapStringsSep "fillertext" stri (lib.attrValues sample))
-      + ''
-        STORE=${builtins.storeDir};\nsystemctl start bar-foo.service
-      '');
+  stringReferencesText = writeStringReferencesToFile (
+    (lib.concatMapStringsSep "fillertext" stri (lib.attrValues sample))
+    + ''
+      STORE=${builtins.storeDir};\nsystemctl start bar-foo.service
+    ''
+  );
 in
 runCommand "test-writeStringReferencesToFile" { } ''
   diff -U3 <(sort ${stringReferencesText}) <(sort ${sampleText})

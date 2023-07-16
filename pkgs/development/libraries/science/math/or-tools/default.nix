@@ -78,10 +78,12 @@ stdenv.mkDerivation rec {
       swig4
       unzip
     ]
-    ++ (with python.pythonForBuild.pkgs; [
-      pip
-      mypy-protobuf
-    ])
+    ++ (
+      with python.pythonForBuild.pkgs; [
+        pip
+        mypy-protobuf
+      ]
+    )
     ;
   buildInputs = [
     bzip2

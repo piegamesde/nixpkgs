@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }:
@@ -122,4 +123,5 @@ import ./make-test-python.nix ({
               "${pkgs.curl}/bin/curl --fail http://localhost/searx/static/themes/oscar/js/bootstrap.min.js >&2"
           )
     '';
-  })
+  }
+)

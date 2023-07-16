@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }:
@@ -85,4 +86,5 @@ import ./make-test-python.nix ({
               f"curl -sSfl --cookie cjar --cookie-jar cjar -d '_ip_csrf={csrf_token}&btn_continue=Continue' {site_name}/setup/upgrade_tables"
             )
     '';
-  })
+  }
+)

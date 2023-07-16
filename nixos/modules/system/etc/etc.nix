@@ -57,7 +57,8 @@ let
       }
 
       mkdir -p "$out/etc"
-      ${concatMapStringsSep "\n" (etcEntry:
+      ${concatMapStringsSep "\n" (
+        etcEntry:
         escapeShellArgs [
           "makeEtcEntry"
           # Force local source paths to be added to the store
@@ -66,7 +67,8 @@ let
           etcEntry.mode
           etcEntry.user
           etcEntry.group
-        ]) etc'}
+        ]
+      ) etc'}
     '';
 
 in
@@ -93,7 +95,8 @@ in
       '';
 
       type = with types;
-        attrsOf (submodule ({
+        attrsOf (submodule (
+          {
             name,
             config,
             options,
@@ -183,14 +186,16 @@ in
 
             config = {
               target = mkDefault name;
-              source = mkIf (config.text != null) (let
-                name' = "etc-" + baseNameOf name;
-              in
-              mkDerivedConfig options.text (pkgs.writeText name')
+              source = mkIf (config.text != null) (
+                let
+                  name' = "etc-" + baseNameOf name;
+                in
+                mkDerivedConfig options.text (pkgs.writeText name')
               );
             };
 
-          }));
+          }
+        ));
 
     };
 

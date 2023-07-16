@@ -27,7 +27,8 @@ in
         gunicorn.
       '';
       type = with types;
-        attrsOf (submodule ({
+        attrsOf (submodule (
+          {
             config,
             ...
           }: {
@@ -114,15 +115,18 @@ in
 
             };
             config = {
-              secretKeyFile = mkDefault (if config.secretKey != "" then
-                toString (pkgs.writeTextFile {
-                  name = "bepasty-secret-key";
-                  text = config.secretKey;
-                })
-              else
-                null);
+              secretKeyFile = mkDefault (
+                if config.secretKey != "" then
+                  toString (pkgs.writeTextFile {
+                    name = "bepasty-secret-key";
+                    text = config.secretKey;
+                  })
+                else
+                  null
+              );
             };
-          }));
+          }
+        ));
     };
   };
 
@@ -131,7 +135,8 @@ in
     environment.systemPackages = [ bepasty ];
 
       # creates gunicorn systemd service for each configured server
-    systemd.services = mapAttrs' (name: server:
+    systemd.services = mapAttrs' (
+      name: server:
       nameValuePair ("bepasty-server-${name}-gunicorn") ({
         description = "Bepasty Server ${name}";
         wantedBy = [ "multi-user.target" ];
@@ -182,7 +187,8 @@ in
                           -k gevent
           '';
         };
-      })) cfg.servers;
+      })
+    ) cfg.servers;
 
     users.users.${user} = {
       uid = config.ids.uids.bepasty;

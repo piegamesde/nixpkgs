@@ -273,7 +273,8 @@ rec {
   runTests =
     # Tests to run
     tests:
-    concatLists (attrValues (mapAttrs (name: test:
+    concatLists (attrValues (mapAttrs (
+      name: test:
       let
         testsToRun =
           if tests ? tests then
@@ -283,9 +284,15 @@ rec {
           ;
       in
       if
-        (substring 0 4 name == "test" || elem name testsToRun)
-        && ((testsToRun == [ ]) || elem name tests.tests)
-        && (test.expr != test.expected)
+        (
+          substring 0 4 name == "test" || elem name testsToRun
+        )
+        && (
+          (testsToRun == [ ]) || elem name tests.tests
+        )
+        && (
+          test.expr != test.expected
+        )
 
       then
         [ {

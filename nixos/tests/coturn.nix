@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -30,4 +31,5 @@ import ./make-test-python.nix ({
           # allowed-peer-ip, should succeed:
           secretsfile.succeed("${pkgs.coturn}/bin/turnutils_uclient -W some-very-secret-string 192.168.1.2 -DgX -e 192.168.1.2 -n 1 -c -y")
     '';
-  })
+  }
+)

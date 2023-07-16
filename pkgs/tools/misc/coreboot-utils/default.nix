@@ -38,28 +38,30 @@ let
       path ? "util/${pname}",
       ...
     }@args:
-    stdenv.mkDerivation (rec {
-      inherit pname version;
+    stdenv.mkDerivation (
+      rec {
+        inherit pname version;
 
-      src = fetchurl {
-        url = "https://coreboot.org/releases/coreboot-${version}.tar.xz";
-        sha256 = "sha256-Zcyy9GU1uZbgBmobdvgcjPH/PiffhLP5fYrXs+fPCkM=";
-      };
+        src = fetchurl {
+          url = "https://coreboot.org/releases/coreboot-${version}.tar.xz";
+          sha256 = "sha256-Zcyy9GU1uZbgBmobdvgcjPH/PiffhLP5fYrXs+fPCkM=";
+        };
 
-      enableParallelBuilding = true;
+        enableParallelBuilding = true;
 
-      postPatch = ''
-        cd ${path}
-        patchShebangs .
-      '';
+        postPatch = ''
+          cd ${path}
+          patchShebangs .
+        '';
 
-      makeFlags = [
-        "INSTALL=install"
-        "PREFIX=${placeholder "out"}"
-      ];
+        makeFlags = [
+          "INSTALL=install"
+          "PREFIX=${placeholder "out"}"
+        ];
 
-      meta = commonMeta // args.meta;
-    } // (removeAttrs args [ "meta" ]))
+        meta = commonMeta // args.meta;
+      } // (removeAttrs args [ "meta" ])
+    )
     ;
 
   utils = {

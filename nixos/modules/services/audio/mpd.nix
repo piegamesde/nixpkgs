@@ -16,14 +16,17 @@ let
   cfg = config.services.mpd;
 
   credentialsPlaceholder =
-    (creds:
+    (
+      creds:
       let
         placeholders =
-          (imap0 (i: c:
+          (imap0 (
+            i: c:
             ''
               password "{{password-${toString i}}}@${
                 concatStringsSep "," c.permissions
-              }"'') creds);
+              }"''
+          ) creds);
       in
       concatStringsSep "\n" placeholders
     );
@@ -249,13 +252,15 @@ in
       wantedBy = [ "sockets.target" ];
       listenStreams = [
         "" # Note: this is needed to override the upstream unit
-        (if pkgs.lib.hasPrefix "/" cfg.network.listenAddress then
-          cfg.network.listenAddress
-        else
-          "${
-            optionalString (cfg.network.listenAddress != "any")
-            "${cfg.network.listenAddress}:"
-          }${toString cfg.network.port}")
+        (
+          if pkgs.lib.hasPrefix "/" cfg.network.listenAddress then
+            cfg.network.listenAddress
+          else
+            "${
+              optionalString (cfg.network.listenAddress != "any")
+              "${cfg.network.listenAddress}:"
+            }${toString cfg.network.port}"
+        )
       ];
     };
 
@@ -268,10 +273,12 @@ in
           install -m 600 ${mpdConf} /run/mpd/mpd.conf
         ''
         + optionalString (cfg.credentials != [ ]) (concatStringsSep "\n" (imap0
-          (i: c:
+          (
+            i: c:
             "${pkgs.replace-secret}/bin/replace-secret '{{password-${
               toString i
-            }}}' '${c.passwordFile}' /run/mpd/mpd.conf") cfg.credentials))
+            }}}' '${c.passwordFile}' /run/mpd/mpd.conf"
+          ) cfg.credentials))
         ;
 
       serviceConfig = {

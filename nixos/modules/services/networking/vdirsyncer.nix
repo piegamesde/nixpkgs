@@ -21,14 +21,16 @@ let
     if cfg'.configFile != null then
       cfg'.configFile
     else
-      pkgs.writeText "vdirsyncer-${name}.conf" (toIniJson ({
-        general = cfg'.config.general
-          // (lib.optionalAttrs (cfg'.config.statusPath == null) {
-            status_path = "/var/lib/vdirsyncer/${name}";
-          });
-      } // (mapAttrs' (name: nameValuePair "pair ${name}") cfg'.config.pairs)
+      pkgs.writeText "vdirsyncer-${name}.conf" (toIniJson (
+        {
+          general = cfg'.config.general
+            // (lib.optionalAttrs (cfg'.config.statusPath == null) {
+              status_path = "/var/lib/vdirsyncer/${name}";
+            });
+        } // (mapAttrs' (name: nameValuePair "pair ${name}") cfg'.config.pairs)
         // (mapAttrs' (name: nameValuePair "storage ${name}")
-          cfg'.config.storages)))
+          cfg'.config.storages)
+      ))
     ;
 
   userUnitConfig =
@@ -201,7 +203,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.services = mapAttrs' (name: cfg':
+    systemd.services = mapAttrs' (
+      name: cfg':
       nameValuePair "vdirsyncer@${name}" (foldr recursiveUpdate { } [
         commonUnitConfig
         (userUnitConfig name cfg')
@@ -217,13 +220,16 @@ in
             ++ [ "${cfg.package}/bin/vdirsyncer sync" ]
             ;
         }
-      ])) (filterAttrs (name: cfg': cfg'.enable) cfg.jobs);
+      ])
+    ) (filterAttrs (name: cfg': cfg'.enable) cfg.jobs);
 
-    systemd.timers = mapAttrs' (name: cfg':
+    systemd.timers = mapAttrs' (
+      name: cfg':
       nameValuePair "vdirsyncer@${name}" {
         wantedBy = [ "timers.target" ];
         description = "synchronize calendars and contacts (${name})";
         inherit (cfg') timerConfig;
-      }) cfg.jobs;
+      }
+    ) cfg.jobs;
   };
 }

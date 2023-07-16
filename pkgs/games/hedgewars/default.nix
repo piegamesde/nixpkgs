@@ -27,7 +27,8 @@
 }:
 
 let
-  ghc = ghcWithPackages (pkgs:
+  ghc = ghcWithPackages (
+    pkgs:
     with pkgs; [
       SHA
       bytestring
@@ -40,7 +41,8 @@ let
       sandi
       utf8-string
       vector
-    ]);
+    ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "hedgewars";

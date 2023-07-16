@@ -112,14 +112,16 @@
           cwd = "/";
         };
 
-        mounts = lib.mapAttrsToList (destination:
+        mounts = lib.mapAttrsToList (
+          destination:
           {
             type,
             source,
             options ? null
           }: {
             inherit destination type source options;
-          }) sysMounts;
+          }
+        ) sysMounts;
       });
     in
     runCommand "join" { } ''

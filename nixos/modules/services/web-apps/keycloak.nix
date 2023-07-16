@@ -70,7 +70,9 @@ in
       "keycloak"
       "settings"
       "http-port"
-    ] (config: builtins.fromJSON config.services.keycloak.httpPort))
+    ] (
+      config: builtins.fromJSON config.services.keycloak.httpPort
+    ))
     (mkChangedOptionModule [
       "services"
       "keycloak"
@@ -80,7 +82,9 @@ in
       "keycloak"
       "settings"
       "https-port"
-    ] (config: builtins.fromJSON config.services.keycloak.httpsPort))
+    ] (
+      config: builtins.fromJSON config.services.keycloak.httpsPort
+    ))
     (mkRemovedOptionModule [
       "services"
       "keycloak"
@@ -503,9 +507,9 @@ in
           fi
         done
 
-        ${concatStringsSep "\n" (mapAttrsToList
-          (name: theme: "linkTheme ${theme} ${escapeShellArg name}")
-          cfg.themes)}
+        ${concatStringsSep "\n" (mapAttrsToList (
+          name: theme: "linkTheme ${theme} ${escapeShellArg name}"
+        ) cfg.themes)}
       '';
 
       keycloakConfig = lib.generators.toKeyValue {
@@ -531,11 +535,13 @@ in
       };
 
       isSecret = v: isAttrs v && v ? _secret && isString v._secret;
-      filteredConfig = lib.converge (lib.filterAttrsRecursive (_: v:
+      filteredConfig = lib.converge (lib.filterAttrsRecursive (
+        _: v:
         !elem v [
           { }
           null
-        ])) cfg.settings;
+        ]
+      )) cfg.settings;
       confFile = pkgs.writeText "keycloak.conf" (keycloakConfig filteredConfig);
       keycloakBuild = cfg.package.override {
         inherit confFile;
@@ -546,8 +552,12 @@ in
       assertions = [
         {
           assertion =
-            (cfg.database.useSSL && cfg.database.type == "postgresql")
-            -> (cfg.database.caCert != null)
+            (
+              cfg.database.useSSL && cfg.database.type == "postgresql"
+            )
+            -> (
+              cfg.database.caCert != null
+            )
             ;
           message =
             "A CA certificate must be specified (in 'services.keycloak.database.caCert') when PostgreSQL is used with SSL";
@@ -566,13 +576,15 @@ in
 
       services.keycloak.settings =
         let
-          postgresParams = concatStringsSep "&"
-            (optionals cfg.database.useSSL [ "ssl=true" ]
-              ++ optionals (cfg.database.caCert != null) [
-                "sslrootcert=${cfg.database.caCert}"
-                "sslmode=verify-ca"
-              ]);
-          mariadbParams = concatStringsSep "&" ([ "characterEncoding=UTF-8" ]
+          postgresParams = concatStringsSep "&" (
+            optionals cfg.database.useSSL [ "ssl=true" ]
+            ++ optionals (cfg.database.caCert != null) [
+              "sslrootcert=${cfg.database.caCert}"
+              "sslmode=verify-ca"
+            ]
+          );
+          mariadbParams = concatStringsSep "&" (
+            [ "characterEncoding=UTF-8" ]
             ++ optionals cfg.database.useSSL [
               "useSSL=true"
               "requireSSL=true"
@@ -581,7 +593,8 @@ in
             ++ optionals (cfg.database.caCert != null) [
               "trustCertificateKeyStoreUrl=file:${mySqlCaKeystore}"
               "trustCertificateKeyStorePassword=notsosecretpassword"
-            ]);
+            ]
+          );
           dbProps =
             if cfg.database.type == "postgresql" then
               postgresParams
@@ -730,11 +743,12 @@ in
           serviceConfig = {
             LoadCredential =
               map (p: "${baseNameOf p}:${p}") secretPaths
-              ++ optionals
-                (cfg.sslCertificate != null && cfg.sslCertificateKey != null) [
-                  "ssl_cert:${cfg.sslCertificate}"
-                  "ssl_key:${cfg.sslCertificateKey}"
-                ]
+              ++ optionals (
+                cfg.sslCertificate != null && cfg.sslCertificateKey != null
+              ) [
+                "ssl_cert:${cfg.sslCertificate}"
+                "ssl_key:${cfg.sslCertificateKey}"
+              ]
               ;
             User = "keycloak";
             Group = "keycloak";
@@ -763,11 +777,12 @@ in
               sed -i '/db-/ s|\\|\\\\|g' /run/keycloak/conf/keycloak.conf
 
             ''
-            + optionalString
-              (cfg.sslCertificate != null && cfg.sslCertificateKey != null) ''
-                mkdir -p /run/keycloak/ssl
-                cp $CREDENTIALS_DIRECTORY/ssl_{cert,key} /run/keycloak/ssl/
-              ''
+            + optionalString (
+              cfg.sslCertificate != null && cfg.sslCertificateKey != null
+            ) ''
+              mkdir -p /run/keycloak/ssl
+              cp $CREDENTIALS_DIRECTORY/ssl_{cert,key} /run/keycloak/ssl/
+            ''
             + ''
               export KEYCLOAK_ADMIN=admin
               export KEYCLOAK_ADMIN_PASSWORD=${

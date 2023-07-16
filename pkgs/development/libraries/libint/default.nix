@@ -15,7 +15,9 @@
   cmake,
   enableFMA ? stdenv.hostPlatform.fmaSupport,
   enableFortran ? true,
-  enableSSE ? (!enableFortran)
+  enableSSE ? (
+    !enableFortran
+  )
     && stdenv.hostPlatform.isx86_64
 
       # Maximum angular momentum of basis functions
@@ -76,10 +78,12 @@
 }:
 
 # Check that Fortran bindings are not used together with SIMD real type
-assert (if enableFortran then
-  !enableSSE
-else
-  true);
+assert (
+  if enableFortran then
+    !enableSSE
+  else
+    true
+);
 
 # Check that a possible angular momentum for basis functions is used
 assert (maxAm >= 1 && maxAm <= 8);
@@ -90,26 +94,38 @@ assert (eri2Deriv >= 0 && eri2Deriv <= 4);
 assert (eri3Deriv >= 0 && eri3Deriv <= 4);
 
 # Ensure valid arguments for generated angular momenta in ERI derivatives are used.
-assert (builtins.length eriAm == eriDeriv + 1
+assert (
+  builtins.length eriAm == eriDeriv + 1
   && builtins.foldl' (a: b: a && b) true
-    (builtins.map (a: a <= maxAm && a >= 0) eriAm));
-assert (builtins.length eri3Am == eriDeriv + 1
+    (builtins.map (a: a <= maxAm && a >= 0) eriAm)
+);
+assert (
+  builtins.length eri3Am == eriDeriv + 1
   && builtins.foldl' (a: b: a && b) true
-    (builtins.map (a: a <= maxAm && a >= 0) eri3Am));
-assert (builtins.length eri2Am == eriDeriv + 1
+    (builtins.map (a: a <= maxAm && a >= 0) eri3Am)
+);
+assert (
+  builtins.length eri2Am == eriDeriv + 1
   && builtins.foldl' (a: b: a && b) true
-    (builtins.map (a: a <= maxAm && a >= 0) eri2Am));
+    (builtins.map (a: a <= maxAm && a >= 0) eri2Am)
+);
 
 # Ensure valid arguments for generated angular momenta in optimised ERI derivatives are used.
-assert (builtins.length eriOptAm == eriDeriv + 1
+assert (
+  builtins.length eriOptAm == eriDeriv + 1
   && builtins.foldl' (a: b: a && b) true
-    (builtins.map (a: a <= maxAm && a >= 0) eriOptAm));
-assert (builtins.length eri3OptAm == eriDeriv + 1
+    (builtins.map (a: a <= maxAm && a >= 0) eriOptAm)
+);
+assert (
+  builtins.length eri3OptAm == eriDeriv + 1
   && builtins.foldl' (a: b: a && b) true
-    (builtins.map (a: a <= maxAm && a >= 0) eri3OptAm));
-assert (builtins.length eri2OptAm == eriDeriv + 1
+    (builtins.map (a: a <= maxAm && a >= 0) eri3OptAm)
+);
+assert (
+  builtins.length eri2OptAm == eriDeriv + 1
   && builtins.foldl' (a: b: a && b) true
-    (builtins.map (a: a <= maxAm && a >= 0) eri2OptAm));
+    (builtins.map (a: a <= maxAm && a >= 0) eri2OptAm)
+);
 
 # Ensure a valid derivative order for one-electron integrals
 assert (oneBodyDerivOrd >= 0 && oneBodyDerivOrd <= 4);

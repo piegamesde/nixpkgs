@@ -50,10 +50,12 @@ let
     mirror = "mirror://kde";
   };
 
-  qtStdenv = libsForQt5.callPackage ({
+  qtStdenv = libsForQt5.callPackage (
+    {
       stdenv,
     }:
-    stdenv) { };
+    stdenv
+  ) { };
 
   packages =
     self:
@@ -128,9 +130,19 @@ let
               }
               ;
           in
-          qtStdenv.mkDerivation (args // {
-            inherit pname version meta outputs setupHook src nativeBuildInputs;
-          })
+          qtStdenv.mkDerivation (
+            args // {
+              inherit
+                pname
+                version
+                meta
+                outputs
+                setupHook
+                src
+                nativeBuildInputs
+                ;
+            }
+          )
           ;
       };
 

@@ -45,11 +45,13 @@ in
     "dbhost"
     "dbport"
     "dbtableprefix"
-  ] (opt:
+  ] (
+    opt:
     options.services.nextcloud.config.${opt} // {
       default = config.services.nextcloud.config.${opt};
       defaultText = "config.services.nextcloud.config.${opt}";
-    }));
+    }
+  ));
 
   config = lib.mkIf cfg.enable {
     systemd.services.nextcloud-notify_push =
@@ -85,15 +87,17 @@ in
             dbPass =
               lib.optionalString (cfg.dbpassFile != null) ":$DATABASE_PASSWORD";
             isSocket = lib.hasPrefix "/" (toString cfg.dbhost);
-            dbHost = lib.optionalString (cfg.dbhost != null) (if isSocket then
-              if dbType == "postgresql" then
-                "?host=${cfg.dbhost}"
-              else if dbType == "mysql" then
-                "?socket=${cfg.dbhost}"
+            dbHost = lib.optionalString (cfg.dbhost != null) (
+              if isSocket then
+                if dbType == "postgresql" then
+                  "?host=${cfg.dbhost}"
+                else if dbType == "mysql" then
+                  "?socket=${cfg.dbhost}"
+                else
+                  throw "unsupported dbtype"
               else
-                throw "unsupported dbtype"
-            else
-              "@${cfg.dbhost}");
+                "@${cfg.dbhost}"
+            );
             dbName = lib.optionalString (cfg.dbname != null) "/${cfg.dbname}";
             dbUrl =
               "${dbType}://${dbUser}${dbPass}${

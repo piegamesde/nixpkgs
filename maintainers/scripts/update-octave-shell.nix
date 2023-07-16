@@ -3,13 +3,15 @@
 }:
 with nixpkgs;
 let
-  pyEnv = python3.withPackages (ps:
+  pyEnv = python3.withPackages (
+    ps:
     with ps; [
       packaging
       requests
       toolz
       pyyaml
-    ]);
+    ]
+  );
 in
 mkShell {
   packages = [

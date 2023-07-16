@@ -43,21 +43,25 @@ with lib;
 
     # Disable the aliased option, but with a default (low) priority so it
     # should be able to be overridden by the next import.
-    ({
+    (
+      {
         config,
         lib,
         ...
       }: {
         enableAlias = lib.mkDefault false;
-      })
+      }
+    )
 
     # Enable the normal (non-aliased) option.
-    ({
+    (
+      {
         config,
         lib,
         ...
       }: {
         enable = true;
-      })
+      }
+    )
   ];
 }

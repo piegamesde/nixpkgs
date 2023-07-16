@@ -51,8 +51,9 @@ stdenv.mkDerivation {
     maintainers = with maintainers; [ fortuneteller2k ];
     broken =
       (lib.versionAtLeast kernel.version "5.17")
-      || ((lib.versions.majorMinor kernel.version) == "5.4"
-        && kernel.isHardened)
+      || (
+        (lib.versions.majorMinor kernel.version) == "5.4" && kernel.isHardened
+      )
       ;
   };
 }

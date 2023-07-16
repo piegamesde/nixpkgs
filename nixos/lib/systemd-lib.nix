@@ -73,13 +73,15 @@ rec {
       suffix = head l;
       nums = tail l;
     in
-    elem suffix ([
-      "K"
-      "M"
-      "G"
-      "T"
-    ]
-      ++ digits)
+    elem suffix (
+      [
+        "K"
+        "M"
+        "G"
+        "T"
+      ]
+      ++ digits
+    )
     && all (num: elem num digits) nums
     ;
 
@@ -94,8 +96,9 @@ rec {
   isMacAddress =
     s:
     stringLength s == 17
-    && flip all (splitString ":" s)
-      (bytes: all (byte: elem byte hexChars) (stringToCharacters bytes))
+    && flip all (splitString ":" s) (
+      bytes: all (byte: elem byte hexChars) (stringToCharacters bytes)
+    )
     ;
 
   assertMacAddress =
@@ -162,13 +165,15 @@ rec {
       # We're applied at the top-level type (attrsOf unitOption), so the actual
       # unit options might contain attributes from mkOverride and mkIf that we need to
       # convert into single values before checking them.
-      defs = mapAttrs (const (v:
+      defs = mapAttrs (const (
+        v:
         if v._type or "" == "override" then
           v.content
         else if v._type or "" == "if" then
           v.content
         else
-          v)) attrs;
+          v
+      )) attrs;
       errors = concatMap (c: c group defs) checks;
     in
     if errors == [ ] then
@@ -189,13 +194,17 @@ rec {
 
   attrsToSection =
     as:
-    concatStrings (concatLists (mapAttrsToList (name: value:
+    concatStrings (concatLists (mapAttrsToList (
+      name: value:
       map (x: ''
         ${name}=${toOption x}
-      '') (if isList value then
-        value
-      else
-        [ value ])) as))
+      '') (
+        if isList value then
+          value
+        else
+          [ value ]
+      )
+    ) as))
     ;
 
   generateUnits =
@@ -280,9 +289,11 @@ rec {
       # <unit-name>.d/overrides.conf, which makes them extend the
       # upstream unit.
       for i in ${
-        toString (mapAttrsToList (n: v: v.unit) (lib.filterAttrs (n: v:
+        toString (mapAttrsToList (n: v: v.unit) (lib.filterAttrs (
+          n: v:
           (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v)
-          == "asDropinIfExists") units))
+          == "asDropinIfExists"
+        ) units))
       }; do
         fn=$(basename $i/*)
         if [ -e $out/$fn ]; then
@@ -310,9 +321,9 @@ rec {
       # Symlink units defined by systemd.units which shall be
       # treated as drop-in file.
       for i in ${
-        toString (mapAttrsToList (n: v: v.unit) (lib.filterAttrs
-          (n: v: v ? overrideStrategy && v.overrideStrategy == "asDropin")
-          units))
+        toString (mapAttrsToList (n: v: v.unit) (lib.filterAttrs (
+          n: v: v ? overrideStrategy && v.overrideStrategy == "asDropin"
+        ) units))
       }; do
         fn=$(basename $i/*)
         mkdir -p $out/$fn.d
@@ -320,24 +331,36 @@ rec {
       done
 
       # Create service aliases from aliases option.
-      ${concatStrings (mapAttrsToList (name: unit:
+      ${concatStrings (mapAttrsToList (
+        name: unit:
         concatMapStrings (name2: ''
           ln -sfn '${name}' $out/'${name2}'
-        '') (unit.aliases or [ ])) units)}
+        '') (
+          unit.aliases or [ ]
+        )
+      ) units)}
 
       # Create .wants and .requires symlinks from the wantedBy and
       # requiredBy options.
-      ${concatStrings (mapAttrsToList (name: unit:
+      ${concatStrings (mapAttrsToList (
+        name: unit:
         concatMapStrings (name2: ''
           mkdir -p $out/'${name2}.wants'
           ln -sfn '../${name}' $out/'${name2}.wants'/
-        '') (unit.wantedBy or [ ])) units)}
+        '') (
+          unit.wantedBy or [ ]
+        )
+      ) units)}
 
-      ${concatStrings (mapAttrsToList (name: unit:
+      ${concatStrings (mapAttrsToList (
+        name: unit:
         concatMapStrings (name2: ''
           mkdir -p $out/'${name2}.requires'
           ln -sfn '../${name}' $out/'${name2}.requires'/
-        '') (unit.requiredBy or [ ])) units)}
+        '') (
+          unit.requiredBy or [ ]
+        )
+      ) units)}
 
       ${optionalString (type == "system") ''
         # Stupid misc. symlinks.
@@ -398,13 +421,13 @@ rec {
           Conflicts = toString config.conflicts;
         } // optionalAttrs (config.requisite != [ ]) {
           Requisite = toString config.requisite;
-        } // optionalAttrs
-          (config ? restartTriggers && config.restartTriggers != [ ]) {
-            X-Restart-Triggers = toString config.restartTriggers;
-          } // optionalAttrs
-          (config ? reloadTriggers && config.reloadTriggers != [ ]) {
-            X-Reload-Triggers = toString config.reloadTriggers;
-          } // optionalAttrs (config.description != "") {
+        } // optionalAttrs (
+          config ? restartTriggers && config.restartTriggers != [ ]
+        ) { X-Restart-Triggers = toString config.restartTriggers; }
+          // optionalAttrs (
+            config ? reloadTriggers && config.reloadTriggers != [ ]
+          ) { X-Reload-Triggers = toString config.reloadTriggers; }
+          // optionalAttrs (config.description != "") {
             Description = config.description;
           } // optionalAttrs (config.documentation != [ ]) {
             Documentation = toString config.documentation;
@@ -498,7 +521,8 @@ rec {
           ${let
             env = cfg.globalEnvironment // def.environment;
           in
-          concatMapStrings (n:
+          concatMapStrings (
+            n:
             let
               s = optionalString (env.${n} != null) ''
                 Environment=${builtins.toJSON "${n}=${env.${n}}"}

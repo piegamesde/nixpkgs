@@ -43,10 +43,12 @@ stdenv.mkDerivation rec {
       libjpeg
       libwebp
     ]
-    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-      libiconv
-      ApplicationServices
-    ])
+    ++ lib.optionals stdenv.isDarwin (
+      with darwin.apple_sdk.frameworks; [
+        libiconv
+        ApplicationServices
+      ]
+    )
     ;
 
     # '@LIBPNG_LDFLAGS@' is no longer substituted by autoconf (the code is commented out)

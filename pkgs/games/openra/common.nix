@@ -23,11 +23,13 @@
 with lib;
 
 let
-  path = makeBinPath ([
-    mono
-    python3
-  ]
-    ++ optional (zenity != null) zenity);
+  path = makeBinPath (
+    [
+      mono
+      python3
+    ]
+    ++ optional (zenity != null) zenity
+  );
   rpath = makeLibraryPath [
     lua
     freetype

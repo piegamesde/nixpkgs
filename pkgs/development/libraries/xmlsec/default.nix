@@ -14,7 +14,8 @@
   writeText,
 }:
 
-lib.fix (self:
+lib.fix (
+  self:
   stdenv.mkDerivation rec {
     pname = "xmlsec";
     version = "1.2.34";
@@ -112,4 +113,5 @@ lib.fix (self:
       maintainers = with maintainers; [ ];
       platforms = with platforms; linux ++ darwin;
     };
-  })
+  }
+)

@@ -20,11 +20,13 @@
 }@args:
 
 let
-  slug = lib.concatStringsSep "/" ((lib.optional (group != null) group)
+  slug = lib.concatStringsSep "/" (
+    (lib.optional (group != null) group)
     ++ [
       owner
       repo
-    ]);
+    ]
+  );
   escapedSlug = lib.replaceStrings [
     "."
     "/"
@@ -63,20 +65,22 @@ let
 
   gitRepoUrl = "${protocol}://${domain}/${slug}.git";
 
-  fetcherArgs = (if useFetchGit then
-    {
-      inherit rev deepClone fetchSubmodules leaveDotGit;
-      url = gitRepoUrl;
-    }
-  else
-    {
-      url =
-        "${protocol}://${domain}/api/v4/projects/${escapedSlug}/repository/archive.tar.gz?sha=${escapedRev}";
+  fetcherArgs = (
+    if useFetchGit then
+      {
+        inherit rev deepClone fetchSubmodules leaveDotGit;
+        url = gitRepoUrl;
+      }
+    else
+      {
+        url =
+          "${protocol}://${domain}/api/v4/projects/${escapedSlug}/repository/archive.tar.gz?sha=${escapedRev}";
 
-      passthru = { inherit gitRepoUrl; };
-    }) // passthruAttrs // {
-      inherit name;
-    };
+        passthru = { inherit gitRepoUrl; };
+      }
+  ) // passthruAttrs // {
+    inherit name;
+  };
 
 in
 fetcher fetcherArgs // {

@@ -106,7 +106,8 @@ let
     ;
 
 in
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -134,4 +135,5 @@ import ./make-test-python.nix ({
           "cockroach workload run bank --duration=1m 'postgresql://root@192.168.1.1:26257?sslmode=disable'",
       )
     '';
-  })
+  }
+)

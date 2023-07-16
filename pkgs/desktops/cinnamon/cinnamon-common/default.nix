@@ -55,7 +55,8 @@
 }:
 
 let
-  pythonEnv = python3.withPackages (pp:
+  pythonEnv = python3.withPackages (
+    pp:
     with pp; [
       dbus-python
       setproctitle
@@ -70,7 +71,8 @@ let
       pexpect
       distro
       requests
-    ]);
+    ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "cinnamon-common";

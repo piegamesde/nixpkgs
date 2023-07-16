@@ -134,11 +134,12 @@ lib.makeExtensible (self: {
     requireXcode "14.1" "sha256-QJGAUVIhuDYyzDNttBPv5lIGOfvkYqdOFSUAr5tlkfs=";
   xcode =
     self."xcode_${
-      lib.replaceStrings [ "." ] [ "_" ]
-      (if (stdenv.targetPlatform ? xcodeVer) then
-        stdenv.targetPlatform.xcodeVer
-      else
-        "12.3")
+      lib.replaceStrings [ "." ] [ "_" ] (
+        if (stdenv.targetPlatform ? xcodeVer) then
+          stdenv.targetPlatform.xcodeVer
+        else
+          "12.3"
+      )
     }";
 })
 

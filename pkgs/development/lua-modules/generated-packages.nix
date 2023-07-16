@@ -15,7 +15,8 @@
   ...
 }@args:
 final: prev: {
-  alt-getopt = callPackage ({
+  alt-getopt = callPackage (
+    {
       luaAtLeast,
       lua,
       luaOlder,
@@ -57,9 +58,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ arobyn ];
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  argparse = callPackage ({
+  argparse = callPackage (
+    {
       luaOlder,
       buildLuarocksPackage,
       luaAtLeast,
@@ -95,9 +98,11 @@ final: prev: {
         description = "A feature-rich command-line argument parser";
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  basexx = callPackage ({
+  basexx = callPackage (
+    {
       buildLuarocksPackage,
       lua,
       fetchurl,
@@ -122,9 +127,11 @@ final: prev: {
           "A base2, base16, base32, base64 and base85 library for Lua";
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  binaryheap = callPackage ({
+  binaryheap = callPackage (
+    {
       buildLuarocksPackage,
       lua,
       fetchurl,
@@ -149,9 +156,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ vcunat ];
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  bit32 = callPackage ({
+  bit32 = callPackage (
+    {
       fetchgit,
       buildLuarocksPackage,
       lua,
@@ -191,9 +200,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ lblasc ];
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  busted = callPackage ({
+  busted = callPackage (
+    {
       buildLuarocksPackage,
       luafilesystem,
       luasystem,
@@ -252,9 +263,11 @@ final: prev: {
         description = "Elegant Lua unit testing";
         license.fullName = "MIT <http://opensource.org/licenses/MIT>";
       };
-    }) { };
+    }
+  ) { };
 
-  cassowary = callPackage ({
+  cassowary = callPackage (
+    {
       buildLuarocksPackage,
       fetchgit,
       penlight,
@@ -301,9 +314,11 @@ final: prev: {
         ];
         license.fullName = "Apache 2";
       };
-    }) { };
+    }
+  ) { };
 
-  cldr = callPackage ({
+  cldr = callPackage (
+    {
       penlight,
       luaOlder,
       lua,
@@ -347,9 +362,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ alerque ];
         license.fullName = "MIT/ICU";
       };
-    }) { };
+    }
+  ) { };
 
-  compat53 = callPackage ({
+  compat53 = callPackage (
+    {
       lua,
       luaAtLeast,
       fetchzip,
@@ -380,9 +397,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ vcunat ];
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  cosmo = callPackage ({
+  cosmo = callPackage (
+    {
       buildLuarocksPackage,
       fetchgit,
       lpeg,
@@ -420,9 +439,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ marsam ];
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  coxpcall = callPackage ({
+  coxpcall = callPackage (
+    {
       buildLuarocksPackage,
       fetchgit,
     }:
@@ -456,9 +477,11 @@ final: prev: {
         description = "Coroutine safe xpcall and pcall";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  cqueues = callPackage ({
+  cqueues = callPackage (
+    {
       fetchurl,
       buildLuarocksPackage,
       lua,
@@ -486,9 +509,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ vcunat ];
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  cyan = callPackage ({
+  cyan = callPackage (
+    {
       argparse,
       buildLuarocksPackage,
       tl,
@@ -531,9 +556,11 @@ final: prev: {
         description = "A build system for the Teal language";
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  cyrussasl = callPackage ({
+  cyrussasl = callPackage (
+    {
       lua,
       luaOlder,
       buildLuarocksPackage,
@@ -568,9 +595,11 @@ final: prev: {
         description = "Cyrus SASL library for Lua 5.1+";
         license.fullName = "BSD";
       };
-    }) { };
+    }
+  ) { };
 
-  digestif = callPackage ({
+  digestif = callPackage (
+    {
       luafilesystem,
       fetchgit,
       lpeg,
@@ -611,9 +640,11 @@ final: prev: {
         description = "A code analyzer for TeX";
         license.fullName = "GPLv3+ and other free licenses";
       };
-    }) { };
+    }
+  ) { };
 
-  dkjson = callPackage ({
+  dkjson = callPackage (
+    {
       buildLuarocksPackage,
       lua,
       luaAtLeast,
@@ -642,9 +673,11 @@ final: prev: {
         description = "David Kolf's JSON module for Lua";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  fennel = callPackage ({
+  fennel = callPackage (
+    {
       luaOlder,
       buildLuarocksPackage,
       fetchurl,
@@ -672,9 +705,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ misterio77 ];
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  fifo = callPackage ({
+  fifo = callPackage (
+    {
       fetchzip,
       lua,
       buildLuarocksPackage,
@@ -699,9 +734,11 @@ final: prev: {
         description = "A lua library/'class' that implements a FIFO";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  fluent = callPackage ({
+  fluent = callPackage (
+    {
       lua,
       luaepnf,
       fetchgit,
@@ -749,9 +786,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ alerque ];
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  gitsigns-nvim = callPackage ({
+  gitsigns-nvim = callPackage (
+    {
       lua,
       fetchgit,
       buildLuarocksPackage,
@@ -785,9 +824,11 @@ final: prev: {
         description = "Git signs written in pure lua";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  haskell-tools-nvim = callPackage ({
+  haskell-tools-nvim = callPackage (
+    {
       plenary-nvim,
       fetchzip,
       lua,
@@ -818,9 +859,11 @@ final: prev: {
         description = "Supercharge your Haskell experience in neovim!";
         license.fullName = "GPL-2.0";
       };
-    }) { };
+    }
+  ) { };
 
-  http = callPackage ({
+  http = callPackage (
+    {
       luaossl,
       lpeg_patterns,
       lpeg,
@@ -868,9 +911,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ vcunat ];
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  inspect = callPackage ({
+  inspect = callPackage (
+    {
       fetchurl,
       buildLuarocksPackage,
       lua,
@@ -897,9 +942,11 @@ final: prev: {
         description = "Lua table visualizer, ideal for debugging";
         license.fullName = "MIT <http://opensource.org/licenses/MIT>";
       };
-    }) { };
+    }
+  ) { };
 
-  jsregexp = callPackage ({
+  jsregexp = callPackage (
+    {
       buildLuarocksPackage,
       lua,
       luaOlder,
@@ -938,9 +985,11 @@ final: prev: {
         description = "javascript (ECMA19) regular expressions for lua";
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  ldbus = callPackage ({
+  ldbus = callPackage (
+    {
       luaOlder,
       fetchgit,
       lua,
@@ -980,9 +1029,11 @@ final: prev: {
         description = "A Lua library to access dbus.";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  ldoc = callPackage ({
+  ldoc = callPackage (
+    {
       fetchgit,
       buildLuarocksPackage,
       markdown,
@@ -1019,9 +1070,11 @@ final: prev: {
         description = "A Lua Documentation Tool";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  lgi = callPackage ({
+  lgi = callPackage (
+    {
       luaOlder,
       fetchgit,
       buildLuarocksPackage,
@@ -1060,9 +1113,11 @@ final: prev: {
         description = "Lua bindings to GObject libraries";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  linenoise = callPackage ({
+  linenoise = callPackage (
+    {
       buildLuarocksPackage,
       lua,
       fetchurl,
@@ -1085,9 +1140,11 @@ final: prev: {
         description = "A binding for the linenoise command line library";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  ljsyscall = callPackage ({
+  ljsyscall = callPackage (
+    {
       lua,
       fetchurl,
       buildLuarocksPackage,
@@ -1114,9 +1171,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ lblasc ];
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  lmathx = callPackage ({
+  lmathx = callPackage (
+    {
       fetchurl,
       buildLuarocksPackage,
       lua,
@@ -1142,9 +1201,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ alexshpilkin ];
         license.fullName = "Public domain";
       };
-    }) { };
+    }
+  ) { };
 
-  lmpfrlib = callPackage ({
+  lmpfrlib = callPackage (
+    {
       buildLuarocksPackage,
       fetchurl,
       luaAtLeast,
@@ -1173,9 +1234,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ alexshpilkin ];
         license.fullName = "LGPL";
       };
-    }) { };
+    }
+  ) { };
 
-  loadkit = callPackage ({
+  loadkit = callPackage (
+    {
       luaOlder,
       lua,
       buildLuarocksPackage,
@@ -1216,9 +1279,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ alerque ];
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  lpeg = callPackage ({
+  lpeg = callPackage (
+    {
       luaOlder,
       buildLuarocksPackage,
       fetchurl,
@@ -1246,9 +1311,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ vyp ];
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  lpeg_patterns = callPackage ({
+  lpeg_patterns = callPackage (
+    {
       lpeg,
       fetchzip,
       buildLuarocksPackage,
@@ -1278,9 +1345,11 @@ final: prev: {
         description = "a collection of LPEG patterns";
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  lpeglabel = callPackage ({
+  lpeglabel = callPackage (
+    {
       fetchurl,
       lua,
       luaOlder,
@@ -1308,9 +1377,11 @@ final: prev: {
           "Parsing Expression Grammars For Lua with Labeled Failures";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  lpty = callPackage ({
+  lpty = callPackage (
+    {
       luaOlder,
       lua,
       fetchurl,
@@ -1338,9 +1409,11 @@ final: prev: {
           "A simple facility for lua to control other programs via PTYs.";
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  lrexlib-gnu = callPackage ({
+  lrexlib-gnu = callPackage (
+    {
       buildLuarocksPackage,
       luaOlder,
       lua,
@@ -1379,9 +1452,11 @@ final: prev: {
         description = "Regular expression library binding (GNU flavour).";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  lrexlib-pcre = callPackage ({
+  lrexlib-pcre = callPackage (
+    {
       lua,
       luaOlder,
       buildLuarocksPackage,
@@ -1421,9 +1496,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ vyp ];
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  lrexlib-posix = callPackage ({
+  lrexlib-posix = callPackage (
+    {
       lua,
       luaOlder,
       buildLuarocksPackage,
@@ -1462,9 +1539,11 @@ final: prev: {
         description = "Regular expression library binding (POSIX flavour).";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  lua-cjson = callPackage ({
+  lua-cjson = callPackage (
+    {
       luaOlder,
       fetchgit,
       lua,
@@ -1503,9 +1582,11 @@ final: prev: {
         description = "A fast JSON encoding/parsing module";
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  lua-cmsgpack = callPackage ({
+  lua-cmsgpack = callPackage (
+    {
       luaOlder,
       fetchgit,
       lua,
@@ -1545,9 +1626,11 @@ final: prev: {
           "MessagePack C implementation and bindings for Lua 5.1/5.2/5.3";
         license.fullName = "Two-clause BSD";
       };
-    }) { };
+    }
+  ) { };
 
-  lua-curl = callPackage ({
+  lua-curl = callPackage (
+    {
       lua,
       buildLuarocksPackage,
       fetchzip,
@@ -1575,9 +1658,11 @@ final: prev: {
         description = "Lua binding to libcurl";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  lua-iconv = callPackage ({
+  lua-iconv = callPackage (
+    {
       fetchurl,
       lua,
       buildLuarocksPackage,
@@ -1605,9 +1690,11 @@ final: prev: {
         description = "Lua binding to the iconv";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  lua-lsp = callPackage ({
+  lua-lsp = callPackage (
+    {
       fetchgit,
       inspect,
       lua,
@@ -1655,9 +1742,11 @@ final: prev: {
         description = "A Language Server implementation for lua, the language";
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  lua-messagepack = callPackage ({
+  lua-messagepack = callPackage (
+    {
       buildLuarocksPackage,
       lua,
       fetchurl,
@@ -1686,9 +1775,11 @@ final: prev: {
           "a pure Lua implementation of the MessagePack serialization format";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  lua-protobuf = callPackage ({
+  lua-protobuf = callPackage (
+    {
       luaOlder,
       buildLuarocksPackage,
       lua,
@@ -1728,9 +1819,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ lockejan ];
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  lua-resty-http = callPackage ({
+  lua-resty-http = callPackage (
+    {
       lua,
       fetchgit,
       luaOlder,
@@ -1770,9 +1863,11 @@ final: prev: {
           "Lua HTTP client cosocket driver for OpenResty / ngx_lua.";
         license.fullName = "2-clause BSD";
       };
-    }) { };
+    }
+  ) { };
 
-  lua-resty-jwt = callPackage ({
+  lua-resty-jwt = callPackage (
+    {
       luaOlder,
       lua-resty-openssl,
       fetchgit,
@@ -1815,9 +1910,11 @@ final: prev: {
         description = "JWT for ngx_lua and LuaJIT.";
         license.fullName = "Apache License Version 2";
       };
-    }) { };
+    }
+  ) { };
 
-  lua-resty-openidc = callPackage ({
+  lua-resty-openidc = callPackage (
+    {
       lua-resty-http,
       buildLuarocksPackage,
       fetchgit,
@@ -1865,9 +1962,11 @@ final: prev: {
           "A library for NGINX implementing the OpenID Connect Relying Party (RP) and the OAuth 2.0 Resource Server (RS) functionality";
         license.fullName = "Apache 2.0";
       };
-    }) { };
+    }
+  ) { };
 
-  lua-resty-openssl = callPackage ({
+  lua-resty-openssl = callPackage (
+    {
       fetchgit,
       buildLuarocksPackage,
     }:
@@ -1901,9 +2000,11 @@ final: prev: {
         description = "No summary";
         license.fullName = "BSD";
       };
-    }) { };
+    }
+  ) { };
 
-  lua-resty-session = callPackage ({
+  lua-resty-session = callPackage (
+    {
       buildLuarocksPackage,
       fetchgit,
       luaOlder,
@@ -1949,9 +2050,11 @@ final: prev: {
         broken =
           true; # lua_pack and lua-ffi-zlib are unpackaged, causing this package to not evaluate
       };
-    }) { };
+    }
+  ) { };
 
-  lua-subprocess = callPackage ({
+  lua-subprocess = callPackage (
+    {
       lua,
       buildLuarocksPackage,
       fetchgit,
@@ -1988,9 +2091,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ scoder12 ];
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  lua-term = callPackage ({
+  lua-term = callPackage (
+    {
       fetchurl,
       buildLuarocksPackage,
     }:
@@ -2012,9 +2117,11 @@ final: prev: {
         description = "Terminal functions for Lua";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  lua-toml = callPackage ({
+  lua-toml = callPackage (
+    {
       fetchgit,
       buildLuarocksPackage,
       luaOlder,
@@ -2053,9 +2160,11 @@ final: prev: {
         description = "toml decoder/encoder for Lua";
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  lua-yajl = callPackage ({
+  lua-yajl = callPackage (
+    {
       luaOlder,
       buildLuarocksPackage,
       lua,
@@ -2095,9 +2204,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ pstn ];
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  lua-zlib = callPackage ({
+  lua-zlib = callPackage (
+    {
       fetchgit,
       buildLuarocksPackage,
       luaOlder,
@@ -2137,9 +2248,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ koral ];
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  lua_cliargs = callPackage ({
+  lua_cliargs = callPackage (
+    {
       lua,
       luaOlder,
       buildLuarocksPackage,
@@ -2162,9 +2275,11 @@ final: prev: {
         description = "A command-line argument parser.";
         license.fullName = "MIT <http://opensource.org/licenses/MIT>";
       };
-    }) { };
+    }
+  ) { };
 
-  luabitop = callPackage ({
+  luabitop = callPackage (
+    {
       luaAtLeast,
       lua,
       fetchgit,
@@ -2200,9 +2315,11 @@ final: prev: {
         description = "Lua Bit Operations Module";
         license.fullName = "MIT/X license";
       };
-    }) { };
+    }
+  ) { };
 
-  luacheck = callPackage ({
+  luacheck = callPackage (
+    {
       argparse,
       luafilesystem,
       lua,
@@ -2247,9 +2364,11 @@ final: prev: {
         description = "A static analyzer and a linter for Lua";
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  luacov = callPackage ({
+  luacov = callPackage (
+    {
       luaAtLeast,
       buildLuarocksPackage,
       luaOlder,
@@ -2289,9 +2408,11 @@ final: prev: {
         description = "Coverage analysis tool for Lua scripts";
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  luadbi = callPackage ({
+  luadbi = callPackage (
+    {
       buildLuarocksPackage,
       lua,
       luaOlder,
@@ -2331,9 +2452,11 @@ final: prev: {
         description = "Database abstraction layer";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  luadbi-mysql = callPackage ({
+  luadbi-mysql = callPackage (
+    {
       luaOlder,
       lua,
       buildLuarocksPackage,
@@ -2377,9 +2500,11 @@ final: prev: {
         description = "Database abstraction layer";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  luadbi-postgresql = callPackage ({
+  luadbi-postgresql = callPackage (
+    {
       lua,
       fetchgit,
       buildLuarocksPackage,
@@ -2423,9 +2548,11 @@ final: prev: {
         description = "Database abstraction layer";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  luadbi-sqlite3 = callPackage ({
+  luadbi-sqlite3 = callPackage (
+    {
       luaAtLeast,
       lua,
       luaOlder,
@@ -2469,9 +2596,11 @@ final: prev: {
         description = "Database abstraction layer";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  luaepnf = callPackage ({
+  luaepnf = callPackage (
+    {
       luaOlder,
       buildLuarocksPackage,
       lpeg,
@@ -2515,9 +2644,11 @@ final: prev: {
         description = "Extended PEG Notation Format (easy grammars for LPeg)";
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  luaevent = callPackage ({
+  luaevent = callPackage (
+    {
       lua,
       fetchurl,
       luaOlder,
@@ -2544,9 +2675,11 @@ final: prev: {
         description = "libevent binding for Lua";
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  luaexpat = callPackage ({
+  luaexpat = callPackage (
+    {
       buildLuarocksPackage,
       fetchgit,
       luaOlder,
@@ -2589,9 +2722,11 @@ final: prev: {
         ];
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  luaffi = callPackage ({
+  luaffi = callPackage (
+    {
       fetchgit,
       buildLuarocksPackage,
       lua,
@@ -2630,9 +2765,11 @@ final: prev: {
         description = "FFI library for calling C functions from lua";
         license.fullName = "BSD";
       };
-    }) { };
+    }
+  ) { };
 
-  luafilesystem = callPackage ({
+  luafilesystem = callPackage (
+    {
       luaOlder,
       lua,
       fetchgit,
@@ -2672,9 +2809,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ flosse ];
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  lualdap = callPackage ({
+  lualdap = callPackage (
+    {
       fetchgit,
       lua,
       luaOlder,
@@ -2714,9 +2853,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ aanderse ];
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  lualogging = callPackage ({
+  lualogging = callPackage (
+    {
       luasocket,
       buildLuarocksPackage,
       fetchgit,
@@ -2753,9 +2894,11 @@ final: prev: {
         description = "A simple API to use logging features";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  luaossl = callPackage ({
+  luaossl = callPackage (
+    {
       buildLuarocksPackage,
       lua,
       fetchzip,
@@ -2780,9 +2923,11 @@ final: prev: {
         description = "Most comprehensive OpenSSL module in the Lua universe.";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  luaposix = callPackage ({
+  luaposix = callPackage (
+    {
       bit32,
       lua,
       luaOlder,
@@ -2818,9 +2963,11 @@ final: prev: {
         ];
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  luarepl = callPackage ({
+  luarepl = callPackage (
+    {
       buildLuarocksPackage,
       fetchurl,
       luaOlder,
@@ -2847,9 +2994,11 @@ final: prev: {
         description = "A reusable REPL component for Lua, written in Lua";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  luasec = callPackage ({
+  luasec = callPackage (
+    {
       fetchgit,
       luaOlder,
       luasocket,
@@ -2894,9 +3043,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ flosse ];
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  luasocket = callPackage ({
+  luasocket = callPackage (
+    {
       fetchgit,
       lua,
       luaOlder,
@@ -2935,9 +3086,11 @@ final: prev: {
         description = "Network support for the Lua language";
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  luasql-sqlite3 = callPackage ({
+  luasql-sqlite3 = callPackage (
+    {
       lua,
       buildLuarocksPackage,
       fetchgit,
@@ -2977,9 +3130,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ vyp ];
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  luassert = callPackage ({
+  luassert = callPackage (
+    {
       luaOlder,
       fetchgit,
       buildLuarocksPackage,
@@ -3022,9 +3177,11 @@ final: prev: {
         description = "Lua assertions extension";
         license.fullName = "MIT <http://opensource.org/licenses/MIT>";
       };
-    }) { };
+    }
+  ) { };
 
-  luasystem = callPackage ({
+  luasystem = callPackage (
+    {
       buildLuarocksPackage,
       luaOlder,
       lua,
@@ -3051,9 +3208,11 @@ final: prev: {
         description = "Platform independent system calls for Lua.";
         license.fullName = "MIT <http://opensource.org/licenses/MIT>";
       };
-    }) { };
+    }
+  ) { };
 
-  luaunbound = callPackage ({
+  luaunbound = callPackage (
+    {
       fetchurl,
       lua,
       buildLuarocksPackage,
@@ -3081,9 +3240,11 @@ final: prev: {
         description = "A binding to libunbound";
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  luaunit = callPackage ({
+  luaunit = callPackage (
+    {
       buildLuarocksPackage,
       fetchzip,
       lua,
@@ -3113,9 +3274,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ lockejan ];
         license.fullName = "BSD";
       };
-    }) { };
+    }
+  ) { };
 
-  luautf8 = callPackage ({
+  luautf8 = callPackage (
+    {
       fetchurl,
       buildLuarocksPackage,
       lua,
@@ -3144,9 +3307,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ pstn ];
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  luazip = callPackage ({
+  luazip = callPackage (
+    {
       luaOlder,
       luaAtLeast,
       buildLuarocksPackage,
@@ -3186,9 +3351,11 @@ final: prev: {
         description = "Library for reading files inside zip files";
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  lush-nvim = callPackage ({
+  lush-nvim = callPackage (
+    {
       buildLuarocksPackage,
       fetchgit,
       luaAtLeast,
@@ -3226,9 +3393,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ teto ];
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  luuid = callPackage ({
+  luuid = callPackage (
+    {
       luaOlder,
       luaAtLeast,
       buildLuarocksPackage,
@@ -3256,9 +3425,11 @@ final: prev: {
         description = "A library for UUID generation";
         license.fullName = "Public domain";
       };
-    }) { };
+    }
+  ) { };
 
-  luv = callPackage ({
+  luv = callPackage (
+    {
       luaOlder,
       buildLuarocksPackage,
       fetchurl,
@@ -3286,9 +3457,11 @@ final: prev: {
         description = "Bare libuv bindings for lua";
         license.fullName = "Apache 2.0";
       };
-    }) { };
+    }
+  ) { };
 
-  lyaml = callPackage ({
+  lyaml = callPackage (
+    {
       buildLuarocksPackage,
       fetchzip,
       lua,
@@ -3317,9 +3490,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ lblasc ];
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  markdown = callPackage ({
+  markdown = callPackage (
+    {
       buildLuarocksPackage,
       luaAtLeast,
       fetchgit,
@@ -3359,9 +3534,11 @@ final: prev: {
         description = "Markdown text-to-html markup system.";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  mediator_lua = callPackage ({
+  mediator_lua = callPackage (
+    {
       luaOlder,
       lua,
       fetchurl,
@@ -3389,9 +3566,11 @@ final: prev: {
         description = "Event handling through channels";
         license.fullName = "MIT <http://opensource.org/licenses/MIT>";
       };
-    }) { };
+    }
+  ) { };
 
-  moonscript = callPackage ({
+  moonscript = callPackage (
+    {
       lpeg,
       luaOlder,
       fetchgit,
@@ -3435,9 +3614,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ arobyn ];
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  mpack = callPackage ({
+  mpack = callPackage (
+    {
       buildLuarocksPackage,
       fetchurl,
     }:
@@ -3460,9 +3641,11 @@ final: prev: {
         description = "Lua binding to libmpack";
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  nvim-client = callPackage ({
+  nvim-client = callPackage (
+    {
       coxpcall,
       fetchurl,
       mpack,
@@ -3493,9 +3676,11 @@ final: prev: {
         description = "Lua client to Nvim";
         license.fullName = "Apache";
       };
-    }) { };
+    }
+  ) { };
 
-  nvim-cmp = callPackage ({
+  nvim-cmp = callPackage (
+    {
       luaAtLeast,
       lua,
       fetchgit,
@@ -3531,9 +3716,11 @@ final: prev: {
         description = "A completion plugin for neovim";
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  penlight = callPackage ({
+  penlight = callPackage (
+    {
       luafilesystem,
       luaOlder,
       fetchgit,
@@ -3574,9 +3761,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ alerque ];
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  plenary-nvim = callPackage ({
+  plenary-nvim = callPackage (
+    {
       lua,
       fetchgit,
       luaOlder,
@@ -3616,9 +3805,11 @@ final: prev: {
         description = "lua functions you don't want to write ";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  rapidjson = callPackage ({
+  rapidjson = callPackage (
+    {
       lua,
       buildLuarocksPackage,
       luaOlder,
@@ -3653,9 +3844,11 @@ final: prev: {
         description = "Json module based on the very fast RapidJSON.";
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  readline = callPackage ({
+  readline = callPackage (
+    {
       buildLuarocksPackage,
       fetchurl,
       luaAtLeast,
@@ -3687,9 +3880,11 @@ final: prev: {
         description = "Interface to the readline library";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  rest-nvim = callPackage ({
+  rest-nvim = callPackage (
+    {
       lua,
       luaAtLeast,
       buildLuarocksPackage,
@@ -3722,9 +3917,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ teto ];
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  say = callPackage ({
+  say = callPackage (
+    {
       luaOlder,
       fetchgit,
       lua,
@@ -3759,9 +3956,11 @@ final: prev: {
         description = "Lua string hashing/indexing library";
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  serpent = callPackage ({
+  serpent = callPackage (
+    {
       fetchgit,
       luaAtLeast,
       lua,
@@ -3802,9 +4001,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ lockejan ];
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  sqlite = callPackage ({
+  sqlite = callPackage (
+    {
       fetchgit,
       buildLuarocksPackage,
       luv,
@@ -3842,9 +4043,11 @@ final: prev: {
           "SQLite/LuaJIT binding and a highly opinionated wrapper for storing, retrieving, caching, and persisting [SQLite] databases";
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  std-_debug = callPackage ({
+  std-_debug = callPackage (
+    {
       buildLuarocksPackage,
       lua,
       luaOlder,
@@ -3880,9 +4083,11 @@ final: prev: {
         description = "Debug Hints Library";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  std-normalize = callPackage ({
+  std-normalize = callPackage (
+    {
       buildLuarocksPackage,
       fetchgit,
       lua,
@@ -3922,9 +4127,11 @@ final: prev: {
         description = "Normalized Lua Functions";
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  stdlib = callPackage ({
+  stdlib = callPackage (
+    {
       buildLuarocksPackage,
       luaAtLeast,
       fetchzip,
@@ -3954,9 +4161,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ vyp ];
         license.fullName = "MIT/X11";
       };
-    }) { };
+    }
+  ) { };
 
-  teal-language-server = callPackage ({
+  teal-language-server = callPackage (
+    {
       luafilesystem,
       buildLuarocksPackage,
       dkjson,
@@ -3999,9 +4208,11 @@ final: prev: {
         description = "A language server for the Teal language";
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  telescope-manix = callPackage ({
+  telescope-manix = callPackage (
+    {
       telescope-nvim,
       buildLuarocksPackage,
       lua,
@@ -4033,9 +4244,11 @@ final: prev: {
           "A telescope.nvim extension for Manix - A fast documentation searcher for Nix";
         license.fullName = "GPL-2.0";
       };
-    }) { };
+    }
+  ) { };
 
-  telescope-nvim = callPackage ({
+  telescope-nvim = callPackage (
+    {
       plenary-nvim,
       buildLuarocksPackage,
       lua,
@@ -4077,9 +4290,11 @@ final: prev: {
         description = "Find, Filter, Preview, Pick. All lua, all the time.";
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  tl = callPackage ({
+  tl = callPackage (
+    {
       compat53,
       luafilesystem,
       argparse,
@@ -4123,9 +4338,11 @@ final: prev: {
         maintainers = with lib.maintainers; [ mephistophiles ];
         license.fullName = "MIT";
       };
-    }) { };
+    }
+  ) { };
 
-  vstruct = callPackage ({
+  vstruct = callPackage (
+    {
       fetchgit,
       lua,
       buildLuarocksPackage,
@@ -4159,9 +4376,11 @@ final: prev: {
         homepage = "https://github.com/ToxicFrog/vstruct";
         description = "Lua library to manipulate binary data";
       };
-    }) { };
+    }
+  ) { };
 
-  vusted = callPackage ({
+  vusted = callPackage (
+    {
       buildLuarocksPackage,
       fetchgit,
       busted,
@@ -4199,7 +4418,8 @@ final: prev: {
         maintainers = with lib.maintainers; [ figsoda ];
         license.fullName = "MIT <http://opensource.org/licenses/MIT>";
       };
-    }) { };
+    }
+  ) { };
 
 }
 # GENERATED - do not edit this file

@@ -61,10 +61,12 @@ let
   datasetOptions = rec {
     use_template = mkOption {
       description = lib.mdDoc "Names of the templates to use for this dataset.";
-      type = types.listOf (types.str // {
-        check = (types.enum (attrNames cfg.templates)).check;
-        description = "configured template name";
-      });
+      type = types.listOf (
+        types.str // {
+          check = (types.enum (attrNames cfg.templates)).check;
+          description = "configured template name";
+        }
+      );
       default = [ ];
     };
     useTemplate = use_template;
@@ -158,19 +160,23 @@ in
     };
 
     datasets = mkOption {
-      type = types.attrsOf (types.submodule ({
+      type = types.attrsOf (types.submodule (
+        {
           config,
           options,
           ...
         }: {
           freeformType = datasetSettingsType;
           options = commonOptions // datasetOptions;
-          config.use_template = modules.mkAliasAndWrapDefsWithPriority id
-            (options.useTemplate or { });
+          config.use_template = modules.mkAliasAndWrapDefsWithPriority id (
+            options.useTemplate or { }
+          );
           config.process_children_only =
-            modules.mkAliasAndWrapDefsWithPriority id
-            (options.processChildrenOnly or { });
-        }));
+            modules.mkAliasAndWrapDefsWithPriority id (
+              options.processChildrenOnly or { }
+            );
+        }
+      ));
       default = { };
       description = lib.mdDoc "Datasets to snapshot.";
     };
@@ -232,13 +238,15 @@ in
             "mount"
             "destroy"
           ]) datasets);
-        ExecStart = lib.escapeShellArgs ([
-          "${cfg.package}/bin/sanoid"
-          "--cron"
-          "--configdir"
-          (pkgs.writeTextDir "sanoid.conf" configFile)
-        ]
-          ++ cfg.extraArgs);
+        ExecStart = lib.escapeShellArgs (
+          [
+            "${cfg.package}/bin/sanoid"
+            "--cron"
+            "--configdir"
+            (pkgs.writeTextDir "sanoid.conf" configFile)
+          ]
+          ++ cfg.extraArgs
+        );
         User = "sanoid";
         Group = "sanoid";
         DynamicUser = true;

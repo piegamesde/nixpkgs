@@ -92,25 +92,27 @@ stdenv.mkDerivation rec {
     # TODO: Consider using resholve here
   postInstall =
     let
-      paths = lib.makeBinPath ([
-        coreutils
-        ethtool
-        gawk
-        gnugrep
-        gnused
-        hdparm
-        iw
-        kmod
-        pciutils
-        perl
-        smartmontools
-        systemd
-        util-linux
-      ]
+      paths = lib.makeBinPath (
+        [
+          coreutils
+          ethtool
+          gawk
+          gnugrep
+          gnused
+          hdparm
+          iw
+          kmod
+          pciutils
+          perl
+          smartmontools
+          systemd
+          util-linux
+        ]
         ++ lib.optional enableRDW networkmanager
         ++ lib.optional
           (lib.meta.availableOn stdenv.hostPlatform x86_energy_perf_policy)
-          x86_energy_perf_policy);
+          x86_energy_perf_policy
+      );
     in
     ''
       fixup_perl=(

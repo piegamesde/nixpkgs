@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }:
@@ -32,4 +33,5 @@ import ./make-test-python.nix ({
       machine.succeed("test -f ~root/at-1")
       machine.succeed("test -f ~alice/at-1")
     '';
-  })
+  }
+)

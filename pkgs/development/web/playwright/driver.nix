@@ -18,7 +18,8 @@ let
 
   throwSystem = throw "Unsupported system: ${system}";
 
-  driver = stdenv.mkDerivation (finalAttrs:
+  driver = stdenv.mkDerivation (
+    finalAttrs:
     let
       suffix =
         {
@@ -117,15 +118,17 @@ let
     let
       fontconfig = makeFontsConf { fontDirectories = [ ]; };
     in
-    runCommand
-    ("playwright-browsers" + lib.optionalString withChromium "-chromium") {
+    runCommand (
+      "playwright-browsers" + lib.optionalString withChromium "-chromium"
+    ) {
       nativeBuildInputs = [
         makeWrapper
         jq
       ];
-    } (''
-      BROWSERS_JSON=${driver}/package/browsers.json
-    ''
+    } (
+      ''
+        BROWSERS_JSON=${driver}/package/browsers.json
+      ''
       + lib.optionalString withChromium ''
         CHROMIUM_REVISION=$(jq -r '.browsers[] | select(.name == "chromium").revision' $BROWSERS_JSON)
         mkdir -p $out/chromium-$CHROMIUM_REVISION/chrome-linux
@@ -140,7 +143,8 @@ let
         FFMPEG_REVISION=$(jq -r '.browsers[] | select(.name == "ffmpeg").revision' $BROWSERS_JSON)
         mkdir -p $out/ffmpeg-$FFMPEG_REVISION
         ln -s ${ffmpeg}/bin/ffmpeg $out/ffmpeg-$FFMPEG_REVISION/ffmpeg-linux
-      '')
+      ''
+    )
     ;
 in
 driver

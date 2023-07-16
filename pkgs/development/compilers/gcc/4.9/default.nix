@@ -115,67 +115,69 @@ let
       ../struct-sigaltstack-4.9.patch
     ] # glibc-2.26
     # Retpoline patches pulled from the branch hjl/indirect/gcc-4_9-branch (by H.J. Lu, the author of GCC upstream retpoline commits)
-    ++ builtins.map ({
+    ++ builtins.map (
+      {
         commit,
         sha256,
       }:
       fetchpatch {
         url = "https://github.com/hjl-tools/gcc/commit/${commit}.patch";
         inherit sha256;
-      }) [
-        {
-          commit = "e623d21608e96ecd6b65f0d06312117d20488a38";
-          sha256 = "1ix8i4d2r3ygbv7npmsdj790rhxqrnfwcqzv48b090r9c3ij8ay3";
-        }
-        {
-          commit = "2015a09e332309f12de1dadfe179afa6a29368b8";
-          sha256 = "0xcfs0cbb63llj2gbcdrvxim79ax4k4aswn0a3yjavxsj71s1n91";
-        }
-        {
-          commit = "6b11591f4494f705e8746e7d58b7f423191f4e92";
-          sha256 = "0aydyhsm2ig0khgbp27am7vq7liyqrq6kfhfi2ki0ij0ab1hfbga";
-        }
-        {
-          commit = "203c7d9c3e9cb0f88816b481ef8e7e87b3ecc373";
-          sha256 = "0wqn16y7wy5kg8ngfcni5qdwfphl01axczibbk49bxclwnzvldqa";
-        }
-        {
-          commit = "f039c6f284b2c9ce97c8353d6034978795c4872e";
-          sha256 = "13fkgdb17lpyxfksz1zanxhgpsm0jrss9w61nbl7an4im22hz7ci";
-        }
-        {
-          commit = "ed42606bdab1c5d9e5ad828cd6fe1a0557f193b7";
-          sha256 = "0gdnn8v3p03imj3qga2mzdhpgbmjcklkxdl97jvz5xia2ikzknxm";
-        }
-        {
-          commit = "5278e062ef292fd2fbf987d25389785f4c5c0f99";
-          sha256 = "0j81x758wf8v7j4rx5wc1cy7yhkvhlhv3wmnarwakxiwsspq0vrs";
-        }
-        {
-          commit = "76f1ffbbb6cd9f6ecde6c82cd16e20a27242e890";
-          sha256 = "1py56y6gp7fjf4f8bbsfwh5bs1gnmlqda1ycsmnwlzfm0cshdp0c";
-        }
-        {
-          commit = "4ca48b2b688b135c0390f54ea9077ef10aedd52c";
-          sha256 = "15r019pzr3k0lpgyvdc92c8fayw8b5lrzncna4bqmamcsdz7vsaw";
-        }
-        {
-          commit = "98c7bf9ddc80db965d69d61521b1c7a1cec32d9a";
-          sha256 = "1d7pfdv1q23nf0wadw7jbp6d6r7pnzjpbyxgbdfv7j1vr9l1bp60";
-        }
-        {
-          commit = "3dc76b53ad896494ca62550a7a752fecbca3f7a2";
-          sha256 = "0jvdzfpvfdmklfcjwqblwq1i22iqis7ljpvm7adra5d7zf2xk7xz";
-        }
-        {
-          commit = "1e961ed49b18e176c7457f53df2433421387c23b";
-          sha256 = "04dnqqs4qsvz4g8cq6db5id41kzys7hzhcaycwmc9rpqygs2ajwz";
-        }
-        {
-          commit = "e137c72d099f9b3b47f4cc718aa11eab14df1a9c";
-          sha256 = "1ms0dmz74yf6kwgjfs4d2fhj8y6mcp2n184r3jk44wx2xc24vgb2";
-        }
-      ]
+      }
+    ) [
+      {
+        commit = "e623d21608e96ecd6b65f0d06312117d20488a38";
+        sha256 = "1ix8i4d2r3ygbv7npmsdj790rhxqrnfwcqzv48b090r9c3ij8ay3";
+      }
+      {
+        commit = "2015a09e332309f12de1dadfe179afa6a29368b8";
+        sha256 = "0xcfs0cbb63llj2gbcdrvxim79ax4k4aswn0a3yjavxsj71s1n91";
+      }
+      {
+        commit = "6b11591f4494f705e8746e7d58b7f423191f4e92";
+        sha256 = "0aydyhsm2ig0khgbp27am7vq7liyqrq6kfhfi2ki0ij0ab1hfbga";
+      }
+      {
+        commit = "203c7d9c3e9cb0f88816b481ef8e7e87b3ecc373";
+        sha256 = "0wqn16y7wy5kg8ngfcni5qdwfphl01axczibbk49bxclwnzvldqa";
+      }
+      {
+        commit = "f039c6f284b2c9ce97c8353d6034978795c4872e";
+        sha256 = "13fkgdb17lpyxfksz1zanxhgpsm0jrss9w61nbl7an4im22hz7ci";
+      }
+      {
+        commit = "ed42606bdab1c5d9e5ad828cd6fe1a0557f193b7";
+        sha256 = "0gdnn8v3p03imj3qga2mzdhpgbmjcklkxdl97jvz5xia2ikzknxm";
+      }
+      {
+        commit = "5278e062ef292fd2fbf987d25389785f4c5c0f99";
+        sha256 = "0j81x758wf8v7j4rx5wc1cy7yhkvhlhv3wmnarwakxiwsspq0vrs";
+      }
+      {
+        commit = "76f1ffbbb6cd9f6ecde6c82cd16e20a27242e890";
+        sha256 = "1py56y6gp7fjf4f8bbsfwh5bs1gnmlqda1ycsmnwlzfm0cshdp0c";
+      }
+      {
+        commit = "4ca48b2b688b135c0390f54ea9077ef10aedd52c";
+        sha256 = "15r019pzr3k0lpgyvdc92c8fayw8b5lrzncna4bqmamcsdz7vsaw";
+      }
+      {
+        commit = "98c7bf9ddc80db965d69d61521b1c7a1cec32d9a";
+        sha256 = "1d7pfdv1q23nf0wadw7jbp6d6r7pnzjpbyxgbdfv7j1vr9l1bp60";
+      }
+      {
+        commit = "3dc76b53ad896494ca62550a7a752fecbca3f7a2";
+        sha256 = "0jvdzfpvfdmklfcjwqblwq1i22iqis7ljpvm7adra5d7zf2xk7xz";
+      }
+      {
+        commit = "1e961ed49b18e176c7457f53df2433421387c23b";
+        sha256 = "04dnqqs4qsvz4g8cq6db5id41kzys7hzhcaycwmc9rpqygs2ajwz";
+      }
+      {
+        commit = "e137c72d099f9b3b47f4cc718aa11eab14df1a9c";
+        sha256 = "1ms0dmz74yf6kwgjfs4d2fhj8y6mcp2n184r3jk44wx2xc24vgb2";
+      }
+    ]
 
     ++ [
       ../libsanitizer-no-cyclades-9.patch
@@ -314,212 +316,222 @@ let
   # We need all these X libraries when building AWT with GTK.
 in
 assert x11Support
-  -> (filter (x: x == null) ([
-    gtk2
-    libart_lgpl
-  ]
-    ++ xlibs))
+  -> (filter (x: x == null) (
+    [
+      gtk2
+      libart_lgpl
+    ]
+    ++ xlibs
+  ))
     == [ ];
 
-stdenv.mkDerivation ({
-  pname = "${crossNameAddon}${name}";
-  inherit version;
+stdenv.mkDerivation (
+  {
+    pname = "${crossNameAddon}${name}";
+    inherit version;
 
-  builder = ../builder.sh;
+    builder = ../builder.sh;
 
-  src = fetchurl {
-    url = "mirror://gnu/gcc/gcc-${version}/gcc-${version}.tar.bz2";
-    sha256 = "14l06m7nvcvb0igkbip58x59w3nq6315k6jcz3wr9ch1rn9d44bc";
-  };
+    src = fetchurl {
+      url = "mirror://gnu/gcc/gcc-${version}/gcc-${version}.tar.bz2";
+      sha256 = "14l06m7nvcvb0igkbip58x59w3nq6315k6jcz3wr9ch1rn9d44bc";
+    };
 
-  inherit patches;
+    inherit patches;
 
-  hardeningDisable = [
-    "format"
-    "pie"
-  ];
+    hardeningDisable = [
+      "format"
+      "pie"
+    ];
 
-    # When targeting darwin, libgcc_ext.10.{4,5}.dylib are created as
-    # MH_DYLIB_STUB files, which install_name_tool can't change, so we
-    # get a cycle between $out and $lib.
-  outputs =
-    if langJava || langGo || targetPlatform.isDarwin then
-      [
-        "out"
-        "man"
-        "info"
-      ]
-    else
-      [
-        "out"
-        "lib"
-        "man"
-        "info"
-      ]
-    ;
-  setOutputFlags = false;
-  NIX_NO_SELF_RPATH = true;
-
-  libc_dev = stdenv.cc.libc_dev;
-
-  postPatch =
-    if
-      targetPlatform != hostPlatform || stdenv.cc.libc != null
-    then
-    # On NixOS, use the right path to the dynamic linker instead of
-    # `/lib/ld*.so'.
-      let
-        libc =
-          if libcCross != null then
-            libcCross
-          else
-            stdenv.cc.libc
-          ;
-      in
-      ''
-        echo "fixing the \`GLIBC_DYNAMIC_LINKER' and \`UCLIBC_DYNAMIC_LINKER' macros..."
-                  for header in "gcc/config/"*-gnu.h "gcc/config/"*"/"*.h
-                  do
-                    grep -q LIBC_DYNAMIC_LINKER "$header" || continue
-                    echo "  fixing \`$header'..."
-                    sed -i "$header" \
-                        -e 's|define[[:blank:]]*\([UCG]\+\)LIBC_DYNAMIC_LINKER\([0-9]*\)[[:blank:]]"\([^\"]\+\)"$|define \1LIBC_DYNAMIC_LINKER\2 "${libc.out}\3"|g'
-                  done
-      ''
-    else
-      null
-    ;
-
-  inherit
-    noSysDirs
-    staticCompiler
-    langJava
-    crossStageStatic
-    libcCross
-    crossMingw
-    ;
-
-  inherit (callFile ../common/dependencies.nix { })
-    depsBuildBuild
-    nativeBuildInputs
-    depsBuildTarget
-    buildInputs
-    depsTargetTarget
-    ;
-
-  preConfigure = callFile ../common/pre-configure.nix { };
-
-  dontDisableStatic = true;
-
-  configurePlatforms = [
-    "build"
-    "host"
-    "target"
-  ];
-
-  configureFlags = callFile ../common/configure-flags.nix { };
-
-  targetConfig =
-    if targetPlatform != hostPlatform then
-      targetPlatform.config
-    else
-      null
-    ;
-
-  buildFlags =
-    optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
-    (if profiledCompiler then
-      "profiledbootstrap"
-    else
-      "bootstrap");
-
-  inherit (callFile ../common/strip-attributes.nix { })
-    stripDebugList
-    stripDebugListTarget
-    preFixup
-    ;
-
-  doCheck =
-    false; # requires a lot of tools, causes a dependency cycle for stdenv
-
-    # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
-  ${
-    if hostPlatform.system == "x86_64-solaris" then
-      "CC"
-    else
-      null
-  } = "gcc -m64";
-
-    # Setting $CPATH and $LIBRARY_PATH to make sure both `gcc' and `xgcc' find the
-    # library headers and binaries, regarless of the language being compiled.
-    #
-    # Note: When building the Java AWT GTK peer, the build system doesn't honor
-    # `--with-gmp' et al., e.g., when building
-    # `libjava/classpath/native/jni/java-math/gnu_java_math_GMP.c', so we just add
-    # them to $CPATH and $LIBRARY_PATH in this case.
-    #
-    # Likewise, the LTO code doesn't find zlib.
-    #
-    # Cross-compiling, we need gcc not to read ./specs in order to build the g++
-    # compiler (after the specs for the cross-gcc are created). Having
-    # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
-
-  CPATH = optionals (targetPlatform == hostPlatform)
-    (makeSearchPathOutput "dev" "include" ([ ]
-      ++ optional (zlib != null) zlib
-      ++ optional langJava boehmgc
-      ++ optionals javaAwtGtk xlibs
-      ++ optionals javaAwtGtk [
-        gmp
-        mpfr
-      ]));
-
-  LIBRARY_PATH = optionals (targetPlatform == hostPlatform) (makeLibraryPath
-    ([ ]
-      ++ optional (zlib != null) zlib
-      ++ optional langJava boehmgc
-      ++ optionals javaAwtGtk xlibs
-      ++ optionals javaAwtGtk [
-        gmp
-        mpfr
-      ]));
-
-  inherit (callFile ../common/extra-target-flags.nix { })
-    EXTRA_FLAGS_FOR_TARGET
-    EXTRA_LDFLAGS_FOR_TARGET
-    ;
-
-  passthru = {
-    inherit langC langCC langObjC langObjCpp langFortran langGo version;
-    isGNU = true;
-    hardeningUnsupportedFlags = [ "fortify3" ];
-  };
-
-  enableParallelBuilding = true;
-  inherit enableShared enableMultilib;
-
-  meta = {
-    inherit (callFile ../common/meta.nix { })
-      homepage
-      license
-      description
-      longDescription
-      platforms
-      maintainers
+      # When targeting darwin, libgcc_ext.10.{4,5}.dylib are created as
+      # MH_DYLIB_STUB files, which install_name_tool can't change, so we
+      # get a cycle between $out and $lib.
+    outputs =
+      if langJava || langGo || targetPlatform.isDarwin then
+        [
+          "out"
+          "man"
+          "info"
+        ]
+      else
+        [
+          "out"
+          "lib"
+          "man"
+          "info"
+        ]
       ;
-    badPlatforms = [ "aarch64-darwin" ];
-  };
-}
+    setOutputFlags = false;
+    NIX_NO_SELF_RPATH = true;
 
-  // optionalAttrs (targetPlatform != hostPlatform
+    libc_dev = stdenv.cc.libc_dev;
+
+    postPatch =
+      if
+        targetPlatform != hostPlatform || stdenv.cc.libc != null
+      then
+      # On NixOS, use the right path to the dynamic linker instead of
+      # `/lib/ld*.so'.
+        let
+          libc =
+            if libcCross != null then
+              libcCross
+            else
+              stdenv.cc.libc
+            ;
+        in
+        ''
+          echo "fixing the \`GLIBC_DYNAMIC_LINKER' and \`UCLIBC_DYNAMIC_LINKER' macros..."
+                    for header in "gcc/config/"*-gnu.h "gcc/config/"*"/"*.h
+                    do
+                      grep -q LIBC_DYNAMIC_LINKER "$header" || continue
+                      echo "  fixing \`$header'..."
+                      sed -i "$header" \
+                          -e 's|define[[:blank:]]*\([UCG]\+\)LIBC_DYNAMIC_LINKER\([0-9]*\)[[:blank:]]"\([^\"]\+\)"$|define \1LIBC_DYNAMIC_LINKER\2 "${libc.out}\3"|g'
+                    done
+        ''
+      else
+        null
+      ;
+
+    inherit
+      noSysDirs
+      staticCompiler
+      langJava
+      crossStageStatic
+      libcCross
+      crossMingw
+      ;
+
+    inherit (callFile ../common/dependencies.nix { })
+      depsBuildBuild
+      nativeBuildInputs
+      depsBuildTarget
+      buildInputs
+      depsTargetTarget
+      ;
+
+    preConfigure = callFile ../common/pre-configure.nix { };
+
+    dontDisableStatic = true;
+
+    configurePlatforms = [
+      "build"
+      "host"
+      "target"
+    ];
+
+    configureFlags = callFile ../common/configure-flags.nix { };
+
+    targetConfig =
+      if targetPlatform != hostPlatform then
+        targetPlatform.config
+      else
+        null
+      ;
+
+    buildFlags =
+      optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
+      (
+        if profiledCompiler then
+          "profiledbootstrap"
+        else
+          "bootstrap"
+      );
+
+    inherit (callFile ../common/strip-attributes.nix { })
+      stripDebugList
+      stripDebugListTarget
+      preFixup
+      ;
+
+    doCheck =
+      false; # requires a lot of tools, causes a dependency cycle for stdenv
+
+      # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
+    ${
+      if hostPlatform.system == "x86_64-solaris" then
+        "CC"
+      else
+        null
+    } = "gcc -m64";
+
+      # Setting $CPATH and $LIBRARY_PATH to make sure both `gcc' and `xgcc' find the
+      # library headers and binaries, regarless of the language being compiled.
+      #
+      # Note: When building the Java AWT GTK peer, the build system doesn't honor
+      # `--with-gmp' et al., e.g., when building
+      # `libjava/classpath/native/jni/java-math/gnu_java_math_GMP.c', so we just add
+      # them to $CPATH and $LIBRARY_PATH in this case.
+      #
+      # Likewise, the LTO code doesn't find zlib.
+      #
+      # Cross-compiling, we need gcc not to read ./specs in order to build the g++
+      # compiler (after the specs for the cross-gcc are created). Having
+      # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
+
+    CPATH = optionals (targetPlatform == hostPlatform)
+      (makeSearchPathOutput "dev" "include" (
+        [ ]
+        ++ optional (zlib != null) zlib
+        ++ optional langJava boehmgc
+        ++ optionals javaAwtGtk xlibs
+        ++ optionals javaAwtGtk [
+          gmp
+          mpfr
+        ]
+      ));
+
+    LIBRARY_PATH = optionals (targetPlatform == hostPlatform) (makeLibraryPath (
+      [ ]
+      ++ optional (zlib != null) zlib
+      ++ optional langJava boehmgc
+      ++ optionals javaAwtGtk xlibs
+      ++ optionals javaAwtGtk [
+        gmp
+        mpfr
+      ]
+    ));
+
+    inherit (callFile ../common/extra-target-flags.nix { })
+      EXTRA_FLAGS_FOR_TARGET
+      EXTRA_LDFLAGS_FOR_TARGET
+      ;
+
+    passthru = {
+      inherit langC langCC langObjC langObjCpp langFortran langGo version;
+      isGNU = true;
+      hardeningUnsupportedFlags = [ "fortify3" ];
+    };
+
+    enableParallelBuilding = true;
+    inherit enableShared enableMultilib;
+
+    meta = {
+      inherit (callFile ../common/meta.nix { })
+        homepage
+        license
+        description
+        longDescription
+        platforms
+        maintainers
+        ;
+      badPlatforms = [ "aarch64-darwin" ];
+    };
+  }
+
+  // optionalAttrs (
+    targetPlatform != hostPlatform
     && targetPlatform.libc == "msvcrt"
-    && crossStageStatic) {
-      makeFlags = [
-        "all-gcc"
-        "all-target-libgcc"
-      ];
-      installTargets = "install-gcc install-target-libgcc";
-    }
+    && crossStageStatic
+  ) {
+    makeFlags = [
+      "all-gcc"
+      "all-target-libgcc"
+    ];
+    installTargets = "install-gcc install-target-libgcc";
+  }
 
   // optionalAttrs (enableMultilib) { dontMoveLib64 = true; }
 
@@ -528,4 +540,5 @@ stdenv.mkDerivation ({
       target="$(echo "$out/libexec/gcc"/*/*/ecj*)"
       patchelf --set-rpath "$(patchelf --print-rpath "$target"):$out/lib" "$target"
     '';
-  })
+  }
+)

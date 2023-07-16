@@ -163,10 +163,12 @@ in
       "--runstatedir=/var/run"
     ]
     ++ lib.optional (!enableSeccomp) "--without-seccomp"
-    ++ lib.optional (enableSuid != defaultToSuid) (if enableSuid then
-      "--with-suid"
-    else
-      "--without-suid")
+    ++ lib.optional (enableSuid != defaultToSuid) (
+      if enableSuid then
+        "--with-suid"
+      else
+        "--without-suid"
+    )
     ++ extraConfigureFlags
     ;
 
@@ -274,17 +276,19 @@ in
       ];
       mainProgram = projectName;
     } // extraMeta;
-}).overrideAttrs (finalAttrs: prevAttrs: {
-  passthru = prevAttrs.passthru or { } // {
-    tests = {
-      image-hello-cowsay = singularity-tools.buildImage {
-        name = "hello-cowsay";
-        contents = [
-          hello
-          cowsay
-        ];
-        singularity = finalAttrs.finalPackage;
+}).overrideAttrs (
+  finalAttrs: prevAttrs: {
+    passthru = prevAttrs.passthru or { } // {
+      tests = {
+        image-hello-cowsay = singularity-tools.buildImage {
+          name = "hello-cowsay";
+          contents = [
+            hello
+            cowsay
+          ];
+          singularity = finalAttrs.finalPackage;
+        };
       };
     };
-  };
-})
+  }
+)

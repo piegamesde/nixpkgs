@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -89,4 +90,5 @@ import ./make-test-python.nix ({
                     raise Exception("Inserted bookmark doesn't have same URL or title")
       ''
       ;
-  })
+  }
+)

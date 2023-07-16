@@ -125,11 +125,13 @@ stdenv.mkDerivation rec {
       swig
       ctags
     ]
-    ++ (with python3Packages; [
-      python
-      jinja2
-      ply
-    ])
+    ++ (
+      with python3Packages; [
+        python
+        jinja2
+        ply
+      ]
+    )
     ;
 
   buildInputs =
@@ -152,10 +154,12 @@ stdenv.mkDerivation rec {
       lp_solve
       colpack
     ]
-    ++ lib.optionals pythonSupport (with python3Packages; [
-      python
-      numpy
-    ])
+    ++ lib.optionals pythonSupport (
+      with python3Packages; [
+        python
+        numpy
+      ]
+    )
     ++ lib.optional opencvSupport opencv
     ;
 
